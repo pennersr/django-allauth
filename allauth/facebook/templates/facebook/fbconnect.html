@@ -1,0 +1,21 @@
+<div id="fb-root"></div>
+<script src="http://connect.facebook.net/en_US/all.js"></script>
+<script>
+  FB.init({appId: '{{facebook_app.application_id}}', status: true, cookie: true, xfbml: true});
+  function FB_login() {
+    FB.login(function(response) {
+      if (response.session) {
+        document.getElementById("_fb_access_token").value = response.session.access_token;
+        document.getElementById("_fb_login").submit();
+      } else {
+        // FIXME
+        alert("FIXME: Implement FB error");
+      }
+    });
+  }
+</script>
+
+<form id="_fb_login" method="post" action="{% url facebook_login %}">
+{% csrf_token %}
+<input type="hidden" name="access_token" id="_fb_access_token"/>
+</form>

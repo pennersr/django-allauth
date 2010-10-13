@@ -1,0 +1,22 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load uni_form_tags %}
+
+{% block head_title %}{% trans "Timezone" %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans "Timezone" %}</h1>
+    
+    <p>{% trans "Pinax can localize all times into your preferred timezone. Change your timezone below." %}</p>
+    
+    <form method="POST" action="" class="uniForm">
+        {% csrf_token %}
+        <fieldset class="inlineLabels">
+            {{ form|as_uni_form }}
+            <div class="form_block">
+                <input type="submit" value="{% trans "Change my timezone" %}" />
+            </div>
+        </fieldset>
+    </form>
+{% endblock %}

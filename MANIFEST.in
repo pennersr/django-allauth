@@ -1,0 +1,4 @@
+include AUTHORS
+include LICENSE
+include README.rst
+recursive-include allauth/templates *.html

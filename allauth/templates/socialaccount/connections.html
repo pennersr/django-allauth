@@ -1,0 +1,56 @@
+{% extends "socialaccount/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Account Connections" %}{% endblock %}
+
+{% block body %}
+<h1>{% trans "Account Connections" %}</h1>
+
+{% if form.accounts %}
+<p>{% blocktrans %}You can sign in to your account using any of the following third party accounts:{% endblocktrans %}</p>
+
+
+<form class="uniForm" method="post">
+{% csrf_token %}
+
+<fieldset class="blockLabels">
+{% if form.non_field_errors %}
+<div id="errorMsg">{{form.non_field_errors}}</div>
+{% endif %}
+
+{% for base_account in form.accounts %}
+{% with base_account.get_provider_account as account %}
+<div class="ctrlHolder">
+<label for="id_account_{{base_account.id}}">
+<input id="id_account_{{base_account.id}}" type="radio" name="account" value="{{base_account.id}}"/>
+<span class="socialaccount_provider {{account.get_provider}}">{{account.get_provider}}</span>
+{{account}}
+</label>
+</div>
+{% endwith %}
+{% endfor %}
+
+<div class="buttonHolder">
+<button type="submit">Remove</button>
+</div>
+
+</fieldset>
+
+</form>
+
+{% else %}
+<p>You currently have no social network accounts connected to this account.</p>
+{% endif %}
+
+<h2>{% trans 'Add a 3rd Party Account' %}</h2>
+
+<ul class="socialaccount_providers">
+{% include "socialaccount/snippets/provider_list.html" %}
+</ul>
+
+{% include "socialaccount/snippets/login_extra.html" %}
+
+{% endblock %}
+
+

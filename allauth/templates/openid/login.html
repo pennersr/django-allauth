@@ -1,0 +1,24 @@
+{% extends "openid/base.html" %}
+
+{% load i18n %}
+{% load uni_form_tags %}
+
+{% block head_title %}OpenID Sign In{% endblock %}
+
+{% block body %}
+
+<h1>{% trans 'OpenID Sign In' %}</h1>
+
+
+<form id="openid_login_form" class="openid_login uniForm" method="post" action="{% url openid_login %}">
+{% csrf_token %}
+<fieldset class="inlineLabels">
+{{form|as_uni_form}}
+
+<div class="buttonHolder">
+<button type="submit">Sign In</button>
+</div>
+</fieldset>
+</form>
+
+{% endblock %}

@@ -1,0 +1,4 @@
+django
+oauth2
+python-openid
+-e git+http://github.com/facebook/python-sdk.git#egg=facebook-sdk

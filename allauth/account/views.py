@@ -17,9 +17,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from emailconfirmation.models import EmailAddress, EmailConfirmation
 
-association_model = models.get_model("django_openid", "Association")
-if association_model is not None:
-    from django_openid.models import UserOpenidAssociation
+# association_model = models.get_model("django_openid", "Association")
+# if association_model is not None:
+#     from django_openid.models import UserOpenidAssociation
 
 from utils import get_default_redirect, user_display
 from forms import AddEmailForm, ChangePasswordForm
@@ -59,8 +59,8 @@ def login(request, **kwargs):
     form_class = kwargs.pop("form_class", LoginForm)
     template_name = kwargs.pop("template_name", "account/login.html")
     success_url = kwargs.pop("success_url", None)
-    associate_openid = kwargs.pop("associate_openid", False)
-    openid_success_url = kwargs.pop("openid_success_url", None)
+#    associate_openid = kwargs.pop("associate_openid", False)
+#    openid_success_url = kwargs.pop("openid_success_url", None)
     url_required = kwargs.pop("url_required", False)
     extra_context = kwargs.pop("extra_context", {})
     redirect_field_name = kwargs.pop("redirect_field_name", "next")
@@ -76,12 +76,12 @@ def login(request, **kwargs):
         form = form_class(request.POST, group=group)
         if form.is_valid():
             form.login(request)
-            if associate_openid and association_model is not None:
-                for openid in request.session.get("openids", []):
-                    assoc, created = UserOpenidAssociation.objects.get_or_create(
-                        user=form.user, openid=openid.openid
-                    )
-                success_url = openid_success_url or success_url
+#            if associate_openid and association_model is not None:
+#                for openid in request.session.get("openids", []):
+#                    assoc, created = UserOpenidAssociation.objects.get_or_create(
+#                        user=form.user, openid=openid.openid
+#                    )
+#                success_url = openid_success_url or success_url
             messages.add_message(request, messages.SUCCESS,
                 ugettext(u"Successfully signed in as %(user)s.") % {
                     "user": user_display(form.user)
@@ -222,7 +222,7 @@ def password_change(request, **kwargs):
     group, bridge = group_and_bridge(kwargs)
     
     if not request.user.has_usable_password():
-        return HttpResponseRedirect(reverse("acct_passwd_set"))
+        return HttpResponseRedirect(reverse(password_set))
     
     if request.method == "POST":
         password_change_form = form_class(request.user, request.POST)
@@ -252,7 +252,7 @@ def password_set(request, **kwargs):
     group, bridge = group_and_bridge(kwargs)
     
     if request.user.has_usable_password():
-        return HttpResponseRedirect(reverse("acct_passwd"))
+        return HttpResponseRedirect(reverse(password_change))
     
     if request.method == "POST":
         password_set_form = form_class(request.user, request.POST)
@@ -261,7 +261,7 @@ def password_set(request, **kwargs):
             messages.add_message(request, messages.SUCCESS,
                 ugettext(u"Password successfully set.")
             )
-            return HttpResponseRedirect(reverse("acct_passwd"))
+            return HttpResponseRedirect(reverse(password_change))
     else:
         password_set_form = form_class(request.user)
     
@@ -273,27 +273,27 @@ def password_set(request, **kwargs):
     return render_to_response(template_name, RequestContext(request, ctx))
 
 
-@login_required
-def password_delete(request, **kwargs):
-    
-    template_name = kwargs.pop("template_name", "account/password_delete.html")
-    
-    # prevent this view when openids is not present or it is empty.
-    if not request.user.password or \
-        (not hasattr(request, "openids") or \
-            not getattr(request, "openids", None)):
-        return HttpResponseForbidden()
-    
-    group, bridge = group_and_bridge(kwargs)
-    
-    if request.method == "POST":
-        request.user.password = u""
-        request.user.save()
-        return HttpResponseRedirect(reverse("acct_passwd_delete_done"))
-    
-    ctx = group_context(group, bridge)
-    
-    return render_to_response(template_name, RequestContext(request, ctx))
+# @login_required
+# def password_delete(request, **kwargs):
+#     
+#     template_name = kwargs.pop("template_name", "account/password_delete.html")
+#     
+#     # prevent this view when openids is not present or it is empty.
+#     if not request.user.password or \
+#         (not hasattr(request, "openids") or \
+#             not getattr(request, "openids", None)):
+#         return HttpResponseForbidden()
+#     
+#     group, bridge = group_and_bridge(kwargs)
+#     
+#     if request.method == "POST":
+#         request.user.password = u""
+#         request.user.save()
+#         return HttpResponseRedirect(reverse("acct_passwd_delete_done"))
+#     
+#     ctx = group_context(group, bridge)
+#     
+#     return render_to_response(template_name, RequestContext(request, ctx))
 
 
 def password_reset(request, **kwargs):
@@ -310,9 +310,9 @@ def password_reset(request, **kwargs):
             email = password_reset_form.save()
             
             if group:
-                redirect_to = bridge.reverse("acct_passwd_reset_done", group)
+                redirect_to = bridge.reverse(password_reset_done, group)
             else:
-                redirect_to = reverse("acct_passwd_reset_done")
+                redirect_to = reverse(password_reset_done)
             return HttpResponseRedirect(redirect_to)
     else:
         password_reset_form = form_class()

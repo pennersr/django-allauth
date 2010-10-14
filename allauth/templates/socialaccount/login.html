@@ -18,7 +18,7 @@
 <p>Sign in using your account with:</p>
 
 <ul class="socialaccount_providers">
-<li><a class="socialaccount_provider local" title="{{site}}" href="{% url acct_login %}">{{site.name}}</a></li>
+<li><a class="socialaccount_provider local" title="{{site}}" href="{% url account_login %}">{{site.name}}</a></li>
 {% include "socialaccount/snippets/provider_list.html" %}
 </ul>
 
@@ -28,7 +28,7 @@
         {% user_display user as user_display %}
         <p><strong>{% trans "Note" %}:</strong> {% blocktrans %}you are already signed in as {{ user_display }}.{% endblocktrans %}</p>
 {% else  %}
-        {% url acct_signup as signup_url %}
+        {% url account_signup as signup_url %}
         <p>{% blocktrans %}Otherwise, <a href="{{ signup_url }}">sign up</a> for a new account.{% endblocktrans %}</p>
 {% endif %}
     

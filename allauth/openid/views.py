@@ -8,18 +8,30 @@ from django.views.decorators.csrf import csrf_exempt
 
 from openid.consumer.discover import DiscoveryFailure
 from openid.consumer import consumer
+from openid.extensions.sreg import SRegRequest, SRegResponse
+from openid.extensions.ax import FetchRequest, FetchResponse, AttrInfo
 
+from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.helpers import complete_social_login
+from allauth.utils import valid_email_or_none
+
 
 from models import OpenIDAccount
 from utils import DBOpenIDStore
 from forms import LoginForm
 
+class AXAttribute:
+    CONTACT_EMAIL = 'http://axschema.org/contact/email'
+
+class SRegField:
+    EMAIL = 'email'
+
 def _openid_consumer(request):
     store = DBOpenIDStore()
     client = consumer.Consumer(request.session, store)
     return client
+
 
 def login(request):
     if request.GET.has_key('openid') or request.method=='POST':
@@ -27,6 +39,14 @@ def login(request):
         if form.is_valid():
             client = _openid_consumer(request)
             auth_request = client.begin(form.cleaned_data['openid'])
+            if QUERY_EMAIL:
+                sreg = SRegRequest()
+                sreg.requestField(field_name=SRegField.EMAIL, required=True)
+                auth_request.addExtension(sreg)
+                ax = FetchRequest()
+                ax.add(AttrInfo(AXAttribute.CONTACT_EMAIL, 
+                                required=True))
+                auth_request.addExtension(ax)
             try:
                 redirect_url = auth_request.redirectURL(
                     request.build_absolute_uri('/'), 
@@ -41,14 +61,28 @@ def login(request):
                               d, context_instance=RequestContext(request))
 
 
+def _get_email_from_response(response):
+    email = None
+    sreg = SRegResponse.fromSuccessResponse(response)
+    if sreg:
+        email = valid_email_or_none(sreg.get(SRegField.EMAIL))
+    if not email:
+        ax = FetchResponse.fromSuccessResponse(response)
+        if ax:
+             values = ax.get(AXAttribute.CONTACT_EMAIL)
+             if values:
+                 email = valid_email_or_none(values[0])
+    return email
+
 @csrf_exempt
 def callback(request):
     client = _openid_consumer(request)
-    result = client.complete(
+    response = client.complete(
         dict(request.GET.items()),
         request.build_absolute_uri(request.path))
-    if result.status == consumer.SUCCESS:
-        identity = result.identity_url
+    if response.status == consumer.SUCCESS:
+        email = _get_email_from_response(response)
+        identity = response.identity_url
         try:
             account = OpenIDAccount.objects.get(identity=identity)
         except OpenIDAccount.DoesNotExist:

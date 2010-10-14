@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+from django.core.validators import validate_email, ValidationError
 
 def get_login_redirect_url(request):
     """
@@ -32,4 +33,15 @@ def generate_unique_username(txt):
             i += 1
         except User.DoesNotExist:
             return ret
+        
+
+def valid_email_or_none(email):
+    ret = None
+    try:
+        if email:
+            validate_email(email)
+            ret = email
+    except ValidationError:
+        pass
+    return ret
         

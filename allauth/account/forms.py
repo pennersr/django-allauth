@@ -3,6 +3,7 @@ import re
 from django import forms
 from django.conf import settings
 from django.core.mail import send_mail
+from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.utils.encoding import smart_unicode
@@ -375,13 +376,17 @@ class ResetPasswordForm(forms.Form):
             domain = unicode(current_site.domain)
             
             # send the password reset email
-            subject = _("Password reset e-mail sent")
-            message = render_to_string("account/password_reset_key_message.txt", {
-                "user": user,
-                "uid": int_to_base36(user.id),
-                "temp_key": temp_key,
-                "domain": domain,
-            })
+            subject = _("Password Reset E-mail")
+            path = reverse("account_reset_password_from_key",
+                           kwargs=dict(uidb36=int_to_base36(user.id),
+                                       key=temp_key))
+            url = 'http://%s%s' % (current_site.domain,
+                                   path)
+            message = render_to_string \
+                ("account/password_reset_key_message.txt", 
+                 { "site": current_site,
+                   "user": user,
+                   "password_reset_url": url })
             send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
         return self.cleaned_data["email"]
 

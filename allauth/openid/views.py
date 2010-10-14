@@ -87,7 +87,10 @@ def callback(request):
             account = OpenIDAccount.objects.get(identity=identity)
         except OpenIDAccount.DoesNotExist:
             account = OpenIDAccount(identity=identity)
-        ret = complete_social_login(request, None, account)
+        data = dict(email=email)
+        ret = complete_social_login(request, data, account)
+    elif response.status == consumer.CANCEL:
+        ret = HttpResponseRedirect(reverse('socialaccount_login_cancelled'))
     else:
         ret = render_authentication_error(request)
     return ret

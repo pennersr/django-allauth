@@ -8,12 +8,23 @@ from django.contrib.auth.decorators import login_required
 from models import SocialAccount
 from forms import DisconnectForm
 
+import helpers
+
 def signup(request):
     pass
 
 def login(request):
     d = { 'site': Site.objects.get_current() }
-    return render_to_response('socialaccount/login.html', d, context_instance=RequestContext(request))
+    return render_to_response('socialaccount/login.html', 
+                              d, context_instance=RequestContext(request))
+
+def login_cancelled(request):
+    d = { }
+    return render_to_response('socialaccount/login_cancelled.html', 
+                              d, context_instance=RequestContext(request))
+
+def login_error(request):
+    return helpers.render_authentication_error(request)
 
 
 @login_required

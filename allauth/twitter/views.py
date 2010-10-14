@@ -31,7 +31,9 @@ def login_done(request):
     account.username = user_info['screen_name']
     if account.pk:
         account.save()
-    return complete_social_login(request, user_info, account)
+    data = dict(twitter_user_info=user_info,
+                username=account.username)
+    return complete_social_login(request, data, account)
 
 
 def oauth_redirect(request, consumer_key=None, secret_key=None,
@@ -59,6 +61,9 @@ def oauth_callback(request, consumer_key=None, secret_key=None,
     extra_context.update(dict(oauth_client=client))
 
     if not client.is_valid():
+        if request.GET.has_key('denied'):
+            return HttpResponseRedirect \
+                (reverse('socialaccount_login_cancelled'))
         return render_authentication_error(request, extra_context)
 
     # We're redirecting to the setup view for this oauth service

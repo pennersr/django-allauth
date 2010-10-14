@@ -8,10 +8,15 @@
         document.getElementById("_fb_access_token").value = response.session.access_token;
         document.getElementById("_fb_login").submit();
       } else {
-        // FIXME
-        alert("FIXME: Implement FB error");
+        var next;
+        if (response && response.status && response.status == "notConnected") {
+          next = '{% url socialaccount_login_cancelled %}';
+        } else {
+          next = '{% url socialaccount_login_error %}';
+        }
+        window.location.href = next;
       }
-    });
+    }, {perms: '{{facebook_perms}}' });
   }
 </script>
 

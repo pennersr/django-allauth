@@ -19,8 +19,9 @@ from django.contrib.sites.models import Site
 from emailconfirmation.models import EmailAddress
 
 # from models import PasswordReset
-from utils import user_display, perform_login
-
+from utils import user_display, perform_login, send_email_confirmation
+from allauth.utils import get_email_address
+        
 from app_settings import *
 
 alnum_re = re.compile(r"^\w+$")
@@ -101,37 +102,23 @@ class LoginForm(GroupForm):
             request.session.set_expiry(0)
 
 
-class SignupForm(GroupForm):
-    
+class BaseSignupForm(GroupForm):
     username = forms.CharField(
         label = _("Username"),
         max_length = 30,
         widget = forms.TextInput()
     )
-    password1 = forms.CharField(
-        label = _("Password"),
-        widget = forms.PasswordInput(render_value=False)
-    )
-    password2 = forms.CharField(
-        label = _("Password (again)"),
-        widget = forms.PasswordInput(render_value=False)
-    )
     email = forms.EmailField(widget=forms.TextInput())
-    confirmation_key = forms.CharField(
-        max_length = 40,
-        required = False,
-        widget = forms.HiddenInput()
-    )
-    
+
     def __init__(self, *args, **kwargs):
-        super(SignupForm, self).__init__(*args, **kwargs)
+        super(BaseSignupForm, self).__init__(*args, **kwargs)
         if EMAIL_REQUIRED or EMAIL_VERIFICATION or EMAIL_AUTHENTICATION:
             self.fields["email"].label = ugettext("E-mail")
             self.fields["email"].required = True
         else:
             self.fields["email"].label = ugettext("E-mail (optional)")
             self.fields["email"].required = False
-    
+
     def clean_username(self):
         if not alnum_re.search(self.cleaned_data["username"]):
             raise forms.ValidationError(_("Usernames can only contain letters, numbers and underscores."))
@@ -144,12 +131,45 @@ class SignupForm(GroupForm):
     def clean_email(self):
         value = self.cleaned_data["email"]
         if UNIQUE_EMAIL or EMAIL_AUTHENTICATION:
-            try:
-                User.objects.get(email__iexact=value)
-            except User.DoesNotExist:
-                return value
-            raise forms.ValidationError(_("A user is registered with this e-mail address."))
+            if get_email_address(value):
+                raise forms.ValidationError \
+                    (_("A user is registered with this e-mail address."))
         return value
+    
+    def create_user(self, commit=True):
+        user = User()
+        user.username = self.cleaned_data["username"]
+        user.email = self.cleaned_data["email"].strip().lower()
+        user.set_unusable_password()
+        if EMAIL_VERIFICATION:
+            user.is_active = False
+        if commit:
+            user.save()
+        return user
+
+
+class SignupForm(BaseSignupForm):
+    
+    password1 = forms.CharField(
+        label = _("Password"),
+        widget = forms.PasswordInput(render_value=False)
+    )
+    password2 = forms.CharField(
+        label = _("Password (again)"),
+        widget = forms.PasswordInput(render_value=False)
+    )
+    confirmation_key = forms.CharField(
+        max_length = 40,
+        required = False,
+        widget = forms.HiddenInput()
+    )
+    
+    def __init__(self, *args, **kwargs):
+        super(SignupForm, self).__init__(*args, **kwargs)
+        self.fields.keyOrder = ["username", 
+                                "password1", 
+                                "password2",
+                                "email"]
     
     def clean(self):
         if "password1" in self.cleaned_data and "password2" in self.cleaned_data:
@@ -157,26 +177,14 @@ class SignupForm(GroupForm):
                 raise forms.ValidationError(_("You must type the same password each time."))
         return self.cleaned_data
     
-    def create_user(self, username=None, commit=True):
-        user = User()
-        if username is None:
-            raise NotImplementedError("SignupForm.create_user does not handle "
-                "username=None case. You must override this method.")
-        user.username = username
-        user.email = self.cleaned_data["email"].strip().lower()
+    def create_user(self, commit=True):
+        user = super(SignupForm, self).create_user(commit=False)
         password = self.cleaned_data.get("password1")
         if password:
             user.set_password(password)
-        else:
-            user.set_unusable_password()
         if commit:
             user.save()
         return user
-    
-    def login(self, request, user):
-        # nasty hack to get get_user to work in Django
-        user.backend = "django.contrib.auth.backends.ModelBackend"
-        perform_login(request, user)
     
     def save(self, request=None):
         # don't assume a username is available. it is a common removal if
@@ -184,7 +192,7 @@ class SignupForm(GroupForm):
         username = self.cleaned_data.get("username")
         email = self.cleaned_data["email"]
         
-        if self.cleaned_data["confirmation_key"]:
+        if self.cleaned_data.get("confirmation_key"):
             from friends.models import JoinInvitation # @@@ temporary fix for issue 93
             try:
                 join_invitation = JoinInvitation.objects.get(confirmation_key=self.cleaned_data["confirmation_key"])
@@ -198,7 +206,7 @@ class SignupForm(GroupForm):
         
         if confirmed:
             if email == join_invitation.contact.email:
-                new_user = self.create_user(username)
+                new_user = self.create_user()
                 join_invitation.accept(new_user) # should go before creation of EmailAddress below
                 if request:
                     messages.add_message(request, messages.INFO,
@@ -207,7 +215,7 @@ class SignupForm(GroupForm):
                 # already verified so can just create
                 EmailAddress(user=new_user, email=email, verified=True, primary=True).save()
             else:
-                new_user = self.create_user(username)
+                new_user = self.create_user()
                 join_invitation.accept(new_user) # should go before creation of EmailAddress below
                 if email:
                     if request:
@@ -218,19 +226,8 @@ class SignupForm(GroupForm):
                         )
                     EmailAddress.objects.add_email(new_user, email)
         else:
-            new_user = self.create_user(username)
-            if email:
-                if request and not EMAIL_VERIFICATION:
-                    messages.add_message(request, messages.INFO,
-                        ugettext(u"Confirmation e-mail sent to %(email)s") % {
-                            "email": email,
-                        }
-                    )
-                EmailAddress.objects.add_email(new_user, email)
-        
-        if EMAIL_VERIFICATION:
-            new_user.is_active = False
-            new_user.save()
+            new_user = self.create_user()
+            send_email_confirmation(new_user, request=request)
         
         self.after_signup(new_user)
         

@@ -33,9 +33,6 @@ class FacebookAccount(SocialAccount):
     def get_provider(self):
         return SocialAccountProvider.FACEBOOK
 
-    def suggest_username(self):
-        return self.name
-
     def __unicode__(self):
         return "%s (%s)" % (self.name, self.social_id)
     

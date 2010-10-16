@@ -1,9 +1,17 @@
+from django.contrib import messages
+from django.template import RequestContext
+from django.shortcuts import render_to_response
 from django.conf import settings
 from django.core.urlresolvers import reverse
-
 from django.contrib.auth import login
+from django.utils.translation import ugettext_lazy as _, ugettext
+from django.http import HttpResponseRedirect
+
+from emailconfirmation.models import EmailAddress
 
 from signals import user_logged_in
+
+import app_settings
 
 
 LOGIN_REDIRECT_URLNAME = getattr(settings, "LOGIN_REDIRECT_URLNAME", "")
@@ -52,5 +60,41 @@ def user_display(user):
 
 
 def perform_login(request, user):
+    # HACK: This may not be nice. The proper Django way is to use an
+    # authentication backend, but I fail to see any added benefit
+    # whereas I do see the downsides (having to bother the integrator
+    # to set up authentication backends in settings.py
+    if not hasattr(user, 'backend'):
+        user.backend = "django.contrib.auth.backends.ModelBackend"
     user_logged_in.send(sender=user.__class__, request=request, user=user)
     login(request, user)
+
+def complete_signup(request, user, success_url):
+    if app_settings.EMAIL_VERIFICATION:
+        ctx = {
+            "email": user.email,
+            "success_url": success_url,
+        }
+        ctx = RequestContext(request, ctx)
+        return render_to_response("account/verification_sent.html", ctx)
+    else:
+        perform_login(request, user)
+        messages.add_message(request, messages.SUCCESS,
+            ugettext("Successfully signed in as %(user)s.") % {
+                "user": user_display(user)
+            }
+        )
+        return HttpResponseRedirect(success_url)
+
+
+def send_email_confirmation(user, request=None):
+    email = user.email
+    if email:
+        if request:
+            messages.add_message \
+                (request, messages.INFO,
+                 _(u"Confirmation e-mail sent to %(email)s") % {
+                    "email": email,
+                    }
+                 )
+        EmailAddress.objects.add_email(user, user.email)

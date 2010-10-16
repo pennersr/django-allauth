@@ -19,9 +19,6 @@ settings.py:
         "allauth.account.context_processors.account"
     )
     
-    AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',
-                               'allauth.socialaccount.auth.SocialAccountBackend')
-    
     INSTALLED_APPS = (
         'allauth',
         'allauth.account',

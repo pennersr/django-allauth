@@ -9,5 +9,5 @@ urlpatterns = \
                  name='socialaccount_login_cancelled'),
              url('^login/error/$', views.login_error, 
                  name='socialaccount_login_error'),
-             url('^signup/$', views.signup, name='socialaccount_setup'),
+             url('^signup/$', views.signup, name='socialaccount_signup'),
              url('^connections/$', views.connections, name='socialaccount_connections'))

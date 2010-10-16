@@ -21,7 +21,7 @@ from emailconfirmation.models import EmailAddress, EmailConfirmation
 # if association_model is not None:
 #     from django_openid.models import UserOpenidAssociation
 
-from utils import get_default_redirect, user_display
+from utils import get_default_redirect, user_display, complete_signup
 from forms import AddEmailForm, ChangePasswordForm
 from forms import LoginForm, ResetPasswordKeyForm
 from forms import ResetPasswordForm, SetPasswordForm, SignupForm
@@ -120,21 +120,7 @@ def signup(request, **kwargs):
         form = form_class(request.POST, group=group)
         if form.is_valid():
             user = form.save(request=request)
-            if app_settings.EMAIL_VERIFICATION:
-                ctx.update({
-                    "email": form.cleaned_data["email"],
-                    "success_url": success_url,
-                })
-                ctx = RequestContext(request, ctx)
-                return render_to_response("account/verification_sent.html", ctx)
-            else:
-                form.login(request, user)
-                messages.add_message(request, messages.SUCCESS,
-                    ugettext("Successfully signed in as %(user)s.") % {
-                        "user": user_display(user)
-                    }
-                )
-                return HttpResponseRedirect(success_url)
+            return complete_signup(request, user, success_url)
     else:
         form = form_class(group=group)
     

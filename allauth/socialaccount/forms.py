@@ -3,36 +3,16 @@ from django import forms
 
 from emailconfirmation.models import EmailAddress
 from models import SocialAccount
+from allauth.account.forms import BaseSignupForm
+from allauth.account.utils import send_email_confirmation
 
-class SetupForm(forms.Form):
-    username = forms.RegexField \
-        (label=_("Username"), 
-         max_length=30, 
-         regex=r'^[\w.@+-]+$',
-         help_text = _("Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."),
-         error_messages = {'invalid': _("This value may contain only letters, numbers and @/./+/-/_ characters.")})
-    email = forms.EmailField(required=False)
-
-    def __init__(self, user, profile, *args, **kwargs):
-        super(UserForm, self).__init__(*args, **kwargs)
-        self.user = user
-        self.profile = profile
-
-    def clean_username(self):
-        username = self.cleaned_data.get('username')
-        try:
-            user = User.objects.get(username=username)
-            raise forms.ValidationError(_('This username is already in use.'))
-        except User.DoesNotExist:
-            return username
+class SignupForm(BaseSignupForm):
 
     def save(self, request=None):
-        self.user.username = self.cleaned_data.get('username')
-        self.user.email = self.cleaned_data.get('email')
-        self.user.save()
-        self.profile.user = self.user
-        self.profile.save()
-        return self.user
+        new_user = self.create_user()
+        send_email_confirmation(new_user, request=request)
+        return new_user
+
 
 class DisconnectForm(forms.Form):
     account = forms.ModelChoiceField(queryset=SocialAccount.objects.none(),

@@ -3,6 +3,8 @@ from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from django.core.validators import validate_email, ValidationError
 
+from emailconfirmation.models import EmailAddress
+
 def get_login_redirect_url(request):
     """
     Returns a url to redirect to after the login
@@ -45,3 +47,31 @@ def valid_email_or_none(email):
         pass
     return ret
         
+
+def get_email_address(email, exclude_user=None):
+    """
+    Returns an EmailAddress instance matching the given email. Both
+    User.email and EmailAddress.email are considered candidates. This
+    was done to deal gracefully with inconsistencies that are inherent
+    due to the duplication of the email field in User and
+    EmailAddress.  In case a User.email match is found the result is
+    returned in a temporary EmailAddress instance.
+    """
+    try:
+        emailaddresses = EmailAddress.objects
+        if exclude_user:
+            emailaddresses = emailaddresses.exclude(user=exclude_user)
+        ret = emailaddresses.get(email__iexact=email)
+    except EmailAddress.DoesNotExist:
+        try:
+            users = User.objects
+            if exclude_user:
+                users = users.exclude(user=exclude_user)
+            usr = users.get(email__iexact=email)
+            ret = EmailAddress(user=usr,
+                               email=email,
+                               verified=False,
+                               primary=True)
+        except User.DoesNotExist:
+            ret = None
+    return ret

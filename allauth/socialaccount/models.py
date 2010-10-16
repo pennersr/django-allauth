@@ -16,15 +16,13 @@ class SocialAccount(models.Model):
         return authenticate(account=self)
 
 
-    def suggest_username(self):
-        return 'user'
-
     def __unicode__(self):
         return unicode(self.user)
     
 
     def get_provider(self):
         raise NotImplementedError
+
 
     def get_provider_account(self):
         for f in ['twitteraccount', 'openidaccount', 'facebookaccount']:

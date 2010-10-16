@@ -9,5 +9,5 @@ QUERY_EMAIL = getattr(settings, "SOCIALACCOUNT_QUERY_EMAIL",
 # Attempt to bypass the signup form by using fields (e.g. username,
 # email) retrieved from the social account provider. If a conflict
 # arises due to a duplicate e-mail signup form will still kick in.
-AUTO_SIGNUP = getattr(settings, "SOCIALACCOUNT_SIGNUP_EMAIL", True)
+AUTO_SIGNUP = getattr(settings, "SOCIALACCOUNT_AUTO_SIGNUP", True)
 

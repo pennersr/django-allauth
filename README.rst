@@ -20,6 +20,10 @@ settings.py:
     )
     
     INSTALLED_APPS = (
+        ...
+        'emailconfirmation',
+	'uni_form',
+
         'allauth',
         'allauth.account',
         'allauth.socialaccount',

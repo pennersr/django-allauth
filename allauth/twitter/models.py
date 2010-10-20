@@ -25,7 +25,7 @@ class TwitterApp(models.Model):
         return u"%s (@%s)" % (self.name, self.site)
 
 class TwitterAccount(SocialAccount):
-    social_id = models.PositiveIntegerField(unique=True)
+    social_id = models.BigIntegerField(unique=True)
     username = models.CharField(max_length=15)
     profile_image_url = models.URLField()
 

@@ -69,16 +69,19 @@ def _get_email_from_response(response):
     if not email:
         ax = FetchResponse.fromSuccessResponse(response)
         if ax:
-             values = ax.get(AXAttribute.CONTACT_EMAIL)
-             if values:
-                 email = valid_email_or_none(values[0])
+            try:
+                values = ax.get(AXAttribute.CONTACT_EMAIL)
+                if values:
+                    email = valid_email_or_none(values[0])
+            except KeyError:
+                pass
     return email
 
 @csrf_exempt
 def callback(request):
     client = _openid_consumer(request)
     response = client.complete(
-        dict(request.GET.items()),
+        dict(request.REQUEST.items()),
         request.build_absolute_uri(request.path))
     if response.status == consumer.SUCCESS:
         email = _get_email_from_response(response)

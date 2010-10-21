@@ -38,22 +38,25 @@ def login(request):
         form = LoginForm(request.REQUEST)
         if form.is_valid():
             client = _openid_consumer(request)
-            auth_request = client.begin(form.cleaned_data['openid'])
-            if QUERY_EMAIL:
-                sreg = SRegRequest()
-                sreg.requestField(field_name=SRegField.EMAIL, required=True)
-                auth_request.addExtension(sreg)
-                ax = FetchRequest()
-                ax.add(AttrInfo(AXAttribute.CONTACT_EMAIL, 
-                                required=True))
-                auth_request.addExtension(ax)
             try:
+                auth_request = client.begin(form.cleaned_data['openid'])
+                if QUERY_EMAIL:
+                    sreg = SRegRequest()
+                    sreg.requestField(field_name=SRegField.EMAIL, required=True)
+                    auth_request.addExtension(sreg)
+                    ax = FetchRequest()
+                    ax.add(AttrInfo(AXAttribute.CONTACT_EMAIL, 
+                                    required=True))
+                    auth_request.addExtension(ax)
                 redirect_url = auth_request.redirectURL(
                     request.build_absolute_uri('/'), 
                     request.build_absolute_uri(reverse(callback)))
                 return HttpResponseRedirect(redirect_url)
-            except DiscoveryFailure:
-                return render_authentication_error(request)
+            except DiscoveryFailure, e:
+                if request.method == 'POST':
+                    form._errors["openid"] = form.error_class([e])
+                else:
+                    return render_authentication_error(request)
     else:
         form = LoginForm()
     d = dict(form=form)

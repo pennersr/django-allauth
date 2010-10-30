@@ -4,7 +4,11 @@ from allauth.socialaccount.defs import SocialAccountProvider
 from allauth.socialaccount.models import SocialAccount
 
 class OpenIDAccount(SocialAccount):
-    identity = models.URLField(max_length=1024, unique=True)
+    # Ideally, URLField(max_length=1024, unique=True) would be used
+    # for identity.  However, MySQL has a max_length limitation of 255
+    # for URLField. So let's be pragmetic and switch to TextField...
+    # TODO: Model field validation to ensure valid URLs
+    identity = models.TextField(unique=True)
     
     def __unicode__(self):
         return self.identity

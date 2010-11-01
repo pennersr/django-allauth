@@ -27,7 +27,8 @@ METADATA = dict(
         'Framework :: Django',
     ],
     packages=find_packages(),
-    package_data={'allauth': ['templates/allauth/*.html'], }
+    package_data={'allauth': ['templates/allauth/*.html',
+                              'facebook/templates/facebook/*.html' ], }
 )
 
 if __name__ == '__main__':

@@ -2,6 +2,7 @@ from django.conf import settings
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from django.core.validators import validate_email, ValidationError
+from django.db.models import EmailField
 
 from emailconfirmation.models import EmailAddress
 
@@ -42,7 +43,8 @@ def valid_email_or_none(email):
     try:
         if email:
             validate_email(email)
-            ret = email
+            if len(email) <= EmailField().max_length:
+                ret = email
     except ValidationError:
         pass
     return ret

@@ -11,7 +11,7 @@ class Migration(SchemaMigration):
         # Adding model 'OpenIDAccount'
         db.create_table('openid_openidaccount', (
             ('socialaccount_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['socialaccount.SocialAccount'], unique=True, primary_key=True)),
-            ('identity', self.gf('django.db.models.fields.URLField')(unique=True, max_length=1024)),
+            ('identity', self.gf('django.db.models.fields.URLField')(unique=True, max_length=255)),
         ))
         db.send_create_signal('openid', ['OpenIDAccount'])
 
@@ -89,7 +89,7 @@ class Migration(SchemaMigration):
         },
         'openid.openidaccount': {
             'Meta': {'object_name': 'OpenIDAccount', '_ormbases': ['socialaccount.SocialAccount']},
-            'identity': ('django.db.models.fields.URLField', [], {'unique': 'True', 'max_length': '1024'}),
+            'identity': ('django.db.models.fields.URLField', [], {'unique': 'True', 'max_length': '255'}),
             'socialaccount_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['socialaccount.SocialAccount']", 'unique': 'True', 'primary_key': 'True'})
         },
         'openid.openidnonce': {

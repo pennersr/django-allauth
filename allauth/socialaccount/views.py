@@ -22,12 +22,12 @@ def signup(request, **kwargs):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse(connections))
     signup = request.session.get('socialaccount_signup')
-    data = signup['data']
     if not signup:
         return HttpResponseRedirect(reverse(login))
     form_class = kwargs.pop("form_class", SignupForm)
     template_name = kwargs.pop("template_name", 
                                'socialaccount/signup.html')
+    data = signup['data']
     if request.method == "POST":
         form = form_class(request.POST)
         if form.is_valid():

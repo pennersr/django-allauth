@@ -131,7 +131,7 @@ class BaseSignupForm(GroupForm):
     def clean_email(self):
         value = self.cleaned_data["email"]
         if UNIQUE_EMAIL or EMAIL_AUTHENTICATION:
-            if get_email_address(value):
+            if value and get_email_address(value):
                 raise forms.ValidationError \
                     (_("A user is registered with this e-mail address."))
         return value

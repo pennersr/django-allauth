@@ -66,6 +66,8 @@ SOCIALACCOUNT_AUTO_SIGNUP (=True)
   arises due to a duplicate e-mail address the signup form will still
   kick in.
 
+EMAIL_CONFIRMATION_DAYS = <INT>
+  The django-email-confirmation app requires this setting.
 
 Facebook & Twitter
 ------------------

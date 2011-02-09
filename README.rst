@@ -18,7 +18,12 @@ settings.py:
         ...
         "allauth.account.context_processors.account"
     )
-    
+
+     AUTHENTICATION_BACKENDS = (
+        ...
+        "allauth.account.auth_backends.AuthenticationBackend",
+    )
+
     INSTALLED_APPS = (
         ...
         'emailconfirmation',

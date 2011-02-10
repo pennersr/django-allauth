@@ -149,8 +149,9 @@ class SignupForm(BaseSignupForm):
         widget = forms.PasswordInput(render_value=False)
     )
     password2 = forms.CharField(
-        label = _("Password (again)"),
-        widget = forms.PasswordInput(render_value=False)
+	required = SIGNUP_PASSWORD_VERIFICATION,
+	label = _("Password (again)"),
+	widget = forms.PasswordInput(render_value=False)
     )
     confirmation_key = forms.CharField(
         max_length = 40,
@@ -166,7 +167,7 @@ class SignupForm(BaseSignupForm):
                                 "email"]
     
     def clean(self):
-        if "password1" in self.cleaned_data and "password2" in self.cleaned_data:
+        if SIGNUP_PASSWORD_VERIFICATION and "password1" in self.cleaned_data and "password2" in self.cleaned_data:
             if self.cleaned_data["password1"] != self.cleaned_data["password2"]:
                 raise forms.ValidationError(_("You must type the same password each time."))
         return self.cleaned_data

@@ -39,7 +39,7 @@ def login(request, **kwargs):
         success_url = get_default_redirect(request, redirect_field_name)
     
     if request.method == "POST" and not url_required:
-        form = form_class(request.POST)
+        form = form_class(request.POST, prefix="login")
         if form.is_valid():
             form.login(request)
             messages.add_message(request, messages.SUCCESS,
@@ -49,7 +49,7 @@ def login(request, **kwargs):
             )
             return HttpResponseRedirect(success_url)
     else:
-        form = form_class()
+        form = form_class(prefix="login")
     
     ctx = {
         "form": form,
@@ -57,8 +57,9 @@ def login(request, **kwargs):
         "redirect_field_name": redirect_field_name,
         "redirect_field_value": request.REQUEST.get(redirect_field_name),
     }
+    ctx.update(extra_context)
     
-    return render_to_response(template_name, RequestContext(request, ctx.update(extra_context)))
+    return render_to_response(template_name, RequestContext(request, ctx))
 
 
 def signup(request, **kwargs):
@@ -72,12 +73,12 @@ def signup(request, **kwargs):
         success_url = get_default_redirect(request, redirect_field_name)
     
     if request.method == "POST":
-        form = form_class(request.POST)
+        form = form_class(request.POST, prefix="signup")
         if form.is_valid():
             user = form.save(request=request)
             return complete_signup(request, user, success_url)
     else:
-        form = form_class()
+        form = form_class(prefix="signup")
 
     return render_to_response(template_name, RequestContext(request, {"form": form,
                                                                     "redirect_field_name": redirect_field_name,

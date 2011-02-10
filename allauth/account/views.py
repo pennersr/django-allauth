@@ -57,8 +57,8 @@ def login(request, **kwargs):
         "redirect_field_name": redirect_field_name,
         "redirect_field_value": request.REQUEST.get(redirect_field_name),
     }
-    
-    return render_to_response(template_name, RequestContext(request, ctx.update(extra_context)))
+    ctx.update(extra_context)
+    return render_to_response(template_name, RequestContext(request, ctx))
 
 
 def signup(request, **kwargs):
@@ -78,10 +78,10 @@ def signup(request, **kwargs):
             return complete_signup(request, user, success_url)
     else:
         form = form_class()
-
-    return render_to_response(template_name, RequestContext(request, {"form": form,
-                                                                    "redirect_field_name": redirect_field_name,
-                                                                    "redirect_field_value": request.REQUEST.get(redirect_field_name), }))
+    ctx = {"form": form,
+           "redirect_field_name": redirect_field_name,
+           "redirect_field_value": request.REQUEST.get(redirect_field_name) }
+    return render_to_response(template_name, RequestContext(request, ctx))
 
 
 @login_required
@@ -144,8 +144,8 @@ def email(request, **kwargs):
                                          ugettext("Primary e-mail address set"))
     else:
         add_email_form = form_class()
-
-    return render_to_response(template_name, RequestContext(request, { "add_email_form": add_email_form, }))
+    ctx = { "add_email_form": add_email_form }
+    return render_to_response(template_name, RequestContext(request, ctx))
 
 
 @login_required
@@ -167,8 +167,8 @@ def password_change(request, **kwargs):
             password_change_form = form_class(request.user)
     else:
         password_change_form = form_class(request.user)
-    
-    return render_to_response(template_name, RequestContext(request, { "password_change_form": password_change_form, }))
+    ctx = { "password_change_form": password_change_form }
+    return render_to_response(template_name, RequestContext(request, ctx))
 
 
 @login_required
@@ -190,8 +190,8 @@ def password_set(request, **kwargs):
             return HttpResponseRedirect(reverse(password_change))
     else:
         password_set_form = form_class(request.user)
-
-    return render_to_response(template_name, RequestContext(request, { "password_set_form": password_set_form, }))
+    ctx = { "password_set_form": password_set_form }
+    return render_to_response(template_name, RequestContext(request, ctx))
 
 
 def password_reset(request, **kwargs):
@@ -248,7 +248,6 @@ def password_reset_from_key(request, uidb36, key, **kwargs):
 
 
 def logout(request):
-    
     messages.add_message(request, messages.SUCCESS,
         ugettext("You have signed out.")
     )

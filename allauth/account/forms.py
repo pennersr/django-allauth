@@ -26,14 +26,8 @@ from app_settings import *
 
 alnum_re = re.compile(r"^\w+$")
 
-class GroupForm(forms.Form):
-    
-    def __init__(self, *args, **kwargs):
-        self.group = kwargs.pop("group", None)
-        super(GroupForm, self).__init__(*args, **kwargs)
 
-
-class LoginForm(GroupForm):
+class LoginForm(forms.Form):
     
     password = forms.CharField(
         label = _("Password"),
@@ -102,7 +96,7 @@ class LoginForm(GroupForm):
             request.session.set_expiry(0)
 
 
-class BaseSignupForm(GroupForm):
+class BaseSignupForm(forms.Form):
     username = forms.CharField(
         label = _("Username"),
         max_length = 30,

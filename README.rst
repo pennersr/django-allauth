@@ -19,7 +19,7 @@ settings.py:
         "allauth.account.context_processors.account"
     )
 
-     AUTHENTICATION_BACKENDS = (
+    AUTHENTICATION_BACKENDS = (
         ...
         "allauth.account.auth_backends.AuthenticationBackend",
     )

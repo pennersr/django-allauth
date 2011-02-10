@@ -10,7 +10,10 @@ class AuthenticationBackend(ModelBackend):
     def authenticate(self, **credentials):
         lookup_params = {}
         if app_settings.EMAIL_AUTHENTICATION:
-            lookup_params["email"] = credentials["email"]
+            try:
+                lookup_params["email"] = credentials["email"]
+            except:
+                lookup_params["username"] = credentials["username"]
         else:
             lookup_params["username"] = credentials["username"]
         try:

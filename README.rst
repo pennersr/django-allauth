@@ -12,7 +12,7 @@ Installation
 Django
 ------
 
-settings.py:
+settings.py::
 
     TEMPLATE_CONTEXT_PROCESSORS = (
         ...
@@ -36,7 +36,7 @@ settings.py:
         'allauth.openid',
         'allauth.facebook',
 
-urls.py:
+urls.py::
 
     urlpatterns = patterns('',
         ...
@@ -71,8 +71,9 @@ SOCIALACCOUNT_AUTO_SIGNUP (=True)
   arises due to a duplicate e-mail address the signup form will still
   kick in.
 
-EMAIL_CONFIRMATION_DAYS = <INT>
-  The django-email-confirmation app requires this setting.
+EMAIL_CONFIRMATION_DAYS (=# of days, no default)
+  Determines the expiration date of email confirmation mails sent by
+  django-email-confirmation.
 
 Facebook & Twitter
 ------------------

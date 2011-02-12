@@ -1,3 +1,6 @@
 *.pyc
 *~
 .idea
+build
+dist
+django_allauth.egg-info

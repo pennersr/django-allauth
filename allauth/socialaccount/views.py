@@ -11,7 +11,6 @@ from django.contrib.sites.models import Site
 
 from allauth.utils import get_login_redirect_url
 from allauth.account.views import signup as account_signup
-from allauth.account.utils import complete_signup
 
 from models import SocialAccount
 from forms import DisconnectForm, SignupForm
@@ -38,8 +37,7 @@ def signup(request, **kwargs):
             account = signup['account']
             account.user = user
             account.save()
-            return complete_signup(request, user, 
-                                   get_login_redirect_url(request))
+            return helpers.complete_social_signup(request, user, account)
     else:
         form = form_class(initial=data)
     dictionary = dict(site=Site.objects.get_current(),

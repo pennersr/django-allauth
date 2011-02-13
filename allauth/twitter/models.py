@@ -32,6 +32,13 @@ class TwitterAccount(SocialAccount):
     def get_profile_url(self):
         return 'http://twitter.com/' + self.username
 
+    def get_avatar_url(self):
+        ret = None
+        if self.profile_image_url:
+            # Hmm, hack to get our hands on the large image.  Not
+            # really documented, but seems to work.
+            ret = self.profile_image_url.replace('_normal', '') 
+        return ret
 
     def get_provider(self):
         return SocialAccountProvider.TWITTER

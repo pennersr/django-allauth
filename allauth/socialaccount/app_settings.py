@@ -11,3 +11,7 @@ QUERY_EMAIL = getattr(settings, "SOCIALACCOUNT_QUERY_EMAIL",
 # arises due to a duplicate e-mail signup form will still kick in.
 AUTO_SIGNUP = getattr(settings, "SOCIALACCOUNT_AUTO_SIGNUP", True)
 
+# Enable support for django-avatar. When enabled, the profile image of
+# the user is copied locally into django-avatar at signup.
+AVATAR_SUPPORT = getattr(settings, "SOCIALACCOUNT_AVATAR_SUPPORT",
+                         'avatar' in settings.INSTALLED_APPS)

@@ -19,6 +19,8 @@ class SocialAccount(models.Model):
     def __unicode__(self):
         return unicode(self.user)
     
+    def get_avatar_url(self):
+        return None
 
     def get_provider(self):
         raise NotImplementedError

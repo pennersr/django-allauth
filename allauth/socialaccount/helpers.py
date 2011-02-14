@@ -60,7 +60,7 @@ def _process_signup(request, data, account):
         account.user = u
         account.save()
         send_email_confirmation(u, request=request)
-        ret = complete_signup(request, u, get_login_redirect_url(request))
+        ret = complete_social_signup(request, u, account)
     return ret
         
 
@@ -116,4 +116,26 @@ def complete_social_login(request, data, account):
     return ret
 
 
+def _copy_avatar(request, user, account):
+    import urllib2
+    from django.core.files.base import ContentFile
+    from urlparse import urlparse
+    from avatar.models import Avatar
+    url = account.get_avatar_url()    
+    if url:
+        ava = Avatar(user=user)
+        ava.primary = Avatar.objects.filter(user=user).count() == 0
+        try:
+            name = urlparse(url).path
+            content = urllib2.urlopen(url).read()
+            ava.avatar.save(name, ContentFile(content))
+        except IOError, e:
+            # Let's nog make a big deal out of this...
+            pass
 
+
+def complete_social_signup(request, user, account):
+    success_url = get_login_redirect_url(request)
+    if app_settings.AVATAR_SUPPORT:
+        _copy_avatar(request, user, account)
+    return complete_signup(request, user, success_url)

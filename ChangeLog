@@ -1,3 +1,8 @@
+2011-02-13  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Added support for django-avatar, copying the Twitter profile
+	image locally on signup.
+
 2010-11-12  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* allauth/account/forms.py (BaseSignupForm.clean_email): With

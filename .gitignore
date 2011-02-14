@@ -3,3 +3,6 @@
 .idea
 .project
 .pydevproject
+build
+dist
+django_allauth.egg-info

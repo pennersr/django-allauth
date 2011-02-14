@@ -12,7 +12,7 @@ Installation
 Django
 ------
 
-settings.py:
+settings.py::
 
     TEMPLATE_CONTEXT_PROCESSORS = (
         ...
@@ -36,7 +36,7 @@ settings.py:
         'allauth.openid',
         'allauth.facebook',
 
-urls.py:
+urls.py::
 
     urlpatterns = patterns('',
         ...
@@ -71,6 +71,13 @@ SOCIALACCOUNT_AUTO_SIGNUP (=True)
   arises due to a duplicate e-mail address the signup form will still
   kick in.
 
+SOCIALACCOUNT_AVATAR_SUPPORT (= 'avatar' in settings.INSTALLED_APPS)
+  Enable support for django-avatar. When enabled, the profile image of
+  the user is copied locally into django-avatar at signup.
+
+EMAIL_CONFIRMATION_DAYS (=# of days, no default)
+  Determines the expiration date of email confirmation mails sent by
+  django-email-confirmation.
 
 Facebook & Twitter
 ------------------

@@ -55,6 +55,10 @@ ACCOUNT_EMAIL_VERIFICATION (=False)
   After signing up, keep the user account inactive until the e-mail
   address is verified
 
+ACCOUNT_PASSWORD_VERIFICATION (=True)
+  Require the user to enter their password twice on the sign up form to verify
+  it is entered correctly.
+
 ACCOUNT_EMAIL_AUTHENTICATION (=False)
   Login by e-mail address, not username
 

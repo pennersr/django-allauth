@@ -13,6 +13,9 @@ EMAIL_AUTHENTICATION = getattr(settings, "ACCOUNT_EMAIL_AUTHENTICATION", False)
 # Enforce uniqueness of e-mail addresses
 UNIQUE_EMAIL = getattr(settings, "ACCOUNT_UNIQUE_EMAIL", True)
 
+# The user is required to enter a username when signing up
+USERNAME_REQUIRED = getattr(settings, "ACCOUNT_USERNAME_REQUIRED", True)
+
 assert (not EMAIL_AUTHENTICATION) or EMAIL_REQUIRED
 assert (not EMAIL_AUTHENTICATION) or UNIQUE_EMAIL
 assert (not EMAIL_VERIFICATION) or EMAIL_REQUIRED

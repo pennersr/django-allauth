@@ -1,4 +1,6 @@
+import base64
 import re
+import uuid
 
 from django import forms
 from django.conf import settings
@@ -112,15 +114,23 @@ class BaseSignupForm(forms.Form):
         else:
             self.fields["email"].label = ugettext("E-mail (optional)")
             self.fields["email"].required = False
+        if not USERNAME_REQUIRED:
+            del self.fields["username"]
+
+    def random_username(self):
+        return base64.urlsafe_b64encode(uuid.uuid4().bytes).strip('=')
 
     def clean_username(self):
-        if not alnum_re.search(self.cleaned_data["username"]):
-            raise forms.ValidationError(_("Usernames can only contain letters, numbers and underscores."))
+        value = self.cleaned_data["username"]
+        if not alnum_re.search(value):
+            raise forms.ValidationError(_("Usernames can only contain "
+                                          "letters, numbers and underscores."))
         try:
-            user = User.objects.get(username__iexact=self.cleaned_data["username"])
+            User.objects.get(username__iexact=value)
         except User.DoesNotExist:
-            return self.cleaned_data["username"]
-        raise forms.ValidationError(_("This username is already taken. Please choose another."))
+            return value
+        raise forms.ValidationError(_("This username is already taken. Please "
+                                      "choose another."))
     
     def clean_email(self):
         value = self.cleaned_data["email"]
@@ -132,7 +142,15 @@ class BaseSignupForm(forms.Form):
     
     def create_user(self, commit=True):
         user = User()
-        user.username = self.cleaned_data["username"]
+        if USERNAME_REQUIRED:
+            user.username = self.cleaned_data["username"]
+        else:
+            while True:
+                user.username = self.random_username()
+                try:
+                    User.objects.get(username=user.username)
+                except User.DoesNotExist:
+                    break
         user.email = self.cleaned_data["email"].strip().lower()
         user.set_unusable_password()
         if EMAIL_VERIFICATION:
@@ -160,10 +178,11 @@ class SignupForm(BaseSignupForm):
     
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)
-        self.fields.keyOrder = ["username", 
-                                "password1", 
-                                "password2",
-                                "email"]
+        if USERNAME_REQUIRED:
+            self.fields.keyOrder = ["username", "password1", "password2",
+                                    "email"]
+        else:
+            self.fields.keyOrder = ["email", "password1", "password2"]
     
     def clean(self):
         if "password1" in self.cleaned_data and "password2" in self.cleaned_data:

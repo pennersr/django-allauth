@@ -10,16 +10,17 @@ def get_login_redirect_url(request):
     """
     Returns a url to redirect to after the login
     """
+    next = None
     if 'next' in request.session:
         next = request.session['next']
         del request.session['next']
-        return next
     elif 'next' in request.GET:
-        return request.GET.get('next')
+        next = request.GET.get('next')
     elif 'next' in request.POST:
-        return request.POST.get('next')
-    else:
-        return getattr(settings, 'LOGIN_REDIRECT_URL', '/')
+        next = request.POST.get('next')
+    if not next:
+        next = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
+    return next
 
 def generate_unique_username(txt):
     username = slugify(txt.split('@')[0])

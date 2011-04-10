@@ -4,7 +4,6 @@ import views
 
 urlpatterns = \
     patterns('',
-             url('^login/$', views.login, name='socialaccount_login'),
              url('^login/cancelled/$', views.login_cancelled, 
                  name='socialaccount_login_cancelled'),
              url('^login/error/$', views.login_error, 

@@ -48,11 +48,6 @@ def signup(request, **kwargs):
                               RequestContext(request))
 
 
-def login(request):
-    d = { 'site': Site.objects.get_current() }
-    return render_to_response('socialaccount/login.html', 
-                              d, context_instance=RequestContext(request))
-
 def login_cancelled(request):
     d = { }
     return render_to_response('socialaccount/login_cancelled.html', 

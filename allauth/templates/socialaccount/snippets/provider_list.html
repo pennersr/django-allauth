@@ -1,7 +1,14 @@
+{% if allauth.openid_enabled %}
 <li><a title="Google" class="socialaccount_provider google" href="{% url openid_login %}?openid=https://www.google.com/accounts/o8/id">Google</a></li>
+{% endif %}
+{% if allauth.twitter_enabled %}
 <li><a title="Twitter" class="socialaccount_provider twitter" href="{% url twitter_login %}">Twitter</a></li>
+{% endif %}
+{% if allauth.facebook_enabled %}
 <li><a title="Facebook" class="socialaccount_provider facebook" href="javascript:FB_login()">Facebook</a></li>
+{% endif %}
+{% if allauth.openid_enabled %}
 <li><a title="Yahoo" class="socialaccount_provider yahoo" href="{% url openid_login %}?openid=http://me.yahoo.com">Yahoo</a></li>
 <li><a title="OpenID" class="socialaccount_provider openid" href="{% url openid_login %}">OpenID</a></li>
 <li><a title="Hyves" class="socialaccount_provider hyves" href="{% url openid_login %}?openid=http://hyves.nl">Hyves</a></li>
-
+{% endif %}

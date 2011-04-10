@@ -1,7 +1,12 @@
+2011-04-10  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Removed separate social account login view, in favour of having
+	a single unified login view including both forms of login.
+
 2011-04-07  Raymond Penners  <raymond.penners@intenct.nl>
 
-	* allauth/openid/views.py (login): Pass along "?next=" url
-	parameter.
+	* Added support for passing along a next URL parameter to
+	Facebook, OpenID logins.
 
 2011-02-13  Raymond Penners  <raymond.penners@intenct.nl>
 

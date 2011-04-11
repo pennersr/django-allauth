@@ -1,4 +1,6 @@
-2011-04-11  Raymond Penners  <raymond.penners@intenct.nl>
+2011-04-11  Raymond Penners  <pennersr@ubuntosx>
+
+	* Pass along next URL, if any, at /accounts/social/signup/.
 
 	* Duplicate email address handling could throw a
 	MultipleObjectsReturned exception, fixed.

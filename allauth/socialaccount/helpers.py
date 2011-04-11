@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout as auth_logout
 from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.http import urlencode
 
 from allauth.utils import get_login_redirect_url, \
     generate_unique_username, email_address_exists
@@ -43,7 +44,11 @@ def _process_signup(request, data, account):
     if not auto_signup:
         request.session['socialaccount_signup'] = dict(data=data,
                                                        account=account)
-        ret = HttpResponseRedirect(reverse('socialaccount_signup'))
+        url = reverse('socialaccount_signup')
+        next = request.REQUEST.get('next')
+        if next:
+            url = url + '?' + urlencode(dict(next=next))
+        ret = HttpResponseRedirect(url)
     else:
         # FIXME: There is some duplication of logic inhere 
         # (create user, send email, in active etc..)

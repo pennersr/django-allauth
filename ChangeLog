@@ -1,3 +1,8 @@
+2011-04-11  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Duplicate email address handling could throw a
+	MultipleObjectsReturned exception, fixed.
+
 2011-04-10  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Removed separate social account login view, in favour of having

@@ -51,30 +51,14 @@ def valid_email_or_none(email):
     return ret
         
 
-def get_email_address(email, exclude_user=None):
-    """
-    Returns an EmailAddress instance matching the given email. Both
-    User.email and EmailAddress.email are considered candidates. This
-    was done to deal gracefully with inconsistencies that are inherent
-    due to the duplication of the email field in User and
-    EmailAddress.  In case a User.email match is found the result is
-    returned in a temporary EmailAddress instance.
-    """
-    try:
-        emailaddresses = EmailAddress.objects
+def email_address_exists(email, exclude_user=None):
+    emailaddresses = EmailAddress.objects
+    if exclude_user:
+        emailaddresses = emailaddresses.exclude(user=exclude_user)
+    ret = emailaddresses.filter(email__iexact=email).exists()
+    if not ret:
+        users = User.objects
         if exclude_user:
-            emailaddresses = emailaddresses.exclude(user=exclude_user)
-        ret = emailaddresses.get(email__iexact=email)
-    except EmailAddress.DoesNotExist:
-        try:
-            users = User.objects
-            if exclude_user:
-                users = users.exclude(user=exclude_user)
-            usr = users.get(email__iexact=email)
-            ret = EmailAddress(user=usr,
-                               email=email,
-                               verified=False,
-                               primary=True)
-        except User.DoesNotExist:
-            ret = None
+            users = users.exclude(user=exclude_user)
+        ret = users.filter(email__iexact=email).exists()
     return ret

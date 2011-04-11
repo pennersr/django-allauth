@@ -20,7 +20,7 @@ from emailconfirmation.models import EmailAddress
 
 # from models import PasswordReset
 from utils import user_display, perform_login, send_email_confirmation
-from allauth.utils import get_email_address
+from allauth.utils import email_address_exists
         
 from app_settings import *
 
@@ -125,7 +125,7 @@ class BaseSignupForm(forms.Form):
     def clean_email(self):
         value = self.cleaned_data["email"]
         if UNIQUE_EMAIL or EMAIL_AUTHENTICATION:
-            if value and get_email_address(value):
+            if value and email_address_exists(value):
                 raise forms.ValidationError \
                     (_("A user is registered with this e-mail address."))
         return value

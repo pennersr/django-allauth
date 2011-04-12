@@ -22,8 +22,8 @@ class FacebookLoginURLNode(template.Node):
     def render(self, context):
         query = dict([(name, var.resolve(context)) for name, var
                       in self.params.iteritems()])
-        next = ''
-        if not query.has_key('next'):
+        next = query.get('next', '')
+        if not next:
             request = context['request']
             next = request.REQUEST.get('next', '')
         if next:

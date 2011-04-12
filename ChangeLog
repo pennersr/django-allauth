@@ -1,4 +1,11 @@
-2011-04-11  Raymond Penners  <pennersr@ubuntosx>
+2011-04-12  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Added template tags for pointing to social login URLs. These
+	tags automatically pass along any "?next="
+	parameter. Additionally, added an overall allauth_tags that
+	gracefully degrades when e.g. allauth.facebook is not installed.
+
+2011-04-11  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Pass along next URL, if any, at /accounts/social/signup/.
 

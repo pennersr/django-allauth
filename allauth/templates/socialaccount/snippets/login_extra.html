@@ -1,4 +1,6 @@
-{% load facebook_tags %}
+{% load allauth_tags %}
 
+{% if allauth.facebook_enabled %}
 {% fbconnect %}
+{% endif %}
 

@@ -1,4 +1,6 @@
-2011-04-14  Raymond Penners  <raymond.penners@intenct.nl>
+2011-04-14  Raymond Penners  <pennersr@ubuntosx>
+
+	* Pass along "?next=" parameter between login and signup views.
 
 	* Added Dutch translation.
 

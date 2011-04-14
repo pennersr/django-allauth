@@ -3,6 +3,7 @@ from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from django.core.validators import validate_email, ValidationError
 from django.db.models import EmailField
+from django.utils.http import urlencode
 
 from emailconfirmation.models import EmailAddress
 
@@ -21,6 +22,14 @@ def get_login_redirect_url(request):
     if not next:
         next = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
     return next
+
+def passthrough_login_redirect_url(request, url):
+    assert url.find("?") < 0 # TODO: Handle this case properly
+    next = request.REQUEST.get('next')
+    if next:
+        url = url + '?' + urlencode(dict(next=next))
+    return url
+
 
 def generate_unique_username(txt):
     username = slugify(txt.split('@')[0])

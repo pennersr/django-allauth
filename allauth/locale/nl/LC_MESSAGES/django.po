@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-14 22:09+0200\n"
-"PO-Revision-Date: 2011-04-14 22:09+0200\n"
+"POT-Creation-Date: 2011-04-14 21:21+0000\n"
+"PO-Revision-Date: 2011-04-14 21:31+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -75,8 +75,8 @@ msgstr "Je moet hetzelfde wachtwoord twee keer intoetsen."
 msgid "Your e-mail address has already been verified"
 msgstr "Je e-mail adres is al geverifieerd"
 
-#: account/forms.py:217 account/utils.py:96 account/views.py:100
-#: account/views.py:116
+#: account/forms.py:217 account/utils.py:96 account/views.py:106
+#: account/views.py:122
 #, python-format
 msgid "Confirmation e-mail sent to %(email)s"
 msgstr "Bevestigings e-mail verzonden aan %(email)s"
@@ -114,29 +114,29 @@ msgstr ""
 msgid "Password Reset E-mail"
 msgstr "Nieuw wachtwoord"
 
-#: account/utils.py:83 account/views.py:47
+#: account/utils.py:83 account/views.py:49
 #, python-format
 msgid "Successfully signed in as %(user)s."
 msgstr "Je bent nu ingelogd als %(user)s."
 
-#: account/views.py:132
+#: account/views.py:138
 #, python-format
 msgid "Removed e-mail address %(email)s"
 msgstr "E-mail adres %(email)s verwijderd"
 
-#: account/views.py:146
+#: account/views.py:152
 msgid "Primary e-mail address set"
 msgstr "Primair e-mail adres ingesteld"
 
-#: account/views.py:167 account/views.py:240
+#: account/views.py:173 account/views.py:246
 msgid "Password successfully changed."
 msgstr "Wachtwoord wijziging geslaagd."
 
-#: account/views.py:190
+#: account/views.py:196
 msgid "Password successfully set."
 msgstr "Je wachtwoord is gewijzigd."
 
-#: account/views.py:254 templates/account/logout.html:10
+#: account/views.py:260 templates/account/logout.html:10
 msgid "You have signed out."
 msgstr "Je bent afgemeld."
 
@@ -262,12 +262,12 @@ msgstr "Deze site kan in jouw voorkeurstaal gebruikt worden."
 msgid "Change my language"
 msgstr "Verander mijn taal"
 
-#: templates/account/login.html:7 templates/account/login.html.py:14
-#: templates/account/login.html:49
+#: templates/account/login.html:7 templates/account/login.html.py:12
+#: templates/account/login.html:47
 msgid "Sign In"
 msgstr "Aanmelden"
 
-#: templates/account/login.html:19
+#: templates/account/login.html:17
 #, python-format
 msgid ""
 "Please sign in with one\n"
@@ -279,11 +279,11 @@ msgstr ""
 "href=\"%(signup_url)s\">registreer</a> voor een %(site_name)s account en "
 "meld je hiermee aan:"
 
-#: templates/account/login.html:30
+#: templates/account/login.html:28
 msgid "or"
 msgstr "of"
 
-#: templates/account/login.html:47
+#: templates/account/login.html:45
 msgid "Forgot Password?"
 msgstr "Wachtwoord vergeten?"
 
@@ -540,6 +540,13 @@ msgid ""
 msgstr ""
 "Je hebt het aanmelden via een extern account geannuleerd. Als dit een "
 "vergissing was, <a href=\"%(login_url)s\">meld je dan opnieuw aan</a>."
+
+#: templates/socialaccount/signup.html:11
+#, python-format
+msgid ""
+"You are about to use your %(provider_name)s account to login to \n"
+"%(site_name)s. As a final step, please complete the following form:"
+msgstr "Om bij %(site_name)s in te kunnen loggen via %(provider_name)s hebben we de volgende gegevens nodig:"
 
 #, fuzzy
 #~ msgid ""

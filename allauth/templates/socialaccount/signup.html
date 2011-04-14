@@ -8,8 +8,8 @@
 {% block body %}
     <h1>{% trans "Sign Up" %}</h1>
 
-<p>You are about to use your {{account.get_provider.name}} account to login to 
-{{site.name}}. As a final step, please complete the following form:</p>
+<p>{% blocktrans with provider_name=account.get_provider.name site_name=site.name %}You are about to use your {{provider_name}} account to login to 
+{{site_name}}. As a final step, please complete the following form:{% endblocktrans %}</p>
     
 <form class="signup uniForm" id="signup_form" method="post" action="">
   {% csrf_token %}

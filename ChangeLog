@@ -1,4 +1,10 @@
-2011-04-14  Raymond Penners  <pennersr@ubuntosx>
+2011-04-22  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* The Twitter oauth sequence now respects the "oauth_callback"
+	parameter instead of defaulting to the callback URL
+	configured at Twitter.
+
+2011-04-14  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Pass along "?next=" parameter between login and signup views.
 

@@ -16,6 +16,7 @@ settings.py::
 
     TEMPLATE_CONTEXT_PROCESSORS = (
         ...
+        "allauth.context_processors.allauth",
         "allauth.account.context_processors.account"
     )
 

@@ -1,3 +1,39 @@
+2011-04-22  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* The Twitter oauth sequence now respects the "oauth_callback"
+	parameter instead of defaulting to the callback URL
+	configured at Twitter.
+
+2011-04-14  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Pass along "?next=" parameter between login and signup views.
+
+	* Added Dutch translation.
+
+2011-04-12  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Added template tags for pointing to social login URLs. These
+	tags automatically pass along any "?next="
+	parameter. Additionally, added an overall allauth_tags that
+	gracefully degrades when e.g. allauth.facebook is not installed.
+
+2011-04-11  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Pass along next URL, if any, at /accounts/social/signup/.
+
+	* Duplicate email address handling could throw a
+	MultipleObjectsReturned exception, fixed.
+
+2011-04-10  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Removed separate social account login view, in favour of having
+	a single unified login view including both forms of login.
+
+2011-04-07  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Added support for passing along a next URL parameter to
+	Facebook, OpenID logins.
+
 2011-02-13  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Added support for django-avatar, copying the Twitter profile

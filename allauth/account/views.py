@@ -3,6 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Q
+from django.contrib.sites.models import Site
 from django.http import HttpResponseRedirect, HttpResponseForbidden, Http404
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
@@ -17,7 +18,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from emailconfirmation.models import EmailAddress, EmailConfirmation
 
-from utils import get_default_redirect, user_display, complete_signup
+from allauth.utils import passthrough_login_redirect_url
+
+from utils import get_default_redirect, user_display, complete_signup 
 from forms import AddEmailForm, ChangePasswordForm
 from forms import LoginForm, ResetPasswordKeyForm
 from forms import ResetPasswordForm, SetPasswordForm, SignupForm
@@ -53,6 +56,9 @@ def login(request, **kwargs):
     
     ctx = {
         "form": form,
+        "signup_url": passthrough_login_redirect_url(request,
+                                                     reverse("account_signup")),
+        "site": Site.objects.get_current(),
         "url_required": url_required,
         "redirect_field_name": redirect_field_name,
         "redirect_field_value": request.REQUEST.get(redirect_field_name),
@@ -79,6 +85,8 @@ def signup(request, **kwargs):
     else:
         form = form_class()
     ctx = {"form": form,
+           "login_url": passthrough_login_redirect_url(request,
+                                                       reverse("account_login")),
            "redirect_field_name": redirect_field_name,
            "redirect_field_value": request.REQUEST.get(redirect_field_name) }
     return render_to_response(template_name, RequestContext(request, ctx))

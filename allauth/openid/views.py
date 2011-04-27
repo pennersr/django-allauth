@@ -1,3 +1,4 @@
+from django.utils.http import urlencode
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
@@ -48,9 +49,13 @@ def login(request):
                     ax.add(AttrInfo(AXAttribute.CONTACT_EMAIL, 
                                     required=True))
                     auth_request.addExtension(ax)
+                callback_url = reverse(callback)
+                next = request.GET.get('next')
+                if next:
+                    callback_url = callback_url + '?' + urlencode(dict(next=next))
                 redirect_url = auth_request.redirectURL(
                     request.build_absolute_uri('/'), 
-                    request.build_absolute_uri(reverse(callback)))
+                    request.build_absolute_uri(callback_url))
                 return HttpResponseRedirect(redirect_url)
             except DiscoveryFailure, e:
                 if request.method == 'POST':

@@ -1,4 +1,4 @@
 include AUTHORS
 include LICENSE
 include README.rst
-recursive-include allauth/templates *.html
+recursive-include allauth/templates *.html *.txt

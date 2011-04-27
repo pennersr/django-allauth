@@ -82,7 +82,8 @@ class OAuthClient(object):
         sign the request to obtain the access token
         """
         if self.request_token is None:
-            response, content = self.client.request(self.request_token_url, "GET")
+            rt_url = self.request_token_url + '?' + urllib.urlencode({'oauth_callback':self.request.build_absolute_uri(self.callback_url)})
+            response, content = self.client.request(rt_url, "GET")
             if response['status'] != '200':
                 raise OAuthError(
                     _('Invalid response while obtaining request token from "%s".') % get_token_prefix(self.request_token_url))
@@ -98,7 +99,13 @@ class OAuthClient(object):
             request_token = self._get_rt_from_session()
             token = oauth.Token(request_token['oauth_token'], request_token['oauth_token_secret'])
             self.client = oauth.Client(self.consumer, token)
-            response, content = self.client.request(self.access_token_url, "GET")
+            at_url = self.access_token_url
+            # Passing along oauth_verifier is required according to:
+            #   http://groups.google.com/group/twitter-development-talk/browse_frm/thread/472500cfe9e7cdb9#
+            # Though, the custom oauth_callback seems to work without it?
+            if self.request.REQUEST.has_key('oauth_verifier'):
+                at_url = at_url + '?' + urllib.urlencode({'oauth_verifier': self.request.REQUEST['oauth_verifier']})
+            response, content = self.client.request(at_url, "GET")
             if response['status'] != '200':
                 raise OAuthError(
                     _('Invalid response while obtaining access token from "%s".') % get_token_prefix(self.request_token_url))

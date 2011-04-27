@@ -7,9 +7,10 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout as auth_logout
 from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.http import urlencode
 
 from allauth.utils import get_login_redirect_url, \
-    generate_unique_username, get_email_address
+    generate_unique_username, email_address_exists
 from allauth.account.utils import send_email_confirmation, \
     perform_login, complete_signup
 from allauth.account import app_settings as account_settings
@@ -24,8 +25,7 @@ def _process_signup(request, data, account):
         # Let's check if auto_signup is really possible...
         if email:
             if account_settings.UNIQUE_EMAIL:
-                email_address = get_email_address(email)
-                if email_address:
+                if email_address_exists(email):
                     # Oops, another user already has this address.  We
                     # cannot simply connect this social account to the
                     # existing user. Reason is that the email adress may
@@ -44,7 +44,11 @@ def _process_signup(request, data, account):
     if not auto_signup:
         request.session['socialaccount_signup'] = dict(data=data,
                                                        account=account)
-        ret = HttpResponseRedirect(reverse('socialaccount_signup'))
+        url = reverse('socialaccount_signup')
+        next = request.REQUEST.get('next')
+        if next:
+            url = url + '?' + urlencode(dict(next=next))
+        ret = HttpResponseRedirect(url)
     else:
         # FIXME: There is some duplication of logic inhere 
         # (create user, send email, in active etc..)

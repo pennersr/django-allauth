@@ -26,19 +26,21 @@ def login(request):
         if form.is_valid():
             token = form.cleaned_data['access_token']
             g = GraphAPI(token)
-            data = g.get_object("me")
-            email = valid_email_or_none(data.get('email'))
-            social_id = data['id']
+            facebook_me = g.get_object("me")
+            email = valid_email_or_none(facebook_me.get('email'))
+            social_id = facebook_me['id']
             try:
                 account = FacebookAccount.objects.get(social_id=social_id)
             except FacebookAccount.DoesNotExist:
                 account = FacebookAccount(social_id=social_id)
-            account.link = data['link']
-            account.name = data['name']
+            account.link = facebook_me['link']
+            account.name = facebook_me['name']
             if account.pk:
                 account.save()
             data = dict(email=email,
-                        facebook_me=data)
+                        facebook_me=facebook_me)
+            # some facebook accounts don't have this data
+            data.update((k,v) for (k,v) in facebook_me.items() if k in ['username', 'first_name', 'last_name'])
             ret = complete_social_login(request, data, account)
     if not ret:
         ret = render_authentication_error(request)

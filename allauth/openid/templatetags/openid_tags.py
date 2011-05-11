@@ -18,6 +18,9 @@ class OpenIDLoginURLNode(template.Node):
             next = request.REQUEST.get('next')
             if next:
                 query['next'] = next
+        else:
+            if not query['next']:
+                del query['next']
         if query:
             url = url + '?' + urlencode(query)
         return url

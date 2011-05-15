@@ -68,6 +68,8 @@ def perform_login(request, user):
         user.backend = "django.contrib.auth.backends.ModelBackend"
     user_logged_in.send(sender=user.__class__, request=request, user=user)
     login(request, user)
+    messages.add_message(request, messages.SUCCESS,
+                         ugettext("Successfully signed in as %(user)s.") % { "user": user_display(user) } )
 
 def complete_signup(request, user, success_url):
     if app_settings.EMAIL_VERIFICATION:
@@ -79,11 +81,6 @@ def complete_signup(request, user, success_url):
         return render_to_response("account/verification_sent.html", ctx)
     else:
         perform_login(request, user)
-        messages.add_message(request, messages.SUCCESS,
-            ugettext("Successfully signed in as %(user)s.") % {
-                "user": user_display(user)
-            }
-        )
         return HttpResponseRedirect(success_url)
 
 

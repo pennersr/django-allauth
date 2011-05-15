@@ -45,11 +45,6 @@ def login(request, **kwargs):
         form = form_class(request.POST)
         if form.is_valid():
             form.login(request)
-            messages.add_message(request, messages.SUCCESS,
-                ugettext(u"Successfully signed in as %(user)s.") % {
-                    "user": user_display(form.user)
-                }
-            )
             return HttpResponseRedirect(success_url)
     else:
         form = form_class()

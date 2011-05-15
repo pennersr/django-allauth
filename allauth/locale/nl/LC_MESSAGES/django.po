@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-04-14 21:21+0000\n"
-"PO-Revision-Date: 2011-04-14 21:31+0000\n"
+"PO-Revision-Date: 2011-05-15 00:39+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgstr "E-mail"
 
 #: account/forms.py:54 account/forms.py:101
 msgid "Username"
-msgstr "Gebruiker"
+msgstr "Gebruikersnaam"
 
 #: account/forms.py:82
 msgid "This account is currently inactive."

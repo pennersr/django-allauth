@@ -71,6 +71,7 @@ def perform_login(request, user):
     messages.add_message(request, messages.SUCCESS,
                          ugettext("Successfully signed in as %(user)s.") % { "user": user_display(user) } )
 
+
 def complete_signup(request, user, success_url):
     if app_settings.EMAIL_VERIFICATION:
         ctx = {
@@ -87,11 +88,7 @@ def complete_signup(request, user, success_url):
 def send_email_confirmation(user, request=None):
     email = user.email
     if email:
-        if request:
-            messages.add_message \
-                (request, messages.INFO,
-                 _(u"Confirmation e-mail sent to %(email)s") % {
-                    "email": email,
-                    }
-                 )
-        EmailAddress.objects.add_email(user, user.email)
+        if EmailAddress.objects.add_email(user, user.email) and request:
+            messages.info(request,
+                _(u"Confirmation e-mail sent to %(email)s") % {"email": email}
+            )

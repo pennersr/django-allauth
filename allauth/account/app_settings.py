@@ -15,11 +15,9 @@ UNIQUE_EMAIL = getattr(settings, "ACCOUNT_UNIQUE_EMAIL", True)
 
 # Signup password verification
 PASSWORD_VERIFICATION = getattr(settings, "ACCOUNT_PASSWORD_VERIFICATION",
-                                True)
+    # Continue to support the old previously undocumented setting
+    getattr(settings, "SIGNUP_PASSWORD_VERIFICATION", True))
 
 assert (not EMAIL_AUTHENTICATION) or EMAIL_REQUIRED
 assert (not EMAIL_AUTHENTICATION) or UNIQUE_EMAIL
 assert (not EMAIL_VERIFICATION) or EMAIL_REQUIRED
-
-
-

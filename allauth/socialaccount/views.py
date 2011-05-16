@@ -22,7 +22,7 @@ def signup(request, **kwargs):
         return HttpResponseRedirect(reverse(connections))
     signup = request.session.get('socialaccount_signup')
     if not signup:
-        return HttpResponseRedirect(reverse(login))
+        return HttpResponseRedirect(reverse('account_login'))
     form_class = kwargs.pop("form_class", SignupForm)
     template_name = kwargs.pop("template_name", 
                                'socialaccount/signup.html')

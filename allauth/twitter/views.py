@@ -11,7 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from allauth.utils import get_login_redirect_url
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.helpers import render_authentication_error
-from allauth.socialaccount.oauth import OAuthClient
+from allauth.socialaccount.oauth import OAuthClient, OAuthError
 
 from models import TwitterApp, TwitterAccount
 from utils import OAuthTwitter
@@ -22,7 +22,10 @@ def login_done(request):
         request, app.consumer_key,
         app.consumer_secret,
         app.request_token_url)
-    user_info = client.get_user_info()
+    try:
+        user_info = client.get_user_info()
+    except OAuthError, e:
+        return render_authentication_error(request)
     try:
         account = TwitterAccount.objects.get(social_id=user_info['id'])
     except TwitterAccount.DoesNotExist:

@@ -59,6 +59,9 @@ ACCOUNT_EMAIL_VERIFICATION (=False)
 ACCOUNT_EMAIL_AUTHENTICATION (=False)
   Login by e-mail address, not username
 
+ACCOUNT_SIGNUP_PASSWORD_VERIFICATION (=True)
+  When signing up, let the user type in his password twice to avoid typ-o's.
+
 ACCOUNT_UNIQUE_EMAIL (=True)
   Enforce uniqueness of e-mail addresses
 

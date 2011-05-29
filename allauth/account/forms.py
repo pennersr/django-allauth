@@ -160,14 +160,12 @@ class SignupForm(BaseSignupForm):
     
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)
-        keyOrder = ["username", 
-                    "password1", 
-                    "password2",
-                    "email"]
+        self.fields.keyOrder = ["username", 
+                                "password1", 
+                                "password2",
+                                "email"]
         if not SIGNUP_PASSWORD_VERIFICATION:
-            keyOrder.remove("password2")
             del self.fields['password2']
-
     
     def clean(self):
         if SIGNUP_PASSWORD_VERIFICATION \

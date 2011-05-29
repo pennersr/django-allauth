@@ -1,3 +1,9 @@
+2011-05-29  Raymond Penners  <pennersr@ubuntosx>
+
+	* Vuong Nguyen contributed support for (optionally) asking for the
+	password just once during signup
+	(ACCOUNT_SIGNUP_PASSWORD_VERIFICATION).
+
 2011-04-22  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* The Twitter oauth sequence now respects the "oauth_callback"

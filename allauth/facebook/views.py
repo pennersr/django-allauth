@@ -12,7 +12,7 @@ from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.oauth import OAuthClient
 
-from facebook import GraphAPI
+from facebook import GraphAPI, GraphAPIError
 
 from models import FacebookApp, FacebookAccount
 from forms import FacebookConnectForm
@@ -24,24 +24,28 @@ def login(request):
     if request.method == 'POST':
         form = FacebookConnectForm(request.POST)
         if form.is_valid():
-            token = form.cleaned_data['access_token']
-            g = GraphAPI(token)
-            facebook_me = g.get_object("me")
-            email = valid_email_or_none(facebook_me.get('email'))
-            social_id = facebook_me['id']
             try:
-                account = FacebookAccount.objects.get(social_id=social_id)
-            except FacebookAccount.DoesNotExist:
-                account = FacebookAccount(social_id=social_id)
-            account.link = facebook_me['link']
-            account.name = facebook_me['name']
-            if account.pk:
-                account.save()
-            data = dict(email=email,
-                        facebook_me=facebook_me)
-            # some facebook accounts don't have this data
-            data.update((k,v) for (k,v) in facebook_me.items() if k in ['username', 'first_name', 'last_name'])
-            ret = complete_social_login(request, data, account)
+                token = form.cleaned_data['access_token']
+                g = GraphAPI(token)
+                facebook_me = g.get_object("me")
+                email = valid_email_or_none(facebook_me.get('email'))
+                social_id = facebook_me['id']
+                try:
+                    account = FacebookAccount.objects.get(social_id=social_id)
+                except FacebookAccount.DoesNotExist:
+                    account = FacebookAccount(social_id=social_id)
+                account.link = facebook_me['link']
+                account.name = facebook_me['name']
+                if account.pk:
+                    account.save()
+                data = dict(email=email,
+                            facebook_me=facebook_me)
+                # some facebook accounts don't have this data
+                data.update((k,v) for (k,v) in facebook_me.items() 
+                            if k in ['username', 'first_name', 'last_name'])
+                ret = complete_social_login(request, data, account)
+            except GraphAPIError, e:
+                pass
     if not ret:
         ret = render_authentication_error(request)
     return ret

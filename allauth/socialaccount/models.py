@@ -28,8 +28,9 @@ class SocialAccount(models.Model):
 
     def get_provider_account(self):
         for f in ['twitteraccount', 'openidaccount', 'facebookaccount']:
-            try:
-                return getattr(self, f)
-            except self._meta.get_field_by_name(f)[0].model.DoesNotExist:
-                pass
-        assert False
+            if hasattr(self, f):
+                try:
+                    return getattr(self, f)
+                except self._meta.get_field_by_name(f)[0].model.DoesNotExist:
+                    pass
+        assert False, "Dangling SocialAccount encountered: allauth.<foo> missing from INSTALLED_APPS ?"

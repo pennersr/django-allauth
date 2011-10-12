@@ -6,6 +6,7 @@ from django import forms
 from django.conf import settings
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.utils.encoding import smart_unicode
@@ -372,8 +373,11 @@ class ResetPasswordForm(forms.Form):
     )
     
     def clean_email(self):
-        if EmailAddress.objects.filter(email__iexact=self.cleaned_data["email"], verified=True).count() == 0:
-            raise forms.ValidationError(_("E-mail address not verified for any user account"))
+        email = self.cleaned_data["email"]
+        self.users = User.objects.filter(Q(email__iexact=email)
+                                         | Q(emailaddress__email__iexact=email)).distinct()
+        if not self.users.exists():
+            raise forms.ValidationError(_("The e-mail address is not assigned to any user account"))
         return self.cleaned_data["email"]
     
     def save(self, **kwargs):
@@ -381,7 +385,7 @@ class ResetPasswordForm(forms.Form):
         email = self.cleaned_data["email"]
         token_generator = kwargs.get("token_generator", default_token_generator)
         
-        for user in User.objects.filter(email__iexact=email):
+        for user in self.users:
             
             temp_key = token_generator.make_token(user)
             
@@ -404,7 +408,7 @@ class ResetPasswordForm(forms.Form):
                  { "site": current_site,
                    "user": user,
                    "password_reset_url": url })
-            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
+            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [email])
         return self.cleaned_data["email"]
 
 

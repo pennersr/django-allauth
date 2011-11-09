@@ -292,20 +292,13 @@ class AddEmailForm(UserForm):
             "this_account": _("This e-mail address already associated with this account."),
             "different_account": _("This e-mail address already associated with another account."),
         }
-        if UNIQUE_EMAIL:
-            try:
-                email = EmailAddress.objects.get(email__iexact=value)
-            except EmailAddress.DoesNotExist:
-                return value
-            if email.user == self.user:
-                raise forms.ValidationError(errors["this_account"])
-            raise forms.ValidationError(errors["different_account"])
-        else:
-            try:
-                EmailAddress.objects.get(user=self.user, email__iexact=value)
-            except EmailAddress.DoesNotExist:
-                return value
+        emails = EmailAddress.objects.filter(email__iexact=value)
+        if emails.filter(user=self.user).exists():
             raise forms.ValidationError(errors["this_account"])
+        if UNIQUE_EMAIL:
+            if emails.exclude(user=self.user).exists():
+                raise forms.ValidationError(errors["different_account"])
+        return value
     
     def save(self):
         return EmailAddress.objects.add_email(self.user, self.cleaned_data["email"])

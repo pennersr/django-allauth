@@ -56,8 +56,8 @@ def _process_signup(request, data, account):
             (data.get('username', email or 'user'))
         u = User(username=username,
                  email=email or '',
-                 last_name = data.get('last_name', ''),
-                 first_name = data.get('first_name', ''))
+                 last_name = data.get('last_name', '')[0:User._meta.get_field('last_name').max_length],
+                 first_name = data.get('first_name', '')[0:User._meta.get_field('first_name').max_length])
         u.set_unusable_password()
         u.is_active = not account_settings.EMAIL_VERIFICATION
         u.save()

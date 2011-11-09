@@ -44,7 +44,7 @@ def login(request):
                 data.update((k,v) for (k,v) in facebook_me.items() 
                             if k in ['username', 'first_name', 'last_name'])
                 ret = complete_social_login(request, data, account)
-            except GraphAPIError, e:
+            except (GraphAPIError, IOError):
                 pass
     if not ret:
         ret = render_authentication_error(request)

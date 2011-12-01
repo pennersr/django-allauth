@@ -48,7 +48,11 @@ def oauth_redirect(request, consumer_key=None, secret_key=None,
     request.session['next'] = get_login_redirect_url(request)
     client = OAuthClient(request, consumer_key, secret_key,
         request_token_url, access_token_url, authorization_url, callback_url, parameters)
-    return client.get_redirect()
+    try:
+        return client.get_redirect()
+    except OAuthError, e:
+        return render_authentication_error(request)
+
 
 def oauth_callback(request, consumer_key=None, secret_key=None,
     request_token_url=None, access_token_url=None, authorization_url=None,

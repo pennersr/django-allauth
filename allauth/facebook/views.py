@@ -1,10 +1,13 @@
+from datetime import datetime, timedelta
+
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
+from django.utils.cache import patch_response_headers
 from django.contrib.auth import login, authenticate, logout as auth_logout
 from django.contrib.auth.models import User
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.views.decorators.csrf import csrf_exempt
 
 from allauth.utils import get_login_redirect_url
@@ -50,4 +53,9 @@ def login(request):
         ret = render_authentication_error(request)
     return ret
 
-    
+def channel(request):
+    response = render(request, 'facebook/channel.html')
+    cache_expire = 60*60*24*365
+    patch_response_headers(response, cache_expire)
+    response['Pragma'] = 'Public'
+    return response

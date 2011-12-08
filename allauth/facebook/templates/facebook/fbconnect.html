@@ -1,25 +1,43 @@
 <div id="fb-root"></div>
-<script src="http://connect.facebook.net/en_US/all.js"></script>
 <script>
-  FB.init({appId: '{{facebook_app.application_id}}', status: true, cookie: true, xfbml: true});
-  function FB_login(nextUrl) {
-    FB.login(function(response) {
-      if (response.authResponse) {
-        document.getElementById("_fb_access_token").value = response.authResponse.accessToken;
-        document.getElementById("_fb_expires_in").value = response.authResponse.expiresIn;
-        document.getElementById("_fb_next_url").value = nextUrl || '';
-        document.getElementById("_fb_login").submit();
-      } else {
-        var next;
-        if (response && response.status && response.status == "notConnected") {
-          next = '{% url socialaccount_login_cancelled %}';
+  window.FB_login = function() {}
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '{{facebook_app.application_id}}',
+      channelUrl : '{{facebook_channel_url}}',
+      status     : true,
+      cookie     : true,
+      oauth      : true,
+      xfbml      : true
+    });
+    window.FB_login = function(nextUrl) {
+      FB.login(function(response) {
+        if (response.authResponse) {
+          document.getElementById("_fb_access_token").value = response.authResponse.accessToken;
+          document.getElementById("_fb_expires_in").value = response.authResponse.expiresIn;
+          document.getElementById("_fb_next_url").value = nextUrl || '';
+          document.getElementById("_fb_login").submit();
         } else {
-          next = '{% url socialaccount_login_error %}';
+          var next;
+          if (response && response.status && response.status == "notConnected") {
+            next = '{% url socialaccount_login_cancelled %}';
+          } else {
+            next = '{% url socialaccount_login_error %}';
+          }
+          window.location.href = next;
         }
-        window.location.href = next;
-      }
-    }, {scope: '{{facebook_perms}}' });
-  }
+      }, {scope: '{{facebook_perms}}' });
+    }
+  };
+  (function(d){
+     var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     d.getElementsByTagName('head')[0].appendChild(js);
+   }(document));
+</script>
+
+
 </script>
 
 <form id="_fb_login" method="post" action="{% url facebook_login %}">

@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from django.db import models
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
@@ -9,8 +7,8 @@ from django.contrib.auth.models import User
 class SocialAccount(models.Model):
     user = models.ForeignKey(User)
     # No social_id here because I want it to be unique
-    last_login = models.DateTimeField(default=datetime.now)
-    date_joined = models.DateTimeField(default=datetime.now)
+    last_login = models.DateTimeField(auto_now=True)
+    date_joined = models.DateTimeField(auto_now_add=True)
 
     def authenticate(self):
         return authenticate(account=self)

@@ -36,7 +36,7 @@ def signup(request, **kwargs):
             user.save()
             account = signup['account']
             account.user = user
-            account.save()
+            account.sync(data)
             return helpers.complete_social_signup(request, user, account)
     else:
         form = form_class(initial=data)

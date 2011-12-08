@@ -37,15 +37,17 @@ def login(request):
                     account = FacebookAccount.objects.get(social_id=social_id)
                 except FacebookAccount.DoesNotExist:
                     account = FacebookAccount(social_id=social_id)
-                account.link = facebook_me['link']
-                account.name = facebook_me['name']
-                if account.pk:
-                    account.save()
                 data = dict(email=email,
+                            facebook_access_token=token,
                             facebook_me=facebook_me)
                 # some facebook accounts don't have this data
                 data.update((k,v) for (k,v) in facebook_me.items() 
                             if k in ['username', 'first_name', 'last_name'])
+                # Don't save partial/temporary accounts that haven't
+                # gone through the full signup yet, as there is no
+                # User attached yet.
+                if account.pk:
+                    account.sync(data)
                 ret = complete_social_login(request, data, account)
             except (GraphAPIError, IOError):
                 pass

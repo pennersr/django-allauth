@@ -38,4 +38,26 @@ class FacebookAccount(SocialAccount):
 
     def __unicode__(self):
         return "%s (%s)" % (self.name, self.social_id)
+
+    def sync(self, data):
+        self.link = data['facebook_me']['link']
+        self.name = data['facebook_me']['name']
+        self.save()
+        access_token = data['facebook_access_token']
+        token, created = FacebookAccessToken.objects \
+            .get_or_create(app=FacebookApp.objects.get_current(),
+                           account=self,
+                           defaults={'access_token': access_token})
+        if not created and token.access_token != access_token:
+            token.access_token = access_token
+            token.save()
     
+class FacebookAccessToken(models.Model):
+    app = models.ForeignKey(FacebookApp)
+    account = models.ForeignKey(FacebookAccount)
+    access_token = models.CharField(max_length=200)
+
+    class Meta:
+        unique_together = ('app', 'account')                                                    
+    def __unicode__(self):
+        return self.access_token

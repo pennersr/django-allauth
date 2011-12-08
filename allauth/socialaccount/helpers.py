@@ -62,7 +62,7 @@ def _process_signup(request, data, account):
         u.is_active = not account_settings.EMAIL_VERIFICATION
         u.save()
         account.user = u
-        account.save()
+        account.sync(data)
         send_email_confirmation(u, request=request)
         ret = complete_social_signup(request, u, account)
     return ret
@@ -105,7 +105,7 @@ def complete_social_login(request, data, account):
         else:
             # New social account
             account.user = request.user
-            account.save()
+            account.sync(data)
             messages.add_message \
             (request, messages.INFO, 
              _('The social account has been connected to your existing account'))

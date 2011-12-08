@@ -32,3 +32,6 @@ class SocialAccount(models.Model):
                 except self._meta.get_field_by_name(f)[0].model.DoesNotExist:
                     pass
         assert False, "Dangling SocialAccount encountered: allauth.<foo> missing from INSTALLED_APPS ?"
+
+    def sync(self, data):
+        self.save()

@@ -6,6 +6,31 @@ Integrated set of Django applications addressing authentication,
 registration, account management as well as 3rd party (social) account
 authentication.
 
+Features
+========
+
+- Signup of a both local and social accounts
+
+- Connecting more than one social account to a local account
+
+- Optional instant-signup for social accounts -- no questions asked
+
+- E-mail address management (multiple e-mail addresses, setting a primary)
+
+- Password forgotten flow
+
+- E-mail address verification flow
+
+- Supports multiple authentication schemes (e.g. login by user name,
+  or by e-mail), as well as multiple strategies for account
+  verification (ranging from none to e-mail verification).
+
+- Support for connecting multiple social accounts to a Django user
+  account.
+
+- The FB access token is stored so that you can publish wall updates etc.
+
+
 Installation
 ============
 

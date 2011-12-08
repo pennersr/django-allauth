@@ -4,8 +4,9 @@
   FB.init({appId: '{{facebook_app.application_id}}', status: true, cookie: true, xfbml: true});
   function FB_login(nextUrl) {
     FB.login(function(response) {
-      if (response.session) {
-        document.getElementById("_fb_access_token").value = response.session.access_token;
+      if (response.authResponse) {
+        document.getElementById("_fb_access_token").value = response.authResponse.accessToken;
+        document.getElementById("_fb_expires_in").value = response.authResponse.expiresIn;
         document.getElementById("_fb_next_url").value = nextUrl || '';
         document.getElementById("_fb_login").submit();
       } else {
@@ -17,7 +18,7 @@
         }
         window.location.href = next;
       }
-    }, {perms: '{{facebook_perms}}' });
+    }, {scope: '{{facebook_perms}}' });
   }
 </script>
 
@@ -25,4 +26,5 @@
 {% csrf_token %}
 <input type="hidden" name="next" value="" id="_fb_next_url"/>
 <input type="hidden" name="access_token" id="_fb_access_token"/>
+<input type="hidden" name="expires_in" id="_fb_expires_in"/>
 </form>

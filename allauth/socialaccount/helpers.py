@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout as auth_logout
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.utils.http import urlencode
+from django.template.defaultfilters import slugify
 
 from allauth.utils import get_login_redirect_url, \
     generate_unique_username, email_address_exists
@@ -120,18 +121,45 @@ def complete_social_login(request, data, account):
     return ret
 
 
+def _name_from_url(url):
+    """
+    >>> _name_from_url('http://google.com/dir/file.ext')
+    u'file.ext'
+    >>> _name_from_url('http://google.com/dir/')
+    u'dir'
+    >>> _name_from_url('http://google.com/dir')
+    u'dir'
+    >>> _name_from_url('http://google.com/dir/..')
+    u'dir'
+    >>> _name_from_url('http://google.com/dir/../')
+    u'dir'
+    >>> _name_from_url('http://google.com')
+    u'google.com'
+    >>> _name_from_url('http://google.com/dir/subdir/file..ext')
+    u'file.ext'
+    """
+    from urlparse import urlparse
+
+    p = urlparse(url)
+    for base in (p.path.split('/')[-1],
+                 p.path,
+                 p.netloc):
+        name = ".".join(filter(lambda s: s,
+                               map(slugify, base.split("."))))
+        if name:
+            return name
+    
 def _copy_avatar(request, user, account):
     import urllib2
     from django.core.files.base import ContentFile
-    from urlparse import urlparse
     from avatar.models import Avatar
     url = account.get_avatar_url()    
     if url:
         ava = Avatar(user=user)
         ava.primary = Avatar.objects.filter(user=user).count() == 0
         try:
-            name = urlparse(url).path
             content = urllib2.urlopen(url).read()
+            name = _name_from_url(url)
             ava.avatar.save(name, ContentFile(content))
         except IOError, e:
             # Let's nog make a big deal out of this...

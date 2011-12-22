@@ -121,6 +121,7 @@ def complete_social_login(request, data, account):
 
 
 def _copy_avatar(request, user, account):
+    import os
     import urllib2
     from django.core.files.base import ContentFile
     from urlparse import urlparse
@@ -131,6 +132,7 @@ def _copy_avatar(request, user, account):
         ava.primary = Avatar.objects.filter(user=user).count() == 0
         try:
             name = urlparse(url).path
+            name = name.strip(os.path.sep)
             content = urllib2.urlopen(url).read()
             ava.avatar.save(name, ContentFile(content))
         except IOError, e:

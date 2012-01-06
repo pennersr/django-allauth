@@ -1,3 +1,9 @@
+2012-01-06  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* The e-mail authentication backend now attempts to use the
+	'username' parameter as an e-mail address. This is needed to
+	properly integrate with other apps invoking authenticate.
+
 2011-05-29  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* SmileyChris contributed support for automatically generating a

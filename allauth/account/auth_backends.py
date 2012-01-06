@@ -2,26 +2,24 @@ from django.conf import settings
 
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 import app_settings
 
 class AuthenticationBackend(ModelBackend):
     
     def authenticate(self, **credentials):
-        lookup_params = {}
         if app_settings.EMAIL_AUTHENTICATION:
-            try:
-                lookup_params["email"] = credentials["email"]
-            except:
-                lookup_params["username"] = credentials["username"]
-        else:
-            lookup_params["username"] = credentials["username"]
-        try:
-            user = User.objects.get(**lookup_params)
-        except User.DoesNotExist:
-            return None
-        else:
-            if user.check_password(credentials["password"]):
-                return user
+            # Also handle 'username' as e-mail to play nice
+            # with other apps (e.g. django-tastypie basic authentication)
+            email = credentials.get('email', credentials.get('username'))
+            if email:
+                users = User.objects.filter(Q(email__iexact=email)
+                                            | Q(emailaddress__email__iexact
+                                                =email))
+                for user in users:
+                    if user.check_password(credentials["password"]):
+                        return user
+        return None
 
-EmailModelBackend = AuthenticationBackend
+

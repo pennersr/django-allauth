@@ -2,3 +2,4 @@ include AUTHORS
 include LICENSE
 include README.rst
 recursive-include allauth/templates *.html *.txt
+recursive-include allauth/facebook/templates *.html *.txt

@@ -7,7 +7,7 @@ from django.db.models import Q
 import app_settings
 
 class AuthenticationBackend(ModelBackend):
-    
+
     def authenticate(self, **credentials):
         if app_settings.EMAIL_AUTHENTICATION:
             # Also handle 'username' as e-mail to play nice
@@ -20,6 +20,15 @@ class AuthenticationBackend(ModelBackend):
                 for user in users:
                     if user.check_password(credentials["password"]):
                         return user
+        else:
+            try:
+                user = User.objects.get(username=credentials["username"])
+            except User.DoesNotExist:
+                return None
+            else:
+                if user.check_password(credentials["password"]):
+                    return user
+
         return None
 
 

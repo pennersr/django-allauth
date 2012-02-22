@@ -3,8 +3,10 @@ import app_settings
 
 urlpatterns = patterns('',
                        url('^', include('allauth.account.urls')),
-                       url('^social/', include('allauth.socialaccount.urls')))
-
+                       
+if app_settings.SOCIALACCOUNT_ENABLED:
+    urlpatterns += patterns('',
+                            url('^social/', include('allauth.socialaccount.urls')))
 if app_settings.TWITTER_ENABLED:
     urlpatterns += patterns('',
                             url('^twitter/', include('allauth.twitter.urls')))

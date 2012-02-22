@@ -3,11 +3,7 @@ from django.conf.urls.defaults import *
 
 from forms import SignupForm
 
-
 import views
-
-signup_view = "pinax.apps.signup_codes.views.signup"
-
 
 urlpatterns = patterns("",
     url(r"^email/$", views.email, name="account_email"),

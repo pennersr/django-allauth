@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-06 08:21+0100\n"
+"POT-Creation-Date: 2012-02-22 21:06+0000\n"
 "PO-Revision-Date: 2011-11-06 08:27+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 
-#: account/forms.py:36 account/forms.py:167 account/forms.py:348
+#: account/forms.py:36 account/forms.py:167 account/forms.py:341
 msgid "Password"
 msgstr "Wachtwoord"
 
@@ -25,7 +25,7 @@ msgid "Remember Me"
 msgstr "Onthouden"
 
 #: account/forms.py:52 account/forms.py:113 account/forms.py:284
-#: account/forms.py:370
+#: account/forms.py:363
 msgid "E-mail"
 msgstr "E-mail"
 
@@ -63,12 +63,12 @@ msgstr "Deze gebruikersnaam is al in gebruik. Kies a.u.b. een andere naam."
 msgid "A user is registered with this e-mail address."
 msgstr "Er is al een gebruiker geregistreerd met dit e-mail adres."
 
-#: account/forms.py:171 account/forms.py:352
+#: account/forms.py:171 account/forms.py:345
 msgid "Password (again)"
 msgstr "Wachtwoord (bevestigen)"
 
-#: account/forms.py:198 account/forms.py:337 account/forms.py:359
-#: account/forms.py:435
+#: account/forms.py:198 account/forms.py:330 account/forms.py:352
+#: account/forms.py:428
 msgid "You must type the same password each time."
 msgstr "Je moet hetzelfde wachtwoord twee keer intoetsen."
 
@@ -90,27 +90,27 @@ msgstr "Dit e-mail adres is al geassocieerd met dit account."
 msgid "This e-mail address already associated with another account."
 msgstr "Dit e-mail adres is al geassocieerd met een ander account."
 
-#: account/forms.py:317
+#: account/forms.py:310
 msgid "Current Password"
 msgstr "Huidig wachtwoord"
 
-#: account/forms.py:321 account/forms.py:418
+#: account/forms.py:314 account/forms.py:411
 msgid "New Password"
 msgstr "Nieuw wachtwoord"
 
-#: account/forms.py:325 account/forms.py:422
+#: account/forms.py:318 account/forms.py:415
 msgid "New Password (again)"
 msgstr "Nieuw wachtwoord (bevestigen)"
 
-#: account/forms.py:331
+#: account/forms.py:324
 msgid "Please type your current password."
 msgstr "Geef je huidige wachtwoord op."
 
-#: account/forms.py:380
+#: account/forms.py:373
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Dit e-mail adres is niet bij ons bekend"
 
-#: account/forms.py:400
+#: account/forms.py:393
 msgid "Password Reset E-mail"
 msgstr "Nieuw wachtwoord"
 
@@ -136,7 +136,7 @@ msgstr "Wachtwoord wijziging geslaagd."
 msgid "Password successfully set."
 msgstr "Je wachtwoord is gewijzigd."
 
-#: account/views.py:255 templates/account/logout.html:10
+#: account/views.py:255
 msgid "You have signed out."
 msgstr "Je bent afgemeld."
 
@@ -152,7 +152,7 @@ msgstr "Je account heeft geen wachtwoord ingesteld."
 msgid "Your local account has no verified e-mail address."
 msgstr "Je account heeft geen geverifieerd e-mail adres."
 
-#: socialaccount/helpers.py:111
+#: socialaccount/helpers.py:112
 msgid "The social account has been connected to your existing account"
 msgstr "Het externe account is gekoppeld aan je bestaande account"
 
@@ -189,367 +189,273 @@ msgstr "Geen toegang tot prive data bij \"%s\"."
 msgid "The social account has been disconnected"
 msgstr "Het externe account is ontkoppeld"
 
-#: templates/account/email.html:6
-msgid "Account"
-msgstr "Account"
+#~ msgid "Account"
+#~ msgstr "Account"
 
-#: templates/account/email.html:9
-msgid "E-mail Addresses"
-msgstr "E-mail adressen"
+#~ msgid "E-mail Addresses"
+#~ msgstr "E-mail adressen"
 
-#: templates/account/email.html:12
-msgid "The following e-mail addresses are associated to your account:"
-msgstr "De volgende e-mail adressen zijn gekoppeld aan jouw account:"
+#~ msgid "The following e-mail addresses are associated to your account:"
+#~ msgstr "De volgende e-mail adressen zijn gekoppeld aan jouw account:"
 
-#: templates/account/email.html:26
-msgid "Verified"
-msgstr "Geverifieerd"
+#~ msgid "Verified"
+#~ msgstr "Geverifieerd"
 
-#: templates/account/email.html:28
-msgid "Unverified"
-msgstr "Ongeverifieerd"
+#~ msgid "Unverified"
+#~ msgstr "Ongeverifieerd"
 
-#: templates/account/email.html:30
-msgid "Primary"
-msgstr "Primair"
+#~ msgid "Primary"
+#~ msgstr "Primair"
 
-#: templates/account/email.html:36
-msgid "Make Primary"
-msgstr "Maak primair"
+#~ msgid "Make Primary"
+#~ msgstr "Maak primair"
 
-#: templates/account/email.html:37
-msgid "Re-send Verification"
-msgstr "Stuur verificatie e-mail opnieuw"
+#~ msgid "Re-send Verification"
+#~ msgstr "Stuur verificatie e-mail opnieuw"
 
-#: templates/account/email.html:38
-msgid "Remove"
-msgstr "Verwijder"
+#~ msgid "Remove"
+#~ msgstr "Verwijder"
 
-#: templates/account/email.html:45
-msgid "Warning:"
-msgstr "Waarschuwing:"
+#~ msgid "Warning:"
+#~ msgstr "Waarschuwing:"
 
-#: templates/account/email.html:45
-msgid ""
-"You currently do not have any e-mail address set up. You should really add "
-"an e-mail address so you can receive notifications, reset your password, etc."
-msgstr ""
-"Het is raadzaam een e-mail adres toe te voegen zodat je notificaties kunt "
-"ontvangen, je wachtwoord opnieuw kunt instellen, enz."
+#~ msgid ""
+#~ "You currently do not have any e-mail address set up. You should really "
+#~ "add an e-mail address so you can receive notifications, reset your "
+#~ "password, etc."
+#~ msgstr ""
+#~ "Het is raadzaam een e-mail adres toe te voegen zodat je notificaties kunt "
+#~ "ontvangen, je wachtwoord opnieuw kunt instellen, enz."
 
-#: templates/account/email.html:50
-msgid "Add E-mail Address"
-msgstr "Voeg e-mail adres toe"
+#~ msgid "Add E-mail Address"
+#~ msgstr "Voeg e-mail adres toe"
 
-#: templates/account/email.html:57
-msgid "Add E-mail"
-msgstr "E-mail toevoegen"
+#~ msgid "Add E-mail"
+#~ msgstr "E-mail toevoegen"
 
-#: templates/account/email.html:69
-msgid "Do you really want to remove the selected e-mail address?"
-msgstr "Wil je het geselecteerde e-mail adres echt verwijderen?"
+#~ msgid "Do you really want to remove the selected e-mail address?"
+#~ msgstr "Wil je het geselecteerde e-mail adres echt verwijderen?"
 
-#: templates/account/language_change.html:6
-#: templates/account/language_change.html:9
-msgid "Language"
-msgstr "Taal"
+#~ msgid "Language"
+#~ msgstr "Taal"
 
-#: templates/account/language_change.html:11
-msgid "Pinax can be used in your preferred language."
-msgstr "Deze site kan in jouw voorkeurstaal gebruikt worden."
+#~ msgid "Pinax can be used in your preferred language."
+#~ msgstr "Deze site kan in jouw voorkeurstaal gebruikt worden."
 
-#: templates/account/language_change.html:18
-msgid "Change my language"
-msgstr "Verander mijn taal"
+#~ msgid "Change my language"
+#~ msgstr "Verander mijn taal"
 
-#: templates/account/login.html:7 templates/account/login.html.py:12
-#: templates/account/login.html:47
-msgid "Sign In"
-msgstr "Aanmelden"
+#~ msgid "Sign In"
+#~ msgstr "Aanmelden"
 
-#: templates/account/login.html:17
-#, python-format
-msgid ""
-"Please sign in with one\n"
-"of your existing third party accounts. Or, <a \n"
-"href=\"%(signup_url)s\">sign up</a> for a %(site_name)s account and sign in\n"
-"below:"
-msgstr ""
-"Meld je aan met een van je bestaande externe accounts. Of, <a \n"
-"href=\"%(signup_url)s\">registreer</a> voor een %(site_name)s account en "
-"meld je hiermee aan:"
+#~ msgid ""
+#~ "Please sign in with one\n"
+#~ "of your existing third party accounts. Or, <a \n"
+#~ "href=\"%(signup_url)s\">sign up</a> for a %(site_name)s account and sign "
+#~ "in\n"
+#~ "below:"
+#~ msgstr ""
+#~ "Meld je aan met een van je bestaande externe accounts. Of, <a \n"
+#~ "href=\"%(signup_url)s\">registreer</a> voor een %(site_name)s account en "
+#~ "meld je hiermee aan:"
 
-#: templates/account/login.html:28
-msgid "or"
-msgstr "of"
+#~ msgid "or"
+#~ msgstr "of"
 
-#: templates/account/login.html:45
-msgid "Forgot Password?"
-msgstr "Wachtwoord vergeten?"
+#~ msgid "Forgot Password?"
+#~ msgstr "Wachtwoord vergeten?"
 
-#: templates/account/logout.html:5 templates/account/logout.html.py:8
-msgid "Signed Out"
-msgstr "Afgemeld"
+#~ msgid "Signed Out"
+#~ msgstr "Afgemeld"
 
-#: templates/account/password_change.html:5
-#: templates/account/password_change.html:8
-#: templates/account/password_change.html:15
-#: templates/account/password_reset_from_key.html:5
-#: templates/account/password_reset_from_key.html:8
-msgid "Change Password"
-msgstr "Wachtwoord wijzigen"
+#~ msgid "Change Password"
+#~ msgstr "Wachtwoord wijzigen"
 
-#: templates/account/password_delete.html:5
-#: templates/account/password_delete.html:8
-msgid "Delete Password"
-msgstr "Wis wachtwoord"
+#~ msgid "Delete Password"
+#~ msgstr "Wis wachtwoord"
 
-#: templates/account/password_delete.html:9
-msgid ""
-"You may delete your password since you are currently logged in using OpenID."
-msgstr "Je kunt je wachtwoord wissen omdat je via OpenID bent ingelogd."
+#~ msgid ""
+#~ "You may delete your password since you are currently logged in using "
+#~ "OpenID."
+#~ msgstr "Je kunt je wachtwoord wissen omdat je via OpenID bent ingelogd."
 
-#: templates/account/password_delete.html:12
-msgid "delete my password"
-msgstr "Wis mijn wachtwoord"
+#~ msgid "delete my password"
+#~ msgstr "Wis mijn wachtwoord"
 
-#: templates/account/password_delete_done.html:5
-#: templates/account/password_delete_done.html:8
-msgid "Password Deleted"
-msgstr "Wachtwoord gewist"
+#~ msgid "Password Deleted"
+#~ msgstr "Wachtwoord gewist"
 
-#: templates/account/password_delete_done.html:9
-msgid "Your password has been deleted."
-msgstr "Je wachtwoord is gewist."
+#~ msgid "Your password has been deleted."
+#~ msgstr "Je wachtwoord is gewist."
 
-#: templates/account/password_reset.html:7
-#: templates/account/password_reset.html:11
-#: templates/account/password_reset_done.html:6
-#: templates/account/password_reset_done.html:9
-msgid "Password Reset"
-msgstr "Nieuw wachtwoord"
+#~ msgid "Password Reset"
+#~ msgstr "Nieuw wachtwoord"
 
-#: templates/account/password_reset.html:16
-msgid ""
-"Forgotten your password? Enter your e-mail address below, and we'll send you "
-"an e-mail allowing you to reset it."
-msgstr ""
-"Wachtwoord vergeten? Vul je e-mail adres in en we sturen je een e-mail "
-"waarmee je een nieuw wachtwoord kunt instellen."
+#~ msgid ""
+#~ "Forgotten your password? Enter your e-mail address below, and we'll send "
+#~ "you an e-mail allowing you to reset it."
+#~ msgstr ""
+#~ "Wachtwoord vergeten? Vul je e-mail adres in en we sturen je een e-mail "
+#~ "waarmee je een nieuw wachtwoord kunt instellen."
 
-#: templates/account/password_reset.html:23
-msgid "Reset My Password"
-msgstr "Herstel mijn wachtwoord"
+#~ msgid "Reset My Password"
+#~ msgstr "Herstel mijn wachtwoord"
 
-#: templates/account/password_reset.html:28
-#, python-format
-msgid ""
-"If you have any trouble resetting your password, contact us at <a href="
-"\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
-msgstr ""
-"Als je problemen hebt je wachtwoord opnieuw in te stellen, neem dan contact "
-"op met <a href=\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
+#~ msgid ""
+#~ "If you have any trouble resetting your password, contact us at <a href="
+#~ "\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
+#~ msgstr ""
+#~ "Als je problemen hebt je wachtwoord opnieuw in te stellen, neem dan "
+#~ "contact op met <a href=\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
 
-#: templates/account/password_reset_done.html:15
-#, python-format
-msgid ""
-"We have sent you an e-mail. If you do not receive it within a few minutes, "
-"contact us at <a href=\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
-msgstr ""
-"We hebben je een e-mail verstuurd. Als je deze niet binnen enkele minuten "
-"ontvangen hebt, neem dan contact op met <a href=\"mailto:%(CONTACT_EMAIL)s\">"
-"%(CONTACT_EMAIL)s</a>."
+#~ msgid ""
+#~ "We have sent you an e-mail. If you do not receive it within a few "
+#~ "minutes, contact us at <a href=\"mailto:%(CONTACT_EMAIL)s\">%"
+#~ "(CONTACT_EMAIL)s</a>."
+#~ msgstr ""
+#~ "We hebben je een e-mail verstuurd. Als je deze niet binnen enkele minuten "
+#~ "ontvangen hebt, neem dan contact op met <a href=\"mailto:%(CONTACT_EMAIL)s"
+#~ "\">%(CONTACT_EMAIL)s</a>."
 
-#: templates/account/password_reset_from_key.html:8
-msgid "Bad Token"
-msgstr "Ongeldige sleutel"
+#~ msgid "Bad Token"
+#~ msgstr "Ongeldige sleutel"
 
-#: templates/account/password_reset_from_key.html:12
-#, python-format
-msgid ""
-"The password reset link was invalid, possibly because it has already been "
-"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
-"a>."
-msgstr ""
-"De link om je wachtwoord opnieuw in te stellen is niet geldig. Mogelijk is "
-"deze al een keer gebruikt. <a href=\"%(passwd_reset_url)s\">Herstel je "
-"wachtwoord</a> opnieuw."
+#~ msgid ""
+#~ "The password reset link was invalid, possibly because it has already been "
+#~ "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password "
+#~ "reset</a>."
+#~ msgstr ""
+#~ "De link om je wachtwoord opnieuw in te stellen is niet geldig. Mogelijk "
+#~ "is deze al een keer gebruikt. <a href=\"%(passwd_reset_url)s\">Herstel je "
+#~ "wachtwoord</a> opnieuw."
 
-#: templates/account/password_reset_from_key.html:20
-msgid "change password"
-msgstr "Wachtwoord wijzigen"
+#~ msgid "change password"
+#~ msgstr "Wachtwoord wijzigen"
 
-#: templates/account/password_reset_from_key.html:25
-msgid "Your password is now changed."
-msgstr "Je wachtwoord is gewijzigd."
+#~ msgid "Your password is now changed."
+#~ msgstr "Je wachtwoord is gewijzigd."
 
-#: templates/account/password_reset_key_message.txt:1
-#, python-format
-msgid ""
-"You're receiving this e-mail because you or someone else has requested a "
-"password for your user account at %(site_domain)s.\n"
-"It can be safely ignored if you did not request a password reset. Click the "
-"link below to reset your password.\n"
-"\n"
-"%(password_reset_url)s\n"
-"\n"
-"In case you forgot, your username is %(username)s.\n"
-"\n"
-"Thanks for using our site!\n"
-msgstr ""
-"Je ontvangt deze mail omdat er een verzoek is ingelegd om het wachtwoord behorende bij je %(site_domain)s account opnieuw in te stellen. Je kunt deze gerust mail negeren als je dit niet zelf gedaan hebt. Anders, klik op de volgende link om je wachtwoord opnieuw in te stellen.\n"
-"\n"
-"%(password_reset_url)s\n"
-"\n"
-"Deze link hoort bij je account met gebruikersnaam %(username)s.\n"
-"\n"
-"Bedankt voor het gebruik van onze site!\n"
+#~ msgid ""
+#~ "You're receiving this e-mail because you or someone else has requested a "
+#~ "password for your user account at %(site_domain)s.\n"
+#~ "It can be safely ignored if you did not request a password reset. Click "
+#~ "the link below to reset your password.\n"
+#~ "\n"
+#~ "%(password_reset_url)s\n"
+#~ "\n"
+#~ "In case you forgot, your username is %(username)s.\n"
+#~ "\n"
+#~ "Thanks for using our site!\n"
+#~ msgstr ""
+#~ "Je ontvangt deze mail omdat er een verzoek is ingelegd om het wachtwoord "
+#~ "behorende bij je %(site_domain)s account opnieuw in te stellen. Je kunt "
+#~ "deze gerust mail negeren als je dit niet zelf gedaan hebt. Anders, klik "
+#~ "op de volgende link om je wachtwoord opnieuw in te stellen.\n"
+#~ "\n"
+#~ "%(password_reset_url)s\n"
+#~ "\n"
+#~ "Deze link hoort bij je account met gebruikersnaam %(username)s.\n"
+#~ "\n"
+#~ "Bedankt voor het gebruik van onze site!\n"
 
-#: templates/account/password_set.html:6 templates/account/password_set.html:9
-#: templates/account/password_set.html:16
-msgid "Set Password"
-msgstr "Zet wachtwoord"
+#~ msgid "Set Password"
+#~ msgstr "Zet wachtwoord"
 
-#: templates/account/signup.html:6 templates/socialaccount/signup.html:6
-msgid "Signup"
-msgstr "Registreren"
+#~ msgid "Signup"
+#~ msgstr "Registreren"
 
-#: templates/account/signup.html:9 templates/account/signup.html.py:24
-#: templates/socialaccount/signup.html:9
-#: templates/socialaccount/signup.html:22
-msgid "Sign Up"
-msgstr "Registreren"
+#~ msgid "Sign Up"
+#~ msgstr "Registreren"
 
-#: templates/account/signup.html:14
-msgid "Already have an account?"
-msgstr "Heb je al een account?"
+#~ msgid "Already have an account?"
+#~ msgstr "Heb je al een account?"
 
-#: templates/account/signup.html:14
-msgid "Sign in"
-msgstr "Aanmelden"
+#~ msgid "Sign in"
+#~ msgstr "Aanmelden"
 
-#: templates/account/timezone_change.html:6
-#: templates/account/timezone_change.html:9
-msgid "Timezone"
-msgstr "Tijdzone"
+#~ msgid "Timezone"
+#~ msgstr "Tijdzone"
 
-#: templates/account/timezone_change.html:11
-msgid ""
-"Pinax can localize all times into your preferred timezone. Change your "
-"timezone below."
-msgstr ""
+#~ msgid "Verify Your E-mail Address"
+#~ msgstr "Verifieer je e-mail adres"
 
-#: templates/account/timezone_change.html:18
-msgid "Change my timezone"
-msgstr ""
+#~ msgid ""
+#~ "We have sent you an e-mail to <b>%(email)s</b> for verification. Follow "
+#~ "the link provided to finalize the signup process. If you do not receive "
+#~ "it within a few minutes, contact us at <a href=\"mailto:%(CONTACT_EMAIL)s"
+#~ "\">%(CONTACT_EMAIL)s</a>."
+#~ msgstr ""
+#~ "We hebben een e-mail verstuurd aan <b>%(email)s</b> ter verificatie. Volg "
+#~ "de link in deze mail om je registratie af te sluiten. Als je de e-mail "
+#~ "niet binnen enkele minuten ontvangt, neem dan contact op met <a href="
+#~ "\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
 
-#: templates/account/verification_sent.html:5
-#: templates/account/verification_sent.html:8
-msgid "Verify Your E-mail Address"
-msgstr "Verifieer je e-mail adres"
+#~ msgid "Note"
+#~ msgstr "Notitie"
 
-#: templates/account/verification_sent.html:10
-#, python-format
-msgid ""
-"We have sent you an e-mail to <b>%(email)s</b> for verification. Follow the "
-"link provided to finalize the signup process. If you do not receive it "
-"within a few minutes, contact us at <a href=\"mailto:%(CONTACT_EMAIL)s\">"
-"%(CONTACT_EMAIL)s</a>."
-msgstr ""
-"We hebben een e-mail verstuurd aan <b>%(email)s</b> ter verificatie. Volg de "
-"link in deze mail om je registratie af te sluiten. Als je de e-mail niet "
-"binnen enkele minuten ontvangt, neem dan contact op met <a href=\"mailto:"
-"%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
+#~ msgid "you are already logged in as %(user_display)s."
+#~ msgstr "je bent al ingelogd als %(user_display)s."
 
-#: templates/account/snippets/already_logged_in.html:5
-msgid "Note"
-msgstr "Notitie"
+#~ msgid "E-mail Address Confirmation"
+#~ msgstr "E-mail adres bevestiging"
 
-#: templates/account/snippets/already_logged_in.html:5
-#, python-format
-msgid "you are already logged in as %(user_display)s."
-msgstr "je bent al ingelogd als %(user_display)s."
+#~ msgid ""
+#~ "You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an "
+#~ "e-mail address for user '%(user)s'."
+#~ msgstr ""
+#~ "Je hebt bevestigd dat <a href=\"mailto:%(email)s\">%(email)s</a> een e-"
+#~ "mail adres is voor gebruiker '%(user)s'."
 
-#: templates/emailconfirmation/confirm_email.html:5
-#: templates/emailconfirmation/confirm_email.html:8
-msgid "E-mail Address Confirmation"
-msgstr "E-mail adres bevestiging"
+#~ msgid "Invalid confirmation key."
+#~ msgstr "Ongeldige bevestigingssleutel."
 
-#: templates/emailconfirmation/confirm_email.html:11
-#, python-format
-msgid ""
-"You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
-"mail address for user '%(user)s'."
-msgstr ""
-"Je hebt bevestigd dat <a href=\"mailto:%(email)s\">%(email)s</a> een e-mail "
-"adres is voor gebruiker '%(user)s'."
+#~ msgid "OpenID Sign In"
+#~ msgstr "Aanmelden via OpenID"
 
-#: templates/emailconfirmation/confirm_email.html:13
-msgid "Invalid confirmation key."
-msgstr "Ongeldige bevestigingssleutel."
+#~ msgid "Account Inactive"
+#~ msgstr "Account inactief"
 
-#: templates/openid/login.html:10
-msgid "OpenID Sign In"
-msgstr "Aanmelden via OpenID"
+#~ msgid "This account is inactive."
+#~ msgstr "Dit account is niet actief"
 
-#: templates/socialaccount/account_inactive.html:5
-#: templates/socialaccount/account_inactive.html:8
-msgid "Account Inactive"
-msgstr "Account inactief"
+#~ msgid "Social Network Login Failure"
+#~ msgstr "Aanmelden Mislukt"
 
-#: templates/socialaccount/account_inactive.html:10
-msgid "This account is inactive."
-msgstr "Dit account is niet actief"
+#~ msgid ""
+#~ "An error occured while attempting to login via your social network "
+#~ "account."
+#~ msgstr ""
+#~ "Er is een fout opgetreden toen we je wilde inloggen via je externe "
+#~ "account."
 
-#: templates/socialaccount/authentication_error.html:5
-#: templates/socialaccount/authentication_error.html:8
-msgid "Social Network Login Failure"
-msgstr "Aanmelden Mislukt"
+#~ msgid "Account Connections"
+#~ msgstr "Account Connecties"
 
-#: templates/socialaccount/authentication_error.html:10
-msgid ""
-"An error occured while attempting to login via your social network account."
-msgstr ""
-"Er is een fout opgetreden toen we je wilde inloggen via je externe account."
+#~ msgid ""
+#~ "You can sign in to your account using any of the following third party "
+#~ "accounts:"
+#~ msgstr "Je kunt jezelf aanmelden met een van de volgende externe accounts:"
 
-#: templates/socialaccount/connections.html:5
-#: templates/socialaccount/connections.html:8
-msgid "Account Connections"
-msgstr "Account Connecties"
+#~ msgid "Add a 3rd Party Account"
+#~ msgstr "Voeg een extern account toe"
 
-#: templates/socialaccount/connections.html:11
-msgid ""
-"You can sign in to your account using any of the following third party "
-"accounts:"
-msgstr "Je kunt jezelf aanmelden met een van de volgende externe accounts:"
+#~ msgid "Login Cancelled"
+#~ msgstr "Aanmelden geannuleerd"
 
-#: templates/socialaccount/connections.html:46
-msgid "Add a 3rd Party Account"
-msgstr "Voeg een extern account toe"
+#~ msgid ""
+#~ "You decided to cancel logging in to our site using one of your exisiting "
+#~ "accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+#~ "\">sign in</a>."
+#~ msgstr ""
+#~ "Je hebt het aanmelden via een extern account geannuleerd. Als dit een "
+#~ "vergissing was, <a href=\"%(login_url)s\">meld je dan opnieuw aan</a>."
 
-#: templates/socialaccount/login_cancelled.html:5
-#: templates/socialaccount/login_cancelled.html:9
-msgid "Login Cancelled"
-msgstr "Aanmelden geannuleerd"
-
-#: templates/socialaccount/login_cancelled.html:13
-#, python-format
-msgid ""
-"You decided to cancel logging in to our site using one of your exisiting "
-"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
-"\">sign in</a>."
-msgstr ""
-"Je hebt het aanmelden via een extern account geannuleerd. Als dit een "
-"vergissing was, <a href=\"%(login_url)s\">meld je dan opnieuw aan</a>."
-
-#: templates/socialaccount/signup.html:11
-#, python-format
-msgid ""
-"You are about to use your %(provider_name)s account to login to \n"
-"%(site_name)s. As a final step, please complete the following form:"
-msgstr ""
-"Om bij %(site_name)s in te kunnen loggen via %(provider_name)s hebben we de "
-"volgende gegevens nodig:"
+#~ msgid ""
+#~ "You are about to use your %(provider_name)s account to login to \n"
+#~ "%(site_name)s. As a final step, please complete the following form:"
+#~ msgstr ""
+#~ "Om bij %(site_name)s in te kunnen loggen via %(provider_name)s hebben we "
+#~ "de volgende gegevens nodig:"
 
 #, fuzzy
 #~ msgid ""
@@ -622,8 +528,8 @@ msgstr ""
 
 #~ msgid ""
 #~ "By clicking \"Sign Up\", you are indicating that you have read and agree "
-#~ "to the <a href=\"%(terms_url)s\">Terms of Use</a> and <a href="
-#~ "\"%(privacy_url)s\">Privacy Policy</a>."
+#~ "to the <a href=\"%(terms_url)s\">Terms of Use</a> and <a href=\"%"
+#~ "(privacy_url)s\">Privacy Policy</a>."
 #~ msgstr ""
 #~ "Door te registreren geef je aan dat je de <a href=\"%(terms_url)s"
 #~ "\">gebruiksvoorwaarden</a> en de <a href=\"%(privacy_url)s\">privacy "

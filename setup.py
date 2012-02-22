@@ -3,7 +3,7 @@ from setuptools import setup,find_packages
 
 METADATA = dict(
     name='django-allauth',
-    version='0.3.0',
+    version='0.4.0',
     author='Raymond Penners',
     author_email='raymond.penners@intenct.nl',
     description='Integrated set of Django applications addressing authentication, registration, account management as well as 3rd party (social) account authentication.',
@@ -13,8 +13,7 @@ METADATA = dict(
     install_requires=['django', 
                       'oauth2', 
                       'python-openid',
-                      'django-email-confirmation',
-                      'django-uni-form'],
+                      'django-email-confirmation'],
     include_package_data=True,
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -26,9 +25,8 @@ METADATA = dict(
         'Programming Language :: Python',
         'Framework :: Django',
     ],
-    packages=find_packages(),
-    package_data={'allauth': ['templates/allauth/*.html', 
-                              'facebook/templates/facebook/*.html' ] }
+    packages=['allauth'],
+    package_data={'allauth': ['facebook/templates/facebook/*.html' ] }
 )
 
 if __name__ == '__main__':

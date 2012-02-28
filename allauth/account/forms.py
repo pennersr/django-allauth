@@ -91,12 +91,13 @@ class LoginForm(forms.Form):
             raise forms.ValidationError(error)
         return self.cleaned_data
     
-    def login(self, request):
-        perform_login(request, self.user)
+    def login(self, request, redirect_url=None):
+        ret = perform_login(request, self.user, redirect_url=redirect_url)
         if self.cleaned_data["remember"]:
             request.session.set_expiry(60 * 60 * 24 * 7 * 3)
         else:
             request.session.set_expiry(0)
+        return ret
 
 
 class BaseSignupForm(forms.Form):
@@ -154,8 +155,6 @@ class BaseSignupForm(forms.Form):
                     break
         user.email = self.cleaned_data["email"].strip().lower()
         user.set_unusable_password()
-        if EMAIL_VERIFICATION:
-            user.is_active = False
         if commit:
             user.save()
         return user

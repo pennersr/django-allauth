@@ -44,8 +44,7 @@ def login(request, **kwargs):
     if request.method == "POST" and not url_required:
         form = form_class(request.POST)
         if form.is_valid():
-            form.login(request)
-            return HttpResponseRedirect(success_url)
+            return form.login(request, redirect_url=success_url)
     else:
         form = form_class()
     

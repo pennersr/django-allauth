@@ -60,7 +60,6 @@ def _process_signup(request, data, account):
                  last_name = data.get('last_name', '')[0:User._meta.get_field('last_name').max_length],
                  first_name = data.get('first_name', '')[0:User._meta.get_field('first_name').max_length])
         u.set_unusable_password()
-        u.is_active = not account_settings.EMAIL_VERIFICATION
         u.save()
         account.user = u
         account.sync(data)
@@ -72,14 +71,14 @@ def _process_signup(request, data, account):
 
 def _login_social_account(request, account):
     user = account.user
-    perform_login(request, user)
     if not user.is_active:
         ret = render_to_response(
             'socialaccount/account_inactive.html',
             {},
             context_instance=RequestContext(request))
     else:
-        ret = HttpResponseRedirect(get_login_redirect_url(request))
+        ret = perform_login(request, user, 
+                            redirect_url=get_login_redirect_url(request))
     return ret
 
 

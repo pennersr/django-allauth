@@ -1,3 +1,13 @@
+2012-02-28  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* account: `is_active` is no longer used to keep users with an
+	unverified e-mail address from loging in.
+
+2012-02-22  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Dropping uniform dependency. Moved uniform templates into
+	example project.
+
 2012-01-19  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Version 0.3.0 released.

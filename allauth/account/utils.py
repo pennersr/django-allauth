@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth import login
@@ -59,7 +59,17 @@ def user_display(user):
 #     return False
 
 
-def perform_login(request, user):
+def perform_login(request, user, redirect_url=None):
+    # not is_active: social users are redirected to a template
+    # local users are stopped due to form validation checking is_active
+    assert user.is_active
+    if (app_settings.EMAIL_VERIFICATION
+        and not EmailAddress.objects.filter(user=user,
+                                            verified=True).exists()):
+        # TODO: Resend another verification mail
+        return render(request, 
+                      "account/verification_sent.html",
+                      { "email": user.email })
     # HACK: This may not be nice. The proper Django way is to use an
     # authentication backend, but I fail to see any added benefit
     # whereas I do see the downsides (having to bother the integrator
@@ -70,19 +80,14 @@ def perform_login(request, user):
     login(request, user)
     messages.add_message(request, messages.SUCCESS,
                          ugettext("Successfully signed in as %(user)s.") % { "user": user_display(user) } )
+            
+    if not redirect_url:
+        redirect_url = get_default_redirect(request)
+    return HttpResponseRedirect(redirect_url)
 
 
 def complete_signup(request, user, success_url):
-    if app_settings.EMAIL_VERIFICATION:
-        ctx = {
-            "email": user.email,
-            "success_url": success_url,
-        }
-        ctx = RequestContext(request, ctx)
-        return render_to_response("account/verification_sent.html", ctx)
-    else:
-        perform_login(request, user)
-        return HttpResponseRedirect(success_url)
+    return perform_login(request, user, redirect_url=success_url)
 
 
 def send_email_confirmation(user, request=None):

@@ -1,3 +1,8 @@
+2012-03-14  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* account: Added support for a plugging in a custom signup form
+	used for additional questions to ask during signup.
+
 2012-02-28  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* account: `is_active` is no longer used to keep users with an

@@ -11,6 +11,7 @@ class SignupForm(BaseSignupForm):
     def save(self, request=None):
         new_user = self.create_user()
         send_email_confirmation(new_user, request=request)
+        super(SignupForm, self).save(new_user)
         return new_user
 
 

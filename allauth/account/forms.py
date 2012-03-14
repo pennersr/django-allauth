@@ -6,12 +6,14 @@ from django import forms
 from django.conf import settings
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
+from django.core import exceptions
 from django.db.models import Q
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.utils.encoding import smart_unicode
 from django.utils.hashcompat import sha_constructor
 from django.utils.http import int_to_base36
+from django.utils.importlib import import_module
 
 from django.contrib import messages
 from django.contrib.auth import authenticate
@@ -100,7 +102,32 @@ class LoginForm(forms.Form):
         return ret
 
 
-class BaseSignupForm(forms.Form):
+
+class _DummyCustomSignupForm(forms.Form):
+    def save(self, user):
+        pass
+
+def _base_signup_form_class():
+    if not SIGNUP_FORM_CLASS:
+        return _DummyCustomSignupForm()
+    try:
+        fc_module, fc_classname = SIGNUP_FORM_CLASS.rsplit('.', 1)
+    except ValueError:
+        raise exceptions.ImproperlyConfigured('%s does not point to a form class' % SIGNUP_FORM_CLASS)
+    try:
+        mod = import_module(fc_module)
+    except ImportError, e:
+        raise exceptions.ImproperlyConfigured('Error importing form class %s: "%s"' % (fc_module, e))
+    try:
+        fc_class = getattr(mod, fc_classname)
+    except AttributeError:
+        raise exceptions.ImproperlyConfigured('Module "%s" does not define a "%s" class' % (fc_module, fc_classname))
+    if not hasattr(fc_class, 'save'):
+        raise exceptions.ImproperlyConfigured('The custom signup form must implement a "save" method')
+    return fc_class
+
+                                             
+class BaseSignupForm(_base_signup_form_class()):
     username = forms.CharField(
         label = _("Username"),
         max_length = 30,
@@ -178,14 +205,17 @@ class SignupForm(BaseSignupForm):
     
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)
-        self.fields.keyOrder = ["username", 
-                                "password1", 
-                                "password2",
-                                "email"]
+        current_order =self.fields.keyOrder
+        preferred_order = self.fields.keyOrder = ["username", 
+                                                  "password1", 
+                                                  "password2",
+                                                  "email"]
         if not USERNAME_REQUIRED:
-            self.fields.keyOrder = ["email",
-                                    "password1", 
-                                    "password2"]
+            preferred_order = self.fields.keyOrder = ["email",
+                                                      "password1", 
+                                                      "password2"]
+        # Make sure custom fields are put below main signup fields
+        self.fields.keyOrder = preferred_order + [ f for f in current_order if not f in preferred_order ]
         if not SIGNUP_PASSWORD_VERIFICATION:
             del self.fields["password2"]
     
@@ -248,7 +278,8 @@ class SignupForm(BaseSignupForm):
         else:
             new_user = self.create_user()
             send_email_confirmation(new_user, request=request)
-        
+
+        super(SignupForm, self).save(new_user)
         self.after_signup(new_user)
         
         return new_user

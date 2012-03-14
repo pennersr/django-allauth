@@ -16,6 +16,9 @@ UNIQUE_EMAIL = getattr(settings, "ACCOUNT_UNIQUE_EMAIL", True)
 # Signup password verification
 SIGNUP_PASSWORD_VERIFICATION = getattr(settings, "ACCOUNT_SIGNUP_PASSWORD_VERIFICATION", True)
 
+# Signup form
+SIGNUP_FORM_CLASS = getattr(settings, "ACCOUNT_SIGNUP_FORM_CLASS", None)
+
 # The user is required to enter a username when signing up
 USERNAME_REQUIRED = getattr(settings, "ACCOUNT_USERNAME_REQUIRED", True)
 

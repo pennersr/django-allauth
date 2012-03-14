@@ -30,6 +30,8 @@ Features
 
 - The FB access token is stored so that you can publish wall updates etc.
 
+- Pluggable signup form for for asking additional questions during signup.
+
 
 Installation
 ============
@@ -83,6 +85,13 @@ ACCOUNT_EMAIL_VERIFICATION (=False)
 
 ACCOUNT_EMAIL_AUTHENTICATION (=False)
   Login by e-mail address, not username
+
+ACCOUNT_SIGNUP_FORM_CLASS (=None)
+  A string pointing to a custom form class
+  (e.g. 'myapp.forms.SignupForm') that is used during signup to ask
+  the user for additional input (e.g. newsletter signup, birth
+  date). This class should implement a 'save' method, accepting the
+  newly signed up user as its only parameter.
 
 ACCOUNT_SIGNUP_PASSWORD_VERIFICATION (=True)
   When signing up, let the user type in his password twice to avoid typ-o's.

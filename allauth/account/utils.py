@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.template import RequestContext
 from django.shortcuts import render_to_response, render
+from django.contrib.sites.models import Site
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth import login
@@ -97,3 +98,10 @@ def send_email_confirmation(user, request=None):
             messages.info(request,
                 _(u"Confirmation e-mail sent to %(email)s") % {"email": email}
             )
+
+def format_email_subject(subject):
+    prefix = app_settings.EMAIL_SUBJECT_PREFIX
+    if prefix is None:
+        site = Site.objects.get_current()
+        prefix = "[{name}] ".format(name=site.name)
+    return prefix + unicode(subject)

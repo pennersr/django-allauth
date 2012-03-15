@@ -1,3 +1,7 @@
+2012-03-15  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* account: Added support for prefixing the subject of sent emails.
+
 2012-03-14  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* account: Added support for a plugging in a custom signup form

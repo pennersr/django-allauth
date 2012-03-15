@@ -24,7 +24,7 @@ from django.contrib.sites.models import Site
 from emailconfirmation.models import EmailAddress
 
 # from models import PasswordReset
-from utils import user_display, perform_login, send_email_confirmation
+from utils import user_display, perform_login, send_email_confirmation, format_email_subject
 from allauth.utils import email_address_exists
         
 from app_settings import *
@@ -420,7 +420,7 @@ class ResetPasswordForm(forms.Form):
             domain = unicode(current_site.domain)
             
             # send the password reset email
-            subject = _("Password Reset E-mail")
+            subject = format_email_subject(_("Password Reset E-mail"))
             path = reverse("account_reset_password_from_key",
                            kwargs=dict(uidb36=int_to_base36(user.id),
                                        key=temp_key))

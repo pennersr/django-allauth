@@ -1,5 +1,10 @@
 2012-03-15  Raymond Penners  <raymond.penners@intenct.nl>
 
+	* account: The render_value parameter of all PasswordInput fields
+	used can now be configured via a setting.
+
+2012-03-15  Raymond Penners  <raymond.penners@intenct.nl>
+
 	* account: Added support for prefixing the subject of sent emails.
 
 2012-03-14  Raymond Penners  <raymond.penners@intenct.nl>

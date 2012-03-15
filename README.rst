@@ -77,14 +77,14 @@ Configuration
 Available settings:
 
 ACCOUNT_EMAIL_REQUIRED (=False)
-  The user is required to hand over an e-mail address when signing up
+  The user is required to hand over an e-mail address when signing up.
 
 ACCOUNT_EMAIL_VERIFICATION (=False)
   After signing up, keep the user account inactive until the e-mail
-  address is verified
+  address is verified.
 
 ACCOUNT_EMAIL_AUTHENTICATION (=False)
-  Login by e-mail address, not username
+  Login by e-mail address, not username.
 
 ACCOUNT_SIGNUP_FORM_CLASS (=None)
   A string pointing to a custom form class
@@ -97,15 +97,18 @@ ACCOUNT_SIGNUP_PASSWORD_VERIFICATION (=True)
   When signing up, let the user type in his password twice to avoid typ-o's.
 
 ACCOUNT_UNIQUE_EMAIL (=True)
-  Enforce uniqueness of e-mail addresses
+  Enforce uniqueness of e-mail addresses.
 
 ACCOUNT_USERNAME_REQUIRED (=True)
   If false, generates a random username rather than prompting for one
-  at signup
+  at signup.
+
+ACCOUNT_PASSWORD_INPUT_RENDER_VALUE (=False)
+  `render_value` parameter as passed to `PasswordInput` fields.
 
 SOCIALACCOUNT_QUERY_EMAIL (=ACCOUNT_EMAIL_REQUIRED)
   Request e-mail address from 3rd party account provider? E.g. using
-  OpenID AX, or the Facebook "email" permission
+  OpenID AX, or the Facebook "email" permission.
 
 SOCIALACCOUNT_AUTO_SIGNUP (=True) 
   Attempt to bypass the signup form by using fields (e.g. username,

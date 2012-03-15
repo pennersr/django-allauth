@@ -191,11 +191,11 @@ class SignupForm(BaseSignupForm):
     
     password1 = forms.CharField(
         label = _("Password"),
-        widget = forms.PasswordInput(render_value=False)
+        widget = forms.PasswordInput(render_value=PASSWORD_INPUT_RENDER_VALUE)
     )
     password2 = forms.CharField(
 	label = _("Password (again)"),
-	widget = forms.PasswordInput(render_value=False)
+	widget = forms.PasswordInput(render_value=PASSWORD_INPUT_RENDER_VALUE)
     )
     confirmation_key = forms.CharField(
         max_length = 40,

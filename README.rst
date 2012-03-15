@@ -86,6 +86,10 @@ ACCOUNT_EMAIL_VERIFICATION (=False)
 ACCOUNT_EMAIL_AUTHENTICATION (=False)
   Login by e-mail address, not username.
 
+ACCOUNT_EMAIL_SUBJECT_PREFIX (="[Site] ")
+  Subject-line prefix to use for email messages sent. By default, the
+  name of the current `Site` (`django.contrib.sites`) is used.
+
 ACCOUNT_SIGNUP_FORM_CLASS (=None)
   A string pointing to a custom form class
   (e.g. 'myapp.forms.SignupForm') that is used during signup to ask

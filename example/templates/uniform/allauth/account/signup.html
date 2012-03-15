@@ -11,7 +11,7 @@
     {% if user.is_authenticated %}
 {% include "account/snippets/already_logged_in.html" %}
     {% else %}
-        <p>{% trans "Already have an account?" %} <a href="{{ login_url }}">{% trans "Sign in" %}</a>.</p>
+    <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
         
         <form class="signup uniForm" id="signup_form" method="post" action="{% url account_signup %}">
             {% csrf_token %}

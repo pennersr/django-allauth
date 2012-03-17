@@ -49,17 +49,19 @@ class LoginForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
         ordering = []
-        if EMAIL_AUTHENTICATION:
-            self.fields["email"] = forms.EmailField(
-                label = ugettext("E-mail"),
-            )
-            ordering.append("email")
-        else:
-            self.fields["username"] = forms.CharField(
-                label = ugettext("Username"),
-                max_length = 30,
-            )
-            ordering.append("username")
+
+        # instead of using a separate field in case EMAIL_AUTHENTICATION
+        # is used or not, use a single field that can contain email 
+        # address deppending on the value of EMAIL_AUTHENTICATION
+
+        self.fields["login_field"] = forms.CharField(
+            label = ugettext("Username"),
+            max_length = 64,
+            error_messages={'required': 'You need to give your username/email to login'}
+        )
+
+        ordering.append("login_field")
+ 
         ordering.extend(["password", "remember"])
         self.fields.keyOrder = ordering
     
@@ -69,10 +71,21 @@ class LoginForm(forms.Form):
         login.
         """
         credentials = {}
+
+        # Login field will either contain email or username
+        # depening on the value of EMAIL_AUTHENTICATION
+        login_field = self.cleaned_data["login_field"]
+
         if EMAIL_AUTHENTICATION:
-            credentials["email"] = self.cleaned_data["email"]
+
+            if "@" in login_field and "." in login_field:
+                credentials["email"] = login_field
+            else:
+                credentials["username"] = login_field
+
         else:
-            credentials["username"] = self.cleaned_data["username"]
+            credentials["username"] = login_field
+
         credentials["password"] = self.cleaned_data["password"]
         return credentials
     
@@ -87,7 +100,7 @@ class LoginForm(forms.Form):
                 raise forms.ValidationError(_("This account is currently inactive."))
         else:
             if EMAIL_AUTHENTICATION:
-                error = _("The e-mail address and/or password you specified are not correct.")
+                error = _("The e-mail address/username and/or password you specified are not correct.")
             else:
                 error = _("The username and/or password you specified are not correct.")
             raise forms.ValidationError(error)

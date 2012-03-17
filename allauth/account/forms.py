@@ -54,11 +54,19 @@ class LoginForm(forms.Form):
         # is used or not, use a single field that can contain email 
         # address deppending on the value of EMAIL_AUTHENTICATION
 
-        self.fields["login_field"] = forms.CharField(
-            label = ugettext("Username"),
-            max_length = 64,
-            error_messages={'required': 'You need to give your username/email to login'}
-        )
+        if EMAIL_AUTHENTICATION:
+
+            self.fields["login_field"] = forms.CharField(
+                label = ugettext("Username/Email"),
+                max_length = 64,
+                error_messages={'required': 'You need to give your username/email to login'}
+            )
+        else:
+            self.fields["login_field"] = forms.CharField(
+                label = ugettext("Username"),
+                max_length = 64,
+                error_messages={'required': 'You need to give your username to login'}
+            )
 
         ordering.append("login_field")
  

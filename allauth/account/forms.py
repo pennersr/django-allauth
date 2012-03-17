@@ -109,7 +109,7 @@ class _DummyCustomSignupForm(forms.Form):
 
 def _base_signup_form_class():
     if not SIGNUP_FORM_CLASS:
-        return _DummyCustomSignupForm()
+        return _DummyCustomSignupForm
     try:
         fc_module, fc_classname = SIGNUP_FORM_CLASS.rsplit('.', 1)
     except ValueError:

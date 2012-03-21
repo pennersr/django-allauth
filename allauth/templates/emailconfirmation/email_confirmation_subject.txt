@@ -1,0 +1,5 @@
+{% load i18n %}[{{current_site}}] {% blocktrans %}Confirm E-mail Address{% endblocktrans %}{% comment %}
+Local Variables:
+require-final-newline: nil;
+End: 
+{% endcomment %}

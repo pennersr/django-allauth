@@ -94,8 +94,6 @@ def find_package_data(where=".", package="", exclude=standard_exclude,
 excluded_directories = standard_exclude_directories + ["./requirements", "./scripts"]
 package_data = find_package_data(exclude_directories=excluded_directories)
 
-print package_data
-
 METADATA = dict(
     name='django-allauth',
     version='0.4.0',
@@ -121,7 +119,7 @@ METADATA = dict(
         'Framework :: Django',
     ],
     packages=find_packages(),
-    package_data={'allauth': ['facebook/templates/facebook/*.html' ] }
+    package_data=package_data
 )
 
 if __name__ == '__main__':

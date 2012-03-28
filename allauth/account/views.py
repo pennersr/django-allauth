@@ -1,18 +1,12 @@
-from django.conf import settings
-from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
-from django.db import models
-from django.db.models import Q
 from django.contrib.sites.models import Site
-from django.http import HttpResponseRedirect, HttpResponseForbidden, Http404
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.utils.http import base36_to_int
-from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.translation import ugettext
 
 from django.contrib import messages
-from django.contrib.auth import authenticate
-from django.contrib.auth import login as auth_login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
@@ -20,12 +14,11 @@ from emailconfirmation.models import EmailAddress, EmailConfirmation
 
 from allauth.utils import passthrough_login_redirect_url
 
-from utils import get_default_redirect, user_display, complete_signup 
+from utils import get_default_redirect, complete_signup 
 from forms import AddEmailForm, ChangePasswordForm
 from forms import LoginForm, ResetPasswordKeyForm
 from forms import ResetPasswordForm, SetPasswordForm, SignupForm
-
-import app_settings
+from utils import sync_user_email_addresses
 
 def login(request, **kwargs):
     
@@ -90,7 +83,7 @@ def signup(request, **kwargs):
 def email(request, **kwargs):
     form_class = kwargs.pop("form_class", AddEmailForm)
     template_name = kwargs.pop("template_name", "account/email.html")
-    
+    sync_user_email_addresses(request.user)
     if request.method == "POST" and request.user.is_authenticated():
         if request.POST.has_key("action_add"):
             add_email_form = form_class(request.user, request.POST)
@@ -204,7 +197,7 @@ def password_reset(request, **kwargs):
     if request.method == "POST":
         password_reset_form = form_class(request.POST)
         if password_reset_form.is_valid():
-            email = password_reset_form.save()
+            password_reset_form.save()
             return HttpResponseRedirect(reverse(password_reset_done))
     else:
         password_reset_form = form_class()

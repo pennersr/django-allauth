@@ -104,3 +104,20 @@ def format_email_subject(subject):
         site = Site.objects.get_current()
         prefix = "[{name}] ".format(name=site.name)
     return prefix + unicode(subject)
+
+
+def sync_user_email_addresses(user):
+    """
+    Keep user.email in sync with user.emailadress_set. 
+
+    Under some circumstances the user.email may not have ended up as
+    an EmailAddress record, e.g. in the case of manually created admin
+    users.
+    """
+    if user.email and not EmailAddress.objects.filter(user=user,
+                                                      email=user.email).exists():
+        EmailAddress.objects.create(user=user,
+                                    email=user.email,
+                                    primary=False,
+                                    verified=False)
+    

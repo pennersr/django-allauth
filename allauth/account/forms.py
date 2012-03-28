@@ -10,8 +10,6 @@ from django.core import exceptions
 from django.db.models import Q
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _, ugettext
-from django.utils.encoding import smart_unicode
-from django.utils.hashcompat import sha_constructor
 from django.utils.http import int_to_base36
 from django.utils.importlib import import_module
 
@@ -24,10 +22,10 @@ from django.contrib.sites.models import Site
 from emailconfirmation.models import EmailAddress
 
 # from models import PasswordReset
-from utils import user_display, perform_login, send_email_confirmation, format_email_subject
+from utils import perform_login, send_email_confirmation, format_email_subject
 from allauth.utils import email_address_exists
         
-from app_settings import *
+import app_settings
 
 alnum_re = re.compile(r"^\w+$")
 
@@ -49,7 +47,7 @@ class LoginForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
         ordering = []
-        if EMAIL_AUTHENTICATION:
+        if app_settings.EMAIL_AUTHENTICATION:
             self.fields["email"] = forms.EmailField(
                 label = ugettext("E-mail"),
             )
@@ -69,7 +67,7 @@ class LoginForm(forms.Form):
         login.
         """
         credentials = {}
-        if EMAIL_AUTHENTICATION:
+        if app_settings.EMAIL_AUTHENTICATION:
             credentials["email"] = self.cleaned_data["email"]
         else:
             credentials["username"] = self.cleaned_data["username"]
@@ -86,7 +84,7 @@ class LoginForm(forms.Form):
             else:
                 raise forms.ValidationError(_("This account is currently inactive."))
         else:
-            if EMAIL_AUTHENTICATION:
+            if app_settings.EMAIL_AUTHENTICATION:
                 error = _("The e-mail address and/or password you specified are not correct.")
             else:
                 error = _("The username and/or password you specified are not correct.")
@@ -108,12 +106,12 @@ class _DummyCustomSignupForm(forms.Form):
         pass
 
 def _base_signup_form_class():
-    if not SIGNUP_FORM_CLASS:
+    if not app_settings.SIGNUP_FORM_CLASS:
         return _DummyCustomSignupForm
     try:
-        fc_module, fc_classname = SIGNUP_FORM_CLASS.rsplit('.', 1)
+        fc_module, fc_classname = app_settings.SIGNUP_FORM_CLASS.rsplit('.', 1)
     except ValueError:
-        raise exceptions.ImproperlyConfigured('%s does not point to a form class' % SIGNUP_FORM_CLASS)
+        raise exceptions.ImproperlyConfigured('%s does not point to a form class' % app_settings.SIGNUP_FORM_CLASS)
     try:
         mod = import_module(fc_module)
     except ImportError, e:
@@ -137,13 +135,13 @@ class BaseSignupForm(_base_signup_form_class()):
 
     def __init__(self, *args, **kwargs):
         super(BaseSignupForm, self).__init__(*args, **kwargs)
-        if EMAIL_REQUIRED or EMAIL_VERIFICATION or EMAIL_AUTHENTICATION:
+        if app_settings.EMAIL_REQUIRED or app_settings.EMAIL_VERIFICATION or app_settings.EMAIL_AUTHENTICATION:
             self.fields["email"].label = ugettext("E-mail")
             self.fields["email"].required = True
         else:
             self.fields["email"].label = ugettext("E-mail (optional)")
             self.fields["email"].required = False
-        if not USERNAME_REQUIRED:
+        if not app_settings.USERNAME_REQUIRED:
             del self.fields["username"]
 
     def random_username(self):
@@ -163,7 +161,7 @@ class BaseSignupForm(_base_signup_form_class()):
     
     def clean_email(self):
         value = self.cleaned_data["email"]
-        if UNIQUE_EMAIL or EMAIL_AUTHENTICATION:
+        if app_settings.UNIQUE_EMAIL or app_settings.EMAIL_AUTHENTICATION:
             if value and email_address_exists(value):
                 raise forms.ValidationError \
                     (_("A user is registered with this e-mail address."))
@@ -171,7 +169,7 @@ class BaseSignupForm(_base_signup_form_class()):
     
     def create_user(self, commit=True):
         user = User()
-        if USERNAME_REQUIRED:
+        if app_settings.USERNAME_REQUIRED:
             user.username = self.cleaned_data["username"]
         else:
             while True:
@@ -191,11 +189,11 @@ class SignupForm(BaseSignupForm):
     
     password1 = forms.CharField(
         label = _("Password"),
-        widget = forms.PasswordInput(render_value=PASSWORD_INPUT_RENDER_VALUE)
+        widget = forms.PasswordInput(render_value=app_settings.PASSWORD_INPUT_RENDER_VALUE)
     )
     password2 = forms.CharField(
 	label = _("Password (again)"),
-	widget = forms.PasswordInput(render_value=PASSWORD_INPUT_RENDER_VALUE)
+	widget = forms.PasswordInput(render_value=app_settings.PASSWORD_INPUT_RENDER_VALUE)
     )
     confirmation_key = forms.CharField(
         max_length = 40,
@@ -210,17 +208,17 @@ class SignupForm(BaseSignupForm):
                                                   "password1", 
                                                   "password2",
                                                   "email"]
-        if not USERNAME_REQUIRED:
+        if not app_settings.USERNAME_REQUIRED:
             preferred_order = self.fields.keyOrder = ["email",
                                                       "password1", 
                                                       "password2"]
         # Make sure custom fields are put below main signup fields
         self.fields.keyOrder = preferred_order + [ f for f in current_order if not f in preferred_order ]
-        if not SIGNUP_PASSWORD_VERIFICATION:
+        if not app_settings.SIGNUP_PASSWORD_VERIFICATION:
             del self.fields["password2"]
     
     def clean(self):
-        if SIGNUP_PASSWORD_VERIFICATION \
+        if app_settings.SIGNUP_PASSWORD_VERIFICATION \
                 and "password1" in self.cleaned_data \
                 and "password2" in self.cleaned_data:
             if self.cleaned_data["password1"] != self.cleaned_data["password2"]:
@@ -239,7 +237,6 @@ class SignupForm(BaseSignupForm):
     def save(self, request=None):
         # don't assume a username is available. it is a common removal if
         # site developer wants to use e-mail authentication.
-        username = self.cleaned_data.get("username")
         email = self.cleaned_data["email"]
         
         if self.cleaned_data.get("confirmation_key"):
@@ -298,16 +295,6 @@ class UserForm(forms.Form):
         super(UserForm, self).__init__(*args, **kwargs)
 
 
-class AccountForm(UserForm):
-    
-    def __init__(self, *args, **kwargs):
-        super(AccountForm, self).__init__(*args, **kwargs)
-        try:
-            self.account = Account.objects.get(user=self.user)
-        except Account.DoesNotExist:
-            self.account = Account(user=self.user)
-
-
 class AddEmailForm(UserForm):
     
     email = forms.EmailField(
@@ -325,7 +312,7 @@ class AddEmailForm(UserForm):
         emails = EmailAddress.objects.filter(email__iexact=value)
         if emails.filter(user=self.user).exists():
             raise forms.ValidationError(errors["this_account"])
-        if UNIQUE_EMAIL:
+        if app_settings.UNIQUE_EMAIL:
             if emails.exclude(user=self.user).exists():
                 raise forms.ValidationError(errors["different_account"])
         return value
@@ -417,8 +404,7 @@ class ResetPasswordForm(forms.Form):
             # password_reset.save()
             
             current_site = Site.objects.get_current()
-            domain = unicode(current_site.domain)
-            
+
             # send the password reset email
             subject = format_email_subject(_("Password Reset E-mail"))
             path = reverse("account_reset_password_from_key",

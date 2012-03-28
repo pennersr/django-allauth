@@ -7,13 +7,13 @@ from django.core import mail
 
 from emailconfirmation.models import EmailAddress
 
-import utils
 import app_settings
 
 class AccountTests(TestCase):
     def setUp(self):
         app_settings.EMAIL_VERIFICATION = True
         app_settings.EMAIL_AUTHENTICATION = False
+        app_settings.SIGNUP_FORM_CLASS = None
 
     def test_email_verification_mandatory(self):
         c = Client()
@@ -25,6 +25,7 @@ class AccountTests(TestCase):
                         'password2': 'johndoe' })
         self.assertEquals(resp.status_code, 200)
         self.assertEquals(mail.outbox[0].to, ['john@doe.com'])
+        self.assertEquals(len(mail.outbox), 1)
         self.assertTemplateUsed(resp,
                                 'account/verification_sent.html')
         # Attempt to login, unverified

@@ -1,6 +1,5 @@
 from django.contrib import messages
-from django.template import RequestContext
-from django.shortcuts import render_to_response, render
+from django.shortcuts import render
 from django.contrib.sites.models import Site
 from django.conf import settings
 from django.core.urlresolvers import reverse

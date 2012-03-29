@@ -1,3 +1,9 @@
+2012-03-29  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* account: E-mail confirmation mails are now automatically resent
+	whenever a user attempts to login with an unverified e-mail
+	address (if ACCOUNT_EMAIL_VERIFICATION=True).
+
 2012-03-15  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* account: The render_value parameter of all PasswordInput fields

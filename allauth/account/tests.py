@@ -1,3 +1,5 @@
+from datetime import timedelta, datetime
+
 from django.test import TestCase
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -5,7 +7,7 @@ from django.core.urlresolvers import reverse
 from django.test.client import Client
 from django.core import mail
 
-from emailconfirmation.models import EmailAddress
+from emailconfirmation.models import EmailAddress, EmailConfirmation
 
 import app_settings
 
@@ -29,16 +31,21 @@ class AccountTests(TestCase):
         self.assertTemplateUsed(resp,
                                 'account/verification_sent.html')
         # Attempt to login, unverified
-        resp = c.post(reverse('account_login'),
-                      { 'username': 'johndoe',
-                        'password': 'johndoe'})
-        # is_active is controlled by the admin to manually disable
-        # users. I don't want this flag to flip automatically whenever
-        # users verify their email adresses.
-        self.assertTrue(User.objects.filter(username='johndoe',
-                                            is_active=True).exists())
-        self.assertTemplateUsed(resp,
-                                'account/verification_sent.html')
+        for attempt in [1, 2]:
+            resp = c.post(reverse('account_login'),
+                          { 'username': 'johndoe',
+                            'password': 'johndoe'})
+            # is_active is controlled by the admin to manually disable
+            # users. I don't want this flag to flip automatically whenever
+            # users verify their email adresses.
+            self.assertTrue(User.objects.filter(username='johndoe',
+                                                is_active=True).exists())
+            self.assertTemplateUsed(resp,
+                                    'account/verification_sent.html')
+            self.assertEquals(len(mail.outbox), attempt)
+            # Wait for cooldown
+            EmailConfirmation.objects.update(sent=datetime.now() 
+                                             - timedelta(days=1))
         # Verify, and re-attempt to login.
         EmailAddress.objects.filter(user__username='johndoe') \
             .update(verified=True)

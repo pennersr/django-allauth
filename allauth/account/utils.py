@@ -1,3 +1,5 @@
+from datetime import timedelta, datetime
+
 from django.contrib import messages
 from django.shortcuts import render
 from django.contrib.sites.models import Site
@@ -7,7 +9,7 @@ from django.contrib.auth import login
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.http import HttpResponseRedirect
 
-from emailconfirmation.models import EmailAddress
+from emailconfirmation.models import EmailAddress, EmailConfirmation
 
 from signals import user_logged_in
 
@@ -66,7 +68,7 @@ def perform_login(request, user, redirect_url=None):
     if (app_settings.EMAIL_VERIFICATION
         and not EmailAddress.objects.filter(user=user,
                                             verified=True).exists()):
-        # TODO: Resend another verification mail
+        send_email_confirmation(user, request=request)
         return render(request, 
                       "account/verification_sent.html",
                       { "email": user.email })
@@ -91,9 +93,31 @@ def complete_signup(request, user, success_url):
 
 
 def send_email_confirmation(user, request=None):
+    """
+    E-mail verification mails are sent:
+    a) Explicitly: when a user signs up
+    b) Implicitly: when a user attempts to log in using an unverified
+    e-mail while EMAIL_VERIFICATION is mandatory.
+
+    Especially in case of b), we want to limit the number of mails
+    sent (consider a user retrying a few times), which is why there is
+    a cooldown period before sending a new mail.
+    """
+    COOLDOWN_PERIOD = timedelta(minutes=3)
     email = user.email
     if email:
-        if EmailAddress.objects.add_email(user, user.email) and request:
+        try:
+            email_address = EmailAddress.objects.get(user=user,
+                                                     email__iexact=email)
+            email_confirmation_sent = EmailConfirmation.objects \
+                .filter(sent__gt=datetime.now() - COOLDOWN_PERIOD,
+                        email_address=email_address) \
+                .exists()
+            if not email_confirmation_sent:
+                EmailConfirmation.objects.send_confirmation(email_address)
+        except EmailAddress.DoesNotExist:
+            EmailAddress.objects.add_email(user, user.email)
+        if request:
             messages.info(request,
                 _(u"Confirmation e-mail sent to %(email)s") % {"email": email}
             )

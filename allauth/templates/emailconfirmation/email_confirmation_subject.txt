@@ -1,4 +1,4 @@
-{% load i18n %}[{{current_site}}] {% blocktrans %}Confirm E-mail Address{% endblocktrans %}{% comment %}
+{% load i18n %}{% autoescape off %}[{{current_site.name}}] {% blocktrans %}Confirm E-mail Address{% endblocktrans %}{% endautoescape %}{% comment %}
 Local Variables:
 require-final-newline: nil;
 End: 

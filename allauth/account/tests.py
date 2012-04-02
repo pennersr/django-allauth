@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test.client import Client
 from django.core import mail
+from django.contrib.sites.models import Site
 
 from emailconfirmation.models import EmailAddress, EmailConfirmation
 
@@ -59,3 +60,15 @@ class AccountTests(TestCase):
 
             
         
+    def x_test_email_escaping(self):
+        """
+        Test is only valid if emailconfirmation is listed after
+        allauth in INSTALLED_APPS
+        """
+        site = Site.objects.get_current()
+        site.name = '<enc&"test>'
+        site.save()
+        u = User.objects.create(username='test',
+                                email='foo@bar.com')
+        EmailAddress.objects.add_email(u, u.email)
+

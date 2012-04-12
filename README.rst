@@ -30,7 +30,7 @@ Features
 
 - The FB access token is stored so that you can publish wall updates etc.
 
-- Pluggable signup form for for asking additional questions during signup.
+- Pluggable signup form for asking additional questions during signup.
 
 
 Installation

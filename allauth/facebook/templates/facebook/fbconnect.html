@@ -1,6 +1,6 @@
 <div id="fb-root"></div>
 <script>
-  window.FB_login = function() {}
+  window.FB_login = function() {};
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '{{facebook_app.application_id}}',
@@ -35,9 +35,6 @@
      js.src = "//connect.facebook.net/en_US/all.js";
      d.getElementsByTagName('head')[0].appendChild(js);
    }(document));
-</script>
-
-
 </script>
 
 <form id="_fb_login" method="post" action="{% url facebook_login %}">

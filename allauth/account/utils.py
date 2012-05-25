@@ -117,7 +117,8 @@ def send_email_confirmation(user, request=None):
                 EmailConfirmation.objects.send_confirmation(email_address)
         except EmailAddress.DoesNotExist:
             EmailAddress.objects.add_email(user, user.email)
-        if request:
+            email_confirmation_sent = False
+        if request and not email_confirmation_sent:
             messages.info(request,
                 _(u"Confirmation e-mail sent to %(email)s") % {"email": email}
             )

@@ -2,8 +2,6 @@ from django.utils.http import urlencode
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
-from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 
@@ -15,10 +13,10 @@ from openid.extensions.ax import FetchRequest, FetchResponse, AttrInfo
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.helpers import complete_social_login
+from allauth.socialaccount.models import SocialAccount
+from allauth.socialaccount.defs import Provider
 from allauth.utils import valid_email_or_none
 
-
-from models import OpenIDAccount
 from utils import DBOpenIDStore
 from forms import LoginForm
 
@@ -95,9 +93,11 @@ def callback(request):
         email = _get_email_from_response(response)
         identity = response.identity_url
         try:
-            account = OpenIDAccount.objects.get(identity=identity)
-        except OpenIDAccount.DoesNotExist:
-            account = OpenIDAccount(identity=identity)
+            account = SocialAccount.objects.get(uid=identity,
+                                                provider=Provider.OPENID.id)
+        except SocialAccount.DoesNotExist:
+            account = SocialAccount(uid=identity,
+                                    provider=Provider.OPENID.id)
         data = dict(email=email)
         ret = complete_social_login(request, data, account)
     elif response.status == consumer.CANCEL:

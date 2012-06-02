@@ -1,9 +1,11 @@
 from django import template
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse
 from django.template.defaulttags import token_kwargs
 
-from allauth.facebook.models import FacebookApp
+from allauth.socialaccount.defs import Provider
+from allauth.socialaccount.models import SocialApp
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 
 register = template.Library()
@@ -14,7 +16,11 @@ def fbconnect(context):
         perm_list.append('email')
     perms = ','.join(perm_list)
     request = context['request']
-    return {'facebook_app': FacebookApp.objects.get_current(),
+    try:
+        app = SocialApp.objects.get_current(Provider.FACEBOOK.id)
+    except SocialApp.DoesNotExist:
+        raise ImproperlyConfigured("No Facebook app configured")
+    return {'facebook_app': app,
             'facebook_channel_url': request.build_absolute_uri(reverse('facebook_channel')),
             'facebook_perms': perms}
 

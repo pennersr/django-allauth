@@ -12,30 +12,38 @@ from allauth.utils import get_login_redirect_url
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.oauth import OAuthClient, OAuthError
+from allauth.socialaccount.models import SocialApp, SocialAccount
+from allauth.socialaccount.defs import Provider
 
-from models import TwitterApp, TwitterAccount
 from utils import OAuthTwitter
 
+REQUEST_TOKEN_URL = 'https://api.twitter.com/oauth/request_token'
+ACCESS_TOKEN_URL = 'https://api.twitter.com/oauth/access_token'
+AUTHORIZE_URL = 'https://api.twitter.com/oauth/authorize'
+
+
 def login_done(request):
-    app = TwitterApp.objects.get_current()
+    app = SocialApp.objects.get_current(Provider.TWITTER.id)
     client = OAuthTwitter(
-        request, app.consumer_key,
-        app.consumer_secret,
-        app.request_token_url)
+        request, app.key,
+        app.secret,
+        REQUEST_TOKEN_URL)
     try:
         user_info = client.get_user_info()
-    except OAuthError, e:
+    except OAuthError:
         return render_authentication_error(request)
     try:
-        account = TwitterAccount.objects.get(social_id=user_info['id'])
-    except TwitterAccount.DoesNotExist:
-        account = TwitterAccount(social_id=user_info['id']) 
-    account.profile_image_url = user_info['profile_image_url']
-    account.username = user_info['screen_name']
+        account = SocialAccount.objects.get(provider=Provider.TWITTER.id,
+                                            uid=user_info['id'])
+    except SocialAccount.DoesNotExist:
+        account = SocialAccount(provider=Provider.TWITTER.id,
+                                uid=user_info['id']) 
+    account.extra_data = { 'profile_image_url': user_info['profile_image_url'],
+                           'screen_name': user_info['screen_name'] }
     if account.pk:
         account.save()
     data = dict(twitter_user_info=user_info,
-                username=account.username)
+                username=user_info['screen_name'])
     return complete_social_login(request, data, account)
 
 
@@ -78,12 +86,12 @@ def oauth_callback(request, consumer_key=None, secret_key=None,
 
 
 def _oauth_kwargs(request, callback_url):
-    app = TwitterApp.objects.get_current()
-    kwargs = dict(consumer_key=app.consumer_key,
-                  secret_key=app.consumer_secret,
-                  request_token_url=app.request_token_url,
-                  access_token_url=app.access_token_url,
-                  authorization_url=app.authorize_url,
+    app = SocialApp.objects.get_current(Provider.TWITTER.id)
+    kwargs = dict(consumer_key=app.key,
+                  secret_key=app.secret,
+                  request_token_url=REQUEST_TOKEN_URL,
+                  access_token_url=ACCESS_TOKEN_URL,
+                  authorization_url=AUTHORIZE_URL,
                   callback_url=callback_url)
     return kwargs
 

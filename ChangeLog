@@ -1,3 +1,11 @@
+2012-06-03  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* socialaccount: Introduced generic models for storing social
+	apps, accounts and tokens in a central and consistent manner,
+	making way for adding support for more account providers. Note:
+	there is more refactoring to be done -- this first step only
+	focuses on the database models.
+
 2012-03-29  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* account: E-mail confirmation mails are now automatically resent

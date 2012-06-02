@@ -1,4 +1,4 @@
-class SocialAccountProvider:
+class Provider:
     def __init__(self, id, name):
         self.id = id
         self.name = name
@@ -7,15 +7,26 @@ class SocialAccountProvider:
         return self.id
 
 
-SocialAccountProvider.TWITTER \
-    = SocialAccountProvider(id="twitter", name="Twitter")
-SocialAccountProvider.GOOGLE \
-    = SocialAccountProvider(id='google', name='Google')
-SocialAccountProvider.YAHOO \
-    = SocialAccountProvider(id='yahoo', name='Yahoo')
-SocialAccountProvider.HYVES \
-    = SocialAccountProvider(id='hyves', name='Hyves')
-SocialAccountProvider.OPENID \
-    = SocialAccountProvider(id='openid', name='OpenID')
-SocialAccountProvider.FACEBOOK \
-    = SocialAccountProvider(id='facebook', name='Facebook')
+Provider.TWITTER \
+    = Provider(id="twitter", name="Twitter")
+Provider.GOOGLE \
+    = Provider(id='google', name='Google')
+Provider.YAHOO \
+    = Provider(id='yahoo', name='Yahoo')
+Provider.HYVES \
+    = Provider(id='hyves', name='Hyves')
+Provider.OPENID \
+    = Provider(id='openid', name='OpenID')
+Provider.FACEBOOK \
+    = Provider(id='facebook', name='Facebook')
+Provider.LINKEDIN \
+    = Provider(id='linkedin', name='LinkedIn')
+
+
+PROVIDER_CHOICES = ((Provider.TWITTER.id, Provider.TWITTER.name),
+                    (Provider.FACEBOOK.id, Provider.FACEBOOK.name),
+                    (Provider.OPENID.id, Provider.OPENID.name),
+                    (Provider.LINKEDIN.id, Provider.LINKEDIN.name))
+
+# Legacy -- to be removed
+SocialAccountProvider = Provider

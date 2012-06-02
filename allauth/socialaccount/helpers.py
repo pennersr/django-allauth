@@ -109,7 +109,7 @@ def complete_social_login(request, data, account):
             messages.add_message \
             (request, messages.INFO, 
              _('The social account has been connected to your existing account'))
-            return HttpResponseRedirect(reverse('socialaccount_connections'))
+            return HttpResponseRedirect(request.REQUEST.get('next') or reverse('socialaccount_connections'))
     else:
         if account.pk:
             # Login existing user

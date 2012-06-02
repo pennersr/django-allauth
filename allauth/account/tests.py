@@ -14,6 +14,9 @@ import app_settings
 
 class AccountTests(TestCase):
     def setUp(self):
+        self.OLD_EMAIL_VERIFICATION = app_settings.EMAIL_VERIFICATION
+        self.OLD_EMAIL_AUTHENTICATION = app_settings.EMAIL_AUTHENTICATION
+        self.OLD_EMAIL_SIGNUP_FORM_CLASS = app_settings.SIGNUP_FORM_CLASS
         app_settings.EMAIL_VERIFICATION = True
         app_settings.EMAIL_AUTHENTICATION = False
         app_settings.SIGNUP_FORM_CLASS = None
@@ -72,3 +75,7 @@ class AccountTests(TestCase):
                                 email='foo@bar.com')
         EmailAddress.objects.add_email(u, u.email)
 
+    def tearDown(self):
+        self.EMAIL_VERIFICATION = app_settings.OLD_EMAIL_VERIFICATION
+        self.EMAIL_AUTHENTICATION = app_settings.OLD_EMAIL_AUTHENTICATION
+        self.EMAIL_SIGNUP_FORM_CLASS = app_settings.OLD_SIGNUP_FORM_CLASS

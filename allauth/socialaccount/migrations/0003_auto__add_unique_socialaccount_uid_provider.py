@@ -5,7 +5,10 @@ from south.v2 import SchemaMigration
 from django.db import models
 
 class Migration(SchemaMigration):
-
+    depends_on = (('facebook', '0003_tosocialaccount'),
+                  ('twitter', '0003_tosocialaccount'),
+                  ('openid', '0002_tosocialaccount'))
+                  
     def forwards(self, orm):
         
         # Adding unique constraint on 'SocialAccount', fields ['uid', 'provider']

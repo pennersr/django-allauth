@@ -6,12 +6,18 @@ Integrated set of Django applications addressing authentication,
 registration, account management as well as 3rd party (social) account
 authentication.
 
-Features
+Overview
 ========
+
+Supported Flows
+***************
 
 - Signup of a both local and social accounts
 
 - Connecting more than one social account to a local account
+
+- Disconnecting a social account -- requires setting a password if
+  only the local account remains
 
 - Optional instant-signup for social accounts -- no questions asked
 
@@ -21,23 +27,52 @@ Features
 
 - E-mail address verification flow
 
+Supported Providers
+*******************
+
+- Facebook
+
+- LinkedIn
+
+- OpenId
+
+- Twitter
+
+Note: OAuth support is built using a common code base, making it easy to add support for additional OAuth providers. More will follow soon...
+
+ 
+Features
+********
+
 - Supports multiple authentication schemes (e.g. login by user name,
   or by e-mail), as well as multiple strategies for account
   verification (ranging from none to e-mail verification).
 
-- Support for connecting multiple social accounts to a Django user
-  account.
+- Facebook access token is stored so that you can publish wall updates
+  etc.
 
-- The FB access token is stored so that you can publish wall updates etc.
+Architecture & Design
+*********************
 
 - Pluggable signup form for asking additional questions during signup.
+
+- Support for connecting multiple social accounts to a Django user account.
+
+- The required consumer keys and secrets for interacting with
+  Facebook, Twitter and the likes are to be configured in the database
+  via the Django admin using the SocialApp model.
+
+- Consumer keys, tokens make use of the Django sites framework. This
+  is especially helpful for larger multi-domain projects, but also
+  allows for for easy switching between a development (localhost) and
+  production setup without messing with your settings and database.
 
 
 Installation
 ============
 
 Django
-------
+******
 
 settings.py::
 
@@ -47,10 +82,8 @@ settings.py::
         "allauth.account.context_processors.account"
     )
 
-    AUTHENTICATION_BACKENDS = (
-        ...
-        "allauth.account.auth_backends.AuthenticationBackend",
-    )
+    AUTHENTICATION_BACKENDS = ( ...
+        "allauth.account.auth_backends.AuthenticationBackend", )
 
     INSTALLED_APPS = (
         ...
@@ -73,7 +106,7 @@ urls.py::
 
 
 Configuration
-=============
+*************
 
 Available settings:
 
@@ -129,9 +162,3 @@ EMAIL_CONFIRMATION_DAYS (=# of days, no default)
   Determines the expiration date of email confirmation mails sent by
   django-email-confirmation.
 
-Consumer Keys & Secrets
------------------------
-
-The required keys and secrets for interacting with Facebook, Twitter
-and the likes are to be configured in the database via the Django
-admin using the SocialApp model.

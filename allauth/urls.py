@@ -15,20 +15,9 @@ if app_settings.SOCIALACCOUNT_ENABLED:
 
 for provider in get_providers():
     try:
-        prov_mod = importlib.import_module(provider.package + '.urlpatterns')
+        prov_mod = importlib.import_module(provider.package + '.urls')
     except ImportError:
         continue
     prov_urlpatterns = getattr(prov_mod, 'urlpatterns', None)
     if prov_urlpatterns:
         urlpatterns += prov_urlpatterns
-
-
-if app_settings.FACEBOOK_ENABLED:
-    urlpatterns += patterns('',
-                            url('^facebook/', include('allauth.facebook.urls')))
-if app_settings.OPENID_ENABLED:
-    urlpatterns += patterns('',
-                            url('^openid/', include('allauth.openid.urls')))
-
-
-

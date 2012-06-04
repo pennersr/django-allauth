@@ -1,5 +1,4 @@
 from django import template
-from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse
 from django.template.defaulttags import token_kwargs

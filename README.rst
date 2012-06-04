@@ -88,15 +88,14 @@ settings.py::
     INSTALLED_APPS = (
         ...
         'emailconfirmation',
-	'uni_form',
 
         'allauth',
         'allauth.account',
         'allauth.socialaccount',
         'allauth.socialaccount.providers.twitter',
         'allauth.socialaccount.providers.linkedin',
-        'allauth.openid',
-        'allauth.facebook',
+        'allauth.socialaccount.providers.openid',
+        'allauth.socialaccount.providers.facebook',
 
 urls.py::
 

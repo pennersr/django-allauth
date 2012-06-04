@@ -144,9 +144,9 @@ INSTALLED_APPS = (
     'allauth',
     'allauth.account',
     # 'allauth.socialaccount',
-    # 'allauth.twitter',
-    # 'allauth.openid',
-    # 'allauth.facebook',
+    # 'allauth.socialaccount.providers.twitter',
+    # 'allauth.socialaccount.providers.openid',
+    # 'allauth.socialaccount.providers.facebook',
 )
 
 # A sample logging configuration. The only tangible logging

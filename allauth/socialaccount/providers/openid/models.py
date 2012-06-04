@@ -1,5 +1,8 @@
 from django.db import models
 
+from allauth.socialaccount.providers import register_provider
+from allauth.socialaccount.providers.base import Provider
+
 class OpenIDStore(models.Model):
     server_url = models.CharField(max_length=255)
     handle = models.CharField(max_length=255)
@@ -20,3 +23,9 @@ class OpenIDNonce(models.Model):
     def __unicode__(self):
         return self.server_url
 
+
+class OpenIDProvider(Provider):
+    id = 'openid'
+    package = 'allauth.socialaccount.providers.openid'
+
+register_provider(OpenIDProvider)

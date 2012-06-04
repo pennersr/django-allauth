@@ -26,7 +26,7 @@ class NotImplementedNode(template.Node):
         raise NotImplementedError
 
 if app_settings.OPENID_ENABLED:
-    from allauth.openid.templatetags.openid_tags import register_tags
+    from allauth.socialaccount.providers.openid.templatetags.openid_tags import register_tags
     register_tags(register)
 else:
     def openid_login_url(parser, token):
@@ -42,7 +42,7 @@ else:
     register.tag(twitter_login_url)
 
 if app_settings.FACEBOOK_ENABLED:
-    from allauth.facebook.templatetags.facebook_tags import register_tags
+    from allauth.socialaccount.providers.facebook.templatetags.facebook_tags import register_tags
     register_tags(register)
 else:
     def facebook_login_url(parser, token):

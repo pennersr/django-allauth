@@ -34,7 +34,7 @@ else:
     register.tag(openid_login_url)
 
 if app_settings.TWITTER_ENABLED:
-    from allauth.twitter.templatetags.twitter_tags import register_tags
+    from allauth.socialaccount.providers.twitter.templatetags.twitter_tags import register_tags
     register_tags(register)
 else:
     def twitter_login_url(parser, token):

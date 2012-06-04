@@ -60,7 +60,8 @@ settings.py::
         'allauth',
         'allauth.account',
         'allauth.socialaccount',
-        'allauth.twitter',
+        'allauth.socialaccount.providers.twitter',
+        'allauth.socialaccount.providers.linkedin',
         'allauth.openid',
         'allauth.facebook',
 
@@ -128,9 +129,9 @@ EMAIL_CONFIRMATION_DAYS (=# of days, no default)
   Determines the expiration date of email confirmation mails sent by
   django-email-confirmation.
 
-Facebook & Twitter
-------------------
+Consumer Keys & Secrets
+-----------------------
 
-The required keys and secrets for interacting with Facebook and
-Twitter are to be configured in the database via the Django admin
-using the TwitterApp and FacebookApp models. 
+The required keys and secrets for interacting with Facebook, Twitter
+and the likes are to be configured in the database via the Django
+admin using the SocialApp model.

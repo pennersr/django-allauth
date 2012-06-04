@@ -1,3 +1,8 @@
+2012-06-04  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* socialaccount: More refactoring: generic provider & OAuth
+	consumer approach. Added LinkedIn support to test this approach.
+
 2012-06-03  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* socialaccount: Introduced generic models for storing social

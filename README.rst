@@ -32,13 +32,15 @@ Supported Providers
 
 - Facebook
 
+- Github
+
 - LinkedIn
 
 - OpenId
 
 - Twitter
 
-Note: OAuth support is built using a common code base, making it easy to add support for additional OAuth providers. More will follow soon...
+Note: OAuth/OAuth2 support is built using a common code base, making it easy to add support for additional OAuth/OAuth2 providers. More will follow soon...
 
  
 Features
@@ -96,6 +98,7 @@ settings.py::
         'allauth.socialaccount.providers.linkedin',
         'allauth.socialaccount.providers.openid',
         'allauth.socialaccount.providers.facebook',
+        'allauth.socialaccount.providers.github',
 
 urls.py::
 

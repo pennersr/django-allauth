@@ -1,3 +1,6 @@
+# FIXME: To be refactored and blended into
+# allauth.socialaccount.providers
+
 class Provider:
     def __init__(self, id, name):
         self.id = id
@@ -21,12 +24,15 @@ Provider.FACEBOOK \
     = Provider(id='facebook', name='Facebook')
 Provider.LINKEDIN \
     = Provider(id='linkedin', name='LinkedIn')
+Provider.GITHUB \
+    = Provider(id='github', name='GitHub')
 
 
 PROVIDER_CHOICES = ((Provider.TWITTER.id, Provider.TWITTER.name),
                     (Provider.FACEBOOK.id, Provider.FACEBOOK.name),
                     (Provider.OPENID.id, Provider.OPENID.name),
-                    (Provider.LINKEDIN.id, Provider.LINKEDIN.name))
+                    (Provider.LINKEDIN.id, Provider.LINKEDIN.name),
+                    (Provider.GITHUB.id, Provider.GITHUB.name))
 
 # Legacy -- to be removed
 SocialAccountProvider = Provider

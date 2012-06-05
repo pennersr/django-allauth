@@ -9,6 +9,50 @@ authentication.
 Overview
 ========
 
+Why?
+****
+
+Most existing Django apps that address the problem of social
+authentication focus on just that. You typically need to integrate
+another app in order to support authentication via a local
+account. 
+
+This approach separates the world of local and social
+authentication. However, there are common scenarios to be dealt with
+in boh worlds. For example, an e-mail address passed along by an
+OpenID provider is not guaranteed to be verified. So, before hooking
+an OpenID account up to a local account the e-mail address must be
+verified. So, e-mail verification needs to be present in both worlds.
+
+Integrating both worlds is quite a tedious process. It is definately
+not a matter of simply adding one social authentication app, and one
+local account registration app to your `INSTALLED_APPS` list.
+
+This is the reason this project got started -- to offer a fully
+integrated authentication app that allows for both local and social
+authentication, with flows that just work.
+
+
+Why Not?
+********
+
+From the start the focus has been to deliver an integrated experience
+and flows that just work, and to a lesser extent a completely
+pluggable social authentication framework.
+
+Earlier versions of the project suffered from this, e.g. each provider
+had its own implementation with its own social account model
+definition. 
+
+Work is well underway to rectify this situation. These days, social
+account models have been unified, and adding support for additional
+OAuth/OAuth2 providers is child's play.
+
+Ofcourse, there is always more that can be done. Do know that the
+biggest hurdles to overcome the initial shortcomings have been
+taken...
+
+
 Supported Flows
 ***************
 
@@ -164,3 +208,12 @@ EMAIL_CONFIRMATION_DAYS (=# of days, no default)
   Determines the expiration date of email confirmation mails sent by
   django-email-confirmation.
 
+
+
+Showcase
+========
+
+...List to be assembled...
+
+Please mail me (raymond.penners@intenct.nl) links to sites that have
+`django-allauth` up and running.

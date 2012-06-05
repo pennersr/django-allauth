@@ -56,9 +56,9 @@ class OAuth2CompleteView(OAuth2View):
             return render_authentication_error(request)
         app = self.adapter.get_app(self.request)
         client = self.get_client(request, app)
-        access_token = client.get_access_token(request.GET['code'])
         provider_id = self.adapter.provider_id
         try:
+            access_token = client.get_access_token(request.GET['code'])
             uid, data, extra_data = self.adapter.get_user_info(request, 
                                                                app,
                                                                access_token)

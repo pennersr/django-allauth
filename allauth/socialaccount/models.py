@@ -1,11 +1,9 @@
-from urlparse import urlparse
 from django.db import models
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 
 import providers
-from defs import Provider, PROVIDER_CHOICES
 from fields import JSONField
 
 class SocialAppManager(models.Manager):
@@ -19,7 +17,7 @@ class SocialApp(models.Model):
 
     site = models.ForeignKey(Site)
     provider = models.CharField(max_length=30, 
-                                choices=PROVIDER_CHOICES)
+                                choices=providers.registry.as_choices())
     name = models.CharField(max_length=40)
     key = models.CharField(max_length=100,
                            help_text='App ID, or consumer key')
@@ -32,7 +30,7 @@ class SocialApp(models.Model):
 class SocialAccount(models.Model):
     user = models.ForeignKey(User)
     provider = models.CharField(max_length=30, 
-                                choices=PROVIDER_CHOICES)
+                                choices=providers.registry.as_choices())
     # Just in case you're wondering if an OpenID identity URL is going
     # to fit in a 'uid':
     # 
@@ -68,31 +66,20 @@ class SocialAccount(models.Model):
         return self.get_provider_account().get_avatar_url()
 
     def get_provider(self):
-        # FIXME: to be refactored when provider classes are introduced
-        ret = self.provider
-        if ret == Provider.OPENID.id:
-            domain = urlparse(self.uid).netloc
-            provider_map = {'yahoo': Provider.YAHOO,
-                            'google': Provider.GOOGLE}
-            for d,p in provider_map.iteritems():
-                if domain.lower().find(d) >= 0:
-                    ret = p
-                    break
-        return ret
+        return providers.registry.by_id(self.provider)
 
     def get_provider_account(self):
-        provider = providers.registry.provider_by_id(self.provider)
-        return provider.wrap_account(self)
+        return self.get_provider().wrap_account(self)
 
     def sync(self, data):
         # FIXME: to be refactored when provider classes are introduced
-        if self.provider == Provider.FACEBOOK.id:
+        if self.provider == 'facebook':
             self.extra_data = { 'link': data['facebook_me']['link'],
                                 'name': data['facebook_me']['name'] }
             self.save()
             access_token = data['facebook_access_token']
             token, created = SocialToken.objects \
-                .get_or_create(app=SocialApp.objects.get_current(Provider.FACEBOOK.id),
+                .get_or_create(app=SocialApp.objects.get_current('facebook'),
                                account=self,
                                defaults={'token': access_token})
             if not created and token.token != access_token:
@@ -100,6 +87,7 @@ class SocialAccount(models.Model):
                 token.save()
         else:
             self.save()
+
 
 
 class SocialToken(models.Model):

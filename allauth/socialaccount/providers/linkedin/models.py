@@ -6,7 +6,8 @@ class LinkedInAccount(ProviderAccount):
 
 class LinkedInProvider(Provider):
     id = 'linkedin'
+    name = 'LinkedIn'
     package = 'allauth.socialaccount.providers.linkedin'
     account_class = LinkedInAccount
 
-providers.registry.register_provider(LinkedInProvider)
+providers.registry.register(LinkedInProvider)

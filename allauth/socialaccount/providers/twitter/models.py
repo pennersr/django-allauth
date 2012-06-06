@@ -2,9 +2,12 @@ from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import Provider, ProviderAccount
 
 class TwitterAccount(ProviderAccount):
+    def get_screen_name(self):
+        return self.account.extra_data.get('screen_name')
+
     def get_profile_url(self):
         ret = None
-        screen_name = self.account.extra_data.get('screen_name')
+        screen_name = self.get_screen_name()
         if screen_name:
             ret = 'http://twitter.com/' + screen_name
         return ret
@@ -18,10 +21,14 @@ class TwitterAccount(ProviderAccount):
             ret = profile_image_url.replace('_normal', '') 
         return ret
 
+    def __unicode__(self):
+        screen_name = self.get_screen_name()
+        return screen_name or super(TwitterAccount, self).__unicode__()
 
 class TwitterProvider(Provider):
     id = 'twitter'
+    name = 'Twitter'
     package = 'allauth.socialaccount.providers.twitter'
     account_class = TwitterAccount
 
-providers.registry.register_provider(TwitterProvider)
+providers.registry.register(TwitterProvider)

@@ -1,3 +1,4 @@
+from urlparse import urlparse
 from django.db import models
 
 from allauth.socialaccount import providers
@@ -24,11 +25,28 @@ class OpenIDNonce(models.Model):
         return self.server_url
 
 class OpenIDAccount(ProviderAccount):
-    pass
+    def get_brand(self):
+        ret = super(OpenIDAccount, self).get_brand()
+        domain = urlparse(self.account.uid).netloc
+        provider_map = { 'yahoo': dict(id='yahoo',
+                                       name='Yahoo'),
+                         'hyves': dict(id='hyves',
+                                       name='Hyves'),
+                         'google': dict(id='google',
+                                        name='Google') }
+        for d,p in provider_map.iteritems():
+            if domain.lower().find(d) >= 0:
+                ret = p
+                break
+        return ret
+
+    def __unicode__(self):
+        return self.account.uid
 
 class OpenIDProvider(Provider):
     id = 'openid'
+    name = 'OpenID'
     package = 'allauth.socialaccount.providers.openid'
-    account_class = ProviderAccount
+    account_class = OpenIDAccount
 
-providers.registry.register_provider(OpenIDProvider)
+providers.registry.register(OpenIDProvider)

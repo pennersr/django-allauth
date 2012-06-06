@@ -14,11 +14,12 @@ from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.models import SocialAccount
-from allauth.socialaccount.defs import Provider
 from allauth.utils import valid_email_or_none
 
 from utils import DBOpenIDStore
 from forms import LoginForm
+
+import models
 
 class AXAttribute:
     CONTACT_EMAIL = 'http://axschema.org/contact/email'
@@ -94,10 +95,10 @@ def callback(request):
         identity = response.identity_url
         try:
             account = SocialAccount.objects.get(uid=identity,
-                                                provider=Provider.OPENID.id)
+                                                provider=models.OpenIDProvider.id)
         except SocialAccount.DoesNotExist:
             account = SocialAccount(uid=identity,
-                                    provider=Provider.OPENID.id)
+                                    provider=models.OpenIDProvider.id)
         data = dict(email=email)
         ret = complete_social_login(request, data, account)
     elif response.status == consumer.CANCEL:

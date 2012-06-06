@@ -24,7 +24,7 @@
 <div class="ctrlHolder">
 <label for="id_account_{{base_account.id}}">
 <input id="id_account_{{base_account.id}}" type="radio" name="account" value="{{base_account.id}}"/>
-<span class="socialaccount_provider {{account.get_provider}}">{{account.get_provider}}</span>
+<span class="socialaccount_provider {{account.get_brand.id}}">{{account.get_brand.name}}</span>
 {{account}}
 </label>
 </div>

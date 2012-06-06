@@ -9,9 +9,14 @@ class FacebookAccount(ProviderAccount):
         uid = self.account.uid
         return 'http://graph.facebook.com/%s/picture?type=large' % uid
     
+    def __unicode__(self):
+        dflt = super(FacebookAccount, self).__unicode__()
+        return self.account.extra_data.get('name', dflt)
+
 class FacebookProvider(Provider):
     id = 'facebook'
+    name = 'Facebook'
     package = 'allauth.socialaccount.providers.facebook'
     account_class = FacebookAccount
 
-providers.registry.register_provider(FacebookProvider)
+providers.registry.register(FacebookProvider)

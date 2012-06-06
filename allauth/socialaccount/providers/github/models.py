@@ -7,7 +7,8 @@ class GitHubAccount(ProviderAccount):
 
 class GitHubProvider(Provider):
     id = 'github'
+    name = 'GitHub'
     package = 'allauth.socialaccount.providers.github'
     account_class = GitHubAccount
 
-providers.registry.register_provider(GitHubProvider)
+providers.registry.register(GitHubProvider)

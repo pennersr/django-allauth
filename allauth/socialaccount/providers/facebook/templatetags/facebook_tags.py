@@ -3,9 +3,9 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse
 from django.template.defaulttags import token_kwargs
 
-from allauth.socialaccount.defs import Provider
 from allauth.socialaccount.models import SocialApp
 from allauth.socialaccount.app_settings import QUERY_EMAIL
+from allauth.socialaccount.providers.facebook.models import FacebookProvider
 
 register = template.Library()
 
@@ -16,7 +16,7 @@ def fbconnect(context):
     perms = ','.join(perm_list)
     request = context['request']
     try:
-        app = SocialApp.objects.get_current(Provider.FACEBOOK.id)
+        app = SocialApp.objects.get_current(FacebookProvider.id)
     except SocialApp.DoesNotExist:
         raise ImproperlyConfigured("No Facebook app configured")
     return {'facebook_app': app,

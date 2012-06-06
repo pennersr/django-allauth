@@ -3,11 +3,11 @@ from django.shortcuts import render
 
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.helpers import render_authentication_error
-from allauth.socialaccount.defs import Provider
 from allauth.socialaccount.models import SocialAccount
 from facebook import GraphAPI, GraphAPIError
 
 from forms import FacebookConnectForm
+from models import FacebookProvider
 
 from allauth.utils import valid_email_or_none
 
@@ -24,10 +24,10 @@ def login(request):
                 social_id = facebook_me['id']
                 try:
                     account = SocialAccount.objects.get(uid=social_id,
-                                                        provider=Provider.FACEBOOK.id)
+                                                        provider=FacebookProvider.id)
                 except SocialAccount.DoesNotExist:
                     account = SocialAccount(uid=social_id,
-                                            provider=Provider.FACEBOOK.id)
+                                            provider=FacebookProvider.id)
                 data = dict(email=email,
                             facebook_access_token=token,
                             facebook_me=facebook_me)

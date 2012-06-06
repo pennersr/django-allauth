@@ -23,7 +23,9 @@ class TwitterOAuthAdapter(OAuthAdapter):
     provider_id = TwitterProvider.id
     request_token_url = 'https://api.twitter.com/oauth/request_token'
     access_token_url = 'https://api.twitter.com/oauth/access_token'
-    authorize_url = 'https://api.twitter.com/oauth/authorize'
+    # Issue #42 -- this one authenticates over and over again...
+    # authorize_url = 'https://api.twitter.com/oauth/authorize'
+    authorize_url = 'https://api.twitter.com/oauth/authenticate'
         
     def get_user_info(self, request, app):
         client = TwitterAPI(request, app.key, app.secret, 

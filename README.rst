@@ -1,16 +1,16 @@
-==============
-Django AllAuth
-==============
+==========================
+Welcome to django-allauth!
+==========================
 
 Integrated set of Django applications addressing authentication,
 registration, account management as well as 3rd party (social) account
 authentication.
 
-Overview
-========
+Rationale
+=========
 
 Why?
-****
+----
 
 Most existing Django apps that address the problem of social
 authentication focus on just that. You typically need to integrate
@@ -34,7 +34,7 @@ authentication, with flows that just work.
 
 
 Why Not?
-********
+--------
 
 From the start the focus has been to deliver an integrated experience
 and flows that just work, and to a lesser extent a completely
@@ -52,9 +52,11 @@ Ofcourse, there is always more that can be done. Do know that the
 biggest hurdles to overcome the initial shortcomings have been
 taken...
 
+Overview
+========
 
 Supported Flows
-***************
+---------------
 
 - Signup of a both local and social accounts
 
@@ -72,7 +74,7 @@ Supported Flows
 - E-mail address verification flow
 
 Supported Providers
-*******************
+-------------------
 
 - Facebook
 
@@ -88,7 +90,7 @@ Note: OAuth/OAuth2 support is built using a common code base, making it easy to 
 
  
 Features
-********
+--------
 
 - Supports multiple authentication schemes (e.g. login by user name,
   or by e-mail), as well as multiple strategies for account
@@ -98,7 +100,7 @@ Features
   etc.
 
 Architecture & Design
-*********************
+---------------------
 
 - Pluggable signup form for asking additional questions during signup.
 
@@ -118,7 +120,7 @@ Installation
 ============
 
 Django
-******
+------
 
 settings.py::
 
@@ -152,7 +154,7 @@ urls.py::
 
 
 Configuration
-*************
+-------------
 
 Available settings:
 

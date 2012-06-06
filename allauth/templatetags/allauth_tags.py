@@ -1,5 +1,5 @@
 # HACK ALERT! If you use the following construct, openid_tags is still
-# referenced even if allauth.openid is not enabled.
+# referenced even if allauth.socialaccount.providers.openid is not enabled.
 #
 #     {% if allauth.openid_enabled %}
 #     {% load openid_tags %}

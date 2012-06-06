@@ -1,7 +1,7 @@
-from django.conf.urls.defaults import *
+from django.conf.urls.defaults import url, patterns, include
 from django.utils import importlib
 
-from allauth.socialaccount.providers import get_providers
+from allauth.socialaccount import providers
 
 import app_settings
 
@@ -13,7 +13,7 @@ if app_settings.SOCIALACCOUNT_ENABLED:
                             url('^social/', include('allauth.socialaccount.urls')))
 
 
-for provider in get_providers():
+for provider in providers.registry.get_providers():
     try:
         prov_mod = importlib.import_module(provider.package + '.urls')
     except ImportError:

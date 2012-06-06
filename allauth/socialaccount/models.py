@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 
+import providers
 from defs import Provider, PROVIDER_CHOICES
 from fields import JSONField
 
@@ -61,27 +62,10 @@ class SocialAccount(models.Model):
         return unicode(self.user)
     
     def get_profile_url(self):
-        # FIXME: To be encapsulated in a per provider class
-        if self.provider == Provider.TWITTER.id:
-            screen_name = self.extra_data.get('screen_name')
-            return 'http://twitter.com/' + screen_name
-        elif self.provider == Provider.FACEBOOK.id:
-            return self.extra_data.get('link')
-        else:
-            raise NotImplementedError
+        return self.get_provider_account().get_profile_url()
     
     def get_avatar_url(self):
-        ret = None
-        # FIXME: To be encapsulated in a per provider class
-        if self.provider == Provider.TWITTER.id:
-            profile_image_url = self.extra_data.get('profile_image_url')
-            if profile_image_url:
-                # Hmm, hack to get our hands on the large image.  Not
-                # really documented, but seems to work.
-                ret = profile_image_url.replace('_normal', '') 
-        elif self.provider == Provider.FACEBOOK.id:
-            ret = 'http://graph.facebook.com/%s/picture?type=large' % self.uid
-        return ret
+        return self.get_provider_account().get_avatar_url()
 
     def get_provider(self):
         # FIXME: to be refactored when provider classes are introduced
@@ -97,8 +81,8 @@ class SocialAccount(models.Model):
         return ret
 
     def get_provider_account(self):
-        # FIXME: To be refactored
-        return self
+        provider = providers.registry.provider_by_id(self.provider)
+        return provider.wrap_account(self)
 
     def sync(self, data):
         # FIXME: to be refactored when provider classes are introduced

@@ -19,7 +19,7 @@ SIGNUP_PASSWORD_VERIFICATION = getattr(settings,
                                        True)
 
 # Minimum Password Length
-PASSWORD_MIN_LENGTH = getattr(settings, "ACCOUNT_PASSWORD_MIN_LENGTH", 7)
+PASSWORD_MIN_LENGTH = getattr(settings, "ACCOUNT_PASSWORD_MIN_LENGTH", 6)
 
 # Subject-line prefix to use for email messages sent
 EMAIL_SUBJECT_PREFIX = getattr(settings, "ACCOUNT_EMAIL_SUBJECT_PREFIX", None)

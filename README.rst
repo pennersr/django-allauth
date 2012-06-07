@@ -192,7 +192,7 @@ ACCOUNT_USERNAME_REQUIRED (=True)
 ACCOUNT_PASSWORD_INPUT_RENDER_VALUE (=False)
   `render_value` parameter as passed to `PasswordInput` fields.
 
-ACCOUNT_PASSWORD_MIN_LENGTH (=7)
+ACCOUNT_PASSWORD_MIN_LENGTH (=6)
   An integer specifying the minimum password length.
 
 SOCIALACCOUNT_QUERY_EMAIL (=ACCOUNT_EMAIL_REQUIRED)

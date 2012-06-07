@@ -2,6 +2,7 @@ class Provider(object):
     def wrap_account(self, social_account):
         return self.account_class(social_account)
 
+
 class ProviderAccount(object):
     def __init__(self, social_account):
         self.account = social_account

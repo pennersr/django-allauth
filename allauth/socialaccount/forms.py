@@ -1,10 +1,11 @@
-from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 from django import forms
 
 from emailconfirmation.models import EmailAddress
 from models import SocialAccount
 from allauth.account.forms import BaseSignupForm
 from allauth.account.utils import send_email_confirmation
+
 
 class SignupForm(BaseSignupForm):
 
@@ -17,7 +18,7 @@ class SignupForm(BaseSignupForm):
 
 class DisconnectForm(forms.Form):
     account = forms.ModelChoiceField(queryset=SocialAccount.objects.none(),
-                                     widget = forms.RadioSelect,
+                                     widget=forms.RadioSelect,
                                      required=True)
 
     def __init__(self, *args, **kwargs):
@@ -39,7 +40,3 @@ class DisconnectForm(forms.Form):
 
     def save(self):
         self.cleaned_data['account'].delete()
-
-    
-
-    

@@ -18,6 +18,7 @@ from allauth.account import app_settings as account_settings
 
 import app_settings
 
+
 def _process_signup(request, data, account):
     # If email is specified, check for duplicate and if so, no auto signup.
     auto_signup = app_settings.AUTO_SIGNUP
@@ -51,14 +52,13 @@ def _process_signup(request, data, account):
             url = url + '?' + urlencode(dict(next=next))
         ret = HttpResponseRedirect(url)
     else:
-        # FIXME: There is some duplication of logic inhere 
+        # FIXME: There is some duplication of logic inhere
         # (create user, send email, in active etc..)
-        username = generate_unique_username \
-            (data.get('username', email or 'user'))
+        username = generate_unique_username(data.get('username', email or 'user'))
         u = User(username=username,
                  email=email or '',
-                 last_name = data.get('last_name', '')[0:User._meta.get_field('last_name').max_length],
-                 first_name = data.get('first_name', '')[0:User._meta.get_field('first_name').max_length])
+                 last_name=data.get('last_name', '')[0:User._meta.get_field('last_name').max_length],
+                 first_name=data.get('first_name', '')[0:User._meta.get_field('first_name').max_length])
         u.set_unusable_password()
         u.save()
         account.user = u
@@ -66,7 +66,6 @@ def _process_signup(request, data, account):
         send_email_confirmation(u, request=request)
         ret = complete_social_signup(request, u, account)
     return ret
-        
 
 
 def _login_social_account(request, account):
@@ -77,14 +76,13 @@ def _login_social_account(request, account):
             {},
             context_instance=RequestContext(request))
     else:
-        ret = perform_login(request, user, 
-                            redirect_url=get_login_redirect_url(request))
+        ret = perform_login(request, user, redirect_url=get_login_redirect_url(request))
     return ret
 
 
 def render_authentication_error(request, extra_context={}):
     return render_to_response(
-        "socialaccount/authentication_error.html", 
+        "socialaccount/authentication_error.html",
         extra_context, context_instance=RequestContext(request))
 
 
@@ -106,9 +104,7 @@ def complete_social_login(request, data, account):
             # New social account
             account.user = request.user
             account.sync(data)
-            messages.add_message \
-            (request, messages.INFO, 
-             _('The social account has been connected to your existing account'))
+            messages.add_message(request, messages.INFO, _('The social account has been connected to your existing account'))
             return HttpResponseRedirect(request.REQUEST.get('next') or reverse('socialaccount_connections'))
     else:
         if account.pk:
@@ -147,12 +143,13 @@ def _name_from_url(url):
                                map(slugify, base.split("."))))
         if name:
             return name
-    
+
+
 def _copy_avatar(request, user, account):
     import urllib2
     from django.core.files.base import ContentFile
     from avatar.models import Avatar
-    url = account.get_avatar_url()    
+    url = account.get_avatar_url()
     if url:
         ava = Avatar(user=user)
         ava.primary = Avatar.objects.filter(user=user).count() == 0

@@ -8,8 +8,9 @@ from allauth.socialaccount.providers.oauth.client import (OAuthClient,
                                                           OAuthError)
 from allauth.socialaccount.helpers import complete_social_login
 
+
 class OAuthAdapter(object):
-    
+
     def get_app(self, request):
         return SocialApp.objects.get_current(self.provider_id)
 
@@ -18,7 +19,8 @@ class OAuthAdapter(object):
         Should return a triple of (user_id, user fields, extra_data)
         """
         raise NotImplementedError
-    
+
+
 class OAuthView(object):
     @classmethod
     def adapter_view(cls, adapter):
@@ -31,13 +33,13 @@ class OAuthView(object):
 
     def _get_client(self, request, callback_url):
         app = self.adapter.get_app(request)
-        client = OAuthClient(request, app.key, app.secret, 
+        client = OAuthClient(request, app.key, app.secret,
                              self.adapter.request_token_url,
-                             self.adapter.access_token_url, 
+                             self.adapter.access_token_url,
                              self.adapter.authorize_url,
                              callback_url)
         return client
-        
+
 
 class OAuthLoginView(OAuthView):
     def dispatch(self, request):
@@ -49,6 +51,7 @@ class OAuthLoginView(OAuthView):
         except OAuthError:
             return render_authentication_error(request)
 
+
 class OAuthCallbackView(OAuthView):
     def dispatch(self, request):
         """
@@ -59,8 +62,7 @@ class OAuthCallbackView(OAuthView):
         client = self._get_client(request, login_done_url)
         if not client.is_valid():
             if request.GET.has_key('denied'):
-                return HttpResponseRedirect \
-                    (reverse('socialaccount_login_cancelled'))
+                return HttpResponseRedirect(reverse('socialaccount_login_cancelled'))
             extra_context = dict(oauth_client=client)
             return render_authentication_error(request, extra_context)
         # We're redirecting to the setup view for this oauth service

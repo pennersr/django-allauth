@@ -1,6 +1,7 @@
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import Provider, ProviderAccount
 
+
 class TwitterAccount(ProviderAccount):
     def get_screen_name(self):
         return self.account.extra_data.get('screen_name')
@@ -18,12 +19,13 @@ class TwitterAccount(ProviderAccount):
         if profile_image_url:
             # Hmm, hack to get our hands on the large image.  Not
             # really documented, but seems to work.
-            ret = profile_image_url.replace('_normal', '') 
+            ret = profile_image_url.replace('_normal', '')
         return ret
 
     def __unicode__(self):
         screen_name = self.get_screen_name()
         return screen_name or super(TwitterAccount, self).__unicode__()
+
 
 class TwitterProvider(Provider):
     id = 'twitter'

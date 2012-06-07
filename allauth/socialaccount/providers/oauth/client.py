@@ -20,6 +20,7 @@ except ImportError:
 
 import oauth2 as oauth
 
+
 def get_token_prefix(url):
     """
     Returns a prefix for the token to store in the session so we can hold
@@ -36,6 +37,7 @@ def get_token_prefix(url):
 
 class OAuthError(Exception):
     pass
+
 
 class OAuthClient(object):
 
@@ -70,7 +72,7 @@ class OAuthClient(object):
         sign the request to obtain the access token
         """
         if self.request_token is None:
-            rt_url = self.request_token_url + '?' + urllib.urlencode({'oauth_callback':self.request.build_absolute_uri(self.callback_url)})
+            rt_url = self.request_token_url + '?' + urllib.urlencode({'oauth_callback': self.request.build_absolute_uri(self.callback_url)})
             response, content = self.client.request(rt_url, "GET")
             if response['status'] != '200':
                 raise OAuthError(
@@ -88,8 +90,9 @@ class OAuthClient(object):
             token = oauth.Token(request_token['oauth_token'], request_token['oauth_token_secret'])
             self.client = oauth.Client(self.consumer, token)
             at_url = self.access_token_url
+
             # Passing along oauth_verifier is required according to:
-            #   http://groups.google.com/group/twitter-development-talk/browse_frm/thread/472500cfe9e7cdb9#
+            # http://groups.google.com/group/twitter-development-talk/browse_frm/thread/472500cfe9e7cdb9#
             # Though, the custom oauth_callback seems to work without it?
             if self.request.REQUEST.has_key('oauth_verifier'):
                 at_url = at_url + '?' + urllib.urlencode({'oauth_verifier': self.request.REQUEST['oauth_verifier']})
@@ -125,13 +128,13 @@ class OAuthClient(object):
             return False
         return True
 
-
     def get_redirect(self):
         """
         Returns a ``HttpResponseRedirect`` object to redirect the user to the
         URL the OAuth provider handles authorization.
         """
         return HttpResponseRedirect(self._get_authorization_url())
+
 
 class OAuth(object):
     """
@@ -180,6 +183,3 @@ class OAuth(object):
                 _('No access to private resources at "%s".') % get_token_prefix(self.request_token_url))
 
         return content
-
-
-

@@ -76,7 +76,8 @@ def _login_social_account(request, account):
             {},
             context_instance=RequestContext(request))
     else:
-        ret = perform_login(request, user, redirect_url=get_login_redirect_url(request))
+        ret = perform_login(request, user,
+                            redirect_url=get_login_redirect_url(request))
     return ret
 
 
@@ -104,7 +105,8 @@ def complete_social_login(request, data, account):
             # New social account
             account.user = request.user
             account.sync(data)
-            messages.add_message(request, messages.INFO, _('The social account has been connected to your existing account'))
+            messages.add_message(request, messages.INFO,
+                _('The social account has been connected to your existing account'))
             return HttpResponseRedirect(request.REQUEST.get('next') or reverse('socialaccount_connections'))
     else:
         if account.pk:

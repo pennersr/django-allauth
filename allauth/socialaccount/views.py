@@ -42,7 +42,8 @@ def signup(request, **kwargs):
 
 def login_cancelled(request):
     d = {}
-    return render_to_response('socialaccount/login_cancelled.html', d, context_instance=RequestContext(request))
+    return render_to_response('socialaccount/login_cancelled.html',
+                              d, context_instance=RequestContext(request))
 
 
 def login_error(request):
@@ -55,7 +56,9 @@ def connections(request):
     if request.method == 'POST':
         form = DisconnectForm(request.POST, user=request.user)
         if form.is_valid():
-            messages.add_message(request, messages.INFO, _('The social account has been disconnected'))
+            messages.add_message(request,
+                                 messages.INFO,
+                                 _('The social account has been disconnected'))
             form.save()
             form = None
     if not form:

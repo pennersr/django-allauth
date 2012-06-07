@@ -18,7 +18,8 @@ class SocialApp(models.Model):
     objects = SocialAppManager()
 
     site = models.ForeignKey(Site)
-    provider = models.CharField(max_length=30, choices=providers.registry.as_choices())
+    provider = models.CharField(max_length=30,
+                                choices=providers.registry.as_choices())
     name = models.CharField(max_length=40)
     key = models.CharField(max_length=100,
                            help_text='App ID, or consumer key')
@@ -27,6 +28,7 @@ class SocialApp(models.Model):
 
     def __unicode__(self):
         return self.name
+
 
 class SocialAccount(models.Model):
     user = models.ForeignKey(User)
@@ -76,7 +78,8 @@ class SocialAccount(models.Model):
     def sync(self, data):
         # FIXME: to be refactored when provider classes are introduced
         if self.provider == 'facebook':
-            self.extra_data = {'link': data['facebook_me']['link'], 'name': data['facebook_me']['name']}
+            self.extra_data = {'link': data['facebook_me']['link'],
+                               'name': data['facebook_me']['name']}
             self.save()
             access_token = data['facebook_access_token']
             token, created = SocialToken.objects \

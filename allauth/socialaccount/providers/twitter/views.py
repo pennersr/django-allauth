@@ -34,7 +34,8 @@ class TwitterOAuthAdapter(OAuthAdapter):
                             self.request_token_url)
         user_info = client.get_user_info()
         uid = user_info['id']
-        extra_data = {'profile_image_url': user_info['profile_image_url'], 'screen_name': user_info['screen_name']}
+        extra_data = {'profile_image_url': user_info['profile_image_url'],
+                      'screen_name': user_info['screen_name']}
         data = dict(twitter_user_info=user_info,
                     username=user_info['screen_name'])
         return uid, data, extra_data

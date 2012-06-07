@@ -119,6 +119,12 @@ Architecture & Design
 Installation
 ============
 
+- "pip install django-allauth" is NOT supported. Do NOT install it using pip.
+- Makse sure all the modules mentioned in "requirements.txt" are already installed.
+- Download the repository from Github, and extract the "allauth" folder.
+- Place the "allauth" folder in your "site-packages"
+
+
 Django
 ------
 

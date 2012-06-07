@@ -1,7 +1,7 @@
 from django.test import TestCase
-from django.core.urlresolvers import reverse
 
 import utils
+
 
 class BasicTests(TestCase):
 
@@ -10,7 +10,6 @@ class BasicTests(TestCase):
         self.assertEquals(None, utils.valid_email_or_none(s))
         s = 'this.email.address.is.a.bit.too.long.but.should.still.validate.ok@short.com'
         self.assertEquals(s, utils.valid_email_or_none(s))
-        s = 'x'+s
+        s = 'x' + s
         self.assertEquals(None, utils.valid_email_or_none(s))
         self.assertEquals(None, utils.valid_email_or_none("Bad ?"))
-        

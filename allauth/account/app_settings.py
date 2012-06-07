@@ -16,6 +16,9 @@ UNIQUE_EMAIL = getattr(settings, "ACCOUNT_UNIQUE_EMAIL", True)
 # Signup password verification
 SIGNUP_PASSWORD_VERIFICATION = getattr(settings, "ACCOUNT_SIGNUP_PASSWORD_VERIFICATION", True)
 
+# Password Minimum Length - Should be an integer or False
+PASSWORD_MINIMUM_LENGTH = getattr(settings, "ACCOUNT_PASSWORD_MINIMUM_LENGTH", 7)
+
 # Subject-line prefix to use for email messages sent
 EMAIL_SUBJECT_PREFIX = getattr(settings, "ACCOUNT_EMAIL_SUBJECT_PREFIX", None)
 
@@ -31,4 +34,3 @@ PASSWORD_INPUT_RENDER_VALUE = getattr(settings, "ACCOUNT_PASSWORD_INPUT_RENDER_V
 assert (not EMAIL_AUTHENTICATION) or EMAIL_REQUIRED
 assert (not EMAIL_AUTHENTICATION) or UNIQUE_EMAIL
 assert (not EMAIL_VERIFICATION) or EMAIL_REQUIRED
-

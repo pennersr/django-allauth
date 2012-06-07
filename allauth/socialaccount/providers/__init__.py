@@ -16,4 +16,3 @@ class ProviderRegistry(object):
             yield (provider.id, provider.name)
 
 registry = ProviderRegistry()
-

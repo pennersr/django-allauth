@@ -21,11 +21,14 @@ from forms import LoginForm
 
 import models
 
+
 class AXAttribute:
     CONTACT_EMAIL = 'http://axschema.org/contact/email'
 
+
 class SRegField:
     EMAIL = 'email'
+
 
 def _openid_consumer(request):
     store = DBOpenIDStore()
@@ -34,7 +37,7 @@ def _openid_consumer(request):
 
 
 def login(request):
-    if request.GET.has_key('openid') or request.method=='POST':
+    if request.GET.has_key('openid') or request.method == 'POST':
         form = LoginForm(request.REQUEST)
         if form.is_valid():
             client = _openid_consumer(request)
@@ -45,7 +48,7 @@ def login(request):
                     sreg.requestField(field_name=SRegField.EMAIL, required=True)
                     auth_request.addExtension(sreg)
                     ax = FetchRequest()
-                    ax.add(AttrInfo(AXAttribute.CONTACT_EMAIL, 
+                    ax.add(AttrInfo(AXAttribute.CONTACT_EMAIL,
                                     required=True))
                     auth_request.addExtension(ax)
                 callback_url = reverse(callback)
@@ -53,7 +56,7 @@ def login(request):
                 if next:
                     callback_url = callback_url + '?' + urlencode(dict(next=next))
                 redirect_url = auth_request.redirectURL(
-                    request.build_absolute_uri('/'), 
+                    request.build_absolute_uri('/'),
                     request.build_absolute_uri(callback_url))
                 return HttpResponseRedirect(redirect_url)
             except DiscoveryFailure, e:
@@ -64,7 +67,7 @@ def login(request):
     else:
         form = LoginForm()
     d = dict(form=form)
-    return render_to_response('openid/login.html', 
+    return render_to_response('openid/login.html',
                               d, context_instance=RequestContext(request))
 
 
@@ -83,6 +86,7 @@ def _get_email_from_response(response):
             except KeyError:
                 pass
     return email
+
 
 @csrf_exempt
 def callback(request):
@@ -106,5 +110,4 @@ def callback(request):
     else:
         ret = render_authentication_error(request)
     return ret
-
 

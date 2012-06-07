@@ -9,6 +9,7 @@ from allauth.socialaccount.providers.oauth.views import (OAuthAdapter,
 
 from models import LinkedInProvider
 
+
 class LinkedInAPI(OAuth):
     url = 'https://api.linkedin.com/v1/people/~'
     fields = ['id', 'first-name', 'last-name']
@@ -48,11 +49,11 @@ class LinkedInOAuthAdapter(OAuthAdapter):
     authorize_url = 'https://www.linkedin.com/uas/oauth/authorize'
 
     def get_user_info(self, request, app):
-        client = LinkedInAPI(request, app.key, app.secret, 
+        client = LinkedInAPI(request, app.key, app.secret,
                              self.request_token_url)
         user_info = client.get_user_info()
         uid = user_info['id']
-        extra_data = { } # TODO
+        extra_data = {}  # TODO
         data = dict(linkedin_user_info=user_info)
         if 'first-name' in user_info:
             data['first_name'] = user_info['first-name']
@@ -63,4 +64,3 @@ class LinkedInOAuthAdapter(OAuthAdapter):
 oauth_login = OAuthLoginView.adapter_view(LinkedInOAuthAdapter)
 oauth_callback = OAuthCallbackView.adapter_view(LinkedInOAuthAdapter)
 oauth_complete = OAuthCompleteView.adapter_view(LinkedInOAuthAdapter)
-

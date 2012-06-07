@@ -119,6 +119,15 @@ Architecture & Design
 Installation
 ============
 
+- "pip install django-allauth" is NOT supported. Do NOT install it using pip. Pip will get you the old version.
+- Makse sure all the modules mentioned in "requirements.txt" are already installed.
+- Download the repository from Github, and extract the "allauth" folder.
+- Place the "allauth" folder in your "site-packages"
+- Make sure there is a "base.html" in your templates folder, with a block called "content"
+- If you are using South, make sure you create initial migrations for ALL the apps. e.g. "manage.py schemamigration allauth.socialaccount.providers.twitter"
+- After you have installed the apps (settings.py + urls.py + datamigration), login to your admin panel and add the details for twitter and facebook (if they are enabled)
+
+
 Django
 ------
 
@@ -126,6 +135,7 @@ settings.py::
 
     TEMPLATE_CONTEXT_PROCESSORS = (
         ...
+        "django.core.context_processors.request",
         "allauth.context_processors.allauth",
         "allauth.account.context_processors.account"
     )

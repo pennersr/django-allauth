@@ -192,6 +192,9 @@ ACCOUNT_USERNAME_REQUIRED (=True)
 ACCOUNT_PASSWORD_INPUT_RENDER_VALUE (=False)
   `render_value` parameter as passed to `PasswordInput` fields.
 
+ACCOUNT_PASSWORD_MIN_LENGTH (=7)
+  An integer specifying the minimum password length.
+
 SOCIALACCOUNT_QUERY_EMAIL (=ACCOUNT_EMAIL_REQUIRED)
   Request e-mail address from 3rd party account provider? E.g. using
   OpenID AX, or the Facebook "email" permission.

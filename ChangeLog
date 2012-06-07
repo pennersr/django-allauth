@@ -1,3 +1,8 @@
+2012-06-07  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* account: Added setting ACCOUNT_PASSWORD_MIN_LENGTH for
+	specifying the minimum password length.
+
 2012-06-05  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* socialaccount: Added generic OAuth2 support. Added GitHub

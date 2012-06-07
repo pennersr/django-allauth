@@ -30,12 +30,28 @@ import app_settings
 alnum_re = re.compile(r"^\w+$")
 
 
+class PasswordField(forms.CharField):
+
+    def __init__(self, *args, **kwargs):
+        render_value = kwargs.pop('render_value', 
+                                  app_settings.PASSWORD_INPUT_RENDER_VALUE)
+        kwargs['widget'] = forms.PasswordInput(render_value=render_value)
+        super(PasswordField, self).__init__(*args, **kwargs)
+
+class SetPasswordField(PasswordField):
+
+    def clean(self, value):
+        value = super(SetPasswordField, self).clean(value)
+        min_length = app_settings.PASSWORD_MIN_LENGTH
+        if len(value) < min_length:
+            raise forms.ValidationError(_("Password must be a minimum of {0} "
+                                          "characters.").format(min_length))
+        return value
+
 class LoginForm(forms.Form):
     
-    password = forms.CharField(
-        label = _("Password"),
-        widget = forms.PasswordInput(render_value=False)
-    )
+    password = PasswordField(
+        label = _("Password"))
     remember = forms.BooleanField(
         label = _("Remember Me"),
         # help_text = _("If checked you will stay logged in for 3 weeks"),
@@ -187,19 +203,12 @@ class BaseSignupForm(_base_signup_form_class()):
 
 class SignupForm(BaseSignupForm):
     
-    password1 = forms.CharField(
-        label = _("Password"),
-        widget = forms.PasswordInput(render_value=app_settings.PASSWORD_INPUT_RENDER_VALUE)
-    )
-    password2 = forms.CharField(
-	label = _("Password (again)"),
-	widget = forms.PasswordInput(render_value=app_settings.PASSWORD_INPUT_RENDER_VALUE)
-    )
+    password1 = SetPasswordField(label=_("Password"))
+    password2 = PasswordField(label=_("Password (again)"))
     confirmation_key = forms.CharField(
         max_length = 40,
         required = False,
-        widget = forms.HiddenInput()
-    )
+        widget = forms.HiddenInput())
     
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)
@@ -323,18 +332,9 @@ class AddEmailForm(UserForm):
 
 class ChangePasswordForm(UserForm):
     
-    oldpassword = forms.CharField(
-        label = _("Current Password"),
-        widget = forms.PasswordInput(render_value=False)
-    )
-    password1 = forms.CharField(
-        label = _("New Password"),
-        widget = forms.PasswordInput(render_value=False)
-    )
-    password2 = forms.CharField(
-        label = _("New Password (again)"),
-        widget = forms.PasswordInput(render_value=False)
-    )
+    oldpassword = PasswordField(label=_("Current Password"))
+    password1 = SetPasswordField(label=_("New Password"))
+    password2 = PasswordField(label=_("New Password (again)"))
     
     def clean_oldpassword(self):
         if not self.user.check_password(self.cleaned_data.get("oldpassword")):
@@ -354,14 +354,8 @@ class ChangePasswordForm(UserForm):
 
 class SetPasswordForm(UserForm):
     
-    password1 = forms.CharField(
-        label = _("Password"),
-        widget = forms.PasswordInput(render_value=False)
-    )
-    password2 = forms.CharField(
-        label = _("Password (again)"),
-        widget = forms.PasswordInput(render_value=False)
-    )
+    password1 = SetPasswordField(label=_("Password"))
+    password2 = PasswordField(label=_("Password (again)"))
     
     def clean_password2(self):
         if "password1" in self.cleaned_data and "password2" in self.cleaned_data:
@@ -423,14 +417,8 @@ class ResetPasswordForm(forms.Form):
 
 class ResetPasswordKeyForm(forms.Form):
     
-    password1 = forms.CharField(
-        label = _("New Password"),
-        widget = forms.PasswordInput(render_value=False)
-    )
-    password2 = forms.CharField(
-        label = _("New Password (again)"),
-        widget = forms.PasswordInput(render_value=False)
-    )
+    password1 = SetPasswordField(label=_("New Password"))
+    password2 = PasswordField(label=_("New Password (again)"))
     
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user", None)

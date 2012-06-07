@@ -1,12 +1,10 @@
-from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from django.contrib.auth import login, logout as auth_logout
-from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 from django.utils.http import urlencode
 from django.template.defaultfilters import slugify
 
@@ -54,7 +52,8 @@ def _process_signup(request, data, account):
     else:
         # FIXME: There is some duplication of logic inhere
         # (create user, send email, in active etc..)
-        username = generate_unique_username(data.get('username', email or 'user'))
+        username = generate_unique_username(data.get('username', 
+                                                     email or 'user'))
         u = User(username=username,
                  email=email or '',
                  last_name=data.get('last_name', '')[0:User._meta.get_field('last_name').max_length],
@@ -76,7 +75,8 @@ def _login_social_account(request, account):
             {},
             context_instance=RequestContext(request))
     else:
-        ret = perform_login(request, user, redirect_url=get_login_redirect_url(request))
+        ret = perform_login(request, user, 
+                            redirect_url=get_login_redirect_url(request))
     return ret
 
 
@@ -104,8 +104,11 @@ def complete_social_login(request, data, account):
             # New social account
             account.user = request.user
             account.sync(data)
-            messages.add_message(request, messages.INFO, _('The social account has been connected to your existing account'))
-            return HttpResponseRedirect(request.REQUEST.get('next') or reverse('socialaccount_connections'))
+            messages.add_message(request, messages.INFO, 
+                                 _('The social account has been connected'
+                                   ' to your existing account'))
+            return HttpResponseRedirect(request.REQUEST.get('next') or
+                                        reverse('socialaccount_connections'))
     else:
         if account.pk:
             # Login existing user
@@ -157,7 +160,7 @@ def _copy_avatar(request, user, account):
             content = urllib2.urlopen(url).read()
             name = _name_from_url(url)
             ava.avatar.save(name, ContentFile(content))
-        except IOError, e:
+        except IOError:
             # Let's nog make a big deal out of this...
             pass
 

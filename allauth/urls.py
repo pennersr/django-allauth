@@ -8,7 +8,8 @@ import app_settings
 urlpatterns = patterns('', url('^', include('allauth.account.urls')))
 
 if app_settings.SOCIALACCOUNT_ENABLED:
-    urlpatterns += patterns('', url('^social/', include('allauth.socialaccount.urls')))
+    urlpatterns += patterns('', url('^social/', 
+                                    include('allauth.socialaccount.urls')))
 
 for provider in providers.registry.get_list():
     try:

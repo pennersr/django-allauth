@@ -7,6 +7,7 @@ from django.utils.http import urlencode
 
 from emailconfirmation.models import EmailAddress
 
+
 def get_login_redirect_url(request):
     """
     Returns a url to redirect to after the login
@@ -23,8 +24,9 @@ def get_login_redirect_url(request):
         next = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
     return next
 
+
 def passthrough_login_redirect_url(request, url):
-    assert url.find("?") < 0 # TODO: Handle this case properly
+    assert url.find("?") < 0  # TODO: Handle this case properly
     next = request.REQUEST.get('next')
     if next:
         url = url + '?' + urlencode(dict(next=next))
@@ -38,15 +40,15 @@ def generate_unique_username(txt):
     while True:
         try:
             if i:
-                pfx = str(i+1)
+                pfx = str(i + 1)
             else:
                 pfx = ''
-            ret = username[0:max_length-len(pfx)] + pfx
+            ret = username[0:max_length - len(pfx)] + pfx
             User.objects.get(username=ret)
             i += 1
         except User.DoesNotExist:
             return ret
-        
+
 
 def valid_email_or_none(email):
     ret = None
@@ -58,7 +60,7 @@ def valid_email_or_none(email):
     except ValidationError:
         pass
     return ret
-        
+
 
 def email_address_exists(email, exclude_user=None):
     emailaddresses = EmailAddress.objects

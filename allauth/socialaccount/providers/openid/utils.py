@@ -7,6 +7,7 @@ from openid.association import Association as OIDAssociation
 
 from models import OpenIDStore, OpenIDNonce
 
+
 class DBOpenIDStore(OIDStore):
     max_nonce_age = 6 * 60 * 60
 
@@ -19,7 +20,6 @@ class DBOpenIDStore(OIDStore):
             lifetime=assoc.lifetime,
             assoc_type=assoc.assoc_type
         )
-
 
     def getAssociation(self, server_url, handle=None):
         stored_assocs = OpenIDStore.objects.filter(

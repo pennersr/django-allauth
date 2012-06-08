@@ -1,3 +1,7 @@
+2012-06-08  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.5.0 released.
+
 2012-06-07  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* account: Added setting ACCOUNT_PASSWORD_MIN_LENGTH for
@@ -26,6 +30,10 @@
 	* account: E-mail confirmation mails are now automatically resent
 	whenever a user attempts to login with an unverified e-mail
 	address (if ACCOUNT_EMAIL_VERIFICATION=True).
+
+2012-03-25  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.4.0 released.
 
 2012-03-15  Raymond Penners  <raymond.penners@intenct.nl>
 

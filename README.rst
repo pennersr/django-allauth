@@ -214,6 +214,24 @@ EMAIL_CONFIRMATION_DAYS (=# of days, no default)
   django-email-confirmation.
 
 
+Upgrading
+---------
+
+From 0.4.0
+***********
+
+- Upgrade your `settings.INSTALLED_APPS`: Replace `allauth.<provider>`
+  (where provider is one of `twitter`, `facebook` or `openid`) with
+  `allauth.socialaccount.providers.<provider>`
+
+- All provider related models (`FacebookAccount`, `FacebookApp`,
+  `TwitterAccount`, `TwitterApp`, `OpenIDAccount`) have been unified
+  into generic `SocialApp` and `SocialAccount` models. South migrations
+  are in place to move the data over to the new models, after which
+  the original tables are dropped. Therefore, be sure to run migrate
+  using South.
+
+
 
 Showcase
 ========

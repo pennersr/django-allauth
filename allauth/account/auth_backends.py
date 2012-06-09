@@ -10,10 +10,10 @@ class AuthenticationBackend(ModelBackend):
     
     def authenticate(self, **credentials):
         ret = None
-        if app_settings.EMAIL_AUTHENTICATION:
+        if not app_settings.ACCOUNT_AUTHENTICATION == app_settings.USERNAME:
             # Also handle 'username' as e-mail to play nice
             # with other apps (e.g. django-tastypie basic authentication)
-            email = credentials.get('email', credentials.get('username'))
+            email = credentials.get('email')
             if email:
                 users = User.objects.filter(Q(email__iexact=email)
                                             | Q(emailaddress__email__iexact
@@ -21,8 +21,7 @@ class AuthenticationBackend(ModelBackend):
                 for user in users:
                     if user.check_password(credentials["password"]):
                         return user
-        else:
-            ret = super(AuthenticationBackend, self).authenticate(**credentials)
+        ret = super(AuthenticationBackend, self).authenticate(**credentials)
         return ret
 
 

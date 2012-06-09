@@ -13,7 +13,7 @@ import app_settings
 class AccountTests(TestCase):
     def setUp(self):
         app_settings.EMAIL_VERIFICATION = True
-        app_settings.EMAIL_AUTHENTICATION = False
+        app_settings.ACCOUNT_AUTHENTICATION = app_settings.USERNAME
 
     def test_email_verification_mandatory(self):
         c = Client()

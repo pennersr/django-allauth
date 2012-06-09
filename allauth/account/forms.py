@@ -50,22 +50,30 @@ class LoginForm(forms.Form):
         super(LoginForm, self).__init__(*args, **kwargs)
         ordering = []
 
-        # instead of using a separate field in case EMAIL_AUTHENTICATION
-        # is used or not, use a single field that can contain email 
-        # address deppending on the value of EMAIL_AUTHENTICATION
+        # A single field is used for all the 3 cases of account authentication
+        # Depending on the setting the field is interpreted accordingly
 
-        if EMAIL_AUTHENTICATION:
+        if ACCOUNT_AUTHENTICATION == USERNAME:
 
-            self.fields["login_field"] = forms.CharField(
-                label = ugettext("Username/Email"),
-                max_length = 64,
-                error_messages={'required': 'You need to give your username/email to login'}
-            )
-        else:
             self.fields["login_field"] = forms.CharField(
                 label = ugettext("Username"),
                 max_length = 64,
                 error_messages={'required': 'You need to give your username to login'}
+            )
+
+        elif ACCOUNT_AUTHENTICATION == EMAIL:
+ 
+            self.fields["login_field"] = forms.CharField(
+                label = ugettext("Email"),
+                max_length = 64,
+                error_messages={'required': 'You need to give your email to login'}
+            )
+
+        else:
+            self.fields["login_field"] = forms.CharField(
+                label = ugettext("Username/Email"),
+                max_length = 64,
+                error_messages={'required': 'You need to give your username/email to login'}
             )
 
         ordering.append("login_field")
@@ -80,19 +88,21 @@ class LoginForm(forms.Form):
         """
         credentials = {}
 
-        # Login field will either contain email or username
-        # depening on the value of EMAIL_AUTHENTICATION
+        # Login field will either contain email, username or both
+        # depening on the value of ACCOUNT_AUTHENTICATION
         login_field = self.cleaned_data["login_field"]
 
-        if EMAIL_AUTHENTICATION:
+        if ACCOUNT_AUTHENTICATION == EMAIL:
+            credentials["email"] = login_field
 
+        elif ACCOUNT_AUTHENTICATION == USERNAME:
+            credentials["username"] = login_field
+
+        else:
             if "@" in login_field and "." in login_field:
                 credentials["email"] = login_field
             else:
                 credentials["username"] = login_field
-
-        else:
-            credentials["username"] = login_field
 
         credentials["password"] = self.cleaned_data["password"]
         return credentials
@@ -107,10 +117,14 @@ class LoginForm(forms.Form):
             else:
                 raise forms.ValidationError(_("This account is currently inactive."))
         else:
-            if EMAIL_AUTHENTICATION:
-                error = _("The e-mail address/username and/or password you specified are not correct.")
+            if ACCOUNT_AUTHENTICATION == EMAIL:
+                error = _("The e-mail address and/or password you specified are not correct.")
+
+            elif  ACCOUNT_AUTHENTICATION == USERNAME:
+                error = _("The e-mail username and/or password you specified are not correct.")
             else:
-                error = _("The username and/or password you specified are not correct.")
+                error = _("The email/username and/or password you specified are not correct.")
+
             raise forms.ValidationError(error)
         return self.cleaned_data
     
@@ -158,7 +172,7 @@ class BaseSignupForm(_base_signup_form_class()):
 
     def __init__(self, *args, **kwargs):
         super(BaseSignupForm, self).__init__(*args, **kwargs)
-        if EMAIL_REQUIRED or EMAIL_VERIFICATION or EMAIL_AUTHENTICATION:
+        if EMAIL_REQUIRED or EMAIL_VERIFICATION or not ACCOUNT_AUTHENTICATION == USERNAME :
             self.fields["email"].label = ugettext("E-mail")
             self.fields["email"].required = True
         else:
@@ -184,7 +198,7 @@ class BaseSignupForm(_base_signup_form_class()):
     
     def clean_email(self):
         value = self.cleaned_data["email"]
-        if UNIQUE_EMAIL or EMAIL_AUTHENTICATION:
+        if UNIQUE_EMAIL or not ACCOUNT_AUTHENTICATION == USERNAME:
             if value and email_address_exists(value):
                 raise forms.ValidationError \
                     (_("A user is registered with this e-mail address."))

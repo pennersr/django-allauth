@@ -3,7 +3,7 @@ from django.conf import settings
 ## COnfiguration options for Account Authentication
 USERNAME = "username"
 EMAIL = "email"
-BOTH = "both"
+BOTH = "username_email"
 
 # The user is required to hand over an e-mail address when signing up
 EMAIL_REQUIRED = getattr(settings, "ACCOUNT_EMAIL_REQUIRED", False)

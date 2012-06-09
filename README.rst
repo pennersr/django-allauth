@@ -126,6 +126,8 @@ settings.py::
 
     TEMPLATE_CONTEXT_PROCESSORS = (
         ...
+        "django.core.context_processors.request",
+        ...
         "allauth.context_processors.allauth",
         "allauth.account.context_processors.account"
     )

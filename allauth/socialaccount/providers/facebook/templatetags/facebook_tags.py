@@ -18,9 +18,11 @@ def fbconnect(context):
     try:
         app = SocialApp.objects.get_current(FacebookProvider.id)
     except SocialApp.DoesNotExist:
-        raise ImproperlyConfigured("No Facebook app configured")
+        raise ImproperlyConfigured("No Facebook app configured: please"
+                                   " add a SocialApp using the Django admin")
     return {'facebook_app': app,
-            'facebook_channel_url': request.build_absolute_uri(reverse('facebook_channel')),
+            'facebook_channel_url': 
+            request.build_absolute_uri(reverse('facebook_channel')),
             'facebook_perms': perms}
 
 class FacebookLoginURLNode(template.Node):

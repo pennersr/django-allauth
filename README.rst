@@ -211,6 +211,10 @@ SOCIALACCOUNT_AVATAR_SUPPORT (= 'avatar' in settings.INSTALLED_APPS)
   Enable support for django-avatar. When enabled, the profile image of
   the user is copied locally into django-avatar at signup.
 
+SOCIALACCOUNT_FACEBOOK_JSSDK_LOCALE (='en_US')
+  Customize the locale used by the Facebook Javascript SDK, i.e. the
+  value used in "//connect.facebook.net/<locale>/all.js"
+
 EMAIL_CONFIRMATION_DAYS (=# of days, no default)
   Determines the expiration date of email confirmation mails sent by
   django-email-confirmation.

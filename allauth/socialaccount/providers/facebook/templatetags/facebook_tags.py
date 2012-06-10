@@ -5,6 +5,7 @@ from django.template.defaulttags import token_kwargs
 
 from allauth.socialaccount.models import SocialApp
 from allauth.socialaccount.app_settings import QUERY_EMAIL
+from allauth.socialaccount.providers.facebook.provider_settings import JSSDK_LOCALE
 from allauth.socialaccount.providers.facebook.models import FacebookProvider
 
 register = template.Library()
@@ -23,6 +24,7 @@ def fbconnect(context):
     return {'facebook_app': app,
             'facebook_channel_url': 
             request.build_absolute_uri(reverse('facebook_channel')),
+            'facebook_jssdk_locale': JSSDK_LOCALE,
             'facebook_perms': perms}
 
 class FacebookLoginURLNode(template.Node):

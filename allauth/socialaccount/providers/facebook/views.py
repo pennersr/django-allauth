@@ -4,6 +4,7 @@ from django.shortcuts import render
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.models import SocialAccount
+from allauth.socialaccount.providers.facebook.provider_settings import JSSDK_LOCALE
 from facebook import GraphAPI, GraphAPIError
 
 from forms import FacebookConnectForm
@@ -49,7 +50,8 @@ def login(request):
 
 
 def channel(request):
-    response = render(request, 'facebook/channel.html')
+    response = render(request, 'facebook/channel.html',
+                      {'facebook_jssdk_locale': JSSDK_LOCALE})
     cache_expire = 60 * 60 * 24 * 365
     patch_response_headers(response, cache_expire)
     response['Pragma'] = 'Public'

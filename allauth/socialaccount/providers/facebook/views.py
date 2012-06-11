@@ -1,10 +1,17 @@
 from django.utils.cache import patch_response_headers
+from django.core.exceptions import ImproperlyConfigured
 from django.shortcuts import render
 
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.models import SocialAccount
-from facebook import GraphAPI, GraphAPIError
+
+try:
+    from facebook import GraphAPI, GraphAPIError
+except ImportError:
+    # People often seem to overlook this dependency, so let's make it
+    # a bit more explicit...
+    raise ImproperlyConfigured("Dependency missing: Python Facebook SDK")
 
 from forms import FacebookConnectForm
 from models import FacebookProvider

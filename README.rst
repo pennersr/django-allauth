@@ -160,15 +160,16 @@ Configuration
 
 Available settings:
 
+ACCOUNT_AUTHENTICATION_METHOD (="username" | "email" | "username_email")
+  Specifies the login method to use -- whether the user logs in by
+  entering his username, e-mail address, or either one of both.
+
 ACCOUNT_EMAIL_REQUIRED (=False)
   The user is required to hand over an e-mail address when signing up.
 
 ACCOUNT_EMAIL_VERIFICATION (=False)
   After signing up, keep the user account inactive until the e-mail
   address is verified.
-
-ACCOUNT_EMAIL_AUTHENTICATION (=False)
-  Login by e-mail address, not username.
 
 ACCOUNT_EMAIL_SUBJECT_PREFIX (="[Site] ")
   Subject-line prefix to use for email messages sent. By default, the

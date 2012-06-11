@@ -10,15 +10,16 @@ from django.contrib.sites.models import Site
 
 from emailconfirmation.models import EmailAddress, EmailConfirmation
 
+from app_settings import AuthenticationMethod
 import app_settings
 
 class AccountTests(TestCase):
     def setUp(self):
         self.OLD_EMAIL_VERIFICATION = app_settings.EMAIL_VERIFICATION
-        self.OLD_EMAIL_AUTHENTICATION = app_settings.EMAIL_AUTHENTICATION
-        self.OLD_EMAIL_SIGNUP_FORM_CLASS = app_settings.SIGNUP_FORM_CLASS
+        self.OLD_AUTHENTICATION_METHOD = app_settings.AUTHENTICATION_METHOD
+        self.OLD_SIGNUP_FORM_CLASS = app_settings.SIGNUP_FORM_CLASS
         app_settings.EMAIL_VERIFICATION = True
-        app_settings.EMAIL_AUTHENTICATION = False
+        app_settings.AUTHENTICATION_METHOD = AuthenticationMethod.USERNAME
         app_settings.SIGNUP_FORM_CLASS = None
 
     def test_email_verification_mandatory(self):
@@ -37,7 +38,7 @@ class AccountTests(TestCase):
         # Attempt to login, unverified
         for attempt in [1, 2]:
             resp = c.post(reverse('account_login'),
-                          { 'username': 'johndoe',
+                          { 'login': 'johndoe',
                             'password': 'johndoe'})
             # is_active is controlled by the admin to manually disable
             # users. I don't want this flag to flip automatically whenever
@@ -54,7 +55,7 @@ class AccountTests(TestCase):
         EmailAddress.objects.filter(user__username='johndoe') \
             .update(verified=True)
         resp = c.post(reverse('account_login'),
-                      { 'username': 'johndoe',
+                      { 'login': 'johndoe',
                         'password': 'johndoe'})
         self.assertEquals(resp['location'], 
                           'http://testserver'+settings.LOGIN_REDIRECT_URL)
@@ -76,6 +77,6 @@ class AccountTests(TestCase):
         EmailAddress.objects.add_email(u, u.email)
 
     def tearDown(self):
-        self.EMAIL_VERIFICATION = app_settings.OLD_EMAIL_VERIFICATION
-        self.EMAIL_AUTHENTICATION = app_settings.OLD_EMAIL_AUTHENTICATION
-        self.EMAIL_SIGNUP_FORM_CLASS = app_settings.OLD_SIGNUP_FORM_CLASS
+        app_settings.EMAIL_VERIFICATION = self.OLD_EMAIL_VERIFICATION
+        app_settings.AUTHENTICATION_METHOD = self.OLD_AUTHENTICATION_METHOD
+        app_settings.SIGNUP_FORM_CLASS = self.OLD_SIGNUP_FORM_CLASS

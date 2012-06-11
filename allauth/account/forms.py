@@ -24,6 +24,7 @@ from emailconfirmation.models import EmailAddress
 # from models import PasswordReset
 from utils import perform_login, send_email_confirmation, format_email_subject
 from allauth.utils import email_address_exists
+from app_settings import AuthenticationMethod
         
 import app_settings
 
@@ -62,20 +63,27 @@ class LoginForm(forms.Form):
     
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
-        ordering = []
-        if app_settings.EMAIL_AUTHENTICATION:
-            self.fields["email"] = forms.EmailField(
-                label = ugettext("E-mail"),
-            )
-            ordering.append("email")
+        if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
+            login_widget = forms.TextInput(attrs={'placeholder': 
+                                                  _('E-mail address') })
+            login_field = forms.EmailField(label=_("E-mail"),
+                                           widget=login_widget)
+        elif app_settings.AUTHENTICATION_METHOD \
+                == AuthenticationMethod.USERNAME:
+            login_widget = forms.TextInput(attrs={'placeholder': 
+                                                  _('Username') })
+            login_field = forms.CharField(label=_("Username"),
+                                          widget=login_widget,
+                                          max_length=30)
         else:
-            self.fields["username"] = forms.CharField(
-                label = ugettext("Username"),
-                max_length = 30,
-            )
-            ordering.append("username")
-        ordering.extend(["password", "remember"])
-        self.fields.keyOrder = ordering
+            assert app_settings.AUTHENTICATION_METHOD \
+                == AuthenticationMethod.USERNAME_EMAIL
+            login_widget = forms.TextInput(attrs={'placeholder': 
+                                                  _('Username or e-mail') })
+            login_field = forms.CharField(label=ugettext("Login"),
+                                          widget=login_widget)
+        self.fields["login"] = login_field
+        self.fields.keyOrder = ["login", "password", "remember"]
     
     def user_credentials(self):
         """
@@ -83,10 +91,17 @@ class LoginForm(forms.Form):
         login.
         """
         credentials = {}
-        if app_settings.EMAIL_AUTHENTICATION:
-            credentials["email"] = self.cleaned_data["email"]
+        login = self.cleaned_data["login"]
+        if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
+            credentials["email"] = login
+        elif (app_settings.AUTHENTICATION_METHOD 
+              == AuthenticationMethod.USERNAME):
+            credentials["username"] = login
         else:
-            credentials["username"] = self.cleaned_data["username"]
+            if "@" in login and "." in login:
+                credentials["email"] = login
+            else:
+                credentials["username"] = login
         credentials["password"] = self.cleaned_data["password"]
         return credentials
     
@@ -98,12 +113,19 @@ class LoginForm(forms.Form):
             if user.is_active:
                 self.user = user
             else:
-                raise forms.ValidationError(_("This account is currently inactive."))
+                raise forms.ValidationError(_("This account is currently"
+                                              " inactive."))
         else:
-            if app_settings.EMAIL_AUTHENTICATION:
-                error = _("The e-mail address and/or password you specified are not correct.")
+            if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
+                error = _("The e-mail address and/or password you specified"
+                          " are not correct.")
+            elif app_settings.AUTHENTICATION_METHOD \
+                  == AuthenticationMethod.USERNAME:
+                error = _("The username and/or password you specified are"
+                          " not correct.")
             else:
-                error = _("The username and/or password you specified are not correct.")
+                error = _("The login and/or password you specified are not"
+                          " correct.")
             raise forms.ValidationError(error)
         return self.cleaned_data
     
@@ -127,17 +149,23 @@ def _base_signup_form_class():
     try:
         fc_module, fc_classname = app_settings.SIGNUP_FORM_CLASS.rsplit('.', 1)
     except ValueError:
-        raise exceptions.ImproperlyConfigured('%s does not point to a form class' % app_settings.SIGNUP_FORM_CLASS)
+        raise exceptions.ImproperlyConfigured('%s does not point to a form'
+                                              ' class' 
+                                              % app_settings.SIGNUP_FORM_CLASS)
     try:
         mod = import_module(fc_module)
     except ImportError, e:
-        raise exceptions.ImproperlyConfigured('Error importing form class %s: "%s"' % (fc_module, e))
+        raise exceptions.ImproperlyConfigured('Error importing form class %s:'
+                                              ' "%s"' % (fc_module, e))
     try:
         fc_class = getattr(mod, fc_classname)
     except AttributeError:
-        raise exceptions.ImproperlyConfigured('Module "%s" does not define a "%s" class' % (fc_module, fc_classname))
+        raise exceptions.ImproperlyConfigured('Module "%s" does not define a'
+                                              ' "%s" class' % (fc_module, 
+                                                               fc_classname))
     if not hasattr(fc_class, 'save'):
-        raise exceptions.ImproperlyConfigured('The custom signup form must implement a "save" method')
+        raise exceptions.ImproperlyConfigured('The custom signup form must'
+                                              ' implement a "save" method')
     return fc_class
 
                                              
@@ -151,7 +179,9 @@ class BaseSignupForm(_base_signup_form_class()):
 
     def __init__(self, *args, **kwargs):
         super(BaseSignupForm, self).__init__(*args, **kwargs)
-        if app_settings.EMAIL_REQUIRED or app_settings.EMAIL_VERIFICATION or app_settings.EMAIL_AUTHENTICATION:
+        if (app_settings.EMAIL_REQUIRED or 
+            app_settings.EMAIL_VERIFICATION or
+            app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL):
             self.fields["email"].label = ugettext("E-mail")
             self.fields["email"].required = True
         else:
@@ -177,7 +207,7 @@ class BaseSignupForm(_base_signup_form_class()):
     
     def clean_email(self):
         value = self.cleaned_data["email"]
-        if app_settings.UNIQUE_EMAIL or app_settings.EMAIL_AUTHENTICATION:
+        if app_settings.UNIQUE_EMAIL:
             if value and email_address_exists(value):
                 raise forms.ValidationError \
                     (_("A user is registered with this e-mail address."))

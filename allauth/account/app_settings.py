@@ -1,4 +1,10 @@
+import warnings
 from django.conf import settings
+
+class AuthenticationMethod:
+    USERNAME = 'username'
+    EMAIL = 'email'
+    USERNAME_EMAIL = 'username_email'
 
 # The user is required to hand over an e-mail address when signing up
 EMAIL_REQUIRED = getattr(settings, "ACCOUNT_EMAIL_REQUIRED", False)
@@ -8,7 +14,16 @@ EMAIL_REQUIRED = getattr(settings, "ACCOUNT_EMAIL_REQUIRED", False)
 EMAIL_VERIFICATION = getattr(settings, "ACCOUNT_EMAIL_VERIFICATION", False)
 
 # Login by email address, not username
-EMAIL_AUTHENTICATION = getattr(settings, "ACCOUNT_EMAIL_AUTHENTICATION", False)
+if hasattr(settings, "ACCOUNT_EMAIL_AUTHENTICATION"):
+    warnings.warn("ACCOUNT_EMAIL_AUTHENTICATION is deprecated, use ACCOUNT_AUTHENTICATION_METHOD", 
+                  DeprecationWarning)
+    if getattr(settings, "ACCOUNT_EMAIL_AUTHENTICATION"):
+        AUTHENTICATION_METHOD = AuthenticationMethod.EMAIL
+    else:
+        AUTHENTICATION_METHOD = AuthenticationMethod.USERNAME
+else:
+    AUTHENTICATION_METHOD = getattr(settings, "ACCOUNT_AUTHENTICATION_METHOD", 
+                                    AuthenticationMethod.USERNAME)
 
 # Enforce uniqueness of e-mail addresses
 UNIQUE_EMAIL = getattr(settings, "ACCOUNT_UNIQUE_EMAIL", True)
@@ -35,6 +50,8 @@ PASSWORD_INPUT_RENDER_VALUE = getattr(settings,
                                       "ACCOUNT_PASSWORD_INPUT_RENDER_VALUE", 
                                       False)
 
-assert (not EMAIL_AUTHENTICATION) or EMAIL_REQUIRED
-assert (not EMAIL_AUTHENTICATION) or UNIQUE_EMAIL
+# If login is by email, email must be required
+assert (not AUTHENTICATION_METHOD==AuthenticationMethod.EMAIL) or EMAIL_REQUIRED
+# If login includes email, login must be unique
+assert (AUTHENTICATION_METHOD==AuthenticationMethod.USERNAME) or UNIQUE_EMAIL
 assert (not EMAIL_VERIFICATION) or EMAIL_REQUIRED

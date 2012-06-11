@@ -1,3 +1,8 @@
+2012-06-11  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* account: Added ACCOUNT_AUTHENTICATION_METHOD setting, supporting
+	login by username, e-mail or both.
+
 2012-06-08  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Version 0.5.0 released.

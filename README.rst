@@ -219,8 +219,19 @@ EMAIL_CONFIRMATION_DAYS (=# of days, no default)
 Upgrading
 ---------
 
+From 0.5.0
+**********
+
+- The `ACCOUNT_EMAIL_AUTHENTICATION` setting has been dropped in favor
+  of `ACCOUNT_AUTHENTICATION_METHOD`.
+
+- The login form field is now always named `login`. This used to by
+  either `username` or `email`, depending on the authentication
+  method. If needed, update your templates accordingly.
+
+
 From 0.4.0
-***********
+**********
 
 - Upgrade your `settings.INSTALLED_APPS`: Replace `allauth.<provider>`
   (where provider is one of `twitter`, `facebook` or `openid`) with

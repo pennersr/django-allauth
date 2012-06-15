@@ -257,6 +257,7 @@ class SignupForm(BaseSignupForm):
             del self.fields["password2"]
     
     def clean(self):
+        super(SignupForm, self).clean()
         if app_settings.SIGNUP_PASSWORD_VERIFICATION \
                 and "password1" in self.cleaned_data \
                 and "password2" in self.cleaned_data:

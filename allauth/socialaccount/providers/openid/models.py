@@ -1,5 +1,7 @@
 from urlparse import urlparse
 from django.db import models
+from django.core.urlresolvers import reverse
+from django.utils.http import urlencode
 
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import Provider, ProviderAccount
@@ -31,6 +33,8 @@ class OpenIDAccount(ProviderAccount):
     def get_brand(self):
         ret = super(OpenIDAccount, self).get_brand()
         domain = urlparse(self.account.uid).netloc
+        # FIXME: Instead of hardcoding, derive this from the domains
+        # listed in the openid endpoints setting.
         provider_map = {'yahoo': dict(id='yahoo',
                                       name='Yahoo'),
                          'hyves': dict(id='hyves',
@@ -52,5 +56,20 @@ class OpenIDProvider(Provider):
     name = 'OpenID'
     package = 'allauth.socialaccount.providers.openid'
     account_class = OpenIDAccount
+
+    def get_login_url(self, request, next=None, openid=None):
+        url = reverse('openid_login')
+        query = {}
+        if openid:
+            query['openid'] = openid
+        if next:
+            query['next'] = next
+        if query:
+            url += '?' + urlencode(query)
+        return url
+
+    def get_brands(self):
+        return self.get_settings()['SERVERS']
+        
 
 providers.registry.register(OpenIDProvider)

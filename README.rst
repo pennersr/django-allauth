@@ -128,8 +128,8 @@ settings.py::
         ...
         "django.core.context_processors.request",
         ...
-        "allauth.context_processors.allauth",
-        "allauth.account.context_processors.account"
+        "allauth.account.context_processors.account",
+        "allauth.socialaccount.context_processors.socialaccount"
     )
 
     AUTHENTICATION_BACKENDS = ( ...
@@ -212,6 +212,9 @@ SOCIALACCOUNT_AVATAR_SUPPORT (= 'avatar' in settings.INSTALLED_APPS)
   Enable support for django-avatar. When enabled, the profile image of
   the user is copied locally into django-avatar at signup.
 
+SOCIALACCOUNT_PROVIDERS (= dict)
+    Dictionary containing provider specific settings.
+
 EMAIL_CONFIRMATION_DAYS (=# of days, no default)
   Determines the expiration date of email confirmation mails sent by
   django-email-confirmation.
@@ -230,6 +233,17 @@ From 0.5.0
   either `username` or `email`, depending on the authentication
   method. If needed, update your templates accordingly.
 
+- The `allauth` template tags (containing template tags for
+  OpenID, Twitter and Facebook) have been removed. Use the
+  `socialaccount` template tags instead (specifically: `{% provider_login_url
+  ... %}`).
+
+- The `allauth.context_processors.allauth` context processor has been
+  removed, in favor of
+  `allauth.socialaccount.context_processors.socialaccount`. In doing
+  so, all hardcodedness with respect to providers (e.g
+  `allauth.facebook_enabled`) has been removed.
+
 
 From 0.4.0
 **********
@@ -245,6 +259,19 @@ From 0.4.0
   the original tables are dropped. Therefore, be sure to run migrate
   using South.
 
+
+Templates
+=========
+
+Tags
+----
+
+Use the `provider_login_url` tag to generate provider specific login URLs::
+
+    {% load socialaccount_tags %}
+
+    <a href="{% provider_login_url "openid" openid="https://www.google.com/accounts/o8/id" next="/success/url/" %}">Google</a>
+    <a href="{% provider_login_url "twitter" %}">Twitter</a>
 
 
 Showcase

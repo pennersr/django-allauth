@@ -1,3 +1,9 @@
+2012-06-18  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* allauth, socialaccount: Removed the last remaining bits of
+	hardcodedness with respect to the enabled social authentication
+	providers.
+
 2012-06-11  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* account: Added ACCOUNT_AUTHENTICATION_METHOD setting, supporting

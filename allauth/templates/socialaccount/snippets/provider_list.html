@@ -1,16 +1,19 @@
-{% load allauth_tags %}
+{% load socialaccount_tags %}
 
-{% if allauth.openid_enabled %}
-<li><a title="Google" class="socialaccount_provider google" href="{% openid_login_url openid="https://www.google.com/accounts/o8/id" %}">Google</a></li>
+{% for provider in socialaccount.providers %}
+{% if provider.id == "openid" %}
+{% for brand in provider.get_brands %}
+<li>
+  <a title="{{brand.name}}" 
+     class="socialaccount_provider {{provider.id}} {{brand.id}}" 
+     href="{% provider_login_url provider.id openid=brand.openid_url %}"
+     >{{brand.name}}</a>
+</li>
+{% endfor %}
 {% endif %}
-{% if allauth.twitter_enabled %}
-<li><a title="Twitter" class="socialaccount_provider twitter" href="{% twitter_login_url %}">Twitter</a></li>
-{% endif %}
-{% if allauth.facebook_enabled %}
-<li><a title="Facebook" class="socialaccount_provider facebook" href="{% facebook_login_url %}">Facebook</a></li>
-{% endif %}
-{% if allauth.openid_enabled %}
-<li><a title="Yahoo" class="socialaccount_provider yahoo" href="{% openid_login_url openid="http://me.yahoo.com" %}">Yahoo</a></li>
-<li><a title="OpenID" class="socialaccount_provider openid" href="{% openid_login_url %}">OpenID</a></li>
-<li><a title="Hyves" class="socialaccount_provider hyves" href="{% openid_login_url openid="http://hyves.nl" %}">Hyves</a></li>
-{% endif %}
+<li>
+  <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}" 
+     href="{% provider_login_url provider.id %}">{{provider.name}}</a>
+</li>
+{% endfor %}
+

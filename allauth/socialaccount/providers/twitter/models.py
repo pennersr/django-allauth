@@ -1,3 +1,6 @@
+from django.core.urlresolvers import reverse
+from django.utils.http import urlencode
+
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import Provider, ProviderAccount
 
@@ -33,4 +36,11 @@ class TwitterProvider(Provider):
     package = 'allauth.socialaccount.providers.twitter'
     account_class = TwitterAccount
 
+    def get_login_url(self, request, **kwargs):
+        url = reverse('twitter_login')
+        if kwargs:
+            url = url + '?' + urlencode(kwargs)
+        return url
+        
+        
 providers.registry.register(TwitterProvider)

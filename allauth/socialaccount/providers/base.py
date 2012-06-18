@@ -1,7 +1,24 @@
+from allauth.socialaccount import app_settings
+
 class Provider(object):
+    def get_login_url(self, request, next=None, **kwargs):
+        """
+        Builds the URL to redirect to when initiating a login for this
+        provider. 
+        """
+        raise NotImplementedError, "get_login_url() for " + self.name
+
+    def media_js(self, request):
+        """
+        Some providers may require extra scripts (e.g. a Facebook connect)
+        """
+        return ''
+        
     def wrap_account(self, social_account):
         return self.account_class(social_account)
 
+    def get_settings(self):
+        return app_settings.PROVIDERS.get(self.id, {})
 
 class ProviderAccount(object):
     def __init__(self, social_account):

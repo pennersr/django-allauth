@@ -118,8 +118,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
     "django.contrib.messages.context_processors.messages",
 
-    "allauth.context_processors.allauth",
     "allauth.account.context_processors.account",
+    "allauth.socialaccount.context_processors.socialaccount",
 )
 
 TEMPLATE_DIRS = (
@@ -143,7 +143,7 @@ INSTALLED_APPS = (
     'uni_form',
     'allauth',
     'allauth.account',
-    # 'allauth.socialaccount',
+    'allauth.socialaccount',
     # 'allauth.socialaccount.providers.twitter',
     # 'allauth.socialaccount.providers.openid',
     # 'allauth.socialaccount.providers.facebook',

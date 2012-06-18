@@ -46,7 +46,8 @@ definition.
 
 Work is well underway to rectify this situation. These days, social
 account models have been unified, and adding support for additional
-OAuth/OAuth2 providers is child's play.
+OAuth/OAuth2 providers is child's play. All hardcodedness with respect
+to providers has been removed.
 
 Ofcourse, there is always more that can be done. Do know that the
 biggest hurdles to overcome the initial shortcomings have been
@@ -277,7 +278,10 @@ Use the `provider_login_url` tag to generate provider specific login URLs::
 Showcase
 ========
 
-...List to be assembled...
+- http://officecheese.com
+- http://www.mycareerstack.com
+- http://jug.gl
+- ...
 
 Please mail me (raymond.penners@intenct.nl) links to sites that have
 `django-allauth` up and running.

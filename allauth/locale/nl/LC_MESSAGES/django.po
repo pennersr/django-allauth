@@ -7,110 +7,130 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-02 22:35+0200\n"
-"PO-Revision-Date: 2012-04-02 23:00+0200\n"
+"POT-Creation-Date: 2012-06-18 22:15+0000\n"
+"PO-Revision-Date: 2012-06-18 22:16+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 
-#: account/forms.py:36 account/forms.py:191 account/forms.py:358
+#: account/forms.py:48
+msgid "Password must be a minimum of {0} characters."
+msgstr "Het wachtwoord moet minimaal {0} tekens bevatten."
+
+#: account/forms.py:55 account/forms.py:236 account/forms.py:388
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: account/forms.py:40
+#: account/forms.py:57
 msgid "Remember Me"
 msgstr "Onthouden"
 
-#: account/forms.py:52 account/forms.py:139 account/forms.py:301
-#: account/forms.py:380
+#: account/forms.py:68
+msgid "E-mail address"
+msgstr "E-mail adres"
+
+#: account/forms.py:69 account/forms.py:185 account/forms.py:341
+#: account/forms.py:405
 msgid "E-mail"
 msgstr "E-mail"
 
-#: account/forms.py:57 account/forms.py:130
+#: account/forms.py:74 account/forms.py:75 account/forms.py:174
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: account/forms.py:85
+#: account/forms.py:82
+msgid "Username or e-mail"
+msgstr "Gebruikersnaam of e-mail"
+
+#: account/forms.py:83
+msgid "Login"
+msgstr "Inloggen"
+
+#: account/forms.py:116
 msgid "This account is currently inactive."
 msgstr "Dit account is niet actief"
 
-#: account/forms.py:88
+#: account/forms.py:120
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "Je e-mail adres en wachtwoord komen niet overeen."
 
-#: account/forms.py:90
+#: account/forms.py:124
 msgid "The username and/or password you specified are not correct."
 msgstr "Je gebruikersnaam en wachtwoord komen niet overeen."
 
-#: account/forms.py:142
+#: account/forms.py:127
+msgid "The login and/or password you specified are not correct."
+msgstr "Je login en wachtwoord komen niet overeen."
+
+#: account/forms.py:188
 msgid "E-mail (optional)"
 msgstr "E-mail (optioneel)"
 
-#: account/forms.py:153
+#: account/forms.py:199
 msgid "Usernames can only contain letters, numbers and underscores."
 msgstr ""
 "Gebruikersnamen mogen alleen letters, cijfers en liggende streepjes (_) "
 "bevatten."
 
-#: account/forms.py:159
+#: account/forms.py:205
 msgid "This username is already taken. Please choose another."
 msgstr "Deze gebruikersnaam is al in gebruik. Kies a.u.b. een andere naam."
 
-#: account/forms.py:167
+#: account/forms.py:213
 msgid "A user is registered with this e-mail address."
 msgstr "Er is al een gebruiker geregistreerd met dit e-mail adres."
 
-#: account/forms.py:195 account/forms.py:362
+#: account/forms.py:237 account/forms.py:389
 msgid "Password (again)"
 msgstr "Wachtwoord (bevestigen)"
 
-#: account/forms.py:225 account/forms.py:347 account/forms.py:369
-#: account/forms.py:444
+#: account/forms.py:265 account/forms.py:378 account/forms.py:394
+#: account/forms.py:463
 msgid "You must type the same password each time."
 msgstr "Je moet hetzelfde wachtwoord twee keer intoetsen."
 
-#: account/forms.py:260
+#: account/forms.py:300
 msgid "Your e-mail address has already been verified"
 msgstr "Je e-mail adres is al geverifieerd"
 
-#: account/forms.py:270 account/utils.py:122 account/views.py:93
+#: account/forms.py:310 account/utils.py:123 account/views.py:93
 #: account/views.py:109
 #, python-format
 msgid "Confirmation e-mail sent to %(email)s"
 msgstr "Bevestigings e-mail verzonden aan %(email)s"
 
-#: account/forms.py:309
+#: account/forms.py:349
 msgid "This e-mail address already associated with this account."
 msgstr "Dit e-mail adres is al geassocieerd met dit account."
 
-#: account/forms.py:310
+#: account/forms.py:350
 msgid "This e-mail address already associated with another account."
 msgstr "Dit e-mail adres is al geassocieerd met een ander account."
 
-#: account/forms.py:327
+#: account/forms.py:366
 msgid "Current Password"
 msgstr "Huidig wachtwoord"
 
-#: account/forms.py:331 account/forms.py:427
+#: account/forms.py:367 account/forms.py:451
 msgid "New Password"
 msgstr "Nieuw wachtwoord"
 
-#: account/forms.py:335 account/forms.py:431
+#: account/forms.py:368 account/forms.py:452
 msgid "New Password (again)"
 msgstr "Nieuw wachtwoord (bevestigen)"
 
-#: account/forms.py:341
+#: account/forms.py:372
 msgid "Please type your current password."
 msgstr "Geef je huidige wachtwoord op."
 
-#: account/forms.py:390
+#: account/forms.py:415
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Dit e-mail adres is niet bij ons bekend"
 
-#: account/forms.py:409
+#: account/forms.py:434
 msgid "Password Reset E-mail"
 msgstr "Nieuw wachtwoord"
 
@@ -140,54 +160,50 @@ msgstr "Je wachtwoord is gewijzigd."
 msgid "You have signed out."
 msgstr "Je bent afgemeld."
 
-#: openid/forms.py:6
-msgid "OpenID"
-msgstr "OpenID"
-
-#: socialaccount/forms.py:33
+#: socialaccount/forms.py:34
 msgid "Your local account has no password setup."
 msgstr "Je account heeft geen wachtwoord ingesteld."
 
-#: socialaccount/forms.py:37
+#: socialaccount/forms.py:38
 msgid "Your local account has no verified e-mail address."
 msgstr "Je account heeft geen geverifieerd e-mail adres."
 
-#: socialaccount/helpers.py:111
+#: socialaccount/helpers.py:108
 msgid "The social account has been connected to your existing account"
 msgstr "Het externe account is gekoppeld aan je bestaande account"
 
-#: socialaccount/oauth.py:89
+#: socialaccount/views.py:61
+msgid "The social account has been disconnected"
+msgstr "Het externe account is ontkoppeld"
+
+#: socialaccount/providers/oauth/client.py:79
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr ""
 "Ongeldig antwoord ontvangen tijdens het ophalen van een verzoeksleutel van "
 "\"%s\"."
 
-#: socialaccount/oauth.py:111
+#: socialaccount/providers/oauth/client.py:102
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr ""
 "Ongeldig antwoord ontvangen tijdens het ophalen van een toegangssleutel van "
 "\"%s\"."
 
-#: socialaccount/oauth.py:124
+#: socialaccount/providers/oauth/client.py:115
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr "Geen verzoeksleutel opgeslagen voor \"%s\"."
 
-#: socialaccount/oauth.py:172
+#: socialaccount/providers/oauth/client.py:163
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "Geen toegangssleutel opgeslagen voor \"%s\"."
 
-#: socialaccount/oauth.py:192
+#: socialaccount/providers/oauth/client.py:183
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "Geen toegang tot prive data bij \"%s\"."
-
-#: socialaccount/views.py:68
-msgid "The social account has been disconnected"
-msgstr "Het externe account is ontkoppeld"
 
 #: templates/account/email.html:5
 msgid "Account"
@@ -426,13 +442,13 @@ msgstr "Verifieer je e-mail adres"
 msgid ""
 "We have sent you an e-mail to <b>%(email)s</b> for verification. Follow the "
 "link provided to finalize the signup process. If you do not receive it "
-"within a few minutes, contact us at <a href=\"mailto:%(CONTACT_EMAIL)s\">"
-"%(CONTACT_EMAIL)s</a>."
+"within a few minutes, contact us at <a href=\"mailto:%(CONTACT_EMAIL)s\">%"
+"(CONTACT_EMAIL)s</a>."
 msgstr ""
 "We hebben een e-mail verstuurd aan <b>%(email)s</b> ter verificatie. Volg de "
 "link in deze mail om je registratie af te sluiten. Als je de e-mail niet "
-"binnen enkele minuten ontvangt, neem dan contact op met <a href=\"mailto:"
-"%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
+"binnen enkele minuten ontvangt, neem dan contact op met <a href=\"mailto:%"
+"(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
 
 #: templates/account/snippets/already_logged_in.html:5
 msgid "Note"
@@ -468,7 +484,8 @@ msgid ""
 "\n"
 "To confirm this is correct, go to %(activate_url)s\n"
 msgstr ""
-"Gebruiker '%(user)s' van %(site_name)s heeft dit als e-mail adres opgegeven.\n"
+"Gebruiker '%(user)s' van %(site_name)s heeft dit als e-mail adres "
+"opgegeven.\n"
 "\n"
 "Bezoek de volgende link en bevestig dat dit correct is: %(activate_url)s\n"
 
@@ -539,6 +556,9 @@ msgstr ""
 "Om bij %(site_name)s in te kunnen loggen via %(provider_name)s hebben we de "
 "volgende gegevens nodig:"
 
+#~ msgid "OpenID"
+#~ msgstr "OpenID"
+
 #~ msgid "Already have an account?"
 #~ msgstr "Heb je al een account?"
 
@@ -599,9 +619,6 @@ msgstr ""
 #~ msgid "add"
 #~ msgstr "Voeg toe"
 
-#~ msgid "Login"
-#~ msgstr "Inloggen"
-
 #~ msgid "Log In"
 #~ msgstr "Inloggen"
 
@@ -623,8 +640,8 @@ msgstr ""
 
 #~ msgid ""
 #~ "By clicking \"Sign Up\", you are indicating that you have read and agree "
-#~ "to the <a href=\"%(terms_url)s\">Terms of Use</a> and <a href="
-#~ "\"%(privacy_url)s\">Privacy Policy</a>."
+#~ "to the <a href=\"%(terms_url)s\">Terms of Use</a> and <a href=\"%"
+#~ "(privacy_url)s\">Privacy Policy</a>."
 #~ msgstr ""
 #~ "Door te registreren geef je aan dat je de <a href=\"%(terms_url)s"
 #~ "\">gebruiksvoorwaarden</a> en de <a href=\"%(privacy_url)s\">privacy "

@@ -1,3 +1,8 @@
+2012-06-20  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* account: Added ACCOUNT_USER_DISPLAY to render a user name
+	without making assumptions on how the user is represented.
+
 2012-06-18  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* allauth, socialaccount: Removed the last remaining bits of

@@ -189,9 +189,10 @@ ACCOUNT_SIGNUP_PASSWORD_VERIFICATION (=True)
 ACCOUNT_UNIQUE_EMAIL (=True)
   Enforce uniqueness of e-mail addresses.
 
-ACCOUNT_USERNAME_REQUIRED (=True)
-  If false, generates a random username rather than prompting for one
-  at signup.
+ACCOUNT_USER_DISPLAY (=a callable returning `user.username`)
+  A callable (or string of the form `'some.module.callable_name'`)
+  that takes a user as its only argument and returns the display name
+  of the user. The default implementation returns `user.username`.
 
 ACCOUNT_PASSWORD_INPUT_RENDER_VALUE (=False)
   `render_value` parameter as passed to `PasswordInput` fields.
@@ -266,6 +267,38 @@ Templates
 
 Tags
 ----
+
+The following template tag libraries are available:
+
+- `account_tags`: tags for dealing with accounts in general
+
+- `socialaccount_tags`: tags focused on social accounts
+
+
+Account
+*******
+
+Use `user_display` to render a user name without making assumptions on
+how the user is represented (e.g. render the username, or first
+name?)::
+
+    {% load account_tags %}
+
+    {% user_display user %}
+
+Or, if you need to use in a `{% blocktrans %}`::
+
+    {% load account_tags %}
+
+    {% user_display user as user_display}
+    {% blocktrans %}{{ user_display }} has logged in...{% endblocktrans %}
+
+Then, override the `ACCOUNT_USER_DISPLAY` setting with your project
+specific user display callable.
+
+
+Social Account
+**************
 
 Use the `provider_login_url` tag to generate provider specific login URLs::
 

@@ -1,5 +1,7 @@
 2012-06-20  Raymond Penners  <raymond.penners@intenct.nl>
 
+	* Version 0.6.0 released.
+
 	* account: Added ACCOUNT_USER_DISPLAY to render a user name
 	without making assumptions on how the user is represented.
 

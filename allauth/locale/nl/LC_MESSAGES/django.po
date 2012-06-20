@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-18 22:15+0000\n"
+"POT-Creation-Date: 2012-06-20 21:24+0200\n"
 "PO-Revision-Date: 2012-06-18 22:16+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 
 #: account/forms.py:48
 msgid "Password must be a minimum of {0} characters."
@@ -96,7 +96,7 @@ msgstr "Je moet hetzelfde wachtwoord twee keer intoetsen."
 msgid "Your e-mail address has already been verified"
 msgstr "Je e-mail adres is al geverifieerd"
 
-#: account/forms.py:310 account/utils.py:123 account/views.py:93
+#: account/forms.py:310 account/utils.py:135 account/views.py:93
 #: account/views.py:109
 #, python-format
 msgid "Confirmation e-mail sent to %(email)s"
@@ -134,7 +134,7 @@ msgstr "Dit e-mail adres is niet bij ons bekend"
 msgid "Password Reset E-mail"
 msgstr "Nieuw wachtwoord"
 
-#: account/utils.py:84
+#: account/utils.py:96
 #, python-format
 msgid "Successfully signed in as %(user)s."
 msgstr "Je bent nu ingelogd als %(user)s."
@@ -442,13 +442,13 @@ msgstr "Verifieer je e-mail adres"
 msgid ""
 "We have sent you an e-mail to <b>%(email)s</b> for verification. Follow the "
 "link provided to finalize the signup process. If you do not receive it "
-"within a few minutes, contact us at <a href=\"mailto:%(CONTACT_EMAIL)s\">%"
-"(CONTACT_EMAIL)s</a>."
+"within a few minutes, contact us at <a href=\"mailto:%(CONTACT_EMAIL)s\">"
+"%(CONTACT_EMAIL)s</a>."
 msgstr ""
 "We hebben een e-mail verstuurd aan <b>%(email)s</b> ter verificatie. Volg de "
 "link in deze mail om je registratie af te sluiten. Als je de e-mail niet "
-"binnen enkele minuten ontvangt, neem dan contact op met <a href=\"mailto:%"
-"(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
+"binnen enkele minuten ontvangt, neem dan contact op met <a href=\"mailto:"
+"%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
 
 #: templates/account/snippets/already_logged_in.html:5
 msgid "Note"
@@ -640,8 +640,8 @@ msgstr ""
 
 #~ msgid ""
 #~ "By clicking \"Sign Up\", you are indicating that you have read and agree "
-#~ "to the <a href=\"%(terms_url)s\">Terms of Use</a> and <a href=\"%"
-#~ "(privacy_url)s\">Privacy Policy</a>."
+#~ "to the <a href=\"%(terms_url)s\">Terms of Use</a> and <a href="
+#~ "\"%(privacy_url)s\">Privacy Policy</a>."
 #~ msgstr ""
 #~ "Door te registreren geef je aan dat je de <a href=\"%(terms_url)s"
 #~ "\">gebruiksvoorwaarden</a> en de <a href=\"%(privacy_url)s\">privacy "

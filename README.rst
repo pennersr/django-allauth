@@ -138,8 +138,6 @@ settings.py::
 
     INSTALLED_APPS = (
         ...
-        'emailconfirmation',
-
         'allauth',
         'allauth.account',
         'allauth.socialaccount',
@@ -148,6 +146,7 @@ settings.py::
         'allauth.socialaccount.providers.openid',
         'allauth.socialaccount.providers.facebook',
         'allauth.socialaccount.providers.github',
+        'emailconfirmation',
 
 urls.py::
 

@@ -1,15 +1,11 @@
 from django import template
-from django.conf import settings
 
 from allauth.account.utils import user_display
 
-
-
 register = template.Library()
 
-
-
 class UserDisplayNode(template.Node):
+
     def __init__(self, user, as_var=None):
         self.user_var = template.Variable(user)
         self.as_var = as_var
@@ -34,12 +30,11 @@ def do_user_display(parser, token):
     
     or if you need to use in a {% blocktrans %}::
     
-        {% user_display user as user_display}
+        {% user_display user as user_display %}
         {% blocktrans %}{{ user_display }} has sent you a gift.{% endblocktrans %}
     
     """
     bits = token.split_contents()
-    
     if len(bits) == 2:
         user = bits[1]
         as_var = None

@@ -1,5 +1,12 @@
 2012-06-20  Raymond Penners  <raymond.penners@intenct.nl>
 
+	* socialaccount: When signing up, user.first/last_name where
+	always taken from the provider signup data, even when a custom
+	signup form was in place that offering user inputs for editting
+	these fields. Fixed.
+
+2012-06-20  Raymond Penners  <raymond.penners@intenct.nl>
+
 	* Version 0.6.0 released.
 
 	* account: Added ACCOUNT_USER_DISPLAY to render a user name

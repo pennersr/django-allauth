@@ -215,6 +215,13 @@ class BaseSignupForm(_base_signup_form_class()):
     
     def create_user(self, commit=True):
         user = User()
+        # data collected by providers, if any, is passed as `initial`
+        # signup form data. This may contain fields such as
+        # `first_name`, whereas these may not have field counterparts
+        # in the form itself. So let's pick these up here...
+        data = self.initial
+        user.last_name = data.get('last_name', '')
+        user.first_name = data.get('first_name', '')
         if app_settings.USERNAME_REQUIRED:
             user.username = self.cleaned_data["username"]
         else:

@@ -25,9 +25,6 @@ def signup(request, **kwargs):
         form = form_class(request.POST)
         if form.is_valid():
             user = form.save(request=request)
-            user.last_name = data.get('last_name', '')
-            user.first_name = data.get('first_name', '')
-            user.save()
             account = signup['account']
             account.user = user
             account.sync(data)

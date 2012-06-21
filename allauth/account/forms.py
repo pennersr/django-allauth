@@ -296,11 +296,12 @@ class SignupForm(BaseSignupForm):
         else:
             confirmed = False
         
+        new_user = self.create_user()
+        super(SignupForm, self).save(new_user)
+
         # @@@ clean up some of the repetition below -- DRY!
-        
         if confirmed:
             if email == join_invitation.contact.email:
-                new_user = self.create_user()
                 join_invitation.accept(new_user) # should go before creation of EmailAddress below
                 if request:
                     messages.add_message(request, messages.INFO,
@@ -309,7 +310,6 @@ class SignupForm(BaseSignupForm):
                 # already verified so can just create
                 EmailAddress(user=new_user, email=email, verified=True, primary=True).save()
             else:
-                new_user = self.create_user()
                 join_invitation.accept(new_user) # should go before creation of EmailAddress below
                 if email:
                     if request:
@@ -320,10 +320,8 @@ class SignupForm(BaseSignupForm):
                         )
                     EmailAddress.objects.add_email(new_user, email)
         else:
-            new_user = self.create_user()
             send_email_confirmation(new_user, request=request)
 
-        super(SignupForm, self).save(new_user)
         self.after_signup(new_user)
         
         return new_user

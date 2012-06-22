@@ -1,3 +1,7 @@
+2012-06-22  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* account: Added verified_email_required decorator.
+
 2012-06-20  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* socialaccount: When signing up, user.first/last_name where

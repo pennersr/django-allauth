@@ -18,9 +18,18 @@ class AccountTests(TestCase):
         self.OLD_EMAIL_VERIFICATION = app_settings.EMAIL_VERIFICATION
         self.OLD_AUTHENTICATION_METHOD = app_settings.AUTHENTICATION_METHOD
         self.OLD_SIGNUP_FORM_CLASS = app_settings.SIGNUP_FORM_CLASS
+        self.OLD_USERNAME_REQUIRED = app_settings.USERNAME_REQUIRED
         app_settings.EMAIL_VERIFICATION = True
         app_settings.AUTHENTICATION_METHOD = AuthenticationMethod.USERNAME
         app_settings.SIGNUP_FORM_CLASS = None
+        app_settings.USERNAME_REQUIRED = True
+
+        if 'allauth.socialaccount' in settings.INSTALLED_APPS:
+            # Otherwise ImproperlyConfigured exceptions may occur
+            from ..socialaccount.models import SocialApp
+            SocialApp.objects.create(name='testfb',
+                                     provider='facebook',
+                                     site=Site.objects.get_current())
 
     def test_email_verification_mandatory(self):
         c = Client()
@@ -80,3 +89,5 @@ class AccountTests(TestCase):
         app_settings.EMAIL_VERIFICATION = self.OLD_EMAIL_VERIFICATION
         app_settings.AUTHENTICATION_METHOD = self.OLD_AUTHENTICATION_METHOD
         app_settings.SIGNUP_FORM_CLASS = self.OLD_SIGNUP_FORM_CLASS
+        app_settings.USERNAME_REQUIRED = self.OLD_USERNAME_REQUIRED
+

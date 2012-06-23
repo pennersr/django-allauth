@@ -21,7 +21,6 @@ from forms import ResetPasswordForm, SetPasswordForm, SignupForm
 from utils import sync_user_email_addresses
 
 def login(request, **kwargs):
-    
     form_class = kwargs.pop("form_class", LoginForm)
     template_name = kwargs.pop("template_name", "account/login.html")
     success_url = kwargs.pop("success_url", None)

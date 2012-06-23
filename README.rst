@@ -342,6 +342,7 @@ Showcase
 - http://officecheese.com
 - http://www.mycareerstack.com
 - http://jug.gl
+- http://www.charityblossom.org/
 - ...
 
 Please mail me (raymond.penners@intenct.nl) links to sites that have

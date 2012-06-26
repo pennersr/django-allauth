@@ -4,7 +4,8 @@ from django.template.loader import render_to_string
 from django.template import RequestContext
 
 from allauth.socialaccount import providers
-from allauth.socialaccount.providers.base import Provider, ProviderAccount
+from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.oauth2.models import OAuth2Provider
 
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.models import SocialApp
@@ -22,22 +23,35 @@ class FacebookAccount(ProviderAccount):
         return self.account.extra_data.get('name', dflt)
 
 
-class FacebookProvider(Provider):
+class FacebookProvider(OAuth2Provider):
     id = 'facebook'
     name = 'Facebook'
     package = 'allauth.socialaccount.providers.facebook'
     account_class = FacebookAccount
 
+    def get_method(self):
+        return self.get_settings().get('METHOD', 'oauth2')
+
     def get_login_url(self, request, **kwargs):
-        next = "'%s'" % (kwargs.get('next') or '')
-        return "javascript:FB_login(%s)" % next
-        
+        method = kwargs.get('method', self.get_method())
+        if method == 'js_sdk':
+            next = "'%s'" % (kwargs.get('next') or '')
+            ret = "javascript:FB_login(%s)" % next
+        else:
+            assert method == 'oauth2'
+            ret = super(FacebookProvider, self).get_login_url(request,
+                                                              **kwargs)
+        return ret
+
+
+    def get_default_scope(self):
+        scope = []
+        if QUERY_EMAIL:
+            scope.append('email')
+        return scope
 
     def media_js(self, request):
-        perm_list = []
-        if QUERY_EMAIL:
-            perm_list.append('email')
-        perms = ','.join(perm_list)
+        perms = ','.join(self.get_scope())
         try:
             app = SocialApp.objects.get_current(self.id)
         except SocialApp.DoesNotExist:

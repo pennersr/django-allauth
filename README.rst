@@ -77,7 +77,7 @@ Supported Flows
 Supported Providers
 -------------------
 
-- Facebook
+- Facebook (both OAuth2 and JS SDK)
 
 - Github
 
@@ -270,6 +270,38 @@ Most providers require you to sign up for a so called API client or
 app, containing a client ID and API secret. You must add a `SocialApp`
 record per provider via the Django admin containing these app
 credentials.
+
+Facebook
+--------
+
+For Facebook both OAuth2 and the Facebook Connect Javascript SDK are
+supported. You can even mix the two.
+
+Advantage of the Javascript SDK may be a more streamlined user
+experience as you do not leave your site. Furthermore, you do not need
+to worry about tailoring the login dialog depending on whether or not
+you are using a mobile device. Yet, relying on Javascript may not be
+everybody's cup of tea.
+
+To initiate a login use::
+
+    {% load socialaccount_tags %}
+    <a href="{% provider_login_url "facebook" method="js_sdk" %}">Facebook Connect</a>
+
+or::
+
+    {% load socialaccount_tags %}
+    <a href="{% provider_login_url "facebook" method="oauth2" %}">Facebook OAuth2</a>
+
+The following Facebook settings are available::
+
+    SOCIALACCOUNT_PROVIDERS = \
+        { 'facebook': 
+            { 'SCOPE': ['email', 'publish_stream'],
+              'METHOD': 'oauth2' } }
+
+By default, `email` scope is required depending whether or not
+`SOCIALACCOUNT_QUERY_EMAIL` is enabled.
 
 Google
 ------

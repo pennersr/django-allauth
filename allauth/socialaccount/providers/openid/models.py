@@ -69,7 +69,7 @@ class OpenIDProvider(Provider):
         return url
 
     def get_brands(self):
-        return self.get_settings()['SERVERS']
+        return self.get_settings().get('SERVERS',[])
         
 
 providers.registry.register(OpenIDProvider)

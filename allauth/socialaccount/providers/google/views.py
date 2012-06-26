@@ -2,17 +2,12 @@ import urllib
 import httplib2
 from django.utils import simplejson
 
-from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
                                                           OAuth2CompleteView)
 
 
 from models import GoogleProvider
-
-class Scope:
-    USERINFO_PROFILE = 'https://www.googleapis.com/auth/userinfo.profile'
-    USERINFO_EMAIL = 'https://www.googleapis.com/auth/userinfo.email'
 
 class GoogleOAuth2Adapter(OAuth2Adapter):
     provider_id = GoogleProvider.id
@@ -44,15 +39,6 @@ class GoogleOAuth2Adapter(OAuth2Adapter):
                  'last_name': extra_data['family_name'],
                  'first_name': extra_data['given_name'] }
         return uid, data, extra_data
-
-    def get_scope(self):
-        settings = self.get_provider().get_settings()
-        scope = settings.get('SCOPE')
-        if not scope:
-            scope = [Scope.USERINFO_PROFILE]
-            if QUERY_EMAIL:
-                scope.append(Scope.USERINFO_EMAIL)
-        return scope
 
 oauth2_login = OAuth2LoginView.adapter_view(GoogleOAuth2Adapter)
 oauth2_complete = OAuth2CompleteView.adapter_view(GoogleOAuth2Adapter)

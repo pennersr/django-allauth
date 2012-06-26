@@ -24,9 +24,6 @@ class OAuth2Adapter(object):
         """
         raise NotImplementedError
 
-    def get_scope(self):
-        return []
-
 class OAuth2View(object):
     @classmethod
     def adapter_view(cls, adapter):
@@ -44,7 +41,7 @@ class OAuth2View(object):
                               self.adapter.authorize_url,
                               self.adapter.access_token_url,
                               callback_url,
-                              self.adapter.get_scope())
+                              self.adapter.get_provider().get_scope())
         return client
 
 

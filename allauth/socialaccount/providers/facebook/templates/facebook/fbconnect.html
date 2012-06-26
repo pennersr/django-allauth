@@ -1,3 +1,4 @@
+{% load url from future %}
 <div id="fb-root"></div>
 <script>
   window.FB_login = function() {};
@@ -20,9 +21,9 @@
         } else {
           var next;
           if (response && response.status && response.status == "notConnected") {
-            next = '{% url socialaccount_login_cancelled %}';
+            next = '{% url 'socialaccount_login_cancelled' %}';
           } else {
-            next = '{% url socialaccount_login_error %}';
+            next = '{% url 'socialaccount_login_error' %}';
           }
           window.location.href = next;
         }
@@ -37,7 +38,7 @@
    }(document));
 </script>
 
-<form id="_fb_login" method="post" action="{% url facebook_login %}">
+<form id="_fb_login" method="post" action="{% url 'facebook_login_by_token' %}">
 {% csrf_token %}
 <input type="hidden" name="next" value="" id="_fb_next_url"/>
 <input type="hidden" name="access_token" id="_fb_access_token"/>

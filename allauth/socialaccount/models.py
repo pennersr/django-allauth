@@ -77,8 +77,7 @@ class SocialAccount(models.Model):
     def sync(self, data):
         # FIXME: to be refactored when provider classes are introduced
         if self.provider == 'facebook':
-            self.extra_data = { 'link': data['facebook_me']['link'], 
-                                'name': data['facebook_me']['name'] }
+            self.extra_data = data['facebook_me']
             self.save()
             access_token = data['facebook_access_token']
             token, created = SocialToken.objects \

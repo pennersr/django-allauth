@@ -1,6 +1,7 @@
-2012-06-26  Raymond Penners  <pennersr@mac-pennersr.lan>
+2012-06-26  Raymond Penners  <raymond.penners@intenct.nl>
 
-	* socialaccount: Added support for Google OAuth2. Fixed GitHub.
+	* socialaccount: Added support for Google OAuth2 and Facebook
+	OAuth2. Fixed GitHub.
 
 2012-06-22  Raymond Penners  <raymond.penners@intenct.nl>
 

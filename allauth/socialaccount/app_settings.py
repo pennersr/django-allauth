@@ -18,12 +18,4 @@ AVATAR_SUPPORT = getattr(settings, "SOCIALACCOUNT_AVATAR_SUPPORT",
 
 
 # Provider specific settings
-PROVIDERS = getattr(settings, "SOCIALACCOUNT_PROVIDERS",
-                    { 'openid': 
-                      { 'SERVERS': 
-                        [dict(id='yahoo',
-                              name='Yahoo',
-                              openid_url='http://me.yahoo.com'),
-                         dict(id='hyves',
-                              name='Hyves',
-                              openid_url='http://hyves.nl')]}})
+PROVIDERS = getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})

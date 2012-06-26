@@ -69,7 +69,14 @@ class OpenIDProvider(Provider):
         return url
 
     def get_brands(self):
-        return self.get_settings().get('SERVERS',[])
+        # These defaults are a bit too arbitrary...
+        default_servers = [dict(id='yahoo',
+                                name='Yahoo',
+                                openid_url='http://me.yahoo.com'),
+                           dict(id='hyves',
+                                name='Hyves',
+                                openid_url='http://hyves.nl')]
+        return self.get_settings().get('SERVERS', default_servers)
         
 
 providers.registry.register(OpenIDProvider)

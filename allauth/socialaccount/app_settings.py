@@ -3,7 +3,8 @@ from django.conf import settings
 from allauth.account import app_settings as account_settings
 
 # Request e-mail address from 3rd party account provider? E.g. OpenID AX
-QUERY_EMAIL = getattr(settings, "SOCIALACCOUNT_QUERY_EMAIL", account_settings.EMAIL_REQUIRED)
+QUERY_EMAIL = getattr(settings, "SOCIALACCOUNT_QUERY_EMAIL", 
+                      account_settings.EMAIL_REQUIRED)
 
 # Attempt to bypass the signup form by using fields (e.g. username,
 # email) retrieved from the social account provider. If a conflict
@@ -25,7 +26,4 @@ PROVIDERS = getattr(settings, "SOCIALACCOUNT_PROVIDERS",
                               openid_url='http://me.yahoo.com'),
                          dict(id='hyves',
                               name='Hyves',
-                              openid_url='http://hyves.nl'),
-                         dict(id='google',
-                              name='Google',
-                              openid_url='https://www.google.com/accounts/o8/id')]}})
+                              openid_url='http://hyves.nl')]}})

@@ -4,7 +4,16 @@ from allauth.socialaccount.providers.oauth2.models import OAuth2Provider
 
 
 class GitHubAccount(ProviderAccount):
-    pass
+    def get_profile_url(self):
+        return self.account.extra_data.get('html_url')
+
+    def get_avatar_url(self):
+        return self.account.extra_data.get('avatar_url')
+
+    def __unicode__(self):
+        dflt = super(GitHubAccount, self).__unicode__()
+        return self.account.extra_data.get('name', dflt)
+
 
 class GitHubProvider(OAuth2Provider):
     id = 'github'

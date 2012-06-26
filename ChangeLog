@@ -1,3 +1,7 @@
+2012-06-26  Raymond Penners  <pennersr@mac-pennersr.lan>
+
+	* socialaccount: Added support for Google OAuth2. Fixed GitHub.
+
 2012-06-22  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* account: Added verified_email_required decorator.

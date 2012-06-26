@@ -4,12 +4,16 @@ from django.http import HttpResponseRedirect
 from allauth.utils import get_login_redirect_url
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.models import SocialAccount, SocialApp
+from allauth.socialaccount import providers
 from allauth.socialaccount.providers.oauth2.client import (OAuth2Client,
                                                            OAuth2Error)
 from allauth.socialaccount.helpers import complete_social_login
 
 
 class OAuth2Adapter(object):
+
+    def get_provider(self):
+        return providers.registry.by_id(self.provider_id)
 
     def get_app(self, request):
         return SocialApp.objects.get_current(self.provider_id)
@@ -20,6 +24,8 @@ class OAuth2Adapter(object):
         """
         raise NotImplementedError
 
+    def get_scope(self):
+        return []
 
 class OAuth2View(object):
     @classmethod
@@ -37,7 +43,8 @@ class OAuth2View(object):
         client = OAuth2Client(self.request, app.key, app.secret,
                               self.adapter.authorize_url,
                               self.adapter.access_token_url,
-                              callback_url)
+                              callback_url,
+                              self.adapter.get_scope())
         return client
 
 

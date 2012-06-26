@@ -17,7 +17,7 @@ authentication focus on just that. You typically need to integrate
 another app in order to support authentication via a local
 account. 
 
-This approach separates the world of local and social
+This approach separates the worlds of local and social
 authentication. However, there are common scenarios to be dealt with
 in boh worlds. For example, an e-mail address passed along by an
 OpenID provider is not guaranteed to be verified. So, before hooking
@@ -81,6 +81,8 @@ Supported Providers
 
 - Github
 
+- Google (OAuth2)
+
 - LinkedIn
 
 - OpenId
@@ -141,11 +143,12 @@ settings.py::
         'allauth',
         'allauth.account',
         'allauth.socialaccount',
-        'allauth.socialaccount.providers.twitter',
+        'allauth.socialaccount.providers.facebook',
+        'allauth.socialaccount.providers.google',
+        'allauth.socialaccount.providers.github',
         'allauth.socialaccount.providers.linkedin',
         'allauth.socialaccount.providers.openid',
-        'allauth.socialaccount.providers.facebook',
-        'allauth.socialaccount.providers.github',
+        'allauth.socialaccount.providers.twitter',
         'emailconfirmation',
 
 urls.py::
@@ -260,12 +263,69 @@ From 0.4.0
   the original tables are dropped. Therefore, be sure to run migrate
   using South.
 
+Providers
+=========
+
+Most providers require you to sign up for a so called API client or
+app, containing a client ID and API secret. You must add a `SocialApp`
+record per provider via the Django admin containing these app
+credentials.
+
+Google
+------
+
+The Google provider is OAuth2 based. Register your Google API client
+over at `https://code.google.com/apis/console/`. Make sure you list a
+redirect uri of the form
+`http://example.com/accounts/google/login/done/`.
+
+You can specify the scope to use as follows::
+
+    SOCIALACCOUNT_PROVIDERS = \
+        { 'google': 
+            { 'SCOPE': ['https://www.googleapis.com/auth/userinfo.profile'] } }
+
+By default, `profile` scope is required, and optionally `email` scope
+depending on whether or not `SOCIALACCOUNT_QUERY_EMAIL` is enabled.
+
+
+
+OpenID
+------
+
+The OpenID provider does not require any settings per se. However, a
+typical OpenID login page presents the user with a predefined list of
+OpenID providers and allows the user to input his own OpenID identity
+URL in case his provider is not listed by default. The list of
+providers displayed by the builtin templates can be configured as
+follows::
+
+    SOCIALACCOUNT_PROVIDERS = \
+        { 'openid': 
+            { 'SERVERS': 
+                [dict(id='yahoo',
+                      name='Yahoo',
+                      openid_url='http://me.yahoo.com'),
+                 dict(id='hyves',
+                      name='Hyves',
+                      openid_url='http://hyves.nl'),
+                 dict(id='google',
+                      name='Google',
+                      openid_url='https://www.google.com/accounts/o8/id')]}}
+
+
+If you want to manually include login links yourself, you can use the
+following template tag::
+
+    {% load socialaccount_tags %}
+    <a href="{% provider_login_url "openid" openid="https://www.google.com/accounts/o8/id" next="/success/url/" %}">Google</a>
+
 
 Templates
 =========
 
-Tags
-----
+Template Tags
+-------------
 
 The following template tag libraries are available:
 
@@ -274,8 +334,8 @@ The following template tag libraries are available:
 - `socialaccount_tags`: tags focused on social accounts
 
 
-Account
-*******
+Account Tags
+************
 
 Use `user_display` to render a user name without making assumptions on
 how the user is represented (e.g. render the username, or first
@@ -296,8 +356,8 @@ Then, override the `ACCOUNT_USER_DISPLAY` setting with your project
 specific user display callable.
 
 
-Social Account
-**************
+Social Account Tags
+*******************
 
 Use the `provider_login_url` tag to generate provider specific login URLs::
 

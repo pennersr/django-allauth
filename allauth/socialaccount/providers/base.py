@@ -1,4 +1,5 @@
 from allauth.socialaccount import app_settings
+from allauth.socialaccount.models import SocialApp
 
 class Provider(object):
     def get_login_url(self, request, next=None, **kwargs):
@@ -7,6 +8,9 @@ class Provider(object):
         provider. 
         """
         raise NotImplementedError, "get_login_url() for " + self.name
+
+    def get_app(self, request):
+        return SocialApp.objects.get_current(self.id)
 
     def media_js(self, request):
         """

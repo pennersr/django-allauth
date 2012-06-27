@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 
 from allauth.utils import get_login_redirect_url
 from allauth.socialaccount.helpers import render_authentication_error
-from allauth.socialaccount.models import SocialAccount, SocialApp
+from allauth.socialaccount.models import SocialApp, SocialAccount, SocialLogin
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.oauth2.client import (OAuth2Client,
                                                            OAuth2Error)
@@ -15,12 +15,9 @@ class OAuth2Adapter(object):
     def get_provider(self):
         return providers.registry.by_id(self.provider_id)
 
-    def get_app(self, request):
-        return SocialApp.objects.get_current(self.provider_id)
-
-    def get_user_info(self):
+    def complete_login(self, request, app, access_token):
         """
-        Should return a triple of (user_id, user fields, extra_data)
+        Returns a SocialLogin instance
         """
         raise NotImplementedError
 
@@ -47,7 +44,7 @@ class OAuth2View(object):
 
 class OAuth2LoginView(OAuth2View):
     def dispatch(self, request):
-        app = self.adapter.get_app(self.request)
+        app = self.adapter.get_provider().get_app(self.request)
         client = self.get_client(request, app)
         # TODO: next can be passed along to callback url, session not required
         request.session['next'] = get_login_redirect_url(request)
@@ -62,22 +59,14 @@ class OAuth2CompleteView(OAuth2View):
         if 'error' in request.GET or not 'code' in request.GET:
             # TODO: Distinguish cancel from error
             return render_authentication_error(request)
-        app = self.adapter.get_app(self.request)
+        app = self.adapter.get_provider().get_app(self.request)
         client = self.get_client(request, app)
-        provider_id = self.adapter.provider_id
         try:
             access_token = client.get_access_token(request.GET['code'])
-            uid, data, extra_data = self.adapter.get_user_info(request,
-                                                               app,
-                                                               access_token)
+            login = self.adapter.complete_login(request,
+                                                app,
+                                                access_token)
+            return complete_social_login(request, login)
         except OAuth2Error:
             return render_authentication_error(request)
-        # TODO: DRY, duplicates OAuth logic
-        try:
-            account = SocialAccount.objects.get(provider=provider_id, uid=uid)
-        except SocialAccount.DoesNotExist:
-            account = SocialAccount(provider=provider_id, uid=uid)
-        account.extra_data = extra_data
-        if account.pk:
-            account.save()
-        return complete_social_login(request, data, account)
+

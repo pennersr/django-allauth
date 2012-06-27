@@ -74,22 +74,6 @@ class SocialAccount(models.Model):
     def get_provider_account(self):
         return self.get_provider().wrap_account(self)
 
-    def sync(self, data):
-        # FIXME: to be refactored when provider classes are introduced
-        if self.provider == 'facebook':
-            self.extra_data = data['facebook_me']
-            self.save()
-            access_token = data['facebook_access_token']
-            token, created = SocialToken.objects \
-                .get_or_create(app=SocialApp.objects.get_current('facebook'),
-                               account=self,
-                               defaults={'token': access_token})
-            if not created and token.token != access_token:
-                token.token = access_token
-                token.save()
-        else:
-            self.save()
-
 
 class SocialToken(models.Model):
     app = models.ForeignKey(SocialApp)
@@ -102,3 +86,51 @@ class SocialToken(models.Model):
 
     def __unicode__(self):
         return self.token
+
+
+class SocialLogin(object):
+    """
+    Represents the state of a social user that is in the process of
+    being logged in.
+    """
+
+    def __init__(self, account, token=None):
+        if token:
+            assert token.account is None or token.account == account
+            token.account = account
+        self.token = token
+        self.account = account
+
+    def save(self):
+        user = self.account.user
+        user.save()
+        self.account.user = user
+        self.account.save()
+        if self.token:
+            self.token.account = self.account
+            self.token.save()
+
+    @property
+    def is_existing(self):
+        """
+        Account is temporary, not yet backed by a database record.
+        """
+        return self.account.pk
+
+    def lookup(self):
+        """
+        Lookup existing account, if any.
+        """
+        assert not self.is_existing
+        try:
+            a = SocialAccount.objects.get(provider=self.account.provider, 
+                                          uid=self.account.uid)
+            # Update
+            a.extra_data = self.account.extra_data
+            self.account = a
+            a.save()
+            if self.token:
+                self.token.account = a
+                self.token.save()
+        except SocialAccount.DoesNotExist:
+            pass

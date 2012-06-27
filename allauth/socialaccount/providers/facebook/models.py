@@ -53,7 +53,7 @@ class FacebookProvider(OAuth2Provider):
     def media_js(self, request):
         perms = ','.join(self.get_scope())
         try:
-            app = SocialApp.objects.get_current(self.id)
+            app = self.get_app(request)
         except SocialApp.DoesNotExist:
             raise ImproperlyConfigured("No Facebook app configured: please"
                                        " add a SocialApp using the Django"

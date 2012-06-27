@@ -1,4 +1,0 @@
-
-
-def login(request):
-    pass

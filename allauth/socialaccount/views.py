@@ -15,24 +15,20 @@ import helpers
 def signup(request, **kwargs):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse(connections))
-    signup = request.session.get('socialaccount_signup')
-    if not signup:
+    sociallogin = request.session.get('socialaccount_sociallogin')
+    if not sociallogin:
         return HttpResponseRedirect(reverse('account_login'))
     form_class = kwargs.pop("form_class", SignupForm)
     template_name = kwargs.pop("template_name", 'socialaccount/signup.html')
-    data = signup['data']
     if request.method == "POST":
-        form = form_class(request.POST)
+        form = form_class(request.POST, sociallogin=sociallogin)
         if form.is_valid():
-            user = form.save(request=request)
-            account = signup['account']
-            account.user = user
-            account.sync(data)
-            return helpers.complete_social_signup(request, user, account)
+            form.save(request=request)
+            return helpers.complete_social_signup(request, sociallogin)
     else:
-        form = form_class(initial=data)
+        form = form_class(sociallogin=sociallogin)
     dictionary = dict(site=Site.objects.get_current(),
-                      account=signup['account'],
+                      account=sociallogin.account,
                       form=form)
     return render_to_response(template_name, dictionary, 
                               RequestContext(request))

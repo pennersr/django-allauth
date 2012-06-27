@@ -99,8 +99,7 @@ Features
   or by e-mail), as well as multiple strategies for account
   verification (ranging from none to e-mail verification).
 
-- Facebook access token is stored so that you can publish wall updates
-  etc.
+- Access tokens are stored so that you can publish wall updates etc.
 
 Architecture & Design
 ---------------------

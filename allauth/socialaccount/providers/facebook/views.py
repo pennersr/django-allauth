@@ -1,41 +1,41 @@
 from django.utils.cache import patch_response_headers
-from django.core.exceptions import ImproperlyConfigured
+from django.contrib.auth.models import User
 from django.shortcuts import render
 
+from allauth.socialaccount.models import SocialAccount, SocialToken, SocialLogin
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.helpers import render_authentication_error
-from allauth.socialaccount.models import SocialAccount
-from allauth.socialaccount.providers.oauth2.client import OAuth2Error
+from allauth.socialaccount import providers
 from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
                                                           OAuth2CompleteView)
-
-
-try:
-    from facebook import GraphAPI, GraphAPIError
-except ImportError:
-    # People often seem to overlook this dependency, so let's make it
-    # a bit more explicit...
-    raise ImproperlyConfigured("Dependency missing: Python Facebook SDK")
+from allauth.socialaccount import requests
 
 from forms import FacebookConnectForm
 from models import FacebookProvider
 
 from allauth.utils import valid_email_or_none
 
-
-def fb_user_info(access_token):
-    api = GraphAPI(access_token)
-    extra_data = api.get_object("me")
+def fb_complete_login(app, access_token):
+    resp = requests.get('https://graph.facebook.com/me',
+                        params={ 'access_token': access_token })
+    extra_data = resp.json
     email = valid_email_or_none(extra_data.get('email'))
     uid = extra_data['id']
-    data = dict(email=email,
-                facebook_access_token=access_token,
-                facebook_me=extra_data)
+    user = User(email=email)
     # some facebook accounts don't have this data
-    data.update((k, v) for (k, v) in extra_data.items()
-                if k in ['username', 'first_name', 'last_name'])
-    return uid, data, extra_data
+    for k in ['username', 'first_name', 'last_name']:
+        v = extra_data.get(k)
+        if v:
+            setattr(user, k, v)
+    account = SocialAccount(uid=uid,
+                            provider=FacebookProvider.id,
+                            extra_data=extra_data,
+                            user=user)
+    token= SocialToken(app=app, 
+                       account=account,
+                       token=access_token)
+    return SocialLogin(account, token=token)
 
 
 class FacebookOAuth2Adapter(OAuth2Adapter):
@@ -44,11 +44,9 @@ class FacebookOAuth2Adapter(OAuth2Adapter):
     authorize_url = 'https://www.facebook.com/dialog/oauth'
     access_token_url = 'https://graph.facebook.com/oauth/access_token'
 
-    def get_user_info(self, request, app, access_token):
-        try:
-            return fb_user_info(access_token)
-        except (GraphAPIError, IOError), e:
-            raise OAuth2Error(e)
+    def complete_login(self, request, app, access_token):
+        return fb_complete_login(app, access_token)
+
 
 oauth2_login = OAuth2LoginView.adapter_view(FacebookOAuth2Adapter)
 oauth2_complete = OAuth2CompleteView.adapter_view(FacebookOAuth2Adapter)
@@ -60,23 +58,13 @@ def login_by_token(request):
         form = FacebookConnectForm(request.POST)
         if form.is_valid():
             try:
-                token = form.cleaned_data['access_token']
-                social_id, data, facebook_me = fb_user_info(token)
-                # TODO: DRY, duplicates OAuth logic
-                try:
-                    account = SocialAccount.objects \
-                        .get(uid=social_id,
-                             provider=FacebookProvider.id)
-                except SocialAccount.DoesNotExist:
-                    account = SocialAccount(uid=social_id,
-                                            provider=FacebookProvider.id)
-                # Don't save partial/temporary accounts that haven't
-                # gone through the full signup yet, as there is no
-                # User attached yet.
-                if account.pk:
-                    account.sync(data)
-                ret = complete_social_login(request, data, account)
-            except (GraphAPIError, IOError):
+                app = providers.registry.by_id(FacebookProvider.id) \
+                    .get_app(request)
+                login = fb_complete_login(app, 
+                                          form.cleaned_data['access_token'])
+                ret = complete_social_login(request, login)
+            except:
+                # FIXME: Catch only what is needed
                 pass
     if not ret:
         ret = render_authentication_error(request)

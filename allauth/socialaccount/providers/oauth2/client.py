@@ -3,6 +3,8 @@ import urlparse
 import httplib2
 import json
 
+from allauth.socialaccount import requests
+
 class OAuth2Error(Exception):
     pass
 
@@ -41,18 +43,16 @@ class OAuth2Client(object):
                   'code': code}
         url = self.access_token_url
         # TODO: Proper exception handling
-        headers = { 'content-type': 'application/x-www-form-urlencoded' }
-        resp, content = client.request(url, 'POST',
-                                       body=urllib.urlencode(params),
-                                       headers=headers)
+        resp = requests.post(url, params)
         access_token = None
-        if resp.status == 200:
-            if resp['content-type'] == 'application/json':
-                data = json.loads(content)
+        if resp.status_code == 200:
+            if resp.headers['content-type'] == 'application/json':
+                data = resp.json
             else:
-                data = dict(urlparse.parse_qsl(content))
+                data = dict(urlparse.parse_qsl(resp.content))
             access_token = data.get('access_token')
         if not access_token:
-            raise OAuth2Error('Error retrieving access token: %s' % content)
+            raise OAuth2Error('Error retrieving access token: %s' 
+                              % resp.content)
             
         return access_token

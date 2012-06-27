@@ -3,22 +3,21 @@ from django.http import HttpResponseRedirect
 
 from allauth.utils import get_login_redirect_url
 from allauth.socialaccount.helpers import render_authentication_error
-from allauth.socialaccount.models import SocialAccount, SocialApp
 from allauth.socialaccount.providers.oauth.client import (OAuthClient,
                                                           OAuthError)
 from allauth.socialaccount.helpers import complete_social_login
-
+from allauth.socialaccount import providers
 
 class OAuthAdapter(object):
 
-    def get_app(self, request):
-        return SocialApp.objects.get_current(self.provider_id)
-
-    def get_user_info(self):
+    def complete_login(self, request, app):
         """
-        Should return a triple of (user_id, user fields, extra_data)
+        Returns a SocialLogin instance
         """
         raise NotImplementedError
+
+    def get_provider(self):
+        return providers.registry.by_id(self.provider_id)
 
 
 class OAuthView(object):
@@ -32,7 +31,7 @@ class OAuthView(object):
         return view
 
     def _get_client(self, request, callback_url):
-        app = self.adapter.get_app(request)
+        app = self.adapter.get_provider().get_app(request)
         client = OAuthClient(request, app.key, app.secret,
                              self.adapter.request_token_url,
                              self.adapter.access_token_url,
@@ -71,17 +70,9 @@ class OAuthCallbackView(OAuthView):
 
 class OAuthCompleteView(OAuthView):
     def dispatch(self, request):
-        app = self.adapter.get_app(request)
-        provider_id = self.adapter.provider_id
+        app = self.adapter.get_provider().get_app(request)
         try:
-            uid, data, extra_data = self.adapter.get_user_info(request, app)
+            login = self.adapter.complete_login(request, app)
+            return complete_social_login(request, login)
         except OAuthError:
             return render_authentication_error(request)
-        try:
-            account = SocialAccount.objects.get(provider=provider_id, uid=uid)
-        except SocialAccount.DoesNotExist:
-            account = SocialAccount(provider=provider_id, uid=uid)
-        account.extra_data = extra_data
-        if account.pk:
-            account.save()
-        return complete_social_login(request, data, account)

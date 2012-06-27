@@ -9,9 +9,22 @@ from allauth.account.utils import send_email_confirmation
 
 class SignupForm(BaseSignupForm):
 
+    def __init__(self, *args, **kwargs):
+        self.sociallogin = kwargs.pop('sociallogin')
+        user = self.sociallogin.account.user
+        initial = { 'email': user.email or '',
+                    'username': user.username or '',
+                    'first_name': user.first_name or '',
+                    'last_name': user.last_name or '' }
+        kwargs['initial'] = initial
+        super(SignupForm, self).__init__(*args, **kwargs)
+
     def save(self, request=None):
         new_user = self.create_user()
-        super(SignupForm, self).save(new_user) # Before confirmation (may alter first_name etc used in mail)
+        self.sociallogin.account.user = new_user
+        self.sociallogin.save()
+        super(SignupForm, self).save(new_user) 
+        # Confirmation last (save may alter first_name etc -- used in mail)
         send_email_confirmation(new_user, request=request)
         return new_user
 

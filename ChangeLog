@@ -1,3 +1,11 @@
+2012-06-27  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Facebook: Dropped Facebook SDK dependency.
+
+	* Google: OAuth2 access token is stored.
+
+	* socialaccount: DRY focused refactoring of social login.
+
 2012-06-26  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* socialaccount: Added support for Google OAuth2 and Facebook

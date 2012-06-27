@@ -125,12 +125,22 @@ class SocialLogin(object):
         try:
             a = SocialAccount.objects.get(provider=self.account.provider, 
                                           uid=self.account.uid)
-            # Update
+            # Update account
             a.extra_data = self.account.extra_data
             self.account = a
             a.save()
+            # Update token
             if self.token:
-                self.token.account = a
-                self.token.save()
+                assert not self.token.pk
+                try:
+                    t = SocialToken.objects.get(account=self.account,
+                                                app=self.token.app)
+                    t.token = self.token.token
+                    t.token_secret = self.token.token_secret
+                    t.save()
+                    self.token = t
+                except SocialToken.DoesNotExist:
+                    self.token.account = a
+                    self.token.save()
         except SocialAccount.DoesNotExist:
             pass

@@ -27,7 +27,7 @@ def create_oauth2_tests(provider):
         resp = self.client.get(reverse(self.provider.id + '_login'))
         p = urlparse.urlparse(resp['location'])
         q = urlparse.parse_qs(p.query)
-        complete_url = reverse(self.provider.id+'_complete')
+        complete_url = reverse(self.provider.id+'_callback')
         self.assertGreater(q['redirect_uri'][0]
                            .find(complete_url), 0)
         resp = self.client.get(complete_url,

@@ -7,6 +7,7 @@ from allauth.socialaccount.providers.oauth.client import (OAuthClient,
                                                           OAuthError)
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount import providers
+from allauth.socialaccount.models import SocialToken
 
 class OAuthAdapter(object):
 
@@ -57,22 +58,22 @@ class OAuthCallbackView(OAuthView):
         View to handle final steps of OAuth based authentication where the user
         gets redirected back to from the service provider
         """
-        login_done_url = reverse(self.adapter.provider_id + "_complete")
+        login_done_url = reverse(self.adapter.provider_id + "_callback")
         client = self._get_client(request, login_done_url)
         if not client.is_valid():
             if request.GET.has_key('denied'):
                 return HttpResponseRedirect(reverse('socialaccount_login_cancelled'))
             extra_context = dict(oauth_client=client)
             return render_authentication_error(request, extra_context)
-        # We're redirecting to the setup view for this oauth service
-        return HttpResponseRedirect(client.callback_url)
-
-
-class OAuthCompleteView(OAuthView):
-    def dispatch(self, request):
         app = self.adapter.get_provider().get_app(request)
         try:
-            login = self.adapter.complete_login(request, app)
+            access_token = client.get_access_token()
+            token = SocialToken(app=app,
+                                token=access_token['oauth_token'],
+                                token_secret=access_token['oauth_token_secret'])
+            login = self.adapter.complete_login(request, app, token)
+            token.account = login.account
+            login.token = token
             return complete_social_login(request, login)
         except OAuthError:
             return render_authentication_error(request)

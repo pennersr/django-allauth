@@ -2,13 +2,13 @@ from django.utils.cache import patch_response_headers
 from django.contrib.auth.models import User
 from django.shortcuts import render
 
-from allauth.socialaccount.models import SocialAccount, SocialToken, SocialLogin
+from allauth.socialaccount.models import SocialAccount, SocialLogin
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
-                                                          OAuth2CompleteView)
+                                                          OAuth2CallbackView)
 from allauth.socialaccount import requests
 
 from forms import FacebookConnectForm
@@ -16,9 +16,9 @@ from models import FacebookProvider
 
 from allauth.utils import valid_email_or_none
 
-def fb_complete_login(app, access_token):
+def fb_complete_login(app, token):
     resp = requests.get('https://graph.facebook.com/me',
-                        params={ 'access_token': access_token })
+                        params={ 'access_token': token.token })
     extra_data = resp.json
     email = valid_email_or_none(extra_data.get('email'))
     uid = extra_data['id']
@@ -32,10 +32,7 @@ def fb_complete_login(app, access_token):
                             provider=FacebookProvider.id,
                             extra_data=extra_data,
                             user=user)
-    token= SocialToken(app=app, 
-                       account=account,
-                       token=access_token)
-    return SocialLogin(account, token=token)
+    return SocialLogin(account)
 
 
 class FacebookOAuth2Adapter(OAuth2Adapter):
@@ -49,7 +46,7 @@ class FacebookOAuth2Adapter(OAuth2Adapter):
 
 
 oauth2_login = OAuth2LoginView.adapter_view(FacebookOAuth2Adapter)
-oauth2_complete = OAuth2CompleteView.adapter_view(FacebookOAuth2Adapter)
+oauth2_callback = OAuth2CallbackView.adapter_view(FacebookOAuth2Adapter)
 
 
 def login_by_token(request):

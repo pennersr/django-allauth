@@ -6,8 +6,7 @@ from django.contrib.auth.models import User
 from allauth.socialaccount.providers.oauth.client import OAuth
 from allauth.socialaccount.providers.oauth.views import (OAuthAdapter,
                                                          OAuthLoginView,
-                                                         OAuthCallbackView,
-                                                         OAuthCompleteView)
+                                                         OAuthCallbackView)
 from allauth.socialaccount.models import SocialAccount, SocialLogin
 
 from models import LinkedInProvider
@@ -51,7 +50,7 @@ class LinkedInOAuthAdapter(OAuthAdapter):
     access_token_url = 'https://api.linkedin.com/uas/oauth/accessToken'
     authorize_url = 'https://www.linkedin.com/uas/oauth/authenticate'
 
-    def complete_login(self, request, app):
+    def complete_login(self, request, app, token):
         client = LinkedInAPI(request, app.key, app.secret,
                              self.request_token_url)
         extra_data = client.get_user_info()
@@ -66,4 +65,4 @@ class LinkedInOAuthAdapter(OAuthAdapter):
 
 oauth_login = OAuthLoginView.adapter_view(LinkedInOAuthAdapter)
 oauth_callback = OAuthCallbackView.adapter_view(LinkedInOAuthAdapter)
-oauth_complete = OAuthCompleteView.adapter_view(LinkedInOAuthAdapter)
+

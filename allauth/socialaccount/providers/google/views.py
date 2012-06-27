@@ -2,11 +2,10 @@ from django.contrib.auth.models import User
 
 from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
-                                                          OAuth2CompleteView)
+                                                          OAuth2CallbackView)
 
 from allauth.socialaccount import requests
-from allauth.socialaccount.models import (SocialLogin, SocialAccount, 
-                                          SocialToken)
+from allauth.socialaccount.models import SocialLogin, SocialAccount
 
 from models import GoogleProvider
 
@@ -16,9 +15,9 @@ class GoogleOAuth2Adapter(OAuth2Adapter):
     authorize_url = 'https://accounts.google.com/o/oauth2/auth'
     profile_url = 'https://www.googleapis.com/oauth2/v1/userinfo'
 
-    def complete_login(self, request, app, access_token):
+    def complete_login(self, request, app, token):
         resp = requests.get(self.profile_url,
-                            { 'access_token': access_token,
+                            { 'access_token': token.token,
                               'alt': 'json' })
         extra_data = resp.json
         # extra_data is something of the form:
@@ -40,11 +39,8 @@ class GoogleOAuth2Adapter(OAuth2Adapter):
                                 uid=uid,
                                 provider=self.provider_id,
                                 user=user)
-        token = SocialToken(app=app,
-                            account=account,
-                            token=access_token)
-        return SocialLogin(account, token)
+        return SocialLogin(account)
 
 oauth2_login = OAuth2LoginView.adapter_view(GoogleOAuth2Adapter)
-oauth2_complete = OAuth2CompleteView.adapter_view(GoogleOAuth2Adapter)
+oauth2_callback = OAuth2CallbackView.adapter_view(GoogleOAuth2Adapter)
 

@@ -4,8 +4,7 @@ from django.contrib.auth.models import User
 from allauth.socialaccount.providers.oauth.client import OAuth
 from allauth.socialaccount.providers.oauth.views import (OAuthAdapter,
                                                          OAuthLoginView,
-                                                         OAuthCallbackView,
-                                                         OAuthCompleteView)
+                                                         OAuthCallbackView)
 from allauth.socialaccount.models import SocialLogin, SocialAccount
 
 from models import TwitterProvider
@@ -30,7 +29,7 @@ class TwitterOAuthAdapter(OAuthAdapter):
     # authorize_url = 'https://api.twitter.com/oauth/authorize'
     authorize_url = 'https://api.twitter.com/oauth/authenticate'
 
-    def complete_login(self, request, app):
+    def complete_login(self, request, app, token):
         client = TwitterAPI(request, app.key, app.secret,
                             self.request_token_url)
         extra_data = client.get_user_info()
@@ -45,4 +44,4 @@ class TwitterOAuthAdapter(OAuthAdapter):
 
 oauth_login = OAuthLoginView.adapter_view(TwitterOAuthAdapter)
 oauth_callback = OAuthCallbackView.adapter_view(TwitterOAuthAdapter)
-oauth_complete = OAuthCompleteView.adapter_view(TwitterOAuthAdapter)
+

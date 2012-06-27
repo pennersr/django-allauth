@@ -99,7 +99,8 @@ Features
   or by e-mail), as well as multiple strategies for account
   verification (ranging from none to e-mail verification).
 
-- Access tokens are stored so that you can publish wall updates etc.
+- All access tokens are consistently stored so that you can publish
+  wall updates etc.
 
 Architecture & Design
 ---------------------
@@ -308,7 +309,7 @@ Google
 The Google provider is OAuth2 based. Register your Google API client
 over at `https://code.google.com/apis/console/`. Make sure you list a
 redirect uri of the form
-`http://example.com/accounts/google/login/done/`.
+`http://example.com/accounts/google/login/callback/`.
 
 You can specify the scope to use as follows::
 

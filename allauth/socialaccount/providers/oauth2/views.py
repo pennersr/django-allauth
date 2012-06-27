@@ -3,11 +3,11 @@ from django.http import HttpResponseRedirect
 
 from allauth.utils import get_login_redirect_url
 from allauth.socialaccount.helpers import render_authentication_error
-from allauth.socialaccount.models import SocialApp, SocialAccount, SocialLogin
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.oauth2.client import (OAuth2Client,
                                                            OAuth2Error)
 from allauth.socialaccount.helpers import complete_social_login
+from allauth.socialaccount.models import SocialToken
 
 
 class OAuth2Adapter(object):
@@ -32,7 +32,7 @@ class OAuth2View(object):
         return view
 
     def get_client(self, request, app):
-        callback_url = reverse(self.adapter.provider_id + "_complete")
+        callback_url = reverse(self.adapter.provider_id + "_callback")
         callback_url = request.build_absolute_uri(callback_url)
         client = OAuth2Client(self.request, app.key, app.secret,
                               self.adapter.authorize_url,
@@ -54,7 +54,7 @@ class OAuth2LoginView(OAuth2View):
             return render_authentication_error(request)
 
 
-class OAuth2CompleteView(OAuth2View):
+class OAuth2CallbackView(OAuth2View):
     def dispatch(self, request):
         if 'error' in request.GET or not 'code' in request.GET:
             # TODO: Distinguish cancel from error
@@ -63,9 +63,13 @@ class OAuth2CompleteView(OAuth2View):
         client = self.get_client(request, app)
         try:
             access_token = client.get_access_token(request.GET['code'])
+            token = SocialToken(app=app,
+                                token=access_token)
             login = self.adapter.complete_login(request,
                                                 app,
-                                                access_token)
+                                                token)
+            token.account = login.account
+            login.token = token
             return complete_social_login(request, login)
         except OAuth2Error:
             return render_authentication_error(request)

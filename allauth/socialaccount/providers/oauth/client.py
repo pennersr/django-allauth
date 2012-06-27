@@ -81,7 +81,7 @@ class OAuthClient(object):
             self.request.session['oauth_%s_request_token' % get_token_prefix(self.request_token_url)] = self.request_token
         return self.request_token
 
-    def _get_access_token(self):
+    def get_access_token(self):
         """
         Obtain the access token to access private resources at the API endpoint.
         """
@@ -122,7 +122,7 @@ class OAuthClient(object):
     def is_valid(self):
         try:
             self._get_rt_from_session()
-            self._get_access_token()
+            self.get_access_token()
         except OAuthError, e:
             self.errors.append(e.args[0])
             return False

@@ -1,8 +1,10 @@
 2012-06-27  Raymond Penners  <raymond.penners@intenct.nl>
 
-	* Facebook: Dropped Facebook SDK dependency.
+	* OAuth: All OAuth/OAuth2 tokens are now consistently stored
+	across the board. Cleaned up OAuth flow removing superfluous
+	redirect.
 
-	* Google: OAuth2 access token is stored.
+	* Facebook: Dropped Facebook SDK dependency.
 
 	* socialaccount: DRY focused refactoring of social login.
 

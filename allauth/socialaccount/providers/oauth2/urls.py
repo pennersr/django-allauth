@@ -5,7 +5,7 @@ def default_urlpatterns(provider):
     urlpatterns = patterns(provider.package + '.views',
                            url('^login/$', 'oauth2_login', 
                                name=provider.id + "_login"),
-                           url('^login/done/$', 'oauth2_complete',
-                               name=provider.id + "_complete"))
+                           url('^login/callback/$', 'oauth2_callback',
+                               name=provider.id + "_callback"))
 
     return patterns('', url('^' + provider.id + '/', include(urlpatterns)))

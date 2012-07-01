@@ -19,7 +19,7 @@ from allauth.utils import valid_email_or_none
 
 from utils import DBOpenIDStore
 from forms import LoginForm
-from models import OpenIDProvider
+from provider import OpenIDProvider
 
 class AXAttribute:
     CONTACT_EMAIL = 'http://axschema.org/contact/email'

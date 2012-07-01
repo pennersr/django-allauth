@@ -2,7 +2,7 @@ from django.conf.urls.defaults import patterns, url
 
 from allauth.socialaccount.providers.oauth2.urls import default_urlpatterns
 
-from models import FacebookProvider
+from provider import FacebookProvider
 import views
 
 urlpatterns = default_urlpatterns(FacebookProvider)

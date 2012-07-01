@@ -1,19 +1,14 @@
 import urlparse
 import warnings
-from datetime import timedelta, datetime
 
 from django.test import TestCase
-from django.conf import settings
-from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.test.client import Client
-from django.core import mail
 from django.contrib.sites.models import Site
 
 import providers
 from allauth.socialaccount import requests
 
-from providers.oauth2.models import OAuth2Provider
+from providers.oauth2.provider import OAuth2Provider
 
 from models import SocialApp
 

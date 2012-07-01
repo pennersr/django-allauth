@@ -12,7 +12,7 @@ from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
 from allauth.socialaccount import requests
 
 from forms import FacebookConnectForm
-from models import FacebookProvider
+from provider import FacebookProvider
 
 from allauth.utils import valid_email_or_none
 

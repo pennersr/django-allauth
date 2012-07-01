@@ -9,7 +9,7 @@ from allauth.socialaccount.providers.oauth.views import (OAuthAdapter,
                                                          OAuthCallbackView)
 from allauth.socialaccount.models import SocialAccount, SocialLogin
 
-from models import LinkedInProvider
+from provider import LinkedInProvider
 
 
 class LinkedInAPI(OAuth):

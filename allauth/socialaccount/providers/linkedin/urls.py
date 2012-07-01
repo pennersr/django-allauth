@@ -1,4 +1,4 @@
 from allauth.socialaccount.providers.oauth.urls import default_urlpatterns
-from models import LinkedInProvider
+from provider import LinkedInProvider
 
 urlpatterns = default_urlpatterns(LinkedInProvider)

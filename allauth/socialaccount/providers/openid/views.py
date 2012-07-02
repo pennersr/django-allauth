@@ -51,9 +51,8 @@ def login(request):
                                     required=True))
                     auth_request.addExtension(ax)
                 callback_url = reverse(callback)
-                next = request.GET.get('next')
-                if next:
-                    callback_url = callback_url + '?' + urlencode(dict(next=next))
+                state = SocialLogin.marshall_state(request)
+                callback_url = callback_url + '?' + urlencode(dict(state=state))
                 redirect_url = auth_request.redirectURL(
                     request.build_absolute_uri('/'),
                     request.build_absolute_uri(callback_url))
@@ -100,6 +99,7 @@ def callback(request):
                                 user=user,
                                 extra_data={})
         login = SocialLogin(account)
+        login.state = SocialLogin.unmarshall_state(request.REQUEST.get('state'))
         ret = complete_social_login(request, login)
     elif response.status == consumer.CANCEL:
         ret = HttpResponseRedirect(reverse('socialaccount_login_cancelled'))

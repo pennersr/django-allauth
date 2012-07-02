@@ -61,6 +61,7 @@ def login_by_token(request):
                 token = SocialToken(app=app,
                                     token=access_token)
                 login = fb_complete_login(app, token)
+                login.token = token
                 ret = complete_social_login(request, login)
             except:
                 # FIXME: Catch only what is needed

@@ -1,7 +1,5 @@
 import urllib
 import urlparse
-import httplib2
-import json
 
 from allauth.socialaccount import requests
 
@@ -23,6 +21,7 @@ class OAuth2Client(object):
         self.consumer_key = consumer_key
         self.consumer_secret = consumer_secret
         self.scope = ' '.join(scope)
+        self.state = None
 
     def get_redirect_url(self):
         params = {
@@ -31,10 +30,11 @@ class OAuth2Client(object):
             'scope': self.scope,
             'response_type': 'code'
         }
+        if self.state:
+            params['state'] = self.state
         return '%s?%s' % (self.authorization_url, urllib.urlencode(params))
 
     def get_access_token(self, code):
-        client = httplib2.Http()
         params = {'client_id': self.consumer_key,
                   'redirect_uri': self.callback_url,
                   'grant_type': 'authorization_code',

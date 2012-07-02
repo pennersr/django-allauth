@@ -1,35 +1,28 @@
-from django.conf import settings
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from django.core.validators import validate_email, ValidationError
 from django.db.models import EmailField
 from django.utils.http import urlencode
+from django.contrib.auth import REDIRECT_FIELD_NAME
 
 from emailconfirmation.models import EmailAddress
 
+import app_settings
 
-def get_login_redirect_url(request):
+def get_login_redirect_url(request, 
+                           fallback=app_settings.LOGIN_REDIRECT_URL):
     """
     Returns a url to redirect to after the login
     """
-    next = None
-    if 'next' in request.session:
-        next = request.session['next']
-        del request.session['next']
-    elif 'next' in request.GET:
-        next = request.GET.get('next')
-    elif 'next' in request.POST:
-        next = request.POST.get('next')
-    if not next:
-        next = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
-    return next
+    url = request.REQUEST.get(REDIRECT_FIELD_NAME) or fallback
+    return url
 
 
 def passthrough_login_redirect_url(request, url):
     assert url.find("?") < 0  # TODO: Handle this case properly
-    next = request.REQUEST.get('next')
+    next = get_login_redirect_url(request, fallback=None)
     if next:
-        url = url + '?' + urlencode(dict(next=next))
+        url = url + '?' + urlencode({ REDIRECT_FIELD_NAME: next })
     return url
 
 

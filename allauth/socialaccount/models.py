@@ -2,6 +2,10 @@ from django.db import models
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
+from django.utils import simplejson
+
+import allauth.app_settings
+from allauth.utils import get_login_redirect_url
 
 import providers
 from fields import JSONField
@@ -100,6 +104,7 @@ class SocialLogin(object):
             token.account = account
         self.token = token
         self.account = account
+        self.state = {}
 
     def save(self):
         user = self.account.user
@@ -144,3 +149,26 @@ class SocialLogin(object):
                     self.token.save()
         except SocialAccount.DoesNotExist:
             pass
+    
+    def get_redirect_url(self, 
+                         fallback=allauth.app_settings.LOGIN_REDIRECT_URL):
+        url = self.state.get('next') or fallback
+        return url
+            
+    @classmethod
+    def marshall_state(cls, request):
+        state = {}
+        next = get_login_redirect_url(request, fallback=None)
+        if next:
+            state['next'] = next
+        return simplejson.dumps(state)
+    
+    @classmethod
+    def unmarshall_state(cls, state_string):
+        if state_string:
+            state = simplejson.loads(state_string)
+        else:
+            state = {}
+        return state
+    
+            

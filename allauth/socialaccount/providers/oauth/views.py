@@ -1,13 +1,13 @@
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.utils.http import urlencode
 
-from allauth.utils import get_login_redirect_url
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.providers.oauth.client import (OAuthClient,
                                                           OAuthError)
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount import providers
-from allauth.socialaccount.models import SocialToken
+from allauth.socialaccount.models import SocialToken, SocialLogin
 
 class OAuthAdapter(object):
 
@@ -44,8 +44,11 @@ class OAuthView(object):
 class OAuthLoginView(OAuthView):
     def dispatch(self, request):
         callback_url = reverse(self.adapter.provider_id + "_callback")
+        # TODO: Can't this be moved as query param into callback?
+        # Tried but failed somehow, needs further study...
+        request.session['oauth_login_state'] \
+            = SocialLogin.marshall_state(request)
         client = self._get_client(request, callback_url)
-        request.session['next'] = get_login_redirect_url(request)
         try:
             return client.get_redirect()
         except OAuthError:
@@ -74,6 +77,8 @@ class OAuthCallbackView(OAuthView):
             login = self.adapter.complete_login(request, app, token)
             token.account = login.account
             login.token = token
+            login.state = SocialLogin.unmarshall_state \
+                (request.session.pop('oauth_login_state', None))
             return complete_social_login(request, login)
         except OAuthError:
             return render_authentication_error(request)

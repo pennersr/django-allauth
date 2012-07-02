@@ -1,13 +1,12 @@
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 
-from allauth.utils import get_login_redirect_url
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.oauth2.client import (OAuth2Client,
                                                            OAuth2Error)
 from allauth.socialaccount.helpers import complete_social_login
-from allauth.socialaccount.models import SocialToken
+from allauth.socialaccount.models import SocialToken, SocialLogin
 
 
 class OAuth2Adapter(object):
@@ -46,8 +45,7 @@ class OAuth2LoginView(OAuth2View):
     def dispatch(self, request):
         app = self.adapter.get_provider().get_app(self.request)
         client = self.get_client(request, app)
-        # TODO: next can be passed along to callback url, session not required
-        request.session['next'] = get_login_redirect_url(request)
+        client.state = SocialLogin.marshall_state(request)
         try:
             return HttpResponseRedirect(client.get_redirect_url())
         except OAuth2Error:
@@ -70,6 +68,8 @@ class OAuth2CallbackView(OAuth2View):
                                                 token)
             token.account = login.account
             login.token = token
+            login.state = SocialLogin.unmarshall_state(request.REQUEST
+                                                       .get('state'))
             return complete_social_login(request, login)
         except OAuth2Error:
             return render_authentication_error(request)

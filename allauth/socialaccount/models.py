@@ -94,8 +94,26 @@ class SocialToken(models.Model):
 
 class SocialLogin(object):
     """
-    Represents the state of a social user that is in the process of
-    being logged in.
+    Represents a social user that is in the process of being logged
+    in. This consists of the following information:
+
+    `account` (`SocialAccount` instance): The social account being
+    logged in. Providers are not responsible for checking whether or
+    not an account already exists or not. Therefore, a provider
+    typically creates a new (unsaved) `SocialAccount` instance. The
+    `User` instance pointed to by the account (`account.user`) may be
+    prefilled by the provider for use as a starting point later on
+    during the signup process.
+
+    `token` (`SocialToken` instance): An optional access token token
+    that results from performing a successful authentication
+    handshake.
+
+    `state` (`dict`): The state to be preserved during the
+    authentication handshake. Note that this state may end up in the
+    url (e.g. OAuth2 `state` parameter) -- do not put any secrets in
+    there. It currently only contains the url to redirect to after
+    login.
     """
 
     def __init__(self, account, token=None):
@@ -156,11 +174,16 @@ class SocialLogin(object):
         return url
             
     @classmethod
-    def marshall_state(cls, request):
+    def state_from_request(cls, request):
         state = {}
         next = get_login_redirect_url(request, fallback=None)
         if next:
             state['next'] = next
+        return state
+
+    @classmethod
+    def marshall_state(cls, request):
+        state = cls.state_from_request(request)
         return simplejson.dumps(state)
     
     @classmethod

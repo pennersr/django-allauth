@@ -2,7 +2,7 @@ from django.utils.cache import patch_response_headers
 from django.contrib.auth.models import User
 from django.shortcuts import render
 
-from allauth.socialaccount.models import SocialAccount, SocialLogin
+from allauth.socialaccount.models import SocialAccount, SocialLogin, SocialToken
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount import providers
@@ -57,8 +57,10 @@ def login_by_token(request):
             try:
                 app = providers.registry.by_id(FacebookProvider.id) \
                     .get_app(request)
-                login = fb_complete_login(app, 
-                                          form.cleaned_data['access_token'])
+                access_token = form.cleaned_data['access_token']
+                token = SocialToken(app=app,
+                                    token=access_token)
+                login = fb_complete_login(app, token)
                 ret = complete_social_login(request, login)
             except:
                 # FIXME: Catch only what is needed

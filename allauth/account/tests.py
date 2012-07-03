@@ -1,4 +1,9 @@
-from datetime import timedelta, datetime
+from datetime import timedelta
+try:
+    from django.utils.timezone import now
+except ImportError:
+    from datetime import datetime
+    now = datetime.now
 
 from django.test import TestCase
 from django.conf import settings
@@ -58,7 +63,7 @@ class AccountTests(TestCase):
                                     'account/verification_sent.html')
             self.assertEquals(len(mail.outbox), attempt)
             # Wait for cooldown
-            EmailConfirmation.objects.update(sent=datetime.now() 
+            EmailConfirmation.objects.update(sent=now()
                                              - timedelta(days=1))
         # Verify, and re-attempt to login.
         EmailAddress.objects.filter(user__username='johndoe') \
@@ -66,13 +71,13 @@ class AccountTests(TestCase):
         resp = c.post(reverse('account_login'),
                       { 'login': 'johndoe',
                         'password': 'johndoe'})
-        self.assertEquals(resp['location'], 
+        self.assertEquals(resp['location'],
                           'http://testserver'+settings.LOGIN_REDIRECT_URL)
-        
 
 
-            
-        
+
+
+
     def x_test_email_escaping(self):
         """
         Test is only valid if emailconfirmation is listed after

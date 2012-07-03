@@ -1,4 +1,9 @@
-from datetime import timedelta, datetime
+from datetime import timedelta
+try:
+    from django.utils.timezone import now
+except ImportError:
+    from datetime import datetime
+    now = datetime.now
 
 from django.contrib import messages
 from django.shortcuts import render
@@ -25,7 +30,7 @@ def get_default_redirect(request, redirect_field_name="next",
     """
     Returns the URL to be used in login procedures by looking at different
     values in the following order:
-    
+
     - a REQUEST value, GET or POST, named "next" by default.
     - LOGIN_REDIRECT_URL - the URL in the setting
     - LOGIN_REDIRECT_URLNAME - the name of a URLconf entry in the settings
@@ -51,7 +56,7 @@ _user_display_callable = None
 def user_display(user):
     global _user_display_callable
     if not _user_display_callable:
-        f = getattr(settings, "ACCOUNT_USER_DISPLAY", 
+        f = getattr(settings, "ACCOUNT_USER_DISPLAY",
                     lambda user: user.username)
         if not hasattr(f, '__call__'):
             assert isinstance(f, str)
@@ -81,7 +86,7 @@ def perform_login(request, user, redirect_url=None):
         and not EmailAddress.objects.filter(user=user,
                                             verified=True).exists()):
         send_email_confirmation(user, request=request)
-        return render(request, 
+        return render(request,
                       "account/verification_sent.html",
                       { "email": user.email })
     # HACK: This may not be nice. The proper Django way is to use an
@@ -94,7 +99,7 @@ def perform_login(request, user, redirect_url=None):
     login(request, user)
     messages.add_message(request, messages.SUCCESS,
                          ugettext("Successfully signed in as %(user)s.") % { "user": user_display(user) } )
-            
+
     if not redirect_url:
         redirect_url = get_default_redirect(request)
     return HttpResponseRedirect(redirect_url)
@@ -122,7 +127,7 @@ def send_email_confirmation(user, request=None):
             email_address = EmailAddress.objects.get(user=user,
                                                      email__iexact=email)
             email_confirmation_sent = EmailConfirmation.objects \
-                .filter(sent__gt=datetime.now() - COOLDOWN_PERIOD,
+                .filter(sent__gt=now() - COOLDOWN_PERIOD,
                         email_address=email_address) \
                 .exists()
             if not email_confirmation_sent:
@@ -145,7 +150,7 @@ def format_email_subject(subject):
 
 def sync_user_email_addresses(user):
     """
-    Keep user.email in sync with user.emailadress_set. 
+    Keep user.email in sync with user.emailadress_set.
 
     Under some circumstances the user.email may not have ended up as
     an EmailAddress record, e.g. in the case of manually created admin
@@ -157,4 +162,4 @@ def sync_user_email_addresses(user):
                                     email=user.email,
                                     primary=False,
                                     verified=False)
-    
+

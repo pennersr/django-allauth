@@ -1,8 +1,9 @@
 from datetime import timedelta
 try:
-    from django.utils import timezone as datetime
+    from django.utils.timezone import now
 except ImportError:
     from datetime import datetime
+    now = datetime.now
 
 from django.contrib import messages
 from django.shortcuts import render
@@ -126,7 +127,7 @@ def send_email_confirmation(user, request=None):
             email_address = EmailAddress.objects.get(user=user,
                                                      email__iexact=email)
             email_confirmation_sent = EmailConfirmation.objects \
-                .filter(sent__gt=datetime.now() - COOLDOWN_PERIOD,
+                .filter(sent__gt=now() - COOLDOWN_PERIOD,
                         email_address=email_address) \
                 .exists()
             if not email_confirmation_sent:

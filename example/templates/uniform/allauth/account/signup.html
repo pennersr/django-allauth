@@ -1,5 +1,6 @@
 {% extends "account/base.html" %}
 
+{% load url from future %}
 {% load i18n %}
 {% load uni_form_tags %}
 
@@ -13,7 +14,7 @@
     {% else %}
     <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
         
-        <form class="signup uniForm" id="signup_form" method="post" action="{% url account_signup %}">
+        <form class="signup uniForm" id="signup_form" method="post" action="{% url 'account_signup' %}">
             {% csrf_token %}
             <fieldset class="inlineLabels">
                 {{ form|as_uni_form }}

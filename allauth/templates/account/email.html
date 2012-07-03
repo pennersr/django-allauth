@@ -1,6 +1,7 @@
 {% extends "account/base.html" %}
 
 {% load i18n %}
+{% load url from future %}
 
 {% block head_title %}{% trans "Account" %}{% endblock %}
 
@@ -9,7 +10,7 @@
 {% if user.emailaddress_set.all %}
 <p>{% trans 'The following e-mail addresses are associated to your account:' %}</p>
     
-<form action="{% url account_email %}" class="email_list" method="post">
+<form action="{% url 'account_email' %}" class="email_list" method="post">
 {% csrf_token %}
 <fieldset class="blockLabels">
 

@@ -1,5 +1,6 @@
 {% extends "account/base.html" %}
 
+{% load url from future %}
 {% load i18n %}
 {% load bootstrap %}
 {% load account_tags %}
@@ -34,7 +35,7 @@ below:{% endblocktrans %}</p>
 {% endif %}
 {% endif %}
 
-    <form class="login" method="POST" action="{% url account_login %}">
+    <form class="login" method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
           {{ form|bootstrap }}
             {% if redirect_field_value %}
@@ -42,7 +43,7 @@ below:{% endblocktrans %}</p>
             {% endif %}
             <div class="form-actions">
                 <button class="btn btn-primary" type="submit">{% trans "Sign In" %}</button>
-                <a class="btn" href="{% url account_reset_password %}">{% trans "Forgot Password?" %}</a>
+                <a class="btn" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
 
             </div>
     </form>

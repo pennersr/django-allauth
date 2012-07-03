@@ -1,5 +1,6 @@
 {% extends "account/base.html" %}
 
+{% load url from future %}
 {% load i18n %}
 {% load uni_form_tags %}
 
@@ -11,7 +12,7 @@
 {% if user.emailaddress_set.all %}
 <p>{% trans 'The following e-mail addresses are associated to your account:' %}</p>
     
-<form action="{% url account_email %}" class="email_list uniForm" method="post">
+<form action="{% url 'account_email' %}" class="email_list uniForm" method="post">
 {% csrf_token %}
 <fieldset class="blockLabels">
 

@@ -169,3 +169,11 @@ def complete_social_signup(request, sociallogin):
     return complete_signup(request, 
                            sociallogin.account.user, 
                            sociallogin.get_redirect_url())
+
+
+# TODO: Factor out callable importing functionality
+# See: account.utils.user_display
+def import_path(path):
+    modname, _, attr = path.rpartition('.')
+    m = __import__(modname, fromlist=[attr])
+    return getattr(m, attr)

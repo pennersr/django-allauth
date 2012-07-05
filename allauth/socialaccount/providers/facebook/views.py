@@ -73,7 +73,10 @@ def login_by_token(request):
 
 
 def channel(request):
-    response = render(request, 'facebook/channel.html')
+    provider = providers.registry.by_id(FacebookProvider.id)
+    locale = provider.get_locale_for_request(request)
+    response = render(request, 'facebook/channel.html',
+                      {'facebook_jssdk_locale': locale})
     cache_expire = 60 * 60 * 24 * 365
     patch_response_headers(response, cache_expire)
     response['Pragma'] = 'Public'

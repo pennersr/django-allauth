@@ -298,10 +298,22 @@ The following Facebook settings are available::
     SOCIALACCOUNT_PROVIDERS = \
         { 'facebook': 
             { 'SCOPE': ['email', 'publish_stream'],
-              'METHOD': 'oauth2' } }
+              'METHOD': 'oauth2' ,
+              'LOCALE_FUNC': 'path.to.callable'} }
 
 By default, `email` scope is required depending whether or not
 `SOCIALACCOUNT_QUERY_EMAIL` is enabled.
+
+The locale for the JS SDK is chosen based on the current active language of
+the request, taking a best guess. This can be customized using the
+`LOCALE_FUNC` setting, which takes either a callable or a path to a callable.
+This callable must take exactly one argument, the request, and return `a
+valid Facebook locale <http://developers.facebook.com/docs/
+internationalization/>`_ as a string::
+
+    SOCIALACCOUNT_PROVIDERS = \
+        { 'facebook':
+            { 'LOCALE_FUNC': lambda request: return 'zh_CN'} }
 
 Google
 ------

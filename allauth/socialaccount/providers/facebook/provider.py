@@ -9,6 +9,10 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.models import SocialApp
+from allauth.socialaccount.helpers import import_path
+
+from locale import get_default_locale_callable
+
 
 class FacebookAccount(ProviderAccount):
     def get_profile_url(self):
@@ -29,6 +33,10 @@ class FacebookProvider(OAuth2Provider):
     package = 'allauth.socialaccount.providers.facebook'
     account_class = FacebookAccount
 
+    def __init__(self):
+        self._locale_callable_cache = None
+        super(OAuth2Provider, self).__init__()
+
     def get_method(self):
         return self.get_settings().get('METHOD', 'oauth2')
 
@@ -43,6 +51,24 @@ class FacebookProvider(OAuth2Provider):
                                                               **kwargs)
         return ret
 
+    def _get_locale_callable(self):
+        settings = self.get_settings()
+
+        # TODO: Factor out callable importing functionality
+        # See: account.utils.user_display
+        f = settings.get('LOCALE_FUNC')
+        if f is not None:
+            if not hasattr(f, '__call__'):
+                assert isinstance(f, str)
+                f = import_path(f)
+        else:
+            f = get_default_locale_callable()
+        return f
+
+    def get_locale_for_request(self, request):
+        if not self._locale_callable_cache:
+            self._locale_callable_cache = self._get_locale_callable()
+        return self._locale_callable_cache(request)
 
     def get_default_scope(self):
         scope = []
@@ -52,6 +78,7 @@ class FacebookProvider(OAuth2Provider):
 
     def media_js(self, request):
         perms = ','.join(self.get_scope())
+        locale = self.get_locale_for_request(request)
         try:
             app = self.get_app(request)
         except SocialApp.DoesNotExist:
@@ -59,10 +86,11 @@ class FacebookProvider(OAuth2Provider):
                                        " add a SocialApp using the Django"
                                        " admin")
         ctx =  {'facebook_app': app,
-                'facebook_channel_url': 
+                'facebook_channel_url':
                 request.build_absolute_uri(reverse('facebook_channel')),
-                'facebook_perms': perms}
-        return render_to_string('facebook/fbconnect.html', 
+                'facebook_perms': perms,
+                'facebook_jssdk_locale': locale}
+        return render_to_string('facebook/fbconnect.html',
                                 ctx,
                                 RequestContext(request))
 

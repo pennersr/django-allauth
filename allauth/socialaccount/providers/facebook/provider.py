@@ -78,6 +78,7 @@ class FacebookProvider(OAuth2Provider):
 
     def media_js(self, request):
         perms = ','.join(self.get_scope())
+        locale = self.get_locale_for_request(request)
         try:
             app = self.get_app(request)
         except SocialApp.DoesNotExist:
@@ -85,10 +86,11 @@ class FacebookProvider(OAuth2Provider):
                                        " add a SocialApp using the Django"
                                        " admin")
         ctx =  {'facebook_app': app,
-                'facebook_channel_url': 
+                'facebook_channel_url':
                 request.build_absolute_uri(reverse('facebook_channel')),
-                'facebook_perms': perms}
-        return render_to_string('facebook/fbconnect.html', 
+                'facebook_perms': perms,
+                'facebook_jssdk_locale': locale}
+        return render_to_string('facebook/fbconnect.html',
                                 ctx,
                                 RequestContext(request))
 

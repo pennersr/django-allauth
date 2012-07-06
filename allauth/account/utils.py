@@ -13,9 +13,10 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import login
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.http import HttpResponseRedirect
-from django.utils import importlib
 
 from emailconfirmation.models import EmailAddress, EmailConfirmation
+
+from allauth.utils import import_callable
 
 from signals import user_logged_in
 
@@ -58,11 +59,7 @@ def user_display(user):
     if not _user_display_callable:
         f = getattr(settings, "ACCOUNT_USER_DISPLAY",
                     lambda user: user.username)
-        if not hasattr(f, '__call__'):
-            assert isinstance(f, str)
-            pkg, func = f.rsplit('.',1)
-            f = getattr(importlib.import_module(pkg), func)
-        _user_display_callable = f
+        _user_display_callable = import_callable(f)
     return _user_display_callable(user)
 
 

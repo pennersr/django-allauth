@@ -2,3 +2,9 @@ django-allauth was started by Raymond Penners
 (<raymond.penners@intenct.nl> or @pennersr) in October 2010, inspired
 by and partly based on existing projects such as Pinax (account app),
 Django-Socialauth, django-socialregistration.
+
+Contributors
+============
+Chris Beaven
+Facundo Gaich
+Vuong Nguyen

@@ -4,6 +4,7 @@ from django.core.validators import validate_email, ValidationError
 from django.db.models import EmailField
 from django.utils.http import urlencode
 from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.utils import importlib
 
 from emailconfirmation.models import EmailAddress
 
@@ -66,3 +67,19 @@ def email_address_exists(email, exclude_user=None):
             users = users.exclude(user=exclude_user)
         ret = users.filter(email__iexact=email).exists()
     return ret
+
+
+
+def import_attribute(path):
+    assert isinstance(path, str)
+    pkg, attr = path.rsplit('.',1)
+    ret = getattr(importlib.import_module(pkg), attr)
+    return ret
+
+def import_callable(path_or_callable):
+    if not hasattr(path_or_callable, '__call__'):
+        ret = import_attribute(path_or_callable)
+    else:
+        ret = path_or_callable
+    return ret
+

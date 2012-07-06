@@ -42,7 +42,7 @@ def get_default_locale_callable():
     Wrapper function so that the default mapping is only built when needed
     """
     exec_dir = os.path.dirname(os.path.realpath(__file__))
-    xml_path = os.path.join(exec_dir, 'FacebookLocales.xml')
+    xml_path = os.path.join(exec_dir, 'data', 'FacebookLocales.xml')
 
     fb_locales = _build_locale_table(xml_path)
 

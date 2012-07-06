@@ -3,10 +3,10 @@ from django.core.exceptions import ImproperlyConfigured
 from django.template.loader import render_to_string
 from django.template import RequestContext
 
+from allauth.utils import import_callable
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
-
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.models import SocialApp
 from allauth.socialaccount.helpers import import_path
@@ -35,7 +35,7 @@ class FacebookProvider(OAuth2Provider):
 
     def __init__(self):
         self._locale_callable_cache = None
-        super(OAuth2Provider, self).__init__()
+        super(FacebookProvider, self).__init__()
 
     def get_method(self):
         return self.get_settings().get('METHOD', 'oauth2')
@@ -53,14 +53,9 @@ class FacebookProvider(OAuth2Provider):
 
     def _get_locale_callable(self):
         settings = self.get_settings()
-
-        # TODO: Factor out callable importing functionality
-        # See: account.utils.user_display
         f = settings.get('LOCALE_FUNC')
-        if f is not None:
-            if not hasattr(f, '__call__'):
-                assert isinstance(f, str)
-                f = import_path(f)
+        if f:
+            f = import_callable(f)
         else:
             f = get_default_locale_callable()
         return f

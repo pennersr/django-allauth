@@ -1,3 +1,8 @@
+2012-07-06  Raymond Penners  <pennersr@mac-pennersr.lan>
+
+	* Facebook: Facundo Gaich contributed support for dynamically
+	deriving the Facebook locale from the Django locale, thanks!.
+
 2012-06-27  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* OAuth: All OAuth/OAuth2 tokens are now consistently stored

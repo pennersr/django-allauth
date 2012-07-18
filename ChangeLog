@@ -1,4 +1,8 @@
-2012-07-06  Raymond Penners  <pennersr@mac-pennersr.lan>
+2012-07-18  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.7.0 released.
+
+2012-07-06  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Facebook: Facundo Gaich contributed support for dynamically
 	deriving the Facebook locale from the Django locale, thanks!.
@@ -26,7 +30,7 @@
 
 	* socialaccount: When signing up, user.first/last_name where
 	always taken from the provider signup data, even when a custom
-	signup form was in place that offering user inputs for editting
+	signup form was in place that offered user inputs for editting
 	these fields. Fixed.
 
 2012-06-20  Raymond Penners  <raymond.penners@intenct.nl>

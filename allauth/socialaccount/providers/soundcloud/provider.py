@@ -17,7 +17,7 @@ class SoundCloudAccount(ProviderAccount):
 class SoundCloudProvider(OAuth2Provider):
     id = 'soundcloud'
     name = 'SoundCloud'
-    package = 'allauth_custom.socialaccount.providers.soundcloud'
+    package = 'allauth.socialaccount.providers.soundcloud'
     account_class = SoundCloudAccount
 
         

@@ -1,6 +1,4 @@
-import base64
 import re
-import uuid
 
 from django import forms
 from django.conf import settings
@@ -190,9 +188,6 @@ class BaseSignupForm(_base_signup_form_class()):
             self.fields["email"].required = False
         if not app_settings.USERNAME_REQUIRED:
             del self.fields["username"]
-
-    def random_username(self):
-        return base64.urlsafe_b64encode(uuid.uuid4().bytes).strip('=')
 
     def clean_username(self):
         value = self.cleaned_data["username"]

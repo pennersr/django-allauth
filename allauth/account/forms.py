@@ -23,7 +23,8 @@ from emailconfirmation.models import EmailAddress
 
 # from models import PasswordReset
 from utils import perform_login, send_email_confirmation, format_email_subject
-from allauth.utils import email_address_exists
+from allauth.utils import email_address_exists, generate_unique_username
+
 from app_settings import AuthenticationMethod
         
 import app_settings
@@ -222,16 +223,13 @@ class BaseSignupForm(_base_signup_form_class()):
         data = self.initial
         user.last_name = data.get('last_name', '')
         user.first_name = data.get('first_name', '')
+        user.email = self.cleaned_data["email"].strip().lower()
         if app_settings.USERNAME_REQUIRED:
             user.username = self.cleaned_data["username"]
         else:
-            while True:
-                user.username = self.random_username()
-                try:
-                    User.objects.get(username=user.username)
-                except User.DoesNotExist:
-                    break
-        user.email = self.cleaned_data["email"].strip().lower()
+            user.username = generate_unique_username(user.first_name or
+                                                     user.last_name or
+                                                     user.email)
         user.set_unusable_password()
         if commit:
             user.save()

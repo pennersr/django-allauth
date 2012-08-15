@@ -93,7 +93,7 @@ def email(request, **kwargs):
                             "email": add_email_form.cleaned_data["email"]
                         }
                     )
-                return HttpResponseRedirect(reverse(email))
+                return HttpResponseRedirect(reverse('account_email'))
         else:
             add_email_form = form_class()
             if request.POST.get("email"):
@@ -110,7 +110,7 @@ def email(request, **kwargs):
                             }
                         )
                         EmailConfirmation.objects.send_confirmation(email_address)
-                        return HttpResponseRedirect(reverse(email))
+                        return HttpResponseRedirect(reverse('account_email'))
                     except EmailAddress.DoesNotExist:
                         pass
                 elif request.POST.has_key("action_remove"):
@@ -133,7 +133,7 @@ def email(request, **kwargs):
                                     "email": email,
                                 }
                             )
-                            return HttpResponseRedirect(reverse(email))
+                            return HttpResponseRedirect(reverse('account_email'))
                     except EmailAddress.DoesNotExist:
                         pass
                 elif request.POST.has_key("action_primary"):
@@ -146,7 +146,7 @@ def email(request, **kwargs):
                         email_address.set_as_primary()
                         messages.add_message(request, messages.SUCCESS,
                                              ugettext("Primary e-mail address set"))
-                        return HttpResponseRedirect(reverse(email))
+                        return HttpResponseRedirect(reverse('account_email'))
                     except EmailAddress.DoesNotExist:
                         pass
     else:

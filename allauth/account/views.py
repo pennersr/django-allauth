@@ -14,7 +14,7 @@ from emailconfirmation.models import EmailAddress, EmailConfirmation
 
 from allauth.utils import passthrough_login_redirect_url
 
-from utils import get_default_redirect, complete_signup 
+from utils import get_default_redirect, complete_signup
 from forms import AddEmailForm, ChangePasswordForm
 from forms import LoginForm, ResetPasswordKeyForm
 from forms import ResetPasswordForm, SetPasswordForm, SignupForm
@@ -27,19 +27,19 @@ def login(request, **kwargs):
     url_required = kwargs.pop("url_required", False)
     extra_context = kwargs.pop("extra_context", {})
     redirect_field_name = kwargs.pop("redirect_field_name", "next")
-    
+
     if extra_context is None:
         extra_context = {}
     if success_url is None:
         success_url = get_default_redirect(request, redirect_field_name)
-    
+
     if request.method == "POST" and not url_required:
         form = form_class(request.POST)
         if form.is_valid():
             return form.login(request, redirect_url=success_url)
     else:
         form = form_class()
-    
+
     ctx = {
         "form": form,
         "signup_url": passthrough_login_redirect_url(request,
@@ -54,15 +54,15 @@ def login(request, **kwargs):
 
 
 def signup(request, **kwargs):
-    
+
     form_class = kwargs.pop("form_class", SignupForm)
     template_name = kwargs.pop("template_name", "account/signup.html")
     redirect_field_name = kwargs.pop("redirect_field_name", "next")
     success_url = kwargs.pop("success_url", None)
-    
+
     if success_url is None:
         success_url = get_default_redirect(request, redirect_field_name)
-    
+
     if request.method == "POST":
         form = form_class(request.POST)
         if form.is_valid():
@@ -93,7 +93,7 @@ def email(request, **kwargs):
                             "email": add_email_form.cleaned_data["email"]
                         }
                     )
-                add_email_form = form_class() # @@@
+                return HttpResponseRedirect(reverse('account_email'))
         else:
             add_email_form = form_class()
             if request.POST.get("email"):
@@ -110,6 +110,7 @@ def email(request, **kwargs):
                             }
                         )
                         EmailConfirmation.objects.send_confirmation(email_address)
+                        return HttpResponseRedirect(reverse('account_email'))
                     except EmailAddress.DoesNotExist:
                         pass
                 elif request.POST.has_key("action_remove"):
@@ -119,23 +120,35 @@ def email(request, **kwargs):
                             user=request.user,
                             email=email
                         )
-                        email_address.delete()
-                        messages.add_message(request, messages.SUCCESS,
-                            ugettext("Removed e-mail address %(email)s") % {
-                                "email": email,
-                            }
-                        )
+                        if email_address.primary:
+                            messages.add_message(request, messages.ERROR,
+                                ugettext("Primary e-mail address %(email)s could not be removed.") % {
+                                    "email": email,
+                                }
+                            )
+                        else:
+                            email_address.delete()
+                            messages.add_message(request, messages.SUCCESS,
+                                ugettext("Removed e-mail address %(email)s") % {
+                                    "email": email,
+                                }
+                            )
+                            return HttpResponseRedirect(reverse('account_email'))
                     except EmailAddress.DoesNotExist:
                         pass
                 elif request.POST.has_key("action_primary"):
                     email = request.POST["email"]
-                    email_address = EmailAddress.objects.get(
-                        user=request.user,
-                        email=email,
-                    )
-                    email_address.set_as_primary()
-                    messages.add_message(request, messages.SUCCESS,
-                                         ugettext("Primary e-mail address set"))
+                    try:
+                        email_address = EmailAddress.objects.get(
+                            user=request.user,
+                            email=email,
+                        )
+                        email_address.set_as_primary()
+                        messages.add_message(request, messages.SUCCESS,
+                                             ugettext("Primary e-mail address set"))
+                        return HttpResponseRedirect(reverse('account_email'))
+                    except EmailAddress.DoesNotExist:
+                        pass
     else:
         add_email_form = form_class()
     ctx = { "add_email_form": add_email_form }
@@ -144,13 +157,13 @@ def email(request, **kwargs):
 
 @login_required
 def password_change(request, **kwargs):
-    
+
     form_class = kwargs.pop("form_class", ChangePasswordForm)
     template_name = kwargs.pop("template_name", "account/password_change.html")
-    
+
     if not request.user.has_usable_password():
         return HttpResponseRedirect(reverse(password_set))
-    
+
     if request.method == "POST":
         password_change_form = form_class(request.user, request.POST)
         if password_change_form.is_valid():
@@ -167,13 +180,13 @@ def password_change(request, **kwargs):
 
 @login_required
 def password_set(request, **kwargs):
-    
+
     form_class = kwargs.pop("form_class", SetPasswordForm)
     template_name = kwargs.pop("template_name", "account/password_set.html")
-    
+
     if request.user.has_usable_password():
         return HttpResponseRedirect(reverse(password_change))
-    
+
     if request.method == "POST":
         password_set_form = form_class(request.user, request.POST)
         if password_set_form.is_valid():
@@ -189,10 +202,10 @@ def password_set(request, **kwargs):
 
 
 def password_reset(request, **kwargs):
-    
+
     form_class = kwargs.pop("form_class", ResetPasswordForm)
     template_name = kwargs.pop("template_name", "account/password_reset.html")
-    
+
     if request.method == "POST":
         password_reset_form = form_class(request.POST)
         if password_reset_form.is_valid():
@@ -200,29 +213,29 @@ def password_reset(request, **kwargs):
             return HttpResponseRedirect(reverse(password_reset_done))
     else:
         password_reset_form = form_class()
-    
+
     return render_to_response(template_name, RequestContext(request, { "password_reset_form": password_reset_form, }))
 
 
 def password_reset_done(request, **kwargs):
-    
+
     return render_to_response(kwargs.pop("template_name", "account/password_reset_done.html"), RequestContext(request, {}))
 
 
 def password_reset_from_key(request, uidb36, key, **kwargs):
-    
+
     form_class = kwargs.get("form_class", ResetPasswordKeyForm)
     template_name = kwargs.get("template_name", "account/password_reset_from_key.html")
     token_generator = kwargs.get("token_generator", default_token_generator)
-    
+
     # pull out user
     try:
         uid_int = base36_to_int(uidb36)
     except ValueError:
         raise Http404
-    
+
     user = get_object_or_404(User, id=uid_int)
-    
+
     if token_generator.check_token(user, key):
         if request.method == "POST":
             password_reset_key_form = form_class(request.POST, user=user, temp_key=key)
@@ -237,7 +250,7 @@ def password_reset_from_key(request, uidb36, key, **kwargs):
         ctx = { "form": password_reset_key_form, }
     else:
         ctx = { "token_fail": True, }
-    
+
     return render_to_response(template_name, RequestContext(request, ctx))
 
 

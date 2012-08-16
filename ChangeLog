@@ -1,3 +1,9 @@
+2012-08-16  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* account: Sam Solomon cleaned up the e-mail management view:
+	added proper redirect after POSTs, prevent deletion of primary
+	e-mail. Thanks.
+
 2012-08-04  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* account: When signing up, instead of generating a completely

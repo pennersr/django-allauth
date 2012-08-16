@@ -121,11 +121,11 @@ def email(request, **kwargs):
                             email=email
                         )
                         if email_address.primary:
-                            messages.add_message(request, messages.ERROR,
-                                ugettext("Primary e-mail address %(email)s could not be removed.") % {
-                                    "email": email,
-                                }
-                            )
+                            messages.add_message \
+                                (request, messages.ERROR,
+                                 ugettext("You cannot remove your primary"
+                                          " e-mail address (%(email)s)")
+                                 % { "email": email })
                         else:
                             email_address.delete()
                             messages.add_message(request, messages.SUCCESS,

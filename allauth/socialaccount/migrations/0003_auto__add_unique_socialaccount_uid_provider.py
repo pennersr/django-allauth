@@ -3,20 +3,25 @@ import datetime
 from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
+from django.conf import settings
 
 class Migration(SchemaMigration):
-    depends_on = (('facebook', '0003_tosocialaccount'),
-                  ('twitter', '0003_tosocialaccount'),
-                  ('openid', '0002_tosocialaccount'))
-                  
+    depends_on = ()
+    if 'facebook' in settings.INSTALLED_APPS:
+        depends_on.append(('facebook', '0003_tosocialaccount'),)
+    if 'twitter' in settings.INSTALLED_APPS:
+        depends_on.append(('twitter', '0003_tosocialaccount'),)
+    if 'openid' in settings.INSTALLED_APPS:
+        depends_on.append(('openid', '0002_tosocialaccount'),)
+
     def forwards(self, orm):
-        
+
         # Adding unique constraint on 'SocialAccount', fields ['uid', 'provider']
         db.create_unique('socialaccount_socialaccount', ['uid', 'provider'])
 
 
     def backwards(self, orm):
-        
+
         # Removing unique constraint on 'SocialAccount', fields ['uid', 'provider']
         db.delete_unique('socialaccount_socialaccount', ['uid', 'provider'])
 

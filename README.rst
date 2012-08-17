@@ -150,6 +150,7 @@ settings.py::
         'allauth.socialaccount.providers.github',
         'allauth.socialaccount.providers.linkedin',
         'allauth.socialaccount.providers.openid',
+        'allauth.socialaccount.providers.soundcloud',
         'allauth.socialaccount.providers.twitter',
         'emailconfirmation',
 

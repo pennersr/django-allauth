@@ -18,16 +18,19 @@ class SoundCloudOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token):
         resp = requests.get(self.profile_url,
-                            params={ 'access_token': token.token })
+                            params={ 'oauth_token': token.token })
         extra_data = resp.json
         uid = str(extra_data['id'])
-        try:
-            first_name, last_name = extra_data.get('full_name').split(' ', 1)
-            user_kwargs = {'first_name': first_name, 'last_name': last_name}
-        except ValueError:
-            user_kwargs = {'first_name': extra_data.get('full_name')}
+        name_parts = extra_data.get('full_name', '').split(' ', 1)
+        if len(name_parts) == 2:
+            first_name, last_name = name_parts
+        else:
+            first_name, last_name = name_parts[0], ''
+        user_kwargs = {'first_name': first_name, 
+                       'last_name': last_name}
         user = User(username=extra_data.get('username', ''),
-                    email=extra_data.get('email', '') **user_kwargs)
+                    email=extra_data.get('email', ''),
+                    **user_kwargs)
         account = SocialAccount(user=user,
                                 uid=uid,
                                 extra_data=extra_data,

@@ -46,7 +46,7 @@ class OAuth2Client(object):
         resp = requests.post(url, params)
         access_token = None
         if resp.status_code == 200:
-            if resp.headers['content-type'] == 'application/json':
+            if resp.headers['content-type'].split(';')[0] == 'application/json':
                 data = resp.json
             else:
                 data = dict(urlparse.parse_qsl(resp.content))

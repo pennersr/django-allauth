@@ -12,7 +12,9 @@ class SoundCloudAccount(ProviderAccount):
 
     def __unicode__(self):
         dflt = super(SoundCloudAccount, self).__unicode__()
-        return self.account.extra_data.get('full_name', dflt)
+        full_name = self.account.extra_data.get('full_name')
+        username = self.account.extra_data.get('username')
+        return full_name or username or dflt
 
 class SoundCloudProvider(OAuth2Provider):
     id = 'soundcloud'

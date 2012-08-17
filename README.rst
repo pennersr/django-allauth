@@ -87,6 +87,8 @@ Supported Providers
 
 - OpenId
 
+- SoundCloud (OAuth2)
+
 - Twitter
 
 Note: OAuth/OAuth2 support is built using a common code base, making it easy to add support for additional OAuth/OAuth2 providers. More will follow soon...
@@ -363,6 +365,16 @@ following template tag::
 
     {% load socialaccount_tags %}
     <a href="{% provider_login_url "openid" openid="https://www.google.com/accounts/o8/id" next="/success/url/" %}">Google</a>
+
+
+SoundCloud
+----------
+
+SoundCloud allows you to choose between OAuth1 and OAuth2.  Choose the
+latter. When setting up the OAuth2 app at SoundCloud use a redirect
+URL of the following form::
+
+    http://example.com/accounts/soundcloud/login/callback/
 
 
 Templates

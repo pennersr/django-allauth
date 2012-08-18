@@ -281,13 +281,13 @@ failures when attemtping to log in, such as::
 
     An error occured while attempting to login via your social network account.
 
-Use a callback URL of the form:
+Use a callback URL of the form::
 
     http://example.com/accounts/twitter/login/callback/
     http://example.com/accounts/soundcloud/login/callback/
     ...
 
-For local development, use the following:
+For local development, use the following::
 
     http://127.0.0.1:8000/accounts/twitter/callback/
 

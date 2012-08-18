@@ -274,6 +274,24 @@ app, containing a client ID and API secret. You must add a `SocialApp`
 record per provider via the Django admin containing these app
 credentials.
 
+When creating the OAuth app on the side of the provider pay special
+attention to the callback URL (sometimes also referred to as redirect
+URL). If you do not configure this correctly, you will receive login
+failures when attemtping to log in, such as::
+
+    An error occured while attempting to login via your social network account.
+
+Use a callback URL of the form:
+
+    http://example.com/accounts/twitter/login/callback/
+    http://example.com/accounts/soundcloud/login/callback/
+    ...
+
+For local development, use the following:
+
+    http://127.0.0.1:8000/accounts/twitter/callback/
+
+
 Facebook
 --------
 
@@ -372,10 +390,7 @@ SoundCloud
 ----------
 
 SoundCloud allows you to choose between OAuth1 and OAuth2.  Choose the
-latter. When setting up the OAuth2 app at SoundCloud use a redirect
-URL of the following form::
-
-    http://example.com/accounts/soundcloud/login/callback/
+latter. 
 
 
 Templates

@@ -59,7 +59,7 @@ Overview
 Supported Flows
 ---------------
 
-- Signup of a both local and social accounts
+- Signup of both local and social accounts
 
 - Connecting more than one social account to a local account
 
@@ -475,6 +475,10 @@ Showcase
 - http://www.mycareerstack.com
 - http://jug.gl
 - http://www.charityblossom.org/
+- http://www.superreceptionist.in
+- http://www.edithuddle.com
+- http://kwatsi.com
+- http://www.smartgoalapp.com
 - ...
 
 Please mail me (raymond.penners@intenct.nl) links to sites that have

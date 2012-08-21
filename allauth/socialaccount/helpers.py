@@ -7,13 +7,14 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
 
-from allauth.utils import get_login_redirect_url, \
-    generate_unique_username, email_address_exists
+from allauth.utils import generate_unique_username, email_address_exists
 from allauth.account.utils import send_email_confirmation, \
     perform_login, complete_signup
 from allauth.account import app_settings as account_settings
 
+from models import SocialLogin
 import app_settings
+import signals
 
 def _process_signup(request, sociallogin):
     # If email is specified, check for duplicate and if so, no auto signup.
@@ -84,6 +85,9 @@ def render_authentication_error(request, extra_context={}):
 def complete_social_login(request, sociallogin):
     assert not sociallogin.is_existing
     sociallogin.lookup()
+    signals.pre_social_login.send(sender=SocialLogin,
+                                  request=request, 
+                                  sociallogin=sociallogin)
     if request.user.is_authenticated():
         if sociallogin.is_existing:
             # Existing social account, existing user

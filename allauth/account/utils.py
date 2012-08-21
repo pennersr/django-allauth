@@ -18,7 +18,7 @@ from emailconfirmation.models import EmailAddress, EmailConfirmation
 
 from allauth.utils import import_callable
 
-from signals import user_logged_in
+import signals
 
 import app_settings
 
@@ -92,7 +92,9 @@ def perform_login(request, user, redirect_url=None):
     # to set up authentication backends in settings.py
     if not hasattr(user, 'backend'):
         user.backend = "django.contrib.auth.backends.ModelBackend"
-    user_logged_in.send(sender=user.__class__, request=request, user=user)
+    signals.user_logged_in.send(sender=user.__class__, 
+                                request=request, 
+                                user=user)
     login(request, user)
     messages.add_message(request, messages.SUCCESS,
                          ugettext("Successfully signed in as %(user)s.") % { "user": user_display(user) } )
@@ -103,6 +105,9 @@ def perform_login(request, user, redirect_url=None):
 
 
 def complete_signup(request, user, success_url):
+    signals.user_signed_up.send(sender=user.__class__, 
+                                request=request, 
+                                user=user)
     return perform_login(request, user, redirect_url=success_url)
 
 

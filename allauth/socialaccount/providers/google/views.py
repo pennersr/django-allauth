@@ -33,8 +33,8 @@ class GoogleOAuth2Adapter(OAuth2Adapter):
         # TODO: We could use verified_email to bypass allauth email verification
         uid = str(extra_data['id'])
         user = User(email=extra_data.get('email', ''),
-                    last_name=extra_data['family_name'],
-                    first_name=extra_data['given_name'])
+                    last_name=extra_data.get('family_name', ''),
+                    first_name=extra_data.get('given_name', ''))
         account = SocialAccount(extra_data=extra_data,
                                 uid=uid,
                                 provider=self.provider_id,

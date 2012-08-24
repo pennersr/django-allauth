@@ -1,3 +1,9 @@
+2012-08-24  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* account/socialaccount: Dropped the _tags postfix from the
+	template tag libraries. Simply use {% load account %} and {% load
+	socialaccount %}.
+
 2012-08-21  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Added signup and social login signals.

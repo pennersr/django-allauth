@@ -230,6 +230,14 @@ EMAIL_CONFIRMATION_DAYS (=# of days, no default)
 Upgrading
 ---------
 
+From 0.7.0
+**********
+
+- `{% load account_tags %}` is deprecated, simply use: `{% load account %}`
+
+- `{% load socialaccount_tags %}` is deprecated, simply use: 
+  `{% load socialaccount %}`
+
 From 0.5.0
 **********
 
@@ -306,12 +314,12 @@ everybody's cup of tea.
 
 To initiate a login use::
 
-    {% load socialaccount_tags %}
+    {% load socialaccount %}
     <a href="{% provider_login_url "facebook" method="js_sdk" %}">Facebook Connect</a>
 
 or::
 
-    {% load socialaccount_tags %}
+    {% load socialaccount %}
     <a href="{% provider_login_url "facebook" method="oauth2" %}">Facebook OAuth2</a>
 
 The following Facebook settings are available::
@@ -382,7 +390,7 @@ follows::
 If you want to manually include login links yourself, you can use the
 following template tag::
 
-    {% load socialaccount_tags %}
+    {% load socialaccount %}
     <a href="{% provider_login_url "openid" openid="https://www.google.com/accounts/o8/id" next="/success/url/" %}">Google</a>
 
 
@@ -426,9 +434,9 @@ Template Tags
 
 The following template tag libraries are available:
 
-- `account_tags`: tags for dealing with accounts in general
+- `account`: tags for dealing with accounts in general
 
-- `socialaccount_tags`: tags focused on social accounts
+- `socialaccount`: tags focused on social accounts
 
 
 Account Tags
@@ -438,13 +446,13 @@ Use `user_display` to render a user name without making assumptions on
 how the user is represented (e.g. render the username, or first
 name?)::
 
-    {% load account_tags %}
+    {% load account %}
 
     {% user_display user %}
 
 Or, if you need to use in a `{% blocktrans %}`::
 
-    {% load account_tags %}
+    {% load account %}
 
     {% user_display user as user_display}
     {% blocktrans %}{{ user_display }} has logged in...{% endblocktrans %}
@@ -458,7 +466,7 @@ Social Account Tags
 
 Use the `provider_login_url` tag to generate provider specific login URLs::
 
-    {% load socialaccount_tags %}
+    {% load socialaccount %}
 
     <a href="{% provider_login_url "openid" openid="https://www.google.com/accounts/o8/id" next="/success/url/" %}">Google</a>
     <a href="{% provider_login_url "twitter" %}">Twitter</a>

@@ -7,11 +7,12 @@
 
 
 {% block content %}
-    {% user_display email_address.user as user_display %}
 
     <h1>{% trans "E-mail Address Confirmation" %}</h1>
 
     {% if email_address %}
+
+        {% user_display email_address.user as user_display %}
         
         <p>{% blocktrans with email_address.email as email %}You have confirmed that <a href="mailto:{{email}}">{{ email }}</a> is an e-mail address for user {{ user_display }}.{% endblocktrans %}</p>
     {% else %}

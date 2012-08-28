@@ -1,3 +1,9 @@
+2012-08-28  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* account: Documented ACCOUNT_USERNAME_REQUIRED. This is actually
+	not a new setting, but it somehow got overlooked in the
+	documentation.
+
 2012-08-24  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* account/socialaccount: Dropped the _tags postfix from the

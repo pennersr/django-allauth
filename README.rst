@@ -199,6 +199,12 @@ ACCOUNT_USER_DISPLAY (=a callable returning `user.username`)
   that takes a user as its only argument and returns the display name
   of the user. The default implementation returns `user.username`.
 
+ACCOUNT_USERNAME_REQUIRED (=True)
+  The user is required to enter a username when signing up. Note that
+  the user will be asked to do so even if
+  `ACCOUNT_AUTHENTICATION_METHOD` is set to `email`. Set to `False`
+  when you do not wish to prompt the user to enter a username.
+
 ACCOUNT_PASSWORD_INPUT_RENDER_VALUE (=False)
   `render_value` parameter as passed to `PasswordInput` fields.
 

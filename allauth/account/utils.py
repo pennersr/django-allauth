@@ -166,6 +166,9 @@ def sync_user_email_addresses(user):
     from models import EmailAddress
     if user.email and not EmailAddress.objects.filter(user=user,
                                                       email=user.email).exists():
+        if app_settings.UNIQUE_EMAIL and EmailAddress.objects.filter(email=user.email).exists():
+            # Bail out
+            return
         EmailAddress.objects.create(user=user,
                                     email=user.email,
                                     primary=False,

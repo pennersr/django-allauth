@@ -6,9 +6,9 @@ class EmailAddressAdmin(admin.ModelAdmin):
     list_display = ('email', 'user', 'primary', 'verified')
     list_filter = ('primary', 'verified')
     search_fields = ('email', 
-                     'user__firstname', 
                      'user__username',
-                     'user__lastname')
+                     'user__first_name', 
+                     'user__last_name')
     raw_id_fields = ('user',)
 
 class EmailConfirmationAdmin(admin.ModelAdmin):

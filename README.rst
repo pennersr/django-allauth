@@ -151,8 +151,7 @@ settings.py::
         'allauth.socialaccount.providers.linkedin',
         'allauth.socialaccount.providers.openid',
         'allauth.socialaccount.providers.soundcloud',
-        'allauth.socialaccount.providers.twitter',
-        'emailconfirmation',
+        'allauth.socialaccount.providers.twitter'
 
 urls.py::
 
@@ -170,7 +169,15 @@ ACCOUNT_AUTHENTICATION_METHOD (="username" | "email" | "username_email")
   Specifies the login method to use -- whether the user logs in by
   entering his username, e-mail address, or either one of both.
 
-ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = (=3)
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL (=settings.LOGIN_URL)
+  The URL to redirect to after a successful e-mail confirmation, in case no
+  user is logged in.
+
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL (=settings.LOGIN_REDIRECT_URL)
+  The URL to redirect to after a successful e-mail confirmation, in case of
+  an authenticated user.
+
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS (=3)
   Determines the expiration date of email confirmation mails (# of days).
 
 ACCOUNT_EMAIL_REQUIRED (=False)
@@ -241,7 +248,7 @@ From 0.7.0
 - `allauth` now depends on Django 1.4 or higher.
 
 - Major impact: dropped dependency on the `emailconfirmation` app, as
-  this project is apparently left unmaintained. Important tickets such
+  this project is clearly left unmaintained. Important tickets such
   as https://github.com/pinax/django-email-confirmation/pull/5 are not
   being addressed. All models and related functionality have been
   directly integrated into the `allauth.account` app. When upgrading

@@ -170,6 +170,9 @@ ACCOUNT_AUTHENTICATION_METHOD (="username" | "email" | "username_email")
   Specifies the login method to use -- whether the user logs in by
   entering his username, e-mail address, or either one of both.
 
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = (=3)
+  Determines the expiration date of email confirmation mails (# of days).
+
 ACCOUNT_EMAIL_REQUIRED (=False)
   The user is required to hand over an e-mail address when signing up.
 
@@ -228,16 +231,38 @@ SOCIALACCOUNT_AVATAR_SUPPORT (= 'avatar' in settings.INSTALLED_APPS)
 SOCIALACCOUNT_PROVIDERS (= dict)
     Dictionary containing provider specific settings.
 
-EMAIL_CONFIRMATION_DAYS (=# of days, no default)
-  Determines the expiration date of email confirmation mails sent by
-  django-email-confirmation.
-
 
 Upgrading
 ---------
 
 From 0.7.0
 **********
+
+- `allauth` now depends on Django 1.4 or higher.
+
+- Major impact: dropped dependency on the `emailconfirmation` app, as
+  this project is apparently left unmaintained. Important tickets such
+  as https://github.com/pinax/django-email-confirmation/pull/5 are not
+  being addressed. All models and related functionality have been
+  directly integrated into the `allauth.account` app. When upgrading
+  take care of the following:
+
+  - The `emailconfirmation` setting `EMAIL_CONFIRMATION_DAYS` has been
+    replaced by `ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS`.
+
+  - Instead of directly confirming the e-mail address upon the GET
+    request the confirmation is now processed as part of an explicit
+    POST. Therefore, a new template `account/email_confirm.html` must
+    be setup.
+
+  - Existing `emailconfirmation` data should be migrated to the new
+    tables. For this purpose a special management command is
+    available: `python manage.py
+    account_emailconfirmationmigration`. This command does not drop
+    the old `emailconfirmation` tables -- you will have to do this
+    manually yourself. Why not use South? EmailAddress uniqueness
+    depends on the configuration (`ACCOUNT_UNIQUE_EMAIL`), South does
+    not handle settings dependent database models.
 
 - `{% load account_tags %}` is deprecated, simply use: `{% load account %}`
 

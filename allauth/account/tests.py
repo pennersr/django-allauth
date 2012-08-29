@@ -13,7 +13,7 @@ from django.test.client import Client
 from django.core import mail
 from django.contrib.sites.models import Site
 
-from emailconfirmation.models import EmailAddress, EmailConfirmation
+from allauth.account.models import EmailAddress, EmailConfirmation
 
 from app_settings import AuthenticationMethod
 import app_settings

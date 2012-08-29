@@ -1,11 +1,11 @@
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 
-from emailconfirmation.models import EmailAddress
-from models import SocialAccount
+from allauth.account.models import EmailAddress
 from allauth.account.forms import BaseSignupForm
 from allauth.account.utils import send_email_confirmation
 
+from models import SocialAccount
 
 class SignupForm(BaseSignupForm):
 

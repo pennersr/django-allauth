@@ -1,3 +1,10 @@
+2012-08-29  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* account: Dropped dependency on the emailconfirmation app,
+	integrating its functionality into the account app. This change is
+	of major impact, please refer to the documentation on how to
+	upgrade.
+
 2012-08-28  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* account: Documented ACCOUNT_USERNAME_REQUIRED. This is actually

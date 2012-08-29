@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-20 21:25+0200\n"
-"PO-Revision-Date: 2012-06-20 21:28+0200\n"
+"POT-Creation-Date: 2012-08-29 22:28+0200\n"
+"PO-Revision-Date: 2012-08-29 22:28+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -16,89 +16,89 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: templates/bootstrap/allauth/account/base.html:7
+#: templates/bootstrap/allauth/account/base.html:8
 msgid "My Account"
 msgstr "Mijn Account"
 
-#: templates/bootstrap/allauth/account/base.html:11
-#: templates/uniform/allauth/account/email.html:9
+#: templates/bootstrap/allauth/account/base.html:12
+#: templates/uniform/allauth/account/email.html:10
 msgid "E-mail Addresses"
 msgstr "E-mail adressen"
 
-#: templates/bootstrap/allauth/account/base.html:14
+#: templates/bootstrap/allauth/account/base.html:15
 #: templates/bootstrap/allauth/account/password_change.html:6
 #: templates/bootstrap/allauth/account/password_change.html:14
-#: templates/bootstrap/allauth/account/password_reset_from_key.html:6
-#: templates/bootstrap/allauth/account/password_reset_from_key.html:9
+#: templates/bootstrap/allauth/account/password_reset_from_key.html:7
+#: templates/bootstrap/allauth/account/password_reset_from_key.html:10
 #: templates/uniform/allauth/account/password_change.html:5
 #: templates/uniform/allauth/account/password_change.html:8
 #: templates/uniform/allauth/account/password_change.html:15
-#: templates/uniform/allauth/account/password_reset_from_key.html:5
-#: templates/uniform/allauth/account/password_reset_from_key.html:8
+#: templates/uniform/allauth/account/password_reset_from_key.html:6
+#: templates/uniform/allauth/account/password_reset_from_key.html:9
 msgid "Change Password"
 msgstr "Wachtwoord wijzigen"
 
-#: templates/bootstrap/allauth/account/base.html:19
+#: templates/bootstrap/allauth/account/base.html:20
 msgid "Connected Accounts"
 msgstr "Gekoppelde accounts"
 
-#: templates/bootstrap/allauth/account/email.html:6
+#: templates/bootstrap/allauth/account/email.html:7
 #: templates/bootstrap/allauth/socialaccount/connections.html:34
-#: templates/uniform/allauth/account/email.html:6
+#: templates/uniform/allauth/account/email.html:7
 msgid "Account"
 msgstr "Account"
 
-#: templates/bootstrap/allauth/account/email.html:13
-#: templates/uniform/allauth/account/email.html:12
+#: templates/bootstrap/allauth/account/email.html:14
+#: templates/uniform/allauth/account/email.html:13
 msgid "The following e-mail addresses are associated to your account:"
 msgstr "De volgende e-mail adressen zijn gekoppeld aan jouw account:"
 
-#: templates/bootstrap/allauth/account/email.html:22
+#: templates/bootstrap/allauth/account/email.html:23
 msgid "E-mail"
 msgstr "E-mail"
 
-#: templates/bootstrap/allauth/account/email.html:25
+#: templates/bootstrap/allauth/account/email.html:26
 msgid "Status"
 msgstr "Status"
 
-#: templates/bootstrap/allauth/account/email.html:40
-#: templates/uniform/allauth/account/email.html:26
+#: templates/bootstrap/allauth/account/email.html:41
+#: templates/uniform/allauth/account/email.html:27
 msgid "Verified"
 msgstr "Geverifieerd"
 
-#: templates/bootstrap/allauth/account/email.html:42
-#: templates/uniform/allauth/account/email.html:28
+#: templates/bootstrap/allauth/account/email.html:43
+#: templates/uniform/allauth/account/email.html:29
 msgid "Unverified"
 msgstr "Ongeverifieerd"
 
-#: templates/bootstrap/allauth/account/email.html:44
-#: templates/uniform/allauth/account/email.html:30
+#: templates/bootstrap/allauth/account/email.html:45
+#: templates/uniform/allauth/account/email.html:31
 msgid "Primary"
 msgstr "Primair"
 
-#: templates/bootstrap/allauth/account/email.html:52
-#: templates/uniform/allauth/account/email.html:36
+#: templates/bootstrap/allauth/account/email.html:53
+#: templates/uniform/allauth/account/email.html:37
 msgid "Make Primary"
 msgstr "Maak primair"
 
-#: templates/bootstrap/allauth/account/email.html:53
-#: templates/uniform/allauth/account/email.html:37
+#: templates/bootstrap/allauth/account/email.html:54
+#: templates/uniform/allauth/account/email.html:38
 msgid "Re-send Verification"
 msgstr "Stuur verificatie e-mail opnieuw"
 
-#: templates/bootstrap/allauth/account/email.html:54
+#: templates/bootstrap/allauth/account/email.html:55
 #: templates/bootstrap/allauth/socialaccount/connections.html:58
-#: templates/uniform/allauth/account/email.html:38
+#: templates/uniform/allauth/account/email.html:39
 msgid "Remove"
 msgstr "Verwijder"
 
-#: templates/bootstrap/allauth/account/email.html:61
-#: templates/uniform/allauth/account/email.html:45
+#: templates/bootstrap/allauth/account/email.html:62
+#: templates/uniform/allauth/account/email.html:46
 msgid "Warning:"
 msgstr "Waarschuwing:"
 
-#: templates/bootstrap/allauth/account/email.html:61
-#: templates/uniform/allauth/account/email.html:45
+#: templates/bootstrap/allauth/account/email.html:62
+#: templates/uniform/allauth/account/email.html:46
 msgid ""
 "You currently do not have any e-mail address set up. You should really add "
 "an e-mail address so you can receive notifications, reset your password, etc."
@@ -106,32 +106,50 @@ msgstr ""
 "Het is raadzaam een e-mail adres toe te voegen zodat je notificaties kunt "
 "ontvangen, je wachtwoord opnieuw kunt instellen, enz."
 
-#: templates/bootstrap/allauth/account/email.html:66
-#: templates/uniform/allauth/account/email.html:50
+#: templates/bootstrap/allauth/account/email.html:67
+#: templates/uniform/allauth/account/email.html:51
 msgid "Add E-mail Address"
 msgstr "Voeg e-mail adres toe"
 
-#: templates/bootstrap/allauth/account/email.html:72
-#: templates/uniform/allauth/account/email.html:57
+#: templates/bootstrap/allauth/account/email.html:73
+#: templates/uniform/allauth/account/email.html:58
 msgid "Add E-mail"
 msgstr "E-mail toevoegen"
 
-#: templates/bootstrap/allauth/account/email.html:83
-#: templates/uniform/allauth/account/email.html:69
+#: templates/bootstrap/allauth/account/email.html:84
+#: templates/uniform/allauth/account/email.html:70
 msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Wil je het geselecteerde e-mail adres echt verwijderen?"
 
-#: templates/bootstrap/allauth/account/login.html:7
-#: templates/bootstrap/allauth/account/login.html:12
-#: templates/bootstrap/allauth/account/login.html:44
-#: templates/uniform/allauth/account/login.html:7
-#: templates/uniform/allauth/account/login.html:12
-#: templates/uniform/allauth/account/login.html:47
+#: templates/bootstrap/allauth/account/email_confirm.html:7
+#: templates/bootstrap/allauth/account/email_confirm.html:11
+msgid "Confirm E-mail Address"
+msgstr "Bevestig e-mail adres"
+
+#: templates/bootstrap/allauth/account/email_confirm.html:15
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
+msgstr ""
+"Bevestig dat <a href=\"mailto:%(email)s\">%(email)s</a> een e-mail adres is "
+"voor gebruiker %(user_display)s."
+
+#: templates/bootstrap/allauth/account/email_confirm.html:19
+msgid "Confirm"
+msgstr "Bevestigen"
+
+#: templates/bootstrap/allauth/account/login.html:8
+#: templates/bootstrap/allauth/account/login.html:13
+#: templates/bootstrap/allauth/account/login.html:45
+#: templates/uniform/allauth/account/login.html:8
+#: templates/uniform/allauth/account/login.html:13
+#: templates/uniform/allauth/account/login.html:48
 msgid "Sign In"
 msgstr "Aanmelden"
 
-#: templates/bootstrap/allauth/account/login.html:17
-#: templates/uniform/allauth/account/login.html:17
+#: templates/bootstrap/allauth/account/login.html:18
+#: templates/uniform/allauth/account/login.html:18
 #, python-format
 msgid ""
 "Please sign in with one\n"
@@ -143,13 +161,13 @@ msgstr ""
 "href=\"%(signup_url)s\">registreer</a> voor een %(site_name)s account en "
 "meld je hiermee aan:"
 
-#: templates/bootstrap/allauth/account/login.html:28
-#: templates/uniform/allauth/account/login.html:28
+#: templates/bootstrap/allauth/account/login.html:29
+#: templates/uniform/allauth/account/login.html:29
 msgid "or"
 msgstr "of"
 
-#: templates/bootstrap/allauth/account/login.html:45
-#: templates/uniform/allauth/account/login.html:45
+#: templates/bootstrap/allauth/account/login.html:46
+#: templates/uniform/allauth/account/login.html:46
 msgid "Forgot Password?"
 msgstr "Wachtwoord vergeten?"
 
@@ -184,13 +202,13 @@ msgstr ""
 "Als je problemen hebt je wachtwoord opnieuw in te stellen, neem dan contact "
 "op met <a href=\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
 
-#: templates/bootstrap/allauth/account/password_reset_from_key.html:9
-#: templates/uniform/allauth/account/password_reset_from_key.html:8
+#: templates/bootstrap/allauth/account/password_reset_from_key.html:10
+#: templates/uniform/allauth/account/password_reset_from_key.html:9
 msgid "Bad Token"
 msgstr "Ongeldige sleutel"
 
-#: templates/bootstrap/allauth/account/password_reset_from_key.html:13
-#: templates/uniform/allauth/account/password_reset_from_key.html:12
+#: templates/bootstrap/allauth/account/password_reset_from_key.html:14
+#: templates/uniform/allauth/account/password_reset_from_key.html:13
 #, python-format
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
@@ -201,33 +219,44 @@ msgstr ""
 "deze al een keer gebruikt. <a href=\"%(passwd_reset_url)s\">Herstel je "
 "wachtwoord</a> opnieuw."
 
-#: templates/bootstrap/allauth/account/password_reset_from_key.html:21
-#: templates/uniform/allauth/account/password_reset_from_key.html:20
+#: templates/bootstrap/allauth/account/password_reset_from_key.html:22
+#: templates/uniform/allauth/account/password_reset_from_key.html:21
 msgid "change password"
 msgstr "Wachtwoord wijzigen"
 
-#: templates/bootstrap/allauth/account/password_reset_from_key.html:25
-#: templates/uniform/allauth/account/password_reset_from_key.html:25
+#: templates/bootstrap/allauth/account/password_reset_from_key.html:26
+#: templates/uniform/allauth/account/password_reset_from_key.html:26
 msgid "Your password is now changed."
 msgstr "Je wachtwoord is gewijzigd."
 
-#: templates/bootstrap/allauth/account/signup.html:6
-#: templates/uniform/allauth/account/signup.html:6
+#: templates/bootstrap/allauth/account/password_set.html:6
+#: templates/bootstrap/allauth/account/password_set.html:14
+#: templates/uniform/allauth/account/password_set.html:6
+#: templates/uniform/allauth/account/password_set.html:9
+#: templates/uniform/allauth/account/password_set.html:16
+msgid "Set Password"
+msgstr "Zet wachtwoord"
+
+#: templates/bootstrap/allauth/account/signup.html:7
+#: templates/bootstrap/allauth/socialaccount/signup.html:6
+#: templates/uniform/allauth/account/signup.html:7
 #: templates/uniform/allauth/socialaccount/signup.html:6
 msgid "Signup"
 msgstr "Registreren"
 
-#: templates/bootstrap/allauth/account/signup.html:9
-#: templates/bootstrap/allauth/account/signup.html:23
-#: templates/uniform/allauth/account/signup.html:9
-#: templates/uniform/allauth/account/signup.html:24
+#: templates/bootstrap/allauth/account/signup.html:10
+#: templates/bootstrap/allauth/account/signup.html:24
+#: templates/bootstrap/allauth/socialaccount/signup.html:9
+#: templates/bootstrap/allauth/socialaccount/signup.html:21
+#: templates/uniform/allauth/account/signup.html:10
+#: templates/uniform/allauth/account/signup.html:25
 #: templates/uniform/allauth/socialaccount/signup.html:9
 #: templates/uniform/allauth/socialaccount/signup.html:22
 msgid "Sign Up"
 msgstr "Registreren"
 
-#: templates/bootstrap/allauth/account/signup.html:14
-#: templates/uniform/allauth/account/signup.html:14
+#: templates/bootstrap/allauth/account/signup.html:15
+#: templates/uniform/allauth/account/signup.html:15
 #, python-format
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
@@ -255,16 +284,7 @@ msgstr "Provider"
 msgid "Add a 3rd Party Account"
 msgstr "Voeg een extern account toe"
 
-#: templates/uniform/allauth/account/password_set.html:6
-#: templates/uniform/allauth/account/password_set.html:9
-#: templates/uniform/allauth/account/password_set.html:16
-msgid "Set Password"
-msgstr "Zet wachtwoord"
-
-#: templates/uniform/allauth/openid/login.html:10
-msgid "OpenID Sign In"
-msgstr "Aanmelden via OpenID"
-
+#: templates/bootstrap/allauth/socialaccount/signup.html:11
 #: templates/uniform/allauth/socialaccount/signup.html:11
 #, python-format
 msgid ""
@@ -273,6 +293,10 @@ msgid ""
 msgstr ""
 "Om bij %(site_name)s in te kunnen loggen via %(provider_name)s hebben we de "
 "volgende gegevens nodig:"
+
+#: templates/uniform/allauth/openid/login.html:11
+msgid "OpenID Sign In"
+msgstr "Aanmelden via OpenID"
 
 #~ msgid "Language"
 #~ msgstr "Taal"
@@ -369,13 +393,6 @@ msgstr ""
 
 #~ msgid "E-mail Address Confirmation"
 #~ msgstr "E-mail adres bevestiging"
-
-#~ msgid ""
-#~ "You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an "
-#~ "e-mail address for user '%(user)s'."
-#~ msgstr ""
-#~ "Je hebt bevestigd dat <a href=\"mailto:%(email)s\">%(email)s</a> een e-"
-#~ "mail adres is voor gebruiker '%(user)s'."
 
 #~ msgid "Invalid confirmation key."
 #~ msgstr "Ongeldige bevestigingssleutel."

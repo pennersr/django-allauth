@@ -14,7 +14,7 @@ urlpatterns = patterns("",
 #    }, name="acct_passwd_delete_done"),
     url(r"^logout/$", views.logout, name="account_logout"),
     
-    url(r"^confirm_email/(\w+)/$", "emailconfirmation.views.confirm_email", name="account_confirm_email"),
+    url(r"^confirm_email/(?P<key>\w+)/$", views.confirm_email, name="account_confirm_email"),
     
     # password reset
     url(r"^password/reset/$", views.password_reset, name="account_reset_password"),

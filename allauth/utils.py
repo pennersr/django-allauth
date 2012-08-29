@@ -6,8 +6,6 @@ from django.utils.http import urlencode
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.utils import importlib
 
-from emailconfirmation.models import EmailAddress
-
 import app_settings
 
 def get_login_redirect_url(request, 
@@ -57,6 +55,8 @@ def valid_email_or_none(email):
 
 
 def email_address_exists(email, exclude_user=None):
+    from allauth.account.models import EmailAddress
+
     emailaddresses = EmailAddress.objects
     if exclude_user:
         emailaddresses = emailaddresses.exclude(user=exclude_user)

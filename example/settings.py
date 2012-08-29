@@ -139,7 +139,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
 
-    'emailconfirmation',
     'uni_form',
     'allauth',
     'allauth.account',

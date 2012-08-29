@@ -1,3 +1,6 @@
+import hashlib
+import random
+
 from datetime import timedelta
 try:
     from django.utils.timezone import now
@@ -13,8 +16,6 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import login
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.http import HttpResponseRedirect
-
-from emailconfirmation.models import EmailAddress, EmailConfirmation
 
 from allauth.utils import import_callable
 
@@ -76,6 +77,8 @@ def user_display(user):
 
 
 def perform_login(request, user, redirect_url=None):
+    from models import EmailAddress
+
     # not is_active: social users are redirected to a template
     # local users are stopped due to form validation checking is_active
     assert user.is_active
@@ -122,6 +125,8 @@ def send_email_confirmation(user, request=None):
     sent (consider a user retrying a few times), which is why there is
     a cooldown period before sending a new mail.
     """
+    from models import EmailAddress, EmailConfirmation
+
     COOLDOWN_PERIOD = timedelta(minutes=3)
     email = user.email
     if email:
@@ -133,7 +138,7 @@ def send_email_confirmation(user, request=None):
                         email_address=email_address) \
                 .exists()
             if not email_confirmation_sent:
-                EmailConfirmation.objects.send_confirmation(email_address)
+                email_address.send_confirmation()
         except EmailAddress.DoesNotExist:
             EmailAddress.objects.add_email(user, user.email)
             email_confirmation_sent = False
@@ -158,6 +163,7 @@ def sync_user_email_addresses(user):
     an EmailAddress record, e.g. in the case of manually created admin
     users.
     """
+    from models import EmailAddress
     if user.email and not EmailAddress.objects.filter(user=user,
                                                       email=user.email).exists():
         EmailAddress.objects.create(user=user,
@@ -165,3 +171,9 @@ def sync_user_email_addresses(user):
                                     primary=False,
                                     verified=False)
 
+
+def random_token(extra=None, hash_func=hashlib.sha256):
+    if extra is None:
+        extra = []
+    bits = extra + [str(random.SystemRandom().getrandbits(512))]
+    return hash_func("".join(bits)).hexdigest()

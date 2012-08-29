@@ -6,6 +6,20 @@ class AuthenticationMethod:
     EMAIL = 'email'
     USERNAME_EMAIL = 'username_email'
 
+# TODOC
+EMAIL_CONFIRMATION_EXPIRE_DAYS \
+    = getattr(settings, "ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS", 
+              getattr(settings, "EMAIL_CONFIRMATION_DAYS", 3))
+
+# TODOC
+EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL \
+    = getattr(settings, "ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL", settings.LOGIN_REDIRECT_URL)
+
+# TODOC          
+EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL \
+    = getattr(settings, "ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL",
+              settings.LOGIN_URL)
+                                         
 # The user is required to hand over an e-mail address when signing up
 EMAIL_REQUIRED = getattr(settings, "ACCOUNT_EMAIL_REQUIRED", False)
 

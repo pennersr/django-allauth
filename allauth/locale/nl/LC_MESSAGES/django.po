@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-16 22:29+0200\n"
-"PO-Revision-Date: 2012-08-16 22:29+0200\n"
+"POT-Creation-Date: 2012-08-29 22:28+0200\n"
+"PO-Revision-Date: 2012-08-29 22:30+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "Password must be a minimum of {0} characters."
 msgstr "Het wachtwoord moet minimaal {0} tekens bevatten."
 
-#: account/forms.py:54 account/forms.py:236 account/forms.py:386
+#: account/forms.py:54 account/forms.py:236 account/forms.py:388
 msgid "Password"
 msgstr "Wachtwoord"
 
@@ -33,7 +33,7 @@ msgid "E-mail address"
 msgstr "E-mail adres"
 
 #: account/forms.py:68 account/forms.py:184 account/forms.py:339
-#: account/forms.py:403
+#: account/forms.py:405
 msgid "E-mail"
 msgstr "E-mail"
 
@@ -83,12 +83,12 @@ msgstr "Deze gebruikersnaam is al in gebruik. Kies a.u.b. een andere naam."
 msgid "A user is registered with this e-mail address."
 msgstr "Er is al een gebruiker geregistreerd met dit e-mail adres."
 
-#: account/forms.py:237 account/forms.py:387
+#: account/forms.py:237 account/forms.py:389
 msgid "Password (again)"
 msgstr "Wachtwoord (bevestigen)"
 
-#: account/forms.py:265 account/forms.py:376 account/forms.py:392
-#: account/forms.py:461
+#: account/forms.py:265 account/forms.py:378 account/forms.py:394
+#: account/forms.py:463
 msgid "You must type the same password each time."
 msgstr "Je moet hetzelfde wachtwoord twee keer intoetsen."
 
@@ -96,8 +96,8 @@ msgstr "Je moet hetzelfde wachtwoord twee keer intoetsen."
 msgid "Your e-mail address has already been verified"
 msgstr "Je e-mail adres is al geverifieerd"
 
-#: account/forms.py:310 account/utils.py:137 account/views.py:92
-#: account/views.py:108
+#: account/forms.py:310 account/utils.py:147 account/views.py:166
+#: account/views.py:182
 #, python-format
 msgid "Confirmation e-mail sent to %(email)s"
 msgstr "Bevestigings e-mail verzonden aan %(email)s"
@@ -110,58 +110,83 @@ msgstr "Dit e-mail adres is al geassocieerd met dit account."
 msgid "This e-mail address already associated with another account."
 msgstr "Dit e-mail adres is al geassocieerd met een ander account."
 
-#: account/forms.py:364
+#: account/forms.py:366
 msgid "Current Password"
 msgstr "Huidig wachtwoord"
 
-#: account/forms.py:365 account/forms.py:449
+#: account/forms.py:367 account/forms.py:451
 msgid "New Password"
 msgstr "Nieuw wachtwoord"
 
-#: account/forms.py:366 account/forms.py:450
+#: account/forms.py:368 account/forms.py:452
 msgid "New Password (again)"
 msgstr "Nieuw wachtwoord (bevestigen)"
 
-#: account/forms.py:370
+#: account/forms.py:372
 msgid "Please type your current password."
 msgstr "Geef je huidige wachtwoord op."
 
-#: account/forms.py:413
+#: account/forms.py:415
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Dit e-mail adres is niet bij ons bekend"
 
-#: account/forms.py:432
+#: account/forms.py:434
 msgid "Password Reset E-mail"
 msgstr "Nieuw wachtwoord"
 
-#: account/utils.py:98
+#: account/models.py:30
+#, fuzzy
+msgid "email address"
+msgstr "E-mail adres"
+
+#: account/models.py:31
+#, fuzzy
+msgid "email addresses"
+msgstr "E-mail adressen"
+
+#: account/models.py:80
+#, fuzzy
+msgid "email confirmation"
+msgstr "E-mail adres bevestiging"
+
+#: account/models.py:81
+#, fuzzy
+msgid "email confirmations"
+msgstr "E-mail adres bevestiging"
+
+#: account/utils.py:103
 #, python-format
 msgid "Successfully signed in as %(user)s."
 msgstr "Je bent nu ingelogd als %(user)s."
 
-#: account/views.py:126
+#: account/views.py:90
+#, python-format
+msgid "You have confirmed %(email)s."
+msgstr "Je hebt het e-mail adres %(email)s bevestigd"
+
+#: account/views.py:200
 #, python-format
 msgid "You cannot remove your primary e-mail address (%(email)s)"
 msgstr "You kunt je primaire e-mail adres (%(email)s) niet verwijderen"
 
-#: account/views.py:132
+#: account/views.py:206
 #, python-format
 msgid "Removed e-mail address %(email)s"
 msgstr "E-mail adres %(email)s verwijderd"
 
-#: account/views.py:148
+#: account/views.py:222
 msgid "Primary e-mail address set"
 msgstr "Primair e-mail adres ingesteld"
 
-#: account/views.py:172 account/views.py:245
+#: account/views.py:246 account/views.py:319
 msgid "Password successfully changed."
 msgstr "Wachtwoord wijziging geslaagd."
 
-#: account/views.py:195
+#: account/views.py:269
 msgid "Password successfully set."
 msgstr "Je wachtwoord is gewijzigd."
 
-#: account/views.py:259 templates/account/logout.html:10
+#: account/views.py:333 templates/account/logout.html:10
 msgid "You have signed out."
 msgstr "Je bent afgemeld."
 
@@ -173,7 +198,7 @@ msgstr "Je account heeft geen wachtwoord ingesteld."
 msgid "Your local account has no verified e-mail address."
 msgstr "Je account heeft geen geverifieerd e-mail adres."
 
-#: socialaccount/helpers.py:107
+#: socialaccount/helpers.py:111
 msgid "The social account has been connected to your existing account"
 msgstr "Het externe account is gekoppeld aan je bestaande account"
 
@@ -269,6 +294,34 @@ msgstr "E-mail toevoegen"
 #: templates/account/email.html:64
 msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Wil je het geselecteerde e-mail adres echt verwijderen?"
+
+#: templates/account/email_confirm.html:7
+#: templates/account/email_confirm.html:11
+#: templates/account/email_confirmed.html:6
+#: templates/account/email_confirmed.html:11
+#: templates/account/email/email_confirmation_subject.txt:1
+msgid "Confirm E-mail Address"
+msgstr "Bevestig e-mail adres"
+
+#: templates/account/email_confirm.html:15
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
+msgstr "Bevestig dat <a href=\"mailto:%(email)s\">%(email)s</a> een e-mail adres is voor gebruiker %(user_display)s."
+
+#: templates/account/email_confirm.html:19
+msgid "Confirm"
+msgstr "Bevestigen"
+
+#: templates/account/email_confirmed.html:15
+#, python-format
+msgid ""
+"You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
+"mail address for user %(user_display)s."
+msgstr ""
+"Je hebt bevestigd dat <a href=\"mailto:%(email)s\">%(email)s</a> een e-mail "
+"adres is voor gebruiker %(user_display)s."
 
 #: templates/account/login.html:7 templates/account/login.html.py:12
 #: templates/account/login.html:44
@@ -489,34 +542,7 @@ msgstr ""
 "<strong>Merk op:</strong> je kunt altijd <a href=\"%(email_url)s\">je e-mail "
 "adres wijzigen</a>."
 
-#: templates/account/snippets/already_logged_in.html:5
-msgid "Note"
-msgstr "Notitie"
-
-#: templates/account/snippets/already_logged_in.html:5
-#, python-format
-msgid "you are already logged in as %(user_display)s."
-msgstr "je bent al ingelogd als %(user_display)s."
-
-#: templates/emailconfirmation/confirm_email.html:6
-#: templates/emailconfirmation/confirm_email.html:12
-msgid "E-mail Address Confirmation"
-msgstr "E-mail adres bevestiging"
-
-#: templates/emailconfirmation/confirm_email.html:16
-#, python-format
-msgid ""
-"You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
-"mail address for user %(user_display)s."
-msgstr ""
-"Je hebt bevestigd dat <a href=\"mailto:%(email)s\">%(email)s</a> een e-mail "
-"adres is voor gebruiker %(user_display)s."
-
-#: templates/emailconfirmation/confirm_email.html:18
-msgid "Invalid confirmation key."
-msgstr "Ongeldige bevestigingssleutel."
-
-#: templates/emailconfirmation/email_confirmation_message.txt:1
+#: templates/account/email/email_confirmation_message.txt:1
 #, python-format
 msgid ""
 "User %(user_display)s at %(site_name)s has given this as an email address.\n"
@@ -528,9 +554,14 @@ msgstr ""
 "\n"
 "Bezoek de volgende link en bevestig dat dit correct is: %(activate_url)s\n"
 
-#: templates/emailconfirmation/email_confirmation_subject.txt:1
-msgid "Confirm E-mail Address"
-msgstr "Bevestig e-mail adres"
+#: templates/account/snippets/already_logged_in.html:5
+msgid "Note"
+msgstr "Notitie"
+
+#: templates/account/snippets/already_logged_in.html:5
+#, python-format
+msgid "you are already logged in as %(user_display)s."
+msgstr "je bent al ingelogd als %(user_display)s."
 
 #: templates/openid/login.html:10
 msgid "OpenID Sign In"
@@ -594,6 +625,9 @@ msgid ""
 msgstr ""
 "Om bij %(site_name)s in te kunnen loggen via %(provider_name)s hebben we de "
 "volgende gegevens nodig:"
+
+#~ msgid "Invalid confirmation key."
+#~ msgstr "Ongeldige bevestigingssleutel."
 
 #~ msgid "OpenID"
 #~ msgstr "OpenID"

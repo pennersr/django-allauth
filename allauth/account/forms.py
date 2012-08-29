@@ -17,7 +17,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.models import Site
 
-from emailconfirmation.models import EmailAddress
+from models import EmailAddress
 
 # from models import PasswordReset
 from utils import perform_login, send_email_confirmation, format_email_subject
@@ -356,7 +356,9 @@ class AddEmailForm(UserForm):
         return value
     
     def save(self):
-        return EmailAddress.objects.add_email(self.user, self.cleaned_data["email"])
+        return EmailAddress.objects.add_email(self.user, 
+                                              self.cleaned_data["email"],
+                                              confirm=True)
 
 
 class ChangePasswordForm(UserForm):

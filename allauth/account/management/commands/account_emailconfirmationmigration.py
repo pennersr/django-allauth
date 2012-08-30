@@ -1,4 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
+from django.core.management.color import no_style
+from django.db import connections
 
 from allauth.account import app_settings
 from allauth.account.models import EmailAddress, EmailConfirmation
@@ -7,10 +9,26 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         if False:
             EmailAddress.objects.all().delete()
+
         if EmailAddress.objects.all().exists():
             raise CommandError('New-style EmailAddress objects exist, please delete those first')
+
         self.migrate_email_address()
         self.migrate_email_confirmation()
+        self.reset_sequences()
+
+    def reset_sequences(self):
+        connection = connections['default']
+        cursor = connection.cursor()
+        style = no_style()
+        sequence_sql = connection.ops.sequence_reset_sql(style, 
+                                                         [EmailAddress,
+                                                          EmailConfirmation])
+        if sequence_sql:
+            print "Resetting sequences"
+            for line in sequence_sql:
+                cursor.execute(line)
+
 
     def migrate_email_address(self):
         seen_emails = {}

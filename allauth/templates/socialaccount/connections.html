@@ -32,7 +32,7 @@
 {% endfor %}
 
 <div class="buttonHolder">
-<button type="submit">Remove</button>
+<button type="submit">{% trans 'Remove' %}</button>
 </div>
 
 </fieldset>
@@ -40,7 +40,7 @@
 </form>
 
 {% else %}
-<p>You currently have no social network accounts connected to this account.</p>
+<p>{% trans 'You currently have no social network accounts connected to this account.' %}</p>
 {% endif %}
 
 <h2>{% trans 'Add a 3rd Party Account' %}</h2>

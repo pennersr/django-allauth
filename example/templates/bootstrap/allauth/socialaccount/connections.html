@@ -2,7 +2,7 @@
 
 {% load i18n %}
 
-{% block head_title %}{% trans "Account Connections" %}{% endblock %}
+{% block head_title %}{% trans "Connected Accounts" %}{% endblock %}
 {% block account_nav_socialaccount_connections  %}active{% endblock %}
 
 {% block account_content %}
@@ -64,7 +64,7 @@
 
 {% else %}
 <div class="alert">
-<strong>None!</strong> You currently have no social network accounts connected to this account
+<strong>{% trans 'None!' %}</strong> {% trans 'You currently have no social network accounts connected to this account.' %}
 </div>
 {% endif %}
 

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-29 22:28+0200\n"
-"PO-Revision-Date: 2012-08-29 22:30+0200\n"
+"POT-Creation-Date: 2012-09-01 09:23+0200\n"
+"PO-Revision-Date: 2012-09-01 09:25+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -96,7 +96,7 @@ msgstr "Je moet hetzelfde wachtwoord twee keer intoetsen."
 msgid "Your e-mail address has already been verified"
 msgstr "Je e-mail adres is al geverifieerd"
 
-#: account/forms.py:310 account/utils.py:147 account/views.py:166
+#: account/forms.py:310 account/utils.py:148 account/views.py:166
 #: account/views.py:182
 #, python-format
 msgid "Confirmation e-mail sent to %(email)s"
@@ -135,24 +135,20 @@ msgid "Password Reset E-mail"
 msgstr "Nieuw wachtwoord"
 
 #: account/models.py:30
-#, fuzzy
 msgid "email address"
-msgstr "E-mail adres"
+msgstr "e-mail adres"
 
 #: account/models.py:31
-#, fuzzy
 msgid "email addresses"
-msgstr "E-mail adressen"
+msgstr "e-mail adressen"
 
 #: account/models.py:80
-#, fuzzy
 msgid "email confirmation"
-msgstr "E-mail adres bevestiging"
+msgstr "e-mail adres bevestiging"
 
 #: account/models.py:81
-#, fuzzy
 msgid "email confirmations"
-msgstr "E-mail adres bevestiging"
+msgstr "e-mail adres bevestigingen"
 
 #: account/utils.py:103
 #, python-format
@@ -267,7 +263,7 @@ msgstr "Maak primair"
 msgid "Re-send Verification"
 msgstr "Stuur verificatie e-mail opnieuw"
 
-#: templates/account/email.html:37
+#: templates/account/email.html:37 templates/socialaccount/connections.html:35
 msgid "Remove"
 msgstr "Verwijder"
 
@@ -308,7 +304,9 @@ msgstr "Bevestig e-mail adres"
 msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
 "address for user %(user_display)s."
-msgstr "Bevestig dat <a href=\"mailto:%(email)s\">%(email)s</a> een e-mail adres is voor gebruiker %(user_display)s."
+msgstr ""
+"Bevestig dat <a href=\"mailto:%(email)s\">%(email)s</a> een e-mail adres is "
+"voor gebruiker %(user_display)s."
 
 #: templates/account/email_confirm.html:19
 msgid "Confirm"
@@ -597,6 +595,11 @@ msgid ""
 "You can sign in to your account using any of the following third party "
 "accounts:"
 msgstr "Je kunt jezelf aanmelden met een van de volgende externe accounts:"
+
+#: templates/socialaccount/connections.html:43
+msgid ""
+"You currently have no social network accounts connected to this account."
+msgstr "Je hebt momenteel geen externe accounts gekoppeld."
 
 #: templates/socialaccount/connections.html:46
 msgid "Add a 3rd Party Account"

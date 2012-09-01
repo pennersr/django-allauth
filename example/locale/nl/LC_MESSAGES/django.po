@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-29 22:28+0200\n"
-"PO-Revision-Date: 2012-08-29 22:28+0200\n"
+"POT-Creation-Date: 2012-09-01 09:29+0200\n"
+"PO-Revision-Date: 2012-09-01 09:29+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -39,6 +39,7 @@ msgid "Change Password"
 msgstr "Wachtwoord wijzigen"
 
 #: templates/bootstrap/allauth/account/base.html:20
+#: templates/bootstrap/allauth/socialaccount/connections.html:5
 msgid "Connected Accounts"
 msgstr "Gekoppelde accounts"
 
@@ -262,12 +263,6 @@ msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
 msgstr "Heb je al een account? <a href=\"%(login_url)s\">Meld je dan aan</a>."
 
-#: templates/bootstrap/allauth/socialaccount/connections.html:5
-#: templates/uniform/allauth/socialaccount/connections.html:5
-#: templates/uniform/allauth/socialaccount/connections.html:8
-msgid "Account Connections"
-msgstr "Account Connecties"
-
 #: templates/bootstrap/allauth/socialaccount/connections.html:11
 #: templates/uniform/allauth/socialaccount/connections.html:11
 msgid ""
@@ -278,6 +273,15 @@ msgstr "Je kunt jezelf aanmelden met een van de volgende externe accounts:"
 #: templates/bootstrap/allauth/socialaccount/connections.html:31
 msgid "Provider"
 msgstr "Provider"
+
+#: templates/bootstrap/allauth/socialaccount/connections.html:67
+msgid "None!"
+msgstr "Geen!"
+
+#: templates/bootstrap/allauth/socialaccount/connections.html:67
+msgid ""
+"You currently have no social network accounts connected to this account."
+msgstr "Je hebt momenteel geen externe accounts gekoppeld."
 
 #: templates/bootstrap/allauth/socialaccount/connections.html:71
 #: templates/uniform/allauth/socialaccount/connections.html:46
@@ -297,6 +301,15 @@ msgstr ""
 #: templates/uniform/allauth/openid/login.html:11
 msgid "OpenID Sign In"
 msgstr "Aanmelden via OpenID"
+
+#: templates/uniform/allauth/socialaccount/connections.html:5
+#: templates/uniform/allauth/socialaccount/connections.html:8
+msgid "Account Connections"
+msgstr "Account Connecties"
+
+#, fuzzy
+#~ msgid "Conntected Accounts"
+#~ msgstr "Gekoppelde accounts"
 
 #~ msgid "Language"
 #~ msgstr "Taal"
@@ -516,9 +529,6 @@ msgstr "Aanmelden via OpenID"
 #~ msgid "Your local account has no verified e-mail address."
 #~ msgstr "Je account heeft geen geverifieerd e-mail adres."
 
-#~ msgid "The social account has been connected to your existing account"
-#~ msgstr "Het externe account is gekoppeld aan je bestaande account"
-
 #~ msgid "Invalid response while obtaining request token from \"%s\"."
 #~ msgstr ""
 #~ "Ongeldig antwoord ontvangen tijdens het ophalen van een verzoeksleutel "
@@ -576,9 +586,6 @@ msgstr "Aanmelden via OpenID"
 
 #~ msgid "E-Mail Addresses"
 #~ msgstr "E-mail adressen"
-
-#~ msgid "None"
-#~ msgstr "Geen"
 
 #~ msgid "add"
 #~ msgstr "Voeg toe"

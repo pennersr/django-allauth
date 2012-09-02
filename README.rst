@@ -19,7 +19,7 @@ account.
 
 This approach separates the worlds of local and social
 authentication. However, there are common scenarios to be dealt with
-in boh worlds. For example, an e-mail address passed along by an
+in both worlds. For example, an e-mail address passed along by an
 OpenID provider is not guaranteed to be verified. So, before hooking
 an OpenID account up to a local account the e-mail address must be
 verified. So, e-mail verification needs to be present in both worlds.

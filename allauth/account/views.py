@@ -158,7 +158,7 @@ def email(request, **kwargs):
     template_name = kwargs.pop("template_name", "account/email.html")
     sync_user_email_addresses(request.user)
     if request.method == "POST" and request.user.is_authenticated():
-        if request.POST.has_key("action_add"):
+        if "action_add" in request.POST:
             add_email_form = form_class(request.user, request.POST)
             if add_email_form.is_valid():
                 add_email_form.save()
@@ -171,7 +171,7 @@ def email(request, **kwargs):
         else:
             add_email_form = form_class()
             if request.POST.get("email"):
-                if request.POST.has_key("action_send"):
+                if "action_send" in request.POST:
                     email = request.POST["email"]
                     try:
                         email_address = EmailAddress.objects.get(
@@ -187,7 +187,7 @@ def email(request, **kwargs):
                         return HttpResponseRedirect(reverse('account_email'))
                     except EmailAddress.DoesNotExist:
                         pass
-                elif request.POST.has_key("action_remove"):
+                elif "action_remove" in request.POST:
                     email = request.POST["email"]
                     try:
                         email_address = EmailAddress.objects.get(
@@ -210,7 +210,7 @@ def email(request, **kwargs):
                             return HttpResponseRedirect(reverse('account_email'))
                     except EmailAddress.DoesNotExist:
                         pass
-                elif request.POST.has_key("action_primary"):
+                elif "action_primary" in request.POST:
                     email = request.POST["email"]
                     try:
                         email_address = EmailAddress.objects.get(

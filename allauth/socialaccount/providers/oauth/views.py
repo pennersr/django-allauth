@@ -63,7 +63,7 @@ class OAuthCallbackView(OAuthView):
         login_done_url = reverse(self.adapter.provider_id + "_callback")
         client = self._get_client(request, login_done_url)
         if not client.is_valid():
-            if request.GET.has_key('denied'):
+            if 'denied' in request.GET:
                 return HttpResponseRedirect(reverse('socialaccount_login_cancelled'))
             extra_context = dict(oauth_client=client)
             return render_authentication_error(request, extra_context)

@@ -11,7 +11,7 @@ standard_exclude = ["*.py", "*.pyc", "*~", ".*", "*.bak", "Makefile"]
 standard_exclude_directories = [
     ".*", "CVS", "_darcs", "./build",
     "./dist", "EGG-INFO", "*.egg-info",
-    "example"
+    "./example"
 ]
 
 # Copied from paste/util/finddata.py
@@ -91,12 +91,13 @@ def find_package_data(where=".", package="", exclude=standard_exclude,
     return out
 
 
-excluded_directories = standard_exclude_directories + ["./requirements", "./scripts"]
+excluded_directories = standard_exclude_directories
+
 package_data = find_package_data(exclude_directories=excluded_directories)
 
 METADATA = dict(
     name='django-allauth',
-    version='0.8.0',
+    version='0.8.1',
     author='Raymond Penners',
     author_email='raymond.penners@intenct.nl',
     description='Integrated set of Django applications addressing authentication, registration, account management as well as 3rd party (social) account authentication.',
@@ -117,7 +118,7 @@ METADATA = dict(
         'Programming Language :: Python',
         'Framework :: Django',
     ],
-    packages=find_packages(),
+    packages=find_packages(exclude=['example']),
     package_data=package_data
 )
 

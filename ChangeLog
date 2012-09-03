@@ -1,3 +1,11 @@
+2012-09-03  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.8.1 released.
+
+	* Python 2.6.2 compatibility issue, fixed.
+
+	* The example project was unintentionally packaged, fixed.
+
 2012-09-01  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Version 0.8.0 released.

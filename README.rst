@@ -134,11 +134,15 @@ settings.py::
         "django.core.context_processors.request",
         ...
         "allauth.account.context_processors.account",
-        "allauth.socialaccount.context_processors.socialaccount"
+        "allauth.socialaccount.context_processors.socialaccount",
+        ...
     )
 
-    AUTHENTICATION_BACKENDS = ( ...
-        "allauth.account.auth_backends.AuthenticationBackend", )
+    AUTHENTICATION_BACKENDS = ( 
+        ...
+        "allauth.account.auth_backends.AuthenticationBackend", 
+        ... 
+    )
 
     INSTALLED_APPS = (
         ...
@@ -151,13 +155,17 @@ settings.py::
         'allauth.socialaccount.providers.linkedin',
         'allauth.socialaccount.providers.openid',
         'allauth.socialaccount.providers.soundcloud',
-        'allauth.socialaccount.providers.twitter'
+        'allauth.socialaccount.providers.twitter',
+        ...
+    )
 
 urls.py::
 
     urlpatterns = patterns('',
         ...
-        (r'^accounts/', include('allauth.urls')))
+        (r'^accounts/', include('allauth.urls')),
+        ...
+    )
 
 
 Configuration

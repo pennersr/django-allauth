@@ -13,4 +13,4 @@ class OpenIDTests(TestCase):
         """
         resp = self.client.post(reverse(views.login),
                          dict(openid='http://www.google.com'))
-        self.assertTrue(resp.context['form'].errors.has_key('openid'))
+        self.assertTrue('openid' in resp.context['form'].errors)

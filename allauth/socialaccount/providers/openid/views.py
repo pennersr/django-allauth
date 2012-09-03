@@ -36,7 +36,7 @@ def _openid_consumer(request):
 
 
 def login(request):
-    if request.GET.has_key('openid') or request.method == 'POST':
+    if 'openid' in request.GET or request.method == 'POST':
         form = LoginForm(request.REQUEST)
         if form.is_valid():
             client = _openid_consumer(request)

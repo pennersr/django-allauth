@@ -175,7 +175,9 @@ Available settings:
 
 ACCOUNT_AUTHENTICATION_METHOD (="username" | "email" | "username_email")
   Specifies the login method to use -- whether the user logs in by
-  entering his username, e-mail address, or either one of both.
+  entering his username, e-mail address, or either one of both. Note that
+  if you set this to "email" and you enable the Django admin interface,
+  you will need to log in using an email address there too.
 
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL (=settings.LOGIN_URL)
   The URL to redirect to after a successful e-mail confirmation, in case no

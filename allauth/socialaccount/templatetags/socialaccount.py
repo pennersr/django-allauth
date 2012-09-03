@@ -16,7 +16,7 @@ class ProviderLoginURLNode(template.Node):
         query = dict([(str(name), var.resolve(context)) for name, var
                       in self.params.iteritems()])
         request = context['request']
-        if not query.has_key('next'):
+        if 'next' not in query:
             next = request.REQUEST.get('next')
             if next:
                 query['next'] = next

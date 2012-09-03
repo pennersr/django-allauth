@@ -20,7 +20,7 @@ see a page with links to sign in or sign up.
 Example Bootstrap templates
 ---------------------------
 
-There are templates in the `templates/bootstrap/allauth/account/` that can
+There are templates in the ``templates/bootstrap/allauth/account/`` that can
 be used with Twitter's `Bootstrap <http://twitter.github.com/bootstrap/>`_
 library. To use these templates, in addition to the above commands, you
 will need to

@@ -1,7 +1,5 @@
 import base64
 
-from django.http import HttpResponseRedirect
-
 from openid.store.interface import OpenIDStore as OIDStore
 from openid.association import Association as OIDAssociation
 
@@ -12,7 +10,7 @@ class DBOpenIDStore(OIDStore):
     max_nonce_age = 6 * 60 * 60
 
     def storeAssociation(self, server_url, assoc=None):
-        stored_assoc = OpenIDStore.objects.create(
+        OpenIDStore.objects.create(
             server_url=server_url,
             handle=assoc.handle,
             secret=base64.encodestring(assoc.secret),
@@ -60,13 +58,13 @@ class DBOpenIDStore(OIDStore):
 
     def useNonce(self, server_url, timestamp, salt):
         try:
-            nonce = OpenIDNonce.objects.get(
+            OpenIDNonce.objects.get(
                 server_url=server_url,
                 timestamp=timestamp,
                 salt=salt
             )
         except OpenIDNonce.DoesNotExist:
-            nonce = OpenIDNonce.objects.create(
+            OpenIDNonce.objects.create(
                 server_url=server_url,
                 timestamp=timestamp,
                 salt=salt

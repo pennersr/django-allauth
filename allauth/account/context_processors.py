@@ -1,6 +1,6 @@
-from django.conf import settings
-
 def account(request):
-    return {
-        "CONTACT_EMAIL": getattr(settings, "CONTACT_EMAIL", "support@example.com")
-    }
+    # We used to have this due to the now removed
+    # settings.CONTACT_EMAIL. Let's see if we need a context processor
+    # in the future, otherwise, deprecate this context processor
+    # completely.
+    return { }

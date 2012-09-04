@@ -250,6 +250,15 @@ SOCIALACCOUNT_PROVIDERS (= dict)
 Upgrading
 ---------
 
+From 0.8.1
+**********
+
+- Dropped support for `CONTACT_EMAIL` from the `account` template
+  context processor. It was never documented and only used in the
+  templates as an example -- there is no need to pollute the `allauth`
+  settings with that. If your templates rely on it then you will have
+  to put it in a context processor yourself.
+
 From 0.7.0
 **********
 

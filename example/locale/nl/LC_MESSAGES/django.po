@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-01 09:29+0200\n"
-"PO-Revision-Date: 2012-09-01 09:29+0200\n"
+"POT-Creation-Date: 2012-09-04 20:44+0200\n"
+"PO-Revision-Date: 2012-09-04 20:45+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -195,13 +195,8 @@ msgstr "Herstel mijn wachtwoord"
 
 #: templates/bootstrap/allauth/account/password_reset.html:26
 #: templates/uniform/allauth/account/password_reset.html:28
-#, python-format
-msgid ""
-"If you have any trouble resetting your password, contact us at <a href="
-"\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
-msgstr ""
-"Als je problemen hebt je wachtwoord opnieuw in te stellen, neem dan contact "
-"op met <a href=\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr "Neem a.u.b. contact met ons op als het niet lukt je wachtwoord opnieuw in te stellen."
 
 #: templates/bootstrap/allauth/account/password_reset_from_key.html:10
 #: templates/uniform/allauth/account/password_reset_from_key.html:9
@@ -306,6 +301,13 @@ msgstr "Aanmelden via OpenID"
 #: templates/uniform/allauth/socialaccount/connections.html:8
 msgid "Account Connections"
 msgstr "Account Connecties"
+
+#~ msgid ""
+#~ "If you have any trouble resetting your password, contact us at <a href="
+#~ "\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
+#~ msgstr ""
+#~ "Als je problemen hebt je wachtwoord opnieuw in te stellen, neem dan "
+#~ "contact op met <a href=\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
 
 #, fuzzy
 #~ msgid "Conntected Accounts"

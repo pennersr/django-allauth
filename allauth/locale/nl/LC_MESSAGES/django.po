@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-01 09:23+0200\n"
-"PO-Revision-Date: 2012-09-01 09:25+0200\n"
+"POT-Creation-Date: 2012-09-04 20:41+0200\n"
+"PO-Revision-Date: 2012-09-04 20:44+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -401,23 +401,14 @@ msgid "Reset My Password"
 msgstr "Herstel mijn wachtwoord"
 
 #: templates/account/password_reset.html:23
-#, python-format
-msgid ""
-"If you have any trouble resetting your password, contact us at <a href="
-"\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
-msgstr ""
-"Als je problemen hebt je wachtwoord opnieuw in te stellen, neem dan contact "
-"op met <a href=\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr "Neem a.u.b. contact met ons op als het niet lukt je wachtwoord opnieuw in te stellen."
 
 #: templates/account/password_reset_done.html:15
-#, python-format
 msgid ""
-"We have sent you an e-mail. If you do not receive it within a few minutes, "
-"contact us at <a href=\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
-msgstr ""
-"We hebben je een e-mail verstuurd. Als je deze niet binnen enkele minuten "
-"ontvangen hebt, neem dan contact op met <a href=\"mailto:%(CONTACT_EMAIL)s\">"
-"%(CONTACT_EMAIL)s</a>."
+"We have sent you an e-mail. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr "We hebben je een e-mail verstuurd. Neem a.u.b. contact met ons op als je deze niet binnen enkele minuten ontvangen hebt."
 
 #: templates/account/password_reset_from_key.html:8
 msgid "Bad Token"
@@ -498,15 +489,10 @@ msgstr "Verifieer je e-mail adres"
 #: templates/account/verification_sent.html:10
 #, python-format
 msgid ""
-"We have sent you an e-mail to <b>%(email)s</b> for verification. Follow the "
-"link provided to finalize the signup process. If you do not receive it "
-"within a few minutes, contact us at <a href=\"mailto:%(CONTACT_EMAIL)s\">"
-"%(CONTACT_EMAIL)s</a>."
-msgstr ""
-"We hebben een e-mail verstuurd aan <b>%(email)s</b> ter verificatie. Volg de "
-"link in deze mail om je registratie af te sluiten. Als je de e-mail niet "
-"binnen enkele minuten ontvangt, neem dan contact op met <a href=\"mailto:"
-"%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
+"We have sent an e-mail to <a href=\"mailto:%(email)s\">%(email)s</a> for "
+"verification. Follow the link provided to finalize the signup process. "
+"Please contact us if you do not receive it within a few minutes."
+msgstr "We hebben een e-mail verstuurd aan <a href=\"mailto:%(email)s\">%(email)s</a> ter verificatie. Volg de link in deze mail om je registratie af te ronden. Neem a.u.b. contact met ons op als je deze e-mail niet binnen enkele minuten ontvangt."
 
 #: templates/account/verified_email_required.html:13
 msgid ""
@@ -519,19 +505,13 @@ msgstr ""
 "daadwerkelijk toegang hebt tot het opgegeven e-mail adres."
 
 #: templates/account/verified_email_required.html:17
-#, python-format
 msgid ""
 "We have sent an e-mail to you for\n"
-"verification. Please click on the link inside this\n"
-"e-mail. If you do not receive it within a few minutes, contact us\n"
-"at <a href=\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>. \n"
-msgstr ""
-"Volg de link in de verificatie e-mail om de controle af te ronden. Als je "
-"de\n"
-"e-mail niet binnen enkele minuten ontvangt, neem dan contact op met <a\n"
-"href=\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>.  \n"
+"verification. Please click on the link inside this e-mail. Please\n"
+"contact us if you do not receive it within a few minutes."
+msgstr "Volg de link in de verificatie e-mail om de controle af te ronden. Neem a.u.b. contact met ons op als je de e-mail niet binnen enkele minuten ontvangt."
 
-#: templates/account/verified_email_required.html:23
+#: templates/account/verified_email_required.html:21
 #, python-format
 msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
@@ -628,6 +608,13 @@ msgid ""
 msgstr ""
 "Om bij %(site_name)s in te kunnen loggen via %(provider_name)s hebben we de "
 "volgende gegevens nodig:"
+
+#~ msgid ""
+#~ "If you have any trouble resetting your password, contact us at <a href="
+#~ "\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
+#~ msgstr ""
+#~ "Als je problemen hebt je wachtwoord opnieuw in te stellen, neem dan "
+#~ "contact op met <a href=\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
 
 #~ msgid "Invalid confirmation key."
 #~ msgstr "Ongeldige bevestigingssleutel."

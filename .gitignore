@@ -7,3 +7,4 @@ docs/_build
 build
 dist
 django_allauth.egg-info
+example/local_settings.py

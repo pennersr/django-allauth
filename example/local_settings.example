@@ -60,11 +60,6 @@
 # An integer specifying the minimum password length.
 # ACCOUNT_PASSWORD_MIN_LENGTH = 6
 
-# The admin email address displayed to the user following sign-up, so the
-# user knows who to contact if their email address verification does not
-# arrive.
-# CONTACT_EMAIL = 'support@example.com'
-
 # Request e-mail address from 3rd party account provider? E.g. using OpenID
 # AX, or the Facebook 'email' permission.
 # SOCIALACCOUNT_QUERY_EMAIL = ACCOUNT_EMAIL_REQUIRED

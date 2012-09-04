@@ -48,12 +48,12 @@ class EmailAddress(models.Model):
         self.user.save()
         return True
     
-    def send_confirmation(self):
+    def send_confirmation(self, request):
         confirmation = EmailConfirmation.create(self)
-        confirmation.send()
+        confirmation.send(request)
         return confirmation
     
-    def change(self, new_email, confirm=True):
+    def change(self, request, new_email, confirm=True):
         """
         Given a new email address, change self and re-confirm.
         """
@@ -64,7 +64,7 @@ class EmailAddress(models.Model):
             self.verified = False
             self.save()
             if confirm:
-                self.send_confirmation()
+                self.send_confirmation(request)
 
 
 class EmailConfirmation(models.Model):
@@ -102,14 +102,10 @@ class EmailConfirmation(models.Model):
             signals.email_confirmed.send(sender=self.__class__, email_address=email_address)
             return email_address
     
-    def send(self, **kwargs):
+    def send(self, request, **kwargs):
         current_site = kwargs["site"] if "site" in kwargs else Site.objects.get_current()
-        protocol = getattr(settings, "DEFAULT_HTTP_PROTOCOL", "http")
-        activate_url = u"%s://%s%s" % (
-            protocol,
-            unicode(current_site.domain),
-            reverse("account_confirm_email", args=[self.key])
-        )
+        activate_url = reverse("account_confirm_email", args=[self.key])
+        activate_url = request.build_absolute_uri(activate_url)
         ctx = {
             "user": self.email_address.user,
             "activate_url": activate_url,

@@ -85,7 +85,7 @@ def perform_login(request, user, redirect_url=None):
     if (app_settings.EMAIL_VERIFICATION
         and not EmailAddress.objects.filter(user=user,
                                             verified=True).exists()):
-        send_email_confirmation(user, request=request)
+        send_email_confirmation(request, user)
         return render(request,
                       "account/verification_sent.html",
                       { "email": user.email })
@@ -114,7 +114,7 @@ def complete_signup(request, user, success_url):
     return perform_login(request, user, redirect_url=success_url)
 
 
-def send_email_confirmation(user, request=None):
+def send_email_confirmation(request, user):
     """
     E-mail verification mails are sent:
     a) Explicitly: when a user signs up
@@ -138,9 +138,12 @@ def send_email_confirmation(user, request=None):
                         email_address=email_address) \
                 .exists()
             if not email_confirmation_sent:
-                email_address.send_confirmation()
+                email_address.send_confirmation(request)
         except EmailAddress.DoesNotExist:
-            email_address = EmailAddress.objects.add_email(user, user.email, confirm=True)
+            email_address = EmailAddress.objects.add_email(request,
+                                                           user, 
+                                                           user.email, 
+                                                           confirm=True)
             assert email_address
             email_confirmation_sent = False
         if request and not email_confirmation_sent:

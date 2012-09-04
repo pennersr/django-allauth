@@ -58,7 +58,7 @@ def _process_signup(request, sociallogin):
         u.email = email or ''
         u.set_unusable_password()
         sociallogin.save()
-        send_email_confirmation(u, request=request)
+        send_email_confirmation(request, u)
         ret = complete_social_signup(request, sociallogin)
     return ret
 

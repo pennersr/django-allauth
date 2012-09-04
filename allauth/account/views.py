@@ -161,7 +161,7 @@ def email(request, **kwargs):
         if "action_add" in request.POST:
             add_email_form = form_class(request.user, request.POST)
             if add_email_form.is_valid():
-                add_email_form.save()
+                add_email_form.save(request)
                 messages.add_message(request, messages.INFO,
                     ugettext(u"Confirmation e-mail sent to %(email)s") % {
                             "email": add_email_form.cleaned_data["email"]
@@ -183,7 +183,7 @@ def email(request, **kwargs):
                                 "email": email,
                             }
                         )
-                        email_address.send_confirmation()
+                        email_address.send_confirmation(request)
                         return HttpResponseRedirect(reverse('account_email'))
                     except EmailAddress.DoesNotExist:
                         pass

@@ -313,7 +313,7 @@ class SignupForm(BaseSignupForm):
                         )
                     EmailAddress.objects.add_email(new_user, email)
         else:
-            send_email_confirmation(new_user, request=request)
+            send_email_confirmation(request, new_user)
 
         self.after_signup(new_user)
         
@@ -355,8 +355,9 @@ class AddEmailForm(UserForm):
                 raise forms.ValidationError(errors["different_account"])
         return value
     
-    def save(self):
-        return EmailAddress.objects.add_email(self.user, 
+    def save(self, request):
+        return EmailAddress.objects.add_email(request,
+                                              self.user, 
                                               self.cleaned_data["email"],
                                               confirm=True)
 

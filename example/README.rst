@@ -12,6 +12,7 @@ django-allauth example application in this directory:
     $ virtualenv venv
     $ . venv/bin/activate
     $ pip install -r requirements.txt
+    $ python manage.py syncdb
     $ python manage.py runserver
 
 You should then be able to open your browser on http://127.0.0.1:8000 and

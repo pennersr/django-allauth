@@ -229,6 +229,11 @@ ACCOUNT_PASSWORD_INPUT_RENDER_VALUE (=False)
 ACCOUNT_PASSWORD_MIN_LENGTH (=6)
   An integer specifying the minimum password length.
 
+CONTACT_EMAIL (=support@example.com)
+  The admin email address displayed to the user following sign-up, so the
+  user knows who to contact if their email address verification does not
+  arrive.
+
 SOCIALACCOUNT_QUERY_EMAIL (=ACCOUNT_EMAIL_REQUIRED)
   Request e-mail address from 3rd party account provider? E.g. using
   OpenID AX, or the Facebook "email" permission.

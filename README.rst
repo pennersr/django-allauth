@@ -196,8 +196,11 @@ ACCOUNT_EMAIL_REQUIRED (=False)
   The user is required to hand over an e-mail address when signing up.
 
 ACCOUNT_EMAIL_VERIFICATION (=False)
-  After signing up, keep the user account inactive until the e-mail
-  address is verified.
+  After signing up, keep the user account inactive until the e-mail address
+  is verified. To set the domain name that will appear in the address
+  confirmation link sent to the user, enable the Django admin interface
+  and, after logging in as the admin user, go to ``Sites`` and edit the
+  ``example.com`` site details.
 
 ACCOUNT_EMAIL_SUBJECT_PREFIX (="[Site] ")
   Subject-line prefix to use for email messages sent. By default, the

@@ -8,7 +8,7 @@
 {% block content %}
     <h1>{% trans "E-mail Addresses" %}</h1>
 {% if user.emailaddress_set.all %}
-<p>{% trans 'The following e-mail addresses are associated to your account:' %}</p>
+<p>{% trans 'The following e-mail addresses are associated with your account:' %}</p>
     
 <form action="{% url 'account_email' %}" class="email_list" method="post">
 {% csrf_token %}

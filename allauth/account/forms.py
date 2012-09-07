@@ -206,7 +206,7 @@ class BaseSignupForm(_base_signup_form_class()):
         if app_settings.UNIQUE_EMAIL:
             if value and email_address_exists(value):
                 raise forms.ValidationError \
-                    (_("A user is registered with this e-mail address."))
+                    (_("A user is already registered with this e-mail address."))
         return value
     
     def create_user(self, commit=True):
@@ -344,8 +344,8 @@ class AddEmailForm(UserForm):
     def clean_email(self):
         value = self.cleaned_data["email"]
         errors = {
-            "this_account": _("This e-mail address already associated with this account."),
-            "different_account": _("This e-mail address already associated with another account."),
+            "this_account": _("This e-mail address is already associated with this account."),
+            "different_account": _("This e-mail address is already associated with another account."),
         }
         emails = EmailAddress.objects.filter(email__iexact=value)
         if emails.filter(user=self.user).exists():

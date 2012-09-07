@@ -44,11 +44,11 @@ class DisconnectForm(forms.Form):
         if len(self.accounts) == 1:
             # No usable password would render the local account unusable
             if not self.user.has_usable_password():
-                raise forms.ValidationError(_("Your local account has no password setup."))
+                raise forms.ValidationError(_("Your account has no password set up."))
             # No email address, no password reset
             if EmailAddress.objects.filter(user=self.user,
                                            verified=True).count() == 0:
-                raise forms.ValidationError(_("Your local account has no verified e-mail address."))
+                raise forms.ValidationError(_("Your account has no verified e-mail address."))
         return self.cleaned_data
 
     def save(self):

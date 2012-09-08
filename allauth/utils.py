@@ -1,3 +1,6 @@
+import re
+import unicodedata
+
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from django.core.validators import validate_email, ValidationError
@@ -26,7 +29,16 @@ def passthrough_login_redirect_url(request, url):
 
 
 def generate_unique_username(txt):
-    username = slugify(txt.split('@')[0])
+    username = unicodedata.normalize('NFKD', unicode(txt))
+    username = username.encode('ascii', 'ignore')
+    username = unicode(re.sub('[^\w\s@+.-]', '', username).lower())
+    # Django allows for '@' in usernames in order to accomodate for
+    # project wanting to use e-mail for username. In allauth we don't
+    # use this, we already have a proper place for putting e-mail
+    # addresses (EmailAddress), so let's not use the full e-mail
+    # address and only take the part leading up to the '@'.
+    username = username.split('@')[0]
+    username = username.strip() or 'user'
     max_length = User._meta.get_field('username').max_length
     i = 0
     while True:

@@ -1,3 +1,7 @@
+2012-09-08  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* account: Usernames may now contain @, +, . and - characters.
+
 2012-09-03  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Version 0.8.1 released.

@@ -217,10 +217,25 @@ def email(request, **kwargs):
                             user=request.user,
                             email=email,
                         )
-                        email_address.set_as_primary()
-                        messages.add_message(request, messages.SUCCESS,
-                                             ugettext("Primary e-mail address set"))
-                        return HttpResponseRedirect(reverse('account_email'))
+                        if not email_address.verified and \
+                                EmailAddress.objects.filter(
+                                        user=request.user,
+                                        verified=True#,
+                                        #primary=True
+                                        # Slightly different variation, don't
+                                        # require verified unless moving from a
+                                        # verified address. Ignore constraint
+                                        # if previous primary email address is
+                                        # not verified.
+                                    ).exists():
+                            messages.add_message(request, messages.ERROR,
+                                    ugettext("Your primary e-mail address must "
+                                        "be verified"))
+                        else:
+                            email_address.set_as_primary()
+                            messages.add_message(request, messages.SUCCESS,
+                                         ugettext("Primary e-mail address set"))
+                            return HttpResponseRedirect(reverse('account_email'))
                     except EmailAddress.DoesNotExist:
                         pass
     else:

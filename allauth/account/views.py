@@ -225,11 +225,11 @@ def email(request, **kwargs):
                                         # Slightly different variation, don't
                                         # require verified unless moving from a
                                         # verified address. Ignore constraint
-                                        # if previous, primary email address is
+                                        # if previous primary email address is
                                         # not verified.
                                     ).exists():
                             messages.add_message(request, messages.ERROR,
-                                    ugettext("Your primary email address must "
+                                    ugettext("Your primary e-mail address must "
                                         "be verified"))
                         else:
                             email_address.set_as_primary()

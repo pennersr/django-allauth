@@ -94,7 +94,7 @@ class EmailConfirmation(models.Model):
     key_expired.boolean = True
     
     def confirm(self):
-        if not self.key_expired() and not self.email_address.verified:
+        if not self.email_address.verified:
             email_address = self.email_address
             email_address.verified = True
             email_address.set_as_primary(conditional=True)

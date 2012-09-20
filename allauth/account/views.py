@@ -23,6 +23,7 @@ from utils import sync_user_email_addresses
 from models import EmailAddress, EmailConfirmation
 
 import app_settings
+import signals
 
 def login(request, **kwargs):
     form_class = kwargs.pop("form_class", LoginForm)
@@ -167,6 +168,8 @@ def email(request, **kwargs):
                             "email": add_email_form.cleaned_data["email"]
                         }
                     )
+                signals.email_added_signal.send(sender=request.user.__class__,
+                        request=request, user=request.user)
                 return HttpResponseRedirect(reverse('account_email'))
         else:
             add_email_form = form_class()
@@ -235,6 +238,9 @@ def email(request, **kwargs):
                             email_address.set_as_primary()
                             messages.add_message(request, messages.SUCCESS,
                                          ugettext("Primary e-mail address set"))
+                            signals.email_changed_signal.send(
+                                    sender=request.user.__class__,
+                                    request=request, user=request.user)
                             return HttpResponseRedirect(reverse('account_email'))
                     except EmailAddress.DoesNotExist:
                         pass
@@ -260,6 +266,8 @@ def password_change(request, **kwargs):
             messages.add_message(request, messages.SUCCESS,
                 ugettext(u"Password successfully changed.")
             )
+            signals.user_changed_password.send(sender=request.user.__class__,
+                    request=request, user=request.user)
             password_change_form = form_class(request.user)
     else:
         password_change_form = form_class(request.user)
@@ -283,6 +291,8 @@ def password_set(request, **kwargs):
             messages.add_message(request, messages.SUCCESS,
                 ugettext(u"Password successfully set.")
             )
+            signals.user_set_password.send(sender=request.user.__class__,
+                    request=request, user=request.user)
             return HttpResponseRedirect(reverse(password_change))
     else:
         password_set_form = form_class(request.user)
@@ -333,6 +343,8 @@ def password_reset_from_key(request, uidb36, key, **kwargs):
                 messages.add_message(request, messages.SUCCESS,
                     ugettext(u"Password successfully changed.")
                 )
+                signals.user_reset_password.send(sender=request.user.__class__,
+                        request=request, user=request.user)
                 password_reset_key_form = None
         else:
             password_reset_key_form = form_class()

@@ -162,14 +162,15 @@ def email(request, **kwargs):
         if "action_add" in request.POST:
             add_email_form = form_class(request.user, request.POST)
             if add_email_form.is_valid():
-                add_email_form.save(request)
+                email_address = add_email_form.save(request)
                 messages.add_message(request, messages.INFO,
                     ugettext(u"Confirmation e-mail sent to %(email)s") % {
                             "email": add_email_form.cleaned_data["email"]
                         }
                     )
-                signals.email_added_signal.send(sender=request.user.__class__,
-                        request=request, user=request.user)
+                signals.email_added.send(sender=request.user.__class__,
+                        request=request, user=request.user,
+                        email_address=email_address)
                 return HttpResponseRedirect(reverse('account_email'))
         else:
             add_email_form = form_class()
@@ -235,12 +236,21 @@ def email(request, **kwargs):
                                     ugettext("Your primary e-mail address must "
                                         "be verified"))
                         else:
+                            # Sending the old primary address to the signal
+                            # adds a db query.
+                            try:
+                                from_email_address = EmailAddress.objects.get(
+                                        user=request.user, primary=True )
+                            except EmailAddress.DoesNotExist:
+                                from_email_address = None
                             email_address.set_as_primary()
                             messages.add_message(request, messages.SUCCESS,
                                          ugettext("Primary e-mail address set"))
-                            signals.email_changed_signal.send(
+                            signals.email_changed.send(
                                     sender=request.user.__class__,
-                                    request=request, user=request.user)
+                                    request=request, user=request.user,
+                                    from_email_address=from_email_address,
+                                    to_email_address=email_address)
                             return HttpResponseRedirect(reverse('account_email'))
                     except EmailAddress.DoesNotExist:
                         pass
@@ -266,7 +276,7 @@ def password_change(request, **kwargs):
             messages.add_message(request, messages.SUCCESS,
                 ugettext(u"Password successfully changed.")
             )
-            signals.user_changed_password.send(sender=request.user.__class__,
+            signals.password_changed.send(sender=request.user.__class__,
                     request=request, user=request.user)
             password_change_form = form_class(request.user)
     else:
@@ -291,7 +301,7 @@ def password_set(request, **kwargs):
             messages.add_message(request, messages.SUCCESS,
                 ugettext(u"Password successfully set.")
             )
-            signals.user_set_password.send(sender=request.user.__class__,
+            signals.password_set.send(sender=request.user.__class__,
                     request=request, user=request.user)
             return HttpResponseRedirect(reverse(password_change))
     else:
@@ -343,7 +353,7 @@ def password_reset_from_key(request, uidb36, key, **kwargs):
                 messages.add_message(request, messages.SUCCESS,
                     ugettext(u"Password successfully changed.")
                 )
-                signals.user_reset_password.send(sender=request.user.__class__,
+                signals.password_reset.send(sender=request.user.__class__,
                         request=request, user=request.user)
                 password_reset_key_form = None
         else:

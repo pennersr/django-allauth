@@ -1,3 +1,7 @@
+2012-09-29  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* socialaccount: Added preliminary support for Mozilla Persona.
+
 2012-09-28  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* account: Sam Solomon added various signals for email and

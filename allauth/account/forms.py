@@ -29,6 +29,7 @@ from app_settings import AuthenticationMethod
 import app_settings
 
 USERNAME_REGEX = UserCreationForm().fields['username'].regex
+username_min_length = app_settings.USERNAME_MIN_LENGTH
 
 class PasswordField(forms.CharField):
 
@@ -172,6 +173,7 @@ class BaseSignupForm(_base_signup_form_class()):
     username = forms.CharField(
         label = _("Username"),
         max_length = 30,
+        min_length = username_min_length,
         widget = forms.TextInput()
     )
     email = forms.EmailField(widget=forms.TextInput())

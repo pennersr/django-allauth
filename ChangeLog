@@ -1,3 +1,8 @@
+2012-09-28  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* account: Sam Solomon added various signals for email and
+	password related changes.
+
 2012-09-08  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* account: Usernames may now contain @, +, . and - characters.

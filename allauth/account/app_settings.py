@@ -61,6 +61,9 @@ SIGNUP_FORM_CLASS = getattr(settings, "ACCOUNT_SIGNUP_FORM_CLASS", None)
 # The user is required to enter a username when signing up
 USERNAME_REQUIRED = getattr(settings, "ACCOUNT_USERNAME_REQUIRED", True)
 
+# Minimum Username Length
+USERNAME_MIN_LENGTH = getattr(settings, "ACCOUNT_USERNAME_MIN_LENGTH", 1)
+
 # render_value parameter as passed to PasswordInput fields
 PASSWORD_INPUT_RENDER_VALUE = getattr(settings, 
                                       "ACCOUNT_PASSWORD_INPUT_RENDER_VALUE", 

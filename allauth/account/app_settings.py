@@ -49,7 +49,7 @@ SIGNUP_PASSWORD_VERIFICATION = getattr(settings,
                                        "ACCOUNT_SIGNUP_PASSWORD_VERIFICATION", 
                                        True)
 
-# Minimum Password Length
+# Minimum password Length
 PASSWORD_MIN_LENGTH = getattr(settings, "ACCOUNT_PASSWORD_MIN_LENGTH", 6)
 
 # Subject-line prefix to use for email messages sent
@@ -61,7 +61,7 @@ SIGNUP_FORM_CLASS = getattr(settings, "ACCOUNT_SIGNUP_FORM_CLASS", None)
 # The user is required to enter a username when signing up
 USERNAME_REQUIRED = getattr(settings, "ACCOUNT_USERNAME_REQUIRED", True)
 
-# Minimum Username Length
+# Minimum username Length
 USERNAME_MIN_LENGTH = getattr(settings, "ACCOUNT_USERNAME_MIN_LENGTH", 1)
 
 # render_value parameter as passed to PasswordInput fields

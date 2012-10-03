@@ -224,6 +224,9 @@ ACCOUNT_USER_DISPLAY (=a callable returning `user.username`)
   that takes a user as its only argument and returns the display name
   of the user. The default implementation returns `user.username`.
 
+ACCOUNT_USERNAME_MIN_LENGTH (=1)
+  An integer specifying the minimum allowed length of a username.
+
 ACCOUNT_USERNAME_REQUIRED (=True)
   The user is required to enter a username when signing up. Note that
   the user will be asked to do so even if

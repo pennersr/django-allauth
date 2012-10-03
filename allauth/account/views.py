@@ -130,9 +130,14 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         if queryset is None:
             queryset = self.get_queryset()
         try:
-            return queryset.get(key=self.kwargs["key"].lower())
+            confirmation = queryset.get(key=self.kwargs["key"].lower())
         except EmailConfirmation.DoesNotExist:
             raise Http404()
+        if confirmation.sent == None:
+            raise Http404()
+        if confirmation.key_expired():
+            raise Http404("Key expired")
+        return confirmation
     
     def get_queryset(self):
         qs = EmailConfirmation.objects.all()

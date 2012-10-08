@@ -175,7 +175,7 @@ def email(request, **kwargs):
         else:
             add_email_form = form_class()
             if request.POST.get("email"):
-                if "action_send" in request.POST:
+                if app_settings.USE_EMAIL_VERIFICATION and "action_send" in request.POST:
                     email = request.POST["email"]
                     try:
                         email_address = EmailAddress.objects.get(
@@ -256,7 +256,7 @@ def email(request, **kwargs):
                         pass
     else:
         add_email_form = form_class()
-    ctx = { "add_email_form": add_email_form }
+    ctx = { "add_email_form": add_email_form, "email_verification_enabled": app_settings.USE_EMAIL_VERIFICATION }
     return render_to_response(template_name, RequestContext(request, ctx))
 
 

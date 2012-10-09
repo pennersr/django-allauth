@@ -99,7 +99,10 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         }[self.request.method]
     
     def get(self, *args, **kwargs):
-        self.object = self.get_object()
+        try:
+            self.object = self.get_object()
+        except Http404:
+            self.object = None
         ctx = self.get_context_data()
         return self.render_to_response(ctx)
     
@@ -135,7 +138,7 @@ class ConfirmEmailView(TemplateResponseMixin, View):
             raise Http404()
     
     def get_queryset(self):
-        qs = EmailConfirmation.objects.all()
+        qs = EmailConfirmation.objects.all_valid()
         qs = qs.select_related("email_address__user")
         return qs
     

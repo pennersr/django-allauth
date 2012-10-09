@@ -1,5 +1,10 @@
-from django.db import models, IntegrityError
+from datetime import timedelta
 
+from django.utils import timezone
+from django.db import models, IntegrityError
+from django.db.models import Q
+
+import app_settings
 
 class EmailAddressManager(models.Manager):
     
@@ -28,8 +33,17 @@ class EmailAddressManager(models.Manager):
 
 
 class EmailConfirmationManager(models.Manager):
+
+    def all_expired(self):
+        return self.filter(self.expired_q())
+
+    def all_valid(self):
+        return self.exclude(self.expired_q())
+
+    def expired_q(self):
+        sent_threshold = timezone.now() \
+            - timedelta(days=app_settings.EMAIL_CONFIRMATION_EXPIRE_DAYS)
+        return Q(sent__lt=sent_threshold)
     
     def delete_expired_confirmations(self):
-        for confirmation in self.all():
-            if confirmation.key_expired():
-                confirmation.delete()
+        self.all_expired().delete()

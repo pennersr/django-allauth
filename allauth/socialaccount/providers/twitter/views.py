@@ -14,7 +14,7 @@ class TwitterAPI(OAuth):
     """
     Verifying twitter credentials
     """
-    url = 'https://twitter.com/account/verify_credentials.json'
+    url = 'https://api.twitter.com/account/verify_credentials.json'
 
     def get_user_info(self):
         user = simplejson.loads(self.query(self.url))

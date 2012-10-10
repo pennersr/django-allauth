@@ -10,4 +10,12 @@ class OAuthProvider(Provider):
             url = url + '?' + urlencode(kwargs)
         return url
 
+    def get_scope(self):
+        settings = self.get_settings()
+        scope = settings.get('SCOPE')
+        if scope is None:
+            scope = self.get_default_scope()
+        return scope
 
+    def get_default_scope(self):
+        return []

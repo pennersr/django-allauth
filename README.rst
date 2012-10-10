@@ -427,6 +427,28 @@ By default, `profile` scope is required, and optionally `email` scope
 depending on whether or not `SOCIALACCOUNT_QUERY_EMAIL` is enabled.
 
 
+LinkedIn
+--------
+
+The LinkedIn provider is OAuth based. Register your LinkedIn app over
+at `https://www.linkedin.com/secure/developer?newapp=`. Leave the
+OAuth redirect URL empty.
+
+You can specify the scope to use as follows::
+
+    SOCIALACCOUNT_PROVIDERS = \
+        { 'linkedin': 
+            { 'SCOPE': ['r_emailaddress'] } }
+
+By default, `r_emailaddress` scope is required depending on whether or
+not `SOCIALACCOUNT_QUERY_EMAIL` is enabled.
+
+Note: if you are experiencing issues where it seems as if the scope
+has no effect you may be using an old LinkedIn app that is not
+scope enabled. Please refer to
+`https://developer.linkedin.com/forum/when-will-old-apps-have-scope-parameter-enabled`
+for more background information.
+
 
 OpenID
 ------

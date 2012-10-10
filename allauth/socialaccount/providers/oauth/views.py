@@ -31,12 +31,18 @@ class OAuthView(object):
         return view
 
     def _get_client(self, request, callback_url):
-        app = self.adapter.get_provider().get_app(request)
+        provider = self.adapter.get_provider()
+        app = provider.get_app(request)
+        scope = ' '.join(provider.get_scope())
+        parameters = {}
+        if scope:
+            parameters['scope'] = scope
         client = OAuthClient(request, app.key, app.secret,
                              self.adapter.request_token_url,
                              self.adapter.access_token_url,
                              self.adapter.authorize_url,
-                             callback_url)
+                             callback_url,
+                             parameters=parameters)
         return client
 
 

@@ -72,7 +72,12 @@ class OAuthClient(object):
         sign the request to obtain the access token
         """
         if self.request_token is None:
-            rt_url = self.request_token_url + '?' + urllib.urlencode({'oauth_callback': self.request.build_absolute_uri(self.callback_url)})
+            get_params = {}
+            if self.parameters:
+                get_params.update(self.parameters)
+            get_params['oauth_callback'] \
+                = self.request.build_absolute_uri(self.callback_url)
+            rt_url = self.request_token_url + '?' + urllib.urlencode(get_params)
             response, content = self.client.request(rt_url, "GET")
             if response['status'] != '200':
                 raise OAuthError(

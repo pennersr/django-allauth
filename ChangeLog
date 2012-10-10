@@ -1,3 +1,7 @@
+2012-10-10  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* LinkedIn: Added support for passing along the OAuth scope.
+
 2012-10-03  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* account: Aldiantoro Nugroho contributed support for a new

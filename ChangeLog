@@ -1,6 +1,14 @@
 2012-10-10  Raymond Penners  <raymond.penners@intenct.nl>
 
+	* Version 0.8.2 released.
+
+	* Twitter: Login was broken due to change at in URLs at Twitter,
+	fixed.
+
 	* LinkedIn: Added support for passing along the OAuth scope.
+
+	* account: Improved e-mail confirmation error handling, no more
+	confusing 404s.
 
 2012-10-03  Raymond Penners  <raymond.penners@intenct.nl>
 

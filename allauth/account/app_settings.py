@@ -6,6 +6,9 @@ class AuthenticationMethod:
     EMAIL = 'email'
     USERNAME_EMAIL = 'username_email'
 
+# Whether to have no email verification at all 
+USE_EMAIL_VERIFICATION = getattr(settings, "USE_EMAIL_VERIFICATION", True)
+
 # Determines the expiration date of e-mail confirmation mails (# of days)
 EMAIL_CONFIRMATION_EXPIRE_DAYS \
     = getattr(settings, "ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS", 

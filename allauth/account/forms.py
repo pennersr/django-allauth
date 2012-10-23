@@ -311,6 +311,10 @@ class SignupForm(BaseSignupForm):
                             }
                         )
                     EmailAddress.objects.add_email(new_user, email)
+        elif not app_settings.USE_EMAIL_VERIFICATION:
+            # If we're completely ignoring the email verification, just add email address 
+            # record. 
+            EmailAddress(user=new_user, email=email, verified=True, primary=True).save()
         else:
             send_email_confirmation(request, new_user)
 

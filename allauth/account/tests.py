@@ -15,7 +15,7 @@ from django.contrib.sites.models import Site
 
 from allauth.account.models import EmailAddress, EmailConfirmation
 
-from app_settings import AuthenticationMethod
+from app_settings import AuthenticationMethod, EmailVerificationMethod
 import app_settings
 
 class AccountTests(TestCase):
@@ -24,7 +24,7 @@ class AccountTests(TestCase):
         self.OLD_AUTHENTICATION_METHOD = app_settings.AUTHENTICATION_METHOD
         self.OLD_SIGNUP_FORM_CLASS = app_settings.SIGNUP_FORM_CLASS
         self.OLD_USERNAME_REQUIRED = app_settings.USERNAME_REQUIRED
-        app_settings.EMAIL_VERIFICATION = True
+        app_settings.EMAIL_VERIFICATION = EmailVerificationMethod.MANDATORY
         app_settings.AUTHENTICATION_METHOD = AuthenticationMethod.USERNAME
         app_settings.SIGNUP_FORM_CLASS = None
         app_settings.USERNAME_REQUIRED = True

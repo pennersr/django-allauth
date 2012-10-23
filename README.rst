@@ -198,9 +198,13 @@ ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS (=3)
 ACCOUNT_EMAIL_REQUIRED (=False)
   The user is required to hand over an e-mail address when signing up.
 
-ACCOUNT_EMAIL_VERIFICATION (=False)
-  After signing up, keep the user account inactive until the e-mail
-  address is verified.
+ACCOUNT_EMAIL_VERIFICATION (="mandatory" | "optional" | "none")
+  Determines the e-mail verification method during signup. When set to
+  "mandatory" the user is blocked from logging in until the email
+  address is verified. Choose "optional" or "none" to allow logins
+  with an unverified e-mail address. In case of "optional", the e-mail
+  verification mail is still sent, whereas in case of "none" no e-mail
+  verification mails are sent.
 
 ACCOUNT_EMAIL_SUBJECT_PREFIX (="[Site] ")
   Subject-line prefix to use for email messages sent. By default, the
@@ -259,6 +263,13 @@ SOCIALACCOUNT_PROVIDERS (= dict)
 
 Upgrading
 ---------
+
+From 0.8.2
+**********
+
+- The `ACCOUNT_EMAIL_VERIFICATION` setting is no longer a boolean
+  based setting. Use a string value of "none", "optional" or
+  "mandatory" instead.
 
 From 0.8.1
 **********

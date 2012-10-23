@@ -22,7 +22,7 @@ from models import EmailAddress
 from utils import perform_login, send_email_confirmation, format_email_subject
 from allauth.utils import email_address_exists, generate_unique_username
 
-from app_settings import AuthenticationMethod
+from app_settings import AuthenticationMethod, EmailVerificationMethod
         
 import app_settings
 
@@ -177,9 +177,11 @@ class BaseSignupForm(_base_signup_form_class()):
 
     def __init__(self, *args, **kwargs):
         super(BaseSignupForm, self).__init__(*args, **kwargs)
-        if (app_settings.EMAIL_REQUIRED or 
-            app_settings.EMAIL_VERIFICATION or
-            app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL):
+        if (app_settings.EMAIL_REQUIRED 
+            or (app_settings.EMAIL_VERIFICATION 
+                == EmailVerificationMethod.MANDATORY) 
+            or (app_settings.AUTHENTICATION_METHOD 
+                == AuthenticationMethod.EMAIL)):
             self.fields["email"].label = ugettext("E-mail")
             self.fields["email"].required = True
         else:

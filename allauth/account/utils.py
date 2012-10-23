@@ -21,6 +21,7 @@ from allauth.utils import import_callable
 
 import signals
 
+from app_settings import EmailVerificationMethod
 import app_settings
 
 
@@ -82,7 +83,7 @@ def perform_login(request, user, redirect_url=None):
     # not is_active: social users are redirected to a template
     # local users are stopped due to form validation checking is_active
     assert user.is_active
-    if (app_settings.EMAIL_VERIFICATION
+    if (app_settings.EMAIL_VERIFICATION == EmailVerificationMethod.MANDATORY
         and not EmailAddress.objects.filter(user=user,
                                             verified=True).exists()):
         send_email_confirmation(request, user)
@@ -129,7 +130,8 @@ def send_email_confirmation(request, user):
 
     COOLDOWN_PERIOD = timedelta(minutes=3)
     email = user.email
-    if email:
+    if (email 
+        and app_settings.EMAIL_VERIFICATION != EmailVerificationMethod.NONE):
         try:
             email_address = EmailAddress.objects.get(user=user,
                                                      email__iexact=email)

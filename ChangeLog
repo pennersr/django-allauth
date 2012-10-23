@@ -1,3 +1,8 @@
+2012-10-23  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* account: Added option to completely disable e-mail verification
+	during signup.
+
 2012-10-10  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Version 0.8.2 released.

@@ -23,9 +23,13 @@
 # The user is required to hand over an e-mail address when signing up.
 # ACCOUNT_EMAIL_REQUIRED = False
 
-# After signing up, keep the user account inactive until the e-mail address
-# is verified.
-# ACCOUNT_EMAIL_VERIFICATION = False
+# Determines the e-mail verification method during signup. When set to
+# "mandatory" the user is blocked from logging in until the email
+# address is verified. Choose "optional" or "none" to allow logins
+# with an unverified e-mail address. In case of "optional", the e-mail
+# verification mail is still sent, whereas in case of "none" no e-mail
+# verification mails are sent.
+# ACCOUNT_EMAIL_VERIFICATION = "optional"
 
 # Subject-line prefix to use for email messages sent. By default, the name
 # of the current Site (django.contrib.sites) is used.

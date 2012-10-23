@@ -6,6 +6,15 @@ class AuthenticationMethod:
     EMAIL = 'email'
     USERNAME_EMAIL = 'username_email'
 
+class EmailVerificationMethod:
+    # After signing up, keep the user account inactive until the email
+    # address is verified
+    MANDATORY = 'mandatory'
+    # Allow login with unverified e-mail (e-mail verification is still sent)
+    OPTIONAL = 'optional'
+    # Don't send e-mail verification mails during signup
+    NONE = 'none'
+
 # Determines the expiration date of e-mail confirmation mails (# of days)
 EMAIL_CONFIRMATION_EXPIRE_DAYS \
     = getattr(settings, "ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS", 
@@ -25,9 +34,14 @@ EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL \
 # The user is required to hand over an e-mail address when signing up
 EMAIL_REQUIRED = getattr(settings, "ACCOUNT_EMAIL_REQUIRED", False)
 
-# After signing up, keep the user account inactive until the email
-# address is verified
-EMAIL_VERIFICATION = getattr(settings, "ACCOUNT_EMAIL_VERIFICATION", False)
+# See e-mail verification method
+EMAIL_VERIFICATION = getattr(settings, "ACCOUNT_EMAIL_VERIFICATION", 
+                             EmailVerificationMethod.OPTIONAL)
+# Deal with legacy (boolean based) setting
+if EMAIL_VERIFICATION == True:
+    EMAIL_VERIFICATION = EmailVerificationMethod.MANDATORY
+elif EMAIL_VERIFICATION == False:
+    EMAIL_VERIFICATION = EmailVerificationMethod.OPTIONAL
 
 # Login by email address, not username
 if hasattr(settings, "ACCOUNT_EMAIL_AUTHENTICATION"):
@@ -73,4 +87,4 @@ PASSWORD_INPUT_RENDER_VALUE = getattr(settings,
 assert (not AUTHENTICATION_METHOD==AuthenticationMethod.EMAIL) or EMAIL_REQUIRED
 # If login includes email, login must be unique
 assert (AUTHENTICATION_METHOD==AuthenticationMethod.USERNAME) or UNIQUE_EMAIL
-assert (not EMAIL_VERIFICATION) or EMAIL_REQUIRED
+assert EMAIL_VERIFICATION != EmailVerificationMethod.MANDATORY or EMAIL_REQUIRED

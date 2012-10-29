@@ -1,14 +1,15 @@
 from django.utils import simplejson
-from django.contrib.auth.models import User
 
 from allauth.socialaccount.providers.oauth.client import OAuth
 from allauth.socialaccount.providers.oauth.views import (OAuthAdapter,
                                                          OAuthLoginView,
                                                          OAuthCallbackView)
 from allauth.socialaccount.models import SocialLogin, SocialAccount
+from allauth.utils import get_user_model
 
 from provider import TwitterProvider
 
+User = get_user_model()
 
 class TwitterAPI(OAuth):
     """

@@ -1,13 +1,14 @@
-from django.contrib.auth.models import User
-
 from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
                                                           OAuth2CallbackView)
 
 from allauth.socialaccount import requests
 from allauth.socialaccount.models import SocialLogin, SocialAccount
+from allauth.utils import get_user_model
 
 from provider import GoogleProvider
+
+User = get_user_model()
 
 class GoogleOAuth2Adapter(OAuth2Adapter):
     provider_id = GoogleProvider.id

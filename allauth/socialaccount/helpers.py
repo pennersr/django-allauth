@@ -3,11 +3,11 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
-from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
 
-from allauth.utils import generate_unique_username, email_address_exists
+from allauth.utils import (generate_unique_username, email_address_exists,
+                           get_user_model)
 from allauth.account.utils import send_email_confirmation, \
     perform_login, complete_signup
 from allauth.account import app_settings as account_settings
@@ -15,6 +15,8 @@ from allauth.account import app_settings as account_settings
 from models import SocialLogin
 import app_settings
 import signals
+
+User = get_user_model()
 
 def _process_signup(request, sociallogin):
     # If email is specified, check for duplicate and if so, no auto signup.

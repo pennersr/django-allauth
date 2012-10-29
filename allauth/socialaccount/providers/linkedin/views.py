@@ -1,17 +1,16 @@
 from xml.etree import ElementTree
 from xml.parsers.expat import ExpatError
 
-from django.contrib.auth.models import User
-
 from allauth.socialaccount.providers.oauth.client import OAuth
 from allauth.socialaccount.providers.oauth.views import (OAuthAdapter,
                                                          OAuthLoginView,
                                                          OAuthCallbackView)
 from allauth.socialaccount.models import SocialAccount, SocialLogin
-from allauth.utils import valid_email_or_none
+from allauth.utils import valid_email_or_none, get_user_model
 
 from provider import LinkedInProvider
 
+User = get_user_model()
 
 class LinkedInAPI(OAuth):
     url = 'https://api.linkedin.com/v1/people/~'

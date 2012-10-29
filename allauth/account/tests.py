@@ -7,16 +7,18 @@ except ImportError:
 
 from django.test import TestCase
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test.client import Client
 from django.core import mail
 from django.contrib.sites.models import Site
 
 from allauth.account.models import EmailAddress, EmailConfirmation
+from allauth.utils import get_user_model
 
 from app_settings import AuthenticationMethod, EmailVerificationMethod
 import app_settings
+
+User = get_user_model()
 
 class AccountTests(TestCase):
     def setUp(self):

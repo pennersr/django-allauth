@@ -11,7 +11,6 @@ from django.utils.importlib import import_module
 
 from django.contrib import messages
 from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.models import Site
@@ -20,12 +19,14 @@ from models import EmailAddress
 
 # from models import PasswordReset
 from utils import perform_login, send_email_confirmation, format_email_subject
-from allauth.utils import email_address_exists, generate_unique_username
+from allauth.utils import (email_address_exists, generate_unique_username, 
+                           get_user_model)
 
 from app_settings import AuthenticationMethod, EmailVerificationMethod
         
 import app_settings
 
+User = get_user_model()
 USERNAME_REGEX = UserCreationForm().fields['username'].regex
 
 class PasswordField(forms.CharField):

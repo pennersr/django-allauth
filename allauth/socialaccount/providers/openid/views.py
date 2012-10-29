@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from django.utils.http import urlencode
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -15,11 +14,13 @@ from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.models import SocialAccount, SocialLogin
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.helpers import complete_social_login
-from allauth.utils import valid_email_or_none
+from allauth.utils import valid_email_or_none, get_user_model
 
 from utils import DBOpenIDStore
 from forms import LoginForm
 from provider import OpenIDProvider
+
+User = get_user_model()
 
 class AXAttribute:
     CONTACT_EMAIL = 'http://axschema.org/contact/email'

@@ -5,12 +5,12 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.db import models
 from django.db import transaction
-from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.contrib.sites.models import Site
 from django.template.loader import render_to_string
 
+from allauth import app_settings as allauth_app_settings
 import app_settings
 import signals
 
@@ -19,7 +19,7 @@ from managers import EmailAddressManager, EmailConfirmationManager
 
 class EmailAddress(models.Model):
     
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(allauth_app_settings.USER_MODEL)
     email = models.EmailField(unique=app_settings.UNIQUE_EMAIL)
     verified = models.BooleanField(default=False)
     primary = models.BooleanField(default=False)

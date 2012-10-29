@@ -9,11 +9,10 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic.base import TemplateResponseMixin, View
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.shortcuts import redirect
 
-from allauth.utils import passthrough_login_redirect_url
+from allauth.utils import passthrough_login_redirect_url, get_user_model
 
 from utils import get_default_redirect, complete_signup
 from forms import AddEmailForm, ChangePasswordForm
@@ -24,6 +23,8 @@ from models import EmailAddress, EmailConfirmation
 
 import app_settings
 import signals
+
+User = get_user_model()
 
 def login(request, **kwargs):
     form_class = kwargs.pop("form_class", LoginForm)

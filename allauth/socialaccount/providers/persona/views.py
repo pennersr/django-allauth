@@ -1,11 +1,12 @@
-from django.contrib.auth.models import User
-
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount import requests
 from allauth.socialaccount.models import SocialAccount, SocialLogin
+from allauth.utils import get_user_model
 
 from provider import PersonaProvider
+
+User = get_user_model()
 
 def persona_login(request):
     assertion = request.POST.get('assertion', '')

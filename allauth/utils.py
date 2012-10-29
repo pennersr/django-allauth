@@ -1,8 +1,7 @@
 import re
 import unicodedata
 
-from django.template.defaultfilters import slugify
-from django.contrib.auth.models import User
+from django.core.exceptions import ImproperlyConfigured
 from django.core.validators import validate_email, ValidationError
 from django.db.models import EmailField
 from django.utils.http import urlencode
@@ -39,6 +38,7 @@ def generate_unique_username(txt):
     # address and only take the part leading up to the '@'.
     username = username.split('@')[0]
     username = username.strip() or 'user'
+    User = get_user_model()
     max_length = User._meta.get_field('username').max_length
     i = 0
     while True:
@@ -74,7 +74,7 @@ def email_address_exists(email, exclude_user=None):
         emailaddresses = emailaddresses.exclude(user=exclude_user)
     ret = emailaddresses.filter(email__iexact=email).exists()
     if not ret:
-        users = User.objects
+        users = get_user_model().objects
         if exclude_user:
             users = users.exclude(user=exclude_user)
         ret = users.filter(email__iexact=email).exists()
@@ -95,3 +95,17 @@ def import_callable(path_or_callable):
         ret = path_or_callable
     return ret
 
+
+def get_user_model():
+    from django.db.models import get_model
+
+    try:
+        app_label, model_name = app_settings.USER_MODEL.split('.')
+    except ValueError:
+        raise ImproperlyConfigured("AUTH_USER_MODEL must be of the form 'app_label.model_name'")
+    user_model = get_model(app_label, model_name)
+    if user_model is None:
+        raise ImproperlyConfigured("AUTH_USER_MODEL refers to model '%s' that has not been installed" % app_settings.USER_MODEL)
+    return user_model
+
+    

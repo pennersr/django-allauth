@@ -70,7 +70,7 @@ class EmailAddress(models.Model):
 class EmailConfirmation(models.Model):
     
     email_address = models.ForeignKey(EmailAddress)
-    created = models.DateTimeField(default=timezone.now())
+    created = models.DateTimeField(default=timezone.now)
     sent = models.DateTimeField(null=True)
     key = models.CharField(max_length=64, unique=True)
     

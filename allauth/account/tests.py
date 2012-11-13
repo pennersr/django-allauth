@@ -64,6 +64,8 @@ class AccountTests(TestCase):
             self.assertTemplateUsed(resp,
                                     'account/verification_sent.html')
             self.assertEquals(len(mail.outbox), attempt)
+            self.assertEquals(EmailConfirmation.objects.filter(email_address__email='john@doe.com').count(), 
+                              attempt)
             # Wait for cooldown
             EmailConfirmation.objects.update(sent=now()
                                              - timedelta(days=1))

@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.db import models
 from django.db import transaction
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.contrib.sites.models import Site
 from django.template.loader import render_to_string
@@ -70,7 +70,7 @@ class EmailAddress(models.Model):
 class EmailConfirmation(models.Model):
     
     email_address = models.ForeignKey(EmailAddress)
-    created = models.DateTimeField(default=timezone.now())
+    created = models.DateTimeField(default=timezone.now)
     sent = models.DateTimeField(null=True)
     key = models.CharField(max_length=64, unique=True)
     

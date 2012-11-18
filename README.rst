@@ -623,6 +623,7 @@ Showcase
 - http://www.edithuddle.com
 - http://kwatsi.com
 - http://www.smartgoalapp.com
+- http://www.neekanee.com/
 - ...
 
 Please mail me (raymond.penners@intenct.nl) links to sites that have

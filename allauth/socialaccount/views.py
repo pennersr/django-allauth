@@ -23,7 +23,7 @@ def signup(request, **kwargs):
     if request.method == "POST":
         form = form_class(request.POST, sociallogin=sociallogin)
         if form.is_valid():
-            form.save(request=request)
+            form.save(request)
             return helpers.complete_social_signup(request, sociallogin)
     else:
         form = form_class(sociallogin=sociallogin)

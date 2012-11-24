@@ -19,7 +19,7 @@ class SignupForm(BaseSignupForm):
         kwargs['initial'] = initial
         super(SignupForm, self).__init__(*args, **kwargs)
 
-    def save(self, request=None):
+    def save(self, request):
         new_user = self.create_user()
         self.sociallogin.account.user = new_user
         self.sociallogin.save()

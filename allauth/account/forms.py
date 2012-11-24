@@ -1,15 +1,11 @@
 from django import forms
-from django.conf import settings
-from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.core import exceptions
 from django.db.models import Q
-from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.utils.http import int_to_base36
 from django.utils.importlib import import_module
 
-from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.tokens import default_token_generator
@@ -18,13 +14,14 @@ from django.contrib.sites.models import Site
 from models import EmailAddress
 
 # from models import PasswordReset
-from utils import perform_login, send_email_confirmation, format_email_subject
+from utils import perform_login, send_email_confirmation, setup_user_email
 from allauth.utils import (email_address_exists, generate_unique_username, 
                            get_user_model)
 
 from app_settings import AuthenticationMethod, EmailVerificationMethod
         
 import app_settings
+from adapter import get_adapter
 
 User = get_user_model()
 USERNAME_REGEX = UserCreationForm().fields['username'].regex
@@ -277,49 +274,12 @@ class SignupForm(BaseSignupForm):
             user.save()
         return user
     
-    def save(self, request=None):
-        # don't assume a username is available. it is a common removal if
-        # site developer wants to use e-mail authentication.
-        email = self.cleaned_data["email"]
-        
-        if self.cleaned_data.get("confirmation_key"):
-            from friends.models import JoinInvitation # @@@ temporary fix for issue 93
-            try:
-                join_invitation = JoinInvitation.objects.get(confirmation_key=self.cleaned_data["confirmation_key"])
-                confirmed = True
-            except JoinInvitation.DoesNotExist:
-                confirmed = False
-        else:
-            confirmed = False
-        
+    def save(self, request):
         new_user = self.create_user()
         super(SignupForm, self).save(new_user)
-
-        # @@@ clean up some of the repetition below -- DRY!
-        if confirmed:
-            if email == join_invitation.contact.email:
-                join_invitation.accept(new_user) # should go before creation of EmailAddress below
-                if request:
-                    messages.add_message(request, messages.INFO,
-                        ugettext(u"Your e-mail address has already been verified")
-                    )
-                # already verified so can just create
-                EmailAddress(user=new_user, email=email, verified=True, primary=True).save()
-            else:
-                join_invitation.accept(new_user) # should go before creation of EmailAddress below
-                if email:
-                    if request:
-                        messages.add_message(request, messages.INFO,
-                            ugettext(u"Confirmation e-mail sent to %(email)s") % {
-                                "email": email,
-                            }
-                        )
-                    EmailAddress.objects.add_email(new_user, email)
-        else:
-            send_email_confirmation(request, new_user)
-
+        setup_user_email(request, new_user)
+        send_email_confirmation(request, new_user)
         self.after_signup(new_user)
-        
         return new_user
     
     def after_signup(self, user, **kwargs):
@@ -435,18 +395,17 @@ class ResetPasswordForm(forms.Form):
             current_site = Site.objects.get_current()
 
             # send the password reset email
-            subject = format_email_subject(_("Password Reset E-mail"))
             path = reverse("account_reset_password_from_key",
                            kwargs=dict(uidb36=int_to_base36(user.id),
                                        key=temp_key))
             url = 'http://%s%s' % (current_site.domain,
                                    path)
-            message = render_to_string \
-                ("account/password_reset_key_message.txt", 
-                 { "site": current_site,
-                   "user": user,
-                   "password_reset_url": url })
-            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [email])
+            context = { "site": current_site,
+                        "user": user,
+                        "password_reset_url": url }
+            get_adapter().send_mail('account/email/password_reset_key',
+                                    email,
+                                    context)
         return self.cleaned_data["email"]
 
 

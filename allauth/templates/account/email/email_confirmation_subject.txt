@@ -1,5 +1,4 @@
-{% load i18n %}{% autoescape off %}[{{current_site.name}}] {% blocktrans %}Confirm E-mail Address{% endblocktrans %}{% endautoescape %}{% comment %}
-Local Variables:
-require-final-newline: nil;
-End: 
-{% endcomment %}
+{% load i18n %}
+{% autoescape off %}
+{% blocktrans %}Confirm E-mail Address{% endblocktrans %}
+{% endautoescape %}

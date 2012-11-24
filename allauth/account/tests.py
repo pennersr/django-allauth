@@ -11,6 +11,7 @@ from django.core.urlresolvers import reverse
 from django.test.client import Client
 from django.core import mail
 from django.contrib.sites.models import Site
+from django.test.client import RequestFactory
 
 from allauth.account.models import EmailAddress, EmailConfirmation
 from allauth.utils import get_user_model
@@ -37,6 +38,26 @@ class AccountTests(TestCase):
             SocialApp.objects.create(name='testfb',
                                      provider='facebook',
                                      site=Site.objects.get_current())
+
+
+    def test_signup_email_verified_externally(self):
+        request = RequestFactory().post(reverse('account_signup'),
+                      { 'username': 'johndoe',
+                        'email': 'john@doe.com',
+                        'password1': 'johndoe',
+                        'password2': 'johndoe' })
+        # Fake stash_email_verified
+        from django.contrib.messages.middleware import MessageMiddleware
+        from django.contrib.sessions.middleware import SessionMiddleware
+        SessionMiddleware().process_request(request)
+        MessageMiddleware().process_request(request)
+        request.session['account_email_verified'] ='john@doe.com'
+        from views import signup
+        resp = signup(request)
+        self.assertEquals(resp.status_code, 302)
+        self.assertEquals(resp['location'], settings.LOGIN_REDIRECT_URL)
+        self.assertEquals(len(mail.outbox), 0)
+
 
     def test_email_verification_mandatory(self):
         c = Client()
@@ -82,7 +103,7 @@ class AccountTests(TestCase):
 
 
 
-    def x_test_email_escaping(self):
+    def test_email_escaping(self):
         """
         Test is only valid if emailconfirmation is listed after
         allauth in INSTALLED_APPS
@@ -92,7 +113,10 @@ class AccountTests(TestCase):
         site.save()
         u = User.objects.create(username='test',
                                 email='foo@bar.com')
-        EmailAddress.objects.add_email(u, u.email)
+        request = RequestFactory().get('/')
+        EmailAddress.objects.add_email(request, u, u.email, confirm=True)
+        self.assertTrue(mail.outbox[0].subject[1:].startswith(site.name))
+                        
 
     def tearDown(self):
         app_settings.EMAIL_VERIFICATION = self.OLD_EMAIL_VERIFICATION

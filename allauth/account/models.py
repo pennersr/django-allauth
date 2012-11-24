@@ -1,14 +1,11 @@
 import datetime
 
-from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
-from django.conf import settings
 from django.db import models
 from django.db import transaction
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.contrib.sites.models import Site
-from django.template.loader import render_to_string
 
 from allauth import app_settings as allauth_app_settings
 import app_settings
@@ -16,6 +13,7 @@ import signals
 
 from utils import random_token
 from managers import EmailAddressManager, EmailConfirmationManager
+from adapter import get_adapter
 
 class EmailAddress(models.Model):
     
@@ -112,10 +110,9 @@ class EmailConfirmation(models.Model):
             "current_site": current_site,
             "key": self.key,
         }
-        subject = render_to_string("account/email/email_confirmation_subject.txt", ctx)
-        subject = "".join(subject.splitlines()) # remove superfluous line breaks
-        message = render_to_string("account/email/email_confirmation_message.txt", ctx)
-        send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [self.email_address.email])
+        get_adapter().send_mail('account/email/email_confirmation',
+                                self.email_address.email,
+                                ctx)
         self.sent = timezone.now()
         self.save()
         signals.email_confirmation_sent.send(sender=self.__class__, confirmation=self)

@@ -23,7 +23,7 @@ import signals
 
 from app_settings import EmailVerificationMethod
 import app_settings
-
+from adapter import get_adapter
 
 LOGIN_REDIRECT_URLNAME = getattr(settings, "LOGIN_REDIRECT_URLNAME", "")
 
@@ -115,6 +115,26 @@ def complete_signup(request, user, success_url):
     return perform_login(request, user, redirect_url=success_url)
 
 
+def setup_user_email(request, user):
+    """
+    Creates proper EmailAddress for the user that was just signed
+    up. Only sets up, doesn't do any other handling such as sending
+    out email confirmation mails etc.
+    """
+    from models import EmailAddress
+
+    assert EmailAddress.objects.filter(user=user).count() == 0
+    if not user.email:
+        return
+    adapter = get_adapter()
+    is_verified = adapter.is_email_verified(request, user.email)
+    adapter.stash_email_verified(request, None)
+    email_address = EmailAddress.objects.create(user=user,
+                                                email=user.email,
+                                                verified=is_verified,
+                                                primary=True)
+    return email_address
+
 def send_email_confirmation(request, user):
     """
     E-mail verification mails are sent:
@@ -135,12 +155,15 @@ def send_email_confirmation(request, user):
         try:
             email_address = EmailAddress.objects.get(user=user,
                                                      email__iexact=email)
-            email_confirmation_sent = EmailConfirmation.objects \
-                .filter(sent__gt=now() - COOLDOWN_PERIOD,
-                        email_address=email_address) \
-                .exists()
-            if not email_confirmation_sent:
-                email_address.send_confirmation(request)
+            if not email_address.verified:
+                email_confirmation_sent = EmailConfirmation.objects \
+                    .filter(sent__gt=now() - COOLDOWN_PERIOD,
+                            email_address=email_address) \
+                    .exists()
+                if not email_confirmation_sent:
+                    email_address.send_confirmation(request)
+            else:
+                email_confirmation_sent = True
         except EmailAddress.DoesNotExist:
             email_address = EmailAddress.objects.add_email(request,
                                                            user, 
@@ -148,18 +171,10 @@ def send_email_confirmation(request, user):
                                                            confirm=True)
             assert email_address
             email_confirmation_sent = False
-        if request and not email_confirmation_sent:
+        if not email_confirmation_sent:
             messages.info(request,
                 _(u"Confirmation e-mail sent to %(email)s") % {"email": email}
             )
-
-def format_email_subject(subject):
-    prefix = app_settings.EMAIL_SUBJECT_PREFIX
-    if prefix is None:
-        site = Site.objects.get_current()
-        prefix = "[{name}] ".format(name=site.name)
-    return prefix + unicode(subject)
-
 
 def sync_user_email_addresses(user):
     """

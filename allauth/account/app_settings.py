@@ -15,6 +15,9 @@ class EmailVerificationMethod:
     # Don't send e-mail verification mails during signup
     NONE = 'none'
 
+ADAPTER = getattr(settings, "ACCOUNT_ADAPTER", 
+                  "allauth.account.adapter.DefaultAccountAdapter")
+
 # Determines the expiration date of e-mail confirmation mails (# of days)
 EMAIL_CONFIRMATION_EXPIRE_DAYS \
     = getattr(settings, "ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS", 

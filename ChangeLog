@@ -1,3 +1,9 @@
+2012-11-26  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* The `site` foreign key from `SocialApp` to `Site` has been
+	replaced by a `ManyToManyField`. Many apps can be used across
+	multiple domains (Facebook cannot).
+
 2012-11-24  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* account: Added adapter class for increased pluggability. Added

@@ -4,7 +4,8 @@ from models import SocialApp, SocialAccount, SocialToken
 
 
 class SocialAppAdmin(admin.ModelAdmin):
-    list_display = ('name', 'provider', 'site')
+    list_display = ('name', 'provider',)
+    filter_horizontal = ('sites',)
 
 
 class SocialAccountAdmin(admin.ModelAdmin):

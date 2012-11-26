@@ -280,6 +280,11 @@ From 0.8.2
   the message has been moved into a template
   ("account/email/password_reset_key_subject.txt").
 
+- The `site` foreign key from `SocialApp` to `Site` has been replaced
+  by a `ManyToManyField`. Many apps can be used across multiple
+  domains (Facebook cannot).
+
+
 From 0.8.1
 **********
 

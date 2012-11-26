@@ -13,14 +13,13 @@ from fields import JSONField
 class SocialAppManager(models.Manager):
     def get_current(self, provider):
         site = Site.objects.get_current()
-        return self.get(site=site,
+        return self.get(sites__id=site.id,
                         provider=provider)
 
 
 class SocialApp(models.Model):
     objects = SocialAppManager()
 
-    site = models.ForeignKey(Site)
     provider = models.CharField(max_length=30, 
                                 choices=providers.registry.as_choices())
     name = models.CharField(max_length=40)
@@ -28,6 +27,10 @@ class SocialApp(models.Model):
                            help_text='App ID, or consumer key')
     secret = models.CharField(max_length=100,
                               help_text='API secret, or consumer secret')
+    # Most apps can be used across multiple domains, therefore we use
+    # a ManyToManyField. Note that Facebook requires an app per domain
+    # (unless the domains share a common base name).
+    sites = models.ManyToManyField(Site)
 
     def __unicode__(self):
         return self.name

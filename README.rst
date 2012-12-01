@@ -579,7 +579,7 @@ Or, if you need to use in a `{% blocktrans %}`::
 
     {% load account %}
 
-    {% user_display user as user_display}
+    {% user_display user as user_display %}
     {% blocktrans %}{{ user_display }} has logged in...{% endblocktrans %}
 
 Then, override the `ACCOUNT_USER_DISPLAY` setting with your project

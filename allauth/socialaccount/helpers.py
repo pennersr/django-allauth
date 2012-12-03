@@ -23,6 +23,11 @@ def _process_signup(request, sociallogin):
     auto_signup = app_settings.AUTO_SIGNUP
     email = sociallogin.account.user.email
     if auto_signup:
+
+        user = sociallogin.account.user
+        if user.username in account_settings.USERNAME_BLACKLIST:
+            auto_signup = False
+
         # Let's check if auto_signup is really possible...
         if email:
             if account_settings.UNIQUE_EMAIL:

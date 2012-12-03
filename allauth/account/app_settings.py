@@ -86,6 +86,9 @@ PASSWORD_INPUT_RENDER_VALUE = getattr(settings,
                                       "ACCOUNT_PASSWORD_INPUT_RENDER_VALUE", 
                                       False)
 
+# Username blacklist
+USERNAME_BLACKLIST = getattr(settings, "ACCOUNT_USERNAME_BLACKLIST", [])
+
 # If login is by email, email must be required
 assert (not AUTHENTICATION_METHOD==AuthenticationMethod.EMAIL) or EMAIL_REQUIRED
 # If login includes email, login must be unique

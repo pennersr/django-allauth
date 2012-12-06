@@ -14,7 +14,9 @@ if app_settings.SOCIALACCOUNT_ENABLED:
 for provider in providers.registry.get_list():
     try:
         prov_mod = importlib.import_module(provider.package + '.urls')
-    except ImportError:
+    except ImportError as e:
+        if not "urls" in e:
+            raise
         continue
     prov_urlpatterns = getattr(prov_mod, 'urlpatterns', None)
     if prov_urlpatterns:

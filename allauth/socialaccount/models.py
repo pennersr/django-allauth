@@ -30,7 +30,8 @@ class SocialApp(models.Model):
     # Most apps can be used across multiple domains, therefore we use
     # a ManyToManyField. Note that Facebook requires an app per domain
     # (unless the domains share a common base name).
-    sites = models.ManyToManyField(Site)
+    # blank=True allows for disabling apps without removing them
+    sites = models.ManyToManyField(Site, blank=True)
 
     def __unicode__(self):
         return self.name

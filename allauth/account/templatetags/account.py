@@ -57,7 +57,10 @@ class HasProviderNode(template.Node):
     def render(self, context):
         user = self.user_var.resolve(context)
 
-        display = user.socialaccount_set.filter(provider=self.provider).exists()
+        try:
+          display = user.socialaccount_set.filter(provider=self.provider).exists()
+        except AttributeError:
+          display = False
 
         if self.as_var:
             context[self.as_var] = display

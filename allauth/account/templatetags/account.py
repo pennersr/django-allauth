@@ -46,20 +46,18 @@ def do_user_display(parser, token):
     
     return UserDisplayNode(user, as_var)
 
+class SocialAccountsNode(template.Node):
 
-class HasProviderNode(template.Node):
-
-    def __init__(self, user, provider, as_var=None):
+    def __init__(self, user, as_var=None):
         self.user_var = template.Variable(user)
-        self.provider = provider
         self.as_var = as_var
 
     def render(self, context):
         user = self.user_var.resolve(context)
 
         try:
-          display = user.socialaccount_set.filter(provider=self.provider).exists()
-        except AttributeError:
+          display = { provider : user.socialaccount_set.filter(provider=provider) for provider in user.socialaccount_set.values_list('provider', flat=True) }
+        except AttributeError, e:
           display = False
 
         if self.as_var:
@@ -67,31 +65,26 @@ class HasProviderNode(template.Node):
             return ""
         return display
 
-@register.tag(name="has_provider")
-def has_provider(parser, token):
+@register.tag(name="get_social_accounts")
+def get_social_accounts(parser, token):
     """
     Example usage:
 
-        {% has_provider user "facebook" %}
+        {% get_social_accounts user %}
 
-        {% has_provider user "facebook" as has_fb %}
+        {% get_social_accounts user as accounts %}
 
     """
     bits = token.split_contents()
-    if len(bits) == 3:
+    if len(bits) == 2:
         tag_name = bits[0]
         user = bits[1]
-        provider = bits[2]
         as_var = None
-    elif len(bits) == 5:
+    elif len(bits) == 4:
         tag_name = bits[0]
         user = bits[1]
-        provider = bits[2]
-        as_var = bits[4]
+        as_var = bits[3]
     else:
-        raise template.TemplateSyntaxError("'%s' takes either three or five arguments" % tag_name)
-    if not (provider[0] == provider[-1] and provider[0] in ('"', "'")):
-        raise template.TemplateSyntaxError("%r tag's argument should be in quotes" % tag_name)
+        raise template.TemplateSyntaxError("'%s' takes either two or four arguments" % tag_name)
 
-    return HasProviderNode(user, provider[1:-1], as_var)
-
+    return SocialAccountsNode(user, as_var)

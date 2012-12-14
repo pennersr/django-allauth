@@ -598,6 +598,16 @@ Use the `provider_login_url` tag to generate provider specific login URLs::
     <a href="{% provider_login_url "twitter" %}">Twitter</a>
 
 
+For easy access to the social accounts for a user::
+
+    {% get_social_accounts user as accounts %}
+
+Then::
+
+    {{accounts.twitter}} -- a list of connected Twitter accounts
+    {{accounts.twitter.0}} -- the first Twitter account
+    {% if accounts %} -- if there is at least one social account
+
 Decorators
 ==========
 

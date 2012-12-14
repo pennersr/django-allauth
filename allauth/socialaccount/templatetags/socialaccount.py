@@ -47,3 +47,20 @@ class ProvidersMediaJSNode(template.Node):
 @register.tag
 def providers_media_js(parser, token):
     return ProvidersMediaJSNode()
+
+
+@register.assignment_tag
+def get_social_accounts(user):
+    """
+    {% get_social_accounts user as accounts %}
+
+    Then:
+        {{accounts.twitter}} -- a list of connected Twitter accounts
+        {{accounts.twitter.0}} -- the first Twitter account
+        {% if accounts %} -- if there is at least one social account
+    """
+    accounts = {}
+    for account in user.socialaccount_set.all().iterator():
+        providers = accounts.setdefault(account.provider, [])
+        providers.append(account)
+    return accounts

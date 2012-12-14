@@ -1,5 +1,7 @@
 2012-12-14  Raymond Penners  <raymond.penners@intenct.nl>
 
+	* socialaccount: Added `get_social_accounts` template tag.
+
 	* account: Default URL to redirect to after login can now be
 	overriden via the adapter, both for login and e-mail confirmation
 	redirects.

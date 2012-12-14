@@ -26,7 +26,8 @@ EMAIL_CONFIRMATION_EXPIRE_DAYS \
 # The URL to redirect to after a successful e-mail confirmation, in case of
 # an authenticated user
 EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL \
-    = getattr(settings, "ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL", settings.LOGIN_REDIRECT_URL)
+    = getattr(settings, "ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL",
+              None)
 
 # The URL to redirect to after a successful e-mail confirmation, in case no
 # user is logged in

@@ -11,10 +11,17 @@ from django.utils import importlib
 import app_settings
 
 def get_login_redirect_url(request, 
-                           fallback=app_settings.LOGIN_REDIRECT_URL):
+                           fallback=True):
     """
     Returns a url to redirect to after the login
+    
+    TODO: 
+    - Cleanup, check overlap with account.utils.get_default_redirect
+    - Move to allauth.account
     """
+    if fallback and type(fallback) == bool:
+        from account.adapter import get_adapter
+        fallback = get_adapter().get_login_redirect_url(request)
     url = request.REQUEST.get(REDIRECT_FIELD_NAME) or fallback
     return url
 

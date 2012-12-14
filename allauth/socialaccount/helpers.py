@@ -74,7 +74,7 @@ def _login_social_account(request, sociallogin):
             context_instance=RequestContext(request))
     else:
         ret = perform_login(request, user, 
-                            redirect_url=sociallogin.get_redirect_url())
+                            redirect_url=sociallogin.get_redirect_url(request))
     return ret
 
 
@@ -108,7 +108,8 @@ def complete_social_login(request, sociallogin):
             sociallogin.account.user = request.user
             sociallogin.save()
             default_next = reverse('socialaccount_connections')
-            next = sociallogin.get_redirect_url(fallback=default_next)
+            next = sociallogin.get_redirect_url(request,
+                                                fallback=default_next)
             messages.add_message(request, messages.INFO, 
                                  _('The social account has been connected'))
             return HttpResponseRedirect(next)
@@ -173,7 +174,7 @@ def complete_social_signup(request, sociallogin):
         _copy_avatar(request, sociallogin.account.user, sociallogin.account)
     return complete_signup(request, 
                            sociallogin.account.user, 
-                           sociallogin.get_redirect_url())
+                           sociallogin.get_redirect_url(request))
 
 
 # TODO: Factor out callable importing functionality

@@ -45,6 +45,27 @@ class DefaultAccountAdapter(object):
         subject = self.format_email_subject(subject)
         send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, [email])
 
+    def get_login_redirect_url(self, request):
+        """
+        Returns the default URL to redirect to after logging in.  Note
+        that URLs passed explicitly (e.g. by passing along a `next`
+        GET parameter) take precedence over the value returned here.
+        """
+        return settings.LOGIN_REDIRECT_URL
+
+    def get_email_confirmation_redirect_url(self, request):
+        """
+        The URL to return to after successful e-mail confirmation.
+        """
+        if request.user.is_authenticated():
+            if app_settings.EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL:
+                return  \
+                    app_settings.EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL
+            else:
+                return self.get_login_redirect_url(request)
+        else:
+            return app_settings.EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL
+
 def get_adapter():
     return import_attribute(app_settings.ADAPTER)()
 

@@ -5,6 +5,7 @@ from django.utils import simplejson
 
 import allauth.app_settings
 from allauth.utils import get_login_redirect_url
+from allauth.account.adapter import get_adapter
 
 import providers
 from fields import JSONField
@@ -171,8 +172,9 @@ class SocialLogin(object):
         except SocialAccount.DoesNotExist:
             pass
     
-    def get_redirect_url(self, 
-                         fallback=allauth.app_settings.LOGIN_REDIRECT_URL):
+    def get_redirect_url(self, request, fallback=True):
+        if fallback and type(fallback) == bool:
+            fallback = get_adapter().get_login_redirect_url(request)
         url = self.state.get('next') or fallback
         return url
             

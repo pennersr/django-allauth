@@ -21,8 +21,8 @@ from forms import ResetPasswordForm, SetPasswordForm, SignupForm
 from utils import sync_user_email_addresses
 from models import EmailAddress, EmailConfirmation
 
-import app_settings
 import signals
+from adapter import get_adapter
 
 User = get_user_model()
 
@@ -149,11 +149,7 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         return ctx
     
     def get_redirect_url(self):
-        if self.request.user.is_authenticated():
-            return app_settings.EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL
-        else:
-            return app_settings.EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL
-
+        return get_adapter().get_email_confirmation_redirect_url(self.request)
 
 confirm_email = ConfirmEmailView.as_view()
 

@@ -41,7 +41,7 @@ def get_default_redirect(request, redirect_field_name="next",
     if login_redirect_urlname:
         default_redirect_to = reverse(login_redirect_urlname)
     else:
-        default_redirect_to = settings.LOGIN_REDIRECT_URL
+        default_redirect_to = get_adapter().get_login_redirect_url(request)
     redirect_to = request.REQUEST.get(redirect_field_name)
     if not redirect_to:
         # try the session if available

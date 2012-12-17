@@ -35,9 +35,9 @@ class AccountTests(TestCase):
         if 'allauth.socialaccount' in settings.INSTALLED_APPS:
             # Otherwise ImproperlyConfigured exceptions may occur
             from ..socialaccount.models import SocialApp
-            SocialApp.objects.create(name='testfb',
-                                     provider='facebook',
-                                     site=Site.objects.get_current())
+            sa = SocialApp.objects.create(name='testfb',
+                                          provider='facebook')
+            sa.sites.add(Site.objects.get_current())
 
 
     def test_signup_email_verified_externally(self):
@@ -104,10 +104,6 @@ class AccountTests(TestCase):
 
 
     def test_email_escaping(self):
-        """
-        Test is only valid if emailconfirmation is listed after
-        allauth in INSTALLED_APPS
-        """
         site = Site.objects.get_current()
         site.name = '<enc&"test>'
         site.save()

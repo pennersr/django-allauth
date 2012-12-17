@@ -27,11 +27,11 @@ mocked_oauth_responses = {
 
 def create_oauth2_tests(provider):
     def setUp(self):
-        self.app = SocialApp.objects.create(site=Site.objects.get_current(),
-                                            provider=self.provider.id,
+        self.app = SocialApp.objects.create(provider=self.provider.id,
                                             name='oauth2 test',
                                             key='123',
                                             secret='abc')
+        self.app.sites.add(Site.objects.get_current())
 
     def test_login(self):
         resp = self.client.get(reverse(self.provider.id + '_login'))

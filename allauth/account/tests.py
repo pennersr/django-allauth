@@ -23,6 +23,7 @@ User = get_user_model()
     (ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.MANDATORY,
      ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.USERNAME,
      ACCOUNT_SIGNUP_FORM_CLASS=None,
+     ACCOUNT_EMAIL_SUBJECT_PREFIX=None,
      ACCOUNT_ADAPTER='allauth.account.adapter.DefaultAccountAdapter',
      ACCOUNT_USERNAME_REQUIRED=True)
 class AccountTests(TestCase):

@@ -4,6 +4,7 @@ import warnings
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
+from django.test.utils import override_settings
 
 import providers
 from allauth.socialaccount import requests
@@ -27,12 +28,14 @@ mocked_oauth_responses = {
 
 def create_oauth2_tests(provider):
     def setUp(self):
-        self.app = SocialApp.objects.create(provider=self.provider.id,
-                                            name='oauth2 test',
-                                            key='123',
-                                            secret='abc')
-        self.app.sites.add(Site.objects.get_current())
+        for provider in providers.registry.get_list():
+            app = SocialApp.objects.create(provider=provider.id,
+                                           name=provider.id,
+                                           key=provider.id,
+                                           secret='dummy')
+            app.sites.add(Site.objects.get_current())
 
+    @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=False)
     def test_login(self):
         resp = self.client.get(reverse(self.provider.id + '_login'))
         p = urlparse.urlparse(resp['location'])

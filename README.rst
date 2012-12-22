@@ -164,6 +164,7 @@ settings.py::
         'allauth.socialaccount.providers.openid',
         'allauth.socialaccount.providers.persona',
         'allauth.socialaccount.providers.soundcloud',
+        'allauth.socialaccount.providers.stackexchange',
         'allauth.socialaccount.providers.twitter',
         ...
     )

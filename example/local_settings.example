@@ -2,7 +2,9 @@
 #
 # DO NOT CHANGE THIS FILE. Instead, copy it to local_settings.py
 # and make your changes there.
-
+# 
+# If you add this file include it in main settings.py
+# copy "from local_settings import *" to settings.py
 
 # Specifies the login method to use -- whether the user logs in by entering
 # his username, e-mail address, or either one of both. Possible values
@@ -25,9 +27,9 @@
 
 # Determines the e-mail verification method during signup. When set to
 # "mandatory" the user is blocked from logging in until the email
-# address is verified. Choose "optional" or "none" to allow logins
+# address is verified. Choose "optional" or False to allow logins
 # with an unverified e-mail address. In case of "optional", the e-mail
-# verification mail is still sent, whereas in case of "none" no e-mail
+# verification mail is still sent, whereas in case of False no e-mail
 # verification mails are sent.
 # ACCOUNT_EMAIL_VERIFICATION = "optional"
 

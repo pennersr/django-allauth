@@ -91,6 +91,8 @@ Supported Providers
 
 - SoundCloud (OAuth2)
 
+- Stack Exchange (OAuth2)
+
 - Twitter
 
 Note: OAuth/OAuth2 support is built using a common code base, making it easy to add support for additional OAuth/OAuth2 providers. More will follow soon...
@@ -268,6 +270,16 @@ SOCIALACCOUNT_PROVIDERS (= dict)
 
 Upgrading
 ---------
+
+From 0.8.3
+**********
+
+- `requests` is now a dependency (dropped `httplib2`).
+
+- Added a new column `SocialApp.client_id`. The value of `key` needs
+  to be moved to the new `client_id` column. The `key` column is
+  required for Stack Exchange. Migrations are in place to handle all
+  of this automatically.
 
 From 0.8.2
 **********
@@ -525,6 +537,25 @@ SoundCloud
 
 SoundCloud allows you to choose between OAuth1 and OAuth2.  Choose the
 latter. 
+
+
+Stack Exchange
+--------------
+
+Register your OAuth2 over at
+`http://stackapps.com/apps/oauth/register`.  Do not enable "Client
+Side Flow". For local development you can simply use "localhost" for
+the OAuth domain.
+
+As for all providers, provider specific data is stored in
+`SocialAccount.extra_data`. For Stack Exchange we need to choose what
+data to store there by choosing the Stack Exchange site (e.g. Stack
+Overflow, or Server Fault). This can be controlled by means of the
+`SITE` setting::
+
+    SOCIALACCOUNT_PROVIDERS = \
+        { 'stackexchange': 
+            { 'SITE': 'stackoverflow' } }
 
 
 Signals

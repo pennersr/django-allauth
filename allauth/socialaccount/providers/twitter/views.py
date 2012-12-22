@@ -31,7 +31,7 @@ class TwitterOAuthAdapter(OAuthAdapter):
     authorize_url = 'https://api.twitter.com/oauth/authenticate'
 
     def complete_login(self, request, app, token):
-        client = TwitterAPI(request, app.key, app.secret,
+        client = TwitterAPI(request, app.client_id, app.secret,
                             self.request_token_url)
         extra_data = client.get_user_info()
         uid = extra_data['id']

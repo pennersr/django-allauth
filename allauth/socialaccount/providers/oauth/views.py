@@ -37,7 +37,7 @@ class OAuthView(object):
         parameters = {}
         if scope:
             parameters['scope'] = scope
-        client = OAuthClient(request, app.key, app.secret,
+        client = OAuthClient(request, app.client_id, app.secret,
                              self.adapter.request_token_url,
                              self.adapter.access_token_url,
                              self.adapter.authorize_url,

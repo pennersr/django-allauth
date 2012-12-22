@@ -1,6 +1,7 @@
+import requests
+
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.helpers import render_authentication_error
-from allauth.socialaccount import requests
 from allauth.socialaccount.models import SocialAccount, SocialLogin
 from allauth.utils import get_user_model
 
@@ -14,9 +15,9 @@ def persona_login(request):
     resp = requests.post('https://verifier.login.persona.org/verify',
                          { 'assertion': assertion,
                            'audience': audience })
-    if resp.json['status'] != 'okay':
+    if resp.json()['status'] != 'okay':
         return render_authentication_error(request)
-    email = resp.json['email']
+    email = resp.json()['email']
     user = User(email=email)
     extra_data = resp.json
     account = SocialAccount(uid=email,

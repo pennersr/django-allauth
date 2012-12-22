@@ -1,7 +1,7 @@
 import urllib
 import urlparse
+import requests
 
-from allauth.socialaccount import requests
 
 class OAuth2Error(Exception):
     pass
@@ -47,7 +47,7 @@ class OAuth2Client(object):
         access_token = None
         if resp.status_code == 200:
             if resp.headers['content-type'].split(';')[0] == 'application/json':
-                data = resp.json
+                data = resp.json()
             else:
                 data = dict(urlparse.parse_qsl(resp.content))
             access_token = data.get('access_token')

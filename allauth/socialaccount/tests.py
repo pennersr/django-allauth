@@ -7,7 +7,7 @@ from django.contrib.sites.models import Site
 from django.test.utils import override_settings
 
 import providers
-from allauth.socialaccount import requests
+from allauth.tests import MockedResponse, mocked_response
 
 from providers.oauth2.provider import OAuth2Provider
 
@@ -15,7 +15,7 @@ from models import SocialApp
 
 
 mocked_oauth_responses = {
-    'google': requests.Response(200, """
+    'google': MockedResponse(200, """
 {"family_name": "Penners", "name": "Raymond Penners", 
                "picture": "https://lh5.googleusercontent.com/-GOFYGBVOdBQ/AAAAAAAAAAI/AAAAAAAAAGM/WzRfPkv4xbo/photo.jpg", 
                "locale": "nl", "gender": "male", 
@@ -48,15 +48,14 @@ def create_oauth2_tests(provider):
             warnings.warn("Cannot test provider %s, no oauth mock" 
                           % self.provider.id)
             return
-        requests.mock_next_request \
-            (requests.Response(200,
-                               '{"access_token":"testac"}',
-                               {'content-type': 
-                                'application/json'}))
-        requests.mock_next_request(resp_mock)
-        resp = self.client.get(complete_url,
-                               { 'code': 'test' })
-        self.assertRedirects(resp, reverse('socialaccount_signup'))
+        with mocked_response(MockedResponse(200,
+                                            '{"access_token":"testac"}',
+                                            {'content-type': 
+                                             'application/json'}),
+                             resp_mock):
+            resp = self.client.get(complete_url,
+                                   { 'code': 'test' })
+            self.assertRedirects(resp, reverse('socialaccount_signup'))
 
     
     impl = { 'setUp': setUp,

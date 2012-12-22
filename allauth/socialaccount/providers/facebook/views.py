@@ -1,6 +1,8 @@
 from django.utils.cache import patch_response_headers
 from django.shortcuts import render
 
+import requests
+
 from allauth.socialaccount.models import SocialAccount, SocialLogin, SocialToken
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.helpers import render_authentication_error
@@ -8,7 +10,6 @@ from allauth.socialaccount import providers
 from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
                                                           OAuth2CallbackView)
-from allauth.socialaccount import requests
 
 from forms import FacebookConnectForm
 from provider import FacebookProvider
@@ -20,7 +21,7 @@ User = get_user_model()
 def fb_complete_login(app, token):
     resp = requests.get('https://graph.facebook.com/me',
                         params={ 'access_token': token.token })
-    extra_data = resp.json
+    extra_data = resp.json()
     email = valid_email_or_none(extra_data.get('email'))
     uid = extra_data['id']
     user = User(email=email)

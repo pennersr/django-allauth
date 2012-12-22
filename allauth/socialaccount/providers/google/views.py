@@ -19,8 +19,8 @@ class GoogleOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token):
         resp = requests.get(self.profile_url,
-                            { 'access_token': token.token,
-                              'alt': 'json' })
+                            params={ 'access_token': token.token,
+                                     'alt': 'json' })
         extra_data = resp.json()
         # extra_data is something of the form:
         # 

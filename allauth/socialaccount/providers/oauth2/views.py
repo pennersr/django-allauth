@@ -48,8 +48,8 @@ class OAuth2LoginView(OAuth2View):
         client.state = SocialLogin.marshall_state(request)
         try:
             return HttpResponseRedirect(client.get_redirect_url())
-        except OAuth2Error:
-            return render_authentication_error(request)
+        except OAuth2Error as e:
+            return render_authentication_error(request, { 'error': e })
 
 
 class OAuth2CallbackView(OAuth2View):
@@ -71,6 +71,6 @@ class OAuth2CallbackView(OAuth2View):
             login.state = SocialLogin.unmarshall_state(request.REQUEST
                                                        .get('state'))
             return complete_social_login(request, login)
-        except OAuth2Error:
-            return render_authentication_error(request)
+        except OAuth2Error as e:
+            return render_authentication_error(request, { 'error': e })
 

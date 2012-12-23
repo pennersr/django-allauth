@@ -25,7 +25,7 @@ class StackExchangeAccount(ProviderAccount):
 class StackExchangeProvider(OAuth2Provider):
     id = 'stackexchange'
     name = 'StackExchange'
-    package = 'hackerfiles.socialaccount.providers.stackexchange'
+    package = 'allauth.socialaccount.providers.stackexchange'
     account_class = StackExchangeAccount
 
     def get_default_scope(self):

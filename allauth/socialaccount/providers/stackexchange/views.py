@@ -1,6 +1,7 @@
 from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
                                                           OAuth2CallbackView)
+from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 
 from allauth.socialaccount import requests
 from allauth.socialaccount.models import SocialLogin, SocialAccount
@@ -62,13 +63,17 @@ class StackExchangeOAuth2Adapter(OAuth2Adapter):
         #   "quota_max": 10000,
         #   "has_more": false
         # }
-        uid = str(extra_data['items'][0]['user_id'])
-        user = User(username=extra_data['items'][0]['display_name'])
-        account = SocialAccount(extra_data=extra_data,
-                                uid=uid,
-                                provider=self.provider_id,
-                                user=user)
-        return SocialLogin(account)
+        if len(extra_data['items']) > 0:
+            uid = str(extra_data['items'][0]['user_id'])
+            user = User(username=extra_data['items'][0]['display_name'])
+            account = SocialAccount(extra_data=extra_data,
+                                    uid=uid,
+                                    provider=self.provider_id,
+                                    user=user)
+            return SocialLogin(account)
+        else:
+            raise OAuth2Error("stackexchange/no_site_profile_error.html",
+                              { 'se_site': settings.STACKEXCHANGE_KEYS[int(app.key)][1] })
 
 oauth2_login = OAuth2LoginView.adapter_view(StackExchangeOAuth2Adapter)
 oauth2_callback = OAuth2CallbackView.adapter_view(StackExchangeOAuth2Adapter)

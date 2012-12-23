@@ -4,7 +4,12 @@ import urlparse
 from allauth.socialaccount import requests
 
 class OAuth2Error(Exception):
-    pass
+    def __init__(self, *args):
+        super(OAuth2Error, self).__init__(*args)
+        # To provide i18n'ed error messages
+        if len(args) == 2:
+            self.template = args[0]
+            self.substitute_dict = args[1]
 
 
 class OAuth2Client(object):

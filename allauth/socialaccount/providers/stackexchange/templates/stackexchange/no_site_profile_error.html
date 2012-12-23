@@ -1,0 +1,6 @@
+{% load i18n %}
+<p>
+{% blocktrans with se_site=the_error.substitute_dict.se_site %}
+You have requested to log in using a {{se_site}} profile, but you don't actually have a {{se_site}} profile.
+{% endblocktrans %}
+</p>

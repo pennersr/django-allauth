@@ -1,7 +1,8 @@
+import requests
+
 from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
                                                           OAuth2CallbackView)
-from allauth.socialaccount import requests
 from allauth.socialaccount.models import SocialAccount, SocialLogin
 from allauth.utils import get_user_model
 
@@ -18,7 +19,7 @@ class SoundCloudOAuth2Adapter(OAuth2Adapter):
     def complete_login(self, request, app, token):
         resp = requests.get(self.profile_url,
                             params={ 'oauth_token': token.token })
-        extra_data = resp.json
+        extra_data = resp.json()
         uid = str(extra_data['id'])
         name_parts = extra_data.get('full_name', '').split(' ', 1)
         if len(name_parts) == 2:

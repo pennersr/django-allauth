@@ -1,14 +1,15 @@
+import requests
+
 from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
                                                           OAuth2CallbackView)
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 
-from allauth.socialaccount import requests
-from allauth.socialaccount.models import SocialLogin, SocialAccount
+from allauth.socialaccount.models import SocialAccount, SocialLogin
+from allauth.socialaccount.providers import registry
 from allauth.utils import get_user_model
 
 from django.conf import settings
-
 from provider import StackExchangeProvider
 
 User = get_user_model()
@@ -20,12 +21,12 @@ class StackExchangeOAuth2Adapter(OAuth2Adapter):
     profile_url = 'https://api.stackexchange.com/2.1/me'
 
     def complete_login(self, request, app, token):
+        provider = registry.by_id(app.provider)
+        site = provider.get_site()
         resp = requests.get(self.profile_url,
-                            {
-                                'access_token': token.token,
-                                'key': settings.STACKEXCHANGE_KEYS[int(app.key)][0],
-                                'site': settings.STACKEXCHANGE_KEYS[int(app.key)][1]
-                            })
+            params={ 'access_token': token.token,
+                     'key': app.key,
+                     'site': site })
         extra_data = resp.json
         # extra_data is something of the form:
         #
@@ -66,14 +67,14 @@ class StackExchangeOAuth2Adapter(OAuth2Adapter):
         if len(extra_data['items']) > 0:
             uid = str(extra_data['items'][0]['user_id'])
             user = User(username=extra_data['items'][0]['display_name'])
-            account = SocialAccount(extra_data=extra_data,
+            account = SocialAccount(extra_data=extra_data['items'][0],
                                     uid=uid,
                                     provider=self.provider_id,
                                     user=user)
             return SocialLogin(account)
         else:
             raise OAuth2Error("stackexchange/no_site_profile_error.html",
-                              { 'se_site': settings.STACKEXCHANGE_KEYS[int(app.key)][1] })
+                              { 'se_site': site })
 
 oauth2_login = OAuth2LoginView.adapter_view(StackExchangeOAuth2Adapter)
 oauth2_callback = OAuth2CallbackView.adapter_view(StackExchangeOAuth2Adapter)

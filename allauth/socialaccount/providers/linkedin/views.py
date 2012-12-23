@@ -51,7 +51,7 @@ class LinkedInOAuthAdapter(OAuthAdapter):
     authorize_url = 'https://www.linkedin.com/uas/oauth/authenticate'
 
     def complete_login(self, request, app, token):
-        client = LinkedInAPI(request, app.key, app.secret,
+        client = LinkedInAPI(request, app.client_id, app.secret,
                              self.request_token_url)
         extra_data = client.get_user_info()
         uid = extra_data['id']

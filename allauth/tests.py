@@ -1,9 +1,40 @@
 # -*- coding: utf-8 -*-
 
+import requests
 from django.test import TestCase
 
 import utils
 
+class MockedResponse(object):
+    def __init__(self, status_code, content, headers={}):
+        self.status_code = status_code
+        self.content = content
+        self.headers = headers
+
+    def json(self):
+        import json
+        return json.loads(self.content)
+
+class mocked_response:
+    def __init__(self, *responses):
+        self.responses = list(responses)
+
+    def __enter__(self):
+        self.orig_get = requests.get
+        self.orig_post = requests.post
+
+        def mockable_request(f):
+            def new_f(*args, **kwargs):
+                if self.responses:
+                    return self.responses.pop(0)
+                return f(*args, **kwargs)
+            return new_f
+        requests.get = mockable_request(requests.get)
+        requests.post = mockable_request(requests.post)
+
+    def __exit__(self, type, value, traceback):
+        requests.get = self.orig_get
+        requests.post = self.orig_post
 
 class BasicTests(TestCase):
 

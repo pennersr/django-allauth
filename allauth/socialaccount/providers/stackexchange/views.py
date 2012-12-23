@@ -27,7 +27,7 @@ class StackExchangeOAuth2Adapter(OAuth2Adapter):
             params={ 'access_token': token.token,
                      'key': app.key,
                      'site': site })
-        extra_data = resp.json
+        extra_data = resp.json()
         # extra_data is something of the form:
         #
         # {

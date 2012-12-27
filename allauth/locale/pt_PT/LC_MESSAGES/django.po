@@ -1,0 +1,760 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-12-26 12:13+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\allauth\account\forms.py:35 .\allauth\account\forms.py:51
+#: .\allauth\account\forms.py:236 .\allauth\account\forms.py:352
+msgid "Password"
+msgstr "Palavra-passe"
+
+#: .\allauth\account\forms.py:44
+msgid "Password must be a minimum of {0} characters."
+msgstr "A palavra-passe deve ter no mínimo {0} caracteres."
+
+#: .\allauth\account\forms.py:53
+msgid "Remember Me"
+msgstr "Lembrar-me"
+
+#: .\allauth\account\forms.py:64
+msgid "E-mail address"
+msgstr "Endereço de e-mail"
+
+#: .\allauth\account\forms.py:65 .\allauth\account\forms.py:184
+#: .\allauth\account\forms.py:302 .\allauth\account\forms.py:369
+#: .\example\templates\bootstrap\allauth\account\email.html.py:23
+msgid "E-mail"
+msgstr "E-mail"
+
+#: .\allauth\account\forms.py:70 .\allauth\account\forms.py:71
+#: .\allauth\account\forms.py:170
+msgid "Username"
+msgstr "Nome de utilizador"
+
+#: .\allauth\account\forms.py:78
+msgid "Username or e-mail"
+msgstr "Nome de utilizador ou e-mail"
+
+#: .\allauth\account\forms.py:79
+msgid "Login"
+msgstr "Entrar"
+
+#: .\allauth\account\forms.py:112
+msgid "This account is currently inactive."
+msgstr "Esta conta está de momento desactivada"
+
+#: .\allauth\account\forms.py:116
+msgid "The e-mail address and/or password you specified are not correct."
+msgstr "O endereço de e-mail e/ou palavra-passe que especificou não estão correctos."
+
+#: .\allauth\account\forms.py:120
+msgid "The username and/or password you specified are not correct."
+msgstr "O nome de utilizador e/ou palavra-passe que especificou não estão correctos."
+
+#: .\allauth\account\forms.py:123
+msgid "The login and/or password you specified are not correct."
+msgstr "O login e/ou password que especificou não estão correctos"
+
+#: .\allauth\account\forms.py:187
+msgid "E-mail (optional)"
+msgstr "E-mail (opcional)"
+
+#: .\allauth\account\forms.py:195
+msgid "Usernames can only contain letters, digits and @/./+/-/_."
+msgstr "Nomes de utilizador apenas podem conter letras, dígitos, e @/./+/-/_."
+
+#: .\allauth\account\forms.py:201
+msgid "This username is already taken. Please choose another."
+msgstr "Este nome de utilizador já está em uso. Por favor escolha outro."
+
+#: .\allauth\account\forms.py:209
+msgid "A user is already registered with this e-mail address."
+msgstr "Um utilizador já foi registado com este endereço de e-mail."
+
+#: .\allauth\account\forms.py:237 .\allauth\account\forms.py:353
+msgid "Password (again)"
+msgstr "Palavra-passe (novamente)"
+
+#: .\allauth\account\forms.py:265 .\allauth\account\forms.py:342
+#: .\allauth\account\forms.py:358 .\allauth\account\forms.py:426
+msgid "You must type the same password each time."
+msgstr "Deve escrever a mesma palavra-passe em ambos os campos."
+
+#: .\allauth\account\forms.py:310
+msgid "This e-mail address is already associated with this account."
+msgstr "Este endereço de e-mail já foi associado com esta conta."
+
+#: .\allauth\account\forms.py:311
+msgid "This e-mail address is already associated with another account."
+msgstr "Este endereço de e-mail já foi associado com outra conta."
+
+#: .\allauth\account\forms.py:330
+msgid "Current Password"
+msgstr "Palavra-passe atual"
+
+#: .\allauth\account\forms.py:331 .\allauth\account\forms.py:414
+msgid "New Password"
+msgstr "Nova Palavra-passe"
+
+#: .\allauth\account\forms.py:332 .\allauth\account\forms.py:415
+msgid "New Password (again)"
+msgstr "Nova Palavra-passe (novamente)"
+
+#: .\allauth\account\forms.py:336
+msgid "Please type your current password."
+msgstr "Por favor insira a sua palavra-passe atual."
+
+#: .\allauth\account\forms.py:379
+msgid "The e-mail address is not assigned to any user account"
+msgstr "O endereço de e-mail não está associado a nenhuma conta de utilizador"
+
+#: .\allauth\account\models.py:28
+msgid "email address"
+msgstr "endereço de e-mail"
+
+#: .\allauth\account\models.py:29
+msgid "email addresses"
+msgstr "endereços de e-mail"
+
+#: .\allauth\account\models.py:78
+msgid "email confirmation"
+msgstr "confirmação de e-mail"
+
+#: .\allauth\account\models.py:79
+msgid "email confirmations"
+msgstr "confirmações de e-mail"
+
+#: .\allauth\account\utils.py:104
+#, python-format
+msgid "Successfully signed in as %(user)s."
+msgstr "Entrou como %(user)s"
+
+#: .\allauth\account\utils.py:176 .\allauth\account\views.py:167
+#: .\allauth\account\views.py:186
+#, python-format
+msgid "Confirmation e-mail sent to %(email)s"
+msgstr "E-mail de confirmação enviado para %(email)s"
+
+#: .\allauth\account\views.py:92
+#, python-format
+msgid "You have confirmed %(email)s."
+msgstr "Confirmou %(email)s"
+
+#: .\allauth\account\views.py:204
+#, python-format
+msgid "You cannot remove your primary e-mail address (%(email)s)"
+msgstr "Não pode remover o seu endereço de e-mail primário (%(email)s)"
+
+#: .\allauth\account\views.py:210
+#, python-format
+msgid "Removed e-mail address %(email)s"
+msgstr "Removeu o endereço de e-mail %(email)s"
+
+#: .\allauth\account\views.py:236
+msgid "Your primary e-mail address must be verified"
+msgstr "O seu endereço de e-mail primário deve ser verificado"
+
+#: .\allauth\account\views.py:248
+msgid "Primary e-mail address set"
+msgstr "Endereço de e-mail primário definido"
+
+#: .\allauth\account\views.py:277 .\allauth\account\views.py:354
+msgid "Password successfully changed."
+msgstr "Palavra-passe alterada com sucesso."
+
+#: .\allauth\account\views.py:302
+msgid "Password successfully set."
+msgstr "Palavra-passe definida com sucesso."
+
+#: .\allauth\account\views.py:370
+#: .\allauth\templates\account\logout.html.py:10
+msgid "You have signed out."
+msgstr "Terminou sessão."
+
+#: .\allauth\socialaccount\forms.py:47
+msgid "Your account has no password set up."
+msgstr "A sua conta não tem palavra-passe definida."
+
+#: .\allauth\socialaccount\forms.py:51
+msgid "Your account has no verified e-mail address."
+msgstr "A sua conta não tem um endereço de e-mail verificado."
+
+#: .\allauth\socialaccount\helpers.py:114
+msgid "The social account has been connected"
+msgstr "A conta social foi ligada"
+
+#: .\allauth\socialaccount\views.py:54
+msgid "The social account has been disconnected"
+msgstr "A conta social foi desligada"
+
+#: .\allauth\socialaccount\providers\oauth\client.py:84
+#, python-format
+msgid "Invalid response while obtaining request token from \"%s\"."
+msgstr "Resposta inválida ao obter token de permissão de \"%s\"."
+
+#: .\allauth\socialaccount\providers\oauth\client.py:107
+#, python-format
+msgid "Invalid response while obtaining access token from \"%s\"."
+msgstr "Resposta inválida ao obter token de acesso de \"%s\"."
+
+#: .\allauth\socialaccount\providers\oauth\client.py:120
+#, python-format
+msgid "No request token saved for \"%s\"."
+msgstr "Nenhum token de permissão gravado para \"%s\"."
+
+#: .\allauth\socialaccount\providers\oauth\client.py:168
+#, python-format
+msgid "No access token saved for \"%s\"."
+msgstr "Nenhum token de acesso gravado para \"%s\"."
+
+#: .\allauth\socialaccount\providers\oauth\client.py:188
+#, python-format
+msgid "No access to private resources at \"%s\"."
+msgstr "Sem acesso a recursos privados de \"%s\"."
+
+#: .\allauth\templates\account\email.html.py:6
+#: .\example\templates\bootstrap\allauth\account\email.html.py:7
+#: .\example\templates\bootstrap\allauth\socialaccount\connections.html.py:34
+#: .\example\templates\uniform\allauth\account\email.html.py:7
+msgid "Account"
+msgstr "Conta"
+
+#: .\allauth\templates\account\email.html.py:9
+#: .\example\templates\bootstrap\allauth\account\base.html.py:12
+#: .\example\templates\uniform\allauth\account\email.html.py:10
+msgid "E-mail Addresses"
+msgstr "Endereços de E-mail"
+
+#: .\allauth\templates\account\email.html.py:11
+msgid "The following e-mail addresses are associated with your account:"
+msgstr "Os endereços de e-mail seguintes estão associados com a sua conta:"
+
+#: .\allauth\templates\account\email.html.py:25
+#: .\example\templates\bootstrap\allauth\account\email.html.py:41
+#: .\example\templates\uniform\allauth\account\email.html.py:27
+msgid "Verified"
+msgstr "Verificado"
+
+#: .\allauth\templates\account\email.html.py:27
+#: .\example\templates\bootstrap\allauth\account\email.html.py:43
+#: .\example\templates\uniform\allauth\account\email.html.py:29
+msgid "Unverified"
+msgstr "Não verificado"
+
+#: .\allauth\templates\account\email.html.py:29
+#: .\example\templates\bootstrap\allauth\account\email.html.py:45
+#: .\example\templates\uniform\allauth\account\email.html.py:31
+msgid "Primary"
+msgstr "Primário"
+
+#: .\allauth\templates\account\email.html.py:35
+#: .\example\templates\bootstrap\allauth\account\email.html.py:53
+#: .\example\templates\uniform\allauth\account\email.html.py:37
+msgid "Make Primary"
+msgstr "Definir como primário"
+
+#: .\allauth\templates\account\email.html.py:36
+#: .\example\templates\bootstrap\allauth\account\email.html.py:54
+#: .\example\templates\uniform\allauth\account\email.html.py:38
+msgid "Re-send Verification"
+msgstr "Re-enviar Verificação"
+
+#: .\allauth\templates\account\email.html.py:37
+#: .\allauth\templates\socialaccount\connections.html.py:35
+#: .\example\templates\bootstrap\allauth\account\email.html.py:55
+#: .\example\templates\bootstrap\allauth\socialaccount\connections.html.py:58
+#: .\example\templates\uniform\allauth\account\email.html.py:39
+msgid "Remove"
+msgstr "Remover"
+
+#: .\allauth\templates\account\email.html.py:44
+#: .\example\templates\bootstrap\allauth\account\email.html.py:62
+#: .\example\templates\uniform\allauth\account\email.html.py:46
+msgid "Warning:"
+msgstr "Aviso:"
+
+#: .\allauth\templates\account\email.html.py:44
+#: .\example\templates\bootstrap\allauth\account\email.html.py:62
+#: .\example\templates\uniform\allauth\account\email.html.py:46
+msgid ""
+"You currently do not have any e-mail address set up. You should really add "
+"an e-mail address so you can receive notifications, reset your password, etc."
+msgstr ""
+"Neste momento não tem um endereço de e-mail definido. Devia mesmo adicionar "
+"um endereço de e-mail para que possa receber notificações, redefinir a sua "
+"palavra-passe, etc."
+
+#: .\allauth\templates\account\email.html.py:49
+#: .\example\templates\bootstrap\allauth\account\email.html.py:67
+#: .\example\templates\uniform\allauth\account\email.html.py:51
+msgid "Add E-mail Address"
+msgstr "Adicionar endereço de e-mail"
+
+#: .\allauth\templates\account\email.html.py:54
+#: .\example\templates\bootstrap\allauth\account\email.html.py:73
+#: .\example\templates\uniform\allauth\account\email.html.py:58
+msgid "Add E-mail"
+msgstr "Adicionar e-mail"
+
+#: .\allauth\templates\account\email.html.py:64
+#: .\example\templates\bootstrap\allauth\account\email.html.py:84
+#: .\example\templates\uniform\allauth\account\email.html.py:70
+msgid "Do you really want to remove the selected e-mail address?"
+msgstr "Deseja mesmo remover o endereço de e-mail seleccionado?"
+
+#: .\allauth\templates\account\email_confirm.html.py:7
+#: .\allauth\templates\account\email_confirm.html.py:11
+#: .\allauth\templates\account\email_confirmed.html.py:6
+#: .\allauth\templates\account\email_confirmed.html.py:11
+#: .\allauth\templates\account\email\email_confirmation_subject.txt.py:3
+#: .\example\templates\bootstrap\allauth\account\email_confirm.html.py:7
+#: .\example\templates\bootstrap\allauth\account\email_confirm.html.py:11
+msgid "Confirm E-mail Address"
+msgstr "Confirmar Endereço de E-mail"
+
+#: .\allauth\templates\account\email_confirm.html.py:17
+#: .\example\templates\bootstrap\allauth\account\email_confirm.html.py:17
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
+msgstr ""
+"Por favor confirme que <a href=\"mailto:%(email)s\">%(email)s</a> é um "
+"endereço de e-mail do utilizador %(user_display)s."
+
+#: .\allauth\templates\account\email_confirm.html.py:21
+#: .\example\templates\bootstrap\allauth\account\email_confirm.html.py:21
+msgid "Confirm"
+msgstr "Confirmar"
+
+#: .\allauth\templates\account\email_confirm.html.py:28
+#: .\example\templates\bootstrap\allauth\account\email_confirm.html.py:28
+#, python-format
+msgid ""
+"This e-mail confirmation link expired or is invalid. Please <a href=\"%"
+"(email_url)s\">issue a new e-mail confirmation request</a>."
+msgstr ""
+"Este link de verificação de e-mail expirou ou é inválido. Por favor "
+"<a href=\"%(email_url)s\">peça uma nova verificação de e-mail.</a>."
+
+#: .\allauth\templates\account\email_confirmed.html.py:15
+#, python-format
+msgid ""
+"You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
+"mail address for user %(user_display)s."
+msgstr ""
+"Confirmou que <a href=\"mailto:%(email)s\">%(email)s</a> é um endereço de "
+"e-mail do utilizador %(user_display)s."
+
+#: .\allauth\templates\account\login.html.py:7
+#: .\allauth\templates\account\login.html.py:12
+#: .\allauth\templates\account\login.html.py:44
+#: .\example\templates\bootstrap\allauth\account\login.html.py:8
+#: .\example\templates\bootstrap\allauth\account\login.html.py:13
+#: .\example\templates\bootstrap\allauth\account\login.html.py:45
+#: .\example\templates\uniform\allauth\account\login.html.py:8
+#: .\example\templates\uniform\allauth\account\login.html.py:13
+#: .\example\templates\uniform\allauth\account\login.html.py:48
+msgid "Sign In"
+msgstr "Entrar"
+
+#: .\allauth\templates\account\login.html.py:17
+#: .\example\templates\bootstrap\allauth\account\login.html.py:18
+#: .\example\templates\uniform\allauth\account\login.html.py:18
+#, python-format
+msgid ""
+"Please sign in with one\n"
+"of your existing third party accounts. Or, <a \n"
+"href=\"%(signup_url)s\">sign up</a> for a %(site_name)s account and sign in\n"
+"below:"
+msgstr ""
+"Por favor entre com uma\ndas suas contas sociais. Ou <a \n"
+"href=\"%(signup_url)s\">registe-se</a> para obter uma conta no %(site_name)s "
+"e entre abaixo:"
+
+#: .\allauth\templates\account\login.html.py:28
+#: .\example\templates\bootstrap\allauth\account\login.html.py:29
+#: .\example\templates\uniform\allauth\account\login.html.py:29
+msgid "or"
+msgstr "ou"
+
+#: .\allauth\templates\account\login.html.py:43
+#: .\example\templates\bootstrap\allauth\account\login.html.py:46
+#: .\example\templates\uniform\allauth\account\login.html.py:46
+msgid "Forgot Password?"
+msgstr "Esqueceu a sua palavra-passe?"
+
+#: .\allauth\templates\account\logout.html.py:5
+#: .\allauth\templates\account\logout.html.py:8
+msgid "Signed Out"
+msgstr "Saíu"
+
+#: .\allauth\templates\account\password_change.html.py:4
+#: .\allauth\templates\account\password_change.html.py:7
+#: .\allauth\templates\account\password_change.html.py:12
+#: .\allauth\templates\account\password_reset_from_key.html.py:5
+#: .\allauth\templates\account\password_reset_from_key.html.py:8
+#: .\example\templates\bootstrap\allauth\account\base.html.py:15
+#: .\example\templates\bootstrap\allauth\account\password_change.html.py:6
+#: .\example\templates\bootstrap\allauth\account\password_change.html.py:14
+#: .\example\templates\bootstrap\allauth\account\password_reset_from_key.html.py:7
+#: .\example\templates\bootstrap\allauth\account\password_reset_from_key.html.py:10
+#: .\example\templates\uniform\allauth\account\password_change.html.py:5
+#: .\example\templates\uniform\allauth\account\password_change.html.py:8
+#: .\example\templates\uniform\allauth\account\password_change.html.py:15
+#: .\example\templates\uniform\allauth\account\password_reset_from_key.html.py:6
+#: .\example\templates\uniform\allauth\account\password_reset_from_key.html.py:9
+msgid "Change Password"
+msgstr "Alterar palavra-passe"
+
+#: .\allauth\templates\account\password_delete.html.py:5
+#: .\allauth\templates\account\password_delete.html.py:8
+msgid "Delete Password"
+msgstr "Remover palavra-passe"
+
+#: .\allauth\templates\account\password_delete.html.py:9
+msgid ""
+"You may delete your password since you are currently logged in using OpenID."
+msgstr ""
+"Pode eliminar a sua palavra-passe já que entrou com OpenID."
+
+#: .\allauth\templates\account\password_delete.html.py:12
+msgid "delete my password"
+msgstr "dliminar a minha palavra-passe"
+
+#: .\allauth\templates\account\password_delete_done.html.py:5
+#: .\allauth\templates\account\password_delete_done.html.py:8
+msgid "Password Deleted"
+msgstr "Palavra-passe eliminada"
+
+#: .\allauth\templates\account\password_delete_done.html.py:9
+msgid "Your password has been deleted."
+msgstr "A sua palavra-passe foi eliminada."
+
+#: .\allauth\templates\account\password_reset.html.py:6
+#: .\allauth\templates\account\password_reset.html.py:10
+#: .\allauth\templates\account\password_reset_done.html.py:6
+#: .\allauth\templates\account\password_reset_done.html.py:9
+#: .\example\templates\bootstrap\allauth\account\password_reset.html.py:7
+#: .\example\templates\bootstrap\allauth\account\password_reset.html.py:11
+#: .\example\templates\uniform\allauth\account\password_reset.html.py:7
+#: .\example\templates\uniform\allauth\account\password_reset.html.py:11
+msgid "Password Reset"
+msgstr "Redefinição da palavra-passe"
+
+#: .\allauth\templates\account\password_reset.html.py:15
+#: .\example\templates\bootstrap\allauth\account\password_reset.html.py:16
+#: .\example\templates\uniform\allauth\account\password_reset.html.py:16
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
+msgstr ""
+"Esqueceu a sua palavra-passe? Insira o seu endereço de e-mail abaixo, e "
+"enviar-lhe-emos um e-mail permitindo que a redefina."
+
+#: .\allauth\templates\account\password_reset.html.py:20
+#: .\example\templates\bootstrap\allauth\account\password_reset.html.py:22
+#: .\example\templates\uniform\allauth\account\password_reset.html.py:23
+msgid "Reset My Password"
+msgstr "Redefinir a minha palavra-passe"
+
+#: .\allauth\templates\account\password_reset.html.py:23
+#: .\example\templates\bootstrap\allauth\account\password_reset.html.py:26
+#: .\example\templates\uniform\allauth\account\password_reset.html.py:28
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr "Por favor contacte-nos se tiver quaisquer problemas a redefinir a "
+"sua palavra-passe."
+
+#: .\allauth\templates\account\password_reset_done.html.py:15
+msgid ""
+"We have sent you an e-mail. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+"Enviámos-lhe um e-mail. Por favor contacte-nos se não o receber nos próximos "
+"minutos."
+
+#: .\allauth\templates\account\password_reset_from_key.html.py:8
+#: .\example\templates\bootstrap\allauth\account\password_reset_from_key.html.py:10
+#: .\example\templates\uniform\allauth\account\password_reset_from_key.html.py:9
+msgid "Bad Token"
+msgstr "Problema no Token"
+
+#: .\allauth\templates\account\password_reset_from_key.html.py:12
+#: .\example\templates\bootstrap\allauth\account\password_reset_from_key.html.py:14
+#: .\example\templates\uniform\allauth\account\password_reset_from_key.html.py:13
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+"O link para redefinição da palavra-passe era inválido, provávelmente por já "
+"ter sido usado. Por favor peça uma <a href=\"%(passwd_reset_url)s\">nova "
+"redefinição da palavra-passe</a>."
+
+#: .\allauth\templates\account\password_reset_from_key.html.py:18
+#: .\example\templates\bootstrap\allauth\account\password_reset_from_key.html.py:22
+#: .\example\templates\uniform\allauth\account\password_reset_from_key.html.py:21
+msgid "change password"
+msgstr "alterar a palavra-passe"
+
+#: .\allauth\templates\account\password_reset_from_key.html.py:21
+#: .\example\templates\bootstrap\allauth\account\password_reset_from_key.html.py:26
+#: .\example\templates\uniform\allauth\account\password_reset_from_key.html.py:26
+msgid "Your password is now changed."
+msgstr "A sua palavra-passe foi alterada."
+
+#: .\allauth\templates\account\password_set.html.py:5
+#: .\allauth\templates\account\password_set.html.py:8
+#: .\allauth\templates\account\password_set.html.py:13
+#: .\example\templates\bootstrap\allauth\account\password_set.html.py:6
+#: .\example\templates\bootstrap\allauth\account\password_set.html.py:14
+#: .\example\templates\uniform\allauth\account\password_set.html.py:6
+#: .\example\templates\uniform\allauth\account\password_set.html.py:9
+#: .\example\templates\uniform\allauth\account\password_set.html.py:16
+msgid "Set Password"
+msgstr "Definir palavra-passe"
+
+#: .\allauth\templates\account\signup.html.py:6
+#: .\allauth\templates\socialaccount\signup.html.py:5
+#: .\example\templates\bootstrap\allauth\account\signup.html.py:7
+#: .\example\templates\bootstrap\allauth\socialaccount\signup.html.py:6
+#: .\example\templates\uniform\allauth\account\signup.html.py:7
+#: .\example\templates\uniform\allauth\socialaccount\signup.html.py:6
+msgid "Signup"
+msgstr "Registo"
+
+#: .\allauth\templates\account\signup.html.py:9
+#: .\allauth\templates\account\signup.html.py:22
+#: .\allauth\templates\socialaccount\signup.html.py:8
+#: .\allauth\templates\socialaccount\signup.html.py:19
+#: .\example\templates\bootstrap\allauth\account\signup.html.py:10
+#: .\example\templates\bootstrap\allauth\account\signup.html.py:24
+#: .\example\templates\bootstrap\allauth\socialaccount\signup.html.py:9
+#: .\example\templates\bootstrap\allauth\socialaccount\signup.html.py:21
+#: .\example\templates\uniform\allauth\account\signup.html.py:10
+#: .\example\templates\uniform\allauth\account\signup.html.py:25
+#: .\example\templates\uniform\allauth\socialaccount\signup.html.py:9
+#: .\example\templates\uniform\allauth\socialaccount\signup.html.py:22
+msgid "Sign Up"
+msgstr "Registo"
+
+#: .\allauth\templates\account\signup.html.py:14
+#: .\example\templates\bootstrap\allauth\account\signup.html.py:15
+#: .\example\templates\uniform\allauth\account\signup.html.py:15
+#, python-format
+msgid ""
+"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr ""
+"Já tem uma conta? Por favor <a href=\"%(login_url)s\">entre</a>."
+
+#: .\allauth\templates\account\verification_sent.html.py:5
+#: .\allauth\templates\account\verification_sent.html.py:8
+#: .\allauth\templates\account\verified_email_required.html.py:6
+#: .\allauth\templates\account\verified_email_required.html.py:9
+msgid "Verify Your E-mail Address"
+msgstr "Verifique o seu endereço de e-mail"
+
+#: .\allauth\templates\account\verification_sent.html.py:10
+#, python-format
+msgid ""
+"We have sent an e-mail to <a href=\"mailto:%(email)s\">%(email)s</a> for "
+"verification. Follow the link provided to finalize the signup process. "
+"Please contact us if you do not receive it within a few minutes."
+msgstr ""
+"Enviámos um e-mail para <a href=\"mailto:%(email)s\">%(email)s</a> para "
+"verificação. Siga o link no mesmo para finalizar o registo. Por favor "
+"contacte-nos se não o receber nos próximos minutos."
+
+#: .\allauth\templates\account\verified_email_required.html.py:13
+msgid ""
+"This part of the site requires us to verify that\n"
+"you are who you claim to be. For this purpose, we require that you\n"
+"verify ownership of your e-mail address. "
+msgstr ""
+"Esta parte do site requer que verifiquemos que é quem diz que é. Para esse "
+"fim, pedimos que verifique que é dono do seu endereço de e-mail. "
+
+#: .\allauth\templates\account\verified_email_required.html.py:17
+msgid ""
+"We have sent an e-mail to you for\n"
+"verification. Please click on the link inside this e-mail. Please\n"
+"contact us if you do not receive it within a few minutes."
+msgstr ""
+"Enviámos-lhe um e-mail para verificação. Por favor clique no link dentro "
+"deste e-mail. Por favor contacte-nos se não o receber dentro dos próximos "
+"minutos."
+
+#: .\allauth\templates\account\verified_email_required.html.py:21
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
+"mail address</a>."
+msgstr ""
+"<strong>Nota:</strong> ainda pode <a href=\"%(email_url)s\">alterar o seu"
+"endereço de e-mail</a>."
+
+#: .\allauth\templates\account\email\email_confirmation_message.txt.py:1
+#, python-format
+msgid ""
+"User %(user_display)s at %(site_name)s has given this as an email address.\n"
+"\n"
+"To confirm this is correct, go to %(activate_url)s\n"
+msgstr ""
+"O utilizador %(user_display)s do %(site_name)s deu este endereço de e-mail.\n"
+"\n"
+"Para confirmar que isto é correcto, vá a %(activate_url)s\n"
+
+#: .\allauth\templates\account\email\password_reset_key_message.txt.py:1
+#, python-format
+msgid ""
+"You're receiving this e-mail because you or someone else has requested a "
+"password for your user account at %(site_domain)s.\n"
+"It can be safely ignored if you did not request a password reset. Click the "
+"link below to reset your password.\n"
+"\n"
+"%(password_reset_url)s\n"
+"\n"
+"In case you forgot, your username is %(username)s.\n"
+"\n"
+"Thanks for using our site!\n"
+msgstr ""
+"Está a receber este e-mail porque você ou outra pessoa pediu uma nova palavra-passe para a sua conta no %(site_domain)s.\n"
+"Se não pediu uma redefinição de palavra-passe, ignore este e-mail. Clique no link abaixo para redefinir a sua password.\n"
+"\n"
+"%(password_reset_url)s\n"
+"\n"
+"Caso se tenha esquecido, o seu nome de utilizador é %(username)s.\n"
+"\n"
+"Obrigado por usar o nosso site!\n"
+
+#: .\allauth\templates\account\email\password_reset_key_subject.txt.py:3
+msgid "Password Reset E-mail"
+msgstr "E-mail de Redefinição de Password"
+
+#: .\allauth\templates\account\snippets\already_logged_in.html.py:5
+msgid "Note"
+msgstr "Nota"
+
+#: .\allauth\templates\account\snippets\already_logged_in.html.py:5
+#, python-format
+msgid "you are already logged in as %(user_display)s."
+msgstr "você já entrou como %(user_display)s."
+
+#: .\allauth\templates\openid\login.html.py:10
+#: .\example\templates\uniform\allauth\openid\login.html.py:11
+msgid "OpenID Sign In"
+msgstr "Entrar com OpenID"
+
+#: .\allauth\templates\socialaccount\account_inactive.html.py:5
+#: .\allauth\templates\socialaccount\account_inactive.html.py:8
+msgid "Account Inactive"
+msgstr "Conta Desactivada"
+
+#: .\allauth\templates\socialaccount\account_inactive.html.py:10
+msgid "This account is inactive."
+msgstr "A sua conta foi desactivada."
+
+#: .\allauth\templates\socialaccount\authentication_error.html.py:5
+#: .\allauth\templates\socialaccount\authentication_error.html.py:8
+msgid "Social Network Login Failure"
+msgstr "Falha ao Entrar com Rede Social"
+
+#: .\allauth\templates\socialaccount\authentication_error.html.py:10
+msgid ""
+"An error occurred while attempting to login via your social network account."
+msgstr ""
+"Um erro foi encontrado ao tentar entrar com a sua conta de rede social."
+
+#: .\allauth\templates\socialaccount\connections.html.py:5
+#: .\allauth\templates\socialaccount\connections.html.py:8
+#: .\example\templates\uniform\allauth\socialaccount\connections.html.py:5
+#: .\example\templates\uniform\allauth\socialaccount\connections.html.py:8
+msgid "Account Connections"
+msgstr "Ligações da Conta"
+
+#: .\allauth\templates\socialaccount\connections.html.py:11
+#: .\example\templates\bootstrap\allauth\socialaccount\connections.html.py:11
+#: .\example\templates\uniform\allauth\socialaccount\connections.html.py:11
+msgid ""
+"You can sign in to your account using any of the following third party "
+"accounts:"
+msgstr ""
+"Pode entrar usando uma das seguintes contas externas:"
+
+#: .\allauth\templates\socialaccount\connections.html.py:43
+#: .\example\templates\bootstrap\allauth\socialaccount\connections.html.py:67
+msgid ""
+"You currently have no social network accounts connected to this account."
+msgstr ""
+"De momento não tem nenhuma conta de rede social ligada a esta conta."
+
+#: .\allauth\templates\socialaccount\connections.html.py:46
+#: .\example\templates\bootstrap\allauth\socialaccount\connections.html.py:71
+#: .\example\templates\uniform\allauth\socialaccount\connections.html.py:46
+msgid "Add a 3rd Party Account"
+msgstr "Adicionar uma Conta Externa"
+
+#: .\allauth\templates\socialaccount\login_cancelled.html.py:6
+#: .\allauth\templates\socialaccount\login_cancelled.html.py:10
+msgid "Login Cancelled"
+msgstr "Entrada Cancelada"
+
+#: .\allauth\templates\socialaccount\login_cancelled.html.py:14
+#, python-format
+msgid ""
+"You decided to cancel logging in to our site using one of your existing "
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
+msgstr ""
+"Você decidiu cancelar a entrada no nosso site usando uma das seguintes "
+"contas. Se isto foi um erro, <a href=\"%(login_url)s\">entre</a>."
+
+#: .\allauth\templates\socialaccount\signup.html.py:10
+#: .\example\templates\bootstrap\allauth\socialaccount\signup.html.py:11
+#: .\example\templates\uniform\allauth\socialaccount\signup.html.py:11
+#, python-format
+msgid ""
+"You are about to use your %(provider_name)s account to login to \n"
+"%(site_name)s. As a final step, please complete the following form:"
+msgstr ""
+"Está prestes a usar a sua conta no %(provider_name)s para entrar no "
+"%(site_name)s. Como um passo final, por favor complete o seguinte formulário:"
+
+#: .\example\templates\bootstrap\allauth\account\base.html.py:8
+msgid "My Account"
+msgstr "A Minha Conta"
+
+#: .\example\templates\bootstrap\allauth\account\base.html.py:20
+#: .\example\templates\bootstrap\allauth\socialaccount\connections.html.py:5
+msgid "Connected Accounts"
+msgstr "Contas Ligadas"
+
+#: .\example\templates\bootstrap\allauth\account\email.html.py:14
+#: .\example\templates\uniform\allauth\account\email.html.py:13
+msgid "The following e-mail addresses are associated to your account:"
+msgstr "Os seguintes endereços de e-mail estão associados à sua conta:"
+
+#: .\example\templates\bootstrap\allauth\account\email.html.py:26
+msgid "Status"
+msgstr "Estado"
+
+#: .\example\templates\bootstrap\allauth\socialaccount\connections.html.py:31
+msgid "Provider"
+msgstr "Provedor"
+
+#: .\example\templates\bootstrap\allauth\socialaccount\connections.html.py:67
+msgid "None!"
+msgstr "Nenhuma!"

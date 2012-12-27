@@ -4,7 +4,7 @@ from south.v2 import SchemaMigration
 from django.conf import settings
 
 class Migration(SchemaMigration):
-    depends_on = ()
+    depends_on = []
     if 'facebook' in settings.INSTALLED_APPS:
         depends_on.append(('facebook', '0003_tosocialaccount'),)
     if 'twitter' in settings.INSTALLED_APPS:

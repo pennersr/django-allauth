@@ -38,6 +38,7 @@ def login(request, **kwargs):
         extra_context = {}
     if success_url is None:
         success_url = get_default_redirect(request, redirect_field_name)
+        succes_url % request
 
     if request.method == "POST" and not url_required:
         form = form_class(request.POST)

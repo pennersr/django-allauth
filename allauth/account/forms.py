@@ -126,7 +126,7 @@ class LoginForm(forms.Form):
         return self.cleaned_data
     
     def login(self, request, redirect_url=None):
-        ret = perform_login(request, self.user, redirect_url=redirect_url)
+        ret = perform_login(request, self.user, redirect_url=redirect_url % self.user.username)
         if self.cleaned_data["remember"]:
             request.session.set_expiry(60 * 60 * 24 * 7 * 3)
         else:

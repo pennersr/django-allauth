@@ -42,8 +42,7 @@ def login(request, **kwargs):
     if request.method == "POST" and not url_required:
         form = form_class(request.POST)
         if form.is_valid():
-            return form.login(request, 
-                              redirect_url=success_url % form.cleaned_data)
+            return form.login(request, redirect_url=success_url)
     else:
         form = form_class()
 

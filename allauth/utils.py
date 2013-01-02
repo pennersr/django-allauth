@@ -23,7 +23,7 @@ def get_login_redirect_url(request,
         from account.adapter import get_adapter
         fallback = get_adapter().get_login_redirect_url(request)
     url = request.REQUEST.get(REDIRECT_FIELD_NAME) or fallback
-    return url
+    return url % request
 
 
 def passthrough_login_redirect_url(request, url):

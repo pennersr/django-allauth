@@ -5,7 +5,12 @@
 {% block head_title %}{% trans "Social Network Login Failure" %}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Social Network Login Failure" %}</h1>
-
-<p>{% trans "An error occurred while attempting to login via your social network account." %}</p>
+	<h1>{% trans "Social Network Login Failure" %}</h1>
+	
+	<p>{% trans "An error occurred while attempting to login via your social network account." %}</p>
 {% endblock %}
+{% if error.template and error.substitute_dict %}
+	{% block extra_body %}
+		{% include error.template with the_error=error %}
+	{% endblock %}
+{% endif %}

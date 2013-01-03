@@ -12,6 +12,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.models import Site
 
 from models import EmailAddress
+from allauth.models import BannedUsername
 
 # from models import PasswordReset
 from utils import perform_login, send_email_confirmation, setup_user_email
@@ -196,10 +197,12 @@ class BaseSignupForm(_base_signup_form_class()):
                                           "letters, digits and @/./+/-/_."))
         try:
             User.objects.get(username__iexact=value)
+            raise forms.ValidationError(_("This username is already taken. Please "
+                                          "choose another."))
         except User.DoesNotExist:
-            return value
-        raise forms.ValidationError(_("This username is already taken. Please "
-                                      "choose another."))
+            pass
+        if any(banned_username.match(value) for banned_username in BannedUsername.objects.all()):
+            raise forms.ValidationError(_("This username is disallowed. Please choose another."))
     
     def clean_email(self):
         value = self.cleaned_data["email"]

@@ -12,6 +12,8 @@ from allauth.account.utils import send_email_confirmation, \
     perform_login, complete_signup
 from allauth.account import app_settings as account_settings
 
+from allauth.models import BannedUsername
+
 from models import SocialLogin
 import app_settings
 import signals
@@ -42,6 +44,8 @@ def _process_signup(request, sociallogin):
         elif account_settings.EMAIL_REQUIRED:
             # Nope, email is required and we don't have it yet...
             auto_signup = False
+    if any(banned_username.match(sociallogin.account.user.username) for banned_username in BannedUsername.objects.all()):
+        auto_signup = False
     if not auto_signup:
         request.session['socialaccount_sociallogin'] = sociallogin
         url = reverse('socialaccount_signup')
@@ -50,6 +54,7 @@ def _process_signup(request, sociallogin):
         # FIXME: There is some duplication of logic inhere
         # (create user, send email, in active etc..)
         u = sociallogin.account.user
+
         u.username = generate_unique_username(u.username
                                               or email 
                                               or 'user')

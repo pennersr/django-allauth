@@ -2,6 +2,8 @@
 
 import requests
 from django.test import TestCase
+from django.core.exceptions import ValidationError
+from models import BannedUsername
 
 import utils
 
@@ -54,3 +56,26 @@ class BasicTests(TestCase):
         s = 'x' + s
         self.assertEquals(None, utils.valid_email_or_none(s))
         self.assertEquals(None, utils.valid_email_or_none("Bad ?"))
+
+    def test_creating_and_saving_bannedusernames(self):
+        banned_username = BannedUsername()
+        banned_username.expression = 'account'
+        banned_username.save()
+
+        # Retrieve it
+        all_bu = BannedUsername.objects.all()
+        self.assertEquals(len(all_bu), 1)
+        only_bu = all_bu[0]
+        self.assertEquals(only_bu, banned_username)
+
+        # Check if the fields are the same
+        self.assertEquals(banned_username.expression, only_bu.expression)
+
+    def test_bannedusername_validation(self):
+        bad_bu = BannedUsername()
+        bad_bu.expression = '('
+        try:
+            bad_bu.full_clean()
+            self.fail('Validation not working')
+        except ValidationError:
+            pass

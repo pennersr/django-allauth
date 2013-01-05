@@ -75,15 +75,16 @@ class FacebookProvider(OAuth2Provider):
         locale = self.get_locale_for_request(request)
         try:
             app = self.get_app(request)
-        except SocialApp.DoesNotExist:
-            raise ImproperlyConfigured("No Facebook app configured: please"
-                                       " add a SocialApp using the Django"
-                                       " admin")
-        ctx =  {'facebook_app': app,
+            ctx =  {'facebook_app': app,
                 'facebook_channel_url':
                 request.build_absolute_uri(reverse('facebook_channel')),
                 'facebook_perms': perms,
                 'facebook_jssdk_locale': locale}
+        except SocialApp.DoesNotExist:
+#            raise ImproperlyConfigured("No Facebook app configured: please"
+#                                       " add a SocialApp using the Django"
+#                                       " admin")
+            ctx = {}
         return render_to_string('facebook/fbconnect.html',
                                 ctx,
                                 RequestContext(request))

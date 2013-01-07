@@ -1,5 +1,6 @@
 import requests
 
+from allauth.account.models import EmailAddress
 from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
                                                           OAuth2CallbackView)
@@ -37,11 +38,17 @@ class GoogleOAuth2Adapter(OAuth2Adapter):
         user = User(email=extra_data.get('email', ''),
                     last_name=extra_data.get('family_name', ''),
                     first_name=extra_data.get('given_name', ''))
+        email_addresses = []
+        if user.email and extra_data.get('verified_email'):
+            email_addresses.append(EmailAddress(email=user.email,
+                                                verified=True,
+                                                primary=True))
         account = SocialAccount(extra_data=extra_data,
                                 uid=uid,
                                 provider=self.provider_id,
                                 user=user)
-        return SocialLogin(account)
+        return SocialLogin(account,
+                           email_addresses=email_addresses)
 
 oauth2_login = OAuth2LoginView.adapter_view(GoogleOAuth2Adapter)
 oauth2_callback = OAuth2CallbackView.adapter_view(GoogleOAuth2Adapter)

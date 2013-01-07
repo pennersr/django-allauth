@@ -18,15 +18,6 @@ mocked_oauth_responses = {
     'github': MockedResponse(200, """
 {"type":"User","organizations_url":"https://api.github.com/users/pennersr/orgs","gists_url":"https://api.github.com/users/pennersr/gists{/gist_id}","received_events_url":"https://api.github.com/users/pennersr/received_events","gravatar_id":"8639768262b8484f6a3380f8db2efa5b","followers":16,"blog":"http://www.intenct.info","avatar_url":"https://secure.gravatar.com/avatar/8639768262b8484f6a3380f8db2efa5b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png","login":"pennersr","created_at":"2010-02-10T12:50:51Z","company":"IntenCT","subscriptions_url":"https://api.github.com/users/pennersr/subscriptions","public_repos":14,"hireable":false,"url":"https://api.github.com/users/pennersr","public_gists":0,"starred_url":"https://api.github.com/users/pennersr/starred{/owner}{/repo}","html_url":"https://github.com/pennersr","location":"The Netherlands","bio":null,"name":"Raymond Penners","repos_url":"https://api.github.com/users/pennersr/repos","followers_url":"https://api.github.com/users/pennersr/followers","id":201022,"following":0,"email":"raymond.penners@intenct.nl","events_url":"https://api.github.com/users/pennersr/events{/privacy}","following_url":"https://api.github.com/users/pennersr/following"}
 """),
-    'google': MockedResponse(200, """
-{"family_name": "Penners", "name": "Raymond Penners", 
-               "picture": "https://lh5.googleusercontent.com/-GOFYGBVOdBQ/AAAAAAAAAAI/AAAAAAAAAGM/WzRfPkv4xbo/photo.jpg", 
-               "locale": "nl", "gender": "male", 
-               "email": "raymond.penners@gmail.com", 
-               "link": "https://plus.google.com/108204268033311374519", 
-               "given_name": "Raymond", "id": "108204268033311374519", 
-                "verified_email": true}
-"""),
     'facebook': MockedResponse(200, """
 {
    "id": "630595557",
@@ -69,17 +60,21 @@ def create_oauth2_tests(provider):
 
     @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=False)
     def test_login(self):
+        resp_mock = mocked_oauth_responses.get(self.provider.id)
+        if not resp_mock:
+            warnings.warn("Cannot test provider %s, no oauth mock" 
+                          % self.provider.id)
+            return
+        resp = self.login(resp_mock)
+        self.assertRedirects(resp, reverse('socialaccount_signup'))
+
+    def login(self, resp_mock):
         resp = self.client.get(reverse(self.provider.id + '_login'))
         p = urlparse.urlparse(resp['location'])
         q = urlparse.parse_qs(p.query)
         complete_url = reverse(self.provider.id+'_callback')
         self.assertGreater(q['redirect_uri'][0]
                            .find(complete_url), 0)
-        resp_mock = mocked_oauth_responses.get(self.provider.id)
-        if not resp_mock:
-            warnings.warn("Cannot test provider %s, no oauth mock" 
-                          % self.provider.id)
-            return
         with mocked_response(MockedResponse(200,
                                             '{"access_token":"testac"}',
                                             {'content-type': 
@@ -87,17 +82,23 @@ def create_oauth2_tests(provider):
                              resp_mock):
             resp = self.client.get(complete_url,
                                    { 'code': 'test' })
-            self.assertRedirects(resp, reverse('socialaccount_signup'))
+        return resp
+
+
 
     
     impl = { 'setUp': setUp,
+             'login': login,
              'test_login': test_login }
     class_name = 'OAuth2Tests_'+provider.id
     Class = type(class_name, (TestCase,), impl)
-    globals()[class_name] = Class
     Class.provider = provider
+    return Class
 
+# FIXME: Move tests to provider specific app (as has been done for Google)
 for provider in providers.registry.get_list():
     if isinstance(provider,OAuth2Provider):
-        create_oauth2_tests(provider)
+        if provider.id != 'google':
+            Class = create_oauth2_tests(provider)
+            globals()[Class.__name__] = Class
 

@@ -21,7 +21,7 @@ User = get_user_model()
 def fb_complete_login(app, token):
     resp = requests.get('https://graph.facebook.com/me',
                         params={ 'access_token': token.token })
-    extra_data = resp.json()
+    extra_data = resp.json
     email = valid_email_or_none(extra_data.get('email'))
     uid = extra_data['id']
     user = User(email=email)

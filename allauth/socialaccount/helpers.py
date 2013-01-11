@@ -11,10 +11,12 @@ from allauth.utils import (generate_unique_username, email_address_exists,
 from allauth.account.utils import send_email_confirmation, \
     perform_login, complete_signup
 from allauth.account import app_settings as account_settings
+from allauth.exceptions import ImmediateHttpResponse
 
 from models import SocialLogin
 import app_settings
 import signals
+from adapter import get_adapter
 
 User = get_user_model()
 
@@ -87,9 +89,13 @@ def render_authentication_error(request, extra_context={}):
 def complete_social_login(request, sociallogin):
     assert not sociallogin.is_existing
     sociallogin.lookup()
-    signals.pre_social_login.send(sender=SocialLogin,
-                                  request=request, 
-                                  sociallogin=sociallogin)
+    try:
+        get_adapter().pre_social_login(request, sociallogin)
+        signals.pre_social_login.send(sender=SocialLogin,
+                                      request=request, 
+                                      sociallogin=sociallogin)
+    except ImmediateHttpResponse, e:
+        return e.response
     if request.user.is_authenticated():
         if sociallogin.is_existing:
             # Existing social account, existing user

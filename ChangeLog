@@ -1,3 +1,8 @@
+2013-01-11  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* socialaccount: Added SocialAccountAdapter hook to allow for
+	intervention in social logins.
+
 2013-01-07  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* google: support for Google's `verified_email` flag to determine

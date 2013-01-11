@@ -46,6 +46,11 @@ class AppSettings(object):
         """
         return self._setting("PROVIDERS", {})
 
+    @property
+    def ADAPTER(self):
+        return self._setting \
+            ('ADAPTER', 
+             'allauth.socialaccount.adapter.DefaultSocialAccountAdapter')
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

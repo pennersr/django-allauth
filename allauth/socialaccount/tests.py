@@ -9,8 +9,6 @@ from django.test.utils import override_settings
 import providers
 from allauth.tests import MockedResponse, mocked_response
 
-from providers.oauth2.provider import OAuth2Provider
-
 from models import SocialApp
 
 def create_oauth2_tests(provider):

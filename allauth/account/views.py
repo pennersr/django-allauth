@@ -94,10 +94,10 @@ class ConfirmEmailView(TemplateResponseMixin, View):
     }
     
     def get_template_names(self):
-        return {
-            "GET": ["account/email_confirm.html"],
-            "POST": ["account/email_confirmed.html"],
-        }[self.request.method]
+        if self.request.method == 'POST':
+            return ["account/email_confirmed.html"]
+        else:
+            return [ "account/email_confirm.html" ]
     
     def get(self, *args, **kwargs):
         try:

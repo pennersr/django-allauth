@@ -1,0 +1,631 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# , 2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-01-11 21:53+0200\n"
+"PO-Revision-Date: 2013-01-11 23:58+0200\n"
+"Last-Translator: \n"
+"Language-Team: American English <kde-i18n-doc@kde.org>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"X-Generator: Lokalize 1.4\n"
+
+#: account/forms.py:35 account/forms.py:51 account/forms.py:236
+#: account/forms.py:352
+msgid "Password"
+msgstr "Parola"
+
+#: account/forms.py:44
+msgid "Password must be a minimum of {0} characters."
+msgstr "Parola en az {0} karakter olmalıdır."
+
+#: account/forms.py:53
+msgid "Remember Me"
+msgstr "Beni Hatırla"
+
+#: account/forms.py:64
+msgid "E-mail address"
+msgstr "E-posta adresi"
+
+#: account/forms.py:65 account/forms.py:184 account/forms.py:302
+#: account/forms.py:369
+msgid "E-mail"
+msgstr "E-posta"
+
+#: account/forms.py:70 account/forms.py:71 account/forms.py:170
+msgid "Username"
+msgstr "Kullanıcı adı"
+
+#: account/forms.py:78
+msgid "Username or e-mail"
+msgstr "Kullanıcı adı ya da e-posta"
+
+#: account/forms.py:79
+msgid "Login"
+msgstr "Giriş Yap"
+
+#: account/forms.py:112
+msgid "This account is currently inactive."
+msgstr "Bu hesap şu anda etkin değil."
+
+#: account/forms.py:116
+msgid "The e-mail address and/or password you specified are not correct."
+msgstr "Girdiğiniz e-posta adresi ve/veya parola doğru değil."
+
+#: account/forms.py:120
+msgid "The username and/or password you specified are not correct."
+msgstr "Girdiğiniz kullanıcı adı ve/veya parola doğru değil."
+
+#: account/forms.py:123
+msgid "The login and/or password you specified are not correct."
+msgstr "Girdiğiniz giriş bilgisi ve/veya parola doğru değil."
+
+#: account/forms.py:187
+msgid "E-mail (optional)"
+msgstr "E-posta (zorunlu değil)"
+
+#: account/forms.py:195
+msgid "Usernames can only contain letters, digits and @/./+/-/_."
+msgstr "Kullanıcı adları sadece harf, rakam ve @/./+/-/_ içerebilir."
+
+#: account/forms.py:201
+msgid "This username is already taken. Please choose another."
+msgstr "Bu kullanıcı adı alınmış durumda. Lütfen başka bir tane deneyiniz."
+
+#: account/forms.py:209
+msgid "A user is already registered with this e-mail address."
+msgstr "Bu e-posta adresiyle bir kullanıcı zaten kayıtlı."
+
+#: account/forms.py:237 account/forms.py:353
+msgid "Password (again)"
+msgstr "Parola (tekrar)"
+
+#: account/forms.py:265 account/forms.py:342 account/forms.py:358
+#: account/forms.py:426
+msgid "You must type the same password each time."
+msgstr "Her seferinde aynı parolayı girmelisiniz."
+
+#: account/forms.py:310
+msgid "This e-mail address is already associated with this account."
+msgstr "Bu e-post adresi zaten bu hesap ile ilişkilendirilmiş."
+
+#: account/forms.py:311
+msgid "This e-mail address is already associated with another account."
+msgstr "Bu e-post adresi başka bir hesap ile ilişkilendirilmiş."
+
+#: account/forms.py:330
+msgid "Current Password"
+msgstr "Mevcut Parola"
+
+#: account/forms.py:331 account/forms.py:414
+msgid "New Password"
+msgstr "Yeni Parola"
+
+#: account/forms.py:332 account/forms.py:415
+msgid "New Password (again)"
+msgstr "Yeni Parola (tekrar)"
+
+#: account/forms.py:336
+msgid "Please type your current password."
+msgstr "Mevcut parolanızı tekrar yazın."
+
+#: account/forms.py:379
+msgid "The e-mail address is not assigned to any user account"
+msgstr "Bu e-posta adresi hiçbir kullanıcı hesabıyla ilişkili değil"
+
+#: account/models.py:28
+msgid "email address"
+msgstr "e-posta adresi"
+
+#: account/models.py:29
+msgid "email addresses"
+msgstr "e-posta adresleri"
+
+#: account/models.py:78
+msgid "email confirmation"
+msgstr "e-posta onayı"
+
+#: account/models.py:79
+msgid "email confirmations"
+msgstr "e-posta onayları"
+
+#: account/utils.py:104
+#, python-format
+msgid "Successfully signed in as %(user)s."
+msgstr "%(user)s olarak başarıyla giriş yapıldı."
+
+#: account/utils.py:176 account/views.py:167 account/views.py:186
+#, python-format
+msgid "Confirmation e-mail sent to %(email)s"
+msgstr "Onay e-postası %(email)s adresine gönderildi."
+
+#: account/views.py:92
+#, python-format
+msgid "You have confirmed %(email)s."
+msgstr "%(email)s adresini onayladınız."
+
+#: account/views.py:204
+#, python-format
+msgid "You cannot remove your primary e-mail address (%(email)s)"
+msgstr "Birincil e-posta adresinizi (%(email)s) kaldıramazsınız"
+
+#: account/views.py:210
+#, python-format
+msgid "Removed e-mail address %(email)s"
+msgstr "E-posta adresi %(email)s kaldırıldı"
+
+#: account/views.py:236
+msgid "Your primary e-mail address must be verified"
+msgstr "Birincil e-posta adresiniz doğrulanmalı."
+
+#: account/views.py:248
+msgid "Primary e-mail address set"
+msgstr "Birincil e-posta adresi ayarlandı"
+
+#: account/views.py:277 account/views.py:354
+msgid "Password successfully changed."
+msgstr "Parola başarıyla değiştirildi."
+
+#: account/views.py:302
+msgid "Password successfully set."
+msgstr "Parola başarıyla ayarlandı."
+
+#: account/views.py:370 templates/account/logout.html:10
+msgid "You have signed out."
+msgstr "Çıkış yaptınız."
+
+#: socialaccount/forms.py:47
+msgid "Your account has no password set up."
+msgstr "Hesabınız için parola belirlemediniz."
+
+#: socialaccount/forms.py:51
+msgid "Your account has no verified e-mail address."
+msgstr "Hesabınızın doğrulanmış e-posta adresi yok."
+
+#: socialaccount/helpers.py:120
+msgid "The social account has been connected"
+msgstr "Sosyal Hesap bağlandı"
+
+#: socialaccount/views.py:54
+msgid "The social account has been disconnected"
+msgstr "Sosyal hesap bağlantısı kaldırıldı"
+
+#: socialaccount/providers/oauth/client.py:84
+#, python-format
+msgid "Invalid response while obtaining request token from \"%s\"."
+msgstr "\"%s\"'dan talep kodu alınırken geçersiz cevap alındı."
+
+#: socialaccount/providers/oauth/client.py:107
+#, python-format
+msgid "Invalid response while obtaining access token from \"%s\"."
+msgstr "\"%s\"'dan erişim kodu alınırken geçersiz cevap alındı."
+
+#: socialaccount/providers/oauth/client.py:120
+#, python-format
+msgid "No request token saved for \"%s\"."
+msgstr "\"%s\" için hiçbir talep kodu kaydedilmedi."
+
+#: socialaccount/providers/oauth/client.py:168
+#, python-format
+msgid "No access token saved for \"%s\"."
+msgstr "\"%s\" için hiçbir erişim kodu kaydedilmedi."
+
+#: socialaccount/providers/oauth/client.py:188
+#, python-format
+msgid "No access to private resources at \"%s\"."
+msgstr "\"%s\"'daki özel kaynaklara erişim yok."
+
+#: templates/account/email.html:6
+msgid "Account"
+msgstr "Hesap"
+
+#: templates/account/email.html:9
+msgid "E-mail Addresses"
+msgstr "E-posta Adresleri"
+
+#: templates/account/email.html:11
+msgid "The following e-mail addresses are associated with your account:"
+msgstr "Şu e-posta adresleri hesabınızla ilişkilendirildi:"
+
+#: templates/account/email.html:25
+msgid "Verified"
+msgstr "Doğrulanmış"
+
+#: templates/account/email.html:27
+msgid "Unverified"
+msgstr "Doğrulanmamış"
+
+#: templates/account/email.html:29
+msgid "Primary"
+msgstr "Birincil"
+
+#: templates/account/email.html:35
+msgid "Make Primary"
+msgstr "Birincil Yap"
+
+#: templates/account/email.html:36
+msgid "Re-send Verification"
+msgstr "Tekrar Doğrula"
+
+#: templates/account/email.html:37 templates/socialaccount/connections.html:35
+msgid "Remove"
+msgstr "Kaldır"
+
+#: templates/account/email.html:44
+msgid "Warning:"
+msgstr "Uyarı:"
+
+#: templates/account/email.html:44
+msgid ""
+"You currently do not have any e-mail address set up. You should really add "
+"an e-mail address so you can receive notifications, reset your password, etc."
+msgstr ""
+"Şu anda kayıtlı hiçbir e-posta adresiniz yok. Bildirim alabilmek, parolanızı "
+"sıfırlayabilmek, vs. işler için e-posta adresinizi mutlaka eklemelisiniz."
+
+#: templates/account/email.html:49
+msgid "Add E-mail Address"
+msgstr "E-posta Adresi Ekle"
+
+#: templates/account/email.html:54
+msgid "Add E-mail"
+msgstr "E-posta Ekle"
+
+#: templates/account/email.html:64
+msgid "Do you really want to remove the selected e-mail address?"
+msgstr "Seçilen e-posta adresini kaldırmak istediğinizden emin misiniz?"
+
+#: templates/account/email_confirm.html:7
+#: templates/account/email_confirm.html:11
+#: templates/account/email_confirmed.html:6
+#: templates/account/email_confirmed.html:11
+#: templates/account/email/email_confirmation_subject.txt:3
+msgid "Confirm E-mail Address"
+msgstr "E-posta Adresi Doğrula"
+
+#: templates/account/email_confirm.html:17
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
+msgstr ""
+"Lütfen <a href=\"mailto:%(email)s\">%(email)s</a> adresinin %(user_display)s "
+"kullanıcısına ait olduğunu onaylayın."
+
+#: templates/account/email_confirm.html:21
+msgid "Confirm"
+msgstr "Onayla"
+
+#: templates/account/email_confirm.html:28
+#, python-format
+msgid ""
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+msgstr ""
+"Bu onaylama bağlantısının süresi geçmiş ya da bağlantı geçersiz. Lütfen <a "
+"href=\"%(email_url)s\">yeni bir e-posta doğrulama talebinde bulunun.</a>."
+
+#: templates/account/email_confirmed.html:15
+#, python-format
+msgid ""
+"You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
+"mail address for user %(user_display)s."
+msgstr ""
+"<a href=\"mailto:%(email)s\">%(email)s</a> adresinin %(user_display)s "
+"kullanıcısına ait olduğunu onayladınız."
+
+#: templates/account/login.html:7 templates/account/login.html.py:12
+#: templates/account/login.html:44
+msgid "Sign In"
+msgstr "Giriş Yap"
+
+#: templates/account/login.html:17
+#, python-format
+msgid ""
+"Please sign in with one\n"
+"of your existing third party accounts. Or, <a \n"
+"href=\"%(signup_url)s\">sign up</a> for a %(site_name)s account and sign in\n"
+"below:"
+msgstr ""
+"Lütfen mevcut üçüncü parti hesaplarınızdan birisiyle giriş yapın. Ya da, %"
+"(site_name)s hesabı için <a \n"
+"href=\"%(signup_url)s\">üye olun</a> ve giriş yapın:"
+
+#: templates/account/login.html:28
+msgid "or"
+msgstr "ya da"
+
+#: templates/account/login.html:43
+msgid "Forgot Password?"
+msgstr "Parolanızı mı unuttunuz?"
+
+#: templates/account/logout.html:5 templates/account/logout.html.py:8
+msgid "Signed Out"
+msgstr "Çıkış Yaptınız"
+
+#: templates/account/password_change.html:4
+#: templates/account/password_change.html:7
+#: templates/account/password_change.html:12
+#: templates/account/password_reset_from_key.html:5
+#: templates/account/password_reset_from_key.html:8
+msgid "Change Password"
+msgstr "Parola Değiştir"
+
+#: templates/account/password_delete.html:5
+#: templates/account/password_delete.html:8
+msgid "Delete Password"
+msgstr "Parola Sil"
+
+#: templates/account/password_delete.html:9
+msgid ""
+"You may delete your password since you are currently logged in using OpenID."
+msgstr ""
+"Şu anda OpenID ile giriş yaptığınız için dilerseniz parolanızı silebilirsiniz."
+
+#: templates/account/password_delete.html:12
+msgid "delete my password"
+msgstr "parolamı sil"
+
+#: templates/account/password_delete_done.html:5
+#: templates/account/password_delete_done.html:8
+msgid "Password Deleted"
+msgstr "Parola Silindi"
+
+#: templates/account/password_delete_done.html:9
+msgid "Your password has been deleted."
+msgstr "Parolanız silindi."
+
+#: templates/account/password_reset.html:6
+#: templates/account/password_reset.html:10
+#: templates/account/password_reset_done.html:6
+#: templates/account/password_reset_done.html:9
+msgid "Password Reset"
+msgstr "Parola Sıfırlama"
+
+#: templates/account/password_reset.html:15
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
+msgstr ""
+"Parolanızı mı unuttunuz? E-posta adresinizi aşağıya yazın, size parolanızı "
+"sıfırlamanıza imkan veren e-postayı göndereceğiz."
+
+#: templates/account/password_reset.html:20
+msgid "Reset My Password"
+msgstr "Parolamı Sıfırla"
+
+#: templates/account/password_reset.html:23
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr ""
+"Parolanızı sıfırlarken herhangi bir sorunla karşılaşırsanız lütfen bize "
+"ulaşın."
+
+#: templates/account/password_reset_done.html:15
+msgid ""
+"We have sent you an e-mail. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+"Size bir e-posta gönderdik. Birkaç dakika içerisinde size ulaşmazsa lütfen "
+"bize ulaşın."
+
+#: templates/account/password_reset_from_key.html:8
+msgid "Bad Token"
+msgstr "Kötü kod"
+
+#: templates/account/password_reset_from_key.html:12
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+"Parola sıfırlama bağlantısı gerçersiz, muhtemelen daha önce kullanıldığı "
+"için. Lütfen <a href=\"%(passwd_reset_url)s\">yeni parola sıfırlama</a> "
+"talebinde bulunun."
+
+#: templates/account/password_reset_from_key.html:18
+msgid "change password"
+msgstr "parola değiştir"
+
+#: templates/account/password_reset_from_key.html:21
+msgid "Your password is now changed."
+msgstr "Parolanız değişti."
+
+#: templates/account/password_set.html:5 templates/account/password_set.html:8
+#: templates/account/password_set.html:13
+msgid "Set Password"
+msgstr "Parola Belirle"
+
+#: templates/account/signup.html:6 templates/socialaccount/signup.html:5
+msgid "Signup"
+msgstr "Üye Ol"
+
+#: templates/account/signup.html:9 templates/account/signup.html.py:22
+#: templates/socialaccount/signup.html:8
+#: templates/socialaccount/signup.html:19
+msgid "Sign Up"
+msgstr "Üye Ol"
+
+#: templates/account/signup.html:14
+#, python-format
+msgid ""
+"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr ""
+"Zaten hesabınız var mı? O zaman lütfen <a href=\"%(login_url)s\">giriş yapın<"
+"/a>."
+
+#: templates/account/verification_sent.html:5
+#: templates/account/verification_sent.html:8
+#: templates/account/verified_email_required.html:6
+#: templates/account/verified_email_required.html:9
+msgid "Verify Your E-mail Address"
+msgstr "E-posta Adresinizi Doğrulayın"
+
+#: templates/account/verification_sent.html:10
+#, python-format
+msgid ""
+"We have sent an e-mail to <a href=\"mailto:%(email)s\">%(email)s</a> for "
+"verification. Follow the link provided to finalize the signup process. "
+"Please contact us if you do not receive it within a few minutes."
+msgstr ""
+"<a href=\"mailto:%(email)s\">%(email)s</a> adresinize doğrulama amaçlı "
+"e-posta gönderdik. Üyelik sürecini tamamlamak için sunulan bağlantıyı takip "
+"edin. Eğer e-posta birkaç dakika içinde size ulaşmazsa lütfen bize ulaşın."
+
+#: templates/account/verified_email_required.html:13
+msgid ""
+"This part of the site requires us to verify that\n"
+"you are who you claim to be. For this purpose, we require that you\n"
+"verify ownership of your e-mail address. "
+msgstr ""
+"Sitenin bu kısmı kim olduğunuzu doğrulamanızı\n"
+"gerektirmektedir. Bu sebeple, girdiğiniz e-posta adresinize sahip\n"
+"olduğunuzu doğrulamanızı rica ediyoruz. "
+
+#: templates/account/verified_email_required.html:17
+msgid ""
+"We have sent an e-mail to you for\n"
+"verification. Please click on the link inside this e-mail. Please\n"
+"contact us if you do not receive it within a few minutes."
+msgstr ""
+"Doğrulama için size bir e-posta gönderdik.\n"
+"Lütfen e-postadaki bağlantıya tıklayın. Eğer birkaç dakika içinde\n"
+"bu e-postayı almazsanız bize ulaşın."
+
+#: templates/account/verified_email_required.html:21
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
+"mail address</a>."
+msgstr ""
+"<strong>Not:</strong> hala <a href=\"%(email_url)s\">e-posta adresinizi "
+"değiştirebilirsiniz</a>."
+
+#: templates/account/email/email_confirmation_message.txt:1
+#, python-format
+msgid ""
+"User %(user_display)s at %(site_name)s has given this as an email address.\n"
+"\n"
+"To confirm this is correct, go to %(activate_url)s\n"
+msgstr ""
+"%(site_name)s sitesinde %(user_display)s, bunu e-posta adresi olarak verdi.\n"
+"\n"
+"Doğruluğunu onaylamak için %(activate_url)s adresine gidin\n"
+
+#: templates/account/email/password_reset_key_message.txt:1
+#, python-format
+msgid ""
+"You're receiving this e-mail because you or someone else has requested a "
+"password for your user account at %(site_domain)s.\n"
+"It can be safely ignored if you did not request a password reset. Click the "
+"link below to reset your password.\n"
+"\n"
+"%(password_reset_url)s\n"
+"\n"
+"In case you forgot, your username is %(username)s.\n"
+"\n"
+"Thanks for using our site!\n"
+msgstr ""
+"Bu e-postayı alıyorsunuz çünkü siz veya bir başkası %(site_domain)s "
+"sitesindeki "
+"hesabınız için parola sıfırlama talebinde bulundu.\n"
+"Eğer böyle bir talepte bulunmadıysanız bu e-postayı gözardı edebilirsiniz. "
+"Bulunduysanız "
+"aşağıdaki bağlantıya tıklayarak parolanızı sıfırlayabilirsiniz.\n"
+"\n"
+"%(password_reset_url)s\n"
+"\n"
+"Kullanıcı adınızı unuttuysanız, kullanıcı adınız: %(username)s.\n"
+"\n"
+"Sitemizi kullandığınız için teşekkür ederiz!\n"
+
+#: templates/account/email/password_reset_key_subject.txt:3
+msgid "Password Reset E-mail"
+msgstr "Parola Sıfırlama E-postası"
+
+#: templates/account/snippets/already_logged_in.html:5
+msgid "Note"
+msgstr "Not"
+
+#: templates/account/snippets/already_logged_in.html:5
+#, python-format
+msgid "you are already logged in as %(user_display)s."
+msgstr "zaten %(user_display)s olarak giriş yaptınız."
+
+#: templates/openid/login.html:10
+msgid "OpenID Sign In"
+msgstr "OpenID Girişi"
+
+#: templates/socialaccount/account_inactive.html:5
+#: templates/socialaccount/account_inactive.html:8
+msgid "Account Inactive"
+msgstr "Hesap Etkin Değil"
+
+#: templates/socialaccount/account_inactive.html:10
+msgid "This account is inactive."
+msgstr "Bu hesap etkin değil."
+
+#: templates/socialaccount/authentication_error.html:5
+#: templates/socialaccount/authentication_error.html:8
+msgid "Social Network Login Failure"
+msgstr "Sosyal Ağ Girişi Başarısız"
+
+#: templates/socialaccount/authentication_error.html:10
+msgid ""
+"An error occurred while attempting to login via your social network account."
+msgstr "Sosyal ağ hesabınız ile giriş yapılırken bir hata oluştu."
+
+#: templates/socialaccount/connections.html:5
+#: templates/socialaccount/connections.html:8
+msgid "Account Connections"
+msgstr "Hesap Bağlantıları"
+
+#: templates/socialaccount/connections.html:11
+msgid ""
+"You can sign in to your account using any of the following third party "
+"accounts:"
+msgstr ""
+"Hesabınıza aşağıdaki üçüncü parti hesaplar aracılığıyla giriş yapabilirsiniz."
+
+#: templates/socialaccount/connections.html:43
+msgid ""
+"You currently have no social network accounts connected to this account."
+msgstr "Hesabınızla bağlantılı hiçbir sosyal ağ hesabınız yok."
+
+#: templates/socialaccount/connections.html:46
+msgid "Add a 3rd Party Account"
+msgstr "3. Parti Hesap ekle"
+
+#: templates/socialaccount/login_cancelled.html:6
+#: templates/socialaccount/login_cancelled.html:10
+msgid "Login Cancelled"
+msgstr "Giriş İptal Edildi"
+
+#: templates/socialaccount/login_cancelled.html:14
+#, python-format
+msgid ""
+"You decided to cancel logging in to our site using one of your existing "
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
+msgstr ""
+"Mevcut hesaplarınızdan birisiyle sitemize girişinizi iptal etmeye karar "
+"verdiniz. Eğer bu yanlışlıkla olduysa, lütfen devam edin: <a href=\"%"
+"(login_url)s"
+"\">giriş yapın</a>."
+
+#: templates/socialaccount/signup.html:10
+#, python-format
+msgid ""
+"You are about to use your %(provider_name)s account to login to \n"
+"%(site_name)s. As a final step, please complete the following form:"
+msgstr ""
+"%(site_name)s sitesine giriş yapmak için %(provider_name)s hesabınızı "
+"kullanmak üzeresiniz. Son bir adım olarak, lütfen şu formu doldurun:"
+

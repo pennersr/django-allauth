@@ -446,7 +446,7 @@ internationalization/>`_ as a string::
 
     SOCIALACCOUNT_PROVIDERS = \
         { 'facebook':
-            { 'LOCALE_FUNC': lambda request: return 'zh_CN'} }
+            { 'LOCALE_FUNC': lambda request: 'zh_CN'} }
 
 Google
 ------

@@ -672,6 +672,7 @@ The behavior is as follows:
 Showcase
 ========
 
+- http://www.highlightcam.com/
 - http://officecheese.com
 - http://www.mycareerstack.com
 - http://jug.gl

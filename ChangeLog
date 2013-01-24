@@ -1,5 +1,7 @@
 2013-01-24  Raymond Penners  <raymond.penners@intenct.nl>
 
+	* account: Added `email_removed` signal.
+
 	* socialaccount: Populating of User model fields is now
 	centralized in the adapter, splitting up `name` into `first_name`
 	and `last_name` if these were not individually available.

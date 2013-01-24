@@ -206,6 +206,10 @@ def email(request, **kwargs):
                                  % { "email": email })
                         else:
                             email_address.delete()
+                            signals.email_removed.send(sender=request.user.__class__,
+                                                       request=request, 
+                                                       user=request.user,
+                                                       email_address=email_address)
                             messages.add_message(request, messages.SUCCESS,
                                 ugettext("Removed e-mail address %(email)s") % {
                                     "email": email,

@@ -15,3 +15,4 @@ email_confirmation_sent = Signal(providing_args=["confirmation"])
 email_changed = Signal(providing_args=["request", "user",
                             "from_email_address", "to_email_address"])
 email_added = Signal(providing_args=["request", "user", "email_address"])
+email_removed = Signal(providing_args=["request", "user", "email_address"])

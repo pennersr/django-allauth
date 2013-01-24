@@ -4,11 +4,9 @@ from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
                                                           OAuth2CallbackView)
 from allauth.socialaccount.models import SocialAccount, SocialLogin
-from allauth.utils import get_user_model
+from allauth.socialaccount.adapter import get_adapter
 
 from provider import GitHubProvider
-
-User = get_user_model()
 
 class GitHubOAuth2Adapter(OAuth2Adapter):
     provider_id = GitHubProvider.id
@@ -21,9 +19,10 @@ class GitHubOAuth2Adapter(OAuth2Adapter):
                             params={ 'access_token': token.token })
         extra_data = resp.json()
         uid = str(extra_data['id'])
-        user = User(username=extra_data.get('login', ''),
-                    email=extra_data.get('email', ''),
-                    first_name=extra_data.get('name', ''))
+        user = get_adapter() \
+            .populate_new_user(email=extra_data.get('email'),
+                               username=extra_data.get('login'),
+                               name=extra_data.get('name'))
         account = SocialAccount(user=user,
                                 uid=uid,
                                 extra_data=extra_data,

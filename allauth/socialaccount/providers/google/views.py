@@ -6,11 +6,10 @@ from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2CallbackView)
 
 from allauth.socialaccount.models import SocialLogin, SocialAccount
+from allauth.socialaccount.adapter import get_adapter
 from allauth.utils import get_user_model
 
 from provider import GoogleProvider
-
-User = get_user_model()
 
 class GoogleOAuth2Adapter(OAuth2Adapter):
     provider_id = GoogleProvider.id
@@ -35,9 +34,10 @@ class GoogleOAuth2Adapter(OAuth2Adapter):
         #
         # TODO: We could use verified_email to bypass allauth email verification
         uid = str(extra_data['id'])
-        user = User(email=extra_data.get('email', ''),
-                    last_name=extra_data.get('family_name', ''),
-                    first_name=extra_data.get('given_name', ''))
+        user = get_adapter() \
+            .populate_new_user(email=extra_data.get('email'),
+                               last_name=extra_data.get('family_name'),
+                               first_name=extra_data.get('given_name'))
         email_addresses = []
         if user.email and extra_data.get('verified_email'):
             email_addresses.append(EmailAddress(email=user.email,

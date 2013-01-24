@@ -3,11 +3,9 @@ import requests
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.models import SocialAccount, SocialLogin
-from allauth.utils import get_user_model
+from allauth.socialaccount.adapter import get_adapter
 
 from provider import PersonaProvider
-
-User = get_user_model()
 
 def persona_login(request):
     assertion = request.POST.get('assertion', '')
@@ -18,7 +16,8 @@ def persona_login(request):
     if resp.json()['status'] != 'okay':
         return render_authentication_error(request)
     email = resp.json()['email']
-    user = User(email=email)
+    user = get_adapter() \
+        .populate_new_user(email=email)
     extra_data = resp.json
     account = SocialAccount(uid=email,
                             provider=PersonaProvider.id,

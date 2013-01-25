@@ -8,3 +8,5 @@ build
 dist
 django_allauth.egg-info
 example/local_settings.py
+coverage.xml
+pep8.txt

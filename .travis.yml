@@ -1,0 +1,8 @@
+langurage: python
+python:
+ - "2.7"
+ - "2.6"
+branches:
+ only:
+  - add_ci_settings
+script: python setup.py test

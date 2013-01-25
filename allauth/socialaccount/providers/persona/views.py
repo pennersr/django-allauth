@@ -18,7 +18,7 @@ def persona_login(request):
     email = resp.json()['email']
     user = get_adapter() \
         .populate_new_user(email=email)
-    extra_data = resp.json
+    extra_data = resp.json()
     account = SocialAccount(uid=email,
                             provider=PersonaProvider.id,
                             extra_data=extra_data,

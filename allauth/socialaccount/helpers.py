@@ -180,7 +180,8 @@ def complete_social_signup(request, sociallogin):
         _copy_avatar(request, sociallogin.account.user, sociallogin.account)
     return complete_signup(request, 
                            sociallogin.account.user, 
-                           sociallogin.get_redirect_url(request))
+                           sociallogin.get_redirect_url(request),
+                           signal_kwargs={'sociallogin': sociallogin})
 
 
 # TODO: Factor out callable importing functionality

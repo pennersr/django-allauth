@@ -108,10 +108,11 @@ def perform_login(request, user, redirect_url=None):
     return HttpResponseRedirect(redirect_url)
 
 
-def complete_signup(request, user, success_url):
+def complete_signup(request, user, success_url, signal_kwargs={}):
     signals.user_signed_up.send(sender=user.__class__, 
                                 request=request, 
-                                user=user)
+                                user=user,
+                                **signal_kwargs)
     return perform_login(request, user, redirect_url=success_url)
 
 

@@ -1,6 +1,7 @@
+import json
+
 from django.template.loader import render_to_string
 from django.template import RequestContext
-from django.utils import simplejson
 
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount, Provider
@@ -19,7 +20,7 @@ class PersonaProvider(Provider):
     def media_js(self, request):
         settings = self.get_settings()
         request_parameters = settings.get('REQUEST_PARAMETERS', {})
-        ctx = { 'request_parameters': simplejson.dumps(request_parameters) }
+        ctx = { 'request_parameters': json.dumps(request_parameters) }
         return render_to_string('persona/auth.html',
                                 ctx,
                                 RequestContext(request))

@@ -1,7 +1,8 @@
+import json
+
 from django.db import models
 from django.contrib.auth import authenticate
 from django.contrib.sites.models import Site
-from django.utils import simplejson
 
 import allauth.app_settings
 from allauth.account import app_settings as account_settings
@@ -211,12 +212,12 @@ class SocialLogin(object):
     @classmethod
     def marshall_state(cls, request):
         state = cls.state_from_request(request)
-        return simplejson.dumps(state)
+        return json.dumps(state)
     
     @classmethod
     def unmarshall_state(cls, state_string):
         if state_string:
-            state = simplejson.loads(state_string)
+            state = json.loads(state_string)
         else:
             state = {}
         return state

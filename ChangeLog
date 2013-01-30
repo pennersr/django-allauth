@@ -1,3 +1,7 @@
+2013-01-30  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.9.0 released.
+
 2013-01-29  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* account: `user_signed_up` signal now emits an optional
@@ -14,6 +18,8 @@
 
 2013-01-11  Raymond Penners  <raymond.penners@intenct.nl>
 
+	* Ahmet Emre Aladağ contributed a Turkish translation, thanks!
+
 	* socialaccount: Added SocialAccountAdapter hook to allow for
 	intervention in social logins.
 
@@ -21,6 +27,10 @@
 
 	* google: support for Google's `verified_email` flag to determine
 	whether or not to send confirmation e-mails.
+
+2012-12-26  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Fábio Santos contributed a Portugese translation, thanks!
 
 2012-12-22  Raymond Penners  <raymond.penners@intenct.nl>
 

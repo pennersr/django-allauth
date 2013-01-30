@@ -9,9 +9,6 @@ authentication.
 Rationale
 =========
 
-Why?
-----
-
 Most existing Django apps that address the problem of social
 authentication focus on just that. You typically need to integrate
 another app in order to support authentication via a local
@@ -32,26 +29,6 @@ This is the reason this project got started -- to offer a fully
 integrated authentication app that allows for both local and social
 authentication, with flows that just work.
 
-
-Why Not?
---------
-
-From the start the focus has been to deliver an integrated experience
-and flows that just work, and to a lesser extent a completely
-pluggable social authentication framework.
-
-Earlier versions of the project suffered from this, e.g. each provider
-had its own implementation with its own social account model
-definition. 
-
-Work is well underway to rectify this situation. These days, social
-account models have been unified, and adding support for additional
-OAuth/OAuth2 providers is child's play. All hardcodedness with respect
-to providers has been removed.
-
-Ofcourse, there is always more that can be done. Do know that the
-biggest hurdles to overcome the initial shortcomings have been
-taken...
 
 Overview
 ========
@@ -250,6 +227,10 @@ ACCOUNT_PASSWORD_INPUT_RENDER_VALUE (=False)
 
 ACCOUNT_PASSWORD_MIN_LENGTH (=6)
   An integer specifying the minimum password length.
+
+SOCIALACCOUNT_ADAPTER (="allauth.socialaccount.adapter.DefaultSocialAccountAdapter")
+  Specifies the adapter class to use, allowing you to alter certain
+  default behaviour.
 
 SOCIALACCOUNT_QUERY_EMAIL (=ACCOUNT_EMAIL_REQUIRED)
   Request e-mail address from 3rd party account provider? E.g. using

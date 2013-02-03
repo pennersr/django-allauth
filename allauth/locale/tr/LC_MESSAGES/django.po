@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-11 21:53+0200\n"
-"PO-Revision-Date: 2013-01-11 23:58+0200\n"
+"POT-Creation-Date: 2013-02-03 19:30+0100\n"
+"PO-Revision-Date: 2013-02-03 19:39+0100\n"
 "Last-Translator: \n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "Language: en_US\n"
@@ -48,6 +48,7 @@ msgid "Username or e-mail"
 msgstr "Kullanıcı adı ya da e-posta"
 
 #: account/forms.py:79
+msgctxt "field label"
 msgid "Login"
 msgstr "Giriş Yap"
 
@@ -141,7 +142,7 @@ msgstr "e-posta onayları"
 msgid "Successfully signed in as %(user)s."
 msgstr "%(user)s olarak başarıyla giriş yapıldı."
 
-#: account/utils.py:176 account/views.py:167 account/views.py:186
+#: account/utils.py:177 account/views.py:167 account/views.py:186
 #, python-format
 msgid "Confirmation e-mail sent to %(email)s"
 msgstr "Onay e-postası %(email)s adresine gönderildi."
@@ -156,28 +157,28 @@ msgstr "%(email)s adresini onayladınız."
 msgid "You cannot remove your primary e-mail address (%(email)s)"
 msgstr "Birincil e-posta adresinizi (%(email)s) kaldıramazsınız"
 
-#: account/views.py:210
+#: account/views.py:214
 #, python-format
 msgid "Removed e-mail address %(email)s"
 msgstr "E-posta adresi %(email)s kaldırıldı"
 
-#: account/views.py:236
+#: account/views.py:240
 msgid "Your primary e-mail address must be verified"
 msgstr "Birincil e-posta adresiniz doğrulanmalı."
 
-#: account/views.py:248
+#: account/views.py:252
 msgid "Primary e-mail address set"
 msgstr "Birincil e-posta adresi ayarlandı"
 
-#: account/views.py:277 account/views.py:354
+#: account/views.py:281 account/views.py:358
 msgid "Password successfully changed."
 msgstr "Parola başarıyla değiştirildi."
 
-#: account/views.py:302
+#: account/views.py:306
 msgid "Password successfully set."
 msgstr "Parola başarıyla ayarlandı."
 
-#: account/views.py:370 templates/account/logout.html:10
+#: account/views.py:374 templates/account/logout.html:10
 msgid "You have signed out."
 msgstr "Çıkış yaptınız."
 
@@ -334,8 +335,8 @@ msgid ""
 "href=\"%(signup_url)s\">sign up</a> for a %(site_name)s account and sign in\n"
 "below:"
 msgstr ""
-"Lütfen mevcut üçüncü parti hesaplarınızdan birisiyle giriş yapın. Ya da, %"
-"(site_name)s hesabı için <a \n"
+"Lütfen mevcut üçüncü parti hesaplarınızdan birisiyle giriş yapın. Ya da, "
+"%(site_name)s hesabı için <a \n"
 "href=\"%(signup_url)s\">üye olun</a> ve giriş yapın:"
 
 #: templates/account/login.html:28
@@ -367,7 +368,8 @@ msgstr "Parola Sil"
 msgid ""
 "You may delete your password since you are currently logged in using OpenID."
 msgstr ""
-"Şu anda OpenID ile giriş yaptığınız için dilerseniz parolanızı silebilirsiniz."
+"Şu anda OpenID ile giriş yaptığınız için dilerseniz parolanızı "
+"silebilirsiniz."
 
 #: templates/account/password_delete.html:12
 msgid "delete my password"
@@ -458,8 +460,8 @@ msgstr "Üye Ol"
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
 msgstr ""
-"Zaten hesabınız var mı? O zaman lütfen <a href=\"%(login_url)s\">giriş yapın<"
-"/a>."
+"Zaten hesabınız var mı? O zaman lütfen <a href=\"%(login_url)s\">giriş "
+"yapın</a>."
 
 #: templates/account/verification_sent.html:5
 #: templates/account/verification_sent.html:8
@@ -475,8 +477,8 @@ msgid ""
 "verification. Follow the link provided to finalize the signup process. "
 "Please contact us if you do not receive it within a few minutes."
 msgstr ""
-"<a href=\"mailto:%(email)s\">%(email)s</a> adresinize doğrulama amaçlı "
-"e-posta gönderdik. Üyelik sürecini tamamlamak için sunulan bağlantıyı takip "
+"<a href=\"mailto:%(email)s\">%(email)s</a> adresinize doğrulama amaçlı e-"
+"posta gönderdik. Üyelik sürecini tamamlamak için sunulan bağlantıyı takip "
 "edin. Eğer e-posta birkaç dakika içinde size ulaşmazsa lütfen bize ulaşın."
 
 #: templates/account/verified_email_required.html:13
@@ -534,11 +536,10 @@ msgid ""
 "Thanks for using our site!\n"
 msgstr ""
 "Bu e-postayı alıyorsunuz çünkü siz veya bir başkası %(site_domain)s "
-"sitesindeki "
-"hesabınız için parola sıfırlama talebinde bulundu.\n"
+"sitesindeki hesabınız için parola sıfırlama talebinde bulundu.\n"
 "Eğer böyle bir talepte bulunmadıysanız bu e-postayı gözardı edebilirsiniz. "
-"Bulunduysanız "
-"aşağıdaki bağlantıya tıklayarak parolanızı sıfırlayabilirsiniz.\n"
+"Bulunduysanız aşağıdaki bağlantıya tıklayarak parolanızı "
+"sıfırlayabilirsiniz.\n"
 "\n"
 "%(password_reset_url)s\n"
 "\n"
@@ -616,9 +617,8 @@ msgid ""
 "\">sign in</a>."
 msgstr ""
 "Mevcut hesaplarınızdan birisiyle sitemize girişinizi iptal etmeye karar "
-"verdiniz. Eğer bu yanlışlıkla olduysa, lütfen devam edin: <a href=\"%"
-"(login_url)s"
-"\">giriş yapın</a>."
+"verdiniz. Eğer bu yanlışlıkla olduysa, lütfen devam edin: <a href="
+"\"%(login_url)s\">giriş yapın</a>."
 
 #: templates/socialaccount/signup.html:10
 #, python-format
@@ -628,4 +628,3 @@ msgid ""
 msgstr ""
 "%(site_name)s sitesine giriş yapmak için %(provider_name)s hesabınızı "
 "kullanmak üzeresiniz. Son bir adım olarak, lütfen şu formu doldurun:"
-

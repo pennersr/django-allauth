@@ -2,7 +2,7 @@ from django import forms
 from django.core.urlresolvers import reverse
 from django.core import exceptions
 from django.db.models import Q
-from django.utils.translation import ugettext_lazy as _, ugettext
+from django.utils.translation import pgettext, ugettext_lazy as _, ugettext
 from django.utils.http import int_to_base36
 from django.utils.importlib import import_module
 
@@ -76,7 +76,7 @@ class LoginForm(forms.Form):
                 == AuthenticationMethod.USERNAME_EMAIL
             login_widget = forms.TextInput(attrs={'placeholder': 
                                                   _('Username or e-mail') })
-            login_field = forms.CharField(label=ugettext("Login"),
+            login_field = forms.CharField(label=pgettext("field label", "Login"),
                                           widget=login_widget)
         self.fields["login"] = login_field
         self.fields.keyOrder = ["login", "password", "remember"]

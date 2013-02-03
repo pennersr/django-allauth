@@ -5,17 +5,20 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-02-02 23:30+0100\n"
-"PO-Revision-Date: 2013-02-03 01:10+0100\n"
-"Last-Translator: LesPrixDuCoin SAS <contact@lesprixducoin.com>\n"
-"Language-Team: LANGUAGE\n"
+"PO-Revision-Date: 2013-02-03 12:22+0100\n"
+"Last-Translator: @flyingeek <@flyingeek>\n"
+"Language-Team: @flyingeek <@pennersr>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
+"X-Poedit-SourceCharset: utf-8\n"
 
 #: account/forms.py:35
 #: account/forms.py:51
@@ -55,7 +58,7 @@ msgstr "Pseudo ou email"
 
 #: account/forms.py:79
 msgid "Login"
-msgstr "Login"
+msgstr "Connexion"
 
 #: account/forms.py:112
 msgid "This account is currently inactive."
@@ -150,7 +153,7 @@ msgstr "emails de confirmation"
 #: account/utils.py:104
 #, python-format
 msgid "Successfully signed in as %(user)s."
-msgstr "Vous êtes loggué en temps que %(user)s."
+msgstr "Vous êtes connecté en temps que %(user)s."
 
 #: account/utils.py:177
 #: account/views.py:167
@@ -522,7 +525,7 @@ msgstr "vous êtes déjà connecté en temps que  %(user_display)s."
 
 #: templates/openid/login.html:10
 msgid "OpenID Sign In"
-msgstr "Connection OpenID"
+msgstr "Connexion OpenID"
 
 #: templates/socialaccount/account_inactive.html:5
 #: templates/socialaccount/account_inactive.html:8
@@ -545,7 +548,7 @@ msgstr "Une erreur est survenue en tentant de se connecter à votre compte de r�
 #: templates/socialaccount/connections.html:5
 #: templates/socialaccount/connections.html:8
 msgid "Account Connections"
-msgstr "Comptes connectés"
+msgstr "Comptes associés"
 
 #: templates/socialaccount/connections.html:11
 msgid "You can sign in to your account using any of the following third party accounts:"

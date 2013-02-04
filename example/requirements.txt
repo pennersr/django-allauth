@@ -1,4 +1,4 @@
 django>=1.4
-django-allauth==0.8.1
+django-allauth>=0.9.0
 django-bootstrap-form==2.0.3
 django-uni-form==0.7.0

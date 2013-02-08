@@ -148,6 +148,19 @@ class SocialLogin(object):
         if self.token:
             self.token.account = self.account
             self.token.save()
+        self._save_email_addresses()
+
+    def _save_email_addresses(self):
+        # user.email may not be listed as an EmailAddress ...
+        user = self.account.user
+        if (user.email 
+            and (user.email.lower() not in [e.email.lower() 
+                                            for e in self.email_addresses])):
+            # ... so let's append it
+            self.email_addresses.append(EmailAddress(user=user,
+                                                     email=user.email,
+                                                     verified=False,
+                                                     primary=True))
         for email_address in self.email_addresses:
             # Pick up only valid ones...
             email = valid_email_or_none(email_address.email)

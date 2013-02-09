@@ -55,4 +55,6 @@ class AppSettings(object):
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html
 import sys
-sys.modules[__name__] = AppSettings('SOCIALACCOUNT_')
+app_settings = AppSettings('SOCIALACCOUNT_')
+app_settings.__name__ = __name__
+sys.modules[__name__] = app_settings

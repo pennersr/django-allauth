@@ -253,6 +253,13 @@ SOCIALACCOUNT_PROVIDERS (= dict)
 Upgrading
 ---------
 
+From 0.9.0
+**********
+
+- The template variable `facebook_perms` is no longer passed to the
+  "facebook/fbconnect.html" template. Instead, `fb_login_options`
+  containing all options is passed.
+
 From 0.8.3
 **********
 
@@ -412,6 +419,7 @@ The following Facebook settings are available::
     SOCIALACCOUNT_PROVIDERS = \
         { 'facebook': 
             { 'SCOPE': ['email', 'publish_stream'],
+	      'FB_LOGIN': { 'auth_type': 'reauthenticate' },
               'METHOD': 'oauth2' ,
               'LOCALE_FUNC': 'path.to.callable'} }
 
@@ -428,6 +436,9 @@ internationalization/>`_ as a string::
     SOCIALACCOUNT_PROVIDERS = \
         { 'facebook':
             { 'LOCALE_FUNC': lambda request: 'zh_CN'} }
+
+Use `FB_LOGIN` to pass along other parameters to the `FB.login` JS SDK
+call.
 
 Google
 ------

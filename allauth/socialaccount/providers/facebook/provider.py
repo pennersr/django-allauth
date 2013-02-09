@@ -1,7 +1,10 @@
+import json
+
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ImproperlyConfigured
 from django.template.loader import render_to_string
 from django.template import RequestContext
+from django.utils.html import mark_safe
 
 from allauth.utils import import_callable
 from allauth.socialaccount import providers
@@ -70,8 +73,13 @@ class FacebookProvider(OAuth2Provider):
             scope.append('email')
         return scope
 
+    def get_fb_login_options(self):
+        settings = self.get_settings()
+        ret = settings.get('FB_LOGIN', {})
+        ret['scope'] = ','.join(self.get_scope())
+        return ret
+
     def media_js(self, request):
-        perms = ','.join(self.get_scope())
         locale = self.get_locale_for_request(request)
         try:
             app = self.get_app(request)
@@ -79,10 +87,11 @@ class FacebookProvider(OAuth2Provider):
             raise ImproperlyConfigured("No Facebook app configured: please"
                                        " add a SocialApp using the Django"
                                        " admin")
+        fb_login_options = self.get_fb_login_options()
         ctx =  {'facebook_app': app,
                 'facebook_channel_url':
                 request.build_absolute_uri(reverse('facebook_channel')),
-                'facebook_perms': perms,
+                'fb_login_options': mark_safe(json.dumps(fb_login_options)),
                 'facebook_jssdk_locale': locale}
         return render_to_string('facebook/fbconnect.html',
                                 ctx,

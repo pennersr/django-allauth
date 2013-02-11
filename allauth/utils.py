@@ -90,7 +90,7 @@ def email_address_exists(email, exclude_user=None):
 
 
 def import_attribute(path):
-    assert isinstance(path, str)
+    assert isinstance(path, basestring)
     pkg, attr = path.rsplit('.',1)
     ret = getattr(importlib.import_module(pkg), attr)
     return ret

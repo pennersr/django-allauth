@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
@@ -11,6 +11,7 @@ from allauth.utils import (generate_unique_username, email_address_exists,
 from allauth.account.utils import send_email_confirmation, \
     perform_login, complete_signup
 from allauth.account import app_settings as account_settings
+from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.exceptions import ImmediateHttpResponse
 
 from models import SocialLogin
@@ -49,8 +50,15 @@ def _process_signup(request, sociallogin):
         url = reverse('socialaccount_signup')
         ret = HttpResponseRedirect(url)
     else:
-        # FIXME: There is some duplication of logic inhere
-        # (create user, send email, in active etc..)
+        # FIXME: This part contains a lot of duplication of logic
+        # ("closed" rendering, create user, send email, in active
+        # etc..)
+        try:
+            if not get_account_adapter().is_open_for_signup(request):
+                return render(request,
+                              "account/signup_closed.html")
+        except ImmediateHttpResponse, e:
+            return e.response
         u = sociallogin.account.user
         u.username = generate_unique_username(u.username
                                               or email 

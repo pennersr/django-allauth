@@ -7,11 +7,13 @@ from django.utils.http import base36_to_int
 from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic.base import TemplateResponseMixin, View
+from django.views.generic.edit import FormView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.tokens import default_token_generator
 from django.shortcuts import redirect
 
+from allauth.exceptions import ImmediateHttpResponse
 from allauth.utils import passthrough_login_redirect_url, get_user_model
 
 from utils import get_default_redirect, complete_signup
@@ -59,30 +61,69 @@ def login(request, **kwargs):
     return render_to_response(template_name, RequestContext(request, ctx))
 
 
-def signup(request, **kwargs):
+class CloseableSignupMixin(object):
+    template_name_signup_closed = "account/signup_closed.html"
 
-    form_class = kwargs.pop("form_class", SignupForm)
-    template_name = kwargs.pop("template_name", "account/signup.html")
-    redirect_field_name = kwargs.pop("redirect_field_name", "next")
-    success_url = kwargs.pop("success_url", None)
+    def get(self, *args, **kwargs):
+        resp = self.dispatch_hook()
+        if resp:
+            return resp
+        return super(CloseableSignupMixin, self).get(*args, **kwargs)
 
-    if success_url is None:
-        success_url = get_default_redirect(request, redirect_field_name)
+    def post(self, *args, **kwargs):
+        resp = self.dispatch_hook()
+        if resp:
+            return resp
+        return super(CloseableSignupMixin, self).post(*args, **kwargs)
+    
+    def dispatch_hook(self):
+        try:
+            if not self.is_open():
+                return self.closed()
+        except ImmediateHttpResponse, e:
+            return e.response
 
-    if request.method == "POST":
-        form = form_class(request.POST)
-        if form.is_valid():
-            user = form.save(request)
-            return complete_signup(request, user, success_url)
-    else:
-        form = form_class()
-    ctx = {"form": form,
-           "login_url": passthrough_login_redirect_url(request,
-                                                       reverse("account_login")),
-           "redirect_field_name": redirect_field_name,
-           "redirect_field_value": request.REQUEST.get(redirect_field_name) }
-    return render_to_response(template_name, RequestContext(request, ctx))
+    def is_open(self):
+        return get_adapter().is_open_for_signup(self.request)
 
+    def closed(self):
+        response_kwargs = {
+            "request": self.request,
+            "template": self.template_name_signup_closed,
+        }
+        return self.response_class(**response_kwargs)
+
+
+class SignupView(CloseableSignupMixin, FormView):
+    template_name = "account/signup.html"
+    form_class = SignupForm
+    redirect_field_name = "next"
+    success_url = None
+
+    def get_success_url(self):
+        ret = self.success_url
+        if not ret:
+            ret = get_default_redirect(self.request, 
+                                       self.redirect_field_name)
+        return ret
+
+    def form_valid(self, form):
+        user = form.save(self.request)
+        return complete_signup(self.request, user, self.get_success_url())
+
+    def get_context_data(self, **kwargs):
+        ret = super(SignupView, self).get_context_data(**kwargs)
+        login_url = passthrough_login_redirect_url(self.request,
+                                                   reverse("account_login"))
+        redirect_field_name = self.redirect_field_name
+        redirect_field_value = self.request.REQUEST.get(redirect_field_name)
+        ret.update({"login_url": login_url,
+                    "redirect_field_name": redirect_field_name,
+                    "redirect_field_value": redirect_field_value })
+        return ret
+
+
+signup = SignupView.as_view()
 
 class ConfirmEmailView(TemplateResponseMixin, View):
     

@@ -1,3 +1,8 @@
+2013-02-11  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Added support for closing down signups in a pluggable fashion,
+	making it easy to hookup your own invitation handling mechanism.
+
 2013-02-09  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Added support for passing along extra parameters to the

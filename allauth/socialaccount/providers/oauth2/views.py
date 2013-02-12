@@ -33,11 +33,13 @@ class OAuth2View(object):
     def get_client(self, request, app):
         callback_url = reverse(self.adapter.provider_id + "_callback")
         callback_url = request.build_absolute_uri(callback_url)
+        provider = self.adapter.get_provider()
         client = OAuth2Client(self.request, app.client_id, app.secret,
                               self.adapter.authorize_url,
                               self.adapter.access_token_url,
                               callback_url,
-                              self.adapter.get_provider().get_scope())
+                              provider.get_scope(),
+                              provider.get_auth_params())
         return client
 
 

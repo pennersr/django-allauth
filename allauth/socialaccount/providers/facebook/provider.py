@@ -74,8 +74,7 @@ class FacebookProvider(OAuth2Provider):
         return scope
 
     def get_fb_login_options(self):
-        settings = self.get_settings()
-        ret = settings.get('FB_LOGIN', {})
+        ret = self.get_auth_params()
         ret['scope'] = ','.join(self.get_scope())
         return ret
 

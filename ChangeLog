@@ -1,3 +1,9 @@
+2013-02-13  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Added support for passing along extra parameters to the OAuth2
+	authentication calls, such as `access_type` (Google) or
+	`auth_type` (Facebook).
+
 2013-02-12  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Both the login and signup view now immediately redirect to the
@@ -11,7 +17,7 @@
 2013-02-09  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Added support for passing along extra parameters to the
-	`FB.login` API call (`FB_LOGIN`).
+	`FB.login` API call.
 
 2013-01-30  Raymond Penners  <raymond.penners@intenct.nl>
 

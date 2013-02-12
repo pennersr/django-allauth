@@ -4,5 +4,5 @@ python:
  - "2.6"
 branches:
  only:
-  - add_ci_settings
+  - master
 script: python setup.py test

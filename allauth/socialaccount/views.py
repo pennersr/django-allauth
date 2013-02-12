@@ -8,26 +8,22 @@ from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import FormView
 
-from ..account.views import CloseableSignupMixin
+from ..account.views import CloseableSignupMixin, RedirectAuthenticatedUserMixin
 
 from forms import DisconnectForm, SignupForm
 
 import helpers
 
 
-class SignupView(CloseableSignupMixin, FormView):
+class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin, FormView):
     form_class = SignupForm
     template_name = 'socialaccount/signup.html'
 
-    def dispatch_hook(self):
-        resp = super(SignupView, self).dispatch_hook()
-        if resp:
-            return resp
-        if self.request.user.is_authenticated():
-            return HttpResponseRedirect(reverse(connections))
-        self.sociallogin = self.request.session.get('socialaccount_sociallogin')
+    def dispatch(self, request, *args, **kwargs):
+        self.sociallogin = request.session.get('socialaccount_sociallogin')
         if not self.sociallogin:
             return HttpResponseRedirect(reverse('account_login'))
+        return super(SignupView, self).dispatch(request, *args, **kwargs)
     
     def get_form_kwargs(self):
         ret = super(SignupView, self).get_form_kwargs()
@@ -44,6 +40,9 @@ class SignupView(CloseableSignupMixin, FormView):
         ret.update(dict(site=Site.objects.get_current(),
                         account=self.sociallogin.account))
         return ret
+
+    def get_authenticated_redirect_url(self):
+        return reverse(connections)
 
 signup = SignupView.as_view()
 

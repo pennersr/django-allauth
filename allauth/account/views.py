@@ -28,60 +28,64 @@ from adapter import get_adapter
 
 User = get_user_model()
 
-def login(request, **kwargs):
-    form_class = kwargs.pop("form_class", LoginForm)
-    template_name = kwargs.pop("template_name", "account/login.html")
-    success_url = kwargs.pop("success_url", None)
-    url_required = kwargs.pop("url_required", False)
-    extra_context = kwargs.pop("extra_context", {})
-    redirect_field_name = kwargs.pop("redirect_field_name", "next")
+class RedirectAuthenticatedUserMixin(object):
+    def dispatch(self, request, *args, **kwargs):
+        # WORKAROUND: https://code.djangoproject.com/ticket/19316
+        self.request = request
+        # (end WORKAROUND)
+        if request.user.is_authenticated():
+            return HttpResponseRedirect(self.get_authenticated_redirect_url())
+        return super(RedirectAuthenticatedUserMixin, self).dispatch(request,
+                                                                    *args,
+                                                                    **kwargs)
 
-    if extra_context is None:
-        extra_context = {}
-    if success_url is None:
-        success_url = get_default_redirect(request, redirect_field_name)
+    def get_authenticated_redirect_url(self):
+        return self.get_success_url()
+        
+class LoginView(RedirectAuthenticatedUserMixin, FormView):
+    form_class = LoginForm
+    template_name = "account/login.html"
+    success_url = None
+    redirect_field_name = "next"
 
-    if request.method == "POST" and not url_required:
-        form = form_class(request.POST)
-        if form.is_valid():
-            return form.login(request, redirect_url=success_url)
-    else:
-        form = form_class()
+    def form_valid(self, form):
+        success_url = self.get_success_url()
+        return form.login(self.request, redirect_url=success_url)
 
-    ctx = {
-        "form": form,
-        "signup_url": passthrough_login_redirect_url(request,
-                                                     reverse("account_signup")),
-        "site": Site.objects.get_current(),
-        "url_required": url_required,
-        "redirect_field_name": redirect_field_name,
-        "redirect_field_value": request.REQUEST.get(redirect_field_name),
-    }
-    ctx.update(extra_context)
-    return render_to_response(template_name, RequestContext(request, ctx))
+    def get_success_url(self):
+        ret = self.success_url
+        if not ret:
+            ret = get_default_redirect(self.request, self.redirect_field_name)
+        return ret
 
+    def get_context_data(self, **kwargs):
+        ret = super(LoginView, self).get_context_data(**kwargs)
+        ret.update({
+                "signup_url": passthrough_login_redirect_url(self.request,
+                                                             reverse("account_signup")),
+                "site": Site.objects.get_current(),
+                "redirect_field_name": self.redirect_field_name,
+                "redirect_field_value": self.request.REQUEST.get(self.redirect_field_name),
+                })
+        return ret
+
+login = LoginView.as_view()
 
 class CloseableSignupMixin(object):
     template_name_signup_closed = "account/signup_closed.html"
 
-    def get(self, *args, **kwargs):
-        resp = self.dispatch_hook()
-        if resp:
-            return resp
-        return super(CloseableSignupMixin, self).get(*args, **kwargs)
-
-    def post(self, *args, **kwargs):
-        resp = self.dispatch_hook()
-        if resp:
-            return resp
-        return super(CloseableSignupMixin, self).post(*args, **kwargs)
-    
-    def dispatch_hook(self):
+    def dispatch(self, request, *args, **kwargs):
+        # WORKAROUND: https://code.djangoproject.com/ticket/19316
+        self.request = request
+        # (end WORKAROUND)
         try:
             if not self.is_open():
                 return self.closed()
         except ImmediateHttpResponse, e:
             return e.response
+        return super(CloseableSignupMixin, self).dispatch(request,
+                                                          *args,
+                                                          **kwargs)
 
     def is_open(self):
         return get_adapter().is_open_for_signup(self.request)
@@ -94,7 +98,7 @@ class CloseableSignupMixin(object):
         return self.response_class(**response_kwargs)
 
 
-class SignupView(CloseableSignupMixin, FormView):
+class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin, FormView):
     template_name = "account/signup.html"
     form_class = SignupForm
     redirect_field_name = "next"

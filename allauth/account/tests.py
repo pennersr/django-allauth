@@ -9,6 +9,7 @@ from django.test.client import Client
 from django.core import mail
 from django.contrib.sites.models import Site
 from django.test.client import RequestFactory
+from django.contrib.auth.models import AnonymousUser
 
 from allauth.account.models import EmailAddress, EmailConfirmation
 from allauth.utils import get_user_model
@@ -47,6 +48,7 @@ class AccountTests(TestCase):
         from django.contrib.sessions.middleware import SessionMiddleware
         SessionMiddleware().process_request(request)
         MessageMiddleware().process_request(request)
+        request.user = AnonymousUser()
         request.session['account_email_verified'] ='john@doe.com'
         from views import signup
         resp = signup(request)

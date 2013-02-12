@@ -9,9 +9,6 @@
 {% block content %}
 <h1>{% trans "Sign Up" %}</h1>
     
-{% if user.is_authenticated %}
-{% include "account/snippets/already_logged_in.html" %}
-{% else %}
 <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
         
 <form id="signup_form" method="post" action="{% url 'account_signup' %}">
@@ -24,8 +21,6 @@
   <button class="btn btn-primary" type="submit">{% trans "Sign Up" %}</button>
   </div>
 </form>
-
-{% endif %}
 
 {% endblock %}
 

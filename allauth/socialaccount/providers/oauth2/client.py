@@ -50,12 +50,10 @@ class OAuth2Client(object):
         access_token = None
         if resp.status_code == 200:
             if resp.headers['content-type'].split(';')[0] == 'application/json':
-                data = resp.json()
+                access_token = resp.json()
             else:
-                data = dict(urlparse.parse_qsl(resp.content))
-            access_token = data.get('access_token')
-        if not access_token:
+                access_token = dict(urlparse.parse_qsl(resp.content))
+        if not access_token or 'access_token' not in access_token:
             raise OAuth2Error('Error retrieving access token: %s' 
                               % resp.content)
-            
         return access_token

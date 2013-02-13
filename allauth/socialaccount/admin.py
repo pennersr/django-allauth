@@ -16,6 +16,7 @@ class SocialAccountAdmin(admin.ModelAdmin):
 class SocialTokenAdmin(admin.ModelAdmin):
     raw_id_fields = ('app', 'account',)
     list_display = ('app', 'account', 'token')
+    list_filter = ('app', 'app__provider')
 
 admin.site.register(SocialApp, SocialAppAdmin)
 admin.site.register(SocialToken, SocialTokenAdmin)

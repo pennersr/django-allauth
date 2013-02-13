@@ -20,6 +20,11 @@ class OAuth2Adapter(object):
         """
         raise NotImplementedError
 
+    def parse_token(self, data):
+        token = SocialToken(token=data['access_token'])
+        token.token_secret = data.get('refresh_token', '')
+        return token
+
 class OAuth2View(object):
     @classmethod
     def adapter_view(cls, adapter):
@@ -63,8 +68,8 @@ class OAuth2CallbackView(OAuth2View):
         client = self.get_client(request, app)
         try:
             access_token = client.get_access_token(request.GET['code'])
-            token = SocialToken(app=app,
-                                token=access_token)
+            token = self.adapter.parse_token(access_token)
+            token.app = app
             login = self.adapter.complete_login(request,
                                                 app,
                                                 token)

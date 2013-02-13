@@ -98,6 +98,7 @@ class SocialToken(models.Model):
                              help_text='"oauth_token" (OAuth1) or access token (OAuth2)')
     token_secret = models.CharField(max_length=200, blank=True,
                                     help_text='"oauth_token_secret" (OAuth1) or refresh token (OAuth2)')
+    expires_at = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         unique_together = ('app', 'account')
@@ -202,6 +203,7 @@ class SocialLogin(object):
                                                 app=self.token.app)
                     t.token = self.token.token
                     t.token_secret = self.token.token_secret
+                    t.expires_at = self.token.expires_at
                     t.save()
                     self.token = t
                 except SocialToken.DoesNotExist:

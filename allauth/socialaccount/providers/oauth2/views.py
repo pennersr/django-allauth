@@ -1,5 +1,8 @@
+from datetime import timedelta
+
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.utils import timezone
 
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount import providers
@@ -8,8 +11,8 @@ from allauth.socialaccount.providers.oauth2.client import (OAuth2Client,
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.models import SocialToken, SocialLogin
 
-
 class OAuth2Adapter(object):
+    expires_in_key = 'expires_in'
 
     def get_provider(self):
         return providers.registry.by_id(self.provider_id)
@@ -23,6 +26,9 @@ class OAuth2Adapter(object):
     def parse_token(self, data):
         token = SocialToken(token=data['access_token'])
         token.token_secret = data.get('refresh_token', '')
+        expires_in = data.get(self.expires_in_key, None)
+        if expires_in:
+            token.expires_at = timezone.now() + timedelta(seconds=int(expires_in))
         return token
 
 class OAuth2View(object):

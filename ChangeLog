@@ -1,7 +1,7 @@
 2013-02-13  Raymond Penners  <raymond.penners@intenct.nl>
 
-	* socialaccount: The refresh token, if any, is now stored in
-	`SocialToken`.
+	* socialaccount: The refresh token and token expiry time, if any,
+	are now stored in `SocialToken`.
 
 	* Added support for passing along extra parameters to the OAuth2
 	authentication calls, such as `access_type` (Google) or

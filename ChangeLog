@@ -1,3 +1,9 @@
+2013-02-15  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* account: Added support for sending HTML e-mail. Add
+	"*_message.html" templates and they will be automatically picked
+	up.
+
 2013-02-13  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* socialaccount: The refresh token and token expiry time, if any,

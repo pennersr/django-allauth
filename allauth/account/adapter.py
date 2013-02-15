@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.template.loader import render_to_string
+from django.template import TemplateDoesNotExist
 from django.contrib.sites.models import Site
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives, EmailMessage
 
 from allauth.utils import import_attribute
 
@@ -38,12 +39,34 @@ class DefaultAccountAdapter(object):
         """
         subject = render_to_string('{0}_subject.txt'.format(template_prefix),
                                    context)
-        body = render_to_string('{0}_message.txt'.format(template_prefix),
-                                context).strip()
         # remove superfluous line breaks
         subject = " ".join(subject.splitlines()).strip()
         subject = self.format_email_subject(subject)
-        send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, [email])
+
+        bodies = {}
+        for ext in ['html', 'txt']:
+            try:
+                template_name = '{0}_message.{1}'.format(template_prefix, ext)
+                bodies[ext] = render_to_string(template_name,
+                                               context).strip()
+            except TemplateDoesNotExist:
+                if ext == 'txt' and not bodies:
+                    # We need at least one body
+                    raise
+        if 'txt' in bodies:
+            msg = EmailMultiAlternatives(subject, 
+                                         bodies['txt'], 
+                                         settings.DEFAULT_FROM_EMAIL,
+                                         [email])
+            if 'html' in bodies:
+                msg.attach_alternative(bodies['html'], 'text/html')
+        else:
+            msg = EmailMessage(subject, 
+                               bodies['html'], 
+                               settings.DEFAULT_FROM_EMAIL, 
+                               [email])
+            msg.content_subtype = 'html'  # Main content is now text/html
+        msg.send()
 
     def get_login_redirect_url(self, request):
         """

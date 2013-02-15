@@ -693,6 +693,25 @@ methods:
   this method to record the fact that an e-mail address was verified.
 
 
+Sending E-mail
+--------------
+
+E-mails sent (e.g. in case of password forgotten, or e-mail
+confirmation) can be altered by providing your own
+templates. Templates are named as follows::
+
+    account/email/email_confirmation_subject.txt
+    account/email/email_confirmation_message.txt
+
+In case you want to include an HTML representation, add an HTML
+template as follows::
+
+    account/email/email_confirmation_message.html
+
+If this does not suit your needs, you can hook up your own custom
+mechanism by overriding the `send_mail` method of the account adapter
+(`allauth.account.adapter.DefaultAccountAdapter`).
+
 Showcase
 ========
 

@@ -49,10 +49,12 @@ class OAuth2Client(object):
         resp = requests.post(url, params)
         access_token = None
         if resp.status_code == 200:
-            if resp.headers['content-type'].split(';')[0] == 'application/json':
+            # Weibo sends json via 'text/plain;charset=UTF-8'
+            if (resp.headers['content-type'].split(';')[0] == 'application/json'
+                or resp.text[:2] == '{"'):
                 access_token = resp.json()
             else:
-                access_token = dict(urlparse.parse_qsl(resp.content))
+                access_token = dict(urlparse.parse_qsl(resp.text))
         if not access_token or 'access_token' not in access_token:
             raise OAuth2Error('Error retrieving access token: %s' 
                               % resp.content)

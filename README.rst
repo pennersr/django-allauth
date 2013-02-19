@@ -72,6 +72,8 @@ Supported Providers
 
 - Twitter
 
+- Weibo (OAuth2)
+
 Note: OAuth/OAuth2 support is built using a common code base, making it easy to add support for additional OAuth/OAuth2 providers. More will follow soon...
 
  
@@ -538,10 +540,20 @@ SoundCloud allows you to choose between OAuth1 and OAuth2.  Choose the
 latter. 
 
 
+Weibo
+-----
+
+Register your OAuth2 app over at
+`http://open.weibo.com/apps`. Unfortunately, Weibo does not allow for
+specifying a port number in the authorization callback URL. So for
+development purposes you have to use a callback url of the form
+`http://127.0.0.1/accounts/weibo/login/callback/` and run `runserver
+127.0.0.1:80`.
+
 Stack Exchange
 --------------
 
-Register your OAuth2 over at
+Register your OAuth2 app over at
 `http://stackapps.com/apps/oauth/register`.  Do not enable "Client
 Side Flow". For local development you can simply use "localhost" for
 the OAuth domain.
@@ -725,6 +737,9 @@ Showcase
 - http://kwatsi.com
 - http://www.smartgoalapp.com
 - http://www.neekanee.com/
+- http://healthifyme.com/
+- http://www.burufly.com
+- http://eatwith.com/
 - ...
 
 Please mail me (raymond.penners@intenct.nl) links to sites that have

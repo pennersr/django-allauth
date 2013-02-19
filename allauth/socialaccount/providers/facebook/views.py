@@ -39,7 +39,7 @@ class FacebookOAuth2Adapter(OAuth2Adapter):
     access_token_url = 'https://graph.facebook.com/oauth/access_token'
     expires_in_key = 'expires'
 
-    def complete_login(self, request, app, access_token):
+    def complete_login(self, request, app, access_token, **kwargs):
         return fb_complete_login(app, access_token)
 
 

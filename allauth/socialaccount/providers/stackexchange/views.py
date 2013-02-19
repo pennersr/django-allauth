@@ -15,7 +15,7 @@ class StackExchangeOAuth2Adapter(OAuth2Adapter):
     authorize_url = 'https://stackexchange.com/oauth'
     profile_url = 'https://api.stackexchange.com/2.1/me'
 
-    def complete_login(self, request, app, token):
+    def complete_login(self, request, app, token, **kwargs):
         provider = registry.by_id(app.provider)
         site = provider.get_site()
         resp = requests.get(self.profile_url,

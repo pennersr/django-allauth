@@ -17,7 +17,7 @@ class OAuth2Adapter(object):
     def get_provider(self):
         return providers.registry.by_id(self.provider_id)
 
-    def complete_login(self, request, app, access_token):
+    def complete_login(self, request, app, access_token, **kwargs):
         """
         Returns a SocialLogin instance
         """
@@ -78,7 +78,8 @@ class OAuth2CallbackView(OAuth2View):
             token.app = app
             login = self.adapter.complete_login(request,
                                                 app,
-                                                token)
+                                                token,
+                                                response=access_token)
             token.account = login.account
             login.token = token
             login.state = SocialLogin.unmarshall_state(request.REQUEST

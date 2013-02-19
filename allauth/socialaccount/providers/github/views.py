@@ -14,7 +14,7 @@ class GitHubOAuth2Adapter(OAuth2Adapter):
     authorize_url = 'https://github.com/login/oauth/authorize'
     profile_url = 'https://api.github.com/user'
 
-    def complete_login(self, request, app, token):
+    def complete_login(self, request, app, token, **kwargs):
         resp = requests.get(self.profile_url,
                             params={ 'access_token': token.token })
         extra_data = resp.json()

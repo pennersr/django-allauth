@@ -7,7 +7,6 @@ from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
 
 from allauth.socialaccount.models import SocialLogin, SocialAccount
 from allauth.socialaccount.adapter import get_adapter
-from allauth.utils import get_user_model
 
 from provider import GoogleProvider
 
@@ -17,7 +16,7 @@ class GoogleOAuth2Adapter(OAuth2Adapter):
     authorize_url = 'https://accounts.google.com/o/oauth2/auth'
     profile_url = 'https://www.googleapis.com/oauth2/v1/userinfo'
 
-    def complete_login(self, request, app, token):
+    def complete_login(self, request, app, token, **kwargs):
         resp = requests.get(self.profile_url,
                             params={ 'access_token': token.token,
                                      'alt': 'json' })

@@ -6,29 +6,30 @@ from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
 from allauth.socialaccount.models import SocialAccount, SocialLogin
 from allauth.socialaccount.adapter import get_adapter
 
-from provider import SoundCloudProvider
+from provider import WeiboProvider
 
-class SoundCloudOAuth2Adapter(OAuth2Adapter):
-    provider_id = SoundCloudProvider.id
-    access_token_url = 'https://api.soundcloud.com/oauth2/token'
-    authorize_url = 'https://soundcloud.com/connect'
-    profile_url = 'https://api.soundcloud.com/me.json'
+class WeiboOAuth2Adapter(OAuth2Adapter):
+    provider_id = WeiboProvider.id
+    access_token_url = 'https://api.weibo.com/oauth2/access_token'
+    authorize_url = 'https://api.weibo.com/oauth2/authorize'
+    profile_url = 'https://api.weibo.com/2/users/show.json'
 
     def complete_login(self, request, app, token, **kwargs):
+        uid = kwargs.get('response', {}).get('uid')
         resp = requests.get(self.profile_url,
-                            params={ 'oauth_token': token.token })
+                            params={ 'access_token': token.token,
+                                     'uid': uid })
         extra_data = resp.json()
-        uid = str(extra_data['id'])
         user = get_adapter() \
-            .populate_new_user(name=extra_data.get('full_name'),
-                               username=extra_data.get('username'),
-                               email=extra_data.get('email'))
+            .populate_new_user(username=extra_data.get('screen_name'),
+                               name=extra_data.get('name'))
         account = SocialAccount(user=user,
                                 uid=uid,
                                 extra_data=extra_data,
                                 provider=self.provider_id)
         return SocialLogin(account)
 
-oauth2_login = OAuth2LoginView.adapter_view(SoundCloudOAuth2Adapter)
-oauth2_callback = OAuth2CallbackView.adapter_view(SoundCloudOAuth2Adapter)
+
+oauth2_login = OAuth2LoginView.adapter_view(WeiboOAuth2Adapter)
+oauth2_callback = OAuth2CallbackView.adapter_view(WeiboOAuth2Adapter)
 

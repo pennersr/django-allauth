@@ -386,7 +386,7 @@ credentials.
 When creating the OAuth app on the side of the provider pay special
 attention to the callback URL (sometimes also referred to as redirect
 URL). If you do not configure this correctly, you will receive login
-failures when attemtping to log in, such as::
+failures when attempting to log in, such as::
 
     An error occured while attempting to login via your social network account.
 

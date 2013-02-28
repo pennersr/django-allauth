@@ -4,7 +4,8 @@ from django.template import TemplateDoesNotExist
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives, EmailMessage
 
-from allauth.utils import import_attribute
+from allauth.utils import (import_attribute, get_user_model,
+                           generate_unique_username)
 
 import app_settings
 
@@ -97,6 +98,22 @@ class DefaultAccountAdapter(object):
         regular flow by raising an ImmediateHttpResponse
         """
         return True
+
+    def populate_new_user(self,
+                          username=None,
+                          first_name=None, 
+                          last_name=None,
+                          email=None):
+        """
+        Spawns a new User instance, populating several common fields.
+        """
+        user = get_user_model()()
+        user.username = username or generate_unique_username(first_name or
+                                                     last_name or email)
+        user.email = email
+        user.first_name = first_name
+        user.last_name = last_name
+        return user
 
 def get_adapter():
     return import_attribute(app_settings.ADAPTER)()

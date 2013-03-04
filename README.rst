@@ -70,6 +70,8 @@ Supported Providers
 
 - Stack Exchange (OAuth2)
 
+- Twitch (OAuth2)
+
 - Twitter
 
 - Weibo (OAuth2)
@@ -569,6 +571,13 @@ Overflow, or Server Fault). This can be controlled by means of the
     SOCIALACCOUNT_PROVIDERS = \
         { 'stackexchange': 
             { 'SITE': 'stackoverflow' } }
+
+
+Twitch
+------
+Register your OAuth2 app over at
+`http://www.twitch.tv/kraken/oauth2/clients/new`. 
+
 
 
 Signals

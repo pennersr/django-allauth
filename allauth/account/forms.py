@@ -170,9 +170,11 @@ class BaseSignupForm(_base_signup_form_class()):
         label = _("Username"),
         max_length = 30,
         min_length = app_settings.USERNAME_MIN_LENGTH,
-        widget = forms.TextInput()
+        widget = forms.TextInput(attrs={'placeholder': 
+                                            _('Username') })
     )
-    email = forms.EmailField(widget=forms.TextInput())
+    email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 
+                                                  _('E-mail address') }))
 
     def __init__(self, *args, **kwargs):
         super(BaseSignupForm, self).__init__(*args, **kwargs)

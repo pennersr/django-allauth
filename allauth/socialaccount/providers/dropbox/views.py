@@ -33,7 +33,8 @@ class DropboxOAuthAdapter(OAuthAdapter):
         uid = extra_data['uid']
         user = get_adapter() \
             .populate_new_user(username=extra_data.get('display_name'),
-                               name=extra_data.get('display_name'))
+                               name=extra_data.get('display_name'),
+                               email=extra_data.get('email'))
         account = SocialAccount(user=user,
                                 uid=uid,
                                 provider=DropboxProvider.id,

@@ -54,6 +54,8 @@ Supported Flows
 Supported Providers
 -------------------
 
+- Dropbox (OAuth)
+
 - Facebook (both OAuth2 and JS SDK)
 
 - Github

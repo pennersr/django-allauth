@@ -29,7 +29,7 @@ class DefaultAccountAdapter(object):
         prefix = app_settings.EMAIL_SUBJECT_PREFIX
         if prefix is None:
             site = Site.objects.get_current()
-            prefix = "[{name}] ".format(name=site.name)
+            prefix = u"[{name}] ".format(name=site.name)
         return prefix + unicode(subject)
 
     def send_mail(self, template_prefix, email, context):

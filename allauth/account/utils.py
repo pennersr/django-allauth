@@ -136,7 +136,7 @@ def setup_user_email(request, user):
                                                 primary=True)
     return email_address
 
-def send_email_confirmation(request, user):
+def send_email_confirmation(request, user, email_address=None):
     """
     E-mail verification mails are sent:
     a) Explicitly: when a user signs up
@@ -154,25 +154,27 @@ def send_email_confirmation(request, user):
     if (email 
         and app_settings.EMAIL_VERIFICATION != EmailVerificationMethod.NONE):
         try:
-            email_address = EmailAddress.objects.get(user=user,
-                                                     email__iexact=email)
+            if email_address is None:
+                email_address = EmailAddress.objects.get(user=user,
+                                                         email__iexact=email)
             if not email_address.verified:
-                email_confirmation_sent = EmailConfirmation.objects \
+                send_email = not EmailConfirmation.objects \
                     .filter(sent__gt=now() - COOLDOWN_PERIOD,
                             email_address=email_address) \
                     .exists()
-                if not email_confirmation_sent:
+                if send_email:
                     email_address.send_confirmation(request)
             else:
-                email_confirmation_sent = True
+                send_email = False
         except EmailAddress.DoesNotExist:
+            send_email = True
             email_address = EmailAddress.objects.add_email(request,
                                                            user, 
                                                            user.email, 
                                                            confirm=True)
             assert email_address
-            email_confirmation_sent = False
-        if not email_confirmation_sent:
+        # At this point, if we were supposed to send an email we have sent it.
+        if send_email:
             messages.info(request,
                 _(u"Confirmation e-mail sent to %(email)s") % {"email": email}
             )

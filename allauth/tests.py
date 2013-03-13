@@ -15,6 +15,10 @@ class MockedResponse(object):
         import json
         return json.loads(self.content)
 
+    @property
+    def text(self):
+        return self.content
+
 class mocked_response:
     def __init__(self, *responses):
         self.responses = list(responses)

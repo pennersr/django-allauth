@@ -1,3 +1,19 @@
+2013-03-13  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* account: E-mail confirmation mails generated at signup can now
+	be differentiated from regular e-mail confirmation mails by
+	placing e.g. a welcome message into the
+	`account/email/email_confirmation_signup*` templates. Thanks to
+	Sam Solomon for the patch.
+
+	* account: Moved User instance creation to adapter so that e.g.
+	username generation can be influenced. Thanks to John Bazik for
+	the patch.
+
+2013-03-08  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Robert Balfre contributed Dropbox support, thanks!
+
 2013-02-19  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* socialaccount: Added support for Weibo.

@@ -4,7 +4,8 @@ from django.template import TemplateDoesNotExist
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives, EmailMessage
 
-from allauth.utils import import_attribute
+from allauth.utils import (import_attribute, get_user_model,
+                           generate_unique_username)
 
 import app_settings
 
@@ -29,7 +30,7 @@ class DefaultAccountAdapter(object):
         prefix = app_settings.EMAIL_SUBJECT_PREFIX
         if prefix is None:
             site = Site.objects.get_current()
-            prefix = "[{name}] ".format(name=site.name)
+            prefix = u"[{name}] ".format(name=site.name)
         return prefix + unicode(subject)
 
     def send_mail(self, template_prefix, email, context):
@@ -97,6 +98,25 @@ class DefaultAccountAdapter(object):
         regular flow by raising an ImmediateHttpResponse
         """
         return True
+
+    def new_user(self, 
+                 username=None,
+                 first_name=None, 
+                 last_name=None,
+                 email=None):
+        """
+        Spawns a new User instance, populating several common fields.
+        Note that this method assumes that the data is properly
+        validated. For example, if a username is given it must be
+        unique.
+        """
+        user = get_user_model()()
+        user.username = username or generate_unique_username(first_name or
+                                                             last_name or email)
+        user.email = email
+        user.first_name = first_name
+        user.last_name = last_name
+        return user
 
 def get_adapter():
     return import_attribute(app_settings.ADAPTER)()

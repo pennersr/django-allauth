@@ -45,5 +45,6 @@ class SocialTokenAnonymizer(Anonymizer):
         ('account_id', "SKIP"),
         ('token', "varchar"),
         ('token_secret', "varchar"),
+        ('expires_at', similar_datetime),
     ]
 

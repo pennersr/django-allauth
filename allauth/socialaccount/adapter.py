@@ -29,7 +29,13 @@ class DefaultSocialAccountAdapter(object):
                           name=None):
         """
         Spawns a new User instance, safely and leniently populating
-        several common fields.
+        several common fields. 
+
+        This method is used to create a suggested User instance that
+        represents the social user that is in the process of being
+        logged in. Validation is not a requirement. For example,
+        verifying whether or not a username already exists, is not a
+        responsibility.
         """
         user = get_user_model()()
         user.username = username or ''

@@ -99,17 +99,20 @@ class DefaultAccountAdapter(object):
         """
         return True
 
-    def populate_new_user(self,
-                          username=None,
-                          first_name=None, 
-                          last_name=None,
-                          email=None):
+    def new_user(self, 
+                 username=None,
+                 first_name=None, 
+                 last_name=None,
+                 email=None):
         """
         Spawns a new User instance, populating several common fields.
+        Note that this method assumes that the data is properly
+        validated. For example, if a username is given it must be
+        unique.
         """
         user = get_user_model()()
         user.username = username or generate_unique_username(first_name or
-                                                     last_name or email)
+                                                             last_name or email)
         user.email = email
         user.first_name = first_name
         user.last_name = last_name

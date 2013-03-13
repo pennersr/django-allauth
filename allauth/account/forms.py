@@ -216,7 +216,7 @@ class BaseSignupForm(_base_signup_form_class()):
         else:
             username = None
         data = self.initial
-        user = get_adapter().populate_new_user(username,
+        user = get_adapter().new_user(username,
             data.get('first_name', ''),
             data.get('last_name', ''),
             self.cleaned_data["email"].strip().lower())

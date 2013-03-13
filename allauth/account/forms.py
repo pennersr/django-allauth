@@ -15,8 +15,7 @@ from models import EmailAddress
 
 # from models import PasswordReset
 from utils import perform_login, send_email_confirmation, setup_user_email
-from allauth.utils import (email_address_exists, generate_unique_username, 
-                           get_user_model)
+from allauth.utils import (email_address_exists, get_user_model)
 
 from app_settings import AuthenticationMethod, EmailVerificationMethod
         
@@ -212,21 +211,15 @@ class BaseSignupForm(_base_signup_form_class()):
         return value
     
     def create_user(self, commit=True):
-        user = User()
-        # data collected by providers, if any, is passed as `initial`
-        # signup form data. This may contain fields such as
-        # `first_name`, whereas these may not have field counterparts
-        # in the form itself. So let's pick these up here...
-        data = self.initial
-        user.last_name = data.get('last_name', '')
-        user.first_name = data.get('first_name', '')
-        user.email = self.cleaned_data["email"].strip().lower()
         if app_settings.USERNAME_REQUIRED:
-            user.username = self.cleaned_data["username"]
+            username = self.cleaned_data["username"]
         else:
-            user.username = generate_unique_username(user.first_name or
-                                                     user.last_name or
-                                                     user.email)
+            username = None
+        data = self.initial
+        user = get_adapter().populate_new_user(username,
+            data.get('first_name', ''),
+            data.get('last_name', ''),
+            self.cleaned_data["email"].strip().lower())
         user.set_unusable_password()
         if commit:
             user.save()

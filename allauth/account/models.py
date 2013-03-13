@@ -110,7 +110,12 @@ class EmailConfirmation(models.Model):
             "current_site": current_site,
             "key": self.key,
         }
-        get_adapter().send_mail('account/email/email_confirmation',
+        if (hasattr(self.email_address, 'for_new_user')
+                and self.email_address.for_new_user):
+            email_template = 'account/email/email_confirmation_welcome'
+        else:
+            email_template = 'account/email/email_confirmation'
+        get_adapter().send_mail(email_template,
                                 self.email_address.email,
                                 ctx)
         self.sent = timezone.now()

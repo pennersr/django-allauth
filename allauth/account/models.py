@@ -112,7 +112,7 @@ class EmailConfirmation(models.Model):
         }
         if (hasattr(self.email_address, 'for_new_user')
                 and self.email_address.for_new_user):
-            email_template = 'account/email/email_confirmation_welcome'
+            email_template = 'account/email/email_confirmation_signup'
         else:
             email_template = 'account/email/email_confirmation'
         get_adapter().send_mail(email_template,

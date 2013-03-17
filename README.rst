@@ -263,6 +263,25 @@ SOCIALACCOUNT_PROVIDERS (= dict)
 Upgrading
 ---------
 
+Bonus release
+*************
+
+- We noticed a very rare bug that effects end users who add google
+  social login to existing accounts. The symptom is you end up with
+  users who have multiple primary email addresses which conflicts
+  with assumptions made by the code. In addition to fixing the code
+  that allowed duplicates to occur, there is a managegement command
+  you can run if you think this effects you (and if it doesn't effect
+  you there is no harm in running it anyways if you are unsure):
+
+  - `python manage.py unprimary_extra_primary_emails`
+    
+    - Will silently remove primary flags for email addresses that
+      aren't the same as `user.email`.
+
+    - If no primary `EmailAddress` is `user.email` it will pick one
+      at random and print a warning.
+
 From 0.9.0
 **********
 

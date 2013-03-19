@@ -266,6 +266,22 @@ Upgrading
 From 0.9.0
 **********
 
+- We noticed a very rare bug that affects end users who add Google
+  social login to existing accounts. The symptom is you end up with
+  users who have multiple primary email addresses which conflicts
+  with assumptions made by the code. In addition to fixing the code
+  that allowed duplicates to occur, there is a managegement command
+  you can run if you think this effects you (and if it doesn't effect
+  you there is no harm in running it anyways if you are unsure):
+
+  - `python manage.py account_unsetmultipleprimaryemails`
+    
+    - Will silently remove primary flags for email addresses that
+      aren't the same as `user.email`.
+
+    - If no primary `EmailAddress` is `user.email` it will pick one
+      at random and print a warning.
+
 - The expiry time, if any, is now stored in a new column
   `SocialToken.expires_at`. Migrations are in place.
 

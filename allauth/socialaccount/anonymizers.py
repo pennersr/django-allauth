@@ -5,8 +5,8 @@ from anonymizer import Anonymizer
 similar_datetime = lambda anon, obj, field, val: make_aware(anon.faker.datetime(field=field, val=val), utc)
 
 def unique_varchar(anon, obj, field, val):
-    field.unique = True
-    return anon.faker.varchar(anon, obj, field, val)
+    field._unique = True
+    return anon.faker.varchar(field)
 
 empty_json_obj = lambda anon, obj, field, val: '{}'
 

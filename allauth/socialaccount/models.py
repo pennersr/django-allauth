@@ -143,7 +143,7 @@ class SocialLogin(object):
         self.email_addresses = email_addresses
         self.state = {}
 
-    def save(self):
+    def save(self, request):
         user = self.account.user
         user.save()
         self.account.user = user
@@ -151,9 +151,10 @@ class SocialLogin(object):
         if self.token:
             self.token.account = self.account
             self.token.save()
-        self._save_email_addresses()
+        self._save_email_addresses(request)
 
-    def _save_email_addresses(self):
+    def _save_email_addresses(self, request):
+        adapter = get_adapter()
         # user.email may not be listed as an EmailAddress ...
         user = self.account.user
         try:
@@ -167,10 +168,12 @@ class SocialLogin(object):
             and (user.email.lower() not in [e.email.lower() 
                                             for e in self.email_addresses])):
             # ... so let's append it
-            email_address = EmailAddress(user=user,
-                                         email=user.email,
-                                         verified=False,
-                                         primary=(not primary_email_address))
+            email_address \
+                = EmailAddress(user=user,
+                               email=user.email,
+                               verified=adapter.is_email_verified(request, 
+                                                                  user.email),
+                               primary=(not primary_email_address))
             if not primary_email_address:
                 primary_email_address = email_address
             self.email_addresses.append(email_address)
@@ -189,13 +192,17 @@ class SocialLogin(object):
                     primary_email_address = email_address
                 else:
                     email_address.primary = False
-
             email_address.user = user
+            email_address.verified \
+                = (email_address.verified 
+                   or adapter.is_email_verified(request, 
+                                                email_address.email))
             email_address.save()
 
         if primary_email_address.email.lower() != user.email.lower():
             user.email = primary_email_address.email
             user.save()
+        adapter.stash_email_verified(request, None)
 
     @property
     def is_existing(self):

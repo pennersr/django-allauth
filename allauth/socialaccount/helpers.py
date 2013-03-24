@@ -69,7 +69,7 @@ def _process_signup(request, sociallogin):
             [0:User._meta.get_field('first_name').max_length]
         u.email = email or ''
         u.set_unusable_password()
-        sociallogin.save()
+        sociallogin.save(request)
         send_email_confirmation(request, u)
         ret = complete_social_signup(request, sociallogin)
     return ret
@@ -120,7 +120,7 @@ def complete_social_login(request, sociallogin):
         else:
             # New social account
             sociallogin.account.user = request.user
-            sociallogin.save()
+            sociallogin.save(request)
             default_next = reverse('socialaccount_connections')
             next = sociallogin.get_redirect_url(request,
                                                 fallback=default_next)

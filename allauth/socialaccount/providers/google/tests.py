@@ -1,3 +1,6 @@
+from django.conf import settings
+from django.utils.importlib import import_module
+from django.test.client import RequestFactory
 from django.test.utils import override_settings
 
 from allauth.socialaccount.tests import create_oauth2_tests
@@ -6,6 +9,7 @@ from allauth.account.models import EmailConfirmation, EmailAddress
 from allauth.socialaccount.providers import registry
 from allauth.tests import MockedResponse
 from allauth.account.signals import user_signed_up
+from allauth.account.adapter import get_adapter
 
 from provider import GoogleProvider
 
@@ -68,4 +72,30 @@ class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
         self.assertTrue(EmailConfirmation.objects \
                             .filter(email_address__email=test_email) \
                             .exists())
+
+
+    @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=True,
+                       ACCOUNT_SIGNUP_FORM_CLASS=None,
+                       ACCOUNT_EMAIL_VERIFICATION
+                       =account_settings.EmailVerificationMethod.MANDATORY)
+    def test_email_verified_stashed(self):
+        # http://slacy.com/blog/2012/01/how-to-set-session-variables-in-django-unit-tests/
+        engine = import_module(settings.SESSION_ENGINE)
+        store = engine.SessionStore()
+        store.save()
+        self.client.cookies[settings.SESSION_COOKIE_NAME] = store.session_key
+        request = RequestFactory().get('/')
+        request.session = self.client.session
+        adapter = get_adapter()
+        test_email = 'raymond.penners@gmail.com'
+        adapter.stash_email_verified(request, test_email)
+        request.session.save()
+
+        self.login(self.get_mocked_response(verified_email=False))
+        email_address = EmailAddress.objects \
+            .get(email=test_email)
+        self.assertTrue(email_address.verified)
+        self.assertFalse(EmailConfirmation.objects \
+                             .filter(email_address__email=test_email) \
+                             .exists())
 

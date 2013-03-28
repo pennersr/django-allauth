@@ -107,8 +107,8 @@ METADATA = dict(
     keywords='django auth account social openid twitter facebook oauth registration',
     install_requires=['django',
                       'python-openid',
-                      'requests',
-                      'requests-oauthlib'],
+                      'requests-oauthlib',
+                      'requests'],
     include_package_data=True,
     classifiers=[
         'Development Status :: 4 - Beta',

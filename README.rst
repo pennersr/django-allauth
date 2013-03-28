@@ -266,6 +266,10 @@ Upgrading
 From 0.9.0
 **********
 
+- Dropped dependency on (unmaintained?) oauth2 package, in favor of
+  requests-oauthlib. So you will need to update your (virtual)
+  environment accordingly.
+
 - We noticed a very rare bug that affects end users who add Google
   social login to existing accounts. The symptom is you end up with
   users who have multiple primary email addresses which conflicts
@@ -771,6 +775,7 @@ Showcase
 - http://healthifyme.com/
 - http://www.burufly.com
 - http://eatwith.com/
+- http://en.globalquiz.org/
 - ...
 
 Please mail me (raymond.penners@intenct.nl) links to sites that have

@@ -54,11 +54,6 @@ class OAuthClient(object):
         self.consumer_key = consumer_key
         self.consumer_secret = consumer_secret
 
-        # self.consumer = oauth.Consumer(consumer_key, consumer_secret)
-        # self.client = oauth.Client(self.consumer)
-        # 
-        # self.signature_method = oauth.SignatureMethod_HMAC_SHA1()
-
         self.parameters = parameters
 
         self.callback_url = callback_url

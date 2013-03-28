@@ -18,7 +18,8 @@ try:
 except ImportError:
     from cgi import parse_qsl
 
-import oauth2 as oauth
+import requests
+from requests_oauthlib import OAuth1
 
 
 def get_token_prefix(url):
@@ -53,10 +54,10 @@ class OAuthClient(object):
         self.consumer_key = consumer_key
         self.consumer_secret = consumer_secret
 
-        self.consumer = oauth.Consumer(consumer_key, consumer_secret)
-        self.client = oauth.Client(self.consumer)
-
-        self.signature_method = oauth.SignatureMethod_HMAC_SHA1()
+        # self.consumer = oauth.Consumer(consumer_key, consumer_secret)
+        # self.client = oauth.Client(self.consumer)
+        # 
+        # self.signature_method = oauth.SignatureMethod_HMAC_SHA1()
 
         self.parameters = parameters
 
@@ -78,11 +79,12 @@ class OAuthClient(object):
             get_params['oauth_callback'] \
                 = self.request.build_absolute_uri(self.callback_url)
             rt_url = self.request_token_url + '?' + urllib.urlencode(get_params)
-            response, content = self.client.request(rt_url, "GET")
-            if response['status'] != '200':
+            oauth = OAuth1(self.consumer_key, client_secret=self.consumer_secret)
+            response = requests.post(url=rt_url, auth=oauth)
+            if response.status_code != 200:
                 raise OAuthError(
                     _('Invalid response while obtaining request token from "%s".') % get_token_prefix(self.request_token_url))
-            self.request_token = dict(parse_qsl(content))
+            self.request_token = dict(parse_qsl(response.content))
             self.request.session['oauth_%s_request_token' % get_token_prefix(self.request_token_url)] = self.request_token
         return self.request_token
 
@@ -92,20 +94,21 @@ class OAuthClient(object):
         """
         if self.access_token is None:
             request_token = self._get_rt_from_session()
-            token = oauth.Token(request_token['oauth_token'], request_token['oauth_token_secret'])
-            self.client = oauth.Client(self.consumer, token)
+            oauth = OAuth1(self.consumer_key, 
+                           client_secret=self.consumer_secret,
+                           resource_owner_key=request_token['oauth_token'], 
+                           resource_owner_secret=request_token['oauth_token_secret'])
             at_url = self.access_token_url
-
             # Passing along oauth_verifier is required according to:
             # http://groups.google.com/group/twitter-development-talk/browse_frm/thread/472500cfe9e7cdb9#
             # Though, the custom oauth_callback seems to work without it?
             if 'oauth_verifier' in self.request.REQUEST:
                 at_url = at_url + '?' + urllib.urlencode({'oauth_verifier': self.request.REQUEST['oauth_verifier']})
-            response, content = self.client.request(at_url, "GET")
-            if response['status'] != '200':
+            response = requests.post(url=at_url, auth=oauth)
+            if response.status_code != 200:
                 raise OAuthError(
                     _('Invalid response while obtaining access token from "%s".') % get_token_prefix(self.request_token_url))
-            self.access_token = dict(parse_qsl(content))
+            self.access_token = dict(parse_qsl(response.content))
 
             self.request.session['oauth_%s_access_token' % get_token_prefix(self.request_token_url)] = self.access_token
         return self.access_token
@@ -150,11 +153,8 @@ class OAuth(object):
 
     def __init__(self, request, consumer_key, secret_key, request_token_url):
         self.request = request
-
         self.consumer_key = consumer_key
         self.secret_key = secret_key
-        self.consumer = oauth.Consumer(consumer_key, secret_key)
-
         self.request_token_url = request_token_url
 
     def _get_at_from_session(self):
@@ -173,18 +173,16 @@ class OAuth(object):
         POST or GET data.
         """
         access_token = self._get_at_from_session()
-
-        token = oauth.Token(access_token['oauth_token'], access_token['oauth_token_secret'])
-
-        client = oauth.Client(self.consumer, token)
-
-        body = urllib.urlencode(params)
-
-        response, content = client.request(url, method=method, headers=headers,
-            body=body)
-
-        if response['status'] != '200':
+        oauth = OAuth1(self.consumer_key,
+                       client_secret=self.secret_key,
+                       resource_owner_key=access_token['oauth_token'],
+                       resource_owner_secret=access_token['oauth_token_secret'])
+        response = getattr(requests, method.lower())(url,
+                                                     auth=oauth,
+                                                     headers=headers,
+                                                     params=params)
+        if response.status_code != 200:
             raise OAuthError(
                 _('No access to private resources at "%s".') % get_token_prefix(self.request_token_url))
 
-        return content
+        return response.text

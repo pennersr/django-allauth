@@ -1,3 +1,8 @@
+2013-03-28  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Dropped dependency on (unmaintained?) oauth2 package, in favor
+	of requests-oauthlib.
+
 2013-03-13  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* account: E-mail confirmation mails generated at signup can now

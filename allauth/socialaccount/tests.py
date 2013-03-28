@@ -1,4 +1,7 @@
-import urlparse
+try:
+    from urllib.parse import urlparse, parse_qs
+except ImportError:
+    from urlparse import urlparse, parse_qs
 import warnings
 
 from django.test.utils import override_settings
@@ -11,14 +14,13 @@ from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.contrib.auth.models import AnonymousUser
 
-import providers
-from allauth.tests import MockedResponse, mocked_response
-
+from ..tests import MockedResponse, mocked_response
 from ..account import app_settings as account_settings
 from ..account.models import EmailAddress
 
-from models import SocialApp, SocialAccount, SocialLogin
-from helpers import complete_social_login
+from . import providers
+from .models import SocialApp, SocialAccount, SocialLogin
+from .helpers import complete_social_login
 
 def create_oauth2_tests(provider):
 
@@ -45,8 +47,8 @@ def create_oauth2_tests(provider):
 
     def login(self, resp_mock):
         resp = self.client.get(reverse(self.provider.id + '_login'))
-        p = urlparse.urlparse(resp['location'])
-        q = urlparse.parse_qs(p.query)
+        p = urlparse(resp['location'])
+        q = parse_qs(p.query)
         complete_url = reverse(self.provider.id+'_callback')
         self.assertGreater(q['redirect_uri'][0]
                            .find(complete_url), 0)

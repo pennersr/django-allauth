@@ -17,7 +17,7 @@ from django.contrib.auth import login
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.http import HttpResponseRedirect
 
-from allauth.utils import import_callable
+from ..utils import import_callable
 
 from . import signals
 
@@ -78,7 +78,7 @@ def user_display(user):
 
 
 def perform_login(request, user, redirect_url=None):
-    from models import EmailAddress
+    from .models import EmailAddress
 
     # not is_active: social users are redirected to a template
     # local users are stopped due to form validation checking is_active
@@ -122,7 +122,7 @@ def setup_user_email(request, user):
     up. Only sets up, doesn't do any other handling such as sending
     out email confirmation mails etc.
     """
-    from models import EmailAddress
+    from .models import EmailAddress
 
     assert EmailAddress.objects.filter(user=user).count() == 0
     if not user.email:
@@ -147,7 +147,7 @@ def send_email_confirmation(request, user, email_address=None):
     sent (consider a user retrying a few times), which is why there is
     a cooldown period before sending a new mail.
     """
-    from models import EmailAddress, EmailConfirmation
+    from .models import EmailAddress, EmailConfirmation
 
     COOLDOWN_PERIOD = timedelta(minutes=3)
     email = user.email
@@ -203,4 +203,4 @@ def random_token(extra=None, hash_func=hashlib.sha256):
     if extra is None:
         extra = []
     bits = extra + [str(random.SystemRandom().getrandbits(512))]
-    return hash_func("".join(bits)).hexdigest()
+    return hash_func("".join(bits).encode('utf-8')).hexdigest()

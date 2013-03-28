@@ -1,7 +1,7 @@
 from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
 
-from allauth.utils import get_user_model
+from ..utils import get_user_model
 
 from .app_settings import AuthenticationMethod
 from . import app_settings

@@ -6,7 +6,11 @@ from django.core.validators import validate_email, ValidationError
 from django.db.models import EmailField
 from django.utils.http import urlencode
 from django.contrib.auth import REDIRECT_FIELD_NAME
-from django.utils import importlib
+from django.utils import importlib, six
+try:
+    from django.utils.encoding import force_text
+except ImportError:
+    from django.utils.encoding import force_unicode as force_text
 
 from . import app_settings
 
@@ -35,9 +39,9 @@ def passthrough_login_redirect_url(request, url):
 
 
 def generate_unique_username(txt):
-    username = unicodedata.normalize('NFKD', unicode(txt))
+    username = unicodedata.normalize('NFKD', force_text(txt))
     username = username.encode('ascii', 'ignore')
-    username = unicode(re.sub('[^\w\s@+.-]', '', username).lower())
+    username = force_text(re.sub('[^\w\s@+.-]', '', username).lower())
     # Django allows for '@' in usernames in order to accomodate for
     # project wanting to use e-mail for username. In allauth we don't
     # use this, we already have a proper place for putting e-mail
@@ -90,7 +94,7 @@ def email_address_exists(email, exclude_user=None):
 
 
 def import_attribute(path):
-    assert isinstance(path, basestring)
+    assert isinstance(path, six.string_types)
     pkg, attr = path.rsplit('.',1)
     ret = getattr(importlib.import_module(pkg), attr)
     return ret

@@ -11,12 +11,10 @@ import urllib2
 from django.http import HttpResponseRedirect
 from django.utils.translation import gettext as _
 
-# parse_qsl was moved from the cgi namespace to urlparse in Python2.6.
-# this allows backwards compatibility
 try:
-    from urlparse import parse_qsl
+    from urllib.parse import parse_qsl
 except ImportError:
-    from cgi import parse_qsl
+    from urlparse import parse_qsl
 
 import requests
 from requests_oauthlib import OAuth1
@@ -126,7 +124,7 @@ class OAuthClient(object):
         try:
             self._get_rt_from_session()
             self.get_access_token()
-        except OAuthError, e:
+        except OAuthError as e:
             self.errors.append(e.args[0])
             return False
         return True

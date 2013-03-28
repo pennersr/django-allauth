@@ -50,7 +50,7 @@ class AccountTests(TestCase):
         MessageMiddleware().process_request(request)
         request.user = AnonymousUser()
         request.session['account_email_verified'] ='john@doe.com'
-        from views import signup
+        from .views import signup
         resp = signup(request)
         self.assertEquals(resp.status_code, 302)
         self.assertEquals(resp['location'], 

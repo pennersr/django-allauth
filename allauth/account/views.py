@@ -13,8 +13,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.tokens import default_token_generator
 from django.shortcuts import redirect
 
-from allauth.exceptions import ImmediateHttpResponse
-from allauth.utils import passthrough_login_redirect_url, get_user_model
+from ..exceptions import ImmediateHttpResponse
+from ..utils import passthrough_login_redirect_url, get_user_model
 
 from .utils import get_default_redirect, complete_signup
 from .forms import AddEmailForm, ChangePasswordForm

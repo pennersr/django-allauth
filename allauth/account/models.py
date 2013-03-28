@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.contrib.sites.models import Site
 
-from allauth import app_settings as allauth_app_settings
+from .. import app_settings as allauth_app_settings
 from . import app_settings
 from . import signals
 

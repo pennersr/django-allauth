@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 
-import views
+from . import views
 
 urlpatterns = patterns('',
     url('^login/cancelled/$', views.login_cancelled, 

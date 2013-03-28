@@ -57,7 +57,7 @@ def _process_signup(request, sociallogin):
             if not get_account_adapter().is_open_for_signup(request):
                 return render(request,
                               "account/signup_closed.html")
-        except ImmediateHttpResponse, e:
+        except ImmediateHttpResponse as e:
             return e.response
         u = sociallogin.account.user
         u.username = generate_unique_username(u.username
@@ -102,7 +102,7 @@ def complete_social_login(request, sociallogin):
         signals.pre_social_login.send(sender=SocialLogin,
                                       request=request, 
                                       sociallogin=sociallogin)
-    except ImmediateHttpResponse, e:
+    except ImmediateHttpResponse as e:
         return e.response
     if request.user.is_authenticated():
         if sociallogin.is_existing:
@@ -154,7 +154,10 @@ def _name_from_url(url):
     >>> _name_from_url('http://google.com/dir/subdir/file..ext')
     u'file.ext'
     """
-    from urlparse import urlparse
+    try:
+        from urllib.parse import urlparse
+    except ImportError:
+        from urlparse import urlparse
 
     p = urlparse(url)
     for base in (p.path.split('/')[-1],

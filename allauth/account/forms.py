@@ -11,14 +11,11 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.models import Site
 
-from models import EmailAddress
+from ..utils import (email_address_exists, get_user_model)
 
-# from models import PasswordReset
-from utils import perform_login, send_email_confirmation, setup_user_email
-from allauth.utils import (email_address_exists, get_user_model)
-
+from .models import EmailAddress
+from .utils import perform_login, send_email_confirmation, setup_user_email
 from .app_settings import AuthenticationMethod, EmailVerificationMethod
-        
 from . import app_settings
 from .adapter import get_adapter
 

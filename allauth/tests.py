@@ -3,7 +3,7 @@
 import requests
 from django.test import TestCase
 
-import utils
+from . import utils
 
 class MockedResponse(object):
     def __init__(self, status_code, content, headers={}):

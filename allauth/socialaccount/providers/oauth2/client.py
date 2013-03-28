@@ -1,5 +1,8 @@
 import urllib
-import urlparse
+try:
+    from urllib.parse import parse_qsl
+except ImportError:
+    from urlparse import parse_qsl
 import requests
 
 
@@ -54,7 +57,7 @@ class OAuth2Client(object):
                 or resp.text[:2] == '{"'):
                 access_token = resp.json()
             else:
-                access_token = dict(urlparse.parse_qsl(resp.text))
+                access_token = dict(parse_qsl(resp.text))
         if not access_token or 'access_token' not in access_token:
             raise OAuth2Error('Error retrieving access token: %s' 
                               % resp.content)

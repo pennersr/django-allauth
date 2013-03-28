@@ -5,7 +5,7 @@ from allauth.account.models import EmailAddress
 from allauth.account.forms import BaseSignupForm
 from allauth.account.utils import send_email_confirmation
 
-from models import SocialAccount
+from .models import SocialAccount
 
 class SignupForm(BaseSignupForm):
 

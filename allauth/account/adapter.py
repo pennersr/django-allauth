@@ -3,9 +3,13 @@ from django.template.loader import render_to_string
 from django.template import TemplateDoesNotExist
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives, EmailMessage
+try:
+    from django.utils.encoding import force_text
+except ImportError:
+    from django.utils.encoding import force_unicode as force_text
 
-from allauth.utils import (import_attribute, get_user_model,
-                           generate_unique_username)
+from ..utils import (import_attribute, get_user_model,
+                     generate_unique_username)
 
 from . import app_settings
 
@@ -31,7 +35,7 @@ class DefaultAccountAdapter(object):
         if prefix is None:
             site = Site.objects.get_current()
             prefix = u"[{name}] ".format(name=site.name)
-        return prefix + unicode(subject)
+        return prefix + force_text(subject)
 
     def send_mail(self, template_prefix, email, context):
         """

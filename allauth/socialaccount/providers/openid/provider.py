@@ -1,4 +1,7 @@
-from urlparse import urlparse
+try:
+    from urllib.parse import urlparse
+except ImportError:
+    from urlparse import urlparse
 from django.core.urlresolvers import reverse
 from django.utils.http import urlencode
 

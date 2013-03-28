@@ -8,12 +8,12 @@ from django.utils import timezone
 from django.contrib.sites.models import Site
 
 from allauth import app_settings as allauth_app_settings
-import app_settings
-import signals
+from . import app_settings
+from . import signals
 
-from utils import random_token
-from managers import EmailAddressManager, EmailConfirmationManager
-from adapter import get_adapter
+from .utils import random_token
+from .managers import EmailAddressManager, EmailConfirmationManager
+from .adapter import get_adapter
 
 class EmailAddress(models.Model):
     

@@ -16,15 +16,15 @@ from django.shortcuts import redirect
 from allauth.exceptions import ImmediateHttpResponse
 from allauth.utils import passthrough_login_redirect_url, get_user_model
 
-from utils import get_default_redirect, complete_signup
-from forms import AddEmailForm, ChangePasswordForm
-from forms import LoginForm, ResetPasswordKeyForm
-from forms import ResetPasswordForm, SetPasswordForm, SignupForm
-from utils import sync_user_email_addresses
-from models import EmailAddress, EmailConfirmation
+from .utils import get_default_redirect, complete_signup
+from .forms import AddEmailForm, ChangePasswordForm
+from .forms import LoginForm, ResetPasswordKeyForm
+from .forms import ResetPasswordForm, SetPasswordForm, SignupForm
+from .utils import sync_user_email_addresses
+from .models import EmailAddress, EmailConfirmation
 
-import signals
-from adapter import get_adapter
+from . import signals
+from .adapter import get_adapter
 
 User = get_user_model()
 
@@ -81,7 +81,7 @@ class CloseableSignupMixin(object):
         try:
             if not self.is_open():
                 return self.closed()
-        except ImmediateHttpResponse, e:
+        except ImmediateHttpResponse as e:
             return e.response
         return super(CloseableSignupMixin, self).dispatch(request,
                                                           *args,

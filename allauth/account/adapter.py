@@ -7,7 +7,7 @@ from django.core.mail import EmailMultiAlternatives, EmailMessage
 from allauth.utils import (import_attribute, get_user_model,
                            generate_unique_username)
 
-import app_settings
+from . import app_settings
 
 class DefaultAccountAdapter(object):
 

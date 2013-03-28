@@ -3,8 +3,8 @@ from django.db.models import Q
 
 from allauth.utils import get_user_model
 
-from app_settings import AuthenticationMethod
-import app_settings
+from .app_settings import AuthenticationMethod
+from . import app_settings
 
 User = get_user_model()
 

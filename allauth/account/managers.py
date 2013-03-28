@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.db import models, IntegrityError
 from django.db.models import Q
 
-import app_settings
+from . import app_settings
 
 class EmailAddressManager(models.Manager):
     

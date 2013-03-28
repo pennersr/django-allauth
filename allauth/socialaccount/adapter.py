@@ -2,7 +2,7 @@ from allauth.utils import (import_attribute,
                            get_user_model,
                            valid_email_or_none)
 
-import app_settings
+from . import app_settings
 
 class DefaultSocialAccountAdapter(object):
     def pre_social_login(self, request, sociallogin):

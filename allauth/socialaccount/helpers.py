@@ -14,10 +14,10 @@ from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.exceptions import ImmediateHttpResponse
 
-from models import SocialLogin
-import app_settings
-import signals
-from adapter import get_adapter
+from .models import SocialLogin
+from . import app_settings
+from . import signals
+from .adapter import get_adapter
 
 User = get_user_model()
 

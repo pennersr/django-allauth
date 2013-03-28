@@ -19,11 +19,11 @@ from django.http import HttpResponseRedirect
 
 from allauth.utils import import_callable
 
-import signals
+from . import signals
 
-from app_settings import EmailVerificationMethod
-import app_settings
-from adapter import get_adapter
+from .app_settings import EmailVerificationMethod
+from . import app_settings
+from .adapter import get_adapter
 
 LOGIN_REDIRECT_URLNAME = getattr(settings, "LOGIN_REDIRECT_URLNAME", "")
 

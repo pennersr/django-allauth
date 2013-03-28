@@ -17,10 +17,10 @@ from models import EmailAddress
 from utils import perform_login, send_email_confirmation, setup_user_email
 from allauth.utils import (email_address_exists, get_user_model)
 
-from app_settings import AuthenticationMethod, EmailVerificationMethod
+from .app_settings import AuthenticationMethod, EmailVerificationMethod
         
-import app_settings
-from adapter import get_adapter
+from . import app_settings
+from .adapter import get_adapter
 
 User = get_user_model()
 USERNAME_REGEX = UserCreationForm().fields['username'].regex
@@ -149,7 +149,7 @@ def _base_signup_form_class():
                                               % app_settings.SIGNUP_FORM_CLASS)
     try:
         mod = import_module(fc_module)
-    except ImportError, e:
+    except ImportError as e:
         raise exceptions.ImproperlyConfigured('Error importing form class %s:'
                                               ' "%s"' % (fc_module, e))
     try:

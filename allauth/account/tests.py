@@ -14,9 +14,9 @@ from django.contrib.auth.models import AnonymousUser
 from allauth.account.models import EmailAddress, EmailConfirmation
 from allauth.utils import get_user_model
 
-import app_settings
+from . import app_settings
 
-from adapter import get_adapter
+from .adapter import get_adapter
 
 User = get_user_model()
 

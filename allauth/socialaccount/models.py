@@ -11,8 +11,8 @@ from allauth.utils import (get_login_redirect_url,
 from allauth.account.adapter import get_adapter
 from allauth.account.models import EmailAddress
 
-import providers
-from fields import JSONField
+from . import providers
+from .fields import JSONField
 
 
 class SocialAppManager(models.Manager):

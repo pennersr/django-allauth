@@ -8,7 +8,7 @@ from django.utils.http import urlencode
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.utils import importlib
 
-import app_settings
+from . import app_settings
 
 def get_login_redirect_url(request, 
                            fallback=True):

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from models import EmailConfirmation, EmailAddress
+from .models import EmailConfirmation, EmailAddress
 
 class EmailAddressAdmin(admin.ModelAdmin):
     list_display = ('email', 'user', 'primary', 'verified')

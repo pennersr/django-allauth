@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
 from allauth.socialaccount.models import SocialLogin, SocialAccount
 from allauth.socialaccount.adapter import get_adapter
 
-from provider import GoogleProvider
+from .provider import GoogleProvider
 
 class GoogleOAuth2Adapter(OAuth2Adapter):
     provider_id = GoogleProvider.id

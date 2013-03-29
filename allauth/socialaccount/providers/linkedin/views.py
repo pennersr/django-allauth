@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth.views import (OAuthAdapter,
 from allauth.socialaccount.models import SocialAccount, SocialLogin
 from allauth.socialaccount.adapter import get_adapter
 
-from provider import LinkedInProvider
+from .provider import LinkedInProvider
 
 class LinkedInAPI(OAuth):
     url = 'https://api.linkedin.com/v1/people/~'

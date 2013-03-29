@@ -40,7 +40,7 @@ def passthrough_login_redirect_url(request, url):
 
 def generate_unique_username(txt):
     username = unicodedata.normalize('NFKD', force_text(txt))
-    username = username.encode('ascii', 'ignore')
+    username = username.encode('ascii', 'ignore').decode('ascii')
     username = force_text(re.sub('[^\w\s@+.-]', '', username).lower())
     # Django allows for '@' in usernames in order to accomodate for
     # project wanting to use e-mail for username. In allauth we don't

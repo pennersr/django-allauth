@@ -13,7 +13,7 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.models import SocialApp
 
-from locale import get_default_locale_callable
+from .locale import get_default_locale_callable
 
 
 class FacebookAccount(ProviderAccount):

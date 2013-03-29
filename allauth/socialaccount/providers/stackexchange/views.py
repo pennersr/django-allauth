@@ -7,7 +7,7 @@ from allauth.socialaccount.models import SocialAccount, SocialLogin
 from allauth.socialaccount.providers import registry
 from allauth.socialaccount.adapter import get_adapter
 
-from provider import StackExchangeProvider
+from .provider import StackExchangeProvider
 
 class StackExchangeOAuth2Adapter(OAuth2Adapter):
     provider_id = StackExchangeProvider.id

@@ -11,7 +11,7 @@ from allauth.tests import MockedResponse
 from allauth.account.signals import user_signed_up
 from allauth.account.adapter import get_adapter
 
-from provider import GoogleProvider
+from .provider import GoogleProvider
 
 class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
 

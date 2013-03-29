@@ -7,7 +7,7 @@ class Provider(object):
         Builds the URL to redirect to when initiating a login for this
         provider. 
         """
-        raise NotImplementedError, "get_login_url() for " + self.name
+        raise NotImplementedError("get_login_url() for " + self.name)
 
     def get_app(self, request):
         return SocialApp.objects.get_current(self.id)

@@ -5,7 +5,7 @@ from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.models import SocialAccount, SocialLogin
 from allauth.socialaccount.adapter import get_adapter
 
-from provider import PersonaProvider
+from .provider import PersonaProvider
 
 def persona_login(request):
     assertion = request.POST.get('assertion', '')

@@ -3,7 +3,7 @@ import base64
 from openid.store.interface import OpenIDStore as OIDStore
 from openid.association import Association as OIDAssociation
 
-from models import OpenIDStore, OpenIDNonce
+from .models import OpenIDStore, OpenIDNonce
 
 
 class DBOpenIDStore(OIDStore):

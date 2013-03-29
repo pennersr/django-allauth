@@ -17,9 +17,9 @@ from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.adapter import get_adapter
 from allauth.utils import valid_email_or_none
 
-from utils import DBOpenIDStore
-from forms import LoginForm
-from provider import OpenIDProvider
+from .utils import DBOpenIDStore
+from .forms import LoginForm
+from .provider import OpenIDProvider
 
 class AXAttribute:
     CONTACT_EMAIL = 'http://axschema.org/contact/email'

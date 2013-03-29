@@ -1,7 +1,7 @@
-import urllib
 try:
-    from urllib.parse import parse_qsl
+    from urllib.parse import parse_qsl, urlencode
 except ImportError:
+    from urllib import urlencode
     from urlparse import parse_qsl
 import requests
 
@@ -38,7 +38,7 @@ class OAuth2Client(object):
         if self.state:
             params['state'] = self.state
         params.update(self.extra_params)
-        return '%s?%s' % (self.authorization_url, urllib.urlencode(params))
+        return '%s?%s' % (self.authorization_url, urlencode(params))
 
     def get_access_token(self, code):
         params = {'client_id': self.consumer_key,

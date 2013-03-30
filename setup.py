@@ -96,6 +96,11 @@ excluded_directories = standard_exclude_directories
 
 package_data = find_package_data(exclude_directories=excluded_directories)
 
+if sys.version_info[0] < 3:
+    openid_package = 'python-openid'
+else:
+    openid_package = 'python3-openid'
+
 METADATA = dict(
     name='django-allauth',
     version='0.10.0',
@@ -106,7 +111,7 @@ METADATA = dict(
     url='http://github.com/pennersr/django-allauth',
     keywords='django auth account social openid twitter facebook oauth registration',
     install_requires=['django',
-                      'python-openid',
+                      openid_package,
                       'requests-oauthlib',
                       'requests'],
     include_package_data=True,

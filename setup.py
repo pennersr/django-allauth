@@ -127,8 +127,6 @@ METADATA = dict(
     ],
     packages=find_packages(exclude=['example']),
     package_data=package_data,
-    tests_require=['django-setuptest', 'argparse'],
-    test_suite='setuptest.setuptest.SetupTestSuite'
 )
 
 if __name__ == '__main__':

@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+
+SECRET_KEY = 'psst'
+SITE_ID = 1
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -9,6 +13,8 @@ DATABASES = {
         'PORT': '',
     }
 }
+
+ROOT_URLCONF = 'allauth.urls'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",

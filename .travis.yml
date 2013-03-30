@@ -3,6 +3,8 @@ python:
  - "2.7"
  - "2.6"
  - "3.3"
+install:
+ - pip install . --use-mirrors
 branches:
  only:
   - master

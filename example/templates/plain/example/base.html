@@ -8,6 +8,15 @@
 </head>
 <body>
 {% block body %}
+
+{% if messages %}
+<ul>
+{% for message in messages %}
+<li>{{message}}</li>
+{% endfor %}
+</ul>
+{% endif %}
+
 <ul>
 {% if user.is_authenticated %}
 <li><a href="{% url 'account_email' %}">Change E-mail</a></li>

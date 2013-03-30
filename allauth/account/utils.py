@@ -187,7 +187,7 @@ def sync_user_email_addresses(user):
     an EmailAddress record, e.g. in the case of manually created admin
     users.
     """
-    from models import EmailAddress
+    from .models import EmailAddress
     if user.email and not EmailAddress.objects.filter(user=user,
                                                       email=user.email).exists():
         if app_settings.UNIQUE_EMAIL and EmailAddress.objects.filter(email=user.email).exists():

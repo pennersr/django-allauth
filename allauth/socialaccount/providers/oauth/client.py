@@ -5,16 +5,15 @@ Inspired by:
     http://github.com/facebook/tornado/blob/master/tornado/auth.py
 """
 
-import urllib
-import urllib2
-
 from django.http import HttpResponseRedirect
 from django.utils.translation import gettext as _
 
 try:
-    from urllib.parse import parse_qsl
+    from urllib.parse import parse_qsl, urlencode, urlparse
 except ImportError:
     from urlparse import parse_qsl
+    from urllib import urlencode
+    from urlparse import urlparse
 
 import requests
 from requests_oauthlib import OAuth1
@@ -31,7 +30,7 @@ def get_token_prefix(url):
         returns ``twitter.com``
 
     """
-    return urllib2.urlparse.urlparse(url).netloc
+    return urlparse(url).netloc
 
 
 class OAuthError(Exception):
@@ -71,7 +70,7 @@ class OAuthClient(object):
                 get_params.update(self.parameters)
             get_params['oauth_callback'] \
                 = self.request.build_absolute_uri(self.callback_url)
-            rt_url = self.request_token_url + '?' + urllib.urlencode(get_params)
+            rt_url = self.request_token_url + '?' + urlencode(get_params)
             oauth = OAuth1(self.consumer_key, client_secret=self.consumer_secret)
             response = requests.post(url=rt_url, auth=oauth)
             if response.status_code != 200:
@@ -96,7 +95,7 @@ class OAuthClient(object):
             # http://groups.google.com/group/twitter-development-talk/browse_frm/thread/472500cfe9e7cdb9#
             # Though, the custom oauth_callback seems to work without it?
             if 'oauth_verifier' in self.request.REQUEST:
-                at_url = at_url + '?' + urllib.urlencode({'oauth_verifier': self.request.REQUEST['oauth_verifier']})
+                at_url = at_url + '?' + urlencode({'oauth_verifier': self.request.REQUEST['oauth_verifier']})
             response = requests.post(url=at_url, auth=oauth)
             if response.status_code != 200:
                 raise OAuthError(

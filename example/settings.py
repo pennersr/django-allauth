@@ -123,9 +123,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 TEMPLATE_DIRS = (
     # allauth templates: you could copy this directory into your
     # project and tweak it according to your needs
-    os.path.join(PROJECT_ROOT, 'templates', 'uniform', 'allauth'),
+    # os.path.join(PROJECT_ROOT, 'templates', 'uniform', 'allauth'),
     # example project specific templates
-    os.path.join(PROJECT_ROOT, 'templates', 'uniform', 'example')
+    os.path.join(PROJECT_ROOT, 'templates', 'plain', 'example')
 )
 
 INSTALLED_APPS = (
@@ -137,13 +137,17 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
 
-    'uni_form',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     # 'allauth.socialaccount.providers.twitter',
     # 'allauth.socialaccount.providers.openid',
     # 'allauth.socialaccount.providers.facebook',
+    # 'allauth.socialaccount.providers.google',
+    # 'allauth.socialaccount.providers.github',
+    # 'allauth.socialaccount.providers.twitter',
+    # 'allauth.socialaccount.providers.stackexchange',
+    # 'allauth.socialaccount.providers.weibo',
 )
 
 # A sample logging configuration. The only tangible logging

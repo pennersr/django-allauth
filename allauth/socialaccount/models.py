@@ -3,6 +3,11 @@ import json
 from django.db import models
 from django.contrib.auth import authenticate
 from django.contrib.sites.models import Site
+from django.utils.encoding import python_2_unicode_compatible
+try:
+    from django.utils.encoding import force_text
+except ImportError:
+    from django.utils.encoding import force_unicode as force_text
 
 import allauth.app_settings
 from allauth.account import app_settings as account_settings
@@ -21,7 +26,7 @@ class SocialAppManager(models.Manager):
         return self.get(sites__id=site.id,
                         provider=provider)
 
-
+@python_2_unicode_compatible
 class SocialApp(models.Model):
     objects = SocialAppManager()
 
@@ -42,7 +47,7 @@ class SocialApp(models.Model):
     # blank=True allows for disabling apps without removing them
     sites = models.ManyToManyField(Site, blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 class SocialAccount(models.Model):
@@ -75,8 +80,8 @@ class SocialAccount(models.Model):
     def authenticate(self):
         return authenticate(account=self)
 
-    def __unicode__(self):
-        return unicode(self.user)
+    def __str__(self):
+        return force_text(self.user)
 
     def get_profile_url(self):
         return self.get_provider_account().get_profile_url()
@@ -91,6 +96,7 @@ class SocialAccount(models.Model):
         return self.get_provider().wrap_account(self)
 
 
+@python_2_unicode_compatible
 class SocialToken(models.Model):
     app = models.ForeignKey(SocialApp)
     account = models.ForeignKey(SocialAccount)
@@ -103,7 +109,7 @@ class SocialToken(models.Model):
     class Meta:
         unique_together = ('app', 'account')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.token
 
 

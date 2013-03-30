@@ -5,6 +5,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.template.loader import render_to_string
 from django.template import RequestContext
 from django.utils.html import mark_safe
+from django.utils.encoding import python_2_unicode_compatible
 
 from allauth.utils import import_callable
 from allauth.socialaccount import providers
@@ -16,6 +17,7 @@ from allauth.socialaccount.models import SocialApp
 from .locale import get_default_locale_callable
 
 
+@python_2_unicode_compatible
 class FacebookAccount(ProviderAccount):
     def get_profile_url(self):
         return self.account.extra_data.get('link')
@@ -24,8 +26,8 @@ class FacebookAccount(ProviderAccount):
         uid = self.account.uid
         return 'http://graph.facebook.com/%s/picture?type=large' % uid
 
-    def __unicode__(self):
-        dflt = super(FacebookAccount, self).__unicode__()
+    def __str__(self):
+        dflt = super(FacebookAccount, self).__str__()
         return self.account.extra_data.get('name', dflt)
 
 

@@ -1,8 +1,10 @@
+from django.utils.encoding import python_2_unicode_compatible
+
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
 
-
+@python_2_unicode_compatible
 class TwitterAccount(ProviderAccount):
     def get_screen_name(self):
         return self.account.extra_data.get('screen_name')
@@ -23,9 +25,9 @@ class TwitterAccount(ProviderAccount):
             ret = profile_image_url.replace('_normal', '')
         return ret
 
-    def __unicode__(self):
+    def __str__(self):
         screen_name = self.get_screen_name()
-        return screen_name or super(TwitterAccount, self).__unicode__()
+        return screen_name or super(TwitterAccount, self).__str__()
 
 
 class TwitterProvider(OAuthProvider):

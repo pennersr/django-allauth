@@ -2,13 +2,15 @@ import json
 
 from django.template.loader import render_to_string
 from django.template import RequestContext
+from django.utils.encoding import python_2_unicode_compatible
 
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount, Provider
 
 
+@python_2_unicode_compatible
 class PersonaAccount(ProviderAccount):
-    def __unicode__(self):
+    def __str__(self):
         return self.account.uid
 
 class PersonaProvider(Provider):

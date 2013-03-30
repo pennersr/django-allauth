@@ -1,3 +1,5 @@
+from django.utils.encoding import python_2_unicode_compatible
+
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.models import SocialApp
 
@@ -24,6 +26,7 @@ class Provider(object):
     def get_settings(self):
         return app_settings.PROVIDERS.get(self.id, {})
 
+@python_2_unicode_compatible
 class ProviderAccount(object):
     def __init__(self, social_account):
         self.account = social_account
@@ -48,5 +51,5 @@ class ProviderAccount(object):
         return dict(id=provider.id,
                     name=provider.name)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.get_brand()['name']

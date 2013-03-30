@@ -205,7 +205,7 @@ class SocialLogin(object):
                                                 email_address.email))
             email_address.save()
 
-        if primary_email_address.email.lower() != user.email.lower():
+        if primary_email_address and (not user.email or primary_email_address.email.lower() != user.email.lower()):
             user.email = primary_email_address.email
             user.save()
         adapter.stash_email_verified(request, None)

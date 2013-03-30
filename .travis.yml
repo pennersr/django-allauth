@@ -2,7 +2,8 @@ langurage: python
 python:
  - "2.7"
  - "2.6"
+ - "3.3"
 branches:
  only:
   - master
-script: ./manage.py test account socialaccount
+script: python manage.py test account socialaccount dropbox facebook google github linkedin openid persona soundcloud stackexchange twitch twitter weibo 

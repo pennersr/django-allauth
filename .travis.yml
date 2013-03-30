@@ -5,4 +5,4 @@ python:
 branches:
  only:
   - master
-script: python setup.py test
+script: ./manage.py test account socialaccount

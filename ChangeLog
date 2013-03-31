@@ -1,3 +1,7 @@
+2013-03-31  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Python 3 is now supported!
+
 2013-03-28  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Dropped dependency on (unmaintained?) oauth2 package, in favor

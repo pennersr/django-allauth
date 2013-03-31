@@ -33,6 +33,17 @@ authentication, with flows that just work.
 Overview
 ========
 
+Requirements
+------------
+
+- Python 2.6, 2.7 or 3.3
+
+- Django (1.4.3+)
+
+- python-openid or python3-openid (depending on your Python version)
+
+- requests and requests-oauthlib
+
 Supported Flows
 ---------------
 

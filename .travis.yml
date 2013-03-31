@@ -16,5 +16,5 @@ script: python manage.py test account socialaccount dropbox facebook google gith
 matrix:
   exclude:
     - python: "3.3"
-    - env: DJANGO_VERSION=1.4.3
+      env: DJANGO_VERSION=1.4.3
 

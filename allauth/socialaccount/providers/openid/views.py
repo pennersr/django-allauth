@@ -57,7 +57,8 @@ def login(request):
                     request.build_absolute_uri('/'),
                     request.build_absolute_uri(callback_url))
                 return HttpResponseRedirect(redirect_url)
-            except DiscoveryFailure as e:
+            # UnicodeDecodeError: see https://github.com/necaris/python3-openid/issues/1
+            except (UnicodeDecodeError, DiscoveryFailure) as e:
                 if request.method == 'POST':
                     form._errors["openid"] = form.error_class([e])
                 else:

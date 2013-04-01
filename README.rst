@@ -277,6 +277,8 @@ Upgrading
 From 0.9.0
 **********
 
+- Django 1.4.3 is now the minimal requirement.
+
 - Dropped dependency on (unmaintained?) oauth2 package, in favor of
   requests-oauthlib. So you will need to update your (virtual)
   environment accordingly.

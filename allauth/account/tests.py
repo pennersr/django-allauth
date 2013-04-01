@@ -90,8 +90,12 @@ class AccountTests(TestCase):
             EmailConfirmation.objects.update(sent=now()
                                              - timedelta(days=1))
         # Verify, and re-attempt to login.
-        EmailAddress.objects.filter(user__username='johndoe') \
-            .update(verified=True)
+        confirmation = EmailConfirmation \
+            .objects \
+            .filter(email_address__user__username='johndoe')[:1] \
+            .get()
+        c.post(reverse('account_confirm_email',
+                       args=[confirmation.key]))
         resp = c.post(reverse('account_login'),
                       { 'login': 'johndoe',
                         'password': 'johndoe'})

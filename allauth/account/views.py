@@ -154,7 +154,7 @@ class ConfirmEmailView(TemplateResponseMixin, View):
     
     def post(self, *args, **kwargs):
         self.object = confirmation = self.get_object()
-        confirmation.confirm()
+        confirmation.confirm(self.request)
         # Don't -- allauth doesn't tocuh is_active so that sys admin can
         # use it to block users et al
         #

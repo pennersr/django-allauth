@@ -94,13 +94,15 @@ class EmailConfirmation(models.Model):
         return expiration_date <= timezone.now()
     key_expired.boolean = True
     
-    def confirm(self):
+    def confirm(self, request):
         if not self.key_expired() and not self.email_address.verified:
             email_address = self.email_address
             email_address.verified = True
             email_address.set_as_primary(conditional=True)
             email_address.save()
-            signals.email_confirmed.send(sender=self.__class__, email_address=email_address)
+            signals.email_confirmed.send(sender=self.__class__, 
+                                         request=request,
+                                         email_address=email_address)
             return email_address
     
     def send(self, request, **kwargs):

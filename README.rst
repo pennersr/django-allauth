@@ -772,6 +772,37 @@ If this does not suit your needs, you can hook up your own custom
 mechanism by overriding the `send_mail` method of the account adapter
 (`allauth.account.adapter.DefaultAccountAdapter`).
 
+
+Custom Redirects
+----------------
+
+If redirecting to statically configurable URLs (as specified in your
+project settings) is not flexible enough, then you can override the
+following adapter methods:
+
+- `get_login_redirect_url(request)`
+
+- `get_email_confirmation_redirect_url(request)`
+
+For example, redirecting to `/accounts/<username>/` can be implemented as
+follows::
+
+    # project/settings.py:
+    ACCOUNT_ADAPTER = 'project.users.adapter.MyAccountAdapter'
+
+    # project/users/adapter.py:
+    from django.conf import settings
+    from allauth.account.adapter import DefaultAccountAdapter
+    
+    class MyAccountAdapter(DefaultAccountAdapter):
+    
+        def get_login_redirect_url(self, request):
+            path = "/accounts/{username}/"
+            return path.format(username=request.user.username)
+
+
+
+
 Showcase
 ========
 

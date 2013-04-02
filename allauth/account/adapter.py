@@ -18,7 +18,7 @@ class DefaultAccountAdapter(object):
     def stash_email_verified(self, request, email):
         request.session['account_email_verified'] = email
 
-    def is_email_verified(self, request, email):
+    def is_email_verified(self, request, email=None):
         """
         Checks whether or not the email address is already verified
         beyond allauth scope, for example, by having accepted an
@@ -26,8 +26,10 @@ class DefaultAccountAdapter(object):
         """
         ret = False
         verified_email = request.session.get('account_email_verified')
-        if verified_email:
+        if verified_email and email:
             ret = verified_email.lower() == email.lower()
+        elif verified_email:
+            ret = verified_email.lower()
         return ret
 
     def format_email_subject(self, subject):

@@ -121,7 +121,9 @@ def complete_social_login(request, sociallogin):
             # New social account
             sociallogin.account.user = request.user
             sociallogin.save(request)
-            default_next = reverse('socialaccount_connections')
+            default_next = get_adapter() \
+                .get_connect_redirect_url(request,
+                                          sociallogin.account)
             next = sociallogin.get_redirect_url(request) or default_next
             messages.add_message(request, messages.INFO, 
                                  _('The social account has been connected'))

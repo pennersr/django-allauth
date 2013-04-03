@@ -1,3 +1,9 @@
+2013-04-03  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Added support for overriding the URL to return to after
+	connecting a social account
+	(`allauth.socialaccount.adapter.DefaultSocialAccountAdapter.get_connect_redirect_url`).
+
 2013-03-31  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Python 3 is now supported!

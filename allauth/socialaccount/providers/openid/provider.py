@@ -4,12 +4,10 @@ except ImportError:
     from urlparse import urlparse
 from django.core.urlresolvers import reverse
 from django.utils.http import urlencode
-from django.utils.encoding import python_2_unicode_compatible
 
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import Provider, ProviderAccount
 
-@python_2_unicode_compatible
 class OpenIDAccount(ProviderAccount):
     def get_brand(self):
         ret = super(OpenIDAccount, self).get_brand()
@@ -28,7 +26,7 @@ class OpenIDAccount(ProviderAccount):
                 break
         return ret
 
-    def __str__(self):
+    def to_str(self):
         return self.account.uid
 
 

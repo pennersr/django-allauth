@@ -780,9 +780,15 @@ If redirecting to statically configurable URLs (as specified in your
 project settings) is not flexible enough, then you can override the
 following adapter methods:
 
-- `get_login_redirect_url(request)`
+- `allauth.account.adapter.DefaultAccountAdapter`:
 
-- `get_email_confirmation_redirect_url(request)`
+  - `get_login_redirect_url(request)`
+
+  - `get_email_confirmation_redirect_url(request)`
+
+- `allauth.socialaccount.adapter.DefaultSocialAccountAdapter`:
+
+  - `get_connect_redirect_url(request, socialaccount)`
 
 For example, redirecting to `/accounts/<username>/` can be implemented as
 follows::

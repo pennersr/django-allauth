@@ -47,7 +47,7 @@ class DefaultSocialAccountAdapter(object):
         user.last_name = last_name or name_parts[2]
         return user
 
-    def get_connect_redirect_url(self, request, socialacount):
+    def get_connect_redirect_url(self, request, socialaccount):
         """
         Returns the default URL to redirect to after successfully
         connecting a social account.

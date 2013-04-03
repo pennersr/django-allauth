@@ -10,7 +10,6 @@ except ImportError:
 
 from django.contrib import messages
 from django.shortcuts import render
-from django.contrib.sites.models import Site
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth import login
@@ -29,7 +28,9 @@ LOGIN_REDIRECT_URLNAME = getattr(settings, "LOGIN_REDIRECT_URLNAME", "")
 
 
 def get_default_redirect(request, redirect_field_name="next",
-        login_redirect_urlname=LOGIN_REDIRECT_URLNAME, session_key_value="redirect_to"):
+                         login_redirect_urlname=LOGIN_REDIRECT_URLNAME, 
+                         session_key_value="redirect_to",
+                         fallback=True):
     """
     Returns the URL to be used in login procedures by looking at different
     values in the following order:
@@ -38,10 +39,13 @@ def get_default_redirect(request, redirect_field_name="next",
     - LOGIN_REDIRECT_URL - the URL in the setting
     - LOGIN_REDIRECT_URLNAME - the name of a URLconf entry in the settings
     """
-    if login_redirect_urlname:
-        default_redirect_to = reverse(login_redirect_urlname)
+    if fallback:
+        if login_redirect_urlname:
+            default_redirect_to = reverse(login_redirect_urlname)
+        else:
+            default_redirect_to = get_adapter().get_login_redirect_url(request)
     else:
-        default_redirect_to = get_adapter().get_login_redirect_url(request)
+        default_redirect_to = None
     redirect_to = request.REQUEST.get(redirect_field_name)
     if not redirect_to:
         # try the session if available

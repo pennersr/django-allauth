@@ -446,6 +446,11 @@ Facebook
 For Facebook both OAuth2 and the Facebook Connect Javascript SDK are
 supported. You can even mix the two.
 
+Register your app: https://developers.facebook.com/apps and make sure you list a
+redirect uri of the form 
+`http://example.com/accounts/facebook/login/callback/`.
+Client id = App ID & Secret = App Secret
+
 Advantage of the Javascript SDK may be a more streamlined user
 experience as you do not leave your site. Furthermore, you do not need
 to worry about tailoring the login dialog depending on whether or not
@@ -471,6 +476,15 @@ The following Facebook settings are available::
               'METHOD': 'oauth2' ,
               'LOCALE_FUNC': 'path.to.callable'} }
 
+Settings notes:
+
+AUTH_PARAMS: 
+reauthenticate: Will prompt the user to enter thier credentials each time they log in.
+
+METHOD: 
+sepcify 'js_sdk' to use the JS SDK.
+
+SCOPE:
 By default, `email` scope is required depending whether or not
 `SOCIALACCOUNT_QUERY_EMAIL` is enabled.
 
@@ -495,6 +509,7 @@ The Google provider is OAuth2 based. Register your Google API client
 over at `https://code.google.com/apis/console/`. Make sure you list a
 redirect uri of the form
 `http://example.com/accounts/google/login/callback/`.
+Client ID = App ID & Client secret = App Secret
 
 You can specify the scope to use as follows::
 
@@ -513,6 +528,8 @@ LinkedIn
 The LinkedIn provider is OAuth based. Register your LinkedIn app over
 at `https://www.linkedin.com/secure/developer?newapp=`. Leave the
 OAuth redirect URL empty.
+API Key = App ID & Secret Key = App Secret
+* do not use the OAuth User Token & secret!
 
 You can specify the scope to use as follows::
 
@@ -752,6 +769,10 @@ methods:
   send e-mail verification mails after the signup is completed. Use
   this method to record the fact that an e-mail address was verified.
 
+NOTE: There is a forked version of django-invitation that is configured to 
+integrate with allauth.  Instructions and an example of how to use the above
+functions are in the docs.
+https://github.com/arctelix/django-invitation.git
 
 Sending E-mail
 --------------
@@ -771,6 +792,37 @@ template as follows::
 If this does not suit your needs, you can hook up your own custom
 mechanism by overriding the `send_mail` method of the account adapter
 (`allauth.account.adapter.DefaultAccountAdapter`).
+
+
+Custom Redirects
+----------------
+
+If redirecting to statically configurable URLs (as specified in your
+project settings) is not flexible enough, then you can override the
+following adapter methods:
+
+- `get_login_redirect_url(request)`
+
+- `get_email_confirmation_redirect_url(request)`
+
+For example, redirecting to `/accounts/<username>/` can be implemented as
+follows::
+
+    # project/settings.py:
+    ACCOUNT_ADAPTER = 'project.users.adapter.MyAccountAdapter'
+
+    # project/users/adapter.py:
+    from django.conf import settings
+    from allauth.account.adapter import DefaultAccountAdapter
+    
+    class MyAccountAdapter(DefaultAccountAdapter):
+    
+        def get_login_redirect_url(self, request):
+            path = "/accounts/{username}/"
+            return path.format(username=request.user.username)
+
+
+
 
 Showcase
 ========

@@ -55,7 +55,9 @@ class LoginView(RedirectAuthenticatedUserMixin, FormView):
     def get_success_url(self):
         ret = self.success_url
         if not ret:
-            ret = get_default_redirect(self.request, self.redirect_field_name)
+            ret = get_default_redirect(self.request, 
+                                       self.redirect_field_name,
+                                       fallback=False)
         return ret
 
     def get_context_data(self, **kwargs):
@@ -108,7 +110,8 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin, FormView)
         ret = self.success_url
         if not ret:
             ret = get_default_redirect(self.request, 
-                                       self.redirect_field_name)
+                                       self.redirect_field_name,
+                                       fallback=False)
         return ret
 
     def form_valid(self, form):

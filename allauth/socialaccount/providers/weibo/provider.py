@@ -1,10 +1,7 @@
-from django.utils.encoding import python_2_unicode_compatible
-
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
-@python_2_unicode_compatible
 class WeiboAccount(ProviderAccount):
     def get_profile_url(self):
         # profile_url = "u/3195025850"
@@ -13,8 +10,8 @@ class WeiboAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get('avatar_large')
 
-    def __str__(self):
-        dflt = super(WeiboAccount, self).__str__()
+    def to_str(self):
+        dflt = super(WeiboAccount, self).to_str()
         return self.account.extra_data.get('name', dflt)
 
 

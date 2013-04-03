@@ -79,6 +79,7 @@ class DefaultAccountAdapter(object):
         that URLs passed explicitly (e.g. by passing along a `next`
         GET parameter) take precedence over the value returned here.
         """
+        assert request.user.is_authenticated()
         return settings.LOGIN_REDIRECT_URL
 
     def get_email_confirmation_redirect_url(self, request):

@@ -246,10 +246,8 @@ class SocialLogin(object):
         except SocialAccount.DoesNotExist:
             pass
     
-    def get_redirect_url(self, request, fallback=True):
-        if fallback and type(fallback) == bool:
-            fallback = get_adapter().get_login_redirect_url(request)
-        url = self.state.get('next') or fallback
+    def get_redirect_url(self, request):
+        url = self.state.get('next')
         return url
             
     @classmethod

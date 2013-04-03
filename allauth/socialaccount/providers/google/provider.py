@@ -1,5 +1,3 @@
-from django.utils.encoding import python_2_unicode_compatible
-
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
@@ -10,7 +8,6 @@ class Scope:
     USERINFO_EMAIL = 'https://www.googleapis.com/auth/userinfo.email'
 
 
-@python_2_unicode_compatible
 class GoogleAccount(ProviderAccount):
     def get_profile_url(self):
         return self.account.extra_data.get('link')
@@ -18,8 +15,8 @@ class GoogleAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get('picture')
 
-    def __str__(self):
-        dflt = super(GoogleAccount, self).__str__()
+    def to_str(self):
+        dflt = super(GoogleAccount, self).to_str()
         return self.account.extra_data.get('name', dflt)
 
 

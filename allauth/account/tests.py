@@ -11,6 +11,7 @@ from django.contrib.sites.models import Site
 from django.test.client import RequestFactory
 from django.contrib.auth.models import AnonymousUser
 
+from allauth.account.forms import BaseSignupForm
 from allauth.account.models import EmailAddress, EmailConfirmation
 from allauth.utils import get_user_model
 
@@ -115,3 +116,28 @@ class AccountTests(TestCase):
         request = RequestFactory().get('/')
         EmailAddress.objects.add_email(request, u, u.email, confirm=True)
         self.assertTrue(mail.outbox[0].subject[1:].startswith(site.name))
+
+
+class BaseSignupFormTests(TestCase):
+
+    @override_settings(
+        ACCOUNT_USERNAME_REQUIRED=True,
+        ACCOUNT_USERNAME_BLACKLIST=['username'])
+    def test_username_in_blacklist(self):
+        data = {
+            'username': 'username',
+            'email': 'user@example.com',
+        }
+        form = BaseSignupForm(data)
+        self.assertFalse(form.is_valid())
+
+    @override_settings(
+        ACCOUNT_USERNAME_REQUIRED=True,
+        ACCOUNT_USERNAME_BLACKLIST=['username'])
+    def test_username_not_in_blacklist(self):
+        data = {
+            'username': 'theusername',
+            'email': 'user@example.com',
+        }
+        form = BaseSignupForm(data)
+        self.assertTrue(form.is_valid())

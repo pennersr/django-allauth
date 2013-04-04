@@ -192,6 +192,11 @@ class BaseSignupForm(_base_signup_form_class()):
         if not USERNAME_REGEX.match(value):
             raise forms.ValidationError(_("Usernames can only contain "
                                           "letters, digits and @/./+/-/_."))
+
+        if value in app_settings.USERNAME_BLACKLIST:
+            raise forms.ValidationError(_("Username can not be used. "
+                                          "Please use other username."))
+
         try:
             User.objects.get(username__iexact=value)
         except User.DoesNotExist:

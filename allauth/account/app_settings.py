@@ -148,6 +148,13 @@ class AppSettings(object):
         return self._setting("USERNAME_MIN_LENGTH", 1)
 
     @property
+    def USERNAME_BLACKLIST(self):
+        """
+        List of usernames that are not allowed
+        """
+        return self._setting("USERNAME_BLACKLIST", [])
+
+    @property
     def PASSWORD_INPUT_RENDER_VALUE(self):
         """
         render_value parameter as passed to PasswordInput fields

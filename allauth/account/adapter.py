@@ -80,7 +80,12 @@ class DefaultAccountAdapter(object):
         GET parameter) take precedence over the value returned here.
         """
         assert request.user.is_authenticated()
-        return settings.LOGIN_REDIRECT_URL
+        login_redirect_urlname = getattr(settings, "LOGIN_REDIRECT_URLNAME", None)
+        if login_redirect_urlname:
+            ret = reverse(login_redirect_urlname)
+        else:
+            ret = settings.LOGIN_REDIRECT_URL
+        return ret
 
     def get_email_confirmation_redirect_url(self, request):
         """

@@ -14,9 +14,10 @@ from django.contrib.auth.tokens import default_token_generator
 from django.shortcuts import redirect
 
 from ..exceptions import ImmediateHttpResponse
-from ..utils import passthrough_login_redirect_url, get_user_model
+from ..utils import get_user_model
 
-from .utils import get_default_redirect, complete_signup
+from .utils import (get_next_redirect_url, complete_signup, 
+                    passthrough_next_redirect_url)
 from .forms import AddEmailForm, ChangePasswordForm
 from .forms import LoginForm, ResetPasswordKeyForm
 from .forms import ResetPasswordForm, SetPasswordForm, SignupForm
@@ -53,18 +54,18 @@ class LoginView(RedirectAuthenticatedUserMixin, FormView):
         return form.login(self.request, redirect_url=success_url)
 
     def get_success_url(self):
-        ret = self.success_url
-        if not ret:
-            ret = get_default_redirect(self.request, 
-                                       self.redirect_field_name,
-                                       fallback=False)
+        # Explicitly passed ?next= URL takes precedence
+        ret = (get_next_redirect_url(self.request, 
+                                     self.redirect_field_name)
+               or self.success_url)
         return ret
 
     def get_context_data(self, **kwargs):
         ret = super(LoginView, self).get_context_data(**kwargs)
         ret.update({
-                "signup_url": passthrough_login_redirect_url(self.request,
-                                                             reverse("account_signup")),
+                "signup_url": passthrough_next_redirect_url(self.request,
+                                                            reverse("account_signup"),
+                                                            self.redirect_field_name),
                 "site": Site.objects.get_current(),
                 "redirect_field_name": self.redirect_field_name,
                 "redirect_field_value": self.request.REQUEST.get(self.redirect_field_name),
@@ -107,11 +108,10 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin, FormView)
     success_url = None
 
     def get_success_url(self):
-        ret = self.success_url
-        if not ret:
-            ret = get_default_redirect(self.request, 
-                                       self.redirect_field_name,
-                                       fallback=False)
+        # Explicitly passed ?next= URL takes precedence
+        ret = (get_next_redirect_url(self.request, 
+                                     self.redirect_field_name)
+               or self.success_url)
         return ret
 
     def form_valid(self, form):
@@ -120,8 +120,9 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin, FormView)
 
     def get_context_data(self, **kwargs):
         ret = super(SignupView, self).get_context_data(**kwargs)
-        login_url = passthrough_login_redirect_url(self.request,
-                                                   reverse("account_login"))
+        login_url = passthrough_next_redirect_url(self.request,
+                                                  reverse("account_login"),
+                                                  self.redirect_field_name)
         redirect_field_name = self.redirect_field_name
         redirect_field_value = self.request.REQUEST.get(redirect_field_name)
         ret.update({"login_url": login_url,

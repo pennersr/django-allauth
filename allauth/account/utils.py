@@ -11,10 +11,10 @@ except ImportError:
 from django.contrib import messages
 from django.shortcuts import render
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.contrib.auth import login
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.http import HttpResponseRedirect
+from django.utils.http import urlencode
 
 from ..utils import import_callable
 
@@ -24,36 +24,16 @@ from .app_settings import EmailVerificationMethod
 from . import app_settings
 from .adapter import get_adapter
 
-LOGIN_REDIRECT_URLNAME = getattr(settings, "LOGIN_REDIRECT_URLNAME", "")
 
-
-def get_default_redirect(request, redirect_field_name="next",
-                         login_redirect_urlname=LOGIN_REDIRECT_URLNAME, 
-                         session_key_value="redirect_to",
-                         fallback=True):
+def get_next_redirect_url(request, redirect_field_name="next"):
     """
-    Returns the URL to be used in login procedures by looking at different
-    values in the following order:
-
-    - a REQUEST value, GET or POST, named "next" by default.
-    - LOGIN_REDIRECT_URL - the URL in the setting
-    - LOGIN_REDIRECT_URLNAME - the name of a URLconf entry in the settings
+    Returns the next URL to redirect to, if it was explicitly passed
+    via the request.
     """
-    if fallback:
-        if login_redirect_urlname:
-            default_redirect_to = reverse(login_redirect_urlname)
-        else:
-            default_redirect_to = get_adapter().get_login_redirect_url(request)
-    else:
-        default_redirect_to = None
     redirect_to = request.REQUEST.get(redirect_field_name)
-    if not redirect_to:
-        # try the session if available
-        if hasattr(request, "session"):
-            redirect_to = request.session.get(session_key_value)
     # light security check -- make sure redirect_to isn't garabage.
     if not redirect_to or "://" in redirect_to or " " in redirect_to:
-        redirect_to = default_redirect_to
+        redirect_to = None
     return redirect_to
 
 
@@ -107,8 +87,9 @@ def perform_login(request, user, redirect_url=None):
     messages.add_message(request, messages.SUCCESS,
                          ugettext("Successfully signed in as %(user)s.") % { "user": user_display(user) } )
 
-    if not redirect_url:
-        redirect_url = get_default_redirect(request)
+    redirect_url = (redirect_url 
+                    or get_next_redirect_url(request) 
+                    or get_adapter().get_login_redirect_url(request))
     return HttpResponseRedirect(redirect_url)
 
 
@@ -208,3 +189,11 @@ def random_token(extra=None, hash_func=hashlib.sha256):
         extra = []
     bits = extra + [str(random.SystemRandom().getrandbits(512))]
     return hash_func("".join(bits).encode('utf-8')).hexdigest()
+
+
+def passthrough_next_redirect_url(request, url, redirect_field_name):
+    assert url.find("?") < 0  # TODO: Handle this case properly
+    next = get_next_redirect_url(request, redirect_field_name)
+    if next:
+        url = url + '?' + urlencode({ redirect_field_name: next })
+    return url

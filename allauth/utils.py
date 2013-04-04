@@ -4,8 +4,6 @@ import unicodedata
 from django.core.exceptions import ImproperlyConfigured
 from django.core.validators import validate_email, ValidationError
 from django.db.models import EmailField
-from django.utils.http import urlencode
-from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.utils import importlib, six
 try:
     from django.utils.encoding import force_text
@@ -13,30 +11,6 @@ except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
 from . import app_settings
-
-def get_login_redirect_url(request, 
-                           fallback=True):
-    """
-    Returns a url to redirect to after the login
-    
-    TODO: 
-    - Cleanup, check overlap with account.utils.get_default_redirect
-    - Move to allauth.account
-    """
-    if fallback and type(fallback) == bool:
-        from account.adapter import get_adapter
-        fallback = get_adapter().get_login_redirect_url(request)
-    url = request.REQUEST.get(REDIRECT_FIELD_NAME) or fallback
-    return url
-
-
-def passthrough_login_redirect_url(request, url):
-    assert url.find("?") < 0  # TODO: Handle this case properly
-    next = get_login_redirect_url(request, fallback=None)
-    if next:
-        url = url + '?' + urlencode({ REDIRECT_FIELD_NAME: next })
-    return url
-
 
 def generate_unique_username(txt):
     username = unicodedata.normalize('NFKD', force_text(txt))

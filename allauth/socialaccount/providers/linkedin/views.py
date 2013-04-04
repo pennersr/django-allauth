@@ -12,7 +12,7 @@ from .provider import LinkedInProvider
 
 class LinkedInAPI(OAuth):
     url = 'https://api.linkedin.com/v1/people/~'
-    fields = ['id', 'first-name', 'last-name', 'email-address']
+    fields = ['id', 'first-name', 'last-name', 'email-address', 'picture-url', 'public-profile-url']
 
     def get_user_info(self):
         url = self.url + ':(%s)' % ','.join(self.fields)

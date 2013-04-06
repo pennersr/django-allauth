@@ -165,6 +165,13 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         # user = confirmation.email_address.user
         # user.is_active = True
         # user.save()
+
+        # automatically log the user in after confirming
+        email_confirmation = EmailConfirmation.objects.filter(key=self.kwargs['key'])
+        email_address = EmailAddress.objects.get(pk=email_confirmation['email_address_id'],verified=True)
+        user = User.objects.get(pk=email_address['user_id'])
+        perform_login(self.request, user)
+
         redirect_url = self.get_redirect_url()
         if not redirect_url:
             ctx = self.get_context_data()

@@ -21,7 +21,7 @@ from .utils import (get_next_redirect_url, complete_signup,
 from .forms import AddEmailForm, ChangePasswordForm
 from .forms import LoginForm, ResetPasswordKeyForm
 from .forms import ResetPasswordForm, SetPasswordForm, SignupForm
-from .utils import sync_user_email_addresses
+from .utils import sync_user_email_addresses, perform_login
 from .models import EmailAddress, EmailConfirmation
 
 from . import signals
@@ -167,9 +167,8 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         # user.save()
 
         # automatically log the user in after confirming
-        email_confirmation = EmailConfirmation.objects.filter(key=self.kwargs['key'])
-        email_address = EmailAddress.objects.get(pk=email_confirmation['email_address_id'],verified=True)
-        user = User.objects.get(pk=email_address['user_id'])
+        email_confirmation = EmailConfirmation.objects.get(key=self.kwargs['key'])
+        user = User.objects.get(pk=email_confirmation.email_address.user_id)
         perform_login(self.request, user)
 
         redirect_url = self.get_redirect_url()

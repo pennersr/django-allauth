@@ -169,7 +169,7 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         # automatically log the user in after confirming
         email_confirmation = EmailConfirmation.objects.get(key=self.kwargs['key'])
         user = User.objects.get(pk=email_confirmation.email_address.user_id)
-        perform_login(self.request, user)
+        perform_login(self.request, user, self.get_redirect_url())
 
         redirect_url = self.get_redirect_url()
         if not redirect_url:

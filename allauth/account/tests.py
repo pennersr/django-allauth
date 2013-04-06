@@ -95,13 +95,10 @@ class AccountTests(TestCase):
             .objects \
             .filter(email_address__user__username='johndoe')[:1] \
             .get()
-        c.post(reverse('account_confirm_email',
+        resp = c.post(reverse('account_confirm_email',
                        args=[confirmation.key]))
-        resp = c.post(reverse('account_login'),
-                      { 'login': 'johndoe',
-                        'password': 'johndoe'})
         self.assertEquals(resp['location'],
-                          'http://testserver'+settings.LOGIN_REDIRECT_URL)
+                          'http://testserver'+app_settings.EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL)
 
 
 

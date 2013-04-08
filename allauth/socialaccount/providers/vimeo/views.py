@@ -7,7 +7,7 @@ from allauth.socialaccount.providers.oauth.views import (OAuthAdapter,
 from allauth.socialaccount.models import SocialAccount, SocialLogin
 from allauth.socialaccount.adapter import get_adapter
 
-from provider import VimeoProvider
+from .provider import VimeoProvider
 
 class VimeoAPI(OAuth):
     url = 'http://vimeo.com/api/rest/v2?method=vimeo.people.getInfo'

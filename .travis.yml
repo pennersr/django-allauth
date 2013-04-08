@@ -12,7 +12,7 @@ install:
 branches:
  only:
   - master
-script: python manage.py test account socialaccount dropbox facebook google github linkedin openid persona soundcloud stackexchange twitch twitter weibo 
+script: python manage.py test account socialaccount dropbox facebook google github linkedin openid persona soundcloud stackexchange twitch twitter vimeo weibo 
 matrix:
   exclude:
     - python: "3.3"

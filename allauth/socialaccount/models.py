@@ -161,28 +161,34 @@ class SocialLogin(object):
 
     def _save_email_addresses(self, request):
         adapter = get_adapter()
-        # user.email may not be listed as an EmailAddress ...
+        # user.email may not be listed as an EmailAddress so add it to emails...
         user = self.account.user
+        emails = [user.email]
         try:
             primary_email_address = EmailAddress.objects.get(user=user,
                                                              primary=True)
         except EmailAddress.DoesNotExist:
             primary_email_address = None
 
-
-        if (user.email 
-            and (user.email.lower() not in [e.email.lower() 
-                                            for e in self.email_addresses])):
-            # ... so let's append it
-            email_address \
-                = EmailAddress(user=user,
-                               email=user.email,
-                               verified=adapter.is_email_verified(request, 
-                                                                  user.email),
-                               primary=(not primary_email_address))
-            if not primary_email_address:
-                primary_email_address = email_address
-            self.email_addresses.append(email_address)
+        # ... check if there is a third party verified email ...
+        third_party_verified_email = adapter.is_email_verified(request)
+        # ... disreguard if there is a social verified email ...
+        if third_party_verified_email and not True in [e.verified 
+                                            for e in self.email_addresses]:
+            emails.append(third_party_verified_email)
+            # Make the verified email primary if one does not exist
+            emails.reverse()
+        
+        for email in emails:
+            if email.lower() not in [e.email.lower() 
+                                                for e in self.email_addresses]:
+                # ... now let's append the new emails to email_addresses
+                email_address \
+                    = EmailAddress(user=user,
+                                   email=email,
+                                   verified=adapter.is_email_verified(request, email),
+                                   primary=(not primary_email_address))
+                self.email_addresses.append(email_address)
 
         for email_address in self.email_addresses:
             # Pick up only valid ones...
@@ -193,6 +199,7 @@ class SocialLogin(object):
             if (account_settings.UNIQUE_EMAIL 
                 and EmailAddress.objects.filter(email__iexact=email).exists()):
                 continue
+            # ... and ensure there is only one primary email address
             if email_address.primary:
                 if not primary_email_address:
                     primary_email_address = email_address

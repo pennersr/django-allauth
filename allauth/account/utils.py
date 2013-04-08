@@ -124,7 +124,8 @@ def perform_login(request, user, email_verification,
     get_adapter().add_message(request, 
                               messages.SUCCESS,
                               'account/messages/logged_in.txt',
-                              { 'user': user })
+                              { 'user': user },
+                              extra_tags='account account_login')
 
     return HttpResponseRedirect(get_login_redirect_url(request, redirect_url))
 
@@ -275,7 +276,8 @@ def send_email_confirmation(request, user, email_address=None):
         # At this point, if we were supposed to send an email we have sent it.
         if send_email:
             messages.info(request,
-                _(u"Confirmation e-mail sent to %(email)s") % {"email": email}
+                _(u"Confirmation e-mail sent to %(email)s") % {"email": email},
+                extra_tags='account account_email account_email_send',
             )
 
 def sync_user_email_addresses(user):

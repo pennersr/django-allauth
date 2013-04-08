@@ -111,7 +111,8 @@ def _add_social_account(request, sociallogin):
     next_url = sociallogin.get_redirect_url(request) or default_next
     get_account_adapter().add_message(request, 
                                       messages.INFO, 
-                                      'socialaccount/messages/account_connected.txt')
+                                      'socialaccount/messages/account_connected.txt',
+                                      extra_tags='socialaccount socialaccount_connect')
     return HttpResponseRedirect(next_url)
 
 def complete_social_login(request, sociallogin):

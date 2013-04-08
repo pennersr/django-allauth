@@ -142,7 +142,7 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin, FormView)
 signup = SignupView.as_view()
 
 class ConfirmEmailView(TemplateResponseMixin, View):
-    
+
     def get_template_names(self):
         if self.request.method == 'POST':
             return ["account/email_confirmed.html"]
@@ -173,7 +173,8 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         get_adapter().add_message(self.request,
                                   messages.SUCCESS,
                                   'account/messages/email_confirmed.txt',
-                                  { 'email': confirmation.email_address.email })
+                                  { 'email': confirmation.email_address.email },
+                                  extra_tags="account account_email account_email_confirm")
         return redirect(redirect_url)
     
     def get_object(self, queryset=None):
@@ -212,7 +213,8 @@ def email(request, **kwargs):
                 get_adapter().add_message(request,
                                           messages.INFO,
                                           'account/messages/email_confirmation_sent.txt',
-                                          { 'email': add_email_form.cleaned_data["email"] })
+                                          { 'email': add_email_form.cleaned_data["email"] },
+                                          extra_tags='account account_email account_email_send')
                 signals.email_added.send(sender=request.user.__class__,
                         request=request, user=request.user,
                         email_address=email_address)
@@ -230,7 +232,8 @@ def email(request, **kwargs):
                         get_adapter().add_message(request,
                                                   messages.INFO,
                                                   'account/messages/email_confirmation_sent.txt',
-                                                  { 'email': email })
+                                                  { 'email': email },
+                                                  extra_tags='account account_email account_email_send')
                         email_address.send_confirmation(request)
                         return HttpResponseRedirect(reverse('account_email'))
                     except EmailAddress.DoesNotExist:
@@ -246,7 +249,8 @@ def email(request, **kwargs):
                             get_adapter().add_message(request, 
                                                       messages.ERROR,
                                                       'account/messages/cannot_delete_primary_email.txt',
-                                                      { "email": email })
+                                                      { "email": email },
+                                                      extra_tags='account account_email account_email_remove')
                         else:
                             email_address.delete()
                             signals.email_removed.send(sender=request.user.__class__,
@@ -256,7 +260,8 @@ def email(request, **kwargs):
                             get_adapter().add_message(request,
                                                       messages.SUCCESS,
                                                       'account/messages/email_deleted.txt',
-                                                      { "email": email })
+                                                      { "email": email },
+                                                      extra_tags='account account_email account_email_remove')
                             return HttpResponseRedirect(reverse('account_email'))
                     except EmailAddress.DoesNotExist:
                         pass
@@ -280,7 +285,9 @@ def email(request, **kwargs):
                                     ).exists():
                             get_adapter().add_message(request, 
                                                       messages.ERROR,
-                                                      'account/messages/unverified_primary_email.txt')
+                                                      'account/messages/unverified_primary_email.txt',
+                                                      extra_tags='account account_email account_email_primary')
+
                         else:
                             # Sending the old primary address to the signal
                             # adds a db query.
@@ -292,7 +299,8 @@ def email(request, **kwargs):
                             email_address.set_as_primary()
                             get_adapter().add_message(request, 
                                                       messages.SUCCESS,
-                                                      'account/messages/primary_email_set.txt')
+                                                      'account/messages/primary_email_set.txt',
+                                                      extra_tags='account account_email account_email_primary')
                             signals.email_changed.send(
                                     sender=request.user.__class__,
                                     request=request, user=request.user,
@@ -322,7 +330,8 @@ def password_change(request, **kwargs):
             password_change_form.save()
             get_adapter().add_message(request, 
                                       messages.SUCCESS,
-                                      'account/messages/password_changed.txt')
+                                      'account/messages/password_changed.txt',
+                                      extra_tags='account account_password account_password_change')
             signals.password_changed.send(sender=request.user.__class__,
                     request=request, user=request.user)
             password_change_form = form_class(request.user)
@@ -347,7 +356,8 @@ def password_set(request, **kwargs):
             password_set_form.save()
             get_adapter().add_message(request, 
                                       messages.SUCCESS,
-                                      'account/messages/password_set.txt')
+                                      'account/messages/password_set.txt',
+                                      extra_tags='account account_password account_password_set')
             signals.password_set.send(sender=request.user.__class__,
                     request=request, user=request.user)
             return HttpResponseRedirect(reverse(password_change))
@@ -399,7 +409,8 @@ def password_reset_from_key(request, uidb36, key, **kwargs):
                 password_reset_key_form.save()
                 get_adapter().add_message(request, 
                                           messages.SUCCESS,
-                                          'account/messages/password_changed.txt')
+                                          'account/messages/password_changed.txt',
+                                          extra_tags='account account_password account_password_change')
                 signals.password_reset.send(sender=user.__class__,
                         request=request, user=user)
                 password_reset_key_form = None
@@ -434,7 +445,8 @@ class LogoutView(TemplateResponseMixin, View):
     def logout(self):
         get_adapter().add_message(self.request, 
                                   messages.SUCCESS,
-                                  'account/messages/logged_out.txt')
+                                  'account/messages/logged_out.txt',
+                                  extra_tags='account account_logout')
         auth_logout(self.request)
 
     def get_context_data(self, **kwargs):

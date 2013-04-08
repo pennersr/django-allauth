@@ -64,7 +64,8 @@ def connections(request):
         if form.is_valid():
             get_account_adapter().add_message(request, 
                                               messages.INFO, 
-                                              'socialaccount/messages/account_disconnected.txt')
+                                              'socialaccount/messages/account_disconnected.txt',
+                                              extra_tags='socialaccount socialaccount_disconnect')
             form.save()
             form = None
     if not form:

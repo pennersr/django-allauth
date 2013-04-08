@@ -286,6 +286,9 @@ Upgrading
 From 0.9.0
 **********
 
+- `DefaultAccountAdapter.stash_email_verified` is now named
+  `stash_verified_email`.
+
 - Django 1.4.3 is now the minimal requirement.
 
 - Dropped dependency on (unmaintained?) oauth2 package, in favor of
@@ -766,7 +769,7 @@ methods:
 - `is_open_for_signup(request)`. You can override this method to, for
   example, inspect the session to check if an invitation was accepted.
 
-- `stash_email_verified(request, email)`. If an invitation was
+- `stash_verified_email(request, email)`. If an invitation was
   accepted by following a link in a mail, then there is no need to
   send e-mail verification mails after the signup is completed. Use
   this method to record the fact that an e-mail address was verified.

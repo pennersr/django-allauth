@@ -38,25 +38,56 @@ class AccountTests(TestCase):
             sa.sites.add(Site.objects.get_current())
 
 
-    def test_signup_email_verified_externally(self):
+    def test_signup_same_email_verified_externally(self):
+        user = self._test_signup_email_verified_externally('john@doe.com',
+                                                           'john@doe.com')
+        self.assertEquals(EmailAddress.objects.filter(user=user).count(),
+                          1)
+        EmailAddress.objects.get(verified=True,
+                                 email='john@doe.com',
+                                 user=user,
+                                 primary=True)
+
+    def test_signup_other_email_verified_externally(self):
+        """
+        John is invited on john@work.com, but signs up via john@home.com.
+        E-mail verification is by-passed, his home e-mail address is
+        used as a secondary.
+        """
+        user = self._test_signup_email_verified_externally('john@home.com',
+                                                           'john@work.com')
+        self.assertEquals(EmailAddress.objects.filter(user=user).count(),
+                          2)
+        EmailAddress.objects.get(verified=False,
+                                 email='john@home.com',
+                                 user=user,
+                                 primary=False)
+        EmailAddress.objects.get(verified=True,
+                                 email='john@work.com',
+                                 user=user,
+                                 primary=True)
+
+    def _test_signup_email_verified_externally(self, signup_email, verified_email):
+        username = 'johndoe'
         request = RequestFactory().post(reverse('account_signup'),
-                      { 'username': 'johndoe',
-                        'email': 'john@doe.com',
+                      { 'username': username,
+                        'email': signup_email,
                         'password1': 'johndoe',
                         'password2': 'johndoe' })
-        # Fake stash_email_verified
+        # Fake stash_verified_email
         from django.contrib.messages.middleware import MessageMiddleware
         from django.contrib.sessions.middleware import SessionMiddleware
         SessionMiddleware().process_request(request)
         MessageMiddleware().process_request(request)
         request.user = AnonymousUser()
-        request.session['account_email_verified'] ='john@doe.com'
+        request.session['account_verified_email'] = verified_email
         from .views import signup
         resp = signup(request)
         self.assertEquals(resp.status_code, 302)
         self.assertEquals(resp['location'], 
                           get_adapter().get_login_redirect_url(request))
         self.assertEquals(len(mail.outbox), 0)
+        return User.objects.get(username=username)
 
 
     def test_email_verification_mandatory(self):

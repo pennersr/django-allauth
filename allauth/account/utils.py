@@ -15,8 +15,9 @@ from django.contrib.auth import login
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.http import HttpResponseRedirect
 from django.utils.http import urlencode
+from django.utils.datastructures import SortedDict
 
-from ..utils import import_callable
+from ..utils import import_callable, valid_email_or_none
 
 from . import signals
 
@@ -101,7 +102,66 @@ def complete_signup(request, user, success_url, signal_kwargs={}):
     return perform_login(request, user, redirect_url=success_url)
 
 
-def setup_user_email(request, user):
+def cleanup_email_addresses(request, addresses):
+    """
+    Takes a list of EmailAddress instances and cleans it up, making
+    sure only valid ones remain, without multiple primaries etc.
+
+    Order is important: e.g. if multiple primary e-mail addresses
+    exist, the first one encountered will be kept as primary.
+    """
+    from .models import EmailAddress
+    adapter = get_adapter()
+    # Let's group by `email`
+    e2a = SortedDict() # maps email to EmailAddress
+    primary_addresses = []
+    verified_addresses = []
+    primary_verified_addresses = []
+    for address in addresses:
+        # Pick up only valid ones...
+        email = valid_email_or_none(address.email)
+        if not email:
+            continue
+        # ... and non-conflicting ones...
+        if (app_settings.UNIQUE_EMAIL 
+            and EmailAddress.objects.filter(email__iexact=email).exists()):
+            continue
+        a = e2a.get(email.lower())
+        if a:
+            a.primary = a.primary or address.primary
+            a.verified = a.verified or address.verified
+        else:
+            a = address
+            a.verified = a.verified or adapter.is_email_verified(request, 
+                                                                 a.email)
+            e2a[email.lower()] = a
+        if a.primary:
+            primary_addresses.append(a)
+            if a.verified:
+                primary_verified_addresses.append(a)
+        if a.verified:
+            verified_addresses.append(a)
+    # Now that we got things sorted out, let's assign a primary
+    if primary_verified_addresses:
+        primary_address = primary_verified_addresses[0]
+    elif verified_addresses:
+        # Pick any verified as primary
+        primary_address = verified_addresses[0]
+    elif primary_addresses:
+        # Okay, let's pick primary then, even if unverified
+        primary_address = primary_addresses[0]
+    elif e2a:
+        # Pick the first 
+        primary_address = e2a.keys()[0]
+    else:
+        # Empty
+        primary_address = None
+    # There can only be one primary
+    for a in e2a.values():
+        a.primary = primary_address.email.lower() == a.email.lower()
+    return list(e2a.values()), primary_address
+        
+def setup_user_email(request, user, addresses):
     """
     Creates proper EmailAddress for the user that was just signed
     up. Only sets up, doesn't do any other handling such as sending
@@ -110,16 +170,29 @@ def setup_user_email(request, user):
     from .models import EmailAddress
 
     assert EmailAddress.objects.filter(user=user).count() == 0
-    if not user.email:
-        return
+    priority_addresses = []
+    # Is there a stashed e-mail?
     adapter = get_adapter()
-    is_verified = adapter.is_email_verified(request, user.email)
-    adapter.stash_email_verified(request, None)
-    email_address = EmailAddress.objects.create(user=user,
-                                                email=user.email,
-                                                verified=is_verified,
-                                                primary=True)
-    return email_address
+    stashed_email = adapter.unstash_verified_email(request)
+    if stashed_email:
+        priority_addresses.append(EmailAddress(user=user,
+                                               email=stashed_email,
+                                               primary=True,
+                                               verified=True))
+    if user.email:
+        priority_addresses.append(EmailAddress(user=user,
+                                               email=user.email,
+                                               primary=True,
+                                               verified=False))
+    addresses, primary = cleanup_email_addresses(request, 
+                                                 priority_addresses
+                                                 + addresses)
+    for a in addresses:
+        a.save()
+    if primary and user.email.lower() != primary.email.lower():
+        user.email = primary.email
+        user.save()
+    return primary
 
 def send_email_confirmation(request, user, email_address=None):
     """

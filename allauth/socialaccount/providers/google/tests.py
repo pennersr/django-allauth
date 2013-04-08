@@ -88,7 +88,7 @@ class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
         request.session = self.client.session
         adapter = get_adapter()
         test_email = 'raymond.penners@gmail.com'
-        adapter.stash_email_verified(request, test_email)
+        adapter.stash_verified_email(request, test_email)
         request.session.save()
 
         self.login(self.get_mocked_response(verified_email=False))

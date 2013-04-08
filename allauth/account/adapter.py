@@ -15,9 +15,14 @@ from . import app_settings
 
 class DefaultAccountAdapter(object):
 
-    def stash_email_verified(self, request, email):
-        request.session['account_email_verified'] = email
+    def stash_verified_email(self, request, email):
+        request.session['account_verified_email'] = email
 
+    def unstash_verified_email(self, request):
+        ret = request.session.get('account_verified_email')
+        request.session['account_verified_email'] = None
+        return ret
+        
     def is_email_verified(self, request, email):
         """
         Checks whether or not the email address is already verified
@@ -25,7 +30,7 @@ class DefaultAccountAdapter(object):
         invitation before signing up.
         """
         ret = False
-        verified_email = request.session.get('account_email_verified')
+        verified_email = request.session.get('account_verified_email')
         if verified_email:
             ret = verified_email.lower() == email.lower()
         return ret

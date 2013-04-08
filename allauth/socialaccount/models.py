@@ -11,7 +11,7 @@ except ImportError:
 
 import allauth.app_settings
 from allauth.account import app_settings as account_settings
-from allauth.account.utils import get_next_redirect_url
+from allauth.account.utils import get_next_redirect_url, setup_user_email
 from allauth.utils import valid_email_or_none
 from allauth.account.adapter import get_adapter
 from allauth.account.models import EmailAddress
@@ -150,6 +150,7 @@ class SocialLogin(object):
         self.state = {}
 
     def save(self, request):
+        assert not self.is_existing
         user = self.account.user
         user.save()
         self.account.user = user
@@ -157,58 +158,7 @@ class SocialLogin(object):
         if self.token:
             self.token.account = self.account
             self.token.save()
-        self._save_email_addresses(request)
-
-    def _save_email_addresses(self, request):
-        adapter = get_adapter()
-        # user.email may not be listed as an EmailAddress ...
-        user = self.account.user
-        try:
-            primary_email_address = EmailAddress.objects.get(user=user,
-                                                             primary=True)
-        except EmailAddress.DoesNotExist:
-            primary_email_address = None
-
-
-        if (user.email 
-            and (user.email.lower() not in [e.email.lower() 
-                                            for e in self.email_addresses])):
-            # ... so let's append it
-            email_address \
-                = EmailAddress(user=user,
-                               email=user.email,
-                               verified=adapter.is_email_verified(request, 
-                                                                  user.email),
-                               primary=(not primary_email_address))
-            if not primary_email_address:
-                primary_email_address = email_address
-            self.email_addresses.append(email_address)
-
-        for email_address in self.email_addresses:
-            # Pick up only valid ones...
-            email = valid_email_or_none(email_address.email)
-            if not email:
-                continue
-            # ... and non-conflicting ones...
-            if (account_settings.UNIQUE_EMAIL 
-                and EmailAddress.objects.filter(email__iexact=email).exists()):
-                continue
-            if email_address.primary:
-                if not primary_email_address:
-                    primary_email_address = email_address
-                else:
-                    email_address.primary = False
-            email_address.user = user
-            email_address.verified \
-                = (email_address.verified 
-                   or adapter.is_email_verified(request, 
-                                                email_address.email))
-            email_address.save()
-
-        if primary_email_address and (not user.email or primary_email_address.email.lower() != user.email.lower()):
-            user.email = primary_email_address.email
-            user.save()
-        adapter.stash_email_verified(request, None)
+        setup_user_email(request, user, self.email_addresses)
 
     @property
     def is_existing(self):

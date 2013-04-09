@@ -222,6 +222,15 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX (="[Site] ")
   Subject-line prefix to use for email messages sent. By default, the
   name of the current `Site` (`django.contrib.sites`) is used.
 
+ACCOUNT_LOGOUT_ON_GET (=False)
+  Determines whether or not the user is automatically logged out by a
+  mere GET request. See documentation for the `LogoutView` for
+  details.
+
+ACCOUNT_LOGOUT_REDIRECT_URL (="/")
+  The URL (or URL name) to return to after the user logs out. This is 
+  the counterpart to Django's `LOGIN_REDIRECT_URL`.
+
 ACCOUNT_SIGNUP_FORM_CLASS (=None)
   A string pointing to a custom form class
   (e.g. 'myapp.forms.SignupForm') that is used during signup to ask
@@ -285,6 +294,16 @@ Upgrading
 
 From 0.9.0
 **********
+
+- Logout no longer happens on GET request. Refer to the `LogoutView`
+  documentation for more background information. Logging out on GET
+  can be restored by the setting `ACCOUNT_LOGOUT_ON_GET`. Furthermore,
+  after logging out you are now redirected to
+  `ACCOUNT_LOGOUT_REDIRECT_URL` instead of rendering the
+  `account/logout.html` template.
+
+- `LOGIN_REDIRECT_URLNAME` is now deprecated. Django 1.5 accepts both
+  URL names and URLs for `LOGIN_REDIRECT_URL`, so we do so as well.
 
 - `DefaultAccountAdapter.stash_email_verified` is now named
   `stash_verified_email`.
@@ -664,6 +683,31 @@ The following signals are emitted:
   provided.
 
 
+Views
+=====
+
+Logout
+------
+
+The logout view (`allauth.account.views.LogoutView`) requests for
+confirmation before logging out. The user is logged out only when the
+confirmation is received by means of a POST request.
+
+If you are wondering why, consider what happens when a malicious user
+embeds the following image in a POST::
+
+    <img src="http://example.com/accounts/logout/">
+
+For this and more background information on the subject, see:
+
+- https://code.djangoproject.com/ticket/15619
+- http://stackoverflow.com/questions/3521290/logout-get-or-post
+
+If you insist on having logout on GET, then please consider adding a
+bit of Javascript to automatically turn a click on a logout link into
+a POST. As a last resort, you can set `ACCOUNT_LOGOUT_ON_GET` to
+`True`.
+
 Templates
 =========
 
@@ -805,6 +849,8 @@ following adapter methods:
 - `allauth.account.adapter.DefaultAccountAdapter`:
 
   - `get_login_redirect_url(request)`
+
+  - `get_logout_redirect_url(request)`
 
   - `get_email_confirmation_redirect_url(request)`
 

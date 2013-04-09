@@ -10,6 +10,7 @@ from django.views.generic.base import TemplateResponseMixin, View
 from django.views.generic.edit import FormView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.tokens import default_token_generator
 from django.shortcuts import redirect
 
@@ -25,6 +26,8 @@ from .utils import sync_user_email_addresses
 from .models import EmailAddress, EmailConfirmation
 
 from . import signals
+from . import app_settings
+
 from .adapter import get_adapter
 
 User = get_user_model()
@@ -418,10 +421,42 @@ def password_reset_from_key(request, uidb36, key, **kwargs):
     return render_to_response(template_name, RequestContext(request, ctx))
 
 
-def logout(request, **kwargs):
-    messages.add_message(request, messages.SUCCESS,
-        ugettext("You have signed out.")
-    )
-    kwargs['template_name'] = kwargs.pop('template_name', 'account/logout.html')
-    from django.contrib.auth.views import logout as _logout
-    return _logout(request, **kwargs)
+class LogoutView(TemplateResponseMixin, View):
+    
+    template_name = "account/logout.html"
+    redirect_field_name = "next"
+    
+    def get(self, *args, **kwargs):
+        if app_settings.LOGOUT_ON_GET:
+            return self.post(*args, **kwargs)
+        if not self.request.user.is_authenticated():
+            return redirect(self.get_redirect_url())
+        ctx = self.get_context_data()
+        return self.render_to_response(ctx)
+    
+    def post(self, *args, **kwargs):
+        url = self.get_redirect_url()
+        if self.request.user.is_authenticated():
+            self.logout()
+        return redirect(url)
+    
+    def logout(self):
+        messages.add_message(self.request, messages.SUCCESS,
+                             ugettext("You have signed out."))
+        auth_logout(self.request)
+
+    def get_context_data(self, **kwargs):
+        ctx = kwargs
+        ctx.update({
+            "redirect_field_name": self.redirect_field_name,
+            "redirect_field_value": self.request.REQUEST.get(self.redirect_field_name),
+        })
+        return ctx
+    
+    def get_redirect_url(self):
+        return (get_next_redirect_url(self.request, 
+                                      self.redirect_field_name)
+                or get_adapter().get_logout_redirect_url(self.request))
+
+
+logout = LogoutView.as_view()

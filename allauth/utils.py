@@ -3,6 +3,7 @@ import unicodedata
 
 from django.core.exceptions import ImproperlyConfigured
 from django.core.validators import validate_email, ValidationError
+from django.core import urlresolvers
 from django.db.models import EmailField
 from django.utils import importlib, six
 try:
@@ -93,4 +94,15 @@ def get_user_model():
         raise ImproperlyConfigured("AUTH_USER_MODEL refers to model '%s' that has not been installed" % app_settings.USER_MODEL)
     return user_model
 
-    
+def resolve_url(to):
+    """
+    Subset of django.shortcuts.resolve_url (that one is 1.5+)
+    """
+    try:
+        return urlresolvers.reverse(to)
+    except urlresolvers.NoReverseMatch:
+        # If this doesn't "feel" like a URL, re-raise.
+        if '/' not in to and '.' not in to:
+            raise
+    # Finally, fall back and assume it's a URL
+    return to

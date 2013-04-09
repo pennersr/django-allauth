@@ -1,3 +1,5 @@
+import warnings
+
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.template import TemplateDoesNotExist
@@ -9,7 +11,8 @@ except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
 from ..utils import (import_attribute, get_user_model,
-                     generate_unique_username)
+                     generate_unique_username,
+                     resolve_url)
 
 from . import app_settings
 
@@ -85,12 +88,23 @@ class DefaultAccountAdapter(object):
         GET parameter) take precedence over the value returned here.
         """
         assert request.user.is_authenticated()
-        login_redirect_urlname = getattr(settings, "LOGIN_REDIRECT_URLNAME", None)
-        if login_redirect_urlname:
-            ret = reverse(login_redirect_urlname)
+        url = getattr(settings, "LOGIN_REDIRECT_URLNAME", None)
+        if url:
+            warnings.warn("LOGIN_REDIRECT_URLNAME is deprecated, simply"
+                          " use LOGIN_REDIRECT_URL with a URL name",
+                          DeprecationWarning)
         else:
-            ret = settings.LOGIN_REDIRECT_URL
-        return ret
+            url = settings.LOGIN_REDIRECT_URL
+        return resolve_url(url)
+
+    def get_logout_redirect_url(self, request):
+        """
+        Returns the URL to redriect to after the user logs out. Note that
+        this method is also invoked if you attempt to log out while no users
+        is logged in. Therefore, request.user is not guaranteed to be an
+        authenticated user.
+        """
+        return resolve_url(app_settings.LOGOUT_REDIRECT_URL)
 
     def get_email_confirmation_redirect_url(self, request):
         """

@@ -166,6 +166,14 @@ class AppSettings(object):
         return self._setting('ADAPTER', 
                              'allauth.account.adapter.DefaultAccountAdapter')
 
+    @property
+    def LOGOUT_REDIRECT_URL(self):
+        return self._setting('LOGOUT_REDIRECT_URL', '/')
+    
+    @property
+    def LOGOUT_ON_GET(self):
+        return self._setting('LOGOUT_ON_GET', False)
+
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html
 import sys

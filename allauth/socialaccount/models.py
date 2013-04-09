@@ -94,7 +94,7 @@ class SocialAccount(models.Model):
 class SocialToken(models.Model):
     app = models.ForeignKey(SocialApp)
     account = models.ForeignKey(SocialAccount)
-    token = models.CharField(max_length=200,
+    token = models.CharField(max_length=255,
                              help_text='"oauth_token" (OAuth1) or access token (OAuth2)')
     token_secret = models.CharField(max_length=200, blank=True,
                                     help_text='"oauth_token_secret" (OAuth1) or refresh token (OAuth2)')

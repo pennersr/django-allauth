@@ -47,19 +47,10 @@ class AppSettings(object):
         The URL to redirect to after a successful e-mail confirmation, in
         case of an authenticated user
         """
-        return self._setting("EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL",
-                             None)
-
-    @property
-    def EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL(self):
-        """
-        The URL to redirect to after a successful e-mail confirmation, in
-        case no user is logged in
-        """
         from django.conf import settings
-        return self._setting("EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL",
-                             settings.LOGIN_URL)
-                                         
+        return self._setting("EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL",
+                             settings.LOGIN_REDIRECT_URL)
+                                        
     @property
     def EMAIL_REQUIRED(self):
         """

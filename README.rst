@@ -195,10 +195,6 @@ ACCOUNT_AUTHENTICATION_METHOD (="username" | "email" | "username_email")
   Specifies the login method to use -- whether the user logs in by
   entering his username, e-mail address, or either one of both.
 
-ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL (=settings.LOGIN_URL)
-  The URL to redirect to after a successful e-mail confirmation, in case no
-  user is logged in.
-
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL (=None)
   The URL to redirect to after a successful e-mail confirmation, in
   case of an authenticated user. Set to `None` to use

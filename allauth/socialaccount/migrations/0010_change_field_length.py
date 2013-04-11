@@ -8,7 +8,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
 
         # Changing field 'SocialToken.socialaccount_socialtoken'
-        db.alter_column('socialaccount_socialtoken', 'token', self.gf('django.db.models.fields.CharField')(max_length=250))
+        db.alter_column('socialaccount_socialtoken', 'token', self.gf('django.db.models.fields.TextField')(blank=False))
 
     def backwards(self, orm):
 

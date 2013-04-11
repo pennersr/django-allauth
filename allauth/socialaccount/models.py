@@ -30,7 +30,7 @@ class SocialAppManager(models.Manager):
 class SocialApp(models.Model):
     objects = SocialAppManager()
 
-    provider = models.CharField(max_length=30, 
+    provider = models.CharField(max_length=30,
                                 choices=providers.registry.as_choices())
     name = models.CharField(max_length=40)
     client_id = models.CharField(max_length=100,
@@ -100,7 +100,7 @@ class SocialAccount(models.Model):
 class SocialToken(models.Model):
     app = models.ForeignKey(SocialApp)
     account = models.ForeignKey(SocialAccount)
-    token = models.CharField(max_length=200,
+    token = models.CharField(max_length=250,
                              help_text='"oauth_token" (OAuth1) or access token (OAuth2)')
     token_secret = models.CharField(max_length=200, blank=True,
                                     help_text='"oauth_token_secret" (OAuth1) or refresh token (OAuth2)')
@@ -170,14 +170,14 @@ class SocialLogin(object):
             primary_email_address = None
 
 
-        if (user.email 
-            and (user.email.lower() not in [e.email.lower() 
+        if (user.email
+            and (user.email.lower() not in [e.email.lower()
                                             for e in self.email_addresses])):
             # ... so let's append it
             email_address \
                 = EmailAddress(user=user,
                                email=user.email,
-                               verified=adapter.is_email_verified(request, 
+                               verified=adapter.is_email_verified(request,
                                                                   user.email),
                                primary=(not primary_email_address))
             if not primary_email_address:
@@ -190,7 +190,7 @@ class SocialLogin(object):
             if not email:
                 continue
             # ... and non-conflicting ones...
-            if (account_settings.UNIQUE_EMAIL 
+            if (account_settings.UNIQUE_EMAIL
                 and EmailAddress.objects.filter(email__iexact=email).exists()):
                 continue
             if email_address.primary:
@@ -200,8 +200,8 @@ class SocialLogin(object):
                     email_address.primary = False
             email_address.user = user
             email_address.verified \
-                = (email_address.verified 
-                   or adapter.is_email_verified(request, 
+                = (email_address.verified
+                   or adapter.is_email_verified(request,
                                                 email_address.email))
             email_address.save()
 
@@ -223,7 +223,7 @@ class SocialLogin(object):
         """
         assert not self.is_existing
         try:
-            a = SocialAccount.objects.get(provider=self.account.provider, 
+            a = SocialAccount.objects.get(provider=self.account.provider,
                                           uid=self.account.uid)
             # Update account
             a.extra_data = self.account.extra_data
@@ -245,11 +245,11 @@ class SocialLogin(object):
                     self.token.save()
         except SocialAccount.DoesNotExist:
             pass
-    
+
     def get_redirect_url(self, request):
         url = self.state.get('next')
         return url
-            
+
     @classmethod
     def state_from_request(cls, request):
         state = {}
@@ -262,7 +262,7 @@ class SocialLogin(object):
     def marshall_state(cls, request):
         state = cls.state_from_request(request)
         return json.dumps(state)
-    
+
     @classmethod
     def unmarshall_state(cls, state_string):
         if state_string:
@@ -270,5 +270,5 @@ class SocialLogin(object):
         else:
             state = {}
         return state
-    
-            
+
+

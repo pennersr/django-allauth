@@ -333,6 +333,9 @@ From 0.9.0
 - The expiry time, if any, is now stored in a new column
   `SocialToken.expires_at`. Migrations are in place.
 
+- Furthermore, Facebook started returning longer tokens, so the
+  maximum token length was increased. Again, migrations are in place.
+
 - Login and signup views have been turned into class-based views.
 
 - The template variable `facebook_perms` is no longer passed to the

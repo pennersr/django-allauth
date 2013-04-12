@@ -502,22 +502,35 @@ The following Facebook settings are available::
               'METHOD': 'oauth2' ,
               'LOCALE_FUNC': 'path.to.callable'} }
 
-By default, `email` scope is required depending whether or not
-`SOCIALACCOUNT_QUERY_EMAIL` is enabled.
+METHOD
+    Either `js_sdk` or `oauth2`
 
-The locale for the JS SDK is chosen based on the current active language of
-the request, taking a best guess. This can be customized using the
-`LOCALE_FUNC` setting, which takes either a callable or a path to a callable.
-This callable must take exactly one argument, the request, and return `a
-valid Facebook locale <http://developers.facebook.com/docs/
-internationalization/>`_ as a string::
+SCOPE
+    By default, `email` scope is required depending whether or not
+    `SOCIALACCOUNT_QUERY_EMAIL` is enabled.
 
-    SOCIALACCOUNT_PROVIDERS = \
-        { 'facebook':
-            { 'LOCALE_FUNC': lambda request: 'zh_CN'} }
+AUTH_PARAMS
+    Use `AUTH_PARAMS` to pass along other parameters to the `FB.login`
+    JS SDK call.
 
-Use `AUTH_PARAMS` to pass along other parameters to the `FB.login` JS SDK
-call.
+LOCALE_FUNC:
+    The locale for the JS SDK is chosen based on the current active language of
+    the request, taking a best guess. This can be customized using the
+    `LOCALE_FUNC` setting, which takes either a callable or a path to a callable.
+    This callable must take exactly one argument, the request, and return `a
+    valid Facebook locale <http://developers.facebook.com/docs/
+    internationalization/>`_ as a string::
+
+        SOCIALACCOUNT_PROVIDERS = \
+            { 'facebook':
+                { 'LOCALE_FUNC': lambda request: 'zh_CN'} }
+
+App registration
+    https://developers.facebook.com/apps
+
+Devlopment callback URL
+    http://localhost:8000
+
 
 Google
 ------
@@ -669,7 +682,7 @@ The following signals are emitted:
 
 - `allauth.account.signals.user_signed_up`
 
-  Sent when a user signs up for an account. This is signal is
+  Sent when a user signs up for an account. This signal is
   typically followed by a `user_logged_in`, unless e-mail verification
   prohibits the user to log in.
 

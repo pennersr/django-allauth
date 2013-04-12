@@ -89,6 +89,17 @@ class AccountTests(TestCase):
         self.assertEquals(len(mail.outbox), 0)
         return User.objects.get(username=username)
 
+    def test_redirect_when_authenticated(self):
+        user = User.objects.create(username='john',
+                                   is_active=True)
+        user.set_password('doe')
+        user.save()
+        c = Client()
+        c.login(username='john', password='doe')
+        resp = c.get(reverse('account_login'))
+        self.assertEquals(302, resp.status_code)
+        self.assertEquals('http://testserver/accounts/profile/',
+                          resp['location'])
 
     def test_email_verification_mandatory(self):
         c = Client()

@@ -38,6 +38,12 @@ def get_next_redirect_url(request, redirect_field_name="next"):
     return redirect_to
 
 
+def get_login_redirect_url(request, url=None, redirect_field_name="next"):
+    redirect_url = (url 
+                    or get_next_redirect_url(request, 
+                                             redirect_field_name=redirect_field_name) 
+                    or get_adapter().get_login_redirect_url(request))
+    return redirect_url
 
 _user_display_callable = None
 
@@ -88,10 +94,7 @@ def perform_login(request, user, redirect_url=None):
     messages.add_message(request, messages.SUCCESS,
                          ugettext("Successfully signed in as %(user)s.") % { "user": user_display(user) } )
 
-    redirect_url = (redirect_url 
-                    or get_next_redirect_url(request) 
-                    or get_adapter().get_login_redirect_url(request))
-    return HttpResponseRedirect(redirect_url)
+    return HttpResponseRedirect(get_login_redirect_url(request, redirect_url))
 
 
 def complete_signup(request, user, success_url, signal_kwargs={}):

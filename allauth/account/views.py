@@ -18,6 +18,7 @@ from ..exceptions import ImmediateHttpResponse
 from ..utils import get_user_model
 
 from .utils import (get_next_redirect_url, complete_signup, 
+                    get_login_redirect_url,
                     passthrough_next_redirect_url)
 from .forms import AddEmailForm, ChangePasswordForm
 from .forms import LoginForm, ResetPasswordKeyForm
@@ -44,7 +45,9 @@ class RedirectAuthenticatedUserMixin(object):
                                                                     **kwargs)
 
     def get_authenticated_redirect_url(self):
-        return self.get_success_url()
+        return get_login_redirect_url(self.request, 
+                                      url=self.get_success_url(),
+                                      redirect_field_name=self.redirect_field_name)
         
 class LoginView(RedirectAuthenticatedUserMixin, FormView):
     form_class = LoginForm

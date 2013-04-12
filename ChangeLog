@@ -1,3 +1,8 @@
+2013-04-13  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Added support for custom username handling in case of custom
+	user models (`ACCOUNT_USER_MODEL_USERNAME_FIELD`).
+
 2013-04-12  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Version 0.10.0 released.

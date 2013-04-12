@@ -25,6 +25,10 @@ class AppSettings(object):
         assert (self.EMAIL_VERIFICATION 
                 != self.EmailVerificationMethod.MANDATORY) \
             or self.EMAIL_REQUIRED
+        if not self.USER_MODEL_USERNAME_FIELD:
+            assert not self.USERNAME_REQUIRED
+            assert self.AUTHENTICATION_METHOD not in (self.AuthenticationMethod.USERNAME,
+                                                      self.AuthenticationMethod.USERNAME_EMAIL)
 
 
     def _setting(self, name, dflt):
@@ -173,6 +177,11 @@ class AppSettings(object):
     @property
     def LOGOUT_ON_GET(self):
         return self._setting('LOGOUT_ON_GET', False)
+
+    @property
+    def USER_MODEL_USERNAME_FIELD(self):
+        return self._setting('USER_MODEL_USERNAME_FIELD', 'username')
+
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

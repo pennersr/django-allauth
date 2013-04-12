@@ -16,6 +16,10 @@ from django.utils.translation import ugettext_lazy as _, ugettext
 from django.http import HttpResponseRedirect
 from django.utils.http import urlencode
 from django.utils.datastructures import SortedDict
+try:
+    from django.utils.encoding import force_text
+except ImportError:
+    from django.utils.encoding import force_unicode as force_text
 
 from ..utils import import_callable, valid_email_or_none
 
@@ -47,11 +51,17 @@ def get_login_redirect_url(request, url=None, redirect_field_name="next"):
 
 _user_display_callable = None
 
+def default_user_display(user):
+    if app_settings.USER_MODEL_USERNAME_FIELD:
+        return getattr(user, app_settings.USER_MODEL_USERNAME_FIELD)
+    else:
+        return force_text(user)
+
 def user_display(user):
     global _user_display_callable
     if not _user_display_callable:
         f = getattr(settings, "ACCOUNT_USER_DISPLAY",
-                    lambda user: user.username)
+                    default_user_display)
         _user_display_callable = import_callable(f)
     return _user_display_callable(user)
 

@@ -244,6 +244,10 @@ ACCOUNT_SIGNUP_PASSWORD_VERIFICATION (=True)
 ACCOUNT_UNIQUE_EMAIL (=True)
   Enforce uniqueness of e-mail addresses.
 
+ACCOUNT_USER_MODEL_USERNAME_FIELD (="username")
+  The name of the field containing the `username`, if any. See custom
+  user models.
+  
 ACCOUNT_USER_DISPLAY (=a callable returning `user.username`)
   A callable (or string of the form `'some.module.callable_name'`)
   that takes a user as its only argument and returns the display name
@@ -810,6 +814,20 @@ The behavior is as follows:
 
 Advanced Usage
 ==============
+
+Custom User Models
+------------------
+
+If you use a custom user model you need to specify what field
+represents the `username`, if any. Here, `username` really refers to
+the field representing the nick name the user uses to login, and not
+some unique identifier (possibly including an e-mail adddress) as is
+the case for Django's `AbstractBaseUser.USERNAME_FIELD`.
+
+Meaning, if your custom user model does not have a `username` field
+(again, not to be mistaken with an e-mail address or user id), you
+will need to set `ACCOUNT_USER_MODEL_USERNAME_FIELD` to `None`. This
+will disable username related functionality in `allauth`.
 
 Invitations
 -----------

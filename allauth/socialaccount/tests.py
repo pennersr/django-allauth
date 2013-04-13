@@ -17,6 +17,7 @@ from django.contrib.auth.models import AnonymousUser
 from ..tests import MockedResponse, mocked_response
 from ..account import app_settings as account_settings
 from ..account.models import EmailAddress
+from ..account.utils import user_email
 
 from .models import SocialApp, SocialAccount, SocialLogin
 from .helpers import complete_social_login
@@ -150,5 +151,5 @@ class SocialAccountTests(TestCase):
         self.assertTrue(SocialAccount.objects.filter(user=user,
                                                      uid=account.uid).exists())
         self.assertTrue(EmailAddress.objects.filter(user=user,
-                                                    email=user.email).exists())
+                                                    email=user_email(user)).exists())
         

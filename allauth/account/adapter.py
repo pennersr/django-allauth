@@ -139,14 +139,14 @@ class DefaultAccountAdapter(object):
         validated. For example, if a username is given it must be
         unique.
         """
+        from .utils import user_username, user_email
+
         user = get_user_model()()
-        username_field = app_settings.USER_MODEL_USERNAME_FIELD
-        if username_field:
-            setattr(user,
-                    username_field,
-                    username or generate_unique_username(first_name or
-                                                         last_name or email))
-        user.email = email
+        if app_settings.USER_MODEL_USERNAME_FIELD:
+            user_username(user, 
+                          username or generate_unique_username(first_name or
+                                                               last_name or email))
+        user_email(user, email)
         user.first_name = first_name
         user.last_name = last_name
         return user

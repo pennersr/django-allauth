@@ -182,6 +182,10 @@ class AppSettings(object):
     def USER_MODEL_USERNAME_FIELD(self):
         return self._setting('USER_MODEL_USERNAME_FIELD', 'username')
 
+    @property
+    def USER_MODEL_EMAIL_FIELD(self):
+        return self._setting('USER_MODEL_EMAIL_FIELD', 'email')
+
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

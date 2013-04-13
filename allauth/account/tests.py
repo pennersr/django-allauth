@@ -26,6 +26,7 @@ User = get_user_model()
      ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.USERNAME,
      ACCOUNT_SIGNUP_FORM_CLASS=None,
      ACCOUNT_EMAIL_SUBJECT_PREFIX=None,
+     LOGIN_REDIRECT_URL='/accounts/profile/',
      ACCOUNT_ADAPTER='allauth.account.adapter.DefaultAccountAdapter',
      ACCOUNT_USERNAME_REQUIRED=True)
 class AccountTests(TestCase):

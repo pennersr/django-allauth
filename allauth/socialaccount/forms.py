@@ -3,7 +3,8 @@ from django import forms
 
 from allauth.account.models import EmailAddress
 from allauth.account.forms import BaseSignupForm
-from allauth.account.utils import send_email_confirmation
+from allauth.account.utils import (send_email_confirmation,
+                                   user_username, user_email)
 
 from .models import SocialAccount
 
@@ -12,8 +13,8 @@ class SignupForm(BaseSignupForm):
     def __init__(self, *args, **kwargs):
         self.sociallogin = kwargs.pop('sociallogin')
         user = self.sociallogin.account.user
-        initial = { 'email': user.email or '',
-                    'username': user.username or '',
+        initial = { 'email': user_email(user) or '',
+                    'username': user_username(user) or '',
                     'first_name': user.first_name or '',
                     'last_name': user.last_name or '' }
         kwargs['initial'] = initial

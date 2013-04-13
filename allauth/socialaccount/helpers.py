@@ -8,8 +8,9 @@ from django.template.defaultfilters import slugify
 
 from allauth.utils import (generate_unique_username, email_address_exists,
                            get_user_model)
-from allauth.account.utils import send_email_confirmation, \
-    perform_login, complete_signup
+from allauth.account.utils import (send_email_confirmation, 
+                                   perform_login, complete_signup,
+                                   user_email, user_username)
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.exceptions import ImmediateHttpResponse
@@ -24,7 +25,7 @@ User = get_user_model()
 def _process_signup(request, sociallogin):
     # If email is specified, check for duplicate and if so, no auto signup.
     auto_signup = app_settings.AUTO_SIGNUP
-    email = sociallogin.account.user.email
+    email = user_email(sociallogin.account.user)
     if auto_signup:
         # Let's check if auto_signup is really possible...
         if email:
@@ -60,14 +61,16 @@ def _process_signup(request, sociallogin):
         except ImmediateHttpResponse as e:
             return e.response
         u = sociallogin.account.user
-        u.username = generate_unique_username(u.username
-                                              or email 
-                                              or 'user')
+        if account_settings.USER_MODEL_USERNAME_FIELD:
+            user_username(u,
+                          generate_unique_username(user_username(u)
+                                                   or email 
+                                                   or 'user'))
         u.last_name = (u.last_name or '') \
             [0:User._meta.get_field('last_name').max_length]
         u.first_name = (u.first_name or '') \
             [0:User._meta.get_field('first_name').max_length]
-        u.email = email or ''
+        user_email(u, email or '')
         u.set_unusable_password()
         sociallogin.save(request)
         send_email_confirmation(request, u)

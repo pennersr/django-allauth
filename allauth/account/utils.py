@@ -66,6 +66,24 @@ def user_display(user):
     return _user_display_callable(user)
 
 
+def user_field(user, field, *args):
+    """
+    Gets or sets (optional) user model fields. No-op if fields do not exist.
+    """
+    if field:
+        if args:
+            # Setter
+            setattr(user, field, args[0])
+        else:
+            # Getter
+            return getattr(user, field)
+
+def user_username(user, *args):
+    return user_field(user, app_settings.USER_MODEL_USERNAME_FIELD, *args)
+
+def user_email(user, *args):
+    return user_field(user, app_settings.USER_MODEL_EMAIL_FIELD, *args)
+
 # def has_openid(request):
 #     """
 #     Given a HttpRequest determine whether the OpenID on it is associated thus
@@ -90,7 +108,7 @@ def perform_login(request, user, redirect_url=None):
         send_email_confirmation(request, user)
         return render(request,
                       "account/verification_sent.html",
-                      { "email": user.email })
+                      { "email": user_email(user) })
     # HACK: This may not be nice. The proper Django way is to use an
     # authentication backend, but I fail to see any added benefit
     # whereas I do see the downsides (having to bother the integrator
@@ -192,9 +210,10 @@ def setup_user_email(request, user, addresses):
                                                email=stashed_email,
                                                primary=True,
                                                verified=True))
-    if user.email:
+    email = user_email(user)
+    if email:
         priority_addresses.append(EmailAddress(user=user,
-                                               email=user.email,
+                                               email=email,
                                                primary=True,
                                                verified=False))
     addresses, primary = cleanup_email_addresses(request, 
@@ -202,8 +221,10 @@ def setup_user_email(request, user, addresses):
                                                  + addresses)
     for a in addresses:
         a.save()
-    if primary and user.email.lower() != primary.email.lower():
-        user.email = primary.email
+    if (primary 
+        and email
+        and email.lower() != primary.email.lower()):
+        user_email(user, primary.email)
         user.save()
     return primary
 
@@ -221,7 +242,7 @@ def send_email_confirmation(request, user, email_address=None):
     from .models import EmailAddress, EmailConfirmation
 
     COOLDOWN_PERIOD = timedelta(minutes=3)
-    email = user.email
+    email = user_email(user)
     if (email 
         and app_settings.EMAIL_VERIFICATION != EmailVerificationMethod.NONE):
         try:
@@ -241,7 +262,7 @@ def send_email_confirmation(request, user, email_address=None):
             send_email = True
             email_address = EmailAddress.objects.add_email(request,
                                                            user, 
-                                                           user.email, 
+                                                           email, 
                                                            confirm=True)
             assert email_address
         # At this point, if we were supposed to send an email we have sent it.
@@ -259,13 +280,14 @@ def sync_user_email_addresses(user):
     users.
     """
     from .models import EmailAddress
-    if user.email and not EmailAddress.objects.filter(user=user,
-                                                      email=user.email).exists():
-        if app_settings.UNIQUE_EMAIL and EmailAddress.objects.filter(email=user.email).exists():
+    email = user_email(user)
+    if user_email and not EmailAddress.objects.filter(user=user,
+                                                      email__iexact=email).exists():
+        if app_settings.UNIQUE_EMAIL and EmailAddress.objects.filter(email__iexact=email).exists():
             # Bail out
             return
         EmailAddress.objects.create(user=user,
-                                    email=user.email,
+                                    email=email,
                                     primary=False,
                                     verified=False)
 

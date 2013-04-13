@@ -1,10 +1,10 @@
 from django.core.urlresolvers import reverse
 
-from allauth.utils import (import_attribute,
-                           get_user_model,
-                           valid_email_or_none)
+from ..utils import (import_attribute,
+                     get_user_model,
+                     valid_email_or_none)
+from ..account.utils import user_email, user_username
 
-from ..account import app_settings as account_settings
 from . import app_settings
 
 class DefaultSocialAccountAdapter(object):
@@ -41,10 +41,8 @@ class DefaultSocialAccountAdapter(object):
         responsibility.
         """
         user = get_user_model()()
-        username_field = account_settings.USER_MODEL_USERNAME_FIELD
-        if username_field:
-            setattr(user, username_field, username or '')
-        user.email = valid_email_or_none(email) or ''
+        user_username(user, username or '')
+        user_email(user, valid_email_or_none(email) or '')
         name_parts= (name or '').partition(' ')
         user.first_name = first_name or name_parts[0]
         user.last_name = last_name or name_parts[2]

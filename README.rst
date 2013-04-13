@@ -247,6 +247,10 @@ ACCOUNT_UNIQUE_EMAIL (=True)
 ACCOUNT_USER_MODEL_USERNAME_FIELD (="username")
   The name of the field containing the `username`, if any. See custom
   user models.
+
+ACCOUNT_USER_MODEL_EMAIL_FIELD (="email")
+  The name of the field containing the `email`, if any. See custom
+  user models.
   
 ACCOUNT_USER_DISPLAY (=a callable returning `user.username`)
   A callable (or string of the form `'some.module.callable_name'`)
@@ -828,6 +832,9 @@ Meaning, if your custom user model does not have a `username` field
 (again, not to be mistaken with an e-mail address or user id), you
 will need to set `ACCOUNT_USER_MODEL_USERNAME_FIELD` to `None`. This
 will disable username related functionality in `allauth`.
+
+Similarly, you will need to set `ACCOUNT_USER_MODEL_EMAIL_FIELD` to
+`None`, or the proper field (if other than `email`).
 
 Invitations
 -----------

@@ -1,5 +1,12 @@
 2013-04-16  Raymond Penners  <raymond.penners@intenct.nl>
 
+	* Version 0.10.1 released.
+
+	* Cleaning of `username` can now be overriden via
+	`DefaultAccountAdapter.clean_username`
+
+2013-04-16  Raymond Penners  <raymond.penners@intenct.nl>
+
 	* Fixed potential error (`assert`) when connecting social
 	accounts.
 

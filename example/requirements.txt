@@ -1,3 +1,3 @@
 django>=1.4.3
-django-allauth>=0.10.0
+django-allauth>=0.10.1
 

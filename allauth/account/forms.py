@@ -7,7 +7,6 @@ from django.utils.http import int_to_base36
 from django.utils.importlib import import_module
 
 from django.contrib.auth import authenticate
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.models import Site
 
@@ -20,7 +19,6 @@ from . import app_settings
 from .adapter import get_adapter
 
 User = get_user_model()
-USERNAME_REGEX = UserCreationForm().fields['username'].regex
 
 class PasswordField(forms.CharField):
 
@@ -189,14 +187,7 @@ class BaseSignupForm(_base_signup_form_class()):
 
     def clean_username(self):
         value = self.cleaned_data["username"]
-        if not USERNAME_REGEX.match(value):
-            raise forms.ValidationError(_("Usernames can only contain "
-                                          "letters, digits and @/./+/-/_."))
-
-        if value in app_settings.USERNAME_BLACKLIST:
-            raise forms.ValidationError(_("Username can not be used. "
-                                          "Please use other username."))
-
+        value = get_adapter().clean_username(value)
         try:
             User.objects.get(username__iexact=value)
         except User.DoesNotExist:

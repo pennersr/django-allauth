@@ -5,6 +5,9 @@ from django.template.loader import render_to_string
 from django.template import TemplateDoesNotExist
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives, EmailMessage
+from django.utils.translation import ugettext_lazy as _
+from django import forms
+
 try:
     from django.utils.encoding import force_text
 except ImportError:
@@ -150,6 +153,25 @@ class DefaultAccountAdapter(object):
         user.first_name = first_name
         user.last_name = last_name
         return user
+
+
+    def clean_username(self, username):
+        """
+        Validates the username. You can hook into this if you want to
+        (dynamically) restrict what usernames can be chosen.
+        """
+        from django.contrib.auth.forms import UserCreationForm
+        USERNAME_REGEX = UserCreationForm().fields['username'].regex
+        if not USERNAME_REGEX.match(username):
+            raise forms.ValidationError(_("Usernames can only contain "
+                                          "letters, digits and @/./+/-/_."))
+
+        # TODO: Add regexp support to USERNAME_BLACKLIST 
+        if username in app_settings.USERNAME_BLACKLIST:
+            raise forms.ValidationError(_("Username can not be used. "
+                                          "Please use other username."))
+        return username
+
 
 def get_adapter():
     return import_attribute(app_settings.ADAPTER)()

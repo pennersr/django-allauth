@@ -10,11 +10,7 @@ except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
 import allauth.app_settings
-from allauth.account import app_settings as account_settings
 from allauth.account.utils import get_next_redirect_url, setup_user_email
-from allauth.utils import valid_email_or_none
-from allauth.account.adapter import get_adapter
-from allauth.account.models import EmailAddress
 
 from . import providers
 from .fields import JSONField
@@ -149,7 +145,15 @@ class SocialLogin(object):
         self.email_addresses = email_addresses
         self.state = {}
 
-    def save(self, request):
+    def connect(self, request, user):
+        self.account.user = user
+        self.save(request, connect=True)
+
+    def save(self, request, connect=False):
+        """
+        Saves a new account. Note that while the account is new,
+        the user may be an existing one (when connecting accounts)
+        """
         assert not self.is_existing
         user = self.account.user
         user.save()
@@ -158,7 +162,12 @@ class SocialLogin(object):
         if self.token:
             self.token.account = self.account
             self.token.save()
-        setup_user_email(request, user, self.email_addresses)
+        if connect:
+            # TODO: Add any new email addresses automatically?
+            pass
+        else:
+            setup_user_email(request, user, self.email_addresses)
+           
 
     @property
     def is_existing(self):

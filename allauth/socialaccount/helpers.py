@@ -122,8 +122,7 @@ def complete_social_login(request, sociallogin):
             ret = _login_social_account(request, sociallogin)
         else:
             # New social account
-            sociallogin.account.user = request.user
-            sociallogin.save(request)
+            sociallogin.connect(request, request.user)
             default_next = get_adapter() \
                 .get_connect_redirect_url(request,
                                           sociallogin.account)

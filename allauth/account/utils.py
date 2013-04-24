@@ -281,8 +281,8 @@ def sync_user_email_addresses(user):
     """
     from .models import EmailAddress
     email = user_email(user)
-    if user_email and not EmailAddress.objects.filter(user=user,
-                                                      email__iexact=email).exists():
+    if email and not EmailAddress.objects.filter(user=user,
+                                                 email__iexact=email).exists():
         if app_settings.UNIQUE_EMAIL and EmailAddress.objects.filter(email__iexact=email).exists():
             # Bail out
             return

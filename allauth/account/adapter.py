@@ -172,6 +172,13 @@ class DefaultAccountAdapter(object):
                                           "Please use other username."))
         return username
 
+    def clean_email(self, email):
+        """
+        Validates an email value. You can hook into this if you want to
+        (dynamically) restrict what email addresses can be chosen.
+        """
+        return email
+
 
 def get_adapter():
     return import_attribute(app_settings.ADAPTER)()

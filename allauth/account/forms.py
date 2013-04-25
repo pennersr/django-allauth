@@ -197,6 +197,7 @@ class BaseSignupForm(_base_signup_form_class()):
     
     def clean_email(self):
         value = self.cleaned_data["email"]
+        value = get_adapter().clean_email(value)
         if app_settings.UNIQUE_EMAIL:
             if value and email_address_exists(value):
                 raise forms.ValidationError \
@@ -296,6 +297,7 @@ class AddEmailForm(UserForm):
     
     def clean_email(self):
         value = self.cleaned_data["email"]
+        value = get_adapter().clean_email(value)
         errors = {
             "this_account": _("This e-mail address is already associated with this account."),
             "different_account": _("This e-mail address is already associated with another account."),
@@ -363,6 +365,7 @@ class ResetPasswordForm(forms.Form):
     
     def clean_email(self):
         email = self.cleaned_data["email"]
+        email = get_adapter().clean_email(email)
         self.users = User.objects.filter(Q(email__iexact=email)
                                          | Q(emailaddress__email__iexact=email)).distinct()
         if not self.users.exists():

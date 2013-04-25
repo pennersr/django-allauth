@@ -43,7 +43,7 @@ def _process_signup(request, sociallogin):
                     # FIXME: We redirect to signup form -- user will
                     # see email address conflict only after posting
                     # whereas we detected it here already.
-        elif account_settings.EMAIL_REQUIRED:
+        elif app_settings.EMAIL_REQUIRED:
             # Nope, email is required and we don't have it yet...
             auto_signup = False
     if not auto_signup:
@@ -87,6 +87,7 @@ def _login_social_account(request, sociallogin):
             context_instance=RequestContext(request))
     else:
         ret = perform_login(request, user, 
+                            email_verification=app_settings.EMAIL_VERIFICATION,
                             redirect_url=sociallogin.get_redirect_url(request))
     return ret
 
@@ -194,6 +195,7 @@ def complete_social_signup(request, sociallogin):
         _copy_avatar(request, sociallogin.account.user, sociallogin.account)
     return complete_signup(request, 
                            sociallogin.account.user, 
+                           app_settings.EMAIL_VERIFICATION,
                            sociallogin.get_redirect_url(request),
                            signal_kwargs={'sociallogin': sociallogin})
 

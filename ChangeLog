@@ -1,3 +1,10 @@
+2013-04-25  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Added support for differentiating e-mail handling (verification,
+	required) between local and social accounts:
+	`SOCIALACCOUNT_EMAIL_REQUIRED` and
+	`SOCIALACCOUNT_EMAIL_VERIFICATION`.
+
 2013-04-16  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Version 0.10.1 released.

@@ -293,8 +293,15 @@ SOCIALACCOUNT_AVATAR_SUPPORT (= 'avatar' in settings.INSTALLED_APPS)
   Enable support for django-avatar. When enabled, the profile image of
   the user is copied locally into django-avatar at signup.
 
+SOCIALACCOUNT_EMAIL_REQUIRED (=ACCOUNT_EMAIL_REQUIRED)
+  The user is required to hand over an e-mail address when signing up
+  using a social account.
+
+SOCIALACCOUNT_EMAIL_VERIFICATION (=ACCOUNT_EMAIL_VERIFICATION)
+  As `ACCOUNT_EMAIL_VERIFICATION`, but for social accounts.
+
 SOCIALACCOUNT_PROVIDERS (= dict)
-    Dictionary containing provider specific settings.
+  Dictionary containing provider specific settings.
 
 
 Upgrading

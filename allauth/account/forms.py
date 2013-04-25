@@ -14,7 +14,7 @@ from ..utils import (email_address_exists, get_user_model)
 
 from .models import EmailAddress
 from .utils import perform_login, send_email_confirmation, setup_user_email
-from .app_settings import AuthenticationMethod, EmailVerificationMethod
+from .app_settings import AuthenticationMethod
 from . import app_settings
 from .adapter import get_adapter
 
@@ -120,7 +120,9 @@ class LoginForm(forms.Form):
         return self.cleaned_data
     
     def login(self, request, redirect_url=None):
-        ret = perform_login(request, self.user, redirect_url=redirect_url)
+        ret = perform_login(request, self.user, 
+                            email_verification=app_settings.EMAIL_VERIFICATION,
+                            redirect_url=redirect_url)
         if self.cleaned_data["remember"]:
             request.session.set_expiry(60 * 60 * 24 * 7 * 3)
         else:
@@ -171,12 +173,9 @@ class BaseSignupForm(_base_signup_form_class()):
                                                   _('E-mail address') }))
 
     def __init__(self, *args, **kwargs):
+        email_required = kwargs.pop('email_required')
         super(BaseSignupForm, self).__init__(*args, **kwargs)
-        if (app_settings.EMAIL_REQUIRED 
-            or (app_settings.EMAIL_VERIFICATION 
-                == EmailVerificationMethod.MANDATORY) 
-            or (app_settings.AUTHENTICATION_METHOD 
-                == AuthenticationMethod.EMAIL)):
+        if email_required:
             self.fields["email"].label = ugettext("E-mail")
             self.fields["email"].required = True
         else:
@@ -230,6 +229,7 @@ class SignupForm(BaseSignupForm):
         widget = forms.HiddenInput())
     
     def __init__(self, *args, **kwargs):
+        kwargs['email_required'] = app_settings.EMAIL_REQUIRED
         super(SignupForm, self).__init__(*args, **kwargs)
         current_order =self.fields.keyOrder
         preferred_order = self.fields.keyOrder = ["username", 

@@ -96,13 +96,13 @@ def user_email(user, *args):
 #     return False
 
 
-def perform_login(request, user, redirect_url=None):
+def perform_login(request, user, email_verification, redirect_url=None):
     from .models import EmailAddress
 
     # not is_active: social users are redirected to a template
     # local users are stopped due to form validation checking is_active
     assert user.is_active
-    if (app_settings.EMAIL_VERIFICATION == EmailVerificationMethod.MANDATORY
+    if (email_verification == EmailVerificationMethod.MANDATORY
         and not EmailAddress.objects.filter(user=user,
                                             verified=True).exists()):
         send_email_confirmation(request, user)
@@ -125,12 +125,14 @@ def perform_login(request, user, redirect_url=None):
     return HttpResponseRedirect(get_login_redirect_url(request, redirect_url))
 
 
-def complete_signup(request, user, success_url, signal_kwargs={}):
+def complete_signup(request, user, email_verification, success_url, signal_kwargs={}):
     signals.user_signed_up.send(sender=user.__class__, 
                                 request=request, 
                                 user=user,
                                 **signal_kwargs)
-    return perform_login(request, user, redirect_url=success_url)
+    return perform_login(request, user, 
+                         email_verification=email_verification,
+                         redirect_url=success_url)
 
 
 def cleanup_email_addresses(request, addresses):

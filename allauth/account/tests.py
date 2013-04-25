@@ -171,7 +171,7 @@ class BaseSignupFormTests(TestCase):
             'username': 'username',
             'email': 'user@example.com',
         }
-        form = BaseSignupForm(data)
+        form = BaseSignupForm(data, email_required=True)
         self.assertFalse(form.is_valid())
 
     @override_settings(
@@ -182,5 +182,5 @@ class BaseSignupFormTests(TestCase):
             'username': 'theusername',
             'email': 'user@example.com',
         }
-        form = BaseSignupForm(data)
+        form = BaseSignupForm(data, email_required=True)
         self.assertTrue(form.is_valid())

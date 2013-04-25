@@ -8,6 +8,8 @@ from allauth.account.utils import (send_email_confirmation,
 
 from .models import SocialAccount
 
+from . import app_settings
+
 class SignupForm(BaseSignupForm):
 
     def __init__(self, *args, **kwargs):
@@ -18,6 +20,7 @@ class SignupForm(BaseSignupForm):
                     'first_name': user.first_name or '',
                     'last_name': user.last_name or '' }
         kwargs['initial'] = initial
+        kwargs['email_required'] = app_settings.EMAIL_REQUIRED
         super(SignupForm, self).__init__(*args, **kwargs)
 
     def save(self, request):

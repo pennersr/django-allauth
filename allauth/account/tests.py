@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 from datetime import timedelta
 
 from django.utils.timezone import now
@@ -38,6 +40,23 @@ class AccountTests(TestCase):
                                           provider='facebook')
             sa.sites.add(Site.objects.get_current())
 
+
+    @override_settings \
+        (ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.USERNAME_EMAIL)
+    def test_username_containing_at(self):
+        user = User.objects.create(username='@raymond.penners')
+        user.set_password('psst')
+        user.save()
+        EmailAddress.objects.create(user=user,
+                                    email='raymond.penners@gmail.com',
+                                    primary=True,
+                                    verified=True)
+        resp = self.client.post(reverse('account_login'),
+                                { 'login': '@raymond.penners',
+                                  'password': 'psst' })
+        self.assertEquals(resp['location'],
+                          'http://testserver'+settings.LOGIN_REDIRECT_URL)
+                                 
 
     def test_signup_same_email_verified_externally(self):
         user = self._test_signup_email_verified_externally('john@doe.com',

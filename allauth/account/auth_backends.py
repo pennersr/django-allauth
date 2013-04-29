@@ -24,7 +24,10 @@ class AuthenticationBackend(ModelBackend):
         return ret
 
     def _authenticate_by_username(self, **credentials):
-        return super(AuthenticationBackend, self).authenticate(**credentials)
+        # Django ModelBackend <1.5 does not support additional params
+        return super(AuthenticationBackend, self) \
+            .authenticate(username=credentials.get('username'),
+                          password=credentials.get('password'))
 
     def _authenticate_by_email(self, **credentials):
         # Even though allauth will pass along `email`, other apps may

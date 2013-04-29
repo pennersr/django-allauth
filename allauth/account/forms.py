@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 from django import forms
 from django.core.urlresolvers import reverse
 from django.core import exceptions
@@ -90,8 +92,7 @@ class LoginForm(forms.Form):
         else:
             if "@" in login and "." in login:
                 credentials["email"] = login
-            else:
-                credentials["username"] = login
+            credentials["username"] = login
         credentials["password"] = self.cleaned_data["password"]
         return credentials
     

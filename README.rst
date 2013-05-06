@@ -486,7 +486,7 @@ Use a callback URL of the form::
 
 For local development, use the following::
 
-    http://127.0.0.1:8000/accounts/twitter/callback/
+    http://127.0.0.1:8000/accounts/twitter/login/callback/
 
 
 Facebook

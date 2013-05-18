@@ -414,8 +414,8 @@ def password_reset_from_key(request, uidb36, key, **kwargs):
                 messages.add_message(request, messages.SUCCESS,
                     ugettext(u"Password successfully changed.")
                 )
-                signals.password_reset.send(sender=request.user.__class__,
-                        request=request, user=request.user)
+                signals.password_reset.send(sender=user.__class__,
+                        request=request, user=user)
                 password_reset_key_form = None
         else:
             password_reset_key_form = form_class()

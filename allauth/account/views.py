@@ -446,8 +446,9 @@ class LogoutView(TemplateResponseMixin, View):
         return redirect(url)
     
     def logout(self):
-        messages.add_message(self.request, messages.SUCCESS,
-                             ugettext("You have signed out."))
+        if app_settings.MESSAGE_ON_LOGOUT:
+            messages.add_message(self.request, messages.SUCCESS,
+                                 ugettext("You have signed out."))
         auth_logout(self.request)
 
     def get_context_data(self, **kwargs):

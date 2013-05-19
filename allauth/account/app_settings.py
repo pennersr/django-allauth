@@ -186,6 +186,14 @@ class AppSettings(object):
     def USER_MODEL_EMAIL_FIELD(self):
         return self._setting('USER_MODEL_EMAIL_FIELD', 'email')
 
+    @property
+    def MESSAGE_ON_LOGOUT(self):
+        """
+        Use the messaging framework to tell the user they have successfully signed out.  You might
+        want to set this to False if you're caching the page that a logged-out user gets redirected to.
+        """
+        return self._setting('MESSAGE_ON_LOGOUT', True)
+
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

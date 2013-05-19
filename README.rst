@@ -231,6 +231,11 @@ ACCOUNT_LOGOUT_REDIRECT_URL (="/")
   The URL (or URL name) to return to after the user logs out. This is 
   the counterpart to Django's `LOGIN_REDIRECT_URL`.
 
+ACCOUNT_MESSAGE_ON_LOGOUT (=True)
+  Use the Django messaging framework to display a message when a user logs out.
+  If you are caching the page that the user is redirected to after logging out
+  (ACCOUNT_LOGOUT_REDIRECT_URL) then you may want to set this to False.
+
 ACCOUNT_SIGNUP_FORM_CLASS (=None)
   A string pointing to a custom form class
   (e.g. 'myapp.forms.SignupForm') that is used during signup to ask

@@ -10,8 +10,8 @@ class GitHubAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get('avatar_url')
 
-    def __unicode__(self):
-        dflt = super(GitHubAccount, self).__unicode__()
+    def to_str(self):
+        dflt = super(GitHubAccount, self).to_str()
         return self.account.extra_data.get('name', dflt)
 
 

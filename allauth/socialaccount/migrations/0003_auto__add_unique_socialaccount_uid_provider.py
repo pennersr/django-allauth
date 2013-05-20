@@ -5,11 +5,11 @@ from django.conf import settings
 
 class Migration(SchemaMigration):
     depends_on = []
-    if 'facebook' in settings.INSTALLED_APPS:
+    if 'allauth.socialaccount.providers.facebook' in settings.INSTALLED_APPS:
         depends_on.append(('facebook', '0003_tosocialaccount'),)
-    if 'twitter' in settings.INSTALLED_APPS:
+    if 'allauth.socialaccount.providers.twitter' in settings.INSTALLED_APPS:
         depends_on.append(('twitter', '0003_tosocialaccount'),)
-    if 'openid' in settings.INSTALLED_APPS:
+    if 'allauth.socialaccount.providers.openid' in settings.INSTALLED_APPS:
         depends_on.append(('openid', '0002_tosocialaccount'),)
 
     def forwards(self, orm):

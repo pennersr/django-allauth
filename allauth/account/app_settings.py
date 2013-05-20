@@ -25,6 +25,10 @@ class AppSettings(object):
         assert (self.EMAIL_VERIFICATION 
                 != self.EmailVerificationMethod.MANDATORY) \
             or self.EMAIL_REQUIRED
+        if not self.USER_MODEL_USERNAME_FIELD:
+            assert not self.USERNAME_REQUIRED
+            assert self.AUTHENTICATION_METHOD not in (self.AuthenticationMethod.USERNAME,
+                                                      self.AuthenticationMethod.USERNAME_EMAIL)
 
 
     def _setting(self, name, dflt):
@@ -148,6 +152,13 @@ class AppSettings(object):
         return self._setting("USERNAME_MIN_LENGTH", 1)
 
     @property
+    def USERNAME_BLACKLIST(self):
+        """
+        List of usernames that are not allowed
+        """
+        return self._setting("USERNAME_BLACKLIST", [])
+
+    @property
     def PASSWORD_INPUT_RENDER_VALUE(self):
         """
         render_value parameter as passed to PasswordInput fields
@@ -158,6 +169,23 @@ class AppSettings(object):
     def ADAPTER(self):
         return self._setting('ADAPTER', 
                              'allauth.account.adapter.DefaultAccountAdapter')
+
+    @property
+    def LOGOUT_REDIRECT_URL(self):
+        return self._setting('LOGOUT_REDIRECT_URL', '/')
+    
+    @property
+    def LOGOUT_ON_GET(self):
+        return self._setting('LOGOUT_ON_GET', False)
+
+    @property
+    def USER_MODEL_USERNAME_FIELD(self):
+        return self._setting('USER_MODEL_USERNAME_FIELD', 'username')
+
+    @property
+    def USER_MODEL_EMAIL_FIELD(self):
+        return self._setting('USER_MODEL_EMAIL_FIELD', 'email')
+
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

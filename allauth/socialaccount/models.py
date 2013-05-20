@@ -3,16 +3,17 @@ import json
 from django.db import models
 from django.contrib.auth import authenticate
 from django.contrib.sites.models import Site
+from django.utils.encoding import python_2_unicode_compatible
+try:
+    from django.utils.encoding import force_text
+except ImportError:
+    from django.utils.encoding import force_unicode as force_text
 
 import allauth.app_settings
-from allauth.account import app_settings as account_settings
-from allauth.utils import (get_login_redirect_url,
-                           valid_email_or_none)
-from allauth.account.adapter import get_adapter
-from allauth.account.models import EmailAddress
+from allauth.account.utils import get_next_redirect_url, setup_user_email
 
-import providers
-from fields import JSONField
+from . import providers
+from .fields import JSONField
 
 
 class SocialAppManager(models.Manager):
@@ -21,7 +22,7 @@ class SocialAppManager(models.Manager):
         return self.get(sites__id=site.id,
                         provider=provider)
 
-
+@python_2_unicode_compatible
 class SocialApp(models.Model):
     objects = SocialAppManager()
 
@@ -42,7 +43,7 @@ class SocialApp(models.Model):
     # blank=True allows for disabling apps without removing them
     sites = models.ManyToManyField(Site, blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 class SocialAccount(models.Model):
@@ -75,8 +76,8 @@ class SocialAccount(models.Model):
     def authenticate(self):
         return authenticate(account=self)
 
-    def __unicode__(self):
-        return unicode(self.user)
+    def __str__(self):
+        return force_text(self.user)
 
     def get_profile_url(self):
         return self.get_provider_account().get_profile_url()
@@ -91,10 +92,11 @@ class SocialAccount(models.Model):
         return self.get_provider().wrap_account(self)
 
 
+@python_2_unicode_compatible
 class SocialToken(models.Model):
     app = models.ForeignKey(SocialApp)
     account = models.ForeignKey(SocialAccount)
-    token = models.CharField(max_length=200,
+    token = models.TextField(
                              help_text='"oauth_token" (OAuth1) or access token (OAuth2)')
     token_secret = models.CharField(max_length=200, blank=True,
                                     help_text='"oauth_token_secret" (OAuth1) or refresh token (OAuth2)')
@@ -103,7 +105,7 @@ class SocialToken(models.Model):
     class Meta:
         unique_together = ('app', 'account')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.token
 
 
@@ -143,7 +145,16 @@ class SocialLogin(object):
         self.email_addresses = email_addresses
         self.state = {}
 
-    def save(self):
+    def connect(self, request, user):
+        self.account.user = user
+        self.save(request, connect=True)
+
+    def save(self, request, connect=False):
+        """
+        Saves a new account. Note that while the account is new,
+        the user may be an existing one (when connecting accounts)
+        """
+        assert not self.is_existing
         user = self.account.user
         user.save()
         self.account.user = user
@@ -151,30 +162,12 @@ class SocialLogin(object):
         if self.token:
             self.token.account = self.account
             self.token.save()
-        self._save_email_addresses()
-
-    def _save_email_addresses(self):
-        # user.email may not be listed as an EmailAddress ...
-        user = self.account.user
-        if (user.email 
-            and (user.email.lower() not in [e.email.lower() 
-                                            for e in self.email_addresses])):
-            # ... so let's append it
-            self.email_addresses.append(EmailAddress(user=user,
-                                                     email=user.email,
-                                                     verified=False,
-                                                     primary=True))
-        for email_address in self.email_addresses:
-            # Pick up only valid ones...
-            email = valid_email_or_none(email_address.email)
-            if not email:
-                continue
-            # ... and non-conflicting ones...
-            if (account_settings.UNIQUE_EMAIL 
-                and EmailAddress.objects.filter(email__iexact=email).exists()):
-                continue
-            email_address.user = user
-            email_address.save()
+        if connect:
+            # TODO: Add any new email addresses automatically?
+            pass
+        else:
+            setup_user_email(request, user, self.email_addresses)
+           
 
     @property
     def is_existing(self):
@@ -212,16 +205,14 @@ class SocialLogin(object):
         except SocialAccount.DoesNotExist:
             pass
     
-    def get_redirect_url(self, request, fallback=True):
-        if fallback and type(fallback) == bool:
-            fallback = get_adapter().get_login_redirect_url(request)
-        url = self.state.get('next') or fallback
+    def get_redirect_url(self, request):
+        url = self.state.get('next')
         return url
             
     @classmethod
     def state_from_request(cls, request):
         state = {}
-        next = get_login_redirect_url(request, fallback=None)
+        next = get_next_redirect_url(request)
         if next:
             state['next'] = next
         return state

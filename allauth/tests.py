@@ -3,7 +3,7 @@
 import requests
 from django.test import TestCase
 
-import utils
+from . import utils
 
 class MockedResponse(object):
     def __init__(self, status_code, content, headers={}):
@@ -14,6 +14,10 @@ class MockedResponse(object):
     def json(self):
         import json
         return json.loads(self.content)
+
+    @property
+    def text(self):
+        return self.content
 
 class mocked_response:
     def __init__(self, *responses):

@@ -6,7 +6,7 @@ from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
 from allauth.socialaccount.models import SocialAccount, SocialLogin
 from allauth.socialaccount.adapter import get_adapter
 
-from provider import SoundCloudProvider
+from .provider import SoundCloudProvider
 
 class SoundCloudOAuth2Adapter(OAuth2Adapter):
     provider_id = SoundCloudProvider.id

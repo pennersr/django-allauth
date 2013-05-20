@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from models import SocialApp, SocialAccount, SocialToken
+from .models import SocialApp, SocialAccount, SocialToken
 
 
 class SocialAppAdmin(admin.ModelAdmin):

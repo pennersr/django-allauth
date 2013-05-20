@@ -3,41 +3,20 @@ import unicodedata
 
 from django.core.exceptions import ImproperlyConfigured
 from django.core.validators import validate_email, ValidationError
+from django.core import urlresolvers
 from django.db.models import EmailField
-from django.utils.http import urlencode
-from django.contrib.auth import REDIRECT_FIELD_NAME
-from django.utils import importlib
+from django.utils import importlib, six
+try:
+    from django.utils.encoding import force_text
+except ImportError:
+    from django.utils.encoding import force_unicode as force_text
 
-import app_settings
-
-def get_login_redirect_url(request, 
-                           fallback=True):
-    """
-    Returns a url to redirect to after the login
-    
-    TODO: 
-    - Cleanup, check overlap with account.utils.get_default_redirect
-    - Move to allauth.account
-    """
-    if fallback and type(fallback) == bool:
-        from account.adapter import get_adapter
-        fallback = get_adapter().get_login_redirect_url(request)
-    url = request.REQUEST.get(REDIRECT_FIELD_NAME) or fallback
-    return url
-
-
-def passthrough_login_redirect_url(request, url):
-    assert url.find("?") < 0  # TODO: Handle this case properly
-    next = get_login_redirect_url(request, fallback=None)
-    if next:
-        url = url + '?' + urlencode({ REDIRECT_FIELD_NAME: next })
-    return url
-
+from . import app_settings
 
 def generate_unique_username(txt):
-    username = unicodedata.normalize('NFKD', unicode(txt))
-    username = username.encode('ascii', 'ignore')
-    username = unicode(re.sub('[^\w\s@+.-]', '', username).lower())
+    username = unicodedata.normalize('NFKD', force_text(txt))
+    username = username.encode('ascii', 'ignore').decode('ascii')
+    username = force_text(re.sub('[^\w\s@+.-]', '', username).lower())
     # Django allows for '@' in usernames in order to accomodate for
     # project wanting to use e-mail for username. In allauth we don't
     # use this, we already have a proper place for putting e-mail
@@ -74,23 +53,26 @@ def valid_email_or_none(email):
 
 
 def email_address_exists(email, exclude_user=None):
-    from allauth.account.models import EmailAddress
+    from .account import app_settings as account_settings
+    from .account.models import EmailAddress
 
     emailaddresses = EmailAddress.objects
     if exclude_user:
         emailaddresses = emailaddresses.exclude(user=exclude_user)
     ret = emailaddresses.filter(email__iexact=email).exists()
     if not ret:
-        users = get_user_model().objects
-        if exclude_user:
-            users = users.exclude(pk=exclude_user.pk)
-        ret = users.filter(email__iexact=email).exists()
+        email_field = account_settings.USER_MODEL_EMAIL_FIELD
+        if email_field:
+            users = get_user_model().objects
+            if exclude_user:
+                users = users.exclude(pk=exclude_user.pk)
+            ret = users.filter(**{email_field+'__iexact': email}).exists()
     return ret
 
 
 
 def import_attribute(path):
-    assert isinstance(path, basestring)
+    assert isinstance(path, six.string_types)
     pkg, attr = path.rsplit('.',1)
     ret = getattr(importlib.import_module(pkg), attr)
     return ret
@@ -115,4 +97,15 @@ def get_user_model():
         raise ImproperlyConfigured("AUTH_USER_MODEL refers to model '%s' that has not been installed" % app_settings.USER_MODEL)
     return user_model
 
-    
+def resolve_url(to):
+    """
+    Subset of django.shortcuts.resolve_url (that one is 1.5+)
+    """
+    try:
+        return urlresolvers.reverse(to)
+    except urlresolvers.NoReverseMatch:
+        # If this doesn't "feel" like a URL, re-raise.
+        if '/' not in to and '.' not in to:
+            raise
+    # Finally, fall back and assume it's a URL
+    return to

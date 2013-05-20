@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.base import ProviderAccount, Provider
 
 
 class PersonaAccount(ProviderAccount):
-    def __unicode__(self):
+    def to_str(self):
         return self.account.uid
 
 class PersonaProvider(Provider):

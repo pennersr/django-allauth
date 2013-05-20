@@ -6,7 +6,7 @@ from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
 from allauth.socialaccount.models import SocialAccount, SocialLogin
 from allauth.socialaccount.adapter import get_adapter
 
-from provider import GitHubProvider
+from .provider import GitHubProvider
 
 class GitHubOAuth2Adapter(OAuth2Adapter):
     provider_id = GitHubProvider.id

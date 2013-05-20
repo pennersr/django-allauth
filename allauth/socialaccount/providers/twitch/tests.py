@@ -2,7 +2,7 @@ from allauth.socialaccount.tests import create_oauth2_tests
 from allauth.tests import MockedResponse
 from allauth.socialaccount.providers import registry
 
-from provider import TwitchProvider
+from .provider import TwitchProvider
 
 class TwitchTests(create_oauth2_tests(registry.by_id(TwitchProvider.id))):
     def get_mocked_response(self):

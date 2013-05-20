@@ -10,9 +10,8 @@ from django.views.generic.edit import FormView
 
 from ..account.views import CloseableSignupMixin, RedirectAuthenticatedUserMixin
 
-from forms import DisconnectForm, SignupForm
-
-import helpers
+from .forms import DisconnectForm, SignupForm
+from . import helpers
 
 
 class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin, FormView):

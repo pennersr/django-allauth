@@ -10,21 +10,26 @@ from django.views.generic.base import TemplateResponseMixin, View
 from django.views.generic.edit import FormView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.tokens import default_token_generator
 from django.shortcuts import redirect
 
-from allauth.exceptions import ImmediateHttpResponse
-from allauth.utils import passthrough_login_redirect_url, get_user_model
+from ..exceptions import ImmediateHttpResponse
+from ..utils import get_user_model
 
-from utils import get_default_redirect, complete_signup
-from forms import AddEmailForm, ChangePasswordForm
-from forms import LoginForm, ResetPasswordKeyForm
-from forms import ResetPasswordForm, SetPasswordForm, SignupForm
-from utils import sync_user_email_addresses
-from models import EmailAddress, EmailConfirmation
+from .utils import (get_next_redirect_url, complete_signup, 
+                    get_login_redirect_url,
+                    passthrough_next_redirect_url)
+from .forms import AddEmailForm, ChangePasswordForm
+from .forms import LoginForm, ResetPasswordKeyForm
+from .forms import ResetPasswordForm, SetPasswordForm, SignupForm
+from .utils import sync_user_email_addresses
+from .models import EmailAddress, EmailConfirmation
 
-import signals
-from adapter import get_adapter
+from . import signals
+from . import app_settings
+
+from .adapter import get_adapter
 
 User = get_user_model()
 
@@ -40,7 +45,9 @@ class RedirectAuthenticatedUserMixin(object):
                                                                     **kwargs)
 
     def get_authenticated_redirect_url(self):
-        return self.get_success_url()
+        return get_login_redirect_url(self.request, 
+                                      url=self.get_success_url(),
+                                      redirect_field_name=self.redirect_field_name)
         
 class LoginView(RedirectAuthenticatedUserMixin, FormView):
     form_class = LoginForm
@@ -53,16 +60,18 @@ class LoginView(RedirectAuthenticatedUserMixin, FormView):
         return form.login(self.request, redirect_url=success_url)
 
     def get_success_url(self):
-        ret = self.success_url
-        if not ret:
-            ret = get_default_redirect(self.request, self.redirect_field_name)
+        # Explicitly passed ?next= URL takes precedence
+        ret = (get_next_redirect_url(self.request, 
+                                     self.redirect_field_name)
+               or self.success_url)
         return ret
 
     def get_context_data(self, **kwargs):
         ret = super(LoginView, self).get_context_data(**kwargs)
         ret.update({
-                "signup_url": passthrough_login_redirect_url(self.request,
-                                                             reverse("account_signup")),
+                "signup_url": passthrough_next_redirect_url(self.request,
+                                                            reverse("account_signup"),
+                                                            self.redirect_field_name),
                 "site": Site.objects.get_current(),
                 "redirect_field_name": self.redirect_field_name,
                 "redirect_field_value": self.request.REQUEST.get(self.redirect_field_name),
@@ -81,7 +90,7 @@ class CloseableSignupMixin(object):
         try:
             if not self.is_open():
                 return self.closed()
-        except ImmediateHttpResponse, e:
+        except ImmediateHttpResponse as e:
             return e.response
         return super(CloseableSignupMixin, self).dispatch(request,
                                                           *args,
@@ -105,20 +114,23 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin, FormView)
     success_url = None
 
     def get_success_url(self):
-        ret = self.success_url
-        if not ret:
-            ret = get_default_redirect(self.request, 
-                                       self.redirect_field_name)
+        # Explicitly passed ?next= URL takes precedence
+        ret = (get_next_redirect_url(self.request, 
+                                     self.redirect_field_name)
+               or self.success_url)
         return ret
 
     def form_valid(self, form):
         user = form.save(self.request)
-        return complete_signup(self.request, user, self.get_success_url())
+        return complete_signup(self.request, user, 
+                               app_settings.EMAIL_VERIFICATION,
+                               self.get_success_url())
 
     def get_context_data(self, **kwargs):
         ret = super(SignupView, self).get_context_data(**kwargs)
-        login_url = passthrough_login_redirect_url(self.request,
-                                                   reverse("account_login"))
+        login_url = passthrough_next_redirect_url(self.request,
+                                                  reverse("account_login"),
+                                                  self.redirect_field_name)
         redirect_field_name = self.redirect_field_name
         redirect_field_value = self.request.REQUEST.get(redirect_field_name)
         ret.update({"login_url": login_url,
@@ -154,7 +166,7 @@ class ConfirmEmailView(TemplateResponseMixin, View):
     
     def post(self, *args, **kwargs):
         self.object = confirmation = self.get_object()
-        confirmation.confirm()
+        confirmation.confirm(self.request)
         # Don't -- allauth doesn't tocuh is_active so that sys admin can
         # use it to block users et al
         #
@@ -402,8 +414,8 @@ def password_reset_from_key(request, uidb36, key, **kwargs):
                 messages.add_message(request, messages.SUCCESS,
                     ugettext(u"Password successfully changed.")
                 )
-                signals.password_reset.send(sender=request.user.__class__,
-                        request=request, user=request.user)
+                signals.password_reset.send(sender=user.__class__,
+                        request=request, user=user)
                 password_reset_key_form = None
         else:
             password_reset_key_form = form_class()
@@ -414,10 +426,42 @@ def password_reset_from_key(request, uidb36, key, **kwargs):
     return render_to_response(template_name, RequestContext(request, ctx))
 
 
-def logout(request, **kwargs):
-    messages.add_message(request, messages.SUCCESS,
-        ugettext("You have signed out.")
-    )
-    kwargs['template_name'] = kwargs.pop('template_name', 'account/logout.html')
-    from django.contrib.auth.views import logout as _logout
-    return _logout(request, **kwargs)
+class LogoutView(TemplateResponseMixin, View):
+    
+    template_name = "account/logout.html"
+    redirect_field_name = "next"
+    
+    def get(self, *args, **kwargs):
+        if app_settings.LOGOUT_ON_GET:
+            return self.post(*args, **kwargs)
+        if not self.request.user.is_authenticated():
+            return redirect(self.get_redirect_url())
+        ctx = self.get_context_data()
+        return self.render_to_response(ctx)
+    
+    def post(self, *args, **kwargs):
+        url = self.get_redirect_url()
+        if self.request.user.is_authenticated():
+            self.logout()
+        return redirect(url)
+    
+    def logout(self):
+        messages.add_message(self.request, messages.SUCCESS,
+                             ugettext("You have signed out."))
+        auth_logout(self.request)
+
+    def get_context_data(self, **kwargs):
+        ctx = kwargs
+        ctx.update({
+            "redirect_field_name": self.redirect_field_name,
+            "redirect_field_value": self.request.REQUEST.get(self.redirect_field_name),
+        })
+        return ctx
+    
+    def get_redirect_url(self):
+        return (get_next_redirect_url(self.request, 
+                                      self.redirect_field_name)
+                or get_adapter().get_logout_redirect_url(self.request))
+
+
+logout = LogoutView.as_view()

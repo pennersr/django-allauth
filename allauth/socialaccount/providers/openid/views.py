@@ -17,9 +17,9 @@ from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.adapter import get_adapter
 from allauth.utils import valid_email_or_none
 
-from utils import DBOpenIDStore
-from forms import LoginForm
-from provider import OpenIDProvider
+from .utils import DBOpenIDStore
+from .forms import LoginForm
+from .provider import OpenIDProvider
 
 class AXAttribute:
     CONTACT_EMAIL = 'http://axschema.org/contact/email'
@@ -57,7 +57,8 @@ def login(request):
                     request.build_absolute_uri('/'),
                     request.build_absolute_uri(callback_url))
                 return HttpResponseRedirect(redirect_url)
-            except DiscoveryFailure, e:
+            # UnicodeDecodeError: see https://github.com/necaris/python3-openid/issues/1
+            except (UnicodeDecodeError, DiscoveryFailure) as e:
                 if request.method == 'POST':
                     form._errors["openid"] = form.error_class([e])
                 else:

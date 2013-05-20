@@ -13,7 +13,7 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.models import SocialApp
 
-from locale import get_default_locale_callable
+from .locale import get_default_locale_callable
 
 
 class FacebookAccount(ProviderAccount):
@@ -24,8 +24,8 @@ class FacebookAccount(ProviderAccount):
         uid = self.account.uid
         return 'http://graph.facebook.com/%s/picture?type=large' % uid
 
-    def __unicode__(self):
-        dflt = super(FacebookAccount, self).__unicode__()
+    def to_str(self):
+        dflt = super(FacebookAccount, self).to_str()
         return self.account.extra_data.get('name', dflt)
 
 

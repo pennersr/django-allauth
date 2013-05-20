@@ -3,7 +3,7 @@ import base64
 from openid.store.interface import OpenIDStore as OIDStore
 from openid.association import Association as OIDAssociation
 
-from models import OpenIDStore, OpenIDNonce
+from .models import OpenIDStore, OpenIDNonce
 
 
 class DBOpenIDStore(OIDStore):
@@ -35,7 +35,7 @@ class DBOpenIDStore(OIDStore):
 
         for stored_assoc in stored_assocs:
             assoc = OIDAssociation(
-                stored_assoc.handle, base64.decodestring(stored_assoc.secret),
+                stored_assoc.handle, base64.decodestring(stored_assoc.secret.encode('utf-8')),
                 stored_assoc.issued, stored_assoc.lifetime, stored_assoc.assoc_type
             )
 

@@ -3,6 +3,14 @@ import datetime
 from south.db import db
 from south.v2 import SchemaMigration
 
+try:
+    from django.contrib.auth import get_user_model
+except ImportError: # django < 1.5
+    from django.contrib.auth.models import User
+else:
+    User = get_user_model()
+
+
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
@@ -10,7 +18,7 @@ class Migration(SchemaMigration):
         # Adding model 'SocialAccount'
         db.create_table('socialaccount_socialaccount', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=User)),
             ('last_login', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
             ('date_joined', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
         ))

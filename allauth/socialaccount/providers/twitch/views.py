@@ -6,7 +6,7 @@ from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
 from allauth.socialaccount.models import SocialAccount, SocialLogin
 from allauth.socialaccount.adapter import get_adapter
 
-from provider import TwitchProvider
+from .provider import TwitchProvider
 
 class TwitchOAuth2Adapter(OAuth2Adapter):
     provider_id = TwitchProvider.id

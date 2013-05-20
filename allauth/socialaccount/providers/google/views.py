@@ -7,8 +7,9 @@ from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
 
 from allauth.socialaccount.models import SocialLogin, SocialAccount
 from allauth.socialaccount.adapter import get_adapter
+from allauth.account.utils import user_email
 
-from provider import GoogleProvider
+from .provider import GoogleProvider
 
 class GoogleOAuth2Adapter(OAuth2Adapter):
     provider_id = GoogleProvider.id
@@ -38,8 +39,9 @@ class GoogleOAuth2Adapter(OAuth2Adapter):
                                last_name=extra_data.get('family_name'),
                                first_name=extra_data.get('given_name'))
         email_addresses = []
-        if user.email and extra_data.get('verified_email'):
-            email_addresses.append(EmailAddress(email=user.email,
+        email = user_email(user)
+        if email and extra_data.get('verified_email'):
+            email_addresses.append(EmailAddress(email=email,
                                                 verified=True,
                                                 primary=True))
         account = SocialAccount(extra_data=extra_data,

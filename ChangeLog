@@ -1,3 +1,66 @@
+2013-04-25  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Added support for differentiating e-mail handling (verification,
+	required) between local and social accounts:
+	`SOCIALACCOUNT_EMAIL_REQUIRED` and
+	`SOCIALACCOUNT_EMAIL_VERIFICATION`.
+
+2013-04-16  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.10.1 released.
+
+	* Cleaning of `username` can now be overriden via
+	`DefaultAccountAdapter.clean_username`
+
+2013-04-16  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Fixed potential error (`assert`) when connecting social
+	accounts.
+
+2013-04-13  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Added support for custom username handling in case of custom
+	user models (`ACCOUNT_USER_MODEL_USERNAME_FIELD`).
+
+2013-04-12  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.10.0 released.
+
+2013-04-08  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Chris Davis contributed Vimeo support, thanks!
+
+2013-04-03  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Added support for overriding the URL to return to after
+	connecting a social account
+	(`allauth.socialaccount.adapter.DefaultSocialAccountAdapter.get_connect_redirect_url`).
+
+2013-03-31  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Python 3 is now supported!
+
+2013-03-28  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Dropped dependency on (unmaintained?) oauth2 package, in favor
+	of requests-oauthlib.
+
+2013-03-13  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* account: E-mail confirmation mails generated at signup can now
+	be differentiated from regular e-mail confirmation mails by
+	placing e.g. a welcome message into the
+	`account/email/email_confirmation_signup*` templates. Thanks to
+	Sam Solomon for the patch.
+
+	* account: Moved User instance creation to adapter so that e.g.
+	username generation can be influenced. Thanks to John Bazik for
+	the patch.
+
+2013-03-08  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Robert Balfre contributed Dropbox support, thanks!
+
 2013-02-19  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* socialaccount: Added support for Weibo.

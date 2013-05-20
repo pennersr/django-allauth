@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from models import OpenIDStore, OpenIDNonce
+from .models import OpenIDStore, OpenIDNonce
 
 
 class OpenIDStoreAdmin(admin.ModelAdmin):

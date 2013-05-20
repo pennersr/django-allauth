@@ -1,4 +1,3 @@
-from django.utils.translation import ugettext_lazy as _
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -9,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import FormView
 
 from ..account.views import CloseableSignupMixin, RedirectAuthenticatedUserMixin
+from ..account.adapter import get_adapter as get_account_adapter
 
 from .forms import DisconnectForm, SignupForm
 from . import helpers
@@ -62,8 +62,9 @@ def connections(request):
     if request.method == 'POST':
         form = DisconnectForm(request.POST, user=request.user)
         if form.is_valid():
-            messages.add_message(request, messages.INFO, 
-                                 _('The social account has been disconnected'))
+            get_account_adapter().add_message(request, 
+                                              messages.INFO, 
+                                              'socialaccount/messages/account_disconnected.txt')
             form.save()
             form = None
     if not form:

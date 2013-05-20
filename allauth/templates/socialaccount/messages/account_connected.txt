@@ -1,0 +1,2 @@
+{% load i18n %}
+{% blocktrans %}The social account has been connected.{% endblocktrans %}

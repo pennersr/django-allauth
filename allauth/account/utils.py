@@ -119,8 +119,10 @@ def perform_login(request, user, email_verification, redirect_url=None):
                                 request=request, 
                                 user=user)
     login(request, user)
-    messages.add_message(request, messages.SUCCESS,
-                         ugettext("Successfully signed in as %(user)s.") % { "user": user_display(user) } )
+    get_adapter().add_message(request, 
+                              messages.SUCCESS,
+                              'account/messages/logged_in.txt',
+                              { 'user': user })
 
     return HttpResponseRedirect(get_login_redirect_url(request, redirect_url))
 

@@ -143,13 +143,6 @@ signup = SignupView.as_view()
 
 class ConfirmEmailView(TemplateResponseMixin, View):
     
-    messages = {
-        "email_confirmed": {
-            "level": messages.SUCCESS,
-            "text": _("You have confirmed %(email)s.")
-        }
-    }
-    
     def get_template_names(self):
         if self.request.method == 'POST':
             return ["account/email_confirmed.html"]
@@ -177,14 +170,10 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         if not redirect_url:
             ctx = self.get_context_data()
             return self.render_to_response(ctx)
-        if self.messages.get("email_confirmed"):
-            messages.add_message(
-                self.request,
-                self.messages["email_confirmed"]["level"],
-                self.messages["email_confirmed"]["text"] % {
-                    "email": confirmation.email_address.email
-                }
-            )
+        get_adapter().add_message(self.request,
+                                  messages.SUCCESS,
+                                  'account/messages/email_confirmed.txt',
+                                  { 'email': confirmation.email_address.email })
         return redirect(redirect_url)
     
     def get_object(self, queryset=None):
@@ -220,11 +209,10 @@ def email(request, **kwargs):
             add_email_form = form_class(request.user, request.POST)
             if add_email_form.is_valid():
                 email_address = add_email_form.save(request)
-                messages.add_message(request, messages.INFO,
-                    ugettext(u"Confirmation e-mail sent to %(email)s") % {
-                            "email": add_email_form.cleaned_data["email"]
-                        }
-                    )
+                get_adapter().add_message(request,
+                                          messages.INFO,
+                                          'account/messages/email_confirmation_sent.txt',
+                                          { 'email': add_email_form.cleaned_data["email"] })
                 signals.email_added.send(sender=request.user.__class__,
                         request=request, user=request.user,
                         email_address=email_address)
@@ -239,11 +227,10 @@ def email(request, **kwargs):
                             user=request.user,
                             email=email,
                         )
-                        messages.add_message(request, messages.INFO,
-                            ugettext("Confirmation e-mail sent to %(email)s") % {
-                                "email": email,
-                            }
-                        )
+                        get_adapter().add_message(request,
+                                                  messages.INFO,
+                                                  'account/messages/email_confirmation_sent.txt',
+                                                  { 'email': email })
                         email_address.send_confirmation(request)
                         return HttpResponseRedirect(reverse('account_email'))
                     except EmailAddress.DoesNotExist:
@@ -256,22 +243,20 @@ def email(request, **kwargs):
                             email=email
                         )
                         if email_address.primary:
-                            messages.add_message \
-                                (request, messages.ERROR,
-                                 ugettext("You cannot remove your primary"
-                                          " e-mail address (%(email)s)")
-                                 % { "email": email })
+                            get_adapter().add_message(request, 
+                                                      messages.ERROR,
+                                                      'account/messages/cannot_delete_primary_email.txt',
+                                                      { "email": email })
                         else:
                             email_address.delete()
                             signals.email_removed.send(sender=request.user.__class__,
                                                        request=request, 
                                                        user=request.user,
                                                        email_address=email_address)
-                            messages.add_message(request, messages.SUCCESS,
-                                ugettext("Removed e-mail address %(email)s") % {
-                                    "email": email,
-                                }
-                            )
+                            get_adapter().add_message(request,
+                                                      messages.SUCCESS,
+                                                      'account/messages/email_deleted.txt',
+                                                      { "email": email })
                             return HttpResponseRedirect(reverse('account_email'))
                     except EmailAddress.DoesNotExist:
                         pass
@@ -293,9 +278,9 @@ def email(request, **kwargs):
                                         # if previous primary email address is
                                         # not verified.
                                     ).exists():
-                            messages.add_message(request, messages.ERROR,
-                                    ugettext("Your primary e-mail address must "
-                                        "be verified"))
+                            get_adapter().add_message(request, 
+                                                      messages.ERROR,
+                                                      'account/messages/unverified_primary_email.txt')
                         else:
                             # Sending the old primary address to the signal
                             # adds a db query.
@@ -305,8 +290,9 @@ def email(request, **kwargs):
                             except EmailAddress.DoesNotExist:
                                 from_email_address = None
                             email_address.set_as_primary()
-                            messages.add_message(request, messages.SUCCESS,
-                                         ugettext("Primary e-mail address set"))
+                            get_adapter().add_message(request, 
+                                                      messages.SUCCESS,
+                                                      'account/messages/primary_email_set.txt')
                             signals.email_changed.send(
                                     sender=request.user.__class__,
                                     request=request, user=request.user,
@@ -334,9 +320,9 @@ def password_change(request, **kwargs):
         password_change_form = form_class(request.user, request.POST)
         if password_change_form.is_valid():
             password_change_form.save()
-            messages.add_message(request, messages.SUCCESS,
-                ugettext(u"Password successfully changed.")
-            )
+            get_adapter().add_message(request, 
+                                      messages.SUCCESS,
+                                      'account/messages/password_changed.txt')
             signals.password_changed.send(sender=request.user.__class__,
                     request=request, user=request.user)
             password_change_form = form_class(request.user)
@@ -359,9 +345,9 @@ def password_set(request, **kwargs):
         password_set_form = form_class(request.user, request.POST)
         if password_set_form.is_valid():
             password_set_form.save()
-            messages.add_message(request, messages.SUCCESS,
-                ugettext(u"Password successfully set.")
-            )
+            get_adapter().add_message(request, 
+                                      messages.SUCCESS,
+                                      'account/messages/password_set.txt')
             signals.password_set.send(sender=request.user.__class__,
                     request=request, user=request.user)
             return HttpResponseRedirect(reverse(password_change))
@@ -411,9 +397,9 @@ def password_reset_from_key(request, uidb36, key, **kwargs):
             password_reset_key_form = form_class(request.POST, user=user, temp_key=key)
             if password_reset_key_form.is_valid():
                 password_reset_key_form.save()
-                messages.add_message(request, messages.SUCCESS,
-                    ugettext(u"Password successfully changed.")
-                )
+                get_adapter().add_message(request, 
+                                          messages.SUCCESS,
+                                          'account/messages/password_changed.txt')
                 signals.password_reset.send(sender=user.__class__,
                         request=request, user=user)
                 password_reset_key_form = None
@@ -446,8 +432,9 @@ class LogoutView(TemplateResponseMixin, View):
         return redirect(url)
     
     def logout(self):
-        messages.add_message(self.request, messages.SUCCESS,
-                             ugettext("You have signed out."))
+        get_adapter().add_message(self.request, 
+                                  messages.SUCCESS,
+                                  'account/messages/logged_out.txt')
         auth_logout(self.request)
 
     def get_context_data(self, **kwargs):

@@ -1,3 +1,8 @@
+2013-05-20  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Messages (as in `django.contrib.messages`) are now configurable
+	through templates.
+
 2013-04-25  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Added support for differentiating e-mail handling (verification,

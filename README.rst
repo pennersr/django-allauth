@@ -725,7 +725,7 @@ confirmation before logging out. The user is logged out only when the
 confirmation is received by means of a POST request.
 
 If you are wondering why, consider what happens when a malicious user
-embeds the following image in a POST::
+embeds the following image in a post::
 
     <img src="http://example.com/accounts/logout/">
 
@@ -922,7 +922,12 @@ follows::
             path = "/accounts/{username}/"
             return path.format(username=request.user.username)
 
+Messages
+--------
 
+All messages (as in `django.contrib.messages`) are configurable by
+overriding their respective template. If you want to disable a message
+simply override the message template with a blank one.
 
 
 Showcase

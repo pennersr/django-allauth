@@ -7,6 +7,7 @@ from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives, EmailMessage
 from django.utils.translation import ugettext_lazy as _
 from django import forms
+from django.contrib import messages
 
 try:
     from django.utils.encoding import force_text
@@ -179,6 +180,18 @@ class DefaultAccountAdapter(object):
         """
         return email
 
+    def add_message(self, request, level, message_template, message_context={}, extra_tags=''):
+        """
+        Wrapper of `django.contrib.messages.add_message`, that reads
+        the message text from a template.
+        """
+        try:
+            message = render_to_string(message_template,
+                                       message_context).strip()
+            if message:
+                messages.add_message(request, level, message, extra_tags=extra_tags)
+        except TemplateDoesNotExist:
+            pass
 
 def get_adapter():
     return import_attribute(app_settings.ADAPTER)()

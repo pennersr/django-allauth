@@ -5,3 +5,4 @@ from django.dispatch import Signal
 # for social logins, signups and when connecting additional social
 # accounts to an account.
 pre_social_login = Signal(providing_args=["request", "sociallogin"])
+social_account_added = Signal(providing_args=["request", "sociallogin"])

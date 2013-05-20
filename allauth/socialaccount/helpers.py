@@ -126,6 +126,11 @@ def complete_social_login(request, sociallogin):
                                                 fallback=default_next)
             messages.add_message(request, messages.INFO, 
                                  _('The social account has been connected'))
+
+            signals.social_account_added.send(sender=SocialLogin,
+                                              request=request, 
+                                              sociallogin=sociallogin)
+
             return HttpResponseRedirect(next)
     else:
         if sociallogin.is_existing:

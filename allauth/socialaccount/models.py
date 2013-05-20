@@ -14,6 +14,7 @@ from allauth.account.utils import get_next_redirect_url, setup_user_email
 
 from . import providers
 from .fields import JSONField
+from . import signals
 
 
 class SocialAppManager(models.Manager):
@@ -148,6 +149,9 @@ class SocialLogin(object):
     def connect(self, request, user):
         self.account.user = user
         self.save(request, connect=True)
+        signals.social_account_added.send(sender=SocialLogin,
+                                      request=request,
+                                      sociallogin=self)
 
     def save(self, request, connect=False):
         """

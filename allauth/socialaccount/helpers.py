@@ -91,6 +91,15 @@ def _login_social_account(request, sociallogin):
                             redirect_url=sociallogin.get_redirect_url(request))
     return ret
 
+def _add_social_account(request, sociallogin):
+    sociallogin.connect(request, request.user)
+    default_next = get_adapter() \
+        .get_connect_redirect_url(request,
+                                  sociallogin.account)
+    next_url = sociallogin.get_redirect_url(request) or default_next
+    messages.add_message(request, messages.INFO, 
+                         _('The social account has been connected'))
+    return HttpResponseRedirect(next_url)
 
 def render_authentication_error(request, extra_context={}):
     return render_to_response(
@@ -123,14 +132,7 @@ def complete_social_login(request, sociallogin):
             ret = _login_social_account(request, sociallogin)
         else:
             # New social account
-            sociallogin.connect(request, request.user)
-            default_next = get_adapter() \
-                .get_connect_redirect_url(request,
-                                          sociallogin.account)
-            next = sociallogin.get_redirect_url(request) or default_next
-            messages.add_message(request, messages.INFO, 
-                                 _('The social account has been connected'))
-            return HttpResponseRedirect(next)
+            ret = _add_social_account(request, sociallogin)
     else:
         if sociallogin.is_existing:
             # Login existing user

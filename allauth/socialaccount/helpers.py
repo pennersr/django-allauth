@@ -99,9 +99,6 @@ def _add_social_account(request, sociallogin):
     next_url = sociallogin.get_redirect_url(request) or default_next
     messages.add_message(request, messages.INFO, 
                          _('The social account has been connected'))
-    signals.social_account_added.send(sender=SocialLogin,
-                                  request=request,
-                                  sociallogin=sociallogin)
     return HttpResponseRedirect(next_url)
 
 def render_authentication_error(request, extra_context={}):

@@ -54,14 +54,14 @@ class AccountTests(TestCase):
         resp = self.client.post(reverse('account_login'),
                                 { 'login': '@raymond.penners',
                                   'password': 'psst' })
-        self.assertEquals(resp['location'],
+        self.assertEqual(resp['location'],
                           'http://testserver'+settings.LOGIN_REDIRECT_URL)
-                                 
+
 
     def test_signup_same_email_verified_externally(self):
         user = self._test_signup_email_verified_externally('john@doe.com',
                                                            'john@doe.com')
-        self.assertEquals(EmailAddress.objects.filter(user=user).count(),
+        self.assertEqual(EmailAddress.objects.filter(user=user).count(),
                           1)
         EmailAddress.objects.get(verified=True,
                                  email='john@doe.com',
@@ -76,7 +76,7 @@ class AccountTests(TestCase):
         """
         user = self._test_signup_email_verified_externally('john@home.com',
                                                            'john@work.com')
-        self.assertEquals(EmailAddress.objects.filter(user=user).count(),
+        self.assertEqual(EmailAddress.objects.filter(user=user).count(),
                           2)
         EmailAddress.objects.get(verified=False,
                                  email='john@home.com',
@@ -103,10 +103,10 @@ class AccountTests(TestCase):
         request.session['account_verified_email'] = verified_email
         from .views import signup
         resp = signup(request)
-        self.assertEquals(resp.status_code, 302)
-        self.assertEquals(resp['location'], 
+        self.assertEqual(resp.status_code, 302)
+        self.assertEqual(resp['location'],
                           get_adapter().get_login_redirect_url(request))
-        self.assertEquals(len(mail.outbox), 0)
+        self.assertEqual(len(mail.outbox), 0)
         return User.objects.get(username=username)
 
     def test_redirect_when_authenticated(self):
@@ -117,8 +117,8 @@ class AccountTests(TestCase):
         c = Client()
         c.login(username='john', password='doe')
         resp = c.get(reverse('account_login'))
-        self.assertEquals(302, resp.status_code)
-        self.assertEquals('http://testserver/accounts/profile/',
+        self.assertEqual(302, resp.status_code)
+        self.assertEqual('http://testserver/accounts/profile/',
                           resp['location'])
 
     def test_email_verification_mandatory(self):
@@ -129,9 +129,9 @@ class AccountTests(TestCase):
                         'email': 'john@doe.com',
                         'password1': 'johndoe',
                         'password2': 'johndoe' })
-        self.assertEquals(resp.status_code, 200)
-        self.assertEquals(mail.outbox[0].to, ['john@doe.com'])
-        self.assertEquals(len(mail.outbox), 1)
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(mail.outbox[0].to, ['john@doe.com'])
+        self.assertEqual(len(mail.outbox), 1)
         self.assertTemplateUsed(resp,
                                 'account/verification_sent.html')
         # Attempt to login, unverified
@@ -146,8 +146,8 @@ class AccountTests(TestCase):
                                                 is_active=True).exists())
             self.assertTemplateUsed(resp,
                                     'account/verification_sent.html')
-            self.assertEquals(len(mail.outbox), attempt)
-            self.assertEquals(EmailConfirmation.objects.filter(email_address__email='john@doe.com').count(), 
+            self.assertEqual(len(mail.outbox), attempt)
+            self.assertEqual(EmailConfirmation.objects.filter(email_address__email='john@doe.com').count(),
                               attempt)
             # Wait for cooldown
             EmailConfirmation.objects.update(sent=now()
@@ -162,7 +162,7 @@ class AccountTests(TestCase):
         resp = c.post(reverse('account_login'),
                       { 'login': 'johndoe',
                         'password': 'johndoe'})
-        self.assertEquals(resp['location'],
+        self.assertEqual(resp['location'],
                           'http://testserver'+settings.LOGIN_REDIRECT_URL)
 
 

@@ -23,12 +23,12 @@ class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
 
     def get_mocked_response(self, verified_email=True):
         return MockedResponse(200, """
-{"family_name": "Penners", "name": "Raymond Penners", 
-               "picture": "https://lh5.googleusercontent.com/-GOFYGBVOdBQ/AAAAAAAAAAI/AAAAAAAAAGM/WzRfPkv4xbo/photo.jpg", 
-               "locale": "nl", "gender": "male", 
-               "email": "raymond.penners@gmail.com", 
-               "link": "https://plus.google.com/108204268033311374519", 
-               "given_name": "Raymond", "id": "108204268033311374519", 
+{"family_name": "Penners", "name": "Raymond Penners",
+               "picture": "https://lh5.googleusercontent.com/-GOFYGBVOdBQ/AAAAAAAAAAI/AAAAAAAAAGM/WzRfPkv4xbo/photo.jpg",
+               "locale": "nl", "gender": "male",
+               "email": "raymond.penners@gmail.com",
+               "link": "https://plus.google.com/108204268033311374519",
+               "given_name": "Raymond", "id": "108204268033311374519",
                 "verified_email": %s }
 """ % (repr(verified_email).lower()))
 
@@ -47,9 +47,9 @@ class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
 
         def on_signed_up(sender, request, user, **kwargs):
             sociallogin = kwargs['sociallogin']
-            self.assertEquals(sociallogin.account.provider,
+            self.assertEqual(sociallogin.account.provider,
                               GoogleProvider.id)
-            self.assertEquals(sociallogin.account.user,
+            self.assertEqual(sociallogin.account.user,
                               user)
             sent_signals.append(sender)
 
@@ -110,6 +110,6 @@ class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
         self.assertTrue(SocialAccount.objects.filter(user=user,
                                                      provider=GoogleProvider.id).exists())
         # For now, we do not pick up any new e-mail addresses on connect
-        self.assertEquals(EmailAddress.objects.filter(user=user).count(), 1)
-        self.assertEquals(EmailAddress.objects.filter(user=user,
+        self.assertEqual(EmailAddress.objects.filter(user=user).count(), 1)
+        self.assertEqual(EmailAddress.objects.filter(user=user,
                                                       email=email).count(), 1)

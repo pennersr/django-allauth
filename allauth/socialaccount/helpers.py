@@ -3,7 +3,6 @@ from django.shortcuts import render_to_response, render
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
 
 from allauth.utils import (generate_unique_username, email_address_exists,
@@ -88,7 +87,8 @@ def _login_social_account(request, sociallogin):
     else:
         ret = perform_login(request, user, 
                             email_verification=app_settings.EMAIL_VERIFICATION,
-                            redirect_url=sociallogin.get_redirect_url(request))
+                            redirect_url=sociallogin.get_redirect_url(request),
+                            signal_kwargs={"sociallogin": sociallogin})
     return ret
 
 

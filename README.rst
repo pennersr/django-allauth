@@ -68,6 +68,8 @@ Supported Flows
 Supported Providers
 -------------------
 
+- Bitly (OAuth2)
+
 - Dropbox (OAuth)
 
 - Facebook (both OAuth2 and JS SDK)
@@ -93,8 +95,6 @@ Supported Providers
 - Vimeo (OAuth)
 
 - Weibo (OAuth2)
-
-- Bitly (OAuth2)
 
 Note: OAuth/OAuth2 support is built using a common code base, making it easy to add support for additional OAuth/OAuth2 providers. More will follow soon...
 
@@ -159,10 +159,11 @@ settings.py::
         'allauth.account',
         'allauth.socialaccount',
 	# ... include the providers you want to enable:
+        'allauth.socialaccount.providers.bitly',
         'allauth.socialaccount.providers.dropbox',
         'allauth.socialaccount.providers.facebook',
-        'allauth.socialaccount.providers.google',
         'allauth.socialaccount.providers.github',
+        'allauth.socialaccount.providers.google',
         'allauth.socialaccount.providers.linkedin',
         'allauth.socialaccount.providers.openid',
         'allauth.socialaccount.providers.persona',
@@ -172,7 +173,6 @@ settings.py::
         'allauth.socialaccount.providers.twitter',
         'allauth.socialaccount.providers.vimeo',
         'allauth.socialaccount.providers.weibo',
-        'allauth.socialaccount.providers.bitly',
         ...
     )
 

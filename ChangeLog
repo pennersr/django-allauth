@@ -1,3 +1,7 @@
+2013-05-29  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Hatem Nassrat contributed Bitly support, thanks!
+
 2013-05-20  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Messages (as in `django.contrib.messages`) are now configurable

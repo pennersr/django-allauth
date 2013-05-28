@@ -1,5 +1,7 @@
 2013-05-29  Raymond Penners  <raymond.penners@intenct.nl>
 
+	* Added `social_account_added` (contributed by orblivion, thanks).
+
 	* Hatem Nassrat contributed Bitly support, thanks!
 
 2013-05-20  Raymond Penners  <raymond.penners@intenct.nl>

@@ -97,6 +97,22 @@ def render_authentication_error(request, extra_context={}):
         "socialaccount/authentication_error.html",
         extra_context, context_instance=RequestContext(request))
 
+def _add_social_account(request, sociallogin): 
+    sociallogin.connect(request, request.user)
+    try:
+        signals.social_account_added.send(sender=SocialLogin,
+                                          request=request, 
+                                          sociallogin=sociallogin)
+    except ImmediateHttpResponse as e:
+        return e.response
+    default_next = get_adapter() \
+        .get_connect_redirect_url(request,
+                                  sociallogin.account)
+    next_url = sociallogin.get_redirect_url(request) or default_next
+    get_account_adapter().add_message(request, 
+                                      messages.INFO, 
+                                      'socialaccount/messages/account_connected.txt')
+    return HttpResponseRedirect(next_url)
 
 def complete_social_login(request, sociallogin):
     assert not sociallogin.is_existing
@@ -123,15 +139,7 @@ def complete_social_login(request, sociallogin):
             ret = _login_social_account(request, sociallogin)
         else:
             # New social account
-            sociallogin.connect(request, request.user)
-            default_next = get_adapter() \
-                .get_connect_redirect_url(request,
-                                          sociallogin.account)
-            next = sociallogin.get_redirect_url(request) or default_next
-            get_account_adapter().add_message(request, 
-                                              messages.INFO, 
-                                              'socialaccount/messages/account_connected.txt')
-            return HttpResponseRedirect(next)
+            ret = _add_social_account(request, sociallogin)
     else:
         if sociallogin.is_existing:
             # Login existing user

@@ -716,6 +716,11 @@ The following signals are emitted:
   tokens and profile information, if applicable for the provider, is
   provided.
 
+- `allauth.socialaccount.signals.social_account_added`
+
+  Sent after a user connects a social account to an existing user
+  account.
+
 
 Views
 =====

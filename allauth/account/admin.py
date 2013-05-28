@@ -9,11 +9,11 @@ User = get_user_model()
 class EmailAddressAdmin(admin.ModelAdmin):
     list_display = ('email', 'user', 'primary', 'verified')
     list_filter = ('primary', 'verified')
-    search_fields = ['email'] + map(lambda a: 'user__' + a,
+    search_fields = ['email'] + list(map(lambda a: 'user__' + a,
                                     filter(lambda a: a and hasattr(User(), a),
                                            [app_settings.USER_MODEL_USERNAME_FIELD,
-                                            'first_name', 
-                                            'last_name']))
+                                            'first_name',
+                                            'last_name'])))
     raw_id_fields = ('user',)
 
 class EmailConfirmationAdmin(admin.ModelAdmin):

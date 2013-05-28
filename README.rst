@@ -94,6 +94,8 @@ Supported Providers
 
 - Weibo (OAuth2)
 
+- Bitly (OAuth2)
+
 Note: OAuth/OAuth2 support is built using a common code base, making it easy to add support for additional OAuth/OAuth2 providers. More will follow soon...
 
  
@@ -170,6 +172,7 @@ settings.py::
         'allauth.socialaccount.providers.twitter',
         'allauth.socialaccount.providers.vimeo',
         'allauth.socialaccount.providers.weibo',
+        'allauth.socialaccount.providers.bitly',
         ...
     )
 

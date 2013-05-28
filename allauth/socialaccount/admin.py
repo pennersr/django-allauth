@@ -7,10 +7,11 @@ class SocialAppAdmin(admin.ModelAdmin):
     list_display = ('name', 'provider',)
     filter_horizontal = ('sites',)
 
-
 class SocialAccountAdmin(admin.ModelAdmin):
+    search_fields = ('user__username', )
     raw_id_fields = ('user',)
     list_display = ('user', 'uid', 'provider')
+    list_filter = ('provider',)
 
 
 class SocialTokenAdmin(admin.ModelAdmin):

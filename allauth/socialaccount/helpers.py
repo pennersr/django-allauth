@@ -84,7 +84,8 @@ def _login_social_account(request, sociallogin):
             context_instance=RequestContext(request))
     else:
         ret = perform_login(request, user, 
-                            redirect_url=sociallogin.get_redirect_url(request))
+                            redirect_url=sociallogin.get_redirect_url(request),
+                            signal_kwargs={"sociallogin": sociallogin})
     return ret
 
 

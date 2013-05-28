@@ -77,7 +77,7 @@ def user_display(user):
 #     return False
 
 
-def perform_login(request, user, redirect_url=None):
+def perform_login(request, user, redirect_url=None, signal_kwargs={}):
     from models import EmailAddress
 
     # not is_active: social users are redirected to a template
@@ -98,7 +98,8 @@ def perform_login(request, user, redirect_url=None):
         user.backend = "django.contrib.auth.backends.ModelBackend"
     signals.user_logged_in.send(sender=user.__class__, 
                                 request=request, 
-                                user=user)
+                                user=user,
+                                **signal_kwargs)
     login(request, user)
     messages.add_message(request, messages.SUCCESS,
                          ugettext("Successfully signed in as %(user)s.") % { "user": user_display(user) } )
@@ -113,7 +114,10 @@ def complete_signup(request, user, success_url, signal_kwargs={}):
                                 request=request, 
                                 user=user,
                                 **signal_kwargs)
-    return perform_login(request, user, redirect_url=success_url)
+    return perform_login(request,
+        user,
+        redirect_url=success_url,
+        signal_kwargs=signal_kwargs)
 
 
 def setup_user_email(request, user):

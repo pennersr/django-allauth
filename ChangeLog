@@ -1,9 +1,10 @@
-2013-05-30  Raymond Penners  <raymond.penners@intenct.nl>
+2013-05-29  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Implemented CSRF protection
+	(http://tools.ietf.org/html/draft-ietf-oauth-v2-30#section-10.12).
 
 	* The `user_logged_in` signal now optionally receives a
 	`sociallogin` parameter, in case of a social login.
-
-2013-05-29  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Added `social_account_added` (contributed by orblivion, thanks).
 

@@ -49,10 +49,7 @@ class OAuthView(object):
 class OAuthLoginView(OAuthView):
     def dispatch(self, request):
         callback_url = reverse(self.adapter.provider_id + "_callback")
-        # TODO: Can't this be moved as query param into callback?
-        # Tried but failed somehow, needs further study...
-        request.session['oauth_login_state'] \
-            = SocialLogin.marshall_state(request)
+        SocialLogin.stash_state(request)
         client = self._get_client(request, callback_url)
         try:
             return client.get_redirect()
@@ -82,8 +79,7 @@ class OAuthCallbackView(OAuthView):
             login = self.adapter.complete_login(request, app, token)
             token.account = login.account
             login.token = token
-            login.state = SocialLogin.unmarshall_state \
-                (request.session.pop('oauth_login_state', None))
+            login.state = SocialLogin.unstash_state(request)
             return complete_social_login(request, login)
         except OAuthError:
             return render_authentication_error(request)

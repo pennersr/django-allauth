@@ -58,7 +58,7 @@ class OAuth2LoginView(OAuth2View):
     def dispatch(self, request):
         app = self.adapter.get_provider().get_app(self.request)
         client = self.get_client(request, app)
-        client.state = SocialLogin.marshall_state(request)
+        client.state = SocialLogin.stash_state(request)
         try:
             return HttpResponseRedirect(client.get_redirect_url())
         except OAuth2Error:
@@ -82,8 +82,9 @@ class OAuth2CallbackView(OAuth2View):
                                                 response=access_token)
             token.account = login.account
             login.token = token
-            login.state = SocialLogin.unmarshall_state(request.REQUEST
-                                                       .get('state'))
+            login.state = SocialLogin \
+                .verify_and_unstash_state(request, 
+                                          request.REQUEST.get('state'))
             return complete_social_login(request, login)
         except OAuth2Error:
             return render_authentication_error(request)

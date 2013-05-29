@@ -88,7 +88,8 @@ def _login_social_account(request, sociallogin):
     else:
         ret = perform_login(request, user, 
                             email_verification=app_settings.EMAIL_VERIFICATION,
-                            redirect_url=sociallogin.get_redirect_url(request))
+                            redirect_url=sociallogin.get_redirect_url(request),
+                            signal_kwargs={"sociallogin": sociallogin})
     return ret
 
 

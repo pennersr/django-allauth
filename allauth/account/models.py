@@ -6,15 +6,17 @@ from django.db import transaction
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.contrib.sites.models import Site
+from django.utils.encoding import python_2_unicode_compatible
 
-from allauth import app_settings as allauth_app_settings
-import app_settings
-import signals
+from .. import app_settings as allauth_app_settings
+from . import app_settings
+from . import signals
 
-from utils import random_token
-from managers import EmailAddressManager, EmailConfirmationManager
-from adapter import get_adapter
+from .utils import random_token
+from .managers import EmailAddressManager, EmailConfirmationManager
+from .adapter import get_adapter
 
+@python_2_unicode_compatible
 class EmailAddress(models.Model):
     
     user = models.ForeignKey(allauth_app_settings.USER_MODEL)
@@ -30,7 +32,7 @@ class EmailAddress(models.Model):
         if not app_settings.UNIQUE_EMAIL:
             unique_together = [("user", "email")]
     
-    def __unicode__(self):
+    def __str__(self):
         return u"%s (%s)" % (self.email, self.user)
     
     def set_as_primary(self, conditional=False):
@@ -65,6 +67,7 @@ class EmailAddress(models.Model):
                 self.send_confirmation(request)
 
 
+@python_2_unicode_compatible
 class EmailConfirmation(models.Model):
     
     email_address = models.ForeignKey(EmailAddress)
@@ -78,7 +81,7 @@ class EmailConfirmation(models.Model):
         verbose_name = _("email confirmation")
         verbose_name_plural = _("email confirmations")
     
-    def __unicode__(self):
+    def __str__(self):
         return u"confirmation for %s" % self.email_address
     
     @classmethod
@@ -91,13 +94,15 @@ class EmailConfirmation(models.Model):
         return expiration_date <= timezone.now()
     key_expired.boolean = True
     
-    def confirm(self):
+    def confirm(self, request):
         if not self.key_expired() and not self.email_address.verified:
             email_address = self.email_address
             email_address.verified = True
             email_address.set_as_primary(conditional=True)
             email_address.save()
-            signals.email_confirmed.send(sender=self.__class__, email_address=email_address)
+            signals.email_confirmed.send(sender=self.__class__, 
+                                         request=request,
+                                         email_address=email_address)
             return email_address
     
     def send(self, request, **kwargs):
@@ -110,7 +115,12 @@ class EmailConfirmation(models.Model):
             "current_site": current_site,
             "key": self.key,
         }
-        get_adapter().send_mail('account/email/email_confirmation',
+        if (hasattr(self.email_address, 'for_new_user')
+                and self.email_address.for_new_user):
+            email_template = 'account/email/email_confirmation_signup'
+        else:
+            email_template = 'account/email/email_confirmation'
+        get_adapter().send_mail(email_template,
                                 self.email_address.email,
                                 ctx)
         self.sent = timezone.now()

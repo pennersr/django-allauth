@@ -2,6 +2,9 @@
 Welcome to django-allauth!
 ==========================
 
+.. image:: https://travis-ci.org/pennersr/django-allauth.png
+   :target: http://travis-ci.org/pennersr/django-allauth
+
 Integrated set of Django applications addressing authentication,
 registration, account management as well as 3rd party (social) account
 authentication.
@@ -33,6 +36,17 @@ authentication, with flows that just work.
 Overview
 ========
 
+Requirements
+------------
+
+- Python 2.6, 2.7 or 3.3
+
+- Django (1.4.3+)
+
+- python-openid or python3-openid (depending on your Python version)
+
+- requests and requests-oauthlib
+
 Supported Flows
 ---------------
 
@@ -54,6 +68,10 @@ Supported Flows
 Supported Providers
 -------------------
 
+- Bitly (OAuth2)
+
+- Dropbox (OAuth)
+
 - Facebook (both OAuth2 and JS SDK)
 
 - Github
@@ -73,6 +91,8 @@ Supported Providers
 - Twitch (OAuth2)
 
 - Twitter
+
+- Vimeo (OAuth)
 
 - Weibo (OAuth2)
 
@@ -139,15 +159,19 @@ settings.py::
         'allauth.account',
         'allauth.socialaccount',
 	# ... include the providers you want to enable:
+        'allauth.socialaccount.providers.bitly',
+        'allauth.socialaccount.providers.dropbox',
         'allauth.socialaccount.providers.facebook',
-        'allauth.socialaccount.providers.google',
         'allauth.socialaccount.providers.github',
+        'allauth.socialaccount.providers.google',
         'allauth.socialaccount.providers.linkedin',
         'allauth.socialaccount.providers.openid',
         'allauth.socialaccount.providers.persona',
         'allauth.socialaccount.providers.soundcloud',
         'allauth.socialaccount.providers.stackexchange',
+        'allauth.socialaccount.providers.twitch',
         'allauth.socialaccount.providers.twitter',
+        'allauth.socialaccount.providers.vimeo',
         'allauth.socialaccount.providers.weibo',
         ...
     )
@@ -201,6 +225,15 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX (="[Site] ")
   Subject-line prefix to use for email messages sent. By default, the
   name of the current `Site` (`django.contrib.sites`) is used.
 
+ACCOUNT_LOGOUT_ON_GET (=False)
+  Determines whether or not the user is automatically logged out by a
+  mere GET request. See documentation for the `LogoutView` for
+  details.
+
+ACCOUNT_LOGOUT_REDIRECT_URL (="/")
+  The URL (or URL name) to return to after the user logs out. This is 
+  the counterpart to Django's `LOGIN_REDIRECT_URL`.
+
 ACCOUNT_SIGNUP_FORM_CLASS (=None)
   A string pointing to a custom form class
   (e.g. 'myapp.forms.SignupForm') that is used during signup to ask
@@ -214,6 +247,14 @@ ACCOUNT_SIGNUP_PASSWORD_VERIFICATION (=True)
 ACCOUNT_UNIQUE_EMAIL (=True)
   Enforce uniqueness of e-mail addresses.
 
+ACCOUNT_USER_MODEL_USERNAME_FIELD (="username")
+  The name of the field containing the `username`, if any. See custom
+  user models.
+
+ACCOUNT_USER_MODEL_EMAIL_FIELD (="email")
+  The name of the field containing the `email`, if any. See custom
+  user models.
+  
 ACCOUNT_USER_DISPLAY (=a callable returning `user.username`)
   A callable (or string of the form `'some.module.callable_name'`)
   that takes a user as its only argument and returns the display name
@@ -221,6 +262,9 @@ ACCOUNT_USER_DISPLAY (=a callable returning `user.username`)
 
 ACCOUNT_USERNAME_MIN_LENGTH (=1)
   An integer specifying the minimum allowed length of a username.
+
+ACCOUNT_USERNAME_BLACKLIST (=[])
+  A list of usernames that can't be used by user.
 
 ACCOUNT_USERNAME_REQUIRED (=True)
   The user is required to enter a username when signing up. Note that
@@ -252,8 +296,15 @@ SOCIALACCOUNT_AVATAR_SUPPORT (= 'avatar' in settings.INSTALLED_APPS)
   Enable support for django-avatar. When enabled, the profile image of
   the user is copied locally into django-avatar at signup.
 
+SOCIALACCOUNT_EMAIL_REQUIRED (=ACCOUNT_EMAIL_REQUIRED)
+  The user is required to hand over an e-mail address when signing up
+  using a social account.
+
+SOCIALACCOUNT_EMAIL_VERIFICATION (=ACCOUNT_EMAIL_VERIFICATION)
+  As `ACCOUNT_EMAIL_VERIFICATION`, but for social accounts.
+
 SOCIALACCOUNT_PROVIDERS (= dict)
-    Dictionary containing provider specific settings.
+  Dictionary containing provider specific settings.
 
 
 Upgrading
@@ -262,8 +313,46 @@ Upgrading
 From 0.9.0
 **********
 
+- Logout no longer happens on GET request. Refer to the `LogoutView`
+  documentation for more background information. Logging out on GET
+  can be restored by the setting `ACCOUNT_LOGOUT_ON_GET`. Furthermore,
+  after logging out you are now redirected to
+  `ACCOUNT_LOGOUT_REDIRECT_URL` instead of rendering the
+  `account/logout.html` template.
+
+- `LOGIN_REDIRECT_URLNAME` is now deprecated. Django 1.5 accepts both
+  URL names and URLs for `LOGIN_REDIRECT_URL`, so we do so as well.
+
+- `DefaultAccountAdapter.stash_email_verified` is now named
+  `stash_verified_email`.
+
+- Django 1.4.3 is now the minimal requirement.
+
+- Dropped dependency on (unmaintained?) oauth2 package, in favor of
+  requests-oauthlib. So you will need to update your (virtual)
+  environment accordingly.
+
+- We noticed a very rare bug that affects end users who add Google
+  social login to existing accounts. The symptom is you end up with
+  users who have multiple primary email addresses which conflicts
+  with assumptions made by the code. In addition to fixing the code
+  that allowed duplicates to occur, there is a managegement command
+  you can run if you think this effects you (and if it doesn't effect
+  you there is no harm in running it anyways if you are unsure):
+
+  - `python manage.py account_unsetmultipleprimaryemails`
+    
+    - Will silently remove primary flags for email addresses that
+      aren't the same as `user.email`.
+
+    - If no primary `EmailAddress` is `user.email` it will pick one
+      at random and print a warning.
+
 - The expiry time, if any, is now stored in a new column
   `SocialToken.expires_at`. Migrations are in place.
+
+- Furthermore, Facebook started returning longer tokens, so the
+  maximum token length was increased. Again, migrations are in place.
 
 - Login and signup views have been turned into class-based views.
 
@@ -400,7 +489,7 @@ Use a callback URL of the form::
 
 For local development, use the following::
 
-    http://127.0.0.1:8000/accounts/twitter/callback/
+    http://127.0.0.1:8000/accounts/twitter/login/callback/
 
 
 Facebook
@@ -434,22 +523,35 @@ The following Facebook settings are available::
               'METHOD': 'oauth2' ,
               'LOCALE_FUNC': 'path.to.callable'} }
 
-By default, `email` scope is required depending whether or not
-`SOCIALACCOUNT_QUERY_EMAIL` is enabled.
+METHOD
+    Either `js_sdk` or `oauth2`
 
-The locale for the JS SDK is chosen based on the current active language of
-the request, taking a best guess. This can be customized using the
-`LOCALE_FUNC` setting, which takes either a callable or a path to a callable.
-This callable must take exactly one argument, the request, and return `a
-valid Facebook locale <http://developers.facebook.com/docs/
-internationalization/>`_ as a string::
+SCOPE
+    By default, `email` scope is required depending whether or not
+    `SOCIALACCOUNT_QUERY_EMAIL` is enabled.
 
-    SOCIALACCOUNT_PROVIDERS = \
-        { 'facebook':
-            { 'LOCALE_FUNC': lambda request: 'zh_CN'} }
+AUTH_PARAMS
+    Use `AUTH_PARAMS` to pass along other parameters to the `FB.login`
+    JS SDK call.
 
-Use `AUTH_PARAMS` to pass along other parameters to the `FB.login` JS SDK
-call.
+LOCALE_FUNC:
+    The locale for the JS SDK is chosen based on the current active language of
+    the request, taking a best guess. This can be customized using the
+    `LOCALE_FUNC` setting, which takes either a callable or a path to a callable.
+    This callable must take exactly one argument, the request, and return `a
+    valid Facebook locale <http://developers.facebook.com/docs/
+    internationalization/>`_ as a string::
+
+        SOCIALACCOUNT_PROVIDERS = \
+            { 'facebook':
+                { 'LOCALE_FUNC': lambda request: 'zh_CN'} }
+
+App registration
+    https://developers.facebook.com/apps
+
+Devlopment callback URL
+    http://localhost:8000
+
 
 Google
 ------
@@ -544,16 +646,6 @@ SoundCloud allows you to choose between OAuth1 and OAuth2.  Choose the
 latter. 
 
 
-Weibo
------
-
-Register your OAuth2 app over at
-`http://open.weibo.com/apps`. Unfortunately, Weibo does not allow for
-specifying a port number in the authorization callback URL. So for
-development purposes you have to use a callback url of the form
-`http://127.0.0.1/accounts/weibo/login/callback/` and run `runserver
-127.0.0.1:80`.
-
 Stack Exchange
 --------------
 
@@ -578,6 +670,26 @@ Twitch
 Register your OAuth2 app over at
 `http://www.twitch.tv/kraken/oauth2/clients/new`. 
 
+Vimeo
+-----
+
+App registration
+    https://developer.vimeo.com/apps
+
+Devlopment callback URL
+    http://localhost:8000
+
+
+Weibo
+-----
+
+Register your OAuth2 app over at
+`http://open.weibo.com/apps`. Unfortunately, Weibo does not allow for
+specifying a port number in the authorization callback URL. So for
+development purposes you have to use a callback url of the form
+`http://127.0.0.1/accounts/weibo/login/callback/` and run `runserver
+127.0.0.1:80`.
+
 
 
 Signals
@@ -591,7 +703,7 @@ The following signals are emitted:
 
 - `allauth.account.signals.user_signed_up`
 
-  Sent when a user signs up for an account. This is signal is
+  Sent when a user signs up for an account. This signal is
   typically followed by a `user_logged_in`, unless e-mail verification
   prohibits the user to log in.
 
@@ -604,6 +716,36 @@ The following signals are emitted:
   tokens and profile information, if applicable for the provider, is
   provided.
 
+- `allauth.socialaccount.signals.social_account_added`
+
+  Sent after a user connects a social account to an existing user
+  account.
+
+
+Views
+=====
+
+Logout
+------
+
+The logout view (`allauth.account.views.LogoutView`) requests for
+confirmation before logging out. The user is logged out only when the
+confirmation is received by means of a POST request.
+
+If you are wondering why, consider what happens when a malicious user
+embeds the following image in a post::
+
+    <img src="http://example.com/accounts/logout/">
+
+For this and more background information on the subject, see:
+
+- https://code.djangoproject.com/ticket/15619
+- http://stackoverflow.com/questions/3521290/logout-get-or-post
+
+If you insist on having logout on GET, then please consider adding a
+bit of Javascript to automatically turn a click on a logout link into
+a POST. As a last resort, you can set `ACCOUNT_LOGOUT_ON_GET` to
+`True`.
 
 Templates
 =========
@@ -692,6 +834,23 @@ The behavior is as follows:
 Advanced Usage
 ==============
 
+Custom User Models
+------------------
+
+If you use a custom user model you need to specify what field
+represents the `username`, if any. Here, `username` really refers to
+the field representing the nick name the user uses to login, and not
+some unique identifier (possibly including an e-mail adddress) as is
+the case for Django's `AbstractBaseUser.USERNAME_FIELD`.
+
+Meaning, if your custom user model does not have a `username` field
+(again, not to be mistaken with an e-mail address or user id), you
+will need to set `ACCOUNT_USER_MODEL_USERNAME_FIELD` to `None`. This
+will disable username related functionality in `allauth`.
+
+Similarly, you will need to set `ACCOUNT_USER_MODEL_EMAIL_FIELD` to
+`None`, or the proper field (if other than `email`).
+
 Invitations
 -----------
 
@@ -710,7 +869,7 @@ methods:
 - `is_open_for_signup(request)`. You can override this method to, for
   example, inspect the session to check if an invitation was accepted.
 
-- `stash_email_verified(request, email)`. If an invitation was
+- `stash_verified_email(request, email)`. If an invitation was
   accepted by following a link in a mail, then there is no need to
   send e-mail verification mails after the signup is completed. Use
   this method to record the fact that an e-mail address was verified.
@@ -735,6 +894,50 @@ If this does not suit your needs, you can hook up your own custom
 mechanism by overriding the `send_mail` method of the account adapter
 (`allauth.account.adapter.DefaultAccountAdapter`).
 
+
+Custom Redirects
+----------------
+
+If redirecting to statically configurable URLs (as specified in your
+project settings) is not flexible enough, then you can override the
+following adapter methods:
+
+- `allauth.account.adapter.DefaultAccountAdapter`:
+
+  - `get_login_redirect_url(request)`
+
+  - `get_logout_redirect_url(request)`
+
+  - `get_email_confirmation_redirect_url(request)`
+
+- `allauth.socialaccount.adapter.DefaultSocialAccountAdapter`:
+
+  - `get_connect_redirect_url(request, socialaccount)`
+
+For example, redirecting to `/accounts/<username>/` can be implemented as
+follows::
+
+    # project/settings.py:
+    ACCOUNT_ADAPTER = 'project.users.adapter.MyAccountAdapter'
+
+    # project/users/adapter.py:
+    from django.conf import settings
+    from allauth.account.adapter import DefaultAccountAdapter
+    
+    class MyAccountAdapter(DefaultAccountAdapter):
+    
+        def get_login_redirect_url(self, request):
+            path = "/accounts/{username}/"
+            return path.format(username=request.user.username)
+
+Messages
+--------
+
+All messages (as in `django.contrib.messages`) are configurable by
+overriding their respective template. If you want to disable a message
+simply override the message template with a blank one.
+
+
 Showcase
 ========
 
@@ -751,6 +954,7 @@ Showcase
 - http://healthifyme.com/
 - http://www.burufly.com
 - http://eatwith.com/
+- http://en.globalquiz.org/
 - ...
 
 Please mail me (raymond.penners@intenct.nl) links to sites that have

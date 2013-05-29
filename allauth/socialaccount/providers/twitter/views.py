@@ -7,7 +7,7 @@ from allauth.socialaccount.providers.oauth.views import (OAuthAdapter,
 from allauth.socialaccount.models import SocialLogin, SocialAccount
 from allauth.socialaccount.adapter import get_adapter
 
-from provider import TwitterProvider
+from .provider import TwitterProvider
 
 class TwitterAPI(OAuth):
     """

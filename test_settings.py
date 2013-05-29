@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+
+SECRET_KEY = 'psst'
+SITE_ID = 1
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -9,6 +13,8 @@ DATABASES = {
         'PORT': '',
     }
 }
+
+ROOT_URLCONF = 'allauth.urls'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
@@ -35,7 +41,23 @@ INSTALLED_APPS = (
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.twitter',
-    'allauth.socialaccount.providers.openid',
+    'allauth.socialaccount.providers.dropbox',
     'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.linkedin',
+    'allauth.socialaccount.providers.openid',
+    'allauth.socialaccount.providers.persona',
+    'allauth.socialaccount.providers.soundcloud',
+    'allauth.socialaccount.providers.stackexchange',
+    'allauth.socialaccount.providers.twitch',
+    'allauth.socialaccount.providers.twitter',
+    'allauth.socialaccount.providers.vimeo',
+    'allauth.socialaccount.providers.weibo',
+    'allauth.socialaccount.providers.bitly',
+)
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
 )

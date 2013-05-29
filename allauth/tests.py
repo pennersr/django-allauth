@@ -3,7 +3,7 @@
 import requests
 from django.test import TestCase
 
-import utils
+from . import utils
 
 class MockedResponse(object):
     def __init__(self, status_code, content, headers={}):
@@ -14,6 +14,10 @@ class MockedResponse(object):
     def json(self):
         import json
         return json.loads(self.content)
+
+    @property
+    def text(self):
+        return self.content
 
 class mocked_response:
     def __init__(self, *responses):
@@ -43,14 +47,14 @@ class BasicTests(TestCase):
                     (u'Üsêrnamê', 'username'),
                     ('', 'user')]
         for input, username in examples:
-            self.assertEquals(utils.generate_unique_username(input),
+            self.assertEqual(utils.generate_unique_username(input),
                               username)
 
     def test_email_validation(self):
         s = 'unfortunately.django.user.email.max_length.is.set.to.75.which.is.too.short@bummer.com'
-        self.assertEquals(None, utils.valid_email_or_none(s))
+        self.assertEqual(None, utils.valid_email_or_none(s))
         s = 'this.email.address.is.a.bit.too.long.but.should.still.validate.ok@short.com'
-        self.assertEquals(s, utils.valid_email_or_none(s))
+        self.assertEqual(s, utils.valid_email_or_none(s))
         s = 'x' + s
-        self.assertEquals(None, utils.valid_email_or_none(s))
-        self.assertEquals(None, utils.valid_email_or_none("Bad ?"))
+        self.assertEqual(None, utils.valid_email_or_none(s))
+        self.assertEqual(None, utils.valid_email_or_none("Bad ?"))

@@ -3,7 +3,7 @@ from django.utils import importlib
 
 from allauth.socialaccount import providers
 
-import app_settings
+from . import app_settings
 
 urlpatterns = patterns('', url('^', include('allauth.account.urls')))
 

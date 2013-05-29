@@ -1,8 +1,20 @@
-langurage: python
+language: python
 python:
- - "2.7"
  - "2.6"
+ - "2.7"
+ - "3.3"
+env:
+ - DJANGO_VERSION=1.4.3
+ - DJANGO_VERSION=1.5
+install:
+ - pip install Django==$DJANGO_VERSION --use-mirrors
+ - pip install . --use-mirrors
 branches:
  only:
   - master
-script: python setup.py test
+script: python manage.py test account socialaccount dropbox facebook google github linkedin openid persona soundcloud stackexchange twitch twitter vimeo weibo bitly 
+matrix:
+  exclude:
+    - python: "3.3"
+      env: DJANGO_VERSION=1.4.3
+

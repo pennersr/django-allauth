@@ -2,7 +2,6 @@ from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
 
-
 class TwitterAccount(ProviderAccount):
     def get_screen_name(self):
         return self.account.extra_data.get('screen_name')
@@ -23,9 +22,9 @@ class TwitterAccount(ProviderAccount):
             ret = profile_image_url.replace('_normal', '')
         return ret
 
-    def __unicode__(self):
+    def to_str(self):
         screen_name = self.get_screen_name()
-        return screen_name or super(TwitterAccount, self).__unicode__()
+        return screen_name or super(TwitterAccount, self).to_str()
 
 
 class TwitterProvider(OAuthProvider):

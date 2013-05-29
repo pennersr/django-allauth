@@ -10,8 +10,8 @@ class TwitchAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get('logo')
 
-    def __unicode__(self):
-        dflt = super(TwitchAccount, self).__unicode__()
+    def to_str(self):
+        dflt = super(TwitchAccount, self).to_str()
         return self.account.extra_data.get('name', dflt)
 
 

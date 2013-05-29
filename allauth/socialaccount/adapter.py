@@ -1,8 +1,11 @@
-from allauth.utils import (import_attribute,
-                           get_user_model,
-                           valid_email_or_none)
+from django.core.urlresolvers import reverse
 
-import app_settings
+from ..utils import (import_attribute,
+                     get_user_model,
+                     valid_email_or_none)
+from ..account.utils import user_email, user_username
+
+from . import app_settings
 
 class DefaultSocialAccountAdapter(object):
     def pre_social_login(self, request, sociallogin):
@@ -29,16 +32,30 @@ class DefaultSocialAccountAdapter(object):
                           name=None):
         """
         Spawns a new User instance, safely and leniently populating
-        several common fields.
+        several common fields. 
+
+        This method is used to create a suggested User instance that
+        represents the social user that is in the process of being
+        logged in. Validation is not a requirement. For example,
+        verifying whether or not a username already exists, is not a
+        responsibility.
         """
         user = get_user_model()()
-        user.username = username or ''
-        user.email = valid_email_or_none(email) or ''
+        user_username(user, username or '')
+        user_email(user, valid_email_or_none(email) or '')
         name_parts= (name or '').partition(' ')
         user.first_name = first_name or name_parts[0]
         user.last_name = last_name or name_parts[2]
         return user
 
+    def get_connect_redirect_url(self, request, socialaccount):
+        """
+        Returns the default URL to redirect to after successfully
+        connecting a social account.
+        """
+        assert request.user.is_authenticated()
+        url = reverse('socialaccount_connections')
+        return url
 
 
 def get_adapter():

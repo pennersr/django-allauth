@@ -1,4 +1,7 @@
-from urlparse import urlparse
+try:
+    from urllib.parse import urlparse
+except ImportError:
+    from urlparse import urlparse
 from django.core.urlresolvers import reverse
 from django.utils.http import urlencode
 
@@ -17,13 +20,13 @@ class OpenIDAccount(ProviderAccount):
                                        name='Hyves'),
                          'google': dict(id='google',
                                         name='Google')}
-        for d, p in provider_map.iteritems():
+        for d, p in provider_map.items():
             if domain.lower().find(d) >= 0:
                 ret = p
                 break
         return ret
 
-    def __unicode__(self):
+    def to_str(self):
         return self.account.uid
 
 

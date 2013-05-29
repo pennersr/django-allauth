@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth import authenticate
 from django.contrib.sites.models import Site
 from django.utils.encoding import python_2_unicode_compatible
-from django.utils.crypto import salted_hmac
+from django.utils.crypto import get_random_string
 try:
     from django.utils.encoding import force_text
 except ImportError:
@@ -217,23 +217,21 @@ class SocialLogin(object):
         return state
 
     @classmethod
-    def _compute_state(cls, request):
-        session_key = request.session.session_key
-        return salted_hmac('socialaccount_state', session_key).hexdigest()
-
-    @classmethod
     def stash_state(cls, request):
         state = cls.state_from_request(request)
-        request.session['socialaccount_state'] = state
-        return cls._compute_state(request)
+        verifier = get_random_string()
+        request.session['socialaccount_state'] = (state, verifier)
+        return verifier
     
     @classmethod
     def unstash_state(cls, request):
-        return request.session.pop('socialaccount_state')
+        state, verifier = request.session.pop('socialaccount_state')
+        return state
 
     @classmethod
-    def verify_and_unstash_state(cls, request, state):
-        if state != cls._compute_state(request):
+    def verify_and_unstash_state(cls, request, verifier):
+        state, verifier2 = request.session.pop('socialaccount_state')
+        if verifier != verifier2:
             raise PermissionDenied()
-        return cls.unstash_state(request)
+        return state
 

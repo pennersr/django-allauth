@@ -112,7 +112,8 @@ def create_oauth2_tests(provider):
                                              'application/json'}),
                              resp_mock):
             resp = self.client.get(complete_url,
-                                   { 'code': 'test' })
+                                   { 'code': 'test',
+                                     'state': q['state'][0] })
         return resp
 
 

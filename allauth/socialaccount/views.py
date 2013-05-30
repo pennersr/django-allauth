@@ -60,7 +60,7 @@ def login_error(request):
 def connections(request):
     form = None
     if request.method == 'POST':
-        form = DisconnectForm(request.POST, user=request.user)
+        form = DisconnectForm(request.POST, request=request)
         if form.is_valid():
             get_account_adapter().add_message(request, 
                                               messages.INFO, 
@@ -68,7 +68,7 @@ def connections(request):
             form.save()
             form = None
     if not form:
-        form = DisconnectForm(user=request.user)
+        form = DisconnectForm(request=request)
     d = dict(form=form)
     return render_to_response(
             'socialaccount/connections.html',

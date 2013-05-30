@@ -1,14 +1,15 @@
-from django.utils.translation import ugettext_lazy as _
+from __future__ import absolute_import
+
 from django import forms
 
-from allauth.account.models import EmailAddress
 from allauth.account.forms import BaseSignupForm
 from allauth.account.utils import (send_email_confirmation,
                                    user_username, user_email)
 
 from .models import SocialAccount
-
+from .adapter import get_adapter
 from . import app_settings
+from . import signals
 
 class SignupForm(BaseSignupForm):
 
@@ -39,21 +40,21 @@ class DisconnectForm(forms.Form):
                                      required=True)
 
     def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user')
-        self.accounts = SocialAccount.objects.filter(user=self.user)
+        self.request = kwargs.pop('request')
+        self.accounts = SocialAccount.objects.filter(user=self.request.user)
         super(DisconnectForm, self).__init__(*args, **kwargs)
         self.fields['account'].queryset = self.accounts
 
     def clean(self):
-        if len(self.accounts) == 1:
-            # No usable password would render the local account unusable
-            if not self.user.has_usable_password():
-                raise forms.ValidationError(_("Your account has no password set up."))
-            # No email address, no password reset
-            if EmailAddress.objects.filter(user=self.user,
-                                           verified=True).count() == 0:
-                raise forms.ValidationError(_("Your account has no verified e-mail address."))
-        return self.cleaned_data
+        cleaned_data = super(DisconnectForm, self).clean()
+        account = cleaned_data.get('account')
+        if account:
+            get_adapter().validate_disconnect(account, self.accounts)
+        return cleaned_data
 
     def save(self):
-        self.cleaned_data['account'].delete()
+        account = self.cleaned_data['account']
+        account.delete()
+        signals.social_account_removed.send(sender=SocialAccount,
+                                            request=self.request, 
+                                            socialaccount=account)

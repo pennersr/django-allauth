@@ -1,9 +1,14 @@
+from __future__ import absolute_import
+
+from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ValidationError
 
 from ..utils import (import_attribute,
                      get_user_model,
                      valid_email_or_none)
 from ..account.utils import user_email, user_username
+from ..account.models import EmailAddress
 
 from . import app_settings
 
@@ -56,6 +61,21 @@ class DefaultSocialAccountAdapter(object):
         assert request.user.is_authenticated()
         url = reverse('socialaccount_connections')
         return url
+
+
+    def validate_disconnect(self, account, accounts):
+        """
+        Validate whether or not the socialaccount account can be
+        safely disconnected.
+        """
+        if len(accounts) == 1:
+            # No usable password would render the local account unusable
+            if not account.user.has_usable_password():
+                raise ValidationError(_("Your account has no password set up."))
+            # No email address, no password reset
+            if EmailAddress.objects.filter(user=self.user,
+                                           verified=True).count() == 0:
+                raise ValidationError(_("Your account has no verified e-mail address."))
 
 
 def get_adapter():

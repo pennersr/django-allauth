@@ -6,6 +6,9 @@ from django.dispatch import Signal
 # accounts to an account.
 pre_social_login = Signal(providing_args=["request", "sociallogin"])
 
-# Sent after a user connects a social account to an existing user
-# account.
+# Sent after a user connects a social account to a his local account.
 social_account_added = Signal(providing_args=["request", "sociallogin"])
+
+# Sent after a user disconnects a social account from his local
+# account.
+social_account_removed = Signal(providing_args=["request", "socialaccount"])

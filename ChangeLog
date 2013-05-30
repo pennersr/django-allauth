@@ -1,3 +1,10 @@
+2013-05-30  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Moved logic whether or not a social account can be disconnected
+	to the `SocialAccountAdapter` (`validate_disconnect`).
+
+	* Added `social_account_removed` signal.
+
 2013-05-29  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Implemented CSRF protection

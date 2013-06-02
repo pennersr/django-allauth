@@ -1,3 +1,7 @@
+2013-06-02  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.11.0 released.
+
 2013-05-30  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Moved logic whether or not a social account can be disconnected
@@ -16,6 +20,10 @@
 	* Added `social_account_added` (contributed by orblivion, thanks).
 
 	* Hatem Nassrat contributed Bitly support, thanks!
+
+2013-05-22  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Bojan Mihelac contributed a Croatian translation, thanks!
 
 2013-05-20  Raymond Penners  <raymond.penners@intenct.nl>
 

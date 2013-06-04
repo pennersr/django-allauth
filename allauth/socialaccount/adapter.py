@@ -21,7 +21,7 @@ class DefaultSocialAccountAdapter(object):
 
         You can use this hook to intervene, e.g. abort the login by
         raising an ImmediateHttpResponse
-        
+
         Why both an adapter hook and the signal? Intervening in
         e.g. the flow from within a signal handler is bad -- multiple
         handlers may be active and are executed in undetermined order.
@@ -31,13 +31,13 @@ class DefaultSocialAccountAdapter(object):
 
     def populate_new_user(self,
                           username=None,
-                          first_name=None, 
+                          first_name=None,
                           last_name=None,
                           email=None,
                           name=None):
         """
         Spawns a new User instance, safely and leniently populating
-        several common fields. 
+        several common fields.
 
         This method is used to create a suggested User instance that
         represents the social user that is in the process of being
@@ -73,7 +73,7 @@ class DefaultSocialAccountAdapter(object):
             if not account.user.has_usable_password():
                 raise ValidationError(_("Your account has no password set up."))
             # No email address, no password reset
-            if EmailAddress.objects.filter(user=self.user,
+            if EmailAddress.objects.filter(user=account.user,
                                            verified=True).count() == 0:
                 raise ValidationError(_("Your account has no verified e-mail address."))
 

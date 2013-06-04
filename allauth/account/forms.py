@@ -176,12 +176,20 @@ class BaseSignupForm(_base_signup_form_class()):
     def __init__(self, *args, **kwargs):
         email_required = kwargs.pop('email_required')
         super(BaseSignupForm, self).__init__(*args, **kwargs)
+        # field order may contain additional fields from our base class,
+        # so take proper care when reordering...
+        field_order = ['email', 'username']
+        other_field_order = [ f for f in self.fields.keyOrder
+                              if f not in field_order ]
         if email_required:
             self.fields["email"].label = ugettext("E-mail")
             self.fields["email"].required = True
         else:
             self.fields["email"].label = ugettext("E-mail (optional)")
             self.fields["email"].required = False
+            if app_settings.USERNAME_REQUIRED:
+                field_order = ['username', 'email']
+        self.fields.keyOrder = field_order + other_field_order
         if not app_settings.USERNAME_REQUIRED:
             del self.fields["username"]
 
@@ -232,17 +240,6 @@ class SignupForm(BaseSignupForm):
     def __init__(self, *args, **kwargs):
         kwargs['email_required'] = app_settings.EMAIL_REQUIRED
         super(SignupForm, self).__init__(*args, **kwargs)
-        current_order =self.fields.keyOrder
-        preferred_order = self.fields.keyOrder = ["username", 
-                                                  "password1", 
-                                                  "password2",
-                                                  "email"]
-        if not app_settings.USERNAME_REQUIRED:
-            preferred_order = self.fields.keyOrder = ["email",
-                                                      "password1", 
-                                                      "password2"]
-        # Make sure custom fields are put below main signup fields
-        self.fields.keyOrder = preferred_order + [ f for f in current_order if not f in preferred_order ]
         if not app_settings.SIGNUP_PASSWORD_VERIFICATION:
             del self.fields["password2"]
     

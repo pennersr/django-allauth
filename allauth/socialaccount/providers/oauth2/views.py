@@ -13,6 +13,7 @@ from allauth.socialaccount.models import SocialToken, SocialLogin
 
 class OAuth2Adapter(object):
     expires_in_key = 'expires_in'
+    supports_state = True
 
     def get_provider(self):
         return providers.registry.by_id(self.provider_id)
@@ -82,9 +83,13 @@ class OAuth2CallbackView(OAuth2View):
                                                 response=access_token)
             token.account = login.account
             login.token = token
-            login.state = SocialLogin \
-                .verify_and_unstash_state(request, 
-                                          request.REQUEST.get('state'))
+            if self.adapter.supports_state:
+                login.state = SocialLogin \
+                    .verify_and_unstash_state(
+                        request,
+                        request.REQUEST.get('state'))
+            else:
+                login.state = SocialLogin.unstash_state(request)
             return complete_social_login(request, login)
         except OAuth2Error:
             return render_authentication_error(request)

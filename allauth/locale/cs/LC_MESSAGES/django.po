@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Tomas Marcik <tomas.marcik@dolnex.cz>, 2013.
 #
 msgid ""
 msgstr ""
@@ -9,8 +9,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-06-07 02:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Last-Translator: Tomas Marcik <tomas.marcik@dolnex.cz>, 2013\n"
+"Language-Team: Dolnex Technologies s.r.o. <info@dolnex.cz>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -357,8 +357,8 @@ msgid ""
 "Forgotten your password? Enter your e-mail address below, and we'll send you "
 "an e-mail allowing you to reset it."
 msgstr ""
-"Zapomenuté heslo? Prosím, zadejte svojí e-amilovou adresu a do e-amilové "
-"schránky Vám přijde návod na jeho obnovu"
+"Zapomenuté heslo? Prosím, zadejte svojí e-mailovou adresu a do e-mailové "
+"schránky Vám přijde návod na jeho obnovu."
 
 #: templates/account/password_reset.html:20
 msgid "Reset My Password"

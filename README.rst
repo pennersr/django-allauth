@@ -946,6 +946,7 @@ Showcase
 ========
 
 - http://www.highlightcam.com/
+- http://www.q-dance.com
 - http://officecheese.com
 - http://www.mycareerstack.com
 - http://jug.gl

@@ -59,13 +59,16 @@
 
 {% block extra_body %}
 <script type="text/javascript">
-$(function(){
-$("button[name='action_remove']").click(function(){
-if (confirm("{% trans 'Do you really want to remove the selected e-mail address?' %}")) {
-return true;
-}
-return false;
-});
-});
+(function() {
+  var message = "{% trans 'Do you really want to remove the selected e-mail address?' %}";
+  var actions = document.getElementsByName('action_remove');
+  if (actions.length) {
+    actions[0].addEventListener("click", function(e) {
+      if (! confirm(message)) {
+        e.preventDefault();
+      }
+    });
+  }
+})();
 </script>
 {% endblock %}

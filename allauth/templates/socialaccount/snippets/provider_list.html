@@ -6,14 +6,14 @@
 <li>
   <a title="{{brand.name}}" 
      class="socialaccount_provider {{provider.id}} {{brand.id}}" 
-     href="{% provider_login_url provider.id openid=brand.openid_url %}"
+     href="{% provider_login_url provider.id openid=brand.openid_url process=process %}"
      >{{brand.name}}</a>
 </li>
 {% endfor %}
 {% endif %}
 <li>
   <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}" 
-     href="{% provider_login_url provider.id %}">{{provider.name}}</a>
+     href="{% provider_login_url provider.id process=process %}">{{provider.name}}</a>
 </li>
 {% endfor %}
 

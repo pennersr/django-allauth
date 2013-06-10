@@ -46,7 +46,8 @@ class FacebookProvider(OAuth2Provider):
         method = kwargs.get('method', self.get_method())
         if method == 'js_sdk':
             next = "'%s'" % (kwargs.get('next') or '')
-            ret = "javascript:FB_login(%s)" % next
+            process = "'%s'" % (kwargs.get('process') or 'login')
+            ret = "javascript:allauth.facebook.login(%s, %s)" % (next, process)
         else:
             assert method == 'oauth2'
             ret = super(FacebookProvider, self).get_login_url(request,

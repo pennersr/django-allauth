@@ -26,6 +26,8 @@ class PersonaProvider(Provider):
                                 RequestContext(request))
 
     def get_login_url(self, request, **kwargs):
-        return 'javascript:allauth.persona.login()'
+        next_url = "'%s'" % (kwargs.get('next') or '')
+        process = "'%s'" % (kwargs.get('process') or 'login')
+        return 'javascript:allauth.persona.login(%s, %s)' % (next_url, process)
 
 providers.registry.register(PersonaProvider)

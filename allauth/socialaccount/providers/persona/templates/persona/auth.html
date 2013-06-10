@@ -18,7 +18,9 @@
   };
 
   allauth.persona = {
-    login: function() {
+    login: function(nextUrl, process) {
+        document.getElementById("_persona_next_url").value = nextUrl || '';
+        document.getElementById("_persona_process").value = process;
         startWatching();
         navigator.id.request({{request_parameters|safe}});
     }
@@ -29,5 +31,6 @@
 <form id="_persona_login" method="post" action="{% url 'persona_login' %}">
 {% csrf_token %}
 <input type="hidden" name="next" value="" id="_persona_next_url"/>
+<input type="hidden" name="process" value="" id="_persona_process"/>
 <input type="hidden" name="assertion" id="_persona_assertion"/>
 </form>

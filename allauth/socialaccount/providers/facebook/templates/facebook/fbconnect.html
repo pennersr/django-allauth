@@ -1,7 +1,9 @@
 {% load url from future %}
 <div id="fb-root"></div>
 <script>
-  window.FB_login = function() {};
+  var allauth = window.allauth = window.allauth || {};
+
+  allauth.facebook = { login: function() {} };
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '{{facebook_app.client_id}}',
@@ -11,12 +13,13 @@
       oauth      : true,
       xfbml      : true
     });
-    window.FB_login = function(nextUrl) {
+    allauth.facebook.login = function(nextUrl, process) {
       FB.login(function(response) {
         if (response.authResponse) {
           document.getElementById("_fb_access_token").value = response.authResponse.accessToken;
           document.getElementById("_fb_expires_in").value = response.authResponse.expiresIn;
           document.getElementById("_fb_next_url").value = nextUrl || '';
+          document.getElementById("_fb_process").value = process;
           document.getElementById("_fb_login").submit();
         } else {
           var next;
@@ -41,6 +44,7 @@
 <form id="_fb_login" method="post" action="{% url 'facebook_login_by_token' %}">
 {% csrf_token %}
 <input type="hidden" name="next" value="" id="_fb_next_url"/>
+<input type="hidden" name="process" value="" id="_fb_process"/>
 <input type="hidden" name="access_token" id="_fb_access_token"/>
 <input type="hidden" name="expires_in" id="_fb_expires_in"/>
 </form>

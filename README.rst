@@ -310,6 +310,17 @@ SOCIALACCOUNT_PROVIDERS (= dict)
 Upgrading
 ---------
 
+From 0.11.1
+***********
+
+- The `{% provider_login_url %}` tag now takes an optional process
+  parameter that indicates how to process the social login. As a
+  result, if you include the template
+  `socialaccount/snippets/provider_list.html` from your own overriden
+  `socialaccount/connections.html` template, you now need to pass
+  along the process parameter as follows: 
+  `{% include "socialaccount/snippets/provider_list.html" with process="connect" %}`.
+
 From 0.9.0
 **********
 
@@ -796,6 +807,11 @@ Use the `provider_login_url` tag to generate provider specific login URLs::
     <a href="{% provider_login_url "openid" openid="https://www.google.com/accounts/o8/id" next="/success/url/" %}">Google</a>
     <a href="{% provider_login_url "twitter" %}">Twitter</a>
 
+Here, you can pass along an optional `process` parameter that
+indicates how to process the social login. You can choose between
+`login` and `connect`::
+
+    <a href="{% provider_login_url "twitter" process="connect" %}">Connect a Twitter account</a>
 
 For easy access to the social accounts for a user::
 

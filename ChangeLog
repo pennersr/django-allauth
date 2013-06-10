@@ -1,3 +1,10 @@
+2013-06-10  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Connecting a social account is now a flow that needs to be
+	explicitly triggered, by means of a `process="connect"` parameter
+	that can be passed along to the `{% provider_login_url %}`, or a
+	`process=connect` GET parameter.
+
 2013-06-04  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Version 0.11.1 released (due to issue in disconnecting social

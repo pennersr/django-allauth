@@ -36,15 +36,10 @@ class OpenIDProvider(Provider):
     package = 'allauth.socialaccount.providers.openid'
     account_class = OpenIDAccount
 
-    def get_login_url(self, request, next=None, openid=None):
+    def get_login_url(self, request, **kwargs):
         url = reverse('openid_login')
-        query = {}
-        if openid:
-            query['openid'] = openid
-        if next:
-            query['next'] = next
-        if query:
-            url += '?' + urlencode(query)
+        if kwargs:
+            url += '?' + urlencode(kwargs)
         return url
 
     def get_brands(self):

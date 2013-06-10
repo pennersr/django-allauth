@@ -105,7 +105,8 @@ class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
                                     verified=True)
         self.client.login(username=user.username,
                           password='test')
-        self.login(self.get_mocked_response(verified_email=True))
+        self.login(self.get_mocked_response(verified_email=True),
+                   process='connect')
         # Check if we connected...
         self.assertTrue(SocialAccount.objects.filter(user=user,
                                                      provider=GoogleProvider.id).exists())

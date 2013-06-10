@@ -44,13 +44,14 @@ def create_oauth_tests(provider):
         resp = self.login(resp_mock)
         self.assertRedirects(resp, reverse('socialaccount_signup'))
 
-    def login(self, resp_mock):
+    def login(self, resp_mock, process='login'):
         with mocked_response(MockedResponse(200,
                                             'oauth_token=token&'
                                             'oauth_token_secret=psst',
                                             {'content-type':
                                              'text/html'})):
-            resp = self.client.get(reverse(self.provider.id + '_login'))
+            resp = self.client.get(reverse(self.provider.id + '_login'),
+                                   dict(process=process))
         p = urlparse(resp['location'])
         q = parse_qs(p.query)
         complete_url = reverse(self.provider.id+'_callback')
@@ -96,11 +97,12 @@ def create_oauth2_tests(provider):
             warnings.warn("Cannot test provider %s, no oauth mock"
                           % self.provider.id)
             return
-        resp = self.login(resp_mock)
+        resp = self.login(resp_mock,)
         self.assertRedirects(resp, reverse('socialaccount_signup'))
 
-    def login(self, resp_mock):
-        resp = self.client.get(reverse(self.provider.id + '_login'))
+    def login(self, resp_mock, process='login'):
+        resp = self.client.get(reverse(self.provider.id + '_login'),
+                               dict(process=process))
         p = urlparse(resp['location'])
         q = parse_qs(p.query)
         complete_url = reverse(self.provider.id+'_callback')

@@ -12,7 +12,7 @@ from .. import app_settings as allauth_app_settings
 from . import app_settings
 from . import signals
 
-from .utils import random_token
+from .utils import random_token, user_email
 from .managers import EmailAddressManager, EmailConfirmationManager
 from .adapter import get_adapter
 
@@ -44,7 +44,7 @@ class EmailAddress(models.Model):
             old_primary.save()
         self.primary = True
         self.save()
-        self.user.email = self.email
+        user_email(self.user, self.email)
         self.user.save()
         return True
     
@@ -58,7 +58,7 @@ class EmailAddress(models.Model):
         Given a new email address, change self and re-confirm.
         """
         with transaction.commit_on_success():
-            self.user.email = new_email
+            user_email(self.user, new_email)
             self.user.save()
             self.email = new_email
             self.verified = False

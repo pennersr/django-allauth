@@ -1,13 +1,14 @@
 {% load url from future %}
 <div id="fb-root"></div>
-<script>
+<script type="text/javascript">
+  (function(opts) {
   var allauth = window.allauth = window.allauth || {};
 
-  allauth.facebook = { login: function() {} };
+  allauth.facebook = { login: function() {}, logout: function() {} };
   window.fbAsyncInit = function() {
     FB.init({
-      appId      : '{{facebook_app.client_id}}',
-      channelUrl : '{{facebook_channel_url}}',
+      appId      : opts.appId,
+      channelUrl : opts.channelUrl,
       status     : true,
       cookie     : true,
       oauth      : true,
@@ -24,21 +25,45 @@
         } else {
           var next;
           if (response && response.status && response.status == "notConnected") {
-            next = '{% url 'socialaccount_login_cancelled' %}';
+            next = opts.cancelUrl;
           } else {
-            next = '{% url 'socialaccount_login_error' %}';
+            next = opts.errorUrl;
           }
           window.location.href = next;
         }
-      }, {{fb_login_options}});
+      }, opts.loginOptions);
+    };
+    allauth.facebook.logout = function(nextUrl) {
+      FB.logout(function() {
+        var f = document.createElement('form');
+        f.method = 'POST';
+        f.action = opts.logoutUrl;
+        if (nextUrl) {
+          var i = document.createElement('input');
+          i.type = 'hidden';
+          i.name = 'next';
+          i.value = nextUrl;
+          f.appendChild(i);
+        }
+        document.body.appendChild(f);
+        f.submit();
+      });
     }
   };
   (function(d){
      var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
      js = d.createElement('script'); js.id = id; js.async = true;
-     js.src = "//connect.facebook.net/{{facebook_jssdk_locale}}/all.js";
+     js.src = "//connect.facebook.net/"+opts.locale+"/all.js";
      d.getElementsByTagName('head')[0].appendChild(js);
    }(document));
+
+  })({ appId: '{{facebook_app.client_id}}',
+       channelUrl : '{{facebook_channel_url}}',
+       locale: '{{facebook_jssdk_locale}}',
+       loginOptions: {{fb_login_options}},
+       nextUrl: '{% url 'socialaccount_login_cancelled' %}',
+       logoutUrl: '{% url 'account_logout' %}',
+       errorUrl: '{% url 'socialaccount_login_error' %}'});
 </script>
 
 <form id="_fb_login" method="post" action="{% url 'facebook_login_by_token' %}">

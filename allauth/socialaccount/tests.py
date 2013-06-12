@@ -1,5 +1,3 @@
-from django.contrib.auth import get_user_model
-
 
 try:
     from urllib.parse import urlparse, parse_qs
@@ -20,9 +18,11 @@ from ..tests import MockedResponse, mocked_response
 from ..account import app_settings as account_settings
 from ..account.models import EmailAddress
 from ..account.utils import user_email
+from ..utils import get_user_model
 
 from .models import SocialApp, SocialAccount, SocialLogin
 from .helpers import complete_social_login
+
 
 def create_oauth_tests(provider):
 

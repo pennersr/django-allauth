@@ -5,7 +5,6 @@ except ImportError:
 import warnings
 
 from django.test.utils import override_settings
-from django.contrib.auth.models import User
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
@@ -18,9 +17,11 @@ from ..tests import MockedResponse, mocked_response
 from ..account import app_settings as account_settings
 from ..account.models import EmailAddress
 from ..account.utils import user_email
+from ..utils import get_user_model
 
 from .models import SocialApp, SocialAccount, SocialLogin
 from .helpers import complete_social_login
+
 
 def create_oauth_tests(provider):
 
@@ -66,9 +67,6 @@ def create_oauth_tests(provider):
             resp = self.client.get(complete_url)
         return resp
 
-
-
-
     impl = { 'setUp': setUp,
              'login': login,
              'test_login': test_login,
@@ -77,6 +75,7 @@ def create_oauth_tests(provider):
     Class = type(class_name, (TestCase,), impl)
     Class.provider = provider
     return Class
+
 
 def create_oauth2_tests(provider):
 
@@ -131,28 +130,36 @@ def create_oauth2_tests(provider):
     return Class
 
 
-
 class SocialAccountTests(TestCase):
 
-    @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=True,
-                       ACCOUNT_SIGNUP_FORM_CLASS=None,
-                       ACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.NONE)
+    @override_settings(
+        SOCIALACCOUNT_AUTO_SIGNUP=True,
+        ACCOUNT_SIGNUP_FORM_CLASS=None,
+        ACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.NONE
+    )
+
     def test_email_address_created(self):
-        factory = RequestFactory() 
+        factory = RequestFactory()
         request = factory.get('/accounts/login/callback/')
         request.user = AnonymousUser()
         SessionMiddleware().process_request(request)
         MessageMiddleware().process_request(request)
-        user = User(username='test',
-                    email='test@test.com')
-        account = SocialAccount(user=user,
-                                provider='openid',
-                                uid='123')
+
+        User = get_user_model()
+        user = User()
+        setattr(user, account_settings.USER_MODEL_USERNAME_FIELD, 'test')
+        setattr(user, account_settings.USER_MODEL_EMAIL_FIELD, 'test@test.com')
+
+        account = SocialAccount(user=user, provider='openid', uid='123')
         sociallogin = SocialLogin(account)
         complete_social_login(request, sociallogin)
-        user = User.objects.get(username='test')
-        self.assertTrue(SocialAccount.objects.filter(user=user,
-                                                     uid=account.uid).exists())
-        self.assertTrue(EmailAddress.objects.filter(user=user,
-                                                    email=user_email(user)).exists())
-        
+
+        user = User.objects.get(
+            **{account_settings.USER_MODEL_USERNAME_FIELD: 'test'}
+        )
+        self.assertTrue(
+            SocialAccount.objects.filter(user=user, uid=account.uid).exists()
+        )
+        self.assertTrue(
+            EmailAddress.objects.filter(user=user, email=user_email(user)).exists()
+        )

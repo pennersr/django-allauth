@@ -4,7 +4,7 @@ import unicodedata
 from django.core.exceptions import ImproperlyConfigured
 from django.core.validators import validate_email, ValidationError
 from django.core import urlresolvers
-from django.db.models import EmailField
+from django.db.models import EmailField, FieldDoesNotExist
 from django.utils import importlib, six
 try:
     from django.utils.encoding import force_text
@@ -13,7 +13,10 @@ except ImportError:
 
 from . import app_settings
 
+
 def generate_unique_username(txt):
+    from .account.app_settings import USER_MODEL_USERNAME_FIELD
+
     username = unicodedata.normalize('NFKD', force_text(txt))
     username = username.encode('ascii', 'ignore').decode('ascii')
     username = force_text(re.sub('[^\w\s@+.-]', '', username).lower())
@@ -24,8 +27,14 @@ def generate_unique_username(txt):
     # address and only take the part leading up to the '@'.
     username = username.split('@')[0]
     username = username.strip() or 'user'
+
     User = get_user_model()
-    max_length = User._meta.get_field('username').max_length
+    try:
+        max_length = User._meta.get_field(USER_MODEL_USERNAME_FIELD).max_length
+    except FieldDoesNotExist:
+        raise ImproperlyConfigured(
+            "USER_MODEL_USERNAME_FIELD does not exist in user-model"
+        )
     i = 0
     while True:
         try:
@@ -34,7 +43,7 @@ def generate_unique_username(txt):
             else:
                 pfx = ''
             ret = username[0:max_length - len(pfx)] + pfx
-            User.objects.get(username=ret)
+            User.objects.get(**{USER_MODEL_USERNAME_FIELD: ret})
             i += 1
         except User.DoesNotExist:
             return ret

@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import logout
+from django.db.models import FieldDoesNotExist
 from django.shortcuts import render_to_response, render
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
@@ -64,12 +65,21 @@ def _process_signup(request, sociallogin):
         if account_settings.USER_MODEL_USERNAME_FIELD:
             user_username(u,
                           generate_unique_username(user_username(u)
-                                                   or email 
+                                                   or email
                                                    or 'user'))
-        u.last_name = (u.last_name or '') \
-            [0:User._meta.get_field('last_name').max_length]
-        u.first_name = (u.first_name or '') \
-            [0:User._meta.get_field('first_name').max_length]
+
+        try:
+            max_length = User._meta.get_field('last_name').max_length
+            u.last_name = (u.last_name or '')[0:max_length]
+        except FieldDoesNotExist:
+            pass
+
+        try:
+            max_length = User._meta.get_field('first_name').max_length
+            u.first_name = (u.first_name or '')[0:max_length]
+        except FieldDoesNotExist:
+            pass
+
         user_email(u, email or '')
         u.set_unusable_password()
         sociallogin.save(request)

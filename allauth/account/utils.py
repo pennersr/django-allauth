@@ -70,7 +70,7 @@ def user_field(user, field, *args):
     """
     Gets or sets (optional) user model fields. No-op if fields do not exist.
     """
-    if field:
+    if field and hasattr(user, field):
         if args:
             # Setter
             setattr(user, field, args[0])

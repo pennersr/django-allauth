@@ -530,9 +530,10 @@ The following Facebook settings are available::
     SOCIALACCOUNT_PROVIDERS = \
         { 'facebook': 
             { 'SCOPE': ['email', 'publish_stream'],
-	      'AUTH_PARAMS': { 'auth_type': 'reauthenticate' },
+              'AUTH_PARAMS': { 'auth_type': 'reauthenticate' },
               'METHOD': 'oauth2' ,
-              'LOCALE_FUNC': 'path.to.callable'} }
+              'LOCALE_FUNC': 'path.to.callable',
+              'SKIP_FBROOT': True} }
 
 METHOD
     Either `js_sdk` or `oauth2`
@@ -556,6 +557,9 @@ LOCALE_FUNC:
         SOCIALACCOUNT_PROVIDERS = \
             { 'facebook':
                 { 'LOCALE_FUNC': lambda request: 'zh_CN'} }
+
+SKIP_FBROOT:
+    Set this true if you have <div id="fb-root"></div> in your base.html template or so to avoid HTML validation error (duplicated ID in document). Otherwise not required variable.
 
 App registration
     https://developers.facebook.com/apps

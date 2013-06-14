@@ -42,6 +42,9 @@ class FacebookProvider(OAuth2Provider):
     def get_method(self):
         return self.get_settings().get('METHOD', 'oauth2')
 
+    def get_fbroot(self):
+        return not self.get_settings().get('SKIP_FBROOT', False)
+
     def get_login_url(self, request, **kwargs):
         method = kwargs.get('method', self.get_method())
         if method == 'js_sdk':
@@ -88,11 +91,13 @@ class FacebookProvider(OAuth2Provider):
                                        " add a SocialApp using the Django"
                                        " admin")
         fb_login_options = self.get_fb_login_options()
+        fbroot = self.get_fbroot()
         ctx =  {'facebook_app': app,
                 'facebook_channel_url':
                 request.build_absolute_uri(reverse('facebook_channel')),
                 'fb_login_options': mark_safe(json.dumps(fb_login_options)),
-                'facebook_jssdk_locale': locale}
+                'facebook_jssdk_locale': locale,
+                'facebook_display_fbroot': fbroot}
         return render_to_string('facebook/fbconnect.html',
                                 ctx,
                                 RequestContext(request))

@@ -321,6 +321,11 @@ From 0.11.1
   along the process parameter as follows: 
   `{% include "socialaccount/snippets/provider_list.html" with process="connect" %}`.
 
+- Instead of inlining the required Facebook SDK Javascript wrapper
+  code into the HTML, it now resides into its own .js file (served
+  with `{% static %}`). If you were using the builtin `fbconnect.html`
+  this change should go by unnoticed.
+
 From 0.9.0
 **********
 

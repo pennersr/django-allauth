@@ -1,75 +1,15 @@
 {% load url from future %}
+{% load staticfiles %}
 <div id="fb-root"></div>
+<script type="text/javascript" src="{% static "facebook/js/fbconnect.js" %}"></script>
 <script type="text/javascript">
-  (function(opts) {
-  var allauth = window.allauth = window.allauth || {};
-
-  allauth.facebook = { login: function() {}, logout: function() {} };
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : opts.appId,
-      channelUrl : opts.channelUrl,
-      status     : true,
-      cookie     : true,
-      oauth      : true,
-      xfbml      : true
-    });
-    allauth.facebook.login = function(nextUrl, process) {
-      FB.login(function(response) {
-        if (response.authResponse) {
-          document.getElementById("_fb_access_token").value = response.authResponse.accessToken;
-          document.getElementById("_fb_expires_in").value = response.authResponse.expiresIn;
-          document.getElementById("_fb_next_url").value = nextUrl || '';
-          document.getElementById("_fb_process").value = process;
-          document.getElementById("_fb_login").submit();
-        } else {
-          var next;
-          if (response && response.status && response.status == "notConnected") {
-            next = opts.cancelUrl;
-          } else {
-            next = opts.errorUrl;
-          }
-          window.location.href = next;
-        }
-      }, opts.loginOptions);
-    };
-    allauth.facebook.logout = function(nextUrl) {
-      FB.logout(function() {
-        var f = document.createElement('form');
-        f.method = 'POST';
-        f.action = opts.logoutUrl;
-        if (nextUrl) {
-          var i = document.createElement('input');
-          i.type = 'hidden';
-          i.name = 'next';
-          i.value = nextUrl;
-          f.appendChild(i);
-        }
-        document.body.appendChild(f);
-        f.submit();
-      });
-    }
-  };
-  (function(d){
-     var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
-     js = d.createElement('script'); js.id = id; js.async = true;
-     js.src = "//connect.facebook.net/"+opts.locale+"/all.js";
-     d.getElementsByTagName('head')[0].appendChild(js);
-   }(document));
-
-  })({ appId: '{{facebook_app.client_id}}',
-       channelUrl : '{{facebook_channel_url}}',
-       locale: '{{facebook_jssdk_locale}}',
-       loginOptions: {{fb_login_options}},
-       nextUrl: '{% url 'socialaccount_login_cancelled' %}',
-       logoutUrl: '{% url 'account_logout' %}',
-       errorUrl: '{% url 'socialaccount_login_error' %}'});
+allauth.facebook.init({ appId: '{{facebook_app.client_id}}',
+  locale: '{{facebook_jssdk_locale}}',
+  loginOptions: {{fb_login_options}},
+  loginByTokenUrl: '{% url 'facebook_login_by_token' %}',
+  channelUrl : '{{facebook_channel_url}}',
+  cancelUrl: '{% url 'socialaccount_login_cancelled' %}',
+  logoutUrl: '{% url 'account_logout' %}',
+  errorUrl: '{% url 'socialaccount_login_error' %}',
+  csrfToken: '{{csrf_token}}' });
 </script>
-
-<form id="_fb_login" method="post" action="{% url 'facebook_login_by_token' %}">
-{% csrf_token %}
-<input type="hidden" name="next" value="" id="_fb_next_url"/>
-<input type="hidden" name="process" value="" id="_fb_process"/>
-<input type="hidden" name="access_token" id="_fb_access_token"/>
-<input type="hidden" name="expires_in" id="_fb_expires_in"/>
-</form>

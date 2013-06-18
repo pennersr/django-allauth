@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 from django.core.exceptions import PermissionDenied
 from django.db import models
 from django.contrib.auth import authenticate
@@ -22,11 +24,12 @@ class SocialAppManager(models.Manager):
         return self.get(sites__id=site.id,
                         provider=provider)
 
+
 @python_2_unicode_compatible
 class SocialApp(models.Model):
     objects = SocialAppManager()
 
-    provider = models.CharField(max_length=30, 
+    provider = models.CharField(max_length=30,
                                 choices=providers.registry.as_choices())
     name = models.CharField(max_length=40)
     client_id = models.CharField(max_length=100,
@@ -45,6 +48,7 @@ class SocialApp(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class SocialAccount(models.Model):
     user = models.ForeignKey(allauth.app_settings.USER_MODEL)
@@ -96,10 +100,13 @@ class SocialAccount(models.Model):
 class SocialToken(models.Model):
     app = models.ForeignKey(SocialApp)
     account = models.ForeignKey(SocialAccount)
-    token = models.TextField(
-                             help_text='"oauth_token" (OAuth1) or access token (OAuth2)')
-    token_secret = models.CharField(max_length=200, blank=True,
-                                    help_text='"oauth_token_secret" (OAuth1) or refresh token (OAuth2)')
+    token = models \
+        .TextField(help_text='"oauth_token" (OAuth1) or access token (OAuth2)')
+    token_secret = models \
+        .CharField(max_length=200,
+                   blank=True,
+                   help_text='"oauth_token_secret" (OAuth1) or refresh'
+                   ' token (OAuth2)')
     expires_at = models.DateTimeField(blank=True, null=True)
 
     class Meta:
@@ -166,7 +173,6 @@ class SocialLogin(object):
             pass
         else:
             setup_user_email(request, user, self.email_addresses)
-           
 
     @property
     def is_existing(self):
@@ -181,7 +187,7 @@ class SocialLogin(object):
         """
         assert not self.is_existing
         try:
-            a = SocialAccount.objects.get(provider=self.account.provider, 
+            a = SocialAccount.objects.get(provider=self.account.provider,
                                           uid=self.account.uid)
             # Update account
             a.extra_data = self.account.extra_data
@@ -203,11 +209,11 @@ class SocialLogin(object):
                     self.token.save()
         except SocialAccount.DoesNotExist:
             pass
-    
+
     def get_redirect_url(self, request):
         url = self.state.get('next')
         return url
-            
+
     @classmethod
     def state_from_request(cls, request):
         state = {}
@@ -223,16 +229,19 @@ class SocialLogin(object):
         verifier = get_random_string()
         request.session['socialaccount_state'] = (state, verifier)
         return verifier
-    
+
     @classmethod
     def unstash_state(cls, request):
+        if 'socialaccount_state' not in request.session:
+            raise PermissionDenied()
         state, verifier = request.session.pop('socialaccount_state')
         return state
 
     @classmethod
     def verify_and_unstash_state(cls, request, verifier):
+        if 'socialaccount_state' not in request.session:
+            raise PermissionDenied()
         state, verifier2 = request.session.pop('socialaccount_state')
         if verifier != verifier2:
             raise PermissionDenied()
         return state
-

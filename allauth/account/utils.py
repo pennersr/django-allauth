@@ -235,7 +235,7 @@ def setup_user_email(request, user, addresses):
         user.save()
     return primary
 
-def send_email_confirmation(request, user, email_address=None):
+def send_email_confirmation(request, user, email_address=None, email_verification=app_settings.EMAIL_VERIFICATION):
     """
     E-mail verification mails are sent:
     a) Explicitly: when a user signs up
@@ -251,7 +251,7 @@ def send_email_confirmation(request, user, email_address=None):
     COOLDOWN_PERIOD = timedelta(minutes=3)
     email = user_email(user)
     if (email 
-        and app_settings.EMAIL_VERIFICATION != EmailVerificationMethod.NONE):
+        and email_verification != EmailVerificationMethod.NONE):
         try:
             if email_address is None:
                 email_address = EmailAddress.objects.get(user=user,

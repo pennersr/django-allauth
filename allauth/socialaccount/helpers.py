@@ -8,8 +8,7 @@ from django.template.defaultfilters import slugify
 
 from allauth.utils import (generate_unique_username, email_address_exists,
                            get_user_model)
-from allauth.account.utils import (send_email_confirmation, 
-                                   perform_login, complete_signup,
+from allauth.account.utils import (perform_login, complete_signup,
                                    user_field,
                                    user_email, user_username)
 from allauth.account import app_settings as account_settings
@@ -22,6 +21,7 @@ from . import signals
 from .adapter import get_adapter
 
 User = get_user_model()
+
 
 def _process_signup(request, sociallogin):
     # If email is specified, check for duplicate and if so, no auto signup.
@@ -65,7 +65,7 @@ def _process_signup(request, sociallogin):
         if account_settings.USER_MODEL_USERNAME_FIELD:
             user_username(u,
                           generate_unique_username(user_username(u)
-                                                   or email 
+                                                   or email
                                                    or 'user'))
         for field in ['last_name',
                       'first_name']:
@@ -76,7 +76,6 @@ def _process_signup(request, sociallogin):
         user_email(u, email or '')
         u.set_unusable_password()
         sociallogin.save(request)
-        send_email_confirmation(request, u)
         ret = complete_social_signup(request, sociallogin)
     return ret
 
@@ -89,7 +88,7 @@ def _login_social_account(request, sociallogin):
             {},
             context_instance=RequestContext(request))
     else:
-        ret = perform_login(request, user, 
+        ret = perform_login(request, user,
                             email_verification=app_settings.EMAIL_VERIFICATION,
                             redirect_url=sociallogin.get_redirect_url(request),
                             signal_kwargs={"sociallogin": sociallogin})
@@ -100,6 +99,7 @@ def render_authentication_error(request, extra_context={}):
     return render_to_response(
         "socialaccount/authentication_error.html",
         extra_context, context_instance=RequestContext(request))
+
 
 def _add_social_account(request, sociallogin):
     if request.user.is_anonymous():
@@ -126,7 +126,7 @@ def _add_social_account(request, sociallogin):
         sociallogin.connect(request, request.user)
         try:
             signals.social_account_added.send(sender=SocialLogin,
-                                              request=request, 
+                                              request=request,
                                               sociallogin=sociallogin)
         except ImmediateHttpResponse as e:
             return e.response
@@ -137,13 +137,14 @@ def _add_social_account(request, sociallogin):
     get_account_adapter().add_message(request, level, message)
     return HttpResponseRedirect(next_url)
 
+
 def complete_social_login(request, sociallogin):
     assert not sociallogin.is_existing
     sociallogin.lookup()
     try:
         get_adapter().pre_social_login(request, sociallogin)
         signals.pre_social_login.send(sender=SocialLogin,
-                                      request=request, 
+                                      request=request,
                                       sociallogin=sociallogin)
     except ImmediateHttpResponse as e:
         return e.response
@@ -151,6 +152,7 @@ def complete_social_login(request, sociallogin):
         return _add_social_account(request, sociallogin)
     else:
         return _complete_social_login(request, sociallogin)
+
 
 def _complete_social_login(request, sociallogin):
     if request.user.is_authenticated():
@@ -216,8 +218,8 @@ def _copy_avatar(request, user, account):
 def complete_social_signup(request, sociallogin):
     if app_settings.AVATAR_SUPPORT:
         _copy_avatar(request, sociallogin.account.user, sociallogin.account)
-    return complete_signup(request, 
-                           sociallogin.account.user, 
+    return complete_signup(request,
+                           sociallogin.account.user,
                            app_settings.EMAIL_VERIFICATION,
                            sociallogin.get_redirect_url(request),
                            signal_kwargs={'sociallogin': sociallogin})

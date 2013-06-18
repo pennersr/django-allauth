@@ -15,6 +15,7 @@ from allauth.account.adapter import get_adapter
 
 from .provider import GoogleProvider
 
+
 @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=True,
                    ACCOUNT_SIGNUP_FORM_CLASS=None,
                    ACCOUNT_EMAIL_VERIFICATION \
@@ -114,3 +115,19 @@ class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
         self.assertEqual(EmailAddress.objects.filter(user=user).count(), 1)
         self.assertEqual(EmailAddress.objects.filter(user=user,
                                                       email=email).count(), 1)
+
+    @override_settings(
+        SOCIALACCOUNT_AUTO_SIGNUP=True,
+        ACCOUNT_SIGNUP_FORM_CLASS=None,
+        ACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.MANDATORY,
+        SOCIALACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.NONE
+    )
+    def test_social_email_verification_skipped(self):
+        test_email = 'raymond.penners@gmail.com'
+        self.login(self.get_mocked_response(verified_email=False))
+        email_address = EmailAddress.objects \
+            .get(email=test_email)
+        self.assertFalse(email_address.verified)
+        self.assertFalse(EmailConfirmation.objects \
+                            .filter(email_address__email=test_email) \
+                            .exists())

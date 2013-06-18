@@ -43,9 +43,9 @@ def get_next_redirect_url(request, redirect_field_name="next"):
 
 
 def get_login_redirect_url(request, url=None, redirect_field_name="next"):
-    redirect_url = (url 
-                    or get_next_redirect_url(request, 
-                                             redirect_field_name=redirect_field_name) 
+    redirect_url = (url
+                    or get_next_redirect_url(request,
+                                             redirect_field_name=redirect_field_name)
                     or get_adapter().get_login_redirect_url(request))
     return redirect_url
 
@@ -96,32 +96,34 @@ def user_email(user, *args):
 #     return False
 
 
-def perform_login(request, user, email_verification, 
+def perform_login(request, user, email_verification,
                   redirect_url=None, signal_kwargs={}):
     from .models import EmailAddress
 
     # not is_active: social users are redirected to a template
     # local users are stopped due to form validation checking is_active
     assert user.is_active
-    if (email_verification == EmailVerificationMethod.MANDATORY
-        and not EmailAddress.objects.filter(user=user,
-                                            verified=True).exists()):
+    has_verified_email = EmailAddress.objects.filter(user=user,
+                                                     verified=True).exists()
+    if (email_verification != EmailVerificationMethod.NONE
+            and not has_verified_email):
         send_email_confirmation(request, user)
-        return render(request,
-                      "account/verification_sent.html",
-                      { "email": user_email(user) })
+        if email_verification == EmailVerificationMethod.MANDATORY:
+            return render(request,
+                          "account/verification_sent.html",
+                          {"email": user_email(user)})
     # HACK: This may not be nice. The proper Django way is to use an
     # authentication backend, but I fail to see any added benefit
     # whereas I do see the downsides (having to bother the integrator
     # to set up authentication backends in settings.py
     if not hasattr(user, 'backend'):
         user.backend = "django.contrib.auth.backends.ModelBackend"
-    signals.user_logged_in.send(sender=user.__class__, 
-                                request=request, 
+    signals.user_logged_in.send(sender=user.__class__,
+                                request=request,
                                 user=user,
                                 **signal_kwargs)
     login(request, user)
-    get_adapter().add_message(request, 
+    get_adapter().add_message(request,
                               messages.SUCCESS,
                               'account/messages/logged_in.txt',
                               { 'user': user })
@@ -130,11 +132,11 @@ def perform_login(request, user, email_verification,
 
 
 def complete_signup(request, user, email_verification, success_url, signal_kwargs={}):
-    signals.user_signed_up.send(sender=user.__class__, 
-                                request=request, 
+    signals.user_signed_up.send(sender=user.__class__,
+                                request=request,
                                 user=user,
                                 **signal_kwargs)
-    return perform_login(request, user, 
+    return perform_login(request, user,
                          email_verification=email_verification,
                          redirect_url=success_url,
                          signal_kwargs=signal_kwargs)
@@ -161,7 +163,7 @@ def cleanup_email_addresses(request, addresses):
         if not email:
             continue
         # ... and non-conflicting ones...
-        if (app_settings.UNIQUE_EMAIL 
+        if (app_settings.UNIQUE_EMAIL
             and EmailAddress.objects.filter(email__iexact=email).exists()):
             continue
         a = e2a.get(email.lower())
@@ -170,7 +172,7 @@ def cleanup_email_addresses(request, addresses):
             a.verified = a.verified or address.verified
         else:
             a = address
-            a.verified = a.verified or adapter.is_email_verified(request, 
+            a.verified = a.verified or adapter.is_email_verified(request,
                                                                  a.email)
             e2a[email.lower()] = a
         if a.primary:
@@ -189,7 +191,7 @@ def cleanup_email_addresses(request, addresses):
         # Okay, let's pick primary then, even if unverified
         primary_address = primary_addresses[0]
     elif e2a:
-        # Pick the first 
+        # Pick the first
         primary_address = e2a.keys()[0]
     else:
         # Empty
@@ -198,7 +200,7 @@ def cleanup_email_addresses(request, addresses):
     for a in e2a.values():
         a.primary = primary_address.email.lower() == a.email.lower()
     return list(e2a.values()), primary_address
-        
+
 def setup_user_email(request, user, addresses):
     """
     Creates proper EmailAddress for the user that was just signed
@@ -223,12 +225,12 @@ def setup_user_email(request, user, addresses):
                                                email=email,
                                                primary=True,
                                                verified=False))
-    addresses, primary = cleanup_email_addresses(request, 
+    addresses, primary = cleanup_email_addresses(request,
                                                  priority_addresses
                                                  + addresses)
     for a in addresses:
         a.save()
-    if (primary 
+    if (primary
         and email
         and email.lower() != primary.email.lower()):
         user_email(user, primary.email)
@@ -250,7 +252,7 @@ def send_email_confirmation(request, user, email_address=None):
 
     COOLDOWN_PERIOD = timedelta(minutes=3)
     email = user_email(user)
-    if (email 
+    if (email
         and app_settings.EMAIL_VERIFICATION != EmailVerificationMethod.NONE):
         try:
             if email_address is None:
@@ -268,8 +270,8 @@ def send_email_confirmation(request, user, email_address=None):
         except EmailAddress.DoesNotExist:
             send_email = True
             email_address = EmailAddress.objects.add_email(request,
-                                                           user, 
-                                                           email, 
+                                                           user,
+                                                           email,
                                                            confirm=True)
             assert email_address
         # At this point, if we were supposed to send an email we have sent it.

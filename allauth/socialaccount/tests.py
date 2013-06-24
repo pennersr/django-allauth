@@ -82,6 +82,13 @@ def create_oauth2_tests(provider):
     def get_mocked_response(self):
         pass
 
+    def get_login_response_json(self):
+        return ('{'
+            '"uid":"weibo", '
+            '"access_token":"testac", '
+            '"refresh_token":"testrf"'
+        '}')
+
     def setUp(self):
         app = SocialApp.objects.create(provider=provider.id,
                                        name=provider.id,
@@ -99,6 +106,46 @@ def create_oauth2_tests(provider):
         resp = self.login(resp_mock,)
         self.assertRedirects(resp, reverse('socialaccount_signup'))
 
+    def test_account_tokens(self, multiple_login=False):
+        email = 'some@mail.com'
+        user = get_user_model().objects.create(username='user',
+                                   is_active=True,
+                                   email=email)
+        user.set_password('test')
+        user.save()
+        EmailAddress.objects.create(user=user,
+                                    email=email,
+                                    primary=True,
+                                    verified=True)
+        self.client.login(username=user.username,
+                          password='test')
+        self.login(self.get_mocked_response(), process='connect')
+        if multiple_login:
+            glr = self.get_login_response_json
+            self.get_login_response_json = (
+                lambda *args: '{"uid":"weibo","access_token":"testac"}')
+            try:
+                self.login(
+                    self.get_mocked_response(),
+                    process='connect')
+            finally:
+                self.get_login_response_json = glr
+        # get account
+        sa = SocialAccount.objects.filter(user=user, provider=self.provider.id).get()
+        # get token
+        t = sa.socialtoken_set.get()
+        # verify access_token and refresh_token
+        self.assertEquals('testac', t.token)
+        self.assertEquals('testrf', t.token_secret)
+
+    def test_account_refresh_token_saved_next_login(self):
+        '''
+        fails if a login missing a refresh token, deletes the previously
+        saved refresh token. Systems such as google's oauth only send
+        a refresh token on first login.
+        '''
+        self.test_account_tokens(multiple_login=True)
+
     def login(self, resp_mock, process='login'):
         resp = self.client.get(reverse(self.provider.id + '_login'),
                                dict(process=process))
@@ -107,11 +154,13 @@ def create_oauth2_tests(provider):
         complete_url = reverse(self.provider.id+'_callback')
         self.assertGreater(q['redirect_uri'][0]
                            .find(complete_url), 0)
-        with mocked_response(MockedResponse(200,
-                                            '{"access_token":"testac"}',
-                                            {'content-type':
-                                             'application/json'}),
-                             resp_mock):
+        response_json = self.get_login_response_json()
+        with mocked_response(
+                MockedResponse(
+                    200,
+                    response_json,
+                    {'content-type': 'application/json'}),
+                resp_mock):
             resp = self.client.get(complete_url,
                                    { 'code': 'test',
                                      'state': q['state'][0] })
@@ -123,6 +172,9 @@ def create_oauth2_tests(provider):
     impl = { 'setUp': setUp,
              'login': login,
              'test_login': test_login,
+             'test_account_tokens': test_account_tokens,
+             'test_account_refresh_token_saved_next_login': test_account_refresh_token_saved_next_login,
+             'get_login_response_json': get_login_response_json,
              'get_mocked_response': get_mocked_response }
     class_name = 'OAuth2Tests_'+provider.id
     Class = type(class_name, (TestCase,), impl)

@@ -200,7 +200,10 @@ class SocialLogin(object):
                     t = SocialToken.objects.get(account=self.account,
                                                 app=self.token.app)
                     t.token = self.token.token
-                    t.token_secret = self.token.token_secret
+                    if self.token.token_secret:
+                        # only update the refresh token if we got one
+                        # many oauth2 providers do not resend the refresh token
+                        t.token_secret = self.token.token_secret
                     t.expires_at = self.token.expires_at
                     t.save()
                     self.token = t

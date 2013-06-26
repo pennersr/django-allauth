@@ -1,8 +1,11 @@
+from __future__ import absolute_import
+
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.importlib import import_module
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
+from django.core import mail
 
 from allauth.socialaccount.tests import create_oauth2_tests
 from allauth.account import app_settings as account_settings
@@ -39,9 +42,9 @@ class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
         EmailAddress.objects \
             .get(email=test_email,
                  verified=True)
-        self.assertFalse(EmailConfirmation.objects \
-                             .filter(email_address__email=test_email) \
-                             .exists())
+        self.assertFalse(EmailConfirmation.objects
+                         .filter(email_address__email=test_email)
+                         .exists())
 
     def test_user_signed_up_signal(self):
         sent_signals = []
@@ -49,9 +52,9 @@ class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
         def on_signed_up(sender, request, user, **kwargs):
             sociallogin = kwargs['sociallogin']
             self.assertEqual(sociallogin.account.provider,
-                              GoogleProvider.id)
+                             GoogleProvider.id)
             self.assertEqual(sociallogin.account.user,
-                              user)
+                             user)
             sent_signals.append(sender)
 
         user_signed_up.connect(on_signed_up)
@@ -64,10 +67,9 @@ class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
         email_address = EmailAddress.objects \
             .get(email=test_email)
         self.assertFalse(email_address.verified)
-        self.assertTrue(EmailConfirmation.objects \
-                            .filter(email_address__email=test_email) \
-                            .exists())
-
+        self.assertTrue(EmailConfirmation.objects
+                        .filter(email_address__email=test_email)
+                        .exists())
 
     def test_email_verified_stashed(self):
         # http://slacy.com/blog/2012/01/how-to-set-session-variables-in-django-unit-tests/
@@ -117,8 +119,6 @@ class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
                                                       email=email).count(), 1)
 
     @override_settings(
-        SOCIALACCOUNT_AUTO_SIGNUP=True,
-        ACCOUNT_SIGNUP_FORM_CLASS=None,
         ACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.MANDATORY,
         SOCIALACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.NONE
     )
@@ -131,3 +131,13 @@ class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
         self.assertFalse(EmailConfirmation.objects \
                             .filter(email_address__email=test_email) \
                             .exists())
+
+    @override_settings(
+        ACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.OPTIONAL,
+        SOCIALACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.OPTIONAL
+    )
+    def test_social_email_verification_optional(self):
+        self.login(self.get_mocked_response(verified_email=False))
+        self.assertEqual(len(mail.outbox), 1)
+        self.login(self.get_mocked_response(verified_email=False))
+        self.assertEqual(len(mail.outbox), 1)

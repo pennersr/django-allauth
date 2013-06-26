@@ -97,18 +97,30 @@ def user_email(user, *args):
 
 
 def perform_login(request, user, email_verification,
-                  redirect_url=None, signal_kwargs={}):
-    from .models import EmailAddress
+                  redirect_url=None, signal_kwargs={},
+                  email_verification_essential=False):
+    """
+    Keyword arguments:
 
+    email_verification_essential -- Indicates whether or not sending the
+    email is essential (during signup), or if it can be skipped (e.g. in
+    case email verification is optional and we are only logging in).
+    """
+    from .models import EmailAddress
     # not is_active: social users are redirected to a template
     # local users are stopped due to form validation checking is_active
     assert user.is_active
     has_verified_email = EmailAddress.objects.filter(user=user,
                                                      verified=True).exists()
-    if (email_verification != EmailVerificationMethod.NONE
-            and not has_verified_email):
-        send_email_confirmation(request, user)
-        if email_verification == EmailVerificationMethod.MANDATORY:
+    if email_verification == EmailVerificationMethod.NONE:
+        pass
+    elif email_verification == EmailVerificationMethod.OPTIONAL:
+        # In case of OPTIONAL verification: send only when essential.
+        if not has_verified_email and email_verification_essential:
+            send_email_confirmation(request, user)
+    elif email_verification == EmailVerificationMethod.MANDATORY:
+        if not has_verified_email:
+            send_email_confirmation(request, user)
             return render(request,
                           "account/verification_sent.html",
                           {"email": user_email(user)})
@@ -131,13 +143,15 @@ def perform_login(request, user, email_verification,
     return HttpResponseRedirect(get_login_redirect_url(request, redirect_url))
 
 
-def complete_signup(request, user, email_verification, success_url, signal_kwargs={}):
+def complete_signup(request, user, email_verification, success_url,
+                    signal_kwargs={}):
     signals.user_signed_up.send(sender=user.__class__,
                                 request=request,
                                 user=user,
                                 **signal_kwargs)
     return perform_login(request, user,
                          email_verification=email_verification,
+                         email_verification_essential=True,
                          redirect_url=success_url,
                          signal_kwargs=signal_kwargs)
 

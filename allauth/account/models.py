@@ -16,25 +16,26 @@ from .utils import random_token, user_email
 from .managers import EmailAddressManager, EmailConfirmationManager
 from .adapter import get_adapter
 
+
 @python_2_unicode_compatible
 class EmailAddress(models.Model):
-    
+
     user = models.ForeignKey(allauth_app_settings.USER_MODEL)
     email = models.EmailField(unique=app_settings.UNIQUE_EMAIL)
     verified = models.BooleanField(default=False)
     primary = models.BooleanField(default=False)
-    
+
     objects = EmailAddressManager()
-    
+
     class Meta:
         verbose_name = _("email address")
         verbose_name_plural = _("email addresses")
         if not app_settings.UNIQUE_EMAIL:
             unique_together = [("user", "email")]
-    
+
     def __str__(self):
         return u"%s (%s)" % (self.email, self.user)
-    
+
     def set_as_primary(self, conditional=False):
         old_primary = EmailAddress.objects.get_primary(self.user)
         if old_primary:
@@ -47,12 +48,12 @@ class EmailAddress(models.Model):
         user_email(self.user, self.email)
         self.user.save()
         return True
-    
-    def send_confirmation(self, request):
+
+    def send_confirmation(self, request, signup=False):
         confirmation = EmailConfirmation.create(self)
-        confirmation.send(request)
+        confirmation.send(request, signup=signup)
         return confirmation
-    
+
     def change(self, request, new_email, confirm=True):
         """
         Given a new email address, change self and re-confirm.
@@ -69,43 +70,43 @@ class EmailAddress(models.Model):
 
 @python_2_unicode_compatible
 class EmailConfirmation(models.Model):
-    
+
     email_address = models.ForeignKey(EmailAddress)
     created = models.DateTimeField(default=timezone.now)
     sent = models.DateTimeField(null=True)
     key = models.CharField(max_length=64, unique=True)
-    
+
     objects = EmailConfirmationManager()
-    
+
     class Meta:
         verbose_name = _("email confirmation")
         verbose_name_plural = _("email confirmations")
-    
+
     def __str__(self):
         return u"confirmation for %s" % self.email_address
-    
+
     @classmethod
     def create(cls, email_address):
         key = random_token([email_address.email])
         return cls._default_manager.create(email_address=email_address, key=key)
-    
+
     def key_expired(self):
         expiration_date = self.sent + datetime.timedelta(days=app_settings.EMAIL_CONFIRMATION_EXPIRE_DAYS)
         return expiration_date <= timezone.now()
     key_expired.boolean = True
-    
+
     def confirm(self, request):
         if not self.key_expired() and not self.email_address.verified:
             email_address = self.email_address
             email_address.verified = True
             email_address.set_as_primary(conditional=True)
             email_address.save()
-            signals.email_confirmed.send(sender=self.__class__, 
+            signals.email_confirmed.send(sender=self.__class__,
                                          request=request,
                                          email_address=email_address)
             return email_address
-    
-    def send(self, request, **kwargs):
+
+    def send(self, request, signup=False, **kwargs):
         current_site = kwargs["site"] if "site" in kwargs else Site.objects.get_current()
         activate_url = reverse("account_confirm_email", args=[self.key])
         activate_url = request.build_absolute_uri(activate_url)
@@ -115,8 +116,7 @@ class EmailConfirmation(models.Model):
             "current_site": current_site,
             "key": self.key,
         }
-        if (hasattr(self.email_address, 'for_new_user')
-                and self.email_address.for_new_user):
+        if signup:
             email_template = 'account/email/email_confirmation_signup'
         else:
             email_template = 'account/email/email_confirmation'
@@ -126,8 +126,3 @@ class EmailConfirmation(models.Model):
         self.sent = timezone.now()
         self.save()
         signals.email_confirmation_sent.send(sender=self.__class__, confirmation=self)
-
-
-
-
-

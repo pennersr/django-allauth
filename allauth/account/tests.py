@@ -134,6 +134,8 @@ class AccountTests(TestCase):
         self.assertEqual(len(mail.outbox), 1)
         self.assertTemplateUsed(resp,
                                 'account/verification_sent.html')
+        self.assertTemplateUsed(resp,
+                                'account/email/email_confirmation_signup_subject.txt')
         # Attempt to login, unverified
         for attempt in [1, 2]:
             resp = c.post(reverse('account_login'),
@@ -151,6 +153,10 @@ class AccountTests(TestCase):
                              .filter(email_address__email=
                                      'john@doe.com').count(),
                              attempt)
+            if attempt == 2:
+                self.assertTemplateUsed(resp,
+                                        'account/email/email_confirmation_subject.txt')
+
             # Wait for cooldown
             EmailConfirmation.objects.update(sent=now()
                                              - timedelta(days=1))

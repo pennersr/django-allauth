@@ -63,13 +63,15 @@ class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
 
     def test_email_unverified(self):
         test_email = 'raymond.penners@gmail.com'
-        self.login(self.get_mocked_response(verified_email=False))
+        resp = self.login(self.get_mocked_response(verified_email=False))
         email_address = EmailAddress.objects \
             .get(email=test_email)
         self.assertFalse(email_address.verified)
         self.assertTrue(EmailConfirmation.objects
                         .filter(email_address__email=test_email)
                         .exists())
+        self.assertTemplateUsed(resp,
+                                'account/email/email_confirmation_signup_subject.txt')
 
     def test_email_verified_stashed(self):
         # http://slacy.com/blog/2012/01/how-to-set-session-variables-in-django-unit-tests/

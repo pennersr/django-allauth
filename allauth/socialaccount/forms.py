@@ -3,13 +3,13 @@ from __future__ import absolute_import
 from django import forms
 
 from allauth.account.forms import BaseSignupForm
-from allauth.account.utils import (send_email_confirmation,
-                                   user_username, user_email)
+from allauth.account.utils import (user_username, user_email)
 
 from .models import SocialAccount
 from .adapter import get_adapter
 from . import app_settings
 from . import signals
+
 
 class SignupForm(BaseSignupForm):
 
@@ -28,9 +28,7 @@ class SignupForm(BaseSignupForm):
         new_user = self.create_user()
         self.sociallogin.account.user = new_user
         self.sociallogin.save(request)
-        super(SignupForm, self).save(new_user) 
-        # Confirmation last (save may alter first_name etc -- used in mail)
-        send_email_confirmation(request, new_user)
+        super(SignupForm, self).save(new_user)
         return new_user
 
 
@@ -56,5 +54,5 @@ class DisconnectForm(forms.Form):
         account = self.cleaned_data['account']
         account.delete()
         signals.social_account_removed.send(sender=SocialAccount,
-                                            request=self.request, 
+                                            request=self.request,
                                             socialaccount=account)

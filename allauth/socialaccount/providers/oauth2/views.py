@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 from datetime import timedelta
 
 from django.core.urlresolvers import reverse
@@ -10,6 +12,7 @@ from allauth.socialaccount.providers.oauth2.client import (OAuth2Client,
                                                            OAuth2Error)
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.models import SocialToken, SocialLogin
+from ..base import AuthAction
 
 class OAuth2Adapter(object):
     expires_in_key = 'expires_in'
@@ -58,7 +61,7 @@ class OAuth2LoginView(OAuth2View):
         provider = self.adapter.get_provider()
         app = provider.get_app(self.request)
         client = self.get_client(request, app)
-        action = request.GET.get('action', 'authenticate')
+        action = request.GET.get('action', AuthAction.AUTHENTICATE)
         auth_url = self.adapter.authorize_url
         auth_params = provider.get_auth_params(request, action)
         client.state = SocialLogin.stash_state(request)

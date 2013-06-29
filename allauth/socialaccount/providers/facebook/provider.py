@@ -81,7 +81,7 @@ class FacebookProvider(OAuth2Provider):
     def get_auth_params(self, request, action):
         ret = super(FacebookProvider, self).get_auth_params(request,
                                                             action)
-        if action == 'reauthenticate':
+        if action == AuthAction.REAUTHENTICATE:
             ret['auth_type'] = 'reauthenticate'
         return ret
 

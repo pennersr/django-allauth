@@ -1,5 +1,6 @@
 from allauth.socialaccount import providers
-from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.base import (ProviderAccount,
+                                                  AuthAction)
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
 
 
@@ -35,7 +36,7 @@ class TwitterProvider(OAuthProvider):
     account_class = TwitterAccount
 
     def get_auth_url(self, request, action):
-        if action == 'reauthenticate':
+        if action == AuthAction.REAUTHENTICATE:
             url = 'https://api.twitter.com/oauth/authorize'
         else:
             url = 'https://api.twitter.com/oauth/authenticate'

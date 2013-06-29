@@ -4,12 +4,30 @@
 	new `action="reauthenticate"` parameter to the `{%
 	provider_login_url %}`
 
+2013-06-28  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Roberto Novaes contributed a Brazilian Portuguese translation,
+	thanks!
+
+2013-06-18  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Daniel Eriksson contributed a Swedish translation, thanks!
+
+2013-06-11  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* You can now logout from both allauth and Facebook via a
+	Javascript helper: `window.allauth.facebook.logout()`.
+
 2013-06-10  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Connecting a social account is now a flow that needs to be
 	explicitly triggered, by means of a `process="connect"` parameter
 	that can be passed along to the `{% provider_login_url %}`, or a
 	`process=connect` GET parameter.
+
+2013-06-06  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Tomas Marcik contributed a Czech translation, thanks!
 
 2013-06-04  Raymond Penners  <raymond.penners@intenct.nl>
 

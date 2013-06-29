@@ -3,6 +3,7 @@ from django.utils.http import urlencode
 
 from allauth.socialaccount.providers.base import Provider
 
+
 class OAuth2Provider(Provider):
     def get_login_url(self, request, **kwargs):
         url = reverse(self.id + "_login")
@@ -10,10 +11,10 @@ class OAuth2Provider(Provider):
             url = url + '?' + urlencode(kwargs)
         return url
 
-    def get_auth_params(self):
+    def get_auth_params(self, request, action):
         settings = self.get_settings()
         return settings.get('AUTH_PARAMS', {})
-        
+
     def get_scope(self):
         settings = self.get_settings()
         scope = settings.get('SCOPE')
@@ -23,5 +24,3 @@ class OAuth2Provider(Provider):
 
     def get_default_scope(self):
         return []
-
-

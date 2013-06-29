@@ -47,21 +47,24 @@ class OAuth2View(object):
         callback_url = request.build_absolute_uri(callback_url)
         provider = self.adapter.get_provider()
         client = OAuth2Client(self.request, app.client_id, app.secret,
-                              self.adapter.authorize_url,
                               self.adapter.access_token_url,
                               callback_url,
-                              provider.get_scope(),
-                              provider.get_auth_params())
+                              provider.get_scope())
         return client
 
 
 class OAuth2LoginView(OAuth2View):
     def dispatch(self, request):
-        app = self.adapter.get_provider().get_app(self.request)
+        provider = self.adapter.get_provider()
+        app = provider.get_app(self.request)
         client = self.get_client(request, app)
+        action = request.GET.get('action', 'authenticate')
+        auth_url = self.adapter.authorize_url
+        auth_params = provider.get_auth_params(request, action)
         client.state = SocialLogin.stash_state(request)
         try:
-            return HttpResponseRedirect(client.get_redirect_url())
+            return HttpResponseRedirect(client.get_redirect_url(auth_url, 
+                                                                auth_params))
         except OAuth2Error:
             return render_authentication_error(request)
 

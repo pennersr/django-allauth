@@ -39,14 +39,14 @@ class OAuthError(Exception):
 
 class OAuthClient(object):
 
-    def __init__(self, request, consumer_key, consumer_secret, request_token_url,
-        access_token_url, authorization_url, callback_url, parameters=None):
+    def __init__(self, request, consumer_key, consumer_secret, 
+                 request_token_url, access_token_url, callback_url, 
+                 parameters=None):
 
         self.request = request
 
         self.request_token_url = request_token_url
         self.access_token_url = access_token_url
-        self.authorization_url = authorization_url
 
         self.consumer_key = consumer_key
         self.consumer_secret = consumer_secret
@@ -114,11 +114,6 @@ class OAuthClient(object):
         except KeyError:
             raise OAuthError(_('No request token saved for "%s".') % get_token_prefix(self.request_token_url))
 
-    def _get_authorization_url(self):
-        request_token = self._get_request_token()
-        return '%s?oauth_token=%s&oauth_callback=%s' % (self.authorization_url,
-            request_token['oauth_token'], self.request.build_absolute_uri(self.callback_url))
-
     def is_valid(self):
         try:
             self._get_rt_from_session()
@@ -128,12 +123,16 @@ class OAuthClient(object):
             return False
         return True
 
-    def get_redirect(self):
+    def get_redirect(self, authorization_url):
         """
         Returns a ``HttpResponseRedirect`` object to redirect the user to the
         URL the OAuth provider handles authorization.
         """
-        return HttpResponseRedirect(self._get_authorization_url())
+        request_token = self._get_request_token()
+        url = '%s?oauth_token=%s&oauth_callback=%s' \
+            % (authorization_url, request_token['oauth_token'], 
+               self.request.build_absolute_uri(self.callback_url))
+        return HttpResponseRedirect(url)
 
 
 class OAuth(object):

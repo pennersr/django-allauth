@@ -3,11 +3,22 @@ from django.utils.encoding import python_2_unicode_compatible
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.models import SocialApp
 
+
+class AuthProcess(object):
+    LOGIN = 'login'
+    CONNECT = 'connect'
+
+
+class AuthAction(object):
+    AUTHENTICATE = 'authenticate'
+    REAUTHENTICATE = 'reauthenticate'
+
+
 class Provider(object):
     def get_login_url(self, request, next=None, **kwargs):
         """
         Builds the URL to redirect to when initiating a login for this
-        provider. 
+        provider.
         """
         raise NotImplementedError("get_login_url() for " + self.name)
 
@@ -19,7 +30,7 @@ class Provider(object):
         Some providers may require extra scripts (e.g. a Facebook connect)
         """
         return ''
-        
+
     def wrap_account(self, social_account):
         return self.account_class(social_account)
 
@@ -69,4 +80,3 @@ class ProviderAccount(object):
         fashion, without having to worry about @python_2_unicode_compatible
         """
         return self.get_brand()['name']
-    

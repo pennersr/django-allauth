@@ -818,6 +818,12 @@ indicates how to process the social login. You can choose between
 
     <a href="{% provider_login_url "twitter" process="connect" %}">Connect a Twitter account</a>
 
+Furthermore, you can pass along an `action` parameter with value
+`reauthenticate` to indicate that you want the user to be re-prompted
+for authentication even if he already signed in before. For now, this
+is supported by Facebook, Google and Twitter only.
+
+
 For easy access to the social accounts for a user::
 
     {% get_social_accounts user as accounts %}

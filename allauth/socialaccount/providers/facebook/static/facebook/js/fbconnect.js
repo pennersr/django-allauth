@@ -32,7 +32,10 @@
                 oauth      : true,
                 xfbml      : true
             });
-            allauth.facebook.login = function(nextUrl, process) {
+            allauth.facebook.login = function(nextUrl, action, process) {
+		if (action == 'reauthenticate') {
+		    opts.loginOptions.auth_type = action;
+		}
                 FB.login(function(response) {
                     if (response.authResponse) {
                         postForm(opts.loginByTokenUrl,

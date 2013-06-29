@@ -10,6 +10,12 @@ class OAuthProvider(Provider):
             url = url + '?' + urlencode(kwargs)
         return url
 
+    def get_auth_url(self, request, action):
+        # TODO: This is ugly. Move authorization_url away from the
+        # adapter into the provider. Hmpf, the line between
+        # adapter/provider is a bit too thin here.
+        return None
+
     def get_scope(self):
         settings = self.get_settings()
         scope = settings.get('SCOPE')

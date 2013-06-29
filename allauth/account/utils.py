@@ -237,6 +237,7 @@ def setup_user_email(request, user, addresses):
                                                  priority_addresses
                                                  + addresses)
     for a in addresses:
+        a.user = user
         a.save()
     if (primary
         and email

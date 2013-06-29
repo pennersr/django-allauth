@@ -1,3 +1,9 @@
+2013-06-29  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Added support for re-authenticated (forced prompt) by means of a
+	new `action="reauthenticate"` parameter to the `{%
+	provider_login_url %}`
+
 2013-06-10  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Connecting a social account is now a flow that needs to be

@@ -11,3 +11,5 @@ example/local_settings.py
 coverage.xml
 pep8.txt
 *.bak
+.#*
+\#*

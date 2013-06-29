@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 
@@ -7,6 +9,9 @@ from allauth.socialaccount.providers.oauth.client import (OAuthClient,
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount import providers
 from allauth.socialaccount.models import SocialToken, SocialLogin
+
+from ..base import AuthAction
+
 
 class OAuthAdapter(object):
 
@@ -40,7 +45,6 @@ class OAuthView(object):
         client = OAuthClient(request, app.client_id, app.secret,
                              self.adapter.request_token_url,
                              self.adapter.access_token_url,
-                             self.adapter.authorize_url,
                              callback_url,
                              parameters=parameters)
         return client
@@ -50,9 +54,13 @@ class OAuthLoginView(OAuthView):
     def dispatch(self, request):
         callback_url = reverse(self.adapter.provider_id + "_callback")
         SocialLogin.stash_state(request)
+        action = request.GET.get('action', AuthAction.AUTHENTICATE)
+        provider = self.adapter.get_provider()
+        auth_url = provider.get_auth_url(request, action) \
+            or self.adapter.authorize_url
         client = self._get_client(request, callback_url)
         try:
-            return client.get_redirect()
+            return client.get_redirect(auth_url)
         except OAuthError:
             return render_authentication_error(request)
 

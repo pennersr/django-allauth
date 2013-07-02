@@ -135,8 +135,8 @@ def create_oauth2_tests(provider):
         # get token
         t = sa.socialtoken_set.get()
         # verify access_token and refresh_token
-        self.assertEquals('testac', t.token)
-        self.assertEquals('testrf', t.token_secret)
+        self.assertEqual('testac', t.token)
+        self.assertEqual('testrf', t.token_secret)
 
     def test_account_refresh_token_saved_next_login(self):
         '''

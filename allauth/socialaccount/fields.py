@@ -3,17 +3,19 @@ import json
 
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils import six
+
 try:
     from django.utils.encoding import smart_unicode as smart_text
 except ImportError:
     from django.utils.encoding import smart_text
 
 
-class JSONField(models.TextField):
+class JSONField(six.with_metaclass(models.SubfieldBase,
+                                   models.TextField)):
     """Simple JSON field that stores python structures as JSON strings
     on database.
     """
-    __metaclass__ = models.SubfieldBase
 
     def to_python(self, value):
         """
@@ -22,7 +24,7 @@ class JSONField(models.TextField):
         """
         if self.blank and not value:
             return None
-        if isinstance(value, basestring):
+        if isinstance(value, six.string_types):
             try:
                 return json.loads(value)
             except Exception as e:
@@ -33,7 +35,7 @@ class JSONField(models.TextField):
     def validate(self, value, model_instance):
         """Check value is a valid JSON string, raise ValidationError on
         error."""
-        if isinstance(value, basestring):
+        if isinstance(value, six.string_types):
             super(JSONField, self).validate(value, model_instance)
             try:
                 json.loads(value)

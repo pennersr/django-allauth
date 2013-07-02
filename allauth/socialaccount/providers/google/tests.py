@@ -39,12 +39,14 @@ class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
     def test_email_verified(self):
         test_email = 'raymond.penners@gmail.com'
         self.login(self.get_mocked_response(verified_email=True))
-        EmailAddress.objects \
+        email_address = EmailAddress.objects \
             .get(email=test_email,
                  verified=True)
         self.assertFalse(EmailConfirmation.objects
                          .filter(email_address__email=test_email)
                          .exists())
+        account = email_address.user.socialaccount_set.all()[0]
+        self.assertEqual(account.extra_data['given_name'], 'Raymond')
 
     def test_user_signed_up_signal(self):
         sent_signals = []

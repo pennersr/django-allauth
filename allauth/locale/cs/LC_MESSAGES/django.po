@@ -418,7 +418,7 @@ msgstr "Zaregistrovat se"
 #, python-format
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr "Máte již účet? <a href=\"%(login_url)s\">Příhlašte se</a>, prosím."
+msgstr "Máte již účet? <a href=\"%(login_url)s\">Přihlašte se</a>, prosím."
 
 #: templates/account/signup_closed.html:6
 #: templates/account/signup_closed.html:9

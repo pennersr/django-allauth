@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Django-Postman\n"
+"Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-12 19:07+0200\n"
-"PO-Revision-Date: 2013-05-08 01:41+0800\n"
+"PO-Revision-Date: 2013-07-13 18:36+0800\n"
 "Last-Translator: jresins <jresins@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,12 +31,12 @@ msgstr "记住我"
 
 #: account/forms.py:60 account/forms.py:173
 msgid "E-mail address"
-msgstr "例如: ak47@example.com"
+msgstr "E-mail地址"
 
 #: account/forms.py:61 account/forms.py:182 account/forms.py:301
 #: account/forms.py:368
 msgid "E-mail"
-msgstr "邮件地址"
+msgstr "E-mail"
 
 #: account/forms.py:66 account/forms.py:67 account/forms.py:166
 #: account/forms.py:170
@@ -45,7 +45,7 @@ msgstr "用户名"
 
 #: account/forms.py:74
 msgid "Username or e-mail"
-msgstr "用户名或邮件地址"
+msgstr "用户名或e-mail"
 
 #: account/forms.py:75
 msgctxt "field label"
@@ -58,19 +58,19 @@ msgstr "此账号当前未激活。"
 
 #: account/forms.py:112
 msgid "The e-mail address and/or password you specified are not correct."
-msgstr "您指定的邮件地址或密码不正确。"
+msgstr "您提供的e-mail地址或密码不正确。"
 
 #: account/forms.py:116
 msgid "The username and/or password you specified are not correct."
-msgstr "您指定的用户名或密码不正确。"
+msgstr "您提供的用户名或密码不正确。"
 
 #: account/forms.py:119
 msgid "The login and/or password you specified are not correct."
-msgstr "您指定的账号或密码错误"
+msgstr "您提供的账号或密码错误"
 
 #: account/forms.py:185
 msgid "E-mail (optional)"
-msgstr "邮件地址 (选填项)"
+msgstr "E-mail (选填项)"
 
 #: account/forms.py:193
 msgid "Usernames can only contain letters, digits and @/./+/-/_."
@@ -86,7 +86,7 @@ msgstr "此用户名已被使用，请选择其他用户名。"
 
 #: account/forms.py:212
 msgid "A user is already registered with this e-mail address."
-msgstr "此邮件地址已被注册。"
+msgstr "此e-mail地址已被其他用户注册。"
 
 #: account/forms.py:234 account/forms.py:352
 msgid "Password (again)"
@@ -99,11 +99,11 @@ msgstr "每次输入的密码必须相同"
 
 #: account/forms.py:309
 msgid "This e-mail address is already associated with this account."
-msgstr "此邮件地址已关联到这个账号。"
+msgstr "此e-mail地址已关联到这个账号。"
 
 #: account/forms.py:310
 msgid "This e-mail address is already associated with another account."
-msgstr "此邮件地址已关联到其他账号。"
+msgstr "此e-mail地址已关联到其他账号。"
 
 #: account/forms.py:329
 msgid "Current Password"
@@ -119,27 +119,27 @@ msgstr "新密码 (重复)"
 
 #: account/forms.py:335
 msgid "Please type your current password."
-msgstr "请输入你的当前密码"
+msgstr "请输入您的当前密码"
 
 #: account/forms.py:378
 msgid "The e-mail address is not assigned to any user account"
-msgstr "此邮件地址未分配给任何用户账号"
+msgstr "此e-mail地址未分配给任何用户账号"
 
 #: account/models.py:30
 msgid "email address"
-msgstr "邮件地址"
+msgstr "e-mail地址"
 
 #: account/models.py:31
 msgid "email addresses"
-msgstr "邮件地址"
+msgstr "e-mail地址"
 
 #: account/models.py:81
 msgid "email confirmation"
-msgstr "邮件确认"
+msgstr "e-mail确认"
 
 #: account/models.py:82
 msgid "email confirmations"
-msgstr "邮件确认"
+msgstr "e-mail确认"
 
 #: account/utils.py:95
 #, python-format
@@ -149,22 +149,22 @@ msgstr "以 %(user)s.身份成功登陆"
 #: account/utils.py:240 account/views.py:222 account/views.py:241
 #, python-format
 msgid "Confirmation e-mail sent to %(email)s"
-msgstr "确认邮件已发往 %(email)s"
+msgstr "确认e-mail已发往 %(email)s"
 
 #: account/views.py:147
 #, python-format
 msgid "You have confirmed %(email)s."
-msgstr "你已确认邮件地址 %(email)s "
+msgstr "您已确认e-mail地址 %(email)s "
 
 #: account/views.py:259
 #, python-format
 msgid "You cannot remove your primary e-mail address (%(email)s)"
-msgstr "您不能删除你的主要邮件地址 (%(email)s) "
+msgstr "您不能删除您的主要e-mail地址 (%(email)s) "
 
 #: account/views.py:269
 #, python-format
 msgid "Removed e-mail address %(email)s"
-msgstr "邮件地址 %(email)s 已删除"
+msgstr "e-mail地址 %(email)s 已删除"
 
 #: account/views.py:295
 msgid "Your primary e-mail address must be verified"
@@ -192,7 +192,7 @@ msgstr "您的账号未设置密码。"
 
 #: socialaccount/forms.py:51
 msgid "Your account has no verified e-mail address."
-msgstr "您的账号下无任何验证过邮件地址。"
+msgstr "您的账号下无任何验证过的e-mail地址。"
 
 #: socialaccount/helpers.py:129
 msgid "The social account has been connected"
@@ -233,11 +233,11 @@ msgstr "账号"
 
 #: templates/account/email.html:9
 msgid "E-mail Addresses"
-msgstr "邮件地址"
+msgstr "E-mail地址"
 
 #: templates/account/email.html:11
 msgid "The following e-mail addresses are associated with your account:"
-msgstr "您的账号下关联了以下邮件地址："
+msgstr "以下e-mail地址已关联到您的帐号："
 
 #: templates/account/email.html:25
 msgid "Verified"
@@ -249,15 +249,15 @@ msgstr "未验证"
 
 #: templates/account/email.html:29
 msgid "Primary"
-msgstr "首选邮件地址"
+msgstr "首选e-mail"
 
 #: templates/account/email.html:35
 msgid "Make Primary"
-msgstr "使成为首选邮件地址"
+msgstr "设置首选e-mail"
 
 #: templates/account/email.html:36
 msgid "Re-send Verification"
-msgstr "重发验证邮件"
+msgstr "重发验证e-mail"
 
 #: templates/account/email.html:37 templates/socialaccount/connections.html:35
 msgid "Remove"
@@ -272,15 +272,15 @@ msgid ""
 "You currently do not have any e-mail address set up. You should really add "
 "an e-mail address so you can receive notifications, reset your password, etc."
 msgstr ""
-"您当前未设置任何邮件地址。您应该设置一个邮件地址，以便接收通知，重置密码等。"
+"您当前未设置任何邮件地址。您需要设置一个邮件地址，以便接收通知，重置密码等。"
 
 #: templates/account/email.html:49
 msgid "Add E-mail Address"
-msgstr "添加邮件地址"
+msgstr "添加E-mail地址"
 
 #: templates/account/email.html:54
 msgid "Add E-mail"
-msgstr "添加邮件地址"
+msgstr "添加E-mail"
 
 #: templates/account/email.html:64
 msgid "Do you really want to remove the selected e-mail address?"
@@ -292,7 +292,7 @@ msgstr "您真的想移除选定的邮件地址码？"
 #: templates/account/email_confirmed.html:11
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Confirm E-mail Address"
-msgstr "确认邮件地址"
+msgstr "确认E-mail地址"
 
 #: templates/account/email_confirm.html:17
 #, python-format
@@ -313,7 +313,7 @@ msgid ""
 "This e-mail confirmation link expired or is invalid. Please <a href="
 "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"邮件验证链接失效或无效。请点击 <a href=\"%(email_url)s\">发起新的邮件验证请"
+"e-mail验证链接失效或无效。请点击 <a href=\"%(email_url)s\">发起新的e-mail验证请"
 "求。"
 
 #: templates/account/email_confirmed.html:15
@@ -340,7 +340,7 @@ msgid ""
 msgstr ""
 "请用您的第三方账号登录。\n"
 "或者<a href=\"%(signup_url)s\">注册</a> \n"
-"一个 %(site_name)s账号并在下面登录："
+"一个 %(site_name)s账号并登录："
 
 #: templates/account/login.html:24
 msgid "or"
@@ -375,7 +375,7 @@ msgstr "删除密码"
 #: templates/account/password_delete.html:9
 msgid ""
 "You may delete your password since you are currently logged in using OpenID."
-msgstr "因您当前使用OpenID登录，因此您可以删除你的密码。"
+msgstr "您当前使用OpenID登录，因此您可以删除你的密码。"
 
 #: templates/account/password_delete.html:12
 msgid "delete my password"
@@ -402,7 +402,7 @@ msgid ""
 "Forgotten your password? Enter your e-mail address below, and we'll send you "
 "an e-mail allowing you to reset it."
 msgstr ""
-"忘记密码？在下面输入您的邮件地址，我们将给您发送一份邮件，这将允许您重置密"
+"忘记密码？在下面输入您的e-mail地址，我们将给您发送一封e-mail，以便重置密"
 "码。"
 
 #: templates/account/password_reset.html:20
@@ -417,7 +417,7 @@ msgstr "如在重置密码时遇到问题，请与我们联系。"
 msgid ""
 "We have sent you an e-mail. Please contact us if you do not receive it "
 "within a few minutes."
-msgstr "我们已给您发了一封邮件。如您在几分钟后仍没收到我们的邮件，请联系我们。"
+msgstr "我们已给您发了一封e-mail,如您在几分钟后仍没收到，请与我们联系。"
 
 #: templates/account/password_reset_from_key.html:8
 msgid "Bad Token"
@@ -476,7 +476,7 @@ msgstr "非常抱歉，当前已关闭注册。"
 #: templates/account/verified_email_required.html:6
 #: templates/account/verified_email_required.html:9
 msgid "Verify Your E-mail Address"
-msgstr "验证您的邮件地址。"
+msgstr "验证您的E-mail地址。"
 
 #: templates/account/verification_sent.html:10
 #, python-format
@@ -485,8 +485,8 @@ msgid ""
 "verification. Follow the link provided to finalize the signup process. "
 "Please contact us if you do not receive it within a few minutes."
 msgstr ""
-"我们已向<a href=\"mailto:%(email)s\">%(email)s</a>发送了一封验证邮件。点击邮"
-"件中的链接完成注册。如果您在若干分钟后仍然未收到邮件，请与我们联系。"
+"我们已向<a href=\"mailto:%(email)s\">%(email)s</a>发了一封验证e-mail。点击"
+"e-mail中的链接完成注册流程。如果您在几分钟后仍未收到邮件，请与我们联系。"
 
 #: templates/account/verified_email_required.html:13
 msgid ""
@@ -494,8 +494,8 @@ msgid ""
 "you are who you claim to be. For this purpose, we require that you\n"
 "verify ownership of your e-mail address. "
 msgstr ""
-"网站的这个部分要求我们验证您的真实身份。\n"
-"为此，我们需要您确认您是此账号邮件地址的所有者。"
+"网站的这部分功能要求验证您的真实身份。\n"
+"为此，我们需要您确认您是此账号e-mail地址的所有者。"
 
 #: templates/account/verified_email_required.html:17
 msgid ""
@@ -503,8 +503,8 @@ msgid ""
 "verification. Please click on the link inside this e-mail. Please\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
-"我们已经给您发送了一封验证邮件。请点击邮件中的链接。如果您在若干分钟后仍未收"
-"到邮件，请联系我们。"
+"我们已经给您发送了一封e-mail验证邮件。\n"
+"请点击e-mail中的链接。若您在几分钟后仍未收到邮件，请联系我们。"
 
 #: templates/account/verified_email_required.html:21
 #, python-format
@@ -512,7 +512,7 @@ msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
 "mail address</a>."
 msgstr ""
-"<strong>注意:</strong> 您仍然能够<a href=\"%(email_url)s\">修改您的邮箱地址 "
+"<strong>注意:</strong> 您仍然能够<a href=\"%(email_url)s\">修改您的e-mail地址 "
 "</a>."
 
 #: templates/account/email/email_confirmation_message.txt:1
@@ -522,7 +522,7 @@ msgid ""
 "\n"
 "To confirm this is correct, go to %(activate_url)s\n"
 msgstr ""
-"网站%(site_name)s上的用户%(user_display)s将此邮箱设置为其邮件地址。\n"
+"网站%(site_name)s上的用户%(user_display)s将此设为其e-mail地址。\n"
 "\n"
 "为验证这是正确的，请访问%(activate_url)s\n"
 
@@ -540,13 +540,13 @@ msgid ""
 "\n"
 "Thanks for using our site!\n"
 msgstr ""
-"您收到此邮件表示您或者他人在网站 %(site_domain)s上为您的账号申请了密码重"
+"您收到此邮件表示您或者他人在网站 %(site_domain)s上为您的账号请求了密码重"
 "置。\n"
-"若您未申请密码重置，可以直接忽略此邮件。如要重置密码，请点击下面的链接。\n"
+"若您未请求密码重置，可以直接忽略此邮件。如要重置密码，请点击下面的链接。\n"
 "\n"
 "%(password_reset_url)s\n"
 "\n"
-"如果您遗忘了，您的用户名是%(username)s.\n"
+"作为提示，您的用户名是%(username)s.\n"
 "\n"
 "感谢您使用我们的网站！\n"
 
@@ -595,7 +595,7 @@ msgstr "账号链接"
 msgid ""
 "You can sign in to your account using any of the following third party "
 "accounts:"
-msgstr "您可以用您拥有的以下任何第三方账号登录"
+msgstr "您可以用您的以下任何第三方账号登录"
 
 #: templates/socialaccount/connections.html:43
 msgid ""

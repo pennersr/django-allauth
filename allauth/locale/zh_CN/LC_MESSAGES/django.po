@@ -15,7 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-
 #: account/forms.py:31 account/forms.py:47 account/forms.py:233
 #: account/forms.py:351
 msgid "Password"

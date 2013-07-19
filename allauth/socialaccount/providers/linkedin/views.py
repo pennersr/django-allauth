@@ -27,12 +27,12 @@ class LinkedInAPI(OAuth):
         Convert XML structure to dict recursively, repeated keys
         entries are returned as in list containers.
         """
-        children = xml.getchildren()
+        children = list(xml)
         if not children:
             return xml.text
         else:
             out = {}
-            for node in xml.getchildren():
+            for node in list(xml):
                 if node.tag in out:
                     if not isinstance(out[node.tag], list):
                         out[node.tag] = [out[node.tag]]

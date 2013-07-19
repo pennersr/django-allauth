@@ -7,10 +7,11 @@ from django.core.exceptions import ValidationError
 from ..utils import (import_attribute,
                      get_user_model,
                      valid_email_or_none)
-from ..account.utils import user_email, user_username
+from ..account.utils import user_email, user_username, user_field
 from ..account.models import EmailAddress
 
 from . import app_settings
+
 
 class DefaultSocialAccountAdapter(object):
     def pre_social_login(self, request, sociallogin):
@@ -27,7 +28,6 @@ class DefaultSocialAccountAdapter(object):
         handlers may be active and are executed in undetermined order.
         """
         pass
-
 
     def populate_new_user(self,
                           username=None,
@@ -48,9 +48,9 @@ class DefaultSocialAccountAdapter(object):
         user = get_user_model()()
         user_username(user, username or '')
         user_email(user, valid_email_or_none(email) or '')
-        name_parts= (name or '').partition(' ')
-        user.first_name = first_name or name_parts[0]
-        user.last_name = last_name or name_parts[2]
+        name_parts = (name or '').partition(' ')
+        user_field(user, 'first_name', first_name or name_parts[0])
+        user_field(user, 'last_name', last_name or name_parts[2])
         return user
 
     def get_connect_redirect_url(self, request, socialaccount):
@@ -62,7 +62,6 @@ class DefaultSocialAccountAdapter(object):
         url = reverse('socialaccount_connections')
         return url
 
-
     def validate_disconnect(self, account, accounts):
         """
         Validate whether or not the socialaccount account can be
@@ -71,13 +70,14 @@ class DefaultSocialAccountAdapter(object):
         if len(accounts) == 1:
             # No usable password would render the local account unusable
             if not account.user.has_usable_password():
-                raise ValidationError(_("Your account has no password set up."))
+                raise ValidationError(_("Your account has no password set"
+                                        " up."))
             # No email address, no password reset
             if EmailAddress.objects.filter(user=account.user,
                                            verified=True).count() == 0:
-                raise ValidationError(_("Your account has no verified e-mail address."))
+                raise ValidationError(_("Your account has no verified e-mail"
+                                        " address."))
 
 
 def get_adapter():
     return import_attribute(app_settings.ADAPTER)()
-

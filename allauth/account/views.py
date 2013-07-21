@@ -419,6 +419,9 @@ class LogoutView(TemplateResponseMixin, View):
     template_name = "account/logout.html"
     redirect_field_name = "next"
 
+    def get_template_names(self):
+        return [self.kwargs.pop("template_name", self.template_name)]
+
     def get(self, *args, **kwargs):
         if app_settings.LOGOUT_ON_GET:
             return self.post(*args, **kwargs)

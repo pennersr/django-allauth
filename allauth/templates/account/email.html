@@ -50,7 +50,7 @@
     
     <form method="post" action="" class="add_email uniForm">
         {% csrf_token %}
-        {{ add_email_form.as_p}}
+        {{ form.as_p}}
         <button name="action_add" type="submit">{% trans "Add E-mail" %}</button>
     </form>
     

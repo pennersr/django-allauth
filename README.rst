@@ -213,8 +213,9 @@ ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS (=3)
 ACCOUNT_EMAIL_REQUIRED (=False)
   The user is required to hand over an e-mail address when signing up.
 
-ACCOUNT_EMAIL_VERIFICATION (="mandatory" | "optional" | "none")
-  Determines the e-mail verification method during signup. When set to
+ACCOUNT_EMAIL_VERIFICATION (="optional")
+  Determines the e-mail verification method during signup -- choose
+  one of `"mandatory"`, `"optional"`, or `"none"`. When set to
   "mandatory" the user is blocked from logging in until the email
   address is verified. Choose "optional" or "none" to allow logins
   with an unverified e-mail address. In case of "optional", the e-mail

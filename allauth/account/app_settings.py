@@ -77,7 +77,7 @@ class AppSettings(object):
         See e-mail verification method
         """
         ret = self._setting("EMAIL_VERIFICATION", 
-                            self.EmailVerificationMethod.OPTIONAL)
+                            self.EmailVerificationMethod.MANDATORY)
         # Deal with legacy (boolean based) setting
         if ret == True:
             ret = self.EmailVerificationMethod.MANDATORY

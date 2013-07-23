@@ -1,10 +1,9 @@
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.sites.models import Site
 from django.http import HttpResponseRedirect, Http404
-from django.shortcuts import render_to_response, get_object_or_404
-from django.template import RequestContext
+from django.shortcuts import get_object_or_404
 from django.utils.http import base36_to_int
-from django.views.generic.base import TemplateResponseMixin, View
+from django.views.generic.base import TemplateResponseMixin, View, TemplateView
 from django.views.generic.edit import FormView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -44,9 +43,10 @@ class RedirectAuthenticatedUserMixin(object):
                                                                     **kwargs)
 
     def get_authenticated_redirect_url(self):
+        redirect_field_name = self.redirect_field_name
         return get_login_redirect_url(self.request,
                                       url=self.get_success_url(),
-                                      redirect_field_name=self.redirect_field_name)
+                                      redirect_field_name=redirect_field_name)
 
 
 class LoginView(RedirectAuthenticatedUserMixin, FormView):
@@ -68,17 +68,19 @@ class LoginView(RedirectAuthenticatedUserMixin, FormView):
 
     def get_context_data(self, **kwargs):
         ret = super(LoginView, self).get_context_data(**kwargs)
-        ret.update({
-                "signup_url": passthrough_next_redirect_url(self.request,
-                                                            reverse("account_signup"),
-                                                            self.redirect_field_name),
-                "site": Site.objects.get_current(),
-                "redirect_field_name": self.redirect_field_name,
-                "redirect_field_value": self.request.REQUEST.get(self.redirect_field_name),
-                })
+        signup_url = passthrough_next_redirect_url(self.request,
+                                                   reverse("account_signup"),
+                                                   self.redirect_field_name)
+        redirect_field_value = self.request.REQUEST \
+            .get(self.redirect_field_name)
+        ret.update({"signup_url": signup_url,
+                    "site": Site.objects.get_current(),
+                    "redirect_field_name": self.redirect_field_name,
+                    "redirect_field_value": redirect_field_value})
         return ret
 
 login = LoginView.as_view()
+
 
 class CloseableSignupMixin(object):
     template_name_signup_closed = "account/signup_closed.html"
@@ -107,7 +109,8 @@ class CloseableSignupMixin(object):
         return self.response_class(**response_kwargs)
 
 
-class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin, FormView):
+class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
+                 FormView):
     template_name = "account/signup.html"
     form_class = SignupForm
     redirect_field_name = "next"
@@ -128,7 +131,8 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin, FormView)
 
     def get_context_data(self, **kwargs):
         form = kwargs['form']
-        form.fields["email"].initial = self.request.session.get('account_verified_email', None)
+        form.fields["email"].initial = self.request.session \
+            .get('account_verified_email', None)
         ret = super(SignupView, self).get_context_data(**kwargs)
         login_url = passthrough_next_redirect_url(self.request,
                                                   reverse("account_login"),
@@ -137,11 +141,11 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin, FormView)
         redirect_field_value = self.request.REQUEST.get(redirect_field_name)
         ret.update({"login_url": login_url,
                     "redirect_field_name": redirect_field_name,
-                    "redirect_field_value": redirect_field_value })
+                    "redirect_field_value": redirect_field_value})
         return ret
 
-
 signup = SignupView.as_view()
+
 
 class ConfirmEmailView(TemplateResponseMixin, View):
 
@@ -149,7 +153,7 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         if self.request.method == 'POST':
             return ["account/email_confirmed.html"]
         else:
-            return [ "account/email_confirm.html" ]
+            return ["account/email_confirm.html"]
 
     def get(self, *args, **kwargs):
         try:
@@ -175,7 +179,7 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         get_adapter().add_message(self.request,
                                   messages.SUCCESS,
                                   'account/messages/email_confirmed.txt',
-                                  { 'email': confirmation.email_address.email })
+                                  {'email': confirmation.email_address.email})
         return redirect(redirect_url)
 
     def get_object(self, queryset=None):
@@ -201,217 +205,291 @@ class ConfirmEmailView(TemplateResponseMixin, View):
 
 confirm_email = ConfirmEmailView.as_view()
 
-@login_required
-def email(request, **kwargs):
-    form_class = kwargs.pop("form_class", AddEmailForm)
-    template_name = kwargs.pop("template_name", "account/email.html")
-    sync_user_email_addresses(request.user)
-    if request.method == "POST" and request.user.is_authenticated():
+
+class EmailView(FormView):
+    template_name = "account/email.html"
+    form_class = AddEmailForm
+    success_url = reverse_lazy('account_email')
+
+    def dispatch(self, request, *args, **kwargs):
+        sync_user_email_addresses(request.user)
+        return super(EmailView, self).dispatch(request, *args, **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super(EmailView, self).get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        email_address = form.save(self.request)
+        get_adapter().add_message(self.request,
+                                  messages.INFO,
+                                  'account/messages/'
+                                  'email_confirmation_sent.txt',
+                                  {'email': form.cleaned_data["email"]})
+        signals.email_added.send(sender=self.request.user.__class__,
+                                 request=self.request,
+                                 user=self.request.user,
+                                 email_address=email_address)
+        return super(EmailView, self).form_valid(form)
+
+    def post(self, request, *args, **kwargs):
         if "action_add" in request.POST:
-            add_email_form = form_class(request.user, request.POST)
-            if add_email_form.is_valid():
-                email_address = add_email_form.save(request)
-                get_adapter().add_message(request,
-                                          messages.INFO,
-                                          'account/messages/email_confirmation_sent.txt',
-                                          { 'email': add_email_form.cleaned_data["email"] })
-                signals.email_added.send(sender=request.user.__class__,
-                        request=request, user=request.user,
-                        email_address=email_address)
-                return HttpResponseRedirect(reverse('account_email'))
+            res = super(EmailView, self).post(request, *args, **kwargs)
+        elif request.POST.get("email"):
+            if "action_send" in request.POST:
+                res = self._action_send(request)
+            elif "action_remove" in request.POST:
+                res = self._action_remove(request)
+            elif "action_primary" in request.POST:
+                res = self._action_primary(request)
+        if res:
+            return res
         else:
-            add_email_form = form_class()
-            if request.POST.get("email"):
-                if "action_send" in request.POST:
-                    email = request.POST["email"]
-                    try:
-                        email_address = EmailAddress.objects.get(
-                            user=request.user,
-                            email=email,
-                        )
-                        get_adapter().add_message(request,
-                                                  messages.INFO,
-                                                  'account/messages/email_confirmation_sent.txt',
-                                                  { 'email': email })
-                        email_address.send_confirmation(request)
-                        return HttpResponseRedirect(reverse('account_email'))
-                    except EmailAddress.DoesNotExist:
-                        pass
-                elif "action_remove" in request.POST:
-                    email = request.POST["email"]
-                    try:
-                        email_address = EmailAddress.objects.get(
-                            user=request.user,
-                            email=email
-                        )
-                        if email_address.primary:
-                            get_adapter().add_message(request,
-                                                      messages.ERROR,
-                                                      'account/messages/cannot_delete_primary_email.txt',
-                                                      { "email": email })
-                        else:
-                            email_address.delete()
-                            signals.email_removed.send(sender=request.user.__class__,
-                                                       request=request,
-                                                       user=request.user,
-                                                       email_address=email_address)
-                            get_adapter().add_message(request,
-                                                      messages.SUCCESS,
-                                                      'account/messages/email_deleted.txt',
-                                                      { "email": email })
-                            return HttpResponseRedirect(reverse('account_email'))
-                    except EmailAddress.DoesNotExist:
-                        pass
-                elif "action_primary" in request.POST:
-                    email = request.POST["email"]
-                    try:
-                        email_address = EmailAddress.objects.get(
-                            user=request.user,
-                            email=email,
-                        )
-                        if not email_address.verified and \
-                                EmailAddress.objects.filter(
-                                        user=request.user,
-                                        verified=True#,
-                                        #primary=True
-                                        # Slightly different variation, don't
-                                        # require verified unless moving from a
-                                        # verified address. Ignore constraint
-                                        # if previous primary email address is
-                                        # not verified.
-                                    ).exists():
-                            get_adapter().add_message(request,
-                                                      messages.ERROR,
-                                                      'account/messages/unverified_primary_email.txt')
-                        else:
-                            # Sending the old primary address to the signal
-                            # adds a db query.
-                            try:
-                                from_email_address = EmailAddress.objects.get(
-                                        user=request.user, primary=True )
-                            except EmailAddress.DoesNotExist:
-                                from_email_address = None
-                            email_address.set_as_primary()
-                            get_adapter().add_message(request,
-                                                      messages.SUCCESS,
-                                                      'account/messages/primary_email_set.txt')
-                            signals.email_changed.send(
-                                    sender=request.user.__class__,
-                                    request=request, user=request.user,
-                                    from_email_address=from_email_address,
-                                    to_email_address=email_address)
-                            return HttpResponseRedirect(reverse('account_email'))
-                    except EmailAddress.DoesNotExist:
-                        pass
-    else:
-        add_email_form = form_class()
-    ctx = { "add_email_form": add_email_form }
-    return render_to_response(template_name, RequestContext(request, ctx))
+            return self.get(request, *args, **kwargs)
 
-
-@login_required
-def password_change(request, **kwargs):
-
-    form_class = kwargs.pop("form_class", ChangePasswordForm)
-    template_name = kwargs.pop("template_name", "account/password_change.html")
-
-    if not request.user.has_usable_password():
-        return HttpResponseRedirect(reverse(password_set))
-
-    if request.method == "POST":
-        password_change_form = form_class(request.user, request.POST)
-        if password_change_form.is_valid():
-            password_change_form.save()
+    def _action_send(self, request, *args, **kwargs):
+        email = request.POST["email"]
+        try:
+            email_address = EmailAddress.objects.get(
+                user=request.user,
+                email=email,
+            )
             get_adapter().add_message(request,
-                                      messages.SUCCESS,
-                                      'account/messages/password_changed.txt')
-            signals.password_changed.send(sender=request.user.__class__,
-                    request=request, user=request.user)
-            password_change_form = form_class(request.user)
-    else:
-        password_change_form = form_class(request.user)
-    ctx = { "password_change_form": password_change_form }
-    return render_to_response(template_name, RequestContext(request, ctx))
+                                      messages.INFO,
+                                      'account/messages/'
+                                      'email_confirmation_sent.txt',
+                                      {'email': email})
+            email_address.send_confirmation(request)
+            return HttpResponseRedirect(self.get_success_url())
+        except EmailAddress.DoesNotExist:
+            pass
 
-
-@login_required
-def password_set(request, **kwargs):
-
-    form_class = kwargs.pop("form_class", SetPasswordForm)
-    template_name = kwargs.pop("template_name", "account/password_set.html")
-
-    if request.user.has_usable_password():
-        return HttpResponseRedirect(reverse(password_change))
-
-    if request.method == "POST":
-        password_set_form = form_class(request.user, request.POST)
-        if password_set_form.is_valid():
-            password_set_form.save()
-            get_adapter().add_message(request,
-                                      messages.SUCCESS,
-                                      'account/messages/password_set.txt')
-            signals.password_set.send(sender=request.user.__class__,
-                    request=request, user=request.user)
-            return HttpResponseRedirect(reverse(password_change))
-    else:
-        password_set_form = form_class(request.user)
-    ctx = { "password_set_form": password_set_form }
-    return render_to_response(template_name, RequestContext(request, ctx))
-
-
-def password_reset(request, **kwargs):
-
-    form_class = kwargs.pop("form_class", ResetPasswordForm)
-    template_name = kwargs.pop("template_name", "account/password_reset.html")
-
-    if request.method == "POST":
-        password_reset_form = form_class(request.POST)
-        if password_reset_form.is_valid():
-            password_reset_form.save()
-            return HttpResponseRedirect(reverse(password_reset_done))
-    else:
-        password_reset_form = form_class()
-
-    return render_to_response(template_name, RequestContext(request, { "password_reset_form": password_reset_form, }))
-
-
-def password_reset_done(request, **kwargs):
-
-    return render_to_response(kwargs.pop("template_name", "account/password_reset_done.html"), RequestContext(request, {}))
-
-
-def password_reset_from_key(request, uidb36, key, **kwargs):
-
-    form_class = kwargs.get("form_class", ResetPasswordKeyForm)
-    template_name = kwargs.get("template_name", "account/password_reset_from_key.html")
-    token_generator = kwargs.get("token_generator", default_token_generator)
-
-    # pull out user
-    try:
-        uid_int = base36_to_int(uidb36)
-    except ValueError:
-        raise Http404
-
-    user = get_object_or_404(User, id=uid_int)
-
-    if token_generator.check_token(user, key):
-        if request.method == "POST":
-            password_reset_key_form = form_class(request.POST, user=user, temp_key=key)
-            if password_reset_key_form.is_valid():
-                password_reset_key_form.save()
+    def _action_remove(self, request, *args, **kwargs):
+        email = request.POST["email"]
+        try:
+            email_address = EmailAddress.objects.get(
+                user=request.user,
+                email=email
+            )
+            if email_address.primary:
+                get_adapter().add_message(request,
+                                          messages.ERROR,
+                                          'account/messages/'
+                                          'cannot_delete_primary_email.txt',
+                                          {"email": email})
+            else:
+                email_address.delete()
+                signals.email_removed.send(sender=request.user.__class__,
+                                           request=request,
+                                           user=request.user,
+                                           email_address=email_address)
                 get_adapter().add_message(request,
                                           messages.SUCCESS,
-                                          'account/messages/password_changed.txt')
-                signals.password_reset.send(sender=user.__class__,
-                        request=request, user=user)
-                password_reset_key_form = None
-        else:
-            password_reset_key_form = form_class()
-        ctx = { "form": password_reset_key_form, }
-    else:
-        ctx = { "token_fail": True, }
+                                          'account/messages/email_deleted.txt',
+                                          {"email": email})
+                return HttpResponseRedirect(self.get_success_url())
+        except EmailAddress.DoesNotExist:
+            pass
 
-    return render_to_response(template_name, RequestContext(request, ctx))
+    def _action_primary(self, request, *args, **kwargs):
+        email = request.POST["email"]
+        try:
+            email_address = EmailAddress.objects.get(
+                user=request.user,
+                email=email,
+            )
+            # Not primary=True -- Slightly different variation, don't
+            # require verified unless moving from a verified
+            # address. Ignore constraint if previous primary email
+            # address is not verified.
+            if not email_address.verified and \
+                    EmailAddress.objects.filter(user=request.user,
+                                                verified=True).exists():
+                get_adapter().add_message(request,
+                                          messages.ERROR,
+                                          'account/messages/'
+                                          'unverified_primary_email.txt')
+            else:
+                # Sending the old primary address to the signal
+                # adds a db query.
+                try:
+                    from_email_address = EmailAddress.objects \
+                        .get(user=request.user, primary=True)
+                except EmailAddress.DoesNotExist:
+                    from_email_address = None
+                email_address.set_as_primary()
+                get_adapter() \
+                    .add_message(request,
+                                 messages.SUCCESS,
+                                 'account/messages/primary_email_set.txt')
+                signals.email_changed \
+                    .send(sender=request.user.__class__,
+                          request=request,
+                          user=request.user,
+                          from_email_address=from_email_address,
+                          to_email_address=email_address)
+                return HttpResponseRedirect(self.get_success_url())
+        except EmailAddress.DoesNotExist:
+            pass
+
+    def get_context_data(self, **kwargs):
+        ret = super(EmailView, self).get_context_data(**kwargs)
+        # NOTE: For backwards compatibility
+        ret['add_email_form'] = ret.get('form')
+        # (end NOTE)
+        return ret
+
+email = login_required(EmailView.as_view())
+
+
+class PasswordChangeView(FormView):
+    template_name = "account/password_change.html"
+    form_class = ChangePasswordForm
+    success_url = reverse_lazy("account_change_password")
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.has_usable_password():
+            return HttpResponseRedirect(reverse('account_set_password'))
+        return super(PasswordChangeView, self).dispatch(request, *args,
+                                                        **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super(PasswordChangeView, self).get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        form.save()
+        get_adapter().add_message(self.request,
+                                  messages.SUCCESS,
+                                  'account/messages/password_changed.txt')
+        signals.password_changed.send(sender=self.request.user.__class__,
+                                      request=self.request,
+                                      user=self.request.user)
+        return super(PasswordChangeView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        ret = super(PasswordChangeView, self).get_context_data(**kwargs)
+        # NOTE: For backwards compatibility
+        ret['password_change_form'] = ret.get('form')
+        # (end NOTE)
+        return ret
+
+password_change = login_required(PasswordChangeView.as_view())
+
+
+class PasswordSetView(FormView):
+    template_name = "account/password_set.html"
+    form_class = SetPasswordForm
+    success_url = reverse_lazy("account_set_password")
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.has_usable_password():
+            return HttpResponseRedirect(reverse('account_change_password'))
+        return super(PasswordSetView, self).dispatch(request, *args, **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super(PasswordSetView, self).get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        form.save()
+        get_adapter().add_message(self.request,
+                                  messages.SUCCESS,
+                                  'account/messages/password_set.txt')
+        signals.password_set.send(sender=self.request.user.__class__,
+                                  request=self.request, user=self.request.user)
+        return super(PasswordSetView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        ret = super(PasswordSetView, self).get_context_data(**kwargs)
+        # NOTE: For backwards compatibility
+        ret['password_set_form'] = ret.get('form')
+        # (end NOTE)
+        return ret
+
+password_set = login_required(PasswordSetView.as_view())
+
+
+class PasswordResetView(FormView):
+    template_name = "account/password_reset.html"
+    form_class = ResetPasswordForm
+    success_url = reverse_lazy("account_reset_password_done")
+
+    def form_valid(self, form):
+        form.save()
+        return super(PasswordResetView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        ret = super(PasswordResetView, self).get_context_data(**kwargs)
+        # NOTE: For backwards compatibility
+        ret['password_reset_form'] = ret.get('form')
+        # (end NOTE)
+        return ret
+
+password_reset = PasswordResetView.as_view()
+
+
+class PasswordResetDoneView(TemplateView):
+    template_name = "account/password_reset.html"
+
+password_reset_done = PasswordResetDoneView.as_view()
+
+
+class PasswordResetFromKeyView(FormView):
+    template_name = "account/password_reset_from_key.html"
+    form_class = ResetPasswordKeyForm
+    token_generator = default_token_generator
+    success_url = reverse_lazy("account_reset_password_from_key_done")
+
+    def _get_user(self, uidb36):
+        # pull out user
+        try:
+            uid_int = base36_to_int(uidb36)
+        except ValueError:
+            raise Http404
+        return get_object_or_404(User, id=uid_int)
+
+    def dispatch(self, request, uidb36, key, **kwargs):
+        self.uidb36 = uidb36
+        self.key = key
+        self.request.user = self._get_user(uidb36)
+        if not self.token_generator.check_token(self.request.user, key):
+            return self._response_bad_token(request, uidb36, key, **kwargs)
+        else:
+            return super(PasswordResetFromKeyView, self).dispatch(request,
+                                                                  uidb36,
+                                                                  key,
+                                                                  **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super(PasswordResetFromKeyView, self).get_form_kwargs()
+        kwargs["user"] = self.request.user
+        kwargs["temp_key"] = self.key
+        return kwargs
+
+    def form_valid(self, form):
+        form.save()
+        get_adapter().add_message(self.request,
+                                  messages.SUCCESS,
+                                  'account/messages/password_changed.txt')
+        signals.password_reset.send(sender=self.request.user.__class__,
+                                    request=self.request,
+                                    user=self.request.user)
+        return super(PasswordResetFromKeyView, self).form_valid(form)
+
+    def _response_bad_token(self, request, uidb36, key, **kwargs):
+        return self.render_to_response(self.get_context_data(token_fail=True))
+
+password_reset_from_key = PasswordResetFromKeyView.as_view()
+
+
+class PasswordResetFromKeyDoneView(TemplateView):
+    template_name = "account/password_reset_from_key_done.html"
+
+password_reset_from_key_done = PasswordResetFromKeyDoneView.as_view()
 
 
 class LogoutView(TemplateResponseMixin, View):
@@ -441,16 +519,16 @@ class LogoutView(TemplateResponseMixin, View):
 
     def get_context_data(self, **kwargs):
         ctx = kwargs
+        redirect_field_value = self.request.REQUEST \
+            .get(self.redirect_field_name)
         ctx.update({
             "redirect_field_name": self.redirect_field_name,
-            "redirect_field_value": self.request.REQUEST.get(self.redirect_field_name),
-        })
+            "redirect_field_value": redirect_field_value})
         return ctx
 
     def get_redirect_url(self):
         return (get_next_redirect_url(self.request,
                                       self.redirect_field_name)
                 or get_adapter().get_logout_redirect_url(self.request))
-
 
 logout = LogoutView.as_view()

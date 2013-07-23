@@ -310,6 +310,17 @@ SOCIALACCOUNT_PROVIDERS (= dict)
 Upgrading
 ---------
 
+From 0.12.0
+***********
+
+- All account views are now class-based.
+
+- The password reset from key success response now redirects to a
+  "done" view (`/accounts/password/reset/key/done/`). This view has
+  its own `account/password_reset_from_key_done.html` template. In
+  previous versions, the success template was intertwined with the
+  `account/password_reset_from_key.html` template.
+
 From 0.11.1
 ***********
 

@@ -433,7 +433,7 @@ password_reset = PasswordResetView.as_view()
 
 
 class PasswordResetDoneView(TemplateView):
-    template_name = "account/password_reset.html"
+    template_name = "account/password_reset_done.html"
 
 password_reset_done = PasswordResetDoneView.as_view()
 

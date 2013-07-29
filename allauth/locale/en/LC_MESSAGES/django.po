@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-20 17:53+0200\n"
+"POT-Creation-Date: 2013-07-29 23:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -307,6 +307,8 @@ msgstr ""
 #: templates/account/password_change.html:12
 #: templates/account/password_reset_from_key.html:5
 #: templates/account/password_reset_from_key.html:8
+#: templates/account/password_reset_from_key_done.html:5
+#: templates/account/password_reset_from_key_done.html:8
 msgid "Change Password"
 msgstr ""
 
@@ -377,6 +379,7 @@ msgid "change password"
 msgstr ""
 
 #: templates/account/password_reset_from_key.html:21
+#: templates/account/password_reset_from_key_done.html:9
 msgid "Your password is now changed."
 msgstr ""
 

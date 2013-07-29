@@ -1,239 +1,193 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Translators:
+# Jannis , 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: django-allauth 0.8.2\n"
+"Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-12 19:07+0200\n"
-"PO-Revision-Date: 2013-02-03 19:38+0100\n"
-"Last-Translator: Markus Thielen <oberrocker@gmail.com>\n"
-"Language-Team: LANGUAGE <oberrocker@gmail.com>\n"
-"Language: \n"
+"POT-Creation-Date: 2013-07-29 23:27+0200\n"
+"PO-Revision-Date: 2013-07-29 08:48+0000\n"
+"Last-Translator: Jannis \n"
+"Language-Team: German (http://www.transifex.com/projects/p/django-allauth/"
+"language/de/)\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: German\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: account/forms.py:31 account/forms.py:47 account/forms.py:233
-#: account/forms.py:351
+#: account/adapter.py:168
+msgid "Usernames can only contain letters, digits and @/./+/-/_."
+msgstr ""
+"Anmeldenamen dürfen nur Buchstaben und Ziffern und folgende Zeichen "
+"enthalten: @/./+/-/_."
+
+#: account/adapter.py:173
+msgid "Username can not be used. Please use other username."
+msgstr ""
+"Anmeldename kann nicht genutzt werden. Bitte wähle einen anderen Namen."
+
+#: account/forms.py:33 account/forms.py:51 account/forms.py:237
+#: account/forms.py:343
 msgid "Password"
 msgstr "Passwort"
 
-#: account/forms.py:40
+#: account/forms.py:43
 msgid "Password must be a minimum of {0} characters."
 msgstr "Das Passwort muss aus mindestens {0} Zeichen bestehen."
 
-#: account/forms.py:49
+#: account/forms.py:53
 msgid "Remember Me"
 msgstr "Angemeldet bleiben"
 
-#: account/forms.py:60 account/forms.py:173
+#: account/forms.py:64 account/forms.py:178
 msgid "E-mail address"
 msgstr "E-Mail-Adresse"
 
-#: account/forms.py:61 account/forms.py:182 account/forms.py:301
-#: account/forms.py:368
+#: account/forms.py:65 account/forms.py:189 account/forms.py:292
+#: account/forms.py:360
 msgid "E-mail"
 msgstr "E-Mail"
 
-#: account/forms.py:66 account/forms.py:67 account/forms.py:166
-#: account/forms.py:170
+#: account/forms.py:70 account/forms.py:71 account/forms.py:171
+#: account/forms.py:175
 msgid "Username"
-msgstr "Benutzername"
+msgstr "Anmeldename"
 
-#: account/forms.py:74
+#: account/forms.py:78
 msgid "Username or e-mail"
-msgstr "Benutzername oder E-Mail"
+msgstr "Anmeldename oder E-Mail"
 
-#: account/forms.py:75
+#: account/forms.py:79
 msgctxt "field label"
 msgid "Login"
 msgstr "Anmeldung"
 
-#: account/forms.py:108
+#: account/forms.py:111
 msgid "This account is currently inactive."
-msgstr "Dieses Benutzerkonto ist derzeit inaktiv."
+msgstr "Dieses Konto ist derzeit inaktiv."
 
-#: account/forms.py:112
+#: account/forms.py:115
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "Die E-Mail-Adresse und/oder das Passwort sind leider falsch."
 
-#: account/forms.py:116
-msgid "The username and/or password you specified are not correct."
-msgstr "Der Benutzername und/oder das Passwort sind leider falsch."
-
 #: account/forms.py:119
+msgid "The username and/or password you specified are not correct."
+msgstr "Der Anmeldename und/oder das Passwort sind leider falsch."
+
+#: account/forms.py:122
 msgid "The login and/or password you specified are not correct."
 msgstr "Die Anmeldedaten sind leider falsch."
 
-#: account/forms.py:185
+#: account/forms.py:192
 msgid "E-mail (optional)"
 msgstr "E-Mail (optional)"
 
-#: account/forms.py:193
-msgid "Usernames can only contain letters, digits and @/./+/-/_."
-msgstr ""
-"Benutzernamen dürfen nur Buchstaben und Ziffern und folgende Zeichen "
-"enthalten: @/./+/-/_."
-
-#: account/forms.py:197
-msgid "Username can not be used. Please use other username."
-msgstr ""
-
-#: account/forms.py:204
+#: account/forms.py:207
 msgid "This username is already taken. Please choose another."
-msgstr "Der Benutzername ist bereits vergeben - bitte einen anderen wählen."
+msgstr "Der Anmeldename ist bereits vergeben – bitte wähle einen anderen."
 
-#: account/forms.py:212
+#: account/forms.py:216
 msgid "A user is already registered with this e-mail address."
-msgstr "Ein Benutzer mit dieser E-Mail-Adresse ist bereits registriert."
+msgstr "Es ist bereits jemand mit dieser E-Mail-Adresse registriert."
 
-#: account/forms.py:234 account/forms.py:352
+#: account/forms.py:238 account/forms.py:344
 msgid "Password (again)"
 msgstr "Passwort (Wiederholung)"
 
-#: account/forms.py:262 account/forms.py:341 account/forms.py:357
-#: account/forms.py:425
+#: account/forms.py:256 account/forms.py:333 account/forms.py:349
+#: account/forms.py:418
 msgid "You must type the same password each time."
-msgstr "Du musst zwemail das gleiche Passwort eingeben."
+msgstr "Du musst zweimal das selbe Passwort eingeben."
 
-#: account/forms.py:309
+#: account/forms.py:301
 msgid "This e-mail address is already associated with this account."
 msgstr "Diese E-Mail-Adresse wird bereits in diesem Konto verwendet."
 
-#: account/forms.py:310
+#: account/forms.py:302
 msgid "This e-mail address is already associated with another account."
-msgstr ""
-"Diese E-Mail-Adresse wird bereits in einem anderen Benutzerkonto verwendet."
+msgstr "Diese E-Mail-Adresse wird bereits in einem anderen Konto verwendet."
 
-#: account/forms.py:329
+#: account/forms.py:321
 msgid "Current Password"
 msgstr "Aktuelles Passwort"
 
-#: account/forms.py:330 account/forms.py:413
+#: account/forms.py:322 account/forms.py:406
 msgid "New Password"
 msgstr "Neues Passwort"
 
-#: account/forms.py:331 account/forms.py:414
+#: account/forms.py:323 account/forms.py:407
 msgid "New Password (again)"
 msgstr "Neues Passwort (Wiederholung)"
 
-#: account/forms.py:335
+#: account/forms.py:327
 msgid "Please type your current password."
 msgstr "Bitte gib' Dein aktuelles Passwort ein."
 
-#: account/forms.py:378
+#: account/forms.py:371
 msgid "The e-mail address is not assigned to any user account"
-msgstr "Diese E-Mail-Adresse kennen wir nicht"
+msgstr "Diese E-Mail-Adresse ist keinem Konto zugeordnet."
 
-#: account/models.py:30
+#: account/models.py:31
 msgid "email address"
 msgstr "E-Mail-Adresse"
 
-#: account/models.py:31
+#: account/models.py:32
 msgid "email addresses"
 msgstr "E-Mail-Adressen"
 
-#: account/models.py:81
+#: account/models.py:82
 msgid "email confirmation"
 msgstr "E-Mail-Bestätigung"
 
-#: account/models.py:82
+#: account/models.py:83
 msgid "email confirmations"
 msgstr "E-Mail-Bestätigungen"
 
-#: account/utils.py:95
-#, python-format
-msgid "Successfully signed in as %(user)s."
-msgstr "Erfolgreich angemeldet als %(user)s."
-
-#: account/utils.py:240 account/views.py:222 account/views.py:241
+#: account/utils.py:290
 #, python-format
 msgid "Confirmation e-mail sent to %(email)s"
 msgstr "Wir haben eine Bestätigungs-E-Mail an %(email)s verschickt."
 
-#: account/views.py:147
-#, python-format
-msgid "You have confirmed %(email)s."
-msgstr "Du hast die Adresse %(email)s bestätigt."
-
-#: account/views.py:259
-#, python-format
-msgid "You cannot remove your primary e-mail address (%(email)s)"
-msgstr "Deine primäre E-Mail-Adresse (%(email)s) kann nicht entfernt werden."
-
-#: account/views.py:269
-#, python-format
-msgid "Removed e-mail address %(email)s"
-msgstr "E-Mail-Adresse %(email)s wurde entfernt."
-
-#: account/views.py:295
-msgid "Your primary e-mail address must be verified"
-msgstr "Deine primäre E-Mail-Adresse muss bestätigt werden"
-
-#: account/views.py:307
-msgid "Primary e-mail address set"
-msgstr "Primäre E-Mail-Adresse gesetzt"
-
-#: account/views.py:336 account/views.py:413
-msgid "Password successfully changed."
-msgstr "Das Passwort wurde geändert."
-
-#: account/views.py:361
-msgid "Password successfully set."
-msgstr "Das Passwort wurde erfolgreich gesetzt."
-
-#: account/views.py:448
-msgid "You have signed out."
-msgstr "Du hast Dich abgemeldet."
-
-#: socialaccount/forms.py:47
+#: socialaccount/adapter.py:73
 msgid "Your account has no password set up."
-msgstr "Dein Benutzerkonto hat noch kein Passwort gesrtzt."
+msgstr "Für dein Konto wurde noch kein Passwort festgelegt."
 
-#: socialaccount/forms.py:51
+#: socialaccount/adapter.py:78
 msgid "Your account has no verified e-mail address."
-msgstr "Dein Benutzerkonto hat keine bestätigte E-Mail-Adresse."
-
-#: socialaccount/helpers.py:129
-msgid "The social account has been connected"
-msgstr "Eine Anmeldung über ein soziales Netzwerk wurde verbunden"
-
-#: socialaccount/views.py:66
-msgid "The social account has been disconnected"
-msgstr "Eine Verbindung zu dem soziales Netzwerk wurde aufgehoben"
+msgstr "Dein Konto hat keine bestätigte E-Mail-Adresse."
 
 #: socialaccount/providers/oauth/client.py:78
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
-msgstr "Ungültige Antwort von \"%s\""
+msgstr "Ungültige Antwort von \"%s\" als Anfrageschlüssel erbeten wurde."
 
 #: socialaccount/providers/oauth/client.py:102
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
-msgstr "Ungültige Antwort von \"%s\""
+msgstr "Ungültige Antwort von \"%s\" als Zugangsschlüssel erbeten wurde."
 
 #: socialaccount/providers/oauth/client.py:115
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr "Kein Request-Token gespeichert für \"%s\""
 
-#: socialaccount/providers/oauth/client.py:160
+#: socialaccount/providers/oauth/client.py:159
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "Kein Access-Token gespeichert für \"%s\""
 
-#: socialaccount/providers/oauth/client.py:178
+#: socialaccount/providers/oauth/client.py:177
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "Kein Zugriff zu privaten Daten auf \"%s\""
 
 #: templates/account/email.html:6
 msgid "Account"
-msgstr "Benutzerkonto"
+msgstr "Konto"
 
 #: templates/account/email.html:9
 msgid "E-mail Addresses"
@@ -241,7 +195,7 @@ msgstr "E-Mail-Adressen"
 
 #: templates/account/email.html:11
 msgid "The following e-mail addresses are associated with your account:"
-msgstr "Folgende E-Mail-Adressen sind mit diesem Benutzerkonto gespeichert:"
+msgstr "Folgende E-Mail-Adressen sind mit diesem Konto verknüpft:"
 
 #: templates/account/email.html:25
 msgid "Verified"
@@ -257,15 +211,15 @@ msgstr "Primär"
 
 #: templates/account/email.html:35
 msgid "Make Primary"
-msgstr "Als primäre setzen"
+msgstr "Als primäre Adresse festlegen"
 
 #: templates/account/email.html:36
 msgid "Re-send Verification"
-msgstr "Bestätigungs-Mail noch mal verschicken"
+msgstr "Bestätigungs-Mail nochmal verschicken"
 
 #: templates/account/email.html:37 templates/socialaccount/connections.html:35
 msgid "Remove"
-msgstr "Entfernen"
+msgstr "Ausgewählte entfernen"
 
 #: templates/account/email.html:44
 msgid "Warning:"
@@ -276,8 +230,9 @@ msgid ""
 "You currently do not have any e-mail address set up. You should really add "
 "an e-mail address so you can receive notifications, reset your password, etc."
 msgstr ""
-"Du hast derzeit keine E-Mail-Adressen angegeben. Schade, dann können wir Dir "
-"nicht Bescheid geben, wenn es bei uns Neuigkeiten gibt."
+"Du hast derzeit keine E-Mail-Adressen angegeben. Das solltest Du allerdings "
+"tun, denn nur so können wir dich benachrichtigen und dein Passwort "
+"zurücksetzen."
 
 #: templates/account/email.html:49
 msgid "Add E-mail Address"
@@ -287,9 +242,9 @@ msgstr "E-Mail-Adresse hinzufügen"
 msgid "Add E-mail"
 msgstr "E-Mail hinzufügen"
 
-#: templates/account/email.html:64
+#: templates/account/email.html:63
 msgid "Do you really want to remove the selected e-mail address?"
-msgstr "E-Mail-Adresse entfernen?"
+msgstr "Möchtest du wirklich die ausgewählte E-Mail-Adresse entfernen?"
 
 #: templates/account/email_confirm.html:7
 #: templates/account/email_confirm.html:11
@@ -336,7 +291,7 @@ msgid "Sign In"
 msgstr "Anmeldung"
 
 #: templates/account/login.html:14
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please sign in with one\n"
 "of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign "
@@ -344,8 +299,8 @@ msgid ""
 "for a %(site_name)s account and sign in below:"
 msgstr ""
 "Bitte melde Dich mit einem der folgenden Netzwerkkonten an, oder  <a \n"
-"href=\"%(signup_url)s\">registrier' Dich</a> auf %(site_name)s, dann kannst "
-"Du Dich unten mit Deinem %(site_name)s-Konto anmelden:"
+"href=\"%(signup_url)s\">registrier' Dich auf %(site_name)s</a>, dann kannst "
+"Du Dich unten mit Deinem Konto anmelden:"
 
 #: templates/account/login.html:24
 msgid "or"
@@ -357,19 +312,20 @@ msgstr "Passwort vergessen?"
 
 #: templates/account/logout.html:6 templates/account/logout.html.py:9
 #: templates/account/logout.html:18
-#, fuzzy
 msgid "Sign Out"
-msgstr "Abgemeldet"
+msgstr "Abmelden"
 
 #: templates/account/logout.html:11
 msgid "Are you sure you want to sign out?"
-msgstr ""
+msgstr "Bist Du sicher, dass du Dich abmelden möchtest?"
 
 #: templates/account/password_change.html:4
 #: templates/account/password_change.html:7
 #: templates/account/password_change.html:12
 #: templates/account/password_reset_from_key.html:5
 #: templates/account/password_reset_from_key.html:8
+#: templates/account/password_reset_from_key_done.html:5
+#: templates/account/password_reset_from_key_done.html:8
 msgid "Change Password"
 msgstr "Passwort ändern"
 
@@ -426,7 +382,7 @@ msgid ""
 "We have sent you an e-mail. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"Wir haben Dir eine E-Mail. geschickt. Bitte kontaktiere uns, wenn Du sie "
+"Wir haben Dir eine E-Mail geschickt. Bitte kontaktiere uns, wenn Du sie "
 "nicht in ein paar Minuten erhalten hast."
 
 #: templates/account/password_reset_from_key.html:8
@@ -449,6 +405,7 @@ msgid "change password"
 msgstr "Passwort ändern"
 
 #: templates/account/password_reset_from_key.html:21
+#: templates/account/password_reset_from_key_done.html:9
 msgid "Your password is now changed."
 msgstr "Dein Passwort wurde geändert."
 
@@ -459,38 +416,37 @@ msgstr "Passwort setzen"
 
 #: templates/account/signup.html:6 templates/socialaccount/signup.html:5
 msgid "Signup"
-msgstr "Anmelden"
+msgstr "Registrieren"
 
 #: templates/account/signup.html:9 templates/account/signup.html.py:19
 #: templates/socialaccount/signup.html:8
 #: templates/socialaccount/signup.html:19
 msgid "Sign Up"
-msgstr "Anmelden"
+msgstr "Registrieren"
 
 #: templates/account/signup.html:11
 #, python-format
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
 msgstr ""
-"Du hast bereits ein Benutzerkonto bei uns? Dann bitte <a href=\"%(login_url)s"
-"\">hier entlang</a>."
+"Du hast bereits ein Konto bei uns? Dann bitte <a href=\"%(login_url)s\">hier "
+"entlang</a>."
 
 #: templates/account/signup_closed.html:6
 #: templates/account/signup_closed.html:9
-#, fuzzy
 msgid "Sign Up Closed"
-msgstr "Anmelden"
+msgstr "Registrierung geschlossen"
 
 #: templates/account/signup_closed.html:11
 msgid "We are sorry, but the sign up is currently closed."
-msgstr ""
+msgstr "Es tut uns leid, aber die Registrierung ist derzeit geschlossen."
 
 #: templates/account/verification_sent.html:5
 #: templates/account/verification_sent.html:8
 #: templates/account/verified_email_required.html:6
 #: templates/account/verified_email_required.html:9
 msgid "Verify Your E-mail Address"
-msgstr "E-Mail-Adresse bestätigen"
+msgstr "Bestätige deine E-Mail-Adresse"
 
 #: templates/account/verification_sent.html:10
 #, python-format
@@ -500,7 +456,7 @@ msgid ""
 "Please contact us if you do not receive it within a few minutes."
 msgstr ""
 "Wir haben eine E-Mail an <a href=\"mailto:%(email)s\">%(email)s</a> "
-"geschickt. Bitte klicke auf den Link in der E-Mail um den Anmeldeprozeß "
+"geschickt. Bitte klicke auf den Link in der E-Mail um den Anmeldeprozess "
 "abzuschließen. Bitte kontaktiere uns, falls die E-Mail nicht in ein paar "
 "Minuten angekommen ist."
 
@@ -512,7 +468,7 @@ msgid ""
 msgstr ""
 "Auf diesem Teil der Webseite möchten wie sicher sein,\n"
 "dass Du derjenige bist, für den Du Dich ausgibst.\n"
-" Dazu müsstest Du nur Deine E-Mail-Adresse verifizieren lassen."
+"Dazu müsstest Du nur Deine E-Mail-Adresse verifizieren lassen."
 
 #: templates/account/verified_email_required.html:17
 msgid ""
@@ -541,6 +497,11 @@ msgid ""
 "\n"
 "To confirm this is correct, go to %(activate_url)s\n"
 msgstr ""
+"Nutzer_in %(user_display)s hat diese E-Mailadresse auf %(site_name)s "
+"angegeben.\n"
+"\n"
+"Um dies zu bestätigen, rufe bitte folgende Adresse auf: \n"
+"%(activate_url)s\n"
 
 #: templates/account/email/password_reset_key_message.txt:1
 #, python-format
@@ -556,11 +517,67 @@ msgid ""
 "\n"
 "Thanks for using our site!\n"
 msgstr ""
+"Du erhälst diese E-Mail, weil Du oder jemand anderes die Zurücksetzung des "
+"Passworts für dein Konto auf %(site_domain)s erbeten hat. Du kannst diese E-"
+"Mail ignorieren, wenn Du dein Passwort nicht zurücksetzen möchtest. Um das "
+"Passwort zurückzusetzen rufe folgende Seite auf:\n"
+"\n"
+"%(password_reset_url)s\n"
+"\n"
+"Falls Du deinen Anmeldenamen vergessen haben solltest; er lautet "
+"%(username)s.\n"
+"\n"
+"Danke, dass Du unsere Seite nutzt!\n"
+"\n"
 
 #: templates/account/email/password_reset_key_subject.txt:3
-#, fuzzy
 msgid "Password Reset E-mail"
 msgstr "Passwort zurücksetzen"
+
+#: templates/account/messages/cannot_delete_primary_email.txt:2
+#, python-format
+msgid "You cannot remove your primary e-mail address (%(email)s)."
+msgstr "Du kannst deine primäre E-Mail-Adresse (%(email)s) nicht löschen."
+
+#: templates/account/messages/email_confirmation_sent.txt:2
+#, python-format
+msgid "Confirmation e-mail sent to %(email)s."
+msgstr "Bestätigungs-E-Mail wurde an %(email)s verschickt."
+
+#: templates/account/messages/email_confirmed.txt:2
+#, python-format
+msgid "You have confirmed %(email)s."
+msgstr "Du hast die Adresse %(email)s bestätigt."
+
+#: templates/account/messages/email_deleted.txt:2
+#, python-format
+msgid "Removed e-mail address %(email)s."
+msgstr "E-Mailadresse %(email)s entfernt."
+
+#: templates/account/messages/logged_in.txt:4
+#, python-format
+msgid "Successfully signed in as %(name)s."
+msgstr "Erfolgreich als %(name)s angemeldet."
+
+#: templates/account/messages/logged_out.txt:2
+msgid "You have signed out."
+msgstr "Du hast Dich abgemeldet."
+
+#: templates/account/messages/password_changed.txt:2
+msgid "Password successfully changed."
+msgstr "Das Passwort wurde geändert."
+
+#: templates/account/messages/password_set.txt:2
+msgid "Password successfully set."
+msgstr "Das Passwort wurde erfolgreich gesetzt."
+
+#: templates/account/messages/primary_email_set.txt:2
+msgid "Primary e-mail address set."
+msgstr "Primäre E-Mailadresse festgelegt."
+
+#: templates/account/messages/unverified_primary_email.txt:2
+msgid "Your primary e-mail address must be verified."
+msgstr "Deine primäre E-Mailadresse muss bestätigt werden."
 
 #: templates/account/snippets/already_logged_in.html:5
 msgid "Note"
@@ -578,11 +595,11 @@ msgstr "OpenID-Anmeldung"
 #: templates/socialaccount/account_inactive.html:5
 #: templates/socialaccount/account_inactive.html:8
 msgid "Account Inactive"
-msgstr "Benutzerkonto inaktiv"
+msgstr "Konto inaktiv"
 
 #: templates/socialaccount/account_inactive.html:10
 msgid "This account is inactive."
-msgstr "Dieses Benutzerkonto ist inaktiv."
+msgstr "Dieses Konto ist inaktiv."
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:8
@@ -610,8 +627,7 @@ msgstr "Du kannst Dich bei uns über folgende soziale Netzwerke anmelden:"
 #: templates/socialaccount/connections.html:43
 msgid ""
 "You currently have no social network accounts connected to this account."
-msgstr ""
-"Dein Benutzerkonto ist derzeit mit keinen sozialen Netzwerken verknüpft."
+msgstr "Dein Konto ist derzeit mit keinen sozialen Netzwerken verknüpft."
 
 #: templates/socialaccount/connections.html:46
 msgid "Add a 3rd Party Account"
@@ -642,3 +658,17 @@ msgstr ""
 "Du möchtest Dein %(provider_name)s-Konto verwenden, um Dich bei\n"
 "%(site_name)s anzumelden. Zum Abschluss bitte das folgende Formular "
 "ausfüllen:"
+
+#: templates/socialaccount/messages/account_connected.txt:2
+msgid "The social account has been connected."
+msgstr "Konten wurden erfolgreich verknüpft."
+
+#: templates/socialaccount/messages/account_connected_other.txt:2
+msgid "The social account is already connected to a different account."
+msgstr ""
+"Das Konto des Drittanbieters ist bereits mit einem anderen Konto dieser "
+"Seite verknüpft."
+
+#: templates/socialaccount/messages/account_disconnected.txt:2
+msgid "The social account has been disconnected."
+msgstr "Die Verknüpfung mit dem sozialen Netzwerk wurde aufgehoben."

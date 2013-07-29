@@ -1,153 +1,154 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-18 04:23-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Daniel Eriksson <dakrer@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2013-07-29 23:27+0200\n"
+"PO-Revision-Date: 2013-07-20 15:54+0000\n"
+"Last-Translator: Jannis \n"
+"Language-Team: Swedish (http://www.transifex.com/projects/p/django-allauth/"
+"language/sv/)\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: account/adapter.py:167
+#: account/adapter.py:168
 msgid "Usernames can only contain letters, digits and @/./+/-/_."
 msgstr "Användarnamn kan endast innehålla bokstäver, siffror samt @/./+/-/_."
 
-#: account/adapter.py:172
+#: account/adapter.py:173
 msgid "Username can not be used. Please use other username."
 msgstr "Användarnamnet kan ej användas. Välj ett annat användarnamn."
 
-#: account/forms.py:31 account/forms.py:47 account/forms.py:233
-#: account/forms.py:342
+#: account/forms.py:33 account/forms.py:51 account/forms.py:237
+#: account/forms.py:343
 msgid "Password"
 msgstr "Lösenord"
 
-#: account/forms.py:40
+#: account/forms.py:43
 msgid "Password must be a minimum of {0} characters."
 msgstr "Lösenordet måste vara minst {0} tecken långt"
 
-#: account/forms.py:49
+#: account/forms.py:53
 msgid "Remember Me"
 msgstr "Kom ihåg mig"
 
-#: account/forms.py:60 account/forms.py:174
+#: account/forms.py:64 account/forms.py:178
 msgid "E-mail address"
 msgstr "Epost-adress"
 
-#: account/forms.py:61 account/forms.py:185 account/forms.py:291
-#: account/forms.py:359
+#: account/forms.py:65 account/forms.py:189 account/forms.py:292
+#: account/forms.py:360
 msgid "E-mail"
 msgstr "Epost"
 
-#: account/forms.py:66 account/forms.py:67 account/forms.py:167
-#: account/forms.py:171
+#: account/forms.py:70 account/forms.py:71 account/forms.py:171
+#: account/forms.py:175
 msgid "Username"
 msgstr "Användarnamn"
 
-#: account/forms.py:74
+#: account/forms.py:78
 msgid "Username or e-mail"
 msgstr "Användarnamn eller epost-adress"
 
-#: account/forms.py:75
+#: account/forms.py:79
 msgctxt "field label"
 msgid "Login"
 msgstr "Logga in"
 
-#: account/forms.py:107
+#: account/forms.py:111
 msgid "This account is currently inactive."
 msgstr "Detta konto är inaktivt."
 
-#: account/forms.py:111
+#: account/forms.py:115
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "Epost-adressen och/eller lösenordet är felaktigt."
 
-#: account/forms.py:115
+#: account/forms.py:119
 msgid "The username and/or password you specified are not correct."
 msgstr "Användarnamnet och/eller lösenordet är felaktigt."
 
-#: account/forms.py:118
+#: account/forms.py:122
 msgid "The login and/or password you specified are not correct."
 msgstr "Inloggningen och/eller lösenordet är felaktigt."
 
-#: account/forms.py:188
+#: account/forms.py:192
 msgid "E-mail (optional)"
 msgstr "Epost (valfritt)"
 
-#: account/forms.py:203
+#: account/forms.py:207
 msgid "This username is already taken. Please choose another."
 msgstr "Användarnamnet är upptaget. Välj ett annat."
 
-#: account/forms.py:212
+#: account/forms.py:216
 msgid "A user is already registered with this e-mail address."
 msgstr "En användare är redan registrerad med den här epost-adressen"
 
-#: account/forms.py:234 account/forms.py:343
+#: account/forms.py:238 account/forms.py:344
 msgid "Password (again)"
 msgstr "Lösenord (igen)"
 
-#: account/forms.py:252 account/forms.py:332 account/forms.py:348
-#: account/forms.py:417
+#: account/forms.py:256 account/forms.py:333 account/forms.py:349
+#: account/forms.py:418
 msgid "You must type the same password each time."
 msgstr "Du måste ange samma lösenord"
 
-#: account/forms.py:300
+#: account/forms.py:301
 msgid "This e-mail address is already associated with this account."
 msgstr "Denna epost-adress är redan knuten till detta konto"
 
-#: account/forms.py:301
+#: account/forms.py:302
 msgid "This e-mail address is already associated with another account."
 msgstr "Denna epost-adress är redan knuten till ett annat konto"
 
-#: account/forms.py:320
+#: account/forms.py:321
 msgid "Current Password"
 msgstr "Nuvarande lösenord"
 
-#: account/forms.py:321 account/forms.py:405
+#: account/forms.py:322 account/forms.py:406
 msgid "New Password"
 msgstr "Nytt lösenord"
 
-#: account/forms.py:322 account/forms.py:406
+#: account/forms.py:323 account/forms.py:407
 msgid "New Password (again)"
 msgstr "Nytt lösenord (igen)"
 
-#: account/forms.py:326
+#: account/forms.py:327
 msgid "Please type your current password."
 msgstr "Skriv in ditt nuvarande lösenord."
 
-#: account/forms.py:370
+#: account/forms.py:371
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Epost-adressen är inte knuten till något konto"
 
-#: account/models.py:30
+#: account/models.py:31
 msgid "email address"
 msgstr "epost-adress"
 
-#: account/models.py:31
+#: account/models.py:32
 msgid "email addresses"
 msgstr "epost-adresser"
 
-#: account/models.py:81
+#: account/models.py:82
 msgid "email confirmation"
 msgstr "epost-bekräftelse"
 
-#: account/models.py:82
+#: account/models.py:83
 msgid "email confirmations"
 msgstr "epost-bekräftelser"
 
-#: account/utils.py:278
+#: account/utils.py:290
 #, python-format
 msgid "Confirmation e-mail sent to %(email)s"
 msgstr "Epost-bekräftelse skickad till %(email)s"
 
-#: socialaccount/adapter.py:74
+#: socialaccount/adapter.py:73
 msgid "Your account has no password set up."
 msgstr "Ditt konto har inget lösenord."
 
@@ -170,12 +171,12 @@ msgstr "Felaktigt svar vid hämtning av access-nyckel från \"%s\"."
 msgid "No request token saved for \"%s\"."
 msgstr "Ingen fråge-nyckel sparad för \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:160
+#: socialaccount/providers/oauth/client.py:159
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "Ingen access-nyckel sparad för \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:178
+#: socialaccount/providers/oauth/client.py:177
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "Ingen access till privata resurser hos \"%s\"."
@@ -221,8 +222,12 @@ msgid "Warning:"
 msgstr "Varning:"
 
 #: templates/account/email.html:44
-msgid "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc."
-msgstr "Du har inte angett någon epost-adress. Du borde lägga till en epost-adress så du kan få meddelanden, återställa ditt lösenord och liknande."
+msgid ""
+"You currently do not have any e-mail address set up. You should really add "
+"an e-mail address so you can receive notifications, reset your password, etc."
+msgstr ""
+"Du har inte angett någon epost-adress. Du borde lägga till en epost-adress "
+"så du kan få meddelanden, återställa ditt lösenord och liknande."
 
 #: templates/account/email.html:49
 msgid "Add E-mail Address"
@@ -246,8 +251,12 @@ msgstr "Verifiera epost-adress"
 
 #: templates/account/email_confirm.html:17
 #, python-format
-msgid "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail address for user %(user_display)s."
-msgstr "Verifiera att <a href=\"mailto:%(email)s\">%(email)s</a> är en epost-adress för %(user_display)s."
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
+msgstr ""
+"Verifiera att <a href=\"mailto:%(email)s\">%(email)s</a> är en epost-adress "
+"för %(user_display)s."
 
 #: templates/account/email_confirm.html:21
 msgid "Confirm"
@@ -255,13 +264,21 @@ msgstr "Verifiera"
 
 #: templates/account/email_confirm.html:28
 #, python-format
-msgid "This e-mail confirmation link expired or is invalid. Please <a href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
-msgstr "Länken för att verifiera epost-adressen har förfallit eller är ogiltig. <a href=\"%(email_url)s\">Skapa en ny epost-verification.</a>"
+msgid ""
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+msgstr ""
+"Länken för att verifiera epost-adressen har förfallit eller är ogiltig. <a "
+"href=\"%(email_url)s\">Skapa en ny epost-verification.</a>"
 
 #: templates/account/email_confirmed.html:15
 #, python-format
-msgid "You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail address for user %(user_display)s."
-msgstr "Du har verifierat att <a href=\"mailto:%(email)s\">%(email)s</a> är en epost-adress för %(user_display)s."
+msgid ""
+"You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
+"mail address for user %(user_display)s."
+msgstr ""
+"Du har verifierat att <a href=\"mailto:%(email)s\">%(email)s</a> är en epost-"
+"adress för %(user_display)s."
 
 #: templates/account/login.html:7 templates/account/login.html.py:11
 #: templates/account/login.html:39
@@ -272,11 +289,13 @@ msgstr "Logga in"
 #, python-format
 msgid ""
 "Please sign in with one\n"
-"of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign up</a> \n"
+"of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign "
+"up</a> \n"
 "for a %(site_name)s account and sign in below:"
 msgstr ""
 "Logga in med ett\n"
-"av dina befintliga tredjeparts-konton eller <a href=\"%(signup_url)s\">skapa ett konto</a> \n"
+"av dina befintliga tredjeparts-konton eller <a href=\"%(signup_url)s\">skapa "
+"ett konto</a> \n"
 "för %(site_name)s och logga in nedan:"
 
 #: templates/account/login.html:24
@@ -301,6 +320,8 @@ msgstr "Är du säker att du vill logga ut?"
 #: templates/account/password_change.html:12
 #: templates/account/password_reset_from_key.html:5
 #: templates/account/password_reset_from_key.html:8
+#: templates/account/password_reset_from_key_done.html:5
+#: templates/account/password_reset_from_key_done.html:8
 msgid "Change Password"
 msgstr "Ändra lösenord"
 
@@ -310,7 +331,8 @@ msgid "Delete Password"
 msgstr "Ta bort lösenordet"
 
 #: templates/account/password_delete.html:9
-msgid "You may delete your password since you are currently logged in using OpenID."
+msgid ""
+"You may delete your password since you are currently logged in using OpenID."
 msgstr "Du kan ta bort ditt lösenord eftersom du är inloggad via OpenID."
 
 #: templates/account/password_delete.html:12
@@ -334,8 +356,12 @@ msgid "Password Reset"
 msgstr "Återställning av lösenord"
 
 #: templates/account/password_reset.html:15
-msgid "Forgotten your password? Enter your e-mail address below, and we'll send you an e-mail allowing you to reset it."
-msgstr "Glömt ditt lösenord? Ange din epost-adress nedan så skickar vi ett mail med instruktioner för att återställa det."
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
+msgstr ""
+"Glömt ditt lösenord? Ange din epost-adress nedan så skickar vi ett mail med "
+"instruktioner för att återställa det."
 
 #: templates/account/password_reset.html:20
 msgid "Reset My Password"
@@ -343,11 +369,16 @@ msgstr "Återställ mitt lösenord"
 
 #: templates/account/password_reset.html:23
 msgid "Please contact us if you have any trouble resetting your password."
-msgstr "Vänligen kontakta oss om du har problem med att återställa ditt lösenord."
+msgstr ""
+"Vänligen kontakta oss om du har problem med att återställa ditt lösenord."
 
 #: templates/account/password_reset_done.html:15
-msgid "We have sent you an e-mail. Please contact us if you do not receive it within a few minutes."
-msgstr "Ett mail har nu skickats. Kontakta oss om det inte dyker upp inom ett par minuter."
+msgid ""
+"We have sent you an e-mail. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+"Ett mail har nu skickats. Kontakta oss om det inte dyker upp inom ett par "
+"minuter."
 
 #: templates/account/password_reset_from_key.html:8
 msgid "Bad Token"
@@ -355,14 +386,21 @@ msgstr "Felaktig nyckel"
 
 #: templates/account/password_reset_from_key.html:12
 #, python-format
-msgid "The password reset link was invalid, possibly because it has already been used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</a>."
-msgstr "Länken för att återställa lösenordet var ogiltig, möjligtvis för att den redan har använts. Begär en <a href=\"%(passwd_reset_url)s\">ny lösenords-återställning</a>."
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+"Länken för att återställa lösenordet var ogiltig, möjligtvis för att den "
+"redan har använts. Begär en <a href=\"%(passwd_reset_url)s\">ny lösenords-"
+"återställning</a>."
 
 #: templates/account/password_reset_from_key.html:18
 msgid "change password"
 msgstr "ändra lösenord"
 
 #: templates/account/password_reset_from_key.html:21
+#: templates/account/password_reset_from_key_done.html:9
 msgid "Your password is now changed."
 msgstr "Ditt lösenord är nu ändrat."
 
@@ -383,8 +421,10 @@ msgstr "Skapa konto"
 
 #: templates/account/signup.html:11
 #, python-format
-msgid "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr "Har du redan ett konto? Då kan du <a href=\"%(login_url)s\">logga in</a>."
+msgid ""
+"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr ""
+"Har du redan ett konto? Då kan du <a href=\"%(login_url)s\">logga in</a>."
 
 #: templates/account/signup_closed.html:6
 #: templates/account/signup_closed.html:9
@@ -404,8 +444,14 @@ msgstr "Verifiera fin epost-adress"
 
 #: templates/account/verification_sent.html:10
 #, python-format
-msgid "We have sent an e-mail to <a href=\"mailto:%(email)s\">%(email)s</a> for verification. Follow the link provided to finalize the signup process. Please contact us if you do not receive it within a few minutes."
-msgstr "Ett mail för verifiering har skickats till <a href=\"mailto:%(email)s\">%(email)s</a>. Klicka på länken i mailet för att slutföra anmälan. Kontakta oss om det inte dyker upp inom ett par minuter."
+msgid ""
+"We have sent an e-mail to <a href=\"mailto:%(email)s\">%(email)s</a> for "
+"verification. Follow the link provided to finalize the signup process. "
+"Please contact us if you do not receive it within a few minutes."
+msgstr ""
+"Ett mail för verifiering har skickats till <a href=\"mailto:%(email)s\">"
+"%(email)s</a>. Klicka på länken i mailet för att slutföra anmälan. Kontakta "
+"oss om det inte dyker upp inom ett par minuter."
 
 #: templates/account/verified_email_required.html:13
 msgid ""
@@ -429,8 +475,12 @@ msgstr ""
 
 #: templates/account/verified_email_required.html:21
 #, python-format
-msgid "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-mail address</a>."
-msgstr "<strong>Information:</strong> du kan fortfarande <a href=\"%(email_url)s\">ändra din epost-adress</a>."
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
+"mail address</a>."
+msgstr ""
+"<strong>Information:</strong> du kan fortfarande <a href=\"%(email_url)s"
+"\">ändra din epost-adress</a>."
 
 #: templates/account/email/email_confirmation_message.txt:1
 #, python-format
@@ -439,15 +489,19 @@ msgid ""
 "\n"
 "To confirm this is correct, go to %(activate_url)s\n"
 msgstr ""
-"Användare %(user_display)s på %(site_name)s har angivit detta som sin epost-adress.\n"
+"Användare %(user_display)s på %(site_name)s har angivit detta som sin epost-"
+"adress.\n"
 "\n"
-"Klicka på följande adress för att bekräfta att detta stämmer: %(activate_url)s\n"
+"Klicka på följande adress för att bekräfta att detta stämmer: "
+"%(activate_url)s\n"
 
 #: templates/account/email/password_reset_key_message.txt:1
 #, python-format
 msgid ""
-"You're receiving this e-mail because you or someone else has requested a password for your user account at %(site_domain)s.\n"
-"It can be safely ignored if you did not request a password reset. Click the link below to reset your password.\n"
+"You're receiving this e-mail because you or someone else has requested a "
+"password for your user account at %(site_domain)s.\n"
+"It can be safely ignored if you did not request a password reset. Click the "
+"link below to reset your password.\n"
 "\n"
 "%(password_reset_url)s\n"
 "\n"
@@ -455,8 +509,10 @@ msgid ""
 "\n"
 "Thanks for using our site!\n"
 msgstr ""
-"Du har fått detta mail för att du eller någon annan har begärt en återställning av ditt lösenord på %(site_domain)s.\n"
-"Du kan bortse från detta mail om du inte begärt en återställning. Klicka på länken nedan för att återställa ditt lösenord.\n"
+"Du har fått detta mail för att du eller någon annan har begärt en "
+"återställning av ditt lösenord på %(site_domain)s.\n"
+"Du kan bortse från detta mail om du inte begärt en återställning. Klicka på "
+"länken nedan för att återställa ditt lösenord.\n"
 "\n"
 "%(password_reset_url)s\n"
 "\n"
@@ -541,7 +597,8 @@ msgid "Social Network Login Failure"
 msgstr "Fel vid tredjeparts-inloggning"
 
 #: templates/socialaccount/authentication_error.html:10
-msgid "An error occurred while attempting to login via your social network account."
+msgid ""
+"An error occurred while attempting to login via your social network account."
 msgstr "Ett fel inträffade vid inloggning via tredjeparts-konto."
 
 #: templates/socialaccount/connections.html:5
@@ -550,11 +607,15 @@ msgid "Account Connections"
 msgstr "Anslutna tredjeparts-konton"
 
 #: templates/socialaccount/connections.html:11
-msgid "You can sign in to your account using any of the following third party accounts:"
-msgstr "Du kan logga in på ditt konto via något av följande tredjeparts-konton:"
+msgid ""
+"You can sign in to your account using any of the following third party "
+"accounts:"
+msgstr ""
+"Du kan logga in på ditt konto via något av följande tredjeparts-konton:"
 
 #: templates/socialaccount/connections.html:43
-msgid "You currently have no social network accounts connected to this account."
+msgid ""
+"You currently have no social network accounts connected to this account."
 msgstr "Du har för närvarande inga tredjeparts-konton knutna till ditt konto."
 
 #: templates/socialaccount/connections.html:46
@@ -568,8 +629,13 @@ msgstr "Inloggning avbruten"
 
 #: templates/socialaccount/login_cancelled.html:14
 #, python-format
-msgid "You decided to cancel logging in to our site using one of your existing accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s\">sign in</a>."
-msgstr "Du valde att avbryta inloggningen via ett av dina tredjeparts-konton. Om detta var ett misstag kan du <a href=\"%(login_url)s\">logga in igen</a>."
+msgid ""
+"You decided to cancel logging in to our site using one of your existing "
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
+msgstr ""
+"Du valde att avbryta inloggningen via ett av dina tredjeparts-konton. Om "
+"detta var ett misstag kan du <a href=\"%(login_url)s\">logga in igen</a>."
 
 #: templates/socialaccount/signup.html:10
 #, python-format

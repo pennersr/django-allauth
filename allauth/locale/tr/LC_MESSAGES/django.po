@@ -1,207 +1,161 @@
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# , 2013.
+# Translators:
+# , 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-12 19:07+0200\n"
-"PO-Revision-Date: 2013-02-03 19:39+0100\n"
-"Last-Translator: \n"
-"Language-Team: American English <kde-i18n-doc@kde.org>\n"
-"Language: en_US\n"
+"POT-Creation-Date: 2013-07-29 23:27+0200\n"
+"PO-Revision-Date: 2013-07-20 15:54+0000\n"
+"Last-Translator: Jannis \n"
+"Language-Team: Turkish (http://www.transifex.com/projects/p/django-allauth/"
+"language/tr/)\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: Lokalize 1.4\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: account/forms.py:31 account/forms.py:47 account/forms.py:233
-#: account/forms.py:351
+#: account/adapter.py:168
+msgid "Usernames can only contain letters, digits and @/./+/-/_."
+msgstr "Kullanıcı adları sadece harf, rakam ve @/./+/-/_ içerebilir."
+
+#: account/adapter.py:173
+msgid "Username can not be used. Please use other username."
+msgstr ""
+
+#: account/forms.py:33 account/forms.py:51 account/forms.py:237
+#: account/forms.py:343
 msgid "Password"
 msgstr "Parola"
 
-#: account/forms.py:40
+#: account/forms.py:43
 msgid "Password must be a minimum of {0} characters."
 msgstr "Parola en az {0} karakter olmalıdır."
 
-#: account/forms.py:49
+#: account/forms.py:53
 msgid "Remember Me"
 msgstr "Beni Hatırla"
 
-#: account/forms.py:60 account/forms.py:173
+#: account/forms.py:64 account/forms.py:178
 msgid "E-mail address"
 msgstr "E-posta adresi"
 
-#: account/forms.py:61 account/forms.py:182 account/forms.py:301
-#: account/forms.py:368
+#: account/forms.py:65 account/forms.py:189 account/forms.py:292
+#: account/forms.py:360
 msgid "E-mail"
 msgstr "E-posta"
 
-#: account/forms.py:66 account/forms.py:67 account/forms.py:166
-#: account/forms.py:170
+#: account/forms.py:70 account/forms.py:71 account/forms.py:171
+#: account/forms.py:175
 msgid "Username"
 msgstr "Kullanıcı adı"
 
-#: account/forms.py:74
+#: account/forms.py:78
 msgid "Username or e-mail"
 msgstr "Kullanıcı adı ya da e-posta"
 
-#: account/forms.py:75
+#: account/forms.py:79
 msgctxt "field label"
 msgid "Login"
 msgstr "Giriş Yap"
 
-#: account/forms.py:108
+#: account/forms.py:111
 msgid "This account is currently inactive."
 msgstr "Bu hesap şu anda etkin değil."
 
-#: account/forms.py:112
+#: account/forms.py:115
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "Girdiğiniz e-posta adresi ve/veya parola doğru değil."
 
-#: account/forms.py:116
+#: account/forms.py:119
 msgid "The username and/or password you specified are not correct."
 msgstr "Girdiğiniz kullanıcı adı ve/veya parola doğru değil."
 
-#: account/forms.py:119
+#: account/forms.py:122
 msgid "The login and/or password you specified are not correct."
 msgstr "Girdiğiniz giriş bilgisi ve/veya parola doğru değil."
 
-#: account/forms.py:185
+#: account/forms.py:192
 msgid "E-mail (optional)"
 msgstr "E-posta (zorunlu değil)"
 
-#: account/forms.py:193
-msgid "Usernames can only contain letters, digits and @/./+/-/_."
-msgstr "Kullanıcı adları sadece harf, rakam ve @/./+/-/_ içerebilir."
-
-#: account/forms.py:197
-msgid "Username can not be used. Please use other username."
-msgstr ""
-
-#: account/forms.py:204
+#: account/forms.py:207
 msgid "This username is already taken. Please choose another."
 msgstr "Bu kullanıcı adı alınmış durumda. Lütfen başka bir tane deneyiniz."
 
-#: account/forms.py:212
+#: account/forms.py:216
 msgid "A user is already registered with this e-mail address."
 msgstr "Bu e-posta adresiyle bir kullanıcı zaten kayıtlı."
 
-#: account/forms.py:234 account/forms.py:352
+#: account/forms.py:238 account/forms.py:344
 msgid "Password (again)"
 msgstr "Parola (tekrar)"
 
-#: account/forms.py:262 account/forms.py:341 account/forms.py:357
-#: account/forms.py:425
+#: account/forms.py:256 account/forms.py:333 account/forms.py:349
+#: account/forms.py:418
 msgid "You must type the same password each time."
 msgstr "Her seferinde aynı parolayı girmelisiniz."
 
-#: account/forms.py:309
+#: account/forms.py:301
 msgid "This e-mail address is already associated with this account."
 msgstr "Bu e-post adresi zaten bu hesap ile ilişkilendirilmiş."
 
-#: account/forms.py:310
+#: account/forms.py:302
 msgid "This e-mail address is already associated with another account."
 msgstr "Bu e-post adresi başka bir hesap ile ilişkilendirilmiş."
 
-#: account/forms.py:329
+#: account/forms.py:321
 msgid "Current Password"
 msgstr "Mevcut Parola"
 
-#: account/forms.py:330 account/forms.py:413
+#: account/forms.py:322 account/forms.py:406
 msgid "New Password"
 msgstr "Yeni Parola"
 
-#: account/forms.py:331 account/forms.py:414
+#: account/forms.py:323 account/forms.py:407
 msgid "New Password (again)"
 msgstr "Yeni Parola (tekrar)"
 
-#: account/forms.py:335
+#: account/forms.py:327
 msgid "Please type your current password."
 msgstr "Mevcut parolanızı tekrar yazın."
 
-#: account/forms.py:378
+#: account/forms.py:371
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Bu e-posta adresi hiçbir kullanıcı hesabıyla ilişkili değil"
 
-#: account/models.py:30
+#: account/models.py:31
 msgid "email address"
 msgstr "e-posta adresi"
 
-#: account/models.py:31
+#: account/models.py:32
 msgid "email addresses"
 msgstr "e-posta adresleri"
 
-#: account/models.py:81
+#: account/models.py:82
 msgid "email confirmation"
 msgstr "e-posta onayı"
 
-#: account/models.py:82
+#: account/models.py:83
 msgid "email confirmations"
 msgstr "e-posta onayları"
 
-#: account/utils.py:95
-#, python-format
-msgid "Successfully signed in as %(user)s."
-msgstr "%(user)s olarak başarıyla giriş yapıldı."
-
-#: account/utils.py:240 account/views.py:222 account/views.py:241
+#: account/utils.py:290
 #, python-format
 msgid "Confirmation e-mail sent to %(email)s"
 msgstr "Onay e-postası %(email)s adresine gönderildi."
 
-#: account/views.py:147
-#, python-format
-msgid "You have confirmed %(email)s."
-msgstr "%(email)s adresini onayladınız."
-
-#: account/views.py:259
-#, python-format
-msgid "You cannot remove your primary e-mail address (%(email)s)"
-msgstr "Birincil e-posta adresinizi (%(email)s) kaldıramazsınız"
-
-#: account/views.py:269
-#, python-format
-msgid "Removed e-mail address %(email)s"
-msgstr "E-posta adresi %(email)s kaldırıldı"
-
-#: account/views.py:295
-msgid "Your primary e-mail address must be verified"
-msgstr "Birincil e-posta adresiniz doğrulanmalı."
-
-#: account/views.py:307
-msgid "Primary e-mail address set"
-msgstr "Birincil e-posta adresi ayarlandı"
-
-#: account/views.py:336 account/views.py:413
-msgid "Password successfully changed."
-msgstr "Parola başarıyla değiştirildi."
-
-#: account/views.py:361
-msgid "Password successfully set."
-msgstr "Parola başarıyla ayarlandı."
-
-#: account/views.py:448
-msgid "You have signed out."
-msgstr "Çıkış yaptınız."
-
-#: socialaccount/forms.py:47
+#: socialaccount/adapter.py:73
 msgid "Your account has no password set up."
 msgstr "Hesabınız için parola belirlemediniz."
 
-#: socialaccount/forms.py:51
+#: socialaccount/adapter.py:78
 msgid "Your account has no verified e-mail address."
 msgstr "Hesabınızın doğrulanmış e-posta adresi yok."
-
-#: socialaccount/helpers.py:129
-msgid "The social account has been connected"
-msgstr "Sosyal Hesap bağlandı"
-
-#: socialaccount/views.py:66
-msgid "The social account has been disconnected"
-msgstr "Sosyal hesap bağlantısı kaldırıldı"
 
 #: socialaccount/providers/oauth/client.py:78
 #, python-format
@@ -218,12 +172,12 @@ msgstr "\"%s\"'dan erişim kodu alınırken geçersiz cevap alındı."
 msgid "No request token saved for \"%s\"."
 msgstr "\"%s\" için hiçbir talep kodu kaydedilmedi."
 
-#: socialaccount/providers/oauth/client.py:160
+#: socialaccount/providers/oauth/client.py:159
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "\"%s\" için hiçbir erişim kodu kaydedilmedi."
 
-#: socialaccount/providers/oauth/client.py:178
+#: socialaccount/providers/oauth/client.py:177
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "\"%s\"'daki özel kaynaklara erişim yok."
@@ -284,7 +238,7 @@ msgstr "E-posta Adresi Ekle"
 msgid "Add E-mail"
 msgstr "E-posta Ekle"
 
-#: templates/account/email.html:64
+#: templates/account/email.html:63
 msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Seçilen e-posta adresini kaldırmak istediğinizden emin misiniz?"
 
@@ -333,16 +287,13 @@ msgid "Sign In"
 msgstr "Giriş Yap"
 
 #: templates/account/login.html:14
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please sign in with one\n"
 "of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign "
 "up</a> \n"
 "for a %(site_name)s account and sign in below:"
 msgstr ""
-"Lütfen mevcut üçüncü parti hesaplarınızdan birisiyle giriş yapın. Ya da, "
-"%(site_name)s hesabı için <a \n"
-"href=\"%(signup_url)s\">üye olun</a> ve giriş yapın:"
 
 #: templates/account/login.html:24
 msgid "or"
@@ -354,9 +305,8 @@ msgstr "Parolanızı mı unuttunuz?"
 
 #: templates/account/logout.html:6 templates/account/logout.html.py:9
 #: templates/account/logout.html:18
-#, fuzzy
 msgid "Sign Out"
-msgstr "Çıkış Yaptınız"
+msgstr ""
 
 #: templates/account/logout.html:11
 msgid "Are you sure you want to sign out?"
@@ -367,6 +317,8 @@ msgstr ""
 #: templates/account/password_change.html:12
 #: templates/account/password_reset_from_key.html:5
 #: templates/account/password_reset_from_key.html:8
+#: templates/account/password_reset_from_key_done.html:5
+#: templates/account/password_reset_from_key_done.html:8
 msgid "Change Password"
 msgstr "Parola Değiştir"
 
@@ -448,6 +400,7 @@ msgid "change password"
 msgstr "parola değiştir"
 
 #: templates/account/password_reset_from_key.html:21
+#: templates/account/password_reset_from_key_done.html:9
 msgid "Your password is now changed."
 msgstr "Parolanız değişti."
 
@@ -476,9 +429,8 @@ msgstr ""
 
 #: templates/account/signup_closed.html:6
 #: templates/account/signup_closed.html:9
-#, fuzzy
 msgid "Sign Up Closed"
-msgstr "Üye Ol"
+msgstr ""
 
 #: templates/account/signup_closed.html:11
 msgid "We are sorry, but the sign up is currently closed."
@@ -572,6 +524,51 @@ msgstr ""
 msgid "Password Reset E-mail"
 msgstr "Parola Sıfırlama E-postası"
 
+#: templates/account/messages/cannot_delete_primary_email.txt:2
+#, python-format
+msgid "You cannot remove your primary e-mail address (%(email)s)."
+msgstr ""
+
+#: templates/account/messages/email_confirmation_sent.txt:2
+#, python-format
+msgid "Confirmation e-mail sent to %(email)s."
+msgstr ""
+
+#: templates/account/messages/email_confirmed.txt:2
+#, python-format
+msgid "You have confirmed %(email)s."
+msgstr "%(email)s adresini onayladınız."
+
+#: templates/account/messages/email_deleted.txt:2
+#, python-format
+msgid "Removed e-mail address %(email)s."
+msgstr ""
+
+#: templates/account/messages/logged_in.txt:4
+#, python-format
+msgid "Successfully signed in as %(name)s."
+msgstr ""
+
+#: templates/account/messages/logged_out.txt:2
+msgid "You have signed out."
+msgstr "Çıkış yaptınız."
+
+#: templates/account/messages/password_changed.txt:2
+msgid "Password successfully changed."
+msgstr "Parola başarıyla değiştirildi."
+
+#: templates/account/messages/password_set.txt:2
+msgid "Password successfully set."
+msgstr "Parola başarıyla ayarlandı."
+
+#: templates/account/messages/primary_email_set.txt:2
+msgid "Primary e-mail address set."
+msgstr ""
+
+#: templates/account/messages/unverified_primary_email.txt:2
+msgid "Your primary e-mail address must be verified."
+msgstr ""
+
 #: templates/account/snippets/already_logged_in.html:5
 msgid "Note"
 msgstr "Not"
@@ -649,3 +646,15 @@ msgid ""
 msgstr ""
 "%(site_name)s sitesine giriş yapmak için %(provider_name)s hesabınızı "
 "kullanmak üzeresiniz. Son bir adım olarak, lütfen şu formu doldurun:"
+
+#: templates/socialaccount/messages/account_connected.txt:2
+msgid "The social account has been connected."
+msgstr ""
+
+#: templates/socialaccount/messages/account_connected_other.txt:2
+msgid "The social account is already connected to a different account."
+msgstr ""
+
+#: templates/socialaccount/messages/account_disconnected.txt:2
+msgid "The social account has been disconnected."
+msgstr ""

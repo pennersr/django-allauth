@@ -3,7 +3,8 @@ from __future__ import absolute_import
 from django import forms
 
 from allauth.account.forms import BaseSignupForm
-from allauth.account.utils import (user_username, user_email)
+from allauth.account.utils import (user_username, user_email,
+                                   user_field)
 
 from .models import SocialAccount
 from .adapter import get_adapter
@@ -16,10 +17,10 @@ class SignupForm(BaseSignupForm):
     def __init__(self, *args, **kwargs):
         self.sociallogin = kwargs.pop('sociallogin')
         user = self.sociallogin.account.user
-        initial = { 'email': user_email(user) or '',
-                    'username': user_username(user) or '',
-                    'first_name': user.first_name or '',
-                    'last_name': user.last_name or '' }
+        initial = {'email': user_email(user) or '',
+                   'username': user_username(user) or '',
+                   'first_name': user_field(user, 'first_name') or '',
+                   'last_name': user_field(user, 'last_name') or ''}
         kwargs['initial'] = initial
         kwargs['email_required'] = app_settings.EMAIL_REQUIRED
         super(SignupForm, self).__init__(*args, **kwargs)

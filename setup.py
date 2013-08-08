@@ -110,7 +110,7 @@ METADATA = dict(
     long_description=open('README.rst').read(),
     url='http://github.com/pennersr/django-allauth',
     keywords='django auth account social openid twitter facebook oauth registration',
-    install_requires=['django >= 1.4.3',
+    install_requires=['Django >= 1.4.3',
                       openid_package,
                       'requests-oauthlib >= 0.3.0',
                       'requests >= 1.0.3'],

@@ -909,10 +909,10 @@ invitation app. The account adapter
 (`allauth.account.adapter.DefaultAccountAdapter`) offers the following
 methods:
 
-- `is_open_for_signup(request)`. You can override this method to, for
+- `is_open_for_signup(self, request)`. You can override this method to, for
   example, inspect the session to check if an invitation was accepted.
 
-- `stash_verified_email(request, email)`. If an invitation was
+- `stash_verified_email(self, request, email)`. If an invitation was
   accepted by following a link in a mail, then there is no need to
   send e-mail verification mails after the signup is completed. Use
   this method to record the fact that an e-mail address was verified.
@@ -947,15 +947,15 @@ following adapter methods:
 
 - `allauth.account.adapter.DefaultAccountAdapter`:
 
-  - `get_login_redirect_url(request)`
+  - `get_login_redirect_url(self, request)`
 
-  - `get_logout_redirect_url(request)`
+  - `get_logout_redirect_url(self, request)`
 
-  - `get_email_confirmation_redirect_url(request)`
+  - `get_email_confirmation_redirect_url(self, request)`
 
 - `allauth.socialaccount.adapter.DefaultSocialAccountAdapter`:
 
-  - `get_connect_redirect_url(request, socialaccount)`
+  - `get_connect_redirect_url(self, request, socialaccount)`
 
 For example, redirecting to `/accounts/<username>/` can be implemented as
 follows::

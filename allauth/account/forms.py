@@ -183,8 +183,8 @@ class BaseSignupForm(_base_signup_form_class()):
         # field order may contain additional fields from our base class,
         # so take proper care when reordering...
         field_order = ['email', 'username']
-        other_field_order = [ f for f in self.fields.keyOrder
-                              if f not in field_order ]
+        merged_field_order = self.fields.keyOrder
+
         if email_required:
             self.fields["email"].label = ugettext("E-mail")
             self.fields["email"].required = True
@@ -193,7 +193,15 @@ class BaseSignupForm(_base_signup_form_class()):
             self.fields["email"].required = False
             if app_settings.USERNAME_REQUIRED:
                 field_order = ['username', 'email']
-        self.fields.keyOrder = field_order + other_field_order
+
+        # Merge our email and username fields in if they are not currently in the order.
+        # This is to allow others to re-arrange email and username if they desire.
+        # Go in reverse so that we make sure the inserted items are always prepended.
+        for field in reversed(field_order):
+            if not field in merged_field_order:
+                merged_field_order.insert(0, field)
+
+        self.fields.keyOrder = merged_field_order
         if not app_settings.USERNAME_REQUIRED:
             del self.fields["username"]
 

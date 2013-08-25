@@ -58,7 +58,7 @@ msgstr "用户名或e-mail"
 #: account/forms.py:79
 msgctxt "field label"
 msgid "Login"
-msgstr "登陆"
+msgstr "登录"
 
 #: account/forms.py:111
 msgid "This account is currently inactive."
@@ -78,7 +78,7 @@ msgstr "您提供的账号或密码错误"
 
 #: account/forms.py:192
 msgid "E-mail (optional)"
-msgstr "E-mail (选填项)"
+msgstr "E-mail （选填项）"
 
 #: account/forms.py:207
 msgid "This username is already taken. Please choose another."
@@ -90,7 +90,7 @@ msgstr "此e-mail地址已被其他用户注册。"
 
 #: account/forms.py:238 account/forms.py:344
 msgid "Password (again)"
-msgstr "密码 (重复)"
+msgstr "密码（重复）"
 
 #: account/forms.py:256 account/forms.py:333 account/forms.py:349
 #: account/forms.py:418
@@ -115,7 +115,7 @@ msgstr "新密码"
 
 #: account/forms.py:323 account/forms.py:407
 msgid "New Password (again)"
-msgstr "新密码 (重复)"
+msgstr "新密码（重复）"
 
 #: account/forms.py:327
 msgid "Please type your current password."
@@ -300,7 +300,7 @@ msgstr "或"
 
 #: templates/account/login.html:38
 msgid "Forgot Password?"
-msgstr "忘记密码？"
+msgstr "忘记密码了？"
 
 #: templates/account/logout.html:6 templates/account/logout.html.py:9
 #: templates/account/logout.html:18
@@ -370,7 +370,7 @@ msgstr "如在重置密码时遇到问题，请与我们联系。"
 msgid ""
 "We have sent you an e-mail. Please contact us if you do not receive it "
 "within a few minutes."
-msgstr "我们已给您发了一封e-mail,如您在几分钟后仍没收到，请与我们联系。"
+msgstr "我们已给您发了一封e-mail，如您在几分钟后仍没收到，请与我们联系。"
 
 #: templates/account/password_reset_from_key.html:8
 msgid "Bad Token"
@@ -393,7 +393,7 @@ msgstr "修改密码"
 #: templates/account/password_reset_from_key.html:21
 #: templates/account/password_reset_from_key_done.html:9
 msgid "Your password is now changed."
-msgstr "您的密码现在已被修改。"
+msgstr "您的密码现已被修改。"
 
 #: templates/account/password_set.html:5 templates/account/password_set.html:8
 #: templates/account/password_set.html:13
@@ -414,7 +414,7 @@ msgstr "注册"
 #, python-format
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr "已经有一个账号？ 请<a href=\"%(login_url)s\">登陆</a>."
+msgstr "已经有一个账号？ 请<a href=\"%(login_url)s\">登录</a>."
 
 #: templates/account/signup_closed.html:6
 #: templates/account/signup_closed.html:9
@@ -531,7 +531,7 @@ msgstr "e-mail地址 %(email)s 已删除"
 #: templates/account/messages/logged_in.txt:4
 #, fuzzy, python-format
 msgid "Successfully signed in as %(name)s."
-msgstr "以 %(user)s.身份成功登陆"
+msgstr "以 %(user)s.身份成功登录"
 
 #: templates/account/messages/logged_out.txt:2
 msgid "You have signed out."
@@ -562,11 +562,11 @@ msgstr "注意"
 #: templates/account/snippets/already_logged_in.html:5
 #, python-format
 msgid "you are already logged in as %(user_display)s."
-msgstr "您已以 %(user_display)s的身份登陆"
+msgstr "您已以 %(user_display)s的身份登录"
 
 #: templates/openid/login.html:10
 msgid "OpenID Sign In"
-msgstr "OpenID登陆"
+msgstr "OpenID登录"
 
 #: templates/socialaccount/account_inactive.html:5
 #: templates/socialaccount/account_inactive.html:8
@@ -580,7 +580,7 @@ msgstr "此账号未激活"
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:8
 msgid "Social Network Login Failure"
-msgstr "社交网络登陆失败"
+msgstr "社交网络登录失败"
 
 #: templates/socialaccount/authentication_error.html:10
 msgid ""

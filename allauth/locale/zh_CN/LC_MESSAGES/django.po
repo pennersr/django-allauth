@@ -58,7 +58,7 @@ msgstr "用户名或e-mail"
 #: account/forms.py:79
 msgctxt "field label"
 msgid "Login"
-msgstr "登陆"
+msgstr "登录"
 
 #: account/forms.py:111
 msgid "This account is currently inactive."
@@ -414,7 +414,7 @@ msgstr "注册"
 #, python-format
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr "已经有一个账号？ 请<a href=\"%(login_url)s\">登陆</a>."
+msgstr "已经有一个账号？ 请<a href=\"%(login_url)s\">登录</a>."
 
 #: templates/account/signup_closed.html:6
 #: templates/account/signup_closed.html:9
@@ -531,7 +531,7 @@ msgstr "e-mail地址 %(email)s 已删除"
 #: templates/account/messages/logged_in.txt:4
 #, fuzzy, python-format
 msgid "Successfully signed in as %(name)s."
-msgstr "以 %(user)s.身份成功登陆"
+msgstr "以 %(user)s.身份成功登录"
 
 #: templates/account/messages/logged_out.txt:2
 msgid "You have signed out."
@@ -562,11 +562,11 @@ msgstr "注意"
 #: templates/account/snippets/already_logged_in.html:5
 #, python-format
 msgid "you are already logged in as %(user_display)s."
-msgstr "您已以 %(user_display)s的身份登陆"
+msgstr "您已以 %(user_display)s的身份登录"
 
 #: templates/openid/login.html:10
 msgid "OpenID Sign In"
-msgstr "OpenID登陆"
+msgstr "OpenID登录"
 
 #: templates/socialaccount/account_inactive.html:5
 #: templates/socialaccount/account_inactive.html:8
@@ -580,7 +580,7 @@ msgstr "此账号未激活"
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:8
 msgid "Social Network Login Failure"
-msgstr "社交网络登陆失败"
+msgstr "社交网络登录失败"
 
 #: templates/socialaccount/authentication_error.html:10
 msgid ""

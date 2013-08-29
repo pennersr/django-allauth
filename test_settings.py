@@ -55,6 +55,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.vimeo',
     'allauth.socialaccount.providers.weibo',
     'allauth.socialaccount.providers.bitly',
+    'allauth.socialaccount.providers.vk',
 )
 
 AUTHENTICATION_BACKENDS = (

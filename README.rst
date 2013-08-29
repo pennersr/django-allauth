@@ -15,7 +15,7 @@ Rationale
 Most existing Django apps that address the problem of social
 authentication focus on just that. You typically need to integrate
 another app in order to support authentication via a local
-account. 
+account.
 
 This approach separates the worlds of local and social
 authentication. However, there are common scenarios to be dealt with
@@ -94,11 +94,13 @@ Supported Providers
 
 - Vimeo (OAuth)
 
+- VK (OAuth2)
+
 - Weibo (OAuth2)
 
 Note: OAuth/OAuth2 support is built using a common code base, making it easy to add support for additional OAuth/OAuth2 providers. More will follow soon...
 
- 
+
 Features
 --------
 
@@ -232,7 +234,7 @@ ACCOUNT_LOGOUT_ON_GET (=False)
   details.
 
 ACCOUNT_LOGOUT_REDIRECT_URL (="/")
-  The URL (or URL name) to return to after the user logs out. This is 
+  The URL (or URL name) to return to after the user logs out. This is
   the counterpart to Django's `LOGIN_REDIRECT_URL`.
 
 ACCOUNT_SIGNUP_FORM_CLASS (=None)
@@ -255,7 +257,7 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD (="username")
 ACCOUNT_USER_MODEL_EMAIL_FIELD (="email")
   The name of the field containing the `email`, if any. See custom
   user models.
-  
+
 ACCOUNT_USER_DISPLAY (=a callable returning `user.username`)
   A callable (or string of the form `'some.module.callable_name'`)
   that takes a user as its only argument and returns the display name
@@ -287,7 +289,7 @@ SOCIALACCOUNT_QUERY_EMAIL (=ACCOUNT_EMAIL_REQUIRED)
   Request e-mail address from 3rd party account provider? E.g. using
   OpenID AX, or the Facebook "email" permission.
 
-SOCIALACCOUNT_AUTO_SIGNUP (=True) 
+SOCIALACCOUNT_AUTO_SIGNUP (=True)
   Attempt to bypass the signup form by using fields (e.g. username,
   email) retrieved from the social account provider. If a conflict
   arises due to a duplicate e-mail address the signup form will still
@@ -330,7 +332,7 @@ From 0.11.1
   result, if you include the template
   `socialaccount/snippets/provider_list.html` from your own overriden
   `socialaccount/connections.html` template, you now need to pass
-  along the process parameter as follows: 
+  along the process parameter as follows:
   `{% include "socialaccount/snippets/provider_list.html" with process="connect" %}`.
 
 - Instead of inlining the required Facebook SDK Javascript wrapper
@@ -369,7 +371,7 @@ From 0.9.0
   you there is no harm in running it anyways if you are unsure):
 
   - `python manage.py account_unsetmultipleprimaryemails`
-    
+
     - Will silently remove primary flags for email addresses that
       aren't the same as `user.email`.
 
@@ -455,7 +457,7 @@ From 0.7.0
 
 - `{% load account_tags %}` is deprecated, simply use: `{% load account %}`
 
-- `{% load socialaccount_tags %}` is deprecated, simply use: 
+- `{% load socialaccount_tags %}` is deprecated, simply use:
   `{% load socialaccount %}`
 
 From 0.5.0
@@ -545,7 +547,7 @@ or::
 The following Facebook settings are available::
 
     SOCIALACCOUNT_PROVIDERS = \
-        { 'facebook': 
+        { 'facebook':
             { 'SCOPE': ['email', 'publish_stream'],
 	      'AUTH_PARAMS': { 'auth_type': 'reauthenticate' },
               'METHOD': 'oauth2' ,
@@ -577,7 +579,7 @@ LOCALE_FUNC:
 App registration
     https://developers.facebook.com/apps
 
-Devlopment callback URL
+Development callback URL
     http://localhost:8000
 
 
@@ -592,7 +594,7 @@ redirect uri of the form
 You can specify the scope to use as follows::
 
     SOCIALACCOUNT_PROVIDERS = \
-        { 'google': 
+        { 'google':
             { 'SCOPE': ['https://www.googleapis.com/auth/userinfo.profile'],
               'AUTH_PARAMS': { 'access_type': 'online' } }}
 
@@ -610,7 +612,7 @@ OAuth redirect URL empty.
 You can specify the scope to use as follows::
 
     SOCIALACCOUNT_PROVIDERS = \
-        { 'linkedin': 
+        { 'linkedin':
             { 'SCOPE': ['r_emailaddress'] } }
 
 By default, `r_emailaddress` scope is required depending on whether or
@@ -634,8 +636,8 @@ providers displayed by the builtin templates can be configured as
 follows::
 
     SOCIALACCOUNT_PROVIDERS = \
-        { 'openid': 
-            { 'SERVERS': 
+        { 'openid':
+            { 'SERVERS':
                 [dict(id='yahoo',
                       name='Yahoo',
                       openid_url='http://me.yahoo.com'),
@@ -663,7 +665,7 @@ passed as is to the `navigator.id.request()` method to influence the
 look and feel of the Persona dialog::
 
     SOCIALACCOUNT_PROVIDERS = \
-        { 'persona': 
+        { 'persona':
             { 'REQUEST_PARAMETERS': {'siteName': 'Example' } } }
 
 
@@ -671,7 +673,7 @@ SoundCloud
 ----------
 
 SoundCloud allows you to choose between OAuth1 and OAuth2.  Choose the
-latter. 
+latter.
 
 
 Stack Exchange
@@ -689,14 +691,14 @@ Overflow, or Server Fault). This can be controlled by means of the
 `SITE` setting::
 
     SOCIALACCOUNT_PROVIDERS = \
-        { 'stackexchange': 
+        { 'stackexchange':
             { 'SITE': 'stackoverflow' } }
 
 
 Twitch
 ------
 Register your OAuth2 app over at
-`http://www.twitch.tv/kraken/oauth2/clients/new`. 
+`http://www.twitch.tv/kraken/oauth2/clients/new`.
 
 Vimeo
 -----
@@ -704,8 +706,18 @@ Vimeo
 App registration
     https://developer.vimeo.com/apps
 
-Devlopment callback URL
+Development callback URL
     http://localhost:8000
+
+
+VK
+--
+
+App registration
+    http://vk.com/apps?act=settings
+
+Development callback URL ("Site address")
+    http://localhost
 
 
 Weibo
@@ -966,9 +978,9 @@ follows::
     # project/users/adapter.py:
     from django.conf import settings
     from allauth.account.adapter import DefaultAccountAdapter
-    
+
     class MyAccountAdapter(DefaultAccountAdapter):
-    
+
         def get_login_redirect_url(self, request):
             path = "/accounts/{username}/"
             return path.format(username=request.user.username)

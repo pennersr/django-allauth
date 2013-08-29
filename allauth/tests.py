@@ -15,6 +15,9 @@ class MockedResponse(object):
         import json
         return json.loads(self.content)
 
+    def raise_for_status(self):
+        pass
+
     @property
     def text(self):
         return self.content

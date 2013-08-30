@@ -174,6 +174,7 @@ settings.py::
         'allauth.socialaccount.providers.twitch',
         'allauth.socialaccount.providers.twitter',
         'allauth.socialaccount.providers.vimeo',
+        'allauth.socialaccount.providers.vk',
         'allauth.socialaccount.providers.weibo',
         ...
     )

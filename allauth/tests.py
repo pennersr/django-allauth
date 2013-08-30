@@ -8,7 +8,7 @@ from . import utils
 class MockedResponse(object):
     def __init__(self, status_code, content, headers={}):
         self.status_code = status_code
-        self.content = content
+        self.content = content.encode('utf8')
         self.headers = headers
 
     def json(self):
@@ -20,7 +20,7 @@ class MockedResponse(object):
 
     @property
     def text(self):
-        return self.content
+        return self.content.decode('utf8')
 
 class mocked_response:
     def __init__(self, *responses):

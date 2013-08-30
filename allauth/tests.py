@@ -13,7 +13,7 @@ class MockedResponse(object):
 
     def json(self):
         import json
-        return json.loads(self.content)
+        return json.loads(self.text)
 
     def raise_for_status(self):
         pass

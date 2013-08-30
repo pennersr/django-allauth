@@ -56,7 +56,8 @@ def _process_signup(request, sociallogin):
         # ("closed" rendering, create user, send email, in active
         # etc..)
         try:
-            if not get_account_adapter().is_open_for_signup(request):
+            if not get_adapter().is_open_for_signup(request,
+                                                    sociallogin):
                 return render(request,
                               "account/signup_closed.html")
         except ImmediateHttpResponse as e:

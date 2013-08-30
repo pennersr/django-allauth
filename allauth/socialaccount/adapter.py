@@ -9,6 +9,7 @@ from ..utils import (import_attribute,
                      valid_email_or_none)
 from ..account.utils import user_email, user_username, user_field
 from ..account.models import EmailAddress
+from ..account.adapter import get_adapter as get_account_adapter
 
 from . import app_settings
 
@@ -77,6 +78,15 @@ class DefaultSocialAccountAdapter(object):
                                            verified=True).count() == 0:
                 raise ValidationError(_("Your account has no verified e-mail"
                                         " address."))
+
+    def is_open_for_signup(self, request, sociallogin):
+        """
+        Checks whether or not the site is open for signups.
+
+        Next to simply returning True/False you can also intervene the
+        regular flow by raising an ImmediateHttpResponse
+        """
+        return get_account_adapter().is_open_for_signup(request)
 
 
 def get_adapter():

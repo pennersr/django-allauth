@@ -1,6 +1,20 @@
+2013-08-31  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.13.0 released.
+
+2013-08-30  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Koichi Harakawa contributed a Japanese translation, thanks!
+
+	* Added `is_open_for_signup` to DefaultSocialAccountAdapter.
+
 2013-08-29  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Added VK provider support.
+
+2013-08-16  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Marcin Spoczynski contributed a Polish translation, thanks!
 
 2013-07-23  Raymond Penners  <raymond.penners@intenct.nl>
 
@@ -15,6 +29,10 @@
 2013-07-19  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* `django.contrib.messages` is now optional.
+
+2013-07-12  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* "jresins" contributed a simplified Chinese, thanks!
 
 2013-07-01  Raymond Penners  <raymond.penners@intenct.nl>
 

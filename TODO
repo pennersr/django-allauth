@@ -1,9 +1,0 @@
--*- org -*-
-
-* TODO [4/4]
- - [X] Post social login signup to enter username / email
- - [X] Distinguish real authentication errors from user cancel
- - [X] OpenID sreg/AX to obtain email
- - [X] Proper README.rst
-
-

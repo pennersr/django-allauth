@@ -35,7 +35,8 @@ class DefaultSocialAccountAdapter(object):
                           first_name=None,
                           last_name=None,
                           email=None,
-                          name=None):
+                          name=None,
+                          request=None):
         """
         Spawns a new User instance, safely and leniently populating
         several common fields.

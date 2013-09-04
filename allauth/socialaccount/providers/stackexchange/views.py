@@ -28,7 +28,8 @@ class StackExchangeOAuth2Adapter(OAuth2Adapter):
         # `account_id`.
         uid = str(extra_data['account_id'])
         user = get_adapter() \
-            .populate_new_user(username=extra_data.get('display_name'))
+            .populate_new_user(username=extra_data.get('display_name'),
+                               request=request)
         account = SocialAccount(user=user,
                                 uid=uid,
                                 extra_data=extra_data,

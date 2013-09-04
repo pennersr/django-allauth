@@ -9,7 +9,7 @@ from .provider import PersonaProvider
 
 def persona_login(request):
     assertion = request.POST.get('assertion', '')
-    audience = request.build_absolute_uri('/') 
+    audience = request.build_absolute_uri('/')
     resp = requests.post('https://verifier.login.persona.org/verify',
                          { 'assertion': assertion,
                            'audience': audience })
@@ -17,7 +17,7 @@ def persona_login(request):
         return render_authentication_error(request)
     email = resp.json()['email']
     user = get_adapter() \
-        .populate_new_user(email=email)
+        .populate_new_user(email=email, request=request)
     extra_data = resp.json()
     account = SocialAccount(uid=email,
                             provider=PersonaProvider.id,

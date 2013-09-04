@@ -94,7 +94,8 @@ def callback(request):
         request.build_absolute_uri(request.path))
     if response.status == consumer.SUCCESS:
         user = get_adapter() \
-            .populate_new_user(email=_get_email_from_response(response))
+            .populate_new_user(email=_get_email_from_response(response),
+                               request=request)
         account = SocialAccount(uid=response.identity_url,
                                 provider=OpenIDProvider.id,
                                 user=user,

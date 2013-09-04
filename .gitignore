@@ -6,6 +6,7 @@
 docs/_build
 build
 dist
+ve
 django_allauth.egg-info
 example/local_settings.py
 coverage.xml

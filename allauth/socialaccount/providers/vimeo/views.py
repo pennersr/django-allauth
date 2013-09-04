@@ -31,7 +31,8 @@ class VimeoOAuthAdapter(OAuthAdapter):
         uid = extra_data['id']
         user = get_adapter() \
             .populate_new_user(name=extra_data.get('display_name'),
-                               username=extra_data.get('username'))
+                               username=extra_data.get('username'),
+                               request=request)
         account = SocialAccount(user=user,
                                 provider=self.provider_id,
                                 extra_data=extra_data,

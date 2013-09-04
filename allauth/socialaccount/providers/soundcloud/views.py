@@ -22,7 +22,8 @@ class SoundCloudOAuth2Adapter(OAuth2Adapter):
         user = get_adapter() \
             .populate_new_user(name=extra_data.get('full_name'),
                                username=extra_data.get('username'),
-                               email=extra_data.get('email'))
+                               email=extra_data.get('email'),
+                               request=request)
         account = SocialAccount(user=user,
                                 uid=uid,
                                 extra_data=extra_data,

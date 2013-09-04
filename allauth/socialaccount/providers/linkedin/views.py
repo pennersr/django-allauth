@@ -66,7 +66,8 @@ class LinkedInOAuthAdapter(OAuthAdapter):
         user = get_adapter() \
             .populate_new_user(email=extra_data.get('email-address'),
                                first_name=extra_data.get('first-name'),
-                               last_name=extra_data.get('last-name'))
+                               last_name=extra_data.get('last-name'),
+                               request=request)
         account = SocialAccount(user=user,
                                 provider=self.provider_id,
                                 extra_data=extra_data,

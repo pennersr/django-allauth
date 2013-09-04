@@ -22,7 +22,8 @@ class GitHubOAuth2Adapter(OAuth2Adapter):
         user = get_adapter() \
             .populate_new_user(email=extra_data.get('email'),
                                username=extra_data.get('login'),
-                               name=extra_data.get('name'))
+                               name=extra_data.get('name'),
+                               request=request)
         account = SocialAccount(user=user,
                                 uid=uid,
                                 extra_data=extra_data,

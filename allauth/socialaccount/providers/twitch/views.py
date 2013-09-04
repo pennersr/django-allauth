@@ -22,7 +22,8 @@ class TwitchOAuth2Adapter(OAuth2Adapter):
         user = get_adapter() \
             .populate_new_user(username=extra_data.get('display_name'),
                                name=extra_data.get('name'),
-                               email=extra_data.get('email'))
+                               email=extra_data.get('email'),
+                               request=request)
         account = SocialAccount(user=user,
                                 uid=uid,
                                 extra_data=extra_data,

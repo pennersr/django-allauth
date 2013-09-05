@@ -35,7 +35,8 @@ class TwitterOAuthAdapter(OAuthAdapter):
         uid = extra_data['id']
         user = get_adapter() \
             .populate_new_user(username=extra_data.get('screen_name'),
-                               name=extra_data.get('name'))
+                               name=extra_data.get('name'),
+                               request=request)
         account = SocialAccount(user=user,
                                 uid=uid,
                                 provider=TwitterProvider.id,

@@ -24,7 +24,8 @@ class BitlyOAuth2Adapter(OAuth2Adapter):
         uid = str(extra_data['login'])
         user = get_adapter().populate_new_user(
             username=extra_data['login'],
-            name=extra_data.get('full_name')
+            name=extra_data.get('full_name'),
+            request=request
         )
         account = SocialAccount(
             user=user,

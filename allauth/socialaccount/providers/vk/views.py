@@ -52,7 +52,8 @@ class VKOAuth2Adapter(OAuth2Adapter):
         user = get_adapter() \
             .populate_new_user(last_name=extra_data.get('family_name'),
                                username=extra_data.get('screen_name'),
-                               first_name=extra_data.get('given_name'))
+                               first_name=extra_data.get('given_name'),
+                               request=request)
         account = SocialAccount(extra_data=extra_data,
                                 uid=str(uid),
                                 provider=self.provider_id,

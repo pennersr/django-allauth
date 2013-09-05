@@ -22,7 +22,8 @@ class WeiboOAuth2Adapter(OAuth2Adapter):
         extra_data = resp.json()
         user = get_adapter() \
             .populate_new_user(username=extra_data.get('screen_name'),
-                               name=extra_data.get('name'))
+                               name=extra_data.get('name'),
+                               request=request)
         account = SocialAccount(user=user,
                                 uid=uid,
                                 extra_data=extra_data,

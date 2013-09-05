@@ -15,7 +15,7 @@ from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
 from .forms import FacebookConnectForm
 from .provider import FacebookProvider
 
-def fb_complete_login(app, token):
+def fb_complete_login(app, token, request=request):
     resp = requests.get('https://graph.facebook.com/me',
                         params={ 'access_token': token.token })
     extra_data = resp.json()
@@ -24,7 +24,8 @@ def fb_complete_login(app, token):
         .populate_new_user(email=extra_data.get('email'),
                            username=extra_data.get('username'),
                            first_name=extra_data.get('first_name'),
-                           last_name=extra_data.get('last_name'))
+                           last_name=extra_data.get('last_name'),
+                           request=request)
     account = SocialAccount(uid=uid,
                             provider=FacebookProvider.id,
                             extra_data=extra_data,
@@ -40,7 +41,7 @@ class FacebookOAuth2Adapter(OAuth2Adapter):
     expires_in_key = 'expires'
 
     def complete_login(self, request, app, access_token, **kwargs):
-        return fb_complete_login(app, access_token)
+        return fb_complete_login(app, access_token, request=request)
 
 
 oauth2_login = OAuth2LoginView.adapter_view(FacebookOAuth2Adapter)

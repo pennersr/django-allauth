@@ -1,3 +1,8 @@
+2013-09-05  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* User creation methods in the `Default(Social)AccountAdapter` now
+	have access to the `request`.
+
 2013-08-31  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Version 0.13.0 released.

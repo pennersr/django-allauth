@@ -1,4 +1,3 @@
-from django.utils.http import urlencode
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
@@ -20,6 +19,7 @@ from allauth.utils import valid_email_or_none
 from .utils import DBOpenIDStore
 from .forms import LoginForm
 from .provider import OpenIDProvider
+
 
 class AXAttribute:
     CONTACT_EMAIL = 'http://axschema.org/contact/email'
@@ -44,7 +44,8 @@ def login(request):
                 auth_request = client.begin(form.cleaned_data['openid'])
                 if QUERY_EMAIL:
                     sreg = SRegRequest()
-                    sreg.requestField(field_name=SRegField.EMAIL, required=True)
+                    sreg.requestField(field_name=SRegField.EMAIL,
+                                      required=True)
                     auth_request.addExtension(sreg)
                     ax = FetchRequest()
                     ax.add(AttrInfo(AXAttribute.CONTACT_EMAIL,
@@ -56,7 +57,8 @@ def login(request):
                     request.build_absolute_uri('/'),
                     request.build_absolute_uri(callback_url))
                 return HttpResponseRedirect(redirect_url)
-            # UnicodeDecodeError: see https://github.com/necaris/python3-openid/issues/1
+            # UnicodeDecodeError:
+            # see https://github.com/necaris/python3-openid/issues/1
             except (UnicodeDecodeError, DiscoveryFailure) as e:
                 if request.method == 'POST':
                     form._errors["openid"] = form.error_class([e])
@@ -93,12 +95,13 @@ def callback(request):
         dict(request.REQUEST.items()),
         request.build_absolute_uri(request.path))
     if response.status == consumer.SUCCESS:
-        user = get_adapter() \
-            .populate_new_user(email=_get_email_from_response(response))
         account = SocialAccount(uid=response.identity_url,
                                 provider=OpenIDProvider.id,
-                                user=user,
                                 extra_data={})
+        account.user = get_adapter() \
+            .populate_new_user(request,
+                               account,
+                               email=_get_email_from_response(response))
         login = SocialLogin(account)
         login.state = SocialLogin.unstash_state(request)
         ret = complete_social_login(request, login)
@@ -107,4 +110,3 @@ def callback(request):
     else:
         ret = render_authentication_error(request)
     return ret
-

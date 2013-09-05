@@ -26,7 +26,8 @@ class SignupForm(BaseSignupForm):
         super(SignupForm, self).__init__(*args, **kwargs)
 
     def save(self, request):
-        new_user = self.create_user()
+        # TODO: should really be using self.sociallogin.account.user
+        new_user = self.create_user(request)
         self.sociallogin.account.user = new_user
         self.sociallogin.save(request)
         super(SignupForm, self).save(new_user)

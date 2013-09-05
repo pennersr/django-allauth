@@ -12,9 +12,8 @@ install:
 branches:
  only:
   - master
-script: python manage.py test account socialaccount dropbox facebook google github linkedin openid persona soundcloud stackexchange twitch twitter vimeo weibo bitly 
+script: python manage.py test account socialaccount dropbox facebook google github linkedin openid persona soundcloud stackexchange twitch twitter vimeo vk weibo bitly
 matrix:
   exclude:
     - python: "3.3"
       env: DJANGO_VERSION=1.4.3
-

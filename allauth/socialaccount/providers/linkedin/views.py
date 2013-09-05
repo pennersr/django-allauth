@@ -63,14 +63,15 @@ class LinkedInOAuthAdapter(OAuthAdapter):
                              self.request_token_url)
         extra_data = client.get_user_info()
         uid = extra_data['id']
-        user = get_adapter() \
-            .populate_new_user(email=extra_data.get('email-address'),
-                               first_name=extra_data.get('first-name'),
-                               last_name=extra_data.get('last-name'))
-        account = SocialAccount(user=user,
-                                provider=self.provider_id,
+        account = SocialAccount(provider=self.provider_id,
                                 extra_data=extra_data,
                                 uid=uid)
+        account.user = get_adapter() \
+            .populate_new_user(request,
+                               account,
+                               email=extra_data.get('email-address'),
+                               first_name=extra_data.get('first-name'),
+                               last_name=extra_data.get('last-name'))
         return SocialLogin(account)
 
 oauth_login = OAuthLoginView.adapter_view(LinkedInOAuthAdapter)

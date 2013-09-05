@@ -5,7 +5,6 @@ from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 
 from ..utils import (import_attribute,
-                     get_user_model,
                      valid_email_or_none)
 from ..account.utils import user_email, user_username, user_field
 from ..account.models import EmailAddress
@@ -15,6 +14,7 @@ from . import app_settings
 
 
 class DefaultSocialAccountAdapter(object):
+
     def pre_social_login(self, request, sociallogin):
         """
         Invoked just after a user successfully authenticates via a
@@ -30,7 +30,15 @@ class DefaultSocialAccountAdapter(object):
         """
         pass
 
+    def new_user(self, request, socialaccount):
+        """
+        Instantiates a new User instance.
+        """
+        return get_account_adapter().new_user(request)
+
     def populate_new_user(self,
+                          request,
+                          socialaccount,
                           username=None,
                           first_name=None,
                           last_name=None,
@@ -46,7 +54,7 @@ class DefaultSocialAccountAdapter(object):
         verifying whether or not a username already exists, is not a
         responsibility.
         """
-        user = get_user_model()()
+        user = self.new_user(request, socialaccount)
         user_username(user, username or '')
         user_email(user, valid_email_or_none(email) or '')
         name_parts = (name or '').partition(' ')

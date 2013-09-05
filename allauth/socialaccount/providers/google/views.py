@@ -23,34 +23,35 @@ class GoogleOAuth2Adapter(OAuth2Adapter):
                                      'alt': 'json' })
         extra_data = resp.json()
         # extra_data is something of the form:
-        # 
-        # {u'family_name': u'Penners', u'name': u'Raymond Penners', 
-        #  u'picture': u'https://lh5.googleusercontent.com/-GOFYGBVOdBQ/AAAAAAAAAAI/AAAAAAAAAGM/WzRfPkv4xbo/photo.jpg', 
-        #  u'locale': u'nl', u'gender': u'male', 
-        #  u'email': u'raymond.penners@gmail.com', 
-        #  u'link': u'https://plus.google.com/108204268033311374519', 
-        #  u'given_name': u'Raymond', u'id': u'108204268033311374519', 
+        #
+        # {u'family_name': u'Penners', u'name': u'Raymond Penners',
+        #  u'picture': u'https://lh5.googleusercontent.com/-GOFYGBVOdBQ/AAAAAAAAAAI/AAAAAAAAAGM/WzRfPkv4xbo/photo.jpg',
+        #  u'locale': u'nl', u'gender': u'male',
+        #  u'email': u'raymond.penners@gmail.com',
+        #  u'link': u'https://plus.google.com/108204268033311374519',
+        #  u'given_name': u'Raymond', u'id': u'108204268033311374519',
         #  u'verified_email': True}
         #
         # TODO: We could use verified_email to bypass allauth email verification
         uid = str(extra_data['id'])
+        account = SocialAccount(extra_data=extra_data,
+                                uid=uid,
+                                provider=self.provider_id)
         user = get_adapter() \
-            .populate_new_user(email=extra_data.get('email'),
+            .populate_new_user(request,
+                               account,
+                               email=extra_data.get('email'),
                                last_name=extra_data.get('family_name'),
                                first_name=extra_data.get('given_name'))
+        account.user = user
         email_addresses = []
         email = user_email(user)
         if email and extra_data.get('verified_email'):
             email_addresses.append(EmailAddress(email=email,
                                                 verified=True,
                                                 primary=True))
-        account = SocialAccount(extra_data=extra_data,
-                                uid=uid,
-                                provider=self.provider_id,
-                                user=user)
         return SocialLogin(account,
                            email_addresses=email_addresses)
 
 oauth2_login = OAuth2LoginView.adapter_view(GoogleOAuth2Adapter)
 oauth2_callback = OAuth2CallbackView.adapter_view(GoogleOAuth2Adapter)
-

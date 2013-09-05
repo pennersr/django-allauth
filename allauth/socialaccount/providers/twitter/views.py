@@ -9,6 +9,7 @@ from allauth.socialaccount.adapter import get_adapter
 
 from .provider import TwitterProvider
 
+
 class TwitterAPI(OAuth):
     """
     Verifying twitter credentials
@@ -33,16 +34,16 @@ class TwitterOAuthAdapter(OAuthAdapter):
                             self.request_token_url)
         extra_data = client.get_user_info()
         uid = extra_data['id']
-        user = get_adapter() \
-            .populate_new_user(username=extra_data.get('screen_name'),
-                               name=extra_data.get('name'))
-        account = SocialAccount(user=user,
-                                uid=uid,
+        account = SocialAccount(uid=uid,
                                 provider=TwitterProvider.id,
                                 extra_data=extra_data)
+        account.user = get_adapter() \
+            .populate_new_user(request,
+                               account,
+                               username=extra_data.get('screen_name'),
+                               name=extra_data.get('name'))
         return SocialLogin(account)
 
 
 oauth_login = OAuthLoginView.adapter_view(TwitterOAuthAdapter)
 oauth_callback = OAuthCallbackView.adapter_view(TwitterOAuthAdapter)
-

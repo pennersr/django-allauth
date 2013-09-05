@@ -9,6 +9,7 @@ from allauth.socialaccount.adapter import get_adapter
 
 from .provider import VimeoProvider
 
+
 class VimeoAPI(OAuth):
     url = 'http://vimeo.com/api/rest/v2?method=vimeo.people.getInfo'
 
@@ -26,16 +27,17 @@ class VimeoOAuthAdapter(OAuthAdapter):
 
     def complete_login(self, request, app, token):
         client = VimeoAPI(request, app.client_id, app.secret,
-                             self.request_token_url)
+                          self.request_token_url)
         extra_data = client.get_user_info()
         uid = extra_data['id']
-        user = get_adapter() \
-            .populate_new_user(name=extra_data.get('display_name'),
-                               username=extra_data.get('username'))
-        account = SocialAccount(user=user,
-                                provider=self.provider_id,
+        account = SocialAccount(provider=self.provider_id,
                                 extra_data=extra_data,
                                 uid=uid)
+        account.user = get_adapter() \
+            .populate_new_user(request,
+                               account,
+                               name=extra_data.get('display_name'),
+                               username=extra_data.get('username'))
         return SocialLogin(account)
 
 oauth_login = OAuthLoginView.adapter_view(VimeoOAuthAdapter)

@@ -7,10 +7,10 @@ Welcome to django-allauth!
 
 .. image:: https://travis-ci.org/pennersr/django-allauth.png
    :target: http://travis-ci.org/pennersr/django-allauth
-   
+
 .. image:: https://pypip.in/d/django-allauth/badge.png
    :target: https://crate.io/packages/django-allauth?version=latest
-   
+
 
 Integrated set of Django applications addressing authentication,
 registration, account management as well as 3rd party (social) account
@@ -320,6 +320,16 @@ SOCIALACCOUNT_PROVIDERS (= dict)
 
 Upgrading
 ---------
+
+From 0.13.0
+***********
+
+ - The adapter API for creating users has changed. Both adapters
+   (regular and social) now feature a method `new_user` that only
+   instantiates a User instance (without actually filling any
+   data). Both receive the `request` as a parameter, the social
+   variant also takes an additional parameter pointing to the
+   `SocialAccount` instance.
 
 From 0.12.0
 ***********

@@ -2,11 +2,14 @@
 Welcome to django-allauth!
 ==========================
 
+.. image:: https://badge.fury.io/py/django-allauth.png
+   :target: http://badge.fury.io/py/django-allauth
+
 .. image:: https://travis-ci.org/pennersr/django-allauth.png
    :target: http://travis-ci.org/pennersr/django-allauth
    
 .. image:: https://pypip.in/d/django-allauth/badge.png
-        :target: https://crate.io/packages/django-allauth?version=latest
+   :target: https://crate.io/packages/django-allauth?version=latest
    
 
 Integrated set of Django applications addressing authentication,

@@ -4,6 +4,10 @@ Welcome to django-allauth!
 
 .. image:: https://travis-ci.org/pennersr/django-allauth.png
    :target: http://travis-ci.org/pennersr/django-allauth
+   
+.. image:: https://pypip.in/d/django-allauth/badge.png
+        :target: https://crate.io/packages/django-allauth?version=latest
+   
 
 Integrated set of Django applications addressing authentication,
 registration, account management as well as 3rd party (social) account

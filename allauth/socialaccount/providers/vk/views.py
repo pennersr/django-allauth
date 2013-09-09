@@ -47,16 +47,8 @@ class VKOAuth2Adapter(OAuth2Adapter):
                                     'user_ids': uid})
         resp.raise_for_status()
         extra_data = resp.json()['response'][0]
-        account = SocialAccount(extra_data=extra_data,
-                                uid=str(uid),
-                                provider=self.provider_id)
-        account.user = get_adapter() \
-            .populate_new_user(request,
-                               account,
-                               last_name=extra_data.get('family_name'),
-                               username=extra_data.get('screen_name'),
-                               first_name=extra_data.get('given_name'))
-        return SocialLogin(account)
+        return self.get_provider().sociallogin_from_response(request,
+                                                             extra_data)
 
 
 oauth2_login = OAuth2LoginView.adapter_view(VKOAuth2Adapter)

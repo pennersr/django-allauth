@@ -4,9 +4,6 @@ from allauth.socialaccount.providers.oauth.client import OAuth
 from allauth.socialaccount.providers.oauth.views import (OAuthAdapter,
                                                          OAuthLoginView,
                                                          OAuthCallbackView)
-from allauth.socialaccount.models import SocialAccount, SocialLogin
-from allauth.socialaccount.adapter import get_adapter
-
 from .provider import VimeoProvider
 
 
@@ -29,16 +26,9 @@ class VimeoOAuthAdapter(OAuthAdapter):
         client = VimeoAPI(request, app.client_id, app.secret,
                           self.request_token_url)
         extra_data = client.get_user_info()
-        uid = extra_data['id']
-        account = SocialAccount(provider=self.provider_id,
-                                extra_data=extra_data,
-                                uid=uid)
-        account.user = get_adapter() \
-            .populate_new_user(request,
-                               account,
-                               name=extra_data.get('display_name'),
-                               username=extra_data.get('username'))
-        return SocialLogin(account)
+        return self.get_provider().sociallogin_from_response(request,
+                                                             extra_data)
+
 
 oauth_login = OAuthLoginView.adapter_view(VimeoOAuthAdapter)
 oauth_callback = OAuthCallbackView.adapter_view(VimeoOAuthAdapter)

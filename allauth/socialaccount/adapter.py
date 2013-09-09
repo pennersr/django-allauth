@@ -30,31 +30,49 @@ class DefaultSocialAccountAdapter(object):
         """
         pass
 
-    def new_user(self, request, socialaccount):
+    def new_user(self, request, sociallogin):
         """
         Instantiates a new User instance.
         """
         return get_account_adapter().new_user(request)
 
-    def populate_new_user(self,
-                          request,
-                          socialaccount,
-                          username=None,
-                          first_name=None,
-                          last_name=None,
-                          email=None,
-                          name=None):
+    def save_user(self, request, sociallogin, form=None):
         """
-        Spawns a new User instance, safely and leniently populating
-        several common fields.
+        Saves a newly signed up social login. In case of auto-signup,
+        the signup form is not available.
+        """
+        u = sociallogin.account.user
+        u.set_unusable_password()
+        if form:
+            get_account_adapter().save_user(request, u, form)
+        else:
+            get_account_adapter().populate_username(request, u)
+        sociallogin.save(request)
+        return u
 
-        This method is used to create a suggested User instance that
-        represents the social user that is in the process of being
-        logged in. Validation is not a requirement. For example,
-        verifying whether or not a username already exists, is not a
-        responsibility.
+    def populate_user(self,
+                      request,
+                      sociallogin,
+                      data):
         """
-        user = self.new_user(request, socialaccount)
+        Hook that can be used to further populate the user instance.
+
+        For convenience, we populate several common fields.
+
+        Note that the user instance being populated represents a
+        suggested User instance that represents the social user that is
+        in the process of being logged in.
+
+        The User instance need not be completely valid and conflict
+        free. For example, verifying whether or not the username
+        already exists, is not a responsibility.
+        """
+        username = data.get('username')
+        first_name = data.get('first_name')
+        last_name = data.get('last_name')
+        email = data.get('email')
+        name = data.get('name')
+        user = sociallogin.account.user
         user_username(user, username or '')
         user_email(user, valid_email_or_none(email) or '')
         name_parts = (name or '').partition(' ')

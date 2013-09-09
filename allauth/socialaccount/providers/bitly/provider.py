@@ -24,4 +24,12 @@ class BitlyProvider(OAuth2Provider):
     package = 'allauth.socialaccount.providers.bitly'
     account_class = BitlyAccount
 
+    def extract_uid(self, data):
+        return str(data['login'])
+
+    def extract_common_fields(self, data):
+        return dict(username=data['login'],
+                    name=data.get('full_name'))
+
+
 providers.registry.register(BitlyProvider)

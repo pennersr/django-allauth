@@ -135,6 +135,10 @@ class LoginForm(forms.Form):
 
 class _DummyCustomSignupForm(forms.Form):
     def save(self, user):
+        """
+        TODO: Rethink this -- needs request, then again, adapter
+        already has a save_user.
+        """
         pass
 
 
@@ -223,25 +227,6 @@ class BaseSignupForm(_base_signup_form_class()):
                                               " with this e-mail address."))
         return value
 
-    def create_user(self, request, commit=True):
-        if app_settings.USERNAME_REQUIRED:
-            username = self.cleaned_data["username"]
-        else:
-            username = None
-        data = self.initial
-        user = get_adapter() \
-            .populate_new_user(request,
-                               username=username,
-                               first_name=data.get('first_name', ''),
-                               last_name=data.get('last_name', ''),
-                               email=self.cleaned_data["email"]
-                               .strip()
-                               .lower())
-        user.set_unusable_password()
-        if commit:
-            user.save()
-        return user
-
 
 class SignupForm(BaseSignupForm):
 
@@ -268,27 +253,15 @@ class SignupForm(BaseSignupForm):
                                               " each time."))
         return self.cleaned_data
 
-    def create_user(self, request, commit=True):
-        user = super(SignupForm, self).create_user(request, commit=False)
-        password = self.cleaned_data.get("password1")
-        if password:
-            user.set_password(password)
-        if commit:
-            user.save()
-        return user
-
     def save(self, request):
-        new_user = self.create_user(request)
-        super(SignupForm, self).save(new_user)
-        setup_user_email(request, new_user, [])
-        self.after_signup(new_user)
-        return new_user
-
-    def after_signup(self, user, **kwargs):
-        """
-        An extension point for subclasses.
-        """
-        pass
+        adapter = get_adapter()
+        user = adapter.new_user(request)
+        adapter.save_user(request, user, self)
+        # TODO: Add request?
+        super(SignupForm, self).save(user)
+        # TODO: Move into adapter `save_user` ?
+        setup_user_email(request, user, [])
+        return user
 
 
 class UserForm(forms.Form):

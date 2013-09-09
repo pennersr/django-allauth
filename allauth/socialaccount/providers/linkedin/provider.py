@@ -4,13 +4,14 @@ from allauth.socialaccount.providers.oauth.provider import OAuthProvider
 
 from allauth.socialaccount import app_settings
 
+
 class LinkedInAccount(ProviderAccount):
     def get_profile_url(self):
         return self.account.extra_data.get('public-profile-url')
 
     def get_avatar_url(self):
         return self.account.extra_data.get('picture-url')
-        
+
     def to_str(self):
         dflt = super(LinkedInAccount, self).to_str()
         name = self.account.extra_data.get('name', dflt)
@@ -32,5 +33,13 @@ class LinkedInProvider(OAuthProvider):
         if app_settings.QUERY_EMAIL:
             scope.append('r_emailaddress')
         return scope
+
+    def extract_uid(self, data):
+        return data['id']
+
+    def extract_common_fields(self, data):
+        return dict(email=data.get('email-address'),
+                    first_name=data.get('first-name'),
+                    last_name=data.get('last-name'))
 
 providers.registry.register(LinkedInProvider)

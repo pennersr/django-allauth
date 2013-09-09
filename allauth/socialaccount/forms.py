@@ -17,6 +17,8 @@ class SignupForm(BaseSignupForm):
     def __init__(self, *args, **kwargs):
         self.sociallogin = kwargs.pop('sociallogin')
         user = self.sociallogin.account.user
+        # TODO: Should become more generic, not listing
+        # a few fixed properties.
         initial = {'email': user_email(user) or '',
                    'username': user_username(user) or '',
                    'first_name': user_field(user, 'first_name') or '',
@@ -26,12 +28,11 @@ class SignupForm(BaseSignupForm):
         super(SignupForm, self).__init__(*args, **kwargs)
 
     def save(self, request):
-        # TODO: should really be using self.sociallogin.account.user
-        new_user = self.create_user(request)
-        self.sociallogin.account.user = new_user
-        self.sociallogin.save(request)
-        super(SignupForm, self).save(new_user)
-        return new_user
+        adapter = get_adapter()
+        user = adapter.save_user(request, self.sociallogin, form=self)
+        # TODO: Add request?
+        super(SignupForm, self).save(user)
+        return user
 
 
 class DisconnectForm(forms.Form):

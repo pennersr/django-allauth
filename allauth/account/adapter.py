@@ -140,28 +140,50 @@ class DefaultAccountAdapter(object):
         user = get_user_model()()
         return user
 
-    def populate_new_user(self,
-                          request,
-                          username=None,
-                          first_name=None,
-                          last_name=None,
-                          email=None):
+    def populate_username(self, request, user):
         """
-        Populates a new User instance, populating several common fields.
-        Note that this method assumes that the data is properly
-        validated. For example, if a username is given it must be
-        unique.
+        Fills in a valid username, if required and missing.  If the
+        username is already present it is assumed to be valid
+        (unique).
         """
         from .utils import user_username, user_email, user_field
-        user = self.new_user(request)
+
+        first_name = user_field(user, 'first_name')
+        last_name = user_field(user, 'last_name')
+        email = user_email(user)
+        username = user_username(user)
         if app_settings.USER_MODEL_USERNAME_FIELD:
             user_username(user,
                           username or generate_unique_username(first_name or
                                                                last_name or
-                                                               email))
+                                                               email or
+                                                               'user'))
+
+    def save_user(self, request, user, form, commit=True):
+        """
+        Saves a new `User` instance using information provided in the
+        signup form.
+        """
+        from .utils import user_username, user_email, user_field
+
+        data = form.cleaned_data
+        first_name = data.get('first_name')
+        last_name = data.get('last_name')
+        email = data.get('email')
+        username = data.get('username')
         user_email(user, email)
+        user_username(user, username)
         user_field(user, 'first_name', first_name or '')
         user_field(user, 'last_name', last_name or '')
+        if 'password1' in data:
+            user.set_password(data["password1"])
+        else:
+            user.set_unusable_password()
+        self.populate_username(request, user)
+        if commit:
+            # Ability not to commit makes it easier to derive from
+            # this adapter by adding
+            user.save()
         return user
 
     def clean_username(self, username):

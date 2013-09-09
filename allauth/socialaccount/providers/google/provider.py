@@ -1,8 +1,10 @@
+from allauth.account.models import EmailAddress
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import (ProviderAccount,
                                                   AuthAction)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 from allauth.socialaccount.app_settings import QUERY_EMAIL
+from allauth.account.utils import user_email
 
 
 class Scope(object):
@@ -40,5 +42,23 @@ class GoogleProvider(OAuth2Provider):
         if action == AuthAction.REAUTHENTICATE:
             ret['approval_prompt'] = 'force'
         return ret
+
+    def extract_uid(self, data):
+        return str(data['id'])
+
+    def extract_common_fields(self, data):
+        return dict(email=data.get('email'),
+                    last_name=data.get('family_name'),
+                    first_name=data.get('given_name'))
+
+    def extract_email_addresses(self, data):
+        ret = []
+        email = data.get('email')
+        if email and data.get('verified_email'):
+            ret.append(EmailAddress(email=email,
+                       verified=True,
+                       primary=True))
+        return ret
+
 
 providers.registry.register(GoogleProvider)

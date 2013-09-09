@@ -42,5 +42,12 @@ class TwitterProvider(OAuthProvider):
             url = 'https://api.twitter.com/oauth/authenticate'
         return url
 
+    def extract_uid(self, data):
+        return data['id']
+
+    def extract_common_fields(self, data):
+        return dict(username=data.get('screen_name'),
+                    name=data.get('name'))
+
 
 providers.registry.register(TwitterProvider)

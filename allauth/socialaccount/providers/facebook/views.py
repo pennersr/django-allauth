@@ -3,12 +3,10 @@ from django.shortcuts import render
 
 import requests
 
-from allauth.socialaccount.models import (SocialAccount,
-                                          SocialLogin,
+from allauth.socialaccount.models import (SocialLogin,
                                           SocialToken)
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.helpers import render_authentication_error
-from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
@@ -22,18 +20,10 @@ def fb_complete_login(request, app, token):
     resp = requests.get('https://graph.facebook.com/me',
                         params={'access_token': token.token})
     extra_data = resp.json()
-    uid = extra_data['id']
-    account = SocialAccount(uid=uid,
-                            provider=FacebookProvider.id,
-                            extra_data=extra_data)
-    account.user = get_adapter() \
-        .populate_new_user(request,
-                           account,
-                           email=extra_data.get('email'),
-                           username=extra_data.get('username'),
-                           first_name=extra_data.get('first_name'),
-                           last_name=extra_data.get('last_name'))
-    return SocialLogin(account)
+    login = providers.registry \
+        .by_id(FacebookProvider.id) \
+        .sociallogin_from_response(request, extra_data)
+    return login
 
 
 class FacebookOAuth2Adapter(OAuth2Adapter):

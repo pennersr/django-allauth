@@ -1,7 +1,9 @@
 from django.utils.encoding import python_2_unicode_compatible
 
 from allauth.socialaccount import app_settings
-from allauth.socialaccount.models import SocialApp
+
+from ..models import SocialApp, SocialAccount, SocialLogin
+from ..adapter import get_adapter
 
 
 class AuthProcess(object):
@@ -36,6 +38,51 @@ class Provider(object):
 
     def get_settings(self):
         return app_settings.PROVIDERS.get(self.id, {})
+
+    def sociallogin_from_response(self, request, response):
+        adapter = get_adapter()
+        uid = self.extract_uid(response)
+        extra_data = self.extract_extra_data(response)
+        common_fields = self.extract_common_fields(response)
+        socialaccount = SocialAccount(extra_data=extra_data,
+                                      uid=uid,
+                                      provider=self.id)
+        email_addresses = self.extract_email_addresses(response)
+        sociallogin = SocialLogin(socialaccount,
+                                  email_addresses=email_addresses)
+        user = socialaccount.user = adapter.new_user(request, sociallogin)
+        user.set_unusable_password()
+        adapter.populate_user(request, sociallogin, common_fields)
+        return sociallogin
+
+    def extract_extra_data(self, data):
+        return data
+
+    def extract_basic_socialaccount_data(self, data):
+        """
+        Returns a tuple of basic/common social account data.
+        For example: ('123', {'first_name': 'John'})
+        """
+        raise NotImplementedError
+
+    def extract_common_fields(self, data):
+        """
+        For example:
+
+        {'first_name': 'John'}
+        """
+        return {}
+
+    def extract_email_addresses(self, data):
+        """
+        For example:
+
+        [EmailAddress(email='john@doe.org',
+                      verified=True,
+                      primary=True)]
+        """
+        return []
+
 
 @python_2_unicode_compatible
 class ProviderAccount(object):

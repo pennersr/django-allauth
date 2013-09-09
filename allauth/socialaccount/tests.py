@@ -1,3 +1,4 @@
+import random
 try:
     from urllib.parse import urlparse, parse_qs
 except ImportError:
@@ -45,6 +46,29 @@ def create_oauth_tests(provider):
             return
         resp = self.login(resp_mock)
         self.assertRedirects(resp, reverse('socialaccount_signup'))
+        resp = self.client.get(reverse('socialaccount_signup'))
+        sociallogin = resp.context['form'].sociallogin
+        data = dict(email=user_email(sociallogin.account.user),
+                    username=str(random.randrange(1000, 10000000)))
+        resp = self.client.post(reverse('socialaccount_signup'),
+                                data=data)
+        self.assertEqual('http://testserver/accounts/profile/',
+                         resp['location'])
+        self.assertFalse(resp.context['user'].has_usable_password())
+
+    @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=True,
+                       SOCIALACCOUNT_EMAIL_REQUIRED=False,
+                       ACCOUNT_EMAIL_REQUIRED=False)
+    def test_auto_signup(self):
+        resp_mock = self.get_mocked_response()
+        if not resp_mock:
+            warnings.warn("Cannot test provider %s, no oauth mock"
+                          % self.provider.id)
+            return
+        resp = self.login(resp_mock)
+        self.assertEqual('http://testserver/accounts/profile/',
+                         resp['location'])
+        self.assertFalse(resp.context['user'].has_usable_password())
 
     def login(self, resp_mock, process='login'):
         with mocked_response(MockedResponse(200,

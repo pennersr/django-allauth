@@ -324,12 +324,10 @@ Upgrading
 From 0.13.0
 ***********
 
- - The adapter API for creating users has changed. Both adapters
-   (regular and social) now feature a method `new_user` that only
-   instantiates a User instance (without actually filling any
-   data). Both receive the `request` as a parameter, the social
-   variant also takes an additional parameter pointing to the
-   `SocialAccount` instance.
+ - The adapter API for creating and populating users has been
+   overhauled. As a result, the `populate_new_user` adapter methods
+   have disappeared. Please refer to the section on "Creating and
+   Populating User Instances" for more information.
 
 From 0.12.0
 ***********
@@ -923,6 +921,36 @@ will disable username related functionality in `allauth`.
 
 Similarly, you will need to set `ACCOUNT_USER_MODEL_EMAIL_FIELD` to
 `None`, or the proper field (if other than `email`).
+
+
+Creating and Populating User instances
+--------------------------------------
+
+The following adapter methods can be used to intervene in how User
+instances are created, and populated with data
+
+- `allauth.account.adapter.DefaultAccountAdapter`:
+
+  - `new_user(self, request)`: Instantiates a new, empty `User`.
+
+  - `save_user(self, request, user, form)`: Populates and saves the
+    `User` instance using information provided in the signup form.
+
+- `allauth.socialaccount.adapter.DefaultSocialAccountAdapter`:
+
+  - `new_user(self, request, sociallogin)`: Instantiates a new, empty
+    `User`.
+
+  - `save_user(self, request, sociallogin, form=None)`: Populates and
+    saves the `User` instance (and related social login data). The
+    signup form is not available in case of auto signup.
+
+  - `populate_user(self, request, sociallogin, data)`: Hook that can
+    be used to further populate the user instance
+    (`sociallogin.account.user`). Here, `data` is a dictionary of
+    common user properties (`first_name`, `last_name`, `email`,
+    `username`, `name`) that the provider already extracted for you.
+
 
 Invitations
 -----------

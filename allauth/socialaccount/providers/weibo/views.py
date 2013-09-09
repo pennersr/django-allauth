@@ -3,8 +3,6 @@ import requests
 from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
                                                           OAuth2CallbackView)
-from allauth.socialaccount.models import SocialAccount, SocialLogin
-from allauth.socialaccount.adapter import get_adapter
 
 from .provider import WeiboProvider
 
@@ -21,15 +19,8 @@ class WeiboOAuth2Adapter(OAuth2Adapter):
                             params={'access_token': token.token,
                                     'uid': uid})
         extra_data = resp.json()
-        account = SocialAccount(uid=uid,
-                                extra_data=extra_data,
-                                provider=self.provider_id)
-        account.user = get_adapter() \
-            .populate_new_user(request,
-                               account,
-                               username=extra_data.get('screen_name'),
-                               name=extra_data.get('name'))
-        return SocialLogin(account)
+        return self.get_provider().sociallogin_from_response(request,
+                                                             extra_data)
 
 
 oauth2_login = OAuth2LoginView.adapter_view(WeiboOAuth2Adapter)

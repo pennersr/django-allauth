@@ -2,8 +2,20 @@ import base64
 
 from openid.store.interface import OpenIDStore as OIDStore
 from openid.association import Association as OIDAssociation
+from openid.extensions.sreg import SRegResponse
+from openid.extensions.ax import FetchResponse
+
+from allauth.utils import valid_email_or_none
 
 from .models import OpenIDStore, OpenIDNonce
+
+
+class AXAttribute:
+    CONTACT_EMAIL = 'http://axschema.org/contact/email'
+
+
+class SRegField:
+    EMAIL = 'email'
 
 
 class DBOpenIDStore(OIDStore):
@@ -72,3 +84,20 @@ class DBOpenIDStore(OIDStore):
             return True
 
         return False
+
+
+def get_email_from_response(response):
+    email = None
+    sreg = SRegResponse.fromSuccessResponse(response)
+    if sreg:
+        email = valid_email_or_none(sreg.get(SRegField.EMAIL))
+    if not email:
+        ax = FetchResponse.fromSuccessResponse(response)
+        if ax:
+            try:
+                values = ax.get(AXAttribute.CONTACT_EMAIL)
+                if values:
+                    email = valid_email_or_none(values[0])
+            except KeyError:
+                pass
+    return email

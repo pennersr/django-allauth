@@ -324,10 +324,10 @@ Upgrading
 From 0.13.0
 ***********
 
- - The adapter API for creating and populating users has been
-   overhauled. As a result, the `populate_new_user` adapter methods
-   have disappeared. Please refer to the section on "Creating and
-   Populating User Instances" for more information.
+- The adapter API for creating and populating users has been
+  overhauled. As a result, the `populate_new_user` adapter methods
+  have disappeared. Please refer to the section on "Creating and
+  Populating User Instances" for more information.
 
 From 0.12.0
 ***********
@@ -1063,3 +1063,12 @@ Showcase
 
 Please mail me (raymond.penners@intenct.nl) links to sites that have
 `django-allauth` up and running.
+
+
+Commercial Support
+==================
+
+This project is sponsored by IntenCT_. If you require assistance on
+your project(s), please contact us: info@intenct.nl.
+
+.. _IntenCT: http://www.intenct.info

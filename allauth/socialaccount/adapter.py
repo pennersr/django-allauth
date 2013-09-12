@@ -9,6 +9,7 @@ from ..utils import (import_attribute,
 from ..account.utils import user_email, user_username, user_field
 from ..account.models import EmailAddress
 from ..account.adapter import get_adapter as get_account_adapter
+from ..account.app_settings import EmailVerificationMethod
 
 from . import app_settings
 
@@ -100,11 +101,12 @@ class DefaultSocialAccountAdapter(object):
                 raise ValidationError(_("Your account has no password set"
                                         " up."))
             # No email address, no password reset
-            if app_settings.EMAIL_VERIFICATION == 'mandatory':
+            if app_settings.EMAIL_VERIFICATION \
+                    == EmailVerificationMethod.MANDATORY:
                 if EmailAddress.objects.filter(user=account.user,
                                                verified=True).count() == 0:
-                    raise ValidationError(_("Your account has no verified e-mail"
-                                            " address."))
+                    raise ValidationError(_("Your account has no verified"
+                                            " e-mail address."))
 
     def is_open_for_signup(self, request, sociallogin):
         """

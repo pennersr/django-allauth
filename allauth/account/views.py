@@ -234,6 +234,7 @@ class EmailView(FormView):
         return super(EmailView, self).form_valid(form)
 
     def post(self, request, *args, **kwargs):
+        res = None
         if "action_add" in request.POST:
             res = super(EmailView, self).post(request, *args, **kwargs)
         elif request.POST.get("email"):
@@ -243,10 +244,7 @@ class EmailView(FormView):
                 res = self._action_remove(request)
             elif "action_primary" in request.POST:
                 res = self._action_primary(request)
-        if res:
-            return res
-        else:
-            return self.get(request, *args, **kwargs)
+        return res or self.get(request, *args, **kwargs)
 
     def _action_send(self, request, *args, **kwargs):
         email = request.POST["email"]

@@ -8,12 +8,13 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-29 23:27+0200\n"
-"PO-Revision-Date: 2013-09-13 10:24+0800\n"
+"PO-Revision-Date: 2013-09-13 10:58+0800\n"
 "Last-Translator: jresins <jresins@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
 
 #: account/adapter.py:168
 msgid "Usernames can only contain letters, digits and @/./+/-/_."
@@ -235,7 +236,7 @@ msgstr "添加E-mail"
 
 #: templates/account/email.html:63
 msgid "Do you really want to remove the selected e-mail address?"
-msgstr "您真的想移除选定的e-mail地址码？"
+msgstr "您真的想移除选定的e-mail地址吗？"
 
 #: templates/account/email_confirm.html:7
 #: templates/account/email_confirm.html:11

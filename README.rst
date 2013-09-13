@@ -2,8 +2,15 @@
 Welcome to django-allauth!
 ==========================
 
+.. image:: https://badge.fury.io/py/django-allauth.png
+   :target: http://badge.fury.io/py/django-allauth
+
 .. image:: https://travis-ci.org/pennersr/django-allauth.png
    :target: http://travis-ci.org/pennersr/django-allauth
+
+.. image:: https://pypip.in/d/django-allauth/badge.png
+   :target: https://crate.io/packages/django-allauth?version=latest
+
 
 Integrated set of Django applications addressing authentication,
 registration, account management as well as 3rd party (social) account
@@ -15,7 +22,7 @@ Rationale
 Most existing Django apps that address the problem of social
 authentication focus on just that. You typically need to integrate
 another app in order to support authentication via a local
-account. 
+account.
 
 This approach separates the worlds of local and social
 authentication. However, there are common scenarios to be dealt with
@@ -94,11 +101,13 @@ Supported Providers
 
 - Vimeo (OAuth)
 
+- VK (OAuth2)
+
 - Weibo (OAuth2)
 
 Note: OAuth/OAuth2 support is built using a common code base, making it easy to add support for additional OAuth/OAuth2 providers. More will follow soon...
 
- 
+
 Features
 --------
 
@@ -172,6 +181,7 @@ settings.py::
         'allauth.socialaccount.providers.twitch',
         'allauth.socialaccount.providers.twitter',
         'allauth.socialaccount.providers.vimeo',
+        'allauth.socialaccount.providers.vk',
         'allauth.socialaccount.providers.weibo',
         ...
     )
@@ -213,8 +223,9 @@ ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS (=3)
 ACCOUNT_EMAIL_REQUIRED (=False)
   The user is required to hand over an e-mail address when signing up.
 
-ACCOUNT_EMAIL_VERIFICATION (="mandatory" | "optional" | "none")
-  Determines the e-mail verification method during signup. When set to
+ACCOUNT_EMAIL_VERIFICATION (="optional")
+  Determines the e-mail verification method during signup -- choose
+  one of `"mandatory"`, `"optional"`, or `"none"`. When set to
   "mandatory" the user is blocked from logging in until the email
   address is verified. Choose "optional" or "none" to allow logins
   with an unverified e-mail address. In case of "optional", the e-mail
@@ -231,7 +242,7 @@ ACCOUNT_LOGOUT_ON_GET (=False)
   details.
 
 ACCOUNT_LOGOUT_REDIRECT_URL (="/")
-  The URL (or URL name) to return to after the user logs out. This is 
+  The URL (or URL name) to return to after the user logs out. This is
   the counterpart to Django's `LOGIN_REDIRECT_URL`.
 
 ACCOUNT_SIGNUP_FORM_CLASS (=None)
@@ -254,7 +265,7 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD (="username")
 ACCOUNT_USER_MODEL_EMAIL_FIELD (="email")
   The name of the field containing the `email`, if any. See custom
   user models.
-  
+
 ACCOUNT_USER_DISPLAY (=a callable returning `user.username`)
   A callable (or string of the form `'some.module.callable_name'`)
   that takes a user as its only argument and returns the display name
@@ -286,7 +297,7 @@ SOCIALACCOUNT_QUERY_EMAIL (=ACCOUNT_EMAIL_REQUIRED)
   Request e-mail address from 3rd party account provider? E.g. using
   OpenID AX, or the Facebook "email" permission.
 
-SOCIALACCOUNT_AUTO_SIGNUP (=True) 
+SOCIALACCOUNT_AUTO_SIGNUP (=True)
   Attempt to bypass the signup form by using fields (e.g. username,
   email) retrieved from the social account provider. If a conflict
   arises due to a duplicate e-mail address the signup form will still
@@ -310,6 +321,25 @@ SOCIALACCOUNT_PROVIDERS (= dict)
 Upgrading
 ---------
 
+From 0.13.0
+***********
+
+- The adapter API for creating and populating users has been
+  overhauled. As a result, the `populate_new_user` adapter methods
+  have disappeared. Please refer to the section on "Creating and
+  Populating User Instances" for more information.
+
+From 0.12.0
+***********
+
+- All account views are now class-based.
+
+- The password reset from key success response now redirects to a
+  "done" view (`/accounts/password/reset/key/done/`). This view has
+  its own `account/password_reset_from_key_done.html` template. In
+  previous versions, the success template was intertwined with the
+  `account/password_reset_from_key.html` template.
+
 From 0.11.1
 ***********
 
@@ -318,7 +348,7 @@ From 0.11.1
   result, if you include the template
   `socialaccount/snippets/provider_list.html` from your own overriden
   `socialaccount/connections.html` template, you now need to pass
-  along the process parameter as follows: 
+  along the process parameter as follows:
   `{% include "socialaccount/snippets/provider_list.html" with process="connect" %}`.
 
 - Instead of inlining the required Facebook SDK Javascript wrapper
@@ -357,7 +387,7 @@ From 0.9.0
   you there is no harm in running it anyways if you are unsure):
 
   - `python manage.py account_unsetmultipleprimaryemails`
-    
+
     - Will silently remove primary flags for email addresses that
       aren't the same as `user.email`.
 
@@ -443,7 +473,7 @@ From 0.7.0
 
 - `{% load account_tags %}` is deprecated, simply use: `{% load account %}`
 
-- `{% load socialaccount_tags %}` is deprecated, simply use: 
+- `{% load socialaccount_tags %}` is deprecated, simply use:
   `{% load socialaccount %}`
 
 From 0.5.0
@@ -533,7 +563,7 @@ or::
 The following Facebook settings are available::
 
     SOCIALACCOUNT_PROVIDERS = \
-        { 'facebook': 
+        { 'facebook':
             { 'SCOPE': ['email', 'publish_stream'],
 	      'AUTH_PARAMS': { 'auth_type': 'reauthenticate' },
               'METHOD': 'oauth2' ,
@@ -565,7 +595,7 @@ LOCALE_FUNC:
 App registration
     https://developers.facebook.com/apps
 
-Devlopment callback URL
+Development callback URL
     http://localhost:8000
 
 
@@ -580,7 +610,7 @@ redirect uri of the form
 You can specify the scope to use as follows::
 
     SOCIALACCOUNT_PROVIDERS = \
-        { 'google': 
+        { 'google':
             { 'SCOPE': ['https://www.googleapis.com/auth/userinfo.profile'],
               'AUTH_PARAMS': { 'access_type': 'online' } }}
 
@@ -598,7 +628,7 @@ OAuth redirect URL empty.
 You can specify the scope to use as follows::
 
     SOCIALACCOUNT_PROVIDERS = \
-        { 'linkedin': 
+        { 'linkedin':
             { 'SCOPE': ['r_emailaddress'] } }
 
 By default, `r_emailaddress` scope is required depending on whether or
@@ -622,8 +652,8 @@ providers displayed by the builtin templates can be configured as
 follows::
 
     SOCIALACCOUNT_PROVIDERS = \
-        { 'openid': 
-            { 'SERVERS': 
+        { 'openid':
+            { 'SERVERS':
                 [dict(id='yahoo',
                       name='Yahoo',
                       openid_url='http://me.yahoo.com'),
@@ -651,7 +681,7 @@ passed as is to the `navigator.id.request()` method to influence the
 look and feel of the Persona dialog::
 
     SOCIALACCOUNT_PROVIDERS = \
-        { 'persona': 
+        { 'persona':
             { 'REQUEST_PARAMETERS': {'siteName': 'Example' } } }
 
 
@@ -659,7 +689,7 @@ SoundCloud
 ----------
 
 SoundCloud allows you to choose between OAuth1 and OAuth2.  Choose the
-latter. 
+latter.
 
 
 Stack Exchange
@@ -677,14 +707,14 @@ Overflow, or Server Fault). This can be controlled by means of the
 `SITE` setting::
 
     SOCIALACCOUNT_PROVIDERS = \
-        { 'stackexchange': 
+        { 'stackexchange':
             { 'SITE': 'stackoverflow' } }
 
 
 Twitch
 ------
 Register your OAuth2 app over at
-`http://www.twitch.tv/kraken/oauth2/clients/new`. 
+`http://www.twitch.tv/kraken/oauth2/clients/new`.
 
 Vimeo
 -----
@@ -692,8 +722,18 @@ Vimeo
 App registration
     https://developer.vimeo.com/apps
 
-Devlopment callback URL
+Development callback URL
     http://localhost:8000
+
+
+VK
+--
+
+App registration
+    http://vk.com/apps?act=settings
+
+Development callback URL ("Site address")
+    http://localhost
 
 
 Weibo
@@ -882,6 +922,36 @@ will disable username related functionality in `allauth`.
 Similarly, you will need to set `ACCOUNT_USER_MODEL_EMAIL_FIELD` to
 `None`, or the proper field (if other than `email`).
 
+
+Creating and Populating User instances
+--------------------------------------
+
+The following adapter methods can be used to intervene in how User
+instances are created, and populated with data
+
+- `allauth.account.adapter.DefaultAccountAdapter`:
+
+  - `new_user(self, request)`: Instantiates a new, empty `User`.
+
+  - `save_user(self, request, user, form)`: Populates and saves the
+    `User` instance using information provided in the signup form.
+
+- `allauth.socialaccount.adapter.DefaultSocialAccountAdapter`:
+
+  - `new_user(self, request, sociallogin)`: Instantiates a new, empty
+    `User`.
+
+  - `save_user(self, request, sociallogin, form=None)`: Populates and
+    saves the `User` instance (and related social login data). The
+    signup form is not available in case of auto signup.
+
+  - `populate_user(self, request, sociallogin, data)`: Hook that can
+    be used to further populate the user instance
+    (`sociallogin.account.user`). Here, `data` is a dictionary of
+    common user properties (`first_name`, `last_name`, `email`,
+    `username`, `name`) that the provider already extracted for you.
+
+
 Invitations
 -----------
 
@@ -897,10 +967,10 @@ invitation app. The account adapter
 (`allauth.account.adapter.DefaultAccountAdapter`) offers the following
 methods:
 
-- `is_open_for_signup(request)`. You can override this method to, for
+- `is_open_for_signup(self, request)`. You can override this method to, for
   example, inspect the session to check if an invitation was accepted.
 
-- `stash_verified_email(request, email)`. If an invitation was
+- `stash_verified_email(self, request, email)`. If an invitation was
   accepted by following a link in a mail, then there is no need to
   send e-mail verification mails after the signup is completed. Use
   this method to record the fact that an e-mail address was verified.
@@ -935,15 +1005,15 @@ following adapter methods:
 
 - `allauth.account.adapter.DefaultAccountAdapter`:
 
-  - `get_login_redirect_url(request)`
+  - `get_login_redirect_url(self, request)`
 
-  - `get_logout_redirect_url(request)`
+  - `get_logout_redirect_url(self, request)`
 
-  - `get_email_confirmation_redirect_url(request)`
+  - `get_email_confirmation_redirect_url(self, request)`
 
 - `allauth.socialaccount.adapter.DefaultSocialAccountAdapter`:
 
-  - `get_connect_redirect_url(request, socialaccount)`
+  - `get_connect_redirect_url(self, request, socialaccount)`
 
 For example, redirecting to `/accounts/<username>/` can be implemented as
 follows::
@@ -954,9 +1024,9 @@ follows::
     # project/users/adapter.py:
     from django.conf import settings
     from allauth.account.adapter import DefaultAccountAdapter
-    
+
     class MyAccountAdapter(DefaultAccountAdapter):
-    
+
         def get_login_redirect_url(self, request):
             path = "/accounts/{username}/"
             return path.format(username=request.user.username)
@@ -964,9 +1034,11 @@ follows::
 Messages
 --------
 
-All messages (as in `django.contrib.messages`) are configurable by
-overriding their respective template. If you want to disable a message
-simply override the message template with a blank one.
+The Django messages framework (`django.contrib.messages`) is used if
+it is listed in `settings.INSTALLED_APPS`.  All messages (as in
+`django.contrib.messages`) are configurable by overriding their
+respective template. If you want to disable a message simply override
+the message template with a blank one.
 
 
 Showcase
@@ -991,3 +1063,12 @@ Showcase
 
 Please mail me (raymond.penners@intenct.nl) links to sites that have
 `django-allauth` up and running.
+
+
+Commercial Support
+==================
+
+This project is sponsored by IntenCT_. If you require assistance on
+your project(s), please contact us: info@intenct.nl.
+
+.. _IntenCT: http://www.intenct.info

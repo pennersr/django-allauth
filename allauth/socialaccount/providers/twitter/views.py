@@ -4,10 +4,9 @@ from allauth.socialaccount.providers.oauth.client import OAuth
 from allauth.socialaccount.providers.oauth.views import (OAuthAdapter,
                                                          OAuthLoginView,
                                                          OAuthCallbackView)
-from allauth.socialaccount.models import SocialLogin, SocialAccount
-from allauth.socialaccount.adapter import get_adapter
 
 from .provider import TwitterProvider
+
 
 class TwitterAPI(OAuth):
     """
@@ -32,17 +31,9 @@ class TwitterOAuthAdapter(OAuthAdapter):
         client = TwitterAPI(request, app.client_id, app.secret,
                             self.request_token_url)
         extra_data = client.get_user_info()
-        uid = extra_data['id']
-        user = get_adapter() \
-            .populate_new_user(username=extra_data.get('screen_name'),
-                               name=extra_data.get('name'))
-        account = SocialAccount(user=user,
-                                uid=uid,
-                                provider=TwitterProvider.id,
-                                extra_data=extra_data)
-        return SocialLogin(account)
+        return self.get_provider().sociallogin_from_response(request,
+                                                             extra_data)
 
 
 oauth_login = OAuthLoginView.adapter_view(TwitterOAuthAdapter)
 oauth_callback = OAuthCallbackView.adapter_view(TwitterOAuthAdapter)
-

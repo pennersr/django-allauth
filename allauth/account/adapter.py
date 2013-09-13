@@ -20,6 +20,7 @@ from ..utils import (import_attribute, get_user_model,
 
 from . import app_settings
 
+
 class DefaultAccountAdapter(object):
 
     def stash_verified_email(self, request, email):
@@ -29,7 +30,7 @@ class DefaultAccountAdapter(object):
         ret = request.session.get('account_verified_email')
         request.session['account_verified_email'] = None
         return ret
-        
+
     def is_email_verified(self, request, email):
         """
         Checks whether or not the email address is already verified
@@ -71,16 +72,16 @@ class DefaultAccountAdapter(object):
                     # We need at least one body
                     raise
         if 'txt' in bodies:
-            msg = EmailMultiAlternatives(subject, 
-                                         bodies['txt'], 
+            msg = EmailMultiAlternatives(subject,
+                                         bodies['txt'],
                                          settings.DEFAULT_FROM_EMAIL,
                                          [email])
             if 'html' in bodies:
                 msg.attach_alternative(bodies['html'], 'text/html')
         else:
-            msg = EmailMessage(subject, 
-                               bodies['html'], 
-                               settings.DEFAULT_FROM_EMAIL, 
+            msg = EmailMessage(subject,
+                               bodies['html'],
+                               settings.DEFAULT_FROM_EMAIL,
                                [email])
             msg.content_subtype = 'html'  # Main content is now text/html
         msg.send()
@@ -132,29 +133,58 @@ class DefaultAccountAdapter(object):
         """
         return True
 
-    def new_user(self, 
-                 username=None,
-                 first_name=None, 
-                 last_name=None,
-                 email=None):
+    def new_user(self, request):
         """
-        Spawns a new User instance, populating several common fields.
-        Note that this method assumes that the data is properly
-        validated. For example, if a username is given it must be
-        unique.
+        Instantiates a new User instance.
         """
-        from .utils import user_username, user_email
-
         user = get_user_model()()
-        if app_settings.USER_MODEL_USERNAME_FIELD:
-            user_username(user, 
-                          username or generate_unique_username(first_name or
-                                                               last_name or email))
-        user_email(user, email)
-        user.first_name = first_name
-        user.last_name = last_name
         return user
 
+    def populate_username(self, request, user):
+        """
+        Fills in a valid username, if required and missing.  If the
+        username is already present it is assumed to be valid
+        (unique).
+        """
+        from .utils import user_username, user_email, user_field
+
+        first_name = user_field(user, 'first_name')
+        last_name = user_field(user, 'last_name')
+        email = user_email(user)
+        username = user_username(user)
+        if app_settings.USER_MODEL_USERNAME_FIELD:
+            user_username(user,
+                          username or generate_unique_username(first_name or
+                                                               last_name or
+                                                               email or
+                                                               'user'))
+
+    def save_user(self, request, user, form, commit=True):
+        """
+        Saves a new `User` instance using information provided in the
+        signup form.
+        """
+        from .utils import user_username, user_email, user_field
+
+        data = form.cleaned_data
+        first_name = data.get('first_name')
+        last_name = data.get('last_name')
+        email = data.get('email')
+        username = data.get('username')
+        user_email(user, email)
+        user_username(user, username)
+        user_field(user, 'first_name', first_name or '')
+        user_field(user, 'last_name', last_name or '')
+        if 'password1' in data:
+            user.set_password(data["password1"])
+        else:
+            user.set_unusable_password()
+        self.populate_username(request, user)
+        if commit:
+            # Ability not to commit makes it easier to derive from
+            # this adapter by adding
+            user.save()
+        return user
 
     def clean_username(self, username):
         """
@@ -167,7 +197,7 @@ class DefaultAccountAdapter(object):
             raise forms.ValidationError(_("Usernames can only contain "
                                           "letters, digits and @/./+/-/_."))
 
-        # TODO: Add regexp support to USERNAME_BLACKLIST 
+        # TODO: Add regexp support to USERNAME_BLACKLIST
         if username in app_settings.USERNAME_BLACKLIST:
             raise forms.ValidationError(_("Username can not be used. "
                                           "Please use other username."))
@@ -180,19 +210,22 @@ class DefaultAccountAdapter(object):
         """
         return email
 
-    def add_message(self, request, level, message_template, message_context={}, extra_tags=''):
+    def add_message(self, request, level, message_template,
+                    message_context={}, extra_tags=''):
         """
         Wrapper of `django.contrib.messages.add_message`, that reads
         the message text from a template.
         """
-        try:
-            message = render_to_string(message_template,
-                                       message_context).strip()
-            if message:
-                messages.add_message(request, level, message, extra_tags=extra_tags)
-        except TemplateDoesNotExist:
-            pass
+        if 'django.contrib.messages' in settings.INSTALLED_APPS:
+            try:
+                message = render_to_string(message_template,
+                                           message_context).strip()
+                if message:
+                    messages.add_message(request, level, message,
+                                         extra_tags=extra_tags)
+            except TemplateDoesNotExist:
+                pass
+
 
 def get_adapter():
     return import_attribute(app_settings.ADAPTER)()
-

@@ -103,14 +103,14 @@ else:
 
 METADATA = dict(
     name='django-allauth',
-    version='0.12.1-dev',
+    version='0.14.0-dev',
     author='Raymond Penners',
     author_email='raymond.penners@intenct.nl',
     description='Integrated set of Django applications addressing authentication, registration, account management as well as 3rd party (social) account authentication.',
     long_description=open('README.rst').read(),
     url='http://github.com/pennersr/django-allauth',
     keywords='django auth account social openid twitter facebook oauth registration',
-    install_requires=['django >= 1.4.3',
+    install_requires=['Django >= 1.4.3',
                       openid_package,
                       'requests-oauthlib >= 0.3.0',
                       'requests >= 1.0.3'],

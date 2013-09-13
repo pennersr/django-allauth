@@ -7,199 +7,152 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-12 19:07+0200\n"
+"POT-Creation-Date: 2013-07-29 23:27+0200\n"
 "PO-Revision-Date: 2013-07-13 21:19+0800\n"
 "Last-Translator: jresins <jresins@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: account/forms.py:31 account/forms.py:47 account/forms.py:233
-#: account/forms.py:351
-msgid "Password"
-msgstr "密码"
-
-#: account/forms.py:40
-msgid "Password must be a minimum of {0} characters."
-msgstr "密码长度不得少于 {0} 个字符。"
-
-#: account/forms.py:49
-msgid "Remember Me"
-msgstr "记住我"
-
-#: account/forms.py:60 account/forms.py:173
-msgid "E-mail address"
-msgstr "E-mail地址"
-
-#: account/forms.py:61 account/forms.py:182 account/forms.py:301
-#: account/forms.py:368
-msgid "E-mail"
-msgstr "E-mail"
-
-#: account/forms.py:66 account/forms.py:67 account/forms.py:166
-#: account/forms.py:170
-msgid "Username"
-msgstr "用户名"
-
-#: account/forms.py:74
-msgid "Username or e-mail"
-msgstr "用户名或e-mail"
-
-#: account/forms.py:75
-msgctxt "field label"
-msgid "Login"
-msgstr "登陆"
-
-#: account/forms.py:108
-msgid "This account is currently inactive."
-msgstr "此账号当前未激活。"
-
-#: account/forms.py:112
-msgid "The e-mail address and/or password you specified are not correct."
-msgstr "您提供的e-mail地址或密码不正确。"
-
-#: account/forms.py:116
-msgid "The username and/or password you specified are not correct."
-msgstr "您提供的用户名或密码不正确。"
-
-#: account/forms.py:119
-msgid "The login and/or password you specified are not correct."
-msgstr "您提供的账号或密码错误"
-
-#: account/forms.py:185
-msgid "E-mail (optional)"
-msgstr "E-mail (选填项)"
-
-#: account/forms.py:193
+#: account/adapter.py:168
 msgid "Usernames can only contain letters, digits and @/./+/-/_."
 msgstr "用户名只能包含字母，数字和@/./+/-/_."
 
-#: account/forms.py:197
+#: account/adapter.py:173
 msgid "Username can not be used. Please use other username."
 msgstr "此用户名不能使用，请改用其他用户名。"
 
-#: account/forms.py:204
+#: account/forms.py:33 account/forms.py:51 account/forms.py:237
+#: account/forms.py:343
+msgid "Password"
+msgstr "密码"
+
+#: account/forms.py:43
+msgid "Password must be a minimum of {0} characters."
+msgstr "密码长度不得少于 {0} 个字符。"
+
+#: account/forms.py:53
+msgid "Remember Me"
+msgstr "记住我"
+
+#: account/forms.py:64 account/forms.py:178
+msgid "E-mail address"
+msgstr "E-mail地址"
+
+#: account/forms.py:65 account/forms.py:189 account/forms.py:292
+#: account/forms.py:360
+msgid "E-mail"
+msgstr "E-mail"
+
+#: account/forms.py:70 account/forms.py:71 account/forms.py:171
+#: account/forms.py:175
+msgid "Username"
+msgstr "用户名"
+
+#: account/forms.py:78
+msgid "Username or e-mail"
+msgstr "用户名或e-mail"
+
+#: account/forms.py:79
+msgctxt "field label"
+msgid "Login"
+msgstr "登录"
+
+#: account/forms.py:111
+msgid "This account is currently inactive."
+msgstr "此账号当前未激活。"
+
+#: account/forms.py:115
+msgid "The e-mail address and/or password you specified are not correct."
+msgstr "您提供的e-mail地址或密码不正确。"
+
+#: account/forms.py:119
+msgid "The username and/or password you specified are not correct."
+msgstr "您提供的用户名或密码不正确。"
+
+#: account/forms.py:122
+msgid "The login and/or password you specified are not correct."
+msgstr "您提供的账号或密码错误"
+
+#: account/forms.py:192
+msgid "E-mail (optional)"
+msgstr "E-mail （选填项）"
+
+#: account/forms.py:207
 msgid "This username is already taken. Please choose another."
 msgstr "此用户名已被使用，请选择其他用户名。"
 
-#: account/forms.py:212
+#: account/forms.py:216
 msgid "A user is already registered with this e-mail address."
 msgstr "此e-mail地址已被其他用户注册。"
 
-#: account/forms.py:234 account/forms.py:352
+#: account/forms.py:238 account/forms.py:344
 msgid "Password (again)"
-msgstr "密码 (重复)"
+msgstr "密码（重复）"
 
-#: account/forms.py:262 account/forms.py:341 account/forms.py:357
-#: account/forms.py:425
+#: account/forms.py:256 account/forms.py:333 account/forms.py:349
+#: account/forms.py:418
 msgid "You must type the same password each time."
 msgstr "每次输入的密码必须相同"
 
-#: account/forms.py:309
+#: account/forms.py:301
 msgid "This e-mail address is already associated with this account."
 msgstr "此e-mail地址已关联到这个账号。"
 
-#: account/forms.py:310
+#: account/forms.py:302
 msgid "This e-mail address is already associated with another account."
 msgstr "此e-mail地址已关联到其他账号。"
 
-#: account/forms.py:329
+#: account/forms.py:321
 msgid "Current Password"
 msgstr "当前密码"
 
-#: account/forms.py:330 account/forms.py:413
+#: account/forms.py:322 account/forms.py:406
 msgid "New Password"
 msgstr "新密码"
 
-#: account/forms.py:331 account/forms.py:414
+#: account/forms.py:323 account/forms.py:407
 msgid "New Password (again)"
-msgstr "新密码 (重复)"
+msgstr "新密码（重复）"
 
-#: account/forms.py:335
+#: account/forms.py:327
 msgid "Please type your current password."
 msgstr "请输入您的当前密码"
 
-#: account/forms.py:378
+#: account/forms.py:371
 msgid "The e-mail address is not assigned to any user account"
 msgstr "此e-mail地址未分配给任何用户账号"
 
-#: account/models.py:30
+#: account/models.py:31
 msgid "email address"
 msgstr "e-mail地址"
 
-#: account/models.py:31
+#: account/models.py:32
 msgid "email addresses"
 msgstr "e-mail地址"
 
-#: account/models.py:81
+#: account/models.py:82
 msgid "email confirmation"
 msgstr "e-mail确认"
 
-#: account/models.py:82
+#: account/models.py:83
 msgid "email confirmations"
 msgstr "e-mail确认"
 
-#: account/utils.py:95
-#, python-format
-msgid "Successfully signed in as %(user)s."
-msgstr "以 %(user)s.身份成功登陆"
-
-#: account/utils.py:240 account/views.py:222 account/views.py:241
+#: account/utils.py:290
 #, python-format
 msgid "Confirmation e-mail sent to %(email)s"
 msgstr "确认e-mail已发往 %(email)s"
 
-#: account/views.py:147
-#, python-format
-msgid "You have confirmed %(email)s."
-msgstr "您已确认e-mail地址 %(email)s "
-
-#: account/views.py:259
-#, python-format
-msgid "You cannot remove your primary e-mail address (%(email)s)"
-msgstr "您不能删除您的主要e-mail地址 (%(email)s) "
-
-#: account/views.py:269
-#, python-format
-msgid "Removed e-mail address %(email)s"
-msgstr "e-mail地址 %(email)s 已删除"
-
-#: account/views.py:295
-msgid "Your primary e-mail address must be verified"
-msgstr "您的主要邮件地址必须被验证。"
-
-#: account/views.py:307
-msgid "Primary e-mail address set"
-msgstr "主邮件地址已设置"
-
-#: account/views.py:336 account/views.py:413
-msgid "Password successfully changed."
-msgstr "密码修改成功。"
-
-#: account/views.py:361
-msgid "Password successfully set."
-msgstr "密码设置成功。"
-
-#: account/views.py:448
-msgid "You have signed out."
-msgstr "您已注销登录。"
-
-#: socialaccount/forms.py:47
+#: socialaccount/adapter.py:73
 msgid "Your account has no password set up."
 msgstr "您的账号未设置密码。"
 
-#: socialaccount/forms.py:51
+#: socialaccount/adapter.py:78
 msgid "Your account has no verified e-mail address."
 msgstr "您的账号下无任何验证过的e-mail地址。"
-
-#: socialaccount/helpers.py:129
-msgid "The social account has been connected"
-msgstr "社交账号已连接"
-
-#: socialaccount/views.py:66
-msgid "The social account has been disconnected"
-msgstr "社交账号已断开连接"
 
 #: socialaccount/providers/oauth/client.py:78
 #, python-format
@@ -216,12 +169,12 @@ msgstr "Invalid response while obtaining access token from \"%s\"."
 msgid "No request token saved for \"%s\"."
 msgstr "No request token saved for \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:160
+#: socialaccount/providers/oauth/client.py:159
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "No access token saved for \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:178
+#: socialaccount/providers/oauth/client.py:177
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "无权访问私有资源 \"%s\"。"
@@ -281,7 +234,7 @@ msgstr "添加E-mail地址"
 msgid "Add E-mail"
 msgstr "添加E-mail"
 
-#: templates/account/email.html:64
+#: templates/account/email.html:63
 msgid "Do you really want to remove the selected e-mail address?"
 msgstr "您真的想移除选定的邮件地址码？"
 
@@ -312,8 +265,8 @@ msgid ""
 "This e-mail confirmation link expired or is invalid. Please <a href="
 "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"e-mail验证链接失效或无效。请点击 <a href=\"%(email_url)s\">发起新的e-mail验证请"
-"求。"
+"e-mail验证链接失效或无效。请点击 <a href=\"%(email_url)s\">发起新的e-mail验证"
+"请求。"
 
 #: templates/account/email_confirmed.html:15
 #, python-format
@@ -347,7 +300,7 @@ msgstr "或"
 
 #: templates/account/login.html:38
 msgid "Forgot Password?"
-msgstr "忘记密码？"
+msgstr "忘记密码了？"
 
 #: templates/account/logout.html:6 templates/account/logout.html.py:9
 #: templates/account/logout.html:18
@@ -363,6 +316,8 @@ msgstr "您确定要注销登录吗？"
 #: templates/account/password_change.html:12
 #: templates/account/password_reset_from_key.html:5
 #: templates/account/password_reset_from_key.html:8
+#: templates/account/password_reset_from_key_done.html:5
+#: templates/account/password_reset_from_key_done.html:8
 msgid "Change Password"
 msgstr "修改密码"
 
@@ -401,8 +356,7 @@ msgid ""
 "Forgotten your password? Enter your e-mail address below, and we'll send you "
 "an e-mail allowing you to reset it."
 msgstr ""
-"忘记密码？在下面输入您的e-mail地址，我们将给您发送一封e-mail，以便重置密"
-"码。"
+"忘记密码？在下面输入您的e-mail地址，我们将给您发送一封e-mail，以便重置密码。"
 
 #: templates/account/password_reset.html:20
 msgid "Reset My Password"
@@ -416,7 +370,7 @@ msgstr "如在重置密码时遇到问题，请与我们联系。"
 msgid ""
 "We have sent you an e-mail. Please contact us if you do not receive it "
 "within a few minutes."
-msgstr "我们已给您发了一封e-mail,如您在几分钟后仍没收到，请与我们联系。"
+msgstr "我们已给您发了一封e-mail，如您在几分钟后仍没收到，请与我们联系。"
 
 #: templates/account/password_reset_from_key.html:8
 msgid "Bad Token"
@@ -437,8 +391,9 @@ msgid "change password"
 msgstr "修改密码"
 
 #: templates/account/password_reset_from_key.html:21
+#: templates/account/password_reset_from_key_done.html:9
 msgid "Your password is now changed."
-msgstr "您的密码现在已被修改。"
+msgstr "您的密码现已被修改。"
 
 #: templates/account/password_set.html:5 templates/account/password_set.html:8
 #: templates/account/password_set.html:13
@@ -459,7 +414,7 @@ msgstr "注册"
 #, python-format
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr "已经有一个账号？ 请<a href=\"%(login_url)s\">登陆</a>."
+msgstr "已经有一个账号？ 请<a href=\"%(login_url)s\">登录</a>."
 
 #: templates/account/signup_closed.html:6
 #: templates/account/signup_closed.html:9
@@ -484,8 +439,8 @@ msgid ""
 "verification. Follow the link provided to finalize the signup process. "
 "Please contact us if you do not receive it within a few minutes."
 msgstr ""
-"我们已向<a href=\"mailto:%(email)s\">%(email)s</a>发了一封验证e-mail。点击"
-"e-mail中的链接完成注册流程。如果您在几分钟后仍未收到邮件，请与我们联系。"
+"我们已向<a href=\"mailto:%(email)s\">%(email)s</a>发了一封验证e-mail。点击e-"
+"mail中的链接完成注册流程。如果您在几分钟后仍未收到邮件，请与我们联系。"
 
 #: templates/account/verified_email_required.html:13
 msgid ""
@@ -511,8 +466,8 @@ msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
 "mail address</a>."
 msgstr ""
-"<strong>注意:</strong> 您仍然能够<a href=\"%(email_url)s\">修改您的e-mail地址 "
-"</a>."
+"<strong>注意:</strong> 您仍然能够<a href=\"%(email_url)s\">修改您的e-mail地"
+"址 </a>."
 
 #: templates/account/email/email_confirmation_message.txt:1
 #, python-format
@@ -553,6 +508,53 @@ msgstr ""
 msgid "Password Reset E-mail"
 msgstr "密码重置邮件"
 
+#: templates/account/messages/cannot_delete_primary_email.txt:2
+#, fuzzy, python-format
+msgid "You cannot remove your primary e-mail address (%(email)s)."
+msgstr "您不能删除您的主要e-mail地址 (%(email)s) "
+
+#: templates/account/messages/email_confirmation_sent.txt:2
+#, fuzzy, python-format
+msgid "Confirmation e-mail sent to %(email)s."
+msgstr "确认e-mail已发往 %(email)s"
+
+#: templates/account/messages/email_confirmed.txt:2
+#, python-format
+msgid "You have confirmed %(email)s."
+msgstr "您已确认e-mail地址 %(email)s "
+
+#: templates/account/messages/email_deleted.txt:2
+#, fuzzy, python-format
+msgid "Removed e-mail address %(email)s."
+msgstr "e-mail地址 %(email)s 已删除"
+
+#: templates/account/messages/logged_in.txt:4
+#, fuzzy, python-format
+msgid "Successfully signed in as %(name)s."
+msgstr "以 %(user)s.身份成功登录"
+
+#: templates/account/messages/logged_out.txt:2
+msgid "You have signed out."
+msgstr "您已注销登录。"
+
+#: templates/account/messages/password_changed.txt:2
+msgid "Password successfully changed."
+msgstr "密码修改成功。"
+
+#: templates/account/messages/password_set.txt:2
+msgid "Password successfully set."
+msgstr "密码设置成功。"
+
+#: templates/account/messages/primary_email_set.txt:2
+#, fuzzy
+msgid "Primary e-mail address set."
+msgstr "主邮件地址已设置"
+
+#: templates/account/messages/unverified_primary_email.txt:2
+#, fuzzy
+msgid "Your primary e-mail address must be verified."
+msgstr "您的主要邮件地址必须被验证。"
+
 #: templates/account/snippets/already_logged_in.html:5
 msgid "Note"
 msgstr "注意"
@@ -560,11 +562,11 @@ msgstr "注意"
 #: templates/account/snippets/already_logged_in.html:5
 #, python-format
 msgid "you are already logged in as %(user_display)s."
-msgstr "您已以 %(user_display)s的身份登陆"
+msgstr "您已以 %(user_display)s的身份登录"
 
 #: templates/openid/login.html:10
 msgid "OpenID Sign In"
-msgstr "OpenID登陆"
+msgstr "OpenID登录"
 
 #: templates/socialaccount/account_inactive.html:5
 #: templates/socialaccount/account_inactive.html:8
@@ -578,7 +580,7 @@ msgstr "此账号未激活"
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:8
 msgid "Social Network Login Failure"
-msgstr "社交网络登陆失败"
+msgstr "社交网络登录失败"
 
 #: templates/socialaccount/authentication_error.html:10
 msgid ""
@@ -629,11 +631,23 @@ msgstr ""
 "您将使用您的%(provider_name)s账号登录\n"
 "%(site_name)s。作为最后一步，请完成以下表单："
 
+#: templates/socialaccount/messages/account_connected.txt:2
+#, fuzzy
+msgid "The social account has been connected."
+msgstr "社交账号已连接"
+
+#: templates/socialaccount/messages/account_connected_other.txt:2
+#, fuzzy
+msgid "The social account is already connected to a different account."
+msgstr "Het externe account is gekoppeld aan je bestaande account"
+
+#: templates/socialaccount/messages/account_disconnected.txt:2
+#, fuzzy
+msgid "The social account has been disconnected."
+msgstr "社交账号已断开连接"
+
 #~ msgid "Your e-mail address has already been verified"
 #~ msgstr "Je e-mail adres is al geverifieerd"
-
-#~ msgid "The social account has been connected to your existing account"
-#~ msgstr "Het externe account is gekoppeld aan je bestaande account"
 
 #~ msgid ""
 #~ "If you have any trouble resetting your password, contact us at <a href="

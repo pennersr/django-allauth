@@ -21,7 +21,8 @@ try:
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
-from ..utils import import_callable, valid_email_or_none
+from ..utils import (import_callable, valid_email_or_none,
+                     get_user_model)
 
 from . import signals
 
@@ -75,7 +76,11 @@ def user_field(user, field, *args):
     if field and hasattr(user, field):
         if args:
             # Setter
-            setattr(user, field, args[0])
+            v = args[0]
+            if v:
+                User = get_user_model()
+                v = v[0:User._meta.get_field(field).max_length]
+            setattr(user, field, v)
         else:
             # Getter
             return getattr(user, field)

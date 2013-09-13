@@ -121,6 +121,40 @@ class AccountTests(TestCase):
         self.assertEqual('http://testserver/accounts/profile/',
                          resp['location'])
 
+    def test_password_set_redirect(self):
+        resp = self._password_set_or_reset_redirect('account_set_password',
+                                                    True)
+        self.assertEqual(resp.status_code, 302)
+
+    def test_password_reset_no_redirect(self):
+        resp = self._password_set_or_reset_redirect('account_change_password',
+                                                    True)
+        self.assertEqual(resp.status_code, 200)
+
+    def test_password_set_no_redirect(self):
+        resp = self._password_set_or_reset_redirect('account_set_password',
+                                                    False)
+        self.assertEqual(resp.status_code, 200)
+
+    def test_password_reset_redirect(self):
+        resp = self._password_set_or_reset_redirect('account_change_password',
+                                                    False)
+        self.assertEqual(resp.status_code, 302)
+
+    def _password_set_or_reset_redirect(self, urlname, usable_password):
+        c = Client()
+        user = User.objects.create(username='john',
+                                   is_active=True)
+        user.set_password('doe')
+        user.save()
+        c = Client()
+        c.login(username='john', password='doe')
+        if not usable_password:
+            user.set_unusable_password()
+            user.save()
+        resp = c.get(reverse(urlname))
+        return resp
+
     def test_email_verification_mandatory(self):
         c = Client()
         # Signup

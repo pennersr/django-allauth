@@ -4,10 +4,9 @@ from allauth.socialaccount.providers.oauth.client import OAuth
 from allauth.socialaccount.providers.oauth.views import (OAuthAdapter,
                                                          OAuthLoginView,
                                                          OAuthCallbackView)
-from allauth.socialaccount.models import SocialLogin, SocialAccount
-from allauth.socialaccount.adapter import get_adapter
 
 from .provider import DropboxProvider
+
 
 class DropboxAPI(OAuth):
     """
@@ -30,18 +29,9 @@ class DropboxOAuthAdapter(OAuthAdapter):
         client = DropboxAPI(request, app.client_id, app.secret,
                             self.request_token_url)
         extra_data = client.get_user_info()
-        uid = extra_data['uid']
-        user = get_adapter() \
-            .populate_new_user(username=extra_data.get('display_name'),
-                               name=extra_data.get('display_name'),
-                               email=extra_data.get('email'))
-        account = SocialAccount(user=user,
-                                uid=uid,
-                                provider=DropboxProvider.id,
-                                extra_data=extra_data)
-        return SocialLogin(account)
+        return self.get_provider().sociallogin_from_response(request,
+                                                             extra_data)
 
 
 oauth_login = OAuthLoginView.adapter_view(DropboxOAuthAdapter)
 oauth_callback = OAuthCallbackView.adapter_view(DropboxOAuthAdapter)
-

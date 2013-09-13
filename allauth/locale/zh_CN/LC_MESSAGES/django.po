@@ -8,10 +8,9 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-29 23:27+0200\n"
-"PO-Revision-Date: 2013-07-13 21:19+0800\n"
+"PO-Revision-Date: 2013-09-13 10:24+0800\n"
 "Last-Translator: jresins <jresins@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -58,7 +57,7 @@ msgstr "用户名或e-mail"
 #: account/forms.py:79
 msgctxt "field label"
 msgid "Login"
-msgstr "登录"
+msgstr "账号"
 
 #: account/forms.py:111
 msgid "This account is currently inactive."
@@ -236,7 +235,7 @@ msgstr "添加E-mail"
 
 #: templates/account/email.html:63
 msgid "Do you really want to remove the selected e-mail address?"
-msgstr "您真的想移除选定的邮件地址码？"
+msgstr "您真的想移除选定的e-mail地址码？"
 
 #: templates/account/email_confirm.html:7
 #: templates/account/email_confirm.html:11
@@ -253,7 +252,7 @@ msgid ""
 "address for user %(user_display)s."
 msgstr ""
 "请确认<a href=\"mailto:%(email)s\">%(email)s</a>是否是用户 %(user_display)s的"
-"邮件地址。"
+"e-mail地址。"
 
 #: templates/account/email_confirm.html:21
 msgid "Confirm"
@@ -274,8 +273,8 @@ msgid ""
 "You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
 "mail address for user %(user_display)s."
 msgstr ""
-"您已确认<a href=\"mailto:%(email)s\">%(email)s</a>是用户%(user_display)s的邮"
-"件地址。"
+"您已确认<a href=\"mailto:%(email)s\">%(email)s</a>是用户%(user_display)s的e-"
+"mail地址。"
 
 #: templates/account/login.html:7 templates/account/login.html.py:11
 #: templates/account/login.html:39
@@ -509,9 +508,9 @@ msgid "Password Reset E-mail"
 msgstr "密码重置邮件"
 
 #: templates/account/messages/cannot_delete_primary_email.txt:2
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot remove your primary e-mail address (%(email)s)."
-msgstr "您不能删除您的主要e-mail地址 (%(email)s) "
+msgstr "您不能删除您的主e-mail地址 (%(email)s) "
 
 #: templates/account/messages/email_confirmation_sent.txt:2
 #, fuzzy, python-format
@@ -546,14 +545,12 @@ msgid "Password successfully set."
 msgstr "密码设置成功。"
 
 #: templates/account/messages/primary_email_set.txt:2
-#, fuzzy
 msgid "Primary e-mail address set."
-msgstr "主邮件地址已设置"
+msgstr "主e-mail地址已设置"
 
 #: templates/account/messages/unverified_primary_email.txt:2
-#, fuzzy
 msgid "Your primary e-mail address must be verified."
-msgstr "您的主要邮件地址必须被验证。"
+msgstr "您的主e-mail地址必须被验证。"
 
 #: templates/account/snippets/already_logged_in.html:5
 msgid "Note"
@@ -637,9 +634,8 @@ msgid "The social account has been connected."
 msgstr "社交账号已连接"
 
 #: templates/socialaccount/messages/account_connected_other.txt:2
-#, fuzzy
 msgid "The social account is already connected to a different account."
-msgstr "Het externe account is gekoppeld aan je bestaande account"
+msgstr "社交账号已连接到另一个账号。"
 
 #: templates/socialaccount/messages/account_disconnected.txt:2
 #, fuzzy

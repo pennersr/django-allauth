@@ -30,8 +30,6 @@ class SignupForm(BaseSignupForm):
     def save(self, request):
         adapter = get_adapter()
         user = adapter.save_user(request, self.sociallogin, form=self)
-        # TODO: Add request?
-        super(SignupForm, self).save(user)
         return user
 
 

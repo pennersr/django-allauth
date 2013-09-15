@@ -12,6 +12,7 @@ from ..account.adapter import get_adapter as get_account_adapter
 from .adapter import get_adapter
 
 from .forms import DisconnectForm, SignupForm
+from . import app_settings
 from . import helpers
 
 

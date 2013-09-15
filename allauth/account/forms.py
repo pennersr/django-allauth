@@ -133,42 +133,7 @@ class LoginForm(forms.Form):
         return ret
 
 
-class _DummyCustomSignupForm(forms.Form):
-    def save(self, user):
-        """
-        TODO: Rethink this -- needs request, then again, adapter
-        already has a save_user.
-        """
-        pass
-
-
-def _base_signup_form_class():
-    if not app_settings.SIGNUP_FORM_CLASS:
-        return _DummyCustomSignupForm
-    try:
-        fc_module, fc_classname = app_settings.SIGNUP_FORM_CLASS.rsplit('.', 1)
-    except ValueError:
-        raise exceptions.ImproperlyConfigured('%s does not point to a form'
-                                              ' class'
-                                              % app_settings.SIGNUP_FORM_CLASS)
-    try:
-        mod = import_module(fc_module)
-    except ImportError as e:
-        raise exceptions.ImproperlyConfigured('Error importing form class %s:'
-                                              ' "%s"' % (fc_module, e))
-    try:
-        fc_class = getattr(mod, fc_classname)
-    except AttributeError:
-        raise exceptions.ImproperlyConfigured('Module "%s" does not define a'
-                                              ' "%s" class' % (fc_module,
-                                                               fc_classname))
-    if not hasattr(fc_class, 'save'):
-        raise exceptions.ImproperlyConfigured('The custom signup form must'
-                                              ' implement a "save" method')
-    return fc_class
-
-
-class BaseSignupForm(_base_signup_form_class()):
+class BaseSignupForm(forms.Form):
     username = forms.CharField(label=_("Username"),
                                max_length=30,
                                min_length=app_settings.USERNAME_MIN_LENGTH,
@@ -257,8 +222,6 @@ class SignupForm(BaseSignupForm):
         adapter = get_adapter()
         user = adapter.new_user(request)
         adapter.save_user(request, user, self)
-        # TODO: Add request?
-        super(SignupForm, self).save(user)
         # TODO: Move into adapter `save_user` ?
         setup_user_email(request, user, [])
         return user

@@ -135,7 +135,32 @@ class AppSettings(object):
         """
         Signup form
         """
-        return self._setting("SIGNUP_FORM_CLASS", None)
+        from django.core import exceptions
+        from django.utils.importlib import import_module
+        ret = self._setting("SIGNUP_FORM_CLASS", None)
+        if not ret:
+            return None
+        try:
+            fc_module, fc_classname = ret.rsplit('.', 1)
+        except ValueError:
+            raise exceptions.ImproperlyConfigured('%s does not point to a form'
+                                              ' class'
+                                              % ret)
+        try:
+            mod = import_module(fc_module)
+        except ImportError as e:
+            raise exceptions.ImproperlyConfigured('Error importing form class %s:'
+                                              ' "%s"' % (fc_module, e))
+        try:
+            fc_class = getattr(mod, fc_classname)
+        except AttributeError:
+            raise exceptions.ImproperlyConfigured('Module "%s" does not define a'
+                                              ' "%s" class' % (fc_module,
+                                                               fc_classname))
+        if not hasattr(fc_class, 'save'):
+            raise exceptions.ImproperlyConfigured('The custom signup form must'
+                                              ' implement a "save" method')
+        return fc_class
 
     @property
     def USERNAME_REQUIRED(self):

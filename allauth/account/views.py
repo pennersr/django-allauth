@@ -112,7 +112,7 @@ class CloseableSignupMixin(object):
 class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
                  FormView):
     template_name = "account/signup.html"
-    form_class = SignupForm
+    form_class = app_settings.SIGNUP_FORM_CLASS or SignupForm
     redirect_field_name = "next"
     success_url = None
 

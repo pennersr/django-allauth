@@ -249,8 +249,7 @@ ACCOUNT_SIGNUP_FORM_CLASS (=None)
   A string pointing to a custom form class
   (e.g. 'myapp.forms.SignupForm') that is used during signup to ask
   the user for additional input (e.g. newsletter signup, birth
-  date). This class should implement a 'save' method, accepting the
-  newly signed up user as its only parameter.
+  date).
 
 ACCOUNT_SIGNUP_PASSWORD_VERIFICATION (=True)
   When signing up, let the user type in his password twice to avoid typ-o's.
@@ -328,6 +327,11 @@ From 0.13.0
   overhauled. As a result, the `populate_new_user` adapter methods
   have disappeared. Please refer to the section on "Creating and
   Populating User Instances" for more information.
+- Custom form API has changed to allow direct inheritance from
+  bundled form classes. The old way of implementing `save(self, user)`
+  method won't work. If you need to change user object
+  before it's saved, override save_user method in adapter
+  (see :ref:`custom_user_models` for more information).
 
 From 0.12.0
 ***********
@@ -904,6 +908,8 @@ The behavior is as follows:
 
 Advanced Usage
 ==============
+
+.. _custom_user_models:
 
 Custom User Models
 ------------------

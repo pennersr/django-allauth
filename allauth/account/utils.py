@@ -293,7 +293,7 @@ def send_email_confirmation(request, user, signup=False):
         if send_email:
             get_adapter().add_message(request,
                               messages.INFO,
-                              u"Confirmation e-mail sent to %(email)s" % {"email": email},
+                              "account/messages/logged_in.txt" % {"email": email},
                               {'user': user})
 
 

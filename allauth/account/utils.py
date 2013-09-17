@@ -291,9 +291,10 @@ def send_email_confirmation(request, user, signup=False):
             assert email_address
         # At this point, if we were supposed to send an email we have sent it.
         if send_email:
-            messages.info(request,
-                _(u"Confirmation e-mail sent to %(email)s") % {"email": email}
-            )
+            get_adapter().add_message(request,
+                              messages.INFO,
+                              "account/messages/email_confirmation_sent.txt" % {"email": email},
+                              {'user': user})
 
 
 def sync_user_email_addresses(user):

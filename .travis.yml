@@ -6,14 +6,23 @@ python:
 env:
  - DJANGO_VERSION=1.4.3
  - DJANGO_VERSION=1.5
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq sloccount
 install:
  - pip install Django==$DJANGO_VERSION --use-mirrors
  - pip install . --use-mirrors
+ - pip install coverage
 branches:
  only:
   - master
-script: python manage.py test account socialaccount dropbox facebook google github linkedin openid persona soundcloud stackexchange twitch twitter vimeo vk weibo bitly
+script: coverage run manage.py test account socialaccount dropbox facebook google github linkedin openid persona soundcloud stackexchange twitch twitter vimeo vk weibo bitly
 matrix:
   exclude:
     - python: "3.3"
       env: DJANGO_VERSION=1.4.3
+after_success:
+  - coverage report
+  - pip install --quiet python-coveralls
+  - coveralls
+ 

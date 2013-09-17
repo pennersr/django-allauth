@@ -451,10 +451,11 @@ class PasswordResetFromKeyView(FormView):
         return get_object_or_404(User, id=uid_int)
 
     def dispatch(self, request, uidb36, key, **kwargs):
+        self.request = request
         self.uidb36 = uidb36
         self.key = key
-        self.request.user = self._get_user(uidb36)
-        if not self.token_generator.check_token(self.request.user, key):
+        self.reset_user = self._get_user(uidb36)
+        if not self.token_generator.check_token(self.reset_user, key):
             return self._response_bad_token(request, uidb36, key, **kwargs)
         else:
             return super(PasswordResetFromKeyView, self).dispatch(request,
@@ -464,7 +465,7 @@ class PasswordResetFromKeyView(FormView):
 
     def get_form_kwargs(self):
         kwargs = super(PasswordResetFromKeyView, self).get_form_kwargs()
-        kwargs["user"] = self.request.user
+        kwargs["user"] = self.reset_user
         kwargs["temp_key"] = self.key
         return kwargs
 
@@ -473,9 +474,9 @@ class PasswordResetFromKeyView(FormView):
         get_adapter().add_message(self.request,
                                   messages.SUCCESS,
                                   'account/messages/password_changed.txt')
-        signals.password_reset.send(sender=self.request.user.__class__,
+        signals.password_reset.send(sender=self.reset_user.__class__,
                                     request=self.request,
-                                    user=self.request.user)
+                                    user=self.reset_user)
         return super(PasswordResetFromKeyView, self).form_valid(form)
 
     def _response_bad_token(self, request, uidb36, key, **kwargs):

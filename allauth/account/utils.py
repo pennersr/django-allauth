@@ -300,7 +300,7 @@ def send_email_confirmation(request, user, signup=False):
 
 def sync_user_email_addresses(user):
     """
-    Keep user.email in sync with user.emailadress_set.
+    Keep user.email in sync with user.emailaddress_set.
 
     Under some circumstances the user.email may not have ended up as
     an EmailAddress record, e.g. in the case of manually created admin

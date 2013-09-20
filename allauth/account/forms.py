@@ -18,6 +18,7 @@ from .models import EmailAddress
 from .utils import perform_login, setup_user_email
 from .app_settings import AuthenticationMethod
 from . import app_settings
+from ..account import app_settings as account_settings
 from .adapter import get_adapter
 
 User = get_user_model()
@@ -211,8 +212,11 @@ class BaseSignupForm(_base_signup_form_class()):
     def clean_username(self):
         value = self.cleaned_data["username"]
         value = get_adapter().clean_username(value)
+        username_field = account_settings.USER_MODEL_USERNAME_FIELD
+        assert username_field  # app_settings.USERNAME_REQUIRED checked in __init__
         try:
-            User.objects.get(username__iexact=value)
+            query = {'{}__iexact'.format(username_field): value}
+            User.objects.get(**query)
         except User.DoesNotExist:
             return value
         raise forms.ValidationError(_("This username is already taken. Please "

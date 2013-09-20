@@ -4,6 +4,7 @@ from django.db.models import Q
 from ..utils import get_user_model
 
 from .app_settings import AuthenticationMethod
+from ..account import app_settings as account_settings
 from . import app_settings
 
 User = get_user_model()
@@ -24,9 +25,13 @@ class AuthenticationBackend(ModelBackend):
         return ret
 
     def _authenticate_by_username(self, **credentials):
+        username_field = account_settings.USER_MODEL_USERNAME_FIELD
+        if not username_field:
+            return None
         try:
             # Username query is case insensitive
-            user = User.objects.get(username__iexact=credentials["username"])
+            query = {'{}__iexact'.format(username_field): credentials["username"]}
+            user = User.objects.get(**query)
             if user.check_password(credentials["password"]):
                 return user
         except User.DoesNotExist:

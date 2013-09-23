@@ -1,4 +1,4 @@
-django>=1.4.3
+https://github.com/django/django/zipball/1.6b4#egg=django
 # There is no OpenID lib that support both Python 2 and 3 from a single-source base.
 # So we have to choose between:
 # python-openid>=2.2.5

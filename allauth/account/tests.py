@@ -13,7 +13,7 @@ from django.contrib.sites.models import Site
 from django.test.client import RequestFactory
 from django.contrib.auth.models import AnonymousUser
 
-from allauth.account.forms import BaseSignupForm
+from allauth.account.forms import LoginForm, BaseSignupForm
 from allauth.account.models import EmailAddress, EmailConfirmation
 from allauth.utils import get_user_model
 
@@ -250,8 +250,18 @@ class AccountTests(TestCase):
         # this is not the case:
         self.assertEqual(len(mail.outbox), 1)
 
+class LoginFormTests(TestCase):
+    def test_fields_are_in_right_order(self):
+        right_order = ["login", "password", "remember"]
+        form = LoginForm()
+        self.assertEqual(form.fields.keys(), right_order)
 
 class BaseSignupFormTests(TestCase):
+
+    def test_fields_are_in_right_order(self):
+        right_order = ['username','email']
+        form = BaseSignupForm(email_required=True)
+        self.assertEqual(form.fields.keys(), right_order)
 
     @override_settings(
         ACCOUNT_USERNAME_REQUIRED=True,

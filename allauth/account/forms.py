@@ -1,5 +1,7 @@
 from __future__ import absolute_import
 
+from collections import OrderedDict
+
 from django import forms
 from django.core.urlresolvers import reverse
 from django.core import exceptions
@@ -76,7 +78,11 @@ class LoginForm(forms.Form):
                                                          "Login"),
                                           widget=login_widget)
         self.fields["login"] = login_field
-        self.fields.keyOrder = ["login", "password", "remember"]
+        fields_order = ["login", "password", "remember"]
+        if hasattr(self.fields, 'keyOrder'):
+            self.fields.keyOrder = fields_order
+        else:
+            self.fields = OrderedDict((k, self.fields[k]) for k in fields_order)
 
     def user_credentials(self):
         """
@@ -184,8 +190,8 @@ class BaseSignupForm(_base_signup_form_class()):
         # field order may contain additional fields from our base class,
         # so take proper care when reordering...
         field_order = ['email', 'username']
-        merged_field_order = self.fields.keyOrder
-
+        merged_field_order = self.fields.keys()
+        
         if email_required:
             self.fields["email"].label = ugettext("E-mail")
             self.fields["email"].required = True
@@ -204,7 +210,11 @@ class BaseSignupForm(_base_signup_form_class()):
             if not field in merged_field_order:
                 merged_field_order.insert(0, field)
 
-        self.fields.keyOrder = merged_field_order
+        if hasattr(self.fields, 'keyOrder'):
+            self.fields.keyOrder = merged_field_order
+        else:
+            self.fields = OrderedDict((k, self.fields[k]) for k in merged_field_order)
+
         if not app_settings.USERNAME_REQUIRED:
             del self.fields["username"]
 

@@ -194,7 +194,7 @@ class BaseSignupForm(_base_signup_form_class()):
         # field order may contain additional fields from our base class,
         # so take proper care when reordering...
         field_order = ['email', 'username']
-        merged_field_order = self.fields.keys()
+        merged_field_order = list(self.fields.keys())
         
         if email_required:
             self.fields["email"].label = ugettext("E-mail")

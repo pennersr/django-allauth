@@ -254,14 +254,14 @@ class LoginFormTests(TestCase):
     def test_fields_are_in_right_order(self):
         right_order = ["login", "password", "remember"]
         form = LoginForm()
-        self.assertEqual(form.fields.keys(), right_order)
+        self.assertEqual(list(form.fields.keys()), right_order)
 
 class BaseSignupFormTests(TestCase):
 
     def test_fields_are_in_right_order(self):
         right_order = ['username','email']
         form = BaseSignupForm(email_required=True)
-        self.assertEqual(form.fields.keys(), right_order)
+        self.assertEqual(list(form.fields.keys()), right_order)
 
     @override_settings(
         ACCOUNT_USERNAME_REQUIRED=True,

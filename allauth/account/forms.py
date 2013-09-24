@@ -1,7 +1,11 @@
 from __future__ import absolute_import
 
-from collections import OrderedDict
-
+try:
+    from collections import OrderedDict
+except ImportError:
+    # python 2.6 or earlier, use backport
+    from ordereddict import OrderedDict
+    
 from django import forms
 from django.core.urlresolvers import reverse
 from django.core import exceptions

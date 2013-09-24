@@ -64,3 +64,5 @@ AUTHENTICATION_BACKENDS = (
 )
 
 STATIC_URL = '/static/'
+
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'

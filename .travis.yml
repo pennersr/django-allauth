@@ -9,7 +9,7 @@ env:
   matrix:
    - DJANGO=Django==1.4.3
    - DJANGO=Django==1.5
-   - DJANGO="git+git://github.com/django/django.git@1.6b4#egg=django" TEST_APPS=allauth
+   - DJANGO="git+git://github.com/django/django.git@1.6b4#egg=django"
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq sloccount
@@ -20,11 +20,11 @@ install:
 branches:
  only:
   - master
-script: coverage run manage.py test $(TEST_APPS)
+script: if [ $DJANGO == Django==1.4.3 -o $DJANGO == Django1.5 ]; then coverage run manage.py test $(TEST_APPS); else coverage run manage.py test allauth; fi
 matrix:
   exclude:
     - python: "3.3"
-      env: DJANGO_VERSION=1.4.3
+      env: DJANGO=Django==1.4.3
 after_success:
   - coverage report
   - pip install --quiet python-coveralls

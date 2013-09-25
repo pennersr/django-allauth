@@ -210,8 +210,12 @@ class BaseSignupForm(_base_signup_form_class()):
     def clean_username(self):
         value = self.cleaned_data["username"]
         value = get_adapter().clean_username(value)
+        username_field = app_settings.USER_MODEL_USERNAME_FIELD
+        # app_settings.USERNAME_REQUIRED checked in __init__
+        assert username_field
         try:
-            User.objects.get(username__iexact=value)
+            query = {username_field + '__iexact': value}
+            User.objects.get(**query)
         except User.DoesNotExist:
             return value
         raise forms.ValidationError(_("This username is already taken. Please "

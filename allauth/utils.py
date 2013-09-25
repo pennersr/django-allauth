@@ -7,9 +7,9 @@ from django.core.validators import validate_email, ValidationError
 from django.core import urlresolvers
 from django.db.models import FieldDoesNotExist
 from django.db.models.fields import (DateTimeField, DateField,
-                                     EmailField, TimeField,
-                                     FieldDoesNotExist)
+                                     EmailField, TimeField)
 from django.utils import importlib, six, dateparse
+from django.utils.datastructures import SortedDict
 from django.core.serializers.json import DjangoJSONEncoder
 try:
     from django.utils.encoding import force_text
@@ -84,12 +84,12 @@ def email_address_exists(email, exclude_user=None):
     return ret
 
 
-
 def import_attribute(path):
     assert isinstance(path, six.string_types)
-    pkg, attr = path.rsplit('.',1)
+    pkg, attr = path.rsplit('.', 1)
     ret = getattr(importlib.import_module(pkg), attr)
     return ret
+
 
 def import_callable(path_or_callable):
     if not hasattr(path_or_callable, '__call__'):
@@ -105,11 +105,15 @@ def get_user_model():
     try:
         app_label, model_name = app_settings.USER_MODEL.split('.')
     except ValueError:
-        raise ImproperlyConfigured("AUTH_USER_MODEL must be of the form 'app_label.model_name'")
+        raise ImproperlyConfigured("AUTH_USER_MODEL must be of the"
+                                   " form 'app_label.model_name'")
     user_model = get_model(app_label, model_name)
     if user_model is None:
-        raise ImproperlyConfigured("AUTH_USER_MODEL refers to model '%s' that has not been installed" % app_settings.USER_MODEL)
+        raise ImproperlyConfigured("AUTH_USER_MODEL refers to model"
+                                   " '%s' that has not been installed"
+                                   % app_settings.USER_MODEL)
     return user_model
+
 
 def resolve_url(to):
     """
@@ -155,3 +159,14 @@ def deserialize_instance(model, data):
                 pass
         setattr(ret, k, v)
     return ret
+
+
+def set_form_field_order(form, fields_order):
+    if isinstance(form.fields, SortedDict):
+        form.fields.keyOrder = fields_order
+    else:
+        # Python 2.7+
+        from collections import OrderedDict
+        assert isinstance(form.fields, OrderedDict)
+        form.fields = OrderedDict((f, form.fields[f])
+                                  for f in fields_order)

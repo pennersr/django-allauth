@@ -12,7 +12,8 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.models import Site
 
-from ..utils import (email_address_exists, get_user_model)
+from ..utils import (email_address_exists, get_user_model,
+                     set_form_field_order)
 
 from .models import EmailAddress
 from .utils import perform_login, setup_user_email
@@ -76,7 +77,7 @@ class LoginForm(forms.Form):
                                                          "Login"),
                                           widget=login_widget)
         self.fields["login"] = login_field
-        self.fields.keyOrder = ["login", "password", "remember"]
+        set_form_field_order(self,  ["login", "password", "remember"])
 
     def user_credentials(self):
         """
@@ -184,8 +185,7 @@ class BaseSignupForm(_base_signup_form_class()):
         # field order may contain additional fields from our base class,
         # so take proper care when reordering...
         field_order = ['email', 'username']
-        merged_field_order = self.fields.keyOrder
-
+        merged_field_order = list(self.fields.keys())
         if email_required:
             self.fields["email"].label = ugettext("E-mail")
             self.fields["email"].required = True
@@ -203,8 +203,7 @@ class BaseSignupForm(_base_signup_form_class()):
         for field in reversed(field_order):
             if not field in merged_field_order:
                 merged_field_order.insert(0, field)
-
-        self.fields.keyOrder = merged_field_order
+        set_form_field_order(self, merged_field_order)
         if not app_settings.USERNAME_REQUIRED:
             del self.fields["username"]
 

@@ -222,6 +222,7 @@ class AccountTests(TestCase):
     def test_optional_email_verification(self):
         c = Client()
         # Signup
+        c.get(reverse('account_signup'))
         resp = c.post(reverse('account_signup'),
                       {'username': 'johndoe',
                        'email': 'john@doe.com',

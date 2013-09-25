@@ -1,5 +1,7 @@
 from __future__ import absolute_import
 
+import json
+
 from django.core.exceptions import PermissionDenied
 from django.db import models
 from django.contrib.auth import authenticate
@@ -12,7 +14,10 @@ except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
 import allauth.app_settings
+from allauth.account.models import EmailAddress
 from allauth.account.utils import get_next_redirect_url, setup_user_email
+from allauth.utils import (get_user_model, serialize_instance,
+                           deserialize_instance)
 
 from . import providers
 from .fields import JSONField
@@ -142,7 +147,7 @@ class SocialLogin(object):
     e-mail addresses retrieved from the provider.
     """
 
-    def __init__(self, account, token=None, email_addresses=[]):
+    def __init__(self, account=None, token=None, email_addresses=[]):
         if token:
             assert token.account is None or token.account == account
             token.account = account
@@ -154,6 +159,37 @@ class SocialLogin(object):
     def connect(self, request, user):
         self.account.user = user
         self.save(request, connect=True)
+
+    def serialize(self):
+        ret = dict(account=serialize_instance(self.account),
+                   user=serialize_instance(self.account.user),
+                   state=self.state,
+                   email_addresses=[serialize_instance(ea)
+                                    for ea in self.email_addresses])
+        if self.token:
+            ret['token'] = serialize_instance(self.token)
+        return ret
+
+    @classmethod
+    def deserialize(cls, data):
+        account = deserialize_instance(SocialAccount, data['account'])
+        user = deserialize_instance(get_user_model(), data['user'])
+        account.user = user
+        if 'token' in data:
+            token = deserialize_instance(SocialToken, data['token'])
+        else:
+            token = None
+        email_addresses = []
+        for ea in data['email_addresses']:
+            email_address = deserialize_instance(EmailAddress, ea)
+            email_addresses.append(email_address)
+        ret = SocialLogin()
+        ret.token = token
+        ret.account = account
+        ret.user = user
+        ret.email_addresses = email_addresses
+        ret.state = data['state']
+        return ret
 
     def save(self, request, connect=False):
         """

@@ -1,11 +1,16 @@
 import re
 import unicodedata
+import json
 
 from django.core.exceptions import ImproperlyConfigured
 from django.core.validators import validate_email, ValidationError
 from django.core import urlresolvers
-from django.db.models import EmailField, FieldDoesNotExist
-from django.utils import importlib, six
+from django.db.models import FieldDoesNotExist
+from django.db.models.fields import (DateTimeField, DateField,
+                                     EmailField, TimeField,
+                                     FieldDoesNotExist)
+from django.utils import importlib, six, dateparse
+from django.core.serializers.json import DjangoJSONEncoder
 try:
     from django.utils.encoding import force_text
 except ImportError:
@@ -118,3 +123,35 @@ def resolve_url(to):
             raise
     # Finally, fall back and assume it's a URL
     return to
+
+
+def serialize_instance(instance):
+    """
+    Since Django 1.6 items added to the session are no longer pickled,
+    but JSON encoded by default. We are storing partially complete models
+    in the session (user, account, token, ...). We cannot use standard
+    Django serialization, as these are models are not "complete" yet.
+    Serialization will start complaining about missing relations et al.
+    """
+    ret = dict([(k, v)
+                for k, v in instance.__dict__.items()
+                if not k.startswith('_')])
+    return json.loads(json.dumps(ret, cls=DjangoJSONEncoder))
+
+
+def deserialize_instance(model, data):
+    ret = model()
+    for k, v in data.items():
+        if v is not None:
+            try:
+                f = model._meta.get_field(k)
+                if isinstance(f, DateTimeField):
+                    v = dateparse.parse_datetime(v)
+                elif isinstance(f, TimeField):
+                    v = dateparse.parse_time(v)
+                elif isinstance(f, DateField):
+                    v = dateparse.parse_date(v)
+            except FieldDoesNotExist:
+                pass
+        setattr(ret, k, v)
+    return ret

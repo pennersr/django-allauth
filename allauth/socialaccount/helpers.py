@@ -48,7 +48,7 @@ def _process_signup(request, sociallogin):
             # Nope, email is required and we don't have it yet...
             auto_signup = False
     if not auto_signup:
-        request.session['socialaccount_sociallogin'] = sociallogin
+        request.session['socialaccount_sociallogin'] = sociallogin.serialize()
         url = reverse('socialaccount_signup')
         ret = HttpResponseRedirect(url)
     else:

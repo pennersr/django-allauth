@@ -10,7 +10,7 @@ from ..account.views import (CloseableSignupMixin,
                              RedirectAuthenticatedUserMixin)
 from ..account.adapter import get_adapter as get_account_adapter
 from .adapter import get_adapter
-
+from .models import SocialLogin
 from .forms import DisconnectForm, SignupForm
 from . import helpers
 
@@ -21,7 +21,8 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
     template_name = 'socialaccount/signup.html'
 
     def dispatch(self, request, *args, **kwargs):
-        self.sociallogin = request.session.get('socialaccount_sociallogin')
+        self.sociallogin = SocialLogin \
+            .deserialize(request.session.get('socialaccount_sociallogin'))
         if not self.sociallogin:
             return HttpResponseRedirect(reverse('account_login'))
         return super(SignupView, self).dispatch(request, *args, **kwargs)

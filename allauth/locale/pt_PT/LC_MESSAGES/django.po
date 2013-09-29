@@ -20,11 +20,11 @@ msgstr ""
 
 #: account/adapter.py:168
 msgid "Usernames can only contain letters, digits and @/./+/-/_."
-msgstr "Nomes de utilizador apenas podem conter letras, dígitos, e @/./+/-/_."
+msgstr "Nomes de utilizador podem apenas conter letras, dígitos, e @/./+/-/_."
 
 #: account/adapter.py:173
 msgid "Username can not be used. Please use other username."
-msgstr ""
+msgstr "Nome de utilizador não pode ser utilizado. Por favor, use outro nome."
 
 #: account/forms.py:33 account/forms.py:51 account/forms.py:237
 #: account/forms.py:343
@@ -308,11 +308,11 @@ msgstr "Esqueceu a sua palavra-passe?"
 #: templates/account/logout.html:6 templates/account/logout.html.py:9
 #: templates/account/logout.html:18
 msgid "Sign Out"
-msgstr ""
+msgstr "Sair"
 
 #: templates/account/logout.html:11
 msgid "Are you sure you want to sign out?"
-msgstr ""
+msgstr "Você tem certeza de que deseja sair?"
 
 #: templates/account/password_change.html:4
 #: templates/account/password_change.html:7
@@ -644,12 +644,12 @@ msgstr ""
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."
-msgstr ""
+msgstr "A conta social foi conectada."
 
 #: templates/socialaccount/messages/account_connected_other.txt:2
 msgid "The social account is already connected to a different account."
-msgstr ""
+msgstr "A conta social já está conectada a outra conta."
 
 #: templates/socialaccount/messages/account_disconnected.txt:2
 msgid "The social account has been disconnected."
-msgstr ""
+msgstr "A conta social foi disconectada."

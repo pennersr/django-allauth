@@ -88,6 +88,8 @@ Supported Providers
 
 - Google (OAuth2)
 
+- Instagram
+
 - LinkedIn
 
 - OpenId
@@ -176,6 +178,7 @@ settings.py::
         'allauth.socialaccount.providers.facebook',
         'allauth.socialaccount.providers.github',
         'allauth.socialaccount.providers.google',
+        'allauth.socialaccount.providers.instagram',
         'allauth.socialaccount.providers.linkedin',
         'allauth.socialaccount.providers.openid',
         'allauth.socialaccount.providers.persona',

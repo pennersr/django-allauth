@@ -33,9 +33,9 @@
                 xfbml      : true
             });
             allauth.facebook.login = function(nextUrl, action, process) {
-		if (action == 'reauthenticate') {
-		    opts.loginOptions.auth_type = action;
-		}
+        if (action == 'reauthenticate') {
+            opts.loginOptions.auth_type = action;
+        }
                 FB.login(function(response) {
                     if (response.authResponse) {
                         postForm(opts.loginByTokenUrl,
@@ -45,12 +45,17 @@
                                   ['expires_in', response.authResponse.expiresIn]]);
                     } else {
                         var next;
-                        if (response && response.status && response.status == "notConnected") {
+                        if (response && response.status && ["not_authorized", "unknown"].indexOf(response.status) > -1) {
                             next = opts.cancelUrl;
                         } else {
                             next = opts.errorUrl;
                         }
-                        window.location.href = next;
+
+                        if (typeof(next) == "function") {
+                            next();
+                        } else {
+                            window.location.href = next;
+                        }
                     }
                 }, opts.loginOptions);
             };

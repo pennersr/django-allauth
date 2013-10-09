@@ -386,8 +386,9 @@ class ResetPasswordForm(forms.Form):
             path = reverse("account_reset_password_from_key",
                            kwargs=dict(uidb36=int_to_base36(user.id),
                                        key=temp_key))
-            url = 'http://%s%s' % (current_site.domain,
-                                   path)
+            url = '%s://%s%s' % (app_settings.DEFAULT_HTTP_PROTOCOL,
+                                 current_site.domain,
+                                 path)
             context = {"site": current_site,
                        "user": user,
                        "password_reset_url": url}

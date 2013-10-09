@@ -24,14 +24,15 @@ from .adapter import get_adapter
 User = get_user_model()
 
 
-@override_settings \
-    (ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.MANDATORY,
-     ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.USERNAME,
-     ACCOUNT_SIGNUP_FORM_CLASS=None,
-     ACCOUNT_EMAIL_SUBJECT_PREFIX=None,
-     LOGIN_REDIRECT_URL='/accounts/profile/',
-     ACCOUNT_ADAPTER='allauth.account.adapter.DefaultAccountAdapter',
-     ACCOUNT_USERNAME_REQUIRED=True)
+@override_settings(
+    ACCOUNT_DEFAULT_HTTP_PROTOCOL='https',
+    ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.MANDATORY,
+    ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.USERNAME,
+    ACCOUNT_SIGNUP_FORM_CLASS=None,
+    ACCOUNT_EMAIL_SUBJECT_PREFIX=None,
+    LOGIN_REDIRECT_URL='/accounts/profile/',
+    ACCOUNT_ADAPTER='allauth.account.adapter.DefaultAccountAdapter',
+    ACCOUNT_USERNAME_REQUIRED=True)
 class AccountTests(TestCase):
     def setUp(self):
         if 'allauth.socialaccount' in settings.INSTALLED_APPS:
@@ -153,6 +154,20 @@ class AccountTests(TestCase):
             user.set_unusable_password()
             user.save()
         resp = c.get(reverse(urlname))
+        return resp
+
+    def test_password_forgotten_url_protocol(self):
+        c = Client()
+        user = User.objects.create(username='john',
+                                   email='john@doe.org',
+                                   is_active=True)
+        user.set_password('doe')
+        user.save()
+        resp = c.post(reverse('account_reset_password'),
+                      data={'email': 'john@doe.org'})
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, ['john@doe.org'])
+        self.assertGreater(mail.outbox[0].body.find('https://'), 0)
         return resp
 
     def test_email_verification_mandatory(self):

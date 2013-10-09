@@ -242,6 +242,12 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX (="[Site] ")
   Subject-line prefix to use for email messages sent. By default, the
   name of the current `Site` (`django.contrib.sites`) is used.
 
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = (="http")
+  The default protocol used for when generating URLs, e.g. for the
+  password forgotten procedure. Note that this is a default only --
+  the protocol is not enforced by any of the views. There are numerous
+  third party packages available for enforcing `https`, use those.
+
 ACCOUNT_LOGOUT_ON_GET (=False)
   Determines whether or not the user is automatically logged out by a
   mere GET request. See documentation for the `LogoutView` for

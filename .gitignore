@@ -13,3 +13,5 @@ pep8.txt
 *.bak
 .#*
 \#*
+*.db
+*.tmp

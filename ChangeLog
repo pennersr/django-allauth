@@ -1,3 +1,7 @@
+2013-10-09  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* George Whewell contributed Instagram support, thanks!
+
 2013-09-09  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Refactored adapter methods relating to creating and populating

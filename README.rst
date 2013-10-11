@@ -201,6 +201,21 @@ urls.py::
     )
 
 
+Post-installation
+-------------
+
+In your django root execute the command below to create your database tables::
+
+    ./manage.py syncdb
+
+Now start your server, visit your admin pages (http://localhost:8000/admin )
+and follow these steps:
+
+  1. Add a Site object for your domain
+  2. For each provider you want, enter in Social App → Add Social App
+  3. Choose the site, social provider and the credentials you obtained from the provider.
+
+
 Configuration
 -------------
 
@@ -604,7 +619,7 @@ LOCALE_FUNC:
             { 'facebook':
                 { 'LOCALE_FUNC': lambda request: 'zh_CN'} }
 
-App registration
+App registration (get your key and secret here)
     https://developers.facebook.com/apps
 
 Development callback URL
@@ -629,6 +644,10 @@ You can specify the scope to use as follows::
 By default, `profile` scope is required, and optionally `email` scope
 depending on whether or not `SOCIALACCOUNT_QUERY_EMAIL` is enabled.
 
+App registration (get your key and secret here)
+        https://cloud.google.com/console
+        
+        More info: http://code.google.com/apis/accounts/docs/OAuth2.html#Registering
 
 LinkedIn
 --------

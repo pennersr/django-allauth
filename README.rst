@@ -623,16 +623,15 @@ App registration (get your key and secret here)
     https://developers.facebook.com/apps
 
 Development callback URL
-    http://localhost:8000
+    Leave your App Domains empty and put in he section `Website with Facebook 
+    Login` put this as your Site URL: `http://localhost:8000` 
 
 
 Google
 ------
 
-The Google provider is OAuth2 based. Register your Google API client
-over at `https://code.google.com/apis/console/`. Make sure you list a
-redirect uri of the form
-`http://example.com/accounts/google/login/callback/`.
+The Google provider is OAuth2 based. More info: 
+`http://code.google.com/apis/accounts/docs/OAuth2.html#Registering`.
 
 You can specify the scope to use as follows::
 
@@ -645,16 +644,18 @@ By default, `profile` scope is required, and optionally `email` scope
 depending on whether or not `SOCIALACCOUNT_QUERY_EMAIL` is enabled.
 
 App registration (get your key and secret here)
-        https://cloud.google.com/console
+        https://code.google.com/apis/console/
+                
+Development callback URL
+        Make sure you list a redirect uri of the form
+       `http://example.com/accounts/google/login/callback/`. You can fill 
+       multiple URLs, one for each test domain.
         
-        More info: http://code.google.com/apis/accounts/docs/OAuth2.html#Registering
 
 LinkedIn
 --------
 
-The LinkedIn provider is OAuth based. Register your LinkedIn app over
-at `https://www.linkedin.com/secure/developer?newapp=`. Leave the
-OAuth redirect URL empty.
+The LinkedIn provider is OAuth based. 
 
 You can specify the scope to use as follows::
 
@@ -671,6 +672,10 @@ scope enabled. Please refer to
 `https://developer.linkedin.com/forum/when-will-old-apps-have-scope-parameter-enabled`
 for more background information.
 
+App registration (get your key and secret here)
+        https://www.linkedin.com/secure/developer?newapp=
+Development callback URL
+        Leave the OAuth redirect URL empty.
 
 OpenID
 ------

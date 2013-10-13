@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-10-13 12:05+0300\n"
-"PO-Revision-Date: 2013-10-13 14:34+0200\n"
+"PO-Revision-Date: 2013-10-13 15:52+0200\n"
 "Last-Translator: Udi Oron <udioron@gmail.com>\n"
 "Language-Team: Hebrew\n"
 "MIME-Version: 1.0\n"
@@ -268,6 +268,8 @@ msgid ""
 "This e-mail confirmation link expired or is invalid. Please <a href="
 "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
+"קישור זה לאישור כתובת הדואר האלקטרוני פג תוקף או שאינו זמין. יש <a href="
+"\"%(email_url)s\">להנפיק בקשה לאישור דואר אלקטרוני חדשה</a>"
 
 #: .\templates\account\email_confirmed.html.py:15
 #, python-format
@@ -275,6 +277,8 @@ msgid ""
 "You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
 "mail address for user %(user_display)s."
 msgstr ""
+"אישרת בהצלחה כי <a href=\"mailto:%(email)s\">%(email)s</a> הנה כתובת דואר "
+"אלקטרוני עבור המשתמש %(user_display)s."
 
 #: .\templates\account\login.html.py:7 .\templates\account\login.html.py:11
 #: .\templates\account\login.html.py:39
@@ -327,7 +331,7 @@ msgstr "מחיקת סיסמא"
 #: .\templates\account\password_delete.html.py:9
 msgid ""
 "You may delete your password since you are currently logged in using OpenID."
-msgstr ""
+msgstr "אתה רשאי למחוק את סיסמאתך כיוון שהנך מחובר באמצעות OpenID"
 
 #: .\templates\account\password_delete.html.py:12
 msgid "delete my password"
@@ -423,7 +427,7 @@ msgstr "ההרשמה סגורה"
 
 #: .\templates\account\signup_closed.html.py:11
 msgid "We are sorry, but the sign up is currently closed."
-msgstr ""
+msgstr "אנו מצטערים, אך ההרשמה סגורה כעת."
 
 #: .\templates\account\verification_sent.html.py:5
 #: .\templates\account\verification_sent.html.py:8
@@ -449,6 +453,8 @@ msgid ""
 "you are who you claim to be. For this purpose, we require that you\n"
 "verify ownership of your e-mail address. "
 msgstr ""
+"חלק זה באתר דורש מאיתנו לוודא כי /nהנך אכן מי שאתה טוען שאתה. למטרה זו, אנו "
+"מבקשים כי /nתוודא בעלות על כתובת הדואר האלקטרוני שלך."
 
 #: .\templates\account\verified_email_required.html.py:17
 msgid ""
@@ -456,6 +462,8 @@ msgid ""
 "verification. Please click on the link inside this e-mail. Please\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
+"שלחנו אליך דואר אלקטרוני למטרת זיהוי /nיש ללחוץ על הקישור בתוך הדואר "
+"אלקטרוני  /nאנא צור עמנו קשר במידה והמייל לא התקבל תוך מספר דקות"
 
 #: .\templates\account\verified_email_required.html.py:21
 #, python-format
@@ -463,6 +471,8 @@ msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
 "mail address</a>."
 msgstr ""
+"<strong>הערה:</strong> אתה עדיין יכול <a href=\"%(email_url)s\">לשנות את "
+"כתובת הדואר האלקטרוני שלך </a>."
 
 #: .\templates\account\email\email_confirmation_message.txt.py:1
 #, python-format
@@ -489,20 +499,29 @@ msgid ""
 "\n"
 "Thanks for using our site!\n"
 msgstr ""
+"מייל זה נשלח אליך כיוון שאתה או מישהו אחר ביקש סיסמא עבור חשבונך ב "
+"%(site_domain)s.\n"
+"במידה ולא ביקשת איפוס סיסמא ניתן להתעלם ממייל זה ללא חשש. לחץ על הקישור מטה "
+"לאיפוס סיסמתך. /n\n"
+"%(password_reset_url)s\n"
+"\n"
+"במידה ושכחת, שם המשתמש שלך הנו %(username)s.\n"
+"\n"
+"תודה שהתמשת באתר שלנו!\n"
 
 #: .\templates\account\email\password_reset_key_subject.txt.py:3
 msgid "Password Reset E-mail"
-msgstr ""
+msgstr "מייל איפוס סיסמא"
 
 #: .\templates\account\messages\cannot_delete_primary_email.txt.py:2
 #, python-format
 msgid "You cannot remove your primary e-mail address (%(email)s)."
-msgstr ""
+msgstr "לא ניתן להסיר את כתובת הדוא\"ל הראשית שלך (%(email)s)."
 
 #: .\templates\account\messages\email_confirmation_sent.txt.py:2
 #, python-format
 msgid "Confirmation e-mail sent to %(email)s."
-msgstr ""
+msgstr "דוא\"ל אישור נשלח ל %(email)s."
 
 #: .\templates\account\messages\email_confirmed.txt.py:2
 #, python-format
@@ -512,12 +531,12 @@ msgstr "כתובת הדואל %(email)s אושרה בהצלחה."
 #: .\templates\account\messages\email_deleted.txt.py:2
 #, python-format
 msgid "Removed e-mail address %(email)s."
-msgstr ""
+msgstr "הסר כתובת דוא\"ל %(email)s."
 
 #: .\templates\account\messages\logged_in.txt.py:4
 #, python-format
 msgid "Successfully signed in as %(name)s."
-msgstr ""
+msgstr "מחובר בהצלחה כ %(name)s."
 
 #: .\templates\account\messages\logged_out.txt.py:2
 msgid "You have signed out."
@@ -533,43 +552,43 @@ msgstr "הסיסמא נקבעה בהצלחה."
 
 #: .\templates\account\messages\primary_email_set.txt.py:2
 msgid "Primary e-mail address set."
-msgstr ""
+msgstr "כתובת דוא\"ל ראשית הוגדרה."
 
 #: .\templates\account\messages\unverified_primary_email.txt.py:2
 msgid "Your primary e-mail address must be verified."
-msgstr ""
+msgstr "עליך לאשר את כתובת הדוא\"ל הראשית שלך."
 
 #: .\templates\account\snippets\already_logged_in.html.py:5
 msgid "Note"
-msgstr ""
+msgstr "הערה"
 
 #: .\templates\account\snippets\already_logged_in.html.py:5
 #, python-format
 msgid "you are already logged in as %(user_display)s."
-msgstr ""
+msgstr "הנך מחובר כבר כ %(user_display)s."
 
 #: .\templates\openid\login.html.py:10
 msgid "OpenID Sign In"
-msgstr ""
+msgstr "כניסה באמצעות OpenID"
 
 #: .\templates\socialaccount\account_inactive.html.py:5
 #: .\templates\socialaccount\account_inactive.html.py:8
 msgid "Account Inactive"
-msgstr ""
+msgstr "חשבון אינו פעיל."
 
 #: .\templates\socialaccount\account_inactive.html.py:10
 msgid "This account is inactive."
-msgstr ""
+msgstr "חשבון זה אינו זמין."
 
 #: .\templates\socialaccount\authentication_error.html.py:5
 #: .\templates\socialaccount\authentication_error.html.py:8
 msgid "Social Network Login Failure"
-msgstr ""
+msgstr "שגיאת התחברות לרשת חברתית"
 
 #: .\templates\socialaccount\authentication_error.html.py:10
 msgid ""
 "An error occurred while attempting to login via your social network account."
-msgstr ""
+msgstr "אירעה שגיאה במהלך ניסיון התחברות באמצעות חשבון הרשת החברתית שלך."
 
 #: .\templates\socialaccount\connections.html.py:5
 #: .\templates\socialaccount\connections.html.py:8
@@ -580,12 +599,12 @@ msgstr "שירותים מחוברים לחשבון"
 msgid ""
 "You can sign in to your account using any of the following third party "
 "accounts:"
-msgstr ""
+msgstr "ניתן להתחבר לחשבונך באמצעות כל אחד מחשבונות צד שלישי שלהלן:"
 
 #: .\templates\socialaccount\connections.html.py:43
 msgid ""
 "You currently have no social network accounts connected to this account."
-msgstr ""
+msgstr "לא קיימים חשבונות רשת חברתית המחוברים לחשבון זה"
 
 #: .\templates\socialaccount\connections.html.py:46
 msgid "Add a 3rd Party Account"
@@ -594,7 +613,7 @@ msgstr "הוספת שירותים"
 #: .\templates\socialaccount\login_cancelled.html.py:6
 #: .\templates\socialaccount\login_cancelled.html.py:10
 msgid "Login Cancelled"
-msgstr ""
+msgstr "התחברות בוטלה"
 
 #: .\templates\socialaccount\login_cancelled.html.py:14
 #, python-format
@@ -603,6 +622,8 @@ msgid ""
 "accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
 "\">sign in</a>."
 msgstr ""
+"ביקשת לבטל את ההתחברות לאתר זה באמצעות אחד מחשבונותיך הקיימים. במידה וטעית, "
+"אנא המשך ל <a href=\"%(login_url)s\">התחברות</a>."
 
 #: .\templates\socialaccount\signup.html.py:10
 #, python-format
@@ -615,12 +636,12 @@ msgstr ""
 
 #: .\templates\socialaccount\messages\account_connected.txt.py:2
 msgid "The social account has been connected."
-msgstr ""
+msgstr "חשבון רשת חברתית חובר בהצלחה"
 
 #: .\templates\socialaccount\messages\account_connected_other.txt.py:2
 msgid "The social account is already connected to a different account."
-msgstr ""
+msgstr "חשבון רשת חברתית זה כבר מחובר למשתמש אחר."
 
 #: .\templates\socialaccount\messages\account_disconnected.txt.py:2
 msgid "The social account has been disconnected."
-msgstr ""
+msgstr "חשבון רשת חברתית זה נותק."

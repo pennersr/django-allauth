@@ -20,10 +20,12 @@ from .adapter import get_adapter
 @python_2_unicode_compatible
 class EmailAddress(models.Model):
 
-    user = models.ForeignKey(allauth_app_settings.USER_MODEL)
-    email = models.EmailField(unique=app_settings.UNIQUE_EMAIL)
-    verified = models.BooleanField(default=False)
-    primary = models.BooleanField(default=False)
+    user = models.ForeignKey(allauth_app_settings.USER_MODEL,
+        verbose_name=_('user'))
+    email = models.EmailField(unique=app_settings.UNIQUE_EMAIL,
+        verbose_name=_('e-mail address'))
+    verified = models.BooleanField(_('verified'), default=False)
+    primary = models.BooleanField(_('primary'), default=False)
 
     objects = EmailAddressManager()
 
@@ -71,10 +73,11 @@ class EmailAddress(models.Model):
 @python_2_unicode_compatible
 class EmailConfirmation(models.Model):
 
-    email_address = models.ForeignKey(EmailAddress)
-    created = models.DateTimeField(default=timezone.now)
-    sent = models.DateTimeField(null=True)
-    key = models.CharField(max_length=64, unique=True)
+    email_address = models.ForeignKey(EmailAddress,
+        verbose_name=_('e-mail address'))
+    created = models.DateTimeField(_('created'), default=timezone.now)
+    sent = models.DateTimeField(_('sent'), null=True)
+    key = models.CharField(_('key'), max_length=64, unique=True)
 
     objects = EmailConfirmationManager()
 

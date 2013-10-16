@@ -3,6 +3,7 @@ from xml.parsers.expat import ExpatError
 
 from django.utils import six
 
+from allauth.socialaccount import providers
 from allauth.socialaccount.providers.oauth.client import OAuth
 from allauth.socialaccount.providers.oauth.views import (OAuthAdapter,
                                                          OAuthLoginView,
@@ -13,15 +14,12 @@ from .provider import LinkedInProvider
 
 class LinkedInAPI(OAuth):
     url = 'https://api.linkedin.com/v1/people/~'
-    fields = ['id',
-              'first-name',
-              'last-name',
-              'email-address',
-              'picture-url',
-              'public-profile-url']
 
     def get_user_info(self):
-        url = self.url + ':(%s)' % ','.join(self.fields)
+        fields = providers.registry \
+            .by_id(LinkedInProvider.id) \
+            .get_profile_fields()
+        url = self.url + ':(%s)' % ','.join(fields)
         raw_xml = self.query(url)
         if not six.PY3:
             raw_xml = raw_xml.encode('utf8')

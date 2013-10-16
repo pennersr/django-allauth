@@ -34,6 +34,17 @@ class LinkedInProvider(OAuthProvider):
             scope.append('r_emailaddress')
         return scope
 
+    def get_profile_fields(self):
+        default_fields = ['id',
+                          'first-name',
+                          'last-name',
+                          'email-address',
+                          'picture-url',
+                          'public-profile-url']
+        fields = self.get_settings().get('PROFILE_FIELDS',
+                                         default_fields)
+        return fields
+
     def extract_uid(self, data):
         return data['id']
 

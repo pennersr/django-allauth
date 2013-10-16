@@ -172,7 +172,7 @@ settings.py::
         'allauth',
         'allauth.account',
         'allauth.socialaccount',
-	# ... include the providers you want to enable:
+        # ... include the providers you want to enable:
         'allauth.socialaccount.providers.bitly',
         'allauth.socialaccount.providers.dropbox',
         'allauth.socialaccount.providers.facebook',
@@ -577,7 +577,7 @@ The following Facebook settings are available::
     SOCIALACCOUNT_PROVIDERS = \
         { 'facebook':
             { 'SCOPE': ['email', 'publish_stream'],
-	      'AUTH_PARAMS': { 'auth_type': 'reauthenticate' },
+              'AUTH_PARAMS': { 'auth_type': 'reauthenticate' },
               'METHOD': 'oauth2' ,
               'LOCALE_FUNC': 'path.to.callable'} }
 
@@ -637,11 +637,17 @@ The LinkedIn provider is OAuth based. Register your LinkedIn app over
 at `https://www.linkedin.com/secure/developer?newapp=`. Leave the
 OAuth redirect URL empty.
 
-You can specify the scope to use as follows::
+You can specify the scope and fields to fetch as follows::
 
     SOCIALACCOUNT_PROVIDERS = \
-        { 'linkedin':
-            { 'SCOPE': ['r_emailaddress'] } }
+        {'linkedin':
+          {'SCOPE': ['r_emailaddress'],
+           'PROFILE_FIELDS: ['id',
+                             'first-name',
+                             'last-name',
+                             'email-address',
+                             'picture-url',
+                             'public-profile-url']}}
 
 By default, `r_emailaddress` scope is required depending on whether or
 not `SOCIALACCOUNT_QUERY_EMAIL` is enabled.

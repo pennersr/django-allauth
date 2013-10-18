@@ -4,22 +4,23 @@
     var allauth = window.allauth = window.allauth || {};
 
     var init = function(opts) {
-
-        function postForm(action, data) {
-            var f = document.createElement('form');
-            f.method = 'POST';
-            f.action = action;
-            var i = 0;
-            data.push(['csrfmiddlewaretoken', opts.csrfToken]);
-            for (i = 0; i < data.length; i++) {
-                var d = document.createElement('input');
-                d.type = 'hidden';
-                d.name = data[i][0];
-                d.value = data[i][1];
-                f.appendChild(d);
-            }
-            document.body.appendChild(f);
-            f.submit();
+        if (typeof(opts.postForm) == "undefined") {
+            opts.postForm = function(action, data) {
+                var f = document.createElement('form');
+                f.method = 'POST';
+                f.action = action;
+                var i = 0;
+                data.push(['csrfmiddlewaretoken', opts.csrfToken]);
+                for (i = 0; i < data.length; i++) {
+                    var d = document.createElement('input');
+                    d.type = 'hidden';
+                    d.name = data[i][0];
+                    d.value = data[i][1];
+                    f.appendChild(d);
+                }
+                document.body.appendChild(f);
+                f.submit();
+            };
         }
 
         allauth.facebook = { login: function() {}, logout: function() {} };
@@ -33,12 +34,12 @@
                 xfbml      : true
             });
             allauth.facebook.login = function(nextUrl, action, process) {
-        if (action == 'reauthenticate') {
-            opts.loginOptions.auth_type = action;
-        }
+                if (action == 'reauthenticate') {
+                    opts.loginOptions.auth_type = action;
+                }
                 FB.login(function(response) {
                     if (response.authResponse) {
-                        postForm(opts.loginByTokenUrl,
+                        opts.postForm(opts.loginByTokenUrl,
                                  [['next', nextUrl || ''],
                                   ['process', process],
                                   ['access_token', response.authResponse.accessToken],
@@ -65,10 +66,11 @@
                     if (nextUrl) {
                         data.push(['next', nextUrl]);
                     }
-                    postForm(opts.loginByTokenUrl, data);
+                    opts.postForm(opts.loginByTokenUrl, data);
                 });
             };
         };
+
         (function(d){
             var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
             js = d.createElement('script'); js.id = id; js.async = true;

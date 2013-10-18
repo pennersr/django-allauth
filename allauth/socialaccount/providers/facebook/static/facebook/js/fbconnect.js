@@ -43,7 +43,8 @@
                                  [['next', nextUrl || ''],
                                   ['process', process],
                                   ['access_token', response.authResponse.accessToken],
-                                  ['expires_in', response.authResponse.expiresIn]]);
+                                  ['expires_in', response.authResponse.expiresIn]],
+                                  response);
                     } else {
                         var next;
                         if (response && response.status && ["not_authorized", "unknown"].indexOf(response.status) > -1) {

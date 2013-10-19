@@ -2,13 +2,17 @@ from django.contrib import admin
 
 from .models import SocialApp, SocialAccount, SocialToken
 
+from ..account import app_settings
+
 
 class SocialAppAdmin(admin.ModelAdmin):
     list_display = ('name', 'provider',)
     filter_horizontal = ('sites',)
 
+
 class SocialAccountAdmin(admin.ModelAdmin):
-    search_fields = ('user__username', )
+    if app_settings.USER_MODEL_USERNAME_FIELD:
+        search_fields = ('user__' + app_settings.USER_MODEL_USERNAME_FIELD, )
     raw_id_fields = ('user',)
     list_display = ('user', 'uid', 'provider')
     list_filter = ('provider',)

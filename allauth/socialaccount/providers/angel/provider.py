@@ -18,7 +18,7 @@ class AngelAccount(ProviderAccount):
 class AngelProvider(OAuth2Provider):
     id = 'angel'
     name = 'Angel List'
-    package = 'network.apps.profiles.providers.angel'
+    package = 'allauth.socialaccount.providers.angel'
     account_class = AngelAccount
 
     def extract_uid(self, data):

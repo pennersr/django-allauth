@@ -78,6 +78,8 @@ Supported Flows
 Supported Providers
 -------------------
 
+- AngelList (OAuth2)
+
 - Bitly (OAuth2)
 
 - Dropbox (OAuth)
@@ -548,6 +550,16 @@ Use a callback URL of the form::
 For local development, use the following::
 
     http://127.0.0.1:8000/accounts/twitter/login/callback/
+
+
+AngelList
+---------
+
+Register your OAuth app here: https://angel.co/api/oauth/clients
+
+For local development, use the following callback URL::
+
+    http://localhost:8000/accounts/angellist/login/callback/
 
 
 Facebook

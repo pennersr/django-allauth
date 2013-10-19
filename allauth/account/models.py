@@ -21,11 +21,11 @@ from .adapter import get_adapter
 class EmailAddress(models.Model):
 
     user = models.ForeignKey(allauth_app_settings.USER_MODEL,
-        verbose_name=_('user'))
+                             verbose_name=_('user'))
     email = models.EmailField(unique=app_settings.UNIQUE_EMAIL,
-        verbose_name=_('e-mail address'))
-    verified = models.BooleanField(_('verified'), default=False)
-    primary = models.BooleanField(_('primary'), default=False)
+                              verbose_name=_('e-mail address'))
+    verified = models.BooleanField(verbose_name=_('verified'), default=False)
+    primary = models.BooleanField(verbose_name=_('primary'), default=False)
 
     objects = EmailAddressManager()
 
@@ -74,10 +74,11 @@ class EmailAddress(models.Model):
 class EmailConfirmation(models.Model):
 
     email_address = models.ForeignKey(EmailAddress,
-        verbose_name=_('e-mail address'))
-    created = models.DateTimeField(_('created'), default=timezone.now)
-    sent = models.DateTimeField(_('sent'), null=True)
-    key = models.CharField(_('key'), max_length=64, unique=True)
+                                      verbose_name=_('e-mail address'))
+    created = models.DateTimeField(verbose_name=_('created'),
+                                   default=timezone.now)
+    sent = models.DateTimeField(verbose_name=_('sent'), null=True)
+    key = models.CharField(verbose_name=_('key'), max_length=64, unique=True)
 
     objects = EmailConfirmationManager()
 
@@ -91,10 +92,13 @@ class EmailConfirmation(models.Model):
     @classmethod
     def create(cls, email_address):
         key = random_token([email_address.email])
-        return cls._default_manager.create(email_address=email_address, key=key)
+        return cls._default_manager.create(email_address=email_address,
+                                           key=key)
 
     def key_expired(self):
-        expiration_date = self.sent + datetime.timedelta(days=app_settings.EMAIL_CONFIRMATION_EXPIRE_DAYS)
+        expiration_date = self.sent \
+            + datetime.timedelta(days=app_settings
+                                 .EMAIL_CONFIRMATION_EXPIRE_DAYS)
         return expiration_date <= timezone.now()
     key_expired.boolean = True
 
@@ -110,7 +114,8 @@ class EmailConfirmation(models.Model):
             return email_address
 
     def send(self, request, signup=False, **kwargs):
-        current_site = kwargs["site"] if "site" in kwargs else Site.objects.get_current()
+        current_site = kwargs["site"] if "site" in kwargs \
+            else Site.objects.get_current()
         activate_url = reverse("account_confirm_email", args=[self.key])
         activate_url = request.build_absolute_uri(activate_url)
         ctx = {
@@ -128,4 +133,5 @@ class EmailConfirmation(models.Model):
                                 ctx)
         self.sent = timezone.now()
         self.save()
-        signals.email_confirmation_sent.send(sender=self.__class__, confirmation=self)
+        signals.email_confirmation_sent.send(sender=self.__class__,
+                                             confirmation=self)

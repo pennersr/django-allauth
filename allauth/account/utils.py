@@ -246,6 +246,7 @@ def setup_user_email(request, user, addresses):
     for a in addresses:
         a.user = user
         a.save()
+    EmailAddress.objects.fill_cache_for_user(user, addresses)
     if (primary
             and email
             and email.lower() != primary.email.lower()):
@@ -271,8 +272,7 @@ def send_email_confirmation(request, user, signup=False):
     email = user_email(user)
     if email:
         try:
-            email_address = EmailAddress.objects.get(user=user,
-                                                     email__iexact=email)
+            email_address = EmailAddress.objects.get_for_user(user, email)
             if not email_address.verified:
                 send_email = not EmailConfirmation.objects \
                     .filter(sent__gt=now() - COOLDOWN_PERIOD,

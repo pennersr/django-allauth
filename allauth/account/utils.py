@@ -12,7 +12,6 @@ from django.contrib import messages
 from django.shortcuts import render
 from django.conf import settings
 from django.contrib.auth import login
-from django.utils.translation import ugettext_lazy as _
 from django.http import HttpResponseRedirect
 from django.utils.http import urlencode
 from django.utils.datastructures import SortedDict
@@ -44,10 +43,11 @@ def get_next_redirect_url(request, redirect_field_name="next"):
 
 
 def get_login_redirect_url(request, url=None, redirect_field_name="next"):
-    redirect_url = (url
-                    or get_next_redirect_url(request,
-                                             redirect_field_name=redirect_field_name)
-                    or get_adapter().get_login_redirect_url(request))
+    redirect_url \
+        = (url
+           or get_next_redirect_url(request,
+                                    redirect_field_name=redirect_field_name)
+           or get_adapter().get_login_redirect_url(request))
     return redirect_url
 
 _user_display_callable = None
@@ -165,7 +165,7 @@ def cleanup_email_addresses(request, addresses):
     from .models import EmailAddress
     adapter = get_adapter()
     # Let's group by `email`
-    e2a = SortedDict() # maps email to EmailAddress
+    e2a = SortedDict()  # maps email to EmailAddress
     primary_addresses = []
     verified_addresses = []
     primary_verified_addresses = []
@@ -176,7 +176,9 @@ def cleanup_email_addresses(request, addresses):
             continue
         # ... and non-conflicting ones...
         if (app_settings.UNIQUE_EMAIL
-            and EmailAddress.objects.filter(email__iexact=email).exists()):
+                and EmailAddress.objects
+                .filter(email__iexact=email)
+                .exists()):
             continue
         a = e2a.get(email.lower())
         if a:
@@ -245,8 +247,8 @@ def setup_user_email(request, user, addresses):
         a.user = user
         a.save()
     if (primary
-        and email
-        and email.lower() != primary.email.lower()):
+            and email
+            and email.lower() != primary.email.lower()):
         user_email(user, primary.email)
         user.save()
     return primary
@@ -310,7 +312,8 @@ def sync_user_email_addresses(user):
     email = user_email(user)
     if email and not EmailAddress.objects.filter(user=user,
                                                  email__iexact=email).exists():
-        if app_settings.UNIQUE_EMAIL and EmailAddress.objects.filter(email__iexact=email).exists():
+        if app_settings.UNIQUE_EMAIL \
+                and EmailAddress.objects.filter(email__iexact=email).exists():
             # Bail out
             return
         EmailAddress.objects.create(user=user,

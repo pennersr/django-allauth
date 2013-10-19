@@ -1,7 +1,9 @@
+import logging
+import requests
+
 from django.utils.cache import patch_response_headers
 from django.shortcuts import render
 
-import requests
 
 from allauth.socialaccount.models import (SocialLogin,
                                           SocialToken)
@@ -16,9 +18,13 @@ from .forms import FacebookConnectForm
 from .provider import FacebookProvider
 
 
+logger = logging.getLogger(__name__)
+
+
 def fb_complete_login(request, app, token):
     resp = requests.get('https://graph.facebook.com/me',
                         params={'access_token': token.token})
+    resp.raise_for_status()
     extra_data = resp.json()
     login = providers.registry \
         .by_id(FacebookProvider.id) \
@@ -56,9 +62,8 @@ def login_by_token(request):
                 login.token = token
                 login.state = SocialLogin.state_from_request(request)
                 ret = complete_social_login(request, login)
-            except:
-                # FIXME: Catch only what is needed
-                pass
+            except requests.RequestException:
+                logger.exception('Error accessing FB user profile')
     if not ret:
         ret = render_authentication_error(request)
     return ret

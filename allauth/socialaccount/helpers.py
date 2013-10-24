@@ -68,18 +68,10 @@ def _process_signup(request, sociallogin):
 
 
 def _login_social_account(request, sociallogin):
-    user = sociallogin.account.user
-    if not user.is_active:
-        ret = render_to_response(
-            'socialaccount/account_inactive.html',
-            {},
-            context_instance=RequestContext(request))
-    else:
-        ret = perform_login(request, user,
-                            email_verification=app_settings.EMAIL_VERIFICATION,
-                            redirect_url=sociallogin.get_redirect_url(request),
-                            signal_kwargs={"sociallogin": sociallogin})
-    return ret
+    return perform_login(request, sociallogin.account.user,
+                         email_verification=app_settings.EMAIL_VERIFICATION,
+                         redirect_url=sociallogin.get_redirect_url(request),
+                         signal_kwargs={"sociallogin": sociallogin})
 
 
 def render_authentication_error(request, extra_context={}):

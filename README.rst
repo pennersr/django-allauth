@@ -338,6 +338,9 @@ Upgrading
 From 0.13.0
 ***********
 
+- The `socialaccount/account_inactive.html` template has been
+  moved to `account/account_inactive.html`.
+
 - The adapter API for creating and populating users has been
   overhauled. As a result, the `populate_new_user` adapter methods
   have disappeared. Please refer to the section on "Creating and

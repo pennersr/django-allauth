@@ -105,9 +105,6 @@ def perform_login(request, user, email_verification,
     case email verification is optional and we are only logging in).
     """
     from .models import EmailAddress
-    # not is_active: social users are redirected to a template
-    # local users are stopped due to form validation checking is_active
-    assert user.is_active
     has_verified_email = EmailAddress.objects.filter(user=user,
                                                      verified=True).exists()
     if email_verification == EmailVerificationMethod.NONE:
@@ -122,6 +119,14 @@ def perform_login(request, user, email_verification,
             return render(request,
                           "account/verification_sent.html",
                           {"email": user_email(user)})
+    # Local users are stopped due to form validation checking
+    # is_active, yet, adapter methods could toy with is_active in a
+    # `user_signed_up` signal. Furthermore, social users should be
+    # stopped anyway.
+    if not user.is_active:
+        return render(request,
+                      'account/account_inactive.html',
+                      {})
     # HACK: This may not be nice. The proper Django way is to use an
     # authentication backend, but I fail to see any added benefit
     # whereas I do see the downsides (having to bother the integrator

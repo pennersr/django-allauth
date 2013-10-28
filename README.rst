@@ -203,6 +203,21 @@ urls.py::
     )
 
 
+Post-installation
+-------------
+
+In your django root execute the command below to create your database tables::
+
+    ./manage.py syncdb
+
+Now start your server, visit your admin pages (http://localhost:8000/admin )
+and follow these steps:
+
+  1. Add a Site object for your domain
+  2. For each provider you want, enter in Social App → Add Social App
+  3. Choose the site, social provider and the credentials you obtained from the provider.
+
+
 Configuration
 -------------
 
@@ -619,20 +634,19 @@ LOCALE_FUNC:
             { 'facebook':
                 { 'LOCALE_FUNC': lambda request: 'zh_CN'} }
 
-App registration
+App registration (get your key and secret here)
     https://developers.facebook.com/apps
 
 Development callback URL
-    http://localhost:8000
+    Leave your App Domains empty and put in he section `Website with Facebook 
+    Login` put this as your Site URL: `http://localhost:8000` 
 
 
 Google
 ------
 
-The Google provider is OAuth2 based. Register your Google API client
-over at `https://code.google.com/apis/console/`. Make sure you list a
-redirect uri of the form
-`http://example.com/accounts/google/login/callback/`.
+The Google provider is OAuth2 based. More info: 
+`http://code.google.com/apis/accounts/docs/OAuth2.html#Registering`.
 
 You can specify the scope to use as follows::
 
@@ -644,13 +658,19 @@ You can specify the scope to use as follows::
 By default, `profile` scope is required, and optionally `email` scope
 depending on whether or not `SOCIALACCOUNT_QUERY_EMAIL` is enabled.
 
+App registration (get your key and secret here)
+        https://code.google.com/apis/console/
+                
+Development callback URL
+        Make sure you list a redirect uri of the form
+       `http://example.com/accounts/google/login/callback/`. You can fill 
+       multiple URLs, one for each test domain.
+        
 
 LinkedIn
 --------
 
-The LinkedIn provider is OAuth based. Register your LinkedIn app over
-at `https://www.linkedin.com/secure/developer?newapp=`. Leave the
-OAuth redirect URL empty.
+The LinkedIn provider is OAuth based. 
 
 You can specify the scope and fields to fetch as follows::
 
@@ -673,6 +693,10 @@ scope enabled. Please refer to
 `https://developer.linkedin.com/forum/when-will-old-apps-have-scope-parameter-enabled`
 for more background information.
 
+App registration (get your key and secret here)
+        https://www.linkedin.com/secure/developer?newapp=
+Development callback URL
+        Leave the OAuth redirect URL empty.
 
 OpenID
 ------

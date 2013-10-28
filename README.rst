@@ -204,7 +204,7 @@ urls.py::
 
 
 Post-Installation
--------------
+-----------------
 
 In your django root execute the command below to create your database tables::
 
@@ -663,8 +663,8 @@ App registration (get your key and secret here)
 
 Development callback URL
         Make sure you list a redirect uri of the form
-       `http://example.com/accounts/google/login/callback/`. You can fill
-       multiple URLs, one for each test domain.
+        `http://example.com/accounts/google/login/callback/`. You can fill
+        multiple URLs, one for each test domain.
 
 
 LinkedIn

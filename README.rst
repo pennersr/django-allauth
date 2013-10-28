@@ -1092,6 +1092,11 @@ favorite color?), is beyond scope and therefore not offered.
 Troubleshooting
 ---------------
 
+The /accounts/ URL is giving me a 404
+*************************************
+
+There is no such URL. Try `/accounts/login/` instead.
+
 When I attempt to login I run into a 404 on /accounts/profile/
 **************************************************************
 

@@ -203,7 +203,7 @@ urls.py::
     )
 
 
-Post-installation
+Post-Installation
 -------------
 
 In your django root execute the command below to create your database tables::
@@ -638,14 +638,14 @@ App registration (get your key and secret here)
     https://developers.facebook.com/apps
 
 Development callback URL
-    Leave your App Domains empty and put in he section `Website with Facebook 
-    Login` put this as your Site URL: `http://localhost:8000` 
+    Leave your App Domains empty and put in he section `Website with Facebook
+    Login` put this as your Site URL: `http://localhost:8000`
 
 
 Google
 ------
 
-The Google provider is OAuth2 based. More info: 
+The Google provider is OAuth2 based. More info:
 `http://code.google.com/apis/accounts/docs/OAuth2.html#Registering`.
 
 You can specify the scope to use as follows::
@@ -660,17 +660,17 @@ depending on whether or not `SOCIALACCOUNT_QUERY_EMAIL` is enabled.
 
 App registration (get your key and secret here)
         https://code.google.com/apis/console/
-                
+
 Development callback URL
         Make sure you list a redirect uri of the form
-       `http://example.com/accounts/google/login/callback/`. You can fill 
+       `http://example.com/accounts/google/login/callback/`. You can fill
        multiple URLs, one for each test domain.
-        
+
 
 LinkedIn
 --------
 
-The LinkedIn provider is OAuth based. 
+The LinkedIn provider is OAuth based.
 
 You can specify the scope and fields to fetch as follows::
 

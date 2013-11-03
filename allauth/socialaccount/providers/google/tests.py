@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import absolute_import
 
 from django.conf import settings
@@ -25,16 +26,37 @@ from .provider import GoogleProvider
                    =account_settings.EmailVerificationMethod.MANDATORY)
 class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
 
-    def get_mocked_response(self, verified_email=True):
+    def get_mocked_response(self,
+                            family_name='Penners',
+                            given_name='Raymond',
+                            name='Raymond Penners',
+                            email='raymond.penners@gmail.com',
+                            verified_email=True):
         return MockedResponse(200, """
-{"family_name": "Penners", "name": "Raymond Penners",
+              {"family_name": "%s", "name": "%s",
                "picture": "https://lh5.googleusercontent.com/-GOFYGBVOdBQ/AAAAAAAAAAI/AAAAAAAAAGM/WzRfPkv4xbo/photo.jpg",
                "locale": "nl", "gender": "male",
-               "email": "raymond.penners@gmail.com",
+               "email": "%s",
                "link": "https://plus.google.com/108204268033311374519",
-               "given_name": "Raymond", "id": "108204268033311374519",
-                "verified_email": %s }
-""" % (repr(verified_email).lower()))
+               "given_name": "%s", "id": "108204268033311374519",
+               "verified_email": %s }
+        """ % (family_name,
+               name,
+               email,
+               given_name,
+               (repr(verified_email).lower())))
+
+    def test_username_based_on_email(self):
+        first_name = u'明'
+        last_name = u'小'
+        email = 'raymond.penners@gmail.com'
+        self.login(self.get_mocked_response(name=first_name + ' ' + last_name,
+                                            email=email,
+                                            given_name=first_name,
+                                            family_name=last_name,
+                                            verified_email=True))
+        user = User.objects.get(email=email)
+        self.assertEqual(user.username, 'raymond.penners')
 
     def test_email_verified(self):
         test_email = 'raymond.penners@gmail.com'
@@ -95,8 +117,6 @@ class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
         self.assertFalse(EmailConfirmation.objects \
                              .filter(email_address__email=test_email) \
                              .exists())
-
-
 
 
     def test_account_connect(self):

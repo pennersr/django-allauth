@@ -147,17 +147,17 @@ class DefaultAccountAdapter(object):
         (unique).
         """
         from .utils import user_username, user_email, user_field
-
         first_name = user_field(user, 'first_name')
         last_name = user_field(user, 'last_name')
         email = user_email(user)
         username = user_username(user)
         if app_settings.USER_MODEL_USERNAME_FIELD:
             user_username(user,
-                          username or generate_unique_username(first_name or
-                                                               last_name or
-                                                               email or
-                                                               'user'))
+                          username
+                          or generate_unique_username([first_name,
+                                                       last_name,
+                                                       email,
+                                                       'user']))
 
     def save_user(self, request, user, form, commit=True):
         """
@@ -201,7 +201,16 @@ class DefaultAccountAdapter(object):
         if username in app_settings.USERNAME_BLACKLIST:
             raise forms.ValidationError(_("Username can not be used. "
                                           "Please use other username."))
-        return username
+        username_field = app_settings.USER_MODEL_USERNAME_FIELD
+        assert username_field
+        user_model = get_user_model()
+        try:
+            query = {username_field + '__iexact': username}
+            user_model.objects.get(**query)
+        except user_model.DoesNotExist:
+            return username
+        raise forms.ValidationError(_("This username is already taken. Please "
+                                      "choose another."))
 
     def clean_email(self, email):
         """

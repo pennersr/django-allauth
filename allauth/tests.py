@@ -53,7 +53,7 @@ class BasicTests(TestCase):
                     (u'Üsêrnamê', 'username'),
                     ('', 'user')]
         for input, username in examples:
-            self.assertEqual(utils.generate_unique_username(input),
+            self.assertEqual(utils.generate_unique_username([input]),
                               username)
 
     def test_email_validation(self):

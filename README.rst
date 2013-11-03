@@ -350,6 +350,13 @@ SOCIALACCOUNT_PROVIDERS (= dict)
 Upgrading
 ---------
 
+From 0.14.1
+***********
+
+- In case you were using the internal method
+  `generate_unique_username`, note that its signature has changed. It
+  now takes a list of candidates to base the username on.
+
 From 0.13.0
 ***********
 

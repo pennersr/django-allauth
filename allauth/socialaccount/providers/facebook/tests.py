@@ -1,8 +1,11 @@
 from allauth.socialaccount.tests import create_oauth2_tests
 from allauth.tests import MockedResponse
+from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers import registry
+from allauth.utils import get_user_model
 
 from .provider import FacebookProvider
+
 
 class FacebookTests(create_oauth2_tests(registry.by_id(FacebookProvider.id))):
     def get_mocked_response(self):
@@ -28,3 +31,15 @@ class FacebookTests(create_oauth2_tests(registry.by_id(FacebookProvider.id))):
            "verified": true,
            "updated_time": "2012-11-30T20:40:33+0000"
         }""")
+
+    def test_username_conflict(self):
+        User = get_user_model()
+        User.objects.create(username='raymond.penners')
+        self.login(self.get_mocked_response())
+        socialaccount = SocialAccount.objects.get(uid='630595557')
+        self.assertEqual(socialaccount.user.username, 'raymond')
+
+    def test_username_based_on_provider(self):
+        self.login(self.get_mocked_response())
+        socialaccount = SocialAccount.objects.get(uid='630595557')
+        self.assertEqual(socialaccount.user.username, 'raymond.penners')

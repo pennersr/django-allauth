@@ -3,6 +3,7 @@ from django.contrib.auth import logout
 from django.shortcuts import render_to_response, render
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
+from django.forms import ValidationError
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 
@@ -52,6 +53,15 @@ def _process_signup(request, sociallogin):
         url = reverse('socialaccount_signup')
         ret = HttpResponseRedirect(url)
     else:
+        # Ok, auto signup it is, at least the e-mail address is ok.
+        # We still need to check the username though...
+        if account_settings.USER_MODEL_USERNAME_FIELD:
+            username = user_username(sociallogin.account.user)
+            try:
+                get_account_adapter().clean_username(username)
+            except ValidationError:
+                # This username is no good ...
+                user_username(sociallogin.account.user, '')
         # FIXME: This part contains a lot of duplication of logic
         # ("closed" rendering, create user, send email, in active
         # etc..)

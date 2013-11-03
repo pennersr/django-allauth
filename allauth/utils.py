@@ -48,7 +48,8 @@ def generate_unique_username(txt):
             else:
                 pfx = ''
             ret = username[0:max_length - len(pfx)] + pfx
-            User.objects.get(**{USER_MODEL_USERNAME_FIELD: ret})
+            query = {USER_MODEL_USERNAME_FIELD + '__iexact': ret}
+            User.objects.get(**query)
             i += 1
         except User.DoesNotExist:
             return ret

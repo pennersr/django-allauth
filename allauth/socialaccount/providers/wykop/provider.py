@@ -39,4 +39,14 @@ class WykopProvider(Provider):
     def getKey(self, app):
         return 'appkey/' +  app.client_id + '/'
 
+
+    def extract_uid(self, data):
+        return data['login']
+
+    def extract_common_fields(self, data):
+        return dict(email=data.get('email').split(":")[0] + '@wykop.pl',
+                    username=data.get('login'),
+                    name=data.get('name'))
+
+
 providers.registry.register(WykopProvider)

@@ -1,5 +1,8 @@
 2013-11-17  Raymond Penners  <raymond.penners@intenct.nl>
 
+	* openid: First, last and full name are now also queried together
+	with the e-mail address. Thanks, @andrvb.
+
 	* openid: Compatibility fix for Django 1.6 (JSON serializer).
 
 	* account: Added support for `ACCOUNT_CONFIRM_EMAIL_ON_GET`.

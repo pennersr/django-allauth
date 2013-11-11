@@ -3,7 +3,6 @@ try:
     from UserDict import UserDict
 except ImportError:
     from collections import UserDict
-import base64
 import pickle
 
 from openid.store.interface import OpenIDStore as OIDStore
@@ -35,12 +34,39 @@ class JSONSafeSession(UserDict):
         return pickle.loads(base64.b64decode(data.encode('ascii')))
 
 
+class OldAXAttribute:
+    PERSON_NAME = 'http://openid.net/schema/namePerson'
+    PERSON_FIRST_NAME = 'http://openid.net/schema/namePerson/first'
+    PERSON_LAST_NAME = 'http://openid.net/schema/namePerson/last'
+
+
 class AXAttribute:
     CONTACT_EMAIL = 'http://axschema.org/contact/email'
+    PERSON_NAME = 'http://axschema.org/namePerson'
+    PERSON_FIRST_NAME = 'http://axschema.org/namePerson/first'
+    PERSON_LAST_NAME = 'http://axschema.org/namePerson/last'
+
+
+AXAttributes = [
+    AXAttribute.CONTACT_EMAIL,
+    AXAttribute.PERSON_NAME,
+    AXAttribute.PERSON_FIRST_NAME,
+    AXAttribute.PERSON_LAST_NAME,
+    OldAXAttribute.PERSON_NAME,
+    OldAXAttribute.PERSON_FIRST_NAME,
+    OldAXAttribute.PERSON_LAST_NAME,
+]
 
 
 class SRegField:
     EMAIL = 'email'
+    NAME = 'fullname'
+
+
+SRegFields = [
+    SRegField.EMAIL,
+    SRegField.NAME,
+]
 
 
 class DBOpenIDStore(OIDStore):
@@ -72,8 +98,10 @@ class DBOpenIDStore(OIDStore):
 
         for stored_assoc in stored_assocs:
             assoc = OIDAssociation(
-                stored_assoc.handle, base64.decodestring(stored_assoc.secret.encode('utf-8')),
-                stored_assoc.issued, stored_assoc.lifetime, stored_assoc.assoc_type
+                stored_assoc.handle,
+                base64.decodestring(stored_assoc.secret.encode('utf-8')),
+                stored_assoc.issued, stored_assoc.lifetime,
+                stored_assoc.assoc_type
             )
 
             if assoc.getExpiresIn() == 0:
@@ -126,3 +154,28 @@ def get_email_from_response(response):
             except KeyError:
                 pass
     return email
+
+
+def get_value_from_response(response, sreg_names=None, ax_names=None):
+    value = None
+    if sreg_names:
+        sreg = SRegResponse.fromSuccessResponse(response)
+        if sreg:
+            for name in sreg_names:
+                value = sreg.get(name)
+                if value:
+                    break
+
+    if not value and ax_names:
+        ax = FetchResponse.fromSuccessResponse(response)
+        if ax:
+            for name in ax_names:
+                try:
+                    values = ax.get(name)
+                    if values:
+                        value = values[0]
+                except KeyError:
+                    pass
+                if value:
+                    break
+    return value

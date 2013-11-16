@@ -34,7 +34,10 @@ class AppSettings(object):
 
     def _setting(self, name, dflt):
         from django.conf import settings
-        return getattr(settings, self.prefix + name, dflt)
+        getter = getattr(settings,
+                         'ALLAUTH_SETTING_GETTER',
+                         lambda name, dflt: getattr(settings, name, dflt))
+        return getter(self.prefix + name, dflt)
 
     @property
     def DEFAULT_HTTP_PROTOCOL(self):

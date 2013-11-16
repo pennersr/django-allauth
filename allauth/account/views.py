@@ -244,6 +244,10 @@ class EmailView(FormView):
                 res = self._action_remove(request)
             elif "action_primary" in request.POST:
                 res = self._action_primary(request)
+            # TODO: Ugly. But if we .get() here the email is used as
+            # initial for the add form, whereas the user was not
+            # interacting with that form..
+            res = res or HttpResponseRedirect(reverse('account_email'))
         return res or self.get(request, *args, **kwargs)
 
     def _action_send(self, request, *args, **kwargs):

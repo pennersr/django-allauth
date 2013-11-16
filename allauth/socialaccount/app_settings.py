@@ -10,11 +10,11 @@ class AppSettings(object):
     @property
     def QUERY_EMAIL(self):
         """
-        Request e-mail address from 3rd party account provider? 
+        Request e-mail address from 3rd party account provider?
         E.g. using OpenID AX
         """
         from allauth.account import app_settings as account_settings
-        return self._setting("QUERY_EMAIL", 
+        return self._setting("QUERY_EMAIL",
                              account_settings.EMAIL_REQUIRED)
 
     @property
@@ -25,7 +25,6 @@ class AppSettings(object):
         arises due to a duplicate e-mail signup form will still kick in.
         """
         return self._setting("AUTO_SIGNUP", True)
-
 
     @property
     def AVATAR_SUPPORT(self):
@@ -60,14 +59,14 @@ class AppSettings(object):
         See e-mail verification method
         """
         from allauth.account import app_settings as account_settings
-        return self._setting("EMAIL_VERIFICATION", 
+        return self._setting("EMAIL_VERIFICATION",
                              account_settings.EMAIL_VERIFICATION)
 
     @property
     def ADAPTER(self):
-        return self._setting \
-            ('ADAPTER', 
-             'allauth.socialaccount.adapter.DefaultSocialAccountAdapter')
+        return self._setting('ADAPTER',
+                             'allauth.socialaccount.adapter'
+                             '.DefaultSocialAccountAdapter')
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

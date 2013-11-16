@@ -23,8 +23,10 @@ class SignupForm(BaseSignupForm):
                    'username': user_username(user) or '',
                    'first_name': user_field(user, 'first_name') or '',
                    'last_name': user_field(user, 'last_name') or ''}
-        kwargs['initial'] = initial
-        kwargs['email_required'] = app_settings.EMAIL_REQUIRED
+        kwargs.update({
+            'initial': initial,
+            'email_required': kwargs.get('email_required',
+                                         app_settings.EMAIL_REQUIRED)})
         super(SignupForm, self).__init__(*args, **kwargs)
 
     def save(self, request):

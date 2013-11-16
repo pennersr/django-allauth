@@ -1,3 +1,13 @@
+2013-11-16  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.14.2 released.
+
+	* Compatibility fix for logging in with Django 1.6.
+
+2013-11-01  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Maksim Rukomoynikov contributed a Russian translation, thanks!
+
 2013-10-28  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Version 0.14.1 released (PyPi did not render the README.rst

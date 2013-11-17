@@ -175,6 +175,7 @@ settings.py::
         'allauth.account',
         'allauth.socialaccount',
         # ... include the providers you want to enable:
+        'allauth.socialaccount.providers.angellist',
         'allauth.socialaccount.providers.bitly',
         'allauth.socialaccount.providers.dropbox',
         'allauth.socialaccount.providers.facebook',
@@ -1119,6 +1120,14 @@ specific, such as making choices on what to display in a profile page,
 or, what information is stored for a user (e.g. home address, or
 favorite color?), is beyond scope and therefore not offered.
 
+This information is nice and all, but... I need more!
+*****************************************************
+
+Here are a few third party resources to help you get started:
+
+- https://speakerdeck.com/tedtieken/signing-up-and-signing-in-users-in-django-with-django-allauth
+- http://stackoverflow.com/questions/tagged/django-allauth
+- http://www.sarahhagstrom.com/2013/09/the-missing-django-allauth-tutorial/
 
 Troubleshooting
 ---------------

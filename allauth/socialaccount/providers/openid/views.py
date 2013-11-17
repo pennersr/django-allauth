@@ -15,7 +15,7 @@ from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount import providers
 
-from .utils import DBOpenIDStore, SRegField, AXAttribute
+from .utils import DBOpenIDStore, SRegFields, AXAttributes
 from .forms import LoginForm
 from .provider import OpenIDProvider
 
@@ -35,12 +35,14 @@ def login(request):
                 auth_request = client.begin(form.cleaned_data['openid'])
                 if QUERY_EMAIL:
                     sreg = SRegRequest()
-                    sreg.requestField(field_name=SRegField.EMAIL,
-                                      required=True)
+                    for name in SRegFields:
+                        sreg.requestField(field_name=name,
+                                          required=True)
                     auth_request.addExtension(sreg)
                     ax = FetchRequest()
-                    ax.add(AttrInfo(AXAttribute.CONTACT_EMAIL,
-                                    required=True))
+                    for name in AXAttributes:
+                        ax.add(AttrInfo(name,
+                                        required=True))
                     auth_request.addExtension(ax)
                 callback_url = reverse(callback)
                 SocialLogin.stash_state(request)

@@ -232,7 +232,7 @@ ACCOUNT_AUTHENTICATION_METHOD (="username" | "email" | "username_email")
   entering his username, e-mail address, or either one of both.
 
 ACCOUNT_CONFIRM_EMAIL_ON_GET (=False)
-  Determines whether or not an e-mail address is automatically confirmed 
+  Determines whether or not an e-mail address is automatically confirmed
   by a mere GET request.
 
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL (=settings.LOGIN_URL)
@@ -335,10 +335,6 @@ SOCIALACCOUNT_AUTO_SIGNUP (=True)
   email) retrieved from the social account provider. If a conflict
   arises due to a duplicate e-mail address the signup form will still
   kick in.
-
-SOCIALACCOUNT_AVATAR_SUPPORT (= 'avatar' in settings.INSTALLED_APPS)
-  Enable support for django-avatar. When enabled, the profile image of
-  the user is copied locally into django-avatar at signup.
 
 SOCIALACCOUNT_EMAIL_REQUIRED (=ACCOUNT_EMAIL_REQUIRED)
   The user is required to hand over an e-mail address when signing up

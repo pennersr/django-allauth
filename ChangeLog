@@ -1,5 +1,7 @@
 2013-11-17  Raymond Penners  <raymond.penners@intenct.nl>
 
+	* openid: Compatibility fix for Django 1.6 (JSON serializer).
+
 	* account: Added support for `ACCOUNT_CONFIRM_EMAIL_ON_GET`.
 
 2013-11-16  Raymond Penners  <raymond.penners@intenct.nl>

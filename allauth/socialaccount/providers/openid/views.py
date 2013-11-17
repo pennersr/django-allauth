@@ -15,14 +15,15 @@ from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount import providers
 
-from .utils import DBOpenIDStore, SRegField, AXAttribute
+from .utils import (DBOpenIDStore, SRegField, AXAttribute,
+                    JSONSafeSession)
 from .forms import LoginForm
 from .provider import OpenIDProvider
 
 
 def _openid_consumer(request):
     store = DBOpenIDStore()
-    client = consumer.Consumer(request.session, store)
+    client = consumer.Consumer(JSONSafeSession(request.session), store)
     return client
 
 

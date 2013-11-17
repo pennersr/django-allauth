@@ -1,4 +1,10 @@
 import base64
+try:
+    from UserDict import UserDict
+except ImportError:
+    from collections import UserDict
+import base64
+import pickle
 
 from openid.store.interface import OpenIDStore as OIDStore
 from openid.association import Association as OIDAssociation
@@ -8,6 +14,25 @@ from openid.extensions.ax import FetchResponse
 from allauth.utils import valid_email_or_none
 
 from .models import OpenIDStore, OpenIDNonce
+
+
+class JSONSafeSession(UserDict):
+    """
+    openid puts e.g. class OpenIDServiceEndpoint in the session.
+    Django 1.6 no longer pickles stuff, so we'll need to do some
+    hacking here...
+    """
+    def __init__(self, session):
+        UserDict.__init__(self)
+        self.data = session
+
+    def __setitem__(self, key, value):
+        data = base64.b64encode(pickle.dumps(value))
+        return UserDict.__setitem__(self, key, data)
+
+    def __getitem__(self, key):
+        data = UserDict.__getitem__(self, key)
+        return pickle.loads(base64.b64decode(data))
 
 
 class AXAttribute:

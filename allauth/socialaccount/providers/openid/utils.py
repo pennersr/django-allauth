@@ -27,12 +27,12 @@ class JSONSafeSession(UserDict):
         self.data = session
 
     def __setitem__(self, key, value):
-        data = base64.b64encode(pickle.dumps(value))
+        data = base64.b64encode(pickle.dumps(value)).decode('ascii')
         return UserDict.__setitem__(self, key, data)
 
     def __getitem__(self, key):
         data = UserDict.__getitem__(self, key)
-        return pickle.loads(base64.b64decode(data))
+        return pickle.loads(base64.b64decode(data.encode('ascii')))
 
 
 class AXAttribute:

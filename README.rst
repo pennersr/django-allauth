@@ -231,6 +231,10 @@ ACCOUNT_AUTHENTICATION_METHOD (="username" | "email" | "username_email")
   Specifies the login method to use -- whether the user logs in by
   entering his username, e-mail address, or either one of both.
 
+ACCOUNT_CONFIRM_EMAIL_ON_GET (=False)
+  Determines whether or not an e-mail address is automatically confirmed 
+  by a mere GET request.
+
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL (=settings.LOGIN_URL)
   The URL to redirect to after a successful e-mail confirmation, in case no
   user is logged in.

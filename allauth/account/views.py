@@ -158,6 +158,8 @@ class ConfirmEmailView(TemplateResponseMixin, View):
     def get(self, *args, **kwargs):
         try:
             self.object = self.get_object()
+            if app_settings.CONFIRM_EMAIL_ON_GET:
+                return self.post(*args, **kwargs)
         except Http404:
             self.object = None
         ctx = self.get_context_data()

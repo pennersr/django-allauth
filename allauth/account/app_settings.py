@@ -179,6 +179,10 @@ class AppSettings(object):
                              'allauth.account.adapter.DefaultAccountAdapter')
 
     @property
+    def CONFIRM_EMAIL_ON_GET(self):
+        return self._setting('CONFIRM_EMAIL_ON_GET', False)
+
+    @property
     def LOGOUT_REDIRECT_URL(self):
         return self._setting('LOGOUT_REDIRECT_URL', '/')
 

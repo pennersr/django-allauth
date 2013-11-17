@@ -8,8 +8,10 @@ from openid.consumer import consumer
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
-from . import views
+from allauth.utils import get_user_model
 
+from . import views
+from .utils import AXAttribute
 
 class OpenIDTests(TestCase):
 
@@ -38,9 +40,17 @@ class OpenIDTests(TestCase):
             complete_response.status = consumer.SUCCESS
             complete_response.identity_url = 'http://dummy/john/'
             with patch('allauth.socialaccount.providers'
-                       '.openid.utils.SRegResponse'):
+                       '.openid.utils.SRegResponse') as sr_mock:
                 with patch('allauth.socialaccount.providers'
-                           '.openid.utils.FetchResponse'):
+                           '.openid.utils.FetchResponse') as fr_mock:
+                    sreg_mock = Mock()
+                    ax_mock = Mock()
+                    sr_mock.fromSuccessResponse = sreg_mock
+                    fr_mock.fromSuccessResponse = ax_mock
+                    sreg_mock.return_value = {}
+                    ax_mock.return_value = {AXAttribute.PERSON_FIRST_NAME:
+                                            ['raymond']}
                     resp = self.client.post(reverse('openid_callback'))
                     self.assertEqual('http://testserver/accounts/profile/',
                                      resp['location'])
+                    get_user_model().objects.get(first_name='raymond')

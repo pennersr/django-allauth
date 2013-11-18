@@ -33,6 +33,7 @@ def create_oauth_tests(provider):
     def setUp(self):
         app = SocialApp.objects.create(provider=provider.id,
                                        name=provider.id,
+                                       client_id='app123id',
                                        key=provider.id,
                                        secret='dummy')
         app.sites.add(Site.objects.get_current())
@@ -119,6 +120,7 @@ def create_oauth2_tests(provider):
     def setUp(self):
         app = SocialApp.objects.create(provider=provider.id,
                                        name=provider.id,
+                                       client_id='app123id',
                                        key=provider.id,
                                        secret='dummy')
         app.sites.add(Site.objects.get_current())

@@ -1,8 +1,10 @@
 from allauth.socialaccount.tests import create_oauth2_tests
 from allauth.tests import MockedResponse
 from allauth.socialaccount.models import SocialAccount
+from allauth.socialaccount import providers
 from allauth.socialaccount.providers import registry
 from allauth.utils import get_user_model
+from django.test.client import RequestFactory
 
 from .provider import FacebookProvider
 
@@ -43,3 +45,9 @@ class FacebookTests(create_oauth2_tests(registry.by_id(FacebookProvider.id))):
         self.login(self.get_mocked_response())
         socialaccount = SocialAccount.objects.get(uid='630595557')
         self.assertEqual(socialaccount.user.username, 'raymond.penners')
+
+    def test_media_js(self):
+        provider = providers.registry.by_id(FacebookProvider.id)
+        request = RequestFactory().get('/accounts/login/')
+        script = provider.media_js(request)
+        self.assertTrue("appId: 'app123id'" in script)

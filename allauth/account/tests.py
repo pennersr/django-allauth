@@ -232,8 +232,40 @@ class AccountTests(TestCase):
         EmailAddress.objects.add_email(request, u, u.email, confirm=True)
         self.assertTrue(mail.outbox[0].subject[1:].startswith(site.name))
 
-    @override_settings \
-        (ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.OPTIONAL)
+    def test_login_view(self):
+        c = Client()
+        c.get(reverse('account_login'))
+        # TODO: Actually test something
+
+    def test_email_view(self):
+        c = Client()
+        c.get(reverse('account_email'))
+        # TODO: Actually test something
+
+    @override_settings(ACCOUNT_LOGOUT_ON_GET=True)
+    def test_logout_view_on_get(self):
+        c, resp = self._logout_view('get')
+        self.assertTemplateUsed(resp, 'account/messages/logged_out.txt')
+
+    @override_settings(ACCOUNT_LOGOUT_ON_GET=False)
+    def test_logout_view_on_post(self):
+        c, resp = self._logout_view('get')
+        self.assertTemplateUsed(resp, 'account/logout.html')
+        resp = c.post(reverse('account_logout'))
+        self.assertTemplateUsed(resp, 'account/messages/logged_out.txt')
+
+    def _logout_view(self, method):
+        c = Client()
+        user = User.objects.create(username='john',
+                                   is_active=True)
+        user.set_password('doe')
+        user.save()
+        c = Client()
+        c.login(username='john', password='doe')
+        return c, getattr(c, method)(reverse('account_logout'))
+
+    @override_settings(ACCOUNT_EMAIL_VERIFICATION=app_settings
+                       .EmailVerificationMethod.OPTIONAL)
     def test_optional_email_verification(self):
         c = Client()
         # Signup

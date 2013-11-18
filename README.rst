@@ -351,6 +351,13 @@ SOCIALACCOUNT_PROVIDERS (= dict)
 Upgrading
 ---------
 
+From 0.14.2
+***********
+
+- Built-in support for django-avatar has been removed. Such
+  functionality does not belong in the core, and can be easily
+  restored by hooking up to one of the login/signup signals.
+
 From 0.14.1
 ***********
 

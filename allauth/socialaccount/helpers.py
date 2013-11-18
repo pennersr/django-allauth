@@ -5,12 +5,9 @@ from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.forms import ValidationError
 from django.core.urlresolvers import reverse
-from django.template.defaultfilters import slugify
 
-from allauth.utils import (generate_unique_username, email_address_exists,
-                           get_user_model)
+from allauth.utils import email_address_exists, get_user_model
 from allauth.account.utils import (perform_login, complete_signup,
-                                   user_field,
                                    user_email, user_username)
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
@@ -155,58 +152,7 @@ def _complete_social_login(request, sociallogin):
     return ret
 
 
-def _name_from_url(url):
-    """
-    >>> _name_from_url('http://google.com/dir/file.ext')
-    u'file.ext'
-    >>> _name_from_url('http://google.com/dir/')
-    u'dir'
-    >>> _name_from_url('http://google.com/dir')
-    u'dir'
-    >>> _name_from_url('http://google.com/dir/..')
-    u'dir'
-    >>> _name_from_url('http://google.com/dir/../')
-    u'dir'
-    >>> _name_from_url('http://google.com')
-    u'google.com'
-    >>> _name_from_url('http://google.com/dir/subdir/file..ext')
-    u'file.ext'
-    """
-    try:
-        from urllib.parse import urlparse
-    except ImportError:
-        from urlparse import urlparse
-
-    p = urlparse(url)
-    for base in (p.path.split('/')[-1],
-                 p.path,
-                 p.netloc):
-        name = ".".join(filter(lambda s: s,
-                               map(slugify, base.split("."))))
-        if name:
-            return name
-
-
-def _copy_avatar(request, user, account):
-    import urllib2
-    from django.core.files.base import ContentFile
-    from avatar.models import Avatar
-    url = account.get_avatar_url()
-    if url:
-        ava = Avatar(user=user)
-        ava.primary = Avatar.objects.filter(user=user).count() == 0
-        try:
-            content = urllib2.urlopen(url).read()
-            name = _name_from_url(url)
-            ava.avatar.save(name, ContentFile(content))
-        except IOError:
-            # Let's nog make a big deal out of this...
-            pass
-
-
 def complete_social_signup(request, sociallogin):
-    if app_settings.AVATAR_SUPPORT:
-        _copy_avatar(request, sociallogin.account.user, sociallogin.account)
     return complete_signup(request,
                            sociallogin.account.user,
                            app_settings.EMAIL_VERIFICATION,

@@ -30,18 +30,6 @@ class AppSettings(object):
         return self._setting("AUTO_SIGNUP", True)
 
     @property
-    def AVATAR_SUPPORT(self):
-        """
-        Enable support for django-avatar. When enabled, the profile image of
-        the user is copied locally into django-avatar at signup.
-
-        Deprecated
-        """
-        from django.conf import settings
-        return self._setting("AVATAR_SUPPORT",
-                             'avatar' in settings.INSTALLED_APPS)
-
-    @property
     def PROVIDERS(self):
         """
         Provider specific settings

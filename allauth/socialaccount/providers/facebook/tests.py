@@ -1,3 +1,9 @@
+try:
+    from mock import patch
+except ImportError:
+    from unittest.mock import patch
+
+from django.core.urlresolvers import reverse
 from allauth.socialaccount.tests import create_oauth2_tests
 from allauth.tests import MockedResponse
 from allauth.socialaccount.models import SocialAccount
@@ -48,6 +54,20 @@ class FacebookTests(create_oauth2_tests(registry.by_id(FacebookProvider.id))):
 
     def test_media_js(self):
         provider = providers.registry.by_id(FacebookProvider.id)
-        request = RequestFactory().get('/accounts/login/')
+        request = RequestFactory().get(reverse('account_login'))
         script = provider.media_js(request)
         self.assertTrue("appId: 'app123id'" in script)
+
+    def test_login_by_token(self):
+        with patch('allauth.socialaccount.providers.facebook.views'
+                   '.requests') as requests_mock:
+            requests_mock.get.return_value.json.return_value \
+                = self.get_mocked_response().json()
+            resp = self.client.post(reverse('facebook_login_by_token'),
+                                    data={'access_token': 'dummy'})
+            self.assertEqual('http://testserver/accounts/profile/',
+                             resp['location'])
+
+    def test_channel(self):
+        resp = self.client.get(reverse('facebook_channel'))
+        self.assertTemplateUsed(resp, 'facebook/channel.html')

@@ -15,3 +15,4 @@ pep8.txt
 \#*
 *.db
 *.tmp
+virtualenv

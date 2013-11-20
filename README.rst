@@ -354,9 +354,19 @@ Upgrading
 From 0.14.2
 ***********
 
-- Built-in support for django-avatar has been removed. Such
-  functionality does not belong in the core, and can be easily
-  restored by hooking up to one of the login/signup signals.
+- Built-in support for django-avatar has been removed. Offering such
+  functionality means making choices which may not be valid for
+  everyone. For example, allauth was downloading the image (which can
+  take some time, or even block) in the context of the login, whereas
+  a better place might be some celery background job. Additionally, in
+  case of an error it simply ignored this. How about retries et al?
+  Also, do you want to copy the avatar once at sign up, or do you want
+  to update on each login? All in all, this functionality goes way
+  beyond authentication and should be addressed elsewhere, beyond
+  allauth scope. The original code has been preserved here so that you
+  can easily reinstate it in your own project:
+  https://gist.github.com/pennersr/7571752
+
 
 From 0.14.1
 ***********
@@ -1135,6 +1145,7 @@ Here are a few third party resources to help you get started:
 - https://speakerdeck.com/tedtieken/signing-up-and-signing-in-users-in-django-with-django-allauth
 - http://stackoverflow.com/questions/tagged/django-allauth
 - http://www.sarahhagstrom.com/2013/09/the-missing-django-allauth-tutorial/
+
 
 Troubleshooting
 ---------------

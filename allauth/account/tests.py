@@ -110,13 +110,17 @@ class AccountTests(TestCase):
         self.assertEqual(len(mail.outbox), 0)
         return User.objects.get(username=username)
 
-    def test_redirect_when_authenticated(self):
+    def _create_user_and_login(self):
         user = User.objects.create(username='john',
                                    is_active=True)
         user.set_password('doe')
         user.save()
-        c = Client()
-        c.login(username='john', password='doe')
+        self.client.login(username='john', password='doe')
+        return user
+
+    def test_redirect_when_authenticated(self):
+        self._create_user_and_login()
+        c = self.client
         resp = c.get(reverse('account_login'))
         self.assertEqual(302, resp.status_code)
         self.assertEqual('http://testserver/accounts/profile/',
@@ -143,13 +147,8 @@ class AccountTests(TestCase):
         self.assertEqual(resp.status_code, 302)
 
     def _password_set_or_reset_redirect(self, urlname, usable_password):
-        c = Client()
-        user = User.objects.create(username='john',
-                                   is_active=True)
-        user.set_password('doe')
-        user.save()
-        c = Client()
-        c.login(username='john', password='doe')
+        user = self._create_user_and_login()
+        c = self.client
         if not usable_password:
             user.set_unusable_password()
             user.save()
@@ -167,7 +166,15 @@ class AccountTests(TestCase):
                       data={'email': 'john@doe.org'})
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].to, ['john@doe.org'])
-        self.assertGreater(mail.outbox[0].body.find('https://'), 0)
+        body = mail.outbox[0].body
+        self.assertGreater(body.find('https://'), 0)
+        url = body[body.find('/password/reset/'):].split()[0]
+        resp = c.get(url)
+        self.assertTemplateUsed(resp, 'account/password_reset_from_key.html')
+        c.post(url, {'password1': 'newpass123',
+                     'password2': 'newpass123'})
+        user = User.objects.get(pk=user.pk)
+        self.assertTrue(user.check_password('newpass123'))
         return resp
 
     def test_email_verification_mandatory(self):
@@ -214,6 +221,9 @@ class AccountTests(TestCase):
             .objects \
             .filter(email_address__user__username='johndoe')[:1] \
             .get()
+        resp = c.get(reverse('account_confirm_email',
+                             args=[confirmation.key]))
+        self.assertTemplateUsed(resp, 'account/email_confirm.html')
         c.post(reverse('account_confirm_email',
                        args=[confirmation.key]))
         resp = c.post(reverse('account_login'),
@@ -238,8 +248,8 @@ class AccountTests(TestCase):
         # TODO: Actually test something
 
     def test_email_view(self):
-        c = Client()
-        c.get(reverse('account_email'))
+        self._create_user_and_login()
+        self.client.get(reverse('account_email'))
         # TODO: Actually test something
 
     @override_settings(ACCOUNT_LOGOUT_ON_GET=True)

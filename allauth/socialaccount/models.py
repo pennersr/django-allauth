@@ -55,6 +55,7 @@ class SocialApp(models.Model):
         return self.name
 
 
+@python_2_unicode_compatible
 class SocialAccount(models.Model):
     user = models.ForeignKey(allauth.app_settings.USER_MODEL)
     provider = models.CharField(max_length=30,

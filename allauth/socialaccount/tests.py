@@ -56,6 +56,7 @@ def create_oauth_tests(provider):
         self.assertEqual('http://testserver/accounts/profile/',
                          resp['location'])
         self.assertFalse(resp.context['user'].has_usable_password())
+        return sociallogin.account
 
     @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=True,
                        SOCIALACCOUNT_EMAIL_REQUIRED=False,

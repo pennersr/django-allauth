@@ -5,16 +5,16 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 class LinkedInOAuth2Account(ProviderAccount):
     def get_profile_url(self):
-        return self.account.extra_data.get('public-profile-url')
+        return self.account.extra_data.get('publicProfileUrl')
 
     def get_avatar_url(self):
-        return self.account.extra_data.get('picture-url')
+        return self.account.extra_data.get('pictureUrl')
 
     def to_str(self):
         dflt = super(LinkedInOAuth2Account, self).to_str()
         name = self.account.extra_data.get('name', dflt)
-        first_name = self.account.extra_data.get('first-name', None)
-        last_name = self.account.extra_data.get('last-name', None)
+        first_name = self.account.extra_data.get('firstName', None)
+        last_name = self.account.extra_data.get('lastName', None)
         if first_name and last_name:
             name = first_name+' '+last_name
         return name
@@ -47,9 +47,9 @@ class LinkedInOAuth2Provider(OAuth2Provider):
         return scope
 
     def extract_common_fields(self, data):
-        return dict(email=data.get('email-address'),
-                    first_name=data.get('first-name'),
-                    last_name=data.get('last-name'))
+        return dict(email=data.get('emailAddress'),
+                    first_name=data.get('firstName'),
+                    last_name=data.get('lastName'))
 
 
 providers.registry.register(LinkedInOAuth2Provider)

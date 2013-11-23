@@ -171,6 +171,9 @@ settings.py::
 
     INSTALLED_APPS = (
         ...
+        # The Django sites framework is required
+        'django.contrib.sites',
+
         'allauth',
         'allauth.account',
         'allauth.socialaccount',

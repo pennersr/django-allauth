@@ -357,6 +357,22 @@ Upgrading
 From 0.14.2
 ***********
 
+- The `/accounts/login/` view now supports AJAX requests.
+
+- Instead of directly rendering and returning a template, logging in
+  while the account is inactive or not yet confirmed now redirects to
+  two new views: `/accounts/inactive/` respectively
+  `/accounts/confirm-email/`.
+
+- The `account/verification_sent.html` template no longer receives the
+  e-mail address in the context (`email`). Note that a message
+  containing that e-mail address is still emitted using the messages
+  framework.
+
+- The `/accounts/confirm_email/key/` view has been
+  renamed to `/accounts/confirm-email/` (human friendlier). Redirects
+  are in place to handle old still pending confirmations.
+
 - Built-in support for django-avatar has been removed. Offering such
   functionality means making choices which may not be valid for
   everyone. For example, allauth was downloading the image (which can

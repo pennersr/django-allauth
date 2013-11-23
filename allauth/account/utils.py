@@ -9,6 +9,7 @@ except ImportError:
     now = datetime.now
 
 from django.contrib import messages
+from django.core.urlresolvers import reverse
 from django.shortcuts import render
 from django.conf import settings
 from django.contrib.auth import login
@@ -116,17 +117,14 @@ def perform_login(request, user, email_verification,
     elif email_verification == EmailVerificationMethod.MANDATORY:
         if not has_verified_email:
             send_email_confirmation(request, user, signup=signup)
-            return render(request,
-                          "account/verification_sent.html",
-                          {"email": user_email(user)})
+            return HttpResponseRedirect(
+                reverse('account_email_verification_sent'))
     # Local users are stopped due to form validation checking
     # is_active, yet, adapter methods could toy with is_active in a
     # `user_signed_up` signal. Furthermore, social users should be
     # stopped anyway.
     if not user.is_active:
-        return render(request,
-                      'account/account_inactive.html',
-                      {})
+        return HttpResponseRedirect(reverse('account_inactive'))
     # HACK: This may not be nice. The proper Django way is to use an
     # authentication backend, but I fail to see any added benefit
     # whereas I do see the downsides (having to bother the integrator

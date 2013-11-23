@@ -1,4 +1,5 @@
 from __future__ import absolute_import
+import json
 
 from datetime import timedelta
 
@@ -42,8 +43,9 @@ class AccountTests(TestCase):
                                           provider='facebook')
             sa.sites.add(Site.objects.get_current())
 
-    @override_settings \
-        (ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.USERNAME_EMAIL)
+    @override_settings(
+        ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod
+        .USERNAME_EMAIL)
     def test_username_containing_at(self):
         user = User.objects.create(username='@raymond.penners')
         user.set_password('psst')
@@ -184,19 +186,19 @@ class AccountTests(TestCase):
                       {'username': 'johndoe',
                        'email': 'john@doe.com',
                        'password1': 'johndoe',
-                       'password2': 'johndoe'})
+                       'password2': 'johndoe'},
+                      follow=True)
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(mail.outbox[0].to, ['john@doe.com'])
         self.assertEqual(len(mail.outbox), 1)
         self.assertTemplateUsed(resp,
                                 'account/verification_sent.html')
-        self.assertTemplateUsed(resp,
-                                'account/email/email_confirmation_signup_subject.txt')
         # Attempt to login, unverified
         for attempt in [1, 2]:
             resp = c.post(reverse('account_login'),
                           {'login': 'johndoe',
-                           'password': 'johndoe'})
+                           'password': 'johndoe'},
+                          follow=True)
             # is_active is controlled by the admin to manually disable
             # users. I don't want this flag to flip automatically whenever
             # users verify their email adresses.
@@ -204,15 +206,13 @@ class AccountTests(TestCase):
                                                 is_active=True).exists())
             self.assertTemplateUsed(resp,
                                     'account/verification_sent.html')
+            # Attempt 1: no mail is sent due to cool-down ,
+            # but there was already a mail in the outbox.
             self.assertEqual(len(mail.outbox), attempt)
             self.assertEqual(EmailConfirmation.objects
                              .filter(email_address__email=
                                      'john@doe.com').count(),
                              attempt)
-            if attempt == 2:
-                self.assertTemplateUsed(resp,
-                                        'account/email/email_confirmation_subject.txt')
-
             # Wait for cooldown
             EmailConfirmation.objects.update(sent=now()
                                              - timedelta(days=1))
@@ -246,6 +246,32 @@ class AccountTests(TestCase):
         c = Client()
         c.get(reverse('account_login'))
         # TODO: Actually test something
+
+    def test_ajax_login_fail(self):
+        resp = self.client.post(reverse('account_login'),
+                                {},
+                                HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(resp.status_code, 400)
+        data = json.loads(resp.content)
+        # TODO: Actually test something
+
+    @override_settings(
+        ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod
+        .OPTIONAL,
+        ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod
+        .USERNAME)
+    def test_ajax_login_success(self):
+        user = User.objects.create(username='john',
+                                   is_active=True)
+        user.set_password('doe')
+        user.save()
+        resp = self.client.post(reverse('account_login'),
+                                {'login': 'john',
+                                 'password': 'doe'},
+                                HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(resp.status_code, 200)
+        data = json.loads(resp.content)
+        self.assertEqual(data['location'], '/accounts/profile/')
 
     def test_email_view(self):
         self._create_user_and_login()

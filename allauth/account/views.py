@@ -1,6 +1,7 @@
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.sites.models import Site
-from django.http import HttpResponseRedirect, Http404
+from django.http import (HttpResponseRedirect, Http404,
+                         HttpResponsePermanentRedirect)
 from django.shortcuts import get_object_or_404
 from django.utils.http import base36_to_int
 from django.views.generic.base import TemplateResponseMixin, View, TemplateView
@@ -31,16 +32,35 @@ from .adapter import get_adapter
 User = get_user_model()
 
 
+def _ajax_response(request, response, form=None):
+    if request.is_ajax():
+        if (isinstance(response, HttpResponseRedirect)
+                or isinstance(response, HttpResponsePermanentRedirect)):
+            redirect_to = response['Location']
+        else:
+            redirect_to = None
+        response = get_adapter().ajax_response(request,
+                                               response,
+                                               form=form,
+                                               redirect_to=redirect_to)
+    return response
+
+
 class RedirectAuthenticatedUserMixin(object):
     def dispatch(self, request, *args, **kwargs):
         # WORKAROUND: https://code.djangoproject.com/ticket/19316
         self.request = request
         # (end WORKAROUND)
         if request.user.is_authenticated():
-            return HttpResponseRedirect(self.get_authenticated_redirect_url())
-        return super(RedirectAuthenticatedUserMixin, self).dispatch(request,
-                                                                    *args,
-                                                                    **kwargs)
+            redirect_to = self.get_authenticated_redirect_url()
+            response = HttpResponseRedirect(redirect_to)
+            return response
+        else:
+            response = super(RedirectAuthenticatedUserMixin,
+                             self).dispatch(request,
+                                            *args,
+                                            **kwargs)
+        return response
 
     def get_authenticated_redirect_url(self):
         redirect_field_name = self.redirect_field_name
@@ -49,7 +69,21 @@ class RedirectAuthenticatedUserMixin(object):
                                       redirect_field_name=redirect_field_name)
 
 
-class LoginView(RedirectAuthenticatedUserMixin, FormView):
+class AjaxCapableProcessFormViewMixin(object):
+
+    def post(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        if form.is_valid():
+            response = self.form_valid(form)
+        else:
+            response = self.form_invalid(form)
+        return _ajax_response(self.request, response, form=form)
+
+
+class LoginView(RedirectAuthenticatedUserMixin,
+                AjaxCapableProcessFormViewMixin,
+                FormView):
     form_class = LoginForm
     template_name = "account/login.html"
     success_url = None
@@ -537,3 +571,15 @@ class LogoutView(TemplateResponseMixin, View):
                 or get_adapter().get_logout_redirect_url(self.request))
 
 logout = LogoutView.as_view()
+
+
+class AccountInactiveView(TemplateView):
+    template_name = 'account/account_inactive.html'
+
+account_inactive = AccountInactiveView.as_view()
+
+
+class EmailVerificationSentView(TemplateView):
+    template_name = 'account/verification_sent.html'
+
+email_verification_sent = EmailVerificationSentView.as_view()

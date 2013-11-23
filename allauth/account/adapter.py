@@ -254,7 +254,7 @@ class DefaultAccountAdapter(object):
                 data['form_errors'] = form._errors
             if hasattr(response, 'render'):
                 response.render()
-            data['html'] = response.content
+            data['html'] = response.content.decode('utf8')
         return HttpResponse(json.dumps(data),
                             status=status,
                             content_type='application/json')

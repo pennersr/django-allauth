@@ -252,7 +252,7 @@ class AccountTests(TestCase):
                                 {},
                                 HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(resp.status_code, 400)
-        data = json.loads(resp.content)
+        data = json.loads(resp.content.decode('utf8'))
         # TODO: Actually test something
 
     @override_settings(
@@ -270,7 +270,7 @@ class AccountTests(TestCase):
                                  'password': 'doe'},
                                 HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(resp.status_code, 200)
-        data = json.loads(resp.content)
+        data = json.loads(resp.content.decode('utf8'))
         self.assertEqual(data['location'], '/accounts/profile/')
 
     def test_email_view(self):

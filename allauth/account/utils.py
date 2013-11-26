@@ -301,6 +301,8 @@ def send_email_confirmation(request, user, signup=False):
                                       'account/messages/'
                                       'email_confirmation_sent.txt',
                                       {'email': email})
+    if signup:
+        request.session['account_user'] = user.pk
 
 
 def sync_user_email_addresses(user):

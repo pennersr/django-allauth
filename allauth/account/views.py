@@ -16,7 +16,7 @@ from ..exceptions import ImmediateHttpResponse
 from ..utils import get_user_model
 
 from .utils import (get_next_redirect_url, complete_signup,
-                    get_login_redirect_url,
+                    get_login_redirect_url, perform_login,
                     passthrough_next_redirect_url)
 from .forms import AddEmailForm, ChangePasswordForm
 from .forms import LoginForm, ResetPasswordKeyForm
@@ -202,7 +202,14 @@ class ConfirmEmailView(TemplateResponseMixin, View):
     def post(self, *args, **kwargs):
         self.object = confirmation = self.get_object()
         confirmation.confirm(self.request)
-        # Don't -- allauth doesn't tocuh is_active so that sys admin can
+        get_adapter().add_message(self.request,
+                                  messages.SUCCESS,
+                                  'account/messages/email_confirmed.txt',
+                                  {'email': confirmation.email_address.email})
+        resp = self.login_on_confirm(confirmation)
+        if resp:
+            return resp
+        # Don't -- allauth doesn't touch is_active so that sys admin can
         # use it to block users et al
         #
         # user = confirmation.email_address.user
@@ -212,11 +219,37 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         if not redirect_url:
             ctx = self.get_context_data()
             return self.render_to_response(ctx)
-        get_adapter().add_message(self.request,
-                                  messages.SUCCESS,
-                                  'account/messages/email_confirmed.txt',
-                                  {'email': confirmation.email_address.email})
         return redirect(redirect_url)
+
+    def login_on_confirm(self, confirmation):
+        """
+        Simply logging in the user may become a security issue. If you
+        do not take proper care (e.g. don't purge used email
+        confirmations), a malicious person that got hold of the link
+        will be able to login over and over again and the user is
+        unable to do anything about it. Even restoring his own mailbox
+        security will not help, as the links will still work. For
+        password reset this is different, this mechanism works only as
+        long as the attacker has access to the mailbox. If he no
+        longer has access he cannot issue a password request and
+        intercept it. Furthermore, all places where the links are
+        listed (log files, but even Google Analytics) all of a sudden
+        need to be secured. Purging the email confirmation once
+        confirmed changes the behavior -- users will not be able to
+        repeatedly confirm (in case they forgot that they already
+        clicked the mail).
+
+        All in all, opted for storing the user that is in the process
+        of signing up in the session to avoid all of the above.  This
+        may not 100% work in case the user closes the browser (and the
+        session gets lost), but at least we're secure.
+        """
+        user_pk = self.request.session.pop('account_user', None)
+        user = confirmation.email_address.user
+        if user_pk == user.pk and self.request.user.is_anonymous():
+            return perform_login(self.request,
+                                 user,
+                                 app_settings.EmailVerificationMethod.NONE)
 
     def get_object(self, queryset=None):
         if queryset is None:

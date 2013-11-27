@@ -649,11 +649,12 @@ or::
 The following Facebook settings are available::
 
     SOCIALACCOUNT_PROVIDERS = \
-        { 'facebook':
-            { 'SCOPE': ['email', 'publish_stream'],
-              'AUTH_PARAMS': { 'auth_type': 'reauthenticate' },
-              'METHOD': 'oauth2' ,
-              'LOCALE_FUNC': 'path.to.callable'} }
+        {'facebook':
+           {'SCOPE': ['email', 'publish_stream'],
+            'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+            'METHOD': 'oauth2',
+            'LOCALE_FUNC': 'path.to.callable',
+            'VERIFIED_EMAIL': True}}
 
 METHOD
     Either `js_sdk` or `oauth2`
@@ -677,6 +678,15 @@ LOCALE_FUNC:
         SOCIALACCOUNT_PROVIDERS = \
             { 'facebook':
                 { 'LOCALE_FUNC': lambda request: 'zh_CN'} }
+
+VERIFIED_EMAIL:
+    It is not clear from the Facebook documentation whether or not the
+    fact that the account is verified implies that the e-mail address
+    is verified as well. For example, verification could also be done
+    by phone or credit card. To be on the safe side, the default is to
+    treat e-mail addresses from Facebook as unverified. But, if you
+    feel that is too paranoid, then use this setting to mark them as
+    verified.
 
 App registration (get your key and secret here)
     https://developers.facebook.com/apps

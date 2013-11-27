@@ -1,4 +1,18 @@
-2013-11-23  Raymond Penners  <pennersr@asuria>
+2013-11-27  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* facebook: Added a new setting: VERIFIED_EMAIL.
+
+	* socialaccount: a collision on e-mail address when you sign up
+	using a third party social account is now more clearly explained:
+	"An account already exists with this e-mail address.  Please sign
+	in to that account first, then connect your Google account".
+
+2013-11-26  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* account: You are now automatically logged in after confirming
+	your e-mail address during sign up.
+
+2013-11-23  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* account: The `/accounts/login/` view now supports AJAX requests.
 
@@ -16,6 +30,10 @@
 	renamed to `/accounts/confirm-email/` (human
 	friendlier). Redirects are in place to handle old still pending
 	confirmations.
+
+2013-11-22  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* facebook: The fbconnect.js script is now more pluggable.
 
 2013-11-18  Raymond Penners  <raymond.penners@intenct.nl>
 

@@ -4,17 +4,29 @@ except ImportError:
     from unittest.mock import patch
 
 from django.core.urlresolvers import reverse
+from django.test.utils import override_settings
+from django.test.client import RequestFactory
+
 from allauth.socialaccount.tests import create_oauth2_tests
 from allauth.tests import MockedResponse
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers import registry
+from allauth.account import app_settings as account_settings
+from allauth.account.models import EmailAddress
 from allauth.utils import get_user_model
-from django.test.client import RequestFactory
 
 from .provider import FacebookProvider
 
 
+@override_settings(
+    SOCIALACCOUNT_AUTO_SIGNUP=True,
+    ACCOUNT_SIGNUP_FORM_CLASS=None,
+    ACCOUNT_EMAIL_VERIFICATION=account_settings
+    .EmailVerificationMethod.NONE,
+    SOCIALACCOUNT_PROVIDERS={
+        'facebook': {
+            'VERIFIED_EMAIL': False}})
 class FacebookTests(create_oauth2_tests(registry.by_id(FacebookProvider.id))):
     def get_mocked_response(self):
         return MockedResponse(200, """
@@ -23,6 +35,7 @@ class FacebookTests(create_oauth2_tests(registry.by_id(FacebookProvider.id))):
            "name": "Raymond Penners",
            "first_name": "Raymond",
            "last_name": "Penners",
+           "email": "raymond.penners@gmail.com",
            "link": "https://www.facebook.com/raymond.penners",
            "username": "raymond.penners",
            "birthday": "07/17/1973",
@@ -71,3 +84,19 @@ class FacebookTests(create_oauth2_tests(registry.by_id(FacebookProvider.id))):
     def test_channel(self):
         resp = self.client.get(reverse('facebook_channel'))
         self.assertTemplateUsed(resp, 'facebook/channel.html')
+
+    @override_settings(
+        SOCIALACCOUNT_PROVIDERS={
+            'facebook': {
+                'VERIFIED_EMAIL': True}})
+    def test_login_verified(self):
+        emailaddress = self._login_verified()
+        self.assertTrue(emailaddress.verified)
+
+    def test_login_unverified(self):
+        emailaddress = self._login_verified()
+        self.assertFalse(emailaddress.verified)
+
+    def _login_verified(self):
+        resp = self.login(self.get_mocked_response())
+        return EmailAddress.objects.get(email='raymond.penners@gmail.com')

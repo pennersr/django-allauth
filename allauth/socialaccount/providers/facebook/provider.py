@@ -7,6 +7,7 @@ from django.template import RequestContext
 from django.utils.html import mark_safe
 
 from allauth.utils import import_callable
+from allauth.account.models import EmailAddress
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import (ProviderAccount,
                                                   AuthProcess,
@@ -117,5 +118,16 @@ class FacebookProvider(OAuth2Provider):
                     first_name=data.get('first_name'),
                     last_name=data.get('last_name'))
 
+    def extract_email_addresses(self, data):
+        ret = []
+        email = data.get('email')
+        if email:
+            settings = self.get_settings()
+            verified_email = settings.get('VERIFIED_EMAIL')
+            verified = bool(data.get('verified') and verified_email)
+            ret.append(EmailAddress(email=email,
+                       verified=verified,
+                       primary=True))
+        return ret
 
 providers.registry.register(FacebookProvider)

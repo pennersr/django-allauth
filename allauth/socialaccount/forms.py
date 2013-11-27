@@ -1,11 +1,15 @@
 from __future__ import absolute_import
 
 from django import forms
+from django.utils.translation import ugettext_lazy as _
 
 from allauth.account.forms import BaseSignupForm
 from allauth.account.utils import (user_username, user_email,
                                    user_field)
+from allauth.account.adapter import get_adapter as get_account_adapter
+from allauth.account import app_settings as account_app_settings
 
+from ..utils import email_address_exists
 from .models import SocialAccount
 from .adapter import get_adapter
 from . import app_settings
@@ -28,6 +32,17 @@ class SignupForm(BaseSignupForm):
             'email_required': kwargs.get('email_required',
                                          app_settings.EMAIL_REQUIRED)})
         super(SignupForm, self).__init__(*args, **kwargs)
+
+    def clean_email(self):
+        value = self.cleaned_data["email"]
+        value = get_account_adapter().clean_email(value)
+        if account_app_settings.UNIQUE_EMAIL:
+            if value and email_address_exists(value):
+                raise forms.ValidationError \
+                (_("This email address is already in use. If you already "
+                   "have an account on this site, please sign in and "
+                   "connect it with this social account first."))
+        return value
 
     def save(self, request):
         adapter = get_adapter()

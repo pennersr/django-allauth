@@ -14,6 +14,7 @@ from django.shortcuts import redirect
 
 from ..exceptions import ImmediateHttpResponse
 from ..utils import get_user_model
+from .. import app_settings as allauth_app_settings
 
 from .utils import (get_next_redirect_url, complete_signup,
                     get_login_redirect_url, perform_login,
@@ -113,7 +114,14 @@ class LoginView(RedirectAuthenticatedUserMixin,
                     "redirect_field_value": redirect_field_value})
         return ret
 
-login = LoginView.as_view()
+
+class SocialLoginView(LoginView):
+    template_name = "socialaccount/login.html"
+
+if allauth_app_settings.SOCIALACCOUNT_ENABLED:
+    login = SocialLoginView.as_view()
+else:
+    login = LoginView.as_view()
 
 
 class CloseableSignupMixin(object):

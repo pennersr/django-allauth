@@ -220,9 +220,12 @@ class BaseSignupForm(_base_signup_form_class()):
         value = get_adapter().clean_email(value)
         if app_settings.UNIQUE_EMAIL:
             if value and email_address_exists(value):
-                raise forms.ValidationError(_("A user is already registered"
-                                              " with this e-mail address."))
+                self.raise_duplicate_email_error()
         return value
+
+    def raise_duplicate_email_error(self):
+        raise forms.ValidationError(_("A user is already registered"
+                                      " with this e-mail address."))
 
 
 class SignupForm(BaseSignupForm):

@@ -105,7 +105,7 @@ else:
 
 METADATA = dict(
     name='django-allauth',
-    version='0.14.3-dev',
+    version='0.15.0',
     author='Raymond Penners',
     author_email='raymond.penners@intenct.nl',
     description='Integrated set of Django applications addressing'

@@ -1,5 +1,7 @@
 2013-12-01  Raymond Penners  <raymond.penners@intenct.nl>
 
+	* Version 0.15.0 released.
+
 	* socialaccount: Added `is_auto_signup_allowed` to social account
 	adapter.
 
@@ -39,6 +41,11 @@
 2013-11-22  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* facebook: The fbconnect.js script is now more pluggable.
+
+2013-11-19  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* socialaccount: Markus Kaiserswerth contributed a Feedly
+	provider, thanks!
 
 2013-11-18  Raymond Penners  <raymond.penners@intenct.nl>
 

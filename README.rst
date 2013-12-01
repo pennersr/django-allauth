@@ -974,8 +974,14 @@ Furthermore, you can pass along an `action` parameter with value
 for authentication even if he already signed in before. For now, this
 is supported by Facebook, Google and Twitter only.
 
+For Javascript based logins (e.g. when you enable the Facebook JS
+SDK), you will need to make sure that the required Javascript is
+loaded. The following tag loads all scripts for the enabled
+providers::
 
-For easy access to the social accounts for a user::
+    {% provider_media_js %}
+
+For easy access to the social accounts for a user use::
 
     {% get_social_accounts user as accounts %}
 

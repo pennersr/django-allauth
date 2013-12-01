@@ -613,6 +613,14 @@ For local development, use the following::
 
     http://127.0.0.1:8000/accounts/twitter/login/callback/
 
+**Login Javascript Snippet**
+
+For javascript logins, add the following code snippet to your template:
+
+    {% include "socialaccount/snippets/login_extra.html" %}
+    
+This will load the javascript codes necessary for the social login operation.
+
 
 AngelList
 ---------

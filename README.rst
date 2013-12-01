@@ -86,13 +86,15 @@ Supported Providers
 
 - Facebook (both OAuth2 and JS SDK)
 
-- Github
+- Feedly (OAuth2)
+
+- Github (OAuth2)
 
 - Google (OAuth2)
 
-- Instagram
+- Instagram (OAuth2)
 
-- LinkedIn
+- LinkedIn (OAuth)
 
 - OpenId
 
@@ -104,7 +106,7 @@ Supported Providers
 
 - Twitch (OAuth2)
 
-- Twitter
+- Twitter (OAuth)
 
 - Vimeo (OAuth)
 
@@ -152,8 +154,10 @@ settings.py::
 
     TEMPLATE_CONTEXT_PROCESSORS = (
         ...
+        # Required by allauth template tags
         "django.core.context_processors.request",
         ...
+        # allauth specific context processors
         "allauth.account.context_processors.account",
         "allauth.socialaccount.context_processors.socialaccount",
         ...
@@ -182,6 +186,7 @@ settings.py::
         'allauth.socialaccount.providers.bitly',
         'allauth.socialaccount.providers.dropbox',
         'allauth.socialaccount.providers.facebook',
+        'allauth.socialaccount.providers.feedly',
         'allauth.socialaccount.providers.github',
         'allauth.socialaccount.providers.google',
         'allauth.socialaccount.providers.instagram',

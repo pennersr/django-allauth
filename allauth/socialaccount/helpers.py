@@ -6,9 +6,9 @@ from django.template import RequestContext
 from django.forms import ValidationError
 from django.core.urlresolvers import reverse
 
-from allauth.utils import email_address_exists, get_user_model
+from allauth.utils import get_user_model
 from allauth.account.utils import (perform_login, complete_signup,
-                                   user_email, user_username)
+                                   user_username)
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.exceptions import ImmediateHttpResponse
@@ -22,29 +22,8 @@ User = get_user_model()
 
 
 def _process_signup(request, sociallogin):
-    # If email is specified, check for duplicate and if so, no auto signup.
-    auto_signup = app_settings.AUTO_SIGNUP
-    email = user_email(sociallogin.account.user)
-    if auto_signup:
-        # Let's check if auto_signup is really possible...
-        if email:
-            if account_settings.UNIQUE_EMAIL:
-                if email_address_exists(email):
-                    # Oops, another user already has this address.  We
-                    # cannot simply connect this social account to the
-                    # existing user. Reason is that the email adress may
-                    # not be verified, meaning, the user may be a hacker
-                    # that has added your email address to his account in
-                    # the hope that you fall in his trap.  We cannot check
-                    # on 'email_address.verified' either, because
-                    # 'email_address' is not guaranteed to be verified.
-                    auto_signup = False
-                    # FIXME: We redirect to signup form -- user will
-                    # see email address conflict only after posting
-                    # whereas we detected it here already.
-        elif app_settings.EMAIL_REQUIRED:
-            # Nope, email is required and we don't have it yet...
-            auto_signup = False
+    auto_signup = get_adapter().is_auto_signup_allowed(request,
+                                                       sociallogin)
     if not auto_signup:
         request.session['socialaccount_sociallogin'] = sociallogin.serialize()
         url = reverse('socialaccount_signup')

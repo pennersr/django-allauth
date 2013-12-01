@@ -1,3 +1,8 @@
+2013-12-01  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* socialaccount: Added `is_auto_signup_allowed` to social account
+	adapter.
+
 2013-11-27  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* facebook: Added a new setting: VERIFIED_EMAIL.

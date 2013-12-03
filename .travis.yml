@@ -5,7 +5,7 @@ python:
  - "3.3"
 env:
   global:
-   - TEST_APPS=allauth account socialaccount angellist feedly dropbox facebook google github instagram linkedin openid persona soundcloud stackexchange twitch twitter vimeo vk weibo bitly
+   - TEST_APPS=allauth account socialaccount angellist feedly dropbox facebook google github instagram linkedin linkedin_oauth2 openid persona soundcloud stackexchange twitch twitter vimeo vk weibo bitly
   matrix:
    - DJANGO=Django==1.4.3
    - DJANGO=Django==1.5

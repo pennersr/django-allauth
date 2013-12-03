@@ -1,6 +1,7 @@
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount import app_settings
 
 
 class LinkedInOAuth2Account(ProviderAccount):
@@ -22,7 +23,8 @@ class LinkedInOAuth2Account(ProviderAccount):
 
 class LinkedInOAuth2Provider(OAuth2Provider):
     id = 'linkedin_oauth2'
-    name = 'LinkedInOAuth2'
+    # Name is displayed to ordinary users -- don't include protocol
+    name = 'LinkedIn'
     package = 'allauth.socialaccount.providers.linkedin_oauth2'
     account_class = LinkedInOAuth2Account
 

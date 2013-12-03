@@ -94,7 +94,7 @@ Supported Providers
 
 - Instagram (OAuth2)
 
-- LinkedIn (OAuth)
+- LinkedIn (OAuth, OAuth2)
 
 - OpenId
 
@@ -191,6 +191,7 @@ settings.py::
         'allauth.socialaccount.providers.google',
         'allauth.socialaccount.providers.instagram',
         'allauth.socialaccount.providers.linkedin',
+        'allauth.socialaccount.providers.linkedin_oauth2',
         'allauth.socialaccount.providers.openid',
         'allauth.socialaccount.providers.persona',
         'allauth.socialaccount.providers.soundcloud',
@@ -729,7 +730,9 @@ Development callback URL
 LinkedIn
 --------
 
-The LinkedIn provider is OAuth based.
+The LinkedIn provider comes in two flavors: OAuth 1.0
+(`allauth.socialaccount.providers.linkedin`) and OAuth 2.0
+(`allauth.socialaccount.providers.linkedin_oauth2`).
 
 You can specify the scope and fields to fetch as follows::
 
@@ -751,6 +754,12 @@ has no effect you may be using an old LinkedIn app that is not
 scope enabled. Please refer to
 `https://developer.linkedin.com/forum/when-will-old-apps-have-scope-parameter-enabled`
 for more background information.
+
+Furthermore, we have experienced trouble upgrading from OAuth 1.0 to
+OAuth 2.0 using the same app. Attempting to do so resulted in a weird
+error message when fetching the access token::
+
+    missing required parameters, includes an invalid parameter value, parameter more then once. : Unable to retrieve access token : authorization code not found
 
 App registration (get your key and secret here)
         https://www.linkedin.com/secure/developer?newapp=

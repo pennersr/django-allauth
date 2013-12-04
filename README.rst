@@ -702,6 +702,13 @@ Development callback URL
     Login` put this as your Site URL: `http://localhost:8000`
 
 
+GitHub
+-----
+
+App registration
+    https://github.com/settings/applications/new
+
+
 Google
 ------
 

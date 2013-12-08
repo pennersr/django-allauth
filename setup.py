@@ -106,7 +106,7 @@ if sys.version_info[0] < 3:
 else:
     openid_package = 'python3-openid >= 3.0.1'
 
-long_description = io.open('README.rst', encoding='utf-8').read()
+long_description = io.open('README.rst', encoding='ascii', errors='ignore').read()
 
 METADATA = dict(
     name='django-allauth',

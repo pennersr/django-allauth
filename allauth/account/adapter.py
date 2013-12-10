@@ -1,5 +1,6 @@
 import warnings
 import json
+import re
 
 from django.conf import settings
 from django.http import HttpResponse
@@ -203,10 +204,12 @@ class DefaultAccountAdapter(object):
             raise forms.ValidationError(_("Usernames can only contain "
                                           "letters, digits and @/./+/-/_."))
 
-        # TODO: Add regexp support to USERNAME_BLACKLIST
-        if username in app_settings.USERNAME_BLACKLIST:
-            raise forms.ValidationError(_("Username can not be used. "
-                                          "Please use other username."))
+        # regex prevents usernames from using blacklisted words/names 
+        for illegal_word in app_settings.USERNAME_BLACKLIST:
+            if re.search(illegal_word, username, re.I):
+                raise forms.ValidationError(_(
+                    "That Username is not allowed. "
+                    "Please try a different username."))
         username_field = app_settings.USER_MODEL_USERNAME_FIELD
         assert username_field
         user_model = get_user_model()

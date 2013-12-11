@@ -3,19 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Marcin Spoczynski <marcin@spoczynski.com>, 2013.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-12-01 11:52+0100\n"
-"PO-Revision-Date: 2013-08-12 23:12+0200\n"
-"Last-Translator: Marcin Spoczynski <marcin@spoczynski.com>\n"
+"PO-Revision-Date: 2013-12-11 17:44+0100\n"
+"Last-Translator: Lukasz Banasiak <lukasz@banasiak.me>\n"
 "Language-Team: Marcin Spoczynski <marcin@spoczynski.com>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.2\n"
 
 #: account/adapter.py:203
 msgid "Usernames can only contain letters, digits and @/./+/-/_."
@@ -28,7 +28,7 @@ msgstr "Nie możesz użyć tej nazwy użytkownika. Proszę wybierz inną."
 
 #: account/adapter.py:218
 msgid "This username is already taken. Please choose another."
-msgstr "Nazwa użytkownika jest już użyciu. Proszę wybierz inną."
+msgstr "Nazwa użytkownika jest już w użyciu. Proszę wybierz inną."
 
 #: account/forms.py:34 account/forms.py:51 account/forms.py:233
 #: account/forms.py:331
@@ -37,7 +37,7 @@ msgstr "Hasło"
 
 #: account/forms.py:44
 msgid "Password must be a minimum of {0} characters."
-msgstr "Hasło może skałać się maksymalnie z {0} znaków"
+msgstr "Hasło może skałać się minimalnie z {0} znaków"
 
 #: account/forms.py:52
 msgid "Remember Me"
@@ -45,7 +45,7 @@ msgstr "Pamiętaj mnie"
 
 #: account/forms.py:61 account/forms.py:180
 msgid "E-mail address"
-msgstr "Adres E-mail"
+msgstr "Adres e-mail"
 
 #: account/forms.py:62 account/forms.py:193 account/forms.py:275
 #: account/forms.py:350
@@ -351,7 +351,8 @@ msgid ""
 "If you have not created an account yet, then please\n"
 "<a href=\"%(signup_url)s\">sign up</a> first."
 msgstr ""
-"Masz już konto. Jeżeli tak to <a href=\"%(login_url)s\">zaloguj się</a>."
+"Jeżeli nie masz jeszcze konta, to proszę <a href=\"%(signup_url)s"
+"\">zarejestruj się</a>."
 
 #: templates/account/login.html:41
 msgid "Forgot Password?"
@@ -388,8 +389,8 @@ msgid ""
 "Forgotten your password? Enter your e-mail address below, and we'll send you "
 "an e-mail allowing you to reset it."
 msgstr ""
-"Zapomniałeś swojego hasła? Wpisz swój adres e-mail poniżej i wyślemy Tobie "
-"wiadomość dzięki której ją zresetujesz."
+"Zapomniałeś swojego hasła? Wpisz swój adres e-mail poniżej a my wyślemy "
+"Tobie wiadomość dzięki której dokonasz jego zmiany."
 
 #: templates/account/password_reset.html:20
 msgid "Reset My Password"
@@ -405,8 +406,8 @@ msgid ""
 "We have sent you an e-mail. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"Wysłaliśmy tobie wiadomość. Proszę skontaktuj się z nami jeśli jej nie "
-"otrzymałeś w ciągu paru minut. "
+"Wysłaliśmy Tobie wiadomość. Proszę skontaktuj się z nami jeśli jej nie "
+"otrzymasz w ciągu paru minut."
 
 #: templates/account/password_reset_from_key.html:8
 msgid "Bad Token"
@@ -451,7 +452,7 @@ msgstr "Zarejestuj się"
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
 msgstr ""
-"Masz już konto. Jeżeli tak to <a href=\"%(login_url)s\">zaloguj się</a>."
+"Masz już konto? Jeżeli tak to <a href=\"%(login_url)s\">zaloguj się</a>."
 
 #: templates/account/signup_closed.html:6
 #: templates/account/signup_closed.html:9
@@ -535,13 +536,13 @@ msgid ""
 "Thanks for using our site!\n"
 msgstr ""
 "Dostałeś tą wiadomość ponieważ Ty lub ktoś inny zarządał zmiany hasła do "
-"konta użytkownika an stronie %(site_domain)s.\n"
+"konta użytkownika na stronie %(site_domain)s.\n"
 "Jeżeli to nie byłeś Ty, zignoruj tą wiadomość. Kliknij w łącze poniżej "
 "jeżeli chcesz zresetować hasło.\n"
 "\n"
 "%(password_reset_url)s\n"
 "\n"
-"Jeżeli zapomniałeś Twoja nazwa użytkownika to%(username)s.\n"
+"W przypadku jeżeli zapomniałeś, Twoja nazwa użytkownika to %(username)s.\n"
 "\n"
 "Dziękujemy za używanie naszej strony!\n"
 

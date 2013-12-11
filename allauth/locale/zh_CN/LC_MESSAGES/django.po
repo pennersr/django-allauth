@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-01 11:52+0100\n"
-"PO-Revision-Date: 2013-09-13 10:58+0800\n"
+"POT-Creation-Date: 2013-7-12 10:16+0800\n"
+"PO-Revision-Date: 2013-12-11 23:11+0800\n"
 "Last-Translator: jresins <jresins@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -127,7 +127,7 @@ msgstr "此e-mail地址未分配给任何用户账号"
 
 #: account/models.py:24
 msgid "user"
-msgstr ""
+msgstr "用户"
 
 #: account/models.py:26 account/models.py:77
 #, fuzzy
@@ -135,9 +135,8 @@ msgid "e-mail address"
 msgstr "e-mail地址"
 
 #: account/models.py:27
-#, fuzzy
 msgid "verified"
-msgstr "未验证"
+msgstr "已验证"
 
 #: account/models.py:28
 #, fuzzy
@@ -154,15 +153,15 @@ msgstr "e-mail地址"
 
 #: account/models.py:78
 msgid "created"
-msgstr ""
+msgstr "已建立"
 
 #: account/models.py:80
 msgid "sent"
-msgstr ""
+msgstr "已发送"
 
 #: account/models.py:81
 msgid "key"
-msgstr ""
+msgstr "key"
 
 #: account/models.py:86
 msgid "email confirmation"
@@ -185,7 +184,7 @@ msgstr "您的账号下无任何验证过的e-mail地址。"
 msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
 "account first, then connect your %s account."
-msgstr ""
+msgstr "已有一个账号与此e-mail地址关联，请先登录该账号，然后连接你的 %s 账号。"
 
 #: socialaccount/providers/oauth/client.py:78
 #, python-format
@@ -341,11 +340,13 @@ msgid "or"
 msgstr "或"
 
 #: templates/account/login.html:31
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "If you have not created an account yet, then please\n"
 "<a href=\"%(signup_url)s\">sign up</a> first."
-msgstr "已经有一个账号？ 请<a href=\"%(login_url)s\">登录</a>."
+msgstr ""
+"如果没有账号，请先\n"
+"<a href=\"%(signup_url)s\">注册</a> 。"
 
 #: templates/account/login.html:41
 msgid "Forgot Password?"
@@ -459,14 +460,13 @@ msgid "Verify Your E-mail Address"
 msgstr "验证您的E-mail地址。"
 
 #: templates/account/verification_sent.html:10
-#, fuzzy
 msgid ""
 "We have sent an e-mail to you for verification. Follow the link provided to "
 "finalize the signup process. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"我们已向<a href=\"mailto:%(email)s\">%(email)s</a>发了一封验证e-mail。点击e-"
-"mail中的链接完成注册流程。如果您在几分钟后仍未收到邮件，请与我们联系。"
+"我们已向您发了一封验证e-mail。点击e-mail中的链接完成注册流程。如果您在几分钟"
+"后仍未收到邮件，请与我们联系。"
 
 #: templates/account/verified_email_required.html:13
 msgid ""
@@ -555,9 +555,9 @@ msgid "Removed e-mail address %(email)s."
 msgstr "e-mail地址 %(email)s 已删除"
 
 #: templates/account/messages/logged_in.txt:4
-#, fuzzy, python-format
+#, python-format
 msgid "Successfully signed in as %(name)s."
-msgstr "以 %(user)s.身份成功登录"
+msgstr "以 %(name)s..身份成功登录"
 
 #: templates/account/messages/logged_out.txt:2
 msgid "You have signed out."

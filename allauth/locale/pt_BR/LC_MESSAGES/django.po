@@ -89,7 +89,7 @@ msgstr "E-mail (opcional)"
 
 #: account/forms.py:227
 msgid "A user is already registered with this e-mail address."
-msgstr "Um usuário já foi registado com este endereço de e-mail."
+msgstr "Um usuário já foi registrado com este endereço de e-mail."
 
 #: account/forms.py:234 account/forms.py:332
 msgid "Password (again)"
@@ -110,7 +110,7 @@ msgstr "Este endereço de e-mail já foi associado com outra conta."
 
 #: account/forms.py:305
 msgid "Current Password"
-msgstr "senha atual"
+msgstr "Senha atual"
 
 #: account/forms.py:306 account/forms.py:399
 msgid "New Password"
@@ -122,7 +122,7 @@ msgstr "Nova senha (novamente)"
 
 #: account/forms.py:311
 msgid "Please type your current password."
-msgstr "Por favor insira a sua senha atual."
+msgstr "Por favor insira sua senha atual."
 
 #: account/forms.py:361
 msgid "The e-mail address is not assigned to any user account"
@@ -140,7 +140,7 @@ msgstr "endereço de e-mail"
 #: account/models.py:27
 #, fuzzy
 msgid "verified"
-msgstr "Não verificado"
+msgstr "verificado"
 
 #: account/models.py:28
 #, fuzzy
@@ -157,15 +157,15 @@ msgstr "endereços de e-mail"
 
 #: account/models.py:78
 msgid "created"
-msgstr ""
+msgstr "criado"
 
 #: account/models.py:80
 msgid "sent"
-msgstr ""
+msgstr "enviado"
 
 #: account/models.py:81
 msgid "key"
-msgstr ""
+msgstr "chave"
 
 #: account/models.py:86
 msgid "email confirmation"
@@ -189,6 +189,8 @@ msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
 "account first, then connect your %s account."
 msgstr ""
+"Uma conta já existe com este endereço de e-mail. Por favor entre nesta"
+"conta primeiro, depois conecte sua conta %s"
 
 #: socialaccount/providers/oauth/client.py:78
 #, python-format
@@ -222,7 +224,7 @@ msgstr "Conta Desativada"
 
 #: templates/account/account_inactive.html:10
 msgid "This account is inactive."
-msgstr "A sua conta esa inativa."
+msgstr "A sua conta esta inativa."
 
 #: templates/account/email.html:6
 msgid "Account"
@@ -283,7 +285,7 @@ msgstr "Adicionar e-mail"
 
 #: templates/account/email.html:63
 msgid "Do you really want to remove the selected e-mail address?"
-msgstr "Deseja mesmo remover o endereço de e-mail seleccionado?"
+msgstr "Deseja mesmo remover o endereço de e-mail selecionado?"
 
 #: templates/account/email_confirm.html:7
 #: templates/account/email_confirm.html:11
@@ -337,6 +339,9 @@ msgid ""
 "up</a>\n"
 "for a %(site_name)s account and sign in below:"
 msgstr ""
+"Por favor entre com uma\n"
+"de suas contas externas. Or,  <a href=\"%(signup_url)s\">entre</a>\n"
+"com uma conta %(site_name)s abaixo:"
 
 #: templates/account/login.html:24
 msgid "or"
@@ -402,7 +407,7 @@ msgid ""
 "We have sent you an e-mail. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"Um e-mail foi enviado. Por favor contacte-nos se não o receber nos próximos "
+"Um e-mail foi enviado. Por favor contate-nos se não o receber nos próximos "
 "minutos."
 
 #: templates/account/password_reset_from_key.html:8
@@ -503,7 +508,7 @@ msgid ""
 "mail address</a>."
 msgstr ""
 "<strong>Nota:</strong> ainda pode <a href=\"%(email_url)s\">alterar o "
-"seuendereço de e-mail</a>."
+"seu endereço de e-mail</a>."
 
 #: templates/account/email/email_confirmation_message.txt:1
 #, python-format
@@ -558,17 +563,17 @@ msgstr "E-mail de confirmação enviado para %(email)s."
 #: templates/account/messages/email_confirmed.txt:2
 #, python-format
 msgid "You have confirmed %(email)s."
-msgstr "Confirmou %(email)s"
+msgstr "Você confirmou %(email)s"
 
 #: templates/account/messages/email_deleted.txt:2
 #, python-format
 msgid "Removed e-mail address %(email)s."
-msgstr "%(email)s endereços de e-mail removidos."
+msgstr "Endereços de e-mail %(email)s removido."
 
 #: templates/account/messages/logged_in.txt:4
 #, python-format
 msgid "Successfully signed in as %(name)s."
-msgstr ""
+msgstr "Entrou com sucesso como %(name)s"
 
 #: templates/account/messages/logged_out.txt:2
 msgid "You have signed out."
@@ -576,11 +581,11 @@ msgstr "Você saiu do sistema."
 
 #: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
-msgstr "senha alterada com sucesso."
+msgstr "Senha alterada com sucesso."
 
 #: templates/account/messages/password_set.txt:2
 msgid "Password successfully set."
-msgstr "senha definida com sucesso."
+msgstr "Senha definida com sucesso."
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary e-mail address set."

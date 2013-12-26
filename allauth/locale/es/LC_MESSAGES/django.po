@@ -43,7 +43,7 @@ msgstr "Una contraseña necesita al menos {0} caracteres."
 
 #: account/forms.py:52
 msgid "Remember Me"
-msgstr "Recordar contraseña"
+msgstr "Recordarme"
 
 #: account/forms.py:61 account/forms.py:180
 msgid "E-mail address"
@@ -184,11 +184,11 @@ msgstr "confirmación de correos electrónicos"
 
 #: socialaccount/adapter.py:103
 msgid "Your account has no password set up."
-msgstr "Tu cuenta no tiene una contraseña definida."
+msgstr "Su cuenta no tiene una contraseña definida."
 
 #: socialaccount/adapter.py:110
 msgid "Your account has no verified e-mail address."
-msgstr "Tu cuenta no tiene un correo electrónico verificado."
+msgstr "Su cuenta no tiene un correo electrónico verificado."
 
 #: socialaccount/forms.py:42
 #, python-format
@@ -366,7 +366,7 @@ msgstr ""
 
 #: templates/account/login.html:41
 msgid "Forgot Password?"
-msgstr "¿Ha olvidado tu contraseña?"
+msgstr "¿Olvidó su contraseña?"
 
 #: templates/account/logout.html:6 templates/account/logout.html.py:9
 #: templates/account/logout.html:18
@@ -375,7 +375,7 @@ msgstr "Cerrar sesión"
 
 #: templates/account/logout.html:11
 msgid "Are you sure you want to sign out?"
-msgstr "¿Esta seguro de querer cerrar sesión?"
+msgstr "¿Está seguro de querer cerrar sesión?"
 
 #: templates/account/password_change.html:6
 #: templates/account/password_change.html:9
@@ -422,7 +422,7 @@ msgstr ""
 
 #: templates/account/password_reset_from_key.html:8
 msgid "Bad Token"
-msgstr "Hay problema con el Token"
+msgstr "Hay problema con el token"
 
 #: templates/account/password_reset_from_key.html:12
 #, python-format
@@ -491,7 +491,7 @@ msgid ""
 msgstr ""
 "Le hemos enviado un correo electrónico <a href=\"mailto:%(email)s\">%(email)"
 "s</a> para su verificación. Siga el enlace para completar el proceso de "
-"registro. Por favor contáctenos si no recibeel correo en unos minutos."
+"registro. Por favor contáctenos si no recibe el correo en unos minutos."
 
 #: templates/account/verified_email_required.html:13
 msgid ""
@@ -709,4 +709,4 @@ msgstr "La cuenta externa ha sido desconectada."
 #~ msgstr "Contraseña Eliminada"
 
 #~ msgid "Your password has been deleted."
-#~ msgstr "Tu contraseña fue eliminada."
+#~ msgstr "Su contraseña fue eliminada."

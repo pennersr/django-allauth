@@ -78,6 +78,8 @@ Supported Flows
 Supported Providers
 -------------------
 
+- Amazon (OAuth2)
+
 - AngelList (OAuth2)
 
 - Bitly (OAuth2)
@@ -97,6 +99,8 @@ Supported Providers
 - LinkedIn (OAuth, OAuth2)
 
 - OpenId
+
+- Paypal (OAuth2)
 
 - Persona
 
@@ -619,6 +623,14 @@ For local development, use the following::
 
     http://127.0.0.1:8000/accounts/twitter/login/callback/
 
+Amazon
+------
+
+App registration (get your key and secret here)
+    http://login.amazon.com/manageApps
+
+Development callback URL
+    http://example.com/amazon/login/callback
 
 AngelList
 ---------
@@ -802,6 +814,32 @@ following template tag::
 
     {% load socialaccount %}
     <a href="{% provider_login_url "openid" openid="https://www.google.com/accounts/o8/id" next="/success/url/" %}">Google</a>
+
+Paypal
+------
+
+The following Paypal settings are available::
+
+    SOCIALACCOUNT_PROVIDERS = \
+        {'paypal':
+           {'SCOPE': ['openid', 'email'],
+            'MODE': 'live'}}
+
+
+SCOPE
+
+In the Paypal developer site, you must also check the required attributes for your application.
+For a full list of scope options, see https://developer.paypal.com/docs/integration/direct/identity/attributes/
+
+MODE
+
+Either `live` or `test`. Set to test to use the Paypal sandbox.
+
+App registration (get your key and secret here)
+    https://developer.paypal.com/webapps/developer/applications/myapps
+
+Development callback URL
+    http://example.com/paypal/login/callback
 
 
 Persona

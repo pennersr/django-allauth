@@ -65,7 +65,7 @@ msgstr "Nome de usuário ou e-mail"
 #: account/forms.py:77
 msgctxt "field label"
 msgid "Login"
-msgstr "Entrar"
+msgstr "Usuário"
 
 #: account/forms.py:109
 msgid "This account is currently inactive."
@@ -110,7 +110,7 @@ msgstr "Este endereço de e-mail já foi associado com outra conta."
 
 #: account/forms.py:305
 msgid "Current Password"
-msgstr "senha atual"
+msgstr "Senha atual"
 
 #: account/forms.py:306 account/forms.py:399
 msgid "New Password"
@@ -138,9 +138,8 @@ msgid "e-mail address"
 msgstr "endereço de e-mail"
 
 #: account/models.py:27
-#, fuzzy
 msgid "verified"
-msgstr "Não verificado"
+msgstr "verificado"
 
 #: account/models.py:28
 #, fuzzy
@@ -157,15 +156,15 @@ msgstr "endereços de e-mail"
 
 #: account/models.py:78
 msgid "created"
-msgstr ""
+msgstr "criado"
 
 #: account/models.py:80
 msgid "sent"
-msgstr ""
+msgstr "enviado"
 
 #: account/models.py:81
 msgid "key"
-msgstr ""
+msgstr "chave"
 
 #: account/models.py:86
 msgid "email confirmation"
@@ -188,7 +187,7 @@ msgstr "A sua conta não tem um endereço de e-mail verificado."
 msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
 "account first, then connect your %s account."
-msgstr ""
+msgstr "Já existe uma conta com esse endereço de e-mail. Por favor faça login, então conecte sua %s conta"
 
 #: socialaccount/providers/oauth/client.py:78
 #, python-format
@@ -337,6 +336,8 @@ msgid ""
 "up</a>\n"
 "for a %(site_name)s account and sign in below:"
 msgstr ""
+"Por favor faça login com uma\n de suas contas existentes. Ou, <a href=\"%(signup_url)s\">cadastre-se</a>\n"
+"para uma conta no site %(site_name)s e faça login a seguir:"
 
 #: templates/account/login.html:24
 msgid "or"
@@ -568,7 +569,7 @@ msgstr "%(email)s endereços de e-mail removidos."
 #: templates/account/messages/logged_in.txt:4
 #, python-format
 msgid "Successfully signed in as %(name)s."
-msgstr ""
+msgstr "Logado com sucesso como %(name)s."
 
 #: templates/account/messages/logged_out.txt:2
 msgid "You have signed out."

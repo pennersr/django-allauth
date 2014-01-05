@@ -67,4 +67,5 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
+STATIC_ROOT = '/tmp/'  # Dummy
 STATIC_URL = '/static/'

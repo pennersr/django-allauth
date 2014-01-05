@@ -680,7 +680,7 @@ The following Facebook settings are available::
             'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
             'METHOD': 'oauth2',
             'LOCALE_FUNC': 'path.to.callable',
-            'VERIFIED_EMAIL': True}}
+            'VERIFIED_EMAIL': False}}
 
 METHOD
     Either `js_sdk` or `oauth2`
@@ -712,7 +712,8 @@ VERIFIED_EMAIL:
     by phone or credit card. To be on the safe side, the default is to
     treat e-mail addresses from Facebook as unverified. But, if you
     feel that is too paranoid, then use this setting to mark them as
-    verified.
+    verified. Do know that by setting this to `True` you are
+    introducing a security risk.
 
 App registration (get your key and secret here)
     https://developers.facebook.com/apps

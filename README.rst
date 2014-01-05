@@ -364,6 +364,14 @@ SOCIALACCOUNT_PROVIDERS (= dict)
 Upgrading
 ---------
 
+From 0.15.0
+***********
+
+- The Amazon provider requires more space for `token_secret`, so the
+  maximum length restriction has been dropped. Migrations are in
+  place.
+
+
 From 0.14.2
 ***********
 

@@ -109,8 +109,7 @@ class SocialToken(models.Model):
     token = models \
         .TextField(help_text='"oauth_token" (OAuth1) or access token (OAuth2)')
     token_secret = models \
-        .CharField(max_length=200,
-                   blank=True,
+        .TextField(blank=True,
                    help_text='"oauth_token_secret" (OAuth1) or refresh'
                    ' token (OAuth2)')
     expires_at = models.DateTimeField(blank=True, null=True)

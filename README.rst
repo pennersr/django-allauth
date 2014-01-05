@@ -216,16 +216,16 @@ urls.py::
 Post-Installation
 -----------------
 
-In your django root execute the command below to create your database tables::
+In your Django root execute the command below to create your database tables::
 
     ./manage.py syncdb
 
-Now start your server, visit your admin pages (http://localhost:8000/admin )
+Now start your server, visit your admin pages (e.g. http://localhost:8000/admin/)
 and follow these steps:
 
-  1. Add a Site object for your domain
-  2. For each provider you want, enter in Social App → Add Social App
-  3. Choose the site, social provider and the credentials you obtained from the provider.
+  1. Add a `Site` for your domain, matching `settings.SITE_ID` (`django.contrib.sites` app).
+  2. For each OAuth based provider, add a `Social App` (`socialaccount` app).
+  3. Fill in the site and the OAuth app credentials obtained from the provider.
 
 
 Configuration

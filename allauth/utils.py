@@ -32,6 +32,7 @@ def _generate_unique_username_base(txts):
         # address and only take the part leading up to the '@'.
         username = username.split('@')[0]
         username = username.strip()
+        username = re.sub('\s+', '_', username)
         if username:
             break
     return username or 'user'

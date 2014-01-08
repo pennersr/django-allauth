@@ -51,6 +51,7 @@ class BasicTests(TestCase):
     def test_generate_unique_username(self):
         examples = [('a.b-c@gmail.com', 'a.b-c'),
                     (u'Üsêrnamê', 'username'),
+                    ('User Name', 'user_name'),
                     ('', 'user')]
         for input, username in examples:
             self.assertEqual(utils.generate_unique_username([input]),

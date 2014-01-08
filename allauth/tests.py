@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
 import requests
-from datetime import datetime, time, date
+from datetime import datetime, date
 
 from django.test import TestCase
 from django.db import models
 
 from . import utils
+
 
 class MockedResponse(object):
     def __init__(self, status_code, content, headers={}):
@@ -24,6 +25,7 @@ class MockedResponse(object):
     @property
     def text(self):
         return self.content.decode('utf8')
+
 
 class mocked_response:
     def __init__(self, *responses):
@@ -46,15 +48,17 @@ class mocked_response:
         requests.get = self.orig_get
         requests.post = self.orig_post
 
+
 class BasicTests(TestCase):
 
     def test_generate_unique_username(self):
         examples = [('a.b-c@gmail.com', 'a.b-c'),
                     (u'Üsêrnamê', 'username'),
+                    ('User Name', 'user_name'),
                     ('', 'user')]
         for input, username in examples:
             self.assertEqual(utils.generate_unique_username([input]),
-                              username)
+                             username)
 
     def test_email_validation(self):
         s = 'unfortunately.django.user.email.max_length.is.set.to.75.which.is.too.short@bummer.com'
@@ -85,5 +89,5 @@ class BasicTests(TestCase):
             self.assertEqual(t1.minute, t2.minute)
             self.assertEqual(t1.second, t2.second)
             # AssertionError: datetime.time(10, 6, 28, 705776) != datetime.time(10, 6, 28, 705000)
-            self.assertEqual(int(t1.microsecond/1000),
-                             int(t2.microsecond/1000))
+            self.assertEqual(int(t1.microsecond / 1000),
+                             int(t2.microsecond / 1000))

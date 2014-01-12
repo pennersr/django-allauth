@@ -3,6 +3,9 @@ from django.contrib import admin
 from .models import SocialApp, SocialAccount, SocialToken
 
 from ..account import app_settings
+from ..utils import get_user_model
+
+User = get_user_model()
 
 
 class SocialAppAdmin(admin.ModelAdmin):
@@ -11,8 +14,12 @@ class SocialAppAdmin(admin.ModelAdmin):
 
 
 class SocialAccountAdmin(admin.ModelAdmin):
-    if app_settings.USER_MODEL_USERNAME_FIELD:
-        search_fields = ('user__' + app_settings.USER_MODEL_USERNAME_FIELD, )
+    search_fields = ['user__emailaddress__email'] + \
+        list(map(lambda a: 'user__' + a,
+             filter(lambda a: a and hasattr(User(), a),
+                   [app_settings.USER_MODEL_USERNAME_FIELD,
+                    'first_name',
+                    'last_name'])))
     raw_id_fields = ('user',)
     list_display = ('user', 'uid', 'provider')
     list_filter = ('provider',)

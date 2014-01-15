@@ -1053,7 +1053,7 @@ SDK), you will need to make sure that the required Javascript is
 loaded. The following tag loads all scripts for the enabled
 providers::
 
-    {% provider_media_js %}
+    {% providers_media_js %}
 
 For easy access to the social accounts for a user use::
 

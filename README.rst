@@ -280,8 +280,7 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX (="[Site] ")
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = (="http")
   The default protocol used for when generating URLs, e.g. for the
   password forgotten procedure. Note that this is a default only --
-  the protocol is not enforced by any of the views. There are numerous
-  third party packages available for enforcing `https`, use those.
+  see the section on HTTPS for more information.
 
 ACCOUNT_LOGOUT_ON_GET (=False)
   Determines whether or not the user is automatically logged out by a
@@ -634,11 +633,14 @@ For local development, use the following::
 Amazon
 ------
 
+Amazon requires secure OAuth callback URLs (`redirect_uri`), please
+see the section on HTTPS about how this is handled.
+
 App registration (get your key and secret here)
     http://login.amazon.com/manageApps
 
 Development callback URL
-    http://example.com/amazon/login/callback
+    https://example.com/amazon/login/callback/
 
 AngelList
 ---------
@@ -1089,6 +1091,27 @@ The behavior is as follows:
 
 Advanced Usage
 ==============
+
+
+HTTPS
+-----
+
+This app currently provides no functionality for enforcing views to be
+HTTPS only, or switching between HTTP and HTTPS (and back) on demand.
+There are third party packages aimed at providing precisely this,
+please use these .
+
+What is provided is the following:
+
+- The protocol to be used for generating links (e.g. password
+  forgotten) for e-mails is configurable by means of the
+  `ACCOUNT_DEFAULT_HTTP_PROTOCOL`)
+
+- Automatically switching to HTTPS is built-in for OAuth providers
+  that require this (e.g. Amazon). However, remembering the original
+  protocol before the switch and switching back after the login is not
+  provided.
+
 
 Custom User Models
 ------------------

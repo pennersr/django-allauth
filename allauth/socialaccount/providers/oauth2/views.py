@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.utils import timezone
 
+from allauth.utils import build_absolute_uri
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.oauth2.client import (OAuth2Client,
@@ -14,9 +15,11 @@ from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.models import SocialToken, SocialLogin
 from ..base import AuthAction
 
+
 class OAuth2Adapter(object):
     expires_in_key = 'expires_in'
     supports_state = True
+    redirect_uri_protocol = None  # None -- don't switch
 
     def get_provider(self):
         return providers.registry.by_id(self.provider_id)
@@ -47,7 +50,9 @@ class OAuth2View(object):
 
     def get_client(self, request, app):
         callback_url = reverse(self.adapter.provider_id + "_callback")
-        callback_url = request.build_absolute_uri(callback_url)
+        callback_url = build_absolute_uri(
+            request, callback_url,
+            protocol=self.adapter.redirect_uri_protocol)
         provider = self.adapter.get_provider()
         client = OAuth2Client(self.request, app.client_id, app.secret,
                               self.adapter.access_token_url,

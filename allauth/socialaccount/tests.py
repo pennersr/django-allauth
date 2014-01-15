@@ -40,12 +40,12 @@ def create_oauth_tests(provider):
 
     @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=False)
     def test_login(self):
-        resp_mock = self.get_mocked_response()
-        if not resp_mock:
+        resp_mocks = self.get_mocked_response()
+        if not resp_mocks:
             warnings.warn("Cannot test provider %s, no oauth mock"
                           % self.provider.id)
             return
-        resp = self.login(resp_mock)
+        resp = self.login(resp_mocks)
         self.assertRedirects(resp, reverse('socialaccount_signup'))
         resp = self.client.get(reverse('socialaccount_signup'))
         sociallogin = resp.context['form'].sociallogin
@@ -62,17 +62,17 @@ def create_oauth_tests(provider):
                        SOCIALACCOUNT_EMAIL_REQUIRED=False,
                        ACCOUNT_EMAIL_REQUIRED=False)
     def test_auto_signup(self):
-        resp_mock = self.get_mocked_response()
-        if not resp_mock:
+        resp_mocks = self.get_mocked_response()
+        if not resp_mocks:
             warnings.warn("Cannot test provider %s, no oauth mock"
                           % self.provider.id)
             return
-        resp = self.login(resp_mock)
+        resp = self.login(resp_mocks)
         self.assertEqual('http://testserver/accounts/profile/',
                          resp['location'])
         self.assertFalse(resp.context['user'].has_usable_password())
 
-    def login(self, resp_mock, process='login'):
+    def login(self, resp_mocks, process='login'):
         with mocked_response(MockedResponse(200,
                                             'oauth_token=token&'
                                             'oauth_token_secret=psst',
@@ -90,14 +90,14 @@ def create_oauth_tests(provider):
                                             'oauth_token_secret=psst',
                                             {'content-type':
                                              'text/html'}),
-                             resp_mock):
+                             *resp_mocks):
             resp = self.client.get(complete_url)
         return resp
 
-    impl = { 'setUp': setUp,
-             'login': login,
-             'test_login': test_login,
-             'get_mocked_response': get_mocked_response }
+    impl = {'setUp': setUp,
+            'login': login,
+            'test_login': test_login,
+            'get_mocked_response': get_mocked_response}
     class_name = 'OAuth2Tests_'+provider.id
     Class = type(class_name, (TestCase,), impl)
     Class.provider = provider
@@ -138,9 +138,10 @@ def create_oauth2_tests(provider):
 
     def test_account_tokens(self, multiple_login=False):
         email = 'some@mail.com'
-        user = get_user_model().objects.create(username='user',
-                                   is_active=True,
-                                   email=email)
+        user = get_user_model().objects.create(
+            username='user',
+            is_active=True,
+            email=email)
         user.set_password('test')
         user.save()
         EmailAddress.objects.create(user=user,
@@ -163,7 +164,9 @@ def create_oauth2_tests(provider):
         # verify access_token and refresh_token
         self.assertEqual('testac', t.token)
         self.assertEqual(t.token_secret,
-                         json.loads(self.get_login_response_json(with_refresh_token=True)).get('refresh_token', ''))
+                         json.loads(self.get_login_response_json(
+                             with_refresh_token=True)).get(
+                                 'refresh_token', ''))
 
     def test_account_refresh_token_saved_next_login(self):
         '''
@@ -199,7 +202,8 @@ def create_oauth2_tests(provider):
             'login': login,
             'test_login': test_login,
             'test_account_tokens': test_account_tokens,
-            'test_account_refresh_token_saved_next_login': test_account_refresh_token_saved_next_login,
+            'test_account_refresh_token_saved_next_login':
+            test_account_refresh_token_saved_next_login,
             'get_login_response_json': get_login_response_json,
             'get_mocked_response': get_mocked_response}
     class_name = 'OAuth2Tests_'+provider.id
@@ -213,9 +217,8 @@ class SocialAccountTests(TestCase):
     @override_settings(
         SOCIALACCOUNT_AUTO_SIGNUP=True,
         ACCOUNT_SIGNUP_FORM_CLASS=None,
-        ACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.NONE
+        ACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.NONE  # noqa
     )
-
     def test_email_address_created(self):
         factory = RequestFactory()
         request = factory.get('/accounts/login/callback/')
@@ -239,5 +242,6 @@ class SocialAccountTests(TestCase):
             SocialAccount.objects.filter(user=user, uid=account.uid).exists()
         )
         self.assertTrue(
-            EmailAddress.objects.filter(user=user, email=user_email(user)).exists()
+            EmailAddress.objects.filter(user=user,
+                                        email=user_email(user)).exists()
         )

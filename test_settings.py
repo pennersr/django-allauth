@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.feedly',
     'allauth.socialaccount.providers.dropbox',
     'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.flickr',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
     'allauth.socialaccount.providers.instagram',

@@ -90,6 +90,8 @@ Supported Providers
 
 - Feedly (OAuth2)
 
+- Flickr (OAuth)
+
 - Github (OAuth2)
 
 - Google (OAuth2)
@@ -186,10 +188,12 @@ settings.py::
         'allauth.account',
         'allauth.socialaccount',
         # ... include the providers you want to enable:
+        'allauth.socialaccount.providers.amazon',
         'allauth.socialaccount.providers.angellist',
         'allauth.socialaccount.providers.bitly',
         'allauth.socialaccount.providers.dropbox',
         'allauth.socialaccount.providers.facebook',
+        'allauth.socialaccount.providers.flickr',
         'allauth.socialaccount.providers.feedly',
         'allauth.socialaccount.providers.github',
         'allauth.socialaccount.providers.google',
@@ -1097,7 +1101,7 @@ HTTPS
 -----
 
 This app currently provides no functionality for enforcing views to be
-HTTPS only, or switching between HTTP and HTTPS (and back) on demand.
+HTTPS only, or switching from HTTP to HTTPS (and back) on demand.
 There are third party packages aimed at providing precisely this,
 please use these .
 
@@ -1105,7 +1109,7 @@ What is provided is the following:
 
 - The protocol to be used for generating links (e.g. password
   forgotten) for e-mails is configurable by means of the
-  `ACCOUNT_DEFAULT_HTTP_PROTOCOL`)
+  `ACCOUNT_DEFAULT_HTTP_PROTOCOL` setting.
 
 - Automatically switching to HTTPS is built-in for OAuth providers
   that require this (e.g. Amazon). However, remembering the original

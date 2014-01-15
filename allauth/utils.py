@@ -32,6 +32,7 @@ def _generate_unique_username_base(txts):
         # address and only take the part leading up to the '@'.
         username = username.split('@')[0]
         username = username.strip()
+        username = re.sub('\s+', '_', username)
         if username:
             break
     return username or 'user'
@@ -178,3 +179,11 @@ def set_form_field_order(form, fields_order):
         assert isinstance(form.fields, OrderedDict)
         form.fields = OrderedDict((f, form.fields[f])
                                   for f in fields_order)
+
+
+def build_absolute_uri(request, location, protocol=None):
+    uri = request.build_absolute_uri(location)
+    if protocol:
+        uri = protocol + ':' + uri.partition(':')[2]
+    return uri
+    

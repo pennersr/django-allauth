@@ -78,6 +78,8 @@ Supported Flows
 Supported Providers
 -------------------
 
+- Amazon (OAuth2)
+
 - AngelList (OAuth2)
 
 - Bitly (OAuth2)
@@ -97,6 +99,8 @@ Supported Providers
 - LinkedIn (OAuth, OAuth2)
 
 - OpenId
+
+- Paypal (OAuth2)
 
 - Persona
 
@@ -216,16 +220,16 @@ urls.py::
 Post-Installation
 -----------------
 
-In your django root execute the command below to create your database tables::
+In your Django root execute the command below to create your database tables::
 
     ./manage.py syncdb
 
-Now start your server, visit your admin pages (http://localhost:8000/admin )
+Now start your server, visit your admin pages (e.g. http://localhost:8000/admin/)
 and follow these steps:
 
-  1. Add a Site object for your domain
-  2. For each provider you want, enter in Social App → Add Social App
-  3. Choose the site, social provider and the credentials you obtained from the provider.
+  1. Add a `Site` for your domain, matching `settings.SITE_ID` (`django.contrib.sites` app).
+  2. For each OAuth based provider, add a `Social App` (`socialaccount` app).
+  3. Fill in the site and the OAuth app credentials obtained from the provider.
 
 
 Configuration
@@ -276,8 +280,7 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX (="[Site] ")
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = (="http")
   The default protocol used for when generating URLs, e.g. for the
   password forgotten procedure. Note that this is a default only --
-  the protocol is not enforced by any of the views. There are numerous
-  third party packages available for enforcing `https`, use those.
+  see the section on HTTPS for more information.
 
 ACCOUNT_LOGOUT_ON_GET (=False)
   Determines whether or not the user is automatically logged out by a
@@ -359,6 +362,14 @@ SOCIALACCOUNT_PROVIDERS (= dict)
 
 Upgrading
 ---------
+
+From 0.15.0
+***********
+
+- The Amazon provider requires more space for `token_secret`, so the
+  maximum length restriction has been dropped. Migrations are in
+  place.
+
 
 From 0.14.2
 ***********
@@ -619,6 +630,17 @@ For local development, use the following::
 
     http://127.0.0.1:8000/accounts/twitter/login/callback/
 
+Amazon
+------
+
+Amazon requires secure OAuth callback URLs (`redirect_uri`), please
+see the section on HTTPS about how this is handled.
+
+App registration (get your key and secret here)
+    http://login.amazon.com/manageApps
+
+Development callback URL
+    https://example.com/amazon/login/callback/
 
 AngelList
 ---------
@@ -660,7 +682,7 @@ The following Facebook settings are available::
             'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
             'METHOD': 'oauth2',
             'LOCALE_FUNC': 'path.to.callable',
-            'VERIFIED_EMAIL': True}}
+            'VERIFIED_EMAIL': False}}
 
 METHOD
     Either `js_sdk` or `oauth2`
@@ -692,7 +714,8 @@ VERIFIED_EMAIL:
     by phone or credit card. To be on the safe side, the default is to
     treat e-mail addresses from Facebook as unverified. But, if you
     feel that is too paranoid, then use this setting to mark them as
-    verified.
+    verified. Do know that by setting this to `True` you are
+    introducing a security risk.
 
 App registration (get your key and secret here)
     https://developers.facebook.com/apps
@@ -802,6 +825,32 @@ following template tag::
 
     {% load socialaccount %}
     <a href="{% provider_login_url "openid" openid="https://www.google.com/accounts/o8/id" next="/success/url/" %}">Google</a>
+
+Paypal
+------
+
+The following Paypal settings are available::
+
+    SOCIALACCOUNT_PROVIDERS = \
+        {'paypal':
+           {'SCOPE': ['openid', 'email'],
+            'MODE': 'live'}}
+
+
+SCOPE
+
+In the Paypal developer site, you must also check the required attributes for your application.
+For a full list of scope options, see https://developer.paypal.com/docs/integration/direct/identity/attributes/
+
+MODE
+
+Either `live` or `test`. Set to test to use the Paypal sandbox.
+
+App registration (get your key and secret here)
+    https://developer.paypal.com/webapps/developer/applications/myapps
+
+Development callback URL
+    http://example.com/paypal/login/callback
 
 
 Persona
@@ -1042,6 +1091,27 @@ The behavior is as follows:
 
 Advanced Usage
 ==============
+
+
+HTTPS
+-----
+
+This app currently provides no functionality for enforcing views to be
+HTTPS only, or switching between HTTP and HTTPS (and back) on demand.
+There are third party packages aimed at providing precisely this,
+please use these .
+
+What is provided is the following:
+
+- The protocol to be used for generating links (e.g. password
+  forgotten) for e-mails is configurable by means of the
+  `ACCOUNT_DEFAULT_HTTP_PROTOCOL`)
+
+- Automatically switching to HTTPS is built-in for OAuth providers
+  that require this (e.g. Amazon). However, remembering the original
+  protocol before the switch and switching back after the login is not
+  provided.
+
 
 Custom User Models
 ------------------

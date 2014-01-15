@@ -98,6 +98,10 @@ class LoginForm(forms.Form):
         credentials["password"] = self.cleaned_data["password"]
         return credentials
 
+    def clean_login(self):
+        login = self.cleaned_data['login']
+        return login.strip()
+
     def clean(self):
         if self._errors:
             return

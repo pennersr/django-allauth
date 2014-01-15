@@ -15,6 +15,11 @@ class AmazonProvider(OAuth2Provider):
     package = 'allauth.socialaccount.providers.amazon'
     account_class = AmazonAccount
 
+    # Return a https URL even if the request originated from a http site
+    def get_login_url(self, request, **kwargs):
+        url = super(AmazonProvider, self).get_login_url(request, **kwargs)
+        return 'https://' + request.get_host() + url
+
     def get_default_scope(self):
         return ['profile']
 

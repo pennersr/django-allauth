@@ -6,3 +6,4 @@ django>=1.4.3
 python-openid>=2.2.5
 requests>=1.0.3
 requests-oauthlib>=0.3.0
+nameparser==0.2.8

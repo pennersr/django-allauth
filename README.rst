@@ -295,6 +295,30 @@ ACCOUNT_LOGOUT_REDIRECT_URL (="/")
   The URL (or URL name) to return to after the user logs out. This is
   the counterpart to Django's `LOGIN_REDIRECT_URL`.
 
+ACCOUNT_PASSWORD_RESET_FORM_CLASS (=None)
+  A string pointing to a custom form class
+  (e.g. 'myapp.forms.ResetPasswordForm') that will be used in place of the
+  normal allauth.account.forms.ResetPasswordForm - so that you can add custom
+  layouts or attributes using e.g. parsleyfy or crispy forms.
+
+ACCOUNT_PASSWORD_SET_FORM_CLASS (=None)
+  A string pointing to a custom form class
+  (e.g. 'myapp.forms.SetPasswordForm') that will be used in place of the
+  normal allauth.account.forms.SetPasswordForm - so that you can add custom
+  layouts or attributes using e.g. parsleyfy or crispy forms.
+
+ACCOUNT_PASSWORD_CHANGE_FORM_CLASS (=None)
+  A string pointing to a custom form class
+  (e.g. 'myapp.forms.ChangePasswordForm') that will be used in place of the
+  normal allauth.account.forms.ChangePasswordForm - so that you can add custom
+  layouts or attributes using e.g. parsleyfy or crispy forms.
+
+ACCOUNT_LOGIN_FORM_CLASS (=None)
+  A string pointing to a custom form class
+  (e.g. 'myapp.forms.LoginForm') that will be used in place of the
+  normal allauth.account.forms.LoginForm - so that you can add custom
+  layouts or attributes using e.g. parsleyfy or crispy forms.
+
 ACCOUNT_SIGNUP_FORM_CLASS (=None)
   A string pointing to a custom form class
   (e.g. 'myapp.forms.SignupForm') that is used during signup to ask

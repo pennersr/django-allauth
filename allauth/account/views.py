@@ -11,6 +11,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.tokens import default_token_generator
 from django.shortcuts import redirect
+from django.utils.importlib import import_module
+from django.core import exceptions
 
 from ..exceptions import ImmediateHttpResponse
 from ..utils import get_user_model
@@ -44,6 +46,37 @@ def _ajax_response(request, response, form=None):
                                                form=form,
                                                redirect_to=redirect_to)
     return response
+
+
+class FormResolverMixin(object):
+    """Helper to get a custom form."""
+
+    def _resolve_form(self, cls, fallback):
+        fc_class = fallback
+        if cls is not None:
+            try:
+                fc_module, fc_classname = cls.rsplit('.', 1)
+            except ValueError:
+                raise exceptions.ImproperlyConfigured(
+                    '{0} does not point to a form class'.format(cls))
+            try:
+                mod = import_module(fc_module)
+            except ImportError as e:
+                raise exceptions.ImproperlyConfigured(
+                    'Error importing form class {0}: "{1}"'.format(
+                        fc_module, e))
+            try:
+                fc_class = getattr(mod, fc_classname)
+            except AttributeError:
+                raise exceptions.ImproperlyConfigured(
+                    'Module "{0}" does not define a "{1}" class'.format(
+                        fc_module, fc_classname))
+        return fc_class
+
+    def get_form_class(self):
+        """Use the standard login form or a custom one if set."""
+        cls = getattr(self, 'form_override_setting', None)
+        return self._resolve_form(cls, self.form_class)
 
 
 class RedirectAuthenticatedUserMixin(object):
@@ -83,8 +116,10 @@ class AjaxCapableProcessFormViewMixin(object):
 
 class LoginView(RedirectAuthenticatedUserMixin,
                 AjaxCapableProcessFormViewMixin,
+                FormResolverMixin,
                 FormView):
     form_class = LoginForm
+    form_override_setting = app_settings.LOGIN_FORM_CLASS
     template_name = "account/login.html"
     success_url = None
     redirect_field_name = "next"
@@ -414,9 +449,10 @@ class EmailView(FormView):
 email = login_required(EmailView.as_view())
 
 
-class PasswordChangeView(FormView):
+class PasswordChangeView(FormResolverMixin, FormView):
     template_name = "account/password_change.html"
     form_class = ChangePasswordForm
+    form_override_setting = app_settings.PASSWORD_CHANGE_FORM_CLASS
     success_url = reverse_lazy("account_change_password")
 
     def dispatch(self, request, *args, **kwargs):
@@ -450,9 +486,10 @@ class PasswordChangeView(FormView):
 password_change = login_required(PasswordChangeView.as_view())
 
 
-class PasswordSetView(FormView):
+class PasswordSetView(FormResolverMixin, FormView):
     template_name = "account/password_set.html"
     form_class = SetPasswordForm
+    form_override_setting = app_settings.PASSWORD_SET_FORM_CLASS
     success_url = reverse_lazy("account_set_password")
 
     def dispatch(self, request, *args, **kwargs):
@@ -484,9 +521,10 @@ class PasswordSetView(FormView):
 password_set = login_required(PasswordSetView.as_view())
 
 
-class PasswordResetView(FormView):
+class PasswordResetView(FormResolverMixin, FormView):
     template_name = "account/password_reset.html"
     form_class = ResetPasswordForm
+    form_override_setting = app_settings.PASSWORD_RESET_FORM_CLASS
     success_url = reverse_lazy("account_reset_password_done")
 
     def form_valid(self, form):

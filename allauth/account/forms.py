@@ -18,7 +18,7 @@ from ..utils import (email_address_exists, get_user_model,
                      set_form_field_order)
 
 from .models import EmailAddress
-from .utils import perform_login, setup_user_email
+from .utils import perform_login, setup_user_email, validate_password_complexity
 from .app_settings import AuthenticationMethod
 from . import app_settings
 from .adapter import get_adapter
@@ -45,6 +45,11 @@ class SetPasswordField(PasswordField):
         if len(value) < min_length:
             raise forms.ValidationError(_("Password must be a minimum of {0} "
                                           "characters.").format(min_length))
+
+        # Allow custom password verification callables.
+        # They should raise ValidationErrors if there are issues.
+        validate_password_complexity(value)
+
         return value
 
 

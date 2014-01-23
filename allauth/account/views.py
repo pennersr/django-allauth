@@ -144,7 +144,7 @@ class CloseableSignupMixin(object):
 
 
 class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
-                 FormView):
+                 AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/signup.html"
     form_class = SignupForm
     redirect_field_name = "next"

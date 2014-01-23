@@ -198,6 +198,10 @@ class AppSettings(object):
     def USER_MODEL_EMAIL_FIELD(self):
         return self._setting('USER_MODEL_EMAIL_FIELD', 'email')
 
+    @property
+    def AUTH_BACKEND(self):
+        return self._setting('AUTH_BACKEND', 'allauth.account.auth_backends.AuthenticationBackend')
+
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

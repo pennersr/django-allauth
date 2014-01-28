@@ -26,7 +26,7 @@ class AuthenticationBackend(ModelBackend):
 
     def _authenticate_by_username(self, **credentials):
         username_field = app_settings.USER_MODEL_USERNAME_FIELD
-        if not username_field:
+        if not username_field or not 'username' in credentials:
             return None
         try:
             # Username query is case insensitive

@@ -5,6 +5,9 @@ from allauth.socialaccount.providers.base import Provider
 
 
 class OAuthProvider(Provider):
+
+    require_callback_url = True  # Because Tumblr will screw up if we include it, we have to assume everything needs it.
+
     def get_login_url(self, request, **kwargs):
         url = reverse(self.id + "_login")
         if kwargs:

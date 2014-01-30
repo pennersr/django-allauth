@@ -46,7 +46,7 @@ class OAuthView(object):
                              self.adapter.request_token_url,
                              self.adapter.access_token_url,
                              callback_url,
-                             parameters=parameters)
+                             parameters=parameters, provider=provider)
         return client
 
 
@@ -56,8 +56,7 @@ class OAuthLoginView(OAuthView):
         SocialLogin.stash_state(request)
         action = request.GET.get('action', AuthAction.AUTHENTICATE)
         provider = self.adapter.get_provider()
-        auth_url = provider.get_auth_url(request, action) \
-            or self.adapter.authorize_url
+        auth_url = provider.get_auth_url(request, action) or self.adapter.authorize_url
         client = self._get_client(request, callback_url)
         try:
             return client.get_redirect(auth_url)

@@ -41,7 +41,7 @@ class OAuthClient(object):
 
     def __init__(self, request, consumer_key, consumer_secret, 
                  request_token_url, access_token_url, callback_url, 
-                 parameters=None):
+                 parameters=None, provider=None):
 
         self.request = request
 
@@ -54,6 +54,7 @@ class OAuthClient(object):
         self.parameters = parameters
 
         self.callback_url = callback_url
+        self.provider = provider
 
         self.errors = []
         self.request_token = None
@@ -129,9 +130,12 @@ class OAuthClient(object):
         URL the OAuth provider handles authorization.
         """
         request_token = self._get_request_token()
-        url = '%s?oauth_token=%s&oauth_callback=%s' \
-            % (authorization_url, request_token['oauth_token'], 
-               self.request.build_absolute_uri(self.callback_url))
+        if self.provider.require_callback_url:
+            url = '%s?oauth_token=%s&oauth_callback=%s' \
+                % (authorization_url, request_token['oauth_token'],
+                    self.request.build_absolute_uri(self.callback_url))
+        else:
+            url = '%s?oauth_token=%s' % (authorization_url, request_token['oauth_token'])
         return HttpResponseRedirect(url)
 
 

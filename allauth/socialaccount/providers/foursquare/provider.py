@@ -5,14 +5,11 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 class FoursquareAccount(ProviderAccount):
     def get_profile_url(self):
-        return 'https://foursquare.com/user/' + self.account.extra_data.get('response').get('user').get('id')
+        return 'https://foursquare.com/user/' \
+            + self.account.extra_data.get('id')
 
     def get_avatar_url(self):
-        return self.account.extra_data.get('response').get('user').get('photo')
-
-    #def to_str(self):
-    #    dflt = super(FoursquareAccount, self).to_str()
-    #    return self.account.extra_data.get('name', dflt)
+        return self.account.extra_data.get('photo')
 
 
 class FoursquareProvider(OAuth2Provider):
@@ -22,12 +19,12 @@ class FoursquareProvider(OAuth2Provider):
     account_class = FoursquareAccount
 
     def extract_uid(self, data):
-        return str(data['response']['user']['id'])
+        return str(data['id'])
 
     def extract_common_fields(self, data):
-        return dict(firstname=data.get('response').get('user').get('firstname'),
-                    lastname=data.get('response').get('user').get('lastname'),
-                    email=data.get('response').get('user').get('contact').get('email'))
+        return dict(first_name=data.get('firstname'),
+                    last_name=data.get('lastname'),
+                    email=data.get('contact').get('email'))
 
 
 providers.registry.register(FoursquareProvider)

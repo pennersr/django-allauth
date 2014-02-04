@@ -10,7 +10,7 @@ class FoursquareTests(create_oauth2_tests(registry.by_id(FoursquareProvider.id))
                               {
                                 "notifications": [{"item": {"unreadCount": 0}, "type": "notificationTray"}],
                                 "meta": {"code": 200},
-                                "response": 
+                                "response":
                                 {
                                     "user":
                                     {
@@ -48,4 +48,3 @@ class FoursquareTests(create_oauth2_tests(registry.by_id(FoursquareProvider.id))
                                     }
                                  }
 """)
-

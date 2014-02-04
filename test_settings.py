@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount',
     'allauth.socialaccount.providers.amazon',
     'allauth.socialaccount.providers.angellist',
+    'allauth.socialaccount.providers.bitbucket',
     'allauth.socialaccount.providers.feedly',
     'allauth.socialaccount.providers.dropbox',
     'allauth.socialaccount.providers.facebook',

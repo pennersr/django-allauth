@@ -2,8 +2,6 @@ from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
 
-from allauth.socialaccount import app_settings
-
 
 class BitbucketAccount(ProviderAccount):
     def get_profile_url(self):
@@ -12,8 +10,11 @@ class BitbucketAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get('avatar')
 
-    def to_str(self):
+    def get_username(self):
         return self.account.extra_data['username']
+
+    def to_str(self):
+        return self.get_username()
 
 
 class BitbucketProvider(OAuthProvider):

@@ -112,6 +112,8 @@ Supported Providers
 
 - Stack Exchange (OAuth2)
 
+- Tumblr (OAuth)
+
 - Twitch (OAuth2)
 
 - Twitter (OAuth)
@@ -192,6 +194,7 @@ settings.py::
         # ... include the providers you want to enable:
         'allauth.socialaccount.providers.amazon',
         'allauth.socialaccount.providers.angellist',
+        'allauth.socialaccount.providers.bitbucket',
         'allauth.socialaccount.providers.bitly',
         'allauth.socialaccount.providers.dropbox',
         'allauth.socialaccount.providers.facebook',
@@ -206,6 +209,7 @@ settings.py::
         'allauth.socialaccount.providers.persona',
         'allauth.socialaccount.providers.soundcloud',
         'allauth.socialaccount.providers.stackexchange',
+        'allauth.socialaccount.providers.tumblr',
         'allauth.socialaccount.providers.twitch',
         'allauth.socialaccount.providers.twitter',
         'allauth.socialaccount.providers.vimeo',

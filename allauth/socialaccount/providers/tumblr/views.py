@@ -15,10 +15,8 @@ class TumblrAPI(OAuth):
     url = 'http://api.tumblr.com/v2/user/info'
 
     def get_user_info(self):
-        try:
-            return json.loads(self.query(self.url))['response']['user']
-        except:
-            return None
+        data = json.loads(self.query(self.url))
+        return data['response']['user']
 
 
 class TumblrOAuthAdapter(OAuthAdapter):
@@ -28,9 +26,12 @@ class TumblrOAuthAdapter(OAuthAdapter):
     authorize_url = 'https://www.tumblr.com/oauth/authorize'
 
     def complete_login(self, request, app, token):
-        client = TumblrAPI(request, app.client_id, app.secret, self.request_token_url)
+        client = TumblrAPI(request, app.client_id, app.secret,
+                           self.request_token_url)
         extra_data = client.get_user_info()
-        return self.get_provider().sociallogin_from_response(request, extra_data)
+        return self.get_provider().sociallogin_from_response(request,
+                                                             extra_data)
+
 
 oauth_login = OAuthLoginView.adapter_view(TumblrOAuthAdapter)
 oauth_callback = OAuthCallbackView.adapter_view(TumblrOAuthAdapter)

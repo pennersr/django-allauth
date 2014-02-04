@@ -8,13 +8,32 @@ from .provider import TumblrProvider
 
 class TumblrTests(create_oauth_tests(registry.by_id(TumblrProvider.id))):
     def get_mocked_response(self):
-        return [MockedResponse(200, u"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<person>
-  <id>oKmTqN2ffc</id>
-  <first-name>R@ymØnd</first-name>
-  <last-name>Pènnèrs</last-name>
-  <email-address>raymond.penners@intenct.nl</email-address>
-  <picture-url>http://m.c.lnkd.licdn.com/mpr/mprx/0_e0hbvSLc8QWo3ggPeVKqvaFR860d342Pogq4vakwx8IJOyR1XJrwRmr5mIx9C0DxWpGMsW9Lb8EQ</picture-url>
-  <public-profile-url>http://www.linkedin.com/in/intenct</public-profile-url>
-</person>
+        return [MockedResponse(200, u"""
+{
+   "meta": {
+      "status": 200,
+      "msg": "OK"
+   },
+   "response": {
+     "user": {
+       "following": 263,
+       "default_post_format": "html",
+       "name": "derekg",
+       "likes": 606,
+       "blogs": [
+          {
+           "name": "derekg",
+           "title": "Derek Gottfrid",
+           "url": "http://derekg.org/",
+           "tweet": "auto",
+           "primary": true,
+           "followers": 33004929
+          },
+          {
+           "name": "ihatehipstrz",
+           "title": "I Hate Hipstrz"
+           }
+        ]
+     }
+} }
 """)]

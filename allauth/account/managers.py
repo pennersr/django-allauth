@@ -32,7 +32,7 @@ class EmailAddressManager(models.Manager):
         # this is a list rather than a generator because we probably want to
         # do a len() on it right away
         return [address.user for address in self.filter(verified=True,
-                                                        email=email)]
+                                                        email__iexact=email)]
 
     def fill_cache_for_user(self, user, addresses):
         """

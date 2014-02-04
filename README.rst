@@ -82,6 +82,8 @@ Supported Providers
 
 - AngelList (OAuth2)
 
+- Bitbucket (OAuth)
+
 - Bitly (OAuth2)
 
 - Dropbox (OAuth)

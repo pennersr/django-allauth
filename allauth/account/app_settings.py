@@ -198,6 +198,10 @@ class AppSettings(object):
     def USER_MODEL_EMAIL_FIELD(self):
         return self._setting('USER_MODEL_EMAIL_FIELD', 'email')
 
+    @property
+    def LOGIN_ON_EMAIL_CONFIRMATION(self):
+        return self._setting('LOGIN_ON_EMAIL_CONFIRMATION', True)
+
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

@@ -345,6 +345,11 @@ ACCOUNT_PASSWORD_INPUT_RENDER_VALUE (=False)
 ACCOUNT_PASSWORD_MIN_LENGTH (=6)
   An integer specifying the minimum password length.
 
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION (=True)
+  The default behaviour is to automatically log the user in once he confirms
+  his email address. By changing this setting to False he will not be logged
+  in, but redirected to the ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL
+
 SOCIALACCOUNT_ADAPTER (="allauth.socialaccount.adapter.DefaultSocialAccountAdapter")
   Specifies the adapter class to use, allowing you to alter certain
   default behaviour.

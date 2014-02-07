@@ -206,9 +206,10 @@ class ConfirmEmailView(TemplateResponseMixin, View):
                                   messages.SUCCESS,
                                   'account/messages/email_confirmed.txt',
                                   {'email': confirmation.email_address.email})
-        resp = self.login_on_confirm(confirmation)
-        if resp:
-            return resp
+        if app_settings.LOGIN_ON_EMAIL_CONFIRMATION:
+            resp = self.login_on_confirm(confirmation)
+            if resp:
+                return resp
         # Don't -- allauth doesn't touch is_active so that sys admin can
         # use it to block users et al
         #

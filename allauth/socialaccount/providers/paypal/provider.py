@@ -28,7 +28,7 @@ class PaypalProvider(OAuth2Provider):
     def extract_common_fields(self, data):
         # See: https://developer.paypal.com/docs/api/#get-user-information
         return dict(first_name=data.get('given_name', ''),
-                    last_name=data.get('last_name', ''),
+                    last_name=data.get('family_name', ''),
                     email=data['email'])
 
 providers.registry.register(PaypalProvider)

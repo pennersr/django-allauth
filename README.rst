@@ -160,6 +160,10 @@ Installation
 Django
 ------
 
+Python package::
+
+    pip install django-allauth
+
 settings.py::
 
     TEMPLATE_CONTEXT_PROCESSORS = (

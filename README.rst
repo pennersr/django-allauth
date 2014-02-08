@@ -217,7 +217,9 @@ settings.py::
         'allauth.socialaccount.providers.weibo',
         ...
     )
-
+    
+    SITE_ID = 1
+    
 urls.py::
 
     urlpatterns = patterns('',

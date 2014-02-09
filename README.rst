@@ -977,6 +977,23 @@ The following signals are emitted:
   Sent after a user disconnects a social account from his local
   account.
 
+- `pre_email_confirmed`
+
+  Sent when we already know that the email confirmation was successful, but
+  before the update on the db is executed that sets the email to confirmed
+
+- `email_confirmed`
+
+  Sent after the email address in the db was updated and set to confirmed.
+
+- `pre_email_confirmation_sent`
+
+  Sent before the email confirmation is sent
+
+- `email_confirmation_sent`
+
+  Sent right after the email confirmation is sent
+
 
 Views
 =====

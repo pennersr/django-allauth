@@ -39,7 +39,7 @@ msgstr "Mot de passe"
 
 #: account/forms.py:44
 msgid "Password must be a minimum of {0} characters."
-msgstr "La longueur du mot de passe est de {0} caractères."
+msgstr "La longueur minimum du mot de passe est de {0} caractères."
 
 #: account/forms.py:52
 msgid "Remember Me"

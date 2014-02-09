@@ -1352,6 +1352,7 @@ Showcase
 - http://www.burufly.com
 - http://eatwith.com/
 - http://en.globalquiz.org/
+- http://hopper.pw/
 - ...
 
 Please mail me (raymond.penners@intenct.nl) links to sites that have

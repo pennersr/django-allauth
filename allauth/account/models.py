@@ -107,6 +107,9 @@ class EmailConfirmation(models.Model):
             email_address = self.email_address
             email_address.verified = True
             email_address.set_as_primary(conditional=True)
+            signals.pre_email_confirmed.send(sender=self.__class__,
+                                             request=request,
+                                             email_address=email_address)
             email_address.save()
             signals.email_confirmed.send(sender=self.__class__,
                                          request=request,
@@ -128,6 +131,8 @@ class EmailConfirmation(models.Model):
             email_template = 'account/email/email_confirmation_signup'
         else:
             email_template = 'account/email/email_confirmation'
+        signals.pre_email_confirmation_sent.send(sender=self.__class__,
+                                                 confirmation=self)
         get_adapter().send_mail(email_template,
                                 self.email_address.email,
                                 ctx)

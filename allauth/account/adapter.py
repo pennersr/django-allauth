@@ -259,6 +259,15 @@ class DefaultAccountAdapter(object):
                             status=status,
                             content_type='application/json')
 
+    def login(self, request, user):
+        from django.contrib.auth import login
+        # HACK: This is not nice. The proper Django way is to use an
+        # authentication backend
+        if not hasattr(user, 'backend'):
+            user.backend \
+                = "allauth.account.auth_backends.AuthenticationBackend"
+        login(request, user)
+
 
 def get_adapter():
     return import_attribute(app_settings.ADAPTER)()

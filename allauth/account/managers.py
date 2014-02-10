@@ -9,18 +9,16 @@ from . import app_settings
 
 class EmailAddressManager(models.Manager):
 
-    def add_email(self, request, user, email, **kwargs):
-        confirm = kwargs.pop("confirm", False)
-        signup = kwargs.pop("signup", False)
+    def add_email(self, request, user, email, 
+                  confirm=False, signup=False):
         try:
-            email_address = self.create(user=user, email=email, **kwargs)
-        except IntegrityError:
-            return None
-        else:
-            if confirm and not email_address.verified:
+            email_address = self.get(user=user, email__iexact=email)
+        except self.model.DoesNotExist:
+            email_address = self.create(user=user, email=email)
+            if confirm:
                 email_address.send_confirmation(request,
                                                 signup=signup)
-            return email_address
+        return email_address
 
     def get_primary(self, user):
         try:

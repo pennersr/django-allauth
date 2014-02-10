@@ -59,7 +59,8 @@ def login(request):
                 else:
                     return render_authentication_error(request)
     else:
-        form = LoginForm()
+        form = LoginForm(initial={'next': request.GET.get('next'),
+                                  'process': request.GET.get('process')})
     d = dict(form=form)
     return render_to_response('openid/login.html',
                               d, context_instance=RequestContext(request))

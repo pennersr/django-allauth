@@ -1159,8 +1159,8 @@ instances are created, and populated with data
   - `save_user(self, request, user, form)`: Populates and saves the
     `User` instance using information provided in the signup form.
 
-  - `confirm_email(self, email_address)`: Marks the email address as confirmed
-    and saves to the db.
+  - `confirm_email(self, request, email_address)`: Marks the email address as
+    confirmed and saves to the db.
 
 - `allauth.socialaccount.adapter.DefaultSocialAccountAdapter`:
 

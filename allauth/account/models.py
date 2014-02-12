@@ -105,7 +105,7 @@ class EmailConfirmation(models.Model):
     def confirm(self, request):
         if not self.key_expired() and not self.email_address.verified:
             email_address = self.email_address
-            get_adapter().confirm_email(email_address)
+            get_adapter().confirm_email(request, email_address)
             signals.email_confirmed.send(sender=self.__class__,
                                          request=request,
                                          email_address=email_address)

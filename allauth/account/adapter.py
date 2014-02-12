@@ -268,6 +268,14 @@ class DefaultAccountAdapter(object):
                 = "allauth.account.auth_backends.AuthenticationBackend"
         login(request, user)
 
+    def confirm_email(self, request, email_address):
+        """
+        Marks the email address as confirmed on the db
+        """
+        email_address.verified = True
+        email_address.set_as_primary(conditional=True)
+        email_address.save()
+
 
 def get_adapter():
     return import_attribute(app_settings.ADAPTER)()

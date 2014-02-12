@@ -959,6 +959,14 @@ The following signals are emitted:
   typically followed by a `user_logged_in`, unless e-mail verification
   prohibits the user to log in.
 
+- `email_confirmed`
+
+  Sent after the email address in the db was updated and set to confirmed.
+
+- `email_confirmation_sent`
+
+  Sent right after the email confirmation is sent.
+
 - `allauth.socialaccount.signals.pre_social_login`
 
   Sent after a user successfully authenticates via a social provider,

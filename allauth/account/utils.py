@@ -10,9 +10,7 @@ except ImportError:
 
 from django.contrib import messages
 from django.core.urlresolvers import reverse
-from django.shortcuts import render
 from django.conf import settings
-from django.contrib.auth import login
 from django.http import HttpResponseRedirect
 from django.utils.http import urlencode
 from django.utils.datastructures import SortedDict
@@ -125,17 +123,11 @@ def perform_login(request, user, email_verification,
     # stopped anyway.
     if not user.is_active:
         return HttpResponseRedirect(reverse('account_inactive'))
-    # HACK: This may not be nice. The proper Django way is to use an
-    # authentication backend, but I fail to see any added benefit
-    # whereas I do see the downsides (having to bother the integrator
-    # to set up authentication backends in settings.py
-    if not hasattr(user, 'backend'):
-        user.backend = "allauth.account.auth_backends.AuthenticationBackend"
+    get_adapter().login(request, user)
     signals.user_logged_in.send(sender=user.__class__,
                                 request=request,
                                 user=user,
                                 **signal_kwargs)
-    login(request, user)
     get_adapter().add_message(request,
                               messages.SUCCESS,
                               'account/messages/logged_in.txt',

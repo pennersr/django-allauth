@@ -160,6 +160,10 @@ Installation
 Django
 ------
 
+Python package::
+
+    pip install django-allauth
+
 settings.py::
 
     TEMPLATE_CONTEXT_PROCESSORS = (
@@ -217,6 +221,8 @@ settings.py::
         'allauth.socialaccount.providers.weibo',
         ...
     )
+
+    SITE_ID = 1
 
 urls.py::
 
@@ -305,8 +311,8 @@ ACCOUNT_SIGNUP_FORM_CLASS (=None)
   A string pointing to a custom form class
   (e.g. 'myapp.forms.SignupForm') that is used during signup to ask
   the user for additional input (e.g. newsletter signup, birth
-  date). This class should implement a 'save' method, accepting the
-  newly signed up user as its only parameter.
+  date). This class should implement a `def save(self, request, user)`
+  method, where user represents the newly signed up user.
 
 ACCOUNT_SIGNUP_PASSWORD_VERIFICATION (=True)
   When signing up, let the user type in his password twice to avoid typ-o's.
@@ -380,6 +386,11 @@ Upgrading
 
 From 0.15.0
 ***********
+
+- Previously, the `save(user)` was called on the custom signup form.
+  However, this shadowed the existing `save` method in case a model
+  form was used. To avoid confusion, the `save` method has been
+  deprecated in favour of a `def signup(request, user)` method.
 
 - The Amazon provider requires more space for `token_secret`, so the
   maximum length restriction has been dropped. Migrations are in
@@ -1352,6 +1363,7 @@ Showcase
 - http://www.burufly.com
 - http://eatwith.com/
 - http://en.globalquiz.org/
+- http://hopper.pw/
 - ...
 
 Please mail me (raymond.penners@intenct.nl) links to sites that have

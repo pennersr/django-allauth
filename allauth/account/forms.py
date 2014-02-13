@@ -1,5 +1,7 @@
 from __future__ import absolute_import
 
+import warnings
+
 from django import forms
 from django.core.urlresolvers import reverse
 from django.core import exceptions
@@ -58,13 +60,15 @@ class LoginForm(forms.Form):
         super(LoginForm, self).__init__(*args, **kwargs)
         if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
             login_widget = forms.TextInput(attrs={'placeholder':
-                                                  _('E-mail address'), 'autofocus': 'autofocus'})
+                                                  _('E-mail address'),
+                                                  'autofocus': 'autofocus'})
             login_field = forms.EmailField(label=_("E-mail"),
                                            widget=login_widget)
         elif app_settings.AUTHENTICATION_METHOD \
                 == AuthenticationMethod.USERNAME:
             login_widget = forms.TextInput(attrs={'placeholder':
-                                                  _('Username'), 'autofocus': 'autofocus'})
+                                                  _('Username'),
+                                                  'autofocus': 'autofocus'})
             login_field = forms.CharField(label=_("Username"),
                                           widget=login_widget,
                                           max_length=30)
@@ -72,7 +76,8 @@ class LoginForm(forms.Form):
             assert app_settings.AUTHENTICATION_METHOD \
                 == AuthenticationMethod.USERNAME_EMAIL
             login_widget = forms.TextInput(attrs={'placeholder':
-                                                  _('Username or e-mail'), 'autofocus': 'autofocus'})
+                                                  _('Username or e-mail'),
+                                                  'autofocus': 'autofocus'})
             login_field = forms.CharField(label=pgettext("field label",
                                                          "Login"),
                                           widget=login_widget)
@@ -139,15 +144,26 @@ class LoginForm(forms.Form):
 
 
 class _DummyCustomSignupForm(forms.Form):
-    def save(self, user):
+
+    def signup(self, request, user):
         """
-        TODO: Rethink this -- needs request, then again, adapter
-        already has a save_user.
+        Invoked at signup time to complete the signup of the user.
         """
         pass
 
 
 def _base_signup_form_class():
+    """
+    Currently, we inherit from the custom form, if any. This is all
+    not very elegant, though it serves a purpose:
+
+    - There are two signup forms: one for local accounts, and one for
+      social accounts
+    - Both share a common base (BaseSignupForm)
+
+    - Given the above, how to put in a custom signup form? Which form
+      would your custom form derive from, the local or the social one?
+    """
     if not app_settings.SIGNUP_FORM_CLASS:
         return _DummyCustomSignupForm
     try:
@@ -177,8 +193,10 @@ class BaseSignupForm(_base_signup_form_class()):
     username = forms.CharField(label=_("Username"),
                                max_length=30,
                                min_length=app_settings.USERNAME_MIN_LENGTH,
-                               widget=forms.TextInput(attrs={'placeholder':
-                                                             _('Username'), 'autofocus': 'autofocus'}))
+                               widget=forms.TextInput(
+                                   attrs={'placeholder':
+                                          _('Username'),
+                                          'autofocus': 'autofocus'}))
     email = forms.EmailField(widget=forms.TextInput(attrs=
                                                     {'placeholder':
                                                      _('E-mail address')}))
@@ -231,6 +249,18 @@ class BaseSignupForm(_base_signup_form_class()):
         raise forms.ValidationError(_("A user is already registered"
                                       " with this e-mail address."))
 
+    def custom_signup(self, request, user):
+        custom_form = super(BaseSignupForm, self)
+        if hasattr(custom_form, 'signup') and callable(custom_form.signup):
+            custom_form.signup(request, user)
+        else:
+            warnings.warn("The custom signup form must offer"
+                          " a `def signup(self, request, user)` method",
+                          DeprecationWarning)
+            # Historically, it was called .save, but this is confusing
+            # in case of ModelForm
+            custom_form.save(user)
+
 
 class SignupForm(BaseSignupForm):
 
@@ -260,8 +290,7 @@ class SignupForm(BaseSignupForm):
         adapter = get_adapter()
         user = adapter.new_user(request)
         adapter.save_user(request, user, self)
-        # TODO: Add request?
-        super(SignupForm, self).save(user)
+        self.custom_signup(request, user)
         # TODO: Move into adapter `save_user` ?
         setup_user_email(request, user, [])
         return user

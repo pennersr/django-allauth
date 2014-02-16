@@ -20,6 +20,7 @@ class OAuth2Adapter(object):
     expires_in_key = 'expires_in'
     supports_state = True
     redirect_uri_protocol = None  # None -- don't switch
+    access_token_method = 'POST'
 
     def get_provider(self):
         return providers.registry.by_id(self.provider_id)
@@ -35,8 +36,10 @@ class OAuth2Adapter(object):
         token.token_secret = data.get('refresh_token', '')
         expires_in = data.get(self.expires_in_key, None)
         if expires_in:
-            token.expires_at = timezone.now() + timedelta(seconds=int(expires_in))
+            token.expires_at = timezone.now() + timedelta(
+                seconds=int(expires_in))
         return token
+
 
 class OAuth2View(object):
     @classmethod
@@ -55,6 +58,7 @@ class OAuth2View(object):
             protocol=self.adapter.redirect_uri_protocol)
         provider = self.adapter.get_provider()
         client = OAuth2Client(self.request, app.client_id, app.secret,
+                              self.adapter.access_token_method,
                               self.adapter.access_token_url,
                               callback_url,
                               provider.get_scope())
@@ -71,7 +75,7 @@ class OAuth2LoginView(OAuth2View):
         auth_params = provider.get_auth_params(request, action)
         client.state = SocialLogin.stash_state(request)
         try:
-            return HttpResponseRedirect(client.get_redirect_url(auth_url, 
+            return HttpResponseRedirect(client.get_redirect_url(auth_url,
                                                                 auth_params))
         except OAuth2Error:
             return render_authentication_error(request)
@@ -104,4 +108,3 @@ class OAuth2CallbackView(OAuth2View):
             return complete_social_login(request, login)
         except OAuth2Error:
             return render_authentication_error(request)
-

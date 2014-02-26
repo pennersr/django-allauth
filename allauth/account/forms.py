@@ -183,9 +183,14 @@ def _base_signup_form_class():
         raise exceptions.ImproperlyConfigured('Module "%s" does not define a'
                                               ' "%s" class' % (fc_module,
                                                                fc_classname))
-    if not hasattr(fc_class, 'save'):
-        raise exceptions.ImproperlyConfigured('The custom signup form must'
-                                              ' implement a "save" method')
+    if not hasattr(fc_class, 'signup'):
+        if hasattr(fc_class, 'save'):
+            warnings.warn("The custom signup form must offer"
+                          " a `def signup(self, request, user)` method",
+                          DeprecationWarning)
+        else:
+            raise exceptions.ImproperlyConfigured(
+                'The custom signup form must implement a "signup" method')
     return fc_class
 
 

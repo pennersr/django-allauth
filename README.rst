@@ -795,7 +795,7 @@ You can specify the scope and fields to fetch as follows::
     SOCIALACCOUNT_PROVIDERS = \
         {'linkedin':
           {'SCOPE': ['r_emailaddress'],
-           'PROFILE_FIELDS: ['id',
+           'PROFILE_FIELDS': ['id',
                              'first-name',
                              'last-name',
                              'email-address',

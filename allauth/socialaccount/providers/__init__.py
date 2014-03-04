@@ -11,7 +11,6 @@ class ProviderRegistry(object):
         return self.provider_map.values()
 
     def register(self, cls):
-        self.load()
         self.provider_map[cls.id] = cls()
 
     def by_id(self, id):

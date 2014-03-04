@@ -34,7 +34,7 @@ OpenID provider is not guaranteed to be verified. So, before hooking
 an OpenID account up to a local account the e-mail address must be
 verified. So, e-mail verification needs to be present in both worlds.
 
-Integrating both worlds is quite a tedious process. It is definately
+Integrating both worlds is quite a tedious process. It is definitely
 not a matter of simply adding one social authentication app, and one
 local account registration app to your `INSTALLED_APPS` list.
 

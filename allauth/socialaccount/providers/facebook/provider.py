@@ -25,7 +25,7 @@ class FacebookAccount(ProviderAccount):
 
     def get_avatar_url(self):
         uid = self.account.uid
-        return 'http://graph.facebook.com/%s/picture?type=large' % uid
+        return 'https://graph.facebook.com/%s/picture?type=large&return_ssl_resources=1' % uid  # noqa
 
     def to_str(self):
         dflt = super(FacebookAccount, self).to_str()

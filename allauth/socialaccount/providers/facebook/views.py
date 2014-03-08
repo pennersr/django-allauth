@@ -53,15 +53,22 @@ def login_by_token(request):
         form = FacebookConnectForm(request.POST)
         if form.is_valid():
             try:
+                provider = providers.registry.by_id(FacebookProvider.id)
                 app = providers.registry.by_id(FacebookProvider.id) \
                     .get_app(request)
                 access_token = form.cleaned_data['access_token']
-                token = SocialToken(app=app,
-                                    token=access_token)
-                login = fb_complete_login(request, app, token)
-                login.token = token
-                login.state = SocialLogin.state_from_request(request)
-                ret = complete_social_login(request, login)
+                info = requests.get(
+                    'https://graph.facebook.com/oauth/access_token_info',
+                    params={'client_id': app.client_id,
+                            'access_token': access_token})
+                nonce = provider.get_nonce(request, pop=True)
+                if nonce and nonce == info.json().get('auth_nonce'):
+                    token = SocialToken(app=app,
+                                        token=access_token)
+                    login = fb_complete_login(request, app, token)
+                    login.token = token
+                    login.state = SocialLogin.state_from_request(request)
+                    ret = complete_social_login(request, login)
             except requests.RequestException:
                 logger.exception('Error accessing FB user profile')
     if not ret:

@@ -5,6 +5,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.template.loader import render_to_string
 from django.template import RequestContext
 from django.utils.html import mark_safe
+from django.utils.crypto import get_random_string
 
 from allauth.utils import import_callable
 from allauth.account.models import EmailAddress
@@ -17,6 +18,10 @@ from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.models import SocialApp
 
 from .locale import get_default_locale_callable
+
+
+NONCE_SESSION_KEY = 'allauth_facebook_nonce'
+NONCE_LENGTH = 32
 
 
 class FacebookAccount(ProviderAccount):
@@ -89,6 +94,7 @@ class FacebookProvider(OAuth2Provider):
     def get_fb_login_options(self, request):
         ret = self.get_auth_params(request, 'authenticate')
         ret['scope'] = ','.join(self.get_scope())
+        ret['auth_nonce'] = self.get_nonce(request, or_create=True)
         return ret
 
     def media_js(self, request):
@@ -108,6 +114,16 @@ class FacebookProvider(OAuth2Provider):
         return render_to_string('facebook/fbconnect.html',
                                 ctx,
                                 RequestContext(request))
+
+    def get_nonce(self, request, or_create=False, pop=False):
+        if pop:
+            nonce = request.session.pop(NONCE_SESSION_KEY, None)
+        else:
+            nonce = request.session.get(NONCE_SESSION_KEY)
+        if not nonce and or_create:
+            nonce = get_random_string(32)
+            request.session[NONCE_SESSION_KEY] = nonce
+        return nonce
 
     def extract_uid(self, data):
         return data['id']

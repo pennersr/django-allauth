@@ -1,14 +1,17 @@
 from django.contrib import admin
+from django.db      import models
+from django.forms   import TextInput, Textarea
 
-from .models import SocialApp, SocialAccount, SocialToken
-
+from  .models  import SocialApp, SocialAccount, SocialToken
 from ..account import app_settings
 from ..utils import get_user_model
 
 User = get_user_model()
 
-
 class SocialAppAdmin(admin.ModelAdmin):
+    formfield_overrides = {
+        models.CharField: {'widget': TextInput(attrs={'size':'100'})}
+    }
     list_display = ('name', 'provider',)
     filter_horizontal = ('sites',)
 

@@ -19,6 +19,21 @@ Integrated set of Django applications addressing authentication,
 registration, account management as well as 3rd party (social) account
 authentication.
 
+Home page
+  http://www.intenct.nl/projects/django-allauth/
+
+Soure code
+  http://github.com/pennersr/django-allauth
+
+Mailinglist
+  http://groups.google.com/group/django-allauth
+
+Documentation
+  http://django-allauth.readthedocs.org/en/latest/
+
+Stack Overflow
+  http://stackoverflow.com/questions/tagged/django-allauth
+
 Rationale
 =========
 

@@ -132,6 +132,13 @@ class AppSettings(object):
         return self._setting("PASSWORD_MIN_LENGTH", 6)
 
     @property
+    def EMAIL_FIELD_LENGTH(self):
+        """
+        Length of the EmailAddress email field
+        """
+        return self._setting("EMAIL_FIELD_LENGTH", 75)
+
+    @property
     def EMAIL_SUBJECT_PREFIX(self):
         """
         Subject-line prefix to use for email messages sent

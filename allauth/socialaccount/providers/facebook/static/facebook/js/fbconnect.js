@@ -43,6 +43,10 @@
                     oauth      : true,
                     xfbml      : true
                 });
+
+                FB.getLoginStatus(function(response) {
+                    window.fbApiInit = true;
+                });
             };
 
             (function(d){

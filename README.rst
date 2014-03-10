@@ -767,7 +767,7 @@ Development callback URL
 
 
 GitHub
------
+------
 
 App registration
     https://github.com/settings/applications/new

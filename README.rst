@@ -22,7 +22,7 @@ authentication.
 Home page
   http://www.intenct.nl/projects/django-allauth/
 
-Soure code
+Source code
   http://github.com/pennersr/django-allauth
 
 Mailinglist

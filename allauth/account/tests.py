@@ -350,7 +350,7 @@ class BaseSignupFormTests(TestCase):
 
     @override_settings(
         ACCOUNT_USERNAME_REQUIRED=True,
-        ACCOUNT_USERNAME_BLACKLIST=['username'])
+        ACCOUNT_USERNAME_BLACKLIST=['foobar'])
     def test_username_not_in_blacklist(self):
         data = {
             'username': 'theusername',
@@ -358,3 +358,15 @@ class BaseSignupFormTests(TestCase):
         }
         form = BaseSignupForm(data, email_required=True)
         self.assertTrue(form.is_valid())
+
+    @override_settings(
+        ACCOUNT_USERNAME_REQUIRED=True,
+        ACCOUNT_USERNAME_BLACKLIST=['username', 'foobar', 'bad',])
+    def test_part_of_username_in_blacklist(self):
+        data = {
+            'username': 'badname',
+            'email': 'user@example.com',
+        }
+        form = BaseSignupForm(data, email_required=True)
+        self.assertFalse(form.is_valid())
+

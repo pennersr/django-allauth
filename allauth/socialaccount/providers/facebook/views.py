@@ -54,15 +54,20 @@ def login_by_token(request):
         if form.is_valid():
             try:
                 provider = providers.registry.by_id(FacebookProvider.id)
+                login_options = provider.get_fb_login_options(request)
                 app = providers.registry.by_id(FacebookProvider.id) \
                     .get_app(request)
                 access_token = form.cleaned_data['access_token']
-                info = requests.get(
-                    'https://graph.facebook.com/oauth/access_token_info',
-                    params={'client_id': app.client_id,
-                            'access_token': access_token})
-                nonce = provider.get_nonce(request, pop=True)
-                if nonce and nonce == info.json().get('auth_nonce'):
+                if login_options.get('auth_type') == 'reauthenticate':
+                    info = requests.get(
+                        'https://graph.facebook.com/oauth/access_token_info',
+                        params={'client_id': app.client_id,
+                                'access_token': access_token}).json()
+                    nonce = provider.get_nonce(request, pop=True)
+                    ok = nonce and nonce == info.get('auth_nonce')
+                else:
+                    ok = True
+                if ok:
                     token = SocialToken(app=app,
                                         token=access_token)
                     login = fb_complete_login(request, app, token)

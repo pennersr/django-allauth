@@ -94,7 +94,8 @@ class FacebookProvider(OAuth2Provider):
     def get_fb_login_options(self, request):
         ret = self.get_auth_params(request, 'authenticate')
         ret['scope'] = ','.join(self.get_scope())
-        ret['auth_nonce'] = self.get_nonce(request, or_create=True)
+        if ret.get('auth_type') == 'reauthenticate':
+            ret['auth_nonce'] = self.get_nonce(request, or_create=True)
         return ret
 
     def media_js(self, request):

@@ -293,7 +293,7 @@ class SignupForm(BaseSignupForm):
 
     def save(self, request):
         adapter = get_adapter()
-        user = adapter.new_user(request)
+        user = adapter.new_user(request, self)
         adapter.save_user(request, user, self)
         self.custom_signup(request, user)
         # TODO: Move into adapter `save_user` ?
@@ -391,7 +391,7 @@ class ResetPasswordForm(forms.Form):
 
     def clean_email(self):
         email = self.cleaned_data["email"]
-        email = get_adapter().clean_email(email)
+        #email = get_adapter().clean_email(email) #we don't need to clean this, otherwise it acts like the user is signing up
         self.users = User.objects \
             .filter(Q(email__iexact=email)
                     | Q(emailaddress__email__iexact=email)).distinct()

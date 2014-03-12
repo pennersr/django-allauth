@@ -391,13 +391,21 @@ class ResetPasswordForm(forms.Form):
 
     def clean_email(self):
         email = self.cleaned_data["email"]
-        #email = get_adapter().clean_email(email) #we don't need to clean this, otherwise it acts like the user is signing up
+        #email = get_adapter().clean_email(email) #we don't need to clean this,
+        # otherwise it acts like the user is signing up and tries to check its uniqueness
+
+
         self.users = User.objects \
             .filter(Q(email__iexact=email)
                     | Q(emailaddress__email__iexact=email)).distinct()
         if not self.users.exists():
             raise forms.ValidationError(_("The e-mail address is not assigned"
                                           " to any user account"))
+        if self.users[0].is_newsletter_account() is True:
+            raise forms.ValidationError(_("This email address subscribed to the mailing list in the past, "
+                                          "but a user account was never "
+                                          "created for this email address. Try creating a "
+                                          "user account."))
         return self.cleaned_data["email"]
 
     def save(self, **kwargs):

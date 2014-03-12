@@ -22,7 +22,7 @@ class EmailAddress(models.Model):
 
     user = models.ForeignKey(allauth_app_settings.USER_MODEL,
                              verbose_name=_('user'))
-    email = models.EmailField(unique=app_settings.UNIQUE_EMAIL,
+    email = models.EmailField(unique=True,
                               verbose_name=_('e-mail address'))
     verified = models.BooleanField(verbose_name=_('verified'), default=False)
     primary = models.BooleanField(verbose_name=_('primary'), default=False)

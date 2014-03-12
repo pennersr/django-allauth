@@ -1,4 +1,14 @@
+2014-03-12  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.16.1 released.
+
+	* Facebook login via Javascript was broken if `auth_type` was not
+  	set to `reauthenticate`, fixed.
+
 2014-03-10  Raymond Penners  <raymond.penners@intenct.nl>
+
+        * Support for hooking up a callback when `FB.init()` is ready
+	(`allauth.facebook.onInit`)
 
 	* Version 0.16.0 released.
 
@@ -8,6 +18,16 @@
 
 	* The custom signup form `save` has been deprecated in favour of a
 	`def signup(request, user)` method.
+
+2014-02-08  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Facebook reauthentication now uses an `auth_nonce`.
+
+2014-02-07  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Added a new option `ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION`, to
+	indicate whether or not e-mail confirmation is to automatically
+	log in.
 
 2014-02-04  Raymond Penners  <raymond.penners@intenct.nl>
 

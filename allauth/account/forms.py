@@ -63,7 +63,8 @@ class LoginForm(forms.Form):
                                                   _('E-mail address'),
                                                   'autofocus': 'autofocus'})
             login_field = forms.EmailField(label=_("E-mail"),
-                                           widget=login_widget)
+                                           widget=login_widget,
+                                           )
         elif app_settings.AUTHENTICATION_METHOD \
                 == AuthenticationMethod.USERNAME:
             login_widget = forms.TextInput(attrs={'placeholder':
@@ -80,7 +81,8 @@ class LoginForm(forms.Form):
                                                   'autofocus': 'autofocus'})
             login_field = forms.CharField(label=pgettext("field label",
                                                          "Login"),
-                                          widget=login_widget)
+                                          widget=login_widget,
+                                          )
         self.fields["login"] = login_field
         set_form_field_order(self,  ["login", "password", "remember"])
 
@@ -245,9 +247,10 @@ class BaseSignupForm(_base_signup_form_class()):
     def clean_email(self):
         value = self.cleaned_data["email"]
         value = get_adapter().clean_email(value)
-        if app_settings.UNIQUE_EMAIL:
-            if value and email_address_exists(value):
-                self.raise_duplicate_email_error()
+        #we check this in our adapter
+        #if app_settings.UNIQUE_EMAIL:
+        #    if value and email_address_exists(value):
+        #        self.raise_duplicate_email_error()
         return value
 
     def raise_duplicate_email_error(self):

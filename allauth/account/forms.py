@@ -63,7 +63,8 @@ class LoginForm(forms.Form):
                                                   _('E-mail address'),
                                                   'autofocus': 'autofocus'})
             login_field = forms.EmailField(label=_("E-mail"),
-                                           widget=login_widget)
+                                           widget=login_widget,
+                                           )
         elif app_settings.AUTHENTICATION_METHOD \
                 == AuthenticationMethod.USERNAME:
             login_widget = forms.TextInput(attrs={'placeholder':
@@ -80,7 +81,8 @@ class LoginForm(forms.Form):
                                                   'autofocus': 'autofocus'})
             login_field = forms.CharField(label=pgettext("field label",
                                                          "Login"),
-                                          widget=login_widget)
+                                          widget=login_widget,
+                                          )
         self.fields["login"] = login_field
         set_form_field_order(self,  ["login", "password", "remember"])
 
@@ -245,9 +247,10 @@ class BaseSignupForm(_base_signup_form_class()):
     def clean_email(self):
         value = self.cleaned_data["email"]
         value = get_adapter().clean_email(value)
-        if app_settings.UNIQUE_EMAIL:
-            if value and email_address_exists(value):
-                self.raise_duplicate_email_error()
+        #we check this in our adapter
+        #if app_settings.UNIQUE_EMAIL:
+        #    if value and email_address_exists(value):
+        #        self.raise_duplicate_email_error()
         return value
 
     def raise_duplicate_email_error(self):
@@ -293,7 +296,7 @@ class SignupForm(BaseSignupForm):
 
     def save(self, request):
         adapter = get_adapter()
-        user = adapter.new_user(request)
+        user = adapter.new_user(request, self)
         adapter.save_user(request, user, self)
         self.custom_signup(request, user)
         # TODO: Move into adapter `save_user` ?
@@ -391,13 +394,21 @@ class ResetPasswordForm(forms.Form):
 
     def clean_email(self):
         email = self.cleaned_data["email"]
-        email = get_adapter().clean_email(email)
+        #email = get_adapter().clean_email(email) #we don't need to clean this,
+        # otherwise it acts like the user is signing up and tries to check its uniqueness
+
+
         self.users = User.objects \
             .filter(Q(email__iexact=email)
                     | Q(emailaddress__email__iexact=email)).distinct()
         if not self.users.exists():
             raise forms.ValidationError(_("The e-mail address is not assigned"
                                           " to any user account"))
+        if self.users[0].is_newsletter_account() is True:
+            raise forms.ValidationError(_("This email address subscribed to the mailing list in the past, "
+                                          "but a user account was never "
+                                          "created for this email address. Try creating a "
+                                          "user account."))
         return self.cleaned_data["email"]
 
     def save(self, **kwargs):

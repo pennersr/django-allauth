@@ -326,7 +326,7 @@ ACCOUNT_SIGNUP_FORM_CLASS (=None)
   A string pointing to a custom form class
   (e.g. 'myapp.forms.SignupForm') that is used during signup to ask
   the user for additional input (e.g. newsletter signup, birth
-  date). This class should implement a `def save(self, request, user)`
+  date). This class should implement a `def signup(self, request, user)`
   method, where user represents the newly signed up user.
 
 ACCOUNT_SIGNUP_PASSWORD_VERIFICATION (=True)

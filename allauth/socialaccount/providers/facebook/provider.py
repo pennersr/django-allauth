@@ -139,12 +139,10 @@ class FacebookProvider(OAuth2Provider):
         ret = []
         email = data.get('email')
         if email:
-            settings = self.get_settings()
             # data['verified'] does not imply the email address is
             # verified.
-            verified_email = settings.get('VERIFIED_EMAIL', False)
             ret.append(EmailAddress(email=email,
-                                    verified=verified_email,
+                                    verified=False,
                                     primary=True))
         return ret
 

@@ -293,7 +293,7 @@ msgid ""
 "address for user %(user_display)s."
 msgstr ""
 "لطفا تایید کنید <a href=\"mailto:%(email)s\">%(email)s</a> که "
-"یک ایمیل آدرس برای کاربر %(user_display) است."
+"یک ایمیل آدرس برای کاربر %(user_display)s است."
 
 #: templates/account/email_confirm.html:21
 msgid "Confirm"
@@ -315,7 +315,7 @@ msgid ""
 "mail address for user %(user_display)s."
 msgstr ""
 "شما تایید کردید که <a href=\"mailto:%(email)s\">%(email)s</a> یک"
-"آدرس ایمیل برای کاربر %(user_display)است."
+"آدرس ایمیل برای کاربر %(user_display)s است."
 
 #: templates/account/login.html:7 templates/account/login.html.py:11
 #: templates/account/login.html:42
@@ -478,9 +478,9 @@ msgid ""
 "you are who you claim to be. For this purpose, we require that you\n"
 "verify ownership of your e-mail address. "
 msgstr ""
-“این قسمت از سایت ما نیاز به تایید دارد که\n”
-“هویت شما باید تایید شود، بهمین دلیل ما باید\n”
-“ما باید تایید کنیم که شما مالک ایمیل خود هستید.”
+"این قسمت از سایت ما نیاز به تایید دارد که\n"
+"هویت شما باید تایید شود، بهمین دلیل ما باید\n"
+"ما باید تایید کنیم که شما مالک ایمیل خود هستید."
 
 #: templates/account/verified_email_required.html:17
 msgid ""
@@ -500,6 +500,7 @@ msgid ""
 msgstr ""
 "<strong>توجه:</strong> شما همچنان می‌توانید <a href=\"%(email_url)s\">ایمیل آدرس خود را"
 "تغییر دهید</a>."
+
 #: templates/account/email/email_confirmation_message.txt:1
 #, python-format
 msgid ""
@@ -507,9 +508,10 @@ msgid ""
 "\n"
 "To confirm this is correct, go to %(activate_url)s\n"
 msgstr ""
-"کاربر %(user_display)s در %(site_name)این ایمیل آدرس را به عنوان ایمیل آدرس خود انتخاب کرده است\n"
+"کاربر %(user_display)s در %(site_name)s این ایمیل آدرس را به عنوان ایمیل آدرس خود انتخاب کرده است\n"
 "\n"
 "برای تایید درست بودن این مورد لطفا به لینک روبرو بروید %(activate_url)s\n"
+
 #: templates/account/email/password_reset_key_message.txt:1
 #, python-format
 msgid ""

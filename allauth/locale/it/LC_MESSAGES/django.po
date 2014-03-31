@@ -1,0 +1,620 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# guglielmo <guglielmo.celata@gmail.com>, 2014
+# joke2k <joke2k@gmail.com>, 2014
+# puntosit <lowenberger@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: django-allauth\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-12-01 11:52+0100\n"
+"PO-Revision-Date: 2014-01-21 17:10+0000\n"
+"Last-Translator: joke2k <joke2k@gmail.com>\n"
+"Language-Team: Italian (http://www.transifex.com/projects/p/django-allauth/language/it/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: account/adapter.py:203
+msgid "Usernames can only contain letters, digits and @/./+/-/_."
+msgstr "Gli username possono contenere solo lettere, cifre e @/./+/-/_."
+
+#: account/adapter.py:208
+msgid "Username can not be used. Please use other username."
+msgstr "Questo username non può essere usato. Per favore scegline un altro."
+
+#: account/adapter.py:218
+msgid "This username is already taken. Please choose another."
+msgstr "Questo username è già in uso. Per favore scegline un altro."
+
+#: account/forms.py:34 account/forms.py:51 account/forms.py:233
+#: account/forms.py:331
+msgid "Password"
+msgstr "Password"
+
+#: account/forms.py:44
+msgid "Password must be a minimum of {0} characters."
+msgstr "La password deve essere lunga almeno {0} caratteri."
+
+#: account/forms.py:52
+msgid "Remember Me"
+msgstr "Ricordami"
+
+#: account/forms.py:61 account/forms.py:180
+msgid "E-mail address"
+msgstr "Indirizzo E-mail"
+
+#: account/forms.py:62 account/forms.py:193 account/forms.py:275
+#: account/forms.py:350
+msgid "E-mail"
+msgstr "E-mail"
+
+#: account/forms.py:67 account/forms.py:68 account/forms.py:173
+#: account/forms.py:177
+msgid "Username"
+msgstr "Username"
+
+#: account/forms.py:75
+msgid "Username or e-mail"
+msgstr "Username o E-Mail"
+
+#: account/forms.py:77
+msgctxt "field label"
+msgid "Login"
+msgstr "Login"
+
+#: account/forms.py:109
+msgid "This account is currently inactive."
+msgstr "Questo account non è attualmente attivo"
+
+#: account/forms.py:114
+msgid "The e-mail address and/or password you specified are not correct."
+msgstr "L'indirizzo E-Mail e/o la password che hai usato non sono corretti."
+
+#: account/forms.py:118
+msgid "The username and/or password you specified are not correct."
+msgstr "Lo username e/o la password che hai usato non sono corretti."
+
+#: account/forms.py:121
+msgid "The login and/or password you specified are not correct."
+msgstr "Il login e/o la password che hai usato non sono corretti."
+
+#: account/forms.py:196
+msgid "E-mail (optional)"
+msgstr "E-mail (opzionale)"
+
+#: account/forms.py:227
+msgid "A user is already registered with this e-mail address."
+msgstr "Un altro utente si è già registrato con questo indirizzo e-mail."
+
+#: account/forms.py:234 account/forms.py:332
+msgid "Password (again)"
+msgstr "Password (nuovamente)"
+
+#: account/forms.py:251 account/forms.py:320 account/forms.py:339
+#: account/forms.py:413
+msgid "You must type the same password each time."
+msgstr "Devi digitare la stessa password."
+
+#: account/forms.py:283
+msgid "This e-mail address is already associated with this account."
+msgstr "Questo indirizzo e-mail è già associato a questo account."
+
+#: account/forms.py:285
+msgid "This e-mail address is already associated with another account."
+msgstr "Questo indirizzo e-mail è gia associato a un altro account."
+
+#: account/forms.py:305
+msgid "Current Password"
+msgstr "Password attuale"
+
+#: account/forms.py:306 account/forms.py:399
+msgid "New Password"
+msgstr "Nuova password"
+
+#: account/forms.py:307 account/forms.py:400
+msgid "New Password (again)"
+msgstr "Nuova password (nuovamente)"
+
+#: account/forms.py:311
+msgid "Please type your current password."
+msgstr "Per favore digita la tua password attuale."
+
+#: account/forms.py:361
+msgid "The e-mail address is not assigned to any user account"
+msgstr "L'indirizzo e-mail non è assegnato a nessun utenza"
+
+#: account/models.py:24
+msgid "user"
+msgstr "utente"
+
+#: account/models.py:26 account/models.py:77
+msgid "e-mail address"
+msgstr "indirizzo e-mail"
+
+#: account/models.py:27
+msgid "verified"
+msgstr "verificato"
+
+#: account/models.py:28
+msgid "primary"
+msgstr "primario"
+
+#: account/models.py:33
+msgid "email address"
+msgstr "indirizzo email"
+
+#: account/models.py:34
+msgid "email addresses"
+msgstr "indirizzi email"
+
+#: account/models.py:78
+msgid "created"
+msgstr "creato"
+
+#: account/models.py:80
+msgid "sent"
+msgstr "inviato"
+
+#: account/models.py:81
+msgid "key"
+msgstr "chaive"
+
+#: account/models.py:86
+msgid "email confirmation"
+msgstr "email di conferma"
+
+#: account/models.py:87
+msgid "email confirmations"
+msgstr "email di conferma"
+
+#: socialaccount/adapter.py:103
+msgid "Your account has no password set up."
+msgstr "Il tuo account non ha ancora nessuna password."
+
+#: socialaccount/adapter.py:110
+msgid "Your account has no verified e-mail address."
+msgstr "Non hai ancora verificato il tuo indirizzo E-Mail."
+
+#: socialaccount/forms.py:42
+#, python-format
+msgid ""
+"An account already exists with this e-mail address. Please sign in to that "
+"account first, then connect your %s account."
+msgstr "Esiste già un account con questo indirizzo e-mail. Per favore entra con quell'account, e successivamente connetti il tuo account %s."
+
+#: socialaccount/providers/oauth/client.py:78
+#, python-format
+msgid "Invalid response while obtaining request token from \"%s\"."
+msgstr "Risposta non valida alla richiesta di un token da \"%s\"."
+
+#: socialaccount/providers/oauth/client.py:102
+#, python-format
+msgid "Invalid response while obtaining access token from \"%s\"."
+msgstr "Risposta non valida alla richiesta di un token da \"%s\"."
+
+#: socialaccount/providers/oauth/client.py:115
+#, python-format
+msgid "No request token saved for \"%s\"."
+msgstr "Nessuna richiesta di token salvata per \"%s\"."
+
+#: socialaccount/providers/oauth/client.py:159
+#, python-format
+msgid "No access token saved for \"%s\"."
+msgstr "Nessun token di accesso salvato per \"%s\"."
+
+#: socialaccount/providers/oauth/client.py:177
+#, python-format
+msgid "No access to private resources at \"%s\"."
+msgstr "Nessuna accesso alle risorse private a \"%s\"."
+
+#: templates/account/account_inactive.html:5
+#: templates/account/account_inactive.html:8
+msgid "Account Inactive"
+msgstr "Account non attivo"
+
+#: templates/account/account_inactive.html:10
+msgid "This account is inactive."
+msgstr "Questo account non è attivo"
+
+#: templates/account/email.html:6
+msgid "Account"
+msgstr "Account"
+
+#: templates/account/email.html:9
+msgid "E-mail Addresses"
+msgstr "Indirizzi E-Mail"
+
+#: templates/account/email.html:11
+msgid "The following e-mail addresses are associated with your account:"
+msgstr "I seguenti indirizzi E-Mail sono associati al tuo account:"
+
+#: templates/account/email.html:25
+msgid "Verified"
+msgstr "Verificato"
+
+#: templates/account/email.html:27
+msgid "Unverified"
+msgstr "Non verificato"
+
+#: templates/account/email.html:29
+msgid "Primary"
+msgstr "Principale"
+
+#: templates/account/email.html:35
+msgid "Make Primary"
+msgstr "Rendi Principale"
+
+#: templates/account/email.html:36
+msgid "Re-send Verification"
+msgstr "Re invia la Verifica"
+
+#: templates/account/email.html:37 templates/socialaccount/connections.html:36
+msgid "Remove"
+msgstr "Rimuovi"
+
+#: templates/account/email.html:44
+msgid "Warning:"
+msgstr "Attenzione:"
+
+#: templates/account/email.html:44
+msgid ""
+"You currently do not have any e-mail address set up. You should really add "
+"an e-mail address so you can receive notifications, reset your password, "
+"etc."
+msgstr "Non hai ancora indicato nessun indirizzo E-Mail. Devi inserirne uno se vuoi ricevere notifiche, recuperare la password, ecc."
+
+#: templates/account/email.html:49
+msgid "Add E-mail Address"
+msgstr "Aggiungi un Indirizzo E-Mail"
+
+#: templates/account/email.html:54
+msgid "Add E-mail"
+msgstr "Aggiungi E-Mail"
+
+#: templates/account/email.html:63
+msgid "Do you really want to remove the selected e-mail address?"
+msgstr "Sei sicuro di voler rimuovere l'indirizzo E-Mail selezionato?"
+
+#: templates/account/email_confirm.html:7
+#: templates/account/email_confirm.html:11
+#: templates/account/email_confirmed.html:6
+#: templates/account/email_confirmed.html:11
+#: templates/account/email/email_confirmation_subject.txt:3
+msgid "Confirm E-mail Address"
+msgstr "Conferma l'Indirizzo E-Mail"
+
+#: templates/account/email_confirm.html:17
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
+msgstr "Conferma che <a href=\"mailto:%(email)s\">%(email)s</a> è un indirizzo E-Mail per l'utente  %(user_display)s."
+
+#: templates/account/email_confirm.html:21
+msgid "Confirm"
+msgstr "Conferma"
+
+#: templates/account/email_confirm.html:28
+#, python-format
+msgid ""
+"This e-mail confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+msgstr "Questo link di conferma E-Mail è scaduto o non è valido. Ti chiediamo <a href=\"%(email_url)s\">di ripetere la richiesta di conferma via E-Mail</a>."
+
+#: templates/account/email_confirmed.html:15
+#, python-format
+msgid ""
+"You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an "
+"e-mail address for user %(user_display)s."
+msgstr "Hai appena confermato che <a href=\"mailto:%(email)s\">%(email)s</a> è un indirizzo E-Mail valido per l'utente %(user_display)s."
+
+#: templates/account/login.html:7 templates/account/login.html.py:11
+#: templates/account/login.html:42
+msgid "Sign In"
+msgstr "Accedi"
+
+#: templates/account/login.html:14
+#, python-format
+msgid ""
+"Please sign in with one\n"
+"of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign up</a>\n"
+"for a %(site_name)s account and sign in below:"
+msgstr "Per favore, loggati con uno\ndei tuoi account sociali. O, <a href=\"%(signup_url)s\">registra</a>\nun account per %(site_name)s e loggati."
+
+#: templates/account/login.html:24
+msgid "or"
+msgstr "o"
+
+#: templates/account/login.html:31
+#, python-format
+msgid ""
+"If you have not created an account yet, then please\n"
+"<a href=\"%(signup_url)s\">sign up</a> first."
+msgstr "Se non hai ancora creato un account, \n<a href=\"%(signup_url)s\">Registrati</a>"
+
+#: templates/account/login.html:41
+msgid "Forgot Password?"
+msgstr "Password dimenticata?"
+
+#: templates/account/logout.html:6 templates/account/logout.html.py:9
+#: templates/account/logout.html:18
+msgid "Sign Out"
+msgstr "Disconnetti"
+
+#: templates/account/logout.html:11
+msgid "Are you sure you want to sign out?"
+msgstr "Sei sicuro di volerti disconnettere?"
+
+#: templates/account/password_change.html:6
+#: templates/account/password_change.html:9
+#: templates/account/password_change.html:14
+#: templates/account/password_reset_from_key.html:5
+#: templates/account/password_reset_from_key.html:8
+#: templates/account/password_reset_from_key_done.html:5
+#: templates/account/password_reset_from_key_done.html:8
+msgid "Change Password"
+msgstr "Cambia la tua Password"
+
+#: templates/account/password_reset.html:6
+#: templates/account/password_reset.html:10
+#: templates/account/password_reset_done.html:6
+#: templates/account/password_reset_done.html:9
+msgid "Password Reset"
+msgstr "Re imposta la Password"
+
+#: templates/account/password_reset.html:15
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll send you"
+" an e-mail allowing you to reset it."
+msgstr "Hai dimenticato la tua password? Inserisci qui sotto l'indirizzo E-Mail con cui ti sei registrato, ti invieremo una mail con un link per re impostarla."
+
+#: templates/account/password_reset.html:20
+msgid "Reset My Password"
+msgstr "Re imposta la mia Password"
+
+#: templates/account/password_reset.html:23
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr "Se hai qualche problema a re impostare la password, contattaci!"
+
+#: templates/account/password_reset_done.html:15
+msgid ""
+"We have sent you an e-mail. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr "Ti abbiamo spedito una mail. Contattaci se non la ricevi entro qualche minuto."
+
+#: templates/account/password_reset_from_key.html:8
+msgid "Bad Token"
+msgstr "Token non valido"
+
+#: templates/account/password_reset_from_key.html:12
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password "
+"reset</a>."
+msgstr "Il link di re impostazione della password non è valido, probabilmente è già stato usato. Inoltra una <a href=\"%(passwd_reset_url)s\">nuova richiesta di re impostazione della password</a>."
+
+#: templates/account/password_reset_from_key.html:18
+msgid "change password"
+msgstr "cambia password"
+
+#: templates/account/password_reset_from_key.html:21
+#: templates/account/password_reset_from_key_done.html:9
+msgid "Your password is now changed."
+msgstr "Password cambiata."
+
+#: templates/account/password_set.html:6 templates/account/password_set.html:9
+#: templates/account/password_set.html:14
+msgid "Set Password"
+msgstr "Imposta una password"
+
+#: templates/account/signup.html:6 templates/socialaccount/signup.html:6
+msgid "Signup"
+msgstr "Registrati"
+
+#: templates/account/signup.html:9 templates/account/signup.html.py:19
+#: templates/socialaccount/signup.html:9
+#: templates/socialaccount/signup.html:20
+msgid "Sign Up"
+msgstr "Registrazione"
+
+#: templates/account/signup.html:11
+#, python-format
+msgid ""
+"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr "Hai già un account valido? <a href=\"%(login_url)s\">Accedi</a>."
+
+#: templates/account/signup_closed.html:6
+#: templates/account/signup_closed.html:9
+msgid "Sign Up Closed"
+msgstr "Registrazioni Chiuse"
+
+#: templates/account/signup_closed.html:11
+msgid "We are sorry, but the sign up is currently closed."
+msgstr "Spiacenti, le registrazioni sono per il momento sospese."
+
+#: templates/account/verification_sent.html:5
+#: templates/account/verification_sent.html:8
+#: templates/account/verified_email_required.html:6
+#: templates/account/verified_email_required.html:9
+msgid "Verify Your E-mail Address"
+msgstr "Verifica il tuo indirizzo E-Mail."
+
+#: templates/account/verification_sent.html:10
+msgid ""
+"We have sent an e-mail to you for verification. Follow the link provided to "
+"finalize the signup process. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr "Ti abbiamo inviato una E-Mail con un Link inserito all'interno. Per completare il procedimento di verifica clicca sul Link. Contattaci se non ricevi la mail entro qualche minuto."
+
+#: templates/account/verified_email_required.html:13
+msgid ""
+"This part of the site requires us to verify that\n"
+"you are who you claim to be. For this purpose, we require that you\n"
+"verify ownership of your e-mail address. "
+msgstr "Per utilizzare questa parte del sito dobbiamo verificare\nche sei veramente chi dici di essere. Sarà sufficiente\ndimostrare che hai effettivamente accesso al tuo indirizzo E-Mail."
+
+#: templates/account/verified_email_required.html:17
+msgid ""
+"We have sent an e-mail to you for\n"
+"verification. Please click on the link inside this e-mail. Please\n"
+"contact us if you do not receive it within a few minutes."
+msgstr "Ti abbiamo inviato un messaggio E-Mail di verifica.\nClicca sul link contenuto nella mail.\nSe non dovessi ricevere il messaggio entro qualche minuto, contattaci.\nGrazie "
+
+#: templates/account/verified_email_required.html:21
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
+"e-mail address</a>."
+msgstr "<strong>Nota:</strong>Puoi cambiare<a href=\"%(email_url)s\">in ogni momento l'indirizzo e-mail usato per la registrazione</a>."
+
+#: templates/account/email/email_confirmation_message.txt:1
+#, python-format
+msgid ""
+"User %(user_display)s at %(site_name)s has given this as an email address.\n"
+"\n"
+"To confirm this is correct, go to %(activate_url)s\n"
+msgstr "L'Utente %(user_display)s di %(site_name)s ha registrato questo indirizzo E-Mail.\nPer confermare, clicca qui %(activate_url)s\n"
+
+#: templates/account/email/password_reset_key_message.txt:1
+#, python-format
+msgid ""
+"You're receiving this e-mail because you or someone else has requested a password for your user account at %(site_domain)s.\n"
+"It can be safely ignored if you did not request a password reset. Click the link below to reset your password.\n"
+"\n"
+"%(password_reset_url)s\n"
+"\n"
+"In case you forgot, your username is %(username)s.\n"
+"\n"
+"Thanks for using our site!\n"
+msgstr "Hai ricevuto questa mail perché hai richiesto la password per il tuo account utente di %(site_domain)s.\nSe non hai richiesto tu il reset della password, ignora questa mail, altrimenti clicca sul link qui sotto per fare il reset della password.\n%(password_reset_url)s\n\nNel caso tu lo abbia dimenticato, il tuo nome utente é %(username)s.\n\nGrazie per aver utilizzato questo Sito!\n"
+
+#: templates/account/email/password_reset_key_subject.txt:3
+msgid "Password Reset E-mail"
+msgstr "E-Mail per re impostare la password "
+
+#: templates/account/messages/cannot_delete_primary_email.txt:2
+#, python-format
+msgid "You cannot remove your primary e-mail address (%(email)s)."
+msgstr "Non puoi eliminare il tuo indirizzo E-Mail principale (%(email)s)."
+
+#: templates/account/messages/email_confirmation_sent.txt:2
+#, python-format
+msgid "Confirmation e-mail sent to %(email)s."
+msgstr "Abbiamo inviato una conferma a questo indirizzo %(email)s."
+
+#: templates/account/messages/email_confirmed.txt:2
+#, python-format
+msgid "You have confirmed %(email)s."
+msgstr "Hai appena confermato questo indirizzo E-Mail %(email)s."
+
+#: templates/account/messages/email_deleted.txt:2
+#, python-format
+msgid "Removed e-mail address %(email)s."
+msgstr "Indirizzo E-Mail rimosso %(email)s."
+
+#: templates/account/messages/logged_in.txt:4
+#, python-format
+msgid "Successfully signed in as %(name)s."
+msgstr "Ti sei collegato con successo come %(name)s."
+
+#: templates/account/messages/logged_out.txt:2
+msgid "You have signed out."
+msgstr "Ti sei scollegato."
+
+#: templates/account/messages/password_changed.txt:2
+msgid "Password successfully changed."
+msgstr "Password cambiata con successo."
+
+#: templates/account/messages/password_set.txt:2
+msgid "Password successfully set."
+msgstr "Password impostata correttamente."
+
+#: templates/account/messages/primary_email_set.txt:2
+msgid "Primary e-mail address set."
+msgstr "Indirizzo E-Mail principale definito."
+
+#: templates/account/messages/unverified_primary_email.txt:2
+msgid "Your primary e-mail address must be verified."
+msgstr "Dobbiamo verificare il tuo indirizzo E-Mail principale."
+
+#: templates/account/snippets/already_logged_in.html:5
+msgid "Note"
+msgstr "Nota"
+
+#: templates/account/snippets/already_logged_in.html:5
+#, python-format
+msgid "you are already logged in as %(user_display)s."
+msgstr "Sei già collegato come %(user_display)s."
+
+#: templates/openid/login.html:10
+msgid "OpenID Sign In"
+msgstr "Accesso con OpenID"
+
+#: templates/socialaccount/authentication_error.html:5
+#: templates/socialaccount/authentication_error.html:8
+msgid "Social Network Login Failure"
+msgstr "Accesso Social fallito"
+
+#: templates/socialaccount/authentication_error.html:10
+msgid ""
+"An error occurred while attempting to login via your social network account."
+msgstr "C'è stato un errore mentre hai provato a collegarti con il tuo account Social Network."
+
+#: templates/socialaccount/connections.html:6
+#: templates/socialaccount/connections.html:9
+msgid "Account Connections"
+msgstr "Connessioni all'account"
+
+#: templates/socialaccount/connections.html:12
+msgid ""
+"You can sign in to your account using any of the following third party "
+"accounts:"
+msgstr "Puoi collegarti al tuo account utilizzando uno dei seguenti servizi di autenticazione Social Network:"
+
+#: templates/socialaccount/connections.html:44
+msgid ""
+"You currently have no social network accounts connected to this account."
+msgstr "Non hai account di nessun Social Network collegato a questo account."
+
+#: templates/socialaccount/connections.html:47
+msgid "Add a 3rd Party Account"
+msgstr "Aggiungi un account di un Social Network"
+
+#: templates/socialaccount/login_cancelled.html:6
+#: templates/socialaccount/login_cancelled.html:10
+msgid "Login Cancelled"
+msgstr "Accesso annullato"
+
+#: templates/socialaccount/login_cancelled.html:14
+#, python-format
+msgid ""
+"You decided to cancel logging in to our site using one of your existing "
+"accounts. If this was a mistake, please proceed to <a "
+"href=\"%(login_url)s\">sign in</a>."
+msgstr "Hai deciso di cancellare l'accesso a questo sito usando uno dei tuoi account attivi. Se è stato un errore, ripeti l'<a href=\"%(login_url)s\">Accesso</a>."
+
+#: templates/socialaccount/signup.html:11
+#, python-format
+msgid ""
+"You are about to use your %(provider_name)s account to login to\n"
+"%(site_name)s. As a final step, please complete the following form:"
+msgstr "Stai per usare il tuo account su %(provider_name)s per effettuare il login su\n%(site_name)s. Come ultima operazione ti chiediamo di riempire il form qui sotto:"
+
+#: templates/socialaccount/messages/account_connected.txt:2
+msgid "The social account has been connected."
+msgstr "L'account Social Network è stato collegato."
+
+#: templates/socialaccount/messages/account_connected_other.txt:2
+msgid "The social account is already connected to a different account."
+msgstr "Questo Social Account è già collegato ad un altro account."
+
+#: templates/socialaccount/messages/account_disconnected.txt:2
+msgid "The social account has been disconnected."
+msgstr "Social Account scollegato."

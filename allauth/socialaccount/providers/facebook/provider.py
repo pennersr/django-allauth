@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.core.exceptions import ImproperlyConfigured
 from django.template.loader import render_to_string
 from django.template import RequestContext
-from django.utils.html import mark_safe
+from django.utils.html import mark_safe, escapejs
 from django.utils.crypto import get_random_string
 
 from allauth.utils import import_callable
@@ -53,9 +53,9 @@ class FacebookProvider(OAuth2Provider):
     def get_login_url(self, request, **kwargs):
         method = kwargs.get('method', self.get_method())
         if method == 'js_sdk':
-            next = "'%s'" % (kwargs.get('next') or '')
-            process = "'%s'" % (kwargs.get('process') or AuthProcess.LOGIN)
-            action = "'%s'" % (kwargs.get('action') or AuthAction.AUTHENTICATE)
+            next = "'%s'" % escapejs(kwargs.get('next') or '')
+            process = "'%s'" % escapejs(kwargs.get('process') or AuthProcess.LOGIN)
+            action = "'%s'" % escapejs(kwargs.get('action') or AuthAction.AUTHENTICATE)
             ret = "javascript:allauth.facebook.login(%s, %s, %s)" \
                 % (next, action, process)
         else:

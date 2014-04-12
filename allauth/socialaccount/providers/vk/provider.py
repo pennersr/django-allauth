@@ -8,7 +8,15 @@ class VKAccount(ProviderAccount):
         return self.account.extra_data.get('link')
 
     def get_avatar_url(self):
-        return self.account.extra_data.get('picture')
+        ret = None
+        photo_big_url = self.account.extra_data.get('photo_big')
+        photo_medium_url = self.account.extra_data.get('photo_medium')
+        if photo_big_url:
+            return photo_big_url
+        elif photo_medium_url:
+            return photo_medium_url
+        else:
+            return ret
 
     def to_str(self):
         dflt = super(VKAccount, self).to_str()

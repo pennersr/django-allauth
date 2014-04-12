@@ -33,9 +33,9 @@ class VKProvider(OAuth2Provider):
         return str(data['uid'])
 
     def extract_common_fields(self, data):
-        return dict(last_name=data.get('family_name'),
+        return dict(last_name=data.get('last_name'),
                     username=data.get('screen_name'),
-                    first_name=data.get('given_name'))
+                    first_name=data.get('first_name'))
 
 
 providers.registry.register(VKProvider)

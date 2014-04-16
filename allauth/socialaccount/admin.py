@@ -12,6 +12,7 @@ User = get_user_model()
 class SocialAppForm(forms.ModelForm):
     class Meta:
         model = SocialApp
+        exclude = []
         widgets = {
             'client_id': forms.TextInput(attrs={'size': '100'}),
             'key': forms.TextInput(attrs={'size': '100'}),

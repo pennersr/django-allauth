@@ -66,6 +66,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.weibo',
     'allauth.socialaccount.providers.bitly',
     'allauth.socialaccount.providers.vk',
+    'allauth.socialaccount.providers.hubic',
 )
 
 AUTHENTICATION_BACKENDS = (

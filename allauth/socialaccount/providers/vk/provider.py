@@ -21,6 +21,9 @@ class VKProvider(OAuth2Provider):
     package = 'allauth.socialaccount.providers.vk'
     account_class = VKAccount
 
+    def get_default_scope(self):
+        return ['email']
+
     def extract_uid(self, data):
         return str(data['uid'])
 

@@ -6,7 +6,7 @@
 docs/_build
 build
 dist
-django_allauth.egg-info
+*.egg*
 example/local_settings.py
 coverage.xml
 pep8.txt

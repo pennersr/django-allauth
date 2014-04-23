@@ -236,6 +236,7 @@ settings.py::
         'allauth.socialaccount.providers.vimeo',
         'allauth.socialaccount.providers.vk',
         'allauth.socialaccount.providers.weibo',
+        'allauth.socialaccount.providers.hubic',
         ...
     )
 

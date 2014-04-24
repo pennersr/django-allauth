@@ -12,6 +12,7 @@ class HubicOAuth2Adapter(OAuth2Adapter):
     access_token_url = 'https://api.hubic.com/oauth/token'
     authorize_url = 'https://api.hubic.com/oauth/auth'
     profile_url = 'https://api.hubic.com/1.0/account'
+    redirect_uri_protocol = 'https'
 
     def complete_login(self, request, app, token, **kwargs):
         token_type = kwargs['response']['token_type']

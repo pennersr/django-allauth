@@ -335,6 +335,11 @@ ACCOUNT_SIGNUP_FORM_CLASS (=None)
 ACCOUNT_SIGNUP_PASSWORD_VERIFICATION (=True)
   When signing up, let the user type in his password twice to avoid typ-o's.
 
+ACCOUNT_PASSWORD_COMPLEXITY (=a callable returning True)
+  A callable (or string of the form `'some.module.callable_name'`)
+  that takes a password as it's only argument and rasies a ValidationError
+  if it doesn't match the chosen criteria.
+  
 ACCOUNT_UNIQUE_EMAIL (=True)
   Enforce uniqueness of e-mail addresses.
 

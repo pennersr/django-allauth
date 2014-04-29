@@ -131,7 +131,7 @@ msgstr "O endereço de e-mail não está associado a nenhuma conta de usuário"
 
 #: account/models.py:24
 msgid "user"
-msgstr ""
+msgstr "usuário"
 
 #: account/models.py:26 account/models.py:77
 #, fuzzy

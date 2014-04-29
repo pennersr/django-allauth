@@ -113,6 +113,8 @@ Supported Providers
 
 - Google (OAuth2)
 
+- Hubic (OAuth2)
+
 - Instagram (OAuth2)
 
 - LinkedIn (OAuth, OAuth2)
@@ -139,7 +141,8 @@ Supported Providers
 
 - Weibo (OAuth2)
 
-- Hubic (OAuth2)
+- Xing (OAuth)
+
 
 Note: OAuth/OAuth2 support is built using a common code base, making it easy to add support for additional OAuth/OAuth2 providers. More will follow soon...
 
@@ -223,6 +226,7 @@ settings.py::
         'allauth.socialaccount.providers.feedly',
         'allauth.socialaccount.providers.github',
         'allauth.socialaccount.providers.google',
+        'allauth.socialaccount.providers.hubic',
         'allauth.socialaccount.providers.instagram',
         'allauth.socialaccount.providers.linkedin',
         'allauth.socialaccount.providers.linkedin_oauth2',
@@ -236,7 +240,7 @@ settings.py::
         'allauth.socialaccount.providers.vimeo',
         'allauth.socialaccount.providers.vk',
         'allauth.socialaccount.providers.weibo',
-        'allauth.socialaccount.providers.hubic',
+        'allauth.socialaccount.providers.xing',
         ...
     )
 
@@ -971,6 +975,15 @@ development purposes you have to use a callback url of the form
 `http://127.0.0.1/accounts/weibo/login/callback/` and run `runserver
 127.0.0.1:80`.
 
+
+Xing
+----
+
+App registration
+    https://dev.xing.com/applications
+
+Development callback URL
+    http://localhost:8000
 
 
 Signals

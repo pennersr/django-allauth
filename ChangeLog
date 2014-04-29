@@ -2,6 +2,24 @@
 
 	* socialaccount: Added Xing provider.
 
+2014-04-24  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* socialaccount: Marcin Skarbek contributed Hubic support, thanks!
+
+2014-04-11  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Volodymyr Yatsyk contributed an Ukrainian translation, thanks!
+
+2014-03-31  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* `joke2k` contributed an Italian translation, thanks!
+
+2014-03-22  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* socialaccount: All providers now support the `VERIFIED_EMAIL`
+	property have e-mail addresses forced to be interpreted as
+	verified.
+
 2014-03-12  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Version 0.16.1 released.

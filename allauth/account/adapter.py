@@ -276,6 +276,10 @@ class DefaultAccountAdapter(object):
         email_address.set_as_primary(conditional=True)
         email_address.save()
 
+    def set_password(self, user, password):
+        user.set_password(password)
+        user.save()
+
 
 def get_adapter():
     return import_attribute(app_settings.ADAPTER)()

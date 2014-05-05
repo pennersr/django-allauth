@@ -34,6 +34,7 @@ class mocked_response:
     def __enter__(self):
         self.orig_get = requests.get
         self.orig_post = requests.post
+        self.orig_request = requests.request
 
         def mockable_request(f):
             def new_f(*args, **kwargs):
@@ -43,10 +44,12 @@ class mocked_response:
             return new_f
         requests.get = mockable_request(requests.get)
         requests.post = mockable_request(requests.post)
+        requests.request = mockable_request(requests.request)
 
     def __exit__(self, type, value, traceback):
         requests.get = self.orig_get
         requests.post = self.orig_post
+        requests.request = self.orig_request
 
 
 class BasicTests(TestCase):

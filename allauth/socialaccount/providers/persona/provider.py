@@ -2,6 +2,7 @@ import json
 
 from django.template.loader import render_to_string
 from django.template import RequestContext
+from django.utils.html import escapejs
 
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount, Provider
@@ -28,8 +29,8 @@ class PersonaProvider(Provider):
                                 RequestContext(request))
 
     def get_login_url(self, request, **kwargs):
-        next_url = "'%s'" % (kwargs.get('next') or '')
-        process = "'%s'" % (kwargs.get('process') or 'login')
+        next_url = "'%s'" % escapejs(kwargs.get('next') or '')
+        process = "'%s'" % escapejs(kwargs.get('process') or 'login')
         return 'javascript:allauth.persona.login(%s, %s)' % (next_url, process)
 
     def extract_uid(self, data):

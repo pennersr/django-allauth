@@ -4,7 +4,8 @@ from django.core.urlresolvers import reverse
 from django.core.exceptions import ImproperlyConfigured
 from django.template.loader import render_to_string
 from django.template import RequestContext
-from django.utils.html import mark_safe
+from django.utils.html import mark_safe, escapejs
+from django.utils.crypto import get_random_string
 
 from allauth.utils import import_callable
 from allauth.account.models import EmailAddress
@@ -19,13 +20,17 @@ from allauth.socialaccount.models import SocialApp
 from .locale import get_default_locale_callable
 
 
+NONCE_SESSION_KEY = 'allauth_facebook_nonce'
+NONCE_LENGTH = 32
+
+
 class FacebookAccount(ProviderAccount):
     def get_profile_url(self):
         return self.account.extra_data.get('link')
 
     def get_avatar_url(self):
         uid = self.account.uid
-        return 'http://graph.facebook.com/%s/picture?type=large' % uid
+        return 'https://graph.facebook.com/%s/picture?type=large&return_ssl_resources=1' % uid  # noqa
 
     def to_str(self):
         dflt = super(FacebookAccount, self).to_str()
@@ -48,9 +53,9 @@ class FacebookProvider(OAuth2Provider):
     def get_login_url(self, request, **kwargs):
         method = kwargs.get('method', self.get_method())
         if method == 'js_sdk':
-            next = "'%s'" % (kwargs.get('next') or '')
-            process = "'%s'" % (kwargs.get('process') or AuthProcess.LOGIN)
-            action = "'%s'" % (kwargs.get('action') or AuthAction.AUTHENTICATE)
+            next = "'%s'" % escapejs(kwargs.get('next') or '')
+            process = "'%s'" % escapejs(kwargs.get('process') or AuthProcess.LOGIN)
+            action = "'%s'" % escapejs(kwargs.get('action') or AuthAction.AUTHENTICATE)
             ret = "javascript:allauth.facebook.login(%s, %s, %s)" \
                 % (next, action, process)
         else:
@@ -89,6 +94,8 @@ class FacebookProvider(OAuth2Provider):
     def get_fb_login_options(self, request):
         ret = self.get_auth_params(request, 'authenticate')
         ret['scope'] = ','.join(self.get_scope())
+        if ret.get('auth_type') == 'reauthenticate':
+            ret['auth_nonce'] = self.get_nonce(request, or_create=True)
         return ret
 
     def media_js(self, request):
@@ -109,6 +116,16 @@ class FacebookProvider(OAuth2Provider):
                                 ctx,
                                 RequestContext(request))
 
+    def get_nonce(self, request, or_create=False, pop=False):
+        if pop:
+            nonce = request.session.pop(NONCE_SESSION_KEY, None)
+        else:
+            nonce = request.session.get(NONCE_SESSION_KEY)
+        if not nonce and or_create:
+            nonce = get_random_string(32)
+            request.session[NONCE_SESSION_KEY] = nonce
+        return nonce
+
     def extract_uid(self, data):
         return data['id']
 
@@ -122,12 +139,10 @@ class FacebookProvider(OAuth2Provider):
         ret = []
         email = data.get('email')
         if email:
-            settings = self.get_settings()
             # data['verified'] does not imply the email address is
             # verified.
-            verified_email = settings.get('VERIFIED_EMAIL', False)
             ret.append(EmailAddress(email=email,
-                                    verified=verified_email,
+                                    verified=False,
                                     primary=True))
         return ret
 

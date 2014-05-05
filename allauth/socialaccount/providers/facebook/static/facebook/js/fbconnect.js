@@ -43,6 +43,7 @@
                     oauth      : true,
                     xfbml      : true
                 });
+                allauth.facebook.onInit();
             };
 
             (function(d){
@@ -51,6 +52,9 @@
                 js.src = "//connect.facebook.net/"+opts.locale+"/all.js";
                 d.getElementsByTagName('head')[0].appendChild(js);
             }(document));
+        },
+
+        onInit: function() {
         },
 
         login: function(nextUrl, action, process) {

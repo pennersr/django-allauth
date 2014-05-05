@@ -19,6 +19,21 @@ Integrated set of Django applications addressing authentication,
 registration, account management as well as 3rd party (social) account
 authentication.
 
+Home page
+  http://www.intenct.nl/projects/django-allauth/
+
+Source code
+  http://github.com/pennersr/django-allauth
+
+Mailinglist
+  http://groups.google.com/group/django-allauth
+
+Documentation
+  http://django-allauth.readthedocs.org/en/latest/
+
+Stack Overflow
+  http://stackoverflow.com/questions/tagged/django-allauth
+
 Rationale
 =========
 
@@ -34,7 +49,7 @@ OpenID provider is not guaranteed to be verified. So, before hooking
 an OpenID account up to a local account the e-mail address must be
 verified. So, e-mail verification needs to be present in both worlds.
 
-Integrating both worlds is quite a tedious process. It is definately
+Integrating both worlds is quite a tedious process. It is definitely
 not a matter of simply adding one social authentication app, and one
 local account registration app to your `INSTALLED_APPS` list.
 
@@ -98,6 +113,8 @@ Supported Providers
 
 - Google (OAuth2)
 
+- Hubic (OAuth2)
+
 - Instagram (OAuth2)
 
 - LinkedIn (OAuth, OAuth2)
@@ -123,6 +140,9 @@ Supported Providers
 - VK (OAuth2)
 
 - Weibo (OAuth2)
+
+- Xing (OAuth)
+
 
 Note: OAuth/OAuth2 support is built using a common code base, making it easy to add support for additional OAuth/OAuth2 providers. More will follow soon...
 
@@ -206,6 +226,7 @@ settings.py::
         'allauth.socialaccount.providers.feedly',
         'allauth.socialaccount.providers.github',
         'allauth.socialaccount.providers.google',
+        'allauth.socialaccount.providers.hubic',
         'allauth.socialaccount.providers.instagram',
         'allauth.socialaccount.providers.linkedin',
         'allauth.socialaccount.providers.linkedin_oauth2',
@@ -219,6 +240,7 @@ settings.py::
         'allauth.socialaccount.providers.vimeo',
         'allauth.socialaccount.providers.vk',
         'allauth.socialaccount.providers.weibo',
+        'allauth.socialaccount.providers.xing',
         ...
     )
 
@@ -311,7 +333,7 @@ ACCOUNT_SIGNUP_FORM_CLASS (=None)
   A string pointing to a custom form class
   (e.g. 'myapp.forms.SignupForm') that is used during signup to ask
   the user for additional input (e.g. newsletter signup, birth
-  date). This class should implement a `def save(self, request, user)`
+  date). This class should implement a `def signup(self, request, user)`
   method, where user represents the newly signed up user.
 
 ACCOUNT_SIGNUP_PASSWORD_VERIFICATION (=True)
@@ -752,7 +774,7 @@ Development callback URL
 
 
 GitHub
------
+------
 
 App registration
     https://github.com/settings/applications/new
@@ -795,7 +817,7 @@ You can specify the scope and fields to fetch as follows::
     SOCIALACCOUNT_PROVIDERS = \
         {'linkedin':
           {'SCOPE': ['r_emailaddress'],
-           'PROFILE_FIELDS: ['id',
+           'PROFILE_FIELDS': ['id',
                              'first-name',
                              'last-name',
                              'email-address',
@@ -953,6 +975,15 @@ development purposes you have to use a callback url of the form
 `http://127.0.0.1/accounts/weibo/login/callback/` and run `runserver
 127.0.0.1:80`.
 
+
+Xing
+----
+
+App registration
+    https://dev.xing.com/applications
+
+Development callback URL
+    http://localhost:8000
 
 
 Signals
@@ -1364,6 +1395,7 @@ Showcase
 - http://eatwith.com/
 - http://en.globalquiz.org/
 - http://hopper.pw/
+- http://decommentariis.net/
 - ...
 
 Please mail me (raymond.penners@intenct.nl) links to sites that have

@@ -172,7 +172,7 @@ msgstr "подтверждение email адреса"
 
 #: account/models.py:87
 msgid "email confirmations"
-msgstr "подтверждениz email адресов"
+msgstr "подтверждения email адресов"
 
 #: socialaccount/adapter.py:103
 msgid "Your account has no password set up."
@@ -187,7 +187,8 @@ msgstr "Нет подтвержденных e-mail адресов для ваш�
 msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
 "account first, then connect your %s account."
-msgstr ""
+msgstr "Пользователь с таким e-mail уже зарегистрирован. Чтобы подключить свой"
+"%s аккаунт, пожалуйста, авторизуйтесь."
 
 #: socialaccount/providers/oauth/client.py:78
 #, python-format
@@ -349,7 +350,7 @@ msgstr "или"
 msgid ""
 "If you have not created an account yet, then please\n"
 "<a href=\"%(signup_url)s\">sign up</a> first."
-msgstr "Уже зарегистрированы? <a href=\"%(login_url)s\">Войдите</a>."
+msgstr "Уже зарегистрированы? <a href=\"%(signup_url)s\">Войдите</a>."
 
 #: templates/account/login.html:41
 msgid "Forgot Password?"
@@ -471,9 +472,9 @@ msgid ""
 "finalize the signup process. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"Мы отправили вам e-mail на <a href=\"mailto:%(email)s\">%(email)s</a> для "
-"подтверждения. Перейдите по ссылке чтобы завершить процесс регистрации. Или "
-"свяжитесь с нами если вы не получили письмо в течение 2-х минут."
+"Мы отправили вам email с подтвержднием. Для завершения процесса регистрации "
+"перейдите по указанной ссылке. Если вы не получили наше сообщение в течение "
+"2-х минут, пожалуйста, свяжитесь с нами."
 
 #: templates/account/verified_email_required.html:13
 msgid ""

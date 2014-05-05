@@ -59,7 +59,8 @@ class LoginForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
         if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
-            login_widget = forms.TextInput(attrs={'placeholder':
+            login_widget = forms.TextInput(attrs={'type': 'email',
+                                                  'placeholder':
                                                   _('E-mail address'),
                                                   'autofocus': 'autofocus'})
             login_field = forms.EmailField(label=_("E-mail"),
@@ -183,9 +184,14 @@ def _base_signup_form_class():
         raise exceptions.ImproperlyConfigured('Module "%s" does not define a'
                                               ' "%s" class' % (fc_module,
                                                                fc_classname))
-    if not hasattr(fc_class, 'save'):
-        raise exceptions.ImproperlyConfigured('The custom signup form must'
-                                              ' implement a "save" method')
+    if not hasattr(fc_class, 'signup'):
+        if hasattr(fc_class, 'save'):
+            warnings.warn("The custom signup form must offer"
+                          " a `def signup(self, request, user)` method",
+                          DeprecationWarning)
+        else:
+            raise exceptions.ImproperlyConfigured(
+                'The custom signup form must implement a "signup" method')
     return fc_class
 
 
@@ -198,7 +204,8 @@ class BaseSignupForm(_base_signup_form_class()):
                                           _('Username'),
                                           'autofocus': 'autofocus'}))
     email = forms.EmailField(widget=forms.TextInput(attrs=
-                                                    {'placeholder':
+                                                    {'type': 'email',
+                                                     'placeholder':
                                                      _('E-mail address')}))
 
     def __init__(self, *args, **kwargs):
@@ -307,7 +314,8 @@ class AddEmailForm(UserForm):
 
     email = forms.EmailField(label=_("E-mail"),
                              required=True,
-                             widget=forms.TextInput(attrs={"size": "30"}))
+                             widget=forms.TextInput(attrs={"type": "email",
+                                                           "size": "30"}))
 
     def clean_email(self):
         value = self.cleaned_data["email"]
@@ -380,7 +388,7 @@ class ResetPasswordForm(forms.Form):
 
     email = forms.EmailField(label=_("E-mail"),
                              required=True,
-                             widget=forms.TextInput(attrs={"size": "30"}))
+                             widget=forms.TextInput(attrs={"type": "email", "size": "30"}))
 
     def clean_email(self):
         email = self.cleaned_data["email"]

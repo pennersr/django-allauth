@@ -2,6 +2,7 @@ try:
     from mock import patch
 except ImportError:
     from unittest.mock import patch
+import json
 
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
@@ -22,10 +23,12 @@ from .provider import FacebookProvider
 @override_settings(
     SOCIALACCOUNT_AUTO_SIGNUP=True,
     ACCOUNT_SIGNUP_FORM_CLASS=None,
+    LOGIN_REDIRECT_URL='/accounts/profile/',
     ACCOUNT_EMAIL_VERIFICATION=account_settings
     .EmailVerificationMethod.NONE,
     SOCIALACCOUNT_PROVIDERS={
         'facebook': {
+            'AUTH_PARAMS': {},
             'VERIFIED_EMAIL': False}})
 class FacebookTests(create_oauth2_tests(registry.by_id(FacebookProvider.id))):
     def get_mocked_response(self):
@@ -68,14 +71,36 @@ class FacebookTests(create_oauth2_tests(registry.by_id(FacebookProvider.id))):
     def test_media_js(self):
         provider = providers.registry.by_id(FacebookProvider.id)
         request = RequestFactory().get(reverse('account_login'))
+        request.session = {}
         script = provider.media_js(request)
         self.assertTrue("appId: 'app123id'" in script)
 
     def test_login_by_token(self):
+        resp = self.client.get(reverse('account_login'))
         with patch('allauth.socialaccount.providers.facebook.views'
                    '.requests') as requests_mock:
-            requests_mock.get.return_value.json.return_value \
-                = self.get_mocked_response().json()
+            mocks = [self.get_mocked_response().json()]
+            requests_mock.get.return_value.json \
+                = lambda: mocks.pop()
+            resp = self.client.post(reverse('facebook_login_by_token'),
+                                    data={'access_token': 'dummy'})
+            self.assertEqual('http://testserver/accounts/profile/',
+                             resp['location'])
+
+    @override_settings(
+        SOCIALACCOUNT_PROVIDERS={
+            'facebook': {
+                'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+                'VERIFIED_EMAIL': False}})
+    def test_login_by_token_reauthenticate(self):
+        resp = self.client.get(reverse('account_login'))
+        nonce = json.loads(resp.context['fb_login_options'])['auth_nonce']
+        with patch('allauth.socialaccount.providers.facebook.views'
+                   '.requests') as requests_mock:
+            mocks = [self.get_mocked_response().json(),
+                     {'auth_nonce': nonce}]
+            requests_mock.get.return_value.json \
+                = lambda: mocks.pop()
             resp = self.client.post(reverse('facebook_login_by_token'),
                                     data={'access_token': 'dummy'})
             self.assertEqual('http://testserver/accounts/profile/',

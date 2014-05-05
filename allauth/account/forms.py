@@ -363,8 +363,7 @@ class ChangePasswordForm(UserForm):
         return self.cleaned_data["password2"]
 
     def save(self):
-        self.user.set_password(self.cleaned_data["password1"])
-        self.user.save()
+        get_adapter().set_password(self.user, self.cleaned_data["password1"])
 
 
 class SetPasswordForm(UserForm):
@@ -382,8 +381,7 @@ class SetPasswordForm(UserForm):
         return self.cleaned_data["password2"]
 
     def save(self):
-        self.user.set_password(self.cleaned_data["password1"])
-        self.user.save()
+        get_adapter().set_password(self.user, self.cleaned_data["password1"])
 
 
 class ResetPasswordForm(forms.Form):
@@ -456,7 +454,4 @@ class ResetPasswordKeyForm(forms.Form):
         return self.cleaned_data["password2"]
 
     def save(self):
-        # set the new user password
-        user = self.user
-        user.set_password(self.cleaned_data["password1"])
-        user.save()
+        get_adapter().set_password(self.user, self.cleaned_data["password1"])

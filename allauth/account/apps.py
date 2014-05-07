@@ -7,6 +7,6 @@ except ImportError:
 from django.utils.translation import ugettext_lazy as _
 
 
-class SocialaccountConfig(AppConfig):
-    name = 'allauth.socialaccount'
-    verbose_name = _('Socialaccount')
+class AccountConfig(AppConfig):
+    name = 'allauth.account'
+    verbose_name = _('Account')

@@ -1,1 +1,1 @@
-default_app_config = 'allauth.socialaccount.apps.AllAuthConfig'
+default_app_config = 'allauth.socialaccount.apps.SocialaccountConfig'

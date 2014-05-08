@@ -184,7 +184,6 @@ msgid "Your account has no verified e-mail address."
 msgstr "Twoje konto nie ma zweryfikowanego adresu e-mail"
 
 #: socialaccount/apps.py:8
-#, fuzzy
 msgid "Socialaccount"
 msgstr "Konta społecznościowe"
 

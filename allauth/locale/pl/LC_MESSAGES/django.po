@@ -270,7 +270,7 @@ msgstr "Token aplikacji społecznościowej"
 
 #: socialaccount/models.py:139
 msgid "social application tokens"
-msgstr "Tokeny aplikacji społecznościoweych"
+msgstr "Tokeny aplikacji społecznościowych"
 
 #: socialaccount/providers/oauth/client.py:80
 #, python-format

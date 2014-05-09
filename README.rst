@@ -337,7 +337,7 @@ ACCOUNT_SIGNUP_FORM_CLASS (=None)
   method, where user represents the newly signed up user.
 
 ACCOUNT_SIGNUP_PASSWORD_VERIFICATION (=True)
-  When signing up, let the user type in his password twice to avoid typ-o's.
+  When signing up, let the user type in his password twice to avoid typo's.
 
 ACCOUNT_UNIQUE_EMAIL (=True)
   Enforce uniqueness of e-mail addresses.

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-12 10:57-0500\n"
+"POT-Creation-Date: 2014-05-07 14:01-0500\n"
 "PO-Revision-Date: 2014-03-12 17:59+0100\n"
 "Last-Translator: Krzysztof Jurewicz <krzysztof.jurewicz@gmail.com>\n"
 "Language-Team: Marcin Spoczynski <marcin@spoczynski.com>\n"
@@ -29,6 +29,10 @@ msgstr "Nie możesz użyć tej nazwy użytkownika. Proszę wybierz inną."
 #: account/adapter.py:218
 msgid "This username is already taken. Please choose another."
 msgstr "Nazwa użytkownika jest już w użyciu. Proszę wybierz inną."
+
+#: account/apps.py:8 templates/account/email.html:6
+msgid "Account"
+msgstr "Konto"
 
 #: account/forms.py:36 account/forms.py:53 account/forms.py:272
 #: account/forms.py:369
@@ -179,6 +183,10 @@ msgstr "Twoje konto nie posiada hasła."
 msgid "Your account has no verified e-mail address."
 msgstr "Twoje konto nie ma zweryfikowanego adresu e-mail"
 
+#: socialaccount/apps.py:8
+msgid "Socialaccount"
+msgstr "Konta społecznościowe"
+
 #: socialaccount/forms.py:41
 #, python-format
 msgid ""
@@ -219,10 +227,6 @@ msgstr "Konto nieaktywne"
 #: templates/account/account_inactive.html:10
 msgid "This account is inactive."
 msgstr "To konto jest nieaktywne."
-
-#: templates/account/email.html:6
-msgid "Account"
-msgstr "Konto"
 
 #: templates/account/email.html:9
 msgid "E-mail Addresses"

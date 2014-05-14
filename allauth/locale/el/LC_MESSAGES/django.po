@@ -1,0 +1,782 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-14 08:22+0300\n"
+"PO-Revision-Date: 2014-05-14 09:30+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: el\n"
+"X-Generator: Poedit 1.6.5\n"
+
+#: .\account\adapter.py:203
+msgid "Usernames can only contain letters, digits and @/./+/-/_."
+msgstr ""
+"Τα ονόματα χρήστη μπορούν να περιέχουν μόνο γράμματα, αριθμούς και τους "
+"χαρακτήρες @/./+/-/_."
+
+#: .\account\adapter.py:208
+msgid "Username can not be used. Please use other username."
+msgstr ""
+"Το όνομα χρήστη δε μπορεί να χρησιμοποιηθεί. Παρακαλούμε χρησιμοποιήστε άλλο "
+"όνομα χρήστη."
+
+#: .\account\adapter.py:218
+msgid "This username is already taken. Please choose another."
+msgstr ""
+"Το όνομα χρήστη χρησιμοποιείται ήδη. Παρακαλούμε χρησιμοποιήστε άλλο όνομα "
+"χρήστη."
+
+#: .\account\apps.py:8
+msgid "Accounts"
+msgstr "Λογαριασμοί"
+
+#: .\account\forms.py:36 .\account\forms.py:53 .\account\forms.py:274
+#: .\account\forms.py:371
+msgid "Password"
+msgstr "Κωδικός"
+
+#: .\account\forms.py:46
+msgid "Password must be a minimum of {0} characters."
+msgstr "Ο κωδικός πρέπει να είναι κατ' ελάχιστο {0} χαρακτήρες."
+
+#: .\account\forms.py:54
+msgid "Remember Me"
+msgstr "Να με θυμάσαι"
+
+#: .\account\forms.py:64 .\account\forms.py:209
+msgid "E-mail address"
+msgstr "Διεύθυνση e-mail"
+
+#: .\account\forms.py:66 .\account\forms.py:222 .\account\forms.py:315
+#: .\account\forms.py:390
+msgid "E-mail"
+msgstr "E-mail"
+
+#: .\account\forms.py:71 .\account\forms.py:73 .\account\forms.py:199
+#: .\account\forms.py:204
+msgid "Username"
+msgstr "Όνομα χρήστη"
+
+#: .\account\forms.py:80
+msgid "Username or e-mail"
+msgstr "Όνομα χρήστη ή e-mail"
+
+#: .\account\forms.py:83
+msgctxt "field label"
+msgid "Login"
+msgstr "Σύνδεση"
+
+#: .\account\forms.py:119
+msgid "This account is currently inactive."
+msgstr "Ο λογαριασμός δεν είναι ενεργός"
+
+#: .\account\forms.py:124
+msgid "The e-mail address and/or password you specified are not correct."
+msgstr "Η διεύθυνση e-mail ή/και ο κωδικός δεν είναι σωστά."
+
+#: .\account\forms.py:128
+msgid "The username and/or password you specified are not correct."
+msgstr "Το όνομα χρήστη ή/και ο κωδικός δεν είναι σωστά."
+
+#: .\account\forms.py:131
+msgid "The login and/or password you specified are not correct."
+msgstr "Το όνομα σύνδεσης ή/και ο κωδικός δεν είναι σωστά."
+
+#: .\account\forms.py:225
+msgid "E-mail (optional)"
+msgstr "E-mail (προαιρετικό)"
+
+#: .\account\forms.py:256
+msgid "A user is already registered with this e-mail address."
+msgstr "Ένας χρήστης έχει ήδη εγγραφεί με τη συγκεκριμένη διεύθυνση e-mail."
+
+#: .\account\forms.py:275 .\account\forms.py:372
+msgid "Password (again)"
+msgstr "Κωδικός (ξανά)"
+
+#: .\account\forms.py:292 .\account\forms.py:361 .\account\forms.py:379
+#: .\account\forms.py:453
+msgid "You must type the same password each time."
+msgstr "Πρέπει να συμπληρώνετε τον ίδιο κωδικό κάθε φορά."
+
+#: .\account\forms.py:324
+msgid "This e-mail address is already associated with this account."
+msgstr "Αυτή η διεύθυνση e-mail έχει ήδη συσχετιστεί με το λογαριασμό."
+
+#: .\account\forms.py:326
+msgid "This e-mail address is already associated with another account."
+msgstr "Αυτή η διεύθυνση e-mail έχει ήδη συσχετιστεί με έναν άλλο λογαριασμό."
+
+#: .\account\forms.py:346
+msgid "Current Password"
+msgstr "Τρέχον κωδικός"
+
+#: .\account\forms.py:347 .\account\forms.py:439
+msgid "New Password"
+msgstr "Νέος κωδικός"
+
+#: .\account\forms.py:348 .\account\forms.py:440
+msgid "New Password (again)"
+msgstr "Νέος κωδικός (ξανά)"
+
+#: .\account\forms.py:352
+msgid "Please type your current password."
+msgstr "Παρακαλούμε συμπληρώσατε τον κωδικό σας."
+
+#: .\account\forms.py:401
+msgid "The e-mail address is not assigned to any user account"
+msgstr "Η διεύθυνση e-mail δεν έχει συσχετιστεί με κάποιο λογαριασμό"
+
+#: .\account\models.py:24
+msgid "user"
+msgstr "χρήστης"
+
+#: .\account\models.py:26 .\account\models.py:77
+msgid "e-mail address"
+msgstr "διεύθυνση e-mail"
+
+#: .\account\models.py:27
+msgid "verified"
+msgstr "επιβεβαιωμένο"
+
+#: .\account\models.py:28
+msgid "primary"
+msgstr "πρωτεύων"
+
+#: .\account\models.py:33
+msgid "email address"
+msgstr "διεύθυνση email"
+
+#: .\account\models.py:34
+msgid "email addresses"
+msgstr "διευθύνσεις email"
+
+#: .\account\models.py:78
+msgid "created"
+msgstr "δημιουργήθηκε"
+
+#: .\account\models.py:80
+msgid "sent"
+msgstr "στάλθηκε"
+
+#: .\account\models.py:81 .\socialaccount\models.py:48
+msgid "key"
+msgstr "κλειδί"
+
+#: .\account\models.py:86
+msgid "email confirmation"
+msgstr "επιβεβαίωση email"
+
+#: .\account\models.py:87
+msgid "email confirmations"
+msgstr "επιβεβαιώσεις email"
+
+#: .\socialaccount\adapter.py:103
+msgid "Your account has no password set up."
+msgstr "Ο λογαριασμός σας δεν έχει κωδικό."
+
+#: .\socialaccount\adapter.py:110
+msgid "Your account has no verified e-mail address."
+msgstr "Ο λογαριασμός σας δεν έχει επιβεβαιωμένη διεύθυνση e-mail."
+
+#: .\socialaccount\apps.py:8
+msgid "Social Accounts"
+msgstr "Κοινωνικοί λογαριασμοί"
+
+#: .\socialaccount\forms.py:41
+#, python-format
+msgid ""
+"An account already exists with this e-mail address. Please sign in to that "
+"account first, then connect your %s account."
+msgstr ""
+"Υπάρχει ήδη΄ενας λογαριασμός με αυτή τη διεύθυνση e-mail. Παρακαλούμε "
+"συνδεθείτε πρώτα σε αυτό το λογαριασμό και ακολούθως συνδέστε τον %s "
+"λογαριασμό."
+
+#: .\socialaccount\models.py:36 .\socialaccount\models.py:69
+msgid "provider"
+msgstr "πάροχος"
+
+#: .\socialaccount\models.py:39
+msgid "name"
+msgstr "όνομα"
+
+#: .\socialaccount\models.py:41
+msgid "client id"
+msgstr "client id"
+
+#: .\socialaccount\models.py:43
+msgid "App ID, or consumer key"
+msgstr "App ID ή consumer key"
+
+#: .\socialaccount\models.py:44
+msgid "secret key"
+msgstr "secret key"
+
+#: .\socialaccount\models.py:46
+msgid "API secret, client secret, or consumer secret"
+msgstr "API secret, client secret, or consumer secret"
+
+#: .\socialaccount\models.py:51
+msgid "Key"
+msgstr "Κλειδί"
+
+#: .\socialaccount\models.py:59
+msgid "social application"
+msgstr "κοινωνική εφαρμογή"
+
+#: .\socialaccount\models.py:60
+msgid "social applications"
+msgstr "κοινωνικές εφαρμογές"
+
+#: .\socialaccount\models.py:87
+msgid "uid"
+msgstr "uid"
+
+#: .\socialaccount\models.py:88
+msgid "last login"
+msgstr "τελευταία σύνδεση"
+
+#: .\socialaccount\models.py:90
+msgid "date joined"
+msgstr "ημερομηνία εγγραφής"
+
+#: .\socialaccount\models.py:92
+msgid "extra data"
+msgstr "επιπλέον πληροφορίες"
+
+#: .\socialaccount\models.py:96 .\socialaccount\models.py:123
+msgid "social account"
+msgstr "κοινωνικός λογαριασμός"
+
+#: .\socialaccount\models.py:97
+msgid "social accounts"
+msgstr "κοινωνικοί λογαριασμοί"
+
+#: .\socialaccount\models.py:124
+msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
+msgstr "\"oauth_token\" (OAuth1) ή access token (OAuth2)"
+
+#: .\socialaccount\models.py:128
+msgid "token secret"
+msgstr "token secret"
+
+#: .\socialaccount\models.py:129
+msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
+msgstr "\"oauth_token_secret\" (OAuth1) ή refresh token (OAuth2)"
+
+#: .\socialaccount\models.py:132
+msgid "expires at"
+msgstr "λήγει στις"
+
+#: .\socialaccount\models.py:136
+msgid "social application token"
+msgstr "token κοινωνικής εφαρμογής"
+
+#: .\socialaccount\models.py:137
+msgid "social application tokens"
+msgstr "token κοινωνικών εφαρμογών"
+
+#: .\socialaccount\providers\oauth\client.py:80
+#, python-format
+msgid "Invalid response while obtaining request token from \"%s\"."
+msgstr "Λάθος απάντηση κατά τη λήψη του request token από το \"%s\"."
+
+#: .\socialaccount\providers\oauth\client.py:105
+#, python-format
+msgid "Invalid response while obtaining access token from \"%s\"."
+msgstr "Λάθος απάντηση κατά τη λήψη του access token από το \"%s\"."
+
+#: .\socialaccount\providers\oauth\client.py:121
+#, python-format
+msgid "No request token saved for \"%s\"."
+msgstr "Δεν αποθηκεύθηκε request token για το \"%s\"."
+
+#: .\socialaccount\providers\oauth\client.py:169
+#, python-format
+msgid "No access token saved for \"%s\"."
+msgstr "Δεν αποθηκεύθηκε access token για το \"%s\"."
+
+#: .\socialaccount\providers\oauth\client.py:189
+#, python-format
+msgid "No access to private resources at \"%s\"."
+msgstr "Δεν υπάρχει πρόσβαση σε ιδιωτικούς πόρους για το \"%s\"."
+
+#: .\templates\account\account_inactive.html:5
+#: .\templates\account\account_inactive.html:8
+msgid "Account Inactive"
+msgstr "Μη ενεργός λογαριασμός"
+
+#: .\templates\account\account_inactive.html:10
+msgid "This account is inactive."
+msgstr "Ο λογαριασμός δεν είναι ενεργός."
+
+#: .\templates\account\email.html:6
+msgid "Account"
+msgstr "Λογαριασμός"
+
+#: .\templates\account\email.html:9
+msgid "E-mail Addresses"
+msgstr "Διευθύνσεις e-mail"
+
+#: .\templates\account\email.html:11
+msgid "The following e-mail addresses are associated with your account:"
+msgstr "Οι επόμενες διευθύνσεις e-mail έχουν συσχετιστεί με το λογαριασμό σας:"
+
+#: .\templates\account\email.html:25
+msgid "Verified"
+msgstr "Επιβεβαιωμένο"
+
+#: .\templates\account\email.html:27
+msgid "Unverified"
+msgstr "Μη επιβεβαιωμένο"
+
+#: .\templates\account\email.html:29
+msgid "Primary"
+msgstr "Πρωτεύων"
+
+#: .\templates\account\email.html:35
+msgid "Make Primary"
+msgstr "Να γίνει πρωτεύων"
+
+#: .\templates\account\email.html:36
+msgid "Re-send Verification"
+msgstr "Επαναποστολή της επιβεβαίωσης"
+
+#: .\templates\account\email.html:37
+#: .\templates\socialaccount\connections.html:36
+msgid "Remove"
+msgstr "Αφαίρεση"
+
+#: .\templates\account\email.html:44
+msgid "Warning:"
+msgstr "Προσοχή:"
+
+#: .\templates\account\email.html:44
+msgid ""
+"You currently do not have any e-mail address set up. You should really add "
+"an e-mail address so you can receive notifications, reset your password, etc."
+msgstr ""
+"Δεν έχετε προσθέσει διευθύνσεις email. Πρέπει να προσθέσετε μια έτσι ώστε να "
+"μπορείτε να λάβετε ειδοποιήσεις, να επαναφέρετε τον κωδικό σας κλπ."
+
+#: .\templates\account\email.html:49
+msgid "Add E-mail Address"
+msgstr "Προσθήκη διεύθυνσης e-mail"
+
+#: .\templates\account\email.html:54
+msgid "Add E-mail"
+msgstr "Προσθήκη e-mail"
+
+#: .\templates\account\email.html:63
+msgid "Do you really want to remove the selected e-mail address?"
+msgstr "Θέλετε να αφαιρέσετε την επιλεγμένη διεύθυνση e-mail;"
+
+#: .\templates\account\email_confirm.html:7
+#: .\templates\account\email_confirm.html:11
+#: .\templates\account\email_confirmed.html:6
+#: .\templates\account\email_confirmed.html:11
+#: .\templates\account\email\email_confirmation_subject.txt:3
+msgid "Confirm E-mail Address"
+msgstr "Επιβεβαίωση διεύθυνσης e-mail"
+
+#: .\templates\account\email_confirm.html:17
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
+msgstr ""
+"Παρακαλούμε επιβεβαιώσατε ότι η <a href=\"mailto:%(email)s\">%(email)s</a> "
+"είναι μια διεύθυνση e-mail για το χρήστη %(user_display)s."
+
+#: .\templates\account\email_confirm.html:21
+msgid "Confirm"
+msgstr "Επιβεβαίωση"
+
+#: .\templates\account\email_confirm.html:28
+#, python-format
+msgid ""
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+msgstr ""
+"Η σύνδεση επιβεβαίωσης e-mail είναι εσφαλμένη. Παρακαλούμε <a href="
+"\"%(email_url)s\">δημιουργήστε μια νέα</a>."
+
+#: .\templates\account\email_confirmed.html:15
+#, python-format
+msgid ""
+"You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
+"mail address for user %(user_display)s."
+msgstr ""
+"Έχετε επιβεβαιώσει ότι η <a href=\"mailto:%(email)s\">%(email)s</a> είναι "
+"μια διεύθυνση e-mail για το χρήστη %(user_display)s."
+
+#: .\templates\account\login.html:7 .\templates\account\login.html.py:11
+#: .\templates\account\login.html:42
+msgid "Sign In"
+msgstr "Είσοδος"
+
+#: .\templates\account\login.html:14
+#, python-format
+msgid ""
+"Please sign in with one\n"
+"of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign "
+"up</a>\n"
+"for a %(site_name)s account and sign in below:"
+msgstr ""
+"Παρακαλούμε συνδεθείτε με έναν\n"
+"από τους λογαριασμούς σας. Ή, <a href=\"%(signup_url)s\">εγγραφείτε</a>\n"
+"για ένα λογαριασμό στο %(site_name)s παρακάτω:"
+
+#: .\templates\account\login.html:24
+msgid "or"
+msgstr "ή"
+
+#: .\templates\account\login.html:31
+#, python-format
+msgid ""
+"If you have not created an account yet, then please\n"
+"<a href=\"%(signup_url)s\">sign up</a> first."
+msgstr ""
+"Αν δεν έχετε δημιουργήσει λογαριασμό πρέπει να\n"
+"<a href=\"%(signup_url)s\">εγγραφείτε</a>."
+
+#: .\templates\account\login.html:41
+msgid "Forgot Password?"
+msgstr "Ξεχάσατε τον κωδικό σας;"
+
+#: .\templates\account\logout.html:6 .\templates\account\logout.html.py:9
+#: .\templates\account\logout.html:18
+msgid "Sign Out"
+msgstr "Αποσύνδεση"
+
+#: .\templates\account\logout.html:11
+msgid "Are you sure you want to sign out?"
+msgstr "Είστε σίγουρος ότι θέλετε να αποσυνδεθείτε;"
+
+#: .\templates\account\password_change.html:6
+#: .\templates\account\password_change.html:9
+#: .\templates\account\password_change.html:14
+#: .\templates\account\password_reset_from_key.html:5
+#: .\templates\account\password_reset_from_key.html:8
+#: .\templates\account\password_reset_from_key_done.html:5
+#: .\templates\account\password_reset_from_key_done.html:8
+msgid "Change Password"
+msgstr "Αλλαγή κωδικού"
+
+#: .\templates\account\password_reset.html:7
+#: .\templates\account\password_reset.html:11
+#: .\templates\account\password_reset_done.html:6
+#: .\templates\account\password_reset_done.html:9
+msgid "Password Reset"
+msgstr "Επαναφορά κωδικού"
+
+#: .\templates\account\password_reset.html:16
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
+msgstr ""
+"Ξεχάσατε τον κωδικό σας; Συμπληρώσατε τη διεύθυνση e-mail σας παρακάτω και "
+"θα σας στείλουμε ένα e-mail ώστε να τον επαναφέρετε."
+
+#: .\templates\account\password_reset.html:21
+msgid "Reset My Password"
+msgstr "Επαναφορά του κωδικού μου"
+
+#: .\templates\account\password_reset.html:24
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr ""
+"Παρακαλούμε επικοινωνήστε μαζί μας αν έχετε προβλήματα κατά την επαναφορά "
+"του κωδικού σας."
+
+#: .\templates\account\password_reset_done.html:15
+msgid ""
+"We have sent you an e-mail. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+"Σας έχει σταλεί ένα e-mail. Παρακαλούμε επικοινωνήστε μαζί μας αν δε το "
+"παραλάβατε εντός λίγων λεπτών."
+
+#: .\templates\account\password_reset_from_key.html:8
+msgid "Bad Token"
+msgstr "Λάθος token."
+
+#: .\templates\account\password_reset_from_key.html:12
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+"Η σύνδεση επαναφοράς κωδικού δεν είναι σωστή πιθανότητα επειδή έχει "
+"χρησιμοποιηθεί ήδη. Παρακαλούμε αιτηθείτε μια <a href=\"%(passwd_reset_url)s"
+"\">νέα επαναφορά κωδικού</a>."
+
+#: .\templates\account\password_reset_from_key.html:18
+msgid "change password"
+msgstr "αλλαγή κωδικού"
+
+#: .\templates\account\password_reset_from_key.html:21
+#: .\templates\account\password_reset_from_key_done.html:9
+msgid "Your password is now changed."
+msgstr "Ο κωδικός σας έχει αλλάξει."
+
+#: .\templates\account\password_set.html:6
+#: .\templates\account\password_set.html:9
+#: .\templates\account\password_set.html:14
+msgid "Set Password"
+msgstr "Δημιουργία κωδικού"
+
+#: .\templates\account\signup.html:6 .\templates\socialaccount\signup.html:6
+msgid "Signup"
+msgstr "Εγγραφή"
+
+#: .\templates\account\signup.html:9 .\templates\account\signup.html.py:19
+#: .\templates\socialaccount\signup.html:9
+#: .\templates\socialaccount\signup.html:20
+msgid "Sign Up"
+msgstr "Εγγραφή"
+
+#: .\templates\account\signup.html:11
+#, python-format
+msgid ""
+"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr ""
+"Έχετε ήδη κωδικό; Παρακαλούμε <a href=\"%(login_url)s\">συνδεθείτε</a>."
+
+#: .\templates\account\signup_closed.html:6
+#: .\templates\account\signup_closed.html:9
+msgid "Sign Up Closed"
+msgstr "Οι εγγραφές έχουν κλείσει."
+
+#: .\templates\account\signup_closed.html:11
+msgid "We are sorry, but the sign up is currently closed."
+msgstr "Λυπούμαστε αλλά οι εγγραφές έχουν κλείσει."
+
+#: .\templates\account\verification_sent.html:5
+#: .\templates\account\verification_sent.html:8
+#: .\templates\account\verified_email_required.html:6
+#: .\templates\account\verified_email_required.html:9
+msgid "Verify Your E-mail Address"
+msgstr "Επιβεβαιώσατε τη διεύθυνση e-mail σας."
+
+#: .\templates\account\verification_sent.html:10
+msgid ""
+"We have sent an e-mail to you for verification. Follow the link provided to "
+"finalize the signup process. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+"Σας έχουμε στείλει ένα e-mail για επιβεβαίωση. Παρακαλούμε ακολουθήστε τη "
+"σύνδεση στο e-mail για να ολοκλήρωσετε τη διαδικασία εγγραφής. Παρακαλούμε "
+"επικοινωνήστε μαζί μας δε το λάβετε εντός λίγων λεπτών."
+
+#: .\templates\account\verified_email_required.html:13
+msgid ""
+"This part of the site requires us to verify that\n"
+"you are who you claim to be. For this purpose, we require that you\n"
+"verify ownership of your e-mail address. "
+msgstr ""
+"Για πρόσβαση στο συγκεκριμένο τμήμα πρέπει\n"
+"να επιβεβαιώσετε την ταυτότητα σας. Έτσι, θα πρέπει να\n"
+"επιβεβαιώσετε την ιδιοκτησία της διεύθυνσης e-mail σας. "
+
+#: .\templates\account\verified_email_required.html:17
+msgid ""
+"We have sent an e-mail to you for\n"
+"verification. Please click on the link inside this e-mail. Please\n"
+"contact us if you do not receive it within a few minutes."
+msgstr ""
+"Σαςστείλαμε ένα e-mail\n"
+"για επιβεβαίωση. Παρακαλούμε ακολουθήστε τη σύνδεση που περιέχει. \n"
+"Παρακαλούμε επικοινωνήστε μαζί μας αν δε το λάβετε εντός λίγων λεπτών."
+
+#: .\templates\account\verified_email_required.html:21
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
+"mail address</a>."
+msgstr ""
+"<strong>Σημείωση:</strong> μπορείτε να<a href=\"%(email_url)s\">αλλάξετε το "
+"e-mail σας</a>."
+
+#: .\templates\account\email\email_confirmation_message.txt:1
+#, python-format
+msgid ""
+"User %(user_display)s at %(site_name)s has given this as an email address.\n"
+"\n"
+"To confirm this is correct, go to %(activate_url)s\n"
+msgstr ""
+"Ο χρήστης %(user_display)s του %(site_name)s έδωση τη συγκεκριμένη ως "
+"διεύθυνση e-mail.\n"
+"\n"
+"Για να το επιβεβαιώσετε, παρακαλούμε επισκευθείτε το%(activate_url)s\n"
+
+#: .\templates\account\email\password_reset_key_message.txt:1
+#, python-format
+msgid ""
+"You're receiving this e-mail because you or someone else has requested a "
+"password for your user account at %(site_domain)s.\n"
+"It can be safely ignored if you did not request a password reset. Click the "
+"link below to reset your password.\n"
+"\n"
+"%(password_reset_url)s\n"
+"\n"
+"In case you forgot, your username is %(username)s.\n"
+"\n"
+"Thanks for using our site!\n"
+msgstr ""
+"Λαμβάνετε αυτό το e-mail επειδή εσείς ή κάποιος άλλος αιτήθηκε επαναφορά του "
+"κωδικού σας για το %(site_domain)s.\n"
+"Μπορείτε να αγνοήσετε το εν λόγω e-mail αν δε ζητήσατε εσείς την επαναφορά "
+"του κωδικού. Αν θέλετε να αλλάξετε τον κωδικό σας κάντε κλικ στην παρακάτω "
+"σύνδεση:\n"
+"\n"
+"%(password_reset_url)s\n"
+"\n"
+"Σε περίπτωση που το ξεχάσατε, το όνομα χρήστη σας είναι %(username)s.\n"
+"\n"
+"Ευχαριστούμε που χρησιμοποιείτε το site μας!\n"
+
+#: .\templates\account\email\password_reset_key_subject.txt:3
+msgid "Password Reset E-mail"
+msgstr "E-mail επαναφοράς κωδικού"
+
+#: .\templates\account\messages\cannot_delete_primary_email.txt:2
+#, python-format
+msgid "You cannot remove your primary e-mail address (%(email)s)."
+msgstr "Δε μπορείτε να αφαιρέσετε το πρωτεύων e-mail σας (%(email)s)."
+
+#: .\templates\account\messages\email_confirmation_sent.txt:2
+#, python-format
+msgid "Confirmation e-mail sent to %(email)s."
+msgstr "Επιβεβαιωτικό e-mail στάλθηκε στο %(email)s."
+
+#: .\templates\account\messages\email_confirmed.txt:2
+#, python-format
+msgid "You have confirmed %(email)s."
+msgstr "Έχετε επιβαβαιώσει το %(email)s."
+
+#: .\templates\account\messages\email_deleted.txt:2
+#, python-format
+msgid "Removed e-mail address %(email)s."
+msgstr "Η διεύθυνση %(email)s αφαιρέθηκε."
+
+#: .\templates\account\messages\logged_in.txt:4
+#, python-format
+msgid "Successfully signed in as %(name)s."
+msgstr "Επιτυχής σύνδεση ως %(name)s."
+
+#: .\templates\account\messages\logged_out.txt:2
+msgid "You have signed out."
+msgstr "Έχετε αποσυνδεθεί."
+
+#: .\templates\account\messages\password_changed.txt:2
+msgid "Password successfully changed."
+msgstr "Επιτυχής αλλαγή κωδικού."
+
+#: .\templates\account\messages\password_set.txt:2
+msgid "Password successfully set."
+msgstr "Επιτυχής δημιουργία κωδικού."
+
+#: .\templates\account\messages\primary_email_set.txt:2
+msgid "Primary e-mail address set."
+msgstr "Ενεργοποίηση πρωτεύοντος e-mail."
+
+#: .\templates\account\messages\unverified_primary_email.txt:2
+msgid "Your primary e-mail address must be verified."
+msgstr "Το πρωτεύων e-mail σας πρέπει να επιβεβαιωθεί."
+
+#: .\templates\account\snippets\already_logged_in.html:5
+msgid "Note"
+msgstr "Σημείωση"
+
+#: .\templates\account\snippets\already_logged_in.html:5
+#, python-format
+msgid "you are already logged in as %(user_display)s."
+msgstr "έχετε ήδη συνδεθεί ως %(user_display)s."
+
+#: .\templates\openid\login.html:10
+msgid "OpenID Sign In"
+msgstr "Σύνδεση με OpenID"
+
+#: .\templates\socialaccount\authentication_error.html:5
+#: .\templates\socialaccount\authentication_error.html:8
+msgid "Social Network Login Failure"
+msgstr "Εσφαλμένη κοινωνική σύνδεση"
+
+#: .\templates\socialaccount\authentication_error.html:10
+msgid ""
+"An error occurred while attempting to login via your social network account."
+msgstr "Υπήρξε σφάλμα κατά τη σύνδεση με το λογαριασμό κοινωνικής δικτύωσης."
+
+#: .\templates\socialaccount\connections.html:6
+#: .\templates\socialaccount\connections.html:9
+msgid "Account Connections"
+msgstr "Συνδέσεις λογαριασμών"
+
+#: .\templates\socialaccount\connections.html:12
+msgid ""
+"You can sign in to your account using any of the following third party "
+"accounts:"
+msgstr ""
+"Μπορείτε να συνδεθείτε στο λογαριασμό σας χρησιμοποιώντας οποιονδήποτε από "
+"τους ακόλουθους λογαρισμούς:"
+
+#: .\templates\socialaccount\connections.html:44
+msgid ""
+"You currently have no social network accounts connected to this account."
+msgstr ""
+"Δεν υπάρχουν κοινωνικοί λογαριασμοί συνδεδεμένοι σε αυτό το λογαριασμό."
+
+#: .\templates\socialaccount\connections.html:47
+msgid "Add a 3rd Party Account"
+msgstr "Προσθέστε ένα λογαριασμό 3ου."
+
+#: .\templates\socialaccount\login_cancelled.html:6
+#: .\templates\socialaccount\login_cancelled.html:10
+msgid "Login Cancelled"
+msgstr "Ακύρωση σύνδεσης"
+
+#: .\templates\socialaccount\login_cancelled.html:14
+#, python-format
+msgid ""
+"You decided to cancel logging in to our site using one of your existing "
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
+msgstr ""
+"Αποφασίσατε να ακυρώσετε τη σύνδεση στο site μας χρησιμοποιώντας έναν από "
+"τους λογαριασμούς σας. Αν αυτό ήταν λάθος παρακαλούμε <a href=\"%(login_url)s"
+"\">συνδεθείτε</a>."
+
+#: .\templates\socialaccount\signup.html:11
+#, python-format
+msgid ""
+"You are about to use your %(provider_name)s account to login to\n"
+"%(site_name)s. As a final step, please complete the following form:"
+msgstr ""
+"Θα χρησιμοποιήσετε το λογαριασμό σας στο %(provider_name)s για να συνδεθείτε "
+"στο\n"
+"%(site_name)s. Σαν τελικό βήμα, παρακαλούμε συμπληρώστε τη φόρμα:"
+
+#: .\templates\socialaccount\messages\account_connected.txt:2
+msgid "The social account has been connected."
+msgstr "Ο κοινωνικός λογαριασμός έχει συνδεθεί."
+
+#: .\templates\socialaccount\messages\account_connected_other.txt:2
+msgid "The social account is already connected to a different account."
+msgstr ""
+"Ο κοινωνικός λογαριασμός είναι ήδη συνδεδεμένος σε διαφορετικό λογαριασμό."
+
+#: .\templates\socialaccount\messages\account_disconnected.txt:2
+msgid "The social account has been disconnected."
+msgstr "Ο κοινωνικός λογαριασμός έχει αποσυνδεθεί."

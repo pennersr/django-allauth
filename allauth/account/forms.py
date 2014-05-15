@@ -296,7 +296,7 @@ class SignupForm(BaseSignupForm):
     def save(self, request):
         adapter = get_adapter()
         user = adapter.new_user(request)
-        adapter.save_user(request, user, self)
+        adapter.save_user(request, user, self, commit=bool(not app_settings.SIGNUP_FORM_CLASS))
         self.custom_signup(request, user)
         # TODO: Move into adapter `save_user` ?
         setup_user_email(request, user, [])

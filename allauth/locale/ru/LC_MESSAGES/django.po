@@ -311,8 +311,8 @@ msgid ""
 "This e-mail confirmation link expired or is invalid. Please <a href="
 "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"This e-mail confirmation link expired or is invalid. Please <a href="
-"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"Ссылка некорректна или срок ее действия истек. Пожалуйста, <a href="
+"\"%(email_url)s\">запросите подтверждение email заново</a>."
 
 #: templates/account/email_confirmed.html:15
 #, python-format
@@ -336,7 +336,7 @@ msgid ""
 "up</a>\n"
 "for a %(site_name)s account and sign in below:"
 msgstr ""
-"Пожалуйста ввойдите с одним\n"
+"Пожалуйста войдите с одним\n"
 "из ваших внешних аккаунтов. Или, <a href=\"%(signup_url)s"
 "\">зарегистрируйтесь </a> \n"
 "и авторизуйтесь на сайте %(site_name)s :"
@@ -452,7 +452,7 @@ msgstr "Уже зарегистрированы? <a href=\"%(login_url)s\">Во�
 #: templates/account/signup_closed.html:6
 #: templates/account/signup_closed.html:9
 msgid "Sign Up Closed"
-msgstr "Регистарция закрыта"
+msgstr "Регистрация закрыта"
 
 #: templates/account/signup_closed.html:11
 msgid "We are sorry, but the sign up is currently closed."
@@ -472,7 +472,7 @@ msgid ""
 "finalize the signup process. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"Мы отправили вам email с подтвержднием. Для завершения процесса регистрации "
+"Мы отправили вам email с подтверждением. Для завершения процесса регистрации "
 "перейдите по указанной ссылке. Если вы не получили наше сообщение в течение "
 "2-х минут, пожалуйста, свяжитесь с нами."
 
@@ -490,8 +490,8 @@ msgid ""
 "contact us if you do not receive it within a few minutes."
 msgstr ""
 "Мы отправили вам письмо\n"
-"с подтверждением. Пожалуйста перейдите по ссылке.\n"
-"Свяжитесь с нами если вы не получили письмо в течение 2-х минут."
+"с подтверждением. Пожалуйста, перейдите по ссылке.\n"
+"Свяжитесь с нами, если вы не получили письмо в течение 2-х минут."
 
 #: templates/account/verified_email_required.html:21
 #, python-format
@@ -512,7 +512,7 @@ msgstr ""
 "Пользователь %(user_display)s с сайта %(site_name)s указал принадлежность к "
 "этому email адресу.\n"
 "\n"
-"Чтобы подтвердить перейдите по ссылке %(activate_url)s\n"
+"Чтобы подтвердить, перейдите по ссылке %(activate_url)s\n"
 
 #: templates/account/email/password_reset_key_message.txt:1
 #, python-format
@@ -528,15 +528,15 @@ msgid ""
 "\n"
 "Thanks for using our site!\n"
 msgstr ""
-"Вы или кто-то иной, запросил смену пароля на сайте %(site_domain)s.\n"
-"Если это были не вы, просто проигнурируйте это письмо. Иначе перейдите по "
+"Вы (или кто-то иной) запросили смену пароля на сайте %(site_domain)s.\n"
+"Если это были не вы, просто проигнорируйте это письмо. Иначе перейдите по "
 "ссылке для смены пароля.\n"
 "\n"
 "%(password_reset_url)s\n"
 "\n"
 "Если вы вдруг забыли имя пользователя, вот оно - %(username)s.\n"
 "\n"
-"Спасибо, за участие!\n"
+"Спасибо за участие!\n"
 
 #: templates/account/email/password_reset_key_subject.txt:3
 msgid "Password Reset E-mail"
@@ -545,7 +545,7 @@ msgstr "Письмо со сбросом пароля"
 #: templates/account/messages/cannot_delete_primary_email.txt:2
 #, python-format
 msgid "You cannot remove your primary e-mail address (%(email)s)."
-msgstr "Вы не можете удалить ваш основнйо email (%(email)s)."
+msgstr "Вы не можете удалить ваш основной email (%(email)s)."
 
 #: templates/account/messages/email_confirmation_sent.txt:2
 #, python-format
@@ -560,7 +560,7 @@ msgstr "Адрес %(email)s подтверждён."
 #: templates/account/messages/email_deleted.txt:2
 #, python-format
 msgid "Removed e-mail address %(email)s."
-msgstr "E-mail адрес %(email)s удаен."
+msgstr "E-mail адрес %(email)s удален."
 
 #: templates/account/messages/logged_in.txt:4
 #, python-format
@@ -608,7 +608,7 @@ msgstr "Авторизация с помощью социальной сети "
 #: templates/socialaccount/authentication_error.html:10
 msgid ""
 "An error occurred while attempting to login via your social network account."
-msgstr "Произошла ошибак во время авторизации при помощи социальной сети."
+msgstr "Произошла ошибка во время авторизации при помощи социальной сети."
 
 #: templates/socialaccount/connections.html:6
 #: templates/socialaccount/connections.html:9
@@ -619,7 +619,7 @@ msgstr "Прикрепленные аккаунты"
 msgid ""
 "You can sign in to your account using any of the following third party "
 "accounts:"
-msgstr "Вы можете авторизоваться используя следующие сервисы:"
+msgstr "Вы можете авторизоваться, используя следующие сервисы:"
 
 #: templates/socialaccount/connections.html:44
 msgid ""
@@ -642,7 +642,7 @@ msgid ""
 "accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
 "\">sign in</a>."
 msgstr ""
-"Вы прервали авторизацию используя один ищз ваших аккаутов. Если это было "
+"Вы прервали авторизацию, используя один из ваших аккаутов. Если это было "
 "ошибкой, перейдите на экран  <a href=\"%(login_url)s\"> авторизации</a>. "
 
 #: templates/socialaccount/signup.html:11
@@ -651,7 +651,7 @@ msgid ""
 "You are about to use your %(provider_name)s account to login to\n"
 "%(site_name)s. As a final step, please complete the following form:"
 msgstr ""
-"Похожк вы используете  %(provider_name)s для авторизации на \n"
+"Вы используете  %(provider_name)s для авторизации на \n"
 "%(site_name)s. Чтобы завершить, заполните следующую форму:"
 
 #: templates/socialaccount/messages/account_connected.txt:2

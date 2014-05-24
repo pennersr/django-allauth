@@ -1,5 +1,7 @@
 2014-06-06  Raymond Penners  <raymond.penners@intenct.nl>
 
+	* `sourenaraya` contributed Mail.Ru support, thanks.
+
 	* account: Justin Michalicek contributed support to control
 	session life time and age: `ACCOUNT_SESSION_COOKIE_AGE` and
 	`ACCOUNT_SESSION_REMEMBER`.

@@ -119,6 +119,8 @@ Supported Providers
 
 - LinkedIn (OAuth, OAuth2)
 
+- Mail.Ru (OAuth2)
+
 - OpenId
 
 - Paypal (OAuth2)

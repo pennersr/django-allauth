@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import absolute_import
 
 from allauth.socialaccount.tests import create_oauth2_tests

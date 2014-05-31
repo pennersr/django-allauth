@@ -491,7 +491,7 @@ class PasswordResetView(FormView):
     success_url = reverse_lazy("account_reset_password_done")
 
     def form_valid(self, form):
-        form.save()
+        form.save(req = self.request)
         return super(PasswordResetView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):

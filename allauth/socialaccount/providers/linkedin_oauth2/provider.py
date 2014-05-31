@@ -9,7 +9,13 @@ class LinkedInOAuth2Account(ProviderAccount):
         return self.account.extra_data.get('publicProfileUrl')
 
     def get_avatar_url(self):
-        return self.account.extra_data.get('pictureUrl')
+        # attempt to return the higher res picture-urls::(original) first
+        if self.account.extra_data.get('picture-urls::(original)'):
+            image_url_list = (self.account.extra_data.get('pictureUrls', {}).get('values', []))
+            if len(image_url_list):
+                return image_url_list[0]
+            return self.account.extra_data.get('picture-urls::(original)')
+        return self.account.extra_data.get('picture-url')
 
     def to_str(self):
         dflt = super(LinkedInOAuth2Account, self).to_str()
@@ -37,6 +43,7 @@ class LinkedInOAuth2Provider(OAuth2Provider):
                           'last-name',
                           'email-address',
                           'picture-url',
+                          'picture-urls::(original)', # picture-urls::(original) is higher res
                           'public-profile-url']
         fields = self.get_settings().get('PROFILE_FIELDS',
                                          default_fields)

@@ -30,7 +30,8 @@ class FacebookAccount(ProviderAccount):
 
     def get_avatar_url(self):
         uid = self.account.uid
-        return 'https://graph.facebook.com/%s/picture?type=large&return_ssl_resources=1' % uid  # noqa
+        # ask for a 600x600 pixel image. We might get smaller but image will always be highest res possible and square
+        return 'https://graph.facebook.com/%s/picture?type=square&height=600&width=600&return_ssl_resources=1' % uid  # noqa
 
     def to_str(self):
         dflt = super(FacebookAccount, self).to_str()

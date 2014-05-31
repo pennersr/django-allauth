@@ -169,7 +169,7 @@ class AccountTests(TestCase):
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].to, ['john@doe.org'])
         body = mail.outbox[0].body
-        self.assertGreater(body.find('https://'), 0)
+        self.assertGreater(body.find('http://testserver/'), 0)
         url = body[body.find('/password/reset/'):].split()[0]
         resp = c.get(url)
         self.assertTemplateUsed(resp, 'account/password_reset_from_key.html')

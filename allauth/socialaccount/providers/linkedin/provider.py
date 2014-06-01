@@ -11,11 +11,8 @@ class LinkedInAccount(ProviderAccount):
 
     def get_avatar_url(self):
         # attempt to return the higher res picture-urls::(original) first
-        if self.account.extra_data.get('picture-urls::(original)'):
-            image_url_list = (self.account.extra_data.get('pictureUrls', {}).get('values', []))
-            if len(image_url_list):
-                return image_url_list[0]
-            return self.account.extra_data.get('picture-urls::(original)')
+        if self.account.extra_data.get('picture-urls', {}).get('picture-url'):
+            return self.account.extra_data.get('picture-urls', {}).get('picture-url')
         return self.account.extra_data.get('picture-url')
 
     def to_str(self):

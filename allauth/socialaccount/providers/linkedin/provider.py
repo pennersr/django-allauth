@@ -10,9 +10,12 @@ class LinkedInAccount(ProviderAccount):
         return self.account.extra_data.get('public-profile-url')
 
     def get_avatar_url(self):
-        # attempt to return the higher res picture-urls::(original) first
-        if self.account.extra_data.get('picture-urls', {}).get('picture-url'):
-            return self.account.extra_data.get('picture-urls', {}).get('picture-url')
+        # try to return the higher res picture-urls::(original) first
+        try:
+            if self.account.extra_data.get('picture-urls', {}).get('picture-url'):
+                return self.account.extra_data.get('picture-urls', {}).get('picture-url')
+        except:
+            pass  # if we can't get higher res for any reason, we'll just return the low res
         return self.account.extra_data.get('picture-url')
 
     def to_str(self):

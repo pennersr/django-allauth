@@ -205,6 +205,22 @@ class AppSettings(object):
     def USER_MODEL_EMAIL_FIELD(self):
         return self._setting('USER_MODEL_EMAIL_FIELD', 'email')
 
+    @property
+    def SESSION_COOKIE_AGE(self):
+        """
+        Remembered sessions expire after this many seconds.
+        Defaults to 1814400 seconds which is 3 weeks.
+        """
+        return self._setting('SESSION_COOKIE_AGE', 60 * 60 * 24 * 7 * 3)
+
+    @property
+    def ALWAYS_REMEMBER_SESSION(self):
+        """
+        Always remember sessions withou the user needing to check the box.
+        Defaults to False.
+        """
+        return self._setting('ALWAYS_REMEMBER_SESSION', False)
+
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

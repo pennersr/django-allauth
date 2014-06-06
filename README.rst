@@ -378,6 +378,14 @@ ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION (=True)
   his email address. By changing this setting to False he will not be logged
   in, but redirected to the ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL
 
+ALWAYS_REMEMBER_SESSION (=False)
+  Treat logins as if the `remember` parameter was passed as true so that users
+  do not have to check a box when they log in.
+
+SESSION_COOKIE_AGE (=1814400)
+  How long before the session cookie expires in seconds.  Defaults to 1814400 seconds,
+  or 3 weeks.
+
 SOCIALACCOUNT_ADAPTER (="allauth.socialaccount.adapter.DefaultSocialAccountAdapter")
   Specifies the adapter class to use, allowing you to alter certain
   default behaviour.

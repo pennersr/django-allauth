@@ -137,8 +137,9 @@ class LoginForm(forms.Form):
         ret = perform_login(request, self.user,
                             email_verification=app_settings.EMAIL_VERIFICATION,
                             redirect_url=redirect_url)
-        if self.cleaned_data["remember"]:
-            request.session.set_expiry(60 * 60 * 24 * 7 * 3)
+
+        if self.cleaned_data["remember"] or app_settings.ALWAYS_REMEMBER_SESSION:
+            request.session.set_expiry(app_settings.SESSION_COOKIE_AGE)
         else:
             request.session.set_expiry(0)
         return ret

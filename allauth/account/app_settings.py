@@ -214,12 +214,13 @@ class AppSettings(object):
         return self._setting('SESSION_COOKIE_AGE', 60 * 60 * 24 * 7 * 3)
 
     @property
-    def ALWAYS_REMEMBER_SESSION(self):
+    def SESSION_REMEMBER(self):
         """
-        Always remember sessions withou the user needing to check the box.
-        Defaults to False.
+        Controls the life time of the session. Set to `None` to ask the user
+        ("Remember me?"), `False` to not remember, and `True` to always
+        remember.
         """
-        return self._setting('ALWAYS_REMEMBER_SESSION', False)
+        return self._setting('SESSION_REMEMBER', None)
 
 
 # Ugly? Guido recommends this himself ...

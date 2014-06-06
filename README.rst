@@ -378,11 +378,12 @@ ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION (=True)
   his email address. By changing this setting to False he will not be logged
   in, but redirected to the ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL
 
-ALWAYS_REMEMBER_SESSION (=False)
-  Treat logins as if the `remember` parameter was passed as true so that users
-  do not have to check a box when they log in.
+ACCOUNT_SESSION_REMEMBER (=None)
+  Controls the life time of the session. Set to `None` to ask the user
+  ("Remember me?"), `False` to not remember, and `True` to always
+  remember.
 
-SESSION_COOKIE_AGE (=1814400)
+ACCOUNT_SESSION_COOKIE_AGE (=1814400)
   How long before the session cookie expires in seconds.  Defaults to 1814400 seconds,
   or 3 weeks.
 

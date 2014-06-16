@@ -1,3 +1,10 @@
+from datetime import timedelta
+try:
+    from django.utils.timezone import now
+except ImportError:
+    from datetime import datetime
+    now = datetime.now
+
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.sites.models import Site
 from django.http import (HttpResponseRedirect, Http404,
@@ -322,17 +329,29 @@ class EmailView(FormView):
 
     def _action_send(self, request, *args, **kwargs):
         email = request.POST["email"]
+        COOLDOWN_PERIOD = timedelta(minutes=1)
         try:
             email_address = EmailAddress.objects.get(
                 user=request.user,
                 email=email,
             )
-            get_adapter().add_message(request,
-                                      messages.INFO,
-                                      'account/messages/'
-                                      'email_confirmation_sent.txt',
-                                      {'email': email})
-            email_address.send_confirmation(request)
+            if not email_address.verified:
+                send_email = not EmailConfirmation.objects \
+                    .filter(sent__gt=now() - COOLDOWN_PERIOD,
+                            email_address=email_address) \
+                    .exists()
+                if send_email:
+                    email_address.send_confirmation(request,
+                                                    signup=signup)
+            else:
+                send_email = False
+            
+            if send_email:
+                get_adapter().add_message(request,
+                                          messages.INFO,
+                                          'account/messages/'
+                                          'email_confirmation_sent.txt',
+                                          {'email': email})
             return HttpResponseRedirect(self.get_success_url())
         except EmailAddress.DoesNotExist:
             pass

@@ -1350,7 +1350,7 @@ Here are a few third party resources to help you get started:
 - https://speakerdeck.com/tedtieken/signing-up-and-signing-in-users-in-django-with-django-allauth
 - http://stackoverflow.com/questions/tagged/django-allauth
 - http://www.sarahhagstrom.com/2013/09/the-missing-django-allauth-tutorial/
-
+- https://github.com/aellerton/demo-allauth-bootstrap
 
 Troubleshooting
 ---------------
@@ -1407,6 +1407,7 @@ Showcase
 - http://en.globalquiz.org/
 - http://hopper.pw/
 - http://decommentariis.net/
+- http://www.heapsortjobs.com
 - ...
 
 Please mail me (raymond.penners@intenct.nl) links to sites that have

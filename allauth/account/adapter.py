@@ -20,6 +20,7 @@ from ..utils import (import_attribute, get_user_model,
                      generate_unique_username,
                      resolve_url)
 
+from .models import EmailConfirmation
 from . import app_settings
 
 
@@ -276,6 +277,7 @@ class DefaultAccountAdapter(object):
         email_address.verified = True
         email_address.set_as_primary(conditional=True)
         email_address.save()
+        EmailConfirmation.objects.filter(email_address__user_id=email_address.user.id).delete()
 
     def set_password(self, user, password):
         user.set_password(password)

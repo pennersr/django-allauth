@@ -119,6 +119,8 @@ Supported Providers
 
 - LinkedIn (OAuth, OAuth2)
 
+- Mail.Ru (OAuth2)
+
 - OpenId
 
 - Paypal (OAuth2)
@@ -377,6 +379,15 @@ ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION (=True)
   The default behaviour is to automatically log the user in once he confirms
   his email address. By changing this setting to False he will not be logged
   in, but redirected to the ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL
+
+ACCOUNT_SESSION_REMEMBER (=None)
+  Controls the life time of the session. Set to `None` to ask the user
+  ("Remember me?"), `False` to not remember, and `True` to always
+  remember.
+
+ACCOUNT_SESSION_COOKIE_AGE (=1814400)
+  How long before the session cookie expires in seconds.  Defaults to 1814400 seconds,
+  or 3 weeks.
 
 SOCIALACCOUNT_ADAPTER (="allauth.socialaccount.adapter.DefaultSocialAccountAdapter")
   Specifies the adapter class to use, allowing you to alter certain
@@ -1339,7 +1350,7 @@ Here are a few third party resources to help you get started:
 - https://speakerdeck.com/tedtieken/signing-up-and-signing-in-users-in-django-with-django-allauth
 - http://stackoverflow.com/questions/tagged/django-allauth
 - http://www.sarahhagstrom.com/2013/09/the-missing-django-allauth-tutorial/
-
+- https://github.com/aellerton/demo-allauth-bootstrap
 
 Troubleshooting
 ---------------
@@ -1396,6 +1407,8 @@ Showcase
 - http://en.globalquiz.org/
 - http://hopper.pw/
 - http://decommentariis.net/
+- http://www.heapsortjobs.com
+- https://coachmarker.com/
 - ...
 
 Please mail me (raymond.penners@intenct.nl) links to sites that have

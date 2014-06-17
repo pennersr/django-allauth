@@ -12,7 +12,7 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.http import HttpResponseRedirect
-from django.utils.http import urlencode
+from django.utils.http import urlencode, is_safe_url
 from django.utils.datastructures import SortedDict
 try:
     from django.utils.encoding import force_text
@@ -35,8 +35,7 @@ def get_next_redirect_url(request, redirect_field_name="next"):
     via the request.
     """
     redirect_to = request.REQUEST.get(redirect_field_name)
-    # light security check -- make sure redirect_to isn't garabage.
-    if not redirect_to or "://" in redirect_to or " " in redirect_to:
+    if not is_safe_url(redirect_to):
         redirect_to = None
     return redirect_to
 

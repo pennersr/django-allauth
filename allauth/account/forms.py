@@ -84,6 +84,8 @@ class LoginForm(forms.Form):
                                           widget=login_widget)
         self.fields["login"] = login_field
         set_form_field_order(self,  ["login", "password", "remember"])
+        if app_settings.SESSION_REMEMBER is not None:
+            del self.fields['remember']
 
     def user_credentials(self):
         """
@@ -137,8 +139,11 @@ class LoginForm(forms.Form):
         ret = perform_login(request, self.user,
                             email_verification=app_settings.EMAIL_VERIFICATION,
                             redirect_url=redirect_url)
-        if self.cleaned_data["remember"]:
-            request.session.set_expiry(60 * 60 * 24 * 7 * 3)
+        remember = app_settings.SESSION_REMEMBER
+        if remember is None:
+            remember = self.cleaned_data['remember']
+        if remember:
+            request.session.set_expiry(app_settings.SESSION_COOKIE_AGE)
         else:
             request.session.set_expiry(0)
         return ret

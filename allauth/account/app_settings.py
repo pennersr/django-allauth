@@ -222,6 +222,14 @@ class AppSettings(object):
         """
         return self._setting('SESSION_REMEMBER', None)
 
+    @property
+    def DISABLE_CONTRIB_MESSAGES(self):
+        """
+        Set to `True` to disable sending messages with Django messages
+        framework (django.contrib.messages).
+        """
+        return self._setting('DISABLE_CONTRIB_MESSAGES', False)
+
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

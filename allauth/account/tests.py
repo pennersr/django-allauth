@@ -334,6 +334,19 @@ class AccountTests(TestCase):
         # this is not the case:
         self.assertEqual(len(mail.outbox), 1)
 
+    @override_settings(ACCOUNT_DISABLE_CONTRIB_MESSAGES=True)
+    def test_disable_contrib_messages(self):
+        from django.contrib import messages
+        from django.contrib.messages.middleware import MessageMiddleware
+        from django.contrib.sessions.middleware import SessionMiddleware
+        request = RequestFactory().post(reverse('account_login'))
+        SessionMiddleware().process_request(request)
+        MessageMiddleware().process_request(request)
+        get_adapter().add_message(request,
+                                  messages.SUCCESS,
+                                  'account/messages/logged_out.txt')
+        self.assertEqual(len(messages.get_messages(request)), 0)
+
 
 class BaseSignupFormTests(TestCase):
 

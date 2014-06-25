@@ -3,10 +3,12 @@ import datetime
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db import transaction
+from django.db.models import FieldDoesNotExist
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.contrib.sites.models import Site
 from django.utils.encoding import python_2_unicode_compatible
+from django.contrib.auth import get_user_model
 
 from .. import app_settings as allauth_app_settings
 from . import app_settings
@@ -17,12 +19,23 @@ from .managers import EmailAddressManager, EmailConfirmationManager
 from .adapter import get_adapter
 
 
+def get_email_field_length():
+    if app_settings.USER_MODEL_EMAIL_FIELD is not None:
+        User = get_user_model()
+        try:
+            return User._meta.get_field(app_settings.USER_MODEL_EMAIL_FIELD).max_length
+        except FieldDoesNotExist:
+            pass
+    return 75  # default EmailField max_length in all versions of django
+
+
 @python_2_unicode_compatible
 class EmailAddress(models.Model):
 
     user = models.ForeignKey(allauth_app_settings.USER_MODEL,
                              verbose_name=_('user'))
     email = models.EmailField(unique=app_settings.UNIQUE_EMAIL,
+                              max_length=get_email_field_length(),
                               verbose_name=_('e-mail address'))
     verified = models.BooleanField(verbose_name=_('verified'), default=False)
     primary = models.BooleanField(verbose_name=_('primary'), default=False)

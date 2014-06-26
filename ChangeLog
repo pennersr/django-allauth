@@ -1,3 +1,46 @@
+2014-06-16  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.17.0 released.
+
+2014-06-06  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* `sourenaraya` contributed Mail.Ru support, thanks.
+
+	* account: Justin Michalicek contributed support to control
+	session life time and age: `ACCOUNT_SESSION_COOKIE_AGE` and
+	`ACCOUNT_SESSION_REMEMBER`.
+
+2014-05-14  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Serafeim Papastefanos contributed an Ukrainian translation,
+	thanks!
+
+2014-05-09  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* `kkarwows` contributed AppConfig support, thanks.
+
+2014-04-29  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* socialaccount: Added Xing provider.
+
+2014-04-24  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* socialaccount: Marcin Skarbek contributed Hubic support, thanks!
+
+2014-04-11  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Volodymyr Yatsyk contributed an Ukrainian translation, thanks!
+
+2014-03-31  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* `joke2k` contributed an Italian translation, thanks!
+
+2014-03-22  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* socialaccount: All providers now support the `VERIFIED_EMAIL`
+	property have e-mail addresses forced to be interpreted as
+	verified.
+
 2014-03-12  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Version 0.16.1 released.

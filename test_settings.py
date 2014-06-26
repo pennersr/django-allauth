@@ -44,8 +44,9 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.amazon',
     'allauth.socialaccount.providers.angellist',
     'allauth.socialaccount.providers.bitbucket',
-    'allauth.socialaccount.providers.feedly',
+    'allauth.socialaccount.providers.bitly',
     'allauth.socialaccount.providers.dropbox',
+    'allauth.socialaccount.providers.feedly',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.flickr',
     'allauth.socialaccount.providers.foursquare',
@@ -55,6 +56,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.instagram',
     'allauth.socialaccount.providers.linkedin',
     'allauth.socialaccount.providers.linkedin_oauth2',
+    'allauth.socialaccount.providers.mailru',
     'allauth.socialaccount.providers.openid',
     'allauth.socialaccount.providers.paypal',
     'allauth.socialaccount.providers.persona',
@@ -65,9 +67,8 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.vimeo',
     'allauth.socialaccount.providers.weibo',
-    'allauth.socialaccount.providers.bitly',
     'allauth.socialaccount.providers.vk',
-    'allauth.socialaccount.providers.hubic',
+    'allauth.socialaccount.providers.xing',
 )
 
 AUTHENTICATION_BACKENDS = (

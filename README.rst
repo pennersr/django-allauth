@@ -113,9 +113,13 @@ Supported Providers
 
 - Google (OAuth2)
 
+- Hubic (OAuth2)
+
 - Instagram (OAuth2)
 
 - LinkedIn (OAuth, OAuth2)
+
+- Mail.Ru (OAuth2)
 
 - OpenId
 
@@ -139,7 +143,8 @@ Supported Providers
 
 - Weibo (OAuth2)
 
-- Hubic (OAuth2)
+- Xing (OAuth)
+
 
 Note: OAuth/OAuth2 support is built using a common code base, making it easy to add support for additional OAuth/OAuth2 providers. More will follow soon...
 
@@ -223,6 +228,7 @@ settings.py::
         'allauth.socialaccount.providers.feedly',
         'allauth.socialaccount.providers.github',
         'allauth.socialaccount.providers.google',
+        'allauth.socialaccount.providers.hubic',
         'allauth.socialaccount.providers.instagram',
         'allauth.socialaccount.providers.linkedin',
         'allauth.socialaccount.providers.linkedin_oauth2',
@@ -236,7 +242,7 @@ settings.py::
         'allauth.socialaccount.providers.vimeo',
         'allauth.socialaccount.providers.vk',
         'allauth.socialaccount.providers.weibo',
-        'allauth.socialaccount.providers.hubic',
+        'allauth.socialaccount.providers.xing',
         ...
     )
 
@@ -333,7 +339,7 @@ ACCOUNT_SIGNUP_FORM_CLASS (=None)
   method, where user represents the newly signed up user.
 
 ACCOUNT_SIGNUP_PASSWORD_VERIFICATION (=True)
-  When signing up, let the user type in his password twice to avoid typ-o's.
+  When signing up, let the user type in his password twice to avoid typo's.
 
 ACCOUNT_PASSWORD_COMPLEXITY (=a callable returning True)
   A callable (or string of the form `'some.module.callable_name'`)
@@ -378,6 +384,15 @@ ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION (=True)
   The default behaviour is to automatically log the user in once he confirms
   his email address. By changing this setting to False he will not be logged
   in, but redirected to the ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL
+
+ACCOUNT_SESSION_REMEMBER (=None)
+  Controls the life time of the session. Set to `None` to ask the user
+  ("Remember me?"), `False` to not remember, and `True` to always
+  remember.
+
+ACCOUNT_SESSION_COOKIE_AGE (=1814400)
+  How long before the session cookie expires in seconds.  Defaults to 1814400 seconds,
+  or 3 weeks.
 
 SOCIALACCOUNT_ADAPTER (="allauth.socialaccount.adapter.DefaultSocialAccountAdapter")
   Specifies the adapter class to use, allowing you to alter certain
@@ -977,6 +992,15 @@ development purposes you have to use a callback url of the form
 127.0.0.1:80`.
 
 
+Xing
+----
+
+App registration
+    https://dev.xing.com/applications
+
+Development callback URL
+    http://localhost:8000
+
 
 Signals
 =======
@@ -1331,7 +1355,7 @@ Here are a few third party resources to help you get started:
 - https://speakerdeck.com/tedtieken/signing-up-and-signing-in-users-in-django-with-django-allauth
 - http://stackoverflow.com/questions/tagged/django-allauth
 - http://www.sarahhagstrom.com/2013/09/the-missing-django-allauth-tutorial/
-
+- https://github.com/aellerton/demo-allauth-bootstrap
 
 Troubleshooting
 ---------------
@@ -1388,6 +1412,8 @@ Showcase
 - http://en.globalquiz.org/
 - http://hopper.pw/
 - http://decommentariis.net/
+- http://www.heapsortjobs.com
+- https://coachmarker.com/
 - ...
 
 Please mail me (raymond.penners@intenct.nl) links to sites that have

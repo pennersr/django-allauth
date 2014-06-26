@@ -16,8 +16,6 @@ try:
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
-from . import app_settings
-
 
 def _generate_unique_username_base(txts):
     username = None
@@ -107,21 +105,25 @@ def import_callable(path_or_callable):
         ret = path_or_callable
     return ret
 
+try:
+    from django.contrib.auth import get_user_model
+except ImportError:
+    # To keep compatibility with Django 1.4
+    def get_user_model():
+        from . import app_settings
+        from django.db.models import get_model
 
-def get_user_model():
-    from django.db.models import get_model
-
-    try:
-        app_label, model_name = app_settings.USER_MODEL.split('.')
-    except ValueError:
-        raise ImproperlyConfigured("AUTH_USER_MODEL must be of the"
-                                   " form 'app_label.model_name'")
-    user_model = get_model(app_label, model_name)
-    if user_model is None:
-        raise ImproperlyConfigured("AUTH_USER_MODEL refers to model"
-                                   " '%s' that has not been installed"
-                                   % app_settings.USER_MODEL)
-    return user_model
+        try:
+            app_label, model_name = app_settings.USER_MODEL.split('.')
+        except ValueError:
+            raise ImproperlyConfigured("AUTH_USER_MODEL must be of the"
+                                       " form 'app_label.model_name'")
+        user_model = get_model(app_label, model_name)
+        if user_model is None:
+            raise ImproperlyConfigured("AUTH_USER_MODEL refers to model"
+                                       " '%s' that has not been installed"
+                                       % app_settings.USER_MODEL)
+        return user_model
 
 
 def resolve_url(to):
@@ -186,4 +188,3 @@ def build_absolute_uri(request, location, protocol=None):
     if protocol:
         uri = protocol + ':' + uri.partition(':')[2]
     return uri
-    

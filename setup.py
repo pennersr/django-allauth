@@ -110,7 +110,7 @@ long_description = io.open('README.rst', encoding='utf-8').read()
 
 METADATA = dict(
     name='django-allauth',
-    version='0.16.1',
+    version='0.17.1-dev',
     author='Raymond Penners',
     author_email='raymond.penners@intenct.nl',
     description='Integrated set of Django applications addressing'

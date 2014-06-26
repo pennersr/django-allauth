@@ -204,7 +204,8 @@ class DefaultAccountAdapter(object):
                                           "letters, digits and @/./+/-/_."))
 
         # TODO: Add regexp support to USERNAME_BLACKLIST
-        if username in app_settings.USERNAME_BLACKLIST:
+        username_blacklist_lower = [ub.lower() for ub in app_settings.USERNAME_BLACKLIST]
+        if username.lower() in username_blacklist_lower:
             raise forms.ValidationError(_("Username can not be used. "
                                           "Please use other username."))
         username_field = app_settings.USER_MODEL_USERNAME_FIELD
@@ -275,6 +276,10 @@ class DefaultAccountAdapter(object):
         email_address.verified = True
         email_address.set_as_primary(conditional=True)
         email_address.save()
+
+    def set_password(self, user, password):
+        user.set_password(password)
+        user.save()
 
 
 def get_adapter():

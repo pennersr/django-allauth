@@ -26,13 +26,15 @@ class AuthenticationBackend(ModelBackend):
 
     def _authenticate_by_username(self, **credentials):
         username_field = app_settings.USER_MODEL_USERNAME_FIELD
-        if not username_field or not 'username' in credentials:
+        username = credentials.get('username')
+        password = credentials.get('password')
+        if not username_field or username is None or password is None:
             return None
         try:
             # Username query is case insensitive
-            query = {username_field+'__iexact': credentials["username"]}
+            query = {username_field+'__iexact': username}
             user = User.objects.get(**query)
-            if user.check_password(credentials["password"]):
+            if user.check_password(password):
                 return user
         except User.DoesNotExist:
             return None

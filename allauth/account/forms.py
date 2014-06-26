@@ -64,7 +64,8 @@ class LoginForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
         if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
-            login_widget = forms.TextInput(attrs={'placeholder':
+            login_widget = forms.TextInput(attrs={'type': 'email',
+                                                  'placeholder':
                                                   _('E-mail address'),
                                                   'autofocus': 'autofocus'})
             login_field = forms.EmailField(label=_("E-mail"),
@@ -88,6 +89,8 @@ class LoginForm(forms.Form):
                                           widget=login_widget)
         self.fields["login"] = login_field
         set_form_field_order(self,  ["login", "password", "remember"])
+        if app_settings.SESSION_REMEMBER is not None:
+            del self.fields['remember']
 
     def user_credentials(self):
         """
@@ -141,8 +144,11 @@ class LoginForm(forms.Form):
         ret = perform_login(request, self.user,
                             email_verification=app_settings.EMAIL_VERIFICATION,
                             redirect_url=redirect_url)
-        if self.cleaned_data["remember"]:
-            request.session.set_expiry(60 * 60 * 24 * 7 * 3)
+        remember = app_settings.SESSION_REMEMBER
+        if remember is None:
+            remember = self.cleaned_data['remember']
+        if remember:
+            request.session.set_expiry(app_settings.SESSION_COOKIE_AGE)
         else:
             request.session.set_expiry(0)
         return ret
@@ -208,7 +214,8 @@ class BaseSignupForm(_base_signup_form_class()):
                                           _('Username'),
                                           'autofocus': 'autofocus'}))
     email = forms.EmailField(widget=forms.TextInput(attrs=
-                                                    {'placeholder':
+                                                    {'type': 'email',
+                                                     'placeholder':
                                                      _('E-mail address')}))
 
     def __init__(self, *args, **kwargs):
@@ -317,7 +324,8 @@ class AddEmailForm(UserForm):
 
     email = forms.EmailField(label=_("E-mail"),
                              required=True,
-                             widget=forms.TextInput(attrs={"size": "30"}))
+                             widget=forms.TextInput(attrs={"type": "email",
+                                                           "size": "30"}))
 
     def clean_email(self):
         value = self.cleaned_data["email"]
@@ -365,8 +373,7 @@ class ChangePasswordForm(UserForm):
         return self.cleaned_data["password2"]
 
     def save(self):
-        self.user.set_password(self.cleaned_data["password1"])
-        self.user.save()
+        get_adapter().set_password(self.user, self.cleaned_data["password1"])
 
 
 class SetPasswordForm(UserForm):
@@ -384,15 +391,15 @@ class SetPasswordForm(UserForm):
         return self.cleaned_data["password2"]
 
     def save(self):
-        self.user.set_password(self.cleaned_data["password1"])
-        self.user.save()
+        get_adapter().set_password(self.user, self.cleaned_data["password1"])
 
 
 class ResetPasswordForm(forms.Form):
 
-    email = forms.EmailField(label=_("E-mail"),
-                             required=True,
-                             widget=forms.TextInput(attrs={"size": "30"}))
+    email = forms.EmailField(
+        label=_("E-mail"),
+        required=True,
+        widget=forms.TextInput(attrs={"type": "email", "size": "30"}))
 
     def clean_email(self):
         email = self.cleaned_data["email"]
@@ -458,7 +465,4 @@ class ResetPasswordKeyForm(forms.Form):
         return self.cleaned_data["password2"]
 
     def save(self):
-        # set the new user password
-        user = self.user
-        user.set_password(self.cleaned_data["password1"])
-        user.save()
+        get_adapter().set_password(self.user, self.cleaned_data["password1"])

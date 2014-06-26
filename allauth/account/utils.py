@@ -331,13 +331,3 @@ def passthrough_next_redirect_url(request, url, redirect_field_name):
     if next_url:
         url = url + '?' + urlencode({redirect_field_name: next_url})
     return url
-
-_password_complexity_callable = None
-
-def validate_password_complexity(password):
-    global _password_complexity_callable
-    if not _password_complexity_callable:
-        c = getattr(settings, "ACCOUNT_PASSWORD_COMPLEXITY",
-                    lambda password: True)
-        _password_complexity_callable = import_callable(c)
-    return _password_complexity_callable(password)

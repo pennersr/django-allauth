@@ -10,6 +10,7 @@ Contents
    :maxdepth: 2
 
    overview
+   showcase
    installation
    configuration
    providers
@@ -19,7 +20,6 @@ Contents
    decorators
    advanced
    faq
-   showcase
    changelog
    support
 

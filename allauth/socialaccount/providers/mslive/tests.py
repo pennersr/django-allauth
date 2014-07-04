@@ -12,14 +12,15 @@ class MSLiveTests(create_oauth2_tests(registry.by_id(MSLiveProvider.id))):
           "last_name": "Smith", 
           "name": "James Smith", 
           "locale": "en_US", 
-          "gender": None, 
+          "gender": null, 
           "emails": {
-              "personal": None, 
+              "personal": null, 
               "account": "jsmith@xyz.net", 
-              "business": None, 
+              "business": null, 
               "preferred": "jsmith@xyz.net"
               }, 
           "link": "https://profile.live.com/", 
           "updated_time": "2014-02-07T00:35:27+0000",
           "id": "83605e110af6ff98"
-        }""")
+        }
+        """)

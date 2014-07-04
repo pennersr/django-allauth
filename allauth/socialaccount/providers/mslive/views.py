@@ -17,7 +17,7 @@ class MSLiveOAuth2Adapter(OAuth2Adapter):
         headers = {'Authorization': 'Bearer {0}'.format(token.token)}
         resp = requests.get(self.profile_url, headers=headers)
 
-#example of whats returned:
+#example of whats returned (in python format):
 #{u'first_name': u'James', u'last_name': u'Smith', u'name': u'James Smith', u'locale': u'en_US', u'gender': None, 
 # u'emails': {u'personal': None, u'account': u'jsmith@xyz.net', u'business': None, u'preferred': u'jsmith@xyz.net'}, 
 # u'link': u'https://profile.live.com/', u'updated_time': u'2014-02-07T00:35:27+0000',

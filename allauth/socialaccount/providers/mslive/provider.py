@@ -24,7 +24,7 @@ class MSLiveProvider(OAuth2Provider):
     account_class = MSLiveAccount
 
 # doc on scopes available
-#http://msdn.microsoft.com/en-us/library/live/hh243646.aspx 
+#http://msdn.microsoft.com/en-us/library/dn631845.aspx
     def get_default_scope(self):
         return ['wl.basic', 'wl.emails']
 

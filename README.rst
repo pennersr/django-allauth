@@ -121,6 +121,8 @@ Supported Providers
 
 - Mail.Ru (OAuth2)
 
+- MSlive (OAuth2)
+
 - OpenId
 
 - Paypal (OAuth2)
@@ -854,6 +856,31 @@ App registration (get your key and secret here)
         https://www.linkedin.com/secure/developer?newapp=
 Development callback URL
         Leave the OAuth redirect URL empty.
+
+MSlive
+------
+The MSlive provider does not use any settings in SOCIALACCOUNT_PROVIDERS.
+
+App registration (get your key and secret here)
+><https://account.live.com/developers/applications/index>
+
+Sample database record:
+
+    mysql> select * from socialaccount_socialapp\G
+    *************************** 1. row ***************************
+           id: 1
+     provider: mslive
+         name: Live.com
+          key:
+       secret: u-AKkhasdf438ds84qdTVXmDy0qiMo53
+    client_id: 000000000012441X
+    1 row in set (0.00 sec)
+
+
+Sample HTML Login Link
+
+    Login with: <a href="https://www.someplace.com/accounts/mslive/login/?process=login&next=%2Faccounts%2Fmslive_success">Microsoft Live.com</a>
+
 
 OpenID
 ------

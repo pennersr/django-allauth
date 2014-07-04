@@ -29,6 +29,6 @@ class PaypalProvider(OAuth2Provider):
         # See: https://developer.paypal.com/docs/api/#get-user-information
         return dict(first_name=data.get('given_name', ''),
                     last_name=data.get('family_name', ''),
-                    email=data['email'])
+                    email=data.get('email'))
 
 providers.registry.register(PaypalProvider)

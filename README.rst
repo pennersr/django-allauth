@@ -391,6 +391,10 @@ ACCOUNT_SESSION_COOKIE_AGE (=1814400)
   How long before the session cookie expires in seconds.  Defaults to 1814400 seconds,
   or 3 weeks.
 
+ACCOUNT_DISABLE_CONTRIB_MESSAGES (=False)
+  Set to `True` to disable sending messages with Django messages
+  framework (django.contrib.messages).
+
 SOCIALACCOUNT_ADAPTER (="allauth.socialaccount.adapter.DefaultSocialAccountAdapter")
   Specifies the adapter class to use, allowing you to alter certain
   default behaviour.
@@ -1338,7 +1342,8 @@ The Django messages framework (`django.contrib.messages`) is used if
 it is listed in `settings.INSTALLED_APPS`.  All messages (as in
 `django.contrib.messages`) are configurable by overriding their
 respective template. If you want to disable a message simply override
-the message template with a blank one.
+the message template with a blank one. If you want to disable all messages,
+use `ACCOUNT_DISABLE_CONTRIB_MESSAGES` option.
 
 
 Frequently Asked Questions

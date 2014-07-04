@@ -232,7 +232,8 @@ class DefaultAccountAdapter(object):
         Wrapper of `django.contrib.messages.add_message`, that reads
         the message text from a template.
         """
-        if 'django.contrib.messages' in settings.INSTALLED_APPS:
+        if 'django.contrib.messages' in settings.INSTALLED_APPS \
+            and not app_settings.DISABLE_CONTRIB_MESSAGES:
             try:
                 message = render_to_string(message_template,
                                            message_context).strip()

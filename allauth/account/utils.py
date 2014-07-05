@@ -1,6 +1,3 @@
-import hashlib
-import random
-
 from datetime import timedelta
 try:
     from django.utils.timezone import now
@@ -316,13 +313,6 @@ def sync_user_email_addresses(user):
                                     email=email,
                                     primary=False,
                                     verified=False)
-
-
-def random_token(extra=None, hash_func=hashlib.sha256):
-    if extra is None:
-        extra = []
-    bits = extra + [str(random.SystemRandom().getrandbits(512))]
-    return hash_func("".join(bits).encode('utf-8')).hexdigest()
 
 
 def passthrough_next_redirect_url(request, url, redirect_field_name):

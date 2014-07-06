@@ -139,6 +139,34 @@ class AppSettings(object):
         return self._setting("EMAIL_SUBJECT_PREFIX", None)
 
     @property
+    def PASSWORD_RESET_FORM_CLASS(self):
+        """
+        Reset password form
+        """
+        return self._setting("PASSWORD_RESET_FORM_CLASS", None)
+
+    @property
+    def PASSWORD_SET_FORM_CLASS(self):
+        """
+        Set password form
+        """
+        return self._setting("PASSWORD_SET_FORM_CLASS", None)
+
+    @property
+    def PASSWORD_CHANGE_FORM_CLASS(self):
+        """
+        Change password form
+        """
+        return self._setting("PASSWORD_CHANGE_FORM_CLASS", None)
+
+    @property
+    def LOGIN_FORM_CLASS(self):
+        """
+        Login form
+        """
+        return self._setting("LOGIN_FORM_CLASS", None)
+
+    @property
     def SIGNUP_FORM_CLASS(self):
         """
         Signup form

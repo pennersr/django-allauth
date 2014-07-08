@@ -467,7 +467,7 @@ msgstr "Tyvärr är anmälan stängd för närvarande."
 #: templates/account/verified_email_required.html:6
 #: templates/account/verified_email_required.html:9
 msgid "Verify Your E-mail Address"
-msgstr "Verifiera fin epost-adress"
+msgstr "Verifiera din epost-adress"
 
 #: templates/account/verification_sent.html:10
 #, fuzzy

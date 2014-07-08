@@ -7,12 +7,13 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.contrib.sites.models import Site
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.crypto import get_random_string
 
 from .. import app_settings as allauth_app_settings
 from . import app_settings
 from . import signals
 
-from .utils import random_token, user_email
+from .utils import user_email
 from .managers import EmailAddressManager, EmailConfirmationManager
 from .adapter import get_adapter
 
@@ -91,7 +92,7 @@ class EmailConfirmation(models.Model):
 
     @classmethod
     def create(cls, email_address):
-        key = random_token([email_address.email])
+        key = get_random_string(64).lower()
         return cls._default_manager.create(email_address=email_address,
                                            key=key)
 

@@ -310,6 +310,16 @@ Development callback URL ("Site address")
     http://localhost
 
 
+Windows Live
+------------
+
+The Windows Live provider currently does not use any settings in
+`SOCIALACCOUNT_PROVIDERS`.
+
+App registration (get your key and secret here)
+        https://account.live.com/developers/applications/index
+
+
 Weibo
 -----
 

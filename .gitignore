@@ -3,6 +3,7 @@
 .idea
 .project
 .pydevproject
+*.geany
 docs/_build
 build
 dist

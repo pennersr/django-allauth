@@ -56,3 +56,12 @@ local account registration app to your `INSTALLED_APPS` list.
 This is the reason this project got started -- to offer a fully
 integrated authentication app that allows for both local and social
 authentication, with flows that just work.
+
+
+Commercial Support
+==================
+
+This project is sponsored by IntenCT_. If you require assistance on
+your project(s), please contact us: info@intenct.nl.
+
+.. _IntenCT: http://www.intenct.info

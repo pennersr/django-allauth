@@ -8,8 +8,8 @@ from allauth.account.utils import user_email
 
 
 class Scope(object):
-    USERINFO_PROFILE = 'https://www.googleapis.com/auth/userinfo.profile'
-    USERINFO_EMAIL = 'https://www.googleapis.com/auth/userinfo.email'
+    EMAIL = 'email'
+    PROFILE = 'profile'
 
 
 class GoogleAccount(ProviderAccount):
@@ -31,9 +31,9 @@ class GoogleProvider(OAuth2Provider):
     account_class = GoogleAccount
 
     def get_default_scope(self):
-        scope = [Scope.USERINFO_PROFILE]
+        scope = [Scope.PROFILE]
         if QUERY_EMAIL:
-            scope.append(Scope.USERINFO_EMAIL)
+            scope.append(Scope.EMAIL)
         return scope
 
     def get_auth_params(self, request, action):

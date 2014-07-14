@@ -16,7 +16,8 @@ class OAuth2Client(object):
                  access_token_method,
                  access_token_url,
                  callback_url,
-                 scope):
+                 scope,
+                 session=None):
         self.request = request
         self.access_token_method = access_token_method
         self.access_token_url = access_token_url
@@ -25,6 +26,7 @@ class OAuth2Client(object):
         self.consumer_secret = consumer_secret
         self.scope = ' '.join(scope)
         self.state = None
+        self.session = session or requests.Session()
 
     def get_redirect_url(self, authorization_url, extra_params):
         params = {
@@ -51,10 +53,10 @@ class OAuth2Client(object):
             params = data
             data = None
         # TODO: Proper exception handling
-        resp = requests.request(self.access_token_method,
-                                url,
-                                params=params,
-                                data=data)
+        resp = self.session.request(self.access_token_method,
+                                    url,
+                                    params=params,
+                                    data=data)
         access_token = None
         if resp.status_code == 200:
             # Weibo sends json via 'text/plain;charset=UTF-8'

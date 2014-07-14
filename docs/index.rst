@@ -21,7 +21,6 @@ Contents
    advanced
    faq
    changelog
-   support
 
 
 ==================

@@ -21,12 +21,12 @@ Contents
    advanced
    faq
    changelog
+   support
 
 
 ==================
 Indices and tables
 ==================
 
-.. * :ref:`genindex`
-.. * :ref:`modindex`
+* :ref:`genindex`
 * :ref:`search`

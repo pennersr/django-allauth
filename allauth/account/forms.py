@@ -425,7 +425,7 @@ class ResetPasswordForm(forms.Form):
 
             # send the password reset email
             path = reverse("account_reset_password_from_key",
-                           kwargs=dict(uidb36=int_to_base36(user.id),
+                           kwargs=dict(uidb36=int_to_base36(user.pk),
                                        key=temp_key))
             url = '%s://%s%s' % (app_settings.DEFAULT_HTTP_PROTOCOL,
                                  current_site.domain,

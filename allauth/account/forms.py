@@ -55,6 +55,19 @@ class LoginForm(forms.Form):
                                   required=False)
 
     user = None
+    error_messages = {
+        'account_inactive':
+        _("This account is currently inactive."),
+
+        'email_password_mismatch':
+        _("The e-mail address and/or password you specified are not correct."),
+
+        'username_password_mismatch':
+        _("The username and/or password you specified are not correct."),
+
+        'username_email_password_mismatch':
+        _("The login and/or password you specified are not correct.")
+    }
 
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
@@ -118,21 +131,13 @@ class LoginForm(forms.Form):
             if user.is_active:
                 self.user = user
             else:
-                raise forms.ValidationError(_("This account is currently"
-                                              " inactive."))
+                raise forms.ValidationError(
+                    self.error_messages['account_inactive'])
         else:
-            if app_settings.AUTHENTICATION_METHOD \
-                    == AuthenticationMethod.EMAIL:
-                error = _("The e-mail address and/or password you specified"
-                          " are not correct.")
-            elif app_settings.AUTHENTICATION_METHOD \
-                    == AuthenticationMethod.USERNAME:
-                error = _("The username and/or password you specified are"
-                          " not correct.")
-            else:
-                error = _("The login and/or password you specified are not"
-                          " correct.")
-            raise forms.ValidationError(error)
+            raise forms.ValidationError(
+                self.error_messages[
+                    '%s_password_mismatch'
+                    % app_settings.AUTHENTICATION_METHOD])
         return self.cleaned_data
 
     def login(self, request, redirect_url=None):

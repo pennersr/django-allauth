@@ -48,6 +48,10 @@ ACCOUNT_DEFAULT_HTTP_PROTOCOL = (="http")
   password forgotten procedure. Note that this is a default only --
   see the section on HTTPS for more information.
 
+ACCOUNT_FORMS (={})
+  Used to override forms, for example:
+  `{'login': 'myapp.forms.LoginForm'}`
+
 ACCOUNT_LOGOUT_ON_GET (=False)
   Determines whether or not the user is automatically logged out by a
   mere GET request. See documentation for the `LogoutView` for
@@ -135,6 +139,10 @@ SOCIALACCOUNT_EMAIL_REQUIRED (=ACCOUNT_EMAIL_REQUIRED)
 
 SOCIALACCOUNT_EMAIL_VERIFICATION (=ACCOUNT_EMAIL_VERIFICATION)
   As `ACCOUNT_EMAIL_VERIFICATION`, but for social accounts.
+
+SOCIALACCOUNT_FORMS (={})
+  Used to override forms, for example:
+  `{'signup': 'myapp.forms.SignupForm'}`
 
 SOCIALACCOUNT_PROVIDERS (= dict)
   Dictionary containing provider specific settings.

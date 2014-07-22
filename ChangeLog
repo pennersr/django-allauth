@@ -1,3 +1,8 @@
+2014-07-22  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* All forms are now pluggable via a new setting:
+	`(SOCIAL)ACCOUNT_FORMS`.
+
 2014-07-05  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* James Thompson contributed Windows Live support, thanks!

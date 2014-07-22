@@ -222,6 +222,10 @@ class AppSettings(object):
         """
         return self._setting('SESSION_REMEMBER', None)
 
+    @property
+    def FORMS(self):
+        return self._setting('FORMS', {})
+
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

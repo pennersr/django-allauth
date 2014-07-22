@@ -188,3 +188,10 @@ def build_absolute_uri(request, location, protocol=None):
     if protocol:
         uri = protocol + ':' + uri.partition(':')[2]
     return uri
+
+
+def get_form_class(forms, form_id, default_form):
+    form_class = forms.get(form_id, default_form)
+    if isinstance(form_class, six.string_types):
+        form_class = import_attribute(form_class)
+    return form_class

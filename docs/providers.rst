@@ -60,6 +60,7 @@ everybody's cup of tea.
 To initiate a login use::
 
     {% load socialaccount %}
+    {% providers_media_js %}
     <a href="{% provider_login_url "facebook" method="js_sdk" %}">Facebook Connect</a>
 
 or::
@@ -339,4 +340,3 @@ App registration
 
 Development callback URL
     http://localhost:8000
-

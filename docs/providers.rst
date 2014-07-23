@@ -60,11 +60,13 @@ everybody's cup of tea.
 To initiate a login use::
 
     {% load socialaccount %}
+	{% providers_media_js %}
     <a href="{% provider_login_url "facebook" method="js_sdk" %}">Facebook Connect</a>
 
 or::
 
     {% load socialaccount %}
+	{% providers_media_js %}
     <a href="{% provider_login_url "facebook" method="oauth2" %}">Facebook OAuth2</a>
 
 The following Facebook settings are available::

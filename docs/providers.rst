@@ -114,7 +114,7 @@ App registration (get your key and secret here)
     https://developers.facebook.com/apps
 
 Development callback URL
-    Leave your App Domains empty and put in he section `Website with Facebook
+    Leave your App Domains empty and put in the section `Website with Facebook
     Login` put this as your Site URL: `http://localhost:8000`
 
 

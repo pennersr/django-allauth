@@ -11,11 +11,10 @@ class LinkedInOAuth2Account(ProviderAccount):
     def get_avatar_url(self):
         # try to return the higher res picture-urls::(original) first
         try:
-            if self.account.extra_data.get('picture-urls', {}).get('picture-url'):
-                return self.account.extra_data.get('picture-urls', {}).get('picture-url')
+            return self.account.extra_data['pictureUrls']['values'][0]
         except:
             pass  # if we can't get higher res for any reason, we'll just return the low res
-        return self.account.extra_data.get('picture-url')
+        return self.account.extra_data.get('pictureUrl')
 
     def to_str(self):
         dflt = super(LinkedInOAuth2Account, self).to_str()
@@ -23,7 +22,7 @@ class LinkedInOAuth2Account(ProviderAccount):
         first_name = self.account.extra_data.get('firstName', None)
         last_name = self.account.extra_data.get('lastName', None)
         if first_name and last_name:
-            name = first_name+' '+last_name
+            name = first_name + ' ' + last_name
         return name
 
 
@@ -43,7 +42,7 @@ class LinkedInOAuth2Provider(OAuth2Provider):
                           'last-name',
                           'email-address',
                           'picture-url',
-                          'picture-urls::(original)', # picture-urls::(original) is higher res
+                          'picture-urls::(original)',  # picture-urls::(original) is higher res
                           'public-profile-url']
         fields = self.get_settings().get('PROFILE_FIELDS',
                                          default_fields)

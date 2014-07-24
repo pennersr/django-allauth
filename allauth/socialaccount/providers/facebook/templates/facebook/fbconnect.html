@@ -5,7 +5,7 @@
 {
     "appId": "{{facebook_app.client_id}}",
     "locale": "{{facebook_jssdk_locale}}",
-    "loginOptions": "{{fb_login_options}}",
+    "loginOptions": "{{fb_login_options|addslashes}}",
     "loginByTokenUrl": "{% url 'facebook_login_by_token' %}",
     "channelUrl" : "{{facebook_channel_url}}",
     "cancelUrl": "{% url 'socialaccount_login_cancelled' %}",

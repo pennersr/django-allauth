@@ -17,13 +17,8 @@ class OrcidOAuth2Adapter(OAuth2Adapter):
     #access_token_url = 'https://api.sandbox.orcid.org/oauth/token'
     #profile_url = 'https://api.sandbox.orcid.org/v1.1/%s/orcid-profile'
 
-    def parse_token(self, data):
-        token = super(OrcidOAuth2Adapter, self).parse_token(data)
-        token.orcid = data['orcid']
-        return token
-
     def complete_login(self, request, app, token, **kwargs):
-        resp = requests.get(self.profile_url % token.orcid,
+        resp = requests.get(self.profile_url % kwargs['response']['orcid'],
                             params={'access_token': token.token},
                             headers={'accept': 'application/orcid+json'})
         extra_data = resp.json()

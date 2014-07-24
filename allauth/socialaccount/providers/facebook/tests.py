@@ -73,7 +73,7 @@ class FacebookTests(create_oauth2_tests(registry.by_id(FacebookProvider.id))):
         request = RequestFactory().get(reverse('account_login'))
         request.session = {}
         script = provider.media_js(request)
-        self.assertTrue("appId: 'app123id'" in script)
+        self.assertTrue('"appId": "app123id"' in script)
 
     def test_login_by_token(self):
         resp = self.client.get(reverse('account_login'))

@@ -87,7 +87,7 @@ class OrcidTests(create_oauth2_tests(registry.by_id(OrcidProvider.id))):
                                 "work-source": {
                                     "path": "0000-0001-6796-198X",
                                     "host": "sandbox.orcid.org",
-                                    "uri": "http://sandbox.orcid.org/0000-0001-6796-198X",
+                                    "uri": "http://sandbox.orcid.org/...98X",
                                     "value": null
                                 }
                             }
@@ -122,3 +122,17 @@ class OrcidTests(create_oauth2_tests(registry.by_id(OrcidProvider.id))):
                 }
             }
         }""")
+
+    def get_login_response_json(self, with_refresh_token=True):
+        # FIXME: This is not an actual response. I added this in order
+        # to get the test suite going but did not verify to check the
+        # exact response being returned.
+        return """
+        {
+            "access_token": "testac",
+            "expires_in": 631138026,
+            "token_type": "bearer",
+            "orcid": "0000-0001-6796-198X",
+            "scope": "/orcid-profile/read-limited",
+            "refresh_token": "testrf"
+        }"""

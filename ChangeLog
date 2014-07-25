@@ -1,3 +1,7 @@
+2014-07-25  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* `nimiq` contributed ORCID support, thanks.
+
 2014-07-22  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* All forms are now pluggable via a new setting:

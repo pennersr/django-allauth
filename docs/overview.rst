@@ -63,6 +63,8 @@ Supported Providers
 
 - OpenId
 
+- ORCID (OAuth2)
+
 - Paypal (OAuth2)
 
 - Persona

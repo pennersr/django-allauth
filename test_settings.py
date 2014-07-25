@@ -59,6 +59,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.mailru',
     'allauth.socialaccount.providers.windowslive',
     'allauth.socialaccount.providers.openid',
+    'allauth.socialaccount.providers.orcid',
     'allauth.socialaccount.providers.paypal',
     'allauth.socialaccount.providers.persona',
     'allauth.socialaccount.providers.soundcloud',

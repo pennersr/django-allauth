@@ -19,7 +19,7 @@ class OrcidAccount(ProviderAccount):
 
 class OrcidProvider(OAuth2Provider):
     id = 'orcid'
-    name = 'ORCID'
+    name = 'Orcid.org'
     package = 'allauth.socialaccount.providers.orcid'
     account_class = OrcidAccount
 

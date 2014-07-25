@@ -132,6 +132,7 @@ METADATA = dict(
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Environment :: Web Environment',
         'Topic :: Internet',
+        'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.6',

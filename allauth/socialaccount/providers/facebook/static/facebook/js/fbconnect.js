@@ -27,7 +27,8 @@
         }
     }
 
-    var allauth = window.allauth = window.allauth || {};
+    var allauth = window.allauth = window.allauth || {},
+        fbSettings = JSON.parse(document.getElementById('allauth-facebook-settings').innerHTML);
 
     allauth.facebook = {
 
@@ -117,4 +118,5 @@
         }
     };
 
+    allauth.facebook.init(fbSettings);
 })();

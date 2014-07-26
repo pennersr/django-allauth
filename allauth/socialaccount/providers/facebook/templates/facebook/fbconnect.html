@@ -1,15 +1,17 @@
 {% load url from future %}
 {% load staticfiles %}
 <div id="fb-root"></div>
-<script type="text/javascript" src="{% static "facebook/js/fbconnect.js" %}"></script>
-<script type="text/javascript">
-allauth.facebook.init({ appId: '{{facebook_app.client_id}}',
-  locale: '{{facebook_jssdk_locale}}',
-  loginOptions: {{fb_login_options}},
-  loginByTokenUrl: '{% url 'facebook_login_by_token' %}',
-  channelUrl : '{{facebook_channel_url}}',
-  cancelUrl: '{% url 'socialaccount_login_cancelled' %}',
-  logoutUrl: '{% url 'account_logout' %}',
-  errorUrl: '{% url 'socialaccount_login_error' %}',
-  csrfToken: '{{csrf_token}}' });
+<script id="allauth-facebook-settings" type="application/json">
+{
+    "appId": "{{facebook_app.client_id}}",
+    "locale": "{{facebook_jssdk_locale}}",
+    "loginOptions": "{{fb_login_options|escapejs}}",
+    "loginByTokenUrl": "{% url 'facebook_login_by_token' %}",
+    "channelUrl" : "{{facebook_channel_url}}",
+    "cancelUrl": "{% url 'socialaccount_login_cancelled' %}",
+    "logoutUrl": "{% url 'account_logout' %}",
+    "errorUrl": "{% url 'socialaccount_login_error' %}",
+    "csrfToken": "{{csrf_token}}"
+}
 </script>
+<script type="text/javascript" src="{% static "facebook/js/fbconnect.js" %}"></script>

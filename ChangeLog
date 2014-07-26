@@ -1,3 +1,9 @@
+2014-07-26  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Removed the inline Javascript from the `fbconnect.html`
+	template. This allows for a more strict `Content-Security-Policy`
+	(thanks to Andrean Franc).
+
 2014-07-25  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* `nimiq` contributed ORCID support, thanks.

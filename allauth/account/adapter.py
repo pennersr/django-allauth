@@ -226,6 +226,19 @@ class DefaultAccountAdapter(object):
         """
         return email
 
+    def clean_password(self, password):
+        """
+        Validates a password. You can hook into this if you want to
+        restric the allowed password choices.
+        """
+
+        min_length = app_settings.PASSWORD_MIN_LENGTH
+        if len(password) < min_length:
+            raise forms.ValidationError(_("Password must be a minimum of {0} "
+                                          "characters.").format(min_length))
+
+        return True
+
     def add_message(self, request, level, message_template,
                     message_context={}, extra_tags=''):
         """

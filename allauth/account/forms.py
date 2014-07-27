@@ -41,10 +41,12 @@ class SetPasswordField(PasswordField):
 
     def clean(self, value):
         value = super(SetPasswordField, self).clean(value)
-        min_length = app_settings.PASSWORD_MIN_LENGTH
-        if len(value) < min_length:
-            raise forms.ValidationError(_("Password must be a minimum of {0} "
-                                          "characters.").format(min_length))
+
+        # Validate this password is allowed
+        # Should raise ValidationErrors based on what went wrong.
+        if not get_adapter().clean_password(value):
+            raise forms.ValidationError(_("Password did not meet requirements."))
+
         return value
 
 

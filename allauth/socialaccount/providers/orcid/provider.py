@@ -4,7 +4,7 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class Scope(object):
-    USERINFO_PROFILE = u'/orcid-profile/read-limited'
+    USERINFO_PROFILE = u'/authenticate'
 
 
 class OrcidAccount(ProviderAccount):
@@ -31,19 +31,19 @@ class OrcidProvider(OAuth2Provider):
                                         'path'])
 
     def extract_common_fields(self, data):
-        return dict(email=extract_from_dict(data,
-                                            ['orcid-profile', 'orcid-bio',
-                                             'contact-details', 'email', 0,
-                                             'value']),
-                    last_name=extract_from_dict(data,
-                                                ['orcid-profile', 'orcid-bio',
-                                                 'personal-details',
-                                                 'family-name', 'value']),
-                    first_name=extract_from_dict(data,
-                                                 ['orcid-profile',
-                                                  'orcid-bio',
-                                                  'personal-details',
-                                                  'given-names', 'value']))
+        common_fields = dict(
+            email=extract_from_dict(data, ['orcid-profile', 'orcid-bio',
+                                           'contact-details', 'email', 0,
+                                           'value']),
+            last_name=extract_from_dict(data, ['orcid-profile', 'orcid-bio',
+                                               'personal-details',
+                                               'family-name', 'value']),
+            first_name=extract_from_dict(data, ['orcid-profile',
+                                                'orcid-bio',
+                                                'personal-details',
+                                                'given-names', 'value']),)
+        return dict((key, value) for (key, value) in common_fields.items()
+                    if value)
 
 providers.registry.register(OrcidProvider)
 

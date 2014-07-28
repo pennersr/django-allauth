@@ -8,14 +8,12 @@ from .provider import OrcidProvider
 
 class OrcidOAuth2Adapter(OAuth2Adapter):
     provider_id = OrcidProvider.id
-    # Production
-    authorize_url = 'http://orcid.org/oauth/authorize'
-    access_token_url = 'https://api.orcid.org/oauth/token'
-    profile_url = 'https://api.orcid.org/v1.1/%s/orcid-profile'
-    # Sandbox
-    #authorize_url = 'https://sandbox.orcid.org/oauth/authorize'
-    #access_token_url = 'https://api.sandbox.orcid.org/oauth/token'
-    #profile_url = 'https://api.sandbox.orcid.org/v1.1/%s/orcid-profile'
+    # ORCID Public API (not Member API):
+    # http://support.orcid.org/knowledgebase/articles/335483-the-public-
+    # client-orcid-api
+    authorize_url = 'https://orcid.org/oauth/authorize'
+    access_token_url = 'https://pub.orcid.org/oauth/token'
+    profile_url = 'https://pub.orcid.org/v1.1/%s/orcid-profile'
 
     def complete_login(self, request, app, token, **kwargs):
         resp = requests.get(self.profile_url % kwargs['response']['orcid'],

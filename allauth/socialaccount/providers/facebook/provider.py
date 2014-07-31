@@ -1,7 +1,7 @@
 import json
-
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ImproperlyConfigured
+from django.middleware.csrf import get_token
 from django.template.loader import render_to_string
 from django.template import RequestContext
 from django.utils.html import mark_safe, escapejs
@@ -107,12 +107,20 @@ class FacebookProvider(OAuth2Provider):
             raise ImproperlyConfigured("No Facebook app configured: please"
                                        " add a SocialApp using the Django"
                                        " admin")
-        fb_login_options = self.get_fb_login_options(request)
-        ctx = {'facebook_app': app,
-               'facebook_channel_url':
-               request.build_absolute_uri(reverse('facebook_channel')),
-               'fb_login_options': mark_safe(json.dumps(fb_login_options)),
-               'facebook_jssdk_locale': locale}
+
+        abs_uri = lambda name: request.build_absolute_uri(reverse(name))
+        fb_data = {
+            "appId": app.client_id,
+            "locale": locale,
+            "loginOptions": self.get_fb_login_options(request),
+            "loginByTokenUrl": abs_uri('facebook_login_by_token'),
+            "channelUrl": abs_uri('facebook_channel'),
+            "cancelUrl": abs_uri('socialaccount_login_cancelled'),
+            "logoutUrl": abs_uri('account_logout'),
+            "errorUrl": abs_uri('socialaccount_login_error'),
+            "csrfToken": get_token(request)
+        }
+        ctx = {'fb_data': mark_safe(json.dumps(fb_data))}
         return render_to_string('facebook/fbconnect.html',
                                 ctx,
                                 RequestContext(request))

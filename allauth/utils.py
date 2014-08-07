@@ -20,6 +20,8 @@ except ImportError:
 def _generate_unique_username_base(txts):
     username = None
     for txt in txts:
+        if not txt:
+            continue
         username = unicodedata.normalize('NFKD', force_text(txt))
         username = username.encode('ascii', 'ignore').decode('ascii')
         username = force_text(re.sub('[^\w\s@+.-]', '', username).lower())

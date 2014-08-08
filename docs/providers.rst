@@ -257,7 +257,7 @@ user provided data::
 
     SOCIALACCOUNT_PROVIDERS = \
         { 'persona':
-            { 'AUDIENCE': 'https://www.example.com:433' } }
+            { 'AUDIENCE': 'https://www.example.com' } }
 
 
 The optional `REQUEST_PARAMETERS` dictionary contains parameters that are
@@ -266,7 +266,7 @@ look and feel of the Persona dialog::
 
     SOCIALACCOUNT_PROVIDERS = \
         { 'persona':
-            { 'AUDIENCE': 'https://www.example.com:433',
+            { 'AUDIENCE': 'https://www.example.com',
               'REQUEST_PARAMETERS': {'siteName': 'Example' } } }
 
 

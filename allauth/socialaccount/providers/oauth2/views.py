@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 from datetime import timedelta
 
+from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.utils import timezone
@@ -83,7 +84,7 @@ class OAuth2LoginView(OAuth2View):
 
 class OAuth2CallbackView(OAuth2View):
     def dispatch(self, request):
-        if 'error' in request.GET or not 'code' in request.GET:
+        if 'error' in request.GET or 'code' not in request.GET:
             # TODO: Distinguish cancel from error
             return render_authentication_error(request)
         app = self.adapter.get_provider().get_app(self.request)
@@ -106,5 +107,5 @@ class OAuth2CallbackView(OAuth2View):
             else:
                 login.state = SocialLogin.unstash_state(request)
             return complete_social_login(request, login)
-        except OAuth2Error:
+        except (OAuth2Error, PermissionDenied):
             return render_authentication_error(request)

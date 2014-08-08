@@ -103,8 +103,13 @@ class DBOpenIDStore(OIDStore):
                 stored_assoc.issued, stored_assoc.lifetime,
                 stored_assoc.assoc_type
             )
-
-            if assoc.getExpiresIn() == 0:
+            # See:
+            # necaris/python3-openid@1abb155c8fc7b508241cbe9d2cae24f18e4a379b
+            if hasattr(assoc, 'getExpiresIn'):
+                expires_in = assoc.getExpiresIn()
+            else:
+                expires_in = assoc.expiresIn
+            if expires_in == 0:
                 stored_assoc.delete()
             else:
                 if return_val is None:

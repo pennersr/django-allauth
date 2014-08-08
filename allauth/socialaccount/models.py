@@ -18,6 +18,7 @@ from allauth.account.utils import get_next_redirect_url, setup_user_email
 from allauth.utils import (get_user_model, serialize_instance,
                            deserialize_instance)
 
+from . import app_settings
 from . import providers
 from .fields import JSONField
 
@@ -220,7 +221,7 @@ class SocialLogin(object):
         user.save()
         self.account.user = user
         self.account.save()
-        if self.token:
+        if app_settings.STORE_TOKENS and self.token:
             self.token.account = self.account
             self.token.save()
         if connect:
@@ -249,7 +250,7 @@ class SocialLogin(object):
             self.account = a
             a.save()
             # Update token
-            if self.token:
+            if app_settings.STORE_TOKENS and self.token:
                 assert not self.token.pk
                 try:
                     t = SocialToken.objects.get(account=self.account,

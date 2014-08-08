@@ -146,3 +146,6 @@ SOCIALACCOUNT_FORMS (={})
 
 SOCIALACCOUNT_PROVIDERS (= dict)
   Dictionary containing provider specific settings.
+
+SOCIALACCOUNT_STORE_TOKENS (=True)
+  Indicates whether or not the access tokens are stored in the database.

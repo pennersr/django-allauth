@@ -63,6 +63,10 @@ class AppSettings(object):
     def FORMS(self):
         return self._setting('FORMS', {})
 
+    @property
+    def STORE_TOKENS(self):
+        return self._setting('STORE_TOKENS', True)
+
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

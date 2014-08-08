@@ -1,3 +1,8 @@
+2014-08-08  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Storing social access tokens is now optional
+	(`SOCIALACCOUNT_STORE_TOKENS`).
+
 2014-07-26  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Removed the inline Javascript from the `fbconnect.html`

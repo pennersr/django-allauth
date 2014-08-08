@@ -18,7 +18,7 @@ from ..utils import (email_address_exists, get_user_model,
                      set_form_field_order)
 
 from .models import EmailAddress
-from .utils import perform_login, setup_user_email
+from .utils import perform_login, setup_user_email, user_username
 from .app_settings import AuthenticationMethod
 from . import app_settings
 from .adapter import get_adapter
@@ -213,10 +213,9 @@ class BaseSignupForm(_base_signup_form_class()):
                                    attrs={'placeholder':
                                           _('Username'),
                                           'autofocus': 'autofocus'}))
-    email = forms.EmailField(widget=forms.TextInput(attrs=
-                                                    {'type': 'email',
-                                                     'placeholder':
-                                                     _('E-mail address')}))
+    email = forms.EmailField(widget=forms.TextInput(
+        attrs={'type': 'email',
+               'placeholder': _('E-mail address')}))
 
     def __init__(self, *args, **kwargs):
         email_required = kwargs.pop('email_required',
@@ -243,7 +242,7 @@ class BaseSignupForm(_base_signup_form_class()):
         # so that we make sure the inserted items are always
         # prepended.
         for field in reversed(field_order):
-            if not field in merged_field_order:
+            if field not in merged_field_order:
                 merged_field_order.insert(0, field)
         set_form_field_order(self, merged_field_order)
         if not self.username_required:
@@ -438,6 +437,9 @@ class ResetPasswordForm(forms.Form):
             context = {"site": current_site,
                        "user": user,
                        "password_reset_url": url}
+            if app_settings.AUTHENTICATION_METHOD \
+                    != AuthenticationMethod.EMAIL:
+                context['username'] = user_username(user)
             get_adapter().send_mail('account/email/password_reset_key',
                                     email,
                                     context)

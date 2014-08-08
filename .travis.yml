@@ -26,6 +26,8 @@ matrix:
   exclude:
     - python: "3.3"
       env: DJANGO=Django==1.4.3
+    - python: "2.6"
+      env: DJANGO="git+git://github.com/django/django.git@stable/1.7.x#egg=django"
 after_success:
   - coverage report
   - pip install --quiet python-coveralls

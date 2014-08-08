@@ -1,16 +1,23 @@
 import requests
+from django.core.exceptions import ImproperlyConfigured
 
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.models import SocialLogin
-from allauth.socialaccount import providers
+from allauth.socialaccount import app_settings, providers
 
 from .provider import PersonaProvider
 
 
 def persona_login(request):
     assertion = request.POST.get('assertion', '')
-    audience = request.build_absolute_uri('/')
+    settings = app_settings.PROVIDERS.get(PersonaProvider.id, {})
+    audience = settings.get('AUDIENCE', None)
+    if audience is None:
+        raise ImproperlyConfigured("No Persona audience configured. Please "
+                                   "add an AUDIENCE item to the "
+                                   "SOCIALACCOUNT_PROVIDERS['persona'] setting.")
+
     resp = requests.post('https://verifier.login.persona.org/verify',
                          {'assertion': assertion,
                           'audience': audience})

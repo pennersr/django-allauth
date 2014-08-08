@@ -250,14 +250,24 @@ Development callback URL
 Persona
 -------
 
-Mozilla Persona does not require any settings. The
-`REQUEST_PARAMETERS` dictionary contains optional parameters that are
+Mozilla Persona requires one setting, the "AUDIENCE" which needs to be the
+hardcoded hostname and port of your website. See https://developer.mozilla.org/en-US/Persona/Security_Considerations#Explicitly_specify_the_audience_parameter for more
+information why this needs to be set explicitely and can't be derived from
+user provided data::
+
+    SOCIALACCOUNT_PROVIDERS = \
+        { 'persona':
+            { 'AUDIENCE': 'https://www.example.com:433' } }
+
+
+The optional `REQUEST_PARAMETERS` dictionary contains parameters that are
 passed as is to the `navigator.id.request()` method to influence the
 look and feel of the Persona dialog::
 
     SOCIALACCOUNT_PROVIDERS = \
         { 'persona':
-            { 'REQUEST_PARAMETERS': {'siteName': 'Example' } } }
+            { 'AUDIENCE': 'https://www.example.com:433',
+              'REQUEST_PARAMETERS': {'siteName': 'Example' } } }
 
 
 SoundCloud

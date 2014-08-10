@@ -12,7 +12,7 @@ from .provider import FlickrProvider
 
 class FlickrAPI(OAuth):
 
-    api_url = 'http://api.flickr.com/services/rest'
+    api_url = 'https://api.flickr.com/services/rest'
 
     def get_user_info(self):
         default_params = {'nojsoncallback': '1',

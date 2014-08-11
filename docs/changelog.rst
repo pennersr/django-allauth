@@ -6,6 +6,10 @@ This chapter contains notes on upgrading.
 From 0.17.0
 ***********
 
+- The Persona provider now requires the `AUDIENCE` parameter to be
+  explicitly configured, as required by the Persona specification for
+  security reasons.
+
 - The inline Javascript is removed from the `fbconnect.html` template,
   which allows for a more strict `Content-Security-Policy`. If you
   were using the builtin `fbconnect.html` this change should go by

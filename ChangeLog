@@ -1,3 +1,10 @@
+2014-08-12  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* SECURITY: the Persona provider now requires the `AUDIENCE`
+	parameter to be explicitly configured, as required by the Persona
+	specification for security reasons.
+
+
 2014-08-08  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Storing social access tokens is now optional

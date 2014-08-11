@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-01 11:52+0100\n"
-"PO-Revision-Date: 2013-12-01 11:59+0100\n"
+"POT-Creation-Date: 2014-08-12 00:24+0200\n"
+"PO-Revision-Date: 2014-08-12 00:27+0200\n"
 "Last-Translator: pennersr <raymond.penners@intenct.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/django-allauth/"
 "language/nl/)\n"
@@ -23,152 +23,158 @@ msgstr ""
 msgid "Usernames can only contain letters, digits and @/./+/-/_."
 msgstr "Gebruikersnamen mogen alleen letters, cijfers en @/./+/-/_ bevatten."
 
-#: account/adapter.py:208
+#: account/adapter.py:209
 msgid "Username can not be used. Please use other username."
 msgstr "Deze gebruikersnaam mag je niet gebruiken, kies een andere."
 
-#: account/adapter.py:218
+#: account/adapter.py:219
 msgid "This username is already taken. Please choose another."
 msgstr "Deze gebruikersnaam is al in gebruik. Kies a.u.b. een andere naam."
 
-#: account/forms.py:34 account/forms.py:51 account/forms.py:233
-#: account/forms.py:331
+#: account/apps.py:8
+#, fuzzy
+msgid "Accounts"
+msgstr "Account"
+
+#: account/forms.py:36 account/forms.py:53 account/forms.py:283
+#: account/forms.py:380
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: account/forms.py:44
+#: account/forms.py:46
+#, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Het wachtwoord moet minimaal {0} tekens bevatten."
 
-#: account/forms.py:52
+#: account/forms.py:54
 msgid "Remember Me"
 msgstr "Onthouden"
 
-#: account/forms.py:61 account/forms.py:180
+#: account/forms.py:60
+msgid "This account is currently inactive."
+msgstr "Dit account is niet actief"
+
+#: account/forms.py:63
+msgid "The e-mail address and/or password you specified are not correct."
+msgstr "Je e-mail adres en wachtwoord komen niet overeen."
+
+#: account/forms.py:66
+msgid "The username and/or password you specified are not correct."
+msgstr "Je gebruikersnaam en wachtwoord komen niet overeen."
+
+#: account/forms.py:69
+msgid "The login and/or password you specified are not correct."
+msgstr "Je login en wachtwoord komen niet overeen."
+
+#: account/forms.py:77 account/forms.py:218
 msgid "E-mail address"
 msgstr "E-mail adres"
 
-#: account/forms.py:62 account/forms.py:193 account/forms.py:275
-#: account/forms.py:350
+#: account/forms.py:79 account/forms.py:231 account/forms.py:324
+#: account/forms.py:399
 msgid "E-mail"
 msgstr "E-mail"
 
-#: account/forms.py:67 account/forms.py:68 account/forms.py:173
-#: account/forms.py:177
+#: account/forms.py:84 account/forms.py:86 account/forms.py:209
+#: account/forms.py:214
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: account/forms.py:75
+#: account/forms.py:93
 msgid "Username or e-mail"
 msgstr "Gebruikersnaam of e-mail"
 
-#: account/forms.py:77
+#: account/forms.py:96
 msgctxt "field label"
 msgid "Login"
 msgstr "Login"
 
-#: account/forms.py:109
-msgid "This account is currently inactive."
-msgstr "Dit account is niet actief"
-
-#: account/forms.py:114
-msgid "The e-mail address and/or password you specified are not correct."
-msgstr "Je e-mail adres en wachtwoord komen niet overeen."
-
-#: account/forms.py:118
-msgid "The username and/or password you specified are not correct."
-msgstr "Je gebruikersnaam en wachtwoord komen niet overeen."
-
-#: account/forms.py:121
-msgid "The login and/or password you specified are not correct."
-msgstr "Je login en wachtwoord komen niet overeen."
-
-#: account/forms.py:196
+#: account/forms.py:234
 msgid "E-mail (optional)"
 msgstr "E-mail (optioneel)"
 
-#: account/forms.py:227
+#: account/forms.py:265
 msgid "A user is already registered with this e-mail address."
 msgstr "Er is al een gebruiker geregistreerd met dit e-mail adres."
 
-#: account/forms.py:234 account/forms.py:332
+#: account/forms.py:284 account/forms.py:381
 msgid "Password (again)"
 msgstr "Wachtwoord (bevestigen)"
 
-#: account/forms.py:251 account/forms.py:320 account/forms.py:339
-#: account/forms.py:413
+#: account/forms.py:301 account/forms.py:370 account/forms.py:388
+#: account/forms.py:465
 msgid "You must type the same password each time."
 msgstr "Je moet hetzelfde wachtwoord twee keer intoetsen."
 
-#: account/forms.py:283
+#: account/forms.py:333
 msgid "This e-mail address is already associated with this account."
 msgstr "Dit e-mail adres is al geassocieerd met dit account."
 
-#: account/forms.py:285
+#: account/forms.py:335
 msgid "This e-mail address is already associated with another account."
 msgstr "Dit e-mail adres is al geassocieerd met een ander account."
 
-#: account/forms.py:305
+#: account/forms.py:355
 msgid "Current Password"
 msgstr "Huidig wachtwoord"
 
-#: account/forms.py:306 account/forms.py:399
+#: account/forms.py:356 account/forms.py:451
 msgid "New Password"
 msgstr "Nieuw wachtwoord"
 
-#: account/forms.py:307 account/forms.py:400
+#: account/forms.py:357 account/forms.py:452
 msgid "New Password (again)"
 msgstr "Nieuw wachtwoord (bevestigen)"
 
-#: account/forms.py:311
+#: account/forms.py:361
 msgid "Please type your current password."
 msgstr "Geef je huidige wachtwoord op."
 
-#: account/forms.py:361
+#: account/forms.py:410
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Dit e-mail adres is niet bij ons bekend"
 
-#: account/models.py:24
+#: account/models.py:25
 msgid "user"
 msgstr "gebruiker"
 
-#: account/models.py:26 account/models.py:77
+#: account/models.py:27 account/models.py:78
 msgid "e-mail address"
 msgstr "e-mail adres"
 
-#: account/models.py:27
+#: account/models.py:28
 msgid "verified"
 msgstr "geverifieerd"
 
-#: account/models.py:28
+#: account/models.py:29
 msgid "primary"
 msgstr "Primair"
 
-#: account/models.py:33
+#: account/models.py:34
 msgid "email address"
 msgstr "e-mail adres"
 
-#: account/models.py:34
+#: account/models.py:35
 msgid "email addresses"
 msgstr "e-mail adressen"
 
-#: account/models.py:78
+#: account/models.py:79
 msgid "created"
 msgstr "aangemaakt"
 
-#: account/models.py:80
+#: account/models.py:81
 msgid "sent"
 msgstr "verstuurd"
 
-#: account/models.py:81
+#: account/models.py:82 socialaccount/models.py:49
 msgid "key"
 msgstr "sleutel"
 
-#: account/models.py:86
+#: account/models.py:87
 msgid "email confirmation"
 msgstr "e-mail adres bevestiging"
 
-#: account/models.py:87
+#: account/models.py:88
 msgid "email confirmations"
 msgstr "e-mail adres bevestigingen"
 
@@ -180,38 +186,131 @@ msgstr "Je account heeft geen wachtwoord ingesteld."
 msgid "Your account has no verified e-mail address."
 msgstr "Je account heeft geen geverifieerd e-mail adres."
 
-#: socialaccount/forms.py:42
+#: socialaccount/apps.py:8
+#, fuzzy
+msgid "Social Accounts"
+msgstr "Account"
+
+#: socialaccount/forms.py:41
 #, python-format
 msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
 "account first, then connect your %s account."
-msgstr "Er bestaat al een account met dit e-mail adres. Meld je eerst aan met dit account, verbind daarna je %s account."
+msgstr ""
+"Er bestaat al een account met dit e-mail adres. Meld je eerst aan met dit "
+"account, verbind daarna je %s account."
 
-#: socialaccount/providers/oauth/client.py:78
+#: socialaccount/models.py:37 socialaccount/models.py:70
+msgid "provider"
+msgstr ""
+
+#: socialaccount/models.py:40
+#, fuzzy
+msgid "name"
+msgstr "Gebruikersnaam"
+
+#: socialaccount/models.py:42
+msgid "client id"
+msgstr ""
+
+#: socialaccount/models.py:44
+msgid "App ID, or consumer key"
+msgstr ""
+
+#: socialaccount/models.py:45
+msgid "secret key"
+msgstr ""
+
+#: socialaccount/models.py:47
+msgid "API secret, client secret, or consumer secret"
+msgstr ""
+
+#: socialaccount/models.py:52
+#, fuzzy
+msgid "Key"
+msgstr "sleutel"
+
+#: socialaccount/models.py:60
+msgid "social application"
+msgstr ""
+
+#: socialaccount/models.py:61
+msgid "social applications"
+msgstr ""
+
+#: socialaccount/models.py:88
+msgid "uid"
+msgstr ""
+
+#: socialaccount/models.py:89
+msgid "last login"
+msgstr ""
+
+#: socialaccount/models.py:91
+msgid "date joined"
+msgstr ""
+
+#: socialaccount/models.py:93
+msgid "extra data"
+msgstr ""
+
+#: socialaccount/models.py:97 socialaccount/models.py:124
+msgid "social account"
+msgstr ""
+
+#: socialaccount/models.py:98
+msgid "social accounts"
+msgstr ""
+
+#: socialaccount/models.py:125
+msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
+msgstr ""
+
+#: socialaccount/models.py:129
+msgid "token secret"
+msgstr ""
+
+#: socialaccount/models.py:130
+msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
+msgstr ""
+
+#: socialaccount/models.py:133
+msgid "expires at"
+msgstr ""
+
+#: socialaccount/models.py:137
+msgid "social application token"
+msgstr ""
+
+#: socialaccount/models.py:138
+msgid "social application tokens"
+msgstr ""
+
+#: socialaccount/providers/oauth/client.py:80
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr ""
 "Ongeldig antwoord ontvangen tijdens het ophalen van een verzoeksleutel van "
 "\"%s\"."
 
-#: socialaccount/providers/oauth/client.py:102
+#: socialaccount/providers/oauth/client.py:105
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr ""
 "Ongeldig antwoord ontvangen tijdens het ophalen van een toegangssleutel van "
 "\"%s\"."
 
-#: socialaccount/providers/oauth/client.py:115
+#: socialaccount/providers/oauth/client.py:121
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr "Geen verzoeksleutel opgeslagen voor \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:159
+#: socialaccount/providers/oauth/client.py:169
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "Geen toegangssleutel opgeslagen voor \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:177
+#: socialaccount/providers/oauth/client.py:189
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "Geen toegang tot prive data bij \"%s\"."
@@ -338,7 +437,8 @@ msgid ""
 "for a %(site_name)s account and sign in below:"
 msgstr ""
 "Meld je aan met een van je bestaande externe accounts. Of, <a \n"
-"href=\"%(signup_url)s\">registreer</a> voor een %(site_name)s account en meld je hiermee aan:"
+"href=\"%(signup_url)s\">registreer</a> voor een %(site_name)s account en "
+"meld je hiermee aan:"
 
 #: templates/account/login.html:24
 msgid "or"
@@ -376,14 +476,14 @@ msgstr "Weet je zeker dat je wilt afmelden?"
 msgid "Change Password"
 msgstr "Wachtwoord wijzigen"
 
-#: templates/account/password_reset.html:6
-#: templates/account/password_reset.html:10
+#: templates/account/password_reset.html:7
+#: templates/account/password_reset.html:11
 #: templates/account/password_reset_done.html:6
 #: templates/account/password_reset_done.html:9
 msgid "Password Reset"
 msgstr "Nieuw wachtwoord"
 
-#: templates/account/password_reset.html:15
+#: templates/account/password_reset.html:16
 msgid ""
 "Forgotten your password? Enter your e-mail address below, and we'll send you "
 "an e-mail allowing you to reset it."
@@ -391,11 +491,11 @@ msgstr ""
 "Wachtwoord vergeten? Vul je e-mail adres in en we sturen je een e-mail "
 "waarmee je een nieuw wachtwoord kunt instellen."
 
-#: templates/account/password_reset.html:20
+#: templates/account/password_reset.html:21
 msgid "Reset My Password"
 msgstr "Herstel mijn wachtwoord"
 
-#: templates/account/password_reset.html:23
+#: templates/account/password_reset.html:24
 msgid "Please contact us if you have any trouble resetting your password."
 msgstr ""
 "Neem a.u.b. contact met ons op als het niet lukt je wachtwoord opnieuw in te "
@@ -475,7 +575,10 @@ msgid ""
 "We have sent an e-mail to you for verification. Follow the link provided to "
 "finalize the signup process. Please contact us if you do not receive it "
 "within a few minutes."
-msgstr "We hebben een e-mail verstuurd ter verificatie. Volg de link in deze mail om je registratie af te ronden. Neem a.u.b. contact met ons op als je deze e-mail niet binnen enkele minuten ontvangt."
+msgstr ""
+"We hebben een e-mail verstuurd ter verificatie. Volg de link in deze mail om "
+"je registratie af te ronden. Neem a.u.b. contact met ons op als je deze e-"
+"mail niet binnen enkele minuten ontvangt."
 
 #: templates/account/verified_email_required.html:13
 msgid ""
@@ -523,24 +626,17 @@ msgid ""
 "You're receiving this e-mail because you or someone else has requested a "
 "password for your user account at %(site_domain)s.\n"
 "It can be safely ignored if you did not request a password reset. Click the "
-"link below to reset your password.\n"
-"\n"
-"%(password_reset_url)s\n"
-"\n"
-"In case you forgot, your username is %(username)s.\n"
-"\n"
-"Thanks for using our site!\n"
-msgstr ""
-"Je ontvangt deze mail omdat er een verzoek is ingelegd om het wachtwoord "
-"behorende bij je %(site_domain)s account opnieuw in te stellen. Je kunt deze "
-"gerust mail negeren als je dit niet zelf gedaan hebt. Anders, klik op de "
-"volgende link om je wachtwoord opnieuw in te stellen.\n"
-"\n"
-"%(password_reset_url)s\n"
-"\n"
-"Deze link hoort bij je account met gebruikersnaam %(username)s.\n"
-"\n"
-"Bedankt voor het gebruik van onze site!\n"
+"link below to reset your password."
+msgstr "Je ontvangt deze mail omdat er een verzoek is ingelegd om het wachtwoord behorende bij je %(site_domain)s account opnieuw in te stellen. Je kunt deze gerust mail negeren als je dit niet zelf gedaan hebt. Anders, klik op de volgende link om je wachtwoord opnieuw in te stellen."
+
+#: templates/account/email/password_reset_key_message.txt:6
+#, python-format
+msgid "In case you forgot, your username is %(username)s."
+msgstr "Deze link hoort bij je account met gebruikersnaam %(username)s."
+
+#: templates/account/email/password_reset_key_message.txt:8
+msgid "Thanks for using our site!"
+msgstr "Bedankt voor het gebruik van onze site!"
 
 #: templates/account/email/password_reset_key_subject.txt:3
 msgid "Password Reset E-mail"
@@ -655,7 +751,9 @@ msgstr ""
 msgid ""
 "You are about to use your %(provider_name)s account to login to\n"
 "%(site_name)s. As a final step, please complete the following form:"
-msgstr "Om bij %(site_name)s in te kunnen loggen via %(provider_name)s hebben we de volgende gegevens nodig:"
+msgstr ""
+"Om bij %(site_name)s in te kunnen loggen via %(provider_name)s hebben we de "
+"volgende gegevens nodig:"
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."

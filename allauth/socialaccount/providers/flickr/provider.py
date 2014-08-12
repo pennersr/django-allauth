@@ -43,9 +43,12 @@ class FlickrProvider(OAuthProvider):
         return data['person']['nsid']
 
     def extract_common_fields(self, data):
-        name = data.get('person').get('realname').get('_content')
+        person = data.get('person', {})
+        name = person.get('realname', {}).get('_content')
+        username = person.get('username', {}).get('_content')
         return dict(email=data.get('email-address'),
-                    name=name)
+                    name=name,
+                    username=username)
 
 
 providers.registry.register(FlickrProvider)

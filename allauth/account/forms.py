@@ -41,10 +41,7 @@ class SetPasswordField(PasswordField):
 
     def clean(self, value):
         value = super(SetPasswordField, self).clean(value)
-        min_length = app_settings.PASSWORD_MIN_LENGTH
-        if len(value) < min_length:
-            raise forms.ValidationError(_("Password must be a minimum of {0} "
-                                          "characters.").format(min_length))
+        value = get_adapter().clean_password(value)
         return value
 
 

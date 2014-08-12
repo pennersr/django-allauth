@@ -204,7 +204,8 @@ class DefaultAccountAdapter(object):
                                           "letters, digits and @/./+/-/_."))
 
         # TODO: Add regexp support to USERNAME_BLACKLIST
-        username_blacklist_lower = [ub.lower() for ub in app_settings.USERNAME_BLACKLIST]
+        username_blacklist_lower = [ub.lower()
+                                    for ub in app_settings.USERNAME_BLACKLIST]
         if username.lower() in username_blacklist_lower:
             raise forms.ValidationError(_("Username can not be used. "
                                           "Please use other username."))
@@ -225,6 +226,17 @@ class DefaultAccountAdapter(object):
         (dynamically) restrict what email addresses can be chosen.
         """
         return email
+
+    def clean_password(self, password):
+        """
+        Validates a password. You can hook into this if you want to
+        restric the allowed password choices.
+        """
+        min_length = app_settings.PASSWORD_MIN_LENGTH
+        if len(password) < min_length:
+            raise forms.ValidationError(_("Password must be a minimum of {0} "
+                                          "characters.").format(min_length))
+        return password
 
     def add_message(self, request, level, message_template,
                     message_context={}, extra_tags=''):

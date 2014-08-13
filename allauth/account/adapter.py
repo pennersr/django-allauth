@@ -110,7 +110,7 @@ class DefaultAccountAdapter(object):
 
     def get_logout_redirect_url(self, request):
         """
-        Returns the URL to redriect to after the user logs out. Note that
+        Returns the URL to redirect to after the user logs out. Note that
         this method is also invoked if you attempt to log out while no users
         is logged in. Therefore, request.user is not guaranteed to be an
         authenticated user.

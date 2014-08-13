@@ -1,0 +1,876 @@
+# Copyright (C) 2014
+# This file is distributed under the same license as the django-allauth package.
+# Kirby Wu <tkirby@gmail.com>, 2014
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: django-allauth\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-12 00:24+0200\n"
+"PO-Revision-Date: 2014-08-12 00:36+0200\n"
+"Last-Translator: jresins <jresins@gmail.com>\n"
+"Language-Team: Chinese (Traditional)\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: account/adapter.py:203
+msgid "Usernames can only contain letters, digits and @/./+/-/_."
+msgstr "使用者名稱只能包含字母，數字及 @/./+/-/_."
+
+#: account/adapter.py:209
+msgid "Username can not be used. Please use other username."
+msgstr "無法使用此使用者名稱，請使用其他名稱。"
+
+#: account/adapter.py:219
+msgid "This username is already taken. Please choose another."
+msgstr "這個使用者名稱已經有人用了，請換一個。"
+
+#: account/apps.py:8
+msgid "Accounts"
+msgstr "帳號"
+
+#: account/forms.py:36 account/forms.py:53 account/forms.py:283
+#: account/forms.py:380
+msgid "Password"
+msgstr "密碼"
+
+#: account/forms.py:46
+#, python-brace-format
+msgid "Password must be a minimum of {0} characters."
+msgstr "密碼長度至少要有 {0} 個字元。"
+
+#: account/forms.py:54
+msgid "Remember Me"
+msgstr "記住我"
+
+#: account/forms.py:60
+msgid "This account is currently inactive."
+msgstr "此帳號目前沒有啟用。"
+
+#: account/forms.py:63
+msgid "The e-mail address and/or password you specified are not correct."
+msgstr "您提供的電子郵件地址或密碼不正確。"
+
+#: account/forms.py:66
+msgid "The username and/or password you specified are not correct."
+msgstr "您提供的使用者名稱或密碼不正確。"
+
+#: account/forms.py:69
+msgid "The login and/or password you specified are not correct."
+msgstr "您提供的帳號或密碼不正確。"
+
+#: account/forms.py:77 account/forms.py:218
+msgid "E-mail address"
+msgstr "電子郵件地址"
+
+#: account/forms.py:79 account/forms.py:231 account/forms.py:324
+#: account/forms.py:399
+msgid "E-mail"
+msgstr "E-mail"
+
+#: account/forms.py:84 account/forms.py:86 account/forms.py:209
+#: account/forms.py:214
+msgid "Username"
+msgstr "使用者名稱"
+
+#: account/forms.py:93
+msgid "Username or e-mail"
+msgstr "使用者名稱或電子郵件"
+
+#: account/forms.py:96
+msgctxt "field label"
+msgid "Login"
+msgstr "登入"
+
+#: account/forms.py:234
+msgid "E-mail (optional)"
+msgstr "E-mail (可不填)"
+
+#: account/forms.py:265
+msgid "A user is already registered with this e-mail address."
+msgstr "已經有人使用這一個電子郵件註冊了。"
+
+#: account/forms.py:284 account/forms.py:381
+msgid "Password (again)"
+msgstr "密碼 (再一次)"
+
+#: account/forms.py:301 account/forms.py:370 account/forms.py:388
+#: account/forms.py:465
+msgid "You must type the same password each time."
+msgstr "每次輸入的密碼必須相同"
+
+#: account/forms.py:333
+msgid "This e-mail address is already associated with this account."
+msgstr "此電子郵件已與這個帳號連結了。"
+
+#: account/forms.py:335
+msgid "This e-mail address is already associated with another account."
+msgstr "此電子郵件已經與別的帳號連結了。"
+
+#: account/forms.py:355
+msgid "Current Password"
+msgstr "目前密碼"
+
+#: account/forms.py:356 account/forms.py:451
+msgid "New Password"
+msgstr "新密碼"
+
+#: account/forms.py:357 account/forms.py:452
+msgid "New Password (again)"
+msgstr "新密碼 (再一次)"
+
+#: account/forms.py:361
+msgid "Please type your current password."
+msgstr "請輸入您目前的密碼"
+
+#: account/forms.py:410
+msgid "The e-mail address is not assigned to any user account"
+msgstr "還沒有其他帳號使用這個電子郵件地址"
+
+#: account/models.py:25
+msgid "user"
+msgstr "使用者"
+
+#: account/models.py:27 account/models.py:78
+#, fuzzy
+msgid "e-mail address"
+msgstr "電子郵件地址"
+
+#: account/models.py:28
+msgid "verified"
+msgstr "已驗證"
+
+#: account/models.py:29
+msgid "primary"
+msgstr "主要的"
+
+#: account/models.py:34
+msgid "email address"
+msgstr "電子郵件地址"
+
+#: account/models.py:35
+msgid "email addresses"
+msgstr "電子郵件地址"
+
+#: account/models.py:79
+msgid "created"
+msgstr "以建立"
+
+#: account/models.py:81
+msgid "sent"
+msgstr "已送出"
+
+#: account/models.py:82 socialaccount/models.py:49
+msgid "key"
+msgstr "key"
+
+#: account/models.py:87
+msgid "email confirmation"
+msgstr "電子郵件確認"
+
+#: account/models.py:88
+msgid "email confirmations"
+msgstr "電子郵件確認"
+
+#: socialaccount/adapter.py:103
+msgid "Your account has no password set up."
+msgstr "您的帳號沒有設置密碼。"
+
+#: socialaccount/adapter.py:110
+msgid "Your account has no verified e-mail address."
+msgstr "您的帳號下沒有驗證過的電子郵件地址。"
+
+#: socialaccount/apps.py:8
+msgid "Social Accounts"
+msgstr "社群帳號"
+
+#: socialaccount/forms.py:41
+#, python-format
+msgid ""
+"An account already exists with this e-mail address. Please sign in to that "
+"account first, then connect your %s account."
+msgstr "已經有一個帳號與此電子郵件連結了，請先登入該帳號，然後連接你的 %s 帳號。"
+
+#: socialaccount/models.py:37 socialaccount/models.py:70
+msgid "provider"
+msgstr "提供者"
+
+#: socialaccount/models.py:40
+msgid "name"
+msgstr "名稱"
+
+#: socialaccount/models.py:42
+msgid "client id"
+msgstr "client id"
+
+#: socialaccount/models.py:44
+msgid "App ID, or consumer key"
+msgstr "App ID, or consumer key"
+
+#: socialaccount/models.py:45
+msgid "secret key"
+msgstr "secret key"
+
+#: socialaccount/models.py:47
+msgid "API secret, client secret, or consumer secret"
+msgstr "API secret, client secret, or consumer secret"
+
+#: socialaccount/models.py:52
+msgid "Key"
+msgstr "Key"
+
+#: socialaccount/models.py:60
+msgid "social application"
+msgstr "社群應用程式"
+
+#: socialaccount/models.py:61
+msgid "social applications"
+msgstr "社群應用程式"
+
+#: socialaccount/models.py:88
+msgid "uid"
+msgstr "uid"
+
+#: socialaccount/models.py:89
+msgid "last login"
+msgstr "最後一次登入"
+
+#: socialaccount/models.py:91
+msgid "date joined"
+msgstr "加入日期"
+
+#: socialaccount/models.py:93
+msgid "extra data"
+msgstr "額外資料"
+
+#: socialaccount/models.py:97 socialaccount/models.py:124
+msgid "social account"
+msgstr "社群帳號"
+
+#: socialaccount/models.py:98
+msgid "social accounts"
+msgstr "社群帳號"
+
+#: socialaccount/models.py:125
+msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
+msgstr ""
+
+#: socialaccount/models.py:129
+msgid "token secret"
+msgstr ""
+
+#: socialaccount/models.py:130
+msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
+msgstr ""
+
+#: socialaccount/models.py:133
+msgid "expires at"
+msgstr "過期日"
+
+#: socialaccount/models.py:137
+msgid "social application token"
+msgstr "社群應用程式 Token"
+
+#: socialaccount/models.py:138
+msgid "social application tokens"
+msgstr "社群應用程式 Token"
+
+#: socialaccount/providers/oauth/client.py:80
+#, python-format
+msgid "Invalid response while obtaining request token from \"%s\"."
+msgstr "Invalid response while obtaining request token from \"%s\"."
+
+#: socialaccount/providers/oauth/client.py:105
+#, python-format
+msgid "Invalid response while obtaining access token from \"%s\"."
+msgstr "Invalid response while obtaining access token from \"%s\"."
+
+#: socialaccount/providers/oauth/client.py:121
+#, python-format
+msgid "No request token saved for \"%s\"."
+msgstr "No request token saved for \"%s\"."
+
+#: socialaccount/providers/oauth/client.py:169
+#, python-format
+msgid "No access token saved for \"%s\"."
+msgstr "No access token saved for \"%s\"."
+
+#: socialaccount/providers/oauth/client.py:189
+#, python-format
+msgid "No access to private resources at \"%s\"."
+msgstr "無權訪問私有資源 \"%s\"。"
+
+#: templates/account/account_inactive.html:5
+#: templates/account/account_inactive.html:8
+msgid "Account Inactive"
+msgstr "帳號未啟用"
+
+#: templates/account/account_inactive.html:10
+msgid "This account is inactive."
+msgstr "這個帳號未啟用"
+
+#: templates/account/email.html:6
+msgid "Account"
+msgstr "帳號"
+
+#: templates/account/email.html:9
+msgid "E-mail Addresses"
+msgstr "電子郵件地址"
+
+#: templates/account/email.html:11
+msgid "The following e-mail addresses are associated with your account:"
+msgstr "下列電子郵件已與你的帳號連結："
+
+#: templates/account/email.html:25
+msgid "Verified"
+msgstr "已驗證"
+
+#: templates/account/email.html:27
+msgid "Unverified"
+msgstr "未驗證"
+
+#: templates/account/email.html:29
+msgid "Primary"
+msgstr "主要的"
+
+#: templates/account/email.html:35
+msgid "Make Primary"
+msgstr "設為主要的"
+
+#: templates/account/email.html:36
+msgid "Re-send Verification"
+msgstr "重寄驗証信"
+
+#: templates/account/email.html:37 templates/socialaccount/connections.html:36
+msgid "Remove"
+msgstr "移除"
+
+#: templates/account/email.html:44
+msgid "Warning:"
+msgstr "警告："
+
+#: templates/account/email.html:44
+msgid ""
+"You currently do not have any e-mail address set up. You should really add "
+"an e-mail address so you can receive notifications, reset your password, etc."
+msgstr ""
+"您尚未設定任何電子郵件。建議您最好設定一個電子郵件，以便您接收通知或重新設定密碼等等。"
+
+#: templates/account/email.html:49
+msgid "Add E-mail Address"
+msgstr "增加電子郵件"
+
+#: templates/account/email.html:54
+msgid "Add E-mail"
+msgstr "增加電子郵件"
+
+#: templates/account/email.html:63
+msgid "Do you really want to remove the selected e-mail address?"
+msgstr "您真的要移除所選擇電子郵件嗎？"
+
+#: templates/account/email_confirm.html:7
+#: templates/account/email_confirm.html:11
+#: templates/account/email_confirmed.html:6
+#: templates/account/email_confirmed.html:11
+#: templates/account/email/email_confirmation_subject.txt:3
+msgid "Confirm E-mail Address"
+msgstr "確認電子郵件"
+
+#: templates/account/email_confirm.html:17
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
+msgstr ""
+"請確認<a href=\"mailto:%(email)s\">%(email)s</a>是否是使用者 %(user_display)s 的"
+"電子郵件地址。"
+
+#: templates/account/email_confirm.html:21
+msgid "Confirm"
+msgstr "確認"
+
+#: templates/account/email_confirm.html:28
+#, python-format
+msgid ""
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+msgstr ""
+"電子郵件確認連結已經過期或失效了，請點擊 <a href=\"%(email_url)s\"> 以要求發送新的電子郵件確認信。"
+
+#: templates/account/email_confirmed.html:15
+#, python-format
+msgid ""
+"You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
+"mail address for user %(user_display)s."
+msgstr ""
+"您以確認<a href=\"mailto:%(email)s\">%(email)s</a>是使用者%(user_display)s的電子郵件地址。"
+
+#: templates/account/login.html:7 templates/account/login.html.py:11
+#: templates/account/login.html:42
+msgid "Sign In"
+msgstr "登入"
+
+#: templates/account/login.html:14
+#, fuzzy, python-format
+msgid ""
+"Please sign in with one\n"
+"of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign "
+"up</a>\n"
+"for a %(site_name)s account and sign in below:"
+msgstr ""
+"請用您的第三方帳號登入。\n"
+"或者<a href=\"%(signup_url)s\">註冊</a> \n"
+"一個 %(site_name)s帳號後登入："
+
+#: templates/account/login.html:24
+msgid "or"
+msgstr "或"
+
+#: templates/account/login.html:31
+#, python-format
+msgid ""
+"If you have not created an account yet, then please\n"
+"<a href=\"%(signup_url)s\">sign up</a> first."
+msgstr ""
+"若你沒有帳號，請先\n"
+"<a href=\"%(signup_url)s\">註冊</a> 。"
+
+#: templates/account/login.html:41
+msgid "Forgot Password?"
+msgstr "忘記密碼了？"
+
+#: templates/account/logout.html:6 templates/account/logout.html.py:9
+#: templates/account/logout.html:18
+msgid "Sign Out"
+msgstr "登出"
+
+#: templates/account/logout.html:11
+msgid "Are you sure you want to sign out?"
+msgstr "您確定要登出嗎？"
+
+#: templates/account/password_change.html:6
+#: templates/account/password_change.html:9
+#: templates/account/password_change.html:14
+#: templates/account/password_reset_from_key.html:5
+#: templates/account/password_reset_from_key.html:8
+#: templates/account/password_reset_from_key_done.html:5
+#: templates/account/password_reset_from_key_done.html:8
+msgid "Change Password"
+msgstr "修改密碼"
+
+#: templates/account/password_reset.html:7
+#: templates/account/password_reset.html:11
+#: templates/account/password_reset_done.html:6
+#: templates/account/password_reset_done.html:9
+msgid "Password Reset"
+msgstr "密碼重設"
+
+#: templates/account/password_reset.html:16
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
+msgstr ""
+"忘記您的密碼了嗎？ 請在下方輸入您的電子郵件，我們會發送一封電子郵件給您，以便重新設定您的密碼。"
+
+#: templates/account/password_reset.html:21
+msgid "Reset My Password"
+msgstr "重設我的密碼"
+
+#: templates/account/password_reset.html:24
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr "如果在重設密碼時碰到問題，請與我們聯絡。"
+
+#: templates/account/password_reset_done.html:15
+msgid ""
+"We have sent you an e-mail. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr "我們已經寄了一封電子郵件給您，如果數分鐘內您沒有收到，請與我們聯絡。"
+
+#: templates/account/password_reset_from_key.html:8
+msgid "Bad Token"
+msgstr "Bad Token"
+
+#: templates/account/password_reset_from_key.html:12
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+"密碼重設連結已失效，可能是因為該連結已經被人用過了，請重新申請<a href="
+"\"%(passwd_reset_url)s\">重設密碼</a>。"
+
+#: templates/account/password_reset_from_key.html:18
+msgid "change password"
+msgstr "修改密碼"
+
+#: templates/account/password_reset_from_key.html:21
+#: templates/account/password_reset_from_key_done.html:9
+msgid "Your password is now changed."
+msgstr "您的密碼已變更。"
+
+#: templates/account/password_set.html:6 templates/account/password_set.html:9
+#: templates/account/password_set.html:14
+msgid "Set Password"
+msgstr "設定密碼"
+
+#: templates/account/signup.html:6 templates/socialaccount/signup.html:6
+msgid "Signup"
+msgstr "註冊"
+
+#: templates/account/signup.html:9 templates/account/signup.html.py:19
+#: templates/socialaccount/signup.html:9
+#: templates/socialaccount/signup.html:20
+msgid "Sign Up"
+msgstr "註冊"
+
+#: templates/account/signup.html:11
+#, python-format
+msgid ""
+"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr "已有帳號了嗎？請<a href=\"%(login_url)s\">登入</a>."
+
+#: templates/account/signup_closed.html:6
+#: templates/account/signup_closed.html:9
+msgid "Sign Up Closed"
+msgstr "註冊未開放"
+
+#: templates/account/signup_closed.html:11
+msgid "We are sorry, but the sign up is currently closed."
+msgstr "很抱歉，目前不開放註冊。"
+
+#: templates/account/verification_sent.html:5
+#: templates/account/verification_sent.html:8
+#: templates/account/verified_email_required.html:6
+#: templates/account/verified_email_required.html:9
+msgid "Verify Your E-mail Address"
+msgstr "驗證您的電子郵件地址"
+
+#: templates/account/verification_sent.html:10
+msgid ""
+"We have sent an e-mail to you for verification. Follow the link provided to "
+"finalize the signup process. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+"我們剛剛寄了一封電子郵件確認信給您，請點擊郵件中的連結以完成註冊流程。若您在數分鐘內尚無法收到郵件，請與我們聯絡。"
+
+#: templates/account/verified_email_required.html:13
+msgid ""
+"This part of the site requires us to verify that\n"
+"you are who you claim to be. For this purpose, we require that you\n"
+"verify ownership of your e-mail address. "
+msgstr ""
+"此網站的這部分功能需要驗證您的身份，\n因此我們需要確認您的電子郵件地址。"
+
+#: templates/account/verified_email_required.html:17
+msgid ""
+"We have sent an e-mail to you for\n"
+"verification. Please click on the link inside this e-mail. Please\n"
+"contact us if you do not receive it within a few minutes."
+msgstr ""
+"我們剛剛寄了一封電子郵件確認信給您，\n請點擊郵件中的連結。您在數分鐘內尚無法收到郵件，請與我們聯絡。"
+
+#: templates/account/verified_email_required.html:21
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
+"mail address</a>."
+msgstr ""
+"<strong>注意：</strong> 您仍能<a href=\"%(email_url)s\">修改您的電子郵件地址"
+" </a>."
+
+#: templates/account/email/email_confirmation_message.txt:1
+#, python-format
+msgid ""
+"User %(user_display)s at %(site_name)s has given this as an email address.\n"
+"\n"
+"To confirm this is correct, go to %(activate_url)s\n"
+msgstr ""
+"網站%(site_name)s上的使用者%(user_display)s將此設為他的電子郵件地址。\n"
+"\n"
+"為了確認這是正確的，請開啟這個連結： %(activate_url)s\n"
+
+#: templates/account/email/password_reset_key_message.txt:1
+#, python-format
+msgid ""
+"You're receiving this e-mail because you or someone else has requested a "
+"password for your user account at %(site_domain)s.\n"
+"It can be safely ignored if you did not request a password reset. Click the "
+"link below to reset your password."
+msgstr ""
+"您會收到這封信是因為您或是某人在 %(site_domain)s 這個網站上要求重設您帳號的密碼。\n"
+"若您沒有要求我們重設密碼，請您直接忽略這封信。若要重設您的密碼，請點擊下面的連結。"
+
+#: templates/account/email/password_reset_key_message.txt:6
+#, python-format
+msgid "In case you forgot, your username is %(username)s."
+msgstr "提醒您，您的使用者名稱是 %(username)s 。"
+
+#: templates/account/email/password_reset_key_message.txt:8
+msgid "Thanks for using our site!"
+msgstr "感謝您使用我們的網站！"
+
+#: templates/account/email/password_reset_key_subject.txt:3
+msgid "Password Reset E-mail"
+msgstr "密碼重設電子郵件"
+
+#: templates/account/messages/cannot_delete_primary_email.txt:2
+#, python-format
+msgid "You cannot remove your primary e-mail address (%(email)s)."
+msgstr "您不能移除您的主要的電子郵件地址 (%(email)s) 。"
+
+#: templates/account/messages/email_confirmation_sent.txt:2
+#, fuzzy, python-format
+msgid "Confirmation e-mail sent to %(email)s."
+msgstr "確認信已發至 %(email)s 。"
+
+#: templates/account/messages/email_confirmed.txt:2
+#, python-format
+msgid "You have confirmed %(email)s."
+msgstr "您以確認電子郵件地址 %(email)s 。 "
+
+#: templates/account/messages/email_deleted.txt:2
+#, fuzzy, python-format
+msgid "Removed e-mail address %(email)s."
+msgstr "電子郵件地址 %(email)s 已刪除。"
+
+#: templates/account/messages/logged_in.txt:4
+#, python-format
+msgid "Successfully signed in as %(name)s."
+msgstr "成功以 %(name)s..的身份登入。"
+
+#: templates/account/messages/logged_out.txt:2
+msgid "You have signed out."
+msgstr "您已登出。"
+
+#: templates/account/messages/password_changed.txt:2
+msgid "Password successfully changed."
+msgstr "密碼修改完成。"
+
+#: templates/account/messages/password_set.txt:2
+msgid "Password successfully set."
+msgstr "密碼設定完成。"
+
+#: templates/account/messages/primary_email_set.txt:2
+msgid "Primary e-mail address set."
+msgstr "已設定好主要的電子郵件地址。"
+
+#: templates/account/messages/unverified_primary_email.txt:2
+msgid "Your primary e-mail address must be verified."
+msgstr "您的主要電子郵件位址必須被驗證過。"
+
+#: templates/account/snippets/already_logged_in.html:5
+msgid "Note"
+msgstr "注意"
+
+#: templates/account/snippets/already_logged_in.html:5
+#, python-format
+msgid "you are already logged in as %(user_display)s."
+msgstr "您已經以 %(user_display)s 的身份登入了。"
+
+#: templates/openid/login.html:10
+msgid "OpenID Sign In"
+msgstr "OpenID 登入"
+
+#: templates/socialaccount/authentication_error.html:5
+#: templates/socialaccount/authentication_error.html:8
+msgid "Social Network Login Failure"
+msgstr "社群網路登入失敗"
+
+#: templates/socialaccount/authentication_error.html:10
+msgid ""
+"An error occurred while attempting to login via your social network account."
+msgstr "當嘗試用您的社群網路帳號登入時發生錯誤。"
+
+#: templates/socialaccount/connections.html:6
+#: templates/socialaccount/connections.html:9
+msgid "Account Connections"
+msgstr "帳號連結"
+
+#: templates/socialaccount/connections.html:12
+msgid ""
+"You can sign in to your account using any of the following third party "
+"accounts:"
+msgstr "您可以使用下列任何第三方帳號登入您的帳號："
+
+#: templates/socialaccount/connections.html:44
+msgid ""
+"You currently have no social network accounts connected to this account."
+msgstr "您目前沒有任何社群網路帳號與此帳號連結。"
+
+#: templates/socialaccount/connections.html:47
+msgid "Add a 3rd Party Account"
+msgstr "增加一個第三方帳號"
+
+#: templates/socialaccount/login_cancelled.html:6
+#: templates/socialaccount/login_cancelled.html:10
+msgid "Login Cancelled"
+msgstr "登入取消了"
+
+#: templates/socialaccount/login_cancelled.html:14
+#, python-format
+msgid ""
+"You decided to cancel logging in to our site using one of your existing "
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
+msgstr ""
+"您決定不繼續登入這一個網站。若這是一個失誤，請<a href="
+"\"%(login_url)s\">由此</a>重新登入。"
+
+#: templates/socialaccount/signup.html:11
+#, fuzzy, python-format
+msgid ""
+"You are about to use your %(provider_name)s account to login to\n"
+"%(site_name)s. As a final step, please complete the following form:"
+msgstr ""
+"您將使用 %(provider_name)s 這個帳號登入\n %(site_name)s 這個網站。最後一步，請填完下列表單："
+
+#: templates/socialaccount/messages/account_connected.txt:2
+#, fuzzy
+msgid "The social account has been connected."
+msgstr "社群網站帳號已連結。"
+
+#: templates/socialaccount/messages/account_connected_other.txt:2
+msgid "The social account is already connected to a different account."
+msgstr "這個社群網站帳號已經與另一個帳號連結過了。"
+
+#: templates/socialaccount/messages/account_disconnected.txt:2
+#, fuzzy
+msgid "The social account has been disconnected."
+msgstr "社群網站帳號已斷開連結。"
+
+#~ msgid "Confirmation e-mail sent to %(email)s"
+#~ msgstr "确认e-mail已发往 %(email)s"
+
+#~ msgid "Delete Password"
+#~ msgstr "删除密码"
+
+#~ msgid ""
+#~ "You may delete your password since you are currently logged in using "
+#~ "OpenID."
+#~ msgstr "您当前使用OpenID登录，因此您可以删除你的密码。"
+
+#~ msgid "delete my password"
+#~ msgstr "删除我的密码"
+
+#~ msgid "Password Deleted"
+#~ msgstr "密码已删除"
+
+#~ msgid "Your password has been deleted."
+#~ msgstr "您的密码已被删除。"
+
+#~ msgid "Your e-mail address has already been verified"
+#~ msgstr "Je e-mail adres is al geverifieerd"
+
+#~ msgid ""
+#~ "If you have any trouble resetting your password, contact us at <a href="
+#~ "\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
+#~ msgstr ""
+#~ "Als je problemen hebt je wachtwoord opnieuw in te stellen, neem dan "
+#~ "contact op met <a href=\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
+
+#~ msgid "Invalid confirmation key."
+#~ msgstr "Ongeldige bevestigingssleutel."
+
+#~ msgid "OpenID"
+#~ msgstr "OpenID"
+
+#~ msgid "Already have an account?"
+#~ msgstr "Heb je al een account?"
+
+#~ msgid "Sign in"
+#~ msgstr "Aanmelden"
+
+#~ msgid "Language"
+#~ msgstr "Taal"
+
+#~ msgid "Pinax can be used in your preferred language."
+#~ msgstr "Deze site kan in jouw voorkeurstaal gebruikt worden."
+
+#~ msgid "Change my language"
+#~ msgstr "Verander mijn taal"
+
+#~ msgid "Timezone"
+#~ msgstr "Tijdzone"
+
+#, fuzzy
+#~ msgid ""
+#~ "You're receiving this e-mail because you requested a password reset\n"
+#~ "for your user account at Pinax.\n"
+#~ "\n"
+#~ "Your new password is: %(new_password)s\n"
+#~ "\n"
+#~ "Your username, in case you've forgotten: %(username)s\n"
+#~ "\n"
+#~ "You should log in as soon as possible and change your password.\n"
+#~ "\n"
+#~ "Thanks for using our site!\n"
+#~ msgstr ""
+#~ "Je ontvangt deze mail omdat er een verzoek is ingelegd om het wachtwoord\n"
+#~ "behorende bij je %(site_name)s account opnieuw in te stellen.\n"
+#~ "\n"
+#~ "Je nieuwe wachtwoord is: %(new_password)s\n"
+#~ "\n"
+#~ "Je gebruikersnaam, voor het geval je die vergeten bent, is: %(username)s\n"
+#~ "\n"
+#~ "Je moet zo snel mogelijk inloggen en bovenstaand wachtwoord veranderen.\n"
+#~ "\n"
+#~ "Bedankt voor het gebruik van onze site!\n"
+
+#~ msgid "If checked you will stay logged in for 3 weeks"
+#~ msgstr "Bij 'Onthouden' blijf je ingelogd gedurende 3 weken"
+
+#~ msgid "Timezone successfully updated."
+#~ msgstr "Tijdzone gewijzigd."
+
+#~ msgid "Language successfully updated."
+#~ msgstr "Taal gewijzigd."
+
+#~ msgid "E-Mail Addresses"
+#~ msgstr "E-mail adressen"
+
+#~ msgid "None"
+#~ msgstr "Geen"
+
+#~ msgid "add"
+#~ msgstr "Voeg toe"
+
+#~ msgid "Log In"
+#~ msgstr "Inloggen"
+
+#~ msgid "Log in"
+#~ msgstr "Inloggen"
+
+#~ msgid "Logout"
+#~ msgstr "Afmelden"
+
+#~ msgid ""
+#~ "When you receive the new password, you should <a href=\"%(login_url)s"
+#~ "\">log in</a> and change it as soon as possible."
+#~ msgstr ""
+#~ "Zodra je het nieuwe wachtwoord ontvangen hebt moet je zo snel mogelijk <a "
+#~ "href=\"%(login_url)s\">inloggen</a> en het wachtwoord wijzigen."
+
+#~ msgid "You are already logged in."
+#~ msgstr "Je bent al ingelogd."
+
+#~ msgid ""
+#~ "By clicking \"Sign Up\", you are indicating that you have read and agree "
+#~ "to the <a href=\"%(terms_url)s\">Terms of Use</a> and <a href="
+#~ "\"%(privacy_url)s\">Privacy Policy</a>."
+#~ msgstr ""
+#~ "Door te registreren geef je aan dat je de <a href=\"%(terms_url)s"
+#~ "\">gebruiksvoorwaarden</a> en de <a href=\"%(privacy_url)s\">privacy "
+#~ "policy</a> gelezen hebt en ermee akkoord gaat."
+
+#~ msgid ""
+#~ "If you have any trouble creating your account, contact us at <a href="
+#~ "\"mailto:%(contact_email)s\">%(contact_email)s</a>."
+#~ msgstr ""
+#~ "Als je problemen hebt om een account aan te maken, neem dan contact op "
+#~ "met <a href=\"mailto:%(contact_email)s\">%(contact_email)s</a>."
+
+#~ msgid "Log in &raquo;"
+#~ msgstr "Inloggen"

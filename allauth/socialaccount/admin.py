@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django import forms
 
+from .nonrel import non_rel
 from .models import SocialApp, SocialAccount, SocialToken
 
 from ..account import app_settings
@@ -23,7 +24,8 @@ class SocialAppForm(forms.ModelForm):
 class SocialAppAdmin(admin.ModelAdmin):
     form = SocialAppForm
     list_display = ('name', 'provider',)
-    filter_horizontal = ('sites',)
+    if not non_rel:
+        filter_horizontal = ('sites',)
 
 
 class SocialAccountAdmin(admin.ModelAdmin):

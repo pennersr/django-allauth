@@ -1,6 +1,8 @@
+non_rel = False
+
 try:
     from django.forms import Field
-    from djangotoolbox.fields import EmbeddedModelField, ListField, DictField, AbstractIterableField
+    from djangotoolbox.fields import ListField, DictField, AbstractIterableField
     from .widgets import SerializedObjectWidget
 
     class ListFieldWithForm(ListField):
@@ -14,7 +16,11 @@ try:
             defaults = {'form_class': Field, 'widget': SerializedObjectWidget}
             defaults.update(kwargs)
             return super(AbstractIterableField, self).formfield(**defaults)
-
-    non_rel = True
 except ImportError:
-    non_rel = False
+    pass
+
+from django.conf import settings
+db_engine = settings.DATABASES['default']['ENGINE']
+
+if db_engine == 'django_mongodb_engine':
+    non_rel = True

@@ -28,7 +28,7 @@ from .nonrel import non_rel, ListFieldWithForm
 class SocialAppManager(models.Manager):
     def get_current(self, provider):
         site = Site.objects.get_current()
-        return self.get(sites=site, provider=provider)
+        return self.get(sites=site.id, provider=provider)
 
 
 @python_2_unicode_compatible

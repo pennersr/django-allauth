@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.contrib.sites.models import Site
 from django.utils.encoding import python_2_unicode_compatible
-from django.contrib.auth import get_user_model
+from allauth.utils import get_user_model
 
 from .. import app_settings as allauth_app_settings
 from . import app_settings

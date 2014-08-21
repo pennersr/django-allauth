@@ -22,7 +22,7 @@ from allauth.utils import (get_user_model, serialize_instance,
 from . import app_settings
 from . import providers
 from .fields import JSONField
-from .nonrel import non_rel, ListFieldWithForm
+from ..nonrel import non_rel, ListFieldWithForm
 
 
 class SocialAppManager(models.Manager):

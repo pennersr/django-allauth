@@ -1,4 +1,3 @@
-non_rel = False
 
 try:
     from django.forms import Field
@@ -22,5 +21,4 @@ except ImportError:
 from django.conf import settings
 db_engine = settings.DATABASES['default']['ENGINE']
 
-if db_engine == 'django_mongodb_engine':
-    non_rel = True
+non_rel = (db_engine == 'django_mongodb_engine')

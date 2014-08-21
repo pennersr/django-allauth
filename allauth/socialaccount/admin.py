@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django import forms
 
-from .nonrel import non_rel
 from .models import SocialApp, SocialAccount, SocialToken
 
+from ..nonrel import non_rel
 from ..account import app_settings
 from ..utils import get_user_model
 

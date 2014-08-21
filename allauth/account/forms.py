@@ -1,4 +1,5 @@
 from __future__ import absolute_import
+from allauth.nonrel import non_rel
 
 import warnings
 
@@ -425,8 +426,9 @@ class ResetPasswordForm(forms.Form):
             current_site = Site.objects.get_current()
 
             # send the password reset email
+            id_for_email = str(user.pk) if non_rel else int_to_base36(user.pk)
             path = reverse("account_reset_password_from_key",
-                           kwargs=dict(uidb36=int_to_base36(user.pk),
+                           kwargs=dict(uidb36=id_for_email,
                                        key=temp_key))
             url = '%s://%s%s' % (app_settings.DEFAULT_HTTP_PROTOCOL,
                                  current_site.domain,
@@ -440,6 +442,19 @@ class ResetPasswordForm(forms.Form):
             get_adapter().send_mail('account/email/password_reset_key',
                                     email,
                                     context)
+        return self.cleaned_data["email"]
+
+
+class NonRelResetPasswordForm(ResetPasswordForm):
+
+    def clean_email(self):
+        email = self.cleaned_data["email"]
+        email = get_adapter().clean_email(email)
+        self.users = User.objects.filter(email__iexact=email)
+
+        if not self.users.exists():
+            raise forms.ValidationError(_("The e-mail address is not assigned"
+                                          " to any user account"))
         return self.cleaned_data["email"]
 
 

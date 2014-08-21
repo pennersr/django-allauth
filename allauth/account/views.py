@@ -1,3 +1,4 @@
+from allauth.nonrel import non_rel
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.sites.models import Site
 from django.http import (HttpResponseRedirect, Http404,
@@ -506,7 +507,7 @@ password_set = login_required(PasswordSetView.as_view())
 
 class PasswordResetView(FormView):
     template_name = "account/password_reset.html"
-    form_class = ResetPasswordForm
+    form_class = NonRelResetPasswordForm if non_rel else ResetPasswordForm
     success_url = reverse_lazy("account_reset_password_done")
 
     def get_form_class(self):
@@ -545,24 +546,27 @@ class PasswordResetFromKeyView(FormView):
                               'reset_password_from_key',
                               self.form_class)
 
-    def _get_user(self, uidb36):
+    def _get_user(self, uid):
         # pull out user
+        if non_rel:
+            return get_object_or_404(User, id=uid)
+
         try:
-            uid_int = base36_to_int(uidb36)
+            uid_int = base36_to_int(uid)
         except ValueError:
             raise Http404
         return get_object_or_404(User, id=uid_int)
 
-    def dispatch(self, request, uidb36, key, **kwargs):
+    def dispatch(self, request, uid, key, **kwargs):
         self.request = request
-        self.uidb36 = uidb36
+        self.uid = uid
         self.key = key
-        self.reset_user = self._get_user(uidb36)
+        self.reset_user = self._get_user(uid)
         if not self.token_generator.check_token(self.reset_user, key):
-            return self._response_bad_token(request, uidb36, key, **kwargs)
+            return self._response_bad_token(request, uid, key, **kwargs)
         else:
             return super(PasswordResetFromKeyView, self).dispatch(request,
-                                                                  uidb36,
+                                                                  uid,
                                                                   key,
                                                                   **kwargs)
 

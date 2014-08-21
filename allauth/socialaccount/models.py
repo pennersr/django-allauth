@@ -14,6 +14,7 @@ except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
 import allauth.app_settings
+from allauth.nonrel import non_rel, ListFieldWithForm
 from allauth.account.models import EmailAddress
 from allauth.account.utils import get_next_redirect_url, setup_user_email
 from allauth.utils import (get_user_model, serialize_instance,
@@ -22,7 +23,6 @@ from allauth.utils import (get_user_model, serialize_instance,
 from . import app_settings
 from . import providers
 from .fields import JSONField
-from ..nonrel import non_rel, ListFieldWithForm
 
 
 class SocialAppManager(models.Manager):

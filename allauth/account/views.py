@@ -19,7 +19,7 @@ from ..utils import get_user_model, get_form_class
 from .utils import (get_next_redirect_url, complete_signup,
                     get_login_redirect_url, perform_login,
                     passthrough_next_redirect_url)
-from .forms import AddEmailForm, ChangePasswordForm
+from .forms import AddEmailForm, ChangePasswordForm, NonRelResetPasswordForm
 from .forms import LoginForm, ResetPasswordKeyForm
 from .forms import ResetPasswordForm, SetPasswordForm, SignupForm
 from .utils import sync_user_email_addresses

@@ -55,35 +55,7 @@ class AuthenticationBackend(ModelBackend):
         return None
 
 
-class NonRelAuthenticationBackend(ModelBackend):
-
-    def authenticate(self, **credentials):
-        ret = None
-        if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
-            ret = self._authenticate_by_email(**credentials)
-        elif app_settings.AUTHENTICATION_METHOD \
-                == AuthenticationMethod.USERNAME_EMAIL:
-            ret = self._authenticate_by_email(**credentials)
-            if not ret:
-                ret = self._authenticate_by_username(**credentials)
-        else:
-            ret = self._authenticate_by_username(**credentials)
-        return ret
-
-    def _authenticate_by_username(self, **credentials):
-        username_field = app_settings.USER_MODEL_USERNAME_FIELD
-        username = credentials.get('username')
-        password = credentials.get('password')
-        if not username_field or username is None or password is None:
-            return None
-        try:
-            # Username query is case insensitive
-            query = {username_field+'__iexact': username}
-            user = User.objects.get(**query)
-            if user.check_password(password):
-                return user
-        except User.DoesNotExist:
-            return None
+class NonRelAuthenticationBackend(AuthenticationBackend):
 
     def _authenticate_by_email(self, **credentials):
         # Even though allauth will pass along `email`, other apps may

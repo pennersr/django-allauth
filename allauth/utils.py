@@ -16,6 +16,8 @@ try:
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
+from . import app_settings
+
 
 def _generate_unique_username_base(txts):
     username = None
@@ -24,7 +26,8 @@ def _generate_unique_username_base(txts):
             continue
         username = unicodedata.normalize('NFKD', force_text(txt))
         username = username.encode('ascii', 'ignore').decode('ascii')
-        username = force_text(re.sub('[^\w\s@+.-]', '', username).lower())
+        username = force_text(re.sub(app_settings.ACCOUNT_USERNAME_REGEX, '',
+                                     username).lower())
         # Django allows for '@' in usernames in order to accomodate for
         # project wanting to use e-mail for username. In allauth we don't
         # use this, we already have a proper place for putting e-mail

@@ -29,11 +29,15 @@ class VKProvider(OAuth2Provider):
     package = 'allauth.socialaccount.providers.vk'
     account_class = VKAccount
 
+    def get_default_scope(self):
+        return ['email']
+
     def extract_uid(self, data):
         return str(data['uid'])
 
     def extract_common_fields(self, data):
-        return dict(last_name=data.get('last_name'),
+        return dict(email=data.get('email'),
+		    last_name=data.get('last_name'),
                     username=data.get('screen_name'),
                     first_name=data.get('first_name'))
 

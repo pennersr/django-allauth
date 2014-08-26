@@ -179,6 +179,12 @@ class AppSettings(object):
                              'allauth.account.adapter.DefaultAccountAdapter')
 
     @property
+    def BACKEND(self):
+        from django.conf import settings
+        backends = getattr(settings, 'AUTHENTICATION_BACKENDS', [])
+        return next((b for b in backends if b.startswith('allauth')), 'allauth.account.auth_backends.AuthenticationBackend')
+
+    @property
     def CONFIRM_EMAIL_ON_GET(self):
         return self._setting('CONFIRM_EMAIL_ON_GET', False)
 

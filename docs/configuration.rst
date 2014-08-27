@@ -78,6 +78,10 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD (="username")
   The name of the field containing the `username`, if any. See custom
   user models.
 
+ACCOUNT_USERNAME_REGEX (="[^\w\s@+.-]")
+  The regex that represents a valid username. This is used when
+  auto-generating a username for a new user.
+
 ACCOUNT_USER_MODEL_EMAIL_FIELD (="email")
   The name of the field containing the `email`, if any. See custom
   user models.

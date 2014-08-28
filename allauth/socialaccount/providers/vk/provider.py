@@ -1,6 +1,7 @@
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount import app_settings
 
 
 class VKAccount(ProviderAccount):
@@ -29,11 +30,18 @@ class VKProvider(OAuth2Provider):
     package = 'allauth.socialaccount.providers.vk'
     account_class = VKAccount
 
+    def get_default_scope(self):
+        scope = []
+        if app_settings.QUERY_EMAIL:
+            scope.append('email')
+        return scope
+
     def extract_uid(self, data):
         return str(data['uid'])
 
     def extract_common_fields(self, data):
-        return dict(last_name=data.get('last_name'),
+        return dict(email=data.get('email'),
+                    last_name=data.get('last_name'),
                     username=data.get('screen_name'),
                     first_name=data.get('first_name'))
 

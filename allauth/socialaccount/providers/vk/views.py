@@ -47,6 +47,9 @@ class VKOAuth2Adapter(OAuth2Adapter):
                                     'user_ids': uid})
         resp.raise_for_status()
         extra_data = resp.json()['response'][0]
+        email = kwargs['response'].get('email')
+        if email:
+            extra_data['email'] = email
         return self.get_provider().sociallogin_from_response(request,
                                                              extra_data)
 

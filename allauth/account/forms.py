@@ -125,11 +125,7 @@ class LoginForm(forms.Form):
             return
         user = authenticate(**self.user_credentials())
         if user:
-            if user.is_active:
-                self.user = user
-            else:
-                raise forms.ValidationError(
-                    self.error_messages['account_inactive'])
+            self.user = user
         else:
             raise forms.ValidationError(
                 self.error_messages[

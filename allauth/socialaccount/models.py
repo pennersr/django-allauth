@@ -231,6 +231,10 @@ class SocialLogin(object):
             setup_user_email(request, user, self.email_addresses)
 
     @property
+    def token_in_use(self):
+        return SocialToken.objects.filter(token=self.token.token)
+
+    @property
     def is_existing(self):
         """
         Account is temporary, not yet backed by a database record.

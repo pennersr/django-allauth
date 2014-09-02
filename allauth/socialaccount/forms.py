@@ -30,6 +30,11 @@ class SignupForm(BaseSignupForm):
                                          app_settings.EMAIL_REQUIRED)})
         super(SignupForm, self).__init__(*args, **kwargs)
 
+    def clean(self):
+        if self.sociallogin.token_in_use:
+            raise forms.ValidationError(_("This social account is already in use!"))
+        return super(SignupForm, self).clean()
+
     def save(self, request):
         adapter = get_adapter()
         user = adapter.save_user(request, self.sociallogin, form=self)

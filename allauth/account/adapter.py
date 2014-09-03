@@ -1,3 +1,4 @@
+import re
 import warnings
 import json
 
@@ -21,6 +22,11 @@ from ..utils import (import_attribute, get_user_model,
                      resolve_url)
 
 from . import app_settings
+
+# Don't bother turning this into a setting, as changing this also
+# requires changing the accompanying form error message. So if you
+# need to change any of this, simply override clean_username().
+USERNAME_REGEX = re.compile(r'^[\w.@+-]+$', re.UNICODE)
 
 
 class DefaultAccountAdapter(object):
@@ -197,8 +203,7 @@ class DefaultAccountAdapter(object):
         Validates the username. You can hook into this if you want to
         (dynamically) restrict what usernames can be chosen.
         """
-        username_regex = r'^[\w.@+-]+$'
-        if not username_regex.match(username):
+        if not USERNAME_REGEX.match(username):
             raise forms.ValidationError(_("Usernames can only contain "
                                           "letters, digits and @/./+/-/_."))
 

@@ -1,0 +1,75 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
+from django.db import models, migrations
+from django.conf import settings
+import allauth.socialaccount.fields
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('sites', '0001_initial'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='SocialAccount',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('provider', models.CharField(max_length=30, verbose_name='provider', choices=[(b'google', b'Google'), (b'instagram', b'Instagram'), (b'twitter', b'Twitter'), (b'vk', b'VK'), (b'linkedin', b'LinkedIn'), (b'tumblr', b'Tumblr'), (b'linkedin_oauth2', b'LinkedIn'), (b'weibo', b'Weibo'), (b'xing', b'Xing'), (b'foursquare', b'Foursquare'), (b'angellist', b'AngelList'), (b'flickr', b'Flickr'), (b'mailru', b'Mail.RU'), (b'openid', b'OpenID'), (b'persona', b'Persona'), (b'bitly', b'Bitly'), (b'paypal', b'Paypal'), (b'amazon', b'Amazon'), (b'hubic', b'Hubic'), (b'windowslive', 'Live'), (b'dropbox', b'Dropbox'), (b'soundcloud', b'SoundCloud'), (b'feedly', 'Feedly'), (b'bitbucket', b'Bitbucket'), (b'github', b'GitHub'), (b'vimeo', b'Vimeo'), (b'orcid', b'Orcid.org'), (b'facebook', b'Facebook'), (b'stackexchange', b'Stack Exchange'), (b'twitch', b'Twitch')])),
+                ('uid', models.CharField(max_length=255, verbose_name='uid')),
+                ('last_login', models.DateTimeField(auto_now=True, verbose_name='last login')),
+                ('date_joined', models.DateTimeField(auto_now_add=True, verbose_name='date joined')),
+                ('extra_data', allauth.socialaccount.fields.JSONField(default=b'{}', verbose_name='extra data')),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+                'verbose_name': 'social account',
+                'verbose_name_plural': 'social accounts',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='SocialApp',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('provider', models.CharField(max_length=30, verbose_name='provider', choices=[(b'google', b'Google'), (b'instagram', b'Instagram'), (b'twitter', b'Twitter'), (b'vk', b'VK'), (b'linkedin', b'LinkedIn'), (b'tumblr', b'Tumblr'), (b'linkedin_oauth2', b'LinkedIn'), (b'weibo', b'Weibo'), (b'xing', b'Xing'), (b'foursquare', b'Foursquare'), (b'angellist', b'AngelList'), (b'flickr', b'Flickr'), (b'mailru', b'Mail.RU'), (b'openid', b'OpenID'), (b'persona', b'Persona'), (b'bitly', b'Bitly'), (b'paypal', b'Paypal'), (b'amazon', b'Amazon'), (b'hubic', b'Hubic'), (b'windowslive', 'Live'), (b'dropbox', b'Dropbox'), (b'soundcloud', b'SoundCloud'), (b'feedly', 'Feedly'), (b'bitbucket', b'Bitbucket'), (b'github', b'GitHub'), (b'vimeo', b'Vimeo'), (b'orcid', b'Orcid.org'), (b'facebook', b'Facebook'), (b'stackexchange', b'Stack Exchange'), (b'twitch', b'Twitch')])),
+                ('name', models.CharField(max_length=40, verbose_name='name')),
+                ('client_id', models.CharField(help_text='App ID, or consumer key', max_length=100, verbose_name='client id')),
+                ('secret', models.CharField(help_text='API secret, client secret, or consumer secret', max_length=100, verbose_name='secret key')),
+                ('key', models.CharField(help_text='Key', max_length=100, verbose_name='key', blank=True)),
+                ('sites', models.ManyToManyField(to='sites.Site', blank=True)),
+            ],
+            options={
+                'verbose_name': 'social application',
+                'verbose_name_plural': 'social applications',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='SocialToken',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('token', models.TextField(help_text='"oauth_token" (OAuth1) or access token (OAuth2)', verbose_name='social account')),
+                ('token_secret', models.TextField(help_text='"oauth_token_secret" (OAuth1) or refresh token (OAuth2)', verbose_name='token secret', blank=True)),
+                ('expires_at', models.DateTimeField(null=True, verbose_name='expires at', blank=True)),
+                ('account', models.ForeignKey(to='socialaccount.SocialAccount')),
+                ('app', models.ForeignKey(to='socialaccount.SocialApp')),
+            ],
+            options={
+                'verbose_name': 'social application token',
+                'verbose_name_plural': 'social application tokens',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.AlterUniqueTogether(
+            name='socialtoken',
+            unique_together=set([('app', 'account')]),
+        ),
+        migrations.AlterUniqueTogether(
+            name='socialaccount',
+            unique_together=set([('provider', 'uid')]),
+        ),
+    ]

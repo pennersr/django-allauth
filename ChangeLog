@@ -1,3 +1,7 @@
+2014-09-03  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Moved existing migrations into `south_migrations`
+
 2014-08-12  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* SECURITY: the Persona provider now requires the `AUDIENCE`

@@ -197,9 +197,8 @@ class DefaultAccountAdapter(object):
         Validates the username. You can hook into this if you want to
         (dynamically) restrict what usernames can be chosen.
         """
-        from django.contrib.auth.forms import UserCreationForm
-        USERNAME_REGEX = UserCreationForm().fields['username'].regex
-        if not USERNAME_REGEX.match(username):
+        username_regex = r'^[\w.@+-]+$'
+        if not username_regex.match(username):
             raise forms.ValidationError(_("Usernames can only contain "
                                           "letters, digits and @/./+/-/_."))
 

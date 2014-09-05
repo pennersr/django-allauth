@@ -37,7 +37,7 @@ class EmailAddress(models.Model):
             unique_together = [("user", "email")]
 
     def __str__(self):
-        return u"%s (%s)" % (self.email, self.user)
+        return "%s (%s)" % (self.email, self.user)
 
     def set_as_primary(self, conditional=False):
         old_primary = EmailAddress.objects.get_primary(self.user)
@@ -88,7 +88,7 @@ class EmailConfirmation(models.Model):
         verbose_name_plural = _("email confirmations")
 
     def __str__(self):
-        return u"confirmation for %s" % self.email_address
+        return "confirmation for %s" % self.email_address
 
     @classmethod
     def create(cls, email_address):

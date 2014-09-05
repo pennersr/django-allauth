@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 from allauth.socialaccount.tests import create_oauth_tests
 from allauth.tests import MockedResponse
 from allauth.socialaccount.providers import registry

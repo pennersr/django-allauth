@@ -8,7 +8,7 @@ from .provider import TumblrProvider
 
 class TumblrTests(create_oauth_tests(registry.by_id(TumblrProvider.id))):
     def get_mocked_response(self):
-        return [MockedResponse(200, u"""
+        return [MockedResponse(200, """
 {
    "meta": {
       "status": 200,

@@ -8,8 +8,14 @@ class CoinbaseTests(create_oauth2_tests(registry.by_id(CoinbaseProvider.id))):
     def get_mocked_response(self):
         return MockedResponse(200, """
         {
-            "user_id": "123456",
-            "name": "Jane Doe",
-            "email": "janedoe@coinbase.com"
+            "users" : [
+                        {
+                            "user": {
+                                "id": "123456",
+                                "name": "Jane Doe",
+                                "email": "janedoe@coinbase.com"
+                            }
+                        }
+            ]
         }
         """)

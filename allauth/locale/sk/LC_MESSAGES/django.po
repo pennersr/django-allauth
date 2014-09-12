@@ -1,0 +1,760 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-09-11 19:30+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Tomas Babej <tomasbabej@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: account/adapter.py:207
+msgid "Usernames can only contain letters, digits and @/./+/-/_."
+msgstr "Užívateľské mená môžu obsahovať iba písmená, číslice a @/./+/-/_."
+
+#: account/adapter.py:214
+msgid "Username can not be used. Please use other username."
+msgstr "Užívateľské meno nemôže byť použité. Prosím, použite iné meno."
+
+#: account/adapter.py:224
+msgid "This username is already taken. Please choose another."
+msgstr "Toto užívateľské meno je už obsadené. Prosím, zvoľte iné."
+
+#: account/adapter.py:241
+#, python-brace-format
+msgid "Password must be a minimum of {0} characters."
+msgstr "Heslo musí mať aspoň {0} znakov"
+
+#: account/apps.py:8
+msgid "Accounts"
+msgstr "Účty"
+
+#: account/forms.py:36 account/forms.py:50 account/forms.py:280
+#: account/forms.py:377
+msgid "Password"
+msgstr "Heslo"
+
+#: account/forms.py:51
+msgid "Remember Me"
+msgstr "Zapamätať si ma"
+
+#: account/forms.py:57
+msgid "This account is currently inactive."
+msgstr "Tento účet nie je momentálne aktívny. "
+
+#: account/forms.py:60
+msgid "The e-mail address and/or password you specified are not correct."
+msgstr "Uvedený e-mail alebo heslo nie je správne."
+
+#: account/forms.py:63
+msgid "The username and/or password you specified are not correct."
+msgstr "Uvedené užívateľské meno alebo heslo nie je správne."
+
+#: account/forms.py:66
+msgid "The login and/or password you specified are not correct."
+msgstr "Uvedený login alebo heslo nie je správne."
+
+#: account/forms.py:74 account/forms.py:215
+msgid "E-mail address"
+msgstr "E-mailová adresa"
+
+#: account/forms.py:76 account/forms.py:228 account/forms.py:321
+#: account/forms.py:396
+msgid "E-mail"
+msgstr "E-mail"
+
+#: account/forms.py:81 account/forms.py:83 account/forms.py:206
+#: account/forms.py:211
+msgid "Username"
+msgstr "Užívateľské meno"
+
+#: account/forms.py:90
+msgid "Username or e-mail"
+msgstr "Užívateľské meno alebo e-mail"
+
+#: account/forms.py:93
+msgctxt "field label"
+msgid "Login"
+msgstr "Login"
+
+#: account/forms.py:231
+msgid "E-mail (optional)"
+msgstr "E-mail (nepovinné)"
+
+#: account/forms.py:262
+msgid "A user is already registered with this e-mail address."
+msgstr "Používateľ s touto e-mailovou adresou už existuje."
+
+#: account/forms.py:281 account/forms.py:378
+msgid "Password (again)"
+msgstr "Heslo (znovu)"
+
+#: account/forms.py:298 account/forms.py:367 account/forms.py:385
+#: account/forms.py:462
+msgid "You must type the same password each time."
+msgstr "Heslá sa nezhodujú."
+
+#: account/forms.py:330
+msgid "This e-mail address is already associated with this account."
+msgstr "Táto e-mailová adresa je už spojená s týmto účtom."
+
+#: account/forms.py:332
+msgid "This e-mail address is already associated with another account."
+msgstr "Táto e-mailová adresa je už spojená s iným účtom."
+
+#: account/forms.py:352
+msgid "Current Password"
+msgstr "Súčasné heslo"
+
+#: account/forms.py:353 account/forms.py:448
+msgid "New Password"
+msgstr "Nové heslo"
+
+#: account/forms.py:354 account/forms.py:449
+msgid "New Password (again)"
+msgstr "Nové heslo (znovu)"
+
+#: account/forms.py:358
+msgid "Please type your current password."
+msgstr "Prosím, napíšte svoje súčasné heslo."
+
+#: account/forms.py:407
+msgid "The e-mail address is not assigned to any user account"
+msgstr ""
+"Táto e-mailová adresa nie je pridelená k žiadnemu používateľskému kontu"
+
+#: account/models.py:25
+msgid "user"
+msgstr "používateľ"
+
+#: account/models.py:27 account/models.py:78
+msgid "e-mail address"
+msgstr "e-mailová adresa"
+
+#: account/models.py:28
+msgid "verified"
+msgstr "overený"
+
+#: account/models.py:29
+msgid "primary"
+msgstr "primárny"
+
+#: account/models.py:34
+msgid "email address"
+msgstr "e-mailová adresa"
+
+#: account/models.py:35
+msgid "email addresses"
+msgstr "e-mailové adresy"
+
+#: account/models.py:79
+msgid "created"
+msgstr "vytvorený"
+
+#: account/models.py:81
+msgid "sent"
+msgstr "odoslané"
+
+#: account/models.py:82 socialaccount/models.py:49
+msgid "key"
+msgstr "kľúč"
+
+#: account/models.py:87
+msgid "email confirmation"
+msgstr "potvrdenie e-mailu"
+
+#: account/models.py:88
+msgid "email confirmations"
+msgstr "potvrdenia e-mailu"
+
+#: socialaccount/adapter.py:103
+msgid "Your account has no password set up."
+msgstr "Váš účet nemá nastavené heslo."
+
+#: socialaccount/adapter.py:110
+msgid "Your account has no verified e-mail address."
+msgstr "Váš účet nemá overenú e-mailovú adresu."
+
+#: socialaccount/apps.py:8
+msgid "Social Accounts"
+msgstr "Účty na sociálnych sieťach"
+
+#: socialaccount/forms.py:41
+#, python-format
+msgid ""
+"An account already exists with this e-mail address. Please sign in to that "
+"account first, then connect your %s account."
+msgstr ""
+"Účet s touto e-mailovou adresou už existuje. Prosím, prihláste sa najprv na "
+"tento účet a potom pripojte svoj %s účet."
+
+#: socialaccount/models.py:37 socialaccount/models.py:70
+msgid "provider"
+msgstr ""
+
+#: socialaccount/models.py:40
+msgid "name"
+msgstr "Užívateľské meno"
+
+#: socialaccount/models.py:42
+msgid "client id"
+msgstr ""
+
+#: socialaccount/models.py:44
+msgid "App ID, or consumer key"
+msgstr ""
+
+#: socialaccount/models.py:45
+msgid "secret key"
+msgstr ""
+
+#: socialaccount/models.py:47
+msgid "API secret, client secret, or consumer secret"
+msgstr ""
+
+#: socialaccount/models.py:52
+msgid "Key"
+msgstr "kľúč"
+
+#: socialaccount/models.py:60
+msgid "social application"
+msgstr ""
+
+#: socialaccount/models.py:61
+msgid "social applications"
+msgstr ""
+
+#: socialaccount/models.py:88
+msgid "uid"
+msgstr ""
+
+#: socialaccount/models.py:89
+msgid "last login"
+msgstr ""
+
+#: socialaccount/models.py:91
+msgid "date joined"
+msgstr ""
+
+#: socialaccount/models.py:93
+msgid "extra data"
+msgstr ""
+
+#: socialaccount/models.py:97 socialaccount/models.py:124
+msgid "social account"
+msgstr ""
+
+#: socialaccount/models.py:98
+msgid "social accounts"
+msgstr ""
+
+#: socialaccount/models.py:125
+msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
+msgstr ""
+
+#: socialaccount/models.py:129
+msgid "token secret"
+msgstr ""
+
+#: socialaccount/models.py:130
+msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
+msgstr ""
+
+#: socialaccount/models.py:133
+msgid "expires at"
+msgstr ""
+
+#: socialaccount/models.py:137
+msgid "social application token"
+msgstr ""
+
+#: socialaccount/models.py:138
+msgid "social application tokens"
+msgstr ""
+
+#: socialaccount/providers/oauth/client.py:80
+#, python-format
+msgid "Invalid response while obtaining request token from \"%s\"."
+msgstr "Neplatná odozva pri získavaní požiadavky tokenu z  \"%s\"."
+
+#: socialaccount/providers/oauth/client.py:105
+#, python-format
+msgid "Invalid response while obtaining access token from \"%s\"."
+msgstr "Neplatná odozva pri získavaní prístupu tokenu z \"%s\"."
+
+#: socialaccount/providers/oauth/client.py:121
+#, python-format
+msgid "No request token saved for \"%s\"."
+msgstr "Žiadna uložená požiadavka tokenu pre \"%s\"."
+
+#: socialaccount/providers/oauth/client.py:169
+#, python-format
+msgid "No access token saved for \"%s\"."
+msgstr "Žiadny uložený prístupový token pre \"%s\"."
+
+#: socialaccount/providers/oauth/client.py:189
+#, python-format
+msgid "No access to private resources at \"%s\"."
+msgstr "Žiadny prístup do privátneho úložiska na \"%s\"."
+
+#: templates/account/account_inactive.html:5
+#: templates/account/account_inactive.html:8
+msgid "Account Inactive"
+msgstr "Účet neaktívny"
+
+#: templates/account/account_inactive.html:10
+msgid "This account is inactive."
+msgstr "Tento účet je neaktívny. "
+
+#: templates/account/email.html:6
+msgid "Account"
+msgstr "Účet"
+
+#: templates/account/email.html:9
+msgid "E-mail Addresses"
+msgstr "E-mailová adresa"
+
+#: templates/account/email.html:11
+msgid "The following e-mail addresses are associated with your account:"
+msgstr "Nasledujúce e-mailové adresy sú prepojené s vašim účtom:"
+
+#: templates/account/email.html:25
+msgid "Verified"
+msgstr "Overený"
+
+#: templates/account/email.html:27
+msgid "Unverified"
+msgstr "Neoverený"
+
+#: templates/account/email.html:29
+msgid "Primary"
+msgstr "Primárny"
+
+#: templates/account/email.html:35
+msgid "Make Primary"
+msgstr "Vytvoriť primárny"
+
+#: templates/account/email.html:36
+msgid "Re-send Verification"
+msgstr "Preposlať overenie"
+
+#: templates/account/email.html:37 templates/socialaccount/connections.html:36
+msgid "Remove"
+msgstr "Odstrániť"
+
+#: templates/account/email.html:44
+msgid "Warning:"
+msgstr "Varovanie:"
+
+#: templates/account/email.html:44
+msgid ""
+"You currently do not have any e-mail address set up. You should really add "
+"an e-mail address so you can receive notifications, reset your password, etc."
+msgstr ""
+"Momentálne nemáte nastavený žiaden e-mail, kvôli čomu nemôžete dostávať "
+"upozornenia, obnovovať heslo, atď."
+
+#: templates/account/email.html:49
+msgid "Add E-mail Address"
+msgstr "Pridať e-mailovú adresu"
+
+#: templates/account/email.html:54
+msgid "Add E-mail"
+msgstr "Pridať e-mail"
+
+#: templates/account/email.html:63
+msgid "Do you really want to remove the selected e-mail address?"
+msgstr "Naozaj chcete odstrániť vybranú e-mailovú adresu?"
+
+#: templates/account/email_confirm.html:7
+#: templates/account/email_confirm.html:11
+#: templates/account/email_confirmed.html:6
+#: templates/account/email_confirmed.html:11
+#: templates/account/email/email_confirmation_subject.txt:3
+msgid "Confirm E-mail Address"
+msgstr "Potvrdiť e-mailovú adresu"
+
+#: templates/account/email_confirm.html:17
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
+msgstr ""
+"Prosím potvrďte, že <a href=\"mailto:%(email)s\">%(email)s</a> je e-mailová "
+"adresa pre používateľa %(user_display)s."
+
+#: templates/account/email_confirm.html:21
+msgid "Confirm"
+msgstr "Potvrdiť"
+
+#: templates/account/email_confirm.html:28
+#, python-format
+msgid ""
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+msgstr ""
+"Odkaz na potvrdenie e-mailu je neplatný alebo vypršal. <a href="
+"\"%(email_url)s\">Zaslať novú žiadosť o overovací e-mail</a>."
+
+#: templates/account/email_confirmed.html:15
+#, python-format
+msgid ""
+"You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
+"mail address for user %(user_display)s."
+msgstr ""
+"Potvrdili ste, že <a href=\"mailto:%(email)s\">%(email)s</a> je e-mailovou "
+"adresou používateľa %(user_display)s."
+
+#: templates/account/login.html:7 templates/account/login.html.py:11
+#: templates/account/login.html:42
+msgid "Sign In"
+msgstr "Prihlásiť sa"
+
+#: templates/account/login.html:14
+#, python-format
+msgid ""
+"Please sign in with one\n"
+"of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign "
+"up</a>\n"
+"for a %(site_name)s account and sign in below:"
+msgstr ""
+"Prosím prihláste sa s jedným\n"
+"z vašich existujúcich účtov iných služieb. Alebo <a href=\"%(signup_url)s"
+"\">sa zaregistrujte</a>\n"
+"na %(site_name)s a prihláste sa nižšie:"
+
+#: templates/account/login.html:24
+msgid "or"
+msgstr "alebo"
+
+#: templates/account/login.html:31
+#, python-format
+msgid ""
+"If you have not created an account yet, then please\n"
+"<a href=\"%(signup_url)s\">sign up</a> first."
+msgstr ""
+"Ak ešte nemáte vytvorený účet, tak potom sa prosím\n"
+"najprv <a href=\"%(signup_url)s\">zaregistrujte</a>."
+
+#: templates/account/login.html:41
+msgid "Forgot Password?"
+msgstr "Zabudnuté heslo?"
+
+#: templates/account/logout.html:6 templates/account/logout.html.py:9
+#: templates/account/logout.html:18
+msgid "Sign Out"
+msgstr "Odhlásiť"
+
+#: templates/account/logout.html:11
+msgid "Are you sure you want to sign out?"
+msgstr "Ste si istý, že sa chcete odhlásiť?"
+
+#: templates/account/password_change.html:6
+#: templates/account/password_change.html:9
+#: templates/account/password_change.html:14
+#: templates/account/password_reset_from_key.html:5
+#: templates/account/password_reset_from_key.html:8
+#: templates/account/password_reset_from_key_done.html:5
+#: templates/account/password_reset_from_key_done.html:8
+msgid "Change Password"
+msgstr "Zmeniť heslo"
+
+#: templates/account/password_reset.html:7
+#: templates/account/password_reset.html:11
+#: templates/account/password_reset_done.html:6
+#: templates/account/password_reset_done.html:9
+msgid "Password Reset"
+msgstr "Obnoviť heslo"
+
+#: templates/account/password_reset.html:16
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
+msgstr ""
+"Zabudli ste heslo? Vložte nižšie svoju e-mailovú adresu a čoskoro vám "
+"pošlemee-mail na obnovenie hesla."
+
+#: templates/account/password_reset.html:21
+msgid "Reset My Password"
+msgstr "Obnov moje heslo"
+
+#: templates/account/password_reset.html:24
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr ""
+"Prosím, kontaktujte nás, ak máte nejaký problém s obnovením svojho hesla."
+
+#: templates/account/password_reset_done.html:15
+msgid ""
+"We have sent you an e-mail. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+"Odoslali sme vám e-mail. Prosím kontaktujte nás ak ste ho nedostalido pár "
+"minút."
+
+#: templates/account/password_reset_from_key.html:8
+msgid "Bad Token"
+msgstr "Zlý token"
+
+#: templates/account/password_reset_from_key.html:12
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+"Odkaz na obnovu heslo je neplatný, pravdepodobne už bol použitý. <a href="
+"\"%(passwd_reset_url)s\">Nové obnovenie hesla</a>."
+
+#: templates/account/password_reset_from_key.html:18
+msgid "change password"
+msgstr "zmeniť heslo"
+
+#: templates/account/password_reset_from_key.html:21
+#: templates/account/password_reset_from_key_done.html:9
+msgid "Your password is now changed."
+msgstr "Tvoje heslo bolo zmenené."
+
+#: templates/account/password_set.html:6 templates/account/password_set.html:9
+#: templates/account/password_set.html:14
+msgid "Set Password"
+msgstr "Nastaviť heslo"
+
+#: templates/account/signup.html:6 templates/socialaccount/signup.html:6
+msgid "Signup"
+msgstr "Registrácia"
+
+#: templates/account/signup.html:9 templates/account/signup.html.py:19
+#: templates/socialaccount/signup.html:9
+#: templates/socialaccount/signup.html:20
+msgid "Sign Up"
+msgstr "Zaregistrovať"
+
+#: templates/account/signup.html:11
+#, python-format
+msgid ""
+"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr ""
+"Už ste sa zaregistrovali? Tak sa <a href=\"%(login_url)s\">prihláste</a>."
+
+#: templates/account/signup_closed.html:6
+#: templates/account/signup_closed.html:9
+msgid "Sign Up Closed"
+msgstr "Registrácia uzavretá"
+
+#: templates/account/signup_closed.html:11
+msgid "We are sorry, but the sign up is currently closed."
+msgstr "Ospravedlňujeme sa, ale registrácia je momentálne uzavretá."
+
+#: templates/account/verification_sent.html:5
+#: templates/account/verification_sent.html:8
+#: templates/account/verified_email_required.html:6
+#: templates/account/verified_email_required.html:9
+msgid "Verify Your E-mail Address"
+msgstr "Potvrďte e-mailovú adresu"
+
+#: templates/account/verification_sent.html:10
+msgid ""
+"We have sent an e-mail to you for verification. Follow the link provided to "
+"finalize the signup process. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+"Bol vám zaslaný overovací e-mail. Pre dokončenie registrácie použite "
+"overovací odkaz. Ak ste v priebehu pár minút žiaden neobdržali, kontaktujte "
+"nás. "
+
+#: templates/account/verified_email_required.html:13
+msgid ""
+"This part of the site requires us to verify that\n"
+"you are who you claim to be. For this purpose, we require that you\n"
+"verify ownership of your e-mail address. "
+msgstr ""
+"Na prezeranie nasledujúceho obsahu je potrebné overenie vašej e-mailovej "
+"adresy."
+
+#: templates/account/verified_email_required.html:17
+msgid ""
+"We have sent an e-mail to you for\n"
+"verification. Please click on the link inside this e-mail. Please\n"
+"contact us if you do not receive it within a few minutes."
+msgstr ""
+"Bol vám zaslaný e-mail s overovacím odkazom. Ak  ste v priebehu pár minút "
+"žiaden neobdržali, kontaktujte nás."
+
+#: templates/account/verified_email_required.html:21
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
+"mail address</a>."
+msgstr ""
+"<strong>Poznámka:</strong> stále môžete <a href=\"%(email_url)s\">zmeniť "
+"svoju e-mailovú adresu</a>."
+
+#: templates/account/email/email_confirmation_message.txt:1
+#, python-format
+msgid ""
+"User %(user_display)s at %(site_name)s has given this as an email address.\n"
+"\n"
+"To confirm this is correct, go to %(activate_url)s\n"
+msgstr ""
+"Používateľ %(user_display)s at %(site_name)s zadal túto e-mailovú adresu.\n"
+"\n"
+"Pre potvrdenie nasledujte %(activate_url)s\n"
+
+#: templates/account/email/password_reset_key_message.txt:1
+#, python-format
+msgid ""
+"You're receiving this e-mail because you or someone else has requested a "
+"password for your user account at %(site_domain)s.\n"
+"It can be safely ignored if you did not request a password reset. Click the "
+"link below to reset your password."
+msgstr ""
+"Toto je žiadosť o heslo pre užívateľský účet na %(site_domain)s.\n"
+"Ak ste nežiadali o obnovu hesla, správu môžete pokojne ignorovať. Odkaz "
+"nižšie obnoví heslo."
+
+#: templates/account/email/password_reset_key_message.txt:6
+#, python-format
+msgid "In case you forgot, your username is %(username)s."
+msgstr "Ak ste náhodou zabudli, vaše používateľské meno je %(username)s."
+
+#: templates/account/email/password_reset_key_message.txt:8
+msgid "Thanks for using our site!"
+msgstr "Ďakujeme, že využívate služby našej stránky!"
+
+#: templates/account/email/password_reset_key_subject.txt:3
+msgid "Password Reset E-mail"
+msgstr "E-mail pre obnovu hesla"
+
+#: templates/account/messages/cannot_delete_primary_email.txt:2
+#, python-format
+msgid "You cannot remove your primary e-mail address (%(email)s)."
+msgstr "Primárna e-mailová adresa sa nedá odstrániť (%(email)s)."
+
+#: templates/account/messages/email_confirmation_sent.txt:2
+#, python-format
+msgid "Confirmation e-mail sent to %(email)s."
+msgstr "Overovací e-mail poslaný na %(email)s."
+
+#: templates/account/messages/email_confirmed.txt:2
+#, python-format
+msgid "You have confirmed %(email)s."
+msgstr "%(email)s potvrdené."
+
+#: templates/account/messages/email_deleted.txt:2
+#, python-format
+msgid "Removed e-mail address %(email)s."
+msgstr "E-mailová adresa %(email)s úpešne odstránená."
+
+#: templates/account/messages/logged_in.txt:4
+#, python-format
+msgid "Successfully signed in as %(name)s."
+msgstr "Úspešne ste sa prihlásili ako %(name)s."
+
+#: templates/account/messages/logged_out.txt:2
+msgid "You have signed out."
+msgstr "Odhlásili ste sa."
+
+#: templates/account/messages/password_changed.txt:2
+msgid "Password successfully changed."
+msgstr "Zmena hesla prebehla úspešne."
+
+#: templates/account/messages/password_set.txt:2
+msgid "Password successfully set."
+msgstr ")Nastavenie hesla bolo úspešné."
+
+#: templates/account/messages/primary_email_set.txt:2
+msgid "Primary e-mail address set."
+msgstr "Primárna e-mailová adresa bola úspešne zadaná."
+
+#: templates/account/messages/unverified_primary_email.txt:2
+msgid "Your primary e-mail address must be verified."
+msgstr "Primárna e-mailová adresa musí byť overená."
+
+#: templates/account/snippets/already_logged_in.html:5
+msgid "Note"
+msgstr "Poznámka"
+
+#: templates/account/snippets/already_logged_in.html:5
+#, python-format
+msgid "you are already logged in as %(user_display)s."
+msgstr "už ste prihlásený ako %(user_display)s."
+
+#: templates/openid/login.html:10
+msgid "OpenID Sign In"
+msgstr "Prihlásiť pomocou OpenID"
+
+#: templates/socialaccount/authentication_error.html:5
+#: templates/socialaccount/authentication_error.html:8
+msgid "Social Network Login Failure"
+msgstr "Prihlasovanie pomocou sociálnej siete neúspešné"
+
+#: templates/socialaccount/authentication_error.html:10
+msgid ""
+"An error occurred while attempting to login via your social network account."
+msgstr "Pri prihlasovaní pomocou sociálnej siete sa vyskytla chyba."
+
+#: templates/socialaccount/connections.html:6
+#: templates/socialaccount/connections.html:9
+msgid "Account Connections"
+msgstr "Pripojenia účtu"
+
+#: templates/socialaccount/connections.html:12
+msgid ""
+"You can sign in to your account using any of the following third party "
+"accounts:"
+msgstr "Môžete sa prihlásiť pomocou niektorého z nasledujúcich účtov:"
+
+#: templates/socialaccount/connections.html:44
+msgid ""
+"You currently have no social network accounts connected to this account."
+msgstr "Momentálne nemáte pripojený žiaden sociálny účet."
+
+#: templates/socialaccount/connections.html:47
+msgid "Add a 3rd Party Account"
+msgstr "Pridaj účet"
+
+#: templates/socialaccount/login_cancelled.html:6
+#: templates/socialaccount/login_cancelled.html:10
+msgid "Login Cancelled"
+msgstr "Prihlásenie zrušené"
+
+#: templates/socialaccount/login_cancelled.html:14
+#, python-format
+msgid ""
+"You decided to cancel logging in to our site using one of your existing "
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
+msgstr ""
+"Rozhodli ste sa zrušiť prihlasovanie sa na našu stránku použitím jedného z "
+"vašich existujúcich účtov. Ak se chceli vykonať inú operáciu, pokračujte na "
+"<a href=\"%(login_url)s\">prihlásiť sa</a>."
+
+#: templates/socialaccount/signup.html:11
+#, python-format
+msgid ""
+"You are about to use your %(provider_name)s account to login to\n"
+"%(site_name)s. As a final step, please complete the following form:"
+msgstr ""
+"Chystáte sa použiť váš %(provider_name)s účet na prihlásenie do\n"
+"%(site_name)s. Ako posledný krok vyplňte nasledujúci formulár:"
+
+#: templates/socialaccount/messages/account_connected.txt:2
+msgid "The social account has been connected."
+msgstr "Sociálny účet bol pripojený."
+
+#: templates/socialaccount/messages/account_connected_other.txt:2
+msgid "The social account is already connected to a different account."
+msgstr "Tento sociálny účet už bol pripojený k inému používateľovi."
+
+#: templates/socialaccount/messages/account_disconnected.txt:2
+msgid "The social account has been disconnected."
+msgstr "Sociálny účet bol odpojený."

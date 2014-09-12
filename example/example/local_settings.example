@@ -5,7 +5,7 @@
 
 
 # Specifies the login method to use -- whether the user logs in by entering
-# his username, e-mail address, or either one of both. Possible values
+# their username, e-mail address, or either one of both. Possible values
 # are 'username' | 'email' | 'username_email'
 # ACCOUNT_AUTHENTICATION_METHOD
 
@@ -41,7 +41,7 @@
 # 'save' method, accepting the newly signed up user as its only parameter.
 # ACCOUNT_SIGNUP_FORM_CLASS = None
 
-# When signing up, let the user type in his password twice to avoid typ-o's.
+# When signing up, let the user type in their password twice to avoid typ-o's.
 # ACCOUNT_SIGNUP_PASSWORD_VERIFICATION = True
 
 # Enforce uniqueness of e-mail addresses.

@@ -32,9 +32,9 @@ The following signals are emitted:
 
 - `allauth.socialaccount.signals.social_account_added`
 
-  Sent after a user connects a social account to a his local account.
+  Sent after a user connects a social account to a their local account.
 
 - `allauth.socialaccount.signals.social_account_removed`
 
-  Sent after a user disconnects a social account from his local
+  Sent after a user disconnects a social account from their local
   account.

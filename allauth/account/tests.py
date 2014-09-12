@@ -73,7 +73,7 @@ class AccountTests(TestCase):
     def test_signup_other_email_verified_externally(self):
         """
         John is invited on john@work.com, but signs up via john@home.com.
-        E-mail verification is by-passed, his home e-mail address is
+        E-mail verification is by-passed, their home e-mail address is
         used as a secondary.
         """
         user = self._test_signup_email_verified_externally('john@home.com',

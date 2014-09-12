@@ -22,5 +22,5 @@ The behavior is as follows:
 
 - If the user is logged in but has no verified e-mail address, an
   e-mail verification mail is automatically resend and the user is
-  presented with a page informing him he needs to verify his email
+  presented with a page informing them they need to verify their email
   address.

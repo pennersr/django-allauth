@@ -195,8 +195,8 @@ OpenID
 
 The OpenID provider does not require any settings per se. However, a
 typical OpenID login page presents the user with a predefined list of
-OpenID providers and allows the user to input his own OpenID identity
-URL in case his provider is not listed by default. The list of
+OpenID providers and allows the user to input their own OpenID identity
+URL in case their provider is not listed by default. The list of
 providers displayed by the builtin templates can be configured as
 follows::
 

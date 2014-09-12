@@ -18,7 +18,7 @@ def verified_email_required(function=None,
     not the case then the behavior is identical to that of the
     standard `login_required` decorator. If the latter does not hold,
     email verification mails are automatically resend and the user is
-    presented with a page informing him he needs to verify his email
+    presented with a page informing them they needs to verify their email
     address.
     """
     def decorator(view_func):

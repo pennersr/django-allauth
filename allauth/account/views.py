@@ -234,11 +234,11 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         do not take proper care (e.g. don't purge used email
         confirmations), a malicious person that got hold of the link
         will be able to login over and over again and the user is
-        unable to do anything about it. Even restoring his own mailbox
+        unable to do anything about it. Even restoring their own mailbox
         security will not help, as the links will still work. For
         password reset this is different, this mechanism works only as
-        long as the attacker has access to the mailbox. If he no
-        longer has access he cannot issue a password request and
+        long as the attacker has access to the mailbox. If they no
+        longer has access they cannot issue a password request and
         intercept it. Furthermore, all places where the links are
         listed (log files, but even Google Analytics) all of a sudden
         need to be secured. Purging the email confirmation once

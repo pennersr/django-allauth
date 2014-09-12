@@ -51,7 +51,7 @@ indicates how to process the social login. You can choose between
 
 Furthermore, you can pass along an `action` parameter with value
 `reauthenticate` to indicate that you want the user to be re-prompted
-for authentication even if he already signed in before. For now, this
+for authentication even if they already signed in before. For now, this
 is supported by Facebook, Google and Twitter only.
 
 For Javascript based logins (e.g. when you enable the Facebook JS

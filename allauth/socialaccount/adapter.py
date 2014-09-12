@@ -123,8 +123,8 @@ class DefaultSocialAccountAdapter(object):
                         # cannot simply connect this social account to the
                         # existing user. Reason is that the email adress may
                         # not be verified, meaning, the user may be a hacker
-                        # that has added your email address to his account in
-                        # the hope that you fall in his trap.  We cannot check
+                        # that has added your email address to their account in
+                        # the hope that you fall in their trap.  We cannot check
                         # on 'email_address.verified' either, because
                         # 'email_address' is not guaranteed to be verified.
                         auto_signup = False

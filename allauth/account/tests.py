@@ -187,7 +187,7 @@ class AccountTests(TestCase):
     def test_password_forgotten_url_protocol(self):
         user = self._request_new_password()
         body = mail.outbox[0].body
-        self.assertGreater(body.find('https://'), 0)
+        self.assertGreater(body.find('http://testserver/'), 0)
         url = body[body.find('/password/reset/'):].split()[0]
         resp = self.client.get(url)
         self.assertTemplateUsed(resp, 'account/password_reset_from_key.html')

@@ -214,8 +214,8 @@ class ConfirmEmailView(TemplateResponseMixin, View):
                                   {'email': confirmation.email_address.email})
         if app_settings.LOGIN_ON_EMAIL_CONFIRMATION:
             resp = self.login_on_confirm(confirmation)
-            if resp:
-                return resp
+            #if resp: not respecting get_email_confirmation_redirect_url 
+                #return resp
         # Don't -- allauth doesn't touch is_active so that sys admin can
         # use it to block users et al
         #
@@ -515,7 +515,7 @@ class PasswordResetView(FormView):
                               self.form_class)
 
     def form_valid(self, form):
-        form.save()
+        form.save(req = self.request)
         return super(PasswordResetView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):

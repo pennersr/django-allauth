@@ -1,3 +1,7 @@
+2014-09-15  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Josh Owen contributed Coinbase support, thanks!
+
 2014-09-03  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Moved existing migrations into `south_migrations`

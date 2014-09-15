@@ -408,7 +408,7 @@ class ResetPasswordForm(forms.Form):
                                           " to any user account"))
         return self.cleaned_data["email"]
 
-    def save(self, **kwargs):
+    def save(self, request=None, **kwargs):
 
         email = self.cleaned_data["email"]
         token_generator = kwargs.get("token_generator",
@@ -428,9 +428,12 @@ class ResetPasswordForm(forms.Form):
             path = reverse("account_reset_password_from_key",
                            kwargs=dict(uidb36=int_to_base36(user.pk),
                                        key=temp_key))
-            url = '%s://%s%s' % (app_settings.DEFAULT_HTTP_PROTOCOL,
-                                 current_site.domain,
-                                 path)
+            if request:
+                url = request.build_absolute_uri(path)
+            else:
+                url = '%s://%s%s' % (app_settings.DEFAULT_HTTP_PROTOCOL,
+                        current_site.domain,
+                        path)
             context = {"site": current_site,
                        "user": user,
                        "password_reset_url": url}

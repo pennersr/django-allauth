@@ -7,6 +7,13 @@ This chapter contains notes on upgrading.
 From 0.18.0
 ***********
 
+- When users logged in while `User.is_active` was `False`, they were
+  sent to `/accounts/inactive/` in case of a social login, and
+  received a form validation error in case of a local login. This
+  needless inconsistency has been removed. The validation error no
+  longer appears and local logins are also redirected to
+  `/accounts/inactive/`.
+
 - In case you were overriding the `ResetPasswordForm`: the save method
   now takes `request` as its first argument.
 

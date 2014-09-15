@@ -9,6 +9,7 @@ from django.contrib.sites.models import Site
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.crypto import get_random_string
 
+from ..utils import build_absolute_uri
 from .. import app_settings as allauth_app_settings
 from . import app_settings
 from . import signals
@@ -116,7 +117,9 @@ class EmailConfirmation(models.Model):
         current_site = kwargs["site"] if "site" in kwargs \
             else Site.objects.get_current()
         activate_url = reverse("account_confirm_email", args=[self.key])
-        activate_url = request.build_absolute_uri(activate_url)
+        activate_url = build_absolute_uri(request,
+                                          activate_url,
+                                          protocol=app_settings.DEFAULT_HTTP_PROTOCOL)
         ctx = {
             "user": self.email_address.user,
             "activate_url": activate_url,

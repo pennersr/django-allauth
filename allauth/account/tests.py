@@ -209,6 +209,7 @@ class AccountTests(TestCase):
                       follow=True)
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(mail.outbox[0].to, ['john@doe.com'])
+        self.assertGreater(mail.outbox[0].body.find('https://'), 0)
         self.assertEqual(len(mail.outbox), 1)
         self.assertTemplateUsed(resp,
                                 'account/verification_sent.html')

@@ -4,6 +4,7 @@ from django.core.exceptions import PermissionDenied
 from django.db import models
 from django.contrib.auth import authenticate
 from django.contrib.sites.models import Site
+from django.db.models import ForeignKey
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.crypto import get_random_string
 from django.utils.translation import ugettext_lazy as _
@@ -13,6 +14,7 @@ except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
 import allauth.app_settings
+from allauth.nonrel import non_rel, ListFieldWithForm
 from allauth.account.models import EmailAddress
 from allauth.account.utils import get_next_redirect_url, setup_user_email
 from allauth.utils import (get_user_model, serialize_instance,
@@ -26,8 +28,7 @@ from .fields import JSONField
 class SocialAppManager(models.Manager):
     def get_current(self, provider):
         site = Site.objects.get_current()
-        return self.get(sites__id=site.id,
-                        provider=provider)
+        return self.get(sites=site.id, provider=provider)
 
 
 @python_2_unicode_compatible
@@ -54,7 +55,11 @@ class SocialApp(models.Model):
     # a ManyToManyField. Note that Facebook requires an app per domain
     # (unless the domains share a common base name).
     # blank=True allows for disabling apps without removing them
-    sites = models.ManyToManyField(Site, blank=True)
+    # Use a ListField of ForeignKeys as MongoDbEngine doesn't support ManyToMany relationships
+    if non_rel:
+        sites = ListFieldWithForm(ForeignKey(Site))
+    else:
+        sites = models.ManyToManyField(Site, blank=True)
 
     class Meta:
         verbose_name = _('social application')

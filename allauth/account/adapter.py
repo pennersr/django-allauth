@@ -281,8 +281,7 @@ class DefaultAccountAdapter(object):
         # HACK: This is not nice. The proper Django way is to use an
         # authentication backend
         if not hasattr(user, 'backend'):
-            user.backend \
-                = "allauth.account.auth_backends.AuthenticationBackend"
+            user.backend = app_settings.BACKEND
         login(request, user)
 
     def confirm_email(self, request, email_address):

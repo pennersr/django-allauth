@@ -21,7 +21,7 @@ install:
 branches:
  only:
   - master
-script: if [ $DJANGO == Django==1.4.3 -o $DJANGO == Django1.5 ]; then coverage run manage.py test $TEST_APPS; else coverage run manage.py test allauth; fi
+script: if [ $DJANGO == Django==1.4.3 -o $DJANGO == Django==1.5 ]; then coverage run manage.py test $TEST_APPS; else coverage run manage.py test allauth; fi
 matrix:
   exclude:
     - python: "3.3"

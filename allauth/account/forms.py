@@ -15,7 +15,8 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.models import Site
 
 from ..utils import (email_address_exists, get_user_model,
-                     set_form_field_order)
+                     set_form_field_order,
+                     build_absolute_uri)
 
 from .models import EmailAddress
 from .utils import perform_login, setup_user_email, user_username
@@ -408,7 +409,7 @@ class ResetPasswordForm(forms.Form):
                                           " to any user account"))
         return self.cleaned_data["email"]
 
-    def save(self, **kwargs):
+    def save(self, request, **kwargs):
 
         email = self.cleaned_data["email"]
         token_generator = kwargs.get("token_generator",
@@ -428,9 +429,8 @@ class ResetPasswordForm(forms.Form):
             path = reverse("account_reset_password_from_key",
                            kwargs=dict(uidb36=int_to_base36(user.pk),
                                        key=temp_key))
-            url = '%s://%s%s' % (app_settings.DEFAULT_HTTP_PROTOCOL,
-                                 current_site.domain,
-                                 path)
+            url = build_absolute_uri(request, path,
+                                     protocol=app_settings.DEFAULT_HTTP_PROTOCOL)
             context = {"site": current_site,
                        "user": user,
                        "password_reset_url": url}

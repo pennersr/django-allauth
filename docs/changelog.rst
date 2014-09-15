@@ -7,6 +7,9 @@ This chapter contains notes on upgrading.
 From 0.18.0
 ***********
 
+- In case you were overriding the `ResetPasswordForm`: the save method
+  now takes `request` as its first argument.
+
 - All existing migrations have been moved into `south_migrations`
   packages, this in order not to conflict with Django's built-in
   support for migrations. South 1.0 automatically picks up this new

@@ -3,6 +3,7 @@ Showcase
 
 Here are some sites that have `django-allauth` up and running:
 
+- `Drakdoo: Bitcoin trading app <http://www.drakdoo.com>`_
 - http://www.highlightcam.com
 - http://www.q-dance.com
 - http://officecheese.com

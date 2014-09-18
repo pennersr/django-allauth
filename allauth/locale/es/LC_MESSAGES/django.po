@@ -733,7 +733,7 @@ msgstr "Conexiones de Cuenta"
 msgid ""
 "You can sign in to your account using any of the following third party "
 "accounts:"
-msgstr "Puede iniciar sesión con alguna de las seguientes cuentas externas:"
+msgstr "Puede iniciar sesión con alguna de las siguientes cuentas externas:"
 
 #: templates/socialaccount/connections.html:44
 msgid ""
@@ -768,7 +768,7 @@ msgid ""
 "%(site_name)s. As a final step, please complete the following form:"
 msgstr ""
 "Esta a punto de utilizar su cuenta %(provider_name)s para acceder a "
-"%(site_name)s. Como paso final, por favor complete el seguiente formulario:"
+"%(site_name)s. Como paso final, por favor complete el siguiente formulario:"
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."

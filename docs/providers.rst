@@ -114,7 +114,11 @@ VERIFIED_EMAIL:
     introducing a security risk.
 
 App registration (get your key and secret here)
-    https://developers.facebook.com/apps
+    A key and secret key can be obtained by creating an app
+    https://developers.facebook.com/apps .
+    After registration you will need to make it available to the public.
+    In order to do that your app first has to be reviewed by Facebook, see
+    https://developers.facebook.com/docs/apps/review.
 
 Development callback URL
     Leave your App Domains empty and put in the section `Website with Facebook

@@ -56,6 +56,10 @@ instances are created, and populated with data
   - `confirm_email(self, request, email_address)`: Marks the email address as
     confirmed and saves to the db.
 
+  - `generate_unique_username(txts, regex=None)`: Returns a unique username
+    from the combination of strings present in txts iterable. A regex pattern
+    can be passed to the method to make sure the generated username matches it.
+
 - `allauth.socialaccount.adapter.DefaultSocialAccountAdapter`:
 
   - `new_user(self, request, sociallogin)`: Instantiates a new, empty

@@ -17,14 +17,15 @@ except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
 
-def _generate_unique_username_base(txts):
+def _generate_unique_username_base(txts, regex=None):
     username = None
+    regex = regex or '[^\w\s@+.-]'
     for txt in txts:
         if not txt:
             continue
         username = unicodedata.normalize('NFKD', force_text(txt))
         username = username.encode('ascii', 'ignore').decode('ascii')
-        username = force_text(re.sub('[^\w\s@+.-]', '', username).lower())
+        username = force_text(re.sub(regex, '', username).lower())
         # Django allows for '@' in usernames in order to accomodate for
         # project wanting to use e-mail for username. In allauth we don't
         # use this, we already have a proper place for putting e-mail
@@ -38,9 +39,9 @@ def _generate_unique_username_base(txts):
     return username or 'user'
 
 
-def generate_unique_username(txts):
+def generate_unique_username(txts, regex=None):
     from .account.app_settings import USER_MODEL_USERNAME_FIELD
-    username = _generate_unique_username_base(txts)
+    username = _generate_unique_username_base(txts, regex)
     User = get_user_model()
     try:
         max_length = User._meta.get_field(USER_MODEL_USERNAME_FIELD).max_length

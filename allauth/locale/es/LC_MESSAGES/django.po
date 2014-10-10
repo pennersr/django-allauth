@@ -143,7 +143,7 @@ msgstr ""
 
 #: account/models.py:25
 msgid "user"
-msgstr ""
+msgstr "usuario"
 
 #: account/models.py:27 account/models.py:78
 #, fuzzy
@@ -170,11 +170,11 @@ msgstr "correos electrónicos"
 
 #: account/models.py:79
 msgid "created"
-msgstr ""
+msgstr "creado"
 
 #: account/models.py:81
 msgid "sent"
-msgstr ""
+msgstr "enviado"
 
 #: account/models.py:82 socialaccount/models.py:49
 msgid "key"
@@ -210,7 +210,7 @@ msgstr ""
 
 #: socialaccount/models.py:37 socialaccount/models.py:70
 msgid "provider"
-msgstr ""
+msgstr "proovedor"
 
 #: socialaccount/models.py:40
 #, fuzzy
@@ -251,7 +251,7 @@ msgstr ""
 
 #: socialaccount/models.py:89
 msgid "last login"
-msgstr ""
+msgstr "último inicio de sesión"
 
 #: socialaccount/models.py:91
 msgid "date joined"

@@ -4,5 +4,5 @@ django>=1.4.3
 # python-openid>=2.2.5
 # python3-openid>=3.0.1
 python-openid>=2.2.5
-requests>=1.0.3
+requests>=2.0.0
 requests-oauthlib>=0.3.0

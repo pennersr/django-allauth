@@ -365,10 +365,9 @@ The configuration is as follows:
 
 * Provider, "Twitter"
 * Name, your pick, suggest "Twitter"
-* Client id, is called "Owner ID" on Twitter
-* Secret key, is called "API secret" on Twitter
-* Key, is called "API key" on Twitter
-
+* Client id, is called "Consumer Key (API Key)" on Twitter
+* Secret key, is called "Consumer Secret (API Secret)" on Twitter
+* Key, is not needed, leave blank
 
 
 Vimeo

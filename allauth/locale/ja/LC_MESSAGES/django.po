@@ -658,8 +658,7 @@ msgid ""
 "finalize the signup process. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"メールアドレス <a href=\"mailto:%(email)s\">%(email)s</a> に確認のメールを送"
-"信しました。メールに記載されたリンクをクリックして、ユーザー登録を完了させて"
+"確認のメールを送信しました。メールに記載されたリンクをクリックして、ユーザー登録を完了させて"
 "ください。数分待っても確認のメールが届かない場合はご連絡ください。"
 
 #: templates/account/verified_email_required.html:13

@@ -534,7 +534,7 @@ class PasswordResetDoneView(TemplateView):
 password_reset_done = PasswordResetDoneView.as_view()
 
 
-class PasswordResetFromKeyView(FormView):
+class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_reset_from_key.html"
     form_class = ResetPasswordKeyForm
     token_generator = default_token_generator

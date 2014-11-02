@@ -90,3 +90,8 @@ AUTHENTICATION_BACKENDS = (
 
 STATIC_ROOT = '/tmp/'  # Dummy
 STATIC_URL = '/static/'
+
+# Django 1.7: Required to silence the check if `ModelAdmin.search_fields` is
+# a list. We generate this list dynamically, thus it's working but the check
+# framework does not evaluate the expressions.
+SILENCED_SYSTEM_CHECKS = ['admin.E126']

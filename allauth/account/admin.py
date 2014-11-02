@@ -1,20 +1,22 @@
 from django.contrib import admin
+from django.utils.functional import allow_lazy
 
 from .models import EmailConfirmation, EmailAddress
 from . import app_settings
-from ..utils import get_user_model
+from ..utils import get_user_model, get_possible_search_fields
 
-User = get_user_model()
 
 class EmailAddressAdmin(admin.ModelAdmin):
     list_display = ('email', 'user', 'primary', 'verified')
     list_filter = ('primary', 'verified')
-    search_fields = ['email'] + list(map(lambda a: 'user__' + a,
-                                    filter(lambda a: a and hasattr(User(), a),
-                                           [app_settings.USER_MODEL_USERNAME_FIELD,
-                                            'first_name',
-                                            'last_name'])))
     raw_id_fields = ('user',)
+
+    @staticmethod
+    def _get_search_fields():
+        return get_possible_search_fields(['email'])
+
+    search_fields = allow_lazy(_get_search_fields, list)
+
 
 class EmailConfirmationAdmin(admin.ModelAdmin):
     list_display = ('email_address', 'created', 'sent', 'key')

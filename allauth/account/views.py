@@ -29,8 +29,6 @@ from . import app_settings
 
 from .adapter import get_adapter
 
-User = get_user_model()
-
 
 def _ajax_response(request, response, form=None):
     if request.is_ajax():
@@ -551,7 +549,7 @@ class PasswordResetFromKeyView(FormView):
             uid_int = base36_to_int(uidb36)
         except ValueError:
             raise Http404
-        return get_object_or_404(User, id=uid_int)
+        return get_object_or_404(get_user_model(), id=uid_int)
 
     def dispatch(self, request, uidb36, key, **kwargs):
         self.request = request

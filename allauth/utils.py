@@ -63,6 +63,29 @@ def generate_unique_username(txts):
             return ret
 
 
+def get_possible_search_fields(base_fields=None):
+    """Return all all possible search fields.
+
+    Taking some regularly used fields into account if they exist
+    on the user model.
+    """
+    from .account.app_settings import USER_MODEL_USERNAME_FIELD
+
+    fields = base_fields if base_fields is not None else []
+
+    possible_fields = (USER_MODEL_USERNAME_FIELD, 'first_name', 'last_name')
+
+    dummy_user = get_user_model()()
+
+    for field in possible_fields:
+        real_field_name = 'user__' + field
+
+        if hasattr(dummy_user, real_field_name):
+            fields.append(real_field_name)
+
+    return fields
+
+
 def valid_email_or_none(email):
     ret = None
     try:

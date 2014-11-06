@@ -424,7 +424,7 @@ class EmailView(FormView):
 email = login_required(EmailView.as_view())
 
 
-class PasswordChangeView(FormView):
+class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_change.html"
     form_class = ChangePasswordForm
     success_url = reverse_lazy("account_change_password")
@@ -465,7 +465,7 @@ class PasswordChangeView(FormView):
 password_change = login_required(PasswordChangeView.as_view())
 
 
-class PasswordSetView(FormView):
+class PasswordSetView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_set.html"
     form_class = SetPasswordForm
     success_url = reverse_lazy("account_set_password")
@@ -504,7 +504,7 @@ class PasswordSetView(FormView):
 password_set = login_required(PasswordSetView.as_view())
 
 
-class PasswordResetView(FormView):
+class PasswordResetView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_reset.html"
     form_class = ResetPasswordForm
     success_url = reverse_lazy("account_reset_password_done")
@@ -534,7 +534,7 @@ class PasswordResetDoneView(TemplateView):
 password_reset_done = PasswordResetDoneView.as_view()
 
 
-class PasswordResetFromKeyView(FormView):
+class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_reset_from_key.html"
     form_class = ResetPasswordKeyForm
     token_generator = default_token_generator

@@ -393,7 +393,7 @@ class EmailFormTests(TestCase):
             {'action_add': '',
              'email': 'john3@doe.org'},
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        data = json.loads(resp.content)
+        data = json.loads(resp.content.decode('utf8'))
         self.assertEqual(data['location'],
                          reverse('account_email'))
 
@@ -403,7 +403,7 @@ class EmailFormTests(TestCase):
             {'action_add': '',
              'email': 'john3#doe.org'},
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        data = json.loads(resp.content)
+        data = json.loads(resp.content.decode('utf8'))
         self.assertTrue('form_errors' in data)
         self.assertTrue('email' in data['form_errors'])
 
@@ -426,7 +426,7 @@ class EmailFormTests(TestCase):
         self.assertTemplateUsed(
             resp,
             'account/messages/cannot_delete_primary_email.txt')
-        data = json.loads(resp.content)
+        data = json.loads(resp.content.decode('utf8'))
         self.assertEqual(data['location'],
                          reverse('account_email'))
 

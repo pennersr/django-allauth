@@ -94,7 +94,10 @@ class LoginView(RedirectAuthenticatedUserMixin,
 
     def form_valid(self, form):
         success_url = self.get_success_url()
-        return form.login(self.request, redirect_url=success_url)
+        try:
+            return form.login(self.request, redirect_url=success_url)
+        except ImmediateHttpResponse as e:
+            return e.response
 
     def get_success_url(self):
         # Explicitly passed ?next= URL takes precedence

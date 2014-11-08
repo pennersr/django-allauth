@@ -355,6 +355,99 @@ class AccountTests(TestCase):
         self.assertEqual(len(mail.outbox), 1)
 
 
+class EmailFormTests(TestCase):
+
+    def setUp(self):
+        self.user = User.objects.create(username='john',
+                                        email='john1@doe.org')
+        self.user.set_password('doe')
+        self.user.save()
+        self.email_address = EmailAddress.objects.create(
+            user=self.user,
+            email=self.user.email,
+            verified=True,
+            primary=True)
+        self.email_address2 = EmailAddress.objects.create(
+            user=self.user,
+            email='john2@doe.org',
+            verified=False,
+            primary=False)
+        self.client.login(username='john', password='doe')
+
+    def test_add(self):
+        resp = self.client.post(
+            reverse('account_email'),
+            {'action_add': '',
+             'email': 'john3@doe.org'})
+        EmailAddress.objects.get(
+            email='john3@doe.org',
+            user=self.user,
+            verified=False,
+            primary=False)
+        self.assertTemplateUsed(resp,
+                                'account/messages/email_confirmation_sent.txt')
+
+    def test_remove_primary(self):
+        resp = self.client.post(
+            reverse('account_email'),
+            {'action_remove': '',
+             'email': self.email_address.email})
+        EmailAddress.objects.get(pk=self.email_address.pk)
+        self.assertTemplateUsed(
+            resp,
+            'account/messages/cannot_delete_primary_email.txt')
+
+    def test_remove_secondary(self):
+        resp = self.client.post(
+            reverse('account_email'),
+            {'action_remove': '',
+             'email': self.email_address2.email})
+        self.assertRaises(EmailAddress.DoesNotExist,
+                          lambda: EmailAddress.objects.get(
+                              pk=self.email_address2.pk))
+        self.assertTemplateUsed(
+            resp,
+            'account/messages/email_deleted.txt')
+
+    def test_set_primary_unverified(self):
+        resp = self.client.post(
+            reverse('account_email'),
+            {'action_primary': '',
+             'email': self.email_address2.email})
+        email_address = EmailAddress.objects.get(pk=self.email_address.pk)
+        email_address2 = EmailAddress.objects.get(pk=self.email_address2.pk)
+        self.assertFalse(email_address2.primary)
+        self.assertTrue(email_address.primary)
+        self.assertTemplateUsed(
+            resp,
+            'account/messages/unverified_primary_email.txt')
+
+    def test_set_primary(self):
+        email_address2 = EmailAddress.objects.get(pk=self.email_address2.pk)
+        email_address2.verified = True
+        email_address2.save()
+        resp = self.client.post(
+            reverse('account_email'),
+            {'action_primary': '',
+             'email': self.email_address2.email})
+        email_address = EmailAddress.objects.get(pk=self.email_address.pk)
+        email_address2 = EmailAddress.objects.get(pk=self.email_address2.pk)
+        self.assertFalse(email_address.primary)
+        self.assertTrue(email_address2.primary)
+        self.assertTemplateUsed(
+            resp,
+            'account/messages/primary_email_set.txt')
+
+    def test_verify(self):
+        resp = self.client.post(
+            reverse('account_email'),
+            {'action_primary': '',
+             'email': self.email_address2.email})
+        self.assertTemplateUsed(
+            resp,
+            'account/messages/email_confirmation_sent.txt')
+
+
 class BaseSignupFormTests(TestCase):
 
     @override_settings(

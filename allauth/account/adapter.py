@@ -297,6 +297,12 @@ class DefaultAccountAdapter(object):
         user.set_password(password)
         user.save()
 
+    def get_user_search_fields(self):
+        user = get_user_model()()
+        return filter(lambda a: a and hasattr(user, a),
+                      [app_settings.USER_MODEL_USERNAME_FIELD,
+                       'first_name', 'last_name', 'email'])
+
 
 def get_adapter():
     return import_attribute(app_settings.ADAPTER)()

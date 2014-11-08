@@ -5,7 +5,6 @@ from allauth.account.utils import user_email
 from allauth.utils import get_user_model
 from allauth.account.models import EmailAddress
 
-User = get_user_model()
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
@@ -18,7 +17,7 @@ class Command(BaseCommand):
                 primary=True).values('user').annotate(
                             Count('user')).filter(user__count__gt=1):
             user_pks.append(email_address_dict['user'])
-        return User.objects.filter(pk__in=user_pks)
+        return get_user_model().objects.filter(pk__in=user_pks)
 
     def unprimary_extra_primary_emails(self, user):
         primary_email_addresses = EmailAddress.objects.filter(

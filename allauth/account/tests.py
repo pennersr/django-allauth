@@ -387,6 +387,26 @@ class EmailFormTests(TestCase):
         self.assertTemplateUsed(resp,
                                 'account/messages/email_confirmation_sent.txt')
 
+    def test_ajax_add(self):
+        resp = self.client.post(
+            reverse('account_email'),
+            {'action_add': '',
+             'email': 'john3@doe.org'},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        data = json.loads(resp.content)
+        self.assertEqual(data['location'],
+                         reverse('account_email'))
+
+    def test_ajax_add_invalid(self):
+        resp = self.client.post(
+            reverse('account_email'),
+            {'action_add': '',
+             'email': 'john3#doe.org'},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        data = json.loads(resp.content)
+        self.assertTrue('form_errors' in data)
+        self.assertTrue('email' in data['form_errors'])
+
     def test_remove_primary(self):
         resp = self.client.post(
             reverse('account_email'),
@@ -396,6 +416,19 @@ class EmailFormTests(TestCase):
         self.assertTemplateUsed(
             resp,
             'account/messages/cannot_delete_primary_email.txt')
+
+    def test_ajax_remove_primary(self):
+        resp = self.client.post(
+            reverse('account_email'),
+            {'action_remove': '',
+             'email': self.email_address.email},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertTemplateUsed(
+            resp,
+            'account/messages/cannot_delete_primary_email.txt')
+        data = json.loads(resp.content)
+        self.assertEqual(data['location'],
+                         reverse('account_email'))
 
     def test_remove_secondary(self):
         resp = self.client.post(

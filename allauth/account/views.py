@@ -282,7 +282,7 @@ class ConfirmEmailView(TemplateResponseMixin, View):
 confirm_email = ConfirmEmailView.as_view()
 
 
-class EmailView(FormView):
+class EmailView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/email.html"
     form_class = AddEmailForm
     success_url = reverse_lazy('account_email')
@@ -323,11 +323,11 @@ class EmailView(FormView):
                 res = self._action_remove(request)
             elif "action_primary" in request.POST:
                 res = self._action_primary(request)
-            # TODO: Ugly. But if we .get() here the email is used as
-            # initial for the add form, whereas the user was not
-            # interacting with that form..
             res = res or HttpResponseRedirect(reverse('account_email'))
-        return res or self.get(request, *args, **kwargs)
+            # Given that we bypassed AjaxCapableProcessFormViewMixin,
+            # we'll have to call invoke it manually...
+            res = _ajax_response(request, res)
+        return res
 
     def _action_send(self, request, *args, **kwargs):
         email = request.POST["email"]

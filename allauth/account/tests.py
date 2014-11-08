@@ -22,8 +22,6 @@ from . import app_settings
 
 from .adapter import get_adapter
 
-User = get_user_model()
-
 
 @override_settings(
     ACCOUNT_DEFAULT_HTTP_PROTOCOL='https',
@@ -47,7 +45,7 @@ class AccountTests(TestCase):
         ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod
         .USERNAME_EMAIL)
     def test_username_containing_at(self):
-        user = User.objects.create(username='@raymond.penners')
+        user = get_user_model().objects.create(username='@raymond.penners')
         user.set_password('psst')
         user.save()
         EmailAddress.objects.create(user=user,
@@ -110,11 +108,10 @@ class AccountTests(TestCase):
         self.assertEqual(resp['location'],
                          get_adapter().get_login_redirect_url(request))
         self.assertEqual(len(mail.outbox), 0)
-        return User.objects.get(username=username)
+        return get_user_model().objects.get(username=username)
 
     def _create_user_and_login(self):
-        user = User.objects.create(username='john',
-                                   is_active=True)
+        user = get_user_model().objects.create(username='john', is_active=True)
         user.set_password('doe')
         user.save()
         self.client.login(username='john', password='doe')
@@ -172,9 +169,8 @@ class AccountTests(TestCase):
         assert 'username' not in body
 
     def _request_new_password(self):
-        user = User.objects.create(username='john',
-                                   email='john@doe.org',
-                                   is_active=True)
+        user = get_user_model().objects.create(
+            username='john', email='john@doe.org', is_active=True)
         user.set_password('doe')
         user.save()
         self.client.post(
@@ -194,7 +190,7 @@ class AccountTests(TestCase):
         self.client.post(url,
                          {'password1': 'newpass123',
                           'password2': 'newpass123'})
-        user = User.objects.get(pk=user.pk)
+        user = get_user_model().objects.get(pk=user.pk)
         self.assertTrue(user.check_password('newpass123'))
         return resp
 
@@ -222,8 +218,9 @@ class AccountTests(TestCase):
             # is_active is controlled by the admin to manually disable
             # users. I don't want this flag to flip automatically whenever
             # users verify their email adresses.
-            self.assertTrue(User.objects.filter(username='johndoe',
-                                                is_active=True).exists())
+            self.assertTrue(get_user_model().objects.filter(
+                username='johndoe', is_active=True).exists())
+
             self.assertTemplateUsed(resp,
                                     'account/verification_sent.html')
             # Attempt 1: no mail is sent due to cool-down ,
@@ -256,8 +253,7 @@ class AccountTests(TestCase):
         site = Site.objects.get_current()
         site.name = '<enc&"test>'
         site.save()
-        u = User.objects.create(username='test',
-                                email='foo@bar.com')
+        u = get_user_model().objects.create(username='test', email='foo@bar.com')
         request = RequestFactory().get('/')
         EmailAddress.objects.add_email(request, u, u.email, confirm=True)
         self.assertTrue(mail.outbox[0].subject[1:].startswith(site.name))
@@ -281,8 +277,7 @@ class AccountTests(TestCase):
         ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod
         .USERNAME)
     def test_ajax_login_success(self):
-        user = User.objects.create(username='john',
-                                   is_active=True)
+        user = get_user_model().objects.create(username='john', is_active=True)
         user.set_password('doe')
         user.save()
         resp = self.client.post(reverse('account_login'),
@@ -312,8 +307,7 @@ class AccountTests(TestCase):
 
     def _logout_view(self, method):
         c = Client()
-        user = User.objects.create(username='john',
-                                   is_active=True)
+        user = get_user_model().objects.create(username='john', is_active=True)
         user.set_password('doe')
         user.save()
         c = Client()

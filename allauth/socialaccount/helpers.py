@@ -6,7 +6,6 @@ from django.template import RequestContext
 from django.forms import ValidationError
 from django.core.urlresolvers import reverse
 
-from allauth.utils import get_user_model
 from allauth.account.utils import (perform_login, complete_signup,
                                    user_username)
 from allauth.account import app_settings as account_settings
@@ -17,8 +16,6 @@ from .models import SocialLogin
 from . import app_settings
 from . import signals
 from .adapter import get_adapter
-
-User = get_user_model()
 
 
 def _process_signup(request, sociallogin):

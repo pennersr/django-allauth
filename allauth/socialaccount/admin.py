@@ -1,12 +1,11 @@
 from django.contrib import admin
+from django.utils.functional import allow_lazy
 from django import forms
 
 from .models import SocialApp, SocialAccount, SocialToken
 
 from ..account import app_settings
-from ..utils import get_user_model
-
-User = get_user_model()
+from ..utils import get_user_model, get_possible_search_fields
 
 
 class SocialAppForm(forms.ModelForm):
@@ -27,15 +26,36 @@ class SocialAppAdmin(admin.ModelAdmin):
 
 
 class SocialAccountAdmin(admin.ModelAdmin):
-    search_fields = ['user__emailaddress__email'] + \
-        list(map(lambda a: 'user__' + a,
-             filter(lambda a: a and hasattr(User(), a),
-                    [app_settings.USER_MODEL_USERNAME_FIELD,
-                     'first_name',
-                     'last_name'])))
     raw_id_fields = ('user',)
     list_display = ('user', 'uid', 'provider')
     list_filter = ('provider',)
+
+    @classmethod
+    def check(cls, *args, **kwargs):
+        """Django 1.7: Silence `list` check for `search_fields.
+
+        Required to silence the check if `ModelAdmin.search_fields` is a list.
+        We generate this list dynamically, thus it's working but the check
+        framework does not evaluate the expressions and fails.
+        """
+        errors = super(SocialAccountAdmin, cls).check(*args, **kwargs)
+
+        expected_msg = "The value of 'search_fields' must be a list or tuple."
+
+        def _filter(err):
+            if err.id == 'admin.E126' and err.msg == expected_msg:
+                return
+            return err
+
+        errors = list(filter(_filter, errors))
+
+        return errors
+
+    @classmethod
+    def _get_search_fields(cls):
+        return get_possible_search_fields(['user__emailaddress__email'])
+
+    search_fields = allow_lazy(_get_search_fields, list)
 
 
 class SocialTokenAdmin(admin.ModelAdmin):

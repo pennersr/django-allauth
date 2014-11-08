@@ -441,7 +441,7 @@ class EmailFormTests(TestCase):
     def test_verify(self):
         resp = self.client.post(
             reverse('account_email'),
-            {'action_primary': '',
+            {'action_send': '',
              'email': self.email_address2.email})
         self.assertTemplateUsed(
             resp,

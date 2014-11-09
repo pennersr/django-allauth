@@ -47,6 +47,8 @@ Supported Providers
 
 - Feedly (OAuth2)
 
+- Firefox Accounts (OAuth2)
+
 - Flickr (OAuth)
 
 - Github (OAuth2)

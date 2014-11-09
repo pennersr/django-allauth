@@ -29,8 +29,6 @@ from . import app_settings
 
 from .adapter import get_adapter
 
-User = get_user_model()
-
 
 def _ajax_response(request, response, form=None):
     if request.is_ajax():
@@ -94,7 +92,10 @@ class LoginView(RedirectAuthenticatedUserMixin,
 
     def form_valid(self, form):
         success_url = self.get_success_url()
-        return form.login(self.request, redirect_url=success_url)
+        try:
+            return form.login(self.request, redirect_url=success_url)
+        except ImmediateHttpResponse as e:
+            return e.response
 
     def get_success_url(self):
         # Explicitly passed ?next= URL takes precedence
@@ -282,7 +283,7 @@ class ConfirmEmailView(TemplateResponseMixin, View):
 confirm_email = ConfirmEmailView.as_view()
 
 
-class EmailView(FormView):
+class EmailView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/email.html"
     form_class = AddEmailForm
     success_url = reverse_lazy('account_email')
@@ -323,11 +324,11 @@ class EmailView(FormView):
                 res = self._action_remove(request)
             elif "action_primary" in request.POST:
                 res = self._action_primary(request)
-            # TODO: Ugly. But if we .get() here the email is used as
-            # initial for the add form, whereas the user was not
-            # interacting with that form..
             res = res or HttpResponseRedirect(reverse('account_email'))
-        return res or self.get(request, *args, **kwargs)
+            # Given that we bypassed AjaxCapableProcessFormViewMixin,
+            # we'll have to call invoke it manually...
+            res = _ajax_response(request, res)
+        return res
 
     def _action_send(self, request, *args, **kwargs):
         email = request.POST["email"]
@@ -424,7 +425,7 @@ class EmailView(FormView):
 email = login_required(EmailView.as_view())
 
 
-class PasswordChangeView(FormView):
+class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_change.html"
     form_class = ChangePasswordForm
     success_url = reverse_lazy("account_change_password")
@@ -465,7 +466,7 @@ class PasswordChangeView(FormView):
 password_change = login_required(PasswordChangeView.as_view())
 
 
-class PasswordSetView(FormView):
+class PasswordSetView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_set.html"
     form_class = SetPasswordForm
     success_url = reverse_lazy("account_set_password")
@@ -504,7 +505,7 @@ class PasswordSetView(FormView):
 password_set = login_required(PasswordSetView.as_view())
 
 
-class PasswordResetView(FormView):
+class PasswordResetView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_reset.html"
     form_class = ResetPasswordForm
     success_url = reverse_lazy("account_reset_password_done")
@@ -534,7 +535,7 @@ class PasswordResetDoneView(TemplateView):
 password_reset_done = PasswordResetDoneView.as_view()
 
 
-class PasswordResetFromKeyView(FormView):
+class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_reset_from_key.html"
     form_class = ResetPasswordKeyForm
     token_generator = default_token_generator
@@ -551,7 +552,7 @@ class PasswordResetFromKeyView(FormView):
             uid_int = base36_to_int(uidb36)
         except ValueError:
             raise Http404
-        return get_object_or_404(User, id=uid_int)
+        return get_object_or_404(get_user_model(), id=uid_int)
 
     def dispatch(self, request, uidb36, key, **kwargs):
         self.request = request

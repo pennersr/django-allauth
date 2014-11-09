@@ -3,6 +3,7 @@ python:
  - "2.6"
  - "2.7"
  - "3.3"
+ - "3.4"
 env:
   global:
    - TEST_APPS="allauth account socialaccount amazon angellist bitbucket coinbase feedly foursquare dropbox facebook flickr google github hubic instagram linkedin linkedin_oauth2 mailru windowslive openid orcid paypal persona soundcloud stackexchange tumblr twitch twitter vimeo vk weibo bitly xing"
@@ -25,6 +26,8 @@ script: if [ $DJANGO == Django==1.4.3 -o $DJANGO == Django==1.5 ]; then coverage
 matrix:
   exclude:
     - python: "3.3"
+      env: DJANGO=Django==1.4.3
+    - python: "3.4"
       env: DJANGO=Django==1.4.3
     - python: "2.6"
       env: DJANGO="git+git://github.com/django/django.git@stable/1.7.x#egg=django"

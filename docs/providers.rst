@@ -125,6 +125,18 @@ Development callback URL
     Login` put this as your Site URL: `http://localhost:8000`
 
 
+Firefox Accounts
+----------------
+
+The Firefox Accounts provider is currently limited to Mozilla relying services
+but there is the intention to, in the future, allow third-party services to
+delegate authentication. There is no committed timeline for this.
+
+The provider is OAuth2 based. More info:
+    https://developer.mozilla.org/en-US/Firefox_Accounts
+
+Note: This is not the same as the Mozilla Persona provider below.
+
 GitHub
 ------
 

@@ -16,8 +16,8 @@ class ProviderLoginURLNode(template.Node):
         query = dict([(str(name), var.resolve(context)) for name, var
                       in self.params.items()])
         request = context['request']
-        if 'scope' in query:
-            scope = query.get('scope', False)
+        scope = query.get('scope', False)
+        if scope:
             query['process'] = 'redirect'
         if 'next' not in query:
             next = request.REQUEST.get('next')

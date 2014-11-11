@@ -16,13 +16,18 @@ class ProviderLoginURLNode(template.Node):
         query = dict([(str(name), var.resolve(context)) for name, var
                       in self.params.items()])
         request = context['request']
+
         if 'next' not in query:
             next = request.REQUEST.get('next')
+            redirect = query.get('process', False)
             if next:
                 query['next'] = next
+            elif redirect:
+                query['next'] = request.get_full_path()
         else:
             if not query['next']:
                 del query['next']
+        # get the login url and append query as url parameters
         return provider.get_login_url(request, **query)
 
 @register.tag

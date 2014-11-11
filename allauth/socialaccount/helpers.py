@@ -103,6 +103,8 @@ def _add_social_account(request, sociallogin):
 def complete_social_login(request, sociallogin):
     assert not sociallogin.is_existing
     sociallogin.lookup()
+    if sociallogin.state.get('process') == 'redirect':
+        return _social_login_redirect(request, sociallogin)
     try:
         get_adapter().pre_social_login(request, sociallogin)
         signals.pre_social_login.send(sender=SocialLogin,
@@ -114,6 +116,28 @@ def complete_social_login(request, sociallogin):
         return _add_social_account(request, sociallogin)
     else:
         return _complete_social_login(request, sociallogin)
+
+
+def _social_login_redirect(request, sociallogin):
+    dynamic_scope = sociallogin.state.get('scope', None)
+    # next defaults to origin path when process=redirect
+    next_url = sociallogin.get_redirect_url(request)
+    # Handle dynamic scope accept/decline flow
+    try:
+        get_adapter().pre_social_login_redirect(request, sociallogin)
+        signals.pre_social_login_redirect.send(sender=SocialLogin,
+                                      request=request,
+                                      sociallogin=sociallogin)
+    except ImmediateHttpResponse as e:
+        return e.response
+    if dynamic_scope:
+        redirect = app_settings.DYNAMIC_SCOPE_REDIRECT_URL
+        redirect = redirect if redirect != '/' else next_url
+
+        return HttpResponseRedirect(redirect)
+    redirect = app_settings.SOCIAL_LOGIN_REDIRECT_URL
+    redirect = redirect if redirect != '/' else next_url
+    return HttpResponseRedirect(redirect)
 
 
 def _complete_social_login(request, sociallogin):

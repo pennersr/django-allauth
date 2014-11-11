@@ -33,6 +33,21 @@ class DefaultSocialAccountAdapter(object):
         """
         pass
 
+    def pre_social_login_redirect(self, request, sociallogin):
+        """
+        Invoked just after a user successfully authenticates via a
+        social provider and process=redirect is specified, but before
+        pre_social_login is called. (and before the signal is emitted).
+
+        You can use this hook to check if requested permissions were
+        granted or declined and redirect to an appropriate view.
+
+        Why both a pre_social_login and pre_social_login_redirect?
+        Since a pre_social_login_redirect implies this is not a new social
+        account we will likely want to skip all pre_social_login logic.
+        """
+        pass
+
     def new_user(self, request, sociallogin):
         """
         Instantiates a new User instance.

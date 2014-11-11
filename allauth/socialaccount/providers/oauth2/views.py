@@ -61,11 +61,12 @@ class OAuth2View(object):
             request, callback_url,
             protocol=protocol)
         provider = self.adapter.get_provider()
+        scope = provider.get_dynamic_scope(request)
         client = OAuth2Client(self.request, app.client_id, app.secret,
                               self.adapter.access_token_method,
                               self.adapter.access_token_url,
                               callback_url,
-                              provider.get_scope())
+                              scope)
         return client
 
 

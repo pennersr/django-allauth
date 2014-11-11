@@ -280,6 +280,7 @@ class SocialLogin(object):
         if next_url:
             state['next'] = next_url
         state['process'] = request.REQUEST.get('process', 'login')
+        state['scope'] = request.REQUEST.get('scope', '')
         return state
 
     @classmethod

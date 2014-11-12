@@ -208,7 +208,7 @@ msgid ""
 "account first, then connect your %s account."
 msgstr ""
 "Ya existe una cuenta asociada a esta dirección de correo electrónico. Por "
-"favor, autentíquese usando esa cuenta, y luego vincule su %s account."
+"favor, autentíquese usando esa cuenta, y luego vincule su cuenta de %s."
 
 #: socialaccount/models.py:37 socialaccount/models.py:70
 msgid "provider"

@@ -1,3 +1,4 @@
+import django
 from django.contrib import admin
 
 from .models import EmailConfirmation, EmailAddress
@@ -12,10 +13,12 @@ class EmailAddressAdmin(admin.ModelAdmin):
 
     def __init__(self, *args, **kwargs):
         super(EmailAddressAdmin, self).__init__(*args, **kwargs)
-        if not self.search_fields:
-            self.search_fields = ['email'] + list(
-                map(lambda a: 'user__' + a,
-                    get_adapter().get_user_search_fields()))
+        if not self.search_fields and django.VERSION[:2] < (1, 7):
+            self.search_fields = self.get_search_fields(None)
+
+    def get_search_fields(self, request):
+        base_fields = get_adapter().get_user_search_fields()
+        return ['email'] + list(map(lambda a: 'user__' + a, base_fields))
 
 
 class EmailConfirmationAdmin(admin.ModelAdmin):

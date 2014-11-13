@@ -20,7 +20,7 @@ from ..utils import (email_address_exists, get_user_model,
 
 from .models import EmailAddress
 from .utils import perform_login, setup_user_email, user_username
-from .app_settings import AuthenticationMethod
+from .app_settings import AuthenticationMethod, EmailVerificationMethod
 from . import app_settings
 from .adapter import get_adapter
 
@@ -336,10 +336,11 @@ class AddEmailForm(UserForm):
         return value
 
     def save(self, request):
+        confirm = app_settings.EMAIL_VERIFICATION != EmailVerificationMethod.NONE
         return EmailAddress.objects.add_email(request,
                                               self.user,
                                               self.cleaned_data["email"],
-                                              confirm=True)
+                                              confirm=confirm)
 
 
 class ChangePasswordForm(UserForm):

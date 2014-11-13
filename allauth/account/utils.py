@@ -251,7 +251,7 @@ def setup_user_email(request, user, addresses):
 def send_email_confirmation(request, user, signup=False):
     """
     E-mail verification mails are sent:
-    a) Explicitly: when a user signs up
+    a) Explicitly: when a user signs up or adds an email to the account
     b) Implicitly: when a user attempts to log in using an unverified
     e-mail while EMAIL_VERIFICATION is mandatory.
 

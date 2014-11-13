@@ -89,7 +89,7 @@ def user_email(user, *args):
     return user_field(user, app_settings.USER_MODEL_EMAIL_FIELD, *args)
 
 
-def perform_login(request, user, email_verification,
+def perform_login(request, user, email_required=None, email_verification=None,
                   redirect_url=None, signal_kwargs={},
                   signup=False):
     """
@@ -100,6 +100,11 @@ def perform_login(request, user, email_verification,
     case email verification is optional and we are only logging in).
     """
     from .models import EmailAddress
+    # if email became required after this user signed up, we need
+    # to ask the user for an email address if not provided previously
+    has_email = EmailAddress.objects.filter(user=user).exists()
+    if not signup and not has_email and email_required:
+        return HttpResponseRedirect('/to-be-implemented')
     has_verified_email = EmailAddress.objects.filter(user=user,
                                                      verified=True).exists()
     if email_verification == EmailVerificationMethod.NONE:

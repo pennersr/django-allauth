@@ -52,6 +52,7 @@ def _process_signup(request, sociallogin):
 
 def _login_social_account(request, sociallogin):
     return perform_login(request, sociallogin.account.user,
+                         email_required=app_settings.EMAIL_REQUIRED,
                          email_verification=app_settings.EMAIL_VERIFICATION,
                          redirect_url=sociallogin.get_redirect_url(request),
                          signal_kwargs={"sociallogin": sociallogin})

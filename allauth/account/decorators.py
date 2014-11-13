@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from .models import EmailAddress
 
-from .utils import send_email_confirmation
+from .utils import send_email_confirmation, user_email
 
 
 def verified_email_required(function=None,
@@ -25,6 +26,8 @@ def verified_email_required(function=None,
         @login_required(redirect_field_name=redirect_field_name,
                         login_url=login_url)
         def _wrapped_view(request, *args, **kwargs):
+            if not user_email(user):
+                return HttpResponseRedirect('/to-be-implemented')
             if not EmailAddress.objects.filter(user=request.user,
                                                verified=True).exists():
                 send_email_confirmation(request, request.user)

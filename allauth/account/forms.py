@@ -134,6 +134,7 @@ class LoginForm(forms.Form):
 
     def login(self, request, redirect_url=None):
         ret = perform_login(request, self.user,
+                            email_required=app_settings.EMAIL_REQUIRED,
                             email_verification=app_settings.EMAIL_VERIFICATION,
                             redirect_url=redirect_url)
         remember = app_settings.SESSION_REMEMBER

@@ -255,9 +255,8 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         user_pk = self.request.session.pop('account_user', None)
         user = confirmation.email_address.user
         if user_pk == user.pk and self.request.user.is_anonymous():
-            return perform_login(self.request,
-                                 user,
-                                 app_settings.EmailVerificationMethod.NONE)
+            return perform_login(self.request, user,
+                email_verification=app_settings.EmailVerificationMethod.NONE)
 
     def get_object(self, queryset=None):
         if queryset is None:

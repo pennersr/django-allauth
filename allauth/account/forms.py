@@ -343,6 +343,16 @@ class AddEmailForm(UserForm):
                                               confirm=True)
 
 
+class AddRequiredEmailForm(AddEmailForm):
+
+    def save(self, request):
+        del request.session["user_adding_email_address"]
+        return EmailAddress.objects.add_email(request,
+                                              self.user,
+                                              self.cleaned_data["email"],
+                                              confirm=True)
+
+
 class ChangePasswordForm(UserForm):
 
     oldpassword = PasswordField(label=_("Current Password"))

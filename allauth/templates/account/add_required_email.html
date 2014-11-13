@@ -1,0 +1,22 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load url from future %}
+
+{% block head_title %}{% trans "E-mail Address Required" %}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans "E-mail Address Required" %}</h1>
+
+<p>
+    {% trans "An e-mail address is now required for all users. As you did not provide one previously, please do so now." %}
+</p>
+
+<form method="post" action="{% url 'account_add_required_email' %}" class="add_email">
+    {% csrf_token %}
+    {{ form.as_p}}
+    <button class="primaryAction" name="action_add" type="submit">{% trans "Add E-mail" %}</button>
+</form>
+
+{% endblock %}

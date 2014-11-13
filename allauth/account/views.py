@@ -13,12 +13,12 @@ from django.contrib.auth.tokens import default_token_generator
 from django.shortcuts import redirect
 
 from ..exceptions import ImmediateHttpResponse
-from ..utils import get_user_model, get_form_class
+from ..utils import get_user_model, get_form_class, deserialize_instance
 
 from .utils import (get_next_redirect_url, complete_signup,
                     get_login_redirect_url, perform_login,
                     passthrough_next_redirect_url)
-from .forms import AddEmailForm, ChangePasswordForm
+from .forms import AddEmailForm, AddRequiredEmailForm, ChangePasswordForm
 from .forms import LoginForm, ResetPasswordKeyForm
 from .forms import ResetPasswordForm, SetPasswordForm, SignupForm
 from .utils import sync_user_email_addresses
@@ -422,6 +422,42 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
         return ret
 
 email = login_required(EmailView.as_view())
+
+
+class AddRequiredEmailView(EmailView):
+    template_name = "account/add_required_email.html"
+    form_class = AddRequiredEmailForm
+    # success_url = None
+    success_url = reverse_lazy('account_login')
+
+    def dispatch(self, request, *args, **kwargs):
+        # get rid of people who shouldn't be visiting this page
+        if self.request.user.is_authenticated():
+            return HttpResponseRedirect(reverse('account_email'))
+        else:
+            if not "user_adding_email_address" in self.request.session:
+                return HttpResponseRedirect(
+                                reverse('account_login'))
+        # this page is for the user who was trying to log in,
+        # so get that user from the session and substitute
+        self.request.user = deserialize_instance(get_user_model(),
+                    self.request.session.get("user_adding_email_address"))
+        return super(AddRequiredEmailView, self).dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        ret = super(AddRequiredEmailView, self).get_success_url()
+        return ret
+
+    def post(self, request, *args, **kwargs):
+        res = None
+        if "action_add" in request.POST:
+            res = super(AddRequiredEmailView, self).post(request, *args, **kwargs)
+            res = perform_login(self.request, self.request.user, \
+                    email_required=app_settings.EMAIL_REQUIRED, \
+                    email_verification=app_settings.EMAIL_VERIFICATION)
+        return res
+
+add_required_email = AddRequiredEmailView.as_view()
 
 
 class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):

@@ -27,7 +27,7 @@ def verified_email_required(function=None,
                         login_url=login_url)
         def _wrapped_view(request, *args, **kwargs):
             if not user_email(user):
-                return HttpResponseRedirect('/to-be-implemented')
+                return HttpResponseRedirect(reverse('account_add_required_email'))
             if not EmailAddress.objects.filter(user=request.user,
                                                verified=True).exists():
                 send_email_confirmation(request, request.user)

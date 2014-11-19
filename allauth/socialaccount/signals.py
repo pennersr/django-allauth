@@ -6,9 +6,9 @@ from django.dispatch import Signal
 # accounts to an account.
 pre_social_login = Signal(providing_args=["request", "sociallogin"])
 
-# Sent after a user successfully authenticates via a social provider, and
-# process=redirect is specified, but before pre_social_login is called.
-pre_social_login_redirect = Signal(providing_args=["request", "sociallogin"])
+# Sent when there is an authentication error. Check sociallogin.error
+# for (error_name, message).
+social_login_error = Signal(providing_args=["request", "sociallogin"])
 
 # Sent after a user connects a social account to a their local account.
 social_account_added = Signal(providing_args=["request", "sociallogin"])

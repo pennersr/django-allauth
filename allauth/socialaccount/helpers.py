@@ -13,6 +13,7 @@ from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.exceptions import ImmediateHttpResponse
 
 from .models import SocialLogin
+from .models import SocialAccount
 from . import app_settings
 from . import signals
 from .adapter import get_adapter
@@ -58,6 +59,74 @@ def _login_social_account(request, sociallogin):
 
 
 def render_authentication_error(request, extra_context={}):
+    # Providing context variable for identifying auth errors
+    auth_error = extra_context.get('auth_error', 'undefined_error')
+    adapter = extra_context.get('adapter', None)
+    sociallogin = extra_context.get('sociallogin', None)
+
+    # Build sociallogin  to provide more personalized error handling.
+    if not sociallogin:
+        if adapter:
+            provider = adapter.get_provider()
+            try:
+                socialaccount = SocialAccount.objects.filter(user=request.user,
+                                                      provider=provider.id)
+                login = SocialLogin(socialaccount)
+            except TypeError:
+                login = SocialLogin()
+
+            if adapter.supports_state:
+                    login.state = SocialLogin \
+                        .verify_and_unstash_state(
+                            request,
+                            request.REQUEST.get('state'))
+            else:
+                login.state = SocialLogin.unstash_state(request)
+        else:
+            login = SocialLogin()
+            login.state = SocialLogin.unstash_state(request)
+        sociallogin = login #or auth_error
+
+    # provide the error for efficient error handling outside allauth.
+    sociallogin.error = auth_error
+    # provide the error for efficient error handling in templates.
+    extra_context['sociallogin'] = sociallogin
+
+    # Authenticated users did not necessarily get an auth_error. Perhaps
+    # permissions_denied, login_canceled, or token_expired. So let's provide
+    # a hook for handling flows out of allauth scope.  This is essential for
+    # providing Incremental authorization as recommended by providers.
+    try:
+        get_adapter().social_login_error(request, sociallogin)
+        signals.social_login_error.send(sender=SocialLogin,
+                                      request=request,
+                                      sociallogin=sociallogin)
+    except ImmediateHttpResponse as e:
+        return e.response
+
+    # Provide default error handling for allauth
+    next_url = sociallogin.state.get('next', None) if login else None
+    non_auth_errors = ['login_canceled', 'permission_denied']
+    if auth_error[0] in non_auth_errors:
+        if auth_error[0] == 'login_canceled':
+            level = messages.INFO
+            message = 'socialaccount/messages/login_canceled.txt'
+        if auth_error[0] == 'permission_denied':
+            level = messages.WARNING
+            message = 'socialaccount/messages/permission_denied.txt'
+        if request.user.is_authenticated() and next_url:
+            # authenticated users will likely want to end up where they started
+            return HttpResponseRedirect(next_url)
+        elif request.user.is_authenticated():
+            # else authenticated users had to have come from here
+            return HttpResponseRedirect(reverse('socialaccount_connections'))
+
+        get_account_adapter().add_message(request, level, message)
+
+        return render_to_response(
+            "socialaccount/login_cancelled.html",
+            extra_context, context_instance=RequestContext(request))
+
     return render_to_response(
         "socialaccount/authentication_error.html",
         extra_context, context_instance=RequestContext(request))
@@ -119,25 +188,9 @@ def complete_social_login(request, sociallogin):
 
 
 def _social_login_redirect(request, sociallogin):
-    dynamic_scope = sociallogin.state.get('scope', None)
     # next defaults to origin path when process=redirect
     next_url = sociallogin.get_redirect_url(request)
-    # Handle dynamic scope accept/decline flow
-    try:
-        get_adapter().pre_social_login_redirect(request, sociallogin)
-        signals.pre_social_login_redirect.send(sender=SocialLogin,
-                                      request=request,
-                                      sociallogin=sociallogin)
-    except ImmediateHttpResponse as e:
-        return e.response
-    if dynamic_scope:
-        redirect = app_settings.DYNAMIC_SCOPE_REDIRECT_URL
-        redirect = redirect if redirect != '/' else next_url
-
-        return HttpResponseRedirect(redirect)
-    redirect = app_settings.SOCIAL_LOGIN_REDIRECT_URL
-    redirect = redirect if redirect != '/' else next_url
-    return HttpResponseRedirect(redirect)
+    return HttpResponseRedirect(next_url)
 
 
 def _complete_social_login(request, sociallogin):

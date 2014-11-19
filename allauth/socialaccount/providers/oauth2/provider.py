@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse
 from django.utils.http import urlencode
 
 from allauth.socialaccount.providers.base import Provider
+import ast
 
 
 class OAuth2Provider(Provider):
@@ -21,6 +22,14 @@ class OAuth2Provider(Provider):
         if scope is None:
             scope = self.get_default_scope()
         return scope
+
+    def get_dynamic_auth_params(self, request, action):
+        auth_params = self.get_auth_params(request, action)
+        dynamic_auth_params = request.GET.get('auth_params', None)
+        if dynamic_auth_params:
+            dynamic_auth_params = ast.literal_eval(str(dynamic_auth_params))
+            auth_params.update(dynamic_auth_params)
+        return auth_params
 
     def get_dynamic_scope(self, request):
         scope = self.get_scope()

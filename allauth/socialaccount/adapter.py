@@ -33,18 +33,16 @@ class DefaultSocialAccountAdapter(object):
         """
         pass
 
-    def pre_social_login_redirect(self, request, sociallogin):
+    def social_login_error(self, request, sociallogin):
         """
-        Invoked just after a user successfully authenticates via a
-        social provider and process=redirect is specified, but before
-        pre_social_login is called. (and before the signal is emitted).
+        Invoked when there is an error in the authentication cycle. In this case,
+        pre_social_login will not be reached.  If the user cancels or declines
+        permissions they will be directed to 'next' or login_canceled.html by default.
 
-        You can use this hook to check if requested permissions were
-        granted or declined and redirect to an appropriate view.
+        You can use this hook to intervene, e.g. redirect to an educational
+        flow by raising an ImmediateHttpResponse.
 
-        Why both a pre_social_login and pre_social_login_redirect?
-        Since a pre_social_login_redirect implies this is not a new social
-        account we will likely want to skip all pre_social_login logic.
+        See sociallogin.error ("error_name", "error_message") for the error thrown.
         """
         pass
 

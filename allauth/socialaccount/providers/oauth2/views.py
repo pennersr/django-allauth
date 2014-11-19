@@ -23,6 +23,7 @@ class OAuth2Adapter(object):
     supports_state = True
     redirect_uri_protocol = None  # None: use ACCOUNT_DEFAULT_HTTP_PROTOCOL
     access_token_method = 'POST'
+    login_canceled_key = 'access_denied'
 
     def get_provider(self):
         return providers.registry.by_id(self.provider_id)
@@ -77,20 +78,37 @@ class OAuth2LoginView(OAuth2View):
         client = self.get_client(request, app)
         action = request.GET.get('action', AuthAction.AUTHENTICATE)
         auth_url = self.adapter.authorize_url
-        auth_params = provider.get_auth_params(request, action)
+        auth_params = provider.get_dynamic_auth_params(request, action)
         client.state = SocialLogin.stash_state(request)
         try:
-            return HttpResponseRedirect(client.get_redirect_url(auth_url,
-                                                                auth_params))
-        except OAuth2Error:
-            return render_authentication_error(request)
+            return HttpResponseRedirect(client.get_redirect_url(
+                auth_url, auth_params))
+        except OAuth2Error as e:
+            return render_authentication_error(request,
+                                               extra_context={
+                                                    'adapter': self.adapter,
+                                                    'auth_error': e.message
+                                               })
 
 
 class OAuth2CallbackView(OAuth2View):
     def dispatch(self, request):
+        auth_error = ()
         if 'error' in request.GET or 'code' not in request.GET:
-            # TODO: Distinguish cancel from error
-            return render_authentication_error(request)
+            # Distinguish cancel from error
+            auth_error = request.GET.get('error', None)
+            if auth_error == self.adapter.login_canceled_key:
+                auth_error = ('login_canceled',
+                              'Login with your social account provider has been canceled')
+            elif not auth_error and 'code' not in request.GET:
+                auth_error = ("undefined_error",
+                              "There was an undefined error during authentication")
+            return render_authentication_error(
+                request, extra_context={
+                    'adapter': self.adapter,
+                    'auth_error': auth_error
+                }
+            )
         app = self.adapter.get_provider().get_app(self.request)
         client = self.get_client(request, app)
         try:
@@ -111,5 +129,13 @@ class OAuth2CallbackView(OAuth2View):
             else:
                 login.state = SocialLogin.unstash_state(request)
             return complete_social_login(request, login)
-        except (OAuth2Error, PermissionDenied):
-            return render_authentication_error(request)
+        except OAuth2Error as e:
+            auth_error = ('auth_error', e.message)
+        except PermissionDenied as e:
+            auth_error = ('permission_denied', e.message)
+        if auth_error:
+            return render_authentication_error(request,
+                                               extra_context={
+                                                    'adapter': self.adapter,
+                                                    'auth_error': auth_error
+                                               })

@@ -17,13 +17,13 @@ class ProviderLoginURLNode(template.Node):
         request = context['request']
         auth_params = query.get('auth_params', None)
         scope = query.get('scope', None)
-        process = query.get('process', None)
         if scope or auth_params:
             query['process'] = 'redirect'
-        if not scope:
+        if scope is '':
             del query['scope']
-        if not auth_params:
+        if auth_params is '':
             del query['auth_params']
+        process = query.get('process', None)
         if 'next' not in query:
             next = request.REQUEST.get('next')
             if next:

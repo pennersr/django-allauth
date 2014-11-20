@@ -1,2 +1,0 @@
-{% load i18n %}
-{% blocktrans %}Login to your social account has been canceled.{% endblocktrans %}

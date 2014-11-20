@@ -1,2 +1,0 @@
-{% load i18n %}
-{% blocktrans %}Permission has been for your social account.{% endblocktrans %}

@@ -6,17 +6,11 @@
 {% block head_title %}{% trans "Login Cancelled" %}{% endblock %}
 
 {% block content %}
-    
+
 <h1>{% trans "Login Cancelled" %}</h1>
 
 {% url 'account_login' as login_url %}
-{% if auth_error == permissions_denied %}
-<p>{% trans "It seems that you have declined permissions for our site with one of your existing accounts.  " %}
-{% elif auth_error == login_canceled %}
-<p>{% trans "You decided to cancel logging in to our site using one of your existing accounts.  "%}
-{% else %}
-<p>{% trans "It seems login with one of your existing accounts was aborted.  " %}
-{% endif %}
-{% blocktrans %}If this was a mistake, please proceed to <a href="{{login_url}}">sign in</a>.{% endblocktrans %}</p>
-{% endblock %}
 
+<p>{% blocktrans %}You decided to cancel logging in to our site using one of your existing accounts. If this was a mistake, please proceed to <a href="{{login_url}}">sign in</a>.{% endblocktrans %}</p>
+
+{% endblock %}

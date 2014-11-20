@@ -2,7 +2,9 @@ from django.template.defaulttags import token_kwargs
 from django import template
 
 from allauth.socialaccount import providers
+
 register = template.Library()
+
 
 class ProviderLoginURLNode(template.Node):
     def __init__(self, provider_id, params):
@@ -17,24 +19,20 @@ class ProviderLoginURLNode(template.Node):
         request = context['request']
         auth_params = query.get('auth_params', None)
         scope = query.get('scope', None)
-        if scope or auth_params:
-            query['process'] = 'redirect'
         if scope is '':
             del query['scope']
         if auth_params is '':
             del query['auth_params']
-        process = query.get('process', None)
         if 'next' not in query:
             next = request.REQUEST.get('next')
             if next:
                 query['next'] = next
-            elif process == 'redirect':
-                query['next'] = '/'
         else:
             if not query['next']:
                 del query['next']
         # get the login url and append query as url parameters
         return provider.get_login_url(request, **query)
+
 
 @register.tag
 def provider_login_url(parser, token):
@@ -46,11 +44,12 @@ def provider_login_url(parser, token):
     provider_id = bits[1]
     params = token_kwargs(bits[2:], parser, support_legacy=False)
     return ProviderLoginURLNode(provider_id, params)
-    
+
+
 class ProvidersMediaJSNode(template.Node):
     def render(self, context):
         request = context['request']
-        ret = '\n'.join([p.media_js(request) 
+        ret = '\n'.join([p.media_js(request)
                          for p in providers.registry.get_list()])
         return ret
 

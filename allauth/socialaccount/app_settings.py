@@ -67,14 +67,6 @@ class AppSettings(object):
     def STORE_TOKENS(self):
         return self._setting('STORE_TOKENS', True)
 
-    @property
-    def DYNAMIC_SCOPE_REDIRECT_URL(self):
-        return self._setting('DYNAMIC_SCOPE_REDIRECT_URL', '/')
-
-    @property
-    def SOCIAL_LOGIN_REDIRECT_URL(self):
-        return self._setting('SOCIAL_LOGIN_REDIRECT_URL', '/')
-
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

@@ -11,9 +11,10 @@ from allauth.account.utils import (perform_login, complete_signup,
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.exceptions import ImmediateHttpResponse
+from .providers.base import AuthProcess, AuthError
 
 from .models import SocialLogin
-from .models import SocialAccount
+
 from . import app_settings
 from . import signals
 from .adapter import get_adapter
@@ -58,78 +59,32 @@ def _login_social_account(request, sociallogin):
                          signal_kwargs={"sociallogin": sociallogin})
 
 
-def render_authentication_error(request, extra_context={}):
-    # Providing context variable for identifying auth errors
-    auth_error = extra_context.get('auth_error', 'undefined_error')
-    adapter = extra_context.get('adapter', None)
-    sociallogin = extra_context.get('sociallogin', None)
-
-    # Build sociallogin  to provide more personalized error handling.
-    if not sociallogin:
-        if adapter:
-            provider = adapter.get_provider()
-            try:
-                socialaccount = SocialAccount.objects.filter(user=request.user,
-                                                      provider=provider.id)
-                login = SocialLogin(socialaccount)
-            except TypeError:
-                login = SocialLogin()
-
-            if adapter.supports_state:
-                    login.state = SocialLogin \
-                        .verify_and_unstash_state(
-                            request,
-                            request.REQUEST.get('state'))
-            else:
-                login.state = SocialLogin.unstash_state(request)
-        else:
-            login = SocialLogin()
-            login.state = SocialLogin.unstash_state(request)
-        sociallogin = login #or auth_error
-
-    # provide the error for efficient error handling outside allauth.
-    sociallogin.error = auth_error
-    # provide the error for efficient error handling in templates.
-    extra_context['sociallogin'] = sociallogin
-
-    # Authenticated users did not necessarily get an auth_error. Perhaps
-    # permissions_denied, login_canceled, or token_expired. So let's provide
-    # a hook for handling flows out of allauth scope.  This is essential for
-    # providing Incremental authorization as recommended by providers.
+def render_authentication_error(request,
+                                provider_id,
+                                error=AuthError.UNKNOWN,
+                                exception=None,
+                                extra_context={}):
     try:
-        get_adapter().social_login_error(request, sociallogin)
-        signals.social_login_error.send(sender=SocialLogin,
-                                      request=request,
-                                      sociallogin=sociallogin)
+        get_adapter().authentication_error(request,
+                                           provider_id,
+                                           error=error,
+                                           exception=exception,
+                                           extra_context=extra_context)
     except ImmediateHttpResponse as e:
         return e.response
-
-    # Provide default error handling for allauth
-    next_url = sociallogin.state.get('next', None) if login else None
-    non_auth_errors = ['login_canceled', 'permission_denied']
-    if auth_error[0] in non_auth_errors:
-        if auth_error[0] == 'login_canceled':
-            level = messages.INFO
-            message = 'socialaccount/messages/login_canceled.txt'
-        if auth_error[0] == 'permission_denied':
-            level = messages.WARNING
-            message = 'socialaccount/messages/permission_denied.txt'
-        if request.user.is_authenticated() and next_url:
-            # authenticated users will likely want to end up where they started
-            return HttpResponseRedirect(next_url)
-        elif request.user.is_authenticated():
-            # else authenticated users had to have come from here
-            return HttpResponseRedirect(reverse('socialaccount_connections'))
-
-        get_account_adapter().add_message(request, level, message)
-
-        return render_to_response(
-            "socialaccount/login_cancelled.html",
-            extra_context, context_instance=RequestContext(request))
-
+    if error == AuthError.CANCELLED:
+        return HttpResponseRedirect(reverse('socialaccount_login_cancelled'))
+    context = {
+        'auth_error': {
+            'provider': provider_id,
+            'code': error,
+            'exception': exception
+        }
+    }
+    context.update(extra_context)
     return render_to_response(
         "socialaccount/authentication_error.html",
-        extra_context, context_instance=RequestContext(request))
+        context, context_instance=RequestContext(request))
 
 
 def _add_social_account(request, sociallogin):
@@ -172,8 +127,6 @@ def _add_social_account(request, sociallogin):
 def complete_social_login(request, sociallogin):
     assert not sociallogin.is_existing
     sociallogin.lookup()
-    if sociallogin.state.get('process') == 'redirect':
-        return _social_login_redirect(request, sociallogin)
     try:
         get_adapter().pre_social_login(request, sociallogin)
         signals.pre_social_login.send(sender=SocialLogin,
@@ -181,15 +134,17 @@ def complete_social_login(request, sociallogin):
                                       sociallogin=sociallogin)
     except ImmediateHttpResponse as e:
         return e.response
-    if sociallogin.state.get('process') == 'connect':
+    process = sociallogin.state.get('process')
+    if process == AuthProcess.REDIRECT:
+        return _social_login_redirect(request, sociallogin)
+    elif process == AuthProcess.CONNECT:
         return _add_social_account(request, sociallogin)
     else:
         return _complete_social_login(request, sociallogin)
 
 
 def _social_login_redirect(request, sociallogin):
-    # next defaults to origin path when process=redirect
-    next_url = sociallogin.get_redirect_url(request)
+    next_url = sociallogin.get_redirect_url(request) or '/'
     return HttpResponseRedirect(next_url)
 
 

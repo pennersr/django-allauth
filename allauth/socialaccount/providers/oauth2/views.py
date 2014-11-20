@@ -23,7 +23,7 @@ class OAuth2Adapter(object):
     supports_state = True
     redirect_uri_protocol = None  # None: use ACCOUNT_DEFAULT_HTTP_PROTOCOL
     access_token_method = 'POST'
-    login_canceled_key = 'access_denied'
+    login_cancelled_error = 'access_denied'
 
     def get_provider(self):
         return providers.registry.by_id(self.provider_id)
@@ -95,7 +95,7 @@ class OAuth2CallbackView(OAuth2View):
         if 'error' in request.GET or 'code' not in request.GET:
             # Distinguish cancel from error
             auth_error = request.GET.get('error', None)
-            if auth_error == self.adapter.login_canceled_key:
+            if auth_error == self.adapter.login_cancelled_error:
                 error = AuthError.CANCELLED
             else:
                 error = AuthError.UNKNOWN

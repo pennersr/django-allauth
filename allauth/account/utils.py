@@ -120,8 +120,10 @@ def perform_login(request, user, email_verification,
     if not user.is_active:
         return HttpResponseRedirect(reverse('account_inactive'))
     get_adapter().login(request, user)
+    response = HttpResponseRedirect(get_login_redirect_url(request, redirect_url))
     signals.user_logged_in.send(sender=user.__class__,
                                 request=request,
+                                response=response,
                                 user=user,
                                 **signal_kwargs)
     get_adapter().add_message(request,
@@ -129,7 +131,7 @@ def perform_login(request, user, email_verification,
                               'account/messages/logged_in.txt',
                               {'user': user})
 
-    return HttpResponseRedirect(get_login_redirect_url(request, redirect_url))
+    return response
 
 
 def complete_signup(request, user, email_verification, success_url,

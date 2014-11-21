@@ -27,6 +27,8 @@ class ProviderLoginURLNode(template.Node):
             next = request.REQUEST.get('next')
             if next:
                 query['next'] = next
+            elif process == 'redirect':
+                query['next'] = request.get_full_path()
         else:
             if not query['next']:
                 del query['next']

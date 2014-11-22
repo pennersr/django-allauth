@@ -19,6 +19,7 @@ class ProviderLoginURLNode(template.Node):
         request = context['request']
         auth_params = query.get('auth_params', None)
         scope = query.get('scope', None)
+        process = query.get('process', None)
         if scope is '':
             del query['scope']
         if auth_params is '':

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-12 00:24+0200\n"
+"POT-Creation-Date: 2014-11-24 18:04-0200\n"
 "PO-Revision-Date: 2014-08-12 00:37+0200\n"
 "Last-Translator: Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
@@ -20,164 +20,164 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: account/adapter.py:203
+#: account/adapter.py:207
 msgid "Usernames can only contain letters, digits and @/./+/-/_."
 msgstr "Nomes de usuários apenas podem conter letras, dígitos, e @/./+/-/_."
 
-#: account/adapter.py:209
+#: account/adapter.py:214
 msgid "Username can not be used. Please use other username."
 msgstr "O nome de usuário não pode ser usado. Escolha outro."
 
-#: account/adapter.py:219
+#: account/adapter.py:224
 msgid "This username is already taken. Please choose another."
 msgstr "Este nome de usuário já está em uso. Por favor escolha outro."
+
+#: account/adapter.py:241
+#, python-brace-format
+msgid "Password must be a minimum of {0} characters."
+msgstr "A senha deve ter no mínimo {0} caracteres."
 
 #: account/apps.py:8
 #, fuzzy
 msgid "Accounts"
 msgstr "Conta"
 
-#: account/forms.py:36 account/forms.py:53 account/forms.py:283
-#: account/forms.py:380
+#: account/forms.py:35 account/forms.py:49 account/forms.py:275
+#: account/forms.py:372
 msgid "Password"
 msgstr "Senha"
 
-#: account/forms.py:46
-#, python-brace-format
-msgid "Password must be a minimum of {0} characters."
-msgstr "A senha deve ter no mínimo {0} caracteres."
-
-#: account/forms.py:54
+#: account/forms.py:50
 msgid "Remember Me"
 msgstr "Lembrar-me"
 
-#: account/forms.py:60
+#: account/forms.py:56
 msgid "This account is currently inactive."
 msgstr "Esta conta está desativada no momento."
 
-#: account/forms.py:63
+#: account/forms.py:59
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "O endereço de e-mail e/ou senha especificados não estão corretos."
 
-#: account/forms.py:66
+#: account/forms.py:62
 msgid "The username and/or password you specified are not correct."
 msgstr "O nome de usuário e/ou senha especificados não estão corretos."
 
-#: account/forms.py:69
+#: account/forms.py:65
 msgid "The login and/or password you specified are not correct."
 msgstr "O nome de usuário e/ou senha especificados não estão corretos."
 
-#: account/forms.py:77 account/forms.py:218
+#: account/forms.py:73 account/forms.py:210
 msgid "E-mail address"
 msgstr "Endereço de e-mail"
 
-#: account/forms.py:79 account/forms.py:231 account/forms.py:324
-#: account/forms.py:399
+#: account/forms.py:75 account/forms.py:223 account/forms.py:316
+#: account/forms.py:391
 msgid "E-mail"
 msgstr "E-mail"
 
-#: account/forms.py:84 account/forms.py:86 account/forms.py:209
-#: account/forms.py:214
+#: account/forms.py:80 account/forms.py:82 account/forms.py:201
+#: account/forms.py:206
 msgid "Username"
 msgstr "Nome de usuário"
 
-#: account/forms.py:93
+#: account/forms.py:89
 msgid "Username or e-mail"
 msgstr "Nome de usuário ou e-mail"
 
-#: account/forms.py:96
+#: account/forms.py:92
 msgctxt "field label"
 msgid "Login"
 msgstr "Usuário"
 
-#: account/forms.py:234
+#: account/forms.py:226
 msgid "E-mail (optional)"
 msgstr "E-mail (opcional)"
 
-#: account/forms.py:265
+#: account/forms.py:257
 msgid "A user is already registered with this e-mail address."
 msgstr "Um usuário já foi registado com este endereço de e-mail."
 
-#: account/forms.py:284 account/forms.py:381
+#: account/forms.py:276 account/forms.py:373
 msgid "Password (again)"
 msgstr "Senha (novamente)"
 
-#: account/forms.py:301 account/forms.py:370 account/forms.py:388
-#: account/forms.py:465
+#: account/forms.py:293 account/forms.py:362 account/forms.py:380
+#: account/forms.py:456
 msgid "You must type the same password each time."
 msgstr "A mesma senha deve ser escrita em ambos os campos."
 
-#: account/forms.py:333
+#: account/forms.py:325
 msgid "This e-mail address is already associated with this account."
 msgstr "Este endereço de e-mail já foi associado com esta conta."
 
-#: account/forms.py:335
+#: account/forms.py:327
 msgid "This e-mail address is already associated with another account."
 msgstr "Este endereço de e-mail já foi associado com outra conta."
 
-#: account/forms.py:355
+#: account/forms.py:347
 msgid "Current Password"
 msgstr "Senha Atual"
 
-#: account/forms.py:356 account/forms.py:451
+#: account/forms.py:348 account/forms.py:442
 msgid "New Password"
 msgstr "Nova Senha"
 
-#: account/forms.py:357 account/forms.py:452
+#: account/forms.py:349 account/forms.py:443
 msgid "New Password (again)"
 msgstr "Nova Senha (novamente)"
 
-#: account/forms.py:361
+#: account/forms.py:353
 msgid "Please type your current password."
 msgstr "Por favor insira a sua senha atual."
 
-#: account/forms.py:410
+#: account/forms.py:402
 msgid "The e-mail address is not assigned to any user account"
 msgstr "O endereço de e-mail não está associado a nenhuma conta de usuário"
 
-#: account/models.py:25
+#: account/models.py:26
 msgid "user"
 msgstr "usuário"
 
-#: account/models.py:27 account/models.py:78
+#: account/models.py:28 account/models.py:79
 #, fuzzy
 msgid "e-mail address"
 msgstr "endereço de e-mail"
 
-#: account/models.py:28
+#: account/models.py:29
 msgid "verified"
 msgstr "verificado"
 
-#: account/models.py:29
+#: account/models.py:30
 #, fuzzy
 msgid "primary"
 msgstr "primário"
 
-#: account/models.py:34
+#: account/models.py:35
 msgid "email address"
 msgstr "endereço de e-mail"
 
-#: account/models.py:35
+#: account/models.py:36
 msgid "email addresses"
 msgstr "endereços de e-mail"
 
-#: account/models.py:79
+#: account/models.py:80
 msgid "created"
 msgstr "criado"
 
-#: account/models.py:81
+#: account/models.py:82
 msgid "sent"
 msgstr "enviado"
 
-#: account/models.py:82 socialaccount/models.py:49
+#: account/models.py:83 socialaccount/models.py:49
 msgid "key"
 msgstr "chave"
 
-#: account/models.py:87
+#: account/models.py:88
 msgid "email confirmation"
 msgstr "confirmação de e-mail"
 
-#: account/models.py:88
+#: account/models.py:89
 msgid "email confirmations"
 msgstr "confirmações de e-mail"
 
@@ -449,7 +449,9 @@ msgstr "ou"
 msgid ""
 "If you have not created an account yet, then please\n"
 "<a href=\"%(signup_url)s\">sign up</a> first."
-msgstr "Ainda não possui uma conta? Por favor <a href=\"%(signup_url)s\">cadastre-se</a>."
+msgstr ""
+"Ainda não possui uma conta? Por favor <a href=\"%(signup_url)s\">cadastre-"
+"se</a>."
 
 #: templates/account/login.html:41
 msgid "Forgot Password?"
@@ -625,8 +627,10 @@ msgid ""
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"Você recebeu este e-mail porque você ou outra pessoa pediu uma nova senha para a sua conta no %(site_domain)s.\n"
-"Se não pediu uma redefinição de senha, ignore este e-mail. Clique no link abaixo para redefinir a sua password."
+"Você recebeu este e-mail porque você ou outra pessoa pediu uma nova senha "
+"para a sua conta no %(site_domain)s.\n"
+"Se não pediu uma redefinição de senha, ignore este e-mail. Clique no link "
+"abaixo para redefinir a sua password."
 
 #: templates/account/email/password_reset_key_message.txt:6
 #, python-format

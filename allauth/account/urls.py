@@ -17,6 +17,8 @@ urlpatterns = patterns(
 
     # E-mail
     url(r"^email/$", views.email, name="account_email"),
+    url(r"^add-required-email/$", views.add_required_email,
+        name="account_add_required_email"),
     url(r"^confirm-email/$", views.email_verification_sent,
         name="account_email_verification_sent"),
     url(r"^confirm-email/(?P<key>\w+)/$", views.confirm_email,

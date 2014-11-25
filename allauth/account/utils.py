@@ -17,7 +17,7 @@ except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
 from ..utils import (import_callable, valid_email_or_none,
-                     get_user_model)
+                     get_user_model, serialize_instance)
 
 from . import signals
 
@@ -89,7 +89,7 @@ def user_email(user, *args):
     return user_field(user, app_settings.USER_MODEL_EMAIL_FIELD, *args)
 
 
-def perform_login(request, user, email_verification,
+def perform_login(request, user, email_required=None, email_verification=None,
                   redirect_url=None, signal_kwargs={},
                   signup=False):
     """
@@ -100,6 +100,12 @@ def perform_login(request, user, email_verification,
     case email verification is optional and we are only logging in).
     """
     from .models import EmailAddress
+    # if email became required after this user signed up, we need
+    # to ask the user for an email address if not provided previously
+    has_email = EmailAddress.objects.filter(user=user).exists()
+    if not signup and not has_email and email_required:
+        request.session['user_adding_email_address'] = serialize_instance(user)
+        return HttpResponseRedirect(reverse('account_add_required_email'))
     has_verified_email = EmailAddress.objects.filter(user=user,
                                                      verified=True).exists()
     if email_verification == EmailVerificationMethod.NONE:

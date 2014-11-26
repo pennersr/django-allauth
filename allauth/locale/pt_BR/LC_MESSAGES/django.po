@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-24 18:04-0200\n"
+"POT-Creation-Date: 2014-11-25 22:11-0200\n"
 "PO-Revision-Date: 2014-08-12 00:37+0200\n"
 "Last-Translator: Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: account/adapter.py:207
 msgid "Usernames can only contain letters, digits and @/./+/-/_."
-msgstr "Nomes de usuários apenas podem conter letras, dígitos, e @/./+/-/_."
+msgstr "Nomes de usuários apenas podem conter letras, dígitos e @/./+/-/_."
 
 #: account/adapter.py:214
 msgid "Username can not be used. Please use other username."
@@ -42,8 +42,8 @@ msgstr "A senha deve ter no mínimo {0} caracteres."
 msgid "Accounts"
 msgstr "Conta"
 
-#: account/forms.py:35 account/forms.py:49 account/forms.py:275
-#: account/forms.py:372
+#: account/forms.py:35 account/forms.py:49 account/forms.py:271
+#: account/forms.py:368
 msgid "Password"
 msgstr "Senha"
 
@@ -67,71 +67,71 @@ msgstr "O nome de usuário e/ou senha especificados não estão corretos."
 msgid "The login and/or password you specified are not correct."
 msgstr "O nome de usuário e/ou senha especificados não estão corretos."
 
-#: account/forms.py:73 account/forms.py:210
+#: account/forms.py:73 account/forms.py:206
 msgid "E-mail address"
 msgstr "Endereço de e-mail"
 
-#: account/forms.py:75 account/forms.py:223 account/forms.py:316
-#: account/forms.py:391
+#: account/forms.py:74 account/forms.py:219 account/forms.py:312
+#: account/forms.py:387
 msgid "E-mail"
 msgstr "E-mail"
 
-#: account/forms.py:80 account/forms.py:82 account/forms.py:201
-#: account/forms.py:206
+#: account/forms.py:79 account/forms.py:80 account/forms.py:198
+#: account/forms.py:203
 msgid "Username"
 msgstr "Nome de usuário"
 
-#: account/forms.py:89
+#: account/forms.py:87
 msgid "Username or e-mail"
 msgstr "Nome de usuário ou e-mail"
 
-#: account/forms.py:92
+#: account/forms.py:89
 msgctxt "field label"
 msgid "Login"
 msgstr "Usuário"
 
-#: account/forms.py:226
+#: account/forms.py:222
 msgid "E-mail (optional)"
 msgstr "E-mail (opcional)"
 
-#: account/forms.py:257
+#: account/forms.py:253
 msgid "A user is already registered with this e-mail address."
 msgstr "Um usuário já foi registado com este endereço de e-mail."
 
-#: account/forms.py:276 account/forms.py:373
+#: account/forms.py:272 account/forms.py:369
 msgid "Password (again)"
 msgstr "Senha (novamente)"
 
-#: account/forms.py:293 account/forms.py:362 account/forms.py:380
-#: account/forms.py:456
+#: account/forms.py:289 account/forms.py:358 account/forms.py:376
+#: account/forms.py:452
 msgid "You must type the same password each time."
 msgstr "A mesma senha deve ser escrita em ambos os campos."
 
-#: account/forms.py:325
+#: account/forms.py:321
 msgid "This e-mail address is already associated with this account."
 msgstr "Este endereço de e-mail já foi associado com esta conta."
 
-#: account/forms.py:327
+#: account/forms.py:323
 msgid "This e-mail address is already associated with another account."
 msgstr "Este endereço de e-mail já foi associado com outra conta."
 
-#: account/forms.py:347
+#: account/forms.py:343
 msgid "Current Password"
 msgstr "Senha Atual"
 
-#: account/forms.py:348 account/forms.py:442
+#: account/forms.py:344 account/forms.py:438
 msgid "New Password"
 msgstr "Nova Senha"
 
-#: account/forms.py:349 account/forms.py:443
+#: account/forms.py:345 account/forms.py:439
 msgid "New Password (again)"
 msgstr "Nova Senha (novamente)"
 
-#: account/forms.py:353
+#: account/forms.py:349
 msgid "Please type your current password."
 msgstr "Por favor insira a sua senha atual."
 
-#: account/forms.py:402
+#: account/forms.py:398
 msgid "The e-mail address is not assigned to any user account"
 msgstr "O endereço de e-mail não está associado a nenhuma conta de usuário"
 
@@ -488,7 +488,7 @@ msgid ""
 "Forgotten your password? Enter your e-mail address below, and we'll send you "
 "an e-mail allowing you to reset it."
 msgstr ""
-"Esqueceu a sua senha? Insira o seu endereço de e-mail abaixo, e lhe "
+"Esqueceu a sua senha? Insira o seu endereço de e-mail abaixo e lhe "
 "enviaremos um e-mail permitindo que a redefina."
 
 #: templates/account/password_reset.html:21
@@ -498,7 +498,7 @@ msgstr "Redefinir a minha senha"
 #: templates/account/password_reset.html:24
 msgid "Please contact us if you have any trouble resetting your password."
 msgstr ""
-"Por favor, contacte-nos se tiver quaisquer problemas para redefinir a sua "
+"Por favor, contate-nos se tiver quaisquer problemas para redefinir a sua "
 "senha."
 
 #: templates/account/password_reset_done.html:15
@@ -506,7 +506,7 @@ msgid ""
 "We have sent you an e-mail. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"Um e-mail foi enviado. Por favor contacte-nos se não o receber nos próximos "
+"Um e-mail foi enviado. Por favor contate-nos se não o receber nos próximos "
 "minutos."
 
 #: templates/account/password_reset_from_key.html:8
@@ -576,9 +576,9 @@ msgid ""
 "finalize the signup process. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"Enviamos-lhe um e-mail para verificação. Por favor clique no link dentro "
-"deste e-mail. Por favor contacte-nos se não o receber dentro dos próximos "
-"minutos."
+"Enviamos-lhe um e-mail para verificação. Clique no link dentro do e-mailpara "
+"completar o processo. Se você não o receber dentro dos próximos minutos, "
+"entre em contato."
 
 #: templates/account/verified_email_required.html:13
 msgid ""
@@ -586,8 +586,8 @@ msgid ""
 "you are who you claim to be. For this purpose, we require that you\n"
 "verify ownership of your e-mail address. "
 msgstr ""
-"Esta parte do site requer que verifiquemos que é quem diz que é. Para esse "
-"fim, pedimos que verifique que é dono do seu endereço de e-mail. "
+"Esta parte do site requer que verifiquemos que você é quem diz que é. Para "
+"esse fim, pedimos que verifique que é dono do seu endereço de e-mail. "
 
 #: templates/account/verified_email_required.html:17
 msgid ""
@@ -596,7 +596,7 @@ msgid ""
 "contact us if you do not receive it within a few minutes."
 msgstr ""
 "Enviamos-lhe um e-mail para verificação. Por favor clique no link dentro "
-"deste e-mail. Por favor contacte-nos se não o receber dentro dos próximos "
+"deste e-mail. Por favor contate-nos se não o receber dentro dos próximos "
 "minutos."
 
 #: templates/account/verified_email_required.html:21
@@ -617,7 +617,7 @@ msgid ""
 msgstr ""
 "O usuário %(user_display)s do %(site_name)s deu este endereço de e-mail.\n"
 "\n"
-"Para confirmar que isto é corrcto, vá até %(activate_url)s\n"
+"Para confirmar que isso está correto, por favor vá até %(activate_url)s\n"
 
 #: templates/account/email/password_reset_key_message.txt:1
 #, python-format
@@ -629,8 +629,8 @@ msgid ""
 msgstr ""
 "Você recebeu este e-mail porque você ou outra pessoa pediu uma nova senha "
 "para a sua conta no %(site_domain)s.\n"
-"Se não pediu uma redefinição de senha, ignore este e-mail. Clique no link "
-"abaixo para redefinir a sua password."
+"Se você não pediu uma redefinição de senha, ignore este e-mail. Clique no "
+"link abaixo para redefinir a sua senha."
 
 #: templates/account/email/password_reset_key_message.txt:6
 #, python-format

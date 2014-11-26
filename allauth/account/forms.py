@@ -70,15 +70,13 @@ class LoginForm(forms.Form):
         if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
             login_widget = forms.TextInput(attrs={'type': 'email',
                                                   'placeholder':
-                                                  _('E-mail address'),
-                                                  'autofocus': 'autofocus'})
+                                                  _('E-mail address')})
             login_field = forms.EmailField(label=_("E-mail"),
                                            widget=login_widget)
         elif app_settings.AUTHENTICATION_METHOD \
                 == AuthenticationMethod.USERNAME:
             login_widget = forms.TextInput(attrs={'placeholder':
-                                                  _('Username'),
-                                                  'autofocus': 'autofocus'})
+                                                  _('Username')})
             login_field = forms.CharField(label=_("Username"),
                                           widget=login_widget,
                                           max_length=30)
@@ -86,8 +84,7 @@ class LoginForm(forms.Form):
             assert app_settings.AUTHENTICATION_METHOD \
                 == AuthenticationMethod.USERNAME_EMAIL
             login_widget = forms.TextInput(attrs={'placeholder':
-                                                  _('Username or e-mail'),
-                                                  'autofocus': 'autofocus'})
+                                                  _('Username or e-mail')})
             login_field = forms.CharField(label=pgettext("field label",
                                                          "Login"),
                                           widget=login_widget)
@@ -203,8 +200,7 @@ class BaseSignupForm(_base_signup_form_class()):
                                min_length=app_settings.USERNAME_MIN_LENGTH,
                                widget=forms.TextInput(
                                    attrs={'placeholder':
-                                          _('Username'),
-                                          'autofocus': 'autofocus'}))
+                                          _('Username')}))
     email = forms.EmailField(widget=forms.TextInput(
         attrs={'type': 'email',
                'placeholder': _('E-mail address')}))

@@ -4,7 +4,7 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class Scope(object):
-    USERINFO_PROFILE = u'/authenticate'
+    USERINFO_PROFILE = '/authenticate'
 
 
 class OrcidAccount(ProviderAccount):

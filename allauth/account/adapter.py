@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 import re
 import warnings
 import json
@@ -55,7 +57,7 @@ class DefaultAccountAdapter(object):
         prefix = app_settings.EMAIL_SUBJECT_PREFIX
         if prefix is None:
             site = Site.objects.get_current()
-            prefix = u"[{name}] ".format(name=site.name)
+            prefix = "[{name}] ".format(name=site.name)
         return prefix + force_text(subject)
 
     def render_mail(self, template_prefix, email, context):

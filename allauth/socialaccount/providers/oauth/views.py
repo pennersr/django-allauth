@@ -94,7 +94,6 @@ class OAuthCallbackView(OAuthView):
                 token=access_token['oauth_token'],
                 token_secret=access_token['oauth_token_secret'])
             login = self.adapter.complete_login(request, app, token)
-            token.account = login.account
             login.token = token
             login.state = SocialLogin.unstash_state(request)
             return complete_social_login(request, login)

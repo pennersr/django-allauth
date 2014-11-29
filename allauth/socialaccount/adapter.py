@@ -59,7 +59,7 @@ class DefaultSocialAccountAdapter(object):
         Saves a newly signed up social login. In case of auto-signup,
         the signup form is not available.
         """
-        u = sociallogin.account.user
+        u = sociallogin.user
         u.set_unusable_password()
         if form:
             get_account_adapter().save_user(request, u, form)
@@ -90,7 +90,7 @@ class DefaultSocialAccountAdapter(object):
         last_name = data.get('last_name')
         email = data.get('email')
         name = data.get('name')
-        user = sociallogin.account.user
+        user = sociallogin.user
         user_username(user, username or '')
         user_email(user, valid_email_or_none(email) or '')
         name_parts = (name or '').partition(' ')
@@ -129,7 +129,7 @@ class DefaultSocialAccountAdapter(object):
         # If email is specified, check for duplicate and if so, no auto signup.
         auto_signup = app_settings.AUTO_SIGNUP
         if auto_signup:
-            email = user_email(sociallogin.account.user)
+            email = user_email(sociallogin.user)
             # Let's check if auto_signup is really possible...
             if email:
                 if account_settings.UNIQUE_EMAIL:

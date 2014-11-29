@@ -113,7 +113,6 @@ class OAuth2CallbackView(OAuth2View):
                                                 app,
                                                 token,
                                                 response=access_token)
-            token.account = login.account
             login.token = token
             if self.adapter.supports_state:
                 login.state = SocialLogin \

@@ -31,12 +31,12 @@ def _process_signup(request, sociallogin):
         # Ok, auto signup it is, at least the e-mail address is ok.
         # We still need to check the username though...
         if account_settings.USER_MODEL_USERNAME_FIELD:
-            username = user_username(sociallogin.account.user)
+            username = user_username(sociallogin.user)
             try:
                 get_account_adapter().clean_username(username)
             except ValidationError:
                 # This username is no good ...
-                user_username(sociallogin.account.user, '')
+                user_username(sociallogin.user, '')
         # FIXME: This part contains a lot of duplication of logic
         # ("closed" rendering, create user, send email, in active
         # etc..)
@@ -53,7 +53,7 @@ def _process_signup(request, sociallogin):
 
 
 def _login_social_account(request, sociallogin):
-    return perform_login(request, sociallogin.account.user,
+    return perform_login(request, sociallogin.user,
                          email_verification=app_settings.EMAIL_VERIFICATION,
                          redirect_url=sociallogin.get_redirect_url(request),
                          signal_kwargs={"sociallogin": sociallogin})
@@ -95,7 +95,7 @@ def _add_social_account(request, sociallogin):
     level = messages.INFO
     message = 'socialaccount/messages/account_connected.txt'
     if sociallogin.is_existing:
-        if sociallogin.account.user != request.user:
+        if sociallogin.user != request.user:
             # Social account of other user. For now, this scenario
             # is not supported. Issue is that one cannot simply
             # remove the social account from the other user, as
@@ -162,7 +162,7 @@ def _complete_social_login(request, sociallogin):
 
 def complete_social_signup(request, sociallogin):
     return complete_signup(request,
-                           sociallogin.account.user,
+                           sociallogin.user,
                            app_settings.EMAIL_VERIFICATION,
                            sociallogin.get_redirect_url(request),
                            signal_kwargs={'sociallogin': sociallogin})

@@ -293,9 +293,12 @@ class SignupForm(BaseSignupForm):
                 raise forms.ValidationError(_("You must type the same password"
                                               " each time."))
         return self.cleaned_data
+        
+    def get_adapter(self):
+        return get_adapter()
 
     def save(self, request):
-        adapter = get_adapter()
+        adapter = self.get_adapter()
         user = adapter.new_user(request)
         adapter.save_user(request, user, self)
         self.custom_signup(request, user)

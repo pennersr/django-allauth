@@ -3,7 +3,6 @@ from django.contrib.sites.models import Site
 from django.http import (HttpResponseRedirect, Http404,
                          HttpResponsePermanentRedirect)
 from django.shortcuts import get_object_or_404
-from django.utils.http import base36_to_int
 from django.views.generic.base import TemplateResponseMixin, View, TemplateView
 from django.views.generic.edit import FormView
 from django.contrib import messages
@@ -17,7 +16,8 @@ from ..utils import get_user_model, get_form_class
 
 from .utils import (get_next_redirect_url, complete_signup,
                     get_login_redirect_url, perform_login,
-                    passthrough_next_redirect_url)
+                    passthrough_next_redirect_url,
+                    url_str_to_user_pk)
 from .forms import AddEmailForm, ChangePasswordForm
 from .forms import LoginForm, ResetPasswordKeyForm
 from .forms import ResetPasswordForm, SetPasswordForm, SignupForm
@@ -547,12 +547,11 @@ class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, FormView):
                               self.form_class)
 
     def _get_user(self, uidb36):
-        # pull out user
         try:
-            uid_int = base36_to_int(uidb36)
+            pk = url_str_to_user_pk(uidb36)
         except ValueError:
             raise Http404
-        return get_object_or_404(get_user_model(), id=uid_int)
+        return get_object_or_404(get_user_model(), pk=pk)
 
     def dispatch(self, request, uidb36, key, **kwargs):
         self.request = request

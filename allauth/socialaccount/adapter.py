@@ -33,6 +33,19 @@ class DefaultSocialAccountAdapter(object):
         """
         pass
 
+    def social_login_error(self, request, sociallogin):
+        """
+        Invoked when there is an error in the authentication cycle. In this case,
+        pre_social_login will not be reached.  If the user cancels or declines
+        permissions they will be directed to 'next' or login_canceled.html by default.
+
+        You can use this hook to intervene, e.g. redirect to an educational
+        flow by raising an ImmediateHttpResponse.
+
+        See sociallogin.error ("error_name", "error_message") for the error thrown.
+        """
+        pass
+
     def new_user(self, request, sociallogin):
         """
         Instantiates a new User instance.

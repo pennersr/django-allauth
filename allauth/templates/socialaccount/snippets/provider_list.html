@@ -13,7 +13,7 @@
 {% endif %}
 <li>
   <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}" 
-     href="{% provider_login_url provider.id process=process %}">{{provider.name}}</a>
+     href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">{{provider.name}}</a>
 </li>
 {% endfor %}
 

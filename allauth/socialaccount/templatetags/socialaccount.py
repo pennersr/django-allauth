@@ -2,7 +2,6 @@ from django.template.defaulttags import token_kwargs
 from django import template
 
 from allauth.socialaccount import providers
-
 register = template.Library()
 
 class ProviderLoginURLNode(template.Node):
@@ -16,13 +15,25 @@ class ProviderLoginURLNode(template.Node):
         query = dict([(str(name), var.resolve(context)) for name, var
                       in self.params.items()])
         request = context['request']
+        auth_params = query.get('auth_params', None)
+        scope = query.get('scope', None)
+        if scope or auth_params:
+            query['process'] = 'redirect'
+        if scope is '':
+            del query['scope']
+        if auth_params is '':
+            del query['auth_params']
+        process = query.get('process', None)
         if 'next' not in query:
             next = request.REQUEST.get('next')
             if next:
                 query['next'] = next
+            elif process == 'redirect':
+                query['next'] = '/'
         else:
             if not query['next']:
                 del query['next']
+        # get the login url and append query as url parameters
         return provider.get_login_url(request, **query)
 
 @register.tag

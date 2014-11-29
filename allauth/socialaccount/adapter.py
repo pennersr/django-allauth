@@ -33,6 +33,21 @@ class DefaultSocialAccountAdapter(object):
         """
         pass
 
+    def authentication_error(self,
+                             request,
+                             provider_id,
+                             error=None,
+                             exception=None,
+                             extra_context={}):
+        """
+        Invoked when there is an error in the authentication cycle. In this
+        case, pre_social_login will not be reached.
+
+        You can use this hook to intervene, e.g. redirect to an
+        educational flow by raising an ImmediateHttpResponse.
+        """
+        pass
+
     def new_user(self, request, sociallogin):
         """
         Instantiates a new User instance.

@@ -49,6 +49,7 @@ oauth2_callback = OAuth2CallbackView.adapter_view(FacebookOAuth2Adapter)
 
 def login_by_token(request):
     ret = None
+    auth_exception = None
     if request.method == 'POST':
         form = FacebookConnectForm(request.POST)
         if form.is_valid():
@@ -74,10 +75,13 @@ def login_by_token(request):
                     login.token = token
                     login.state = SocialLogin.state_from_request(request)
                     ret = complete_social_login(request, login)
-            except requests.RequestException:
+            except requests.RequestException as e:
                 logger.exception('Error accessing FB user profile')
+                auth_exception = e
     if not ret:
-        ret = render_authentication_error(request)
+        ret = render_authentication_error(request,
+                                          FacebookProvider.id,
+                                          exception=auth_exception)
     return ret
 
 

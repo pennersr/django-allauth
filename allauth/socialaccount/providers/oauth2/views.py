@@ -15,7 +15,7 @@ from allauth.socialaccount.providers.oauth2.client import (OAuth2Client,
                                                            OAuth2Error)
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.models import SocialToken, SocialLogin
-from ..base import AuthAction
+from ..base import AuthAction, AuthError
 
 
 class OAuth2Adapter(object):
@@ -23,6 +23,7 @@ class OAuth2Adapter(object):
     supports_state = True
     redirect_uri_protocol = None  # None: use ACCOUNT_DEFAULT_HTTP_PROTOCOL
     access_token_method = 'POST'
+    login_cancelled_error = 'access_denied'
 
     def get_provider(self):
         return providers.registry.by_id(self.provider_id)
@@ -61,11 +62,12 @@ class OAuth2View(object):
             request, callback_url,
             protocol=protocol)
         provider = self.adapter.get_provider()
+        scope = provider.get_scope(request)
         client = OAuth2Client(self.request, app.client_id, app.secret,
                               self.adapter.access_token_method,
                               self.adapter.access_token_url,
                               callback_url,
-                              provider.get_scope())
+                              scope)
         return client
 
 
@@ -79,17 +81,28 @@ class OAuth2LoginView(OAuth2View):
         auth_params = provider.get_auth_params(request, action)
         client.state = SocialLogin.stash_state(request)
         try:
-            return HttpResponseRedirect(client.get_redirect_url(auth_url,
-                                                                auth_params))
-        except OAuth2Error:
-            return render_authentication_error(request)
+            return HttpResponseRedirect(client.get_redirect_url(
+                auth_url, auth_params))
+        except OAuth2Error as e:
+            return render_authentication_error(
+                request,
+                provider.id,
+                exception=e)
 
 
 class OAuth2CallbackView(OAuth2View):
     def dispatch(self, request):
         if 'error' in request.GET or 'code' not in request.GET:
-            # TODO: Distinguish cancel from error
-            return render_authentication_error(request)
+            # Distinguish cancel from error
+            auth_error = request.GET.get('error', None)
+            if auth_error == self.adapter.login_cancelled_error:
+                error = AuthError.CANCELLED
+            else:
+                error = AuthError.UNKNOWN
+            return render_authentication_error(
+                request,
+                self.adapter.provider_id,
+                error=error)
         app = self.adapter.get_provider().get_app(self.request)
         client = self.get_client(request, app)
         try:
@@ -110,5 +123,8 @@ class OAuth2CallbackView(OAuth2View):
             else:
                 login.state = SocialLogin.unstash_state(request)
             return complete_social_login(request, login)
-        except (OAuth2Error, PermissionDenied):
-            return render_authentication_error(request)
+        except (PermissionDenied, OAuth2Error) as e:
+            return render_authentication_error(
+                request,
+                self.adapter.provider_id,
+                exception=e)

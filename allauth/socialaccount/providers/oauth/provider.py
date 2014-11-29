@@ -18,7 +18,7 @@ class OAuthProvider(Provider):
         # adapter/provider is a bit too thin here.
         return None
 
-    def get_scope(self):
+    def get_scope(self, request):
         settings = self.get_settings()
         scope = settings.get('SCOPE')
         if scope is None:

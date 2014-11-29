@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.sites.models import Site
 from django.contrib.auth.decorators import login_required
-from django.views.generic.base import View, TemplateView
+from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
 from ..account.views import (CloseableSignupMixin,
@@ -69,9 +69,9 @@ class LoginCancelledView(TemplateView):
 login_cancelled = LoginCancelledView.as_view()
 
 
-class LoginErrorView(View):
-    def get(self, request):
-        return helpers.render_authentication_error(request)
+class LoginErrorView(TemplateView):
+    template_name = "socialaccount/authentication_error.html"
+
 
 login_error = LoginErrorView.as_view()
 

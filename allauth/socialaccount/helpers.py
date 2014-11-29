@@ -11,8 +11,10 @@ from allauth.account.utils import (perform_login, complete_signup,
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.exceptions import ImmediateHttpResponse
+from .providers.base import AuthProcess, AuthError
 
 from .models import SocialLogin
+
 from . import app_settings
 from . import signals
 from .adapter import get_adapter
@@ -57,10 +59,32 @@ def _login_social_account(request, sociallogin):
                          signal_kwargs={"sociallogin": sociallogin})
 
 
-def render_authentication_error(request, extra_context={}):
+def render_authentication_error(request,
+                                provider_id,
+                                error=AuthError.UNKNOWN,
+                                exception=None,
+                                extra_context={}):
+    try:
+        get_adapter().authentication_error(request,
+                                           provider_id,
+                                           error=error,
+                                           exception=exception,
+                                           extra_context=extra_context)
+    except ImmediateHttpResponse as e:
+        return e.response
+    if error == AuthError.CANCELLED:
+        return HttpResponseRedirect(reverse('socialaccount_login_cancelled'))
+    context = {
+        'auth_error': {
+            'provider': provider_id,
+            'code': error,
+            'exception': exception
+        }
+    }
+    context.update(extra_context)
     return render_to_response(
         "socialaccount/authentication_error.html",
-        extra_context, context_instance=RequestContext(request))
+        context, context_instance=RequestContext(request))
 
 
 def _add_social_account(request, sociallogin):
@@ -110,10 +134,18 @@ def complete_social_login(request, sociallogin):
                                       sociallogin=sociallogin)
     except ImmediateHttpResponse as e:
         return e.response
-    if sociallogin.state.get('process') == 'connect':
+    process = sociallogin.state.get('process')
+    if process == AuthProcess.REDIRECT:
+        return _social_login_redirect(request, sociallogin)
+    elif process == AuthProcess.CONNECT:
         return _add_social_account(request, sociallogin)
     else:
         return _complete_social_login(request, sociallogin)
+
+
+def _social_login_redirect(request, sociallogin):
+    next_url = sociallogin.get_redirect_url(request) or '/'
+    return HttpResponseRedirect(next_url)
 
 
 def _complete_social_login(request, sociallogin):

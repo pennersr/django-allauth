@@ -1,4 +1,7 @@
-import urlparse
+try:
+    from urllib.parse import parse_qsl
+except ImportError:
+    from urlparse import parse_qsl
 
 from django.core.urlresolvers import reverse
 from django.utils.http import urlencode
@@ -19,7 +22,7 @@ class OAuth2Provider(Provider):
         ret = settings.get('AUTH_PARAMS', {})
         dynamic_auth_params = request.GET.get('auth_params', None)
         if dynamic_auth_params:
-            ret.update(dict(urlparse.parse_qsl(dynamic_auth_params)))
+            ret.update(dict(parse_qsl(dynamic_auth_params)))
         return ret
 
     def get_scope(self, request):

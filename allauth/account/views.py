@@ -10,6 +10,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.tokens import default_token_generator
 from django.shortcuts import redirect
+from django.views.decorators.debug import sensitive_post_parameters
+from django.utils.decorators import method_decorator
 
 from ..exceptions import ImmediateHttpResponse
 from ..utils import get_user_model, get_form_class
@@ -28,6 +30,10 @@ from . import signals
 from . import app_settings
 
 from .adapter import get_adapter
+
+
+sensitive_post_parameters_m = method_decorator(
+    sensitive_post_parameters('password', 'password1', 'password2'))
 
 
 def _ajax_response(request, response, form=None):
@@ -86,6 +92,10 @@ class LoginView(RedirectAuthenticatedUserMixin,
     template_name = "account/login.html"
     success_url = None
     redirect_field_name = "next"
+
+    @sensitive_post_parameters_m
+    def dispatch(self, request, *args, **kwargs):
+        return super(LoginView, self).dispatch(request, *args, **kwargs)
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, 'login', self.form_class)
@@ -153,6 +163,10 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
     form_class = SignupForm
     redirect_field_name = "next"
     success_url = None
+
+    @sensitive_post_parameters_m
+    def dispatch(self, request, *args, **kwargs):
+        return super(SignupView, self).dispatch(request, *args, **kwargs)
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, 'signup', self.form_class)
@@ -435,6 +449,7 @@ class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
                               'change_password',
                               self.form_class)
 
+    @sensitive_post_parameters_m
     def dispatch(self, request, *args, **kwargs):
         if not request.user.has_usable_password():
             return HttpResponseRedirect(reverse('account_set_password'))
@@ -476,6 +491,7 @@ class PasswordSetView(AjaxCapableProcessFormViewMixin, FormView):
                               'set_password',
                               self.form_class)
 
+    @sensitive_post_parameters_m
     def dispatch(self, request, *args, **kwargs):
         if request.user.has_usable_password():
             return HttpResponseRedirect(reverse('account_change_password'))

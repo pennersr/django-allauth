@@ -1,3 +1,8 @@
+2014-11-30  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Facebook: The Graph API version is now configurable via
+	`SOCIALACCOUNT_PROVIDERS`.
+
 2014-09-15  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Josh Owen contributed Coinbase support, thanks!

@@ -34,10 +34,10 @@ the case for Django's `AbstractBaseUser.USERNAME_FIELD`.
 Meaning, if your custom user model does not have a `username` field
 (again, not to be mistaken with an e-mail address or user id), you
 will need to set `ACCOUNT_USER_MODEL_USERNAME_FIELD` to `None`. This
-will disable username related functionality in `allauth`.
+will disable username related functionality in `allauth`. Remember also to set `ACCOUNT_USERNAME_REQUIRED` to `False`.
 
 Similarly, you will need to set `ACCOUNT_USER_MODEL_EMAIL_FIELD` to
-`None`, or the proper field (if other than `email`).
+`None` (or the proper field, if other than `email`) and `ACCOUNT_EMAIL_REQUIRED` to `True`.
 
 
 Creating and Populating User instances

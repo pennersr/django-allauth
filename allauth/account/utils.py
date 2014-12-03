@@ -10,7 +10,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.utils import six
-from django.utils.http import urlencode, is_safe_url
+from django.utils.http import urlencode
 from django.utils.http import int_to_base36, base36_to_int
 from django.core.exceptions import ValidationError
 
@@ -36,7 +36,7 @@ def get_next_redirect_url(request, redirect_field_name="next"):
     via the request.
     """
     redirect_to = request.REQUEST.get(redirect_field_name)
-    if not is_safe_url(redirect_to):
+    if not get_adapter().is_safe_url(redirect_to):
         redirect_to = None
     return redirect_to
 

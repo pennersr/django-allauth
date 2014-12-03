@@ -307,6 +307,10 @@ class DefaultAccountAdapter(object):
                       [app_settings.USER_MODEL_USERNAME_FIELD,
                        'first_name', 'last_name', 'email'])
 
+    def is_safe_url(self, url):
+        from django.utils.http import is_safe_url
+        return is_safe_url(url)
+
 
 def get_adapter():
     return import_attribute(app_settings.ADAPTER)()

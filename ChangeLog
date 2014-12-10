@@ -1,3 +1,9 @@
+2014-12-10  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Facebook: If the JS SDK is not available, for example due to a
+	browser plugin like Disconnect.me that blocks it, login falls back
+	to the regular non JS handshake.
+
 2014-11-30  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Facebook: The Graph API version is now configurable via

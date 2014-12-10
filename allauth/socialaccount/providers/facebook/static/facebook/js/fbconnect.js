@@ -62,6 +62,8 @@
         login: function(nextUrl, action, process) {
             var self = this;
             if (typeof(FB) == 'undefined') {
+		var url = this.opts.loginUrl + '?next=' + encodeURIComponent(nextUrl) + '&action=' + encodeURIComponent(action) + '&process=' + encodeURIComponent(process);
+		setLocationHref(url);
                 return;
             }
             if (action == 'reauthenticate') {

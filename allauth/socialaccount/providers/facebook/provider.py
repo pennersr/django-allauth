@@ -58,7 +58,7 @@ class FacebookProvider(OAuth2Provider):
         return self.get_settings().get('METHOD', 'oauth2')
 
     def get_login_url(self, request, **kwargs):
-        method = kwargs.get('method', self.get_method())
+        method = kwargs.pop('method', self.get_method())
         if method == 'js_sdk':
             next = "'%s'" % escapejs(kwargs.get('next') or '')
             process = "'%s'" % escapejs(
@@ -126,6 +126,9 @@ class FacebookProvider(OAuth2Provider):
             "channelUrl": abs_uri('facebook_channel'),
             "cancelUrl": abs_uri('socialaccount_login_cancelled'),
             "logoutUrl": abs_uri('account_logout'),
+            "loginUrl": request.build_absolute_uri(self.get_login_url(
+                request,
+                method='oauth2')),
             "errorUrl": abs_uri('socialaccount_login_error'),
             "csrfToken": get_token(request)
         }

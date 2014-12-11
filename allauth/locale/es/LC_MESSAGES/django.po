@@ -207,10 +207,12 @@ msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
 "account first, then connect your %s account."
 msgstr ""
+"Ya existe una cuenta asociada a esta dirección de correo electrónico. Por "
+"favor, autentíquese usando esa cuenta, y luego vincule su cuenta de %s."
 
 #: socialaccount/models.py:37 socialaccount/models.py:70
 msgid "provider"
-msgstr "proovedor"
+msgstr "proveedor"
 
 #: socialaccount/models.py:40
 #, fuzzy
@@ -325,7 +327,7 @@ msgstr "Cuenta Desactivada"
 
 #: templates/account/account_inactive.html:10
 msgid "This account is inactive."
-msgstr "Su cuenta esta desactivada."
+msgstr "Su cuenta está desactivada."
 
 #: templates/account/email.html:6
 msgid "Account"
@@ -569,7 +571,7 @@ msgstr "Registro cerrado"
 
 #: templates/account/signup_closed.html:11
 msgid "We are sorry, but the sign up is currently closed."
-msgstr "Lo sentimos, en este momento el registro esta cerrado."
+msgstr "Lo sentimos, en este momento el registro está cerrado."
 
 #: templates/account/verification_sent.html:5
 #: templates/account/verification_sent.html:8
@@ -715,7 +717,7 @@ msgstr "Iniciar sesión con OpenID"
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:8
 msgid "Social Network Login Failure"
-msgstr "Error de inición de sesión con Red Social"
+msgstr "Error de inicio de sesión con Red Social"
 
 #: templates/socialaccount/authentication_error.html:10
 msgid ""

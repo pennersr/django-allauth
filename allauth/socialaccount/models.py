@@ -167,22 +167,23 @@ class SocialLogin(object):
     e-mail addresses retrieved from the provider.
     """
 
-    def __init__(self, account=None, token=None, email_addresses=[]):
+    def __init__(self, user=None, account=None, token=None,
+                 email_addresses=[]):
         if token:
             assert token.account is None or token.account == account
-            token.account = account
         self.token = token
+        self.user = user
         self.account = account
         self.email_addresses = email_addresses
         self.state = {}
 
     def connect(self, request, user):
-        self.account.user = user
+        self.user = user
         self.save(request, connect=True)
 
     def serialize(self):
         ret = dict(account=serialize_instance(self.account),
-                   user=serialize_instance(self.account.user),
+                   user=serialize_instance(self.user),
                    state=self.state,
                    email_addresses=[serialize_instance(ea)
                                     for ea in self.email_addresses])
@@ -194,7 +195,6 @@ class SocialLogin(object):
     def deserialize(cls, data):
         account = deserialize_instance(SocialAccount, data['account'])
         user = deserialize_instance(get_user_model(), data['user'])
-        account.user = user
         if 'token' in data:
             token = deserialize_instance(SocialToken, data['token'])
         else:
@@ -217,7 +217,7 @@ class SocialLogin(object):
         the user may be an existing one (when connecting accounts)
         """
         assert not self.is_existing
-        user = self.account.user
+        user = self.user
         user.save()
         self.account.user = user
         self.account.save()
@@ -248,6 +248,7 @@ class SocialLogin(object):
             # Update account
             a.extra_data = self.account.extra_data
             self.account = a
+            self.user = self.account.user
             a.save()
             # Update token
             if app_settings.STORE_TOKENS and self.token:
@@ -280,6 +281,8 @@ class SocialLogin(object):
         if next_url:
             state['next'] = next_url
         state['process'] = request.REQUEST.get('process', 'login')
+        state['scope'] = request.REQUEST.get('scope', '')
+        state['auth_params'] = request.REQUEST.get('auth_params', '')
         return state
 
     @classmethod

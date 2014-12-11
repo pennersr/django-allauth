@@ -3,7 +3,6 @@ from django.contrib.sites.models import Site
 from django.http import (HttpResponseRedirect, Http404,
                          HttpResponsePermanentRedirect)
 from django.shortcuts import get_object_or_404
-from django.utils.http import base36_to_int
 from django.views.generic.base import TemplateResponseMixin, View, TemplateView
 from django.views.generic.edit import FormView
 from django.contrib import messages
@@ -11,13 +10,16 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.tokens import default_token_generator
 from django.shortcuts import redirect
+from django.views.decorators.debug import sensitive_post_parameters
+from django.utils.decorators import method_decorator
 
 from ..exceptions import ImmediateHttpResponse
 from ..utils import get_user_model, get_form_class
 
 from .utils import (get_next_redirect_url, complete_signup,
                     get_login_redirect_url, perform_login,
-                    passthrough_next_redirect_url)
+                    passthrough_next_redirect_url,
+                    url_str_to_user_pk)
 from .forms import AddEmailForm, ChangePasswordForm
 from .forms import LoginForm, ResetPasswordKeyForm
 from .forms import ResetPasswordForm, SetPasswordForm, SignupForm
@@ -29,7 +31,9 @@ from . import app_settings
 
 from .adapter import get_adapter
 
-User = get_user_model()
+
+sensitive_post_parameters_m = method_decorator(
+    sensitive_post_parameters('password', 'password1', 'password2'))
 
 
 def _ajax_response(request, response, form=None):
@@ -89,12 +93,19 @@ class LoginView(RedirectAuthenticatedUserMixin,
     success_url = None
     redirect_field_name = "next"
 
+    @sensitive_post_parameters_m
+    def dispatch(self, request, *args, **kwargs):
+        return super(LoginView, self).dispatch(request, *args, **kwargs)
+
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, 'login', self.form_class)
 
     def form_valid(self, form):
         success_url = self.get_success_url()
-        return form.login(self.request, redirect_url=success_url)
+        try:
+            return form.login(self.request, redirect_url=success_url)
+        except ImmediateHttpResponse as e:
+            return e.response
 
     def get_success_url(self):
         # Explicitly passed ?next= URL takes precedence
@@ -152,6 +163,10 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
     form_class = SignupForm
     redirect_field_name = "next"
     success_url = None
+
+    @sensitive_post_parameters_m
+    def dispatch(self, request, *args, **kwargs):
+        return super(SignupView, self).dispatch(request, *args, **kwargs)
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, 'signup', self.form_class)
@@ -282,7 +297,7 @@ class ConfirmEmailView(TemplateResponseMixin, View):
 confirm_email = ConfirmEmailView.as_view()
 
 
-class EmailView(FormView):
+class EmailView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/email.html"
     form_class = AddEmailForm
     success_url = reverse_lazy('account_email')
@@ -323,11 +338,11 @@ class EmailView(FormView):
                 res = self._action_remove(request)
             elif "action_primary" in request.POST:
                 res = self._action_primary(request)
-            # TODO: Ugly. But if we .get() here the email is used as
-            # initial for the add form, whereas the user was not
-            # interacting with that form..
             res = res or HttpResponseRedirect(reverse('account_email'))
-        return res or self.get(request, *args, **kwargs)
+            # Given that we bypassed AjaxCapableProcessFormViewMixin,
+            # we'll have to call invoke it manually...
+            res = _ajax_response(request, res)
+        return res
 
     def _action_send(self, request, *args, **kwargs):
         email = request.POST["email"]
@@ -424,7 +439,7 @@ class EmailView(FormView):
 email = login_required(EmailView.as_view())
 
 
-class PasswordChangeView(FormView):
+class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_change.html"
     form_class = ChangePasswordForm
     success_url = reverse_lazy("account_change_password")
@@ -434,6 +449,7 @@ class PasswordChangeView(FormView):
                               'change_password',
                               self.form_class)
 
+    @sensitive_post_parameters_m
     def dispatch(self, request, *args, **kwargs):
         if not request.user.has_usable_password():
             return HttpResponseRedirect(reverse('account_set_password'))
@@ -465,7 +481,7 @@ class PasswordChangeView(FormView):
 password_change = login_required(PasswordChangeView.as_view())
 
 
-class PasswordSetView(FormView):
+class PasswordSetView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_set.html"
     form_class = SetPasswordForm
     success_url = reverse_lazy("account_set_password")
@@ -475,6 +491,7 @@ class PasswordSetView(FormView):
                               'set_password',
                               self.form_class)
 
+    @sensitive_post_parameters_m
     def dispatch(self, request, *args, **kwargs):
         if request.user.has_usable_password():
             return HttpResponseRedirect(reverse('account_change_password'))
@@ -504,7 +521,7 @@ class PasswordSetView(FormView):
 password_set = login_required(PasswordSetView.as_view())
 
 
-class PasswordResetView(FormView):
+class PasswordResetView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_reset.html"
     form_class = ResetPasswordForm
     success_url = reverse_lazy("account_reset_password_done")
@@ -534,7 +551,7 @@ class PasswordResetDoneView(TemplateView):
 password_reset_done = PasswordResetDoneView.as_view()
 
 
-class PasswordResetFromKeyView(FormView):
+class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_reset_from_key.html"
     form_class = ResetPasswordKeyForm
     token_generator = default_token_generator
@@ -546,12 +563,11 @@ class PasswordResetFromKeyView(FormView):
                               self.form_class)
 
     def _get_user(self, uidb36):
-        # pull out user
         try:
-            uid_int = base36_to_int(uidb36)
+            pk = url_str_to_user_pk(uidb36)
         except ValueError:
             raise Http404
-        return get_object_or_404(User, id=uid_int)
+        return get_object_or_404(get_user_model(), pk=pk)
 
     def dispatch(self, request, uidb36, key, **kwargs):
         self.request = request

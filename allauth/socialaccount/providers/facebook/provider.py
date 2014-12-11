@@ -1,4 +1,5 @@
 import json
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ImproperlyConfigured
 from django.middleware.csrf import get_token
@@ -20,6 +21,10 @@ from allauth.socialaccount.models import SocialApp
 from .locale import get_default_locale_callable
 
 
+GRAPH_API_VERSION = getattr(settings, 'SOCIALACCOUNT_PROVIDERS', {}).get(
+    'facebook',  {}).get('VERSION', 'v2.2')
+GRAPH_API_URL = 'https://graph.facebook.com/' + GRAPH_API_VERSION
+
 NONCE_SESSION_KEY = 'allauth_facebook_nonce'
 NONCE_LENGTH = 32
 
@@ -30,8 +35,9 @@ class FacebookAccount(ProviderAccount):
 
     def get_avatar_url(self):
         uid = self.account.uid
-        # ask for a 600x600 pixel image. We might get smaller but image will always be highest res possible and square
-        return 'https://graph.facebook.com/%s/picture?type=square&height=600&width=600&return_ssl_resources=1' % uid  # noqa
+        # ask for a 600x600 pixel image. We might get smaller but
+        # image will always be highest res possible and square
+        return GRAPH_API_URL + '/%s/picture?type=square&height=600&width=600&return_ssl_resources=1' % uid  # noqa
 
     def to_str(self):
         dflt = super(FacebookAccount, self).to_str()
@@ -52,11 +58,13 @@ class FacebookProvider(OAuth2Provider):
         return self.get_settings().get('METHOD', 'oauth2')
 
     def get_login_url(self, request, **kwargs):
-        method = kwargs.get('method', self.get_method())
+        method = kwargs.pop('method', self.get_method())
         if method == 'js_sdk':
             next = "'%s'" % escapejs(kwargs.get('next') or '')
-            process = "'%s'" % escapejs(kwargs.get('process') or AuthProcess.LOGIN)
-            action = "'%s'" % escapejs(kwargs.get('action') or AuthAction.AUTHENTICATE)
+            process = "'%s'" % escapejs(
+                kwargs.get('process') or AuthProcess.LOGIN)
+            action = "'%s'" % escapejs(
+                kwargs.get('action') or AuthAction.AUTHENTICATE)
             ret = "javascript:allauth.facebook.login(%s, %s, %s)" \
                 % (next, action, process)
         else:
@@ -94,7 +102,7 @@ class FacebookProvider(OAuth2Provider):
 
     def get_fb_login_options(self, request):
         ret = self.get_auth_params(request, 'authenticate')
-        ret['scope'] = ','.join(self.get_scope())
+        ret['scope'] = ','.join(self.get_scope(request))
         if ret.get('auth_type') == 'reauthenticate':
             ret['auth_nonce'] = self.get_nonce(request, or_create=True)
         return ret
@@ -111,12 +119,16 @@ class FacebookProvider(OAuth2Provider):
         abs_uri = lambda name: request.build_absolute_uri(reverse(name))
         fb_data = {
             "appId": app.client_id,
+            "version": GRAPH_API_VERSION,
             "locale": locale,
             "loginOptions": self.get_fb_login_options(request),
             "loginByTokenUrl": abs_uri('facebook_login_by_token'),
             "channelUrl": abs_uri('facebook_channel'),
             "cancelUrl": abs_uri('socialaccount_login_cancelled'),
             "logoutUrl": abs_uri('account_logout'),
+            "loginUrl": request.build_absolute_uri(self.get_login_url(
+                request,
+                method='oauth2')),
             "errorUrl": abs_uri('socialaccount_login_error'),
             "csrfToken": get_token(request)
         }

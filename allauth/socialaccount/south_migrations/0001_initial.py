@@ -3,22 +3,25 @@ import datetime
 from south.db import db
 from south.v2 import SchemaMigration
 
+from django.conf import settings
+
 try:
     from django.contrib.auth import get_user_model
 except ImportError: # django < 1.5
     from django.contrib.auth.models import User
-else:
-    User = get_user_model()
+
+    def get_user_model():
+        return User
 
 
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        
+
         # Adding model 'SocialAccount'
         db.create_table('socialaccount_socialaccount', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=User)),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=get_user_model())),
             ('last_login', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
             ('date_joined', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
         ))
@@ -26,7 +29,7 @@ class Migration(SchemaMigration):
 
 
     def backwards(self, orm):
-        
+
         # Deleting model 'SocialAccount'
         db.delete_table('socialaccount_socialaccount')
 

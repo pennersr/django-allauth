@@ -78,16 +78,17 @@ The following Facebook settings are available::
             'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
             'METHOD': 'oauth2',
             'LOCALE_FUNC': 'path.to.callable',
-            'VERIFIED_EMAIL': False}}
+            'VERIFIED_EMAIL': False,
+            'VERSION': 'v2.2'}}
 
-METHOD
+METHOD:
     Either `js_sdk` or `oauth2`
 
-SCOPE
+SCOPE:
     By default, `email` scope is required depending whether or not
     `SOCIALACCOUNT_QUERY_EMAIL` is enabled.
 
-AUTH_PARAMS
+AUTH_PARAMS:
     Use `AUTH_PARAMS` to pass along other parameters to the `FB.login`
     JS SDK call.
 
@@ -112,6 +113,9 @@ VERIFIED_EMAIL:
     feel that is too paranoid, then use this setting to mark them as
     verified. Do know that by setting this to `True` you are
     introducing a security risk.
+
+VERSION:
+    The Facebook Graph API version to use.
 
 App registration (get your key and secret here)
     A key and secret key can be obtained by creating an app
@@ -155,7 +159,7 @@ App registration
 ****************
 Create a google app to obtain a key and secret through the developer console:
         https://console.developers.google.com/
-        
+
 After you create a project you will have to create a "Client ID" and fill in some project details for the consent form that will be presented to the client.
 
 Under "APIs & auth" go to "Credentials" and create a new Client ID. Probably you will want a "Web application" Client ID. Profide your domain name or test domain name in "Authorized JavaScript origins". Finally fill in "http://127.0.0.1:8000/accounts/google/login/callback/" in the "Authorized redirect URI" field. You can fill multiple URLs, one for each test domain.After creating the Client ID you will find all details for the Django configuration on this page.
@@ -352,7 +356,7 @@ To register an app on Twitter you will need a Twitter account after which you ca
 In the app creation form fill in the development callback URL::
 
     http://127.0.0.1:8000
-    
+
 Twitter won't allow using http://localhost:8000.
 
 For production use a callback URL such as::
@@ -367,7 +371,7 @@ Configuration is done by creating a Socialapp object in the admin.
 Add a social app on the admin page::
 
     /admin/socialaccount/socialapp/
-    
+
 
 Use the twitter keys tab of your application to fill in the form. It's located::
 

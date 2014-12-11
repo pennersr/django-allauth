@@ -17,7 +17,7 @@ class SignupForm(BaseSignupForm):
 
     def __init__(self, *args, **kwargs):
         self.sociallogin = kwargs.pop('sociallogin')
-        user = self.sociallogin.account.user
+        user = self.sociallogin.user
         # TODO: Should become more generic, not listing
         # a few fixed properties.
         initial = {'email': user_email(user) or '',

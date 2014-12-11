@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 from allauth.socialaccount.tests import create_oauth_tests
 from allauth.tests import MockedResponse
 from allauth.socialaccount.providers import registry
@@ -8,7 +10,7 @@ from .provider import TumblrProvider
 
 class TumblrTests(create_oauth_tests(registry.by_id(TumblrProvider.id))):
     def get_mocked_response(self):
-        return [MockedResponse(200, u"""
+        return [MockedResponse(200, """
 {
    "meta": {
       "status": 200,

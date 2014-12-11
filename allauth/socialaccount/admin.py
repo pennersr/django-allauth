@@ -1,12 +1,10 @@
+import django
 from django.contrib import admin
 from django import forms
 
+from allauth.account.adapter import get_adapter
+
 from .models import SocialApp, SocialAccount, SocialToken
-
-from ..account import app_settings
-from ..utils import get_user_model
-
-User = get_user_model()
 
 
 class SocialAppForm(forms.ModelForm):
@@ -27,15 +25,19 @@ class SocialAppAdmin(admin.ModelAdmin):
 
 
 class SocialAccountAdmin(admin.ModelAdmin):
-    search_fields = ['user__emailaddress__email'] + \
-        list(map(lambda a: 'user__' + a,
-             filter(lambda a: a and hasattr(User(), a),
-                    [app_settings.USER_MODEL_USERNAME_FIELD,
-                     'first_name',
-                     'last_name'])))
+    search_fields = []
     raw_id_fields = ('user',)
     list_display = ('user', 'uid', 'provider')
     list_filter = ('provider',)
+
+    def __init__(self, *args, **kwargs):
+        super(SocialAccountAdmin, self).__init__(*args, **kwargs)
+        if not self.search_fields and django.VERSION[:2] < (1, 7):
+            self.search_fields = self.get_search_fields(None)
+
+    def get_search_fields(self, request):
+        base_fields = get_adapter().get_user_search_fields()
+        return list(map(lambda a: 'user__' + a, base_fields))
 
 
 class SocialTokenAdmin(admin.ModelAdmin):

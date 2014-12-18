@@ -92,7 +92,7 @@ class LoginForm(forms.Form):
                                                          "Login"),
                                           widget=login_widget)
         self.fields["login"] = login_field
-        set_form_field_order(self,  ["login", "password", "remember"])
+        set_form_field_order(self, ["login", "password", "remember"])
         if app_settings.SESSION_REMEMBER is not None:
             del self.fields['remember']
 

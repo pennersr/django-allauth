@@ -13,7 +13,7 @@ from . import app_settings
 from . import signals
 
 
-class SignupForm(BaseSignupForm):
+class SocialSignupForm(BaseSignupForm):
 
     def __init__(self, *args, **kwargs):
         self.sociallogin = kwargs.pop('sociallogin')
@@ -28,7 +28,7 @@ class SignupForm(BaseSignupForm):
             'initial': initial,
             'email_required': kwargs.get('email_required',
                                          app_settings.EMAIL_REQUIRED)})
-        super(SignupForm, self).__init__(*args, **kwargs)
+        super(SocialSignupForm, self).__init__(*args, **kwargs)
 
     def save(self, request):
         adapter = get_adapter()

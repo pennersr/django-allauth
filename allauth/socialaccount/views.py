@@ -13,14 +13,14 @@ from ..utils import get_form_class
 
 from .adapter import get_adapter
 from .models import SocialLogin
-from .forms import DisconnectForm, SignupForm
+from .forms import DisconnectForm, SocialSignupForm
 from . import helpers
 from . import app_settings
 
 
-class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
+class SocialSignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
                  FormView):
-    form_class = SignupForm
+    form_class = SocialSignupForm
     template_name = 'socialaccount/signup.html'
 
     def get_form_class(self):
@@ -35,14 +35,14 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
             self.sociallogin = SocialLogin.deserialize(data)
         if not self.sociallogin:
             return HttpResponseRedirect(reverse('account_login'))
-        return super(SignupView, self).dispatch(request, *args, **kwargs)
+        return super(SocialSignupView, self).dispatch(request, *args, **kwargs)
 
     def is_open(self):
         return get_adapter().is_open_for_signup(self.request,
                                                 self.sociallogin)
 
     def get_form_kwargs(self):
-        ret = super(SignupView, self).get_form_kwargs()
+        ret = super(SocialSignupView, self).get_form_kwargs()
         ret['sociallogin'] = self.sociallogin
         return ret
 
@@ -52,7 +52,7 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
                                               self.sociallogin)
 
     def get_context_data(self, **kwargs):
-        ret = super(SignupView, self).get_context_data(**kwargs)
+        ret = super(SocialSignupView, self).get_context_data(**kwargs)
         ret.update(dict(site=Site.objects.get_current(),
                         account=self.sociallogin.account))
         return ret
@@ -60,7 +60,7 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
     def get_authenticated_redirect_url(self):
         return reverse(connections)
 
-signup = SignupView.as_view()
+signup = SocialSignupView.as_view()
 
 
 class LoginCancelledView(TemplateView):

@@ -1,2 +1,16 @@
 [run]
 include = allauth*
+branch = True
+omit =
+    *migrations*
+    *test*
+    *__init__*
+    *app_settings*
+
+[report]
+omit =
+    */migrations/*
+    *__init__*
+    *test*
+    docs/*
+    setup.py

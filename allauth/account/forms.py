@@ -1,13 +1,9 @@
 from __future__ import absolute_import
 
-import warnings
-
 from django import forms
 from django.core.urlresolvers import reverse
-from django.core import exceptions
 from django.db.models import Q
 from django.utils.translation import pgettext, ugettext_lazy as _, ugettext
-from django.utils.importlib import import_module
 
 from django.contrib.auth import authenticate
 from django.contrib.auth.tokens import default_token_generator
@@ -238,8 +234,6 @@ class SignupForm(BaseSignupForm):
                 raise forms.ValidationError(_("You must type the same password"
                                               " each time."))
         return self.cleaned_data
-
-    
 
 
 class UserForm(forms.Form):

@@ -394,7 +394,7 @@ msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
 "address for user %(user_display)s."
 msgstr ""
-"Пожалуйста подтвередите <a href=\"mailto:%(email)s\">%(email)s</a> для "
+"Пожалуйста подтвердите <a href=\"mailto:%(email)s\">%(email)s</a> для "
 "пользователя %(user_display)s."
 
 #: templates/account/email_confirm.html:21

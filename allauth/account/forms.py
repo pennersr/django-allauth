@@ -197,7 +197,7 @@ def _base_signup_form_class():
     return fc_class
 
 
-class BaseSignupForm(_base_signup_form_class()):
+class BaseSignupForm(forms.Form):
     username = forms.CharField(label=_("Username"),
                                max_length=30,
                                min_length=app_settings.USERNAME_MIN_LENGTH,
@@ -298,7 +298,7 @@ class SignupForm(BaseSignupForm):
         adapter = get_adapter()
         user = adapter.new_user(request)
         adapter.save_user(request, user, self)
-        self.custom_signup(request, user)
+        # self.custom_signup(request, user)
         # TODO: Move into adapter `save_user` ?
         setup_user_email(request, user, [])
         return user

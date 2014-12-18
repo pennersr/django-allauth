@@ -33,7 +33,6 @@ class SocialSignupForm(BaseSignupForm):
     def save(self, request):
         adapter = get_adapter()
         user = adapter.save_user(request, self.sociallogin, form=self)
-        self.custom_signup(request, user)
         return user
 
     def raise_duplicate_email_error(self):

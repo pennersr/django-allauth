@@ -146,57 +146,6 @@ class LoginForm(forms.Form):
         return ret
 
 
-class _DummyCustomSignupForm(forms.Form):
-
-    def signup(self, request, user):
-        """
-        Invoked at signup time to complete the signup of the user.
-        """
-        pass
-
-
-def _base_signup_form_class():
-    """
-    Currently, we inherit from the custom form, if any. This is all
-    not very elegant, though it serves a purpose:
-
-    - There are two signup forms: one for local accounts, and one for
-      social accounts
-    - Both share a common base (BaseSignupForm)
-
-    - Given the above, how to put in a custom signup form? Which form
-      would your custom form derive from, the local or the social one?
-    """
-    if not app_settings.SIGNUP_FORM_CLASS:
-        return _DummyCustomSignupForm
-    try:
-        fc_module, fc_classname = app_settings.SIGNUP_FORM_CLASS.rsplit('.', 1)
-    except ValueError:
-        raise exceptions.ImproperlyConfigured('%s does not point to a form'
-                                              ' class'
-                                              % app_settings.SIGNUP_FORM_CLASS)
-    try:
-        mod = import_module(fc_module)
-    except ImportError as e:
-        raise exceptions.ImproperlyConfigured('Error importing form class %s:'
-                                              ' "%s"' % (fc_module, e))
-    try:
-        fc_class = getattr(mod, fc_classname)
-    except AttributeError:
-        raise exceptions.ImproperlyConfigured('Module "%s" does not define a'
-                                              ' "%s" class' % (fc_module,
-                                                               fc_classname))
-    if not hasattr(fc_class, 'signup'):
-        if hasattr(fc_class, 'save'):
-            warnings.warn("The custom signup form must offer"
-                          " a `def signup(self, request, user)` method",
-                          DeprecationWarning)
-        else:
-            raise exceptions.ImproperlyConfigured(
-                'The custom signup form must implement a "signup" method')
-    return fc_class
-
-
 class BaseSignupForm(forms.Form):
     username = forms.CharField(label=_("Username"),
                                max_length=30,
@@ -257,17 +206,13 @@ class BaseSignupForm(forms.Form):
         raise forms.ValidationError(_("A user is already registered"
                                       " with this e-mail address."))
 
-    def custom_signup(self, request, user):
-        custom_form = super(BaseSignupForm, self)
-        if hasattr(custom_form, 'signup') and callable(custom_form.signup):
-            custom_form.signup(request, user)
-        else:
-            warnings.warn("The custom signup form must offer"
-                          " a `def signup(self, request, user)` method",
-                          DeprecationWarning)
-            # Historically, it was called .save, but this is confusing
-            # in case of ModelForm
-            self.save(user)
+    def save(self, request):
+        adapter = get_adapter()
+        user = adapter.new_user(request)
+        adapter.save_user(request, user, self)
+        # TODO: Move into adapter `save_user` ?
+        setup_user_email(request, user, [])
+        return user
 
 
 class SignupForm(BaseSignupForm):
@@ -294,14 +239,7 @@ class SignupForm(BaseSignupForm):
                                               " each time."))
         return self.cleaned_data
 
-    def save(self, request):
-        adapter = get_adapter()
-        user = adapter.new_user(request)
-        adapter.save_user(request, user, self)
-        # self.custom_signup(request, user)
-        # TODO: Move into adapter `save_user` ?
-        setup_user_email(request, user, [])
-        return user
+    
 
 
 class UserForm(forms.Form):

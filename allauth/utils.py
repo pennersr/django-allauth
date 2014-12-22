@@ -89,7 +89,7 @@ def email_address_exists(email, exclude_user=None):
             users = get_user_model().objects
             if exclude_user:
                 users = users.exclude(pk=exclude_user.pk)
-            ret = users.filter(**{email_field+'__iexact': email}).exists()
+            ret = users.filter(**{email_field + '__iexact': email}).exists()
     return ret
 
 

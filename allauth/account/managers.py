@@ -1,7 +1,7 @@
 from datetime import timedelta
 
 from django.utils import timezone
-from django.db import models, IntegrityError
+from django.db import models
 from django.db.models import Q
 
 from . import app_settings
@@ -9,7 +9,7 @@ from . import app_settings
 
 class EmailAddressManager(models.Manager):
 
-    def add_email(self, request, user, email, 
+    def add_email(self, request, user, email,
                   confirm=False, signup=False):
         try:
             email_address = self.get(user=user, email__iexact=email)

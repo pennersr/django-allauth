@@ -84,7 +84,7 @@ def create_oauth_tests(provider):
                                    dict(process=process))
         p = urlparse(resp['location'])
         q = parse_qs(p.query)
-        complete_url = reverse(self.provider.id+'_callback')
+        complete_url = reverse(self.provider.id + '_callback')
         self.assertGreater(q['oauth_callback'][0]
                            .find(complete_url), 0)
         with mocked_response(MockedResponse(200,
@@ -100,7 +100,7 @@ def create_oauth_tests(provider):
             'login': login,
             'test_login': test_login,
             'get_mocked_response': get_mocked_response}
-    class_name = 'OAuth2Tests_'+provider.id
+    class_name = 'OAuth2Tests_' + provider.id
     Class = type(class_name, (TestCase,), impl)
     Class.provider = provider
     return Class
@@ -184,7 +184,7 @@ def create_oauth2_tests(provider):
                                dict(process=process))
         p = urlparse(resp['location'])
         q = parse_qs(p.query)
-        complete_url = reverse(self.provider.id+'_callback')
+        complete_url = reverse(self.provider.id + '_callback')
         self.assertGreater(q['redirect_uri'][0]
                            .find(complete_url), 0)
         response_json = self \
@@ -208,7 +208,7 @@ def create_oauth2_tests(provider):
             test_account_refresh_token_saved_next_login,
             'get_login_response_json': get_login_response_json,
             'get_mocked_response': get_mocked_response}
-    class_name = 'OAuth2Tests_'+provider.id
+    class_name = 'OAuth2Tests_' + provider.id
     Class = type(class_name, (TestCase,), impl)
     Class.provider = provider
     return Class

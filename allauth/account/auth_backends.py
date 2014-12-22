@@ -33,7 +33,7 @@ class AuthenticationBackend(ModelBackend):
             return None
         try:
             # Username query is case insensitive
-            query = {username_field+'__iexact': username}
+            query = {username_field + '__iexact': username}
             user = User.objects.get(**query)
             if user.check_password(password):
                 return user

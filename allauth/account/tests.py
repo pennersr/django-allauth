@@ -56,7 +56,7 @@ class AccountTests(TestCase):
                                 {'login': '@raymond.penners',
                                  'password': 'psst'})
         self.assertEqual(resp['location'],
-                         'http://testserver'+settings.LOGIN_REDIRECT_URL)
+                         'http://testserver' + settings.LOGIN_REDIRECT_URL)
 
     def test_signup_same_email_verified_externally(self):
         user = self._test_signup_email_verified_externally('john@doe.com',
@@ -247,7 +247,7 @@ class AccountTests(TestCase):
                       {'login': 'johndoe',
                        'password': 'johndoe'})
         self.assertEqual(resp['location'],
-                         'http://testserver'+settings.LOGIN_REDIRECT_URL)
+                         'http://testserver' + settings.LOGIN_REDIRECT_URL)
 
     def test_email_escaping(self):
         site = Site.objects.get_current()
@@ -329,7 +329,7 @@ class AccountTests(TestCase):
                        'password2': 'johndoe'})
         # Logged in
         self.assertEqual(resp['location'],
-                         'http://testserver'+settings.LOGIN_REDIRECT_URL)
+                         'http://testserver' + settings.LOGIN_REDIRECT_URL)
         self.assertEqual(resp.status_code, 302)
         self.assertEqual(mail.outbox[0].to, ['john@doe.com'])
         self.assertEqual(len(mail.outbox), 1)
@@ -343,7 +343,7 @@ class AccountTests(TestCase):
                        'password': 'johndoe'})
         self.assertEqual(resp.status_code, 302)
         self.assertEqual(resp['location'],
-                         'http://testserver'+settings.LOGIN_REDIRECT_URL)
+                         'http://testserver' + settings.LOGIN_REDIRECT_URL)
         self.assertEqual(mail.outbox[0].to, ['john@doe.com'])
         # There was an issue that we sent out email confirmation mails
         # on each login in case of optional verification. Make sure

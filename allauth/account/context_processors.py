@@ -3,4 +3,4 @@ def account(request):
     # settings.CONTACT_EMAIL. Let's see if we need a context processor
     # in the future, otherwise, deprecate this context processor
     # completely.
-    return { }
+    return {}

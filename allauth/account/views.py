@@ -179,7 +179,7 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
         return ret
 
     def form_valid(self, form):
-        user = form.save(self.request)
+        user = form.signup(self.request)
         return complete_signup(self.request, user,
                                app_settings.EMAIL_VERIFICATION,
                                self.get_success_url())

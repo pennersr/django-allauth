@@ -202,7 +202,7 @@ class BaseSignupForm(forms.Form):
         raise forms.ValidationError(_("A user is already registered"
                                       " with this e-mail address."))
 
-    def save(self, request):
+    def signup(self, request):
         adapter = get_adapter()
         user = adapter.new_user(request)
         adapter.save_user(request, user, self)

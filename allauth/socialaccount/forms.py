@@ -30,7 +30,7 @@ class SocialSignupForm(BaseSignupForm):
                                          app_settings.EMAIL_REQUIRED)})
         super(SocialSignupForm, self).__init__(*args, **kwargs)
 
-    def save(self, request):
+    def signup(self, request):
         adapter = get_adapter()
         user = adapter.save_user(request, self.sociallogin, form=self)
         return user

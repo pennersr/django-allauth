@@ -1,7 +1,10 @@
+import base64
 import re
 import unicodedata
 import json
 
+import django
+from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.core.validators import validate_email, ValidationError
 from django.core import urlresolvers
@@ -12,9 +15,15 @@ from django.utils import importlib, six, dateparse
 from django.utils.datastructures import SortedDict
 from django.core.serializers.json import DjangoJSONEncoder
 try:
-    from django.utils.encoding import force_text
+    from django.utils.encoding import force_text, force_bytes
 except ImportError:
-    from django.utils.encoding import force_unicode as force_text
+    from django.utils.encoding import (
+        force_unicode as force_text, smart_str as force_bytes)
+
+if django.VERSION[:2] >= (1, 6):
+    from django.db.models import BinaryField
+else:
+    BinaryField = None
 
 
 def _generate_unique_username_base(txts):
@@ -150,10 +159,18 @@ def serialize_instance(instance):
     Django serialization, as these are models are not "complete" yet.
     Serialization will start complaining about missing relations et al.
     """
-    ret = dict([(k, v)
-                for k, v in instance.__dict__.items()
-                if not k.startswith('_')])
-    return json.loads(json.dumps(ret, cls=DjangoJSONEncoder))
+    data = {}
+
+    for key, value in instance.__dict__.items():
+        if key.startswith('_'):
+            continue
+
+        if isinstance(value, six.binary_type):
+            value = force_text(base64.b64encode(value))
+
+        data[key] = value
+
+    return json.loads(json.dumps(data, cls=DjangoJSONEncoder))
 
 
 def deserialize_instance(model, data):
@@ -168,6 +185,8 @@ def deserialize_instance(model, data):
                     v = dateparse.parse_time(v)
                 elif isinstance(f, DateField):
                     v = dateparse.parse_date(v)
+                elif django.VERSION[:2] >= (1, 6) and isinstance(f, BinaryField):
+                    v = force_bytes(base64.b64decode(v))
             except FieldDoesNotExist:
                 pass
         setattr(ret, k, v)

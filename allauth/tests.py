@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+try:
+    import unittest2 as unittest
+except ImportError:
+    import unittest
+
 import requests
 from datetime import datetime, date
 
@@ -100,3 +105,19 @@ class BasicTests(TestCase):
             #     != datetime.time(10, 6, 28, 705000)
             self.assertEqual(int(t1.microsecond / 1000),
                              int(t2.microsecond / 1000))
+
+    @unittest.skipUnless(django.VERSION[:2] >= (1, 6), 'BinaryField was added in Django 1.6')
+    def test_serializer_binary_field(self):
+        class SomeBinaryModel(models.Model):
+            bb = models.BinaryField()
+            bb_empty = models.BinaryField()
+
+        instance = SomeBinaryModel(bb=b'some binary data')
+
+        serialized = utils.serialize_instance(instance)
+        deserialized = utils.deserialize_instance(SomeBinaryModel, serialized)
+
+        self.assertEqual(serialized['bb'], 'c29tZSBiaW5hcnkgZGF0YQ==')
+        self.assertEqual(serialized['bb_empty'], '')
+        self.assertEqual(deserialized.bb, b'some binary data')
+        self.assertEqual(deserialized.bb_empty, b'')

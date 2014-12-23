@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 import re
 import warnings
 import json
@@ -55,7 +57,7 @@ class DefaultAccountAdapter(object):
         prefix = app_settings.EMAIL_SUBJECT_PREFIX
         if prefix is None:
             site = Site.objects.get_current()
-            prefix = u"[{name}] ".format(name=site.name)
+            prefix = "[{name}] ".format(name=site.name)
         return prefix + force_text(subject)
 
     def render_mail(self, template_prefix, email, context):
@@ -185,8 +187,10 @@ class DefaultAccountAdapter(object):
         username = data.get('username')
         user_email(user, email)
         user_username(user, username)
-        user_field(user, 'first_name', first_name or '')
-        user_field(user, 'last_name', last_name or '')
+        if first_name:
+            user_field(user, 'first_name', first_name)
+        if last_name:
+            user_field(user, 'last_name', last_name)
         if 'password1' in data:
             user.set_password(data["password1"])
         else:
@@ -302,6 +306,10 @@ class DefaultAccountAdapter(object):
         return filter(lambda a: a and hasattr(user, a),
                       [app_settings.USER_MODEL_USERNAME_FIELD,
                        'first_name', 'last_name', 'email'])
+
+    def is_safe_url(self, url):
+        from django.utils.http import is_safe_url
+        return is_safe_url(url)
 
 
 def get_adapter():

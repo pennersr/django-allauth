@@ -38,6 +38,7 @@
             window.fbAsyncInit = function() {
                 FB.init({
                     appId      : opts.appId,
+                    version    : opts.version,
                     channelUrl : opts.channelUrl,
                     status     : true,
                     cookie     : true,
@@ -61,6 +62,8 @@
         login: function(nextUrl, action, process) {
             var self = this;
             if (typeof(FB) == 'undefined') {
+		var url = this.opts.loginUrl + '?next=' + encodeURIComponent(nextUrl) + '&action=' + encodeURIComponent(action) + '&process=' + encodeURIComponent(process);
+		setLocationHref(url);
                 return;
             }
             if (action == 'reauthenticate') {

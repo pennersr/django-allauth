@@ -21,9 +21,19 @@ def persona_login(request):
     resp = requests.post('https://verifier.login.persona.org/verify',
                          {'assertion': assertion,
                           'audience': audience})
-    if resp.json()['status'] != 'okay':
-        return render_authentication_error(request)
-    extra_data = resp.json()
+    try:
+        resp.raise_for_status()
+        extra_data = resp.json()
+        if extra_data['status'] != 'okay':
+            return render_authentication_error(
+                request,
+                provider_id=PersonaProvider.id,
+                extra_context={'response': extra_data})
+    except (ValueError, requests.RequestException) as e:
+        return render_authentication_error(
+            request,
+            provider_id=PersonaProvider.id,
+            exception=e)
     login = providers.registry \
         .by_id(PersonaProvider.id) \
         .sociallogin_from_response(request, extra_data)

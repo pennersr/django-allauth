@@ -7,7 +7,6 @@ from django.core.urlresolvers import reverse
 from django.core import exceptions
 from django.db.models import Q
 from django.utils.translation import pgettext, ugettext_lazy as _, ugettext
-from django.utils.http import int_to_base36
 from django.utils.importlib import import_module
 
 from django.contrib.auth import authenticate
@@ -19,7 +18,8 @@ from ..utils import (email_address_exists, get_user_model,
                      build_absolute_uri)
 
 from .models import EmailAddress
-from .utils import perform_login, setup_user_email, user_username
+from .utils import (perform_login, setup_user_email, user_username,
+                    user_pk_to_url_str)
 from .app_settings import AuthenticationMethod
 from . import app_settings
 from .adapter import get_adapter
@@ -421,7 +421,7 @@ class ResetPasswordForm(forms.Form):
 
             # send the password reset email
             path = reverse("account_reset_password_from_key",
-                           kwargs=dict(uidb36=int_to_base36(user.pk),
+                           kwargs=dict(uidb36=user_pk_to_url_str(user),
                                        key=temp_key))
             url = build_absolute_uri(request, path,
                                      protocol=app_settings.DEFAULT_HTTP_PROTOCOL)

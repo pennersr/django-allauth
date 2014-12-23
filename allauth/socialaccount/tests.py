@@ -49,14 +49,16 @@ def create_oauth_tests(provider):
         self.assertRedirects(resp, reverse('socialaccount_signup'))
         resp = self.client.get(reverse('socialaccount_signup'))
         sociallogin = resp.context['form'].sociallogin
-        data = dict(email=user_email(sociallogin.account.user),
+        data = dict(email=user_email(sociallogin.user),
                     username=str(random.randrange(1000, 10000000)))
         resp = self.client.post(reverse('socialaccount_signup'),
                                 data=data)
         self.assertEqual('http://testserver/accounts/profile/',
                          resp['location'])
-        self.assertFalse(resp.context['user'].has_usable_password())
-        return sociallogin.account
+        user = resp.context['user']
+        self.assertFalse(user.has_usable_password())
+        return SocialAccount.objects.get(user=user,
+                                         provider=self.provider.id)
 
     @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=True,
                        SOCIALACCOUNT_EMAIL_REQUIRED=False,
@@ -231,8 +233,8 @@ class SocialAccountTests(TestCase):
         setattr(user, account_settings.USER_MODEL_USERNAME_FIELD, 'test')
         setattr(user, account_settings.USER_MODEL_EMAIL_FIELD, 'test@test.com')
 
-        account = SocialAccount(user=user, provider='openid', uid='123')
-        sociallogin = SocialLogin(account)
+        account = SocialAccount(provider='openid', uid='123')
+        sociallogin = SocialLogin(user=user, account=account)
         complete_social_login(request, sociallogin)
 
         user = User.objects.get(

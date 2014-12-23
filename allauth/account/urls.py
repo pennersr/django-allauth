@@ -23,7 +23,8 @@ urlpatterns = patterns(
         name="account_confirm_email"),
     # Handle old redirects
     url(r"^confirm_email/(?P<key>\w+)/$",
-        RedirectView.as_view(url='/accounts/confirm-email/%(key)s/')),
+        RedirectView.as_view(url='/accounts/confirm-email/%(key)s/',
+                             permanent=True)),
 
     # password reset
     url(r"^password/reset/$", views.password_reset,

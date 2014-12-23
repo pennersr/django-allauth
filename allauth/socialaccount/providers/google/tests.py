@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
+from __future__ import unicode_literals
 
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -47,8 +48,8 @@ class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
                (repr(verified_email).lower())))
 
     def test_username_based_on_email(self):
-        first_name = u'明'
-        last_name = u'小'
+        first_name = '明'
+        last_name = '小'
         email = 'raymond.penners@gmail.com'
         self.login(self.get_mocked_response(name=first_name + ' ' + last_name,
                                             email=email,

@@ -2,6 +2,8 @@ from __future__ import absolute_import
 
 from django.core.urlresolvers import reverse
 
+from allauth.socialaccount import app_settings
+
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.providers.oauth.client import OAuthError
 from allauth.socialaccount.helpers import complete_social_login
@@ -20,9 +22,14 @@ from .provider import EvernoteProvider
 
 class EvernoteOAuthAdapter(OAuthAdapter):
     provider_id = EvernoteProvider.id
-    request_token_url = 'https://sandbox.evernote.com/oauth'
-    access_token_url = 'https://sandbox.evernote.com/oauth'
-    authorize_url = 'https://sandbox.evernote.com/OAuth.action'
+    settings = app_settings.PROVIDERS.get(provider_id, {})
+    request_token_url = 'https://%s/oauth' % (settings.get('EVERNOTE_HOSTNAME', 'sandbox.evernote.com'))
+    access_token_url = 'https://%s/oauth' % (settings.get('EVERNOTE_HOSTNAME', 'sandbox.evernote.com'))
+    authorize_url = 'https://%s/OAuth.action' % (settings.get('EVERNOTE_HOSTNAME', 'sandbox.evernote.com'))
+
+    def __init__(self, *args, **kwargs):
+        print self.authorize_url
+        super(EvernoteOAuthAdapter, self).__init__(*args, **kwargs)
 
     def complete_login(self, request, app, token, raw_token):
         token.expires_at = datetime.datetime.fromtimestamp(int(raw_token['edam_expires']) / 1000.0)

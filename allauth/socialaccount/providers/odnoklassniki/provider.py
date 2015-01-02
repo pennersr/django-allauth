@@ -3,7 +3,7 @@ from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
-class OKAccount(ProviderAccount):
+class OdnoklassnikiAccount(ProviderAccount):
     def get_profile_url(self):
         return self.account.extra_data.get('link')
 
@@ -22,15 +22,15 @@ class OKAccount(ProviderAccount):
             return ret
 
     def to_str(self):
-        dflt = super(OKAccount, self).to_str()
+        dflt = super(OdnoklassnikiAccount, self).to_str()
         return self.account.extra_data.get('name', dflt)
 
 
-class OKProvider(OAuth2Provider):
-    id = 'ok'
-    name = 'OK'
-    package = 'allauth.socialaccount.providers.ok'
-    account_class = OKAccount
+class OdnoklassnikiProvider(OAuth2Provider):
+    id = 'odnoklassniki'
+    name = 'Odnoklassniki'
+    package = 'allauth.socialaccount.providers.odnoklassniki'
+    account_class = OdnoklassnikiAccount
 
     def extract_uid(self, data):
         return data['uid']
@@ -40,4 +40,4 @@ class OKProvider(OAuth2Provider):
                     first_name=data.get('first_name'))
 
 
-providers.registry.register(OKProvider)
+providers.registry.register(OdnoklassnikiProvider)

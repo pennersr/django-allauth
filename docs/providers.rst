@@ -230,13 +230,15 @@ App registration (get your key and secret here)
 Development callback URL
         Leave the OAuth redirect URL empty.
 
+
 Odnoklassniki
 -------------
 
 Register your OAuth2 app here: http://apiok.ru/wiki/pages/viewpage.action?pageId=42476486
 
 Development callback URL
-    http://example.com/ok/login/callback
+    http://example.com/accounts/odnoklassniki/login/callback/
+
 
 OpenID
 ------

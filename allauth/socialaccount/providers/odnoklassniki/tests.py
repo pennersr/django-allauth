@@ -6,10 +6,11 @@ from allauth.socialaccount.tests import create_oauth2_tests
 from allauth.socialaccount.providers import registry
 from allauth.tests import MockedResponse
 
-from .provider import OKProvider
+from .provider import OdnoklassnikiProvider
 
 
-class OKTests(create_oauth2_tests(registry.by_id(OKProvider.id))):
+class OdnoklassnikiTests(
+        create_oauth2_tests(registry.by_id(OdnoklassnikiProvider.id))):
 
     def get_mocked_response(self, verified_email=True):
         return MockedResponse(200, """

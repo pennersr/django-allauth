@@ -4,7 +4,8 @@ from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
                                                           OAuth2CallbackView)
 
-from .provider import OKProvider
+from .provider import OdnoklassnikiProvider
+
 
 USER_FIELDS = ['uid',
                'locale',
@@ -28,8 +29,8 @@ USER_FIELDS = ['uid',
                'location']
 
 
-class OKOAuth2Adapter(OAuth2Adapter):
-    provider_id = OKProvider.id
+class OdnoklassnikiOAuth2Adapter(OAuth2Adapter):
+    provider_id = OdnoklassnikiProvider.id
     access_token_url = 'http://api.odnoklassniki.ru/oauth/token.do'
     authorize_url = 'http://www.odnoklassniki.ru/oauth/authorize'
     profile_url = 'http://api.odnoklassniki.ru/fb.do'
@@ -55,5 +56,5 @@ class OKOAuth2Adapter(OAuth2Adapter):
                                                              extra_data)
 
 
-oauth2_login = OAuth2LoginView.adapter_view(OKOAuth2Adapter)
-oauth2_callback = OAuth2CallbackView.adapter_view(OKOAuth2Adapter)
+oauth2_login = OAuth2LoginView.adapter_view(OdnoklassnikiOAuth2Adapter)
+oauth2_callback = OAuth2CallbackView.adapter_view(OdnoklassnikiOAuth2Adapter)

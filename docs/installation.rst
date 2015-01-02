@@ -49,6 +49,7 @@ settings.py::
         'allauth.socialaccount.providers.facebook',
         'allauth.socialaccount.providers.flickr',
         'allauth.socialaccount.providers.feedly',
+        'allauth.socialaccount.providers.fxa',
         'allauth.socialaccount.providers.github',
         'allauth.socialaccount.providers.google',
         'allauth.socialaccount.providers.hubic',

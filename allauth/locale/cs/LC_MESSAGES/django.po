@@ -457,7 +457,7 @@ msgstr "Odhlásit se"
 
 #: templates/account/logout.html:11
 msgid "Are you sure you want to sign out?"
-msgstr "Jste si jisti, že se chcete odhlásit:"
+msgstr "Jste si jisti, že se chcete odhlásit?"
 
 #: templates/account/password_change.html:6
 #: templates/account/password_change.html:9

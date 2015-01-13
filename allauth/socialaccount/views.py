@@ -16,7 +16,7 @@ from .models import SocialLogin
 from .forms import DisconnectForm
 from . import helpers
 from . import app_settings
-from . import signup_form
+from ..utils import signup_form
 
 
 class SocialSignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,

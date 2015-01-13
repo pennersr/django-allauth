@@ -16,6 +16,8 @@ try:
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
+from account import app_settings
+
 
 def _generate_unique_username_base(txts):
     username = None
@@ -197,3 +199,9 @@ def get_form_class(forms, form_id, default_form):
     if isinstance(form_class, six.string_types):
         form_class = import_attribute(form_class)
     return form_class
+
+
+def signup_form():
+    class_module, class_name = app_settings.SIGNUP_FORM_CLASS.rsplit('.', 1)
+    mod = importlib.import_module(class_module)
+    return getattr(mod, class_name)

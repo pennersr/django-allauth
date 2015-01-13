@@ -22,12 +22,13 @@ from .utils import (get_next_redirect_url, complete_signup,
                     url_str_to_user_pk)
 from .forms import AddEmailForm, ChangePasswordForm
 from .forms import LoginForm, ResetPasswordKeyForm
-from .forms import ResetPasswordForm, SetPasswordForm, SignupForm
+from .forms import ResetPasswordForm, SetPasswordForm
 from .utils import sync_user_email_addresses
 from .models import EmailAddress, EmailConfirmation
 
 from . import signals
 from . import app_settings
+from . import signup_form
 
 from .adapter import get_adapter
 
@@ -160,7 +161,7 @@ class CloseableSignupMixin(object):
 class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
                  AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/signup.html"
-    form_class = SignupForm
+    form_class = signup_form()
     redirect_field_name = "next"
     success_url = None
 

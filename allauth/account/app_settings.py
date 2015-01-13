@@ -143,7 +143,7 @@ class AppSettings(object):
         """
         Signup form
         """
-        return self._setting("SIGNUP_FORM_CLASS", None)
+        return self._setting("SIGNUP_FORM_CLASS", 'allauth.account.forms.SignupForm')
 
     @property
     def USERNAME_REQUIRED(self):

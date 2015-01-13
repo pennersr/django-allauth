@@ -13,14 +13,15 @@ from ..utils import get_form_class
 
 from .adapter import get_adapter
 from .models import SocialLogin
-from .forms import DisconnectForm, SocialSignupForm
+from .forms import DisconnectForm
 from . import helpers
 from . import app_settings
+from . import signup_form
 
 
 class SocialSignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
                  FormView):
-    form_class = SocialSignupForm
+    form_class = signup_form()
     template_name = 'socialaccount/signup.html'
 
     def get_form_class(self):

@@ -7,8 +7,8 @@ from . import app_settings
 
 
 def signup_form():
-    class_module, form_module, class_name = app_settings.SIGNUP_FORM_CLASS.rsplit('.', 2)
-    mod = import_module(form_module)
+    class_module, class_name = app_settings.SIGNUP_FORM_CLASS.rsplit('.', 1)
+    mod = import_module(class_module)
     return getattr(mod, class_name)()
 
 default_app_config = 'allauth.account.apps.AccountConfig'

@@ -14,7 +14,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.utils.decorators import method_decorator
 
 from ..exceptions import ImmediateHttpResponse
-from ..utils import get_user_model, get_form_class
+from ..utils import get_user_model, get_form_class, signup_form
 
 from .utils import (get_next_redirect_url, complete_signup,
                     get_login_redirect_url, perform_login,
@@ -28,7 +28,6 @@ from .models import EmailAddress, EmailConfirmation
 
 from . import signals
 from . import app_settings
-from ..utils import signup_form
 
 from .adapter import get_adapter
 

@@ -2,10 +2,11 @@ from django.conf.urls import patterns, url
 from django.views.generic import RedirectView
 
 from . import views
+from ..utils import signup_view
 
 urlpatterns = patterns(
     "",
-    url(r"^signup/$", views.signup, name="account_signup"),
+    url(r"^signup/$", signup_view().as_view(), name="account_signup"),
     url(r"^login/$", views.login, name="account_login"),
     url(r"^logout/$", views.logout, name="account_logout"),
 

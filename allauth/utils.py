@@ -201,7 +201,15 @@ def get_form_class(forms, form_id, default_form):
     return form_class
 
 
-def signup_form():
-    class_module, class_name = app_settings.SIGNUP_FORM_CLASS.rsplit('.', 1)
+def get_module(setting):
+    class_module, class_name = setting.rsplit('.', 1)
     mod = importlib.import_module(class_module)
     return getattr(mod, class_name)
+
+
+def signup_form():
+    return get_module(app_settings.SIGNUP_FORM_CLASS)
+
+
+def signup_view():
+    return get_module(app_settings.SIGNUP_VIEW_CLASS)

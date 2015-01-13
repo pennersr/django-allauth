@@ -146,6 +146,13 @@ class AppSettings(object):
         return self._setting("SIGNUP_FORM_CLASS", 'allauth.account.forms.SignupForm')
 
     @property
+    def SIGNUP_VIEW_CLASS(self):
+        """
+        Signup view
+        """
+        return self._setting("SIGNUP_VIEW_CLASS", 'allauth.account.views.SignupView')
+
+    @property
     def USERNAME_REQUIRED(self):
         """
         The user is required to enter a username when signing up

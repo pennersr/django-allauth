@@ -28,7 +28,7 @@ from .models import EmailAddress, EmailConfirmation
 
 from . import signals
 from . import app_settings
-from . import signup_form
+from ..utils import signup_form
 
 from .adapter import get_adapter
 

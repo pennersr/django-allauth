@@ -38,7 +38,10 @@ def create_oauth_tests(provider):
                                        secret='dummy')
         app.sites.add(Site.objects.get_current())
 
-    @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=False)
+    @override_settings(
+        SOCIALACCOUNT_AUTO_SIGNUP=False,
+        ACCOUNT_SIGNUP_FORM_CLASS='allauth.socialaccount.forms.SocialSignupForm',
+    )
     def test_login(self):
         resp_mocks = self.get_mocked_response()
         if not resp_mocks:
@@ -62,6 +65,7 @@ def create_oauth_tests(provider):
 
     @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=True,
                        SOCIALACCOUNT_EMAIL_REQUIRED=False,
+                       ACCOUNT_SIGNUP_FORM_CLASS='allauth.socialaccount.forms.SocialSignupForm',
                        ACCOUNT_EMAIL_REQUIRED=False)
     def test_auto_signup(self):
         resp_mocks = self.get_mocked_response()
@@ -128,7 +132,10 @@ def create_oauth2_tests(provider):
                                        secret='dummy')
         app.sites.add(Site.objects.get_current())
 
-    @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=False)
+    @override_settings(
+        SOCIALACCOUNT_AUTO_SIGNUP=False,
+        ACCOUNT_SIGNUP_FORM_CLASS='allauth.socialaccount.forms.SocialSignupForm',
+    )
     def test_login(self):
         resp_mock = self.get_mocked_response()
         if not resp_mock:

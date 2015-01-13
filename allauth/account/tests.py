@@ -27,7 +27,6 @@ from .adapter import get_adapter
     ACCOUNT_DEFAULT_HTTP_PROTOCOL='https',
     ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.MANDATORY,
     ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.USERNAME,
-    ACCOUNT_SIGNUP_FORM_CLASS=None,
     ACCOUNT_EMAIL_SUBJECT_PREFIX=None,
     LOGIN_REDIRECT_URL='/accounts/profile/',
     ACCOUNT_ADAPTER='allauth.account.adapter.DefaultAccountAdapter',

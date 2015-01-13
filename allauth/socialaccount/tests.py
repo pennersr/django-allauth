@@ -218,7 +218,7 @@ class SocialAccountTests(TestCase):
 
     @override_settings(
         SOCIALACCOUNT_AUTO_SIGNUP=True,
-        ACCOUNT_SIGNUP_FORM_CLASS=None,
+        ACCOUNT_SIGNUP_FORM_CLASS='allauth.socialaccount.forms.SocialSignupForm',
         ACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.NONE  # noqa
     )
     def test_email_address_created(self):

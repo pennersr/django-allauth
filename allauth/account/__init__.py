@@ -4,7 +4,7 @@ from django.utils.importlib import import_module
 
 
 from . import app_settings
-from account.app_settings import AppSettings
+from .app_settings import AppSettings
 
 
 def signup_form():

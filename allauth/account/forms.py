@@ -232,7 +232,6 @@ class SignupForm(BaseSignupForm):
             if self.cleaned_data["password1"] != self.cleaned_data["password2"]:
                 raise forms.ValidationError(
                     _("You must type the same password each time."))
-        print(self.cleaned_data)
         return self.cleaned_data
 
 

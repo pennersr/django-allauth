@@ -41,6 +41,7 @@ def create_oauth_tests(provider):
     @override_settings(
         SOCIALACCOUNT_AUTO_SIGNUP=False,
         ACCOUNT_SIGNUP_FORM_CLASS='allauth.socialaccount.forms.SocialSignupForm',
+        ACCOUNT_SIGNUP_FORM_VIEW='allauth.socialaccount.views.SocialSignupView',
     )
     def test_login(self):
         resp_mocks = self.get_mocked_response()
@@ -66,6 +67,7 @@ def create_oauth_tests(provider):
     @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=True,
                        SOCIALACCOUNT_EMAIL_REQUIRED=False,
                        ACCOUNT_SIGNUP_FORM_CLASS='allauth.socialaccount.forms.SocialSignupForm',
+                       ACCOUNT_SIGNUP_FORM_VIEW='allauth.socialaccount.views.SocialSignupView',
                        ACCOUNT_EMAIL_REQUIRED=False)
     def test_auto_signup(self):
         resp_mocks = self.get_mocked_response()
@@ -135,6 +137,7 @@ def create_oauth2_tests(provider):
     @override_settings(
         SOCIALACCOUNT_AUTO_SIGNUP=False,
         ACCOUNT_SIGNUP_FORM_CLASS='allauth.socialaccount.forms.SocialSignupForm',
+        ACCOUNT_SIGNUP_FORM_VIEW='allauth.socialaccount.views.SocialSignupView',
     )
     def test_login(self):
         resp_mock = self.get_mocked_response()
@@ -226,6 +229,7 @@ class SocialAccountTests(TestCase):
     @override_settings(
         SOCIALACCOUNT_AUTO_SIGNUP=True,
         ACCOUNT_SIGNUP_FORM_CLASS='allauth.socialaccount.forms.SocialSignupForm',
+        ACCOUNT_SIGNUP_FORM_VIEW='allauth.socialaccount.views.SocialSignupView',
         ACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.NONE  # noqa
     )
     def test_email_address_created(self):

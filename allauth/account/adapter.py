@@ -185,13 +185,15 @@ class DefaultAccountAdapter(object):
             'username',
             'confirmation_key',
             'password1',
-            'email'
+            'password2',
+            'email',
         ]
 
         # This loops through the fields in the data and if it isn't a field
         # that requires special logic it dynamically assigns it to the model.
         for field in data.items():
             if field[0] not in ignore_loop_fields:
+                print(field[0])
                 user_field(user, field[0], field[1])
 
         email = data.get('email')

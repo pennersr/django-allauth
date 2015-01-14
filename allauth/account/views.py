@@ -76,7 +76,7 @@ class RedirectAuthenticatedUserMixin(object):
 class AjaxCapableProcessFormViewMixin(object):
 
     def post(self, request, *args, **kwargs):
-        form_class = self.get_form_class()
+        form_class = signup_form()
         form = self.get_form(form_class)
         if form.is_valid():
             response = self.form_valid(form)
@@ -166,7 +166,7 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
 
     @sensitive_post_parameters_m
     def dispatch(self, request, *args, **kwargs):
-        print(request)
+        print("Dispatch REQUEST\n" + request)
         return super(SignupView, self).dispatch(request, *args, **kwargs)
 
     def get_form_class(self):
@@ -181,7 +181,6 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
 
     def form_valid(self, form):
         user = form.signup(self.request)
-        print(self.request)
         return complete_signup(self.request, user,
                                app_settings.EMAIL_VERIFICATION,
                                self.get_success_url())

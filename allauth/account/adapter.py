@@ -181,6 +181,7 @@ class DefaultAccountAdapter(object):
         from .utils import user_username, user_email, user_field
 
         data = form.cleaned_data
+        print("USER DATA:\n" + data)
         first_name = data.get('first_name')
         last_name = data.get('last_name')
         email = data.get('email')

@@ -182,18 +182,19 @@ class DefaultAccountAdapter(object):
 
         data = form.cleaned_data
         print("USER DATA:\n {}".format(data))
+        ignore_fields = ['username', 'confirmation_key', 'password1', 'email']
 
         for field in data.items():
-            if field[0] != ('username' or 'confirmation_key' or 'password1'):
+            if field[0] not in ignore_fields:
                 user_field(user, field[0], field[1])
             else:
                 pass
 
         # first_name = data.get('first_name')
         # last_name = data.get('last_name')
-        # email = data.get('email')
+        email = data.get('email')
         username = data.get('username')
-        # user_email(user, email)
+        user_email(user, email)
         user_username(user, username)
 
         # if first_name:

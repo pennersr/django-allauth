@@ -42,8 +42,7 @@ def get_next_redirect_url(request, redirect_field_name="next"):
 
 
 def get_login_redirect_url(request, url=None, redirect_field_name="next"):
-    redirect_url \
-        = (url
+    redirect_url = (url
            or get_next_redirect_url(request,
                                     redirect_field_name=redirect_field_name)
            or get_adapter().get_login_redirect_url(request))

@@ -182,6 +182,13 @@ class DefaultAccountAdapter(object):
 
         data = form.cleaned_data
         print("USER DATA:\n {}".format(data))
+
+        for field in data:
+            if field == 'confirmation_key' or 'password1':
+                pass
+            else:
+                print("Field:\n {}".format(field))
+
         first_name = data.get('first_name')
         last_name = data.get('last_name')
         email = data.get('email')

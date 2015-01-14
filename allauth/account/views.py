@@ -166,7 +166,6 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
 
     @sensitive_post_parameters_m
     def dispatch(self, request, *args, **kwargs):
-        print(request)
         return super(SignupView, self).dispatch(request, *args, **kwargs)
 
     def get_form_class(self):

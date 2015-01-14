@@ -183,21 +183,24 @@ class DefaultAccountAdapter(object):
         data = form.cleaned_data
         print("USER DATA:\n {}".format(data))
 
-        for field in data:
-            print("Field:\n {}".format(field))
+        for field in data.items():
+            if field[0] != ('username' or 'confirmation_key' or 'password1'):
+                user_field(user, field[0], field[1])
+            else:
+                pass
 
-        first_name = data.get('first_name')
-        last_name = data.get('last_name')
-        email = data.get('email')
+        # first_name = data.get('first_name')
+        # last_name = data.get('last_name')
+        # email = data.get('email')
         username = data.get('username')
-        user_email(user, email)
+        # user_email(user, email)
         user_username(user, username)
 
-        if first_name:
-            user_field(user, 'first_name', first_name)
+        # if first_name:
+        #     user_field(user, 'first_name', first_name)
 
-        if last_name:
-            user_field(user, 'last_name', last_name)
+        # if last_name:
+        #     user_field(user, 'last_name', last_name)
 
         if 'password1' in data:
             user.set_password(data["password1"])

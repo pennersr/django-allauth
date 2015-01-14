@@ -181,27 +181,23 @@ class DefaultAccountAdapter(object):
         from .utils import user_username, user_email, user_field
 
         data = form.cleaned_data
-        print("USER DATA:\n {}".format(data))
-        ignore_fields = ['username', 'confirmation_key', 'password1', 'email']
+        ignore_loop_fields = [
+            'username',
+            'confirmation_key',
+            'password1',
+            'email'
+        ]
 
+        # This loops through the fields in the data and if it isn't a field
+        # that requires special logic it dynamically assigns it to the model.
         for field in data.items():
-            if field[0] not in ignore_fields:
+            if field[0] not in ignore_loop_fields:
                 user_field(user, field[0], field[1])
-            else:
-                pass
 
-        # first_name = data.get('first_name')
-        # last_name = data.get('last_name')
         email = data.get('email')
         username = data.get('username')
         user_email(user, email)
         user_username(user, username)
-
-        # if first_name:
-        #     user_field(user, 'first_name', first_name)
-
-        # if last_name:
-        #     user_field(user, 'last_name', last_name)
 
         if 'password1' in data:
             user.set_password(data["password1"])

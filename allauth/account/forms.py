@@ -7,7 +7,6 @@ from django.core.urlresolvers import reverse
 from django.core import exceptions
 from django.db.models import Q
 from django.utils.translation import pgettext, ugettext_lazy as _, ugettext
-from django.utils.importlib import import_module
 
 from django.contrib.auth import authenticate
 from django.contrib.auth.tokens import default_token_generator
@@ -24,6 +23,10 @@ from .app_settings import AuthenticationMethod
 from . import app_settings
 from .adapter import get_adapter
 
+try:
+    from importlib import import_module
+except ImportError:
+    from django.utils.importlib import import_module
 
 class PasswordField(forms.CharField):
 

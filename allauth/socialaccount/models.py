@@ -120,17 +120,13 @@ class SocialAccount(models.Model):
 class SocialToken(models.Model):
     app = models.ForeignKey(SocialApp)
     account = models.ForeignKey(SocialAccount)
-    token = models \
-        .TextField(verbose_name=_('social account'),
-                   help_text=_('"oauth_token" (OAuth1) or access token'
-                               ' (OAuth2)'))
-    token_secret = models \
-        .TextField(blank=True,
-                   verbose_name=_('token secret'),
-                   help_text=_('"oauth_token_secret" (OAuth1) or refresh'
-                   ' token (OAuth2)'))
-    expires_at = models.DateTimeField(blank=True, null=True,
-                                      verbose_name=_('expires at'))
+    token = models.TextField(verbose_name=_('social account'),
+        help_text=_('"oauth_token" (OAuth1) or access token (OAuth2)'))
+    token_secret = models.TextField(blank=True,
+        verbose_name=_('token secret'),
+        help_text=_('"oauth_token_secret" (OAuth1) or refresh token (OAuth2)'))
+    expires_at = models.DateTimeField(
+        blank=True, null=True, verbose_name=_('expires at'))
 
     class Meta:
         unique_together = ('app', 'account')

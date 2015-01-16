@@ -10,6 +10,8 @@ from django.test.utils import override_settings
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
+from pprint import pprint
+
 from django.test.client import RequestFactory
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -41,7 +43,7 @@ def create_oauth_tests(provider):
     @override_settings(
         SOCIALACCOUNT_AUTO_SIGNUP=False,
         ACCOUNT_SIGNUP_FORM_CLASS='allauth.socialaccount.forms.SocialSignupForm',
-        ACCOUNT_SIGNUP_FORM_VIEW='allauth.socialaccount.views.SocialSignupView',
+        ACCOUNT_SIGNUP_FORM_VIEW='allauth.socialaccount.views.SocialSignupView'
     )
     def test_login(self):
         resp_mocks = self.get_mocked_response()

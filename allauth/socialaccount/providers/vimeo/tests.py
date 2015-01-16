@@ -4,6 +4,7 @@ from allauth.socialaccount.providers import registry
 
 from .provider import VimeoProvider
 
+
 class VimeoTests(create_oauth_tests(registry.by_id(VimeoProvider.id))):
     def get_mocked_response(self):
         return [MockedResponse(200, """

@@ -69,8 +69,8 @@ class OAuthClient(object):
             get_params = {}
             if self.parameters:
                 get_params.update(self.parameters)
-            get_params['oauth_callback'] \
-                = self.request.build_absolute_uri(self.callback_url)
+            get_params['oauth_callback'] = self.request.build_absolute_uri(
+                self.callback_url)
             rt_url = self.request_token_url + '?' + urlencode(get_params)
             oauth = OAuth1(self.consumer_key,
                            client_secret=self.consumer_secret)
@@ -79,7 +79,8 @@ class OAuthClient(object):
                 raise OAuthError(
                     _('Invalid response while obtaining request token from "%s".') % get_token_prefix(self.request_token_url))
             self.request_token = dict(parse_qsl(response.text))
-            self.request.session['oauth_%s_request_token' % get_token_prefix(self.request_token_url)] = self.request_token
+            self.request.session['oauth_%s_request_token' % get_token_prefix(
+                self.request_token_url)] = self.request_token
         return self.request_token
 
     def get_access_token(self):

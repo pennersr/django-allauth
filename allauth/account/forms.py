@@ -20,6 +20,10 @@ from .app_settings import AuthenticationMethod
 from . import app_settings
 from .adapter import get_adapter
 
+try:
+    from importlib import import_module
+except ImportError:
+    from django.utils.importlib import import_module
 
 class PasswordField(forms.CharField):
 

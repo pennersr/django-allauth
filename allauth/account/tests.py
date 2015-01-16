@@ -264,6 +264,17 @@ class AccountTests(TestCase):
         c.get(reverse('account_login'))
         # TODO: Actually test something
 
+    def test_ajax_password_reset(self):
+        get_user_model().objects.create(
+            username='john', email='john@doe.org', is_active=True)
+        resp = self.client.post(
+            reverse('account_reset_password'),
+            data={'email': 'john@doe.org'},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, ['john@doe.org'])
+        self.assertEqual(resp['content-type'], 'application/json')
+
     def test_ajax_login_fail(self):
         resp = self.client.post(reverse('account_login'),
                                 {},

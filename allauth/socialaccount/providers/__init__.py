@@ -1,5 +1,10 @@
 from django.conf import settings
-from django.utils import importlib
+
+try:
+    import importlib
+except ImportError:
+    from django.utils import importlib
+
 
 
 class ProviderRegistry(object):

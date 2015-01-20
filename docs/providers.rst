@@ -327,7 +327,7 @@ SoundCloud allows you to choose between OAuth1 and OAuth2.  Choose the
 latter.
 
 Development callback URL
-    http://example.com/soundcloud/login/callback
+    http://example.com/accounts/soundcloud/login/callback/
 
 Stack Exchange
 --------------

@@ -51,12 +51,12 @@ def create_oauth_tests(provider):
                           % self.provider.id)
             return
         resp = self.login(resp_mocks)
-        self.assertRedirects(resp, reverse('socialaccount_signup'))
-        resp = self.client.get(reverse('socialaccount_signup'))
+        self.assertRedirects(resp, reverse('socialaccount:signup'))
+        resp = self.client.get(reverse('socialaccount:signup'))
         sociallogin = resp.context['form'].sociallogin
         data = dict(email=user_email(sociallogin.user),
                     username=str(random.randrange(1000, 10000000)))
-        resp = self.client.post(reverse('socialaccount_signup'),
+        resp = self.client.post(reverse('socialaccount:signup'),
                                 data=data)
         self.assertEqual('http://testserver/accounts/profile/',
                          resp['location'])
@@ -147,7 +147,7 @@ def create_oauth2_tests(provider):
                           % self.provider.id)
             return
         resp = self.login(resp_mock,)
-        self.assertRedirects(resp, reverse('socialaccount_signup'))
+        self.assertRedirects(resp, reverse('socialaccount:signup'))
 
     def test_account_tokens(self, multiple_login=False):
         email = 'some@mail.com'

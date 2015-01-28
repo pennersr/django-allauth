@@ -115,7 +115,7 @@ def perform_login(request, user, email_verification,
         if not has_verified_email:
             send_email_confirmation(request, user, signup=signup)
             return HttpResponseRedirect(
-                reverse('account_email_verification_sent'))
+                reverse('account:email_verification_sent'))
     # Local users are stopped due to form validation checking
     # is_active, yet, adapter methods could toy with is_active in a
     # `user_signed_up` signal. Furthermore, social users should be

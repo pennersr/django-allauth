@@ -35,7 +35,7 @@ class SocialSignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
         if data:
             self.sociallogin = SocialLogin.deserialize(data)
         if not self.sociallogin:
-            return HttpResponseRedirect(reverse('account_login'))
+            return HttpResponseRedirect(reverse('account:login'))
         return super(SocialSignupView, self).dispatch(request, *args, **kwargs)
 
     def is_open(self):
@@ -80,7 +80,7 @@ login_error = LoginErrorView.as_view()
 class ConnectionsView(FormView):
     template_name = "socialaccount/connections.html"
     form_class = DisconnectForm
-    success_url = reverse_lazy("socialaccount_connections")
+    success_url = reverse_lazy("socialaccount:connections")
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS,

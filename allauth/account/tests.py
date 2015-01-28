@@ -51,7 +51,7 @@ class AccountTests(TestCase):
                                     email='raymond.penners@gmail.com',
                                     primary=True,
                                     verified=True)
-        resp = self.client.post(reverse('account_login'),
+        resp = self.client.post(reverse('account:login'),
                                 {'login': '@raymond.penners',
                                  'password': 'psst'})
         self.assertEqual(resp['location'],
@@ -89,7 +89,7 @@ class AccountTests(TestCase):
     def _test_signup_email_verified_externally(self, signup_email,
                                                verified_email):
         username = 'johndoe'
-        request = RequestFactory().post(reverse('account_signup'),
+        request = RequestFactory().post(reverse('account:signup'),
                                         {'username': username,
                                          'email': signup_email,
                                          'password1': 'johndoe',
@@ -119,28 +119,28 @@ class AccountTests(TestCase):
     def test_redirect_when_authenticated(self):
         self._create_user_and_login()
         c = self.client
-        resp = c.get(reverse('account_login'))
+        resp = c.get(reverse('account:login'))
         self.assertEqual(302, resp.status_code)
         self.assertEqual('http://testserver/accounts/profile/',
                          resp['location'])
 
     def test_password_set_redirect(self):
-        resp = self._password_set_or_reset_redirect('account_set_password',
+        resp = self._password_set_or_reset_redirect('account:set_password',
                                                     True)
         self.assertEqual(resp.status_code, 302)
 
     def test_password_reset_no_redirect(self):
-        resp = self._password_set_or_reset_redirect('account_change_password',
+        resp = self._password_set_or_reset_redirect('account:change_password',
                                                     True)
         self.assertEqual(resp.status_code, 200)
 
     def test_password_set_no_redirect(self):
-        resp = self._password_set_or_reset_redirect('account_set_password',
+        resp = self._password_set_or_reset_redirect('account:set_password',
                                                     False)
         self.assertEqual(resp.status_code, 200)
 
     def test_password_reset_redirect(self):
-        resp = self._password_set_or_reset_redirect('account_change_password',
+        resp = self._password_set_or_reset_redirect('account:change_password',
                                                     False)
         self.assertEqual(resp.status_code, 302)
 
@@ -173,7 +173,7 @@ class AccountTests(TestCase):
         user.set_password('doe')
         user.save()
         self.client.post(
-            reverse('account_reset_password'),
+            reverse('account:reset_password'),
             data={'email': 'john@doe.org'})
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].to, ['john@doe.org'])
@@ -196,7 +196,7 @@ class AccountTests(TestCase):
     def test_email_verification_mandatory(self):
         c = Client()
         # Signup
-        resp = c.post(reverse('account_signup'),
+        resp = c.post(reverse('account:signup'),
                       {'username': 'johndoe',
                        'email': 'john@doe.com',
                        'password1': 'johndoe',
@@ -210,7 +210,7 @@ class AccountTests(TestCase):
                                 'account/verification_sent.html')
         # Attempt to login, unverified
         for attempt in [1, 2]:
-            resp = c.post(reverse('account_login'),
+            resp = c.post(reverse('account:login'),
                           {'login': 'johndoe',
                            'password': 'johndoe'},
                           follow=True)
@@ -237,12 +237,12 @@ class AccountTests(TestCase):
             .objects \
             .filter(email_address__user__username='johndoe')[:1] \
             .get()
-        resp = c.get(reverse('account_confirm_email',
+        resp = c.get(reverse('account:confirm_email',
                              args=[confirmation.key]))
         self.assertTemplateUsed(resp, 'account/email_confirm.html')
-        c.post(reverse('account_confirm_email',
+        c.post(reverse('account:confirm_email',
                        args=[confirmation.key]))
-        resp = c.post(reverse('account_login'),
+        resp = c.post(reverse('account:login'),
                       {'login': 'johndoe',
                        'password': 'johndoe'})
         self.assertEqual(resp['location'],
@@ -261,14 +261,14 @@ class AccountTests(TestCase):
 
     def test_login_view(self):
         c = Client()
-        c.get(reverse('account_login'))
+        c.get(reverse('account:login'))
         # TODO: Actually test something
 
     def test_ajax_password_reset(self):
         get_user_model().objects.create(
             username='john', email='john@doe.org', is_active=True)
         resp = self.client.post(
-            reverse('account_reset_password'),
+            reverse('account:reset_password'),
             data={'email': 'john@doe.org'},
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(len(mail.outbox), 1)
@@ -276,7 +276,7 @@ class AccountTests(TestCase):
         self.assertEqual(resp['content-type'], 'application/json')
 
     def test_ajax_login_fail(self):
-        resp = self.client.post(reverse('account_login'),
+        resp = self.client.post(reverse('account:login'),
                                 {},
                                 HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(resp.status_code, 400)
@@ -292,7 +292,7 @@ class AccountTests(TestCase):
         user = get_user_model().objects.create(username='john', is_active=True)
         user.set_password('doe')
         user.save()
-        resp = self.client.post(reverse('account_login'),
+        resp = self.client.post(reverse('account:login'),
                                 {'login': 'john',
                                  'password': 'doe'},
                                 HTTP_X_REQUESTED_WITH='XMLHttpRequest')
@@ -302,7 +302,7 @@ class AccountTests(TestCase):
 
     def test_email_view(self):
         self._create_user_and_login()
-        self.client.get(reverse('account_email'))
+        self.client.get(reverse('account:email'))
         # TODO: Actually test something
 
     @override_settings(ACCOUNT_LOGOUT_ON_GET=True)
@@ -314,7 +314,7 @@ class AccountTests(TestCase):
     def test_logout_view_on_post(self):
         c, resp = self._logout_view('get')
         self.assertTemplateUsed(resp, 'account/logout.html')
-        resp = c.post(reverse('account_logout'))
+        resp = c.post(reverse('account:logout'))
         self.assertTemplateUsed(resp, 'account/messages/logged_out.txt')
 
     def _logout_view(self, method):
@@ -324,15 +324,15 @@ class AccountTests(TestCase):
         user.save()
         c = Client()
         c.login(username='john', password='doe')
-        return c, getattr(c, method)(reverse('account_logout'))
+        return c, getattr(c, method)(reverse('account:logout'))
 
     @override_settings(ACCOUNT_EMAIL_VERIFICATION=app_settings
                        .EmailVerificationMethod.OPTIONAL)
     def test_optional_email_verification(self):
         c = Client()
         # Signup
-        c.get(reverse('account_signup'))
-        resp = c.post(reverse('account_signup'),
+        c.get(reverse('account:signup'))
+        resp = c.post(reverse('account:signup'),
                       {'username': 'johndoe',
                        'email': 'john@doe.com',
                        'password1': 'johndoe',
@@ -348,7 +348,7 @@ class AccountTests(TestCase):
         # Wait for cooldown
         EmailConfirmation.objects.update(sent=now() - timedelta(days=1))
         # Signup
-        resp = c.post(reverse('account_login'),
+        resp = c.post(reverse('account:login'),
                       {'login': 'johndoe',
                        'password': 'johndoe'})
         self.assertEqual(resp.status_code, 302)
@@ -383,7 +383,7 @@ class EmailFormTests(TestCase):
 
     def test_add(self):
         resp = self.client.post(
-            reverse('account_email'),
+            reverse('account:email'),
             {'action_add': '',
              'email': 'john3@doe.org'})
         EmailAddress.objects.get(
@@ -396,17 +396,17 @@ class EmailFormTests(TestCase):
 
     def test_ajax_add(self):
         resp = self.client.post(
-            reverse('account_email'),
+            reverse('account:email'),
             {'action_add': '',
              'email': 'john3@doe.org'},
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         data = json.loads(resp.content.decode('utf8'))
         self.assertEqual(data['location'],
-                         reverse('account_email'))
+                         reverse('account:email'))
 
     def test_ajax_add_invalid(self):
         resp = self.client.post(
-            reverse('account_email'),
+            reverse('account:email'),
             {'action_add': '',
              'email': 'john3#doe.org'},
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
@@ -416,7 +416,7 @@ class EmailFormTests(TestCase):
 
     def test_remove_primary(self):
         resp = self.client.post(
-            reverse('account_email'),
+            reverse('account:email'),
             {'action_remove': '',
              'email': self.email_address.email})
         EmailAddress.objects.get(pk=self.email_address.pk)
@@ -426,7 +426,7 @@ class EmailFormTests(TestCase):
 
     def test_ajax_remove_primary(self):
         resp = self.client.post(
-            reverse('account_email'),
+            reverse('account:email'),
             {'action_remove': '',
              'email': self.email_address.email},
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
@@ -435,11 +435,11 @@ class EmailFormTests(TestCase):
             'account/messages/cannot_delete_primary_email.txt')
         data = json.loads(resp.content.decode('utf8'))
         self.assertEqual(data['location'],
-                         reverse('account_email'))
+                         reverse('account:email'))
 
     def test_remove_secondary(self):
         resp = self.client.post(
-            reverse('account_email'),
+            reverse('account:email'),
             {'action_remove': '',
              'email': self.email_address2.email})
         self.assertRaises(EmailAddress.DoesNotExist,
@@ -451,7 +451,7 @@ class EmailFormTests(TestCase):
 
     def test_set_primary_unverified(self):
         resp = self.client.post(
-            reverse('account_email'),
+            reverse('account:email'),
             {'action_primary': '',
              'email': self.email_address2.email})
         email_address = EmailAddress.objects.get(pk=self.email_address.pk)
@@ -467,7 +467,7 @@ class EmailFormTests(TestCase):
         email_address2.verified = True
         email_address2.save()
         resp = self.client.post(
-            reverse('account_email'),
+            reverse('account:email'),
             {'action_primary': '',
              'email': self.email_address2.email})
         email_address = EmailAddress.objects.get(pk=self.email_address.pk)
@@ -480,7 +480,7 @@ class EmailFormTests(TestCase):
 
     def test_verify(self):
         resp = self.client.post(
-            reverse('account_email'),
+            reverse('account:email'),
             {'action_send': '',
              'email': self.email_address2.email})
         self.assertTemplateUsed(

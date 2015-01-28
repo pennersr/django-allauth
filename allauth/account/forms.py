@@ -351,7 +351,7 @@ class ResetPasswordForm(forms.Form):
             current_site = Site.objects.get_current()
 
             # send the password reset email
-            path = reverse("account_reset_password_from_key",
+            path = reverse("account:reset_password_from_key",
                            kwargs=dict(uidb36=user_pk_to_url_str(user),
                                        key=temp_key))
             url = build_absolute_uri(request, path,

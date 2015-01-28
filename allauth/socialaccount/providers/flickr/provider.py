@@ -5,16 +5,16 @@ from allauth.socialaccount.providers.oauth.provider import OAuthProvider
 
 class FlickrAccount(ProviderAccount):
     def get_profile_url(self):
-        return self.account.extra_data \
-            .get('person').get('profileurl').get('_content')
+        return self.account.extra_data.get(
+            'person').get('profileurl').get('_content')
 
     def get_avatar_url(self):
         return self.account.extra_data.get('picture-url')
 
     def to_str(self):
         dflt = super(FlickrAccount, self).to_str()
-        name = self.account.extra_data \
-            .get('person').get('realname').get('_content', dflt)
+        name = self.account.extra_data.get(
+            'person').get('realname').get('_content', dflt)
         return name
 
 

@@ -21,7 +21,7 @@ except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
 from ..utils import (import_callable, valid_email_or_none,
-                     get_user_model)
+                     get_user_model, get_request_param)
 
 from . import signals
 
@@ -35,7 +35,7 @@ def get_next_redirect_url(request, redirect_field_name="next"):
     Returns the next URL to redirect to, if it was explicitly passed
     via the request.
     """
-    redirect_to = request.REQUEST.get(redirect_field_name)
+    redirect_to = get_request_param(request, redirect_field_name)
     if not get_adapter().is_safe_url(redirect_to):
         redirect_to = None
     return redirect_to

@@ -202,3 +202,7 @@ def get_form_class(forms, form_id, default_form):
     if isinstance(form_class, six.string_types):
         form_class = import_attribute(form_class)
     return form_class
+
+
+def get_request_param(request, param, default=None):
+    return request.POST.get(param) or request.GET.get(param, default)

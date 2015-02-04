@@ -14,7 +14,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.utils.decorators import method_decorator
 
 from ..exceptions import ImmediateHttpResponse
-from ..utils import get_user_model, get_form_class
+from ..utils import get_user_model, get_form_class, get_request_param
 
 from .utils import (get_next_redirect_url, complete_signup,
                     get_login_redirect_url, perform_login,
@@ -119,8 +119,8 @@ class LoginView(RedirectAuthenticatedUserMixin,
         signup_url = passthrough_next_redirect_url(self.request,
                                                    reverse("account_signup"),
                                                    self.redirect_field_name)
-        redirect_field_value = self.request.REQUEST \
-            .get(self.redirect_field_name)
+        redirect_field_value = get_request_param(self.request,
+                                                 self.redirect_field_name)
         ret.update({"signup_url": signup_url,
                     "site": Site.objects.get_current(),
                     "redirect_field_name": self.redirect_field_name,
@@ -193,7 +193,8 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
                                                   reverse("account_login"),
                                                   self.redirect_field_name)
         redirect_field_name = self.redirect_field_name
-        redirect_field_value = self.request.REQUEST.get(redirect_field_name)
+        redirect_field_value = get_request_param(self.request,
+                                                 redirect_field_name)
         ret.update({"login_url": login_url,
                     "redirect_field_name": redirect_field_name,
                     "redirect_field_value": redirect_field_value})
@@ -637,8 +638,8 @@ class LogoutView(TemplateResponseMixin, View):
 
     def get_context_data(self, **kwargs):
         ctx = kwargs
-        redirect_field_value = self.request.REQUEST \
-            .get(self.redirect_field_name)
+        redirect_field_value = get_request_param(self.request,
+                                                 self.redirect_field_name)
         ctx.update({
             "redirect_field_name": self.redirect_field_name,
             "redirect_field_value": redirect_field_value})

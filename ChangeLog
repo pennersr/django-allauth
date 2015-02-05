@@ -1,3 +1,9 @@
+2015-02-05  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.19.1 released.
+
+	* Fixed migrations when using South & Django 1.6.
+
 2015-01-04  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Version 0.19.0 released.

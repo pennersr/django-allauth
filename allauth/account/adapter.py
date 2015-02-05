@@ -260,13 +260,15 @@ class DefaultAccountAdapter(object):
         return password
 
     def add_message(self, request, level, message_template,
-                    message_context={}, extra_tags=''):
+                    message_context=None, extra_tags=''):
         """
         Wrapper of `django.contrib.messages.add_message`, that reads
         the message text from a template.
         """
         if 'django.contrib.messages' in settings.INSTALLED_APPS:
             try:
+                if message_context is None:
+                    message_context = {}
                 message = render_to_string(message_template,
                                            message_context).strip()
                 if message:

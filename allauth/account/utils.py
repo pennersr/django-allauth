@@ -95,7 +95,7 @@ def user_email(user, *args):
 
 
 def perform_login(request, user, email_verification, redirect_url=None,
-                  signal_kwargs={}, signup=False):
+                  signal_kwargs=None, signup=False):
     """
     Keyword arguments:
 
@@ -126,6 +126,9 @@ def perform_login(request, user, email_verification, redirect_url=None,
     get_adapter().login(request, user)
     response = HttpResponseRedirect(
         get_login_redirect_url(request, redirect_url))
+
+    if signal_kwargs is None:
+        signal_kwargs = {}
     signals.user_logged_in.send(sender=user.__class__,
                                 request=request,
                                 response=response,
@@ -140,7 +143,9 @@ def perform_login(request, user, email_verification, redirect_url=None,
 
 
 def complete_signup(request, user, email_verification, success_url,
-                    signal_kwargs={}):
+                    signal_kwargs=None):
+    if signal_kwargs is None:
+        signal_kwargs = {}
     signals.user_signed_up.send(sender=user.__class__,
                                 request=request,
                                 user=user,

@@ -30,7 +30,9 @@ from .adapter import get_adapter
     ACCOUNT_EMAIL_SUBJECT_PREFIX=None,
     LOGIN_REDIRECT_URL='/accounts/profile/',
     ACCOUNT_ADAPTER='allauth.account.adapter.DefaultAccountAdapter',
-    ACCOUNT_USERNAME_REQUIRED=True)
+    ACCOUNT_USERNAME_REQUIRED=True,
+    ACCOUNT_SIGNUP_FORM_CLASS='allauth.account.forms.SignupForm',
+    ACCOUNT_SIGNUP_VIEW_CLASS='allauth.account.views.SignupView')
 class AccountTests(TestCase):
     def setUp(self):
         if 'allauth.socialaccount' in settings.INSTALLED_APPS:
@@ -492,7 +494,9 @@ class BaseSignupFormTests(TestCase):
 
     @override_settings(
         ACCOUNT_USERNAME_REQUIRED=True,
-        ACCOUNT_USERNAME_BLACKLIST=['username'])
+        ACCOUNT_USERNAME_BLACKLIST=['username'],
+        ACCOUNT_SIGNUP_FORM_CLASS='allauth.account.forms.SignupForm',
+        ACCOUNT_SIGNUP_VIEW_CLASS='allauth.account.views.SignupView')
     def test_username_in_blacklist(self):
         data = {
             'username': 'username',
@@ -503,7 +507,9 @@ class BaseSignupFormTests(TestCase):
 
     @override_settings(
         ACCOUNT_USERNAME_REQUIRED=True,
-        ACCOUNT_USERNAME_BLACKLIST=['username'])
+        ACCOUNT_USERNAME_BLACKLIST=['username'],
+        ACCOUNT_SIGNUP_FORM_CLASS='allauth.account.forms.SignupForm',
+        ACCOUNT_SIGNUP_VIEW_CLASS='allauth.account.views.SignupView')
     def test_username_not_in_blacklist(self):
         data = {
             'username': 'theusername',

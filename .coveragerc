@@ -5,3 +5,4 @@ omit =
     *__init__*
     *test*
     *app_settings*
+    allauth/socialaccount/providers/*/models.py

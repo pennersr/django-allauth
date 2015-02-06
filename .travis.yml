@@ -17,8 +17,8 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq sloccount
 install:
- - pip install $DJANGO --use-mirrors
- - pip install . --use-mirrors
+ - pip install $DJANGO
+ - pip install .
  - pip install coverage
 branches:
  only:

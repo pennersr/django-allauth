@@ -26,11 +26,11 @@
       <strong>Menu:</strong>
       <ul>
 	{% if user.is_authenticated %}
-	<li><a href="{% url 'account_email' %}">Change E-mail</a></li>
-	<li><a href="{% url 'account_logout' %}">Sign Out</a></li>
+	<li><a href="{% url 'account:email' %}">Change E-mail</a></li>
+	<li><a href="{% url 'account:logout' %}">Sign Out</a></li>
 	{% else %}
-	<li><a href="{% url 'account_login' %}">Sign In</a></li>
-	<li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+	<li><a href="{% url 'account:login' %}">Sign In</a></li>
+	<li><a href="{% url 'account:signup' %}">Sign Up</a></li>
 	{% endif %}
       </ul>
     </div>

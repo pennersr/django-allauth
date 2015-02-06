@@ -9,10 +9,10 @@
 
 <ul class="nav nav-tabs">
   <li class="{% block account_nav_email %}{% endblock %}">
-    <a href="{% url 'account_email' %}">{% trans 'E-mail Addresses' %}</a>
+    <a href="{% url 'account:email' %}">{% trans 'E-mail Addresses' %}</a>
   </li>
   <li class="{% block account_nav_change_password %}{% endblock %}">
-    <a href="{% url 'account_change_password' %}">{% trans 'Change Password' %}</a>
+    <a href="{% url 'account:change_password' %}">{% trans 'Change Password' %}</a>
   </li>
   {% url 'socialaccount_connections' as connections_url %}
   {% if connections_url %}

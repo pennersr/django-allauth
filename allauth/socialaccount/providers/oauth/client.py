@@ -170,11 +170,18 @@ class OAuth(object):
                 _('No access token saved for "%s".')
                 % get_token_prefix(self.request_token_url))
 
-    def query(self, url, method="GET", params=dict(), headers=dict()):
+    def query(self, url, method="GET", params=None, headers=None):
         """
         Request a API endpoint at ``url`` with ``params`` being either the
         POST or GET data.
         """
+
+        if params is None:
+            params = {}
+
+        if headers is None:
+            headers = {}
+
         access_token = self._get_at_from_session()
         oauth = OAuth1(
             self.consumer_key,

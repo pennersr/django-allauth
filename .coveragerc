@@ -1,2 +1,7 @@
 [run]
 include = allauth*
+omit =
+    */migrations/*
+    *__init__*
+    *test*
+    *app_settings*

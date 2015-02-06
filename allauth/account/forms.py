@@ -28,6 +28,7 @@ try:
 except ImportError:
     from django.utils.importlib import import_module
 
+
 class PasswordField(forms.CharField):
 
     def __init__(self, *args, **kwargs):
@@ -95,7 +96,7 @@ class LoginForm(forms.Form):
                                                          "Login"),
                                           widget=login_widget)
         self.fields["login"] = login_field
-        set_form_field_order(self,  ["login", "password", "remember"])
+        set_form_field_order(self, ["login", "password", "remember"])
         if app_settings.SESSION_REMEMBER is not None:
             del self.fields['remember']
 
@@ -423,7 +424,7 @@ class ResetPasswordForm(forms.Form):
             current_site = Site.objects.get_current()
 
             # send the password reset email
-            path = reverse("account_reset_password_from_key",
+            path = reverse("account:reset_password_from_key",
                            kwargs=dict(uidb36=user_pk_to_url_str(user),
                                        key=temp_key))
             url = build_absolute_uri(request, path,

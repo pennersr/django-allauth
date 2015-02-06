@@ -25,7 +25,7 @@ def _process_signup(request, sociallogin):
                                                        sociallogin)
     if not auto_signup:
         request.session['socialaccount_sociallogin'] = sociallogin.serialize()
-        url = reverse('socialaccount_signup')
+        url = reverse('socialaccount:signup')
         ret = HttpResponseRedirect(url)
     else:
         # Ok, auto signup it is, at least the e-mail address is ok.
@@ -75,7 +75,7 @@ def render_authentication_error(request,
     except ImmediateHttpResponse as e:
         return e.response
     if error == AuthError.CANCELLED:
-        return HttpResponseRedirect(reverse('socialaccount_login_cancelled'))
+        return HttpResponseRedirect(reverse('socialaccount:login_cancelled'))
     context = {
         'auth_error': {
             'provider': provider_id,
@@ -93,7 +93,7 @@ def _add_social_account(request, sociallogin):
     if request.user.is_anonymous():
         # This should not happen. Simply redirect to the connections
         # view (which has a login required)
-        return HttpResponseRedirect(reverse('socialaccount_connections'))
+        return HttpResponseRedirect(reverse('socialaccount:connections'))
     level = messages.INFO
     message = 'socialaccount/messages/account_connected.txt'
     if sociallogin.is_existing:

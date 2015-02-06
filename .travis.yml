@@ -7,7 +7,7 @@ python:
  - "3.4"
 env:
   global:
-   - TEST_APPS="allauth account socialaccount amazon angellist bitbucket coinbase feedly foursquare dropbox facebook flickr google github hubic instagram linkedin linkedin_oauth2 mailru odnoklassniki windowslive openid orcid paypal persona soundcloud stackexchange tumblr twitch twitter vimeo vk weibo bitly xing"
+   - TEST_APPS="allauth account socialaccount amazon angellist bitbucket coinbase dropbox feedly foursquare facebook flickr google github hubic instagram linkedin linkedin_oauth2 mailru odnoklassniki windowslive openid orcid paypal persona soundcloud stackexchange tumblr twitch twitter vimeo vk weibo bitly xing"
   matrix:
    - DJANGO=Django==1.4.3
    - DJANGO=Django==1.5
@@ -17,8 +17,8 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq sloccount
 install:
- - pip install $DJANGO --use-mirrors
- - pip install . --use-mirrors
+ - pip install $DJANGO
+ - pip install .
  - pip install coverage
 branches:
  only:

@@ -9,11 +9,13 @@ from allauth.socialaccount import providers
 
 from . import app_settings
 
-urlpatterns = patterns('', url('^', include('allauth.account.urls')))
+urlpatterns = patterns('', url('^', include(
+    'allauth.account.urls', namespace='account')))
 
 if app_settings.SOCIALACCOUNT_ENABLED:
-    urlpatterns += patterns('', url('^social/',
-                                    include('allauth.socialaccount.urls')))
+    urlpatterns += patterns('',
+        url('^social/', include(
+            'allauth.socialaccount.urls', namespace='socialaccount')))
 
 for provider in providers.registry.get_list():
     try:

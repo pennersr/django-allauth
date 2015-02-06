@@ -1,10 +1,10 @@
 import requests
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
                                                           OAuth2CallbackView)
 
 from .provider import CoinbaseProvider
+
 
 class CoinbaseOAuth2Adapter(OAuth2Adapter):
     provider_id = CoinbaseProvider.id

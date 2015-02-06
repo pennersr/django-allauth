@@ -118,7 +118,7 @@ class EmailConfirmation(models.Model):
     def send(self, request, signup=False, **kwargs):
         current_site = kwargs["site"] if "site" in kwargs \
             else Site.objects.get_current()
-        activate_url = reverse("account_confirm_email", args=[self.key])
+        activate_url = reverse("account:confirm_email", args=[self.key])
         activate_url = build_absolute_uri(request,
                                           activate_url,
                                           protocol=app_settings.DEFAULT_HTTP_PROTOCOL)

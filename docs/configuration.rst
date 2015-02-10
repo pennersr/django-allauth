@@ -10,6 +10,7 @@ ACCOUNT_ADAPTER (="allauth.account.adapter.DefaultAccountAdapter")
 ACCOUNT_AUTHENTICATION_METHOD (="username" | "email" | "username_email")
   Specifies the login method to use -- whether the user logs in by
   entering their username, e-mail address, or either one of both.
+  Setting this to "email" requires ACCOUNT_EMAIL_REQUIRED=True
 
 ACCOUNT_CONFIRM_EMAIL_ON_GET (=False)
   Determines whether or not an e-mail address is automatically confirmed

@@ -32,7 +32,7 @@ below:{% endblocktrans %}</p>
 
 {% endif %}
 
-<form class="login uniForm" method="POST" action="{% url 'account_login' %}">
+<form class="login uniForm" method="POST" action="{% url 'account:login' %}">
   {% csrf_token %}
   <fieldset class="inlineLabels">
     {{ form|as_uni_form }}

@@ -91,7 +91,7 @@ def find_package_data(where=".", package="", exclude=standard_exclude,
                         break
                 if bad_name:
                     continue
-                out.setdefault(package, []).append(prefix+name)
+                out.setdefault(package, []).append(prefix + name)
     return out
 
 
@@ -110,7 +110,7 @@ long_description = io.open('README.rst', encoding='utf-8').read()
 
 METADATA = dict(
     name='django-allauth',
-    version='0.19.1',
+    version='0.20.0',
     author='Raymond Penners',
     author_email='raymond.penners@intenct.nl',
     description='Integrated set of Django applications addressing'

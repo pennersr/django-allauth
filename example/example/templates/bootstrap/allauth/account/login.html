@@ -32,7 +32,7 @@ below:{% endblocktrans %}</p>
 
 {% endif %}
 
-<form class="login" method="POST" action="{% url 'account_login' %}">
+<form class="login" method="POST" action="{% url 'account:login' %}">
   {% csrf_token %}
   {{ form|bootstrap }}
   {% if redirect_field_value %}

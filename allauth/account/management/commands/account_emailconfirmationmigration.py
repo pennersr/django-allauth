@@ -5,6 +5,7 @@ from django.db import connections
 from allauth.account import app_settings
 from allauth.account.models import EmailAddress, EmailConfirmation
 
+
 class Command(BaseCommand):
     def handle(self, *args, **options):
         if False:
@@ -29,7 +30,6 @@ class Command(BaseCommand):
             for line in sequence_sql:
                 cursor.execute(line)
 
-
     def migrate_email_address(self):
         seen_emails = {}
         # Poor man's conflict handling: prefer latest (hence order by)
@@ -51,4 +51,4 @@ class Command(BaseCommand):
                 seen_keys.add(email_confirmation.key)
                 email_confirmation.save()
             else:
-                print ('Could not migrate EmailConfirmation %d due to missing EmailAddress' % email_confirmation.id)
+                print('Could not migrate EmailConfirmation %d due to missing EmailAddress' % email_confirmation.id)

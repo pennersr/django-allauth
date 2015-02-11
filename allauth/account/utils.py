@@ -5,23 +5,25 @@ except ImportError:
     from datetime import datetime
     now = datetime.now
 
+from django.conf import settings
 from django.contrib import messages
 from django.core.urlresolvers import reverse
-from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.http import HttpResponseRedirect
 from django.utils import six
-from django.utils.http import urlencode
-from django.utils.http import int_to_base36, base36_to_int
-from django.core.exceptions import ValidationError
-
 from django.utils.datastructures import SortedDict
+from django.utils.http import urlencode, int_to_base36, base36_to_int
+
 try:
     from django.utils.encoding import force_text
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
-from ..utils import (import_callable, valid_email_or_none,
-                     get_user_model)
+from ..utils import (
+    import_callable,
+    valid_email_or_none,
+    get_user_model
+)
 
 from . import signals
 
@@ -42,11 +44,11 @@ def get_next_redirect_url(request, redirect_field_name="next"):
 
 
 def get_login_redirect_url(request, url=None, redirect_field_name="next"):
-    redirect_url \
-        = (url
-           or get_next_redirect_url(request,
-                                    redirect_field_name=redirect_field_name)
-           or get_adapter().get_login_redirect_url(request))
+    redirect_url = (url or
+        get_next_redirect_url(
+            request,
+            redirect_field_name=redirect_field_name
+        ) or get_adapter().get_login_redirect_url(request))
     return redirect_url
 
 _user_display_callable = None
@@ -62,8 +64,7 @@ def default_user_display(user):
 def user_display(user):
     global _user_display_callable
     if not _user_display_callable:
-        f = getattr(settings, "ACCOUNT_USER_DISPLAY",
-                    default_user_display)
+        f = getattr(settings, "ACCOUNT_USER_DISPLAY", default_user_display)
         _user_display_callable = import_callable(f)
     return _user_display_callable(user)
 
@@ -93,9 +94,8 @@ def user_email(user, *args):
     return user_field(user, app_settings.USER_MODEL_EMAIL_FIELD, *args)
 
 
-def perform_login(request, user, email_verification,
-                  redirect_url=None, signal_kwargs=None,
-                  signup=False):
+def perform_login(request, user, email_verification, redirect_url=None,
+                  signal_kwargs=None, signup=False):
     """
     Keyword arguments:
 
@@ -116,13 +116,13 @@ def perform_login(request, user, email_verification,
         if not has_verified_email:
             send_email_confirmation(request, user, signup=signup)
             return HttpResponseRedirect(
-                reverse('account_email_verification_sent'))
+                reverse('account:email_verification_sent'))
     # Local users are stopped due to form validation checking
     # is_active, yet, adapter methods could toy with is_active in a
     # `user_signed_up` signal. Furthermore, social users should be
     # stopped anyway.
     if not user.is_active:
-        return HttpResponseRedirect(reverse('account_inactive'))
+        return HttpResponseRedirect(reverse('account:inactive'))
     get_adapter().login(request, user)
     response = HttpResponseRedirect(
         get_login_redirect_url(request, redirect_url))
@@ -172,18 +172,19 @@ def cleanup_email_addresses(request, addresses):
     primary_addresses = []
     verified_addresses = []
     primary_verified_addresses = []
+
     for address in addresses:
         # Pick up only valid ones...
         email = valid_email_or_none(address.email)
         if not email:
             continue
         # ... and non-conflicting ones...
-        if (app_settings.UNIQUE_EMAIL
-                and EmailAddress.objects
-                .filter(email__iexact=email)
-                .exists()):
+        if (app_settings.UNIQUE_EMAIL and EmailAddress.objects.filter(
+                email__iexact=email).exists()):
             continue
+
         a = e2a.get(email.lower())
+
         if a:
             a.primary = a.primary or address.primary
             a.verified = a.verified or address.verified
@@ -192,12 +193,15 @@ def cleanup_email_addresses(request, addresses):
             a.verified = a.verified or adapter.is_email_verified(request,
                                                                  a.email)
             e2a[email.lower()] = a
+
         if a.primary:
             primary_addresses.append(a)
             if a.verified:
                 primary_verified_addresses.append(a)
+
         if a.verified:
             verified_addresses.append(a)
+
     # Now that we got things sorted out, let's assign a primary
     if primary_verified_addresses:
         primary_address = primary_verified_addresses[0]
@@ -213,6 +217,7 @@ def cleanup_email_addresses(request, addresses):
     else:
         # Empty
         primary_address = None
+
     # There can only be one primary
     for a in e2a.values():
         a.primary = primary_address.email.lower() == a.email.lower()
@@ -232,29 +237,43 @@ def setup_user_email(request, user, addresses):
     # Is there a stashed e-mail?
     adapter = get_adapter()
     stashed_email = adapter.unstash_verified_email(request)
+
     if stashed_email:
-        priority_addresses.append(EmailAddress(user=user,
-                                               email=stashed_email,
-                                               primary=True,
-                                               verified=True))
+        priority_addresses.append(
+            EmailAddress(
+                user=user,
+                email=stashed_email,
+                primary=True,
+                verified=True
+            )
+        )
+
     email = user_email(user)
+
     if email:
-        priority_addresses.append(EmailAddress(user=user,
-                                               email=email,
-                                               primary=True,
-                                               verified=False))
-    addresses, primary = cleanup_email_addresses(request,
-                                                 priority_addresses
-                                                 + addresses)
+        priority_addresses.append(
+            EmailAddress(
+                user=user,
+                email=email,
+                primary=True,
+                verified=False
+            )
+        )
+    addresses, primary = cleanup_email_addresses(
+        request,
+        priority_addresses + addresses
+    )
+
     for a in addresses:
         a.user = user
         a.save()
+
     EmailAddress.objects.fill_cache_for_user(user, addresses)
-    if (primary
-            and email
-            and email.lower() != primary.email.lower()):
+
+    if (primary and email and email.lower() != primary.email.lower()):
         user_email(user, primary.email)
         user.save()
+
     return primary
 
 
@@ -296,11 +315,13 @@ def send_email_confirmation(request, user, signup=False):
             assert email_address
         # At this point, if we were supposed to send an email we have sent it.
         if send_email:
-            get_adapter().add_message(request,
-                                      messages.INFO,
-                                      'account/messages/'
-                                      'email_confirmation_sent.txt',
-                                      {'email': email})
+            get_adapter().add_message(
+                request,
+                messages.INFO,
+                'account/messages/'
+                'email_confirmation_sent.txt',
+                {'email': email}
+            )
     if signup:
         request.session['account_user'] = user.pk
 
@@ -317,14 +338,17 @@ def sync_user_email_addresses(user):
     email = user_email(user)
     if email and not EmailAddress.objects.filter(user=user,
                                                  email__iexact=email).exists():
-        if app_settings.UNIQUE_EMAIL \
-                and EmailAddress.objects.filter(email__iexact=email).exists():
+        if app_settings.UNIQUE_EMAIL and EmailAddress.objects.filter(
+                email__iexact=email).exists():
             # Bail out
             return
-        EmailAddress.objects.create(user=user,
-                                    email=email,
-                                    primary=False,
-                                    verified=False)
+
+        EmailAddress.objects.create(
+            user=user,
+            email=email,
+            primary=False,
+            verified=False
+        )
 
 
 def passthrough_next_redirect_url(request, url, redirect_field_name):

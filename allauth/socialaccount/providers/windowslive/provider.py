@@ -6,15 +6,15 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class WindowsLiveAccount(ProviderAccount):
-#    def get_avatar_url(self):
-#        return self.account.extra_data.get('picture')
+    # def get_avatar_url(self):
+        # return self.account.extra_data.get('picture')
 
     def to_str(self):
         name = '{0} {1}'.format(self.account.extra_data.get('first_name', ''),
                                 self.account.extra_data.get('last_name', ''))
         if name.strip() != '':
             return name
-        return super(WinLiveAccount, self).to_str()
+        return super(WindowsLiveAccount, self).to_str()
 
 
 class WindowsLiveProvider(OAuth2Provider):
@@ -24,7 +24,7 @@ class WindowsLiveProvider(OAuth2Provider):
     account_class = WindowsLiveAccount
 
 # doc on scopes available
-#http://msdn.microsoft.com/en-us/library/dn631845.aspx
+# http://msdn.microsoft.com/en-us/library/dn631845.aspx
     def get_default_scope(self):
         return ['wl.basic', 'wl.emails']
 

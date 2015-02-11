@@ -1,7 +1,6 @@
 from __future__ import absolute_import
 
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
 
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.providers.oauth.client import (OAuthClient,

@@ -9,4 +9,3 @@ class LoginForm(forms.Form):
                            required=False)
     process = forms.CharField(widget=forms.HiddenInput,
                               required=False)
-

@@ -10,6 +10,7 @@ from django.test.utils import override_settings
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
+
 from django.test.client import RequestFactory
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -38,7 +39,11 @@ def create_oauth_tests(provider):
                                        secret='dummy')
         app.sites.add(Site.objects.get_current())
 
-    @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=False)
+    @override_settings(
+        SOCIALACCOUNT_AUTO_SIGNUP=False,
+        ACCOUNT_SIGNUP_FORM_CLASS='allauth.socialaccount.forms.SocialSignupForm',
+        ACCOUNT_SIGNUP_VIEW_CLASS='allauth.socialaccount.views.SocialSignupView'
+    )
     def test_login(self):
         resp_mocks = self.get_mocked_response()
         if not resp_mocks:
@@ -46,12 +51,12 @@ def create_oauth_tests(provider):
                           % self.provider.id)
             return
         resp = self.login(resp_mocks)
-        self.assertRedirects(resp, reverse('socialaccount_signup'))
-        resp = self.client.get(reverse('socialaccount_signup'))
+        self.assertRedirects(resp, reverse('socialaccount:signup'))
+        resp = self.client.get(reverse('socialaccount:signup'))
         sociallogin = resp.context['form'].sociallogin
         data = dict(email=user_email(sociallogin.user),
                     username=str(random.randrange(1000, 10000000)))
-        resp = self.client.post(reverse('socialaccount_signup'),
+        resp = self.client.post(reverse('socialaccount:signup'),
                                 data=data)
         self.assertEqual('http://testserver/accounts/profile/',
                          resp['location'])
@@ -62,6 +67,8 @@ def create_oauth_tests(provider):
 
     @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=True,
                        SOCIALACCOUNT_EMAIL_REQUIRED=False,
+                       ACCOUNT_SIGNUP_FORM_CLASS='allauth.socialaccount.forms.SocialSignupForm',
+                       ACCOUNT_SIGNUP_VIEW_CLASS='allauth.socialaccount.views.SocialSignupView',
                        ACCOUNT_EMAIL_REQUIRED=False)
     def test_auto_signup(self):
         resp_mocks = self.get_mocked_response()
@@ -74,6 +81,11 @@ def create_oauth_tests(provider):
                          resp['location'])
         self.assertFalse(resp.context['user'].has_usable_password())
 
+    @override_settings(
+        SOCIALACCOUNT_AUTO_SIGNUP=False,
+        ACCOUNT_SIGNUP_FORM_CLASS='allauth.socialaccount.forms.SocialSignupForm',
+        ACCOUNT_SIGNUP_VIEW_CLASS='allauth.socialaccount.views.SocialSignupView'
+    )
     def login(self, resp_mocks, process='login'):
         with mocked_response(MockedResponse(200,
                                             'oauth_token=token&'
@@ -84,7 +96,7 @@ def create_oauth_tests(provider):
                                    dict(process=process))
         p = urlparse(resp['location'])
         q = parse_qs(p.query)
-        complete_url = reverse(self.provider.id+'_callback')
+        complete_url = reverse(self.provider.id + '_callback')
         self.assertGreater(q['oauth_callback'][0]
                            .find(complete_url), 0)
         with mocked_response(MockedResponse(200,
@@ -100,7 +112,7 @@ def create_oauth_tests(provider):
             'login': login,
             'test_login': test_login,
             'get_mocked_response': get_mocked_response}
-    class_name = 'OAuth2Tests_'+provider.id
+    class_name = 'OAuthTests_' + provider.id
     Class = type(class_name, (TestCase,), impl)
     Class.provider = provider
     return Class
@@ -128,7 +140,11 @@ def create_oauth2_tests(provider):
                                        secret='dummy')
         app.sites.add(Site.objects.get_current())
 
-    @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=False)
+    @override_settings(
+        SOCIALACCOUNT_AUTO_SIGNUP=False,
+        ACCOUNT_SIGNUP_FORM_CLASS='allauth.socialaccount.forms.SocialSignupForm',
+        ACCOUNT_SIGNUP_VIEW_CLASS='allauth.socialaccount.views.SocialSignupView',
+    )
     def test_login(self):
         resp_mock = self.get_mocked_response()
         if not resp_mock:
@@ -136,7 +152,7 @@ def create_oauth2_tests(provider):
                           % self.provider.id)
             return
         resp = self.login(resp_mock,)
-        self.assertRedirects(resp, reverse('socialaccount_signup'))
+        self.assertRedirects(resp, reverse('socialaccount:signup'))
 
     def test_account_tokens(self, multiple_login=False):
         email = 'some@mail.com'
@@ -184,7 +200,7 @@ def create_oauth2_tests(provider):
                                dict(process=process))
         p = urlparse(resp['location'])
         q = parse_qs(p.query)
-        complete_url = reverse(self.provider.id+'_callback')
+        complete_url = reverse(self.provider.id + '_callback')
         self.assertGreater(q['redirect_uri'][0]
                            .find(complete_url), 0)
         response_json = self \
@@ -208,7 +224,7 @@ def create_oauth2_tests(provider):
             test_account_refresh_token_saved_next_login,
             'get_login_response_json': get_login_response_json,
             'get_mocked_response': get_mocked_response}
-    class_name = 'OAuth2Tests_'+provider.id
+    class_name = 'OAuth2Tests_' + provider.id
     Class = type(class_name, (TestCase,), impl)
     Class.provider = provider
     return Class
@@ -218,7 +234,8 @@ class SocialAccountTests(TestCase):
 
     @override_settings(
         SOCIALACCOUNT_AUTO_SIGNUP=True,
-        ACCOUNT_SIGNUP_FORM_CLASS=None,
+        ACCOUNT_SIGNUP_FORM_CLASS='allauth.socialaccount.forms.SocialSignupForm',
+        ACCOUNT_SIGNUP_VIEW_CLASS='allauth.socialaccount.views.SocialSignupView',
         ACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.NONE  # noqa
     )
     def test_email_address_created(self):

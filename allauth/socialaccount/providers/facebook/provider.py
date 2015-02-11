@@ -22,7 +22,7 @@ from .locale import get_default_locale_callable
 
 
 GRAPH_API_VERSION = getattr(settings, 'SOCIALACCOUNT_PROVIDERS', {}).get(
-    'facebook',  {}).get('VERSION', 'v2.2')
+    'facebook', {}).get('VERSION', 'v2.2')
 GRAPH_API_URL = 'https://graph.facebook.com/' + GRAPH_API_VERSION
 
 NONCE_SESSION_KEY = 'allauth_facebook_nonce'
@@ -124,12 +124,12 @@ class FacebookProvider(OAuth2Provider):
             "loginOptions": self.get_fb_login_options(request),
             "loginByTokenUrl": abs_uri('facebook_login_by_token'),
             "channelUrl": abs_uri('facebook_channel'),
-            "cancelUrl": abs_uri('socialaccount_login_cancelled'),
-            "logoutUrl": abs_uri('account_logout'),
+            "cancelUrl": abs_uri('socialaccount:login_cancelled'),
+            "logoutUrl": abs_uri('account:logout'),
             "loginUrl": request.build_absolute_uri(self.get_login_url(
                 request,
                 method='oauth2')),
-            "errorUrl": abs_uri('socialaccount_login_error'),
+            "errorUrl": abs_uri('socialaccount:login_error'),
             "csrfToken": get_token(request)
         }
         ctx = {'fb_data': mark_safe(json.dumps(fb_data))}

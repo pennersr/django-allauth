@@ -1,10 +1,7 @@
 from __future__ import absolute_import
 
-import warnings
-
 from django import forms
 from django.core.urlresolvers import reverse
-from django.core import exceptions
 from django.db.models import Q
 from django.utils.translation import pgettext, ugettext_lazy as _, ugettext
 
@@ -23,10 +20,6 @@ from .app_settings import AuthenticationMethod
 from . import app_settings
 from .adapter import get_adapter
 
-try:
-    from importlib import import_module
-except ImportError:
-    from django.utils.importlib import import_module
 
 class PasswordField(forms.CharField):
 
@@ -95,7 +88,7 @@ class LoginForm(forms.Form):
                                                          "Login"),
                                           widget=login_widget)
         self.fields["login"] = login_field
-        set_form_field_order(self,  ["login", "password", "remember"])
+        set_form_field_order(self, ["login", "password", "remember"])
         if app_settings.SESSION_REMEMBER is not None:
             del self.fields['remember']
 
@@ -149,58 +142,7 @@ class LoginForm(forms.Form):
         return ret
 
 
-class _DummyCustomSignupForm(forms.Form):
-
-    def signup(self, request, user):
-        """
-        Invoked at signup time to complete the signup of the user.
-        """
-        pass
-
-
-def _base_signup_form_class():
-    """
-    Currently, we inherit from the custom form, if any. This is all
-    not very elegant, though it serves a purpose:
-
-    - There are two signup forms: one for local accounts, and one for
-      social accounts
-    - Both share a common base (BaseSignupForm)
-
-    - Given the above, how to put in a custom signup form? Which form
-      would your custom form derive from, the local or the social one?
-    """
-    if not app_settings.SIGNUP_FORM_CLASS:
-        return _DummyCustomSignupForm
-    try:
-        fc_module, fc_classname = app_settings.SIGNUP_FORM_CLASS.rsplit('.', 1)
-    except ValueError:
-        raise exceptions.ImproperlyConfigured('%s does not point to a form'
-                                              ' class'
-                                              % app_settings.SIGNUP_FORM_CLASS)
-    try:
-        mod = import_module(fc_module)
-    except ImportError as e:
-        raise exceptions.ImproperlyConfigured('Error importing form class %s:'
-                                              ' "%s"' % (fc_module, e))
-    try:
-        fc_class = getattr(mod, fc_classname)
-    except AttributeError:
-        raise exceptions.ImproperlyConfigured('Module "%s" does not define a'
-                                              ' "%s" class' % (fc_module,
-                                                               fc_classname))
-    if not hasattr(fc_class, 'signup'):
-        if hasattr(fc_class, 'save'):
-            warnings.warn("The custom signup form must offer"
-                          " a `def signup(self, request, user)` method",
-                          DeprecationWarning)
-        else:
-            raise exceptions.ImproperlyConfigured(
-                'The custom signup form must implement a "signup" method')
-    return fc_class
-
-
-class BaseSignupForm(_base_signup_form_class()):
+class BaseSignupForm(forms.Form):
     username = forms.CharField(label=_("Username"),
                                max_length=30,
                                min_length=app_settings.USERNAME_MIN_LENGTH,
@@ -260,17 +202,13 @@ class BaseSignupForm(_base_signup_form_class()):
         raise forms.ValidationError(_("A user is already registered"
                                       " with this e-mail address."))
 
-    def custom_signup(self, request, user):
-        custom_form = super(BaseSignupForm, self)
-        if hasattr(custom_form, 'signup') and callable(custom_form.signup):
-            custom_form.signup(request, user)
-        else:
-            warnings.warn("The custom signup form must offer"
-                          " a `def signup(self, request, user)` method",
-                          DeprecationWarning)
-            # Historically, it was called .save, but this is confusing
-            # in case of ModelForm
-            custom_form.save(user)
+    def signup(self, request):
+        adapter = get_adapter()
+        user = adapter.new_user(request)
+        adapter.save_user(request, user, self)
+        # TODO: Move into adapter `save_user` ?
+        setup_user_email(request, user, [])
+        return user
 
 
 class SignupForm(BaseSignupForm):
@@ -288,23 +226,13 @@ class SignupForm(BaseSignupForm):
 
     def clean(self):
         super(SignupForm, self).clean()
-        if app_settings.SIGNUP_PASSWORD_VERIFICATION \
-                and "password1" in self.cleaned_data \
-                and "password2" in self.cleaned_data:
-            if self.cleaned_data["password1"] \
-                    != self.cleaned_data["password2"]:
-                raise forms.ValidationError(_("You must type the same password"
-                                              " each time."))
+        if (app_settings.SIGNUP_PASSWORD_VERIFICATION
+                and "password1" in self.cleaned_data
+                and "password2" in self.cleaned_data):
+            if self.cleaned_data["password1"] != self.cleaned_data["password2"]:
+                raise forms.ValidationError(
+                    _("You must type the same password each time."))
         return self.cleaned_data
-
-    def save(self, request):
-        adapter = get_adapter()
-        user = adapter.new_user(request)
-        adapter.save_user(request, user, self)
-        self.custom_signup(request, user)
-        # TODO: Move into adapter `save_user` ?
-        setup_user_email(request, user, [])
-        return user
 
 
 class UserForm(forms.Form):
@@ -423,7 +351,7 @@ class ResetPasswordForm(forms.Form):
             current_site = Site.objects.get_current()
 
             # send the password reset email
-            path = reverse("account_reset_password_from_key",
+            path = reverse("account:reset_password_from_key",
                            kwargs=dict(uidb36=user_pk_to_url_str(user),
                                        key=temp_key))
             url = build_absolute_uri(request, path,

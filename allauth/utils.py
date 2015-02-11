@@ -16,6 +16,8 @@ try:
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
+from allauth.account import app_settings
+
 try:
     import importlib
 except:
@@ -94,7 +96,7 @@ def email_address_exists(email, exclude_user=None):
             users = get_user_model().objects
             if exclude_user:
                 users = users.exclude(pk=exclude_user.pk)
-            ret = users.filter(**{email_field+'__iexact': email}).exists()
+            ret = users.filter(**{email_field + '__iexact': email}).exists()
     return ret
 
 
@@ -202,3 +204,17 @@ def get_form_class(forms, form_id, default_form):
     if isinstance(form_class, six.string_types):
         form_class = import_attribute(form_class)
     return form_class
+
+
+def get_module(setting):
+    class_module, class_name = setting.rsplit('.', 1)
+    mod = importlib.import_module(class_module)
+    return getattr(mod, class_name)
+
+
+def signup_form():
+    return get_module(app_settings.SIGNUP_FORM_CLASS)
+
+
+def signup_view():
+    return get_module(app_settings.SIGNUP_VIEW_CLASS)

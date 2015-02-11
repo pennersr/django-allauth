@@ -25,10 +25,11 @@ from allauth.account.adapter import get_adapter
 from .provider import GoogleProvider
 
 
-@override_settings(SOCIALACCOUNT_AUTO_SIGNUP=True,
-                   ACCOUNT_SIGNUP_FORM_CLASS=None,
-                   ACCOUNT_EMAIL_VERIFICATION \
-                   =account_settings.EmailVerificationMethod.MANDATORY)
+@override_settings(
+    SOCIALACCOUNT_AUTO_SIGNUP=True,
+    ACCOUNT_SIGNUP_FORM_CLASS='allauth.socialaccount.forms.SocialSignupForm',
+    ACCOUNT_SIGNUP_VIEW_CLASS='allauth.socialaccount.views.SocialSignupView',
+    ACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.MANDATORY)
 class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
 
     def get_mocked_response(self,
@@ -119,10 +120,9 @@ class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
         email_address = EmailAddress.objects \
             .get(email=test_email)
         self.assertTrue(email_address.verified)
-        self.assertFalse(EmailConfirmation.objects \
-                             .filter(email_address__email=test_email) \
-                             .exists())
-
+        self.assertFalse(
+            EmailConfirmation.objects.filter(
+                email_address__email=test_email).exists())
 
     def test_account_connect(self):
         email = 'some@mail.com'
@@ -144,8 +144,8 @@ class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
                                                      provider=GoogleProvider.id).exists())
         # For now, we do not pick up any new e-mail addresses on connect
         self.assertEqual(EmailAddress.objects.filter(user=user).count(), 1)
-        self.assertEqual(EmailAddress.objects.filter(user=user,
-                                                      email=email).count(), 1)
+        self.assertEqual(EmailAddress.objects.filter(
+            user=user, email=email).count(), 1)
 
     @override_settings(
         ACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.MANDATORY,
@@ -157,9 +157,9 @@ class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
         email_address = EmailAddress.objects \
             .get(email=test_email)
         self.assertFalse(email_address.verified)
-        self.assertFalse(EmailConfirmation.objects \
-                            .filter(email_address__email=test_email) \
-                            .exists())
+        self.assertFalse(
+            EmailConfirmation.objects.filter(
+                email_address__email=test_email).exists())
 
     @override_settings(
         ACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.OPTIONAL,

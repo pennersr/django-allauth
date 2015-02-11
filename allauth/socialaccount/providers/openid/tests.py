@@ -13,6 +13,7 @@ from allauth.utils import get_user_model
 from . import views
 from .utils import AXAttribute
 
+
 class OpenIDTests(TestCase):
 
     def test_discovery_failure(self):

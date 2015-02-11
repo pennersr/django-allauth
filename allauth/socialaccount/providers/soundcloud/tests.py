@@ -4,6 +4,7 @@ from allauth.socialaccount.providers import registry
 
 from .provider import SoundCloudProvider
 
+
 class SoundCloudTests(create_oauth2_tests(registry.by_id(SoundCloudProvider.id))):
     def get_mocked_response(self):
         return MockedResponse(200, """

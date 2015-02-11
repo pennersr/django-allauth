@@ -193,7 +193,6 @@ class DefaultAccountAdapter(object):
         # that requires special logic it dynamically assigns it to the model.
         for field in data.items():
             if field[0] not in ignore_loop_fields:
-                print(field[0])
                 user_field(user, field[0], field[1])
 
         email = data.get('email')

@@ -17,8 +17,8 @@ class WindowsLiveOAuth2Adapter(OAuth2Adapter):
         headers = {'Authorization': 'Bearer {0}'.format(token.token)}
         resp = requests.get(self.profile_url, headers=headers)
 
-#example of whats returned (in python format):
-#{'first_name': 'James', 'last_name': 'Smith',
+# example of whats returned (in python format):
+# {'first_name': 'James', 'last_name': 'Smith',
 # 'name': 'James Smith', 'locale': 'en_US', 'gender': None,
 # 'emails': {'personal': None, 'account': 'jsmith@xyz.net',
 # 'business': None, 'preferred': 'jsmith@xyz.net'},

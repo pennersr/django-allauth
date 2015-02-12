@@ -57,6 +57,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.coinbase',
     'allauth.socialaccount.providers.douban',
     'allauth.socialaccount.providers.dropbox',
+    'allauth.socialaccount.providers.dropbox_oauth2',
     'allauth.socialaccount.providers.feedly',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.flickr',

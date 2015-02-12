@@ -2,6 +2,7 @@ from django.template.defaulttags import token_kwargs
 from django import template
 
 from allauth.socialaccount import providers
+from allauth.utils import get_request_param
 
 register = template.Library()
 
@@ -25,7 +26,7 @@ class ProviderLoginURLNode(template.Node):
         if auth_params is '':
             del query['auth_params']
         if 'next' not in query:
-            next = request.REQUEST.get('next')
+            next = get_request_param(request, 'next')
             if next:
                 query['next'] = next
             elif process == 'redirect':

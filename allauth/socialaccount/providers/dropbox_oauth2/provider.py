@@ -1,18 +1,17 @@
-from allauth.account.adapter import get_adapter
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
-class DropboxAccount(ProviderAccount):
+class DropboxOAuth2Account(ProviderAccount):
     pass
 
 
-class DropboxProvider(OAuth2Provider):
+class DropboxOAuth2Provider(OAuth2Provider):
     id = 'dropbox_oauth2'
     name = 'Dropbox'
     package = 'allauth.socialaccount.providers.dropbox_oauth2'
-    account_class = DropboxAccount
+    account_class = DropboxOAuth2Account
 
     def extract_uid(self, data):
         return data['uid']
@@ -21,4 +20,4 @@ class DropboxProvider(OAuth2Provider):
         return dict(name=data.get('display_name'),
                     email=data.get('email'))
 
-providers.registry.register(DropboxProvider)
+providers.registry.register(DropboxOAuth2Provider)

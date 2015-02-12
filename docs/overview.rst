@@ -41,7 +41,7 @@ Supported Providers
 
 - Bitly (OAuth2)
 
-- Dropbox (OAuth)
+- Dropbox (OAuth, OAuth2)
 
 - Facebook (both OAuth2 and JS SDK)
 

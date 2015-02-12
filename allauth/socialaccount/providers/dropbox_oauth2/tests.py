@@ -5,10 +5,11 @@ from allauth.socialaccount.tests import create_oauth2_tests
 from allauth.tests import MockedResponse
 from allauth.socialaccount.providers import registry
 
-from .provider import DropboxProvider
+from .provider import DropboxOAuth2Provider
 
 
-class DropboxTests(create_oauth2_tests(registry.by_id(DropboxProvider.id))):
+class DropboxOAuth2Tests(create_oauth2_tests(registry.by_id(
+        DropboxOAuth2Provider.id))):
     def get_mocked_response(self):
         return [MockedResponse(200, """{
             "display_name": "Björn Andersson",

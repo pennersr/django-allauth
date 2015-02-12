@@ -1,5 +1,7 @@
 2015-02-12  Raymond Penners  <raymond.penners@intenct.nl>
 
+	* Björn Andersson added support for Dropbox OAuth2, thanks!
+
 	* guoqiao contribued a provider for Douban, thanks!
 
 2015-02-05  Raymond Penners  <raymond.penners@intenct.nl>

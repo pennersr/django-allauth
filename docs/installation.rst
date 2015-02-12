@@ -46,6 +46,7 @@ settings.py::
         'allauth.socialaccount.providers.bitly',
         'allauth.socialaccount.providers.coinbase',
         'allauth.socialaccount.providers.dropbox',
+        'allauth.socialaccount.providers.dropbox_oauth2',
         'allauth.socialaccount.providers.facebook',
         'allauth.socialaccount.providers.flickr',
         'allauth.socialaccount.providers.feedly',

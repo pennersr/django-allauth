@@ -3,11 +3,11 @@ from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2CallbackView)
 import requests
 
-from .provider import DropboxProvider
+from .provider import DropboxOAuth2Provider
 
 
-class DropboxOAuthAdapter(OAuth2Adapter):
-    provider_id = DropboxProvider.id
+class DropboxOAuth2Adapter(OAuth2Adapter):
+    provider_id = DropboxOAuth2Provider.id
     access_token_url = 'https://api.dropbox.com/1/oauth2/token'
     authorize_url = 'https://www.dropbox.com/1/oauth2/authorize'
     profile_url = 'https://api.dropbox.com/1/account/info'
@@ -28,5 +28,5 @@ class DropboxOAuthAdapter(OAuth2Adapter):
         )
 
 
-oauth_login = OAuth2LoginView.adapter_view(DropboxOAuthAdapter)
-oauth_callback = OAuth2CallbackView.adapter_view(DropboxOAuthAdapter)
+oauth_login = OAuth2LoginView.adapter_view(DropboxOAuth2Adapter)
+oauth_callback = OAuth2CallbackView.adapter_view(DropboxOAuth2Adapter)

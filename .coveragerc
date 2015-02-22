@@ -5,7 +5,9 @@ omit =
     *migrations*
     *test*
     *__init__*
-    *app_settings*
+    *settings*
+    docs/*
+    setup.py
 
 [report]
 omit =

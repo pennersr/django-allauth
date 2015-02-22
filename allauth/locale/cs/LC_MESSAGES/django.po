@@ -491,7 +491,7 @@ msgstr "Vyžádat nové heslo"
 #: templates/account/password_reset.html:24
 msgid "Please contact us if you have any trouble resetting your password."
 msgstr ""
-"Prosím, kontaktujte nás, pokud máte jakékoliv potíže z resetováním hesla."
+"Prosím, kontaktujte nás, pokud máte jakékoliv potíže s resetováním hesla."
 
 #: templates/account/password_reset_done.html:15
 msgid ""

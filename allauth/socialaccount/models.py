@@ -122,7 +122,7 @@ class SocialToken(models.Model):
     app = models.ForeignKey(SocialApp)
     account = models.ForeignKey(SocialAccount)
     token = models \
-        .TextField(verbose_name=_('social account'),
+        .TextField(verbose_name=_('token'),
                    help_text=_('"oauth_token" (OAuth1) or access token'
                                ' (OAuth2)'))
     token_secret = models \

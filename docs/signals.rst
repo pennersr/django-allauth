@@ -13,11 +13,11 @@ The following signals are emitted:
   typically followed by a `user_logged_in`, unless e-mail verification
   prohibits the user to log in.
 
-- `email_confirmed`
+- `allauth.account.signals.email_confirmed`
 
   Sent after the email address in the db was updated and set to confirmed.
 
-- `email_confirmation_sent`
+- `allauth.account.signals.email_confirmation_sent`
 
   Sent right after the email confirmation is sent.
 

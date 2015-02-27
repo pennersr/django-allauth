@@ -19,6 +19,18 @@ allauth.account
   typically followed by a `user_logged_in`, unless e-mail verification
   prohibits the user to log in.
 
+- `allauth.account.signals.password_set`
+
+  Sent when a password has been successfully set for the first time.
+
+- `allauth.account.signals.password_changed`
+
+  Sent when a password has been successfully changed.
+
+- `allauth.account.signals.password_reset`
+
+  Sent when a password has been successfully reset.
+
 - `allauth.account.signals.email_confirmed`
 
   Sent after the email address in the db was updated and set to confirmed.
@@ -26,6 +38,18 @@ allauth.account
 - `allauth.account.signals.email_confirmation_sent`
 
   Sent right after the email confirmation is sent.
+
+- `allauth.account.signals.email_changed`
+
+  Sent when a primary email address has been changed.
+
+- `allauth.account.signals.email_added`
+
+  Sent when a new email address has been added.
+
+- `allauth.account.signals.email_removed`
+
+  Sent when an email address has been deleted.
 
 
 allauth.socialaccount

@@ -1,7 +1,13 @@
 Signals
 =======
 
-The following signals are emitted:
+There are several signals emitted during authentication flows. You can
+hook to them for your own needs.
+
+
+allauth.account
+---------------
+
 
 - `allauth.account.signals.user_logged_in`
 
@@ -20,6 +26,10 @@ The following signals are emitted:
 - `allauth.account.signals.email_confirmation_sent`
 
   Sent right after the email confirmation is sent.
+
+
+allauth.socialaccount
+---------------------
 
 - `allauth.socialaccount.signals.pre_social_login`
 

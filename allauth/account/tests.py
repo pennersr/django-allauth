@@ -301,6 +301,23 @@ class AccountTests(TestCase):
         data = json.loads(resp.content.decode('utf8'))
         self.assertEqual(data['location'], '/accounts/profile/')
 
+    @override_settings(
+        ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod
+        .MANDATORY,
+        ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod
+        .USERNAME)
+    def test_ajax_login_unverified(self):
+        user = get_user_model().objects.create(username='john', is_active=False)
+        user.set_password('doe')
+        user.save()
+        resp = self.client.post(reverse('account_login'),
+                                {'login': 'john',
+                                 'password': 'doe'},
+                                HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(resp.status_code, 200)
+        data = json.loads(resp.content.decode('utf8'))
+        self.assertEqual(data['location'], reverse('account_email_verification_sent'))
+
     def test_email_view(self):
         self._create_user_and_login()
         self.client.get(reverse('account_email'))

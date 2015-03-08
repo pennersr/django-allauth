@@ -663,3 +663,6 @@ class EmailVerificationSentView(TemplateView):
     template_name = 'account/verification_sent.html'
 
 email_verification_sent = EmailVerificationSentView.as_view()
+
+if app_settings.TWO_FACTOR_ENABLED:
+    from .two_factor.views import *

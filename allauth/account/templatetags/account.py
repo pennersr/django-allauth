@@ -2,6 +2,9 @@ from django import template
 
 from allauth.account.utils import user_display
 
+from .. import app_settings
+
+
 register = template.Library()
 
 class UserDisplayNode(template.Node):
@@ -45,3 +48,8 @@ def do_user_display(parser, token):
         raise template.TemplateSyntaxError("'%s' takes either two or four arguments" % bits[0])
     
     return UserDisplayNode(user, as_var)
+
+
+@register.simple_tag
+def get_app_setting(setting):
+    return getattr(app_settings, setting, None)

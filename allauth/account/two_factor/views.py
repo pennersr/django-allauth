@@ -1,6 +1,8 @@
 
 from base64 import b32encode
 from binascii import unhexlify
+from django_otp.plugins.otp_static.models import StaticDevice, StaticToken
+
 try:
     from urllib.parse import quote, urlencode
 except ImportError:
@@ -8,7 +10,7 @@ except ImportError:
 
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
-from django.views.generic import FormView, View
+from django.views.generic import FormView, View, TemplateView
 from django_otp.util import random_hex
 from django.contrib.sites.models import get_current_site
 from django.http import HttpResponse
@@ -49,6 +51,33 @@ class TwoFactorSetup(FormView):
 two_factor_setup = TwoFactorSetup.as_view()
 
 
+class TwoFactorBackupTokens(TemplateView):
+    template_name = 'account/two_factor/backup_tokens.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(TwoFactorBackupTokens, self).get_context_data(*kwargs)
+        static_device, _ = self.request.user.staticdevice_set.get_or_create(
+            name='backup'
+        )
+
+        if static_device:
+            context['backup_tokens'] = static_device.token_set.all()
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        static_device, _ = request.user.staticdevice_set.get_or_create(
+            name='backup'
+        )
+        static_device.token_set.all().delete()
+        for _ in range(10):
+            static_device.token_set.create(token=StaticToken.random_token())
+        return self.get(request, *args, **kwargs)
+
+
+two_factor_backup_tokens = TwoFactorBackupTokens.as_view()
+
+
 class QRCodeGeneratorView(View):
     http_method_names = ['get']
 
@@ -73,4 +102,4 @@ class QRCodeGeneratorView(View):
         response = HttpResponse(content_type=content_type)
         img.save(response)
         return response
-qr_code_generator = QRCodeGeneratorView.as_view()
+two_factor_qr_code_generator = QRCodeGeneratorView.as_view()

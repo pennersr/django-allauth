@@ -21,6 +21,7 @@
     </p>
 
     <form method="post">{% csrf_token %}
+      {{ form.non_field_errors }}
       {{ form.token.label }}: {{ form.token }}
       <button type="submit">{% trans 'Verify' %}</button>
     </form>

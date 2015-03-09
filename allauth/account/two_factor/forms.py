@@ -2,11 +2,26 @@ from binascii import unhexlify
 from time import time
 
 from django import forms
+from django_otp.forms import OTPAuthenticationFormMixin
 
 from django_otp.oath import totp
 from django_otp.plugins.otp_totp.models import TOTPDevice
 
 from django.utils.translation import ugettext_lazy as _
+
+
+class TOTPAuthenticateForm(OTPAuthenticationFormMixin, forms.Form):
+    otp_token = forms.CharField(
+        label=_("Token"),
+    )
+
+    def __init__(self, user, **kwargs):
+        super(TOTPAuthenticateForm, self).__init__(**kwargs)
+        self.user = user
+
+    def clean(self):
+        self.clean_otp(self.user)
+        return self.cleaned_data
 
 
 class TOTPDeviceForm(forms.Form):

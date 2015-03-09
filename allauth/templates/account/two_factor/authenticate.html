@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<h1>{% trans "Two-Factor Authentication" %}</h1>
+
+<form method="post">{% csrf_token %}
+  {{ form.non_field_errors }}
+  {{ form.otp_token.label }}: {{ form.otp_token }}
+  <button type="submit">{% trans 'Authenticate' %}</button>
+</form>
+
+{% endblock %}

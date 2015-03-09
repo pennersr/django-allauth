@@ -42,6 +42,8 @@ urlpatterns = patterns(
 
 if app_settings.TWO_FACTOR_ENABLED:
     urlpatterns += patterns('',
+        url(r"^two-factor-authenticate$", views.two_factor_authenticate,
+            name="two-factor-authenticate"),
         url(r"^two_factor/setup$", views.two_factor_setup,
             name="two-factor-setup"),
         url(r"^two_factor/backup_tokens$", views.two_factor_backup_tokens,

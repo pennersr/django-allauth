@@ -1,7 +1,8 @@
 
 from base64 import b32encode
 from binascii import unhexlify
-from django_otp.plugins.otp_static.models import StaticDevice, StaticToken
+from django.contrib.auth.models import User
+from django_otp.plugins.otp_static.models import StaticToken
 
 try:
     from urllib.parse import quote, urlencode
@@ -15,10 +16,35 @@ from django_otp.util import random_hex
 from django.contrib.sites.models import get_current_site
 from django.http import HttpResponse
 
-from allauth.account.two_factor.forms import TOTPDeviceForm
+from allauth.account.two_factor.forms import (
+    TOTPDeviceForm,
+    TOTPAuthenticateForm,
+)
 
 import qrcode
 from qrcode.image.svg import SvgPathImage
+
+
+class TwoFactorAuthenticate(FormView):
+    template_name = 'account/two_factor/authenticate.html'
+    form_class = TOTPAuthenticateForm
+    success_url = reverse_lazy('profile')
+
+    def get_form_kwargs(self):
+        kwargs = super(TwoFactorAuthenticate, self).get_form_kwargs()
+        user_id = self.request.session['user_id']
+        kwargs['user'] = User.objects.get(id=user_id)
+        return kwargs
+
+    def form_valid(self, form):
+        from django.contrib.auth import login
+        if not hasattr(form.user, 'backend'):
+            form.user.backend \
+                = "allauth.account.auth_backends.AuthenticationBackend"
+        login(self.request, form.user)
+        return super(TwoFactorAuthenticate, self).form_valid(form)
+
+two_factor_authenticate = TwoFactorAuthenticate.as_view()
 
 
 class TwoFactorSetup(FormView):
@@ -34,7 +60,7 @@ class TwoFactorSetup(FormView):
         else:
             self.secret_key = request.session['allauth_otp_qr_secret_key']
 
-        if request.user.totpdevice_set.all():
+        if request.user.totpdevice_set.exists():
             return HttpResponseRedirect(reverse_lazy('profile'))
         return super(TwoFactorSetup, self).dispatch(request, *args, **kwargs)
 

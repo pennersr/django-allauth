@@ -89,13 +89,6 @@ class Provider(object):
         """
         return data
 
-    def extract_basic_socialaccount_data(self, data):
-        """
-        Returns a tuple of basic/common social account data.
-        For example: ('123', {'first_name': 'John'})
-        """
-        raise NotImplementedError
-
     def extract_common_fields(self, data):
         """
         Extracts fields from `data` that will be used to populate the

@@ -48,6 +48,21 @@ class Provider(object):
         return app_settings.PROVIDERS.get(self.id, {})
 
     def sociallogin_from_response(self, request, response):
+        """
+        Instantiates and populates a `SocialLogin` model based on the data
+        retrieved in `response`. The method does NOT save the model to the
+        DB.
+
+        Data for `SocialLogin` will be extracted from `response` with the
+        help of the `.extract_uid()`, `.extract_extra_data()`,
+        `.extract_common_fields()`, and `.extract_email_addresses()`
+        methods.
+
+        :param request: a Django `HttpRequest` object.
+        :param response: object retrieved via the callback response of the
+            social auth provider.
+        :return: A populated instance of the `SocialLogin` model (unsaved).
+        """
         adapter = get_adapter()
         uid = self.extract_uid(response)
         extra_data = self.extract_extra_data(response)
@@ -66,6 +81,12 @@ class Provider(object):
         return sociallogin
 
     def extract_extra_data(self, data):
+        """
+        Extracts fields from `data` that will be stored in
+        `SocialAccount`'s `extra_data` JSONField.
+
+        :return: any JSON-serializable Python structure.
+        """
         return data
 
     def extract_basic_socialaccount_data(self, data):
@@ -77,9 +98,15 @@ class Provider(object):
 
     def extract_common_fields(self, data):
         """
+        Extracts fields from `data` that will be used to populate the
+        `User` model in the `SOCIALACCOUNT_ADAPTER`'s `populate_user()`
+        method.
+
         For example:
 
-        {'first_name': 'John'}
+            {'first_name': 'John'}
+
+        :return: dictionary of key-value pairs.
         """
         return {}
 

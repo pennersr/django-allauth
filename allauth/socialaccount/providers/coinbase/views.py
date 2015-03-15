@@ -8,7 +8,6 @@ from .provider import CoinbaseProvider
 
 class CoinbaseOAuth2Adapter(OAuth2Adapter):
     provider_id = CoinbaseProvider.id
-    supports_state = False
 
     @property
     def authorize_url(self):

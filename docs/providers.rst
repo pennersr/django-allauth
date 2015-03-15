@@ -329,6 +329,18 @@ latter.
 Development callback URL
     http://example.com/accounts/soundcloud/login/callback/
 
+Evernote
+----------
+
+Register your OAuth2 application at `https://dev.evernote.com/doc/articles/authentication.php`.
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'evernote': {
+            'EVERNOTE_HOSTNAME': 'evernote.com'  # defaults to sandbox.evernote.com
+        }
+    }
+
+
 Stack Exchange
 --------------
 

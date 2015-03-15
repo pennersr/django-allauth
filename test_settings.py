@@ -76,6 +76,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.paypal',
     'allauth.socialaccount.providers.persona',
     'allauth.socialaccount.providers.soundcloud',
+    'allauth.socialaccount.providers.spotify',
     'allauth.socialaccount.providers.stackexchange',
     'allauth.socialaccount.providers.tumblr',
     'allauth.socialaccount.providers.twitch',

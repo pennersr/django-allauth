@@ -73,6 +73,8 @@ Supported Providers
 
 - SoundCloud (OAuth2)
 
+- Spotify (OAuth2)
+
 - Stack Exchange (OAuth2)
 
 - Tumblr (OAuth)

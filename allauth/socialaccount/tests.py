@@ -41,7 +41,7 @@ def create_oauth_tests(provider):
     @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=False)
     def test_login(self):
         resp_mocks = self.get_mocked_response()
-        if not resp_mocks:
+        if resp_mocks is None:
             warnings.warn("Cannot test provider %s, no oauth mock"
                           % self.provider.id)
             return
@@ -87,19 +87,22 @@ def create_oauth_tests(provider):
         complete_url = reverse(self.provider.id+'_callback')
         self.assertGreater(q['oauth_callback'][0]
                            .find(complete_url), 0)
-        with mocked_response(MockedResponse(200,
-                                            'oauth_token=token&'
-                                            'oauth_token_secret=psst',
-                                            {'content-type':
-                                             'text/html'}),
+        with mocked_response(self.get_access_token_response(),
                              *resp_mocks):
             resp = self.client.get(complete_url)
         return resp
 
+    def get_access_token_response(self):
+        return MockedResponse(
+            200,
+            'oauth_token=token&oauth_token_secret=psst',
+            {'content-type': 'text/html'})
+
     impl = {'setUp': setUp,
             'login': login,
             'test_login': test_login,
-            'get_mocked_response': get_mocked_response}
+            'get_mocked_response': get_mocked_response,
+            'get_access_token_response': get_access_token_response}
     class_name = 'OAuth2Tests_'+provider.id
     Class = type(class_name, (TestCase,), impl)
     Class.provider = provider

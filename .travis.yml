@@ -7,7 +7,7 @@ python:
  - "3.4"
 env:
   global:
-   - TEST_APPS="allauth account socialaccount amazon angellist bitbucket coinbase feedly foursquare douban dropbox dropbox_oauth2 facebook flickr google github hubic instagram linkedin linkedin_oauth2 mailru odnoklassniki windowslive openid orcid paypal persona soundcloud spotify stackexchange tumblr twitch twitter vimeo vk weibo bitly xing"
+   - TEST_APPS="allauth account socialaccount amazon angellist bitbucket coinbase evernote feedly foursquare douban dropbox dropbox_oauth2 facebook flickr google github hubic instagram linkedin linkedin_oauth2 mailru odnoklassniki windowslive openid orcid paypal persona soundcloud spotify stackexchange tumblr twitch twitter vimeo vk weibo bitly xing"
   matrix:
    - DJANGO=Django==1.4.3
    - DJANGO=Django==1.5

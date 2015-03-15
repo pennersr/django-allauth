@@ -43,6 +43,8 @@ Supported Providers
 
 - Dropbox (OAuth, OAuth2)
 
+- Evernote (OAuth)
+
 - Facebook (both OAuth2 and JS SDK)
 
 - Feedly (OAuth2)

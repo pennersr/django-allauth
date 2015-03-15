@@ -92,8 +92,12 @@ class OAuthCallbackView(OAuthView):
             token = SocialToken(
                 app=app,
                 token=access_token['oauth_token'],
-                token_secret=access_token['oauth_token_secret'])
-            login = self.adapter.complete_login(request, app, token)
+                # .get() -- e.g. Evernote does not feature a secret
+                token_secret=access_token.get('oauth_token_secret', ''))
+            login = self.adapter.complete_login(request,
+                                                app,
+                                                token,
+                                                response=access_token)
             login.token = token
             login.state = SocialLogin.unstash_state(request)
             return complete_social_login(request, login)

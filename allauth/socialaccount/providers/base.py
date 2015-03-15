@@ -80,6 +80,14 @@ class Provider(object):
         adapter.populate_user(request, sociallogin, common_fields)
         return sociallogin
 
+    def extract_uid(self, data):
+        """
+        Extracts the unique user ID from `data`
+        """
+        raise NotImplementedError(
+            'The provider must implement the `extract_uid()` method'
+        )
+
     def extract_extra_data(self, data):
         """
         Extracts fields from `data` that will be stored in

@@ -168,10 +168,13 @@ class DefaultAccountAdapter(object):
         if app_settings.USER_MODEL_USERNAME_FIELD:
             user_username(user,
                           username
-                          or generate_unique_username([first_name,
-                                                       last_name,
-                                                       email,
-                                                       'user']))
+                          or self.generate_unique_username([first_name,
+                                                            last_name,
+                                                            email,
+                                                            'user']))
+
+    def generate_unique_username(self, txts, regex=None):
+        return generate_unique_username(txts, regex)
 
     def save_user(self, request, user, form, commit=True):
         """

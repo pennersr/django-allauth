@@ -98,7 +98,7 @@ msgstr "Uživatel s tímto e-mailem je již registrován."
 
 #: account/forms.py:284 account/forms.py:381
 msgid "Password (again)"
-msgstr "Heslo (zopakování)"
+msgstr "Heslo (znovu)"
 
 #: account/forms.py:301 account/forms.py:370 account/forms.py:388
 #: account/forms.py:465
@@ -123,7 +123,7 @@ msgstr "Nové heslo"
 
 #: account/forms.py:357 account/forms.py:452
 msgid "New Password (again)"
-msgstr "Nové heslo (zopakování)"
+msgstr "Nové heslo (znovu)"
 
 #: account/forms.py:361
 msgid "Please type your current password."

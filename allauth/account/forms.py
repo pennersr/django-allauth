@@ -228,6 +228,7 @@ class BaseSignupForm(_base_signup_form_class()):
         else:
             self.fields["email"].label = ugettext("E-mail (optional)")
             self.fields["email"].required = False
+            self.fields["email"].widget.is_required = False
             if self.username_required:
                 field_order = ['username', 'email']
 

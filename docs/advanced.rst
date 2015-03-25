@@ -41,7 +41,7 @@ Similarly, you will need to set `ACCOUNT_USER_MODEL_EMAIL_FIELD` to
 
 For example, if you want to use a custom user model that has `email`
 as the identifying field, and you don't want to collect usernames, you
-need the following in your settings.py:
+need the following in your settings.py::
 
     ACCOUNT_USER_MODEL_USERNAME_FIELD = None
     ACCOUNT_EMAIL_REQUIRED = True

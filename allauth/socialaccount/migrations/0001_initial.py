@@ -18,11 +18,11 @@ class Migration(migrations.Migration):
             name='SocialAccount',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('provider', models.CharField(max_length=30, verbose_name='provider', choices=[(b'google', b'Google'), (b'instagram', b'Instagram'), (b'twitter', b'Twitter'), (b'vk', b'VK'), (b'linkedin', b'LinkedIn'), (b'tumblr', b'Tumblr'), (b'linkedin_oauth2', b'LinkedIn'), (b'weibo', b'Weibo'), (b'xing', b'Xing'), (b'foursquare', b'Foursquare'), (b'angellist', b'AngelList'), (b'flickr', b'Flickr'), (b'mailru', b'Mail.RU'), (b'openid', b'OpenID'), (b'persona', b'Persona'), (b'bitly', b'Bitly'), (b'paypal', b'Paypal'), (b'amazon', b'Amazon'), (b'hubic', b'Hubic'), (b'windowslive', 'Live'), (b'dropbox', b'Dropbox'), (b'soundcloud', b'SoundCloud'), (b'feedly', 'Feedly'), (b'bitbucket', b'Bitbucket'), (b'github', b'GitHub'), (b'vimeo', b'Vimeo'), (b'orcid', b'Orcid.org'), (b'facebook', b'Facebook'), (b'stackexchange', b'Stack Exchange'), (b'twitch', b'Twitch')])),
+                ('provider', models.CharField(max_length=30, verbose_name='provider', choices=[('spotify', 'Spotify'), ('openid', 'OpenID'), ('linkedin', 'LinkedIn'), ('hubic', 'Hubic'), ('twitter', 'Twitter'), ('foursquare', 'Foursquare'), ('mailru', 'Mail.RU'), ('facebook', 'Facebook'), ('bitbucket', 'Bitbucket'), ('evernote', 'Evernote'), ('google', 'Google'), ('vimeo', 'Vimeo'), ('tumblr', 'Tumblr'), ('instagram', 'Instagram'), ('dropbox_oauth2', 'Dropbox'), ('xing', 'Xing'), ('weibo', 'Weibo'), ('angellist', 'AngelList'), ('github', 'GitHub'), ('coinbase', 'Coinbase'), ('amazon', 'Amazon'), ('persona', 'Persona'), ('linkedin_oauth2', 'LinkedIn'), ('soundcloud', 'SoundCloud'), ('paypal', 'Paypal'), ('douban', 'Douban'), ('vk', 'VK'), ('feedly', 'Feedly'), ('flickr', 'Flickr'), ('stackexchange', 'Stack Exchange'), ('bitly', 'Bitly'), ('orcid', 'Orcid.org'), ('twitch', 'Twitch'), ('dropbox', 'Dropbox'), ('windowslive', 'Live'), ('odnoklassniki', 'Odnoklassniki')])),
                 ('uid', models.CharField(max_length=255, verbose_name='uid')),
                 ('last_login', models.DateTimeField(auto_now=True, verbose_name='last login')),
                 ('date_joined', models.DateTimeField(auto_now_add=True, verbose_name='date joined')),
-                ('extra_data', allauth.socialaccount.fields.JSONField(default=b'{}', verbose_name='extra data')),
+                ('extra_data', allauth.socialaccount.fields.JSONField(default='{}', verbose_name='extra data')),
                 ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
             name='SocialApp',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('provider', models.CharField(max_length=30, verbose_name='provider', choices=[(b'google', b'Google'), (b'instagram', b'Instagram'), (b'twitter', b'Twitter'), (b'vk', b'VK'), (b'linkedin', b'LinkedIn'), (b'tumblr', b'Tumblr'), (b'linkedin_oauth2', b'LinkedIn'), (b'weibo', b'Weibo'), (b'xing', b'Xing'), (b'foursquare', b'Foursquare'), (b'angellist', b'AngelList'), (b'flickr', b'Flickr'), (b'mailru', b'Mail.RU'), (b'openid', b'OpenID'), (b'persona', b'Persona'), (b'bitly', b'Bitly'), (b'paypal', b'Paypal'), (b'amazon', b'Amazon'), (b'hubic', b'Hubic'), (b'windowslive', 'Live'), (b'dropbox', b'Dropbox'), (b'soundcloud', b'SoundCloud'), (b'feedly', 'Feedly'), (b'bitbucket', b'Bitbucket'), (b'github', b'GitHub'), (b'vimeo', b'Vimeo'), (b'orcid', b'Orcid.org'), (b'facebook', b'Facebook'), (b'stackexchange', b'Stack Exchange'), (b'twitch', b'Twitch')])),
+                ('provider', models.CharField(max_length=30, verbose_name='provider', choices=[('spotify', 'Spotify'), ('openid', 'OpenID'), ('linkedin', 'LinkedIn'), ('hubic', 'Hubic'), ('twitter', 'Twitter'), ('foursquare', 'Foursquare'), ('mailru', 'Mail.RU'), ('facebook', 'Facebook'), ('bitbucket', 'Bitbucket'), ('evernote', 'Evernote'), ('google', 'Google'), ('vimeo', 'Vimeo'), ('tumblr', 'Tumblr'), ('instagram', 'Instagram'), ('dropbox_oauth2', 'Dropbox'), ('xing', 'Xing'), ('weibo', 'Weibo'), ('angellist', 'AngelList'), ('github', 'GitHub'), ('coinbase', 'Coinbase'), ('amazon', 'Amazon'), ('persona', 'Persona'), ('linkedin_oauth2', 'LinkedIn'), ('soundcloud', 'SoundCloud'), ('paypal', 'Paypal'), ('douban', 'Douban'), ('vk', 'VK'), ('feedly', 'Feedly'), ('flickr', 'Flickr'), ('stackexchange', 'Stack Exchange'), ('bitly', 'Bitly'), ('orcid', 'Orcid.org'), ('twitch', 'Twitch'), ('dropbox', 'Dropbox'), ('windowslive', 'Live'), ('odnoklassniki', 'Odnoklassniki')])),
                 ('name', models.CharField(max_length=40, verbose_name='name')),
                 ('client_id', models.CharField(help_text='App ID, or consumer key', max_length=100, verbose_name='client id')),
                 ('secret', models.CharField(help_text='API secret, client secret, or consumer secret', max_length=100, verbose_name='secret key')),
@@ -52,7 +52,7 @@ class Migration(migrations.Migration):
             name='SocialToken',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('token', models.TextField(help_text='"oauth_token" (OAuth1) or access token (OAuth2)', verbose_name='social account')),
+                ('token', models.TextField(help_text='"oauth_token" (OAuth1) or access token (OAuth2)', verbose_name='token')),
                 ('token_secret', models.TextField(help_text='"oauth_token_secret" (OAuth1) or refresh token (OAuth2)', verbose_name='token secret', blank=True)),
                 ('expires_at', models.DateTimeField(null=True, verbose_name='expires at', blank=True)),
                 ('account', models.ForeignKey(to='socialaccount.SocialAccount')),

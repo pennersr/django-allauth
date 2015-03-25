@@ -265,6 +265,39 @@ class AccountTests(TestCase):
         c.get(reverse('account_login'))
         # TODO: Actually test something
 
+    def test_login_inactive_account(self):
+        """
+        Tests login behavior with inactive accounts.
+
+        Inactive user accounts should be prevented from performing any actions,
+        regardless of their verified state.
+        """
+        # Inactive and verified user account
+        user = get_user_model().objects.create(username='john', is_active=False)
+        user.set_password('doe')
+        user.save()
+        EmailAddress.objects.create(user=user,
+                                    email='john@example.com',
+                                    primary=True,
+                                    verified=True)
+        resp = self.client.post(reverse('account_login'),
+                                {'login': 'john',
+                                 'password': 'doe'})
+        self.assertRedirects(resp, reverse('account_inactive'))
+
+        # Inactive and unverified user account
+        user = get_user_model().objects.create(username='doe', is_active=False)
+        user.set_password('john')
+        user.save()
+        EmailAddress.objects.create(user=user,
+                                    email='doe@example.com',
+                                    primary=True,
+                                    verified=False)
+        resp = self.client.post(reverse('account_login'),
+                                {'login': 'doe',
+                                 'password': 'john'})
+        self.assertRedirects(resp, reverse('account_inactive'))
+
     def test_ajax_password_reset(self):
         get_user_model().objects.create(
             username='john', email='john@doe.org', is_active=True)

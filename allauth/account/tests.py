@@ -307,9 +307,13 @@ class AccountTests(TestCase):
         ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod
         .USERNAME)
     def test_ajax_login_unverified(self):
-        user = get_user_model().objects.create(username='john', is_active=False)
+        user = get_user_model().objects.create(username='john', is_active=True)
         user.set_password('doe')
         user.save()
+        EmailAddress.objects.create(user=user,
+                                    email='john@example.com',
+                                    primary=True,
+                                    verified=False)
         resp = self.client.post(reverse('account_login'),
                                 {'login': 'john',
                                  'password': 'doe'},

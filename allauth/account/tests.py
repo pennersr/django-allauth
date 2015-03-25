@@ -260,6 +260,39 @@ class AccountTests(TestCase):
         EmailAddress.objects.add_email(request, u, u.email, confirm=True)
         self.assertTrue(mail.outbox[0].subject[1:].startswith(site.name))
 
+    @override_settings(
+        ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod
+        .OPTIONAL)
+    def test_login_unverified_account_optional(self):
+        """Tests login behavior when email verification is optional."""
+        user = get_user_model().objects.create(username='john')
+        user.set_password('doe')
+        user.save()
+        EmailAddress.objects.create(user=user,
+                                    email='john@example.com',
+                                    primary=True,
+                                    verified=False)
+        resp = self.client.post(reverse('account_login'),
+                                {'login': 'john',
+                                 'password': 'doe'})
+        self.assertEqual(resp['location'],
+                         'http://testserver'+settings.LOGIN_REDIRECT_URL)
+
+    def test_login_unverified_account_mandatory(self):
+        """Tests login behavior when email verification is mandatory."""
+        user = get_user_model().objects.create(username='john')
+        user.set_password('doe')
+        user.save()
+        EmailAddress.objects.create(user=user,
+                                    email='john@example.com',
+                                    primary=True,
+                                    verified=False)
+        resp = self.client.post(reverse('account_login'),
+                                {'login': 'john',
+                                 'password': 'doe'})
+        self.assertRedirects(resp, reverse('account_email_verification_sent'))
+        self.assertEqual(resp['location'],
+                         'http://testserver' + reverse('account_email_verification_sent'))
 
     def test_ajax_password_reset(self):
         get_user_model().objects.create(
@@ -296,27 +329,6 @@ class AccountTests(TestCase):
         self.assertEqual(resp.status_code, 200)
         data = json.loads(resp.content.decode('utf8'))
         self.assertEqual(data['location'], '/accounts/profile/')
-
-    @override_settings(
-        ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod
-        .MANDATORY,
-        ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod
-        .USERNAME)
-    def test_ajax_login_unverified(self):
-        user = get_user_model().objects.create(username='john', is_active=True)
-        user.set_password('doe')
-        user.save()
-        EmailAddress.objects.create(user=user,
-                                    email='john@example.com',
-                                    primary=True,
-                                    verified=False)
-        resp = self.client.post(reverse('account_login'),
-                                {'login': 'john',
-                                 'password': 'doe'},
-                                HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        self.assertEqual(resp.status_code, 200)
-        data = json.loads(resp.content.decode('utf8'))
-        self.assertEqual(data['location'], reverse('account_email_verification_sent'))
 
     def test_email_view(self):
         self._create_user_and_login()

@@ -230,7 +230,7 @@ class ConfirmEmailView(TemplateResponseMixin, View):
                                   {'email': confirmation.email_address.email})
         if app_settings.LOGIN_ON_EMAIL_CONFIRMATION:
             resp = self.login_on_confirm(confirmation)
-            if resp:
+            if resp is not None:
                 return resp
         # Don't -- allauth doesn't touch is_active so that sys admin can
         # use it to block users et al
@@ -273,6 +273,8 @@ class ConfirmEmailView(TemplateResponseMixin, View):
             return perform_login(self.request,
                                  user,
                                  app_settings.EmailVerificationMethod.NONE)
+
+        return None
 
     def get_object(self, queryset=None):
         if queryset is None:

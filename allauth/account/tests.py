@@ -260,10 +260,6 @@ class AccountTests(TestCase):
         EmailAddress.objects.add_email(request, u, u.email, confirm=True)
         self.assertTrue(mail.outbox[0].subject[1:].startswith(site.name))
 
-    def test_login_view(self):
-        c = Client()
-        c.get(reverse('account_login'))
-        # TODO: Actually test something
 
     def test_ajax_password_reset(self):
         get_user_model().objects.create(

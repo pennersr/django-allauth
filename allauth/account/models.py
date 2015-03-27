@@ -110,6 +110,9 @@ class EmailConfirmation(models.Model):
         if not self.key_expired() and not self.email_address.verified:
             email_address = self.email_address
             get_adapter().confirm_email(request, email_address)
+            # logic needed.
+            if app_settings.EMAIL_VERIFICAITON_LINK_SINGLE_USE:
+                pass
             signals.email_confirmed.send(sender=self.__class__,
                                          request=request,
                                          email_address=email_address)

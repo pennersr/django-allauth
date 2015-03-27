@@ -188,7 +188,14 @@ class AppSettings(object):
         Autmatically log the user in once they confirmed their email address
         """
         return self._setting('LOGIN_ON_EMAIL_CONFIRMATION', True)
-
+    
+    @property
+    def EMAIL_VERIFICAITON_LINK_SINGLE_USE(self):
+        """
+        Expires the verification link after it has used once, default is True.
+        """
+        return self._setting('EMAIL_VERIFICAITON_LINK_SINGLE_USE', True)
+    
     @property
     def LOGOUT_REDIRECT_URL(self):
         return self._setting('LOGOUT_REDIRECT_URL', '/')

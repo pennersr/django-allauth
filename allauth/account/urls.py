@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
 from django.views.generic import RedirectView
 
-from . import views
+from . import views, app_settings
 
 urlpatterns = patterns(
     "",
@@ -36,4 +36,18 @@ urlpatterns = patterns(
         name="account_reset_password_from_key"),
     url(r"^password/reset/key/done/$", views.password_reset_from_key_done,
         name="account_reset_password_from_key_done"),
+
+
 )
+
+if app_settings.TWO_FACTOR_ENABLED:
+    urlpatterns += patterns('',
+        url(r"^two-factor-authenticate$", views.two_factor_authenticate,
+            name="two-factor-authenticate"),
+        url(r"^two_factor/setup$", views.two_factor_setup,
+            name="two-factor-setup"),
+        url(r"^two_factor/backup_tokens$", views.two_factor_backup_tokens,
+            name="two-factor-backup-tokens"),
+        url(r"^two_factor/qr_code$", views.two_factor_qr_code_generator,
+            name="two-factor-qr-code"),
+    )

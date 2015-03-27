@@ -5,7 +5,8 @@ import warnings
 import json
 
 from django.conf import settings
-from django.http import HttpResponse
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.template import TemplateDoesNotExist
 from django.contrib.sites.models import Site
@@ -13,6 +14,7 @@ from django.core.mail import EmailMultiAlternatives, EmailMessage
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 from django.contrib import messages
+from allauth.exceptions import ImmediateHttpResponse
 
 try:
     from django.utils.encoding import force_text
@@ -287,6 +289,16 @@ class DefaultAccountAdapter(object):
 
     def login(self, request, user):
         from django.contrib.auth import login
+
+        if app_settings.TWO_FACTOR_ENABLED:
+            if user.totpdevice_set.all():
+                request.session['user_id'] = user.id
+                raise ImmediateHttpResponse(
+                    response=HttpResponseRedirect(
+                        reverse('two-factor-authenticate')
+                    )
+                )
+
         # HACK: This is not nice. The proper Django way is to use an
         # authentication backend
         if not hasattr(user, 'backend'):

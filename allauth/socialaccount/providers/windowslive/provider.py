@@ -21,9 +21,11 @@ class WindowsLiveProvider(OAuth2Provider):
     package = 'allauth.socialaccount.providers.windowslive'
     account_class = WindowsLiveAccount
 
-# doc on scopes available
-#http://msdn.microsoft.com/en-us/library/dn631845.aspx
     def get_default_scope(self):
+        """
+        Doc on scopes available at
+        http://msdn.microsoft.com/en-us/library/dn631845.aspx
+        """
         return ['wl.basic', 'wl.emails']
 
     def extract_uid(self, data):

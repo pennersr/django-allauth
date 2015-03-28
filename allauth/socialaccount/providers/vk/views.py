@@ -4,9 +4,6 @@ from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
                                                           OAuth2CallbackView)
 
-from allauth.socialaccount.models import SocialLogin, SocialAccount
-from allauth.socialaccount.adapter import get_adapter
-
 from .provider import VKProvider
 
 

@@ -6,8 +6,6 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class WindowsLiveAccount(ProviderAccount):
-#    def get_avatar_url(self):
-#        return self.account.extra_data.get('picture')
 
     def to_str(self):
         name = '{0} {1}'.format(self.account.extra_data.get('first_name', ''),

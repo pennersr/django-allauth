@@ -14,7 +14,8 @@ from django.contrib.sites.models import Site
 
 from ..utils import (email_address_exists, get_user_model,
                      set_form_field_order,
-                     build_absolute_uri)
+                     build_absolute_uri,
+                     get_username_max_length)
 
 from .models import EmailAddress
 from .utils import (perform_login, setup_user_email, user_username,
@@ -82,9 +83,10 @@ class LoginForm(forms.Form):
             login_widget = forms.TextInput(attrs={'placeholder':
                                                   _('Username'),
                                                   'autofocus': 'autofocus'})
-            login_field = forms.CharField(label=_("Username"),
-                                          widget=login_widget,
-                                          max_length=30)
+            login_field = forms.CharField(
+                label=_("Username"),
+                widget=login_widget,
+                max_length=get_username_max_length())
         else:
             assert app_settings.AUTHENTICATION_METHOD \
                 == AuthenticationMethod.USERNAME_EMAIL
@@ -427,8 +429,9 @@ class ResetPasswordForm(forms.Form):
             path = reverse("account_reset_password_from_key",
                            kwargs=dict(uidb36=user_pk_to_url_str(user),
                                        key=temp_key))
-            url = build_absolute_uri(request, path,
-                                     protocol=app_settings.DEFAULT_HTTP_PROTOCOL)
+            url = build_absolute_uri(
+                request, path,
+                protocol=app_settings.DEFAULT_HTTP_PROTOCOL)
             context = {"site": current_site,
                        "user": user,
                        "password_reset_url": url}

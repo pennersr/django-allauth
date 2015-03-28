@@ -12,7 +12,7 @@ class WindowsLiveAccount(ProviderAccount):
                                 self.account.extra_data.get('last_name', ''))
         if name.strip() != '':
             return name
-        return super(WinLiveAccount, self).to_str()
+        return super(WindowsLiveAccount, self).to_str()
 
 
 class WindowsLiveProvider(OAuth2Provider):

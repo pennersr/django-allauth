@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('uid', models.CharField(max_length=255, verbose_name='uid')),
                 ('last_login', models.DateTimeField(auto_now=True, verbose_name='last login')),
                 ('date_joined', models.DateTimeField(auto_now_add=True, verbose_name='date joined')),
-                ('extra_data', allauth.socialaccount.fields.JSONField(default=b'{}', verbose_name='extra data')),
+                ('extra_data', allauth.socialaccount.fields.JSONField(default='{}', verbose_name='extra data')),
                 ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={

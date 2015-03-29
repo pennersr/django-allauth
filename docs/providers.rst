@@ -386,6 +386,8 @@ Twitter won't allow using http://localhost:8000.
 For production use a callback URL such as::
 
    http://{{yourdomain}}.com
+   
+To allow user's to login without authorizing each session select "Allow this application to be used to Sign in with Twitter" under the application's "Settings" tab.
 
 App database configuration through admin
 ****************************************

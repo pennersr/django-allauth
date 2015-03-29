@@ -1,14 +1,14 @@
 2015-02-27  Raymond Penners  <raymond.penners@intenct.nl>
 
-	* Patrick Paul contribued a provider for Evernote, thanks!
+	* Patrick Paul contributed a provider for Evernote, thanks!
 
-	* Josh Wright contribued a provider for Spotify, thanks!
+	* Josh Wright contributed a provider for Spotify, thanks!
 
 2015-02-12  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Björn Andersson added support for Dropbox OAuth2, thanks!
 
-	* guoqiao contribued a provider for Douban, thanks!
+	* guoqiao contributed a provider for Douban, thanks!
 
 2015-02-05  Raymond Penners  <raymond.penners@intenct.nl>
 
@@ -146,7 +146,7 @@
 
 2014-03-10  Raymond Penners  <raymond.penners@intenct.nl>
 
-        * Support for hooking up a callback when `FB.init()` is ready
+	* Support for hooking up a callback when `FB.init()` is ready
 	(`allauth.facebook.onInit`)
 
 	* Version 0.16.0 released.

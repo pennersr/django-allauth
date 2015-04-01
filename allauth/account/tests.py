@@ -181,19 +181,40 @@ class AccountTests(TestCase):
         self.assertEqual(mail.outbox[0].to, ['john@doe.org'])
         return user
 
-    def test_password_forgotten_url_protocol(self):
+    def test_password_reset_flow(self):
+        """
+        Tests the password reset flow: requesting a new password,
+        receiving the reset link via email and finally resetting the
+        password to a new value.
+        """
+        # Request new password
         user = self._request_new_password()
         body = mail.outbox[0].body
         self.assertGreater(body.find('https://'), 0)
+
+        # Extract URL for `password_reset_from_key` view and access it
         url = body[body.find('/password/reset/'):].split()[0]
         resp = self.client.get(url)
         self.assertTemplateUsed(resp, 'account/password_reset_from_key.html')
-        self.client.post(url,
-                         {'password1': 'newpass123',
-                          'password2': 'newpass123'})
+        assert 'token_fail' not in resp.context_data
+
+        # Reset the password
+        resp = self.client.post(url,
+                                {'password1': 'newpass123',
+                                 'password2': 'newpass123'})
+        self.assertRedirects(resp, reverse('account_reset_password_from_key_done'))
+
+        # Check the new password is in effect
         user = get_user_model().objects.get(pk=user.pk)
         self.assertTrue(user.check_password('newpass123'))
-        return resp
+
+        # Trying to reset the password against the same URL (or any other
+        # invalid/obsolete URL) returns a bad token response
+        resp = self.client.post(url,
+                                {'password1': 'newpass123',
+                                 'password2': 'newpass123'})
+        self.assertTemplateUsed(resp, 'account/password_reset_from_key.html')
+        assert resp.context_data['token_fail']
 
     def test_email_verification_mandatory(self):
         c = Client()

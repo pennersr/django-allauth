@@ -216,6 +216,16 @@ class AccountTests(TestCase):
         self.assertTemplateUsed(resp, 'account/password_reset_from_key.html')
         assert resp.context_data['token_fail']
 
+        # When in XHR views, it should respond with a 400 bad request
+        # code, and the response body should contain JSON-encoded `errors`
+        resp = self.client.post(url,
+                                {'password1': 'newpass123',
+                                 'password2': 'newpass123'},
+                                HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        assert resp.status_code == 400
+        data = json.loads(resp.content.decode('utf8'))
+        assert 'token_failed' in data['errors']
+
     def test_email_verification_mandatory(self):
         c = Client()
         # Signup

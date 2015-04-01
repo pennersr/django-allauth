@@ -607,7 +607,19 @@ class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, FormView):
         return super(PasswordResetFromKeyView, self).form_valid(form)
 
     def _response_bad_token(self, request, uidb36, key, **kwargs):
-        return self.render_to_response(self.get_context_data(token_fail=True))
+        # Special-casing ajax/non-ajax scenarios due to #890
+        if request.is_ajax():
+            data = {
+                'errors': ['token_failed'],
+            }
+            response = _ajax_response(request,
+                                      HttpResponseBadRequest(reason=data))
+        else:
+            response = self.render_to_response(
+                self.get_context_data(token_fail=True)
+            )
+
+        return response
 
 password_reset_from_key = PasswordResetFromKeyView.as_view()
 

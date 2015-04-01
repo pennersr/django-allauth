@@ -5,21 +5,20 @@ import warnings
 from django import forms
 from django.core.urlresolvers import reverse
 from django.core import exceptions
-from django.db.models import Q
 from django.utils.translation import pgettext, ugettext_lazy as _, ugettext
 
 from django.contrib.auth import authenticate
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.models import Site
 
-from ..utils import (email_address_exists, get_user_model,
+from ..utils import (email_address_exists,
                      set_form_field_order,
                      build_absolute_uri,
                      get_username_max_length)
 
 from .models import EmailAddress
 from .utils import (perform_login, setup_user_email, user_username,
-                    user_pk_to_url_str)
+                    user_pk_to_url_str, filter_users_by_email)
 from .app_settings import AuthenticationMethod
 from . import app_settings
 from .adapter import get_adapter
@@ -28,6 +27,7 @@ try:
     from importlib import import_module
 except ImportError:
     from django.utils.importlib import import_module
+
 
 class PasswordField(forms.CharField):
 
@@ -333,11 +333,11 @@ class AddEmailForm(UserForm):
             "different_account": _("This e-mail address is already associated"
                                    " with another account."),
         }
-        emails = EmailAddress.objects.filter(email__iexact=value)
-        if emails.filter(user=self.user).exists():
+        users = filter_users_by_email(value)
+        if users.filter(pk=self.user.pk).exists():
             raise forms.ValidationError(errors["this_account"])
         if app_settings.UNIQUE_EMAIL:
-            if emails.exclude(user=self.user).exists():
+            if users.exclude(pk=self.user.pk).exists():
                 raise forms.ValidationError(errors["different_account"])
         return value
 
@@ -401,9 +401,7 @@ class ResetPasswordForm(forms.Form):
     def clean_email(self):
         email = self.cleaned_data["email"]
         email = get_adapter().clean_email(email)
-        self.users = get_user_model().objects \
-            .filter(Q(email__iexact=email)
-                    | Q(emailaddress__email__iexact=email)).distinct()
+        self.users = filter_users_by_email(email)
         if not self.users.exists():
             raise forms.ValidationError(_("The e-mail address is not assigned"
                                           " to any user account"))
@@ -415,7 +413,7 @@ class ResetPasswordForm(forms.Form):
         token_generator = kwargs.get("token_generator",
                                      default_token_generator)
 
-        for user in self.users:
+        for user in self.users.distinct():
 
             temp_key = token_generator.make_token(user)
 

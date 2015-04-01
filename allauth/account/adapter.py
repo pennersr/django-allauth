@@ -269,6 +269,8 @@ class DefaultAccountAdapter(object):
 
     def ajax_response(self, request, response, redirect_to=None, form=None):
         data = {}
+        status = response.status_code
+
         if redirect_to:
             status = 200
             data['location'] = redirect_to

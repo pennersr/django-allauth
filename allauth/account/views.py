@@ -36,7 +36,7 @@ sensitive_post_parameters_m = method_decorator(
     sensitive_post_parameters('password', 'password1', 'password2'))
 
 
-def _ajax_response(request, response, form=None):
+def _ajax_response(request, response, form=None, data=None):
     if request.is_ajax():
         if (isinstance(response, HttpResponseRedirect)
                 or isinstance(response, HttpResponsePermanentRedirect)):
@@ -46,7 +46,8 @@ def _ajax_response(request, response, form=None):
         response = get_adapter().ajax_response(request,
                                                response,
                                                form=form,
-                                               redirect_to=redirect_to)
+                                               redirect_to=redirect_to,
+                                               data=data)
     return response
 
 

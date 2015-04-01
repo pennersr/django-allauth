@@ -1,6 +1,6 @@
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.sites.models import Site
-from django.http import (HttpResponseRedirect, Http404,
+from django.http import (HttpResponseBadRequest, HttpResponseRedirect, Http404,
                          HttpResponsePermanentRedirect)
 from django.shortcuts import get_object_or_404
 from django.views.generic.base import TemplateResponseMixin, View, TemplateView
@@ -43,6 +43,10 @@ def _ajax_response(request, response, form=None, data=None):
             redirect_to = response['Location']
         else:
             redirect_to = None
+
+        if isinstance(response, HttpResponseBadRequest):
+            data = response.reason_phrase
+
         response = get_adapter().ajax_response(request,
                                                response,
                                                form=form,

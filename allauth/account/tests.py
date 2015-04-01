@@ -196,7 +196,7 @@ class AccountTests(TestCase):
         url = body[body.find('/password/reset/'):].split()[0]
         resp = self.client.get(url)
         self.assertTemplateUsed(resp, 'account/password_reset_from_key.html')
-        assert 'token_fail' not in resp.context_data
+        self.assertFalse('token_fail' in resp.context_data)
 
         # Reset the password
         resp = self.client.post(url,
@@ -214,7 +214,7 @@ class AccountTests(TestCase):
                                 {'password1': 'newpass123',
                                  'password2': 'newpass123'})
         self.assertTemplateUsed(resp, 'account/password_reset_from_key.html')
-        assert resp.context_data['token_fail']
+        self.assertTrue(resp.context_data['token_fail'])
 
     def test_email_verification_mandatory(self):
         c = Client()

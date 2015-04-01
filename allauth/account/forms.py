@@ -17,8 +17,9 @@ from ..utils import (email_address_exists,
                      get_username_max_length)
 
 from .models import EmailAddress
-from .utils import (perform_login, setup_user_email, user_username,
-                    user_pk_to_url_str, filter_users_by_email)
+from .utils import (perform_login, setup_user_email, url_str_to_user_pk,
+                    user_username, user_pk_to_url_str, filter_users_by_email,
+                    get_user_model)
 from .app_settings import AuthenticationMethod
 from . import app_settings
 from .adapter import get_adapter
@@ -464,3 +465,37 @@ class ResetPasswordKeyForm(forms.Form):
 
     def save(self):
         get_adapter().set_password(self.user, self.cleaned_data["password1"])
+
+
+class UserTokenForm(forms.Form):
+
+    uidb36 = forms.CharField()
+    key = forms.CharField()
+
+    reset_user = None
+    token_generator = default_token_generator
+
+    error_messages = {
+        'token_invalid': _('The password reset token was invalid.'),
+    }
+
+    def _get_user(self, uidb36):
+        User = get_user_model()
+        try:
+            pk = url_str_to_user_pk(uidb36)
+            return User.objects.get(pk=pk)
+        except (ValueError, User.DoesNotExist):
+            return None
+
+    def clean(self):
+        cleaned_data = super(UserTokenForm, self).clean()
+
+        uidb36 = cleaned_data['uidb36']
+        key = cleaned_data['key']
+
+        self.reset_user = self._get_user(uidb36)
+        if (self.reset_user is None or
+            not self.token_generator.check_token(self.reset_user, key)):
+            raise forms.ValidationError(self.error_messages['token_invalid'])
+
+        return cleaned_data

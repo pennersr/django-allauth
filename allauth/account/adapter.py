@@ -267,8 +267,10 @@ class DefaultAccountAdapter(object):
             except TemplateDoesNotExist:
                 pass
 
-    def ajax_response(self, request, response, redirect_to=None, form=None):
-        data = {}
+    def ajax_response(self, request, response, redirect_to=None, form=None,
+                      data=None):
+        if data is None:
+            data = {}
         status = response.status_code
 
         if redirect_to:

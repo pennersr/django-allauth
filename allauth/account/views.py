@@ -1,6 +1,6 @@
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.sites.models import Site
-from django.http import (HttpResponseRedirect, Http404,
+from django.http import (HttpResponseBadRequest, HttpResponseRedirect, Http404,
                          HttpResponsePermanentRedirect)
 from django.shortcuts import get_object_or_404
 from django.views.generic.base import TemplateResponseMixin, View, TemplateView
@@ -36,17 +36,22 @@ sensitive_post_parameters_m = method_decorator(
     sensitive_post_parameters('password', 'password1', 'password2'))
 
 
-def _ajax_response(request, response, form=None):
+def _ajax_response(request, response, form=None, data=None):
     if request.is_ajax():
         if (isinstance(response, HttpResponseRedirect)
                 or isinstance(response, HttpResponsePermanentRedirect)):
             redirect_to = response['Location']
         else:
             redirect_to = None
+
+        if isinstance(response, HttpResponseBadRequest):
+            data = response.reason_phrase
+
         response = get_adapter().ajax_response(request,
                                                response,
                                                form=form,
-                                               redirect_to=redirect_to)
+                                               redirect_to=redirect_to,
+                                               data=data)
     return response
 
 
@@ -602,7 +607,19 @@ class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, FormView):
         return super(PasswordResetFromKeyView, self).form_valid(form)
 
     def _response_bad_token(self, request, uidb36, key, **kwargs):
-        return self.render_to_response(self.get_context_data(token_fail=True))
+        # Special-casing ajax/non-ajax scenarios due to #890
+        if request.is_ajax():
+            data = {
+                'errors': ['token_failed'],
+            }
+            response = _ajax_response(request,
+                                      HttpResponseBadRequest(reason=data))
+        else:
+            response = self.render_to_response(
+                self.get_context_data(token_fail=True)
+            )
+
+        return response
 
 password_reset_from_key = PasswordResetFromKeyView.as_view()
 

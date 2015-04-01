@@ -98,11 +98,17 @@ def create_oauth_tests(provider):
             'oauth_token=token&oauth_token_secret=psst',
             {'content-type': 'text/html'})
 
+    def test_authentication_error(self):
+        resp = self.client.get(reverse(self.provider.id + '_callback'))
+        self.assertTemplateUsed(resp,
+                                'socialaccount/authentication_error.html')
+
     impl = {'setUp': setUp,
             'login': login,
             'test_login': test_login,
             'get_mocked_response': get_mocked_response,
-            'get_access_token_response': get_access_token_response}
+            'get_access_token_response': get_access_token_response,
+            'test_authentication_error': test_authentication_error}
     class_name = 'OAuth2Tests_'+provider.id
     Class = type(class_name, (TestCase,), impl)
     Class.provider = provider
@@ -203,6 +209,11 @@ def create_oauth2_tests(provider):
                                     'state': q['state'][0]})
         return resp
 
+    def test_authentication_error(self):
+        resp = self.client.get(reverse(self.provider.id + '_callback'))
+        self.assertTemplateUsed(resp,
+                                'socialaccount/authentication_error.html')
+
     impl = {'setUp': setUp,
             'login': login,
             'test_login': test_login,
@@ -210,7 +221,8 @@ def create_oauth2_tests(provider):
             'test_account_refresh_token_saved_next_login':
             test_account_refresh_token_saved_next_login,
             'get_login_response_json': get_login_response_json,
-            'get_mocked_response': get_mocked_response}
+            'get_mocked_response': get_mocked_response,
+            'test_authentication_error': test_authentication_error}
     class_name = 'OAuth2Tests_'+provider.id
     Class = type(class_name, (TestCase,), impl)
     Class.provider = provider

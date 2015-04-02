@@ -155,8 +155,6 @@ class AccountTests(TestCase):
         resp = c.get(reverse(urlname))
         return resp
 
-    @override_settings(
-        ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.USERNAME)  # noqa
     def test_password_forgotten_username_hint(self):
         self._request_new_password()
         body = mail.outbox[0].body
@@ -387,9 +385,7 @@ class AccountTests(TestCase):
 
     @override_settings(
         ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod
-        .OPTIONAL,
-        ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod
-        .USERNAME)
+        .OPTIONAL)
     def test_ajax_login_success(self):
         user = get_user_model().objects.create(username='john', is_active=True)
         user.set_password('doe')

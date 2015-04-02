@@ -168,10 +168,13 @@ class DefaultAccountAdapter(object):
         if app_settings.USER_MODEL_USERNAME_FIELD:
             user_username(user,
                           username
-                          or generate_unique_username([first_name,
-                                                       last_name,
-                                                       email,
-                                                       'user']))
+                          or self.generate_unique_username([first_name,
+                                                            last_name,
+                                                            email,
+                                                            'user']))
+
+    def generate_unique_username(self, txts, regex=None):
+        return generate_unique_username(txts, regex)
 
     def save_user(self, request, user, form, commit=True):
         """
@@ -247,13 +250,15 @@ class DefaultAccountAdapter(object):
         return password
 
     def add_message(self, request, level, message_template,
-                    message_context={}, extra_tags=''):
+                    message_context=None, extra_tags=''):
         """
         Wrapper of `django.contrib.messages.add_message`, that reads
         the message text from a template.
         """
         if 'django.contrib.messages' in settings.INSTALLED_APPS:
             try:
+                if message_context is None:
+                    message_context = {}
                 message = render_to_string(message_template,
                                            message_context).strip()
                 if message:
@@ -264,6 +269,8 @@ class DefaultAccountAdapter(object):
 
     def ajax_response(self, request, response, redirect_to=None, form=None):
         data = {}
+        status = response.status_code
+
         if redirect_to:
             status = 200
             data['location'] = redirect_to

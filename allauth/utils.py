@@ -11,7 +11,7 @@ from django.core import urlresolvers
 from django.db.models import FieldDoesNotExist
 from django.db.models.fields import (DateTimeField, DateField,
                                      EmailField, TimeField)
-from django.utils import importlib, six, dateparse
+from django.utils import six, dateparse
 from django.utils.datastructures import SortedDict
 from django.core.serializers.json import DjangoJSONEncoder
 try:
@@ -25,15 +25,21 @@ if django.VERSION[:2] >= (1, 6):
 else:
     BinaryField = None
 
+try:
+    import importlib
+except:
+    from django.utils import importlib
 
-def _generate_unique_username_base(txts):
+
+def _generate_unique_username_base(txts, regex=None):
     username = None
+    regex = regex or '[^\w\s@+.-]'
     for txt in txts:
         if not txt:
             continue
         username = unicodedata.normalize('NFKD', force_text(txt))
         username = username.encode('ascii', 'ignore').decode('ascii')
-        username = force_text(re.sub('[^\w\s@+.-]', '', username).lower())
+        username = force_text(re.sub(regex, '', username).lower())
         # Django allows for '@' in usernames in order to accomodate for
         # project wanting to use e-mail for username. In allauth we don't
         # use this, we already have a proper place for putting e-mail
@@ -47,9 +53,8 @@ def _generate_unique_username_base(txts):
     return username or 'user'
 
 
-def generate_unique_username(txts):
+def get_username_max_length():
     from .account.app_settings import USER_MODEL_USERNAME_FIELD
-    username = _generate_unique_username_base(txts)
     User = get_user_model()
     try:
         max_length = User._meta.get_field(USER_MODEL_USERNAME_FIELD).max_length
@@ -57,6 +62,14 @@ def generate_unique_username(txts):
         raise ImproperlyConfigured(
             "USER_MODEL_USERNAME_FIELD does not exist in user-model"
         )
+    return max_length
+
+
+def generate_unique_username(txts, regex=None):
+    from .account.app_settings import USER_MODEL_USERNAME_FIELD
+    username = _generate_unique_username_base(txts, regex)
+    User = get_user_model()
+    max_length = get_username_max_length()
     i = 0
     while True:
         try:
@@ -216,3 +229,7 @@ def get_form_class(forms, form_id, default_form):
     if isinstance(form_class, six.string_types):
         form_class = import_attribute(form_class)
     return form_class
+
+
+def get_request_param(request, param, default=None):
+    return request.POST.get(param) or request.GET.get(param, default)

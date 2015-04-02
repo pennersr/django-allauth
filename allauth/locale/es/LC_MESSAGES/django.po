@@ -674,7 +674,7 @@ msgstr "Ha confirmado %(email)s."
 #: templates/account/messages/email_deleted.txt:2
 #, python-format
 msgid "Removed e-mail address %(email)s."
-msgstr "Correo electrónico elimidado %(email)s."
+msgstr "Correo electrónico eliminado %(email)s."
 
 #: templates/account/messages/logged_in.txt:4
 #, python-format

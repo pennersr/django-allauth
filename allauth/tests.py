@@ -17,7 +17,10 @@ from . import utils
 
 
 class MockedResponse(object):
-    def __init__(self, status_code, content, headers={}):
+    def __init__(self, status_code, content, headers=None):
+        if headers is None:
+            headers = {}
+
         self.status_code = status_code
         self.content = content.encode('utf8')
         self.headers = headers

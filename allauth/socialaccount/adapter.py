@@ -38,7 +38,7 @@ class DefaultSocialAccountAdapter(object):
                              provider_id,
                              error=None,
                              exception=None,
-                             extra_context={}):
+                             extra_context=None):
         """
         Invoked when there is an error in the authentication cycle. In this
         case, pre_social_login will not be reached.

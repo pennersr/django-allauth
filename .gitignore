@@ -10,6 +10,7 @@ dist
 *.egg*
 example/local_settings.py
 coverage.xml
+.ropeproject/*
 pep8.txt
 *.bak
 .#*

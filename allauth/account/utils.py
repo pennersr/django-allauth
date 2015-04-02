@@ -7,6 +7,7 @@ except ImportError:
 
 from django.contrib import messages
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.utils import six
@@ -20,8 +21,9 @@ try:
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
+from ..exceptions import ImmediateHttpResponse
 from ..utils import (import_callable, valid_email_or_none,
-                     get_user_model)
+                     get_user_model, get_request_param)
 
 from . import signals
 
@@ -35,7 +37,7 @@ def get_next_redirect_url(request, redirect_field_name="next"):
     Returns the next URL to redirect to, if it was explicitly passed
     via the request.
     """
-    redirect_to = request.REQUEST.get(redirect_field_name)
+    redirect_to = get_request_param(request, redirect_field_name)
     if not get_adapter().is_safe_url(redirect_to):
         redirect_to = None
     return redirect_to
@@ -94,7 +96,7 @@ def user_email(user, *args):
 
 
 def perform_login(request, user, email_verification,
-                  redirect_url=None, signal_kwargs={},
+                  redirect_url=None, signal_kwargs=None,
                   signup=False):
     """
     Keyword arguments:
@@ -103,6 +105,13 @@ def perform_login(request, user, email_verification,
     email is essential (during signup), or if it can be skipped (e.g. in
     case email verification is optional and we are only logging in).
     """
+    # Local users are stopped due to form validation checking
+    # is_active, yet, adapter methods could toy with is_active in a
+    # `user_signed_up` signal. Furthermore, social users should be
+    # stopped anyway.
+    if not user.is_active:
+        return HttpResponseRedirect(reverse('account_inactive'))
+
     from .models import EmailAddress
     has_verified_email = EmailAddress.objects.filter(user=user,
                                                      verified=True).exists()
@@ -117,30 +126,31 @@ def perform_login(request, user, email_verification,
             send_email_confirmation(request, user, signup=signup)
             return HttpResponseRedirect(
                 reverse('account_email_verification_sent'))
-    # Local users are stopped due to form validation checking
-    # is_active, yet, adapter methods could toy with is_active in a
-    # `user_signed_up` signal. Furthermore, social users should be
-    # stopped anyway.
-    if not user.is_active:
-        return HttpResponseRedirect(reverse('account_inactive'))
-    get_adapter().login(request, user)
-    response = HttpResponseRedirect(
-        get_login_redirect_url(request, redirect_url))
-    signals.user_logged_in.send(sender=user.__class__,
-                                request=request,
-                                response=response,
-                                user=user,
-                                **signal_kwargs)
-    get_adapter().add_message(request,
-                              messages.SUCCESS,
-                              'account/messages/logged_in.txt',
-                              {'user': user})
+    try:
+        get_adapter().login(request, user)
+        response = HttpResponseRedirect(
+            get_login_redirect_url(request, redirect_url))
 
+        if signal_kwargs is None:
+            signal_kwargs = {}
+        signals.user_logged_in.send(sender=user.__class__,
+                                    request=request,
+                                    response=response,
+                                    user=user,
+                                    **signal_kwargs)
+        get_adapter().add_message(request,
+                                  messages.SUCCESS,
+                                  'account/messages/logged_in.txt',
+                                  {'user': user})
+    except ImmediateHttpResponse as e:
+        response = e.response
     return response
 
 
 def complete_signup(request, user, email_verification, success_url,
-                    signal_kwargs={}):
+                    signal_kwargs=None):
+    if signal_kwargs is None:
+        signal_kwargs = {}
     signals.user_signed_up.send(sender=user.__class__,
                                 request=request,
                                 user=user,
@@ -320,6 +330,14 @@ def sync_user_email_addresses(user):
                                     email=email,
                                     primary=False,
                                     verified=False)
+
+
+def filter_users_by_email(email):
+    q = Q(emailaddress__email__iexact=email)
+    if app_settings.USER_MODEL_EMAIL_FIELD:
+        q = q | Q(**{app_settings.USER_MODEL_EMAIL_FIELD + '__iexact': email})
+    users = get_user_model().objects.filter(q)
+    return users
 
 
 def passthrough_next_redirect_url(request, url, redirect_field_name):

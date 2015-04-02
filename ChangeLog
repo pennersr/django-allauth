@@ -1,23 +1,69 @@
+2015-02-27  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Patrick Paul contributed a provider for Evernote, thanks!
+
+	* Josh Wright contributed a provider for Spotify, thanks!
+
+2015-02-12  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Björn Andersson added support for Dropbox OAuth2, thanks!
+
+	* guoqiao contributed a provider for Douban, thanks!
+
+2015-02-05  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.19.1 released.
+
+	* Fixed migrations when using South & Django 1.6.
+
+2015-01-04  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.19.0 released.
+
+2014-12-25  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Basil Shubin contributed an Odnoklassniki provider, thanks!
+
 2014-12-10  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Facebook: If the JS SDK is not available, for example due to a
 	browser plugin like Disconnect.me that blocks it, login falls back
 	to the regular non JS handshake.
 
+2014-12-03  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* `is_safe_url` can now be overriden
+
 2014-11-30  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Facebook: The Graph API version is now configurable via
 	`SOCIALACCOUNT_PROVIDERS`.
 
+2014-10-17  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* A Firefox Accounts provider was added by Jannis Leidel, thanks!
+
 2014-09-15  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Josh Owen contributed Coinbase support, thanks!
+
+2014-09-11  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Tomas Babej contributed a Slovak translation, thanks!
 
 2014-09-03  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Moved existing migrations into `south_migrations`
 
+2014-08-13  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* "zbryikt" contributed a Taiwanese Chinese translation, thanks!
+
 2014-08-12  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Added support for custom password rules via `clean_password`.
+
+	* Version 0.18.0 released.
 
 	* SECURITY: the Persona provider now requires the `AUDIENCE`
 	parameter to be explicitly configured, as required by the Persona
@@ -100,7 +146,7 @@
 
 2014-03-10  Raymond Penners  <raymond.penners@intenct.nl>
 
-        * Support for hooking up a callback when `FB.init()` is ready
+	* Support for hooking up a callback when `FB.init()` is ready
 	(`allauth.facebook.onInit`)
 
 	* Version 0.16.0 released.

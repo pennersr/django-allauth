@@ -63,8 +63,10 @@ def render_authentication_error(request,
                                 provider_id,
                                 error=AuthError.UNKNOWN,
                                 exception=None,
-                                extra_context={}):
+                                extra_context=None):
     try:
+        if extra_context is None:
+            extra_context = {}
         get_adapter().authentication_error(request,
                                            provider_id,
                                            error=error,

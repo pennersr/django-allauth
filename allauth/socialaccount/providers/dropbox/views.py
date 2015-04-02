@@ -25,7 +25,7 @@ class DropboxOAuthAdapter(OAuthAdapter):
     access_token_url = 'https://api.dropbox.com/1/oauth/access_token'
     authorize_url = 'https://www.dropbox.com/1/oauth/authorize'
 
-    def complete_login(self, request, app, token):
+    def complete_login(self, request, app, token, response):
         client = DropboxAPI(request, app.client_id, app.secret,
                             self.request_token_url)
         extra_data = client.get_user_info()

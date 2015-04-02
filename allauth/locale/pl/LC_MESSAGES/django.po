@@ -724,7 +724,7 @@ msgstr ""
 msgid ""
 "You currently have no social network accounts connected to this account."
 msgstr ""
-"Nie masz obecnie żadnych kont społacznościowych połączonych z tym kontem."
+"Nie masz obecnie żadnych kont społecznościowych połączonych z tym kontem."
 
 #: templates/socialaccount/connections.html:47
 msgid "Add a 3rd Party Account"

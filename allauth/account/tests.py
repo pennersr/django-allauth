@@ -219,7 +219,7 @@ class AccountTests(TestCase):
         # Same should happen when accessing the page directly
         response = self.client.get(url)
         self.assertTemplateUsed(response, 'account/password_reset_from_key.html')
-        self.assertEqual(response.context_data['token_fail'], True)
+        self.assertTrue(response.context_data['token_fail'])
 
         # When in XHR views, it should respond with a 400 bad request
         # code, and the response body should contain the JSON-encoded

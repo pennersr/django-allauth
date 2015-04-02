@@ -386,7 +386,7 @@ msgstr "Вы действительно хотите удалить этот e-m
 #: templates/account/email_confirmed.html:11
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Confirm E-mail Address"
-msgstr "Подтверждение e-mail адресов."
+msgstr "Подтвердите e-mail адрес."
 
 #: templates/account/email_confirm.html:17
 #, python-format
@@ -394,7 +394,7 @@ msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
 "address for user %(user_display)s."
 msgstr ""
-"Пожалуйста подтвередите <a href=\"mailto:%(email)s\">%(email)s</a> для "
+"Пожалуйста подтвердите <a href=\"mailto:%(email)s\">%(email)s</a> для "
 "пользователя %(user_display)s."
 
 #: templates/account/email_confirm.html:21

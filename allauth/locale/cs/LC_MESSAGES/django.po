@@ -98,7 +98,7 @@ msgstr "Uživatel s tímto e-mailem je již registrován."
 
 #: account/forms.py:284 account/forms.py:381
 msgid "Password (again)"
-msgstr "Heslo (zopakování)"
+msgstr "Heslo (znovu)"
 
 #: account/forms.py:301 account/forms.py:370 account/forms.py:388
 #: account/forms.py:465
@@ -123,7 +123,7 @@ msgstr "Nové heslo"
 
 #: account/forms.py:357 account/forms.py:452
 msgid "New Password (again)"
-msgstr "Nové heslo (zopakování)"
+msgstr "Nové heslo (znovu)"
 
 #: account/forms.py:361
 msgid "Please type your current password."
@@ -457,7 +457,7 @@ msgstr "Odhlásit se"
 
 #: templates/account/logout.html:11
 msgid "Are you sure you want to sign out?"
-msgstr "Jste si jisti, že se chcete odhlásit:"
+msgstr "Jste si jisti, že se chcete odhlásit?"
 
 #: templates/account/password_change.html:6
 #: templates/account/password_change.html:9
@@ -491,7 +491,7 @@ msgstr "Vyžádat nové heslo"
 #: templates/account/password_reset.html:24
 msgid "Please contact us if you have any trouble resetting your password."
 msgstr ""
-"Prosím, kontaktujte nás, pokud máte jakékoliv potíže z resetováním hesla."
+"Prosím, kontaktujte nás, pokud máte jakékoliv potíže s resetováním hesla."
 
 #: templates/account/password_reset_done.html:15
 msgid ""

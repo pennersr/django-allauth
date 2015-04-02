@@ -12,10 +12,10 @@ settings.py::
 
     TEMPLATE_CONTEXT_PROCESSORS = (
         ...
-        # Required by allauth template tags
+        # Required by `allauth` template tags
         "django.core.context_processors.request",
         ...
-        # allauth specific context processors
+        # `allauth` specific context processors
         "allauth.account.context_processors.account",
         "allauth.socialaccount.context_processors.socialaccount",
         ...
@@ -46,18 +46,23 @@ settings.py::
         'allauth.socialaccount.providers.bitly',
         'allauth.socialaccount.providers.coinbase',
         'allauth.socialaccount.providers.dropbox',
+        'allauth.socialaccount.providers.dropbox_oauth2',
+        'allauth.socialaccount.providers.evernote',
         'allauth.socialaccount.providers.facebook',
         'allauth.socialaccount.providers.flickr',
         'allauth.socialaccount.providers.feedly',
+        'allauth.socialaccount.providers.fxa',
         'allauth.socialaccount.providers.github',
         'allauth.socialaccount.providers.google',
         'allauth.socialaccount.providers.hubic',
         'allauth.socialaccount.providers.instagram',
         'allauth.socialaccount.providers.linkedin',
         'allauth.socialaccount.providers.linkedin_oauth2',
+        'allauth.socialaccount.providers.odnoklassniki',
         'allauth.socialaccount.providers.openid',
         'allauth.socialaccount.providers.persona',
         'allauth.socialaccount.providers.soundcloud',
+        'allauth.socialaccount.providers.spotify',
         'allauth.socialaccount.providers.stackexchange',
         'allauth.socialaccount.providers.tumblr',
         'allauth.socialaccount.providers.twitch',
@@ -85,7 +90,11 @@ Post-Installation
 
 In your Django root execute the command below to create your database tables::
 
+    # Django 1.6 and below
     ./manage.py syncdb
+
+    # Django 1.7 and above
+    ./manage.py migrate
 
 Now start your server, visit your admin pages (e.g. http://localhost:8000/admin/)
 and follow these steps:

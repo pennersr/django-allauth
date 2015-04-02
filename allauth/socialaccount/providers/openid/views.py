@@ -30,7 +30,9 @@ def _openid_consumer(request):
 
 def login(request):
     if 'openid' in request.GET or request.method == 'POST':
-        form = LoginForm(request.REQUEST)
+        form = LoginForm(
+            dict(list(request.GET.items()) + list(request.POST.items()))
+        )
         if form.is_valid():
             client = _openid_consumer(request)
             try:
@@ -74,7 +76,7 @@ def login(request):
 def callback(request):
     client = _openid_consumer(request)
     response = client.complete(
-        dict(request.REQUEST.items()),
+        dict(list(request.GET.items()) + list(request.POST.items())),
         request.build_absolute_uri(request.path))
     if response.status == consumer.SUCCESS:
         login = providers.registry \

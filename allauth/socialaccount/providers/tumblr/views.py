@@ -1,8 +1,5 @@
 import json
 
-from django.utils import six
-
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.oauth.client import OAuth
 from allauth.socialaccount.providers.oauth.views import (OAuthAdapter,
                                                          OAuthLoginView,
@@ -25,7 +22,7 @@ class TumblrOAuthAdapter(OAuthAdapter):
     access_token_url = 'https://www.tumblr.com/oauth/access_token'
     authorize_url = 'https://www.tumblr.com/oauth/authorize'
 
-    def complete_login(self, request, app, token):
+    def complete_login(self, request, app, token, response):
         client = TumblrAPI(request, app.client_id, app.secret,
                            self.request_token_url)
         extra_data = client.get_user_info()

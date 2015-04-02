@@ -34,10 +34,20 @@ the case for Django's `AbstractBaseUser.USERNAME_FIELD`.
 Meaning, if your custom user model does not have a `username` field
 (again, not to be mistaken with an e-mail address or user id), you
 will need to set `ACCOUNT_USER_MODEL_USERNAME_FIELD` to `None`. This
-will disable username related functionality in `allauth`.
+will disable username related functionality in `allauth`. Remember to
+also to set `ACCOUNT_USERNAME_REQUIRED` to `False`.
 
 Similarly, you will need to set `ACCOUNT_USER_MODEL_EMAIL_FIELD` to
 `None`, or the proper field (if other than `email`).
+
+For example, if you want to use a custom user model that has `email`
+as the identifying field, and you don't want to collect usernames, you
+need the following in your settings.py::
+
+    ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+    ACCOUNT_EMAIL_REQUIRED = True
+    ACCOUNT_USERNAME_REQUIRED = False
+    ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
 
 Creating and Populating User instances
@@ -55,6 +65,10 @@ instances are created, and populated with data
 
   - `confirm_email(self, request, email_address)`: Marks the email address as
     confirmed and saves to the db.
+
+  - `generate_unique_username(txts, regex=None)`: Returns a unique username
+    from the combination of strings present in txts iterable. A regex pattern
+    can be passed to the method to make sure the generated username matches it.
 
 - `allauth.socialaccount.adapter.DefaultSocialAccountAdapter`:
 

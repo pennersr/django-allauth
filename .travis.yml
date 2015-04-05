@@ -10,7 +10,6 @@ env:
   global:
    - TEST_APPS="allauth account socialaccount amazon angellist bitbucket coinbase evernote feedly foursquare douban dropbox dropbox_oauth2 facebook flickr google github hubic instagram linkedin linkedin_oauth2 mailru odnoklassniki windowslive openid orcid paypal persona soundcloud spotify stackexchange tumblr twitch twitter vimeo vk weibo bitly xing"
   matrix:
-   - DJANGO=Django==1.4.3
    - DJANGO=Django==1.5
    - DJANGO=Django==1.6
    - DJANGO=Django==1.7
@@ -21,15 +20,9 @@ install:
 branches:
  only:
   - master
-script: if [ $DJANGO == Django==1.4.3 -o $DJANGO == Django==1.5 ]; then coverage run manage.py test $TEST_APPS; else coverage run manage.py test allauth; fi
+script: if [ -o $DJANGO == Django==1.5 ]; then coverage run manage.py test $TEST_APPS; else coverage run manage.py test allauth; fi
 matrix:
   exclude:
-    - python: "3.4"
-      env: DJANGO=Django==1.4.3
-    - python: "3.3"
-      env: DJANGO=Django==1.4.3
-    - python: "3.2"
-      env: DJANGO=Django==1.4.3
     - python: "2.6"
       env: DJANGO=Django==1.7
 after_success:

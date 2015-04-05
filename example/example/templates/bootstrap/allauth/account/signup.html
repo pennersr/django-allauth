@@ -7,9 +7,9 @@
 
 {% block content %}
 <h1>{% trans "Sign Up" %}</h1>
-    
+
 <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
-        
+
 <form id="signup_form" method="post" action="{% url 'account_signup' %}">
   {% csrf_token %}
   {{ form|bootstrap }}
@@ -22,5 +22,3 @@
 </form>
 
 {% endblock %}
-
-

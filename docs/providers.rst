@@ -79,7 +79,7 @@ The following Facebook settings are available::
             'METHOD': 'oauth2',
             'LOCALE_FUNC': 'path.to.callable',
             'VERIFIED_EMAIL': False,
-            'VERSION': 'v2.2'}}
+            'VERSION': 'v2.3'}}
 
 METHOD:
     Either `js_sdk` or `oauth2`

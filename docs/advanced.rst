@@ -49,6 +49,8 @@ need the following in your settings.py::
     ACCOUNT_USERNAME_REQUIRED = False
     ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
+Finally, you also rewrite your `AccountAdapter` and `SocialAccountAdapter` 
+if needed. Look at the next section for more details.
 
 Creating and Populating User instances
 --------------------------------------
@@ -62,6 +64,10 @@ instances are created, and populated with data
 
   - `save_user(self, request, user, form)`: Populates and saves the
     `User` instance using information provided in the signup form.
+    
+  - `populate_username(self, request, user)`:
+    Fills in a valid username. the username of `user` may be valid or missing both.
+    This functions is called by `save_user`s in `DefaultAccountAdapter` and `DefaultSocialAccountAdapter`.
 
   - `confirm_email(self, request, email_address)`: Marks the email address as
     confirmed and saves to the db.
@@ -84,7 +90,17 @@ instances are created, and populated with data
     (`sociallogin.account.user`). Here, `data` is a dictionary of
     common user properties (`first_name`, `last_name`, `email`,
     `username`, `name`) that the provider already extracted for you.
+    
+If your user model is custom, you may need to rewrite your `AccountAdapter` and `SocialAccountAdapter`
+by inheriting two adapters above.
 
+The functions `save_user`, `populate_username` in `DefaultAccountAdapter` and 
+`save_user`, `populate_user` in `DefaultSocialAccountAdapter` are usually needed rewriting
+for setting fields in your custom user model. 
+
+You can know what these functions do exactly by reading source code.
+
+Finally, remember to set `ACCOUNT_ADAPTER` and `SOCIALACCOUNT_ADAPTER` in `setting.py`.
 
 Invitations
 -----------

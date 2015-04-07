@@ -74,7 +74,7 @@ The following Facebook settings are available::
 
     SOCIALACCOUNT_PROVIDERS = \
         {'facebook':
-           {'SCOPE': ['email', 'publish_stream'],
+           {'SCOPE': ['email', 'public_profile', 'user_friends'],
             'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
             'METHOD': 'oauth2',
             'LOCALE_FUNC': 'path.to.callable',
@@ -87,6 +87,8 @@ METHOD:
 SCOPE:
     By default, `email` scope is required depending whether or not
     `SOCIALACCOUNT_QUERY_EMAIL` is enabled.
+    Except permissions for `email`, `public_profile` and `user_friends`, apps using other permissions require review by Facebook.
+    You can look at [Permissions with Facebook Login](https://developers.facebook.com/docs/facebook-login/permissions/v2.3).
 
 AUTH_PARAMS:
     Use `AUTH_PARAMS` to pass along other parameters to the `FB.login`

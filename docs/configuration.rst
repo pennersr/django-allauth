@@ -58,6 +58,11 @@ ACCOUNT_LOGOUT_ON_GET (=False)
   mere GET request. See documentation for the `LogoutView` for
   details.
 
+ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE (=False)
+  Determines whether or not the user is automatically logged out after
+  changing the password. See documentation for `Django's session invalidation on password change` 
+  for details.
+
 ACCOUNT_LOGOUT_REDIRECT_URL (="/")
   The URL (or URL name) to return to after the user logs out. This is
   the counterpart to Django's `LOGIN_REDIRECT_URL`.

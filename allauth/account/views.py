@@ -1,5 +1,6 @@
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.sites.models import Site
+from django.contrib.auth import update_session_auth_hash
 from django.http import (HttpResponseRedirect, Http404,
                          HttpResponsePermanentRedirect)
 from django.views.generic.base import TemplateResponseMixin, View, TemplateView
@@ -463,6 +464,8 @@ class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
 
     def form_valid(self, form):
         form.save()
+        if not app_settings.LOGOUT_ON_PASSWORD_CHANGE:
+            update_session_auth_hash(self.request, form.user)
         get_adapter().add_message(self.request,
                                   messages.SUCCESS,
                                   'account/messages/password_changed.txt')

@@ -28,9 +28,10 @@ from . import app_settings
 
 from .adapter import get_adapter
 
-import django
-if django.VERSION >= (1, 7):
+try:
     from django.contrib.auth import update_session_auth_hash
+except ImportError:
+    update_session_auth_hash = None
 
 
 sensitive_post_parameters_m = method_decorator(
@@ -467,7 +468,8 @@ class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
 
     def form_valid(self, form):
         form.save()
-        if django.VERSION >= (1, 7) and not app_settings.LOGOUT_ON_PASSWORD_CHANGE:
+        if (update_session_auth_hash is not None and 
+            not app_settings.LOGOUT_ON_PASSWORD_CHANGE):
             update_session_auth_hash(self.request, form.user)
         get_adapter().add_message(self.request,
                                   messages.SUCCESS,

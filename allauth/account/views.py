@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.sites.models import Site
 from django.http import (HttpResponseRedirect, Http404,
                          HttpResponsePermanentRedirect)
+from django.core.exceptions import ValidationError
 from django.views.generic.base import TemplateResponseMixin, View, TemplateView
 from django.views.generic.edit import FormView
 from django.contrib import messages
@@ -19,7 +20,8 @@ from .utils import (get_next_redirect_url, complete_signup,
                     passthrough_next_redirect_url)
 from .forms import AddEmailForm, ChangePasswordForm
 from .forms import LoginForm, ResetPasswordKeyForm
-from .forms import ResetPasswordForm, SetPasswordForm, SignupForm, UserTokenForm
+from .forms import (ResetPasswordForm, SetPasswordForm, SignupForm,
+                    UserTokenForm)
 from .utils import sync_user_email_addresses
 from .models import EmailAddress, EmailConfirmation
 
@@ -329,20 +331,21 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
 
     def post(self, request, *args, **kwargs):
         res = None
-        if request.POST.get("email") is None:
-            request.POST["email"] = request.user.email
         if "action_add" in request.POST:
             res = super(EmailView, self).post(request, *args, **kwargs)
-        elif "action_send" in request.POST:
-            res = self._action_send(request)
-        elif "action_remove" in request.POST:
-            res = self._action_remove(request)
-        elif "action_primary" in request.POST:
-            res = self._action_primary(request)
-        res = res or HttpResponseRedirect(reverse('account_email'))
-        # Given that we bypassed AjaxCapableProcessFormViewMixin,
-        # we'll have to call invoke it manually...
-        res = _ajax_response(request, res)
+        elif request.POST.get("email"):
+            if "action_send" in request.POST:
+                res = self._action_send(request)
+            elif "action_remove" in request.POST:
+                res = self._action_remove(request)
+            elif "action_primary" in request.POST:
+                res = self._action_primary(request)
+            res = res or HttpResponseRedirect(reverse('account_email'))
+            # Given that we bypassed AjaxCapableProcessFormViewMixin,
+            # we'll have to call invoke it manually...
+            res = _ajax_response(request, res)
+        else:
+            raise ValidationError("Please select an email")
         return res
 
     def _action_send(self, request, *args, **kwargs):

@@ -12,7 +12,30 @@ django-allauth example application in this directory:
     $ virtualenv venv
     $ . venv/bin/activate
     $ pip install -r requirements.txt
-    $ python manage.py syncdb
+
+For Django 1.6 and below, when prompted to create a superuser choose yes and
+follow the instructions:
+
+::
+
+    $ python manage.py syncdb --migrate
+
+On Django 1.7 and above:
+
+::
+
+    $ python manage.py migrate
+    $ python manage.py createsuperuser
+
+::
+
+    $ python manage.py migrate
+
+
+Now you need to run the Django development server:
+
+::
+
     $ python manage.py runserver
 
 You should then be able to open your browser on http://127.0.0.1:8000 and

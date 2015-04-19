@@ -13,8 +13,9 @@ django-allauth example application in this directory:
     $ . venv/bin/activate
     $ pip install -r requirements.txt
 
-For Django 1.6 and below, when prompted to create a superuser choose yes and
-follow the instructions:
+Now we need to create the database tables and an admin user.
+On Django 1.6 and below, run the following and when prompted to create a
+superuser choose yes and follow the instructions:
 
 ::
 
@@ -26,10 +27,6 @@ On Django 1.7 and above:
 
     $ python manage.py migrate
     $ python manage.py createsuperuser
-
-::
-
-    $ python manage.py migrate
 
 
 Now you need to run the Django development server:

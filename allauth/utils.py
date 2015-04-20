@@ -1,6 +1,8 @@
 import re
 import unicodedata
 import json
+import base64
+from binascii import Error as BinasciiError
 
 from django.core.exceptions import ImproperlyConfigured
 from django.core.validators import validate_email, ValidationError
@@ -10,11 +12,13 @@ from django.db.models.fields import (DateTimeField, DateField,
                                      EmailField, TimeField)
 from django.utils import six, dateparse
 from django.utils.datastructures import SortedDict
+from django.utils.functional import Promise
 from django.core.serializers.json import DjangoJSONEncoder
 try:
     from django.utils.encoding import force_text
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
+from django.utils.encoding import is_protected_type
 
 try:
     import importlib
@@ -212,3 +216,68 @@ def get_form_class(forms, form_id, default_form):
 
 def get_request_param(request, param, default=None):
     return request.POST.get(param) or request.GET.get(param, default)
+
+try:
+    from django.utils.encoding import force_bytes
+except ImportError:
+    def force_bytes(s, encoding='utf-8', strings_only=False, errors='strict'):
+        """
+        Similar to smart_bytes, except that lazy instances are resolved to
+        strings, rather than kept as lazy objects.
+        If strings_only is True, don't convert (some) non-string-like objects.
+        """
+        # Handle the common case first for performance reasons.
+        if isinstance(s, bytes):
+            if encoding == 'utf-8':
+                return s
+            else:
+                return s.decode('utf-8', errors).encode(encoding, errors)
+        if strings_only and is_protected_type(s):
+            return s
+        if isinstance(s, six.memoryview):
+            return bytes(s)
+        if isinstance(s, Promise):
+            return six.text_type(s).encode(encoding, errors)
+        if not isinstance(s, six.string_types):
+            try:
+                if six.PY3:
+                    return six.text_type(s).encode(encoding)
+                else:
+                    return bytes(s)
+            except UnicodeEncodeError:
+                if isinstance(s, Exception):
+                    # An Exception subclass containing non-ASCII data that doesn't
+                    # know how to print itself properly. We shouldn't raise a
+                    # further exception.
+                    return b' '.join(force_bytes(arg, encoding, strings_only, errors)
+                                     for arg in s)
+                return six.text_type(s).encode(encoding, errors)
+        else:
+            return s.encode(encoding, errors)
+
+
+try:
+    from django.utils.http import urlsafe_base64_encode
+except ImportError:
+    def urlsafe_base64_encode(s):
+        """
+        Encodes a bytestring in base64 for use in URLs, stripping any trailing
+        equal signs.
+        """
+        return base64.urlsafe_b64encode(s).rstrip(b'\n=')
+
+
+try:
+    from django.utils.http import urlsafe_base64_decode
+except ImportError:
+    def urlsafe_base64_decode(s):
+        """
+        Decodes a base64 encoded string, adding back any trailing equal signs that
+        might have been stripped.
+        """
+        s = force_bytes(s)
+        try:
+            return base64.urlsafe_b64decode(s.ljust(len(s) + len(s) % 4, b'='))
+        except (LookupError, BinasciiError) as e:
+            raise ValueError(e)
+

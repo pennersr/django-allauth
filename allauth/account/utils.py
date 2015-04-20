@@ -7,7 +7,6 @@ except ImportError:
 
 from django.contrib import messages
 from django.core.urlresolvers import reverse
-from django.db.models import Q
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.utils import six
@@ -331,13 +330,20 @@ def sync_user_email_addresses(user):
                                     primary=False,
                                     verified=False)
 
-
 def filter_users_by_email(email):
-    q = Q(emailaddress__email__iexact=email)
+    """
+    Return list of users by email address, normally one in length.
+    First we look through EmailAddress table, than customisable User model table.
+    Add results together avoiding SQL joins and deduplicate.
+    """
+    from .models import EmailAddress
+    User = get_user_model()
+    mails = EmailAddress.objects.filter(email__iexact=email)
+    users = [e.user for e in mails.prefetch_related('user')]
     if app_settings.USER_MODEL_EMAIL_FIELD:
-        q = q | Q(**{app_settings.USER_MODEL_EMAIL_FIELD + '__iexact': email})
-    users = get_user_model().objects.filter(q)
-    return users
+        q_dict = {app_settings.USER_MODEL_EMAIL_FIELD + '__iexact': email}
+        users += list(User.objects.filter(**q_dict))
+    return list(set(users))
 
 
 def passthrough_next_redirect_url(request, url, redirect_field_name):

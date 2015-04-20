@@ -335,11 +335,13 @@ class AddEmailForm(UserForm):
                                    " with another account."),
         }
         users = filter_users_by_email(value)
-        if users.filter(pk=self.user.pk).exists():
+        on_this_account = [u for u in users if u.pk==self.user.pk]
+        on_diff_account = [u for u in users if u.pk!=self.user.pk]
+        
+        if on_this_account: 
             raise forms.ValidationError(errors["this_account"])
-        if app_settings.UNIQUE_EMAIL:
-            if users.exclude(pk=self.user.pk).exists():
-                raise forms.ValidationError(errors["different_account"])
+        if on_diff_account and app_settings.UNIQUE_EMAIL:
+            raise forms.ValidationError(errors["different_account"])
         return value
 
     def save(self, request):
@@ -403,7 +405,7 @@ class ResetPasswordForm(forms.Form):
         email = self.cleaned_data["email"]
         email = get_adapter().clean_email(email)
         self.users = filter_users_by_email(email)
-        if not self.users.exists():
+        if not self.users:
             raise forms.ValidationError(_("The e-mail address is not assigned"
                                           " to any user account"))
         return self.cleaned_data["email"]
@@ -414,7 +416,7 @@ class ResetPasswordForm(forms.Form):
         token_generator = kwargs.get("token_generator",
                                      default_token_generator)
 
-        for user in self.users.distinct():
+        for user in self.users:
 
             temp_key = token_generator.make_token(user)
 

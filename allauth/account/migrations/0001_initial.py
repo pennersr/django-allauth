@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
             name='EmailAddress',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('email', models.EmailField(unique=UNIQUE_EMAIL, max_length=75, verbose_name='e-mail address')),
+                ('email', models.EmailField(unique=UNIQUE_EMAIL, max_length=254, verbose_name='e-mail address')),
                 ('verified', models.BooleanField(default=False, verbose_name='verified')),
                 ('primary', models.BooleanField(default=False, verbose_name='primary')),
                 ('user', models.ForeignKey(verbose_name='user', to=settings.AUTH_USER_MODEL)),

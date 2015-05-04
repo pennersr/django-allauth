@@ -41,7 +41,6 @@
                     version    : opts.version,
                     status     : true,
                     cookie     : true,
-                    oauth      : true,
                     xfbml      : true
                 });
                 allauth.facebook.onInit();
@@ -50,7 +49,7 @@
             (function(d){
                 var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
                 js = d.createElement('script'); js.id = id; js.async = true;
-                js.src = "//connect.facebook.net/"+opts.locale+"/all.js";
+                js.src = "//connect.facebook.net/"+opts.locale+"/sdk.js";
                 d.getElementsByTagName('head')[0].appendChild(js);
             }(document));
         },
@@ -61,8 +60,8 @@
         login: function(nextUrl, action, process) {
             var self = this;
             if (typeof(FB) == 'undefined') {
-		var url = this.opts.loginUrl + '?next=' + encodeURIComponent(nextUrl) + '&action=' + encodeURIComponent(action) + '&process=' + encodeURIComponent(process);
-		setLocationHref(url);
+                var url = this.opts.loginUrl + '?next=' + encodeURIComponent(nextUrl) + '&action=' + encodeURIComponent(action) + '&process=' + encodeURIComponent(process);
+                setLocationHref(url);
                 return;
             }
             if (action == 'reauthenticate') {

@@ -39,7 +39,6 @@
                 FB.init({
                     appId      : opts.appId,
                     version    : opts.version,
-                    channelUrl : opts.channelUrl,
                     status     : true,
                     cookie     : true,
                     oauth      : true,

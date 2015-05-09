@@ -55,7 +55,7 @@ class RedirectAuthenticatedUserMixin(object):
         if request.user.is_authenticated():
             redirect_to = self.get_authenticated_redirect_url()
             response = HttpResponseRedirect(redirect_to)
-            return response
+            return _ajax_response(request, response)
         else:
             response = super(RedirectAuthenticatedUserMixin,
                              self).dispatch(request,

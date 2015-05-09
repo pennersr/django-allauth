@@ -1,6 +1,5 @@
 {% extends "account/base.html" %}
 
-{% load url from future %}
 {% load i18n %}
 
 {% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
@@ -18,7 +17,7 @@ verify ownership of your e-mail address. {% endblocktrans %}</p>
 verification. Please click on the link inside this e-mail. Please
 contact us if you do not receive it within a few minutes.{% endblocktrans %}</p>
 
-<p>{% blocktrans %}<strong>Note:</strong> you can still <a href="{{email_url}}">change your e-mail address</a>.{% endblocktrans %}</p>
+<p>{% blocktrans %}<strong>Note:</strong> you can still <a href="{{ email_url }}">change your e-mail address</a>.{% endblocktrans %}</p>
 
 
 {% endblock %}

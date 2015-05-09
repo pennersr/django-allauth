@@ -100,7 +100,7 @@ msgstr "Correo Electrónico (opcional)"
 #: account/forms.py:265
 msgid "A user is already registered with this e-mail address."
 msgstr ""
-"Un usuario ya fue registrado con esta dirrección de correo electrónico."
+"Un usuario ya fue registrado con esta dirección de correo electrónico."
 
 #: account/forms.py:284 account/forms.py:381
 msgid "Password (again)"

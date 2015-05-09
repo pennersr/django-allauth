@@ -1,6 +1,5 @@
 {% extends "account/base.html" %}
 
-{% load url from future %}
 {% load i18n %}
 {% load bootstrap %}
 {% load account %}
@@ -12,10 +11,10 @@
 
 <h1>{% trans "Sign In" %}</h1>
 
-{% if socialaccount.providers  %}
+{% if socialaccount.providers %}
 <p>{% blocktrans with site.name as site_name %}Please sign in with one
-of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a> 
-for a {{site_name}} account and sign in
+of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+for a {{ site_name }} account and sign in
 below:{% endblocktrans %}</p>
 
 <div class="socialaccount_ballot">
@@ -46,4 +45,3 @@ below:{% endblocktrans %}</p>
 </form>
 
 {% endblock %}
-

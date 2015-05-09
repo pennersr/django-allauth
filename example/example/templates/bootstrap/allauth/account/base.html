@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 
-{% load url from future %}
 {% load i18n %}
 
 {% block content %}
@@ -17,7 +16,7 @@
   {% url 'socialaccount_connections' as connections_url %}
   {% if connections_url %}
   <li class="{% block account_nav_socialaccount_connections %}{% endblock %}">
-    <a href="{{ connections_url}}">{% trans 'Connected Accounts' %}</a>
+    <a href="{{ connections_url }}">{% trans 'Connected Accounts' %}</a>
   </li>
   {% endif %}
 </ul>
@@ -25,4 +24,3 @@
 {% endblock %}
 
 {% endblock %}
-

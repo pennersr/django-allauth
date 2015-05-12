@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 
 import datetime
 
-from django.core.urlresolvers import reverse
 from django.db import models
 from django.db import transaction
 from django.utils.translation import ugettext_lazy as _
@@ -11,7 +10,6 @@ from django.contrib.sites.models import Site
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.crypto import get_random_string
 
-from ..utils import build_absolute_uri
 from .. import app_settings as allauth_app_settings
 from . import app_settings
 from . import signals
@@ -118,13 +116,10 @@ class EmailConfirmation(models.Model):
     def send(self, request, signup=False, **kwargs):
         current_site = kwargs["site"] if "site" in kwargs \
             else Site.objects.get_current()
-        activate_url = reverse("account_confirm_email", args=[self.key])
-        activate_url = build_absolute_uri(request,
-                                          activate_url,
-                                          protocol=app_settings.DEFAULT_HTTP_PROTOCOL)
+
         ctx = {
             "user": self.email_address.user,
-            "activate_url": activate_url,
+            "activate_url": get_adapter().get_activate_url(request, self.key),
             "current_site": current_site,
             "key": self.key,
         }

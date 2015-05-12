@@ -10,6 +10,7 @@ from django.template.loader import render_to_string
 from django.template import TemplateDoesNotExist
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives, EmailMessage
+from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 from django.contrib import messages
@@ -19,9 +20,13 @@ try:
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
-from ..utils import (import_attribute, get_user_model,
-                     generate_unique_username,
-                     resolve_url)
+from ..utils import (
+    build_absolute_uri,
+    generate_unique_username,
+    get_user_model,
+    import_attribute,
+    resolve_url
+)
 
 from . import app_settings
 
@@ -317,6 +322,13 @@ class DefaultAccountAdapter(object):
     def is_safe_url(self, url):
         from django.utils.http import is_safe_url
         return is_safe_url(url)
+
+    def get_activate_url(self, request, key):
+        activate_url = reverse("account_confirm_email", args=[key])
+        activate_url = build_absolute_uri(request,
+                                          activate_url,
+                                          protocol=app_settings.DEFAULT_HTTP_PROTOCOL)
+        return activate_url
 
 
 def get_adapter():

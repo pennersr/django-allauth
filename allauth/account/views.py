@@ -118,8 +118,14 @@ class LoginView(RedirectAuthenticatedUserMixin,
                                                    self.redirect_field_name)
         redirect_field_value = get_request_param(self.request,
                                                  self.redirect_field_name)
+
+        if hasattr(Site.objects, '_get_site_by_request'):  # >= django 1.8
+            site = Site.objects.get_current(request=self.request)
+        else:
+            site = Site.objects.get_current()
+
         ret.update({"signup_url": signup_url,
-                    "site": Site.objects.get_current(),
+                    "site": site,
                     "redirect_field_name": self.redirect_field_name,
                     "redirect_field_value": redirect_field_value})
         return ret

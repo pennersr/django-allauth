@@ -20,6 +20,16 @@ settings.py::
         'allauth.socialaccount.context_processors.socialaccount',
         ...
     )
+    
+    # Django 1.8
+    TEMPLATES = {
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': ['templates'],
+            'APP_DIRS': True,
+            'OPTIONS': {'context_processors': TEMPLATE_CONTEXT_PROCESSORS}
+        },
+    }
 
     AUTHENTICATION_BACKENDS = (
         ...

@@ -426,7 +426,7 @@ class ResetPasswordForm(forms.Form):
 
             # send the password reset email
             path = reverse("account_reset_password_from_key",
-                           kwargs=dict(uidb36=user_pk_to_url_str(user),
+                           kwargs=dict(uid=user_pk_to_url_str(user),
                                        key=temp_key))
             url = build_absolute_uri(
                 request, path,
@@ -469,7 +469,7 @@ class ResetPasswordKeyForm(forms.Form):
 
 class UserTokenForm(forms.Form):
 
-    uidb36 = forms.CharField()
+    uid = forms.CharField()
     key = forms.CharField()
 
     reset_user = None
@@ -479,10 +479,10 @@ class UserTokenForm(forms.Form):
         'token_invalid': _('The password reset token was invalid.'),
     }
 
-    def _get_user(self, uidb36):
+    def _get_user(self, uid):
         User = get_user_model()
         try:
-            pk = url_str_to_user_pk(uidb36)
+            pk = url_str_to_user_pk(uid)
             return User.objects.get(pk=pk)
         except (ValueError, User.DoesNotExist):
             return None
@@ -490,10 +490,10 @@ class UserTokenForm(forms.Form):
     def clean(self):
         cleaned_data = super(UserTokenForm, self).clean()
 
-        uidb36 = cleaned_data['uidb36']
+        uid = cleaned_data['uid']
         key = cleaned_data['key']
 
-        self.reset_user = self._get_user(uidb36)
+        self.reset_user = self._get_user(uid)
         if (self.reset_user is None or
             not self.token_generator.check_token(self.reset_user, key)):
             raise forms.ValidationError(self.error_messages['token_invalid'])

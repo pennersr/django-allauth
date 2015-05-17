@@ -561,12 +561,12 @@ class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, FormView):
                               'reset_password_from_key',
                               self.form_class)
 
-    def dispatch(self, request, uidb36, key, **kwargs):
+    def dispatch(self, request, uid, key, **kwargs):
         self.request = request
         self.key = key
 
         # (Ab)using forms here to be able to handle errors in XHR #890
-        token_form = UserTokenForm(data={'uidb36': uidb36, 'key': key})
+        token_form = UserTokenForm(data={'uid': uid, 'key': key})
 
         if not token_form.is_valid():
             response = self.render_to_response(
@@ -576,7 +576,7 @@ class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, FormView):
         else:
             self.reset_user = token_form.reset_user
             return super(PasswordResetFromKeyView, self).dispatch(request,
-                                                                  uidb36,
+                                                                  uid,
                                                                   key,
                                                                   **kwargs)
 

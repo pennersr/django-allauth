@@ -10,11 +10,7 @@ from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.conf import settings
 from django.http import HttpResponseRedirect
-from django.utils import six
 from django.utils.http import urlencode
-from django.utils.http import int_to_base36, base36_to_int
-from django.core.exceptions import ValidationError
-
 from django.utils.datastructures import SortedDict
 try:
     from django.utils.encoding import force_text
@@ -23,7 +19,9 @@ except ImportError:
 
 from ..exceptions import ImmediateHttpResponse
 from ..utils import (import_callable, valid_email_or_none,
-                     get_user_model, get_request_param)
+                     get_user_model, get_request_param,
+                     urlsafe_base64_decode, urlsafe_base64_encode,
+                     force_bytes)
 
 from . import signals
 
@@ -349,19 +347,9 @@ def passthrough_next_redirect_url(request, url, redirect_field_name):
 
 
 def user_pk_to_url_str(user):
-    ret = user.pk
-    if isinstance(ret, six.integer_types):
-        ret = int_to_base36(user.pk)
-    return ret
+    return urlsafe_base64_encode(force_bytes(user.pk))
 
 
 def url_str_to_user_pk(s):
-    User = get_user_model()
-    # TODO: Ugh, isn't there a cleaner way to determine whether or not
-    # the PK is a str-like field?
-    try:
-        User._meta.pk.to_python('a')
-        pk = s
-    except ValidationError:
-        pk = base36_to_int(s)
-    return pk
+    return force_text(urlsafe_base64_decode(s))
+

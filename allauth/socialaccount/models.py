@@ -15,8 +15,8 @@ except ImportError:
 import allauth.app_settings
 from allauth.account.models import EmailAddress
 from allauth.account.utils import get_next_redirect_url, setup_user_email
-from allauth.utils import (get_user_model, serialize_instance,
-                           deserialize_instance)
+from allauth.utils import (get_user_model, get_current_site,
+                           serialize_instance, deserialize_instance)
 
 from . import app_settings
 from . import providers
@@ -25,8 +25,8 @@ from ..utils import get_request_param
 
 
 class SocialAppManager(models.Manager):
-    def get_current(self, provider):
-        site = Site.objects.get_current()
+    def get_current(self, provider, request=None):
+        site = get_current_site(request)
         return self.get(sites__id=site.id,
                         provider=provider)
 

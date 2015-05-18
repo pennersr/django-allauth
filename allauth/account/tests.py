@@ -10,13 +10,12 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.test.client import Client
 from django.core import mail
-from django.contrib.sites.models import Site
 from django.test.client import RequestFactory
 from django.contrib.auth.models import AnonymousUser
 
 from allauth.account.forms import BaseSignupForm
 from allauth.account.models import EmailAddress, EmailConfirmation
-from allauth.utils import get_user_model
+from allauth.utils import get_user_model, get_current_site
 
 from . import app_settings
 
@@ -40,7 +39,7 @@ class AccountTests(TestCase):
             from ..socialaccount.models import SocialApp
             sa = SocialApp.objects.create(name='testfb',
                                           provider='facebook')
-            sa.sites.add(Site.objects.get_current())
+            sa.sites.add(get_current_site())
 
     @override_settings(
         ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod
@@ -287,7 +286,7 @@ class AccountTests(TestCase):
                          'http://testserver'+settings.LOGIN_REDIRECT_URL)
 
     def test_email_escaping(self):
-        site = Site.objects.get_current()
+        site = get_current_site()
         site.name = '<enc&"test>'
         site.save()
         u = get_user_model().objects.create(

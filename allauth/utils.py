@@ -5,6 +5,7 @@ import json
 from django.core.exceptions import ImproperlyConfigured
 from django.core.validators import validate_email, ValidationError
 from django.core import urlresolvers
+from django.contrib.sites.models import Site
 from django.db.models import FieldDoesNotExist
 from django.db.models.fields import (DateTimeField, DateField,
                                      EmailField, TimeField)
@@ -138,6 +139,20 @@ except ImportError:
                                        % app_settings.USER_MODEL)
         return user_model
 
+
+def get_current_site(request=None):
+    """Wrapper around ``Site.objects.get_current`` to handle ``Site`` lookups
+    by request in Django >= 1.8.
+
+    :param request: optional request object
+    :type request: :class:`django.http.HttpRequest`
+    """
+    if request and hasattr(Site.objects, '_get_site_by_request'):  # >= django 1.8
+        site = Site.objects.get_current(request=request)
+    else:
+        site = Site.objects.get_current()
+
+    return site
 
 def resolve_url(to):
     """

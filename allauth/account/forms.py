@@ -9,12 +9,12 @@ from django.utils.translation import pgettext, ugettext_lazy as _, ugettext
 
 from django.contrib.auth import authenticate
 from django.contrib.auth.tokens import default_token_generator
-from django.contrib.sites.models import Site
 
 from ..utils import (email_address_exists,
                      set_form_field_order,
                      build_absolute_uri,
-                     get_username_max_length)
+                     get_username_max_length,
+                     get_current_site)
 
 from .models import EmailAddress
 from .utils import (perform_login, setup_user_email, url_str_to_user_pk,
@@ -422,7 +422,7 @@ class ResetPasswordForm(forms.Form):
             # password_reset = PasswordReset(user=user, temp_key=temp_key)
             # password_reset.save()
 
-            current_site = Site.objects.get_current()
+            current_site = get_current_site()
 
             # send the password reset email
             path = reverse("account_reset_password_from_key",

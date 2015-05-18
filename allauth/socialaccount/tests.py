@@ -9,7 +9,6 @@ import json
 from django.test.utils import override_settings
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from django.contrib.sites.models import Site
 from django.test.client import RequestFactory
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -19,7 +18,7 @@ from ..tests import MockedResponse, mocked_response
 from ..account import app_settings as account_settings
 from ..account.models import EmailAddress
 from ..account.utils import user_email
-from ..utils import get_user_model
+from ..utils import get_user_model, get_current_site
 
 from .models import SocialApp, SocialAccount, SocialLogin
 from .helpers import complete_social_login
@@ -36,7 +35,7 @@ def create_oauth_tests(provider):
                                        client_id='app123id',
                                        key=provider.id,
                                        secret='dummy')
-        app.sites.add(Site.objects.get_current())
+        app.sites.add(get_current_site())
 
     @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=False)
     def test_login(self):
@@ -135,7 +134,7 @@ def create_oauth2_tests(provider):
                                        client_id='app123id',
                                        key=provider.id,
                                        secret='dummy')
-        app.sites.add(Site.objects.get_current())
+        app.sites.add(get_current_site())
 
     @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=False)
     def test_login(self):

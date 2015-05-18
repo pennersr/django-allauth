@@ -1,8 +1,8 @@
 import sys
 
 from django.db.models.signals import post_syncdb
-from django.contrib.sites.models import Site
 
+from allauth.utils import get_current_site
 from allauth.socialaccount.providers import registry
 from allauth.socialaccount.models import SocialApp
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
@@ -13,9 +13,11 @@ def setup_dummy_social_apps(sender, **kwargs):
     `allauth` needs tokens for OAuth based providers. So let's
     setup some dummy tokens
     """
-    site = Site.objects.get_current()
+    request = kwargs.get('request')
+
+    site = get_current_site(request)
     for provider in registry.get_list():
-        if (isinstance(provider, OAuth2Provider) 
+        if (isinstance(provider, OAuth2Provider)
             or isinstance(provider, OAuthProvider)):
             try:
                 SocialApp.objects.get(provider=provider.id,

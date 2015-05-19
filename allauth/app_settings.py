@@ -1,6 +1,7 @@
 import django
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
+from django import template
 
 SOCIALACCOUNT_ENABLED = 'allauth.socialaccount' in settings.INSTALLED_APPS
 
@@ -13,7 +14,7 @@ def check_context_processors():
         if allauth_ctx in settings.TEMPLATE_CONTEXT_PROCESSORS:
             ctx_present = True
     else:
-        for engine in settings.TEMPLATES:
+        for engine in template.engines.templates.values():
             if allauth_ctx in engine.get('OPTIONS', {})\
                     .get('context_processors', []):
                 ctx_present = True

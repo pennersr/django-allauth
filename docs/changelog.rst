@@ -4,6 +4,13 @@ Changelog
 This chapter contains notes on upgrading.
 
 
+From 0.19.1
+***********
+
+- Given that the `max_length` for the Django 1.8 `EmailField` has been
+  bumped to 254, allauth is following up. Migrations (`account`) are
+  in place.
+
 From 0.18.0
 ***********
 

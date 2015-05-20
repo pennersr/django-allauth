@@ -1,3 +1,9 @@
+2015-05-20  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Given that the `max_length` for the Django 1.8 `EmailField` has
+	been bumped to 254, allauth is following up. Migrations
+	(`account`) are in place.
+
 2015-02-27  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Patrick Paul contributed a provider for Evernote, thanks!

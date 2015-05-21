@@ -5,6 +5,7 @@ except ImportError:
     from datetime import datetime
     now = datetime.now
 
+import django
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.db.models import Q
@@ -15,7 +16,11 @@ from django.utils.http import urlencode
 from django.utils.http import int_to_base36, base36_to_int
 from django.core.exceptions import ValidationError
 
-from django.utils.datastructures import SortedDict
+if django.VERSION > (1, 8,):
+    from collections import OrderedDict
+else:
+    from django.utils.datastructures import SortedDict as OrderedDict
+
 try:
     from django.utils.encoding import force_text
 except ImportError:
@@ -173,7 +178,7 @@ def cleanup_email_addresses(request, addresses):
     from .models import EmailAddress
     adapter = get_adapter()
     # Let's group by `email`
-    e2a = SortedDict()  # maps email to EmailAddress
+    e2a = OrderedDict()  # maps email to EmailAddress
     primary_addresses = []
     verified_addresses = []
     primary_verified_addresses = []

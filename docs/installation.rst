@@ -21,6 +21,28 @@ settings.py::
         ...
     )
 
+If you are running Django 1.8+, you can specify the context like so:
+
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [],
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'context_processors': [
+                    # Already defined Django-related contexts here
+
+                    # All Auth needs this from django
+                    'django.core.context_processors.request',
+                    
+                    # `allauth` specific context processors
+                    'allauth.account.context_processors.account',
+                    'allauth.socialaccount.context_processors.socialaccount',
+                ],
+            },
+        },
+    ]
+
     AUTHENTICATION_BACKENDS = (
         ...
         # Needed to login by username in Django admin, regardless of `allauth`

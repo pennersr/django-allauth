@@ -32,7 +32,7 @@ If you are running Django 1.8+, you can specify the context like so:
                 'context_processors': [
                     # Already defined Django-related contexts here
 
-                    # All Auth needs this from django
+                    # 'allauth' needs this from django
                     'django.core.context_processors.request',
                     
                     # `allauth` specific context processors

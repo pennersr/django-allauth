@@ -335,10 +335,10 @@ class AddEmailForm(UserForm):
                                    " with another account."),
         }
         users = filter_users_by_email(value)
-        on_this_account = [u for u in users if u.pk==self.user.pk]
-        on_diff_account = [u for u in users if u.pk!=self.user.pk]
-        
-        if on_this_account: 
+        on_this_account = [u for u in users if u.pk == self.user.pk]
+        on_diff_account = [u for u in users if u.pk != self.user.pk]
+
+        if on_this_account:
             raise forms.ValidationError(errors["this_account"])
         if on_diff_account and app_settings.UNIQUE_EMAIL:
             raise forms.ValidationError(errors["different_account"])
@@ -497,7 +497,7 @@ class UserTokenForm(forms.Form):
 
         self.reset_user = self._get_user(uidb36)
         if (self.reset_user is None or
-            not self.token_generator.check_token(self.reset_user, key)):
+                not self.token_generator.check_token(self.reset_user, key)):
             raise forms.ValidationError(self.error_messages['token_invalid'])
 
         return cleaned_data

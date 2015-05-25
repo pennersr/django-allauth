@@ -147,12 +147,14 @@ def get_current_site(request=None):
     :param request: optional request object
     :type request: :class:`django.http.HttpRequest`
     """
-    if request and hasattr(Site.objects, '_get_site_by_request'):  # >= django 1.8
+    # >= django 1.8
+    if request and hasattr(Site.objects, '_get_site_by_request'):
         site = Site.objects.get_current(request=request)
     else:
         site = Site.objects.get_current()
 
     return site
+
 
 def resolve_url(to):
     """

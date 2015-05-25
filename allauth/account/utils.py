@@ -335,11 +335,13 @@ def sync_user_email_addresses(user):
                                     primary=False,
                                     verified=False)
 
+
 def filter_users_by_email(email):
-    """
-    Return list of users by email address, normally one in length.
-    First we look through EmailAddress table, than customisable User model table.
-    Add results together avoiding SQL joins and deduplicate.
+    """Return list of users by email address
+
+    Typically one, at most just a few in length.  First we look through
+    EmailAddress table, than customisable User model table. Add results
+    together avoiding SQL joins and deduplicate.
     """
     from .models import EmailAddress
     User = get_user_model()

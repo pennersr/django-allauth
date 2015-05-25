@@ -10,6 +10,7 @@ Python package::
 
 settings.py::
 
+    # For Django 1.7 and below, use:
     TEMPLATE_CONTEXT_PROCESSORS = (
         ...
         # Required by `allauth` template tags
@@ -21,8 +22,8 @@ settings.py::
         ...
     )
 
-If you are running Django 1.8+, you can specify the context like so:
-
+    # If you are running Django 1.8+, specify the context processors
+    # as follows:
     TEMPLATES = [
         {
             'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -32,9 +33,9 @@ If you are running Django 1.8+, you can specify the context like so:
                 'context_processors': [
                     # Already defined Django-related contexts here
 
-                    # 'allauth' needs this from django
+                    # `allauth` needs this from django
                     'django.core.context_processors.request',
-                    
+
                     # `allauth` specific context processors
                     'allauth.account.context_processors.account',
                     'allauth.socialaccount.context_processors.socialaccount',

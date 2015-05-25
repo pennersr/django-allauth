@@ -1,3 +1,7 @@
+2015-05-25  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.20.0 released.
+
 2015-05-20  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Given that the `max_length` for the Django 1.8 `EmailField` has

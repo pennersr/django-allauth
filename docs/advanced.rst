@@ -49,7 +49,7 @@ need the following in your settings.py::
     ACCOUNT_USERNAME_REQUIRED = False
     ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
-Finally, you also rewrite your `AccountAdapter` and `SocialAccountAdapter` 
+Finally, you also tweak your `AccountAdapter` and `SocialAccountAdapter` 
 if needed. Look at the next section for more details.
 
 Creating and Populating User instances
@@ -94,13 +94,14 @@ instances are created, and populated with data
 If your user model is custom, you may need to rewrite your `AccountAdapter` and `SocialAccountAdapter`
 by inheriting two adapters above.
 
-The functions `save_user`, `populate_username` in `DefaultAccountAdapter` and 
-`save_user`, `populate_user` in `DefaultSocialAccountAdapter` are usually needed rewriting
+`DefaultAccountAdapter.save_user`, `DefaultAccountAdapter.populate_username`, 
+`DefaultSocialAccountAdapter.save_user` and `DefaultSocialAccountAdapter.populate_user`
+are usually needed customizing
 for setting fields in your custom user model. 
 
 You can know what these functions do exactly by reading source code.
 
-Finally, remember to set `ACCOUNT_ADAPTER` and `SOCIALACCOUNT_ADAPTER` in `setting.py`.
+Finally, remember to set `ACCOUNT_ADAPTER` and `SOCIALACCOUNT_ADAPTER` in `settings.py`.
 
 Invitations
 -----------

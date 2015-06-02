@@ -85,12 +85,20 @@ class BasicTests(TestCase):
             dt = models.DateTimeField()
             t = models.TimeField()
             d = models.DateField()
+            
+        def method(self):
+            pass
+
         instance = SomeModel(dt=datetime.now(),
                              d=date.today(),
                              t=datetime.now().time())
+        # make sure serializer doesn't fail if a method is attached to the instance
+        instance.method = method
         instance.nonfield = 'hello'
         data = utils.serialize_instance(instance)
         instance2 = utils.deserialize_instance(SomeModel, data)
+        self.assertEqual(getattr(instance, 'method', None), method)
+        self.assertEqual(getattr(instance2, 'method', None), None)
         self.assertEqual(instance.nonfield, instance2.nonfield)
         self.assertEqual(instance.d, instance2.d)
         self.assertEqual(instance.dt.date(), instance2.dt.date())

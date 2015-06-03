@@ -198,6 +198,10 @@ class AppSettings(object):
         return self._setting('LOGOUT_ON_GET', False)
 
     @property
+    def LOGOUT_ON_PASSWORD_CHANGE(self):
+        return self._setting('LOGOUT_ON_PASSWORD_CHANGE', False)
+
+    @property
     def USER_MODEL_USERNAME_FIELD(self):
         return self._setting('USER_MODEL_USERNAME_FIELD', 'username')
 

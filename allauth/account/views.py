@@ -27,6 +27,11 @@ from . import app_settings
 
 from .adapter import get_adapter
 
+try:
+    from django.contrib.auth import update_session_auth_hash
+except ImportError:
+    update_session_auth_hash = None
+
 
 sensitive_post_parameters_m = method_decorator(
     sensitive_post_parameters('password', 'password1', 'password2'))
@@ -468,6 +473,9 @@ class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
 
     def form_valid(self, form):
         form.save()
+        if (update_session_auth_hash is not None and 
+            not app_settings.LOGOUT_ON_PASSWORD_CHANGE):
+            update_session_auth_hash(self.request, form.user)
         get_adapter().add_message(self.request,
                                   messages.SUCCESS,
                                   'account/messages/password_changed.txt')

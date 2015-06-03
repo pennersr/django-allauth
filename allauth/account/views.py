@@ -343,6 +343,10 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
             # Given that we bypassed AjaxCapableProcessFormViewMixin,
             # we'll have to call invoke it manually...
             res = _ajax_response(request, res)
+        else:
+            # No email address selected
+            res = HttpResponseRedirect(reverse('account_email'))
+            res = _ajax_response(request, res)
         return res
 
     def _action_send(self, request, *args, **kwargs):

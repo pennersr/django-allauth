@@ -86,6 +86,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.evernote",
     "allauth.socialaccount.providers.exist",
     "allauth.socialaccount.providers.facebook",
+    "allauth.socialaccount.providers.fake",
     "allauth.socialaccount.providers.feedly",
     "allauth.socialaccount.providers.figma",
     "allauth.socialaccount.providers.fivehundredpx",
@@ -159,6 +160,13 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.zoom",
     "allauth.socialaccount.providers.okta",
     "allauth.socialaccount.providers.feishu",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.sites",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "django.contrib.admin",
 )
 
 AUTHENTICATION_BACKENDS = (

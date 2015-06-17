@@ -52,9 +52,9 @@ ACCOUNT_EMAIL_REQUIRED (=False)
 ACCOUNT_EMAIL_VERIFICATION (="optional")
   Determines the e-mail verification method during signup -- choose
   one of ``"mandatory"``, ``"optional"``, or ``"none"``.
-  
+
   Setting this to `"mandatory"` requires `ACCOUNT_EMAIL_REQUIRED` to be `True`
-  
+
   When set to "mandatory" the user is blocked from logging in until the email
   address is verified. Choose "optional" or "none" to allow logins
   with an unverified e-mail address. In case of "optional", the e-mail
@@ -232,18 +232,62 @@ ACCOUNT_USERNAME_VALIDATORS (=None)
   (``'some.module.validators.custom_username_validators'``) to a list of
   custom username validators. If left unset, the validators setup
   within the user model username field are used.
-  
+
   Example::
-  
+
       # In validators.py
-      
+
       from django.contrib.auth.validators import ASCIIUsernameValidator
 
       custom_username_validators = [ASCIIUsernameValidator()]
-      
+
       # In settings.py
-      
+
       ACCOUNT_USERNAME_VALIDATORS = 'some.module.validators.custom_username_validators'
+
+ACCOUNT_LOGIN_CALLBACK_PROXY (="")
+  Redirect the login callback to this remote server or endpoint, instead of the
+  default endpoint on the local server. The remote server could be any server.
+  However, it is suggested that the remote server be an instance of the local
+  server, at a dedicated URL. By enabling
+  ACCOUNT_LOGIN_PROXY_REDIRECT_WHITELIST on the remote server, it will function
+  as a reverse proxy. It will forward the callback request to the local server.
+
+  This is useful for working around an OAuth2 redirect_uri whitelist.
+
+  Specifically, this is useful for authenticating arbitrarily-named and
+  short-lived feature deploys on Google's OAuth2 endpoint. Rather than
+  adding each name to the redirect_uri whitelist, one can permanently
+  redirect to the LOGIN_CALLBACK_PROXY instead, which forwards the OAuth2 code
+  to the feature-deploy.
+
+ACCOUNT_LOGIN_PROXY_REDIRECT_WHITELIST (="")
+  List of remote servers to which this server may forward OAuth2 token proxy
+  redirects (see above).
+
+ACCOUNT_PASSWORD_INPUT_RENDER_VALUE (=False)
+  `render_value` parameter as passed to `PasswordInput` fields.
+
+ACCOUNT_PASSWORD_MIN_LENGTH (=6)
+  An integer specifying the minimum password length.
+
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION (=True)
+  The default behaviour is to automatically log users in once they confirm
+  their email address. Note however that this only works when confirming
+  the email address **immediately after signing up**, assuming users
+  didn't close their browser or used some sort of private browsing mode.
+
+  By changing this setting to `False` they will not be logged in, but
+  redirected to the `ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL`
+
+ACCOUNT_SESSION_REMEMBER (=None)
+  Controls the life time of the session. Set to `None` to ask the user
+  ("Remember me?"), `False` to not remember, and `True` to always
+  remember.
+
+ACCOUNT_SESSION_COOKIE_AGE (=1814400)
+  How long before the session cookie expires in seconds.  Defaults to 1814400 seconds,
+  or 3 weeks.
 
 SOCIALACCOUNT_ADAPTER (="allauth.socialaccount.adapter.DefaultSocialAccountAdapter")
   Specifies the adapter class to use, allowing you to alter certain

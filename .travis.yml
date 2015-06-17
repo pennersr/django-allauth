@@ -13,6 +13,7 @@ env:
    - DJANGO=Django==1.5
    - DJANGO=Django==1.6
    - DJANGO=Django==1.7
+   - DJANGO=Django==1.8
 install:
  - pip install $DJANGO --use-mirrors
  - pip install . --use-mirrors
@@ -25,6 +26,8 @@ matrix:
   exclude:
     - python: "2.6"
       env: DJANGO=Django==1.7
+    - python: "2.6"
+      env: DJANGO=Django==1.8
 after_success:
   - coverage report
   - pip install --quiet python-coveralls

@@ -1,5 +1,7 @@
 from __future__ import absolute_import
 
+import json
+
 from django.core.exceptions import PermissionDenied
 from django.db import models
 from django.contrib.auth import authenticate
@@ -16,7 +18,8 @@ import allauth.app_settings
 from allauth.account.models import EmailAddress
 from allauth.account.utils import get_next_redirect_url, setup_user_email
 from allauth.utils import (get_user_model, get_current_site,
-                           serialize_instance, deserialize_instance)
+                           serialize_instance, deserialize_instance,
+                           build_absolute_uri)
 
 from . import app_settings
 from . import providers
@@ -281,6 +284,7 @@ class SocialLogin(object):
         next_url = get_next_redirect_url(request)
         if next_url:
             state['next'] = next_url
+        state['host'] = build_absolute_uri(request, '')
         state['process'] = get_request_param(request, 'process', 'login')
         state['scope'] = get_request_param(request, 'scope', '')
         state['auth_params'] = get_request_param(request, 'auth_params', '')
@@ -290,21 +294,28 @@ class SocialLogin(object):
     def stash_state(cls, request):
         state = cls.state_from_request(request)
         verifier = get_random_string()
-        request.session['socialaccount_state'] = (state, verifier)
-        return verifier
+        state['verifier'] = verifier
+        request.session['socialaccount_state'] = state
+        return json.dumps(state)
 
     @classmethod
     def unstash_state(cls, request):
         if 'socialaccount_state' not in request.session:
             raise PermissionDenied()
-        state, verifier = request.session.pop('socialaccount_state')
-        return state
+        return request.session.pop('socialaccount_state')
 
     @classmethod
-    def verify_and_unstash_state(cls, request, verifier):
-        if 'socialaccount_state' not in request.session:
+    def parse_url_state(cls, request):
+        state = get_request_param(request, 'state')
+        if state:
+            return json.loads(state)
+        else:
+            return {}
+
+    @classmethod
+    def parse_and_verify_url_state(cls, request):
+        session_state = cls.unstash_state(request)
+        url_state = cls.parse_url_state(request)
+        if session_state['verifier'] != url_state['verifier']:
             raise PermissionDenied()
-        state, verifier2 = request.session.pop('socialaccount_state')
-        if verifier != verifier2:
-            raise PermissionDenied()
-        return state
+        return url_state

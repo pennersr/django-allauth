@@ -190,6 +190,16 @@ class AppSettings(object):
         return self._setting('LOGIN_ON_EMAIL_CONFIRMATION', True)
 
     @property
+    def LOGIN_CALLBACK_PROXY(self):
+        return self._setting('LOGIN_CALLBACK_PROXY', '')
+
+    @property
+    def LOGIN_PROXY_REDIRECT_WHITELIST(self):
+        unsanitized_list = (
+            self._setting('LOGIN_PROXY_REDIRECT_WHITELIST', '').split(','))
+        return [x.strip() for x in unsanitized_list if len(x.strip()) > 0]
+
+    @property
     def LOGOUT_REDIRECT_URL(self):
         return self._setting('LOGOUT_REDIRECT_URL', '/')
 

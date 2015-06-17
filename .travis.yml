@@ -10,10 +10,10 @@ env:
   global:
    - TEST_APPS="allauth account socialaccount amazon angellist bitbucket coinbase evernote feedly foursquare douban dropbox dropbox_oauth2 facebook flickr google github hubic instagram linkedin linkedin_oauth2 mailru odnoklassniki windowslive openid orcid paypal persona soundcloud spotify stackexchange tumblr twitch twitter vimeo vk weibo bitly xing"
   matrix:
-   - DJANGO=Django==1.5
-   - DJANGO=Django==1.6
-   - DJANGO=Django==1.7
-   - DJANGO=Django==1.8
+   - DJANGO="Django<1.6"
+   - DJANGO="Django<1.7"
+   - DJANGO="Django<1.8"
+   - DJANGO="Django<1.9"
 install:
  - pip install $DJANGO --use-mirrors
  - pip install . --use-mirrors
@@ -25,9 +25,9 @@ script: if [ -o $DJANGO == Django==1.5 ]; then coverage run manage.py test $TEST
 matrix:
   exclude:
     - python: "2.6"
-      env: DJANGO=Django==1.7
+      env: DJANGO="Django<1.8"
     - python: "2.6"
-      env: DJANGO=Django==1.8
+      env: DJANGO="Django<1.9"
 after_success:
   - coverage report
   - pip install --quiet python-coveralls

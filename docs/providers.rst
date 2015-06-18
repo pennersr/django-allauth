@@ -143,6 +143,22 @@ The provider is OAuth2 based. More info:
 
 Note: This is not the same as the Mozilla Persona provider below.
 
+Flickr
+------
+
+App registration
+    https://www.flickr.com/services/apps/create/
+
+You can optionally specify the application permissions to use. If no `perms`
+value is set, the Flickr provider will use `read` by default.::
+
+    SOCIALACCOUNT_PROVIDERS = \
+        { 'flickr':
+            { 'AUTH_PARAMS': { 'perms': 'write' } }}
+
+More info:
+    https://www.flickr.com/services/api/auth.oauth.html#authorization
+
 GitHub
 ------
 

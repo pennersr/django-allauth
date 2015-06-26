@@ -272,6 +272,23 @@ following template tag::
     {% load socialaccount %}
     <a href="{% provider_login_url "openid" openid="https://www.google.com/accounts/o8/id" next="/success/url/" %}">Google</a>
 
+
+ORCID
+------
+
+The ORCID provider should work out of the box provided that you are using the Production ORCID registry and the member api. If you are in development and are using the Sanbox registry, then you will need to change the urls to::
+
+    authorize_url = 'https://sandbox.orcid.org/oauth/authorize'
+    access_token_url = 'https://api.sandbox.orcid.org/oauth/token'
+    profile_url = 'http://pub.sandbox.orcid.org/v1.2/%s/orcid-profile'
+
+If you find issues with the complete_login method (allauth/socialaccount/providers/orcid/views.py) when using the public api, try removing:
+
+    params={'access_token': token.token},
+
+since the access token is only required in the member api and its presence causes an error when using the public api.
+
+
 Paypal
 ------
 
@@ -388,7 +405,7 @@ Twitter won't allow using http://localhost:8000.
 For production use a callback URL such as::
 
    http://{{yourdomain}}.com
-   
+
 To allow user's to login without authorizing each session select "Allow this application to be used to Sign in with Twitter" under the application's "Settings" tab.
 
 App database configuration through admin

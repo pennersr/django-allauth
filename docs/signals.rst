@@ -55,7 +55,7 @@ allauth.account
 allauth.socialaccount
 ---------------------
 
-- `allauth.socialaccount.signals.pre_social_login(request, social_login)`
+- `allauth.socialaccount.signals.pre_social_login(request, sociallogin)`
 
   Sent after a user successfully authenticates via a social provider,
   but before the login is fully processed. This signal is emitted as

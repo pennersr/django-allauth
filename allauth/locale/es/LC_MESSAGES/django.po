@@ -33,9 +33,8 @@ msgid "This username is already taken. Please choose another."
 msgstr "Este usuario ya está en uso. Por favor elija otro."
 
 #: account/apps.py:8
-#, fuzzy
 msgid "Accounts"
-msgstr "Cuenta"
+msgstr "Cuentas"
 
 #: account/forms.py:36 account/forms.py:53 account/forms.py:283
 #: account/forms.py:380
@@ -146,19 +145,16 @@ msgid "user"
 msgstr "usuario"
 
 #: account/models.py:27 account/models.py:78
-#, fuzzy
 msgid "e-mail address"
 msgstr "correo electrónico"
 
 #: account/models.py:28
-#, fuzzy
 msgid "verified"
-msgstr "Sin verificar"
+msgstr "verificado"
 
 #: account/models.py:29
-#, fuzzy
 msgid "primary"
-msgstr "Principal"
+msgstr "primero"
 
 #: account/models.py:34
 msgid "email address"
@@ -197,9 +193,8 @@ msgid "Your account has no verified e-mail address."
 msgstr "Su cuenta no tiene un correo electrónico verificado."
 
 #: socialaccount/apps.py:8
-#, fuzzy
 msgid "Social Accounts"
-msgstr "Cuenta"
+msgstr "Cuentas Sociales"
 
 #: socialaccount/forms.py:41
 #, python-format
@@ -215,9 +210,8 @@ msgid "provider"
 msgstr "proveedor"
 
 #: socialaccount/models.py:40
-#, fuzzy
 msgid "name"
-msgstr "Usuario"
+msgstr "nombre"
 
 #: socialaccount/models.py:42
 msgid "client id"
@@ -439,7 +433,7 @@ msgid "Sign In"
 msgstr "Iniciar sesión"
 
 #: templates/account/login.html:14
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please sign in with one\n"
 "of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign "
@@ -455,12 +449,13 @@ msgid "or"
 msgstr "o"
 
 #: templates/account/login.html:31
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "If you have not created an account yet, then please\n"
 "<a href=\"%(signup_url)s\">sign up</a> first."
 msgstr ""
-"¿Ya tiene una cuenta? Por favor <a href=\"%(login_url)s\">inicie sesión</a>."
+"Si todavía no has creado una cuenta, entonces por favor\n"
+"<a href=\"%(signup_url)s\">regístrate</a> primero."
 
 #: templates/account/login.html:41
 msgid "Forgot Password?"
@@ -581,15 +576,14 @@ msgid "Verify Your E-mail Address"
 msgstr "Verifica tu dirección de correo electrónico"
 
 #: templates/account/verification_sent.html:10
-#, fuzzy
 msgid ""
 "We have sent an e-mail to you for verification. Follow the link provided to "
 "finalize the signup process. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"Le hemos enviado un correo electrónico <a href=\"mailto:%(email)s\">"
-"%(email)s</a> para su verificación. Siga el enlace para completar el proceso "
-"de registro. Por favor contáctenos si no recibe el correo en unos minutos."
+"Le hemos enviado un correo electrónico para su verificación. Siga el enlace "
+"para completar el proceso de registro. Por favor contáctenos si no recibe "
+"el correo en unos minutos."
 
 #: templates/account/verified_email_required.html:13
 msgid ""
@@ -764,7 +758,7 @@ msgstr ""
 "sesión</a>."
 
 #: templates/socialaccount/signup.html:11
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You are about to use your %(provider_name)s account to login to\n"
 "%(site_name)s. As a final step, please complete the following form:"

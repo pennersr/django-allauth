@@ -1,3 +1,8 @@
+try:
+    from urllib.parse import parse_qsl
+except ImportError:
+    from urlparse import parse_qsl
+
 from django.core.urlresolvers import reverse
 from django.utils.http import urlencode
 
@@ -11,6 +16,14 @@ class OAuthProvider(Provider):
         if kwargs:
             url = url + '?' + urlencode(kwargs)
         return url
+
+    def get_auth_params(self, request, action):
+        settings = self.get_settings()
+        ret = settings.get('AUTH_PARAMS', {})
+        dynamic_auth_params = request.GET.get('auth_params', None)
+        if dynamic_auth_params:
+            ret.update(dict(parse_qsl(dynamic_auth_params)))
+        return ret
 
     def get_auth_url(self, request, action):
         # TODO: This is ugly. Move authorization_url away from the

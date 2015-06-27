@@ -133,7 +133,7 @@ class OAuthClient(object):
             return False
         return True
 
-    def get_redirect(self, authorization_url):
+    def get_redirect(self, authorization_url, extra_params):
         """
         Returns a ``HttpResponseRedirect`` object to redirect the user
         to the URL the OAuth provider handles authorization.
@@ -142,6 +142,7 @@ class OAuthClient(object):
         params = {'oauth_token': request_token['oauth_token'],
                   'oauth_callback': self.request.build_absolute_uri(
                       self.callback_url)}
+        params.update(extra_params)
         url = authorization_url + '?' + urlencode(params)
         return HttpResponseRedirect(url)
 

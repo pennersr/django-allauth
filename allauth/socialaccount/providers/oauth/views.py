@@ -57,9 +57,10 @@ class OAuthLoginView(OAuthView):
         provider = self.adapter.get_provider()
         auth_url = provider.get_auth_url(request,
                                          action) or self.adapter.authorize_url
+        auth_params = provider.get_auth_params(request, action)
         client = self._get_client(request, callback_url)
         try:
-            return client.get_redirect(auth_url)
+            return client.get_redirect(auth_url, auth_params)
         except OAuthError as e:
             return render_authentication_error(request,
                                                self.adapter.provider_id,

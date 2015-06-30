@@ -1,6 +1,8 @@
 from __future__ import absolute_import
 
 from datetime import timedelta
+from urlparse import urljoin
+from urlparse import urlparse
 
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
@@ -18,6 +20,9 @@ from allauth.socialaccount.models import SocialToken, SocialLogin
 from allauth.utils import get_request_param
 from ..base import AuthAction, AuthError
 
+
+class MissingParameter(Exception):
+    pass
 
 class OAuth2Adapter(object):
     expires_in_key = 'expires_in'
@@ -57,11 +62,14 @@ class OAuth2View(object):
 
     def get_client(self, request, app):
         callback_url = reverse(self.adapter.provider_id + "_callback")
-        protocol = (self.adapter.redirect_uri_protocol
-                    or app_settings.DEFAULT_HTTP_PROTOCOL)
-        callback_url = build_absolute_uri(
-            request, callback_url,
-            protocol=protocol)
+        if app_settings.LOGIN_CALLBACK_PROXY:
+            callback_url = urljoin(app_settings.LOGIN_CALLBACK_PROXY, callback_url)
+            callback_url = '%s/proxy/' % callback_url.rstrip('/')
+        else:
+            protocol = (self.adapter.redirect_uri_protocol
+                        or app_settings.DEFAULT_HTTP_PROTOCOL)
+            callback_url = build_absolute_uri(
+                request, callback_url, protocol=protocol)
         provider = self.adapter.get_provider()
         scope = provider.get_scope(request)
         client = OAuth2Client(self.request, app.client_id, app.secret,
@@ -116,10 +124,7 @@ class OAuth2CallbackView(OAuth2View):
                                                 response=access_token)
             login.token = token
             if self.adapter.supports_state:
-                login.state = SocialLogin \
-                    .verify_and_unstash_state(
-                        request,
-                        get_request_param(request, 'state'))
+                login.state = SocialLogin.parse_and_verify_url_state(request)
             else:
                 login.state = SocialLogin.unstash_state(request)
             return complete_social_login(request, login)
@@ -128,3 +133,35 @@ class OAuth2CallbackView(OAuth2View):
                 request,
                 self.adapter.provider_id,
                 exception=e)
+
+
+def target_in_whitelist(parsed_target):
+    target_loc = parsed_target.netloc
+    target_scheme = parsed_target.scheme
+    for allowed in app_settings.LOGIN_PROXY_REDIRECT_WHITELIST:
+        parsed_allowed = urlparse(allowed)
+        allowed_loc = parsed_allowed.netloc
+        allowed_scheme = parsed_allowed.scheme
+        if target_loc == allowed_loc and target_scheme == allowed_scheme:
+            return True
+    return False
+
+
+def proxy_login_callback(request, **kwargs):
+    unverified_state = SocialLogin.parse_url_state(request)
+    if 'host' not in unverified_state:
+        raise MissingParameter()
+
+    parsed_target = urlparse(unverified_state['host'])
+    if not target_in_whitelist(parsed_target):
+        raise PermissionDenied()
+
+    relative_callback = reverse(kwargs.get('callback_view_name'))
+    redirect = urljoin(unverified_state['host'], relative_callback)
+
+    # URLUnparse would be ideal here, but it's buggy.
+    # It used a semicolon instead of a question mark, which neither Django nor I
+    # understand. Neither of us have time for that nonsense, so add params
+    # manually.
+    redirect_with_params = '%s?%s' % (redirect, request.GET.urlencode())
+    return HttpResponseRedirect(redirect_with_params)

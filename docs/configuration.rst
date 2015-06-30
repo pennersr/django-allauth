@@ -104,6 +104,26 @@ ACCOUNT_USERNAME_REQUIRED (=True)
   `ACCOUNT_AUTHENTICATION_METHOD` is set to `email`. Set to `False`
   when you do not wish to prompt the user to enter a username.
 
+ACCOUNT_LOGIN_CALLBACK_PROXY (="")
+  Redirect the login callback to this remote server or endpoint, instead of the
+  default endpoint on the local server. The remote server could be any server.
+  However, it is suggested that the remote server be an instance of the local
+  server, at a dedicated URL. By enabling
+  ACCOUNT_LOGIN_PROXY_REDIRECT_WHITELIST on the remote server, it will function
+  as a reverse proxy. It will forward the callback request to the local server.
+
+  This is useful for working around an OAuth2 redirect_uri whitelist.
+
+  Specifically, this is useful for authenticating arbitrarily-named and
+  short-lived feature deploys on Google's OAuth2 endpoint. Rather than
+  adding each name to the redirect_uri whitelist, one can permanently
+  redirect to the LOGIN_CALLBACK_PROXY instead, which forwards the OAuth2 code
+  to the feature-deploy.
+
+ACCOUNT_LOGIN_PROXY_REDIRECT_WHITELIST (="")
+  List of remote servers to which this server may forward OAuth2 token proxy
+  redirects (see above).
+
 ACCOUNT_PASSWORD_INPUT_RENDER_VALUE (=False)
   `render_value` parameter as passed to `PasswordInput` fields.
 

@@ -40,7 +40,7 @@ class OAuth2Client(object):
 
     def get_access_token(self, code):
         data = {'client_id': self.consumer_key,
-                'redirect_uri': self.callback_url,
+                'redirect_uri': 'urn:ietf:wg:oauth:2.0:oob',
                 'grant_type': 'authorization_code',
                 'client_secret': self.consumer_secret,
                 'scope': self.scope,

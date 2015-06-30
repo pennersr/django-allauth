@@ -1,16 +1,12 @@
 sudo: false
 language: python
 python:
- - "2.6"
  - "2.7"
  - "3.2"
  - "3.3"
  - "3.4"
 env:
-  global:
-   - TEST_APPS="allauth account socialaccount amazon angellist baidu bitbucket coinbase evernote feedly foursquare douban dropbox dropbox_oauth2 facebook flickr google github hubic instagram linkedin linkedin_oauth2 mailru odnoklassniki windowslive openid orcid paypal persona soundcloud spotify stackexchange tumblr twitch twitter vimeo vk weibo bitly xing"
   matrix:
-   - DJANGO="Django<1.6"
    - DJANGO="Django<1.7"
    - DJANGO="Django<1.8"
    - DJANGO="Django<1.9"
@@ -21,13 +17,7 @@ install:
 branches:
  only:
   - master
-script: if [ -o $DJANGO == Django==1.5 ]; then coverage run manage.py test $TEST_APPS; else coverage run manage.py test allauth; fi
-matrix:
-  exclude:
-    - python: "2.6"
-      env: DJANGO="Django<1.8"
-    - python: "2.6"
-      env: DJANGO="Django<1.9"
+script: coverage run manage.py test allauth
 after_success:
   - coverage report
   - pip install --quiet python-coveralls

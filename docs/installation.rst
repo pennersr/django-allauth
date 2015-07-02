@@ -34,7 +34,7 @@ settings.py::
                     # Already defined Django-related contexts here
 
                     # `allauth` needs this from django
-                    'django.core.context_processors.request',
+                    'django.template.context_processors.request',
 
                     # `allauth` specific context processors
                     'allauth.account.context_processors.account',

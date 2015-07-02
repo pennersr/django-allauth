@@ -47,6 +47,27 @@ For local development, use the following callback URL::
     http://localhost:8000/accounts/angellist/login/callback/
 
 
+Baidu
+-----
+
+The Baidu OAuth2 authentication documentation:
+
+    http://developer.baidu.com/wiki/index.php?title=docs/oauth/refresh
+    http://developer.baidu.com/wiki/index.php?title=docs/oauth/rest/file_data_apis_lista
+
+
+Evernote
+----------
+
+Register your OAuth2 application at `https://dev.evernote.com/doc/articles/authentication.php`::
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'evernote': {
+            'EVERNOTE_HOSTNAME': 'evernote.com'  # defaults to sandbox.evernote.com
+        }
+    }
+
+
 Facebook
 --------
 
@@ -363,17 +384,6 @@ latter.
 
 Development callback URL
     http://example.com/accounts/soundcloud/login/callback/
-
-Evernote
-----------
-
-Register your OAuth2 application at `https://dev.evernote.com/doc/articles/authentication.php`.
-
-    SOCIALACCOUNT_PROVIDERS = {
-        'evernote': {
-            'EVERNOTE_HOSTNAME': 'evernote.com'  # defaults to sandbox.evernote.com
-        }
-    }
 
 
 Stack Exchange

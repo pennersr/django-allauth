@@ -24,6 +24,13 @@ class GoogleOAuth2Adapter(OAuth2Adapter):
                                        extra_data)
         return login
 
+class GoogleOAuth2AndroidCallbackView(OAuth2CallbackView):
+    def get_client(self, request, app):
+        client = super(GoogleOAuth2AndroidCallbackView, self).get_client(request, app)
+        client.callback_url = ""
+        return client
+
 
 oauth2_login = OAuth2LoginView.adapter_view(GoogleOAuth2Adapter)
 oauth2_callback = OAuth2CallbackView.adapter_view(GoogleOAuth2Adapter)
+oauth2_callback_android = GoogleOAuth2AndroidCallbackView.adapter_view(GoogleOAuth2Adapter)

@@ -4,6 +4,24 @@ Changelog
 This chapter contains notes on upgrading.
 
 
+From 0.20.0
+***********
+
+- In version 0.20.0 an `account` migration (`0002_email_max_length`)
+  was added to alter the maximum length of the email
+  field. Unfortunately, a side effect of this migration was that the
+  `unique=True` setting slipped through as well. Hardcoding this to
+  `True` is wrong, as uniqueness actually depends on the
+  `ACCOUNT_UNIQUE_EMAIL` setting. We cannot create a followup `0003`
+  migration to set things straight, as the `0002` migration may fail
+  on installations where email addresses are not unique. Therefore, we
+  had to resort to changing an existing migration which is normally
+  not the right thing to do. In case your installation has
+  `ACCOUNT_UNIQUE_EMAIL` set to `True`, you need not take any further
+  action. In case it is set to `False` and migration `0002` already
+  ran, please issue a `--fake` migration down to `0001`, followed by a
+  re-run of the updated `0002`.
+
 From 0.19.1
 ***********
 

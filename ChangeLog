@@ -1,3 +1,20 @@
+2015-07-02  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.21.0 released.
+
+2015-06-27  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* You can now tweak the authentication params per OAuth provider,
+	as you already could for OAuth2. Contributed by Peter Rowlands,
+	thanks.
+
+	* Nattaphoom Ch. contributed a Thai translation, thanks!
+
+2015-06-03  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Rod Xavier Bondoc contributed support logging out on password
+	change (see setting: `ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE`)
+
 2015-05-25  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Version 0.20.0 released.

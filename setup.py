@@ -107,7 +107,7 @@ else:
     openid_package = 'python3-openid >= 3.0.1'
 
 if sys.version_info[:2] == (2, 6):
-    text_requirements.append('unittest2')
+    test_requirements.append('unittest2')
 
 long_description = io.open('README.rst', encoding='utf-8').read()
 

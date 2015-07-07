@@ -5,10 +5,12 @@ import warnings
 import json
 
 from django.conf import settings
+from django.contrib.sites.models import Site
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.template import TemplateDoesNotExist
 from django.core.mail import EmailMultiAlternatives, EmailMessage
+from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 from django.contrib import messages
@@ -20,7 +22,8 @@ except ImportError:
 
 from ..utils import (import_attribute, get_user_model,
                      generate_unique_username,
-                     resolve_url, get_current_site)
+                     resolve_url, get_current_site,
+                     build_absolute_uri)
 
 from . import app_settings
 
@@ -316,6 +319,32 @@ class DefaultAccountAdapter(object):
     def is_safe_url(self, url):
         from django.utils.http import is_safe_url
         return is_safe_url(url)
+
+    def send_confirmation_mail(self, request, email_confirmation, signup, **kwargs):
+
+        current_site = kwargs["site"] if "site" in kwargs \
+            else Site.objects.get_current()
+        activate_url = reverse("account_confirm_email", args=[email_confirmation.key])
+        activate_url = build_absolute_uri(request,
+                                          activate_url,
+                                          protocol=app_settings.DEFAULT_HTTP_PROTOCOL)
+        ctx = {
+            "user": email_confirmation.email_address.user,
+            "activate_url": activate_url,
+            "current_site": current_site,
+            "key": email_confirmation.key,
+        }
+
+        if signup:
+            email_template = 'account/email/email_confirmation_signup'
+        else:
+            email_template = 'account/email/email_confirmation'
+
+        self.send_mail(
+            email_template,
+            email_confirmation.email_address.email,
+            ctx
+        )
 
 
 def get_adapter():

@@ -95,9 +95,10 @@ The following Facebook settings are available::
 
     SOCIALACCOUNT_PROVIDERS = \
         {'facebook':
-           {'SCOPE': ['email', 'public_profile', 'user_friends'],
+           {'METHOD': 'oauth2',
+            'SCOPE': ['email', 'public_profile', 'user_friends'],
             'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-            'METHOD': 'oauth2',
+            'EXCHANGE_TOKEN': True,
             'LOCALE_FUNC': 'path.to.callable',
             'VERIFIED_EMAIL': False,
             'VERSION': 'v2.3'}}
@@ -114,6 +115,12 @@ SCOPE:
 AUTH_PARAMS:
     Use `AUTH_PARAMS` to pass along other parameters to the `FB.login`
     JS SDK call.
+
+EXCHANGE_TOKEN:
+    The JS SDK returns a short-lived token suitable for client-side use. Set
+    `EXCHANGE_TOKEN = True` to make a server-side request to upgrade to a
+    long-lived token before storing in the `SocialToken` record. See
+    `Expiration and Extending Tokens <https://developers.facebook.com/docs/facebook-login/access-tokens#extending>`_.
 
 LOCALE_FUNC:
     The locale for the JS SDK is chosen based on the current active language of

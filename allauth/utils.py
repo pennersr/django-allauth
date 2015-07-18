@@ -1,7 +1,7 @@
 import re
 import unicodedata
 import json
-
+import django
 from django.core.exceptions import ImproperlyConfigured
 from django.core.validators import validate_email, ValidationError
 from django.core import urlresolvers
@@ -10,7 +10,12 @@ from django.db.models import FieldDoesNotExist
 from django.db.models.fields import (DateTimeField, DateField,
                                      EmailField, TimeField)
 from django.utils import six, dateparse
-from django.utils.datastructures import SortedDict
+
+if django.VERSION > (1, 8,):
+    from collections import OrderedDict
+else:
+    from django.utils.datastructures import SortedDict as OrderedDict
+    
 from django.core.serializers.json import DjangoJSONEncoder
 try:
     from django.utils.encoding import force_text

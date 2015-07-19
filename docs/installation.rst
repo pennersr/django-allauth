@@ -17,7 +17,6 @@ settings.py::
         'django.core.context_processors.request',
         ...
         # `allauth` specific context processors
-        'allauth.account.context_processors.account',
         'allauth.socialaccount.context_processors.socialaccount',
         ...
     )
@@ -37,7 +36,6 @@ settings.py::
                     'django.template.context_processors.request',
 
                     # `allauth` specific context processors
-                    'allauth.account.context_processors.account',
                     'allauth.socialaccount.context_processors.socialaccount',
                 ],
             },

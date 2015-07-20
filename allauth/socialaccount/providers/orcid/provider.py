@@ -58,5 +58,5 @@ def extract_from_dict(data, path):
         for key in path:
             value = value[key]
         return value
-    except (KeyError, IndexError):
+    except (KeyError, IndexError, TypeError):
         return ''

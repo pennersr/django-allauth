@@ -117,8 +117,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.request",
     "django.contrib.messages.context_processors.messages",
-
-    "allauth.socialaccount.context_processors.socialaccount",
 )
 
 TEMPLATE_DIRS = (

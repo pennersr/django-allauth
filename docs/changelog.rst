@@ -4,6 +4,15 @@ Changelog
 This chapter contains notes on upgrading.
 
 
+From 0.21.0
+***********
+
+- Allauth doesn't enforce template context processors anymore. The context
+  processor for ``allauth.account`` was already empty, and the context
+  processor for ``allauth.socialaccount`` has been converted into the
+  :doc:`{% get_providers %} <templates>` template tag.
+
+
 From 0.20.0
 ***********
 

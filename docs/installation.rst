@@ -16,9 +16,6 @@ settings.py::
         # Required by `allauth` template tags
         'django.core.context_processors.request',
         ...
-        # `allauth` specific context processors
-        'allauth.socialaccount.context_processors.socialaccount',
-        ...
     )
 
     # If you are running Django 1.8+, specify the context processors
@@ -34,9 +31,6 @@ settings.py::
 
                     # `allauth` needs this from django
                     'django.template.context_processors.request',
-
-                    # `allauth` specific context processors
-                    'allauth.socialaccount.context_processors.socialaccount',
                 ],
             },
         },

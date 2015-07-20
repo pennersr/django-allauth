@@ -31,7 +31,6 @@ if django.VERSION >= (1, 8):
                     'django.contrib.auth.context_processors.auth',
                     'django.contrib.messages.context_processors.messages',
                     'django.core.context_processors.request',
-                    'allauth.socialaccount.context_processors.socialaccount',
                 ],
             },
         },
@@ -45,8 +44,6 @@ else:
         "django.core.context_processors.static",
         "django.core.context_processors.request",
         "django.contrib.messages.context_processors.messages",
-    
-        "allauth.socialaccount.context_processors.socialaccount",
     )
 
 MIDDLEWARE_CLASSES = (

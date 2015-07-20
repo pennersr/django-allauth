@@ -46,7 +46,7 @@ else:
         "django.core.context_processors.static",
         "django.core.context_processors.request",
         "django.contrib.messages.context_processors.messages",
-    
+
         "allauth.account.context_processors.account",
         "allauth.socialaccount.context_processors.socialaccount",
     )
@@ -84,6 +84,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.evernote',
     'allauth.socialaccount.providers.feedly',
     'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.fake',
     'allauth.socialaccount.providers.flickr',
     'allauth.socialaccount.providers.foursquare',
     'allauth.socialaccount.providers.google',

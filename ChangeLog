@@ -1,3 +1,10 @@
+2015-07-21  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* The Facebook Graph API fields (/me/?fields=...) can now be
+	configured using the provider `FIELDS` setting.
+
+	* The default Facebook Graph API version is now v2.4.
+
 2015-07-02  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Version 0.21.0 released.

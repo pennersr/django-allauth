@@ -97,10 +97,16 @@ The following Facebook settings are available::
         {'facebook':
            {'SCOPE': ['email', 'public_profile', 'user_friends'],
             'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+            'FIELDS': [
+	        'id',
+                'email',
+                'name',
+                'first_name',
+                'last_name'],
             'METHOD': 'oauth2',
             'LOCALE_FUNC': 'path.to.callable',
             'VERIFIED_EMAIL': False,
-            'VERSION': 'v2.3'}}
+            'VERSION': 'v2.4'}}
 
 METHOD:
     Either `js_sdk` or `oauth2`
@@ -114,6 +120,9 @@ SCOPE:
 AUTH_PARAMS:
     Use `AUTH_PARAMS` to pass along other parameters to the `FB.login`
     JS SDK call.
+
+FIELDS:
+    The fields to fetch from the Graph API `/me/?fields=` endpoint.
 
 LOCALE_FUNC:
     The locale for the JS SDK is chosen based on the current active language of

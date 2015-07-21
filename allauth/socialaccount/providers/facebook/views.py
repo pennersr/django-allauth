@@ -19,13 +19,16 @@ logger = logging.getLogger(__name__)
 
 
 def fb_complete_login(request, app, token):
-    resp = requests.get(GRAPH_API_URL + '/me',
-                        params={'access_token': token.token})
+    provider = providers.registry.by_id(FacebookProvider.id)
+    resp = requests.get(
+        GRAPH_API_URL + '/me',
+        params={
+            'fields': ','.join(provider.get_fields()),
+            'access_token': token.token
+        })
     resp.raise_for_status()
     extra_data = resp.json()
-    login = providers.registry \
-        .by_id(FacebookProvider.id) \
-        .sociallogin_from_response(request, extra_data)
+    login = provider.sociallogin_from_response(request, extra_data)
     return login
 
 

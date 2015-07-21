@@ -3,6 +3,10 @@ Changelog
 
 This chapter contains notes on upgrading.
 
+From 0.21.0
+***********
+
+- The default Facebook Graph API version is now v2.4.
 
 From 0.20.0
 ***********

@@ -68,6 +68,14 @@ def login_by_token(request):
                     ok = nonce and nonce == info.get('auth_nonce')
                 else:
                     ok = True
+                if ok and provider.get_settings().get('EXCHANGE_TOKEN'):
+                    resp = requests.get(
+                        GRAPH_API_URL + '/oauth/access_token',
+                        params={'grant_type': 'fb_exchange_token',
+                                'client_id': app.client_id,
+                                'client_secret': app.secret,
+                                'fb_exchange_token': access_token}).json()
+                    access_token = resp['access_token']
                 if ok:
                     token = SocialToken(app=app,
                                         token=access_token)

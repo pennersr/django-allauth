@@ -8,7 +8,7 @@ Python package::
 
     pip install django-allauth
 
-settings.py::
+settings.py (Important - Please note 'django.contrib.sites' is required as INSTALLED_APPS)::
 
     # For Django 1.7 and below, use:
     TEMPLATE_CONTEXT_PROCESSORS = (

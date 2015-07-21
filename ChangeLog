@@ -1,5 +1,7 @@
 2015-07-21  Raymond Penners  <raymond.penners@intenct.nl>
 
+	* Template context processors are no longer used.
+
 	* The Facebook Graph API fields (/me/?fields=...) can now be
 	configured using the provider `FIELDS` setting.
 

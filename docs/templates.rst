@@ -70,3 +70,14 @@ Then::
     {{accounts.twitter}} -- a list of connected Twitter accounts
     {{accounts.twitter.0}} -- the first Twitter account
     {% if accounts %} -- if there is at least one social account
+
+
+Finally, social authentication providers configured for the current site
+can be retrieved via::
+
+    {% get_providers as socialaccount_providers %}
+
+Which will populate the ``socialaccount_providers`` variable in the
+template context with a list of configured social authentication
+providers. This supersedes the context processor used in version 0.21 and
+below.

@@ -78,3 +78,16 @@ def get_social_accounts(user):
         providers = accounts.setdefault(account.provider, [])
         providers.append(account)
     return accounts
+
+
+@register.assignment_tag
+def get_providers():
+    """
+    Returns a list of social authentication providers.
+
+    Usage: `{% get_providers as socialaccount_providers %}`.
+
+    Then within the template context, `socialaccount_providers` will hold
+    a list of social providers configured for the current site.
+    """
+    return providers.registry.get_list()

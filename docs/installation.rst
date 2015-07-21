@@ -16,10 +16,6 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         # Required by `allauth` template tags
         'django.core.context_processors.request',
         ...
-        # `allauth` specific context processors
-        'allauth.account.context_processors.account',
-        'allauth.socialaccount.context_processors.socialaccount',
-        ...
     )
 
     # If you are running Django 1.8+, specify the context processors
@@ -35,10 +31,6 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
 
                     # `allauth` needs this from django
                     'django.template.context_processors.request',
-
-                    # `allauth` specific context processors
-                    'allauth.account.context_processors.account',
-                    'allauth.socialaccount.context_processors.socialaccount',
                 ],
             },
         },

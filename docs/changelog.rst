@@ -8,6 +8,12 @@ From 0.21.0
 
 - The default Facebook Graph API version is now v2.4.
 
+- Template context processors are no longer used. The context
+  processor for ``allauth.account`` was already empty, and the context
+  processor for ``allauth.socialaccount`` has been converted into the
+  :doc:`{% get_providers %} <templates>` template tag.
+
+
 From 0.20.0
 ***********
 

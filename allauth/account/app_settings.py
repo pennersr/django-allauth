@@ -22,7 +22,7 @@ class AppSettings(object):
                 == self.AuthenticationMethod.EMAIL) or self.EMAIL_REQUIRED
         # If login includes email, login must be unique
         assert (self.AUTHENTICATION_METHOD
-                == self.AuthenticationMethod.USERNAME) or self.UNIQUE_EMAIL
+                == self.AuthenticationMethod.USERNAME) or self.UNIQUE_EMAIL or self.UNIQUE_EMAIL_TOGETHER
         assert (self.EMAIL_VERIFICATION
                 != self.EmailVerificationMethod.MANDATORY) \
             or self.EMAIL_REQUIRED
@@ -116,6 +116,13 @@ class AppSettings(object):
         Enforce uniqueness of e-mail addresses
         """
         return self._setting("UNIQUE_EMAIL", True)
+
+    @property
+    def UNIQUE_EMAIL_TOGETHER(self):
+        """
+        Enforce unique together of e-mail addresses
+        """
+        return self._setting("UNIQUE_EMAIL_TOGETHER", False)
 
     @property
     def SIGNUP_PASSWORD_VERIFICATION(self):

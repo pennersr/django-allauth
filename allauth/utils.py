@@ -1,3 +1,4 @@
+import base64
 import re
 import unicodedata
 import json
@@ -8,7 +9,8 @@ from django.core import urlresolvers
 from django.contrib.sites.models import Site
 from django.db.models import FieldDoesNotExist
 from django.db.models.fields import (DateTimeField, DateField,
-                                     EmailField, TimeField)
+                                     EmailField, TimeField,
+                                     BinaryField)
 from django.utils import six, dateparse
 
 if django.VERSION > (1, 8,):
@@ -18,7 +20,7 @@ else:
 
 from django.core.serializers.json import DjangoJSONEncoder
 try:
-    from django.utils.encoding import force_text
+    from django.utils.encoding import force_text, force_bytes
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
@@ -183,10 +185,17 @@ def serialize_instance(instance):
     Django serialization, as these are models are not "complete" yet.
     Serialization will start complaining about missing relations et al.
     """
-    ret = dict([(k, v)
-                for k, v in instance.__dict__.items()
-                if not (k.startswith('_') or callable(v))])
-    return json.loads(json.dumps(ret, cls=DjangoJSONEncoder))
+    data = {}
+    for k, v in instance.__dict__.items():
+        if k.startswith('_') or callable(v):
+            continue
+        try:
+            if isinstance(instance._meta.get_field(k), BinaryField):
+                v = force_text(base64.b64encode(v))
+        except FieldDoesNotExist:
+            pass
+        data[k] = v
+    return json.loads(json.dumps(data, cls=DjangoJSONEncoder))
 
 
 def deserialize_instance(model, data):
@@ -201,6 +210,8 @@ def deserialize_instance(model, data):
                     v = dateparse.parse_time(v)
                 elif isinstance(f, DateField):
                     v = dateparse.parse_date(v)
+                elif isinstance(f, BinaryField):
+                    v = force_bytes(base64.b64decode(v))
             except FieldDoesNotExist:
                 pass
         setattr(ret, k, v)

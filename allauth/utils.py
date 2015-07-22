@@ -191,7 +191,7 @@ def serialize_instance(instance):
             continue
         try:
             if isinstance(instance._meta.get_field(k), BinaryField):
-                v = force_text(base64.b64encode(v))
+                v = force_text(base64.b64encode(force_bytes(v)))
         except FieldDoesNotExist:
             pass
         data[k] = v

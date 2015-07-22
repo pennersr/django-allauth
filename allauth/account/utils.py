@@ -312,7 +312,7 @@ def send_email_confirmation(request, user, signup=False):
                                       'email_confirmation_sent.txt',
                                       {'email': email})
     if signup:
-        request.session['account_user'] = user.pk
+        request.session['account_user'] = user_pk_to_url_str(user)
 
 
 def sync_user_email_addresses(user):
@@ -367,7 +367,8 @@ def user_pk_to_url_str(user):
     This should return a string.
     """
     User = get_user_model()
-    if hasattr(models, 'UUIDField') and issubclass(type(User._meta.pk), models.UUIDField):
+    if (hasattr(models, 'UUIDField')
+            and issubclass(type(User._meta.pk), models.UUIDField)):
         return user.pk.hex
 
     ret = user.pk
@@ -380,7 +381,8 @@ def url_str_to_user_pk(s):
     User = get_user_model()
     # TODO: Ugh, isn't there a cleaner way to determine whether or not
     # the PK is a str-like field?
-    if hasattr(models, 'UUIDField') and issubclass(type(User._meta.pk), models.UUIDField):
+    if (hasattr(models, 'UUIDField')
+            and issubclass(type(User._meta.pk), models.UUIDField)):
         return s
     try:
         User._meta.pk.to_python('a')

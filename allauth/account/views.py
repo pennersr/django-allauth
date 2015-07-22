@@ -15,7 +15,7 @@ from ..utils import get_form_class, get_request_param, get_current_site
 
 from .utils import (get_next_redirect_url, complete_signup,
                     get_login_redirect_url, perform_login,
-                    passthrough_next_redirect_url)
+                    passthrough_next_redirect_url, url_str_to_user_pk)
 from .forms import (
     AddEmailForm, ChangePasswordForm,
     LoginForm, ResetPasswordKeyForm,
@@ -271,7 +271,10 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         may not 100% work in case the user closes the browser (and the
         session gets lost), but at least we're secure.
         """
-        user_pk = self.request.session.pop('account_user', None)
+        user_pk = None
+        user_pk_str = self.request.session.pop('account_user', None)
+        if user_pk_str:
+            user_pk = url_str_to_user_pk(user_pk_str)
         user = confirmation.email_address.user
         if user_pk == user.pk and self.request.user.is_anonymous():
             return perform_login(self.request,

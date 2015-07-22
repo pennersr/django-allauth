@@ -124,6 +124,8 @@ AUTH_PARAMS:
 
 FIELDS:
     The fields to fetch from the Graph API `/me/?fields=` endpoint.
+    For example, you could add the `'friends'` field in order to
+    capture the user's friends (requires `'user_friends'` scope).
 
 EXCHANGE_TOKEN:
     The JS SDK returns a short-lived token suitable for client-side use. Set

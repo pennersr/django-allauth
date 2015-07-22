@@ -63,6 +63,10 @@ instances are created, and populated with data
   - `save_user(self, request, user, form)`: Populates and saves the
     `User` instance using information provided in the signup form.
 
+  - `populate_username(self, request, user)`:
+    Fills in a valid username, if required and missing.  If the
+    username is already present it is assumed to be valid (unique).
+
   - `confirm_email(self, request, email_address)`: Marks the email address as
     confirmed and saves to the db.
 

@@ -6,6 +6,8 @@ This chapter contains notes on upgrading.
 From 0.21.0
 ***********
 
+- Dropped support for Python 2.6 and Django <1.6.
+
 - The default Facebook Graph API version is now v2.4.
 
 - Template context processors are no longer used. The context

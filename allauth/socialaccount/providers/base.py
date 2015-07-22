@@ -3,8 +3,11 @@ from django.utils.encoding import python_2_unicode_compatible
 from allauth.socialaccount import app_settings
 from allauth.account.models import EmailAddress
 
-from ..models import SocialApp, SocialAccount, SocialLogin
+from ..models import SocialAccount, SocialLogin, get_social_app_model
 from ..adapter import get_adapter
+
+
+SocialApp = get_social_app_model()
 
 
 class AuthProcess(object):

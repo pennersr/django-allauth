@@ -54,6 +54,16 @@ class AppSettings(object):
                              account_settings.EMAIL_VERIFICATION)
 
     @property
+    def SOCIAL_APP_MODEL(self):
+        """
+        Model to use for social apps.  Defaults to socialaccount.SocialApp
+        This cannot be changed after the initial migration, or there will
+        be errors.
+        """
+        return self._setting("SOCIAL_APP_MODEL",
+                             "socialaccount.SocialApp")
+
+    @property
     def ADAPTER(self):
         return self._setting('ADAPTER',
                              'allauth.socialaccount.adapter'

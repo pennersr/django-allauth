@@ -11,7 +11,11 @@ from django.core.urlresolvers import reverse
 from django.test.client import Client
 from django.core import mail
 from django.test.client import RequestFactory
-from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.models import AnonymousUser, AbstractUser
+from django.db import models
+
+import sys
+import unittest
 
 from allauth.account.forms import BaseSignupForm
 from allauth.account.models import EmailAddress, EmailConfirmation
@@ -21,6 +25,10 @@ from . import app_settings
 
 from .auth_backends import AuthenticationBackend
 from .adapter import get_adapter
+from .utils import url_str_to_user_pk, user_pk_to_url_str
+
+import uuid
+import mock
 
 
 @override_settings(
@@ -669,3 +677,30 @@ class AuthenticationBackendTests(TestCase):
                 username=user.username,
                 password=user.username).pk,
             user.pk)
+
+
+class UtilsTests(TestCase):
+    def setUp(self):
+        if hasattr(models, 'UUIDField'):
+            self.user_id = uuid.uuid4().hex
+            class UUIDUser(AbstractUser):
+                id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+                class Meta(AbstractUser.Meta):
+                    swappable = 'AUTH_USER_MODEL'
+        else:
+            UUIDUser = get_user_model()
+        self.UUIDUser = UUIDUser
+
+    @unittest.skipUnless(hasattr(models, 'UUIDField'), reason="No UUIDField in this django version")
+    def test_url_str_to_pk_identifies_UUID_as_stringlike(self):
+        with mock.patch('allauth.account.utils.get_user_model') as mocked_gum:
+            mocked_gum.return_value = self.UUIDUser
+            self.assertEqual( url_str_to_user_pk(self.user_id), self.user_id)
+
+    def test_pk_to_url_string_identifies_UUID_as_stringlike(self):
+        user = self.UUIDUser(
+            is_active=True,
+            email='john@doe.com',
+            username='john')
+        self.assertEquals(user_pk_to_url_str(user), str(user.pk))

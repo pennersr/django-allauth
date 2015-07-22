@@ -110,7 +110,7 @@ The following Facebook settings are available::
             'VERSION': 'v2.4'}}
 
 METHOD:
-    Either `js_sdk` or `oauth2`
+    Either `js_sdk` or `oauth2`.  The default is `oauth2`.
 
 SCOPE:
     By default, `email` scope is required depending whether or not
@@ -156,7 +156,7 @@ VERIFIED_EMAIL:
     introducing a security risk.
 
 VERSION:
-    The Facebook Graph API version to use.
+    The Facebook Graph API version to use.  The default is `v2.4`.
 
 App registration (get your key and secret here)
     A key and secret key can be obtained by creating an app

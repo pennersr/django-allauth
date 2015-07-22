@@ -191,7 +191,7 @@ def serialize_instance(instance):
             continue
         try:
             if isinstance(instance._meta.get_field(k), BinaryField):
-                v = force_text(base64.b64encode(force_bytes(v)))
+                v = force_text(base64.b64encode(v))
         except FieldDoesNotExist:
             pass
         data[k] = v
@@ -211,7 +211,9 @@ def deserialize_instance(model, data):
                 elif isinstance(f, DateField):
                     v = dateparse.parse_date(v)
                 elif isinstance(f, BinaryField):
-                    v = force_bytes(base64.b64decode(v))
+                    v = force_bytes(
+                        base64.b64decode(
+                            force_bytes(v)))
             except FieldDoesNotExist:
                 pass
         setattr(ret, k, v)

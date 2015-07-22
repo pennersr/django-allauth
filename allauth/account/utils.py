@@ -312,7 +312,7 @@ def send_email_confirmation(request, user, signup=False):
                                       'email_confirmation_sent.txt',
                                       {'email': email})
     if signup:
-        request.session['account_user'] = user.pk
+        request.session['account_user'] = user._meta.pk.value_to_string(user)
 
 
 def sync_user_email_addresses(user):

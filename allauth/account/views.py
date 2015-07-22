@@ -16,9 +16,10 @@ from ..utils import get_form_class, get_request_param, get_current_site
 from .utils import (get_next_redirect_url, complete_signup,
                     get_login_redirect_url, perform_login,
                     passthrough_next_redirect_url)
-from .forms import AddEmailForm, ChangePasswordForm
-from .forms import LoginForm, ResetPasswordKeyForm
-from .forms import ResetPasswordForm, SetPasswordForm, SignupForm, UserTokenForm
+from .forms import (
+    AddEmailForm, ChangePasswordForm,
+    LoginForm, ResetPasswordKeyForm,
+    ResetPasswordForm, SetPasswordForm, SignupForm, UserTokenForm)
 from .utils import sync_user_email_addresses
 from .models import EmailAddress, EmailConfirmation
 
@@ -401,9 +402,9 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
     def _action_primary(self, request, *args, **kwargs):
         email = request.POST["email"]
         try:
-            email_address = EmailAddress.objects.get(
+            email_address = EmailAddress.objects.get_for_user(
                 user=request.user,
-                email=email,
+                email=email
             )
             # Not primary=True -- Slightly different variation, don't
             # require verified unless moving from a verified
@@ -473,8 +474,8 @@ class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
 
     def form_valid(self, form):
         form.save()
-        if (update_session_auth_hash is not None and 
-            not app_settings.LOGOUT_ON_PASSWORD_CHANGE):
+        if (update_session_auth_hash is not None and
+                not app_settings.LOGOUT_ON_PASSWORD_CHANGE):
             update_session_auth_hash(self.request, form.user)
         get_adapter().add_message(self.request,
                                   messages.SUCCESS,

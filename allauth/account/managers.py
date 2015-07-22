@@ -9,7 +9,7 @@ from . import app_settings
 
 class EmailAddressManager(models.Manager):
 
-    def add_email(self, request, user, email, 
+    def add_email(self, request, user, email,
                   confirm=False, signup=False):
         try:
             email_address = self.get(user=user, email__iexact=email)
@@ -45,8 +45,12 @@ class EmailAddressManager(models.Manager):
         cache_key = '_emailaddress_cache'
         addresses = getattr(user, cache_key, None)
         if addresses is None:
-            return self.get(user=user,
-                            email__iexact=email)
+            ret = self.get(user=user,
+                           email__iexact=email)
+            # To avoid additional lookups when e.g.
+            # EmailAddress.set_as_primary() starts touching self.user
+            ret.user = user
+            return ret
         else:
             for address in addresses:
                 if address.email.lower() == email.lower():

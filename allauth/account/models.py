@@ -9,7 +9,6 @@ from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.crypto import get_random_string
 
-from ..utils import get_current_site
 from .. import app_settings as allauth_app_settings
 from . import app_settings
 from . import signals
@@ -120,21 +119,7 @@ class EmailConfirmation(models.Model):
             return email_address
 
     def send(self, request=None, signup=False):
-        current_site = get_current_site(request)
-        activate_url = get_adapter().get_email_confirmation_url(request, self)
-        ctx = {
-            "user": self.email_address.user,
-            "activate_url": activate_url,
-            "current_site": current_site,
-            "key": self.key,
-        }
-        if signup:
-            email_template = 'account/email/email_confirmation_signup'
-        else:
-            email_template = 'account/email/email_confirmation'
-        get_adapter().send_mail(email_template,
-                                self.email_address.email,
-                                ctx)
+        get_adapter().send_confirmation_mail(request, self, signup)
         self.sent = timezone.now()
         self.save()
         signals.email_confirmation_sent.send(sender=self.__class__,

@@ -100,7 +100,13 @@ class FacebookProvider(OAuth2Provider):
             'email',
             'name',
             'first_name',
-            'last_name']
+            'last_name',
+            'verified',
+            'locale',
+            'timezone',
+            'link',
+            'gender',
+            'updated_time']
         return settings.get('FIELDS', default_fields)
 
     def get_auth_params(self, request, action):

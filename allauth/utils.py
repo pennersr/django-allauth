@@ -15,7 +15,7 @@ if django.VERSION > (1, 8,):
     from collections import OrderedDict as SortedDict
 else:
     from django.utils.datastructures import SortedDict
-     
+
 from django.core.serializers.json import DjangoJSONEncoder
 try:
     from django.utils.encoding import force_text

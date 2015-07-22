@@ -4,6 +4,7 @@ import re
 import warnings
 import json
 
+from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import render_to_string
@@ -316,6 +317,23 @@ class DefaultAccountAdapter(object):
     def is_safe_url(self, url):
         from django.utils.http import is_safe_url
         return is_safe_url(url)
+
+    def get_email_confirmation_url(self, request, emailconfirmation):
+        """Constructs the email confirmation (activation) url.
+
+        Note that if you have architected your system such that email
+        confirmations are sent outside of the request context `request`
+        can be `None` here.
+        """
+        site = get_current_site(request)
+        url = reverse(
+            "account_confirm_email",
+            args=[emailconfirmation.key])
+        ret = '{proto}://{domain}{url}'.format(
+            proto=app_settings.DEFAULT_HTTP_PROTOCOL,
+            domain=site.domain,
+            url=url)
+        return ret
 
 
 def get_adapter():

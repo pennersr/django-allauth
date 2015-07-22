@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 
 from django.apps import apps as django_apps
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ImproperlyConfigured
 from django.db import models
 from django.contrib.auth import authenticate
 from django.contrib.sites.models import Site
@@ -39,12 +39,16 @@ def get_social_app_model():
 class SocialAppManager(models.Manager):
     def get_current(self, provider, request=None):
         site = get_current_site(request)
-        return self.get(sites__id=site.id,
-                        provider=provider)
+        try:
+            return self.get(sites__id=site.id,
+                            provider=provider)
+        except:
+            print(locals())
+            raise
 
 
 @python_2_unicode_compatible
-class SocialApp(models.Model):
+class SocialAppABC(models.Model):
     objects = SocialAppManager()
 
     provider = models.CharField(verbose_name=_('provider'),
@@ -70,12 +74,20 @@ class SocialApp(models.Model):
     sites = models.ManyToManyField(Site, blank=True)
 
     class Meta:
-        swappable = 'SOCIAL_APP_MODEL'
+        abstract = True
         verbose_name = _('social application')
         verbose_name_plural = _('social applications')
 
     def __str__(self):
         return self.name
+
+
+# for django 1.4 compat
+SocialAppABC._meta.swappable = 'SOCIALACCOUNT_SOCIAL_APP_MODEL'
+
+
+class SocialApp(SocialAppABC):
+    pass
 
 
 @python_2_unicode_compatible

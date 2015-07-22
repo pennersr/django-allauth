@@ -2,6 +2,12 @@ class AppSettings(object):
 
     def __init__(self, prefix):
         self.prefix = prefix
+        from django.conf import settings
+        ##XXX Swappable app needs to be set more or less universially and be 
+        # on the django settings module so migrations can run
+        # Not sure how this will work with test overrriding
+        if not hasattr(settings, prefix + 'SOCIAL_APP_MODEL'):
+            setattr(settings, prefix + 'SOCIAL_APP_MODEL', self.SOCIAL_APP_MODEL)
 
     def _setting(self, name, dflt):
         from django.conf import settings

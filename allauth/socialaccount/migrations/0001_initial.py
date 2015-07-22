@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+from allauth.socialaccount import app_settings
 from django.conf import settings
 import allauth.socialaccount.fields
 from allauth.socialaccount.providers import registry
@@ -44,6 +45,7 @@ class Migration(migrations.Migration):
                 ('sites', models.ManyToManyField(to='sites.Site', blank=True)),
             ],
             options={
+                'swappable': 'SOCIALACCOUNT_SOCIAL_APP_MODEL',
                 'verbose_name': 'social application',
                 'verbose_name_plural': 'social applications',
             },
@@ -57,7 +59,7 @@ class Migration(migrations.Migration):
                 ('token_secret', models.TextField(help_text='"oauth_token_secret" (OAuth1) or refresh token (OAuth2)', verbose_name='token secret', blank=True)),
                 ('expires_at', models.DateTimeField(null=True, verbose_name='expires at', blank=True)),
                 ('account', models.ForeignKey(to='socialaccount.SocialAccount')),
-                ('app', models.ForeignKey(to='socialaccount.SocialApp')),
+                ('app', models.ForeignKey(to=settings.SOCIALACCOUNT_SOCIAL_APP_MODEL)),
             ],
             options={
                 'verbose_name': 'social application token',

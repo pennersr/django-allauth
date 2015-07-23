@@ -74,7 +74,7 @@ Facebook
 For Facebook both OAuth2 and the Facebook Connect Javascript SDK are
 supported. You can even mix the two.
 
-Advantage of the Javascript SDK may be a more streamlined user
+An advantage of the Javascript SDK may be a more streamlined user
 experience as you do not leave your site. Furthermore, you do not need
 to worry about tailoring the login dialog depending on whether or not
 you are using a mobile device. Yet, relying on Javascript may not be
@@ -103,20 +103,27 @@ The following Facebook settings are available::
                 'email',
                 'name',
                 'first_name',
-                'last_name'],
+                'last_name',
+                'verified',
+                'locale',
+                'timezone',
+                'link',
+                'gender',
+                'updated_time'],
             'EXCHANGE_TOKEN': True,
             'LOCALE_FUNC': 'path.to.callable',
             'VERIFIED_EMAIL': False,
             'VERSION': 'v2.4'}}
 
 METHOD:
-    Either `js_sdk` or `oauth2`.  The default is `oauth2`.
+    Either `js_sdk` or `oauth2`. The default is `oauth2`.
 
 SCOPE:
-    By default, `email` scope is required depending whether or not
+    By default, the `email` scope is required depending on whether or not
     `SOCIALACCOUNT_QUERY_EMAIL` is enabled.
-    Except permissions for `email`, `public_profile` and `user_friends`, apps using other permissions require review by Facebook.
-    You can look at `Permissions with Facebook Login <https://developers.facebook.com/docs/facebook-login/permissions>`_.
+    Apps using permissions beyond `email`, `public_profile` and `user_friends` require review by Facebook.
+    See `Permissions with Facebook Login <https://developers.facebook.com/docs/facebook-login/permissions>`_ for more
+    information.
 
 AUTH_PARAMS:
     Use `AUTH_PARAMS` to pass along other parameters to the `FB.login`
@@ -125,7 +132,7 @@ AUTH_PARAMS:
 FIELDS:
     The fields to fetch from the Graph API `/me/?fields=` endpoint.
     For example, you could add the `'friends'` field in order to
-    capture the user's friends (requires `'user_friends'` scope).
+    capture the user's friends that have also logged into your app using Facebook (requires `'user_friends'` scope).
 
 EXCHANGE_TOKEN:
     The JS SDK returns a short-lived token suitable for client-side use. Set
@@ -139,11 +146,11 @@ LOCALE_FUNC:
     `LOCALE_FUNC` setting, which takes either a callable or a path to a callable.
     This callable must take exactly one argument, the request, and return `a
     valid Facebook locale <http://developers.facebook.com/docs/
-    internationalization/>`_ as a string::
+    internationalization/>`_ as a string, e.g. US English::
 
         SOCIALACCOUNT_PROVIDERS = \
             { 'facebook':
-                { 'LOCALE_FUNC': lambda request: 'zh_CN'} }
+                { 'LOCALE_FUNC': lambda request: 'en_US'} }
 
 VERIFIED_EMAIL:
     It is not clear from the Facebook documentation whether or not the
@@ -156,18 +163,18 @@ VERIFIED_EMAIL:
     introducing a security risk.
 
 VERSION:
-    The Facebook Graph API version to use.  The default is `v2.4`.
+    The Facebook Graph API version to use. The default is `v2.4`.
 
 App registration (get your key and secret here)
-    A key and secret key can be obtained by creating an app
-    https://developers.facebook.com/apps .
+    A key and secret key can be obtained by 
+    `creating an app <https://developers.facebook.com/apps>`_.
     After registration you will need to make it available to the public.
-    In order to do that your app first has to be reviewed by Facebook, see
-    https://developers.facebook.com/docs/apps/review.
+    In order to do that your app first has to be 
+    `reviewed by Facebook <https://developers.facebook.com/docs/apps/review>`_.
 
 Development callback URL
-    Leave your App Domains empty and put in the section `Website with Facebook
-    Login` put this as your Site URL: `http://localhost:8000`
+    Leave your App Domains empty and put `http://localhost:8000` in the section labeled `Website with Facebook
+    Login`. Note that you'll need to add your site's actual domain to this section once it goes live.
 
 
 Firefox Accounts

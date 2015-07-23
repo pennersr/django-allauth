@@ -21,7 +21,7 @@ from ..account.models import EmailAddress
 from ..account.utils import user_email, user_username
 from ..utils import get_user_model, get_current_site
 
-from .models import SocialAccount, SocialLogin, get_social_app_model
+from .models import SocialAccount, SocialLogin, SocialToken, get_social_app_model
 from .helpers import complete_social_login
 from .views import signup
 
@@ -415,7 +415,30 @@ class SwapSocialAppTests(create_oauth2_tests(registry.by_id('google'))):
                given_name,
                (repr(verified_email).lower())))
 
+    def test_get_social_app_model(self):
+        from allauth.socialaccount.test_app.models import SocialAppSwapped
+        self.assertEqual(get_social_app_model(), SocialAppSwapped)
+
     def test_swap_in_new_social_app(self):
         SocialApp = get_social_app_model()
         app = SocialApp.objects.filter(provider=self.provider.id).first()
+
+        email = 'some@mail.com'
+        user = get_user_model().objects.create(
+            username='user',
+            is_active=True,
+            email=email)
+        account = SocialAccount.objects.create(
+            user=user,
+            provider=self.provider.id,
+            uid='123')
+        token = SocialToken.objects.create(
+            app=app,
+            token='abc',
+            account=account)
         self.assertEquals(app.new_field, 'testing')
+        self.assertEquals(token.app, app)
+
+        ## Just to explicitly test that the swapped app is called
+        from allauth.socialaccount.test_app.models import SocialAppSwapped
+        self.assertTrue(isinstance(app, SocialAppSwapped))

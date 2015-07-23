@@ -1,7 +1,13 @@
+2015-07-23  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.22.0 released.
+
 2015-07-22  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Reversal of the email confirmation url can now be overridden in
-	the adapter (`get_email_confirmation_url`).
+	the adapter (`get_email_confirmation_url`). Additionally, the
+	complete confirmation email handling can be overridden via
+	`send_confirmation_mail`.
 
 	* Dropped support for Python 2.6 and Django <1.6.
 

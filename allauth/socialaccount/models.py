@@ -28,7 +28,8 @@ try:
 except ImportError:
     from django.db.models import get_model as _get_model
     def get_model(model_string):
-        return _get_model(*model_string.split('.'))
+        app, model = model_string.split('.')
+        return _get_model(app, model)
 
 def get_social_app_model():
     """
@@ -45,16 +46,16 @@ def get_social_app_model():
 class SocialAppManager(models.Manager):
     def get_current(self, provider, request=None):
         site = get_current_site(request)
-        try:
-            return self.get(sites__id=site.id,
-                            provider=provider)
-        except:
-            print(locals())
-            raise
+        return self.get(sites__id=site.id,
+                        provider=provider)
 
 
 @python_2_unicode_compatible
 class SocialAppABC(models.Model):
+    """
+    Abstract base class for SocialApp.  This makes it easier to swap out the SocialApp
+    with one of your own implementation.
+    """
     objects = SocialAppManager()
 
     provider = models.CharField(verbose_name=_('provider'),
@@ -93,6 +94,12 @@ SocialAppABC._meta.swappable = 'SOCIALACCOUNT_SOCIAL_APP_MODEL'
 
 
 class SocialApp(SocialAppABC):
+    """
+    Concrete SocialApp, and the default for `SOCIALACCOUNT_SOCIAL_APP_MODEL`.
+    This is `swappable`, but just as with `AUTH_USER`, if you want to replace
+    it, the new model must be in your first migration, or you will have a nightmare
+    of SQL migrations to write to change everything.
+    """
     pass
 
 

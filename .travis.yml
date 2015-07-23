@@ -17,7 +17,10 @@ install:
 branches:
  only:
   - master
-script: coverage run manage.py test allauth
+script: 
+  - coverage run -p manage.py test allauth
+  - DJANGO_SETTINGS_MODULE=test_swapping_settings coverage run -p manage.py test allauth
+  - coverage combine
 after_success:
   - coverage report
   - pip install --quiet python-coveralls

@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-from allauth.socialaccount import app_settings
 from django.conf import settings
 import allauth.socialaccount.fields
 from allauth.socialaccount.providers import registry

@@ -21,7 +21,8 @@ except ImportError:
 
 from ..utils import (import_attribute, get_user_model,
                      generate_unique_username,
-                     resolve_url, get_current_site)
+                     resolve_url, get_current_site,
+                     build_absolute_uri)
 
 from . import app_settings
 
@@ -325,14 +326,13 @@ class DefaultAccountAdapter(object):
         confirmations are sent outside of the request context `request`
         can be `None` here.
         """
-        site = get_current_site(request)
         url = reverse(
             "account_confirm_email",
             args=[emailconfirmation.key])
-        ret = '{proto}://{domain}{url}'.format(
-            proto=app_settings.DEFAULT_HTTP_PROTOCOL,
-            domain=site.domain,
-            url=url)
+        ret = build_absolute_uri(
+            request,
+            url,
+            protocol=app_settings.DEFAULT_HTTP_PROTOCOL)
         return ret
 
     def send_confirmation_mail(self, request, emailconfirmation, signup):

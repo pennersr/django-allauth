@@ -127,3 +127,14 @@ class BasicTests(TestCase):
         self.assertEqual(serialized['bb_empty'], '')
         self.assertEqual(deserialized.bb, b'some binary data')
         self.assertEqual(deserialized.bb_empty, b'')
+
+    def test_build_absolute_uri(self):
+        self.assertEqual(
+            utils.build_absolute_uri(None, '/foo'),
+            'http://example.com/foo')
+        self.assertEqual(
+            utils.build_absolute_uri(None, '/foo', protocol='ftp'),
+            'ftp://example.com/foo')
+        self.assertEqual(
+            utils.build_absolute_uri(None, 'http://foo.com/bar'),
+            'http://foo.com/bar')

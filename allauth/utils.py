@@ -12,6 +12,7 @@ from django.db.models.fields import (DateTimeField, DateField,
                                      EmailField, TimeField,
                                      BinaryField)
 from django.utils import six, dateparse
+from django.utils.six.moves.urllib.parse import urlsplit
 
 if django.VERSION > (1, 8,):
     from collections import OrderedDict as SortedDict
@@ -232,7 +233,25 @@ def set_form_field_order(form, fields_order):
 
 
 def build_absolute_uri(request, location, protocol=None):
-    uri = request.build_absolute_uri(location)
+    """request.build_absolute_uri() helper
+
+    Like request.build_absolute_uri, but gracefully handling
+    the case where request is None.
+    """
+    from .account import app_settings as account_settings
+
+    if request is None:
+        site = get_current_site()
+        bits = urlsplit(location)
+        if not (bits.scheme and bits.netloc):
+            uri = '{proto}://{domain}{url}'.format(
+                proto=account_settings.DEFAULT_HTTP_PROTOCOL,
+                domain=site.domain,
+                url=location)
+        else:
+            uri = location
+    else:
+        uri = request.build_absolute_uri(location)
     if protocol:
         uri = protocol + ':' + uri.partition(':')[2]
     return uri

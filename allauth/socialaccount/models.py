@@ -1,6 +1,5 @@
 from __future__ import absolute_import
 
-from django.apps import apps as django_apps
 from django.core.exceptions import PermissionDenied, ImproperlyConfigured
 from django.db import models
 from django.contrib.auth import authenticate
@@ -24,12 +23,19 @@ from . import providers
 from .fields import JSONField
 from ..utils import get_request_param
 
+try:
+    from django.apps.apps import get_model
+except ImportError:
+    from django.db.models import get_model as _get_model
+    def get_model(model_string):
+        return _get_model(*model_string.split('.'))
+
 def get_social_app_model():
     """
     Returns the SocialApp model that is active in this project.
     """
     try:
-        return django_apps.get_model(app_settings.SOCIAL_APP_MODEL)
+        return get_model(app_settings.SOCIAL_APP_MODEL)
     except ValueError:
         raise ImproperlyConfigured("SOCIAL_APP_MODEL must be of the form 'app_label.model_name'")
     except LookupError:

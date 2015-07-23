@@ -73,3 +73,6 @@ class EmailConfirmationManager(models.Manager):
 
     def delete_expired_confirmations(self):
         self.all_expired().delete()
+
+    def delete_confirmations(self, email_address):
+        self.filter(email_address__user=email_address.user).delete() 

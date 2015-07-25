@@ -279,7 +279,9 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         if user_pk == user.pk and self.request.user.is_anonymous():
             return perform_login(self.request,
                                  user,
-                                 app_settings.EmailVerificationMethod.NONE)
+                                 app_settings.EmailVerificationMethod.NONE,
+                                 app_settings.
+                                 EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL)
 
         return None
 

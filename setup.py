@@ -108,9 +108,12 @@ else:
 
 long_description = io.open('README.rst', encoding='utf-8').read()
 
+# Dynamically calculate the version based on allauth.VERSION.
+version = __import__('allauth').__version__
+
 METADATA = dict(
     name='django-allauth',
-    version='0.23.0-dev',
+    version=version,
     author='Raymond Penners',
     author_email='raymond.penners@intenct.nl',
     description='Integrated set of Django applications addressing'

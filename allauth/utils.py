@@ -2,7 +2,7 @@ import base64
 import re
 import unicodedata
 import json
-import django
+
 from django.core.exceptions import ImproperlyConfigured
 from django.core.validators import validate_email, ValidationError
 from django.core import urlresolvers
@@ -13,11 +13,6 @@ from django.db.models.fields import (DateTimeField, DateField,
                                      BinaryField)
 from django.utils import six, dateparse
 from django.utils.six.moves.urllib.parse import urlsplit
-
-if django.VERSION > (1, 8,):
-    from collections import OrderedDict as SortedDict
-else:
-    from django.utils.datastructures import SortedDict
 
 from django.core.serializers.json import DjangoJSONEncoder
 try:
@@ -222,7 +217,7 @@ def deserialize_instance(model, data):
 
 
 def set_form_field_order(form, fields_order):
-    if isinstance(form.fields, SortedDict):
+    if hasattr(form.fields, 'keyOrder'):
         form.fields.keyOrder = fields_order
     else:
         # Python 2.7+

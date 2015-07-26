@@ -14,7 +14,6 @@ from django.test.client import RequestFactory
 from django.contrib.auth.models import AnonymousUser, AbstractUser
 from django.db import models
 
-import sys
 import unittest
 
 from allauth.account.forms import BaseSignupForm
@@ -207,7 +206,8 @@ class AccountTests(TestCase):
         resp = self.client.post(url,
                                 {'password1': 'newpass123',
                                  'password2': 'newpass123'})
-        self.assertRedirects(resp, reverse('account_reset_password_from_key_done'))
+        self.assertRedirects(resp,
+                             reverse('account_reset_password_from_key_done'))
 
         # Check the new password is in effect
         user = get_user_model().objects.get(pk=user.pk)
@@ -223,7 +223,8 @@ class AccountTests(TestCase):
 
         # Same should happen when accessing the page directly
         response = self.client.get(url)
-        self.assertTemplateUsed(response, 'account/password_reset_from_key.html')
+        self.assertTemplateUsed(response,
+                                'account/password_reset_from_key.html')
         self.assertTrue(response.context_data['token_fail'])
 
         # When in XHR views, it should respond with a 400 bad request
@@ -335,8 +336,9 @@ class AccountTests(TestCase):
                                 {'login': 'john',
                                  'password': 'doe'})
         self.assertRedirects(resp, reverse('account_email_verification_sent'))
-        self.assertEqual(resp['location'],
-                         'http://testserver' + reverse('account_email_verification_sent'))
+        self.assertEqual(
+            resp['location'],
+            'http://testserver' + reverse('account_email_verification_sent'))
 
     def test_login_inactive_account(self):
         """
@@ -346,7 +348,8 @@ class AccountTests(TestCase):
         regardless of their verified state.
         """
         # Inactive and verified user account
-        user = get_user_model().objects.create(username='john', is_active=False)
+        user = get_user_model().objects.create(username='john',
+                                               is_active=False)
         user.set_password('doe')
         user.save()
         EmailAddress.objects.create(user=user,
@@ -618,7 +621,6 @@ class BaseSignupFormTests(TestCase):
         self.assertTrue(form.is_valid())
 
 
-
 class AuthenticationBackendTests(TestCase):
 
     def setUp(self):
@@ -683,8 +685,11 @@ class UtilsTests(TestCase):
     def setUp(self):
         if hasattr(models, 'UUIDField'):
             self.user_id = uuid.uuid4().hex
+
             class UUIDUser(AbstractUser):
-                id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+                id = models.UUIDField(primary_key=True,
+                                      default=uuid.uuid4,
+                                      editable=False)
 
                 class Meta(AbstractUser.Meta):
                     swappable = 'AUTH_USER_MODEL'
@@ -692,11 +697,13 @@ class UtilsTests(TestCase):
             UUIDUser = get_user_model()
         self.UUIDUser = UUIDUser
 
-    @unittest.skipUnless(hasattr(models, 'UUIDField'), reason="No UUIDField in this django version")
+    @unittest.skipUnless(hasattr(models, 'UUIDField'),
+                         reason="No UUIDField in this django version")
     def test_url_str_to_pk_identifies_UUID_as_stringlike(self):
         with mock.patch('allauth.account.utils.get_user_model') as mocked_gum:
             mocked_gum.return_value = self.UUIDUser
-            self.assertEqual( url_str_to_user_pk(self.user_id), self.user_id)
+            self.assertEqual(url_str_to_user_pk(self.user_id),
+                             self.user_id)
 
     def test_pk_to_url_string_identifies_UUID_as_stringlike(self):
         user = self.UUIDUser(

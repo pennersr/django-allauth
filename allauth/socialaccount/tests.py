@@ -263,7 +263,26 @@ class SocialAccountTests(TestCase):
                                         email=user_email(user)).exists()
         )
 
-    def test_email_address_clash(self):
+    @override_settings(
+        ACCOUNT_EMAIL_REQUIRED=True,
+        ACCOUNT_UNIQUE_EMAIL=True,
+        ACCOUNT_USERNAME_REQUIRED=True,
+        ACCOUNT_AUTHENTICATION_METHOD='email')
+    def test_email_address_clash_username_required(self):
+        self._email_address_clash({
+            'username': 'other',
+            'email': 'other@test.com'})
+
+    @override_settings(
+        ACCOUNT_EMAIL_REQUIRED=True,
+        ACCOUNT_UNIQUE_EMAIL=True,
+        ACCOUNT_USERNAME_REQUIRED=False,
+        ACCOUNT_AUTHENTICATION_METHOD='email')
+    def test_email_address_clash_username_not_required(self):
+        self._email_address_clash({
+            'email': 'other@test.com'})
+
+    def _email_address_clash(self, signup_data):
         User = get_user_model()
         # Some existig user
         exi_user = User()
@@ -293,9 +312,7 @@ class SocialAccountTests(TestCase):
 
         # POST different username/email to that form
         request.method = 'POST'
-        request.POST = {
-            'username': 'other',
-            'email': 'other@test.com'}
+        request.POST = signup_data
         resp = signup(request)
         self.assertEqual(
             resp['location'], '/accounts/profile/')

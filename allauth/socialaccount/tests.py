@@ -17,11 +17,12 @@ from django.contrib.auth.models import AnonymousUser
 from ..tests import MockedResponse, mocked_response
 from ..account import app_settings as account_settings
 from ..account.models import EmailAddress
-from ..account.utils import user_email
+from ..account.utils import user_email, user_username
 from ..utils import get_user_model, get_current_site
 
 from .models import SocialApp, SocialAccount, SocialLogin
 from .helpers import complete_social_login
+from .views import signup
 
 
 def create_oauth_tests(provider):
@@ -261,3 +262,40 @@ class SocialAccountTests(TestCase):
             EmailAddress.objects.filter(user=user,
                                         email=user_email(user)).exists()
         )
+
+    def test_email_address_clash(self):
+        User = get_user_model()
+        # Some existig user
+        exi_user = User()
+        user_username(exi_user, 'test')
+        user_email(exi_user, 'test@test.com')
+        exi_user.save()
+
+        # A social user being signed up...
+        account = SocialAccount(
+            provider='twitter',
+            uid='123')
+        user = User()
+        user_username(user, 'test')
+        user_email(user, 'test@test.com')
+        sociallogin = SocialLogin(user=user, account=account)
+
+        # Signing up, should pop up the social signup form
+        factory = RequestFactory()
+        request = factory.get('/accounts/twitter/login/callback/')
+        request.user = AnonymousUser()
+        SessionMiddleware().process_request(request)
+        MessageMiddleware().process_request(request)
+        resp = complete_social_login(request, sociallogin)
+        self.assertEqual(
+            resp['location'],
+            reverse('socialaccount_signup'))
+
+        # POST different username/email to that form
+        request.method = 'POST'
+        request.POST = {
+            'username': 'other',
+            'email': 'other@test.com'}
+        resp = signup(request)
+        self.assertEqual(
+            resp['location'], '/accounts/profile/')

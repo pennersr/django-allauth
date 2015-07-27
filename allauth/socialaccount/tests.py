@@ -267,22 +267,74 @@ class SocialAccountTests(TestCase):
         ACCOUNT_EMAIL_REQUIRED=True,
         ACCOUNT_UNIQUE_EMAIL=True,
         ACCOUNT_USERNAME_REQUIRED=True,
-        ACCOUNT_AUTHENTICATION_METHOD='email')
+        ACCOUNT_AUTHENTICATION_METHOD='email',
+        SOCIALACCOUNT_AUTO_SIGNUP=True)
     def test_email_address_clash_username_required(self):
-        self._email_address_clash({
+        """Test clash on both username and email"""
+        request, resp = self._email_address_clash(
+            'test',
+            'test@test.com')
+        self.assertEqual(
+            resp['location'],
+            reverse('socialaccount_signup'))
+
+        # POST different username/email to social signup form
+        request.method = 'POST'
+        request.POST = {
             'username': 'other',
-            'email': 'other@test.com'})
+            'email': 'other@test.com'}
+        resp = signup(request)
+        self.assertEqual(
+            resp['location'], '/accounts/profile/')
+        user = get_user_model().objects.get(
+            **{account_settings.USER_MODEL_EMAIL_FIELD:
+               'other@test.com'})
+        self.assertEqual(user_username(user), 'other')
 
     @override_settings(
         ACCOUNT_EMAIL_REQUIRED=True,
         ACCOUNT_UNIQUE_EMAIL=True,
         ACCOUNT_USERNAME_REQUIRED=False,
-        ACCOUNT_AUTHENTICATION_METHOD='email')
+        ACCOUNT_AUTHENTICATION_METHOD='email',
+        SOCIALACCOUNT_AUTO_SIGNUP=True)
     def test_email_address_clash_username_not_required(self):
-        self._email_address_clash({
-            'email': 'other@test.com'})
+        """Test clash while username is not required"""
+        request, resp = self._email_address_clash(
+            'test',
+            'test@test.com')
+        self.assertEqual(
+            resp['location'],
+            reverse('socialaccount_signup'))
 
-    def _email_address_clash(self, signup_data):
+        # POST email to social signup form (username not present)
+        request.method = 'POST'
+        request.POST = {
+            'email': 'other@test.com'}
+        resp = signup(request)
+        self.assertEqual(
+            resp['location'], '/accounts/profile/')
+        user = get_user_model().objects.get(
+            **{account_settings.USER_MODEL_EMAIL_FIELD:
+               'other@test.com'})
+        self.assertNotEqual(user_username(user), 'test')
+
+    @override_settings(
+        ACCOUNT_EMAIL_REQUIRED=True,
+        ACCOUNT_UNIQUE_EMAIL=True,
+        ACCOUNT_USERNAME_REQUIRED=False,
+        ACCOUNT_AUTHENTICATION_METHOD='email',
+        SOCIALACCOUNT_AUTO_SIGNUP=True)
+    def test_email_address_clash_username_auto_signup(self):
+        # Clash on username, but auto signup still works
+        request, resp = self._email_address_clash('test', 'other@test.com')
+        self.assertEqual(
+            resp['location'], '/accounts/profile/')
+        user = get_user_model().objects.get(
+            **{account_settings.USER_MODEL_EMAIL_FIELD:
+               'other@test.com'})
+        self.assertNotEqual(user_username(user), 'test')
+
+    def _email_address_clash(self, username, email):
         User = get_user_model()
         # Some existig user
         exi_user = User()
@@ -295,8 +347,8 @@ class SocialAccountTests(TestCase):
             provider='twitter',
             uid='123')
         user = User()
-        user_username(user, 'test')
-        user_email(user, 'test@test.com')
+        user_username(user, username)
+        user_email(user, email)
         sociallogin = SocialLogin(user=user, account=account)
 
         # Signing up, should pop up the social signup form
@@ -306,13 +358,4 @@ class SocialAccountTests(TestCase):
         SessionMiddleware().process_request(request)
         MessageMiddleware().process_request(request)
         resp = complete_social_login(request, sociallogin)
-        self.assertEqual(
-            resp['location'],
-            reverse('socialaccount_signup'))
-
-        # POST different username/email to that form
-        request.method = 'POST'
-        request.POST = signup_data
-        resp = signup(request)
-        self.assertEqual(
-            resp['location'], '/accounts/profile/')
+        return request, resp

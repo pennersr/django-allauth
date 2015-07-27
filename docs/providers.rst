@@ -159,17 +159,19 @@ VERIFIED_EMAIL:
     by phone or credit card. To be on the safe side, the default is to
     treat e-mail addresses from Facebook as unverified. But, if you
     feel that is too paranoid, then use this setting to mark them as
-    verified. Do know that by setting this to `True` you are
-    introducing a security risk.
+    verified. Due to lack of an official statement from the side of Facebook,
+    attemps have been made to
+    `reverse engineer the meaning of the verified flag <https://stackoverflow.com/questions/14280535/is-it-possible-to-check-if-an-email-is-confirmed-on-facebook>`_.
+    Do know that by setting this to `True` you may be introducing a security risk.
 
 VERSION:
     The Facebook Graph API version to use. The default is `v2.4`.
 
 App registration (get your key and secret here)
-    A key and secret key can be obtained by 
+    A key and secret key can be obtained by
     `creating an app <https://developers.facebook.com/apps>`_.
     After registration you will need to make it available to the public.
-    In order to do that your app first has to be 
+    In order to do that your app first has to be
     `reviewed by Facebook <https://developers.facebook.com/docs/apps/review>`_.
 
 Development callback URL

@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ImproperlyConfigured
 from django.db import models
 from django.contrib.auth import authenticate
 from django.contrib.sites.models import Site
@@ -23,6 +23,25 @@ from . import providers
 from .fields import JSONField
 from ..utils import get_request_param
 
+try:
+    from django.apps.apps import get_model
+except ImportError:
+    from django.db.models import get_model as _get_model
+    def get_model(model_string):
+        app, model = model_string.split('.')
+        return _get_model(app, model)
+
+def get_social_app_model():
+    """
+    Returns the SocialApp model that is active in this project.
+    """
+    try:
+        return get_model(app_settings.SOCIAL_APP_MODEL)
+    except ValueError:
+        raise ImproperlyConfigured("SOCIAL_APP_MODEL must be of the form 'app_label.model_name'")
+    except LookupError:
+        raise ImproperlyConfigured("SOCIAL_APP_MODEL refers to model '%s' that has not been installed" % app_settings.SOCIAL_APP_MODEL)
+
 
 class SocialAppManager(models.Manager):
     def get_current(self, provider, request=None):
@@ -32,7 +51,11 @@ class SocialAppManager(models.Manager):
 
 
 @python_2_unicode_compatible
-class SocialApp(models.Model):
+class SocialAppABC(models.Model):
+    """
+    Abstract base class for SocialApp.  This makes it easier to swap out the SocialApp
+    with one of your own implementation.
+    """
     objects = SocialAppManager()
 
     provider = models.CharField(verbose_name=_('provider'),
@@ -55,14 +78,29 @@ class SocialApp(models.Model):
     # a ManyToManyField. Note that Facebook requires an app per domain
     # (unless the domains share a common base name).
     # blank=True allows for disabling apps without removing them
-    sites = models.ManyToManyField(Site, blank=True)
+    sites = models.ManyToManyField(Site, blank=True, related_name="%(app_label)s_%(class)s_set")
 
     class Meta:
+        abstract = True
         verbose_name = _('social application')
         verbose_name_plural = _('social applications')
 
     def __str__(self):
         return self.name
+
+
+# for django 1.4 compat
+SocialAppABC._meta.swappable = 'SOCIALACCOUNT_SOCIAL_APP_MODEL'
+
+
+class SocialApp(SocialAppABC):
+    """
+    Concrete SocialApp, and the default for `SOCIALACCOUNT_SOCIAL_APP_MODEL`.
+    This is `swappable`, but just as with `AUTH_USER`, if you want to replace
+    it, the new model must be in your first migration, or you will have a nightmare
+    of SQL migrations to write to change everything.
+    """
+    pass
 
 
 @python_2_unicode_compatible
@@ -119,7 +157,7 @@ class SocialAccount(models.Model):
 
 @python_2_unicode_compatible
 class SocialToken(models.Model):
-    app = models.ForeignKey(SocialApp)
+    app = models.ForeignKey(app_settings.SOCIAL_APP_MODEL)
     account = models.ForeignKey(SocialAccount)
     token = models.TextField(
         verbose_name=_('token'),

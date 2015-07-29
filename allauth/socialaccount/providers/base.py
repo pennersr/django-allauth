@@ -3,7 +3,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from allauth.socialaccount import app_settings
 from allauth.account.models import EmailAddress
 
-from ..models import SocialApp, SocialAccount, SocialLogin
+from ..models import SocialAccount, SocialLogin, get_social_app_model
 from ..adapter import get_adapter
 
 
@@ -33,7 +33,7 @@ class Provider(object):
         raise NotImplementedError("get_login_url() for " + self.name)
 
     def get_app(self, request):
-        return SocialApp.objects.get_current(self.id)
+        return get_social_app_model().objects.get_current(self.id, request=request)
 
     def media_js(self, request):
         """

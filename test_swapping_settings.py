@@ -57,6 +57,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+SOCIALACCOUNT_SOCIAL_APP_MODEL='test_app.SocialAppSwapped'
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -69,6 +71,7 @@ INSTALLED_APPS = (
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.test_app',
     'allauth.socialaccount.providers.amazon',
     'allauth.socialaccount.providers.angellist',
     'allauth.socialaccount.providers.baidu',
@@ -78,7 +81,6 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.douban',
     'allauth.socialaccount.providers.dropbox',
     'allauth.socialaccount.providers.dropbox_oauth2',
-    'allauth.socialaccount.providers.edmodo',
     'allauth.socialaccount.providers.evernote',
     'allauth.socialaccount.providers.feedly',
     'allauth.socialaccount.providers.facebook',

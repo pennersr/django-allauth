@@ -2,6 +2,12 @@ class AppSettings(object):
 
     def __init__(self, prefix):
         self.prefix = prefix
+        from django.conf import settings
+        ##XXX Swappable app needs to be set more or less universially and be 
+        # on the django settings module so migrations can run
+        # Not sure how this will work with test overrriding
+        if not hasattr(settings, prefix + 'SOCIAL_APP_MODEL'):
+            setattr(settings, prefix + 'SOCIAL_APP_MODEL', self.SOCIAL_APP_MODEL)
 
     def _setting(self, name, dflt):
         from django.conf import settings
@@ -52,6 +58,15 @@ class AppSettings(object):
         from allauth.account import app_settings as account_settings
         return self._setting("EMAIL_VERIFICATION",
                              account_settings.EMAIL_VERIFICATION)
+
+    @property
+    def SOCIAL_APP_MODEL(self):
+        """
+        Model to use for social apps.  Defaults to socialaccount.SocialApp
+        This cannot be changed after the initial migration, or there will
+        be errors.
+        """
+        return self._setting("SOCIAL_APP_MODEL", "socialaccount.SocialApp")
 
     @property
     def ADAPTER(self):

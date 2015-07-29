@@ -185,9 +185,9 @@ class AppSettings(object):
     @property
     def LOGIN_ON_EMAIL_CONFIRMATION(self):
         """
-        Autmatically log the user in once they confirmed their email address
+        Automatically log the user in once they confirmed their email address
         """
-        return self._setting('LOGIN_ON_EMAIL_CONFIRMATION', True)
+        return self._setting('LOGIN_ON_EMAIL_CONFIRMATION', False)
 
     @property
     def LOGOUT_REDIRECT_URL(self):

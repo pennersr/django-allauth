@@ -56,6 +56,25 @@ The Baidu OAuth2 authentication documentation:
     http://developer.baidu.com/wiki/index.php?title=docs/oauth/rest/file_data_apis_lista
 
 
+Edmodo
+------
+
+The Edmodo OAuth2 documentation:
+
+    https://developers.edmodo.com/edmodo-connect/edmodo-connect-overview-getting-started/
+
+You can optionally specify additional permissions to use. If no `SCOPE` value
+is set, the Edmodo provider will use `basic` by default.::
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'edmodo': {
+            'SCOPE': ['basic', 'read_groups', 'read_connections',
+                      'read_user_email', 'create_messages',
+                      'write_library_items']
+        }
+    }
+
+
 Evernote
 ----------
 

@@ -78,7 +78,7 @@ class SocialAppABC(models.Model):
     # a ManyToManyField. Note that Facebook requires an app per domain
     # (unless the domains share a common base name).
     # blank=True allows for disabling apps without removing them
-    sites = models.ManyToManyField(Site, blank=True)
+    sites = models.ManyToManyField(Site, blank=True, related_name="%(app_label)s_%(class)s_set")
 
     class Meta:
         abstract = True

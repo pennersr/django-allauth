@@ -119,6 +119,10 @@ ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION (=False)
   confirming the email address **immediately after signing up**, assuming users
   didn't close their browser or used some sort of private browsing mode.
 
+ACCOUNT_LOGIN_ON_PASSWORD_RESET (=False)
+  By changing this setting to `True`, users will automatically be logged in
+  once they have reset their password. By default they are redirected to the
+  password reset done page.
 
 ACCOUNT_SESSION_REMEMBER (=None)
   Controls the life time of the session. Set to `None` to ask the user

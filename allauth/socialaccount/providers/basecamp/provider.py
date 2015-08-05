@@ -6,7 +6,7 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 class BasecampAccount(ProviderAccount):
 
     def get_avatar_url(self):
-        return self.account.extra_data.get('avatar_url')
+        return None
 
     def to_str(self):
         dflt = super(BasecampAccount, self).to_str()

@@ -653,6 +653,11 @@ class LogoutView(TemplateResponseMixin, View):
         get_adapter().add_message(self.request,
                                   messages.SUCCESS,
                                   'account/messages/logged_out.txt')
+        signal_kwargs = {}
+        signals.user_logged_out.send(sender=self.request.user.__class__,
+                                    request=self.request,
+                                    user=self.request.user,
+                                    **signal_kwargs)
         auth_logout(self.request)
 
     def get_context_data(self, **kwargs):

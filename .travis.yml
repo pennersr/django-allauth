@@ -10,15 +10,17 @@ env:
    - DJANGO="Django<1.7"
    - DJANGO="Django<1.8"
    - DJANGO="Django<1.9"
+cache:
+  directories:
+    - $HOME/.cache/pip
 install:
- - pip install $DJANGO --use-mirrors
- - pip install . --use-mirrors
- - pip install coverage
+ - pip install "pip>=7.0.2" wheel
+ - pip install "$DJANGO" coverage coveralls "mock>=1.0.1"
+ - pip install .
 branches:
  only:
   - master
 script: coverage run manage.py test allauth
 after_success:
   - coverage report
-  - pip install --quiet python-coveralls
   - coveralls

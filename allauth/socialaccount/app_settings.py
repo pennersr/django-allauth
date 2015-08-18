@@ -53,11 +53,16 @@ class AppSettings(object):
         return self._setting("EMAIL_VERIFICATION",
                              account_settings.EMAIL_VERIFICATION)
 
+    #@property
+    #def ADAPTER(self):
+        #return self._setting('ADAPTER',
+                             #'allauth.socialaccount.adapter'
+                             #'.DefaultSocialAccountAdapter')
     @property
-    def ADAPTER(self):
-        return self._setting('ADAPTER',
-                             'allauth.socialaccount.adapter'
-                             '.DefaultSocialAccountAdapter')
+    def SOCIALACCOUNT_ADAPTER(self):
+        return self._setting('SOCIALACCOUNT_ADAPTER',
+                            'allauth.socialaccount.adapter'
+                            '.DefaultSocialAccountAdapter')
 
     @property
     def FORMS(self):

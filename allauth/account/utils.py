@@ -373,6 +373,8 @@ def user_pk_to_url_str(user):
     User = get_user_model()
     if (hasattr(models, 'UUIDField')
             and issubclass(type(User._meta.pk), models.UUIDField)):
+        if isinstance(user.pk, six.string_types):
+            return user.pk
         return user.pk.hex
 
     ret = user.pk

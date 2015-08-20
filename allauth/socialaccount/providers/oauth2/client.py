@@ -43,7 +43,6 @@ class OAuth2Client(object):
                 'redirect_uri': self.callback_url,
                 'grant_type': 'authorization_code',
                 'client_secret': self.consumer_secret,
-                'scope': self.scope,
                 'code': code}
         params = None
         self._strip_empty_keys(data)

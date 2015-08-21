@@ -46,6 +46,8 @@ class OAuth2Adapter(object):
 
 
 class OAuth2View(object):
+    oauth2client_class = OAuth2Client
+
     @classmethod
     def adapter_view(cls, adapter):
         def view(request, *args, **kwargs):
@@ -64,11 +66,11 @@ class OAuth2View(object):
             protocol=protocol)
         provider = self.adapter.get_provider()
         scope = provider.get_scope(request)
-        client = OAuth2Client(self.request, app.client_id, app.secret,
-                              self.adapter.access_token_method,
-                              self.adapter.access_token_url,
-                              callback_url,
-                              scope)
+        client = self.oauth2client_class(self.request, app.client_id, app.secret,
+                                         self.adapter.access_token_method,
+                                         self.adapter.access_token_url,
+                                         callback_url,
+                                         scope)
         return client
 
 

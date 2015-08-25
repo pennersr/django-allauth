@@ -1,3 +1,5 @@
+import re
+
 try:
     from urllib.parse import parse_qsl
 except ImportError:
@@ -32,7 +34,7 @@ class OAuth2Provider(Provider):
             scope = self.get_default_scope()
         dynamic_scope = request.GET.get('scope', None)
         if dynamic_scope:
-            scope.extend(dynamic_scope.split(','))
+            scope.extend(set(re.split(',| ', dynamic_scope)) - set(scope))
         return scope
 
     def get_default_scope(self):

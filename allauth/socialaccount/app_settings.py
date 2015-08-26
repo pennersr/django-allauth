@@ -8,6 +8,7 @@ class AppSettings(object):
         getter = getattr(settings,
                          'ALLAUTH_SETTING_GETTER',
                          lambda name, dflt: getattr(settings, name, dflt))
+        print getter(self.prefix + name, dflt)
         return getter(self.prefix + name, dflt)
 
     @property
@@ -55,9 +56,19 @@ class AppSettings(object):
 
     @property
     def ADAPTER(self):
+        print 'sa app_settings ADAPER returning ', self._setting('ADAPTER',
+                             'allauth.socialaccount.adapter'
+                             '.DefaultSocialAccountAdapter')
+
+    
         return self._setting('ADAPTER',
                              'allauth.socialaccount.adapter'
                              '.DefaultSocialAccountAdapter')
+    #@property
+    #def SOCIALACCOUNT_ADAPTER(self):
+        #return self._setting('SOCIALACCOUNT_ADAPTER',
+                            #'allauth.socialaccount.adapter'
+                            #'.DefaultSocialAccountAdapter')
 
     @property
     def FORMS(self):

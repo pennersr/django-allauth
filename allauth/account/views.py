@@ -459,7 +459,8 @@ email = login_required(EmailView.as_view())
 class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_change.html"
     form_class = ChangePasswordForm
-    success_url = reverse_lazy("account_change_password")
+   # success_url = reverse_lazy("account_change_password")
+    successs_url = "goback"
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS,

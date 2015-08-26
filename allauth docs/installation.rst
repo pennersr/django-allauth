@@ -10,8 +10,7 @@ Python package::
 
 settings.py (Important - Please note 'django.contrib.sites' is required as INSTALLED_APPS)::
 
-For Django 1.7 and below, use:
-
+    # For Django 1.7 and below, use:
     TEMPLATE_CONTEXT_PROCESSORS = (
         ...
         # Required by `allauth` template tags
@@ -19,36 +18,23 @@ For Django 1.7 and below, use:
         ...
     )
 
-If you are running Django 1.8+, specify the context processors  as follows:
-
-    TEMPLATE_CONTEXT_PROCESSORS = (
-          'django.contrib.auth.context_processors.auth',
-          'django.template.context_processors.request',
-          'django.template.context_processors.debug',
-          'django.core.context_processors.static',
-          'django.contrib.messages.context_processors.messages',
-          'django.core.context_processors.request','
-    )
-
-Your templates setting should have this template
-    
+    # If you are running Django 1.8+, specify the context processors
+    # as follows:
     TEMPLATES = [
-    {
-        'BACKEND' :'django.template.backends.django.DjangoTemplates', 
-        'DIRS': ['templates', ],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                 #Already defined Django-related contexts here
-                'django.contrib.auth.context_processors.auth',
-                 #`allauth` needs this from django
-                "django.template.context_processors.request",
-            ],
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [],
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'context_processors': [
+                    # Already defined Django-related contexts here
+
+                    # `allauth` needs this from django
+                    'django.template.context_processors.request',
+                ],
+            },
         },
-        },
-    ] 
-    
-Add this
+    ]
 
     AUTHENTICATION_BACKENDS = (
         ...
@@ -59,8 +45,6 @@ Add this
         'allauth.account.auth_backends.AuthenticationBackend',
         ...
     )
-
-Add these to your INSTALLED_APPS
 
     INSTALLED_APPS = (
         ...
@@ -106,12 +90,9 @@ Add these to your INSTALLED_APPS
         ...
     )
 
-Be sure you have  a SITE_ID setting.  This is usually one but the number may need to be changed depending on your Sites setup in you admin.  It still should be a very low number.
-
     SITE_ID = 1
-    
-    
-urls.py
+
+urls.py::
 
     urlpatterns = patterns('',
         ...

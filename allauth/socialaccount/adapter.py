@@ -164,4 +164,5 @@ class DefaultSocialAccountAdapter(object):
 
 
 def get_adapter():
+
     return import_attribute(app_settings.ADAPTER)()

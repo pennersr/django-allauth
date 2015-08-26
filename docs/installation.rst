@@ -10,7 +10,8 @@ Python package::
 
 settings.py (Important - Please note 'django.contrib.sites' is required as INSTALLED_APPS)::
 
- For Django 1.7 and below, use:
+For Django 1.7 and below, use:
+
     TEMPLATE_CONTEXT_PROCESSORS = (
         ...
         # Required by `allauth` template tags
@@ -18,7 +19,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         ...
     )
 
- If you are running Django 1.8+, specify the context processors  as follows:
+If you are running Django 1.8+, specify the context processors  as follows:
 
     TEMPLATE_CONTEXT_PROCESSORS = (
           'django.contrib.auth.context_processors.auth',
@@ -29,7 +30,8 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
           'django.core.context_processors.request','
     )
 
- Your templates setting have this template
+Your templates setting should have this template
+    
     TEMPLATES = [
     {
         'BACKEND' :'django.template.backends.django.DjangoTemplates', 
@@ -46,7 +48,8 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         },
     ] 
     
- Add this
+Add this
+
     AUTHENTICATION_BACKENDS = (
         ...
         # Needed to login by username in Django admin, regardless of `allauth`
@@ -57,7 +60,8 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         ...
     )
 
- Add these to your INSTALLED_APPS
+Add these to your INSTALLED_APPS
+
     INSTALLED_APPS = (
         ...
         # The Django sites framework is required

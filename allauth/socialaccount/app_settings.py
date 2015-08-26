@@ -8,6 +8,7 @@ class AppSettings(object):
         getter = getattr(settings,
                          'ALLAUTH_SETTING_GETTER',
                          lambda name, dflt: getattr(settings, name, dflt))
+        print getter(self.prefix + name, dflt)
         return getter(self.prefix + name, dflt)
 
     @property
@@ -53,16 +54,21 @@ class AppSettings(object):
         return self._setting("EMAIL_VERIFICATION",
                              account_settings.EMAIL_VERIFICATION)
 
-    #@property
-    #def ADAPTER(self):
-        #return self._setting('ADAPTER',
-                             #'allauth.socialaccount.adapter'
-                             #'.DefaultSocialAccountAdapter')
     @property
-    def SOCIALACCOUNT_ADAPTER(self):
-        return self._setting('SOCIALACCOUNT_ADAPTER',
-                            'allauth.socialaccount.adapter'
-                            '.DefaultSocialAccountAdapter')
+    def ADAPTER(self):
+        print 'sa app_settings ADAPER returning ', self._setting('ADAPTER',
+                             'allauth.socialaccount.adapter'
+                             '.DefaultSocialAccountAdapter')
+
+    
+        return self._setting('ADAPTER',
+                             'allauth.socialaccount.adapter'
+                             '.DefaultSocialAccountAdapter')
+    #@property
+    #def SOCIALACCOUNT_ADAPTER(self):
+        #return self._setting('SOCIALACCOUNT_ADAPTER',
+                            #'allauth.socialaccount.adapter'
+                            #'.DefaultSocialAccountAdapter')
 
     @property
     def FORMS(self):
@@ -76,6 +82,6 @@ class AppSettings(object):
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html
 import sys
-app_settings = AppSettings('')
+app_settings = AppSettings('SOCIALACCOUNT_')
 app_settings.__name__ = __name__
 sys.modules[__name__] = app_settings

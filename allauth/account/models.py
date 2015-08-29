@@ -22,7 +22,8 @@ from .adapter import get_adapter
 class EmailAddress(models.Model):
 
     user = models.ForeignKey(allauth_app_settings.USER_MODEL,
-                             verbose_name=_('user'))
+                             verbose_name=_('user'),
+                             related_name='email_addresses')
     email = models.EmailField(unique=app_settings.UNIQUE_EMAIL,
                               max_length=254,
                               verbose_name=_('e-mail address'))

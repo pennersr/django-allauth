@@ -5,24 +5,29 @@ import warnings
 from django import forms
 from django.core.urlresolvers import reverse
 from django.core import exceptions
-from django.db.models import Q
 from django.utils.translation import pgettext, ugettext_lazy as _, ugettext
-from django.utils.importlib import import_module
 
 from django.contrib.auth import authenticate
 from django.contrib.auth.tokens import default_token_generator
-from django.contrib.sites.models import Site
 
-from ..utils import (email_address_exists, get_user_model,
+from ..utils import (email_address_exists,
                      set_form_field_order,
-                     build_absolute_uri)
+                     build_absolute_uri,
+                     get_username_max_length,
+                     get_current_site)
 
 from .models import EmailAddress
-from .utils import (perform_login, setup_user_email, user_username,
-                    user_pk_to_url_str)
+from .utils import (perform_login, setup_user_email, url_str_to_user_pk,
+                    user_username, user_pk_to_url_str, filter_users_by_email,
+                    get_user_model)
 from .app_settings import AuthenticationMethod
 from . import app_settings
 from .adapter import get_adapter
+
+try:
+    from importlib import import_module
+except ImportError:
+    from django.utils.importlib import import_module
 
 
 class PasswordField(forms.CharField):
@@ -32,7 +37,7 @@ class PasswordField(forms.CharField):
                                   app_settings.PASSWORD_INPUT_RENDER_VALUE)
         kwargs['widget'] = forms.PasswordInput(render_value=render_value,
                                                attrs={'placeholder':
-                                                      _('Password')})
+                                                      _(kwargs.get("label"))})
         super(PasswordField, self).__init__(*args, **kwargs)
 
 
@@ -79,9 +84,10 @@ class LoginForm(forms.Form):
             login_widget = forms.TextInput(attrs={'placeholder':
                                                   _('Username'),
                                                   'autofocus': 'autofocus'})
-            login_field = forms.CharField(label=_("Username"),
-                                          widget=login_widget,
-                                          max_length=30)
+            login_field = forms.CharField(
+                label=_("Username"),
+                widget=login_widget,
+                max_length=get_username_max_length())
         else:
             assert app_settings.AUTHENTICATION_METHOD \
                 == AuthenticationMethod.USERNAME_EMAIL
@@ -199,7 +205,7 @@ def _base_signup_form_class():
 
 class BaseSignupForm(_base_signup_form_class()):
     username = forms.CharField(label=_("Username"),
-                               max_length=30,
+                               max_length=get_username_max_length(),
                                min_length=app_settings.USERNAME_MIN_LENGTH,
                                widget=forms.TextInput(
                                    attrs={'placeholder':
@@ -225,6 +231,7 @@ class BaseSignupForm(_base_signup_form_class()):
         else:
             self.fields["email"].label = ugettext("E-mail (optional)")
             self.fields["email"].required = False
+            self.fields["email"].widget.is_required = False
             if self.username_required:
                 field_order = ['username', 'email']
 
@@ -327,12 +334,14 @@ class AddEmailForm(UserForm):
             "different_account": _("This e-mail address is already associated"
                                    " with another account."),
         }
-        emails = EmailAddress.objects.filter(email__iexact=value)
-        if emails.filter(user=self.user).exists():
+        users = filter_users_by_email(value)
+        on_this_account = [u for u in users if u.pk == self.user.pk]
+        on_diff_account = [u for u in users if u.pk != self.user.pk]
+
+        if on_this_account:
             raise forms.ValidationError(errors["this_account"])
-        if app_settings.UNIQUE_EMAIL:
-            if emails.exclude(user=self.user).exists():
-                raise forms.ValidationError(errors["different_account"])
+        if on_diff_account and app_settings.UNIQUE_EMAIL:
+            raise forms.ValidationError(errors["different_account"])
         return value
 
     def save(self, request):
@@ -395,10 +404,8 @@ class ResetPasswordForm(forms.Form):
     def clean_email(self):
         email = self.cleaned_data["email"]
         email = get_adapter().clean_email(email)
-        self.users = get_user_model().objects \
-            .filter(Q(email__iexact=email)
-                    | Q(emailaddress__email__iexact=email)).distinct()
-        if not self.users.exists():
+        self.users = filter_users_by_email(email)
+        if not self.users:
             raise forms.ValidationError(_("The e-mail address is not assigned"
                                           " to any user account"))
         return self.cleaned_data["email"]
@@ -417,14 +424,15 @@ class ResetPasswordForm(forms.Form):
             # password_reset = PasswordReset(user=user, temp_key=temp_key)
             # password_reset.save()
 
-            current_site = Site.objects.get_current()
+            current_site = get_current_site()
 
             # send the password reset email
             path = reverse("account_reset_password_from_key",
                            kwargs=dict(uidb36=user_pk_to_url_str(user),
                                        key=temp_key))
-            url = build_absolute_uri(request, path,
-                                     protocol=app_settings.DEFAULT_HTTP_PROTOCOL)
+            url = build_absolute_uri(
+                request, path,
+                protocol=app_settings.DEFAULT_HTTP_PROTOCOL)
             context = {"site": current_site,
                        "user": user,
                        "password_reset_url": url}
@@ -459,3 +467,37 @@ class ResetPasswordKeyForm(forms.Form):
 
     def save(self):
         get_adapter().set_password(self.user, self.cleaned_data["password1"])
+
+
+class UserTokenForm(forms.Form):
+
+    uidb36 = forms.CharField()
+    key = forms.CharField()
+
+    reset_user = None
+    token_generator = default_token_generator
+
+    error_messages = {
+        'token_invalid': _('The password reset token was invalid.'),
+    }
+
+    def _get_user(self, uidb36):
+        User = get_user_model()
+        try:
+            pk = url_str_to_user_pk(uidb36)
+            return User.objects.get(pk=pk)
+        except (ValueError, User.DoesNotExist):
+            return None
+
+    def clean(self):
+        cleaned_data = super(UserTokenForm, self).clean()
+
+        uidb36 = cleaned_data['uidb36']
+        key = cleaned_data['key']
+
+        self.reset_user = self._get_user(uidb36)
+        if (self.reset_user is None or
+                not self.token_generator.check_token(self.reset_user, key)):
+            raise forms.ValidationError(self.error_messages['token_invalid'])
+
+        return cleaned_data

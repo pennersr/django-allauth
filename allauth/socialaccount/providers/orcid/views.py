@@ -8,7 +8,6 @@ from .provider import OrcidProvider
 
 class OrcidOAuth2Adapter(OAuth2Adapter):
     provider_id = OrcidProvider.id
-    # ORCID Public API (not Member API):
     # http://support.orcid.org/knowledgebase/articles/335483-the-public-
     # client-orcid-api
     authorize_url = 'https://orcid.org/oauth/authorize'

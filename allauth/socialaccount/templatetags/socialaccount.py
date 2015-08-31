@@ -2,6 +2,7 @@ from django.template.defaulttags import token_kwargs
 from django import template
 
 from allauth.socialaccount import providers
+from allauth.utils import get_request_param
 
 register = template.Library()
 
@@ -25,7 +26,7 @@ class ProviderLoginURLNode(template.Node):
         if auth_params is '':
             del query['auth_params']
         if 'next' not in query:
-            next = request.REQUEST.get('next')
+            next = get_request_param(request, 'next')
             if next:
                 query['next'] = next
             elif process == 'redirect':
@@ -77,3 +78,16 @@ def get_social_accounts(user):
         providers = accounts.setdefault(account.provider, [])
         providers.append(account)
     return accounts
+
+
+@register.assignment_tag
+def get_providers():
+    """
+    Returns a list of social authentication providers.
+
+    Usage: `{% get_providers as socialaccount_providers %}`.
+
+    Then within the template context, `socialaccount_providers` will hold
+    a list of social providers configured for the current site.
+    """
+    return providers.registry.get_list()

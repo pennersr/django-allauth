@@ -46,6 +46,7 @@ class OAuth2Client(object):
                 'scope': self.scope,
                 'code': code}
         params = None
+        self._strip_empty_keys(data)
         url = self.access_token_url
         if self.access_token_method == 'GET':
             params = data
@@ -67,3 +68,11 @@ class OAuth2Client(object):
             raise OAuth2Error('Error retrieving access token: %s'
                               % resp.content)
         return access_token
+
+    def _strip_empty_keys(self, params):
+        """Added because the Dropbox OAuth2 flow doesn't 
+        work when scope is passed in, which is empty.
+        """
+        keys = [k for k, v in params.items() if v == '']
+        for key in keys:
+            del params[key]

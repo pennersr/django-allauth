@@ -35,7 +35,7 @@ class FlickrOAuthAdapter(OAuthAdapter):
     access_token_url = 'http://www.flickr.com/services/oauth/access_token'
     authorize_url = 'http://www.flickr.com/services/oauth/authorize'
 
-    def complete_login(self, request, app, token):
+    def complete_login(self, request, app, token, response):
         client = FlickrAPI(request, app.client_id, app.secret,
                            self.request_token_url)
         extra_data = client.get_user_info()

@@ -1,9 +1,6 @@
 import logging
 import requests
 
-from django.utils.cache import patch_response_headers
-from django.shortcuts import render
-
 
 from allauth.socialaccount.models import (SocialLogin,
                                           SocialToken)
@@ -22,13 +19,16 @@ logger = logging.getLogger(__name__)
 
 
 def fb_complete_login(request, app, token):
-    resp = requests.get(GRAPH_API_URL + '/me',
-                        params={'access_token': token.token})
+    provider = providers.registry.by_id(FacebookProvider.id)
+    resp = requests.get(
+        GRAPH_API_URL + '/me',
+        params={
+            'fields': ','.join(provider.get_fields()),
+            'access_token': token.token
+        })
     resp.raise_for_status()
     extra_data = resp.json()
-    login = providers.registry \
-        .by_id(FacebookProvider.id) \
-        .sociallogin_from_response(request, extra_data)
+    login = provider.sociallogin_from_response(request, extra_data)
     return login
 
 
@@ -68,6 +68,14 @@ def login_by_token(request):
                     ok = nonce and nonce == info.get('auth_nonce')
                 else:
                     ok = True
+                if ok and provider.get_settings().get('EXCHANGE_TOKEN'):
+                    resp = requests.get(
+                        GRAPH_API_URL + '/oauth/access_token',
+                        params={'grant_type': 'fb_exchange_token',
+                                'client_id': app.client_id,
+                                'client_secret': app.secret,
+                                'fb_exchange_token': access_token}).json()
+                    access_token = resp['access_token']
                 if ok:
                     token = SocialToken(app=app,
                                         token=access_token)
@@ -83,14 +91,3 @@ def login_by_token(request):
                                           FacebookProvider.id,
                                           exception=auth_exception)
     return ret
-
-
-def channel(request):
-    provider = providers.registry.by_id(FacebookProvider.id)
-    locale = provider.get_locale_for_request(request)
-    response = render(request, 'facebook/channel.html',
-                      {'facebook_jssdk_locale': locale})
-    cache_expire = 60 * 60 * 24 * 365
-    patch_response_headers(response, cache_expire)
-    response['Pragma'] = 'Public'
-    return response

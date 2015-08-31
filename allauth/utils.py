@@ -1,3 +1,4 @@
+import base64
 import re
 import unicodedata
 import json
@@ -5,26 +6,35 @@ import json
 from django.core.exceptions import ImproperlyConfigured
 from django.core.validators import validate_email, ValidationError
 from django.core import urlresolvers
+from django.contrib.sites.models import Site
 from django.db.models import FieldDoesNotExist
 from django.db.models.fields import (DateTimeField, DateField,
-                                     EmailField, TimeField)
-from django.utils import importlib, six, dateparse
-from django.utils.datastructures import SortedDict
+                                     EmailField, TimeField,
+                                     BinaryField)
+from django.utils import six, dateparse
+from django.utils.six.moves.urllib.parse import urlsplit
+
 from django.core.serializers.json import DjangoJSONEncoder
 try:
-    from django.utils.encoding import force_text
+    from django.utils.encoding import force_text, force_bytes
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
+try:
+    import importlib
+except:
+    from django.utils import importlib
 
-def _generate_unique_username_base(txts):
+
+def _generate_unique_username_base(txts, regex=None):
     username = None
+    regex = regex or '[^\w\s@+.-]'
     for txt in txts:
         if not txt:
             continue
         username = unicodedata.normalize('NFKD', force_text(txt))
         username = username.encode('ascii', 'ignore').decode('ascii')
-        username = force_text(re.sub('[^\w\s@+.-]', '', username).lower())
+        username = force_text(re.sub(regex, '', username).lower())
         # Django allows for '@' in usernames in order to accomodate for
         # project wanting to use e-mail for username. In allauth we don't
         # use this, we already have a proper place for putting e-mail
@@ -38,16 +48,21 @@ def _generate_unique_username_base(txts):
     return username or 'user'
 
 
-def generate_unique_username(txts):
+def get_username_max_length():
     from .account.app_settings import USER_MODEL_USERNAME_FIELD
-    username = _generate_unique_username_base(txts)
-    User = get_user_model()
-    try:
+    if USER_MODEL_USERNAME_FIELD is not None:
+        User = get_user_model()
         max_length = User._meta.get_field(USER_MODEL_USERNAME_FIELD).max_length
-    except FieldDoesNotExist:
-        raise ImproperlyConfigured(
-            "USER_MODEL_USERNAME_FIELD does not exist in user-model"
-        )
+    else:
+        max_length = 0
+    return max_length
+
+
+def generate_unique_username(txts, regex=None):
+    from .account.app_settings import USER_MODEL_USERNAME_FIELD
+    username = _generate_unique_username_base(txts, regex)
+    User = get_user_model()
+    max_length = get_username_max_length()
     i = 0
     while True:
         try:
@@ -128,6 +143,22 @@ except ImportError:
         return user_model
 
 
+def get_current_site(request=None):
+    """Wrapper around ``Site.objects.get_current`` to handle ``Site`` lookups
+    by request in Django >= 1.8.
+
+    :param request: optional request object
+    :type request: :class:`django.http.HttpRequest`
+    """
+    # >= django 1.8
+    if request and hasattr(Site.objects, '_get_site_by_request'):
+        site = Site.objects.get_current(request=request)
+    else:
+        site = Site.objects.get_current()
+
+    return site
+
+
 def resolve_url(to):
     """
     Subset of django.shortcuts.resolve_url (that one is 1.5+)
@@ -150,10 +181,17 @@ def serialize_instance(instance):
     Django serialization, as these are models are not "complete" yet.
     Serialization will start complaining about missing relations et al.
     """
-    ret = dict([(k, v)
-                for k, v in instance.__dict__.items()
-                if not k.startswith('_')])
-    return json.loads(json.dumps(ret, cls=DjangoJSONEncoder))
+    data = {}
+    for k, v in instance.__dict__.items():
+        if k.startswith('_') or callable(v):
+            continue
+        try:
+            if isinstance(instance._meta.get_field(k), BinaryField):
+                v = force_text(base64.b64encode(v))
+        except FieldDoesNotExist:
+            pass
+        data[k] = v
+    return json.loads(json.dumps(data, cls=DjangoJSONEncoder))
 
 
 def deserialize_instance(model, data):
@@ -168,6 +206,10 @@ def deserialize_instance(model, data):
                     v = dateparse.parse_time(v)
                 elif isinstance(f, DateField):
                     v = dateparse.parse_date(v)
+                elif isinstance(f, BinaryField):
+                    v = force_bytes(
+                        base64.b64decode(
+                            force_bytes(v)))
             except FieldDoesNotExist:
                 pass
         setattr(ret, k, v)
@@ -175,7 +217,7 @@ def deserialize_instance(model, data):
 
 
 def set_form_field_order(form, fields_order):
-    if isinstance(form.fields, SortedDict):
+    if hasattr(form.fields, 'keyOrder'):
         form.fields.keyOrder = fields_order
     else:
         # Python 2.7+
@@ -186,7 +228,25 @@ def set_form_field_order(form, fields_order):
 
 
 def build_absolute_uri(request, location, protocol=None):
-    uri = request.build_absolute_uri(location)
+    """request.build_absolute_uri() helper
+
+    Like request.build_absolute_uri, but gracefully handling
+    the case where request is None.
+    """
+    from .account import app_settings as account_settings
+
+    if request is None:
+        site = get_current_site()
+        bits = urlsplit(location)
+        if not (bits.scheme and bits.netloc):
+            uri = '{proto}://{domain}{url}'.format(
+                proto=account_settings.DEFAULT_HTTP_PROTOCOL,
+                domain=site.domain,
+                url=location)
+        else:
+            uri = location
+    else:
+        uri = request.build_absolute_uri(location)
     if protocol:
         uri = protocol + ':' + uri.partition(':')[2]
     return uri
@@ -197,3 +257,7 @@ def get_form_class(forms, form_id, default_form):
     if isinstance(form_class, six.string_types):
         form_class = import_attribute(form_class)
     return form_class
+
+
+def get_request_param(request, param, default=None):
+    return request.POST.get(param) or request.GET.get(param, default)

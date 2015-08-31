@@ -4,21 +4,30 @@ from __future__ import unicode_literals
 
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.utils.importlib import import_module
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
 from django.core import mail
+from django.core.urlresolvers import reverse
+
+try:
+    from importlib import import_module
+except ImportError:
+    from django.utils.importlib import import_module
 
 from allauth.socialaccount.tests import create_oauth2_tests
 from allauth.account import app_settings as account_settings
 from allauth.account.models import EmailConfirmation, EmailAddress
-from allauth.socialaccount.models import SocialAccount
+from allauth.socialaccount.models import SocialAccount, SocialToken
 from allauth.socialaccount.providers import registry
 from allauth.tests import MockedResponse
 from allauth.account.signals import user_signed_up
 from allauth.account.adapter import get_adapter
 
+from requests.exceptions import HTTPError
+
 from .provider import GoogleProvider
+
+import mock
 
 
 @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=True,
@@ -46,6 +55,35 @@ class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
                email,
                given_name,
                (repr(verified_email).lower())))
+
+    def test_google_compelete_login_401(self):
+        from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+
+        class LessMockedResponse(MockedResponse):
+            def raise_for_status(self):
+                if self.status_code != 200:
+                    raise HTTPError(None)
+        request = RequestFactory().get(reverse(self.provider.id + '_login'),
+                               dict(process='login'))
+
+        adapter = GoogleOAuth2Adapter()
+        app = adapter.get_provider().get_app(request)
+        token = SocialToken(token='some_token')
+        response_with_401 = LessMockedResponse(401, """
+                                                {"error": {
+                                                  "errors": [{
+                                                    "domain": "global",
+                                                    "reason": "authError",
+                                                    "message": "Invalid Credentials",
+                                                    "locationType": "header",
+                                                    "location": "Authorization" } ],
+                                                  "code": 401,
+                                                  "message": "Invalid Credentials" }
+                                                }""")
+        with mock.patch('allauth.socialaccount.providers.google.views.requests') as patched_requests:
+            patched_requests.get.return_value = response_with_401
+            with self.assertRaises(HTTPError):
+                adapter.complete_login(request, app, token)
 
     def test_username_based_on_email(self):
         first_name = '明'

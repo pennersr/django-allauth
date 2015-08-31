@@ -9,6 +9,8 @@ from django.http import HttpResponseRedirect
 from django.utils.http import urlencode
 from django.utils.translation import gettext as _
 
+from allauth.utils import get_request_param
+
 try:
     from urllib.parse import parse_qsl, urlparse
 except ImportError:
@@ -97,8 +99,9 @@ class OAuthClient(object):
             # Passing along oauth_verifier is required according to:
             # http://groups.google.com/group/twitter-development-talk/browse_frm/thread/472500cfe9e7cdb9#
             # Though, the custom oauth_callback seems to work without it?
-            if 'oauth_verifier' in self.request.REQUEST:
-                at_url = at_url + '?' + urlencode({'oauth_verifier': self.request.REQUEST['oauth_verifier']})
+            oauth_verifier = get_request_param(self.request, 'oauth_verifier')
+            if oauth_verifier:
+                at_url = at_url + '?' + urlencode({'oauth_verifier': oauth_verifier})
             response = requests.post(url=at_url, auth=oauth)
             if response.status_code not in [200, 201]:
                 raise OAuthError(
@@ -130,7 +133,7 @@ class OAuthClient(object):
             return False
         return True
 
-    def get_redirect(self, authorization_url):
+    def get_redirect(self, authorization_url, extra_params):
         """
         Returns a ``HttpResponseRedirect`` object to redirect the user
         to the URL the OAuth provider handles authorization.
@@ -139,6 +142,7 @@ class OAuthClient(object):
         params = {'oauth_token': request_token['oauth_token'],
                   'oauth_callback': self.request.build_absolute_uri(
                       self.callback_url)}
+        params.update(extra_params)
         url = authorization_url + '?' + urlencode(params)
         return HttpResponseRedirect(url)
 

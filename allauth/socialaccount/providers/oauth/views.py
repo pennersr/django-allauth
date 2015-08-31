@@ -1,7 +1,6 @@
 from __future__ import absolute_import
 
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
 
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.providers.oauth.client import (OAuthClient,
@@ -58,9 +57,10 @@ class OAuthLoginView(OAuthView):
         provider = self.adapter.get_provider()
         auth_url = provider.get_auth_url(request,
                                          action) or self.adapter.authorize_url
+        auth_params = provider.get_auth_params(request, action)
         client = self._get_client(request, callback_url)
         try:
-            return client.get_redirect(auth_url)
+            return client.get_redirect(auth_url, auth_params)
         except OAuthError as e:
             return render_authentication_error(request,
                                                self.adapter.provider_id,
@@ -92,8 +92,12 @@ class OAuthCallbackView(OAuthView):
             token = SocialToken(
                 app=app,
                 token=access_token['oauth_token'],
-                token_secret=access_token['oauth_token_secret'])
-            login = self.adapter.complete_login(request, app, token)
+                # .get() -- e.g. Evernote does not feature a secret
+                token_secret=access_token.get('oauth_token_secret', ''))
+            login = self.adapter.complete_login(request,
+                                                app,
+                                                token,
+                                                response=access_token)
             login.token = token
             login.state = SocialLogin.unstash_state(request)
             return complete_social_login(request, login)

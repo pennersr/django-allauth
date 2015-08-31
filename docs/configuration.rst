@@ -10,6 +10,7 @@ ACCOUNT_ADAPTER (="allauth.account.adapter.DefaultAccountAdapter")
 ACCOUNT_AUTHENTICATION_METHOD (="username" | "email" | "username_email")
   Specifies the login method to use -- whether the user logs in by
   entering their username, e-mail address, or either one of both.
+  Setting this to "email" requires ACCOUNT_EMAIL_REQUIRED=True
 
 ACCOUNT_CONFIRM_EMAIL_ON_GET (=False)
   Determines whether or not an e-mail address is automatically confirmed
@@ -56,6 +57,10 @@ ACCOUNT_LOGOUT_ON_GET (=False)
   Determines whether or not the user is automatically logged out by a
   mere GET request. See documentation for the `LogoutView` for
   details.
+
+ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE (=False)
+  Determines whether or not the user is automatically logged out after
+  changing the password. See documentation for `Django's session invalidation on password change <https://docs.djangoproject.com/en/1.8/topics/auth/default/#session-invalidation-on-password-change>`_. (Django 1.7+)
 
 ACCOUNT_LOGOUT_REDIRECT_URL (="/")
   The URL (or URL name) to return to after the user logs out. This is
@@ -105,10 +110,19 @@ ACCOUNT_PASSWORD_INPUT_RENDER_VALUE (=False)
 ACCOUNT_PASSWORD_MIN_LENGTH (=6)
   An integer specifying the minimum password length.
 
-ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION (=True)
-  The default behaviour is to automatically log the user in once they confirms
-  their email address. By changing this setting to False they will not be logged
-  in, but redirected to the ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION (=False)
+  The default behaviour is not log users in and to redirect them to
+  `ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL`.
+
+  By changing this setting to `True`, users will automatically be logged in once
+  they confirm their email address. Note however that this only works when
+  confirming the email address **immediately after signing up**, assuming users
+  didn't close their browser or used some sort of private browsing mode.
+
+ACCOUNT_LOGIN_ON_PASSWORD_RESET (=False)
+  By changing this setting to `True`, users will automatically be logged in
+  once they have reset their password. By default they are redirected to the
+  password reset done page.
 
 ACCOUNT_SESSION_REMEMBER (=None)
   Controls the life time of the session. Set to `None` to ask the user

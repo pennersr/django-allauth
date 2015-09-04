@@ -1,4 +1,4 @@
-from django.conf.urls import url, patterns, include
+from django.conf.urls import url, include
 
 try:
     import importlib
@@ -9,11 +9,10 @@ from allauth.socialaccount import providers
 
 from . import app_settings
 
-urlpatterns = patterns('', url('^', include('allauth.account.urls')))
+urlpatterns = [url('^', include('allauth.account.urls'))]
 
 if app_settings.SOCIALACCOUNT_ENABLED:
-    urlpatterns += patterns('', url('^social/',
-                                    include('allauth.socialaccount.urls')))
+    urlpatterns += [url('^social/', include('allauth.socialaccount.urls'))]
 
 for provider in providers.registry.get_list():
     try:

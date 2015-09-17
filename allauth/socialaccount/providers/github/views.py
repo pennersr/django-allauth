@@ -4,6 +4,7 @@ from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
                                                           OAuth2CallbackView)
 from .provider import GitHubProvider
+from allauth.socialaccount import app_settings
 
 
 class GitHubOAuth2Adapter(OAuth2Adapter):
@@ -17,7 +18,7 @@ class GitHubOAuth2Adapter(OAuth2Adapter):
         resp = requests.get(self.profile_url,
                             params={'access_token': token.token})
         extra_data = resp.json()
-        if not extra_data.get('email'):
+        if app_settings.QUERY_EMAIL and not extra_data.get('email'):
             extra_data['email'] = self.get_email(token)
         return self.get_provider().sociallogin_from_response(request,
                                                              extra_data)

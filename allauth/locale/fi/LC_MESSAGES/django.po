@@ -1,0 +1,797 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-11 13:30+0300\n"
+"PO-Revision-Date: 2015-08-13 15:17+0300\n"
+"Last-Translator: Anonymous User <seppo.erviala@iki.fi>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.7.6\n"
+
+#: allauth/account/adapter.py:215
+msgid "Usernames can only contain letters, digits and @/./+/-/_."
+msgstr ""
+"Käyttäjänimi saa sisältää vain kirjaimia, numeroita ja erikoismerkkejä "
+"@/./+/-/_."
+
+#: allauth/account/adapter.py:222
+msgid "Username can not be used. Please use other username."
+msgstr "Käyttäjänimeä ei voi käyttää. Valitse toinen käyttäjänimi."
+
+#: allauth/account/adapter.py:232
+msgid "This username is already taken. Please choose another."
+msgstr "Käyttäjänimi on käytössä. Valitse toinen käyttäjänimi."
+
+#: allauth/account/adapter.py:249
+msgid "Password must be a minimum of {0} characters."
+msgstr "Salasanan tulee olla vähintään {0} merkkiä pitkä."
+
+#: allauth/account/apps.py:8
+msgid "Accounts"
+msgstr "Tili"
+
+#: allauth/account/forms.py:54 allauth/account/forms.py:282
+#: allauth/account/forms.py:381
+msgid "Password"
+msgstr "Salasana"
+
+#: allauth/account/forms.py:55
+msgid "Remember Me"
+msgstr "Muista minut"
+
+#: allauth/account/forms.py:61
+msgid "This account is currently inactive."
+msgstr "Tämä tili on poistettu käytöstä."
+
+#: allauth/account/forms.py:64
+msgid "The e-mail address and/or password you specified are not correct."
+msgstr "Annettu sähköposti tai salasana ei ole oikein."
+
+#: allauth/account/forms.py:67
+msgid "The username and/or password you specified are not correct."
+msgstr "Annettu käyttäjänimi tai salasana ei ole oikein."
+
+#: allauth/account/forms.py:70
+msgid "The login and/or password you specified are not correct."
+msgstr "Kirjautumistiedot eivät ole oikein."
+
+#: allauth/account/forms.py:78 allauth/account/forms.py:216
+msgid "E-mail address"
+msgstr "Sähköpostiosoite"
+
+#: allauth/account/forms.py:80 allauth/account/forms.py:229
+#: allauth/account/forms.py:323 allauth/account/forms.py:400
+msgid "E-mail"
+msgstr "Sähköposti"
+
+#: allauth/account/forms.py:85 allauth/account/forms.py:88
+#: allauth/account/forms.py:207 allauth/account/forms.py:212
+msgid "Username"
+msgstr "Käyttäjänimi"
+
+#: allauth/account/forms.py:95
+msgid "Username or e-mail"
+msgstr "Käyttäjänimi tai sähköposti"
+
+#: allauth/account/forms.py:98
+msgctxt "field label"
+msgid "Login"
+msgstr "Käyttäjätunnus"
+
+#: allauth/account/forms.py:232
+msgid "E-mail (optional)"
+msgstr "Sähköpostiosoite (valinnainen)"
+
+#: allauth/account/forms.py:264
+msgid "A user is already registered with this e-mail address."
+msgstr "Tämä sähköpostiosoite on jo käytössä."
+
+#: allauth/account/forms.py:283 allauth/account/forms.py:382
+msgid "Password (again)"
+msgstr "Salasana (uudestaan)"
+
+#: allauth/account/forms.py:300 allauth/account/forms.py:371
+#: allauth/account/forms.py:389 allauth/account/forms.py:464
+msgid "You must type the same password each time."
+msgstr "Salasanojen tulee olla samat."
+
+#: allauth/account/forms.py:332
+msgid "This e-mail address is already associated with this account."
+msgstr "Sähköpostiosoite on jo liitetty tähän tilliin."
+
+#: allauth/account/forms.py:334
+msgid "This e-mail address is already associated with another account."
+msgstr "Sähköpostiosoite on jo liitetty toiseen tiliin."
+
+#: allauth/account/forms.py:356
+msgid "Current Password"
+msgstr "Nykyinen salasana"
+
+#: allauth/account/forms.py:357 allauth/account/forms.py:450
+msgid "New Password"
+msgstr "Uusi salasana"
+
+#: allauth/account/forms.py:358 allauth/account/forms.py:451
+msgid "New Password (again)"
+msgstr "Uusi salasana (uudestaan)"
+
+#: allauth/account/forms.py:362
+msgid "Please type your current password."
+msgstr "Ole hyvä ja anna nykyinen salasanasi."
+
+#: allauth/account/forms.py:409
+msgid "The e-mail address is not assigned to any user account"
+msgstr "Sähköpostiosoite ei vastaa yhtäkään käyttäjätiliä."
+
+#: allauth/account/forms.py:481
+msgid "The password reset token was invalid."
+msgstr "Salasanan uusimistarkiste ei kelpaa."
+
+#: allauth/account/models.py:25
+msgid "user"
+msgstr "käytäjä"
+
+#: allauth/account/models.py:28 allauth/account/models.py:84
+msgid "e-mail address"
+msgstr "sähköpostiosoite"
+
+#: allauth/account/models.py:29
+msgid "verified"
+msgstr "vahvistettu"
+
+#: allauth/account/models.py:30
+msgid "primary"
+msgstr "ensisijainen"
+
+#: allauth/account/models.py:35
+msgid "email address"
+msgstr "sähköpostiosoite"
+
+#: allauth/account/models.py:36
+msgid "email addresses"
+msgstr "sähköpostiosoitteet"
+
+#: allauth/account/models.py:85
+msgid "created"
+msgstr "luotu"
+
+#: allauth/account/models.py:87
+msgid "sent"
+msgstr "lähetetty"
+
+#: allauth/account/models.py:88 allauth/socialaccount/models.py:50
+msgid "key"
+msgstr "avain"
+
+#: allauth/account/models.py:93
+msgid "email confirmation"
+msgstr "sähköpostivarmistus"
+
+#: allauth/account/models.py:94
+msgid "email confirmations"
+msgstr "sähköpostivarmistukset"
+
+#: allauth/socialaccount/adapter.py:118
+msgid "Your account has no password set up."
+msgstr "Tilillesi ei ole asetettu salasanaa."
+
+#: allauth/socialaccount/adapter.py:125
+msgid "Your account has no verified e-mail address."
+msgstr "Tiliisi ei ole liitetty vahvistettua sähköpostiosoitetta."
+
+#: allauth/socialaccount/apps.py:8
+msgid "Social Accounts"
+msgstr "Sosiaalisen median tilit"
+
+#: allauth/socialaccount/forms.py:41
+#, python-format
+msgid ""
+"An account already exists with this e-mail address. Please sign in to that "
+"account first, then connect your %s account."
+msgstr ""
+"Sähköpostiosoite on jo liitetty olemassaolevaan tiliin. Kirjaudu "
+"olemassaolevaan tiliin ja liitä %s-tilisi vasta sitten."
+
+#: allauth/socialaccount/models.py:38 allauth/socialaccount/models.py:71
+msgid "provider"
+msgstr "tarjoaja"
+
+#: allauth/socialaccount/models.py:41
+msgid "name"
+msgstr "nimi"
+
+#: allauth/socialaccount/models.py:43
+msgid "client id"
+msgstr ""
+
+#: allauth/socialaccount/models.py:45
+msgid "App ID, or consumer key"
+msgstr ""
+
+#: allauth/socialaccount/models.py:46
+msgid "secret key"
+msgstr ""
+
+#: allauth/socialaccount/models.py:48
+msgid "API secret, client secret, or consumer secret"
+msgstr ""
+
+#: allauth/socialaccount/models.py:53
+msgid "Key"
+msgstr "Avain"
+
+#: allauth/socialaccount/models.py:61
+msgid "social application"
+msgstr ""
+
+#: allauth/socialaccount/models.py:62
+msgid "social applications"
+msgstr ""
+
+#: allauth/socialaccount/models.py:89
+msgid "uid"
+msgstr ""
+
+#: allauth/socialaccount/models.py:90
+msgid "last login"
+msgstr "Viimeisin sisäänkirjautuminen"
+
+#: allauth/socialaccount/models.py:92
+msgid "date joined"
+msgstr "Liittymispäivämäärä"
+
+#: allauth/socialaccount/models.py:94
+msgid "extra data"
+msgstr ""
+
+#: allauth/socialaccount/models.py:98
+msgid "social account"
+msgstr "Sosiaalisen median tiliq"
+
+#: allauth/socialaccount/models.py:99
+msgid "social accounts"
+msgstr "Sosiaalisen median tilit"
+
+#: allauth/socialaccount/models.py:125
+msgid "token"
+msgstr ""
+
+#: allauth/socialaccount/models.py:127
+msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
+msgstr ""
+
+#: allauth/socialaccount/models.py:130
+msgid "token secret"
+msgstr ""
+
+#: allauth/socialaccount/models.py:132
+msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
+msgstr ""
+
+#: allauth/socialaccount/models.py:134
+msgid "expires at"
+msgstr "vanhenee"
+
+#: allauth/socialaccount/models.py:138
+msgid "social application token"
+msgstr ""
+
+#: allauth/socialaccount/models.py:139
+msgid "social application tokens"
+msgstr ""
+
+#: allauth/socialaccount/providers/oauth/client.py:82
+#, python-format
+msgid "Invalid response while obtaining request token from \"%s\"."
+msgstr "Virheellinen vastaus palvelusta \"%s\"."
+
+#: allauth/socialaccount/providers/oauth/client.py:108
+#, python-format
+msgid "Invalid response while obtaining access token from \"%s\"."
+msgstr "Virhe hankitteassa käyttöoikeustunnistetta palvelusta \"%s\""
+
+#: allauth/socialaccount/providers/oauth/client.py:124
+#, python-format
+msgid "No request token saved for \"%s\"."
+msgstr ""
+
+#: allauth/socialaccount/providers/oauth/client.py:173
+#, python-format
+msgid "No access token saved for \"%s\"."
+msgstr ""
+
+#: allauth/socialaccount/providers/oauth/client.py:193
+#, python-format
+msgid "No access to private resources at \"%s\"."
+msgstr ""
+
+#: allauth/templates/account/account_inactive.html:5
+#: allauth/templates/account/account_inactive.html:8
+msgid "Account Inactive"
+msgstr "Tili poissa käytöstä"
+
+#: allauth/templates/account/account_inactive.html:10
+msgid "This account is inactive."
+msgstr "Tämä tili ei ole käytössä."
+
+#: allauth/templates/account/email.html:5
+msgid "Account"
+msgstr "Tili"
+
+#: allauth/templates/account/email.html:8
+msgid "E-mail Addresses"
+msgstr "Sähköpostiosoitteet"
+
+#: allauth/templates/account/email.html:10
+msgid "The following e-mail addresses are associated with your account:"
+msgstr "Seuraavat sähköpostiosoiteet on liitetty tiliisi:"
+
+#: allauth/templates/account/email.html:24
+msgid "Verified"
+msgstr "Vahvistettu"
+
+#: allauth/templates/account/email.html:26
+msgid "Unverified"
+msgstr "Vahvistamaton"
+
+#: allauth/templates/account/email.html:28
+msgid "Primary"
+msgstr "Ensisijainen"
+
+#: allauth/templates/account/email.html:34
+msgid "Make Primary"
+msgstr "Aseta ensisijaiseksi"
+
+#: allauth/templates/account/email.html:35
+msgid "Re-send Verification"
+msgstr "Uudelleenlähetä vahvistus"
+
+#: allauth/templates/account/email.html:36
+#: allauth/templates/socialaccount/connections.html:35
+msgid "Remove"
+msgstr "Poista"
+
+#: allauth/templates/account/email.html:43
+msgid "Warning:"
+msgstr "Varoitus:"
+
+#: allauth/templates/account/email.html:43
+msgid ""
+"You currently do not have any e-mail address set up. You should really add "
+"an e-mail address so you can receive notifications, reset your password, "
+"etc."
+msgstr ""
+"Et ole asettanut sähköpostiosoitetta. Tämä tulisi tehdä jotta voit saada "
+"ilmoituksia, uusia salasanasi, jne."
+
+#: allauth/templates/account/email.html:48
+msgid "Add E-mail Address"
+msgstr "Lisää sähköpostiosoite"
+
+#: allauth/templates/account/email.html:53
+msgid "Add E-mail"
+msgstr "Lisää sähköposti"
+
+#: allauth/templates/account/email.html:62
+msgid "Do you really want to remove the selected e-mail address?"
+msgstr "Haluatko varmasti poistaa valitun sähköpostiosoitteen."
+
+#: allauth/templates/account/email/email_confirmation_message.txt:1
+#, python-format
+msgid ""
+"Hello from %(site_name)s!\n"
+"\n"
+"You're receiving this e-mail because user %(user_display)s at %(site_domain)s has given yours as an e-mail address to connect their account.\n"
+"\n"
+"To confirm this is correct, go to %(activate_url)s\n"
+msgstr ""
+"Terve %(site_name)ssta!\n"
+"\n"
+"Sait tämän viestin koska käyttäjä %(user_display)s palvelusta %(site_domain)s antoi sähköpostiosoittesi liitettäväksi tiliinsä.\n"
+"\n"
+"Vahvistaaksesi tiedot oikeiksi mene osoitteeseen %(activate_url)s\n"
+
+#: allauth/templates/account/email/email_confirmation_message.txt:7
+#, python-format
+msgid ""
+"Thank you from %(site_name)s!\n"
+"%(site_domain)s"
+msgstr ""
+"Kiitokset %(site_name)ssta!\n"
+"%(site_domain)s"
+
+#: allauth/templates/account/email/email_confirmation_subject.txt:3
+msgid "Please Confirm Your E-mail Address"
+msgstr "Vahvista Sähköpostiosoitteesi"
+
+#: allauth/templates/account/email/password_reset_key_message.txt:1
+#, python-format
+msgid ""
+"Hello from %(site_name)s!\n"
+"\n"
+"You're receiving this e-mail because you or someone else has requested a password for your user account at %(site_domain)s.\n"
+"It can be safely ignored if you did not request a password reset. Click the link below to reset your password."
+msgstr ""
+"Terve %(site_name)ssta!\n"
+"\n"
+"Sait tämän sähköpostin koska sinä tai joku muu on pyytänyt salasasi uusimista palvelussa %(site_domain)s.\n"
+"Tämän viestin voi jättää huomotta jos et pyytänyt salasanan uusimista. Klikkaa alla olevaa linkkia uusiaksesi salasanasi."
+
+#: allauth/templates/account/email/password_reset_key_message.txt:8
+#, python-format
+msgid "In case you forgot, your username is %(username)s."
+msgstr "Muistathan, että käyttäjätunnuksesi on %(username)s."
+
+#: allauth/templates/account/email/password_reset_key_message.txt:10
+#, python-format
+msgid ""
+"Thank you for using %(site_name)s!\n"
+"%(site_domain)s"
+msgstr ""
+"Kiitos kun käytät %(site_name)s palvelua!\n"
+"%(site_domain)s"
+
+#: allauth/templates/account/email/password_reset_key_subject.txt:3
+msgid "Password Reset E-mail"
+msgstr "Salasanan Uusimissähköposti"
+
+#: allauth/templates/account/email_confirm.html:6
+#: allauth/templates/account/email_confirm.html:10
+#: allauth/templates/account/email_confirmed.html:6
+#: allauth/templates/account/email_confirmed.html:11
+msgid "Confirm E-mail Address"
+msgstr "Vahvista Sähköpostiosoite"
+
+#: allauth/templates/account/email_confirm.html:16
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
+msgstr ""
+"Vahvista että <a href=\"mailto:%(email)s\">%(email)s</a> on käyttäjän "
+"%(user_display)s sähköpostiosoite."
+
+#: allauth/templates/account/email_confirm.html:20
+msgid "Confirm"
+msgstr "Vahvista"
+
+#: allauth/templates/account/email_confirm.html:27
+#, python-format
+msgid ""
+"This e-mail confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+msgstr ""
+"Tämä sähköpostiosoitteen vahvistuslinkki on vanhentunut tai muuten "
+"käyttökelvoton. Voit kuitenkin <a href=\"%(email_url)s\">pyytää uuden "
+"vahvistuslinkin sähköpostiosoitteellesi</a>."
+
+#: allauth/templates/account/email_confirmed.html:15
+#, python-format
+msgid ""
+"You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an "
+"e-mail address for user %(user_display)s."
+msgstr ""
+"Olet vahvistanut, että <a href=\"mailto:%(email)s\">%(email)s</a> on "
+"sähköpostiosoite käyttäjälle %(user_display)s."
+
+#: allauth/templates/account/login.html:6
+#: allauth/templates/account/login.html:10
+#: allauth/templates/account/login.html:43
+msgid "Sign In"
+msgstr "Kirjaudu sisään"
+
+#: allauth/templates/account/login.html:15
+#, python-format
+msgid ""
+"Please sign in with one\n"
+"of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign up</a>\n"
+"for a %(site_name)s account and sign in below:"
+msgstr ""
+"Kirjaudu sisään käyttäen kirjautumispalvelua tai <a "
+"href=\"%(signup_url)s\">rekisteröi</a> %(site_name)s-tili ja kirjaudu sisään"
+" alla olevalla lomakkeella:"
+
+#: allauth/templates/account/login.html:25
+msgid "or"
+msgstr "tai"
+
+#: allauth/templates/account/login.html:32
+#, python-format
+msgid ""
+"If you have not created an account yet, then please\n"
+"<a href=\"%(signup_url)s\">sign up</a> first."
+msgstr ""
+"Jos et ole luonut vielä tilia niin <a "
+"href=\"%(signup_url)s\">rekisteröidy</a> ensin."
+
+#: allauth/templates/account/login.html:42
+msgid "Forgot Password?"
+msgstr "Salasana unohtunut?"
+
+#: allauth/templates/account/logout.html:5
+#: allauth/templates/account/logout.html:8
+#: allauth/templates/account/logout.html:17
+msgid "Sign Out"
+msgstr "Kirjaudu ulos."
+
+#: allauth/templates/account/logout.html:10
+msgid "Are you sure you want to sign out?"
+msgstr "Haluatko varmasti kirjautua ulos?"
+
+#: allauth/templates/account/messages/cannot_delete_primary_email.txt:2
+#, python-format
+msgid "You cannot remove your primary e-mail address (%(email)s)."
+msgstr "Et voi poistaa ensisijaista sähköpostiosoitettasi (%(email)s)."
+
+#: allauth/templates/account/messages/email_confirmation_sent.txt:2
+#, python-format
+msgid "Confirmation e-mail sent to %(email)s."
+msgstr "Vahvistusviesti on lähetetty osoitteeseen %(email)s."
+
+#: allauth/templates/account/messages/email_confirmed.txt:2
+#, python-format
+msgid "You have confirmed %(email)s."
+msgstr "Sähköpostiosoite %(email)s on vahvistettu."
+
+#: allauth/templates/account/messages/email_deleted.txt:2
+#, python-format
+msgid "Removed e-mail address %(email)s."
+msgstr "Poistettiin sähköpostiosoite %(email)s."
+
+#: allauth/templates/account/messages/logged_in.txt:4
+#, python-format
+msgid "Successfully signed in as %(name)s."
+msgstr "Kirjauduttiin sisään käyttäjänä %(name)s."
+
+#: allauth/templates/account/messages/logged_out.txt:2
+msgid "You have signed out."
+msgstr "Kirjauduit ulos."
+
+#: allauth/templates/account/messages/password_changed.txt:2
+msgid "Password successfully changed."
+msgstr "Salasana vaihto onnistui."
+
+#: allauth/templates/account/messages/password_set.txt:2
+msgid "Password successfully set."
+msgstr "Salasana asetettiin."
+
+#: allauth/templates/account/messages/primary_email_set.txt:2
+msgid "Primary e-mail address set."
+msgstr "Ensisijainen sähköpostiosoite asetettiin."
+
+#: allauth/templates/account/messages/unverified_primary_email.txt:2
+msgid "Your primary e-mail address must be verified."
+msgstr "Esnsisijaisen sähköpostiosoiteen tulee olla vahvistettu."
+
+#: allauth/templates/account/password_change.html:5
+#: allauth/templates/account/password_change.html:8
+#: allauth/templates/account/password_change.html:13
+#: allauth/templates/account/password_reset_from_key.html:4
+#: allauth/templates/account/password_reset_from_key.html:7
+#: allauth/templates/account/password_reset_from_key_done.html:4
+#: allauth/templates/account/password_reset_from_key_done.html:7
+msgid "Change Password"
+msgstr "Vaihda salasana"
+
+#: allauth/templates/account/password_reset.html:6
+#: allauth/templates/account/password_reset.html:10
+#: allauth/templates/account/password_reset_done.html:6
+#: allauth/templates/account/password_reset_done.html:9
+msgid "Password Reset"
+msgstr "Salasanan uusiminen"
+
+#: allauth/templates/account/password_reset.html:15
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll send you"
+" an e-mail allowing you to reset it."
+msgstr ""
+"Unohditko salasanasi? Anna sähköpostiosoitteesi ja lähetämme sinulle "
+"sähköpostin jonka avulla voit uusia sen."
+
+#: allauth/templates/account/password_reset.html:20
+msgid "Reset My Password"
+msgstr "Salasanan uusiminen"
+
+#: allauth/templates/account/password_reset.html:23
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr "Jos salasanan uusiminen ei onnistu niin ota yhteyttä ylläpitoon."
+
+#: allauth/templates/account/password_reset_done.html:15
+msgid ""
+"We have sent you an e-mail. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+"Sähköposti lähetetty. Ota meihin yhteyttä jos et saa sitä muutaman minuutin "
+"sisällä."
+
+#: allauth/templates/account/password_reset_from_key.html:7
+msgid "Bad Token"
+msgstr ""
+
+#: allauth/templates/account/password_reset_from_key.html:11
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password "
+"reset</a>."
+msgstr ""
+"Salasanan uusimislinkki ei toiminut. Tämä voi tapahtua jos linkki on jo "
+"käytetty. Voit kuitenkin <a href=\"%(passwd_reset_url)s\">uusia salasanan "
+"uusimisen</a>."
+
+#: allauth/templates/account/password_reset_from_key.html:17
+msgid "change password"
+msgstr "vaihda salasanaa"
+
+#: allauth/templates/account/password_reset_from_key.html:20
+#: allauth/templates/account/password_reset_from_key_done.html:8
+msgid "Your password is now changed."
+msgstr "Salasanasi on nyt vaihdettu."
+
+#: allauth/templates/account/password_set.html:5
+#: allauth/templates/account/password_set.html:8
+#: allauth/templates/account/password_set.html:13
+msgid "Set Password"
+msgstr "Aseta Salasana"
+
+#: allauth/templates/account/signup.html:5
+#: allauth/templates/socialaccount/signup.html:5
+msgid "Signup"
+msgstr "Rekisteröidy"
+
+#: allauth/templates/account/signup.html:8
+#: allauth/templates/account/signup.html:18
+#: allauth/templates/socialaccount/signup.html:8
+#: allauth/templates/socialaccount/signup.html:19
+msgid "Sign Up"
+msgstr "Rekisteröidy"
+
+#: allauth/templates/account/signup.html:10
+#, python-format
+msgid ""
+"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr "Onko sinulla jo tili? <a href=\"%(login_url)s\">Kirjaudu sisään</a>."
+
+#: allauth/templates/account/signup_closed.html:5
+#: allauth/templates/account/signup_closed.html:8
+msgid "Sign Up Closed"
+msgstr "Rekisteröityminen on poissa käytöstä."
+
+#: allauth/templates/account/signup_closed.html:10
+msgid "We are sorry, but the sign up is currently closed."
+msgstr "Valitettavasti rekisteröityminen on pois käytöstä."
+
+#: allauth/templates/account/snippets/already_logged_in.html:5
+msgid "Note"
+msgstr "Huomio"
+
+#: allauth/templates/account/snippets/already_logged_in.html:5
+#, python-format
+msgid "you are already logged in as %(user_display)s."
+msgstr "olet jo kirjautunut käyttäjänä %(user_display)s."
+
+#: allauth/templates/account/verification_sent.html:5
+#: allauth/templates/account/verification_sent.html:8
+#: allauth/templates/account/verified_email_required.html:5
+#: allauth/templates/account/verified_email_required.html:8
+msgid "Verify Your E-mail Address"
+msgstr "Vahvista sähköpostiosoitteesi"
+
+#: allauth/templates/account/verification_sent.html:10
+msgid ""
+"We have sent an e-mail to you for verification. Follow the link provided to "
+"finalize the signup process. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+"Lähitimme sinulle sähköpostin vahvistusviestin. Klikkaa sähköpostissa olevaa"
+" linkkiä viimeistelläksesi rekisteröitymisprosessin. Ota meihin yhteyttä jos"
+" et saanut vahvistusviestiä muutaman minuutin sisällä."
+
+#: allauth/templates/account/verified_email_required.html:12
+msgid ""
+"This part of the site requires us to verify that\n"
+"you are who you claim to be. For this purpose, we require that you\n"
+"verify ownership of your e-mail address. "
+msgstr ""
+"Tämä osa palvelua vaatii että tiedämme kuka olet. Tämän takia sinun pitää "
+"vahvistaa omistavasi ilmoittamasi sähköpostiosoite."
+
+#: allauth/templates/account/verified_email_required.html:16
+msgid ""
+"We have sent an e-mail to you for\n"
+"verification. Please click on the link inside this e-mail. Please\n"
+"contact us if you do not receive it within a few minutes."
+msgstr ""
+"Olemme lähettäneet sinulle sähköpostivahvistuksen. Klikkaa sähköpostissa "
+"olevaa linkkiä vahvistaaksesi sähköpostiosoitteesi. Ota meihin yhteyttä jos "
+"et saanut vahvistusviestiä muutaman minuutin sisällä."
+
+#: allauth/templates/account/verified_email_required.html:20
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
+"e-mail address</a>."
+msgstr ""
+"<strong>Huomio:</strong> voit edelleen <a href=\"%(email_url)s\">vaihtaa "
+"sähköpostiosoitteesi</a>."
+
+#: allauth/templates/openid/login.html:9
+msgid "OpenID Sign In"
+msgstr "OpenID kirjautuminen"
+
+#: allauth/templates/socialaccount/authentication_error.html:5
+#: allauth/templates/socialaccount/authentication_error.html:8
+msgid "Social Network Login Failure"
+msgstr "Sosiaalisen median tilillä kirjautuminen epäonnistui"
+
+#: allauth/templates/socialaccount/authentication_error.html:10
+msgid ""
+"An error occurred while attempting to login via your social network account."
+msgstr "Tapahtui virhe kirjautuessa sosiaalisen median tilillä."
+
+#: allauth/templates/socialaccount/connections.html:5
+#: allauth/templates/socialaccount/connections.html:8
+msgid "Account Connections"
+msgstr "Liietyt tilit"
+
+#: allauth/templates/socialaccount/connections.html:11
+msgid ""
+"You can sign in to your account using any of the following third party "
+"accounts:"
+msgstr "Voit kirjautua käyttäen seuraavia kirjautumispalveluita:"
+
+#: allauth/templates/socialaccount/connections.html:43
+msgid ""
+"You currently have no social network accounts connected to this account."
+msgstr "Tiliisi ei ole liitetty yhtäkään sosiaalisen median tiliä."
+
+#: allauth/templates/socialaccount/connections.html:46
+msgid "Add a 3rd Party Account"
+msgstr "Lisää kolmannen osapuolen tili"
+
+#: allauth/templates/socialaccount/login_cancelled.html:5
+#: allauth/templates/socialaccount/login_cancelled.html:9
+msgid "Login Cancelled"
+msgstr "Sisäänkirjautuminen keskeytettiin"
+
+#: allauth/templates/socialaccount/login_cancelled.html:13
+#, python-format
+msgid ""
+"You decided to cancel logging in to our site using one of your existing "
+"accounts. If this was a mistake, please proceed to <a "
+"href=\"%(login_url)s\">sign in</a>."
+msgstr ""
+"Keskeytit sisäänkirjautumisen olemassaolevalle tilillesi. Jos tämä oli "
+"vanhinko niin <a href=\"%(login_url)s\">kirjaudu sisään</a>."
+
+#: allauth/templates/socialaccount/messages/account_connected.txt:2
+msgid "The social account has been connected."
+msgstr "Sosiaalisen median tili liitettiin."
+
+#: allauth/templates/socialaccount/messages/account_connected_other.txt:2
+msgid "The social account is already connected to a different account."
+msgstr "Sosiaalisen median tili on jo liitetty toiseen tiliin."
+
+#: allauth/templates/socialaccount/messages/account_disconnected.txt:2
+msgid "The social account has been disconnected."
+msgstr "Sosiaalisen median tili on poistettu käytöstä."
+
+#: allauth/templates/socialaccount/signup.html:10
+#, python-format
+msgid ""
+"You are about to use your %(provider_name)s account to login to\n"
+"%(site_name)s. As a final step, please complete the following form:"
+msgstr ""
+"Käytät %(provider_name)s-tiliä kirjautuaksesi %(site_name)san.  Täytä vielä "
+"seuraava lomake:"

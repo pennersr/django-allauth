@@ -13,7 +13,7 @@ env:
 install:
  - pip install $DJANGO --use-mirrors
  - pip install . --use-mirrors
- - pip install coverage
+ - pip install https://bitbucket.org/yrikk/coveragepy/get/cbc399a43c5c.zip
 branches:
  only:
   - master

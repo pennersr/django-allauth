@@ -239,6 +239,19 @@ class AccountTests(TestCase):
         self.assertTrue('form_errors' in data)
         self.assertTrue('__all__' in data['form_errors'])
 
+
+    @override_settings(ACCOUNT_LOGIN_ON_PASSWORD_RESET=True)
+    def test_password_reset_ACCOUNT_LOGIN_ON_PASSWORD_RESET(self):
+        user = self._request_new_password()
+        body = mail.outbox[0].body
+        url = body[body.find('/password/reset/'):].split()[0]
+        resp = self.client.post(url,
+                                {'password1': 'newpass123',
+                                 'password2': 'newpass123'})
+        self.assertTrue(user.is_authenticated())
+        # EmailVerificationMethod.MANDATORY sends us to the confirm-email page
+        self.assertRedirects(resp, '/confirm-email/')
+
     def test_email_verification_mandatory(self):
         c = Client()
         # Signup

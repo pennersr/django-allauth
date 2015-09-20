@@ -13,7 +13,7 @@ env:
 install:
  - pip install $DJANGO --use-mirrors
  - pip install . --use-mirrors
- - pip install https://bitbucket.org/yrikk/coveragepy/get/yrikk/remove-unnecessary-u-prefixes-for-better-1442777261357.zip
+ - pip install https://bitbucket.org/yrikk/coveragepy/get/yrikk/remove-unnecessary-u-prefixes-for-better-1442777261357.zip?
 branches:
  only:
   - master

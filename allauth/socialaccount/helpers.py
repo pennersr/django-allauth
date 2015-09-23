@@ -1,8 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import logout
-from django.shortcuts import render_to_response, render
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from django.template import RequestContext
 from django.forms import ValidationError
 from django.core.urlresolvers import reverse
 
@@ -84,9 +83,8 @@ def render_authentication_error(request,
         }
     }
     context.update(extra_context)
-    return render_to_response(
-        "socialaccount/authentication_error.html",
-        context, context_instance=RequestContext(request))
+    return render(
+        request, "socialaccount/authentication_error.html", context)
 
 
 def _add_social_account(request, sociallogin):

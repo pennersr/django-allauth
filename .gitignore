@@ -9,7 +9,14 @@ build
 dist
 *.egg*
 example/local_settings.py
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
 coverage.xml
+
 .ropeproject/*
 pep8.txt
 *.bak

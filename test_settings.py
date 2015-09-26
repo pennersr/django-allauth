@@ -69,6 +69,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.amazon',
     'allauth.socialaccount.providers.angellist',
     'allauth.socialaccount.providers.baidu',
+    'allauth.socialaccount.providers.basecamp',
     'allauth.socialaccount.providers.bitbucket',
     'allauth.socialaccount.providers.bitly',
     'allauth.socialaccount.providers.coinbase',

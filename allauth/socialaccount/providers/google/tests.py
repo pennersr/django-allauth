@@ -27,7 +27,10 @@ from requests.exceptions import HTTPError
 
 from .provider import GoogleProvider
 
-import mock
+try:
+    from unittest import mock
+except ImportError:
+    import mock
 
 
 @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=True,

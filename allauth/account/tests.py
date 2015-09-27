@@ -27,7 +27,11 @@ from .adapter import get_adapter
 from .utils import url_str_to_user_pk, user_pk_to_url_str
 
 import uuid
-import mock
+
+try:
+    from unittest import mock
+except ImportError:
+    import mock
 
 
 @override_settings(

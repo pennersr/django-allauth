@@ -435,7 +435,8 @@ class ResetPasswordForm(forms.Form):
                 protocol=app_settings.DEFAULT_HTTP_PROTOCOL)
             context = {"site": current_site,
                        "user": user,
-                       "password_reset_url": url}
+                       "password_reset_url": url,
+                       "request": request}
             if app_settings.AUTHENTICATION_METHOD \
                     != AuthenticationMethod.EMAIL:
                 context['username'] = user_username(user)

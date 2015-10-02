@@ -272,7 +272,7 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         session gets lost), but at least we're secure.
         """
         user_pk = None
-        user_pk_str = self.request.session.pop('account_user', None)
+        user_pk_str = get_adapter().unstash_account_user(self.request)
         if user_pk_str:
             user_pk = url_str_to_user_pk(user_pk_str)
         user = confirmation.email_address.user

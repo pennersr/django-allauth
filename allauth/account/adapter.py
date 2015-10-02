@@ -13,6 +13,8 @@ from django.core.mail import EmailMultiAlternatives, EmailMessage
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 from django.contrib import messages
+from django.contrib.auth import login as django_login
+from django.contrib.auth import logout as django_logout
 
 try:
     from django.utils.encoding import force_text
@@ -41,6 +43,12 @@ class DefaultAccountAdapter(object):
         ret = request.session.get('account_verified_email')
         request.session['account_verified_email'] = None
         return ret
+
+    def stash_account_user(self, request, user):
+        request.session['account_user'] = user
+
+    def unstash_account_user(self, request):
+        return request.session.pop('account_user', None)
 
     def is_email_verified(self, request, email):
         """
@@ -289,13 +297,15 @@ class DefaultAccountAdapter(object):
                             content_type='application/json')
 
     def login(self, request, user):
-        from django.contrib.auth import login
         # HACK: This is not nice. The proper Django way is to use an
         # authentication backend
         if not hasattr(user, 'backend'):
             user.backend \
                 = "allauth.account.auth_backends.AuthenticationBackend"
-        login(request, user)
+        django_login(request, user)
+
+    def logout(self, request):
+        django_logout(request)
 
     def confirm_email(self, request, email_address):
         """

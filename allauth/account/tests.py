@@ -485,6 +485,13 @@ class AccountTests(TestCase):
         # this is not the case:
         self.assertEqual(len(mail.outbox), 1)
 
+    @override_settings(ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS=False)
+    def test_account_authenticated_login_redirects_is_false(self):
+        user = self._create_user_and_login()
+
+        resp = self.client.get(reverse('account_login'))
+        self.assertEqual(resp.status_code, 200)
+
 
 class EmailFormTests(TestCase):
 

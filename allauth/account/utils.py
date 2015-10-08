@@ -387,7 +387,7 @@ def url_str_to_user_pk(s):
     User = get_user_model()
     # TODO: Ugh, isn't there a cleaner way to determine whether or not
     # the PK is a str-like field?
-    if hasattr(User._meta.pk, 'rel'):
+    if getattr(User._meta.pk, 'rel', None):
         pk_field = User._meta.pk.rel.to._meta.pk
     else:
         pk_field = User._meta.pk

@@ -31,8 +31,7 @@ from .provider import FacebookProvider
             'AUTH_PARAMS': {},
             'VERIFIED_EMAIL': False}})
 class FacebookTests(create_oauth2_tests(registry.by_id(FacebookProvider.id))):
-    def get_mocked_response(self):
-        return MockedResponse(200, """
+    facebook_data = """
         {
            "id": "630595557",
            "name": "Raymond Penners",
@@ -54,7 +53,12 @@ class FacebookTests(create_oauth2_tests(registry.by_id(FacebookProvider.id))):
            "locale": "nl_NL",
            "verified": true,
            "updated_time": "2012-11-30T20:40:33+0000"
-        }""")
+        }"""
+
+    def get_mocked_response(self, data=None):
+        if data is None:
+            data = self.facebook_data
+        return MockedResponse(200, data)
 
     def test_username_conflict(self):
         User = get_user_model()
@@ -67,6 +71,12 @@ class FacebookTests(create_oauth2_tests(registry.by_id(FacebookProvider.id))):
         self.login(self.get_mocked_response())
         socialaccount = SocialAccount.objects.get(uid='630595557')
         self.assertEqual(socialaccount.user.username, 'raymond.penners')
+
+    def test_username_based_on_provider_with_simple_name(self):
+        data = '{"id": "1234567", "name": "Harvey McGillicuddy"}'
+        self.login(self.get_mocked_response(data=data))
+        socialaccount = SocialAccount.objects.get(uid='1234567')
+        self.assertEqual(socialaccount.user.username, 'harvey')
 
     def test_media_js(self):
         provider = providers.registry.by_id(FacebookProvider.id)

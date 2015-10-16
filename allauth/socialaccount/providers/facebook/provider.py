@@ -169,7 +169,8 @@ class FacebookProvider(OAuth2Provider):
         return dict(email=data.get('email'),
                     username=data.get('username'),
                     first_name=data.get('first_name'),
-                    last_name=data.get('last_name'))
+                    last_name=data.get('last_name'),
+                    name=data.get('name'))
 
     def extract_email_addresses(self, data):
         ret = []

@@ -316,7 +316,7 @@ def send_email_confirmation(request, user, signup=False):
                                       'email_confirmation_sent.txt',
                                       {'email': email})
     if signup:
-        get_adapter().stash_account_user(request, user_pk_to_url_str(user))
+        get_adapter().stash_user(request, user_pk_to_url_str(user))
 
 
 def sync_user_email_addresses(user):

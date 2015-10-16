@@ -44,10 +44,10 @@ class DefaultAccountAdapter(object):
         request.session['account_verified_email'] = None
         return ret
 
-    def stash_account_user(self, request, user):
+    def stash_user(self, request, user):
         request.session['account_user'] = user
 
-    def unstash_account_user(self, request):
+    def unstash_user(self, request):
         return request.session.pop('account_user', None)
 
     def is_email_verified(self, request, email):

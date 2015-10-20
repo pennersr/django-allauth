@@ -170,7 +170,7 @@ msgstr "inviato"
 
 #: account/models.py:82 socialaccount/models.py:49
 msgid "key"
-msgstr "chaive"
+msgstr "chiave"
 
 #: account/models.py:87
 msgid "email confirmation"
@@ -230,7 +230,7 @@ msgstr ""
 #: socialaccount/models.py:52
 #, fuzzy
 msgid "Key"
-msgstr "chaive"
+msgstr "chiave"
 
 #: socialaccount/models.py:60
 msgid "social application"

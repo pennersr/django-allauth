@@ -23,8 +23,8 @@ logger = logging.getLogger(__name__)
 def compute_appsecret_proof(app, token):
     # Generate an appsecret_proof parameter to secure the Graph API call
     # see https://developers.facebook.com/docs/graph-api/securing-requests
-    msg = bytes(token.token).encode('utf-8')
-    key = bytes(app.secret).encode('utf-8')
+    msg = token.token.encode('utf-8')
+    key = app.secret.encode('utf-8')
     appsecret_proof = hmac.new(
         key,
         msg,

@@ -334,6 +334,31 @@ class SocialAccountTests(TestCase):
                'other@test.com'})
         self.assertNotEqual(user_username(user), 'test')
 
+    @override_settings(
+        ACCOUNT_EMAIL_REQUIRED=True,
+        ACCOUNT_USERNAME_BLACKLIST=['username', 'username1', 'username2'],
+        ACCOUNT_UNIQUE_EMAIL=True,
+        ACCOUNT_USERNAME_REQUIRED=True,
+        ACCOUNT_AUTHENTICATION_METHOD='email',
+        SOCIALACCOUNT_AUTO_SIGNUP=True)
+    def test_populate_username_in_blacklist(self):
+        factory = RequestFactory()
+        request = factory.get('/accounts/twitter/login/callback/')
+        request.user = AnonymousUser()
+        SessionMiddleware().process_request(request)
+        MessageMiddleware().process_request(request)
+
+        User = get_user_model()
+        user = User()
+        setattr(user, account_settings.USER_MODEL_USERNAME_FIELD, 'username')
+        setattr(user, account_settings.USER_MODEL_EMAIL_FIELD, 'username@doe.com')
+
+        account = SocialAccount(provider='twitter', uid='123')
+        sociallogin = SocialLogin(user=user, account=account)
+        complete_social_login(request, sociallogin)
+
+        self.assertNotIn(request.user.username, account_settings.USERNAME_BLACKLIST)
+
     def _email_address_clash(self, username, email):
         User = get_user_model()
         # Some existig user

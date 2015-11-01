@@ -214,7 +214,7 @@ class DefaultAccountAdapter(object):
             user.save()
         return user
 
-    def clean_username(self, username):
+    def clean_username(self, username, shallow=False):
         """
         Validates the username. You can hook into this if you want to
         (dynamically) restrict what usernames can be chosen.
@@ -229,16 +229,19 @@ class DefaultAccountAdapter(object):
         if username.lower() in username_blacklist_lower:
             raise forms.ValidationError(_("Username can not be used. "
                                           "Please use other username."))
-        username_field = app_settings.USER_MODEL_USERNAME_FIELD
-        assert username_field
-        user_model = get_user_model()
-        try:
-            query = {username_field + '__iexact': username}
-            user_model.objects.get(**query)
-        except user_model.DoesNotExist:
-            return username
-        raise forms.ValidationError(_("This username is already taken. Please "
-                                      "choose another."))
+        # Skipping database lookups when shallow is True, needed for unique username generation.
+        if not shallow:
+            username_field = app_settings.USER_MODEL_USERNAME_FIELD
+            assert username_field
+            user_model = get_user_model()
+            try:
+                query = {username_field + '__iexact': username}
+                user_model.objects.get(**query)
+            except user_model.DoesNotExist:
+                return username
+            raise forms.ValidationError(_("This username is already taken. Please "
+                                          "choose another."))
+        return username
 
     def clean_email(self, email):
         """

@@ -27,6 +27,8 @@ except:
 
 
 def _generate_unique_username_base(txts, regex=None):
+    from .account.adapter import get_adapter
+    adapter = get_adapter()
     username = None
     regex = regex or '[^\w\s@+.-]'
     for txt in txts:
@@ -43,8 +45,12 @@ def _generate_unique_username_base(txts, regex=None):
         username = username.split('@')[0]
         username = username.strip()
         username = re.sub('\s+', '_', username)
-        if username:
+        # Finally, validating base username without database lookups etc.
+        try:
+            username = adapter.clean_username(username, shallow=True)
             break
+        except ValidationError:
+            pass
     return username or 'user'
 
 
@@ -59,9 +65,9 @@ def get_username_max_length():
 
 
 def generate_unique_username(txts, regex=None):
-    from .account.app_settings import USER_MODEL_USERNAME_FIELD
+    from .account.adapter import get_adapter
+    adapter = get_adapter()
     username = _generate_unique_username_base(txts, regex)
-    User = get_user_model()
     max_length = get_username_max_length()
     i = 0
     while True:
@@ -71,11 +77,9 @@ def generate_unique_username(txts, regex=None):
             else:
                 pfx = ''
             ret = username[0:max_length - len(pfx)] + pfx
-            query = {USER_MODEL_USERNAME_FIELD + '__iexact': ret}
-            User.objects.get(**query)
+            return adapter.clean_username(ret)
+        except ValidationError:
             i += 1
-        except User.DoesNotExist:
-            return ret
 
 
 def valid_email_or_none(email):

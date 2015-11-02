@@ -425,7 +425,7 @@ class ResetPasswordForm(forms.Form):
             # password_reset = PasswordReset(user=user, temp_key=temp_key)
             # password_reset.save()
 
-            current_site = get_current_site()
+            current_site = get_current_site(request)
 
             # send the password reset email
             path = reverse("account_reset_password_from_key",

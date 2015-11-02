@@ -189,7 +189,7 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
                                self.get_success_url())
 
     def get_context_data(self, **kwargs):
-        form = kwargs['form']
+        form = kwargs.get('form', self.get_form())
         form.fields["email"].initial = self.request.session \
             .get('account_verified_email', None)
         ret = super(SignupView, self).get_context_data(**kwargs)

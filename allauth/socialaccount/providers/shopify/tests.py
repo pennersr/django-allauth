@@ -2,7 +2,10 @@ from allauth.socialaccount.tests import create_oauth2_tests
 from allauth.tests import MockedResponse, mocked_response
 from allauth.socialaccount.providers import registry
 from django.core.urlresolvers import reverse
-from urlparse import urlparse, parse_qs
+try:
+    from urllib.parse import parse_qs, urlparse
+except ImportError:
+    from urlparse import parse_qs, urlparse
 
 from .provider import ShopifyProvider
 

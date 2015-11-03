@@ -10,10 +10,14 @@ env:
    - DJANGO="Django<1.7"
    - DJANGO="Django<1.8"
    - DJANGO="Django<1.9"
+   - DJANGO="Django==1.9b1"
 install:
  - pip install $DJANGO --use-mirrors
  - pip install . --use-mirrors
  - pip install coverage==3.7.1
+matrix:
+  allow_failures:
+    env: DJANGO="Django==1.9b1"
 branches:
  only:
   - master

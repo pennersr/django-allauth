@@ -53,8 +53,8 @@ def create_oauth_tests(provider):
                     username=str(random.randrange(1000, 10000000)))
         resp = self.client.post(reverse('socialaccount_signup'),
                                 data=data)
-        self.assertEqual('http://testserver/accounts/profile/',
-                         resp['location'])
+        self.assertRedirects(resp, 'http://testserver/accounts/profile/',
+                             fetch_redirect_response=False)
         user = resp.context['user']
         self.assertFalse(user.has_usable_password())
         return SocialAccount.objects.get(user=user,

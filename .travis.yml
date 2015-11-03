@@ -17,7 +17,7 @@ install:
  - pip install coverage==3.7.1
 matrix:
   allow_failures:
-    env: DJANGO="Django==1.9b1"
+   - env: DJANGO="Django==1.9b1"
 branches:
  only:
   - master

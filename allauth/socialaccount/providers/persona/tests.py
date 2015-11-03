@@ -23,8 +23,9 @@ class PersonaTests(TestCase):
                 'status': 'okay',
                 'email': 'persona@mail.com'
             }
+
             resp = self.client.post(reverse('persona_login'),
                                     dict(assertion='dummy'))
-            self.assertEqual('http://testserver/accounts/profile/',
-                             resp['location'])
+            self.assertRedirects(resp, 'http://testserver/accounts/profile/',
+                                 fetch_redirect_response=False)
             get_user_model().objects.get(email='persona@mail.com')

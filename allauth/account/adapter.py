@@ -192,7 +192,7 @@ class DefaultAccountAdapter(object):
         """
         from .utils import user_username, user_email, user_field
 
-        try:
+        if form:
             data = form.cleaned_data
             first_name = data.get('first_name')
             last_name = data.get('last_name')
@@ -208,7 +208,7 @@ class DefaultAccountAdapter(object):
                 user.set_password(data["password1"])
             else:
                 user.set_unusable_password()
-        except AttributeError:
+        else:
             user.set_unusable_password()
         self.populate_username(request, user)
         if commit:

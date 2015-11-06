@@ -229,7 +229,8 @@ class DefaultAccountAdapter(object):
         if username.lower() in username_blacklist_lower:
             raise forms.ValidationError(_("Username can not be used. "
                                           "Please use other username."))
-        # Skipping database lookups when shallow is True, needed for unique username generation.
+        # Skipping database lookups when shallow is True, needed for unique
+        # username generation.
         if not shallow:
             username_field = app_settings.USER_MODEL_USERNAME_FIELD
             assert username_field
@@ -239,8 +240,8 @@ class DefaultAccountAdapter(object):
                 user_model.objects.get(**query)
             except user_model.DoesNotExist:
                 return username
-            raise forms.ValidationError(_("This username is already taken. Please "
-                                          "choose another."))
+            raise forms.ValidationError(
+                _("This username is already taken. Please choose another."))
         return username
 
     def clean_email(self, email):
@@ -363,9 +364,9 @@ class DefaultAccountAdapter(object):
             email_template = 'account/email/email_confirmation_signup'
         else:
             email_template = 'account/email/email_confirmation'
-        get_adapter().send_mail(email_template,
-                                emailconfirmation.email_address.email,
-                                ctx)
+        self.send_mail(email_template,
+                       emailconfirmation.email_address.email,
+                       ctx)
 
 
 def get_adapter():

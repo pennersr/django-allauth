@@ -57,7 +57,8 @@ class RedirectAuthenticatedUserMixin(object):
         # WORKAROUND: https://code.djangoproject.com/ticket/19316
         self.request = request
         # (end WORKAROUND)
-        if request.user.is_authenticated():
+        if request.user.is_authenticated() and \
+                app_settings.AUTHENTICATED_LOGIN_REDIRECTS:
             redirect_to = self.get_authenticated_redirect_url()
             response = HttpResponseRedirect(redirect_to)
             return _ajax_response(request, response)

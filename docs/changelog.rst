@@ -3,6 +3,18 @@ Changelog
 
 This chapter contains notes on upgrading.
 
+From 0.23.0
+***********
+
+- Increased `SocialApp` key/secret/token sizes to 191, decreased
+  `SocialAccount.uid` size to 191. The latter was done in order to
+  accomodate for MySQL in combination with utf8mb4 and contraints on
+  `uid`. Note that `uid` is used to store OpenID URLs, which can
+  theoretically be longer than 191 characters, although in practice
+  this does not seem to be the case. In case you really need to
+  control the `uid` length, set `settings.SOCIALACCOUNT_UID_MAX_LENGTH`
+  accordingly. Migrations are in place.
+
 From 0.21.0
 ***********
 

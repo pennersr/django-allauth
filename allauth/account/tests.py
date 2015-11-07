@@ -66,8 +66,9 @@ class AccountTests(TestCase):
         resp = self.client.post(reverse('account_login'),
                                 {'login': '@raymond.penners',
                                  'password': 'psst'})
-        self.assertEqual(resp['location'],
-                         'http://testserver'+settings.LOGIN_REDIRECT_URL)
+        self.assertRedirects(resp,
+                             'http://testserver'+settings.LOGIN_REDIRECT_URL,
+                             fetch_redirect_response=False)
 
     def test_signup_same_email_verified_externally(self):
         user = self._test_signup_email_verified_externally('john@doe.com',
@@ -132,9 +133,8 @@ class AccountTests(TestCase):
         self._create_user_and_login()
         c = self.client
         resp = c.get(reverse('account_login'))
-        self.assertEqual(302, resp.status_code)
-        self.assertEqual('http://testserver/accounts/profile/',
-                         resp['location'])
+        self.assertRedirects(resp, 'http://testserver/accounts/profile/',
+                             fetch_redirect_response=False)
 
     def test_password_set_redirect(self):
         resp = self._password_set_or_reset_redirect('account_set_password',
@@ -308,8 +308,9 @@ class AccountTests(TestCase):
         resp = c.post(reverse('account_login'),
                       {'login': 'johndoe',
                        'password': 'johndoe'})
-        self.assertEqual(resp['location'],
-                         'http://testserver'+settings.LOGIN_REDIRECT_URL)
+        self.assertRedirects(resp,
+                             'http://testserver'+settings.LOGIN_REDIRECT_URL,
+                             fetch_redirect_response=False)
 
     def test_email_escaping(self):
         site = get_current_site()
@@ -337,8 +338,9 @@ class AccountTests(TestCase):
         resp = self.client.post(reverse('account_login'),
                                 {'login': 'john',
                                  'password': 'doe'})
-        self.assertEqual(resp['location'],
-                         'http://testserver'+settings.LOGIN_REDIRECT_URL)
+        self.assertRedirects(resp,
+                             'http://testserver'+settings.LOGIN_REDIRECT_URL,
+                             fetch_redirect_response=False)
 
     def test_login_unverified_account_mandatory(self):
         """Tests login behavior when email verification is mandatory."""
@@ -353,9 +355,6 @@ class AccountTests(TestCase):
                                 {'login': 'john',
                                  'password': 'doe'})
         self.assertRedirects(resp, reverse('account_email_verification_sent'))
-        self.assertEqual(
-            resp['location'],
-            'http://testserver' + reverse('account_email_verification_sent'))
 
     def test_login_inactive_account(self):
         """

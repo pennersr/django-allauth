@@ -5,19 +5,22 @@ python:
  - "3.2"
  - "3.3"
  - "3.4"
+ - "3.5"
 env:
   matrix:
-   - DJANGO="Django<1.7"
    - DJANGO="Django<1.8"
    - DJANGO="Django<1.9"
    - DJANGO="Django==1.9b1"
 install:
- - pip install $DJANGO --use-mirrors
- - pip install . --use-mirrors
+ - pip install $DJANGO
+ - pip install .
  - pip install coverage==3.7.1
 matrix:
   allow_failures:
    - env: DJANGO="Django==1.9b1"
+  exclude:
+    - python: "3.5"
+      env: DJANGO="Django<1.8"
 branches:
  only:
   - master

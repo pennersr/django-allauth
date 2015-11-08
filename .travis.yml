@@ -17,7 +17,7 @@ cache:
     - $HOME/.cache/pip
 install:
  - pip install "pip>=7.0.2" wheel
- - pip install "$DJANGO" coverage coveralls "mock>=1.0.1"
+ - pip install "$DJANGO" "coverage==3.7.1" coveralls "mock>=1.0.1"
  - pip install .
 matrix:
   allow_failures:

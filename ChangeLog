@@ -1,3 +1,21 @@
+2015-11-08  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.24.0 released.
+
+	* Django 1.9b1 compatibility.
+
+2015-08-13  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Seppo Erviälä contributed a Finnish translation, thanks!
+
+2015-08-05  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Iurii Kriachko contributed a Basecamp provider, thanks!
+
+2015-08-02  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.23.0 released.
+
 2015-07-29  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* David Friedman contributed Edmodo support, thanks!

@@ -104,7 +104,7 @@ if sys.version_info[0] < 3:
     openid_package = 'python-openid >= 2.2.5'
     test_requirements.append('mock >= 1.0.1')
 else:
-    openid_package = 'python3-openid >= 3.0.1'
+    openid_package = 'python3-openid >= 3.0.8'
 
 long_description = io.open('README.rst', encoding='utf-8').read()
 
@@ -142,6 +142,7 @@ METADATA = dict(
         'Programming Language :: Python :: 3.2',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
         'Framework :: Django',
     ],
     packages=find_packages(exclude=['example']),

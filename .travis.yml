@@ -26,7 +26,17 @@ matrix:
    - python: "3.5"
   exclude:
     - python: "3.5"
+      env: DJANGO="Django<1.7"
+  exclude:
+    - python: "3.5"
       env: DJANGO="Django<1.8"
+  # Django 1.9+ no longer supports python 3.2/3.3
+  exclude:
+    - python: "3.2"
+      env: DJANGO="Django==1.9b1"
+  exclude:
+    - python: "3.3"
+      env: DJANGO="Django==1.9b1"
 branches:
  only:
   - master

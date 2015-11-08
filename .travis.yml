@@ -30,10 +30,6 @@ matrix:
       env: DJANGO="Django==1.9b1"
     - python: "3.3"
       env: DJANGO="Django==1.9b1"
-  allow_failures:
-   - env: DJANGO="Django==1.9b1"
-  # TODO: Remove when https://github.com/necaris/python3-openid/issues/16 is resolved.
-   - python: "3.5"
 branches:
  only:
   - master

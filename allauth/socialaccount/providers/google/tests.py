@@ -22,21 +22,18 @@ from allauth.socialaccount.providers import registry
 from allauth.tests import MockedResponse
 from allauth.account.signals import user_signed_up
 from allauth.account.adapter import get_adapter
+from allauth.compat import patch
 
 from requests.exceptions import HTTPError
 
 from .provider import GoogleProvider
 
-try:
-    from unittest import mock
-except ImportError:
-    import mock
 
-
-@override_settings(SOCIALACCOUNT_AUTO_SIGNUP=True,
-                   ACCOUNT_SIGNUP_FORM_CLASS=None,
-                   ACCOUNT_EMAIL_VERIFICATION \
-                   =account_settings.EmailVerificationMethod.MANDATORY)
+@override_settings(
+    SOCIALACCOUNT_AUTO_SIGNUP=True,
+    ACCOUNT_SIGNUP_FORM_CLASS=None,
+    ACCOUNT_EMAIL_VERIFICATION=account_settings
+    .EmailVerificationMethod.MANDATORY)
 class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
 
     def get_mocked_response(self,
@@ -47,7 +44,7 @@ class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
                             verified_email=True):
         return MockedResponse(200, """
               {"family_name": "%s", "name": "%s",
-               "picture": "https://lh5.googleusercontent.com/-GOFYGBVOdBQ/AAAAAAAAAAI/AAAAAAAAAGM/WzRfPkv4xbo/photo.jpg",
+               "picture": "https://lh5.googleusercontent.com/photo.jpg",
                "locale": "nl", "gender": "male",
                "email": "%s",
                "link": "https://plus.google.com/108204268033311374519",
@@ -60,30 +57,35 @@ class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
                (repr(verified_email).lower())))
 
     def test_google_compelete_login_401(self):
-        from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+        from allauth.socialaccount.providers.google.views import \
+            GoogleOAuth2Adapter
 
         class LessMockedResponse(MockedResponse):
             def raise_for_status(self):
                 if self.status_code != 200:
                     raise HTTPError(None)
-        request = RequestFactory().get(reverse(self.provider.id + '_login'),
-                               dict(process='login'))
+        request = RequestFactory().get(
+            reverse(self.provider.id + '_login'),
+            dict(process='login'))
 
         adapter = GoogleOAuth2Adapter()
         app = adapter.get_provider().get_app(request)
         token = SocialToken(token='some_token')
-        response_with_401 = LessMockedResponse(401, """
-                                                {"error": {
-                                                  "errors": [{
-                                                    "domain": "global",
-                                                    "reason": "authError",
-                                                    "message": "Invalid Credentials",
-                                                    "locationType": "header",
-                                                    "location": "Authorization" } ],
-                                                  "code": 401,
-                                                  "message": "Invalid Credentials" }
-                                                }""")
-        with mock.patch('allauth.socialaccount.providers.google.views.requests') as patched_requests:
+        response_with_401 = LessMockedResponse(
+            401, """
+            {"error": {
+              "errors": [{
+                "domain": "global",
+                "reason": "authError",
+                "message": "Invalid Credentials",
+                "locationType": "header",
+                "location": "Authorization" } ],
+              "code": 401,
+              "message": "Invalid Credentials" }
+            }""")
+        with patch(
+                'allauth.socialaccount.providers.google.views'
+                '.requests') as patched_requests:
             patched_requests.get.return_value = response_with_401
             with self.assertRaises(HTTPError):
                 adapter.complete_login(request, app, token)
@@ -136,8 +138,9 @@ class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
         self.assertTrue(EmailConfirmation.objects
                         .filter(email_address__email=test_email)
                         .exists())
-        self.assertTemplateUsed(resp,
-                                'account/email/email_confirmation_signup_subject.txt')
+        self.assertTemplateUsed(
+            resp,
+            'account/email/email_confirmation_signup_subject.txt')
 
     def test_email_verified_stashed(self):
         # http://slacy.com/blog/2012/01/how-to-set-session-variables-in-django-unit-tests/
@@ -156,10 +159,9 @@ class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
         email_address = EmailAddress.objects \
             .get(email=test_email)
         self.assertTrue(email_address.verified)
-        self.assertFalse(EmailConfirmation.objects \
-                             .filter(email_address__email=test_email) \
-                             .exists())
-
+        self.assertFalse(
+            EmailConfirmation.objects.filter(
+                email_address__email=test_email).exists())
 
     def test_account_connect(self):
         email = 'some@mail.com'
@@ -177,30 +179,34 @@ class GoogleTests(create_oauth2_tests(registry.by_id(GoogleProvider.id))):
         self.login(self.get_mocked_response(verified_email=True),
                    process='connect')
         # Check if we connected...
-        self.assertTrue(SocialAccount.objects.filter(user=user,
-                                                     provider=GoogleProvider.id).exists())
+        self.assertTrue(SocialAccount.objects.filter(
+            user=user,
+            provider=GoogleProvider.id).exists())
         # For now, we do not pick up any new e-mail addresses on connect
         self.assertEqual(EmailAddress.objects.filter(user=user).count(), 1)
-        self.assertEqual(EmailAddress.objects.filter(user=user,
-                                                      email=email).count(), 1)
+        self.assertEqual(EmailAddress.objects.filter(
+            user=user,
+            email=email).count(), 1)
 
     @override_settings(
-        ACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.MANDATORY,
-        SOCIALACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.NONE
+        ACCOUNT_EMAIL_VERIFICATION=account_settings
+        .EmailVerificationMethod.MANDATORY,
+        SOCIALACCOUNT_EMAIL_VERIFICATION=account_settings
+        .EmailVerificationMethod.NONE
     )
     def test_social_email_verification_skipped(self):
         test_email = 'raymond.penners@gmail.com'
         self.login(self.get_mocked_response(verified_email=False))
-        email_address = EmailAddress.objects \
-            .get(email=test_email)
+        email_address = EmailAddress.objects.get(email=test_email)
         self.assertFalse(email_address.verified)
-        self.assertFalse(EmailConfirmation.objects \
-                            .filter(email_address__email=test_email) \
-                            .exists())
+        self.assertFalse(EmailConfirmation.objects.filter(
+            email_address__email=test_email).exists())
 
     @override_settings(
-        ACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.OPTIONAL,
-        SOCIALACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.OPTIONAL
+        ACCOUNT_EMAIL_VERIFICATION=account_settings
+        .EmailVerificationMethod.OPTIONAL,
+        SOCIALACCOUNT_EMAIL_VERIFICATION=account_settings
+        .EmailVerificationMethod.OPTIONAL
     )
     def test_social_email_verification_optional(self):
         self.login(self.get_mocked_response(verified_email=False))

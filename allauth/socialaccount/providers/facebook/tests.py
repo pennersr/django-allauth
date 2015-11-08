@@ -1,7 +1,3 @@
-try:
-    from mock import patch
-except ImportError:
-    from unittest.mock import patch
 import json
 
 from django.core.urlresolvers import reverse
@@ -16,6 +12,7 @@ from allauth.socialaccount.providers import registry
 from allauth.account import app_settings as account_settings
 from allauth.account.models import EmailAddress
 from allauth.utils import get_user_model
+from allauth.compat import patch
 
 from .provider import FacebookProvider
 

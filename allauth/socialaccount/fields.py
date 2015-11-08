@@ -17,6 +17,7 @@ if django.VERSION < (1, 8):
 else:
     JSONFieldBase = models.TextField
 
+
 class JSONField(JSONFieldBase):
     """Simple JSON field that stores python structures as JSON strings
     on database.

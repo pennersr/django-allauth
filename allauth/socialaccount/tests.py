@@ -7,13 +7,13 @@ import warnings
 import json
 
 from django.test.utils import override_settings
-from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.test.client import RequestFactory
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.contrib.auth.models import AnonymousUser
 
+from ..compat import TestCase
 from ..tests import MockedResponse, mocked_response
 from ..account import app_settings as account_settings
 from ..account.models import EmailAddress

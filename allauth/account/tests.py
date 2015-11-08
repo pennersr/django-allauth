@@ -5,7 +5,6 @@ from datetime import timedelta
 
 from django.utils.timezone import now
 from django.test.utils import override_settings
-from django.test import TestCase
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.test.client import Client
@@ -16,6 +15,7 @@ from django.db import models
 
 import unittest
 
+from allauth.compat import TestCase, patch
 from allauth.account.forms import BaseSignupForm
 from allauth.account.models import EmailAddress, EmailConfirmation
 from allauth.utils import get_user_model, get_current_site
@@ -27,11 +27,6 @@ from .adapter import get_adapter
 from .utils import url_str_to_user_pk, user_pk_to_url_str
 
 import uuid
-
-try:
-    from unittest import mock
-except ImportError:
-    import mock
 
 
 @override_settings(
@@ -723,7 +718,7 @@ class UtilsTests(TestCase):
     @unittest.skipUnless(hasattr(models, 'UUIDField'),
                          reason="No UUIDField in this django version")
     def test_url_str_to_pk_identifies_UUID_as_stringlike(self):
-        with mock.patch('allauth.account.utils.get_user_model') as mocked_gum:
+        with patch('allauth.account.utils.get_user_model') as mocked_gum:
             mocked_gum.return_value = self.UUIDUser
             self.assertEqual(url_str_to_user_pk(self.user_id),
                              self.user_id)

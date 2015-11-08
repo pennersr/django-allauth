@@ -3,7 +3,6 @@ from django.utils.encoding import python_2_unicode_compatible
 from allauth.socialaccount import app_settings
 from allauth.account.models import EmailAddress
 
-from ..models import SocialApp, SocialAccount, SocialLogin
 from ..adapter import get_adapter
 
 
@@ -179,3 +178,6 @@ class ProviderAccount(object):
         fashion, without having to worry about @python_2_unicode_compatible
         """
         return self.get_brand()['name']
+
+
+from ..models import SocialApp, SocialAccount, SocialLogin

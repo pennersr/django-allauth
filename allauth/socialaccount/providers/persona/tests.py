@@ -3,10 +3,10 @@ try:
 except ImportError:
     from unittest.mock import patch
 
-from django.test import TestCase
 from django.test.utils import override_settings
 from django.core.urlresolvers import reverse
 
+from allauth.compat import TestCase
 from allauth.utils import get_user_model
 
 SOCIALACCOUNT_PROVIDERS = {'persona':
@@ -23,8 +23,9 @@ class PersonaTests(TestCase):
                 'status': 'okay',
                 'email': 'persona@mail.com'
             }
+
             resp = self.client.post(reverse('persona_login'),
                                     dict(assertion='dummy'))
-            self.assertEqual('http://testserver/accounts/profile/',
-                             resp['location'])
+            self.assertRedirects(resp, 'http://testserver/accounts/profile/',
+                                 fetch_redirect_response=False)
             get_user_model().objects.get(email='persona@mail.com')

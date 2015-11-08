@@ -7,13 +7,13 @@ import warnings
 import json
 
 from django.test.utils import override_settings
-from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.test.client import RequestFactory
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.contrib.auth.models import AnonymousUser
 
+from ..compat import TestCase
 from ..tests import MockedResponse, mocked_response
 from ..account import app_settings as account_settings
 from ..account.models import EmailAddress
@@ -53,8 +53,8 @@ def create_oauth_tests(provider):
                     username=str(random.randrange(1000, 10000000)))
         resp = self.client.post(reverse('socialaccount_signup'),
                                 data=data)
-        self.assertEqual('http://testserver/accounts/profile/',
-                         resp['location'])
+        self.assertRedirects(resp, 'http://testserver/accounts/profile/',
+                             fetch_redirect_response=False)
         user = resp.context['user']
         self.assertFalse(user.has_usable_password())
         return SocialAccount.objects.get(user=user,

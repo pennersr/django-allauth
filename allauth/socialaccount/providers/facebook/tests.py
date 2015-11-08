@@ -1,7 +1,3 @@
-try:
-    from mock import patch
-except ImportError:
-    from unittest.mock import patch
 import json
 
 from django.core.urlresolvers import reverse
@@ -16,6 +12,7 @@ from allauth.socialaccount.providers import registry
 from allauth.account import app_settings as account_settings
 from allauth.account.models import EmailAddress
 from allauth.utils import get_user_model
+from allauth.compat import patch
 
 from .provider import FacebookProvider
 
@@ -94,8 +91,8 @@ class FacebookTests(create_oauth2_tests(registry.by_id(FacebookProvider.id))):
                 = lambda: mocks.pop()
             resp = self.client.post(reverse('facebook_login_by_token'),
                                     data={'access_token': 'dummy'})
-            self.assertEqual('http://testserver/accounts/profile/',
-                             resp['location'])
+            self.assertRedirects(resp, 'http://testserver/accounts/profile/',
+                                 fetch_redirect_response=False)
 
     @override_settings(
         SOCIALACCOUNT_PROVIDERS={
@@ -113,8 +110,8 @@ class FacebookTests(create_oauth2_tests(registry.by_id(FacebookProvider.id))):
                 = lambda: mocks.pop()
             resp = self.client.post(reverse('facebook_login_by_token'),
                                     data={'access_token': 'dummy'})
-            self.assertEqual('http://testserver/accounts/profile/',
-                             resp['location'])
+            self.assertRedirects(resp, 'http://testserver/accounts/profile/',
+                                 fetch_redirect_response=False)
 
     @override_settings(
         SOCIALACCOUNT_PROVIDERS={

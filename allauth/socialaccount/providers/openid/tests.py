@@ -47,6 +47,8 @@ class OpenIDTests(TestCase):
                     ax_mock.return_value = {AXAttribute.PERSON_FIRST_NAME:
                                             ['raymond']}
                     resp = self.client.post(reverse('openid_callback'))
-                    self.assertRedirects(resp, 'http://testserver/accounts/profile/',
-                                         fetch_redirect_response=False)
+                    self.assertRedirects(
+                        resp,
+                        'http://testserver/accounts/profile/',
+                        fetch_redirect_response=False)
                     get_user_model().objects.get(first_name='raymond')

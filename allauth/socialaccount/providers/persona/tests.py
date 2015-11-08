@@ -1,12 +1,7 @@
-try:
-    from mock import patch
-except ImportError:
-    from unittest.mock import patch
-
 from django.test.utils import override_settings
 from django.core.urlresolvers import reverse
 
-from allauth.compat import TestCase
+from allauth.compat import TestCase, patch
 from allauth.utils import get_user_model
 
 SOCIALACCOUNT_PROVIDERS = {'persona':

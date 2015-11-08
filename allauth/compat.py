@@ -16,6 +16,11 @@ try:
 except ImportError:
     from urlparse import parse_qsl, urlparse, urlunparse  # noqa
 
+try:
+    import importlib
+except ImportError:
+    from django.utils import importlib  # noqa
+
 
 class TestCase(DjangoTestCase):
 

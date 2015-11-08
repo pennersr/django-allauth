@@ -1,9 +1,6 @@
 from django.conf import settings
 
-try:
-    import importlib
-except ImportError:
-    from django.utils import importlib
+from allauth.compat import importlib
 
 
 class ProviderRegistry(object):

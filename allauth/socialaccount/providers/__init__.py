@@ -25,6 +25,12 @@ class ProviderRegistry(object):
             yield (provider.id, provider.name)
 
     def load(self):
+        # TODO: Providers register with the provider registry when
+        # loaded. Here, we build the URLs for all registered providers. So, we
+        # really need to be sure all providers did register, which is why we're
+        # forcefully importing the `provider` modules here. The overall
+        # mechanism is way to magical and depends on the import order et al, so
+        # all of this really needs to be revisited.
         if not self.loaded:
             for app in settings.INSTALLED_APPS:
                 provider_module = app + '.provider'

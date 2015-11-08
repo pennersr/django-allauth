@@ -457,9 +457,9 @@ class AccountTests(TestCase):
                        'password1': 'johndoe',
                        'password2': 'johndoe'})
         # Logged in
-        self.assertEqual(resp['location'],
-                         'http://testserver'+settings.LOGIN_REDIRECT_URL)
-        self.assertEqual(resp.status_code, 302)
+        self.assertRedirects(resp,
+                             settings.LOGIN_REDIRECT_URL,
+                             fetch_redirect_response=False)
         self.assertEqual(mail.outbox[0].to, ['john@doe.com'])
         self.assertEqual(len(mail.outbox), 1)
         # Logout & login again
@@ -470,9 +470,9 @@ class AccountTests(TestCase):
         resp = c.post(reverse('account_login'),
                       {'login': 'johndoe',
                        'password': 'johndoe'})
-        self.assertEqual(resp.status_code, 302)
-        self.assertEqual(resp['location'],
-                         'http://testserver'+settings.LOGIN_REDIRECT_URL)
+        self.assertRedirects(resp,
+                             settings.LOGIN_REDIRECT_URL,
+                             fetch_redirect_response=False)
         self.assertEqual(mail.outbox[0].to, ['john@doe.com'])
         # There was an issue that we sent out email confirmation mails
         # on each login in case of optional verification. Make sure
@@ -481,8 +481,7 @@ class AccountTests(TestCase):
 
     @override_settings(ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS=False)
     def test_account_authenticated_login_redirects_is_false(self):
-        user = self._create_user_and_login()
-
+        self._create_user_and_login()
         resp = self.client.get(reverse('account_login'))
         self.assertEqual(resp.status_code, 200)
 

@@ -11,6 +11,11 @@ try:
 except ImportError:
     from unittest.mock import Mock, patch  # noqa
 
+try:
+    from urllib.parse import parse_qsl, urlparse, urlunparse
+except ImportError:
+    from urlparse import parse_qsl, urlparse, urlunparse  # noqa
+
 
 class TestCase(DjangoTestCase):
 
@@ -23,6 +28,7 @@ class TestCase(DjangoTestCase):
                 expected_url,
                 fetch_redirect_response=fetch_redirect_response,
                 **kwargs)
+
         elif fetch_redirect_response:
             super(TestCase, self).assertRedirects(
                 response,
@@ -30,6 +36,9 @@ class TestCase(DjangoTestCase):
                 **kwargs)
         else:
             self.assertEqual(302, response.status_code)
-            self.assertEqual(
-                expected_url,
-                response['location'])
+            actual_url = response['location']
+            if expected_url[0] == '/':
+                parts = list(urlparse(actual_url))
+                parts[0] = parts[1] = ''
+                actual_url = urlunparse(parts)
+            self.assertEqual(expected_url, actual_url)

@@ -8,6 +8,7 @@ python:
  - "3.5"
 env:
   matrix:
+   - DJANGO="Django<1.7"
    - DJANGO="Django<1.8"
    - DJANGO="Django<1.9"
    - DJANGO="Django==1.9b1"
@@ -18,6 +19,8 @@ install:
 matrix:
   allow_failures:
    - env: DJANGO="Django==1.9b1"
+  # TODO: Remove when https://github.com/necaris/python3-openid/issues/16 is resolved.
+   - python: "3.5"
   exclude:
     - python: "3.5"
       env: DJANGO="Django<1.8"

@@ -17,11 +17,16 @@ class TestCase(DjangoTestCase):
     def assertRedirects(self, response, expected_url,
                         fetch_redirect_response=True,
                         **kwargs):
-        if django.VERSION >= (1, 7,) or fetch_redirect_response:
+        if django.VERSION >= (1, 7,):
             super(TestCase, self).assertRedirects(
                 response,
                 expected_url,
                 fetch_redirect_response=fetch_redirect_response,
+                **kwargs)
+        elif fetch_redirect_response:
+            super(TestCase, self).assertRedirects(
+                response,
+                expected_url,
                 **kwargs)
         else:
             self.assertEqual(302, response.status_code)

@@ -2,9 +2,8 @@ from openid.consumer import consumer
 
 from django.core.urlresolvers import reverse
 
-from allauth.compat import Mock, patch
 from allauth.utils import get_user_model
-from allauth.tests import TestCase
+from allauth.tests import TestCase, Mock, patch
 
 from . import views
 from .utils import AXAttribute

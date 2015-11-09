@@ -6,11 +6,6 @@ else:
     from django.utils.datastructures import SortedDict as OrderedDict  # noqa
 
 try:
-    from mock import Mock, patch
-except ImportError:
-    from unittest.mock import Mock, patch  # noqa
-
-try:
     from urllib.parse import parse_qsl, urlparse, urlunparse
 except ImportError:
     from urlparse import parse_qsl, urlparse, urlunparse  # noqa

@@ -11,6 +11,11 @@ from django.db import models
 from . import utils
 from .compat import urlparse, urlunparse
 
+try:
+    from mock import Mock, patch
+except ImportError:
+    from unittest.mock import Mock, patch  # noqa
+
 
 class TestCase(DjangoTestCase):
 

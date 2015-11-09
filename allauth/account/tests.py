@@ -15,8 +15,7 @@ from django.db import models
 
 import unittest
 
-from allauth.compat import patch
-from allauth.tests import TestCase
+from allauth.tests import TestCase, patch
 from allauth.account.forms import BaseSignupForm
 from allauth.account.models import EmailAddress, EmailConfirmation
 from allauth.utils import get_user_model, get_current_site

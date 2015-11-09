@@ -19,10 +19,9 @@ from allauth.account import app_settings as account_settings
 from allauth.account.models import EmailConfirmation, EmailAddress
 from allauth.socialaccount.models import SocialAccount, SocialToken
 from allauth.socialaccount.providers import registry
-from allauth.tests import MockedResponse
+from allauth.tests import MockedResponse, patch
 from allauth.account.signals import user_signed_up
 from allauth.account.adapter import get_adapter
-from allauth.compat import patch
 
 from requests.exceptions import HTTPError
 

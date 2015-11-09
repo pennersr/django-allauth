@@ -13,8 +13,7 @@ from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.contrib.auth.models import AnonymousUser
 
-from ..compat import TestCase
-from ..tests import MockedResponse, mocked_response
+from ..tests import MockedResponse, mocked_response, TestCase
 from ..account import app_settings as account_settings
 from ..account.models import EmailAddress
 from ..account.utils import user_email, user_username
@@ -351,13 +350,15 @@ class SocialAccountTests(TestCase):
         User = get_user_model()
         user = User()
         setattr(user, account_settings.USER_MODEL_USERNAME_FIELD, 'username')
-        setattr(user, account_settings.USER_MODEL_EMAIL_FIELD, 'username@doe.com')
+        setattr(user, account_settings.USER_MODEL_EMAIL_FIELD,
+                'username@doe.com')
 
         account = SocialAccount(provider='twitter', uid='123')
         sociallogin = SocialLogin(user=user, account=account)
         complete_social_login(request, sociallogin)
 
-        self.assertNotIn(request.user.username, account_settings.USERNAME_BLACKLIST)
+        self.assertNotIn(request.user.username,
+                         account_settings.USERNAME_BLACKLIST)
 
     def _email_address_clash(self, username, email):
         User = get_user_model()

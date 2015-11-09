@@ -1,5 +1,4 @@
 import django
-from django.test import TestCase as DjangoTestCase
 
 if django.VERSION > (1, 8,):
     from collections import OrderedDict
@@ -20,30 +19,3 @@ try:
     import importlib
 except ImportError:
     from django.utils import importlib  # noqa
-
-
-class TestCase(DjangoTestCase):
-
-    def assertRedirects(self, response, expected_url,
-                        fetch_redirect_response=True,
-                        **kwargs):
-        if django.VERSION >= (1, 7,):
-            super(TestCase, self).assertRedirects(
-                response,
-                expected_url,
-                fetch_redirect_response=fetch_redirect_response,
-                **kwargs)
-
-        elif fetch_redirect_response:
-            super(TestCase, self).assertRedirects(
-                response,
-                expected_url,
-                **kwargs)
-        else:
-            self.assertEqual(302, response.status_code)
-            actual_url = response['location']
-            if expected_url[0] == '/':
-                parts = list(urlparse(actual_url))
-                parts[0] = parts[1] = ''
-                actual_url = urlunparse(parts)
-            self.assertEqual(expected_url, actual_url)

@@ -7,14 +7,13 @@ import warnings
 import json
 
 from django.test.utils import override_settings
-from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.test.client import RequestFactory
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.contrib.auth.models import AnonymousUser
 
-from ..tests import MockedResponse, mocked_response
+from ..tests import MockedResponse, mocked_response, TestCase
 from ..account import app_settings as account_settings
 from ..account.models import EmailAddress
 from ..account.utils import user_email, user_username
@@ -53,8 +52,8 @@ def create_oauth_tests(provider):
                     username=str(random.randrange(1000, 10000000)))
         resp = self.client.post(reverse('socialaccount_signup'),
                                 data=data)
-        self.assertEqual('http://testserver/accounts/profile/',
-                         resp['location'])
+        self.assertRedirects(resp, 'http://testserver/accounts/profile/',
+                             fetch_redirect_response=False)
         user = resp.context['user']
         self.assertFalse(user.has_usable_password())
         return SocialAccount.objects.get(user=user,
@@ -351,13 +350,15 @@ class SocialAccountTests(TestCase):
         User = get_user_model()
         user = User()
         setattr(user, account_settings.USER_MODEL_USERNAME_FIELD, 'username')
-        setattr(user, account_settings.USER_MODEL_EMAIL_FIELD, 'username@doe.com')
+        setattr(user, account_settings.USER_MODEL_EMAIL_FIELD,
+                'username@doe.com')
 
         account = SocialAccount(provider='twitter', uid='123')
         sociallogin = SocialLogin(user=user, account=account)
         complete_social_login(request, sociallogin)
 
-        self.assertNotIn(request.user.username, account_settings.USERNAME_BLACKLIST)
+        self.assertNotIn(request.user.username,
+                         account_settings.USERNAME_BLACKLIST)
 
     def _email_address_clash(self, username, email):
         User = get_user_model()

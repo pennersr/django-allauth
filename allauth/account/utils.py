@@ -5,7 +5,6 @@ except ImportError:
     from datetime import datetime
     now = datetime.now
 
-import django
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -16,10 +15,7 @@ from django.utils.http import urlencode
 from django.utils.http import int_to_base36, base36_to_int
 from django.core.exceptions import ValidationError
 
-if django.VERSION > (1, 8,):
-    from collections import OrderedDict
-else:
-    from django.utils.datastructures import SortedDict as OrderedDict
+from allauth.compat import OrderedDict
 
 try:
     from django.utils.encoding import force_text

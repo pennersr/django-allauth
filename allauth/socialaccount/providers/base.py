@@ -3,7 +3,6 @@ from django.utils.encoding import python_2_unicode_compatible
 from allauth.socialaccount import app_settings
 from allauth.account.models import EmailAddress
 
-from ..models import SocialApp, SocialAccount, SocialLogin
 from ..adapter import get_adapter
 
 
@@ -33,6 +32,9 @@ class Provider(object):
         raise NotImplementedError("get_login_url() for " + self.name)
 
     def get_app(self, request):
+        # NOTE: Avoid loading models at top due to registry boot...
+        from allauth.socialaccount.models import SocialApp
+
         return SocialApp.objects.get_current(self.id, request)
 
     def media_js(self, request):
@@ -63,6 +65,9 @@ class Provider(object):
             social auth provider.
         :return: A populated instance of the `SocialLogin` model (unsaved).
         """
+        # NOTE: Avoid loading models at top due to registry boot...
+        from allauth.socialaccount.models import SocialLogin, SocialAccount
+
         adapter = get_adapter()
         uid = self.extract_uid(response)
         extra_data = self.extract_extra_data(response)

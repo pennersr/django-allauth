@@ -110,14 +110,19 @@ ACCOUNT_PASSWORD_INPUT_RENDER_VALUE (=False)
 ACCOUNT_PASSWORD_MIN_LENGTH (=6)
   An integer specifying the minimum password length.
 
-ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION (=True)
-  The default behaviour is to automatically log users in once they confirm
-  their email address. Note however that this only works when confirming
-  the email address **immediately after signing up**, assuming users
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION (=False)
+  The default behaviour is not log users in and to redirect them to
+  `ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL`.
+
+  By changing this setting to `True`, users will automatically be logged in once
+  they confirm their email address. Note however that this only works when
+  confirming the email address **immediately after signing up**, assuming users
   didn't close their browser or used some sort of private browsing mode.
 
-  By changing this setting to `False` they will not be logged in, but
-  redirected to the `ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL`
+ACCOUNT_LOGIN_ON_PASSWORD_RESET (=False)
+  By changing this setting to `True`, users will automatically be logged in
+  once they have reset their password. By default they are redirected to the
+  password reset done page.
 
 ACCOUNT_SESSION_REMEMBER (=None)
   Controls the life time of the session. Set to `None` to ask the user
@@ -127,6 +132,13 @@ ACCOUNT_SESSION_REMEMBER (=None)
 ACCOUNT_SESSION_COOKIE_AGE (=1814400)
   How long before the session cookie expires in seconds.  Defaults to 1814400 seconds,
   or 3 weeks.
+
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS( (=True)
+  The default behaviour is to redirect authenticated users to
+  `ACCOUNT_LOGIN_REDIRECT_URL` when they try accessing login/signup pages.
+
+  By changing this setting to `False`, logged in users will not be redirected when
+  they access login/signup pages.
 
 SOCIALACCOUNT_ADAPTER (="allauth.socialaccount.adapter.DefaultSocialAccountAdapter")
   Specifies the adapter class to use, allowing you to alter certain

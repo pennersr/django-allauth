@@ -8,17 +8,13 @@ Python package::
 
     pip install django-allauth
 
-settings.py::
+settings.py (Important - Please note 'django.contrib.sites' is required as INSTALLED_APPS)::
 
     # For Django 1.7 and below, use:
     TEMPLATE_CONTEXT_PROCESSORS = (
         ...
         # Required by `allauth` template tags
         'django.core.context_processors.request',
-        ...
-        # `allauth` specific context processors
-        'allauth.account.context_processors.account',
-        'allauth.socialaccount.context_processors.socialaccount',
         ...
     )
 
@@ -35,10 +31,6 @@ settings.py::
 
                     # `allauth` needs this from django
                     'django.template.context_processors.request',
-
-                    # `allauth` specific context processors
-                    'allauth.account.context_processors.account',
-                    'allauth.socialaccount.context_processors.socialaccount',
                 ],
             },
         },
@@ -70,6 +62,7 @@ settings.py::
         'allauth.socialaccount.providers.coinbase',
         'allauth.socialaccount.providers.dropbox',
         'allauth.socialaccount.providers.dropbox_oauth2',
+        'allauth.socialaccount.providers.edmodo',
         'allauth.socialaccount.providers.evernote',
         'allauth.socialaccount.providers.facebook',
         'allauth.socialaccount.providers.flickr',
@@ -101,11 +94,11 @@ settings.py::
 
 urls.py::
 
-    urlpatterns = patterns('',
+    urlpatterns = [
         ...
-        (r'^accounts/', include('allauth.urls')),
+        url(r'^accounts/', include('allauth.urls')),
         ...
-    )
+    ]
 
 
 Post-Installation

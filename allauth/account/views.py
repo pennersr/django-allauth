@@ -15,10 +15,11 @@ from ..utils import get_form_class, get_request_param, get_current_site
 
 from .utils import (get_next_redirect_url, complete_signup,
                     get_login_redirect_url, perform_login,
-                    passthrough_next_redirect_url)
-from .forms import AddEmailForm, ChangePasswordForm
-from .forms import LoginForm, ResetPasswordKeyForm
-from .forms import ResetPasswordForm, SetPasswordForm, SignupForm, UserTokenForm
+                    passthrough_next_redirect_url, url_str_to_user_pk)
+from .forms import (
+    AddEmailForm, ChangePasswordForm,
+    LoginForm, ResetPasswordKeyForm,
+    ResetPasswordForm, SetPasswordForm, SignupForm, UserTokenForm)
 from .utils import sync_user_email_addresses
 from .models import EmailAddress, EmailConfirmation
 
@@ -56,7 +57,8 @@ class RedirectAuthenticatedUserMixin(object):
         # WORKAROUND: https://code.djangoproject.com/ticket/19316
         self.request = request
         # (end WORKAROUND)
-        if request.user.is_authenticated():
+        if request.user.is_authenticated() and \
+                app_settings.AUTHENTICATED_LOGIN_REDIRECTS:
             redirect_to = self.get_authenticated_redirect_url()
             response = HttpResponseRedirect(redirect_to)
             return _ajax_response(request, response)
@@ -188,10 +190,10 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
                                self.get_success_url())
 
     def get_context_data(self, **kwargs):
-        form = kwargs['form']
+        ret = super(SignupView, self).get_context_data(**kwargs)
+        form = ret['form']
         form.fields["email"].initial = self.request.session \
             .get('account_verified_email', None)
-        ret = super(SignupView, self).get_context_data(**kwargs)
         login_url = passthrough_next_redirect_url(self.request,
                                                   reverse("account_login"),
                                                   self.redirect_field_name)
@@ -270,12 +272,18 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         may not 100% work in case the user closes the browser (and the
         session gets lost), but at least we're secure.
         """
-        user_pk = self.request.session.pop('account_user', None)
+        user_pk = None
+        user_pk_str = get_adapter().unstash_user(self.request)
+        if user_pk_str:
+            user_pk = url_str_to_user_pk(user_pk_str)
         user = confirmation.email_address.user
         if user_pk == user.pk and self.request.user.is_anonymous():
             return perform_login(self.request,
                                  user,
-                                 app_settings.EmailVerificationMethod.NONE)
+                                 app_settings.EmailVerificationMethod.NONE,
+                                 # passed as callable, as this method
+                                 # depends on the authenticated state
+                                 redirect_url=self.get_redirect_url)
 
         return None
 
@@ -401,9 +409,9 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
     def _action_primary(self, request, *args, **kwargs):
         email = request.POST["email"]
         try:
-            email_address = EmailAddress.objects.get(
+            email_address = EmailAddress.objects.get_for_user(
                 user=request.user,
-                email=email,
+                email=email
             )
             # Not primary=True -- Slightly different variation, don't
             # require verified unless moving from a verified
@@ -473,8 +481,8 @@ class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
 
     def form_valid(self, form):
         form.save()
-        if (update_session_auth_hash is not None and 
-            not app_settings.LOGOUT_ON_PASSWORD_CHANGE):
+        if (update_session_auth_hash is not None and
+                not app_settings.LOGOUT_ON_PASSWORD_CHANGE):
             update_session_auth_hash(self.request, form.user)
         get_adapter().add_message(self.request,
                                   messages.SUCCESS,
@@ -577,11 +585,11 @@ class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, FormView):
     def dispatch(self, request, uidb36, key, **kwargs):
         self.request = request
         self.key = key
-
         # (Ab)using forms here to be able to handle errors in XHR #890
         token_form = UserTokenForm(data={'uidb36': uidb36, 'key': key})
 
         if not token_form.is_valid():
+            self.reset_user = None
             response = self.render_to_response(
                 self.get_context_data(token_fail=True)
             )
@@ -607,6 +615,11 @@ class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, FormView):
         signals.password_reset.send(sender=self.reset_user.__class__,
                                     request=self.request,
                                     user=self.reset_user)
+
+        if app_settings.LOGIN_ON_PASSWORD_RESET:
+            return perform_login(self.request, self.reset_user,
+                                 email_verification=app_settings.EMAIL_VERIFICATION)
+
         return super(PasswordResetFromKeyView, self).form_valid(form)
 
 password_reset_from_key = PasswordResetFromKeyView.as_view()

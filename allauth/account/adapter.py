@@ -4,6 +4,7 @@ import re
 import warnings
 import json
 
+from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import render_to_string
@@ -12,6 +13,8 @@ from django.core.mail import EmailMultiAlternatives, EmailMessage
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 from django.contrib import messages
+from django.contrib.auth import login as django_login
+from django.contrib.auth import logout as django_logout
 
 try:
     from django.utils.encoding import force_text
@@ -20,7 +23,8 @@ except ImportError:
 
 from ..utils import (import_attribute, get_user_model,
                      generate_unique_username,
-                     resolve_url, get_current_site)
+                     resolve_url, get_current_site,
+                     build_absolute_uri)
 
 from . import app_settings
 
@@ -39,6 +43,12 @@ class DefaultAccountAdapter(object):
         ret = request.session.get('account_verified_email')
         request.session['account_verified_email'] = None
         return ret
+
+    def stash_user(self, request, user):
+        request.session['account_user'] = user
+
+    def unstash_user(self, request):
+        return request.session.pop('account_user', None)
 
     def is_email_verified(self, request, email):
         """
@@ -204,7 +214,7 @@ class DefaultAccountAdapter(object):
             user.save()
         return user
 
-    def clean_username(self, username):
+    def clean_username(self, username, shallow=False):
         """
         Validates the username. You can hook into this if you want to
         (dynamically) restrict what usernames can be chosen.
@@ -219,16 +229,20 @@ class DefaultAccountAdapter(object):
         if username.lower() in username_blacklist_lower:
             raise forms.ValidationError(_("Username can not be used. "
                                           "Please use other username."))
-        username_field = app_settings.USER_MODEL_USERNAME_FIELD
-        assert username_field
-        user_model = get_user_model()
-        try:
-            query = {username_field + '__iexact': username}
-            user_model.objects.get(**query)
-        except user_model.DoesNotExist:
-            return username
-        raise forms.ValidationError(_("This username is already taken. Please "
-                                      "choose another."))
+        # Skipping database lookups when shallow is True, needed for unique
+        # username generation.
+        if not shallow:
+            username_field = app_settings.USER_MODEL_USERNAME_FIELD
+            assert username_field
+            user_model = get_user_model()
+            try:
+                query = {username_field + '__iexact': username}
+                user_model.objects.get(**query)
+            except user_model.DoesNotExist:
+                return username
+            raise forms.ValidationError(
+                _("This username is already taken. Please choose another."))
+        return username
 
     def clean_email(self, email):
         """
@@ -287,13 +301,15 @@ class DefaultAccountAdapter(object):
                             content_type='application/json')
 
     def login(self, request, user):
-        from django.contrib.auth import login
         # HACK: This is not nice. The proper Django way is to use an
         # authentication backend
         if not hasattr(user, 'backend'):
             user.backend \
                 = "allauth.account.auth_backends.AuthenticationBackend"
-        login(request, user)
+        django_login(request, user)
+
+    def logout(self, request):
+        django_logout(request)
 
     def confirm_email(self, request, email_address):
         """
@@ -316,6 +332,41 @@ class DefaultAccountAdapter(object):
     def is_safe_url(self, url):
         from django.utils.http import is_safe_url
         return is_safe_url(url)
+
+    def get_email_confirmation_url(self, request, emailconfirmation):
+        """Constructs the email confirmation (activation) url.
+
+        Note that if you have architected your system such that email
+        confirmations are sent outside of the request context `request`
+        can be `None` here.
+        """
+        url = reverse(
+            "account_confirm_email",
+            args=[emailconfirmation.key])
+        ret = build_absolute_uri(
+            request,
+            url,
+            protocol=app_settings.DEFAULT_HTTP_PROTOCOL)
+        return ret
+
+    def send_confirmation_mail(self, request, emailconfirmation, signup):
+        current_site = get_current_site(request)
+        activate_url = self.get_email_confirmation_url(
+            request,
+            emailconfirmation)
+        ctx = {
+            "user": emailconfirmation.email_address.user,
+            "activate_url": activate_url,
+            "current_site": current_site,
+            "key": emailconfirmation.key,
+        }
+        if signup:
+            email_template = 'account/email/email_confirmation_signup'
+        else:
+            email_template = 'account/email/email_confirmation'
+        self.send_mail(email_template,
+                       emailconfirmation.email_address.email,
+                       ctx)
 
 
 def get_adapter():

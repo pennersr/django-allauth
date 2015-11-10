@@ -5,10 +5,43 @@ import requests
 from datetime import datetime, date
 
 import django
-from django.test import TestCase
+from django.test import TestCase as DjangoTestCase
 from django.db import models
 
 from . import utils
+from .compat import urlparse, urlunparse
+
+try:
+    from mock import Mock, patch
+except ImportError:
+    from unittest.mock import Mock, patch  # noqa
+
+
+class TestCase(DjangoTestCase):
+
+    def assertRedirects(self, response, expected_url,
+                        fetch_redirect_response=True,
+                        **kwargs):
+        if django.VERSION >= (1, 7,):
+            super(TestCase, self).assertRedirects(
+                response,
+                expected_url,
+                fetch_redirect_response=fetch_redirect_response,
+                **kwargs)
+
+        elif fetch_redirect_response:
+            super(TestCase, self).assertRedirects(
+                response,
+                expected_url,
+                **kwargs)
+        else:
+            self.assertEqual(302, response.status_code)
+            actual_url = response['location']
+            if expected_url[0] == '/':
+                parts = list(urlparse(actual_url))
+                parts[0] = parts[1] = ''
+                actual_url = urlunparse(parts)
+            self.assertEqual(expected_url, actual_url)
 
 
 class MockedResponse(object):
@@ -85,14 +118,15 @@ class BasicTests(TestCase):
             dt = models.DateTimeField()
             t = models.TimeField()
             d = models.DateField()
-            
+
         def method(self):
             pass
 
         instance = SomeModel(dt=datetime.now(),
                              d=date.today(),
                              t=datetime.now().time())
-        # make sure serializer doesn't fail if a method is attached to the instance
+        # make sure serializer doesn't fail if a method is attached to
+        # the instance
         instance.method = method
         instance.nonfield = 'hello'
         data = utils.serialize_instance(instance)
@@ -111,3 +145,29 @@ class BasicTests(TestCase):
             #     != datetime.time(10, 6, 28, 705000)
             self.assertEqual(int(t1.microsecond / 1000),
                              int(t2.microsecond / 1000))
+
+    def test_serializer_binary_field(self):
+        class SomeBinaryModel(models.Model):
+            bb = models.BinaryField()
+            bb_empty = models.BinaryField()
+
+        instance = SomeBinaryModel(bb=b'some binary data')
+
+        serialized = utils.serialize_instance(instance)
+        deserialized = utils.deserialize_instance(SomeBinaryModel, serialized)
+
+        self.assertEqual(serialized['bb'], 'c29tZSBiaW5hcnkgZGF0YQ==')
+        self.assertEqual(serialized['bb_empty'], '')
+        self.assertEqual(deserialized.bb, b'some binary data')
+        self.assertEqual(deserialized.bb_empty, b'')
+
+    def test_build_absolute_uri(self):
+        self.assertEqual(
+            utils.build_absolute_uri(None, '/foo'),
+            'http://example.com/foo')
+        self.assertEqual(
+            utils.build_absolute_uri(None, '/foo', protocol='ftp'),
+            'ftp://example.com/foo')
+        self.assertEqual(
+            utils.build_absolute_uri(None, 'http://foo.com/bar'),
+            'http://foo.com/bar')

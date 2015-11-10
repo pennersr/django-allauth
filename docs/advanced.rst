@@ -58,10 +58,18 @@ instances are created, and populated with data
 
 - `allauth.account.adapter.DefaultAccountAdapter`:
 
+  - `is_open_for_signup(self, request)`: The default function 
+  returns `True`. You can override this method by returning `False`
+  if you want to disable account signup. 
+  
   - `new_user(self, request)`: Instantiates a new, empty `User`.
 
   - `save_user(self, request, user, form)`: Populates and saves the
     `User` instance using information provided in the signup form.
+
+  - `populate_username(self, request, user)`:
+    Fills in a valid username, if required and missing.  If the
+    username is already present it is assumed to be valid (unique).
 
   - `confirm_email(self, request, email_address)`: Marks the email address as
     confirmed and saves to the db.
@@ -72,6 +80,11 @@ instances are created, and populated with data
 
 - `allauth.socialaccount.adapter.DefaultSocialAccountAdapter`:
 
+  - `is_open_for_signup(self, request)`: The default function 
+  returns that is the same as `ACCOUNT_ADAPTER` in `settings.py`.
+  You can override this method by returning `True`/`False`
+  if you want to enable/disable socialaccount signup. 
+  
   - `new_user(self, request, sociallogin)`: Instantiates a new, empty
     `User`.
 

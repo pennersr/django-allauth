@@ -67,6 +67,10 @@ class AppSettings(object):
     def STORE_TOKENS(self):
         return self._setting('STORE_TOKENS', True)
 
+    @property
+    def UID_MAX_LENGTH(self):
+        return 191
+
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

@@ -7,21 +7,21 @@ import warnings
 import json
 
 from django.test.utils import override_settings
-from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.test.client import RequestFactory
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.contrib.auth.models import AnonymousUser
 
-from ..tests import MockedResponse, mocked_response
+from ..tests import MockedResponse, mocked_response, TestCase
 from ..account import app_settings as account_settings
 from ..account.models import EmailAddress
-from ..account.utils import user_email
+from ..account.utils import user_email, user_username
 from ..utils import get_user_model, get_current_site
 
 from .models import SocialApp, SocialAccount, SocialLogin
 from .helpers import complete_social_login
+from .views import signup
 
 
 def create_oauth_tests(provider):
@@ -52,8 +52,8 @@ def create_oauth_tests(provider):
                     username=str(random.randrange(1000, 10000000)))
         resp = self.client.post(reverse('socialaccount_signup'),
                                 data=data)
-        self.assertEqual('http://testserver/accounts/profile/',
-                         resp['location'])
+        self.assertRedirects(resp, 'http://testserver/accounts/profile/',
+                             fetch_redirect_response=False)
         user = resp.context['user']
         self.assertFalse(user.has_usable_password())
         return SocialAccount.objects.get(user=user,
@@ -261,3 +261,127 @@ class SocialAccountTests(TestCase):
             EmailAddress.objects.filter(user=user,
                                         email=user_email(user)).exists()
         )
+
+    @override_settings(
+        ACCOUNT_EMAIL_REQUIRED=True,
+        ACCOUNT_UNIQUE_EMAIL=True,
+        ACCOUNT_USERNAME_REQUIRED=True,
+        ACCOUNT_AUTHENTICATION_METHOD='email',
+        SOCIALACCOUNT_AUTO_SIGNUP=True)
+    def test_email_address_clash_username_required(self):
+        """Test clash on both username and email"""
+        request, resp = self._email_address_clash(
+            'test',
+            'test@test.com')
+        self.assertEqual(
+            resp['location'],
+            reverse('socialaccount_signup'))
+
+        # POST different username/email to social signup form
+        request.method = 'POST'
+        request.POST = {
+            'username': 'other',
+            'email': 'other@test.com'}
+        resp = signup(request)
+        self.assertEqual(
+            resp['location'], '/accounts/profile/')
+        user = get_user_model().objects.get(
+            **{account_settings.USER_MODEL_EMAIL_FIELD:
+               'other@test.com'})
+        self.assertEqual(user_username(user), 'other')
+
+    @override_settings(
+        ACCOUNT_EMAIL_REQUIRED=True,
+        ACCOUNT_UNIQUE_EMAIL=True,
+        ACCOUNT_USERNAME_REQUIRED=False,
+        ACCOUNT_AUTHENTICATION_METHOD='email',
+        SOCIALACCOUNT_AUTO_SIGNUP=True)
+    def test_email_address_clash_username_not_required(self):
+        """Test clash while username is not required"""
+        request, resp = self._email_address_clash(
+            'test',
+            'test@test.com')
+        self.assertEqual(
+            resp['location'],
+            reverse('socialaccount_signup'))
+
+        # POST email to social signup form (username not present)
+        request.method = 'POST'
+        request.POST = {
+            'email': 'other@test.com'}
+        resp = signup(request)
+        self.assertEqual(
+            resp['location'], '/accounts/profile/')
+        user = get_user_model().objects.get(
+            **{account_settings.USER_MODEL_EMAIL_FIELD:
+               'other@test.com'})
+        self.assertNotEqual(user_username(user), 'test')
+
+    @override_settings(
+        ACCOUNT_EMAIL_REQUIRED=True,
+        ACCOUNT_UNIQUE_EMAIL=True,
+        ACCOUNT_USERNAME_REQUIRED=False,
+        ACCOUNT_AUTHENTICATION_METHOD='email',
+        SOCIALACCOUNT_AUTO_SIGNUP=True)
+    def test_email_address_clash_username_auto_signup(self):
+        # Clash on username, but auto signup still works
+        request, resp = self._email_address_clash('test', 'other@test.com')
+        self.assertEqual(
+            resp['location'], '/accounts/profile/')
+        user = get_user_model().objects.get(
+            **{account_settings.USER_MODEL_EMAIL_FIELD:
+               'other@test.com'})
+        self.assertNotEqual(user_username(user), 'test')
+
+    @override_settings(
+        ACCOUNT_EMAIL_REQUIRED=True,
+        ACCOUNT_USERNAME_BLACKLIST=['username', 'username1', 'username2'],
+        ACCOUNT_UNIQUE_EMAIL=True,
+        ACCOUNT_USERNAME_REQUIRED=True,
+        ACCOUNT_AUTHENTICATION_METHOD='email',
+        SOCIALACCOUNT_AUTO_SIGNUP=True)
+    def test_populate_username_in_blacklist(self):
+        factory = RequestFactory()
+        request = factory.get('/accounts/twitter/login/callback/')
+        request.user = AnonymousUser()
+        SessionMiddleware().process_request(request)
+        MessageMiddleware().process_request(request)
+
+        User = get_user_model()
+        user = User()
+        setattr(user, account_settings.USER_MODEL_USERNAME_FIELD, 'username')
+        setattr(user, account_settings.USER_MODEL_EMAIL_FIELD,
+                'username@doe.com')
+
+        account = SocialAccount(provider='twitter', uid='123')
+        sociallogin = SocialLogin(user=user, account=account)
+        complete_social_login(request, sociallogin)
+
+        self.assertNotIn(request.user.username,
+                         account_settings.USERNAME_BLACKLIST)
+
+    def _email_address_clash(self, username, email):
+        User = get_user_model()
+        # Some existig user
+        exi_user = User()
+        user_username(exi_user, 'test')
+        user_email(exi_user, 'test@test.com')
+        exi_user.save()
+
+        # A social user being signed up...
+        account = SocialAccount(
+            provider='twitter',
+            uid='123')
+        user = User()
+        user_username(user, username)
+        user_email(user, email)
+        sociallogin = SocialLogin(user=user, account=account)
+
+        # Signing up, should pop up the social signup form
+        factory = RequestFactory()
+        request = factory.get('/accounts/twitter/login/callback/')
+        request.user = AnonymousUser()
+        SessionMiddleware().process_request(request)
+        MessageMiddleware().process_request(request)
+        resp = complete_social_login(request, sociallogin)
+        return request, resp

@@ -1,17 +1,13 @@
-try:
-    from mock import Mock, patch
-except ImportError:
-    from unittest.mock import Mock, patch
-
 from openid.consumer import consumer
 
-from django.test import TestCase
 from django.core.urlresolvers import reverse
 
 from allauth.utils import get_user_model
+from allauth.tests import TestCase, Mock, patch
 
 from . import views
 from .utils import AXAttribute
+
 
 class OpenIDTests(TestCase):
 
@@ -51,6 +47,8 @@ class OpenIDTests(TestCase):
                     ax_mock.return_value = {AXAttribute.PERSON_FIRST_NAME:
                                             ['raymond']}
                     resp = self.client.post(reverse('openid_callback'))
-                    self.assertEqual('http://testserver/accounts/profile/',
-                                     resp['location'])
+                    self.assertRedirects(
+                        resp,
+                        'http://testserver/accounts/profile/',
+                        fetch_redirect_response=False)
                     get_user_model().objects.get(first_name='raymond')

@@ -16,13 +16,12 @@ from allauth.socialaccount.providers.base import (ProviderAccount,
                                                   AuthAction)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 from allauth.socialaccount.app_settings import QUERY_EMAIL
-from allauth.socialaccount.models import SocialApp
 
 from .locale import get_default_locale_callable
 
 
 GRAPH_API_VERSION = getattr(settings, 'SOCIALACCOUNT_PROVIDERS', {}).get(
-    'facebook',  {}).get('VERSION', 'v2.2')
+    'facebook',  {}).get('VERSION', 'v2.4')
 GRAPH_API_URL = 'https://graph.facebook.com/' + GRAPH_API_VERSION
 
 NONCE_SESSION_KEY = 'allauth_facebook_nonce'
@@ -93,6 +92,22 @@ class FacebookProvider(OAuth2Provider):
             scope.append('email')
         return scope
 
+    def get_fields(self):
+        settings = self.get_settings()
+        default_fields = [
+            'id',
+            'email',
+            'name',
+            'first_name',
+            'last_name',
+            'verified',
+            'locale',
+            'timezone',
+            'link',
+            'gender',
+            'updated_time']
+        return settings.get('FIELDS', default_fields)
+
     def get_auth_params(self, request, action):
         ret = super(FacebookProvider, self).get_auth_params(request,
                                                             action)
@@ -108,6 +123,9 @@ class FacebookProvider(OAuth2Provider):
         return ret
 
     def media_js(self, request):
+        # NOTE: Avoid loading models at top due to registry boot...
+        from allauth.socialaccount.models import SocialApp
+
         locale = self.get_locale_for_request(request)
         try:
             app = self.get_app(request)
@@ -153,7 +171,8 @@ class FacebookProvider(OAuth2Provider):
         return dict(email=data.get('email'),
                     username=data.get('username'),
                     first_name=data.get('first_name'),
-                    last_name=data.get('last_name'))
+                    last_name=data.get('last_name'),
+                    name=data.get('name'))
 
     def extract_email_addresses(self, data):
         ret = []

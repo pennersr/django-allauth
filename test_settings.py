@@ -29,10 +29,7 @@ if django.VERSION >= (1, 8):
                     'django.template.context_processors.debug',
                     'django.template.context_processors.request',
                     'django.contrib.auth.context_processors.auth',
-                    'django.contrib.messages.context_processors.messages',
-                    'django.core.context_processors.request',
-                    'allauth.account.context_processors.account',
-                    'allauth.socialaccount.context_processors.socialaccount',
+                    'django.contrib.messages.context_processors.messages'
                 ],
             },
         },
@@ -46,9 +43,6 @@ else:
         "django.core.context_processors.static",
         "django.core.context_processors.request",
         "django.contrib.messages.context_processors.messages",
-    
-        "allauth.account.context_processors.account",
-        "allauth.socialaccount.context_processors.socialaccount",
     )
 
 MIDDLEWARE_CLASSES = (
@@ -75,12 +69,14 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.amazon',
     'allauth.socialaccount.providers.angellist',
     'allauth.socialaccount.providers.baidu',
+    'allauth.socialaccount.providers.basecamp',
     'allauth.socialaccount.providers.bitbucket',
     'allauth.socialaccount.providers.bitly',
     'allauth.socialaccount.providers.coinbase',
     'allauth.socialaccount.providers.douban',
     'allauth.socialaccount.providers.dropbox',
     'allauth.socialaccount.providers.dropbox_oauth2',
+    'allauth.socialaccount.providers.edmodo',
     'allauth.socialaccount.providers.evernote',
     'allauth.socialaccount.providers.feedly',
     'allauth.socialaccount.providers.facebook',

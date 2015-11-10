@@ -1,3 +1,4 @@
+import base64
 import re
 import unicodedata
 import json
@@ -8,22 +9,22 @@ from django.core import urlresolvers
 from django.contrib.sites.models import Site
 from django.db.models import FieldDoesNotExist
 from django.db.models.fields import (DateTimeField, DateField,
-                                     EmailField, TimeField)
+                                     EmailField, TimeField,
+                                     BinaryField)
 from django.utils import six, dateparse
-from django.utils.datastructures import SortedDict
+from django.utils.six.moves.urllib.parse import urlsplit
+
 from django.core.serializers.json import DjangoJSONEncoder
 try:
-    from django.utils.encoding import force_text
+    from django.utils.encoding import force_text, force_bytes
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
-
-try:
-    import importlib
-except:
-    from django.utils import importlib
+from allauth.compat import importlib
 
 
 def _generate_unique_username_base(txts, regex=None):
+    from .account.adapter import get_adapter
+    adapter = get_adapter()
     username = None
     regex = regex or '[^\w\s@+.-]'
     for txt in txts:
@@ -40,8 +41,12 @@ def _generate_unique_username_base(txts, regex=None):
         username = username.split('@')[0]
         username = username.strip()
         username = re.sub('\s+', '_', username)
-        if username:
+        # Finally, validating base username without database lookups etc.
+        try:
+            username = adapter.clean_username(username, shallow=True)
             break
+        except ValidationError:
+            pass
     return username or 'user'
 
 
@@ -56,9 +61,9 @@ def get_username_max_length():
 
 
 def generate_unique_username(txts, regex=None):
-    from .account.app_settings import USER_MODEL_USERNAME_FIELD
+    from .account.adapter import get_adapter
+    adapter = get_adapter()
     username = _generate_unique_username_base(txts, regex)
-    User = get_user_model()
     max_length = get_username_max_length()
     i = 0
     while True:
@@ -68,11 +73,9 @@ def generate_unique_username(txts, regex=None):
             else:
                 pfx = ''
             ret = username[0:max_length - len(pfx)] + pfx
-            query = {USER_MODEL_USERNAME_FIELD + '__iexact': ret}
-            User.objects.get(**query)
+            return adapter.clean_username(ret)
+        except ValidationError:
             i += 1
-        except User.DoesNotExist:
-            return ret
 
 
 def valid_email_or_none(email):
@@ -178,10 +181,17 @@ def serialize_instance(instance):
     Django serialization, as these are models are not "complete" yet.
     Serialization will start complaining about missing relations et al.
     """
-    ret = dict([(k, v)
-                for k, v in instance.__dict__.items()
-                if not (k.startswith('_') or callable(v))])
-    return json.loads(json.dumps(ret, cls=DjangoJSONEncoder))
+    data = {}
+    for k, v in instance.__dict__.items():
+        if k.startswith('_') or callable(v):
+            continue
+        try:
+            if isinstance(instance._meta.get_field(k), BinaryField):
+                v = force_text(base64.b64encode(v))
+        except FieldDoesNotExist:
+            pass
+        data[k] = v
+    return json.loads(json.dumps(data, cls=DjangoJSONEncoder))
 
 
 def deserialize_instance(model, data):
@@ -196,6 +206,10 @@ def deserialize_instance(model, data):
                     v = dateparse.parse_time(v)
                 elif isinstance(f, DateField):
                     v = dateparse.parse_date(v)
+                elif isinstance(f, BinaryField):
+                    v = force_bytes(
+                        base64.b64decode(
+                            force_bytes(v)))
             except FieldDoesNotExist:
                 pass
         setattr(ret, k, v)
@@ -203,7 +217,7 @@ def deserialize_instance(model, data):
 
 
 def set_form_field_order(form, fields_order):
-    if isinstance(form.fields, SortedDict):
+    if hasattr(form.fields, 'keyOrder'):
         form.fields.keyOrder = fields_order
     else:
         # Python 2.7+
@@ -214,7 +228,25 @@ def set_form_field_order(form, fields_order):
 
 
 def build_absolute_uri(request, location, protocol=None):
-    uri = request.build_absolute_uri(location)
+    """request.build_absolute_uri() helper
+
+    Like request.build_absolute_uri, but gracefully handling
+    the case where request is None.
+    """
+    from .account import app_settings as account_settings
+
+    if request is None:
+        site = get_current_site()
+        bits = urlsplit(location)
+        if not (bits.scheme and bits.netloc):
+            uri = '{proto}://{domain}{url}'.format(
+                proto=account_settings.DEFAULT_HTTP_PROTOCOL,
+                domain=site.domain,
+                url=location)
+        else:
+            uri = location
+    else:
+        uri = request.build_absolute_uri(location)
     if protocol:
         uri = protocol + ':' + uri.partition(':')[2]
     return uri

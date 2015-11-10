@@ -190,11 +190,22 @@ class AppSettings(object):
         return self._setting('CONFIRM_EMAIL_ON_GET', False)
 
     @property
+    def AUTHENTICATED_LOGIN_REDIRECTS(self):
+        return self._setting('AUTHENTICATED_LOGIN_REDIRECTS', True)
+
+    @property
     def LOGIN_ON_EMAIL_CONFIRMATION(self):
         """
-        Autmatically log the user in once they confirmed their email address
+        Automatically log the user in once they confirmed their email address
         """
-        return self._setting('LOGIN_ON_EMAIL_CONFIRMATION', True)
+        return self._setting('LOGIN_ON_EMAIL_CONFIRMATION', False)
+
+    @property
+    def LOGIN_ON_PASSWORD_RESET(self):
+        """
+        Automatically log the user in immediately after resetting their password.
+        """
+        return self._setting('LOGIN_ON_PASSWORD_RESET', False)
 
     @property
     def LOGOUT_REDIRECT_URL(self):

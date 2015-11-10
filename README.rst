@@ -15,6 +15,9 @@ Welcome to django-allauth!
    :alt: Coverage Status
    :target: https://coveralls.io/r/pennersr/django-allauth
 
+.. image:: https://pennersr.github.io/img/bitcoin-badge.svg
+   :target: https://blockchain.info/address/1AJXuBMPHkaDCNX2rwAy34bGgs7hmrePEr
+
 Integrated set of Django applications addressing authentication,
 registration, account management as well as 3rd party (social) account
 authentication.

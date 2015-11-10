@@ -11,6 +11,10 @@ class FoursquareAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get('photo')
 
+    def to_str(self):
+        dflt = super(FoursquareAccount, self).to_str()
+        return self.account.extra_data.get('name', dflt)
+
 
 class FoursquareProvider(OAuth2Provider):
     id = 'foursquare'

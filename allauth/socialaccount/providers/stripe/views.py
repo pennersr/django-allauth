@@ -13,8 +13,9 @@ class StripeOAuth2Adapter(OAuth2Adapter):
     profile_url = 'https://api.stripe.com/v1/accounts/%s'
 
     def complete_login(self, request, app, token, response, **kwargs):
+        headers = {'Authorization': 'Bearer {0}'.format(token.token)}
         resp = requests.get(self.profile_url % response.get('stripe_user_id'),
-                            params={'access_token': token.token})
+                            headers=headers)
         extra_data = resp.json()
         return self.get_provider().sociallogin_from_response(request,
                                                              extra_data)

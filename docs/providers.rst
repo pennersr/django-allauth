@@ -438,7 +438,7 @@ look and feel of the Persona dialog::
 SoundCloud
 ----------
 
-SoundCloud allows you to choose between OAuth1 and OAuth2.  Choose the
+SoundCloud allows you to choose between OAuth1 and OAuth2. Choose the
 latter.
 
 Development callback URL
@@ -464,10 +464,19 @@ Overflow, or Server Fault). This can be controlled by means of the
             { 'SITE': 'stackoverflow' } }
 
 
+Stripe
+------
+You can register your OAuth2 app via the admin interface
+    http://example.com/accounts/soundcloud/login/callback/
+
+
+See more in documentation
+    https://stripe.com/docs/connect/standalone-accounts
+
 Twitch
 ------
 Register your OAuth2 app over at
-`http://www.twitch.tv/kraken/oauth2/clients/new`.
+    http://www.twitch.tv/kraken/oauth2/clients/new
 
 Twitter
 -------

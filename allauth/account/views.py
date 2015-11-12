@@ -57,7 +57,8 @@ class RedirectAuthenticatedUserMixin(object):
         # WORKAROUND: https://code.djangoproject.com/ticket/19316
         self.request = request
         # (end WORKAROUND)
-        if request.user.is_authenticated():
+        if request.user.is_authenticated() and \
+                app_settings.AUTHENTICATED_LOGIN_REDIRECTS:
             redirect_to = self.get_authenticated_redirect_url()
             response = HttpResponseRedirect(redirect_to)
             return _ajax_response(request, response)
@@ -189,10 +190,10 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
                                self.get_success_url())
 
     def get_context_data(self, **kwargs):
-        form = kwargs['form']
+        ret = super(SignupView, self).get_context_data(**kwargs)
+        form = ret['form']
         form.fields["email"].initial = self.request.session \
             .get('account_verified_email', None)
-        ret = super(SignupView, self).get_context_data(**kwargs)
         login_url = passthrough_next_redirect_url(self.request,
                                                   reverse("account_login"),
                                                   self.redirect_field_name)
@@ -272,7 +273,7 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         session gets lost), but at least we're secure.
         """
         user_pk = None
-        user_pk_str = self.request.session.pop('account_user', None)
+        user_pk_str = get_adapter().unstash_user(self.request)
         if user_pk_str:
             user_pk = url_str_to_user_pk(user_pk_str)
         user = confirmation.email_address.user
@@ -584,11 +585,11 @@ class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, FormView):
     def dispatch(self, request, uidb36, key, **kwargs):
         self.request = request
         self.key = key
-
         # (Ab)using forms here to be able to handle errors in XHR #890
         token_form = UserTokenForm(data={'uidb36': uidb36, 'key': key})
 
         if not token_form.is_valid():
+            self.reset_user = None
             response = self.render_to_response(
                 self.get_context_data(token_fail=True)
             )

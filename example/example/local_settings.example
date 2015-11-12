@@ -35,10 +35,11 @@
 # of the current Site (django.contrib.sites) is used.
 # ACCOUNT_EMAIL_SUBJECT_PREFIX = '[Site] '
 
-# A string pointing to a custom form class (e.g. 'myapp.forms.SignupForm')
-# that is used during signup to ask the user for additional input
-# (e.g. newsletter signup, birth date). This class should implement a
-# 'save' method, accepting the newly signed up user as its only parameter.
+# A string pointing to a custom form class
+# (e.g. 'myapp.forms.SignupForm') that is used during signup to ask
+# the user for additional input (e.g. newsletter signup, birth
+# date). This class should implement a `def signup(self, request, user)`
+# method, where user represents the newly signed up user.
 # ACCOUNT_SIGNUP_FORM_CLASS = None
 
 # When signing up, let the user type in their password twice to avoid typ-o's.

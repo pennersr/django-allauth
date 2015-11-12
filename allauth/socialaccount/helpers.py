@@ -1,5 +1,4 @@
 from django.contrib import messages
-from django.contrib.auth import logout
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.forms import ValidationError
@@ -150,7 +149,7 @@ def _social_login_redirect(request, sociallogin):
 
 def _complete_social_login(request, sociallogin):
     if request.user.is_authenticated():
-        logout(request)
+        get_account_adapter().logout(request)
     if sociallogin.is_existing:
         # Login existing user
         ret = _login_social_account(request, sociallogin)

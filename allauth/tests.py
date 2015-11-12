@@ -5,10 +5,43 @@ import requests
 from datetime import datetime, date
 
 import django
-from django.test import TestCase
+from django.test import TestCase as DjangoTestCase
 from django.db import models
 
 from . import utils
+from .compat import urlparse, urlunparse
+
+try:
+    from mock import Mock, patch
+except ImportError:
+    from unittest.mock import Mock, patch  # noqa
+
+
+class TestCase(DjangoTestCase):
+
+    def assertRedirects(self, response, expected_url,
+                        fetch_redirect_response=True,
+                        **kwargs):
+        if django.VERSION >= (1, 7,):
+            super(TestCase, self).assertRedirects(
+                response,
+                expected_url,
+                fetch_redirect_response=fetch_redirect_response,
+                **kwargs)
+
+        elif fetch_redirect_response:
+            super(TestCase, self).assertRedirects(
+                response,
+                expected_url,
+                **kwargs)
+        else:
+            self.assertEqual(302, response.status_code)
+            actual_url = response['location']
+            if expected_url[0] == '/':
+                parts = list(urlparse(actual_url))
+                parts[0] = parts[1] = ''
+                actual_url = urlunparse(parts)
+            self.assertEqual(expected_url, actual_url)
 
 
 class MockedResponse(object):

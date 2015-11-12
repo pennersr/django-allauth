@@ -1,9 +1,5 @@
 from django.conf.urls import url, include
-
-try:
-    import importlib
-except ImportError:
-    from django.utils import importlib
+from allauth.compat import importlib
 
 from allauth.socialaccount import providers
 

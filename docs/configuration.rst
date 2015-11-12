@@ -133,6 +133,13 @@ ACCOUNT_SESSION_COOKIE_AGE (=1814400)
   How long before the session cookie expires in seconds.  Defaults to 1814400 seconds,
   or 3 weeks.
 
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS( (=True)
+  The default behaviour is to redirect authenticated users to
+  `ACCOUNT_LOGIN_REDIRECT_URL` when they try accessing login/signup pages.
+
+  By changing this setting to `False`, logged in users will not be redirected when
+  they access login/signup pages.
+
 SOCIALACCOUNT_ADAPTER (="allauth.socialaccount.adapter.DefaultSocialAccountAdapter")
   Specifies the adapter class to use, allowing you to alter certain
   default behaviour.

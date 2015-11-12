@@ -1,3 +1,36 @@
+2015-11-09  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.24.1 released: non-test code accidentally had test
+	packages as a dependency.
+
+2015-11-08  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.24.0 released.
+
+	* Django 1.9b1 compatibility.
+
+        * Increased `SocialApp` key/secret/token sizes to 191, decreased
+	`SocialAccount.uid` size to 191. The latter was done in order to
+	accomodate for MySQL in combination with utf8mb4 and contraints on
+	`uid`. Note that `uid` is used to store OpenID URLs, which can
+	theoretically be longer than 191 characters, although in practice
+	this does not seem to be the case. In case you really need to
+	control the `uid` length, set
+	`settings.SOCIALACCOUNT_UID_MAX_LENGTH` accordingly. Migrations
+	are in place.
+
+2015-08-13  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Seppo Erviälä contributed a Finnish translation, thanks!
+
+2015-08-05  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Iurii Kriachko contributed a Basecamp provider, thanks!
+
+2015-08-02  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.23.0 released.
+
 2015-07-29  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* David Friedman contributed Edmodo support, thanks!

@@ -1,30 +1,33 @@
 from __future__ import unicode_literals
 
-import re
-import warnings
 import json
+import re
+import time
+import warnings
 
-from django.core.urlresolvers import reverse
-from django.conf import settings
-from django.http import HttpResponse
-from django.template.loader import render_to_string
-from django.template import TemplateDoesNotExist
-from django.core.mail import EmailMultiAlternatives, EmailMessage
-from django.utils.translation import ugettext_lazy as _
 from django import forms
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login as django_login
 from django.contrib.auth import logout as django_logout
+from django.core.cache import cache
+from django.core.mail import EmailMultiAlternatives, EmailMessage
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from django.template import TemplateDoesNotExist
+from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
 
 try:
     from django.utils.encoding import force_text
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
-from ..utils import (import_attribute, get_user_model,
+from ..utils import (build_absolute_uri, get_current_site,
                      generate_unique_username,
-                     resolve_url, get_current_site,
-                     build_absolute_uri)
+                     get_user_model, import_attribute,
+                     resolve_url)
 
 from . import app_settings
 
@@ -367,6 +370,32 @@ class DefaultAccountAdapter(object):
         self.send_mail(email_template,
                        emailconfirmation.email_address.email,
                        ctx)
+
+    def get_cache_key(self, request, **credentials):
+        current_site = get_current_site(request)
+        if app_settings.AUTHENTICATION_METHOD == app_settings.AuthenticationMethod.EMAIL:
+            key_prefix = credentials["email"]
+        else:
+            key_prefix = credentials["username"]
+        return 'login_attempt_%s_%s' % (current_site.id, key_prefix)
+
+    def pre_login(self, request, **credentials):
+        if app_settings.LOGIN_ATTEMPTS_LIMIT:
+            cache_key = self.get_cache_key(request, **credentials)
+            login_data = cache.get(cache_key, None)
+            if login_data:
+                dt = timezone.now()
+                current_attempt_time = time.mktime(dt.timetuple())
+                if len(login_data) >= app_settings.LOGIN_ATTEMPTS_LIMIT and current_attempt_time < \
+                   (login_data[-1] + app_settings.LOGIN_ATTEMPTS_TIMEOUT):
+                    raise forms.ValidationError('Maximum limit of failed attempts exceeded. Try again later.')
+
+    def login_failed(self, request, **credentials):
+        cache_key = self.get_cache_key(request, **credentials)
+        data = cache.get(cache_key, [])
+        dt = timezone.now()
+        data.append(time.mktime(dt.timetuple()))
+        cache.set(cache_key, data, app_settings.LOGIN_ATTEMPTS_TIMEOUT)
 
 
 def get_adapter():

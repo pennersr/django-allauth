@@ -7,12 +7,11 @@ from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
                                                           OAuth2CallbackView,
                                                           OAuth2View)
-from allauth.socialaccount.providers.reddit_oauth2.client import RedditOauth2Client
 import requests
 from django.core.urlresolvers import reverse
 from allauth.utils import build_absolute_uri
 from allauth.account import app_settings
-from .provider import RedditOAuth2Provider
+from provider import RedditOAuth2Provider
 from django.http import HttpResponseRedirect
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.models import SocialToken, SocialLogin
@@ -45,7 +44,7 @@ class RedditOAuth2Adapter(OAuth2Adapter):
             extra_data.json()
         )
 
-# Use RedditOauth2Client instead of default Oauth2 client
+# Set client parameters
 class RedditOauth2View(OAuth2View):
     def get_client(self, request, app):
         callback_url = reverse(self.adapter.provider_id + "_callback")
@@ -56,13 +55,17 @@ class RedditOauth2View(OAuth2View):
             protocol=protocol)
         provider = self.adapter.get_provider()
         scope = provider.get_scope(request)
-        client = RedditOauth2Client(self.request, app.client_id, app.secret,
+        client = OAuth2Client(self.request, app.client_id, app.secret,
                               self.adapter.access_token_method,
                               self.adapter.access_token_url,
                               callback_url,
                               scope)
+        custom_header = headers = {"User-Agent": "django-allauth-header"}
+        client.set_http_auth(True)
+        client.set_custom_header(custom_header)
         return client    
-    
+ 
+# We want to use client with custom header and auth    
 class RedditOAuth2LoginView(RedditOauth2View):
     def dispatch(self, request):
         provider = self.adapter.get_provider()
@@ -80,7 +83,8 @@ class RedditOAuth2LoginView(RedditOauth2View):
                 request,
                 provider.id,
                 exception=e)
-            
+          
+# We want to use client with custom header and auth             
 class RedditOAuth2CallbackView(RedditOauth2View):
     def dispatch(self, request):
         if 'error' in request.GET or 'code' not in request.GET:

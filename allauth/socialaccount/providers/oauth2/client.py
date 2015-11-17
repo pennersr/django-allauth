@@ -25,6 +25,9 @@ class OAuth2Client(object):
         self.consumer_secret = consumer_secret
         self.scope = ' '.join(scope)
         self.state = None
+        self.custom_header = None
+        self.scope_delimiter = ' '
+        self.use_http_auth = False
 
     def get_redirect_url(self, authorization_url, extra_params):
         params = {
@@ -39,6 +42,8 @@ class OAuth2Client(object):
         return '%s?%s' % (authorization_url, urlencode(params))
 
     def get_access_token(self, code):
+        if self.custom_header is not None:
+            headers = self.custom_header
         data = {'client_id': self.consumer_key,
                 'redirect_uri': self.callback_url,
                 'grant_type': 'authorization_code',
@@ -51,10 +56,42 @@ class OAuth2Client(object):
             params = data
             data = None
         # TODO: Proper exception handling
-        resp = requests.request(self.access_token_method,
+        
+        # If we are sending clientID and client secret as parameters, rather
+        # than using HTTP basic auth
+        if self.use_http_auth == False:
+            # No custom header sent
+            if self.custom_header is None:
+                resp = requests.request(self.access_token_method,
                                 url,
                                 params=params,
                                 data=data)
+            # Custom header is set    
+            if self.custom_header is not None:
+                resp = requests.request(self.access_token_method,
+                                url,
+                                params=params,
+                                data=data,
+                                headers = self.custom_header)
+         
+        # If we are using HTTP basic auth to send client ID and secret 
+        if self.use_http_auth == True:
+            post_data = {"grant_type": "authorization_code",
+                 "code": code,
+                 "redirect_uri": self.callback_url}
+            client_auth = requests.auth.HTTPBasicAuth(self.consumer_key,self.consumer_secret)
+            # No custom header set
+            if self.custom_header is None:
+                resp = requests.post(url,
+                 auth=client_auth,
+                 data=post_data)
+            # Custom header is set    
+            if self.custom_header is not None: 
+                resp = requests.post(url,
+                 auth=client_auth,
+                 data=post_data,
+                 headers=headers)   
+                            
         access_token = None
         if resp.status_code == 200:
             # Weibo sends json via 'text/plain;charset=UTF-8'
@@ -75,3 +112,21 @@ class OAuth2Client(object):
         keys = [k for k, v in params.items() if v == '']
         for key in keys:
             del params[key]
+     
+    # Set custom header for requesting access token
+    # Needed by Reddit        
+    def set_custom_header(self, custom_header):
+         self.custom_header = custom_header
+     
+    # Set delimiter for scope (default is space) 
+    # Not necessary for Reddit, but was mentioned in another issue
+    def set_scope_delimiter(self, scope_delimiter):
+        # Adjust scope variable
+         self.scope = self.scope.replace(self.scope_delimiter, scope_delimiter)
+         self.scope_delimiter = scope_delimiter
+         
+    # Client should use HTTP basic auth for client ID and secret 
+    # rather then sending them as parameters 
+    # Required by Reddit   
+    def set_http_auth(self,use_http_auth):
+        self.use_http_auth = use_http_auth           

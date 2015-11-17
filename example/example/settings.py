@@ -154,7 +154,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.vimeo',
     'allauth.socialaccount.providers.weibo',
     'allauth.socialaccount.providers.xing',
-
+    'allauth.socialaccount.providers.reddit_oauth2',
     'example.demo'
 )
 

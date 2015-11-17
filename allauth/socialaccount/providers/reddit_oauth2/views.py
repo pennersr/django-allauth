@@ -124,5 +124,5 @@ class RedditOAuth2CallbackView(RedditOauth2View):
                 exception=e)            
              
 # We need to use our classes here, not the default Oauth2 ones                
-oauth_login = RedditOAuth2LoginView.adapter_view(RedditOAuth2Adapter)
-oauth_callback = RedditOAuth2CallbackView.adapter_view(RedditOAuth2Adapter)
+oauth2_login = RedditOAuth2LoginView.adapter_view(RedditOAuth2Adapter)
+oauth2_callback = RedditOAuth2CallbackView.adapter_view(RedditOAuth2Adapter)

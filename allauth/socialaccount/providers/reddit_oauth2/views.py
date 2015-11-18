@@ -11,7 +11,7 @@ import requests
 from django.core.urlresolvers import reverse
 from allauth.utils import build_absolute_uri
 from allauth.account import app_settings
-from provider import RedditOAuth2Provider
+from .provider import RedditOAuth2Provider
 from django.http import HttpResponseRedirect
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.models import SocialToken, SocialLogin

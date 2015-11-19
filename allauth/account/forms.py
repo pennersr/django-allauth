@@ -400,7 +400,12 @@ class ResetPasswordForm(forms.Form):
     email = forms.EmailField(
         label=_("E-mail"),
         required=True,
-        widget=forms.TextInput(attrs={"type": "email", "size": "30"}))
+        widget=forms.TextInput(attrs={
+            "type": "email",
+            "size": "30",
+            "placeholder": _("E-mail address"),
+            })
+        )
 
     def clean_email(self):
         email = self.cleaned_data["email"]

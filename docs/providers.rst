@@ -192,7 +192,7 @@ VERIFIED_EMAIL:
     treat e-mail addresses from Facebook as unverified. But, if you
     feel that is too paranoid, then use this setting to mark them as
     verified. Due to lack of an official statement from the side of Facebook,
-    attemps have been made to
+    attempts have been made to
     `reverse engineer the meaning of the verified flag <https://stackoverflow.com/questions/14280535/is-it-possible-to-check-if-an-email-is-confirmed-on-facebook>`_.
     Do know that by setting this to `True` you may be introducing a security risk.
 
@@ -262,7 +262,7 @@ After you create a project you will have to create a "Client ID" and fill in som
 
 Under "APIs & auth" go to "Credentials" and create a new Client ID. Probably you will want a "Web application" Client ID. Provide your domain name or test domain name in "Authorized JavaScript origins". Finally fill in "http://127.0.0.1:8000/accounts/google/login/callback/" in the "Authorized redirect URI" field. You can fill multiple URLs, one for each test domain.After creating the Client ID you will find all details for the Django configuration on this page.
 
-Users that login using the app will be presented a consent form. For this to work additional information is required. Under "APIs & auth" go to "Consent screen" and atleast provide an email and product name.
+Users that login using the app will be presented a consent form. For this to work additional information is required. Under "APIs & auth" go to "Consent screen" and at least provide an email and product name.
 
 
 Django configuration
@@ -372,7 +372,7 @@ following template tag::
 ORCID
 ------
 
-The ORCID provider should work out of the box provided that you are using the Production ORCID registry and the member api. If you are in development and are using the Sanbox registry, then you will need to change the urls to::
+The ORCID provider should work out of the box provided that you are using the Production ORCID registry and the member api. If you are in development and are using the Sandbox registry, then you will need to change the urls to::
 
     authorize_url = 'https://sandbox.orcid.org/oauth/authorize'
     access_token_url = 'https://api.sandbox.orcid.org/oauth/token'
@@ -417,7 +417,7 @@ Persona
 
 Mozilla Persona requires one setting, the "AUDIENCE" which needs to be the
 hardcoded hostname and port of your website. See https://developer.mozilla.org/en-US/Persona/Security_Considerations#Explicitly_specify_the_audience_parameter for more
-information why this needs to be set explicitely and can't be derived from
+information why this needs to be set explicitly and can't be derived from
 user provided data::
 
     SOCIALACCOUNT_PROVIDERS = \

@@ -28,7 +28,7 @@ Custom User Models
 If you use a custom user model you need to specify what field
 represents the `username`, if any. Here, `username` really refers to
 the field representing the nick name the user uses to login, and not
-some unique identifier (possibly including an e-mail adddress) as is
+some unique identifier (possibly including an e-mail address) as is
 the case for Django's `AbstractBaseUser.USERNAME_FIELD`.
 
 Meaning, if your custom user model does not have a `username` field

@@ -439,7 +439,7 @@ class ResetPasswordForm(forms.Form):
             url = build_absolute_uri(
                 request, path,
                 protocol=app_settings.DEFAULT_HTTP_PROTOCOL)
-            context = {"site": current_site,
+            context = {"current_site": current_site,
                        "user": user,
                        "password_reset_url": url,
                        "request": request}

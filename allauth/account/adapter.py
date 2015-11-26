@@ -198,7 +198,8 @@ class DefaultAccountAdapter(object):
         email = data.get('email')
         username = data.get('username')
         user_email(user, email)
-        user_username(user, username)
+        if username:
+            user_username(user, username)
         if first_name:
             user_field(user, 'first_name', first_name)
         if last_name:

@@ -711,7 +711,7 @@ msgstr "Greška pri prijavi s računom društvene mreže"
 #: templates/socialaccount/authentication_error.html:10
 msgid ""
 "An error occurred while attempting to login via your social network account."
-msgstr "Došlo je do greške pri prijavi s vašim računom društve mreže."
+msgstr "Došlo je do greške pri prijavi s vašim računom društvene mreže."
 
 #: templates/socialaccount/connections.html:6
 #: templates/socialaccount/connections.html:9

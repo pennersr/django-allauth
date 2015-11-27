@@ -35,9 +35,8 @@ msgid "This username is already taken. Please choose another."
 msgstr "Korisničko ime je već zauzeto. Molimo izaberite drugo korisničko ime."
 
 #: account/apps.py:8
-#, fuzzy
 msgid "Accounts"
-msgstr "Korisnički račun"
+msgstr "Korisnički računi"
 
 #: account/forms.py:36 account/forms.py:53 account/forms.py:283
 #: account/forms.py:380
@@ -139,22 +138,19 @@ msgstr "Upisana e-mail adresa nije dodijeljena niti jednom korisničkom računu"
 
 #: account/models.py:25
 msgid "user"
-msgstr ""
+msgstr "korisnik"
 
 #: account/models.py:27 account/models.py:78
-#, fuzzy
 msgid "e-mail address"
-msgstr "E-mail adresa"
+msgstr "e-mail adresa"
 
 #: account/models.py:28
-#, fuzzy
 msgid "verified"
-msgstr "Nepotvrđena"
+msgstr "potvrđena"
 
 #: account/models.py:29
-#, fuzzy
 msgid "primary"
-msgstr "Primarna"
+msgstr "primarna"
 
 #: account/models.py:34
 msgid "email address"
@@ -190,12 +186,11 @@ msgstr "Vaš korisnički račun nema postavljenu lozinku."
 
 #: socialaccount/adapter.py:110
 msgid "Your account has no verified e-mail address."
-msgstr "Vaš korisnički račun nema provjerenu e-mail adresu."
+msgstr "Vaš korisnički račun nema potvrđenu e-mail adresu."
 
 #: socialaccount/apps.py:8
-#, fuzzy
 msgid "Social Accounts"
-msgstr "Korisnički račun"
+msgstr "Korisnički računi"
 
 #: socialaccount/forms.py:41
 #, python-format
@@ -203,15 +198,16 @@ msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
 "account first, then connect your %s account."
 msgstr ""
+"Korisnički račun s ovom e-mail adresom već postoji. Molimo da se prvo "
+"ulogirate pod tim korisničkim računom i spojite svoj %s račun"
 
 #: socialaccount/models.py:37 socialaccount/models.py:70
 msgid "provider"
 msgstr ""
 
 #: socialaccount/models.py:40
-#, fuzzy
 msgid "name"
-msgstr "Korisničko ime"
+msgstr "naziv"
 
 #: socialaccount/models.py:42
 msgid "client id"
@@ -428,7 +424,7 @@ msgid "Sign In"
 msgstr "Prijava"
 
 #: templates/account/login.html:14
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please sign in with one\n"
 "of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign "
@@ -444,12 +440,13 @@ msgid "or"
 msgstr "ili"
 
 #: templates/account/login.html:31
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "If you have not created an account yet, then please\n"
 "<a href=\"%(signup_url)s\">sign up</a> first."
 msgstr ""
-"Već imate korisnički račun? <a href=\"%(login_url)s\">Prijavite se</a>!"
+"Ukoliko još niste napravili korisnički račun, prvo se "
+"<a href=\"%(signup_url)s\">registrirajte</a>."
 
 #: templates/account/login.html:41
 msgid "Forgot Password?"
@@ -568,16 +565,14 @@ msgid "Verify Your E-mail Address"
 msgstr "Potvrdite vašu e-mail adresu"
 
 #: templates/account/verification_sent.html:10
-#, fuzzy
 msgid ""
 "We have sent an e-mail to you for verification. Follow the link provided to "
 "finalize the signup process. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"Poslali smo e-mail na <a href=\\\"mailto:%(email)s\\\">%(email)s</a> u svrhu "
-"potvrde. Sljedite dani link za završetak postupka registracije.\n"
-"Molimo kontaktirajte nas ukoliko ga ne primite unutar sljedećih nekoliko "
-"minuta."
+"Poslali smo e-mail u svrhu potvrde. Sljedite dani link za završetak postupka "
+"registracije. Molimo kontaktirajte nas ukoliko ga ne primite unutar "
+"sljedećih nekoliko minuta."
 
 #: templates/account/verified_email_required.html:13
 msgid ""
@@ -644,12 +639,12 @@ msgid "Password Reset E-mail"
 msgstr "E-mail za resetiranje lozinke"
 
 #: templates/account/messages/cannot_delete_primary_email.txt:2
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot remove your primary e-mail address (%(email)s)."
 msgstr "Nije moguće ukloniti vašu primarnu e-mail adresu %(email)s "
 
 #: templates/account/messages/email_confirmation_sent.txt:2
-#, fuzzy, python-format
+#, python-format
 msgid "Confirmation e-mail sent to %(email)s."
 msgstr "E-mail s linkom za potvrdu registracije je poslan na %(email)s"
 
@@ -659,14 +654,14 @@ msgid "You have confirmed %(email)s."
 msgstr "Potvrdili ste e-mail adresu %(email)s."
 
 #: templates/account/messages/email_deleted.txt:2
-#, fuzzy, python-format
+#, python-format
 msgid "Removed e-mail address %(email)s."
-msgstr "Uklonjena e-mail adresa %(email)s "
+msgstr "Uklonjena e-mail adresa %(email)s."
 
 #: templates/account/messages/logged_in.txt:4
-#, fuzzy, python-format
+#, python-format
 msgid "Successfully signed in as %(name)s."
-msgstr "Uspješno ste prijavljeni kao %(user)s."
+msgstr "Uspješno ste prijavljeni kao %(name)s."
 
 #: templates/account/messages/logged_out.txt:2
 msgid "You have signed out."
@@ -681,14 +676,12 @@ msgid "Password successfully set."
 msgstr "Lozinka je uspješno postavljena."
 
 #: templates/account/messages/primary_email_set.txt:2
-#, fuzzy
 msgid "Primary e-mail address set."
 msgstr "Primarna e-mail adresa je postavljena"
 
 #: templates/account/messages/unverified_primary_email.txt:2
-#, fuzzy
 msgid "Your primary e-mail address must be verified."
-msgstr "Vaša primarna adresa more biti provjerena"
+msgstr "Vaša primarna adresa more biti potvrđena."
 
 #: templates/account/snippets/already_logged_in.html:5
 msgid "Note"
@@ -754,27 +747,24 @@ msgstr ""
 "kliknite i <a href=\\\"%(login_url)s\\\">prijavite se</a>."
 
 #: templates/socialaccount/signup.html:11
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You are about to use your %(provider_name)s account to login to\n"
 "%(site_name)s. As a final step, please complete the following form:"
 msgstr ""
 "Odabrali ste da ćete koristiti vaš %(provider_name)s račun za prijavu u "
-"stranicu %(site_name)s.\n"
-"Kao posljednji korak, molimo vas ispunite sljedeći obrazac:"
+"stranicu %(site_name)s. Kao posljednji korak, molimo vas ispunite sljedeći "
+"obrazac:"
 
 #: templates/socialaccount/messages/account_connected.txt:2
-#, fuzzy
 msgid "The social account has been connected."
 msgstr "Račun društvene mreže je povezan"
 
 #: templates/socialaccount/messages/account_connected_other.txt:2
-#, fuzzy
 msgid "The social account is already connected to a different account."
-msgstr "Račun društvene mreže je povezan"
+msgstr "Korisnički račun društvene mreže je već povezan s drugim računom."
 
 #: templates/socialaccount/messages/account_disconnected.txt:2
-#, fuzzy
 msgid "The social account has been disconnected."
 msgstr "Račun društvene mreže je isključen"
 

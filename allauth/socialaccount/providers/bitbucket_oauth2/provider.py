@@ -17,6 +17,8 @@ class BitbucketOAuth2Provider(OAuth2Provider):
         return data['username']
 
     def extract_common_fields(self, data):
-        return dict(name=data.get('display_name'))
+        return dict(name=data.get('display_name'),
+                    email=data.get('email'))
+
 
 providers.registry.register(BitbucketOAuth2Provider)

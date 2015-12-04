@@ -1,12 +1,11 @@
-from allauth.socialaccount.tests import create_oauth2_tests
-from allauth.tests import MockedResponse
-from allauth.socialaccount.providers import registry
+from allauth.socialaccount.tests import OAuth2TestsMixin
+from allauth.tests import MockedResponse, TestCase
 
 from .provider import LinkedInOAuth2Provider
 
 
-class LinkedInOAuth2Tests(create_oauth2_tests(
-        registry.by_id(LinkedInOAuth2Provider.id))):
+class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
+    provider_id = LinkedInOAuth2Provider.id
 
     def get_mocked_response(self):
         return MockedResponse(200, """

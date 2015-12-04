@@ -4,11 +4,10 @@ from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 from django.test.client import RequestFactory
 
-from allauth.socialaccount.tests import create_oauth2_tests
-from allauth.tests import MockedResponse, patch
+from allauth.socialaccount.tests import OAuth2TestsMixin
+from allauth.tests import MockedResponse, TestCase, patch
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount import providers
-from allauth.socialaccount.providers import registry
 from allauth.account import app_settings as account_settings
 from allauth.account.models import EmailAddress
 from allauth.utils import get_user_model
@@ -26,7 +25,9 @@ from .provider import FacebookProvider
         'facebook': {
             'AUTH_PARAMS': {},
             'VERIFIED_EMAIL': False}})
-class FacebookTests(create_oauth2_tests(registry.by_id(FacebookProvider.id))):
+class FacebookTests(OAuth2TestsMixin, TestCase):
+    provider_id = FacebookProvider.id
+
     facebook_data = """
         {
            "id": "630595557",

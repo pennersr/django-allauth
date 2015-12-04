@@ -22,18 +22,22 @@ from ..utils import get_user_model, get_current_site
 from .models import SocialApp, SocialAccount, SocialLogin
 from .helpers import complete_social_login
 from .views import signup
+from . import providers
 
 
-def create_oauth_tests(provider):
+class OAuthTestsMixin(object):
+    provider_id = None
 
     def get_mocked_response(self):
         pass
 
     def setUp(self):
-        app = SocialApp.objects.create(provider=provider.id,
-                                       name=provider.id,
+        super(OAuthTestsMixin, self).setUp()
+        self.provider = providers.registry.by_id(self.provider_id)
+        app = SocialApp.objects.create(provider=self.provider.id,
+                                       name=self.provider.id,
                                        client_id='app123id',
-                                       key=provider.id,
+                                       key=self.provider.id,
                                        secret='dummy')
         app.sites.add(get_current_site())
 
@@ -102,19 +106,18 @@ def create_oauth_tests(provider):
         self.assertTemplateUsed(resp,
                                 'socialaccount/authentication_error.html')
 
-    impl = {'setUp': setUp,
-            'login': login,
-            'test_login': test_login,
-            'get_mocked_response': get_mocked_response,
-            'get_access_token_response': get_access_token_response,
-            'test_authentication_error': test_authentication_error}
-    class_name = 'OAuth2Tests_'+provider.id
-    Class = type(class_name, (TestCase,), impl)
-    Class.provider = provider
+
+# For backward-compatibility with third-party provider tests that call
+# create_oauth_tests() rather than using the mixin directly.
+def create_oauth_tests(provider):
+    class Class(OAuthTestsMixin, TestCase):
+        provider_id = provider.id
+    Class.__name__ = 'OAuthTests_' + provider.id
     return Class
 
 
-def create_oauth2_tests(provider):
+class OAuth2TestsMixin(object):
+    provider_id = None
 
     def get_mocked_response(self):
         pass
@@ -129,10 +132,12 @@ def create_oauth2_tests(provider):
             %s }""" % rt
 
     def setUp(self):
-        app = SocialApp.objects.create(provider=provider.id,
-                                       name=provider.id,
+        super(OAuth2TestsMixin, self).setUp()
+        self.provider = providers.registry.by_id(self.provider_id)
+        app = SocialApp.objects.create(provider=self.provider.id,
+                                       name=self.provider.id,
                                        client_id='app123id',
-                                       key=provider.id,
+                                       key=self.provider.id,
                                        secret='dummy')
         app.sites.add(get_current_site())
 
@@ -213,18 +218,13 @@ def create_oauth2_tests(provider):
         self.assertTemplateUsed(resp,
                                 'socialaccount/authentication_error.html')
 
-    impl = {'setUp': setUp,
-            'login': login,
-            'test_login': test_login,
-            'test_account_tokens': test_account_tokens,
-            'test_account_refresh_token_saved_next_login':
-            test_account_refresh_token_saved_next_login,
-            'get_login_response_json': get_login_response_json,
-            'get_mocked_response': get_mocked_response,
-            'test_authentication_error': test_authentication_error}
-    class_name = 'OAuth2Tests_'+provider.id
-    Class = type(class_name, (TestCase,), impl)
-    Class.provider = provider
+
+# For backward-compatibility with third-party provider tests that call
+# create_oauth2_tests() rather than using the mixin directly.
+def create_oauth2_tests(provider):
+    class Class(OAuth2TestsMixin, TestCase):
+        provider_id = provider.id
+    Class.__name__ = 'OAuth2Tests_' + provider.id
     return Class
 
 

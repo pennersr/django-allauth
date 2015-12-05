@@ -69,8 +69,8 @@ def create_oauth_tests(provider):
                           % self.provider.id)
             return
         resp = self.login(resp_mocks)
-        self.assertEqual('http://testserver/accounts/profile/',
-                         resp['location'])
+        self.assertRedirects(resp, 'http://testserver/accounts/profile/',
+                             fetch_redirect_response=False)
         self.assertFalse(resp.context['user'].has_usable_password())
 
     def login(self, resp_mocks, process='login'):

@@ -289,6 +289,16 @@ By default, `profile` scope is required, and optionally `email` scope
 depending on whether or not `SOCIALACCOUNT_QUERY_EMAIL` is enabled.
 
 
+Instagram
+---------
+
+App registration:
+    https://www.instagram.com/developer/clients/manage/
+
+Example valid redirect URI:
+    http://localhost:8000/accounts/instagram/login/callback/
+
+
 LinkedIn
 --------
 

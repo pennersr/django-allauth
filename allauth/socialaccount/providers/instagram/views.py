@@ -8,8 +8,8 @@ from .provider import InstagramProvider
 
 class InstagramOAuth2Adapter(OAuth2Adapter):
     provider_id = InstagramProvider.id
-    access_token_url = 'https://instagram.com/oauth/access_token'
-    authorize_url = 'https://instagram.com/oauth/authorize'
+    access_token_url = 'https://api.instagram.com/oauth/access_token'
+    authorize_url = 'https://api.instagram.com/oauth/authorize'
     profile_url = 'https://api.instagram.com/v1/users/self'
 
     def complete_login(self, request, app, token, **kwargs):

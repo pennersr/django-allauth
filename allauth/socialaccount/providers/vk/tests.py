@@ -1,13 +1,13 @@
 from __future__ import absolute_import
 
-from allauth.socialaccount.tests import create_oauth2_tests
-from allauth.socialaccount.providers import registry
-from allauth.tests import MockedResponse
+from allauth.socialaccount.tests import OAuth2TestsMixin
+from allauth.tests import MockedResponse, TestCase
 
 from .provider import VKProvider
 
 
-class VKTests(create_oauth2_tests(registry.by_id(VKProvider.id))):
+class VKTests(OAuth2TestsMixin, TestCase):
+    provider_id = VKProvider.id
 
     def get_mocked_response(self, verified_email=True):
         return MockedResponse(200, """

@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from allauth.socialaccount.tests import create_oauth_tests
-from allauth.tests import MockedResponse
-from allauth.socialaccount.providers import registry
+from allauth.socialaccount.tests import OAuthTestsMixin
+from allauth.tests import MockedResponse, TestCase
 
 from .provider import LinkedInProvider
 
 
-class LinkedInTests(create_oauth_tests(registry.by_id(LinkedInProvider.id))):
+class LinkedInTests(OAuthTestsMixin, TestCase):
+    provider_id = LinkedInProvider.id
+
     def get_mocked_response(self):
         return [MockedResponse(200, """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <person>

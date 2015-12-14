@@ -84,6 +84,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.foursquare',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.gitlab',
     'allauth.socialaccount.providers.hubic',
     'allauth.socialaccount.providers.instagram',
     'allauth.socialaccount.providers.linkedin',

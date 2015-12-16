@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-from allauth.socialaccount.tests import create_oauth_tests
-from allauth.tests import MockedResponse
-from allauth.socialaccount.providers import registry
+from allauth.socialaccount.tests import OAuthTestsMixin
+from allauth.tests import MockedResponse, TestCase
 
 from .provider import FlickrProvider
 
 
-class FlickrTests(create_oauth_tests(registry.by_id(FlickrProvider.id))):
+class FlickrTests(OAuthTestsMixin, TestCase):
+    provider_id = FlickrProvider.id
+
     def get_mocked_response(self):
         #
         return [

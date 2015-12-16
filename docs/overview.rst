@@ -81,6 +81,8 @@ Supported Providers
 
 - Stack Exchange (OAuth2)
 
+- Stripe (OAuth2)
+
 - Tumblr (OAuth)
 
 - Twitch (OAuth2)

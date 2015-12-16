@@ -1,12 +1,11 @@
-from allauth.socialaccount.tests import create_oauth2_tests
-from allauth.tests import MockedResponse
-from allauth.socialaccount.providers import registry
+from allauth.socialaccount.tests import OAuth2TestsMixin
+from allauth.tests import MockedResponse, TestCase
 
 from .provider import WindowsLiveProvider
 
 
-class WindowsLiveTests(create_oauth2_tests(
-        registry.by_id(WindowsLiveProvider.id))):
+class WindowsLiveTests(OAuth2TestsMixin, TestCase):
+    provider_id = WindowsLiveProvider.id
 
     def get_mocked_response(self):
         return MockedResponse(200, """

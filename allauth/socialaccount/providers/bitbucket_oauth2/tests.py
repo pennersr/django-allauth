@@ -125,6 +125,16 @@ class BitbucketOAuth2Tests(create_oauth2_tests(registry.by_id(
         socialaccount = SocialAccount.objects.get(uid='tutorials')
         self.assertEqual(socialaccount.user.username, 'tutorials')
         self.assertEqual(socialaccount.user.email, 'tutorials@bitbucket.org')
+        account = socialaccount.get_provider_account()
+        self.assertEqual(account.to_str(), 'tutorials account')
+        self.assertEqual(
+            account.get_profile_url(),
+            'https://bitbucket.org/tutorials'
+        )
+        self.assertEqual(
+            account.get_avatar_url(),
+            'https://bitbucket-assetroot.s3.amazonaws.com/c/photos/2013/Nov/25/tutorials-avatar-1563784409-6_avatar.png'
+        )
         self.patches['requests'].get.assert_has_calls([
             mock.call('https://api.bitbucket.org/2.0/user', params=mock.ANY),
             mock.call('https://api.bitbucket.org/2.0/user/emails', params=mock.ANY),

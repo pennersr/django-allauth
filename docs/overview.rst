@@ -37,7 +37,7 @@ Supported Providers
 
 - AngelList (OAuth2)
 
-- Bitbucket (OAuth)
+- Bitbucket (OAuth, OAuth2)
 
 - Bitly (OAuth2)
 

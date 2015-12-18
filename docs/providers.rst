@@ -255,25 +255,14 @@ authentication provider as described in GitLab docs here:
 
     http://doc.gitlab.com/ce/integration/oauth_provider.html
 
-Following GitLab settings are available:
+Following GitLab settings are available, it unset https://gitlab.com will
+be used.
 
-GITLAB_USER_AUTHORIZATION_URL:
-    Override authorize endpoint to request an authorization token. For your
+GITLAB_URL:
+    Override endpoint to request an authorization and access token. For your
     private GitLab server you use:
 
-        https://your.gitlab.server.tld/oauth/authorize
-
-GITLAB_ACCESS_TOKEN_URL:
-    To request the access token from your private GitLab server you have to
-    override access token endpoint:
-
-        https://your.gitlab.server.tld/oauth/token
-
-GITLAB_USER_INFO_URL:
-    Endpoint to retrieve your user information from. For your private GitLab
-    server you use:
-
-        https://your.gitlab.server.tld/api/v3/user
+        https://your.gitlab.server.tld
 
 
 Google

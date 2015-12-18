@@ -5,8 +5,9 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class GitLabAccount(ProviderAccount):
+
     def get_profile_url(self):
-        return self.account.extra_data.get('web_url')
+        return self.account.extra_data.get('html_url')
 
     def get_avatar_url(self):
         return self.account.extra_data.get('avatar_url')

@@ -4,7 +4,21 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class BitbucketOAuth2Account(ProviderAccount):
-    pass
+    def get_profile_url(self):
+        return (self.account.extra_data
+                .get('links', {})
+                .get('html', {})
+                .get('href'))
+
+    def get_avatar_url(self):
+        return (self.account.extra_data
+                .get('links', {})
+                .get('avatar', {})
+                .get('href'))
+
+    def to_str(self):
+        dflt = super(BitbucketOAuth2Account, self).to_str()
+        return self.account.extra_data.get('display_name', dflt)
 
 
 class BitbucketOAuth2Provider(OAuth2Provider):

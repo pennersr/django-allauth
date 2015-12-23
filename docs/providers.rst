@@ -445,6 +445,27 @@ look and feel of the Persona dialog::
               'REQUEST_PARAMETERS': {'siteName': 'Example' } } }
 
 
+Pinterest
+---------
+
+The Pinterest OAuth2 documentation:
+
+    https://developers.pinterest.com/docs/api/overview/#authentication
+
+You can optionally specify additional permissions to use. If no `SCOPE` value
+is set, the Pinterest provider will use `read_public` by default.::
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'pinterest': {
+            'SCOPE': ['read_public', 'read_relationships']
+        }
+    }
+
+SCOPE
+
+For a full list of scope options, see https://developers.pinterest.com/docs/api/overview/#scopes
+
+
 SoundCloud
 ----------
 

@@ -96,6 +96,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.orcid',
     'allauth.socialaccount.providers.paypal',
     'allauth.socialaccount.providers.persona',
+    'allauth.socialaccount.providers.pinterest',
     'allauth.socialaccount.providers.reddit',
     'allauth.socialaccount.providers.soundcloud',
     'allauth.socialaccount.providers.spotify',

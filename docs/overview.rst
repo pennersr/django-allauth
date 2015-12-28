@@ -85,6 +85,8 @@ Supported Providers
 
 - Persona
 
+- Pinterest (OAuth2)
+
 - Reddit (OAuth2)
 
 - SoundCloud (OAuth2)

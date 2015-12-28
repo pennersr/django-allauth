@@ -1,8 +1,8 @@
 2015-12-28  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Several providers were added: thanks to Wendy Edwards for Reddit
-	support, Luke Crouch for Untappd support, and Daniel Widerin for
-	GitLab support.
+	support, Luke Crouch for Untappd support, Daniel Widerin for
+	GitLab support, and Yaroslav Muravsky for Pinterest support.
 
 2015-11-09  Raymond Penners  <raymond.penners@intenct.nl>
 

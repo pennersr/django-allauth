@@ -37,9 +37,15 @@ Supported Providers
 
 - AngelList (OAuth2)
 
+- Basecamp (OAuth2)
+
+- Baidu (OAuth2)
+
 - Bitbucket (OAuth)
 
 - Bitly (OAuth2)
+
+- Douban (OAuth2)
 
 - Dropbox (OAuth, OAuth2)
 
@@ -66,6 +72,8 @@ Supported Providers
 - LinkedIn (OAuth, OAuth2)
 
 - Mail.Ru (OAuth2)
+
+- Odnoklassniki (OAuth2)
 
 - OpenId
 

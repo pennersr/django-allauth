@@ -16,18 +16,20 @@ class OAuth2Client(object):
                  access_token_method,
                  access_token_url,
                  callback_url,
-                 scope):
+                 scope,
+                 scope_delimiter=' ',
+                 headers=None,
+                 basic_auth=False):
         self.request = request
         self.access_token_method = access_token_method
         self.access_token_url = access_token_url
         self.callback_url = callback_url
         self.consumer_key = consumer_key
         self.consumer_secret = consumer_secret
-        self.scope = ' '.join(scope)
+        self.scope = scope_delimiter.join(scope)
         self.state = None
-        self.custom_header = None
-        self.scope_delimiter = ' '
-        self.use_http_auth = False
+        self.headers = None
+        self.basic_auth = basic_auth
 
     def get_redirect_url(self, authorization_url, extra_params):
         params = {
@@ -42,13 +44,20 @@ class OAuth2Client(object):
         return '%s?%s' % (authorization_url, urlencode(params))
 
     def get_access_token(self, code):
-        if self.custom_header is not None:
-            headers = self.custom_header
-        data = {'client_id': self.consumer_key,
-                'redirect_uri': self.callback_url,
-                'grant_type': 'authorization_code',
-                'client_secret': self.consumer_secret,
-                'code': code}
+        data = {
+            'redirect_uri': self.callback_url,
+            'grant_type': 'authorization_code',
+            'code': code}
+        if self.basic_auth:
+            auth = requests.auth.HTTPBasicAuth(
+                self.consumer_key,
+                self.consumer_secret)
+        else:
+            auth = None
+            data.update({
+                'client_id': self.consumer_key,
+                'client_secret': self.consumer_secret
+            })
         params = None
         self._strip_empty_keys(data)
         url = self.access_token_url
@@ -56,47 +65,20 @@ class OAuth2Client(object):
             params = data
             data = None
         # TODO: Proper exception handling
-        
-        # If we are sending clientID and client secret as parameters, rather
-        # than using HTTP basic auth
-        if self.use_http_auth == False:
-            # No custom header sent
-            if self.custom_header is None:
-                resp = requests.request(self.access_token_method,
-                                url,
-                                params=params,
-                                data=data)
-            # Custom header is set    
-            if self.custom_header is not None:
-                resp = requests.request(self.access_token_method,
-                                url,
-                                params=params,
-                                data=data,
-                                headers = self.custom_header)
-         
-        # If we are using HTTP basic auth to send client ID and secret 
-        if self.use_http_auth == True:
-            post_data = {"grant_type": "authorization_code",
-                 "code": code,
-                 "redirect_uri": self.callback_url}
-            client_auth = requests.auth.HTTPBasicAuth(self.consumer_key,self.consumer_secret)
-            # No custom header set
-            if self.custom_header is None:
-                resp = requests.post(url,
-                 auth=client_auth,
-                 data=post_data)
-            # Custom header is set    
-            if self.custom_header is not None: 
-                resp = requests.post(url,
-                 auth=client_auth,
-                 data=post_data,
-                 headers=headers)   
-                            
+        resp = requests.request(
+            self.access_token_method,
+            url,
+            params=params,
+            data=data,
+            headers=self.headers,
+            auth=auth)
+
         access_token = None
         if resp.status_code == 200:
             # Weibo sends json via 'text/plain;charset=UTF-8'
-            if (resp.headers['content-type'].split(';')[0] == 'application/json'
-                or resp.text[:2] == '{"'):
+            if (resp.headers['content-type'].split(
+                ';')[0] == 'application/json'
+                    or resp.text[:2] == '{"'):
                 access_token = resp.json()
             else:
                 access_token = dict(parse_qsl(resp.text))
@@ -106,27 +88,9 @@ class OAuth2Client(object):
         return access_token
 
     def _strip_empty_keys(self, params):
-        """Added because the Dropbox OAuth2 flow doesn't 
+        """Added because the Dropbox OAuth2 flow doesn't
         work when scope is passed in, which is empty.
         """
         keys = [k for k, v in params.items() if v == '']
         for key in keys:
             del params[key]
-     
-    # Set custom header for requesting access token
-    # Needed by Reddit        
-    def set_custom_header(self, custom_header):
-         self.custom_header = custom_header
-     
-    # Set delimiter for scope (default is space) 
-    # Not necessary for Reddit, but was mentioned in another issue
-    def set_scope_delimiter(self, scope_delimiter):
-        # Adjust scope variable
-         self.scope = self.scope.replace(self.scope_delimiter, scope_delimiter)
-         self.scope_delimiter = scope_delimiter
-         
-    # Client should use HTTP basic auth for client ID and secret 
-    # rather then sending them as parameters 
-    # Required by Reddit   
-    def set_http_auth(self,use_http_auth):
-        self.use_http_auth = use_http_auth           

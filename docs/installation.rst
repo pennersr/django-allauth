@@ -77,6 +77,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.odnoklassniki',
         'allauth.socialaccount.providers.openid',
         'allauth.socialaccount.providers.persona',
+        'allauth.socialaccount.providers.reddit',
         'allauth.socialaccount.providers.soundcloud',
         'allauth.socialaccount.providers.spotify',
         'allauth.socialaccount.providers.stackexchange',

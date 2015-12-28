@@ -75,6 +75,8 @@ Supported Providers
 
 - Persona
 
+- Reddit (OAuth2)
+
 - SoundCloud (OAuth2)
 
 - Spotify (OAuth2)

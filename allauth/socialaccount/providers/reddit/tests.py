@@ -5,11 +5,11 @@ from allauth.socialaccount.tests import create_oauth2_tests
 from allauth.tests import MockedResponse
 from allauth.socialaccount.providers import registry
 
-from .provider import RedditOAuth2Provider
+from .provider import RedditProvider
 
 
-class RedditOAuth2Tests(create_oauth2_tests(registry.by_id(
-        RedditOAuth2Provider.id))):
+class RedditTests(create_oauth2_tests(registry.by_id(
+        RedditProvider.id))):
     def get_mocked_response(self):
         return [MockedResponse(200, """{
         "name": "wayward710"}""")]

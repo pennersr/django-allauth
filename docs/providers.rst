@@ -246,6 +246,25 @@ App registration
     https://github.com/settings/applications/new
 
 
+GitLab
+------
+
+The GitLab provider works by default with https://gitlab.com. It allows you
+to connect to your private GitLab server and use GitLab as an OAuth2
+authentication provider as described in GitLab docs here:
+
+    http://doc.gitlab.com/ce/integration/oauth_provider.html
+
+Following GitLab settings are available, it unset https://gitlab.com will
+be used.
+
+GITLAB_URL:
+    Override endpoint to request an authorization and access token. For your
+    private GitLab server you use:
+
+        https://your.gitlab.server.tld
+
+
 Google
 ------
 

@@ -535,6 +535,36 @@ The configuration is as follows:
 * Key, is not needed, leave blank
 
 
+Untappd
+-------
+
+App registration
+****************
+
+    https://untappd.com/api/register?register=new
+
+In the app creation form fill in the development callback URL. E.g.::
+
+    http://127.0.0.1:8000/accounts/untappd/login/callback/
+
+For production, make it your production host. E.g.::
+
+   http://yoursite.com/accounts/untappd/login/callback/
+
+SocialApp configuration
+***********************
+
+The configuration values come from your API dashboard on Untappd:
+
+    https://untappd.com/api/dashboard
+
+* Provider: "Untappd"
+* Name: "Untappd"
+* Client id: "Client ID" from Untappd
+* Secret key: "Client Secret" from Untappd
+* Sites: choose your site
+
+
 Vimeo
 -----
 

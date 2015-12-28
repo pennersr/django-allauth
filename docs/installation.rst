@@ -69,6 +69,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.feedly',
         'allauth.socialaccount.providers.fxa',
         'allauth.socialaccount.providers.github',
+        'allauth.socialaccount.providers.gitlab',
         'allauth.socialaccount.providers.google',
         'allauth.socialaccount.providers.hubic',
         'allauth.socialaccount.providers.instagram',

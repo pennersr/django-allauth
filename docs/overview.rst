@@ -63,6 +63,8 @@ Supported Providers
 
 - Github (OAuth2)
 
+- GitLab (OAuth2)
+
 - Google (OAuth2)
 
 - Hubic (OAuth2)

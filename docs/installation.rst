@@ -85,6 +85,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.tumblr',
         'allauth.socialaccount.providers.twitch',
         'allauth.socialaccount.providers.twitter',
+        'allauth.socialaccount.providers.untappd',
         'allauth.socialaccount.providers.vimeo',
         'allauth.socialaccount.providers.vk',
         'allauth.socialaccount.providers.weibo',

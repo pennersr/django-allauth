@@ -99,6 +99,8 @@ Supported Providers
 
 - Twitter (OAuth)
 
+- Untappd (OAuth2)
+
 - Vimeo (OAuth)
 
 - VK (OAuth2)

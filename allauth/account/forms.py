@@ -417,10 +417,15 @@ class ResetPasswordForm(forms.Form):
         return self.cleaned_data["email"]
 
     def save(self, request, **kwargs):
-
+        current_site = get_current_site(request)
         email = self.cleaned_data["email"]
         token_generator = kwargs.get("token_generator",
                                      default_token_generator)
+
+        def deprecated_site():
+            warnings.warn("Context variable `site` deprecated, use"
+                          "`current_site` instead", DeprecationWarning)
+            return current_site
 
         for user in self.users:
 
@@ -430,8 +435,6 @@ class ResetPasswordForm(forms.Form):
             # password_reset = PasswordReset(user=user, temp_key=temp_key)
             # password_reset.save()
 
-            current_site = get_current_site(request)
-
             # send the password reset email
             path = reverse("account_reset_password_from_key",
                            kwargs=dict(uidb36=user_pk_to_url_str(user),
@@ -439,10 +442,13 @@ class ResetPasswordForm(forms.Form):
             url = build_absolute_uri(
                 request, path,
                 protocol=app_settings.DEFAULT_HTTP_PROTOCOL)
-            context = {"site": current_site,
+
+            context = {"site": deprecated_site,
+                       "current_site": current_site,
                        "user": user,
                        "password_reset_url": url,
                        "request": request}
+
             if app_settings.AUTHENTICATION_METHOD \
                     != AuthenticationMethod.EMAIL:
                 context['username'] = user_username(user)

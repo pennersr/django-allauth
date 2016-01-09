@@ -69,6 +69,18 @@ Development callback URL
     https://localhost:8000/accounts/basecamp/login/callback/
 
 
+Draugiem
+---------
+
+Register your app here: https://www.draugiem.lv/applications/dev/create/?type=4
+
+Authentication documentation:
+    https://www.draugiem.lv/applications/dev/docs/passport/
+
+Development callback URL:
+    http://localhost:8000/accounts/draugiem/login/callback/
+
+
 Edmodo
 ------
 

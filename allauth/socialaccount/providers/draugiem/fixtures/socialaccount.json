@@ -1,0 +1,16 @@
+[
+  {
+    "model": "socialaccount.socialapp",
+    "pk": 1,
+    "fields": {
+      "provider": "draugiem",
+      "name": "Draugiem",
+      "client_id": "1000",
+      "secret": "SIKR3T",
+      "key": "",
+      "sites": [
+        1
+      ]
+    }
+  }
+]

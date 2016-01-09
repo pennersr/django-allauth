@@ -4,8 +4,8 @@ from django.core.urlresolvers import reverse
 from django.utils.http import urlencode
 
 from allauth.socialaccount import providers
-from allauth.socialaccount.models import SocialLogin, SocialToken
-from allauth.utils import get_user_model
+from allauth.socialaccount.models import SocialLogin, SocialToken, SocialApp
+from allauth.utils import get_user_model, get_current_site
 from allauth.tests import TestCase, Mock, patch
 
 from . import views
@@ -13,7 +13,16 @@ from .provider import DraugiemProvider
 
 
 class DraugiemTests(TestCase):
-    fixtures = ['sites.json', 'auth.json', 'socialaccount.json']
+
+    def setUp(self):
+        self.provider = providers.registry.by_id(DraugiemProvider.id)
+        app = SocialApp.objects.create(provider=self.provider.id,
+                                       name=self.provider.id,
+                                       client_id='app123id',
+                                       key=self.provider.id,
+                                       secret='dummy')
+        app.sites.add(get_current_site())
+        self.app = app
 
     def get_draugiem_login_response(self):
         """
@@ -46,22 +55,12 @@ class DraugiemTests(TestCase):
             }
         }
 
-    def get_socialaccount_app(self):
-        """
-        Returns SocialApp model
-        """
-        provider = providers.registry.by_id(DraugiemProvider.id)
-        app = providers.registry.by_id(DraugiemProvider.id) \
-                .get_app(reverse(views.login))
-        return app
-
     def get_socialaccount(self, response, token):
         """
         Returns SocialLogin based on the data from the request
         """
         request = Mock()
-        provider = providers.registry.by_id(DraugiemProvider.id)
-        login = provider.sociallogin_from_response(request, response)
+        login = self.provider.sociallogin_from_response(request, response)
         login.token = token
         return login
 
@@ -79,11 +78,10 @@ class DraugiemTests(TestCase):
 
     def test_login_redirect(self):
         response = self.client.get(reverse(views.login), follow=False, **{'HTTP_HOST': 'localhost'})
-        app = self.get_socialaccount_app()
         redirect_url = 'http://localhost' + reverse(views.callback)
-        redirect_url_hash = md5((app.secret + redirect_url).encode('utf-8')).hexdigest()
+        redirect_url_hash = md5((self.app.secret + redirect_url).encode('utf-8')).hexdigest()
         params = {
-            'app': app.client_id,
+            'app': self.app.client_id,
             'hash': redirect_url_hash,
             'redirect': redirect_url,
         }
@@ -103,8 +101,7 @@ class DraugiemTests(TestCase):
 
             response_json = self.get_draugiem_login_response()
 
-            app = self.get_socialaccount_app()
-            token = SocialToken(app=app, token=response_json['apikey'])
+            token = SocialToken(app=self.app, token=response_json['apikey'])
             login = self.get_socialaccount(response_json, token)
 
             draugiem_complete_login.return_value = login

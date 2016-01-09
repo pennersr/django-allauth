@@ -26,7 +26,10 @@ AUTHORIZE_URL = 'http://api.draugiem.lv/authorize'
 def login(request):
     app = providers.registry.by_id(DraugiemProvider.id) \
                     .get_app(request)
-    redirect_url = '%s://%s%s' % (request.scheme, request.META['HTTP_HOST'], reverse(callback))
+    request_scheme = request.META['wsgi.url_scheme']
+    request_host = request.META['HTTP_HOST']
+    request_path = reverse(callback)
+    redirect_url = '%s://%s%s' % (request_scheme, request_host, request_path)
     redirect_url_hash = md5((app.secret + redirect_url).encode('utf-8')).hexdigest()
     params = {
         'app': app.client_id,

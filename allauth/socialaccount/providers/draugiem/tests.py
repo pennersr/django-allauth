@@ -1,5 +1,6 @@
 from hashlib import md5
 
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.utils.http import urlencode
 
@@ -15,6 +16,10 @@ from .provider import DraugiemProvider
 class DraugiemTests(TestCase):
 
     def setUp(self):
+        # workaround to create a session. see: https://code.djangoproject.com/ticket/11475
+        User.objects.create_user('anakin', 'skywalker@deathstar.com', 's1thrul3s')
+        self.client.login(username='anakin', password='s1thrul3s')
+
         self.provider = providers.registry.by_id(DraugiemProvider.id)
         app = SocialApp.objects.create(provider=self.provider.id,
                                        name=self.provider.id,

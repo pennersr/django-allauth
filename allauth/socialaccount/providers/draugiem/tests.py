@@ -26,10 +26,10 @@ class DraugiemTests(TestCase):
                 "42": {
                     "age": "266",
                     "imgl": "http://cdn.memegenerator.net/instances/500x/23395689.jpg",
-                    "surname": "Tomjak",
+                    "surname": "Skywalker",
                     "url": "/user/42/",
                     "imgi": "http://cdn.memegenerator.net/instances/500x/23395689.jpg",
-                    "nick": "",
+                    "nick": "Sky Guy",
                     "created": "09.11.1812 11:26:15",
                     "deleted": "false",
                     "imgm": "http://cdn.memegenerator.net/instances/500x/23395689.jpg",
@@ -38,7 +38,7 @@ class DraugiemTests(TestCase):
                     "uid": "42",
                     "place": "London",
                     "emailHash": "3f198f21434gfd2f2b4rs05939shk93f3815bc6aa",
-                    "name": "Roman",
+                    "name": "Anakin",
                     "adult": "1",
                     "birthday": "1750-09-13",
                     "img": "http://cdn.memegenerator.net/instances/500x/23395689.jpg"

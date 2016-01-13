@@ -3,11 +3,10 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ImproperlyConfigured
 from django.middleware.csrf import get_token
-from django.template.loader import render_to_string
-from django.template import RequestContext
 from django.utils.html import mark_safe, escapejs
 from django.utils.crypto import get_random_string
 
+from allauth.compat import render_to_string
 from allauth.utils import import_callable
 from allauth.account.models import EmailAddress
 from allauth.socialaccount import providers
@@ -150,9 +149,8 @@ class FacebookProvider(OAuth2Provider):
             "csrfToken": get_token(request)
         }
         ctx = {'fb_data': mark_safe(json.dumps(fb_data))}
-        return render_to_string('facebook/fbconnect.html',
-                                ctx,
-                                RequestContext(request))
+        return render_to_string('facebook/fbconnect.html', ctx,
+                                request=request)
 
     def get_nonce(self, request, or_create=False, pop=False):
         if pop:

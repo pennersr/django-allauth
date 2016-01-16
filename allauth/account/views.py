@@ -558,8 +558,12 @@ class PasswordResetView(AjaxCapableProcessFormViewMixin, FormView):
 
     def get_context_data(self, **kwargs):
         ret = super(PasswordResetView, self).get_context_data(**kwargs)
+        login_url = passthrough_next_redirect_url(self.request,
+                                                  reverse("account_login"),
+                                                  self.redirect_field_name)
         # NOTE: For backwards compatibility
         ret['password_reset_form'] = ret.get('form')
+        ret.update({"login_url": login_url})
         # (end NOTE)
         return ret
 

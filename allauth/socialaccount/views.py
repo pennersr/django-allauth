@@ -76,7 +76,7 @@ class LoginErrorView(TemplateView):
 login_error = LoginErrorView.as_view()
 
 
-class ConnectionsView(FormView):
+class ConnectionsView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "socialaccount/connections.html"
     form_class = DisconnectForm
     success_url = reverse_lazy("socialaccount_connections")

@@ -74,6 +74,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.bitly',
     'allauth.socialaccount.providers.coinbase',
     'allauth.socialaccount.providers.douban',
+    'allauth.socialaccount.providers.draugiem',
     'allauth.socialaccount.providers.dropbox',
     'allauth.socialaccount.providers.dropbox_oauth2',
     'allauth.socialaccount.providers.edmodo',

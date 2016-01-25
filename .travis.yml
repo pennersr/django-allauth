@@ -16,7 +16,8 @@ cache:
   directories:
     - $HOME/.cache/pip
 install:
- - pip install "pip>=7.0.2" wheel
+ # pip >=8 dropped Python 3.2 support
+ - pip install "pip<8.0.0" wheel
  - pip install "$DJANGO" "coverage==3.7.1" coveralls "mock>=1.0.1"
  - pip install .
 matrix:

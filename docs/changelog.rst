@@ -3,6 +3,13 @@ Changelog
 
 This chapter contains notes on upgrading.
 
+From 0.24.0
+***********
+
+- Setting a password after logging in with a social account no longer logs out
+  the user by default on Django 1.7+. Setting an initial password and changing
+  the password both respect `settings.ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE`.
+
 From 0.23.0
 ***********
 

@@ -60,7 +60,7 @@ ACCOUNT_LOGOUT_ON_GET (=False)
 
 ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE (=False)
   Determines whether or not the user is automatically logged out after
-  changing the password. See documentation for `Django's session invalidation on password change <https://docs.djangoproject.com/en/1.8/topics/auth/default/#session-invalidation-on-password-change>`_. (Django 1.7+)
+  changing or setting their password. See documentation for `Django's session invalidation on password change <https://docs.djangoproject.com/en/1.8/topics/auth/default/#session-invalidation-on-password-change>`_. (Django 1.7+)
 
 ACCOUNT_LOGOUT_REDIRECT_URL (="/")
   The URL (or URL name) to return to after the user logs out. This is

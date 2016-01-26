@@ -179,11 +179,11 @@ def create_oauth2_tests(provider):
                                  'refresh_token', ''))
 
     def test_account_refresh_token_saved_next_login(self):
-        '''
+        """
         fails if a login missing a refresh token, deletes the previously
         saved refresh token. Systems such as google's oauth only send
         a refresh token on first login.
-        '''
+        """
         self.test_account_tokens(multiple_login=True)
 
     def login(self, resp_mock, process='login',

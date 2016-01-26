@@ -205,11 +205,7 @@ signup = SignupView.as_view()
 
 class ConfirmEmailView(TemplateResponseMixin, View):
 
-    def get_template_names(self):
-        if self.request.method == 'POST':
-            return ["account/email_confirmed.html"]
-        else:
-            return ["account/email_confirm.html"]
+    template_name = "account/email_confirm.html"
 
     def get(self, *args, **kwargs):
         try:

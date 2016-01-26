@@ -18,6 +18,11 @@ from django.core.exceptions import ValidationError
 from allauth.compat import OrderedDict
 
 try:
+    from django.contrib.auth import update_session_auth_hash
+except ImportError:
+    update_session_auth_hash = None
+
+try:
     from django.utils.encoding import force_text
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
@@ -57,6 +62,15 @@ def get_login_redirect_url(request, url=None, redirect_field_name="next"):
     return redirect_url
 
 _user_display_callable = None
+
+
+def logout_on_password_change(request, user):
+    # Since it is the default behavior of Django to invalidate all sessions on
+    # password change, this function actually has to preserve the session when
+    # logout isn't desired.
+    if (update_session_auth_hash is not None and
+            not app_settings.LOGOUT_ON_PASSWORD_CHANGE):
+        update_session_auth_hash(request, user)
 
 
 def default_user_display(user):

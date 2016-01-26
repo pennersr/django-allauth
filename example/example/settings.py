@@ -147,6 +147,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.linkedin',
     'allauth.socialaccount.providers.openid',
     'allauth.socialaccount.providers.persona',
+    'allauth.socialaccount.providers.reddit',
     'allauth.socialaccount.providers.soundcloud',
     'allauth.socialaccount.providers.stackexchange',
     'allauth.socialaccount.providers.twitch',
@@ -154,7 +155,6 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.vimeo',
     'allauth.socialaccount.providers.weibo',
     'allauth.socialaccount.providers.xing',
-
     'example.demo'
 )
 

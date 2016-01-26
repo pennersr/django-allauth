@@ -1,12 +1,12 @@
-from allauth.socialaccount.tests import create_oauth2_tests
-from allauth.tests import MockedResponse
-from allauth.socialaccount.providers import registry
+from allauth.socialaccount.tests import OAuth2TestsMixin
+from allauth.tests import MockedResponse, TestCase
 
 from .provider import AngelListProvider
 
 
-class AngelListTests(create_oauth2_tests(registry
-                                         .by_id(AngelListProvider.id))):
+class AngelListTests(OAuth2TestsMixin, TestCase):
+    provider_id = AngelListProvider.id
+
     def get_mocked_response(self):
         return MockedResponse(200, """
 {"name":"pennersr","id":424732,"bio":"","follower_count":0,

@@ -69,6 +69,18 @@ Development callback URL
     https://localhost:8000/accounts/basecamp/login/callback/
 
 
+Draugiem
+---------
+
+Register your app here: https://www.draugiem.lv/applications/dev/create/?type=4
+
+Authentication documentation:
+    https://www.draugiem.lv/applications/dev/docs/passport/
+
+Development callback URL:
+    http://localhost:8000/accounts/draugiem/login/callback/
+
+
 Edmodo
 ------
 
@@ -192,7 +204,7 @@ VERIFIED_EMAIL:
     treat e-mail addresses from Facebook as unverified. But, if you
     feel that is too paranoid, then use this setting to mark them as
     verified. Due to lack of an official statement from the side of Facebook,
-    attemps have been made to
+    attempts have been made to
     `reverse engineer the meaning of the verified flag <https://stackoverflow.com/questions/14280535/is-it-possible-to-check-if-an-email-is-confirmed-on-facebook>`_.
     Do know that by setting this to `True` you may be introducing a security risk.
 
@@ -246,6 +258,25 @@ App registration
     https://github.com/settings/applications/new
 
 
+GitLab
+------
+
+The GitLab provider works by default with https://gitlab.com. It allows you
+to connect to your private GitLab server and use GitLab as an OAuth2
+authentication provider as described in GitLab docs here:
+
+    http://doc.gitlab.com/ce/integration/oauth_provider.html
+
+Following GitLab settings are available, it unset https://gitlab.com will
+be used.
+
+GITLAB_URL:
+    Override endpoint to request an authorization and access token. For your
+    private GitLab server you use:
+
+        https://your.gitlab.server.tld
+
+
 Google
 ------
 
@@ -262,7 +293,7 @@ After you create a project you will have to create a "Client ID" and fill in som
 
 Under "APIs & auth" go to "Credentials" and create a new Client ID. Probably you will want a "Web application" Client ID. Provide your domain name or test domain name in "Authorized JavaScript origins". Finally fill in "http://127.0.0.1:8000/accounts/google/login/callback/" in the "Authorized redirect URI" field. You can fill multiple URLs, one for each test domain.After creating the Client ID you will find all details for the Django configuration on this page.
 
-Users that login using the app will be presented a consent form. For this to work additional information is required. Under "APIs & auth" go to "Consent screen" and atleast provide an email and product name.
+Users that login using the app will be presented a consent form. For this to work additional information is required. Under "APIs & auth" go to "Consent screen" and at least provide an email and product name.
 
 
 Django configuration
@@ -287,6 +318,16 @@ Optionally, you can specify the scope to use as follows::
 
 By default, `profile` scope is required, and optionally `email` scope
 depending on whether or not `SOCIALACCOUNT_QUERY_EMAIL` is enabled.
+
+
+Instagram
+---------
+
+App registration:
+    https://www.instagram.com/developer/clients/manage/
+
+Example valid redirect URI:
+    http://localhost:8000/accounts/instagram/login/callback/
 
 
 LinkedIn
@@ -372,7 +413,7 @@ following template tag::
 ORCID
 ------
 
-The ORCID provider should work out of the box provided that you are using the Production ORCID registry and the member api. If you are in development and are using the Sanbox registry, then you will need to change the urls to::
+The ORCID provider should work out of the box provided that you are using the Production ORCID registry and the member api. If you are in development and are using the Sandbox registry, then you will need to change the urls to::
 
     authorize_url = 'https://sandbox.orcid.org/oauth/authorize'
     access_token_url = 'https://api.sandbox.orcid.org/oauth/token'
@@ -417,7 +458,7 @@ Persona
 
 Mozilla Persona requires one setting, the "AUDIENCE" which needs to be the
 hardcoded hostname and port of your website. See https://developer.mozilla.org/en-US/Persona/Security_Considerations#Explicitly_specify_the_audience_parameter for more
-information why this needs to be set explicitely and can't be derived from
+information why this needs to be set explicitly and can't be derived from
 user provided data::
 
     SOCIALACCOUNT_PROVIDERS = \
@@ -435,10 +476,31 @@ look and feel of the Persona dialog::
               'REQUEST_PARAMETERS': {'siteName': 'Example' } } }
 
 
+Pinterest
+---------
+
+The Pinterest OAuth2 documentation:
+
+    https://developers.pinterest.com/docs/api/overview/#authentication
+
+You can optionally specify additional permissions to use. If no `SCOPE` value
+is set, the Pinterest provider will use `read_public` by default.::
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'pinterest': {
+            'SCOPE': ['read_public', 'read_relationships']
+        }
+    }
+
+SCOPE
+
+For a full list of scope options, see https://developers.pinterest.com/docs/api/overview/#scopes
+
+
 SoundCloud
 ----------
 
-SoundCloud allows you to choose between OAuth1 and OAuth2.  Choose the
+SoundCloud allows you to choose between OAuth1 and OAuth2. Choose the
 latter.
 
 Development callback URL
@@ -464,10 +526,19 @@ Overflow, or Server Fault). This can be controlled by means of the
             { 'SITE': 'stackoverflow' } }
 
 
+Stripe
+------
+You can register your OAuth2 app via the admin interface
+    http://example.com/accounts/soundcloud/login/callback/
+
+
+See more in documentation
+    https://stripe.com/docs/connect/standalone-accounts
+
 Twitch
 ------
 Register your OAuth2 app over at
-`http://www.twitch.tv/kraken/oauth2/clients/new`.
+    http://www.twitch.tv/kraken/oauth2/clients/new
 
 Twitter
 -------
@@ -514,6 +585,36 @@ The configuration is as follows:
 * Client id, is called "Consumer Key (API Key)" on Twitter
 * Secret key, is called "Consumer Secret (API Secret)" on Twitter
 * Key, is not needed, leave blank
+
+
+Untappd
+-------
+
+App registration
+****************
+
+    https://untappd.com/api/register?register=new
+
+In the app creation form fill in the development callback URL. E.g.::
+
+    http://127.0.0.1:8000/accounts/untappd/login/callback/
+
+For production, make it your production host. E.g.::
+
+   http://yoursite.com/accounts/untappd/login/callback/
+
+SocialApp configuration
+***********************
+
+The configuration values come from your API dashboard on Untappd:
+
+    https://untappd.com/api/dashboard
+
+* Provider: "Untappd"
+* Name: "Untappd"
+* Client id: "Client ID" from Untappd
+* Secret key: "Client Secret" from Untappd
+* Sites: choose your site
 
 
 Vimeo

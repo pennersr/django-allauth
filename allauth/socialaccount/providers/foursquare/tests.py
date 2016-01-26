@@ -1,10 +1,11 @@
-from allauth.socialaccount.tests import create_oauth2_tests
-from allauth.tests import MockedResponse
-from allauth.socialaccount.providers import registry
+from allauth.socialaccount.tests import OAuth2TestsMixin
+from allauth.tests import MockedResponse, TestCase
 
 from .provider import FoursquareProvider
 
-class FoursquareTests(create_oauth2_tests(registry.by_id(FoursquareProvider.id))):
+class FoursquareTests(OAuth2TestsMixin, TestCase):
+    provider_id = FoursquareProvider.id
+
     def get_mocked_response(self):
         return MockedResponse(200, """
                               {

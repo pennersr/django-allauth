@@ -87,7 +87,7 @@ class AjaxCapableProcessFormViewMixin(object):
 class DynamicTemplateExtensionMixin(object):
 
     def get_template_names(self):
-        return ['%s.%s' % (self.kwargs['template'],
+        return ['%s.%s' % (self.template_name.split('.')[0],
                 getattr(settings, 'ACCOUNT_TEMPLATE_EXTENSION', 'html'))]
 
 
@@ -571,7 +571,7 @@ class PasswordResetDoneView(DynamicTemplateExtensionMixin, TemplateView):
 password_reset_done = PasswordResetDoneView.as_view()
 
 
-class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, DynamicTemplateExtensionMixin, 
+class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, DynamicTemplateExtensionMixin,
                                FormView):
     template_name = "account/password_reset_from_key.html"
     form_class = ResetPasswordKeyForm

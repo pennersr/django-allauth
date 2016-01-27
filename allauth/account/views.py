@@ -9,6 +9,7 @@ from django.contrib.auth import logout as auth_logout
 from django.shortcuts import redirect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.utils.decorators import method_decorator
+from django.conf import settings
 
 from ..exceptions import ImmediateHttpResponse
 from ..utils import get_form_class, get_request_param, get_current_site
@@ -83,8 +84,16 @@ class AjaxCapableProcessFormViewMixin(object):
         return _ajax_response(self.request, response, form=form)
 
 
+class DynamicTemplateExtensionMixin(object):
+
+    def get_template_names(self):
+        return ['%s.%s' % (self.kwargs['template'],
+                getattr(settings, 'ACCOUNT_TEMPLATE_EXTENSION', 'html'))]
+
+
 class LoginView(RedirectAuthenticatedUserMixin,
                 AjaxCapableProcessFormViewMixin,
+                DynamicTemplateExtensionMixin,
                 FormView):
     form_class = LoginForm
     template_name = "account/login.html"
@@ -158,7 +167,7 @@ class CloseableSignupMixin(object):
 
 
 class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
-                 AjaxCapableProcessFormViewMixin, FormView):
+                 AjaxCapableProcessFormViewMixin, DynamicTemplateExtensionMixin, FormView):
     template_name = "account/signup.html"
     form_class = SignupForm
     redirect_field_name = "next"
@@ -302,7 +311,7 @@ class ConfirmEmailView(TemplateResponseMixin, View):
 confirm_email = ConfirmEmailView.as_view()
 
 
-class EmailView(AjaxCapableProcessFormViewMixin, FormView):
+class EmailView(AjaxCapableProcessFormViewMixin, DynamicTemplateExtensionMixin, FormView):
     template_name = "account/email.html"
     form_class = AddEmailForm
     success_url = reverse_lazy('account_email')
@@ -448,7 +457,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
 email = login_required(EmailView.as_view())
 
 
-class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
+class PasswordChangeView(AjaxCapableProcessFormViewMixin, DynamicTemplateExtensionMixin, FormView):
     template_name = "account/password_change.html"
     form_class = ChangePasswordForm
     success_url = reverse_lazy("account_change_password")
@@ -491,7 +500,7 @@ class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
 password_change = login_required(PasswordChangeView.as_view())
 
 
-class PasswordSetView(AjaxCapableProcessFormViewMixin, FormView):
+class PasswordSetView(AjaxCapableProcessFormViewMixin, DynamicTemplateExtensionMixin, FormView):
     template_name = "account/password_set.html"
     form_class = SetPasswordForm
     success_url = reverse_lazy("account_set_password")
@@ -532,7 +541,7 @@ class PasswordSetView(AjaxCapableProcessFormViewMixin, FormView):
 password_set = login_required(PasswordSetView.as_view())
 
 
-class PasswordResetView(AjaxCapableProcessFormViewMixin, FormView):
+class PasswordResetView(AjaxCapableProcessFormViewMixin, DynamicTemplateExtensionMixin, FormView):
     template_name = "account/password_reset.html"
     form_class = ResetPasswordForm
     success_url = reverse_lazy("account_reset_password_done")
@@ -556,13 +565,14 @@ class PasswordResetView(AjaxCapableProcessFormViewMixin, FormView):
 password_reset = PasswordResetView.as_view()
 
 
-class PasswordResetDoneView(TemplateView):
+class PasswordResetDoneView(DynamicTemplateExtensionMixin, TemplateView):
     template_name = "account/password_reset_done.html"
 
 password_reset_done = PasswordResetDoneView.as_view()
 
 
-class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, FormView):
+class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, DynamicTemplateExtensionMixin, 
+                               FormView):
     template_name = "account/password_reset_from_key.html"
     form_class = ResetPasswordKeyForm
     success_url = reverse_lazy("account_reset_password_from_key_done")
@@ -615,13 +625,13 @@ class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, FormView):
 password_reset_from_key = PasswordResetFromKeyView.as_view()
 
 
-class PasswordResetFromKeyDoneView(TemplateView):
+class PasswordResetFromKeyDoneView(DynamicTemplateExtensionMixin, TemplateView):
     template_name = "account/password_reset_from_key_done.html"
 
 password_reset_from_key_done = PasswordResetFromKeyDoneView.as_view()
 
 
-class LogoutView(TemplateResponseMixin, View):
+class LogoutView(TemplateResponseMixin, DynamicTemplateExtensionMixin, View):
 
     template_name = "account/logout.html"
     redirect_field_name = "next"
@@ -663,13 +673,13 @@ class LogoutView(TemplateResponseMixin, View):
 logout = LogoutView.as_view()
 
 
-class AccountInactiveView(TemplateView):
+class AccountInactiveView(DynamicTemplateExtensionMixin, TemplateView):
     template_name = 'account/account_inactive.html'
 
 account_inactive = AccountInactiveView.as_view()
 
 
-class EmailVerificationSentView(TemplateView):
+class EmailVerificationSentView(DynamicTemplateExtensionMixin, TemplateView):
     template_name = 'account/verification_sent.html'
 
 email_verification_sent = EmailVerificationSentView.as_view()

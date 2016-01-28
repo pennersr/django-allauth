@@ -30,6 +30,7 @@ import uuid
 
 
 @override_settings(
+    ACCOUNT_TEMPLATE_EXTENSION='html',
     ACCOUNT_DEFAULT_HTTP_PROTOCOL='https',
     ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.MANDATORY,
     ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.USERNAME,
@@ -198,7 +199,8 @@ class AccountTests(TestCase):
         # Extract URL for `password_reset_from_key` view and access it
         url = body[body.find('/password/reset/'):].split()[0]
         resp = self.client.get(url)
-        self.assertTemplateUsed(resp, 'account/password_reset_from_key.html')
+        self.assertTemplateUsed(
+            resp, 'account/password_reset_from_key.%s' % settings.ACCOUNT_TEMPLATE_EXTENSION)
         self.assertFalse('token_fail' in resp.context_data)
 
         # Reset the password
@@ -217,13 +219,14 @@ class AccountTests(TestCase):
         resp = self.client.post(url,
                                 {'password1': 'newpass123',
                                  'password2': 'newpass123'})
-        self.assertTemplateUsed(resp, 'account/password_reset_from_key.html')
+        self.assertTemplateUsed(
+            resp, 'account/password_reset_from_key.%s' % settings.ACCOUNT_TEMPLATE_EXTENSION)
         self.assertTrue(resp.context_data['token_fail'])
 
         # Same should happen when accessing the page directly
         response = self.client.get(url)
-        self.assertTemplateUsed(response,
-                                'account/password_reset_from_key.html')
+        self.assertTemplateUsed(
+            response, 'account/password_reset_from_key.%s' % settings.ACCOUNT_TEMPLATE_EXTENSION)
         self.assertTrue(response.context_data['token_fail'])
 
         # When in XHR views, it should respond with a 400 bad request
@@ -265,7 +268,7 @@ class AccountTests(TestCase):
         self.assertGreater(mail.outbox[0].body.find('https://'), 0)
         self.assertEqual(len(mail.outbox), 1)
         self.assertTemplateUsed(resp,
-                                'account/verification_sent.html')
+                                'account/verification_sent.%s' % settings.ACCOUNT_TEMPLATE_EXTENSION)
         # Attempt to login, unverified
         for attempt in [1, 2]:
             resp = c.post(reverse('account_login'),
@@ -279,7 +282,7 @@ class AccountTests(TestCase):
                 username='johndoe', is_active=True).exists())
 
             self.assertTemplateUsed(resp,
-                                    'account/verification_sent.html')
+                                    'account/verification_sent.%s' % settings.ACCOUNT_TEMPLATE_EXTENSION)
             # Attempt 1: no mail is sent due to cool-down ,
             # but there was already a mail in the outbox.
             self.assertEqual(len(mail.outbox), attempt)
@@ -297,7 +300,7 @@ class AccountTests(TestCase):
             .get()
         resp = c.get(reverse('account_confirm_email',
                              args=[confirmation.key]))
-        self.assertTemplateUsed(resp, 'account/email_confirm.html')
+        self.assertTemplateUsed(resp, 'account/email_confirm.%s' % settings.ACCOUNT_TEMPLATE_EXTENSION)
         c.post(reverse('account_confirm_email',
                        args=[confirmation.key]))
         resp = c.post(reverse('account_login'),
@@ -432,7 +435,7 @@ class AccountTests(TestCase):
     @override_settings(ACCOUNT_LOGOUT_ON_GET=False)
     def test_logout_view_on_post(self):
         c, resp = self._logout_view('get')
-        self.assertTemplateUsed(resp, 'account/logout.html')
+        self.assertTemplateUsed(resp, 'account/logout.%s' % settings.ACCOUNT_TEMPLATE_EXTENSION)
         resp = c.post(reverse('account_logout'))
         self.assertTemplateUsed(resp, 'account/messages/logged_out.txt')
 

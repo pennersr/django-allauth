@@ -140,6 +140,9 @@ ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS( (=True)
   By changing this setting to `False`, logged in users will not be redirected when
   they access login/signup pages.
 
+ACCOUNT_TEMPLATE_EXTENSION (="html")
+  A string defining the template extension to use, defaults to `html`.
+
 SOCIALACCOUNT_ADAPTER (="allauth.socialaccount.adapter.DefaultSocialAccountAdapter")
   Specifies the adapter class to use, allowing you to alter certain
   default behaviour.

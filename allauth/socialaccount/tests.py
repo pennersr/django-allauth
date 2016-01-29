@@ -12,6 +12,7 @@ from django.test.client import RequestFactory
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.contrib.auth.models import AnonymousUser
+from django.conf import settings
 
 from ..tests import MockedResponse, mocked_response, TestCase
 from ..account import app_settings as account_settings
@@ -104,7 +105,7 @@ class OAuthTestsMixin(object):
     def test_authentication_error(self):
         resp = self.client.get(reverse(self.provider.id + '_callback'))
         self.assertTemplateUsed(resp,
-                                'socialaccount/authentication_error.html')
+                                'socialaccount/authentication_error.%s' % getattr(settings, 'ACCOUNT_TEMPLATE_EXTENSION', 'html'))
 
 
 # For backward-compatibility with third-party provider tests that call
@@ -215,8 +216,9 @@ class OAuth2TestsMixin(object):
 
     def test_authentication_error(self):
         resp = self.client.get(reverse(self.provider.id + '_callback'))
-        self.assertTemplateUsed(resp,
-                                'socialaccount/authentication_error.html')
+        self.assertTemplateUsed(
+            resp,
+            'socialaccount/authentication_error.%s' % getattr(settings, 'ACCOUNT_TEMPLATE_EXTENSION', 'html'))
 
 
 # For backward-compatibility with third-party provider tests that call

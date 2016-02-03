@@ -93,7 +93,7 @@ class SocialAccount(models.Model):
                                       auto_now=True)
     date_joined = models.DateTimeField(verbose_name=_('date joined'),
                                        auto_now_add=True)
-    extra_data = JSONField(verbose_name=_('extra data'), default='{}')
+    extra_data = JSONField(verbose_name=_('extra data'), default=dict)
 
     class Meta:
         unique_together = ('provider', 'uid')

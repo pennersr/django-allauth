@@ -6,6 +6,7 @@ from django.middleware.csrf import get_token
 from django.template.loader import render_to_string
 from django.template import RequestContext
 from django.utils.html import mark_safe, escapejs
+from django.utils.http import urlquote
 from django.utils.crypto import get_random_string
 
 from allauth.utils import import_callable
@@ -64,8 +65,8 @@ class FacebookProvider(OAuth2Provider):
                 kwargs.get('process') or AuthProcess.LOGIN)
             action = "'%s'" % escapejs(
                 kwargs.get('action') or AuthAction.AUTHENTICATE)
-            ret = "javascript:allauth.facebook.login(%s, %s, %s)" \
-                % (next, action, process)
+            js = "allauth.facebook.login(%s, %s, %s)" % (next, action, process)
+            ret = "javascript:%s" % (urlquote(js),)
         else:
             assert method == 'oauth2'
             ret = super(FacebookProvider, self).get_login_url(request,

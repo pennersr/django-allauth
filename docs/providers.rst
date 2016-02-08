@@ -11,7 +11,7 @@ attention to the callback URL (sometimes also referred to as redirect
 URL). If you do not configure this correctly, you will receive login
 failures when attempting to log in, such as::
 
-    An error occured while attempting to login via your social network account.
+    An error occurred while attempting to login via your social network account.
 
 Use a callback URL of the form::
 

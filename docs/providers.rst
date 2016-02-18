@@ -479,6 +479,10 @@ Development callback URL
 Persona
 -------
 
+Note: Mozilla Persona will be shut down on November 30th 2016. See
+`the announcement <https://wiki.mozilla.org/Identity/Persona_Shutdown_Guidelines_for_Reliers>`_
+for details.
+
 Mozilla Persona requires one setting, the "AUDIENCE" which needs to be the
 hardcoded hostname and port of your website. See https://developer.mozilla.org/en-US/Persona/Security_Considerations#Explicitly_specify_the_audience_parameter for more
 information why this needs to be set explicitly and can't be derived from

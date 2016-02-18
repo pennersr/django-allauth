@@ -3,14 +3,16 @@ import requests
 from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
                                                           OAuth2CallbackView)
-from .provider import FirefoxAccountsProvider
+from .provider import (FirefoxAccountsProvider,
+                       FXA_OAUTH_ENDPOINT,
+                       FXA_PROFILE_ENDPOINT)
 
 
 class FirefoxAccountsOAuth2Adapter(OAuth2Adapter):
     provider_id = FirefoxAccountsProvider.id
-    access_token_url = 'https://oauth.accounts.firefox.com/v1/token'
-    authorize_url = 'https://oauth.accounts.firefox.com/v1/authorization'
-    profile_url = 'https://profile.accounts.firefox.com/v1/profile'
+    access_token_url = FXA_OAUTH_ENDPOINT + '/token'
+    authorize_url = FXA_OAUTH_ENDPOINT + '/authorization'
+    profile_url = FXA_PROFILE_ENDPOINT + '/profile'
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {'Authorization': 'Bearer {0}'.format(token.token)}

@@ -35,7 +35,7 @@ App registration (get your key and secret here)
     http://login.amazon.com/manageApps
 
 Development callback URL
-    https://example.com/amazon/login/callback/
+    https://example.com/accounts/amazon/login/callback/
 
 AngelList
 ---------

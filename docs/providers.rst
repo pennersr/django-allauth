@@ -235,6 +235,29 @@ The provider is OAuth2 based. More info:
 
 Note: This is not the same as the Mozilla Persona provider below.
 
+The following Firefox Accounts settings are available::
+
+    SOCIALACCOUNT_PROVIDERS = \
+        {'fxa':
+            'SCOPE': ['profile'],
+            'OAUTH_ENDPOINT': 'https://oauth.accounts.firefox.com/v1',
+            'PROFILE_ENDPOINT': 'https://profile.accounts.firefox.com/v1'}}
+
+
+SCOPE:
+    Requested OAuth2 scope. Default is ['profile'], which will work for
+    applications on the Mozilla trusted whitelist. If your application is not
+    on the whitelist, then define SCOPE to be ['profile:email', 'profile:uid'].
+
+OAUTH_ENDPOINT:
+    Explicitly set the OAuth2 endpoint. Default is the production endpoint
+    "https://oauth.accounts.firefox.com/v1".
+
+OAUTH_ENDPOINT:
+    Explicitly set the profile endpoint. Default is the production endpoint
+    and is "https://profile.accounts.firefox.com/v1".
+
+
 Flickr
 ------
 
@@ -455,6 +478,10 @@ Development callback URL
 
 Persona
 -------
+
+Note: Mozilla Persona will be shut down on November 30th 2016. See
+`the announcement <https://wiki.mozilla.org/Identity/Persona_Shutdown_Guidelines_for_Reliers>`_
+for details.
 
 Mozilla Persona requires one setting, the "AUDIENCE" which needs to be the
 hardcoded hostname and port of your website. See https://developer.mozilla.org/en-US/Persona/Security_Considerations#Explicitly_specify_the_audience_parameter for more

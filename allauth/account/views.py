@@ -188,7 +188,7 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
         ret = super(SignupView, self).get_context_data(**kwargs)
         form = ret['form']
         form.fields["email"].initial = self.request.session \
-            .get('account_verified_email', None)
+            .get('account_verified_email')
         login_url = passthrough_next_redirect_url(self.request,
                                                   reverse("account_login"),
                                                   self.redirect_field_name)

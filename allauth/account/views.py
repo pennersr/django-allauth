@@ -16,7 +16,8 @@ from ..utils import get_form_class, get_request_param, get_current_site
 
 from .utils import (get_next_redirect_url, complete_signup,
                     get_login_redirect_url, perform_login,
-                    passthrough_next_redirect_url, url_str_to_user_pk)
+                    passthrough_next_redirect_url, url_str_to_user_pk,
+                    logout_on_password_change)
 from .forms import (
     AddEmailForm, ChangePasswordForm,
     LoginForm, ResetPasswordKeyForm,

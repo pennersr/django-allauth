@@ -238,6 +238,13 @@ class AppSettings(object):
         return self._setting('SESSION_REMEMBER', None)
 
     @property
+    def TEMPLATE_EXTENSION(self):
+        """
+        A string defining the template extension to use, defaults to `html`.
+        """
+        return self._setting('TEMPLATE_EXTENSION', 'html')
+
+    @property
     def FORMS(self):
         return self._setting('FORMS', {})
 

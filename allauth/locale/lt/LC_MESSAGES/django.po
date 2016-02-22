@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-30 13:08+0200\n"
+"POT-Creation-Date: 2016-02-22 10:07-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,19 +19,20 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: account/adapter.py:223
+#: account/adapter.py:226
 msgid "Usernames can only contain letters, digits and @/./+/-/_."
 msgstr "Naudotojo vardui galima naudoti tik raides, skaičius ir @/./+/-/_."
 
-#: account/adapter.py:230
+#: account/adapter.py:233
 msgid "Username can not be used. Please use other username."
-msgstr "Šis naudotojo vardas negalimas. Prašome pasirinkti kitą naudotojo vardą."
+msgstr ""
+"Šis naudotojo vardas negalimas. Prašome pasirinkti kitą naudotojo vardą."
 
-#: account/adapter.py:244
+#: account/adapter.py:247
 msgid "This username is already taken. Please choose another."
 msgstr "Šis naudotojo vardas jau užimtas. Prašome pasirinkti kitą."
 
-#: account/adapter.py:261
+#: account/adapter.py:264
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Slaptažodis turi būti sudarytas mažiausiai iš {0} simbolių."
@@ -276,7 +277,8 @@ msgstr "token secret"
 
 #: socialaccount/models.py:134
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
-msgstr "\"oauth_token_secret\" (OAuth1) arba atnaujintas atpažinimo ženklas (OAuth2)"
+msgstr ""
+"\"oauth_token_secret\" (OAuth1) arba atnaujintas atpažinimo ženklas (OAuth2)"
 
 #: socialaccount/models.py:136
 msgid "expires at"
@@ -370,7 +372,8 @@ msgid ""
 "an e-mail address so you can receive notifications, reset your password, etc."
 msgstr ""
 "Šiuo metu jūs neturite nustatyto el. pašto adreso. Rekomenduojame pridėti "
-"el. pašto adresą, kad gautumėte pranešimus, galėtumėte atstatyti slaptažodį ir pan."
+"el. pašto adresą, kad gautumėte pranešimus, galėtumėte atstatyti slaptažodį "
+"ir pan."
 
 #: templates/account/email.html:48
 msgid "Add E-mail Address"
@@ -397,9 +400,8 @@ msgid ""
 msgstr ""
 "Su jumis sveikinasi %(site_name)s\n"
 "\n"
-"Jūs gavote šį laišką, kadangi naudotojas %(user_display)s iš "
-"%(site_domain)s prijungė šį el. pašto adresą prie savo "
-"paskyros.\n"
+"Jūs gavote šį laišką, kadangi naudotojas %(user_display)s iš %(site_domain)s "
+"prijungė šį el. pašto adresą prie savo paskyros.\n"
 "\n"
 "Tam, kad patvirtintumėte prijungimą sekite šia nuoroda: %(activate_url)s\n"
 
@@ -429,9 +431,10 @@ msgstr ""
 "Su jumis sveikinasi %(site_name)s\n"
 "\n"
 "Jūs gavote šį laišką, kadangi jūs arba kažkas kitas pateikė slaptažodžio "
-"keitimo užklausą paskyrai susietai su šiuo el. pašto adresu iš %(site_domain)s.\n"
-"Jei jūs neteikėte slaptažodžio keitimo užklausos, galite ignoruoti šį laišką. "
-"Kad pakeistumėte savo slaptažodį sekite žemiau esančia nuoroda."
+"keitimo užklausą paskyrai susietai su šiuo el. pašto adresu iš "
+"%(site_domain)s.\n"
+"Jei jūs neteikėte slaptažodžio keitimo užklausos, galite ignoruoti šį "
+"laišką. Kad pakeistumėte savo slaptažodį sekite žemiau esančia nuoroda."
 
 #: templates/account/email/password_reset_key_message.txt:8
 #, python-format
@@ -453,8 +456,6 @@ msgstr "Slaptažodžio keitimo el. paštas"
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
-#: templates/account/email_confirmed.html:6
-#: templates/account/email_confirmed.html:11
 msgid "Confirm E-mail Address"
 msgstr "Patvirtinkite el. pašto adresą"
 
@@ -481,15 +482,6 @@ msgstr ""
 "klaidinga. Prašome <a href=\"%(email_url)s\">pateikti naują el. pašto "
 "patvirtinimo užklausimą</a>."
 
-#: templates/account/email_confirmed.html:15
-#, python-format
-msgid ""
-"You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
-"mail address for user %(user_display)s."
-msgstr ""
-"Jūs patvirtinote, kad <a href=\"mailto:%(email)s\">%(email)s</a> yra "
-"%(user_display)s naudotojo el. pašto adresas."
-
 #: templates/account/login.html:6 templates/account/login.html.py:10
 #: templates/account/login.html:43
 msgid "Sign In"
@@ -504,8 +496,8 @@ msgid ""
 "for a %(site_name)s account and sign in below:"
 msgstr ""
 "Prašome prisijungti viena\n"
-"iš jūsų turimų trečios šalies paskyrų. Arba, <a href=\"%(signup_url)s\">"
-"susikurkite</a>\n"
+"iš jūsų turimų trečios šalies paskyrų. Arba, <a href=\"%(signup_url)s"
+"\">susikurkite</a>\n"
 "naują %(site_name)s paskyrą ir prisijunkite žemiau:"
 
 #: templates/account/login.html:25
@@ -601,8 +593,8 @@ msgid ""
 "Forgotten your password? Enter your e-mail address below, and we'll send you "
 "an e-mail allowing you to reset it."
 msgstr ""
-"Pamiršote slaptažodį? Įveskite savo el. pašto adresą žemiau ir mes "
-"išsiūsime jums laišką, kurio pagalba galėsite pasikeisti slaptažodį."
+"Pamiršote slaptažodį? Įveskite savo el. pašto adresą žemiau ir mes išsiūsime "
+"jums laišką, kurio pagalba galėsite pasikeisti slaptažodį."
 
 #: templates/account/password_reset.html:20
 msgid "Reset My Password"
@@ -632,8 +624,8 @@ msgid ""
 "a>."
 msgstr ""
 "Slaptažodžio atstatymo nuoroda klaidinga, taip gali būti dėl to, kad nuoroda "
-"jau buvo kartą panaudota.  Prašome <a href=\"%(passwd_reset_url)s\">"
-"pakartoti slaptažodžio atstatymą</a>."
+"jau buvo kartą panaudota.  Prašome <a href=\"%(passwd_reset_url)s"
+"\">pakartoti slaptažodžio atstatymą</a>."
 
 #: templates/account/password_reset_from_key.html:17
 msgid "change password"
@@ -654,8 +646,7 @@ msgid "Signup"
 msgstr "Registracija"
 
 #: templates/account/signup.html:8 templates/account/signup.html.py:18
-#: templates/socialaccount/signup.html:8
-#: templates/socialaccount/signup.html:19
+#: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
 msgid "Sign Up"
 msgstr "Registruotis"
 
@@ -663,8 +654,7 @@ msgstr "Registruotis"
 #, python-format
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr ""
-"Jau turite paskyrą? Prašome <a href=\"%(login_url)s\">prisijungti</a>."
+msgstr "Jau turite paskyrą? Prašome <a href=\"%(login_url)s\">prisijungti</a>."
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:8
@@ -743,7 +733,8 @@ msgstr "Socialinio tinklo prisijungimo klaida"
 msgid ""
 "An error occurred while attempting to login via your social network account."
 msgstr ""
-"Įvyko nenumatyta klaida bandant prisijungti per jūsų socialinio tinklo paskyrą."
+"Įvyko nenumatyta klaida bandant prisijungti per jūsų socialinio tinklo "
+"paskyrą."
 
 #: templates/socialaccount/connections.html:5
 #: templates/socialaccount/connections.html:8
@@ -761,8 +752,7 @@ msgstr ""
 #: templates/socialaccount/connections.html:43
 msgid ""
 "You currently have no social network accounts connected to this account."
-msgstr ""
-"Šiuo metu jūs neturite nei vienos prijungtos socialinės paskyros."
+msgstr "Šiuo metu jūs neturite nei vienos prijungtos socialinės paskyros."
 
 #: templates/socialaccount/connections.html:46
 msgid "Add a 3rd Party Account"
@@ -780,9 +770,8 @@ msgid ""
 "accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
 "\">sign in</a>."
 msgstr ""
-"Nusprendėte atšaukti prisijungimą naudojant vieną iš esamų paskyrų.  "
-"Jei tai buvo klaida, prašome pakartoti <a href=\"%(login_url)s"
-"\">prisijungimą</a>."
+"Nusprendėte atšaukti prisijungimą naudojant vieną iš esamų paskyrų.  Jei tai "
+"buvo klaida, prašome pakartoti <a href=\"%(login_url)s\">prisijungimą</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."
@@ -804,3 +793,10 @@ msgid ""
 msgstr ""
 "Jūs beveik prisijungėte prie %(site_name)s naudodami %(provider_name)s\n"
 "paskyrą. Liko paskutinis žingsnis, užpildyti sekančią formą:"
+
+#~ msgid ""
+#~ "You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an "
+#~ "e-mail address for user %(user_display)s."
+#~ msgstr ""
+#~ "Jūs patvirtinote, kad <a href=\"mailto:%(email)s\">%(email)s</a> yra "
+#~ "%(user_display)s naudotojo el. pašto adresas."

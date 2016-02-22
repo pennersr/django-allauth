@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import django
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 SECRET_KEY = 'psst'
 SITE_ID = 1
@@ -122,3 +125,7 @@ AUTHENTICATION_BACKENDS = (
 
 STATIC_ROOT = '/tmp/'  # Dummy
 STATIC_URL = '/static/'
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'allauth', 'locale'),
+]

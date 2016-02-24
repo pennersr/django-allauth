@@ -1,5 +1,7 @@
 import logging
 import requests
+import hashlib
+import hmac
 
 
 from allauth.socialaccount.models import (SocialLogin,
@@ -18,13 +20,26 @@ from .provider import FacebookProvider, GRAPH_API_URL
 logger = logging.getLogger(__name__)
 
 
+def compute_appsecret_proof(app, token):
+    # Generate an appsecret_proof parameter to secure the Graph API call
+    # see https://developers.facebook.com/docs/graph-api/securing-requests
+    msg = token.token.encode('utf-8')
+    key = app.secret.encode('utf-8')
+    appsecret_proof = hmac.new(
+        key,
+        msg,
+        digestmod=hashlib.sha256).hexdigest()
+    return appsecret_proof
+
+
 def fb_complete_login(request, app, token):
     provider = providers.registry.by_id(FacebookProvider.id)
     resp = requests.get(
         GRAPH_API_URL + '/me',
         params={
             'fields': ','.join(provider.get_fields()),
-            'access_token': token.token
+            'access_token': token.token,
+            'appsecret_proof': compute_appsecret_proof(app, token)
         })
     resp.raise_for_status()
     extra_data = resp.json()

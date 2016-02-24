@@ -41,14 +41,14 @@ class SocialApp(models.Model):
     name = models.CharField(verbose_name=_('name'),
                             max_length=40)
     client_id = models.CharField(verbose_name=_('client id'),
-                                 max_length=100,
+                                 max_length=191,
                                  help_text=_('App ID, or consumer key'))
     secret = models.CharField(verbose_name=_('secret key'),
-                              max_length=100,
+                              max_length=191,
                               help_text=_('API secret, client secret, or'
                               ' consumer secret'))
     key = models.CharField(verbose_name=_('key'),
-                           max_length=100,
+                           max_length=191,
                            blank=True,
                            help_text=_('Key'))
     # Most apps can be used across multiple domains, therefore we use
@@ -75,23 +75,25 @@ class SocialAccount(models.Model):
     # to fit in a 'uid':
     #
     # Ideally, URLField(max_length=1024, unique=True) would be used
-    # for identity.  However, MySQL has a max_length limitation of 255
-    # for URLField. How about models.TextField(unique=True) then?
-    # Well, that won't work either for MySQL due to another bug[1]. So
-    # the only way out would be to drop the unique constraint, or
-    # switch to shorter identity URLs. Opted for the latter, as [2]
-    # suggests that identity URLs are supposed to be short anyway, at
-    # least for the old spec.
+    # for identity.  However, MySQL has a max_length limitation of 191
+    # for URLField (in case of utf8mb4). How about
+    # models.TextField(unique=True) then?  Well, that won't work
+    # either for MySQL due to another bug[1]. So the only way out
+    # would be to drop the unique constraint, or switch to shorter
+    # identity URLs. Opted for the latter, as [2] suggests that
+    # identity URLs are supposed to be short anyway, at least for the
+    # old spec.
     #
     # [1] http://code.djangoproject.com/ticket/2495.
     # [2] http://openid.net/specs/openid-authentication-1_1.html#limits
 
-    uid = models.CharField(verbose_name=_('uid'), max_length=255)
+    uid = models.CharField(verbose_name=_('uid'),
+                           max_length=app_settings.UID_MAX_LENGTH)
     last_login = models.DateTimeField(verbose_name=_('last login'),
                                       auto_now=True)
     date_joined = models.DateTimeField(verbose_name=_('date joined'),
                                        auto_now_add=True)
-    extra_data = JSONField(verbose_name=_('extra data'), default='{}')
+    extra_data = JSONField(verbose_name=_('extra data'), default=dict)
 
     class Meta:
         unique_together = ('provider', 'uid')

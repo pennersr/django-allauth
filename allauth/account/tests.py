@@ -5,7 +5,6 @@ from datetime import timedelta
 
 from django.utils.timezone import now
 from django.test.utils import override_settings
-from django.test import TestCase
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.test.client import Client
@@ -16,6 +15,7 @@ from django.db import models
 
 import unittest
 
+from allauth.tests import TestCase, patch
 from allauth.account.forms import BaseSignupForm
 from allauth.account.models import EmailAddress, EmailConfirmation
 from allauth.utils import get_user_model, get_current_site
@@ -27,7 +27,6 @@ from .adapter import get_adapter
 from .utils import url_str_to_user_pk, user_pk_to_url_str
 
 import uuid
-import mock
 
 
 @override_settings(
@@ -62,8 +61,9 @@ class AccountTests(TestCase):
         resp = self.client.post(reverse('account_login'),
                                 {'login': '@raymond.penners',
                                  'password': 'psst'})
-        self.assertEqual(resp['location'],
-                         'http://testserver'+settings.LOGIN_REDIRECT_URL)
+        self.assertRedirects(resp,
+                             'http://testserver'+settings.LOGIN_REDIRECT_URL,
+                             fetch_redirect_response=False)
 
     def test_signup_same_email_verified_externally(self):
         user = self._test_signup_email_verified_externally('john@doe.com',
@@ -128,9 +128,8 @@ class AccountTests(TestCase):
         self._create_user_and_login()
         c = self.client
         resp = c.get(reverse('account_login'))
-        self.assertEqual(302, resp.status_code)
-        self.assertEqual('http://testserver/accounts/profile/',
-                         resp['location'])
+        self.assertRedirects(resp, 'http://testserver/accounts/profile/',
+                             fetch_redirect_response=False)
 
     def test_password_set_redirect(self):
         resp = self._password_set_or_reset_redirect('account_set_password',
@@ -199,7 +198,8 @@ class AccountTests(TestCase):
         # Extract URL for `password_reset_from_key` view and access it
         url = body[body.find('/password/reset/'):].split()[0]
         resp = self.client.get(url)
-        self.assertTemplateUsed(resp, 'account/password_reset_from_key.html')
+        self.assertTemplateUsed(
+            resp, 'account/password_reset_from_key.%s' % app_settings.TEMPLATE_EXTENSION)
         self.assertFalse('token_fail' in resp.context_data)
 
         # Reset the password
@@ -218,13 +218,14 @@ class AccountTests(TestCase):
         resp = self.client.post(url,
                                 {'password1': 'newpass123',
                                  'password2': 'newpass123'})
-        self.assertTemplateUsed(resp, 'account/password_reset_from_key.html')
+        self.assertTemplateUsed(
+            resp, 'account/password_reset_from_key.%s' % app_settings.TEMPLATE_EXTENSION)
         self.assertTrue(resp.context_data['token_fail'])
 
         # Same should happen when accessing the page directly
         response = self.client.get(url)
-        self.assertTemplateUsed(response,
-                                'account/password_reset_from_key.html')
+        self.assertTemplateUsed(
+            response, 'account/password_reset_from_key.%s' % app_settings.TEMPLATE_EXTENSION)
         self.assertTrue(response.context_data['token_fail'])
 
         # When in XHR views, it should respond with a 400 bad request
@@ -238,6 +239,19 @@ class AccountTests(TestCase):
         data = json.loads(response.content.decode('utf8'))
         self.assertTrue('form_errors' in data)
         self.assertTrue('__all__' in data['form_errors'])
+
+
+    @override_settings(ACCOUNT_LOGIN_ON_PASSWORD_RESET=True)
+    def test_password_reset_ACCOUNT_LOGIN_ON_PASSWORD_RESET(self):
+        user = self._request_new_password()
+        body = mail.outbox[0].body
+        url = body[body.find('/password/reset/'):].split()[0]
+        resp = self.client.post(url,
+                                {'password1': 'newpass123',
+                                 'password2': 'newpass123'})
+        self.assertTrue(user.is_authenticated())
+        # EmailVerificationMethod.MANDATORY sends us to the confirm-email page
+        self.assertRedirects(resp, '/confirm-email/')
 
     def test_email_verification_mandatory(self):
         c = Client()
@@ -253,7 +267,7 @@ class AccountTests(TestCase):
         self.assertGreater(mail.outbox[0].body.find('https://'), 0)
         self.assertEqual(len(mail.outbox), 1)
         self.assertTemplateUsed(resp,
-                                'account/verification_sent.html')
+                                'account/verification_sent.%s' % app_settings.TEMPLATE_EXTENSION)
         # Attempt to login, unverified
         for attempt in [1, 2]:
             resp = c.post(reverse('account_login'),
@@ -266,8 +280,8 @@ class AccountTests(TestCase):
             self.assertTrue(get_user_model().objects.filter(
                 username='johndoe', is_active=True).exists())
 
-            self.assertTemplateUsed(resp,
-                                    'account/verification_sent.html')
+            self.assertTemplateUsed(
+                resp, 'account/verification_sent.%s' % app_settings.TEMPLATE_EXTENSION)
             # Attempt 1: no mail is sent due to cool-down ,
             # but there was already a mail in the outbox.
             self.assertEqual(len(mail.outbox), attempt)
@@ -285,14 +299,15 @@ class AccountTests(TestCase):
             .get()
         resp = c.get(reverse('account_confirm_email',
                              args=[confirmation.key]))
-        self.assertTemplateUsed(resp, 'account/email_confirm.html')
+        self.assertTemplateUsed(resp, 'account/email_confirm.%s' % app_settings.TEMPLATE_EXTENSION)
         c.post(reverse('account_confirm_email',
                        args=[confirmation.key]))
         resp = c.post(reverse('account_login'),
                       {'login': 'johndoe',
                        'password': 'johndoe'})
-        self.assertEqual(resp['location'],
-                         'http://testserver'+settings.LOGIN_REDIRECT_URL)
+        self.assertRedirects(resp,
+                             'http://testserver'+settings.LOGIN_REDIRECT_URL,
+                             fetch_redirect_response=False)
 
     def test_email_escaping(self):
         site = get_current_site()
@@ -320,8 +335,9 @@ class AccountTests(TestCase):
         resp = self.client.post(reverse('account_login'),
                                 {'login': 'john',
                                  'password': 'doe'})
-        self.assertEqual(resp['location'],
-                         'http://testserver'+settings.LOGIN_REDIRECT_URL)
+        self.assertRedirects(resp,
+                             'http://testserver'+settings.LOGIN_REDIRECT_URL,
+                             fetch_redirect_response=False)
 
     def test_login_unverified_account_mandatory(self):
         """Tests login behavior when email verification is mandatory."""
@@ -336,9 +352,6 @@ class AccountTests(TestCase):
                                 {'login': 'john',
                                  'password': 'doe'})
         self.assertRedirects(resp, reverse('account_email_verification_sent'))
-        self.assertEqual(
-            resp['location'],
-            'http://testserver' + reverse('account_email_verification_sent'))
 
     def test_login_inactive_account(self):
         """
@@ -421,7 +434,7 @@ class AccountTests(TestCase):
     @override_settings(ACCOUNT_LOGOUT_ON_GET=False)
     def test_logout_view_on_post(self):
         c, resp = self._logout_view('get')
-        self.assertTemplateUsed(resp, 'account/logout.html')
+        self.assertTemplateUsed(resp, 'account/logout.%s' % app_settings.TEMPLATE_EXTENSION)
         resp = c.post(reverse('account_logout'))
         self.assertTemplateUsed(resp, 'account/messages/logged_out.txt')
 
@@ -446,9 +459,9 @@ class AccountTests(TestCase):
                        'password1': 'johndoe',
                        'password2': 'johndoe'})
         # Logged in
-        self.assertEqual(resp['location'],
-                         'http://testserver'+settings.LOGIN_REDIRECT_URL)
-        self.assertEqual(resp.status_code, 302)
+        self.assertRedirects(resp,
+                             settings.LOGIN_REDIRECT_URL,
+                             fetch_redirect_response=False)
         self.assertEqual(mail.outbox[0].to, ['john@doe.com'])
         self.assertEqual(len(mail.outbox), 1)
         # Logout & login again
@@ -459,14 +472,20 @@ class AccountTests(TestCase):
         resp = c.post(reverse('account_login'),
                       {'login': 'johndoe',
                        'password': 'johndoe'})
-        self.assertEqual(resp.status_code, 302)
-        self.assertEqual(resp['location'],
-                         'http://testserver'+settings.LOGIN_REDIRECT_URL)
+        self.assertRedirects(resp,
+                             settings.LOGIN_REDIRECT_URL,
+                             fetch_redirect_response=False)
         self.assertEqual(mail.outbox[0].to, ['john@doe.com'])
         # There was an issue that we sent out email confirmation mails
         # on each login in case of optional verification. Make sure
         # this is not the case:
         self.assertEqual(len(mail.outbox), 1)
+
+    @override_settings(ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS=False)
+    def test_account_authenticated_login_redirects_is_false(self):
+        self._create_user_and_login()
+        resp = self.client.get(reverse('account_login'))
+        self.assertEqual(resp.status_code, 200)
 
 
 class EmailFormTests(TestCase):
@@ -700,7 +719,7 @@ class UtilsTests(TestCase):
     @unittest.skipUnless(hasattr(models, 'UUIDField'),
                          reason="No UUIDField in this django version")
     def test_url_str_to_pk_identifies_UUID_as_stringlike(self):
-        with mock.patch('allauth.account.utils.get_user_model') as mocked_gum:
+        with patch('allauth.account.utils.get_user_model') as mocked_gum:
             mocked_gum.return_value = self.UUIDUser
             self.assertEqual(url_str_to_user_pk(self.user_id),
                              self.user_id)

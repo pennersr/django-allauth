@@ -183,6 +183,10 @@ class AppSettings(object):
         return self._setting('CONFIRM_EMAIL_ON_GET', False)
 
     @property
+    def AUTHENTICATED_LOGIN_REDIRECTS(self):
+        return self._setting('AUTHENTICATED_LOGIN_REDIRECTS', True)
+
+    @property
     def LOGIN_ON_EMAIL_CONFIRMATION(self):
         """
         Automatically log the user in once they confirmed their email address
@@ -232,6 +236,13 @@ class AppSettings(object):
         remember.
         """
         return self._setting('SESSION_REMEMBER', None)
+
+    @property
+    def TEMPLATE_EXTENSION(self):
+        """
+        A string defining the template extension to use, defaults to `html`.
+        """
+        return self._setting('TEMPLATE_EXTENSION', 'html')
 
     @property
     def FORMS(self):

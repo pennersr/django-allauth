@@ -28,7 +28,7 @@ Custom User Models
 If you use a custom user model you need to specify what field
 represents the `username`, if any. Here, `username` really refers to
 the field representing the nick name the user uses to login, and not
-some unique identifier (possibly including an e-mail adddress) as is
+some unique identifier (possibly including an e-mail address) as is
 the case for Django's `AbstractBaseUser.USERNAME_FIELD`.
 
 Meaning, if your custom user model does not have a `username` field
@@ -58,6 +58,10 @@ instances are created, and populated with data
 
 - `allauth.account.adapter.DefaultAccountAdapter`:
 
+  - `is_open_for_signup(self, request)`: The default function 
+  returns `True`. You can override this method by returning `False`
+  if you want to disable account signup. 
+  
   - `new_user(self, request)`: Instantiates a new, empty `User`.
 
   - `save_user(self, request, user, form)`: Populates and saves the
@@ -76,6 +80,11 @@ instances are created, and populated with data
 
 - `allauth.socialaccount.adapter.DefaultSocialAccountAdapter`:
 
+  - `is_open_for_signup(self, request)`: The default function 
+  returns that is the same as `ACCOUNT_ADAPTER` in `settings.py`.
+  You can override this method by returning `True`/`False`
+  if you want to enable/disable socialaccount signup. 
+  
   - `new_user(self, request, sociallogin)`: Instantiates a new, empty
     `User`.
 

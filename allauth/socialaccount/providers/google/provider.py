@@ -39,7 +39,8 @@ class GoogleProvider(OAuth2Provider):
         ret = super(GoogleProvider, self).get_auth_params(request,
                                                           action)
         if action == AuthAction.REAUTHENTICATE:
-            ret['approval_prompt'] = 'force'
+            ret['prompt'] = 'consent'
+            ret['access_type'] = 'offline'
         return ret
 
     def extract_uid(self, data):

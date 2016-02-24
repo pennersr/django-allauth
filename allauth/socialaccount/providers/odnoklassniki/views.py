@@ -25,7 +25,7 @@ USER_FIELDS = ['uid',
                'pic_2',  # aka pic128max
                'pic190x190',  # small
                'pic640x480',  # medium
-               'pic1024x768', # big
+               'pic1024x768',  # big
                'location']
 
 

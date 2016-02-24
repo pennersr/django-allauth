@@ -13,6 +13,8 @@ from django.core.mail import EmailMultiAlternatives, EmailMessage
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 from django.contrib import messages
+from django.contrib.auth import login as django_login
+from django.contrib.auth import logout as django_logout
 
 try:
     from django.utils.encoding import force_text
@@ -42,6 +44,12 @@ class DefaultAccountAdapter(object):
         request.session['account_verified_email'] = None
         return ret
 
+    def stash_user(self, request, user):
+        request.session['account_user'] = user
+
+    def unstash_user(self, request):
+        return request.session.pop('account_user', None)
+
     def is_email_verified(self, request, email):
         """
         Checks whether or not the email address is already verified
@@ -54,10 +62,13 @@ class DefaultAccountAdapter(object):
             ret = verified_email.lower() == email.lower()
         return ret
 
-    def format_email_subject(self, subject):
+    def format_email_subject(self, subject, context=None):
         prefix = app_settings.EMAIL_SUBJECT_PREFIX
         if prefix is None:
-            site = get_current_site()
+            if context and 'current_site' in context:
+                site = context.get('current_site')
+            else:
+                site = get_current_site()
             prefix = "[{name}] ".format(name=site.name)
         return prefix + force_text(subject)
 
@@ -70,7 +81,7 @@ class DefaultAccountAdapter(object):
                                    context)
         # remove superfluous line breaks
         subject = " ".join(subject.splitlines()).strip()
-        subject = self.format_email_subject(subject)
+        subject = self.format_email_subject(subject, context)
 
         bodies = {}
         for ext in ['html', 'txt']:
@@ -206,7 +217,7 @@ class DefaultAccountAdapter(object):
             user.save()
         return user
 
-    def clean_username(self, username):
+    def clean_username(self, username, shallow=False):
         """
         Validates the username. You can hook into this if you want to
         (dynamically) restrict what usernames can be chosen.
@@ -221,16 +232,20 @@ class DefaultAccountAdapter(object):
         if username.lower() in username_blacklist_lower:
             raise forms.ValidationError(_("Username can not be used. "
                                           "Please use other username."))
-        username_field = app_settings.USER_MODEL_USERNAME_FIELD
-        assert username_field
-        user_model = get_user_model()
-        try:
-            query = {username_field + '__iexact': username}
-            user_model.objects.get(**query)
-        except user_model.DoesNotExist:
-            return username
-        raise forms.ValidationError(_("This username is already taken. Please "
-                                      "choose another."))
+        # Skipping database lookups when shallow is True, needed for unique
+        # username generation.
+        if not shallow:
+            username_field = app_settings.USER_MODEL_USERNAME_FIELD
+            assert username_field
+            user_model = get_user_model()
+            try:
+                query = {username_field + '__iexact': username}
+                user_model.objects.get(**query)
+            except user_model.DoesNotExist:
+                return username
+            raise forms.ValidationError(
+                _("This username is already taken. Please choose another."))
+        return username
 
     def clean_email(self, email):
         """
@@ -289,13 +304,15 @@ class DefaultAccountAdapter(object):
                             content_type='application/json')
 
     def login(self, request, user):
-        from django.contrib.auth import login
         # HACK: This is not nice. The proper Django way is to use an
         # authentication backend
         if not hasattr(user, 'backend'):
             user.backend \
                 = "allauth.account.auth_backends.AuthenticationBackend"
-        login(request, user)
+        django_login(request, user)
+
+    def logout(self, request):
+        django_logout(request)
 
     def confirm_email(self, request, email_address):
         """
@@ -350,9 +367,9 @@ class DefaultAccountAdapter(object):
             email_template = 'account/email/email_confirmation_signup'
         else:
             email_template = 'account/email/email_confirmation'
-        get_adapter().send_mail(email_template,
-                                emailconfirmation.email_address.email,
-                                ctx)
+        self.send_mail(email_template,
+                       emailconfirmation.email_address.email,
+                       ctx)
 
 
 def get_adapter():

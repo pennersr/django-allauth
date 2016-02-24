@@ -7,14 +7,14 @@ import warnings
 import json
 
 from django.test.utils import override_settings
-from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.test.client import RequestFactory
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.contrib.auth.models import AnonymousUser
+from django.conf import settings
 
-from ..tests import MockedResponse, mocked_response
+from ..tests import MockedResponse, mocked_response, TestCase
 from ..account import app_settings as account_settings
 from ..account.models import EmailAddress
 from ..account.utils import user_email, user_username
@@ -23,18 +23,22 @@ from ..utils import get_user_model, get_current_site
 from .models import SocialApp, SocialAccount, SocialLogin
 from .helpers import complete_social_login
 from .views import signup
+from . import providers
 
 
-def create_oauth_tests(provider):
+class OAuthTestsMixin(object):
+    provider_id = None
 
     def get_mocked_response(self):
         pass
 
     def setUp(self):
-        app = SocialApp.objects.create(provider=provider.id,
-                                       name=provider.id,
+        super(OAuthTestsMixin, self).setUp()
+        self.provider = providers.registry.by_id(self.provider_id)
+        app = SocialApp.objects.create(provider=self.provider.id,
+                                       name=self.provider.id,
                                        client_id='app123id',
-                                       key=provider.id,
+                                       key=self.provider.id,
                                        secret='dummy')
         app.sites.add(get_current_site())
 
@@ -53,8 +57,8 @@ def create_oauth_tests(provider):
                     username=str(random.randrange(1000, 10000000)))
         resp = self.client.post(reverse('socialaccount_signup'),
                                 data=data)
-        self.assertEqual('http://testserver/accounts/profile/',
-                         resp['location'])
+        self.assertRedirects(resp, 'http://testserver/accounts/profile/',
+                             fetch_redirect_response=False)
         user = resp.context['user']
         self.assertFalse(user.has_usable_password())
         return SocialAccount.objects.get(user=user,
@@ -70,8 +74,8 @@ def create_oauth_tests(provider):
                           % self.provider.id)
             return
         resp = self.login(resp_mocks)
-        self.assertEqual('http://testserver/accounts/profile/',
-                         resp['location'])
+        self.assertRedirects(resp, 'http://testserver/accounts/profile/',
+                             fetch_redirect_response=False)
         self.assertFalse(resp.context['user'].has_usable_password())
 
     def login(self, resp_mocks, process='login'):
@@ -101,21 +105,20 @@ def create_oauth_tests(provider):
     def test_authentication_error(self):
         resp = self.client.get(reverse(self.provider.id + '_callback'))
         self.assertTemplateUsed(resp,
-                                'socialaccount/authentication_error.html')
+                                'socialaccount/authentication_error.%s' % getattr(settings, 'ACCOUNT_TEMPLATE_EXTENSION', 'html'))
 
-    impl = {'setUp': setUp,
-            'login': login,
-            'test_login': test_login,
-            'get_mocked_response': get_mocked_response,
-            'get_access_token_response': get_access_token_response,
-            'test_authentication_error': test_authentication_error}
-    class_name = 'OAuth2Tests_'+provider.id
-    Class = type(class_name, (TestCase,), impl)
-    Class.provider = provider
+
+# For backward-compatibility with third-party provider tests that call
+# create_oauth_tests() rather than using the mixin directly.
+def create_oauth_tests(provider):
+    class Class(OAuthTestsMixin, TestCase):
+        provider_id = provider.id
+    Class.__name__ = 'OAuthTests_' + provider.id
     return Class
 
 
-def create_oauth2_tests(provider):
+class OAuth2TestsMixin(object):
+    provider_id = None
 
     def get_mocked_response(self):
         pass
@@ -130,10 +133,12 @@ def create_oauth2_tests(provider):
             %s }""" % rt
 
     def setUp(self):
-        app = SocialApp.objects.create(provider=provider.id,
-                                       name=provider.id,
+        super(OAuth2TestsMixin, self).setUp()
+        self.provider = providers.registry.by_id(self.provider_id)
+        app = SocialApp.objects.create(provider=self.provider.id,
+                                       name=self.provider.id,
                                        client_id='app123id',
-                                       key=provider.id,
+                                       key=self.provider.id,
                                        secret='dummy')
         app.sites.add(get_current_site())
 
@@ -180,11 +185,11 @@ def create_oauth2_tests(provider):
                                  'refresh_token', ''))
 
     def test_account_refresh_token_saved_next_login(self):
-        '''
+        """
         fails if a login missing a refresh token, deletes the previously
         saved refresh token. Systems such as google's oauth only send
         a refresh token on first login.
-        '''
+        """
         self.test_account_tokens(multiple_login=True)
 
     def login(self, resp_mock, process='login',
@@ -211,21 +216,17 @@ def create_oauth2_tests(provider):
 
     def test_authentication_error(self):
         resp = self.client.get(reverse(self.provider.id + '_callback'))
-        self.assertTemplateUsed(resp,
-                                'socialaccount/authentication_error.html')
+        self.assertTemplateUsed(
+            resp,
+            'socialaccount/authentication_error.%s' % getattr(settings, 'ACCOUNT_TEMPLATE_EXTENSION', 'html'))
 
-    impl = {'setUp': setUp,
-            'login': login,
-            'test_login': test_login,
-            'test_account_tokens': test_account_tokens,
-            'test_account_refresh_token_saved_next_login':
-            test_account_refresh_token_saved_next_login,
-            'get_login_response_json': get_login_response_json,
-            'get_mocked_response': get_mocked_response,
-            'test_authentication_error': test_authentication_error}
-    class_name = 'OAuth2Tests_'+provider.id
-    Class = type(class_name, (TestCase,), impl)
-    Class.provider = provider
+
+# For backward-compatibility with third-party provider tests that call
+# create_oauth2_tests() rather than using the mixin directly.
+def create_oauth2_tests(provider):
+    class Class(OAuth2TestsMixin, TestCase):
+        provider_id = provider.id
+    Class.__name__ = 'OAuth2Tests_' + provider.id
     return Class
 
 
@@ -333,6 +334,33 @@ class SocialAccountTests(TestCase):
             **{account_settings.USER_MODEL_EMAIL_FIELD:
                'other@test.com'})
         self.assertNotEqual(user_username(user), 'test')
+
+    @override_settings(
+        ACCOUNT_EMAIL_REQUIRED=True,
+        ACCOUNT_USERNAME_BLACKLIST=['username', 'username1', 'username2'],
+        ACCOUNT_UNIQUE_EMAIL=True,
+        ACCOUNT_USERNAME_REQUIRED=True,
+        ACCOUNT_AUTHENTICATION_METHOD='email',
+        SOCIALACCOUNT_AUTO_SIGNUP=True)
+    def test_populate_username_in_blacklist(self):
+        factory = RequestFactory()
+        request = factory.get('/accounts/twitter/login/callback/')
+        request.user = AnonymousUser()
+        SessionMiddleware().process_request(request)
+        MessageMiddleware().process_request(request)
+
+        User = get_user_model()
+        user = User()
+        setattr(user, account_settings.USER_MODEL_USERNAME_FIELD, 'username')
+        setattr(user, account_settings.USER_MODEL_EMAIL_FIELD,
+                'username@doe.com')
+
+        account = SocialAccount(provider='twitter', uid='123')
+        sociallogin = SocialLogin(user=user, account=account)
+        complete_social_login(request, sociallogin)
+
+        self.assertNotIn(request.user.username,
+                         account_settings.USERNAME_BLACKLIST)
 
     def _email_address_clash(self, username, email):
         User = get_user_model()

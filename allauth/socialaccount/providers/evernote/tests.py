@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from allauth.socialaccount.tests import create_oauth_tests
-from allauth.tests import MockedResponse
+from allauth.socialaccount.tests import OAuthTestsMixin
+from allauth.tests import MockedResponse, TestCase
 from allauth.socialaccount.providers import registry
 
 from .provider import EvernoteProvider
 
 
-class EvernoteTests(create_oauth_tests(registry.by_id(EvernoteProvider.id))):
+class EvernoteTests(OAuthTestsMixin, TestCase):
+    provider_id = EvernoteProvider.id
 
     def get_mocked_response(self):
         return []

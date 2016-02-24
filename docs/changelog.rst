@@ -3,6 +3,25 @@ Changelog
 
 This chapter contains notes on upgrading.
 
+From 0.24.0
+***********
+
+- Setting a password after logging in with a social account no longer logs out
+  the user by default on Django 1.7+. Setting an initial password and changing
+  the password both respect `settings.ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE`.
+
+From 0.23.0
+***********
+
+- Increased `SocialApp` key/secret/token sizes to 191, decreased
+  `SocialAccount.uid` size to 191. The latter was done in order to
+  accomodate for MySQL in combination with utf8mb4 and contraints on
+  `uid`. Note that `uid` is used to store OpenID URLs, which can
+  theoretically be longer than 191 characters, although in practice
+  this does not seem to be the case. In case you really need to
+  control the `uid` length, set `settings.SOCIALACCOUNT_UID_MAX_LENGTH`
+  accordingly. Migrations are in place.
+
 From 0.21.0
 ***********
 

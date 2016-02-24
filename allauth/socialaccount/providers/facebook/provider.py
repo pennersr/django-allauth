@@ -3,11 +3,10 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ImproperlyConfigured
 from django.middleware.csrf import get_token
-from django.template.loader import render_to_string
-from django.template import RequestContext
 from django.utils.html import mark_safe, escapejs
 from django.utils.crypto import get_random_string
 
+from allauth.compat import render_to_string
 from allauth.utils import import_callable
 from allauth.account.models import EmailAddress
 from allauth.socialaccount import providers
@@ -16,7 +15,6 @@ from allauth.socialaccount.providers.base import (ProviderAccount,
                                                   AuthAction)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 from allauth.socialaccount.app_settings import QUERY_EMAIL
-from allauth.socialaccount.models import SocialApp
 
 from .locale import get_default_locale_callable
 
@@ -124,6 +122,9 @@ class FacebookProvider(OAuth2Provider):
         return ret
 
     def media_js(self, request):
+        # NOTE: Avoid loading models at top due to registry boot...
+        from allauth.socialaccount.models import SocialApp
+
         locale = self.get_locale_for_request(request)
         try:
             app = self.get_app(request)
@@ -148,9 +149,8 @@ class FacebookProvider(OAuth2Provider):
             "csrfToken": get_token(request)
         }
         ctx = {'fb_data': mark_safe(json.dumps(fb_data))}
-        return render_to_string('facebook/fbconnect.html',
-                                ctx,
-                                RequestContext(request))
+        return render_to_string('facebook/fbconnect.html', ctx,
+                                request=request)
 
     def get_nonce(self, request, or_create=False, pop=False):
         if pop:
@@ -169,7 +169,8 @@ class FacebookProvider(OAuth2Provider):
         return dict(email=data.get('email'),
                     username=data.get('username'),
                     first_name=data.get('first_name'),
-                    last_name=data.get('last_name'))
+                    last_name=data.get('last_name'),
+                    name=data.get('name'))
 
     def extract_email_addresses(self, data):
         ret = []

@@ -5,7 +5,6 @@ except ImportError:
     from datetime import datetime
     now = datetime.now
 
-import django
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -16,10 +15,12 @@ from django.utils.http import urlencode
 from django.utils.http import int_to_base36, base36_to_int
 from django.core.exceptions import ValidationError
 
-if django.VERSION > (1, 8,):
-    from collections import OrderedDict
-else:
-    from django.utils.datastructures import SortedDict as OrderedDict
+from allauth.compat import OrderedDict
+
+try:
+    from django.contrib.auth import update_session_auth_hash
+except ImportError:
+    update_session_auth_hash = None
 
 try:
     from django.utils.encoding import force_text
@@ -61,6 +62,15 @@ def get_login_redirect_url(request, url=None, redirect_field_name="next"):
     return redirect_url
 
 _user_display_callable = None
+
+
+def logout_on_password_change(request, user):
+    # Since it is the default behavior of Django to invalidate all sessions on
+    # password change, this function actually has to preserve the session when
+    # logout isn't desired.
+    if (update_session_auth_hash is not None and
+            not app_settings.LOGOUT_ON_PASSWORD_CHANGE):
+        update_session_auth_hash(request, user)
 
 
 def default_user_display(user):
@@ -316,7 +326,7 @@ def send_email_confirmation(request, user, signup=False):
                                       'email_confirmation_sent.txt',
                                       {'email': email})
     if signup:
-        request.session['account_user'] = user_pk_to_url_str(user)
+        get_adapter().stash_user(request, user_pk_to_url_str(user))
 
 
 def sync_user_email_addresses(user):
@@ -373,6 +383,8 @@ def user_pk_to_url_str(user):
     User = get_user_model()
     if (hasattr(models, 'UUIDField')
             and issubclass(type(User._meta.pk), models.UUIDField)):
+        if isinstance(user.pk, six.string_types):
+            return user.pk
         return user.pk.hex
 
     ret = user.pk
@@ -385,11 +397,15 @@ def url_str_to_user_pk(s):
     User = get_user_model()
     # TODO: Ugh, isn't there a cleaner way to determine whether or not
     # the PK is a str-like field?
+    if getattr(User._meta.pk, 'rel', None):
+        pk_field = User._meta.pk.rel.to._meta.pk
+    else:
+        pk_field = User._meta.pk
     if (hasattr(models, 'UUIDField')
-            and issubclass(type(User._meta.pk), models.UUIDField)):
+            and issubclass(type(pk_field), models.UUIDField)):
         return s
     try:
-        User._meta.pk.to_python('a')
+        pk_field.to_python('a')
         pk = s
     except ValidationError:
         pk = base36_to_int(s)

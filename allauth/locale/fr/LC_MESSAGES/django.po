@@ -428,7 +428,7 @@ msgstr "ou"
 msgid ""
 "If you have not created an account yet, then please\n"
 "<a href=\"%(signup_url)s\">sign up</a> first."
-msgstr "Si vous n'avez pas encore créé de compte, merci de vous <a href=\"%(signup_url)s\">sign up</a> au préalable."
+msgstr "Si vous n'avez pas encore créé de compte, merci de vous <a href=\"%(signup_url)s\">enregistrer</a> au préalable."
 
 #: templates/account/login.html:41
 msgid "Forgot Password?"

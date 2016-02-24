@@ -68,3 +68,12 @@ This project is sponsored by IntenCT_. If you require assistance on
 your project(s), please contact us: info@intenct.nl.
 
 .. _IntenCT: http://www.intenct.info
+
+
+Cross-Selling
+=============
+
+If you like this, you may also like:
+
+- django-trackstats: https://github.com/pennersr/django-trackstats
+- netwell: https://github.com/pennersr/netwell

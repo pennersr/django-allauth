@@ -10,12 +10,7 @@ from django.utils.http import urlencode
 from django.utils.translation import gettext as _
 
 from allauth.utils import get_request_param
-
-try:
-    from urllib.parse import parse_qsl, urlparse
-except ImportError:
-    from urlparse import parse_qsl
-    from urlparse import urlparse
+from allauth.compat import parse_qsl, urlparse
 
 import requests
 from requests_oauthlib import OAuth1

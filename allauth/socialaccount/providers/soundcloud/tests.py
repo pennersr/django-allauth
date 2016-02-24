@@ -1,10 +1,11 @@
-from allauth.socialaccount.tests import create_oauth2_tests
-from allauth.tests import MockedResponse
-from allauth.socialaccount.providers import registry
+from allauth.socialaccount.tests import OAuth2TestsMixin
+from allauth.tests import MockedResponse, TestCase
 
 from .provider import SoundCloudProvider
 
-class SoundCloudTests(create_oauth2_tests(registry.by_id(SoundCloudProvider.id))):
+class SoundCloudTests(OAuth2TestsMixin, TestCase):
+    provider_id = SoundCloudProvider.id
+
     def get_mocked_response(self):
         return MockedResponse(200, """
         {

@@ -12,7 +12,15 @@ class GitHubAccount(ProviderAccount):
 
     def to_str(self):
         dflt = super(GitHubAccount, self).to_str()
-        return self.account.extra_data.get('name', dflt)
+        return next(
+            value
+            for value in (
+                self.account.extra_data.get('name', None),
+                self.account.extra_data.get('login', None),
+                dflt
+            )
+            if value is not None
+        )
 
 
 class GitHubProvider(OAuth2Provider):

@@ -6,7 +6,6 @@ except ImportError:
     now = datetime.now
 
 from django.contrib import messages
-from django.core.urlresolvers import reverse
 from django.db import models
 from django.conf import settings
 from django.http import HttpResponseRedirect
@@ -129,7 +128,7 @@ def perform_login(request, user, email_verification,
     # `user_signed_up` signal. Furthermore, social users should be
     # stopped anyway.
     if not user.is_active:
-        return HttpResponseRedirect(reverse('account_inactive'))
+        return get_adapter().get_user_inactive_response()
 
     from .models import EmailAddress
     has_verified_email = EmailAddress.objects.filter(user=user,
@@ -143,8 +142,7 @@ def perform_login(request, user, email_verification,
     elif email_verification == EmailVerificationMethod.MANDATORY:
         if not has_verified_email:
             send_email_confirmation(request, user, signup=signup)
-            return HttpResponseRedirect(
-                reverse('account_email_verification_sent'))
+            return get_adapter().get_email_verification_sent_response()
     try:
         get_adapter().login(request, user)
         response = HttpResponseRedirect(

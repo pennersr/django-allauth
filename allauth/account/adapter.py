@@ -4,17 +4,18 @@ import re
 import warnings
 import json
 
-from django.core.urlresolvers import reverse
-from django.conf import settings
-from django.http import HttpResponse
-from django.template.loader import render_to_string
-from django.template import TemplateDoesNotExist
-from django.core.mail import EmailMultiAlternatives, EmailMessage
-from django.utils.translation import ugettext_lazy as _
 from django import forms
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login as django_login
 from django.contrib.auth import logout as django_logout
+from django.core.mail import EmailMultiAlternatives, EmailMessage
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+from django.template.loader import render_to_string
+from django.template import TemplateDoesNotExist
+from django.utils.translation import ugettext_lazy as _
 
 try:
     from django.utils.encoding import force_text
@@ -370,6 +371,22 @@ class DefaultAccountAdapter(object):
         self.send_mail(email_template,
                        emailconfirmation.email_address.email,
                        ctx)
+
+    def get_user_inactive_redirect_url(self):
+        return reverse('account_inactive')
+
+    def get_user_inactive_response(self):
+        return HttpResponseRedirect(
+            self.get_user_inactive_redirect_url()
+        )
+
+    def get_email_verification_sent_redirect_url(self):
+        return reverse('account_email_verification_sent')
+
+    def get_email_verification_sent_response(self):
+        return HttpResponseRedirect(
+            self.get_email_verification_sent_redirect_url()
+        )
 
 
 def get_adapter():

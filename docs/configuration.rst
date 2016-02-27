@@ -25,6 +25,12 @@ ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL (=None)
   case of an authenticated user. Set to `None` to use
   `settings.LOGIN_REDIRECT_URL`.
 
+ACCOUNT_EMAIL_CONFIRMATION_URL (="optional")
+  The url to send in the 'confirm your password' email. This is useful in
+  cases where this module is being used inside a rest API and you need to send the
+  confirmation to your frontend.
+  The url should conform to `http://example.com/confirm/{}`, since the key will be added to this url
+
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS (=3)
   Determines the expiration date of email confirmation mails (# of days).
 

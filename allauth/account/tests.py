@@ -47,6 +47,23 @@ class AccountTests(TestCase):
                                           provider='facebook')
             sa.sites.add(get_current_site())
 
+
+    @override_settings(
+        ACCOUNT_EMAIL_CONFIRMATION_URL='http://example.com/confirm/{}')
+    def test_confirmation_url_conf(self):
+        c = Client()
+        # Signup
+        resp = c.post(reverse('account_signup'),
+                      {'username': 'johndoe',
+                       'email': 'john@doe.com',
+                       'password1': 'johndoe',
+                       'password2': 'johndoe'},
+                      follow=True)
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(mail.outbox[0].to, ['john@doe.com'])
+        self.assertGreater(mail.outbox[0].body.find('http://example.com/confirm/'), 0)
+        self.assertEqual(len(mail.outbox), 1)
+
     @override_settings(
         ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod
         .USERNAME_EMAIL)

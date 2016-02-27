@@ -343,14 +343,19 @@ class DefaultAccountAdapter(object):
         confirmations are sent outside of the request context `request`
         can be `None` here.
         """
-        url = reverse(
-            "account_confirm_email",
-            args=[emailconfirmation.key])
-        ret = build_absolute_uri(
-            request,
-            url,
-            protocol=app_settings.DEFAULT_HTTP_PROTOCOL)
-        return ret
+        url = getattr(settings, "ACCOUNT_EMAIL_CONFIRMATION_URL", None)
+
+        if url is not None:
+            return url.format(emailconfirmation.key)
+        else:
+            url = reverse(
+                "account_confirm_email",
+                args=[emailconfirmation.key])
+            ret = build_absolute_uri(
+                request,
+                url,
+                protocol=app_settings.DEFAULT_HTTP_PROTOCOL)
+            return ret
 
     def send_confirmation_mail(self, request, emailconfirmation, signup):
         current_site = get_current_site(request)

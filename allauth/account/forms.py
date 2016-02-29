@@ -71,6 +71,7 @@ class LoginForm(forms.Form):
     }
 
     def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
         super(LoginForm, self).__init__(*args, **kwargs)
         if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
             login_widget = forms.TextInput(attrs={'type': 'email',
@@ -108,7 +109,7 @@ class LoginForm(forms.Form):
         login.
         """
         credentials = {}
-        login = self.cleaned_data["login"]
+        login = self.cleaned_data.get("login", None)
         if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
             credentials["email"] = login
         elif (app_settings.AUTHENTICATION_METHOD
@@ -118,7 +119,7 @@ class LoginForm(forms.Form):
             if "@" in login and "." in login:
                 credentials["email"] = login
             credentials["username"] = login
-        credentials["password"] = self.cleaned_data["password"]
+        credentials["password"] = self.cleaned_data.get("password", None)
         return credentials
 
     def clean_login(self):
@@ -128,6 +129,7 @@ class LoginForm(forms.Form):
     def clean(self):
         if self._errors:
             return
+        get_adapter().pre_login(self.request, **self.user_credentials())
         user = authenticate(**self.user_credentials())
         if user:
             self.user = user
@@ -150,6 +152,13 @@ class LoginForm(forms.Form):
         else:
             request.session.set_expiry(0)
         return ret
+
+    def login_failed(self, request):
+        credentials = self.user_credentials()
+        credentials = dict((k, v) for k, v in credentials.iteritems() if v)
+        if not credentials:
+            return
+        return get_adapter().login_failed(request, **self.user_credentials())
 
 
 class _DummyCustomSignupForm(forms.Form):

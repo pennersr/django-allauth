@@ -18,11 +18,8 @@ import unittest
 
 from allauth.tests import TestCase, patch
 from allauth.account.forms import BaseSignupForm
-from allauth.account.models import (
-    EmailAddress,
-    EmailConfirmation,
-    EmailConfirmationHMAC)
-
+from allauth.account.models import EmailAddress, EmailConfirmation, EmailConfirmationHMAC
+from allauth.socialaccount.models import get_social_app_model
 from allauth.utils import get_user_model, get_current_site
 
 from . import app_settings
@@ -47,7 +44,7 @@ class AccountTests(TestCase):
     def setUp(self):
         if 'allauth.socialaccount' in settings.INSTALLED_APPS:
             # Otherwise ImproperlyConfigured exceptions may occur
-            from ..socialaccount.models import SocialApp
+            SocialApp = get_social_app_model()
             sa = SocialApp.objects.create(name='testfb',
                                           provider='facebook')
             sa.sites.add(get_current_site())

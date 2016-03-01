@@ -21,11 +21,12 @@ from ..account.models import EmailAddress
 from ..account.utils import user_email, user_username
 from ..utils import get_user_model, get_current_site
 
-from .models import SocialApp, SocialAccount, SocialLogin
+from .models import SocialAccount, SocialLogin, get_social_app_model
 from .helpers import complete_social_login
 from .views import signup
 from . import providers
 
+SocialApp = get_social_app_model()
 
 class OAuthTestsMixin(object):
     provider_id = None

@@ -3,7 +3,11 @@ from django.utils.encoding import python_2_unicode_compatible
 from allauth.socialaccount import app_settings
 from allauth.account.models import EmailAddress
 
+from ..models import SocialAccount, SocialLogin, get_social_app_model
 from ..adapter import get_adapter
+
+
+SocialApp = get_social_app_model()
 
 
 class AuthProcess(object):
@@ -33,7 +37,7 @@ class Provider(object):
 
     def get_app(self, request):
         # NOTE: Avoid loading models at top due to registry boot...
-        from allauth.socialaccount.models import SocialApp
+        SocialApp = get_social_app_model()
 
         return SocialApp.objects.get_current(self.id, request)
 

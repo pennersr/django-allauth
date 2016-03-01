@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 
+from django.apps import apps as django_apps
 from django.core.exceptions import PermissionDenied
 from django.db import models
 from django.contrib.auth import authenticate
@@ -22,6 +23,17 @@ from . import app_settings
 from . import providers
 from .fields import JSONField
 from ..utils import get_request_param
+
+def get_social_app_model():
+    """
+    Returns the SocialApp model that is active in this project.
+    """
+    try:
+        return django_apps.get_model(app_settings.SOCIAL_APP_MODEL)
+    except ValueError:
+        raise ImproperlyConfigured("SOCIAL_APP_MODEL must be of the form 'app_label.model_name'")
+    except LookupError:
+        raise ImproperlyConfigured("SOCIAL_APP_MODEL refers to model '%s' that has not been installed" % app_settings.SOCIAL_APP_MODEL)
 
 
 class SocialAppManager(models.Manager):
@@ -67,6 +79,7 @@ class SocialApp(models.Model):
     sites = models.ManyToManyField(Site, blank=True)
 
     class Meta:
+        swappable = 'SOCIAL_APP_MODEL'
         verbose_name = _('social application')
         verbose_name_plural = _('social applications')
 
@@ -130,7 +143,7 @@ class SocialAccount(models.Model):
 
 @python_2_unicode_compatible
 class SocialToken(models.Model):
-    app = models.ForeignKey(SocialApp)
+    app = models.ForeignKey(app_settings.SOCIAL_APP_MODEL)
     account = models.ForeignKey(SocialAccount)
     token = models.TextField(
         verbose_name=_('token'),

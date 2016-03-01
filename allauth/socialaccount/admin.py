@@ -4,7 +4,9 @@ from django import forms
 
 from allauth.account.adapter import get_adapter
 
-from .models import SocialApp, SocialAccount, SocialToken
+from .models import SocialAccount, SocialToken, get_social_app_model
+
+SocialApp = get_social_app_model()
 
 
 class SocialAppForm(forms.ModelForm):

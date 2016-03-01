@@ -16,8 +16,12 @@ from allauth.socialaccount.providers.base import (ProviderAccount,
                                                   AuthAction)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 from allauth.socialaccount.app_settings import QUERY_EMAIL
+from allauth.socialaccount.models import get_social_app_model
 
 from .locale import get_default_locale_callable
+
+
+SocialApp = get_social_app_model()
 
 
 GRAPH_API_VERSION = getattr(settings, 'SOCIALACCOUNT_PROVIDERS', {}).get(
@@ -123,7 +127,7 @@ class FacebookProvider(OAuth2Provider):
 
     def media_js(self, request):
         # NOTE: Avoid loading models at top due to registry boot...
-        from allauth.socialaccount.models import SocialApp
+        SocialApp = get_social_app_model()
 
         locale = self.get_locale_for_request(request)
         try:

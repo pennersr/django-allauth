@@ -1,8 +1,10 @@
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase
-from allauth.socialaccount.models import SocialAccount
+from allauth.socialaccount.models import get_social_account_model
 
 from .provider import GitHubProvider
+
+SocialAccount = get_social_account_model()
 
 
 class GitHubTests(OAuth2TestsMixin, TestCase):

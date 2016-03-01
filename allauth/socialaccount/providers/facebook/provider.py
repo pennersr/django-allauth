@@ -21,7 +21,6 @@ from allauth.socialaccount.models import get_social_app_model
 from .locale import get_default_locale_callable
 
 
-SocialApp = get_social_app_model()
 
 
 GRAPH_API_VERSION = getattr(settings, 'SOCIALACCOUNT_PROVIDERS', {}).get(

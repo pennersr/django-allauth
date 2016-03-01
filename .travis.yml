@@ -32,9 +32,10 @@ matrix:
 branches:
  only:
   - master
-script:
-  - flake8 --exclude=migrations,south_migrations allauth
-  - coverage run manage.py test allauth
+script: 
+  - coverage run -p manage.py test allauth
+  - DJANGO_SETTINGS_MODULE=test_swapping_settings coverage run -p manage.py test allauth
+  - coverage combine
 after_success:
   - coverage report
   - coveralls

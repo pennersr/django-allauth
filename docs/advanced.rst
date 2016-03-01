@@ -143,8 +143,11 @@ When you do provide these yourself, note that both the text and HTML
 versions of the message are sent.
 
 If this does not suit your needs, you can hook up your own custom
-mechanism by overriding the `send_mail` method of the account adapter
-(`allauth.account.adapter.DefaultAccountAdapter`).
+mechanism by overriding the `send_mail` and `get_from_email`  methods
+of the account adapter (`allauth.account.adapter.DefaultAccountAdapter`).
+
+`get_from_email` is a hook to let you programmatically define the `from`
+field of the email.
 
 
 Custom Redirects
@@ -190,3 +193,17 @@ it is listed in `settings.INSTALLED_APPS`.  All messages (as in
 `django.contrib.messages`) are configurable by overriding their
 respective template. If you want to disable a message simply override
 the message template with a blank one.
+
+Swappable `SocialAccount`/`SocialApp`
+-------------------------------------
+
+The models :class:`allauth.socialaccount.models.SocialApp` and
+:class:`allauth.socialaccount.models.SocialAccount` are swappable.
+This means that if, before you run your first migration, you
+subclass :class:`allauth.socialaccount.models.SocialAccountABC`
+or :class:`allauth.socialaccount.models.SocialAppABC`, you can
+customize these models to your specific use case.
+
+To tell `allauth` about the change, see the settings
+`SOCIALACCOUNT_SOCIAL_APP_MODEL` and
+`SOCIALACCOUNT_SOCIAL_ACCOUNT_MODEL`.

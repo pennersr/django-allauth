@@ -30,6 +30,11 @@ from .utils import url_str_to_user_pk, user_pk_to_url_str
 
 import uuid
 
+try:
+    import mock
+except ImportError:
+    from unittest import mock
+
 
 @override_settings(
     ACCOUNT_DEFAULT_HTTP_PROTOCOL='https',
@@ -95,6 +100,22 @@ class AccountTests(TestCase):
                                  email='john@work.com',
                                  user=user,
                                  primary=True)
+
+    def test_send_signup_calls_send_mail_method(self):
+        mock_adapter = mock.Mock(spec=get_adapter(), wraps=get_adapter())
+        c = Client()
+
+        with mock.patch('allauth.account.models.get_adapter') as mock_get_adapter:
+            mock_get_adapter.return_value = mock_adapter
+            # Signup
+            resp = c.post(reverse('account_signup'),
+                          {'username': 'johndoe',
+                           'email': 'john@doe.com',
+                           'password1': 'johndoe',
+                           'password2': 'johndoe'},
+                          follow=True)
+            self.assertEqual(len(mail.outbox), 1)
+            self.assertTrue(mock_adapter.send_confirmation_mail.called)
 
     def _test_signup_email_verified_externally(self, signup_email,
                                                verified_email):
@@ -181,6 +202,16 @@ class AccountTests(TestCase):
         user = self._request_new_password()
         body = mail.outbox[0].body
         assert user.username not in body
+
+    def test_send_reset_password_calls_send_mail(self):
+        mock_adapter = mock.Mock(spec=get_adapter(), wraps=get_adapter())
+        c = Client()
+
+        with mock.patch('allauth.account.forms.get_adapter') as mock_get_adapter:
+            mock_get_adapter.return_value = mock_adapter
+            self._request_new_password()
+            # Signup
+            self.assertTrue(mock_adapter.send_mail.called)
 
     def _request_new_password(self):
         user = get_user_model().objects.create(

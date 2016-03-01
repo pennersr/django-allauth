@@ -4,14 +4,11 @@ from django import forms
 
 from allauth.account.adapter import get_adapter
 
-from .models import SocialAccount, SocialToken, get_social_app_model
-
-SocialApp = get_social_app_model()
-
+from .models import SocialToken, get_social_account_model, get_social_app_model
 
 class SocialAppForm(forms.ModelForm):
     class Meta:
-        model = SocialApp
+        model = get_social_app_model()
         exclude = []
         widgets = {
             'client_id': forms.TextInput(attrs={'size': '100'}),
@@ -55,6 +52,6 @@ class SocialTokenAdmin(admin.ModelAdmin):
         return ret
     truncated_token.short_description = 'Token'
 
-admin.site.register(SocialApp, SocialAppAdmin)
+admin.site.register(get_social_app_model(), SocialAppAdmin)
 admin.site.register(SocialToken, SocialTokenAdmin)
-admin.site.register(SocialAccount, SocialAccountAdmin)
+admin.site.register(get_social_account_model(), SocialAccountAdmin)

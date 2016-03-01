@@ -189,3 +189,17 @@ SOCIALACCOUNT_PROVIDERS (= dict)
 
 SOCIALACCOUNT_STORE_TOKENS (=True)
   Indicates whether or not the access tokens are stored in the database.
+
+SOCIALACCOUNT_SOCIAL_APP_MODEL (='socialaccount.SocialApp')
+  Which model to use as as the `SocialApp`.  As `SocialApp` is swappable,
+  this is similar to the setting for `django.contrib.auth`, `AUTH_USER`.
+  The core functionality of the `SocialApp` is implemented in an abstract
+  base class, `SocialAppABC`, and it is recommended that any replacement
+  of `SocialApp` subclass this.
+
+SOCIALACCOUNT_SOCIAL_ACCOUNT_MODEL (='socialaccount.SocialAccount')
+  Which model to use as as the `SocialAccount`.  As `SocialAccount` is swappable,
+  this is similar to the setting for `django.contrib.auth`, `AUTH_USER`
+  The core functionality of the `SocialAccount` is implemented in an abstract
+  base class, `SocialAccountABC`, and it is recomended that any replacement
+  of `SocialAccount` subclass this.

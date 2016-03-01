@@ -5,12 +5,14 @@ from django.core.urlresolvers import reverse
 from django.utils.http import urlencode
 
 from allauth.socialaccount import providers
-from allauth.socialaccount.models import SocialToken, SocialApp
-from allauth.utils import get_current_site
+from allauth.socialaccount.models import SocialLogin, SocialToken, get_social_app_model
+from allauth.utils import get_user_model, get_current_site
 from allauth.tests import TestCase, Mock, patch
 
 from . import views
 from .provider import DraugiemProvider
+
+SocialApp = get_social_app_model()
 
 
 class DraugiemTests(TestCase):

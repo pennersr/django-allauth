@@ -6,14 +6,16 @@ except ImportError:
 import warnings
 import json
 
-from django.test.utils import override_settings
-from django.core.urlresolvers import reverse
-from django.test.client import RequestFactory
+from django.conf import settings
+from django.contrib.auth.models import AnonymousUser
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
-from django.contrib.auth.models import AnonymousUser
-from django.contrib.sites.models import Site
-from django.conf import settings
+from django.core.urlresolvers import reverse
+from django.test import TestCase, SimpleTestCase
+from django.test.client import RequestFactory
+from django.test.utils import override_settings
+
+from allauth.socialaccount.providers import registry
 
 from ..tests import MockedResponse, mocked_response, TestCase
 from ..account import app_settings as account_settings
@@ -21,11 +23,16 @@ from ..account.models import EmailAddress
 from ..account.utils import user_email, user_username
 from ..utils import get_user_model, get_current_site
 
-from .models import SocialAccount, SocialLogin, get_social_app_model
+from .models import SocialLogin, SocialToken, get_social_account_model, get_social_app_model
 from .helpers import complete_social_login
 from .views import signup
-from . import providers
 
+import unittest
+
+from allauth.socialaccount import providers
+
+
+SocialAccount = get_social_account_model()
 SocialApp = get_social_app_model()
 
 class OAuthTestsMixin(object):
@@ -167,9 +174,10 @@ class OAuth2TestsMixin(object):
         self.assertRedirects(resp, reverse('socialaccount_signup'))
 
     def test_account_tokens(self, multiple_login=False):
-        email = 'some@mail.com'
+        username = str(random.randrange(1000, 10000000))
+        email = '%s@mail.com' % username
         user = get_user_model().objects.create(
-            username='user',
+            username=username,
             is_active=True,
             email=email)
         user.set_password('test')
@@ -560,3 +568,76 @@ class SocialAccountTests(TestCase):
                 verified=False,
                 primary=True
             ).exists())
+
+@override_settings(
+    SOCIALACCOUNT_AUTO_SIGNUP=True,
+    ACCOUNT_SIGNUP_FORM_CLASS=None,
+    ACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.NONE,  # noqa
+)
+@unittest.skipIf(settings.SOCIALACCOUNT_SOCIAL_APP_MODEL == 'socialaccount.SocialApp',
+                 'default SocialApp model, do not test swapping')
+class SwapSocialAppTests(OAuth2TestsMixin, TestCase):
+    provider_id = 'google'
+
+    def setUp(self):
+        self.provider = providers.registry.by_id(self.provider_id)
+        SocialApp = get_social_app_model()
+        app = SocialApp.objects.create(provider=self.provider.id,
+                                       name=self.provider.id,
+                                       client_id='app123id',
+                                       key=self.provider.id,
+                                       new_field="testing",
+                                       secret='dummy')
+        app.sites.add(get_current_site())
+        app.save()
+
+    def get_mocked_response(self,
+                            family_name='Penners',
+                            given_name='Raymond',
+                            name='Raymond Penners',
+                            email='raymond.penners@gmail.com',
+                            verified_email=True):
+        return MockedResponse(200, """
+              {"family_name": "%s", "name": "%s",
+               "picture": "https://lh5.googleusercontent.com/-GOFYGBVOdBQ/AAAAAAAAAAI/AAAAAAAAAGM/WzRfPkv4xbo/photo.jpg",
+               "locale": "nl", "gender": "male",
+               "email": "%s",
+               "link": "https://plus.google.com/108204268033311374519",
+               "given_name": "%s", "id": "108204268033311374519",
+               "verified_email": %s }
+        """ % (family_name,
+               name,
+               email,
+               given_name,
+               (repr(verified_email).lower())))
+
+    def test_get_social_app_model(self):
+        from test_swappable_app.models import SocialAppSwapped
+        self.assertEqual(get_social_app_model(), SocialAppSwapped)
+
+    def test_swap_in_new_social_app(self):
+        SocialApp = get_social_app_model()
+        app = SocialApp.objects.filter(provider=self.provider.id).first()
+
+        username = str(random.randrange(1000, 10000000))
+        email = '%s@mail.com' % username
+        user = get_user_model().objects.create(
+            username=username,
+            is_active=True,
+            email=email)
+        account = SocialAccount.objects.create(
+            user=user,
+            app=app,
+            provider=self.provider.id,
+            uid='123')
+        token = SocialToken.objects.create(
+            app=app,
+            token='abc',
+            account=account)
+        self.assertEquals(app.new_field, 'testing')
+        self.assertEquals(token.app, app)
+
+        ## Just to explicitly test that the swapped app is called
+        from test_swappable_app.models import SocialAppSwapped
+        self.assertTrue(isinstance(app, SocialAppSwapped))
+

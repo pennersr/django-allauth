@@ -7,11 +7,12 @@ from allauth.account.forms import BaseSignupForm
 from allauth.account.utils import (user_username, user_email,
                                    user_field)
 
-from .models import SocialAccount
+from .models import get_social_account_model
 from .adapter import get_adapter
 from . import app_settings
 from . import signals
 
+SocialAccount = get_social_account_model()
 
 class SignupForm(BaseSignupForm):
 

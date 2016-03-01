@@ -17,7 +17,8 @@ except ImportError:
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.account import app_settings as account_settings
 from allauth.account.models import EmailConfirmation, EmailAddress
-from allauth.socialaccount.models import SocialAccount, SocialToken
+from allauth.socialaccount.models import SocialToken, get_social_account_model
+from allauth.socialaccount.providers import registry
 from allauth.tests import MockedResponse, TestCase, patch
 from allauth.account.signals import user_signed_up
 from allauth.account.adapter import get_adapter
@@ -102,6 +103,7 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
         self.assertEqual(user.username, 'raymond.penners')
 
     def test_email_verified(self):
+        SocialAccount = get_social_account_model()
         test_email = 'raymond.penners@gmail.com'
         self.login(self.get_mocked_response(verified_email=True))
         email_address = EmailAddress.objects \
@@ -110,7 +112,7 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
         self.assertFalse(EmailConfirmation.objects
                          .filter(email_address__email=test_email)
                          .exists())
-        account = email_address.user.socialaccount_set.all()[0]
+        account = SocialAccount.objects.filter(user=email_address.user)[0]
         self.assertEqual(account.extra_data['given_name'], 'Raymond')
 
     def test_user_signed_up_signal(self):
@@ -164,6 +166,7 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
                 email_address__email=test_email).exists())
 
     def test_account_connect(self):
+        SocialAccount = get_social_account_model()
         email = 'some@mail.com'
         user = User.objects.create(username='user',
                                    is_active=True,

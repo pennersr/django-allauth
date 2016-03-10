@@ -3,6 +3,13 @@ Changelog
 
 This chapter contains notes on upgrading.
 
+From 0.24.1
+***********
+
+- The signature of the adapter method `format_email_subject` has
+  changed.  It now takes the email template `context` as a second
+  parameter.
+
 From 0.24.0
 ***********
 

@@ -6,6 +6,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 from django.conf import settings
 
+from ..account import app_settings as account_settings
 from ..account.views import (AjaxCapableProcessFormViewMixin,
                              CloseableSignupMixin,
                              RedirectAuthenticatedUserMixin)
@@ -22,7 +23,8 @@ from . import app_settings
 class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
                  AjaxCapableProcessFormViewMixin, FormView):
     form_class = SignupForm
-    template_name = 'socialaccount/signup.%s' % getattr(settings, 'ACCOUNT_TEMPLATE_EXTENSION', 'html')
+    template_name = (
+        'socialaccount/signup.' + account_settings.TEMPLATE_EXTENSION)
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS,
@@ -65,20 +67,25 @@ signup = SignupView.as_view()
 
 
 class LoginCancelledView(TemplateView):
-    template_name = "socialaccount/login_cancelled.%s" % getattr(settings, 'ACCOUNT_TEMPLATE_EXTENSION', 'html')
+    template_name = (
+        "socialaccount/login_cancelled." + account_settings.TEMPLATE_EXTENSION)
 
 login_cancelled = LoginCancelledView.as_view()
 
 
 class LoginErrorView(TemplateView):
-    template_name = "socialaccount/authentication_error.%s" % getattr(settings, 'ACCOUNT_TEMPLATE_EXTENSION', 'html')
+    template_name = (
+        "socialaccount/authentication_error." +
+        account_settings.TEMPLATE_EXTENSION)
 
 
 login_error = LoginErrorView.as_view()
 
 
 class ConnectionsView(AjaxCapableProcessFormViewMixin, FormView):
-    template_name = "socialaccount/connections.%s" % getattr(settings, 'ACCOUNT_TEMPLATE_EXTENSION', 'html')
+    template_name = (
+        "socialaccount/connections." +
+        account_settings.TEMPLATE_EXTENSION)
     form_class = DisconnectForm
     success_url = reverse_lazy("socialaccount_connections")
 

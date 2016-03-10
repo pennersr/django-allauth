@@ -26,9 +26,18 @@ from ..utils import get_request_param
 
 class SocialAppManager(models.Manager):
     def get_current(self, provider, request=None):
-        site = get_current_site(request)
-        return self.get(sites__id=site.id,
-                        provider=provider)
+        cache = {}
+        if request:
+            cache = getattr(request, '_socialapp_cache', {})
+            request._socialapp_cache = cache
+        app = cache.get(provider)
+        if not app:
+            site = get_current_site(request)
+            app = self.get(
+                sites__id=site.id,
+                provider=provider)
+            cache[provider] = app
+        return app
 
 
 @python_2_unicode_compatible

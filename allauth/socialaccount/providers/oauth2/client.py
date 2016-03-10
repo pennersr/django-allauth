@@ -4,7 +4,7 @@ except ImportError:
     from urllib import urlencode
     from urlparse import parse_qsl
 import requests
-
+from allauth.socialaccount.app_settings import PROXY_URL
 
 class OAuth2Error(Exception):
     pass
@@ -65,13 +65,25 @@ class OAuth2Client(object):
             params = data
             data = None
         # TODO: Proper exception handling
-        resp = requests.request(
-            self.access_token_method,
-            url,
-            params=params,
-            data=data,
-            headers=self.headers,
-            auth=auth)
+
+        if PROXY_URL:
+            proxy = "https://" + PROXY_URL
+            resp = requests.request(
+                self.access_token_method,
+                url,
+                params=params,
+                data=data,
+                headers=self.headers,
+                auth=auth,
+                proxies={'https': proxy})
+        else:
+            resp = requests.request(
+                self.access_token_method,
+                url,
+                params=params,
+                data=data,
+                headers=self.headers,
+                auth=auth)
 
         access_token = None
         if resp.status_code == 200:

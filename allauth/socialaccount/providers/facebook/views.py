@@ -15,7 +15,7 @@ from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
 
 from .forms import FacebookConnectForm
 from .provider import FacebookProvider, GRAPH_API_URL
-
+from allauth.socialaccount.app_settings import PROXY_URL
 
 logger = logging.getLogger(__name__)
 
@@ -34,13 +34,25 @@ def compute_appsecret_proof(app, token):
 
 def fb_complete_login(request, app, token):
     provider = providers.registry.by_id(FacebookProvider.id)
-    resp = requests.get(
-        GRAPH_API_URL + '/me',
-        params={
-            'fields': ','.join(provider.get_fields()),
-            'access_token': token.token,
-            'appsecret_proof': compute_appsecret_proof(app, token)
-        })
+
+    if PROXY_URL:
+        proxy = "https://" + PROXY_URL
+        resp = requests.get(
+            GRAPH_API_URL + '/me',
+            params={
+                'fields': ','.join(provider.get_fields()),
+                'access_token': token.token,
+                'appsecret_proof': compute_appsecret_proof(app, token)
+            },
+            proxies={'https': proxy})
+    else:
+        resp = requests.get(
+            GRAPH_API_URL + '/me',
+            params={
+                'fields': ','.join(provider.get_fields()),
+                'access_token': token.token,
+                'appsecret_proof': compute_appsecret_proof(app, token)
+            })
     resp.raise_for_status()
     extra_data = resp.json()
     login = provider.sociallogin_from_response(request, extra_data)

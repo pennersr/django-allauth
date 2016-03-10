@@ -6,6 +6,11 @@ This chapter contains notes on upgrading.
 From 0.24.1
 ***********
 
+- In order to be secure by default, users are now blocked from logging
+  in after exceeding a maximum number of failed login attempts
+  (see `ACCOUNT_LOGIN_ATTEMPTS_LIMIT`, `ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT`). Set
+  `ACCOUNT_LOGIN_ATTEMPTS_LIMIT` to `None` to disable this functionality.
+
 - The signature of the adapter method `format_email_subject` has
   changed.  It now takes the email template `context` as a second
   parameter.

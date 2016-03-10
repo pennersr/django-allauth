@@ -97,6 +97,11 @@ class LoginView(RedirectAuthenticatedUserMixin,
     def dispatch(self, request, *args, **kwargs):
         return super(LoginView, self).dispatch(request, *args, **kwargs)
 
+    def get_form_kwargs(self):
+        kwargs = super(LoginView, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, 'login', self.form_class)
 

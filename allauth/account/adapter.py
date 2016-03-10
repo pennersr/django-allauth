@@ -1,20 +1,23 @@
 from __future__ import unicode_literals
 
-import re
-import warnings
 import json
+import re
+import time
+import warnings
 
 from django import forms
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login as django_login
-from django.contrib.auth import logout as django_logout
+from django.contrib.auth import logout as django_logout, authenticate
+from django.core.cache import cache
 from django.core.mail import EmailMultiAlternatives, EmailMessage
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.template import TemplateDoesNotExist
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 try:
@@ -22,10 +25,10 @@ try:
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
-from ..utils import (import_attribute, get_user_model,
+from ..utils import (build_absolute_uri, get_current_site,
                      generate_unique_username,
-                     resolve_url, get_current_site,
-                     build_absolute_uri)
+                     get_user_model, import_attribute,
+                     resolve_url)
 
 from . import app_settings
 
@@ -379,6 +382,45 @@ class DefaultAccountAdapter(object):
     def respond_email_verification_sent(self, request, user):
         return HttpResponseRedirect(
             reverse('account_email_verification_sent'))
+
+    def _get_login_attempts_cache_key(self, request, **credentials):
+        site = get_current_site(request)
+        login = credentials.get('email', credentials.get('username'))
+        return 'allauth/login_attempts@{site_id}:{login}'.format(
+            site_id=site.pk,
+            login=login)
+
+    def pre_authenticate(self, request, **credentials):
+        if app_settings.LOGIN_ATTEMPTS_LIMIT:
+            cache_key = self._get_login_attempts_cache_key(
+                request, **credentials)
+            login_data = cache.get(cache_key, None)
+            if login_data:
+                dt = timezone.now()
+                current_attempt_time = time.mktime(dt.timetuple())
+                if len(login_data) >= app_settings.LOGIN_ATTEMPTS_LIMIT and current_attempt_time < \
+                   (login_data[-1] + app_settings.LOGIN_ATTEMPTS_TIMEOUT):
+                    raise forms.ValidationError(
+                        _('Too many failed login attempts. Try again later.'))
+
+    def authenticate(self, request, **credentials):
+        """Only authenticates, does not actually login. See `login`"""
+        self.pre_authenticate(request, **credentials)
+        user = authenticate(**credentials)
+        if user:
+            cache_key = self._get_login_attempts_cache_key(
+                request, **credentials)
+            cache.delete(cache_key)
+        else:
+            self.authentication_failed(request, **credentials)
+        return user
+
+    def authentication_failed(self, request, **credentials):
+        cache_key = self._get_login_attempts_cache_key(request, **credentials)
+        data = cache.get(cache_key, [])
+        dt = timezone.now()
+        data.append(time.mktime(dt.timetuple()))
+        cache.set(cache_key, data, app_settings.LOGIN_ATTEMPTS_TIMEOUT)
 
 
 def get_adapter():

@@ -240,7 +240,6 @@ class AccountTests(TestCase):
         self.assertTrue('form_errors' in data)
         self.assertTrue('__all__' in data['form_errors'])
 
-
     @override_settings(ACCOUNT_LOGIN_ON_PASSWORD_RESET=True)
     def test_password_reset_ACCOUNT_LOGIN_ON_PASSWORD_RESET(self):
         user = self._request_new_password()
@@ -338,6 +337,36 @@ class AccountTests(TestCase):
         self.assertRedirects(resp,
                              'http://testserver'+settings.LOGIN_REDIRECT_URL,
                              fetch_redirect_response=False)
+
+    @override_settings(
+        ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod
+        .OPTIONAL,
+        ACCOUNT_LOGIN_ATTEMPTS_LIMIT=3)
+    def test_login_failed_attempts_exceeded(self):
+        user = get_user_model().objects.create(username='john')
+        user.set_password('doe')
+        user.save()
+        EmailAddress.objects.create(user=user,
+                                    email='john@example.com',
+                                    primary=True,
+                                    verified=False)
+        for i in range(5):
+            is_valid_attempt = (i == 4)
+            is_locked = (i >= 3)
+            resp = self.client.post(
+                reverse('account_login'),
+                {'login': 'john',
+                 'password': (
+                     'doe' if is_valid_attempt
+                     else 'wrong')})
+            self.assertFormError(
+                resp,
+                'form',
+                None,
+                'Too many failed login attempts. Try again later.'
+                if is_locked
+                else
+                'The username and/or password you specified are not correct.')
 
     def test_login_unverified_account_mandatory(self):
         """Tests login behavior when email verification is mandatory."""

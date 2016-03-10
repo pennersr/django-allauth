@@ -248,6 +248,23 @@ class AppSettings(object):
     def FORMS(self):
         return self._setting('FORMS', {})
 
+    @property
+    def LOGIN_ATTEMPTS_LIMIT(self):
+        """
+        Number of failed login attempts. When this number is
+        exceeded, the user is prohibited from logging in for the
+        specified `LOGIN_ATTEMPTS_TIMEOUT`
+        """
+        return self._setting('LOGIN_ATTEMPTS_LIMIT', 5)
+
+    @property
+    def LOGIN_ATTEMPTS_TIMEOUT(self):
+        """
+        Time period from last unsuccessful login attempt, during
+        which the user is prohibited from trying to log in.  Defaults to
+        5 minutes.
+        """
+        return self._setting('LOGIN_ATTEMPTS_TIMEOUT', 60 * 5)
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

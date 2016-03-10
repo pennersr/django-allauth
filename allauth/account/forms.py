@@ -7,7 +7,6 @@ from django.core.urlresolvers import reverse
 from django.core import exceptions
 from django.utils.translation import pgettext, ugettext_lazy as _, ugettext
 
-from django.contrib.auth import authenticate
 from django.contrib.auth.tokens import default_token_generator
 
 from ..utils import (email_address_exists,
@@ -71,6 +70,7 @@ class LoginForm(forms.Form):
     }
 
     def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
         super(LoginForm, self).__init__(*args, **kwargs)
         if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
             login_widget = forms.TextInput(attrs={'type': 'email',
@@ -126,9 +126,11 @@ class LoginForm(forms.Form):
         return login.strip()
 
     def clean(self):
+        super(LoginForm, self).clean()
         if self._errors:
             return
-        user = authenticate(**self.user_credentials())
+        credentials = self.user_credentials()
+        user = get_adapter().authenticate(self.request, **credentials)
         if user:
             self.user = user
         else:

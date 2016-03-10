@@ -53,6 +53,16 @@ ACCOUNT_FORMS (={})
   Used to override forms, for example:
   `{'login': 'myapp.forms.LoginForm'}`
 
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT (=5)
+  Number of failed login attempts. When this number is
+  exceeded, the user is prohibited from logging in for the
+  specified `ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT` seconds. Set to `None`
+  to disable this functionality.
+
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT (=300)
+  Time period, in seconds, from last unsuccessful login attempt, during
+  which the user is prohibited from trying to log in.
+
 ACCOUNT_LOGOUT_ON_GET (=False)
   Determines whether or not the user is automatically logged out by a
   mere GET request. See documentation for the `LogoutView` for

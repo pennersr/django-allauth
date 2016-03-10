@@ -6,7 +6,7 @@ from django import forms
 from django.core.urlresolvers import reverse
 from django.core import exceptions
 from django.utils.translation import pgettext, ugettext_lazy as _, ugettext
-
+from django.core import validators
 from django.contrib.auth.tokens import default_token_generator
 
 from ..utils import (email_address_exists,
@@ -207,7 +207,6 @@ def _base_signup_form_class():
 
 class BaseSignupForm(_base_signup_form_class()):
     username = forms.CharField(label=_("Username"),
-                               max_length=get_username_max_length(),
                                min_length=app_settings.USERNAME_MIN_LENGTH,
                                widget=forms.TextInput(
                                    attrs={'placeholder':
@@ -223,6 +222,11 @@ class BaseSignupForm(_base_signup_form_class()):
         self.username_required = kwargs.pop('username_required',
                                             app_settings.USERNAME_REQUIRED)
         super(BaseSignupForm, self).__init__(*args, **kwargs)
+        username_field = self.fields['username']
+        username_field.max_length = get_username_max_length()
+        username_field.validators.append(
+            validators.MaxLengthValidator(username_field.max_length))
+
         # field order may contain additional fields from our base class,
         # so take proper care when reordering...
         field_order = ['email', 'username']

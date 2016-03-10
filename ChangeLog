@@ -1,3 +1,12 @@
+2016-03-10  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* In order to be secure by default, users are now blocked from
+	logging in after exceeding a maximum number of failed login
+	attempts (see `ACCOUNT_LOGIN_ATTEMPTS_LIMIT`,
+	`ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT`). Set
+	`ACCOUNT_LOGIN_ATTEMPTS_LIMIT` to `None` to disable this
+	functionality. Thanks to Alexander Gaevsky for contributing.
+
 2015-12-28  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Several providers were added: thanks to Wendy Edwards for Reddit

@@ -31,7 +31,7 @@ from . import app_settings
 # Don't bother turning this into a setting, as changing this also
 # requires changing the accompanying form error message. So if you
 # need to change any of this, simply override clean_username().
-USERNAME_REGEX = re.compile(r'^[\w.@+-]+$', re.UNICODE)
+USERNAME_REGEX = re.compile(r'^[\w.@+-]+$')
 
 
 class DefaultAccountAdapter(object):

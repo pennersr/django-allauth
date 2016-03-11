@@ -148,6 +148,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.openid',
     'allauth.socialaccount.providers.persona',
     'allauth.socialaccount.providers.reddit',
+    'allauth.socialaccount.providers.shopify',
     'allauth.socialaccount.providers.soundcloud',
     'allauth.socialaccount.providers.stackexchange',
     'allauth.socialaccount.providers.twitch',

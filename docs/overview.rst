@@ -89,6 +89,8 @@ Supported Providers
 
 - Reddit (OAuth2)
 
+- Shopify (OAuth2)
+
 - SoundCloud (OAuth2)
 
 - Spotify (OAuth2)

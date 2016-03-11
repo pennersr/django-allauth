@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.utils import timezone
 
+from allauth.exceptions import ImmediateHttpResponse
 from allauth.utils import build_absolute_uri
 from allauth.account import app_settings
 from allauth.socialaccount.helpers import render_authentication_error
@@ -28,6 +29,9 @@ class OAuth2Adapter(object):
     scope_delimiter = ' '
     basic_auth = False
     headers = None
+
+    def __init__(self, request):
+        self.request = request
 
     def get_provider(self):
         return providers.registry.by_id(self.provider_id)
@@ -54,8 +58,11 @@ class OAuth2View(object):
         def view(request, *args, **kwargs):
             self = cls()
             self.request = request
-            self.adapter = adapter()
-            return self.dispatch(request, *args, **kwargs)
+            self.adapter = adapter(request)
+            try:
+                return self.dispatch(request, *args, **kwargs)
+            except ImmediateHttpResponse as e:
+                return e.response
         return view
 
     def get_client(self, request, app):

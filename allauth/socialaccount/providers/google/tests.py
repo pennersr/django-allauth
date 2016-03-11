@@ -68,7 +68,7 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
             reverse(self.provider.id + '_login'),
             dict(process='login'))
 
-        adapter = GoogleOAuth2Adapter()
+        adapter = GoogleOAuth2Adapter(request)
         app = adapter.get_provider().get_app(request)
         token = SocialToken(token='some_token')
         response_with_401 = LessMockedResponse(

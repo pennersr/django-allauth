@@ -17,9 +17,9 @@ else:
         return _render_to_string(template_name, context, RequestContext(request))
 
 try:
-    from urllib.parse import parse_qsl, urlparse, urlunparse
+    from urllib.parse import parse_qsl, parse_qs, urlparse, urlunparse
 except ImportError:
-    from urlparse import parse_qsl, urlparse, urlunparse  # noqa
+    from urlparse import parse_qsl, parse_qs, urlparse, urlunparse  # noqa
 
 try:
     import importlib

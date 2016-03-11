@@ -81,6 +81,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.persona',
         'allauth.socialaccount.providers.pinterest',
         'allauth.socialaccount.providers.reddit',
+        'allauth.socialaccount.providers.shopify',
         'allauth.socialaccount.providers.soundcloud',
         'allauth.socialaccount.providers.spotify',
         'allauth.socialaccount.providers.stackexchange',

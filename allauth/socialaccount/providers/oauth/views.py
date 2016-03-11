@@ -14,6 +14,9 @@ from ..base import AuthAction, AuthError
 
 class OAuthAdapter(object):
 
+    def __init__(self, request):
+        self.request = request
+
     def complete_login(self, request, app):
         """
         Returns a SocialLogin instance
@@ -30,7 +33,7 @@ class OAuthView(object):
         def view(request, *args, **kwargs):
             self = cls()
             self.request = request
-            self.adapter = adapter()
+            self.adapter = adapter(request)
             return self.dispatch(request, *args, **kwargs)
         return view
 

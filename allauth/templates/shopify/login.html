@@ -1,0 +1,21 @@
+{% extends "shopify/base.html" %}
+
+{% load i18n socialaccount %}
+
+{% block head_title %}Shopify Sign In{% endblock %}
+
+{% block content %}
+
+<h1>{% trans 'Shopify Sign In' %}</h1>
+
+
+<form class="shopify_login" method="post" action="{% provider_login_url "shopify" %}">
+{% csrf_token %}
+<label for="auth_param_shop">Enter your Shopify store name:
+    <input type="text" placeholder="your-store" name="shop" id="auth_param_shop">
+    <span>.myshopify.com</span>
+</label>
+<button type="submit">Sign In</button>
+</form>
+
+{% endblock %}

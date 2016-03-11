@@ -42,10 +42,11 @@ def _ajax_response(request, response, form=None):
             redirect_to = response['Location']
         else:
             redirect_to = None
-        response = get_adapter().ajax_response(request,
-                                               response,
-                                               form=form,
-                                               redirect_to=redirect_to)
+        response = get_adapter(request).ajax_response(
+            request,
+            response,
+            form=form,
+            redirect_to=redirect_to)
     return response
 
 
@@ -155,7 +156,7 @@ class CloseableSignupMixin(object):
                                                           **kwargs)
 
     def is_open(self):
-        return get_adapter().is_open_for_signup(self.request)
+        return get_adapter(self.request).is_open_for_signup(self.request)
 
     def closed(self):
         response_kwargs = {
@@ -230,10 +231,11 @@ class ConfirmEmailView(TemplateResponseMixin, View):
     def post(self, *args, **kwargs):
         self.object = confirmation = self.get_object()
         confirmation.confirm(self.request)
-        get_adapter().add_message(self.request,
-                                  messages.SUCCESS,
-                                  'account/messages/email_confirmed.txt',
-                                  {'email': confirmation.email_address.email})
+        get_adapter(self.request).add_message(
+            self.request,
+            messages.SUCCESS,
+            'account/messages/email_confirmed.txt',
+            {'email': confirmation.email_address.email})
         if app_settings.LOGIN_ON_EMAIL_CONFIRMATION:
             resp = self.login_on_confirm(confirmation)
             if resp is not None:
@@ -274,7 +276,7 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         session gets lost), but at least we're secure.
         """
         user_pk = None
-        user_pk_str = get_adapter().unstash_user(self.request)
+        user_pk_str = get_adapter(self.request).unstash_user(self.request)
         if user_pk_str:
             user_pk = url_str_to_user_pk(user_pk_str)
         user = confirmation.email_address.user
@@ -307,7 +309,8 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         return ctx
 
     def get_redirect_url(self):
-        return get_adapter().get_email_confirmation_redirect_url(self.request)
+        return get_adapter(self.request).get_email_confirmation_redirect_url(
+            self.request)
 
 confirm_email = ConfirmEmailView.as_view()
 
@@ -331,11 +334,12 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
 
     def form_valid(self, form):
         email_address = form.save(self.request)
-        get_adapter().add_message(self.request,
-                                  messages.INFO,
-                                  'account/messages/'
-                                  'email_confirmation_sent.txt',
-                                  {'email': form.cleaned_data["email"]})
+        get_adapter(self.request).add_message(
+            self.request,
+            messages.INFO,
+            'account/messages/'
+            'email_confirmation_sent.txt',
+            {'email': form.cleaned_data["email"]})
         signals.email_added.send(sender=self.request.user.__class__,
                                  request=self.request,
                                  user=self.request.user,
@@ -370,11 +374,12 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                 user=request.user,
                 email=email,
             )
-            get_adapter().add_message(request,
-                                      messages.INFO,
-                                      'account/messages/'
-                                      'email_confirmation_sent.txt',
-                                      {'email': email})
+            get_adapter(request).add_message(
+                request,
+                messages.INFO,
+                'account/messages/'
+                'email_confirmation_sent.txt',
+                {'email': email})
             email_address.send_confirmation(request)
             return HttpResponseRedirect(self.get_success_url())
         except EmailAddress.DoesNotExist:
@@ -388,21 +393,23 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                 email=email
             )
             if email_address.primary:
-                get_adapter().add_message(request,
-                                          messages.ERROR,
-                                          'account/messages/'
-                                          'cannot_delete_primary_email.txt',
-                                          {"email": email})
+                get_adapter(request).add_message(
+                    request,
+                    messages.ERROR,
+                    'account/messages/'
+                    'cannot_delete_primary_email.txt',
+                    {"email": email})
             else:
                 email_address.delete()
                 signals.email_removed.send(sender=request.user.__class__,
                                            request=request,
                                            user=request.user,
                                            email_address=email_address)
-                get_adapter().add_message(request,
-                                          messages.SUCCESS,
-                                          'account/messages/email_deleted.txt',
-                                          {"email": email})
+                get_adapter(request).add_message(
+                    request,
+                    messages.SUCCESS,
+                    'account/messages/email_deleted.txt',
+                    {"email": email})
                 return HttpResponseRedirect(self.get_success_url())
         except EmailAddress.DoesNotExist:
             pass
@@ -421,10 +428,11 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
             if not email_address.verified and \
                     EmailAddress.objects.filter(user=request.user,
                                                 verified=True).exists():
-                get_adapter().add_message(request,
-                                          messages.ERROR,
-                                          'account/messages/'
-                                          'unverified_primary_email.txt')
+                get_adapter(request).add_message(
+                    request,
+                    messages.ERROR,
+                    'account/messages/'
+                    'unverified_primary_email.txt')
             else:
                 # Sending the old primary address to the signal
                 # adds a db query.
@@ -434,10 +442,10 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                 except EmailAddress.DoesNotExist:
                     from_email_address = None
                 email_address.set_as_primary()
-                get_adapter() \
-                    .add_message(request,
-                                 messages.SUCCESS,
-                                 'account/messages/primary_email_set.txt')
+                get_adapter(request).add_message(
+                    request,
+                    messages.SUCCESS,
+                    'account/messages/primary_email_set.txt')
                 signals.email_changed \
                     .send(sender=request.user.__class__,
                           request=request,
@@ -484,9 +492,10 @@ class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
     def form_valid(self, form):
         form.save()
         logout_on_password_change(self.request, form.user)
-        get_adapter().add_message(self.request,
-                                  messages.SUCCESS,
-                                  'account/messages/password_changed.txt')
+        get_adapter(self.request).add_message(
+            self.request,
+            messages.SUCCESS,
+            'account/messages/password_changed.txt')
         signals.password_changed.send(sender=self.request.user.__class__,
                                       request=self.request,
                                       user=self.request.user)
@@ -526,9 +535,10 @@ class PasswordSetView(AjaxCapableProcessFormViewMixin, FormView):
     def form_valid(self, form):
         form.save()
         logout_on_password_change(self.request, form.user)
-        get_adapter().add_message(self.request,
-                                  messages.SUCCESS,
-                                  'account/messages/password_set.txt')
+        get_adapter(self.request).add_message(
+            self.request,
+            messages.SUCCESS,
+            'account/messages/password_set.txt')
         signals.password_set.send(sender=self.request.user.__class__,
                                   request=self.request, user=self.request.user)
         return super(PasswordSetView, self).form_valid(form)
@@ -612,9 +622,10 @@ class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, FormView):
 
     def form_valid(self, form):
         form.save()
-        get_adapter().add_message(self.request,
-                                  messages.SUCCESS,
-                                  'account/messages/password_changed.txt')
+        get_adapter(self.request).add_message(
+            self.request,
+            messages.SUCCESS,
+            'account/messages/password_changed.txt')
         signals.password_reset.send(sender=self.reset_user.__class__,
                                     request=self.request,
                                     user=self.reset_user)
@@ -656,9 +667,10 @@ class LogoutView(TemplateResponseMixin, View):
         return redirect(url)
 
     def logout(self):
-        get_adapter().add_message(self.request,
-                                  messages.SUCCESS,
-                                  'account/messages/logged_out.txt')
+        get_adapter(self.request).add_message(
+            self.request,
+            messages.SUCCESS,
+            'account/messages/logged_out.txt')
         auth_logout(self.request)
 
     def get_context_data(self, **kwargs):
@@ -673,7 +685,8 @@ class LogoutView(TemplateResponseMixin, View):
     def get_redirect_url(self):
         return (get_next_redirect_url(self.request,
                                       self.redirect_field_name)
-                or get_adapter().get_logout_redirect_url(self.request))
+                or get_adapter(self.request).get_logout_redirect_url(
+                    self.request))
 
 logout = LogoutView.as_view()
 

@@ -4,7 +4,6 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
-from django.conf import settings
 
 from ..account import app_settings as account_settings
 from ..account.views import (AjaxCapableProcessFormViewMixin,
@@ -41,8 +40,9 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
         return super(SignupView, self).dispatch(request, *args, **kwargs)
 
     def is_open(self):
-        return get_adapter().is_open_for_signup(self.request,
-                                                self.sociallogin)
+        return get_adapter(self.request).is_open_for_signup(
+            self.request,
+            self.sociallogin)
 
     def get_form_kwargs(self):
         ret = super(SignupView, self).get_form_kwargs()

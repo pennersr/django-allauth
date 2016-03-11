@@ -18,6 +18,9 @@ from . import app_settings
 
 class DefaultSocialAccountAdapter(object):
 
+    def __init__(self, request=None):
+        self.request = request
+
     def pre_social_login(self, request, sociallogin):
         """
         Invoked just after a user successfully authenticates via a
@@ -160,8 +163,8 @@ class DefaultSocialAccountAdapter(object):
         Next to simply returning True/False you can also intervene the
         regular flow by raising an ImmediateHttpResponse
         """
-        return get_account_adapter().is_open_for_signup(request)
+        return get_account_adapter(request).is_open_for_signup(request)
 
 
-def get_adapter():
-    return import_attribute(app_settings.ADAPTER)()
+def get_adapter(request=None):
+    return import_attribute(app_settings.ADAPTER)(request)

@@ -11,10 +11,6 @@ From 0.24.1
   (see `ACCOUNT_LOGIN_ATTEMPTS_LIMIT`, `ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT`). Set
   `ACCOUNT_LOGIN_ATTEMPTS_LIMIT` to `None` to disable this functionality.
 
-- The signature of the adapter method `format_email_subject` has
-  changed.  It now takes the email template `context` as a second
-  parameter.
-
 From 0.24.0
 ***********
 

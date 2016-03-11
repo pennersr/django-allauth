@@ -112,14 +112,14 @@ class EmailConfirmation(models.Model):
     def confirm(self, request):
         if not self.key_expired() and not self.email_address.verified:
             email_address = self.email_address
-            get_adapter().confirm_email(request, email_address)
+            get_adapter(request).confirm_email(request, email_address)
             signals.email_confirmed.send(sender=self.__class__,
                                          request=request,
                                          email_address=email_address)
             return email_address
 
     def send(self, request=None, signup=False):
-        get_adapter().send_confirmation_mail(request, self, signup)
+        get_adapter(request).send_confirmation_mail(request, self, signup)
         self.sent = timezone.now()
         self.save()
         signals.email_confirmation_sent.send(sender=self.__class__,

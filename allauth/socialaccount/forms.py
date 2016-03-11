@@ -31,7 +31,7 @@ class SignupForm(BaseSignupForm):
         super(SignupForm, self).__init__(*args, **kwargs)
 
     def save(self, request):
-        adapter = get_adapter()
+        adapter = get_adapter(request)
         user = adapter.save_user(request, self.sociallogin, form=self)
         self.custom_signup(request, user)
         return user
@@ -59,7 +59,9 @@ class DisconnectForm(forms.Form):
         cleaned_data = super(DisconnectForm, self).clean()
         account = cleaned_data.get('account')
         if account:
-            get_adapter().validate_disconnect(account, self.accounts)
+            get_adapter(self.request).validate_disconnect(
+                account,
+                self.accounts)
         return cleaned_data
 
     def save(self):

@@ -18,7 +18,6 @@ from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.account import app_settings as account_settings
 from allauth.account.models import EmailConfirmation, EmailAddress
 from allauth.socialaccount.models import SocialAccount, SocialToken
-from allauth.socialaccount.providers import registry
 from allauth.tests import MockedResponse, TestCase, patch
 from allauth.account.signals import user_signed_up
 from allauth.account.adapter import get_adapter
@@ -150,7 +149,7 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
         self.client.cookies[settings.SESSION_COOKIE_NAME] = store.session_key
         request = RequestFactory().get('/')
         request.session = self.client.session
-        adapter = get_adapter()
+        adapter = get_adapter(request)
         test_email = 'raymond.penners@gmail.com'
         adapter.stash_verified_email(request, test_email)
         request.session.save()

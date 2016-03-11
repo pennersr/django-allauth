@@ -40,6 +40,9 @@ USERNAME_REGEX = re.compile(r'^[\w.@+-]+$')
 
 class DefaultAccountAdapter(object):
 
+    def __init__(self, request=None):
+        self.request = request
+
     def stash_verified_email(self, request, email):
         request.session['account_verified_email'] = email
 
@@ -66,13 +69,10 @@ class DefaultAccountAdapter(object):
             ret = verified_email.lower() == email.lower()
         return ret
 
-    def format_email_subject(self, subject, context=None):
+    def format_email_subject(self, subject):
         prefix = app_settings.EMAIL_SUBJECT_PREFIX
         if prefix is None:
-            if context and 'current_site' in context:
-                site = context.get('current_site')
-            else:
-                site = get_current_site()
+            site = get_current_site(self.request)
             prefix = "[{name}] ".format(name=site.name)
         return prefix + force_text(subject)
 
@@ -85,7 +85,7 @@ class DefaultAccountAdapter(object):
                                    context)
         # remove superfluous line breaks
         subject = " ".join(subject.splitlines()).strip()
-        subject = self.format_email_subject(subject, context)
+        subject = self.format_email_subject(subject)
 
         bodies = {}
         for ext in ['html', 'txt']:
@@ -423,5 +423,5 @@ class DefaultAccountAdapter(object):
         cache.set(cache_key, data, app_settings.LOGIN_ATTEMPTS_TIMEOUT)
 
 
-def get_adapter():
-    return import_attribute(app_settings.ADAPTER)()
+def get_adapter(request=None):
+    return import_attribute(app_settings.ADAPTER)(request)

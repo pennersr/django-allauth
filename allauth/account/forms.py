@@ -130,7 +130,9 @@ class LoginForm(forms.Form):
         if self._errors:
             return
         credentials = self.user_credentials()
-        user = get_adapter().authenticate(self.request, **credentials)
+        user = get_adapter(self.request).authenticate(
+            self.request,
+            **credentials)
         if user:
             self.user = user
         else:
@@ -308,7 +310,7 @@ class SignupForm(BaseSignupForm):
         return self.cleaned_data
 
     def save(self, request):
-        adapter = get_adapter()
+        adapter = get_adapter(request)
         user = adapter.new_user(request)
         adapter.save_user(request, user, self)
         self.custom_signup(request, user)
@@ -458,9 +460,10 @@ class ResetPasswordForm(forms.Form):
             if app_settings.AUTHENTICATION_METHOD \
                     != AuthenticationMethod.EMAIL:
                 context['username'] = user_username(user)
-            get_adapter().send_mail('account/email/password_reset_key',
-                                    email,
-                                    context)
+            get_adapter(request).send_mail(
+                'account/email/password_reset_key',
+                email,
+                context)
         return self.cleaned_data["email"]
 
 

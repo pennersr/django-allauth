@@ -8,7 +8,7 @@ import warnings
 from django import forms
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import login as django_login
+from django.contrib.auth import login as django_login, get_backends
 from django.contrib.auth import logout as django_logout, authenticate
 from django.core.cache import cache
 from django.core.mail import EmailMultiAlternatives, EmailMessage
@@ -321,8 +321,18 @@ class DefaultAccountAdapter(object):
         # HACK: This is not nice. The proper Django way is to use an
         # authentication backend
         if not hasattr(user, 'backend'):
-            user.backend \
-                = "allauth.account.auth_backends.AuthenticationBackend"
+            from .auth_backends import AuthenticationBackend
+            backends = get_backends()
+            for backend in backends:
+                if isinstance(backend, AuthenticationBackend):
+                    # prefer our own backend
+                    break
+            else:
+                # Pick one
+                backend = backends[0]
+            backend_path = '.'.join([backend.__module__,
+                                     backend.__class__.__name__])
+            user.backend = backend_path
         django_login(request, user)
 
     def logout(self, request):

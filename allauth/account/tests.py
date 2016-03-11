@@ -161,16 +161,16 @@ class AccountTests(TestCase):
         return resp
 
     def test_password_forgotten_username_hint(self):
-        self._request_new_password()
+        user = self._request_new_password()
         body = mail.outbox[0].body
-        assert 'username' in body
+        assert user.username in body
 
     @override_settings(
         ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL)
     def test_password_forgotten_no_username_hint(self):
-        self._request_new_password()
+        user = self._request_new_password()
         body = mail.outbox[0].body
-        assert 'username' not in body
+        assert user.username not in body
 
     def _request_new_password(self):
         user = get_user_model().objects.create(

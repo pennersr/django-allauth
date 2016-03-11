@@ -328,11 +328,13 @@ class UserForm(forms.Form):
 
 class AddEmailForm(UserForm):
 
-    email = forms.EmailField(label=_("E-mail"),
-                             required=True,
-                             widget=forms.TextInput(attrs={"type": "email",
-                                                            "size": "30",
-                                                            "placeholder": _('E-mail address')}))
+    email = forms.EmailField(
+        label=_("E-mail"),
+        required=True,
+        widget=forms.TextInput(
+            attrs={"type": "email",
+                   "size": "30",
+                   "placeholder": _('E-mail address')}))
 
     def clean_email(self):
         value = self.cleaned_data["email"]

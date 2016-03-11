@@ -196,7 +196,8 @@ class AppSettings(object):
     @property
     def LOGIN_ON_PASSWORD_RESET(self):
         """
-        Automatically log the user in immediately after resetting their password.
+        Automatically log the user in immediately after resetting
+        their password.
         """
         return self._setting('LOGIN_ON_PASSWORD_RESET', False)
 

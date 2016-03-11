@@ -631,8 +631,9 @@ class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, FormView):
                                     user=self.reset_user)
 
         if app_settings.LOGIN_ON_PASSWORD_RESET:
-            return perform_login(self.request, self.reset_user,
-                                 email_verification=app_settings.EMAIL_VERIFICATION)
+            return perform_login(
+                self.request, self.reset_user,
+                email_verification=app_settings.EMAIL_VERIFICATION)
 
         return super(PasswordResetFromKeyView, self).form_valid(form)
 

@@ -450,8 +450,7 @@ class ResetPasswordForm(forms.Form):
                            kwargs=dict(uidb36=user_pk_to_url_str(user),
                                        key=temp_key))
             url = build_absolute_uri(
-                request, path,
-                protocol=app_settings.DEFAULT_HTTP_PROTOCOL)
+                request, path)
 
             context = {"site": deprecated_site,
                        "current_site": current_site,

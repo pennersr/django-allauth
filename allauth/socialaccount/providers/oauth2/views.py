@@ -9,7 +9,6 @@ from django.utils import timezone
 
 from allauth.exceptions import ImmediateHttpResponse
 from allauth.utils import build_absolute_uri
-from allauth.account import app_settings
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.oauth2.client import (OAuth2Client,
@@ -23,7 +22,7 @@ from ..base import AuthAction, AuthError
 class OAuth2Adapter(object):
     expires_in_key = 'expires_in'
     supports_state = True
-    redirect_uri_protocol = None  # None: use ACCOUNT_DEFAULT_HTTP_PROTOCOL
+    redirect_uri_protocol = None
     access_token_method = 'POST'
     login_cancelled_error = 'access_denied'
     scope_delimiter = ' '
@@ -67,11 +66,9 @@ class OAuth2View(object):
 
     def get_client(self, request, app):
         callback_url = reverse(self.adapter.provider_id + "_callback")
-        protocol = (self.adapter.redirect_uri_protocol
-                    or app_settings.DEFAULT_HTTP_PROTOCOL)
         callback_url = build_absolute_uri(
             request, callback_url,
-            protocol=protocol)
+            protocol=self.adapter.redirect_uri_protocol)
         provider = self.adapter.get_provider()
         scope = provider.get_scope(request)
         client = OAuth2Client(self.request, app.client_id, app.secret,

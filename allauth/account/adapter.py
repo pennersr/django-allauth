@@ -372,8 +372,7 @@ class DefaultAccountAdapter(object):
             args=[emailconfirmation.key])
         ret = build_absolute_uri(
             request,
-            url,
-            protocol=app_settings.DEFAULT_HTTP_PROTOCOL)
+            url)
         return ret
 
     def send_confirmation_mail(self, request, emailconfirmation, signup):

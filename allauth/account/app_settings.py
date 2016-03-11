@@ -41,7 +41,7 @@ class AppSettings(object):
 
     @property
     def DEFAULT_HTTP_PROTOCOL(self):
-        return self._setting("DEFAULT_HTTP_PROTOCOL", "http")
+        return self._setting("DEFAULT_HTTP_PROTOCOL", "http").lower()
 
     @property
     def EMAIL_CONFIRMATION_EXPIRE_DAYS(self):

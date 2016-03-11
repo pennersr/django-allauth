@@ -247,6 +247,16 @@ def build_absolute_uri(request, location, protocol=None):
             uri = location
     else:
         uri = request.build_absolute_uri(location)
+    # NOTE: We only force a protocol if we are instructed to do so
+    # (via the `protocol` parameter, or, if the default is set to
+    # HTTPS. The latter keeps compatibility with the debatable use
+    # case of running your site under both HTTP and HTTPS, where one
+    # would want to make sure HTTPS links end up in password reset
+    # mails even while they were initiated on an HTTP password reset
+    # form.
+    if not protocol and account_settings.DEFAULT_HTTP_PROTOCOL == 'https':
+        protocol = account_settings.DEFAULT_HTTP_PROTOCOL
+    # (end NOTE)
     if protocol:
         uri = protocol + ':' + uri.partition(':')[2]
     return uri

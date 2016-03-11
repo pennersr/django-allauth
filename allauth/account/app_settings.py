@@ -223,10 +223,10 @@ class AppSettings(object):
     @property
     def SESSION_COOKIE_AGE(self):
         """
-        Remembered sessions expire after this many seconds.
-        Defaults to 1814400 seconds which is 3 weeks.
+        Deprecated -- use Django's settings.SESSION_COOKIE_AGE instead
         """
-        return self._setting('SESSION_COOKIE_AGE', 60 * 60 * 24 * 7 * 3)
+        from django.conf import settings
+        return self._setting('SESSION_COOKIE_AGE', settings.SESSION_COOKIE_AGE)
 
     @property
     def SESSION_REMEMBER(self):

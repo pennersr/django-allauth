@@ -32,13 +32,23 @@ from ..utils import (build_absolute_uri, get_current_site,
 
 from . import app_settings
 
-# Don't bother turning this into a setting, as changing this also
-# requires changing the accompanying form error message. So if you
-# need to change any of this, simply override clean_username().
-USERNAME_REGEX = re.compile(r'^[\w.@+-]+$')
-
 
 class DefaultAccountAdapter(object):
+
+    # Don't bother turning this into a setting, as changing this also
+    # requires changing the accompanying form error message. So if you
+    # need to change any of this, simply override clean_username().
+    username_regex = re.compile(r'^[\w.@+-]+$')
+    error_messages = {
+        'invalid_username':
+        _('Usernames can only contain letters, digits and @/./+/-/_.'),
+        'username_blacklisted':
+        _('Username can not be used. Please use other username.'),
+        'username_taken':
+        _('This username is already taken. Please choose another.'),
+        'too_many_login_attempts':
+        _('Too many failed login attempts. Try again later.')
+    }
 
     def __init__(self, request=None):
         self.request = request
@@ -226,16 +236,16 @@ class DefaultAccountAdapter(object):
         Validates the username. You can hook into this if you want to
         (dynamically) restrict what usernames can be chosen.
         """
-        if not USERNAME_REGEX.match(username):
-            raise forms.ValidationError(_("Usernames can only contain "
-                                          "letters, digits and @/./+/-/_."))
+        if not self.username_regex.match(username):
+            raise forms.ValidationError(
+                self.error_messages['invalid_username'])
 
         # TODO: Add regexp support to USERNAME_BLACKLIST
         username_blacklist_lower = [ub.lower()
                                     for ub in app_settings.USERNAME_BLACKLIST]
         if username.lower() in username_blacklist_lower:
-            raise forms.ValidationError(_("Username can not be used. "
-                                          "Please use other username."))
+            raise forms.ValidationError(
+                self.error_messages['username_blacklisted'])
         # Skipping database lookups when shallow is True, needed for unique
         # username generation.
         if not shallow:
@@ -248,7 +258,7 @@ class DefaultAccountAdapter(object):
             except user_model.DoesNotExist:
                 return username
             raise forms.ValidationError(
-                _("This username is already taken. Please choose another."))
+                self.error_messages['username_taken'])
         return username
 
     def clean_email(self, email):
@@ -401,7 +411,7 @@ class DefaultAccountAdapter(object):
                 if len(login_data) >= app_settings.LOGIN_ATTEMPTS_LIMIT and current_attempt_time < \
                    (login_data[-1] + app_settings.LOGIN_ATTEMPTS_TIMEOUT):
                     raise forms.ValidationError(
-                        _('Too many failed login attempts. Try again later.'))
+                        self.error_messages['too_many_login_attempts'])
 
     def authenticate(self, request, **credentials):
         """Only authenticates, does not actually login. See `login`"""

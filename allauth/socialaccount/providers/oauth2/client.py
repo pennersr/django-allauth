@@ -26,7 +26,7 @@ class OAuth2Client(object):
         self.callback_url = callback_url
         self.consumer_key = consumer_key
         self.consumer_secret = consumer_secret
-        self.scope = scope_delimiter.join(scope)
+        self.scope = scope_delimiter.join(set(scope))
         self.state = None
         self.headers = None
         self.basic_auth = basic_auth

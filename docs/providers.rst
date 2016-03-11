@@ -436,17 +436,18 @@ following template tag::
 ORCID
 ------
 
-The ORCID provider should work out of the box provided that you are using the Production ORCID registry and the member api. If you are in development and are using the Sandbox registry, then you will need to change the urls to::
+The ORCID provider should work out of the box provided that you are using the Production ORCID registry and the public API. In other settings, you will need to define the API you are using
+in your site's settings, as follows::
 
-    authorize_url = 'https://sandbox.orcid.org/oauth/authorize'
-    access_token_url = 'https://api.sandbox.orcid.org/oauth/token'
-    profile_url = 'http://pub.sandbox.orcid.org/v1.2/%s/orcid-profile'
-
-If you find issues with the complete_login method (allauth/socialaccount/providers/orcid/views.py) when using the public api, try removing:
-
-    params={'access_token': token.token},
-
-since the access token is only required in the member api and its presence causes an error when using the public api.
+    SOCIALACCOUNT_PROVIDERS = \
+        {'orcid':
+           {
+             # Base domain of the API. Default value: 'orcid.org', for the production API
+            'BASE_DOMAIN':'sandbox.orcid.org', # for the sandbox API
+             # Member API or Public API? Default: False (for the public API)
+             'MEMBER_API': True, # for the member API
+           }
+        }
 
 
 Paypal

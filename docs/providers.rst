@@ -525,6 +525,18 @@ SCOPE
 For a full list of scope options, see https://developers.pinterest.com/docs/api/overview/#scopes
 
 
+Shopify
+-------
+
+The Shopify provider requires a `shop` parameter to login. For
+example, for a shop `petstore.myshopify.com`, use this::
+
+    /accounts/shopify/login/?shop=petstore
+
+You can create login URLs like these as follows::
+
+    {% provider_login_url "shopify" shop="petstore" %}
+
 SoundCloud
 ----------
 

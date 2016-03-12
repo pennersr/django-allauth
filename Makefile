@@ -7,6 +7,10 @@ po:
 mo:
 	( cd allauth ; $(PYTHON) ../manage.py compilemessages )
 
+docs:
+	( . $(VIRTUALENV)/bin/activate; cd docs; make html )
+
 .PHONY: \
 	po \
-	mo
+	mo \
+	docs

@@ -18,7 +18,8 @@ Note worthy changes
   `ACCOUNT_LOGIN_ATTEMPTS_LIMIT`,
   `ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT`). Set
   `ACCOUNT_LOGIN_ATTEMPTS_LIMIT` to `None` to disable this
-  functionality.
+  functionality. Important: while this protects the allauth login view, it
+  does not protect Django's admin login from being brute forced.
 
 - New translations: Arabic, Lithuanian
 

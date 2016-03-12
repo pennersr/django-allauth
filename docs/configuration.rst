@@ -57,7 +57,9 @@ ACCOUNT_LOGIN_ATTEMPTS_LIMIT (=5)
   Number of failed login attempts. When this number is
   exceeded, the user is prohibited from logging in for the
   specified `ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT` seconds. Set to `None`
-  to disable this functionality.
+  to disable this functionality. Important: while this protects the
+  allauth login view, it does not protect Django's admin login from
+  being brute forced.
 
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT (=300)
   Time period, in seconds, from last unsuccessful login attempt, during

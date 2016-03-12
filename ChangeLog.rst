@@ -4,18 +4,29 @@ Unreleased
 Note worthy changes
 -------------------
 
-- Several providers were added: thanks to Wendy Edwards for Reddit
-  support, Luke Crouch for Untappd support, Daniel Widerin for GitLab
-  support, and Yaroslav Muravsky for Pinterest support.
+- Many providers were added: Reddit, Untappd, GitLab, Stripe,
+  Pinterest, Shopify, Draugiem, DigitalOcean, Robinhood,
+  Bitbucket(OAuth2).
+
+- The account connections view is now AJAX aware.
+
+- You can now customize the template extension that is being used to
+  render all HTML templates (`ACCOUNT_TEMPLATE_EXTENSION`)
+
+- In order to be secure by default, users are now blocked from logging
+  in after exceeding a maximum number of failed login attempts (see
+  `ACCOUNT_LOGIN_ATTEMPTS_LIMIT`,
+  `ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT`). Set
+  `ACCOUNT_LOGIN_ATTEMPTS_LIMIT` to `None` to disable this
+  functionality.
+
+- New translations: Arabic, Lithuanian
+
 
 Backwards incompatible changes
 ------------------------------
 
-- In order to be secure by default, users are now blocked from logging
-  in after exceeding a maximum number of failed login attempts
-  (see `ACCOUNT_LOGIN_ATTEMPTS_LIMIT`, `ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT`). Set
-  `ACCOUNT_LOGIN_ATTEMPTS_LIMIT` to `None` to disable this functionality.
-
+None
 
 
 0.24.1 (2015-11-09)

@@ -20,7 +20,7 @@ Contents
    decorators
    advanced
    faq
-   changelog
+   release-notes
    support
 
 

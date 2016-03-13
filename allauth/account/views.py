@@ -9,7 +9,6 @@ from django.contrib.auth import logout as auth_logout
 from django.shortcuts import redirect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.utils.decorators import method_decorator
-from django.conf import settings
 
 from ..exceptions import ImmediateHttpResponse
 from ..utils import get_form_class, get_request_param, get_current_site
@@ -557,6 +556,7 @@ class PasswordResetView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_reset." + app_settings.TEMPLATE_EXTENSION
     form_class = ResetPasswordForm
     success_url = reverse_lazy("account_reset_password_done")
+    redirect_field_name = "next"
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS,
@@ -574,8 +574,8 @@ class PasswordResetView(AjaxCapableProcessFormViewMixin, FormView):
                                                   self.redirect_field_name)
         # NOTE: For backwards compatibility
         ret['password_reset_form'] = ret.get('form')
-        ret.update({"login_url": login_url})
         # (end NOTE)
+        ret.update({"login_url": login_url})
         return ret
 
 password_reset = PasswordResetView.as_view()

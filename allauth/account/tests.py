@@ -131,6 +131,10 @@ class AccountTests(TestCase):
         self.assertRedirects(resp, 'http://testserver/accounts/profile/',
                              fetch_redirect_response=False)
 
+    def test_password_reset_get(self):
+        resp = self.client.get(reverse('account_reset_password'))
+        self.assertTemplateUsed(resp, 'account/password_reset.html')
+
     def test_password_set_redirect(self):
         resp = self._password_set_or_reset_redirect('account_set_password',
                                                     True)

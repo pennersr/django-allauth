@@ -1,3 +1,12 @@
+0.25.1 (2016-03-13)
+*******************
+
+Note worthy changes
+-------------------
+
+- Bug fix release (AttributeError in password reset view).
+
+
 0.25.0 (2016-03-12)
 *******************
 

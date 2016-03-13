@@ -20,7 +20,6 @@ class GitLabAccount(ProviderAccount):
 class GitLabProvider(OAuth2Provider):
     id = 'gitlab'
     name = 'GitLab'
-    package = 'allauth.socialaccount.providers.gitlab'
     account_class = GitLabAccount
 
     def extract_uid(self, data):

@@ -46,7 +46,6 @@ class FacebookAccount(ProviderAccount):
 class FacebookProvider(OAuth2Provider):
     id = 'facebook'
     name = 'Facebook'
-    package = 'allauth.socialaccount.providers.facebook'
     account_class = FacebookAccount
 
     def __init__(self):

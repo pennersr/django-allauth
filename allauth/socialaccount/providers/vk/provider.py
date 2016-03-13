@@ -29,7 +29,6 @@ class VKAccount(ProviderAccount):
 class VKProvider(OAuth2Provider):
     id = 'vk'
     name = 'VK'
-    package = 'allauth.socialaccount.providers.vk'
     account_class = VKAccount
 
     def get_default_scope(self):

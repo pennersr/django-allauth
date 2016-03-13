@@ -16,7 +16,6 @@ class BasecampAccount(ProviderAccount):
 class BasecampProvider(OAuth2Provider):
     id = 'basecamp'
     name = 'Basecamp'
-    package = 'allauth.socialaccount.providers.basecamp'
     account_class = BasecampAccount
 
     def get_auth_params(self, request, action):

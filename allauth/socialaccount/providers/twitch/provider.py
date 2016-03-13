@@ -18,7 +18,6 @@ class TwitchAccount(ProviderAccount):
 class TwitchProvider(OAuth2Provider):
     id = 'twitch'
     name = 'Twitch'
-    package = 'allauth.socialaccount.providers.twitch'
     account_class = TwitchAccount
 
     def extract_uid(self, data):

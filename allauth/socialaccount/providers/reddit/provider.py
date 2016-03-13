@@ -10,7 +10,6 @@ class RedditAccount(ProviderAccount):
 class RedditProvider(OAuth2Provider):
     id = 'reddit'
     name = 'Reddit'
-    package = 'allauth.socialaccount.providers.reddit'
     account_class = RedditAccount
 
     def extract_uid(self, data):

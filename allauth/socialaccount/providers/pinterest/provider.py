@@ -16,7 +16,6 @@ class PinterestAccount(ProviderAccount):
 class PinterestProvider(OAuth2Provider):
     id = 'pinterest'
     name = 'Pinterest'
-    package = 'allauth.socialaccount.providers.pinterest'
     account_class = PinterestAccount
 
     def get_default_scope(self):

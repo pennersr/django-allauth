@@ -21,7 +21,6 @@ class FlickrAccount(ProviderAccount):
 class FlickrProvider(OAuthProvider):
     id = 'flickr'
     name = 'Flickr'
-    package = 'allauth.socialaccount.providers.flickr'
     account_class = FlickrAccount
 
     def get_default_scope(self):

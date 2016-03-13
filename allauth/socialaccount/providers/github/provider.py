@@ -26,7 +26,6 @@ class GitHubAccount(ProviderAccount):
 class GitHubProvider(OAuth2Provider):
     id = 'github'
     name = 'GitHub'
-    package = 'allauth.socialaccount.providers.github'
     account_class = GitHubAccount
 
     def extract_uid(self, data):

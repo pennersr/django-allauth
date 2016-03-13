@@ -10,7 +10,6 @@ class DigitalOceanAccount(ProviderAccount):
 class DigitalOceanProvider(OAuth2Provider):
     id = 'digitalocean'
     name = 'DigitalOcean'
-    package = 'allauth.socialaccount.providers.digitalocean'
     account_class = DigitalOceanAccount
 
     def extract_uid(self, data):

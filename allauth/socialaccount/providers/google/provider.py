@@ -26,7 +26,6 @@ class GoogleAccount(ProviderAccount):
 class GoogleProvider(OAuth2Provider):
     id = 'google'
     name = 'Google'
-    package = 'allauth.socialaccount.providers.google'
     account_class = GoogleAccount
 
     def get_default_scope(self):

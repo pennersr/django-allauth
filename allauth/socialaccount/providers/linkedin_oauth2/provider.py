@@ -30,7 +30,6 @@ class LinkedInOAuth2Provider(OAuth2Provider):
     id = 'linkedin_oauth2'
     # Name is displayed to ordinary users -- don't include protocol
     name = 'LinkedIn'
-    package = 'allauth.socialaccount.providers.linkedin_oauth2'
     account_class = LinkedInOAuth2Account
 
     def extract_uid(self, data):

@@ -23,7 +23,6 @@ class FirefoxAccountsAccount(ProviderAccount):
 class FirefoxAccountsProvider(OAuth2Provider):
     id = 'fxa'
     name = 'Firefox Accounts'
-    package = 'allauth.socialaccount.providers.fxa'
     account_class = FirefoxAccountsAccount
 
     def get_default_scope(self):

@@ -32,7 +32,6 @@ class TwitterAccount(ProviderAccount):
 class TwitterProvider(OAuthProvider):
     id = 'twitter'
     name = 'Twitter'
-    package = 'allauth.socialaccount.providers.twitter'
     account_class = TwitterAccount
 
     def get_auth_url(self, request, action):

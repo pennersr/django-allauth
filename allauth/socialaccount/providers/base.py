@@ -140,6 +140,13 @@ class Provider(object):
         """
         return []
 
+    @classmethod
+    def get_package(cls):
+        pkg = getattr(cls, 'package', None)
+        if not pkg:
+            pkg = cls.__module__.rpartition('.')[0]
+        return pkg
+
 
 @python_2_unicode_compatible
 class ProviderAccount(object):

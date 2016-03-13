@@ -37,7 +37,6 @@ class OpenIDAccount(ProviderAccount):
 class OpenIDProvider(Provider):
     id = 'openid'
     name = 'OpenID'
-    package = 'allauth.socialaccount.providers.openid'
     account_class = OpenIDAccount
 
     def get_login_url(self, request, **kwargs):

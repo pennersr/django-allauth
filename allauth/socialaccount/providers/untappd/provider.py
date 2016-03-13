@@ -21,7 +21,6 @@ class UntappdAccount(ProviderAccount):
 class UntappdProvider(OAuth2Provider):
     id = 'untappd'
     name = 'Untappd'
-    package = 'allauth.socialaccount.providers.untappd'
     account_class = UntappdAccount
 
     def get_auth_params(self, request, action):

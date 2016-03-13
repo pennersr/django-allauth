@@ -21,7 +21,6 @@ class BitlyAccount(ProviderAccount):
 class BitlyProvider(OAuth2Provider):
     id = 'bitly'
     name = 'Bitly'
-    package = 'allauth.socialaccount.providers.bitly'
     account_class = BitlyAccount
 
     def extract_uid(self, data):

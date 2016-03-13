@@ -20,7 +20,6 @@ class OrcidAccount(ProviderAccount):
 class OrcidProvider(OAuth2Provider):
     id = 'orcid'
     name = 'Orcid.org'
-    package = 'allauth.socialaccount.providers.orcid'
     account_class = OrcidAccount
 
     def get_default_scope(self):

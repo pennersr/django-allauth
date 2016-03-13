@@ -19,7 +19,6 @@ class WeiboAccount(ProviderAccount):
 class WeiboProvider(OAuth2Provider):
     id = 'weibo'
     name = 'Weibo'
-    package = 'allauth.socialaccount.providers.weibo'
     account_class = WeiboAccount
 
     def extract_uid(self, data):

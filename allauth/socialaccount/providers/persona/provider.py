@@ -16,7 +16,6 @@ class PersonaAccount(ProviderAccount):
 class PersonaProvider(Provider):
     id = 'persona'
     name = 'Persona'
-    package = 'allauth.socialaccount.providers.persona'
     account_class = PersonaAccount
 
     def media_js(self, request):

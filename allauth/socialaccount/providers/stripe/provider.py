@@ -11,7 +11,6 @@ class StripeAccount(ProviderAccount):
 class StripeProvider(OAuth2Provider):
     id = 'stripe'
     name = 'Stripe'
-    package = 'allauth.socialaccount.providers.stripe'
     account_class = StripeAccount
 
     def extract_uid(self, data):

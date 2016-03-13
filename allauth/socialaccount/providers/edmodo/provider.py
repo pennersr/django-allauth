@@ -14,7 +14,6 @@ class EdmodoAccount(ProviderAccount):
 class EdmodoProvider(OAuth2Provider):
     id = 'edmodo'
     name = 'Edmodo'
-    package = 'allauth.socialaccount.providers.edmodo'
     account_class = EdmodoAccount
 
     def get_default_scope(self):

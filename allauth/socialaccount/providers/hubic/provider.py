@@ -10,7 +10,6 @@ class HubicAccount(ProviderAccount):
 class HubicProvider(OAuth2Provider):
     id = 'hubic'
     name = 'Hubic'
-    package = 'allauth.socialaccount.providers.hubic'
     account_class = HubicAccount
 
     def extract_uid(self, data):

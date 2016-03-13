@@ -11,7 +11,6 @@ class SpotifyAccount(ProviderAccount):
 class SpotifyOAuth2Provider(OAuth2Provider):
     id = 'spotify'
     name = 'Spotify'
-    package = 'allauth.socialaccount.providers.spotify'
     account_class = SpotifyAccount
 
     def extract_uid(self, data):

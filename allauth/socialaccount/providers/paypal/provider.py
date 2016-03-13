@@ -15,7 +15,6 @@ class PaypalAccount(ProviderAccount):
 class PaypalProvider(OAuth2Provider):
     id = 'paypal'
     name = 'Paypal'
-    package = 'allauth.socialaccount.providers.paypal'
     account_class = PaypalAccount
 
     def get_default_scope(self):

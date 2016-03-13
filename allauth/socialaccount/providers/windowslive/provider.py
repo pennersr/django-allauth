@@ -18,7 +18,6 @@ class WindowsLiveAccount(ProviderAccount):
 class WindowsLiveProvider(OAuth2Provider):
     id = str('windowslive')
     name = 'Live'
-    package = 'allauth.socialaccount.providers.windowslive'
     account_class = WindowsLiveAccount
 
     def get_default_scope(self):

@@ -10,7 +10,6 @@ class ShopifyAccount(ProviderAccount):
 class ShopifyProvider(OAuth2Provider):
     id = 'shopify'
     name = 'Shopify'
-    package = 'allauth.socialaccount.providers.shopify'
     account_class = ShopifyAccount
 
     def get_auth_params(self, request, action):

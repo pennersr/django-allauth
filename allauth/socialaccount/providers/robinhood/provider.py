@@ -15,7 +15,6 @@ class RobinhoodAccount(ProviderAccount):
 class RobinhoodProvider(OAuth2Provider):
     id = 'robinhood'
     name = 'Robinhood'
-    package = 'allauth.socialaccount.providers.robinhood'
     account_class = RobinhoodAccount
 
     def get_default_scope(self):

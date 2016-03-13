@@ -1,3 +1,12 @@
+0.25.2 (2016-03-13)
+*******************
+
+Note worthy changes
+-------------------
+
+- Bug fix release (MemcachedKeyCharacterError: "Control characters not allowed")
+
+
 0.25.1 (2016-03-13)
 *******************
 

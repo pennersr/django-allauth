@@ -25,6 +25,18 @@ For local development, use the following::
 
 
 
+Each provider could customize `display_name` and `alt_text` properties by respective settings::
+
+    SOCIALACCOUNT_PROVIDERS = {
+        "github": {
+            "DISPLAY_NAME": "Login via Github",
+            "ALT_TEXT": "Connect your github account."
+        }
+    }
+
+
+For instance, this could be used to customize providers list, returned from registry in template `socialaccount/snippets/provider_list.html`.
+
 Amazon
 ------
 

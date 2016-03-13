@@ -24,6 +24,13 @@ class AuthError(object):
 
 
 class Provider(object):
+    name = None
+
+    def __init__(self):
+        settings = self.get_settings()
+        self.alt_text = settings.get('ALT_TEXT', self.name)
+        self.display_name = settings.get('DISPLAY_NAME', self.name)
+
     def get_login_url(self, request, next=None, **kwargs):
         """
         Builds the URL to redirect to when initiating a login for this

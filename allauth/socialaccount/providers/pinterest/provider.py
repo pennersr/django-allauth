@@ -9,7 +9,7 @@ class PinterestAccount(ProviderAccount):
         return self.account.extra_data.get('url')
 
     def to_str(self):
-        dflt = super(ProviderAccount, self).to_str()
+        dflt = super(PinterestAccount, self).to_str()
         return self.account.extra_data.get('username', dflt)
 
 

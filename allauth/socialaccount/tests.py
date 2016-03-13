@@ -61,8 +61,17 @@ class OAuthTestsMixin(object):
                              fetch_redirect_response=False)
         user = resp.context['user']
         self.assertFalse(user.has_usable_password())
-        return SocialAccount.objects.get(user=user,
-                                         provider=self.provider.id)
+        account = SocialAccount.objects.get(
+            user=user,
+            provider=self.provider.id)
+        # The following lines don't actually test that much, but at least
+        # we make sure that the code is hit.
+        provider_account = account.get_provider_account()
+        provider_account.get_avatar_url()
+        provider_account.get_profile_url()
+        provider_account.get_brand()
+        provider_account.to_str()
+        return account
 
     @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=True,
                        SOCIALACCOUNT_EMAIL_REQUIRED=False,
@@ -104,8 +113,10 @@ class OAuthTestsMixin(object):
 
     def test_authentication_error(self):
         resp = self.client.get(reverse(self.provider.id + '_callback'))
-        self.assertTemplateUsed(resp,
-                                'socialaccount/authentication_error.%s' % getattr(settings, 'ACCOUNT_TEMPLATE_EXTENSION', 'html'))
+        self.assertTemplateUsed(
+            resp,
+            'socialaccount/authentication_error.%s' % getattr(
+                settings, 'ACCOUNT_TEMPLATE_EXTENSION', 'html'))
 
 
 # For backward-compatibility with third-party provider tests that call
@@ -175,6 +186,13 @@ class OAuth2TestsMixin(object):
         # get account
         sa = SocialAccount.objects.filter(user=user,
                                           provider=self.provider.id).get()
+        # The following lines don't actually test that much, but at least
+        # we make sure that the code is hit.
+        provider_account = sa.get_provider_account()
+        provider_account.get_avatar_url()
+        provider_account.get_profile_url()
+        provider_account.get_brand()
+        provider_account.to_str()
         # get token
         t = sa.socialtoken_set.get()
         # verify access_token and refresh_token
@@ -218,7 +236,8 @@ class OAuth2TestsMixin(object):
         resp = self.client.get(reverse(self.provider.id + '_callback'))
         self.assertTemplateUsed(
             resp,
-            'socialaccount/authentication_error.%s' % getattr(settings, 'ACCOUNT_TEMPLATE_EXTENSION', 'html'))
+            'socialaccount/authentication_error.%s' % getattr(
+                settings, 'ACCOUNT_TEMPLATE_EXTENSION', 'html'))
 
 
 # For backward-compatibility with third-party provider tests that call

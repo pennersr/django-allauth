@@ -58,10 +58,10 @@ instances are created, and populated with data
 
 - `allauth.account.adapter.DefaultAccountAdapter`:
 
-  - `is_open_for_signup(self, request)`: The default function 
+  - `is_open_for_signup(self, request)`: The default function
   returns `True`. You can override this method by returning `False`
-  if you want to disable account signup. 
-  
+  if you want to disable account signup.
+
   - `new_user(self, request)`: Instantiates a new, empty `User`.
 
   - `save_user(self, request, user, form)`: Populates and saves the
@@ -80,11 +80,11 @@ instances are created, and populated with data
 
 - `allauth.socialaccount.adapter.DefaultSocialAccountAdapter`:
 
-  - `is_open_for_signup(self, request)`: The default function 
+  - `is_open_for_signup(self, request)`: The default function
   returns that is the same as `ACCOUNT_ADAPTER` in `settings.py`.
   You can override this method by returning `True`/`False`
-  if you want to enable/disable socialaccount signup. 
-  
+  if you want to enable/disable socialaccount signup.
+
   - `new_user(self, request, sociallogin)`: Instantiates a new, empty
     `User`.
 
@@ -137,6 +137,10 @@ In case you want to include an HTML representation, add an HTML
 template as follows::
 
     account/email/email_confirmation_message.html
+
+The project does not contain any HTML email templates out of the box.
+When you do provide these yourself, note that both the text and HTML
+versions of the message are sent.
 
 If this does not suit your needs, you can hook up your own custom
 mechanism by overriding the `send_mail` method of the account adapter

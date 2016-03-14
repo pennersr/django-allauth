@@ -18,7 +18,11 @@ import unittest
 
 from allauth.tests import TestCase, patch
 from allauth.account.forms import BaseSignupForm
-from allauth.account.models import EmailAddress, EmailConfirmation
+from allauth.account.models import (
+    EmailAddress,
+    EmailConfirmation,
+    EmailConfirmationHMAC)
+
 from allauth.utils import get_user_model, get_current_site
 
 from . import app_settings
@@ -118,10 +122,14 @@ class AccountTests(TestCase):
         self.assertEqual(len(mail.outbox), 0)
         return get_user_model().objects.get(username=username)
 
-    def _create_user_and_login(self):
+    def _create_user(self):
         user = get_user_model().objects.create(username='john', is_active=True)
         user.set_password('doe')
         user.save()
+        return user
+
+    def _create_user_and_login(self):
+        user = self._create_user()
         self.client.login(username='john', password='doe')
         return user
 
@@ -258,6 +266,7 @@ class AccountTests(TestCase):
         # EmailVerificationMethod.MANDATORY sends us to the confirm-email page
         self.assertRedirects(resp, '/confirm-email/')
 
+    @override_settings(ACCOUNT_EMAIL_CONFIRMATION_HMAC=False)
     def test_email_verification_mandatory(self):
         c = Client()
         # Signup
@@ -551,6 +560,59 @@ class AccountTests(TestCase):
             'password1',
             ['This password is too short.'
              ' It must contain at least 9 characters.'])
+
+    @override_settings(ACCOUNT_EMAIL_CONFIRMATION_HMAC=True)
+    def test_email_confirmation_hmac_falls_back(self):
+        user = self._create_user()
+        email = EmailAddress.objects.create(
+            user=user,
+            email='a@b.com',
+            verified=False,
+            primary=True)
+        confirmation = EmailConfirmation.create(email)
+        confirmation.sent = now()
+        confirmation.save()
+        self.client.post(
+            reverse('account_confirm_email',
+                    args=[confirmation.key]))
+        email = EmailAddress.objects.get(pk=email.pk)
+        self.assertTrue(email.verified)
+
+    @override_settings(ACCOUNT_EMAIL_CONFIRMATION_HMAC=True)
+    def test_email_confirmation_hmac(self):
+        user = self._create_user()
+        email = EmailAddress.objects.create(
+            user=user,
+            email='a@b.com',
+            verified=False,
+            primary=True)
+        confirmation = EmailConfirmationHMAC(email)
+        confirmation.send()
+        self.assertEqual(len(mail.outbox), 1)
+        self.client.post(
+            reverse('account_confirm_email',
+                    args=[confirmation.key]))
+        email = EmailAddress.objects.get(pk=email.pk)
+        self.assertTrue(email.verified)
+
+    @override_settings(
+        ACCOUNT_EMAIL_CONFIRMATION_HMAC=True,
+        ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS=0)
+    def test_email_confirmation_hmac_timeout(self):
+        user = self._create_user()
+        email = EmailAddress.objects.create(
+            user=user,
+            email='a@b.com',
+            verified=False,
+            primary=True)
+        confirmation = EmailConfirmationHMAC(email)
+        confirmation.send()
+        self.assertEqual(len(mail.outbox), 1)
+        self.client.post(
+            reverse('account_confirm_email',
+                    args=[confirmation.key]))
+        email = EmailAddress.objects.get(pk=email.pk)
+        self.assertFalse(email.verified)
 
 
 class EmailFormTests(TestCase):

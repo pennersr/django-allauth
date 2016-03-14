@@ -302,10 +302,12 @@ def send_email_confirmation(request, user, signup=False):
         try:
             email_address = EmailAddress.objects.get_for_user(user, email)
             if not email_address.verified:
-                send_email = not EmailConfirmation.objects \
-                    .filter(sent__gt=now() - COOLDOWN_PERIOD,
-                            email_address=email_address) \
-                    .exists()
+                if app_settings.EMAIL_CONFIRMATION_HMAC:
+                    send_email = True
+                else:
+                    send_email = not EmailConfirmation.objects.filter(
+                        sent__gt=now() - COOLDOWN_PERIOD,
+                        email_address=email_address).exists()
                 if send_email:
                     email_address.send_confirmation(request,
                                                     signup=signup)

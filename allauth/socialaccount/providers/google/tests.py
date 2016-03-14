@@ -128,6 +128,7 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
         self.login(self.get_mocked_response(verified_email=True))
         self.assertTrue(len(sent_signals) > 0)
 
+    @override_settings(ACCOUNT_EMAIL_CONFIRMATION_HMAC=False)
     def test_email_unverified(self):
         test_email = 'raymond.penners@gmail.com'
         resp = self.login(self.get_mocked_response(verified_email=False))

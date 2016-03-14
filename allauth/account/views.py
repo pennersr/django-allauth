@@ -22,7 +22,7 @@ from .forms import (
     LoginForm, ResetPasswordKeyForm,
     ResetPasswordForm, SetPasswordForm, SignupForm, UserTokenForm)
 from .utils import sync_user_email_addresses
-from .models import EmailAddress, EmailConfirmation
+from .models import EmailAddress, EmailConfirmation, EmailConfirmationHMAC
 
 from . import signals
 from . import app_settings
@@ -290,12 +290,16 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         return None
 
     def get_object(self, queryset=None):
-        if queryset is None:
-            queryset = self.get_queryset()
-        try:
-            return queryset.get(key=self.kwargs["key"].lower())
-        except EmailConfirmation.DoesNotExist:
-            raise Http404()
+        key = self.kwargs['key']
+        emailconfirmation = EmailConfirmationHMAC.from_key(key)
+        if not emailconfirmation:
+            if queryset is None:
+                queryset = self.get_queryset()
+            try:
+                emailconfirmation = queryset.get(key=key.lower())
+            except EmailConfirmation.DoesNotExist:
+                raise Http404()
+        return emailconfirmation
 
     def get_queryset(self):
         qs = EmailConfirmation.objects.all_valid()

@@ -267,6 +267,14 @@ class AppSettings(object):
         """
         return self._setting('LOGIN_ATTEMPTS_TIMEOUT', 60 * 5)
 
+    @property
+    def EMAIL_CONFIRMATION_HMAC(self):
+        return self._setting('EMAIL_CONFIRMATION_HMAC', True)
+
+    @property
+    def SALT(self):
+        return self._setting('SALT', 'account')
+
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html
 import sys

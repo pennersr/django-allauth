@@ -9,6 +9,12 @@ Note worthy changes
 - Django's password validation mechanism (see `AUTH_PASSWORD_VALIDATORS`) is now
   used to validate passwords.
 
+- By default, email confirmations are no longer stored in the
+  database. Instead, the email confirmation mail contains an HMAC
+  based key identifying the email address to confirm. The verification
+  lookup includes a fallback to the previous strategy so that there is
+  no negative impact on pending verification emails.
+
 
 Backwards incompatible changes
 ------------------------------

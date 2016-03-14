@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 import datetime
 
+from django.core import signing
 from django.db import models
 from django.db import transaction
 from django.utils.translation import ugettext_lazy as _
@@ -54,7 +55,10 @@ class EmailAddress(models.Model):
         return True
 
     def send_confirmation(self, request=None, signup=False):
-        confirmation = EmailConfirmation.create(self)
+        if app_settings.EMAIL_CONFIRMATION_HMAC:
+            confirmation = EmailConfirmationHMAC(self)
+        else:
+            confirmation = EmailConfirmation.create(self)
         confirmation.send(request, signup=signup)
         return confirmation
 
@@ -122,5 +126,47 @@ class EmailConfirmation(models.Model):
         get_adapter(request).send_confirmation_mail(request, self, signup)
         self.sent = timezone.now()
         self.save()
+        signals.email_confirmation_sent.send(sender=self.__class__,
+                                             confirmation=self)
+
+
+class EmailConfirmationHMAC:
+
+    def __init__(self, email_address):
+        self.email_address = email_address
+
+    @property
+    def key(self):
+        return signing.dumps(
+            obj=self.email_address.pk,
+            salt=app_settings.SALT)
+
+    @classmethod
+    def from_key(cls, key):
+        try:
+            max_age = (
+                60 * 60 * 24 * app_settings.EMAIL_CONFIRMATION_EXPIRE_DAYS)
+            pk = signing.loads(
+                key,
+                max_age=max_age,
+                salt=app_settings.SALT)
+            ret = EmailConfirmationHMAC(EmailAddress.objects.get(pk=pk))
+        except (signing.SignatureExpired,
+                signing.BadSignature,
+                EmailAddress.DoesNotExist):
+            ret = None
+        return ret
+
+    def confirm(self, request):
+        if not self.email_address.verified:
+            email_address = self.email_address
+            get_adapter(request).confirm_email(request, email_address)
+            signals.email_confirmed.send(sender=self.__class__,
+                                         request=request,
+                                         email_address=email_address)
+            return email_address
+
+    def send(self, request=None, signup=False):
+        get_adapter(request).send_confirmation_mail(request, self, signup)
         signals.email_confirmation_sent.send(sender=self.__class__,
                                              confirmation=self)

@@ -28,6 +28,13 @@ ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL (=None)
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS (=3)
   Determines the expiration date of email confirmation mails (# of days).
 
+ACCOUNT_EMAIL_CONFIRMATION_HMAC (=True)
+  In order to verify an email address a key is mailed identifying the
+  email address to be verified. In previous versions, a record was
+  stored in the database for each ongoing email confirmation, keeping
+  track of these keys. Current versions use HMAC based keys that do not
+  require server side state.
+
 ACCOUNT_EMAIL_REQUIRED (=False)
   The user is required to hand over an e-mail address when signing up.
 
@@ -44,7 +51,7 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX (="[Site] ")
   Subject-line prefix to use for email messages sent. By default, the
   name of the current `Site` (`django.contrib.sites`) is used.
 
-ACCOUNT_DEFAULT_HTTP_PROTOCOL = (="http")
+ACCOUNT_DEFAULT_HTTP_PROTOCOL (="http")
   The default protocol used for when generating URLs, e.g. for the
   password forgotten procedure. Note that this is a default only --
   see the section on HTTPS for more information.

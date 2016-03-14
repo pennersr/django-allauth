@@ -18,7 +18,8 @@ from ..utils import (email_address_exists,
 from .models import EmailAddress
 from .utils import (perform_login, setup_user_email, url_str_to_user_pk,
                     user_username, user_pk_to_url_str, filter_users_by_email,
-                    get_user_model)
+                    get_user_model,
+                    user_email)
 from .app_settings import AuthenticationMethod
 from . import app_settings
 from .adapter import get_adapter
@@ -42,9 +43,13 @@ class PasswordField(forms.CharField):
 
 class SetPasswordField(PasswordField):
 
+    def __init__(self, *args, **kwargs):
+        super(SetPasswordField, self).__init__(*args, **kwargs)
+        self.user = None
+
     def clean(self, value):
         value = super(SetPasswordField, self).clean(value)
-        value = get_adapter().clean_password(value)
+        value = get_adapter().clean_password(value, user=self.user)
         return value
 
 
@@ -287,7 +292,7 @@ class BaseSignupForm(_base_signup_form_class()):
 
 class SignupForm(BaseSignupForm):
 
-    password1 = SetPasswordField(label=_("Password"))
+    password1 = PasswordField(label=_("Password"))
     password2 = PasswordField(label=_("Password (again)"))
     confirmation_key = forms.CharField(max_length=40,
                                        required=False,
@@ -300,6 +305,22 @@ class SignupForm(BaseSignupForm):
 
     def clean(self):
         super(SignupForm, self).clean()
+
+        # `password` cannot by of type `SetPasswordField`, as we don't
+        # have a `User` yet. So, let's populate a dummy user to be used
+        # for password validaton.
+        dummy_user = get_user_model()
+        user_username(dummy_user, self.cleaned_data.get("username"))
+        user_email(dummy_user, self.cleaned_data.get("email"))
+        password = self.cleaned_data.get('password1')
+        if password:
+            try:
+                get_adapter().clean_password(
+                    password,
+                    user=dummy_user)
+            except forms.ValidationError as e:
+                self.add_error('password1', e)
+
         if app_settings.SIGNUP_PASSWORD_VERIFICATION \
                 and "password1" in self.cleaned_data \
                 and "password2" in self.cleaned_data:
@@ -307,6 +328,7 @@ class SignupForm(BaseSignupForm):
                     != self.cleaned_data["password2"]:
                 raise forms.ValidationError(_("You must type the same password"
                                               " each time."))
+
         return self.cleaned_data
 
     def save(self, request):
@@ -368,6 +390,10 @@ class ChangePasswordForm(UserForm):
     password1 = SetPasswordField(label=_("New Password"))
     password2 = PasswordField(label=_("New Password (again)"))
 
+    def __init__(self, *args, **kwargs):
+        super(ChangePasswordForm, self).__init__(*args, **kwargs)
+        self.fields['password1'].user = self.user
+
     def clean_oldpassword(self):
         if not self.user.check_password(self.cleaned_data.get("oldpassword")):
             raise forms.ValidationError(_("Please type your current"
@@ -391,6 +417,10 @@ class SetPasswordForm(UserForm):
 
     password1 = SetPasswordField(label=_("Password"))
     password2 = PasswordField(label=_("Password (again)"))
+
+    def __init__(self, *args, **kwargs):
+        super(SetPasswordForm, self).__init__(*args, **kwargs)
+        self.fields['password1'].user = self.user
 
     def clean_password2(self):
         if ("password1" in self.cleaned_data
@@ -477,6 +507,7 @@ class ResetPasswordKeyForm(forms.Form):
         self.user = kwargs.pop("user", None)
         self.temp_key = kwargs.pop("temp_key", None)
         super(ResetPasswordKeyForm, self).__init__(*args, **kwargs)
+        self.fields['password1'].user = self.user
 
     # FIXME: Inspecting other fields -> should be put in def clean(self) ?
     def clean_password2(self):

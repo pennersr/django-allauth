@@ -6,6 +6,18 @@ Note worthy changes
 
 - Added Weixin provider.
 
+- Django's password validation mechanism (see `AUTH_PASSWORD_VALIDATORS`) is now
+  used to validate passwords.
+
+
+Backwards incompatible changes
+------------------------------
+
+- In order to accomodate for Django's password validation, the
+  `clean_password` method of the adapter now takes an (optional)
+  `user` parameter as its second argument.
+
+
 0.25.2 (2016-03-13)
 *******************
 

@@ -3,6 +3,7 @@ import json
 
 from datetime import timedelta
 
+import django
 from django.utils.timezone import now
 from django.test.utils import override_settings
 from django.conf import settings
@@ -526,6 +527,30 @@ class AccountTests(TestCase):
         self._create_user_and_login()
         resp = self.client.get(reverse('account_login'))
         self.assertEqual(resp.status_code, 200)
+
+    @override_settings(AUTH_PASSWORD_VALIDATORS=[{
+        'NAME':
+        'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 9,
+            }
+        }])
+    def test_django_password_validation(self):
+        if django.VERSION < (1, 9, ):
+            return
+        resp = self.client.post(
+            reverse('account_signup'),
+            {'username': 'johndoe',
+             'email': 'john@doe.com',
+             'password1': 'johndoe',
+             'password2': 'johndoe'})
+        self.assertFormError(resp, 'form', None, [])
+        self.assertFormError(
+            resp,
+            'form',
+            'password1',
+            ['This password is too short.'
+             ' It must contain at least 9 characters.'])
 
 
 class EmailFormTests(TestCase):

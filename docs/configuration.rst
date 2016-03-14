@@ -106,6 +106,7 @@ ACCOUNT_USER_DISPLAY (=a callable returning `user.username`)
 
 ACCOUNT_USERNAME_MIN_LENGTH (=1)
   An integer specifying the minimum allowed length of a username.
+  Deprecated -- use Django's `AUTH_PASSWORD_VALIDATORS` instead.
 
 ACCOUNT_USERNAME_BLACKLIST (=[])
   A list of usernames that can't be used by user.

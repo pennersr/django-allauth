@@ -26,6 +26,7 @@ try:
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
+from ..compat import validate_password
 from ..utils import (build_absolute_uri, get_current_site,
                      generate_unique_username,
                      get_user_model, import_attribute,
@@ -269,7 +270,7 @@ class DefaultAccountAdapter(object):
         """
         return email
 
-    def clean_password(self, password):
+    def clean_password(self, password, user=None):
         """
         Validates a password. You can hook into this if you want to
         restric the allowed password choices.
@@ -278,6 +279,7 @@ class DefaultAccountAdapter(object):
         if len(password) < min_length:
             raise forms.ValidationError(_("Password must be a minimum of {0} "
                                           "characters.").format(min_length))
+        validate_password(password, user)
         return password
 
     def add_message(self, request, level, message_template,

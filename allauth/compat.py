@@ -25,3 +25,9 @@ try:
     import importlib
 except ImportError:
     from django.utils import importlib  # noqa
+
+if django.VERSION >= (1, 9, 0):
+    from django.contrib.auth.password_validation import validate_password
+else:
+    def validate_password(password, user=None, password_validators=None):
+        pass

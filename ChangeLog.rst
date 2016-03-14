@@ -25,6 +25,10 @@ Backwards incompatible changes
   `clean_password` method of the adapter now takes an (optional)
   `user` parameter as its second argument.
 
+- The new HMAC based keys may contain colons. If you have forked
+  `account/urls.py`, be sure to sync the `account_confirm_email`
+  pattern.
+
 
 0.25.2 (2016-03-13)
 *******************

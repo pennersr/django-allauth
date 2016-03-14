@@ -112,6 +112,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.untappd',
     'allauth.socialaccount.providers.vimeo',
     'allauth.socialaccount.providers.weibo',
+    'allauth.socialaccount.providers.weixin',
     'allauth.socialaccount.providers.vk',
     'allauth.socialaccount.providers.xing',
 )

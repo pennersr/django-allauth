@@ -1,3 +1,11 @@
+Unreleased
+**********
+
+Note worthy changes
+-------------------
+
+- Added Weixin provider.
+
 0.25.2 (2016-03-13)
 *******************
 

@@ -103,6 +103,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.vimeo',
         'allauth.socialaccount.providers.vk',
         'allauth.socialaccount.providers.weibo',
+        'allauth.socialaccount.providers.weixin',
         'allauth.socialaccount.providers.windowslive',
         'allauth.socialaccount.providers.xing',
         ...

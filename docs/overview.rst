@@ -113,6 +113,8 @@ Supported Providers
 
 - Weibo (OAuth2)
 
+- Weixin (OAuth2)
+
 - Windows Live (OAuth2)
 
 - Xing (OAuth)

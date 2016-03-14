@@ -10,7 +10,7 @@ Python package::
 
 settings.py (Important - Please note 'django.contrib.sites' is required as INSTALLED_APPS)::
 
-    # For Django 1.7 and below, use:
+    # For Django 1.7, use:
     TEMPLATE_CONTEXT_PROCESSORS = (
         ...
         # Required by `allauth` template tags
@@ -125,10 +125,6 @@ Post-Installation
 
 In your Django root execute the command below to create your database tables::
 
-    # Django 1.6 and below
-    ./manage.py syncdb
-
-    # Django 1.7 and above
     ./manage.py migrate
 
 Now start your server, visit your admin pages (e.g. http://localhost:8000/admin/)

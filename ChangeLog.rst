@@ -13,6 +13,8 @@ Note worthy changes
 Backwards incompatible changes
 ------------------------------
 
+- Dropped support for Django 1.6
+
 - In order to accomodate for Django's password validation, the
   `clean_password` method of the adapter now takes an (optional)
   `user` parameter as its second argument.

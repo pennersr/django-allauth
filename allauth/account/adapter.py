@@ -11,6 +11,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login as django_login, get_backends
 from django.contrib.auth import logout as django_logout, authenticate
+from django.contrib.auth.models import AbstractUser
 from django.core.cache import cache
 from django.core.mail import EmailMultiAlternatives, EmailMessage
 from django.core.urlresolvers import reverse
@@ -47,7 +48,7 @@ class DefaultAccountAdapter(object):
         'username_blacklisted':
         _('Username can not be used. Please use other username.'),
         'username_taken':
-        _('This username is already taken. Please choose another.'),
+        AbstractUser._meta.get_field('username').error_messages['unique'],
         'too_many_login_attempts':
         _('Too many failed login attempts. Try again later.')
     }
@@ -259,8 +260,11 @@ class DefaultAccountAdapter(object):
                 user_model.objects.get(**query)
             except user_model.DoesNotExist:
                 return username
-            raise forms.ValidationError(
-                self.error_messages['username_taken'])
+            error_message = user_model._meta.get_field(
+                username_field).error_messages.get('unique')
+            if not error_message:
+                error_message = self.error_messages['username_taken']
+            raise forms.ValidationError(error_message)
         return username
 
     def clean_email(self, email):

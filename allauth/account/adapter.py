@@ -89,6 +89,13 @@ class DefaultAccountAdapter(object):
             prefix = "[{name}] ".format(name=site.name)
         return prefix + force_text(subject)
 
+    def get_from_email(self):
+        """
+        This is a hook that can be overridden to programatically
+        set the 'from' email address for sending emails
+        """
+        return settings.DEFAULT_FROM_EMAIL
+
     def render_mail(self, template_prefix, email, context):
         """
         Renders an e-mail to `email`.  `template_prefix` identifies the
@@ -99,6 +106,8 @@ class DefaultAccountAdapter(object):
         # remove superfluous line breaks
         subject = " ".join(subject.splitlines()).strip()
         subject = self.format_email_subject(subject)
+
+        from_email = self.get_from_email()
 
         bodies = {}
         for ext in ['html', 'txt']:
@@ -113,14 +122,14 @@ class DefaultAccountAdapter(object):
         if 'txt' in bodies:
             msg = EmailMultiAlternatives(subject,
                                          bodies['txt'],
-                                         settings.DEFAULT_FROM_EMAIL,
+                                         from_email,
                                          [email])
             if 'html' in bodies:
                 msg.attach_alternative(bodies['html'], 'text/html')
         else:
             msg = EmailMessage(subject,
                                bodies['html'],
-                               settings.DEFAULT_FROM_EMAIL,
+                               from_email,
                                [email])
             msg.content_subtype = 'html'  # Main content is now text/html
         return msg

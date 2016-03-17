@@ -33,7 +33,7 @@ msgstr "Deze gebruikersnaam is al in gebruik. Kies a.u.b. een andere naam."
 
 #: account/adapter.py:50
 msgid "Too many failed login attempts. Try again later."
-msgstr ""
+msgstr "Teveel foutieve inlog pogingen. Probeer het later nogmaals."
 
 #: account/adapter.py:278
 #, python-brace-format
@@ -41,9 +41,8 @@ msgid "Password must be a minimum of {0} characters."
 msgstr "Het wachtwoord moet minimaal {0} tekens bevatten."
 
 #: account/apps.py:8
-#, fuzzy
 msgid "Accounts"
-msgstr "Account"
+msgstr "Accounts"
 
 #: account/forms.py:53 account/forms.py:290 account/forms.py:392
 msgid "Password"
@@ -195,9 +194,8 @@ msgid "Your account has no verified e-mail address."
 msgstr "Je account heeft geen geverifieerd e-mail adres."
 
 #: socialaccount/apps.py:8
-#, fuzzy
 msgid "Social Accounts"
-msgstr "Account"
+msgstr "Sociale accounts"
 
 #: socialaccount/forms.py:41
 #, python-format
@@ -213,9 +211,8 @@ msgid "provider"
 msgstr ""
 
 #: socialaccount/models.py:50
-#, fuzzy
 msgid "name"
-msgstr "Gebruikersnaam"
+msgstr "naam"
 
 #: socialaccount/models.py:52
 msgid "client id"

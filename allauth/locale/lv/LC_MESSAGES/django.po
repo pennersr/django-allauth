@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-15 23:15+0200\n"
+"POT-Creation-Date: 2016-03-19 04:07-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,360 +19,354 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
-#: allauth/account/adapter.py:45
+#: account/adapter.py:47
 msgid "Usernames can only contain letters, digits and @/./+/-/_."
 msgstr "Lietotājvārds var saturēt tikai burtus, ciparus un @/./+/-/_."
 
-#: allauth/account/adapter.py:47
+#: account/adapter.py:49
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Lietotājvārds nevar tikt izmantots. Lūdzu izvēlietis citu lietotājvārdu."
 
-#: allauth/account/adapter.py:49
-msgid "This username is already taken. Please choose another."
-msgstr "Šis lietotājvārds jau ir aizņemts. Lūdzu izvēlaties citu."
-
-#: allauth/account/adapter.py:51
+#: account/adapter.py:53
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 "Pārāk daudz neveiksmīgi pieslēgšanās mēģinājumi. Mēģiniet vēlreiz vēlāk."
 
-#: allauth/account/adapter.py:279
+#: account/adapter.py:293
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Parolei jābūt vismaz {0} simbolus garai."
 
-#: allauth/account/apps.py:8
+#: account/apps.py:8
 msgid "Accounts"
 msgstr "Konti"
 
-#: allauth/account/forms.py:53 allauth/account/forms.py:290
-#: allauth/account/forms.py:392
+#: account/forms.py:58 account/forms.py:295 account/forms.py:418
 msgid "Password"
 msgstr "Parole"
 
-#: allauth/account/forms.py:54
+#: account/forms.py:59
 msgid "Remember Me"
 msgstr "Atcerēties mani"
 
-#: allauth/account/forms.py:60
+#: account/forms.py:65
 msgid "This account is currently inactive."
 msgstr "Šis konts šobrīd ir neaktīvs."
 
-#: allauth/account/forms.py:63
+#: account/forms.py:68
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "Nepareizs e-pasts un/vai parole."
 
-#: allauth/account/forms.py:66
+#: account/forms.py:71
 msgid "The username and/or password you specified are not correct."
 msgstr "Nepareizs lietotāja vārds un/vai parole."
 
-#: allauth/account/forms.py:69
+#: account/forms.py:74
 msgid "The login and/or password you specified are not correct."
 msgstr "Nepareiza pieteikšanās informācija un/vai parole."
 
-#: allauth/account/forms.py:78 allauth/account/forms.py:219
-#: allauth/account/forms.py:337 allauth/account/forms.py:416
+#: account/forms.py:83 account/forms.py:224 account/forms.py:359
+#: account/forms.py:446
 msgid "E-mail address"
 msgstr "E-pasta adrese"
 
-#: allauth/account/forms.py:80 allauth/account/forms.py:237
-#: allauth/account/forms.py:332 allauth/account/forms.py:411
+#: account/forms.py:85 account/forms.py:242 account/forms.py:354
+#: account/forms.py:441
 msgid "E-mail"
 msgstr "E-pasts"
 
-#: allauth/account/forms.py:85 allauth/account/forms.py:88
-#: allauth/account/forms.py:211 allauth/account/forms.py:215
+#: account/forms.py:90 account/forms.py:93 account/forms.py:216
+#: account/forms.py:220
 msgid "Username"
 msgstr "Lietotājvārds"
 
-#: allauth/account/forms.py:95
+#: account/forms.py:100
 msgid "Username or e-mail"
 msgstr "Lietotājvārds vai e-pasts"
 
-#: allauth/account/forms.py:98
+#: account/forms.py:103
 msgctxt "field label"
 msgid "Login"
 msgstr "Ieiet"
 
-#: allauth/account/forms.py:240
+#: account/forms.py:245
 msgid "E-mail (optional)"
 msgstr "E-pasts (izvēles)"
 
-#: allauth/account/forms.py:272
+#: account/forms.py:277
 msgid "A user is already registered with this e-mail address."
 msgstr "Lietotājs ar šādu e-pasta adresi jau ir reģistrēts."
 
-#: allauth/account/forms.py:291 allauth/account/forms.py:393
+#: account/forms.py:296 account/forms.py:419
 msgid "Password (again)"
 msgstr "Parole (vēlreiz)"
 
-#: allauth/account/forms.py:308 allauth/account/forms.py:382
-#: allauth/account/forms.py:400 allauth/account/forms.py:487
+#: account/forms.py:329 account/forms.py:408 account/forms.py:430
+#: account/forms.py:518
 msgid "You must type the same password each time."
 msgstr "Katru reizi jums ir jāievada tā pati parole."
 
-#: allauth/account/forms.py:343
+#: account/forms.py:365
 msgid "This e-mail address is already associated with this account."
 msgstr "Šī e-pasta adrese jau ir piesaistīta šim kontam."
 
-#: allauth/account/forms.py:345
+#: account/forms.py:367
 msgid "This e-mail address is already associated with another account."
 msgstr "Šī e-pasta adrese jau ir piesaistīta citam kontam."
 
-#: allauth/account/forms.py:367
+#: account/forms.py:389
 msgid "Current Password"
 msgstr "Šobrīdējā parole"
 
-#: allauth/account/forms.py:368 allauth/account/forms.py:473
+#: account/forms.py:390 account/forms.py:503
 msgid "New Password"
 msgstr "Jaunā parole"
 
-#: allauth/account/forms.py:369 allauth/account/forms.py:474
+#: account/forms.py:391 account/forms.py:504
 msgid "New Password (again)"
 msgstr "Jaunā parole (vēlreiz)"
 
-#: allauth/account/forms.py:373
+#: account/forms.py:399
 msgid "Please type your current password."
 msgstr "Lūdzu ievadiet jūsu šobrīdējo paroli."
 
-#: allauth/account/forms.py:425
+#: account/forms.py:455
 msgid "The e-mail address is not assigned to any user account"
 msgstr "E-pasta adrese nav piesaistīta nevienam lietotāja kontam"
 
-#: allauth/account/forms.py:504
+#: account/forms.py:535
 msgid "The password reset token was invalid."
 msgstr "Paroles atjaunošanas marķieris bija nederīgs."
 
-#: allauth/account/models.py:25
+#: account/models.py:26
 msgid "user"
 msgstr "lietotājs"
 
-#: allauth/account/models.py:28 allauth/account/models.py:84
+#: account/models.py:29 account/models.py:88
 msgid "e-mail address"
 msgstr "e-pasta adrese"
 
-#: allauth/account/models.py:29
+#: account/models.py:30
 msgid "verified"
 msgstr "apstiprināts"
 
-#: allauth/account/models.py:30
+#: account/models.py:31
 msgid "primary"
 msgstr "primārā"
 
-#: allauth/account/models.py:35
+#: account/models.py:36
 msgid "email address"
 msgstr "e-pasta adrese"
 
-#: allauth/account/models.py:36
+#: account/models.py:37
 msgid "email addresses"
 msgstr "e-pasta adreses"
 
-#: allauth/account/models.py:85
+#: account/models.py:89
 msgid "created"
 msgstr "izveidots"
 
-#: allauth/account/models.py:87
+#: account/models.py:91
 msgid "sent"
 msgstr "nosūtīts"
 
-#: allauth/account/models.py:88 allauth/socialaccount/models.py:59
+#: account/models.py:92 socialaccount/models.py:59
 msgid "key"
 msgstr "atslēga"
 
-#: allauth/account/models.py:93
+#: account/models.py:97
 msgid "email confirmation"
 msgstr "e-pasta apstiprinājums"
 
-#: allauth/account/models.py:94
+#: account/models.py:98
 msgid "email confirmations"
 msgstr "e-pasta apstiprinājumi"
 
-#: allauth/socialaccount/adapter.py:121
+#: socialaccount/adapter.py:121
 msgid "Your account has no password set up."
 msgstr "Jūsu kontam nav uzstādīta parole."
 
-#: allauth/socialaccount/adapter.py:128
+#: socialaccount/adapter.py:128
 msgid "Your account has no verified e-mail address."
 msgstr "Jūsu kontam nav apstiprinātas e-pasta adreses."
 
-#: allauth/socialaccount/apps.py:8
+#: socialaccount/apps.py:8
 msgid "Social Accounts"
 msgstr "Sociālie konti"
 
-#: allauth/socialaccount/forms.py:41
+#: socialaccount/forms.py:41
 #, python-format
 msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
 "account first, then connect your %s account."
 msgstr ""
-"Jau eksistē konts ar šo e-pasta adresi. Lūdzu sākumā ieejiet tajā kontā, "
-"tad pievienojiet %s kontu."
+"Jau eksistē konts ar šo e-pasta adresi. Lūdzu sākumā ieejiet tajā kontā, tad "
+"pievienojiet %s kontu."
 
-#: allauth/socialaccount/models.py:47 allauth/socialaccount/models.py:80
+#: socialaccount/models.py:47 socialaccount/models.py:80
 msgid "provider"
 msgstr "sniedzējs"
 
-#: allauth/socialaccount/models.py:50
+#: socialaccount/models.py:50
 msgid "name"
 msgstr "vārds"
 
-#: allauth/socialaccount/models.py:52
+#: socialaccount/models.py:52
 msgid "client id"
 msgstr "klienta id"
 
-#: allauth/socialaccount/models.py:54
+#: socialaccount/models.py:54
 msgid "App ID, or consumer key"
 msgstr "App ID, vai consumer key"
 
-#: allauth/socialaccount/models.py:55
+#: socialaccount/models.py:55
 msgid "secret key"
 msgstr "secret key"
 
-#: allauth/socialaccount/models.py:57
+#: socialaccount/models.py:57
 msgid "API secret, client secret, or consumer secret"
 msgstr "API secret, client secret, vai consumer secret"
 
-#: allauth/socialaccount/models.py:62
+#: socialaccount/models.py:62
 msgid "Key"
 msgstr "Key"
 
-#: allauth/socialaccount/models.py:70
+#: socialaccount/models.py:70
 msgid "social application"
 msgstr "sociālā aplikācija"
 
-#: allauth/socialaccount/models.py:71
+#: socialaccount/models.py:71
 msgid "social applications"
 msgstr "sociālās aplikācijas"
 
-#: allauth/socialaccount/models.py:99
+#: socialaccount/models.py:99
 msgid "uid"
 msgstr "uid"
 
-#: allauth/socialaccount/models.py:101
+#: socialaccount/models.py:101
 msgid "last login"
 msgstr "pēdējā pieslēgšanās"
 
-#: allauth/socialaccount/models.py:103
+#: socialaccount/models.py:103
 msgid "date joined"
 msgstr "reģistrācijas datums"
 
-#: allauth/socialaccount/models.py:105
+#: socialaccount/models.py:105
 msgid "extra data"
 msgstr "papildus informācija"
 
-#: allauth/socialaccount/models.py:109
+#: socialaccount/models.py:109
 msgid "social account"
 msgstr "sociālais konts"
 
-#: allauth/socialaccount/models.py:110
+#: socialaccount/models.py:110
 msgid "social accounts"
 msgstr "sociālie konti"
 
-#: allauth/socialaccount/models.py:136
+#: socialaccount/models.py:136
 msgid "token"
 msgstr "token"
 
-#: allauth/socialaccount/models.py:138
+#: socialaccount/models.py:138
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) vai piekļūt marķierim (OAuth2)"
 
-#: allauth/socialaccount/models.py:141
+#: socialaccount/models.py:141
 msgid "token secret"
 msgstr "token secret"
 
-#: allauth/socialaccount/models.py:143
+#: socialaccount/models.py:143
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) vai atjaunot marķieri (OAuth2)"
 
-#: allauth/socialaccount/models.py:145
+#: socialaccount/models.py:145
 msgid "expires at"
 msgstr "beidzas"
 
-#: allauth/socialaccount/models.py:149
+#: socialaccount/models.py:149
 msgid "social application token"
 msgstr "sociālās aplikācijas marķieris"
 
-#: allauth/socialaccount/models.py:150
+#: socialaccount/models.py:150
 msgid "social application tokens"
 msgstr "sociālās aplikācijas marķieri"
 
-#: allauth/socialaccount/providers/oauth/client.py:77
+#: socialaccount/providers/oauth/client.py:77
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "Nederīga atbilde iegūstot pieprasījuma marķieri no \"%s\"."
 
-#: allauth/socialaccount/providers/oauth/client.py:103
+#: socialaccount/providers/oauth/client.py:103
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Nederīga atbilde iegūstot pieejas marķieri no \"%s\"."
 
-#: allauth/socialaccount/providers/oauth/client.py:119
+#: socialaccount/providers/oauth/client.py:119
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr "Netika saglabāts pieprasījuma marķieris priekš \"%s\"."
 
-#: allauth/socialaccount/providers/oauth/client.py:168
+#: socialaccount/providers/oauth/client.py:168
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "Netika saglabāts pieejas marķieris priekš  \"%s\"."
 
-#: allauth/socialaccount/providers/oauth/client.py:188
+#: socialaccount/providers/oauth/client.py:188
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "Nav pieejas privātam resursam \"%s\"."
 
-#: allauth/templates/account/account_inactive.html:5
-#: allauth/templates/account/account_inactive.html:8
+#: templates/account/account_inactive.html:5
+#: templates/account/account_inactive.html:8
 msgid "Account Inactive"
 msgstr "Neaktīvs konts"
 
-#: allauth/templates/account/account_inactive.html:10
+#: templates/account/account_inactive.html:10
 msgid "This account is inactive."
 msgstr "Šis konts ir neaktīvs."
 
-#: allauth/templates/account/email.html:5
+#: templates/account/email.html:5
 msgid "Account"
 msgstr "Konts"
 
-#: allauth/templates/account/email.html:8
+#: templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "E-pasta adreses"
 
-#: allauth/templates/account/email.html:10
+#: templates/account/email.html:10
 msgid "The following e-mail addresses are associated with your account:"
 msgstr "Sekojošas e-pasta adreses ir piesaistītas jūsu kontam:"
 
-#: allauth/templates/account/email.html:24
+#: templates/account/email.html:24
 msgid "Verified"
 msgstr "Apstiprināta"
 
-#: allauth/templates/account/email.html:26
+#: templates/account/email.html:26
 msgid "Unverified"
 msgstr "Neapstiprināta"
 
-#: allauth/templates/account/email.html:28
+#: templates/account/email.html:28
 msgid "Primary"
 msgstr "Primārā"
 
-#: allauth/templates/account/email.html:34
+#: templates/account/email.html:34
 msgid "Make Primary"
 msgstr "Iestatīt kā primāro"
 
-#: allauth/templates/account/email.html:35
+#: templates/account/email.html:35
 msgid "Re-send Verification"
 msgstr "Pārsūtīt apstiprināšanu"
 
-#: allauth/templates/account/email.html:36
-#: allauth/templates/socialaccount/connections.html:35
+#: templates/account/email.html:36 templates/socialaccount/connections.html:35
 msgid "Remove"
 msgstr "Noņemt"
 
-#: allauth/templates/account/email.html:43
+#: templates/account/email.html:43
 msgid "Warning:"
 msgstr "Brīdinājums:"
 
-#: allauth/templates/account/email.html:43
+#: templates/account/email.html:43
 msgid ""
 "You currently do not have any e-mail address set up. You should really add "
 "an e-mail address so you can receive notifications, reset your password, etc."
@@ -381,19 +375,19 @@ msgstr ""
 "pievienot e-pasta adresi, lai jūs varētu saņemt paziņojumus, atiestatīt savu "
 "paroli utt."
 
-#: allauth/templates/account/email.html:48
+#: templates/account/email.html:48
 msgid "Add E-mail Address"
 msgstr "Pievienot e-pasta adresi"
 
-#: allauth/templates/account/email.html:53
+#: templates/account/email.html:53
 msgid "Add E-mail"
 msgstr "Pievienot e-pastu"
 
-#: allauth/templates/account/email.html:62
+#: templates/account/email.html:62
 msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Vai jūs tiešām vēlaties noņemt izvēlēto e-pasta adresi?"
 
-#: allauth/templates/account/email/email_confirmation_message.txt:1
+#: templates/account/email/email_confirmation_message.txt:1
 #, python-format
 msgid ""
 "Hello from %(site_name)s!\n"
@@ -412,7 +406,7 @@ msgstr ""
 "\n"
 "Lai apstiprinātu, ka viss ir parezi, ejiet uz %(activate_url)s\n"
 
-#: allauth/templates/account/email/email_confirmation_message.txt:7
+#: templates/account/email/email_confirmation_message.txt:7
 #, python-format
 msgid ""
 "Thank you from %(site_name)s!\n"
@@ -421,11 +415,11 @@ msgstr ""
 "Visu labu vēlot, %(site_name)s!\n"
 "%(site_domain)s"
 
-#: allauth/templates/account/email/email_confirmation_subject.txt:3
+#: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your E-mail Address"
 msgstr "Lūdzu apstipriniet savu e-pasta adresi"
 
-#: allauth/templates/account/email/password_reset_key_message.txt:1
+#: templates/account/email/password_reset_key_message.txt:1
 #, python-format
 msgid ""
 "Hello from %(site_name)s!\n"
@@ -442,12 +436,12 @@ msgstr ""
 "Jūs varat droši ignorēt šo e-pasta vēstuli, ja jūs nepieprasījat paroles "
 "atjaunošanu. Spiedied uz linka zemāk, lai atjaunotu jūsu paroli."
 
-#: allauth/templates/account/email/password_reset_key_message.txt:8
+#: templates/account/email/password_reset_key_message.txt:8
 #, python-format
 msgid "In case you forgot, your username is %(username)s."
 msgstr "Gadījumā ja jūs aizmirsāt, tad jūsu lietotājvārds ir %(username)s."
 
-#: allauth/templates/account/email/password_reset_key_message.txt:10
+#: templates/account/email/password_reset_key_message.txt:10
 #, python-format
 msgid ""
 "Thank you for using %(site_name)s!\n"
@@ -456,16 +450,16 @@ msgstr ""
 "Paldies, ka izmantojat %(site_name)s!\n"
 "%(site_domain)s"
 
-#: allauth/templates/account/email/password_reset_key_subject.txt:3
+#: templates/account/email/password_reset_key_subject.txt:3
 msgid "Password Reset E-mail"
 msgstr "Paroles atjaunošanas e-pasts"
 
-#: allauth/templates/account/email_confirm.html:6
-#: allauth/templates/account/email_confirm.html:10
+#: templates/account/email_confirm.html:6
+#: templates/account/email_confirm.html:10
 msgid "Confirm E-mail Address"
 msgstr "Apstipriniet e-pasta adresi"
 
-#: allauth/templates/account/email_confirm.html:16
+#: templates/account/email_confirm.html:16
 #, python-format
 msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
@@ -474,11 +468,11 @@ msgstr ""
 "Lūdzu apstipriniet ka <a href=\"mailto:%(email)s\">%(email)s</a> e-pasta "
 "adrese pieder lietotājam %(user_display)s."
 
-#: allauth/templates/account/email_confirm.html:20
+#: templates/account/email_confirm.html:20
 msgid "Confirm"
 msgstr "Apstiprināt"
 
-#: allauth/templates/account/email_confirm.html:27
+#: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
 "This e-mail confirmation link expired or is invalid. Please <a href="
@@ -488,13 +482,12 @@ msgstr ""
 "nederīgs. Lūdzu <a href=\"%(email_url)s\">pieprasiet jaunu e-pasta "
 "apstiprināšanas linku</a>."
 
-#: allauth/templates/account/login.html:6
-#: allauth/templates/account/login.html:10
-#: allauth/templates/account/login.html:43
+#: templates/account/login.html:6 templates/account/login.html.py:10
+#: templates/account/login.html:43
 msgid "Sign In"
 msgstr "Ieiet"
 
-#: allauth/templates/account/login.html:15
+#: templates/account/login.html:15
 #, python-format
 msgid ""
 "Please sign in with one\n"
@@ -507,11 +500,11 @@ msgstr ""
 "\">reģistrējieties</a>\n"
 "%(site_name)s kontam un ieejiet zemāk:"
 
-#: allauth/templates/account/login.html:25
+#: templates/account/login.html:25
 msgid "or"
 msgstr "vai"
 
-#: allauth/templates/account/login.html:32
+#: templates/account/login.html:32
 #, python-format
 msgid ""
 "If you have not created an account yet, then please\n"
@@ -520,83 +513,82 @@ msgstr ""
 "Ja jūs vēl neesat izveidojuši kontu, tad lūdzu\n"
 "<a href=\"%(signup_url)s\">piereģistrējaties</a>."
 
-#: allauth/templates/account/login.html:42
+#: templates/account/login.html:42
 msgid "Forgot Password?"
 msgstr "Aizmirsāt paroli?"
 
-#: allauth/templates/account/logout.html:5
-#: allauth/templates/account/logout.html:8
-#: allauth/templates/account/logout.html:17
+#: templates/account/logout.html:5 templates/account/logout.html.py:8
+#: templates/account/logout.html:17
 msgid "Sign Out"
 msgstr "Iziet"
 
-#: allauth/templates/account/logout.html:10
+#: templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
 msgstr "Vai jūs tiešām vēlaties iziet?"
 
-#: allauth/templates/account/messages/cannot_delete_primary_email.txt:2
+#: templates/account/messages/cannot_delete_primary_email.txt:2
 #, python-format
 msgid "You cannot remove your primary e-mail address (%(email)s)."
 msgstr "Jūs nevarat noņemt savu primāro e-pasta adresi (%(email)s)."
 
-#: allauth/templates/account/messages/email_confirmation_sent.txt:2
+#: templates/account/messages/email_confirmation_sent.txt:2
 #, python-format
 msgid "Confirmation e-mail sent to %(email)s."
 msgstr "Apstiprinājuma e-pasts nosūtīts uz %(email)s."
 
-#: allauth/templates/account/messages/email_confirmed.txt:2
+#: templates/account/messages/email_confirmed.txt:2
 #, python-format
 msgid "You have confirmed %(email)s."
 msgstr "Jūs esat apstiprinājis %(email)s."
 
-#: allauth/templates/account/messages/email_deleted.txt:2
+#: templates/account/messages/email_deleted.txt:2
 #, python-format
 msgid "Removed e-mail address %(email)s."
 msgstr "Noņemta e-pasta adrese %(email)s."
 
-#: allauth/templates/account/messages/logged_in.txt:4
+#: templates/account/messages/logged_in.txt:4
 #, python-format
 msgid "Successfully signed in as %(name)s."
 msgstr "Veiksmīgi iegājuši kā %(name)s."
 
-#: allauth/templates/account/messages/logged_out.txt:2
+#: templates/account/messages/logged_out.txt:2
 msgid "You have signed out."
 msgstr "Jūs esat izgājuši."
 
-#: allauth/templates/account/messages/password_changed.txt:2
+#: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
 msgstr "Parole veiksmīgi nomainīta."
 
-#: allauth/templates/account/messages/password_set.txt:2
+#: templates/account/messages/password_set.txt:2
 msgid "Password successfully set."
 msgstr "Parole veiksmīgi uzstādīta."
 
-#: allauth/templates/account/messages/primary_email_set.txt:2
+#: templates/account/messages/primary_email_set.txt:2
 msgid "Primary e-mail address set."
 msgstr "Primārā e-pasta adrese uzstādīta."
 
-#: allauth/templates/account/messages/unverified_primary_email.txt:2
+#: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary e-mail address must be verified."
 msgstr "Jūsu primārajai e-pasta adresei jābūt apstiprinātai."
 
-#: allauth/templates/account/password_change.html:5
-#: allauth/templates/account/password_change.html:8
-#: allauth/templates/account/password_change.html:13
-#: allauth/templates/account/password_reset_from_key.html:4
-#: allauth/templates/account/password_reset_from_key.html:7
-#: allauth/templates/account/password_reset_from_key_done.html:4
-#: allauth/templates/account/password_reset_from_key_done.html:7
+#: templates/account/password_change.html:5
+#: templates/account/password_change.html:8
+#: templates/account/password_change.html:13
+#: templates/account/password_reset_from_key.html:4
+#: templates/account/password_reset_from_key.html:7
+#: templates/account/password_reset_from_key_done.html:4
+#: templates/account/password_reset_from_key_done.html:7
 msgid "Change Password"
 msgstr "Mainīt paroli"
 
-#: allauth/templates/account/password_reset.html:6
-#: allauth/templates/account/password_reset.html:10
-#: allauth/templates/account/password_reset_done.html:6
-#: allauth/templates/account/password_reset_done.html:9
+#: templates/account/password_reset.html:6
+#: templates/account/password_reset.html:10
+#: templates/account/password_reset_done.html:6
+#: templates/account/password_reset_done.html:9
 msgid "Password Reset"
 msgstr "Atjaunot paroli"
 
-#: allauth/templates/account/password_reset.html:15
+#: templates/account/password_reset.html:15
 msgid ""
 "Forgotten your password? Enter your e-mail address below, and we'll send you "
 "an e-mail allowing you to reset it."
@@ -604,15 +596,15 @@ msgstr ""
 "Aizmirsāt savu paroli? Ievadiet zemāk savu e-pasta adresi, un mēs jums "
 "nosūtīsim e-pasta vēstuli, lai atjaunotu to."
 
-#: allauth/templates/account/password_reset.html:20
+#: templates/account/password_reset.html:20
 msgid "Reset My Password"
 msgstr "Atjaunot manu paroli"
 
-#: allauth/templates/account/password_reset.html:23
+#: templates/account/password_reset.html:23
 msgid "Please contact us if you have any trouble resetting your password."
 msgstr "Lūdzu sazinieties ar mums, ja jums ir kādas problēmas atjaunojot to."
 
-#: allauth/templates/account/password_reset_done.html:15
+#: templates/account/password_reset_done.html:15
 msgid ""
 "We have sent you an e-mail. Please contact us if you do not receive it "
 "within a few minutes."
@@ -620,11 +612,11 @@ msgstr ""
 "Mēs jums nosūtījām e-pasta vēstuli. Lūdzu sazinieties ar mums, ja dažu "
 "minūšu laikā nesaņemat vēstuli."
 
-#: allauth/templates/account/password_reset_from_key.html:7
+#: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
 msgstr "Nederīgs marķieris"
 
-#: allauth/templates/account/password_reset_from_key.html:11
+#: templates/account/password_reset_from_key.html:11
 #, python-format
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
@@ -635,75 +627,71 @@ msgstr ""
 "izmantots. Lūdzu pieprasiet <a href=\"%(passwd_reset_url)s\">jaunu paroles "
 "atjaunošanu</a>."
 
-#: allauth/templates/account/password_reset_from_key.html:17
+#: templates/account/password_reset_from_key.html:17
 msgid "change password"
 msgstr "Nomainīt paroli"
 
-#: allauth/templates/account/password_reset_from_key.html:20
-#: allauth/templates/account/password_reset_from_key_done.html:8
+#: templates/account/password_reset_from_key.html:20
+#: templates/account/password_reset_from_key_done.html:8
 msgid "Your password is now changed."
 msgstr "Jūsu parole ir nomainīta."
 
-#: allauth/templates/account/password_set.html:5
-#: allauth/templates/account/password_set.html:8
-#: allauth/templates/account/password_set.html:13
+#: templates/account/password_set.html:5 templates/account/password_set.html:8
+#: templates/account/password_set.html:13
 msgid "Set Password"
 msgstr "Uzstādīt paroli"
 
-#: allauth/templates/account/signup.html:5
-#: allauth/templates/socialaccount/signup.html:5
+#: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
 msgstr "Reģistrēties"
 
-#: allauth/templates/account/signup.html:8
-#: allauth/templates/account/signup.html:18
-#: allauth/templates/socialaccount/signup.html:8
-#: allauth/templates/socialaccount/signup.html:19
+#: templates/account/signup.html:8 templates/account/signup.html.py:18
+#: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
 msgid "Sign Up"
 msgstr "Reģistrēties"
 
-#: allauth/templates/account/signup.html:10
+#: templates/account/signup.html:10
 #, python-format
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
 msgstr "Jau ir konts? Tad lūdzu <a href=\"%(login_url)s\">spiedied šeit</a>."
 
-#: allauth/templates/account/signup_closed.html:5
-#: allauth/templates/account/signup_closed.html:8
+#: templates/account/signup_closed.html:5
+#: templates/account/signup_closed.html:8
 msgid "Sign Up Closed"
 msgstr "Reģistrācija slēgta"
 
-#: allauth/templates/account/signup_closed.html:10
+#: templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
 msgstr "Mēs atvainojamies, bet reģistrācija šobrīd ir slēgta."
 
-#: allauth/templates/account/snippets/already_logged_in.html:5
+#: templates/account/snippets/already_logged_in.html:5
 msgid "Note"
 msgstr "Piezīme"
 
-#: allauth/templates/account/snippets/already_logged_in.html:5
+#: templates/account/snippets/already_logged_in.html:5
 #, python-format
 msgid "you are already logged in as %(user_display)s."
 msgstr "jūs jau esat iegājuši kā %(user_display)s."
 
-#: allauth/templates/account/verification_sent.html:5
-#: allauth/templates/account/verification_sent.html:8
-#: allauth/templates/account/verified_email_required.html:5
-#: allauth/templates/account/verified_email_required.html:8
+#: templates/account/verification_sent.html:5
+#: templates/account/verification_sent.html:8
+#: templates/account/verified_email_required.html:5
+#: templates/account/verified_email_required.html:8
 msgid "Verify Your E-mail Address"
 msgstr "Apstipriniet savu e-pasta adresi"
 
-#: allauth/templates/account/verification_sent.html:10
+#: templates/account/verification_sent.html:10
 msgid ""
 "We have sent an e-mail to you for verification. Follow the link provided to "
 "finalize the signup process. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
 "Jums ir nosūtīts apstiprinājuma e-pasts. Sekojiet saitei, lai pabeigu "
-"reģistrācijas procesu. Lūdzu sazinieties ar mums, ja dažu "
-"minūšu laikā nesaņemat vēstuli."
+"reģistrācijas procesu. Lūdzu sazinieties ar mums, ja dažu minūšu laikā "
+"nesaņemat vēstuli."
 
-#: allauth/templates/account/verified_email_required.html:12
+#: templates/account/verified_email_required.html:12
 msgid ""
 "This part of the site requires us to verify that\n"
 "you are who you claim to be. For this purpose, we require that you\n"
@@ -713,7 +701,7 @@ msgstr ""
 "jūs esat tas, kas jūs apgalvojat esam. Šim mērķim, mēs pieprasām, lai jūs\n"
 "apstipriniet, jūsu e-pasta adreses piederību. "
 
-#: allauth/templates/account/verified_email_required.html:16
+#: templates/account/verified_email_required.html:16
 msgid ""
 "We have sent an e-mail to you for\n"
 "verification. Please click on the link inside this e-mail. Please\n"
@@ -723,7 +711,7 @@ msgstr ""
 "apstiprināšanai. Lūdzu klikšķiniet uz saites šajā e-pastā. Lūdzu\n"
 "sazinieties ar mums, ja dažu minūšu laikā nesaņemat vēstuli."
 
-#: allauth/templates/account/verified_email_required.html:20
+#: templates/account/verified_email_required.html:20
 #, python-format
 msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
@@ -732,30 +720,26 @@ msgstr ""
 "<strong>Piezīme:</strong> jūs vēljoprojām varat <a href=\"%(email_url)s"
 "\">nomainīt jūsu e-pasta adresi</a>."
 
-#: allauth/templates/openid/login.html:9
+#: templates/openid/login.html:9
 msgid "OpenID Sign In"
 msgstr "Ieiet ar OpenID"
 
-#: allauth/templates/shopify/login.html:9
-msgid "Shopify Sign In"
-msgstr "Ieiet ar Shopify"
-
-#: allauth/templates/socialaccount/authentication_error.html:5
-#: allauth/templates/socialaccount/authentication_error.html:8
+#: templates/socialaccount/authentication_error.html:5
+#: templates/socialaccount/authentication_error.html:8
 msgid "Social Network Login Failure"
 msgstr "Sociālā tīkla ieiešanas kļūda"
 
-#: allauth/templates/socialaccount/authentication_error.html:10
+#: templates/socialaccount/authentication_error.html:10
 msgid ""
 "An error occurred while attempting to login via your social network account."
 msgstr "Notikusi kļūme, mēģinot ieiet ar jūsu sociālo kontu."
 
-#: allauth/templates/socialaccount/connections.html:5
-#: allauth/templates/socialaccount/connections.html:8
+#: templates/socialaccount/connections.html:5
+#: templates/socialaccount/connections.html:8
 msgid "Account Connections"
 msgstr "Konta savienojumi"
 
-#: allauth/templates/socialaccount/connections.html:11
+#: templates/socialaccount/connections.html:11
 msgid ""
 "You can sign in to your account using any of the following third party "
 "accounts:"
@@ -763,21 +747,21 @@ msgstr ""
 "Jūs varat ieiet jūsu kontā izmantojot jebkuru no sekojošiem trešo pušu "
 "kontiem:"
 
-#: allauth/templates/socialaccount/connections.html:43
+#: templates/socialaccount/connections.html:43
 msgid ""
 "You currently have no social network accounts connected to this account."
 msgstr "Jūsu kontam šobrīd nav piesaistīts neviens sociālais konts."
 
-#: allauth/templates/socialaccount/connections.html:46
+#: templates/socialaccount/connections.html:46
 msgid "Add a 3rd Party Account"
 msgstr "Pievienot trešās puses kontu"
 
-#: allauth/templates/socialaccount/login_cancelled.html:5
-#: allauth/templates/socialaccount/login_cancelled.html:9
+#: templates/socialaccount/login_cancelled.html:5
+#: templates/socialaccount/login_cancelled.html:9
 msgid "Login Cancelled"
 msgstr "Ieiešana pārtraukta"
 
-#: allauth/templates/socialaccount/login_cancelled.html:13
+#: templates/socialaccount/login_cancelled.html:13
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
@@ -787,19 +771,19 @@ msgstr ""
 "Jūs nolēmāt pārtraukt ieiešanu mūsu lapa izmantojot vienu no jūsu kontiem. "
 "Ja šī ir kļūda, lūdzu dodaties uz <a href=\"%(login_url)s\">ieiet</a>."
 
-#: allauth/templates/socialaccount/messages/account_connected.txt:2
+#: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."
 msgstr "Sociālais konts ir piesaistīts."
 
-#: allauth/templates/socialaccount/messages/account_connected_other.txt:2
+#: templates/socialaccount/messages/account_connected_other.txt:2
 msgid "The social account is already connected to a different account."
 msgstr "Sociālais konts jau ir piesaistīts citam kontam."
 
-#: allauth/templates/socialaccount/messages/account_disconnected.txt:2
+#: templates/socialaccount/messages/account_disconnected.txt:2
 msgid "The social account has been disconnected."
 msgstr "Sociālais konts ir atvienots."
 
-#: allauth/templates/socialaccount/signup.html:10
+#: templates/socialaccount/signup.html:10
 #, python-format
 msgid ""
 "You are about to use your %(provider_name)s account to login to\n"
@@ -807,3 +791,9 @@ msgid ""
 msgstr ""
 "Jūs izmantosiet savu %(provider_name)s kontu, lai ieietu\n"
 "%(site_name)s. Kā pēdējo soli, lūdzu aizpildiet sekojošo formu:"
+
+#~ msgid "This username is already taken. Please choose another."
+#~ msgstr "Šis lietotājvārds jau ir aizņemts. Lūdzu izvēlaties citu."
+
+#~ msgid "Shopify Sign In"
+#~ msgstr "Ieiet ar Shopify"

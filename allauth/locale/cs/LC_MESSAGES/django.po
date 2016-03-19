@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-12 11:59-0600\n"
+"POT-Creation-Date: 2016-03-19 04:07-0500\n"
 "PO-Revision-Date: 2014-08-12 00:28+0200\n"
 "Last-Translator: Tomas Marcik <tomas.marcik@dolnex.cz>, 2013\n"
 "Language-Team: Dolnex Technologies s.r.o. <info@dolnex.cz>\n"
@@ -17,24 +17,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: account/adapter.py:44
+#: account/adapter.py:47
 msgid "Usernames can only contain letters, digits and @/./+/-/_."
 msgstr ""
 "Uživatelské jméno může obsahovat pouze písmena, číslice a znaky @/./+/-/_."
 
-#: account/adapter.py:46
+#: account/adapter.py:49
 msgid "Username can not be used. Please use other username."
 msgstr "Toto uživatelské jméno nemůže být zvoleno. Prosím, zvolte si jiné."
 
-#: account/adapter.py:48
-msgid "This username is already taken. Please choose another."
-msgstr "Toto uživatelské jméno je již zvoleno. Prosím, vyberte si jiné."
-
-#: account/adapter.py:50
+#: account/adapter.py:53
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 
-#: account/adapter.py:278
+#: account/adapter.py:293
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Heslo musí obsahovat minimálně {0} znaků."
@@ -44,147 +40,147 @@ msgstr "Heslo musí obsahovat minimálně {0} znaků."
 msgid "Accounts"
 msgstr "Účet"
 
-#: account/forms.py:53 account/forms.py:290 account/forms.py:392
+#: account/forms.py:58 account/forms.py:295 account/forms.py:418
 msgid "Password"
 msgstr "Heslo"
 
-#: account/forms.py:54
+#: account/forms.py:59
 msgid "Remember Me"
 msgstr "Zapamatovat"
 
-#: account/forms.py:60
+#: account/forms.py:65
 msgid "This account is currently inactive."
 msgstr "Účet je v tuto chvíli neaktivní."
 
-#: account/forms.py:63
+#: account/forms.py:68
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "Zadaný e-mail nebo heslo není správné."
 
-#: account/forms.py:66
+#: account/forms.py:71
 msgid "The username and/or password you specified are not correct."
 msgstr "Zadané uživatelské jméno nebo heslo není správné."
 
-#: account/forms.py:69
+#: account/forms.py:74
 msgid "The login and/or password you specified are not correct."
 msgstr "Zadané přihlašovací údaje nejsou správné."
 
-#: account/forms.py:78 account/forms.py:219 account/forms.py:337
-#: account/forms.py:416
+#: account/forms.py:83 account/forms.py:224 account/forms.py:359
+#: account/forms.py:446
 msgid "E-mail address"
 msgstr "E-mailová adresa"
 
-#: account/forms.py:80 account/forms.py:237 account/forms.py:332
-#: account/forms.py:411
+#: account/forms.py:85 account/forms.py:242 account/forms.py:354
+#: account/forms.py:441
 msgid "E-mail"
 msgstr "E-mail"
 
-#: account/forms.py:85 account/forms.py:88 account/forms.py:211
-#: account/forms.py:215
+#: account/forms.py:90 account/forms.py:93 account/forms.py:216
+#: account/forms.py:220
 msgid "Username"
 msgstr "Uživatelské jméno"
 
-#: account/forms.py:95
+#: account/forms.py:100
 msgid "Username or e-mail"
 msgstr "Uživatelské jméno nebo heslo"
 
-#: account/forms.py:98
+#: account/forms.py:103
 msgctxt "field label"
 msgid "Login"
 msgstr "Přihlášení"
 
-#: account/forms.py:240
+#: account/forms.py:245
 msgid "E-mail (optional)"
 msgstr "E-mail (nepovinné)"
 
-#: account/forms.py:272
+#: account/forms.py:277
 msgid "A user is already registered with this e-mail address."
 msgstr "Uživatel s tímto e-mailem je již registrován."
 
-#: account/forms.py:291 account/forms.py:393
+#: account/forms.py:296 account/forms.py:419
 msgid "Password (again)"
 msgstr "Heslo (znovu)"
 
-#: account/forms.py:308 account/forms.py:382 account/forms.py:400
-#: account/forms.py:487
+#: account/forms.py:329 account/forms.py:408 account/forms.py:430
+#: account/forms.py:518
 msgid "You must type the same password each time."
 msgstr "Hesla se musí shodovat."
 
-#: account/forms.py:343
+#: account/forms.py:365
 msgid "This e-mail address is already associated with this account."
 msgstr "Tento e-mail je již k tomuto účtu přiřazen."
 
-#: account/forms.py:345
+#: account/forms.py:367
 msgid "This e-mail address is already associated with another account."
 msgstr "Tento e-mail je již přiřazen k jinému účtu."
 
-#: account/forms.py:367
+#: account/forms.py:389
 msgid "Current Password"
 msgstr "Současné heslo"
 
-#: account/forms.py:368 account/forms.py:473
+#: account/forms.py:390 account/forms.py:503
 msgid "New Password"
 msgstr "Nové heslo"
 
-#: account/forms.py:369 account/forms.py:474
+#: account/forms.py:391 account/forms.py:504
 msgid "New Password (again)"
 msgstr "Nové heslo (znovu)"
 
-#: account/forms.py:373
+#: account/forms.py:399
 msgid "Please type your current password."
 msgstr "Prosím, zadejte svoje současné heslo."
 
-#: account/forms.py:425
+#: account/forms.py:455
 msgid "The e-mail address is not assigned to any user account"
 msgstr "E-mail není přiřazen k žádnému účtu"
 
-#: account/forms.py:504
+#: account/forms.py:535
 msgid "The password reset token was invalid."
 msgstr ""
 
-#: account/models.py:25
+#: account/models.py:26
 msgid "user"
 msgstr ""
 
-#: account/models.py:28 account/models.py:84
+#: account/models.py:29 account/models.py:88
 #, fuzzy
 msgid "e-mail address"
 msgstr "e-mailová adresa"
 
-#: account/models.py:29
+#: account/models.py:30
 #, fuzzy
 msgid "verified"
 msgstr "Neověřeno"
 
-#: account/models.py:30
+#: account/models.py:31
 #, fuzzy
 msgid "primary"
 msgstr "Primární"
 
-#: account/models.py:35
+#: account/models.py:36
 msgid "email address"
 msgstr "e-mailová adresa"
 
-#: account/models.py:36
+#: account/models.py:37
 msgid "email addresses"
 msgstr "e-mailové adresy"
 
-#: account/models.py:85
+#: account/models.py:89
 msgid "created"
 msgstr ""
 
-#: account/models.py:87
+#: account/models.py:91
 msgid "sent"
 msgstr ""
 
-#: account/models.py:88 socialaccount/models.py:59
+#: account/models.py:92 socialaccount/models.py:59
 msgid "key"
 msgstr ""
 
-#: account/models.py:93
+#: account/models.py:97
 msgid "email confirmation"
 msgstr "Potrvzovací e-mail"
 
-#: account/models.py:94
+#: account/models.py:98
 msgid "email confirmations"
 msgstr "Ověřovací e-maily"
 
@@ -731,12 +727,6 @@ msgstr ""
 msgid "OpenID Sign In"
 msgstr "Přihlášeníí OpenID"
 
-#: templates/shopify/login.html:9
-#, fuzzy
-#| msgid "Sign In"
-msgid "Shopify Sign In"
-msgstr "Přihlásit se"
-
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:8
 msgid "Social Network Login Failure"
@@ -803,6 +793,14 @@ msgid ""
 msgstr ""
 "Nyní jste zažádali o přihlášení vašeho %(provider_name)s účtu na naše "
 "stránky %(site_name)s. Jako poslední krok, prosím, vyplňte tento formulář:"
+
+#~ msgid "This username is already taken. Please choose another."
+#~ msgstr "Toto uživatelské jméno je již zvoleno. Prosím, vyberte si jiné."
+
+#, fuzzy
+#~| msgid "Sign In"
+#~ msgid "Shopify Sign In"
+#~ msgstr "Přihlásit se"
 
 #~ msgid ""
 #~ "You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an "

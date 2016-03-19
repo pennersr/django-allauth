@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-12 11:59-0600\n"
+"POT-Creation-Date: 2016-03-19 04:07-0500\n"
 "PO-Revision-Date: 2013-10-13 15:52+0200\n"
 "Last-Translator: Udi Oron <udioron@gmail.com>\n"
 "Language-Team: Hebrew\n"
@@ -18,23 +18,19 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.7\n"
 
-#: account/adapter.py:44
+#: account/adapter.py:47
 msgid "Usernames can only contain letters, digits and @/./+/-/_."
 msgstr ""
 
-#: account/adapter.py:46
+#: account/adapter.py:49
 msgid "Username can not be used. Please use other username."
 msgstr ""
 
-#: account/adapter.py:48
-msgid "This username is already taken. Please choose another."
-msgstr "שם משתמש זה כבר תפוס, אנא ציין שם אחר"
-
-#: account/adapter.py:50
+#: account/adapter.py:53
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 
-#: account/adapter.py:278
+#: account/adapter.py:293
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "הסיסמא חייבת להיות באורך של לפחות {0} תווים."
@@ -44,147 +40,147 @@ msgstr "הסיסמא חייבת להיות באורך של לפחות {0} תוו
 msgid "Accounts"
 msgstr "חשבון"
 
-#: account/forms.py:53 account/forms.py:290 account/forms.py:392
+#: account/forms.py:58 account/forms.py:295 account/forms.py:418
 msgid "Password"
 msgstr "סיסמא"
 
-#: account/forms.py:54
+#: account/forms.py:59
 msgid "Remember Me"
 msgstr "זכור אותי"
 
-#: account/forms.py:60
+#: account/forms.py:65
 msgid "This account is currently inactive."
 msgstr "חשבון זה אינו פעיל"
 
-#: account/forms.py:63
+#: account/forms.py:68
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "כתובת האימייל ו/או הסיסמא אינם נכונים"
 
-#: account/forms.py:66
+#: account/forms.py:71
 msgid "The username and/or password you specified are not correct."
 msgstr "שם המשתמש ו/או הסיסמא אינם נכונים"
 
-#: account/forms.py:69
+#: account/forms.py:74
 msgid "The login and/or password you specified are not correct."
 msgstr "שם המשתמש ו/או הסיסמא אינם נכונים"
 
-#: account/forms.py:78 account/forms.py:219 account/forms.py:337
-#: account/forms.py:416
+#: account/forms.py:83 account/forms.py:224 account/forms.py:359
+#: account/forms.py:446
 msgid "E-mail address"
 msgstr "כתובת דואל"
 
-#: account/forms.py:80 account/forms.py:237 account/forms.py:332
-#: account/forms.py:411
+#: account/forms.py:85 account/forms.py:242 account/forms.py:354
+#: account/forms.py:441
 msgid "E-mail"
 msgstr "דואל"
 
-#: account/forms.py:85 account/forms.py:88 account/forms.py:211
-#: account/forms.py:215
+#: account/forms.py:90 account/forms.py:93 account/forms.py:216
+#: account/forms.py:220
 msgid "Username"
 msgstr "שם משתמש"
 
-#: account/forms.py:95
+#: account/forms.py:100
 msgid "Username or e-mail"
 msgstr "שם משתמש או דואל"
 
-#: account/forms.py:98
+#: account/forms.py:103
 msgctxt "field label"
 msgid "Login"
 msgstr "כניסה"
 
-#: account/forms.py:240
+#: account/forms.py:245
 msgid "E-mail (optional)"
 msgstr "דואל (אופציונאלי)"
 
-#: account/forms.py:272
+#: account/forms.py:277
 msgid "A user is already registered with this e-mail address."
 msgstr "משתמש אחר כבר נרשם עם דואל זה"
 
-#: account/forms.py:291 account/forms.py:393
+#: account/forms.py:296 account/forms.py:419
 msgid "Password (again)"
 msgstr "סיסמא (שוב)"
 
-#: account/forms.py:308 account/forms.py:382 account/forms.py:400
-#: account/forms.py:487
+#: account/forms.py:329 account/forms.py:408 account/forms.py:430
+#: account/forms.py:518
 msgid "You must type the same password each time."
 msgstr "יש להזין את אותה הסיסמא פעמיים"
 
-#: account/forms.py:343
+#: account/forms.py:365
 msgid "This e-mail address is already associated with this account."
 msgstr "כתובת דואל זו כבר משויכת לחשבון זה"
 
-#: account/forms.py:345
+#: account/forms.py:367
 msgid "This e-mail address is already associated with another account."
 msgstr "כתובת דואל זו כבר משויכת לחשבון אחר"
 
-#: account/forms.py:367
+#: account/forms.py:389
 msgid "Current Password"
 msgstr "סיסמא נוכחית"
 
-#: account/forms.py:368 account/forms.py:473
+#: account/forms.py:390 account/forms.py:503
 msgid "New Password"
 msgstr "סיסמא חדשה"
 
-#: account/forms.py:369 account/forms.py:474
+#: account/forms.py:391 account/forms.py:504
 msgid "New Password (again)"
 msgstr "סיסמא חדשה (פעם שניה)"
 
-#: account/forms.py:373
+#: account/forms.py:399
 msgid "Please type your current password."
 msgstr "אנא הזן את הסיסמא הנוכחית"
 
-#: account/forms.py:425
+#: account/forms.py:455
 msgid "The e-mail address is not assigned to any user account"
 msgstr "כתובת דואל זו אינה משויכת לאף חשבון."
 
-#: account/forms.py:504
+#: account/forms.py:535
 msgid "The password reset token was invalid."
 msgstr ""
 
-#: account/models.py:25
+#: account/models.py:26
 msgid "user"
 msgstr ""
 
-#: account/models.py:28 account/models.py:84
+#: account/models.py:29 account/models.py:88
 #, fuzzy
 msgid "e-mail address"
 msgstr "כתובת דואל"
 
-#: account/models.py:29
+#: account/models.py:30
 #, fuzzy
 msgid "verified"
 msgstr "טרם אושרו"
 
-#: account/models.py:30
+#: account/models.py:31
 #, fuzzy
 msgid "primary"
 msgstr "ראשי"
 
-#: account/models.py:35
+#: account/models.py:36
 msgid "email address"
 msgstr "כתובת דואל"
 
-#: account/models.py:36
+#: account/models.py:37
 msgid "email addresses"
 msgstr "כתובות דואל"
 
-#: account/models.py:85
+#: account/models.py:89
 msgid "created"
 msgstr ""
 
-#: account/models.py:87
+#: account/models.py:91
 msgid "sent"
 msgstr ""
 
-#: account/models.py:88 socialaccount/models.py:59
+#: account/models.py:92 socialaccount/models.py:59
 msgid "key"
 msgstr ""
 
-#: account/models.py:93
+#: account/models.py:97
 msgid "email confirmation"
 msgstr "אישור בדואל"
 
-#: account/models.py:94
+#: account/models.py:98
 msgid "email confirmations"
 msgstr "אישורים בדואל"
 
@@ -720,12 +716,6 @@ msgstr ""
 msgid "OpenID Sign In"
 msgstr "כניסה באמצעות OpenID"
 
-#: templates/shopify/login.html:9
-#, fuzzy
-#| msgid "Sign In"
-msgid "Shopify Sign In"
-msgstr "כניסה"
-
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:8
 msgid "Social Network Login Failure"
@@ -791,6 +781,14 @@ msgid ""
 msgstr ""
 "You are about to use your %(provider_name)s account to login to \n"
 "%(site_name)s. As a final step, please complete the following form:"
+
+#~ msgid "This username is already taken. Please choose another."
+#~ msgstr "שם משתמש זה כבר תפוס, אנא ציין שם אחר"
+
+#, fuzzy
+#~| msgid "Sign In"
+#~ msgid "Shopify Sign In"
+#~ msgstr "כניסה"
 
 #~ msgid ""
 #~ "You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an "

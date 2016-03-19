@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-12 11:59-0600\n"
+"POT-Creation-Date: 2016-03-19 04:07-0500\n"
 "PO-Revision-Date: 2015-09-14 12:40-0000\n"
 "Last-Translator: NARIMAN GHARIB <NARIMAN.GH@GMAIL.COM>\n"
 "Language-Team: \n"
@@ -16,23 +16,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.7.4\n"
 
-#: account/adapter.py:44
+#: account/adapter.py:47
 msgid "Usernames can only contain letters, digits and @/./+/-/_."
 msgstr "نام کاربری تنها می‌تواند شامل حروف ، اعداد و  @/./+/-/_. باشد"
 
-#: account/adapter.py:46
+#: account/adapter.py:49
 msgid "Username can not be used. Please use other username."
 msgstr "این نام‌کاربری نمی‌تواند انتخاب شود، لطفا یک نام‌کاربری دیگر انتخاب کنید"
 
-#: account/adapter.py:48
-msgid "This username is already taken. Please choose another."
-msgstr "این نام‌کاربری قبلا ثبت شده است. لطفا نام‌کاربری دیگر انتخاب کنید"
-
-#: account/adapter.py:50
+#: account/adapter.py:53
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 
-#: account/adapter.py:278
+#: account/adapter.py:293
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "پسورد تنها می‌تواند دارای {0} کاراکتر باشد."
@@ -42,145 +38,145 @@ msgstr "پسورد تنها می‌تواند دارای {0} کاراکتر با
 msgid "Accounts"
 msgstr "حساب کاربری"
 
-#: account/forms.py:53 account/forms.py:290 account/forms.py:392
+#: account/forms.py:58 account/forms.py:295 account/forms.py:418
 msgid "Password"
 msgstr "رمز عبور"
 
-#: account/forms.py:54
+#: account/forms.py:59
 msgid "Remember Me"
 msgstr "مرا به خاطر بسپار"
 
-#: account/forms.py:60
+#: account/forms.py:65
 msgid "This account is currently inactive."
 msgstr "این حساب کاربری درحال حاضر غیرفعال است"
 
-#: account/forms.py:63
+#: account/forms.py:68
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "نام کاربری یا رمز عبور صحیح نمی‌باشد."
 
-#: account/forms.py:66
+#: account/forms.py:71
 msgid "The username and/or password you specified are not correct."
 msgstr "نام کاربری یا رمز عبور صحیح نمی‌باشد."
 
-#: account/forms.py:69
+#: account/forms.py:74
 msgid "The login and/or password you specified are not correct."
 msgstr "نام کاربری یا رمز عبور صحیح نمی‌باشد."
 
-#: account/forms.py:78 account/forms.py:219 account/forms.py:337
-#: account/forms.py:416
+#: account/forms.py:83 account/forms.py:224 account/forms.py:359
+#: account/forms.py:446
 msgid "E-mail address"
 msgstr "آدرس ایمیل"
 
-#: account/forms.py:80 account/forms.py:237 account/forms.py:332
-#: account/forms.py:411
+#: account/forms.py:85 account/forms.py:242 account/forms.py:354
+#: account/forms.py:441
 msgid "E-mail"
 msgstr "ایمیل"
 
-#: account/forms.py:85 account/forms.py:88 account/forms.py:211
-#: account/forms.py:215
+#: account/forms.py:90 account/forms.py:93 account/forms.py:216
+#: account/forms.py:220
 msgid "Username"
 msgstr "نام کاربری"
 
-#: account/forms.py:95
+#: account/forms.py:100
 msgid "Username or e-mail"
 msgstr "نام کاربری یا ایمیل"
 
-#: account/forms.py:98
+#: account/forms.py:103
 msgctxt "field label"
 msgid "Login"
 msgstr "ورود"
 
-#: account/forms.py:240
+#: account/forms.py:245
 msgid "E-mail (optional)"
 msgstr "ایمیل (اختیاری)"
 
-#: account/forms.py:272
+#: account/forms.py:277
 msgid "A user is already registered with this e-mail address."
 msgstr "کاربر دیگری قبلا با این نام کاربری ثبت نام کرده است."
 
-#: account/forms.py:291 account/forms.py:393
+#: account/forms.py:296 account/forms.py:419
 msgid "Password (again)"
 msgstr "تکرار رمز عبور"
 
-#: account/forms.py:308 account/forms.py:382 account/forms.py:400
-#: account/forms.py:487
+#: account/forms.py:329 account/forms.py:408 account/forms.py:430
+#: account/forms.py:518
 msgid "You must type the same password each time."
 msgstr "شما باید رمز عبور یکسانی را انتخاب کنید"
 
-#: account/forms.py:343
+#: account/forms.py:365
 msgid "This e-mail address is already associated with this account."
 msgstr "ایمیل آدرسی که انتخاب کرده‌اید قبلا به این حساب کاربری وصل شده است."
 
-#: account/forms.py:345
+#: account/forms.py:367
 msgid "This e-mail address is already associated with another account."
 msgstr ""
 "ایمیل آدرسی که انتخاب کرده‌اید قبلا به این حساب کاربر دیگری وصل شده است."
 
-#: account/forms.py:367
+#: account/forms.py:389
 msgid "Current Password"
 msgstr "رمز عبور فعلی"
 
-#: account/forms.py:368 account/forms.py:473
+#: account/forms.py:390 account/forms.py:503
 msgid "New Password"
 msgstr "رمز عبور جدید"
 
-#: account/forms.py:369 account/forms.py:474
+#: account/forms.py:391 account/forms.py:504
 msgid "New Password (again)"
 msgstr "تکرار رمز عبور جدید"
 
-#: account/forms.py:373
+#: account/forms.py:399
 msgid "Please type your current password."
 msgstr "لطفا رمز عبور فعلی خود را تایپ کنید"
 
-#: account/forms.py:425
+#: account/forms.py:455
 msgid "The e-mail address is not assigned to any user account"
 msgstr "این آدرس ایمیل به هیچ حساب کاربری متصل نشده است"
 
-#: account/forms.py:504
+#: account/forms.py:535
 msgid "The password reset token was invalid."
 msgstr ""
 
-#: account/models.py:25
+#: account/models.py:26
 msgid "user"
 msgstr "کاربر"
 
-#: account/models.py:28 account/models.py:84
+#: account/models.py:29 account/models.py:88
 msgid "e-mail address"
 msgstr "آدرس ایمیل"
 
-#: account/models.py:29
+#: account/models.py:30
 msgid "verified"
 msgstr "تایید شده"
 
-#: account/models.py:30
+#: account/models.py:31
 msgid "primary"
 msgstr "اصلی"
 
-#: account/models.py:35
+#: account/models.py:36
 msgid "email address"
 msgstr "آدرس ایمیل"
 
-#: account/models.py:36
+#: account/models.py:37
 msgid "email addresses"
 msgstr "آدرس ایمیل"
 
-#: account/models.py:85
+#: account/models.py:89
 msgid "created"
 msgstr "ساخته شده"
 
-#: account/models.py:87
+#: account/models.py:91
 msgid "sent"
 msgstr "ارسال شد"
 
-#: account/models.py:88 socialaccount/models.py:59
+#: account/models.py:92 socialaccount/models.py:59
 msgid "key"
 msgstr "کلید"
 
-#: account/models.py:93
+#: account/models.py:97
 msgid "email confirmation"
 msgstr "تائید آدرس ایمیل"
 
-#: account/models.py:94
+#: account/models.py:98
 msgid "email confirmations"
 msgstr "تاییدیه‌های ایمیل"
 
@@ -731,12 +727,6 @@ msgstr ""
 msgid "OpenID Sign In"
 msgstr "ورود از طریق OpenID"
 
-#: templates/shopify/login.html:9
-#, fuzzy
-#| msgid "Sign In"
-msgid "Shopify Sign In"
-msgstr "ورود"
-
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:8
 msgid "Social Network Login Failure"
@@ -808,6 +798,14 @@ msgstr ""
 "چند قدم مانده تا شما با نام  %(provider_name)s وارد \n"
 "%(site_name)s. شوید. برای مراحل آخر لطفا در ادامه فرم‌های مورد نظر را تکمیل "
 "فرمایید."
+
+#~ msgid "This username is already taken. Please choose another."
+#~ msgstr "این نام‌کاربری قبلا ثبت شده است. لطفا نام‌کاربری دیگر انتخاب کنید"
+
+#, fuzzy
+#~| msgid "Sign In"
+#~ msgid "Shopify Sign In"
+#~ msgstr "ورود"
 
 #~ msgid ""
 #~ "You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an "

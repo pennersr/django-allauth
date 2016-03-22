@@ -10,6 +10,7 @@ from .provider import FeedlyProvider
 
 class FeedlyOAuth2Adapter(OAuth2Adapter):
     provider_id = FeedlyProvider.id
+    settings = app_settings.PROVIDERS.get(provider_id, {})
     access_token_url = 'https://%s/v3/auth/token' % settings.get('FEEDLY_HOST', 'cloud.feedly.com')
     authorize_url = 'https://%s/v3/auth/auth' % settings.get('FEEDLY_HOST', 'cloud.feedly.com')
     profile_url = 'https://%s/v3/profile' % settings.get('FEEDLY_HOST', 'cloud.feedly.com')

@@ -6,13 +6,18 @@ from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
 from .provider import GitHubProvider
 from allauth.socialaccount import app_settings
 
+GITHUB_HOST = app_settings.PROVIDERS.get('github', {}).get('GITHUB_HOST', 'github.com')
+GITHUB_HOST_PROTOCOL = app_settings.PROVIDERS.get('github', {}).get('GITHUB_HOST_PROTOCOL', 'https')
+
+URL_BASE = '%s://%s' % (GITHUB_HOST_PROTOCOL, GITHUB_HOST)
+API_URL_BASE = '%s://api.%s' % (GITHUB_HOST_PROTOCOL, GITHUB_HOST)
 
 class GitHubOAuth2Adapter(OAuth2Adapter):
     provider_id = GitHubProvider.id
-    access_token_url = 'https://github.com/login/oauth/access_token'
-    authorize_url = 'https://github.com/login/oauth/authorize'
-    profile_url = 'https://api.github.com/user'
-    emails_url = 'https://api.github.com/user/emails'
+    access_token_url = '%s/login/oauth/access_token' % URL_BASE
+    authorize_url = '%s/login/oauth/authorize' % URL_BASE
+    profile_url = '%s/user' % API_URL_BASE
+    emails_url = '%s/user/emails' % API_URL_BASE
 
     def complete_login(self, request, app, token, **kwargs):
         resp = requests.get(self.profile_url,

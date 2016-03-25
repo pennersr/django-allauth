@@ -10,7 +10,10 @@ GITHUB_HOST = app_settings.PROVIDERS.get('github', {}).get('GITHUB_HOST', 'githu
 GITHUB_HOST_PROTOCOL = app_settings.PROVIDERS.get('github', {}).get('GITHUB_HOST_PROTOCOL', 'https')
 
 URL_BASE = '%s://%s' % (GITHUB_HOST_PROTOCOL, GITHUB_HOST)
-API_URL_BASE = '%s/api/v3' % URL_BASE
+if GITHUB_HOST == 'github.com':
+    API_URL_BASE = 'https://api.github.com'
+else:
+    API_URL_BASE = '%s/api/v3' % URL_BASE
 
 class GitHubOAuth2Adapter(OAuth2Adapter):
     provider_id = GitHubProvider.id

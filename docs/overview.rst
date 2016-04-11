@@ -37,6 +37,8 @@ Supported Providers
 
 - AngelList (OAuth2)
 
+- Asana (OAuth2)
+
 - Basecamp (OAuth2)
 
 - Baidu (OAuth2)

@@ -62,5 +62,6 @@ class Command(BaseCommand):
                 seen_keys.add(email_confirmation.key)
                 email_confirmation.save()
             else:
-                print ('Could not migrate EmailConfirmation %d'
-                       ' due to missing EmailAddress' % email_confirmation.id)
+                print(
+                    'Could not migrate EmailConfirmation %d'
+                    ' due to missing EmailAddress' % email_confirmation.id)

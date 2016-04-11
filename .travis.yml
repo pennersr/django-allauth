@@ -19,6 +19,7 @@ install:
  - pip install "pip<8.0.0" wheel
  - pip install "$DJANGO" "coverage==3.7.1" coveralls "mock>=1.0.1"
  - pip install .
+ - pip install flake8
 matrix:
   exclude:
     - python: "3.5"
@@ -31,7 +32,9 @@ matrix:
 branches:
  only:
   - master
-script: coverage run manage.py test allauth
+script:
+  - flake8 --exclude=migrations,south_migrations allauth
+  - coverage run manage.py test allauth
 after_success:
   - coverage report
   - coveralls

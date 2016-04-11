@@ -8,8 +8,9 @@ class RobinhoodAccount(ProviderAccount):
         return None
 
     def to_str(self):
-        return self.account.extra_data.get('username',
-                                           super(RobinhoodAccount, self).to_str())
+        return self.account.extra_data.get(
+            'username',
+            super(RobinhoodAccount, self).to_str())
 
 
 class RobinhoodProvider(OAuth2Provider):

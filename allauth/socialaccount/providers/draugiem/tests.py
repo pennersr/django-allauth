@@ -66,7 +66,8 @@ class DraugiemTests(TestCase):
 
     def mock_socialaccount_state(self):
         """
-        SocialLogin depends on Session state - a tuple of request params and a random string
+        SocialLogin depends on Session state - a tuple of request
+        params and a random string
         """
         session = self.client.session
         session['socialaccount_state'] = ({
@@ -104,7 +105,8 @@ class DraugiemTests(TestCase):
 
     def test_callback(self):
         with patch(
-            'allauth.socialaccount.providers.draugiem.views.draugiem_complete_login') as draugiem_complete_login:
+                'allauth.socialaccount.providers.draugiem.views'
+                '.draugiem_complete_login') as draugiem_complete_login:
             self.mock_socialaccount_state()
 
             response_json = self.get_draugiem_login_response()

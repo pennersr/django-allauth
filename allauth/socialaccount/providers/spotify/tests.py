@@ -35,4 +35,4 @@ class SpotifyOAuth2Tests(OAuth2TestsMixin, TestCase):
           "product": "premium",
           "type": "user",
           "uri": "spotify:user:wizzler"
-        }""")
+        }""")  # noqa

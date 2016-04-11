@@ -6,6 +6,7 @@ from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
 
 from .provider import LinkedInOAuth2Provider
 
+
 class LinkedInOAuth2Adapter(OAuth2Adapter):
     provider_id = LinkedInOAuth2Provider.id
     access_token_url = 'https://api.linkedin.com/uas/oauth2/accessToken'
@@ -17,7 +18,8 @@ class LinkedInOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         extra_data = self.get_user_info(token)
-        return self.get_provider().sociallogin_from_response(request, extra_data)
+        return self.get_provider().sociallogin_from_response(
+            request, extra_data)
 
     def get_user_info(self, token):
         fields = providers.registry \

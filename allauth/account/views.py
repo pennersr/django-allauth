@@ -36,8 +36,8 @@ sensitive_post_parameters_m = method_decorator(
 
 def _ajax_response(request, response, form=None):
     if request.is_ajax():
-        if (isinstance(response, HttpResponseRedirect)
-                or isinstance(response, HttpResponsePermanentRedirect)):
+        if (isinstance(response, HttpResponseRedirect) or isinstance(
+                response, HttpResponsePermanentRedirect)):
             redirect_to = response['Location']
         else:
             redirect_to = None
@@ -114,9 +114,9 @@ class LoginView(RedirectAuthenticatedUserMixin,
 
     def get_success_url(self):
         # Explicitly passed ?next= URL takes precedence
-        ret = (get_next_redirect_url(self.request,
-                                     self.redirect_field_name)
-               or self.success_url)
+        ret = (get_next_redirect_url(
+            self.request,
+            self.redirect_field_name) or self.success_url)
         return ret
 
     def get_context_data(self, **kwargs):
@@ -181,9 +181,10 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
 
     def get_success_url(self):
         # Explicitly passed ?next= URL takes precedence
-        ret = (get_next_redirect_url(self.request,
-                                     self.redirect_field_name)
-               or self.success_url)
+        ret = (
+            get_next_redirect_url(
+                self.request,
+                self.redirect_field_name) or self.success_url)
         return ret
 
     def form_valid(self, form):
@@ -692,10 +693,12 @@ class LogoutView(TemplateResponseMixin, View):
         return ctx
 
     def get_redirect_url(self):
-        return (get_next_redirect_url(self.request,
-                                      self.redirect_field_name)
-                or get_adapter(self.request).get_logout_redirect_url(
-                    self.request))
+        return (
+            get_next_redirect_url(
+                self.request,
+                self.redirect_field_name) or get_adapter(
+                    self.request).get_logout_redirect_url(
+                        self.request))
 
 logout = LogoutView.as_view()
 

@@ -101,7 +101,8 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
                 'VERIFIED_EMAIL': False}})
     def test_login_by_token_reauthenticate(self):
         resp = self.client.get(reverse('account_login'))
-        nonce = json.loads(resp.context['fb_data'])['loginOptions']['auth_nonce']
+        nonce = json.loads(
+            resp.context['fb_data'])['loginOptions']['auth_nonce']
         with patch('allauth.socialaccount.providers.facebook.views'
                    '.requests') as requests_mock:
             mocks = [self.get_mocked_response().json(),
@@ -126,5 +127,5 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
         self.assertFalse(emailaddress.verified)
 
     def _login_verified(self):
-        resp = self.login(self.get_mocked_response())
+        self.login(self.get_mocked_response())
         return EmailAddress.objects.get(email='raymond.penners@gmail.com')

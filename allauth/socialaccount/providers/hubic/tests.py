@@ -3,6 +3,7 @@ from allauth.tests import MockedResponse, TestCase
 
 from .provider import HubicProvider
 
+
 class HubicTests(OAuth2TestsMixin, TestCase):
     provider_id = HubicProvider.id
 

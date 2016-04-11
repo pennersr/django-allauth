@@ -18,13 +18,13 @@ class AppSettings(object):
     def __init__(self, prefix):
         self.prefix = prefix
         # If login is by email, email must be required
-        assert (not self.AUTHENTICATION_METHOD
-                == self.AuthenticationMethod.EMAIL) or self.EMAIL_REQUIRED
+        assert (not self.AUTHENTICATION_METHOD ==
+                self.AuthenticationMethod.EMAIL) or self.EMAIL_REQUIRED
         # If login includes email, login must be unique
-        assert (self.AUTHENTICATION_METHOD
-                == self.AuthenticationMethod.USERNAME) or self.UNIQUE_EMAIL
-        assert (self.EMAIL_VERIFICATION
-                != self.EmailVerificationMethod.MANDATORY) \
+        assert (self.AUTHENTICATION_METHOD ==
+                self.AuthenticationMethod.USERNAME) or self.UNIQUE_EMAIL
+        assert (self.EMAIL_VERIFICATION !=
+                self.EmailVerificationMethod.MANDATORY) \
             or self.EMAIL_REQUIRED
         if not self.USER_MODEL_USERNAME_FIELD:
             assert not self.USERNAME_REQUIRED
@@ -277,7 +277,7 @@ class AppSettings(object):
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html
-import sys
+import sys  # noqa
 app_settings = AppSettings('ACCOUNT_')
 app_settings.__name__ = __name__
 sys.modules[__name__] = app_settings

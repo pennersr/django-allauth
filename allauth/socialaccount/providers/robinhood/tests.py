@@ -4,7 +4,10 @@ from allauth.socialaccount.providers import registry
 
 from .provider import RobinhoodProvider
 
-class RobinhoodTests(create_oauth2_tests(registry.by_id(RobinhoodProvider.id))):
+
+class RobinhoodTests(create_oauth2_tests(
+        registry.by_id(RobinhoodProvider.id))):
+
     def get_mocked_response(self):
         return MockedResponse(200, """
 {

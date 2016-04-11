@@ -13,7 +13,6 @@ class OrcidAccount(ProviderAccount):
                                  ['orcid-profile', 'orcid-identifier', 'uri'])
 
     def to_str(self):
-        dflt = super(OrcidAccount, self).to_str()
         return self.account.uid
 
 

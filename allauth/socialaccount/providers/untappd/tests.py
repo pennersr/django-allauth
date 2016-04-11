@@ -4,6 +4,7 @@ from allauth.socialaccount.providers import registry
 
 from .provider import UntappdProvider
 
+
 class UntappdTests(create_oauth2_tests(registry.by_id(UntappdProvider.id))):
     def get_login_response_json(self, with_refresh_token=True):
         return """
@@ -92,4 +93,3 @@ class UntappdTests(create_oauth2_tests(registry.by_id(UntappdProvider.id))):
    }
 }
         """)
-

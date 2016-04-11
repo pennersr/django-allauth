@@ -8,8 +8,9 @@ class CoinbaseAccount(ProviderAccount):
         return None
 
     def to_str(self):
-        return self.account.extra_data.get('name',
-                                           super(CoinbaseAccount, self).to_str())
+        return self.account.extra_data.get(
+            'name',
+            super(CoinbaseAccount, self).to_str())
 
 
 class CoinbaseProvider(OAuth2Provider):

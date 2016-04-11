@@ -77,8 +77,7 @@ class OAuth2Client(object):
         if resp.status_code == 200:
             # Weibo sends json via 'text/plain;charset=UTF-8'
             if (resp.headers['content-type'].split(
-                ';')[0] == 'application/json'
-                    or resp.text[:2] == '{"'):
+                    ';')[0] == 'application/json' or resp.text[:2] == '{"'):
                 access_token = resp.json()
             else:
                 access_token = dict(parse_qsl(resp.text))

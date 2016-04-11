@@ -25,4 +25,4 @@ class WeixinTests(create_oauth2_tests(registry.by_id(WeixinProvider.id))):
  "refresh_token": "OezXcEiiBSKSxW0eoylIeO5cPxb4Ks1RpbXGMv9uiV35032zNHGzXcld-EKsSScEbMnnMqVExcSpj7KRAuBA8BU2j2e_FK5dgBe-ro32k7OuHtznwqqBn5QR7LZGo2-P8G7gG0eitjyZ751sFlnTAw",
  "scope": "snsapi_login",
  "sex": 1,
- "unionid": "ohHrhwKnD9TOunEW0eKTS45vS5Qo"}""")
+ "unionid": "ohHrhwKnD9TOunEW0eKTS45vS5Qo"}""")  # noqa

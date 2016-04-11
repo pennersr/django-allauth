@@ -41,8 +41,9 @@ class WeixinOAuth2ClientMixin(object):
 
     def get_client(self, request, app):
         callback_url = reverse(self.adapter.provider_id + "_callback")
-        protocol = (self.adapter.redirect_uri_protocol
-                    or app_settings.DEFAULT_HTTP_PROTOCOL)
+        protocol = (
+            self.adapter.redirect_uri_protocol or
+            app_settings.DEFAULT_HTTP_PROTOCOL)
         callback_url = build_absolute_uri(
             request, callback_url,
             protocol=protocol)

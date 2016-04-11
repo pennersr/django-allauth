@@ -46,7 +46,7 @@ class BitbucketOAuth2Tests(create_oauth2_tests(registry.by_id(
             "uuid": "{c788b2da-b7a2-404c-9e26-d3f077557007}",
             "website": "https://tutorials.bitbucket.org/"
         }
-    """
+    """  # noqa
 
     email_response_data = """
         {
@@ -78,7 +78,7 @@ class BitbucketOAuth2Tests(create_oauth2_tests(registry.by_id(
                 }
             ]
         }
-    """
+    """  # noqa
 
     def setUp(self):
         super(BitbucketOAuth2Tests, self).setUp()
@@ -110,13 +110,17 @@ class BitbucketOAuth2Tests(create_oauth2_tests(registry.by_id(
             ]
         super(BitbucketOAuth2Tests, self).test_account_tokens(multiple_login)
         calls = [
-            mock.call('https://api.bitbucket.org/2.0/user', params=mock.ANY),
-            mock.call('https://api.bitbucket.org/2.0/user/emails', params=mock.ANY),
+            mock.call('https://api.bitbucket.org/2.0/user',
+                      params=mock.ANY),
+            mock.call('https://api.bitbucket.org/2.0/user/emails',
+                      params=mock.ANY),
         ]
         if multiple_login:
             calls.extend([
-                mock.call('https://api.bitbucket.org/2.0/user', params=mock.ANY),
-                mock.call('https://api.bitbucket.org/2.0/user/emails', params=mock.ANY),
+                mock.call('https://api.bitbucket.org/2.0/user',
+                          params=mock.ANY),
+                mock.call('https://api.bitbucket.org/2.0/user/emails',
+                          params=mock.ANY),
             ])
         self.patches['requests'].get.assert_has_calls(calls)
 
@@ -133,9 +137,11 @@ class BitbucketOAuth2Tests(create_oauth2_tests(registry.by_id(
         )
         self.assertEqual(
             account.get_avatar_url(),
-            'https://bitbucket-assetroot.s3.amazonaws.com/c/photos/2013/Nov/25/tutorials-avatar-1563784409-6_avatar.png'
+            'https://bitbucket-assetroot.s3.amazonaws.com/c/photos/2013/Nov/25/tutorials-avatar-1563784409-6_avatar.png'  # noqa
         )
         self.patches['requests'].get.assert_has_calls([
-            mock.call('https://api.bitbucket.org/2.0/user', params=mock.ANY),
-            mock.call('https://api.bitbucket.org/2.0/user/emails', params=mock.ANY),
+            mock.call('https://api.bitbucket.org/2.0/user',
+                      params=mock.ANY),
+            mock.call('https://api.bitbucket.org/2.0/user/emails',
+                      params=mock.ANY),
         ])

@@ -5,10 +5,14 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 class BaiduAccount(ProviderAccount):
     def get_profile_url(self):
-        return 'https://openapi.baidu.com/rest/2.0/passport/users/getLoggedInUser'
+        return (
+            'https://openapi.baidu.com'
+            '/rest/2.0/passport/users/getLoggedInUser')
 
     def get_avatar_url(self):
-        return 'http://tb.himg.baidu.com/sys/portraitn/item/' + self.account.extra_data.get('portrait')
+        return (
+            'http://tb.himg.baidu.com/sys/portraitn/item/' +
+            self.account.extra_data.get('portrait'))
 
     def to_str(self):
         dflt = super(BaiduAccount, self).to_str()

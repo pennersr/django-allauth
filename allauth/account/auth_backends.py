@@ -46,8 +46,6 @@ class AuthenticationBackend(ModelBackend):
         # django-tastypie basic authentication, the login is always
         # passed as `username`.  So let's place nice with other apps
         # and use username as fallback
-        User = get_user_model()
-
         email = credentials.get('email', credentials.get('username'))
         if email:
             for user in filter_users_by_email(email):

@@ -45,7 +45,8 @@ def _process_signup(request, sociallogin):
                     sociallogin):
                 return render(
                     request,
-                    "account/signup_closed." + account_settings.TEMPLATE_EXTENSION
+                    "account/signup_closed." +
+                    account_settings.TEMPLATE_EXTENSION
                 )
         except ImmediateHttpResponse as e:
             return e.response
@@ -89,7 +90,8 @@ def render_authentication_error(request,
     context.update(extra_context)
     return render(
         request,
-        "socialaccount/authentication_error." + account_settings.TEMPLATE_EXTENSION,
+        "socialaccount/authentication_error." +
+        account_settings.TEMPLATE_EXTENSION,
         context
     )
 

@@ -204,12 +204,13 @@ class DefaultAccountAdapter(object):
         email = user_email(user)
         username = user_username(user)
         if app_settings.USER_MODEL_USERNAME_FIELD:
-            user_username(user,
-                          username
-                          or self.generate_unique_username([first_name,
-                                                            last_name,
-                                                            email,
-                                                            'user']))
+            user_username(
+                user,
+                username or self.generate_unique_username([
+                    first_name,
+                    last_name,
+                    email,
+                    'user']))
 
     def generate_unique_username(self, txts, regex=None):
         return generate_unique_username(txts, regex)
@@ -434,8 +435,10 @@ class DefaultAccountAdapter(object):
             if login_data:
                 dt = timezone.now()
                 current_attempt_time = time.mktime(dt.timetuple())
-                if len(login_data) >= app_settings.LOGIN_ATTEMPTS_LIMIT and current_attempt_time < \
-                   (login_data[-1] + app_settings.LOGIN_ATTEMPTS_TIMEOUT):
+                if (len(login_data) >= app_settings.LOGIN_ATTEMPTS_LIMIT and
+                        current_attempt_time < (
+                            login_data[-1] +
+                            app_settings.LOGIN_ATTEMPTS_TIMEOUT)):
                     raise forms.ValidationError(
                         self.error_messages['too_many_login_attempts'])
 

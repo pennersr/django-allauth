@@ -116,8 +116,9 @@ class LoginForm(forms.Form):
         login = self.cleaned_data["login"]
         if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
             credentials["email"] = login
-        elif (app_settings.AUTHENTICATION_METHOD
-              == AuthenticationMethod.USERNAME):
+        elif (
+                app_settings.AUTHENTICATION_METHOD ==
+                AuthenticationMethod.USERNAME):
             credentials["username"] = login
         else:
             if "@" in login and "." in login:
@@ -401,10 +402,10 @@ class ChangePasswordForm(UserForm):
         return self.cleaned_data["oldpassword"]
 
     def clean_password2(self):
-        if ("password1" in self.cleaned_data
-                and "password2" in self.cleaned_data):
-            if (self.cleaned_data["password1"]
-                    != self.cleaned_data["password2"]):
+        if ("password1" in self.cleaned_data and
+                "password2" in self.cleaned_data):
+            if (self.cleaned_data["password1"] !=
+                    self.cleaned_data["password2"]):
                 raise forms.ValidationError(_("You must type the same password"
                                               " each time."))
         return self.cleaned_data["password2"]
@@ -423,10 +424,10 @@ class SetPasswordForm(UserForm):
         self.fields['password1'].user = self.user
 
     def clean_password2(self):
-        if ("password1" in self.cleaned_data
-                and "password2" in self.cleaned_data):
-            if (self.cleaned_data["password1"]
-                    != self.cleaned_data["password2"]):
+        if ("password1" in self.cleaned_data and
+                "password2" in self.cleaned_data):
+            if (self.cleaned_data["password1"] !=
+                    self.cleaned_data["password2"]):
                 raise forms.ValidationError(_("You must type the same password"
                                               " each time."))
         return self.cleaned_data["password2"]
@@ -511,10 +512,10 @@ class ResetPasswordKeyForm(forms.Form):
 
     # FIXME: Inspecting other fields -> should be put in def clean(self) ?
     def clean_password2(self):
-        if ("password1" in self.cleaned_data
-                and "password2" in self.cleaned_data):
-            if (self.cleaned_data["password1"]
-                    != self.cleaned_data["password2"]):
+        if ("password1" in self.cleaned_data and
+                "password2" in self.cleaned_data):
+            if (self.cleaned_data["password1"] != self.cleaned_data[
+                    "password2"]):
                 raise forms.ValidationError(_("You must type the same"
                                               " password each time."))
         return self.cleaned_data["password2"]

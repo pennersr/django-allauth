@@ -212,7 +212,9 @@ class AccountTests(TestCase):
         url = body[body.find('/password/reset/'):].split()[0]
         resp = self.client.get(url)
         self.assertTemplateUsed(
-            resp, 'account/password_reset_from_key.%s' % app_settings.TEMPLATE_EXTENSION)
+            resp,
+            'account/password_reset_from_key.%s' %
+            app_settings.TEMPLATE_EXTENSION)
         self.assertFalse('token_fail' in resp.context_data)
 
         # Reset the password
@@ -232,13 +234,17 @@ class AccountTests(TestCase):
                                 {'password1': 'newpass123',
                                  'password2': 'newpass123'})
         self.assertTemplateUsed(
-            resp, 'account/password_reset_from_key.%s' % app_settings.TEMPLATE_EXTENSION)
+            resp,
+            'account/password_reset_from_key.%s' %
+            app_settings.TEMPLATE_EXTENSION)
         self.assertTrue(resp.context_data['token_fail'])
 
         # Same should happen when accessing the page directly
         response = self.client.get(url)
         self.assertTemplateUsed(
-            response, 'account/password_reset_from_key.%s' % app_settings.TEMPLATE_EXTENSION)
+            response,
+            'account/password_reset_from_key.%s' %
+            app_settings.TEMPLATE_EXTENSION)
         self.assertTrue(response.context_data['token_fail'])
 
         # When in XHR views, it should respond with a 400 bad request
@@ -306,8 +312,7 @@ class AccountTests(TestCase):
                     email_address__email='john@doe.com').count(),
                 attempt)
             # Wait for cooldown
-            EmailConfirmation.objects.update(sent=now()
-                                             - timedelta(days=1))
+            EmailConfirmation.objects.update(sent=now() - timedelta(days=1))
         # Verify, and re-attempt to login.
         confirmation = EmailConfirmation \
             .objects \

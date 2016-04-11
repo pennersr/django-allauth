@@ -36,4 +36,4 @@ class EdmodoTests(OAuth2TestsMixin, TestCase):
   "email":"test@example.com",
   "sync_enabled": false
 }
-""")
+""")  # noqa

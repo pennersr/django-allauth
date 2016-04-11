@@ -3,6 +3,7 @@ from allauth.tests import MockedResponse, TestCase
 
 from .provider import StackExchangeProvider
 
+
 class StackExchangeTests(OAuth2TestsMixin, TestCase):
     provider_id = StackExchangeProvider.id
 
@@ -37,4 +38,4 @@ class StackExchangeTests(OAuth2TestsMixin, TestCase):
            ],
            "quota_max": 10000,
            "quota_remaining": 9999
-        }""")
+        }""")  # noqa

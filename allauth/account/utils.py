@@ -53,11 +53,12 @@ def get_login_redirect_url(request, url=None, redirect_field_name="next"):
         # In order to be able to pass url getters around that depend
         # on e.g. the authenticated state.
         url = url()
-    redirect_url \
-        = (url
-           or get_next_redirect_url(request,
-                                    redirect_field_name=redirect_field_name)
-           or get_adapter(request).get_login_redirect_url(request))
+    redirect_url = (
+        url or
+        get_next_redirect_url(
+            request,
+            redirect_field_name=redirect_field_name) or
+        get_adapter(request).get_login_redirect_url(request))
     return redirect_url
 
 _user_display_callable = None
@@ -203,10 +204,8 @@ def cleanup_email_addresses(request, addresses):
         if not email:
             continue
         # ... and non-conflicting ones...
-        if (app_settings.UNIQUE_EMAIL
-                and EmailAddress.objects
-                .filter(email__iexact=email)
-                .exists()):
+        if (app_settings.UNIQUE_EMAIL and
+                EmailAddress.objects.filter(email__iexact=email).exists()):
             continue
         a = e2a.get(email.lower())
         if a:
@@ -268,16 +267,14 @@ def setup_user_email(request, user, addresses):
                                                email=email,
                                                primary=True,
                                                verified=False))
-    addresses, primary = cleanup_email_addresses(request,
-                                                 priority_addresses
-                                                 + addresses)
+    addresses, primary = cleanup_email_addresses(
+        request,
+        priority_addresses + addresses)
     for a in addresses:
         a.user = user
         a.save()
     EmailAddress.objects.fill_cache_for_user(user, addresses)
-    if (primary
-            and email
-            and email.lower() != primary.email.lower()):
+    if (primary and email and email.lower() != primary.email.lower()):
         user_email(user, primary.email)
         user.save()
     return primary
@@ -385,8 +382,8 @@ def user_pk_to_url_str(user):
     This should return a string.
     """
     User = get_user_model()
-    if (hasattr(models, 'UUIDField')
-            and issubclass(type(User._meta.pk), models.UUIDField)):
+    if (hasattr(models, 'UUIDField') and issubclass(
+            type(User._meta.pk), models.UUIDField)):
         if isinstance(user.pk, six.string_types):
             return user.pk
         return user.pk.hex
@@ -405,8 +402,8 @@ def url_str_to_user_pk(s):
         pk_field = User._meta.pk.rel.to._meta.pk
     else:
         pk_field = User._meta.pk
-    if (hasattr(models, 'UUIDField')
-            and issubclass(type(pk_field), models.UUIDField)):
+    if (hasattr(models, 'UUIDField') and issubclass(
+            type(pk_field), models.UUIDField)):
         return s
     try:
         pk_field.to_python('a')

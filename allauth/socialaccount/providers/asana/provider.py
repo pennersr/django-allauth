@@ -1,11 +1,11 @@
 from allauth.socialaccount import providers
-from allauth.socialaccount.providers.base import (ProviderAccount,
-                                                  AuthAction)
+from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class AsanaAccount(ProviderAccount):
     pass
+
 
 class AsanaProvider(OAuth2Provider):
     id = 'asana'

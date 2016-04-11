@@ -24,13 +24,13 @@ AUTHORIZE_URL = 'http://api.draugiem.lv/authorize'
 
 
 def login(request):
-    app = providers.registry.by_id(DraugiemProvider.id) \
-                    .get_app(request)
+    app = providers.registry.by_id(DraugiemProvider.id).get_app(request)
     request_scheme = request.META['wsgi.url_scheme']
     request_host = request.META['HTTP_HOST']
     request_path = reverse(callback)
     redirect_url = '%s://%s%s' % (request_scheme, request_host, request_path)
-    redirect_url_hash = md5((app.secret + redirect_url).encode('utf-8')).hexdigest()
+    redirect_url_hash = md5((
+        app.secret + redirect_url).encode('utf-8')).hexdigest()
     params = {
         'app': app.client_id,
         'hash': redirect_url_hash,
@@ -43,20 +43,24 @@ def login(request):
 @csrf_exempt
 def callback(request):
     if 'dr_auth_status' not in request.GET:
-        return render_authentication_error(request, DraugiemProvider.id, error=AuthError.UNKNOWN)
+        return render_authentication_error(
+            request, DraugiemProvider.id, error=AuthError.UNKNOWN)
 
     if request.GET['dr_auth_status'] != 'ok':
-        return render_authentication_error(request, DraugiemProvider.id, error=AuthError.DENIED)
+        return render_authentication_error(
+            request, DraugiemProvider.id, error=AuthError.DENIED)
 
     if 'dr_auth_code' not in request.GET:
-        return render_authentication_error(request, DraugiemProvider.id, error=AuthError.UNKNOWN)
+        return render_authentication_error(
+            request, DraugiemProvider.id, error=AuthError.UNKNOWN)
 
     ret = None
     auth_exception = None
     try:
-        app = providers.registry.by_id(DraugiemProvider.id) \
-                    .get_app(request)
-        login = draugiem_complete_login(request, app, request.GET['dr_auth_code'])
+        app = providers.registry.by_id(
+            DraugiemProvider.id).get_app(request)
+        login = draugiem_complete_login(
+            request, app, request.GET['dr_auth_code'])
         login.state = SocialLogin.unstash_state(request)
 
         ret = complete_social_login(request, login)
@@ -64,7 +68,8 @@ def callback(request):
         auth_exception = e
 
     if not ret:
-        ret = render_authentication_error(request, DraugiemProvider.id, exception=auth_exception)
+        ret = render_authentication_error(
+            request, DraugiemProvider.id, exception=auth_exception)
 
     return ret
 

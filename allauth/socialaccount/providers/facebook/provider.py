@@ -133,7 +133,9 @@ class FacebookProvider(OAuth2Provider):
                                        " add a SocialApp using the Django"
                                        " admin")
 
-        abs_uri = lambda name: request.build_absolute_uri(reverse(name))
+        def abs_uri(name):
+            return request.build_absolute_uri(reverse(name))
+
         fb_data = {
             "appId": app.client_id,
             "version": GRAPH_API_VERSION,

@@ -4,7 +4,6 @@ from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
                                                           OAuth2CallbackView)
 from .provider import DigitalOceanProvider
-from allauth.socialaccount import app_settings
 
 
 class DigitalOceanOAuth2Adapter(OAuth2Adapter):
@@ -17,7 +16,8 @@ class DigitalOceanOAuth2Adapter(OAuth2Adapter):
         headers = {'Authorization': 'Bearer {0}'.format(token.token)}
         resp = requests.get(self.profile_url, headers=headers)
         extra_data = resp.json()
-        return self.get_provider().sociallogin_from_response(request, extra_data)
+        return self.get_provider().sociallogin_from_response(
+            request, extra_data)
 
 
 oauth2_login = OAuth2LoginView.adapter_view(DigitalOceanOAuth2Adapter)

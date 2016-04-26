@@ -290,7 +290,7 @@ authentication provider as described in GitLab docs here:
 
     http://doc.gitlab.com/ce/integration/oauth_provider.html
 
-Following GitLab settings are available, it unset https://gitlab.com will
+Following GitLab settings are available, if unset https://gitlab.com will
 be used.
 
 GITLAB_URL:

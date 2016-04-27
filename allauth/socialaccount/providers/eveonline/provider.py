@@ -1,6 +1,7 @@
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.app_settings import STORE_TOKENS
 
 
 class EveOnlineAccount(ProviderAccount):
@@ -29,6 +30,12 @@ class EveOnlineProvider(OAuth2Provider):
     id = 'eveonline'
     name = 'EVE Online'
     account_class = EveOnlineAccount
+
+    def get_default_scope(self):
+        scopes = []
+        if STORE_TOKENS:
+            scopes.append('publicData')
+        return scopes
 
     def extract_uid(self, data):
         return str(data['CharacterOwnerHash'])

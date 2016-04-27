@@ -41,8 +41,7 @@ class EveOnlineProvider(OAuth2Provider):
         return str(data['CharacterOwnerHash'])
 
     def extract_common_fields(self, data):
-        return dict(name=data.get('CharacterName'),
-                    username=data.get('CharacterID'))
+        return dict(name=data.get('CharacterName'))
 
 
 providers.registry.register(EveOnlineProvider)

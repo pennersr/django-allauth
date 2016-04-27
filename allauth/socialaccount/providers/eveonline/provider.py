@@ -38,4 +38,4 @@ class EveOnlineProvider(OAuth2Provider):
                     username=data.get('CharacterID'))
 
 
-providers.registry.register(GitHubProvider)
+providers.registry.register(EveOnlineProvider)

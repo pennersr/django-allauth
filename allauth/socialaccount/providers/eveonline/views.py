@@ -4,7 +4,6 @@ from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
                                                           OAuth2CallbackView)
 from .provider import EveOnlineProvider
-from allauth.socialaccount import app_settings
 
 
 class EveOnlineOAuth2Adapter(OAuth2Adapter):

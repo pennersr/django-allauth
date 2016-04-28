@@ -53,6 +53,8 @@ Supported Providers
 
 - Edmodo (OAuth2)
 
+- Eve Online (OAuth2)
+
 - Evernote (OAuth)
 
 - Facebook (both OAuth2 and JS SDK)

@@ -254,6 +254,7 @@ def create_oauth2_tests(provider):
 class SocialAccountTests(TestCase):
 
     def setUp(self):
+        super(SocialAccountTests, self).setUp()
         site = Site.objects.get_current()
         for provider in providers.registry.get_list():
             app = SocialApp.objects.create(

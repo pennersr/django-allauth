@@ -3,8 +3,10 @@ from __future__ import unicode_literals
 
 import requests
 from datetime import datetime, date
+from importlib import import_module
 
 import django
+from django.conf import settings
 from django.test import TestCase as DjangoTestCase
 from django.db import models
 
@@ -18,6 +20,14 @@ except ImportError:
 
 
 class TestCase(DjangoTestCase):
+
+    def setUp(self):
+        if django.VERSION < (1, 8,):
+            engine = import_module(settings.SESSION_ENGINE)
+            s = engine.SessionStore()
+            s.save()
+            self.client.cookies[
+                settings.SESSION_COOKIE_NAME] = s.session_key
 
     def assertRedirects(self, response, expected_url,
                         fetch_redirect_response=True,

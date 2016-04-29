@@ -444,3 +444,117 @@ class SocialAccountTests(TestCase):
             {'account': account.pk})
         self.assertFalse(
             SocialAccount.objects.filter(pk=account.pk).exists())
+
+    @override_settings(
+        ACCOUNT_EMAIL_REQUIRED=True,
+        ACCOUNT_EMAIL_VERIFICATION='mandatory',
+        ACCOUNT_UNIQUE_EMAIL=True,
+        ACCOUNT_USERNAME_REQUIRED=False,
+        ACCOUNT_AUTHENTICATION_METHOD='email',
+        SOCIALACCOUNT_AUTO_SIGNUP=False)
+    def test_verified_email_change_at_signup(self):
+        """
+        Test scenario for when the user changes email at social signup. Current
+        behavior is that both the unverified and verified email are added, and
+        that the user is allowed to pass because he did provide a verified one.
+        """
+        session = self.client.session
+        User = get_user_model()
+        sociallogin = SocialLogin(
+            user=User(
+                email='verified@provider.com'),
+            account=SocialAccount(
+                provider='google'
+            ),
+            email_addresses=[
+                EmailAddress(
+                    email='verified@provider.com',
+                    verified=True,
+                    primary=True)])
+        session['socialaccount_sociallogin'] = sociallogin.serialize()
+        session.save()
+        resp = self.client.get(reverse('socialaccount_signup'))
+        form = resp.context['form']
+        self.assertEquals(form['email'].value(), 'verified@provider.com')
+        resp = self.client.post(
+            reverse('socialaccount_signup'),
+            data={'email': 'unverified@local.com'})
+        self.assertRedirects(
+            resp, '/accounts/profile/',
+            fetch_redirect_response=False)
+        user = User.objects.all()[0]
+        self.assertEquals(
+            user_email(user),
+            'verified@provider.com'
+        )
+        self.assertTrue(
+            EmailAddress.objects.filter(
+                user=user,
+                email='verified@provider.com',
+                verified=True,
+                primary=True
+            ).exists())
+        self.assertTrue(
+            EmailAddress.objects.filter(
+                user=user,
+                email='unverified@local.com',
+                verified=False,
+                primary=False
+            ).exists())
+
+    @override_settings(
+        ACCOUNT_EMAIL_REQUIRED=True,
+        ACCOUNT_EMAIL_VERIFICATION='mandatory',
+        ACCOUNT_UNIQUE_EMAIL=True,
+        ACCOUNT_USERNAME_REQUIRED=False,
+        ACCOUNT_AUTHENTICATION_METHOD='email',
+        SOCIALACCOUNT_AUTO_SIGNUP=False)
+    def test_unverified_email_change_at_signup(self):
+        """
+        Test scenario for when the user changes email at social signup, while
+        his provider did not provide a verified email. In that case, email
+        verification will kick in. Here, both email addresses are added as
+        well.
+        """
+        session = self.client.session
+        User = get_user_model()
+        sociallogin = SocialLogin(
+            user=User(
+                email='unverified@provider.com'),
+            account=SocialAccount(
+                provider='google'
+            ),
+            email_addresses=[
+                EmailAddress(
+                    email='unverified@provider.com',
+                    verified=False,
+                    primary=True)])
+        session['socialaccount_sociallogin'] = sociallogin.serialize()
+        session.save()
+        resp = self.client.get(reverse('socialaccount_signup'))
+        form = resp.context['form']
+        self.assertEquals(form['email'].value(), 'unverified@provider.com')
+        resp = self.client.post(
+            reverse('socialaccount_signup'),
+            data={'email': 'unverified@local.com'})
+
+        self.assertRedirects(resp, reverse('account_email_verification_sent'))
+        user = User.objects.all()[0]
+        self.assertEquals(
+            user_email(user),
+            'unverified@local.com'
+        )
+        self.assertTrue(
+            EmailAddress.objects.filter(
+                user=user,
+                email='unverified@provider.com',
+                verified=False,
+                primary=False
+            ).exists())
+        self.assertTrue(
+            EmailAddress.objects.filter(
+                user=user,
+                email='unverified@local.com',
+                verified=False,
+                primary=True
+            ).exists())

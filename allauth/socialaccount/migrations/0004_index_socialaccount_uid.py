@@ -7,7 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('socialaccount', '0004_foreignkey_relation_between_app_and_account'),
+        ('socialaccount', '0003_extra_data_default_dict'),
     ]
 
     operations = [

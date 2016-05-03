@@ -153,12 +153,11 @@ class SocialAccountABC(models.Model):
     date_joined = models.DateTimeField(verbose_name=_('date joined'),
                                        auto_now_add=True)
     extra_data = JSONField(verbose_name=_('extra data'), default=dict)
-    app = models.ForeignKey(settings.SOCIALACCOUNT_SOCIAL_APP_MODEL)
 
     class Meta:
         swappable = 'SOCIALACCOUNT_SOCIAL_ACCOUNT_MODEL'
         # XXX This is a question; this has changed from provider to app and the migrations might be a problem.
-        unique_together = ('app', 'uid')
+        unique_together = ('provider', 'uid')
         verbose_name = _('social account')
         verbose_name_plural = _('social accounts')
         abstract = True
@@ -314,7 +313,7 @@ class SocialLogin(object):
         """
         return self.account.pk
 
-    def lookup(self, request):
+    def lookup(self):
         """
         Lookup existing account, if any.
         """
@@ -324,9 +323,8 @@ class SocialLogin(object):
         SocialAccount = get_social_account_model()
 
         try:
-            app = SocialApp.objects.get_current(provider=self.account.provider,
-                                                request=request)
-            a = SocialAccount.objects.get(app=app, uid=self.account.uid)
+            a = SocialAccount.objects.get(provider=self.account.provider,
+                                          uid=self.account.uid)
             # Update account
             a.extra_data = self.account.extra_data
             self.account = a

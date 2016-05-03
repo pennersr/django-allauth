@@ -14,6 +14,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase, SimpleTestCase
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
+from django.contrib.sites.models import Site
 
 from allauth.socialaccount.providers import registry
 

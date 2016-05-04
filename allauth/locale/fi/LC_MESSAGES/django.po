@@ -31,7 +31,7 @@ msgstr "Käyttäjänimeä ei voi käyttää. Valitse toinen käyttäjänimi."
 
 #: account/adapter.py:53
 msgid "Too many failed login attempts. Try again later."
-msgstr ""
+msgstr "Liian monta virheellistä kirjautumisyritystä. Yritä myöhemmin uudelleen."
 
 #: account/adapter.py:293
 #, python-brace-format
@@ -141,7 +141,7 @@ msgstr "Salasanan uusimistarkiste ei kelpaa."
 
 #: account/models.py:26
 msgid "user"
-msgstr "käytäjä"
+msgstr "käyttäjä"
 
 #: account/models.py:29 account/models.py:88
 msgid "e-mail address"
@@ -201,8 +201,8 @@ msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
 "account first, then connect your %s account."
 msgstr ""
-"Sähköpostiosoite on jo liitetty olemassaolevaan tiliin. Kirjaudu "
-"olemassaolevaan tiliin ja liitä %s-tilisi vasta sitten."
+"Sähköpostiosoite on jo liitetty olemassaolevaan tiliin. Kirjaudu ensin "
+"kyseiseen tiliin ja liitä %s-tilisi vasta sitten."
 
 #: socialaccount/models.py:47 socialaccount/models.py:80
 msgid "provider"
@@ -214,19 +214,19 @@ msgstr "nimi"
 
 #: socialaccount/models.py:52
 msgid "client id"
-msgstr ""
+msgstr "asiakas id"
 
 #: socialaccount/models.py:54
 msgid "App ID, or consumer key"
-msgstr ""
+msgstr "Sovellus ID tai kuluttajan avain"
 
 #: socialaccount/models.py:55
 msgid "secret key"
-msgstr ""
+msgstr "salainen avain"
 
 #: socialaccount/models.py:57
 msgid "API secret, client secret, or consumer secret"
-msgstr ""
+msgstr "API:n, asiakkaan tai kuluttajan salaisuus"
 
 #: socialaccount/models.py:62
 msgid "Key"
@@ -234,35 +234,35 @@ msgstr "Avain"
 
 #: socialaccount/models.py:70
 msgid "social application"
-msgstr ""
+msgstr "sosiaalinen applikaatio"
 
 #: socialaccount/models.py:71
 msgid "social applications"
-msgstr ""
+msgstr "sosiaaliset applikaatiot"
 
 #: socialaccount/models.py:99
 msgid "uid"
-msgstr ""
+msgstr "uid"
 
 #: socialaccount/models.py:101
 msgid "last login"
-msgstr "Viimeisin sisäänkirjautuminen"
+msgstr "viimeisin sisäänkirjautuminen"
 
 #: socialaccount/models.py:103
 msgid "date joined"
-msgstr "Liittymispäivämäärä"
+msgstr "liittymispäivämäärä"
 
 #: socialaccount/models.py:105
 msgid "extra data"
-msgstr ""
+msgstr "lisätiedot"
 
 #: socialaccount/models.py:109
 msgid "social account"
-msgstr "Sosiaalisen median tiliq"
+msgstr "sosiaalisen median tili"
 
 #: socialaccount/models.py:110
 msgid "social accounts"
-msgstr "Sosiaalisen median tilit"
+msgstr "sosiaalisen median tilit"
 
 #: socialaccount/models.py:136
 msgid "token"
@@ -300,7 +300,7 @@ msgstr "Virheellinen vastaus palvelusta \"%s\"."
 #: socialaccount/providers/oauth/client.py:103
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
-msgstr "Virhe hankitteassa käyttöoikeustunnistetta palvelusta \"%s\""
+msgstr "Virhe hankittaessa käyttöoikeustunnistetta palvelusta \"%s\""
 
 #: socialaccount/providers/oauth/client.py:119
 #, python-format
@@ -336,7 +336,7 @@ msgstr "Sähköpostiosoitteet"
 
 #: templates/account/email.html:10
 msgid "The following e-mail addresses are associated with your account:"
-msgstr "Seuraavat sähköpostiosoiteet on liitetty tiliisi:"
+msgstr "Seuraavat sähköpostiosoitteet on liitetty tiliisi:"
 
 #: templates/account/email.html:24
 msgid "Verified"
@@ -356,7 +356,7 @@ msgstr "Aseta ensisijaiseksi"
 
 #: templates/account/email.html:35
 msgid "Re-send Verification"
-msgstr "Uudelleenlähetä vahvistus"
+msgstr "Lähetä vahvistus uudelleen"
 
 #: templates/account/email.html:36 templates/socialaccount/connections.html:35
 msgid "Remove"
@@ -371,8 +371,8 @@ msgid ""
 "You currently do not have any e-mail address set up. You should really add "
 "an e-mail address so you can receive notifications, reset your password, etc."
 msgstr ""
-"Et ole asettanut sähköpostiosoitetta. Tämä tulisi tehdä jotta voit saada "
-"ilmoituksia, uusia salasanasi, jne."
+"Et ole asettanut sähköpostiosoitetta. Tämä tulisi tehdä, jotta voit saada "
+"ilmoituksia, uusia salasanasi jne."
 
 #: templates/account/email.html:48
 msgid "Add E-mail Address"
@@ -384,7 +384,7 @@ msgstr "Lisää sähköposti"
 
 #: templates/account/email.html:62
 msgid "Do you really want to remove the selected e-mail address?"
-msgstr "Haluatko varmasti poistaa valitun sähköpostiosoitteen."
+msgstr "Haluatko varmasti poistaa valitun sähköpostiosoitteen?"
 
 #: templates/account/email/email_confirmation_message.txt:1
 #, python-format
@@ -397,10 +397,10 @@ msgid ""
 "\n"
 "To confirm this is correct, go to %(activate_url)s\n"
 msgstr ""
-"Terve %(site_name)ssta!\n"
+"Terve palvelusta %(site_name)s!\n"
 "\n"
-"Sait tämän viestin koska käyttäjä %(user_display)s palvelusta "
-"%(site_domain)s antoi sähköpostiosoittesi liitettäväksi tiliinsä.\n"
+"Sait tämän viestin, koska käyttäjä %(user_display)s palvelusta "
+"%(site_domain)s antoi sähköpostiosoitteesi liitettäväksi tiliinsä.\n"
 "\n"
 "Vahvistaaksesi tiedot oikeiksi mene osoitteeseen %(activate_url)s\n"
 
@@ -410,12 +410,12 @@ msgid ""
 "Thank you from %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
-"Kiitokset %(site_name)ssta!\n"
+"Kiitokset palvelusta %(site_name)s!\n"
 "%(site_domain)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your E-mail Address"
-msgstr "Vahvista Sähköpostiosoitteesi"
+msgstr "Vahvista sähköpostiosoitteesi"
 
 #: templates/account/email/password_reset_key_message.txt:1
 #, python-format
@@ -427,12 +427,12 @@ msgid ""
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"Terve %(site_name)ssta!\n"
+"Terve palvelusta %(site_name)s!\n"
 "\n"
-"Sait tämän sähköpostin koska sinä tai joku muu on pyytänyt salasasi "
+"Sait tämän sähköpostin, koska sinä tai joku muu on pyytänyt salasasi "
 "uusimista palvelussa %(site_domain)s.\n"
-"Tämän viestin voi jättää huomotta jos et pyytänyt salasanan uusimista. "
-"Klikkaa alla olevaa linkkia uusiaksesi salasanasi."
+"Tämän viestin voi jättää huomiotta, jos et pyytänyt salasanan uusimista. "
+"Klikkaa alla olevaa linkkiä uusiaksesi salasanasi."
 
 #: templates/account/email/password_reset_key_message.txt:8
 #, python-format
@@ -445,17 +445,17 @@ msgid ""
 "Thank you for using %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
-"Kiitos kun käytät %(site_name)s palvelua!\n"
+"Kiitos, kun käytät %(site_name)s palvelua!\n"
 "%(site_domain)s"
 
 #: templates/account/email/password_reset_key_subject.txt:3
 msgid "Password Reset E-mail"
-msgstr "Salasanan Uusimissähköposti"
+msgstr "Salasanan uusimissähköposti"
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
 msgid "Confirm E-mail Address"
-msgstr "Vahvista Sähköpostiosoite"
+msgstr "Vahvista sähköpostiosoite"
 
 #: templates/account/email_confirm.html:16
 #, python-format
@@ -463,7 +463,7 @@ msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
 "address for user %(user_display)s."
 msgstr ""
-"Vahvista että <a href=\"mailto:%(email)s\">%(email)s</a> on käyttäjän "
+"Vahvista, että <a href=\"mailto:%(email)s\">%(email)s</a> on käyttäjän "
 "%(user_display)s sähköpostiosoite."
 
 #: templates/account/email_confirm.html:20
@@ -507,7 +507,7 @@ msgid ""
 "If you have not created an account yet, then please\n"
 "<a href=\"%(signup_url)s\">sign up</a> first."
 msgstr ""
-"Jos et ole luonut vielä tilia niin <a href=\"%(signup_url)s\">rekisteröidy</"
+"Jos et ole luonut vielä tiliä, niin <a href=\"%(signup_url)s\">rekisteröidy</"
 "a> ensin."
 
 #: templates/account/login.html:42
@@ -517,7 +517,7 @@ msgstr "Salasana unohtunut?"
 #: templates/account/logout.html:5 templates/account/logout.html.py:8
 #: templates/account/logout.html:17
 msgid "Sign Out"
-msgstr "Kirjaudu ulos."
+msgstr "Kirjaudu ulos"
 
 #: templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
@@ -566,7 +566,7 @@ msgstr "Ensisijainen sähköpostiosoite asetettiin."
 
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary e-mail address must be verified."
-msgstr "Esnsisijaisen sähköpostiosoiteen tulee olla vahvistettu."
+msgstr "Ensisijaisen sähköpostiosoiteen tulee olla vahvistettu."
 
 #: templates/account/password_change.html:5
 #: templates/account/password_change.html:8
@@ -591,7 +591,7 @@ msgid ""
 "an e-mail allowing you to reset it."
 msgstr ""
 "Unohditko salasanasi? Anna sähköpostiosoitteesi ja lähetämme sinulle "
-"sähköpostin jonka avulla voit uusia sen."
+"sähköpostin, jonka avulla voit uusia sen."
 
 #: templates/account/password_reset.html:20
 msgid "Reset My Password"
@@ -599,19 +599,19 @@ msgstr "Salasanan uusiminen"
 
 #: templates/account/password_reset.html:23
 msgid "Please contact us if you have any trouble resetting your password."
-msgstr "Jos salasanan uusiminen ei onnistu niin ota yhteyttä ylläpitoon."
+msgstr "Ota meihin yhteyttä, jos sinulla on ongelmia salasanasi uusimisessa."
 
 #: templates/account/password_reset_done.html:15
 msgid ""
 "We have sent you an e-mail. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"Sähköposti lähetetty. Ota meihin yhteyttä jos et saa sitä muutaman minuutin "
+"Olemme lähettäneet sinulle sähköpostia. Ota meihin yhteyttä, jos et saa sitä muutaman minuutin "
 "sisällä."
 
 #: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
-msgstr ""
+msgstr "Virheellinen tunniste"
 
 #: templates/account/password_reset_from_key.html:11
 #, python-format
@@ -620,7 +620,7 @@ msgid ""
 "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
 "a>."
 msgstr ""
-"Salasanan uusimislinkki ei toiminut. Tämä voi tapahtua jos linkki on jo "
+"Salasanan uusimislinkki ei toiminut. Tämä voi tapahtua, jos linkki on jo "
 "käytetty. Voit kuitenkin <a href=\"%(passwd_reset_url)s\">uusia salasanan "
 "uusimisen</a>."
 
@@ -636,7 +636,7 @@ msgstr "Salasanasi on nyt vaihdettu."
 #: templates/account/password_set.html:5 templates/account/password_set.html:8
 #: templates/account/password_set.html:13
 msgid "Set Password"
-msgstr "Aseta Salasana"
+msgstr "Aseta salasana"
 
 #: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
@@ -684,8 +684,8 @@ msgid ""
 "finalize the signup process. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"Lähitimme sinulle sähköpostin vahvistusviestin. Klikkaa sähköpostissa olevaa "
-"linkkiä viimeistelläksesi rekisteröitymisprosessin. Ota meihin yhteyttä jos "
+"Lähetimme sinulle sähköpostin vahvistusviestin. Klikkaa sähköpostissa olevaa "
+"linkkiä viimeistelläksesi rekisteröitymisprosessin. Ota meihin yhteyttä, jos "
 "et saanut vahvistusviestiä muutaman minuutin sisällä."
 
 #: templates/account/verified_email_required.html:12
@@ -694,7 +694,7 @@ msgid ""
 "you are who you claim to be. For this purpose, we require that you\n"
 "verify ownership of your e-mail address. "
 msgstr ""
-"Tämä osa palvelua vaatii että tiedämme kuka olet. Tämän takia sinun pitää "
+"Tämä osa palvelua vaatii, että tiedämme kuka olet. Tämän takia sinun pitää "
 "vahvistaa omistavasi ilmoittamasi sähköpostiosoite."
 
 #: templates/account/verified_email_required.html:16
@@ -704,7 +704,7 @@ msgid ""
 "contact us if you do not receive it within a few minutes."
 msgstr ""
 "Olemme lähettäneet sinulle sähköpostivahvistuksen. Klikkaa sähköpostissa "
-"olevaa linkkiä vahvistaaksesi sähköpostiosoitteesi. Ota meihin yhteyttä jos "
+"olevaa linkkiä vahvistaaksesi sähköpostiosoitteesi. Ota meihin yhteyttä, jos "
 "et saanut vahvistusviestiä muutaman minuutin sisällä."
 
 #: templates/account/verified_email_required.html:20
@@ -728,12 +728,12 @@ msgstr "Sosiaalisen median tilillä kirjautuminen epäonnistui"
 #: templates/socialaccount/authentication_error.html:10
 msgid ""
 "An error occurred while attempting to login via your social network account."
-msgstr "Tapahtui virhe kirjautuessa sosiaalisen median tilillä."
+msgstr "Tapahtui virhe yritettäessä kirjautua käyttäen sosiaalisen median tiliä."
 
 #: templates/socialaccount/connections.html:5
 #: templates/socialaccount/connections.html:8
 msgid "Account Connections"
-msgstr "Liietyt tilit"
+msgstr "Liitetyt tilit"
 
 #: templates/socialaccount/connections.html:11
 msgid ""
@@ -763,7 +763,7 @@ msgid ""
 "\">sign in</a>."
 msgstr ""
 "Keskeytit sisäänkirjautumisen olemassaolevalle tilillesi. Jos tämä oli "
-"vanhinko niin <a href=\"%(login_url)s\">kirjaudu sisään</a>."
+"vahinko niin <a href=\"%(login_url)s\">kirjaudu sisään</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."
@@ -783,8 +783,8 @@ msgid ""
 "You are about to use your %(provider_name)s account to login to\n"
 "%(site_name)s. As a final step, please complete the following form:"
 msgstr ""
-"Käytät %(provider_name)s-tiliä kirjautuaksesi %(site_name)san.  Täytä vielä "
-"seuraava lomake:"
+"Olet aikeissa käyttää %(provider_name)s-tiliäsi kirjautuaksesi palveluun\n"
+"%(site_name)s. Täytä vielä seuraava lomake:"
 
 #~ msgid "This username is already taken. Please choose another."
 #~ msgstr "Käyttäjänimi on käytössä. Valitse toinen käyttäjänimi."

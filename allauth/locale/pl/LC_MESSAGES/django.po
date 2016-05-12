@@ -31,7 +31,7 @@ msgstr ""
 #: account/adapter.py:293
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
-msgstr "Hasło musi składać się minimalnie z {0} znaków"
+msgstr "Hasło musi składać się minimalnie z {0} znaków."
 
 #: account/apps.py:8
 #, fuzzy

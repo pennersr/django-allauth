@@ -44,6 +44,7 @@ class ShopifyOAuth2Adapter(OAuth2Adapter):
         return self._shop_url('/admin/shop.json')
 
     def complete_login(self, request, app, token, **kwargs):
+        self.request = request
         headers = {
             'X-Shopify-Access-Token': '{token}'.format(token=token.token)}
         response = requests.get(

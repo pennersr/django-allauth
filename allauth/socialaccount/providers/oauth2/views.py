@@ -29,7 +29,7 @@ class OAuth2Adapter(object):
     basic_auth = False
     headers = None
 
-    def __init__(self, request):
+    def __init__(self, request=None):
         self.request = request
 
     def get_provider(self):

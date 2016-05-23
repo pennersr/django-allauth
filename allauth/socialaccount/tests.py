@@ -628,7 +628,7 @@ class SwapSocialAppTests(OAuth2TestsMixin, TestCase):
             email=email)
         account = SocialAccount.objects.create(
             user=user,
-            app=app,
+            new_field="new field",
             provider=self.provider.id,
             uid='123')
         token = SocialToken.objects.create(

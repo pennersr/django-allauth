@@ -46,7 +46,6 @@ class Migration(migrations.Migration):
                 ('extra_data', allauth.socialaccount.fields.JSONField(verbose_name='extra data', default='{}')),
                 ('new_field', models.CharField(max_length=100)),
                 ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='test_swappable_app_socialaccountswapped_set')),
-                ('app', models.ForeignKey(to='test_swappable_app.SocialAppSwapped')),
             ],
             options={
                 'verbose_name': 'social account',

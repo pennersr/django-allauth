@@ -19,7 +19,6 @@ class PersonaTests(TestCase):
                                        secret='dummy')
         app.sites.add(get_current_site())
 
-
     @override_settings(SOCIALACCOUNT_PROVIDERS=SOCIALACCOUNT_PROVIDERS)
     def test_login(self):
         with patch('allauth.socialaccount.providers.persona.views'

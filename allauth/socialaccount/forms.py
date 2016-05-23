@@ -14,6 +14,7 @@ from . import signals
 
 SocialAccount = get_social_account_model()
 
+
 class SignupForm(BaseSignupForm):
 
     def __init__(self, *args, **kwargs):

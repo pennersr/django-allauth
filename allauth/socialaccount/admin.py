@@ -6,6 +6,7 @@ from allauth.account.adapter import get_adapter
 
 from .models import SocialToken, get_social_account_model, get_social_app_model
 
+
 class SocialAppForm(forms.ModelForm):
     class Meta:
         model = get_social_app_model()

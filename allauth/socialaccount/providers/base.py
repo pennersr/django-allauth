@@ -33,7 +33,8 @@ class Provider(object):
         raise NotImplementedError("get_login_url() for " + self.name)
 
     def get_app(self, request):
-        return get_social_app_model().objects.get_current(self.id, request=request)
+        return get_social_app_model().objects.get_current(self.id,
+                                                          request=request)
 
     def media_js(self, request):
         """

@@ -4,8 +4,6 @@ from allauth.tests import MockedResponse, TestCase
 
 from .provider import TwitterProvider
 
-from allauth.socialaccount.models import get_social_app_model
-from allauth.utils import get_user_model, get_current_site
 
 class TwitterTests(OAuthTestsMixin, TestCase):
     provider_id = TwitterProvider.id

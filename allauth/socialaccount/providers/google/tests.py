@@ -18,7 +18,6 @@ from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.account import app_settings as account_settings
 from allauth.account.models import EmailConfirmation, EmailAddress
 from allauth.socialaccount.models import SocialToken, get_social_account_model
-from allauth.socialaccount.providers import registry
 from allauth.tests import MockedResponse, TestCase, patch
 from allauth.account.signals import user_signed_up
 from allauth.account.adapter import get_adapter

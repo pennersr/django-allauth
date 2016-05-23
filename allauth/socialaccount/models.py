@@ -22,16 +22,17 @@ from . import app_settings
 from . import providers
 from .fields import JSONField
 from ..utils import get_request_param
-from django.conf import settings
 
 try:
     from django.apps import apps
     get_model = apps.get_model
 except ImportError:
     from django.db.models import get_model as _get_model
+
     def get_model(model_string):
         app, model = model_string.split('.')
         return _get_model(app, model)
+
 
 def get_social_app_model():
     """
@@ -40,9 +41,12 @@ def get_social_app_model():
     try:
         return get_model(app_settings.SOCIAL_APP_MODEL)
     except ValueError:
-        raise ImproperlyConfigured("SOCIAL_APP_MODEL must be of the form 'app_label.model_name'")
+        raise ImproperlyConfigured(
+                "SOCIAL_APP_MODEL must be of the form 'app_label.model_name'")
     except LookupError:
-        raise ImproperlyConfigured("SOCIAL_APP_MODEL refers to model '%s' that has not been installed" % app_settings.SOCIAL_APP_MODEL)
+        raise ImproperlyConfigured(
+                "SOCIAL_APP_MODEL refers to model '%s' that has not been "
+                "installed" % app_settings.SOCIAL_APP_MODEL)
 
 
 def get_social_account_model():
@@ -52,9 +56,13 @@ def get_social_account_model():
     try:
         return get_model(app_settings.SOCIAL_ACCOUNT_MODEL)
     except ValueError:
-        raise ImproperlyConfigured("SOCIAL_ACCOUNT_MODEL must be of the form 'app_label.model_name'")
+        raise ImproperlyConfigured(
+                "SOCIAL_ACCOUNT_MODEL must be of the form "
+                "'app_label.model_name'")
     except LookupError:
-        raise ImproperlyConfigured("SOCIAL_ACCOUNT_MODEL refers to model '%s' that has not been installed" % app_settings.SOCIAL_ACCOUNT_MODEL)
+        raise ImproperlyConfigured(
+                "SOCIAL_ACCOUNT_MODEL refers to model '%s' that has not been "
+                "installed" % app_settings.SOCIAL_ACCOUNT_MODEL)
 
 
 class SocialAppManager(models.Manager):
@@ -76,8 +84,8 @@ class SocialAppManager(models.Manager):
 @python_2_unicode_compatible
 class SocialAppABC(models.Model):
     """
-    Abstract base class for SocialApp.  This makes it easier to swap out the SocialApp
-    with one of your own implementation.
+    Abstract base class for SocialApp.  This makes it easier to swap out the
+    SocialApp with one of your own implementation.
     """
     objects = SocialAppManager()
 
@@ -101,7 +109,9 @@ class SocialAppABC(models.Model):
     # a ManyToManyField. Note that Facebook requires an app per domain
     # (unless the domains share a common base name).
     # blank=True allows for disabling apps without removing them
-    sites = models.ManyToManyField(Site, blank=True, related_name="%(app_label)s_%(class)s_set")
+    sites = models.ManyToManyField(Site,
+                                   blank=True,
+                                   related_name="%(app_label)s_%(class)s_set")
 
     class Meta:
         swappable = 'SOCIALACCOUNT_SOCIAL_APP_MODEL'
@@ -117,15 +127,16 @@ class SocialApp(SocialAppABC):
     """
     Concrete SocialApp, and the default for `SOCIALACCOUNT_SOCIAL_APP_MODEL`.
     This is `swappable`, but just as with `AUTH_USER`, if you want to replace
-    it, the new model must be in your first migration, or you will have a nightmare
-    of SQL migrations to write to change everything.
+    it, the new model must be in your first migration, or you will have a
+    nightmare of SQL migrations to write to change everything.
     """
     pass
 
 
 @python_2_unicode_compatible
 class SocialAccountABC(models.Model):
-    user = models.ForeignKey(allauth.app_settings.USER_MODEL, related_name="%(app_label)s_%(class)s_set" )
+    user = models.ForeignKey(allauth.app_settings.USER_MODEL,
+                             related_name="%(app_label)s_%(class)s_set")
     provider = models.CharField(verbose_name=_('provider'),
                                 max_length=30,
                                 choices=providers.registry.as_choices())
@@ -156,7 +167,6 @@ class SocialAccountABC(models.Model):
 
     class Meta:
         swappable = 'SOCIALACCOUNT_SOCIAL_ACCOUNT_MODEL'
-        # XXX This is a question; this has changed from provider to app and the migrations might be a problem.
         unique_together = ('provider', 'uid')
         verbose_name = _('social account')
         verbose_name_plural = _('social accounts')
@@ -262,7 +272,8 @@ class SocialLogin(object):
 
     @classmethod
     def deserialize(cls, data):
-        account = deserialize_instance(get_social_account_model(), data['account'])
+        account = deserialize_instance(get_social_account_model(),
+                                       data['account'])
         user = deserialize_instance(get_user_model(), data['user'])
         if 'token' in data:
             token = deserialize_instance(SocialToken, data['token'])
@@ -287,7 +298,6 @@ class SocialLogin(object):
         """
         assert not self.is_existing
         SocialApp = get_social_app_model()
-        SocialAccount = get_social_account_model()
 
         app = SocialApp.objects.get_current(provider=self.account.provider,
                                             request=request)

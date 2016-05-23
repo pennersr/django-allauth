@@ -2,7 +2,6 @@ from openid.consumer import consumer
 
 from django.core.urlresolvers import reverse
 
-from allauth.utils import get_user_model
 from allauth.tests import TestCase, Mock, patch
 from allauth.socialaccount.models import get_social_app_model
 
@@ -10,6 +9,7 @@ from . import views
 from .utils import AXAttribute
 
 from allauth.utils import get_user_model, get_current_site
+
 
 class OpenIDTests(TestCase):
     def setUp(self):

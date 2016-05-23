@@ -7,15 +7,21 @@ class AppSettings(object):
     def _update_base_config(self):
         """
         XXX
-        Swappable app needs to be set more or less universially and be 
+        Swappable app needs to be set more or less universially and be
         on the django settings module so migrations can run
         Not sure how this will work with test overrriding
         """
         from django.conf import settings
         if not hasattr(settings, self.prefix + 'SOCIAL_APP_MODEL'):
-            setattr(settings, self.prefix + 'SOCIAL_APP_MODEL', self.SOCIAL_APP_MODEL)
+            setattr(
+                    settings,
+                    self.prefix + 'SOCIAL_APP_MODEL',
+                    self.SOCIAL_APP_MODEL)
         if not hasattr(settings, self.prefix + 'SOCIAL_ACCOUNT_MODEL'):
-            setattr(settings, self.prefix + 'SOCIAL_ACCOUNT_MODEL', self.SOCIAL_ACCOUNT_MODEL)
+            setattr(
+                    settings,
+                    self.prefix + 'SOCIAL_ACCOUNT_MODEL',
+                    self.SOCIAL_ACCOUNT_MODEL)
 
     def _setting(self, name, dflt):
         from django.conf import settings
@@ -79,11 +85,12 @@ class AppSettings(object):
     @property
     def SOCIAL_ACCOUNT_MODEL(self):
         """
-        Model to use for social account.  Defaults to socialaccount.SocialAccount
-        This cannot be changed after the initial migration, or there will
-        be errors.
+        Model to use for social account.  Defaults to
+        socialaccount.SocialAccount This cannot be changed after the initial
+        migration, or there will be errors.
         """
-        return self._setting("SOCIAL_ACCOUNT_MODEL", "socialaccount.SocialAccount")
+        return self._setting("SOCIAL_ACCOUNT_MODEL",
+                             "socialaccount.SocialAccount")
 
     @property
     def ADAPTER(self):

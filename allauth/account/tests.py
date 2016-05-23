@@ -18,7 +18,8 @@ import unittest
 
 from allauth.tests import TestCase, patch
 from allauth.account.forms import BaseSignupForm
-from allauth.account.models import EmailAddress, EmailConfirmation, EmailConfirmationHMAC
+from allauth.account.models import (EmailAddress, EmailConfirmation,
+                                    EmailConfirmationHMAC)
 from allauth.socialaccount.models import get_social_app_model
 from allauth.utils import get_user_model, get_current_site
 
@@ -105,7 +106,7 @@ class AccountTests(TestCase):
         mock_adapter = mock.Mock(spec=get_adapter(), wraps=get_adapter())
         c = Client()
 
-        with mock.patch('allauth.account.models.get_adapter') as mock_get_adapter:
+        with mock.patch('allauth.account.models.get_adapter') as mock_get_adapter:  # noqa
             mock_get_adapter.return_value = mock_adapter
             # Signup
             resp = c.post(reverse('account_signup'),
@@ -114,6 +115,7 @@ class AccountTests(TestCase):
                            'password1': 'johndoe',
                            'password2': 'johndoe'},
                           follow=True)
+            self.assertEquals(resp.status_code, 200)
             self.assertEqual(len(mail.outbox), 1)
             self.assertTrue(mock_adapter.send_confirmation_mail.called)
 
@@ -205,9 +207,8 @@ class AccountTests(TestCase):
 
     def test_send_reset_password_calls_send_mail(self):
         mock_adapter = mock.Mock(spec=get_adapter(), wraps=get_adapter())
-        c = Client()
 
-        with mock.patch('allauth.account.forms.get_adapter') as mock_get_adapter:
+        with mock.patch('allauth.account.forms.get_adapter') as mock_get_adapter:  # noqa
             mock_get_adapter.return_value = mock_adapter
             self._request_new_password()
             # Signup

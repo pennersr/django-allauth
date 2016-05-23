@@ -21,8 +21,6 @@ from allauth.socialaccount.models import get_social_app_model
 from .locale import get_default_locale_callable
 
 
-
-
 GRAPH_API_VERSION = getattr(settings, 'SOCIALACCOUNT_PROVIDERS', {}).get(
     'facebook',  {}).get('VERSION', 'v2.4')
 GRAPH_API_URL = 'https://graph.facebook.com/' + GRAPH_API_VERSION

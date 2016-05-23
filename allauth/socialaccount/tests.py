@@ -10,6 +10,7 @@ from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
+from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse
 from django.test import TestCase, SimpleTestCase
 from django.test.client import RequestFactory
@@ -642,3 +643,22 @@ class SwapSocialAppTests(OAuth2TestsMixin, TestCase):
         from test_swappable_app.models import SocialAppSwapped
         self.assertTrue(isinstance(app, SocialAppSwapped))
 
+    @override_settings(SOCIALACCOUNT_SOCIAL_APP_MODEL="")
+    def test_need_social_app_model_setting(self):
+        from allauth.socialaccount.models import get_social_app_model
+        self.assertRaises(ImproperlyConfigured, get_social_app_model)
+
+    @override_settings(SOCIALACCOUNT_SOCIAL_ACCOUNT_MODEL="")
+    def test_need_social_account_model_setting(self):
+        from allauth.socialaccount.models import get_social_account_model
+        self.assertRaises(ImproperlyConfigured, get_social_account_model)
+
+    @override_settings(SOCIALACCOUNT_SOCIAL_APP_MODEL="nonexistant.model")
+    def test_need_installed_social_app_model_setting(self):
+        from allauth.socialaccount.models import get_social_app_model
+        self.assertRaises(ImproperlyConfigured, get_social_app_model)
+
+    @override_settings(SOCIALACCOUNT_SOCIAL_ACCOUNT_MODEL="nonexistant.model")
+    def test_need_installed_social_account_model_setting(self):
+        from allauth.socialaccount.models import get_social_account_model
+        self.assertRaises(ImproperlyConfigured, get_social_account_model)

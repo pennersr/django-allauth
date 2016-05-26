@@ -43,6 +43,8 @@ Supported Providers
 
 - Baidu (OAuth2)
 
+- Battle.net (OAuth2)
+
 - Bitbucket (OAuth, OAuth2)
 
 - Bitly (OAuth2)

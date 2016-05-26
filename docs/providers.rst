@@ -69,6 +69,19 @@ Development callback URL
     https://localhost:8000/accounts/basecamp/login/callback/
 
 
+Battle.net
+----------
+
+The Battle.net OAuth2 authentication documentation:
+    https://dev.battle.net/docs/read/oauth
+
+Development callback URL
+    https://localhost:8000/accounts/battlenet/login/callback/
+
+Register your app here (Mashery account required):
+    https://dev.battle.net/apps/register
+
+
 Draugiem
 ---------
 

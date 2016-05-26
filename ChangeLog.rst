@@ -6,6 +6,8 @@ Note worthy changes
 
 - Added Weixin provider.
 
+- Added Battle.net provider.
+
 - Django's password validation mechanism (see `AUTH_PASSWORD_VALIDATORS`) is now
   used to validate passwords.
 

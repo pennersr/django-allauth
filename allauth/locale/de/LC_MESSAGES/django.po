@@ -131,7 +131,7 @@ msgstr "Neues Passwort (Wiederholung)"
 
 #: account/forms.py:399
 msgid "Please type your current password."
-msgstr "Bitte gib' Dein aktuelles Passwort ein."
+msgstr "Bitte gib Dein aktuelles Passwort ein."
 
 #: account/forms.py:455
 msgid "The e-mail address is not assigned to any user account"
@@ -602,7 +602,7 @@ msgid ""
 "Forgotten your password? Enter your e-mail address below, and we'll send you "
 "an e-mail allowing you to reset it."
 msgstr ""
-"Passwort vergessen? Gib' Deine E-Mail-Adresse unten ein, dann schicken wir "
+"Passwort vergessen? Gib Deine E-Mail-Adresse unten ein, dann schicken wir "
 "Dir einen Link, unter dem Du Dein Passwort zurücksetzen kannst."
 
 #: templates/account/password_reset.html:20
@@ -634,7 +634,7 @@ msgid ""
 "a>."
 msgstr ""
 "Der Link zum Zurücksetzen des Passworts war ungültig, womöglich wurde dieser "
-"Link bereits benutzt. Bitte lass' Dein Passwort noch mal <a href="
+"Link bereits benutzt. Bitte lass Dein Passwort noch mal <a href="
 "\"%(passwd_reset_url)s\">zurücksetzen</a>."
 
 #: templates/account/password_reset_from_key.html:17

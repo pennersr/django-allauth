@@ -23,7 +23,10 @@ from allauth.account.models import (
     EmailConfirmation,
     EmailConfirmationHMAC)
 
-from allauth.utils import get_user_model, get_current_site
+from allauth.utils import (
+    get_current_site,
+    get_user_model,
+    get_username_max_length)
 
 from . import app_settings
 
@@ -770,6 +773,19 @@ class BaseSignupFormTests(TestCase):
         }
         form = BaseSignupForm(data, email_required=True)
         self.assertTrue(form.is_valid())
+
+    @override_settings(ACCOUNT_USERNAME_REQUIRED=True)
+    def test_username_maxlength(self):
+        data = {
+            'username': 'username',
+            'email': 'user@example.com',
+        }
+        form = BaseSignupForm(data, email_required=True)
+        max_length = get_username_max_length()
+        field = form.fields['username']
+        self.assertEqual(field.max_length, max_length)
+        widget = field.widget
+        self.assertEqual(widget.attrs.get('maxlength'), str(max_length))
 
 
 class AuthenticationBackendTests(TestCase):

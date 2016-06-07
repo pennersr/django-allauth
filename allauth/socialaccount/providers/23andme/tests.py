@@ -26,4 +26,3 @@ class TwentyThreeAndMeTests(OAuth2TestsMixin, TestCase):
             "refresh_token":"33c53cd7bb",
             "scope":"basic"
         }"""
-

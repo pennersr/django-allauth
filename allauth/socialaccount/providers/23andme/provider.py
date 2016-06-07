@@ -16,9 +16,7 @@ class TwentyTreeAndMeProvider(OAuth2Provider):
         return data['id']
 
     def get_default_scope(self):
-        scope = ['basic',
-                 'email'
-        ]
+        scope = ['basic']
         return scope
 
     def extract_common_fields(self, data):

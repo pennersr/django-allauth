@@ -1,11 +1,11 @@
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase
 
-from .provider import TwentyTreeAndMeProvider
+from .provider import TwentyThreeAndMeProvider
 
 
-class TwentyTreeAndMeTests(OAuth2TestsMixin, TestCase):
-    provider_id = TwentyTreeAndMeProvider.id
+class TwentyThreeAndMeTests(OAuth2TestsMixin, TestCase):
+    provider_id = TwentyThreeAndMeProvider.id
 
     def get_mocked_response(self):
         return MockedResponse(200, """

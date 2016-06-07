@@ -3,11 +3,11 @@ import requests
 from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
                                                           OAuth2CallbackView)
-from .provider import TwentyTreeAndMeProvider
+from .provider import TwentyThreeAndMeProvider
 
 
 class TwentyTreeAndMeOAuth2Adapter(OAuth2Adapter):
-    provider_id = TwentyTreeAndMeProvider.id
+    provider_id = TwentyThreeAndMeProvider.id
     access_token_url = 'https://api.23andme.com/token'
     authorize_url = 'https://api.23andme.com/authorize'
     profile_url = 'https://api.23andme.com/1/user/'

@@ -1,4 +1,4 @@
 from allauth.socialaccount.providers.oauth2.urls import default_urlpatterns
-from .provider import TwentyTreeAndMeProvider
+from .provider import TwentyThreeAndMeProvider
 
-urlpatterns = default_urlpatterns(TwentyTreeAndMeProvider)
+urlpatterns = default_urlpatterns(TwentyThreeAndMeProvider)

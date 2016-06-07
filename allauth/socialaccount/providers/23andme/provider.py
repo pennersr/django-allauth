@@ -3,14 +3,14 @@ from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
-class TwentyTreeAndMeAccount(ProviderAccount):
+class TwentyThreeAndMeAccount(ProviderAccount):
     pass
 
 
-class TwentyTreeAndMeProvider(OAuth2Provider):
-    id = 'twentytreeandme'
+class TwentyThreeAndMeProvider(OAuth2Provider):
+    id = 'twentythreeandme'
     name = '23andMe'
-    account_class = TwentyTreeAndMeAccount
+    account_class = TwentyThreeAndMeAccount
 
     def extract_uid(self, data):
         return data['id']
@@ -24,4 +24,4 @@ class TwentyTreeAndMeProvider(OAuth2Provider):
             email=data.get('email'),
         )
 
-providers.registry.register(TwentyTreeAndMeProvider)
+providers.registry.register(TwentyThreeAndMeProvider)

@@ -10,7 +10,7 @@ class TwentyTreeAndMeOAuth2Adapter(OAuth2Adapter):
     provider_id = TwentyTreeAndMeProvider.id
     access_token_url = 'https://api.23andme.com/token'
     authorize_url = 'https://api.23andme.com/authorize'
-    profile_url = 'https://api.23andme.com/1/demo/user/'
+    profile_url = 'https://api.23andme.com/1/user/'
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {'Authorization': 'Bearer {0}'.format(token.token)}

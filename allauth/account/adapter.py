@@ -76,9 +76,13 @@ class DefaultAccountAdapter(object):
         """
         subject = render_to_string('{0}_subject.txt'.format(template_prefix),
                                    context)
+
         # remove superfluous line breaks
         subject = " ".join(subject.splitlines()).strip()
         subject = self.format_email_subject(subject)
+
+        # update context with the subject
+        context.update({'subject': subject})
 
         bodies = {}
         for ext in ['html', 'txt']:

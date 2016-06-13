@@ -33,6 +33,8 @@ Supported Flows
 Supported Providers
 -------------------
 
+- 23andMe (OAuth2)
+
 - Amazon (OAuth2)
 
 - AngelList (OAuth2)

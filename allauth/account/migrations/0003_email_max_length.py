@@ -5,19 +5,21 @@ from django.db import models, migrations
 from django.conf import settings
 
 UNIQUE_EMAIL = getattr(settings, 'ACCOUNT_UNIQUE_EMAIL', True)
+EMAIL_MAX_LENGTH = getattr(settings, 'ACCOUNT_EMAIL_MAX_LENGTH', 254)
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('account', '0001_initial'),
+        ('account', '0002_email_max_length'),
     ]
 
     operations = [
         migrations.AlterField(
             model_name='emailaddress',
             name='email',
-            field=models.EmailField(unique=UNIQUE_EMAIL, max_length=254, verbose_name='e-mail address'),
+            field=models.EmailField(unique=UNIQUE_EMAIL, max_length=EMAIL_MAX_LENGTH, verbose_name='e-mail address'),
+
         ),
     ]
 

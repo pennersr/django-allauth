@@ -5,7 +5,7 @@ from django.db import models, migrations
 from django.conf import settings
 
 UNIQUE_EMAIL = getattr(settings, 'ACCOUNT_UNIQUE_EMAIL', True)
-EMAIL_MAX_LENGTH = getattr(settings, 'ACCOUNT_EMAIL_MAX_LENGTH', 191)
+EMAIL_MAX_LENGTH = getattr(settings, 'ACCOUNT_EMAIL_MAX_LENGTH', 254)
 
 
 class Migration(migrations.Migration):

@@ -115,7 +115,7 @@ class AppSettings(object):
         """
         Adjust max_length of e-mail addresses
         """
-        return self._setting("EMAIL_MAX_LENGTH", 191)
+        return self._setting("EMAIL_MAX_LENGTH", 254)
 
     @property
     def UNIQUE_EMAIL(self):

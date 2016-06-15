@@ -32,7 +32,7 @@ Mailinglist
   http://groups.google.com/group/django-allauth
 
 Documentation
-  http://django-allauth.readthedocs.org/en/latest/
+  https://django-allauth.readthedocs.io/en/latest/
 
 Stack Overflow
   http://stackoverflow.com/questions/tagged/django-allauth

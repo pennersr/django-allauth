@@ -9,8 +9,7 @@ from django.utils.translation import pgettext, ugettext_lazy as _, ugettext
 from django.core import validators
 from django.contrib.auth.tokens import default_token_generator
 
-from ..utils import (email_address_exists,
-                     set_form_field_order,
+from ..utils import (set_form_field_order,
                      build_absolute_uri,
                      get_username_max_length,
                      get_current_site)
@@ -271,14 +270,7 @@ class BaseSignupForm(_base_signup_form_class()):
     def clean_email(self):
         value = self.cleaned_data["email"]
         value = get_adapter().clean_email(value)
-        if app_settings.UNIQUE_EMAIL:
-            if value and email_address_exists(value):
-                self.raise_duplicate_email_error()
         return value
-
-    def raise_duplicate_email_error(self):
-        raise forms.ValidationError(_("A user is already registered"
-                                      " with this e-mail address."))
 
     def custom_signup(self, request, user):
         custom_form = super(BaseSignupForm, self)
@@ -363,7 +355,6 @@ class AddEmailForm(UserForm):
 
     def clean_email(self):
         value = self.cleaned_data["email"]
-        value = get_adapter().clean_email(value)
         errors = {
             "this_account": _("This e-mail address is already associated"
                               " with this account."),
@@ -452,7 +443,6 @@ class ResetPasswordForm(forms.Form):
 
     def clean_email(self):
         email = self.cleaned_data["email"]
-        email = get_adapter().clean_email(email)
         self.users = filter_users_by_email(email)
         if not self.users:
             raise forms.ValidationError(_("The e-mail address is not assigned"

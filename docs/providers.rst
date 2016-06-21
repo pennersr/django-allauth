@@ -25,6 +25,15 @@ For local development, use the following::
 
 
 
+23andMe
+-------
+
+Register your OAuth2 app here: https://api.23andme.com/dev/
+
+Development callback URL
+http://localhost:8000/accounts/23andme/login/callback/
+
+
 Amazon
 ------
 

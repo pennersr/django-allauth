@@ -15,4 +15,4 @@ def default_urlpatterns(provider):
             callback_view, name=provider.id + "_callback"),
     ]
 
-    return [url('^' + provider.id + '/', include(urlpatterns))]
+    return [url('^' + provider.get_slug() + '/', include(urlpatterns))]

@@ -569,6 +569,19 @@ You can create login URLs like these as follows::
 
     {% provider_login_url "shopify" shop="petstore" %}
 
+
+Slack
+-----
+
+App registration
+    https://api.slack.com/apps/new
+
+Development callback URL
+    http://example.com/accounts/slack/login/callback/
+
+API documentation
+    https://api.slack.com/docs/sign-in-with-slack
+
 SoundCloud
 ----------
 

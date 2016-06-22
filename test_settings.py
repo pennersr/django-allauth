@@ -105,6 +105,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.reddit',
     'allauth.socialaccount.providers.robinhood',
     'allauth.socialaccount.providers.shopify',
+    'allauth.socialaccount.providers.slack',
     'allauth.socialaccount.providers.soundcloud',
     'allauth.socialaccount.providers.spotify',
     'allauth.socialaccount.providers.stackexchange',

@@ -1,6 +1,5 @@
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase
-from allauth.socialaccount.models import SocialAccount
 
 from .provider import SlackProvider
 
@@ -26,4 +25,4 @@ class SlackOAuth2Tests(OAuth2TestsMixin, TestCase):
             "id": "T0G9PQBBK",
             "name": "Captain Fabian's Naval Supply"
           }
-        }""")
+        }""")  # noqa

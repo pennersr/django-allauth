@@ -7,6 +7,7 @@ from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 
 from .provider import SlackProvider
 
+
 class SlackOAuth2Adapter(OAuth2Adapter):
     provider_id = SlackProvider.id
 

@@ -99,6 +99,8 @@ Supported Providers
 
 - Shopify (OAuth2)
 
+- Slack (OAuth2)
+
 - SoundCloud (OAuth2)
 
 - Spotify (OAuth2)

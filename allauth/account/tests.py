@@ -787,7 +787,6 @@ class BaseSignupFormTests(TestCase):
         widget = field.widget
         self.assertEqual(widget.attrs.get('maxlength'), str(max_length))
 
-
     @override_settings(
         ACCOUNT_USERNAME_REQUIRED=True,
         ACCOUNT_SIGNUP_EMAIL_VERIFICATION=True)

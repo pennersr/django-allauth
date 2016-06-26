@@ -7,6 +7,13 @@ ACCOUNT_ADAPTER (="allauth.account.adapter.DefaultAccountAdapter")
   Specifies the adapter class to use, allowing you to alter certain
   default behaviour.
 
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS( (=True)
+  The default behaviour is to redirect authenticated users to
+  `ACCOUNT_LOGIN_REDIRECT_URL` when they try accessing login/signup pages.
+
+  By changing this setting to `False`, logged in users will not be redirected when
+  they access login/signup pages.
+
 ACCOUNT_AUTHENTICATION_METHOD (="username" | "email" | "username_email")
   Specifies the login method to use -- whether the user logs in by
   entering their username, e-mail address, or either one of both.
@@ -76,6 +83,15 @@ ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT (=300)
   Time period, in seconds, from last unsuccessful login attempt, during
   which the user is prohibited from trying to log in.
 
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION (=False)
+  The default behaviour is not log users in and to redirect them to
+  `ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL`.
+
+  By changing this setting to `True`, users will automatically be logged in once
+  they confirm their email address. Note however that this only works when
+  confirming the email address **immediately after signing up**, assuming users
+  didn't close their browser or used some sort of private browsing mode.
+
 ACCOUNT_LOGOUT_ON_GET (=False)
   Determines whether or not the user is automatically logged out by a
   GET request. `GET is not designed to modify the server state <http://programmers.stackexchange.com/questions/188860/>`_,
@@ -87,9 +103,25 @@ ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE (=False)
   Determines whether or not the user is automatically logged out after
   changing or setting their password. See documentation for `Django's session invalidation on password change <https://docs.djangoproject.com/en/1.8/topics/auth/default/#session-invalidation-on-password-change>`_. (Django 1.7+)
 
+ACCOUNT_LOGIN_ON_PASSWORD_RESET (=False)
+  By changing this setting to `True`, users will automatically be logged in
+  once they have reset their password. By default they are redirected to the
+  password reset done page.
+
 ACCOUNT_LOGOUT_REDIRECT_URL (="/")
   The URL (or URL name) to return to after the user logs out. This is
   the counterpart to Django's `LOGIN_REDIRECT_URL`.
+
+ACCOUNT_PASSWORD_INPUT_RENDER_VALUE (=False)
+  `render_value` parameter as passed to `PasswordInput` fields.
+
+ACCOUNT_PASSWORD_MIN_LENGTH (=6)
+  An integer specifying the minimum password length.
+
+ACCOUNT_SESSION_REMEMBER (=None)
+  Controls the life time of the session. Set to `None` to ask the user
+  ("Remember me?"), `False` to not remember, and `True` to always
+  remember.
 
 ACCOUNT_SIGNUP_EMAIL_VERIFICATION (=False)
   abetically some time, to avoid issues: "When signing up, let the user type
@@ -105,28 +137,31 @@ ACCOUNT_SIGNUP_FORM_CLASS (=None)
 ACCOUNT_SIGNUP_PASSWORD_VERIFICATION (=True)
   When signing up, let the user type in their password twice to avoid typos.
 
+ACCOUNT_TEMPLATE_EXTENSION (="html")
+  A string defining the template extension to use, defaults to `html`.
+
+ACCOUNT_USERNAME_BLACKLIST (=[])
+  A list of usernames that can't be used by user.
+
 ACCOUNT_UNIQUE_EMAIL (=True)
   Enforce uniqueness of e-mail addresses.
-
-ACCOUNT_USER_MODEL_USERNAME_FIELD (="username")
-  The name of the field containing the `username`, if any. See custom
-  user models.
-
-ACCOUNT_USER_MODEL_EMAIL_FIELD (="email")
-  The name of the field containing the `email`, if any. See custom
-  user models.
 
 ACCOUNT_USER_DISPLAY (=a callable returning `user.username`)
   A callable (or string of the form `'some.module.callable_name'`)
   that takes a user as its only argument and returns the display name
   of the user. The default implementation returns `user.username`.
 
+ACCOUNT_USER_MODEL_EMAIL_FIELD (="email")
+  The name of the field containing the `email`, if any. See custom
+  user models.
+
+ACCOUNT_USER_MODEL_USERNAME_FIELD (="username")
+  The name of the field containing the `username`, if any. See custom
+  user models.
+
 ACCOUNT_USERNAME_MIN_LENGTH (=1)
   An integer specifying the minimum allowed length of a username.
   Deprecated -- use Django's `AUTH_PASSWORD_VALIDATORS` instead.
-
-ACCOUNT_USERNAME_BLACKLIST (=[])
-  A list of usernames that can't be used by user.
 
 ACCOUNT_USERNAME_REQUIRED (=True)
   The user is required to enter a username when signing up. Note that
@@ -134,48 +169,9 @@ ACCOUNT_USERNAME_REQUIRED (=True)
   `ACCOUNT_AUTHENTICATION_METHOD` is set to `email`. Set to `False`
   when you do not wish to prompt the user to enter a username.
 
-ACCOUNT_PASSWORD_INPUT_RENDER_VALUE (=False)
-  `render_value` parameter as passed to `PasswordInput` fields.
-
-ACCOUNT_PASSWORD_MIN_LENGTH (=6)
-  An integer specifying the minimum password length.
-
-ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION (=False)
-  The default behaviour is not log users in and to redirect them to
-  `ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL`.
-
-  By changing this setting to `True`, users will automatically be logged in once
-  they confirm their email address. Note however that this only works when
-  confirming the email address **immediately after signing up**, assuming users
-  didn't close their browser or used some sort of private browsing mode.
-
-ACCOUNT_LOGIN_ON_PASSWORD_RESET (=False)
-  By changing this setting to `True`, users will automatically be logged in
-  once they have reset their password. By default they are redirected to the
-  password reset done page.
-
-ACCOUNT_SESSION_REMEMBER (=None)
-  Controls the life time of the session. Set to `None` to ask the user
-  ("Remember me?"), `False` to not remember, and `True` to always
-  remember.
-
-ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS( (=True)
-  The default behaviour is to redirect authenticated users to
-  `ACCOUNT_LOGIN_REDIRECT_URL` when they try accessing login/signup pages.
-
-  By changing this setting to `False`, logged in users will not be redirected when
-  they access login/signup pages.
-
-ACCOUNT_TEMPLATE_EXTENSION (="html")
-  A string defining the template extension to use, defaults to `html`.
-
 SOCIALACCOUNT_ADAPTER (="allauth.socialaccount.adapter.DefaultSocialAccountAdapter")
   Specifies the adapter class to use, allowing you to alter certain
   default behaviour.
-
-SOCIALACCOUNT_QUERY_EMAIL (=ACCOUNT_EMAIL_REQUIRED)
-  Request e-mail address from 3rd party account provider? E.g. using
-  OpenID AX, or the Facebook "email" permission.
 
 SOCIALACCOUNT_AUTO_SIGNUP (=True)
   Attempt to bypass the signup form by using fields (e.g. username,
@@ -183,12 +179,12 @@ SOCIALACCOUNT_AUTO_SIGNUP (=True)
   arises due to a duplicate e-mail address the signup form will still
   kick in.
 
+SOCIALACCOUNT_EMAIL_VERIFICATION (=ACCOUNT_EMAIL_VERIFICATION)
+  As `ACCOUNT_EMAIL_VERIFICATION`, but for social accounts.
+
 SOCIALACCOUNT_EMAIL_REQUIRED (=ACCOUNT_EMAIL_REQUIRED)
   The user is required to hand over an e-mail address when signing up
   using a social account.
-
-SOCIALACCOUNT_EMAIL_VERIFICATION (=ACCOUNT_EMAIL_VERIFICATION)
-  As `ACCOUNT_EMAIL_VERIFICATION`, but for social accounts.
 
 SOCIALACCOUNT_FORMS (={})
   Used to override forms, for example:
@@ -196,6 +192,10 @@ SOCIALACCOUNT_FORMS (={})
 
 SOCIALACCOUNT_PROVIDERS (= dict)
   Dictionary containing provider specific settings.
+
+SOCIALACCOUNT_QUERY_EMAIL (=ACCOUNT_EMAIL_REQUIRED)
+  Request e-mail address from 3rd party account provider? E.g. using
+  OpenID AX, or the Facebook "email" permission.
 
 SOCIALACCOUNT_STORE_TOKENS (=True)
   Indicates whether or not the access tokens are stored in the database.

@@ -11,10 +11,14 @@ ACCOUNT_AUTHENTICATION_METHOD (="username" | "email" | "username_email")
   Specifies the login method to use -- whether the user logs in by
   entering their username, e-mail address, or either one of both.
   Setting this to "email" requires ACCOUNT_EMAIL_REQUIRED=True
-
+  
 ACCOUNT_CONFIRM_EMAIL_ON_GET (=False)
-  Determines whether or not an e-mail address is automatically confirmed
-  by a mere GET request.
+  Determines whether or not an e-mail address is automatically confirmed by
+  a GET request. `GET is not designed to modify the server state
+  <http://programmers.stackexchange.com/questions/188860/>`_, though it is
+  commonly used for email confirmation. To avoid requiring user interaction,
+  consider using POST via Javascript in your email confirmation template as
+  an alternative to setting this to True.
 
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL (=settings.LOGIN_URL)
   The URL to redirect to after a successful e-mail confirmation, in case no
@@ -74,8 +78,10 @@ ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT (=300)
 
 ACCOUNT_LOGOUT_ON_GET (=False)
   Determines whether or not the user is automatically logged out by a
-  mere GET request. See documentation for the `LogoutView` for
-  details.
+  GET request. `GET is not designed to modify the server state <http://programmers.stackexchange.com/questions/188860/>`_,
+  and in this case it can be dangerous. See `LogoutView in the
+  documentation <http://django-allauth.readthedocs.io/en/latest/views.html#logout>`_
+  for details.
 
 ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE (=False)
   Determines whether or not the user is automatically logged out after

@@ -102,7 +102,10 @@ ACCOUNT_SIGNUP_PASSWORD_VERIFICATION (=True)
   When signing up, let the user type in their password twice to avoid typos.
 
 ACCOUNT_UNIQUE_EMAIL (=True)
-  Enforce uniqueness of e-mail addresses.
+  Enforce uniqueness of e-mail addresses. The `emailaddress.email`
+  model field is set to `UNIQUE`. Forms prevent a user from registering
+  with or adding an additional email address if that email address is
+  in use by another account.
 
 ACCOUNT_USER_MODEL_USERNAME_FIELD (="username")
   The name of the field containing the `username`, if any. See custom

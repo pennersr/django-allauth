@@ -5,17 +5,13 @@ from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 
 
 class BattleNetSocialAccountAdapter(DefaultSocialAccountAdapter):
-    def populate_user(self, request, sociallogin, data):
-        user = super().populate_user(request, sociallogin, data)
-        if "battletag" in data:
-            user.username = data["battletag"]
-        return user
-
     def save_user(self, request, sociallogin, form=None):
         user = super().save_user(request, sociallogin, form)
-        user.username = sociallogin.account.extra_data["battletag"]
-        user.save()
 
+        battletag = sociallogin.account.extra_data.get("battletag")
+        if battletag:
+            user.username = battletag
+            user.save()
         return user
 
 

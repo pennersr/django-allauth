@@ -284,9 +284,6 @@ class DefaultAccountAdapter(object):
         Validates an email value. You can hook into this if you want to
         (dynamically) restrict what email addresses can be chosen.
         """
-        if app_settings.UNIQUE_EMAIL:
-            if email and email_address_exists(email):
-                raise forms.ValidationError(self.error_messages['email_taken'])
         return email
 
     def clean_password(self, password, user=None):
@@ -300,6 +297,11 @@ class DefaultAccountAdapter(object):
                                           "characters.").format(min_length))
         validate_password(password, user)
         return password
+
+    def validate_unique_email(self, email):
+        if email and email_address_exists(email):
+            raise forms.ValidationError(self.error_messages['email_taken'])
+        return email
 
     def add_message(self, request, level, message_template,
                     message_context=None, extra_tags=''):

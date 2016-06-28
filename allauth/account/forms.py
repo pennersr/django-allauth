@@ -270,6 +270,8 @@ class BaseSignupForm(_base_signup_form_class()):
     def clean_email(self):
         value = self.cleaned_data["email"]
         value = get_adapter().clean_email(value)
+        if app_settings.UNIQUE_EMAIL:
+            get_adapter().validate_unique_email(value)
         return value
 
     def custom_signup(self, request, user):
@@ -355,6 +357,7 @@ class AddEmailForm(UserForm):
 
     def clean_email(self):
         value = self.cleaned_data["email"]
+        value = get_adapter().clean_email(value)
         errors = {
             "this_account": _("This e-mail address is already associated"
                               " with this account."),
@@ -443,6 +446,7 @@ class ResetPasswordForm(forms.Form):
 
     def clean_email(self):
         email = self.cleaned_data["email"]
+        email = get_adapter().clean_email(email)
         self.users = filter_users_by_email(email)
         if not self.users:
             raise forms.ValidationError(_("The e-mail address is not assigned"

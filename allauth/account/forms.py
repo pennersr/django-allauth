@@ -271,7 +271,7 @@ class BaseSignupForm(_base_signup_form_class()):
         value = self.cleaned_data["email"]
         value = get_adapter().clean_email(value)
         if value and app_settings.UNIQUE_EMAIL:
-            get_adapter().validate_unique_email(value)
+            value = get_adapter().validate_unique_email(value)
         return value
 
     def custom_signup(self, request, user):

@@ -299,7 +299,7 @@ class DefaultAccountAdapter(object):
         return password
 
     def validate_unique_email(self, email):
-        if email and email_address_exists(email):
+        if email_address_exists(email):
             raise forms.ValidationError(self.error_messages['email_taken'])
         return email
 

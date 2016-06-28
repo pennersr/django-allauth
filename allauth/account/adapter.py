@@ -31,7 +31,7 @@ from ..compat import validate_password
 from ..utils import (build_absolute_uri, get_current_site,
                      generate_unique_username,
                      get_user_model, import_attribute,
-                     resolve_url)
+                     resolve_url, email_address_exists)
 
 from . import app_settings
 
@@ -50,7 +50,9 @@ class DefaultAccountAdapter(object):
         'username_taken':
         AbstractUser._meta.get_field('username').error_messages['unique'],
         'too_many_login_attempts':
-        _('Too many failed login attempts. Try again later.')
+        _('Too many failed login attempts. Try again later.'),
+        'email_taken':
+        AbstractUser._meta.get_field('email').error_messages['unique'],
     }
 
     def __init__(self, request=None):
@@ -295,6 +297,11 @@ class DefaultAccountAdapter(object):
                                           "characters.").format(min_length))
         validate_password(password, user)
         return password
+
+    def validate_unique_email(self, email):
+        if email_address_exists(email):
+            raise forms.ValidationError(self.error_messages['email_taken'])
+        return email
 
     def add_message(self, request, level, message_template,
                     message_context=None, extra_tags=''):

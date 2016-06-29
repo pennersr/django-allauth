@@ -247,6 +247,15 @@ class AppSettings(object):
         return [x.strip() for x in unsanitized_list if len(x.strip()) > 0]
 
     @property
+    def LOGIN_PROXY_REDIRECT_DOMAIN_WHITELIST(self):
+        unsanitized_list = (
+            self._setting(
+                'LOGIN_PROXY_REDIRECT_DOMAIN_WHITELIST', ''
+            ).split(',')
+        )
+        return [x.strip() for x in unsanitized_list if len(x.strip()) > 0]
+
+    @property
     def LOGOUT_REDIRECT_URL(self):
         from django.conf import settings
 

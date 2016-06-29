@@ -91,8 +91,12 @@ class OAuth2TestsUsesProxy(OAuth2Tests):
             reverse('fake_proxy')
 
 
-@override_settings(ACCOUNT_LOGIN_PROXY_REDIRECT_WHITELIST=
-                   'https://cheshirecat,https://tweedledee,')
+@override_settings(
+    ACCOUNT_LOGIN_PROXY_REDIRECT_WHITELIST=
+    'https://cheshirecat,https://tweedledee,',
+    ACCOUNT_LOGIN_PROXY_REDIRECT_DOMAIN_WHITELIST=
+    'sub.domain.com,'
+)
 class OAuth2TestsIsProxy(OAuth2Tests):
     def reload_urls(self):
         for module in sys.modules:
@@ -120,7 +124,7 @@ class OAuth2TestsIsProxy(OAuth2Tests):
                 self.request, callback_view_name='fake_callback')
 
     def test_rejects_request_with_unwhitelisted_host(self):
-        state = {'host': 'https://tweedledum'}
+        state = {'host': 'https://bar.domain.com'}
         self.init_request(
             'fake_proxy', dict(process='login', state=json.dumps(state)))
         with self.assertRaises(PermissionDenied):
@@ -138,6 +142,19 @@ class OAuth2TestsIsProxy(OAuth2Tests):
         self.assertEqual(
             proxy_response['location'],
             ('https://tweedledee/fake/login/callback/'
+            '?process=login&state=%s' % urlquote(serialized_state)))
+
+    def tests_redirects_request_with_domain_whitelisted_host(self):
+        state = {'host': 'https://foo.sub.domain.com'}
+        serialized_state = json.dumps(state)
+        self.init_request(
+            'fake_proxy', dict(process='login', state=serialized_state))
+        proxy_response = proxy_login_callback(
+            self.request, callback_view_name='fake_callback')
+        self.assertEqual(proxy_response.status_code, 302)  # Redirect
+        self.assertEqual(
+            proxy_response['location'],
+            ('https://foo.sub.domain.com/fake/login/callback/'
             '?process=login&state=%s' % urlquote(serialized_state)))
 
     def test_rejects_request_with_scheme_mismatch(self):

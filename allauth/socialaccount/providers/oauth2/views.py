@@ -177,6 +177,11 @@ def target_in_whitelist(parsed_target):
         allowed_scheme = parsed_allowed.scheme
         if target_loc == allowed_loc and target_scheme == allowed_scheme:
             return True
+    for allowed in app_settings.LOGIN_PROXY_REDIRECT_DOMAIN_WHITELIST:
+        parsed_allowed = urlparse(allowed)
+        allowed_loc = parsed_allowed.netloc
+        if target_loc.endswith(allowed_loc):
+            return True
     return False
 
 

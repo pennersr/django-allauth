@@ -14,7 +14,10 @@ def default_urlpatterns(provider):
         path("login/", login_view, name=provider.id + "_login"),
         path("login/callback/", callback_view, name=provider.id + "_callback"),
     ]
-    if app_settings.LOGIN_PROXY_REDIRECT_WHITELIST:
+    if (
+        app_settings.LOGIN_PROXY_REDIRECT_WHITELIST
+        or app_settings.LOGIN_PROXY_REDIRECT_DOMAIN_WHITELIST
+    ):
         urlpatterns += [
             path(
                 "login/callback/proxy/",

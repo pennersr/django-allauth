@@ -16,7 +16,9 @@ class BattleNetSocialAccountAdapter(DefaultSocialAccountAdapter):
 
 
 class BattleNetAccount(ProviderAccount):
-    pass
+    def to_str(self):
+        battletag = self.account.extra_data.get("battletag")
+        return battletag or super(BattleNetAccount, self).to_str()
 
 
 class BattleNetProvider(OAuth2Provider):

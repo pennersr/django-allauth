@@ -281,7 +281,7 @@ class AppSettings(object):
         Enable/disable sending messages to users via
         django.contrib.messages
         """
-        return self._setting('ALLOW_INTERNAL_MESSAGES',True)
+        return self._setting('ALLOW_INTERNAL_MESSAGES', True)
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

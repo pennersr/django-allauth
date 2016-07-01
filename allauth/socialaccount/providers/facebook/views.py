@@ -33,7 +33,7 @@ def compute_appsecret_proof(app, token):
 
 
 def fb_complete_login(request, app, token):
-    provider = providers.registry.by_id(FacebookProvider.id)
+    provider = providers.registry.by_id(FacebookProvider.id, request)
     resp = requests.get(
         GRAPH_API_URL + '/me',
         params={
@@ -69,10 +69,10 @@ def login_by_token(request):
         form = FacebookConnectForm(request.POST)
         if form.is_valid():
             try:
-                provider = providers.registry.by_id(FacebookProvider.id)
+                provider = providers.registry.by_id(
+                    FacebookProvider.id, request)
                 login_options = provider.get_fb_login_options(request)
-                app = providers.registry.by_id(FacebookProvider.id) \
-                    .get_app(request)
+                app = provider.get_app(request)
                 access_token = form.cleaned_data['access_token']
                 if login_options.get('auth_type') == 'reauthenticate':
                     info = requests.get(

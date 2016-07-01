@@ -48,9 +48,9 @@ class FacebookProvider(OAuth2Provider):
     name = 'Facebook'
     account_class = FacebookAccount
 
-    def __init__(self):
+    def __init__(self, request):
         self._locale_callable_cache = None
-        super(FacebookProvider, self).__init__()
+        super(FacebookProvider, self).__init__(request)
 
     def get_method(self):
         return self.get_settings().get('METHOD', 'oauth2')

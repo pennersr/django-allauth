@@ -24,7 +24,7 @@ class OAuthAdapter(object):
         raise NotImplementedError
 
     def get_provider(self):
-        return providers.registry.by_id(self.provider_id)
+        return providers.registry.by_id(self.provider_id, self.request)
 
 
 class OAuthView(object):

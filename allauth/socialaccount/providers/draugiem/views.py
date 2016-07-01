@@ -24,7 +24,8 @@ AUTHORIZE_URL = 'http://api.draugiem.lv/authorize'
 
 
 def login(request):
-    app = providers.registry.by_id(DraugiemProvider.id).get_app(request)
+    app = providers.registry.by_id(
+        DraugiemProvider.id, request).get_app(request)
     request_scheme = request.META['wsgi.url_scheme']
     request_host = request.META['HTTP_HOST']
     request_path = reverse(callback)
@@ -58,7 +59,7 @@ def callback(request):
     auth_exception = None
     try:
         app = providers.registry.by_id(
-            DraugiemProvider.id).get_app(request)
+            DraugiemProvider.id, request).get_app(request)
         login = draugiem_complete_login(
             request, app, request.GET['dr_auth_code'])
         login.state = SocialLogin.unstash_state(request)
@@ -75,7 +76,7 @@ def callback(request):
 
 
 def draugiem_complete_login(request, app, code):
-    provider = providers.registry.by_id(DraugiemProvider.id)
+    provider = providers.registry.by_id(DraugiemProvider.id, request)
     response = requests.get(ACCESS_TOKEN_URL, {
         'action': 'authorize',
         'app': app.secret,

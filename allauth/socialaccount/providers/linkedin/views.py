@@ -17,7 +17,7 @@ class LinkedInAPI(OAuth):
 
     def get_user_info(self):
         fields = providers.registry \
-            .by_id(LinkedInProvider.id) \
+            .by_id(LinkedInProvider.id, self.request) \
             .get_profile_fields()
         url = self.url + ':(%s)' % ','.join(fields)
         raw_xml = self.query(url)

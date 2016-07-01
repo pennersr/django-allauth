@@ -3,7 +3,6 @@ import requests
 from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
                                                           OAuth2CallbackView)
-from allauth.socialaccount.providers import registry
 
 from .provider import StackExchangeProvider
 
@@ -15,7 +14,7 @@ class StackExchangeOAuth2Adapter(OAuth2Adapter):
     profile_url = 'https://api.stackexchange.com/2.1/me'
 
     def complete_login(self, request, app, token, **kwargs):
-        provider = registry.by_id(app.provider)
+        provider = self.get_provider()
         site = provider.get_site()
         resp = requests.get(self.profile_url,
                             params={'access_token': token.token,

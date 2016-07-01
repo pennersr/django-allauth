@@ -14,10 +14,10 @@ class ProviderLoginURLNode(template.Node):
 
     def render(self, context):
         provider_id = self.provider_id_var.resolve(context)
-        provider = providers.registry.by_id(provider_id)
+        request = context['request']
+        provider = providers.registry.by_id(provider_id, request)
         query = dict([(str(name), var.resolve(context)) for name, var
                       in self.params.items()])
-        request = context['request']
         auth_params = query.get('auth_params', None)
         scope = query.get('scope', None)
         process = query.get('process', None)
@@ -54,7 +54,7 @@ class ProvidersMediaJSNode(template.Node):
     def render(self, context):
         request = context['request']
         ret = '\n'.join([p.media_js(request)
-                         for p in providers.registry.get_list()])
+                         for p in providers.registry.get_list(request)])
         return ret
 
 

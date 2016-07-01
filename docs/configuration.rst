@@ -165,6 +165,9 @@ ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS( (=True)
 ACCOUNT_TEMPLATE_EXTENSION (="html")
   A string defining the template extension to use, defaults to `html`.
 
+ACCOUNT_ALLOW_INTERNAL_MESSAGES (=True)
+  Enable/disable automatically sending messages using the `django.contrib.messages`.
+
 SOCIALACCOUNT_ADAPTER (="allauth.socialaccount.adapter.DefaultSocialAccountAdapter")
   Specifies the adapter class to use, allowing you to alter certain
   default behaviour.

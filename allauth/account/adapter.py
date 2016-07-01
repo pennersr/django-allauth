@@ -309,6 +309,9 @@ class DefaultAccountAdapter(object):
         Wrapper of `django.contrib.messages.add_message`, that reads
         the message text from a template.
         """
+        if not app_settings.ALLOW_INTERNAL_MESSAGES:
+            return
+
         if 'django.contrib.messages' in settings.INSTALLED_APPS:
             try:
                 if message_context is None:

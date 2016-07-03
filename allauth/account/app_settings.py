@@ -125,18 +125,19 @@ class AppSettings(object):
         return self._setting("UNIQUE_EMAIL", True)
 
     @property
-    def SIGNUP_EMAIL_VERIFICATION(self):
+    def SIGNUP_EMAIL_ENTER_TWICE(self):
         """
         Signup email verification
         """
-        return self._setting("SIGNUP_EMAIL_VERIFICATION", False)
+        return self._setting("SIGNUP_EMAIL_ENTER_TWICE", False)
 
     @property
-    def SIGNUP_PASSWORD_VERIFICATION(self):
+    def SIGNUP_PASSWORD_ENTER_TWICE(self):
         """
         Signup password verification
         """
-        return self._setting("SIGNUP_PASSWORD_VERIFICATION", True)
+        legacy = self._setting('SIGNUP_PASSWORD_VERIFICATION', True)
+        return self._setting('SIGNUP_PASSWORD_ENTER_TWICE', legacy)
 
     @property
     def PASSWORD_MIN_LENGTH(self):

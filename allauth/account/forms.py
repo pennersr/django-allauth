@@ -252,7 +252,7 @@ class BaseSignupForm(_base_signup_form_class()):
         # so take proper care when reordering...
         self.email_field = 'email'
         field_order = ['email', 'username']
-        if app_settings.SIGNUP_EMAIL_VERIFICATION:
+        if app_settings.SIGNUP_EMAIL_ENTER_TWICE:
             del self.fields["email"]
             self.fields["email1"] = forms.EmailField(
                 widget=forms.TextInput(
@@ -280,7 +280,7 @@ class BaseSignupForm(_base_signup_form_class()):
             self.fields[self.email_field].required = False
             self.fields[self.email_field].widget.is_required = False
             if self.username_required:
-                if app_settings.SIGNUP_EMAIL_VERIFICATION:
+                if app_settings.SIGNUP_EMAIL_ENTER_TWICE:
                     field_order = ['username', 'email1', 'email2']
                 else:
                     field_order = ['username', 'email']
@@ -311,7 +311,7 @@ class BaseSignupForm(_base_signup_form_class()):
 
     def clean(self):
         cleaned_data = super(BaseSignupForm, self).clean()
-        if app_settings.SIGNUP_EMAIL_VERIFICATION:
+        if app_settings.SIGNUP_EMAIL_ENTER_TWICE:
             email1 = cleaned_data.get('email1')
             email2 = cleaned_data.get('email2')
             if (email1 and email2) and email1 != email2:
@@ -343,7 +343,7 @@ class SignupForm(BaseSignupForm):
 
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)
-        if not app_settings.SIGNUP_PASSWORD_VERIFICATION:
+        if not app_settings.SIGNUP_PASSWORD_ENTER_TWICE:
             del self.fields["password2"]
 
     def clean(self):
@@ -364,7 +364,7 @@ class SignupForm(BaseSignupForm):
             except forms.ValidationError as e:
                 self.add_error('password1', e)
 
-        if app_settings.SIGNUP_PASSWORD_VERIFICATION \
+        if app_settings.SIGNUP_PASSWORD_ENTER_TWICE \
                 and "password1" in self.cleaned_data \
                 and "password2" in self.cleaned_data:
             if self.cleaned_data["password1"] \

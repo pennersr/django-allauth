@@ -18,7 +18,7 @@ ACCOUNT_AUTHENTICATION_METHOD (="username" | "email" | "username_email")
   Specifies the login method to use -- whether the user logs in by
   entering their username, e-mail address, or either one of both.
   Setting this to "email" requires ACCOUNT_EMAIL_REQUIRED=True
-  
+
 ACCOUNT_CONFIRM_EMAIL_ON_GET (=False)
   Determines whether or not an e-mail address is automatically confirmed by
   a GET request. `GET is not designed to modify the server state
@@ -123,9 +123,9 @@ ACCOUNT_SESSION_REMEMBER (=None)
   ("Remember me?"), `False` to not remember, and `True` to always
   remember.
 
-ACCOUNT_SIGNUP_EMAIL_VERIFICATION (=False)
-  abetically some time, to avoid issues: "When signing up, let the user type
-  in their email twice to avoid typo's.
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE (=False)
+  When signing up, let the user type in their email address twice to avoid
+  typo's.
 
 ACCOUNT_SIGNUP_FORM_CLASS (=None)
   A string pointing to a custom form class
@@ -134,7 +134,7 @@ ACCOUNT_SIGNUP_FORM_CLASS (=None)
   date). This class should implement a `def signup(self, request, user)`
   method, where user represents the newly signed up user.
 
-ACCOUNT_SIGNUP_PASSWORD_VERIFICATION (=True)
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE (=True)
   When signing up, let the user type in their password twice to avoid typos.
 
 ACCOUNT_TEMPLATE_EXTENSION (="html")

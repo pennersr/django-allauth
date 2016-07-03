@@ -789,7 +789,7 @@ class BaseSignupFormTests(TestCase):
 
     @override_settings(
         ACCOUNT_USERNAME_REQUIRED=True,
-        ACCOUNT_SIGNUP_EMAIL_VERIFICATION=True)
+        ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE=True)
     def test_signup_email_verification(self):
         data = {
             'username': 'username',

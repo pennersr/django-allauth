@@ -17,6 +17,11 @@ Note worthy changes
   lookup includes a fallback to the previous strategy so that there is
   no negative impact on pending verification emails.
 
+- A new setting `ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE` was added, requiring users to
+  input their email address twice. The setting
+  `ACCOUNT_SIGNUP_PASSWORD_VERIFICATION` has been renamed to
+  `ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE`.
+
 
 Backwards incompatible changes
 ------------------------------

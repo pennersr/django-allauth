@@ -787,6 +787,29 @@ class BaseSignupFormTests(TestCase):
         widget = field.widget
         self.assertEqual(widget.attrs.get('maxlength'), str(max_length))
 
+    @override_settings(
+        ACCOUNT_USERNAME_REQUIRED=True,
+        ACCOUNT_SIGNUP_EMAIL_VERIFICATION=True)
+    def test_signup_email_verification(self):
+        data = {
+            'username': 'username',
+            'email': 'user@example.com',
+        }
+        form = BaseSignupForm(data, email_required=True)
+        self.assertFalse(form.is_valid())
+
+        data = {
+            'username': 'username',
+            'email1': 'user@example.com',
+            'email2': 'user@example.com',
+        }
+        form = BaseSignupForm(data, email_required=True)
+        self.assertTrue(form.is_valid())
+
+        data['email2'] = 'anotheruser@example.com'
+        form = BaseSignupForm(data, email_required=True)
+        self.assertFalse(form.is_valid())
+
 
 class AuthenticationBackendTests(TestCase):
 

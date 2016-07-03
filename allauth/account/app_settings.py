@@ -125,6 +125,13 @@ class AppSettings(object):
         return self._setting("UNIQUE_EMAIL", True)
 
     @property
+    def SIGNUP_EMAIL_VERIFICATION(self):
+        """
+        Signup email verification
+        """
+        return self._setting("SIGNUP_EMAIL_VERIFICATION", False)
+
+    @property
     def SIGNUP_PASSWORD_VERIFICATION(self):
         """
         Signup password verification

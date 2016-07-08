@@ -337,9 +337,6 @@ class SignupForm(BaseSignupForm):
 
     password1 = PasswordField(label=_("Password"))
     password2 = PasswordField(label=_("Password (again)"))
-    confirmation_key = forms.CharField(max_length=40,
-                                       required=False,
-                                       widget=forms.HiddenInput())
 
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)

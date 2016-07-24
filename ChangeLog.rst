@@ -1,12 +1,10 @@
-Unreleased
-**********
+0.26.0 (2016-07-24)
+*******************
 
 Note worthy changes
 -------------------
 
-- Added Weixin provider.
-
-- Added Battle.net provider.
+- New providers: Weixin, Battle.net, Asana, Eve Online, 23andMe, Slack
 
 - Django's password validation mechanism (see `AUTH_PASSWORD_VALIDATORS`) is now
   used to validate passwords.
@@ -21,6 +19,8 @@ Note worthy changes
   input their email address twice. The setting
   `ACCOUNT_SIGNUP_PASSWORD_VERIFICATION` has been renamed to
   `ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE`.
+
+- New translations: Latvian, Kyrgyz.
 
 
 Backwards incompatible changes

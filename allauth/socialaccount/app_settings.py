@@ -74,7 +74,7 @@ class AppSettings(object):
     @property
     def EXTERA_INITIAL_FEILDS(self):
         return self._setting("EXTERA_INITIAL_FEILDS",
-            ['first_name', 'last_name'])
+                             ['first_name', 'last_name'])
 
 
 # Ugly? Guido recommends this himself ...

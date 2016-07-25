@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-19 04:07-0500\n"
+"POT-Creation-Date: 2016-07-25 08:20-0500\n"
 "PO-Revision-Date: 2015-08-13 15:17+0300\n"
 "Last-Translator: Anonymous User <seppo.erviala@iki.fi>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,9 +31,10 @@ msgstr "Käyttäjänimeä ei voi käyttää. Valitse toinen käyttäjänimi."
 
 #: account/adapter.py:53
 msgid "Too many failed login attempts. Try again later."
-msgstr "Liian monta virheellistä kirjautumisyritystä. Yritä myöhemmin uudelleen."
+msgstr ""
+"Liian monta virheellistä kirjautumisyritystä. Yritä myöhemmin uudelleen."
 
-#: account/adapter.py:293
+#: account/adapter.py:296
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Salasanan tulee olla vähintään {0} merkkiä pitkä."
@@ -42,100 +43,107 @@ msgstr "Salasanan tulee olla vähintään {0} merkkiä pitkä."
 msgid "Accounts"
 msgstr "Tili"
 
-#: account/forms.py:58 account/forms.py:295 account/forms.py:418
+#: account/forms.py:39 account/forms.py:369
+msgid "You must type the same password each time."
+msgstr "Salasanojen tulee olla samat."
+
+#: account/forms.py:69 account/forms.py:338 account/forms.py:449
 msgid "Password"
 msgstr "Salasana"
 
-#: account/forms.py:59
+#: account/forms.py:70
 msgid "Remember Me"
 msgstr "Muista minut"
 
-#: account/forms.py:65
+#: account/forms.py:76
 msgid "This account is currently inactive."
 msgstr "Tämä tili on poistettu käytöstä."
 
-#: account/forms.py:68
+#: account/forms.py:79
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "Annettu sähköposti tai salasana ei ole oikein."
 
-#: account/forms.py:71
+#: account/forms.py:82
 msgid "The username and/or password you specified are not correct."
 msgstr "Annettu käyttäjänimi tai salasana ei ole oikein."
 
-#: account/forms.py:74
+#: account/forms.py:85
 msgid "The login and/or password you specified are not correct."
 msgstr "Kirjautumistiedot eivät ole oikein."
 
-#: account/forms.py:83 account/forms.py:224 account/forms.py:359
-#: account/forms.py:446
+#: account/forms.py:94 account/forms.py:236 account/forms.py:260
+#: account/forms.py:399 account/forms.py:468
 msgid "E-mail address"
 msgstr "Sähköpostiosoite"
 
-#: account/forms.py:85 account/forms.py:242 account/forms.py:354
-#: account/forms.py:441
+#: account/forms.py:96 account/forms.py:276 account/forms.py:394
+#: account/forms.py:463
 msgid "E-mail"
 msgstr "Sähköposti"
 
-#: account/forms.py:90 account/forms.py:93 account/forms.py:216
-#: account/forms.py:220
+#: account/forms.py:101 account/forms.py:104 account/forms.py:228
+#: account/forms.py:232
 msgid "Username"
 msgstr "Käyttäjänimi"
 
-#: account/forms.py:100
+#: account/forms.py:111
 msgid "Username or e-mail"
 msgstr "Käyttäjänimi tai sähköposti"
 
-#: account/forms.py:103
+#: account/forms.py:114
 msgctxt "field label"
 msgid "Login"
 msgstr "Käyttäjätunnus"
 
-#: account/forms.py:245
+#: account/forms.py:268
+#, fuzzy
+#| msgid "email confirmation"
+msgid "E-mail address confirmation"
+msgstr "sähköpostivarmistus"
+
+#: account/forms.py:279
 msgid "E-mail (optional)"
 msgstr "Sähköpostiosoite (valinnainen)"
 
-#: account/forms.py:277
-msgid "A user is already registered with this e-mail address."
-msgstr "Tämä sähköpostiosoite on jo käytössä."
+#: account/forms.py:319
+#, fuzzy
+#| msgid "You must type the same password each time."
+msgid "You must type the same email each time."
+msgstr "Salasanojen tulee olla samat."
 
-#: account/forms.py:296 account/forms.py:419
+#: account/forms.py:339 account/forms.py:450
 msgid "Password (again)"
 msgstr "Salasana (uudestaan)"
 
-#: account/forms.py:329 account/forms.py:408 account/forms.py:430
-#: account/forms.py:518
-msgid "You must type the same password each time."
-msgstr "Salasanojen tulee olla samat."
-
-#: account/forms.py:365
+#: account/forms.py:405
 msgid "This e-mail address is already associated with this account."
 msgstr "Sähköpostiosoite on jo liitetty tähän tilliin."
 
-#: account/forms.py:367
+#: account/forms.py:407
 msgid "This e-mail address is already associated with another account."
 msgstr "Sähköpostiosoite on jo liitetty toiseen tiliin."
 
-#: account/forms.py:389
+#: account/forms.py:429
 msgid "Current Password"
 msgstr "Nykyinen salasana"
 
-#: account/forms.py:390 account/forms.py:503
+#: account/forms.py:430 account/forms.py:525
 msgid "New Password"
 msgstr "Uusi salasana"
 
-#: account/forms.py:391 account/forms.py:504
+#: account/forms.py:431 account/forms.py:526
 msgid "New Password (again)"
 msgstr "Uusi salasana (uudestaan)"
 
-#: account/forms.py:399
+#: account/forms.py:439
 msgid "Please type your current password."
 msgstr "Ole hyvä ja anna nykyinen salasanasi."
 
-#: account/forms.py:455
+#: account/forms.py:477
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Sähköpostiosoite ei vastaa yhtäkään käyttäjätiliä."
 
-#: account/forms.py:535
+#: account/forms.py:547
 msgid "The password reset token was invalid."
 msgstr "Salasanan uusimistarkiste ei kelpaa."
 
@@ -297,22 +305,22 @@ msgstr ""
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "Virheellinen vastaus palvelusta \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:103
+#: socialaccount/providers/oauth/client.py:108
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Virhe hankittaessa käyttöoikeustunnistetta palvelusta \"%s\""
 
-#: socialaccount/providers/oauth/client.py:119
+#: socialaccount/providers/oauth/client.py:127
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr ""
 
-#: socialaccount/providers/oauth/client.py:168
+#: socialaccount/providers/oauth/client.py:176
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr ""
 
-#: socialaccount/providers/oauth/client.py:188
+#: socialaccount/providers/oauth/client.py:196
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr ""
@@ -480,7 +488,7 @@ msgstr ""
 "käyttökelvoton. Voit kuitenkin <a href=\"%(email_url)s\">pyytää uuden "
 "vahvistuslinkin sähköpostiosoitteellesi</a>."
 
-#: templates/account/login.html:6 templates/account/login.html.py:10
+#: templates/account/login.html:6 templates/account/login.html:10
 #: templates/account/login.html:43
 msgid "Sign In"
 msgstr "Kirjaudu sisään"
@@ -514,7 +522,7 @@ msgstr ""
 msgid "Forgot Password?"
 msgstr "Salasana unohtunut?"
 
-#: templates/account/logout.html:5 templates/account/logout.html.py:8
+#: templates/account/logout.html:5 templates/account/logout.html:8
 #: templates/account/logout.html:17
 msgid "Sign Out"
 msgstr "Kirjaudu ulos"
@@ -606,8 +614,8 @@ msgid ""
 "We have sent you an e-mail. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"Olemme lähettäneet sinulle sähköpostia. Ota meihin yhteyttä, jos et saa sitä muutaman minuutin "
-"sisällä."
+"Olemme lähettäneet sinulle sähköpostia. Ota meihin yhteyttä, jos et saa sitä "
+"muutaman minuutin sisällä."
 
 #: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -642,7 +650,7 @@ msgstr "Aseta salasana"
 msgid "Signup"
 msgstr "Rekisteröidy"
 
-#: templates/account/signup.html:8 templates/account/signup.html.py:18
+#: templates/account/signup.html:8 templates/account/signup.html:18
 #: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
 msgid "Sign Up"
 msgstr "Rekisteröidy"
@@ -728,7 +736,8 @@ msgstr "Sosiaalisen median tilillä kirjautuminen epäonnistui"
 #: templates/socialaccount/authentication_error.html:10
 msgid ""
 "An error occurred while attempting to login via your social network account."
-msgstr "Tapahtui virhe yritettäessä kirjautua käyttäen sosiaalisen median tiliä."
+msgstr ""
+"Tapahtui virhe yritettäessä kirjautua käyttäen sosiaalisen median tiliä."
 
 #: templates/socialaccount/connections.html:5
 #: templates/socialaccount/connections.html:8
@@ -785,6 +794,9 @@ msgid ""
 msgstr ""
 "Olet aikeissa käyttää %(provider_name)s-tiliäsi kirjautuaksesi palveluun\n"
 "%(site_name)s. Täytä vielä seuraava lomake:"
+
+#~ msgid "A user is already registered with this e-mail address."
+#~ msgstr "Tämä sähköpostiosoite on jo käytössä."
 
 #~ msgid "This username is already taken. Please choose another."
 #~ msgstr "Käyttäjänimi on käytössä. Valitse toinen käyttäjänimi."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-19 04:07-0500\n"
+"POT-Creation-Date: 2016-07-25 08:20-0500\n"
 "PO-Revision-Date: 2014-08-12 00:32+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,7 +30,7 @@ msgstr "このユーザー名は使用できません。他のユーザー名を
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 
-#: account/adapter.py:293
+#: account/adapter.py:296
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "パスワードは {0} 文字以上の長さが必要です。"
@@ -39,100 +39,107 @@ msgstr "パスワードは {0} 文字以上の長さが必要です。"
 msgid "Accounts"
 msgstr "アカウント"
 
-#: account/forms.py:58 account/forms.py:295 account/forms.py:418
+#: account/forms.py:39 account/forms.py:369
+msgid "You must type the same password each time."
+msgstr "同じパスワードを入力してください。"
+
+#: account/forms.py:69 account/forms.py:338 account/forms.py:449
 msgid "Password"
 msgstr "パスワード"
 
-#: account/forms.py:59
+#: account/forms.py:70
 msgid "Remember Me"
 msgstr "ログインしたままにする"
 
-#: account/forms.py:65
+#: account/forms.py:76
 msgid "This account is currently inactive."
 msgstr "このアカウントは現在無効です。"
 
-#: account/forms.py:68
+#: account/forms.py:79
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "入力されたメールアドレスもしくはパスワードが正しくありません。"
 
-#: account/forms.py:71
+#: account/forms.py:82
 msgid "The username and/or password you specified are not correct."
 msgstr "入力されたユーザー名もしくはパスワードが正しくありません。"
 
-#: account/forms.py:74
+#: account/forms.py:85
 msgid "The login and/or password you specified are not correct."
 msgstr "入力されたログインIDもしくはパスワードが正しくありません。"
 
-#: account/forms.py:83 account/forms.py:224 account/forms.py:359
-#: account/forms.py:446
+#: account/forms.py:94 account/forms.py:236 account/forms.py:260
+#: account/forms.py:399 account/forms.py:468
 msgid "E-mail address"
 msgstr "メールアドレス"
 
-#: account/forms.py:85 account/forms.py:242 account/forms.py:354
-#: account/forms.py:441
+#: account/forms.py:96 account/forms.py:276 account/forms.py:394
+#: account/forms.py:463
 msgid "E-mail"
 msgstr "メールアドレス"
 
-#: account/forms.py:90 account/forms.py:93 account/forms.py:216
-#: account/forms.py:220
+#: account/forms.py:101 account/forms.py:104 account/forms.py:228
+#: account/forms.py:232
 msgid "Username"
 msgstr "ユーザー名"
 
-#: account/forms.py:100
+#: account/forms.py:111
 msgid "Username or e-mail"
 msgstr "ユーザー名またはメールアドレス"
 
-#: account/forms.py:103
+#: account/forms.py:114
 msgctxt "field label"
 msgid "Login"
 msgstr "ログイン"
 
-#: account/forms.py:245
+#: account/forms.py:268
+#, fuzzy
+#| msgid "email confirmation"
+msgid "E-mail address confirmation"
+msgstr "メールアドレスの確認"
+
+#: account/forms.py:279
 msgid "E-mail (optional)"
 msgstr "メールアドレス（オプション）"
 
-#: account/forms.py:277
-msgid "A user is already registered with this e-mail address."
-msgstr "他のユーザーがこのメールアドレスを使用しています。"
+#: account/forms.py:319
+#, fuzzy
+#| msgid "You must type the same password each time."
+msgid "You must type the same email each time."
+msgstr "同じパスワードを入力してください。"
 
-#: account/forms.py:296 account/forms.py:419
+#: account/forms.py:339 account/forms.py:450
 msgid "Password (again)"
 msgstr "パスワード（再入力）"
 
-#: account/forms.py:329 account/forms.py:408 account/forms.py:430
-#: account/forms.py:518
-msgid "You must type the same password each time."
-msgstr "同じパスワードを入力してください。"
-
-#: account/forms.py:365
+#: account/forms.py:405
 msgid "This e-mail address is already associated with this account."
 msgstr "このメールアドレスはすでに登録されています。"
 
-#: account/forms.py:367
+#: account/forms.py:407
 msgid "This e-mail address is already associated with another account."
 msgstr "このメールアドレスは別のアカウントで使用されています。"
 
-#: account/forms.py:389
+#: account/forms.py:429
 msgid "Current Password"
 msgstr "現在のパスワード"
 
-#: account/forms.py:390 account/forms.py:503
+#: account/forms.py:430 account/forms.py:525
 msgid "New Password"
 msgstr "新しいパスワード"
 
-#: account/forms.py:391 account/forms.py:504
+#: account/forms.py:431 account/forms.py:526
 msgid "New Password (again)"
 msgstr "新しいパスワード（再入力）"
 
-#: account/forms.py:399
+#: account/forms.py:439
 msgid "Please type your current password."
 msgstr "現在のパスワードを入力してください。"
 
-#: account/forms.py:455
+#: account/forms.py:477
 msgid "The e-mail address is not assigned to any user account"
 msgstr "このメールアドレスで登録されたユーザーアカウントがありません。"
 
-#: account/forms.py:535
+#: account/forms.py:547
 msgid "The password reset token was invalid."
 msgstr ""
 
@@ -294,24 +301,24 @@ msgstr ""
 "不正なレスポンスが返されたため、 \"%s\" からリクエストトークンを取得できませ"
 "んでした。"
 
-#: socialaccount/providers/oauth/client.py:103
+#: socialaccount/providers/oauth/client.py:108
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr ""
 "不正なレスポンスが返されたため、 \"%s\" からアクセストークンを取得できません"
 "でした。"
 
-#: socialaccount/providers/oauth/client.py:119
+#: socialaccount/providers/oauth/client.py:127
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr "\"%s\" のリクエストトークンを保存できませんでした。"
 
-#: socialaccount/providers/oauth/client.py:168
+#: socialaccount/providers/oauth/client.py:176
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "\"%s\" のアクセストークンを保存できませんでした。"
 
-#: socialaccount/providers/oauth/client.py:188
+#: socialaccount/providers/oauth/client.py:196
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "\"%s\" の情報にアクセスできませんでした。"
@@ -481,7 +488,7 @@ msgstr ""
 "メールアドレス確認用のリンクが不正か、期限が切れています。<a href="
 "\"%(email_url)s\">確認用のメールを再送</a>してください。"
 
-#: templates/account/login.html:6 templates/account/login.html.py:10
+#: templates/account/login.html:6 templates/account/login.html:10
 #: templates/account/login.html:43
 msgid "Sign In"
 msgstr "ログイン"
@@ -514,7 +521,7 @@ msgstr ""
 msgid "Forgot Password?"
 msgstr "パスワードをお忘れですか？"
 
-#: templates/account/logout.html:5 templates/account/logout.html.py:8
+#: templates/account/logout.html:5 templates/account/logout.html:8
 #: templates/account/logout.html:17
 msgid "Sign Out"
 msgstr "ログアウト"
@@ -642,7 +649,7 @@ msgstr "パスワード設定"
 msgid "Signup"
 msgstr "ユーザー登録"
 
-#: templates/account/signup.html:8 templates/account/signup.html.py:18
+#: templates/account/signup.html:8 templates/account/signup.html:18
 #: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
 msgid "Sign Up"
 msgstr "ユーザー登録"
@@ -791,6 +798,9 @@ msgstr ""
 "%(provider_name)s アカウントを使って %(site_name)s にログインしようとしていま"
 "す。\n"
 "ユーザー登録のために、以下のフォームに記入してください。"
+
+#~ msgid "A user is already registered with this e-mail address."
+#~ msgstr "他のユーザーがこのメールアドレスを使用しています。"
 
 #~ msgid "This username is already taken. Please choose another."
 #~ msgstr ""

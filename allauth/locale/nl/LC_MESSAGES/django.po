@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-25 08:20-0500\n"
-"PO-Revision-Date: 2016-03-19 10:14+0100\n"
+"PO-Revision-Date: 2016-07-25 15:18+0200\n"
 "Last-Translator: pennersr <raymond.penners@intenct.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/django-allauth/"
 "language/nl/)\n"
@@ -93,20 +93,16 @@ msgid "Login"
 msgstr "Login"
 
 #: account/forms.py:268
-#, fuzzy
-#| msgid "email confirmation"
 msgid "E-mail address confirmation"
-msgstr "e-mail adres bevestiging"
+msgstr "Bevestig e-mail adres"
 
 #: account/forms.py:279
 msgid "E-mail (optional)"
 msgstr "E-mail (optioneel)"
 
 #: account/forms.py:319
-#, fuzzy
-#| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
-msgstr "Je moet hetzelfde wachtwoord twee keer intoetsen."
+msgstr "Je moet hetzelfde e-mail adres twee keer intoetsen."
 
 #: account/forms.py:339 account/forms.py:450
 msgid "Password (again)"

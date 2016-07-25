@@ -22,19 +22,23 @@ class BitbucketOAuth2Tests(create_oauth2_tests(registry.by_id(
             "display_name": "tutorials account",
             "links": {
                 "avatar": {
-                    "href": "https://bitbucket-assetroot.s3.amazonaws.com/c/photos/2013/Nov/25/tutorials-avatar-1563784409-6_avatar.png"
+                    "href":
+                    "https://bitbucket-assetroot.s3.amazonaws.com/c/photos/2013/Nov/25/tutorials-avatar-1563784409-6_avatar.png"
                 },
                 "followers": {
-                    "href": "https://api.bitbucket.org/2.0/users/tutorials/followers"
+                    "href":
+                    "https://api.bitbucket.org/2.0/users/tutorials/followers"
                 },
                 "following": {
-                    "href": "https://api.bitbucket.org/2.0/users/tutorials/following"
+                    "href":
+                    "https://api.bitbucket.org/2.0/users/tutorials/following"
                 },
                 "html": {
                     "href": "https://bitbucket.org/tutorials"
                 },
                 "repositories": {
-                    "href": "https://api.bitbucket.org/2.0/repositories/tutorials"
+                    "href":
+                    "https://api.bitbucket.org/2.0/repositories/tutorials"
                 },
                 "self": {
                     "href": "https://api.bitbucket.org/2.0/users/tutorials"
@@ -60,7 +64,8 @@ class BitbucketOAuth2Tests(create_oauth2_tests(registry.by_id(
                     "is_primary": true,
                     "links": {
                         "self": {
-                            "href": "https://api.bitbucket.org/2.0/user/emails/tutorials@bitbucket.org"
+                            "href":
+                            "https://api.bitbucket.org/2.0/user/emails/tutorials@bitbucket.org"
                         }
                     },
                     "type": "email"
@@ -71,7 +76,8 @@ class BitbucketOAuth2Tests(create_oauth2_tests(registry.by_id(
                     "is_primary": true,
                     "links": {
                         "self": {
-                            "href": "https://api.bitbucket.org/2.0/user/emails/tutorials+secondary@bitbucket.org"
+                            "href":
+                            "https://api.bitbucket.org/2.0/user/emails/tutorials+secondary@bitbucket.org"
                         }
                     },
                     "type": "email"

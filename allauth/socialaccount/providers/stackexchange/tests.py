@@ -23,7 +23,8 @@ class StackExchangeTests(OAuth2TestsMixin, TestCase):
                      "gold": 0
                  },
                  "last_modified_date": 1356199552,
-                 "profile_image": "http://www.gravatar.com/avatar/053d648486d567d3143d6bad8df8cfeb?d=identicon&r=PG",
+                 "profile_image":
+                 "http://www.gravatar.com/avatar/053d648486d567d3143d6bad8df8cfeb?d=identicon&r=PG",
                  "user_type": "registered",
                  "creation_date": 1296223711,
                  "reputation_change_quarter": 148,

@@ -28,7 +28,8 @@ class SpotifyOAuth2Tests(OAuth2TestsMixin, TestCase):
           "images": [
             {
               "height": null,
-              "url": "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-frc3/t1.0-1/1970403_10152215092574354_1798272330_n.jpg",
+              "url":
+              "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-frc3/t1.0-1/1970403_10152215092574354_1798272330_n.jpg",
               "width": null
             }
           ],

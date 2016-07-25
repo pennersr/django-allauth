@@ -18,12 +18,14 @@ class SignupForm(BaseSignupForm):
     def __init__(self, *args, **kwargs):
         self.sociallogin = kwargs.pop('sociallogin')
         user = self.sociallogin.user
-        # TODO: Should become more generic, not listing
-        # a few fixed properties.
+
         initial = {'email': user_email(user) or '',
-                   'username': user_username(user) or '',
-                   'first_name': user_field(user, 'first_name') or '',
-                   'last_name': user_field(user, 'last_name') or ''}
+                   'username': user_username(user) or ''}
+
+        if app_settings.EXTERA_INITIAL_FEILDS:
+            for field in app_settings.EXTERA_INITIAL_FEILDS:
+                initial.update({field: user_field(user, field) or ''})
+
         kwargs.update({
             'initial': initial,
             'email_required': kwargs.get('email_required',

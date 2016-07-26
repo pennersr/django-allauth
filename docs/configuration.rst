@@ -144,7 +144,10 @@ ACCOUNT_USERNAME_BLACKLIST (=[])
   A list of usernames that can't be used by user.
 
 ACCOUNT_UNIQUE_EMAIL (=True)
-  Enforce uniqueness of e-mail addresses.
+  Enforce uniqueness of e-mail addresses. The `emailaddress.email`
+  model field is set to `UNIQUE`. Forms prevent a user from registering
+  with or adding an additional email address if that email address is
+  in use by another account.
 
 ACCOUNT_USER_DISPLAY (=a callable returning `user.username`)
   A callable (or string of the form `'some.module.callable_name'`)

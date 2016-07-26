@@ -125,6 +125,26 @@ class AccountTests(TestCase):
         self.assertEqual(len(mail.outbox), 0)
         return get_user_model().objects.get(username=username)
 
+    @override_settings(
+        ACCOUNT_USERNAME_REQUIRED=True,
+        ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE=True)
+    def test_signup_email_twice(self):
+        request = RequestFactory().post(reverse('account_signup'),
+                                        {'username': 'johndoe',
+                                         'email1': 'john@work.com',
+                                         'email2': 'john@work.com',
+                                         'password1': 'johndoe',
+                                         'password2': 'johndoe'})
+        from django.contrib.messages.middleware import MessageMiddleware
+        from django.contrib.sessions.middleware import SessionMiddleware
+        SessionMiddleware().process_request(request)
+        MessageMiddleware().process_request(request)
+        request.user = AnonymousUser()
+        from .views import signup
+        signup(request)
+        user = get_user_model().objects.get(username='johndoe')
+        self.assertEqual(user.email, 'john@work.com')
+
     def _create_user(self):
         user = get_user_model().objects.create(username='john', is_active=True)
         user.set_password('doe')

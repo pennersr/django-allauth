@@ -61,6 +61,11 @@ def get_username_max_length():
 
 
 def generate_unique_username(txts, regex=None):
+    from . import app_settings
+    if app_settings.USERNAME_AS_HASH:
+        import os
+        return os.urandom(28).encode('hex')
+
     from .account.adapter import get_adapter
     adapter = get_adapter()
     username = _generate_unique_username_base(txts, regex)

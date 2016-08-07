@@ -17,7 +17,7 @@ class EmailAddressAdmin(admin.ModelAdmin):
             self.search_fields = self.get_search_fields(None)
 
     def get_search_fields(self, request):
-        base_fields = get_adapter().get_user_search_fields()
+        base_fields = get_adapter(request).get_user_search_fields()
         return ['email'] + list(map(lambda a: 'user__' + a, base_fields))
 
 

@@ -1,6 +1,8 @@
 from __future__ import unicode_literals
 
 import requests
+
+from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
                                                           OAuth2CallbackView)
@@ -9,9 +11,11 @@ from .provider import FeedlyProvider
 
 class FeedlyOAuth2Adapter(OAuth2Adapter):
     provider_id = FeedlyProvider.id
-    access_token_url = 'https://cloud.feedly.com/v3/auth/token'
-    authorize_url = 'https://cloud.feedly.com/v3/auth/auth'
-    profile_url = 'https://cloud.feedly.com/v3/profile'
+    host = app_settings.PROVIDERS.get(provider_id, {}).get(
+        'HOST', 'cloud.feedly.com')
+    access_token_url = 'https://%s/v3/auth/token' % host
+    authorize_url = 'https://%s/v3/auth/auth' % host
+    profile_url = 'https://%s/v3/profile' % host
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {'Authorization': 'OAuth {0}'.format(token.token)}

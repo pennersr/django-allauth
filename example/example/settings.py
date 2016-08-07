@@ -12,6 +12,8 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
@@ -115,9 +117,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.request",
     "django.contrib.messages.context_processors.messages",
-
-    "allauth.account.context_processors.account",
-    "allauth.socialaccount.context_processors.socialaccount",
 )
 
 TEMPLATE_DIRS = (
@@ -142,11 +141,15 @@ INSTALLED_APPS = (
     'allauth.socialaccount',
     'allauth.socialaccount.providers.dropbox',
     'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.evernote',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
     'allauth.socialaccount.providers.linkedin',
     'allauth.socialaccount.providers.openid',
     'allauth.socialaccount.providers.persona',
+    'allauth.socialaccount.providers.reddit',
+    'allauth.socialaccount.providers.shopify',
+    'allauth.socialaccount.providers.slack',
     'allauth.socialaccount.providers.soundcloud',
     'allauth.socialaccount.providers.stackexchange',
     'allauth.socialaccount.providers.twitch',
@@ -154,7 +157,6 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.vimeo',
     'allauth.socialaccount.providers.weibo',
     'allauth.socialaccount.providers.xing',
-
     'example.demo'
 )
 

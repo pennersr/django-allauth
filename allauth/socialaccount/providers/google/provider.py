@@ -4,7 +4,6 @@ from allauth.socialaccount.providers.base import (ProviderAccount,
                                                   AuthAction)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 from allauth.socialaccount.app_settings import QUERY_EMAIL
-from allauth.account.utils import user_email
 
 
 class Scope(object):
@@ -27,7 +26,6 @@ class GoogleAccount(ProviderAccount):
 class GoogleProvider(OAuth2Provider):
     id = 'google'
     name = 'Google'
-    package = 'allauth.socialaccount.providers.google'
     account_class = GoogleAccount
 
     def get_default_scope(self):
@@ -40,7 +38,8 @@ class GoogleProvider(OAuth2Provider):
         ret = super(GoogleProvider, self).get_auth_params(request,
                                                           action)
         if action == AuthAction.REAUTHENTICATE:
-            ret['approval_prompt'] = 'force'
+            ret['prompt'] = 'consent'
+            ret['access_type'] = 'offline'
         return ret
 
     def extract_uid(self, data):

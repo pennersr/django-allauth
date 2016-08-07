@@ -8,12 +8,15 @@ Welcome to django-allauth!
 .. image:: https://travis-ci.org/pennersr/django-allauth.png
    :target: http://travis-ci.org/pennersr/django-allauth
 
-.. image:: https://pypip.in/d/django-allauth/badge.png
-   :target: https://crate.io/packages/django-allauth?version=latest
+.. image:: https://img.shields.io/pypi/v/django-allauth.svg
+   :target: https://pypi.python.org/pypi/django-allauth
 
 .. image:: https://coveralls.io/repos/pennersr/django-allauth/badge.png?branch=master
    :alt: Coverage Status
    :target: https://coveralls.io/r/pennersr/django-allauth
+
+.. image:: https://pennersr.github.io/img/bitcoin-badge.svg
+   :target: https://blockchain.info/address/1AJXuBMPHkaDCNX2rwAy34bGgs7hmrePEr
 
 Integrated set of Django applications addressing authentication,
 registration, account management as well as 3rd party (social) account
@@ -29,7 +32,7 @@ Mailinglist
   http://groups.google.com/group/django-allauth
 
 Documentation
-  http://django-allauth.readthedocs.org/en/latest/
+  https://django-allauth.readthedocs.io/en/latest/
 
 Stack Overflow
   http://stackoverflow.com/questions/tagged/django-allauth
@@ -65,3 +68,12 @@ This project is sponsored by IntenCT_. If you require assistance on
 your project(s), please contact us: info@intenct.nl.
 
 .. _IntenCT: http://www.intenct.info
+
+
+Cross-Selling
+=============
+
+If you like this, you may also like:
+
+- django-trackstats: https://github.com/pennersr/django-trackstats
+- netwell: https://github.com/pennersr/netwell

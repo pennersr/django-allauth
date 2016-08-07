@@ -1,12 +1,13 @@
 import json
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ImproperlyConfigured
 from django.middleware.csrf import get_token
-from django.template.loader import render_to_string
-from django.template import RequestContext
 from django.utils.html import mark_safe, escapejs
+from django.utils.http import urlquote
 from django.utils.crypto import get_random_string
 
+from allauth.compat import render_to_string
 from allauth.utils import import_callable
 from allauth.account.models import EmailAddress
 from allauth.socialaccount import providers
@@ -15,10 +16,13 @@ from allauth.socialaccount.providers.base import (ProviderAccount,
                                                   AuthAction)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 from allauth.socialaccount.app_settings import QUERY_EMAIL
-from allauth.socialaccount.models import SocialApp
 
 from .locale import get_default_locale_callable
 
+
+GRAPH_API_VERSION = getattr(settings, 'SOCIALACCOUNT_PROVIDERS', {}).get(
+    'facebook',  {}).get('VERSION', 'v2.4')
+GRAPH_API_URL = 'https://graph.facebook.com/' + GRAPH_API_VERSION
 
 NONCE_SESSION_KEY = 'allauth_facebook_nonce'
 NONCE_LENGTH = 32
@@ -30,8 +34,9 @@ class FacebookAccount(ProviderAccount):
 
     def get_avatar_url(self):
         uid = self.account.uid
-        # ask for a 600x600 pixel image. We might get smaller but image will always be highest res possible and square
-        return 'https://graph.facebook.com/%s/picture?type=square&height=600&width=600&return_ssl_resources=1' % uid  # noqa
+        # ask for a 600x600 pixel image. We might get smaller but
+        # image will always be highest res possible and square
+        return GRAPH_API_URL + '/%s/picture?type=square&height=600&width=600&return_ssl_resources=1' % uid  # noqa
 
     def to_str(self):
         dflt = super(FacebookAccount, self).to_str()
@@ -41,24 +46,25 @@ class FacebookAccount(ProviderAccount):
 class FacebookProvider(OAuth2Provider):
     id = 'facebook'
     name = 'Facebook'
-    package = 'allauth.socialaccount.providers.facebook'
     account_class = FacebookAccount
 
-    def __init__(self):
+    def __init__(self, request):
         self._locale_callable_cache = None
-        super(FacebookProvider, self).__init__()
+        super(FacebookProvider, self).__init__(request)
 
     def get_method(self):
         return self.get_settings().get('METHOD', 'oauth2')
 
     def get_login_url(self, request, **kwargs):
-        method = kwargs.get('method', self.get_method())
+        method = kwargs.pop('method', self.get_method())
         if method == 'js_sdk':
             next = "'%s'" % escapejs(kwargs.get('next') or '')
-            process = "'%s'" % escapejs(kwargs.get('process') or AuthProcess.LOGIN)
-            action = "'%s'" % escapejs(kwargs.get('action') or AuthAction.AUTHENTICATE)
-            ret = "javascript:allauth.facebook.login(%s, %s, %s)" \
-                % (next, action, process)
+            process = "'%s'" % escapejs(
+                kwargs.get('process') or AuthProcess.LOGIN)
+            action = "'%s'" % escapejs(
+                kwargs.get('action') or AuthAction.AUTHENTICATE)
+            js = "allauth.facebook.login(%s, %s, %s)" % (next, action, process)
+            ret = "javascript:%s" % (urlquote(js),)
         else:
             assert method == 'oauth2'
             ret = super(FacebookProvider, self).get_login_url(request,
@@ -85,6 +91,22 @@ class FacebookProvider(OAuth2Provider):
             scope.append('email')
         return scope
 
+    def get_fields(self):
+        settings = self.get_settings()
+        default_fields = [
+            'id',
+            'email',
+            'name',
+            'first_name',
+            'last_name',
+            'verified',
+            'locale',
+            'timezone',
+            'link',
+            'gender',
+            'updated_time']
+        return settings.get('FIELDS', default_fields)
+
     def get_auth_params(self, request, action):
         ret = super(FacebookProvider, self).get_auth_params(request,
                                                             action)
@@ -94,12 +116,15 @@ class FacebookProvider(OAuth2Provider):
 
     def get_fb_login_options(self, request):
         ret = self.get_auth_params(request, 'authenticate')
-        ret['scope'] = ','.join(self.get_scope())
+        ret['scope'] = ','.join(self.get_scope(request))
         if ret.get('auth_type') == 'reauthenticate':
             ret['auth_nonce'] = self.get_nonce(request, or_create=True)
         return ret
 
     def media_js(self, request):
+        # NOTE: Avoid loading models at top due to registry boot...
+        from allauth.socialaccount.models import SocialApp
+
         locale = self.get_locale_for_request(request)
         try:
             app = self.get_app(request)
@@ -108,22 +133,26 @@ class FacebookProvider(OAuth2Provider):
                                        " add a SocialApp using the Django"
                                        " admin")
 
-        abs_uri = lambda name: request.build_absolute_uri(reverse(name))
+        def abs_uri(name):
+            return request.build_absolute_uri(reverse(name))
+
         fb_data = {
             "appId": app.client_id,
+            "version": GRAPH_API_VERSION,
             "locale": locale,
             "loginOptions": self.get_fb_login_options(request),
             "loginByTokenUrl": abs_uri('facebook_login_by_token'),
-            "channelUrl": abs_uri('facebook_channel'),
             "cancelUrl": abs_uri('socialaccount_login_cancelled'),
             "logoutUrl": abs_uri('account_logout'),
+            "loginUrl": request.build_absolute_uri(self.get_login_url(
+                request,
+                method='oauth2')),
             "errorUrl": abs_uri('socialaccount_login_error'),
             "csrfToken": get_token(request)
         }
         ctx = {'fb_data': mark_safe(json.dumps(fb_data))}
-        return render_to_string('facebook/fbconnect.html',
-                                ctx,
-                                RequestContext(request))
+        return render_to_string('facebook/fbconnect.html', ctx,
+                                request=request)
 
     def get_nonce(self, request, or_create=False, pop=False):
         if pop:
@@ -142,7 +171,8 @@ class FacebookProvider(OAuth2Provider):
         return dict(email=data.get('email'),
                     username=data.get('username'),
                     first_name=data.get('first_name'),
-                    last_name=data.get('last_name'))
+                    last_name=data.get('last_name'),
+                    name=data.get('name'))
 
     def extract_email_addresses(self, data):
         ret = []

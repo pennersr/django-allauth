@@ -9,11 +9,8 @@ from django.http import HttpResponseRedirect
 from django.utils.http import urlencode
 from django.utils.translation import gettext as _
 
-try:
-    from urllib.parse import parse_qsl, urlparse
-except ImportError:
-    from urlparse import parse_qsl
-    from urlparse import urlparse
+from allauth.utils import get_request_param
+from allauth.compat import parse_qsl, urlparse
 
 import requests
 from requests_oauthlib import OAuth1
@@ -77,9 +74,12 @@ class OAuthClient(object):
             response = requests.post(url=rt_url, auth=oauth)
             if response.status_code not in [200, 201]:
                 raise OAuthError(
-                    _('Invalid response while obtaining request token from "%s".') % get_token_prefix(self.request_token_url))
+                    _('Invalid response while obtaining request token'
+                      ' from "%s".') % get_token_prefix(
+                          self.request_token_url))
             self.request_token = dict(parse_qsl(response.text))
-            self.request.session['oauth_%s_request_token' % get_token_prefix(self.request_token_url)] = self.request_token
+            self.request.session['oauth_%s_request_token' % get_token_prefix(
+                self.request_token_url)] = self.request_token
         return self.request_token
 
     def get_access_token(self):
@@ -89,23 +89,29 @@ class OAuthClient(object):
         """
         if self.access_token is None:
             request_token = self._get_rt_from_session()
-            oauth = OAuth1(self.consumer_key,
-                           client_secret=self.consumer_secret,
-                           resource_owner_key=request_token['oauth_token'],
-                           resource_owner_secret=request_token['oauth_token_secret'])
+            oauth = OAuth1(
+                self.consumer_key,
+                client_secret=self.consumer_secret,
+                resource_owner_key=request_token['oauth_token'],
+                resource_owner_secret=request_token['oauth_token_secret'])
             at_url = self.access_token_url
             # Passing along oauth_verifier is required according to:
             # http://groups.google.com/group/twitter-development-talk/browse_frm/thread/472500cfe9e7cdb9#
             # Though, the custom oauth_callback seems to work without it?
-            if 'oauth_verifier' in self.request.REQUEST:
-                at_url = at_url + '?' + urlencode({'oauth_verifier': self.request.REQUEST['oauth_verifier']})
+            oauth_verifier = get_request_param(self.request, 'oauth_verifier')
+            if oauth_verifier:
+                at_url = at_url + '?' + urlencode(
+                    {'oauth_verifier': oauth_verifier})
             response = requests.post(url=at_url, auth=oauth)
             if response.status_code not in [200, 201]:
                 raise OAuthError(
-                    _('Invalid response while obtaining access token from "%s".') % get_token_prefix(self.request_token_url))
+                    _('Invalid response while obtaining access token'
+                      ' from "%s".') % get_token_prefix(
+                          self.request_token_url))
             self.access_token = dict(parse_qsl(response.text))
 
-            self.request.session['oauth_%s_access_token' % get_token_prefix(self.request_token_url)] = self.access_token
+            self.request.session['oauth_%s_access_token' % get_token_prefix(
+                self.request_token_url)] = self.access_token
         return self.access_token
 
     def _get_rt_from_session(self):
@@ -130,7 +136,7 @@ class OAuthClient(object):
             return False
         return True
 
-    def get_redirect(self, authorization_url):
+    def get_redirect(self, authorization_url, extra_params):
         """
         Returns a ``HttpResponseRedirect`` object to redirect the user
         to the URL the OAuth provider handles authorization.
@@ -139,6 +145,7 @@ class OAuthClient(object):
         params = {'oauth_token': request_token['oauth_token'],
                   'oauth_callback': self.request.build_absolute_uri(
                       self.callback_url)}
+        params.update(extra_params)
         url = authorization_url + '?' + urlencode(params)
         return HttpResponseRedirect(url)
 

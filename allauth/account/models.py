@@ -1,15 +1,15 @@
+from __future__ import unicode_literals
+
 import datetime
 
-from django.core.urlresolvers import reverse
+from django.core import signing
 from django.db import models
 from django.db import transaction
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
-from django.contrib.sites.models import Site
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.crypto import get_random_string
 
-from ..utils import build_absolute_uri
 from .. import app_settings as allauth_app_settings
 from . import app_settings
 from . import signals
@@ -25,6 +25,7 @@ class EmailAddress(models.Model):
     user = models.ForeignKey(allauth_app_settings.USER_MODEL,
                              verbose_name=_('user'))
     email = models.EmailField(unique=app_settings.UNIQUE_EMAIL,
+                              max_length=app_settings.EMAIL_MAX_LENGTH,
                               verbose_name=_('e-mail address'))
     verified = models.BooleanField(verbose_name=_('verified'), default=False)
     primary = models.BooleanField(verbose_name=_('primary'), default=False)
@@ -38,7 +39,7 @@ class EmailAddress(models.Model):
             unique_together = [("user", "email")]
 
     def __str__(self):
-        return u"%s (%s)" % (self.email, self.user)
+        return "%s (%s)" % (self.email, self.user)
 
     def set_as_primary(self, conditional=False):
         old_primary = EmailAddress.objects.get_primary(self.user)
@@ -53,8 +54,11 @@ class EmailAddress(models.Model):
         self.user.save()
         return True
 
-    def send_confirmation(self, request, signup=False):
-        confirmation = EmailConfirmation.create(self)
+    def send_confirmation(self, request=None, signup=False):
+        if app_settings.EMAIL_CONFIRMATION_HMAC:
+            confirmation = EmailConfirmationHMAC(self)
+        else:
+            confirmation = EmailConfirmation.create(self)
         confirmation.send(request, signup=signup)
         return confirmation
 
@@ -62,7 +66,12 @@ class EmailAddress(models.Model):
         """
         Given a new email address, change self and re-confirm.
         """
-        with transaction.commit_on_success():
+        try:
+            atomic_transaction = transaction.atomic
+        except AttributeError:
+            atomic_transaction = transaction.commit_on_success
+
+        with atomic_transaction():
             user_email(self.user, new_email)
             self.user.save()
             self.email = new_email
@@ -89,7 +98,7 @@ class EmailConfirmation(models.Model):
         verbose_name_plural = _("email confirmations")
 
     def __str__(self):
-        return u"confirmation for %s" % self.email_address
+        return "confirmation for %s" % self.email_address
 
     @classmethod
     def create(cls, email_address):
@@ -107,33 +116,57 @@ class EmailConfirmation(models.Model):
     def confirm(self, request):
         if not self.key_expired() and not self.email_address.verified:
             email_address = self.email_address
-            get_adapter().confirm_email(request, email_address)
+            get_adapter(request).confirm_email(request, email_address)
             signals.email_confirmed.send(sender=self.__class__,
                                          request=request,
                                          email_address=email_address)
             return email_address
 
-    def send(self, request, signup=False, **kwargs):
-        current_site = kwargs["site"] if "site" in kwargs \
-            else Site.objects.get_current()
-        activate_url = reverse("account_confirm_email", args=[self.key])
-        activate_url = build_absolute_uri(request,
-                                          activate_url,
-                                          protocol=app_settings.DEFAULT_HTTP_PROTOCOL)
-        ctx = {
-            "user": self.email_address.user,
-            "activate_url": activate_url,
-            "current_site": current_site,
-            "key": self.key,
-        }
-        if signup:
-            email_template = 'account/email/email_confirmation_signup'
-        else:
-            email_template = 'account/email/email_confirmation'
-        get_adapter().send_mail(email_template,
-                                self.email_address.email,
-                                ctx)
+    def send(self, request=None, signup=False):
+        get_adapter(request).send_confirmation_mail(request, self, signup)
         self.sent = timezone.now()
         self.save()
+        signals.email_confirmation_sent.send(sender=self.__class__,
+                                             confirmation=self)
+
+
+class EmailConfirmationHMAC:
+
+    def __init__(self, email_address):
+        self.email_address = email_address
+
+    @property
+    def key(self):
+        return signing.dumps(
+            obj=self.email_address.pk,
+            salt=app_settings.SALT)
+
+    @classmethod
+    def from_key(cls, key):
+        try:
+            max_age = (
+                60 * 60 * 24 * app_settings.EMAIL_CONFIRMATION_EXPIRE_DAYS)
+            pk = signing.loads(
+                key,
+                max_age=max_age,
+                salt=app_settings.SALT)
+            ret = EmailConfirmationHMAC(EmailAddress.objects.get(pk=pk))
+        except (signing.SignatureExpired,
+                signing.BadSignature,
+                EmailAddress.DoesNotExist):
+            ret = None
+        return ret
+
+    def confirm(self, request):
+        if not self.email_address.verified:
+            email_address = self.email_address
+            get_adapter(request).confirm_email(request, email_address)
+            signals.email_confirmed.send(sender=self.__class__,
+                                         request=request,
+                                         email_address=email_address)
+            return email_address
+
+    def send(self, request=None, signup=False):
+        get_adapter(request).send_confirmation_mail(request, self, signup)
         signals.email_confirmation_sent.send(sender=self.__class__,
                                              confirmation=self)

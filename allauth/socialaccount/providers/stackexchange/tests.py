@@ -1,10 +1,12 @@
-from allauth.socialaccount.tests import create_oauth2_tests
-from allauth.tests import MockedResponse
-from allauth.socialaccount.providers import registry
+from allauth.socialaccount.tests import OAuth2TestsMixin
+from allauth.tests import MockedResponse, TestCase
 
 from .provider import StackExchangeProvider
 
-class StackExchangeTests(create_oauth2_tests(registry.by_id(StackExchangeProvider.id))):
+
+class StackExchangeTests(OAuth2TestsMixin, TestCase):
+    provider_id = StackExchangeProvider.id
+
     def get_mocked_response(self):
         return MockedResponse(200, """
         {
@@ -21,7 +23,8 @@ class StackExchangeTests(create_oauth2_tests(registry.by_id(StackExchangeProvide
                      "gold": 0
                  },
                  "last_modified_date": 1356199552,
-                 "profile_image": "http://www.gravatar.com/avatar/053d648486d567d3143d6bad8df8cfeb?d=identicon&r=PG",
+                 "profile_image":
+                 "http://www.gravatar.com/avatar/053d648486d567d3143d6bad8df8cfeb?d=identicon&r=PG",
                  "user_type": "registered",
                  "creation_date": 1296223711,
                  "reputation_change_quarter": 148,
@@ -36,4 +39,4 @@ class StackExchangeTests(create_oauth2_tests(registry.by_id(StackExchangeProvide
            ],
            "quota_max": 10000,
            "quota_remaining": 9999
-        }""")
+        }""")  # noqa

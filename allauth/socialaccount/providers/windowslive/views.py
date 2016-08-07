@@ -17,14 +17,14 @@ class WindowsLiveOAuth2Adapter(OAuth2Adapter):
         headers = {'Authorization': 'Bearer {0}'.format(token.token)}
         resp = requests.get(self.profile_url, headers=headers)
 
-#example of whats returned (in python format):
-#{u'first_name': u'James', u'last_name': u'Smith',
-# u'name': u'James Smith', u'locale': u'en_US', u'gender': None,
-# u'emails': {u'personal': None, u'account': u'jsmith@xyz.net',
-# u'business': None, u'preferred': u'jsmith@xyz.net'},
-# u'link': u'https://profile.live.com/',
-# u'updated_time': u'2014-02-07T00:35:27+0000',
-# u'id': u'83605e110af6ff98'}
+# example of whats returned (in python format):
+# {'first_name': 'James', 'last_name': 'Smith',
+#  'name': 'James Smith', 'locale': 'en_US', 'gender': None,
+#  'emails': {'personal': None, 'account': 'jsmith@xyz.net',
+#  'business': None, 'preferred': 'jsmith@xyz.net'},
+#  'link': 'https://profile.live.com/',
+#  'updated_time': '2014-02-07T00:35:27+0000',
+#  'id': '83605e110af6ff98'}
 
         extra_data = resp.json()
         return self.get_provider().sociallogin_from_response(request,

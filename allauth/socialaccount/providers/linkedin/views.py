@@ -17,7 +17,7 @@ class LinkedInAPI(OAuth):
 
     def get_user_info(self):
         fields = providers.registry \
-            .by_id(LinkedInProvider.id) \
+            .by_id(LinkedInProvider.id, self.request) \
             .get_profile_fields()
         url = self.url + ':(%s)' % ','.join(fields)
         raw_xml = self.query(url)
@@ -54,7 +54,7 @@ class LinkedInOAuthAdapter(OAuthAdapter):
     access_token_url = 'https://api.linkedin.com/uas/oauth/accessToken'
     authorize_url = 'https://www.linkedin.com/uas/oauth/authenticate'
 
-    def complete_login(self, request, app, token):
+    def complete_login(self, request, app, token, response):
         client = LinkedInAPI(request, app.client_id, app.secret,
                              self.request_token_url)
         extra_data = client.get_user_info()

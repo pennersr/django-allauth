@@ -2,8 +2,10 @@ from django.template.defaulttags import token_kwargs
 from django import template
 
 from allauth.socialaccount import providers
+from allauth.utils import get_request_param
 
 register = template.Library()
+
 
 class ProviderLoginURLNode(template.Node):
     def __init__(self, provider_id, params):
@@ -12,18 +14,29 @@ class ProviderLoginURLNode(template.Node):
 
     def render(self, context):
         provider_id = self.provider_id_var.resolve(context)
-        provider = providers.registry.by_id(provider_id)
+        request = context['request']
+        provider = providers.registry.by_id(provider_id, request)
         query = dict([(str(name), var.resolve(context)) for name, var
                       in self.params.items()])
-        request = context['request']
+        auth_params = query.get('auth_params', None)
+        scope = query.get('scope', None)
+        process = query.get('process', None)
+        if scope is '':
+            del query['scope']
+        if auth_params is '':
+            del query['auth_params']
         if 'next' not in query:
-            next = request.REQUEST.get('next')
+            next = get_request_param(request, 'next')
             if next:
                 query['next'] = next
+            elif process == 'redirect':
+                query['next'] = request.get_full_path()
         else:
             if not query['next']:
                 del query['next']
+        # get the login url and append query as url parameters
         return provider.get_login_url(request, **query)
+
 
 @register.tag
 def provider_login_url(parser, token):
@@ -35,12 +48,13 @@ def provider_login_url(parser, token):
     provider_id = bits[1]
     params = token_kwargs(bits[2:], parser, support_legacy=False)
     return ProviderLoginURLNode(provider_id, params)
-    
+
+
 class ProvidersMediaJSNode(template.Node):
     def render(self, context):
         request = context['request']
-        ret = '\n'.join([p.media_js(request) 
-                         for p in providers.registry.get_list()])
+        ret = '\n'.join([p.media_js(request)
+                         for p in providers.registry.get_list(request)])
         return ret
 
 
@@ -64,3 +78,16 @@ def get_social_accounts(user):
         providers = accounts.setdefault(account.provider, [])
         providers.append(account)
     return accounts
+
+
+@register.assignment_tag
+def get_providers():
+    """
+    Returns a list of social authentication providers.
+
+    Usage: `{% get_providers as socialaccount_providers %}`.
+
+    Then within the template context, `socialaccount_providers` will hold
+    a list of social providers configured for the current site.
+    """
+    return providers.registry.get_list()

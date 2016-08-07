@@ -1,6 +1,7 @@
 # Courtesy of django-social-auth
 import json
 
+import django
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import six
@@ -11,11 +12,18 @@ except ImportError:
     from django.utils.encoding import smart_text
 
 
-class JSONField(six.with_metaclass(models.SubfieldBase,
-                                   models.TextField)):
+if django.VERSION < (1, 8):
+    JSONFieldBase = six.with_metaclass(models.SubfieldBase, models.TextField)
+else:
+    JSONFieldBase = models.TextField
+
+
+class JSONField(JSONFieldBase):
     """Simple JSON field that stores python structures as JSON strings
     on database.
     """
+    def from_db_value(self, value, expression, connection, context):
+        return self.to_python(value)
 
     def to_python(self, value):
         """

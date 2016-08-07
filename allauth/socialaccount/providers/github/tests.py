@@ -1,10 +1,13 @@
-from allauth.socialaccount.tests import create_oauth2_tests
-from allauth.tests import MockedResponse
-from allauth.socialaccount.providers import registry
+from allauth.socialaccount.tests import OAuth2TestsMixin
+from allauth.tests import MockedResponse, TestCase
+from allauth.socialaccount.models import SocialAccount
 
 from .provider import GitHubProvider
 
-class GitHubTests(create_oauth2_tests(registry.by_id(GitHubProvider.id))):
+
+class GitHubTests(OAuth2TestsMixin, TestCase):
+    provider_id = GitHubProvider.id
+
     def get_mocked_response(self):
         return MockedResponse(200, """
         {
@@ -37,3 +40,18 @@ class GitHubTests(create_oauth2_tests(registry.by_id(GitHubProvider.id))):
             "events_url":"https://api.github.com/users/pennersr/events{/privacy}",
             "following_url":"https://api.github.com/users/pennersr/following"
         }""")
+
+    def test_account_name_null(self):
+        """String conversion when GitHub responds with empty name"""
+        data = """{
+            "type": "User",
+            "id": 201022,
+            "login": "pennersr",
+            "name": null
+        }"""
+        self.login(MockedResponse(200, data))
+        socialaccount = SocialAccount.objects.get(uid='201022')
+        self.assertIsNone(socialaccount.extra_data.get('name'))
+        account = socialaccount.get_provider_account()
+        self.assertIsNotNone(account.to_str())
+        self.assertEqual(account.to_str(), 'pennersr')

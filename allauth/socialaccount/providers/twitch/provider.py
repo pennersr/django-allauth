@@ -18,15 +18,14 @@ class TwitchAccount(ProviderAccount):
 class TwitchProvider(OAuth2Provider):
     id = 'twitch'
     name = 'Twitch'
-    package = 'allauth.socialaccount.providers.twitch'
     account_class = TwitchAccount
 
     def extract_uid(self, data):
         return str(data['_id'])
 
     def extract_common_fields(self, data):
-        return dict(username=data.get('display_name'),
-                    name=data.get('name'),
+        return dict(username=data.get('name'),
+                    name=data.get('display_name'),
                     email=data.get('email'))
 
 

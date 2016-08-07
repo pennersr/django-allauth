@@ -20,7 +20,6 @@ class FeedlyAccount(ProviderAccount):
 class FeedlyProvider(OAuth2Provider):
     id = str('feedly')
     name = 'Feedly'
-    package = 'allauth.socialaccount.providers.feedly'
     account_class = FeedlyAccount
 
     def get_default_scope(self):

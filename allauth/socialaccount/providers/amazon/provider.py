@@ -12,7 +12,6 @@ class AmazonAccount(ProviderAccount):
 class AmazonProvider(OAuth2Provider):
     id = 'amazon'
     name = 'Amazon'
-    package = 'allauth.socialaccount.providers.amazon'
     account_class = AmazonAccount
 
     def get_default_scope(self):

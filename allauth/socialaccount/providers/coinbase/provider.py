@@ -8,14 +8,14 @@ class CoinbaseAccount(ProviderAccount):
         return None
 
     def to_str(self):
-        return self.account.extra_data.get('name',
-                                           super(CoinbaseAccount, self).to_str())
+        return self.account.extra_data.get(
+            'name',
+            super(CoinbaseAccount, self).to_str())
 
 
 class CoinbaseProvider(OAuth2Provider):
     id = 'coinbase'
     name = 'Coinbase'
-    package = 'allauth.socialaccount.providers.coinbase'
     account_class = CoinbaseAccount
 
     def get_default_scope(self):

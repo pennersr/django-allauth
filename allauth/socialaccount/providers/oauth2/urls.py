@@ -1,11 +1,18 @@
-from django.conf.urls import patterns, url, include
+from django.conf.urls import url, include
+from allauth.utils import import_attribute
 
 
 def default_urlpatterns(provider):
-    urlpatterns = patterns(provider.package + '.views',
-                           url('^login/$', 'oauth2_login', 
-                               name=provider.id + "_login"),
-                           url('^login/callback/$', 'oauth2_callback',
-                               name=provider.id + "_callback"))
+    login_view = import_attribute(
+        provider.get_package() + '.views.oauth2_login')
+    callback_view = import_attribute(
+        provider.get_package() + '.views.oauth2_callback')
 
-    return patterns('', url('^' + provider.id + '/', include(urlpatterns)))
+    urlpatterns = [
+        url('^login/$',
+            login_view, name=provider.id + "_login"),
+        url('^login/callback/$',
+            callback_view, name=provider.id + "_callback"),
+    ]
+
+    return [url('^' + provider.get_slug() + '/', include(urlpatterns))]

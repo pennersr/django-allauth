@@ -1,28 +1,38 @@
 from django.conf import settings
-from django.utils import importlib
+
+from allauth.compat import importlib
+
 
 class ProviderRegistry(object):
     def __init__(self):
         self.provider_map = {}
         self.loaded = False
 
-    def get_list(self):
+    def get_list(self, request=None):
         self.load()
-        return self.provider_map.values()
+        return [
+            provider_cls(request)
+            for provider_cls in self.provider_map.values()]
 
     def register(self, cls):
-        self.provider_map[cls.id] = cls()
+        self.provider_map[cls.id] = cls
 
-    def by_id(self, id):
+    def by_id(self, id, request=None):
         self.load()
-        return self.provider_map[id]
+        return self.provider_map[id](request=request)
 
     def as_choices(self):
         self.load()
-        for provider in self.get_list():
-            yield (provider.id, provider.name)
+        for provider_cls in self.provider_map.values():
+            yield (provider_cls.id, provider_cls.name)
 
     def load(self):
+        # TODO: Providers register with the provider registry when
+        # loaded. Here, we build the URLs for all registered providers. So, we
+        # really need to be sure all providers did register, which is why we're
+        # forcefully importing the `provider` modules here. The overall
+        # mechanism is way to magical and depends on the import order et al, so
+        # all of this really needs to be revisited.
         if not self.loaded:
             for app in settings.INSTALLED_APPS:
                 provider_module = app + '.provider'

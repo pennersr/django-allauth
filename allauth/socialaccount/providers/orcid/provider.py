@@ -4,7 +4,7 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class Scope(object):
-    USERINFO_PROFILE = u'/authenticate'
+    USERINFO_PROFILE = '/authenticate'
 
 
 class OrcidAccount(ProviderAccount):
@@ -13,14 +13,12 @@ class OrcidAccount(ProviderAccount):
                                  ['orcid-profile', 'orcid-identifier', 'uri'])
 
     def to_str(self):
-        dflt = super(OrcidAccount, self).to_str()
         return self.account.uid
 
 
 class OrcidProvider(OAuth2Provider):
     id = 'orcid'
     name = 'Orcid.org'
-    package = 'allauth.socialaccount.providers.orcid'
     account_class = OrcidAccount
 
     def get_default_scope(self):
@@ -58,5 +56,5 @@ def extract_from_dict(data, path):
         for key in path:
             value = value[key]
         return value
-    except (KeyError, IndexError):
+    except (KeyError, IndexError, TypeError):
         return ''

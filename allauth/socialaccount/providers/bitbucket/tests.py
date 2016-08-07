@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-from allauth.socialaccount.tests import create_oauth_tests
-from allauth.tests import MockedResponse
-from allauth.socialaccount.providers import registry
+from allauth.socialaccount.tests import OAuthTestsMixin
+from allauth.tests import MockedResponse, TestCase
 
 from .provider import BitbucketProvider
 
 
-class BitbucketTests(create_oauth_tests(registry.by_id(BitbucketProvider.id))):
+class BitbucketTests(OAuthTestsMixin, TestCase):
+    provider_id = BitbucketProvider.id
+
     def get_mocked_response(self):
         # FIXME: Replace with actual/complete Bitbucket response
         return [MockedResponse(200, r"""

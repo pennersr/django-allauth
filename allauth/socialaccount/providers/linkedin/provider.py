@@ -12,10 +12,14 @@ class LinkedInAccount(ProviderAccount):
     def get_avatar_url(self):
         # try to return the higher res picture-urls::(original) first
         try:
-            if self.account.extra_data.get('picture-urls', {}).get('picture-url'):
-                return self.account.extra_data.get('picture-urls', {}).get('picture-url')
+            if self.account.extra_data.get('picture-urls', {}).get(
+                    'picture-url'):
+                return self.account.extra_data.get('picture-urls', {}).get(
+                    'picture-url')
         except:
-            pass  # if we can't get higher res for any reason, we'll just return the low res
+            # if we can't get higher res for any reason, we'll just return the
+            # low res
+            pass
         return self.account.extra_data.get('picture-url')
 
     def to_str(self):
@@ -24,14 +28,13 @@ class LinkedInAccount(ProviderAccount):
         first_name = self.account.extra_data.get('first-name', None)
         last_name = self.account.extra_data.get('last-name', None)
         if first_name and last_name:
-            name = first_name+' '+last_name
+            name = first_name + ' ' + last_name
         return name
 
 
 class LinkedInProvider(OAuthProvider):
     id = 'linkedin'
     name = 'LinkedIn'
-    package = 'allauth.socialaccount.providers.linkedin'
     account_class = LinkedInAccount
 
     def get_default_scope(self):
@@ -46,10 +49,10 @@ class LinkedInProvider(OAuthProvider):
                           'last-name',
                           'email-address',
                           'picture-url',
-                          'picture-urls::(original)', # picture-urls::(original) is higher res
+                          'picture-urls::(original)',
+                          # picture-urls::(original) is higher res
                           'public-profile-url']
-        fields = self.get_settings().get('PROFILE_FIELDS',
-                                         default_fields)
+        fields = self.get_settings().get('PROFILE_FIELDS', default_fields)
         return fields
 
     def extract_uid(self, data):
@@ -59,5 +62,6 @@ class LinkedInProvider(OAuthProvider):
         return dict(email=data.get('email-address'),
                     first_name=data.get('first-name'),
                     last_name=data.get('last-name'))
+
 
 providers.registry.register(LinkedInProvider)

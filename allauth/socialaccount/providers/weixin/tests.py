@@ -1,0 +1,31 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
+from allauth.socialaccount.tests import create_oauth2_tests
+from allauth.tests import MockedResponse
+from allauth.socialaccount.providers import registry
+
+from .provider import WeixinProvider
+
+
+class WeixinTests(create_oauth2_tests(registry.by_id(WeixinProvider.id))):
+
+    def get_mocked_response(self):
+        return MockedResponse(200, """
+{"access_token":
+ "OezXcEiiBSKSxW0eoylIeO5cPxb4Ks1RpbXGMv9uiV35032zNHGzXcld-EKsSScE3gRZMrUU78skCbp1ShtZnR0dQB8Wr_LUf7FA-H97Lnd2HgQah_GnkQex-vPFsGEwPPcNAV6q1Vz3uRNgL0MUFg",
+ "city": "Pudong New District",
+ "country": "CN",
+ "expires_in": 7200,
+ "headimgurl":
+ "http://wx.qlogo.cn/mmopen/VkvLVEpoJiaibYsVyW8GzxHibzlnqSM7iaX09r6TWUJXCNQHibHz37krvN65HR1ibEpgH5K5sukcIzA3r1C4KQ9qyyX9XIUdY9lNOk/0",
+ "language": "zh_CN",
+ "nickname": "某某某",
+ "openid": "ohS-VwAJ9GEXlplngwybJ3Z-ZHrI",
+ "privilege": [],
+ "province": "Shanghai",
+ "refresh_token":
+ "OezXcEiiBSKSxW0eoylIeO5cPxb4Ks1RpbXGMv9uiV35032zNHGzXcld-EKsSScEbMnnMqVExcSpj7KRAuBA8BU2j2e_FK5dgBe-ro32k7OuHtznwqqBn5QR7LZGo2-P8G7gG0eitjyZ751sFlnTAw",
+ "scope": "snsapi_login",
+ "sex": 1,
+ "unionid": "ohHrhwKnD9TOunEW0eKTS45vS5Qo"}""")  # noqa

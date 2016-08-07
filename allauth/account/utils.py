@@ -6,18 +6,29 @@ except ImportError:
     now = datetime.now
 
 from django.contrib import messages
-from django.core.urlresolvers import reverse
+from django.db import models
 from django.conf import settings
 from django.http import HttpResponseRedirect
-from django.utils.http import urlencode, is_safe_url
-from django.utils.datastructures import SortedDict
+from django.utils import six
+from django.utils.http import urlencode
+from django.utils.http import int_to_base36, base36_to_int
+from django.core.exceptions import ValidationError
+
+from allauth.compat import OrderedDict
+
+try:
+    from django.contrib.auth import update_session_auth_hash
+except ImportError:
+    update_session_auth_hash = None
+
 try:
     from django.utils.encoding import force_text
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
+from ..exceptions import ImmediateHttpResponse
 from ..utils import (import_callable, valid_email_or_none,
-                     get_user_model)
+                     get_user_model, get_request_param)
 
 from . import signals
 
@@ -31,21 +42,35 @@ def get_next_redirect_url(request, redirect_field_name="next"):
     Returns the next URL to redirect to, if it was explicitly passed
     via the request.
     """
-    redirect_to = request.REQUEST.get(redirect_field_name)
-    if not is_safe_url(redirect_to):
+    redirect_to = get_request_param(request, redirect_field_name)
+    if not get_adapter(request).is_safe_url(redirect_to):
         redirect_to = None
     return redirect_to
 
 
 def get_login_redirect_url(request, url=None, redirect_field_name="next"):
-    redirect_url \
-        = (url
-           or get_next_redirect_url(request,
-                                    redirect_field_name=redirect_field_name)
-           or get_adapter().get_login_redirect_url(request))
+    if url and callable(url):
+        # In order to be able to pass url getters around that depend
+        # on e.g. the authenticated state.
+        url = url()
+    redirect_url = (
+        url or
+        get_next_redirect_url(
+            request,
+            redirect_field_name=redirect_field_name) or
+        get_adapter(request).get_login_redirect_url(request))
     return redirect_url
 
 _user_display_callable = None
+
+
+def logout_on_password_change(request, user):
+    # Since it is the default behavior of Django to invalidate all sessions on
+    # password change, this function actually has to preserve the session when
+    # logout isn't desired.
+    if (update_session_auth_hash is not None and
+            not app_settings.LOGOUT_ON_PASSWORD_CHANGE):
+        update_session_auth_hash(request, user)
 
 
 def default_user_display(user):
@@ -90,7 +115,7 @@ def user_email(user, *args):
 
 
 def perform_login(request, user, email_verification,
-                  redirect_url=None, signal_kwargs={},
+                  redirect_url=None, signal_kwargs=None,
                   signup=False):
     """
     Keyword arguments:
@@ -99,6 +124,14 @@ def perform_login(request, user, email_verification,
     email is essential (during signup), or if it can be skipped (e.g. in
     case email verification is optional and we are only logging in).
     """
+    # Local users are stopped due to form validation checking
+    # is_active, yet, adapter methods could toy with is_active in a
+    # `user_signed_up` signal. Furthermore, social users should be
+    # stopped anyway.
+    adapter = get_adapter(request)
+    if not user.is_active:
+        return adapter.respond_user_inactive(request, user)
+
     from .models import EmailAddress
     has_verified_email = EmailAddress.objects.filter(user=user,
                                                      verified=True).exists()
@@ -111,31 +144,34 @@ def perform_login(request, user, email_verification,
     elif email_verification == EmailVerificationMethod.MANDATORY:
         if not has_verified_email:
             send_email_confirmation(request, user, signup=signup)
-            return HttpResponseRedirect(
-                reverse('account_email_verification_sent'))
-    # Local users are stopped due to form validation checking
-    # is_active, yet, adapter methods could toy with is_active in a
-    # `user_signed_up` signal. Furthermore, social users should be
-    # stopped anyway.
-    if not user.is_active:
-        return HttpResponseRedirect(reverse('account_inactive'))
-    get_adapter().login(request, user)
-    response = HttpResponseRedirect(get_login_redirect_url(request, redirect_url))
-    signals.user_logged_in.send(sender=user.__class__,
-                                request=request,
-                                response=response,
-                                user=user,
-                                **signal_kwargs)
-    get_adapter().add_message(request,
-                              messages.SUCCESS,
-                              'account/messages/logged_in.txt',
-                              {'user': user})
+            return adapter.respond_email_verification_sent(
+                request, user)
+    try:
+        adapter.login(request, user)
+        response = HttpResponseRedirect(
+            get_login_redirect_url(request, redirect_url))
 
+        if signal_kwargs is None:
+            signal_kwargs = {}
+        signals.user_logged_in.send(sender=user.__class__,
+                                    request=request,
+                                    response=response,
+                                    user=user,
+                                    **signal_kwargs)
+        adapter.add_message(
+            request,
+            messages.SUCCESS,
+            'account/messages/logged_in.txt',
+            {'user': user})
+    except ImmediateHttpResponse as e:
+        response = e.response
     return response
 
 
 def complete_signup(request, user, email_verification, success_url,
-                    signal_kwargs={}):
+                    signal_kwargs=None):
+    if signal_kwargs is None:
+        signal_kwargs = {}
     signals.user_signed_up.send(sender=user.__class__,
                                 request=request,
                                 user=user,
@@ -156,9 +192,9 @@ def cleanup_email_addresses(request, addresses):
     exist, the first one encountered will be kept as primary.
     """
     from .models import EmailAddress
-    adapter = get_adapter()
+    adapter = get_adapter(request)
     # Let's group by `email`
-    e2a = SortedDict()  # maps email to EmailAddress
+    e2a = OrderedDict()  # maps email to EmailAddress
     primary_addresses = []
     verified_addresses = []
     primary_verified_addresses = []
@@ -168,10 +204,8 @@ def cleanup_email_addresses(request, addresses):
         if not email:
             continue
         # ... and non-conflicting ones...
-        if (app_settings.UNIQUE_EMAIL
-                and EmailAddress.objects
-                .filter(email__iexact=email)
-                .exists()):
+        if (app_settings.UNIQUE_EMAIL and
+                EmailAddress.objects.filter(email__iexact=email).exists()):
             continue
         a = e2a.get(email.lower())
         if a:
@@ -220,7 +254,7 @@ def setup_user_email(request, user, addresses):
     assert EmailAddress.objects.filter(user=user).count() == 0
     priority_addresses = []
     # Is there a stashed e-mail?
-    adapter = get_adapter()
+    adapter = get_adapter(request)
     stashed_email = adapter.unstash_verified_email(request)
     if stashed_email:
         priority_addresses.append(EmailAddress(user=user,
@@ -233,16 +267,14 @@ def setup_user_email(request, user, addresses):
                                                email=email,
                                                primary=True,
                                                verified=False))
-    addresses, primary = cleanup_email_addresses(request,
-                                                 priority_addresses
-                                                 + addresses)
+    addresses, primary = cleanup_email_addresses(
+        request,
+        priority_addresses + addresses)
     for a in addresses:
         a.user = user
         a.save()
     EmailAddress.objects.fill_cache_for_user(user, addresses)
-    if (primary
-            and email
-            and email.lower() != primary.email.lower()):
+    if (primary and email and email.lower() != primary.email.lower()):
         user_email(user, primary.email)
         user.save()
     return primary
@@ -267,10 +299,12 @@ def send_email_confirmation(request, user, signup=False):
         try:
             email_address = EmailAddress.objects.get_for_user(user, email)
             if not email_address.verified:
-                send_email = not EmailConfirmation.objects \
-                    .filter(sent__gt=now() - COOLDOWN_PERIOD,
-                            email_address=email_address) \
-                    .exists()
+                if app_settings.EMAIL_CONFIRMATION_HMAC:
+                    send_email = True
+                else:
+                    send_email = not EmailConfirmation.objects.filter(
+                        sent__gt=now() - COOLDOWN_PERIOD,
+                        email_address=email_address).exists()
                 if send_email:
                     email_address.send_confirmation(request,
                                                     signup=signup)
@@ -286,13 +320,14 @@ def send_email_confirmation(request, user, signup=False):
             assert email_address
         # At this point, if we were supposed to send an email we have sent it.
         if send_email:
-            get_adapter().add_message(request,
-                                      messages.INFO,
-                                      'account/messages/'
-                                      'email_confirmation_sent.txt',
-                                      {'email': email})
+            get_adapter(request).add_message(
+                request,
+                messages.INFO,
+                'account/messages/'
+                'email_confirmation_sent.txt',
+                {'email': email})
     if signup:
-        request.session['account_user'] = user.pk
+        get_adapter(request).stash_user(request, user_pk_to_url_str(user))
 
 
 def sync_user_email_addresses(user):
@@ -317,9 +352,62 @@ def sync_user_email_addresses(user):
                                     verified=False)
 
 
+def filter_users_by_email(email):
+    """Return list of users by email address
+
+    Typically one, at most just a few in length.  First we look through
+    EmailAddress table, than customisable User model table. Add results
+    together avoiding SQL joins and deduplicate.
+    """
+    from .models import EmailAddress
+    User = get_user_model()
+    mails = EmailAddress.objects.filter(email__iexact=email)
+    users = [e.user for e in mails.prefetch_related('user')]
+    if app_settings.USER_MODEL_EMAIL_FIELD:
+        q_dict = {app_settings.USER_MODEL_EMAIL_FIELD + '__iexact': email}
+        users += list(User.objects.filter(**q_dict))
+    return list(set(users))
+
+
 def passthrough_next_redirect_url(request, url, redirect_field_name):
     assert url.find("?") < 0  # TODO: Handle this case properly
     next_url = get_next_redirect_url(request, redirect_field_name)
     if next_url:
         url = url + '?' + urlencode({redirect_field_name: next_url})
     return url
+
+
+def user_pk_to_url_str(user):
+    """
+    This should return a string.
+    """
+    User = get_user_model()
+    if (hasattr(models, 'UUIDField') and issubclass(
+            type(User._meta.pk), models.UUIDField)):
+        if isinstance(user.pk, six.string_types):
+            return user.pk
+        return user.pk.hex
+
+    ret = user.pk
+    if isinstance(ret, six.integer_types):
+        ret = int_to_base36(user.pk)
+    return str(ret)
+
+
+def url_str_to_user_pk(s):
+    User = get_user_model()
+    # TODO: Ugh, isn't there a cleaner way to determine whether or not
+    # the PK is a str-like field?
+    if getattr(User._meta.pk, 'rel', None):
+        pk_field = User._meta.pk.rel.to._meta.pk
+    else:
+        pk_field = User._meta.pk
+    if (hasattr(models, 'UUIDField') and issubclass(
+            type(pk_field), models.UUIDField)):
+        return s
+    try:
+        pk_field.to_python('a')
+        pk = s
+    except ValidationError:
+        pk = base36_to_int(s)
+    return pk

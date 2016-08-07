@@ -10,7 +10,6 @@ class DropboxAccount(ProviderAccount):
 class DropboxProvider(OAuthProvider):
     id = 'dropbox'
     name = 'Dropbox'
-    package = 'allauth.socialaccount.providers.dropbox'
     account_class = DropboxAccount
 
     def extract_uid(self, data):

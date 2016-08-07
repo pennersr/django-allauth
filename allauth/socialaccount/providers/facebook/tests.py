@@ -1,18 +1,13 @@
-try:
-    from mock import patch
-except ImportError:
-    from unittest.mock import patch
 import json
 
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 from django.test.client import RequestFactory
 
-from allauth.socialaccount.tests import create_oauth2_tests
-from allauth.tests import MockedResponse
+from allauth.socialaccount.tests import OAuth2TestsMixin
+from allauth.tests import MockedResponse, TestCase, patch
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount import providers
-from allauth.socialaccount.providers import registry
 from allauth.account import app_settings as account_settings
 from allauth.account.models import EmailAddress
 from allauth.utils import get_user_model
@@ -30,9 +25,10 @@ from .provider import FacebookProvider
         'facebook': {
             'AUTH_PARAMS': {},
             'VERIFIED_EMAIL': False}})
-class FacebookTests(create_oauth2_tests(registry.by_id(FacebookProvider.id))):
-    def get_mocked_response(self):
-        return MockedResponse(200, """
+class FacebookTests(OAuth2TestsMixin, TestCase):
+    provider_id = FacebookProvider.id
+
+    facebook_data = """
         {
            "id": "630595557",
            "name": "Raymond Penners",
@@ -54,7 +50,12 @@ class FacebookTests(create_oauth2_tests(registry.by_id(FacebookProvider.id))):
            "locale": "nl_NL",
            "verified": true,
            "updated_time": "2012-11-30T20:40:33+0000"
-        }""")
+        }"""
+
+    def get_mocked_response(self, data=None):
+        if data is None:
+            data = self.facebook_data
+        return MockedResponse(200, data)
 
     def test_username_conflict(self):
         User = get_user_model()
@@ -67,6 +68,12 @@ class FacebookTests(create_oauth2_tests(registry.by_id(FacebookProvider.id))):
         self.login(self.get_mocked_response())
         socialaccount = SocialAccount.objects.get(uid='630595557')
         self.assertEqual(socialaccount.user.username, 'raymond.penners')
+
+    def test_username_based_on_provider_with_simple_name(self):
+        data = '{"id": "1234567", "name": "Harvey McGillicuddy"}'
+        self.login(self.get_mocked_response(data=data))
+        socialaccount = SocialAccount.objects.get(uid='1234567')
+        self.assertEqual(socialaccount.user.username, 'harvey')
 
     def test_media_js(self):
         provider = providers.registry.by_id(FacebookProvider.id)
@@ -84,8 +91,8 @@ class FacebookTests(create_oauth2_tests(registry.by_id(FacebookProvider.id))):
                 = lambda: mocks.pop()
             resp = self.client.post(reverse('facebook_login_by_token'),
                                     data={'access_token': 'dummy'})
-            self.assertEqual('http://testserver/accounts/profile/',
-                             resp['location'])
+            self.assertRedirects(resp, 'http://testserver/accounts/profile/',
+                                 fetch_redirect_response=False)
 
     @override_settings(
         SOCIALACCOUNT_PROVIDERS={
@@ -94,7 +101,8 @@ class FacebookTests(create_oauth2_tests(registry.by_id(FacebookProvider.id))):
                 'VERIFIED_EMAIL': False}})
     def test_login_by_token_reauthenticate(self):
         resp = self.client.get(reverse('account_login'))
-        nonce = json.loads(resp.context['fb_data'])['loginOptions']['auth_nonce']
+        nonce = json.loads(
+            resp.context['fb_data'])['loginOptions']['auth_nonce']
         with patch('allauth.socialaccount.providers.facebook.views'
                    '.requests') as requests_mock:
             mocks = [self.get_mocked_response().json(),
@@ -103,12 +111,8 @@ class FacebookTests(create_oauth2_tests(registry.by_id(FacebookProvider.id))):
                 = lambda: mocks.pop()
             resp = self.client.post(reverse('facebook_login_by_token'),
                                     data={'access_token': 'dummy'})
-            self.assertEqual('http://testserver/accounts/profile/',
-                             resp['location'])
-
-    def test_channel(self):
-        resp = self.client.get(reverse('facebook_channel'))
-        self.assertTemplateUsed(resp, 'facebook/channel.html')
+            self.assertRedirects(resp, 'http://testserver/accounts/profile/',
+                                 fetch_redirect_response=False)
 
     @override_settings(
         SOCIALACCOUNT_PROVIDERS={
@@ -123,5 +127,5 @@ class FacebookTests(create_oauth2_tests(registry.by_id(FacebookProvider.id))):
         self.assertFalse(emailaddress.verified)
 
     def _login_verified(self):
-        resp = self.login(self.get_mocked_response())
+        self.login(self.get_mocked_response())
         return EmailAddress.objects.get(email='raymond.penners@gmail.com')

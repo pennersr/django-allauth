@@ -6,6 +6,7 @@ from .models import OpenIDStore, OpenIDNonce
 class OpenIDStoreAdmin(admin.ModelAdmin):
     pass
 
+
 class OpenIDNonceAdmin(admin.ModelAdmin):
     pass
 

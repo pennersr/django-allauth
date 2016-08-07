@@ -4,7 +4,7 @@ Overview
 Requirements
 ------------
 
-- Python 2.6, 2.7 or 3.3
+- Python 2.7, 3.2, 3.3, 3.4, or 3.5
 
 - Django (1.4.3+)
 
@@ -33,15 +33,33 @@ Supported Flows
 Supported Providers
 -------------------
 
+- 23andMe (OAuth2)
+
 - Amazon (OAuth2)
 
 - AngelList (OAuth2)
 
-- Bitbucket (OAuth)
+- Asana (OAuth2)
+
+- Basecamp (OAuth2)
+
+- Baidu (OAuth2)
+
+- Battle.net (OAuth2)
+
+- Bitbucket (OAuth, OAuth2)
 
 - Bitly (OAuth2)
 
-- Dropbox (OAuth)
+- Douban (OAuth2)
+
+- Dropbox (OAuth, OAuth2)
+
+- Edmodo (OAuth2)
+
+- Eve Online (OAuth2)
+
+- Evernote (OAuth)
 
 - Facebook (both OAuth2 and JS SDK)
 
@@ -53,6 +71,8 @@ Supported Providers
 
 - Github (OAuth2)
 
+- GitLab (OAuth2)
+
 - Google (OAuth2)
 
 - Hubic (OAuth2)
@@ -63,6 +83,8 @@ Supported Providers
 
 - Mail.Ru (OAuth2)
 
+- Odnoklassniki (OAuth2)
+
 - OpenId
 
 - ORCID (OAuth2)
@@ -71,9 +93,21 @@ Supported Providers
 
 - Persona
 
+- Pinterest (OAuth2)
+
+- Reddit (OAuth2)
+
+- Shopify (OAuth2)
+
+- Slack (OAuth2)
+
 - SoundCloud (OAuth2)
 
+- Spotify (OAuth2)
+
 - Stack Exchange (OAuth2)
+
+- Stripe (OAuth2)
 
 - Tumblr (OAuth)
 
@@ -81,11 +115,15 @@ Supported Providers
 
 - Twitter (OAuth)
 
+- Untappd (OAuth2)
+
 - Vimeo (OAuth)
 
 - VK (OAuth2)
 
 - Weibo (OAuth2)
+
+- Weixin (OAuth2)
 
 - Windows Live (OAuth2)
 

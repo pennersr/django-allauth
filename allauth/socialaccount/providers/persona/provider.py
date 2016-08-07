@@ -1,9 +1,8 @@
 import json
 
-from django.template.loader import render_to_string
-from django.template import RequestContext
 from django.utils.html import escapejs
 
+from allauth.compat import render_to_string
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount, Provider
 from allauth.account.models import EmailAddress
@@ -17,16 +16,13 @@ class PersonaAccount(ProviderAccount):
 class PersonaProvider(Provider):
     id = 'persona'
     name = 'Persona'
-    package = 'allauth.socialaccount.providers.persona'
     account_class = PersonaAccount
 
     def media_js(self, request):
         settings = self.get_settings()
         request_parameters = settings.get('REQUEST_PARAMETERS', {})
         ctx = {'request_parameters': json.dumps(request_parameters)}
-        return render_to_string('persona/auth.html',
-                                ctx,
-                                RequestContext(request))
+        return render_to_string('persona/auth.html', ctx, request=request)
 
     def get_login_url(self, request, **kwargs):
         next_url = "'%s'" % escapejs(kwargs.get('next') or '')

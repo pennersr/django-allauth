@@ -21,12 +21,18 @@ class FlickrAccount(ProviderAccount):
 class FlickrProvider(OAuthProvider):
     id = 'flickr'
     name = 'Flickr'
-    package = 'allauth.socialaccount.providers.flickr'
     account_class = FlickrAccount
 
     def get_default_scope(self):
         scope = []
         return scope
+
+    def get_auth_params(self, request, action):
+        ret = super(FlickrProvider, self).get_auth_params(request,
+                                                          action)
+        if 'perms' not in ret:
+            ret['perms'] = 'read'
+        return ret
 
     def get_profile_fields(self):
         default_fields = ['id',

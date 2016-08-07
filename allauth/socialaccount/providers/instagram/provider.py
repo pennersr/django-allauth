@@ -21,7 +21,6 @@ class InstagramAccount(ProviderAccount):
 class InstagramProvider(OAuth2Provider):
     id = 'instagram'
     name = 'Instagram'
-    package = 'allauth.socialaccount.providers.instagram'
     account_class = InstagramAccount
 
     def extract_extra_data(self, data):

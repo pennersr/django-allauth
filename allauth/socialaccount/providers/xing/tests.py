@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
-from allauth.socialaccount.tests import create_oauth_tests
-from allauth.tests import MockedResponse
-from allauth.socialaccount.providers import registry
+from __future__ import unicode_literals
+
+from allauth.socialaccount.tests import OAuthTestsMixin
+from allauth.tests import MockedResponse, TestCase
 
 from .provider import XingProvider
 
 
-class XingTests(create_oauth_tests(registry.by_id(XingProvider.id))):
+class XingTests(OAuthTestsMixin, TestCase):
+    provider_id = XingProvider.id
+
     def get_mocked_response(self):
-        return [MockedResponse(200, u"""
+        return [MockedResponse(200, """
 {"users":[{"id":"20493333_1cd028","active_email":"raymond.penners@gmail.com",
 "badges":[],"birth_date":{"year":null,"month":null,"day":null},
 "business_address":{"street":null,"zip_code":null,"city":null,"province":null,

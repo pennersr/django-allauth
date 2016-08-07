@@ -13,7 +13,9 @@ class LinkedInOAuth2Account(ProviderAccount):
         try:
             return self.account.extra_data['pictureUrls']['values'][0]
         except:
-            pass  # if we can't get higher res for any reason, we'll just return the low res
+            # if we can't get higher res for any reason, we'll just return the
+            # low res
+            pass
         return self.account.extra_data.get('pictureUrl')
 
     def to_str(self):
@@ -30,7 +32,6 @@ class LinkedInOAuth2Provider(OAuth2Provider):
     id = 'linkedin_oauth2'
     # Name is displayed to ordinary users -- don't include protocol
     name = 'LinkedIn'
-    package = 'allauth.socialaccount.providers.linkedin_oauth2'
     account_class = LinkedInOAuth2Account
 
     def extract_uid(self, data):
@@ -42,7 +43,8 @@ class LinkedInOAuth2Provider(OAuth2Provider):
                           'last-name',
                           'email-address',
                           'picture-url',
-                          'picture-urls::(original)',  # picture-urls::(original) is higher res
+                          # picture-urls::(original) is higher res
+                          'picture-urls::(original)',
                           'public-profile-url']
         fields = self.get_settings().get('PROFILE_FIELDS',
                                          default_fields)

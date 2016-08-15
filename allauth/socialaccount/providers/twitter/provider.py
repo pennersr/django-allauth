@@ -46,7 +46,8 @@ class TwitterProvider(OAuthProvider):
 
     def extract_common_fields(self, data):
         return dict(username=data.get('screen_name'),
-                    name=data.get('name'))
+                    name=data.get('name'),
+                    email=data.get('email'),)
 
 
 providers.registry.register(TwitterProvider)

@@ -639,13 +639,13 @@ To register an app on Twitter you will need a Twitter account after which you ca
 
 In the app creation form fill in the development callback URL::
 
-    http://127.0.0.1:8000
+    http://127.0.0.1:8000/accounts/twitter/login/callback/
 
 Twitter won't allow using http://localhost:8000.
 
 For production use a callback URL such as::
 
-   http://{{yourdomain}}.com
+   http://{{yourdomain}}.com/accounts/twitter/login/callback/
 
 To allow user's to login without authorizing each session select "Allow this application to be used to Sign in with Twitter" under the application's "Settings" tab.
 

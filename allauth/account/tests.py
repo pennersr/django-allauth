@@ -127,6 +127,24 @@ class AccountTests(TestCase):
 
     @override_settings(
         ACCOUNT_USERNAME_REQUIRED=True,
+        ACCOUNT_SIGNUP_PASSOWRD_ENTER_TWICE=True)
+    def test_signup_password_twice_form_error(self):
+        resp = self.client.post(
+            reverse('account_signup'),
+            data={
+                'username': 'johndoe',
+                'email': 'john@work.com',
+                'password1': 'johndoe',
+                'password2': 'janedoe'})
+        self.assertFormError(
+            resp,
+            'form',
+            'password2',
+            'You must type the same password each time.'
+        )
+
+    @override_settings(
+        ACCOUNT_USERNAME_REQUIRED=True,
         ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE=True)
     def test_signup_email_twice(self):
         request = RequestFactory().post(reverse('account_signup'),

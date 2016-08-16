@@ -16,6 +16,10 @@ Backwards incompatible changes
   has now been changed: there always is an ``email`` field, and optionally an
   ``email2`` field.
 
+- The "You must type the same password each time" form validation error that can
+  be triggered during signup is now added to the ``password2`` field instead of
+  being added to the non field errors.
+
 
 0.26.1 (2016-07-25)
 *******************

@@ -30,6 +30,10 @@ matrix:
       env: DJANGO="Django<1.10"
     - python: "3.3"
       env: DJANGO="Django<1.10"
+    - python: "3.2"
+      env: DJANGO="Django<1.11"
+    - python: "3.3"
+      env: DJANGO="Django<1.11"
 branches:
  only:
   - master

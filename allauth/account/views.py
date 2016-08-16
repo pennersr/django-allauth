@@ -191,9 +191,13 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
         # By assigning the User to a property on the view, we allow subclasses
         # of SignupView to access the newly created User instance
         self.user = form.save(self.request)
-        return complete_signup(self.request, self.user,
-                               app_settings.EMAIL_VERIFICATION,
-                               self.get_success_url())
+        try:
+            return complete_signup(
+                self.request, self.user,
+                app_settings.EMAIL_VERIFICATION,
+                self.get_success_url())
+        except ImmediateHttpResponse as e:
+            return e.response
 
     def get_context_data(self, **kwargs):
         ret = super(SignupView, self).get_context_data(**kwargs)

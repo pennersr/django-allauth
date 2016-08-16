@@ -20,6 +20,10 @@ Backwards incompatible changes
   be triggered during signup is now added to the ``password2`` field instead of
   being added to the non field errors.
 
+- The ``email_confirmation_sent`` signal is now passed ``request``,
+  ``confirmation`` and ``signup`` instead of only the ``confirmation``.
+
+
 
 0.26.1 (2016-07-25)
 *******************

@@ -1,7 +1,6 @@
 from __future__ import absolute_import
 
 from django import forms
-from django.utils.translation import ugettext_lazy as _
 
 from allauth.account.forms import BaseSignupForm
 
@@ -29,12 +28,13 @@ class SignupForm(BaseSignupForm):
         self.custom_signup(request, user)
         return user
 
-    def raise_duplicate_email_error(self):
-        raise forms.ValidationError(
-            _("An account already exists with this e-mail address."
-              " Please sign in to that account first, then connect"
-              " your %s account.")
-            % self.sociallogin.account.get_provider().name)
+    def validate_unique_email(self, value):
+        try:
+            return super(SignupForm, self).validate_unique_email(value)
+        except forms.ValidationError:
+            raise forms.ValidationError(
+                get_adapter().error_messages['email_taken']
+                % self.sociallogin.account.get_provider().name)
 
 
 class DisconnectForm(forms.Form):

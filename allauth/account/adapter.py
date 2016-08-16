@@ -52,7 +52,7 @@ class DefaultAccountAdapter(object):
         'too_many_login_attempts':
         _('Too many failed login attempts. Try again later.'),
         'email_taken':
-        AbstractUser._meta.get_field('email').error_messages['unique'],
+        _("A user is already registered with this e-mail address."),
     }
 
     def __init__(self, request=None):

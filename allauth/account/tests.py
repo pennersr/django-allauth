@@ -131,7 +131,7 @@ class AccountTests(TestCase):
     def test_signup_email_twice(self):
         request = RequestFactory().post(reverse('account_signup'),
                                         {'username': 'johndoe',
-                                         'email1': 'john@work.com',
+                                         'email': 'john@work.com',
                                          'email2': 'john@work.com',
                                          'password1': 'johndoe',
                                          'password2': 'johndoe'})
@@ -831,7 +831,7 @@ class BaseSignupFormTests(TestCase):
 
         data = {
             'username': 'username',
-            'email1': 'user@example.com',
+            'email': 'user@example.com',
             'email2': 'user@example.com',
         }
         form = BaseSignupForm(data, email_required=True)

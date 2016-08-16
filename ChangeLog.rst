@@ -8,6 +8,14 @@ Note worthy changes
 
 - The Twitter and GitHub providers now support querying of the email address.
 
+Backwards incompatible changes
+------------------------------
+
+- When ``ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE`` was turned on, the e-mail field key
+  changed from ``email`` to ``email1``, which could introduce subtle bugs. This
+  has now been changed: there always is an ``email`` field, and optionally an
+  ``email2`` field.
+
 
 0.26.1 (2016-07-25)
 *******************

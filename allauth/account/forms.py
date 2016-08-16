@@ -250,17 +250,8 @@ class BaseSignupForm(_base_signup_form_class()):
 
         # field order may contain additional fields from our base class,
         # so take proper care when reordering...
-        self.email_field = 'email'
         field_order = ['email', 'username']
         if app_settings.SIGNUP_EMAIL_ENTER_TWICE:
-            del self.fields["email"]
-            self.fields["email1"] = forms.EmailField(
-                widget=forms.TextInput(
-                    attrs={
-                        'type': 'email', 'placeholder': _('E-mail address')
-                    }
-                )
-            )
             self.fields["email2"] = forms.EmailField(
                 widget=forms.TextInput(
                     attrs={
@@ -269,21 +260,19 @@ class BaseSignupForm(_base_signup_form_class()):
                     }
                 )
             )
-            field_order = ['email1', 'email2', 'username']
-            self.email_field = 'email1'
+            field_order = ['email', 'email2', 'username']
         merged_field_order = list(self.fields.keys())
         if email_required:
-            self.fields[self.email_field].label = ugettext("E-mail")
-            self.fields[self.email_field].required = True
+            self.fields['email'].label = ugettext("E-mail")
+            self.fields['email'].required = True
         else:
-            self.fields[self.email_field].label = ugettext("E-mail (optional)")
-            self.fields[self.email_field].required = False
-            self.fields[self.email_field].widget.is_required = False
+            self.fields['email'].label = ugettext("E-mail (optional)")
+            self.fields['email'].required = False
+            self.fields['email'].widget.is_required = False
             if self.username_required:
+                field_order = ['username', 'email']
                 if app_settings.SIGNUP_EMAIL_ENTER_TWICE:
-                    field_order = ['username', 'email1', 'email2']
-                else:
-                    field_order = ['username', 'email']
+                    field_order.append('email2')
 
         # Merge our email and username fields in if they are not
         # currently in the order.  This is to allow others to
@@ -303,7 +292,7 @@ class BaseSignupForm(_base_signup_form_class()):
         return value
 
     def clean_email(self):
-        value = self.cleaned_data[self.email_field]
+        value = self.cleaned_data['email']
         value = get_adapter().clean_email(value)
         if value and app_settings.UNIQUE_EMAIL:
             value = get_adapter().validate_unique_email(value)
@@ -312,9 +301,9 @@ class BaseSignupForm(_base_signup_form_class()):
     def clean(self):
         cleaned_data = super(BaseSignupForm, self).clean()
         if app_settings.SIGNUP_EMAIL_ENTER_TWICE:
-            email1 = cleaned_data.get('email1')
+            email = cleaned_data.get('email')
             email2 = cleaned_data.get('email2')
-            if (email1 and email2) and email1 != email2:
+            if (email and email2) and email != email2:
                 self.add_error(
                     'email2', _("You must type the same email each time.")
                 )

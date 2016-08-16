@@ -227,10 +227,7 @@ class DefaultAccountAdapter(object):
         data = form.cleaned_data
         first_name = data.get('first_name')
         last_name = data.get('last_name')
-        if app_settings.SIGNUP_EMAIL_ENTER_TWICE:
-            email = data.get('email1')
-        else:
-            email = data.get('email')
+        email = data.get('email')
         username = data.get('username')
         user_email(user, email)
         user_username(user, username)

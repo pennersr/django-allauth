@@ -199,10 +199,9 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
         ret = super(SignupView, self).get_context_data(**kwargs)
         form = ret['form']
         email = self.request.session.get('account_verified_email')
+        email_keys = ['email']
         if app_settings.SIGNUP_EMAIL_ENTER_TWICE:
-            email_keys = ['email1', 'email2']
-        else:
-            email_keys = ['email']
+            email_keys.append('email2')
         for email_key in email_keys:
             form.fields[email_key].initial = email
         login_url = passthrough_next_redirect_url(self.request,

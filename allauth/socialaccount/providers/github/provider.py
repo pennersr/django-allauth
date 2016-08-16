@@ -1,6 +1,7 @@
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount import app_settings
 
 
 class GitHubAccount(ProviderAccount):
@@ -27,6 +28,12 @@ class GitHubProvider(OAuth2Provider):
     id = 'github'
     name = 'GitHub'
     account_class = GitHubAccount
+
+    def get_default_scope(self):
+        scope = []
+        if app_settings.QUERY_EMAIL:
+            scope.append('user:email')
+        return scope
 
     def extract_uid(self, data):
         return str(data['id'])

@@ -71,6 +71,11 @@ class AppSettings(object):
     def UID_MAX_LENGTH(self):
         return 191
 
+    @property
+    def EXTERA_INITIAL_FEILDS(self):
+        return self._setting("EXTERA_INITIAL_FEILDS",
+                             ['first_name', 'last_name'])
+
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

@@ -1,2 +1,2 @@
-django>=1.4.3
-django-allauth>=0.13.0
+django>=1.10
+django-allauth>=0.26.1

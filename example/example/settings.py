@@ -4,7 +4,6 @@ import os
 PROJECT_ROOT = os.path.normpath(os.path.dirname(os.path.abspath(__file__)))
 
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -89,11 +88,27 @@ STATICFILES_FINDERS = (
 SECRET_KEY = 't8_)kj3v!au0!_i56#gre**mkg0&z1df%3bw(#5^#^5e_64!$_'
 
 # List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            # allauth templates: you could copy this directory into your
+            # project and tweak it according to your needs
+            # os.path.join(PROJECT_ROOT, 'templates', 'uniform', 'allauth'),
+            # example project specific templates
+            os.path.join(PROJECT_ROOT, 'templates', 'plain', 'example'),
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -109,23 +124,7 @@ AUTHENTICATION_BACKENDS = (
 
 ROOT_URLCONF = 'example.urls'
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.contrib.auth.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "django.core.context_processors.static",
-    "django.core.context_processors.request",
-    "django.contrib.messages.context_processors.messages",
-)
 
-TEMPLATE_DIRS = (
-    # allauth templates: you could copy this directory into your
-    # project and tweak it according to your needs
-    # os.path.join(PROJECT_ROOT, 'templates', 'uniform', 'allauth'),
-    # example project specific templates
-    os.path.join(PROJECT_ROOT, 'templates', 'plain', 'example'),
-)
 
 INSTALLED_APPS = (
     'django.contrib.auth',

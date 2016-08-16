@@ -1,3 +1,15 @@
+Unreleased
+**********
+
+Note worthy changes
+-------------------
+
+- Django 1.10 compatibility.
+
+- The Twitter provider now supports querying of the email address.
+
+
+
 0.26.1 (2016-07-25)
 *******************
 

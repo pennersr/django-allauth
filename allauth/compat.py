@@ -34,3 +34,11 @@ if django.VERSION >= (1, 9, 0):
 else:
     def validate_password(password, user=None, password_validators=None):
         pass
+
+
+def template_context_value(context, key):
+    try:
+        value = context[key]
+    except KeyError:
+        value = getattr(context, key)
+    return value

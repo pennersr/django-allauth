@@ -10,6 +10,7 @@ from django.conf import settings
 from django.test import TestCase as DjangoTestCase
 from django.db import models
 
+from allauth.account.utils import user_username
 from . import utils
 from .compat import urlparse, urlunparse
 
@@ -52,6 +53,21 @@ class TestCase(DjangoTestCase):
                 parts[0] = parts[1] = ''
                 actual_url = urlunparse(parts)
             self.assertEqual(expected_url, actual_url)
+
+    def client_force_login(self, user):
+        if django.VERSION >= (1, 9):
+            self.client.force_login(
+                user,
+                'django.contrib.auth.backends.ModelBackend')
+        else:
+            old_password = user.password
+            user.set_password('doe')
+            user.save()
+            self.client.login(
+                username=user_username(user),
+                password='doe')
+            user.password = old_password
+            user.save()
 
 
 class MockedResponse(object):

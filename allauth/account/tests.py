@@ -145,15 +145,21 @@ class AccountTests(TestCase):
         user = get_user_model().objects.get(username='johndoe')
         self.assertEqual(user.email, 'john@work.com')
 
-    def _create_user(self):
-        user = get_user_model().objects.create(username='john', is_active=True)
-        user.set_password('doe')
+    def _create_user(self, username='john', password='doe'):
+        user = get_user_model().objects.create(
+            username=username,
+            is_active=True)
+        if password:
+            user.set_password(password)
+        else:
+            user.set_unusable_password()
         user.save()
         return user
 
-    def _create_user_and_login(self):
-        user = self._create_user()
-        self.client.login(username='john', password='doe')
+    def _create_user_and_login(self, usable_password=True):
+        password = 'doe' if usable_password else False
+        user = self._create_user(password=password)
+        self.client_force_login(user)
         return user
 
     def test_redirect_when_authenticated(self):
@@ -168,33 +174,38 @@ class AccountTests(TestCase):
         self.assertTemplateUsed(resp, 'account/password_reset.html')
 
     def test_password_set_redirect(self):
-        resp = self._password_set_or_reset_redirect('account_set_password',
-                                                    True)
-        self.assertEqual(resp.status_code, 302)
+        resp = self._password_set_or_change_redirect(
+            'account_set_password',
+            True)
+        self.assertRedirects(
+            resp,
+            reverse('account_change_password'),
+            fetch_redirect_response=False)
 
-    def test_password_reset_no_redirect(self):
-        resp = self._password_set_or_reset_redirect('account_change_password',
-                                                    True)
+    def test_password_change_no_redirect(self):
+        resp = self._password_set_or_change_redirect(
+            'account_change_password',
+            True)
         self.assertEqual(resp.status_code, 200)
 
     def test_password_set_no_redirect(self):
-        resp = self._password_set_or_reset_redirect('account_set_password',
-                                                    False)
+        resp = self._password_set_or_change_redirect(
+            'account_set_password',
+            False)
         self.assertEqual(resp.status_code, 200)
 
-    def test_password_reset_redirect(self):
-        resp = self._password_set_or_reset_redirect('account_change_password',
-                                                    False)
-        self.assertEqual(resp.status_code, 302)
+    def test_password_change_redirect(self):
+        resp = self._password_set_or_change_redirect(
+            'account_change_password',
+            False)
+        self.assertRedirects(
+            resp,
+            reverse('account_set_password'),
+            fetch_redirect_response=False)
 
-    def _password_set_or_reset_redirect(self, urlname, usable_password):
-        user = self._create_user_and_login()
-        c = self.client
-        if not usable_password:
-            user.set_unusable_password()
-            user.save()
-        resp = c.get(reverse(urlname))
-        return resp
+    def _password_set_or_change_redirect(self, urlname, usable_password):
+        self._create_user_and_login(usable_password)
+        return self.client.get(reverse(urlname))
 
     def test_password_forgotten_username_hint(self):
         user = self._request_new_password()

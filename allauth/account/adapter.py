@@ -212,6 +212,7 @@ class DefaultAccountAdapter(object):
                     first_name,
                     last_name,
                     email,
+                    username,
                     'user']))
 
     def generate_unique_username(self, txts, regex=None):

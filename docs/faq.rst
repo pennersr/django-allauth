@@ -22,6 +22,17 @@ Here are a few third party resources to help you get started:
 - http://www.sarahhagstrom.com/2013/09/the-missing-django-allauth-tutorial/
 - https://github.com/aellerton/demo-allauth-bootstrap
 
+I think I found a security issue... now what?
+*********************************************
+
+Please report security issues only to django-allauth-security@googlegroups.com.
+This is a private list only open to long-time, highly trusted django-allauth
+developers, and its archives are not public.
+
+You may also want to subscribe to django-allauth-announce@googlegroups.com to
+get notified about security releases.
+
+
 Troubleshooting
 ---------------
 

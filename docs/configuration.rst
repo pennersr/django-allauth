@@ -117,6 +117,7 @@ ACCOUNT_PASSWORD_INPUT_RENDER_VALUE (=False)
 
 ACCOUNT_PASSWORD_MIN_LENGTH (=6)
   An integer specifying the minimum password length.
+  Deprecated -- use Django's `AUTH_PASSWORD_VALIDATORS` instead.
 
 ACCOUNT_SESSION_REMEMBER (=None)
   Controls the life time of the session. Set to `None` to ask the user
@@ -164,7 +165,6 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD (="username")
 
 ACCOUNT_USERNAME_MIN_LENGTH (=1)
   An integer specifying the minimum allowed length of a username.
-  Deprecated -- use Django's `AUTH_PASSWORD_VALIDATORS` instead.
 
 ACCOUNT_USERNAME_REQUIRED (=True)
   The user is required to enter a username when signing up. Note that

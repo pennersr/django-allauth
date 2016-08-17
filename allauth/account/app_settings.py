@@ -144,7 +144,15 @@ class AppSettings(object):
         """
         Minimum password Length
         """
-        return self._setting("PASSWORD_MIN_LENGTH", 6)
+        import django
+        from django.conf import settings
+        ret = None
+        has_validators = (
+            django.VERSION[:2] >= (1, 9) and
+            bool(getattr(settings, 'AUTH_PASSWORD_VALIDATORS', [])))
+        if not has_validators:
+            ret = self._setting("PASSWORD_MIN_LENGTH", 6)
+        return ret
 
     @property
     def EMAIL_SUBJECT_PREFIX(self):

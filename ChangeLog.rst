@@ -8,6 +8,7 @@ Note worthy changes
 
 - The Twitter and GitHub providers now support querying of the email address.
 
+
 Backwards incompatible changes
 ------------------------------
 
@@ -23,6 +24,8 @@ Backwards incompatible changes
 - The ``email_confirmation_sent`` signal is now passed ``request``,
   ``confirmation`` and ``signup`` instead of only the ``confirmation``.
 
+- ``ACCOUNT_PASSWORD_MIN_LENGTH`` was already deprecated, but is now completely
+  ignored if ``AUTH_PASSWORD_VALIDATORS`` is not empty.
 
 
 0.26.1 (2016-07-25)

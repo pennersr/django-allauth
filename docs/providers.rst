@@ -24,14 +24,14 @@ For local development, use the following::
     http://127.0.0.1:8000/accounts/twitter/login/callback/
 
 
-
 23andMe
 -------
 
-Register your OAuth2 app here: https://api.23andme.com/dev/
+App registration (get your key and secret here)
+    https://api.23andme.com/dev/
 
 Development callback URL
-http://localhost:8000/accounts/23andme/login/callback/
+    http://localhost:8000/accounts/23andme/login/callback/
 
 
 Amazon
@@ -46,13 +46,14 @@ App registration (get your key and secret here)
 Development callback URL
     https://example.com/accounts/amazon/login/callback/
 
+
 AngelList
 ---------
 
-Register your OAuth app here: https://angel.co/api/oauth/clients
+App registration (get your key and secret here)
+    https://angel.co/api/oauth/clients
 
-For local development, use the following callback URL::
-
+Development callback URL
     http://localhost:8000/accounts/angellist/login/callback/
 
 
@@ -60,7 +61,6 @@ Baidu
 -----
 
 The Baidu OAuth2 authentication documentation:
-
     http://developer.baidu.com/wiki/index.php?title=docs/oauth/refresh
     http://developer.baidu.com/wiki/index.php?title=docs/oauth/rest/file_data_apis_lista
 
@@ -68,10 +68,10 @@ The Baidu OAuth2 authentication documentation:
 Basecamp
 --------
 
-Register you app here: https://integrate.37signals.com/
+App registration (get your key and secret here)
+    https://integrate.37signals.com/
 
-The Basecamp OAuth2 authentication documentation:
-
+The Basecamp OAuth2 authentication documentation
     https://github.com/basecamp/api/blob/master/sections/authentication.md#oauth-2
 
 Development callback URL
@@ -81,37 +81,51 @@ Development callback URL
 Battle.net
 ----------
 
-The Battle.net OAuth2 authentication documentation:
+The Battle.net OAuth2 authentication documentation
     https://dev.battle.net/docs/read/oauth
+
+Register your app here (Mashery account required)
+    https://dev.battle.net/apps/register
 
 Development callback URL
     https://localhost:8000/accounts/battlenet/login/callback/
 
-Register your app here (Mashery account required):
-    https://dev.battle.net/apps/register
+
+Dropbox
+-------
+
+App registration (get your key and secret here)
+    https://www.dropbox.com/developers/apps/
+
+Development callback URL
+    http://localhost:8000/accounts/dropbox_oauth2/login/callback/
+
+Note that Dropbox has deprecated version 1 of their API as of 28 June 2016.
+This also affects apps. All new apps you create will automatically use OAuth
+2.0, and you have to use the ``dropbox_oauth2`` provider with ``allauth``.
 
 
 Draugiem
----------
+--------
 
-Register your app here: https://www.draugiem.lv/applications/dev/create/?type=4
+App registration (get your key and secret here)
+    https://www.draugiem.lv/applications/dev/create/?type=4
 
-Authentication documentation:
+Authentication documentation
     https://www.draugiem.lv/applications/dev/docs/passport/
 
-Development callback URL:
+Development callback URL
     http://localhost:8000/accounts/draugiem/login/callback/
 
 
 Edmodo
 ------
 
-The Edmodo OAuth2 documentation:
-
+Edmodo OAuth2 documentation
     https://developers.edmodo.com/edmodo-connect/edmodo-connect-overview-getting-started/
 
 You can optionally specify additional permissions to use. If no `SCOPE` value
-is set, the Edmodo provider will use `basic` by default.::
+is set, the Edmodo provider will use `basic` by default::
 
     SOCIALACCOUNT_PROVIDERS = {
         'edmodo': {
@@ -133,7 +147,7 @@ will need to set it as having "CREST Access". The least obtrusive scope is
 
 
 Evernote
-----------
+--------
 
 Register your OAuth2 application at `https://dev.evernote.com/doc/articles/authentication.php`::
 
@@ -175,7 +189,7 @@ The following Facebook settings are available::
             'SCOPE': ['email', 'public_profile', 'user_friends'],
             'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
             'FIELDS': [
-	        'id',
+                'id',
                 'email',
                 'name',
                 'first_name',
@@ -293,7 +307,7 @@ OAUTH_ENDPOINT:
 Flickr
 ------
 
-App registration
+App registration (get your key and secret here)
     https://www.flickr.com/services/apps/create/
 
 You can optionally specify the application permissions to use. If no `perms`
@@ -309,7 +323,7 @@ More info:
 GitHub
 ------
 
-App registration
+App registration (get your key and secret here)
     https://github.com/settings/applications/new
 
 
@@ -318,31 +332,32 @@ GitLab
 
 The GitLab provider works by default with https://gitlab.com. It allows you
 to connect to your private GitLab server and use GitLab as an OAuth2
-authentication provider as described in GitLab docs here:
+authentication provider as described in GitLab docs at
+http://doc.gitlab.com/ce/integration/oauth_provider.html
 
-    http://doc.gitlab.com/ce/integration/oauth_provider.html
-
-Following GitLab settings are available, if unset https://gitlab.com will
+The following GitLab settings are available, if unset https://gitlab.com will
 be used.
 
 GITLAB_URL:
     Override endpoint to request an authorization and access token. For your
-    private GitLab server you use:
-
-        https://your.gitlab.server.tld
+    private GitLab server you use: ``https://your.gitlab.server.tld``
 
 
 Google
 ------
 
-The Google provider is OAuth2 based. More info:
-`http://code.google.com/apis/accounts/docs/OAuth2.html#Registering`.
+The Google provider is OAuth2 based.
+
+More info:
+    http://code.google.com/apis/accounts/docs/OAuth2.html#Registering
 
 
 App registration
 ****************
-Create a google app to obtain a key and secret through the developer console:
-        https://console.developers.google.com/
+Create a google app to obtain a key and secret through the developer console.
+
+Google Developer Console
+    https://console.developers.google.com/
 
 After you create a project you will have to create a "Client ID" and fill in some project details for the consent form that will be presented to the client.
 
@@ -353,7 +368,8 @@ Users that login using the app will be presented a consent form. For this to wor
 
 Django configuration
 ********************
-The app credentials are configured for your Django installation via the admin interface. Create a new socialapp through `/admin/socialaccount/socialapp/`.
+The app credentials are configured for your Django installation via the admin
+interface. Create a new socialapp through ``/admin/socialaccount/socialapp/``.
 
 Fill in the form as follows:
 
@@ -378,10 +394,10 @@ depending on whether or not `SOCIALACCOUNT_QUERY_EMAIL` is enabled.
 Instagram
 ---------
 
-App registration:
+App registration (get your key and secret here)
     https://www.instagram.com/developer/clients/manage/
 
-Example valid redirect URI:
+Development callback URL
     http://localhost:8000/accounts/instagram/login/callback/
 
 
@@ -420,15 +436,17 @@ error message when fetching the access token::
     missing required parameters, includes an invalid parameter value, parameter more then once. : Unable to retrieve access token : authorization code not found
 
 App registration (get your key and secret here)
-        https://www.linkedin.com/secure/developer?newapp=
+    https://www.linkedin.com/secure/developer?newapp=
+
 Development callback URL
-        Leave the OAuth redirect URL empty.
+    Leave the OAuth redirect URL empty.
 
 
 Odnoklassniki
 -------------
 
-Register your OAuth2 app here: http://apiok.ru/wiki/pages/viewpage.action?pageId=42476486
+Register your OAuth2 app here:
+    http://apiok.ru/wiki/pages/viewpage.action?pageId=42476486
 
 Development callback URL
     http://example.com/accounts/odnoklassniki/login/callback/
@@ -466,7 +484,7 @@ following template tag::
 
 
 ORCID
-------
+-----
 
 The ORCID provider should work out of the box provided that you are using the Production ORCID registry and the public API. In other settings, you will need to define the API you are using
 in your site's settings, as follows::
@@ -506,7 +524,7 @@ App registration (get your key and secret here)
     https://developer.paypal.com/webapps/developer/applications/myapps
 
 Development callback URL
-    http://example.com/paypal/login/callback
+    http://example.com/accounts/paypal/login/callback
 
 
 Persona
@@ -573,7 +591,7 @@ You can create login URLs like these as follows::
 Slack
 -----
 
-App registration
+App registration (get your key and secret here)
     https://api.slack.com/apps/new
 
 Development callback URL
@@ -587,6 +605,9 @@ SoundCloud
 
 SoundCloud allows you to choose between OAuth1 and OAuth2. Choose the
 latter.
+
+App registration (get your key and secret here)
+    http://soundcloud.com/you/apps/new
 
 Development callback URL
     http://example.com/accounts/soundcloud/login/callback/
@@ -613,27 +634,32 @@ Overflow, or Server Fault). This can be controlled by means of the
 
 Stripe
 ------
+
 You can register your OAuth2 app via the admin interface
     http://example.com/accounts/soundcloud/login/callback/
-
 
 See more in documentation
     https://stripe.com/docs/connect/standalone-accounts
 
+
 Twitch
 ------
-Register your OAuth2 app over at
+
+App registration (get your key and secret here)
     http://www.twitch.tv/kraken/oauth2/clients/new
+
 
 Twitter
 -------
 
-You will need to create a Twitter app and configure the Twitter provider for your Django application via the admin interface.
+You will need to create a Twitter app and configure the Twitter provider for
+your Django application via the admin interface.
 
 App registration
 ****************
 
-To register an app on Twitter you will need a Twitter account after which you can create a new app via::
+To register an app on Twitter you will need a Twitter account after which you
+can create a new app via::
 
     https://apps.twitter.com/app/new
 
@@ -647,14 +673,16 @@ For production use a callback URL such as::
 
    http://{{yourdomain}}.com/accounts/twitter/login/callback/
 
-To allow user's to login without authorizing each session select "Allow this application to be used to Sign in with Twitter" under the application's "Settings" tab.
+To allow user's to login without authorizing each session select "Allow this
+application to be used to Sign in with Twitter" under the application's
+"Settings" tab.
 
 App database configuration through admin
 ****************************************
 
-The second part of setting up the Twitter provider requires you to configure your Django application.
-Configuration is done by creating a Socialapp object in the admin.
-Add a social app on the admin page::
+The second part of setting up the Twitter provider requires you to configure
+your Django application. Configuration is done by creating a Socialapp object
+in the admin. Add a social app on the admin page::
 
     /admin/socialaccount/socialapp/
 
@@ -705,7 +733,7 @@ The configuration values come from your API dashboard on Untappd:
 Vimeo
 -----
 
-App registration
+App registration (get your key and secret here)
     https://developer.vimeo.com/apps
 
 Development callback URL
@@ -770,7 +798,7 @@ is set, will use `snsapi_login` by default.::
 Xing
 ----
 
-App registration
+App registration (get your key and secret here)
     https://dev.xing.com/applications
 
 Development callback URL

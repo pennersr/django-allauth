@@ -91,6 +91,19 @@ Development callback URL
     https://localhost:8000/accounts/battlenet/login/callback/
 
 
+Draugiem
+--------
+
+App registration (get your key and secret here)
+    https://www.draugiem.lv/applications/dev/create/?type=4
+
+Authentication documentation
+    https://www.draugiem.lv/applications/dev/docs/passport/
+
+Development callback URL
+    http://localhost:8000/accounts/draugiem/login/callback/
+
+
 Dropbox
 -------
 
@@ -103,19 +116,6 @@ Development callback URL
 Note that Dropbox has deprecated version 1 of their API as of 28 June 2016.
 This also affects apps. All new apps you create will automatically use OAuth
 2.0, and you have to use the ``dropbox_oauth2`` provider with ``allauth``.
-
-
-Draugiem
---------
-
-App registration (get your key and secret here)
-    https://www.draugiem.lv/applications/dev/create/?type=4
-
-Authentication documentation
-    https://www.draugiem.lv/applications/dev/docs/passport/
-
-Development callback URL
-    http://localhost:8000/accounts/draugiem/login/callback/
 
 
 Edmodo

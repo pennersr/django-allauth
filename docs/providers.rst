@@ -445,7 +445,7 @@ Development callback URL
 Odnoklassniki
 -------------
 
-Register your OAuth2 app here:
+App registration (get your key and secret here)
     http://apiok.ru/wiki/pages/viewpage.action?pageId=42476486
 
 Development callback URL
@@ -757,7 +757,10 @@ The Windows Live provider currently does not use any settings in
 `SOCIALACCOUNT_PROVIDERS`.
 
 App registration (get your key and secret here)
-        https://account.live.com/developers/applications/index
+    https://apps.dev.microsoft.com/#/appList
+
+Development callback URL
+    http://localhost:8000/accounts/windowslive/login/callback
 
 
 Weibo

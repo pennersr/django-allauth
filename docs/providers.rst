@@ -90,6 +90,16 @@ Register your app here (Mashery account required)
 Development callback URL
     https://localhost:8000/accounts/battlenet/login/callback/
 
+Bitbucket
+---------
+
+App registration (get your key and secret here)
+    https://bitbucket.org/account/user/{{yourusername}}/oauth-consumers/new
+    
+Make sure you select the Account:Read permission.
+
+Development callback URL
+    http://127.0.0.1:8000/accounts/bitbucket_oauth2/login/callback/
 
 Draugiem
 --------
@@ -325,7 +335,9 @@ GitHub
 
 App registration (get your key and secret here)
     https://github.com/settings/applications/new
-
+    
+Development callback URL
+    http://127.0.0.1:8000/accounts/github/login/callback/
 
 GitLab
 ------

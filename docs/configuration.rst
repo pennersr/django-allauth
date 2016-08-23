@@ -7,7 +7,7 @@ ACCOUNT_ADAPTER (="allauth.account.adapter.DefaultAccountAdapter")
   Specifies the adapter class to use, allowing you to alter certain
   default behaviour.
 
-ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS( (=True)
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS (=True)
   The default behaviour is to redirect authenticated users to
   `ACCOUNT_LOGIN_REDIRECT_URL` when they try accessing login/signup pages.
 

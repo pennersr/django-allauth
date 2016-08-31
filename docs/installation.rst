@@ -17,6 +17,16 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'django.core.context_processors.request',
         ...
     )
+    
+    # Django 1.8
+    TEMPLATES = {
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': ['templates'],
+            'APP_DIRS': True,
+            'OPTIONS': {'context_processors': TEMPLATE_CONTEXT_PROCESSORS}
+        },
+    }
 
     # If you are running Django 1.8+, specify the context processors
     # as follows:

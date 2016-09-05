@@ -9,6 +9,7 @@ from allauth.socialaccount.models import (SocialLogin,
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount import providers
+from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
                                                           OAuth2CallbackView)

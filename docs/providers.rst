@@ -648,7 +648,7 @@ Stripe
 ------
 
 You can register your OAuth2 app via the admin interface
-    http://example.com/accounts/soundcloud/login/callback/
+    http://example.com/accounts/stripe/login/callback/
 
 See more in documentation
     https://stripe.com/docs/connect/standalone-accounts

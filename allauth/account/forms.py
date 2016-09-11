@@ -253,6 +253,7 @@ class BaseSignupForm(_base_signup_form_class()):
         field_order = ['email', 'username']
         if app_settings.SIGNUP_EMAIL_ENTER_TWICE:
             self.fields["email2"] = forms.EmailField(
+                label=_("E-mail (again)"),
                 widget=forms.TextInput(
                     attrs={
                         'type': 'email',

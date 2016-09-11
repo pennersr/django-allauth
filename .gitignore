@@ -29,3 +29,4 @@ virtualenv
 
 *.prefs
 *.mo
+/.stfolder

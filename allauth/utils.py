@@ -2,6 +2,7 @@ import base64
 import re
 import unicodedata
 import json
+from collections import OrderedDict
 
 from django.core.exceptions import ImproperlyConfigured
 from django.core.validators import validate_email, ValidationError
@@ -217,14 +218,10 @@ def deserialize_instance(model, data):
 
 
 def set_form_field_order(form, fields_order):
-    if hasattr(form.fields, 'keyOrder'):
-        form.fields.keyOrder = fields_order
-    else:
-        # Python 2.7+
-        from collections import OrderedDict
-        assert isinstance(form.fields, OrderedDict)
-        form.fields = OrderedDict((f, form.fields[f])
-                                  for f in fields_order)
+    assert isinstance(form.fields, OrderedDict)
+    form.fields = OrderedDict(
+        (f, form.fields[f])
+        for f in fields_order)
 
 
 def build_absolute_uri(request, location, protocol=None):

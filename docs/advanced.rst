@@ -136,7 +136,7 @@ templates. Templates are named as follows::
 In case you want to include an HTML representation, add an HTML
 template as follows::
 
-    account/email/email_confirmation_message.html
+    account/email/email_confirmation_signup_message.html
 
 The project does not contain any HTML email templates out of the box.
 When you do provide these yourself, note that both the text and HTML

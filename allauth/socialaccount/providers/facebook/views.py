@@ -9,6 +9,7 @@ from allauth.socialaccount.models import (SocialLogin,
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount import providers
+from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
                                                           OAuth2CallbackView)
@@ -49,8 +50,11 @@ def fb_complete_login(request, app, token):
 
 class FacebookOAuth2Adapter(OAuth2Adapter):
     provider_id = FacebookProvider.id
+    provider_default_auth_url = 'https://www.facebook.com/dialog/oauth'
 
-    authorize_url = 'https://www.facebook.com/dialog/oauth'
+    settings = app_settings.PROVIDERS.get(provider_id, {})
+
+    authorize_url = settings.get('AUTHORIZE_URL', provider_default_auth_url)
     access_token_url = GRAPH_API_URL + '/oauth/access_token'
     expires_in_key = 'expires'
 

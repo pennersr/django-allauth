@@ -95,17 +95,15 @@ msgid "Login"
 msgstr "Identifiant"
 
 #: account/forms.py:268
-#, fuzzy
 #| msgid "email confirmation"
 msgid "E-mail address confirmation"
-msgstr "email de confirmation"
+msgstr "confirmation d'adresse email"
 
 #: account/forms.py:279
 msgid "E-mail (optional)"
 msgstr "E-mail (optionnel)"
 
 #: account/forms.py:319
-#, fuzzy
 #| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
 msgstr "Vous devez tapez deux fois le même mot de passe."
@@ -395,7 +393,7 @@ msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Voulez-vous vraiment retirer cette adresse e-mail ?"
 
 #: templates/account/email/email_confirmation_message.txt:1
-#, fuzzy, python-format
+#, python-format
 #| msgid ""
 #| "User %(user_display)s at %(site_name)s has given this as an email "
 #| "address.\n"
@@ -423,13 +421,12 @@ msgid ""
 msgstr ""
 
 #: templates/account/email/email_confirmation_subject.txt:3
-#, fuzzy
 #| msgid "Confirm E-mail Address"
 msgid "Please Confirm Your E-mail Address"
-msgstr "Confirmer l'adresse e-mail"
+msgstr "Confirmez l'adresse e-mail"
 
 #: templates/account/email/password_reset_key_message.txt:1
-#, fuzzy, python-format
+#, python-format
 #| msgid ""
 #| "You're receiving this e-mail because you or someone else has requested a "
 #| "password for your user account at %(site_domain)s.\n"
@@ -815,10 +812,9 @@ msgstr ""
 #~ msgid "This username is already taken. Please choose another."
 #~ msgstr "Ce pseudo est déjà pris, merci d'en choisir un autre."
 
-#, fuzzy
 #~| msgid "Sign In"
 #~ msgid "Shopify Sign In"
-#~ msgstr "Connexion"
+#~ msgstr "Connexion Shopify"
 
 #~ msgid ""
 #~ "You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an "

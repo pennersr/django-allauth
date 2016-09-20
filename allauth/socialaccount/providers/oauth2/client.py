@@ -12,7 +12,7 @@ class OAuth2Error(Exception):
 
 class OAuth2Client(object):
 
-    def __init__(self, request, consumer_key, consumer_secret,
+    def __init__(self, request, consumer_key, consumer_secret, api_key,
                  access_token_method,
                  access_token_url,
                  callback_url,
@@ -24,6 +24,8 @@ class OAuth2Client(object):
         self.access_token_method = access_token_method
         self.access_token_url = access_token_url
         self.callback_url = callback_url
+        if api_key is not None:
+            self.api_key = api_key
         self.consumer_key = consumer_key
         self.consumer_secret = consumer_secret
         self.scope = scope_delimiter.join(set(scope))
@@ -36,7 +38,8 @@ class OAuth2Client(object):
             'client_id': self.consumer_key,
             'redirect_uri': self.callback_url,
             'scope': self.scope,
-            'response_type': 'code'
+            'response_type': 'code',
+            'api_key': self.api_key
         }
         if self.state:
             params['state'] = self.state

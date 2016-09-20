@@ -155,6 +155,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.vimeo',
     'allauth.socialaccount.providers.weibo',
+    'allauth.socialaccount.providers.surveymonkey',
     'allauth.socialaccount.providers.xing',
     'example.demo'
 )

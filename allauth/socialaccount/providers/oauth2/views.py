@@ -71,7 +71,7 @@ class OAuth2View(object):
             protocol=self.adapter.redirect_uri_protocol)
         provider = self.adapter.get_provider()
         scope = provider.get_scope(request)
-        client = OAuth2Client(self.request, app.client_id, app.secret,
+        client = OAuth2Client(self.request, app.client_id, app.secret, app.key,
                               self.adapter.access_token_method,
                               self.adapter.access_token_url,
                               callback_url,

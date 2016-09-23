@@ -13,11 +13,11 @@ class SurveyMonkey2Provider(OAuth2Provider):
     account_class = SurveyMonkeyOAuth2Account
 
     def extract_uid(self, data):
-        raise wtf
+        # raise wtf
         return data['userdetails']["user_id"]
 
     def extract_common_fields(self, data):
-        raise wtf
+        #raise wtf
         return dict(name=data["userdetails"].get('username'))
                     # email=data.get('email'))
 

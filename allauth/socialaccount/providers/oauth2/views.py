@@ -1,5 +1,4 @@
 from __future__ import absolute_import
-
 from datetime import timedelta
 
 from django.core.exceptions import PermissionDenied
@@ -71,14 +70,15 @@ class OAuth2View(object):
             protocol=self.adapter.redirect_uri_protocol)
         provider = self.adapter.get_provider()
         scope = provider.get_scope(request)
-        client = OAuth2Client(self.request, app.client_id, app.secret, app.key,
+        client = OAuth2Client(self.request, app.client_id, app.secret,
                               self.adapter.access_token_method,
                               self.adapter.access_token_url,
                               callback_url,
                               scope,
                               scope_delimiter=self.adapter.scope_delimiter,
                               headers=self.adapter.headers,
-                              basic_auth=self.adapter.basic_auth)
+                              basic_auth=self.adapter.basic_auth,
+                              api_key=app.key)
         return client
 
 
@@ -103,6 +103,8 @@ class OAuth2LoginView(OAuth2View):
 
 class OAuth2CallbackView(OAuth2View):
     def dispatch(self, request):
+        print "CALLBACK Y'ALL"
+        print request.GET
         if 'error' in request.GET or 'code' not in request.GET:
             # Distinguish cancel from error
             auth_error = request.GET.get('error', None)
@@ -116,9 +118,12 @@ class OAuth2CallbackView(OAuth2View):
                 error=error)
         app = self.adapter.get_provider().get_app(self.request)
         client = self.get_client(request, app)
+
         try:
             access_token = client.get_access_token(request.GET['code'])
+            print 'access_token', access_token
             token = self.adapter.parse_token(access_token)
+            print 'token', token
             token.app = app
             login = self.adapter.complete_login(request,
                                                 app,

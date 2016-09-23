@@ -13,12 +13,9 @@ class SurveyMonkey2Provider(OAuth2Provider):
     account_class = SurveyMonkeyOAuth2Account
 
     def extract_uid(self, data):
-        # raise wtf
-        return data['userdetails']["user_id"]
+        return data['user_details']["user_id"]
 
     def extract_common_fields(self, data):
-        #raise wtf
-        return dict(name=data["userdetails"].get('username'))
-                    # email=data.get('email'))
+        return dict(data["user_details"])
 
 providers.registry.register(SurveyMonkey2Provider)

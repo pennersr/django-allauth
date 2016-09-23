@@ -151,11 +151,11 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.slack',
     'allauth.socialaccount.providers.soundcloud',
     'allauth.socialaccount.providers.stackexchange',
+    'allauth.socialaccount.providers.surveymonkey',
     'allauth.socialaccount.providers.twitch',
     'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.vimeo',
     'allauth.socialaccount.providers.weibo',
-    'allauth.socialaccount.providers.surveymonkey',
     'allauth.socialaccount.providers.xing',
     'example.demo'
 )

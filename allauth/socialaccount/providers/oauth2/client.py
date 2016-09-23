@@ -12,26 +12,26 @@ class OAuth2Error(Exception):
 
 class OAuth2Client(object):
 
-    def __init__(self, request, consumer_key, consumer_secret, api_key,
+    def __init__(self, request, consumer_key, consumer_secret,
                  access_token_method,
                  access_token_url,
                  callback_url,
                  scope,
                  scope_delimiter=' ',
                  headers=None,
-                 basic_auth=False):
+                 basic_auth=False,
+                 api_key=None):
         self.request = request
         self.access_token_method = access_token_method
         self.access_token_url = access_token_url
         self.callback_url = callback_url
-        if api_key is not None:
-            self.api_key = api_key
         self.consumer_key = consumer_key
         self.consumer_secret = consumer_secret
         self.scope = scope_delimiter.join(set(scope))
         self.state = None
         self.headers = None
         self.basic_auth = basic_auth
+        self.api_key = api_key
 
     def get_redirect_url(self, authorization_url, extra_params):
         params = {
@@ -61,13 +61,16 @@ class OAuth2Client(object):
                 'client_id': self.consumer_key,
                 'client_secret': self.consumer_secret
             })
-        params = None
+        params = {}
         self._strip_empty_keys(data)
         url = self.access_token_url
         if self.access_token_method == 'GET':
             params = data
             data = None
+        if self.api_key is not None:
+            params.update({'api_key': self.api_key})
         # TODO: Proper exception handling
+
         resp = requests.request(
             self.access_token_method,
             url,
@@ -75,6 +78,9 @@ class OAuth2Client(object):
             data=data,
             headers=self.headers,
             auth=auth)
+        
+        print 'status_code', resp.status_code
+        print 'body', resp.text
 
         access_token = None
         if resp.status_code == 200:

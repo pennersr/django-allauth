@@ -78,7 +78,7 @@ class OAuth2Client(object):
             data=data,
             headers=self.headers,
             auth=auth)
-        
+
         print 'status_code', resp.status_code
         print 'body', resp.text
 

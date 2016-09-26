@@ -166,7 +166,7 @@ class SocialLogin(object):
     prefilled by the provider for use as a starting point later on
     during the signup process.
 
-    `token` (`SocialToken` instance): An optional access token token
+    `token` (`SocialToken` instance): An optional access token
     that results from performing a successful authentication
     handshake.
 

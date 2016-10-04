@@ -28,7 +28,7 @@ class GitHubOAuth2Adapter(OAuth2Adapter):
         resp = requests.get(self.emails_url,
                             params={'access_token': token.token})
         emails = resp.json()
-        if emails:
+        if resp.status_code == 200 and emails:
             email = emails[0]
             primary_emails = [
                 e for e in emails

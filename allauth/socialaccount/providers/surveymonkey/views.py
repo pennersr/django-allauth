@@ -2,8 +2,8 @@ from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
                                                           OAuth2LoginView,
                                                           OAuth2CallbackView)
 import requests
-
 from .provider import SurveyMonkey2Provider
+
 
 
 class SurveyMonkey2Adapter(OAuth2Adapter):
@@ -11,7 +11,7 @@ class SurveyMonkey2Adapter(OAuth2Adapter):
     access_token_url = "https://api.surveymonkey.net/oauth/token"
     authorize_url = "https://api.surveymonkey.net/oauth/authorize"
     profile_url = "https://api.surveymonkey.net/v2/user/get_user_details"
-    redirect_uri_protocol = 'http'  # or https?
+    redirect_uri_protocol = 'http'  # or 'https'
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {
@@ -22,9 +22,6 @@ class SurveyMonkey2Adapter(OAuth2Adapter):
         extra_data = requests.post(self.profile_url, params={
             'api_key': app.key
         }, headers=headers)
-
-        print 'extra_data.status_code', extra_data.status_code
-        print 'extra_data.text', extra_data.text
 
         extra_data = extra_data.json()
         extra_data = extra_data['data']

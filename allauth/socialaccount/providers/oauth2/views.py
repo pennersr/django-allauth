@@ -103,8 +103,6 @@ class OAuth2LoginView(OAuth2View):
 
 class OAuth2CallbackView(OAuth2View):
     def dispatch(self, request):
-        print "CALLBACK Y'ALL"
-        print request.GET
         if 'error' in request.GET or 'code' not in request.GET:
             # Distinguish cancel from error
             auth_error = request.GET.get('error', None)
@@ -121,9 +119,7 @@ class OAuth2CallbackView(OAuth2View):
 
         try:
             access_token = client.get_access_token(request.GET['code'])
-            print 'access_token', access_token
             token = self.adapter.parse_token(access_token)
-            print 'token', token
             token.app = app
             login = self.adapter.complete_login(request,
                                                 app,

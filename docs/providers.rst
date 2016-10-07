@@ -95,11 +95,23 @@ Bitbucket
 
 App registration (get your key and secret here)
     https://bitbucket.org/account/user/{{yourusername}}/oauth-consumers/new
-    
+
 Make sure you select the Account:Read permission.
 
 Development callback URL
     http://127.0.0.1:8000/accounts/bitbucket_oauth2/login/callback/
+
+Doximity
+--------
+Doximity Oauth2 implementation documentation
+    https://www.doximity.com/developers/documentation#oauth
+
+Request API keys here
+    https://www.doximity.com/developers/api_signup
+
+Development callback URL
+    http://localhost:8000/accounts/doximity/login/callback/
+
 
 Draugiem
 --------
@@ -335,7 +347,7 @@ GitHub
 
 App registration (get your key and secret here)
     https://github.com/settings/applications/new
-    
+
 Development callback URL
     http://127.0.0.1:8000/accounts/github/login/callback/
 

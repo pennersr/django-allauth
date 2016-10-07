@@ -13,10 +13,31 @@ Resources:
     https://us.battle.net/en/forum/15051532/
 """
 import requests
+from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter, OAuth2CallbackView, OAuth2LoginView
 )
 from .provider import BattleNetProvider
+
+
+def _check_errors(data):
+    # The expected output from the Battle.net API follows this format:
+    # {"id": 12345, "battletag": "Example#12345"}
+    # The battletag is optional.
+    if "error" in data:
+        # For errors, we expect the following format:
+        # {"error": "error_name", "error_description": "Oops!"}
+        # For example, if the token is not valid, we will get:
+        # {
+        #   "error": "invalid_token",
+        #   "error_description": "Invalid access token: abcdef123456"
+        # }
+        error = data["error"]
+        desc = data.get("error_description", "")
+        raise OAuth2Error("Battle.net error: %s (%s)" % (error, desc))
+    elif "id" not in data:
+        # If the id is not present, the output is not usable (no UID)
+        raise OAuth2Error("Invalid data from Battle.net API: %r" % (data))
 
 
 class BattleNetOAuth2Adapter(OAuth2Adapter):
@@ -61,6 +82,7 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
         params = {"access_token": token.token}
         response = requests.get(self.profile_url, params=params)
         data = response.json()
+        _check_errors(data)
         return self.get_provider().sociallogin_from_response(request, data)
 
 oauth2_login = OAuth2LoginView.adapter_view(BattleNetOAuth2Adapter)

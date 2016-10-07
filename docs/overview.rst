@@ -53,6 +53,8 @@ Supported Providers
 
 - Douban (OAuth2)
 
+- Doximity (OAuth2)
+
 - Dropbox (OAuth, OAuth2)
 
 - Edmodo (OAuth2)

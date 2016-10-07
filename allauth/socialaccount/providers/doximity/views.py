@@ -12,8 +12,6 @@ class DoximityOAuth2Adapter(OAuth2Adapter):
     access_token_url = 'https://auth.doximity.com/oauth/token'
     authorize_url = 'https://auth.doximity.com/oauth/authorize'
     profile_url = 'https://www.doximity.com/api/v1/users/current'
-    # redirect_uri_protocol = 'https'
-
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {'Authorization': 'Bearer %s' % token.token}

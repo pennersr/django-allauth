@@ -50,7 +50,6 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
     Can be any of eu, us, kr, sea, tw or cn
     """
     provider_id = BattleNetProvider.id
-    supports_state = True
     battlenet_region = "us"
 
     @property

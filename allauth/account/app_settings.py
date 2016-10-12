@@ -46,7 +46,8 @@ class AppSettings(object):
         verification emails to an email address.
         """
         from datetime import timedelta
-        return self._setting("ACCOUNT_EMAIL_COOLDOWN_PERIOD", timedelta(minutes=3))
+        return self._setting("ACCOUNT_EMAIL_COOLDOWN_PERIOD",
+                             timedelta(minutes=3))
 
     @property
     def DEFAULT_HTTP_PROTOCOL(self):

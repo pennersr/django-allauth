@@ -1,4 +1,3 @@
-from datetime import timedelta
 try:
     from django.utils.timezone import now
 except ImportError:
@@ -15,8 +14,6 @@ from django.utils.http import int_to_base36, base36_to_int
 from django.core.exceptions import ValidationError
 
 from allauth.compat import OrderedDict
-
-from . import app_settings
 
 try:
     from django.contrib.auth import update_session_auth_hash

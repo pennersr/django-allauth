@@ -16,6 +16,8 @@ from django.core.exceptions import ValidationError
 
 from allauth.compat import OrderedDict
 
+from . import app_settings
+
 try:
     from django.contrib.auth import update_session_auth_hash
 except ImportError:
@@ -293,7 +295,7 @@ def send_email_confirmation(request, user, signup=False):
     """
     from .models import EmailAddress, EmailConfirmation
 
-    COOLDOWN_PERIOD = timedelta(minutes=3)
+    COOLDOWN_PERIOD = app_settings.ACCOUNT_EMAIL_COOLDOWN_PERIOD
     email = user_email(user)
     if email:
         try:

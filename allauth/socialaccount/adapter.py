@@ -6,7 +6,9 @@ from django.core.exceptions import ValidationError
 
 from ..utils import (import_attribute,
                      email_address_exists,
-                     valid_email_or_none)
+                     valid_email_or_none,
+                     serialize_instance,
+                     deserialize_instance)
 from ..account.utils import user_email, user_username, user_field
 from ..account.models import EmailAddress
 from ..account.adapter import get_adapter as get_account_adapter
@@ -180,6 +182,12 @@ class DefaultSocialAccountAdapter(object):
             'first_name': user_field(user, 'first_name') or '',
             'last_name': user_field(user, 'last_name') or ''}
         return initial
+
+    def deserialize_instance(self, model, data):
+        return deserialize_instance(model, data)
+
+    def serialize_instance(self, instance):
+        return serialize_instance(instance)
 
 
 def get_adapter(request=None):

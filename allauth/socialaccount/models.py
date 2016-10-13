@@ -15,9 +15,9 @@ except ImportError:
 import allauth.app_settings
 from allauth.account.models import EmailAddress
 from allauth.account.utils import get_next_redirect_url, setup_user_email
-from allauth.utils import (get_user_model, get_current_site,
-                           serialize_instance, deserialize_instance)
+from allauth.utils import (get_user_model, get_current_site)
 
+from .adapter import get_adapter
 from . import app_settings
 from . import providers
 from .fields import JSONField
@@ -194,6 +194,7 @@ class SocialLogin(object):
         self.save(request, connect=True)
 
     def serialize(self):
+        serialize_instance = get_adapter().serialize_instance
         ret = dict(account=serialize_instance(self.account),
                    user=serialize_instance(self.user),
                    state=self.state,
@@ -205,6 +206,7 @@ class SocialLogin(object):
 
     @classmethod
     def deserialize(cls, data):
+        deserialize_instance = get_adapter().deserialize_instance
         account = deserialize_instance(SocialAccount, data['account'])
         user = deserialize_instance(get_user_model(), data['user'])
         if 'token' in data:

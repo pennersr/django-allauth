@@ -8,7 +8,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.validators import validate_email, ValidationError
 from django.core import urlresolvers
 from django.contrib.sites.models import Site
-from django.db.models import FieldDoesNotExist
+from django.db.models import FieldDoesNotExist, FileField
 from django.db.models.fields import (DateTimeField, DateField,
                                      EmailField, TimeField,
                                      BinaryField)
@@ -174,6 +174,9 @@ def resolve_url(to):
     return to
 
 
+SERIALIZED_DB_FIELD_PREFIX = '_db_'
+
+
 def serialize_instance(instance):
     """
     Since Django 1.6 items added to the session are no longer pickled,
@@ -187,8 +190,19 @@ def serialize_instance(instance):
         if k.startswith('_') or callable(v):
             continue
         try:
-            if isinstance(instance._meta.get_field(k), BinaryField):
+            field = instance._meta.get_field(k)
+            if isinstance(field, BinaryField):
                 v = force_text(base64.b64encode(v))
+            elif isinstance(field, FileField):
+                if not isinstance(v, six.string_types):
+                    v = v.name
+            # Check if the field is serializable. If not, we'll fall back
+            # to serializing the DB values which should cover most use cases.
+            try:
+                json.dumps(v, cls=DjangoJSONEncoder)
+            except TypeError:
+                v = field.get_prep_value(v)
+                k = SERIALIZED_DB_FIELD_PREFIX + k
         except FieldDoesNotExist:
             pass
         data[k] = v
@@ -198,6 +212,10 @@ def serialize_instance(instance):
 def deserialize_instance(model, data):
     ret = model()
     for k, v in data.items():
+        is_db_value = False
+        if k.startswith(SERIALIZED_DB_FIELD_PREFIX):
+            k = k[len(SERIALIZED_DB_FIELD_PREFIX):]
+            is_db_value = True
         if v is not None:
             try:
                 f = model._meta.get_field(k)
@@ -211,6 +229,16 @@ def deserialize_instance(model, data):
                     v = force_bytes(
                         base64.b64decode(
                             force_bytes(v)))
+                elif is_db_value:
+                    try:
+                        # This is quite an ugly hack, but will cover most
+                        # use cases...
+                        v = f.from_db_value(v, None, None, None)
+                    except:
+                        raise ImproperlyConfigured(
+                            "Unable to auto serialize field '{}', custom"
+                            " serialization override required".format(k)
+                        )
             except FieldDoesNotExist:
                 pass
         setattr(ret, k, v)

@@ -1,3 +1,14 @@
+0.28.0 (2016-10-13)
+*******************
+
+Note worthy changes
+-------------------
+
+- New providers: Doximity.
+
+- New translations: Korean.
+
+
 0.27.0 (2016-08-18)
 *******************
 

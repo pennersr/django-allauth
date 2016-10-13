@@ -50,7 +50,6 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
     Can be any of eu, us, kr, sea, tw or cn
     """
     provider_id = BattleNetProvider.id
-    supports_state = True
     battlenet_region = "us"
 
     @property
@@ -83,6 +82,10 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
         response = requests.get(self.profile_url, params=params)
         data = response.json()
         _check_errors(data)
+
+        # Add the region to the data so that we can have it in `extra_data`.
+        data["region"] = self.battlenet_region
+
         return self.get_provider().sociallogin_from_response(request, data)
 
 oauth2_login = OAuth2LoginView.adapter_view(BattleNetOAuth2Adapter)

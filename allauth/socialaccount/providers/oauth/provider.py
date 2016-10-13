@@ -19,7 +19,7 @@ class OAuthProvider(Provider):
 
     def get_auth_params(self, request, action):
         settings = self.get_settings()
-        ret = settings.get('AUTH_PARAMS', {})
+        ret = dict(settings.get('AUTH_PARAMS', {}))
         dynamic_auth_params = request.GET.get('auth_params', None)
         if dynamic_auth_params:
             ret.update(dict(parse_qsl(dynamic_auth_params)))

@@ -1,6 +1,19 @@
 0.28.0 (2016-10-13)
 *******************
 
+Security notice
+---------------
+
+- Previous versions contained a vulnerability allowing an attacker to alter the
+  provider specific settings for ``SCOPE`` and/or ``AUTH_PARAMS`` (part of the
+  larger ``SOCIALACCOUNT_PROVIDERS`` setting). The changes would persist across
+  subsequent requests for all users, provided these settings were explicitly set
+  within your project. These settings translate directly into request
+  parameters, giving the attacker undesirable control over the OAuth(2)
+  handshake. You are not affected if you did not explicitly configure these
+  settings. Thanks to Ryan Kelly for reporting!
+
+
 Note worthy changes
 -------------------
 

@@ -9,7 +9,7 @@ from django.shortcuts import redirect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.utils.decorators import method_decorator
 
-from ..compat import reverse, reverse_lazy
+from ..compat import is_anonymous, reverse, reverse_lazy
 from ..exceptions import ImmediateHttpResponse
 from ..utils import get_form_class, get_request_param, get_current_site
 
@@ -288,7 +288,7 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         if user_pk_str:
             user_pk = url_str_to_user_pk(user_pk_str)
         user = confirmation.email_address.user
-        if user_pk == user.pk and self.request.user.is_anonymous():
+        if user_pk == user.pk and is_anonymous(self.request.user):
             return perform_login(self.request,
                                  user,
                                  app_settings.EmailVerificationMethod.NONE,

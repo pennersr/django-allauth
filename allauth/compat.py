@@ -47,3 +47,10 @@ def template_context_value(context, key):
     except KeyError:
         value = getattr(context, key)
     return value
+
+
+def is_anonymous(user):
+    if django.VERSION > (1, 10,):
+        return user.is_anonymous
+    else:
+        return user.is_anonymous()

@@ -10,7 +10,7 @@ from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.exceptions import ImmediateHttpResponse
 from .providers.base import AuthProcess, AuthError
 
-from ..compat import reverse
+from ..compat import is_anonymous, reverse
 
 from .models import SocialLogin
 
@@ -98,7 +98,7 @@ def render_authentication_error(request,
 
 
 def _add_social_account(request, sociallogin):
-    if request.user.is_anonymous():
+    if is_anonymous(request.user):
         # This should not happen. Simply redirect to the connections
         # view (which has a login required)
         return HttpResponseRedirect(reverse('socialaccount_connections'))

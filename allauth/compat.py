@@ -54,3 +54,10 @@ def is_anonymous(user):
         return user.is_anonymous
     else:
         return user.is_anonymous()
+
+
+def is_authenticated(user):
+    if django.VERSION > (1, 10,):
+        return user.is_authenticated
+    else:
+        return user.is_authenticated()

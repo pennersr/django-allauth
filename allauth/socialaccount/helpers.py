@@ -10,7 +10,7 @@ from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.exceptions import ImmediateHttpResponse
 from .providers.base import AuthProcess, AuthError
 
-from ..compat import is_anonymous, reverse
+from ..compat import is_anonymous, is_authenticated, reverse
 
 from .models import SocialLogin
 
@@ -159,7 +159,7 @@ def _social_login_redirect(request, sociallogin):
 
 
 def _complete_social_login(request, sociallogin):
-    if request.user.is_authenticated():
+    if is_authenticated(request.user):
         get_account_adapter().logout(request)
     if sociallogin.is_existing:
         # Login existing user

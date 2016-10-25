@@ -26,7 +26,7 @@ try:
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
-from ..compat import reverse, validate_password
+from ..compat import is_authenticated, reverse, validate_password
 from ..utils import (build_absolute_uri, get_current_site,
                      generate_unique_username,
                      get_user_model, import_attribute,
@@ -145,7 +145,7 @@ class DefaultAccountAdapter(object):
         that URLs passed explicitly (e.g. by passing along a `next`
         GET parameter) take precedence over the value returned here.
         """
-        assert request.user.is_authenticated()
+        assert is_authenticated(request.user)
         url = getattr(settings, "LOGIN_REDIRECT_URLNAME", None)
         if url:
             warnings.warn("LOGIN_REDIRECT_URLNAME is deprecated, simply"
@@ -168,7 +168,7 @@ class DefaultAccountAdapter(object):
         """
         The URL to return to after successful e-mail confirmation.
         """
-        if request.user.is_authenticated():
+        if is_authenticated(request.user):
             if app_settings.EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL:
                 return  \
                     app_settings.EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL

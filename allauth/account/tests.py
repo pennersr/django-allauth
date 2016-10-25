@@ -27,7 +27,7 @@ from allauth.utils import (
     get_user_model,
     get_username_max_length)
 
-from ..compat import reverse
+from ..compat import is_authenticated, reverse
 
 from . import app_settings
 
@@ -321,7 +321,7 @@ class AccountTests(TestCase):
             url,
             {'password1': 'newpass123',
              'password2': 'newpass123'})
-        self.assertTrue(user.is_authenticated())
+        self.assertTrue(is_authenticated(user))
         # EmailVerificationMethod.MANDATORY sends us to the confirm-email page
         self.assertRedirects(resp, '/confirm-email/')
 

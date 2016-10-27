@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
                 ('last_login', models.DateTimeField(auto_now=True, verbose_name='last login')),
                 ('date_joined', models.DateTimeField(auto_now_add=True, verbose_name='date joined')),
                 ('extra_data', allauth.socialaccount.fields.JSONField(default='{}', verbose_name='extra data')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'social account',
@@ -56,8 +56,8 @@ class Migration(migrations.Migration):
                 ('token', models.TextField(help_text='"oauth_token" (OAuth1) or access token (OAuth2)', verbose_name='token')),
                 ('token_secret', models.TextField(help_text='"oauth_token_secret" (OAuth1) or refresh token (OAuth2)', verbose_name='token secret', blank=True)),
                 ('expires_at', models.DateTimeField(null=True, verbose_name='expires at', blank=True)),
-                ('account', models.ForeignKey(to='socialaccount.SocialAccount')),
-                ('app', models.ForeignKey(to='socialaccount.SocialApp')),
+                ('account', models.ForeignKey(to='socialaccount.SocialAccount', on_delete=models.CASCADE)),
+                ('app', models.ForeignKey(to='socialaccount.SocialApp', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'social application token',

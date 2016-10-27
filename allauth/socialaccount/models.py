@@ -76,7 +76,8 @@ class SocialApp(models.Model):
 
 @python_2_unicode_compatible
 class SocialAccount(models.Model):
-    user = models.ForeignKey(allauth.app_settings.USER_MODEL)
+    user = models.ForeignKey(allauth.app_settings.USER_MODEL,
+                             on_delete=models.CASCADE)
     provider = models.CharField(verbose_name=_('provider'),
                                 max_length=30,
                                 choices=providers.registry.as_choices())
@@ -130,8 +131,8 @@ class SocialAccount(models.Model):
 
 @python_2_unicode_compatible
 class SocialToken(models.Model):
-    app = models.ForeignKey(SocialApp)
-    account = models.ForeignKey(SocialAccount)
+    app = models.ForeignKey(SocialApp, on_delete=models.CASCADE)
+    account = models.ForeignKey(SocialAccount, on_delete=models.CASCADE)
     token = models.TextField(
         verbose_name=_('token'),
         help_text=_(

@@ -1,11 +1,11 @@
 from hashlib import md5
 import requests
 
-from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.utils.http import urlencode
 from django.views.decorators.csrf import csrf_exempt
 
+from allauth.compat import reverse
 from allauth.socialaccount import providers
 from allauth.socialaccount.models import SocialLogin, SocialToken
 from allauth.socialaccount.helpers import complete_social_login

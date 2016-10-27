@@ -1,5 +1,4 @@
-from django.core.urlresolvers import reverse
-
+from allauth.compat import reverse
 from allauth.account.models import EmailAddress
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount

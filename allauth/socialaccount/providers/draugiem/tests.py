@@ -1,9 +1,9 @@
 from hashlib import md5
 
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
 from django.utils.http import urlencode
 
+from allauth.compat import reverse
 from allauth.socialaccount import providers
 from allauth.socialaccount.models import SocialToken, SocialApp
 from allauth.utils import get_current_site

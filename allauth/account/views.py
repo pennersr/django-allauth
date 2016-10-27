@@ -1,4 +1,3 @@
-from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import (HttpResponseRedirect, Http404,
                          HttpResponsePermanentRedirect)
 from django.views.generic.base import TemplateResponseMixin, View, TemplateView
@@ -10,6 +9,7 @@ from django.shortcuts import redirect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.utils.decorators import method_decorator
 
+from ..compat import reverse, reverse_lazy
 from ..exceptions import ImmediateHttpResponse
 from ..utils import get_form_class, get_request_param, get_current_site
 

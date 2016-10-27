@@ -1,9 +1,9 @@
 import json
 
-from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 from django.test.client import RequestFactory
 
+from allauth.compat import reverse
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase, patch
 from allauth.socialaccount.models import SocialAccount

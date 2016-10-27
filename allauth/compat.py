@@ -1,5 +1,10 @@
 import django
 
+if django.VERSION > (1, 10,):
+    from django.urls import NoReverseMatch, reverse, reverse_lazy
+else:
+    from django.core.urlresolvers import NoReverseMatch, reverse, reverse_lazy  # noqa
+
 if django.VERSION > (1, 8,):
     from collections import OrderedDict
 else:

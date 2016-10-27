@@ -2,7 +2,6 @@ from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.forms import ValidationError
-from django.core.urlresolvers import reverse
 
 from allauth.account.utils import (perform_login, complete_signup,
                                    user_username)
@@ -10,6 +9,8 @@ from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.exceptions import ImmediateHttpResponse
 from .providers.base import AuthProcess, AuthError
+
+from ..compat import reverse
 
 from .models import SocialLogin
 

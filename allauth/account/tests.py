@@ -7,7 +7,6 @@ import django
 from django.utils.timezone import now
 from django.test.utils import override_settings
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.test.client import Client
 from django.core import mail
 from django.test.client import RequestFactory
@@ -27,6 +26,8 @@ from allauth.utils import (
     get_current_site,
     get_user_model,
     get_username_max_length)
+
+from ..compat import reverse
 
 from . import app_settings
 

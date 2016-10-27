@@ -3,12 +3,12 @@ from __future__ import absolute_import
 import warnings
 
 from django import forms
-from django.core.urlresolvers import reverse
 from django.core import exceptions
 from django.utils.translation import pgettext, ugettext_lazy as _, ugettext
 from django.core import validators
 from django.contrib.auth.tokens import default_token_generator
 
+from ..compat import reverse
 from ..utils import (set_form_field_order,
                      build_absolute_uri,
                      get_username_max_length,

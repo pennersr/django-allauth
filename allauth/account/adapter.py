@@ -14,7 +14,6 @@ from django.contrib.auth import logout as django_logout, authenticate
 from django.contrib.auth.models import AbstractUser
 from django.core.cache import cache
 from django.core.mail import EmailMultiAlternatives, EmailMessage
-from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.template.loader import render_to_string
@@ -27,7 +26,7 @@ try:
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
-from ..compat import validate_password
+from ..compat import reverse, validate_password
 from ..utils import (build_absolute_uri, get_current_site,
                      generate_unique_username,
                      get_user_model, import_attribute,

@@ -7,13 +7,13 @@ from django.contrib.auth.models import User
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
 from django.core import mail
-from django.core.urlresolvers import reverse
 
 try:
     from importlib import import_module
 except ImportError:
     from django.utils.importlib import import_module
 
+from allauth.compat import reverse
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.account import app_settings as account_settings
 from allauth.account.models import EmailConfirmation, EmailAddress

@@ -1,13 +1,12 @@
 import json
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.core.exceptions import ImproperlyConfigured
 from django.middleware.csrf import get_token
 from django.utils.html import mark_safe, escapejs
 from django.utils.http import urlquote
 from django.utils.crypto import get_random_string
 
-from allauth.compat import render_to_string
+from allauth.compat import render_to_string, reverse
 from allauth.utils import import_callable
 from allauth.account.models import EmailAddress
 from allauth.socialaccount import providers

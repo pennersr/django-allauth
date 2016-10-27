@@ -3,9 +3,9 @@ try:
 except ImportError:
     from urlparse import parse_qsl
 
-from django.core.urlresolvers import reverse
 from django.utils.http import urlencode
 
+from allauth.compat import reverse
 from allauth.socialaccount.providers.base import Provider
 
 

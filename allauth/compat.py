@@ -1,5 +1,10 @@
 import django
 
+if django.VERSION > (1, 10,):
+    from django.urls import NoReverseMatch, reverse, reverse_lazy
+else:
+    from django.core.urlresolvers import NoReverseMatch, reverse, reverse_lazy  # noqa
+
 if django.VERSION > (1, 8,):
     from collections import OrderedDict
 else:
@@ -42,3 +47,17 @@ def template_context_value(context, key):
     except KeyError:
         value = getattr(context, key)
     return value
+
+
+def is_anonymous(user):
+    if django.VERSION > (1, 10,):
+        return user.is_anonymous
+    else:
+        return user.is_anonymous()
+
+
+def is_authenticated(user):
+    if django.VERSION > (1, 10,):
+        return user.is_authenticated
+    else:
+        return user.is_authenticated()

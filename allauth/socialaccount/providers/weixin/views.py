@@ -1,7 +1,6 @@
 import requests
 
-from django.core.urlresolvers import reverse
-
+from allauth.compat import reverse
 from allauth.utils import build_absolute_uri
 from allauth.account import app_settings
 from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,

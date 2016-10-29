@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 
@@ -8,6 +7,7 @@ from openid.consumer import consumer
 from openid.extensions.sreg import SRegRequest
 from openid.extensions.ax import FetchRequest, AttrInfo
 
+from allauth.compat import reverse
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.models import SocialLogin
 from allauth.socialaccount.helpers import render_authentication_error

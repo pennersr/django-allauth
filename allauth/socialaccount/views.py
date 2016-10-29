@@ -1,10 +1,10 @@
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
+from ..compat import reverse, reverse_lazy
 from ..account import app_settings as account_settings
 from ..account.views import (AjaxCapableProcessFormViewMixin,
                              CloseableSignupMixin,

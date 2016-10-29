@@ -1,5 +1,4 @@
-from django.core.urlresolvers import reverse
-
+from allauth.compat import reverse
 from allauth.socialaccount.tests import create_oauth2_tests
 from allauth.tests import MockedResponse, mocked_response
 from allauth.socialaccount.providers import registry

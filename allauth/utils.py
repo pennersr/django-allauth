@@ -6,7 +6,6 @@ from collections import OrderedDict
 
 from django.core.exceptions import ImproperlyConfigured
 from django.core.validators import validate_email, ValidationError
-from django.core import urlresolvers
 from django.contrib.sites.models import Site
 from django.db.models import FieldDoesNotExist, FileField
 from django.db.models.fields import (DateTimeField, DateField,
@@ -20,7 +19,7 @@ try:
     from django.utils.encoding import force_text, force_bytes
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
-from allauth.compat import importlib
+from allauth.compat import importlib, reverse, NoReverseMatch
 
 
 def _generate_unique_username_base(txts, regex=None):
@@ -165,8 +164,8 @@ def resolve_url(to):
     Subset of django.shortcuts.resolve_url (that one is 1.5+)
     """
     try:
-        return urlresolvers.reverse(to)
-    except urlresolvers.NoReverseMatch:
+        return reverse(to)
+    except NoReverseMatch:
         # If this doesn't "feel" like a URL, re-raise.
         if '/' not in to and '.' not in to:
             raise

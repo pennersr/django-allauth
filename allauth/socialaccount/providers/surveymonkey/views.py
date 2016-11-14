@@ -20,12 +20,11 @@ class SurveyMonkey2Adapter(OAuth2Adapter):
             "Content-Type": "application/json"
         }
 
-        extra_data = requests.post(self.profile_url, params={
+        extra_data = requests.get(self.profile_url, params={
             'api_key': app.key
         }, headers=headers)
 
         extra_data = extra_data.json()
-        extra_data = extra_data['data']
 
         return self.get_provider().sociallogin_from_response(
             request,

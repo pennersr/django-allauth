@@ -9,16 +9,12 @@ class Scope(object):
     EMAIL = 'email'
     PROFILE = 'profile'
 
-class SurveyMonkeyOAuth2Account(ProviderAccount):
-    # def get_profile_url(self):
-    #     return self.account.extra_data.get('link')
-    #
-    # def get_avatar_url(self):
-    #     return self.account.extra_data.get('picture')
 
+class SurveyMonkeyOAuth2Account(ProviderAccount):
     def to_str(self):
         dflt = super(SurveyMonkeyOAuth2Account, self).to_str()
-        return self.account.extra_data.get('name', dflt)
+        return self.account.extra_data.get('first_name', dflt) + ' ' + self.account.extra_data.get('last_name', dflt)
+
 
 class SurveyMonkey2Provider(OAuth2Provider):
     id = 'surveymonkey'
@@ -45,13 +41,14 @@ class SurveyMonkey2Provider(OAuth2Provider):
                     last_name=data.get('last_name'),
                     first_name=data.get('first_name'))
 
-    # def extract_email_addresses(self, data):
-    #     ret = []
-    #     email = data.get('email')
-    #     if email and data.get('verified_email'):
-    #         ret.append(EmailAddress(email=email,
-    #                    verified=True,
-    #                    primary=True))
-    #     return ret
+        # def extract_email_addresses(self, data):
+        #     ret = []
+        #     email = data.get('email')
+        #     if email and data.get('verified_email'):
+        #         ret.append(EmailAddress(email=email,
+        #                    verified=True,
+        #                    primary=True))
+        #     return ret
+
 
 providers.registry.register(SurveyMonkey2Provider)

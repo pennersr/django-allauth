@@ -10,7 +10,8 @@ class SurveyMonkey2Adapter(OAuth2Adapter):
     provider_id = SurveyMonkey2Provider.id
     access_token_url = "https://api.surveymonkey.net/oauth/token"
     authorize_url = "https://api.surveymonkey.net/oauth/authorize"
-    profile_url = "https://api.surveymonkey.net/v2/user/get_user_details"
+    # profile_url = "https://api.surveymonkey.net/v2/user/get_user_details" // has different info than below
+    profile_url = "https://api.surveymonkey.net/v3/users/me"
     redirect_uri_protocol = 'http'
 
     def complete_login(self, request, app, token, **kwargs):

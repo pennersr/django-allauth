@@ -79,9 +79,6 @@ class OAuth2Client(object):
             headers=self.headers,
             auth=auth)
 
-        print 'status_code', resp.status_code
-        print 'body', resp.text
-
         access_token = None
         if resp.status_code == 200:
             # Weibo sends json via 'text/plain;charset=UTF-8'

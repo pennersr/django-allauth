@@ -184,4 +184,5 @@ class FacebookProvider(OAuth2Provider):
                                     primary=True))
         return ret
 
+
 providers.registry.register(FacebookProvider)

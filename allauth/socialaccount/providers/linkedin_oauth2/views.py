@@ -26,5 +26,6 @@ class LinkedInOAuth2Adapter(OAuth2Adapter):
         resp = requests.get(url, params={'oauth2_access_token': token.token})
         return resp.json()
 
+
 oauth2_login = OAuth2LoginView.adapter_view(LinkedInOAuth2Adapter)
 oauth2_callback = OAuth2CallbackView.adapter_view(LinkedInOAuth2Adapter)

@@ -31,4 +31,5 @@ class ShopifyProvider(OAuth2Provider):
         # common field
         return dict(email=data['shop']['email'])
 
+
 providers.registry.register(ShopifyProvider)

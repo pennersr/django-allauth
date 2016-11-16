@@ -36,4 +36,5 @@ class BattleNetProvider(OAuth2Provider):
         # Optional scopes: "sc2.profile", "wow.profile"
         return []
 
+
 providers.registry.register(BattleNetProvider)

@@ -32,4 +32,5 @@ class PinterestProvider(OAuth2Provider):
         return dict(first_name=data.get('data', {}).get('first_name'),
                     last_name=data.get('data', {}).get('last_name'))
 
+
 providers.registry.register(PinterestProvider)

@@ -42,4 +42,5 @@ class ProviderRegistry(object):
                     pass
             self.loaded = True
 
+
 registry = ProviderRegistry()

@@ -29,4 +29,5 @@ class CoinbaseProvider(OAuth2Provider):
         # See: https://coinbase.com/api/doc/1.0/users/index.html
         return dict(name=data['name'], email=data['email'])
 
+
 providers.registry.register(CoinbaseProvider)

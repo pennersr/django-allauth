@@ -88,5 +88,6 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
 
         return self.get_provider().sociallogin_from_response(request, data)
 
+
 oauth2_login = OAuth2LoginView.adapter_view(BattleNetOAuth2Adapter)
 oauth2_callback = OAuth2CallbackView.adapter_view(BattleNetOAuth2Adapter)

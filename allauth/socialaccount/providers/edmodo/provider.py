@@ -32,4 +32,5 @@ class EdmodoProvider(OAuth2Provider):
                     profile_url=data.get('url'),
                     avatar_url=data.get('avatars').get('large'))
 
+
 providers.registry.register(EdmodoProvider)

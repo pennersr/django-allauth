@@ -27,4 +27,5 @@ class RobinhoodProvider(OAuth2Provider):
     def extract_common_fields(self, data):
         return dict(username=data.get('username'))
 
+
 providers.registry.register(RobinhoodProvider)

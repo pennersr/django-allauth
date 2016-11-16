@@ -61,6 +61,7 @@ def get_login_redirect_url(request, url=None, redirect_field_name="next"):
         get_adapter(request).get_login_redirect_url(request))
     return redirect_url
 
+
 _user_display_callable = None
 
 

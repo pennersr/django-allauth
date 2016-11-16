@@ -38,7 +38,7 @@ branches:
  only:
   - master
 script:
-  - flake8 --exclude=migrations,south_migrations allauth
+  - flake8 --exclude=migrations allauth
   - coverage run manage.py test allauth
 after_success:
   - coverage report

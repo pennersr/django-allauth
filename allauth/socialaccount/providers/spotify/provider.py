@@ -26,4 +26,5 @@ class SpotifyOAuth2Provider(OAuth2Provider):
             scope.append('user-read-email')
         return scope
 
+
 providers.registry.register(SpotifyOAuth2Provider)

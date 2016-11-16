@@ -19,4 +19,5 @@ class DropboxOAuth2Provider(OAuth2Provider):
         return dict(name=data.get('display_name'),
                     email=data.get('email'))
 
+
 providers.registry.register(DropboxOAuth2Provider)

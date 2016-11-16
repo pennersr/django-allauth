@@ -37,5 +37,6 @@ class UntappdOAuth2CallbackView(OAuth2CallbackView):
             client.callback_url, client.scope)
         return untappd_client
 
+
 oauth2_login = OAuth2LoginView.adapter_view(UntappdOAuth2Adapter)
 oauth2_callback = UntappdOAuth2CallbackView.adapter_view(UntappdOAuth2Adapter)

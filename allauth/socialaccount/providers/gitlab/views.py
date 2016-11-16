@@ -32,5 +32,6 @@ class GitLabOAuth2Adapter(OAuth2Adapter):
             extra_data.json()
         )
 
+
 oauth2_login = OAuth2LoginView.adapter_view(GitLabOAuth2Adapter)
 oauth2_callback = OAuth2CallbackView.adapter_view(GitLabOAuth2Adapter)

@@ -25,4 +25,5 @@ class TwentyThreeAndMeProvider(OAuth2Provider):
             email=data.get('email'),
         )
 
+
 providers.registry.register(TwentyThreeAndMeProvider)

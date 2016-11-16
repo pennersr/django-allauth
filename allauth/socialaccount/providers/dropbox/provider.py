@@ -20,4 +20,5 @@ class DropboxProvider(OAuthProvider):
                     name=data.get('display_name'),
                     email=data.get('email'))
 
+
 providers.registry.register(DropboxProvider)

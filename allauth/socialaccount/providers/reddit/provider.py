@@ -22,4 +22,5 @@ class RedditProvider(OAuth2Provider):
         scope = ['identity']
         return scope
 
+
 providers.registry.register(RedditProvider)

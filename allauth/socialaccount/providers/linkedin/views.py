@@ -61,5 +61,6 @@ class LinkedInOAuthAdapter(OAuthAdapter):
         return self.get_provider().sociallogin_from_response(request,
                                                              extra_data)
 
+
 oauth_login = OAuthLoginView.adapter_view(LinkedInOAuthAdapter)
 oauth_callback = OAuthCallbackView.adapter_view(LinkedInOAuthAdapter)

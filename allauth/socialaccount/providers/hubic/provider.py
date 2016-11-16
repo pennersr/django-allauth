@@ -23,4 +23,5 @@ class HubicProvider(OAuth2Provider):
             first_name=data.get('firstname'),
             last_name=data.get('lastname'))
 
+
 providers.registry.register(HubicProvider)

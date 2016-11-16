@@ -43,6 +43,7 @@ class OrcidProvider(OAuth2Provider):
         return dict((key, value) for (key, value) in common_fields.items()
                     if value)
 
+
 providers.registry.register(OrcidProvider)
 
 

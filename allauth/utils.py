@@ -122,6 +122,7 @@ def import_callable(path_or_callable):
         ret = path_or_callable
     return ret
 
+
 try:
     from django.contrib.auth import get_user_model
 except ImportError:

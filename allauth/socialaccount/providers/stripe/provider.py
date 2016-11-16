@@ -22,4 +22,5 @@ class StripeProvider(OAuth2Provider):
     def get_default_scope(self):
         return ['read_only']
 
+
 providers.registry.register(StripeProvider)

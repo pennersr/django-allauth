@@ -60,4 +60,5 @@ class DraugiemProvider(Provider):
         uid = data['uid']
         return data['users'][uid]
 
+
 providers.registry.register(DraugiemProvider)

@@ -31,4 +31,5 @@ class BitbucketProvider(OAuthProvider):
                     username=data.get('username'),
                     last_name=data.get('last_name'))
 
+
 providers.registry.register(BitbucketProvider)

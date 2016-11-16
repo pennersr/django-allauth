@@ -33,4 +33,5 @@ class FeedlyProvider(OAuth2Provider):
                     last_name=data.get('familyName'),
                     first_name=data.get('givenName'))
 
+
 providers.registry.register(FeedlyProvider)

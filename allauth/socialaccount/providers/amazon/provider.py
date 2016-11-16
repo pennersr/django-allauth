@@ -31,4 +31,5 @@ class AmazonProvider(OAuth2Provider):
                     last_name=last_name,
                     first_name=first_name)
 
+
 providers.registry.register(AmazonProvider)

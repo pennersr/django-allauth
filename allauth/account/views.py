@@ -134,6 +134,7 @@ class LoginView(RedirectAuthenticatedUserMixin,
                     "redirect_field_value": redirect_field_value})
         return ret
 
+
 login = LoginView.as_view()
 
 
@@ -218,6 +219,7 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
                     "redirect_field_name": redirect_field_name,
                     "redirect_field_value": redirect_field_value})
         return ret
+
 
 signup = SignupView.as_view()
 
@@ -323,6 +325,7 @@ class ConfirmEmailView(TemplateResponseMixin, View):
     def get_redirect_url(self):
         return get_adapter(self.request).get_email_confirmation_redirect_url(
             self.request)
+
 
 confirm_email = ConfirmEmailView.as_view()
 
@@ -475,6 +478,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
         # (end NOTE)
         return ret
 
+
 email = login_required(EmailView.as_view())
 
 
@@ -520,6 +524,7 @@ class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
         # (end NOTE)
         return ret
 
+
 password_change = login_required(PasswordChangeView.as_view())
 
 
@@ -562,6 +567,7 @@ class PasswordSetView(AjaxCapableProcessFormViewMixin, FormView):
         # (end NOTE)
         return ret
 
+
 password_set = login_required(PasswordSetView.as_view())
 
 
@@ -591,12 +597,14 @@ class PasswordResetView(AjaxCapableProcessFormViewMixin, FormView):
         ret.update({"login_url": login_url})
         return ret
 
+
 password_reset = PasswordResetView.as_view()
 
 
 class PasswordResetDoneView(TemplateView):
     template_name = (
         "account/password_reset_done." + app_settings.TEMPLATE_EXTENSION)
+
 
 password_reset_done = PasswordResetDoneView.as_view()
 
@@ -654,6 +662,7 @@ class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, FormView):
 
         return super(PasswordResetFromKeyView, self).form_valid(form)
 
+
 password_reset_from_key = PasswordResetFromKeyView.as_view()
 
 
@@ -661,6 +670,7 @@ class PasswordResetFromKeyDoneView(TemplateView):
     template_name = (
         "account/password_reset_from_key_done." +
         app_settings.TEMPLATE_EXTENSION)
+
 
 password_reset_from_key_done = PasswordResetFromKeyDoneView.as_view()
 
@@ -708,6 +718,7 @@ class LogoutView(TemplateResponseMixin, View):
                     self.request).get_logout_redirect_url(
                         self.request))
 
+
 logout = LogoutView.as_view()
 
 
@@ -715,11 +726,13 @@ class AccountInactiveView(TemplateView):
     template_name = (
         'account/account_inactive.' + app_settings.TEMPLATE_EXTENSION)
 
+
 account_inactive = AccountInactiveView.as_view()
 
 
 class EmailVerificationSentView(TemplateView):
     template_name = (
         'account/verification_sent.' + app_settings.TEMPLATE_EXTENSION)
+
 
 email_verification_sent = EmailVerificationSentView.as_view()

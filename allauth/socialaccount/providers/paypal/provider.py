@@ -30,4 +30,5 @@ class PaypalProvider(OAuth2Provider):
                     last_name=data.get('family_name', ''),
                     email=data.get('email'))
 
+
 providers.registry.register(PaypalProvider)

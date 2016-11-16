@@ -137,3 +137,10 @@ and follow these steps:
 1. Add a `Site` for your domain, matching `settings.SITE_ID` (`django.contrib.sites` app).
 2. For each OAuth based provider, add a `Social App` (`socialaccount` app).
 3. Fill in the site and the OAuth app credentials obtained from the provider.
+
+More detailed description:
+   Add a Site through the admin panel. Since I am developing on my machine, I've set up my site with the "Domain Name" field set as "127.0.0.1:8000" and the "Display Name" shouldn't matter.
+
+    Your SITE_ID in settings.py needs to match the actual database ID from the Site you added through the admin panel. To do this you can go to the details of the Site you created through the admin panel and look at the url for the ID number. Mine ended up being "5"(I recreated several sites trying to get this to work).
+
+    Create a Social Application through the admin panel. This is pretty easy as you only need to setup an Application through the provider (e.g. create a Facebook app on Facebooks website) and use the secret code and app ID they give you to fill out the django form. Be sure to add the django Site you created in step 1 to the Social Application you are making in this step.

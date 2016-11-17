@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from django.conf import settings
 
 from allauth.compat import importlib
@@ -5,7 +7,7 @@ from allauth.compat import importlib
 
 class ProviderRegistry(object):
     def __init__(self):
-        self.provider_map = {}
+        self.provider_map = OrderedDict()
         self.loaded = False
 
     def get_list(self, request=None):

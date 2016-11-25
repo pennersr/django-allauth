@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('provider', models.CharField(max_length=30, verbose_name='provider', choices=registry.as_choices())),
-                ('uid', models.CharField(max_length=255, verbose_name='uid')),
+                ('uid', models.CharField(max_length=getattr(settings, 'SOCIALACCOUNT_UID_MAX_LENGTH', 191), verbose_name='uid')),
                 ('last_login', models.DateTimeField(auto_now=True, verbose_name='last login')),
                 ('date_joined', models.DateTimeField(auto_now_add=True, verbose_name='date joined')),
                 ('extra_data', allauth.socialaccount.fields.JSONField(default='{}', verbose_name='extra data')),

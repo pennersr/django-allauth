@@ -10,7 +10,7 @@ from .provider import DropboxProvider
 
 class DropboxAPI(OAuth):
     """
-    Verifying twitter credentials
+    Verifying dropbox credentials
     """
     url = 'https://api.dropbox.com/1/account/info'
 

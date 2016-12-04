@@ -351,10 +351,12 @@ App registration (get your key and secret here)
 Development callback URL
     http://127.0.0.1:8000/accounts/github/login/callback/
 
-GitLab
+
+
 ------
 
-The GitLab provider works by default with https://gitlab.com. It allows you
+The 
+provider works by default with https://gitlab.com. It allows you
 to connect to your private GitLab server and use GitLab as an OAuth2
 authentication provider as described in GitLab docs at
 http://doc.gitlab.com/ce/integration/oauth_provider.html
@@ -365,6 +367,13 @@ be used.
 GITLAB_URL:
     Override endpoint to request an authorization and access token. For your
     private GitLab server you use: ``https://your.gitlab.server.tld``
+
+Sample::
+
+    SOCIALACCOUNT_PROVIDERS = \
+                    { 'gitlab':
+                      { 'GITLAB_URL': 'https://your.gitlab.server.tld' }
+                    }
 
 
 Google

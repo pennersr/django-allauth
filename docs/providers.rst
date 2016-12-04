@@ -28,6 +28,16 @@ For local development, use the following::
 -------
 
 App registration (get your key and secret here)
+    https://500px.com/settings/applications
+
+Development callback URL
+    http://localhost:8000/accounts/500px/login/callback/
+
+
+500px
+-------
+
+App registration (get your key and secret here)
     https://api.23andme.com/dev/
 
 Development callback URL

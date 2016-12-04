@@ -86,6 +86,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.evernote',
     'allauth.socialaccount.providers.feedly',
     'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.fivehundredpx',
     'allauth.socialaccount.providers.flickr',
     'allauth.socialaccount.providers.foursquare',
     'allauth.socialaccount.providers.google',

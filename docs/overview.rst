@@ -35,6 +35,8 @@ Supported Providers
 
 - 23andMe (OAuth2)
 
+- 500px
+
 - Amazon (OAuth2)
 
 - AngelList (OAuth2)

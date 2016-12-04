@@ -74,6 +74,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.evernote',
         'allauth.socialaccount.providers.facebook',
         'allauth.socialaccount.providers.feedly',
+        'allauth.socialaccount.providers.fivehundredpx',
         'allauth.socialaccount.providers.flickr',
         'allauth.socialaccount.providers.foursquare',
         'allauth.socialaccount.providers.fxa',

@@ -1,5 +1,5 @@
 from django.template.defaulttags import token_kwargs
-from django import template
+from django import template, VERSION as DJANGO_VERSION
 
 from allauth.socialaccount import providers
 from allauth.utils import get_request_param
@@ -7,6 +7,12 @@ from allauth.compat import template_context_value
 
 
 register = template.Library()
+
+
+if DJANGO_VERSION < (1, 9):
+    simple_tag = register.assignment_tag
+else:
+    simple_tag = register.simple_tag
 
 
 class ProviderLoginURLNode(template.Node):
@@ -65,7 +71,7 @@ def providers_media_js(parser, token):
     return ProvidersMediaJSNode()
 
 
-@register.assignment_tag
+@simple_tag
 def get_social_accounts(user):
     """
     {% get_social_accounts user as accounts %}
@@ -82,7 +88,7 @@ def get_social_accounts(user):
     return accounts
 
 
-@register.assignment_tag
+@simple_tag
 def get_providers():
     """
     Returns a list of social authentication providers.

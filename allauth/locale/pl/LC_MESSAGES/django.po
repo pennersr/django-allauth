@@ -4,29 +4,34 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-25 08:20-0500\n"
-"PO-Revision-Date: 2014-08-12 00:33+0200\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2016-12-05 03:38-0600\n"
+"PO-Revision-Date: 2016-12-05 10:43+0100\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: Adam Dobrawy <naczelnik@jawnosc.tk>\n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.8.7.1\n"
 
-#: account/adapter.py:47
+#: account/adapter.py:46
 msgid "Usernames can only contain letters, digits and @/./+/-/_."
 msgstr ""
 "Nazwa użytkownika może zawierać tylko litery, cyfry oraz znaki @/./+/-/_."
 
-#: account/adapter.py:49
+#: account/adapter.py:48
 msgid "Username can not be used. Please use other username."
 msgstr "Nie możesz użyć tej nazwy użytkownika. Proszę wybierz inną."
 
-#: account/adapter.py:53
+#: account/adapter.py:52
 msgid "Too many failed login attempts. Try again later."
-msgstr ""
+msgstr "Zbyt wiele nieudanych prób logowania. Spróbuj ponownie później."
+
+#: account/adapter.py:54
+msgid "A user is already registered with this e-mail address."
+msgstr "W systemie jest już zarejestrowany użytkownik o tym adresie e-mail."
 
 #: account/adapter.py:296
 #, python-brace-format
@@ -34,15 +39,14 @@ msgid "Password must be a minimum of {0} characters."
 msgstr "Hasło musi składać się minimalnie z {0} znaków."
 
 #: account/apps.py:8
-#, fuzzy
 msgid "Accounts"
-msgstr "Konto"
+msgstr "Konta"
 
-#: account/forms.py:39 account/forms.py:369
+#: account/forms.py:39 account/forms.py:364
 msgid "You must type the same password each time."
 msgstr "Musisz wpisać za każdym razem to samo hasło"
 
-#: account/forms.py:69 account/forms.py:338 account/forms.py:449
+#: account/forms.py:69 account/forms.py:331 account/forms.py:442
 msgid "Password"
 msgstr "Hasło"
 
@@ -66,13 +70,13 @@ msgstr "Użytkownik i/lub hasło które podałeś są niepoprawne."
 msgid "The login and/or password you specified are not correct."
 msgstr "Login i/lub hasło, które podałeś, są niepoprawne."
 
-#: account/forms.py:94 account/forms.py:236 account/forms.py:260
-#: account/forms.py:399 account/forms.py:468
+#: account/forms.py:94 account/forms.py:236 account/forms.py:392
+#: account/forms.py:461
 msgid "E-mail address"
 msgstr "Adres e-mail"
 
-#: account/forms.py:96 account/forms.py:276 account/forms.py:394
-#: account/forms.py:463
+#: account/forms.py:96 account/forms.py:267 account/forms.py:387
+#: account/forms.py:456
 msgid "E-mail"
 msgstr "E-mail"
 
@@ -90,116 +94,103 @@ msgctxt "field label"
 msgid "Login"
 msgstr "Login"
 
-#: account/forms.py:268
-#, fuzzy
-#| msgid "email confirmation"
-msgid "E-mail address confirmation"
-msgstr "powierdzenie adresu email"
+#: account/forms.py:256
+msgid "E-mail (again)"
+msgstr "E-mail (ponownie)"
 
-#: account/forms.py:279
+#: account/forms.py:260
+msgid "E-mail address confirmation"
+msgstr "Powierdzenie adresu email"
+
+#: account/forms.py:270
 msgid "E-mail (optional)"
 msgstr "E-mail (opcjonalnie)"
 
-#: account/forms.py:319
-#, fuzzy
-#| msgid "You must type the same password each time."
+#: account/forms.py:312
 msgid "You must type the same email each time."
-msgstr "Musisz wpisać za każdym razem to samo hasło"
+msgstr "Musisz wpisać za każdym razem ten sam e-mail."
 
-#: account/forms.py:339 account/forms.py:450
+#: account/forms.py:332 account/forms.py:443
 msgid "Password (again)"
 msgstr "Hasło (ponownie)"
 
-#: account/forms.py:405
+#: account/forms.py:398
 msgid "This e-mail address is already associated with this account."
 msgstr "Ten adres e-mail jest już powiązany z tym kontem."
 
-#: account/forms.py:407
+#: account/forms.py:400
 msgid "This e-mail address is already associated with another account."
 msgstr "Ten adres e-mail jest już powiązany z innym kontem."
 
-#: account/forms.py:429
+#: account/forms.py:422
 msgid "Current Password"
 msgstr "Obecne hasło"
 
-#: account/forms.py:430 account/forms.py:525
+#: account/forms.py:423 account/forms.py:518
 msgid "New Password"
 msgstr "Nowe hasło"
 
-#: account/forms.py:431 account/forms.py:526
+#: account/forms.py:424 account/forms.py:519
 msgid "New Password (again)"
 msgstr "Nowe hasło (ponownie)"
 
-#: account/forms.py:439
+#: account/forms.py:432
 msgid "Please type your current password."
 msgstr "Proszę wpisz swoje obecne hasło"
 
-#: account/forms.py:477
+#: account/forms.py:470
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Adres e-mail nie jest powiązany z żadnym kontem użytkownika"
 
-#: account/forms.py:547
+#: account/forms.py:540
 msgid "The password reset token was invalid."
-msgstr ""
+msgstr "Token resetowania hasła był nieprawidłowy."
 
 #: account/models.py:26
 msgid "user"
 msgstr "użytkownik"
 
-#: account/models.py:29 account/models.py:88
+#: account/models.py:30 account/models.py:89
 msgid "e-mail address"
 msgstr "adres e-mail"
 
-#: account/models.py:30
+#: account/models.py:31
 msgid "verified"
 msgstr "zweryfikowany"
 
-#: account/models.py:31
+#: account/models.py:32
 msgid "primary"
 msgstr "podstawowy"
 
-#: account/models.py:36
+#: account/models.py:37
 msgid "email address"
 msgstr "adres email"
 
-#: account/models.py:37
+#: account/models.py:38
 msgid "email addresses"
 msgstr "adresy e-mail"
 
-#: account/models.py:89
+#: account/models.py:91
 msgid "created"
 msgstr "utworzono"
 
-#: account/models.py:91
+#: account/models.py:93
 msgid "sent"
 msgstr "wysłano"
 
-#: account/models.py:92 socialaccount/models.py:59
+#: account/models.py:94 socialaccount/models.py:59
 msgid "key"
 msgstr "klucz"
 
-#: account/models.py:97
+#: account/models.py:99
 msgid "email confirmation"
 msgstr "powierdzenie adresu email"
 
-#: account/models.py:98
+#: account/models.py:100
 msgid "email confirmations"
 msgstr "potwierdzenia adresów email"
 
-#: socialaccount/adapter.py:121
-msgid "Your account has no password set up."
-msgstr "Twoje konto nie posiada hasła."
-
-#: socialaccount/adapter.py:128
-msgid "Your account has no verified e-mail address."
-msgstr "Twoje konto nie ma zweryfikowanego adresu e-mail"
-
-#: socialaccount/apps.py:8
-#, fuzzy
-msgid "Social Accounts"
-msgstr "Konta społecznościowe"
-
-#: socialaccount/forms.py:41
+#: socialaccount/adapter.py:25
 #, python-format
 msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
@@ -208,7 +199,19 @@ msgstr ""
 "Istnieje już konto dla tego adresu e-mail. Zaloguj się wpierw na to konto, a "
 "następnie połącz swoje konto %s."
 
-#: socialaccount/models.py:47 socialaccount/models.py:80
+#: socialaccount/adapter.py:130
+msgid "Your account has no password set up."
+msgstr "Twoje konto nie posiada hasła."
+
+#: socialaccount/adapter.py:137
+msgid "Your account has no verified e-mail address."
+msgstr "Twoje konto nie ma zweryfikowanego adresu e-mail"
+
+#: socialaccount/apps.py:8
+msgid "Social Accounts"
+msgstr "Konta społecznościowe"
+
+#: socialaccount/models.py:47 socialaccount/models.py:81
 msgid "provider"
 msgstr "dostawca usług"
 
@@ -233,9 +236,8 @@ msgid "API secret, client secret, or consumer secret"
 msgstr "Klucz prywatny API/klienta/dbiorcy"
 
 #: socialaccount/models.py:62
-#, fuzzy
 msgid "Key"
-msgstr "klucz"
+msgstr "Klucz"
 
 #: socialaccount/models.py:70
 msgid "social application"
@@ -245,55 +247,55 @@ msgstr "Aplikacja społecznościowa"
 msgid "social applications"
 msgstr "Aplikacje społecznościowe"
 
-#: socialaccount/models.py:99
+#: socialaccount/models.py:100
 msgid "uid"
 msgstr "uid"
 
-#: socialaccount/models.py:101
+#: socialaccount/models.py:102
 msgid "last login"
 msgstr "Data ostatniego logowania"
 
-#: socialaccount/models.py:103
+#: socialaccount/models.py:104
 msgid "date joined"
 msgstr "Data przyłączenia"
 
-#: socialaccount/models.py:105
+#: socialaccount/models.py:106
 msgid "extra data"
 msgstr "Dodatkowe dane"
 
-#: socialaccount/models.py:109
+#: socialaccount/models.py:110
 msgid "social account"
 msgstr "Konto społecznościowe"
 
-#: socialaccount/models.py:110
+#: socialaccount/models.py:111
 msgid "social accounts"
 msgstr "Konta społecznościowe"
 
-#: socialaccount/models.py:136
+#: socialaccount/models.py:137
 msgid "token"
-msgstr ""
+msgstr "token"
 
-#: socialaccount/models.py:138
+#: socialaccount/models.py:139
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) lub access token (OAuth2)"
 
-#: socialaccount/models.py:141
+#: socialaccount/models.py:142
 msgid "token secret"
 msgstr "token secret"
 
-#: socialaccount/models.py:143
+#: socialaccount/models.py:144
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) lub refresh token (OAuth2)"
 
-#: socialaccount/models.py:145
+#: socialaccount/models.py:146
 msgid "expires at"
 msgstr "wygasa"
 
-#: socialaccount/models.py:149
+#: socialaccount/models.py:150
 msgid "social application token"
 msgstr "Token aplikacji społecznościowej"
 
-#: socialaccount/models.py:150
+#: socialaccount/models.py:151
 msgid "social application tokens"
 msgstr "Tokeny aplikacji społecznościowych"
 
@@ -393,12 +395,7 @@ msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Czy naprawdę chcesz usunąć wybrany adres e-mail?"
 
 #: templates/account/email/email_confirmation_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "User %(user_display)s at %(site_name)s has given this as an email "
-#| "address.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s\n"
+#, python-format
 msgid ""
 "Hello from %(site_name)s!\n"
 "\n"
@@ -408,8 +405,10 @@ msgid ""
 "\n"
 "To confirm this is correct, go to %(activate_url)s\n"
 msgstr ""
-"Użytkownik %(user_display)s na %(site_name)s podał ten adres podczas "
-"rejestracji.\n"
+"Witam w imieniu%(site_name)s!\n"
+"\n"
+"Otrzymujesz ten e-mail ,ponieważ użytkownik %(user_display)s na "
+"%(site_domain)s podał niniejszy adres e-mail, aby powiązać z swoim kontem.\n"
 "\n"
 "Jeżeli to prawda. Kliknij, aby go aktywować %(activate_url)s \n"
 
@@ -419,20 +418,15 @@ msgid ""
 "Thank you from %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
+"Dziekuje z %(site_name)s!\n"
+"%(site_domain)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
-#, fuzzy
-#| msgid "Confirm E-mail Address"
 msgid "Please Confirm Your E-mail Address"
-msgstr "Potwierdź adres e-mail"
+msgstr "Proszę potwierdź adres e-mail"
 
 #: templates/account/email/password_reset_key_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account at %(site_domain)s.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
+#, python-format
 msgid ""
 "Hello from %(site_name)s!\n"
 "\n"
@@ -441,10 +435,12 @@ msgid ""
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"Dostałeś tę wiadomość ponieważ Ty lub ktoś inny zażądał zmiany hasła do "
-"konta użytkownika na stronie %(site_domain)s.\n"
-"Jeżeli to nie byłeś Ty, zignoruj tę wiadomość. Kliknij w łącze poniżej "
-"jeżeli chcesz zresetować hasło."
+"Witam z %(site_name)s!\n"
+"\n"
+"Otrzymujesz tą wiadomość, ponieważ Ty lub ktoś inny zażądał zresetowania "
+"hasła do Twojego konta na stronie  %(site_domain)s.\n"
+"Niniejszą wiadomość możesz spokojnie zignorować, jeżeli nie żądałeś "
+"zresetowania hasła. Kliknij w link poniżej, aby zresetować hasło."
 
 #: templates/account/email/password_reset_key_message.txt:8
 #, python-format
@@ -457,6 +453,8 @@ msgid ""
 "Thank you for using %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
+"Dziękuje za wykorzystywanie %(site_name)s!\n"
+"%(site_domain)s"
 
 #: templates/account/email/password_reset_key_subject.txt:3
 msgid "Password Reset E-mail"
@@ -801,9 +799,6 @@ msgid ""
 msgstr ""
 "Masz zamiar użyć konta %(provider_name)s do zalogowania się w \n"
 "%(site_name)s. Jako ostatni krok, proszę wypełnij formularz:"
-
-#~ msgid "A user is already registered with this e-mail address."
-#~ msgstr "W systemie jest już zarejestrowany użytkownik o tym adresie e-mail."
 
 #~ msgid "This username is already taken. Please choose another."
 #~ msgstr "Nazwa użytkownika jest już w użyciu. Proszę wybierz inną."

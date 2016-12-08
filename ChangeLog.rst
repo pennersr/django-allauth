@@ -1,3 +1,19 @@
+Unreleased
+**********
+
+Note worthy changes
+-------------------
+
+- Changed the algorithm that generates unique usernames. Previously, in case the
+  provider did not hand over any information to base the username on, the
+  username "user" extended with an ever increasing numeric suffix would be
+  attempted until a free username was found. In case of a large number of
+  existing users, this could result in many queries being executed before a free
+  username would be found, potentially resulting in a denial of service. The new
+  algorithm uses a random suffix and only one query to determine the final
+  username.
+
+
 0.29.0 (2016-11-21)
 *******************
 

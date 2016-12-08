@@ -1,3 +1,5 @@
+import random
+import string
 import base64
 import re
 import unicodedata
@@ -20,6 +22,14 @@ try:
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
 from allauth.compat import importlib, reverse, NoReverseMatch
+
+
+# Magic number 7: if you run into collisions with this number, then you are
+# of big enough scale to start investing in a decent user model...
+MAX_USERNAME_SUFFIX_LENGTH = 7
+USERNAME_SUFFIX_CHARS = (
+    [string.digits] * 4 +
+    [string.ascii_letters] * (MAX_USERNAME_SUFFIX_LENGTH - 4))
 
 
 def _generate_unique_username_base(txts, regex=None):
@@ -60,22 +70,43 @@ def get_username_max_length():
     return max_length
 
 
+def generate_username_candidate(basename, suffix_length):
+    max_length = get_username_max_length()
+    suffix = ''.join(
+        random.choice(USERNAME_SUFFIX_CHARS[i])
+        for i in range(suffix_length))
+    return basename[0:max_length - len(suffix)] + suffix
+
+
+def generate_username_candidates(basename):
+    ret = [basename]
+    max_suffix_length = min(
+        get_username_max_length(),
+        MAX_USERNAME_SUFFIX_LENGTH)
+    for suffix_length in range(2, max_suffix_length):
+        ret.append(generate_username_candidate(basename, suffix_length))
+    return ret
+
+
 def generate_unique_username(txts, regex=None):
+    from .account.app_settings import USER_MODEL_USERNAME_FIELD
     from .account.adapter import get_adapter
     adapter = get_adapter()
-    username = _generate_unique_username_base(txts, regex)
-    max_length = get_username_max_length()
-    i = 0
-    while True:
-        try:
-            if i:
-                pfx = str(i + 1)
-            else:
-                pfx = ''
-            ret = username[0:max_length - len(pfx)] + pfx
-            return adapter.clean_username(ret)
-        except ValidationError:
-            i += 1
+    basename = _generate_unique_username_base(txts, regex)
+    candidates = generate_username_candidates(basename)
+    existing_users = set(
+        get_user_model()
+        .objects
+        .filter(**{USER_MODEL_USERNAME_FIELD + '__in': candidates})
+        .values_list(USER_MODEL_USERNAME_FIELD, flat=True))
+    for candidate in candidates:
+        if candidate not in existing_users:
+            try:
+                return adapter.clean_username(candidate, shallow=True)
+            except ValidationError:
+                pass
+    # This really should not happen
+    raise NotImplementedError('Unable to find a unique username')
 
 
 def valid_email_or_none(email):

@@ -51,6 +51,7 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
     """
     provider_id = BattleNetProvider.id
     battlenet_region = "us"
+    valid_regions = ("us", "eu", "kr", "sea", "tw", "cn")
 
     @property
     def battlenet_base_url(self):

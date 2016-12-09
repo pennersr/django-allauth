@@ -252,7 +252,7 @@ def setup_user_email(request, user, addresses):
     """
     from .models import EmailAddress
 
-    assert EmailAddress.objects.filter(user=user).count() == 0
+    assert not EmailAddress.objects.filter(user=user).exists()
     priority_addresses = []
     # Is there a stashed e-mail?
     adapter = get_adapter(request)

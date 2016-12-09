@@ -62,7 +62,7 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
     @property
     def battlenet_api_url(self):
         if self.battlenet_region == "cn":
-            return "https://www.battlenet.com.cn/api"
+            return "https://api.battlenet.com.cn"
         return "https://%s.api.battle.net" % (self.battlenet_region)
 
     @property

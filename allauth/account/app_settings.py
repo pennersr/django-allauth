@@ -298,6 +298,11 @@ class AppSettings(object):
     def SALT(self):
         return self._setting('SALT', 'account')
 
+    @property
+    def PRESERVE_USERNAME_CASING(self):
+        return self._setting('PRESERVE_USERNAME_CASING', True)
+
+
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html
 import sys  # noqa

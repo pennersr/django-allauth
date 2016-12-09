@@ -91,14 +91,13 @@ def generate_username_candidates(basename):
 def generate_unique_username(txts, regex=None):
     from .account.app_settings import USER_MODEL_USERNAME_FIELD
     from .account.adapter import get_adapter
+    from allauth.account.utils import filter_users_by_username
+
     adapter = get_adapter()
     basename = _generate_unique_username_base(txts, regex)
     candidates = generate_username_candidates(basename)
-    existing_users = set(
-        get_user_model()
-        .objects
-        .filter(**{USER_MODEL_USERNAME_FIELD + '__in': candidates})
-        .values_list(USER_MODEL_USERNAME_FIELD, flat=True))
+    existing_users = filter_users_by_username(*candidates).values_list(
+        USER_MODEL_USERNAME_FIELD, flat=True)
     for candidate in candidates:
         if candidate not in existing_users:
             try:

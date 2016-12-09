@@ -119,6 +119,13 @@ ACCOUNT_PASSWORD_MIN_LENGTH (=6)
   An integer specifying the minimum password length.
   Deprecated -- use Django's `AUTH_PASSWORD_VALIDATORS` instead.
 
+ACCOUNT_PRESERVE_USERNAME_CASING (=True)
+  This setting determines whether the username is stored in lowercase
+  (`False`) or whether its casing is to be preserved (`True`). Note that when
+  casing is preserved, potentially expensive `__iexact` lookups are performed
+  when filter on username. For now, the default is set to `True` to maintain
+  backwards compatibility.
+
 ACCOUNT_SESSION_REMEMBER (=None)
   Controls the life time of the session. Set to `None` to ask the user
   ("Remember me?"), `False` to not remember, and `True` to always

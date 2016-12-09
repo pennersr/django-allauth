@@ -1,7 +1,8 @@
 from django.contrib.auth.backends import ModelBackend
 
 from ..utils import get_user_model
-from .utils import filter_users_by_email
+from .utils import (filter_users_by_email,
+                    filter_users_by_username)
 
 from .app_settings import AuthenticationMethod
 from . import app_settings
@@ -33,8 +34,7 @@ class AuthenticationBackend(ModelBackend):
             return None
         try:
             # Username query is case insensitive
-            query = {username_field+'__iexact': username}
-            user = User.objects.get(**query)
+            user = filter_users_by_username(username).get()
             if user.check_password(password):
                 return user
         except User.DoesNotExist:

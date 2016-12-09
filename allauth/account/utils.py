@@ -7,6 +7,7 @@ except ImportError:
 
 from django.contrib import messages
 from django.db import models
+from django.db.models import Q
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.utils import six
@@ -108,6 +109,8 @@ def user_field(user, field, *args):
 
 
 def user_username(user, *args):
+    if args and not app_settings.PRESERVE_USERNAME_CASING:
+        args = [args[0].lower()]
     return user_field(user, app_settings.USER_MODEL_USERNAME_FIELD, *args)
 
 
@@ -351,6 +354,21 @@ def sync_user_email_addresses(user):
                                     email=email,
                                     primary=False,
                                     verified=False)
+
+
+def filter_users_by_username(*username):
+    if app_settings.PRESERVE_USERNAME_CASING:
+        qlist = [
+            Q(**{app_settings.USER_MODEL_USERNAME_FIELD+'__iexact': u})
+            for u in username]
+        q = qlist[0]
+        for q2 in qlist[1:]:
+            q = q | q2
+        ret = get_user_model().objects.filter(q)
+    else:
+        ret = get_user_model().objects.filter(
+            **{app_settings.USER_MODEL_USERNAME_FIELD+'__in': username})
+    return ret
 
 
 def filter_users_by_email(email):

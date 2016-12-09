@@ -45,13 +45,19 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
     OAuth2 adapter for Battle.net
     https://dev.battle.net/docs/read/oauth
 
-    Region is set to us by default.
-    Set the `battlenet_region` attribute to change it.
+    Region is set to us by default, but can be overridden with the
+    `region` GET parameter when performing a login.
     Can be any of eu, us, kr, sea, tw or cn
     """
     provider_id = BattleNetProvider.id
-    battlenet_region = "us"
     valid_regions = ("us", "eu", "kr", "sea", "tw", "cn")
+
+    @property
+    def battlenet_region(self):
+        region = self.request.GET.get("region", "").lower()
+        if region in self.valid_regions:
+            return region
+        return "us"
 
     @property
     def battlenet_base_url(self):
@@ -88,6 +94,14 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
         data["region"] = self.battlenet_region
 
         return self.get_provider().sociallogin_from_response(request, data)
+
+    def get_callback_url(self, request, app):
+        r = super(BattleNetOAuth2Adapter, self).get_callback_url(request, app)
+        region = request.GET.get("region", "").lower()
+        # Pass the region down to the callback URL if we specified it
+        if region and region in self.valid_regions:
+            r += "?region=%s" % (region)
+        return r
 
 
 oauth2_login = OAuth2LoginView.adapter_view(BattleNetOAuth2Adapter)

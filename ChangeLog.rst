@@ -23,6 +23,8 @@ Note worthy changes
 - The OAuth2Adapter class has gained a ``get_callback_url`` method for when
   customizing the callback URL is desired.
 
+- The Battle.net login backend now accepts the ``region`` GET parameter.
+
 Backwards incompatible changes
 ------------------------------
 

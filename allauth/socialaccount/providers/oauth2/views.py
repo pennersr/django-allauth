@@ -12,7 +12,8 @@ from allauth.utils import build_absolute_uri
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.oauth2.client import (OAuth2Client,
-                                                           OAuth2Error)
+                                                           OAuth2Error,
+                                                           OAuthHTTPError)
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.models import SocialToken, SocialLogin
 from allauth.utils import get_request_param
@@ -133,7 +134,7 @@ class OAuth2CallbackView(OAuth2View):
             else:
                 login.state = SocialLogin.unstash_state(request)
             return complete_social_login(request, login)
-        except (PermissionDenied, OAuth2Error) as e:
+        except (PermissionDenied, OAuth2Error, OAuthHTTPError, KeyError) as e:
             return render_authentication_error(
                 request,
                 self.adapter.provider_id,

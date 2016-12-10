@@ -3,7 +3,8 @@ from __future__ import absolute_import
 from allauth.compat import reverse
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.providers.oauth.client import (OAuthClient,
-                                                          OAuthError)
+                                                          OAuthError,
+                                                          OAuthConnectionError)
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount import providers
 from allauth.socialaccount.models import SocialToken, SocialLogin
@@ -103,7 +104,7 @@ class OAuthCallbackView(OAuthView):
             login.token = token
             login.state = SocialLogin.unstash_state(request)
             return complete_social_login(request, login)
-        except OAuthError as e:
+        except (OAuthError, OAuthConnectionError) as e:
             return render_authentication_error(
                 request,
                 self.adapter.provider_id,

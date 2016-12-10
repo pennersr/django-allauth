@@ -256,19 +256,15 @@ class DefaultAccountAdapter(object):
         # Skipping database lookups when shallow is True, needed for unique
         # username generation.
         if not shallow:
-            username_field = app_settings.USER_MODEL_USERNAME_FIELD
-            assert username_field
-            user_model = get_user_model()
-            try:
-                query = {username_field + '__iexact': username}
-                user_model.objects.get(**query)
-            except user_model.DoesNotExist:
-                return username
-            error_message = user_model._meta.get_field(
-                username_field).error_messages.get('unique')
-            if not error_message:
-                error_message = self.error_messages['username_taken']
-            raise forms.ValidationError(error_message)
+            from .utils import filter_users_by_username
+            if filter_users_by_username(username).exists():
+                user_model = get_user_model()
+                username_field = app_settings.USER_MODEL_USERNAME_FIELD
+                error_message = user_model._meta.get_field(
+                    username_field).error_messages.get('unique')
+                if not error_message:
+                    error_message = self.error_messages['username_taken']
+                raise forms.ValidationError(error_message)
         return username
 
     def clean_email(self, email):

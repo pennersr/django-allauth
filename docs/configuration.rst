@@ -179,10 +179,11 @@ ACCOUNT_USERNAME_REQUIRED (=True)
   `ACCOUNT_AUTHENTICATION_METHOD` is set to `email`. Set to `False`
   when you do not wish to prompt the user to enter a username.
 
-ACCOUNT_USERNAME_VALIDATORS
+ACCOUNT_USERNAME_VALIDATORS (=None)
   A path
   (`'some.module.validators.custom_username_validators'`) to a list of
-  custom username validators. If left unset, it matches the standard Django behavior.
+  custom username validators. If left unset, the validators setup
+  within the user model username field are used.
 
 SOCIALACCOUNT_ADAPTER (="allauth.socialaccount.adapter.DefaultSocialAccountAdapter")
   Specifies the adapter class to use, allowing you to alter certain

@@ -26,8 +26,9 @@ Backwards incompatible changes
 - In previous versions, the ``DefaultAccountAdapter`` contained a
   ``username_regex`` property and accompanying
   ``error_messages['invalid_username']`` validation error message. These have
-  been removed in favor of pluggable username validators by means of a new
-  setting: ``ACCOUNT_USERNAME_VALIDATORS``.
+  been removed in favor of using the regex validation already defined at the
+  user model level. Alternatively, you can use the newly introduced
+  ``ACCOUNT_USERNAME_VALIDATORS`` setting.
 
 
 0.29.0 (2016-11-21)

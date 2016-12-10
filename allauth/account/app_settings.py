@@ -305,8 +305,8 @@ class AppSettings(object):
     @property
     def USERNAME_VALIDATORS(self):
         from django.core.exceptions import ImproperlyConfigured
-        from django.contrib.auth.models import AbstractUser
         from allauth.utils import import_attribute
+        from allauth.utils import get_user_model
 
         path = self._setting('USERNAME_VALIDATORS', None)
         if path:
@@ -315,7 +315,8 @@ class AppSettings(object):
                 raise ImproperlyConfigured(
                     'ACCOUNT_USERNAME_VALIDATORS is expected to be a list')
         else:
-            ret = AbstractUser._meta.get_field('username').validators
+            ret = get_user_model()._meta.get_field(
+                self.USER_MODEL_USERNAME_FIELD).validators
         return ret
 
 

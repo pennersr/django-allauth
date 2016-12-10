@@ -4,7 +4,6 @@ from django.views.generic.base import TemplateResponseMixin, View, TemplateView
 from django.views.generic.edit import FormView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout as auth_logout
 from django.shortcuts import redirect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.utils.decorators import method_decorator
@@ -695,11 +694,12 @@ class LogoutView(TemplateResponseMixin, View):
         return redirect(url)
 
     def logout(self):
-        get_adapter(self.request).add_message(
+        adapter = get_adapter(self.request)
+        adapter.add_message(
             self.request,
             messages.SUCCESS,
             'account/messages/logged_out.txt')
-        auth_logout(self.request)
+        adapter.logout(self.request)
 
     def get_context_data(self, **kwargs):
         ctx = kwargs

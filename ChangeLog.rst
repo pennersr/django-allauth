@@ -35,6 +35,13 @@ Backwards incompatible changes
   user model level. Alternatively, you can use the newly introduced
   ``ACCOUNT_USERNAME_VALIDATORS`` setting.
 
+- The Battle.net backend no longer overrides username regex validation. In
+  order to use battletags as usernames, you are expected to override either
+  the ``username`` field on your User model, or to pass a custom validator
+  which will accept the ``#`` character using the new
+  ``ACCOUNT_USERNAME_VALIDATORS`` setting. Such a validator is available in
+  ``socialaccount.providers.battlenet.validators.BattletagUsernameValidator``.
+
 
 0.29.0 (2016-11-21)
 *******************

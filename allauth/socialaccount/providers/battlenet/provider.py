@@ -1,18 +1,6 @@
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
-from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
-
-
-class BattleNetSocialAccountAdapter(DefaultSocialAccountAdapter):
-    def save_user(self, request, sociallogin, form=None):
-        user = super().save_user(request, sociallogin, form)
-
-        battletag = sociallogin.account.extra_data.get("battletag")
-        if battletag:
-            user.username = battletag
-            user.save()
-        return user
 
 
 class BattleNetAccount(ProviderAccount):

@@ -14,6 +14,7 @@ from allauth.compat import parse_qsl, urlparse
 
 import requests
 from requests_oauthlib import OAuth1
+from requests.exceptions import ConnectionError, HTTPError
 
 
 def get_token_prefix(url):
@@ -31,6 +32,12 @@ def get_token_prefix(url):
 
 
 class OAuthError(Exception):
+    pass
+
+class OAuthConnectionError(ConnectionError):
+    pass
+
+class OAuthHTTPError(HTTPError):
     pass
 
 

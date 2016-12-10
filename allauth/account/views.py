@@ -638,6 +638,14 @@ class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, FormView):
                                                                   key,
                                                                   **kwargs)
 
+    def get_context_data(self, **kwargs):
+        ret = super(PasswordResetFromKeyView, self).get_context_data(**kwargs)
+        ret['action_url'] = reverse(
+            'account_reset_password_from_key',
+            kwargs={'uidb36': self.kwargs['uidb36'],
+                    'key': self.kwargs['key']})
+        return ret
+
     def get_form_kwargs(self):
         kwargs = super(PasswordResetFromKeyView, self).get_form_kwargs()
         kwargs["user"] = self.reset_user

@@ -34,7 +34,7 @@ class BattleNetProvider(OAuth2Provider):
         return uid
 
     def extract_common_fields(self, data):
-        return {"battletag": data.get("battletag")}
+        return {"username": data.get("battletag")}
 
     def get_default_scope(self):
         # Optional scopes: "sc2.profile", "wow.profile"

@@ -13,7 +13,8 @@ from django.core import mail
 from django.test.client import RequestFactory
 from django.contrib.auth.models import AnonymousUser, AbstractUser
 from django.db import models
-
+from django.core.exceptions import ValidationError
+from django.core import validators
 import unittest
 
 from allauth.tests import TestCase, patch
@@ -39,6 +40,13 @@ from .utils import (
     url_str_to_user_pk,
     user_pk_to_url_str,
     user_username)
+
+
+test_username_validators = [
+    validators.RegexValidator(
+        regex=r'^[a-c]+$',
+        message='not abc',
+        flags=0)]
 
 
 @override_settings(
@@ -674,6 +682,15 @@ class AccountTests(TestCase):
                     args=[confirmation.key]))
         email = EmailAddress.objects.get(pk=email.pk)
         self.assertFalse(email.verified)
+
+    @override_settings(
+        ACCOUNT_USERNAME_VALIDATORS='allauth.account.tests'
+        '.test_username_validators')
+    def test_username_validator(self):
+        get_adapter().clean_username('abc')
+        self.assertRaises(
+            ValidationError,
+            lambda: get_adapter().clean_username('def'))
 
 
 class EmailFormTests(TestCase):

@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 
 import json
-import re
 import time
 import warnings
 import hashlib
@@ -37,13 +36,7 @@ from . import app_settings
 
 class DefaultAccountAdapter(object):
 
-    # Don't bother turning this into a setting, as changing this also
-    # requires changing the accompanying form error message. So if you
-    # need to change any of this, simply override clean_username().
-    username_regex = re.compile(r'^[\w.@+-]+$')
     error_messages = {
-        'invalid_username':
-        _('Usernames can only contain letters, digits and @/./+/-/_.'),
         'username_blacklisted':
         _('Username can not be used. Please use other username.'),
         'username_taken':
@@ -251,9 +244,8 @@ class DefaultAccountAdapter(object):
         Validates the username. You can hook into this if you want to
         (dynamically) restrict what usernames can be chosen.
         """
-        if not self.username_regex.match(username):
-            raise forms.ValidationError(
-                self.error_messages['invalid_username'])
+        for validator in app_settings.USERNAME_VALIDATORS:
+            validator(username)
 
         # TODO: Add regexp support to USERNAME_BLACKLIST
         username_blacklist_lower = [ub.lower()

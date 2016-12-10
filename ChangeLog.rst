@@ -26,6 +26,12 @@ Backwards incompatible changes
   this setting back to ``True``, or, make sure all the usernames that currently
   exist in your database use lower casing.
 
+- In previous versions, the ``DefaultAccountAdapter`` contained a
+  ``username_regex`` property and accompanying
+  ``error_messages['invalid_username']`` validation error message. These have
+  been removed in favor of pluggable username validators by means of a new
+  setting: ``ACCOUNT_USERNAME_VALIDATORS``.
+
 
 0.29.0 (2016-11-21)
 *******************

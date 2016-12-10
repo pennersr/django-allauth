@@ -302,6 +302,22 @@ class AppSettings(object):
     def PRESERVE_USERNAME_CASING(self):
         return self._setting('PRESERVE_USERNAME_CASING', False)
 
+    @property
+    def USERNAME_VALIDATORS(self):
+        from django.core.exceptions import ImproperlyConfigured
+        from django.contrib.auth.models import AbstractUser
+        from allauth.utils import import_attribute
+
+        path = self._setting('USERNAME_VALIDATORS', None)
+        if path:
+            ret = import_attribute(path)
+            if not isinstance(ret, list):
+                raise ImproperlyConfigured(
+                    'ACCOUNT_USERNAME_VALIDATORS is expected to be a list')
+        else:
+            ret = AbstractUser._meta.get_field('username').validators
+        return ret
+
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

@@ -300,7 +300,7 @@ class AppSettings(object):
 
     @property
     def PRESERVE_USERNAME_CASING(self):
-        return self._setting('PRESERVE_USERNAME_CASING', True)
+        return self._setting('PRESERVE_USERNAME_CASING', False)
 
 
 # Ugly? Guido recommends this himself ...

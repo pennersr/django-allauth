@@ -13,12 +13,18 @@ Note worthy changes
   algorithm uses a random suffix and only one query to determine the final
   username.
 
+
+Backwards incompatible changes
+------------------------------
+
 - Added a new setting: ``ACCOUNT_PRESERVE_USERNAME_CASING``. This setting
   determines whether the username is stored in lowercase (``False``) or whether
   its casing is to be preserved (``True``). Note that when casing is preserved,
   potentially expensive ``__iexact`` lookups are performed when filter on
-  username. For now, the default is set to ``True`` to maintain backwards
-  compatibility.
+  username. The default is set to ``False``, whereas previous versions were
+  always preserving the casing. If your database is case sensitive, either set
+  this setting back to ``True``, or, make sure all the usernames that currently
+  exist in your database use lower casing.
 
 
 0.29.0 (2016-11-21)

@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 import json
+import uuid
 
 from datetime import timedelta
 
@@ -33,9 +34,11 @@ from . import app_settings
 
 from .auth_backends import AuthenticationBackend
 from .adapter import get_adapter
-from .utils import url_str_to_user_pk, user_pk_to_url_str
-
-import uuid
+from .utils import (
+    filter_users_by_username,
+    url_str_to_user_pk,
+    user_pk_to_url_str,
+    user_username)
 
 
 @override_settings(
@@ -951,3 +954,19 @@ class UtilsTests(TestCase):
             email='john@doe.com',
             username='john')
         self.assertEquals(user_pk_to_url_str(user), str(user.pk))
+
+    @override_settings(ACCOUNT_PRESERVE_USERNAME_CASING=False)
+    def test_username_lower_cased(self):
+        user = get_user_model()()
+        user_username(user, 'CamelCase')
+        self.assertEquals(user_username(user), 'camelcase')
+        # TODO: Actually test something
+        filter_users_by_username('CamelCase', 'FooBar')
+
+    @override_settings(ACCOUNT_PRESERVE_USERNAME_CASING=True)
+    def test_username_case_preserved(self):
+        user = get_user_model()()
+        user_username(user, 'CamelCase')
+        self.assertEquals(user_username(user), 'CamelCase')
+        # TODO: Actually test something
+        filter_users_by_username('camelcase', 'foobar')

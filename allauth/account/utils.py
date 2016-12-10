@@ -367,7 +367,8 @@ def filter_users_by_username(*username):
         ret = get_user_model().objects.filter(q)
     else:
         ret = get_user_model().objects.filter(
-            **{app_settings.USER_MODEL_USERNAME_FIELD+'__in': username})
+            **{app_settings.USER_MODEL_USERNAME_FIELD+'__in':
+               [u.lower() for u in username]})
     return ret
 
 

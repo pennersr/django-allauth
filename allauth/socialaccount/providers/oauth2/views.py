@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 
 from datetime import timedelta
+from requests import RequestException
 
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect
@@ -11,6 +12,7 @@ from allauth.exceptions import ImmediateHttpResponse
 from allauth.utils import build_absolute_uri
 from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount import providers
+from allauth.socialaccount.providers.base import ProviderException
 from allauth.socialaccount.providers.oauth2.client import (OAuth2Client,
                                                            OAuth2Error)
 from allauth.socialaccount.helpers import complete_social_login
@@ -133,7 +135,10 @@ class OAuth2CallbackView(OAuth2View):
             else:
                 login.state = SocialLogin.unstash_state(request)
             return complete_social_login(request, login)
-        except (PermissionDenied, OAuth2Error) as e:
+        except (PermissionDenied,
+                OAuth2Error,
+                RequestException,
+                ProviderException) as e:
             return render_authentication_error(
                 request,
                 self.adapter.provider_id,

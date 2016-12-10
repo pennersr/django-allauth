@@ -23,6 +23,10 @@ class AuthError(object):
     DENIED = 'denied'  # Denied by server
 
 
+class ProviderException(Exception):
+    pass
+
+
 class Provider(object):
 
     slug = None

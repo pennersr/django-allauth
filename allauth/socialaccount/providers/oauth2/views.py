@@ -43,6 +43,11 @@ class OAuth2Adapter(object):
         """
         raise NotImplementedError
 
+    def get_callback_url(self, request, app):
+        callback_url = reverse(self.provider_id + "_callback")
+        protocol = self.redirect_uri_protocol
+        return build_absolute_uri(request, callback_url, protocol)
+
     def parse_token(self, data):
         token = SocialToken(token=data['access_token'])
         token.token_secret = data.get('refresh_token', '')
@@ -67,10 +72,7 @@ class OAuth2View(object):
         return view
 
     def get_client(self, request, app):
-        callback_url = reverse(self.adapter.provider_id + "_callback")
-        callback_url = build_absolute_uri(
-            request, callback_url,
-            protocol=self.adapter.redirect_uri_protocol)
+        callback_url = self.adapter.get_callback_url(request, app)
         provider = self.adapter.get_provider()
         scope = provider.get_scope(request)
         client = OAuth2Client(self.request, app.client_id, app.secret,

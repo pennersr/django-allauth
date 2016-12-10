@@ -20,6 +20,9 @@ Note worthy changes
   username. For now, the default is set to ``True`` to maintain backwards
   compatibility.
 
+- The OAuth2Adapter class has gained a ``get_callback_url`` method for when
+  customizing the callback URL is desired.
+
 Backwards incompatible changes
 ------------------------------
 

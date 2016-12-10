@@ -109,7 +109,7 @@ def user_field(user, field, *args):
 
 
 def user_username(user, *args):
-    if args and not app_settings.PRESERVE_USERNAME_CASING:
+    if args and not app_settings.PRESERVE_USERNAME_CASING and args[0]:
         args = [args[0].lower()]
     return user_field(user, app_settings.USER_MODEL_USERNAME_FIELD, *args)
 

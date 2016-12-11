@@ -657,6 +657,14 @@ You can create login URLs like these as follows::
 
     {% provider_login_url "shopify" shop="petstore" %}
 
+For setting up authentication in your app, use this url as your `App URL` (if your server runs at
+localhost:8000)::
+
+    http://localhost:8000/accounts/shopify/login/
+
+And set `Redirection URL` to::
+
+    http://localhost:8000/accounts/shopify/login/callback/
 
 Slack
 -----

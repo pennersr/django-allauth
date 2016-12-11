@@ -20,6 +20,11 @@ Note worthy changes
   username. For now, the default is set to ``True`` to maintain backwards
   compatibility.
 
+- The OAuth2Adapter class has gained a ``get_callback_url`` method for when
+  customizing the callback URL is desired.
+
+- The Battle.net login backend now accepts the ``region`` GET parameter.
+
 Backwards incompatible changes
 ------------------------------
 
@@ -29,6 +34,13 @@ Backwards incompatible changes
   been removed in favor of using the regex validation already defined at the
   user model level. Alternatively, you can use the newly introduced
   ``ACCOUNT_USERNAME_VALIDATORS`` setting.
+
+- The Battle.net backend no longer overrides username regex validation. In
+  order to use battletags as usernames, you are expected to override either
+  the ``username`` field on your User model, or to pass a custom validator
+  which will accept the ``#`` character using the new
+  ``ACCOUNT_USERNAME_VALIDATORS`` setting. Such a validator is available in
+  ``socialaccount.providers.battlenet.validators.BattletagUsernameValidator``.
 
 
 0.29.0 (2016-11-21)

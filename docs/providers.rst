@@ -100,6 +100,13 @@ Register your app here (Mashery account required)
 Development callback URL
     https://localhost:8000/accounts/battlenet/login/callback/
 
+NOTE: In order to use battletags as usernames, you are expected to override either
+the ``username`` field on your User model, or to pass a custom validator which will
+accept the ``#`` character using the ``ACCOUNT_USERNAME_VALIDATORS`` setting
+Such a validator is available in
+``socialaccount.providers.battlenet.validators.BattletagUsernameValidator``.
+
+
 Bitbucket
 ---------
 
@@ -110,6 +117,7 @@ Make sure you select the Account:Read permission.
 
 Development callback URL
     http://127.0.0.1:8000/accounts/bitbucket_oauth2/login/callback/
+
 
 Doximity
 --------

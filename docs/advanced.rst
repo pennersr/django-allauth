@@ -190,3 +190,31 @@ it is listed in `settings.INSTALLED_APPS`.  All messages (as in
 `django.contrib.messages`) are configurable by overriding their
 respective template. If you want to disable a message simply override
 the message template with a blank one.
+
+Admin
+-----
+
+The Django admin site (`django.contrib.admin`) does not use Django allauth by
+default. Since Django admin provides a custom login view, it does not use go
+through the normal Django allauth workflow.
+
+.. warning::
+
+    This limitation means that Django allauth features are not applied to the
+    Django admin site:
+
+    * `ACCOUNT_LOGIN_ATTEMPTS_LIMIT` and `ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT` do not
+      protect Django’s admin login from being brute forced.
+    * Any other custom workflow that overrides the Django allauth adapter's
+      login method will not be applied.
+
+An easy workaround for this is to require users to login before going to the
+Django admin site's login page (note that following would need to be applied to
+every instance of `AdminSite`):
+
+.. code-block:: python
+
+    from django.contrib import admin
+    from django.contrib.auth.decorators import login_required
+
+    admin.site.login = login_required(admin.site.login)

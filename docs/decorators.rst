@@ -21,6 +21,6 @@ The behavior is as follows:
   `login_required` decorator.
 
 - If the user is logged in but has no verified e-mail address, an
-  e-mail verification mail is automatically resend and the user is
+  e-mail verification mail is automatically resent and the user is
   presented with a page informing them they need to verify their email
   address.

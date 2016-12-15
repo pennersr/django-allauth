@@ -78,6 +78,7 @@ def login_by_token(request):
                 login_options = provider.get_fb_login_options(request)
                 app = provider.get_app(request)
                 access_token = form.cleaned_data['access_token']
+                expires_at = None
                 if login_options.get('auth_type') == 'reauthenticate':
                     info = requests.get(
                         GRAPH_API_URL + '/oauth/access_token_info',
@@ -95,9 +96,11 @@ def login_by_token(request):
                                 'client_secret': app.secret,
                                 'fb_exchange_token': access_token}).json()
                     access_token = resp['access_token']
+                    expires_at = timezone.now() + datetime.timedelta(int(seconds=resp['expires']))
                 if ok:
                     token = SocialToken(app=app,
-                                        token=access_token)
+                                        token=access_token,
+                                        expires_at=expires_at)
                     login = fb_complete_login(request, app, token)
                     login.token = token
                     login.state = SocialLogin.state_from_request(request)

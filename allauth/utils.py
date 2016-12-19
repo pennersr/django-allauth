@@ -224,7 +224,7 @@ def serialize_instance(instance):
             if isinstance(field, BinaryField):
                 v = force_text(base64.b64encode(v))
             elif isinstance(field, FileField):
-                if not isinstance(v, six.string_types):
+                if v and not isinstance(v, six.string_types):
                     v = v.name
             # Check if the field is serializable. If not, we'll fall back
             # to serializing the DB values which should cover most use cases.

@@ -48,7 +48,7 @@ class DraugiemProvider(Provider):
         return url
 
     def extract_uid(self, data):
-        return data['uid']
+        return str(data['uid'])
 
     def extract_common_fields(self, data):
         uid = data['uid']

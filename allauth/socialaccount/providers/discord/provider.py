@@ -2,9 +2,6 @@ from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
-import logging
-logger = logging.getLogger(__name__)
-
 
 class DiscordAccount(ProviderAccount):
     def to_str(self):
@@ -18,8 +15,6 @@ class DiscordProvider(OAuth2Provider):
     account_class = DiscordAccount
 
     def extract_uid(self, data):
-        logger.info('data')
-        logger.info(data)
         return str(data['id'])
 
     def extract_common_fields(self, data):

@@ -195,8 +195,8 @@ Admin
 -----
 
 The Django admin site (`django.contrib.admin`) does not use Django allauth by
-default. Since Django admin provides a custom login view, it does not use go
-through the normal Django allauth workflow.
+default. Since Django admin provides a custom login view, it does not go through
+the normal Django allauth workflow.
 
 .. warning::
 

@@ -51,13 +51,13 @@ class DraugiemProvider(Provider):
         return str(data['uid'])
 
     def extract_common_fields(self, data):
-        uid = data['uid']
+        uid = self.extract_uid(data)
         user_data = data['users'][uid]
         return dict(first_name=user_data.get('name'),
                     last_name=user_data.get('surname'))
 
     def extract_extra_data(self, data):
-        uid = data['uid']
+        uid = self.extract_uid(data)
         return data['users'][uid]
 
 

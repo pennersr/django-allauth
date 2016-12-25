@@ -119,6 +119,18 @@ Development callback URL
     http://127.0.0.1:8000/accounts/bitbucket_oauth2/login/callback/
 
 
+Discord
+-------
+
+App registration and management (get your key and secret here)
+    https://discordapp.com/developers/applications/me
+
+Make sure to Add Redirect URI to your application.
+
+Development callback (redirect) URL
+    http://127.0.0.1:8000/accounts/discord/login/callback/
+
+
 Doximity
 --------
 Doximity Oauth2 implementation documentation

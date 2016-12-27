@@ -26,7 +26,7 @@ msgstr "此用户名不能使用，请改用其他用户名。"
 
 #: account/adapter.py:53
 msgid "Too many failed login attempts. Try again later."
-msgstr ""
+msgstr "登录失败次数过多，请稍后重试。"
 
 #: account/adapter.py:296
 #, python-brace-format
@@ -140,7 +140,7 @@ msgstr "此e-mail地址未分配给任何用户账号"
 
 #: account/forms.py:547
 msgid "The password reset token was invalid."
-msgstr ""
+msgstr "重设密码的token不合法。"
 
 #: account/models.py:26
 msgid "user"
@@ -210,7 +210,7 @@ msgstr "已有一个账号与此e-mail地址关联，请先登录该账号，然
 
 #: socialaccount/models.py:47 socialaccount/models.py:80
 msgid "provider"
-msgstr ""
+msgstr "提供商"
 
 #: socialaccount/models.py:50
 #, fuzzy
@@ -219,7 +219,7 @@ msgstr "用户名"
 
 #: socialaccount/models.py:52
 msgid "client id"
-msgstr ""
+msgstr "客户端 id"
 
 #: socialaccount/models.py:54
 msgid "App ID, or consumer key"
@@ -252,11 +252,11 @@ msgstr ""
 
 #: socialaccount/models.py:101
 msgid "last login"
-msgstr ""
+msgstr "最后登录"
 
 #: socialaccount/models.py:103
 msgid "date joined"
-msgstr ""
+msgstr "注册日期"
 
 #: socialaccount/models.py:105
 msgid "extra data"
@@ -264,11 +264,11 @@ msgstr ""
 
 #: socialaccount/models.py:109
 msgid "social account"
-msgstr ""
+msgstr "社交账号"
 
 #: socialaccount/models.py:110
 msgid "social accounts"
-msgstr ""
+msgstr "社交账号"
 
 #: socialaccount/models.py:136
 msgid "token"
@@ -830,38 +830,38 @@ msgstr ""
 #~ msgstr "您的密码已被删除。"
 
 #~ msgid "Your e-mail address has already been verified"
-#~ msgstr "Je e-mail adres is al geverifieerd"
+#~ msgstr "您的e-mail地址已经认证。"
 
 #~ msgid ""
 #~ "If you have any trouble resetting your password, contact us at <a href="
 #~ "\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
 #~ msgstr ""
-#~ "Als je problemen hebt je wachtwoord opnieuw in te stellen, neem dan "
-#~ "contact op met <a href=\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
+#~ "如果您在重置密码中遇到任何问题，请联系我们"
+#~ "<a href=\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
 
 #~ msgid "Invalid confirmation key."
-#~ msgstr "Ongeldige bevestigingssleutel."
+#~ msgstr "不合法的确认密匙"
 
 #~ msgid "OpenID"
 #~ msgstr "OpenID"
 
 #~ msgid "Already have an account?"
-#~ msgstr "Heb je al een account?"
+#~ msgstr "已经有账户了?"
 
 #~ msgid "Sign in"
-#~ msgstr "Aanmelden"
+#~ msgstr "注册"
 
 #~ msgid "Language"
-#~ msgstr "Taal"
+#~ msgstr "语言"
 
 #~ msgid "Pinax can be used in your preferred language."
-#~ msgstr "Deze site kan in jouw voorkeurstaal gebruikt worden."
+#~ msgstr "Pinax可以在您的首选语言中使用。"
 
 #~ msgid "Change my language"
-#~ msgstr "Verander mijn taal"
+#~ msgstr "切换我的语言"
 
 #~ msgid "Timezone"
-#~ msgstr "Tijdzone"
+#~ msgstr "时区"
 
 #, fuzzy
 #~ msgid ""

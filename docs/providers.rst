@@ -381,6 +381,19 @@ App registration (get your key and secret here)
 Development callback URL
     http://127.0.0.1:8000/accounts/github/login/callback/
 
+Enterprise Support
+******************
+
+To use with GitHub Enterprise, add your server URL to your settings.py file.
+
+Example::
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'github': {
+            'GITHUB_URL': https://github.com
+        }
+    }
+
 GitLab
 ------
 

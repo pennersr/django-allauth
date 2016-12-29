@@ -28,7 +28,7 @@ msgstr "此用户名不能使用，请改用其他用户名。"
 
 #: account/adapter.py:53
 msgid "Too many failed login attempts. Try again later."
-msgstr ""
+msgstr "登录失败次数过多，请稍后重试。"
 
 #: account/adapter.py:296
 #, python-brace-format

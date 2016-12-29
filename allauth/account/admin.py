@@ -3,6 +3,7 @@ from django.contrib import admin
 
 from .models import EmailConfirmation, EmailAddress
 from .adapter import get_adapter
+from . import app_settings
 
 
 class EmailAddressAdmin(admin.ModelAdmin):
@@ -27,5 +28,6 @@ class EmailConfirmationAdmin(admin.ModelAdmin):
     raw_id_fields = ('email_address',)
 
 
-admin.site.register(EmailConfirmation, EmailConfirmationAdmin)
+if not app_settings.EMAIL_CONFIRMATION_HMAC:
+    admin.site.register(EmailConfirmation, EmailConfirmationAdmin)
 admin.site.register(EmailAddress, EmailAddressAdmin)

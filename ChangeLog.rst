@@ -1,5 +1,5 @@
-Unreleased
-**********
+0.30.0 (2017-01-01)
+*******************
 
 Note worthy changes
 -------------------
@@ -24,6 +24,9 @@ Note worthy changes
   customizing the callback URL is desired.
 
 - The Battle.net login backend now accepts the ``region`` GET parameter.
+
+- New providers: 500px, Discord.
+
 
 Backwards incompatible changes
 ------------------------------
@@ -50,6 +53,7 @@ Note worthy changes
 -------------------
 
 - Addressed Django 1.10 deprecation warnings.
+
 
 0.28.0 (2016-10-13)
 *******************

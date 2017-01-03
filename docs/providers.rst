@@ -351,7 +351,7 @@ OAUTH_ENDPOINT:
     Explicitly set the OAuth2 endpoint. Default is the production endpoint
     "https://oauth.accounts.firefox.com/v1".
 
-OAUTH_ENDPOINT:
+PROFILE_ENDPOINT:
     Explicitly set the profile endpoint. Default is the production endpoint
     and is "https://profile.accounts.firefox.com/v1".
 

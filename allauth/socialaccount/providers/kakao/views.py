@@ -26,5 +26,6 @@ class KakaoCallbackView(OAuth2CallbackView):
         client.consumer_secret = None   # kakao not used client_secret
         return client
 
+
 oauth2_login = OAuth2LoginView.adapter_view(KakaoOAuth2Adapter)
 oauth2_callback = KakaoCallbackView.adapter_view(KakaoOAuth2Adapter)

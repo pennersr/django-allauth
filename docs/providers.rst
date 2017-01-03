@@ -475,6 +475,16 @@ Development callback URL
     http://localhost:8000/accounts/instagram/login/callback/
 
 
+Line
+----
+
+App registration (get your key and secret here)
+    https://business.line.me
+
+Development callback URL
+    http://127.0.0.1:8000/accounts/line/login/callback/
+
+
 LinkedIn
 --------
 

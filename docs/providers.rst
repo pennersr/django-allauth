@@ -515,6 +515,15 @@ App registration (get your key and secret here)
 Development callback URL
     Leave the OAuth redirect URL empty.
 
+Naver
+---------
+
+App registration (get your key and secret here)
+    https://developers.naver.com/appinfo
+
+Development callback URL
+    http://localhost:8000/accounts/naver/login/callback/
+
 
 Odnoklassniki
 -------------

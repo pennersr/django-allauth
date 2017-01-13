@@ -10,7 +10,7 @@ class NaverOAuth2Adapter(OAuth2Adapter):
     provider_id = NaverProvider.id
     access_token_url = 'https://nid.naver.com/oauth2.0/token'
     authorize_url = 'https://nid.naver.com/oauth2.0/authorize'
-    profile_url = '	https://openapi.naver.com/v1/nid/me'
+    profile_url = 'https://openapi.naver.com/v1/nid/me'
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {'Authorization': 'Bearer {0}'.format(token.token)}

@@ -95,6 +95,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.gitlab',
     'allauth.socialaccount.providers.hubic',
     'allauth.socialaccount.providers.instagram',
+    'allauth.socialaccount.providers.line',
     'allauth.socialaccount.providers.linkedin',
     'allauth.socialaccount.providers.linkedin_oauth2',
     'allauth.socialaccount.providers.mailru',

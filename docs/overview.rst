@@ -83,6 +83,8 @@ Supported Providers
 
 - Instagram (OAuth2)
 
+- Kakao (OAuth2)
+
 - Line (OAuth2)
 
 - LinkedIn (OAuth, OAuth2)

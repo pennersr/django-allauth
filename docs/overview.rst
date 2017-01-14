@@ -89,6 +89,8 @@ Supported Providers
 
 - Mail.Ru (OAuth2)
 
+- Naver (OAuth2)
+
 - Odnoklassniki (OAuth2)
 
 - OpenId

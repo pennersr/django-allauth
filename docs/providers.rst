@@ -351,7 +351,7 @@ OAUTH_ENDPOINT:
     Explicitly set the OAuth2 endpoint. Default is the production endpoint
     "https://oauth.accounts.firefox.com/v1".
 
-OAUTH_ENDPOINT:
+PROFILE_ENDPOINT:
     Explicitly set the profile endpoint. Default is the production endpoint
     and is "https://profile.accounts.firefox.com/v1".
 
@@ -485,6 +485,17 @@ Development callback URL
     http://localhost:8000/accounts/kakao/login/callback/
 
 
+
+Line
+----
+
+App registration (get your key and secret here)
+    https://business.line.me
+
+Development callback URL
+    http://127.0.0.1:8000/accounts/line/login/callback/
+
+
 LinkedIn
 --------
 
@@ -524,6 +535,15 @@ App registration (get your key and secret here)
 
 Development callback URL
     Leave the OAuth redirect URL empty.
+
+Naver
+---------
+
+App registration (get your key and secret here)
+    https://developers.naver.com/appinfo
+
+Development callback URL
+    http://localhost:8000/accounts/naver/login/callback/
 
 
 Odnoklassniki

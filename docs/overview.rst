@@ -85,9 +85,13 @@ Supported Providers
 
 - Kakao (OAuth2)
 
+- Line (OAuth2)
+
 - LinkedIn (OAuth, OAuth2)
 
 - Mail.Ru (OAuth2)
+
+- Naver (OAuth2)
 
 - Odnoklassniki (OAuth2)
 

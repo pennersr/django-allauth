@@ -96,7 +96,7 @@ def login_by_token(request):
                                 'client_secret': app.secret,
                                 'fb_exchange_token': access_token}).json()
                     access_token = resp['access_token']
-                    expires_at = timezone.now() + datetime.timedelta(int(seconds=resp['expires']))
+                    expires_at = timezone.now() + datetime.timedelta(int(seconds=resp['expires_in']))
                 if ok:
                     token = SocialToken(app=app,
                                         token=access_token,

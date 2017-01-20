@@ -1,7 +1,6 @@
 import re
 
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
 
 import requests
 
@@ -64,17 +63,24 @@ class ShopifyOauth2LoginView(OAuth2LoginView):
     def dispatch(self, request):
         response = super(ShopifyOauth2LoginView, self).dispatch(request)
 
-        is_embedded = getattr(settings, 'SOCIALACCOUNT_PROVIDERS', {}).get('shopify', {}).get('IS_EMBEDDED', False)
+        is_embedded = getattr(settings, 'SOCIALACCOUNT_PROVIDERS', {}).get(
+            'shopify', {}).get('IS_EMBEDDED', False)
         if is_embedded:
             """
-            Shopify embedded apps (that run within an iFrame) require a JS (not server)
-            redirect for starting the oauth2 process.
+            Shopify embedded apps (that run within an iFrame) require a JS
+            (not server) redirect for starting the oauth2 process.
 
-            See Also: https://help.shopify.com/api/sdks/embedded-app-sdk/getting-started#oauth
+            See Also:
+            https://help.shopify.com/api/sdks/embedded-app-sdk/getting-started#oauth
             """
-            js = '<script type="text/javascript">window.top.location.href = "{url}";</script>'.format(url=response.url)
+            js = ''.join((
+                '<script type="text/javascript">',
+                'window.top.location.href = "{url}";'.format(url=response.url),
+                '</script>'
+            ))
             response = HttpResponse(content=js)
-            response.xframe_options_exempt = True  # Because this view will be within shopify's iframe
+            # Because this view will be within shopify's iframe
+            response.xframe_options_exempt = True
         return response
 
 

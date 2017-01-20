@@ -36,7 +36,8 @@ class ShopifyTests(create_oauth2_tests(registry.by_id(ShopifyProvider.id))):
         self.assertEqual(resp.status_code, 302)
         p = urlparse(resp['location'])
         q = parse_qs(p.query)
-        resp = self._complete_shopify_login(q, resp, resp_mock, with_refresh_token)
+        resp = self._complete_shopify_login(q, resp, resp_mock,
+                                            with_refresh_token)
         return resp
 
     def get_mocked_response(self):
@@ -57,7 +58,8 @@ class ShopifyEmbeddedTests(ShopifyTests):
     Shopify embedded apps (that run within an iFrame) require a JS (not server)
     redirect for starting the oauth2 process.
 
-    See Also: https://help.shopify.com/api/sdks/embedded-app-sdk/getting-started#oauth
+    See Also:
+    https://help.shopify.com/api/sdks/embedded-app-sdk/getting-started#oauth
     """
 
     def login(self, resp_mock, process='login', with_refresh_token=True):
@@ -65,9 +67,14 @@ class ShopifyEmbeddedTests(ShopifyTests):
                                {'process': process, 'shop': 'test'})
         self.assertEqual(resp.status_code, 200)  # No re-direct, JS must do it
         actual_content = resp.content.decode('utf8')
-        self.assertTrue('script' in actual_content, 'Content missing script tag. [Actual: {}]'.format(actual_content))
-        self.assertTrue(resp.xframe_options_exempt, 'Redirect JS must be allowed to run in Shopify iframe')
-        p = urlparse(actual_content.split(";</script>")[0].split('location.href = "')[1])
+        self.assertTrue('script' in actual_content,
+                        'Content missing script tag. [Actual: {}]'.format(
+                            actual_content))
+        self.assertTrue(resp.xframe_options_exempt,
+                        'Redirect JS must be allowed to run in Shopify iframe')
+        p = urlparse(actual_content.split(";</script>")[0].split(
+            'location.href = "')[1])
         q = parse_qs(p.query)
-        resp = self._complete_shopify_login(q, resp, resp_mock, with_refresh_token)
+        resp = self._complete_shopify_login(q, resp, resp_mock,
+                                            with_refresh_token)
         return resp

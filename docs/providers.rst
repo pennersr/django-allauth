@@ -699,6 +699,17 @@ And set `Redirection URL` to::
 
     http://localhost:8000/accounts/shopify/login/callback/
 
+**Embedded Apps**
+
+If your Shopify app is embedded you will want to tell allauth to do the required JS (rather than server) redirect.::
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'shopify': {
+            'IS_EMBEDDED': True,
+        }
+    }
+
+
 Slack
 -----
 

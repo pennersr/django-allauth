@@ -64,7 +64,8 @@ class ShopifyEmbeddedTests(ShopifyTests):
         resp = self.client.get(reverse(self.provider.id + '_login'),
                                {'process': process, 'shop': 'test'})
         self.assertEqual(resp.status_code, 200)  # No re-direct, JS must do it
-        p = urlparse(resp.context['location'])
+        self.assertTrue('script' in resp.content, 'Content missing script tag. [Actual: {}]'.format(resp.content))
+        p = urlparse(resp.content.split(";</script>")[0].split('location.href = "')[1])
         q = parse_qs(p.query)
         resp = self._complete_shopify_login(q, resp, resp_mock, with_refresh_token)
         return resp

@@ -65,6 +65,7 @@ class ShopifyEmbeddedTests(ShopifyTests):
                                {'process': process, 'shop': 'test'})
         self.assertEqual(resp.status_code, 200)  # No re-direct, JS must do it
         self.assertTrue('script' in resp.content, 'Content missing script tag. [Actual: {}]'.format(resp.content))
+        self.assertTrue(resp.xframe_options_exempt, 'Redirect JS must be allowed to run in Shopify iframe')
         p = urlparse(resp.content.split(";</script>")[0].split('location.href = "')[1])
         q = parse_qs(p.query)
         resp = self._complete_shopify_login(q, resp, resp_mock, with_refresh_token)

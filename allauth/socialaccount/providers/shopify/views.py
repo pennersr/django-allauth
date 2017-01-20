@@ -73,9 +73,8 @@ class ShopifyOauth2LoginView(OAuth2LoginView):
             See Also: https://help.shopify.com/api/sdks/embedded-app-sdk/getting-started#oauth
             """
             js = '<script type="text/javascript">window.top.location.href = "{url}";</script>'.format(url=response.url)
-            return HttpResponse(
-                content=js
-            )
+            response = HttpResponse(content=js)
+            response.xframe_options_exempt = True  # Because this view will be within shopify's iframe
         return response
 
 

@@ -52,7 +52,7 @@ class GoogleProvider(OAuth2Provider):
     def extract_email_addresses(self, data):
         ret = []
         email = data.get('email')
-        if email and data.get('verified_email'):
+        if email and data.get('email_verified'):
             ret.append(EmailAddress(email=email,
                        verified=True,
                        primary=True))

@@ -59,8 +59,8 @@ instances are created, and populated with data
 - `allauth.account.adapter.DefaultAccountAdapter`:
 
   - `is_open_for_signup(self, request)`: The default function
-  returns `True`. You can override this method by returning `False`
-  if you want to disable account signup.
+    returns `True`. You can override this method by returning `False`
+    if you want to disable account signup.
 
   - `new_user(self, request)`: Instantiates a new, empty `User`.
 
@@ -81,9 +81,9 @@ instances are created, and populated with data
 - `allauth.socialaccount.adapter.DefaultSocialAccountAdapter`:
 
   - `is_open_for_signup(self, request)`: The default function
-  returns that is the same as `ACCOUNT_ADAPTER` in `settings.py`.
-  You can override this method by returning `True`/`False`
-  if you want to enable/disable socialaccount signup.
+    returns that is the same as `ACCOUNT_ADAPTER` in `settings.py`.
+    You can override this method by returning `True`/`False`
+    if you want to enable/disable socialaccount signup.
 
   - `new_user(self, request, sociallogin)`: Instantiates a new, empty
     `User`.

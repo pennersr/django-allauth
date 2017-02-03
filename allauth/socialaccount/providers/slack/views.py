@@ -7,13 +7,12 @@ from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 
 from .provider import SlackProvider
 
-
 class SlackOAuth2Adapter(OAuth2Adapter):
     provider_id = SlackProvider.id
 
     access_token_url = 'https://slack.com/api/oauth.access'
     authorize_url = 'https://slack.com/oauth/authorize'
-    identity_url = 'https://slack.com/api/users.identity'
+    identity_url = 'https://slack.com/api/auth.test'
 
     def complete_login(self, request, app, token, **kwargs):
         extra_data = self.get_data(token.token)
@@ -33,8 +32,15 @@ class SlackOAuth2Adapter(OAuth2Adapter):
 
         # Fill in their generic info
         info = {
-            'user': resp.get('user'),
-            'team': resp.get('team')
+            'name': resp.get('user'),
+            'user': {
+                'name': resp.get('user'),
+                'id': resp.get('user_id')
+            },
+            'team': {
+                'name': resp.get('team'),
+                'id': resp.get('team_id')
+            }
         }
 
         return info

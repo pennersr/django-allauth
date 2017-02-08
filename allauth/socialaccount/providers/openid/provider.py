@@ -55,8 +55,21 @@ class OpenIDProvider(Provider):
                                 openid_url='http://hyves.nl')]
         return self.get_settings().get('SERVERS', default_servers)
 
-    def extract_extra_data(self, response):
+    def get_server_settings(self, endpoint):
+        servers = self.get_settings().get('SERVERS', [])
+        for server in servers:
+            if endpoint == server.get('openid_url'):
+                return server
         return {}
+
+    def extract_extra_data(self, response):
+        extra_data = {}
+        server_settings = \
+            self.get_server_settings(response.endpoint.server_url)
+        extra_attributes = server_settings.get('extra_attributes', [])
+        for id, name, _ in extra_attributes:
+            extra_data[id] = get_value_from_response(response, ax_names=[name])
+        return extra_data
 
     def extract_uid(self, response):
         return response.identity_url

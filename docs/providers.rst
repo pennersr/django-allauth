@@ -550,6 +550,22 @@ follows::
                       openid_url='https://www.google.com/accounts/o8/id')]}}
 
 
+You can manually specify extra_data you want to request from server as follows::
+
+    SOCIALACCOUNT_PROVIDERS = \
+        { 'openid':
+            { 'SERVERS':
+                 [ dict(id='mojeid',
+                      name='MojeId',
+                      openid_url='https://mojeid.cz/endpoint/',
+                      extra_attributes = [
+                          ('phone', 'http://axschema.org/contact/phone/default', False),
+                          ('birth_date', 'http://axschema.org/birthDate', False,),
+                      ])]}}
+
+Attributes are in form (id, name, required) where id is key in extra_data field of socialaccount,
+name is identifier of requested attribute and required specifies whether attribute is required.
+
 If you want to manually include login links yourself, you can use the
 following template tag::
 

@@ -437,15 +437,14 @@ as follows. See https://developer.github.com/v3/oauth/#scopes for details.
 Enterprise Support
 ******************
 
-To use with GitHub Enterprise, add your server URL to your settings.py file.
-
-Example:
+If you use GitHub Enterprise add your server URL to your Django settings as
+follows:
 
 .. code-block:: python
 
     SOCIALACCOUNT_PROVIDERS = {
         'github': {
-            'GITHUB_URL': https://github.com,
+            'GITHUB_URL': 'https://your.github-server.domain',
         }
     }
 

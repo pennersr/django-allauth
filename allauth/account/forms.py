@@ -329,14 +329,12 @@ class BaseSignupForm(_base_signup_form_class()):
 
 
 class SignupForm(BaseSignupForm):
-
-    password1 = PasswordField(label=_("Password"))
-    password2 = PasswordField(label=_("Password (again)"))
-
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)
-        if not app_settings.SIGNUP_PASSWORD_ENTER_TWICE:
-            del self.fields["password2"]
+        self.fields['password1'] = PasswordField(label=_("Password"))
+        if app_settings.SIGNUP_PASSWORD_ENTER_TWICE:
+            self.fields['password2'] = PasswordField(
+                label=_("Password (again)"))
 
     def clean(self):
         super(SignupForm, self).clean()

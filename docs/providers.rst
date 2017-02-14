@@ -419,18 +419,32 @@ App registration (get your key and secret here)
 Development callback URL
     http://127.0.0.1:8000/accounts/github/login/callback/
 
-Enterprise Support
-******************
-
-To use with GitHub Enterprise, add your server URL to your settings.py file.
-
-Example:
+If you want more than just read-only access to public data specify the scope
+as follows. See https://developer.github.com/v3/oauth/#scopes for details.
 
 .. code-block:: python
 
     SOCIALACCOUNT_PROVIDERS = {
         'github': {
-            'GITHUB_URL': https://github.com,
+            'SCOPE': [
+                'user',
+                'repo',
+                'read:org',
+            ],
+        }
+    }
+
+Enterprise Support
+******************
+
+If you use GitHub Enterprise add your server URL to your Django settings as
+follows:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'github': {
+            'GITHUB_URL': 'https://your.github-server.domain',
         }
     }
 

@@ -67,8 +67,9 @@ class OpenIDProvider(Provider):
         server_settings = \
             self.get_server_settings(response.endpoint.server_url)
         extra_attributes = server_settings.get('extra_attributes', [])
-        for id, name, _ in extra_attributes:
-            extra_data[id] = get_value_from_response(response, ax_names=[name])
+        for attribute_id, name, _ in extra_attributes:
+            extra_data[attribute_id] \
+                = get_value_from_response(response, ax_names=[name])
         return extra_data
 
     def extract_uid(self, response):

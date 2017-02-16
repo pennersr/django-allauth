@@ -1,29 +1,35 @@
-import random
-import string
 import base64
 import importlib
-import re
-import unicodedata
 import json
+import random
+import re
+import string
+import unicodedata
 from collections import OrderedDict
 
-from django.core.exceptions import ImproperlyConfigured
-from django.core.validators import validate_email, ValidationError
 from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
+from django.core.exceptions import ImproperlyConfigured
+from django.core.serializers.json import DjangoJSONEncoder
+from django.core.validators import ValidationError, validate_email
 from django.db.models import FieldDoesNotExist, FileField
-from django.db.models.fields import (DateTimeField, DateField,
-                                     EmailField, TimeField,
-                                     BinaryField)
-from django.utils import six, dateparse
+from django.db.models.fields import (
+    BinaryField,
+    DateField,
+    DateTimeField,
+    EmailField,
+    TimeField,
+)
+from django.utils import dateparse, six
 from django.utils.six.moves.urllib.parse import urlsplit
 
-from django.core.serializers.json import DjangoJSONEncoder
+from allauth.compat import NoReverseMatch, reverse
+
+
 try:
     from django.utils.encoding import force_text, force_bytes
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
-from allauth.compat import reverse, NoReverseMatch
 
 
 # Magic number 7: if you run into collisions with this number, then you are

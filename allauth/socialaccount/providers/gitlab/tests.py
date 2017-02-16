@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from allauth.socialaccount.providers.gitlab.provider import GitLabProvider
 from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse
-from allauth.tests import TestCase
+from allauth.tests import MockedResponse, TestCase
 
 
 class GitLabTests(OAuth2TestsMixin, TestCase):

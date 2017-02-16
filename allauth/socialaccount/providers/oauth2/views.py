@@ -9,15 +9,19 @@ from django.utils import timezone
 
 from allauth.compat import reverse
 from allauth.exceptions import ImmediateHttpResponse
-from allauth.utils import build_absolute_uri
-from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount import providers
+from allauth.socialaccount.helpers import (
+    complete_social_login,
+    render_authentication_error,
+)
+from allauth.socialaccount.models import SocialLogin, SocialToken
 from allauth.socialaccount.providers.base import ProviderException
-from allauth.socialaccount.providers.oauth2.client import (OAuth2Client,
-                                                           OAuth2Error)
-from allauth.socialaccount.helpers import complete_social_login
-from allauth.socialaccount.models import SocialToken, SocialLogin
-from allauth.utils import get_request_param
+from allauth.socialaccount.providers.oauth2.client import (
+    OAuth2Client,
+    OAuth2Error,
+)
+from allauth.utils import build_absolute_uri, get_request_param
+
 from ..base import AuthAction, AuthError
 
 

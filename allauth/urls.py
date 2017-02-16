@@ -1,9 +1,11 @@
 from importlib import import_module
-from django.conf.urls import url, include
+
+from django.conf.urls import include, url
 
 from allauth.socialaccount import providers
 
 from . import app_settings
+
 
 urlpatterns = [url('^', include('allauth.account.urls'))]
 

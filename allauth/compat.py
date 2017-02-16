@@ -1,5 +1,6 @@
 import django
 
+
 if django.VERSION > (1, 10,):
     from django.urls import NoReverseMatch, reverse, reverse_lazy
 else:

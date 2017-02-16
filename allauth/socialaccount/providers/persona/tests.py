@@ -1,8 +1,9 @@
 from django.test.utils import override_settings
 
 from allauth.compat import reverse
-from allauth.utils import get_user_model
 from allauth.tests import TestCase, patch
+from allauth.utils import get_user_model
+
 
 SOCIALACCOUNT_PROVIDERS = {'persona':
                            {'AUDIENCE': 'https://www.example.com:433'}}

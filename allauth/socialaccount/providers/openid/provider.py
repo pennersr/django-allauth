@@ -8,8 +8,13 @@ from allauth.compat import reverse
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import Provider, ProviderAccount
 
-from .utils import get_email_from_response, get_value_from_response
-from .utils import SRegField, OldAXAttribute, AXAttribute
+from .utils import (
+    AXAttribute,
+    OldAXAttribute,
+    SRegField,
+    get_email_from_response,
+    get_value_from_response,
+)
 
 
 class OpenIDAccount(ProviderAccount):

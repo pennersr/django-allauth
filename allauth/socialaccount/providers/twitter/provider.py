@@ -1,6 +1,5 @@
 from allauth.socialaccount import providers
-from allauth.socialaccount.providers.base import (ProviderAccount,
-                                                  AuthAction)
+from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
 
 

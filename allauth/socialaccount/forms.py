@@ -4,10 +4,9 @@ from django import forms
 
 from allauth.account.forms import BaseSignupForm
 
-from .models import SocialAccount
+from . import app_settings, signals
 from .adapter import get_adapter
-from . import app_settings
-from . import signals
+from .models import SocialAccount
 
 
 class SignupForm(BaseSignupForm):

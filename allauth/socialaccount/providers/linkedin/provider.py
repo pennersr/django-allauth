@@ -1,8 +1,6 @@
-from allauth.socialaccount import providers
+from allauth.socialaccount import app_settings, providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
-
-from allauth.socialaccount import app_settings
 
 
 class LinkedInAccount(ProviderAccount):

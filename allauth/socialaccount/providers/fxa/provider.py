@@ -4,6 +4,7 @@ from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
+
 _FXA_SETTINGS = getattr(
     settings, 'SOCIALACCOUNT_PROVIDERS', {}).get('fxa', {})
 FXA_OAUTH_ENDPOINT = _FXA_SETTINGS.get(

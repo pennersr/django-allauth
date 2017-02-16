@@ -5,9 +5,9 @@ from django.utils.http import urlencode
 
 from allauth.compat import reverse
 from allauth.socialaccount import providers
-from allauth.socialaccount.models import SocialToken, SocialApp
+from allauth.socialaccount.models import SocialApp, SocialToken
+from allauth.tests import Mock, TestCase, patch
 from allauth.utils import get_current_site
-from allauth.tests import TestCase, Mock, patch
 
 from . import views
 from .provider import DraugiemProvider

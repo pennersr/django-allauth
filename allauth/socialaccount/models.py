@@ -1,27 +1,28 @@
 from __future__ import absolute_import
 
-from django.core.exceptions import PermissionDenied
-from django.db import models
 from django.contrib.auth import authenticate
 from django.contrib.sites.models import Site
-from django.utils.encoding import python_2_unicode_compatible
+from django.core.exceptions import PermissionDenied
+from django.db import models
 from django.utils.crypto import get_random_string
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
-try:
-    from django.utils.encoding import force_text
-except ImportError:
-    from django.utils.encoding import force_unicode as force_text
 
 import allauth.app_settings
 from allauth.account.models import EmailAddress
 from allauth.account.utils import get_next_redirect_url, setup_user_email
-from allauth.utils import (get_user_model, get_current_site)
+from allauth.utils import get_current_site, get_user_model
 
-from .adapter import get_adapter
-from . import app_settings
-from . import providers
-from .fields import JSONField
+from . import app_settings, providers
 from ..utils import get_request_param
+from .adapter import get_adapter
+from .fields import JSONField
+
+
+try:
+    from django.utils.encoding import force_text
+except ImportError:
+    from django.utils.encoding import force_unicode as force_text
 
 
 class SocialAppManager(models.Manager):

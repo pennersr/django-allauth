@@ -1,8 +1,10 @@
 import json
+
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase
+
 from .provider import BattleNetProvider
 from .views import _check_errors
 

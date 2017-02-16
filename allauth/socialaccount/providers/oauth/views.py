@@ -1,12 +1,16 @@
 from __future__ import absolute_import
 
 from allauth.compat import reverse
-from allauth.socialaccount.helpers import render_authentication_error
-from allauth.socialaccount.providers.oauth.client import (OAuthClient,
-                                                          OAuthError)
-from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount import providers
-from allauth.socialaccount.models import SocialToken, SocialLogin
+from allauth.socialaccount.helpers import (
+    complete_social_login,
+    render_authentication_error,
+)
+from allauth.socialaccount.models import SocialLogin, SocialToken
+from allauth.socialaccount.providers.oauth.client import (
+    OAuthClient,
+    OAuthError,
+)
 
 from ..base import AuthAction, AuthError
 

@@ -1,10 +1,9 @@
 from django.test.utils import override_settings
 
-from allauth.compat import reverse
+from allauth.compat import parse_qs, reverse, urlparse
+from allauth.socialaccount.providers import registry
 from allauth.socialaccount.tests import create_oauth2_tests
 from allauth.tests import MockedResponse, mocked_response
-from allauth.socialaccount.providers import registry
-from allauth.compat import parse_qs, urlparse
 
 from .provider import ShopifyProvider
 

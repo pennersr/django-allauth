@@ -1,37 +1,45 @@
 from __future__ import unicode_literals
 
+import hashlib
 import json
 import time
 import warnings
-import hashlib
 
 from django import forms
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import login as django_login, get_backends
-from django.contrib.auth import logout as django_logout, authenticate
+from django.contrib.auth import (
+    authenticate,
+    get_backends,
+    login as django_login,
+    logout as django_logout,
+)
 from django.contrib.auth.models import AbstractUser
 from django.core.cache import cache
-from django.core.mail import EmailMultiAlternatives, EmailMessage
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
-from django.template.loader import render_to_string
+from django.core.mail import EmailMessage, EmailMultiAlternatives
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import TemplateDoesNotExist
+from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+
+from . import app_settings
+from ..compat import is_authenticated, reverse, validate_password
+from ..utils import (
+    build_absolute_uri,
+    email_address_exists,
+    generate_unique_username,
+    get_current_site,
+    get_user_model,
+    import_attribute,
+    resolve_url,
+)
+
 
 try:
     from django.utils.encoding import force_text
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
-
-from ..compat import is_authenticated, reverse, validate_password
-from ..utils import (build_absolute_uri, get_current_site,
-                     generate_unique_username,
-                     get_user_model, import_attribute,
-                     resolve_url, email_address_exists)
-
-from . import app_settings
 
 
 class DefaultAccountAdapter(object):

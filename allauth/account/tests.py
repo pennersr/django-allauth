@@ -1,45 +1,43 @@
 from __future__ import absolute_import
-import json
-import uuid
 
+import json
+import unittest
+import uuid
 from datetime import timedelta
 
 import django
-from django.utils.timezone import now
-from django.test.utils import override_settings
 from django.conf import settings
-from django.test.client import Client
-from django.core import mail
-from django.test.client import RequestFactory
-from django.contrib.auth.models import AnonymousUser, AbstractUser
-from django.db import models
+from django.contrib.auth.models import AbstractUser, AnonymousUser
+from django.core import mail, validators
 from django.core.exceptions import ValidationError
-from django.core import validators
-import unittest
+from django.db import models
+from django.test.client import Client, RequestFactory
+from django.test.utils import override_settings
+from django.utils.timezone import now
 
-from allauth.tests import TestCase, patch
 from allauth.account.forms import BaseSignupForm
 from allauth.account.models import (
     EmailAddress,
     EmailConfirmation,
-    EmailConfirmationHMAC)
-
+    EmailConfirmationHMAC,
+)
+from allauth.tests import TestCase, patch
 from allauth.utils import (
     get_current_site,
     get_user_model,
-    get_username_max_length)
-
-from ..compat import is_authenticated, reverse
+    get_username_max_length,
+)
 
 from . import app_settings
-
-from .auth_backends import AuthenticationBackend
+from ..compat import is_authenticated, reverse
 from .adapter import get_adapter
+from .auth_backends import AuthenticationBackend
 from .utils import (
     filter_users_by_username,
     url_str_to_user_pk,
     user_pk_to_url_str,
-    user_username)
+    user_username,
+)
 
 
 test_username_validators = [

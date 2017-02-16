@@ -1,21 +1,28 @@
 from datetime import timedelta
-try:
-    from django.utils.timezone import now
-except ImportError:
-    from datetime import datetime
-    now = datetime.now
 
+from django.conf import settings
 from django.contrib import messages
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import Q
-from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.utils import six
-from django.utils.http import urlencode
-from django.utils.http import int_to_base36, base36_to_int
-from django.core.exceptions import ValidationError
+from django.utils.http import base36_to_int, int_to_base36, urlencode
+from django.utils.timezone import now
 
 from allauth.compat import OrderedDict
+
+from . import app_settings, signals
+from ..exceptions import ImmediateHttpResponse
+from ..utils import (
+    get_request_param,
+    get_user_model,
+    import_callable,
+    valid_email_or_none,
+)
+from .adapter import get_adapter
+from .app_settings import EmailVerificationMethod
+
 
 try:
     from django.contrib.auth import update_session_auth_hash
@@ -26,16 +33,6 @@ try:
     from django.utils.encoding import force_text
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
-
-from ..exceptions import ImmediateHttpResponse
-from ..utils import (import_callable, valid_email_or_none,
-                     get_user_model, get_request_param)
-
-from . import signals
-
-from .app_settings import EmailVerificationMethod
-from . import app_settings
-from .adapter import get_adapter
 
 
 def get_next_redirect_url(request, redirect_field_name="next"):

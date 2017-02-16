@@ -53,6 +53,8 @@ Supported Providers
 
 - Bitly (OAuth2)
 
+- Daum (OAuth2)
+
 - Douban (OAuth2)
 
 - Doximity (OAuth2)
@@ -83,9 +85,15 @@ Supported Providers
 
 - Instagram (OAuth2)
 
+- Kakao (OAuth2)
+
+- Line (OAuth2)
+
 - LinkedIn (OAuth, OAuth2)
 
 - Mail.Ru (OAuth2)
+
+- Naver (OAuth2)
 
 - Odnoklassniki (OAuth2)
 

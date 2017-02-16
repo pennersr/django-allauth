@@ -1,18 +1,20 @@
 import base64
+import pickle
+
+from openid.association import Association as OIDAssociation
+from openid.extensions.ax import FetchResponse
+from openid.extensions.sreg import SRegResponse
+from openid.store.interface import OpenIDStore as OIDStore
+
+from allauth.utils import valid_email_or_none
+
+from .models import OpenIDNonce, OpenIDStore
+
+
 try:
     from UserDict import UserDict
 except ImportError:
     from collections import UserDict
-import pickle
-
-from openid.store.interface import OpenIDStore as OIDStore
-from openid.association import Association as OIDAssociation
-from openid.extensions.sreg import SRegResponse
-from openid.extensions.ax import FetchResponse
-
-from allauth.utils import valid_email_or_none
-
-from .models import OpenIDStore, OpenIDNonce
 
 
 class JSONSafeSession(UserDict):

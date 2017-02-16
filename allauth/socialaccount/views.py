@@ -1,22 +1,22 @@
 from django.contrib import messages
-from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
-from ..compat import reverse, reverse_lazy
+from . import app_settings, helpers
 from ..account import app_settings as account_settings
-from ..account.views import (AjaxCapableProcessFormViewMixin,
-                             CloseableSignupMixin,
-                             RedirectAuthenticatedUserMixin)
 from ..account.adapter import get_adapter as get_account_adapter
-from ..utils import get_form_class, get_current_site
-
+from ..account.views import (
+    AjaxCapableProcessFormViewMixin,
+    CloseableSignupMixin,
+    RedirectAuthenticatedUserMixin,
+)
+from ..compat import reverse, reverse_lazy
+from ..utils import get_current_site, get_form_class
 from .adapter import get_adapter
-from .models import SocialLogin
 from .forms import DisconnectForm, SignupForm
-from . import helpers
-from . import app_settings
+from .models import SocialLogin
 
 
 class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,

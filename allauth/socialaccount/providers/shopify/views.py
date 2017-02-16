@@ -58,10 +58,10 @@ class ShopifyOAuth2Adapter(OAuth2Adapter):
             request, extra_data)
 
 
-class ShopifyOauth2LoginView(OAuth2LoginView):
+class ShopifyOAuth2LoginView(OAuth2LoginView):
 
     def dispatch(self, request):
-        response = super(ShopifyOauth2LoginView, self).dispatch(request)
+        response = super(ShopifyOAuth2LoginView, self).dispatch(request)
 
         is_embedded = getattr(settings, 'SOCIALACCOUNT_PROVIDERS', {}).get(
             'shopify', {}).get('IS_EMBEDDED', False)
@@ -74,9 +74,10 @@ class ShopifyOauth2LoginView(OAuth2LoginView):
             https://help.shopify.com/api/sdks/embedded-app-sdk/getting-started#oauth
             """
             js = ''.join((
+                '<!DOCTYPE html><html><head>'
                 '<script type="text/javascript">',
                 'window.top.location.href = "{url}";'.format(url=response.url),
-                '</script>'
+                '</script></head><body></body></html>'
             ))
             response = HttpResponse(content=js)
             # Because this view will be within shopify's iframe
@@ -84,5 +85,5 @@ class ShopifyOauth2LoginView(OAuth2LoginView):
         return response
 
 
-oauth2_login = ShopifyOauth2LoginView.adapter_view(ShopifyOAuth2Adapter)
+oauth2_login = ShopifyOAuth2LoginView.adapter_view(ShopifyOAuth2Adapter)
 oauth2_callback = OAuth2CallbackView.adapter_view(ShopifyOAuth2Adapter)

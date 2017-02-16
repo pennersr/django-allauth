@@ -91,6 +91,8 @@ Supported Providers
 
 - Mail.Ru (OAuth2)
 
+- MailChimp (OAuth2)
+
 - Naver (OAuth2)
 
 - Odnoklassniki (OAuth2)

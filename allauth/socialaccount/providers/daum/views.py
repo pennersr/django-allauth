@@ -13,9 +13,14 @@ class DaumOAuth2Adapter(OAuth2Adapter):
     profile_url = 'https://apis.daum.net/user/v1/show.json'
 
     def complete_login(self, request, app, token, **kwargs):
-        resp = requests.get(self.profile_url, params={'access_token': token.token})
+        resp = requests.get(self.profile_url, params={
+            'access_token': token.token
+        })
         extra_data = resp.json().get('result')
-        return self.get_provider().sociallogin_from_response(request, extra_data)
+        return self.get_provider().sociallogin_from_response(
+            request,
+            extra_data
+        )
 
 
 oauth2_login = OAuth2LoginView.adapter_view(DaumOAuth2Adapter)

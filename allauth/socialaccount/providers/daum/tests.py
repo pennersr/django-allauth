@@ -8,6 +8,7 @@ class DaumTests(OAuth2TestsMixin, TestCase):
     provider_id = DaumProvider.id
 
     def get_mocked_response(self):
+
         return MockedResponse(200, """
 {
 "code": 200,
@@ -16,10 +17,8 @@ class DaumTests(OAuth2TestsMixin, TestCase):
 "userid": "38DTh",
 "id": 46287445,
 "nickname": "김준환",
-"imagePath": "https://img1.daumcdn.net/thumb/R55x55/?fname=
-http%3A%2F%2Ftwg.tset.daumcdn.net%2Fprofile%2F-zYQhBX2b-E0&t=1487231948435",
-"bigImagePath": "https://img1.daumcdn.net/thumb/R158x158/?fname=
-http%3A%2F%2Ftwg.tset.daumcdn.net%2Fprofile%2F-zYQhBX2b-E0&t=1487231948435",
+"imagePath": "https://img1.daumcdn.net/thumb/R55x55/?fname=http%3A%2F%2Ftwg.tset.daumcdn.net%2Fprofile%2F-zYQhBX2b-E0&t=1487231948435",
+"bigImagePath": "https://img1.daumcdn.net/thumb/R158x158/?fname=http%3A%2F%2Ftwg.tset.daumcdn.net%2Fprofile%2F-zYQhBX2b-E0&t=1487231948435",
 "openProfile": true
 }
 }

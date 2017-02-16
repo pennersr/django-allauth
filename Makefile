@@ -20,7 +20,10 @@ isort-fix:
 pep8:
 	flake8 --exclude=migrations allauth
 
-qa: isort-check pep8
+standardjs:
+	standard $$(find $(PWD)/allauth -name '*.js' -print)
+
+qa: isort-check pep8 standardjs
 
 .PHONY:						\
 	po					\
@@ -29,4 +32,5 @@ qa: isort-check pep8
 	isort-fix				\
 	isort-check				\
 	pep8					\
+	standard				\
 	qa

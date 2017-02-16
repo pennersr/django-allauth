@@ -22,6 +22,8 @@ install:
  - pip install .
  - pip install flake8
  - pip install isort
+ - nvm install 6.9.5
+ - npm install standard
 matrix:
   exclude:
     - python: "3.5"

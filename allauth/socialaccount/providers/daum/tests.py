@@ -4,6 +4,7 @@ from allauth.tests import MockedResponse, TestCase
 from .provider import DaumProvider
 import json
 
+
 class DaumTests(OAuth2TestsMixin, TestCase):
     provider_id = DaumProvider.id
 

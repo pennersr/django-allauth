@@ -2,24 +2,20 @@ from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase
 
 from .provider import DaumProvider
-
+import json
 
 class DaumTests(OAuth2TestsMixin, TestCase):
     provider_id = DaumProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, '{' +
-'"code": 200,' +
-'"message": "OK",' +
-'"result": {' +
-'"userid": "38DTh",' +
-'"id": 46287445,' +
-'"nickname": "xncbf",' +
-'"imagePath": "https://img1.daumcdn.net/thumb/R55x55/?fname=http%3A%2F%2F' +
-'twg.tset.daumcdn.net%2Fprofile%2F-zYQhBX2b-E0&t=1487231948435",' +
-'"bigImagePath": "https://img1.daumcdn.net/thumb/R158x158/' +
-'?fname=http%3A%2F%2Ftwg.tset.daumcdn.net' +
-'%2Fprofile%2F-zYQhBX2b-E0&t=1487231948435",' +
-'"openProfile": true' +
-'}' +
-'}')
+        result = dict()
+        result['userid'] = '38DTh'
+        result['id'] = 46287445
+        result['nickname'] = 'xncbf'
+        result['bigImagePath'] = 'https://img1.daumcdn.net/thumb/'
+        result['openProfile'] = 'https://img1.daumcdn.net/thumb/'
+        body = dict()
+        body['code'] = 200
+        body['message'] = 'OK'
+        body['result'] = result
+        return MockedResponse(200, json.dumps(body))

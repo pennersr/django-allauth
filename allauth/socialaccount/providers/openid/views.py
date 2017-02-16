@@ -46,6 +46,14 @@ def login(request):
                     for name in AXAttributes:
                         ax.add(AttrInfo(name,
                                         required=True))
+                    provider = OpenIDProvider(request)
+                    server_settings = \
+                        provider.get_server_settings(request.GET.get('openid'))
+                    extra_attributes = \
+                        server_settings.get('extra_attributes', [])
+                    for _, name, required in extra_attributes:
+                        ax.add(AttrInfo(name,
+                                        required=required))
                     auth_request.addExtension(ax)
                 callback_url = reverse(callback)
                 SocialLogin.stash_state(request)

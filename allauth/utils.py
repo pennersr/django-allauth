@@ -1,6 +1,7 @@
 import random
 import string
 import base64
+import importlib
 import re
 import unicodedata
 import json
@@ -8,6 +9,7 @@ from collections import OrderedDict
 
 from django.core.exceptions import ImproperlyConfigured
 from django.core.validators import validate_email, ValidationError
+from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
 from django.db.models import FieldDoesNotExist, FileField
 from django.db.models.fields import (DateTimeField, DateField,
@@ -21,7 +23,7 @@ try:
     from django.utils.encoding import force_text, force_bytes
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
-from allauth.compat import importlib, reverse, NoReverseMatch
+from allauth.compat import reverse, NoReverseMatch
 
 
 # Magic number 7: if you run into collisions with this number, then you are
@@ -134,7 +136,7 @@ def email_address_exists(email, exclude_user=None):
             users = get_user_model().objects
             if exclude_user:
                 users = users.exclude(pk=exclude_user.pk)
-            ret = users.filter(**{email_field+'__iexact': email}).exists()
+            ret = users.filter(**{email_field + '__iexact': email}).exists()
     return ret
 
 
@@ -151,27 +153,6 @@ def import_callable(path_or_callable):
     else:
         ret = path_or_callable
     return ret
-
-
-try:
-    from django.contrib.auth import get_user_model
-except ImportError:
-    # To keep compatibility with Django 1.4
-    def get_user_model():
-        from . import app_settings
-        from django.db.models import get_model
-
-        try:
-            app_label, model_name = app_settings.USER_MODEL.split('.')
-        except ValueError:
-            raise ImproperlyConfigured("AUTH_USER_MODEL must be of the"
-                                       " form 'app_label.model_name'")
-        user_model = get_model(app_label, model_name)
-        if user_model is None:
-            raise ImproperlyConfigured("AUTH_USER_MODEL refers to model"
-                                       " '%s' that has not been installed"
-                                       % app_settings.USER_MODEL)
-        return user_model
 
 
 def get_current_site(request=None):

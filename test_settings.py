@@ -75,6 +75,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.bitbucket',
     'allauth.socialaccount.providers.bitly',
     'allauth.socialaccount.providers.coinbase',
+    'allauth.socialaccount.providers.daum',
     'allauth.socialaccount.providers.douban',
     'allauth.socialaccount.providers.doximity',
     'allauth.socialaccount.providers.digitalocean',

@@ -122,6 +122,16 @@ Note that Bitbucket calls the ``client_id`` *Key* in their user interface.
 Don't get confused by that; use the *Key* value for your ``client_id`` field.
 
 
+daum
+-----
+
+App registration (get your key and secret here)
+    https://developers.daum.net/console
+
+Development callback URL
+    http://127.0.0.1:8000/accounts/daum/login/callback/
+
+
 Discord
 -------
 

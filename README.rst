@@ -18,6 +18,12 @@ Welcome to django-allauth!
 .. image:: https://pennersr.github.io/img/bitcoin-badge.svg
    :target: https://blockchain.info/address/1AJXuBMPHkaDCNX2rwAy34bGgs7hmrePEr
 
+.. image:: https://img.shields.io/badge/code%20style-pep8-green.svg
+   :target: https://www.python.org/dev/peps/pep-0008/
+
+.. image:: https://img.shields.io/badge/code_style-standard-brightgreen.svg
+   :target: http://standardjs.com
+
 Integrated set of Django applications addressing authentication,
 registration, account management as well as 3rd party (social) account
 authentication.

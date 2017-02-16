@@ -40,6 +40,16 @@ class AppSettings(object):
         return getter(self.prefix + name, dflt)
 
     @property
+    def ACCOUNT_EMAIL_COOLDOWN_PERIOD(self):
+        """
+        A timedelta object representing how long to wait between sending
+        verification emails to an email address.
+        """
+        from datetime import timedelta
+        return self._setting("ACCOUNT_EMAIL_COOLDOWN_PERIOD",
+                             timedelta(minutes=3))
+
+    @property
     def DEFAULT_HTTP_PROTOCOL(self):
         return self._setting("DEFAULT_HTTP_PROTOCOL", "http").lower()
 

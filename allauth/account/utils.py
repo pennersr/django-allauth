@@ -1,4 +1,3 @@
-from datetime import timedelta
 try:
     from django.utils.timezone import now
 except ImportError:
@@ -297,7 +296,7 @@ def send_email_confirmation(request, user, signup=False):
     """
     from .models import EmailAddress, EmailConfirmation
 
-    COOLDOWN_PERIOD = timedelta(minutes=3)
+    COOLDOWN_PERIOD = app_settings.ACCOUNT_EMAIL_COOLDOWN_PERIOD
     email = user_email(user)
     if email:
         try:

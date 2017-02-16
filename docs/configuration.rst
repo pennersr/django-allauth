@@ -46,6 +46,10 @@ ACCOUNT_EMAIL_CONFIRMATION_HMAC (=True)
   track of these keys. Current versions use HMAC based keys that do not
   require server side state.
 
+ACCOUNT_EMAIL_COOLDOWN_PERIOD (=timedelta(minutes=3))
+  Determines the amount of time to wait between sending out verification e-mail
+  to user that login in with an unverified e-mail.
+
 ACCOUNT_EMAIL_REQUIRED (=False)
   The user is required to hand over an e-mail address when signing up.
 

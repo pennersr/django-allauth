@@ -30,3 +30,6 @@ virtualenv
 *.prefs
 *.mo
 /.stfolder
+
+# venv installation
+venv

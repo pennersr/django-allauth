@@ -72,8 +72,11 @@ class ShopifyEmbeddedTests(ShopifyTests):
         self.assertTrue(resp.xframe_options_exempt,
                         'Redirect JS must be allowed to run in Shopify iframe')
         self.assertTrue(
-            '<!DOCTYPE html><html><head>' in actual_content and '</head><body></body></html>' in actual_content,
-            'Expected standard HTML skeleton. [Actual: {}]'.format(actual_content)
+            '<!DOCTYPE html><html><head>' in actual_content and
+            '</head><body></body></html>' in actual_content,
+            'Expected standard HTML skeleton. [Actual: {}]'.format(
+                actual_content
+            )
         )
         p = urlparse(actual_content.split(";</script>")[0].split(
             'location.href = "')[1])

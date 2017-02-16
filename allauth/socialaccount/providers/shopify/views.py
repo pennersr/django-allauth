@@ -1,11 +1,8 @@
 import re
-
-from django.http import HttpResponse
-
 import requests
 
-from django.http import HttpResponseBadRequest
 from django.conf import settings
+from django.http import HttpResponse, HttpResponseBadRequest
 
 from allauth.exceptions import ImmediateHttpResponse
 from allauth.socialaccount.providers.oauth2.views import (

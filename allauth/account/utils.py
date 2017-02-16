@@ -1,10 +1,4 @@
 from datetime import timedelta
-try:
-    from django.utils.timezone import now
-except ImportError:
-    from datetime import datetime
-    now = datetime.now
-
 from django.contrib import messages
 from django.db import models
 from django.db.models import Q
@@ -13,6 +7,7 @@ from django.http import HttpResponseRedirect
 from django.utils import six
 from django.utils.http import urlencode
 from django.utils.http import int_to_base36, base36_to_int
+from django.utils.timezone import now
 from django.core.exceptions import ValidationError
 
 from allauth.compat import OrderedDict

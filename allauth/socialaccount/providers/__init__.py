@@ -1,8 +1,8 @@
+import importlib
+
 from collections import OrderedDict
 
 from django.conf import settings
-
-from allauth.compat import importlib
 
 
 class ProviderRegistry(object):

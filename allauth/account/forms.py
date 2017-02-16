@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 
 import warnings
+from importlib import import_module
 
 from django import forms
 from django.core import exceptions
@@ -22,11 +23,6 @@ from .utils import (perform_login, setup_user_email, url_str_to_user_pk,
 from .app_settings import AuthenticationMethod
 from . import app_settings
 from .adapter import get_adapter
-
-try:
-    from importlib import import_module
-except ImportError:
-    from django.utils.importlib import import_module
 
 
 class PasswordVerificationMixin(object):

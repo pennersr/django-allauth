@@ -1,6 +1,7 @@
 import random
 import string
 import base64
+import importlib
 import re
 import unicodedata
 import json
@@ -22,7 +23,7 @@ try:
     from django.utils.encoding import force_text, force_bytes
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
-from allauth.compat import importlib, reverse, NoReverseMatch
+from allauth.compat import reverse, NoReverseMatch
 
 
 # Magic number 7: if you run into collisions with this number, then you are

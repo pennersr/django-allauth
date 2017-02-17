@@ -890,6 +890,20 @@ And set `Redirection URL` to::
 
     http://localhost:8000/accounts/shopify/login/callback/
 
+**Embedded Apps**
+
+If your Shopify app is embedded you will want to tell allauth to do the required JS (rather than server) redirect.::
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'shopify': {
+            'IS_EMBEDDED': True,
+        }
+    }
+
+Note that there is more an embedded app creator must do in order to have a page work as an iFrame within
+Shopify (building the x_frame_exempt landing page, handing session expiration, etc...).
+However that functionality is outside the scope of django-allauth.
+
 
 Slack
 -----

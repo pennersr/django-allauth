@@ -1,30 +1,31 @@
+import json
 import random
+import warnings
+
+from django.conf import settings
+from django.contrib.auth.models import AnonymousUser
+from django.contrib.messages.middleware import MessageMiddleware
+from django.contrib.sessions.middleware import SessionMiddleware
+from django.contrib.sites.models import Site
+from django.test.client import RequestFactory
+from django.test.utils import override_settings
+
+from . import providers
+from ..account import app_settings as account_settings
+from ..account.models import EmailAddress
+from ..account.utils import user_email, user_username
+from ..compat import reverse
+from ..tests import MockedResponse, TestCase, mocked_response
+from ..utils import get_current_site, get_user_model
+from .helpers import complete_social_login
+from .models import SocialAccount, SocialApp, SocialLogin
+from .views import signup
+
+
 try:
     from urllib.parse import urlparse, parse_qs
 except ImportError:
     from urlparse import urlparse, parse_qs
-import warnings
-import json
-
-from django.test.utils import override_settings
-from django.test.client import RequestFactory
-from django.contrib.messages.middleware import MessageMiddleware
-from django.contrib.sessions.middleware import SessionMiddleware
-from django.contrib.auth.models import AnonymousUser
-from django.contrib.sites.models import Site
-from django.conf import settings
-
-from ..compat import reverse
-from ..tests import MockedResponse, mocked_response, TestCase
-from ..account import app_settings as account_settings
-from ..account.models import EmailAddress
-from ..account.utils import user_email, user_username
-from ..utils import get_user_model, get_current_site
-
-from .models import SocialApp, SocialAccount, SocialLogin
-from .helpers import complete_social_login
-from .views import signup
-from . import providers
 
 
 class OAuthTestsMixin(object):

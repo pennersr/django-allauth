@@ -1,32 +1,34 @@
 from __future__ import absolute_import
 
 import warnings
+from importlib import import_module
 
 from django import forms
-from django.core import exceptions
-from django.utils.translation import pgettext, ugettext_lazy as _, ugettext
-from django.core import validators
 from django.contrib.auth.tokens import default_token_generator
+from django.core import exceptions, validators
+from django.utils.translation import pgettext, ugettext, ugettext_lazy as _
 
-from ..compat import reverse
-from ..utils import (set_form_field_order,
-                     build_absolute_uri,
-                     get_username_max_length,
-                     get_current_site)
-
-from .models import EmailAddress
-from .utils import (perform_login, setup_user_email, url_str_to_user_pk,
-                    user_username, user_pk_to_url_str, filter_users_by_email,
-                    get_user_model,
-                    user_email)
-from .app_settings import AuthenticationMethod
 from . import app_settings
+from ..compat import reverse
+from ..utils import (
+    build_absolute_uri,
+    get_current_site,
+    get_username_max_length,
+    set_form_field_order,
+)
 from .adapter import get_adapter
-
-try:
-    from importlib import import_module
-except ImportError:
-    from django.utils.importlib import import_module
+from .app_settings import AuthenticationMethod
+from .models import EmailAddress
+from .utils import (
+    filter_users_by_email,
+    get_user_model,
+    perform_login,
+    setup_user_email,
+    url_str_to_user_pk,
+    user_email,
+    user_pk_to_url_str,
+    user_username,
+)
 
 
 class PasswordVerificationMixin(object):

@@ -1,9 +1,9 @@
+from django import VERSION as DJANGO_VERSION, template
 from django.template.defaulttags import token_kwargs
-from django import template, VERSION as DJANGO_VERSION
 
+from allauth.compat import template_context_value
 from allauth.socialaccount import providers
 from allauth.utils import get_request_param
-from allauth.compat import template_context_value
 
 
 register = template.Library()

@@ -1,22 +1,18 @@
 from django.contrib import messages
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
 from django.forms import ValidationError
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 
-from allauth.account.utils import (perform_login, complete_signup,
-                                   user_username)
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
+from allauth.account.utils import complete_signup, perform_login, user_username
 from allauth.exceptions import ImmediateHttpResponse
-from .providers.base import AuthProcess, AuthError
 
+from . import app_settings, signals
 from ..compat import is_anonymous, is_authenticated, reverse
-
-from .models import SocialLogin
-
-from . import app_settings
-from . import signals
 from .adapter import get_adapter
+from .models import SocialLogin
+from .providers.base import AuthError, AuthProcess
 
 
 def _process_signup(request, sociallogin):

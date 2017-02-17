@@ -1,8 +1,11 @@
 import requests
+
 from allauth.socialaccount.providers.discord.provider import DiscordProvider
-from allauth.socialaccount.providers.oauth2.views import OAuth2Adapter
-from allauth.socialaccount.providers.oauth2.views import OAuth2CallbackView
-from allauth.socialaccount.providers.oauth2.views import OAuth2LoginView
+from allauth.socialaccount.providers.oauth2.views import (
+    OAuth2Adapter,
+    OAuth2CallbackView,
+    OAuth2LoginView,
+)
 
 
 class DiscordOAuth2Adapter(OAuth2Adapter):

@@ -1,7 +1,7 @@
 from allauth.socialaccount import providers
+from allauth.socialaccount.app_settings import STORE_TOKENS
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
-from allauth.socialaccount.app_settings import STORE_TOKENS
 
 
 class EveOnlineAccount(ProviderAccount):

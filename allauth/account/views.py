@@ -1,32 +1,42 @@
-from django.http import (HttpResponseRedirect, Http404,
-                         HttpResponsePermanentRedirect)
-from django.views.generic.base import TemplateResponseMixin, View, TemplateView
-from django.views.generic.edit import FormView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import (
+    Http404,
+    HttpResponsePermanentRedirect,
+    HttpResponseRedirect,
+)
 from django.shortcuts import redirect
-from django.views.decorators.debug import sensitive_post_parameters
 from django.utils.decorators import method_decorator
+from django.views.decorators.debug import sensitive_post_parameters
+from django.views.generic.base import TemplateResponseMixin, TemplateView, View
+from django.views.generic.edit import FormView
 
+from . import app_settings, signals
 from ..compat import is_anonymous, is_authenticated, reverse, reverse_lazy
 from ..exceptions import ImmediateHttpResponse
-from ..utils import get_form_class, get_request_param, get_current_site
-
-from .utils import (get_next_redirect_url, complete_signup,
-                    get_login_redirect_url, perform_login,
-                    passthrough_next_redirect_url, url_str_to_user_pk,
-                    logout_on_password_change)
-from .forms import (
-    AddEmailForm, ChangePasswordForm,
-    LoginForm, ResetPasswordKeyForm,
-    ResetPasswordForm, SetPasswordForm, SignupForm, UserTokenForm)
-from .utils import sync_user_email_addresses
-from .models import EmailAddress, EmailConfirmation, EmailConfirmationHMAC
-
-from . import signals
-from . import app_settings
-
+from ..utils import get_current_site, get_form_class, get_request_param
 from .adapter import get_adapter
+from .forms import (
+    AddEmailForm,
+    ChangePasswordForm,
+    LoginForm,
+    ResetPasswordForm,
+    ResetPasswordKeyForm,
+    SetPasswordForm,
+    SignupForm,
+    UserTokenForm,
+)
+from .models import EmailAddress, EmailConfirmation, EmailConfirmationHMAC
+from .utils import (
+    complete_signup,
+    get_login_redirect_url,
+    get_next_redirect_url,
+    logout_on_password_change,
+    passthrough_next_redirect_url,
+    perform_login,
+    sync_user_email_addresses,
+    url_str_to_user_pk,
+)
 
 
 sensitive_post_parameters_m = method_decorator(

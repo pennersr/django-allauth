@@ -21,6 +21,9 @@ install:
  - pip install "$DJANGO" "coverage==3.7.1" coveralls "mock>=1.0.1"
  - pip install .
  - pip install flake8
+ - pip install isort
+ - nvm install 6.9.5
+ - npm install standard
 matrix:
   exclude:
     - python: "3.5"
@@ -38,7 +41,7 @@ branches:
  only:
   - master
 script:
-  - flake8 --exclude=migrations allauth
+  - make qa
   - coverage run manage.py test allauth
 after_success:
   - coverage report

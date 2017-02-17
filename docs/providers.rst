@@ -122,6 +122,40 @@ Note that Bitbucket calls the ``client_id`` *Key* in their user interface.
 Don't get confused by that; use the *Key* value for your ``client_id`` field.
 
 
+daum
+----
+
+App registration (get your key and secret here)
+    https://developers.daum.net/console
+
+Development callback URL
+    http://127.0.0.1:8000/accounts/daum/login/callback/
+
+
+DigitalOcean
+------------
+
+App registration (get your key and secret here)
+    https://cloud.digitalocean.com/settings/applications
+
+Development callback URL
+    http://127.0.0.1:8000/accounts/digitalocean/login/callback/
+
+With the acquired access token you will have read permissions on the API by
+default.  If you also need write access specify the scope as follows.  See
+https://developers.digitalocean.com/documentation/oauth/#scopes for details.
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'digitalocean': {
+            'SCOPE': [
+                'read write',
+            ],
+        }
+    }
+
+
 Discord
 -------
 
@@ -136,6 +170,7 @@ Development callback (redirect) URL
 
 Doximity
 --------
+
 Doximity Oauth2 implementation documentation
     https://www.doximity.com/developers/documentation#oauth
 
@@ -725,6 +760,22 @@ builtin templates can be configured as follows:
             ]
         }
     }
+
+You can manually specify extra_data you want to request from server as follows::
+
+    SOCIALACCOUNT_PROVIDERS = \
+        { 'openid':
+            { 'SERVERS':
+                 [ dict(id='mojeid',
+                      name='MojeId',
+                      openid_url='https://mojeid.cz/endpoint/',
+                      extra_attributes = [
+                          ('phone', 'http://axschema.org/contact/phone/default', False),
+                          ('birth_date', 'http://axschema.org/birthDate', False,),
+                      ])]}}
+
+Attributes are in form (id, name, required) where id is key in extra_data field of socialaccount,
+name is identifier of requested attribute and required specifies whether attribute is required.
 
 If you want to manually include login links yourself, you can use the
 following template tag:

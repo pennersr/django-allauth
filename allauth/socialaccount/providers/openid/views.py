@@ -1,24 +1,25 @@
-from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
-from openid.consumer.discover import DiscoveryFailure
 from openid.consumer import consumer
+from openid.consumer.discover import DiscoveryFailure
+from openid.extensions.ax import AttrInfo, FetchRequest
 from openid.extensions.sreg import SRegRequest
-from openid.extensions.ax import FetchRequest, AttrInfo
 
 from allauth.compat import reverse
-from allauth.socialaccount.app_settings import QUERY_EMAIL
-from allauth.socialaccount.models import SocialLogin
-from allauth.socialaccount.helpers import render_authentication_error
-from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount import providers
+from allauth.socialaccount.app_settings import QUERY_EMAIL
+from allauth.socialaccount.helpers import (
+    complete_social_login,
+    render_authentication_error,
+)
+from allauth.socialaccount.models import SocialLogin
 
-from .utils import (DBOpenIDStore, SRegFields, AXAttributes,
-                    JSONSafeSession)
+from ..base import AuthError
 from .forms import LoginForm
 from .provider import OpenIDProvider
-from ..base import AuthError
+from .utils import AXAttributes, DBOpenIDStore, JSONSafeSession, SRegFields
 
 
 def _openid_consumer(request):
@@ -46,6 +47,14 @@ def login(request):
                     for name in AXAttributes:
                         ax.add(AttrInfo(name,
                                         required=True))
+                    provider = OpenIDProvider(request)
+                    server_settings = \
+                        provider.get_server_settings(request.GET.get('openid'))
+                    extra_attributes = \
+                        server_settings.get('extra_attributes', [])
+                    for _, name, required in extra_attributes:
+                        ax.add(AttrInfo(name,
+                                        required=required))
                     auth_request.addExtension(ax)
                 callback_url = reverse(callback)
                 SocialLogin.stash_state(request)

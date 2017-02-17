@@ -2,6 +2,7 @@ from django.conf.urls import url
 
 from . import views
 
+
 urlpatterns = [
     url('^login/cancelled/$', views.login_cancelled,
         name='socialaccount_login_cancelled'),

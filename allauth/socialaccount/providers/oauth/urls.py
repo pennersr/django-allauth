@@ -1,4 +1,5 @@
-from django.conf.urls import url, include
+from django.conf.urls import include, url
+
 from allauth.utils import import_attribute
 
 

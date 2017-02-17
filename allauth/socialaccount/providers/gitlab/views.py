@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
+import requests
+
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.gitlab.provider import GitLabProvider
-from allauth.socialaccount.providers.oauth2.views import OAuth2Adapter
-from allauth.socialaccount.providers.oauth2.views import OAuth2CallbackView
-from allauth.socialaccount.providers.oauth2.views import OAuth2LoginView
-
-import requests
+from allauth.socialaccount.providers.oauth2.views import (
+    OAuth2Adapter,
+    OAuth2CallbackView,
+    OAuth2LoginView,
+)
 
 
 class GitLabOAuth2Adapter(OAuth2Adapter):

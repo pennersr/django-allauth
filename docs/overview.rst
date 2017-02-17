@@ -53,6 +53,8 @@ Supported Providers
 
 - Bitly (OAuth2)
 
+- Daum (OAuth2)
+
 - Douban (OAuth2)
 
 - Doximity (OAuth2)

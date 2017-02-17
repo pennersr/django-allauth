@@ -2,9 +2,11 @@ import json
 
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.providers.oauth.client import OAuth
-from allauth.socialaccount.providers.oauth.views import (OAuthAdapter,
-                                                         OAuthLoginView,
-                                                         OAuthCallbackView)
+from allauth.socialaccount.providers.oauth.views import (
+    OAuthAdapter,
+    OAuthCallbackView,
+    OAuthLoginView,
+)
 
 from .provider import TwitterProvider
 

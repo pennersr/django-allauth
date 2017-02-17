@@ -1,9 +1,9 @@
 import django
 from django.contrib import admin
 
-from .models import EmailConfirmation, EmailAddress
-from .adapter import get_adapter
 from . import app_settings
+from .adapter import get_adapter
+from .models import EmailAddress, EmailConfirmation
 
 
 class EmailAddressAdmin(admin.ModelAdmin):

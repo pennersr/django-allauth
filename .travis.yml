@@ -6,6 +6,7 @@ python:
  - "3.3"
  - "3.4"
  - "3.5"
+ - "3.6"
 env:
   matrix:
    - DJANGO="Django<1.8"
@@ -27,6 +28,8 @@ install:
 matrix:
   exclude:
     - python: "3.5"
+      env: DJANGO="Django<1.8"
+    - python: "3.6"
       env: DJANGO="Django<1.8"
     # Django 1.9+ no longer supports python 3.2/3.3
     - python: "3.2"

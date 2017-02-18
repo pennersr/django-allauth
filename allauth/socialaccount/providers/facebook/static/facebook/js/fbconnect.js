@@ -30,6 +30,7 @@
 
   var allauth = window.allauth = window.allauth || {}
   var fbSettings = JSON.parse(document.getElementById('allauth-facebook-settings').innerHTML)
+  var fbInitialized = false
 
   allauth.facebook = {
 
@@ -44,6 +45,7 @@
           cookie: true,
           xfbml: true
         })
+        fbInitialized = true
         allauth.facebook.onInit()
       };
 
@@ -62,7 +64,7 @@
 
     login: function (nextUrl, action, process) {
       var self = this
-      if (typeof (FB) === 'undefined') {
+      if (!fbInitialized) {
         var url = this.opts.loginUrl + '?next=' + encodeURIComponent(nextUrl) + '&action=' + encodeURIComponent(action) + '&process=' + encodeURIComponent(process)
         setLocationHref(url)
         return
@@ -104,7 +106,7 @@
 
     logout: function (nextUrl) {
       var self = this
-      if (typeof (FB) === 'undefined') {
+      if (!fbInitialized) {
         return
       }
       FB.logout(function (response) {

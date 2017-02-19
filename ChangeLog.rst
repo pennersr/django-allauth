@@ -4,7 +4,7 @@ Unreleased
 Note worthy changes
 -------------------
 
-- New providers: Auth0
+- New providers: Auth0, Box.
 
 
 Backwards incompatible changes

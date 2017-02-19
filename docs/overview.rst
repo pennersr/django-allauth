@@ -55,6 +55,8 @@ Supported Providers
 
 - Bitly (OAuth2)
 
+- Box (OAuth2)
+
 - Daum (OAuth2)
 
 - Douban (OAuth2)

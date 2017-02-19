@@ -49,3 +49,12 @@ script:
 after_success:
   - coverage report
   - coveralls
+notifications:
+  webhooks:
+    urls:
+      - https://readthedocs.org/build/django-allauth
+    on_start: never
+    on_cancel: never
+    on_error: never
+    on_failure: never
+    on_success: always

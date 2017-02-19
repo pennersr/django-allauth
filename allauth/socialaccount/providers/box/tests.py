@@ -12,24 +12,20 @@ class BoxOAuth2Tests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return [MockedResponse(200, """{
-            "display_name": "Björn Andersson",
-            "name_details": {
-                "surname": "Andersson",
-                "familiar_name": "Björn",
-                "given_name": "Björn"
-                },
-            "locale": "en",
-            "email": "test@example.se",
-            "uid": 1234567890,
-            "email_verified": true,
-            "quota_info": {
-                "shared": 3195052017,
-                "datastores": 0,
-                "quota": 61337501696,
-                "normal": 15455059441
-                },
-            "is_paired": true,
-            "team": null,
-            "referral_link": "https://db.tt/UzhBTVjU",
-            "country": "SE"
+          "type": "user",
+          "id": "1185237519",
+          "name": "Balls Johnson",
+          "login": "balls@johnson.com",
+          "created_at": "2017-02-18T21:16:39-08:00",
+          "modified_at": "2017-02-18T21:19:11-08:00",
+          "language": "en",
+          "timezone": "America/Los_Angeles",
+          "space_amount": 10737418240,
+          "space_used": 0,
+          "max_upload_size": 2147483648,
+          "status": "active",
+          "job_title": "",
+          "phone": "123-345-5555",
+          "address": "",
+          "avatar_url": "https://app.box.com/api/avatar/large/1185237519"
         }""")]

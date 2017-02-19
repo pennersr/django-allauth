@@ -13,7 +13,7 @@ class BoxOAuth2Provider(OAuth2Provider):
     account_class = BoxOAuth2Account
 
     def extract_uid(self, data):
-        return data['uid']
+        return data['id']
 
     def extract_common_fields(self, data):
         return dict(name=data.get('display_name'),

@@ -9,7 +9,7 @@ class OnedriveOAuth2Account(ProviderAccount):
 
 class OnedriveOAuth2Provider(OAuth2Provider):
     id = 'onedrive'
-    name = 'OneDrive'
+    name = 'Onedrive'
     account_class = OnedriveOAuth2Account
 
     def extract_uid(self, data):

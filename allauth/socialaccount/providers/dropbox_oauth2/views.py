@@ -14,7 +14,7 @@ class DropboxOAuth2Adapter(OAuth2Adapter):
     access_token_url = 'https://api.dropbox.com/1/oauth2/token'
     authorize_url = 'https://www.dropbox.com/1/oauth2/authorize'
     profile_url = 'https://api.dropbox.com/1/account/info'
-    redirect_uri_protocol = None
+    redirect_uri_protocol = 'https'
 
     def complete_login(self, request, app, token, **kwargs):
         extra_data = requests.get(self.profile_url, params={

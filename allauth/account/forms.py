@@ -479,11 +479,6 @@ class ResetPasswordForm(forms.Form):
         token_generator = kwargs.get("token_generator",
                                      default_token_generator)
 
-        def deprecated_site():
-            warnings.warn("Context variable `site` deprecated, use"
-                          "`current_site` instead", DeprecationWarning)
-            return current_site
-
         for user in self.users:
 
             temp_key = token_generator.make_token(user)
@@ -499,8 +494,7 @@ class ResetPasswordForm(forms.Form):
             url = build_absolute_uri(
                 request, path)
 
-            context = {"site": deprecated_site,
-                       "current_site": current_site,
+            context = {"current_site": current_site,
                        "user": user,
                        "password_reset_url": url,
                        "request": request}

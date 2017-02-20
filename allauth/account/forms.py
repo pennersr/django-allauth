@@ -5,6 +5,7 @@ from importlib import import_module
 
 from django import forms
 from django.contrib.auth.tokens import default_token_generator
+from django.contrib.sites.shortcuts import get_current_site
 from django.core import exceptions, validators
 from django.utils.translation import pgettext, ugettext, ugettext_lazy as _
 
@@ -12,7 +13,6 @@ from . import app_settings
 from ..compat import reverse
 from ..utils import (
     build_absolute_uri,
-    get_current_site,
     get_username_max_length,
     set_form_field_order,
 )
@@ -116,7 +116,7 @@ class LoginForm(forms.Form):
                                                          "Login"),
                                           widget=login_widget)
         self.fields["login"] = login_field
-        set_form_field_order(self,  ["login", "password", "remember"])
+        set_form_field_order(self, ["login", "password", "remember"])
         if app_settings.SESSION_REMEMBER is not None:
             del self.fields['remember']
 
@@ -461,8 +461,8 @@ class ResetPasswordForm(forms.Form):
             "type": "email",
             "size": "30",
             "placeholder": _("E-mail address"),
-            })
-        )
+        })
+    )
 
     def clean_email(self):
         email = self.cleaned_data["email"]

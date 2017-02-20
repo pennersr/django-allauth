@@ -4,9 +4,9 @@ Overview
 Requirements
 ------------
 
-- Python 2.7, 3.2, 3.3, 3.4, or 3.5
+- Python 2.7, 3.3, 3.4, or 3.5
 
-- Django (1.7+)
+- Django (1.8+)
 
 - python-openid or python3-openid (depending on your Python version)
 

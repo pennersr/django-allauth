@@ -8,6 +8,7 @@ from datetime import timedelta
 import django
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser, AnonymousUser
+from django.contrib.sites.models import Site
 from django.core import mail, validators
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -22,11 +23,7 @@ from allauth.account.models import (
     EmailConfirmationHMAC,
 )
 from allauth.tests import TestCase, patch
-from allauth.utils import (
-    get_current_site,
-    get_user_model,
-    get_username_max_length,
-)
+from allauth.utils import get_user_model, get_username_max_length
 
 from . import app_settings
 from ..compat import is_authenticated, reverse
@@ -63,7 +60,7 @@ class AccountTests(TestCase):
             from ..socialaccount.models import SocialApp
             sa = SocialApp.objects.create(name='testfb',
                                           provider='facebook')
-            sa.sites.add(get_current_site())
+            sa.sites.add(Site.objects.get_current())
 
     @override_settings(
         ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod
@@ -80,7 +77,7 @@ class AccountTests(TestCase):
                                 {'login': '@raymond.penners',
                                  'password': 'psst'})
         self.assertRedirects(resp,
-                             'http://testserver'+settings.LOGIN_REDIRECT_URL,
+                             'http://testserver' + settings.LOGIN_REDIRECT_URL,
                              fetch_redirect_response=False)
 
     def test_signup_same_email_verified_externally(self):
@@ -391,11 +388,11 @@ class AccountTests(TestCase):
                       {'login': 'johndoe',
                        'password': 'johndoe'})
         self.assertRedirects(resp,
-                             'http://testserver'+settings.LOGIN_REDIRECT_URL,
+                             'http://testserver' + settings.LOGIN_REDIRECT_URL,
                              fetch_redirect_response=False)
 
     def test_email_escaping(self):
-        site = get_current_site()
+        site = Site.objects.get_current()
         site.name = '<enc&"test>'
         site.save()
         u = get_user_model().objects.create(
@@ -421,7 +418,7 @@ class AccountTests(TestCase):
                                 {'login': 'john',
                                  'password': 'doe'})
         self.assertRedirects(resp,
-                             'http://testserver'+settings.LOGIN_REDIRECT_URL,
+                             'http://testserver' + settings.LOGIN_REDIRECT_URL,
                              fetch_redirect_response=False)
 
     @override_settings(
@@ -609,8 +606,8 @@ class AccountTests(TestCase):
         'django.contrib.auth.password_validation.MinimumLengthValidator',
         'OPTIONS': {
             'min_length': 9,
-            }
-        }])
+        }
+    }])
     def test_django_password_validation(self):
         if django.VERSION < (1, 9, ):
             return

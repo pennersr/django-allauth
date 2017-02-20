@@ -23,8 +23,6 @@ from django.db.models.fields import (
 from django.utils import dateparse, six
 from django.utils.six.moves.urllib.parse import urlsplit
 
-from allauth.compat import NoReverseMatch, reverse
-
 
 try:
     from django.utils.encoding import force_text, force_bytes
@@ -161,36 +159,6 @@ def import_callable(path_or_callable):
     return ret
 
 
-def get_current_site(request=None):
-    """Wrapper around ``Site.objects.get_current`` to handle ``Site`` lookups
-    by request in Django >= 1.8.
-
-    :param request: optional request object
-    :type request: :class:`django.http.HttpRequest`
-    """
-    # >= django 1.8
-    if request and hasattr(Site.objects, '_get_site_by_request'):
-        site = Site.objects.get_current(request=request)
-    else:
-        site = Site.objects.get_current()
-
-    return site
-
-
-def resolve_url(to):
-    """
-    Subset of django.shortcuts.resolve_url (that one is 1.5+)
-    """
-    try:
-        return reverse(to)
-    except NoReverseMatch:
-        # If this doesn't "feel" like a URL, re-raise.
-        if '/' not in to and '.' not in to:
-            raise
-    # Finally, fall back and assume it's a URL
-    return to
-
-
 SERIALIZED_DB_FIELD_PREFIX = '_db_'
 
 
@@ -278,7 +246,7 @@ def build_absolute_uri(request, location, protocol=None):
     from .account import app_settings as account_settings
 
     if request is None:
-        site = get_current_site()
+        site = Site.objects.get_current()
         bits = urlsplit(location)
         if not (bits.scheme and bits.netloc):
             uri = '{proto}://{domain}{url}'.format(

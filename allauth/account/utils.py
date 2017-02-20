@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from datetime import timedelta
 
 from django.conf import settings
@@ -9,8 +10,6 @@ from django.http import HttpResponseRedirect
 from django.utils import six
 from django.utils.http import base36_to_int, int_to_base36, urlencode
 from django.utils.timezone import now
-
-from allauth.compat import OrderedDict
 
 from . import app_settings, signals
 from ..exceptions import ImmediateHttpResponse
@@ -356,7 +355,7 @@ def sync_user_email_addresses(user):
 def filter_users_by_username(*username):
     if app_settings.PRESERVE_USERNAME_CASING:
         qlist = [
-            Q(**{app_settings.USER_MODEL_USERNAME_FIELD+'__iexact': u})
+            Q(**{app_settings.USER_MODEL_USERNAME_FIELD + '__iexact': u})
             for u in username]
         q = qlist[0]
         for q2 in qlist[1:]:
@@ -364,7 +363,7 @@ def filter_users_by_username(*username):
         ret = get_user_model().objects.filter(q)
     else:
         ret = get_user_model().objects.filter(
-            **{app_settings.USER_MODEL_USERNAME_FIELD+'__in':
+            **{app_settings.USER_MODEL_USERNAME_FIELD + '__in':
                [u.lower() for u in username]})
     return ret
 

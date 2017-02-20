@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.sites.shortcuts import get_current_site
 from django.http import (
     Http404,
     HttpResponsePermanentRedirect,
@@ -14,7 +15,7 @@ from django.views.generic.edit import FormView
 from . import app_settings, signals
 from ..compat import is_anonymous, is_authenticated, reverse, reverse_lazy
 from ..exceptions import ImmediateHttpResponse
-from ..utils import get_current_site, get_form_class, get_request_param
+from ..utils import get_form_class, get_request_param
 from .adapter import get_adapter
 from .forms import (
     AddEmailForm,

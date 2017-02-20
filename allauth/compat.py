@@ -1,5 +1,6 @@
 import django
 
+
 if django.VERSION > (1, 10,):
     from django.urls import NoReverseMatch, reverse, reverse_lazy
 else:
@@ -28,11 +29,6 @@ try:
     from urllib.parse import parse_qsl, parse_qs, urlparse, urlunparse
 except ImportError:
     from urlparse import parse_qsl, parse_qs, urlparse, urlunparse  # noqa
-
-try:
-    import importlib
-except ImportError:
-    from django.utils import importlib  # noqa
 
 if django.VERSION >= (1, 9, 0):
     from django.contrib.auth.password_validation import validate_password

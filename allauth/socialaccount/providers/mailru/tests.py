@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase

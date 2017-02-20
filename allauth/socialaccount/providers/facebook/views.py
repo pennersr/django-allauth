@@ -1,21 +1,22 @@
-import logging
-import requests
 import hashlib
 import hmac
+import logging
+import requests
 
-
-from allauth.socialaccount.models import (SocialLogin,
-                                          SocialToken)
-from allauth.socialaccount.helpers import complete_social_login
-from allauth.socialaccount.helpers import render_authentication_error
-from allauth.socialaccount import providers
-from allauth.socialaccount import app_settings
-from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
-                                                          OAuth2LoginView,
-                                                          OAuth2CallbackView)
+from allauth.socialaccount import app_settings, providers
+from allauth.socialaccount.helpers import (
+    complete_social_login,
+    render_authentication_error,
+)
+from allauth.socialaccount.models import SocialLogin, SocialToken
+from allauth.socialaccount.providers.oauth2.views import (
+    OAuth2Adapter,
+    OAuth2CallbackView,
+    OAuth2LoginView,
+)
 
 from .forms import FacebookConnectForm
-from .provider import FacebookProvider, GRAPH_API_URL
+from .provider import GRAPH_API_URL, FacebookProvider
 
 
 logger = logging.getLogger(__name__)

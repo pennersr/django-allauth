@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+
 import json
 import requests
-from datetime import datetime, date
+from datetime import date, datetime
 from importlib import import_module
 
 import django
 from django.conf import settings
-from django.test import TestCase as DjangoTestCase
-from django.db import models
 from django.core.files.base import ContentFile
+from django.db import models
+from django.test import TestCase as DjangoTestCase
 
 from allauth.account.utils import user_username
+
 from . import utils
 from .compat import urlparse, urlunparse
 

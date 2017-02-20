@@ -6,6 +6,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import six
 
+
 try:
     from django.utils.encoding import smart_unicode as smart_text
 except ImportError:

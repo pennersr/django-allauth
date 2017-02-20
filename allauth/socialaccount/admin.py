@@ -1,10 +1,10 @@
 import django
-from django.contrib import admin
 from django import forms
+from django.contrib import admin
 
 from allauth.account.adapter import get_adapter
 
-from .models import SocialApp, SocialAccount, SocialToken
+from .models import SocialAccount, SocialApp, SocialToken
 
 
 class SocialAppForm(forms.ModelForm):

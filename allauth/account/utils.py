@@ -3,6 +3,7 @@ from datetime import timedelta
 
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import Q
@@ -21,12 +22,6 @@ from ..utils import (
 )
 from .adapter import get_adapter
 from .app_settings import EmailVerificationMethod
-
-
-try:
-    from django.contrib.auth import update_session_auth_hash
-except ImportError:
-    update_session_auth_hash = None
 
 try:
     from django.utils.encoding import force_text
@@ -66,8 +61,7 @@ def logout_on_password_change(request, user):
     # Since it is the default behavior of Django to invalidate all sessions on
     # password change, this function actually has to preserve the session when
     # logout isn't desired.
-    if (update_session_auth_hash is not None and
-            not app_settings.LOGOUT_ON_PASSWORD_CHANGE):
+    if not app_settings.LOGOUT_ON_PASSWORD_CHANGE:
         update_session_auth_hash(request, user)
 
 

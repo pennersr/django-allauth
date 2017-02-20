@@ -291,7 +291,7 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         if queryset is None:
             queryset = self.get_queryset()
         try:
-            return queryset.get(key=self.kwargs["key"].lower())
+            return queryset.get(key=self.kwargs["key"])
         except EmailConfirmation.DoesNotExist:
             raise Http404()
 

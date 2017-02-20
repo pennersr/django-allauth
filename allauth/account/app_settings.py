@@ -95,19 +95,8 @@ class AppSettings(object):
 
     @property
     def AUTHENTICATION_METHOD(self):
-        from django.conf import settings
-        if hasattr(settings, "ACCOUNT_EMAIL_AUTHENTICATION"):
-            import warnings
-            warnings.warn("ACCOUNT_EMAIL_AUTHENTICATION is deprecated,"
-                          " use ACCOUNT_AUTHENTICATION_METHOD",
-                          DeprecationWarning)
-            if getattr(settings, "ACCOUNT_EMAIL_AUTHENTICATION"):
-                ret = self.AuthenticationMethod.EMAIL
-            else:
-                ret = self.AuthenticationMethod.USERNAME
-        else:
-            ret = self._setting("AUTHENTICATION_METHOD",
-                                self.AuthenticationMethod.USERNAME)
+        ret = self._setting("AUTHENTICATION_METHOD",
+                            self.AuthenticationMethod.USERNAME)
         return ret
 
     @property

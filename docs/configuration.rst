@@ -116,10 +116,6 @@ ACCOUNT_LOGOUT_REDIRECT_URL (="/")
 ACCOUNT_PASSWORD_INPUT_RENDER_VALUE (=False)
   `render_value` parameter as passed to `PasswordInput` fields.
 
-ACCOUNT_PASSWORD_MIN_LENGTH (=6)
-  An integer specifying the minimum password length.
-  Deprecated -- use Django's `AUTH_PASSWORD_VALIDATORS` instead.
-
 ACCOUNT_PRESERVE_USERNAME_CASING (=True)
   This setting determines whether the username is stored in lowercase
   (`False`) or whether its casing is to be preserved (`True`). Note that when

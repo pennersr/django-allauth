@@ -65,9 +65,6 @@
 # render_value parameter as passed to PasswordInput fields.
 # ACCOUNT_PASSWORD_INPUT_RENDER_VALUE = False
 
-# An integer specifying the minimum password length.
-# ACCOUNT_PASSWORD_MIN_LENGTH = 6
-
 # Request e-mail address from 3rd party account provider? E.g. using OpenID
 # AX, or the Facebook 'email' permission.
 # SOCIALACCOUNT_QUERY_EMAIL = ACCOUNT_EMAIL_REQUIRED

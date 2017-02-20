@@ -125,7 +125,6 @@ Don't get confused by that; use the *Key* value for your ``client_id`` field.
 daum
 ----
 
-
 App registration (get your key and secret here)
     https://developers.daum.net/console
 

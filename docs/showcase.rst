@@ -7,8 +7,6 @@ Here are some sites that have `django-allauth` up and running:
 - `Flatmate Rooms: UK flatshare <https://www.flatmaterooms.co.uk>`_
 - http://www.q-dance.com
 - http://officecheese.com
-- http://www.mycareerstack.com
-- http://jug.gl
 - http://www.charityblossom.org
 - http://www.superreceptionist.in
 - http://kwatsi.com
@@ -17,7 +15,6 @@ Here are some sites that have `django-allauth` up and running:
 - http://www.burufly.com
 - http://eatwith.com
 - http://en.globalquiz.org
-- http://hopper.pw
 - http://decommentariis.net
 - http://www.heapsortjobs.com
 - http://demo.organice.io

@@ -1,10 +1,9 @@
 from django.contrib.auth.backends import ModelBackend
 
-from ..utils import get_user_model
-from .utils import filter_users_by_email
-
-from .app_settings import AuthenticationMethod
 from . import app_settings
+from ..utils import get_user_model
+from .app_settings import AuthenticationMethod
+from .utils import filter_users_by_email, filter_users_by_username
 
 
 class AuthenticationBackend(ModelBackend):
@@ -33,8 +32,7 @@ class AuthenticationBackend(ModelBackend):
             return None
         try:
             # Username query is case insensitive
-            query = {username_field+'__iexact': username}
-            user = User.objects.get(**query)
+            user = filter_users_by_username(username).get()
             if user.check_password(password):
                 return user
         except User.DoesNotExist:
@@ -46,8 +44,6 @@ class AuthenticationBackend(ModelBackend):
         # django-tastypie basic authentication, the login is always
         # passed as `username`.  So let's place nice with other apps
         # and use username as fallback
-        User = get_user_model()
-
         email = credentials.get('email', credentials.get('username'))
         if email:
             for user in filter_users_by_email(email):

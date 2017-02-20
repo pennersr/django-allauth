@@ -19,7 +19,6 @@ class FoursquareAccount(ProviderAccount):
 class FoursquareProvider(OAuth2Provider):
     id = 'foursquare'
     name = 'Foursquare'
-    package = 'allauth.socialaccount.providers.foursquare'
     account_class = FoursquareAccount
 
     def extract_uid(self, data):

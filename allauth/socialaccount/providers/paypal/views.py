@@ -1,9 +1,13 @@
 import requests
-from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
-                                                          OAuth2LoginView,
-                                                          OAuth2CallbackView)
+
+from allauth.socialaccount.providers.oauth2.views import (
+    OAuth2Adapter,
+    OAuth2CallbackView,
+    OAuth2LoginView,
+)
 
 from .provider import PaypalProvider
+
 
 class PaypalOAuth2Adapter(OAuth2Adapter):
     provider_id = PaypalProvider.id
@@ -32,11 +36,13 @@ class PaypalOAuth2Adapter(OAuth2Adapter):
             return 'sandbox.paypal.com'
 
     def complete_login(self, request, app, token, **kwargs):
-        response = requests.post(self.profile_url,
-                            params={'schema':'openid',
-                                    'access_token':token})
+        response = requests.post(
+            self.profile_url,
+            params={'schema': 'openid',
+                    'access_token': token})
         extra_data = response.json()
-        return self.get_provider().sociallogin_from_response(request, extra_data)
+        return self.get_provider().sociallogin_from_response(
+            request, extra_data)
 
 
 oauth2_login = OAuth2LoginView.adapter_view(PaypalOAuth2Adapter)

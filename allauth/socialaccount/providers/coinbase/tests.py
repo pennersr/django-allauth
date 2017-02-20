@@ -3,6 +3,7 @@ from allauth.tests import MockedResponse, TestCase
 
 from .provider import CoinbaseProvider
 
+
 class CoinbaseTests(OAuth2TestsMixin, TestCase):
     provider_id = CoinbaseProvider.id
 

@@ -27,7 +27,6 @@ class MailRuAccount(ProviderAccount):
 class MailRuProvider(OAuth2Provider):
     id = 'mailru'
     name = 'Mail.RU'
-    package = 'allauth.socialaccount.providers.mailru'
     account_class = MailRuAccount
 
     def extract_uid(self, data):

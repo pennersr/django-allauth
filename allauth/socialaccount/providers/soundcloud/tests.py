@@ -3,6 +3,7 @@ from allauth.tests import MockedResponse, TestCase
 
 from .provider import SoundCloudProvider
 
+
 class SoundCloudTests(OAuth2TestsMixin, TestCase):
     provider_id = SoundCloudProvider.id
 
@@ -32,6 +33,7 @@ class SoundCloudTests(OAuth2TestsMixin, TestCase):
             "permalink": "user187631676",
             "country": null,
             "uri": "https://api.soundcloud.com/users/22341947",
-            "avatar_url": "https://a1.sndcdn.com/images/default_avatar_large.png?4b4189b",
+            "avatar_url":
+            "https://a1.sndcdn.com/images/default_avatar_large.png?4b4189b",
             "plan": "Free"
         }""")

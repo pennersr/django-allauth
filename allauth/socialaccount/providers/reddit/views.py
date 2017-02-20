@@ -1,8 +1,12 @@
 import requests
 
-from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
-                                                          OAuth2LoginView,
-                                                          OAuth2CallbackView)
+from allauth.socialaccount import app_settings
+from allauth.socialaccount.providers.oauth2.views import (
+    OAuth2Adapter,
+    OAuth2CallbackView,
+    OAuth2LoginView,
+)
+
 from .provider import RedditProvider
 
 
@@ -12,9 +16,12 @@ class RedditAdapter(OAuth2Adapter):
     authorize_url = 'https://www.reddit.com/api/v1/authorize'
     profile_url = 'https://oauth.reddit.com/api/v1/me'
     basic_auth = True
-    headers = {"User-Agent": "django-allauth-header"}
 
-    # After successfully logging in, use access token to retrieve user info
+    settings = app_settings.PROVIDERS.get(provider_id, {})
+    # Allow custom User Agent to comply with reddit API limits
+    headers = {
+        'User-Agent': settings.get('USER_AGENT', 'django-allauth-header')}
+
     def complete_login(self, request, app, token, **kwargs):
         headers = {
             "Authorization": "bearer " + token.token}

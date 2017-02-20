@@ -100,11 +100,17 @@ excluded_directories = standard_exclude_directories
 package_data = find_package_data(exclude_directories=excluded_directories)
 
 test_requirements = []
-if sys.version_info[0] < 3:
+
+IS_PY2 = sys.version_info[0] < 3
+IS_PY32 = sys.version_info[:2] == (3, 2)
+
+if IS_PY2:
     openid_package = 'python-openid >= 2.2.5'
     test_requirements.append('mock >= 1.0.1')
 else:
     openid_package = 'python3-openid >= 3.0.8'
+# See: https://github.com/kennethreitz/requests/issues/3507
+requests_package = 'requests < 2.11.0' if IS_PY32 else 'requests'
 
 long_description = io.open('README.rst', encoding='utf-8').read()
 
@@ -124,10 +130,10 @@ METADATA = dict(
     keywords='django auth account social openid twitter facebook oauth'
     ' registration',
     tests_require=test_requirements,
-    install_requires=['Django >= 1.6',
+    install_requires=['Django >= 1.7',
                       openid_package,
                       'requests-oauthlib >= 0.3.0',
-                      'requests >= 1.0.3'],
+                      requests_package],
     include_package_data=True,
     classifiers=[
         'Development Status :: 4 - Beta',

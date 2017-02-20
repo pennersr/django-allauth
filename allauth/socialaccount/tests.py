@@ -1,28 +1,31 @@
+import json
 import random
+import warnings
+
+from django.conf import settings
+from django.contrib.auth.models import AnonymousUser
+from django.contrib.messages.middleware import MessageMiddleware
+from django.contrib.sessions.middleware import SessionMiddleware
+from django.contrib.sites.models import Site
+from django.test.client import RequestFactory
+from django.test.utils import override_settings
+
+from . import providers
+from ..account import app_settings as account_settings
+from ..account.models import EmailAddress
+from ..account.utils import user_email, user_username
+from ..compat import reverse
+from ..tests import MockedResponse, TestCase, mocked_response
+from ..utils import get_current_site, get_user_model
+from .helpers import complete_social_login
+from .models import SocialAccount, SocialApp, SocialLogin
+from .views import signup
+
+
 try:
     from urllib.parse import urlparse, parse_qs
 except ImportError:
     from urlparse import urlparse, parse_qs
-import warnings
-import json
-
-from django.test.utils import override_settings
-from django.core.urlresolvers import reverse
-from django.test.client import RequestFactory
-from django.contrib.messages.middleware import MessageMiddleware
-from django.contrib.sessions.middleware import SessionMiddleware
-from django.contrib.auth.models import AnonymousUser
-
-from ..tests import MockedResponse, mocked_response, TestCase
-from ..account import app_settings as account_settings
-from ..account.models import EmailAddress
-from ..account.utils import user_email, user_username
-from ..utils import get_user_model, get_current_site
-
-from .models import SocialApp, SocialAccount, SocialLogin
-from .helpers import complete_social_login
-from .views import signup
-from . import providers
 
 
 class OAuthTestsMixin(object):
@@ -34,11 +37,12 @@ class OAuthTestsMixin(object):
     def setUp(self):
         super(OAuthTestsMixin, self).setUp()
         self.provider = providers.registry.by_id(self.provider_id)
-        app = SocialApp.objects.create(provider=self.provider.id,
-                                       name=self.provider.id,
-                                       client_id='app123id',
-                                       key=self.provider.id,
-                                       secret='dummy')
+        app = SocialApp.objects.create(
+            provider=self.provider.id,
+            name=self.provider.id,
+            client_id='app123id',
+            key=self.provider.id,
+            secret='dummy')
         app.sites.add(get_current_site())
 
     @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=False)
@@ -60,8 +64,17 @@ class OAuthTestsMixin(object):
                              fetch_redirect_response=False)
         user = resp.context['user']
         self.assertFalse(user.has_usable_password())
-        return SocialAccount.objects.get(user=user,
-                                         provider=self.provider.id)
+        account = SocialAccount.objects.get(
+            user=user,
+            provider=self.provider.id)
+        # The following lines don't actually test that much, but at least
+        # we make sure that the code is hit.
+        provider_account = account.get_provider_account()
+        provider_account.get_avatar_url()
+        provider_account.get_profile_url()
+        provider_account.get_brand()
+        provider_account.to_str()
+        return account
 
     @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=True,
                        SOCIALACCOUNT_EMAIL_REQUIRED=False,
@@ -103,8 +116,10 @@ class OAuthTestsMixin(object):
 
     def test_authentication_error(self):
         resp = self.client.get(reverse(self.provider.id + '_callback'))
-        self.assertTemplateUsed(resp,
-                                'socialaccount/authentication_error.html')
+        self.assertTemplateUsed(
+            resp,
+            'socialaccount/authentication_error.%s' % getattr(
+                settings, 'ACCOUNT_TEMPLATE_EXTENSION', 'html'))
 
 
 # For backward-compatibility with third-party provider tests that call
@@ -174,6 +189,13 @@ class OAuth2TestsMixin(object):
         # get account
         sa = SocialAccount.objects.filter(user=user,
                                           provider=self.provider.id).get()
+        # The following lines don't actually test that much, but at least
+        # we make sure that the code is hit.
+        provider_account = sa.get_provider_account()
+        provider_account.get_avatar_url()
+        provider_account.get_profile_url()
+        provider_account.get_brand()
+        provider_account.to_str()
         # get token
         t = sa.socialtoken_set.get()
         # verify access_token and refresh_token
@@ -184,11 +206,11 @@ class OAuth2TestsMixin(object):
                                  'refresh_token', ''))
 
     def test_account_refresh_token_saved_next_login(self):
-        '''
+        """
         fails if a login missing a refresh token, deletes the previously
         saved refresh token. Systems such as google's oauth only send
         a refresh token on first login.
-        '''
+        """
         self.test_account_tokens(multiple_login=True)
 
     def login(self, resp_mock, process='login',
@@ -215,8 +237,10 @@ class OAuth2TestsMixin(object):
 
     def test_authentication_error(self):
         resp = self.client.get(reverse(self.provider.id + '_callback'))
-        self.assertTemplateUsed(resp,
-                                'socialaccount/authentication_error.html')
+        self.assertTemplateUsed(
+            resp,
+            'socialaccount/authentication_error.%s' % getattr(
+                settings, 'ACCOUNT_TEMPLATE_EXTENSION', 'html'))
 
 
 # For backward-compatibility with third-party provider tests that call
@@ -229,6 +253,18 @@ def create_oauth2_tests(provider):
 
 
 class SocialAccountTests(TestCase):
+
+    def setUp(self):
+        super(SocialAccountTests, self).setUp()
+        site = Site.objects.get_current()
+        for provider in providers.registry.get_list():
+            app = SocialApp.objects.create(
+                provider=provider.id,
+                name=provider.id,
+                client_id='app123id',
+                key='123',
+                secret='dummy')
+            app.sites.add(site)
 
     @override_settings(
         SOCIALACCOUNT_AUTO_SIGNUP=True,
@@ -385,3 +421,181 @@ class SocialAccountTests(TestCase):
         MessageMiddleware().process_request(request)
         resp = complete_social_login(request, sociallogin)
         return request, resp
+
+    def test_disconnect(self):
+        User = get_user_model()
+        # Some existig user
+        user = User()
+        user_username(user, 'test')
+        user_email(user, 'test@test.com')
+        user.set_password('test')
+        user.save()
+
+        account = SocialAccount.objects.create(
+            uid='123',
+            provider='twitter',
+            user=user)
+
+        self.client.login(
+            username=user.username,
+            password=user.username)
+        resp = self.client.get(reverse('socialaccount_connections'))
+        self.assertTemplateUsed(resp, 'socialaccount/connections.html')
+        resp = self.client.post(
+            reverse('socialaccount_connections'),
+            {'account': account.pk})
+        self.assertFalse(
+            SocialAccount.objects.filter(pk=account.pk).exists())
+
+    @override_settings(
+        ACCOUNT_EMAIL_REQUIRED=True,
+        ACCOUNT_EMAIL_VERIFICATION='mandatory',
+        ACCOUNT_UNIQUE_EMAIL=True,
+        ACCOUNT_USERNAME_REQUIRED=False,
+        ACCOUNT_AUTHENTICATION_METHOD='email',
+        SOCIALACCOUNT_AUTO_SIGNUP=False)
+    def test_verified_email_change_at_signup(self):
+        """
+        Test scenario for when the user changes email at social signup. Current
+        behavior is that both the unverified and verified email are added, and
+        that the user is allowed to pass because he did provide a verified one.
+        """
+        session = self.client.session
+        User = get_user_model()
+        sociallogin = SocialLogin(
+            user=User(
+                email='verified@provider.com'),
+            account=SocialAccount(
+                provider='google'
+            ),
+            email_addresses=[
+                EmailAddress(
+                    email='verified@provider.com',
+                    verified=True,
+                    primary=True)])
+        session['socialaccount_sociallogin'] = sociallogin.serialize()
+        session.save()
+        resp = self.client.get(reverse('socialaccount_signup'))
+        form = resp.context['form']
+        self.assertEquals(form['email'].value(), 'verified@provider.com')
+        resp = self.client.post(
+            reverse('socialaccount_signup'),
+            data={'email': 'unverified@local.com'})
+        self.assertRedirects(
+            resp, '/accounts/profile/',
+            fetch_redirect_response=False)
+        user = User.objects.all()[0]
+        self.assertEquals(
+            user_email(user),
+            'verified@provider.com'
+        )
+        self.assertTrue(
+            EmailAddress.objects.filter(
+                user=user,
+                email='verified@provider.com',
+                verified=True,
+                primary=True
+            ).exists())
+        self.assertTrue(
+            EmailAddress.objects.filter(
+                user=user,
+                email='unverified@local.com',
+                verified=False,
+                primary=False
+            ).exists())
+
+    @override_settings(
+        ACCOUNT_EMAIL_REQUIRED=True,
+        ACCOUNT_EMAIL_VERIFICATION='mandatory',
+        ACCOUNT_UNIQUE_EMAIL=True,
+        ACCOUNT_USERNAME_REQUIRED=False,
+        ACCOUNT_AUTHENTICATION_METHOD='email',
+        SOCIALACCOUNT_AUTO_SIGNUP=False)
+    def test_unverified_email_change_at_signup(self):
+        """
+        Test scenario for when the user changes email at social signup, while
+        his provider did not provide a verified email. In that case, email
+        verification will kick in. Here, both email addresses are added as
+        well.
+        """
+        session = self.client.session
+        User = get_user_model()
+        sociallogin = SocialLogin(
+            user=User(
+                email='unverified@provider.com'),
+            account=SocialAccount(
+                provider='google'
+            ),
+            email_addresses=[
+                EmailAddress(
+                    email='unverified@provider.com',
+                    verified=False,
+                    primary=True)])
+        session['socialaccount_sociallogin'] = sociallogin.serialize()
+        session.save()
+        resp = self.client.get(reverse('socialaccount_signup'))
+        form = resp.context['form']
+        self.assertEquals(form['email'].value(), 'unverified@provider.com')
+        resp = self.client.post(
+            reverse('socialaccount_signup'),
+            data={'email': 'unverified@local.com'})
+
+        self.assertRedirects(resp, reverse('account_email_verification_sent'))
+        user = User.objects.all()[0]
+        self.assertEquals(
+            user_email(user),
+            'unverified@local.com'
+        )
+        self.assertTrue(
+            EmailAddress.objects.filter(
+                user=user,
+                email='unverified@provider.com',
+                verified=False,
+                primary=False
+            ).exists())
+        self.assertTrue(
+            EmailAddress.objects.filter(
+                user=user,
+                email='unverified@local.com',
+                verified=False,
+                primary=True
+            ).exists())
+
+    @override_settings(
+        ACCOUNT_EMAIL_REQUIRED=True,
+        ACCOUNT_EMAIL_VERIFICATION='mandatory',
+        ACCOUNT_UNIQUE_EMAIL=True,
+        ACCOUNT_USERNAME_REQUIRED=False,
+        ACCOUNT_AUTHENTICATION_METHOD='email',
+        SOCIALACCOUNT_AUTO_SIGNUP=False)
+    def test_unique_email_validation_signup(self):
+        session = self.client.session
+        User = get_user_model()
+        User.objects.create(
+            email='me@provider.com')
+        sociallogin = SocialLogin(
+            user=User(
+                email='me@provider.com'),
+            account=SocialAccount(
+                provider='google'
+            ),
+            email_addresses=[
+                EmailAddress(
+                    email='me@provider.com',
+                    verified=True,
+                    primary=True)])
+        session['socialaccount_sociallogin'] = sociallogin.serialize()
+        session.save()
+        resp = self.client.get(reverse('socialaccount_signup'))
+        form = resp.context['form']
+        self.assertEquals(form['email'].value(), 'me@provider.com')
+        resp = self.client.post(
+            reverse('socialaccount_signup'),
+            data={'email': 'me@provider.com'})
+        self.assertFormError(
+            resp,
+            'form',
+            'email',
+            'An account already exists with this e-mail address.'
+            ' Please sign in to that account first, then connect'
+            ' your Google account.')

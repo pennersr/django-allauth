@@ -1,18 +1,24 @@
 from __future__ import absolute_import
 
-from django.core.urlresolvers import reverse
-
-from allauth.socialaccount.helpers import render_authentication_error
-from allauth.socialaccount.providers.oauth.client import (OAuthClient,
-                                                          OAuthError)
-from allauth.socialaccount.helpers import complete_social_login
+from allauth.compat import reverse
 from allauth.socialaccount import providers
-from allauth.socialaccount.models import SocialToken, SocialLogin
+from allauth.socialaccount.helpers import (
+    complete_social_login,
+    render_authentication_error,
+)
+from allauth.socialaccount.models import SocialLogin, SocialToken
+from allauth.socialaccount.providers.oauth.client import (
+    OAuthClient,
+    OAuthError,
+)
 
 from ..base import AuthAction, AuthError
 
 
 class OAuthAdapter(object):
+
+    def __init__(self, request):
+        self.request = request
 
     def complete_login(self, request, app):
         """
@@ -21,7 +27,7 @@ class OAuthAdapter(object):
         raise NotImplementedError
 
     def get_provider(self):
-        return providers.registry.by_id(self.provider_id)
+        return providers.registry.by_id(self.provider_id, self.request)
 
 
 class OAuthView(object):
@@ -30,7 +36,7 @@ class OAuthView(object):
         def view(request, *args, **kwargs):
             self = cls()
             self.request = request
-            self.adapter = adapter()
+            self.adapter = adapter(request)
             return self.dispatch(request, *args, **kwargs)
         return view
 

@@ -15,7 +15,6 @@ class PaypalAccount(ProviderAccount):
 class PaypalProvider(OAuth2Provider):
     id = 'paypal'
     name = 'Paypal'
-    package = 'allauth.socialaccount.providers.paypal'
     account_class = PaypalAccount
 
     def get_default_scope(self):
@@ -30,5 +29,6 @@ class PaypalProvider(OAuth2Provider):
         return dict(first_name=data.get('given_name', ''),
                     last_name=data.get('family_name', ''),
                     email=data.get('email'))
+
 
 providers.registry.register(PaypalProvider)

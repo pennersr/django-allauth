@@ -1,7 +1,6 @@
-from allauth.socialaccount import providers
+from allauth.socialaccount import app_settings, providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
-from allauth.socialaccount import app_settings
 
 
 class VKAccount(ProviderAccount):
@@ -29,7 +28,6 @@ class VKAccount(ProviderAccount):
 class VKProvider(OAuth2Provider):
     id = 'vk'
     name = 'VK'
-    package = 'allauth.socialaccount.providers.vk'
     account_class = VKAccount
 
     def get_default_scope(self):

@@ -22,7 +22,6 @@ class XingAccount(ProviderAccount):
 class XingProvider(OAuthProvider):
     id = 'xing'
     name = 'Xing'
-    package = 'allauth.socialaccount.providers.xing'
     account_class = XingAccount
 
     def extract_uid(self, data):
@@ -33,5 +32,6 @@ class XingProvider(OAuthProvider):
                     username=data.get('page_name'),
                     first_name=data.get('first_name'),
                     last_name=data.get('last_name'))
+
 
 providers.registry.register(XingProvider)

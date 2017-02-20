@@ -29,7 +29,6 @@ class OdnoklassnikiAccount(ProviderAccount):
 class OdnoklassnikiProvider(OAuth2Provider):
     id = 'odnoklassniki'
     name = 'Odnoklassniki'
-    package = 'allauth.socialaccount.providers.odnoklassniki'
     account_class = OdnoklassnikiAccount
 
     def extract_uid(self, data):

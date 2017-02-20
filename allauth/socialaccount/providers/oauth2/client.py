@@ -26,9 +26,9 @@ class OAuth2Client(object):
         self.callback_url = callback_url
         self.consumer_key = consumer_key
         self.consumer_secret = consumer_secret
-        self.scope = scope_delimiter.join(scope)
+        self.scope = scope_delimiter.join(set(scope))
         self.state = None
-        self.headers = None
+        self.headers = headers
         self.basic_auth = basic_auth
 
     def get_redirect_url(self, authorization_url, extra_params):
@@ -77,8 +77,7 @@ class OAuth2Client(object):
         if resp.status_code == 200:
             # Weibo sends json via 'text/plain;charset=UTF-8'
             if (resp.headers['content-type'].split(
-                ';')[0] == 'application/json'
-                    or resp.text[:2] == '{"'):
+                    ';')[0] == 'application/json' or resp.text[:2] == '{"'):
                 access_token = resp.json()
             else:
                 access_token = dict(parse_qsl(resp.text))

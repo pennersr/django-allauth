@@ -1,7 +1,6 @@
-from allauth.socialaccount import providers
+from allauth.socialaccount import app_settings, providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
-from allauth.socialaccount import app_settings
 
 
 class SpotifyAccount(ProviderAccount):
@@ -11,7 +10,6 @@ class SpotifyAccount(ProviderAccount):
 class SpotifyOAuth2Provider(OAuth2Provider):
     id = 'spotify'
     name = 'Spotify'
-    package = 'allauth.socialaccount.providers.spotify'
     account_class = SpotifyAccount
 
     def extract_uid(self, data):
@@ -26,5 +24,6 @@ class SpotifyOAuth2Provider(OAuth2Provider):
         if app_settings.QUERY_EMAIL:
             scope.append('user-read-email')
         return scope
+
 
 providers.registry.register(SpotifyOAuth2Provider)

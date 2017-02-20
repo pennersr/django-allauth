@@ -8,14 +8,14 @@ class CoinbaseAccount(ProviderAccount):
         return None
 
     def to_str(self):
-        return self.account.extra_data.get('name',
-                                           super(CoinbaseAccount, self).to_str())
+        return self.account.extra_data.get(
+            'name',
+            super(CoinbaseAccount, self).to_str())
 
 
 class CoinbaseProvider(OAuth2Provider):
     id = 'coinbase'
     name = 'Coinbase'
-    package = 'allauth.socialaccount.providers.coinbase'
     account_class = CoinbaseAccount
 
     def get_default_scope(self):
@@ -28,5 +28,6 @@ class CoinbaseProvider(OAuth2Provider):
     def extract_common_fields(self, data):
         # See: https://coinbase.com/api/doc/1.0/users/index.html
         return dict(name=data['name'], email=data['email'])
+
 
 providers.registry.register(CoinbaseProvider)

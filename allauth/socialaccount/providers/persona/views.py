@@ -1,10 +1,13 @@
 import requests
+
 from django.core.exceptions import ImproperlyConfigured
 
-from allauth.socialaccount.helpers import complete_social_login
-from allauth.socialaccount.helpers import render_authentication_error
-from allauth.socialaccount.models import SocialLogin
 from allauth.socialaccount import app_settings, providers
+from allauth.socialaccount.helpers import (
+    complete_social_login,
+    render_authentication_error,
+)
+from allauth.socialaccount.models import SocialLogin
 
 from .provider import PersonaProvider
 
@@ -36,7 +39,7 @@ def persona_login(request):
             provider_id=PersonaProvider.id,
             exception=e)
     login = providers.registry \
-        .by_id(PersonaProvider.id) \
+        .by_id(PersonaProvider.id, request) \
         .sociallogin_from_response(request, extra_data)
     login.state = SocialLogin.state_from_request(request)
     return complete_social_login(request, login)

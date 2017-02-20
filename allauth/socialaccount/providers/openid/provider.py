@@ -2,14 +2,19 @@ try:
     from urllib.parse import urlparse
 except ImportError:
     from urlparse import urlparse
-from django.core.urlresolvers import reverse
 from django.utils.http import urlencode
 
+from allauth.compat import reverse
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import Provider, ProviderAccount
 
-from .utils import get_email_from_response, get_value_from_response
-from .utils import SRegField, OldAXAttribute, AXAttribute
+from .utils import (
+    AXAttribute,
+    OldAXAttribute,
+    SRegField,
+    get_email_from_response,
+    get_value_from_response,
+)
 
 
 class OpenIDAccount(ProviderAccount):
@@ -37,7 +42,6 @@ class OpenIDAccount(ProviderAccount):
 class OpenIDProvider(Provider):
     id = 'openid'
     name = 'OpenID'
-    package = 'allauth.socialaccount.providers.openid'
     account_class = OpenIDAccount
 
     def get_login_url(self, request, **kwargs):
@@ -56,8 +60,22 @@ class OpenIDProvider(Provider):
                                 openid_url='http://hyves.nl')]
         return self.get_settings().get('SERVERS', default_servers)
 
-    def extract_extra_data(self, response):
+    def get_server_settings(self, endpoint):
+        servers = self.get_settings().get('SERVERS', [])
+        for server in servers:
+            if endpoint == server.get('openid_url'):
+                return server
         return {}
+
+    def extract_extra_data(self, response):
+        extra_data = {}
+        server_settings = \
+            self.get_server_settings(response.endpoint.server_url)
+        extra_attributes = server_settings.get('extra_attributes', [])
+        for attribute_id, name, _ in extra_attributes:
+            extra_data[attribute_id] \
+                = get_value_from_response(response, ax_names=[name])
+        return extra_data
 
     def extract_uid(self, response):
         return response.identity_url

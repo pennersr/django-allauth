@@ -4,13 +4,15 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class RedditAccount(ProviderAccount):
-    pass
+    def to_str(self):
+        dflt = super(RedditAccount, self).to_str()
+        name = self.account.extra_data.get('name', dflt)
+        return name
 
 
 class RedditProvider(OAuth2Provider):
     id = 'reddit'
     name = 'Reddit'
-    package = 'allauth.socialaccount.providers.reddit'
     account_class = RedditAccount
 
     def extract_uid(self, data):
@@ -22,5 +24,6 @@ class RedditProvider(OAuth2Provider):
     def get_default_scope(self):
         scope = ['identity']
         return scope
+
 
 providers.registry.register(RedditProvider)

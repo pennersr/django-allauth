@@ -10,7 +10,6 @@ class VimeoAccount(ProviderAccount):
 class VimeoProvider(OAuthProvider):
     id = 'vimeo'
     name = 'Vimeo'
-    package = 'allauth.socialaccount.providers.vimeo'
     account_class = VimeoAccount
 
     def get_default_scope(self):

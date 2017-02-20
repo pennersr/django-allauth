@@ -10,16 +10,18 @@ class HubicAccount(ProviderAccount):
 class HubicProvider(OAuth2Provider):
     id = 'hubic'
     name = 'Hubic'
-    package = 'allauth.socialaccount.providers.hubic'
     account_class = HubicAccount
 
     def extract_uid(self, data):
         return str(data['email'])
 
     def extract_common_fields(self, data):
-        return dict(email=data.get('email'),
-                    username=data.get('firstname').lower()+data.get('lastname').lower(),
-                    first_name=data.get('firstname'),
-                    last_name=data.get('lastname'))
+        return dict(
+            email=data.get('email'),
+            username=data.get('firstname').lower() + data.get(
+                'lastname').lower(),
+            first_name=data.get('firstname'),
+            last_name=data.get('lastname'))
+
 
 providers.registry.register(HubicProvider)

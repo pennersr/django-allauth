@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.test.utils import override_settings
+
 import mock
 
-from django.test.utils import override_settings
+from allauth.socialaccount.models import SocialAccount
+from allauth.socialaccount.providers import registry
 from allauth.socialaccount.tests import create_oauth2_tests
 from allauth.tests import MockedResponse, patch
-from allauth.socialaccount.providers import registry
-from allauth.socialaccount.models import SocialAccount
 
 from .provider import BitbucketOAuth2Provider
 
@@ -22,19 +23,23 @@ class BitbucketOAuth2Tests(create_oauth2_tests(registry.by_id(
             "display_name": "tutorials account",
             "links": {
                 "avatar": {
-                    "href": "https://bitbucket-assetroot.s3.amazonaws.com/c/photos/2013/Nov/25/tutorials-avatar-1563784409-6_avatar.png"
+                    "href":
+                    "https://bitbucket-assetroot.s3.amazonaws.com/c/photos/2013/Nov/25/tutorials-avatar-1563784409-6_avatar.png"
                 },
                 "followers": {
-                    "href": "https://api.bitbucket.org/2.0/users/tutorials/followers"
+                    "href":
+                    "https://api.bitbucket.org/2.0/users/tutorials/followers"
                 },
                 "following": {
-                    "href": "https://api.bitbucket.org/2.0/users/tutorials/following"
+                    "href":
+                    "https://api.bitbucket.org/2.0/users/tutorials/following"
                 },
                 "html": {
                     "href": "https://bitbucket.org/tutorials"
                 },
                 "repositories": {
-                    "href": "https://api.bitbucket.org/2.0/repositories/tutorials"
+                    "href":
+                    "https://api.bitbucket.org/2.0/repositories/tutorials"
                 },
                 "self": {
                     "href": "https://api.bitbucket.org/2.0/users/tutorials"
@@ -46,7 +51,7 @@ class BitbucketOAuth2Tests(create_oauth2_tests(registry.by_id(
             "uuid": "{c788b2da-b7a2-404c-9e26-d3f077557007}",
             "website": "https://tutorials.bitbucket.org/"
         }
-    """
+    """  # noqa
 
     email_response_data = """
         {
@@ -60,7 +65,8 @@ class BitbucketOAuth2Tests(create_oauth2_tests(registry.by_id(
                     "is_primary": true,
                     "links": {
                         "self": {
-                            "href": "https://api.bitbucket.org/2.0/user/emails/tutorials@bitbucket.org"
+                            "href":
+                            "https://api.bitbucket.org/2.0/user/emails/tutorials@bitbucket.org"
                         }
                     },
                     "type": "email"
@@ -71,14 +77,15 @@ class BitbucketOAuth2Tests(create_oauth2_tests(registry.by_id(
                     "is_primary": true,
                     "links": {
                         "self": {
-                            "href": "https://api.bitbucket.org/2.0/user/emails/tutorials+secondary@bitbucket.org"
+                            "href":
+                            "https://api.bitbucket.org/2.0/user/emails/tutorials+secondary@bitbucket.org"
                         }
                     },
                     "type": "email"
                 }
             ]
         }
-    """
+    """  # noqa
 
     def setUp(self):
         super(BitbucketOAuth2Tests, self).setUp()
@@ -110,13 +117,17 @@ class BitbucketOAuth2Tests(create_oauth2_tests(registry.by_id(
             ]
         super(BitbucketOAuth2Tests, self).test_account_tokens(multiple_login)
         calls = [
-            mock.call('https://api.bitbucket.org/2.0/user', params=mock.ANY),
-            mock.call('https://api.bitbucket.org/2.0/user/emails', params=mock.ANY),
+            mock.call('https://api.bitbucket.org/2.0/user',
+                      params=mock.ANY),
+            mock.call('https://api.bitbucket.org/2.0/user/emails',
+                      params=mock.ANY),
         ]
         if multiple_login:
             calls.extend([
-                mock.call('https://api.bitbucket.org/2.0/user', params=mock.ANY),
-                mock.call('https://api.bitbucket.org/2.0/user/emails', params=mock.ANY),
+                mock.call('https://api.bitbucket.org/2.0/user',
+                          params=mock.ANY),
+                mock.call('https://api.bitbucket.org/2.0/user/emails',
+                          params=mock.ANY),
             ])
         self.patches['requests'].get.assert_has_calls(calls)
 
@@ -133,9 +144,11 @@ class BitbucketOAuth2Tests(create_oauth2_tests(registry.by_id(
         )
         self.assertEqual(
             account.get_avatar_url(),
-            'https://bitbucket-assetroot.s3.amazonaws.com/c/photos/2013/Nov/25/tutorials-avatar-1563784409-6_avatar.png'
+            'https://bitbucket-assetroot.s3.amazonaws.com/c/photos/2013/Nov/25/tutorials-avatar-1563784409-6_avatar.png'  # noqa
         )
         self.patches['requests'].get.assert_has_calls([
-            mock.call('https://api.bitbucket.org/2.0/user', params=mock.ANY),
-            mock.call('https://api.bitbucket.org/2.0/user/emails', params=mock.ANY),
+            mock.call('https://api.bitbucket.org/2.0/user',
+                      params=mock.ANY),
+            mock.call('https://api.bitbucket.org/2.0/user/emails',
+                      params=mock.ANY),
         ])

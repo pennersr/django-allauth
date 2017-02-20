@@ -1,10 +1,18 @@
+from django import VERSION as DJANGO_VERSION, template
 from django.template.defaulttags import token_kwargs
-from django import template
 
+from allauth.compat import template_context_value
 from allauth.socialaccount import providers
 from allauth.utils import get_request_param
 
+
 register = template.Library()
+
+
+if DJANGO_VERSION < (1, 9):
+    simple_tag = register.assignment_tag
+else:
+    simple_tag = register.simple_tag
 
 
 class ProviderLoginURLNode(template.Node):
@@ -14,10 +22,10 @@ class ProviderLoginURLNode(template.Node):
 
     def render(self, context):
         provider_id = self.provider_id_var.resolve(context)
-        provider = providers.registry.by_id(provider_id)
+        request = template_context_value(context, 'request')
+        provider = providers.registry.by_id(provider_id, request)
         query = dict([(str(name), var.resolve(context)) for name, var
                       in self.params.items()])
-        request = context['request']
         auth_params = query.get('auth_params', None)
         scope = query.get('scope', None)
         process = query.get('process', None)
@@ -52,9 +60,9 @@ def provider_login_url(parser, token):
 
 class ProvidersMediaJSNode(template.Node):
     def render(self, context):
-        request = context['request']
+        request = template_context_value(context, 'request')
         ret = '\n'.join([p.media_js(request)
-                         for p in providers.registry.get_list()])
+                         for p in providers.registry.get_list(request)])
         return ret
 
 
@@ -63,7 +71,7 @@ def providers_media_js(parser, token):
     return ProvidersMediaJSNode()
 
 
-@register.assignment_tag
+@simple_tag
 def get_social_accounts(user):
     """
     {% get_social_accounts user as accounts %}
@@ -80,7 +88,7 @@ def get_social_accounts(user):
     return accounts
 
 
-@register.assignment_tag
+@simple_tag
 def get_providers():
     """
     Returns a list of social authentication providers.

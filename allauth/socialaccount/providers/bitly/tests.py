@@ -3,6 +3,7 @@ from allauth.tests import MockedResponse, TestCase
 
 from .provider import BitlyProvider
 
+
 class BitlyTests(OAuth2TestsMixin, TestCase):
     provider_id = BitlyProvider.id
 

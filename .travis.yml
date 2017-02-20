@@ -6,34 +6,55 @@ python:
  - "3.3"
  - "3.4"
  - "3.5"
+ - "3.6"
 env:
   matrix:
-   - DJANGO="Django<1.7"
    - DJANGO="Django<1.8"
    - DJANGO="Django<1.9"
    - DJANGO="Django<1.10"
+   - DJANGO="Django<1.11"
 cache:
   directories:
     - $HOME/.cache/pip
 install:
- - pip install "pip>=7.0.2" wheel
+ # pip >=8 dropped Python 3.2 support
+ - pip install "pip<8.0.0" wheel
  - pip install "$DJANGO" "coverage==3.7.1" coveralls "mock>=1.0.1"
  - pip install .
+ - pip install flake8
+ - pip install isort
+ - nvm install 6.9.5
+ - npm install standard
 matrix:
   exclude:
     - python: "3.5"
-      env: DJANGO="Django<1.7"
-    - python: "3.5"
+      env: DJANGO="Django<1.8"
+    - python: "3.6"
       env: DJANGO="Django<1.8"
     # Django 1.9+ no longer supports python 3.2/3.3
     - python: "3.2"
       env: DJANGO="Django<1.10"
     - python: "3.3"
       env: DJANGO="Django<1.10"
+    - python: "3.2"
+      env: DJANGO="Django<1.11"
+    - python: "3.3"
+      env: DJANGO="Django<1.11"
 branches:
  only:
   - master
-script: coverage run manage.py test allauth
+script:
+  - make qa
+  - coverage run manage.py test allauth
 after_success:
   - coverage report
   - coveralls
+notifications:
+  webhooks:
+    urls:
+      - https://readthedocs.org/build/django-allauth
+    on_start: never
+    on_cancel: never
+    on_error: never
+    on_failure: never
+    on_success: always

@@ -1,6 +1,5 @@
-from django.core.urlresolvers import reverse
-
 from allauth.account.models import EmailAddress
+from allauth.compat import reverse
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
@@ -21,7 +20,6 @@ class UntappdAccount(ProviderAccount):
 class UntappdProvider(OAuth2Provider):
     id = 'untappd'
     name = 'Untappd'
-    package = 'allauth.socialaccount.providers.untappd'
     account_class = UntappdAccount
 
     def get_auth_params(self, request, action):

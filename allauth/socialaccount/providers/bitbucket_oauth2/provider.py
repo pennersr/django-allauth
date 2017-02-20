@@ -24,7 +24,6 @@ class BitbucketOAuth2Account(ProviderAccount):
 class BitbucketOAuth2Provider(OAuth2Provider):
     id = 'bitbucket_oauth2'
     name = 'Bitbucket'
-    package = 'allauth.socialaccount.providers.bitbucket_oauth2'
     account_class = BitbucketOAuth2Account
 
     def extract_uid(self, data):

@@ -1,6 +1,5 @@
 from allauth.socialaccount import providers
-from allauth.socialaccount.providers.base import (ProviderAccount,
-                                                  AuthAction)
+from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
 
 
@@ -32,7 +31,6 @@ class TwitterAccount(ProviderAccount):
 class TwitterProvider(OAuthProvider):
     id = 'twitter'
     name = 'Twitter'
-    package = 'allauth.socialaccount.providers.twitter'
     account_class = TwitterAccount
 
     def get_auth_url(self, request, action):
@@ -47,7 +45,8 @@ class TwitterProvider(OAuthProvider):
 
     def extract_common_fields(self, data):
         return dict(username=data.get('screen_name'),
-                    name=data.get('name'))
+                    name=data.get('name'),
+                    email=data.get('email'),)
 
 
 providers.registry.register(TwitterProvider)

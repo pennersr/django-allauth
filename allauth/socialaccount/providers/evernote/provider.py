@@ -14,7 +14,6 @@ class EvernoteAccount(ProviderAccount):
 class EvernoteProvider(OAuthProvider):
     id = 'evernote'
     name = 'Evernote'
-    package = 'allauth.socialaccount.providers.evernote'
     account_class = EvernoteAccount
 
     def extract_uid(self, data):

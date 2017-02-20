@@ -1,9 +1,8 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from .models import EmailAddress
-
 from .utils import send_email_confirmation
 
 

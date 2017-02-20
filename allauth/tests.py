@@ -1,15 +1,22 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import json
 import requests
-from datetime import datetime, date
+from datetime import date, datetime
+from importlib import import_module
 
 import django
-from django.test import TestCase as DjangoTestCase
+from django.conf import settings
+from django.core.files.base import ContentFile
 from django.db import models
+from django.test import TestCase as DjangoTestCase
+
+from allauth.account.utils import user_username
 
 from . import utils
 from .compat import urlparse, urlunparse
+
 
 try:
     from mock import Mock, patch
@@ -18,6 +25,14 @@ except ImportError:
 
 
 class TestCase(DjangoTestCase):
+
+    def setUp(self):
+        if django.VERSION < (1, 8,):
+            engine = import_module(settings.SESSION_ENGINE)
+            s = engine.SessionStore()
+            s.save()
+            self.client.cookies[
+                settings.SESSION_COOKIE_NAME] = s.session_key
 
     def assertRedirects(self, response, expected_url,
                         fetch_redirect_response=True,
@@ -43,6 +58,21 @@ class TestCase(DjangoTestCase):
                 actual_url = urlunparse(parts)
             self.assertEqual(expected_url, actual_url)
 
+    def client_force_login(self, user):
+        if django.VERSION >= (1, 9):
+            self.client.force_login(
+                user,
+                'django.contrib.auth.backends.ModelBackend')
+        else:
+            old_password = user.password
+            user.set_password('doe')
+            user.save()
+            self.client.login(
+                username=user_username(user),
+                password='doe')
+            user.password = old_password
+            user.save()
+
 
 class MockedResponse(object):
     def __init__(self, status_code, content, headers=None):
@@ -54,7 +84,6 @@ class MockedResponse(object):
         self.headers = headers
 
     def json(self):
-        import json
         return json.loads(self.text)
 
     def raise_for_status(self):
@@ -114,17 +143,39 @@ class BasicTests(TestCase):
             self.assertEqual(None, utils.valid_email_or_none("Bad ?"))
 
     def test_serializer(self):
+
+        class SomeValue:
+            pass
+
+        some_value = SomeValue()
+
+        class SomeField(models.Field):
+            def get_prep_value(self, value):
+                return 'somevalue'
+
+            def from_db_value(self, value, expression, connection, context):
+                return some_value
+
         class SomeModel(models.Model):
             dt = models.DateTimeField()
             t = models.TimeField()
             d = models.DateField()
+            img1 = models.ImageField()
+            img2 = models.ImageField()
+            img3 = models.ImageField()
+            something = SomeField()
 
         def method(self):
             pass
 
         instance = SomeModel(dt=datetime.now(),
                              d=date.today(),
+                             something=some_value,
                              t=datetime.now().time())
+        content_file = ContentFile(b'%PDF')
+        content_file.name = 'foo.pdf'
+        instance.img1 = content_file
+        instance.img2 = 'foo.png'
         # make sure serializer doesn't fail if a method is attached to
         # the instance
         instance.method = method
@@ -133,6 +184,10 @@ class BasicTests(TestCase):
         instance2 = utils.deserialize_instance(SomeModel, data)
         self.assertEqual(getattr(instance, 'method', None), method)
         self.assertEqual(getattr(instance2, 'method', None), None)
+        self.assertEqual(instance2.something, some_value)
+        self.assertEqual(instance2.img1.name, 'foo.pdf')
+        self.assertEqual(instance2.img2.name, 'foo.png')
+        self.assertEqual(instance2.img3.name, '')
         self.assertEqual(instance.nonfield, instance2.nonfield)
         self.assertEqual(instance.d, instance2.d)
         self.assertEqual(instance.dt.date(), instance2.dt.date())

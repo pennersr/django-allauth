@@ -1,16 +1,18 @@
 import json
 
 from allauth.socialaccount.providers.oauth.client import OAuth
-from allauth.socialaccount.providers.oauth.views import (OAuthAdapter,
-                                                         OAuthLoginView,
-                                                         OAuthCallbackView)
+from allauth.socialaccount.providers.oauth.views import (
+    OAuthAdapter,
+    OAuthCallbackView,
+    OAuthLoginView,
+)
 
 from .provider import DropboxProvider
 
 
 class DropboxAPI(OAuth):
     """
-    Verifying twitter credentials
+    Verifying dropbox credentials
     """
     url = 'https://api.dropbox.com/1/account/info'
 

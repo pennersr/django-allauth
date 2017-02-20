@@ -18,7 +18,6 @@ class StackExchangeAccount(ProviderAccount):
 class StackExchangeProvider(OAuth2Provider):
     id = 'stackexchange'
     name = 'Stack Exchange'
-    package = 'allauth.socialaccount.providers.stackexchange'
     account_class = StackExchangeAccount
 
     def get_site(self):

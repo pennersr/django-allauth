@@ -30,10 +30,12 @@ class EdmodoTests(OAuth2TestsMixin, TestCase):
   "coppa_verified": false,
   "subjects": null,
   "avatars": {
-    "small": "https://api.edmodo.com/users/74721257/avatar?type=small&u=670329ncqnf8fxv7tya24byn5",
-    "large": "https://api.edmodo.com/users/74721257/avatar?type=large&u=670329ncqnf8fxv7tya24byn5"
+    "small":
+    "https://api.edmodo.com/users/74721257/avatar?type=small&u=670329ncqnf8fxv7tya24byn5",
+    "large":
+    "https://api.edmodo.com/users/74721257/avatar?type=large&u=670329ncqnf8fxv7tya24byn5"
   },
   "email":"test@example.com",
   "sync_enabled": false
 }
-""")
+""")  # noqa

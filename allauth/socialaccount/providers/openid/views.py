@@ -1,24 +1,25 @@
-from django.shortcuts import render
-from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
-from openid.consumer.discover import DiscoveryFailure
 from openid.consumer import consumer
+from openid.consumer.discover import DiscoveryFailure
+from openid.extensions.ax import AttrInfo, FetchRequest
 from openid.extensions.sreg import SRegRequest
-from openid.extensions.ax import FetchRequest, AttrInfo
 
-from allauth.socialaccount.app_settings import QUERY_EMAIL
-from allauth.socialaccount.models import SocialLogin
-from allauth.socialaccount.helpers import render_authentication_error
-from allauth.socialaccount.helpers import complete_social_login
+from allauth.compat import reverse
 from allauth.socialaccount import providers
+from allauth.socialaccount.app_settings import QUERY_EMAIL
+from allauth.socialaccount.helpers import (
+    complete_social_login,
+    render_authentication_error,
+)
+from allauth.socialaccount.models import SocialLogin
 
-from .utils import (DBOpenIDStore, SRegFields, AXAttributes,
-                    JSONSafeSession)
+from ..base import AuthError
 from .forms import LoginForm
 from .provider import OpenIDProvider
-from ..base import AuthError
+from .utils import AXAttributes, DBOpenIDStore, JSONSafeSession, SRegFields
 
 
 def _openid_consumer(request):
@@ -46,9 +47,20 @@ def login(request):
                     for name in AXAttributes:
                         ax.add(AttrInfo(name,
                                         required=True))
+                    provider = OpenIDProvider(request)
+                    server_settings = \
+                        provider.get_server_settings(request.GET.get('openid'))
+                    extra_attributes = \
+                        server_settings.get('extra_attributes', [])
+                    for _, name, required in extra_attributes:
+                        ax.add(AttrInfo(name,
+                                        required=required))
                     auth_request.addExtension(ax)
                 callback_url = reverse(callback)
                 SocialLogin.stash_state(request)
+                # https://github.com/pennersr/django-allauth/issues/1523
+                auth_request.return_to_args['next'] = \
+                    form.cleaned_data.get('next', '/')
                 redirect_url = auth_request.redirectURL(
                     request.build_absolute_uri('/'),
                     request.build_absolute_uri(callback_url))
@@ -78,7 +90,7 @@ def callback(request):
         request.build_absolute_uri(request.path))
     if response.status == consumer.SUCCESS:
         login = providers.registry \
-            .by_id(OpenIDProvider.id) \
+            .by_id(OpenIDProvider.id, request) \
             .sociallogin_from_response(request, response)
         login.state = SocialLogin.unstash_state(request)
         ret = complete_social_login(request, login)

@@ -18,7 +18,6 @@ class DoubanAccount(ProviderAccount):
 class DoubanProvider(OAuth2Provider):
     id = 'douban'
     name = 'Douban'
-    package = 'allauth.socialaccount.providers.douban'
     account_class = DoubanAccount
 
     def extract_uid(self, data):

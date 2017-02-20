@@ -20,9 +20,7 @@ class SoundCloudAccount(ProviderAccount):
 class SoundCloudProvider(OAuth2Provider):
     id = 'soundcloud'
     name = 'SoundCloud'
-    package = 'allauth.socialaccount.providers.soundcloud'
     account_class = SoundCloudAccount
-
 
     def extract_uid(self, data):
         return str(data['id'])

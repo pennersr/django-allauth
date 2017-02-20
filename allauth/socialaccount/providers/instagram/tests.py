@@ -3,6 +3,7 @@ from allauth.tests import MockedResponse, TestCase
 
 from .provider import InstagramProvider
 
+
 class InstagramTests(OAuth2TestsMixin, TestCase):
     provider_id = InstagramProvider.id
 
@@ -16,7 +17,8 @@ class InstagramTests(OAuth2TestsMixin, TestCase):
             "username": "georgewhewell",
             "bio": "",
             "website": "",
-            "profile_picture": "http://images.ak.instagram.com/profiles/profile_11428116_75sq_1339547159.jpg",
+            "profile_picture":
+            "http://images.ak.instagram.com/profiles/profile_11428116_75sq_1339547159.jpg",
             "full_name": "georgewhewell",
             "counts": {
               "media": 74,
@@ -25,4 +27,4 @@ class InstagramTests(OAuth2TestsMixin, TestCase):
             },
             "id": "11428116"
           }
-        }""")
+        }""")  # noqa

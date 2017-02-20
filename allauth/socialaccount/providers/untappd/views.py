@@ -1,8 +1,10 @@
 import requests
 
-from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
-                                                          OAuth2LoginView,
-                                                          OAuth2CallbackView)
+from allauth.socialaccount.providers.oauth2.views import (
+    OAuth2Adapter,
+    OAuth2CallbackView,
+    OAuth2LoginView,
+)
 
 from .client import UntappdOAuth2Client
 from .provider import UntappdProvider
@@ -36,6 +38,7 @@ class UntappdOAuth2CallbackView(OAuth2CallbackView):
             client.access_token_method, client.access_token_url,
             client.callback_url, client.scope)
         return untappd_client
+
 
 oauth2_login = OAuth2LoginView.adapter_view(UntappdOAuth2Adapter)
 oauth2_callback = UntappdOAuth2CallbackView.adapter_view(UntappdOAuth2Adapter)

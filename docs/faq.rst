@@ -22,6 +22,17 @@ Here are a few third party resources to help you get started:
 - http://www.sarahhagstrom.com/2013/09/the-missing-django-allauth-tutorial/
 - https://github.com/aellerton/demo-allauth-bootstrap
 
+I think I found a security issue... now what?
+*********************************************
+
+Please report security issues only to django-allauth-security@googlegroups.com.
+This is a private list only open to long-time, highly trusted django-allauth
+developers, and its archives are not public.
+
+You may also want to subscribe to django-allauth-announce@googlegroups.com to
+get notified about security releases.
+
+
 Troubleshooting
 ---------------
 
@@ -56,3 +67,24 @@ This will avoid the need for an SMTP server as e-mails will be printed
 to the console. For more information, please refer to:
 
 https://docs.djangoproject.com/en/dev/ref/settings/#email-host
+
+
+Why did you just close my issue?
+********************************
+
+Time is limited and I have to pick my battles. Please do not file the following
+types of issues:
+
+- **Support questions, installation instructions, "How do I...?":** please direct
+  these questions elsewhere, for example here:
+  http://stackoverflow.com/questions/tagged/django-allauth
+
+- **Documentation related complaints:** while the documentation can most certainly be
+  improved, I am adhering to the debatable principle that keeping open issues
+  around with respect to documentation is not very helpful in improving things.
+  Please step in and file a pull request if you feel there is something unclear.
+
+- **Project specific integration trouble:** In cases where ``allauth`` is just
+  one piece of the puzzle and for example a stack trace indicates another
+  module crashing, please try to come up stripped version of the issue where it
+  is clear that ``allauth`` is the one that is misbehaving.

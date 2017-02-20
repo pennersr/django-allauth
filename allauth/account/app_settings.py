@@ -18,13 +18,13 @@ class AppSettings(object):
     def __init__(self, prefix):
         self.prefix = prefix
         # If login is by email, email must be required
-        assert (not self.AUTHENTICATION_METHOD
-                == self.AuthenticationMethod.EMAIL) or self.EMAIL_REQUIRED
+        assert (not self.AUTHENTICATION_METHOD ==
+                self.AuthenticationMethod.EMAIL) or self.EMAIL_REQUIRED
         # If login includes email, login must be unique
-        assert (self.AUTHENTICATION_METHOD
-                == self.AuthenticationMethod.USERNAME) or self.UNIQUE_EMAIL
-        assert (self.EMAIL_VERIFICATION
-                != self.EmailVerificationMethod.MANDATORY) \
+        assert (self.AUTHENTICATION_METHOD ==
+                self.AuthenticationMethod.USERNAME) or self.UNIQUE_EMAIL
+        assert (self.EMAIL_VERIFICATION !=
+                self.EmailVerificationMethod.MANDATORY) \
             or self.EMAIL_REQUIRED
         if not self.USER_MODEL_USERNAME_FIELD:
             assert not self.USERNAME_REQUIRED
@@ -41,7 +41,7 @@ class AppSettings(object):
 
     @property
     def DEFAULT_HTTP_PROTOCOL(self):
-        return self._setting("DEFAULT_HTTP_PROTOCOL", "http")
+        return self._setting("DEFAULT_HTTP_PROTOCOL", "http").lower()
 
     @property
     def EMAIL_CONFIRMATION_EXPIRE_DAYS(self):
@@ -111,6 +111,13 @@ class AppSettings(object):
         return ret
 
     @property
+    def EMAIL_MAX_LENGTH(self):
+        """
+        Adjust max_length of e-mail addresses
+        """
+        return self._setting("EMAIL_MAX_LENGTH", 254)
+
+    @property
     def UNIQUE_EMAIL(self):
         """
         Enforce uniqueness of e-mail addresses
@@ -118,18 +125,34 @@ class AppSettings(object):
         return self._setting("UNIQUE_EMAIL", True)
 
     @property
-    def SIGNUP_PASSWORD_VERIFICATION(self):
+    def SIGNUP_EMAIL_ENTER_TWICE(self):
+        """
+        Signup email verification
+        """
+        return self._setting("SIGNUP_EMAIL_ENTER_TWICE", False)
+
+    @property
+    def SIGNUP_PASSWORD_ENTER_TWICE(self):
         """
         Signup password verification
         """
-        return self._setting("SIGNUP_PASSWORD_VERIFICATION", True)
+        legacy = self._setting('SIGNUP_PASSWORD_VERIFICATION', True)
+        return self._setting('SIGNUP_PASSWORD_ENTER_TWICE', legacy)
 
     @property
     def PASSWORD_MIN_LENGTH(self):
         """
         Minimum password Length
         """
-        return self._setting("PASSWORD_MIN_LENGTH", 6)
+        import django
+        from django.conf import settings
+        ret = None
+        has_validators = (
+            django.VERSION[:2] >= (1, 9) and
+            bool(getattr(settings, 'AUTH_PASSWORD_VALIDATORS', [])))
+        if not has_validators:
+            ret = self._setting("PASSWORD_MIN_LENGTH", 6)
+        return ret
 
     @property
     def EMAIL_SUBJECT_PREFIX(self):
@@ -196,7 +219,8 @@ class AppSettings(object):
     @property
     def LOGIN_ON_PASSWORD_RESET(self):
         """
-        Automatically log the user in immediately after resetting their password.
+        Automatically log the user in immediately after resetting
+        their password.
         """
         return self._setting('LOGIN_ON_PASSWORD_RESET', False)
 
@@ -223,10 +247,10 @@ class AppSettings(object):
     @property
     def SESSION_COOKIE_AGE(self):
         """
-        Remembered sessions expire after this many seconds.
-        Defaults to 1814400 seconds which is 3 weeks.
+        Deprecated -- use Django's settings.SESSION_COOKIE_AGE instead
         """
-        return self._setting('SESSION_COOKIE_AGE', 60 * 60 * 24 * 7 * 3)
+        from django.conf import settings
+        return self._setting('SESSION_COOKIE_AGE', settings.SESSION_COOKIE_AGE)
 
     @property
     def SESSION_REMEMBER(self):
@@ -238,13 +262,72 @@ class AppSettings(object):
         return self._setting('SESSION_REMEMBER', None)
 
     @property
+    def TEMPLATE_EXTENSION(self):
+        """
+        A string defining the template extension to use, defaults to `html`.
+        """
+        return self._setting('TEMPLATE_EXTENSION', 'html')
+
+    @property
     def FORMS(self):
         return self._setting('FORMS', {})
+
+    @property
+    def LOGIN_ATTEMPTS_LIMIT(self):
+        """
+        Number of failed login attempts. When this number is
+        exceeded, the user is prohibited from logging in for the
+        specified `LOGIN_ATTEMPTS_TIMEOUT`
+        """
+        return self._setting('LOGIN_ATTEMPTS_LIMIT', 5)
+
+    @property
+    def LOGIN_ATTEMPTS_TIMEOUT(self):
+        """
+        Time period from last unsuccessful login attempt, during
+        which the user is prohibited from trying to log in.  Defaults to
+        5 minutes.
+        """
+        return self._setting('LOGIN_ATTEMPTS_TIMEOUT', 60 * 5)
+
+    @property
+    def EMAIL_CONFIRMATION_HMAC(self):
+        return self._setting('EMAIL_CONFIRMATION_HMAC', True)
+
+    @property
+    def SALT(self):
+        return self._setting('SALT', 'account')
+
+    @property
+    def PRESERVE_USERNAME_CASING(self):
+        return self._setting('PRESERVE_USERNAME_CASING', True)
+
+    @property
+    def USERNAME_VALIDATORS(self):
+        from django.core.exceptions import ImproperlyConfigured
+        from allauth.utils import import_attribute
+        from allauth.utils import get_user_model
+
+        path = self._setting('USERNAME_VALIDATORS', None)
+        if path:
+            ret = import_attribute(path)
+            if not isinstance(ret, list):
+                raise ImproperlyConfigured(
+                    'ACCOUNT_USERNAME_VALIDATORS is expected to be a list')
+        else:
+            if self.USER_MODEL_USERNAME_FIELD is not None:
+                ret = get_user_model()._meta.get_field(
+                    self.USER_MODEL_USERNAME_FIELD).validators
+            else:
+                ret = []
+        return ret
 
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html
-import sys
+import sys  # noqa
+
+
 app_settings = AppSettings('ACCOUNT_')
 app_settings.__name__ = __name__
 sys.modules[__name__] = app_settings

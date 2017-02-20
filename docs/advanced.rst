@@ -58,10 +58,10 @@ instances are created, and populated with data
 
 - `allauth.account.adapter.DefaultAccountAdapter`:
 
-  - `is_open_for_signup(self, request)`: The default function 
-  returns `True`. You can override this method by returning `False`
-  if you want to disable account signup. 
-  
+  - `is_open_for_signup(self, request)`: The default function
+    returns `True`. You can override this method by returning `False`
+    if you want to disable account signup.
+
   - `new_user(self, request)`: Instantiates a new, empty `User`.
 
   - `save_user(self, request, user, form)`: Populates and saves the
@@ -80,11 +80,11 @@ instances are created, and populated with data
 
 - `allauth.socialaccount.adapter.DefaultSocialAccountAdapter`:
 
-  - `is_open_for_signup(self, request)`: The default function 
-  returns that is the same as `ACCOUNT_ADAPTER` in `settings.py`.
-  You can override this method by returning `True`/`False`
-  if you want to enable/disable socialaccount signup. 
-  
+  - `is_open_for_signup(self, request)`: The default function
+    returns that is the same as `ACCOUNT_ADAPTER` in `settings.py`.
+    You can override this method by returning `True`/`False`
+    if you want to enable/disable socialaccount signup.
+
   - `new_user(self, request, sociallogin)`: Instantiates a new, empty
     `User`.
 
@@ -138,6 +138,10 @@ template as follows::
 
     account/email/email_confirmation_message.html
 
+The project does not contain any HTML email templates out of the box.
+When you do provide these yourself, note that both the text and HTML
+versions of the message are sent.
+
 If this does not suit your needs, you can hook up your own custom
 mechanism by overriding the `send_mail` method of the account adapter
 (`allauth.account.adapter.DefaultAccountAdapter`).
@@ -186,3 +190,31 @@ it is listed in `settings.INSTALLED_APPS`.  All messages (as in
 `django.contrib.messages`) are configurable by overriding their
 respective template. If you want to disable a message simply override
 the message template with a blank one.
+
+Admin
+-----
+
+The Django admin site (`django.contrib.admin`) does not use Django allauth by
+default. Since Django admin provides a custom login view, it does not go through
+the normal Django allauth workflow.
+
+.. warning::
+
+    This limitation means that Django allauth features are not applied to the
+    Django admin site:
+
+    * `ACCOUNT_LOGIN_ATTEMPTS_LIMIT` and `ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT` do not
+      protect Django’s admin login from being brute forced.
+    * Any other custom workflow that overrides the Django allauth adapter's
+      login method will not be applied.
+
+An easy workaround for this is to require users to login before going to the
+Django admin site's login page (note that following would need to be applied to
+every instance of `AdminSite`):
+
+.. code-block:: python
+
+    from django.contrib import admin
+    from django.contrib.auth.decorators import login_required
+
+    admin.site.login = login_required(admin.site.login)

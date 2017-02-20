@@ -5,9 +5,11 @@ from django.utils import six
 
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.oauth.client import OAuth
-from allauth.socialaccount.providers.oauth.views import (OAuthAdapter,
-                                                         OAuthLoginView,
-                                                         OAuthCallbackView)
+from allauth.socialaccount.providers.oauth.views import (
+    OAuthAdapter,
+    OAuthCallbackView,
+    OAuthLoginView,
+)
 
 from .provider import LinkedInProvider
 
@@ -17,7 +19,7 @@ class LinkedInAPI(OAuth):
 
     def get_user_info(self):
         fields = providers.registry \
-            .by_id(LinkedInProvider.id) \
+            .by_id(LinkedInProvider.id, self.request) \
             .get_profile_fields()
         url = self.url + ':(%s)' % ','.join(fields)
         raw_xml = self.query(url)
@@ -60,6 +62,7 @@ class LinkedInOAuthAdapter(OAuthAdapter):
         extra_data = client.get_user_info()
         return self.get_provider().sociallogin_from_response(request,
                                                              extra_data)
+
 
 oauth_login = OAuthLoginView.adapter_view(LinkedInOAuthAdapter)
 oauth_callback = OAuthCallbackView.adapter_view(LinkedInOAuthAdapter)

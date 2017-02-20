@@ -28,3 +28,5 @@ virtualenv
 .DS_Store
 
 *.prefs
+*.mo
+/.stfolder

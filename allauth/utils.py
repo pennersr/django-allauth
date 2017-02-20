@@ -1,25 +1,43 @@
 import base64
-import re
-import unicodedata
+import importlib
 import json
+import random
+import re
+import string
+import unicodedata
+from collections import OrderedDict
 
-from django.core.exceptions import ImproperlyConfigured
-from django.core.validators import validate_email, ValidationError
-from django.core import urlresolvers
+from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
-from django.db.models import FieldDoesNotExist
-from django.db.models.fields import (DateTimeField, DateField,
-                                     EmailField, TimeField,
-                                     BinaryField)
-from django.utils import six, dateparse
+from django.core.exceptions import ImproperlyConfigured
+from django.core.serializers.json import DjangoJSONEncoder
+from django.core.validators import ValidationError, validate_email
+from django.db.models import FieldDoesNotExist, FileField
+from django.db.models.fields import (
+    BinaryField,
+    DateField,
+    DateTimeField,
+    EmailField,
+    TimeField,
+)
+from django.utils import dateparse, six
 from django.utils.six.moves.urllib.parse import urlsplit
 
-from django.core.serializers.json import DjangoJSONEncoder
+from allauth.compat import NoReverseMatch, reverse
+
+
 try:
     from django.utils.encoding import force_text, force_bytes
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
-from allauth.compat import importlib
+
+
+# Magic number 7: if you run into collisions with this number, then you are
+# of big enough scale to start investing in a decent user model...
+MAX_USERNAME_SUFFIX_LENGTH = 7
+USERNAME_SUFFIX_CHARS = (
+    [string.digits] * 4 +
+    [string.ascii_letters] * (MAX_USERNAME_SUFFIX_LENGTH - 4))
 
 
 def _generate_unique_username_base(txts, regex=None):
@@ -60,22 +78,42 @@ def get_username_max_length():
     return max_length
 
 
-def generate_unique_username(txts, regex=None):
-    from .account.adapter import get_adapter
-    adapter = get_adapter()
-    username = _generate_unique_username_base(txts, regex)
+def generate_username_candidate(basename, suffix_length):
     max_length = get_username_max_length()
-    i = 0
-    while True:
-        try:
-            if i:
-                pfx = str(i + 1)
-            else:
-                pfx = ''
-            ret = username[0:max_length - len(pfx)] + pfx
-            return adapter.clean_username(ret)
-        except ValidationError:
-            i += 1
+    suffix = ''.join(
+        random.choice(USERNAME_SUFFIX_CHARS[i])
+        for i in range(suffix_length))
+    return basename[0:max_length - len(suffix)] + suffix
+
+
+def generate_username_candidates(basename):
+    ret = [basename]
+    max_suffix_length = min(
+        get_username_max_length(),
+        MAX_USERNAME_SUFFIX_LENGTH)
+    for suffix_length in range(2, max_suffix_length):
+        ret.append(generate_username_candidate(basename, suffix_length))
+    return ret
+
+
+def generate_unique_username(txts, regex=None):
+    from .account.app_settings import USER_MODEL_USERNAME_FIELD
+    from .account.adapter import get_adapter
+    from allauth.account.utils import filter_users_by_username
+
+    adapter = get_adapter()
+    basename = _generate_unique_username_base(txts, regex)
+    candidates = generate_username_candidates(basename)
+    existing_users = filter_users_by_username(*candidates).values_list(
+        USER_MODEL_USERNAME_FIELD, flat=True)
+    for candidate in candidates:
+        if candidate not in existing_users:
+            try:
+                return adapter.clean_username(candidate, shallow=True)
+            except ValidationError:
+                pass
+    # This really should not happen
+    raise NotImplementedError('Unable to find a unique username')
 
 
 def valid_email_or_none(email):
@@ -104,7 +142,7 @@ def email_address_exists(email, exclude_user=None):
             users = get_user_model().objects
             if exclude_user:
                 users = users.exclude(pk=exclude_user.pk)
-            ret = users.filter(**{email_field+'__iexact': email}).exists()
+            ret = users.filter(**{email_field + '__iexact': email}).exists()
     return ret
 
 
@@ -121,26 +159,6 @@ def import_callable(path_or_callable):
     else:
         ret = path_or_callable
     return ret
-
-try:
-    from django.contrib.auth import get_user_model
-except ImportError:
-    # To keep compatibility with Django 1.4
-    def get_user_model():
-        from . import app_settings
-        from django.db.models import get_model
-
-        try:
-            app_label, model_name = app_settings.USER_MODEL.split('.')
-        except ValueError:
-            raise ImproperlyConfigured("AUTH_USER_MODEL must be of the"
-                                       " form 'app_label.model_name'")
-        user_model = get_model(app_label, model_name)
-        if user_model is None:
-            raise ImproperlyConfigured("AUTH_USER_MODEL refers to model"
-                                       " '%s' that has not been installed"
-                                       % app_settings.USER_MODEL)
-        return user_model
 
 
 def get_current_site(request=None):
@@ -164,13 +182,16 @@ def resolve_url(to):
     Subset of django.shortcuts.resolve_url (that one is 1.5+)
     """
     try:
-        return urlresolvers.reverse(to)
-    except urlresolvers.NoReverseMatch:
+        return reverse(to)
+    except NoReverseMatch:
         # If this doesn't "feel" like a URL, re-raise.
         if '/' not in to and '.' not in to:
             raise
     # Finally, fall back and assume it's a URL
     return to
+
+
+SERIALIZED_DB_FIELD_PREFIX = '_db_'
 
 
 def serialize_instance(instance):
@@ -186,8 +207,19 @@ def serialize_instance(instance):
         if k.startswith('_') or callable(v):
             continue
         try:
-            if isinstance(instance._meta.get_field(k), BinaryField):
+            field = instance._meta.get_field(k)
+            if isinstance(field, BinaryField):
                 v = force_text(base64.b64encode(v))
+            elif isinstance(field, FileField):
+                if v and not isinstance(v, six.string_types):
+                    v = v.name
+            # Check if the field is serializable. If not, we'll fall back
+            # to serializing the DB values which should cover most use cases.
+            try:
+                json.dumps(v, cls=DjangoJSONEncoder)
+            except TypeError:
+                v = field.get_prep_value(v)
+                k = SERIALIZED_DB_FIELD_PREFIX + k
         except FieldDoesNotExist:
             pass
         data[k] = v
@@ -197,6 +229,10 @@ def serialize_instance(instance):
 def deserialize_instance(model, data):
     ret = model()
     for k, v in data.items():
+        is_db_value = False
+        if k.startswith(SERIALIZED_DB_FIELD_PREFIX):
+            k = k[len(SERIALIZED_DB_FIELD_PREFIX):]
+            is_db_value = True
         if v is not None:
             try:
                 f = model._meta.get_field(k)
@@ -210,6 +246,16 @@ def deserialize_instance(model, data):
                     v = force_bytes(
                         base64.b64decode(
                             force_bytes(v)))
+                elif is_db_value:
+                    try:
+                        # This is quite an ugly hack, but will cover most
+                        # use cases...
+                        v = f.from_db_value(v, None, None, None)
+                    except:
+                        raise ImproperlyConfigured(
+                            "Unable to auto serialize field '{}', custom"
+                            " serialization override required".format(k)
+                        )
             except FieldDoesNotExist:
                 pass
         setattr(ret, k, v)
@@ -217,14 +263,10 @@ def deserialize_instance(model, data):
 
 
 def set_form_field_order(form, fields_order):
-    if hasattr(form.fields, 'keyOrder'):
-        form.fields.keyOrder = fields_order
-    else:
-        # Python 2.7+
-        from collections import OrderedDict
-        assert isinstance(form.fields, OrderedDict)
-        form.fields = OrderedDict((f, form.fields[f])
-                                  for f in fields_order)
+    assert isinstance(form.fields, OrderedDict)
+    form.fields = OrderedDict(
+        (f, form.fields[f])
+        for f in fields_order)
 
 
 def build_absolute_uri(request, location, protocol=None):
@@ -247,6 +289,16 @@ def build_absolute_uri(request, location, protocol=None):
             uri = location
     else:
         uri = request.build_absolute_uri(location)
+    # NOTE: We only force a protocol if we are instructed to do so
+    # (via the `protocol` parameter, or, if the default is set to
+    # HTTPS. The latter keeps compatibility with the debatable use
+    # case of running your site under both HTTP and HTTPS, where one
+    # would want to make sure HTTPS links end up in password reset
+    # mails even while they were initiated on an HTTP password reset
+    # form.
+    if not protocol and account_settings.DEFAULT_HTTP_PROTOCOL == 'https':
+        protocol = account_settings.DEFAULT_HTTP_PROTOCOL
+    # (end NOTE)
     if protocol:
         uri = protocol + ':' + uri.partition(':')[2]
     return uri

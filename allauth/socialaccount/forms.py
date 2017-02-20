@@ -1,29 +1,20 @@
 from __future__ import absolute_import
 
 from django import forms
-from django.utils.translation import ugettext_lazy as _
 
 from allauth.account.forms import BaseSignupForm
-from allauth.account.utils import (user_username, user_email,
-                                   user_field)
 
-from .models import SocialAccount
+from . import app_settings, signals
 from .adapter import get_adapter
-from . import app_settings
-from . import signals
+from .models import SocialAccount
 
 
 class SignupForm(BaseSignupForm):
 
     def __init__(self, *args, **kwargs):
         self.sociallogin = kwargs.pop('sociallogin')
-        user = self.sociallogin.user
-        # TODO: Should become more generic, not listing
-        # a few fixed properties.
-        initial = {'email': user_email(user) or '',
-                   'username': user_username(user) or '',
-                   'first_name': user_field(user, 'first_name') or '',
-                   'last_name': user_field(user, 'last_name') or ''}
+        initial = get_adapter().get_signup_form_initial_data(
+            self.sociallogin)
         kwargs.update({
             'initial': initial,
             'email_required': kwargs.get('email_required',
@@ -31,17 +22,18 @@ class SignupForm(BaseSignupForm):
         super(SignupForm, self).__init__(*args, **kwargs)
 
     def save(self, request):
-        adapter = get_adapter()
+        adapter = get_adapter(request)
         user = adapter.save_user(request, self.sociallogin, form=self)
         self.custom_signup(request, user)
         return user
 
-    def raise_duplicate_email_error(self):
-        raise forms.ValidationError(
-            _("An account already exists with this e-mail address."
-              " Please sign in to that account first, then connect"
-              " your %s account.")
-            % self.sociallogin.account.get_provider().name)
+    def validate_unique_email(self, value):
+        try:
+            return super(SignupForm, self).validate_unique_email(value)
+        except forms.ValidationError:
+            raise forms.ValidationError(
+                get_adapter().error_messages['email_taken']
+                % self.sociallogin.account.get_provider().name)
 
 
 class DisconnectForm(forms.Form):
@@ -59,7 +51,9 @@ class DisconnectForm(forms.Form):
         cleaned_data = super(DisconnectForm, self).clean()
         account = cleaned_data.get('account')
         if account:
-            get_adapter().validate_disconnect(account, self.accounts)
+            get_adapter(self.request).validate_disconnect(
+                account,
+                self.accounts)
         return cleaned_data
 
     def save(self):

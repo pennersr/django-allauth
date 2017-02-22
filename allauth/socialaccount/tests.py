@@ -14,18 +14,12 @@ from . import providers
 from ..account import app_settings as account_settings
 from ..account.models import EmailAddress
 from ..account.utils import user_email, user_username
-from ..compat import reverse
+from ..compat import parse_qs, reverse, urlparse
 from ..tests import MockedResponse, TestCase, mocked_response
-from ..utils import get_current_site, get_user_model
+from ..utils import get_user_model
 from .helpers import complete_social_login
 from .models import SocialAccount, SocialApp, SocialLogin
 from .views import signup
-
-
-try:
-    from urllib.parse import urlparse, parse_qs
-except ImportError:
-    from urlparse import urlparse, parse_qs
 
 
 class OAuthTestsMixin(object):
@@ -43,7 +37,7 @@ class OAuthTestsMixin(object):
             client_id='app123id',
             key=self.provider.id,
             secret='dummy')
-        app.sites.add(get_current_site())
+        app.sites.add(Site.objects.get_current())
 
     @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=False)
     def test_login(self):
@@ -100,7 +94,7 @@ class OAuthTestsMixin(object):
                                    dict(process=process))
         p = urlparse(resp['location'])
         q = parse_qs(p.query)
-        complete_url = reverse(self.provider.id+'_callback')
+        complete_url = reverse(self.provider.id + '_callback')
         self.assertGreater(q['oauth_callback'][0]
                            .find(complete_url), 0)
         with mocked_response(self.get_access_token_response(),
@@ -154,7 +148,7 @@ class OAuth2TestsMixin(object):
                                        client_id='app123id',
                                        key=self.provider.id,
                                        secret='dummy')
-        app.sites.add(get_current_site())
+        app.sites.add(Site.objects.get_current())
 
     @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=False)
     def test_login(self):
@@ -219,7 +213,7 @@ class OAuth2TestsMixin(object):
                                dict(process=process))
         p = urlparse(resp['location'])
         q = parse_qs(p.query)
-        complete_url = reverse(self.provider.id+'_callback')
+        complete_url = reverse(self.provider.id + '_callback')
         self.assertGreater(q['redirect_uri'][0]
                            .find(complete_url), 0)
         response_json = self \

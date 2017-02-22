@@ -4,10 +4,8 @@ from __future__ import unicode_literals
 import json
 import requests
 from datetime import date, datetime
-from importlib import import_module
 
 import django
-from django.conf import settings
 from django.core.files.base import ContentFile
 from django.db import models
 from django.test import TestCase as DjangoTestCase
@@ -15,7 +13,6 @@ from django.test import TestCase as DjangoTestCase
 from allauth.account.utils import user_username
 
 from . import utils
-from .compat import urlparse, urlunparse
 
 
 try:
@@ -26,37 +23,14 @@ except ImportError:
 
 class TestCase(DjangoTestCase):
 
-    def setUp(self):
-        if django.VERSION < (1, 8,):
-            engine = import_module(settings.SESSION_ENGINE)
-            s = engine.SessionStore()
-            s.save()
-            self.client.cookies[
-                settings.SESSION_COOKIE_NAME] = s.session_key
-
     def assertRedirects(self, response, expected_url,
                         fetch_redirect_response=True,
                         **kwargs):
-        if django.VERSION >= (1, 7,):
-            super(TestCase, self).assertRedirects(
-                response,
-                expected_url,
-                fetch_redirect_response=fetch_redirect_response,
-                **kwargs)
-
-        elif fetch_redirect_response:
-            super(TestCase, self).assertRedirects(
-                response,
-                expected_url,
-                **kwargs)
-        else:
-            self.assertEqual(302, response.status_code)
-            actual_url = response['location']
-            if expected_url[0] == '/':
-                parts = list(urlparse(actual_url))
-                parts[0] = parts[1] = ''
-                actual_url = urlunparse(parts)
-            self.assertEqual(expected_url, actual_url)
+        super(TestCase, self).assertRedirects(
+            response,
+            expected_url,
+            fetch_redirect_response=fetch_redirect_response,
+            **kwargs)
 
     def client_force_login(self, user):
         if django.VERSION >= (1, 9):

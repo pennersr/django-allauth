@@ -10,16 +10,7 @@ Python package::
 
 settings.py (Important - Please note 'django.contrib.sites' is required as INSTALLED_APPS)::
 
-    # For Django 1.7, use:
-    TEMPLATE_CONTEXT_PROCESSORS = (
-        ...
-        # Required by `allauth` template tags
-        'django.core.context_processors.request',
-        ...
-    )
-
-    # If you are running Django 1.8+, specify the context processors
-    # as follows:
+    # Specify the context processors as follows:
     TEMPLATES = [
         {
             'BACKEND': 'django.template.backends.django.DjangoTemplates',

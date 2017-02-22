@@ -513,7 +513,7 @@ msgid ""
 msgstr ""
 "Merci d'ouvrir une session avec l'un de vos comptes sociaux. Vous pouvez "
 "aussi <a href=\"%(signup_url)s\">ouvrir un compte</a> %(site_name)s puis "
-"vous connecter ci-dessous :"
+"vous connecter ci-dessous :"
 
 #: templates/account/login.html:25
 msgid "or"

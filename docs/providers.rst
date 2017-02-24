@@ -238,7 +238,7 @@ Eve Online
 
 Register your application at `https://developers.eveonline.com/applications/create`.
 Note that if you have ``STORE_TOKENS`` enabled (the default), you will need to
-set up you application to be able to request an OAuth scope. This means you
+set up your application to be able to request an OAuth scope. This means you
 will need to set it as having "CREST Access". The least obtrusive scope is
 "publicData".
 
@@ -388,7 +388,7 @@ Firefox Accounts
 ----------------
 
 The Firefox Accounts provider is currently limited to Mozilla relying services
-but there is the intention to, in the future, allow third-party services to
+but there is the intention, in the future, to allow third-party services to
 delegate authentication. There is no committed timeline for this.
 
 The provider is OAuth2 based. More info:
@@ -454,7 +454,7 @@ App registration (get your key and secret here)
 Development callback URL
     http://127.0.0.1:8000/accounts/github/login/callback/
 
-If you want more than just read-only access to public data specify the scope
+If you want more than just read-only access to public data, specify the scope
 as follows. See https://developer.github.com/v3/oauth/#scopes for details.
 
 .. code-block:: python
@@ -1037,7 +1037,7 @@ your Django application via the admin interface.
 App registration
 ****************
 
-To register an app on Twitter you will need a Twitter account after which you
+To register an app on Twitter you will need a Twitter account. With an account, you
 can create a new app via::
 
     https://apps.twitter.com/app/new
@@ -1052,7 +1052,7 @@ For production use a callback URL such as::
 
    http://{{yourdomain}}.com/accounts/twitter/login/callback/
 
-To allow user's to login without authorizing each session select "Allow this
+To allow users to login without authorizing each session, select "Allow this
 application to be used to Sign in with Twitter" under the application's
 "Settings" tab.
 

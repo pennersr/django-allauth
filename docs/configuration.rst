@@ -9,7 +9,7 @@ ACCOUNT_ADAPTER (="allauth.account.adapter.DefaultAccountAdapter")
 
 ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS (=True)
   The default behaviour is to redirect authenticated users to
-  `ACCOUNT_LOGIN_REDIRECT_URL` when they try accessing login/signup pages.
+  `LOGIN_REDIRECT_URL` when they try accessing login/signup pages.
 
   By changing this setting to `False`, logged in users will not be redirected when
   they access login/signup pages.

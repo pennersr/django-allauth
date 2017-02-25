@@ -1,4 +1,4 @@
-from allauth.socialaccount import app_settings, providers
+from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -46,4 +46,4 @@ class VKProvider(OAuth2Provider):
                     first_name=data.get('first_name'))
 
 
-providers.registry.register(VKProvider)
+provider_classes = [VKProvider]

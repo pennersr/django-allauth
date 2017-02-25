@@ -1,4 +1,3 @@
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -23,4 +22,4 @@ class StripeProvider(OAuth2Provider):
         return ['read_only']
 
 
-providers.registry.register(StripeProvider)
+provider_classes = [StripeProvider]

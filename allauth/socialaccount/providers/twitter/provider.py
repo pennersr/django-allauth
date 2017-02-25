@@ -1,4 +1,3 @@
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
 
@@ -49,4 +48,4 @@ class TwitterProvider(OAuthProvider):
                     email=data.get('email'),)
 
 
-providers.registry.register(TwitterProvider)
+provider_classes = [TwitterProvider]

@@ -1,4 +1,4 @@
-from allauth.socialaccount import app_settings, providers
+from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -26,4 +26,4 @@ class SpotifyOAuth2Provider(OAuth2Provider):
         return scope
 
 
-providers.registry.register(SpotifyOAuth2Provider)
+provider_classes = [SpotifyOAuth2Provider]

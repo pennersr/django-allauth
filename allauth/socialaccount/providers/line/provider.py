@@ -1,4 +1,3 @@
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -24,4 +23,4 @@ class LineProvider(OAuth2Provider):
         return str(data['mid'])
 
 
-providers.registry.register(LineProvider)
+provider_classes = [LineProvider]

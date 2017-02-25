@@ -1,4 +1,3 @@
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -44,7 +43,7 @@ class OrcidProvider(OAuth2Provider):
                     if value)
 
 
-providers.registry.register(OrcidProvider)
+provider_classes = [OrcidProvider]
 
 
 def extract_from_dict(data, path):

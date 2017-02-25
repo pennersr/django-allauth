@@ -1,4 +1,3 @@
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -29,4 +28,4 @@ class TwitchProvider(OAuth2Provider):
                     email=data.get('email'))
 
 
-providers.registry.register(TwitchProvider)
+provider_classes = [TwitchProvider]

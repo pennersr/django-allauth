@@ -1,4 +1,3 @@
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -28,4 +27,4 @@ class RobinhoodProvider(OAuth2Provider):
         return dict(username=data.get('username'))
 
 
-providers.registry.register(RobinhoodProvider)
+provider_classes = [RobinhoodProvider]

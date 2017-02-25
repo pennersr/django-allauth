@@ -1,4 +1,3 @@
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -25,4 +24,4 @@ class NaverProvider(OAuth2Provider):
                     first_name=data.get('name'))
 
 
-providers.registry.register(NaverProvider)
+provider_classes = [NaverProvider]

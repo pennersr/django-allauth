@@ -10,7 +10,6 @@ from django.utils.http import urlquote
 
 from allauth.account.models import EmailAddress
 from allauth.compat import reverse
-from allauth.socialaccount import providers
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.providers.base import (
     AuthAction,
@@ -189,4 +188,4 @@ class FacebookProvider(OAuth2Provider):
         return ret
 
 
-providers.registry.register(FacebookProvider)
+provider_classes = [FacebookProvider]

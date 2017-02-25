@@ -1,0 +1,3 @@
+[flake8]
+exclude=.git,contrib
+ignore=D100,D101,D102,D105,D200,D103,D205,D211,D400,D401,E402,N802

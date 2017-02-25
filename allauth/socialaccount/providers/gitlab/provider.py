@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -33,4 +32,4 @@ class GitLabProvider(OAuth2Provider):
         )
 
 
-providers.registry.register(GitLabProvider)
+provider_classes = [GitLabProvider]

@@ -23,6 +23,7 @@ from ..utils import (
 from .adapter import get_adapter
 from .app_settings import EmailVerificationMethod
 
+
 try:
     from django.utils.encoding import force_text
 except ImportError:

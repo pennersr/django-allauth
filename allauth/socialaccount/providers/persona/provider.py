@@ -4,7 +4,6 @@ from django.template.loader import render_to_string
 from django.utils.html import escapejs
 
 from allauth.account.models import EmailAddress
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import Provider, ProviderAccount
 
 
@@ -42,4 +41,4 @@ class PersonaProvider(Provider):
         return ret
 
 
-providers.registry.register(PersonaProvider)
+provider_classes = [PersonaProvider]

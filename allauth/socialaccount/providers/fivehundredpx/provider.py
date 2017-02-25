@@ -1,4 +1,3 @@
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
 
@@ -36,4 +35,4 @@ class FiveHundredPxProvider(OAuthProvider):
                     last_name=data.get('lastname'))
 
 
-providers.registry.register(FiveHundredPxProvider)
+provider_classes = [FiveHundredPxProvider]

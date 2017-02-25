@@ -1,3 +1,18 @@
+Unreleased
+**********
+
+Backwards incompatible changes
+------------------------------
+
+- Due to providers being registered in the same file as their definition
+  it was impossible to subclass a provider without having the parent be
+  registered. This has been addressed. If you have implemented a custom
+  provider, you will need to change
+  ``providers.registry.register(CustomProvider)``
+  into
+  ``provider_classes = [CustomProvider]``.
+
+
 0.30.0 (2017-01-01)
 *******************
 

@@ -1,7 +1,6 @@
 from django.utils.http import urlencode
 
 from allauth.compat import reverse, urlparse
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import Provider, ProviderAccount
 
 from .utils import (
@@ -99,4 +98,4 @@ class OpenIDProvider(Provider):
                     last_name=last_name, name=name)
 
 
-providers.registry.register(OpenIDProvider)
+provider_classes = [OpenIDProvider]

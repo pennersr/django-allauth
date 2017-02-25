@@ -1,4 +1,3 @@
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -33,4 +32,4 @@ class EdmodoProvider(OAuth2Provider):
                     avatar_url=data.get('avatars').get('large'))
 
 
-providers.registry.register(EdmodoProvider)
+provider_classes = [EdmodoProvider]

@@ -1,4 +1,3 @@
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -31,4 +30,4 @@ class PaypalProvider(OAuth2Provider):
                     email=data.get('email'))
 
 
-providers.registry.register(PaypalProvider)
+provider_classes = [PaypalProvider]

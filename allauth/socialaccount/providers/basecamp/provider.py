@@ -1,4 +1,3 @@
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -38,4 +37,4 @@ class BasecampProvider(OAuth2Provider):
         )
 
 
-providers.registry.register(BasecampProvider)
+provider_classes = [BasecampProvider]

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import requests
-from django.conf import settings as base_settings
 
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.auth0.provider import Auth0Provider

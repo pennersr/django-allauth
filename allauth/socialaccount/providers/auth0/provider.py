@@ -27,6 +27,7 @@ class Auth0Provider(OAuth2Provider):
             email=data.get('email'),
             username=data.get('username'),
             name=data.get('name'),
+            user_id=data.get('user_id'),
             picture=data.get('picture'),
         )
 

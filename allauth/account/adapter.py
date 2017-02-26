@@ -343,13 +343,15 @@ class DefaultAccountAdapter(object):
         if not hasattr(user, 'backend'):
             from .auth_backends import AuthenticationBackend
             backends = get_backends()
-            for backend in backends:
-                if isinstance(backend, AuthenticationBackend):
+            backend = None
+            for b in backends:
+                if isinstance(b, AuthenticationBackend):
                     # prefer our own backend
+                    backend = b
                     break
-            else:
-                # Pick one
-                backend = backends[0]
+                elif not backend and hasattr(b, 'get_user'):
+                    # Pick the first vald one
+                    backend = b
             backend_path = '.'.join([backend.__module__,
                                      backend.__class__.__name__])
             user.backend = backend_path

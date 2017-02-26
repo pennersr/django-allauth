@@ -4,11 +4,13 @@ Unreleased
 Note worthy changes
 -------------------
 
-- New providers: Auth0, Box.
+- New providers: Auth0, Box, Line, Naver, Kaka, Daum, MailChimp.
 
 
 Backwards incompatible changes
 ------------------------------
+
+- Django 1.7 / Python 3.2 compatibility has been dropped.
 
 - Due to providers being registered in the same file as their definition
   it was impossible to subclass a provider without having the parent be

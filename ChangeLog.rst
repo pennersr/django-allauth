@@ -1,6 +1,12 @@
 Unreleased
 **********
 
+Note worthy changes
+-------------------
+
+- New providers: Auth0
+
+
 Backwards incompatible changes
 ------------------------------
 

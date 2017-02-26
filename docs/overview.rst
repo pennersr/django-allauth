@@ -43,6 +43,8 @@ Supported Providers
 
 - Asana (OAuth2)
 
+- Auth0 (OAuth2)
+
 - Basecamp (OAuth2)
 
 - Baidu (OAuth2)

@@ -1,0 +1,37 @@
+# -*- coding: utf-8 -*-
+from allauth.socialaccount import providers
+from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+
+
+class Auth0Account(ProviderAccount):
+
+    def get_profile_url(self):
+        return self.account.extra_data.get('html_url')
+
+    def get_avatar_url(self):
+        return self.account.extra_data.get('avatar_url')
+
+    def to_str(self):
+        dflt = super(Auth0Account, self).to_str()
+        return self.account.extra_data.get('name', dflt)
+
+
+class Auth0Provider(OAuth2Provider):
+    id = 'auth0'
+    name = 'Auth0'
+    account_class = Auth0Account
+
+    def extract_uid(self, data):
+        return str(data['id'])
+
+    def extract_common_fields(self, data):
+        print data
+        return dict(
+            email=data.get('email'),
+            username=data.get('username'),
+            name=data.get('name'),
+        )
+
+
+providers.registry.register(Auth0Provider)

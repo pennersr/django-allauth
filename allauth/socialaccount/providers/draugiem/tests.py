@@ -78,9 +78,8 @@ class DraugiemTests(TestCase):
         session.save()
 
     def test_login_redirect(self):
-        response = self.client.get(reverse(views.login),
-                                   follow=False, **{'HTTP_HOST': 'localhost'})
-        redirect_url = 'http://localhost' + reverse(views.callback)
+        response = self.client.get(reverse(views.login))
+        redirect_url = 'http://testserver' + reverse(views.callback)
         redirect_url_hash = md5(
             (self.app.secret + redirect_url).encode('utf-8')).hexdigest()
         params = {

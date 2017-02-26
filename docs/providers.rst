@@ -753,7 +753,7 @@ App registration (get your key and secret here)
 development callback URL
     http://localhost:8000/accounts/onedrive/login/callback/
 
-Microsoft calls the "client_id" and "Application Id" and it is a GUID. Also,
+Microsoft calls the "client_id" an "Application Id" and it is a UUID. Also,
 the "client_secret" is not created by default, you must edit the application
 after it is created, then click "Generate New Password" to create it.
 

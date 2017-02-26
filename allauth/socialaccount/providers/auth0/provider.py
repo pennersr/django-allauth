@@ -23,7 +23,6 @@ class Auth0Provider(OAuth2Provider):
         return str(data['id'])
 
     def extract_common_fields(self, data):
-        print data
         return dict(
             email=data.get('email'),
             username=data.get('username'),

@@ -1,3 +1,26 @@
+Unreleased
+**********
+
+Note worthy changes
+-------------------
+
+- New providers: Auth0, Box, Line, Naver, Kaka, Daum, MailChimp.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Django 1.7 / Python 3.2 compatibility has been dropped.
+
+- Due to providers being registered in the same file as their definition
+  it was impossible to subclass a provider without having the parent be
+  registered. This has been addressed. If you have implemented a custom
+  provider, you will need to change
+  ``providers.registry.register(CustomProvider)``
+  into
+  ``provider_classes = [CustomProvider]``.
+
+
 0.30.0 (2017-01-01)
 *******************
 

@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
 
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -34,4 +33,4 @@ class FeedlyProvider(OAuth2Provider):
                     first_name=data.get('givenName'))
 
 
-providers.registry.register(FeedlyProvider)
+provider_classes = [FeedlyProvider]

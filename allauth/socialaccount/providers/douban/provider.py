@@ -1,4 +1,3 @@
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -28,4 +27,4 @@ class DoubanProvider(OAuth2Provider):
                     name=data.get('name'))
 
 
-providers.registry.register(DoubanProvider)
+provider_classes = [DoubanProvider]

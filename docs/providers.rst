@@ -67,6 +67,26 @@ Development callback URL
     http://localhost:8000/accounts/angellist/login/callback/
 
 
+Auth0
+-----
+
+App registration (get your key and secret here)
+    https://manage.auth0.com/#/clients
+
+Development callback URL
+    http://localhost:8000/accounts/auth0/login/callback/
+
+
+You'll need to specify the base URL for your Auth0 domain:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'auth0': {
+            'AUTH0_URL': 'https://your.auth0domain.auth0.com',
+        }
+    }
+
 Baidu
 -----
 
@@ -120,6 +140,16 @@ Development callback URL
 
 Note that Bitbucket calls the ``client_id`` *Key* in their user interface.
 Don't get confused by that; use the *Key* value for your ``client_id`` field.
+
+
+Box
+---
+
+App registration (get your key and secret here)
+    https://app.box.com/developers/services/edit/
+
+Development callback URL
+    http://localhost:8000/accounts/box/login/callback/
 
 
 daum
@@ -238,7 +268,7 @@ Eve Online
 
 Register your application at `https://developers.eveonline.com/applications/create`.
 Note that if you have ``STORE_TOKENS`` enabled (the default), you will need to
-set up you application to be able to request an OAuth scope. This means you
+set up your application to be able to request an OAuth scope. This means you
 will need to set it as having "CREST Access". The least obtrusive scope is
 "publicData".
 
@@ -388,7 +418,7 @@ Firefox Accounts
 ----------------
 
 The Firefox Accounts provider is currently limited to Mozilla relying services
-but there is the intention to, in the future, allow third-party services to
+but there is the intention, in the future, to allow third-party services to
 delegate authentication. There is no committed timeline for this.
 
 The provider is OAuth2 based. More info:
@@ -454,7 +484,7 @@ App registration (get your key and secret here)
 Development callback URL
     http://127.0.0.1:8000/accounts/github/login/callback/
 
-If you want more than just read-only access to public data specify the scope
+If you want more than just read-only access to public data, specify the scope
 as follows. See https://developer.github.com/v3/oauth/#scopes for details.
 
 .. code-block:: python
@@ -1037,7 +1067,7 @@ your Django application via the admin interface.
 App registration
 ****************
 
-To register an app on Twitter you will need a Twitter account after which you
+To register an app on Twitter you will need a Twitter account. With an account, you
 can create a new app via::
 
     https://apps.twitter.com/app/new
@@ -1052,7 +1082,7 @@ For production use a callback URL such as::
 
    http://{{yourdomain}}.com/accounts/twitter/login/callback/
 
-To allow user's to login without authorizing each session select "Allow this
+To allow users to login without authorizing each session, select "Allow this
 application to be used to Sign in with Twitter" under the application's
 "Settings" tab.
 
@@ -1139,6 +1169,10 @@ App registration (get your key and secret here)
 
 Development callback URL
     http://localhost:8000/accounts/windowslive/login/callback
+
+Microsoft calls the "client_id" an "Application Id" and it is a UUID. Also,
+the "client_secret" is not created by default, you must edit the application
+after it is created, then click "Generate New Password" to create it.
 
 
 Weibo

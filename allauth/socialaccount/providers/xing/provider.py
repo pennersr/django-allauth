@@ -1,4 +1,3 @@
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
 
@@ -34,4 +33,4 @@ class XingProvider(OAuthProvider):
                     last_name=data.get('last_name'))
 
 
-providers.registry.register(XingProvider)
+provider_classes = [XingProvider]

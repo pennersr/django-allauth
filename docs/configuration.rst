@@ -9,7 +9,7 @@ ACCOUNT_ADAPTER (="allauth.account.adapter.DefaultAccountAdapter")
 
 ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS (=True)
   The default behaviour is to redirect authenticated users to
-  `ACCOUNT_LOGIN_REDIRECT_URL` when they try accessing login/signup pages.
+  `LOGIN_REDIRECT_URL` when they try accessing login/signup pages.
 
   By changing this setting to `False`, logged in users will not be redirected when
   they access login/signup pages.
@@ -101,7 +101,8 @@ ACCOUNT_LOGOUT_ON_GET (=False)
 
 ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE (=False)
   Determines whether or not the user is automatically logged out after
-  changing or setting their password. See documentation for `Django's session invalidation on password change <https://docs.djangoproject.com/en/1.8/topics/auth/default/#session-invalidation-on-password-change>`_. (Django 1.7+)
+  changing or setting their password. See documentation for
+  `Django's session invalidation on password change <https://docs.djangoproject.com/en/1.8/topics/auth/default/#session-invalidation-on-password-change>`_.
 
 ACCOUNT_LOGIN_ON_PASSWORD_RESET (=False)
   By changing this setting to `True`, users will automatically be logged in
@@ -114,10 +115,6 @@ ACCOUNT_LOGOUT_REDIRECT_URL (="/")
 
 ACCOUNT_PASSWORD_INPUT_RENDER_VALUE (=False)
   `render_value` parameter as passed to `PasswordInput` fields.
-
-ACCOUNT_PASSWORD_MIN_LENGTH (=6)
-  An integer specifying the minimum password length.
-  Deprecated -- use Django's `AUTH_PASSWORD_VALIDATORS` instead.
 
 ACCOUNT_PRESERVE_USERNAME_CASING (=True)
   This setting determines whether the username is stored in lowercase

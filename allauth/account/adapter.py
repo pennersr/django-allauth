@@ -15,9 +15,11 @@ from django.contrib.auth import (
     logout as django_logout,
 )
 from django.contrib.auth.models import AbstractUser
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.cache import cache
 from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import resolve_url
 from django.template import TemplateDoesNotExist
 from django.template.loader import render_to_string
 from django.utils import timezone
@@ -29,10 +31,8 @@ from ..utils import (
     build_absolute_uri,
     email_address_exists,
     generate_unique_username,
-    get_current_site,
     get_user_model,
     import_attribute,
-    resolve_url,
 )
 
 
@@ -343,13 +343,15 @@ class DefaultAccountAdapter(object):
         if not hasattr(user, 'backend'):
             from .auth_backends import AuthenticationBackend
             backends = get_backends()
-            for backend in backends:
-                if isinstance(backend, AuthenticationBackend):
+            backend = None
+            for b in backends:
+                if isinstance(b, AuthenticationBackend):
                     # prefer our own backend
+                    backend = b
                     break
-            else:
-                # Pick one
-                backend = backends[0]
+                elif not backend and hasattr(b, 'get_user'):
+                    # Pick the first vald one
+                    backend = b
             backend_path = '.'.join([backend.__module__,
                                      backend.__class__.__name__])
             user.backend = backend_path

@@ -37,11 +37,17 @@ class ProviderRegistry(object):
         # all of this really needs to be revisited.
         if not self.loaded:
             for app in settings.INSTALLED_APPS:
-                provider_module = app + '.provider'
                 try:
-                    importlib.import_module(provider_module)
+                    provider_module = importlib.import_module(
+                        app + '.provider'
+                    )
                 except ImportError:
                     pass
+                else:
+                    for cls in getattr(
+                        provider_module, 'provider_classes', []
+                    ):
+                        self.register(cls)
             self.loaded = True
 
 

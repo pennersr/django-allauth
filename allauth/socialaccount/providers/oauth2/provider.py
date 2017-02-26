@@ -1,11 +1,6 @@
-try:
-    from urllib.parse import parse_qsl
-except ImportError:
-    from urlparse import parse_qsl
-
 from django.utils.http import urlencode
 
-from allauth.compat import reverse
+from allauth.compat import parse_qsl, reverse
 from allauth.socialaccount.providers.base import Provider
 
 

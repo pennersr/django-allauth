@@ -1,4 +1,4 @@
-from allauth.socialaccount import app_settings, providers
+from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -61,4 +61,4 @@ class LinkedInOAuth2Provider(OAuth2Provider):
                     last_name=data.get('lastName'))
 
 
-providers.registry.register(LinkedInOAuth2Provider)
+provider_classes = [LinkedInOAuth2Provider]

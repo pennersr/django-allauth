@@ -1,8 +1,8 @@
 import requests
+from collections import OrderedDict
 
 from django.utils.http import urlencode
 
-from allauth.compat import OrderedDict
 from allauth.socialaccount.providers.oauth2.client import (
     OAuth2Client,
     OAuth2Error,

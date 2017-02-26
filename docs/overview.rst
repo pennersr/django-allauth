@@ -53,6 +53,8 @@ Supported Providers
 
 - Bitly (OAuth2)
 
+- Box (OAuth2)
+
 - Daum (OAuth2)
 
 - Douban (OAuth2)
@@ -98,6 +100,8 @@ Supported Providers
 - Naver (OAuth2)
 
 - Odnoklassniki (OAuth2)
+
+- Onedrive (OAuth2)
 
 - OpenId
 

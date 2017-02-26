@@ -6,11 +6,8 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 class Auth0Account(ProviderAccount):
 
-    def get_profile_url(self):
-        return self.account.extra_data.get('html_url')
-
     def get_avatar_url(self):
-        return self.account.extra_data.get('avatar_url')
+        return self.account.extra_data.get('picture')
 
     def to_str(self):
         dflt = super(Auth0Account, self).to_str()

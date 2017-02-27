@@ -8,10 +8,6 @@ class EventbriteAccount(ProviderAccount):
 
     """ProviderAccount subclass for Eventbrite."""
 
-    # def get_profile_url(self):
-    #     """Return base profile url."""
-    #     return self.account.profile_url + self.
-
     def get_avatar_url(self):
         """Return avatar url."""
         return self.account.extra_data['image_id']

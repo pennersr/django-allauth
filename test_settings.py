@@ -73,6 +73,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.edmodo',
     'allauth.socialaccount.providers.eveonline',
     'allauth.socialaccount.providers.evernote',
+    'allauth.socialaccount.providers.eventbrite',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.feedly',
     'allauth.socialaccount.providers.fivehundredpx',

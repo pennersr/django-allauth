@@ -1,5 +1,4 @@
 """Customise Provider classes for Eventbrite API v3."""
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 

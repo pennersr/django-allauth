@@ -29,7 +29,7 @@ class EventbriteProvider(OAuth2Provider):
         return ['']
 
     def extract_common_fields(self, data):
-        """Extract fields from a metadata query."""
+        """Extract fields from a basic user query."""
         return dict(
             emails=data.get('emails'),
             id=data.get('id'),

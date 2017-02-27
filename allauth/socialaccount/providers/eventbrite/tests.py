@@ -23,5 +23,5 @@ class EventbriteTests(OAuth2TestsMixin, TestCase):
             "name": "Andrew Godwin",
             "first_name": "Andrew",
             "last_name": "Godwin",
-            "image_id": "28731150"
+            "image_id": "99999999"
         }""")

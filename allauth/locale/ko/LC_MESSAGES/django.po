@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-19 14:55+0900\n"
+"POT-Creation-Date: 2017-02-28 07:56-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,100 +18,96 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: account/adapter.py:47
-msgid "Usernames can only contain letters, digits and @/./+/-/_."
-msgstr "아이디는 글자, 숫자 및 @/./+/-/_. 으로만 구성되어야 합니다."
-
-#: account/adapter.py:49
+#: account/adapter.py:50
 msgid "Username can not be used. Please use other username."
 msgstr "해당 아이디는 이미 사용중입니다. 다른 사용자명을 이용해 주세요."
 
-#: account/adapter.py:53
+#: account/adapter.py:54
 msgid "Too many failed login attempts. Try again later."
 msgstr "너무 많은 로그인 실패가 감지되었습니다. 잠시 후에 다시 시도하세요."
 
-#: account/adapter.py:55
+#: account/adapter.py:56
 msgid "A user is already registered with this e-mail address."
 msgstr "해당 이메일은 이미 사용되고 있습니다."
 
-#: account/adapter.py:297
+#: account/adapter.py:293
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "비밀번호는 최소 {0}자 이상이어야 합니다."
 
-#: account/apps.py:8
+#: account/apps.py:7
 msgid "Accounts"
 msgstr "계정"
 
-#: account/forms.py:39 account/forms.py:364
+#: account/forms.py:41 account/forms.py:364
 msgid "You must type the same password each time."
 msgstr "동일한 비밀번호를 입력해야 합니다."
 
-#: account/forms.py:69 account/forms.py:331 account/forms.py:442
+#: account/forms.py:71 account/forms.py:334 account/forms.py:442
 msgid "Password"
 msgstr "비밀번호"
 
-#: account/forms.py:70
+#: account/forms.py:72
 msgid "Remember Me"
 msgstr "아이디 저장"
 
-#: account/forms.py:76
+#: account/forms.py:78
 msgid "This account is currently inactive."
 msgstr "해당 계정은 현재 비활성화 상태입니다."
 
-#: account/forms.py:79
+#: account/forms.py:81
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "이메일 또는 비밀번호가 올바르지 않습니다."
 
-#: account/forms.py:82
+#: account/forms.py:84
 msgid "The username and/or password you specified are not correct."
 msgstr "아이디 또는 비밀번호가 올바르지 않습니다."
 
-#: account/forms.py:85
+#: account/forms.py:87
 msgid "The login and/or password you specified are not correct."
 msgstr "로그인 또는 비밀번호가 올바르지 않습니다."
 
-#: account/forms.py:94 account/forms.py:236 account/forms.py:392
+#: account/forms.py:96 account/forms.py:238 account/forms.py:392
 #: account/forms.py:461
 msgid "E-mail address"
 msgstr "이메일 주소"
 
-#: account/forms.py:96 account/forms.py:267 account/forms.py:387
+#: account/forms.py:98 account/forms.py:269 account/forms.py:387
 #: account/forms.py:456
 msgid "E-mail"
 msgstr "이메일"
 
-#: account/forms.py:101 account/forms.py:104 account/forms.py:228
-#: account/forms.py:232
+#: account/forms.py:103 account/forms.py:106 account/forms.py:230
+#: account/forms.py:234
 msgid "Username"
 msgstr "아이디"
 
-#: account/forms.py:111
+#: account/forms.py:113
 msgid "Username or e-mail"
 msgstr "아이디 또는 이메일"
 
-#: account/forms.py:114
+#: account/forms.py:116
 msgctxt "field label"
 msgid "Login"
 msgstr "로그인"
 
-#: account/forms.py:256
+#: account/forms.py:258
 msgid "E-mail (again)"
 msgstr "이메일 (확인)"
 
-#: account/forms.py:260
+#: account/forms.py:262
 msgid "E-mail address confirmation"
 msgstr "이메일 주소 확인"
 
-#: account/forms.py:270
+#: account/forms.py:272
 msgid "E-mail (optional)"
 msgstr "이메일 (선택사항)"
 
-#: account/forms.py:312
+#: account/forms.py:314
 msgid "You must type the same email each time."
 msgstr "동일한 이메일을 입력해야 합니다."
 
-#: account/forms.py:332 account/forms.py:443
+#: account/forms.py:337 account/forms.py:443
 msgid "Password (again)"
 msgstr "비밀번호 (확인)"
 
@@ -127,11 +123,11 @@ msgstr "해당 이메일은 다른 계정에 등록되어 있습니다."
 msgid "Current Password"
 msgstr "현재 비밀번호"
 
-#: account/forms.py:423 account/forms.py:518
+#: account/forms.py:423 account/forms.py:512
 msgid "New Password"
 msgstr "새 비밀번호"
 
-#: account/forms.py:424 account/forms.py:519
+#: account/forms.py:424 account/forms.py:513
 msgid "New Password (again)"
 msgstr "새 비밀번호 (확인)"
 
@@ -143,182 +139,188 @@ msgstr "현재 비밀번호를 입력하세요."
 msgid "The e-mail address is not assigned to any user account"
 msgstr "해당 이메일을 가지고 있는 사용자가 없습니다."
 
-#: account/forms.py:540
+#: account/forms.py:534
 msgid "The password reset token was invalid."
 msgstr "비밀번호 초기화 토큰이 올바르지 않습니다."
 
-#: account/models.py:26
+#: account/models.py:23
 msgid "user"
 msgstr "사용자"
 
-#: account/models.py:29 account/models.py:88
+#: account/models.py:27 account/models.py:86
 msgid "e-mail address"
 msgstr "이메일 주소"
 
-#: account/models.py:30
+#: account/models.py:28
 msgid "verified"
 msgstr "인증완료"
 
-#: account/models.py:31
+#: account/models.py:29
 msgid "primary"
 msgstr "주"
 
-#: account/models.py:36
+#: account/models.py:34
 msgid "email address"
 msgstr "이메일 주소"
 
-#: account/models.py:37
+#: account/models.py:35
 msgid "email addresses"
 msgstr "이메일 주소"
 
-#: account/models.py:89
+#: account/models.py:88
 msgid "created"
 msgstr "생성됨"
 
-#: account/models.py:91
+#: account/models.py:90
 msgid "sent"
 msgstr "전송됨"
 
-#: account/models.py:92 socialaccount/models.py:59
+#: account/models.py:91 socialaccount/models.py:61
 msgid "key"
 msgstr "키"
 
-#: account/models.py:97
+#: account/models.py:96
 msgid "email confirmation"
 msgstr "이메일 확인"
 
-#: account/models.py:98
+#: account/models.py:97
 msgid "email confirmations"
 msgstr "이메일 확인"
 
-#: socialaccount/adapter.py:23
+#: socialaccount/adapter.py:26
 #, python-format
 msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
 "account first, then connect your %s account."
-msgstr "해당 이메일을 사용중인 계정이 이미 존재합니다. 해당 계정으로 로그인 후에 %s 계정으로 연결하세요."
+msgstr ""
+"해당 이메일을 사용중인 계정이 이미 존재합니다. 해당 계정으로 로그인 후에 %s "
+"계정으로 연결하세요."
 
-#: socialaccount/adapter.py:128
+#: socialaccount/adapter.py:131
 msgid "Your account has no password set up."
 msgstr "당신의 계정에 비밀번호가 설정되어있지 않습니다."
 
-#: socialaccount/adapter.py:135
+#: socialaccount/adapter.py:138
 msgid "Your account has no verified e-mail address."
 msgstr "당신의 계정에는 인증된 이메일이 없습니다."
 
-#: socialaccount/apps.py:8
+#: socialaccount/apps.py:7
 msgid "Social Accounts"
 msgstr "소셜 계정"
 
-#: socialaccount/models.py:47 socialaccount/models.py:80
+#: socialaccount/models.py:49 socialaccount/models.py:83
 msgid "provider"
 msgstr "제공자"
 
-#: socialaccount/models.py:50
+#: socialaccount/models.py:52
 msgid "name"
 msgstr "이름"
 
-#: socialaccount/models.py:52
+#: socialaccount/models.py:54
 msgid "client id"
 msgstr "클라이언트 아이디"
 
-#: socialaccount/models.py:54
+#: socialaccount/models.py:56
 msgid "App ID, or consumer key"
 msgstr "앱 아이디 또는 컨슈머 아이디"
 
-#: socialaccount/models.py:55
+#: socialaccount/models.py:57
 msgid "secret key"
 msgstr "비밀 키"
 
-#: socialaccount/models.py:57
+#: socialaccount/models.py:59
 msgid "API secret, client secret, or consumer secret"
 msgstr "API 비밀 키, 클라이언트 비밀 키, 또는 컨슈머 비밀 키"
 
-#: socialaccount/models.py:62
+#: socialaccount/models.py:64
 msgid "Key"
 msgstr "키"
 
-#: socialaccount/models.py:70
+#: socialaccount/models.py:72
 msgid "social application"
 msgstr "소셜 어플리케이션"
 
-#: socialaccount/models.py:71
+#: socialaccount/models.py:73
 msgid "social applications"
 msgstr "소셜 어플리케이션"
 
-#: socialaccount/models.py:99
+#: socialaccount/models.py:102
 msgid "uid"
 msgstr ""
 
-#: socialaccount/models.py:101
+#: socialaccount/models.py:104
 msgid "last login"
 msgstr "최종 로그인"
 
-#: socialaccount/models.py:103
+#: socialaccount/models.py:106
 msgid "date joined"
 msgstr "가입 날짜"
 
-#: socialaccount/models.py:105
+#: socialaccount/models.py:108
 msgid "extra data"
 msgstr "추가 정보"
 
-#: socialaccount/models.py:109
+#: socialaccount/models.py:112
 msgid "social account"
 msgstr "소셜 계정"
 
-#: socialaccount/models.py:110
+#: socialaccount/models.py:113
 msgid "social accounts"
 msgstr "소셜 계정"
 
-#: socialaccount/models.py:136
+#: socialaccount/models.py:139
 msgid "token"
 msgstr "토큰"
 
-#: socialaccount/models.py:138
+#: socialaccount/models.py:141
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) 또는 access token (OAuth2)"
 
-#: socialaccount/models.py:141
+#: socialaccount/models.py:144
 msgid "token secret"
 msgstr ""
 
-#: socialaccount/models.py:143
+#: socialaccount/models.py:146
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) 또는 refresh token (OAuth2)"
 
-#: socialaccount/models.py:145
+#: socialaccount/models.py:148
 msgid "expires at"
 msgstr "만료일"
 
-#: socialaccount/models.py:149
+#: socialaccount/models.py:152
 msgid "social application token"
 msgstr "소셜 어플리케이션 토큰"
 
-#: socialaccount/models.py:150
+#: socialaccount/models.py:153
 msgid "social application tokens"
 msgstr "소셜 어플리케이션 토큰"
 
-#: socialaccount/providers/oauth/client.py:77
+#: socialaccount/providers/douban/views.py:36
+msgid "Invalid profile data"
+msgstr ""
+
+#: socialaccount/providers/oauth/client.py:78
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "\"%s\".로 부터 request 토큰을 받는 도중 잘못된 응답을 받았습니다."
 
-#: socialaccount/providers/oauth/client.py:108
+#: socialaccount/providers/oauth/client.py:109
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "\"%s\".로 부터 access 토큰을 받는 도중 잘못된 응답을 받았습니다."
 
-#: socialaccount/providers/oauth/client.py:127
+#: socialaccount/providers/oauth/client.py:128
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr "\"%s\".을(를) 위한 request 토큰이 없습니다."
 
-#: socialaccount/providers/oauth/client.py:176
+#: socialaccount/providers/oauth/client.py:177
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "\"%s\".을(를) 위한 access 토큰이 없습니다."
 
-#: socialaccount/providers/oauth/client.py:196
+#: socialaccount/providers/oauth/client.py:197
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "\"%s\".에 접근하기 위한 권한이 없습니다."
@@ -376,7 +378,9 @@ msgstr "경고: "
 msgid ""
 "You currently do not have any e-mail address set up. You should really add "
 "an e-mail address so you can receive notifications, reset your password, etc."
-msgstr "등록된 이메일이 없습니다. 알림, 비밀번호 초기화 등을 위해 이메일을 등록해야 합니다."
+msgstr ""
+"등록된 이메일이 없습니다. 알림, 비밀번호 초기화 등을 위해 이메일을 등록해야 "
+"합니다."
 
 #: templates/account/email.html:48
 msgid "Add E-mail Address"
@@ -403,7 +407,8 @@ msgid ""
 msgstr ""
 "안녕하세요. %(site_name)s 입니다!\n"
 "\n"
-"%(user_display)s 에 대해 %(site_domain)s 으로부터 이메일을 인증이 전송되었습니다.\n"
+"%(user_display)s 에 대해 %(site_domain)s 으로부터 이메일을 인증이 전송되었습"
+"니다.\n"
 "\n"
 "%(activate_url)s 에서 인증을 완료하세요.\n"
 
@@ -577,7 +582,8 @@ msgid ""
 "Forgotten your password? Enter your e-mail address below, and we'll send you "
 "an e-mail allowing you to reset it."
 msgstr ""
-"비밀번호를 잊으셨나요? 아래에 당신의 이메일을 입력하시면, 비밀번호 초기화 이메일을 전송해 드리겠습니다."
+"비밀번호를 잊으셨나요? 아래에 당신의 이메일을 입력하시면, 비밀번호 초기화 이"
+"메일을 전송해 드리겠습니다."
 
 #: templates/account/password_reset.html:20
 msgid "Reset My Password"
@@ -592,7 +598,8 @@ msgid ""
 "We have sent you an e-mail. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"이메일이 전송되었습니다. 몇 분 후에도 이메일이 오지 않으면 저희에게 연락주세요."
+"이메일이 전송되었습니다. 몇 분 후에도 이메일이 오지 않으면 저희에게 연락주세"
+"요."
 
 #: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -605,7 +612,8 @@ msgid ""
 "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
 "a>."
 msgstr ""
-"비밀번호 초기화 링크가 올바르지 않습니다. 다시 <a href=\"%(passwd_reset_url)s\">비밀번호 초기화</a> 하세요."
+"비밀번호 초기화 링크가 올바르지 않습니다. 다시 <a href=\"%(passwd_reset_url)s"
+"\">비밀번호 초기화</a> 하세요."
 
 #: templates/account/password_reset_from_key.html:17
 msgid "change password"
@@ -626,8 +634,7 @@ msgid "Signup"
 msgstr "회원가입"
 
 #: templates/account/signup.html:8 templates/account/signup.html:18
-#: templates/socialaccount/signup.html:8
-#: templates/socialaccount/signup.html:19
+#: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
 msgid "Sign Up"
 msgstr "회원가입"
 
@@ -635,7 +642,8 @@ msgstr "회원가입"
 #, python-format
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr "이미 계정이 있으신가요? 바로 <a href=\"%(login_url)s\">로그인</a> 하세요."
+msgstr ""
+"이미 계정이 있으신가요? 바로 <a href=\"%(login_url)s\">로그인</a> 하세요."
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:8
@@ -668,9 +676,8 @@ msgid ""
 "finalize the signup process. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"이메일 인증 메일이 전송되었습니다."
-"회원가입 완료를 위해 전송된 메일의 링크를 클릭하세요."
-"몇 분 후에도 메일이 전송되지 않으면 저희에게 연락주세요."
+"이메일 인증 메일이 전송되었습니다.회원가입 완료를 위해 전송된 메일의 링크를 "
+"클릭하세요.몇 분 후에도 메일이 전송되지 않으면 저희에게 연락주세요."
 
 #: templates/account/verified_email_required.html:12
 msgid ""
@@ -697,7 +704,8 @@ msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
 "mail address</a>."
 msgstr ""
-"<strong>메모:</strong> <a href=\"%(email_url)s\">이메일 변경</a>이 가능합니다."
+"<strong>메모:</strong> <a href=\"%(email_url)s\">이메일 변경</a>이 가능합니"
+"다."
 
 #: templates/openid/login.html:9
 msgid "OpenID Sign In"
@@ -722,8 +730,7 @@ msgstr "계정 연결"
 msgid ""
 "You can sign in to your account using any of the following third party "
 "accounts:"
-msgstr ""
-"다음 서드파티 계정들을 통해 로그인 할 수 있습니다:"
+msgstr "다음 서드파티 계정들을 통해 로그인 할 수 있습니다:"
 
 #: templates/socialaccount/connections.html:43
 msgid ""
@@ -767,3 +774,6 @@ msgid ""
 msgstr ""
 "%(provider_name)s 의 계정을 이용하여 %(site_name)s 으로 로그인하려 합니다.\n"
 "마지막으로 다음 폼을 작성해주세요:"
+
+#~ msgid "Usernames can only contain letters, digits and @/./+/-/_."
+#~ msgstr "아이디는 글자, 숫자 및 @/./+/-/_. 으로만 구성되어야 합니다."

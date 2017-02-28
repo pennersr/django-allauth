@@ -4,7 +4,7 @@ Unreleased
 Note worthy changes
 -------------------
 
-- New providers: Auth0, Box, Line, Naver, Kaka, Daum, MailChimp.
+- New providers: Auth0, Box, Line, Naver, Kaka, Daum, MailChimp, Eventbrite.
 
 
 Backwards incompatible changes

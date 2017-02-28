@@ -13,6 +13,10 @@ allauth.account
 
   Sent when a user logs in.
 
+- `allauth.account.signals.user_logged_out(request, user)`
+
+  Sent when a user logs out.
+
 - `allauth.account.signals.user_signed_up(request, user)`
 
   Sent when a user signs up for an account. This signal is

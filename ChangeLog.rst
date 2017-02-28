@@ -4,7 +4,7 @@
 Note worthy changes
 -------------------
 
-- Added a new ``user_logged_out_signal``.
+- Added a new ``user_logged_out`` signal.
 
 - OpenId: Added support for requesting additional data.
 

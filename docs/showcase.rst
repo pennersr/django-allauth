@@ -21,6 +21,7 @@ Here are some sites that have `django-allauth` up and running:
 - https://pizzacharts.com/
 - http://www.sendcloud.nl
 - http://www.awesound.com
+- `GGather.com: See what everyone are bookmarking <https://ggather.com/>`_
 
 If your site also uses `django-allauth` and you want it to show up in this list
 please mail me (raymond.penners@intenct.nl) a link, and I will add it for you.

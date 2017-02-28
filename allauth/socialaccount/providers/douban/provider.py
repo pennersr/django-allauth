@@ -23,8 +23,22 @@ class DoubanProvider(OAuth2Provider):
         return data['id']
 
     def extract_common_fields(self, data):
-        return dict(username=data.get('id'),
-                    name=data.get('name'))
+        """
+        Extract data from profile json to populate user instance.
+
+        In Douban profile API:
+
+        - id: a digital string, will never change
+        - uid: defaults to id, but can be changed once, used in profile url, like slug
+        - name: display name, can be changed every 30 days
+
+        So we should use `id` as username here, other than `uid`.
+        Also use `name` as `first_name` for displaying purpose.
+        """
+        return {
+            'username': data['id'],
+            'first_name': data.get('name', ''),
+        }
 
 
 provider_classes = [DoubanProvider]

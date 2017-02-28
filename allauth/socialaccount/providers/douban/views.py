@@ -1,5 +1,5 @@
+from django.utils.translation import ugettext as _
 import requests
-
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -7,6 +7,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 )
 
 from .provider import DoubanProvider
+from ..base import ProviderException
 
 
 class DoubanOAuth2Adapter(OAuth2Adapter):
@@ -19,6 +20,19 @@ class DoubanOAuth2Adapter(OAuth2Adapter):
         headers = {'Authorization': 'Bearer %s' % token.token}
         resp = requests.get(self.profile_url, headers=headers)
         extra_data = resp.json()
+        """
+        Douban may return data like this:
+
+            {
+                'code': 128,
+                'request': 'GET /v2/user/~me',
+                'msg': 'user_is_locked:53358092'
+            }
+
+        """
+        if 'id' not in extra_data:
+            msg = extra_data.get('msg', _('Invalid profile data'))
+            raise ProviderException(msg)
         return self.get_provider().sociallogin_from_response(
             request, extra_data)
 

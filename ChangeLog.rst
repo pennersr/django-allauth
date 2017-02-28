@@ -1,10 +1,14 @@
-Unreleased
-**********
+0.31.0 (2017-02-28)
+*******************
 
 Note worthy changes
 -------------------
 
-- New providers: Auth0, Box, Line, Naver, Kaka, Daum, MailChimp, Eventbrite.
+- Added a new ``user_logged_out_signal``.
+
+- OpenId: Added support for requesting additional data.
+
+- New providers: Auth0, Box, Line, Naver, Kakao, Daum, MailChimp, Eventbrite.
 
 
 Backwards incompatible changes

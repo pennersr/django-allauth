@@ -10,6 +10,11 @@ pre_social_login = Signal(providing_args=["request", "sociallogin"])
 # Sent after a user connects a social account to a their local account.
 social_account_added = Signal(providing_args=["request", "sociallogin"])
 
+# Sent after a user connects an already existing social account to a
+# their local account. The social account will have an updated token and
+# refreshed extra_data.
+social_account_updated = Signal(providing_args=["request", "sociallogin"])
+
 # Sent after a user disconnects a social account from their local
 # account.
 social_account_removed = Signal(providing_args=["request", "socialaccount"])

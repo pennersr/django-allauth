@@ -24,13 +24,6 @@ class EventbriteProvider(OAuth2Provider):
         """Extract uid ('id') and ensure it's a str."""
         return str(data['id'])
 
-<<<<<<< HEAD
-=======
-    def get_default_scope(self):
-        """Ensure scope is null to fit their API."""
-        return ['']
-
->>>>>>> c32ec1de9b8af42147d2977fe173d25643be447a
     def extract_common_fields(self, data):
         """Extract fields from a basic user query."""
         return dict(

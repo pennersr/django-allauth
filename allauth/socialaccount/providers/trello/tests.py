@@ -1,0 +1,14 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
+from allauth.socialaccount.tests import OAuthTestsMixin
+from allauth.tests import MockedResponse, TestCase
+
+from .provider import TrelloProvider
+
+
+class TrelloTests(OAuthTestsMixin, TestCase):
+    provider_id = TrelloProvider.id
+
+    def get_mocked_response(self):
+        return []

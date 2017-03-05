@@ -218,3 +218,35 @@ every instance of `AdminSite`):
     from django.contrib.auth.decorators import login_required
 
     admin.site.login = login_required(admin.site.login)
+
+Customizing providers
+-----
+
+When an existing provider doesn't quite meet your needs, you might find yourself
+needing to customize a provider.
+
+This can be achieved by subclassing an existing provider and making your changes
+there. Providers are defined as django applications, so typically customizing one
+will mean creating a django application in your project, containing your customized
+urls.py, views.py and provider.py files. What behaviour you can customize is beyond
+the scope of this documentation. 
+
+.. warning::
+
+    In your `provider.py` file, you will need to expose the provider class
+    by having a module level attribute called `provider_classes` with your custom
+    classes in a list. This allows your custom provider to be registered properly
+    on the basis of the `INSTALLED_APPS` setting.
+
+    Be sure to use a custom id property on your provider class such that its default
+    URLs do not clash with the provider you are subclassing.
+
+.. code-block:: python
+ 
+    class GoogleNoDefaultScopeProvider(GoogleProvider):
+        id = 'google_no_scope'
+    
+        def get_default_scope(self):
+            return []
+        
+    provider_classes = [GoogleNoDefaultScopeProvider]

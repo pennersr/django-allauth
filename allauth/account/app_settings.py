@@ -296,11 +296,10 @@ class AppSettings(object):
         from django.core.exceptions import ImproperlyConfigured
         from allauth.utils import import_attribute
         from allauth.utils import get_user_model
-        ret = []
-        validators = self._setting('USERNAME_VALIDATORS', None)
-        if validators:
-            for path in validators:
-                ret.append(import_attribute(path))
+
+        path = self._setting('USERNAME_VALIDATORS', None)
+        if path:
+            ret = import_attribute(path)
             if not isinstance(ret, list):
                 raise ImproperlyConfigured(
                     'ACCOUNT_USERNAME_VALIDATORS is expected to be a list')
@@ -308,6 +307,8 @@ class AppSettings(object):
             if self.USER_MODEL_USERNAME_FIELD is not None:
                 ret = get_user_model()._meta.get_field(
                     self.USER_MODEL_USERNAME_FIELD).validators
+            else:
+                ret = []
         return ret
 
 

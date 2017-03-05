@@ -61,9 +61,6 @@ def _ajax_response(request, response, form=None):
 
 class RedirectAuthenticatedUserMixin(object):
     def dispatch(self, request, *args, **kwargs):
-        # WORKAROUND: https://code.djangoproject.com/ticket/19316
-        self.request = request
-        # (end WORKAROUND)
         if is_authenticated(request.user) and \
                 app_settings.AUTHENTICATED_LOGIN_REDIRECTS:
             redirect_to = self.get_authenticated_redirect_url()
@@ -153,9 +150,6 @@ class CloseableSignupMixin(object):
         "account/signup_closed." + app_settings.TEMPLATE_EXTENSION)
 
     def dispatch(self, request, *args, **kwargs):
-        # WORKAROUND: https://code.djangoproject.com/ticket/19316
-        self.request = request
-        # (end WORKAROUND)
         try:
             if not self.is_open():
                 return self.closed()

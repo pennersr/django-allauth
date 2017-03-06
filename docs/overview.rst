@@ -129,6 +129,8 @@ Supported Providers
 
 - Stripe (OAuth2)
 
+- Trello (OAuth)
+
 - Tumblr (OAuth)
 
 - Twitch (OAuth2)

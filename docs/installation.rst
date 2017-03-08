@@ -39,7 +39,8 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
 
     INSTALLED_APPS = (
         ...
-        # The Django sites framework is required
+        # The following apps are required:
+        'django.contrib.auth',
         'django.contrib.sites',
 
         'allauth',
@@ -121,6 +122,11 @@ urls.py::
         url(r'^accounts/', include('allauth.urls')),
         ...
     ]
+
+Note that you do not necessarily need the URLs provided by
+``django.contrib.auth.urls``. Instead of the URLs ``login``, ``logout``, and
+``password_change`` (among others), you can use the URLs provided by
+``allauth``: ``account_login``, ``account_logout``, ``account_set_password``...
 
 
 Post-Installation

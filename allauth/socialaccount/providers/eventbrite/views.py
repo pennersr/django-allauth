@@ -7,7 +7,7 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import EventbriteProvider
+from .provider import EventbriteProvider, PROFILE_URL
 
 
 class EventbriteOAuth2Adapter(OAuth2Adapter):
@@ -18,7 +18,7 @@ class EventbriteOAuth2Adapter(OAuth2Adapter):
 
     authorize_url = 'https://www.eventbrite.com/oauth/authorize'
     access_token_url = 'https://www.eventbrite.com/oauth/token'
-    profile_url = 'https://www.eventbriteapi.com/v3/users/me/'
+    profile_url = PROFILE_URL
 
     def complete_login(self, request, app, token, **kwargs):
         """Complete login."""

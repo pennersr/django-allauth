@@ -160,7 +160,7 @@ following adapter methods:
 
   - `get_logout_redirect_url(self, request)`
 
-  - `get_email_confirmation_redirect_url(self, request)`
+  - `get_email_confirmation_url(self, request)`
 
 - `allauth.socialaccount.adapter.DefaultSocialAccountAdapter`:
 

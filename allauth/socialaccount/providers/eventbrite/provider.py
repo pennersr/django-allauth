@@ -11,6 +11,10 @@ class EventbriteAccount(ProviderAccount):
         """Return avatar url."""
         return self.account.extra_data['image_id']
 
+    def to_str(self):
+        """Return string of account name."""
+        return self.account.extra_data['name']
+
 
 class EventbriteProvider(OAuth2Provider):
 

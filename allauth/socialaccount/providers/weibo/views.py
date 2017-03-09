@@ -16,9 +16,10 @@ class WeiboOAuth2Adapter(OAuth2Adapter):
     profile_url = 'https://api.weibo.com/2/users/show.json'
 
     def complete_login(self, request, app, token, **kwargs):
-        uid = kwargs.get('response', {}).get('uid')
+        uid = ast.literal_eval(kwargs.get('response', {})).get('uid')
+        access_token = ast.literal_eval(kwargs.get('response', {})).get('access_token')
         resp = requests.get(self.profile_url,
-                            params={'access_token': token.token,
+                            params={'access_token': access_token,
                                     'uid': uid})
         extra_data = resp.json()
         return self.get_provider().sociallogin_from_response(request,

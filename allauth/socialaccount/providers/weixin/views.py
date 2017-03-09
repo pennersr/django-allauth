@@ -1,5 +1,5 @@
 import requests
-
+import ast
 from allauth.account import app_settings
 from allauth.compat import reverse
 from allauth.socialaccount.providers.oauth2.views import (
@@ -26,9 +26,10 @@ class WeixinOAuth2Adapter(OAuth2Adapter):
         return url
 
     def complete_login(self, request, app, token, **kwargs):
-        openid = kwargs.get('response', {}).get('openid')
+        openid = ast.literal_eval(kwargs.get('response', {})).get('openid')
+        ccess_token = ast.literal_eval(kwargs.get('response', {})).get('access_token')
         resp = requests.get(self.profile_url,
-                            params={'access_token': token.token,
+                            params={'access_token': access_token,
                                     'openid': openid})
         extra_data = resp.json()
         nickname = extra_data.get('nickname')

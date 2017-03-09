@@ -27,7 +27,7 @@ class WeixinOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         openid = ast.literal_eval(kwargs.get('response', {})).get('openid')
-        ccess_token = ast.literal_eval(kwargs.get('response', {})).get('access_token')
+        access_token = ast.literal_eval(kwargs.get('response', {})).get('access_token')
         resp = requests.get(self.profile_url,
                             params={'access_token': access_token,
                                     'openid': openid})

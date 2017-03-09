@@ -35,7 +35,6 @@ msgid "Password must be a minimum of {0} characters."
 msgstr "Минимальное количество символов в пароле: {0}."
 
 #: account/apps.py:7
-#, fuzzy
 msgid "Accounts"
 msgstr "Аккаунты"
 
@@ -92,14 +91,10 @@ msgid "Login"
 msgstr "Войти"
 
 #: account/forms.py:258
-#, fuzzy
-#| msgid "E-mail (optional)"
 msgid "E-mail (again)"
-msgstr "E-mail (опционально)"
+msgstr "E-mail (ещё раз)"
 
 #: account/forms.py:262
-#, fuzzy
-#| msgid "email confirmation"
 msgid "E-mail address confirmation"
 msgstr "подтверждение email адреса"
 
@@ -108,10 +103,8 @@ msgid "E-mail (optional)"
 msgstr "E-mail (опционально)"
 
 #: account/forms.py:314
-#, fuzzy
-#| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
-msgstr "Вы должны ввести одинаковый пароль дважды."
+msgstr "Вы должны ввести одинаковый e-mail дважды."
 
 #: account/forms.py:337 account/forms.py:443
 msgid "Password (again)"
@@ -154,17 +147,14 @@ msgid "user"
 msgstr "пользователь"
 
 #: account/models.py:27 account/models.py:86
-#, fuzzy
 msgid "e-mail address"
 msgstr "e-mail адрес"
 
 #: account/models.py:28
-#, fuzzy
 msgid "verified"
 msgstr "подтверждено"
 
 #: account/models.py:29
-#, fuzzy
 msgid "primary"
 msgstr "основной"
 
@@ -214,7 +204,6 @@ msgid "Your account has no verified e-mail address."
 msgstr "Нет подтвержденных e-mail адресов для вашего аккаунта."
 
 #: socialaccount/apps.py:7
-#, fuzzy
 msgid "Social Accounts"
 msgstr "Социальные аккаунты"
 
@@ -223,13 +212,12 @@ msgid "provider"
 msgstr "провайдер"
 
 #: socialaccount/models.py:52
-#, fuzzy
 msgid "name"
-msgstr "имя пользователя"
+msgstr "имя"
 
 #: socialaccount/models.py:54
 msgid "client id"
-msgstr ""
+msgstr "id клиента"
 
 #: socialaccount/models.py:56
 msgid "App ID, or consumer key"
@@ -309,7 +297,7 @@ msgstr "токены социальных приложений"
 
 #: socialaccount/providers/douban/views.py:36
 msgid "Invalid profile data"
-msgstr ""
+msgstr "Неверные данные профиля"
 
 #: socialaccount/providers/oauth/client.py:78
 #, python-format
@@ -406,12 +394,7 @@ msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Вы действительно хотите удалить этот e-mail адрес?"
 
 #: templates/account/email/email_confirmation_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "User %(user_display)s at %(site_name)s has given this as an email "
-#| "address.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s\n"
+#, python-format
 msgid ""
 "Hello from %(site_name)s!\n"
 "\n"
@@ -421,8 +404,11 @@ msgid ""
 "\n"
 "To confirm this is correct, go to %(activate_url)s\n"
 msgstr ""
-"Пользователь %(user_display)s с сайта %(site_name)s указал принадлежность к "
-"этому e-mail адресу.\n"
+"Вас приветствует %(site_name)s!\n"
+"\n"
+"Вы получили это письмо, потому что пользователь %(user_display)s "
+"с сайта %(site_domain)s указал Ваш e-mail адрес для подключения "
+"к своему аккаунту.\n"
 "\n"
 "Чтобы подтвердить, перейдите по ссылке %(activate_url)s\n"
 
@@ -434,18 +420,11 @@ msgid ""
 msgstr ""
 
 #: templates/account/email/email_confirmation_subject.txt:3
-#, fuzzy
-#| msgid "Confirm E-mail Address"
 msgid "Please Confirm Your E-mail Address"
-msgstr "Подтвердите e-mail адрес."
+msgstr "Пожалуйста подтвердите Ваш e-mail адрес"
 
 #: templates/account/email/password_reset_key_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account at %(site_domain)s.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
+#, python-format
 msgid ""
 "Hello from %(site_name)s!\n"
 "\n"
@@ -454,6 +433,8 @@ msgid ""
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
+"Вас приветствует %(site_name)s!\n"
+"\n"
 "Вы (или кто-то иной) запросили смену пароля на сайте %(site_domain)s.\n"
 "Если это были не вы, просто проигнорируйте это письмо. Иначе перейдите по "
 "ссылке для смены пароля."
@@ -507,7 +488,7 @@ msgid "Sign In"
 msgstr "Войти"
 
 #: templates/account/login.html:15
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please sign in with one\n"
 "of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign "
@@ -524,11 +505,13 @@ msgid "or"
 msgstr "или"
 
 #: templates/account/login.html:32
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "If you have not created an account yet, then please\n"
 "<a href=\"%(signup_url)s\">sign up</a> first."
-msgstr "Уже зарегистрированы? <a href=\"%(signup_url)s\">Войдите</a>."
+msgstr ""
+"Если у Вас ещё нет учётной записи, пожалуйста,"
+"сначала <a href=\"%(signup_url)s\">зарегистрируйтесь</a>."
 
 #: templates/account/login.html:42
 msgid "Forgot Password?"
@@ -699,7 +682,6 @@ msgid "Verify Your E-mail Address"
 msgstr "Подтвердите ваш e-mail"
 
 #: templates/account/verification_sent.html:10
-#, fuzzy
 msgid ""
 "We have sent an e-mail to you for verification. Follow the link provided to "
 "finalize the signup process. Please contact us if you do not receive it "
@@ -797,7 +779,7 @@ msgid "The social account has been disconnected."
 msgstr "Акакаунт социальной сети был откреплен."
 
 #: templates/socialaccount/signup.html:10
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You are about to use your %(provider_name)s account to login to\n"
 "%(site_name)s. As a final step, please complete the following form:"

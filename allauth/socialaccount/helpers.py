@@ -109,10 +109,18 @@ def _add_social_account(request, sociallogin):
             level = messages.ERROR
             message = 'socialaccount/messages/account_connected_other.txt'
         else:
-            # This account is already connected -- let's play along
-            # and render the standard "account connected" message
-            # without actually doing anything.
-            pass
+            # This account is already connected -- we give the opportunity
+            # for customized behaviour through use of a signal. If not
+            # implemented, we render the standard "account connected"
+            # message without actually doing anything.
+            try:
+                signals.social_account_updated.send(
+                    sender=SocialLogin,
+                    request=request,
+                    sociallogin=sociallogin
+                )
+            except ImmediateHttpResponse as e:
+                return e.response
     else:
         # New account, let's connect
         sociallogin.connect(request, request.user)

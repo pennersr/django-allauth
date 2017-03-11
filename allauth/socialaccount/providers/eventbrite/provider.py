@@ -15,10 +15,6 @@ class EventbriteAccount(ProviderAccount):
         """Return avatar url."""
         return self.account.extra_data['image_id']
 
-    def to_str(self):
-        """Return string of account name."""
-        return self.account.extra_data['name']
-
     def get_profile_url(self):
         """Return profile URL (same for EventbriteOAuth2Adapter)."""
         return PROFILE_URL
@@ -51,11 +47,10 @@ class EventbriteProvider(OAuth2Provider):
         """Extract email addresses if verified."""
         ret = []
         emails = data.get('emails')
-        for email_account in emails:
-            if email_account['verified']:
-                ret.append(EmailAddress(email=email_account['email'],
-                                        verified=True,
-                                        primary=email_account['primary']))
+        for email in emails:
+            ret.append(EmailAddress(email=email['email'],
+                                    verified=email['verified'],
+                                    primary=email['primary']))
         return ret
 
 

@@ -18,7 +18,7 @@ This information is nice and all, but... I need more!
 Here are a few third party resources to help you get started:
 
 - https://speakerdeck.com/tedtieken/signing-up-and-signing-in-users-in-django-with-django-allauth
-- http://stackoverflow.com/questions/tagged/django-allauth
+- https://stackoverflow.com/questions/tagged/django-allauth
 - http://www.sarahhagstrom.com/2013/09/the-missing-django-allauth-tutorial/
 - https://github.com/aellerton/demo-allauth-bootstrap
 
@@ -77,7 +77,7 @@ types of issues:
 
 - **Support questions, installation instructions, "How do I...?":** please direct
   these questions elsewhere, for example here:
-  http://stackoverflow.com/questions/tagged/django-allauth
+  https://stackoverflow.com/questions/tagged/django-allauth
 
 - **Documentation related complaints:** while the documentation can most certainly be
   improved, I am adhering to the debatable principle that keeping open issues

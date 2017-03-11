@@ -27,7 +27,7 @@ msgstr ""
 
 #: account/adapter.py:54
 msgid "Too many failed login attempts. Try again later."
-msgstr ""
+msgstr "Занадто багато спроб входу в систему, спробуйте пізніше."
 
 #: account/adapter.py:56
 msgid "A user is already registered with this e-mail address."
@@ -39,9 +39,8 @@ msgid "Password must be a minimum of {0} characters."
 msgstr "Пароль повинен містити мінімум {0} символів."
 
 #: account/apps.py:7
-#, fuzzy
 msgid "Accounts"
-msgstr "Акаунт"
+msgstr "Акаунти"
 
 #: account/forms.py:41 account/forms.py:364
 msgid "You must type the same password each time."
@@ -93,29 +92,24 @@ msgstr "Ім'я користувача або e-mail"
 #: account/forms.py:116
 msgctxt "field label"
 msgid "Login"
-msgstr "Login"
+msgstr "Увійти"
 
 #: account/forms.py:258
-#, fuzzy
-#| msgid "E-mail (optional)"
 msgid "E-mail (again)"
-msgstr "E-mail (необов'язковий)"
+msgstr "E-mail (ще раз)"
 
 #: account/forms.py:262
-#, fuzzy
-#| msgid "email confirmation"
 msgid "E-mail address confirmation"
-msgstr "e-mail підтвердження"
+msgstr "e-mail адреса підтвердження"
 
 #: account/forms.py:272
 msgid "E-mail (optional)"
 msgstr "E-mail (необов'язковий)"
 
 #: account/forms.py:314
-#, fuzzy
 #| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
-msgstr "Ви повинні вводити однаковий пароль кожного разу."
+msgstr "Ви повинні вводити однакову e-mail адресу кожного разу."
 
 #: account/forms.py:337 account/forms.py:443
 msgid "Password (again)"
@@ -215,18 +209,16 @@ msgid "Your account has no verified e-mail address."
 msgstr "Немає підтвердження по e-mail для Вашого акаунту."
 
 #: socialaccount/apps.py:7
-#, fuzzy
 msgid "Social Accounts"
-msgstr "Акаунт"
+msgstr "Соціальні акаунти"
 
 #: socialaccount/models.py:49 socialaccount/models.py:83
 msgid "provider"
 msgstr "постачальник"
 
 #: socialaccount/models.py:52
-#, fuzzy
 msgid "name"
-msgstr "Ім'я користувача"
+msgstr "Ім'я"
 
 #: socialaccount/models.py:54
 msgid "client id"
@@ -246,41 +238,40 @@ msgstr ""
 "секретний ключ додатку, секретний ключ клієнта або секретний ключ користувача"
 
 #: socialaccount/models.py:64
-#, fuzzy
 msgid "Key"
-msgstr "ключ"
+msgstr "Ключ"
 
 #: socialaccount/models.py:72
 msgid "social application"
-msgstr ""
+msgstr "соціальний додаток"
 
 #: socialaccount/models.py:73
 msgid "social applications"
-msgstr ""
+msgstr "соціальні додатки"
 
 #: socialaccount/models.py:102
 msgid "uid"
-msgstr ""
+msgstr "ID користувача"
 
 #: socialaccount/models.py:104
 msgid "last login"
-msgstr ""
+msgstr "дата останнього входу"
 
 #: socialaccount/models.py:106
 msgid "date joined"
-msgstr ""
+msgstr "дата реєстрації"
 
 #: socialaccount/models.py:108
 msgid "extra data"
-msgstr ""
+msgstr "додаткові дані"
 
 #: socialaccount/models.py:112
 msgid "social account"
-msgstr ""
+msgstr "аккаунт соціальної мережі"
 
 #: socialaccount/models.py:113
 msgid "social accounts"
-msgstr ""
+msgstr "акаунти соціальних мереж"
 
 #: socialaccount/models.py:139
 msgid "token"
@@ -288,31 +279,31 @@ msgstr "токен"
 
 #: socialaccount/models.py:141
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
-msgstr ""
+msgstr "\"oauth_token\" (OAuth1) або access token (OAuth2)"
 
 #: socialaccount/models.py:144
 msgid "token secret"
-msgstr ""
+msgstr "секретний токен"
 
 #: socialaccount/models.py:146
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
-msgstr ""
+msgstr "\"oauth_token_secret\" (OAuth1) або refresh token (OAuth2)"
 
 #: socialaccount/models.py:148
 msgid "expires at"
-msgstr ""
+msgstr "закінчується"
 
 #: socialaccount/models.py:152
 msgid "social application token"
-msgstr ""
+msgstr "токен соціального додатку"
 
 #: socialaccount/models.py:153
 msgid "social application tokens"
-msgstr ""
+msgstr "токени соціальних додатків"
 
 #: socialaccount/providers/douban/views.py:36
 msgid "Invalid profile data"
-msgstr ""
+msgstr "Невірні дані профілю"
 
 #: socialaccount/providers/oauth/client.py:78
 #, python-format
@@ -409,12 +400,7 @@ msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Ви дійсно бажаєте видалити дану e-mail адресу?"
 
 #: templates/account/email/email_confirmation_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "User %(user_display)s at %(site_name)s has given this as an email "
-#| "address.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s\n"
+#, python-format
 msgid ""
 "Hello from %(site_name)s!\n"
 "\n"
@@ -442,18 +428,11 @@ msgstr ""
 "%(site_domain)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
-#, fuzzy
-#| msgid "Confirm E-mail Address"
 msgid "Please Confirm Your E-mail Address"
-msgstr "Підтвердити e-mail адресу"
+msgstr "Будь ласка, підтвердіть Вашу e-mail адресу"
 
 #: templates/account/email/password_reset_key_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account at %(site_domain)s.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
+#, python-format
 msgid ""
 "Hello from %(site_name)s!\n"
 "\n"

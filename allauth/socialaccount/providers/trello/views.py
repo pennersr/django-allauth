@@ -1,6 +1,5 @@
-import requests
 import logging
-
+import requests
 from xml.etree import ElementTree
 from xml.parsers.expat import ExpatError
 
@@ -15,6 +14,7 @@ from allauth.socialaccount.providers.oauth.views import (
 )
 
 from .provider import TrelloProvider
+
 
 logger = logging.getLogger('django.request')
 

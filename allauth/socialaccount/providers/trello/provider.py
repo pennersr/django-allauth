@@ -1,4 +1,3 @@
-from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
 
@@ -33,3 +32,4 @@ class TrelloProvider(OAuthProvider):
         return data
 
 provider_classes = [TrelloProvider]
+

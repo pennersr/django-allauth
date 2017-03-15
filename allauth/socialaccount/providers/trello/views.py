@@ -1,12 +1,5 @@
-import logging
 import requests
-from xml.etree import ElementTree
-from xml.parsers.expat import ExpatError
 
-from django.utils import six
-
-from allauth.socialaccount import providers
-from allauth.socialaccount.providers.oauth.client import OAuth
 from allauth.socialaccount.providers.oauth.views import (
     OAuthAdapter,
     OAuthCallbackView,
@@ -16,13 +9,12 @@ from allauth.socialaccount.providers.oauth.views import (
 from .provider import TrelloProvider
 
 
-logger = logging.getLogger('django.request')
-
 class TrelloOAuthAdapter(OAuthAdapter):
     provider_id = TrelloProvider.id
     request_token_url = 'https://trello.com/1/OAuthGetRequestToken'
     authorize_url = 'https://trello.com/1/OAuthAuthorizeToken'
     access_token_url = 'https://trello.com/1/OAuthGetAccessToken'
+
 
     def complete_login(self, request, app, token, response):
         # we need to get the member id and the other information
@@ -40,5 +32,7 @@ class TrelloOAuthAdapter(OAuthAdapter):
                                                                extra_data)
         return result
 
+
 oauth_login = OAuthLoginView.adapter_view(TrelloOAuthAdapter)
 oauth_callback = OAuthCallbackView.adapter_view(TrelloOAuthAdapter)
+

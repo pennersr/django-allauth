@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from allauth.socialaccount.tests import OAuthTestsMixin
-from allauth.tests import MockedResponse, TestCase
+from allauth.tests import TestCase
 
 from .provider import TrelloProvider
 

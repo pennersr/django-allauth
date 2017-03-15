@@ -19,6 +19,11 @@ class EventbriteAccount(ProviderAccount):
         """Return profile URL (same for EventbriteOAuth2Adapter)."""
         return PROFILE_URL
 
+    def to_str(self):
+        """A wrapper method for __str__ for python 2 compatibility."""
+        dflt = super(EventbriteAccount, self).to_str()
+        return self.account.extra_data.get('name', dflt)
+
 
 class EventbriteProvider(OAuth2Provider):
 

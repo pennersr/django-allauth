@@ -163,8 +163,8 @@ class LoginForm(forms.Form):
             else:
                 raise forms.ValidationError(
                     self.error_messages[
-                    '%s_password_mismatch'
-                    % app_settings.AUTHENTICATION_METHOD])
+                        '%s_password_mismatch'
+                        % app_settings.AUTHENTICATION_METHOD])
         return self.cleaned_data
 
     def login(self, request, redirect_url=None):

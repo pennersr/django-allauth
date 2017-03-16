@@ -161,7 +161,7 @@ class LoginForm(forms.Form):
                 raise forms.ValidationError(
                     self.error_messages[error_type])
             else:
-                forms.ValidationError(error_messages[
+                raise forms.ValidationError(error_messages[
                     '%s_password_mismatch'
                     % app_settings.AUTHENTICATION_METHOD])
         return self.cleaned_data

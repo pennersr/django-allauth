@@ -84,7 +84,7 @@ class LoginForm(forms.Form):
         _("The username and/or password you specified are not correct."),
 
         'username_email_password_mismatch':
-        _("The login and/or password you specified are not correct.")
+        _("The username/e-mail and/or password you specified are not correct.")
     }
 
     def __init__(self, *args, **kwargs):

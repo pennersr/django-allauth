@@ -152,13 +152,18 @@ class LoginForm(forms.Form):
         if user:
             self.user = user
         else:
-            login = self.clean_login()
-            if "@" in login and "." in login:
-                error_type = 'email_password_mismatch'
+            if app_settings.AUTHENTICATION_METHOD == 'username_email':
+                login = self.clean_login()
+                if "@" in login and "." in login:
+                    error_type = 'email_password_mismatch'
+                else:
+                    error_type = 'username_password_mismatch'
+                raise forms.ValidationError(
+                    self.error_messages[error_type])
             else:
-                error_type = 'username_password_mismatch'
-            raise forms.ValidationError(
-                self.error_messages[error_type])
+                self.ValidationError(error_messages[
+                    '%s_password_mismatch'
+                    % app_settings.AUTHENTICATION_METHOD])
         return self.cleaned_data
 
     def login(self, request, redirect_url=None):

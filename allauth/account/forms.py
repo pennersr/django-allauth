@@ -152,13 +152,13 @@ class LoginForm(forms.Form):
         if user:
             self.user = user
         else:
-            login = clean_login(self)
+            login = self.clean_login()
             if "@" in login and "." in login:
-                message = 'email_password_mismatch'
+                error_type = 'email_password_mismatch'
             else:
-                message = 'username_password_mismatch'
+                error_type = 'username_password_mismatch'
             raise forms.ValidationError(
-                self.error_messages[message])
+                self.error_messages[error_type])
         return self.cleaned_data
 
     def login(self, request, redirect_url=None):

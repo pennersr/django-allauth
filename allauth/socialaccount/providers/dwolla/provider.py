@@ -17,7 +17,7 @@ class DwollaProvider(OAuth2Provider):
     account_class = DwollaAccount
 
     def extract_uid(self, data):
-        return str(data['id'])
+        return str(data.get('id', None))
 
     def extract_common_fields(self, data):
         return dict(

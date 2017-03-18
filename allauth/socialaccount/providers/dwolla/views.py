@@ -56,7 +56,6 @@ class DwollaOAuth2Adapter(OAuth2Adapter):
                 .get('href', None)
 
             if account_url:
-                print token.token
                 resp = requests.get(
                     account_url,
                     headers={

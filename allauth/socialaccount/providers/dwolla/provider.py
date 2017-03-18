@@ -3,9 +3,11 @@
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
+
 class DwollaAccount(ProviderAccount):
     """Dwolla Account"""
     pass
+
 
 class DwollaProvider(OAuth2Provider):
     """Provider for Dwolla"""
@@ -21,5 +23,6 @@ class DwollaProvider(OAuth2Provider):
         return dict(
             name=data.get('name'),
         )
+
 
 provider_classes = [DwollaProvider]

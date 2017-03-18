@@ -1,8 +1,8 @@
 """Views for DwollaProvider"""
 
-from .provider import DwollaProvider
-
 import requests
+
+from django.conf import settings
 
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -10,7 +10,7 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from django.conf import settings
+from .provider import DwollaProvider
 
 ENVIRONMENTS = {
     'production': {
@@ -28,6 +28,7 @@ ENV = getattr(settings, 'SOCIALACCOUNT_PROVIDERS', {}).get(
 
 AUTH_URL = ENVIRONMENTS[ENV]['auth_url']
 TOKEN_URL = ENVIRONMENTS[ENV]['token_url']
+
 
 class DwollaOAuth2Adapter(OAuth2Adapter):
     """Dwolla Views Adapter"""
@@ -58,6 +59,7 @@ class DwollaOAuth2Adapter(OAuth2Adapter):
             request,
             extra_data
         )
+
 
 oauth2_login = OAuth2LoginView.adapter_view(DwollaOAuth2Adapter)
 oauth2_callback = OAuth2CallbackView.adapter_view(DwollaOAuth2Adapter)

@@ -49,7 +49,12 @@ class DwollaOAuth2Adapter(OAuth2Adapter):
         extra_data = {}
 
         if hasattr(token, 'token_data'):
-            account_url = token.token_data.get('_links', {}).get('account', {}).get('href', None)
+
+            account_url = token \
+                .token_data.get('_links', {}) \
+                .get('account', {}) \
+                .get('href', None)
+
             if account_url:
                 print token.token
                 resp = requests.get(

@@ -39,31 +39,17 @@ class DwollaOAuth2Adapter(OAuth2Adapter):
     access_token_url = TOKEN_URL
     authorize_url = AUTH_URL
 
-    def parse_token(self, data):
-        token = super(DwollaOAuth2Adapter, self).parse_token(data)
-        token.token_data = data
-        return token
+    def complete_login(self, request, app, token, response, **kwargs):
 
-    def complete_login(self, request, app, token, **kwargs):
+        resp = requests.get(
+            response['_links']['account']['href'],
+            headers={
+                'authorization': 'Bearer %s' % token.token,
+                'accept': 'application/vnd.dwolla.v1.hal+json',
+            },
+        )
 
-        extra_data = {}
-
-        if hasattr(token, 'token_data'):
-
-            account_url = token \
-                .token_data.get('_links', {}) \
-                .get('account', {}) \
-                .get('href', None)
-
-            if account_url:
-                resp = requests.get(
-                    account_url,
-                    headers={
-                        'authorization': 'Bearer %s' % token.token,
-                        'accept': 'application/vnd.dwolla.v1.hal+json',
-                    },
-                )
-                extra_data = resp.json()
+        extra_data = resp.json()
 
         return self.get_provider().sociallogin_from_response(
             request,

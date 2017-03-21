@@ -17,7 +17,7 @@ from ..compat import reverse, reverse_lazy
 from ..utils import get_form_class
 from .adapter import get_adapter
 from .forms import DisconnectForm, SignupForm
-from .models import SocialLogin
+from .models import SocialAccount, SocialLogin
 
 
 class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
@@ -109,6 +109,19 @@ class ConnectionsView(AjaxCapableProcessFormViewMixin, FormView):
                                           'account_disconnected.txt')
         form.save()
         return super(ConnectionsView, self).form_valid(form)
+
+    def get_ajax_data(self):
+        account_data = []
+        for account in SocialAccount.objects.filter(user=self.request.user):
+            provider_account = account.get_provider_account()
+            account_data.append({
+                'id': account.pk,
+                'provider': account.provider,
+                'name': provider_account.to_str()
+            })
+        return {
+            'socialaccounts': account_data
+        }
 
 
 connections = login_required(ConnectionsView.as_view())

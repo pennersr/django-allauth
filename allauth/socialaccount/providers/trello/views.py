@@ -35,4 +35,3 @@ class TrelloOAuthAdapter(OAuthAdapter):
 
 oauth_login = OAuthLoginView.adapter_view(TrelloOAuthAdapter)
 oauth_callback = OAuthCallbackView.adapter_view(TrelloOAuthAdapter)
-

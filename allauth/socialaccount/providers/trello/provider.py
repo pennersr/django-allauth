@@ -32,4 +32,3 @@ class TrelloProvider(OAuthProvider):
         return data
 
 provider_classes = [TrelloProvider]
-

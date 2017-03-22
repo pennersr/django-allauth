@@ -1,3 +1,29 @@
+Unreleased
+**********
+
+Note worthy changes
+-------------------
+
+- Improved AJAX support: the account management views (change/set password,
+  manage e-mail addresses and social connections) now support AJAX GET requests.
+  These views hand over all the required data for you to build your frontend
+  application upon.
+
+
+Backwards incompatible changes
+------------------------------
+
+- In previous versions, the views only responded with JSON responses when
+  issuing AJAX requests of type POST. Now, the views also respond in JSON when
+  making AJAX GET requests.
+
+- The structure of the response for AJAX requests has changed. Previously, it
+  contained a ``form_errors`` key containing all form validation errors, if any.
+  Now, it contains a ``form`` key that describes the complete form, including
+  the fields. Field specific errors are placed in
+  ``form.fields['some_field'].errors``, non-field errors in ``form.errors``.
+
+
 0.31.0 (2017-02-28)
 *******************
 

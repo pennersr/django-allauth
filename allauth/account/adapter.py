@@ -318,25 +318,56 @@ class DefaultAccountAdapter(object):
             except TemplateDoesNotExist:
                 pass
 
-    def ajax_response(self, request, response, redirect_to=None, form=None):
-        data = {}
+    def ajax_response(self, request, response, redirect_to=None, form=None,
+                      data=None):
+        resp = {}
         status = response.status_code
 
         if redirect_to:
             status = 200
-            data['location'] = redirect_to
+            resp['location'] = redirect_to
         if form:
-            if form.is_valid():
-                status = 200
+            if request.method == 'POST':
+                if form.is_valid():
+                    status = 200
+                else:
+                    status = 400
             else:
-                status = 400
-                data['form_errors'] = form._errors
+                status = 200
+            resp['form'] = self.ajax_response_form(form)
             if hasattr(response, 'render'):
                 response.render()
-            data['html'] = response.content.decode('utf8')
-        return HttpResponse(json.dumps(data),
+            resp['html'] = response.content.decode('utf8')
+            if data is not None:
+                resp['data'] = data
+        return HttpResponse(json.dumps(resp),
                             status=status,
                             content_type='application/json')
+
+    def ajax_response_form(self, form):
+        form_spec = {
+            'fields': {},
+            'field_order': [],
+            'errors': form.non_field_errors()
+        }
+        for field in form:
+            field_spec = {
+                'label': force_text(field.label),
+                'value': field.value(),
+                'help_text': force_text(field.help_text),
+                'errors': [
+                    force_text(e) for e in field.errors
+                ],
+                'widget': {
+                    'attrs': {
+                        k: force_text(v)
+                        for k, v in field.field.widget.attrs.items()
+                    }
+                }
+            }
+            form_spec['fields'][field.html_name] = field_spec
+            form_spec['field_order'].append(field.html_name)
+        return form_spec
 
     def login(self, request, user):
         # HACK: This is not nice. The proper Django way is to use an

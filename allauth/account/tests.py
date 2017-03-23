@@ -736,8 +736,6 @@ class EmailFormTests(TestCase):
     def test_ajax_get(self):
         resp = self.client.get(
             reverse('account_email'),
-            {'action_add': '',
-             'email': 'john3@doe.org'},
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         data = json.loads(resp.content.decode('utf8'))
         assert data['data'] == [

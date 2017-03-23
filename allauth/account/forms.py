@@ -82,9 +82,6 @@ class LoginForm(forms.Form):
 
         'username_password_mismatch':
         _("The username and/or password you specified are not correct."),
-
-        'username_email_password_mismatch':
-        _("The login and/or password you specified are not correct.")
     }
 
     def __init__(self, *args, **kwargs):
@@ -155,10 +152,15 @@ class LoginForm(forms.Form):
         if user:
             self.user = user
         else:
+            auth_method = app_settings.AUTHENTICATION_METHOD
+            if auth_method == app_settings.AuthenticationMethod.USERNAME_EMAIL:
+                login = self.cleaned_data['login']
+                if "@" in login and "." in login:
+                    auth_method = app_settings.AuthenticationMethod.EMAIL
+                else:
+                    auth_method = app_settings.AuthenticationMethod.USERNAME
             raise forms.ValidationError(
-                self.error_messages[
-                    '%s_password_mismatch'
-                    % app_settings.AUTHENTICATION_METHOD])
+                self.error_messages['%s_password_mismatch' % auth_method])
         return self.cleaned_data
 
     def login(self, request, redirect_url=None):

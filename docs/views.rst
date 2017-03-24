@@ -1,29 +1,29 @@
 Views
 =====
 
-Login
------
+Login (``account_login``)
+-------------------------
 
 Users login via the `allauth.account.views.LoginView` view over at
-`/accounts/login/`. When users attempt to login while their account is
-inactive (`user.is_active`) they are presented with the
+`/accounts/login/` (URL name ``account_login``). When users attempt to login
+while their account is inactive (`user.is_active`) they are presented with the
 `account/account_inactive.html` template.
 
 
-Signup
-------
+Signup (``account_signup``)
+---------------------------
 
 Users sign up via the `allauth.account.views.SignupView` view over at
-`/accounts/signup/`.
+`/accounts/signup/` (URL name ``account_signup``).
 
 
-Logout
-------
+Logout (``account_logout``)
+---------------------------
 
 The logout view (`allauth.account.views.LogoutView`) over at
-`/accounts/logout/` requests for confirmation before logging out. The
-user is logged out only when the confirmation is received by means of
-a POST request.
+`/accounts/logout/` (URL name ``account_logout``) requests for confirmation
+before logging out. The user is logged out only when the confirmation is
+received by means of a POST request.
 
 If you are wondering why, consider what happens when a malicious user
 embeds the following image in a post::
@@ -47,7 +47,8 @@ Password Management
 Authenticated users can manage their password account using the
 `allauth.account.views.PasswordSetView` and
 `allauth.account.views.PasswordChangeView` views, over at
-`/accounts/password/set/` respectively `/accounts/password/change/`.
+`/accounts/password/set/` respectively `/accounts/password/change/` (URL names
+``account_set_password`` and ``account_inactive`` respectively).
 
 Users are redirected between these views, according to whether or not
 they have setup a password (`user.has_usable_password()`).  Typically,
@@ -55,22 +56,23 @@ when users signup via a social provider they will not have a password
 set.
 
 
-Password Reset
---------------
+Password Reset (``account_reset_password``)
+-------------------------------------------
 
 Users can request a password reset using the
-`allauth.account.views.PasswordResetView` view.  An e-mail will be
-sent containing a reset link pointing to `PasswordResetFromKeyView`
+`allauth.account.views.PasswordResetView` view over at
+``/accounts/password/reset/`` (URL name ``account_reset_password``).  An e-mail
+will be sent containing a reset link pointing to `PasswordResetFromKeyView`
 view.
 
 
-E-mails Management
-------------------
+E-mails Management (``account_email``)
+--------------------------------------
 
 Users manage the e-mail addresses tied to their account using the
-`allauth.account.views.EmailView` view over at
-`/accounts/email/`. Here, users can add (and verify) e-mail addresses,
-remove e-mail addresses, and choose a new primary e-mail address.
+`allauth.account.views.EmailView` view over at `/accounts/email/` (URL name
+``account_email``). Here, users can add (and verify) e-mail addresses, remove
+e-mail addresses, and choose a new primary e-mail address.
 
 
 E-mail Verification
@@ -86,9 +88,9 @@ or whether the address is automatically confirmed by a mere GET
 request.
 
 
-Social Connections
-------------------
+Social Connections (``socialaccount_connections``)
+--------------------------------------------------
 
 The `allauth.socialaccount.views.ConnectionsView` view over at
-`/accounts/social/connections/` allows users to manage the social
-accounts tied to their local account.
+`/accounts/social/connections/` (URL name ``socialaccount_connections``) allows
+users to manage the social accounts tied to their local account.

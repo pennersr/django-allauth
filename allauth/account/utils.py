@@ -4,7 +4,7 @@ from datetime import timedelta
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
-from django.core.exceptions import ValidationError
+from django.core.exceptions import FieldDoesNotExist, ValidationError
 from django.db import models
 from django.db.models import Q
 from django.http import HttpResponseRedirect
@@ -86,17 +86,22 @@ def user_field(user, field, *args):
     """
     Gets or sets (optional) user model fields. No-op if fields do not exist.
     """
-    if field and hasattr(user, field):
-        if args:
-            # Setter
-            v = args[0]
-            if v:
-                User = get_user_model()
-                v = v[0:User._meta.get_field(field).max_length]
-            setattr(user, field, v)
-        else:
-            # Getter
-            return getattr(user, field)
+    if not field:
+        return
+    User = get_user_model()
+    try:
+        field_meta = User._meta.get_field(field)
+    except FieldDoesNotExist:
+        return
+    if args:
+        # Setter
+        v = args[0]
+        if v:
+            v = v[0:field_meta.max_length]
+        setattr(user, field, v)
+    else:
+        # Getter
+        return getattr(user, field)
 
 
 def user_username(user, *args):

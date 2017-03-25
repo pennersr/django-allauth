@@ -266,7 +266,7 @@ value is set, the Edmodo provider will use ``basic`` by default:
 Eve Online
 ----------
 
-Register your application at `https://developers.eveonline.com/applications/create`.
+Register your application at ``https://developers.eveonline.com/applications/create``.
 Note that if you have ``STORE_TOKENS`` enabled (the default), you will need to
 set up your application to be able to request an OAuth scope. This means you
 will need to set it as having "CREST Access". The least obtrusive scope is
@@ -277,8 +277,8 @@ Eventbrite
 ------------------
 
 Log in and click your profile name in the top right navigation, then select
-`Account Settings`. Choose `App Management` near the bottom of the left
-navigation column. You can then click `Create A New App` on the upper left
+``Account Settings``. Choose ``App Management`` near the bottom of the left
+navigation column. You can then click ``Create A New App`` on the upper left
 corner.
 
 App registration
@@ -289,13 +289,13 @@ Fill in the form with the following link
 Development callback URL
     http://127.0.0.1:8000/accounts/eventbrite/login/callback/
 
-for both the `Application URL` and `OAuth Redirect URI`.
+for both the ``Application URL`` and ``OAuth Redirect URI``.
 
 
 Evernote
 --------
 
-Register your OAuth2 application at `https://dev.evernote.com/doc/articles/authentication.php`:
+Register your OAuth2 application at ``https://dev.evernote.com/doc/articles/authentication.php``:
 
 .. code-block:: python
 
@@ -363,30 +363,30 @@ The following Facebook settings are available:
     }
 
 METHOD:
-    Either `js_sdk` or `oauth2`. The default is `oauth2`.
+    Either ``js_sdk`` or ``oauth2``. The default is ``oauth2``.
 
 SCOPE:
-    By default, the `email` scope is required depending on whether or not
+    By default, the ``email`` scope is required depending on whether or not
     ``SOCIALACCOUNT_QUERY_EMAIL`` is enabled.
-    Apps using permissions beyond `email`, `public_profile` and `user_friends`
+    Apps using permissions beyond ``email``, ``public_profile`` and ``user_friends``
     require review by Facebook.
     See `Permissions with Facebook Login <https://developers.facebook.com/docs/facebook-login/permissions>`_
     for more information.
 
 AUTH_PARAMS:
-    Use ``AUTH_PARAMS`` to pass along other parameters to the `FB.login`
+    Use ``AUTH_PARAMS`` to pass along other parameters to the ``FB.login``
     JS SDK call.
 
 FIELDS:
-    The fields to fetch from the Graph API `/me/?fields=` endpoint.
-    For example, you could add the `'friends'` field in order to
+    The fields to fetch from the Graph API ``/me/?fields=`` endpoint.
+    For example, you could add the ``'friends'`` field in order to
     capture the user's friends that have also logged into your app using
-    Facebook (requires `'user_friends'` scope).
+    Facebook (requires ``'user_friends'`` scope).
 
 EXCHANGE_TOKEN:
     The JS SDK returns a short-lived token suitable for client-side use. Set
     ``EXCHANGE_TOKEN = True`` to make a server-side request to upgrade to a
-    long-lived token before storing in the `SocialToken` record. See
+    long-lived token before storing in the ``SocialToken`` record. See
     `Expiration and Extending Tokens <https://developers.facebook.com/docs/facebook-login/access-tokens#extending>`_.
 
 LOCALE_FUNC:
@@ -418,7 +418,7 @@ VERIFIED_EMAIL:
     risk.
 
 VERSION:
-    The Facebook Graph API version to use. The default is `v2.4`.
+    The Facebook Graph API version to use. The default is ``v2.4``.
 
 App registration (get your key and secret here)
     A key and secret key can be obtained by
@@ -428,8 +428,8 @@ App registration (get your key and secret here)
     `reviewed by Facebook <https://developers.facebook.com/docs/apps/review>`_.
 
 Development callback URL
-    Leave your App Domains empty and put `http://localhost:8000` in the
-    section labeled `Website with Facebook Login`. Note that you'll need to
+    Leave your App Domains empty and put ``http://localhost:8000`` in the
+    section labeled ``Website with Facebook Login``. Note that you'll need to
     add your site's actual domain to this section once it goes live.
 
 
@@ -687,7 +687,7 @@ not ``SOCIALACCOUNT_QUERY_EMAIL`` is enabled.
 Note: if you are experiencing issues where it seems as if the scope has no
 effect you may be using an old LinkedIn app that is not scope enabled.
 Please refer to
-`https://developer.linkedin.com/forum/when-will-old-apps-have-scope-parameter-enabled`
+``https://developer.linkedin.com/forum/when-will-old-apps-have-scope-parameter-enabled``
 for more background information.
 
 Furthermore, we have experienced trouble upgrading from OAuth 1.0 to OAuth 2.0
@@ -874,7 +874,7 @@ SCOPE:
     https://developer.paypal.com/docs/integration/direct/identity/attributes/
 
 MODE:
-    Either `live` or `test`. Set to test to use the Paypal sandbox.
+    Either ``live`` or ``test``. Set to test to use the Paypal sandbox.
 
 App registration (get your key and secret here)
     https://developer.paypal.com/webapps/developer/applications/myapps
@@ -954,8 +954,8 @@ App registration (get your key and secret here)
 Development callback URL
     http://localhost:8000/accounts/reddit/login/callback/
 
-By default, access to Reddit is temporary. You can specify the `duration`
-auth parameter to make it `permanent`.
+By default, access to Reddit is temporary. You can specify the ``duration``
+auth parameter to make it ``permanent``.
 
 You can optionally specify additional permissions to use. If no ``SCOPE``
 value is set, the Reddit provider will use ``identity`` by default.
@@ -979,8 +979,8 @@ you will risk additional rate limiting in your application.
 Shopify
 -------
 
-The Shopify provider requires a `shop` parameter to login. For
-example, for a shop `petstore.myshopify.com`, use this::
+The Shopify provider requires a ``shop`` parameter to login. For
+example, for a shop ``petstore.myshopify.com``, use this::
 
     /accounts/shopify/login/?shop=petstore
 
@@ -990,12 +990,12 @@ You can create login URLs like these as follows:
 
     {% provider_login_url "shopify" shop="petstore" %}
 
-For setting up authentication in your app, use this url as your `App URL`
+For setting up authentication in your app, use this url as your ``App URL``
 (if your server runs at localhost:8000)::
 
     http://localhost:8000/accounts/shopify/login/
 
-And set `Redirection URL` to::
+And set ``Redirection URL`` to::
 
     http://localhost:8000/accounts/shopify/login/callback/
 
@@ -1042,7 +1042,7 @@ Development callback URL
 Stack Exchange
 --------------
 
-Register your OAuth2 app over at `http://stackapps.com/apps/oauth/register`.
+Register your OAuth2 app over at ``http://stackapps.com/apps/oauth/register``.
 Do not enable "Client Side Flow". For local development you can simply use
 "localhost" for the OAuth domain.
 
@@ -1197,11 +1197,11 @@ after it is created, then click "Generate New Password" to create it.
 Weibo
 -----
 
-Register your OAuth2 app over at `http://open.weibo.com/apps`. Unfortunately,
+Register your OAuth2 app over at ``http://open.weibo.com/apps``. Unfortunately,
 Weibo does not allow for specifying a port number in the authorization
 callback URL. So for development purposes you have to use a callback url of
-the form `http://127.0.0.1/accounts/weibo/login/callback/` and run
-`runserver 127.0.0.1:80`.
+the form ``http://127.0.0.1/accounts/weibo/login/callback/`` and run
+``runserver 127.0.0.1:80``.
 
 
 Weixin
@@ -1215,7 +1215,7 @@ Weixin supports two kinds of oauth2 authorization, one for open platform and
 one for media platform, AUTHORIZE_URL is the only difference between them, you
 can specify ``AUTHORIZE_URL`` in setting, If no ``AUTHORIZE_URL`` value is set
 will support open platform by default, which value is
-`https://open.weixin.qq.com/connect/qrconnect`.
+``https://open.weixin.qq.com/connect/qrconnect``.
 
 You can optionally specify additional scope to use. If no ``SCOPE`` value
 is set, will use ``snsapi_login`` by default.

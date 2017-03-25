@@ -60,7 +60,7 @@ verified. So, e-mail verification needs to be present in both worlds.
 
 Integrating both worlds is quite a tedious process. It is definitely
 not a matter of simply adding one social authentication app, and one
-local account registration app to your `INSTALLED_APPS` list.
+local account registration app to your ``INSTALLED_APPS`` list.
 
 This is the reason this project got started -- to offer a fully
 integrated authentication app that allows for both local and social

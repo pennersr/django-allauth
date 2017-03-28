@@ -401,13 +401,13 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                 res = self._action_remove(request)
             elif "action_primary" in request.POST:
                 res = self._action_primary(request)
-            res = res or HttpResponseRedirect(reverse('account_email'))
+            res = res or HttpResponseRedirect(self.success_url)
             # Given that we bypassed AjaxCapableProcessFormViewMixin,
             # we'll have to call invoke it manually...
             res = _ajax_response(request, res, data=self._get_ajax_data_if())
         else:
             # No email address selected
-            res = HttpResponseRedirect(reverse('account_email'))
+            res = HttpResponseRedirect(self.success_url)
             res = _ajax_response(request, res, data=self._get_ajax_data_if())
         return res
 

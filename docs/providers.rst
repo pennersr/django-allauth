@@ -246,9 +246,6 @@ App registration (get your key and secret here)
 Development callback URL
     http://127.0.0.1:8000/accounts/dwolla/login/callback/
 
-With the acquired access token you will have read permissions on the API by
-default.  If you also need write access specify the scope as follows.  See
-https://developers.digitalocean.com/documentation/oauth/#scopes for details.
 
 .. code-block:: python
 

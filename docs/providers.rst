@@ -237,6 +237,33 @@ Note that Dropbox has deprecated version 1 of their API as of 28 June 2016.
 This also affects apps. All new apps you create will automatically use OAuth
 2.0, and you have to use the ``dropbox_oauth2`` provider with ``allauth``.
 
+Dwolla
+------------
+
+App registration (get your key and secret here)
+    https://dashboard-uat.dwolla.com/applications
+
+Development callback URL
+    http://127.0.0.1:8000/accounts/dwolla/login/callback/
+
+With the acquired access token you will have read permissions on the API by
+default.  If you also need write access specify the scope as follows.  See
+https://developers.digitalocean.com/documentation/oauth/#scopes for details.
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'dwolla': {
+            'SCOPE': [
+                'Send',
+                'Transactions',
+                'Funding',
+                'AccountInfoFull',
+            ],
+            'ENVIROMENT':'sandbox',
+        }
+    }
+
 
 Edmodo
 ------

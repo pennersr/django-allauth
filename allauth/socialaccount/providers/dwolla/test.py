@@ -8,7 +8,6 @@ class DwollaTests(OAuth2TestsMixin, TestCase):
     provider_id = DwollaProvider.id
 
     def get_mocked_response(self):
-        # FIXME: Replace with actual/complete Dropbox response
         return MockedResponse(200, """{
             "id": "123",
             "_links":{"account":{"href":"http://localhost"}},

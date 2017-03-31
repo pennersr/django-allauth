@@ -7,7 +7,7 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import EventbriteProvider, API_URL
+from .provider import API_URL, EventbriteProvider
 
 
 class EventbriteOAuth2Adapter(OAuth2Adapter):

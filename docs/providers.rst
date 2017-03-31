@@ -1037,6 +1037,16 @@ Note that there is more an embedded app creator must do in order to have a page 
 Shopify (building the x_frame_exempt landing page, handing session expiration, etc...).
 However that functionality is outside the scope of django-allauth.
 
+**Online/per-user access mode**
+Shopify has two access modes, offline (the default) and online/per-user. Enabling 'online' access will
+cause all-auth to tie the logged in Shopify user to the all-auth account (rather than the shop as a whole).::
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'shopify': {
+            'AUTH_PARAMS': {'grant_options[]': 'per-user'},
+        }
+    }
+
 
 Slack
 -----

@@ -1,4 +1,5 @@
 import json
+from django.contrib.auth import get_user_model
 
 from django.test.utils import override_settings
 
@@ -121,18 +122,22 @@ class ShopifyPerUserAccessTests(ShopifyTests):
 
         return json.dumps(response_data)
 
-    def _complete_shopify_login(self, q, resp, resp_mock, with_refresh_token):
-        resp = super(ShopifyPerUserAccessTests, self)._complete_shopify_login(
-            q, resp, resp_mock, with_refresh_token)
+    @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=True,
+                       SOCIALACCOUNT_EMAIL_REQUIRED=True,
+                       ACCOUNT_EMAIL_REQUIRED=True)
+    def test_associated_user(self):
+        resp_mocks = self.get_mocked_response()
+        resp = self.login(resp_mocks)
+        self.assertRedirects(resp, 'http://testserver/accounts/profile/',
+                             fetch_redirect_response=False)
 
-        user = resp.context['user']
-        account = SocialAccount.objects.get(
-            user=user,
-            provider=self.provider.id)
-        provider_account = account.get_provider_account()
+        social_account = SocialAccount.objects.filter(
+            provider=self.provider.id,
+            uid=902541635,
+        ).first()
+        self.assertIsNotNone(social_account)
+        self.assertTrue('associated_user' in social_account.extra_data)
 
-        self.assertEqual(provider_account.extract_uid(), 902541635)
-        actual_common_fields = provider_account.extract_common_fields()
-        self.assertEqual(actual_common_fields.get('email'), 'jon@example.com')
-        self.assertEqual(actual_common_fields.get('first_name'), 'Jon')
-        self.assertEqual(actual_common_fields.get('last_name'), 'Smith')
+        self.assertEqual(social_account.user.email, 'jon@example.com')
+        self.assertEqual(social_account.user.first_name, 'Jon')
+        self.assertEqual(social_account.user.last_name, 'Smith')

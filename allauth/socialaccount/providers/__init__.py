@@ -12,9 +12,16 @@ class ProviderRegistry(object):
 
     def get_list(self, request=None):
         self.load()
+        try:
+            from django.contrib.sites.models import Site
+            site = Site.objects.get_current(request)
+            ids = [sa.provider for sa in site.socialapp_set.all()]
+        except:
+            ids = [provider_cls(request).id for provider_cls in self.provider_map.values()]
         return [
             provider_cls(request)
-            for provider_cls in self.provider_map.values()]
+            for provider_cls in self.provider_map.values()
+            if provider_cls.id in ids]
 
     def register(self, cls):
         self.provider_map[cls.id] = cls

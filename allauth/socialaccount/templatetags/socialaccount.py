@@ -88,8 +88,8 @@ def get_social_accounts(user):
     return accounts
 
 
-@simple_tag
-def get_providers():
+@simple_tag(takes_context=True)
+def get_providers(context):
     """
     Returns a list of social authentication providers.
 
@@ -98,4 +98,5 @@ def get_providers():
     Then within the template context, `socialaccount_providers` will hold
     a list of social providers configured for the current site.
     """
-    return providers.registry.get_list()
+    request = context['request']
+    return providers.registry.get_list(request)

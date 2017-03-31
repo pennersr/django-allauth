@@ -31,4 +31,5 @@ class TrelloProvider(OAuthProvider):
         data['expiration'] = 'never'
         return data
 
+
 provider_classes = [TrelloProvider]

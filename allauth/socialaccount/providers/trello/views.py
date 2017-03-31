@@ -15,7 +15,6 @@ class TrelloOAuthAdapter(OAuthAdapter):
     authorize_url = 'https://trello.com/1/OAuthAuthorizeToken'
     access_token_url = 'https://trello.com/1/OAuthGetAccessToken'
 
-
     def complete_login(self, request, app, token, response):
         # we need to get the member id and the other information
         # check: https://developers.trello.com/advanced-reference/token

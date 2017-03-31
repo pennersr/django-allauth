@@ -9,6 +9,3 @@ from .provider import TrelloProvider
 
 class TrelloTests(OAuthTestsMixin, TestCase):
     provider_id = TrelloProvider.id
-
-    def get_mocked_response(self):
-        return []

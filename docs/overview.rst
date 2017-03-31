@@ -65,6 +65,8 @@ Supported Providers
 
 - Dropbox (OAuth, OAuth2)
 
+- Dwolla (OAuth2)
+
 - Edmodo (OAuth2)
 
 - Eve Online (OAuth2)

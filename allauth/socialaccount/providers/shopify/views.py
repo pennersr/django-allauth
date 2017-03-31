@@ -54,6 +54,9 @@ class ShopifyOAuth2Adapter(OAuth2Adapter):
             self.profile_url,
             headers=headers)
         extra_data = response.json()
+        associated_user = kwargs['response'].get('associated_user')
+        if associated_user:
+            extra_data['associated_user'] = associated_user
         return self.get_provider().sociallogin_from_response(
             request, extra_data)
 

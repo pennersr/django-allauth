@@ -11,10 +11,23 @@ class ProviderRegistry(object):
         self.loaded = False
 
     def get_list(self, request=None):
+        from django.contrib.sites.models import Site
+        from .openid.provider import OpenIDProvider
+        from django.core.exceptions import ImproperlyConfigured
+
         self.load()
+
+        try:
+            site = Site.objects.get_current(request)
+            ids = [sa.provider for sa in site.socialapp_set.all()]
+            # OpenID doesn't require social apps so add it regardless
+            ids.append(OpenIDProvider.id)
+        except ImproperlyConfigured:
+            ids = self.provider_map.keys()
         return [
             provider_cls(request)
-            for provider_cls in self.provider_map.values()]
+            for provider_cls in self.provider_map.values()
+            if provider_cls.id in ids]
 
     def register(self, cls):
         self.provider_map[cls.id] = cls

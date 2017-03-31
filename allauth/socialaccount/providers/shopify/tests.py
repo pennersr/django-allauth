@@ -1,5 +1,4 @@
 import json
-from django.contrib.auth import get_user_model
 
 from django.test.utils import override_settings
 
@@ -91,7 +90,7 @@ class ShopifyEmbeddedTests(ShopifyTests):
 
 
 @override_settings(SOCIALACCOUNT_PROVIDERS={
-    'shopify': {'AUTH_PARAMS': {'grant_options[]': 'per-user'},}})
+    'shopify': {'AUTH_PARAMS': {'grant_options[]': 'per-user'}}})
 class ShopifyPerUserAccessTests(ShopifyTests):
     """
     Shopify has two access modes, offline (the default) and online/per-user.

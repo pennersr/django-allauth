@@ -44,8 +44,8 @@ class ShopifyProvider(OAuth2Provider):
             )
         else:
             # See: https://docs.shopify.com/api/shop
-            # Without online mode, User is only available with Shopify Plus, email is the only
-            # common field
+            # Without online mode, User is only available with Shopify Plus,
+            # email is the only common field
             return dict(email=data['shop']['email'])
 
 

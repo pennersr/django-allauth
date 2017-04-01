@@ -1,5 +1,7 @@
 import requests
 
+from django.utils.http import urlencode, urlquote
+
 from allauth.socialaccount.providers.oauth.views import (
     OAuthAdapter,
     OAuthCallbackView,
@@ -19,14 +21,15 @@ class TrelloOAuthAdapter(OAuthAdapter):
         # we need to get the member id and the other information
         # check: https://developers.trello.com/advanced-reference/token
         # https://api.trello.com/1/tokens/91a6408305c1e5ec1b0b306688bc2e2f8fe67abf6a2ecec38c17e5b894fcf866?key=[application_key]&token=[optional_auth_token]
-        baseURL = 'https://api.trello.com/1/tokens/'
-        infoURL = baseURL + '{token}?key={app_key}&token={oauth_token}'.format(
-            token=token,
-            app_key=app.key,
-            oauth_token=response.get('oauth_token')
-            )
-        reqResp = requests.get(infoURL)
-        extra_data = reqResp.json()
+        info_url = '{base}{token}?{query}'.format(
+            base='https://api.trello.com/1/tokens/',
+            token=urlquote(token),
+            query=urlencode({
+                'key': app.key,
+                'token': response.get('oauth_token')}))
+        resp = requests.get(info_url)
+        resp.raise_for_status()
+        extra_data = resp.json()
         result = self.get_provider().sociallogin_from_response(request,
                                                                extra_data)
         return result

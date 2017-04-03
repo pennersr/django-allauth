@@ -19,10 +19,18 @@ class EventbriteAccount(ProviderAccount):
         combined with the user's token either via ?token=user's_token (where
         user's_token is their token string) or via the following example:
 
-        >>> import requests
-        >>> headers = {'Authorization': 'Bearer {0}'.format("user's_token")}
-        >>> profile_url = API_URL + 'users/' + self.account.extra_data['id']
-        >>> profile = requests.get(profile_url, headers=headers).json()
+        Via header:
+            >>> import requests
+            >>> headers = {'Authorization': 'Bearer {0}'.format("user's_token")}
+            >>> profile_url = API_URL + 'users/' + self.account.extra_data['id']
+            >>> profile = requests.get(profile_url, headers=headers).json()
+
+        Via URL:
+            >>> import requests
+            >>> params = {'token': "user's_token"}
+            >>> profile_url = API_URL + 'users/' + self.account.extra_data['id']
+            >>> response = requests.get(profile_url, params=params)
+            >>> profile = response.json()
         """
         return API_URL + 'users/' + self.account.extra_data['id']
 
@@ -35,12 +43,21 @@ class EventbriteAccount(ProviderAccount):
         endpoint via the 'url' key, but the user's Eventbrite token must either
         be included in the header or in the url itself.
 
-        >>> import requests
-        >>> headers = {'Authorization': 'Bearer {0}'.format("user's_token")}
-        >>> image_url_endpoint = (API_URL + 'media/' +
-        ...                       self.account.extra_data['image_id'])
-        >>> response = requests.get(image_url_endpoint, headers=headers)
-        >>> url = response.json()['url']
+        Via header:
+            >>> import requests
+            >>> headers = {'Authorization': 'Bearer {0}'.format("user's_token")}
+            >>> image_url_endpoint = (API_URL + 'media/' +
+            ...                       self.account.extra_data['image_id'])
+            >>> response = requests.get(image_url_endpoint, headers=headers)
+            >>> url = response.json()['url']
+
+        Via URL:
+            >>> import requests
+            >>> params = {'token': "user's_token"}
+            >>> image_url_endpoint = (API_URL + 'media/' +
+            ...                       self.account.extra_data['image_id'])
+            >>> response = requests.get(image_url_endpoint, params=params)
+            >>> url = response.json()['url']
         """
         return API_URL + 'media/' + self.account.extra_data['image_id']
 
@@ -63,7 +80,7 @@ class EventbriteProvider(OAuth2Provider):
         return str(data['id'])
 
     def extract_common_fields(self, data):
-        """Extract fields from a default query of v3/users/me"""
+        """Extract fields from a default query of v3/users/me."""
         return dict(
             emails=data.get('emails'),
             id=data.get('id'),

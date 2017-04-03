@@ -22,7 +22,7 @@ class EventbriteAccount(ProviderAccount):
         >>> import requests
         >>> headers = {'Authorization': 'Bearer {0}'.format("user's_token")}
         >>> profile_url = API_URL + 'users/' + self.account.extra_data['id']
-        >>> profile = requests.get(profile_url).json()
+        >>> profile = requests.get(profile_url, headers=headers).json()
         """
         return API_URL + 'users/' + self.account.extra_data['id']
 
@@ -39,7 +39,7 @@ class EventbriteAccount(ProviderAccount):
         >>> headers = {'Authorization': 'Bearer {0}'.format("user's_token")}
         >>> image_url_endpoint = (API_URL + 'media/' +
         ...                       self.account.extra_data['image_id'])
-        >>> response = requests.get(image_url_endpoint)
+        >>> response = requests.get(image_url_endpoint, headers=headers)
         >>> url = response.json()['url']
         """
         return API_URL + 'media/' + self.account.extra_data['image_id']

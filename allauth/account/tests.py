@@ -8,6 +8,7 @@ from datetime import timedelta
 import django
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser, AnonymousUser
+from django.contrib.sites.models import Site
 from django.core import mail, validators
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -22,11 +23,7 @@ from allauth.account.models import (
     EmailConfirmationHMAC,
 )
 from allauth.tests import TestCase, patch
-from allauth.utils import (
-    get_current_site,
-    get_user_model,
-    get_username_max_length,
-)
+from allauth.utils import get_user_model, get_username_max_length
 
 from . import app_settings
 from ..compat import is_authenticated, reverse
@@ -63,7 +60,7 @@ class AccountTests(TestCase):
             from ..socialaccount.models import SocialApp
             sa = SocialApp.objects.create(name='testfb',
                                           provider='facebook')
-            sa.sites.add(get_current_site())
+            sa.sites.add(Site.objects.get_current())
 
     @override_settings(
         ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod
@@ -80,7 +77,7 @@ class AccountTests(TestCase):
                                 {'login': '@raymond.penners',
                                  'password': 'psst'})
         self.assertRedirects(resp,
-                             'http://testserver'+settings.LOGIN_REDIRECT_URL,
+                             'http://testserver' + settings.LOGIN_REDIRECT_URL,
                              fetch_redirect_response=False)
 
     def test_signup_same_email_verified_externally(self):
@@ -235,6 +232,19 @@ class AccountTests(TestCase):
         self._create_user_and_login(usable_password)
         return self.client.get(reverse(urlname))
 
+    def test_ajax_password_change(self):
+        self._create_user_and_login()
+        resp = self.client.post(
+            reverse('account_change_password'),
+            data={'oldpassword': 'doe',
+                  'password1': 'AbCdEf!123',
+                  'password2': 'AbCdEf!123456'},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(resp['content-type'], 'application/json')
+        data = json.loads(resp.content.decode('utf8'))
+        assert ('same password' in
+                data['form']['fields']['password2']['errors'][0])
+
     def test_password_forgotten_username_hint(self):
         user = self._request_new_password()
         body = mail.outbox[0].body
@@ -318,8 +328,7 @@ class AccountTests(TestCase):
                                     HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 400)
         data = json.loads(response.content.decode('utf8'))
-        self.assertTrue('form_errors' in data)
-        self.assertTrue('__all__' in data['form_errors'])
+        assert 'invalid' in data['form']['errors'][0]
 
     @override_settings(ACCOUNT_LOGIN_ON_PASSWORD_RESET=True)
     def test_password_reset_ACCOUNT_LOGIN_ON_PASSWORD_RESET(self):
@@ -391,11 +400,11 @@ class AccountTests(TestCase):
                       {'login': 'johndoe',
                        'password': 'johndoe'})
         self.assertRedirects(resp,
-                             'http://testserver'+settings.LOGIN_REDIRECT_URL,
+                             'http://testserver' + settings.LOGIN_REDIRECT_URL,
                              fetch_redirect_response=False)
 
     def test_email_escaping(self):
-        site = get_current_site()
+        site = Site.objects.get_current()
         site.name = '<enc&"test>'
         site.save()
         u = get_user_model().objects.create(
@@ -421,7 +430,7 @@ class AccountTests(TestCase):
                                 {'login': 'john',
                                  'password': 'doe'})
         self.assertRedirects(resp,
-                             'http://testserver'+settings.LOGIN_REDIRECT_URL,
+                             'http://testserver' + settings.LOGIN_REDIRECT_URL,
                              fetch_redirect_response=False)
 
     @override_settings(
@@ -609,8 +618,8 @@ class AccountTests(TestCase):
         'django.contrib.auth.password_validation.MinimumLengthValidator',
         'OPTIONS': {
             'min_length': 9,
-            }
-        }])
+        }
+    }])
     def test_django_password_validation(self):
         if django.VERSION < (1, 9, ):
             return
@@ -724,6 +733,19 @@ class EmailFormTests(TestCase):
         self.assertTemplateUsed(resp,
                                 'account/messages/email_confirmation_sent.txt')
 
+    def test_ajax_get(self):
+        resp = self.client.get(
+            reverse('account_email'),
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        data = json.loads(resp.content.decode('utf8'))
+        assert data['data'] == [
+            {'email': 'john1@doe.org',
+             'primary': True,
+             'verified': True},
+            {'email': 'john2@doe.org',
+             'primary': False,
+             'verified': False}]
+
     def test_ajax_add(self):
         resp = self.client.post(
             reverse('account_email'),
@@ -741,8 +763,7 @@ class EmailFormTests(TestCase):
              'email': 'john3#doe.org'},
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         data = json.loads(resp.content.decode('utf8'))
-        self.assertTrue('form_errors' in data)
-        self.assertTrue('email' in data['form_errors'])
+        assert 'valid' in data['form']['fields']['email']['errors'][0]
 
     def test_remove_primary(self):
         resp = self.client.post(

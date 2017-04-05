@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
 
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -41,4 +40,4 @@ class WindowsLiveProvider(OAuth2Provider):
                     first_name=data.get('first_name'))
 
 
-providers.registry.register(WindowsLiveProvider)
+provider_classes = [WindowsLiveProvider]

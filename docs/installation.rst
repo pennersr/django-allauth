@@ -10,16 +10,7 @@ Python package::
 
 settings.py (Important - Please note 'django.contrib.sites' is required as INSTALLED_APPS)::
 
-    # For Django 1.7, use:
-    TEMPLATE_CONTEXT_PROCESSORS = (
-        ...
-        # Required by `allauth` template tags
-        'django.core.context_processors.request',
-        ...
-    )
-
-    # If you are running Django 1.8+, specify the context processors
-    # as follows:
+    # Specify the context processors as follows:
     TEMPLATES = [
         {
             'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -48,7 +39,8 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
 
     INSTALLED_APPS = (
         ...
-        # The Django sites framework is required
+        # The following apps are required:
+        'django.contrib.auth',
         'django.contrib.sites',
 
         'allauth',
@@ -58,6 +50,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.amazon',
         'allauth.socialaccount.providers.angellist',
         'allauth.socialaccount.providers.asana',
+        'allauth.socialaccount.providers.auth0',
         'allauth.socialaccount.providers.baidu',
         'allauth.socialaccount.providers.basecamp',
         'allauth.socialaccount.providers.bitbucket',
@@ -71,6 +64,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.draugiem',
         'allauth.socialaccount.providers.dropbox',
         'allauth.socialaccount.providers.dropbox_oauth2',
+        'allauth.socialaccount.providers.dwolla',
         'allauth.socialaccount.providers.edmodo',
         'allauth.socialaccount.providers.eveonline',
         'allauth.socialaccount.providers.evernote',
@@ -106,6 +100,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.spotify',
         'allauth.socialaccount.providers.stackexchange',
         'allauth.socialaccount.providers.stripe',
+        'allauth.socialaccount.providers.trello',
         'allauth.socialaccount.providers.tumblr',
         'allauth.socialaccount.providers.twentythreeandme',
         'allauth.socialaccount.providers.twitch',
@@ -130,6 +125,11 @@ urls.py::
         ...
     ]
 
+Note that you do not necessarily need the URLs provided by
+``django.contrib.auth.urls``. Instead of the URLs ``login``, ``logout``, and
+``password_change`` (among others), you can use the URLs provided by
+``allauth``: ``account_login``, ``account_logout``, ``account_set_password``...
+
 
 Post-Installation
 -----------------
@@ -141,6 +141,6 @@ In your Django root execute the command below to create your database tables::
 Now start your server, visit your admin pages (e.g. http://localhost:8000/admin/)
 and follow these steps:
 
-1. Add a `Site` for your domain, matching `settings.SITE_ID` (`django.contrib.sites` app).
-2. For each OAuth based provider, add a `Social App` (`socialaccount` app).
+1. Add a ``Site`` for your domain, matching ``settings.SITE_ID`` (``django.contrib.sites`` app).
+2. For each OAuth based provider, add a ``Social App`` (``socialaccount`` app).
 3. Fill in the site and the OAuth app credentials obtained from the provider.

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-25 08:20-0500\n"
+"POT-Creation-Date: 2017-02-28 07:56-0600\n"
 "PO-Revision-Date: 2014-08-12 00:36+0200\n"
 "Last-Translator: jresins <jresins@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,309 +16,319 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: account/adapter.py:47
-msgid "Usernames can only contain letters, digits and @/./+/-/_."
-msgstr "用户名只能包含字母，数字和@/./+/-/_."
-
-#: account/adapter.py:49
+#: account/adapter.py:50
 msgid "Username can not be used. Please use other username."
 msgstr "此用户名不能使用，请改用其他用户名。"
 
-#: account/adapter.py:53
+#: account/adapter.py:54
 msgid "Too many failed login attempts. Try again later."
 msgstr "登录失败次数过多，请稍后重试。"
 
-#: account/adapter.py:296
+#: account/adapter.py:56
+msgid "A user is already registered with this e-mail address."
+msgstr "此e-mail地址已被其他用户注册。"
+
+#: account/adapter.py:293
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "密码长度不得少于 {0} 个字符。"
 
-#: account/apps.py:8
+#: account/apps.py:7
 #, fuzzy
 msgid "Accounts"
 msgstr "账号"
 
-#: account/forms.py:39 account/forms.py:369
+#: account/forms.py:41 account/forms.py:364
 msgid "You must type the same password each time."
 msgstr "每次输入的密码必须相同"
 
-#: account/forms.py:69 account/forms.py:338 account/forms.py:449
+#: account/forms.py:71 account/forms.py:334 account/forms.py:442
 msgid "Password"
 msgstr "密码"
 
-#: account/forms.py:70
+#: account/forms.py:72
 msgid "Remember Me"
 msgstr "记住我"
 
-#: account/forms.py:76
+#: account/forms.py:78
 msgid "This account is currently inactive."
 msgstr "此账号当前未激活。"
 
-#: account/forms.py:79
+#: account/forms.py:81
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "您提供的e-mail地址或密码不正确。"
 
-#: account/forms.py:82
+#: account/forms.py:84
 msgid "The username and/or password you specified are not correct."
 msgstr "您提供的用户名或密码不正确。"
 
-#: account/forms.py:85
+#: account/forms.py:87
 msgid "The login and/or password you specified are not correct."
 msgstr "您提供的账号或密码错误"
 
-#: account/forms.py:94 account/forms.py:236 account/forms.py:260
-#: account/forms.py:399 account/forms.py:468
+#: account/forms.py:96 account/forms.py:238 account/forms.py:392
+#: account/forms.py:461
 msgid "E-mail address"
 msgstr "E-mail地址"
 
-#: account/forms.py:96 account/forms.py:276 account/forms.py:394
-#: account/forms.py:463
+#: account/forms.py:98 account/forms.py:269 account/forms.py:387
+#: account/forms.py:456
 msgid "E-mail"
 msgstr "E-mail"
 
-#: account/forms.py:101 account/forms.py:104 account/forms.py:228
-#: account/forms.py:232
+#: account/forms.py:103 account/forms.py:106 account/forms.py:230
+#: account/forms.py:234
 msgid "Username"
 msgstr "用户名"
 
-#: account/forms.py:111
+#: account/forms.py:113
 msgid "Username or e-mail"
 msgstr "用户名或e-mail"
 
-#: account/forms.py:114
+#: account/forms.py:116
 msgctxt "field label"
 msgid "Login"
 msgstr "账号"
 
-#: account/forms.py:268
+#: account/forms.py:258
+#, fuzzy
+#| msgid "E-mail (optional)"
+msgid "E-mail (again)"
+msgstr "E-mail （选填项）"
+
+#: account/forms.py:262
 #, fuzzy
 #| msgid "email confirmation"
 msgid "E-mail address confirmation"
 msgstr "e-mail确认"
 
-#: account/forms.py:279
+#: account/forms.py:272
 msgid "E-mail (optional)"
 msgstr "E-mail （选填项）"
 
-#: account/forms.py:319
+#: account/forms.py:314
 #, fuzzy
 #| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
 msgstr "每次输入的密码必须相同"
 
-#: account/forms.py:339 account/forms.py:450
+#: account/forms.py:337 account/forms.py:443
 msgid "Password (again)"
 msgstr "密码（重复）"
 
-#: account/forms.py:405
+#: account/forms.py:398
 msgid "This e-mail address is already associated with this account."
 msgstr "此e-mail地址已关联到这个账号。"
 
-#: account/forms.py:407
+#: account/forms.py:400
 msgid "This e-mail address is already associated with another account."
 msgstr "此e-mail地址已关联到其他账号。"
 
-#: account/forms.py:429
+#: account/forms.py:422
 msgid "Current Password"
 msgstr "当前密码"
 
-#: account/forms.py:430 account/forms.py:525
+#: account/forms.py:423 account/forms.py:512
 msgid "New Password"
 msgstr "新密码"
 
-#: account/forms.py:431 account/forms.py:526
+#: account/forms.py:424 account/forms.py:513
 msgid "New Password (again)"
 msgstr "新密码（重复）"
 
-#: account/forms.py:439
+#: account/forms.py:432
 msgid "Please type your current password."
 msgstr "请输入您的当前密码"
 
-#: account/forms.py:477
+#: account/forms.py:470
 msgid "The e-mail address is not assigned to any user account"
 msgstr "此e-mail地址未分配给任何用户账号"
 
-#: account/forms.py:547
+#: account/forms.py:534
 msgid "The password reset token was invalid."
 msgstr "重设密码的token不合法。"
 
-#: account/models.py:26
+#: account/models.py:23
 msgid "user"
 msgstr "用户"
 
-#: account/models.py:29 account/models.py:88
+#: account/models.py:27 account/models.py:86
 #, fuzzy
 msgid "e-mail address"
 msgstr "e-mail地址"
 
-#: account/models.py:30
+#: account/models.py:28
 msgid "verified"
 msgstr "已验证"
 
-#: account/models.py:31
+#: account/models.py:29
 #, fuzzy
 msgid "primary"
 msgstr "首选e-mail"
 
-#: account/models.py:36
+#: account/models.py:34
 msgid "email address"
 msgstr "e-mail地址"
 
-#: account/models.py:37
+#: account/models.py:35
 msgid "email addresses"
 msgstr "e-mail地址"
 
-#: account/models.py:89
+#: account/models.py:88
 msgid "created"
 msgstr "已建立"
 
-#: account/models.py:91
+#: account/models.py:90
 msgid "sent"
 msgstr "已发送"
 
-#: account/models.py:92 socialaccount/models.py:59
+#: account/models.py:91 socialaccount/models.py:61
 msgid "key"
 msgstr "key"
 
-#: account/models.py:97
+#: account/models.py:96
 msgid "email confirmation"
 msgstr "e-mail确认"
 
-#: account/models.py:98
+#: account/models.py:97
 msgid "email confirmations"
 msgstr "e-mail确认"
 
-#: socialaccount/adapter.py:121
-msgid "Your account has no password set up."
-msgstr "您的账号未设置密码。"
-
-#: socialaccount/adapter.py:128
-msgid "Your account has no verified e-mail address."
-msgstr "您的账号下无任何验证过的e-mail地址。"
-
-#: socialaccount/apps.py:8
-#, fuzzy
-msgid "Social Accounts"
-msgstr "账号"
-
-#: socialaccount/forms.py:41
+#: socialaccount/adapter.py:26
 #, python-format
 msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
 "account first, then connect your %s account."
 msgstr "已有一个账号与此e-mail地址关联，请先登录该账号，然后连接你的 %s 账号。"
 
-#: socialaccount/models.py:47 socialaccount/models.py:80
+#: socialaccount/adapter.py:131
+msgid "Your account has no password set up."
+msgstr "您的账号未设置密码。"
+
+#: socialaccount/adapter.py:138
+msgid "Your account has no verified e-mail address."
+msgstr "您的账号下无任何验证过的e-mail地址。"
+
+#: socialaccount/apps.py:7
+#, fuzzy
+msgid "Social Accounts"
+msgstr "账号"
+
+#: socialaccount/models.py:49 socialaccount/models.py:83
 msgid "provider"
 msgstr "提供商"
 
-#: socialaccount/models.py:50
+#: socialaccount/models.py:52
 #, fuzzy
 msgid "name"
 msgstr "用户名"
 
-#: socialaccount/models.py:52
+#: socialaccount/models.py:54
 msgid "client id"
 msgstr "客户端 id"
 
-#: socialaccount/models.py:54
+#: socialaccount/models.py:56
 msgid "App ID, or consumer key"
 msgstr ""
 
-#: socialaccount/models.py:55
+#: socialaccount/models.py:57
 msgid "secret key"
 msgstr ""
 
-#: socialaccount/models.py:57
+#: socialaccount/models.py:59
 msgid "API secret, client secret, or consumer secret"
 msgstr ""
 
-#: socialaccount/models.py:62
+#: socialaccount/models.py:64
 #, fuzzy
 msgid "Key"
 msgstr "key"
 
-#: socialaccount/models.py:70
+#: socialaccount/models.py:72
 msgid "social application"
 msgstr ""
 
-#: socialaccount/models.py:71
+#: socialaccount/models.py:73
 msgid "social applications"
 msgstr ""
 
-#: socialaccount/models.py:99
+#: socialaccount/models.py:102
 msgid "uid"
 msgstr ""
 
-#: socialaccount/models.py:101
+#: socialaccount/models.py:104
 msgid "last login"
 msgstr "最后登录"
 
-#: socialaccount/models.py:103
+#: socialaccount/models.py:106
 msgid "date joined"
 msgstr "注册日期"
 
-#: socialaccount/models.py:105
+#: socialaccount/models.py:108
 msgid "extra data"
 msgstr ""
 
-#: socialaccount/models.py:109
+#: socialaccount/models.py:112
 msgid "social account"
 msgstr "社交账号"
 
-#: socialaccount/models.py:110
+#: socialaccount/models.py:113
 msgid "social accounts"
 msgstr "社交账号"
 
-#: socialaccount/models.py:136
+#: socialaccount/models.py:139
 msgid "token"
 msgstr ""
 
-#: socialaccount/models.py:138
+#: socialaccount/models.py:141
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:141
+#: socialaccount/models.py:144
 msgid "token secret"
 msgstr ""
 
-#: socialaccount/models.py:143
+#: socialaccount/models.py:146
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:145
+#: socialaccount/models.py:148
 msgid "expires at"
 msgstr ""
 
-#: socialaccount/models.py:149
+#: socialaccount/models.py:152
 msgid "social application token"
 msgstr ""
 
-#: socialaccount/models.py:150
+#: socialaccount/models.py:153
 msgid "social application tokens"
 msgstr ""
 
-#: socialaccount/providers/oauth/client.py:77
+#: socialaccount/providers/douban/views.py:36
+msgid "Invalid profile data"
+msgstr ""
+
+#: socialaccount/providers/oauth/client.py:78
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "Invalid response while obtaining request token from \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:108
+#: socialaccount/providers/oauth/client.py:109
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Invalid response while obtaining access token from \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:127
+#: socialaccount/providers/oauth/client.py:128
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr "No request token saved for \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:176
+#: socialaccount/providers/oauth/client.py:177
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "No access token saved for \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:196
+#: socialaccount/providers/oauth/client.py:197
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "无权访问私有资源 \"%s\"。"
@@ -788,8 +798,8 @@ msgstr ""
 "您将使用您的%(provider_name)s账号登录\n"
 "%(site_name)s。作为最后一步，请完成以下表单："
 
-#~ msgid "A user is already registered with this e-mail address."
-#~ msgstr "此e-mail地址已被其他用户注册。"
+#~ msgid "Usernames can only contain letters, digits and @/./+/-/_."
+#~ msgstr "用户名只能包含字母，数字和@/./+/-/_."
 
 #~ msgid "This username is already taken. Please choose another."
 #~ msgstr "此用户名已被使用，请选择其他用户名。"
@@ -836,8 +846,8 @@ msgstr ""
 #~ "If you have any trouble resetting your password, contact us at <a href="
 #~ "\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
 #~ msgstr ""
-#~ "如果您在重置密码中遇到任何问题，请联系我们"
-#~ "<a href=\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
+#~ "如果您在重置密码中遇到任何问题，请联系我们<a href=\"mailto:"
+#~ "%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
 
 #~ msgid "Invalid confirmation key."
 #~ msgstr "不合法的确认密匙"

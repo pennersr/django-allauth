@@ -2,23 +2,21 @@ sudo: false
 language: python
 python:
  - "2.7"
- - "3.2"
  - "3.3"
  - "3.4"
  - "3.5"
  - "3.6"
 env:
   matrix:
-   - DJANGO="Django<1.8"
    - DJANGO="Django<1.9"
    - DJANGO="Django<1.10"
    - DJANGO="Django<1.11"
+   - DJANGO="Django==1.11b1"
 cache:
   directories:
     - $HOME/.cache/pip
 install:
- # pip >=8 dropped Python 3.2 support
- - pip install "pip<8.0.0" wheel
+ - pip install --upgrade pip wheel
  - pip install "$DJANGO" "coverage==3.7.1" coveralls "mock>=1.0.1"
  - pip install .
  - pip install flake8
@@ -27,19 +25,13 @@ install:
  - npm install standard
 matrix:
   exclude:
-    - python: "3.5"
-      env: DJANGO="Django<1.8"
-    - python: "3.6"
-      env: DJANGO="Django<1.8"
-    # Django 1.9+ no longer supports python 3.2/3.3
-    - python: "3.2"
-      env: DJANGO="Django<1.10"
+    # Django 1.9+ no longer supports python 3.3
     - python: "3.3"
       env: DJANGO="Django<1.10"
-    - python: "3.2"
-      env: DJANGO="Django<1.11"
     - python: "3.3"
       env: DJANGO="Django<1.11"
+    - python: "3.3"
+      env: DJANGO="Django==1.11b1"
 branches:
  only:
   - master

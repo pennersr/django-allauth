@@ -100,6 +100,7 @@ def _add_social_account(request, sociallogin):
         return HttpResponseRedirect(reverse('socialaccount_connections'))
     level = messages.INFO
     message = 'socialaccount/messages/account_connected.txt'
+    action = None
     if sociallogin.is_existing:
         if sociallogin.user != request.user:
             # Social account of other user. For now, this scenario
@@ -109,12 +110,22 @@ def _add_social_account(request, sociallogin):
             level = messages.ERROR
             message = 'socialaccount/messages/account_connected_other.txt'
         else:
-            # This account is already connected -- let's play along
-            # and render the standard "account connected" message
-            # without actually doing anything.
-            pass
+            # This account is already connected -- we give the opportunity
+            # for customized behaviour through use of a signal. If not
+            # implemented, we render the standard "account connected"
+            # message without actually doing anything.
+            action = 'updated'
+            try:
+                signals.social_account_updated.send(
+                    sender=SocialLogin,
+                    request=request,
+                    sociallogin=sociallogin
+                )
+            except ImmediateHttpResponse as e:
+                return e.response
     else:
         # New account, let's connect
+        action = 'added'
         sociallogin.connect(request, request.user)
         try:
             signals.social_account_added.send(sender=SocialLogin,
@@ -126,7 +137,13 @@ def _add_social_account(request, sociallogin):
         request,
         sociallogin.account)
     next_url = sociallogin.get_redirect_url(request) or default_next
-    get_account_adapter(request).add_message(request, level, message)
+    get_account_adapter(request).add_message(
+        request, level, message,
+        message_context={
+            'sociallogin': sociallogin,
+            'action': action
+        }
+    )
     return HttpResponseRedirect(next_url)
 
 

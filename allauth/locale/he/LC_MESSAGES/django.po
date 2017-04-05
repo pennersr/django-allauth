@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-25 08:20-0500\n"
+"POT-Creation-Date: 2017-02-28 07:56-0600\n"
 "PO-Revision-Date: 2013-10-13 15:52+0200\n"
 "Last-Translator: Udi Oron <udioron@gmail.com>\n"
 "Language-Team: Hebrew\n"
@@ -18,309 +18,319 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.7\n"
 
-#: account/adapter.py:47
-msgid "Usernames can only contain letters, digits and @/./+/-/_."
-msgstr ""
-
-#: account/adapter.py:49
+#: account/adapter.py:50
 msgid "Username can not be used. Please use other username."
 msgstr ""
 
-#: account/adapter.py:53
+#: account/adapter.py:54
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 
-#: account/adapter.py:296
+#: account/adapter.py:56
+msgid "A user is already registered with this e-mail address."
+msgstr "משתמש אחר כבר נרשם עם דואל זה"
+
+#: account/adapter.py:293
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "הסיסמא חייבת להיות באורך של לפחות {0} תווים."
 
-#: account/apps.py:8
+#: account/apps.py:7
 #, fuzzy
 msgid "Accounts"
 msgstr "חשבון"
 
-#: account/forms.py:39 account/forms.py:369
+#: account/forms.py:41 account/forms.py:364
 msgid "You must type the same password each time."
 msgstr "יש להזין את אותה הסיסמא פעמיים"
 
-#: account/forms.py:69 account/forms.py:338 account/forms.py:449
+#: account/forms.py:71 account/forms.py:334 account/forms.py:442
 msgid "Password"
 msgstr "סיסמא"
 
-#: account/forms.py:70
+#: account/forms.py:72
 msgid "Remember Me"
 msgstr "זכור אותי"
 
-#: account/forms.py:76
+#: account/forms.py:78
 msgid "This account is currently inactive."
 msgstr "חשבון זה אינו פעיל"
 
-#: account/forms.py:79
+#: account/forms.py:81
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "כתובת האימייל ו/או הסיסמא אינם נכונים"
 
-#: account/forms.py:82
+#: account/forms.py:84
 msgid "The username and/or password you specified are not correct."
 msgstr "שם המשתמש ו/או הסיסמא אינם נכונים"
 
-#: account/forms.py:85
+#: account/forms.py:87
 msgid "The login and/or password you specified are not correct."
 msgstr "שם המשתמש ו/או הסיסמא אינם נכונים"
 
-#: account/forms.py:94 account/forms.py:236 account/forms.py:260
-#: account/forms.py:399 account/forms.py:468
+#: account/forms.py:96 account/forms.py:238 account/forms.py:392
+#: account/forms.py:461
 msgid "E-mail address"
 msgstr "כתובת דואל"
 
-#: account/forms.py:96 account/forms.py:276 account/forms.py:394
-#: account/forms.py:463
+#: account/forms.py:98 account/forms.py:269 account/forms.py:387
+#: account/forms.py:456
 msgid "E-mail"
 msgstr "דואל"
 
-#: account/forms.py:101 account/forms.py:104 account/forms.py:228
-#: account/forms.py:232
+#: account/forms.py:103 account/forms.py:106 account/forms.py:230
+#: account/forms.py:234
 msgid "Username"
 msgstr "שם משתמש"
 
-#: account/forms.py:111
+#: account/forms.py:113
 msgid "Username or e-mail"
 msgstr "שם משתמש או דואל"
 
-#: account/forms.py:114
+#: account/forms.py:116
 msgctxt "field label"
 msgid "Login"
 msgstr "כניסה"
 
-#: account/forms.py:268
+#: account/forms.py:258
+#, fuzzy
+#| msgid "E-mail (optional)"
+msgid "E-mail (again)"
+msgstr "דואל (אופציונאלי)"
+
+#: account/forms.py:262
 #, fuzzy
 #| msgid "email confirmation"
 msgid "E-mail address confirmation"
 msgstr "אישור בדואל"
 
-#: account/forms.py:279
+#: account/forms.py:272
 msgid "E-mail (optional)"
 msgstr "דואל (אופציונאלי)"
 
-#: account/forms.py:319
+#: account/forms.py:314
 #, fuzzy
 #| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
 msgstr "יש להזין את אותה הסיסמא פעמיים"
 
-#: account/forms.py:339 account/forms.py:450
+#: account/forms.py:337 account/forms.py:443
 msgid "Password (again)"
 msgstr "סיסמא (שוב)"
 
-#: account/forms.py:405
+#: account/forms.py:398
 msgid "This e-mail address is already associated with this account."
 msgstr "כתובת דואל זו כבר משויכת לחשבון זה"
 
-#: account/forms.py:407
+#: account/forms.py:400
 msgid "This e-mail address is already associated with another account."
 msgstr "כתובת דואל זו כבר משויכת לחשבון אחר"
 
-#: account/forms.py:429
+#: account/forms.py:422
 msgid "Current Password"
 msgstr "סיסמא נוכחית"
 
-#: account/forms.py:430 account/forms.py:525
+#: account/forms.py:423 account/forms.py:512
 msgid "New Password"
 msgstr "סיסמא חדשה"
 
-#: account/forms.py:431 account/forms.py:526
+#: account/forms.py:424 account/forms.py:513
 msgid "New Password (again)"
 msgstr "סיסמא חדשה (פעם שניה)"
 
-#: account/forms.py:439
+#: account/forms.py:432
 msgid "Please type your current password."
 msgstr "אנא הזן את הסיסמא הנוכחית"
 
-#: account/forms.py:477
+#: account/forms.py:470
 msgid "The e-mail address is not assigned to any user account"
 msgstr "כתובת דואל זו אינה משויכת לאף חשבון."
 
-#: account/forms.py:547
+#: account/forms.py:534
 msgid "The password reset token was invalid."
 msgstr ""
 
-#: account/models.py:26
+#: account/models.py:23
 msgid "user"
 msgstr ""
 
-#: account/models.py:29 account/models.py:88
+#: account/models.py:27 account/models.py:86
 #, fuzzy
 msgid "e-mail address"
 msgstr "כתובת דואל"
 
-#: account/models.py:30
+#: account/models.py:28
 #, fuzzy
 msgid "verified"
 msgstr "טרם אושרו"
 
-#: account/models.py:31
+#: account/models.py:29
 #, fuzzy
 msgid "primary"
 msgstr "ראשי"
 
-#: account/models.py:36
+#: account/models.py:34
 msgid "email address"
 msgstr "כתובת דואל"
 
-#: account/models.py:37
+#: account/models.py:35
 msgid "email addresses"
 msgstr "כתובות דואל"
 
-#: account/models.py:89
+#: account/models.py:88
 msgid "created"
 msgstr ""
 
-#: account/models.py:91
+#: account/models.py:90
 msgid "sent"
 msgstr ""
 
-#: account/models.py:92 socialaccount/models.py:59
+#: account/models.py:91 socialaccount/models.py:61
 msgid "key"
 msgstr ""
 
-#: account/models.py:97
+#: account/models.py:96
 msgid "email confirmation"
 msgstr "אישור בדואל"
 
-#: account/models.py:98
+#: account/models.py:97
 msgid "email confirmations"
 msgstr "אישורים בדואל"
 
-#: socialaccount/adapter.py:121
-msgid "Your account has no password set up."
-msgstr "לא נבחרה סיסמא לחשבונך"
-
-#: socialaccount/adapter.py:128
-msgid "Your account has no verified e-mail address."
-msgstr "לא נמצאו כתובות דואל מאושרות לחשבונך"
-
-#: socialaccount/apps.py:8
-#, fuzzy
-msgid "Social Accounts"
-msgstr "חשבון"
-
-#: socialaccount/forms.py:41
+#: socialaccount/adapter.py:26
 #, python-format
 msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
 "account first, then connect your %s account."
 msgstr ""
 
-#: socialaccount/models.py:47 socialaccount/models.py:80
+#: socialaccount/adapter.py:131
+msgid "Your account has no password set up."
+msgstr "לא נבחרה סיסמא לחשבונך"
+
+#: socialaccount/adapter.py:138
+msgid "Your account has no verified e-mail address."
+msgstr "לא נמצאו כתובות דואל מאושרות לחשבונך"
+
+#: socialaccount/apps.py:7
+#, fuzzy
+msgid "Social Accounts"
+msgstr "חשבון"
+
+#: socialaccount/models.py:49 socialaccount/models.py:83
 msgid "provider"
 msgstr ""
 
-#: socialaccount/models.py:50
+#: socialaccount/models.py:52
 #, fuzzy
 msgid "name"
 msgstr "שם משתמש"
 
-#: socialaccount/models.py:52
+#: socialaccount/models.py:54
 msgid "client id"
 msgstr ""
 
-#: socialaccount/models.py:54
+#: socialaccount/models.py:56
 msgid "App ID, or consumer key"
 msgstr ""
 
-#: socialaccount/models.py:55
+#: socialaccount/models.py:57
 msgid "secret key"
 msgstr ""
 
-#: socialaccount/models.py:57
+#: socialaccount/models.py:59
 msgid "API secret, client secret, or consumer secret"
 msgstr ""
 
-#: socialaccount/models.py:62
+#: socialaccount/models.py:64
 msgid "Key"
 msgstr ""
 
-#: socialaccount/models.py:70
+#: socialaccount/models.py:72
 msgid "social application"
 msgstr ""
 
-#: socialaccount/models.py:71
+#: socialaccount/models.py:73
 msgid "social applications"
 msgstr ""
 
-#: socialaccount/models.py:99
+#: socialaccount/models.py:102
 msgid "uid"
 msgstr ""
 
-#: socialaccount/models.py:101
+#: socialaccount/models.py:104
 msgid "last login"
 msgstr ""
 
-#: socialaccount/models.py:103
+#: socialaccount/models.py:106
 msgid "date joined"
 msgstr ""
 
-#: socialaccount/models.py:105
+#: socialaccount/models.py:108
 msgid "extra data"
 msgstr ""
 
-#: socialaccount/models.py:109
+#: socialaccount/models.py:112
 msgid "social account"
 msgstr ""
 
-#: socialaccount/models.py:110
+#: socialaccount/models.py:113
 msgid "social accounts"
 msgstr ""
 
-#: socialaccount/models.py:136
+#: socialaccount/models.py:139
 msgid "token"
 msgstr ""
 
-#: socialaccount/models.py:138
+#: socialaccount/models.py:141
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:141
+#: socialaccount/models.py:144
 msgid "token secret"
 msgstr ""
 
-#: socialaccount/models.py:143
+#: socialaccount/models.py:146
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:145
+#: socialaccount/models.py:148
 msgid "expires at"
 msgstr ""
 
-#: socialaccount/models.py:149
+#: socialaccount/models.py:152
 msgid "social application token"
 msgstr ""
 
-#: socialaccount/models.py:150
+#: socialaccount/models.py:153
 msgid "social application tokens"
 msgstr ""
 
-#: socialaccount/providers/oauth/client.py:77
+#: socialaccount/providers/douban/views.py:36
+msgid "Invalid profile data"
+msgstr ""
+
+#: socialaccount/providers/oauth/client.py:78
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr ""
 
-#: socialaccount/providers/oauth/client.py:108
+#: socialaccount/providers/oauth/client.py:109
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr ""
 
-#: socialaccount/providers/oauth/client.py:127
+#: socialaccount/providers/oauth/client.py:128
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr ""
 
-#: socialaccount/providers/oauth/client.py:176
+#: socialaccount/providers/oauth/client.py:177
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr ""
 
-#: socialaccount/providers/oauth/client.py:196
+#: socialaccount/providers/oauth/client.py:197
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr ""
@@ -788,9 +798,6 @@ msgid ""
 msgstr ""
 "You are about to use your %(provider_name)s account to login to \n"
 "%(site_name)s. As a final step, please complete the following form:"
-
-#~ msgid "A user is already registered with this e-mail address."
-#~ msgstr "משתמש אחר כבר נרשם עם דואל זה"
 
 #~ msgid "This username is already taken. Please choose another."
 #~ msgstr "שם משתמש זה כבר תפוס, אנא ציין שם אחר"

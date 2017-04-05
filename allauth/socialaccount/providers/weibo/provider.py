@@ -1,4 +1,3 @@
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import (
     ProviderAccount,
     ProviderException,
@@ -36,4 +35,4 @@ class WeiboProvider(OAuth2Provider):
                     name=data.get('name'))
 
 
-providers.registry.register(WeiboProvider)
+provider_classes = [WeiboProvider]

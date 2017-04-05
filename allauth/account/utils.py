@@ -1,16 +1,16 @@
+from collections import OrderedDict
 from datetime import timedelta
 
 from django.conf import settings
 from django.contrib import messages
-from django.core.exceptions import ValidationError
+from django.contrib.auth import update_session_auth_hash
+from django.core.exceptions import FieldDoesNotExist, ValidationError
 from django.db import models
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.utils import six
 from django.utils.http import base36_to_int, int_to_base36, urlencode
 from django.utils.timezone import now
-
-from allauth.compat import OrderedDict
 
 from . import app_settings, signals
 from ..exceptions import ImmediateHttpResponse
@@ -23,11 +23,6 @@ from ..utils import (
 from .adapter import get_adapter
 from .app_settings import EmailVerificationMethod
 
-
-try:
-    from django.contrib.auth import update_session_auth_hash
-except ImportError:
-    update_session_auth_hash = None
 
 try:
     from django.utils.encoding import force_text
@@ -67,8 +62,7 @@ def logout_on_password_change(request, user):
     # Since it is the default behavior of Django to invalidate all sessions on
     # password change, this function actually has to preserve the session when
     # logout isn't desired.
-    if (update_session_auth_hash is not None and
-            not app_settings.LOGOUT_ON_PASSWORD_CHANGE):
+    if not app_settings.LOGOUT_ON_PASSWORD_CHANGE:
         update_session_auth_hash(request, user)
 
 
@@ -92,17 +86,22 @@ def user_field(user, field, *args):
     """
     Gets or sets (optional) user model fields. No-op if fields do not exist.
     """
-    if field and hasattr(user, field):
-        if args:
-            # Setter
-            v = args[0]
-            if v:
-                User = get_user_model()
-                v = v[0:User._meta.get_field(field).max_length]
-            setattr(user, field, v)
-        else:
-            # Getter
-            return getattr(user, field)
+    if not field:
+        return
+    User = get_user_model()
+    try:
+        field_meta = User._meta.get_field(field)
+    except FieldDoesNotExist:
+        return
+    if args:
+        # Setter
+        v = args[0]
+        if v:
+            v = v[0:field_meta.max_length]
+        setattr(user, field, v)
+    else:
+        # Getter
+        return getattr(user, field)
 
 
 def user_username(user, *args):
@@ -356,7 +355,7 @@ def sync_user_email_addresses(user):
 def filter_users_by_username(*username):
     if app_settings.PRESERVE_USERNAME_CASING:
         qlist = [
-            Q(**{app_settings.USER_MODEL_USERNAME_FIELD+'__iexact': u})
+            Q(**{app_settings.USER_MODEL_USERNAME_FIELD + '__iexact': u})
             for u in username]
         q = qlist[0]
         for q2 in qlist[1:]:
@@ -364,7 +363,7 @@ def filter_users_by_username(*username):
         ret = get_user_model().objects.filter(q)
     else:
         ret = get_user_model().objects.filter(
-            **{app_settings.USER_MODEL_USERNAME_FIELD+'__in':
+            **{app_settings.USER_MODEL_USERNAME_FIELD + '__in':
                [u.lower() for u in username]})
     return ret
 

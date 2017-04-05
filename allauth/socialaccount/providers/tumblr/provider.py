@@ -1,4 +1,3 @@
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
 
@@ -26,4 +25,4 @@ class TumblrProvider(OAuthProvider):
         return dict(first_name=data.get('name'),)
 
 
-providers.registry.register(TumblrProvider)
+provider_classes = [TumblrProvider]

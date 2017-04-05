@@ -1,6 +1,5 @@
 from django.conf import settings
 
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -36,4 +35,4 @@ class FirefoxAccountsProvider(OAuth2Provider):
         return dict(email=data.get('email'))
 
 
-providers.registry.register(FirefoxAccountsProvider)
+provider_classes = [FirefoxAccountsProvider]

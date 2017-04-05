@@ -1,3 +1,56 @@
+Unreleased
+**********
+
+Note worthy changes
+-------------------
+
+- Improved AJAX support: the account management views (change/set password,
+  manage e-mail addresses and social connections) now support AJAX GET requests.
+  These views hand over all the required data for you to build your frontend
+  application upon.
+
+
+Backwards incompatible changes
+------------------------------
+
+- In previous versions, the views only responded with JSON responses when
+  issuing AJAX requests of type POST. Now, the views also respond in JSON when
+  making AJAX GET requests.
+
+- The structure of the response for AJAX requests has changed. Previously, it
+  contained a ``form_errors`` key containing all form validation errors, if any.
+  Now, it contains a ``form`` key that describes the complete form, including
+  the fields. Field specific errors are placed in
+  ``form.fields['some_field'].errors``, non-field errors in ``form.errors``.
+
+
+0.31.0 (2017-02-28)
+*******************
+
+Note worthy changes
+-------------------
+
+- Added a new ``user_logged_out`` signal.
+
+- OpenId: Added support for requesting additional data.
+
+- New providers: Auth0, Box, Line, Naver, Kakao, Daum, MailChimp, Eventbrite.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Django 1.7 / Python 3.2 compatibility has been dropped.
+
+- Due to providers being registered in the same file as their definition
+  it was impossible to subclass a provider without having the parent be
+  registered. This has been addressed. If you have implemented a custom
+  provider, you will need to change
+  ``providers.registry.register(CustomProvider)``
+  into
+  ``provider_classes = [CustomProvider]``.
+
+
 0.30.0 (2017-01-01)
 *******************
 

@@ -1,20 +1,31 @@
 Templates
 =========
 
+Overridable templates
+---------------------
+
+``allauth`` ships many templates, viewable in the
+`allauth/templates <https://github.com/pennersr/django-allauth/tree/master/allauth/templates>`__
+directory.
+
+For instance, the view corresponding to the ``account_login`` URL uses the
+template ``account/login.html``. If you create a file with this name in your
+code layout, it can override the one shipped with ``allauth``.
+
 Template Tags
 -------------
 
 The following template tag libraries are available:
 
-- `account`: tags for dealing with accounts in general
+- ``account``: tags for dealing with accounts in general
 
-- `socialaccount`: tags focused on social accounts
+- ``socialaccount``: tags focused on social accounts
 
 
 Account Tags
 ************
 
-Use `user_display` to render a user name without making assumptions on
+Use ``user_display`` to render a user name without making assumptions on
 how the user is represented (e.g. render the username, or first
 name?)::
 
@@ -22,35 +33,35 @@ name?)::
 
     {% user_display user %}
 
-Or, if you need to use in a `{% blocktrans %}`::
+Or, if you need to use in a ``{% blocktrans %}``::
 
     {% load account %}
 
     {% user_display user as user_display %}
     {% blocktrans %}{{ user_display }} has logged in...{% endblocktrans %}
 
-Then, override the `ACCOUNT_USER_DISPLAY` setting with your project
+Then, override the ``ACCOUNT_USER_DISPLAY`` setting with your project
 specific user display callable.
 
 
 Social Account Tags
 *******************
 
-Use the `provider_login_url` tag to generate provider specific login URLs::
+Use the ``provider_login_url`` tag to generate provider specific login URLs::
 
     {% load socialaccount %}
 
     <a href="{% provider_login_url "openid" openid="https://www.google.com/accounts/o8/id" next="/success/url/" %}">Google</a>
     <a href="{% provider_login_url "twitter" %}">Twitter</a>
 
-Here, you can pass along an optional `process` parameter that
+Here, you can pass along an optional ``process`` parameter that
 indicates how to process the social login. You can choose between
-`login` and `connect`::
+``login`` and ``connect``::
 
     <a href="{% provider_login_url "twitter" process="connect" %}">Connect a Twitter account</a>
 
-Furthermore, you can pass along an `action` parameter with value
-`reauthenticate` to indicate that you want the user to be re-prompted
+Furthermore, you can pass along an ``action`` parameter with value
+``reauthenticate`` to indicate that you want the user to be re-prompted
 for authentication even if they already signed in before. For now, this
 is supported by Facebook, Google and Twitter only.
 

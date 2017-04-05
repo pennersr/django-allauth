@@ -1,4 +1,3 @@
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -36,4 +35,4 @@ class DoximityProvider(OAuth2Provider):
         return ['basic', 'email']
 
 
-providers.registry.register(DoximityProvider)
+provider_classes = [DoximityProvider]

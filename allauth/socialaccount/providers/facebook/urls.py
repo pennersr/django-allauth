@@ -9,7 +9,7 @@ from .provider import FacebookProvider
 urlpatterns = default_urlpatterns(FacebookProvider)
 
 urlpatterns += [
-    url('^facebook/login/token/$',
+    url(r'^facebook/login/token/$',
         views.login_by_token,
         name="facebook_login_by_token"),
 ]

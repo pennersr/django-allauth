@@ -1,13 +1,13 @@
 from hashlib import md5
 
 from django.contrib.auth.models import User
+from django.contrib.sites.models import Site
 from django.utils.http import urlencode
 
 from allauth.compat import reverse
 from allauth.socialaccount import providers
 from allauth.socialaccount.models import SocialApp, SocialToken
 from allauth.tests import Mock, TestCase, patch
-from allauth.utils import get_current_site
 
 from . import views
 from .provider import DraugiemProvider
@@ -27,7 +27,7 @@ class DraugiemTests(TestCase):
                                        client_id='app123id',
                                        key=self.provider.id,
                                        secret='dummy')
-        app.sites.add(get_current_site())
+        app.sites.add(Site.objects.get_current())
         self.app = app
 
     def get_draugiem_login_response(self):
@@ -78,9 +78,8 @@ class DraugiemTests(TestCase):
         session.save()
 
     def test_login_redirect(self):
-        response = self.client.get(reverse(views.login),
-                                   follow=False, **{'HTTP_HOST': 'localhost'})
-        redirect_url = 'http://localhost' + reverse(views.callback)
+        response = self.client.get(reverse(views.login))
+        redirect_url = 'http://testserver' + reverse(views.callback)
         redirect_url_hash = md5(
             (self.app.secret + redirect_url).encode('utf-8')).hexdigest()
         params = {

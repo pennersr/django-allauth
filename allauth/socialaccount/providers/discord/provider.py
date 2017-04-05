@@ -1,4 +1,3 @@
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -28,4 +27,4 @@ class DiscordProvider(OAuth2Provider):
         return ['email', 'identify']
 
 
-providers.registry.register(DiscordProvider)
+provider_classes = [DiscordProvider]

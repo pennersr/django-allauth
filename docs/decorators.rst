@@ -18,7 +18,7 @@ following decorator::
 The behavior is as follows:
 
 - If the user isn't logged in, it acts identical to the
-  `login_required` decorator.
+  ``login_required`` decorator.
 
 - If the user is logged in but has no verified e-mail address, an
   e-mail verification mail is automatically resent and the user is

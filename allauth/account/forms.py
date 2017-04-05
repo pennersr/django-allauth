@@ -5,6 +5,7 @@ from importlib import import_module
 
 from django import forms
 from django.contrib.auth.tokens import default_token_generator
+from django.contrib.sites.shortcuts import get_current_site
 from django.core import exceptions, validators
 from django.utils.translation import pgettext, ugettext, ugettext_lazy as _
 
@@ -12,7 +13,6 @@ from . import app_settings
 from ..compat import reverse
 from ..utils import (
     build_absolute_uri,
-    get_current_site,
     get_username_max_length,
     set_form_field_order,
 )
@@ -82,9 +82,6 @@ class LoginForm(forms.Form):
 
         'username_password_mismatch':
         _("The username and/or password you specified are not correct."),
-
-        'username_email_password_mismatch':
-        _("The login and/or password you specified are not correct.")
     }
 
     def __init__(self, *args, **kwargs):
@@ -116,7 +113,7 @@ class LoginForm(forms.Form):
                                                          "Login"),
                                           widget=login_widget)
         self.fields["login"] = login_field
-        set_form_field_order(self,  ["login", "password", "remember"])
+        set_form_field_order(self, ["login", "password", "remember"])
         if app_settings.SESSION_REMEMBER is not None:
             del self.fields['remember']
 
@@ -134,7 +131,7 @@ class LoginForm(forms.Form):
                 AuthenticationMethod.USERNAME):
             credentials["username"] = login
         else:
-            if "@" in login and "." in login:
+            if self._is_login_email(login):
                 credentials["email"] = login
             credentials["username"] = login
         credentials["password"] = self.cleaned_data["password"]
@@ -143,6 +140,14 @@ class LoginForm(forms.Form):
     def clean_login(self):
         login = self.cleaned_data['login']
         return login.strip()
+
+    def _is_login_email(self, login):
+        try:
+            validators.validate_email(login)
+            ret = True
+        except exceptions.ValidationError:
+            ret = False
+        return ret
 
     def clean(self):
         super(LoginForm, self).clean()
@@ -155,10 +160,15 @@ class LoginForm(forms.Form):
         if user:
             self.user = user
         else:
+            auth_method = app_settings.AUTHENTICATION_METHOD
+            if auth_method == app_settings.AuthenticationMethod.USERNAME_EMAIL:
+                login = self.cleaned_data['login']
+                if self._is_login_email(login):
+                    auth_method = app_settings.AuthenticationMethod.EMAIL
+                else:
+                    auth_method = app_settings.AuthenticationMethod.USERNAME
             raise forms.ValidationError(
-                self.error_messages[
-                    '%s_password_mismatch'
-                    % app_settings.AUTHENTICATION_METHOD])
+                self.error_messages['%s_password_mismatch' % auth_method])
         return self.cleaned_data
 
     def login(self, request, redirect_url=None):
@@ -329,14 +339,12 @@ class BaseSignupForm(_base_signup_form_class()):
 
 
 class SignupForm(BaseSignupForm):
-
-    password1 = PasswordField(label=_("Password"))
-    password2 = PasswordField(label=_("Password (again)"))
-
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)
-        if not app_settings.SIGNUP_PASSWORD_ENTER_TWICE:
-            del self.fields["password2"]
+        self.fields['password1'] = PasswordField(label=_("Password"))
+        if app_settings.SIGNUP_PASSWORD_ENTER_TWICE:
+            self.fields['password2'] = PasswordField(
+                label=_("Password (again)"))
 
     def clean(self):
         super(SignupForm, self).clean()
@@ -461,8 +469,8 @@ class ResetPasswordForm(forms.Form):
             "type": "email",
             "size": "30",
             "placeholder": _("E-mail address"),
-            })
-        )
+        })
+    )
 
     def clean_email(self):
         email = self.cleaned_data["email"]
@@ -479,11 +487,6 @@ class ResetPasswordForm(forms.Form):
         token_generator = kwargs.get("token_generator",
                                      default_token_generator)
 
-        def deprecated_site():
-            warnings.warn("Context variable `site` deprecated, use"
-                          "`current_site` instead", DeprecationWarning)
-            return current_site
-
         for user in self.users:
 
             temp_key = token_generator.make_token(user)
@@ -499,8 +502,7 @@ class ResetPasswordForm(forms.Form):
             url = build_absolute_uri(
                 request, path)
 
-            context = {"site": deprecated_site,
-                       "current_site": current_site,
+            context = {"current_site": current_site,
                        "user": user,
                        "password_reset_url": url,
                        "request": request}

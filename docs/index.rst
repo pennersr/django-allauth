@@ -10,7 +10,6 @@ Contents
    :maxdepth: 2
 
    overview
-   showcase
    installation
    configuration
    providers

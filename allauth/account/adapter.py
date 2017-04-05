@@ -15,9 +15,11 @@ from django.contrib.auth import (
     logout as django_logout,
 )
 from django.contrib.auth.models import AbstractUser
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.cache import cache
 from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import resolve_url
 from django.template import TemplateDoesNotExist
 from django.template.loader import render_to_string
 from django.utils import timezone
@@ -29,11 +31,10 @@ from ..utils import (
     build_absolute_uri,
     email_address_exists,
     generate_unique_username,
-    get_current_site,
     get_user_model,
     import_attribute,
-    resolve_url,
 )
+from .signals import user_logged_out
 
 
 try:
@@ -317,25 +318,56 @@ class DefaultAccountAdapter(object):
             except TemplateDoesNotExist:
                 pass
 
-    def ajax_response(self, request, response, redirect_to=None, form=None):
-        data = {}
+    def ajax_response(self, request, response, redirect_to=None, form=None,
+                      data=None):
+        resp = {}
         status = response.status_code
 
         if redirect_to:
             status = 200
-            data['location'] = redirect_to
+            resp['location'] = redirect_to
         if form:
-            if form.is_valid():
-                status = 200
+            if request.method == 'POST':
+                if form.is_valid():
+                    status = 200
+                else:
+                    status = 400
             else:
-                status = 400
-                data['form_errors'] = form._errors
+                status = 200
+            resp['form'] = self.ajax_response_form(form)
             if hasattr(response, 'render'):
                 response.render()
-            data['html'] = response.content.decode('utf8')
-        return HttpResponse(json.dumps(data),
+            resp['html'] = response.content.decode('utf8')
+            if data is not None:
+                resp['data'] = data
+        return HttpResponse(json.dumps(resp),
                             status=status,
                             content_type='application/json')
+
+    def ajax_response_form(self, form):
+        form_spec = {
+            'fields': {},
+            'field_order': [],
+            'errors': form.non_field_errors()
+        }
+        for field in form:
+            field_spec = {
+                'label': force_text(field.label),
+                'value': field.value(),
+                'help_text': force_text(field.help_text),
+                'errors': [
+                    force_text(e) for e in field.errors
+                ],
+                'widget': {
+                    'attrs': {
+                        k: force_text(v)
+                        for k, v in field.field.widget.attrs.items()
+                    }
+                }
+            }
+            form_spec['fields'][field.html_name] = field_spec
+            form_spec['field_order'].append(field.html_name)
+        return form_spec
 
     def login(self, request, user):
         # HACK: This is not nice. The proper Django way is to use an
@@ -343,20 +375,27 @@ class DefaultAccountAdapter(object):
         if not hasattr(user, 'backend'):
             from .auth_backends import AuthenticationBackend
             backends = get_backends()
-            for backend in backends:
-                if isinstance(backend, AuthenticationBackend):
+            backend = None
+            for b in backends:
+                if isinstance(b, AuthenticationBackend):
                     # prefer our own backend
+                    backend = b
                     break
-            else:
-                # Pick one
-                backend = backends[0]
+                elif not backend and hasattr(b, 'get_user'):
+                    # Pick the first vald one
+                    backend = b
             backend_path = '.'.join([backend.__module__,
                                      backend.__class__.__name__])
             user.backend = backend_path
         django_login(request, user)
 
     def logout(self, request):
+        user = request.user
         django_logout(request)
+        user_logged_out.send(
+            sender=user.__class__,
+            request=request,
+            user=user)
 
     def confirm_email(self, request, email_address):
         """

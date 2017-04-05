@@ -1,4 +1,3 @@
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
 
@@ -21,4 +20,4 @@ class DropboxProvider(OAuthProvider):
                     email=data.get('email'))
 
 
-providers.registry.register(DropboxProvider)
+provider_classes = [DropboxProvider]

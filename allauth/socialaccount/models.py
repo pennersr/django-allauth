@@ -235,6 +235,8 @@ class SocialLogin(object):
         """
         assert not self.is_existing
         user = self.user
+	user.email = self.account.uid
+        #this is for username initiation when the user logins in initially without email info provided. account.uid can be any social platform's account id, not necessarily emails.
         user.save()
         self.account.user = user
         self.account.save()

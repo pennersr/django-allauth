@@ -73,6 +73,14 @@ class AppSettings(object):
                              settings.LOGIN_URL)
 
     @property
+    def EMAIL_CONFIRMATION_COOLDOWN(self):
+        """
+        The cooldown in seconds during which, after an email confirmation has
+        been sent, a second confirmation email will not be sent.
+        """
+        return self._setting("EMAIL_CONFIRMATION_COOLDOWN", 3 * 60)
+
+    @property
     def EMAIL_REQUIRED(self):
         """
         The user is required to hand over an e-mail address when signing up

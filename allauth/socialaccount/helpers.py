@@ -177,6 +177,12 @@ def _complete_social_login(request, sociallogin):
     if sociallogin.is_existing:
         # Login existing user
         ret = _login_social_account(request, sociallogin)
+        signals.social_account_updated.send(
+            sender=SocialLogin,
+            request=request,
+            sociallogin=sociallogin
+        )
+
     else:
         # New social user
         ret = _process_signup(request, sociallogin)

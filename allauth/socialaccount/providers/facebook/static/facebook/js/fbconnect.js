@@ -42,7 +42,7 @@
           appId: opts.appId,
           version: opts.version,
           status: true,
-          cookie: true,
+          cookie: false,
           xfbml: true
         })
         fbInitialized = true

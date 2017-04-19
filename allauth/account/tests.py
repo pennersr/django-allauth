@@ -6,6 +6,7 @@ import uuid
 from datetime import timedelta
 
 import django
+from django import forms
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser, AnonymousUser
 from django.contrib.sites.models import Site
@@ -16,7 +17,7 @@ from django.test.client import Client, RequestFactory
 from django.test.utils import override_settings
 from django.utils.timezone import now
 
-from allauth.account.forms import BaseSignupForm
+from allauth.account.forms import BaseSignupForm, SignupForm
 from allauth.account.models import (
     EmailAddress,
     EmailConfirmation,
@@ -898,6 +899,39 @@ class BaseSignupFormTests(TestCase):
         data['email2'] = 'anotheruser@example.com'
         form = BaseSignupForm(data, email_required=True)
         self.assertFalse(form.is_valid())
+
+
+class CustomSignupFormTests(TestCase):
+
+    @override_settings(
+        ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE=True,
+        ACCOUNT_SIGNUP_PASSOWRD_ENTER_TWICE=True)
+    def test_custom_form_field_order(self):
+
+        expected_field_order = [
+            'email',
+            'email2',
+            'password1',
+            'password2',
+            'username',
+            'last_name',
+            'first_name'
+        ]
+
+        class TestSignupForm(forms.Form):
+            first_name = forms.CharField(max_length=30)
+            last_name = forms.CharField(max_length=30)
+
+            field_order = expected_field_order
+
+        class CustomSignupForm(SignupForm, TestSignupForm):
+            # ACCOUNT_SIGNUP_FORM_CLASS is only abided by when the
+            # BaseSignupForm definition is loaded the first time on Django
+            # startup. @override_settings() has therefore no effect.
+            pass
+
+        form = CustomSignupForm()
+        self.assertEqual(list(form.fields.keys()), expected_field_order)
 
 
 class AuthenticationBackendTests(TestCase):

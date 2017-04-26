@@ -823,9 +823,3 @@ msgid ""
 msgstr ""
 "Chystáte sa použiť váš %(provider_name)s účet na prihlásenie do\n"
 "%(site_name)s. Ako posledný krok vyplňte nasledujúci formulár:"
-
-#~ msgid "Account"
-#~ msgstr "Účet"
-
-#~ msgid "The login and/or password you specified are not correct."
-#~ msgstr "Uvedený login alebo heslo nie je správne."

@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-11 07:33-0500\n"
 "PO-Revision-Date: 2021-02-22 20:18+0100\n"
-"Last-Translator: Tomas Babej <tomasbabej@gmail.com>\n"
+"Last-Translator: Erik Telepovsky <erik@pragmaticmates.com>\n"
 "Language-Team: \n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
@@ -100,7 +100,7 @@ msgstr "Potvrdenie e-mailu"
 msgid "E-mail (optional)"
 msgstr "E-mail (nepovinné)"
 
-#: account/forms.py:358
+#: account/forms.py:314
 msgid "You must type the same email each time."
 msgstr "Heslá sa nezhodujú."
 
@@ -341,6 +341,10 @@ msgstr "Účet neaktívny"
 msgid "This account is inactive."
 msgstr "Tento účet je neaktívny."
 
+#: templates/account/email.html:5
+msgid "Account"
+msgstr "Účet"
+
 #: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "E-mailová adresa"
@@ -426,6 +430,7 @@ msgstr ""
 #| "account.\n"
 #| "\n"
 #| "To confirm this is correct, go to %(activate_url)s\n"
+
 msgid ""
 "You're receiving this e-mail because user %(user_display)s has given your e-"
 "mail address to register an account on %(site_domain)s.\n"
@@ -439,19 +444,21 @@ msgstr ""
 "\n"
 "Pre potvrdenie nasledujte %(activate_url)s\n"
 
+#: templates/account/email/email_confirmation_message.txt:7
+#, python-format
+msgid ""
+"Thank you from %(site_name)s!\n"
+"%(site_domain)s"
+msgstr ""
+"Vďaka z %(site_name)s!\n"
+"%(site_domain)s"
+
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your E-mail Address"
 msgstr "Potvrďte prosím svoju e-mailovú adresu"
 
-#: templates/account/email/password_reset_key_message.txt:4
-#, fuzzy
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account at %(site_domain)s.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
+#: templates/account/email/password_reset_key_message.txt:1
+#, python-format
 msgid ""
 "You're receiving this e-mail because you or someone else has requested a "
 "password for your user account.\n"
@@ -468,6 +475,15 @@ msgstr ""
 #, python-format
 msgid "In case you forgot, your username is %(username)s."
 msgstr "Ak ste náhodou zabudli, vaše používateľské meno je %(username)s."
+
+#: templates/account/email/password_reset_key_message.txt:10
+#, python-format
+msgid ""
+"Thank you for using %(site_name)s!\n"
+"%(site_domain)s"
+msgstr ""
+"Ďakujeme za využitie %(site_name)s!\n"
+"%(site_domain)s"
 
 #: templates/account/email/password_reset_key_subject.txt:3
 msgid "Password Reset E-mail"

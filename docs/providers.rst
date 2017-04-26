@@ -366,6 +366,7 @@ The following Facebook settings are available:
             'METHOD': 'oauth2',
             'SCOPE': ['email', 'public_profile', 'user_friends'],
             'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+            'INIT_PARAMS': {'cookie': True},
             'FIELDS': [
                 'id',
                 'email',

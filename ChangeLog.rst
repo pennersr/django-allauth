@@ -23,6 +23,12 @@ Backwards incompatible changes
   the fields. Field specific errors are placed in
   ``form.fields['some_field'].errors``, non-field errors in ``form.errors``.
 
+- The parameters passed to the Facebook JS SDK ``FB.init()`` method used to contain
+  ``cookie``, ``status``, and ``xfbml``, all set to ``true``. These parameters
+  are no longer explicitly passed. You can use the newly introduced ``INIT_PARAMS``
+  provider setting to provide your own values.
+  
+  
 
 0.31.0 (2017-02-28)
 *******************

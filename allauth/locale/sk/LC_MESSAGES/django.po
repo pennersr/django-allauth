@@ -796,24 +796,3 @@ msgid ""
 msgstr ""
 "Chystáte sa použiť váš %(provider_name)s účet na prihlásenie do\n"
 "%(site_name)s. Ako posledný krok vyplňte nasledujúci formulár:"
-
-#~ msgid "Usernames can only contain letters, digits and @/./+/-/_."
-#~ msgstr "Užívateľské mená môžu obsahovať iba písmená, číslice a @/./+/-/_."
-
-#~ msgid "This username is already taken. Please choose another."
-#~ msgstr "Toto užívateľské meno je už obsadené. Prosím, zvoľte iné."
-
-#, fuzzy
-#~| msgid "Sign In"
-#~ msgid "Shopify Sign In"
-#~ msgstr "Prihlásiť sa"
-
-#~ msgid ""
-#~ "You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an "
-#~ "e-mail address for user %(user_display)s."
-#~ msgstr ""
-#~ "Potvrdili ste, že <a href=\"mailto:%(email)s\">%(email)s</a> je e-"
-#~ "mailovou adresou používateľa %(user_display)s."
-
-#~ msgid "Thanks for using our site!"
-#~ msgstr "Ďakujeme, že využívate služby našej stránky!"

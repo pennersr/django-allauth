@@ -3,19 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-28 07:56-0600\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2017-04-26 12:48+0200\n"
 "Last-Translator: Tomas Babej <tomasbabej@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.0.1\n"
 
 #: account/adapter.py:50
 msgid "Username can not be used. Please use other username."
@@ -23,7 +23,7 @@ msgstr "Užívateľské meno nemôže byť použité. Prosím, použite iné men
 
 #: account/adapter.py:54
 msgid "Too many failed login attempts. Try again later."
-msgstr ""
+msgstr "Príliš veľa neúspešných pokusov o prihlásenie. Skúste neskôr."
 
 #: account/adapter.py:56
 msgid "A user is already registered with this e-mail address."
@@ -32,7 +32,7 @@ msgstr "Používateľ s touto e-mailovou adresou už existuje."
 #: account/adapter.py:293
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
-msgstr "Heslo musí mať aspoň {0} znakov"
+msgstr "Heslo musí mať aspoň {0} znakov."
 
 #: account/apps.py:7
 msgid "Accounts"
@@ -52,7 +52,7 @@ msgstr "Zapamätať si ma"
 
 #: account/forms.py:78
 msgid "This account is currently inactive."
-msgstr "Tento účet nie je momentálne aktívny. "
+msgstr "Tento účet nie je momentálne aktívny."
 
 #: account/forms.py:81
 msgid "The e-mail address and/or password you specified are not correct."
@@ -91,24 +91,18 @@ msgid "Login"
 msgstr "Login"
 
 #: account/forms.py:258
-#, fuzzy
-#| msgid "E-mail (optional)"
 msgid "E-mail (again)"
-msgstr "E-mail (nepovinné)"
+msgstr "E-mail (znova)"
 
 #: account/forms.py:262
-#, fuzzy
-#| msgid "email confirmation"
 msgid "E-mail address confirmation"
-msgstr "potvrdenie e-mailu"
+msgstr "Potvrdenie e-mailu"
 
 #: account/forms.py:272
 msgid "E-mail (optional)"
 msgstr "E-mail (nepovinné)"
 
 #: account/forms.py:314
-#, fuzzy
-#| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
 msgstr "Heslá sa nezhodujú."
 
@@ -147,7 +141,7 @@ msgstr ""
 
 #: account/forms.py:534
 msgid "The password reset token was invalid."
-msgstr ""
+msgstr "Token na obnovu hesla bol nesprávny."
 
 #: account/models.py:23
 msgid "user"
@@ -216,95 +210,98 @@ msgstr "Účty na sociálnych sieťach"
 
 #: socialaccount/models.py:49 socialaccount/models.py:83
 msgid "provider"
-msgstr ""
+msgstr "poskytovateľ"
 
 #: socialaccount/models.py:52
 msgid "name"
-msgstr "Užívateľské meno"
+msgstr "užívateľské meno"
 
 #: socialaccount/models.py:54
 msgid "client id"
-msgstr ""
+msgstr "identifikátor klienta"
 
 #: socialaccount/models.py:56
 msgid "App ID, or consumer key"
-msgstr ""
+msgstr "ID aplikácie alebo zákaznícky kľúč"
 
 #: socialaccount/models.py:57
 msgid "secret key"
-msgstr ""
+msgstr "tajný kľúč"
 
 #: socialaccount/models.py:59
 msgid "API secret, client secret, or consumer secret"
-msgstr ""
+msgstr "Kľúč API, klienta alebo zákazníka"
 
 #: socialaccount/models.py:64
 msgid "Key"
-msgstr "kľúč"
+msgstr "Kľúč"
 
 #: socialaccount/models.py:72
 msgid "social application"
-msgstr ""
+msgstr "sociálna aplikácia"
 
 #: socialaccount/models.py:73
 msgid "social applications"
-msgstr ""
+msgstr "sociálne aplikácie"
 
 #: socialaccount/models.py:102
 msgid "uid"
-msgstr ""
+msgstr "uid"
 
 #: socialaccount/models.py:104
 msgid "last login"
-msgstr ""
+msgstr "posledné prihlásenie"
 
 #: socialaccount/models.py:106
 msgid "date joined"
-msgstr ""
+msgstr "dáum pripojenia"
 
 #: socialaccount/models.py:108
 msgid "extra data"
-msgstr ""
+msgstr "ďalšie údaje"
 
 #: socialaccount/models.py:112
 msgid "social account"
-msgstr ""
+msgstr "sociálny účet"
 
 #: socialaccount/models.py:113
 msgid "social accounts"
-msgstr ""
+msgstr "sociálne účty"
 
 #: socialaccount/models.py:139
 msgid "token"
-msgstr ""
+msgstr "token"
 
 #: socialaccount/models.py:141
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr ""
+"\"Oauth_token\" (Podpora protokolu OAuth1) alebo prístup tokenu (OAuth2)"
 
 #: socialaccount/models.py:144
 msgid "token secret"
-msgstr ""
+msgstr "heslo prístupového tokenu"
 
 #: socialaccount/models.py:146
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr ""
+"\"Oauth_token_secret\" (Podpora protokolu OAuth1) alebo token obnovenie "
+"(OAuth2)"
 
 #: socialaccount/models.py:148
 msgid "expires at"
-msgstr ""
+msgstr "vyexpiruje"
 
 #: socialaccount/models.py:152
 msgid "social application token"
-msgstr ""
+msgstr "token sociálnej aplikácie"
 
 #: socialaccount/models.py:153
 msgid "social application tokens"
-msgstr ""
+msgstr "tokeny sociálnej aplikácie"
 
 #: socialaccount/providers/douban/views.py:36
 msgid "Invalid profile data"
-msgstr ""
+msgstr "Nesprávne profilové údaje"
 
 #: socialaccount/providers/oauth/client.py:78
 #, python-format
@@ -338,7 +335,7 @@ msgstr "Účet neaktívny"
 
 #: templates/account/account_inactive.html:10
 msgid "This account is inactive."
-msgstr "Tento účet je neaktívny. "
+msgstr "Tento účet je neaktívny."
 
 #: templates/account/email.html:5
 msgid "Account"
@@ -401,12 +398,7 @@ msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Naozaj chcete odstrániť vybranú e-mailovú adresu?"
 
 #: templates/account/email/email_confirmation_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "User %(user_display)s at %(site_name)s has given this as an email "
-#| "address.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s\n"
+#, python-format
 msgid ""
 "Hello from %(site_name)s!\n"
 "\n"
@@ -416,7 +408,10 @@ msgid ""
 "\n"
 "To confirm this is correct, go to %(activate_url)s\n"
 msgstr ""
-"Používateľ %(user_display)s at %(site_name)s zadal túto e-mailovú adresu.\n"
+"Zdravíme z %(site_name)s!\n"
+"\n"
+"Tento e-mail ste dostali, pretože používateľ %(user_display)s na "
+"%(site_domain)s zadal túto e-mailovú adresu na prepojenie s jeho účtom.\n"
 "\n"
 "Pre potvrdenie nasledujte %(activate_url)s\n"
 
@@ -426,20 +421,15 @@ msgid ""
 "Thank you from %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
+"Vďaka z %(site_name)s!\n"
+"%(site_domain)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
-#, fuzzy
-#| msgid "Confirm E-mail Address"
 msgid "Please Confirm Your E-mail Address"
-msgstr "Potvrdiť e-mailovú adresu"
+msgstr "Potvrďte prosím svoju e-mailovú adresu"
 
 #: templates/account/email/password_reset_key_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account at %(site_domain)s.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
+#, python-format
 msgid ""
 "Hello from %(site_name)s!\n"
 "\n"
@@ -448,6 +438,8 @@ msgid ""
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
+"Zdravíme z %(site_name)s!\n"
+"\n"
 "Toto je žiadosť o heslo pre užívateľský účet na %(site_domain)s.\n"
 "Ak ste nežiadali o obnovu hesla, správu môžete pokojne ignorovať. Odkaz "
 "nižšie obnoví heslo."
@@ -463,6 +455,8 @@ msgid ""
 "Thank you for using %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
+"Ďakujeme za využitie %(site_name)s!\n"
+"%(site_domain)s"
 
 #: templates/account/email/password_reset_key_subject.txt:3
 msgid "Password Reset E-mail"
@@ -703,7 +697,7 @@ msgid ""
 msgstr ""
 "Bol vám zaslaný overovací e-mail. Pre dokončenie registrácie použite "
 "overovací odkaz. Ak ste v priebehu pár minút žiaden neobdržali, kontaktujte "
-"nás. "
+"nás."
 
 #: templates/account/verified_email_required.html:12
 msgid ""
@@ -712,7 +706,7 @@ msgid ""
 "verify ownership of your e-mail address. "
 msgstr ""
 "Na prezeranie nasledujúceho obsahu je potrebné overenie vašej e-mailovej "
-"adresy."
+"adresy. "
 
 #: templates/account/verified_email_required.html:16
 msgid ""

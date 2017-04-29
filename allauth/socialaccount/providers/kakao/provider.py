@@ -25,10 +25,9 @@ class KakaoProvider(OAuth2Provider):
         return str(data['id'])
 
     def extract_common_fields(self, data):
+        email = None
         if data.get("kaccount_email_verified"):
             email = data.get("kaccount_email")
-        else:
-            email = None
 
         return dict(email=email)
 

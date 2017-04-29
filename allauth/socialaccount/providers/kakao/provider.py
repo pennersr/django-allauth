@@ -1,3 +1,4 @@
+from allauth.account.models import EmailAddress
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -22,6 +23,26 @@ class KakaoProvider(OAuth2Provider):
 
     def extract_uid(self, data):
         return str(data['id'])
+
+    def extract_common_fields(self, data):
+        if data.get("kaacount_email_verified"):
+            email = data.get("kaccount_email")
+        else:
+            email = None
+
+        return dict(email=email)
+
+    def extract_email_addresses(self, data):
+        ret = []
+        email = data.get("kaccount_email")
+        verified = data.get("kaacount_email_verified")
+        if verified:
+            # data["kaacount_email_verified"] imply the email address is
+            # verified
+            ret.append(EmailAddress(email=email,
+                                    verified=verified,
+                                    primary=True))
+        return ret
 
 
 provider_classes = [KakaoProvider]

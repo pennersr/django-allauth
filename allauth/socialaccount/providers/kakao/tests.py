@@ -14,8 +14,10 @@ class KakaoTests(OAuth2TestsMixin, TestCase):
 "kaccount_email_verified": true,
 "properties":
 {
-"thumbnail_image": "http://mud-kage.kakao.co.kr/14/dn/btqegghHRjx/DbvFZTjNnQpsI8S6hh1cxK/o.jpg",
-"profile_image": "http://mud-kage.kakao.co.kr/14/dn/btqedGORigT/1TwogEZOBWnNkXolo5yVs1/o.jpg",
+"thumbnail_image":
+"http://mud-kage.kakao.co.kr/14/dn/btqegghHRjx/DbvFZTjNnQpsI8S6hh1cxK/o.jpg",
+"profile_image":
+"http://mud-kage.kakao.co.kr/14/dn/btqedGORigT/1TwogEZOBWnNkXolo5yVs1/o.jpg",
 "nickname": "\uc548\uc8fc\uc740"
 }
 }

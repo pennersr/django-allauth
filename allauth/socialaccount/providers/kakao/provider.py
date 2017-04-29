@@ -36,7 +36,7 @@ class KakaoProvider(OAuth2Provider):
         email = data.get("kaccount_email")
         verified = data.get("kaccount_email_verified")
         if verified:
-            # data["kaacount_email_verified"] imply the email address is
+            # data["kaccount_email_verified"] imply the email address is
             # verified
             ret.append(EmailAddress(email=email,
                                     verified=verified,

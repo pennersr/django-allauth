@@ -25,22 +25,18 @@ class KakaoProvider(OAuth2Provider):
         return str(data['id'])
 
     def extract_common_fields(self, data):
-        email = None
-        if data.get("kaccount_email_verified"):
-            email = data.get("kaccount_email")
-
+        email = data.get("kaccount_email")
         return dict(email=email)
 
     def extract_email_addresses(self, data):
         ret = []
         email = data.get("kaccount_email")
         verified = data.get("kaccount_email_verified")
-        if verified:
-            # data["kaccount_email_verified"] imply the email address is
-            # verified
-            ret.append(EmailAddress(email=email,
-                                    verified=verified,
-                                    primary=True))
+        # data["kaccount_email_verified"] imply the email address is
+        # verified
+        ret.append(EmailAddress(email=email,
+                                verified=verified,
+                                primary=True))
         return ret
 
 

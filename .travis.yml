@@ -11,7 +11,7 @@ env:
    - DJANGO="Django<1.9"
    - DJANGO="Django<1.10"
    - DJANGO="Django<1.11"
-   - DJANGO="Django==1.11b1"
+   - DJANGO="Django<2.0"
 cache:
   directories:
     - $HOME/.cache/pip
@@ -31,7 +31,7 @@ matrix:
     - python: "3.3"
       env: DJANGO="Django<1.11"
     - python: "3.3"
-      env: DJANGO="Django==1.11b1"
+      env: DJANGO="Django<2.0"
 branches:
  only:
   - master

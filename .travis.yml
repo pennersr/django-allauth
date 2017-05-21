@@ -2,14 +2,12 @@ sudo: false
 language: python
 python:
  - "2.7"
- - "3.3"
  - "3.4"
  - "3.5"
  - "3.6"
 env:
   matrix:
    - DJANGO="Django<1.9"
-   - DJANGO="Django<1.10"
    - DJANGO="Django<1.11"
    - DJANGO="Django<2.0"
 cache:
@@ -23,15 +21,6 @@ install:
  - pip install isort
  - nvm install 6.9.5
  - npm install standard
-matrix:
-  exclude:
-    # Django 1.9+ no longer supports python 3.3
-    - python: "3.3"
-      env: DJANGO="Django<1.10"
-    - python: "3.3"
-      env: DJANGO="Django<1.11"
-    - python: "3.3"
-      env: DJANGO="Django<2.0"
 branches:
  only:
   - master

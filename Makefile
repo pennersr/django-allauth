@@ -11,26 +11,11 @@ mo:
 docs:
 	( . $(VIRTUALENV)/bin/activate; cd docs; make html )
 
-isort-check:
-	$(ISORT) -c
-
 isort-fix:
 	$(ISORT)
-
-pep8:
-	flake8 --exclude=migrations allauth
-
-standardjs:
-	standard $$(find $(PWD)/allauth -name '*.js' -print)
-
-qa: isort-check pep8 standardjs
 
 .PHONY:						\
 	po					\
 	mo					\
 	docs					\
-	isort-fix				\
-	isort-check				\
-	pep8					\
-	standard				\
-	qa
+	isort-fix

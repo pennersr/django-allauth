@@ -16,7 +16,7 @@ cache:
   directories:
     - $HOME/.cache/pip
 install:
- - pip install --upgrade pip wheel
+ - pip install --upgrade pip wheel setuptools
  - pip install "$DJANGO" "coverage==3.7.1" coveralls "mock>=1.0.1"
  - pip install .
  - pip install flake8

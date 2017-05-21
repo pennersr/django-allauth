@@ -1,7 +1,6 @@
 from __future__ import absolute_import
 
 import json
-import unittest
 import uuid
 from datetime import timedelta
 
@@ -962,22 +961,17 @@ class AuthenticationBackendTests(TestCase):
 
 class UtilsTests(TestCase):
     def setUp(self):
-        if hasattr(models, 'UUIDField'):
-            self.user_id = uuid.uuid4().hex
+        self.user_id = uuid.uuid4().hex
 
-            class UUIDUser(AbstractUser):
-                id = models.UUIDField(primary_key=True,
-                                      default=uuid.uuid4,
-                                      editable=False)
+        class UUIDUser(AbstractUser):
+            id = models.UUIDField(
+                primary_key=True, default=uuid.uuid4, editable=False
+            )
 
-                class Meta(AbstractUser.Meta):
-                    swappable = 'AUTH_USER_MODEL'
-        else:
-            UUIDUser = get_user_model()
+            class Meta(AbstractUser.Meta):
+                swappable = 'AUTH_USER_MODEL'
         self.UUIDUser = UUIDUser
 
-    @unittest.skipUnless(hasattr(models, 'UUIDField'),
-                         reason="No UUIDField in this django version")
     def test_url_str_to_pk_identifies_UUID_as_stringlike(self):
         with patch('allauth.account.utils.get_user_model') as mocked_gum:
             mocked_gum.return_value = self.UUIDUser

@@ -292,11 +292,15 @@ def send_email_confirmation(request, user, signup=False):
 
     Especially in case of b), we want to limit the number of mails
     sent (consider a user retrying a few times), which is why there is
-    a cooldown period before sending a new mail.
+    a cooldown period before sending a new mail. This cooldown period
+    can be configured in ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN setting.
     """
     from .models import EmailAddress, EmailConfirmation
 
-    COOLDOWN_PERIOD = timedelta(minutes=3)
+    cooldown_period = timedelta(
+        seconds=app_settings.EMAIL_CONFIRMATION_COOLDOWN
+    )
+
     email = user_email(user)
     if email:
         try:
@@ -306,7 +310,7 @@ def send_email_confirmation(request, user, signup=False):
                     send_email = True
                 else:
                     send_email = not EmailConfirmation.objects.filter(
-                        sent__gt=now() - COOLDOWN_PERIOD,
+                        sent__gt=now() - cooldown_period,
                         email_address=email_address).exists()
                 if send_email:
                     email_address.send_confirmation(request,

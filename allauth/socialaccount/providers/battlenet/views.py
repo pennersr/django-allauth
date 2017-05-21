@@ -72,6 +72,9 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
     @property
     def battlenet_region(self):
         region = self.request.GET.get("region", "").lower()
+        if region == "sea":
+            # South-East Asia uses the same region as US everywhere
+            return "us"
         if region in self.valid_regions:
             return region
         return "us"
@@ -81,7 +84,7 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
         region = self.battlenet_region
         if region == "cn":
             return "https://www.battlenet.com.cn"
-        return "https://%s.battle.net" % ("us" if region == "sea" else region)
+        return "https://%s.battle.net" % (region)
 
     @property
     def battlenet_api_url(self):

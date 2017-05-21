@@ -105,16 +105,8 @@ class BasicTests(TestCase):
                              username)
 
     def test_email_validation(self):
-        is_email_max_75 = django.VERSION[:2] <= (1, 7)
-        if is_email_max_75:
-            s = 'unfortunately.django.user.email.max_length.is.set.to.75.which.is.too.short@bummer.com'  # noqa
-            self.assertEqual(None, utils.valid_email_or_none(s))
         s = 'this.email.address.is.a.bit.too.long.but.should.still.validate.ok@short.com'  # noqa
         self.assertEqual(s, utils.valid_email_or_none(s))
-        if is_email_max_75:
-            s = 'x' + s
-            self.assertEqual(None, utils.valid_email_or_none(s))
-            self.assertEqual(None, utils.valid_email_or_none("Bad ?"))
 
     def test_serializer(self):
 

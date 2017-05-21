@@ -405,8 +405,7 @@ def user_pk_to_url_str(user):
     This should return a string.
     """
     User = get_user_model()
-    if (hasattr(models, 'UUIDField') and issubclass(
-            type(User._meta.pk), models.UUIDField)):
+    if issubclass(type(User._meta.pk), models.UUIDField):
         if isinstance(user.pk, six.string_types):
             return user.pk
         return user.pk.hex
@@ -425,8 +424,7 @@ def url_str_to_user_pk(s):
         pk_field = User._meta.pk.rel.to._meta.pk
     else:
         pk_field = User._meta.pk
-    if (hasattr(models, 'UUIDField') and issubclass(
-            type(pk_field), models.UUIDField)):
+    if issubclass(type(pk_field), models.UUIDField):
         return s
     try:
         pk_field.to_python('a')

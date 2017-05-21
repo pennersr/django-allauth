@@ -1,35 +1,53 @@
 sudo: false
 language: python
-python:
- - "2.7"
- - "3.4"
- - "3.5"
- - "3.6"
+
+python: "3.6"
+
 env:
   matrix:
-   - DJANGO="Django<1.9"
-   - DJANGO="Django<1.11"
-   - DJANGO="Django<2.0"
+   - TOXENV=py27-django18
+   - TOXENV=py27-django110
+   - TOXENV=py27-django111
+   - TOXENV=py34-django18
+   - TOXENV=py34-django110
+   - TOXENV=py34-django111
+   - TOXENV=py35-django110
+   - TOXENV=py35-django111
+   - TOXENV=py36-django111
+   - TOXENV=qa
+
+matrix:
+  fast_finish: true
+  include:
+    - python: "3.5"
+      env: TOXENV=py35-django110
+    - python: "3.5"
+      env: TOXENV=py35-django111
+  exclude:
+    - python: "3.6"
+      env: TOXENV=py35-django110
+    - python: "3.6"
+      env: TOXENV=py35-django111
+
 cache:
   directories:
     - $HOME/.cache/pip
+    - $TRAVIS_BUILD_DIR/.tox
+
 install:
  - pip install --upgrade pip wheel setuptools
- - pip install "$DJANGO" "coverage==3.7.1" coveralls "mock>=1.0.1"
- - pip install .
- - pip install flake8
- - pip install isort
- - nvm install 6.9.5
- - npm install standard
+ - pip install coveralls tox
+
+script:
+  - tox
+
+after_success:
+  - coveralls
+
 branches:
  only:
   - master
-script:
-  - make qa
-  - coverage run manage.py test allauth
-after_success:
-  - coverage report
-  - coveralls
+
 notifications:
   webhooks:
     urls:

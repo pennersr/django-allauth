@@ -15,6 +15,7 @@ env:
    - TOXENV=py35-django111
    - TOXENV=py36-django111
    - TOXENV=qa
+   - TOXENV=docs
 
 matrix:
   fast_finish: true

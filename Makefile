@@ -8,14 +8,10 @@ po:
 mo:
 	( cd allauth ; $(PYTHON) ../manage.py compilemessages )
 
-docs:
-	( . $(VIRTUALENV)/bin/activate; cd docs; make html )
-
 isort-fix:
 	$(ISORT)
 
 .PHONY:						\
 	po					\
 	mo					\
-	docs					\
 	isort-fix

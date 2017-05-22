@@ -17,7 +17,7 @@ Users sign up via the ``allauth.account.views.SignupView`` view over at
 ``/accounts/signup/`` (URL name ``account_signup``).
 
 
-Logout (```account_logout``)
+Logout (``account_logout``)
 ----------------------------
 
 The logout view (``allauth.account.views.LogoutView``) over at

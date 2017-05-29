@@ -77,7 +77,7 @@ class AccountTests(TestCase):
                                 {'login': '@raymond.penners',
                                  'password': 'psst'})
         self.assertRedirects(resp,
-                             'http://testserver' + settings.LOGIN_REDIRECT_URL,
+                             settings.LOGIN_REDIRECT_URL,
                              fetch_redirect_response=False)
 
     def test_signup_same_email_verified_externally(self):
@@ -191,7 +191,7 @@ class AccountTests(TestCase):
         self._create_user_and_login()
         c = self.client
         resp = c.get(reverse('account_login'))
-        self.assertRedirects(resp, 'http://testserver/accounts/profile/',
+        self.assertRedirects(resp, '/accounts/profile/',
                              fetch_redirect_response=False)
 
     def test_password_reset_get(self):

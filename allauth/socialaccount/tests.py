@@ -54,7 +54,7 @@ class OAuthTestsMixin(object):
                     username=str(random.randrange(1000, 10000000)))
         resp = self.client.post(reverse('socialaccount_signup'),
                                 data=data)
-        self.assertRedirects(resp, 'http://testserver/accounts/profile/',
+        self.assertRedirects(resp, '/accounts/profile/',
                              fetch_redirect_response=False)
         user = resp.context['user']
         self.assertFalse(user.has_usable_password())
@@ -80,7 +80,7 @@ class OAuthTestsMixin(object):
                           % self.provider.id)
             return
         resp = self.login(resp_mocks)
-        self.assertRedirects(resp, 'http://testserver/accounts/profile/',
+        self.assertRedirects(resp, '/accounts/profile/',
                              fetch_redirect_response=False)
         self.assertFalse(resp.context['user'].has_usable_password())
 

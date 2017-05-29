@@ -1206,7 +1206,7 @@ VK
 --
 
 App registration
-    http://vk.com/apps?act=settings
+    https://vk.com/editapp?act=create
 
 Development callback URL ("Site address")
     http://localhost

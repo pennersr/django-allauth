@@ -989,7 +989,7 @@ class UtilsTests(TestCase):
             is_active=True,
             email='john@doe.com',
             username='john')
-        self.assertEquals(user_pk_to_url_str(user), str(user.pk))
+        self.assertEqual(user_pk_to_url_str(user), str(user.pk))
 
     @override_settings(ACCOUNT_PRESERVE_USERNAME_CASING=False)
     def test_username_lower_cased(self):

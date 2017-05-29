@@ -995,7 +995,7 @@ class UtilsTests(TestCase):
     def test_username_lower_cased(self):
         user = get_user_model()()
         user_username(user, 'CamelCase')
-        self.assertEquals(user_username(user), 'camelcase')
+        self.assertEqual(user_username(user), 'camelcase')
         # TODO: Actually test something
         filter_users_by_username('CamelCase', 'FooBar')
 
@@ -1003,6 +1003,6 @@ class UtilsTests(TestCase):
     def test_username_case_preserved(self):
         user = get_user_model()()
         user_username(user, 'CamelCase')
-        self.assertEquals(user_username(user), 'CamelCase')
+        self.assertEqual(user_username(user), 'CamelCase')
         # TODO: Actually test something
         filter_users_by_username('camelcase', 'foobar')

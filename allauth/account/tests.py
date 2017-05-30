@@ -959,27 +959,27 @@ class AuthenticationBackendTests(TestCase):
             user.pk)
 
 
+class UUIDUser(AbstractUser):
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False
+    )
+
+    class Meta(AbstractUser.Meta):
+        swappable = "AUTH_USER_MODEL"
+
+
 class UtilsTests(TestCase):
     def setUp(self):
         self.user_id = uuid.uuid4().hex
 
-        class UUIDUser(AbstractUser):
-            id = models.UUIDField(
-                primary_key=True, default=uuid.uuid4, editable=False
-            )
-
-            class Meta(AbstractUser.Meta):
-                swappable = 'AUTH_USER_MODEL'
-        self.UUIDUser = UUIDUser
-
     def test_url_str_to_pk_identifies_UUID_as_stringlike(self):
         with patch('allauth.account.utils.get_user_model') as mocked_gum:
-            mocked_gum.return_value = self.UUIDUser
+            mocked_gum.return_value = UUIDUser
             self.assertEqual(url_str_to_user_pk(self.user_id),
                              self.user_id)
 
     def test_pk_to_url_string_identifies_UUID_as_stringlike(self):
-        user = self.UUIDUser(
+        user = UUIDUser(
             is_active=True,
             email='john@example.com',
             username='john')

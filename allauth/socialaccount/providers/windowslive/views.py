@@ -24,8 +24,8 @@ class WindowsLiveOAuth2Adapter(OAuth2Adapter):
 # example of whats returned (in python format):
 # {'first_name': 'James', 'last_name': 'Smith',
 #  'name': 'James Smith', 'locale': 'en_US', 'gender': None,
-#  'emails': {'personal': None, 'account': 'jsmith@xyz.net',
-#  'business': None, 'preferred': 'jsmith@xyz.net'},
+#  'emails': {'personal': None, 'account': 'jsmith@example.com',
+#  'business': None, 'preferred': 'jsmith@example.com'},
 #  'link': 'https://profile.live.com/',
 #  'updated_time': '2014-02-07T00:35:27+0000',
 #  'id': '83605e110af6ff98'}

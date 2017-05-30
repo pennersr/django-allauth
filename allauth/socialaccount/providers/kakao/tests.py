@@ -10,7 +10,7 @@ class KakaoTests(OAuth2TestsMixin, TestCase):
     def get_mocked_response(self):
         return MockedResponse(200, """
 {"id": 233652912,
-"kaccount_email": "insanejflow@gmail.com",
+"kaccount_email": "insanejflow@example.com",
 "kaccount_email_verified": true,
 "properties":
 {

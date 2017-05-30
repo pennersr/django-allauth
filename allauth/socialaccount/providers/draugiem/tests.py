@@ -18,7 +18,7 @@ class DraugiemTests(TestCase):
         # workaround to create a session. see:
         # https://code.djangoproject.com/ticket/11475
         User.objects.create_user(
-            'anakin', 'skywalker@deathstar.com', 's1thrul3s')
+            'anakin', 'skywalker@deathstar.example.com', 's1thrul3s')
         self.client.login(username='anakin', password='s1thrul3s')
 
         self.provider = providers.registry.by_id(DraugiemProvider.id)

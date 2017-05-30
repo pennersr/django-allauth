@@ -11,5 +11,5 @@ class FirefoxAccountsTests(OAuth2TestsMixin, TestCase):
         return MockedResponse(200, """
         {
             "uid":"6d940dd41e636cc156074109b8092f96",
-            "email":"user@example.domain"
+            "email":"user@example.com"
         }""")

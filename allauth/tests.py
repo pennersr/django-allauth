@@ -96,7 +96,7 @@ class mocked_response:
 class BasicTests(TestCase):
 
     def test_generate_unique_username(self):
-        examples = [('a.b-c@gmail.com', 'a.b-c'),
+        examples = [('a.b-c@example.com', 'a.b-c'),
                     ('Üsêrnamê', 'username'),
                     ('User Name', 'user_name'),
                     ('', 'user')]
@@ -105,7 +105,7 @@ class BasicTests(TestCase):
                              username)
 
     def test_email_validation(self):
-        s = 'this.email.address.is.a.bit.too.long.but.should.still.validate.ok@short.com'  # noqa
+        s = 'this.email.address.is.a.bit.too.long.but.should.still.validate@example.com'  # noqa
         self.assertEqual(s, utils.valid_email_or_none(s))
 
     def test_serializer(self):

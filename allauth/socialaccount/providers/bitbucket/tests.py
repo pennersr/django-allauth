@@ -11,11 +11,9 @@ class BitbucketTests(OAuthTestsMixin, TestCase):
     def get_mocked_response(self):
         # FIXME: Replace with actual/complete Bitbucket response
         return [MockedResponse(200, r"""
-[{"active": true, "email": "raymond.penners@intenct.nl", "primary": true},
- {"active": true, "email": "raymond.penners@gmail.com", "primary": false},
- {"active": true,
-  "email": "raymond.penners@jibecompany.com",
-  "primary": false}]
+[{"active": true, "email": "raymond.penners@example.com", "primary": true},
+ {"active": true, "email": "raymond.penners@example.org", "primary": false}
+]
         """),
                 MockedResponse(200, r"""
 {"repositories": [],

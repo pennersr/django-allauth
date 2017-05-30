@@ -34,7 +34,7 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
            "name": "Raymond Penners",
            "first_name": "Raymond",
            "last_name": "Penners",
-           "email": "raymond.penners@gmail.com",
+           "email": "raymond.penners@example.com",
            "link": "https://www.facebook.com/raymond.penners",
            "username": "raymond.penners",
            "birthday": "07/17/1973",
@@ -128,4 +128,4 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
 
     def _login_verified(self):
         self.login(self.get_mocked_response())
-        return EmailAddress.objects.get(email='raymond.penners@gmail.com')
+        return EmailAddress.objects.get(email='raymond.penners@example.com')

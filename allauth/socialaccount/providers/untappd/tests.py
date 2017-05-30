@@ -87,7 +87,7 @@ class UntappdTests(create_oauth2_tests(registry.by_id(UntappdProvider.id))):
             "navigation":{
                "default_to_checkin":0
             },
-            "email_address":"test@test.com"
+            "email_address":"test@example.com"
          }
       }
    }

@@ -4,8 +4,7 @@ import os
 import sys
 from fnmatch import fnmatchcase
 
-from setuptools import setup, find_packages
-from distutils.util import convert_path
+from setuptools import convert_path, find_packages, setup
 
 # Provided as an attribute, so you can append to these instead
 # of replicating them:

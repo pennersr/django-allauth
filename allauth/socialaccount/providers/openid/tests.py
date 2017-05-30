@@ -50,9 +50,9 @@ class OpenIDTests(TestCase):
                                             ['raymond']}
                     resp = self.client.post(reverse('openid_callback'))
                     self.assertRedirects(
-                        resp,
-                        '/accounts/profile/',
-                        fetch_redirect_response=False)
+                        resp, "/accounts/profile/",
+                        fetch_redirect_response=False
+                    )
                     get_user_model().objects.get(first_name='raymond')
 
     @override_settings(SOCIALACCOUNT_PROVIDERS={'openid': {'SERVERS': [
@@ -97,9 +97,9 @@ class OpenIDTests(TestCase):
                             ['123456789']}
                     resp = self.client.post(reverse('openid_callback'))
                     self.assertRedirects(
-                        resp,
-                        '/accounts/profile/',
-                        fetch_redirect_response=False)
+                        resp, "/accounts/profile/",
+                        fetch_redirect_response=False
+                    )
                     socialaccount = \
                         SocialAccount.objects.get(user__first_name='raymond')
                     self.assertEqual(

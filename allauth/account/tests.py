@@ -190,8 +190,9 @@ class AccountTests(TestCase):
         self._create_user_and_login()
         c = self.client
         resp = c.get(reverse('account_login'))
-        self.assertRedirects(resp, '/accounts/profile/',
-                             fetch_redirect_response=False)
+        self.assertRedirects(
+            resp, "/accounts/profile/", fetch_redirect_response=False
+        )
 
     def test_password_reset_get(self):
         resp = self.client.get(reverse('account_reset_password'))
@@ -399,7 +400,7 @@ class AccountTests(TestCase):
                       {'login': 'johndoe',
                        'password': 'johndoe'})
         self.assertRedirects(resp,
-                             'http://testserver' + settings.LOGIN_REDIRECT_URL,
+                             settings.LOGIN_REDIRECT_URL,
                              fetch_redirect_response=False)
 
     def test_email_escaping(self):
@@ -429,7 +430,7 @@ class AccountTests(TestCase):
                                 {'login': 'john',
                                  'password': 'doe'})
         self.assertRedirects(resp,
-                             'http://testserver' + settings.LOGIN_REDIRECT_URL,
+                             settings.LOGIN_REDIRECT_URL,
                              fetch_redirect_response=False)
 
     @override_settings(

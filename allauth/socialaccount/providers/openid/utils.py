@@ -6,15 +6,10 @@ from openid.extensions.ax import FetchResponse
 from openid.extensions.sreg import SRegResponse
 from openid.store.interface import OpenIDStore as OIDStore
 
+from allauth.compat import UserDict
 from allauth.utils import valid_email_or_none
 
 from .models import OpenIDNonce, OpenIDStore
-
-
-try:
-    from UserDict import UserDict
-except ImportError:
-    from collections import UserDict
 
 
 class JSONSafeSession(UserDict):

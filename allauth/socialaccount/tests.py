@@ -472,7 +472,7 @@ class SocialAccountTests(TestCase):
         session.save()
         resp = self.client.get(reverse('socialaccount_signup'))
         form = resp.context['form']
-        self.assertEquals(form["email"].value(), "verified@example.com")
+        self.assertEqual(form["email"].value(), "verified@example.com")
         resp = self.client.post(
             reverse('socialaccount_signup'),
             data={'email': "unverified@example.org"})
@@ -480,7 +480,7 @@ class SocialAccountTests(TestCase):
             resp, '/accounts/profile/',
             fetch_redirect_response=False)
         user = User.objects.all()[0]
-        self.assertEquals(user_email(user), "verified@example.com")
+        self.assertEqual(user_email(user), "verified@example.com")
         self.assertTrue(
             EmailAddress.objects.filter(
                 user=user,
@@ -526,14 +526,14 @@ class SocialAccountTests(TestCase):
         session.save()
         resp = self.client.get(reverse('socialaccount_signup'))
         form = resp.context['form']
-        self.assertEquals(form["email"].value(), "unverified@example.com")
+        self.assertEqual(form["email"].value(), "unverified@example.com")
         resp = self.client.post(
             reverse('socialaccount_signup'),
             data={'email': "unverified@example.org"})
 
         self.assertRedirects(resp, reverse('account_email_verification_sent'))
         user = User.objects.all()[0]
-        self.assertEquals(user_email(user), "unverified@example.org")
+        self.assertEqual(user_email(user), "unverified@example.org")
         self.assertTrue(
             EmailAddress.objects.filter(
                 user=user,
@@ -574,7 +574,7 @@ class SocialAccountTests(TestCase):
         session.save()
         resp = self.client.get(reverse('socialaccount_signup'))
         form = resp.context['form']
-        self.assertEquals(form['email'].value(), "me@example.com")
+        self.assertEqual(form['email'].value(), "me@example.com")
         resp = self.client.post(
             reverse('socialaccount_signup'),
             data={'email': "me@example.com"})

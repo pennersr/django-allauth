@@ -127,8 +127,9 @@ class ShopifyPerUserAccessTests(ShopifyTests):
     def test_associated_user(self):
         resp_mocks = self.get_mocked_response()
         resp = self.login(resp_mocks)
-        self.assertRedirects(resp, '/accounts/profile/',
-                             fetch_redirect_response=False)
+        self.assertRedirects(
+            resp, "/accounts/profile/", fetch_redirect_response=False
+        )
 
         social_account = SocialAccount.objects.filter(
             provider=self.provider.id,

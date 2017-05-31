@@ -1,3 +1,4 @@
+# https://travis-ci.org/pennersr/django-allauth
 sudo: false
 language: python
 
@@ -15,8 +16,9 @@ env:
    - TOXENV=py35-django111
    - TOXENV=py36-django111
    - TOXENV=py36-djangomaster
-   - TOXENV=qa
    - TOXENV=docs
+   - TOXENV=flake8
+   - TOXENV=standardjs
 
 matrix:
   fast_finish: true
@@ -39,8 +41,9 @@ cache:
     - $TRAVIS_BUILD_DIR/.tox
 
 install:
- - pip install --upgrade pip wheel setuptools
- - pip install coveralls tox
+  - if [[ $TOXENV == "standardjs" ]]; then nvm install 8; fi
+  - pip install --upgrade pip wheel setuptools
+  - pip install coveralls tox
 
 script:
   - tox

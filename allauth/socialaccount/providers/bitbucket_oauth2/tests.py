@@ -10,6 +10,7 @@ from allauth.tests import MockedResponse, patch
 
 from .provider import BitbucketOAuth2Provider
 
+
 try:
     from unittest import mock
 except ImportError:

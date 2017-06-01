@@ -39,5 +39,10 @@ class TwitterOAuthAdapter(OAuthAdapter):
                                                              extra_data)
 
 
+class TwitterFullAuthorizationAdapter(TwitterOAuthAdapter):
+    authorize_url = 'https://api.twitter.com/oauth/authorize'
+
+
+oauth_authorize = OAuthLoginView.adapter_view(TwitterFullAuthorizationAdapter)
 oauth_login = OAuthLoginView.adapter_view(TwitterOAuthAdapter)
 oauth_callback = OAuthCallbackView.adapter_view(TwitterOAuthAdapter)

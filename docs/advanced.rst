@@ -146,6 +146,8 @@ If this does not suit your needs, you can hook up your own custom
 mechanism by overriding the ``send_mail`` method of the account adapter
 (``allauth.account.adapter.DefaultAccountAdapter``).
 
+HTML templates are sent in addition to the txt which shadow the defaults. No default html templates are included with the package.
+
 
 Custom Redirects
 ----------------

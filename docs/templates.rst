@@ -92,3 +92,13 @@ Which will populate the ``socialaccount_providers`` variable in the
 template context with a list of configured social authentication
 providers. This supersedes the context processor used in version 0.21 and
 below.
+
+Dynamic Auth Params
+*******************
+
+If you want to pass dynamic `auth_params` to the `authorize_url` of a provider::
+  
+  {% provider_login_url "google" auth_params="foo=bar" %}
+  
+This is useful for things like Google's `state` auth parameter which is being passed
+on your callback url.

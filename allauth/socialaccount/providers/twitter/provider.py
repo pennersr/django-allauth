@@ -34,9 +34,9 @@ class TwitterProvider(OAuthProvider):
 
     def get_auth_url(self, request, action):
         if action == AuthAction.REAUTHENTICATE:
-            url = 'https://api.twitter.com/oauth/authorize'
+            url = 'https://twitter.com/oauth/authorize'
         else:
-            url = 'https://api.twitter.com/oauth/authenticate'
+            url = 'https://twitter.com/oauth/authenticate'
         return url
 
     def extract_uid(self, data):

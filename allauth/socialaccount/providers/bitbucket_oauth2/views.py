@@ -23,6 +23,8 @@ class BitbucketOAuth2Adapter(OAuth2Adapter):
         extra_data = resp.json()
         if app_settings.QUERY_EMAIL and not extra_data.get('email'):
             extra_data['email'] = self.get_email(token)
+        if 'response' in kwargs and 'refresh_token' in kwargs['response']:
+            extra_data['refresh_token'] = kwargs['response']['refresh_token']
         return self.get_provider().sociallogin_from_response(request,
                                                              extra_data)
 

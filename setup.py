@@ -112,7 +112,7 @@ else:
 # See: https://github.com/kennethreitz/requests/issues/3507
 requests_package = 'requests < 2.11.0' if IS_PY32 else 'requests'
 
-long_description = io.open('README.rst', encoding='utf-8').read()
+long_description = io.open('README.rst', encoding='ascii', errors='ignore').read()
 
 # Dynamically calculate the version based on allauth.VERSION.
 version = __import__('allauth').__version__

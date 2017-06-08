@@ -472,6 +472,9 @@ class ResetPasswordForm(forms.Form):
         })
     )
 
+    def get_extra_context_data(self):
+        return {}
+
     def clean_email(self):
         email = self.cleaned_data["email"]
         email = get_adapter().clean_email(email)
@@ -506,6 +509,7 @@ class ResetPasswordForm(forms.Form):
                        "user": user,
                        "password_reset_url": url,
                        "request": request}
+            context.update(self.get_extra_context_data())
 
             if app_settings.AUTHENTICATION_METHOD \
                     != AuthenticationMethod.EMAIL:

@@ -421,10 +421,13 @@ class AddEmailForm(UserForm):
         return value
 
     def save(self, request):
+        confirm = False
+        if app_settings.EMAIL_VERIFICATION != app_settings.EmailVerificationMethod.NONE:
+            confirm = True
         return EmailAddress.objects.add_email(request,
                                               self.user,
                                               self.cleaned_data["email"],
-                                              confirm=True)
+                                              confirm=confirm)
 
 
 class ChangePasswordForm(PasswordVerificationMixin, UserForm):

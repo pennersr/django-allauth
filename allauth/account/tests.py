@@ -286,7 +286,8 @@ class AccountTests(TestCase):
         resp = self.client.get(url)
         # Follow the redirect the actual password reset page with the key
         # hidden.
-        resp = self.client.get(resp.url)
+        url = resp.url
+        resp = self.client.get(url)
         self.assertTemplateUsed(
             resp,
             'account/password_reset_from_key.%s' %

@@ -91,7 +91,7 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
                 = lambda: mocks.pop()
             resp = self.client.post(reverse('facebook_login_by_token'),
                                     data={'access_token': 'dummy'})
-            self.assertRedirects(resp, 'http://testserver/accounts/profile/',
+            self.assertRedirects(resp, '/accounts/profile/',
                                  fetch_redirect_response=False)
 
     @override_settings(
@@ -111,7 +111,7 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
                 = lambda: mocks.pop()
             resp = self.client.post(reverse('facebook_login_by_token'),
                                     data={'access_token': 'dummy'})
-            self.assertRedirects(resp, 'http://testserver/accounts/profile/',
+            self.assertRedirects(resp, '/accounts/profile/',
                                  fetch_redirect_response=False)
 
     @override_settings(

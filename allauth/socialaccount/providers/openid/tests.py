@@ -51,7 +51,7 @@ class OpenIDTests(TestCase):
                     resp = self.client.post(reverse('openid_callback'))
                     self.assertRedirects(
                         resp,
-                        'http://testserver/accounts/profile/',
+                        '/accounts/profile/',
                         fetch_redirect_response=False)
                     get_user_model().objects.get(first_name='raymond')
 
@@ -98,7 +98,7 @@ class OpenIDTests(TestCase):
                     resp = self.client.post(reverse('openid_callback'))
                     self.assertRedirects(
                         resp,
-                        'http://testserver/accounts/profile/',
+                        '/accounts/profile/',
                         fetch_redirect_response=False)
                     socialaccount = \
                         SocialAccount.objects.get(user__first_name='raymond')

@@ -471,7 +471,7 @@ class SocialAccountTests(TestCase):
         session.save()
         resp = self.client.get(reverse('socialaccount_signup'))
         form = resp.context['form']
-        self.assertEquals(form['email'].value(), 'verified@provider.com')
+        self.assertEqual(form['email'].value(), 'verified@provider.com')
         resp = self.client.post(
             reverse('socialaccount_signup'),
             data={'email': 'unverified@local.com'})
@@ -479,7 +479,7 @@ class SocialAccountTests(TestCase):
             resp, '/accounts/profile/',
             fetch_redirect_response=False)
         user = User.objects.all()[0]
-        self.assertEquals(
+        self.assertEqual(
             user_email(user),
             'verified@provider.com'
         )
@@ -529,14 +529,14 @@ class SocialAccountTests(TestCase):
         session.save()
         resp = self.client.get(reverse('socialaccount_signup'))
         form = resp.context['form']
-        self.assertEquals(form['email'].value(), 'unverified@provider.com')
+        self.assertEqual(form['email'].value(), 'unverified@provider.com')
         resp = self.client.post(
             reverse('socialaccount_signup'),
             data={'email': 'unverified@local.com'})
 
         self.assertRedirects(resp, reverse('account_email_verification_sent'))
         user = User.objects.all()[0]
-        self.assertEquals(
+        self.assertEqual(
             user_email(user),
             'unverified@local.com'
         )
@@ -582,7 +582,7 @@ class SocialAccountTests(TestCase):
         session.save()
         resp = self.client.get(reverse('socialaccount_signup'))
         form = resp.context['form']
-        self.assertEquals(form['email'].value(), 'me@provider.com')
+        self.assertEqual(form['email'].value(), 'me@provider.com')
         resp = self.client.post(
             reverse('socialaccount_signup'),
             data={'email': 'me@provider.com'})

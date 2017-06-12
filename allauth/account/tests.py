@@ -989,13 +989,13 @@ class UtilsTests(TestCase):
             is_active=True,
             email='john@doe.com',
             username='john')
-        self.assertEquals(user_pk_to_url_str(user), str(user.pk))
+        self.assertEqual(user_pk_to_url_str(user), str(user.pk))
 
     @override_settings(ACCOUNT_PRESERVE_USERNAME_CASING=False)
     def test_username_lower_cased(self):
         user = get_user_model()()
         user_username(user, 'CamelCase')
-        self.assertEquals(user_username(user), 'camelcase')
+        self.assertEqual(user_username(user), 'camelcase')
         # TODO: Actually test something
         filter_users_by_username('CamelCase', 'FooBar')
 
@@ -1003,6 +1003,6 @@ class UtilsTests(TestCase):
     def test_username_case_preserved(self):
         user = get_user_model()()
         user_username(user, 'CamelCase')
-        self.assertEquals(user_username(user), 'CamelCase')
+        self.assertEqual(user_username(user), 'CamelCase')
         # TODO: Actually test something
         filter_users_by_username('camelcase', 'foobar')

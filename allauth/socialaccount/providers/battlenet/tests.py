@@ -18,15 +18,44 @@ class BattleNetTests(OAuth2TestsMixin, TestCase):
         data = {"battletag": self._battletag, "id": self._uid}
         return MockedResponse(200, json.dumps(data))
 
+    def test_valid_response_no_battletag(self):
+        data = {"id": 12345}
+        response = MockedResponse(200, json.dumps(data))
+        self.assertEqual(_check_errors(response), data)
+
     def test_invalid_data(self):
+        response = MockedResponse(200, json.dumps({}))
         with self.assertRaises(OAuth2Error):
             # No id, raises
-            _check_errors({})
+            _check_errors(response)
+
+    def test_profile_invalid_response(self):
+        data = {"code": 403, "type": "Forbidden", "detail": "Account Inactive"}
+        response = MockedResponse(401, json.dumps(data))
 
         with self.assertRaises(OAuth2Error):
-            _check_errors({"error": "invalid_token"})
+            # no id, 4xx code, raises
+            _check_errors(response)
 
-        _check_errors({"id": 12345})  # Does not raise
+    def test_error_response(self):
+        body = json.dumps({"error": "invalid_token"})
+        response = MockedResponse(400, body)
+
+        with self.assertRaises(OAuth2Error):
+            # no id, 4xx code, raises
+            _check_errors(response)
+
+    def test_service_not_found(self):
+        response = MockedResponse(596, "<h1>596 Service Not Found</h1>")
+        with self.assertRaises(OAuth2Error):
+            # bad json, 5xx code, raises
+            _check_errors(response)
+
+    def test_invalid_response(self):
+        response = MockedResponse(200, "invalid json data")
+        with self.assertRaises(OAuth2Error):
+            # bad json, raises
+            _check_errors(response)
 
     def test_extra_data(self):
         self.login(self.get_mocked_response())

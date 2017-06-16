@@ -879,6 +879,16 @@ to define the API you are using in your site's settings, as follows:
     }
 
 
+Patreon
+-------
+
+App registration (get your key and secret here)
+    https://www.patreon.com/platform/documentation/clients
+
+Development callback URL
+    http://127.0.0.1:8000/accounts/patreon/login/callback/
+
+
 Paypal
 ------
 

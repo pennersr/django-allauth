@@ -48,7 +48,7 @@ Authenticated users can manage their password account using the
 ``allauth.account.views.PasswordSetView`` and
 ``allauth.account.views.PasswordChangeView`` views, over at
 ``/accounts/password/set/`` respectively ``/accounts/password/change/`` (URL names
-``account_set_password`` and ``account_inactive`` respectively).
+``account_set_password`` and ``account_change_password`` respectively).
 
 Users are redirected between these views, according to whether or not
 they have setup a password (``user.has_usable_password()``).  Typically,

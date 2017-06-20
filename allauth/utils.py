@@ -230,11 +230,28 @@ def deserialize_instance(model, data):
     return ret
 
 
-def set_form_field_order(form, fields_order):
-    assert isinstance(form.fields, OrderedDict)
-    form.fields = OrderedDict(
-        (f, form.fields[f])
-        for f in fields_order)
+def set_form_field_order(form, field_order):
+    """
+    This function is a verbatim copy of django.forms.Form.order_fields() to
+    support field ordering below Django 1.9.
+
+    field_order is a list of field names specifying the order. Append fields
+    not included in the list in the default order for backward compatibility
+    with subclasses not overriding field_order. If field_order is None, keep
+    all fields in the order defined in the class. Ignore unknown fields in
+    field_order to allow disabling fields in form subclasses without
+    redefining ordering.
+    """
+    if field_order is None:
+        return
+    fields = OrderedDict()
+    for key in field_order:
+        try:
+            fields[key] = form.fields.pop(key)
+        except KeyError:  # ignore unknown fields
+            pass
+    fields.update(form.fields)  # add remaining fields in original order
+    form.fields = fields
 
 
 def build_absolute_uri(request, location, protocol=None):

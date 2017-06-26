@@ -2,8 +2,8 @@ import hashlib
 import hmac
 import logging
 import requests
-
 from datetime import timedelta
+
 from django.utils import timezone
 
 from allauth.socialaccount import app_settings, providers
@@ -19,7 +19,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 )
 
 from .forms import FacebookConnectForm
-from .provider import GRAPH_API_URL, FacebookProvider
+from .provider import GRAPH_API_URL, GRAPH_API_VERSION, FacebookProvider
 
 
 logger = logging.getLogger(__name__)
@@ -54,7 +54,9 @@ def fb_complete_login(request, app, token):
 
 class FacebookOAuth2Adapter(OAuth2Adapter):
     provider_id = FacebookProvider.id
-    provider_default_auth_url = 'https://www.facebook.com/dialog/oauth'
+    provider_default_auth_url = (
+        'https://www.facebook.com/{}/dialog/oauth'.format(
+            GRAPH_API_VERSION))
 
     settings = app_settings.PROVIDERS.get(provider_id, {})
 

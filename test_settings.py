@@ -30,7 +30,7 @@ TEMPLATES = [
     },
 ]
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -96,6 +96,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.odnoklassniki',
     'allauth.socialaccount.providers.openid',
     'allauth.socialaccount.providers.orcid',
+    'allauth.socialaccount.providers.patreon',
     'allauth.socialaccount.providers.paypal',
     'allauth.socialaccount.providers.persona',
     'allauth.socialaccount.providers.pinterest',
@@ -107,6 +108,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.spotify',
     'allauth.socialaccount.providers.stackexchange',
     'allauth.socialaccount.providers.stripe',
+    'allauth.socialaccount.providers.trello',
     'allauth.socialaccount.providers.tumblr',
     'allauth.socialaccount.providers.twentythreeandme',
     'allauth.socialaccount.providers.twitch',

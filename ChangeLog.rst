@@ -1,5 +1,5 @@
-Unreleased
-**********
+0.32.0 (2017-04-27)
+*******************
 
 Note worthy changes
 -------------------
@@ -8,6 +8,10 @@ Note worthy changes
   manage e-mail addresses and social connections) now support AJAX GET requests.
   These views hand over all the required data for you to build your frontend
   application upon.
+
+- New providers: Dwolla, Trello.
+
+- Shopify: support for per-user access mode.
 
 
 Backwards incompatible changes
@@ -22,6 +26,12 @@ Backwards incompatible changes
   Now, it contains a ``form`` key that describes the complete form, including
   the fields. Field specific errors are placed in
   ``form.fields['some_field'].errors``, non-field errors in ``form.errors``.
+
+- The parameters passed to the Facebook JS SDK ``FB.init()`` method used to contain
+  ``cookie``, ``status``, and ``xfbml``, all set to ``true``. These parameters
+  are no longer explicitly passed. You can use the newly introduced ``INIT_PARAMS``
+  provider setting to provide your own values.
+
 
 
 0.31.0 (2017-02-28)

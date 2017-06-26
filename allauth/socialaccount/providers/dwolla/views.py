@@ -12,6 +12,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 from .provider import DwollaProvider
 
+
 ENVIRONMENTS = {
     'production': {
         'auth_url':  'https://www.dwolla.com/oauth/v2/authenticate',

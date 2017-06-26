@@ -13,6 +13,6 @@ class TwitchTests(OAuth2TestsMixin, TestCase):
 "updated_at":"2012-06-18T17:19:57Z","_links":{"self":
 "https://api.twitch.tv/kraken/users/test_user1"},
 "logo":"http://static-cdn.jtvnw.net/jtv_user_pictures/test_user1-profile_image-62e8318af864d6d7-300x300.jpeg",
-"_id":22761313,"display_name":"test_user1","email":"asdf@asdf.com",
+"_id":22761313,"display_name":"test_user1","email":"user@example.com",
 "partnered":true}
 """)  # noqa

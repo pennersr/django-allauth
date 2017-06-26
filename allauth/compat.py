@@ -1,6 +1,11 @@
 import django
 
 
+try:
+    from collections import UserDict
+except ImportError:
+    from UserDict import UserDict  # noqa
+
 if django.VERSION > (1, 10,):
     from django.urls import NoReverseMatch, reverse, reverse_lazy
 else:

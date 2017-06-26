@@ -38,13 +38,7 @@
       this.opts = opts
 
       window.fbAsyncInit = function () {
-        FB.init({
-          appId: opts.appId,
-          version: opts.version,
-          status: true,
-          cookie: true,
-          xfbml: true
-        })
+        FB.init(opts.initParams)
         fbInitialized = true
         allauth.facebook.onInit()
       };

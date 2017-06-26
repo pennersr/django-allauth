@@ -111,6 +111,8 @@ Supported Providers
 
 - ORCID (OAuth2)
 
+- Patreon (OAuth2)
+
 - Paypal (OAuth2)
 
 - Persona
@@ -130,6 +132,8 @@ Supported Providers
 - Stack Exchange (OAuth2)
 
 - Stripe (OAuth2)
+
+- Trello (OAuth)
 
 - Tumblr (OAuth)
 

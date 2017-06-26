@@ -67,6 +67,10 @@ ACCOUNT_DEFAULT_HTTP_PROTOCOL (="http")
   password forgotten procedure. Note that this is a default only --
   see the section on HTTPS for more information.
 
+ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN (=180)
+  The cooldown period (in seconds) after a confirmation email is sent,
+  during which further emails are not sent.
+
 ACCOUNT_FORMS (={})
   Used to override forms, for example:
   ``{'login': 'myapp.forms.LoginForm'}``

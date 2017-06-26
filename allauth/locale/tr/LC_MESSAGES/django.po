@@ -21,11 +21,11 @@ msgstr ""
 
 #: account/adapter.py:50
 msgid "Username can not be used. Please use other username."
-msgstr ""
+msgstr "Bu kullanıcı adı kullanılamaz. Lütfen başka bir kullanıcı adı deneyin."
 
 #: account/adapter.py:54
 msgid "Too many failed login attempts. Try again later."
-msgstr ""
+msgstr "Çok fazla hatalı giriş yapıldı. Lütfen daha sonra tekrar deneyin."
 
 #: account/adapter.py:56
 msgid "A user is already registered with this e-mail address."
@@ -149,11 +149,11 @@ msgstr "Bu e-posta adresi hiçbir kullanıcı hesabıyla ilişkili değil"
 
 #: account/forms.py:534
 msgid "The password reset token was invalid."
-msgstr ""
+msgstr "Şifre sıfırlama kodu hatalı."
 
 #: account/models.py:23
 msgid "user"
-msgstr ""
+msgstr "kullanıcı"
 
 #: account/models.py:27 account/models.py:86
 #, fuzzy
@@ -203,7 +203,7 @@ msgstr "e-posta onayları"
 msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
 "account first, then connect your %s account."
-msgstr ""
+msgstr "Bu e-posta ile kayıtlı bir hesap bulunmaktadır. Lütfen önce bu hesaba giriş yapıp daha sonra %s hesabınızı bağlayın."
 
 #: socialaccount/adapter.py:131
 msgid "Your account has no password set up."

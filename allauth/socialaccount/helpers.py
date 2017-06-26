@@ -36,17 +36,13 @@ def _process_signup(request, sociallogin):
         # FIXME: This part contains a lot of duplication of logic
         # ("closed" rendering, create user, send email, in active
         # etc..)
-        try:
-            if not get_adapter(request).is_open_for_signup(
-                    request,
-                    sociallogin):
-                return render(
-                    request,
-                    "account/signup_closed." +
-                    account_settings.TEMPLATE_EXTENSION
-                )
-        except ImmediateHttpResponse as e:
-            return e.response
+        if not get_adapter(request).is_open_for_signup(
+                request,
+                sociallogin):
+            return render(
+                request,
+                "account/signup_closed." +
+                account_settings.TEMPLATE_EXTENSION)
         get_adapter(request).save_user(request, sociallogin, form=None)
         ret = complete_social_signup(request, sociallogin)
     return ret
@@ -115,24 +111,17 @@ def _add_social_account(request, sociallogin):
             # implemented, we render the standard "account connected"
             # message without actually doing anything.
             action = 'updated'
-            try:
-                signals.social_account_updated.send(
-                    sender=SocialLogin,
-                    request=request,
-                    sociallogin=sociallogin
-                )
-            except ImmediateHttpResponse as e:
-                return e.response
+            signals.social_account_updated.send(
+                sender=SocialLogin,
+                request=request,
+                sociallogin=sociallogin)
     else:
         # New account, let's connect
         action = 'added'
         sociallogin.connect(request, request.user)
-        try:
-            signals.social_account_added.send(sender=SocialLogin,
-                                              request=request,
-                                              sociallogin=sociallogin)
-        except ImmediateHttpResponse as e:
-            return e.response
+        signals.social_account_added.send(sender=SocialLogin,
+                                          request=request,
+                                          sociallogin=sociallogin)
     default_next = get_adapter(request).get_connect_redirect_url(
         request,
         sociallogin.account)
@@ -155,15 +144,15 @@ def complete_social_login(request, sociallogin):
         signals.pre_social_login.send(sender=SocialLogin,
                                       request=request,
                                       sociallogin=sociallogin)
+        process = sociallogin.state.get('process')
+        if process == AuthProcess.REDIRECT:
+            return _social_login_redirect(request, sociallogin)
+        elif process == AuthProcess.CONNECT:
+            return _add_social_account(request, sociallogin)
+        else:
+            return _complete_social_login(request, sociallogin)
     except ImmediateHttpResponse as e:
         return e.response
-    process = sociallogin.state.get('process')
-    if process == AuthProcess.REDIRECT:
-        return _social_login_redirect(request, sociallogin)
-    elif process == AuthProcess.CONNECT:
-        return _add_social_account(request, sociallogin)
-    else:
-        return _complete_social_login(request, sociallogin)
 
 
 def _social_login_redirect(request, sociallogin):
@@ -177,6 +166,10 @@ def _complete_social_login(request, sociallogin):
     if sociallogin.is_existing:
         # Login existing user
         ret = _login_social_account(request, sociallogin)
+        signals.social_account_updated.send(
+            sender=SocialLogin,
+            request=request,
+            sociallogin=sociallogin)
     else:
         # New social user
         ret = _process_signup(request, sociallogin)

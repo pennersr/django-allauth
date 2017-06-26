@@ -91,13 +91,16 @@ def user_field(user, field, *args):
     User = get_user_model()
     try:
         field_meta = User._meta.get_field(field)
+        max_length = field_meta.max_length
     except FieldDoesNotExist:
-        return
+        if not hasattr(user, field):
+            return
+        max_length = None
     if args:
         # Setter
         v = args[0]
         if v:
-            v = v[0:field_meta.max_length]
+            v = v[0:max_length]
         setattr(user, field, v)
     else:
         # Getter
@@ -289,11 +292,15 @@ def send_email_confirmation(request, user, signup=False):
 
     Especially in case of b), we want to limit the number of mails
     sent (consider a user retrying a few times), which is why there is
-    a cooldown period before sending a new mail.
+    a cooldown period before sending a new mail. This cooldown period
+    can be configured in ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN setting.
     """
     from .models import EmailAddress, EmailConfirmation
 
-    COOLDOWN_PERIOD = timedelta(minutes=3)
+    cooldown_period = timedelta(
+        seconds=app_settings.EMAIL_CONFIRMATION_COOLDOWN
+    )
+
     email = user_email(user)
     if email:
         try:
@@ -303,7 +310,7 @@ def send_email_confirmation(request, user, signup=False):
                     send_email = True
                 else:
                     send_email = not EmailConfirmation.objects.filter(
-                        sent__gt=now() - COOLDOWN_PERIOD,
+                        sent__gt=now() - cooldown_period,
                         email_address=email_address).exists()
                 if send_email:
                     email_address.send_confirmation(request,
@@ -398,8 +405,7 @@ def user_pk_to_url_str(user):
     This should return a string.
     """
     User = get_user_model()
-    if (hasattr(models, 'UUIDField') and issubclass(
-            type(User._meta.pk), models.UUIDField)):
+    if issubclass(type(User._meta.pk), models.UUIDField):
         if isinstance(user.pk, six.string_types):
             return user.pk
         return user.pk.hex
@@ -418,8 +424,7 @@ def url_str_to_user_pk(s):
         pk_field = User._meta.pk.rel.to._meta.pk
     else:
         pk_field = User._meta.pk
-    if (hasattr(models, 'UUIDField') and issubclass(
-            type(pk_field), models.UUIDField)):
+    if issubclass(type(pk_field), models.UUIDField):
         return s
     try:
         pk_field.to_python('a')

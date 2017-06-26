@@ -54,8 +54,9 @@ class OAuthTestsMixin(object):
                     username=str(random.randrange(1000, 10000000)))
         resp = self.client.post(reverse('socialaccount_signup'),
                                 data=data)
-        self.assertRedirects(resp, 'http://testserver/accounts/profile/',
-                             fetch_redirect_response=False)
+        self.assertRedirects(
+            resp, "/accounts/profile/", fetch_redirect_response=False
+        )
         user = resp.context['user']
         self.assertFalse(user.has_usable_password())
         account = SocialAccount.objects.get(
@@ -80,8 +81,9 @@ class OAuthTestsMixin(object):
                           % self.provider.id)
             return
         resp = self.login(resp_mocks)
-        self.assertRedirects(resp, 'http://testserver/accounts/profile/',
-                             fetch_redirect_response=False)
+        self.assertRedirects(
+            resp, "/accounts/profile/", fetch_redirect_response=False
+        )
         self.assertFalse(resp.context['user'].has_usable_password())
 
     def login(self, resp_mocks, process='login'):
@@ -161,7 +163,7 @@ class OAuth2TestsMixin(object):
         self.assertRedirects(resp, reverse('socialaccount_signup'))
 
     def test_account_tokens(self, multiple_login=False):
-        email = 'some@mail.com'
+        email = "user@example.com"
         user = get_user_model().objects.create(
             username='user',
             is_active=True,
@@ -275,7 +277,9 @@ class SocialAccountTests(TestCase):
         User = get_user_model()
         user = User()
         setattr(user, account_settings.USER_MODEL_USERNAME_FIELD, 'test')
-        setattr(user, account_settings.USER_MODEL_EMAIL_FIELD, 'test@test.com')
+        setattr(
+            user, account_settings.USER_MODEL_EMAIL_FIELD, "test@example.com"
+        )
 
         account = SocialAccount(provider='openid', uid='123')
         sociallogin = SocialLogin(user=user, account=account)
@@ -302,7 +306,7 @@ class SocialAccountTests(TestCase):
         """Test clash on both username and email"""
         request, resp = self._email_address_clash(
             'test',
-            'test@test.com')
+            'test@example.com')
         self.assertEqual(
             resp['location'],
             reverse('socialaccount_signup'))
@@ -311,13 +315,13 @@ class SocialAccountTests(TestCase):
         request.method = 'POST'
         request.POST = {
             'username': 'other',
-            'email': 'other@test.com'}
+            'email': 'other@example.com'}
         resp = signup(request)
         self.assertEqual(
             resp['location'], '/accounts/profile/')
         user = get_user_model().objects.get(
             **{account_settings.USER_MODEL_EMAIL_FIELD:
-               'other@test.com'})
+               'other@example.com'})
         self.assertEqual(user_username(user), 'other')
 
     @override_settings(
@@ -330,7 +334,7 @@ class SocialAccountTests(TestCase):
         """Test clash while username is not required"""
         request, resp = self._email_address_clash(
             'test',
-            'test@test.com')
+            'test@example.com')
         self.assertEqual(
             resp['location'],
             reverse('socialaccount_signup'))
@@ -338,13 +342,13 @@ class SocialAccountTests(TestCase):
         # POST email to social signup form (username not present)
         request.method = 'POST'
         request.POST = {
-            'email': 'other@test.com'}
+            'email': 'other@example.com'}
         resp = signup(request)
         self.assertEqual(
             resp['location'], '/accounts/profile/')
         user = get_user_model().objects.get(
             **{account_settings.USER_MODEL_EMAIL_FIELD:
-               'other@test.com'})
+               'other@example.com'})
         self.assertNotEqual(user_username(user), 'test')
 
     @override_settings(
@@ -355,12 +359,12 @@ class SocialAccountTests(TestCase):
         SOCIALACCOUNT_AUTO_SIGNUP=True)
     def test_email_address_clash_username_auto_signup(self):
         # Clash on username, but auto signup still works
-        request, resp = self._email_address_clash('test', 'other@test.com')
+        request, resp = self._email_address_clash('test', 'other@example.com')
         self.assertEqual(
             resp['location'], '/accounts/profile/')
         user = get_user_model().objects.get(
             **{account_settings.USER_MODEL_EMAIL_FIELD:
-               'other@test.com'})
+               'other@example.com'})
         self.assertNotEqual(user_username(user), 'test')
 
     @override_settings(
@@ -381,7 +385,7 @@ class SocialAccountTests(TestCase):
         user = User()
         setattr(user, account_settings.USER_MODEL_USERNAME_FIELD, 'username')
         setattr(user, account_settings.USER_MODEL_EMAIL_FIELD,
-                'username@doe.com')
+                'username@example.com')
 
         account = SocialAccount(provider='twitter', uid='123')
         sociallogin = SocialLogin(user=user, account=account)
@@ -395,7 +399,7 @@ class SocialAccountTests(TestCase):
         # Some existig user
         exi_user = User()
         user_username(exi_user, 'test')
-        user_email(exi_user, 'test@test.com')
+        user_email(exi_user, 'test@example.com')
         exi_user.save()
 
         # A social user being signed up...
@@ -421,7 +425,7 @@ class SocialAccountTests(TestCase):
         # Some existig user
         user = User()
         user_username(user, 'test')
-        user_email(user, 'test@test.com')
+        user_email(user, 'test@example.com')
         user.set_password('test')
         user.save()
 
@@ -457,43 +461,39 @@ class SocialAccountTests(TestCase):
         session = self.client.session
         User = get_user_model()
         sociallogin = SocialLogin(
-            user=User(
-                email='verified@provider.com'),
+            user=User(email="verified@example.com"),
             account=SocialAccount(
                 provider='google'
             ),
             email_addresses=[
                 EmailAddress(
-                    email='verified@provider.com',
+                    email="verified@example.com",
                     verified=True,
                     primary=True)])
         session['socialaccount_sociallogin'] = sociallogin.serialize()
         session.save()
         resp = self.client.get(reverse('socialaccount_signup'))
         form = resp.context['form']
-        self.assertEquals(form['email'].value(), 'verified@provider.com')
+        self.assertEqual(form["email"].value(), "verified@example.com")
         resp = self.client.post(
             reverse('socialaccount_signup'),
-            data={'email': 'unverified@local.com'})
+            data={'email': "unverified@example.org"})
         self.assertRedirects(
             resp, '/accounts/profile/',
             fetch_redirect_response=False)
         user = User.objects.all()[0]
-        self.assertEquals(
-            user_email(user),
-            'verified@provider.com'
-        )
+        self.assertEqual(user_email(user), "verified@example.com")
         self.assertTrue(
             EmailAddress.objects.filter(
                 user=user,
-                email='verified@provider.com',
+                email="verified@example.com",
                 verified=True,
                 primary=True
             ).exists())
         self.assertTrue(
             EmailAddress.objects.filter(
                 user=user,
-                email='unverified@local.com',
+                email="unverified@example.org",
                 verified=False,
                 primary=False
             ).exists())
@@ -515,42 +515,38 @@ class SocialAccountTests(TestCase):
         session = self.client.session
         User = get_user_model()
         sociallogin = SocialLogin(
-            user=User(
-                email='unverified@provider.com'),
+            user=User(email="unverified@example.com"),
             account=SocialAccount(
                 provider='google'
             ),
             email_addresses=[
                 EmailAddress(
-                    email='unverified@provider.com',
+                    email="unverified@example.com",
                     verified=False,
                     primary=True)])
         session['socialaccount_sociallogin'] = sociallogin.serialize()
         session.save()
         resp = self.client.get(reverse('socialaccount_signup'))
         form = resp.context['form']
-        self.assertEquals(form['email'].value(), 'unverified@provider.com')
+        self.assertEqual(form["email"].value(), "unverified@example.com")
         resp = self.client.post(
             reverse('socialaccount_signup'),
-            data={'email': 'unverified@local.com'})
+            data={'email': "unverified@example.org"})
 
         self.assertRedirects(resp, reverse('account_email_verification_sent'))
         user = User.objects.all()[0]
-        self.assertEquals(
-            user_email(user),
-            'unverified@local.com'
-        )
+        self.assertEqual(user_email(user), "unverified@example.org")
         self.assertTrue(
             EmailAddress.objects.filter(
                 user=user,
-                email='unverified@provider.com',
+                email="unverified@example.com",
                 verified=False,
                 primary=False
             ).exists())
         self.assertTrue(
             EmailAddress.objects.filter(
                 user=user,
-                email='unverified@local.com',
+                email="unverified@example.org",
                 verified=False,
                 primary=True
             ).exists())
@@ -565,27 +561,25 @@ class SocialAccountTests(TestCase):
     def test_unique_email_validation_signup(self):
         session = self.client.session
         User = get_user_model()
-        User.objects.create(
-            email='me@provider.com')
+        User.objects.create(email="me@example.com")
         sociallogin = SocialLogin(
-            user=User(
-                email='me@provider.com'),
+            user=User(email="me@example.com"),
             account=SocialAccount(
                 provider='google'
             ),
             email_addresses=[
                 EmailAddress(
-                    email='me@provider.com',
+                    email="me@example.com",
                     verified=True,
                     primary=True)])
         session['socialaccount_sociallogin'] = sociallogin.serialize()
         session.save()
         resp = self.client.get(reverse('socialaccount_signup'))
         form = resp.context['form']
-        self.assertEquals(form['email'].value(), 'me@provider.com')
+        self.assertEqual(form['email'].value(), "me@example.com")
         resp = self.client.post(
             reverse('socialaccount_signup'),
-            data={'email': 'me@provider.com'})
+            data={'email': "me@example.com"})
         self.assertFormError(
             resp,
             'form',

@@ -5,17 +5,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-28 07:56-0600\n"
-"PO-Revision-Date: 2014-08-12 00:34+0200\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2017-04-05 22:48+0300\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 
 #: account/adapter.py:50
 msgid "Username can not be used. Please use other username."
@@ -96,7 +96,7 @@ msgstr "E-mail (ещё раз)"
 
 #: account/forms.py:262
 msgid "E-mail address confirmation"
-msgstr "подтверждение email адреса"
+msgstr "Подтверждение email адреса"
 
 #: account/forms.py:272
 msgid "E-mail (optional)"
@@ -152,7 +152,7 @@ msgstr "e-mail адрес"
 
 #: account/models.py:28
 msgid "verified"
-msgstr "подтверждено"
+msgstr "подтвержден"
 
 #: account/models.py:29
 msgid "primary"
@@ -245,7 +245,7 @@ msgstr "социальные приложения"
 
 #: socialaccount/models.py:102
 msgid "uid"
-msgstr "ID пользователя"
+msgstr "UID пользователя"
 
 #: socialaccount/models.py:104
 msgid "last login"
@@ -265,7 +265,7 @@ msgstr "аккаунт социальной сети"
 
 #: socialaccount/models.py:113
 msgid "social accounts"
-msgstr "аккаунты социальных приложений"
+msgstr "аккаунты социальных сетей"
 
 #: socialaccount/models.py:139
 msgid "token"
@@ -347,11 +347,11 @@ msgstr "Следующие e-mail адреса прикреплены к ваш�
 
 #: templates/account/email.html:24
 msgid "Verified"
-msgstr "Подтверждено"
+msgstr "Подтвержден"
 
 #: templates/account/email.html:26
 msgid "Unverified"
-msgstr "Неподтверждено"
+msgstr "Не подтвержден"
 
 #: templates/account/email.html:28
 msgid "Primary"
@@ -406,9 +406,8 @@ msgid ""
 msgstr ""
 "Вас приветствует %(site_name)s!\n"
 "\n"
-"Вы получили это письмо, потому что пользователь %(user_display)s "
-"с сайта %(site_domain)s указал Ваш e-mail адрес для подключения "
-"к своему аккаунту.\n"
+"Вы получили это письмо, потому что пользователь %(user_display)s с сайта "
+"%(site_domain)s указал ваш e-mail адрес для подключения к своему аккаунту.\n"
 "\n"
 "Чтобы подтвердить, перейдите по ссылке %(activate_url)s\n"
 
@@ -418,10 +417,12 @@ msgid ""
 "Thank you from %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
+"Спасибо от сайта «%(site_name)s!»\n"
+"%(site_domain)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your E-mail Address"
-msgstr "Пожалуйста подтвердите Ваш e-mail адрес"
+msgstr "Пожалуйста подтвердите ваш e-mail адрес"
 
 #: templates/account/email/password_reset_key_message.txt:1
 #, python-format
@@ -450,6 +451,8 @@ msgid ""
 "Thank you for using %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
+"Благодарим вас за использование сайта «%(site_name)s!»\n"
+"%(site_domain)s"
 
 #: templates/account/email/password_reset_key_subject.txt:3
 msgid "Password Reset E-mail"
@@ -496,7 +499,7 @@ msgid ""
 "for a %(site_name)s account and sign in below:"
 msgstr ""
 "Пожалуйста, войдите с одним\n"
-"из ваших внешних аккаунтов. Или, <a href=\"%(signup_url)s"
+"из ваших внешних аккаунтов. Или <a href=\"%(signup_url)s"
 "\">зарегистрируйтесь</a>\n"
 "и авторизуйтесь на сайте %(site_name)s:"
 
@@ -510,8 +513,8 @@ msgid ""
 "If you have not created an account yet, then please\n"
 "<a href=\"%(signup_url)s\">sign up</a> first."
 msgstr ""
-"Если у Вас ещё нет учётной записи, пожалуйста,"
-"сначала <a href=\"%(signup_url)s\">зарегистрируйтесь</a>."
+"Если у вас ещё нет учётной записи, пожалуйста, сначала <a href="
+"\"%(signup_url)s\">зарегистрируйтесь</a>."
 
 #: templates/account/login.html:42
 msgid "Forgot Password?"
@@ -593,8 +596,8 @@ msgid ""
 "Forgotten your password? Enter your e-mail address below, and we'll send you "
 "an e-mail allowing you to reset it."
 msgstr ""
-"Забыли пароль? Введите свой e-mail адрес ниже, и мы вышлем письмо для его "
-"сброса."
+"Забыли пароль? Введите свой e-mail адрес ниже, и мы вышлем вам письмо для "
+"сброса пароля."
 
 #: templates/account/password_reset.html:20
 msgid "Reset My Password"
@@ -609,8 +612,8 @@ msgid ""
 "We have sent you an e-mail. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"Мы отправили вам письмо. Дайте знать, если не получили его в течение "
-"нескольких минут."
+"Мы отправили вам письмо. Пожалуйста, свяжитесь с нами, если не получили его "
+"в течение нескольких минут."
 
 #: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -623,7 +626,7 @@ msgid ""
 "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
 "a>."
 msgstr ""
-"Ссылка на сброс пароля неверна, скорее всего вы уже использовали её. Для "
+"Ссылка на сброс пароля неверна, вероятно, она уже была использована. Для "
 "нового сброса пароля <a href=\"%(passwd_reset_url)s\">перейдите по ссылке</"
 "a>."
 
@@ -672,7 +675,7 @@ msgstr "Заметка"
 #: templates/account/snippets/already_logged_in.html:5
 #, python-format
 msgid "you are already logged in as %(user_display)s."
-msgstr "вы уже авторизованы как %(user_display)s."
+msgstr "вы уже вошли как %(user_display)s."
 
 #: templates/account/verification_sent.html:5
 #: templates/account/verification_sent.html:8

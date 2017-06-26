@@ -23,7 +23,7 @@ class DoximityTests(OAuth2TestsMixin, TestCase):
             "zip": "94107",
             "phone": "(650) 200-3901",
             "fax": "888-416-8572",
-            "email": "abelalmd@mail.com",
+            "email": "abelalmd@example.com",
             "address_1": "500 3rd St.",
             "address_2": "Suite 510",
             "lat": 42.3663926,

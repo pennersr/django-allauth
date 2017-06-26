@@ -366,6 +366,7 @@ The following Facebook settings are available:
             'METHOD': 'oauth2',
             'SCOPE': ['email', 'public_profile', 'user_friends'],
             'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+            'INIT_PARAMS': {'cookie': True},
             'FIELDS': [
                 'id',
                 'email',
@@ -878,6 +879,16 @@ to define the API you are using in your site's settings, as follows:
     }
 
 
+Patreon
+-------
+
+App registration (get your key and secret here)
+    https://www.patreon.com/platform/documentation/clients
+
+Development callback URL
+    http://127.0.0.1:8000/accounts/patreon/login/callback/
+
+
 Paypal
 ------
 
@@ -1037,6 +1048,16 @@ Note that there is more an embedded app creator must do in order to have a page 
 Shopify (building the x_frame_exempt landing page, handing session expiration, etc...).
 However that functionality is outside the scope of django-allauth.
 
+**Online/per-user access mode**
+Shopify has two access modes, offline (the default) and online/per-user. Enabling 'online' access will
+cause all-auth to tie the logged in Shopify user to the all-auth account (rather than the shop as a whole).::
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'shopify': {
+            'AUTH_PARAMS': {'grant_options[]': 'per-user'},
+        }
+    }
+
 
 Slack
 -----
@@ -1195,7 +1216,7 @@ VK
 --
 
 App registration
-    http://vk.com/apps?act=settings
+    https://vk.com/editapp?act=create
 
 Development callback URL ("Site address")
     http://localhost
@@ -1211,7 +1232,7 @@ App registration (get your key and secret here)
     https://apps.dev.microsoft.com/#/appList
 
 Development callback URL
-    http://localhost:8000/accounts/windowslive/login/callback
+    http://localhost:8000/accounts/windowslive/login/callback/
 
 Microsoft calls the "client_id" an "Application Id" and it is a UUID. Also,
 the "client_secret" is not created by default, you must edit the application

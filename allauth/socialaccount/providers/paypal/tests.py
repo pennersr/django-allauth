@@ -15,6 +15,6 @@ class PaypalTests(OAuth2TestsMixin, TestCase):
             "name": "Jane Doe",
             "given_name": "Jane",
             "family_name": "Doe",
-            "email": "janedoe@paypal.com"
+            "email": "janedoe@example.com"
         }
         """)

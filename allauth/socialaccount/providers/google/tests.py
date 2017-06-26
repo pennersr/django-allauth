@@ -34,7 +34,7 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
                             family_name='Penners',
                             given_name='Raymond',
                             name='Raymond Penners',
-                            email='raymond.penners@gmail.com',
+                            email="raymond.penners@example.com",
                             verified_email=True):
         return MockedResponse(200, """
               {"family_name": "%s", "name": "%s",
@@ -87,7 +87,7 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
     def test_username_based_on_email(self):
         first_name = '明'
         last_name = '小'
-        email = 'raymond.penners@gmail.com'
+        email = "raymond.penners@example.com"
         self.login(self.get_mocked_response(name=first_name + ' ' + last_name,
                                             email=email,
                                             given_name=first_name,
@@ -97,7 +97,7 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
         self.assertEqual(user.username, 'raymond.penners')
 
     def test_email_verified(self):
-        test_email = 'raymond.penners@gmail.com'
+        test_email = "raymond.penners@example.com"
         self.login(self.get_mocked_response(verified_email=True))
         email_address = EmailAddress.objects \
             .get(email=test_email,
@@ -125,7 +125,7 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
 
     @override_settings(ACCOUNT_EMAIL_CONFIRMATION_HMAC=False)
     def test_email_unverified(self):
-        test_email = 'raymond.penners@gmail.com'
+        test_email = "raymond.penners@example.com"
         resp = self.login(self.get_mocked_response(verified_email=False))
         email_address = EmailAddress.objects \
             .get(email=test_email)
@@ -146,7 +146,7 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
         request = RequestFactory().get('/')
         request.session = self.client.session
         adapter = get_adapter(request)
-        test_email = 'raymond.penners@gmail.com'
+        test_email = "raymond.penners@example.com"
         adapter.stash_verified_email(request, test_email)
         request.session.save()
 
@@ -159,7 +159,7 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
                 email_address__email=test_email).exists())
 
     def test_account_connect(self):
-        email = 'some@mail.com'
+        email = "user@example.com"
         user = User.objects.create(username='user',
                                    is_active=True,
                                    email=email)
@@ -190,7 +190,7 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
         .EmailVerificationMethod.NONE
     )
     def test_social_email_verification_skipped(self):
-        test_email = 'raymond.penners@gmail.com'
+        test_email = "raymond.penners@example.com"
         self.login(self.get_mocked_response(verified_email=False))
         email_address = EmailAddress.objects.get(email=test_email)
         self.assertFalse(email_address.verified)

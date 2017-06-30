@@ -12,9 +12,9 @@ else:
     from django.core.urlresolvers import NoReverseMatch, reverse, reverse_lazy  # noqa
 
 try:
-    from urllib.parse import parse_qsl, parse_qs, urlparse, urlunparse
+    from urllib.parse import parse_qsl, parse_qs, urlparse, urlunparse, urljoin
 except ImportError:
-    from urlparse import parse_qsl, parse_qs, urlparse, urlunparse  # noqa
+    from urlparse import parse_qsl, parse_qs, urlparse, urlunparse, urljoin  # noqa
 
 if django.VERSION >= (1, 9, 0):
     from django.contrib.auth.password_validation import validate_password

@@ -756,7 +756,7 @@ msgstr ""
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."
-msgstr "쇼셜 계정이 연결되었습니다."
+msgstr "소셜 계정이 연결되었습니다."
 
 #: templates/socialaccount/messages/account_connected_other.txt:2
 msgid "The social account is already connected to a different account."

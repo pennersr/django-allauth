@@ -35,11 +35,11 @@ allauth.account
 
   Sent when a password has been successfully reset.
 
-- ``allauth.account.signals.email_confirmed(email_address)``
+- ``allauth.account.signals.email_confirmed(request, email_address)``
 
   Sent after the email address in the db was updated and set to confirmed.
 
-- ``allauth.account.signals.email_confirmation_sent(confirmation)``
+- ``allauth.account.signals.email_confirmation_sent(request, confirmation, signup)``
 
   Sent right after the email confirmation is sent.
 

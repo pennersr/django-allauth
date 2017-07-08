@@ -23,11 +23,5 @@ class KakaoOAuth2Adapter(OAuth2Adapter):
                                                              extra_data)
 
 
-class KakaoCallbackView(OAuth2CallbackView):
-    def get_client(self, request, app):
-        client = super(KakaoCallbackView, self).get_client(request, app)
-        return client
-
-
 oauth2_login = OAuth2LoginView.adapter_view(KakaoOAuth2Adapter)
-oauth2_callback = KakaoCallbackView.adapter_view(KakaoOAuth2Adapter)
+oauth2_callback = OAuth2CallbackView.adapter_view(KakaoOAuth2Adapter)

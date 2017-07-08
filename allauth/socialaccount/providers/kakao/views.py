@@ -26,7 +26,6 @@ class KakaoOAuth2Adapter(OAuth2Adapter):
 class KakaoCallbackView(OAuth2CallbackView):
     def get_client(self, request, app):
         client = super(KakaoCallbackView, self).get_client(request, app)
-        client.consumer_secret = None   # kakao not used client_secret
         return client
 
 

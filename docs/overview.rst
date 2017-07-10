@@ -57,6 +57,8 @@ Supported Providers
 
 - Box (OAuth2)
 
+- Dataporten (OAuth2)
+
 - Daum (OAuth2)
 
 - Douban (OAuth2)

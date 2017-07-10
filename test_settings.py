@@ -62,6 +62,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.bitly',
     'allauth.socialaccount.providers.box',
     'allauth.socialaccount.providers.coinbase',
+    'allauth.socialaccount.providers.dataporten',
     'allauth.socialaccount.providers.daum',
     'allauth.socialaccount.providers.digitalocean',
     'allauth.socialaccount.providers.discord',

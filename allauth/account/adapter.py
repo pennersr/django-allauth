@@ -417,7 +417,7 @@ class DefaultAccountAdapter(object):
 
     def is_safe_url(self, url):
         from django.utils.http import is_safe_url
-        return is_safe_url(url)
+        return is_safe_url(url, allowed_hosts=app_settings.REDIRECT_ALLOWED_HOSTS)
 
     def get_email_confirmation_url(self, request, emailconfirmation):
         """Constructs the email confirmation (activation) url.

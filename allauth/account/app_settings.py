@@ -152,6 +152,13 @@ class AppSettings(object):
         return ret
 
     @property
+    def REDIRECT_ALLOWED_HOSTS(self):
+        """
+        Set of allowed hosts when redirecting
+        """
+        return self._setting("REDIRECT_ALLOWED_HOSTS", None)
+
+    @property
     def EMAIL_SUBJECT_PREFIX(self):
         """
         Subject-line prefix to use for email messages sent

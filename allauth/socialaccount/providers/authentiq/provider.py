@@ -1,9 +1,5 @@
 from allauth.account.models import EmailAddress
-from allauth.socialaccount.app_settings import (
-    EMAIL_REQUIRED,
-    EMAIL_VERIFICATION,
-    QUERY_EMAIL,
-)
+from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -49,9 +45,9 @@ class AuthentiqProvider(OAuth2Provider):
 
         if Scope.EMAIL in scope:
             modifiers = ""
-            if EMAIL_REQUIRED:
+            if app_settings.EMAIL_REQUIRED:
                 modifiers += "r"
-            if EMAIL_VERIFICATION:
+            if app_settings.EMAIL_VERIFICATION:
                 modifiers += "s"
             if modifiers:
                 scope.add(Scope.EMAIL + "~" + modifiers)
@@ -60,7 +56,7 @@ class AuthentiqProvider(OAuth2Provider):
 
     def get_default_scope(self):
         scope = [Scope.NAME, Scope.PUSH]
-        if QUERY_EMAIL:
+        if app_settings.QUERY_EMAIL:
             scope.append(Scope.EMAIL)
         return scope
 

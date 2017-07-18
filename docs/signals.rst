@@ -72,7 +72,7 @@ allauth.socialaccount
 
   Sent after a user connects a social account to a their local account.
 
-- `allauth.socialaccount.signals.social_account_updated(request, sociallogin)`
+- ``allauth.socialaccount.signals.social_account_updated(request, sociallogin)``
 
   Sent after a social account has been updated. This happens when a user
   logs in using an already connected social account, or completes a `connect`

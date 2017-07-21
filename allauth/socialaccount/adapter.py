@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 
+from django.shortcuts import resolve_url
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
@@ -117,8 +118,7 @@ class DefaultSocialAccountAdapter(object):
         connecting a social account.
         """
         assert is_authenticated(request.user)
-        url = reverse('socialaccount_connections')
-        return url
+        return resolve_url(app_settings.CONNECT_REDIRECT_URL)
 
     def validate_disconnect(self, account, accounts):
         """

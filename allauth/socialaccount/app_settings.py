@@ -71,6 +71,11 @@ class AppSettings(object):
     def UID_MAX_LENGTH(self):
         return 191
 
+    @property
+    def CONNECT_REDIRECT_URL(self):
+        return self._setting('CONNECT_REDIRECT_URL',
+                             'socialaccount_connections')
+
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

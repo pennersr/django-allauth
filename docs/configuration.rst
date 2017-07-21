@@ -216,3 +216,6 @@ SOCIALACCOUNT_QUERY_EMAIL (=ACCOUNT_EMAIL_REQUIRED)
 
 SOCIALACCOUNT_STORE_TOKENS (=True)
   Indicates whether or not the access tokens are stored in the database.
+
+SOCIALACCOUNT_CONNECT_REDIRECT_URL (='socialaccount_connections')
+  The URL to redirect to after a successful social account connection.

@@ -64,6 +64,7 @@ def _ajax_response(request, response, form=None, data=None):
 
 
 class RedirectAuthenticatedUserMixin(object):
+
     def dispatch(self, request, *args, **kwargs):
         if is_authenticated(request.user) and \
                 app_settings.AUTHENTICATED_LOGIN_REDIRECTS:
@@ -671,7 +672,6 @@ class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, FormView):
                               'reset_password_from_key',
                               self.form_class)
 
-
     def dispatch(self, request, uidb36, key, **kwargs):
         self.request = request
         self.key = key
@@ -679,7 +679,8 @@ class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, FormView):
         if self.key == INTERNAL_RESET_URL_KEY:
             self.key = self.request.session.get(INTERNAL_RESET_SESSION_KEY, '')
             # (Ab)using forms here to be able to handle errors in XHR #890
-            token_form = UserTokenForm(data={'uidb36': uidb36, 'key': self.key})
+            token_form = UserTokenForm(
+                data={'uidb36': uidb36, 'key': self.key})
             if token_form.is_valid():
                 self.reset_user = token_form.reset_user
                 return super(PasswordResetFromKeyView, self).dispatch(request,
@@ -687,14 +688,16 @@ class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, FormView):
                                                                       self.key,
                                                                       **kwargs)
         else:
-            token_form = UserTokenForm(data={'uidb36': uidb36, 'key': self.key})
+            token_form = UserTokenForm(
+                data={'uidb36': uidb36, 'key': self.key})
             if token_form.is_valid():
                 # Store the key in the session and redirect to the
                 # password reset form at a URL without the key. That
                 # avoids the possibility of leaking the key in the
                 # HTTP Referer header.
                 self.request.session[INTERNAL_RESET_SESSION_KEY] = self.key
-                redirect_url = self.request.path.replace(self.key, INTERNAL_RESET_URL_KEY)
+                redirect_url = self.request.path.replace(
+                    self.key, INTERNAL_RESET_URL_KEY)
                 return redirect(redirect_url)
 
         self.reset_user = None

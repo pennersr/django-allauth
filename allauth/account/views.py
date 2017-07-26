@@ -40,6 +40,10 @@ from .utils import (
 )
 
 
+INTERNAL_RESET_URL_KEY = "set-password"
+INTERNAL_RESET_SESSION_KEY = "_password_reset_key"
+
+
 sensitive_post_parameters_m = method_decorator(
     sensitive_post_parameters('password', 'password1', 'password2'))
 
@@ -61,6 +65,7 @@ def _ajax_response(request, response, form=None, data=None):
 
 
 class RedirectAuthenticatedUserMixin(object):
+
     def dispatch(self, request, *args, **kwargs):
         if is_authenticated(request.user) and \
                 app_settings.AUTHENTICATED_LOGIN_REDIRECTS:
@@ -671,21 +676,36 @@ class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, FormView):
     def dispatch(self, request, uidb36, key, **kwargs):
         self.request = request
         self.key = key
-        # (Ab)using forms here to be able to handle errors in XHR #890
-        token_form = UserTokenForm(data={'uidb36': uidb36, 'key': key})
 
-        if not token_form.is_valid():
-            self.reset_user = None
-            response = self.render_to_response(
-                self.get_context_data(token_fail=True)
-            )
-            return _ajax_response(self.request, response, form=token_form)
+        if self.key == INTERNAL_RESET_URL_KEY:
+            self.key = self.request.session.get(INTERNAL_RESET_SESSION_KEY, '')
+            # (Ab)using forms here to be able to handle errors in XHR #890
+            token_form = UserTokenForm(
+                data={'uidb36': uidb36, 'key': self.key})
+            if token_form.is_valid():
+                self.reset_user = token_form.reset_user
+                return super(PasswordResetFromKeyView, self).dispatch(request,
+                                                                      uidb36,
+                                                                      self.key,
+                                                                      **kwargs)
         else:
-            self.reset_user = token_form.reset_user
-            return super(PasswordResetFromKeyView, self).dispatch(request,
-                                                                  uidb36,
-                                                                  key,
-                                                                  **kwargs)
+            token_form = UserTokenForm(
+                data={'uidb36': uidb36, 'key': self.key})
+            if token_form.is_valid():
+                # Store the key in the session and redirect to the
+                # password reset form at a URL without the key. That
+                # avoids the possibility of leaking the key in the
+                # HTTP Referer header.
+                self.request.session[INTERNAL_RESET_SESSION_KEY] = self.key
+                redirect_url = self.request.path.replace(
+                    self.key, INTERNAL_RESET_URL_KEY)
+                return redirect(redirect_url)
+
+        self.reset_user = None
+        response = self.render_to_response(
+            self.get_context_data(token_fail=True)
+        )
+        return _ajax_response(self.request, response, form=token_form)
 
     def get_context_data(self, **kwargs):
         ret = super(PasswordResetFromKeyView, self).get_context_data(**kwargs)

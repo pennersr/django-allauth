@@ -284,6 +284,10 @@ class AccountTests(TestCase):
         # Extract URL for `password_reset_from_key` view and access it
         url = body[body.find('/password/reset/'):].split()[0]
         resp = self.client.get(url)
+        # Follow the redirect the actual password reset page with the key
+        # hidden.
+        url = resp.url
+        resp = self.client.get(url)
         self.assertTemplateUsed(
             resp,
             'account/password_reset_from_key.%s' %
@@ -336,8 +340,11 @@ class AccountTests(TestCase):
         user = self._request_new_password()
         body = mail.outbox[0].body
         url = body[body.find('/password/reset/'):].split()[0]
+        resp = self.client.get(url)
+        # Follow the redirect the actual password reset page with the key
+        # hidden.
         resp = self.client.post(
-            url,
+            resp.url,
             {'password1': 'newpass123',
              'password2': 'newpass123'})
         self.assertTrue(is_authenticated(user))

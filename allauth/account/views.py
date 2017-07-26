@@ -39,6 +39,7 @@ from .utils import (
     url_str_to_user_pk,
 )
 
+
 INTERNAL_RESET_URL_KEY = "set-password"
 INTERNAL_RESET_SESSION_KEY = "_password_reset_key"
 

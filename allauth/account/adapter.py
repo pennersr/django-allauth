@@ -9,7 +9,6 @@ from django import forms
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import (
-    authenticate,
     get_backends,
     login as django_login,
     logout as django_logout,
@@ -26,7 +25,7 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from . import app_settings
-from ..compat import is_authenticated, reverse, validate_password
+from ..compat import authenticate, is_authenticated, reverse, validate_password
 from ..utils import (
     build_absolute_uri,
     email_address_exists,
@@ -487,7 +486,7 @@ class DefaultAccountAdapter(object):
     def authenticate(self, request, **credentials):
         """Only authenticates, does not actually login. See `login`"""
         self.pre_authenticate(request, **credentials)
-        user = authenticate(**credentials)
+        user = authenticate(request=request, **credentials)
         if user:
             cache_key = self._get_login_attempts_cache_key(
                 request, **credentials)

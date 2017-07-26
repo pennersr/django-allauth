@@ -43,3 +43,11 @@ def is_authenticated(user):
         return user.is_authenticated
     else:
         return user.is_authenticated()
+
+
+def authenticate(request=None, **credentials):
+    from django.contrib.auth import authenticate
+    if django.VERSION >= (1, 11, 0):
+        return authenticate(request=request, **credentials)
+    else:
+        return authenticate(**credentials)

@@ -22,13 +22,14 @@ from allauth.account.models import (
     EmailConfirmation,
     EmailConfirmationHMAC,
 )
-from allauth.tests import TestCase, patch
+from allauth.tests import Mock, TestCase, patch
 from allauth.utils import get_user_model, get_username_max_length
 
 from . import app_settings
 from ..compat import is_authenticated, reverse
 from .adapter import get_adapter
 from .auth_backends import AuthenticationBackend
+from .signals import user_logged_out
 from .utils import (
     filter_users_by_username,
     url_str_to_user_pk,
@@ -569,8 +570,21 @@ class AccountTests(TestCase):
         self.assertTemplateUsed(
             resp,
             'account/logout.%s' % app_settings.TEMPLATE_EXTENSION)
+
+        receiver_mock = Mock()
+        user_logged_out.connect(receiver_mock)
+
         resp = c.post(reverse('account_logout'))
+
         self.assertTemplateUsed(resp, 'account/messages/logged_out.txt')
+        receiver_mock.assert_called_once_with(
+            sender=get_user_model(),
+            request=resp.wsgi_request,
+            user=get_user_model().objects.get(username='john'),
+            signal=user_logged_out,
+        )
+
+        user_logged_out.disconnect(receiver_mock)
 
     def _logout_view(self, method):
         c = Client()

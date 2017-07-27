@@ -33,7 +33,6 @@ from ..utils import (
     get_user_model,
     import_attribute,
 )
-from .signals import user_logged_out
 
 
 try:
@@ -389,12 +388,7 @@ class DefaultAccountAdapter(object):
         django_login(request, user)
 
     def logout(self, request):
-        user = request.user
         django_logout(request)
-        user_logged_out.send(
-            sender=user.__class__,
-            request=request,
-            user=user)
 
     def confirm_email(self, request, email_address):
         """

@@ -185,6 +185,10 @@ ACCOUNT_USERNAME_VALIDATORS (=None)
   (``'some.module.validators.custom_username_validators'``) to a list of
   custom username validators. If left unset, the validators setup
   within the user model username field are used.
+  
+SOCIALACCOUNT_ENABLED (=True)
+  Whether social account signup/login should be enabled. Set to ``False``
+  if you only want to support local accounts.
 
 SOCIALACCOUNT_ADAPTER (="allauth.socialaccount.adapter.DefaultSocialAccountAdapter")
   Specifies the adapter class to use, allowing you to alter certain

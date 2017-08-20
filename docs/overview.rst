@@ -45,6 +45,8 @@ Supported Providers
 
 - Auth0 (OAuth2)
 
+- Authentiq (OAuth2)
+
 - Basecamp (OAuth2)
 
 - Baidu (OAuth2)

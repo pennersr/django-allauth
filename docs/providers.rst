@@ -1106,6 +1106,16 @@ following template tag:
     {% load socialaccount %}
     <a href="{% provider_login_url "openid" openid="https://www.google.com/accounts/o8/id" next="/success/url/" %}">Google</a>
 
+The OpenID provider can be forced to operate in stateless mode as follows::
+
+    SOCIALACCOUNT_PROVIDERS = \
+        { 'openid':
+            { 'SERVERS':
+                [ dict(id='steam',
+                    name='Steam',
+                    openid_url='https://steamcommunity.com/openid',
+                    stateless=True,
+                )]}}
 
 OpenStreetMap
 -----

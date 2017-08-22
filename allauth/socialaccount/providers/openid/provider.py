@@ -59,7 +59,8 @@ class OpenIDProvider(Provider):
     def get_server_settings(self, endpoint):
         servers = self.get_settings().get('SERVERS', [])
         for server in servers:
-            if endpoint == server.get('openid_url'):
+            if endpoint is not None \
+                    and endpoint.startswith(server.get('openid_url')):
                 return server
         return {}
 

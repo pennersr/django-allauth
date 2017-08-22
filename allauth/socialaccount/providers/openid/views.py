@@ -23,8 +23,10 @@ from .provider import OpenIDProvider
 from .utils import AXAttributes, DBOpenIDStore, JSONSafeSession, SRegFields
 
 
-def _openid_consumer(request):
-    store = DBOpenIDStore()
+def _openid_consumer(request, provider, endpoint):
+    server_settings = provider.get_server_settings(endpoint)
+    stateless = server_settings.get('stateless', False)
+    store = None if stateless else DBOpenIDStore()
     client = consumer.Consumer(JSONSafeSession(request.session), store)
     return client
 
@@ -69,8 +71,8 @@ class OpenIDLoginView(View):
             list(self.request.POST.items())
         ))
 
-    def get_client(self):
-        return _openid_consumer(self.request)
+    def get_client(self, provider, endpoint):
+        return _openid_consumer(self.request, provider, endpoint)
 
     def get_realm(self, provider):
         return provider.get_settings().get(
@@ -86,11 +88,12 @@ class OpenIDLoginView(View):
             return form
 
         request = self.request
-        client = self.get_client()
         provider = self.provider(request)
+        endpoint = form.cleaned_data['openid']
+        client = self.get_client(provider, endpoint)
         realm = self.get_realm(provider)
 
-        auth_request = client.begin(form.cleaned_data['openid'])
+        auth_request = client.begin(endpoint)
         if QUERY_EMAIL:
             sreg = SRegRequest()
             for name in SRegFields:
@@ -131,7 +134,9 @@ class OpenIDCallbackView(View):
     provider = OpenIDProvider
 
     def get(self, request):
-        client = self.get_client()
+        provider = self.provider(request)
+        endpoint = request.GET.get('openid.op_endpoint', '')
+        client = self.get_client(provider, endpoint)
         response = self.get_openid_response(client)
 
         if response.status == consumer.SUCCESS:
@@ -157,8 +162,8 @@ class OpenIDCallbackView(View):
             self.request, self.provider.id, error=error
         )
 
-    def get_client(self):
-        return _openid_consumer(self.request)
+    def get_client(self, provider, endpoint):
+        return _openid_consumer(self.request, provider, endpoint)
 
     def get_openid_response(self, client):
         return client.complete(

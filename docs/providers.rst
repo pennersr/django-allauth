@@ -760,9 +760,20 @@ fetching the access token::
 App registration (get your key and secret here)
     https://www.linkedin.com/secure/developer?newapp=
 
-Development callback URL
-    Leave the OAuth redirect URL empty.
+Authorized Redirect URLs (Oauth2)
+*********************************
+Add any you need (up to 200) consisting of:
 
+    {``ACCOUNT_DEFAULT_HTTP_PROTOCOL``}://{hostname}{:optional_port}/{allauth_base_url}/linkedin_oauth2/login/callback/
+
+For example when using the built-in django server and default settings:
+
+    http://localhost:8000/accounts/linkedin_oauth2/login/callback/
+
+
+Development "Accept" and "Cancel" redirect URL (Oauth 1.0a)
+***********************************************************
+    Leave the OAuth1 redirect URLs empty.
 
 MailChimp (OAuth2)
 ------------------

@@ -237,7 +237,7 @@ Development callback (redirect) URL
 Doximity
 --------
 
-Doximity Oauth2 implementation documentation
+Doximity OAuth2 implementation documentation
     https://www.doximity.com/developers/documentation#oauth
 
 Request API keys here
@@ -760,7 +760,7 @@ fetching the access token::
 App registration (get your key and secret here)
     https://www.linkedin.com/secure/developer?newapp=
 
-Authorized Redirect URLs (Oauth2)
+Authorized Redirect URLs (OAuth2)
 *********************************
 Add any you need (up to 200) consisting of:
 
@@ -771,7 +771,7 @@ For example when using the built-in django server and default settings:
     http://localhost:8000/accounts/linkedin_oauth2/login/callback/
 
 
-Development "Accept" and "Cancel" redirect URL (Oauth 1.0a)
+Development "Accept" and "Cancel" redirect URL (OAuth 1.0a)
 ***********************************************************
     Leave the OAuth1 redirect URLs empty.
 

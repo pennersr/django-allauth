@@ -19,7 +19,7 @@ class DropboxOAuth2Tests(OAuth2TestsMixin, TestCase):
                 "given_name": "Björn"
                 },
             "locale": "en",
-            "email": "test@example.se",
+            "email": "test@example.com",
             "uid": 1234567890,
             "email_verified": true,
             "quota_info": {

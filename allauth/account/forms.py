@@ -82,9 +82,6 @@ class LoginForm(forms.Form):
 
         'username_password_mismatch':
         _("The username and/or password you specified are not correct."),
-
-        'username_email_password_mismatch':
-        _("The login and/or password you specified are not correct.")
     }
 
     def __init__(self, *args, **kwargs):
@@ -134,7 +131,7 @@ class LoginForm(forms.Form):
                 AuthenticationMethod.USERNAME):
             credentials["username"] = login
         else:
-            if "@" in login and "." in login:
+            if self._is_login_email(login):
                 credentials["email"] = login
             credentials["username"] = login
         credentials["password"] = self.cleaned_data["password"]
@@ -143,6 +140,14 @@ class LoginForm(forms.Form):
     def clean_login(self):
         login = self.cleaned_data['login']
         return login.strip()
+
+    def _is_login_email(self, login):
+        try:
+            validators.validate_email(login)
+            ret = True
+        except exceptions.ValidationError:
+            ret = False
+        return ret
 
     def clean(self):
         super(LoginForm, self).clean()
@@ -155,10 +160,15 @@ class LoginForm(forms.Form):
         if user:
             self.user = user
         else:
+            auth_method = app_settings.AUTHENTICATION_METHOD
+            if auth_method == app_settings.AuthenticationMethod.USERNAME_EMAIL:
+                login = self.cleaned_data['login']
+                if self._is_login_email(login):
+                    auth_method = app_settings.AuthenticationMethod.EMAIL
+                else:
+                    auth_method = app_settings.AuthenticationMethod.USERNAME
             raise forms.ValidationError(
-                self.error_messages[
-                    '%s_password_mismatch'
-                    % app_settings.AUTHENTICATION_METHOD])
+                self.error_messages['%s_password_mismatch' % auth_method])
         return self.cleaned_data
 
     def login(self, request, redirect_url=None):
@@ -250,9 +260,13 @@ class BaseSignupForm(_base_signup_form_class()):
         username_field.widget.attrs['maxlength'] = str(
             username_field.max_length)
 
-        # field order may contain additional fields from our base class,
-        # so take proper care when reordering...
-        field_order = ['email', 'username']
+        default_field_order = [
+            'email',
+            'email2',  # ignored when not present
+            'username',
+            'password1',
+            'password2'  # ignored when not present
+        ]
         if app_settings.SIGNUP_EMAIL_ENTER_TWICE:
             self.fields["email2"] = forms.EmailField(
                 label=_("E-mail (again)"),
@@ -263,8 +277,6 @@ class BaseSignupForm(_base_signup_form_class()):
                     }
                 )
             )
-            field_order = ['email', 'email2', 'username']
-        merged_field_order = list(self.fields.keys())
         if email_required:
             self.fields['email'].label = ugettext("E-mail")
             self.fields['email'].required = True
@@ -273,21 +285,20 @@ class BaseSignupForm(_base_signup_form_class()):
             self.fields['email'].required = False
             self.fields['email'].widget.is_required = False
             if self.username_required:
-                field_order = ['username', 'email']
-                if app_settings.SIGNUP_EMAIL_ENTER_TWICE:
-                    field_order.append('email2')
+                default_field_order = [
+                    'username',
+                    'email',
+                    'email2',  # ignored when not present
+                    'password1',
+                    'password2'  # ignored when not present
+                ]
 
-        # Merge our email and username fields in if they are not
-        # currently in the order.  This is to allow others to
-        # re-arrange email and username if they desire.  Go in reverse
-        # so that we make sure the inserted items are always
-        # prepended.
-        for field in reversed(field_order):
-            if field not in merged_field_order:
-                merged_field_order.insert(0, field)
-        set_form_field_order(self, merged_field_order)
         if not self.username_required:
             del self.fields["username"]
+
+        set_form_field_order(
+            self,
+            getattr(self, 'field_order', None) or default_field_order)
 
     def clean_username(self):
         value = self.cleaned_data["username"]
@@ -335,6 +346,9 @@ class SignupForm(BaseSignupForm):
         if app_settings.SIGNUP_PASSWORD_ENTER_TWICE:
             self.fields['password2'] = PasswordField(
                 label=_("Password (again)"))
+
+        if hasattr(self, 'field_order'):
+            set_form_field_order(self, self.field_order)
 
     def clean(self):
         super(SignupForm, self).clean()

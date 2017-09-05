@@ -87,6 +87,32 @@ You'll need to specify the base URL for your Auth0 domain:
         }
     }
 
+
+Authentiq
+---------
+
+Browse to https://www.authentiq.com/developers to get started.
+
+App registration
+    https://dashboard.authentiq.com/
+
+Sign in or register with your Authentiq ID (select ``Download the app`` while signing in if you don't have Authentiq ID yet).
+
+Development redirect URL
+    http://localhost:8000/accounts/authentiq/login/callback/
+
+While testing you can leave the ``Redirect URIs`` field empty in the dashboard. You can specify what identity details to request via the ``SCOPE`` parameter.
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'authentiq': {
+          'SCOPE': ['email', 'aq:name']
+        }
+    }
+
+Valid scopes include: ``email``, ``phone``, ``address``, ``aq:name``, ``aq:location``. The default is to request a user's name, and email address if ``SOCIALACCOUNT_QUERY_EMAIL=True``. You can request and require a verified email address by setting ``SOCIALACCOUNT_EMAIL_VERIFICATION=True`` and ``SOCIALACCOUNT_EMAIL_REQUIRED=True``.
+
 Baidu
 -----
 
@@ -152,6 +178,16 @@ Development callback URL
     http://localhost:8000/accounts/box/login/callback/
 
 
+Dataporten
+----------
+
+App registration (get your key and secret here)
+    https://docs.dataporten.no/docs/gettingstarted/
+
+Development callback URL
+    http://localhost:8000/accounts/dataporten/login/callback
+
+
 daum
 ----
 
@@ -201,7 +237,7 @@ Development callback (redirect) URL
 Doximity
 --------
 
-Doximity Oauth2 implementation documentation
+Doximity OAuth2 implementation documentation
     https://www.doximity.com/developers/documentation#oauth
 
 Request API keys here
@@ -231,11 +267,35 @@ App registration (get your key and secret here)
     https://www.dropbox.com/developers/apps/
 
 Development callback URL
-    http://localhost:8000/accounts/dropbox_oauth2/login/callback/
+    http://localhost:8000/accounts/dropbox/login/callback/
 
-Note that Dropbox has deprecated version 1 of their API as of 28 June 2016.
-This also affects apps. All new apps you create will automatically use OAuth
-2.0, and you have to use the ``dropbox_oauth2`` provider with ``allauth``.
+Note that Dropbox has deprecated version 1 of their API as of 28 June 2016. The original OAuth1 `dropbox` provider has been updated to OAuth2 and the newer URL endpoints for OAuth2 authentication and authorization.
+
+The `dropbox_oauth2` provider is deprecated and will be removed after September 28, 2017.
+
+Dwolla
+------------
+
+App registration (get your key and secret here)
+    https://dashboard-uat.dwolla.com/applications
+
+Development callback URL
+    http://127.0.0.1:8000/accounts/dwolla/login/callback/
+
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'dwolla': {
+            'SCOPE': [
+                'Send',
+                'Transactions',
+                'Funding',
+                'AccountInfoFull',
+            ],
+            'ENVIROMENT':'sandbox',
+        }
+    }
 
 Dwolla
 ------------
@@ -290,7 +350,7 @@ value is set, the Edmodo provider will use ``basic`` by default:
 Eve Online
 ----------
 
-Register your application at `https://developers.eveonline.com/applications/create`.
+Register your application at ``https://developers.eveonline.com/applications/create``.
 Note that if you have ``STORE_TOKENS`` enabled (the default), you will need to
 set up your application to be able to request an OAuth scope. This means you
 will need to set it as having "CREST Access". The least obtrusive scope is
@@ -301,8 +361,8 @@ Eventbrite
 ------------------
 
 Log in and click your profile name in the top right navigation, then select
-`Account Settings`. Choose `App Management` near the bottom of the left
-navigation column. You can then click `Create A New App` on the upper left
+``Account Settings``. Choose ``App Management`` near the bottom of the left
+navigation column. You can then click ``Create A New App`` on the upper left
 corner.
 
 App registration
@@ -313,13 +373,13 @@ Fill in the form with the following link
 Development callback URL
     http://127.0.0.1:8000/accounts/eventbrite/login/callback/
 
-for both the `Application URL` and `OAuth Redirect URI`.
+for both the ``Application URL`` and ``OAuth Redirect URI``.
 
 
 Evernote
 --------
 
-Register your OAuth2 application at `https://dev.evernote.com/doc/articles/authentication.php`:
+Register your OAuth2 application at ``https://dev.evernote.com/doc/articles/authentication.php``:
 
 .. code-block:: python
 
@@ -366,6 +426,7 @@ The following Facebook settings are available:
             'METHOD': 'oauth2',
             'SCOPE': ['email', 'public_profile', 'user_friends'],
             'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+            'INIT_PARAMS': {'cookie': True},
             'FIELDS': [
                 'id',
                 'email',
@@ -387,30 +448,30 @@ The following Facebook settings are available:
     }
 
 METHOD:
-    Either `js_sdk` or `oauth2`. The default is `oauth2`.
+    Either ``js_sdk`` or ``oauth2``. The default is ``oauth2``.
 
 SCOPE:
-    By default, the `email` scope is required depending on whether or not
+    By default, the ``email`` scope is required depending on whether or not
     ``SOCIALACCOUNT_QUERY_EMAIL`` is enabled.
-    Apps using permissions beyond `email`, `public_profile` and `user_friends`
+    Apps using permissions beyond ``email``, ``public_profile`` and ``user_friends``
     require review by Facebook.
     See `Permissions with Facebook Login <https://developers.facebook.com/docs/facebook-login/permissions>`_
     for more information.
 
 AUTH_PARAMS:
-    Use ``AUTH_PARAMS`` to pass along other parameters to the `FB.login`
+    Use ``AUTH_PARAMS`` to pass along other parameters to the ``FB.login``
     JS SDK call.
 
 FIELDS:
-    The fields to fetch from the Graph API `/me/?fields=` endpoint.
-    For example, you could add the `'friends'` field in order to
+    The fields to fetch from the Graph API ``/me/?fields=`` endpoint.
+    For example, you could add the ``'friends'`` field in order to
     capture the user's friends that have also logged into your app using
-    Facebook (requires `'user_friends'` scope).
+    Facebook (requires ``'user_friends'`` scope).
 
 EXCHANGE_TOKEN:
     The JS SDK returns a short-lived token suitable for client-side use. Set
     ``EXCHANGE_TOKEN = True`` to make a server-side request to upgrade to a
-    long-lived token before storing in the `SocialToken` record. See
+    long-lived token before storing in the ``SocialToken`` record. See
     `Expiration and Extending Tokens <https://developers.facebook.com/docs/facebook-login/access-tokens#extending>`_.
 
 LOCALE_FUNC:
@@ -442,7 +503,7 @@ VERIFIED_EMAIL:
     risk.
 
 VERSION:
-    The Facebook Graph API version to use. The default is `v2.4`.
+    The Facebook Graph API version to use. The default is ``v2.4``.
 
 App registration (get your key and secret here)
     A key and secret key can be obtained by
@@ -452,8 +513,8 @@ App registration (get your key and secret here)
     `reviewed by Facebook <https://developers.facebook.com/docs/apps/review>`_.
 
 Development callback URL
-    Leave your App Domains empty and put `http://localhost:8000` in the
-    section labeled `Website with Facebook Login`. Note that you'll need to
+    Leave your App Domains empty and put ``http://localhost:8000`` in the
+    section labeled ``Website with Facebook Login``. Note that you'll need to
     add your site's actual domain to this section once it goes live.
 
 
@@ -711,7 +772,7 @@ not ``SOCIALACCOUNT_QUERY_EMAIL`` is enabled.
 Note: if you are experiencing issues where it seems as if the scope has no
 effect you may be using an old LinkedIn app that is not scope enabled.
 Please refer to
-`https://developer.linkedin.com/forum/when-will-old-apps-have-scope-parameter-enabled`
+``https://developer.linkedin.com/forum/when-will-old-apps-have-scope-parameter-enabled``
 for more background information.
 
 Furthermore, we have experienced trouble upgrading from OAuth 1.0 to OAuth 2.0
@@ -723,9 +784,20 @@ fetching the access token::
 App registration (get your key and secret here)
     https://www.linkedin.com/secure/developer?newapp=
 
-Development callback URL
-    Leave the OAuth redirect URL empty.
+Authorized Redirect URLs (OAuth2)
+*********************************
+Add any you need (up to 200) consisting of:
 
+    {``ACCOUNT_DEFAULT_HTTP_PROTOCOL``}://{hostname}{:optional_port}/{allauth_base_url}/linkedin_oauth2/login/callback/
+
+For example when using the built-in django server and default settings:
+
+    http://localhost:8000/accounts/linkedin_oauth2/login/callback/
+
+
+Development "Accept" and "Cancel" redirect URL (OAuth 1.0a)
+***********************************************************
+    Leave the OAuth1 redirect URLs empty.
 
 MailChimp (OAuth2)
 ------------------
@@ -878,6 +950,16 @@ to define the API you are using in your site's settings, as follows:
     }
 
 
+Patreon
+-------
+
+App registration (get your key and secret here)
+    https://www.patreon.com/platform/documentation/clients
+
+Development callback URL
+    http://127.0.0.1:8000/accounts/patreon/login/callback/
+
+
 Paypal
 ------
 
@@ -898,7 +980,7 @@ SCOPE:
     https://developer.paypal.com/docs/integration/direct/identity/attributes/
 
 MODE:
-    Either `live` or `test`. Set to test to use the Paypal sandbox.
+    Either ``live`` or ``test``. Set to test to use the Paypal sandbox.
 
 App registration (get your key and secret here)
     https://developer.paypal.com/webapps/developer/applications/myapps
@@ -978,8 +1060,8 @@ App registration (get your key and secret here)
 Development callback URL
     http://localhost:8000/accounts/reddit/login/callback/
 
-By default, access to Reddit is temporary. You can specify the `duration`
-auth parameter to make it `permanent`.
+By default, access to Reddit is temporary. You can specify the ``duration``
+auth parameter to make it ``permanent``.
 
 You can optionally specify additional permissions to use. If no ``SCOPE``
 value is set, the Reddit provider will use ``identity`` by default.
@@ -1003,8 +1085,8 @@ you will risk additional rate limiting in your application.
 Shopify
 -------
 
-The Shopify provider requires a `shop` parameter to login. For
-example, for a shop `petstore.myshopify.com`, use this::
+The Shopify provider requires a ``shop`` parameter to login. For
+example, for a shop ``petstore.myshopify.com``, use this::
 
     /accounts/shopify/login/?shop=petstore
 
@@ -1014,12 +1096,12 @@ You can create login URLs like these as follows:
 
     {% provider_login_url "shopify" shop="petstore" %}
 
-For setting up authentication in your app, use this url as your `App URL`
+For setting up authentication in your app, use this url as your ``App URL``
 (if your server runs at localhost:8000)::
 
     http://localhost:8000/accounts/shopify/login/
 
-And set `Redirection URL` to::
+And set ``Redirection URL`` to::
 
     http://localhost:8000/accounts/shopify/login/callback/
 
@@ -1036,6 +1118,16 @@ If your Shopify app is embedded you will want to tell allauth to do the required
 Note that there is more an embedded app creator must do in order to have a page work as an iFrame within
 Shopify (building the x_frame_exempt landing page, handing session expiration, etc...).
 However that functionality is outside the scope of django-allauth.
+
+**Online/per-user access mode**
+Shopify has two access modes, offline (the default) and online/per-user. Enabling 'online' access will
+cause all-auth to tie the logged in Shopify user to the all-auth account (rather than the shop as a whole).::
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'shopify': {
+            'AUTH_PARAMS': {'grant_options[]': 'per-user'},
+        }
+    }
 
 
 Slack
@@ -1066,7 +1158,7 @@ Development callback URL
 Stack Exchange
 --------------
 
-Register your OAuth2 app over at `http://stackapps.com/apps/oauth/register`.
+Register your OAuth2 app over at ``http://stackapps.com/apps/oauth/register``.
 Do not enable "Client Side Flow". For local development you can simply use
 "localhost" for the OAuth domain.
 
@@ -1195,7 +1287,7 @@ VK
 --
 
 App registration
-    http://vk.com/apps?act=settings
+    https://vk.com/editapp?act=create
 
 Development callback URL ("Site address")
     http://localhost
@@ -1211,7 +1303,7 @@ App registration (get your key and secret here)
     https://apps.dev.microsoft.com/#/appList
 
 Development callback URL
-    http://localhost:8000/accounts/windowslive/login/callback
+    http://localhost:8000/accounts/windowslive/login/callback/
 
 Microsoft calls the "client_id" an "Application Id" and it is a UUID. Also,
 the "client_secret" is not created by default, you must edit the application
@@ -1221,11 +1313,11 @@ after it is created, then click "Generate New Password" to create it.
 Weibo
 -----
 
-Register your OAuth2 app over at `http://open.weibo.com/apps`. Unfortunately,
+Register your OAuth2 app over at ``http://open.weibo.com/apps``. Unfortunately,
 Weibo does not allow for specifying a port number in the authorization
 callback URL. So for development purposes you have to use a callback url of
-the form `http://127.0.0.1/accounts/weibo/login/callback/` and run
-`runserver 127.0.0.1:80`.
+the form ``http://127.0.0.1/accounts/weibo/login/callback/`` and run
+``runserver 127.0.0.1:80``.
 
 
 Weixin
@@ -1239,7 +1331,7 @@ Weixin supports two kinds of oauth2 authorization, one for open platform and
 one for media platform, AUTHORIZE_URL is the only difference between them, you
 can specify ``AUTHORIZE_URL`` in setting, If no ``AUTHORIZE_URL`` value is set
 will support open platform by default, which value is
-`https://open.weixin.qq.com/connect/qrconnect`.
+``https://open.weixin.qq.com/connect/qrconnect``.
 
 You can optionally specify additional scope to use. If no ``SCOPE`` value
 is set, will use ``snsapi_login`` by default.

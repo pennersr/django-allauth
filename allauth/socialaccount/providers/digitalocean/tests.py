@@ -13,7 +13,7 @@ class DigitalOceanTests(OAuth2TestsMixin, TestCase):
           "account": {
             "droplet_limit": 25,
             "floating_ip_limit": 5,
-            "email": "sammy@digitalocean.com",
+            "email": "sammy@example.com",
             "uuid": "b6fr89dbf6d9156cace5f3c78dc9851d957381ef",
             "email_verified": true,
             "status": "active",
@@ -32,7 +32,7 @@ class DigitalOceanTests(OAuth2TestsMixin, TestCase):
           "scope": "read write",
           "info": {
             "name": "Sammy the Shark",
-            "email":"sammy@digitalocean.com",
+            "email":"sammy@example.com",
             "uuid":"b6fr89dbf6d9156cace5f3c78dc9851d957381ef"
           }
         }"""

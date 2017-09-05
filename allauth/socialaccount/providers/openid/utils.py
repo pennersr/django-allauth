@@ -6,15 +6,10 @@ from openid.extensions.ax import FetchResponse
 from openid.extensions.sreg import SRegResponse
 from openid.store.interface import OpenIDStore as OIDStore
 
+from allauth.compat import UserDict
 from allauth.utils import valid_email_or_none
 
 from .models import OpenIDNonce, OpenIDStore
-
-
-try:
-    from UserDict import UserDict
-except ImportError:
-    from collections import UserDict
 
 
 class JSONSafeSession(UserDict):
@@ -75,10 +70,15 @@ class DBOpenIDStore(OIDStore):
     max_nonce_age = 6 * 60 * 60
 
     def storeAssociation(self, server_url, assoc=None):
+        try:
+            secret = base64.encodebytes(assoc.secret)
+        except AttributeError:
+            # Python 2.x compat
+            secret = base64.encodestring(assoc.secret)
         OpenIDStore.objects.create(
             server_url=server_url,
             handle=assoc.handle,
-            secret=base64.encodestring(assoc.secret),
+            secret=secret,
             issued=assoc.issued,
             lifetime=assoc.lifetime,
             assoc_type=assoc.assoc_type

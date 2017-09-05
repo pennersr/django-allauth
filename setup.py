@@ -4,8 +4,7 @@ import os
 import sys
 from fnmatch import fnmatchcase
 
-from setuptools import setup, find_packages
-from distutils.util import convert_path
+from setuptools import convert_path, find_packages, setup
 
 # Provided as an attribute, so you can append to these instead
 # of replicating them:
@@ -102,15 +101,12 @@ package_data = find_package_data(exclude_directories=excluded_directories)
 test_requirements = []
 
 IS_PY2 = sys.version_info[0] < 3
-IS_PY32 = sys.version_info[:2] == (3, 2)
 
 if IS_PY2:
     openid_package = 'python-openid >= 2.2.5'
     test_requirements.append('mock >= 1.0.1')
 else:
     openid_package = 'python3-openid >= 3.0.8'
-# See: https://github.com/kennethreitz/requests/issues/3507
-requests_package = 'requests < 2.11.0' if IS_PY32 else 'requests'
 
 long_description = io.open('README.rst', encoding='utf-8').read()
 
@@ -133,7 +129,7 @@ METADATA = dict(
     install_requires=['Django >= 1.8',
                       openid_package,
                       'requests-oauthlib >= 0.3.0',
-                      requests_package],
+                      "requests"],
     include_package_data=True,
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -148,7 +144,11 @@ METADATA = dict(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         'Framework :: Django',
+        'Framework :: Django :: 1.8',
+        'Framework :: Django :: 1.10',
+        'Framework :: Django :: 1.11',
     ],
     packages=find_packages(exclude=['example']),
     package_data=package_data,

@@ -51,12 +51,14 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.angellist',
         'allauth.socialaccount.providers.asana',
         'allauth.socialaccount.providers.auth0',
+        'allauth.socialaccount.providers.authentiq',
         'allauth.socialaccount.providers.baidu',
         'allauth.socialaccount.providers.basecamp',
         'allauth.socialaccount.providers.bitbucket',
         'allauth.socialaccount.providers.bitbucket_oauth2',
         'allauth.socialaccount.providers.bitly',
         'allauth.socialaccount.providers.coinbase',
+        'allauth.socialaccount.providers.dataporten',
         'allauth.socialaccount.providers.daum',
         'allauth.socialaccount.providers.digitalocean',
         'allauth.socialaccount.providers.discord',
@@ -100,6 +102,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.spotify',
         'allauth.socialaccount.providers.stackexchange',
         'allauth.socialaccount.providers.stripe',
+        'allauth.socialaccount.providers.trello',
         'allauth.socialaccount.providers.tumblr',
         'allauth.socialaccount.providers.twentythreeandme',
         'allauth.socialaccount.providers.twitch',
@@ -140,6 +143,6 @@ In your Django root execute the command below to create your database tables::
 Now start your server, visit your admin pages (e.g. http://localhost:8000/admin/)
 and follow these steps:
 
-1. Add a `Site` for your domain, matching `settings.SITE_ID` (`django.contrib.sites` app).
-2. For each OAuth based provider, add a `Social App` (`socialaccount` app).
+1. Add a ``Site`` for your domain, matching ``settings.SITE_ID`` (``django.contrib.sites`` app).
+2. For each OAuth based provider, add a ``Social App`` (``socialaccount`` app).
 3. Fill in the site and the OAuth app credentials obtained from the provider.

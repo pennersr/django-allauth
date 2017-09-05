@@ -39,7 +39,7 @@ Troubleshooting
 The /accounts/ URL is giving me a 404
 *************************************
 
-There is no such URL. Try `/accounts/login/` instead.
+There is no such URL. Try ``/accounts/login/`` instead.
 
 When I attempt to login I run into a 404 on /accounts/profile/
 **************************************************************
@@ -55,7 +55,7 @@ When I sign up I run into connectivity errors (connection refused et al)
 ************************************************************************
 
 You probably have not got an e-mail (SMTP) server running on the
-machine you are developing on. Therefore, `allauth` is unable to send
+machine you are developing on. Therefore, ``allauth`` is unable to send
 verification mails.
 
 You can work around this by adding the following line to

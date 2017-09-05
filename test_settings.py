@@ -30,7 +30,7 @@ TEMPLATES = [
     },
 ]
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -54,6 +54,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.angellist',
     'allauth.socialaccount.providers.asana',
     'allauth.socialaccount.providers.auth0',
+    'allauth.socialaccount.providers.authentiq',
     'allauth.socialaccount.providers.baidu',
     'allauth.socialaccount.providers.basecamp',
     'allauth.socialaccount.providers.battlenet',
@@ -62,6 +63,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.bitly',
     'allauth.socialaccount.providers.box',
     'allauth.socialaccount.providers.coinbase',
+    'allauth.socialaccount.providers.dataporten',
     'allauth.socialaccount.providers.daum',
     'allauth.socialaccount.providers.digitalocean',
     'allauth.socialaccount.providers.discord',
@@ -96,6 +98,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.odnoklassniki',
     'allauth.socialaccount.providers.openid',
     'allauth.socialaccount.providers.orcid',
+    'allauth.socialaccount.providers.patreon',
     'allauth.socialaccount.providers.paypal',
     'allauth.socialaccount.providers.persona',
     'allauth.socialaccount.providers.pinterest',
@@ -107,6 +110,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.spotify',
     'allauth.socialaccount.providers.stackexchange',
     'allauth.socialaccount.providers.stripe',
+    'allauth.socialaccount.providers.trello',
     'allauth.socialaccount.providers.tumblr',
     'allauth.socialaccount.providers.twentythreeandme',
     'allauth.socialaccount.providers.twitch',

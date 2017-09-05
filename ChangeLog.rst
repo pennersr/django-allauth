@@ -1,3 +1,61 @@
+0.33.0 (2017-08-20)
+*******************
+
+Note worthy changes
+-------------------
+
+- Security: password reset tokens are now prevented from being leaked through
+  the password reset URL.
+
+- New providers: Patreon, Authentiq, Dataporten.
+
+- Dropbox has been upgraded to API V2.
+
+- New translation: Norwegian.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Dropped support for Django 1.9.
+
+
+0.32.0 (2017-04-27)
+*******************
+
+Note worthy changes
+-------------------
+
+- Improved AJAX support: the account management views (change/set password,
+  manage e-mail addresses and social connections) now support AJAX GET requests.
+  These views hand over all the required data for you to build your frontend
+  application upon.
+
+- New providers: Dwolla, Trello.
+
+- Shopify: support for per-user access mode.
+
+
+Backwards incompatible changes
+------------------------------
+
+- In previous versions, the views only responded with JSON responses when
+  issuing AJAX requests of type POST. Now, the views also respond in JSON when
+  making AJAX GET requests.
+
+- The structure of the response for AJAX requests has changed. Previously, it
+  contained a ``form_errors`` key containing all form validation errors, if any.
+  Now, it contains a ``form`` key that describes the complete form, including
+  the fields. Field specific errors are placed in
+  ``form.fields['some_field'].errors``, non-field errors in ``form.errors``.
+
+- The parameters passed to the Facebook JS SDK ``FB.init()`` method used to contain
+  ``cookie``, ``status``, and ``xfbml``, all set to ``true``. These parameters
+  are no longer explicitly passed. You can use the newly introduced ``INIT_PARAMS``
+  provider setting to provide your own values.
+
+
+
 0.31.0 (2017-02-28)
 *******************
 

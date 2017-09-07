@@ -1,5 +1,3 @@
-"""Views for DwollaProvider"""
-
 import requests
 
 from django.conf import settings
@@ -11,6 +9,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 )
 
 from .provider import DwollaProvider
+
 
 ENVIRONMENTS = {
     'production': {

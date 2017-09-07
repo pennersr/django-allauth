@@ -39,8 +39,6 @@ class DwollaOAuth2Adapter(OAuth2Adapter):
     access_token_url = TOKEN_URL
     authorize_url = AUTH_URL
 
-    #login_cancelled_error = None
-
     def complete_login(self, request, app, token, response, **kwargs):
 
         resp = requests.get(

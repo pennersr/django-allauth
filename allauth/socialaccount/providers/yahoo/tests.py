@@ -8,7 +8,7 @@ class YahooTests(OAuth2TestsMixin, TestCase):
     provider_id = YahooProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        response_data = """
         {
             "profile": {
                 "guid": "HZP2G4VBSQBVATWWTNO3CRKVP8",
@@ -81,4 +81,5 @@ class YahooTests(OAuth2TestsMixin, TestCase):
                 "uri": "https://social.yahooapis.com/v1/user/HZP2G4VBSQBVATWWTNO3CRKVP8/profile"
             }
         }
-        """)
+        """ # noqa
+        return MockedResponse(200, response_data)

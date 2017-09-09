@@ -1329,3 +1329,10 @@ App registration (get your key and secret here)
 
 Development callback URL
     http://localhost:8000
+
+
+Yahoo
+------
+
+Register your OAuth2 app below and enter the resultant client id and secret into admin
+    https://developer.yahoo.com/apps/create/

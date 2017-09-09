@@ -33,7 +33,7 @@ class YahooProvider(OAuth2Provider):
 
     def extract_common_fields(self, data):
         try:
-            email = data['profile'].get('emails')[0]
+            email = data['profile'].get('emails')[0]['handle']
         except:
             email = None
 

@@ -7,8 +7,10 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 class YahooAccount(ProviderAccount):
 
     def to_str(self):
-        name = '{0} {1}'.format(self.account.extra_data.get('first_name', ''),
-                                self.account.extra_data.get('last_name', ''))
+        name = '{0} {1}'.format(
+            self.account.extra_data['profile'].get('givenName', ''),
+            self.account.extra_data['profile'].get('familyName', '')
+        )
         if name.strip() != '':
             return name
         return super(YahooAccount, self).to_str()
@@ -31,13 +33,13 @@ class YahooProvider(OAuth2Provider):
 
     def extract_common_fields(self, data):
         try:
-            email = data.get('emails').get('preferred')
+            email = data['profile'].get('emails')[0]
         except:
             email = None
 
         return dict(email=email,
-                    last_name=data.get('last_name'),
-                    first_name=data.get('first_name'))
+                    last_name=data['profile'].get('familyName'),
+                    first_name=data['profile'].get('givenName'))
 
 
 provider_classes = [YahooProvider]

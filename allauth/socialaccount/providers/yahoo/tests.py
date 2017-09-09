@@ -4,7 +4,7 @@ from allauth.tests import MockedResponse, TestCase
 from .provider import YahooProvider
 
 
-class WindowsLiveTests(OAuth2TestsMixin, TestCase):
+class YahooTests(OAuth2TestsMixin, TestCase):
     provider_id = YahooProvider.id
 
     def get_mocked_response(self):

@@ -111,6 +111,8 @@ Supported Providers
 
 - Meetup (OAuth2)
 
+- Microsoft (Graph) (OAuth2)
+
 - Naver (OAuth2)
 
 - Odnoklassniki (OAuth2)

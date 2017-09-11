@@ -95,6 +95,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.mailchimp',
     'allauth.socialaccount.providers.mailru',
     'allauth.socialaccount.providers.meetup',
+    'allauth.socialaccount.providers.microsoft',
     'allauth.socialaccount.providers.naver',
     'allauth.socialaccount.providers.odnoklassniki',
     'allauth.socialaccount.providers.openid',

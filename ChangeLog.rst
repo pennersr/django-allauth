@@ -13,7 +13,7 @@ Security notice
 Note worthy changes
 -------------------
 
-- New provider: Azure.
+- New provider: Azure, Microsoft Graph.
 
 
 0.34.0 (2017-10-29)

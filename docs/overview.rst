@@ -101,6 +101,8 @@ Supported Providers
 
 - MailChimp (OAuth2)
 
+- Meetup (OAuth2)
+
 - Naver (OAuth2)
 
 - Odnoklassniki (OAuth2)

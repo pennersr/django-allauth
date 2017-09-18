@@ -23,7 +23,7 @@ from .locale import get_default_locale_callable
 
 
 GRAPH_API_VERSION = getattr(settings, 'SOCIALACCOUNT_PROVIDERS', {}).get(
-    'facebook', {}).get('VERSION', 'v2.4')
+    'facebook', {}).get('VERSION', 'v2.5')
 GRAPH_API_URL = 'https://graph.facebook.com/' + GRAPH_API_VERSION
 
 NONCE_SESSION_KEY = 'allauth_facebook_nonce'

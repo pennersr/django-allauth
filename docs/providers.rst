@@ -968,7 +968,7 @@ Development callback URL
 Persona
 -------
 
-Note: Mozilla Persona will be shut down on November 30th 2016. See
+Note: Mozilla Persona was shut down on November 30th 2016. See
 `the announcement <https://wiki.mozilla.org/Identity/Persona_Shutdown_Guidelines_for_Reliers>`_
 for details.
 

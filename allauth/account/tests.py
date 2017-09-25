@@ -36,7 +36,6 @@ from .utils import (
     user_pk_to_url_str,
     user_username,
 )
-from django.test import client
 
 
 test_username_validators = [
@@ -324,7 +323,7 @@ class AccountTests(TestCase):
             'account/password_reset_from_key.%s' %
             app_settings.TEMPLATE_EXTENSION)
         self.assertFalse('token_fail' in resp.context_data)
-        
+
         # Reset the password
         resp = self.client.post(url,
                                 {'password1': 'newpass123',

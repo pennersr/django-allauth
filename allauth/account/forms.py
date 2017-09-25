@@ -559,9 +559,12 @@ class UserTokenForm(forms.Form):
     def clean(self):
         cleaned_data = super(UserTokenForm, self).clean()
 
-        uidb36 = cleaned_data['uidb36']
-        key = cleaned_data['key']
+        uidb36 = cleaned_data.get('uidb36', None)
+        key = cleaned_data.get('key', None)
 
+        if not key:
+            raise forms.ValidationError(self.error_messages['token_invalid'])
+        
         self.reset_user = self._get_user(uidb36)
         if (self.reset_user is None or
                 not self.token_generator.check_token(self.reset_user, key)):

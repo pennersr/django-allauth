@@ -564,7 +564,7 @@ class UserTokenForm(forms.Form):
 
         if not key:
             raise forms.ValidationError(self.error_messages['token_invalid'])
-        
+
         self.reset_user = self._get_user(uidb36)
         if (self.reset_user is None or
                 not self.token_generator.check_token(self.reset_user, key)):

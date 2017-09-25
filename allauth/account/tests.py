@@ -275,29 +275,30 @@ class AccountTests(TestCase):
         """
         Test the password reset flow when the session is empty:
         requesting a new password, receiving the reset link via email,
-        following the link, getting redirected to the new link (without the token)
-        Copying the link and using it in a DIFFERENT client (Browser/Device). 
+        following the link, getting redirected to the
+        new link (without the token)
+        Copying the link and using it in a DIFFERENT client (Browser/Device).
         """
         # Request new password
-        user = self._request_new_password()
+        self._request_new_password()
         body = mail.outbox[0].body
         self.assertGreater(body.find('https://'), 0)
- 
+
         # Extract URL for `password_reset_from_key` view
         url = body[body.find('/password/reset/'):].split()[0]
         resp = self.client.get(url)
-         
+
         reset_pass_url = resp.url
-         
+
         # Accesing the url via a different session
         resp = self.client_class().get(reset_pass_url)
-        
-        # We should receive the token_fail context_data        
+
+        # We should receive the token_fail context_data
         self.assertTemplateUsed(
             resp,
             'account/password_reset_from_key.%s' %
             app_settings.TEMPLATE_EXTENSION)
-        
+
         self.assertTrue(resp.context_data['token_fail'])
 
     def test_password_reset_flow(self):

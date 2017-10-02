@@ -2,16 +2,16 @@
 Welcome to django-allauth!
 ==========================
 
-.. image:: https://badge.fury.io/py/django-allauth.png
+.. image:: https://badge.fury.io/py/django-allauth.svg
    :target: http://badge.fury.io/py/django-allauth
 
-.. image:: https://travis-ci.org/pennersr/django-allauth.png
+.. image:: https://travis-ci.org/pennersr/django-allauth.svg
    :target: http://travis-ci.org/pennersr/django-allauth
 
 .. image:: https://img.shields.io/pypi/v/django-allauth.svg
    :target: https://pypi.python.org/pypi/django-allauth
 
-.. image:: https://coveralls.io/repos/pennersr/django-allauth/badge.png?branch=master
+.. image:: https://coveralls.io/repos/pennersr/django-allauth/badge.svg?branch=master
    :alt: Coverage Status
    :target: https://coveralls.io/r/pennersr/django-allauth
 

@@ -38,7 +38,8 @@ class SalesforceProvider(OAuth2Provider):
     def extract_common_fields(self, data):
         return dict(email=data.get('email'),
                     last_name=data.get('family_name'),
-                    first_name=data.get('given_name'))
+                    first_name=data.get('given_name'),
+                    username=data.get('username'))
 
     def extract_email_addresses(self, data):
         ret = []

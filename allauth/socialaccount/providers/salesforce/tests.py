@@ -10,7 +10,7 @@ from .provider import SalesforceProvider
 
 
 class SalesforceTests(create_oauth2_tests(registry.by_id(
-    SalesforceProvider.id))):
+        SalesforceProvider.id))):
 
     def get_mocked_response(self,
                             last_name='Penners',

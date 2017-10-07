@@ -1,4 +1,3 @@
-from allauth.socialaccount import app_settings
 from allauth.account.models import EmailAddress
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import (ProviderAccount, AuthAction)
@@ -47,5 +46,6 @@ class SalesforceProvider(OAuth2Provider):
                              primary=True,
                              verified=data.get('email_verified'))
         return [email]
+
 
 providers.registry.register(SalesforceProvider)

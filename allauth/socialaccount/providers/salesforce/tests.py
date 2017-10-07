@@ -2,12 +2,6 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-
-try:
-    from importlib import import_module
-except ImportError:
-    from django.utils.importlib import import_module
-
 from allauth.socialaccount.tests import create_oauth2_tests
 from allauth.socialaccount.providers import registry
 from allauth.tests import MockedResponse
@@ -30,8 +24,8 @@ class SalesforceTests(create_oauth2_tests(registry.by_id(SalesforceProvider.id))
             nickname="test-ooi2xhmjteep",
             first_name=first_name,
             last_name=last_name,
-            my_domain="https://fun-ability-6443-dev-ed.cs46.my.salesforce.com",
-            content_domain="https://fun-ability-6443-dev-ed--c.cs46.content.force.com",
+            my_domain="https://fun.cs46.my.salesforce.com",
+            content_domain="https://fun--c.cs46.content.force.com",
             verified_email=repr(verified_email).lower(),
             email=email,
             active="true",

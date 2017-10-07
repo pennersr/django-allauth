@@ -42,13 +42,10 @@ class SalesforceProvider(OAuth2Provider):
                     username=data.get('username'))
 
     def extract_email_addresses(self, data):
-        ret = []
-        email = data.get('email')
-        if email and data.get('verified_email'):
-            ret.append(EmailAddress(email=email,
-                                    verified=True,
-                                    primary=True))
-        return ret
-
+        # a salesforce user must have an email, but it might not be verified
+        email = EmailAddress(email=data.get('email'),
+                             primary=True,
+                             verified=data.get('email_verified'))
+        return [email]
 
 providers.registry.register(SalesforceProvider)

@@ -18,8 +18,8 @@ from .provider import SalesforceProvider
 class SalesforceTests(create_oauth2_tests(registry.by_id(SalesforceProvider.id))):
 
     def get_mocked_response(self,
-                            family_name='Penners',
-                            given_name='Raymond',
+                            last_name='Penners',
+                            first_name='Raymond',
                             name='Raymond Penners',
                             email='raymond.penners@gmail.com',
                             verified_email=True):
@@ -28,8 +28,8 @@ class SalesforceTests(create_oauth2_tests(registry.by_id(SalesforceProvider.id))
             user_id="005xx000000aWwRQAU",
             vip="https://test.salesforce.com",
             nickname="test-ooi2xhmjteep",
-            first_name=family_name,
-            last_name=given_name,
+            first_name=first_name,
+            last_name=last_name,
             my_domain="https://fun-ability-6443-dev-ed.cs46.my.salesforce.com",
             content_domain="https://fun-ability-6443-dev-ed--c.cs46.content.force.com",
             verified_email=repr(verified_email).lower(),

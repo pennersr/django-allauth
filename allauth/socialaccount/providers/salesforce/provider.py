@@ -1,9 +1,8 @@
+from allauth.socialaccount import app_settings
 from allauth.account.models import EmailAddress
 from allauth.socialaccount import providers
-from allauth.socialaccount.providers.base import (ProviderAccount,
-                                                  AuthAction)
+from allauth.socialaccount.providers.base import (ProviderAccount, AuthAction)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
-from allauth.socialaccount.app_settings import QUERY_EMAIL
 
 
 class Scope(object):
@@ -31,13 +30,12 @@ class SalesforceProvider(OAuth2Provider):
 
     def get_default_scope(self):
         scope = [Scope.PROFILE]
-        if QUERY_EMAIL:
+        if app_settings.QUERY_EMAIL:
             scope.append(Scope.EMAIL)
         return scope
 
     def get_auth_params(self, request, action):
-        ret = super(SalesforceProvider, self).get_auth_params(request,
-                                                          action)
+        ret = super(SalesforceProvider, self).get_auth_params(request, action)
         if action == AuthAction.REAUTHENTICATE:
             ret['approval_prompt'] = 'force'
         return ret
@@ -55,8 +53,8 @@ class SalesforceProvider(OAuth2Provider):
         email = data.get('email')
         if email and data.get('verified_email'):
             ret.append(EmailAddress(email=email,
-                       verified=True,
-                       primary=True))
+                                    verified=True,
+                                    primary=True))
         return ret
 
 

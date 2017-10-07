@@ -5,11 +5,6 @@ from allauth.socialaccount.providers.base import (ProviderAccount, AuthAction)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
-class Scope(object):
-    EMAIL = 'email'
-    PROFILE = 'profile'
-
-
 class SalesforceAccount(ProviderAccount):
     def get_profile_url(self):
         return self.account.extra_data.get('link')
@@ -29,10 +24,7 @@ class SalesforceProvider(OAuth2Provider):
     account_class = SalesforceAccount
 
     def get_default_scope(self):
-        scope = [Scope.PROFILE]
-        if app_settings.QUERY_EMAIL:
-            scope.append(Scope.EMAIL)
-        return scope
+        return ['id', 'open_id']
 
     def get_auth_params(self, request, action):
         ret = super(SalesforceProvider, self).get_auth_params(request, action)

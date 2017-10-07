@@ -1073,6 +1073,14 @@ Development callback URL
 Salesforce OAuth2 documentation
     https://developer.salesforce.com/page/Digging_Deeper_into_OAuth_2.0_on_Force.com
 
+To Use:
+
+- Include allauth.socialaccount.providers.salesforce in INSTALLED_APPS
+- In a new Salesforce Developer Org, create a Connected App 
+  with OAuth (minimum scope id, openid), and a callback URL
+- Create a Social application in Django admin, with client id, 
+  client key, and login_url (in "key" field)
+
 
 Shopify
 -------

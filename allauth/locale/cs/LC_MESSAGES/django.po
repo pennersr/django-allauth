@@ -85,7 +85,7 @@ msgstr "Uživatelské jméno nebo e-mail"
 #: account/forms.py:113
 msgctxt "field label"
 msgid "Login"
-msgstr "Přihlášení"
+msgstr "Login"
 
 #: account/forms.py:272
 #, fuzzy

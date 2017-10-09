@@ -80,12 +80,12 @@ msgstr "Uživatelské jméno"
 
 #: account/forms.py:110
 msgid "Username or e-mail"
-msgstr "Uživatelské jméno nebo heslo"
+msgstr "Uživatelské jméno nebo e-mail"
 
 #: account/forms.py:113
 msgctxt "field label"
 msgid "Login"
-msgstr "Přihlášení"
+msgstr "Login"
 
 #: account/forms.py:272
 #, fuzzy
@@ -186,7 +186,7 @@ msgstr ""
 
 #: account/models.py:91
 msgid "email confirmation"
-msgstr "Potrvzovací e-mail"
+msgstr "Potvrzovací e-mail"
 
 #: account/models.py:92
 msgid "email confirmations"

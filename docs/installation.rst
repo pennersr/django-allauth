@@ -8,7 +8,7 @@ Python package::
 
     pip install django-allauth
 
-settings.py (Important - Please note 'django.contrib.sites' is required as INSTALLED_APPS)::
+settings.py::
 
     # Specify the context processors as follows:
     TEMPLATES = [
@@ -41,12 +41,13 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         ...
         # The following apps are required:
         'django.contrib.auth',
-        'django.contrib.sites',
-
         'allauth',
         'allauth.account',
+
+        # If you want to use social account providers:
         'allauth.socialaccount',
-        # ... include the providers you want to enable:
+        'django.contrib.sites',
+        # And include the providers you want to enable:
         'allauth.socialaccount.providers.amazon',
         'allauth.socialaccount.providers.angellist',
         'allauth.socialaccount.providers.asana',

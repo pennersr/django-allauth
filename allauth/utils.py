@@ -8,7 +8,7 @@ import unicodedata
 from collections import OrderedDict
 
 from django.contrib.auth import get_user_model
-from django.contrib.sites.models import Site
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import ImproperlyConfigured
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.validators import ValidationError, validate_email
@@ -264,7 +264,7 @@ def build_absolute_uri(request, location, protocol=None):
     from .account import app_settings as account_settings
 
     if request is None:
-        site = Site.objects.get_current()
+        site = get_current_site(request)
         bits = urlsplit(location)
         if not (bits.scheme and bits.netloc):
             uri = '{proto}://{domain}{url}'.format(

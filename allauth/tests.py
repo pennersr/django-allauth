@@ -8,7 +8,8 @@ from datetime import date, datetime
 import django
 from django.core.files.base import ContentFile
 from django.db import models
-from django.test import TestCase as DjangoTestCase
+from django.test import TestCase as DjangoTestCase, override_settings, RequestFactory
+from django.http import HttpRequest
 
 from allauth.account.utils import user_username
 from allauth.compat import base36_to_int, int_to_base36
@@ -192,6 +193,21 @@ class BasicTests(TestCase):
             'ftp://example.com/foo')
         self.assertEqual(
             utils.build_absolute_uri(None, 'http://foo.com/bar'),
+            'http://foo.com/bar')
+
+    @override_settings(INSTALLED_APPS=(), ALLOWED_HOSTS=['example.com'])
+    def test_build_absolute_uri_without_contrib_sites(self):
+        """Test that build_absolute_uri works without django.contrib.sites"""
+        request_factory = RequestFactory(HTTP_HOST='example.com')
+
+        self.assertEqual(
+            utils.build_absolute_uri(request_factory.get('/'), '/foo'),
+            'http://example.com/foo')
+        self.assertEqual(
+            utils.build_absolute_uri(request_factory.get('/'), '/foo', protocol='ftp'),
+            'ftp://example.com/foo')
+        self.assertEqual(
+            utils.build_absolute_uri(request_factory.get('/'), 'http://foo.com/bar'),
             'http://foo.com/bar')
 
     def test_int_to_base36(self):

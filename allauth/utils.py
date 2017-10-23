@@ -102,10 +102,11 @@ def generate_unique_username(txts, regex=None):
     adapter = get_adapter()
     basename = _generate_unique_username_base(txts, regex)
     candidates = generate_username_candidates(basename)
-    existing_users = filter_users_by_username(*candidates).values_list(
+    existing_usernames = filter_users_by_username(*candidates).values_list(
         USER_MODEL_USERNAME_FIELD, flat=True)
+    existing_usernames = set([n.lower() for n in existing_usernames])
     for candidate in candidates:
-        if candidate not in existing_users:
+        if candidate.lower() not in existing_usernames:
             try:
                 return adapter.clean_username(candidate, shallow=True)
             except ValidationError:

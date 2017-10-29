@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-26 12:52-0500\n"
+"POT-Creation-Date: 2017-10-29 09:56-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,19 +17,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: account/adapter.py:50
+#: account/adapter.py:48
 msgid "Username can not be used. Please use other username."
 msgstr "Brukernavnet kan ikke brukes. Vennligst bruk et annet brukernavn."
 
-#: account/adapter.py:54
+#: account/adapter.py:52
 msgid "Too many failed login attempts. Try again later."
 msgstr "For mange innloggingsforsøk. Vennligst prøv igjen senere."
 
-#: account/adapter.py:56
+#: account/adapter.py:54
 msgid "A user is already registered with this e-mail address."
 msgstr "En bruker med følgende e-postadresse er allerede registrert."
 
-#: account/adapter.py:293
+#: account/adapter.py:291
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Passordet må være minst {0} tegn."
@@ -187,7 +187,9 @@ msgstr "e-post bekreftelser"
 msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
 "account first, then connect your %s account."
-msgstr "En konto med denne e-postadressen eksisterer fra før. Vennligst logg inn på den kontoen først, deretter koble til din %s konto."
+msgstr ""
+"En konto med denne e-postadressen eksisterer fra før. Vennligst logg inn på "
+"den kontoen først, deretter koble til din %s konto."
 
 #: socialaccount/adapter.py:131
 msgid "Your account has no password set up."
@@ -371,7 +373,9 @@ msgstr "Advarsel:"
 msgid ""
 "You currently do not have any e-mail address set up. You should really add "
 "an e-mail address so you can receive notifications, reset your password, etc."
-msgstr "Du har for tiden ingen e-postadresse satt opp. Du burde legge til en e-postadresse slik at du kan motta notifikasjoner, gjennoprette passord ol."
+msgstr ""
+"Du har for tiden ingen e-postadresse satt opp. Du burde legge til en e-"
+"postadresse slik at du kan motta notifikasjoner, gjennoprette passord ol."
 
 #: templates/account/email.html:48
 msgid "Add E-mail Address"
@@ -397,8 +401,8 @@ msgid ""
 msgstr ""
 "Hei fra %(site_name)s!\n"
 "\n"
-"Du mottar denne e-postadressen fordi %(user_display)s har gitt din "
-"e-postkonto for å koble til sin brukerkonto.\n"
+"Du mottar denne e-postadressen fordi %(user_display)s har gitt din e-"
+"postkonto for å koble til sin brukerkonto.\n"
 "\n"
 "For å bekrefte at dette stemmer, gå til %(activate_url)s\n"
 
@@ -427,8 +431,8 @@ msgid ""
 msgstr ""
 "Hei fra %(site_name)s!\n"
 "\n"
-"Du mottar denne e-postadressen fordi du eller noen andre har etterspurt "
-"et passord for din brukerkonto.\n"
+"Du mottar denne e-postadressen fordi du eller noen andre har etterspurt et "
+"passord for din brukerkonto.\n"
 "Meldingen kan trygt ignoreres om du ikke foretok denne etterspørselen. Klikk "
 "på linken under for å gjennopprette ditt passord."
 
@@ -442,7 +446,8 @@ msgstr "I tilfelle du glemte, brukernavnet ditt er %(username)s."
 msgid ""
 "Thank you for using %(site_name)s!\n"
 "%(site_domain)s"
-msgstr "Takk for at du bruker %(site_name)s!\n"
+msgstr ""
+"Takk for at du bruker %(site_name)s!\n"
 "%(site_domain)s"
 
 #: templates/account/email/password_reset_key_subject.txt:3
@@ -459,7 +464,9 @@ msgstr "Bekreft E-postadresse"
 msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
 "address for user %(user_display)s."
-msgstr "Vennligst bekreft at <a href=\"mailto:%(email)s\">%(email)s</a> er en e-postadresse for bruker %(user_display)s."
+msgstr ""
+"Vennligst bekreft at <a href=\"mailto:%(email)s\">%(email)s</a> er en e-"
+"postadresse for bruker %(user_display)s."
 
 #: templates/account/email_confirm.html:20
 msgid "Confirm"
@@ -488,8 +495,8 @@ msgid ""
 "for a %(site_name)s account and sign in below:"
 msgstr ""
 "Vennligst logg in med en\n"
-"av dine eksisterende tredjeparts kontoer. Eller, <a href=\"%(signup_url)s\">registrer"
-"deg</a>\n"
+"av dine eksisterende tredjeparts kontoer. Eller, <a href=\"%(signup_url)s"
+"\">registrerdeg</a>\n"
 "for en %(site_name)s konto og logg inn under:"
 
 #: templates/account/login.html:25
@@ -501,7 +508,8 @@ msgstr "eller"
 msgid ""
 "If you have not created an account yet, then please\n"
 "<a href=\"%(signup_url)s\">sign up</a> first."
-msgstr "Om du enda ikke har laget en konto, vennligst\n"
+msgstr ""
+"Om du enda ikke har laget en konto, vennligst\n"
 "<a href=\"%(signup_url)s\">registrer deg</a> først."
 
 #: templates/account/login.html:42
@@ -593,7 +601,8 @@ msgstr "Gjennoprett mitt passord"
 
 #: templates/account/password_reset.html:23
 msgid "Please contact us if you have any trouble resetting your password."
-msgstr "Vennligst kontakt oss om du har problemer med passordgjennopprettelsen."
+msgstr ""
+"Vennligst kontakt oss om du har problemer med passordgjennopprettelsen."
 
 #: templates/account/password_reset_done.html:15
 msgid ""
@@ -614,8 +623,9 @@ msgid ""
 "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
 "a>."
 msgstr ""
-"Passordgjennoppretelseslinken er ugyldig, mulig fordi den allerede er brukt."
-" Vennligst etterspør en <a href=\"%(passwd_reset_url)s\">ny passord gjennopprettelse</a>."
+"Passordgjennoppretelseslinken er ugyldig, mulig fordi den allerede er brukt. "
+"Vennligst etterspør en <a href=\"%(passwd_reset_url)s\">ny passord "
+"gjennopprettelse</a>."
 
 #: templates/account/password_reset_from_key.html:17
 msgid "change password"
@@ -678,8 +688,9 @@ msgid ""
 "finalize the signup process. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"Vi har sendt deg en e-post for verifisering. Følg linken for å fullføre registreringen. "
-"Vennligst kontakt oss om du ikke har mottatt den innen et par minutter."
+"Vi har sendt deg en e-post for verifisering. Følg linken for å fullføre "
+"registreringen. Vennligst kontakt oss om du ikke har mottatt den innen et "
+"par minutter."
 
 #: templates/account/verified_email_required.html:12
 msgid ""
@@ -687,8 +698,8 @@ msgid ""
 "you are who you claim to be. For this purpose, we require that you\n"
 "verify ownership of your e-mail address. "
 msgstr ""
-"Denne delen av siden krever at du verifiserer at du er den du er. På grunn av dette, må du verifisere "
-"ditt eierskap av din e-postadresse. "
+"Denne delen av siden krever at du verifiserer at du er den du er. På grunn "
+"av dette, må du verifisere ditt eierskap av din e-postadresse. "
 
 #: templates/account/verified_email_required.html:16
 msgid ""
@@ -697,8 +708,8 @@ msgid ""
 "contact us if you do not receive it within a few minutes."
 msgstr ""
 "Vi har send en e-post til deg for\n"
-"verifikasjon. Vennligst klikk på linken i e-posten."
-"Vennligst kontakt oss om du ikke mottar den innen et par minutter."
+"verifikasjon. Vennligst klikk på linken i e-posten.Vennligst kontakt oss om "
+"du ikke mottar den innen et par minutter."
 
 #: templates/account/verified_email_required.html:20
 #, python-format
@@ -706,7 +717,8 @@ msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
 "mail address</a>."
 msgstr ""
-"<stron>Notat:</strong> du kan fremdeles <a href=\"%(email_url)s\">endre din your e-postadresse</a>."
+"<stron>Notat:</strong> du kan fremdeles <a href=\"%(email_url)s\">endre din "
+"your e-postadresse</a>."
 
 #: templates/openid/login.html:9
 msgid "OpenID Sign In"
@@ -721,7 +733,8 @@ msgstr "Sosialenettverk innlogging feilet"
 msgid ""
 "An error occurred while attempting to login via your social network account."
 msgstr ""
-"Det skjedde en feil under forsøket på å logge inn via din sosialenettverkskonto."
+"Det skjedde en feil under forsøket på å logge inn via din "
+"sosialenettverkskonto."
 
 #: templates/socialaccount/connections.html:5
 #: templates/socialaccount/connections.html:8
@@ -756,9 +769,9 @@ msgid ""
 "accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
 "\">sign in</a>."
 msgstr ""
-"Du bestemt deg for å kansellere innlogging til siden ved å bruke en av "
-"dine eksisterende kontoer. Om dette var ved en feil, vennligst fortsett til "
-"<a href=\"%(login_url)s\">innloggingen</a>."
+"Du bestemt deg for å kansellere innlogging til siden ved å bruke en av dine "
+"eksisterende kontoer. Om dette var ved en feil, vennligst fortsett til <a "
+"href=\"%(login_url)s\">innloggingen</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."

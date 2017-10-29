@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-26 12:52-0500\n"
+"POT-Creation-Date: 2017-10-29 09:56-0500\n"
 "PO-Revision-Date: 2017-04-05 22:48+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -17,19 +17,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: account/adapter.py:50
+#: account/adapter.py:48
 msgid "Username can not be used. Please use other username."
 msgstr "Такое имя пользователя не может быть использовано, выберите другое."
 
-#: account/adapter.py:54
+#: account/adapter.py:52
 msgid "Too many failed login attempts. Try again later."
 msgstr "Слишком много попыток входа в систему, попробуйте позже."
 
-#: account/adapter.py:56
+#: account/adapter.py:54
 msgid "A user is already registered with this e-mail address."
 msgstr "Пользователь с таким e-mail адресом уже зарегистрирован."
 
-#: account/adapter.py:293
+#: account/adapter.py:291
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Минимальное количество символов в пароле: {0}."
@@ -401,8 +401,8 @@ msgid ""
 msgstr ""
 "Вас приветствует %(site_name)s!\n"
 "\n"
-"Вы получили это письмо, потому что пользователь %(user_display)s "
-"указал ваш e-mail для подключения к своему аккаунту.\n"
+"Вы получили это письмо, потому что пользователь %(user_display)s указал ваш "
+"e-mail для подключения к своему аккаунту.\n"
 "\n"
 "Чтобы подтвердить, перейдите по ссылке %(activate_url)s\n"
 
@@ -431,7 +431,8 @@ msgid ""
 msgstr ""
 "Вас приветствует %(site_name)s!\n"
 "\n"
-"Вы получили это письмо потому, что вы или кто-то иной запросили смену пароля для своего аккаунта.\n"
+"Вы получили это письмо потому, что вы или кто-то иной запросили смену пароля "
+"для своего аккаунта.\n"
 "Если это были не вы, просто проигнорируйте это письмо. Иначе перейдите по "
 "ссылке для смены пароля."
 

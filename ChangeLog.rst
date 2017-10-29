@@ -1,3 +1,21 @@
+Unreleased
+**********
+
+Security notice
+---------------
+
+- The "Set Password" view did not properly check whether or not the user already
+  had a usable password set. This allowed an attacker to set the password
+  without providing the current password, but only in case the attacker already
+  gained control over the victim's session.
+
+
+Note worthy changes
+-------------------
+
+- New provider: Meetup.
+
+
 0.33.0 (2017-08-20)
 *******************
 

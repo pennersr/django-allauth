@@ -209,6 +209,19 @@ class AccountTests(TestCase):
             reverse('account_change_password'),
             fetch_redirect_response=False)
 
+    def test_set_password_not_allowed(self):
+        user = self._create_user_and_login(True)
+        pwd = '!*123i1uwn12W23'
+        self.assertFalse(user.check_password(pwd))
+        resp = self.client.post(
+            reverse('account_set_password'),
+            data={'password1': pwd,
+                  'password2': pwd})
+        user.refresh_from_db()
+        self.assertFalse(user.check_password(pwd))
+        self.assertTrue(user.has_usable_password())
+        self.assertEqual(resp.status_code, 302)
+
     def test_password_change_no_redirect(self):
         resp = self._password_set_or_change_redirect(
             'account_change_password',

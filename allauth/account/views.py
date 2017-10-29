@@ -589,11 +589,11 @@ class PasswordSetView(AjaxCapableProcessFormViewMixin, FormView):
 
     @sensitive_post_parameters_m
     def dispatch(self, request, *args, **kwargs):
+        if self.request.user.has_usable_password():
+            return HttpResponseRedirect(reverse('account_change_password'))
         return super(PasswordSetView, self).dispatch(request, *args, **kwargs)
 
     def render_to_response(self, context, **response_kwargs):
-        if self.request.user.has_usable_password():
-            return HttpResponseRedirect(reverse('account_change_password'))
         return super(PasswordSetView, self).render_to_response(
             context, **response_kwargs)
 

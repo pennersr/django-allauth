@@ -353,7 +353,7 @@ class SignupForm(BaseSignupForm):
     def clean(self):
         super(SignupForm, self).clean()
 
-        # `password` cannot by of type `SetPasswordField`, as we don't
+        # `password` cannot be of type `SetPasswordField`, as we don't
         # have a `User` yet. So, let's populate a dummy user to be used
         # for password validaton.
         dummy_user = get_user_model()

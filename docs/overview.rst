@@ -127,6 +127,8 @@ Supported Providers
 
 - Reddit (OAuth2)
 
+- Salesforce (OAuth2)
+
 - Shopify (OAuth2)
 
 - Slack (OAuth2)

@@ -633,6 +633,9 @@ GITLAB_URL:
     Override endpoint to request an authorization and access token. For your
     private GitLab server you use: ``https://your.gitlab.server.tld``
 
+SCOPE:
+    The ``read_user`` scope is required for the login procedure.
+
 Example:
 
 .. code-block:: python
@@ -640,7 +643,8 @@ Example:
     SOCIALACCOUNT_PROVIDERS = {
         'gitlab': {
             'GITLAB_URL': 'https://your.gitlab.server.tld',
-        }
+            'SCOPE': ['read_user'],
+        },
     }
 
 

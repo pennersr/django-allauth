@@ -604,7 +604,7 @@ msgid ""
 "Forgotten your password? Enter your e-mail address below, and we'll send you "
 "an e-mail allowing you to reset it."
 msgstr ""
-"Zapomněli jste heslo? Zadejte prosím svojí e-mailovou adresu a do e-mailové "
+"Zapomněli jste heslo? Zadejte prosím svoji e-mailovou adresu a do e-mailové "
 "schránky Vám přijde návod na jeho obnovu."
 
 #: templates/account/password_reset.html:20
@@ -690,7 +690,7 @@ msgstr "momentálně jste přihlášen jako %(user_display)s."
 #: templates/account/verified_email_required.html:5
 #: templates/account/verified_email_required.html:8
 msgid "Verify Your E-mail Address"
-msgstr "Ověřte svojí e-mailovou adresu."
+msgstr "Ověřte svoji e-mailovou adresu."
 
 #: templates/account/verification_sent.html:10
 #, fuzzy

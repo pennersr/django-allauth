@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-10-29 09:56-0500\n"
-"PO-Revision-Date: 2014-08-12 00:27+0200\n"
-"Last-Translator: Jannis Vajen\n"
+"PO-Revision-Date: 2017-11-04 16:22+0100\n"
+"Last-Translator: Jannis Vajen <jvajen@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/django-allauth/"
 "language/de/)\n"
 "Language: de\n"
@@ -18,15 +18,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.0.4\n"
 
 #: account/adapter.py:48
 msgid "Username can not be used. Please use other username."
 msgstr ""
-"Anmeldename kann nicht genutzt werden. Bitte wähle einen anderen Namen."
+"Anmeldename kann nicht verwendet werden. Bitte wähle einen anderen Namen."
 
 #: account/adapter.py:52
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
+"Zu viele gescheiterte Anmeldeversuche. Bitte versuche es später erneut."
 
 #: account/adapter.py:54
 msgid "A user is already registered with this e-mail address."
@@ -38,9 +40,8 @@ msgid "Password must be a minimum of {0} characters."
 msgstr "Das Passwort muss aus mindestens {0} Zeichen bestehen."
 
 #: account/apps.py:7
-#, fuzzy
 msgid "Accounts"
-msgstr "Konto"
+msgstr "Konten"
 
 #: account/forms.py:41 account/forms.py:378
 msgid "You must type the same password each time."
@@ -91,26 +92,20 @@ msgid "Login"
 msgstr "Anmeldung"
 
 #: account/forms.py:272
-#, fuzzy
-#| msgid "E-mail (optional)"
 msgid "E-mail (again)"
-msgstr "E-Mail (optional)"
+msgstr "E-Mail (wiederholen)"
 
 #: account/forms.py:276
-#, fuzzy
-#| msgid "email confirmation"
 msgid "E-mail address confirmation"
-msgstr "E-Mail-Bestätigung"
+msgstr "Bestätigung der E-Mail-Adresse"
 
 #: account/forms.py:284
 msgid "E-mail (optional)"
 msgstr "E-Mail (optional)"
 
 #: account/forms.py:325
-#, fuzzy
-#| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
-msgstr "Du musst zweimal das selbe Passwort eingeben."
+msgstr "Du musst zweimal dasselbe Passwort eingeben."
 
 #: account/forms.py:348 account/forms.py:457
 msgid "Password (again)"
@@ -142,11 +137,11 @@ msgstr "Bitte gib Dein aktuelles Passwort ein."
 
 #: account/forms.py:484
 msgid "The e-mail address is not assigned to any user account"
-msgstr "Diese E-Mail-Adresse ist keinem Konto zugeordnet."
+msgstr "Diese E-Mail-Adresse ist keinem Konto zugeordnet"
 
 #: account/forms.py:548
 msgid "The password reset token was invalid."
-msgstr ""
+msgstr "Das Sicherheits-Token zum Zurücksetzen des Passwortes war ungültig."
 
 #: account/models.py:23
 msgid "user"
@@ -210,103 +205,100 @@ msgid "Your account has no verified e-mail address."
 msgstr "Dein Konto hat keine bestätigte E-Mail-Adresse."
 
 #: socialaccount/apps.py:7
-#, fuzzy
 msgid "Social Accounts"
 msgstr "Konto"
 
 #: socialaccount/models.py:49 socialaccount/models.py:83
 msgid "provider"
-msgstr ""
+msgstr "Anbieter"
 
 #: socialaccount/models.py:52
-#, fuzzy
 msgid "name"
 msgstr "Anmeldename"
 
 #: socialaccount/models.py:54
 msgid "client id"
-msgstr ""
+msgstr "Client-ID"
 
 #: socialaccount/models.py:56
 msgid "App ID, or consumer key"
-msgstr ""
+msgstr "App-ID oder 'Consumer key'"
 
 #: socialaccount/models.py:57
 msgid "secret key"
-msgstr ""
+msgstr "Geheimer Schlüssel"
 
 #: socialaccount/models.py:59
 msgid "API secret, client secret, or consumer secret"
-msgstr ""
+msgstr "'API secret', 'client secret' oder 'consumer secret'"
 
 #: socialaccount/models.py:64
-#, fuzzy
 msgid "Key"
 msgstr "Schlüssel"
 
 #: socialaccount/models.py:72
 msgid "social application"
-msgstr ""
+msgstr "Soziale Anwendung"
 
 #: socialaccount/models.py:73
 msgid "social applications"
-msgstr ""
+msgstr "Soziale Anwendungen"
 
 #: socialaccount/models.py:102
 msgid "uid"
-msgstr ""
+msgstr "UID"
 
 #: socialaccount/models.py:104
 msgid "last login"
-msgstr ""
+msgstr "Letzte Anmeldung"
 
 #: socialaccount/models.py:106
 msgid "date joined"
-msgstr ""
+msgstr "Registrierdatum"
 
 #: socialaccount/models.py:108
 msgid "extra data"
-msgstr ""
+msgstr "Weitere Daten"
 
 #: socialaccount/models.py:112
 msgid "social account"
-msgstr ""
+msgstr "Soziales Konto"
 
 #: socialaccount/models.py:113
 msgid "social accounts"
-msgstr ""
+msgstr "Soziale Konten"
 
 #: socialaccount/models.py:139
 msgid "token"
-msgstr ""
+msgstr "Token"
 
 #: socialaccount/models.py:141
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
-msgstr ""
+msgstr "\"oauth_token\" (OAuth1) oder \"access token\" (OAuth2)"
 
 #: socialaccount/models.py:144
 msgid "token secret"
-msgstr ""
+msgstr "Geheimes Token"
 
 #: socialaccount/models.py:146
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
-msgstr ""
+msgstr "\"oauth_token_secret\" (OAuth1) oder \"refresh token\" (OAuth2)"
 
 #: socialaccount/models.py:148
 msgid "expires at"
-msgstr ""
+msgstr "Läuft ab"
 
 #: socialaccount/models.py:152
 msgid "social application token"
-msgstr ""
+msgstr "Token für soziale Anwendung"
 
 #: socialaccount/models.py:153
 msgid "social application tokens"
-msgstr ""
+msgstr "Tokens für soziale Anwendungen"
 
 #: socialaccount/providers/douban/views.py:36
 msgid "Invalid profile data"
-msgstr ""
+msgstr "Ungültige Profildaten"
 
 #: socialaccount/providers/oauth/client.py:78
 #, python-format
@@ -321,17 +313,17 @@ msgstr "Ungültige Antwort von \"%s\" als Zugangsschlüssel erbeten wurde."
 #: socialaccount/providers/oauth/client.py:128
 #, python-format
 msgid "No request token saved for \"%s\"."
-msgstr "Kein Request-Token gespeichert für \"%s\""
+msgstr "Kein Request-Token gespeichert für \"%s\"."
 
 #: socialaccount/providers/oauth/client.py:177
 #, python-format
 msgid "No access token saved for \"%s\"."
-msgstr "Kein Access-Token gespeichert für \"%s\""
+msgstr "Kein Access-Token gespeichert für \"%s\"."
 
 #: socialaccount/providers/oauth/client.py:197
 #, python-format
 msgid "No access to private resources at \"%s\"."
-msgstr "Kein Zugriff zu privaten Daten auf \"%s\""
+msgstr "Kein Zugriff zu privaten Daten auf \"%s\"."
 
 #: templates/account/account_inactive.html:5
 #: templates/account/account_inactive.html:8
@@ -404,12 +396,7 @@ msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Möchtest du wirklich die ausgewählte E-Mail-Adresse entfernen?"
 
 #: templates/account/email/email_confirmation_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "User %(user_display)s at %(site_name)s has given this as an email "
-#| "address.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s\n"
+#, python-format
 msgid ""
 "Hello from %(site_name)s!\n"
 "\n"
@@ -418,11 +405,12 @@ msgid ""
 "\n"
 "To confirm this is correct, go to %(activate_url)s\n"
 msgstr ""
-"Nutzer_in %(user_display)s hat diese E-Mailadresse auf %(site_name)s "
-"angegeben.\n"
+"Hallo von %(site_name)s!\n"
 "\n"
-"Um dies zu bestätigen, rufe bitte folgende Adresse auf: \n"
-"%(activate_url)s\n"
+"Du erhältst diese E-Mail der/die Nutzer/in %(user_display)s deine E-Mail-"
+"Adresse als seine/ihre angab, um sie mit seinem/ihrem Konto zu verknüpfen.\n"
+"\n"
+"Um dies zu bestätigen, rufe bitte folgende Adresse auf: %(activate_url)s\n"
 
 #: templates/account/email/email_confirmation_message.txt:7
 #, python-format
@@ -430,20 +418,15 @@ msgid ""
 "Thank you from %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
+"Danke von %(site_name)s!\n"
+"%(site_domain)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
-#, fuzzy
-#| msgid "Confirm E-mail Address"
 msgid "Please Confirm Your E-mail Address"
-msgstr "E-Mail-Adresse bestätigen?"
+msgstr "Bitte bestätige deine E-Mail-Adresse"
 
 #: templates/account/email/password_reset_key_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account at %(site_domain)s.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
+#, python-format
 msgid ""
 "Hello from %(site_name)s!\n"
 "\n"
@@ -452,10 +435,12 @@ msgid ""
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"Du erhälst diese E-Mail, weil Du oder jemand anderes die Zurücksetzung des "
-"Passworts für dein Konto auf %(site_domain)s erbeten hat. Du kannst diese E-"
-"Mail ignorieren, wenn Du dein Passwort nicht zurücksetzen möchtest. Um das "
-"Passwort zurückzusetzen rufe folgende Seite auf:"
+"Hallo von %(site_name)s!\n"
+"\n"
+"Du erhältst diese E-Mail weil du oder jemand anderes die Zurücksetzung des "
+"Passwortes für dein Konto gefordert hat.\n"
+"Falls es sich dabei nicht um dich handelt, kann diese Nachricht ignoriert "
+"werden. Rufe folgende Adresse auf um dein Passwort zurückzusetzen."
 
 #: templates/account/email/password_reset_key_message.txt:8
 #, python-format
@@ -470,6 +455,8 @@ msgid ""
 "Thank you for using %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
+"Danke dass du %(site_name)s nutzt!\n"
+"%(site_domain)s"
 
 #: templates/account/email/password_reset_key_subject.txt:3
 msgid "Password Reset E-mail"
@@ -478,7 +465,7 @@ msgstr "E-Mail zum Zurücksetzen des Passworts"
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
 msgid "Confirm E-mail Address"
-msgstr "E-Mail-Adresse bestätigen?"
+msgstr "E-Mail-Adresse bestätigen"
 
 #: templates/account/email_confirm.html:16
 #, python-format
@@ -719,9 +706,9 @@ msgid ""
 "you are who you claim to be. For this purpose, we require that you\n"
 "verify ownership of your e-mail address. "
 msgstr ""
-"Auf diesem Teil der Webseite möchten wie sicher sein,\n"
-"dass Du derjenige bist, für den Du Dich ausgibst.\n"
-"Dazu müsstest Du nur Deine E-Mail-Adresse verifizieren lassen."
+"Auf diesem Teil der Webseite möchten wie sichergehen,\n"
+"dass du die Person bist für die du dich ausgibst.\n"
+"Dazu musst du deine E-Mail-Adresse verifizieren. "
 
 #: templates/account/verified_email_required.html:16
 msgid ""

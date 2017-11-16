@@ -22,6 +22,7 @@ from django.shortcuts import resolve_url
 from django.template import TemplateDoesNotExist
 from django.template.loader import render_to_string
 from django.utils import timezone
+from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 
 from . import app_settings
@@ -33,12 +34,6 @@ from ..utils import (
     get_user_model,
     import_attribute,
 )
-
-
-try:
-    from django.utils.encoding import force_text
-except ImportError:
-    from django.utils.encoding import force_unicode as force_text
 
 
 class DefaultAccountAdapter(object):

@@ -21,13 +21,8 @@ from django.db.models.fields import (
     TimeField,
 )
 from django.utils import dateparse, six
+from django.utils.encoding import force_bytes, force_text
 from django.utils.six.moves.urllib.parse import urlsplit
-
-
-try:
-    from django.utils.encoding import force_text, force_bytes
-except ImportError:
-    from django.utils.encoding import force_unicode as force_text
 
 
 # Magic number 7: if you run into collisions with this number, then you are

@@ -6,7 +6,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import PermissionDenied
 from django.db import models
 from django.utils.crypto import get_random_string
-from django.utils.encoding import python_2_unicode_compatible
+from django.utils.encoding import force_text, python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 import allauth.app_settings
@@ -18,12 +18,6 @@ from . import app_settings, providers
 from ..utils import get_request_param
 from .adapter import get_adapter
 from .fields import JSONField
-
-
-try:
-    from django.utils.encoding import force_text
-except ImportError:
-    from django.utils.encoding import force_unicode as force_text
 
 
 class SocialAppManager(models.Manager):

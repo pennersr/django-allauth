@@ -9,6 +9,7 @@ from django.db import models
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.utils import six
+from django.utils.encoding import force_text
 from django.utils.http import urlencode
 from django.utils.timezone import now
 
@@ -24,12 +25,6 @@ from ..utils import (
 )
 from .adapter import get_adapter
 from .app_settings import EmailVerificationMethod
-
-
-try:
-    from django.utils.encoding import force_text
-except ImportError:
-    from django.utils.encoding import force_unicode as force_text
 
 
 def get_next_redirect_url(request, redirect_field_name="next"):

@@ -24,15 +24,6 @@ except ImportError:
 
 class TestCase(DjangoTestCase):
 
-    def assertRedirects(self, response, expected_url,
-                        fetch_redirect_response=True,
-                        **kwargs):
-        super(TestCase, self).assertRedirects(
-            response,
-            expected_url,
-            fetch_redirect_response=fetch_redirect_response,
-            **kwargs)
-
     def client_force_login(self, user):
         if django.VERSION >= (1, 9):
             self.client.force_login(

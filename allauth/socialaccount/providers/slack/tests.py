@@ -10,7 +10,7 @@ class SlackOAuth2Tests(OAuth2TestsMixin, TestCase):
     def get_mocked_response(self):
         return MockedResponse(200, """{
           "ok": true,
-          "url": "https:\/\/myteam.slack.com\/",
+          "url": "https:\\/\\/myteam.slack.com\\/",
           "team": "My Team",
           "user": "cal",
           "team_id": "T12345",

@@ -37,7 +37,7 @@ def _generate_unique_username_base(txts, regex=None):
     from .account.adapter import get_adapter
     adapter = get_adapter()
     username = None
-    regex = regex or '[^\w\s@+.-]'
+    regex = regex or r'[^\w\s@+.-]'
     for txt in txts:
         if not txt:
             continue
@@ -51,7 +51,7 @@ def _generate_unique_username_base(txts, regex=None):
         # address and only take the part leading up to the '@'.
         username = username.split('@')[0]
         username = username.strip()
-        username = re.sub('\s+', '_', username)
+        username = re.sub(r'\s+', '_', username)
         # Finally, validating base username without database lookups etc.
         try:
             username = adapter.clean_username(username, shallow=True)

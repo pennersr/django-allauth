@@ -185,6 +185,18 @@ ACCOUNT_USERNAME_VALIDATORS (=None)
   (``'some.module.validators.custom_username_validators'``) to a list of
   custom username validators. If left unset, the validators setup
   within the user model username field are used.
+  
+  Example::
+  
+      # In validators.py
+      
+      from django.contrib.auth.validators import ASCIIUsernameValidator
+
+      custom_username_validators = [ASCIIUsernameValidator()]
+      
+      # In settings.py
+      
+      ACCOUNT_USERNAME_VALIDATORS = 'some.module.validators.custom_username_validators'
 
 SOCIALACCOUNT_ADAPTER (="allauth.socialaccount.adapter.DefaultSocialAccountAdapter")
   Specifies the adapter class to use, allowing you to alter certain

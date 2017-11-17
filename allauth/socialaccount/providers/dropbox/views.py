@@ -1,39 +1,35 @@
-import json
+import requests
 
-from allauth.socialaccount.providers.oauth.client import OAuth
-from allauth.socialaccount.providers.oauth.views import (
-    OAuthAdapter,
-    OAuthCallbackView,
-    OAuthLoginView,
+from allauth.socialaccount.providers.oauth2.views import (
+    OAuth2Adapter,
+    OAuth2CallbackView,
+    OAuth2LoginView,
 )
 
-from .provider import DropboxProvider
+from .provider import DropboxOAuth2Provider
 
 
-class DropboxAPI(OAuth):
-    """
-    Verifying dropbox credentials
-    """
-    url = 'https://api.dropbox.com/1/account/info'
+class DropboxOAuth2Adapter(OAuth2Adapter):
+    provider_id = DropboxOAuth2Provider.id
+    access_token_url = 'https://api.dropbox.com/oauth2/token'
+    authorize_url = 'https://www.dropbox.com/oauth2/authorize'
+    profile_url = 'https://api.dropbox.com/2/users/get_current_account'
+    redirect_uri_protocol = 'https'
 
-    def get_user_info(self):
-        user = json.loads(self.query(self.url))
-        return user
+    def complete_login(self, request, app, token, **kwargs):
+        extra_data = requests.post(self.profile_url, headers={
+            'Authorization': 'Bearer %s' % (token.token, )
+        })
 
+        # This only here because of weird response from the test suite
+        if isinstance(extra_data, list):
+            extra_data = extra_data[0]
 
-class DropboxOAuthAdapter(OAuthAdapter):
-    provider_id = DropboxProvider.id
-    request_token_url = 'https://api.dropbox.com/1/oauth/request_token'
-    access_token_url = 'https://api.dropbox.com/1/oauth/access_token'
-    authorize_url = 'https://www.dropbox.com/1/oauth/authorize'
-
-    def complete_login(self, request, app, token, response):
-        client = DropboxAPI(request, app.client_id, app.secret,
-                            self.request_token_url)
-        extra_data = client.get_user_info()
-        return self.get_provider().sociallogin_from_response(request,
-                                                             extra_data)
+        return self.get_provider().sociallogin_from_response(
+            request,
+            extra_data.json()
+        )
 
 
-oauth_login = OAuthLoginView.adapter_view(DropboxOAuthAdapter)
-oauth_callback = OAuthCallbackView.adapter_view(DropboxOAuthAdapter)
+oauth_login = OAuth2LoginView.adapter_view(DropboxOAuth2Adapter)
+oauth_callback = OAuth2CallbackView.adapter_view(DropboxOAuth2Adapter)

@@ -87,6 +87,32 @@ You'll need to specify the base URL for your Auth0 domain:
         }
     }
 
+
+Authentiq
+---------
+
+Browse to https://www.authentiq.com/developers to get started.
+
+App registration
+    https://dashboard.authentiq.com/
+
+Sign in or register with your Authentiq ID (select ``Download the app`` while signing in if you don't have Authentiq ID yet).
+
+Development redirect URL
+    http://localhost:8000/accounts/authentiq/login/callback/
+
+While testing you can leave the ``Redirect URIs`` field empty in the dashboard. You can specify what identity details to request via the ``SCOPE`` parameter.
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'authentiq': {
+          'SCOPE': ['email', 'aq:name']
+        }
+    }
+
+Valid scopes include: ``email``, ``phone``, ``address``, ``aq:name``, ``aq:location``. The default is to request a user's name, and email address if ``SOCIALACCOUNT_QUERY_EMAIL=True``. You can request and require a verified email address by setting ``SOCIALACCOUNT_EMAIL_VERIFICATION=True`` and ``SOCIALACCOUNT_EMAIL_REQUIRED=True``.
+
 Baidu
 -----
 
@@ -152,6 +178,16 @@ Development callback URL
     http://localhost:8000/accounts/box/login/callback/
 
 
+Dataporten
+----------
+
+App registration (get your key and secret here)
+    https://docs.dataporten.no/docs/gettingstarted/
+
+Development callback URL
+    http://localhost:8000/accounts/dataporten/login/callback
+
+
 daum
 ----
 
@@ -201,7 +237,7 @@ Development callback (redirect) URL
 Doximity
 --------
 
-Doximity Oauth2 implementation documentation
+Doximity OAuth2 implementation documentation
     https://www.doximity.com/developers/documentation#oauth
 
 Request API keys here
@@ -231,11 +267,31 @@ App registration (get your key and secret here)
     https://www.dropbox.com/developers/apps/
 
 Development callback URL
-    http://localhost:8000/accounts/dropbox_oauth2/login/callback/
+    http://localhost:8000/accounts/dropbox/login/callback/
 
-Note that Dropbox has deprecated version 1 of their API as of 28 June 2016.
-This also affects apps. All new apps you create will automatically use OAuth
-2.0, and you have to use the ``dropbox_oauth2`` provider with ``allauth``.
+Dwolla
+------------
+
+App registration (get your key and secret here)
+    https://dashboard-uat.dwolla.com/applications
+
+Development callback URL
+    http://127.0.0.1:8000/accounts/dwolla/login/callback/
+
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'dwolla': {
+            'SCOPE': [
+                'Send',
+                'Transactions',
+                'Funding',
+                'AccountInfoFull',
+            ],
+            'ENVIROMENT':'sandbox',
+        }
+    }
 
 Dwolla
 ------------
@@ -383,7 +439,7 @@ The following Facebook settings are available:
             'EXCHANGE_TOKEN': True,
             'LOCALE_FUNC': 'path.to.callable',
             'VERIFIED_EMAIL': False,
-            'VERSION': 'v2.4',
+            'VERSION': 'v2.5',
         }
     }
 
@@ -443,7 +499,7 @@ VERIFIED_EMAIL:
     risk.
 
 VERSION:
-    The Facebook Graph API version to use. The default is ``v2.4``.
+    The Facebook Graph API version to use. The default is ``v2.5``.
 
 App registration (get your key and secret here)
     A key and secret key can be obtained by
@@ -573,6 +629,9 @@ GITLAB_URL:
     Override endpoint to request an authorization and access token. For your
     private GitLab server you use: ``https://your.gitlab.server.tld``
 
+SCOPE:
+    The ``read_user`` scope is required for the login procedure.
+
 Example:
 
 .. code-block:: python
@@ -580,7 +639,8 @@ Example:
     SOCIALACCOUNT_PROVIDERS = {
         'gitlab': {
             'GITLAB_URL': 'https://your.gitlab.server.tld',
-        }
+            'SCOPE': ['read_user'],
+        },
     }
 
 
@@ -724,9 +784,20 @@ fetching the access token::
 App registration (get your key and secret here)
     https://www.linkedin.com/secure/developer?newapp=
 
-Development callback URL
-    Leave the OAuth redirect URL empty.
+Authorized Redirect URLs (OAuth2)
+*********************************
+Add any you need (up to 200) consisting of:
 
+    {``ACCOUNT_DEFAULT_HTTP_PROTOCOL``}://{hostname}{:optional_port}/{allauth_base_url}/linkedin_oauth2/login/callback/
+
+For example when using the built-in django server and default settings:
+
+    http://localhost:8000/accounts/linkedin_oauth2/login/callback/
+
+
+Development "Accept" and "Cancel" redirect URL (OAuth 1.0a)
+***********************************************************
+    Leave the OAuth1 redirect URLs empty.
 
 MailChimp (OAuth2)
 ------------------
@@ -921,7 +992,7 @@ Development callback URL
 Persona
 -------
 
-Note: Mozilla Persona will be shut down on November 30th 2016. See
+Note: Mozilla Persona was shut down on November 30th 2016. See
 `the announcement <https://wiki.mozilla.org/Identity/Persona_Shutdown_Guidelines_for_Reliers>`_
 for details.
 
@@ -1009,6 +1080,30 @@ you will risk additional rate limiting in your application.
             'USER_AGENT': 'django:myappid:1.0 (by /u/yourredditname)',
         }
     }
+
+
+Salesforce
+----------
+
+The Salesforce provider requires you to set the login VIP as the provider
+model's 'key' (in addition to client id and secret). Production environments
+use https://login.salesforce.com/. Sandboxes use https://test.salesforce.com/.
+
+HTTPS is required for the callback.
+
+Development callback URL
+    https://localhost:8000/accounts/salesforce/login/callback/
+
+Salesforce OAuth2 documentation
+    https://developer.salesforce.com/page/Digging_Deeper_into_OAuth_2.0_on_Force.com
+
+To Use:
+
+- Include allauth.socialaccount.providers.salesforce in INSTALLED_APPS
+- In a new Salesforce Developer Org, create a Connected App
+  with OAuth (minimum scope id, openid), and a callback URL
+- Create a Social application in Django admin, with client id,
+  client key, and login_url (in "key" field)
 
 
 Shopify
@@ -1108,8 +1203,20 @@ Server Fault). This can be controlled by means of the ``SITE`` setting:
 Stripe
 ------
 
-You can register your OAuth2 app via the admin interface
+You register your OAUth2 app via the Connect->Settings page of the Stripe
+dashboard:
+	https://dashboard.stripe.com/account/applications/settings
+
+This page will provide you with both a Development and Production `client_id`.
+
+You can also register your OAuth2 app callback on the Settings page in the
+"Website URL" box, e.g.:
     http://example.com/accounts/stripe/login/callback/
+
+However, the OAuth2 secret key is not on this page. The secret key is the same
+secret key that you use with the Stripe API generally. This can be found on the
+Stripe dashboard API page:
+	https://dashboard.stripe.com/account/apikeys
 
 See more in documentation
     https://stripe.com/docs/connect/standalone-accounts

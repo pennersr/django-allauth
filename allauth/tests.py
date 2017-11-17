@@ -11,6 +11,7 @@ from django.db import models
 from django.test import TestCase as DjangoTestCase
 
 from allauth.account.utils import user_username
+from allauth.compat import base36_to_int, int_to_base36
 
 from . import utils
 
@@ -192,3 +193,9 @@ class BasicTests(TestCase):
         self.assertEqual(
             utils.build_absolute_uri(None, 'http://foo.com/bar'),
             'http://foo.com/bar')
+
+    def test_int_to_base36(self):
+        n = 55798679658823689999
+        b36 = 'brxk553wvxbf3'
+        assert int_to_base36(n) == b36
+        assert base36_to_int(b36) == n

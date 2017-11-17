@@ -23,9 +23,14 @@ class TwitchProvider(OAuth2Provider):
         return str(data['_id'])
 
     def extract_common_fields(self, data):
-        return dict(username=data.get('name'),
-                    name=data.get('display_name'),
-                    email=data.get('email'))
+        return {
+            "username": data.get("name"),
+            "name": data.get("display_name"),
+            "email": data.get("email"),
+        }
+
+    def get_default_scope(self):
+        return ["user_read"]
 
 
 provider_classes = [TwitchProvider]

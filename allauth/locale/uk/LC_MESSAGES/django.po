@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-28 07:56-0600\n"
+"POT-Creation-Date: 2017-10-29 09:56-0500\n"
 "PO-Revision-Date: 2014-08-12 00:36+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,21 +19,21 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: account/adapter.py:50
+#: account/adapter.py:48
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Ім'я користувача не може бути використаним. Будь ласка, оберіть інше ім'я "
 "користувача."
 
-#: account/adapter.py:54
+#: account/adapter.py:52
 msgid "Too many failed login attempts. Try again later."
 msgstr "Занадто багато спроб входу в систему, спробуйте пізніше."
 
-#: account/adapter.py:56
+#: account/adapter.py:54
 msgid "A user is already registered with this e-mail address."
 msgstr "Користувач з такою e-mail адресою уже зареєстрований."
 
-#: account/adapter.py:293
+#: account/adapter.py:291
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Пароль повинен містити мінімум {0} символів."
@@ -42,11 +42,11 @@ msgstr "Пароль повинен містити мінімум {0} симво
 msgid "Accounts"
 msgstr "Акаунти"
 
-#: account/forms.py:41 account/forms.py:364
+#: account/forms.py:41 account/forms.py:378
 msgid "You must type the same password each time."
 msgstr "Ви повинні вводити однаковий пароль кожного разу."
 
-#: account/forms.py:71 account/forms.py:334 account/forms.py:442
+#: account/forms.py:71 account/forms.py:345 account/forms.py:456
 msgid "Password"
 msgstr "Пароль"
 
@@ -66,84 +66,79 @@ msgstr "Введена e-mail адреса і/або пароль є некор�
 msgid "The username and/or password you specified are not correct."
 msgstr "Введене ім'я користувача і/або пароль є некоректними."
 
-#: account/forms.py:87
-msgid "The login and/or password you specified are not correct."
-msgstr "Введений login і/або пароль є некоректними."
-
-#: account/forms.py:96 account/forms.py:238 account/forms.py:392
-#: account/forms.py:461
+#: account/forms.py:93 account/forms.py:248 account/forms.py:406
+#: account/forms.py:475
 msgid "E-mail address"
 msgstr "E-mail адреса"
 
-#: account/forms.py:98 account/forms.py:269 account/forms.py:387
-#: account/forms.py:456
+#: account/forms.py:95 account/forms.py:281 account/forms.py:401
+#: account/forms.py:470
 msgid "E-mail"
 msgstr "E-mail"
 
-#: account/forms.py:103 account/forms.py:106 account/forms.py:230
-#: account/forms.py:234
+#: account/forms.py:100 account/forms.py:103 account/forms.py:240
+#: account/forms.py:244
 msgid "Username"
 msgstr "Ім'я користувача"
 
-#: account/forms.py:113
+#: account/forms.py:110
 msgid "Username or e-mail"
 msgstr "Ім'я користувача або e-mail"
 
-#: account/forms.py:116
+#: account/forms.py:113
 msgctxt "field label"
 msgid "Login"
 msgstr "Увійти"
 
-#: account/forms.py:258
+#: account/forms.py:272
 msgid "E-mail (again)"
 msgstr "E-mail (ще раз)"
 
-#: account/forms.py:262
+#: account/forms.py:276
 msgid "E-mail address confirmation"
 msgstr "e-mail адреса підтвердження"
 
-#: account/forms.py:272
+#: account/forms.py:284
 msgid "E-mail (optional)"
 msgstr "E-mail (необов'язковий)"
 
-#: account/forms.py:314
-#| msgid "You must type the same password each time."
+#: account/forms.py:325
 msgid "You must type the same email each time."
 msgstr "Ви повинні вводити однакову e-mail адресу кожного разу."
 
-#: account/forms.py:337 account/forms.py:443
+#: account/forms.py:348 account/forms.py:457
 msgid "Password (again)"
 msgstr "Пароль (ще раз)"
 
-#: account/forms.py:398
+#: account/forms.py:412
 msgid "This e-mail address is already associated with this account."
 msgstr "Вказаний e-mail уже прикріплений до цього акаунту."
 
-#: account/forms.py:400
+#: account/forms.py:414
 msgid "This e-mail address is already associated with another account."
 msgstr "Вказаний e-mail уже прикріплений до іншого користувача."
 
-#: account/forms.py:422
+#: account/forms.py:436
 msgid "Current Password"
 msgstr "Поточний пароль"
 
-#: account/forms.py:423 account/forms.py:512
+#: account/forms.py:437 account/forms.py:526
 msgid "New Password"
 msgstr "Новий пароль"
 
-#: account/forms.py:424 account/forms.py:513
+#: account/forms.py:438 account/forms.py:527
 msgid "New Password (again)"
 msgstr "Новий пароль (ще раз)"
 
-#: account/forms.py:432
+#: account/forms.py:446
 msgid "Please type your current password."
 msgstr "Будь ласка, вкажіть Ваш поточний пароль."
 
-#: account/forms.py:470
+#: account/forms.py:484
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Немає користувача з такою e-mail адресою."
 
-#: account/forms.py:534
+#: account/forms.py:548
 msgid "The password reset token was invalid."
 msgstr "Токен відновлення паролю був невірним."
 
@@ -151,7 +146,7 @@ msgstr "Токен відновлення паролю був невірним."
 msgid "user"
 msgstr "користувач"
 
-#: account/models.py:27 account/models.py:86
+#: account/models.py:27 account/models.py:81
 msgid "e-mail address"
 msgstr "e-mail адреса"
 
@@ -171,23 +166,23 @@ msgstr "e-mail адреса"
 msgid "email addresses"
 msgstr "e-mail адреса"
 
-#: account/models.py:88
+#: account/models.py:83
 msgid "created"
 msgstr "створено"
 
-#: account/models.py:90
+#: account/models.py:85
 msgid "sent"
 msgstr "відправлено"
 
-#: account/models.py:91 socialaccount/models.py:61
+#: account/models.py:86 socialaccount/models.py:61
 msgid "key"
 msgstr "ключ"
 
-#: account/models.py:96
+#: account/models.py:91
 msgid "email confirmation"
 msgstr "e-mail підтвердження"
 
-#: account/models.py:97
+#: account/models.py:92
 msgid "email confirmations"
 msgstr "e-mail підтвердження"
 
@@ -400,13 +395,20 @@ msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Ви дійсно бажаєте видалити дану e-mail адресу?"
 
 #: templates/account/email/email_confirmation_message.txt:1
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "Hello from %(site_name)s!\n"
+#| "\n"
+#| "You're receiving this e-mail because user %(user_display)s at "
+#| "%(site_domain)s has given yours as an e-mail address to connect their "
+#| "account.\n"
+#| "\n"
+#| "To confirm this is correct, go to %(activate_url)s\n"
 msgid ""
 "Hello from %(site_name)s!\n"
 "\n"
-"You're receiving this e-mail because user %(user_display)s at "
-"%(site_domain)s has given yours as an e-mail address to connect their "
-"account.\n"
+"You're receiving this e-mail because user %(user_display)s has given yours "
+"as an e-mail address to connect their account.\n"
 "\n"
 "To confirm this is correct, go to %(activate_url)s\n"
 msgstr ""
@@ -432,12 +434,19 @@ msgid "Please Confirm Your E-mail Address"
 msgstr "Будь ласка, підтвердіть Вашу e-mail адресу"
 
 #: templates/account/email/password_reset_key_message.txt:1
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "Hello from %(site_name)s!\n"
+#| "\n"
+#| "You're receiving this e-mail because you or someone else has requested a "
+#| "password for your user account at %(site_domain)s.\n"
+#| "It can be safely ignored if you did not request a password reset. Click "
+#| "the link below to reset your password."
 msgid ""
 "Hello from %(site_name)s!\n"
 "\n"
 "You're receiving this e-mail because you or someone else has requested a "
-"password for your user account at %(site_domain)s.\n"
+"password for your user account.\n"
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
@@ -807,6 +816,9 @@ msgid ""
 msgstr ""
 "Ви використовуєте Ваш %(provider_name)s акаунт для авторизації на\n"
 "%(site_name)s. Для завершення, будь ласка, заповніть наступну форму:"
+
+#~ msgid "The login and/or password you specified are not correct."
+#~ msgstr "Введений login і/або пароль є некоректними."
 
 #~ msgid "Usernames can only contain letters, digits and @/./+/-/_."
 #~ msgstr ""

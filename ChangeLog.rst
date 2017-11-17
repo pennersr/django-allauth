@@ -1,3 +1,43 @@
+0.34.0 (2017-10-29)
+*******************
+
+Security notice
+---------------
+
+- The "Set Password" view did not properly check whether or not the user already
+  had a usable password set. This allowed an attacker to set the password
+  without providing the current password, but only in case the attacker already
+  gained control over the victim's session.
+
+
+Note worthy changes
+-------------------
+
+- New provider: Meetup.
+
+
+0.33.0 (2017-08-20)
+*******************
+
+Note worthy changes
+-------------------
+
+- Security: password reset tokens are now prevented from being leaked through
+  the password reset URL.
+
+- New providers: Patreon, Authentiq, Dataporten.
+
+- Dropbox has been upgraded to API V2.
+
+- New translation: Norwegian.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Dropped support for Django 1.9.
+
+
 0.32.0 (2017-04-27)
 *******************
 

@@ -5,12 +5,10 @@ import json
 import requests
 from datetime import date, datetime
 
-import django
 from django.core.files.base import ContentFile
 from django.db import models
-from django.test import TestCase as DjangoTestCase
+from django.test import TestCase
 
-from allauth.account.utils import user_username
 from allauth.compat import base36_to_int, int_to_base36
 
 from . import utils
@@ -20,24 +18,6 @@ try:
     from unittest.mock import Mock, patch
 except ImportError:
     from mock import Mock, patch  # noqa
-
-
-class TestCase(DjangoTestCase):
-
-    def client_force_login(self, user):
-        if django.VERSION >= (1, 9):
-            self.client.force_login(
-                user,
-                'django.contrib.auth.backends.ModelBackend')
-        else:
-            old_password = user.password
-            user.set_password('doe')
-            user.save()
-            self.client.login(
-                username=user_username(user),
-                password='doe')
-            user.password = old_password
-            user.save()
 
 
 class MockedResponse(object):

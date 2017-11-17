@@ -8,7 +8,7 @@ from .utils import filter_users_by_email, filter_users_by_username
 
 class AuthenticationBackend(ModelBackend):
 
-    def authenticate(self, **credentials):
+    def authenticate(self, request, **credentials):
         ret = None
         if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
             ret = self._authenticate_by_email(**credentials)

@@ -6,15 +6,13 @@ python: "3.6"
 
 env:
   matrix:
-   - TOXENV=py27-django18
-   - TOXENV=py27-django110
    - TOXENV=py27-django111
-   - TOXENV=py34-django18
-   - TOXENV=py34-django110
    - TOXENV=py34-django111
-   - TOXENV=py35-django110
    - TOXENV=py35-django111
    - TOXENV=py36-django111
+   - TOXENV=py34-django20
+   - TOXENV=py35-django20
+   - TOXENV=py36-django20
    - TOXENV=py36-djangomaster
    - TOXENV=docs
    - TOXENV=flake8
@@ -24,14 +22,14 @@ matrix:
   fast_finish: true
   include:
     - python: "3.5"
-      env: TOXENV=py35-django110
-    - python: "3.5"
       env: TOXENV=py35-django111
+    - python: "3.5"
+      env: TOXENV=py35-django20
   exclude:
     - python: "3.6"
-      env: TOXENV=py35-django110
-    - python: "3.6"
       env: TOXENV=py35-django111
+    - python: "3.6"
+      env: TOXENV=py35-django20
   allow_failures:
     - env: TOXENV=py36-djangomaster
 

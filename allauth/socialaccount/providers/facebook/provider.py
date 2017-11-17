@@ -4,12 +4,12 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.middleware.csrf import get_token
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.utils.html import escapejs, mark_safe
 from django.utils.http import urlquote
 
 from allauth.account.models import EmailAddress
-from allauth.compat import reverse
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.providers.base import (
     AuthAction,

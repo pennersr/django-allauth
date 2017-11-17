@@ -9,12 +9,12 @@ from django.contrib.auth.models import User
 from django.core import mail
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
+from django.urls import reverse
 
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.models import EmailAddress, EmailConfirmation
 from allauth.account.signals import user_signed_up
-from allauth.compat import reverse
 from allauth.socialaccount.models import SocialAccount, SocialToken
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase, patch

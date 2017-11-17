@@ -7,13 +7,13 @@ from django.http import (
     HttpResponseRedirect,
 )
 from django.shortcuts import redirect
+from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic.base import TemplateResponseMixin, TemplateView, View
 from django.views.generic.edit import FormView
 
 from . import app_settings, signals
-from ..compat import is_anonymous, is_authenticated, reverse, reverse_lazy
 from ..exceptions import ImmediateHttpResponse
 from ..utils import get_form_class, get_request_param
 from .adapter import get_adapter
@@ -67,7 +67,7 @@ def _ajax_response(request, response, form=None, data=None):
 class RedirectAuthenticatedUserMixin(object):
 
     def dispatch(self, request, *args, **kwargs):
-        if is_authenticated(request.user) and \
+        if request.user.is_authenticated and \
                 app_settings.AUTHENTICATED_LOGIN_REDIRECTS:
             redirect_to = self.get_authenticated_redirect_url()
             response = HttpResponseRedirect(redirect_to)
@@ -323,7 +323,7 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         if user_pk_str:
             user_pk = url_str_to_user_pk(user_pk_str)
         user = confirmation.email_address.user
-        if user_pk == user.pk and is_anonymous(self.request.user):
+        if user_pk == user.pk and self.request.user.is_anonymous:
             return perform_login(self.request,
                                  user,
                                  app_settings.EmailVerificationMethod.NONE,
@@ -759,14 +759,14 @@ class LogoutView(TemplateResponseMixin, View):
     def get(self, *args, **kwargs):
         if app_settings.LOGOUT_ON_GET:
             return self.post(*args, **kwargs)
-        if not is_authenticated(self.request.user):
+        if not self.request.user.is_authenticated:
             return redirect(self.get_redirect_url())
         ctx = self.get_context_data()
         return self.render_to_response(ctx)
 
     def post(self, *args, **kwargs):
         url = self.get_redirect_url()
-        if is_authenticated(self.request.user):
+        if self.request.user.is_authenticated:
             self.logout()
         return redirect(url)
 

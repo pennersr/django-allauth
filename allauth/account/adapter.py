@@ -9,11 +9,13 @@ from django import forms
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import (
+    authenticate,
     get_backends,
     login as django_login,
     logout as django_logout,
 )
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.password_validation import validate_password
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.cache import cache
 from django.core.mail import EmailMessage, EmailMultiAlternatives
@@ -21,12 +23,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import resolve_url
 from django.template import TemplateDoesNotExist
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 
 from . import app_settings
-from ..compat import authenticate, is_authenticated, reverse, validate_password
 from ..utils import (
     build_absolute_uri,
     email_address_exists,
@@ -140,7 +142,7 @@ class DefaultAccountAdapter(object):
         that URLs passed explicitly (e.g. by passing along a `next`
         GET parameter) take precedence over the value returned here.
         """
-        assert is_authenticated(request.user)
+        assert request.user.is_authenticated
         url = getattr(settings, "LOGIN_REDIRECT_URLNAME", None)
         if url:
             warnings.warn("LOGIN_REDIRECT_URLNAME is deprecated, simply"
@@ -163,7 +165,7 @@ class DefaultAccountAdapter(object):
         """
         The URL to return to after successful e-mail confirmation.
         """
-        if is_authenticated(request.user):
+        if request.user.is_authenticated:
             if app_settings.EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL:
                 return  \
                     app_settings.EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL
@@ -475,7 +477,7 @@ class DefaultAccountAdapter(object):
     def authenticate(self, request, **credentials):
         """Only authenticates, does not actually login. See `login`"""
         self.pre_authenticate(request, **credentials)
-        user = authenticate(request=request, **credentials)
+        user = authenticate(request, **credentials)
         if user:
             cache_key = self._get_login_attempts_cache_key(
                 request, **credentials)

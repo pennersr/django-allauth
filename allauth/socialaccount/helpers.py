@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.forms import ValidationError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
@@ -9,7 +10,6 @@ from allauth.account.utils import complete_signup, perform_login, user_username
 from allauth.exceptions import ImmediateHttpResponse
 
 from . import app_settings, signals
-from ..compat import is_anonymous, is_authenticated, reverse
 from .adapter import get_adapter
 from .models import SocialLogin
 from .providers.base import AuthError, AuthProcess
@@ -90,7 +90,7 @@ def render_authentication_error(request,
 
 
 def _add_social_account(request, sociallogin):
-    if is_anonymous(request.user):
+    if request.user.is_anonymous:
         # This should not happen. Simply redirect to the connections
         # view (which has a login required)
         return HttpResponseRedirect(reverse('socialaccount_connections'))
@@ -161,7 +161,7 @@ def _social_login_redirect(request, sociallogin):
 
 
 def _complete_social_login(request, sociallogin):
-    if is_authenticated(request.user):
+    if request.user.is_authenticated:
         get_account_adapter(request).logout(request)
     if sociallogin.is_existing:
         # Login existing user

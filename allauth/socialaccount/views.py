@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponseRedirect
+from django.urls import reverse, reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
@@ -13,7 +14,6 @@ from ..account.views import (
     CloseableSignupMixin,
     RedirectAuthenticatedUserMixin,
 )
-from ..compat import reverse, reverse_lazy
 from ..utils import get_form_class
 from .adapter import get_adapter
 from .forms import DisconnectForm, SignupForm

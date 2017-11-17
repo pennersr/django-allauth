@@ -141,13 +141,9 @@ class AppSettings(object):
         """
         Minimum password Length
         """
-        import django
         from django.conf import settings
         ret = None
-        has_validators = (
-            django.VERSION[:2] >= (1, 9) and
-            bool(getattr(settings, 'AUTH_PASSWORD_VALIDATORS', [])))
-        if not has_validators:
+        if not settings.AUTH_PASSWORD_VALIDATORS:
             ret = self._setting("PASSWORD_MIN_LENGTH", 6)
         return ret
 

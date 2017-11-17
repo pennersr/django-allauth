@@ -14,7 +14,7 @@ class LinkedInAccount(ProviderAccount):
                     'picture-url'):
                 return self.account.extra_data.get('picture-urls', {}).get(
                     'picture-url')
-        except:
+        except Exception:
             # if we can't get higher res for any reason, we'll just return the
             # low res
             pass

@@ -11,7 +11,7 @@ class LinkedInOAuth2Account(ProviderAccount):
         # try to return the higher res picture-urls::(original) first
         try:
             return self.account.extra_data['pictureUrls']['values'][0]
-        except:
+        except Exception:
             # if we can't get higher res for any reason, we'll just return the
             # low res
             pass

@@ -269,10 +269,6 @@ App registration (get your key and secret here)
 Development callback URL
     http://localhost:8000/accounts/dropbox/login/callback/
 
-Note that Dropbox has deprecated version 1 of their API as of 28 June 2016. The original OAuth1 `dropbox` provider has been updated to OAuth2 and the newer URL endpoints for OAuth2 authentication and authorization.
-
-The `dropbox_oauth2` provider is deprecated and will be removed after September 28, 2017.
-
 Dwolla
 ------------
 
@@ -1104,9 +1100,9 @@ Salesforce OAuth2 documentation
 To Use:
 
 - Include allauth.socialaccount.providers.salesforce in INSTALLED_APPS
-- In a new Salesforce Developer Org, create a Connected App 
+- In a new Salesforce Developer Org, create a Connected App
   with OAuth (minimum scope id, openid), and a callback URL
-- Create a Social application in Django admin, with client id, 
+- Create a Social application in Django admin, with client id,
   client key, and login_url (in "key" field)
 
 

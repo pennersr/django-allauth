@@ -65,7 +65,6 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.douban',
         'allauth.socialaccount.providers.draugiem',
         'allauth.socialaccount.providers.dropbox',
-        'allauth.socialaccount.providers.dropbox_oauth2',
         'allauth.socialaccount.providers.dwolla',
         'allauth.socialaccount.providers.edmodo',
         'allauth.socialaccount.providers.eveonline',

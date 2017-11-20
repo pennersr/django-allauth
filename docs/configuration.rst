@@ -71,6 +71,18 @@ ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN (=180)
   The cooldown period (in seconds) after a confirmation email is sent,
   during which further emails are not sent.
 
+ACCOUNT_EMAIL_MAX_LENGTH(=254)
+  Maximum length of the email field. You won't need to alter this unless using
+  MySQL with the InnoDB storage engine and the ``utf8mb4`` charset, and only in
+  versions lower than 5.7.7, because the default InnoDB settings don't allow
+  indexes bigger than 767 bytes. When using ``utf8mb4``, characters are 4-bytes
+  wide, so at maximum column indexes can be 191 characters long (767/4).
+  Unfortunately Django doesn't allow specifying index lengths, so the solution
+  is to reduce the length in characters of indexed text fields.
+  More information can be found at `MySQL's documentation on converting between
+  3-byte and 4-byte Unicode character sets
+  <https://dev.mysql.com/doc/refman/5.5/en/charset-unicode-conversion.html>`_.
+
 ACCOUNT_FORMS (={})
   Used to override forms, for example:
   ``{'login': 'myapp.forms.LoginForm'}``

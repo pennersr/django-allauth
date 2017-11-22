@@ -1,4 +1,4 @@
-from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.base import ProviderAccount, ProviderException
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -29,7 +29,11 @@ class InstagramProvider(OAuth2Provider):
         return ['basic']
 
     def extract_uid(self, data):
-        return str(data['data']['id'])
+        try:
+            return str(data['data']['id'])
+        except KeyError:
+            raise ProviderException("The access token you provided is either wrong or no longer valid. Please try again.")
+
 
     def extract_common_fields(self, data):
         return dict(username=data['data'].get('username'))

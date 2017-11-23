@@ -47,6 +47,8 @@ Supported Providers
 
 - Authentiq (OAuth2)
 
+- Azure (OAuth2)
+
 - Basecamp (OAuth2)
 
 - Baidu (OAuth2)

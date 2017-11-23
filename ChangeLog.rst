@@ -10,6 +10,12 @@ Security notice
   token is invalidated.
 
 
+Note worthy changes
+-------------------
+
+- New provider: Azure.
+
+
 0.34.0 (2017-10-29)
 *******************
 

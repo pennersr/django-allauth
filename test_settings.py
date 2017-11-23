@@ -55,6 +55,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.asana',
     'allauth.socialaccount.providers.auth0',
     'allauth.socialaccount.providers.authentiq',
+    'allauth.socialaccount.providers.azure',
     'allauth.socialaccount.providers.baidu',
     'allauth.socialaccount.providers.basecamp',
     'allauth.socialaccount.providers.battlenet',

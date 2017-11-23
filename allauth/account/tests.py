@@ -378,6 +378,26 @@ class AccountTests(TestCase):
         data = json.loads(response.content.decode('utf8'))
         assert 'invalid' in data['form']['errors'][0]
 
+    def test_password_reset_flow_with_email_changed(self):
+        """
+        Test that the password reset token is invalidated if
+        the user email address was changed.
+        """
+        user = self._request_new_password()
+        body = mail.outbox[0].body
+        self.assertGreater(body.find('https://'), 0)
+        EmailAddress.objects.create(
+            user=user,
+            email='other@email.org')
+        # Extract URL for `password_reset_from_key` view
+        url = body[body.find('/password/reset/'):].split()[0]
+        resp = self.client.get(url)
+        self.assertTemplateUsed(
+            resp,
+            'account/password_reset_from_key.%s' %
+            app_settings.TEMPLATE_EXTENSION)
+        self.assertTrue('token_fail' in resp.context_data)
+
     @override_settings(ACCOUNT_LOGIN_ON_PASSWORD_RESET=True)
     def test_password_reset_ACCOUNT_LOGIN_ON_PASSWORD_RESET(self):
         user = self._request_new_password()

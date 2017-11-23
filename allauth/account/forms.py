@@ -4,7 +4,7 @@ import warnings
 from importlib import import_module
 
 from django import forms
-from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core import exceptions, validators
 from django.urls import reverse
@@ -24,11 +24,31 @@ from .utils import (
     get_user_model,
     perform_login,
     setup_user_email,
+    sync_user_email_addresses,
     url_str_to_user_pk,
     user_email,
     user_pk_to_url_str,
     user_username,
 )
+
+
+class EmailAwarePasswordResetTokenGenerator(PasswordResetTokenGenerator):
+
+    def _make_hash_value(self, user, timestamp):
+        ret = super(
+            EmailAwarePasswordResetTokenGenerator, self)._make_hash_value(
+                user, timestamp)
+        sync_user_email_addresses(user)
+        emails = set([user.email])
+        emails.update(
+            EmailAddress.objects
+            .filter(user=user)
+            .values_list('email', flat=True))
+        ret += '|'.join(sorted(emails))
+        return ret
+
+
+default_token_generator = EmailAwarePasswordResetTokenGenerator()
 
 
 class PasswordVerificationMixin(object):

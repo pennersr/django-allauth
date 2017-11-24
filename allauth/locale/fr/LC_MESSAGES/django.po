@@ -106,7 +106,7 @@ msgstr "E-mail (facultatif)"
 
 #: account/forms.py:325
 msgid "You must type the same email each time."
-msgstr "Vous devez saisir deux fois le même mot de passe."
+msgstr "Vous devez saisir deux fois le même email."
 
 #: account/forms.py:348 account/forms.py:457
 msgid "Password (again)"

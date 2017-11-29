@@ -323,7 +323,7 @@ def send_email_confirmation(request, user, signup=False):
                                                            confirm=True)
             assert email_address
         # At this point, if we were supposed to send an email we have sent it.
-        if send_email:
+        if send_email and getattr(settings, 'ACCOUNT_SIGNUP_ADD_MESSAGE', True):
             get_adapter(request).add_message(
                 request,
                 messages.INFO,

@@ -7,6 +7,7 @@ from datetime import timedelta
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser, AnonymousUser
+from django.contrib import messages
 from django.contrib.sites.models import Site
 from django.core import mail, validators
 from django.core.exceptions import ValidationError
@@ -674,6 +675,7 @@ class AccountTests(TestCase):
                              fetch_redirect_response=False)
         self.assertEqual(mail.outbox[0].to, ['john@example.com'])
         self.assertEqual(len(mail.outbox), 1)
+        self.assertTrue(any('Confirmation e-mail sent to' in m.message for m in messages.get_messages(resp.wsgi_request)))
         # Logout & login again
         c.logout()
         # Wait for cooldown
@@ -690,6 +692,20 @@ class AccountTests(TestCase):
         # on each login in case of optional verification. Make sure
         # this is not the case:
         self.assertEqual(len(mail.outbox), 1)
+
+    @override_settings(ACCOUNT_EMAIL_VERIFICATION=app_settings
+                       .EmailVerificationMethod.OPTIONAL,
+                       ACCOUNT_SIGNUP_ADD_MESSAGE=False)
+    def test_optional_email_verification_disable_message(self):
+        c = Client()
+        # Signup
+        c.get(reverse('account_signup'))
+        resp = c.post(reverse('account_signup'),
+                      {'username': 'johndoe',
+                       'email': 'john@example.com',
+                       'password1': 'johndoe',
+                       'password2': 'johndoe'})
+        self.assertFalse(any('Confirmation e-mail sent to' in m.message for m in messages.get_messages(resp.wsgi_request)))
 
     @override_settings(ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS=False)
     def test_account_authenticated_login_redirects_is_false(self):

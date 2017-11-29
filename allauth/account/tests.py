@@ -707,7 +707,7 @@ class AccountTests(TestCase):
                        'password1': 'johndoe',
                        'password2': 'johndoe'})
         self.assertFalse(any('Confirmation e-mail sent to' in m.message
-            for m in messages.get_messages(resp.wsgi_request)))
+                for m in messages.get_messages(resp.wsgi_request)))
 
     @override_settings(ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS=False)
     def test_account_authenticated_login_redirects_is_false(self):

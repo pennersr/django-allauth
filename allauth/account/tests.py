@@ -675,7 +675,8 @@ class AccountTests(TestCase):
                              fetch_redirect_response=False)
         self.assertEqual(mail.outbox[0].to, ['john@example.com'])
         self.assertEqual(len(mail.outbox), 1)
-        self.assertTrue(any('Confirmation e-mail sent to' in m.message for m in messages.get_messages(resp.wsgi_request)))
+        self.assertTrue(any('Confirmation e-mail sent to' in m.message
+                            for m in messages.get_messages(resp.wsgi_request)))
         # Logout & login again
         c.logout()
         # Wait for cooldown
@@ -705,7 +706,8 @@ class AccountTests(TestCase):
                        'email': 'john@example.com',
                        'password1': 'johndoe',
                        'password2': 'johndoe'})
-        self.assertFalse(any('Confirmation e-mail sent to' in m.message for m in messages.get_messages(resp.wsgi_request)))
+        self.assertFalse(any('Confirmation e-mail sent to' in m.message
+                             for m in messages.get_messages(resp.wsgi_request)))
 
     @override_settings(ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS=False)
     def test_account_authenticated_login_redirects_is_false(self):

@@ -147,7 +147,7 @@ ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE (=True)
   When signing up, let the user type in their password twice to avoid typos.
 
 ACCOUNT_SIGNUP_ADD_MESSAGE (=True)
-  When signing up, add a message (with ``django.contrib.messages.add_message``).
+  When signing up, add a message with ``django.contrib.messages.add_message``.
 
 ACCOUNT_TEMPLATE_EXTENSION (="html")
   A string defining the template extension to use, defaults to ``html``.

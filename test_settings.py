@@ -30,7 +30,7 @@ TEMPLATES = [
     },
 ]
 
-MIDDLEWARE = MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -71,7 +71,6 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.doximity',
     'allauth.socialaccount.providers.draugiem',
     'allauth.socialaccount.providers.dropbox',
-    'allauth.socialaccount.providers.dropbox_oauth2',
     'allauth.socialaccount.providers.dwolla',
     'allauth.socialaccount.providers.edmodo',
     'allauth.socialaccount.providers.eveonline',
@@ -94,6 +93,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.linkedin_oauth2',
     'allauth.socialaccount.providers.mailchimp',
     'allauth.socialaccount.providers.mailru',
+    'allauth.socialaccount.providers.meetup',
     'allauth.socialaccount.providers.naver',
     'allauth.socialaccount.providers.odnoklassniki',
     'allauth.socialaccount.providers.openid',
@@ -104,6 +104,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.pinterest',
     'allauth.socialaccount.providers.reddit',
     'allauth.socialaccount.providers.robinhood',
+    'allauth.socialaccount.providers.salesforce',
     'allauth.socialaccount.providers.shopify',
     'allauth.socialaccount.providers.slack',
     'allauth.socialaccount.providers.soundcloud',

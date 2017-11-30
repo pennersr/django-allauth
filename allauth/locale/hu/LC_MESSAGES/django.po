@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-26 12:52-0500\n"
+"POT-Creation-Date: 2017-10-29 09:56-0500\n"
 "PO-Revision-Date: 2015-05-08 22:42+0100\n"
 "Last-Translator: Tamás Makó <tom@greenplug.hu>\n"
 "Language-Team: \n"
@@ -17,19 +17,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.7.6\n"
 
-#: account/adapter.py:50
+#: account/adapter.py:48
 msgid "Username can not be used. Please use other username."
 msgstr "Ez a felhasználói azonosító nem használható. Kérlek válassz másikat!"
 
-#: account/adapter.py:54
+#: account/adapter.py:52
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 
-#: account/adapter.py:56
+#: account/adapter.py:54
 msgid "A user is already registered with this e-mail address."
 msgstr "Egy felhasználó már regisztrált ezzel az email címmel."
 
-#: account/adapter.py:293
+#: account/adapter.py:291
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "A jelszónak minimum {0} hosszúnak kell lennnie."

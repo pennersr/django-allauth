@@ -4,13 +4,13 @@ import warnings
 from importlib import import_module
 
 from django import forms
-from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core import exceptions, validators
+from django.urls import reverse
 from django.utils.translation import pgettext, ugettext, ugettext_lazy as _
 
 from . import app_settings
-from ..compat import reverse
 from ..utils import (
     build_absolute_uri,
     get_username_max_length,
@@ -24,11 +24,31 @@ from .utils import (
     get_user_model,
     perform_login,
     setup_user_email,
+    sync_user_email_addresses,
     url_str_to_user_pk,
     user_email,
     user_pk_to_url_str,
     user_username,
 )
+
+
+class EmailAwarePasswordResetTokenGenerator(PasswordResetTokenGenerator):
+
+    def _make_hash_value(self, user, timestamp):
+        ret = super(
+            EmailAwarePasswordResetTokenGenerator, self)._make_hash_value(
+                user, timestamp)
+        sync_user_email_addresses(user)
+        emails = set([user.email])
+        emails.update(
+            EmailAddress.objects
+            .filter(user=user)
+            .values_list('email', flat=True))
+        ret += '|'.join(sorted(emails))
+        return ret
+
+
+default_token_generator = EmailAwarePasswordResetTokenGenerator()
 
 
 class PasswordVerificationMixin(object):
@@ -353,7 +373,7 @@ class SignupForm(BaseSignupForm):
     def clean(self):
         super(SignupForm, self).clean()
 
-        # `password` cannot by of type `SetPasswordField`, as we don't
+        # `password` cannot be of type `SetPasswordField`, as we don't
         # have a `User` yet. So, let's populate a dummy user to be used
         # for password validaton.
         dummy_user = get_user_model()
@@ -559,8 +579,11 @@ class UserTokenForm(forms.Form):
     def clean(self):
         cleaned_data = super(UserTokenForm, self).clean()
 
-        uidb36 = cleaned_data['uidb36']
-        key = cleaned_data['key']
+        uidb36 = cleaned_data.get('uidb36', None)
+        key = cleaned_data.get('key', None)
+
+        if not key:
+            raise forms.ValidationError(self.error_messages['token_invalid'])
 
         self.reset_user = self._get_user(uidb36)
         if (self.reset_user is None or

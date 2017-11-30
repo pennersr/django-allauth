@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-26 12:52-0500\n"
+"POT-Creation-Date: 2017-10-29 09:56-0500\n"
 "PO-Revision-Date: 2017-04-26 12:48+0200\n"
 "Last-Translator: Tomas Babej <tomasbabej@gmail.com>\n"
 "Language-Team: \n"
@@ -17,19 +17,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.0.1\n"
 
-#: account/adapter.py:50
+#: account/adapter.py:48
 msgid "Username can not be used. Please use other username."
 msgstr "Užívateľské meno nemôže byť použité. Prosím, použite iné meno."
 
-#: account/adapter.py:54
+#: account/adapter.py:52
 msgid "Too many failed login attempts. Try again later."
 msgstr "Príliš veľa neúspešných pokusov o prihlásenie. Skúste neskôr."
 
-#: account/adapter.py:56
+#: account/adapter.py:54
 msgid "A user is already registered with this e-mail address."
 msgstr "Používateľ s touto e-mailovou adresou už existuje."
 
-#: account/adapter.py:293
+#: account/adapter.py:291
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Heslo musí mať aspoň {0} znakov."

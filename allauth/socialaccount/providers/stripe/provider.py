@@ -3,7 +3,9 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class StripeAccount(ProviderAccount):
-    pass
+    def to_str(self):
+        default = super(StripeAccount, self).to_str()
+        return self.account.extra_data.get('business_name', default)
 
 
 class StripeProvider(OAuth2Provider):

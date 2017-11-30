@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-26 12:52-0500\n"
+"POT-Creation-Date: 2017-10-29 09:56-0500\n"
 "PO-Revision-Date: 2014-08-12 00:36+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,21 +19,21 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: account/adapter.py:50
+#: account/adapter.py:48
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Ім'я користувача не може бути використаним. Будь ласка, оберіть інше ім'я "
 "користувача."
 
-#: account/adapter.py:54
+#: account/adapter.py:52
 msgid "Too many failed login attempts. Try again later."
 msgstr "Занадто багато спроб входу в систему, спробуйте пізніше."
 
-#: account/adapter.py:56
+#: account/adapter.py:54
 msgid "A user is already registered with this e-mail address."
 msgstr "Користувач з такою e-mail адресою уже зареєстрований."
 
-#: account/adapter.py:293
+#: account/adapter.py:291
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Пароль повинен містити мінімум {0} символів."

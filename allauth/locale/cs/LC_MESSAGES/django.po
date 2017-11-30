@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-26 12:52-0500\n"
+"POT-Creation-Date: 2017-10-29 09:56-0500\n"
 "PO-Revision-Date: 2014-08-12 00:28+0200\n"
 "Last-Translator: Tomas Marcik <tomas.marcik@dolnex.cz>, 2013\n"
 "Language-Team: Dolnex Technologies s.r.o. <info@dolnex.cz>\n"
@@ -17,19 +17,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: account/adapter.py:50
+#: account/adapter.py:48
 msgid "Username can not be used. Please use other username."
 msgstr "Toto uživatelské jméno nemůže být zvoleno. Prosím, zvolte si jiné."
 
-#: account/adapter.py:54
+#: account/adapter.py:52
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 
-#: account/adapter.py:56
+#: account/adapter.py:54
 msgid "A user is already registered with this e-mail address."
 msgstr "Uživatel s tímto e-mailem je již registrován."
 
-#: account/adapter.py:293
+#: account/adapter.py:291
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Heslo musí obsahovat minimálně {0} znaků."
@@ -604,7 +604,7 @@ msgid ""
 "Forgotten your password? Enter your e-mail address below, and we'll send you "
 "an e-mail allowing you to reset it."
 msgstr ""
-"Zapomněli jste heslo? Zadejte prosím svojí e-mailovou adresu a do e-mailové "
+"Zapomněli jste heslo? Zadejte prosím svoji e-mailovou adresu a do e-mailové "
 "schránky Vám přijde návod na jeho obnovu."
 
 #: templates/account/password_reset.html:20
@@ -690,7 +690,7 @@ msgstr "momentálně jste přihlášen jako %(user_display)s."
 #: templates/account/verified_email_required.html:5
 #: templates/account/verified_email_required.html:8
 msgid "Verify Your E-mail Address"
-msgstr "Ověřte svojí e-mailovou adresu."
+msgstr "Ověřte svoji e-mailovou adresu."
 
 #: templates/account/verification_sent.html:10
 #, fuzzy

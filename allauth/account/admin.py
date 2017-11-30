@@ -1,4 +1,3 @@
-import django
 from django.contrib import admin
 
 from . import app_settings
@@ -11,11 +10,6 @@ class EmailAddressAdmin(admin.ModelAdmin):
     list_filter = ('primary', 'verified')
     search_fields = []
     raw_id_fields = ('user',)
-
-    def __init__(self, *args, **kwargs):
-        super(EmailAddressAdmin, self).__init__(*args, **kwargs)
-        if not self.search_fields and django.VERSION[:2] < (1, 7):
-            self.search_fields = self.get_search_fields(None)
 
     def get_search_fields(self, request):
         base_fields = get_adapter(request).get_user_search_fields()

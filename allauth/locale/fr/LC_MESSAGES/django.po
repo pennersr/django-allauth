@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-26 12:52-0500\n"
+"POT-Creation-Date: 2017-10-29 09:56-0500\n"
 "PO-Revision-Date: 2016-10-06 15:16+0200\n"
 "Last-Translator: Steve Kossouho <steve.kossouho@yahoo.fr>\n"
 "Language-Team: français <>\n"
@@ -20,20 +20,20 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Gtranslator 2.91.7\n"
 
-#: account/adapter.py:50
+#: account/adapter.py:48
 msgid "Username can not be used. Please use other username."
 msgstr "Ce pseudonyme ne peut pas être utilisé. Veuillez en choisir un autre."
 
-#: account/adapter.py:54
+#: account/adapter.py:52
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 "Trop de tentatives de connexion échouées. Veuillez réessayer ultérieurement."
 
-#: account/adapter.py:56
+#: account/adapter.py:54
 msgid "A user is already registered with this e-mail address."
 msgstr "Un autre utilisateur utilise déjà cette adresse e-mail."
 
-#: account/adapter.py:293
+#: account/adapter.py:291
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Le mot de passe doit contenir au minimum {0} caractères."

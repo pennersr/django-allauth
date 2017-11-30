@@ -107,6 +107,8 @@ Supported Providers
 
 - MailChimp (OAuth2)
 
+- Meetup (OAuth2)
+
 - Naver (OAuth2)
 
 - Odnoklassniki (OAuth2)
@@ -124,6 +126,8 @@ Supported Providers
 - Pinterest (OAuth2)
 
 - Reddit (OAuth2)
+
+- Salesforce (OAuth2)
 
 - Shopify (OAuth2)
 

@@ -269,9 +269,29 @@ App registration (get your key and secret here)
 Development callback URL
     http://localhost:8000/accounts/dropbox/login/callback/
 
-Note that Dropbox has deprecated version 1 of their API as of 28 June 2016. The original OAuth1 `dropbox` provider has been updated to OAuth2 and the newer URL endpoints for OAuth2 authentication and authorization.
+Dwolla
+------------
 
-The `dropbox_oauth2` provider is deprecated and will be removed after September 28, 2017.
+App registration (get your key and secret here)
+    https://dashboard-uat.dwolla.com/applications
+
+Development callback URL
+    http://127.0.0.1:8000/accounts/dwolla/login/callback/
+
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'dwolla': {
+            'SCOPE': [
+                'Send',
+                'Transactions',
+                'Funding',
+                'AccountInfoFull',
+            ],
+            'ENVIROMENT':'sandbox',
+        }
+    }
 
 Dwolla
 ------------
@@ -609,6 +629,9 @@ GITLAB_URL:
     Override endpoint to request an authorization and access token. For your
     private GitLab server you use: ``https://your.gitlab.server.tld``
 
+SCOPE:
+    The ``read_user`` scope is required for the login procedure.
+
 Example:
 
 .. code-block:: python
@@ -616,7 +639,8 @@ Example:
     SOCIALACCOUNT_PROVIDERS = {
         'gitlab': {
             'GITLAB_URL': 'https://your.gitlab.server.tld',
-        }
+            'SCOPE': ['read_user'],
+        },
     }
 
 
@@ -1058,6 +1082,30 @@ you will risk additional rate limiting in your application.
     }
 
 
+Salesforce
+----------
+
+The Salesforce provider requires you to set the login VIP as the provider
+model's 'key' (in addition to client id and secret). Production environments
+use https://login.salesforce.com/. Sandboxes use https://test.salesforce.com/.
+
+HTTPS is required for the callback.
+
+Development callback URL
+    https://localhost:8000/accounts/salesforce/login/callback/
+
+Salesforce OAuth2 documentation
+    https://developer.salesforce.com/page/Digging_Deeper_into_OAuth_2.0_on_Force.com
+
+To Use:
+
+- Include allauth.socialaccount.providers.salesforce in INSTALLED_APPS
+- In a new Salesforce Developer Org, create a Connected App
+  with OAuth (minimum scope id, openid), and a callback URL
+- Create a Social application in Django admin, with client id,
+  client key, and login_url (in "key" field)
+
+
 Shopify
 -------
 
@@ -1155,8 +1203,20 @@ Server Fault). This can be controlled by means of the ``SITE`` setting:
 Stripe
 ------
 
-You can register your OAuth2 app via the admin interface
+You register your OAUth2 app via the Connect->Settings page of the Stripe
+dashboard:
+	https://dashboard.stripe.com/account/applications/settings
+
+This page will provide you with both a Development and Production `client_id`.
+
+You can also register your OAuth2 app callback on the Settings page in the
+"Website URL" box, e.g.:
     http://example.com/accounts/stripe/login/callback/
+
+However, the OAuth2 secret key is not on this page. The secret key is the same
+secret key that you use with the Stripe API generally. This can be found on the
+Stripe dashboard API page:
+	https://dashboard.stripe.com/account/apikeys
 
 See more in documentation
     https://stripe.com/docs/connect/standalone-accounts

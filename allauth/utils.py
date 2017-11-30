@@ -21,13 +21,8 @@ from django.db.models.fields import (
     TimeField,
 )
 from django.utils import dateparse, six
+from django.utils.encoding import force_bytes, force_text
 from django.utils.six.moves.urllib.parse import urlsplit
-
-
-try:
-    from django.utils.encoding import force_text, force_bytes
-except ImportError:
-    from django.utils.encoding import force_unicode as force_text
 
 
 # Magic number 7: if you run into collisions with this number, then you are
@@ -42,7 +37,7 @@ def _generate_unique_username_base(txts, regex=None):
     from .account.adapter import get_adapter
     adapter = get_adapter()
     username = None
-    regex = regex or '[^\w\s@+.-]'
+    regex = regex or r'[^\w\s@+.-]'
     for txt in txts:
         if not txt:
             continue
@@ -56,7 +51,7 @@ def _generate_unique_username_base(txts, regex=None):
         # address and only take the part leading up to the '@'.
         username = username.split('@')[0]
         username = username.strip()
-        username = re.sub('\s+', '_', username)
+        username = re.sub(r'\s+', '_', username)
         # Finally, validating base username without database lookups etc.
         try:
             username = adapter.clean_username(username, shallow=True)
@@ -220,7 +215,7 @@ def deserialize_instance(model, data):
                         # This is quite an ugly hack, but will cover most
                         # use cases...
                         v = f.from_db_value(v, None, None, None)
-                    except:
+                    except Exception:
                         raise ImproperlyConfigured(
                             "Unable to auto serialize field '{}', custom"
                             " serialization override required".format(k)

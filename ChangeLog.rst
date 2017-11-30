@@ -1,3 +1,33 @@
+0.35.0 (Unreleased)
+*******************
+
+Security notice
+---------------
+
+- As an extra security measure on top of what the standard Django password reset
+  token generator is already facilitating, allauth now adds the user email
+  address to the hash such that whenever the user's email address changes the
+  token is invalidated.
+
+
+0.34.0 (2017-10-29)
+*******************
+
+Security notice
+---------------
+
+- The "Set Password" view did not properly check whether or not the user already
+  had a usable password set. This allowed an attacker to set the password
+  without providing the current password, but only in case the attacker already
+  gained control over the victim's session.
+
+
+Note worthy changes
+-------------------
+
+- New provider: Meetup.
+
+
 0.33.0 (2017-08-20)
 *******************
 

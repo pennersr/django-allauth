@@ -459,7 +459,7 @@ class DefaultAccountAdapter(object):
         login = credentials.get('email', credentials.get('username', ''))
         login_key = hashlib.sha256(login.encode('utf8')).hexdigest()
         return 'allauth/login_attempts@{site_id}:{login}'.format(
-            site_id=site.pk,
+            site_id=site.domain,
             login=login_key)
 
     def pre_authenticate(self, request, **credentials):

@@ -123,7 +123,7 @@ urls.py::
 
     urlpatterns = [
         ...
-        url(r'^accounts/', include('allauth.urls')),
+        path('accounts/', include('allauth.urls')),
         ...
     ]
 

@@ -22,12 +22,17 @@ class CoinbaseOAuth2Adapter(OAuth2Adapter):
 
     @property
     def profile_url(self):
-        return 'https://coinbase.com/api/v1/users'
+        return 'https://api.coinbase.com/v2/user'
 
     def complete_login(self, request, app, token, **kwargs):
         response = requests.get(self.profile_url,
                                 params={'access_token': token})
-        extra_data = response.json()['users'][0]['user']
+        extra_data = response.json()['data']
+
+        # This only here because of weird response from the test suite
+        if isinstance(extra_data, list):
+            extra_data = extra_data[0]
+
         return self.get_provider().sociallogin_from_response(
             request, extra_data)
 

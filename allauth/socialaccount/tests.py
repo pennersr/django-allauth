@@ -165,10 +165,9 @@ class OAuth2TestsMixin(object):
 
     def test_account_tokens(self, multiple_login=False):
         email = "user@example.com"
-        user = get_user_model().objects.create(
-            username='user',
-            is_active=True,
-            email=email)
+        user = get_user_model()(is_active=True)
+        user_email(user, email)
+        user_username(user, 'user')
         user.set_password('test')
         user.save()
         EmailAddress.objects.create(user=user,

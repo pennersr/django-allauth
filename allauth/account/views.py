@@ -49,13 +49,14 @@ sensitive_post_parameters_m = method_decorator(
 
 
 def _ajax_response(request, response, form=None, data=None):
-    if request.is_ajax():
+    adapter = get_adapter(request)
+    if adapter.is_ajax(request):
         if (isinstance(response, HttpResponseRedirect) or isinstance(
                 response, HttpResponsePermanentRedirect)):
             redirect_to = response['Location']
         else:
             redirect_to = None
-        response = get_adapter(request).ajax_response(
+        response = adapter.ajax_response(
             request,
             response,
             form=form,
@@ -114,7 +115,10 @@ class AjaxCapableProcessFormViewMixin(object):
         return form
 
     def _get_ajax_data_if(self):
-        return self.get_ajax_data() if self.request.is_ajax() else None
+        return (
+            self.get_ajax_data()
+            if get_adapter(self.request).is_ajax(self.request)
+            else None)
 
     def get_ajax_data(self):
         return None

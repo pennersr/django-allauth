@@ -493,6 +493,9 @@ class DefaultAccountAdapter(object):
         data.append(time.mktime(dt.timetuple()))
         cache.set(cache_key, data, app_settings.LOGIN_ATTEMPTS_TIMEOUT)
 
+    def is_ajax(self, request):
+        return request.is_ajax()
+
 
 def get_adapter(request=None):
     return import_attribute(app_settings.ADAPTER)(request)

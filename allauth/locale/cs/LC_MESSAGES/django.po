@@ -23,7 +23,7 @@ msgstr "Toto uživatelské jméno nemůže být zvoleno. Prosím, zvolte si jin�
 
 #: account/adapter.py:52
 msgid "Too many failed login attempts. Try again later."
-msgstr ""
+msgstr "Příliš mnoho pokusů o přihlášení. Zkuste to prosím později."
 
 #: account/adapter.py:54
 msgid "A user is already registered with this e-mail address."
@@ -143,7 +143,7 @@ msgstr "E-mail není přiřazen k žádnému účtu"
 
 #: account/forms.py:548
 msgid "The password reset token was invalid."
-msgstr ""
+msgstr "Token pro reset hesla není platný."
 
 #: account/models.py:23
 msgid "user"
@@ -197,7 +197,8 @@ msgstr "Ověřovací e-maily"
 msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
 "account first, then connect your %s account."
-msgstr ""
+msgstr "Účet s touto e-mailovou adresou již existuje. Prosím přihlaste se "
+"nejdříve pod tímto účtem a potom připojte svůj %s účet."
 
 #: socialaccount/adapter.py:131
 msgid "Your account has no password set up."

@@ -122,7 +122,8 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.weibo',
     'allauth.socialaccount.providers.weixin',
     'allauth.socialaccount.providers.windowslive',
-    'allauth.socialaccount.providers.xing'
+    'allauth.socialaccount.providers.xing',
+    'allauth.socialaccount.providers.yahoo',
 )
 
 AUTHENTICATION_BACKENDS = (

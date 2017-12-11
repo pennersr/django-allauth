@@ -6,6 +6,7 @@ from fnmatch import fnmatchcase
 
 from setuptools import convert_path, find_packages, setup
 
+
 # Provided as an attribute, so you can append to these instead
 # of replicating them:
 standard_exclude = ["*.py", "*.pyc", "*~", ".*", "*.bak", "Makefile"]
@@ -126,7 +127,7 @@ METADATA = dict(
     keywords='django auth account social openid twitter facebook oauth'
     ' registration',
     tests_require=test_requirements,
-    install_requires=['Django >= 1.8',
+    install_requires=['Django >= 1.10',
                       openid_package,
                       'requests-oauthlib >= 0.3.0',
                       "requests"],

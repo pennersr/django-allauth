@@ -174,10 +174,12 @@ class BasicTests(TestCase):
             utils.build_absolute_uri(request_factory.get('/'), '/foo'),
             'http://example.com/foo')
         self.assertEqual(
-            utils.build_absolute_uri(request_factory.get('/'), '/foo', protocol='ftp'),
+            utils.build_absolute_uri(request_factory.get('/'), '/foo',
+                                     protocol='ftp'),
             'ftp://example.com/foo')
         self.assertEqual(
-            utils.build_absolute_uri(request_factory.get('/'), 'http://foo.com/bar'),
+            utils.build_absolute_uri(request_factory.get('/'),
+                                     'http://foo.com/bar'),
             'http://foo.com/bar')
 
     def test_int_to_base36(self):

@@ -7,7 +7,7 @@ from datetime import date, datetime
 
 from django.core.files.base import ContentFile
 from django.db import models
-from django.test import TestCase, override_settings, RequestFactory
+from django.test import override_settings, RequestFactory, TestCase
 
 from allauth.compat import base36_to_int, int_to_base36
 

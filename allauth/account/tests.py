@@ -6,8 +6,8 @@ from datetime import timedelta
 
 from django import forms
 from django.conf import settings
-from django.contrib.auth.models import AbstractUser, AnonymousUser
 from django.contrib import messages
+from django.contrib.auth.models import AbstractUser, AnonymousUser
 from django.contrib.sites.models import Site
 from django.core import mail, validators
 from django.core.exceptions import ValidationError

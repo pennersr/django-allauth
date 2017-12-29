@@ -8,7 +8,7 @@ HTTPS
 This app currently provides no functionality for enforcing views to be
 HTTPS only, or switching from HTTP to HTTPS (and back) on demand.
 There are third party packages aimed at providing precisely this,
-please use these .
+so please use these.
 
 What is provided is the following:
 
@@ -27,18 +27,18 @@ Custom User Models
 
 If you use a custom user model you need to specify what field
 represents the ``username``, if any. Here, ``username`` really refers to
-the field representing the nick name the user uses to login, and not
+the field representing the nickname that the user uses to login, and not to
 some unique identifier (possibly including an e-mail address) as is
 the case for Django's ``AbstractBaseUser.USERNAME_FIELD``.
 
-Meaning, if your custom user model does not have a ``username`` field
+Therefore, if your custom user model does not have a ``username`` field
 (again, not to be mistaken with an e-mail address or user id), you
 will need to set ``ACCOUNT_USER_MODEL_USERNAME_FIELD`` to ``None``. This
 will disable username related functionality in ``allauth``. Remember to
-also to set ``ACCOUNT_USERNAME_REQUIRED`` to ``False``.
+also set ``ACCOUNT_USERNAME_REQUIRED`` to ``False``.
 
 Similarly, you will need to set ``ACCOUNT_USER_MODEL_EMAIL_FIELD`` to
-``None``, or the proper field (if other than ``email``).
+``None`` or to the proper field (if other than ``email``).
 
 For example, if you want to use a custom user model that has ``email``
 as the identifying field, and you don't want to collect usernames, you
@@ -54,7 +54,7 @@ Creating and Populating User instances
 --------------------------------------
 
 The following adapter methods can be used to intervene in how User
-instances are created, and populated with data
+instances are created and populated with data
 
 - ``allauth.account.adapter.DefaultAccountAdapter``:
 
@@ -69,7 +69,7 @@ instances are created, and populated with data
 
   - ``populate_username(self, request, user)``:
     Fills in a valid username, if required and missing.  If the
-    username is already present it is assumed to be valid (unique).
+    username is already present, then it is assumed to be valid (unique).
 
   - ``confirm_email(self, request, email_address)``: Marks the email address as
     confirmed and saves to the db.
@@ -118,15 +118,15 @@ methods:
   example, inspect the session to check if an invitation was accepted.
 
 - ``stash_verified_email(self, request, email)``. If an invitation was
-  accepted by following a link in a mail, then there is no need to
-  send e-mail verification mails after the signup is completed. Use
-  this method to record the fact that an e-mail address was verified.
+  accepted by following a link in an email, then there is no need to
+  send email verification mails after the signup is completed. Use
+  this method to record the fact that an email address was verified.
 
 
-Sending E-mail
+Sending Email
 --------------
 
-E-mails sent (e.g. in case of password forgotten, or e-mail
+Emails sent (e.g. in case of password forgotten or email
 confirmation) can be altered by providing your own
 templates. Templates are named as follows::
 

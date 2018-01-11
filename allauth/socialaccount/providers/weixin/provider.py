@@ -22,7 +22,7 @@ class WeixinProvider(OAuth2Provider):
         return data['openid']
 
     def get_default_scope(self):
-        return ['snsapi_userinfo']
+        return ['snsapi_login']
 
     def extract_common_fields(self, data):
         return dict(username=data.get('nickname'),

@@ -188,7 +188,7 @@ Messages
 The Django messages framework (``django.contrib.messages``) is used if
 it is listed in ``settings.INSTALLED_APPS``.  All messages (as in
 ``django.contrib.messages``) are configurable by overriding their
-respective template. If you want to disable a message simply override
+respective template. If you want to disable a message, simply override
 the message template with a blank one.
 
 Admin
@@ -209,7 +209,7 @@ the normal Django allauth workflow.
       login method will not be applied.
 
 An easy workaround for this is to require users to login before going to the
-Django admin site's login page (note that following would need to be applied to
+Django admin site's login page (note that the following would need to be applied to
 every instance of ``AdminSite``):
 
 .. code-block:: python
@@ -227,8 +227,8 @@ needing to customize a provider.
 
 This can be achieved by subclassing an existing provider and making your changes
 there. Providers are defined as django applications, so typically customizing one
-will mean creating a django application in your project, containing your customized
-urls.py, views.py and provider.py files. What behaviour you can customize is beyond
+will mean creating a django application in your project.  This application will contain your customized
+urls.py, views.py and provider.py files. The behaviour that can be customized is beyond
 the scope of this documentation.
 
 .. warning::

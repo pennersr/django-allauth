@@ -29,11 +29,7 @@ class MicrosoftGraphProvider(OAuth2Provider):
         return str(data['id'])
 
     def extract_common_fields(self, data):
-        try:
-            email = data.get('mail') or data.get('userPrincipalName')
-        except:
-            email = None
-
+        email = data.get('mail') or data.get('userPrincipalName')
         return dict(email=email,
                     last_name=data.get('surname'),
                     first_name=data.get('givenName'))

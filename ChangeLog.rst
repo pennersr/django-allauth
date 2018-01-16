@@ -13,7 +13,7 @@ Security notice
 Note worthy changes
 -------------------
 
-- New provider: Azure, Microsoft Graph.
+- New provider: Azure, Microsoft Graph, Salesforce, Yahoo.
 
 
 0.34.0 (2017-10-29)

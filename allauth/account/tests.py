@@ -134,7 +134,7 @@ class AccountTests(TestCase):
 
     @override_settings(
         ACCOUNT_USERNAME_REQUIRED=True,
-        ACCOUNT_SIGNUP_PASSOWRD_ENTER_TWICE=True)
+        ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE=True)
     def test_signup_password_twice_form_error(self):
         resp = self.client.post(
             reverse('account_signup'),

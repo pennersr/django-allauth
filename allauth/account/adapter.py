@@ -262,14 +262,20 @@ class DefaultAccountAdapter(object):
         if commit:
             # Ability not to commit makes it easier to derive from
             # this adapter by adding
-            #user.save()
-            #FIXME: define a new app_setting for the account that lists the fields to use
+            #HACK   since allauth created this user instance and it's using it
+            #       everywhere, but we NEED to callback create_user from its
+            #       UserModel, we copy the new_user data into the existing
+            #       object. In other words: we *CAN NOT* destroy/replace the
+            #       old user object because it would break everything
+            #FIXME: define a new app_setting for the account that lists the
+            #       fields to use
             create_user_fields_args = ['email', 'password1']
             create_user_fields_kwargs = []
-            user = get_user_model().objects.create_user(
+            new_user = get_user_model().objects.create_user(
                 getattr(user, create_user_fields_args[0], None),
                 getattr(user, create_user_fields_args[1], None)
             )
+            user.__dict__.update(new_user.__dict__)
         return user
 
     def clean_username(self, username, shallow=False):

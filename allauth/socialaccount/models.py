@@ -229,7 +229,9 @@ class SocialLogin(object):
         """
         assert not self.is_existing
         user = self.user
+        assert user.id, "SocialAccount is saving a new user from scratch"
         user.save()
+        assert user is not self.user, "User.save() replaced the user object"
         self.account.user = user
         self.account.save()
         if app_settings.STORE_TOKENS and self.token:

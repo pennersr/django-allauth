@@ -21,10 +21,7 @@ class AuthenticationBackend(ModelBackend):
         else:
             ret = self._authenticate_by_username(**credentials)
 
-
-        ret2 = self._authenticate_for_sites(ret)
-        print("AUTHENTICATE for {} got {}".format(ret, ret2))
-        return ret2
+        return self._authenticate_for_sites(ret)
 
     def _authenticate_by_username(self, **credentials):
         username_field = app_settings.USER_MODEL_USERNAME_FIELD
@@ -67,6 +64,4 @@ class AuthenticationBackend(ModelBackend):
 
     def get_user(self, user_id):
         ret = super(AuthenticationBackend, self).get_user(user_id)
-        ret2 = self._authenticate_for_sites(ret)
-        print("GET_USER for {} got {} then {}".format(user_id, ret, ret2))
-        return ret
+        return self._authenticate_for_sites(ret)

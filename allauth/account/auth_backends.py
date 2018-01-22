@@ -1,4 +1,5 @@
 from django.contrib.auth.backends import ModelBackend
+from django.contrib.sites.models import Site
 
 from . import app_settings
 from ..utils import get_user_model
@@ -19,7 +20,11 @@ class AuthenticationBackend(ModelBackend):
                 ret = self._authenticate_by_username(**credentials)
         else:
             ret = self._authenticate_by_username(**credentials)
-        return ret
+
+
+        ret2 = self._authenticate_for_sites(ret)
+        print("AUTHENTICATE for {} got {}".format(ret, ret2))
+        return ret2
 
     def _authenticate_by_username(self, **credentials):
         username_field = app_settings.USER_MODEL_USERNAME_FIELD
@@ -50,3 +55,18 @@ class AuthenticationBackend(ModelBackend):
                 if user.check_password(credentials["password"]):
                     return user
         return None
+
+    def _authenticate_for_sites(self, ret):
+        #import pdb; pdb.set_trace()
+        if not app_settings.USE_SITES or \
+           not hasattr(ret, app_settings.SITES_FIELD_NAME):
+                return ret
+        return (ret if ret.is_superuser or
+                      (ret.site == Site.objects.get_current())
+                     else None)
+
+    def get_user(self, user_id):
+        ret = super(AuthenticationBackend, self).get_user(user_id)
+        ret2 = self._authenticate_for_sites(ret)
+        print("GET_USER for {} got {} then {}".format(user_id, ret, ret2))
+        return ret

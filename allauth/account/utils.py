@@ -4,6 +4,7 @@ from datetime import timedelta
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.sites.models import Site
 from django.core.exceptions import FieldDoesNotExist, ValidationError
 from django.db import models
 from django.db.models import Q
@@ -133,8 +134,13 @@ def perform_login(request, user, email_verification,
         return adapter.respond_user_inactive(request, user)
 
     from .models import EmailAddress
-    has_verified_email = EmailAddress.objects.filter(user=user,
-                                                     verified=True).exists()
+    emailaddresses = EmailAddress.objects.filter(user=user, verified=True)
+    if app_settings.USE_SITES:
+        emailaddresses = emailaddresses.filter(
+            **{'user__' +
+               app_settings.SITES_FIELD_NAME +
+               '__exact': Site.objects.get_current()})
+    has_verified_email = emailaddresses.exists()
     if email_verification == EmailVerificationMethod.NONE:
         pass
     elif email_verification == EmailVerificationMethod.OPTIONAL:

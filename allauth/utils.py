@@ -129,6 +129,8 @@ def email_address_exists(email, exclude_user=None):
     emailaddresses = EmailAddress.objects
     if exclude_user:
         emailaddresses = emailaddresses.exclude(user=exclude_user)
+    if app_settings.USE_SITES:
+        emailaddresses = emailaddresses.filter(**{'user__' + account_settings.SITES_FIELD_NAME + '__iexact': Site.objects.get_current()})
     ret = emailaddresses.filter(email__iexact=email).exists()
     if not ret:
         email_field = account_settings.USER_MODEL_EMAIL_FIELD
@@ -136,6 +138,8 @@ def email_address_exists(email, exclude_user=None):
             users = get_user_model().objects
             if exclude_user:
                 users = users.exclude(pk=exclude_user.pk)
+            if app_settings.USE_SITES:
+                users = users.filter(site=Site.objects.get_current())
             ret = users.filter(**{email_field + '__iexact': email}).exists()
     return ret
 

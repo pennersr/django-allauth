@@ -1,6 +1,6 @@
 from django.test.utils import override_settings
+from django.urls import reverse
 
-from allauth.compat import reverse
 from allauth.tests import TestCase, patch
 from allauth.utils import get_user_model
 
@@ -17,11 +17,11 @@ class PersonaTests(TestCase):
                    '.requests') as requests_mock:
             requests_mock.post.return_value.json.return_value = {
                 'status': 'okay',
-                'email': 'persona@mail.com'
+                'email': 'persona@example.com'
             }
 
             resp = self.client.post(reverse('persona_login'),
                                     dict(assertion='dummy'))
             self.assertRedirects(resp, '/accounts/profile/',
                                  fetch_redirect_response=False)
-            get_user_model().objects.get(email='persona@mail.com')
+            get_user_model().objects.get(email='persona@example.com')

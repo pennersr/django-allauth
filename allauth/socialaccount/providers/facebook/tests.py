@@ -2,10 +2,10 @@ import json
 
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
+from django.urls import reverse
 
 from allauth.account import app_settings as account_settings
 from allauth.account.models import EmailAddress
-from allauth.compat import reverse
 from allauth.socialaccount import providers
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.tests import OAuth2TestsMixin
@@ -34,7 +34,7 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
            "name": "Raymond Penners",
            "first_name": "Raymond",
            "last_name": "Penners",
-           "email": "raymond.penners@gmail.com",
+           "email": "raymond.penners@example.com",
            "link": "https://www.facebook.com/raymond.penners",
            "username": "raymond.penners",
            "birthday": "07/17/1973",
@@ -91,8 +91,9 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
                 = lambda: mocks.pop()
             resp = self.client.post(reverse('facebook_login_by_token'),
                                     data={'access_token': 'dummy'})
-            self.assertRedirects(resp, 'http://testserver/accounts/profile/',
-                                 fetch_redirect_response=False)
+            self.assertRedirects(
+                resp, "/accounts/profile/", fetch_redirect_response=False
+            )
 
     @override_settings(
         SOCIALACCOUNT_PROVIDERS={
@@ -111,8 +112,9 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
                 = lambda: mocks.pop()
             resp = self.client.post(reverse('facebook_login_by_token'),
                                     data={'access_token': 'dummy'})
-            self.assertRedirects(resp, 'http://testserver/accounts/profile/',
-                                 fetch_redirect_response=False)
+            self.assertRedirects(
+                resp, "/accounts/profile/", fetch_redirect_response=False
+            )
 
     @override_settings(
         SOCIALACCOUNT_PROVIDERS={
@@ -128,4 +130,4 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
 
     def _login_verified(self):
         self.login(self.get_mocked_response())
-        return EmailAddress.objects.get(email='raymond.penners@gmail.com')
+        return EmailAddress.objects.get(email='raymond.penners@example.com')

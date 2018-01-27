@@ -1,6 +1,7 @@
+from django.urls import reverse
 from django.utils.http import urlencode
 
-from allauth.compat import reverse, urlparse
+from allauth.compat import urlparse
 from allauth.socialaccount.providers.base import Provider, ProviderAccount
 
 from .utils import (

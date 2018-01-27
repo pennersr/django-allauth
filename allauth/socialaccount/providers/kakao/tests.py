@@ -9,14 +9,16 @@ class KakaoTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(200, """
+{"id": 233652912,
+"kaccount_email": "insanejflow@example.com",
+"kaccount_email_verified": true,
+"properties":
 {
-"id": 347514800,
-"properties": {
 "thumbnail_image":
-"http://mud-kage.kakao.co.kr/14/dn/btqfiLU5UyB/YVsnjWyjGbr63VEUnxJA40/o.jpg",
-"nickname": "\uc774\uc0c1\ud601",
+"http://mud-kage.kakao.co.kr/14/dn/btqegghHRjx/DbvFZTjNnQpsI8S6hh1cxK/o.jpg",
 "profile_image":
-"http://mud-kage.kakao.co.kr/14/dn/btqficlJTd6/OORvqlHejQvk2l1wNZCC1k/o.jpg"
+"http://mud-kage.kakao.co.kr/14/dn/btqedGORigT/1TwogEZOBWnNkXolo5yVs1/o.jpg",
+"nickname": "\uc548\uc8fc\uc740"
 }
 }
 """)

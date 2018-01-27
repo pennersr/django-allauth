@@ -148,7 +148,7 @@ class Provider(object):
         """
         For example:
 
-        [EmailAddress(email='john@doe.org',
+        [EmailAddress(email='john@example.com',
                       verified=True,
                       primary=True)]
         """

@@ -35,11 +35,11 @@ allauth.account
 
   Sent when a password has been successfully reset.
 
-- ``allauth.account.signals.email_confirmed(email_address)``
+- ``allauth.account.signals.email_confirmed(request, email_address)``
 
   Sent after the email address in the db was updated and set to confirmed.
 
-- ``allauth.account.signals.email_confirmation_sent(confirmation)``
+- ``allauth.account.signals.email_confirmation_sent(request, confirmation, signup)``
 
   Sent right after the email confirmation is sent.
 
@@ -71,6 +71,13 @@ allauth.socialaccount
 - ``allauth.socialaccount.signals.social_account_added(request, sociallogin)``
 
   Sent after a user connects a social account to a their local account.
+
+- ``allauth.socialaccount.signals.social_account_updated(request, sociallogin)``
+
+  Sent after a social account has been updated. This happens when a user
+  logs in using an already connected social account, or completes a `connect`
+  flow for an already connected social account. Useful if you need to
+  unpack extra data for social accounts as they are updated.
 
 - ``allauth.socialaccount.signals.social_account_removed(request, socialaccount)``
 

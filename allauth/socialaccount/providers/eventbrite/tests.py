@@ -15,7 +15,7 @@ class EventbriteTests(OAuth2TestsMixin, TestCase):
         """Test authentication with an non-null image_id"""
         return MockedResponse(200, """{
             "emails": {
-                "email": "test@test.com",
+                "email": "test@example.com",
                 "verified": "True",
                 "primary": "True"
             },

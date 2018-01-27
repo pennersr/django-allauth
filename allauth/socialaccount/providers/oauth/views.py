@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 
-from allauth.compat import reverse
+from django.urls import reverse
+
 from allauth.socialaccount import providers
 from allauth.socialaccount.helpers import (
     complete_social_login,

@@ -1,5 +1,63 @@
-Unreleased
-**********
+0.35.0 (Unreleased)
+*******************
+
+Security notice
+---------------
+
+- As an extra security measure on top of what the standard Django password reset
+  token generator is already facilitating, allauth now adds the user email
+  address to the hash such that whenever the user's email address changes the
+  token is invalidated.
+
+
+Note worthy changes
+-------------------
+
+- New provider: Azure, Microsoft Graph, Salesforce, Yahoo.
+
+
+0.34.0 (2017-10-29)
+*******************
+
+Security notice
+---------------
+
+- The "Set Password" view did not properly check whether or not the user already
+  had a usable password set. This allowed an attacker to set the password
+  without providing the current password, but only in case the attacker already
+  gained control over the victim's session.
+
+
+Note worthy changes
+-------------------
+
+- New provider: Meetup.
+
+
+0.33.0 (2017-08-20)
+*******************
+
+Note worthy changes
+-------------------
+
+- Security: password reset tokens are now prevented from being leaked through
+  the password reset URL.
+
+- New providers: Patreon, Authentiq, Dataporten.
+
+- Dropbox has been upgraded to API V2.
+
+- New translation: Norwegian.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Dropped support for Django 1.9.
+
+
+0.32.0 (2017-04-27)
+*******************
 
 Note worthy changes
 -------------------
@@ -8,6 +66,10 @@ Note worthy changes
   manage e-mail addresses and social connections) now support AJAX GET requests.
   These views hand over all the required data for you to build your frontend
   application upon.
+
+- New providers: Dwolla, Trello.
+
+- Shopify: support for per-user access mode.
 
 
 Backwards incompatible changes
@@ -22,6 +84,12 @@ Backwards incompatible changes
   Now, it contains a ``form`` key that describes the complete form, including
   the fields. Field specific errors are placed in
   ``form.fields['some_field'].errors``, non-field errors in ``form.errors``.
+
+- The parameters passed to the Facebook JS SDK ``FB.init()`` method used to contain
+  ``cookie``, ``status``, and ``xfbml``, all set to ``true``. These parameters
+  are no longer explicitly passed. You can use the newly introduced ``INIT_PARAMS``
+  provider setting to provide your own values.
+
 
 
 0.31.0 (2017-02-28)

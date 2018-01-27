@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-28 07:56-0600\n"
+"POT-Creation-Date: 2017-10-29 09:56-0500\n"
 "PO-Revision-Date: 2015-06-26 13:09+0700\n"
 "Last-Translator: Nattaphoom Chaipreecha <attomos@gmail.com>\n"
 "Language-Team: Thai <LL@li.org>\n"
@@ -20,19 +20,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: account/adapter.py:50
+#: account/adapter.py:48
 msgid "Username can not be used. Please use other username."
 msgstr "ไม่สามารถใช้ชื่อผู้ใช้นี้ได้ กรุณาใช้ชื่อผู้ใช้อื่น"
 
-#: account/adapter.py:54
+#: account/adapter.py:52
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 
-#: account/adapter.py:56
+#: account/adapter.py:54
 msgid "A user is already registered with this e-mail address."
 msgstr "ชื่อผู้ใช้ได้ถูกลงทะเบียนด้วยอีเมลนี้แล้ว"
 
-#: account/adapter.py:293
+#: account/adapter.py:291
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "รหัสผ่านต้องมีอย่างน้อย {0} ตัวอักษร"
@@ -41,11 +41,11 @@ msgstr "รหัสผ่านต้องมีอย่างน้อย {0
 msgid "Accounts"
 msgstr "บัญชี"
 
-#: account/forms.py:41 account/forms.py:364
+#: account/forms.py:41 account/forms.py:378
 msgid "You must type the same password each time."
 msgstr "ต้องพิมพ์รหัสผ่านเดิมซ้ำอีกครั้ง"
 
-#: account/forms.py:71 account/forms.py:334 account/forms.py:442
+#: account/forms.py:71 account/forms.py:345 account/forms.py:456
 msgid "Password"
 msgstr "รหัสผ่าน"
 
@@ -65,89 +65,85 @@ msgstr "อีเมลและ/หรือรหัสผ่านที่�
 msgid "The username and/or password you specified are not correct."
 msgstr "ชื่อผู้ใช้และ/หรือรหัสผ่านที่ระบุมาไม่ถูกต้อง"
 
-#: account/forms.py:87
-msgid "The login and/or password you specified are not correct."
-msgstr "การลงชื่เข้าใช้และ/หรือรหัสผ่านที่ระบุมาไม่ถูกต้อง"
-
-#: account/forms.py:96 account/forms.py:238 account/forms.py:392
-#: account/forms.py:461
+#: account/forms.py:93 account/forms.py:248 account/forms.py:406
+#: account/forms.py:475
 msgid "E-mail address"
 msgstr "อีเมล"
 
-#: account/forms.py:98 account/forms.py:269 account/forms.py:387
-#: account/forms.py:456
+#: account/forms.py:95 account/forms.py:281 account/forms.py:401
+#: account/forms.py:470
 msgid "E-mail"
 msgstr "อีเมล"
 
-#: account/forms.py:103 account/forms.py:106 account/forms.py:230
-#: account/forms.py:234
+#: account/forms.py:100 account/forms.py:103 account/forms.py:240
+#: account/forms.py:244
 msgid "Username"
 msgstr "ชื่อผู้ใช้"
 
-#: account/forms.py:113
+#: account/forms.py:110
 msgid "Username or e-mail"
 msgstr "ชื่อผู้ใช้ หรือ อีเมล"
 
-#: account/forms.py:116
+#: account/forms.py:113
 msgctxt "field label"
 msgid "Login"
 msgstr "ลงชื่อเข้าใช้"
 
-#: account/forms.py:258
+#: account/forms.py:272
 #, fuzzy
 #| msgid "E-mail (optional)"
 msgid "E-mail (again)"
 msgstr "อีเมล (ไม่จำเป็น)"
 
-#: account/forms.py:262
+#: account/forms.py:276
 #, fuzzy
 #| msgid "email confirmation"
 msgid "E-mail address confirmation"
 msgstr "การยืนยันอีเมล"
 
-#: account/forms.py:272
+#: account/forms.py:284
 msgid "E-mail (optional)"
 msgstr "อีเมล (ไม่จำเป็น)"
 
-#: account/forms.py:314
+#: account/forms.py:325
 #, fuzzy
 #| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
 msgstr "ต้องพิมพ์รหัสผ่านเดิมซ้ำอีกครั้ง"
 
-#: account/forms.py:337 account/forms.py:443
+#: account/forms.py:348 account/forms.py:457
 msgid "Password (again)"
 msgstr "รหัสผ่าน (อีกครั้ง)"
 
-#: account/forms.py:398
+#: account/forms.py:412
 msgid "This e-mail address is already associated with this account."
 msgstr "อีเมลนี้ได้ถูกเชื่อมกับบัญชีนี้แล้ว"
 
-#: account/forms.py:400
+#: account/forms.py:414
 msgid "This e-mail address is already associated with another account."
 msgstr "อีเมลนี้ได้ถูกเชื่อมกับบัญชีอื่นแล้ว"
 
-#: account/forms.py:422
+#: account/forms.py:436
 msgid "Current Password"
 msgstr "รหัสผ่านปัจจุบัน"
 
-#: account/forms.py:423 account/forms.py:512
+#: account/forms.py:437 account/forms.py:526
 msgid "New Password"
 msgstr "รหัสผ่านใหม่"
 
-#: account/forms.py:424 account/forms.py:513
+#: account/forms.py:438 account/forms.py:527
 msgid "New Password (again)"
 msgstr "รหัสผ่านใหม่ (อีกครั้ง)"
 
-#: account/forms.py:432
+#: account/forms.py:446
 msgid "Please type your current password."
 msgstr "โปรดใส่รหัสผ่านปัจจุบัน"
 
-#: account/forms.py:470
+#: account/forms.py:484
 msgid "The e-mail address is not assigned to any user account"
 msgstr "อีเมลนี้ไม่ได้เชื่อมกับบัญชีใดเลย"
 
-#: account/forms.py:534
+#: account/forms.py:548
 msgid "The password reset token was invalid."
 msgstr "token ที่ใช้รีเซ็ทรหัสผ่านไม่ถูกต้อง"
 
@@ -155,7 +151,7 @@ msgstr "token ที่ใช้รีเซ็ทรหัสผ่านไม
 msgid "user"
 msgstr "ผู้ใช้"
 
-#: account/models.py:27 account/models.py:86
+#: account/models.py:27 account/models.py:81
 msgid "e-mail address"
 msgstr "อีเมล"
 
@@ -175,23 +171,23 @@ msgstr "อีเมล"
 msgid "email addresses"
 msgstr "อีเมล"
 
-#: account/models.py:88
+#: account/models.py:83
 msgid "created"
 msgstr "สร้างแล้ว"
 
-#: account/models.py:90
+#: account/models.py:85
 msgid "sent"
 msgstr "ส่งแล้ว"
 
-#: account/models.py:91 socialaccount/models.py:61
+#: account/models.py:86 socialaccount/models.py:61
 msgid "key"
 msgstr "คีย์"
 
-#: account/models.py:96
+#: account/models.py:91
 msgid "email confirmation"
 msgstr "การยืนยันอีเมล"
 
-#: account/models.py:97
+#: account/models.py:92
 msgid "email confirmations"
 msgstr "การยืนยันอีเมล"
 
@@ -400,13 +396,20 @@ msgid "Do you really want to remove the selected e-mail address?"
 msgstr "คุณต้องการที่จะลบอีเมลนี้จริงหรอ"
 
 #: templates/account/email/email_confirmation_message.txt:1
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "Hello from %(site_name)s!\n"
+#| "\n"
+#| "You're receiving this e-mail because user %(user_display)s at "
+#| "%(site_domain)s has given yours as an e-mail address to connect their "
+#| "account.\n"
+#| "\n"
+#| "To confirm this is correct, go to %(activate_url)s\n"
 msgid ""
 "Hello from %(site_name)s!\n"
 "\n"
-"You're receiving this e-mail because user %(user_display)s at "
-"%(site_domain)s has given yours as an e-mail address to connect their "
-"account.\n"
+"You're receiving this e-mail because user %(user_display)s has given yours "
+"as an e-mail address to connect their account.\n"
 "\n"
 "To confirm this is correct, go to %(activate_url)s\n"
 msgstr ""
@@ -431,12 +434,19 @@ msgid "Please Confirm Your E-mail Address"
 msgstr "กรุณายืนยันอีเมลของคุณ"
 
 #: templates/account/email/password_reset_key_message.txt:1
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "Hello from %(site_name)s!\n"
+#| "\n"
+#| "You're receiving this e-mail because you or someone else has requested a "
+#| "password for your user account at %(site_domain)s.\n"
+#| "It can be safely ignored if you did not request a password reset. Click "
+#| "the link below to reset your password."
 msgid ""
 "Hello from %(site_name)s!\n"
 "\n"
 "You're receiving this e-mail because you or someone else has requested a "
-"password for your user account at %(site_domain)s.\n"
+"password for your user account.\n"
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
@@ -792,6 +802,9 @@ msgid ""
 msgstr ""
 "คุณกำลังจะทำการใช้บัญชี %(provider_name)s ของคุณ ในการเข้าสู่ระบบของ\n"
 "%(site_name)s. ในขั้นตอนสุดท้าย กรุณากรอกฟอร์มข้างล่าง:"
+
+#~ msgid "The login and/or password you specified are not correct."
+#~ msgstr "การลงชื่เข้าใช้และ/หรือรหัสผ่านที่ระบุมาไม่ถูกต้อง"
 
 #~ msgid "Usernames can only contain letters, digits and @/./+/-/_."
 #~ msgstr "ชื่อผู้ใช้สามารถมีตัวอักษรภาษาอังกฤษตัวเลขและ @/./+/-/_. เท่านั้น"

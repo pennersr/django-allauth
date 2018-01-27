@@ -6,7 +6,7 @@ Verified E-mail Required
 
 Even when email verification is not mandatory during signup, there
 may be circumstances during which you really want to prevent
-unverified users to proceed. For this purpose you can use the
+unverified users from proceeding. For this purpose you can use the
 following decorator::
 
     from allauth.account.decorators import verified_email_required
@@ -17,7 +17,7 @@ following decorator::
 
 The behavior is as follows:
 
-- If the user isn't logged in, it acts identical to the
+- If the user isn't logged in, it acts identically to the
   ``login_required`` decorator.
 
 - If the user is logged in but has no verified e-mail address, an

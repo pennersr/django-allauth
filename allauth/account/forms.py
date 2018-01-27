@@ -4,13 +4,13 @@ import warnings
 from importlib import import_module
 
 from django import forms
-from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core import exceptions, validators
+from django.urls import reverse
 from django.utils.translation import pgettext, ugettext, ugettext_lazy as _
 
 from . import app_settings
-from ..compat import reverse
 from ..utils import (
     build_absolute_uri,
     get_username_max_length,
@@ -24,11 +24,31 @@ from .utils import (
     get_user_model,
     perform_login,
     setup_user_email,
+    sync_user_email_addresses,
     url_str_to_user_pk,
     user_email,
     user_pk_to_url_str,
     user_username,
 )
+
+
+class EmailAwarePasswordResetTokenGenerator(PasswordResetTokenGenerator):
+
+    def _make_hash_value(self, user, timestamp):
+        ret = super(
+            EmailAwarePasswordResetTokenGenerator, self)._make_hash_value(
+                user, timestamp)
+        sync_user_email_addresses(user)
+        emails = set([user.email])
+        emails.update(
+            EmailAddress.objects
+            .filter(user=user)
+            .values_list('email', flat=True))
+        ret += '|'.join(sorted(emails))
+        return ret
+
+
+default_token_generator = EmailAwarePasswordResetTokenGenerator()
 
 
 class PasswordVerificationMixin(object):
@@ -50,7 +70,7 @@ class PasswordField(forms.CharField):
                                   app_settings.PASSWORD_INPUT_RENDER_VALUE)
         kwargs['widget'] = forms.PasswordInput(render_value=render_value,
                                                attrs={'placeholder':
-                                                      _(kwargs.get("label"))})
+                                                      kwargs.get("label")})
         super(PasswordField, self).__init__(*args, **kwargs)
 
 
@@ -260,9 +280,13 @@ class BaseSignupForm(_base_signup_form_class()):
         username_field.widget.attrs['maxlength'] = str(
             username_field.max_length)
 
-        # field order may contain additional fields from our base class,
-        # so take proper care when reordering...
-        field_order = ['email', 'username']
+        default_field_order = [
+            'email',
+            'email2',  # ignored when not present
+            'username',
+            'password1',
+            'password2'  # ignored when not present
+        ]
         if app_settings.SIGNUP_EMAIL_ENTER_TWICE:
             self.fields["email2"] = forms.EmailField(
                 label=_("E-mail (again)"),
@@ -273,8 +297,6 @@ class BaseSignupForm(_base_signup_form_class()):
                     }
                 )
             )
-            field_order = ['email', 'email2', 'username']
-        merged_field_order = list(self.fields.keys())
         if email_required:
             self.fields['email'].label = ugettext("E-mail")
             self.fields['email'].required = True
@@ -283,21 +305,20 @@ class BaseSignupForm(_base_signup_form_class()):
             self.fields['email'].required = False
             self.fields['email'].widget.is_required = False
             if self.username_required:
-                field_order = ['username', 'email']
-                if app_settings.SIGNUP_EMAIL_ENTER_TWICE:
-                    field_order.append('email2')
+                default_field_order = [
+                    'username',
+                    'email',
+                    'email2',  # ignored when not present
+                    'password1',
+                    'password2'  # ignored when not present
+                ]
 
-        # Merge our email and username fields in if they are not
-        # currently in the order.  This is to allow others to
-        # re-arrange email and username if they desire.  Go in reverse
-        # so that we make sure the inserted items are always
-        # prepended.
-        for field in reversed(field_order):
-            if field not in merged_field_order:
-                merged_field_order.insert(0, field)
-        set_form_field_order(self, merged_field_order)
         if not self.username_required:
             del self.fields["username"]
+
+        set_form_field_order(
+            self,
+            getattr(self, 'field_order', None) or default_field_order)
 
     def clean_username(self):
         value = self.cleaned_data["username"]
@@ -346,10 +367,13 @@ class SignupForm(BaseSignupForm):
             self.fields['password2'] = PasswordField(
                 label=_("Password (again)"))
 
+        if hasattr(self, 'field_order'):
+            set_form_field_order(self, self.field_order)
+
     def clean(self):
         super(SignupForm, self).clean()
 
-        # `password` cannot by of type `SetPasswordField`, as we don't
+        # `password` cannot be of type `SetPasswordField`, as we don't
         # have a `User` yet. So, let's populate a dummy user to be used
         # for password validaton.
         dummy_user = get_user_model()
@@ -555,8 +579,11 @@ class UserTokenForm(forms.Form):
     def clean(self):
         cleaned_data = super(UserTokenForm, self).clean()
 
-        uidb36 = cleaned_data['uidb36']
-        key = cleaned_data['key']
+        uidb36 = cleaned_data.get('uidb36', None)
+        key = cleaned_data.get('key', None)
+
+        if not key:
+            raise forms.ValidationError(self.error_messages['token_invalid'])
 
         self.reset_user = self._get_user(uidb36)
         if (self.reset_user is None or

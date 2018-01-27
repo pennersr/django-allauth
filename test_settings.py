@@ -30,7 +30,7 @@ TEMPLATES = [
     },
 ]
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -54,6 +54,8 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.angellist',
     'allauth.socialaccount.providers.asana',
     'allauth.socialaccount.providers.auth0',
+    'allauth.socialaccount.providers.authentiq',
+    'allauth.socialaccount.providers.azure',
     'allauth.socialaccount.providers.baidu',
     'allauth.socialaccount.providers.basecamp',
     'allauth.socialaccount.providers.battlenet',
@@ -62,6 +64,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.bitly',
     'allauth.socialaccount.providers.box',
     'allauth.socialaccount.providers.coinbase',
+    'allauth.socialaccount.providers.dataporten',
     'allauth.socialaccount.providers.daum',
     'allauth.socialaccount.providers.digitalocean',
     'allauth.socialaccount.providers.discord',
@@ -69,7 +72,6 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.doximity',
     'allauth.socialaccount.providers.draugiem',
     'allauth.socialaccount.providers.dropbox',
-    'allauth.socialaccount.providers.dropbox_oauth2',
     'allauth.socialaccount.providers.dwolla',
     'allauth.socialaccount.providers.edmodo',
     'allauth.socialaccount.providers.eveonline',
@@ -92,15 +94,19 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.linkedin_oauth2',
     'allauth.socialaccount.providers.mailchimp',
     'allauth.socialaccount.providers.mailru',
+    'allauth.socialaccount.providers.meetup',
+    'allauth.socialaccount.providers.microsoft',
     'allauth.socialaccount.providers.naver',
     'allauth.socialaccount.providers.odnoklassniki',
     'allauth.socialaccount.providers.openid',
     'allauth.socialaccount.providers.orcid',
+    'allauth.socialaccount.providers.patreon',
     'allauth.socialaccount.providers.paypal',
     'allauth.socialaccount.providers.persona',
     'allauth.socialaccount.providers.pinterest',
     'allauth.socialaccount.providers.reddit',
     'allauth.socialaccount.providers.robinhood',
+    'allauth.socialaccount.providers.salesforce',
     'allauth.socialaccount.providers.shopify',
     'allauth.socialaccount.providers.slack',
     'allauth.socialaccount.providers.soundcloud',
@@ -118,7 +124,8 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.weibo',
     'allauth.socialaccount.providers.weixin',
     'allauth.socialaccount.providers.windowslive',
-    'allauth.socialaccount.providers.xing'
+    'allauth.socialaccount.providers.xing',
+    'allauth.socialaccount.providers.yahoo',
 )
 
 AUTHENTICATION_BACKENDS = (

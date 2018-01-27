@@ -10,7 +10,7 @@ class HubicTests(OAuth2TestsMixin, TestCase):
     def get_mocked_response(self):
         return MockedResponse(200, """
 {
-    "email": "asdf@asdf.com",
+    "email": "user@example.com",
     "firstname": "Test",
     "activated": true,
     "creationDate": "2014-04-17T17:04:01+02:00",

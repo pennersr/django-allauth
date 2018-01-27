@@ -1,8 +1,8 @@
 from django.test import override_settings
+from django.urls import reverse
 
 from openid.consumer import consumer
 
-from allauth.compat import reverse
 from allauth.socialaccount.models import SocialAccount
 from allauth.tests import Mock, TestCase, patch
 from allauth.utils import get_user_model
@@ -50,9 +50,9 @@ class OpenIDTests(TestCase):
                                             ['raymond']}
                     resp = self.client.post(reverse('openid_callback'))
                     self.assertRedirects(
-                        resp,
-                        'http://testserver/accounts/profile/',
-                        fetch_redirect_response=False)
+                        resp, "/accounts/profile/",
+                        fetch_redirect_response=False
+                    )
                     get_user_model().objects.get(first_name='raymond')
 
     @override_settings(SOCIALACCOUNT_PROVIDERS={'openid': {'SERVERS': [
@@ -97,9 +97,9 @@ class OpenIDTests(TestCase):
                             ['123456789']}
                     resp = self.client.post(reverse('openid_callback'))
                     self.assertRedirects(
-                        resp,
-                        'http://testserver/accounts/profile/',
-                        fetch_redirect_response=False)
+                        resp, "/accounts/profile/",
+                        fetch_redirect_response=False
+                    )
                     socialaccount = \
                         SocialAccount.objects.get(user__first_name='raymond')
                     self.assertEqual(

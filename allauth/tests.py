@@ -5,47 +5,19 @@ import json
 import requests
 from datetime import date, datetime
 
-import django
 from django.core.files.base import ContentFile
 from django.db import models
-from django.test import TestCase as DjangoTestCase
+from django.test import TestCase
 
-from allauth.account.utils import user_username
+from allauth.compat import base36_to_int, int_to_base36
 
 from . import utils
 
 
 try:
-    from mock import Mock, patch
+    from unittest.mock import Mock, patch
 except ImportError:
-    from unittest.mock import Mock, patch  # noqa
-
-
-class TestCase(DjangoTestCase):
-
-    def assertRedirects(self, response, expected_url,
-                        fetch_redirect_response=True,
-                        **kwargs):
-        super(TestCase, self).assertRedirects(
-            response,
-            expected_url,
-            fetch_redirect_response=fetch_redirect_response,
-            **kwargs)
-
-    def client_force_login(self, user):
-        if django.VERSION >= (1, 9):
-            self.client.force_login(
-                user,
-                'django.contrib.auth.backends.ModelBackend')
-        else:
-            old_password = user.password
-            user.set_password('doe')
-            user.save()
-            self.client.login(
-                username=user_username(user),
-                password='doe')
-            user.password = old_password
-            user.save()
+    from mock import Mock, patch  # noqa
 
 
 class MockedResponse(object):
@@ -96,7 +68,7 @@ class mocked_response:
 class BasicTests(TestCase):
 
     def test_generate_unique_username(self):
-        examples = [('a.b-c@gmail.com', 'a.b-c'),
+        examples = [('a.b-c@example.com', 'a.b-c'),
                     ('Üsêrnamê', 'username'),
                     ('User Name', 'user_name'),
                     ('', 'user')]
@@ -105,16 +77,8 @@ class BasicTests(TestCase):
                              username)
 
     def test_email_validation(self):
-        is_email_max_75 = django.VERSION[:2] <= (1, 7)
-        if is_email_max_75:
-            s = 'unfortunately.django.user.email.max_length.is.set.to.75.which.is.too.short@bummer.com'  # noqa
-            self.assertEqual(None, utils.valid_email_or_none(s))
-        s = 'this.email.address.is.a.bit.too.long.but.should.still.validate.ok@short.com'  # noqa
+        s = 'this.email.address.is.a.bit.too.long.but.should.still.validate@example.com'  # noqa
         self.assertEqual(s, utils.valid_email_or_none(s))
-        if is_email_max_75:
-            s = 'x' + s
-            self.assertEqual(None, utils.valid_email_or_none(s))
-            self.assertEqual(None, utils.valid_email_or_none("Bad ?"))
 
     def test_serializer(self):
 
@@ -200,3 +164,9 @@ class BasicTests(TestCase):
         self.assertEqual(
             utils.build_absolute_uri(None, 'http://foo.com/bar'),
             'http://foo.com/bar')
+
+    def test_int_to_base36(self):
+        n = 55798679658823689999
+        b36 = 'brxk553wvxbf3'
+        assert int_to_base36(n) == b36
+        assert base36_to_int(b36) == n

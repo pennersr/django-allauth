@@ -73,6 +73,14 @@ class AppSettings(object):
                              settings.LOGIN_URL)
 
     @property
+    def EMAIL_CONFIRMATION_COOLDOWN(self):
+        """
+        The cooldown in seconds during which, after an email confirmation has
+        been sent, a second confirmation email will not be sent.
+        """
+        return self._setting("EMAIL_CONFIRMATION_COOLDOWN", 3 * 60)
+
+    @property
     def EMAIL_REQUIRED(self):
         """
         The user is required to hand over an e-mail address when signing up
@@ -133,13 +141,9 @@ class AppSettings(object):
         """
         Minimum password Length
         """
-        import django
         from django.conf import settings
         ret = None
-        has_validators = (
-            django.VERSION[:2] >= (1, 9) and
-            bool(getattr(settings, 'AUTH_PASSWORD_VALIDATORS', [])))
-        if not has_validators:
+        if not settings.AUTH_PASSWORD_VALIDATORS:
             ret = self._setting("PASSWORD_MIN_LENGTH", 6)
         return ret
 

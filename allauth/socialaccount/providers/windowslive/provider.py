@@ -32,7 +32,7 @@ class WindowsLiveProvider(OAuth2Provider):
     def extract_common_fields(self, data):
         try:
             email = data.get('emails').get('preferred')
-        except:
+        except AttributeError:
             email = None
 
         return dict(email=email,

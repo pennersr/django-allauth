@@ -34,7 +34,7 @@ class LinkedInOAuth2Provider(OAuth2Provider):
     account_class = LinkedInOAuth2Account
 
     def extract_uid(self, data):
-        return str(data['id'])
+        return str(data['requestId'])
 
     def get_profile_fields(self):
         default_fields = ['id',

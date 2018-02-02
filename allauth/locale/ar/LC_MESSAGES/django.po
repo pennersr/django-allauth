@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-29 09:56-0500\n"
+"POT-Creation-Date: 2018-02-02 12:55-0600\n"
 "PO-Revision-Date: 2016-01-19 19:32+0100\n"
 "Last-Translator: David D Lowe <daviddlowe.flimm@gmail.com>\n"
 "Language-Team: Arabic\n"
@@ -19,19 +19,19 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 "X-Generator: Poedit 1.8.6\n"
 
-#: account/adapter.py:48
+#: account/adapter.py:45
 msgid "Username can not be used. Please use other username."
 msgstr "اسم المستخدم غير مسموح به. الرجاء اختيار اسم اخر‪.‬"
 
-#: account/adapter.py:52
+#: account/adapter.py:49
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 
-#: account/adapter.py:54
+#: account/adapter.py:51
 msgid "A user is already registered with this e-mail address."
 msgstr "هنالك مستخدم مسجل سابقا مع نفس عنوان البريد الاكتروني‪.‬"
 
-#: account/adapter.py:291
+#: account/adapter.py:288
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "كلمة المرور يجب أن لا تقل عن {0} حروف."
@@ -40,109 +40,109 @@ msgstr "كلمة المرور يجب أن لا تقل عن {0} حروف."
 msgid "Accounts"
 msgstr "الحسابات"
 
-#: account/forms.py:41 account/forms.py:378
+#: account/forms.py:61 account/forms.py:398
 msgid "You must type the same password each time."
 msgstr "يجب عليك كتابة نفس كلمة المرور في كل مرة‪.‬"
 
-#: account/forms.py:71 account/forms.py:345 account/forms.py:456
+#: account/forms.py:91 account/forms.py:365 account/forms.py:476
 msgid "Password"
 msgstr "كلمة السر"
 
-#: account/forms.py:72
+#: account/forms.py:92
 msgid "Remember Me"
 msgstr "ذكرني"
 
-#: account/forms.py:78
+#: account/forms.py:98
 msgid "This account is currently inactive."
 msgstr "هذا الحساب غير نشط حاليا."
 
-#: account/forms.py:81
+#: account/forms.py:101
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "عنوان البريد الإلكتروني و / أو كلمة المرور الذي حددته غير صحيحة."
 
-#: account/forms.py:84
+#: account/forms.py:104
 msgid "The username and/or password you specified are not correct."
 msgstr "اسم المستخدم و / أو كلمة المرور الذي حددته غير صحيحة."
 
-#: account/forms.py:93 account/forms.py:248 account/forms.py:406
-#: account/forms.py:475
+#: account/forms.py:113 account/forms.py:268 account/forms.py:426
+#: account/forms.py:495
 msgid "E-mail address"
 msgstr "عنوان البريد الالكتروني"
 
-#: account/forms.py:95 account/forms.py:281 account/forms.py:401
-#: account/forms.py:470
+#: account/forms.py:115 account/forms.py:301 account/forms.py:421
+#: account/forms.py:490
 msgid "E-mail"
 msgstr "البريد الالكتروني"
 
-#: account/forms.py:100 account/forms.py:103 account/forms.py:240
-#: account/forms.py:244
+#: account/forms.py:120 account/forms.py:123 account/forms.py:260
+#: account/forms.py:264
 msgid "Username"
 msgstr "اسم المستخدم"
 
-#: account/forms.py:110
+#: account/forms.py:130
 msgid "Username or e-mail"
 msgstr "اسم المستخدم أو البريج الالكتروني"
 
-#: account/forms.py:113
+#: account/forms.py:133
 msgctxt "field label"
 msgid "Login"
 msgstr "تسجيل الدخول"
 
-#: account/forms.py:272
+#: account/forms.py:292
 #, fuzzy
 #| msgid "E-mail (optional)"
 msgid "E-mail (again)"
 msgstr "البريد الالكتروني ‪)‬اختياري‪(‬"
 
-#: account/forms.py:276
+#: account/forms.py:296
 #, fuzzy
 #| msgid "email confirmation"
 msgid "E-mail address confirmation"
 msgstr "تأكيد البريد الإلكتروني"
 
-#: account/forms.py:284
+#: account/forms.py:304
 msgid "E-mail (optional)"
 msgstr "البريد الالكتروني ‪)‬اختياري‪(‬"
 
-#: account/forms.py:325
+#: account/forms.py:345
 #, fuzzy
 #| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
 msgstr "يجب عليك كتابة نفس كلمة المرور في كل مرة‪.‬"
 
-#: account/forms.py:348 account/forms.py:457
+#: account/forms.py:368 account/forms.py:477
 msgid "Password (again)"
 msgstr "كلمة السر ‪)‬مرة أخرى‪(‬"
 
-#: account/forms.py:412
+#: account/forms.py:432
 msgid "This e-mail address is already associated with this account."
 msgstr "عنوان البريد الإلكتروني هذا بالفعل المقترنة مع هذا الحساب."
 
-#: account/forms.py:414
+#: account/forms.py:434
 msgid "This e-mail address is already associated with another account."
 msgstr "عنوان البريد الإلكتروني هذا مقترن بالفعل بحساب آخر."
 
-#: account/forms.py:436
+#: account/forms.py:456
 msgid "Current Password"
 msgstr "كلمة المرور الحالية"
 
-#: account/forms.py:437 account/forms.py:526
+#: account/forms.py:457 account/forms.py:546
 msgid "New Password"
 msgstr "كلمة المرور الجديدة"
 
-#: account/forms.py:438 account/forms.py:527
+#: account/forms.py:458 account/forms.py:547
 msgid "New Password (again)"
 msgstr "كلمة المرور الجديدة (مرة أخرى)"
 
-#: account/forms.py:446
+#: account/forms.py:466
 msgid "Please type your current password."
 msgstr "الرجاء كتابة كلمة المرور الحالية الخاصة بك."
 
-#: account/forms.py:484
+#: account/forms.py:504
 msgid "The e-mail address is not assigned to any user account"
 msgstr "لم يتم تعيين عنوان البريد الإلكتروني لأي حساب مستخدم"
 
-#: account/forms.py:548
+#: account/forms.py:568
 msgid "The password reset token was invalid."
 msgstr ""
 
@@ -178,7 +178,7 @@ msgstr "تمّ إنشاؤه"
 msgid "sent"
 msgstr "مبعوث"
 
-#: account/models.py:86 socialaccount/models.py:61
+#: account/models.py:86 socialaccount/models.py:55
 msgid "key"
 msgstr "مفتاح"
 
@@ -211,91 +211,91 @@ msgstr "حسابك ليس لديه عنوان البريد الإلكتروني 
 msgid "Social Accounts"
 msgstr "الحسابات الاجتماعية"
 
-#: socialaccount/models.py:49 socialaccount/models.py:83
+#: socialaccount/models.py:43 socialaccount/models.py:77
 msgid "provider"
 msgstr "مزود"
 
-#: socialaccount/models.py:52
+#: socialaccount/models.py:46
 msgid "name"
 msgstr "اسم"
 
-#: socialaccount/models.py:54
+#: socialaccount/models.py:48
 msgid "client id"
 msgstr ""
 
-#: socialaccount/models.py:56
+#: socialaccount/models.py:50
 msgid "App ID, or consumer key"
 msgstr ""
 
-#: socialaccount/models.py:57
+#: socialaccount/models.py:51
 msgid "secret key"
 msgstr ""
 
-#: socialaccount/models.py:59
+#: socialaccount/models.py:53
 msgid "API secret, client secret, or consumer secret"
 msgstr ""
 
-#: socialaccount/models.py:64
+#: socialaccount/models.py:58
 msgid "Key"
 msgstr ""
 
-#: socialaccount/models.py:72
+#: socialaccount/models.py:66
 msgid "social application"
 msgstr ""
 
-#: socialaccount/models.py:73
+#: socialaccount/models.py:67
 msgid "social applications"
 msgstr ""
 
-#: socialaccount/models.py:102
+#: socialaccount/models.py:96
 msgid "uid"
 msgstr ""
 
-#: socialaccount/models.py:104
+#: socialaccount/models.py:98
 msgid "last login"
 msgstr ""
 
-#: socialaccount/models.py:106
+#: socialaccount/models.py:100
 msgid "date joined"
 msgstr ""
 
-#: socialaccount/models.py:108
+#: socialaccount/models.py:102
 msgid "extra data"
 msgstr ""
 
-#: socialaccount/models.py:112
+#: socialaccount/models.py:106
 msgid "social account"
 msgstr ""
 
-#: socialaccount/models.py:113
+#: socialaccount/models.py:107
 msgid "social accounts"
 msgstr ""
 
-#: socialaccount/models.py:139
+#: socialaccount/models.py:133
 msgid "token"
 msgstr ""
 
-#: socialaccount/models.py:141
+#: socialaccount/models.py:135
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:144
+#: socialaccount/models.py:138
 msgid "token secret"
 msgstr ""
 
-#: socialaccount/models.py:146
+#: socialaccount/models.py:140
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:148
+#: socialaccount/models.py:142
 msgid "expires at"
 msgstr ""
 
-#: socialaccount/models.py:152
+#: socialaccount/models.py:146
 msgid "social application token"
 msgstr ""
 
-#: socialaccount/models.py:153
+#: socialaccount/models.py:147
 msgid "social application tokens"
 msgstr ""
 

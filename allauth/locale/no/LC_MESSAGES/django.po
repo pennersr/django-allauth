@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-29 09:56-0500\n"
+"POT-Creation-Date: 2018-02-02 12:55-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,19 +17,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: account/adapter.py:48
+#: account/adapter.py:45
 msgid "Username can not be used. Please use other username."
 msgstr "Brukernavnet kan ikke brukes. Vennligst bruk et annet brukernavn."
 
-#: account/adapter.py:52
+#: account/adapter.py:49
 msgid "Too many failed login attempts. Try again later."
 msgstr "For mange innloggingsforsøk. Vennligst prøv igjen senere."
 
-#: account/adapter.py:54
+#: account/adapter.py:51
 msgid "A user is already registered with this e-mail address."
 msgstr "En bruker med følgende e-postadresse er allerede registrert."
 
-#: account/adapter.py:291
+#: account/adapter.py:288
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Passordet må være minst {0} tegn."
@@ -38,103 +38,103 @@ msgstr "Passordet må være minst {0} tegn."
 msgid "Accounts"
 msgstr "Kontoer"
 
-#: account/forms.py:41 account/forms.py:378
+#: account/forms.py:61 account/forms.py:398
 msgid "You must type the same password each time."
 msgstr "Du må skrive det samme passordet hver gang."
 
-#: account/forms.py:71 account/forms.py:345 account/forms.py:456
+#: account/forms.py:91 account/forms.py:365 account/forms.py:476
 msgid "Password"
 msgstr "Passord"
 
-#: account/forms.py:72
+#: account/forms.py:92
 msgid "Remember Me"
 msgstr "Husk meg"
 
-#: account/forms.py:78
+#: account/forms.py:98
 msgid "This account is currently inactive."
 msgstr "Denne kontoen er for tiden inaktiv."
 
-#: account/forms.py:81
+#: account/forms.py:101
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "E-postadressen og/eller passordet du spesifiserte er feil."
 
-#: account/forms.py:84
+#: account/forms.py:104
 msgid "The username and/or password you specified are not correct."
 msgstr "Brukernavnet og/eller passordet du spesifiserte er feil."
 
-#: account/forms.py:93 account/forms.py:248 account/forms.py:406
-#: account/forms.py:475
+#: account/forms.py:113 account/forms.py:268 account/forms.py:426
+#: account/forms.py:495
 msgid "E-mail address"
 msgstr "E-postadresse"
 
-#: account/forms.py:95 account/forms.py:281 account/forms.py:401
-#: account/forms.py:470
+#: account/forms.py:115 account/forms.py:301 account/forms.py:421
+#: account/forms.py:490
 msgid "E-mail"
 msgstr "E-post"
 
-#: account/forms.py:100 account/forms.py:103 account/forms.py:240
-#: account/forms.py:244
+#: account/forms.py:120 account/forms.py:123 account/forms.py:260
+#: account/forms.py:264
 msgid "Username"
 msgstr "Brukernavn"
 
-#: account/forms.py:110
+#: account/forms.py:130
 msgid "Username or e-mail"
 msgstr "Brukernavn eller e-post"
 
-#: account/forms.py:113
+#: account/forms.py:133
 msgctxt "field label"
 msgid "Login"
 msgstr "Logg inn"
 
-#: account/forms.py:272
+#: account/forms.py:292
 msgid "E-mail (again)"
 msgstr "E-post (igjen)"
 
-#: account/forms.py:276
+#: account/forms.py:296
 msgid "E-mail address confirmation"
 msgstr "E-postadresse bekreftelse"
 
-#: account/forms.py:284
+#: account/forms.py:304
 msgid "E-mail (optional)"
 msgstr "E-post (valgfritt)"
 
-#: account/forms.py:325
+#: account/forms.py:345
 msgid "You must type the same email each time."
 msgstr "Du må skrive inn samme e-post hver gang."
 
-#: account/forms.py:348 account/forms.py:457
+#: account/forms.py:368 account/forms.py:477
 msgid "Password (again)"
 msgstr "Passord (igjen)"
 
-#: account/forms.py:412
+#: account/forms.py:432
 msgid "This e-mail address is already associated with this account."
 msgstr "Denne e-postadressen er allerede assosiert med denne kontoen."
 
-#: account/forms.py:414
+#: account/forms.py:434
 msgid "This e-mail address is already associated with another account."
 msgstr "Denne e-postadressen er allerede assosiert med en annen konto."
 
-#: account/forms.py:436
+#: account/forms.py:456
 msgid "Current Password"
 msgstr "Nåværende passord"
 
-#: account/forms.py:437 account/forms.py:526
+#: account/forms.py:457 account/forms.py:546
 msgid "New Password"
 msgstr "Nytt passord"
 
-#: account/forms.py:438 account/forms.py:527
+#: account/forms.py:458 account/forms.py:547
 msgid "New Password (again)"
 msgstr "Nytt passord (igjen)"
 
-#: account/forms.py:446
+#: account/forms.py:466
 msgid "Please type your current password."
 msgstr "Vennligst skriv inn ditt passord."
 
-#: account/forms.py:484
+#: account/forms.py:504
 msgid "The e-mail address is not assigned to any user account"
 msgstr "E-postadressen er ikke gitt til en brukerkonto"
 
-#: account/forms.py:548
+#: account/forms.py:568
 msgid "The password reset token was invalid."
 msgstr "Passord gjennoprettelses token var ugyldig."
 
@@ -170,7 +170,7 @@ msgstr "laget"
 msgid "sent"
 msgstr "sendt"
 
-#: account/models.py:86 socialaccount/models.py:61
+#: account/models.py:86 socialaccount/models.py:55
 msgid "key"
 msgstr "nøkkel"
 
@@ -203,91 +203,91 @@ msgstr "Din konto har ingen verifisert e-postadresse."
 msgid "Social Accounts"
 msgstr "Sosialkontoer"
 
-#: socialaccount/models.py:49 socialaccount/models.py:83
+#: socialaccount/models.py:43 socialaccount/models.py:77
 msgid "provider"
 msgstr "tilbyder"
 
-#: socialaccount/models.py:52
+#: socialaccount/models.py:46
 msgid "name"
 msgstr "navn"
 
-#: socialaccount/models.py:54
+#: socialaccount/models.py:48
 msgid "client id"
 msgstr "klient id"
 
-#: socialaccount/models.py:56
+#: socialaccount/models.py:50
 msgid "App ID, or consumer key"
 msgstr "App ID, eller konsumer nøkkel"
 
-#: socialaccount/models.py:57
+#: socialaccount/models.py:51
 msgid "secret key"
 msgstr "hemmelig nøkkel"
 
-#: socialaccount/models.py:59
+#: socialaccount/models.py:53
 msgid "API secret, client secret, or consumer secret"
 msgstr "API hemmelighet, klient hemmelighet eller konsumer hemmelighet"
 
-#: socialaccount/models.py:64
+#: socialaccount/models.py:58
 msgid "Key"
 msgstr "Nøkkel"
 
-#: socialaccount/models.py:72
+#: socialaccount/models.py:66
 msgid "social application"
 msgstr "sosial applikasjon"
 
-#: socialaccount/models.py:73
+#: socialaccount/models.py:67
 msgid "social applications"
 msgstr "sosial applikasjoner"
 
-#: socialaccount/models.py:102
+#: socialaccount/models.py:96
 msgid "uid"
 msgstr "uid"
 
-#: socialaccount/models.py:104
+#: socialaccount/models.py:98
 msgid "last login"
 msgstr "siste innlogging"
 
-#: socialaccount/models.py:106
+#: socialaccount/models.py:100
 msgid "date joined"
 msgstr "ble med dato"
 
-#: socialaccount/models.py:108
+#: socialaccount/models.py:102
 msgid "extra data"
 msgstr "ekstra data"
 
-#: socialaccount/models.py:112
+#: socialaccount/models.py:106
 msgid "social account"
 msgstr "sosialkonto"
 
-#: socialaccount/models.py:113
+#: socialaccount/models.py:107
 msgid "social accounts"
 msgstr "sosialkontoer"
 
-#: socialaccount/models.py:139
+#: socialaccount/models.py:133
 msgid "token"
 msgstr "token"
 
-#: socialaccount/models.py:141
+#: socialaccount/models.py:135
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) eller aksess token (OAuth2)"
 
-#: socialaccount/models.py:144
+#: socialaccount/models.py:138
 msgid "token secret"
 msgstr "token hemmelighet"
 
-#: socialaccount/models.py:146
+#: socialaccount/models.py:140
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) eller forfrisknings token (OAuth2)"
 
-#: socialaccount/models.py:148
+#: socialaccount/models.py:142
 msgid "expires at"
 msgstr "utgår den"
 
-#: socialaccount/models.py:152
+#: socialaccount/models.py:146
 msgid "social application token"
 msgstr "sosial applikasjon token"
 
-#: socialaccount/models.py:153
+#: socialaccount/models.py:147
 msgid "social application tokens"
 msgstr "sosial applikasjon tokener"
 

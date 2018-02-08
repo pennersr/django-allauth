@@ -1330,6 +1330,18 @@ The configuration values come from your API dashboard on Untappd:
 * Sites: choose your site
 
 
+Telegram
+--------
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'telegram': {
+            'TOKEN': 'insert-token-received-from-botfather'
+        }
+    }
+
+
 Vimeo
 -----
 

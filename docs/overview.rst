@@ -145,6 +145,8 @@ Supported Providers
 
 - Stripe (OAuth2)
 
+- Telegram
+
 - Trello (OAuth)
 
 - Tumblr (OAuth)

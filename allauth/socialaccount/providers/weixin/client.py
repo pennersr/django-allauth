@@ -28,10 +28,8 @@ class WeixinOAuth2Client(OAuth2Client):
 
     def get_access_token(self, code):
         data = {'appid': self.consumer_key,
-                'redirect_uri': self.callback_url,
                 'grant_type': 'authorization_code',
                 'secret': self.consumer_secret,
-                'scope': self.scope,
                 'code': code}
         params = None
         self._strip_empty_keys(data)

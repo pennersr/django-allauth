@@ -17,13 +17,14 @@ from .provider import WeixinProvider
 class WeixinOAuth2Adapter(OAuth2Adapter):
     provider_id = WeixinProvider.id
     access_token_url = 'https://api.weixin.qq.com/sns/oauth2/access_token'
+    access_token_method = 'GET'
     profile_url = 'https://api.weixin.qq.com/sns/userinfo'
 
     @property
     def authorize_url(self):
         settings = self.get_provider().get_settings()
         url = settings.get(
-            'AUTHORIZE_URL', 'https://open.weixin.qq.com/connect/qrconnect')
+            'AUTHORIZE_URL', 'https://open.weixin.qq.com/connect/oauth2/authorize')
         return url
 
     def complete_login(self, request, app, token, **kwargs):

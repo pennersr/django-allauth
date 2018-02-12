@@ -708,6 +708,9 @@ Optionally, you can specify the scope to use as follows:
 By default, ``profile`` scope is required, and optionally ``email`` scope
 depending on whether or not ``SOCIALACCOUNT_QUERY_EMAIL`` is enabled.
 
+You must set ``AUTH_PARAMS['access_type']`` to ``offline`` in order to
+receive a refresh token on first login and on reauthentication requests.
+
 
 Instagram
 ---------

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-02 12:55-0600\n"
-"PO-Revision-Date: 2014-08-12 00:30+0200\n"
+"PO-Revision-Date: 2018-02-14 17:46-0600\n"
 "Last-Translator: Jannis \n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/django-allauth/"
 "language/es/)\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: account/adapter.py:45
 msgid "Username can not be used. Please use other username."
@@ -89,26 +90,20 @@ msgid "Login"
 msgstr "Iniciar sesión"
 
 #: account/forms.py:292
-#, fuzzy
-#| msgid "E-mail (optional)"
 msgid "E-mail (again)"
-msgstr "Correo Electrónico (opcional)"
+msgstr "Correo Electrónico (otra vez)"
 
 #: account/forms.py:296
-#, fuzzy
-#| msgid "email confirmation"
 msgid "E-mail address confirmation"
-msgstr "confirmación de correo electrónico"
+msgstr "Confirmación de la dirección de correo electrónico"
 
 #: account/forms.py:304
 msgid "E-mail (optional)"
 msgstr "Correo Electrónico (opcional)"
 
 #: account/forms.py:345
-#, fuzzy
-#| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
-msgstr "Debes escribir la misma contraseña cada vez."
+msgstr "Debe escribir el mismo correo electrónico cada vez."
 
 #: account/forms.py:368 account/forms.py:477
 msgid "Password (again)"
@@ -303,7 +298,7 @@ msgstr ""
 
 #: socialaccount/providers/douban/views.py:36
 msgid "Invalid profile data"
-msgstr ""
+msgstr "Datos de perfil inválidos"
 
 #: socialaccount/providers/oauth/client.py:78
 #, python-format
@@ -404,12 +399,7 @@ msgstr ""
 "seleccionada?"
 
 #: templates/account/email/email_confirmation_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "User %(user_display)s at %(site_name)s has given this as an email "
-#| "address.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s\n"
+#, python-format
 msgid ""
 "Hello from %(site_name)s!\n"
 "\n"
@@ -418,8 +408,10 @@ msgid ""
 "\n"
 "To confirm this is correct, go to %(activate_url)s\n"
 msgstr ""
-"El usuario %(user_display)s de %(site_name)s ha proporcionado este como su "
-"correo electrónico.\n"
+"¡Te saluda %(site_name)s!\n"
+"\n"
+"Estás recibiendo este correo electrónico porque el usuario  %(user_display)s "
+"ha dado su correo electrónico para conectar su cuenta.\n"
 "\n"
 "Para confirmar que esto es correcto, haz clic en %(activate_url)s\n"
 
@@ -429,20 +421,15 @@ msgid ""
 "Thank you from %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
+"Gracias %(site_name)s!\n"
+"%(site_domain)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
-#, fuzzy
-#| msgid "Confirm E-mail Address"
 msgid "Please Confirm Your E-mail Address"
-msgstr "Confirmar dirección de correo electrónico"
+msgstr "Por favor confirmar dirección de correo electrónico"
 
 #: templates/account/email/password_reset_key_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account at %(site_domain)s.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
+#, python-format
 msgid ""
 "Hello from %(site_name)s!\n"
 "\n"
@@ -451,10 +438,12 @@ msgid ""
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"Has recibido este correo porque tú u otra persona han pedido una nueva "
-"contraseña para su cuenta en %(site_domain)s.\n"
-"Si tú no pediste restablecer tu contraseña, ignora este correo. Haz clic en "
-"el enlace de abajo para restablecer tu contraseña."
+"¡Te saluda %(site_name)s!\n"
+"\n"
+"Estas recibiendo este correo electrónico porque usted u otra persona ha "
+"solicitado una contraseña para su cuenta de usuario.\n"
+"Se puede ignorar de forma segura si no solicitó un restablecimiento de "
+"contraseña. Haga clic en el siguiente enlace para restablecer su contraseña."
 
 #: templates/account/email/password_reset_key_message.txt:8
 #, python-format
@@ -467,6 +456,8 @@ msgid ""
 "Thank you for using %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
+"Muchas gracias por usar %(site_name)s!\n"
+"%(site_domain)s"
 
 #: templates/account/email/password_reset_key_subject.txt:3
 msgid "Password Reset E-mail"

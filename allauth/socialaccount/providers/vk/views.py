@@ -38,10 +38,11 @@ class VKOAuth2Adapter(OAuth2Adapter):
     authorize_url = 'https://oauth.vk.com/authorize'
     profile_url = 'https://api.vk.com/method/users.get'
 
-    def complete_login(self, request, app, token, **kwargs):
+    def complete_login(self, request, app, token, version='5.73', **kwargs):
         resp = requests.get(self.profile_url,
                             params={'access_token': token.token,
-                                    'fields': ','.join(USER_FIELDS)})
+                                    'fields': ','.join(USER_FIELDS),
+                                    'v': version})
         resp.raise_for_status()
         extra_data = resp.json()['response'][0]
         return self.get_provider().sociallogin_from_response(request,

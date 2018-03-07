@@ -1,4 +1,5 @@
 """Customise Provider classes for Eventbrite API v3."""
+from allauth.account.models import EmailAddress
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -30,14 +31,30 @@ class EventbriteProvider(OAuth2Provider):
 
     def extract_common_fields(self, data):
         """Extract fields from a basic user query."""
+        email = None
+        for curr_email in data.get("email", []):
+            email = email or curr_email.get("email")
+            if curr_email.get("verified", False) and \
+                    curr_email.get("primary", False):
+                email = curr_email.get("email")
+
         return dict(
-            emails=data.get('emails'),
+            email=email,
             id=data.get('id'),
             name=data.get('name'),
             first_name=data.get('first_name'),
             last_name=data.get('last_name'),
             image_url=data.get('image_url')
         )
+
+    def extract_email_addresses(self, data):
+        addresses = []
+        for email in data.get("emails", []):
+            addresses.append(EmailAddress(email=email.get("email"),
+                                          verified=email.get("verfified"),
+                                          primary=email.get("primary")))
+
+        return addresses
 
 
 provider_classes = [EventbriteProvider]

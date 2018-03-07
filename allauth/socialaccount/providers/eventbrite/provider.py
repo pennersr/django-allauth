@@ -32,7 +32,7 @@ class EventbriteProvider(OAuth2Provider):
     def extract_common_fields(self, data):
         """Extract fields from a basic user query."""
         email = None
-        for curr_email in data.get("email", []):
+        for curr_email in data.get("emails", []):
             email = email or curr_email.get("email")
             if curr_email.get("verified", False) and \
                     curr_email.get("primary", False):

@@ -29,10 +29,10 @@ class QuickbooksOAuth2Adapter(OAuth2Adapter):
 
 
     def get_user_info(self, token):
-        from config.settings import QBO_TEST
+        from django.conf import settings
         auth_header = 'Bearer ' + token.token
         headers = {'Accept': 'application/json', 'Authorization': auth_header, 'accept': 'application/json'}
-        if QBO_TEST:
+        if settings.QBO_TEST:
             r = requests.get(self.profile_test, headers=headers)
         else:
             r = requests.get(self.profile_url, headers=headers)

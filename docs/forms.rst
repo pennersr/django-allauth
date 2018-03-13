@@ -227,6 +227,59 @@ Default Settings::
 signup (``allauth.socialaccount.forms.SignupForm``)
 ---------------------------------------------------
 
+Used on socialaccount_signup view used when someone initially signs up
+with a social account and needs to create an account.
+
+::
+
+    from allauth.socialaccount.forms import SignupForm
+    class MyCustomSocialSignupForm(SignupForm):
+
+        def save(self):
+
+            # Ensure you call the parent classes save.
+            # .save() returns a User object.
+            user = super(MyCustomSocialSignupForm, self).save()
+
+            # Add your own processing here.
+
+            # You must return the original result.
+            return user
+
+You have access to the following:
+
+- ``self.socialaccount``
+
+``settings.py``::
+
+    SOCIALACCOUNT_FORMS = {'signup': 'mysite.forms.MyCustomSocialSignupForm'}
+
 disconnect (``allauth.socialaccount.forms.DisconnectForm``)
 -----------------------------------------------------------
 
+Used on socialaccount_connections view, used when removing a social account.
+
+::
+
+    from allauth.socialaccount.forms import DisconnectForm
+    class MyCustomSocialDisconnectForm(DisconnectForm):
+
+        def save(self):
+
+            # Ensure you call the parent classes save.
+            # .save() does not return anything
+            super(MyCustomSocialDisconnectForm, self).save()
+
+            # Add your own processing here.
+
+You have access to the following:
+
+- ``self.request`` is the request object
+- ``self.accounts`` is a list containing all of the users SocialAccount objects.
+- ``self.cleaned_data['account']`` contains the account being deleted. .save()
+  issues the delete so if you need access to the account beforehand, move your
+  code before .save()
+
+``settings.py``::
+
+    SOCIALACCOUNT_FORMS = {'disconnect': 'mysite.forms.MyCustomSocialDisconnectForm'}

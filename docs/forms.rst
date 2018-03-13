@@ -266,18 +266,22 @@ Used on socialaccount_connections view, used when removing a social account.
 
         def save(self):
 
+            # Add your own processing here if you do need access to the
+            # socialaccount being deleted.
+
             # Ensure you call the parent classes save.
             # .save() does not return anything
             super(MyCustomSocialDisconnectForm, self).save()
 
-            # Add your own processing here.
+            # Add your own processing here if you don't need access to the
+            # socialaccount being deleted.
 
 You have access to the following:
 
 - ``self.request`` is the request object
 - ``self.accounts`` is a list containing all of the users SocialAccount objects.
-- ``self.cleaned_data['account']`` contains the account being deleted. .save()
-  issues the delete so if you need access to the account beforehand, move your
+- ``self.cleaned_data['account']`` contains the socialaccount being deleted. .save()
+  issues the delete so if you need access to the socialaccount beforehand, move your
   code before .save()
 
 ``settings.py``::

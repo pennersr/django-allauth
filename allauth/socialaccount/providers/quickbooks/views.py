@@ -1,12 +1,13 @@
 import json
 import requests
 
-from .provider import QuickBooksOAuth2Provider
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
     OAuth2LoginView,
 )
+
+from .provider import QuickBooksOAuth2Provider
 
 
 class QuickBooksOAuth2Adapter(OAuth2Adapter):

@@ -32,8 +32,7 @@ class QuickBooksOAuth2Adapter(OAuth2Adapter):
     def get_user_info(self, token):
         auth_header = 'Bearer ' + token.token
         headers = {'Accept': 'application/json', 'Authorization': auth_header, 'accept': 'application/json'}
-        QBO_sandbox = getattr(app_settings, 'SOCIALACCOUNT_PROVIDERS', {}).get(
-            'quickbooks', {}).get('SANDBOX', False)
+        QBO_sandbox = self.get_provider().get_settings().get('SANDBOX', False)
         if QBO_sandbox:
             r = requests.get(self.profile_test, headers=headers)
         else:

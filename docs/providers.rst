@@ -1074,6 +1074,25 @@ SCOPE:
     For a full list of scope options, see
     https://developers.pinterest.com/docs/api/overview/#scopes
 
+QuickBooks
+------
+
+App registration (get your key and secret here)
+    https://developers.intuit.com/v2/ui#/app/startcreate
+
+Development callback URL
+    http://localhost:8000/accounts/quickbooks/login/callback/
+
+You can specify sandbox mode by adding the following to the SOCIALACCOUNT_PROVIDERS in your settings.
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'quickbooks': {
+            'SANDBOX': TRUE,
+        }
+    }
+
 
 Reddit
 ------
@@ -1104,6 +1123,10 @@ you will risk additional rate limiting in your application.
             'USER_AGENT': 'django:myappid:1.0 (by /u/yourredditname)',
         }
     }
+
+
+
+
 
 
 Salesforce

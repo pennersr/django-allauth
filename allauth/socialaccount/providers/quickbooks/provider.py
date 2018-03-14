@@ -45,7 +45,11 @@ class QuickBooksOAuth2Provider(OAuth2Provider):
         return fields
 
     def get_default_scope(self):
-        scope = ['openid', 'com.intuit.quickbooks.accounting', 'profile', 'phone']
+        scope = ['openid',
+                 'com.intuit.quickbooks.accounting',
+                 'profile',
+                 'phone',
+                 ]
         if app_settings.QUERY_EMAIL:
             scope.append('email')
         return scope

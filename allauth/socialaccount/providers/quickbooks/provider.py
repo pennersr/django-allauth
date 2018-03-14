@@ -17,6 +17,7 @@ class QuickBooksAccount(ProviderAccount):
             name = first_name + ' ' + last_name
         return name
 
+
 class QuickBooksOAuth2Provider(OAuth2Provider):
     id = 'quickbooks'
     # Name is displayed to ordinary users -- don't include protocol
@@ -37,13 +38,14 @@ class QuickBooksOAuth2Provider(OAuth2Provider):
                           'givenName',
                           'familyName',
                           'email',
-                          'emailVerified',]
+                          'emailVerified',
+                          ]
         fields = self.get_settings().get('PROFILE_FIELDS',
                                          default_fields)
         return fields
 
     def get_default_scope(self):
-        scope = ['openid','com.intuit.quickbooks.accounting','profile','phone']
+        scope = ['openid', 'com.intuit.quickbooks.accounting', 'profile', 'phone']
         if app_settings.QUERY_EMAIL:
             scope.append('email')
         return scope
@@ -56,5 +58,6 @@ class QuickBooksOAuth2Provider(OAuth2Provider):
                     familynName=data.get('familyName'),
                     emailVerified=data.get('emailVerified'),
                     phoneNumber=data.get('phoneNumber'))
+
 
 provider_classes = [QuickBooksOAuth2Provider]

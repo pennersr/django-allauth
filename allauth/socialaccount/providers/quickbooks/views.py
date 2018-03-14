@@ -1,7 +1,6 @@
 import requests
 import json
 
-from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -17,8 +16,6 @@ class QuickBooksOAuth2Adapter(OAuth2Adapter):
     authorize_url = 'https://appcenter.intuit.com/connect/oauth2'
     profile_test = 'https://sandbox-accounts.platform.intuit.com/v1/openid_connect/userinfo'
     profile_url = 'https://accounts.platform.intuit.com/v1/openid_connect/userinfo'
-    # See:
-    # http://developer.linkedin.com/forum/unauthorized-invalid-or-expired-token-immediately-after-receiving-oauth2-token?page=1 # noqa
     profile_url_method = 'GET'
     access_token_method = 'POST'
 
@@ -37,7 +34,7 @@ class QuickBooksOAuth2Adapter(OAuth2Adapter):
             r = requests.get(self.profile_test, headers=headers)
         else:
             r = requests.get(self.profile_url, headers=headers)
-        status_code = r.status_code
+#        status_code = r.status_code
         response = json.loads(r.text)
         return response
 

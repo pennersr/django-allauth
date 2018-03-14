@@ -1,11 +1,11 @@
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase
 
-from .provider import QuickbooksOAuth2Provider
+from .provider import QuickBooksOAuth2Provider
 
 
-class QuickbooksOAuth2Tests(OAuth2TestsMixin, TestCase):
-    provider_id = QuickbooksOAuth2Provider.id
+class QuickBooksOAuth2Tests(OAuth2TestsMixin, TestCase):
+    provider_id = QuickBooksOAuth2Provider.id
 
     def get_mocked_response(self):
         return MockedResponse(200, """

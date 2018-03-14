@@ -17,7 +17,7 @@ class QuickBooksOAuth2Adapter(OAuth2Adapter):
     authorize_url = \
         'https://appcenter.intuit.com/connect/oauth2'
     profile_test = \
-        'https://sandbox-accounts.platform.intuit.com/v1/openid_connect/userinfo'
+    'https://sandbox-accounts.platform.intuit.com/v1/openid_connect/userinfo'
     profile_url = \
         'https://accounts.platform.intuit.com/v1/openid_connect/userinfo'
     profile_url_method = 'GET'
@@ -28,7 +28,6 @@ class QuickBooksOAuth2Adapter(OAuth2Adapter):
         extra_data = resp
         return self.get_provider().sociallogin_from_response(
             request, extra_data)
-
 
     def get_user_info(self, token):
         auth_header = 'Bearer ' + token.token

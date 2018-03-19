@@ -6,6 +6,8 @@ Note worthy changes
 
 - New provider: Telegram.
 
+- The Facebook API version now defaults to v2.12
+
 
 0.35.0 (2018-02-02)
 *******************

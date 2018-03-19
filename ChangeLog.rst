@@ -9,6 +9,15 @@ Note worthy changes
 - The Facebook API version now defaults to v2.12
 
 
+Security notice
+---------------
+
+- In previous versions, the authentication backend did not invoke the
+  ``user_can_authenticate()`` method, potentially allowing users with
+  ``is_active=False`` to authenticate when the allauth authentication backend
+  was used in a non allauth context.
+
+
 0.35.0 (2018-02-02)
 *******************
 

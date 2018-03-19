@@ -476,8 +476,13 @@ class DefaultAccountAdapter(object):
 
     def authenticate(self, request, **credentials):
         """Only authenticates, does not actually login. See `login`"""
+        from allauth.account.auth_backends import AuthenticationBackend
+
         self.pre_authenticate(request, **credentials)
+        AuthenticationBackend.unstash_authenticated_user()
         user = authenticate(request, **credentials)
+        alt_user = AuthenticationBackend.unstash_authenticated_user()
+        user = user or alt_user
         if user:
             cache_key = self._get_login_attempts_cache_key(
                 request, **credentials)

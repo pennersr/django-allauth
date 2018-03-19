@@ -118,5 +118,5 @@
     }
   }
 
-  allauth.facebook.init(fbSettings)
+  // allauth.facebook.init(fbSettings)
 })()

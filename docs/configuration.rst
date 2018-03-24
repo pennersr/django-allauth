@@ -87,6 +87,18 @@ ACCOUNT_FORMS (={})
   Used to override forms, for example:
   ``{'login': 'myapp.forms.LoginForm'}``
 
+  Possible keys (and default values):
+
+  * ``add_email``: :class:`allauth.account.forms.AddEmailForm`
+  * ``change_password``: :class:`allauth.account.forms.ChangePasswordForm`
+  * ``disconnect``: :class:`allauth.socialaccount.forms.DisconnectForm`
+  * ``login``: :class:`allauth.account.forms.LoginForm`
+  * ``reset_password``: :class:`allauth.account.forms.ResetPasswordForm`
+  * ``reset_password_from_key``: :class:`allauth.account.forms.ResetPasswordKeyForm`
+  * ``set_password``: :class:`allauth.account.forms.SetPasswordForm`
+  * ``signup``: :class:`allauth.account.forms.SignupForm`
+  * ``signup``: :class:`allauth.socialaccount.forms.SignupForm`
+
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT (=5)
   Number of failed login attempts. When this number is
   exceeded, the user is prohibited from logging in for the

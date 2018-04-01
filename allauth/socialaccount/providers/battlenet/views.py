@@ -25,6 +25,7 @@ from .provider import BattleNetProvider
 
 
 class Region:
+    APAC = "apac"
     CN = "cn"
     EU = "eu"
     KR = "kr"
@@ -77,6 +78,7 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
     """
     provider_id = BattleNetProvider.id
     valid_regions = (
+        Region.APAC,
         Region.CN,
         Region.EU,
         Region.KR,

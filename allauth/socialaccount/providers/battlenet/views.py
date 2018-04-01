@@ -24,6 +24,15 @@ from allauth.socialaccount.providers.oauth2.views import (
 from .provider import BattleNetProvider
 
 
+class Region:
+    CN = "cn"
+    EU = "eu"
+    KR = "kr"
+    SEA = "sea"
+    TW = "tw"
+    US = "us"
+
+
 def _check_errors(response):
     try:
         data = response.json()
@@ -67,22 +76,29 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
     Can be any of eu, us, kr, sea, tw or cn
     """
     provider_id = BattleNetProvider.id
-    valid_regions = ("us", "eu", "kr", "sea", "tw", "cn")
+    valid_regions = (
+        Region.CN,
+        Region.EU,
+        Region.KR,
+        Region.SEA,
+        Region.TW,
+        Region.US,
+    )
 
     @property
     def battlenet_region(self):
         region = self.request.GET.get("region", "").lower()
-        if region == "sea":
+        if region == Region.SEA:
             # South-East Asia uses the same region as US everywhere
-            return "us"
+            return Region.US
         if region in self.valid_regions:
             return region
-        return "us"
+        return Region.US
 
     @property
     def battlenet_base_url(self):
         region = self.battlenet_region
-        if region == "cn":
+        if region == Region.CN:
             return "https://www.battlenet.com.cn"
         return "https://%s.battle.net" % (region)
 

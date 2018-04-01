@@ -1,7 +1,7 @@
 0.37.0 (unreleased)
 *******************
 
-- ...
+- The Battle.net login backend now recognizes ``apac`` as a valid region.
 
 
 0.36.0 (2018-05-08)

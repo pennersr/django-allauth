@@ -44,6 +44,19 @@ Development callback URL
     http://localhost:8000/accounts/500px/login/callback/
 
 
+AgaveAPI
+--------
+
+Account Signup
+    https://public.agaveapi.co/create_account
+
+App registration
+    Run ``client-create`` from the cli: https://bitbucket.org/agaveapi/cli/overview
+
+Development callback URL
+    http://localhost:8000/accounts/agave/login/callback/
+    *May require https url, even for localhost*
+
 Amazon
 ------
 

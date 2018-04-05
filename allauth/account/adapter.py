@@ -483,7 +483,7 @@ class DefaultAccountAdapter(object):
         user = authenticate(request, **credentials)
         alt_user = AuthenticationBackend.unstash_authenticated_user()
         user = user or alt_user
-        if user:
+        if user and app_settings.LOGIN_ATTEMPTS_LIMIT:
             cache_key = self._get_login_attempts_cache_key(
                 request, **credentials)
             cache.delete(cache_key)
@@ -492,11 +492,14 @@ class DefaultAccountAdapter(object):
         return user
 
     def authentication_failed(self, request, **credentials):
-        cache_key = self._get_login_attempts_cache_key(request, **credentials)
-        data = cache.get(cache_key, [])
-        dt = timezone.now()
-        data.append(time.mktime(dt.timetuple()))
-        cache.set(cache_key, data, app_settings.LOGIN_ATTEMPTS_TIMEOUT)
+        if app_settings.LOGIN_ATTEMPTS_LIMIT:
+            cache_key = self._get_login_attempts_cache_key(
+                request, **credentials
+            )
+            data = cache.get(cache_key, [])
+            dt = timezone.now()
+            data.append(time.mktime(dt.timetuple()))
+            cache.set(cache_key, data, app_settings.LOGIN_ATTEMPTS_TIMEOUT)
 
     def is_ajax(self, request):
         return request.is_ajax()

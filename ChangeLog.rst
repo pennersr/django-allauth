@@ -4,9 +4,11 @@
 Note worthy changes
 -------------------
 
-- New provider: Telegram.
+- New providers: Telegram, QuickBooks.
 
-- The Facebook API version now defaults to v2.12
+- The Facebook API version now defaults to v2.12.
+
+- ORCID upgraded to use API v2.1.
 
 
 Security notice

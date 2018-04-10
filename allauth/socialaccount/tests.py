@@ -599,10 +599,10 @@ class SocialAccountTests(TestCase):
         """
         Test scenario for when the user signs up with a social account
         and uses email address in that social account. But upon seeing the
-        verification screen, they realize that email address is somehow unusable
-        for them, and so backs up and enters a different email address
-        (and is forced to choose a new username) while providing the same
-        social account token which is owned by their first attempt.
+        verification screen, they realize that email address is somehow
+        unusable for them, and so backs up and enters a different email
+        address (and is forced to choose a new username) while providing
+        the same social account token which is owned by their first attempt.
 
         Currently this raises IntegrityError, and desired action is TBD.
         See issue #1911.
@@ -637,7 +637,7 @@ class SocialAccountTests(TestCase):
         resp = self.client.post(
             reverse('socialaccount_signup'),
             data={'username': "me1",
-                  'email': "me1@example.com",})
+                  'email': "me1@example.com"})
         self.assertEqual(resp.status_code, 302)
         self.assertEqual(User.objects.count(), 1)
         self.assertEqual(SocialAccount.objects.count(), 1)
@@ -651,4 +651,4 @@ class SocialAccountTests(TestCase):
             lambda: self.client.post(
                 reverse('socialaccount_signup'),
                 data={'username': "me2",
-                      'email': "me2@example.com",}))
+                      'email': "me2@example.com"}))

@@ -587,3 +587,68 @@ class SocialAccountTests(TestCase):
             'An account already exists with this e-mail address.'
             ' Please sign in to that account first, then connect'
             ' your Google account.')
+
+    @override_settings(
+        ACCOUNT_EMAIL_REQUIRED=True,
+        ACCOUNT_EMAIL_VERIFICATION='mandatory',
+        ACCOUNT_UNIQUE_EMAIL=True,
+        ACCOUNT_USERNAME_REQUIRED=True,
+        ACCOUNT_AUTHENTICATION_METHOD='email',
+        SOCIALACCOUNT_AUTO_SIGNUP=False)
+    def test_social_account_taken_at_signup(self):
+        """
+        Test scenario for when the user signs up with a social account
+        and uses email address in that social account. But upon seeing the
+        verification screen, they realize that email address is somehow unusable
+        for them, and so backs up and enters a different email address
+        (and is forced to choose a new username) while providing the same
+        social account token which is owned by their first attempt.
+
+        Currently this raises IntegrityError, and desired action is TBD.
+        See issue #1911.
+
+        Options:
+        1. Return a form error saying telling them them to contact an admin
+        to delete/free up their social account, and that they can sign up
+        without the social account and their preferred email right now
+        (with link).
+        2. Add this new email to their existing username/account account,
+        make it primary and send the verification email. That is the behavior
+        they want, and I don't see why it would be insecure given that they
+        are still using the same FB login. Optionally, require same username
+        to be given. Optionally, scope this behavior to a) within N minutes of
+        when they created it the first time, b) perhaps only if their account
+        has no validated emails yet and/or c) no logins.
+        """
+        from django.db import IntegrityError
+        session = self.client.session
+        User = get_user_model()
+        sociallogin = SocialLogin(
+            user=User(email="me1@example.com"),
+            account=SocialAccount(
+                provider='facebook'
+            ),
+        )
+        session['socialaccount_sociallogin'] = sociallogin.serialize()
+        session.save()
+        resp = self.client.get(reverse('socialaccount_signup'))
+        form = resp.context['form']
+        self.assertEqual(form['email'].value(), "me1@example.com")
+        resp = self.client.post(
+            reverse('socialaccount_signup'),
+            data={'username': "me1",
+                  'email': "me1@example.com",})
+        self.assertEqual(resp.status_code, 302)
+        self.assertEqual(User.objects.count(), 1)
+        self.assertEqual(SocialAccount.objects.count(), 1)
+
+        resp = self.client.get(reverse('socialaccount_signup'))
+        form = resp.context['form']
+        self.assertEqual(form['email'].value(), "me1@example.com")
+        # Uh oh!  This isn't what we want.
+        self.assertRaises(
+            IntegrityError,
+            lambda: self.client.post(
+                reverse('socialaccount_signup'),
+                data={'username': "me2",
+                      'email': "me2@example.com",}))

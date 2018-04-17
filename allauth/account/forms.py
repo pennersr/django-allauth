@@ -462,9 +462,13 @@ class ChangePasswordForm(PasswordVerificationMixin, UserForm):
         self.fields['password1'].user = self.user
 
     def clean_oldpassword(self):
-        if not self.user.check_password(self.cleaned_data.get("oldpassword")):
+        old_password = self.cleaned_data.get("oldpassword")
+        if not old_password:
             raise forms.ValidationError(_("Please type your current"
                                           " password."))
+        if not self.user.check_password(old_password):
+            raise forms.ValidationError(_("The provided password is "
+                                          "not valid."))
         return self.cleaned_data["oldpassword"]
 
     def save(self):

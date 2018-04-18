@@ -122,9 +122,23 @@ def valid_email_or_none(email):
     return ret
 
 
+def remove_email_if_unverified(email):
+    users_with_this_email = get_user_model().objects.filter(email=email)
+    if users_with_this_email.exists():
+        for user in users_with_this_email:
+            for emailaddress in user.emailaddress_set.all():
+                if not emailaddress.verified:
+                    emailaddress.delete()
+            if not user.emailaddress_set.all():
+                user.delete()
+
+
 def email_address_exists(email, exclude_user=None):
     from .account import app_settings as account_settings
     from .account.models import EmailAddress
+
+    if account_settings.EMAIL_VERIFICATION == account_settings.EmailVerificationMethod.MANDATORY:
+        remove_email_if_unverified(email)
 
     emailaddresses = EmailAddress.objects
     if exclude_user:

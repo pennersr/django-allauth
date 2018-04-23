@@ -1,23 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
-from importlib import import_module
-from requests.exceptions import HTTPError
-
-from django.conf import settings
 from django.contrib.auth.models import User
-from django.core import mail
-from django.test.client import RequestFactory
 from django.test.utils import override_settings
-from django.urls import reverse
 
 from allauth.account import app_settings as account_settings
-from allauth.account.adapter import get_adapter
-from allauth.account.models import EmailAddress, EmailConfirmation
-from allauth.account.signals import user_signed_up
-from allauth.socialaccount.models import SocialAccount, SocialToken
+from allauth.account.models import EmailAddress
+from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, TestCase, patch
+from allauth.tests import MockedResponse, TestCase
 
 from .provider import DisqusProvider
 
@@ -35,7 +26,9 @@ class DisqusTests(OAuth2TestsMixin, TestCase):
                             email="raymond.penners@example.com"):
         return MockedResponse(200, """
               {"response": {"name": "%s",
-               "avatar": {"permalink": "https://lh5.googleusercontent.com/photo.jpg"},
+               "avatar": {
+                "permalink": "https://lh5.googleusercontent.com/photo.jpg"
+               },
                "email": "%s",
                "profileUrl": "https://plus.google.com/108204268033311374519",
                "id": "108204268033311374519" }}
@@ -64,4 +57,3 @@ class DisqusTests(OAuth2TestsMixin, TestCase):
         self.assertEqual(EmailAddress.objects.filter(
             user=user,
             email=email).count(), 1)
-

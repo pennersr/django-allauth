@@ -3,6 +3,7 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 
+
 class DisqusAccount(ProviderAccount):
     def get_profile_url(self):
         return self.account.extra_data.get('profileUrl')
@@ -13,6 +14,7 @@ class DisqusAccount(ProviderAccount):
     def to_str(self):
         dflt = super(DisqusAccount, self).to_str()
         return self.account.extra_data.get('name', dflt)
+
 
 class DisqusProvider(OAuth2Provider):
     id = 'disqus'
@@ -41,5 +43,6 @@ class DisqusProvider(OAuth2Provider):
         if email:
             ret.append(EmailAddress(email=email, verified=True, primary=True))
         return ret
+
 
 provider_classes = [DisqusProvider]

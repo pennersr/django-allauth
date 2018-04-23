@@ -11,7 +11,7 @@ class DisqusAccount(ProviderAccount):
         return self.account.extra_data.get('avatar', {}).get('permalink')
 
     def to_str(self):
-        dflt = super().to_str()
+        dflt = super(DisqusAccount, self).to_str()
         return self.account.extra_data.get('name', dflt)
 
 class DisqusProvider(OAuth2Provider):

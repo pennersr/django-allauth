@@ -23,6 +23,11 @@ Security notice
 0.35.0 (2018-02-02)
 *******************
 
+Note worthy changes
+-------------------
+
+- Add support for Django 2.0
+
 Security notice
 ---------------
 
@@ -30,6 +35,11 @@ Security notice
   token generator is already facilitating, allauth now adds the user email
   address to the hash such that whenever the user's email address changes the
   token is invalidated.
+
+Backwards incompatible changes
+------------------------------
+
+- Drop support for Django 1.8 and Django 1.10.
 
 
 Note worthy changes

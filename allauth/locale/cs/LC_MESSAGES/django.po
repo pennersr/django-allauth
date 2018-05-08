@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.35\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-17 09:32-0500\n"
+"POT-Creation-Date: 2018-05-08 00:43-0500\n"
 "PO-Revision-Date: 2018-04-17 16:52+0200\n"
 "Last-Translator: Beda Kosata <beda.kosata@gmail.com>\n"
 "Language-Team: Czech <>\n"
@@ -44,7 +44,7 @@ msgstr "Účty"
 msgid "You must type the same password each time."
 msgstr "Hesla se musí shodovat."
 
-#: account/forms.py:91 account/forms.py:365 account/forms.py:480
+#: account/forms.py:91 account/forms.py:365 account/forms.py:476
 msgid "Password"
 msgstr "Heslo"
 
@@ -65,12 +65,12 @@ msgid "The username and/or password you specified are not correct."
 msgstr "Zadané uživatelské jméno nebo heslo není správné."
 
 #: account/forms.py:113 account/forms.py:268 account/forms.py:426
-#: account/forms.py:499
+#: account/forms.py:495
 msgid "E-mail address"
 msgstr "E-mailová adresa"
 
 #: account/forms.py:115 account/forms.py:301 account/forms.py:421
-#: account/forms.py:494
+#: account/forms.py:490
 msgid "E-mail"
 msgstr "E-mail"
 
@@ -89,12 +89,10 @@ msgid "Login"
 msgstr "Login"
 
 #: account/forms.py:292
-#| msgid "E-mail (optional)"
 msgid "E-mail (again)"
 msgstr "E-mail (znovu)"
 
 #: account/forms.py:296
-#| msgid "email confirmation"
 msgid "E-mail address confirmation"
 msgstr "Potrvzení e-mailové adresy"
 
@@ -103,11 +101,10 @@ msgid "E-mail (optional)"
 msgstr "E-mail (nepovinné)"
 
 #: account/forms.py:345
-#| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
 msgstr "Vložené emaily se musí shodovat."
 
-#: account/forms.py:368 account/forms.py:481
+#: account/forms.py:368 account/forms.py:477
 msgid "Password (again)"
 msgstr "Heslo (znovu)"
 
@@ -123,28 +120,23 @@ msgstr "Tento e-mail je již přiřazen k jinému účtu."
 msgid "Current Password"
 msgstr "Současné heslo"
 
-#: account/forms.py:457 account/forms.py:550
+#: account/forms.py:457 account/forms.py:546
 msgid "New Password"
 msgstr "Nové heslo"
 
-#: account/forms.py:458 account/forms.py:551
+#: account/forms.py:458 account/forms.py:547
 msgid "New Password (again)"
 msgstr "Nové heslo (znovu)"
 
-#: account/forms.py:467
+#: account/forms.py:466
 msgid "Please type your current password."
 msgstr "Prosím, zadejte svoje současné heslo."
 
-#: account/forms.py:470
-#| msgid "The password reset token was invalid."
-msgid "The provided password is not valid."
-msgstr "Použité heslo není platné."
-
-#: account/forms.py:508
+#: account/forms.py:504
 msgid "The e-mail address is not assigned to any user account"
 msgstr "E-mail není přiřazen k žádnému účtu"
 
-#: account/forms.py:572
+#: account/forms.py:568
 msgid "The password reset token was invalid."
 msgstr "Token pro reset hesla není platný."
 
@@ -402,11 +394,6 @@ msgstr "Opravdu chcete odstranit zvolené e-mailové adresy?"
 
 #: templates/account/email/email_confirmation_message.txt:1
 #, python-format
-#| msgid ""
-#| "User %(user_display)s at %(site_name)s has given this as an email "
-#| "address.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s\n"
 msgid ""
 "Hello from %(site_name)s!\n"
 "\n"
@@ -432,17 +419,11 @@ msgstr ""
 "%(site_domain)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
-#| msgid "Confirm E-mail Address"
 msgid "Please Confirm Your E-mail Address"
 msgstr "Potvrďte prosím svou e-mailovou adresu"
 
 #: templates/account/email/password_reset_key_message.txt:1
 #, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account at %(site_domain)s.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
 msgid ""
 "Hello from %(site_name)s!\n"
 "\n"
@@ -811,6 +792,10 @@ msgid ""
 msgstr ""
 "Chystáte se použít vaš %(provider_name)s účtu k přihlášení na naše stránky \n"
 "%(site_name)s. Jako poslední krok, prosím, vyplňte následující formulář:"
+
+#~| msgid "The password reset token was invalid."
+#~ msgid "The provided password is not valid."
+#~ msgstr "Použité heslo není platné."
 
 #~ msgid "The login and/or password you specified are not correct."
 #~ msgstr "Zadané přihlašovací údaje nejsou správné."

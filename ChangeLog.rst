@@ -1,4 +1,4 @@
-0.36.0 (unreleased)
+0.36.0 (2018-05-08)
 *******************
 
 Note worthy changes

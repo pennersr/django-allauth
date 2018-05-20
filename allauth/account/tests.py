@@ -1100,7 +1100,7 @@ class UtilsTests(TestCase):
         with patch('allauth.account.utils.get_user_model') as mocked_gum:
             mocked_gum.return_value = UUIDUser
             self.assertEqual(url_str_to_user_pk(self.user_id),
-                             self.user_id)
+                             uuid.UUID(self.user_id))
 
     def test_pk_to_url_string_identifies_UUID_as_stringlike(self):
         user = UUIDUser(

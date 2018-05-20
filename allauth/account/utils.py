@@ -422,7 +422,7 @@ def url_str_to_user_pk(s):
     else:
         pk_field = User._meta.pk
     if issubclass(type(pk_field), models.UUIDField):
-        return s
+        return pk_field.to_python(s)
     try:
         pk_field.to_python('a')
         pk = s

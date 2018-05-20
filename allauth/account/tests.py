@@ -3,6 +3,7 @@ from __future__ import absolute_import
 import json
 import uuid
 from datetime import timedelta
+
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser, AnonymousUser
@@ -28,7 +29,7 @@ from allauth.utils import get_user_model, get_username_max_length
 from . import app_settings
 from .adapter import get_adapter
 from .auth_backends import AuthenticationBackend
-from .signals import user_logged_out, user_logged_in
+from .signals import user_logged_in, user_logged_out
 from .utils import (
     filter_users_by_username,
     url_str_to_user_pk,
@@ -1177,7 +1178,7 @@ class ConfirmationViewTests(TestCase):
                        ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION=True)
     @patch('allauth.account.views.perform_login')
     @patch('allauth.account.utils.get_user_model', return_value=UUIDUser)
-    def test_login_on_confirm_uuid_user(self, mock_get_user_model, mock_perform_login):
+    def test_login_on_confirm_uuid_user(self, mocked_gum, mock_perform_login):
         user = UUIDUser(
             is_active=True,
             email='john@example.com',
@@ -1202,4 +1203,4 @@ class ConfirmationViewTests(TestCase):
                 reverse('account_confirm_email',
                         args=[key]))
 
-        mock_perform_login.assert_called()
+        assert mock_perform_login.called

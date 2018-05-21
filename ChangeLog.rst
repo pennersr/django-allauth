@@ -7,7 +7,9 @@ Note worthy changes
 - The Battle.net login backend now recognizes ``apac`` as a valid region.
 
 - User model using a ``UUIDField`` as it's primary key can now be logged
-  in upon email confirmation (if using ``ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION``)
+  in upon email confirmation (if using ``ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION``).
+
+- New providers: Disqus.
 
 
 0.36.0 (2018-05-08)

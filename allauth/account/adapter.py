@@ -333,8 +333,8 @@ class DefaultAccountAdapter(object):
             if hasattr(response, 'render'):
                 response.render()
             resp['html'] = response.content.decode('utf8')
-            if data is not None:
-                resp['data'] = data
+        if data is not None:
+            resp['data'] = data
         return HttpResponse(json.dumps(resp),
                             status=status,
                             content_type='application/json')

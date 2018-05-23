@@ -29,6 +29,7 @@ class LinkedInOAuth2Adapter(OAuth2Adapter):
         resp = requests.get(url,
                             headers={'Authorization': ' '.join(('Bearer',
                                      token.token)), 'x-li-src': 'msdk'})
+        resp.raise_for_status()
         return resp.json()
 
 

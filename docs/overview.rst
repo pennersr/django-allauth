@@ -67,6 +67,8 @@ Supported Providers
 
 - Douban (OAuth2)
 
+- Disqus (OAuth2)
+
 - Doximity (OAuth2)
 
 - Dropbox (OAuth, OAuth2)
@@ -128,6 +130,8 @@ Supported Providers
 - Persona
 
 - Pinterest (OAuth2)
+
+- QuickBooks (OAuth2)
 
 - Reddit (OAuth2)
 

@@ -11,6 +11,7 @@ from django.contrib.sites.models import Site
 from django.core import mail, validators
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.http import HttpResponseRedirect
 from django.test.client import Client, RequestFactory
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -28,7 +29,7 @@ from allauth.utils import get_user_model, get_username_max_length
 from . import app_settings
 from .adapter import get_adapter
 from .auth_backends import AuthenticationBackend
-from .signals import user_logged_out
+from .signals import user_logged_in, user_logged_out
 from .utils import (
     filter_users_by_username,
     url_str_to_user_pk,
@@ -821,10 +822,12 @@ class EmailFormTests(TestCase):
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         data = json.loads(resp.content.decode('utf8'))
         assert data['data'] == [
-            {'email': 'john1@example.org',
+            {'id': self.email_address.pk,
+             'email': 'john1@example.org',
              'primary': True,
              'verified': True},
-            {'email': 'john2@example.org',
+            {'id': self.email_address2.pk,
+             'email': 'john2@example.org',
              'primary': False,
              'verified': False}]
 
@@ -1098,7 +1101,7 @@ class UtilsTests(TestCase):
         with patch('allauth.account.utils.get_user_model') as mocked_gum:
             mocked_gum.return_value = UUIDUser
             self.assertEqual(url_str_to_user_pk(self.user_id),
-                             self.user_id)
+                             uuid.UUID(self.user_id))
 
     def test_pk_to_url_string_identifies_UUID_as_stringlike(self):
         user = UUIDUser(
@@ -1122,3 +1125,82 @@ class UtilsTests(TestCase):
         self.assertEqual(user_username(user), 'CamelCase')
         # TODO: Actually test something
         filter_users_by_username('camelcase', 'foobar')
+
+
+class ConfirmationViewTests(TestCase):
+    def _create_user(self, username='john', password='doe'):
+        user = get_user_model().objects.create(
+            username=username,
+            is_active=True)
+        if password:
+            user.set_password(password)
+        else:
+            user.set_unusable_password()
+        user.save()
+        return user
+
+    @override_settings(ACCOUNT_EMAIL_CONFIRMATION_HMAC=True,
+                       ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION=True)
+    def test_login_on_confirm(self):
+        user = self._create_user()
+        email = EmailAddress.objects.create(
+            user=user,
+            email='a@b.com',
+            verified=False,
+            primary=True)
+        key = EmailConfirmationHMAC(email).key
+
+        receiver_mock = Mock()  # we've logged if signal was called
+        user_logged_in.connect(receiver_mock)
+
+        # fake post-signup account_user stash
+        session = self.client.session
+        session['account_user'] = user_pk_to_url_str(user)
+        session.save()
+
+        resp = self.client.post(
+            reverse('account_confirm_email',
+                    args=[key]))
+        email = EmailAddress.objects.get(pk=email.pk)
+        self.assertTrue(email.verified)
+
+        receiver_mock.assert_called_once_with(
+            sender=get_user_model(),
+            request=resp.wsgi_request,
+            response=resp,
+            user=get_user_model().objects.get(username='john'),
+            signal=user_logged_in,
+        )
+
+        user_logged_in.disconnect(receiver_mock)
+
+    @override_settings(ACCOUNT_EMAIL_CONFIRMATION_HMAC=True,
+                       ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION=True)
+    @patch('allauth.account.views.perform_login')
+    @patch('allauth.account.utils.get_user_model', return_value=UUIDUser)
+    def test_login_on_confirm_uuid_user(self, mocked_gum, mock_perform_login):
+        user = UUIDUser(
+            is_active=True,
+            email='john@example.com',
+            username='john')
+
+        # fake post-signup account_user stash
+        session = self.client.session
+        session['account_user'] = user_pk_to_url_str(user)
+        session.save()
+
+        # fake email and email confirmation to avoid swappable model hell
+        email = Mock(verified=False, user=user)
+        key = 'mockkey'
+        confirmation = Mock(autospec=EmailConfirmationHMAC, key=key)
+        confirmation.email_address = email
+        confirmation.from_key.return_value = confirmation
+        mock_perform_login.return_value = HttpResponseRedirect(redirect_to='/')
+
+        with patch('allauth.account.views.EmailConfirmationHMAC',
+                   confirmation):
+            self.client.post(
+                reverse('account_confirm_email',
+                        args=[key]))
+
+        assert mock_perform_login.called

@@ -1,14 +1,46 @@
-0.36.0 (unreleased)
+0.37.0 (unreleased)
 *******************
 
 Note worthy changes
 -------------------
 
-- New provider: Telegram.
+- The Battle.net login backend now recognizes ``apac`` as a valid region.
+
+- User model using a ``UUIDField`` as it's primary key can now be logged
+  in upon email confirmation (if using ``ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION``).
+
+- New providers: Disqus.
+
+
+0.36.0 (2018-05-08)
+*******************
+
+Note worthy changes
+-------------------
+
+- New providers: Telegram, QuickBooks.
+
+- The Facebook API version now defaults to v2.12.
+
+- ORCID upgraded to use API v2.1.
+
+
+Security notice
+---------------
+
+- In previous versions, the authentication backend did not invoke the
+  ``user_can_authenticate()`` method, potentially allowing users with
+  ``is_active=False`` to authenticate when the allauth authentication backend
+  was used in a non allauth context.
 
 
 0.35.0 (2018-02-02)
 *******************
+
+Note worthy changes
+-------------------
+
+- Add support for Django 2.0
 
 Security notice
 ---------------
@@ -17,6 +49,11 @@ Security notice
   token generator is already facilitating, allauth now adds the user email
   address to the hash such that whenever the user's email address changes the
   token is invalidated.
+
+Backwards incompatible changes
+------------------------------
+
+- Drop support for Django 1.8 and Django 1.10.
 
 
 Note worthy changes

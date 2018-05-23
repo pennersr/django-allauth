@@ -20,8 +20,8 @@
 
   function setLocationHref (url) {
     if (typeof (url) === 'function') {
-            // Deprecated -- instead, override
-            // allauth.facebook.onLoginError et al directly.
+      // Deprecated -- instead, override
+      // allauth.facebook.onLoginError et al directly.
       url()
     } else {
       window.location.href = url

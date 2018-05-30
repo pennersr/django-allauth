@@ -37,7 +37,7 @@ Supported Providers
 
 - 500px
 
-- AgaveAPI (OAuth 2)
+- AgaveAPI (OAuth2)
 
 - Amazon (OAuth2)
 

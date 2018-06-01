@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.agave',
     'allauth.socialaccount.providers.amazon',
     'allauth.socialaccount.providers.angellist',
     'allauth.socialaccount.providers.asana',

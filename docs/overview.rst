@@ -37,6 +37,8 @@ Supported Providers
 
 - 500px
 
+- AgaveAPI (OAuth2)
+
 - Amazon (OAuth2)
 
 - AngelList (OAuth2)

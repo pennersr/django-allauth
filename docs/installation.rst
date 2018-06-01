@@ -47,6 +47,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.account',
         'allauth.socialaccount',
         # ... include the providers you want to enable:
+        'allauth.socialaccount.providers.agave',
         'allauth.socialaccount.providers.amazon',
         'allauth.socialaccount.providers.angellist',
         'allauth.socialaccount.providers.asana',

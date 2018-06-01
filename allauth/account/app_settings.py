@@ -176,6 +176,13 @@ class AppSettings(object):
         return self._setting("USERNAME_MIN_LENGTH", 1)
 
     @property
+    def USERNAME_MAX_LENGTH(self):
+        """
+        Maximum username Length
+        """
+        return self._setting("USERNAME_MAX_LENGTH", 150)
+
+    @property
     def USERNAME_BLACKLIST(self):
         """
         List of usernames that are not allowed

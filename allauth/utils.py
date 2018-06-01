@@ -62,10 +62,11 @@ def _generate_unique_username_base(txts, regex=None):
 
 
 def get_username_max_length():
-    from .account.app_settings import USER_MODEL_USERNAME_FIELD
+    from .account.app_settings import USER_MODEL_USERNAME_FIELD, USERNAME_MAX_LENGTH
     if USER_MODEL_USERNAME_FIELD is not None:
         User = get_user_model()
-        max_length = User._meta.get_field(USER_MODEL_USERNAME_FIELD).max_length
+        user_model_max_length = User._meta.get_field(USER_MODEL_USERNAME_FIELD).max_length
+        max_length = min(user_model_max_length, USERNAME_MAX_LENGTH)
     else:
         max_length = 0
     return max_length

@@ -198,6 +198,9 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD (="username")
 ACCOUNT_USERNAME_MIN_LENGTH (=1)
   An integer specifying the minimum allowed length of a username.
 
+ACCOUNT_USERNAME_MAX_LENGTH (=150)
+  An integer specifying the maximum allowed length of a username.
+
 ACCOUNT_USERNAME_REQUIRED (=True)
   The user is required to enter a username when signing up. Note that
   the user will be asked to do so even if

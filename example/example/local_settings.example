@@ -56,6 +56,9 @@
 # An integer specifying the minimum allowed length of a username.
 # ACCOUNT_USERNAME_MIN_LENGTH = 1
 
+# An integer specifying the maximum allowed length of a username.
+# ACCOUNT_USERNAME_MAX_LENGTH = 150
+
 # The user is required to enter a username when signing up. Note that the
 # user will be asked to do so even if ACCOUNT_AUTHENTICATION_METHOD is set
 # to email. Set to False when you do not wish to prompt the user to enter a

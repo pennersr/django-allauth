@@ -64,6 +64,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.bitbucket_oauth2',
     'allauth.socialaccount.providers.bitly',
     'allauth.socialaccount.providers.box',
+    'allauth.socialaccount.providers.cern',
     'allauth.socialaccount.providers.coinbase',
     'allauth.socialaccount.providers.dataporten',
     'allauth.socialaccount.providers.daum',

@@ -9,7 +9,7 @@ Note worthy changes
 - User model using a ``UUIDField`` as it's primary key can now be logged
   in upon email confirmation (if using ``ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION``).
 
-- New providers: Disqus.
+- New providers: Agave, Disqus, Globus
 
 
 0.36.0 (2018-05-08)

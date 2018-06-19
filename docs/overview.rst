@@ -99,6 +99,8 @@ Supported Providers
 
 - GitLab (OAuth2)
 
+- Globus (OAuth2)
+
 - Google (OAuth2)
 
 - Hubic (OAuth2)

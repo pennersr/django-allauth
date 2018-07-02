@@ -11,6 +11,8 @@ Note worthy changes
 
 - New providers: Disqus.
 
+- Signup form determines autofocus based on ACCOUNT_AUTHENTICATION_METHOD.
+
 
 0.36.0 (2018-05-08)
 *******************

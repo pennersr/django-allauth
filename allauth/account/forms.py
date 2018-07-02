@@ -257,15 +257,38 @@ def _base_signup_form_class():
 
 
 class BaseSignupForm(_base_signup_form_class()):
-    username = forms.CharField(label=_("Username"),
-                               min_length=app_settings.USERNAME_MIN_LENGTH,
-                               widget=forms.TextInput(
-                                   attrs={'placeholder':
-                                          _('Username'),
-                                          'autofocus': 'autofocus'}))
-    email = forms.EmailField(widget=forms.TextInput(
-        attrs={'type': 'email',
-               'placeholder': _('E-mail address')}))
+    username_widget = forms.TextInput(attrs={'placeholder': _('Username')})
+    email_widget = forms.TextInput(
+            attrs={
+                'type': 'email',
+                'placeholder': _('E-mail address')})
+
+    if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
+        email_widget = forms.TextInput(
+                attrs={
+                    'type': 'email',
+                    'placeholder': _('E-mail address'),
+                    'autofocus': 'autofocus'})
+    elif app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.USERNAME:
+        username_widget = forms.TextInput(
+                attrs={
+                    'placeholder': _('Username'),
+                    'autofocus': 'autofocus'})
+    else:
+        assert app_settings.AUTHENTICATION_METHOD \
+                == AuthenticationMethod.USERNAME_EMAIL
+        email_widget = forms.TextInput(
+                attrs={
+                    'type': 'email',
+                    'placeholder': _('E-mail address'),
+                    'autofocus': 'autofocus'})
+
+    username = forms.CharField(
+            label=_("Username"),
+            min_length=app_settings.USERNAME_MIN_LENGTH,
+            widget=username_widget)
+
+    email = forms.EmailField(widget=email_widget)
 
     def __init__(self, *args, **kwargs):
         email_required = kwargs.pop('email_required',

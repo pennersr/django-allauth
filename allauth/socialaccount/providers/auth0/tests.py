@@ -13,7 +13,7 @@ class Auth0Tests(OAuth2TestsMixin, TestCase):
                 "picture": "https://secure.gravatar.com/avatar/123",
                 "email": "mr.bob@your.Auth0.server.example.com",
                 "id": 2,
-                "user_id": 2,
+                "sub": 2,
                 "identities": [],
                 "name": "Mr Bob"
             }

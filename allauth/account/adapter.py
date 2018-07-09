@@ -268,7 +268,13 @@ class DefaultAccountAdapter(object):
                     username_field).error_messages.get('unique')
                 if not error_message:
                     error_message = self.error_messages['username_taken']
-                raise forms.ValidationError(error_message)
+                raise forms.ValidationError(
+                    error_message,
+                    params={
+                        'model_name': user_model.__name__,
+                        'field_label': username_field,
+                    }
+                )
         return username
 
     def clean_email(self, email):

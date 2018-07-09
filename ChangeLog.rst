@@ -1074,7 +1074,7 @@ Backwards incompatible changes
   social login to existing accounts. The symptom is you end up with
   users who have multiple primary email addresses which conflicts
   with assumptions made by the code. In addition to fixing the code
-  that allowed duplicates to occur, there is a managegement command
+  that allowed duplicates to occur, there is a management command
   you can run if you think this effects you (and if it doesn't effect
   you there is no harm in running it anyways if you are unsure):
 

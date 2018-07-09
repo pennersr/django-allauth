@@ -63,11 +63,11 @@ Used on `account_signup <views.html#signup-account-signup>`__ view.
     from allauth.account.forms import SignupForm
     class MyCustomSignupForm(SignupForm):
 
-        def save(self):
+        def save(self, request):
 
             # Ensure you call the parent classes save.
             # .save() returns a User object.
-            user = super(MyCustomSignupForm, self).save()
+            user = super(MyCustomSignupForm, self).save(request)
 
             # Add your own processing here.
 

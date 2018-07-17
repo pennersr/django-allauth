@@ -40,7 +40,10 @@ class GoogleProvider(OAuth2Provider):
         return ret
 
     def extract_uid(self, data):
-        return str(data['id'])
+        try:
+            return str(data['id'])
+        except:
+            return str(data['sub'])
 
     def extract_common_fields(self, data):
         return dict(email=data.get('email'),

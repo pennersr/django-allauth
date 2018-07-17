@@ -51,6 +51,7 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
         return ret
 
     def form_valid(self, form):
+        self.request.session.pop('socialaccount_sociallogin', None)
         form.save(self.request)
         return helpers.complete_social_signup(self.request,
                                               self.sociallogin)

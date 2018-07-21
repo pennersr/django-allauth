@@ -765,15 +765,18 @@ class LogoutView(TemplateResponseMixin, View):
         if app_settings.LOGOUT_ON_GET:
             return self.post(*args, **kwargs)
         if not self.request.user.is_authenticated:
-            return redirect(self.get_redirect_url())
+            response = redirect(self.get_redirect_url())
+            return _ajax_response(self.request, response)
         ctx = self.get_context_data()
-        return self.render_to_response(ctx)
+        response = self.render_to_response(ctx)
+        return _ajax_response(self.request, response)
 
     def post(self, *args, **kwargs):
         url = self.get_redirect_url()
         if self.request.user.is_authenticated:
             self.logout()
-        return redirect(url)
+        response = redirect(url)
+        return _ajax_response(self.request, response)
 
     def logout(self):
         adapter = get_adapter(self.request)

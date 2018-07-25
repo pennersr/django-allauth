@@ -446,7 +446,7 @@ msgid ""
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"您收到此邮件表示您或者他人在网站 %(site_domain)s上为您的账号请求了密码重"
+"您收到此邮件表示您或者他人在网站 %(site_name)s上为您的账号请求了密码重"
 "置。\n"
 "若您未请求密码重置，可以直接忽略此邮件。如要重置密码，请点击下面的链接。"
 

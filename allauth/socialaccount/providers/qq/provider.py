@@ -1,3 +1,4 @@
+from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -26,5 +27,4 @@ class QQProvider(OAuth2Provider):
         return dict(username=data.get('nickname'),
                     name=data.get('name'))
 
-
-provider_classes = [QQProvider]
+providers.registry.register(QQProvider)

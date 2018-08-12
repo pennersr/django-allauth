@@ -1,4 +1,4 @@
-from allauth.socialaccount.providers.base import ProviderAccount,
+from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -10,8 +10,8 @@ class QQAccount(ProviderAccount):
         return self.account.extra_data.get('figureurl_qq_2')
 
     def to_str(self):
-        dflt = super(QQAccount, self).to_str()
-        return self.account.extra_data.get('name', dflt)
+        default = super(QQAccount, self).to_str()
+        return self.account.extra_data.get('openid', default)
 
 
 class QQProvider(OAuth2Provider):

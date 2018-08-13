@@ -35,6 +35,8 @@ def login(request):
         )
         if form.is_valid():
             client = _openid_consumer(request)
+            provider = OpenIDProvider(request)
+            realm = provider.get_settings().get('REALM', request.build_absolute_uri('/'))
             try:
                 auth_request = client.begin(form.cleaned_data['openid'])
                 if QUERY_EMAIL:
@@ -63,7 +65,7 @@ def login(request):
                     auth_request.return_to_args['next'] = \
                         form.cleaned_data['next']
                 redirect_url = auth_request.redirectURL(
-                    request.build_absolute_uri('/'),
+                    realm,
                     request.build_absolute_uri(callback_url))
                 return HttpResponseRedirect(redirect_url)
             # UnicodeDecodeError:

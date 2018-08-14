@@ -81,7 +81,7 @@ def get_social_accounts(user):
     return accounts
 
 
-@simple_tag(takes_context=True)
+@register.simple_tag(takes_context=True)
 def get_providers(context):
     """
     Returns a list of social authentication providers.

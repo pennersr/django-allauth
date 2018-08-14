@@ -9,12 +9,13 @@ from django.contrib.sessions.middleware import SessionMiddleware
 from django.contrib.sites.models import Site
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
+from django.urls import reverse
 
 from . import providers
 from ..account import app_settings as account_settings
 from ..account.models import EmailAddress
 from ..account.utils import user_email, user_username
-from ..compat import parse_qs, reverse, urlparse
+from ..compat import parse_qs, urlparse
 from ..tests import MockedResponse, TestCase, mocked_response
 from ..utils import get_user_model
 from .helpers import complete_social_login
@@ -164,10 +165,9 @@ class OAuth2TestsMixin(object):
 
     def test_account_tokens(self, multiple_login=False):
         email = "user@example.com"
-        user = get_user_model().objects.create(
-            username='user',
-            is_active=True,
-            email=email)
+        user = get_user_model()(is_active=True)
+        user_email(user, email)
+        user_username(user, 'user')
         user.set_password('test')
         user.save()
         EmailAddress.objects.create(user=user,
@@ -587,3 +587,43 @@ class SocialAccountTests(TestCase):
             'An account already exists with this e-mail address.'
             ' Please sign in to that account first, then connect'
             ' your Google account.')
+
+    @override_settings(
+        ACCOUNT_EMAIL_REQUIRED=True,
+        ACCOUNT_EMAIL_VERIFICATION='mandatory',
+        ACCOUNT_UNIQUE_EMAIL=True,
+        ACCOUNT_USERNAME_REQUIRED=True,
+        ACCOUNT_AUTHENTICATION_METHOD='email',
+        SOCIALACCOUNT_AUTO_SIGNUP=False)
+    def test_social_account_taken_at_signup(self):
+        """
+        Test scenario for when the user signs up with a social account
+        and uses email address in that social account. But upon seeing the
+        verification screen, they realize that email address is somehow
+        unusable for them, and so backs up and enters a different email
+        address (and is forced to choose a new username) while providing
+        the same social account token which is owned by their first attempt.
+        """
+        session = self.client.session
+        User = get_user_model()
+        sociallogin = SocialLogin(
+            user=User(email="me1@example.com"),
+            account=SocialAccount(
+                provider='facebook'
+            ),
+        )
+        session['socialaccount_sociallogin'] = sociallogin.serialize()
+        session.save()
+        resp = self.client.get(reverse('socialaccount_signup'))
+        form = resp.context['form']
+        self.assertEqual(form['email'].value(), "me1@example.com")
+        resp = self.client.post(
+            reverse('socialaccount_signup'),
+            data={'username': "me1",
+                  'email': "me1@example.com"})
+        self.assertEqual(resp.status_code, 302)
+        self.assertEqual(User.objects.count(), 1)
+        self.assertEqual(SocialAccount.objects.count(), 1)
+
+        resp = self.client.get(reverse('socialaccount_signup'))
+        self.assertRedirects(resp, reverse('account_login'))

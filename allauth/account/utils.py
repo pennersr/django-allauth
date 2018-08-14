@@ -417,12 +417,12 @@ def url_str_to_user_pk(s):
     User = get_user_model()
     # TODO: Ugh, isn't there a cleaner way to determine whether or not
     # the PK is a str-like field?
-    if getattr(User._meta.pk, 'rel', None):
-        pk_field = User._meta.pk.rel.to._meta.pk
+    if getattr(User._meta.pk, 'remote_field', None):
+        pk_field = User._meta.pk.remote_field.to._meta.pk
     else:
         pk_field = User._meta.pk
     if issubclass(type(pk_field), models.UUIDField):
-        return s
+        return pk_field.to_python(s)
     try:
         pk_field.to_python('a')
         pk = s

@@ -9,7 +9,7 @@ class Scope(object):
 class OrcidAccount(ProviderAccount):
     def get_profile_url(self):
         return extract_from_dict(self.account.extra_data,
-                                 ['orcid-profile', 'orcid-identifier', 'uri'])
+                                 ['orcid-identifier', 'uri'])
 
     def to_str(self):
         return self.account.uid
@@ -24,20 +24,15 @@ class OrcidProvider(OAuth2Provider):
         return [Scope.USERINFO_PROFILE]
 
     def extract_uid(self, data):
-        return extract_from_dict(data, ['orcid-profile', 'orcid-identifier',
-                                        'path'])
+        return extract_from_dict(data, ['orcid-identifier', 'path'])
 
     def extract_common_fields(self, data):
         common_fields = dict(
-            email=extract_from_dict(data, ['orcid-profile', 'orcid-bio',
-                                           'contact-details', 'email', 0,
-                                           'value']),
-            last_name=extract_from_dict(data, ['orcid-profile', 'orcid-bio',
-                                               'personal-details',
+            email=extract_from_dict(data, ['person', 'emails', 0,
+                                           'email']),
+            last_name=extract_from_dict(data, ['person', 'name',
                                                'family-name', 'value']),
-            first_name=extract_from_dict(data, ['orcid-profile',
-                                                'orcid-bio',
-                                                'personal-details',
+            first_name=extract_from_dict(data, ['person', 'name',
                                                 'given-names', 'value']),)
         return dict((key, value) for (key, value) in common_fields.items()
                     if value)

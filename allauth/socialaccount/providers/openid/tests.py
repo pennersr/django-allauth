@@ -1,8 +1,8 @@
 from django.test import override_settings
+from django.urls import reverse
 
 from openid.consumer import consumer
 
-from allauth.compat import reverse
 from allauth.socialaccount.models import SocialAccount
 from allauth.tests import Mock, TestCase, patch
 from allauth.utils import get_user_model

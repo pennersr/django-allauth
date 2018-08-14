@@ -2,10 +2,10 @@ import json
 
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
+from django.urls import reverse
 
 from allauth.account import app_settings as account_settings
 from allauth.account.models import EmailAddress
-from allauth.compat import reverse
 from allauth.socialaccount import providers
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.tests import OAuth2TestsMixin

@@ -71,9 +71,33 @@ ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN (=180)
   The cooldown period (in seconds) after a confirmation email is sent,
   during which further emails are not sent.
 
+ACCOUNT_EMAIL_MAX_LENGTH(=254)
+  Maximum length of the email field. You won't need to alter this unless using
+  MySQL with the InnoDB storage engine and the ``utf8mb4`` charset, and only in
+  versions lower than 5.7.7, because the default InnoDB settings don't allow
+  indexes bigger than 767 bytes. When using ``utf8mb4``, characters are 4-bytes
+  wide, so at maximum column indexes can be 191 characters long (767/4).
+  Unfortunately Django doesn't allow specifying index lengths, so the solution
+  is to reduce the length in characters of indexed text fields.
+  More information can be found at `MySQL's documentation on converting between
+  3-byte and 4-byte Unicode character sets
+  <https://dev.mysql.com/doc/refman/5.5/en/charset-unicode-conversion.html>`_.
+
 ACCOUNT_FORMS (={})
   Used to override forms, for example:
   ``{'login': 'myapp.forms.LoginForm'}``
+
+  Possible keys (and default values):
+
+  * ``add_email``: :class:`allauth.account.forms.AddEmailForm`
+  * ``change_password``: :class:`allauth.account.forms.ChangePasswordForm`
+  * ``disconnect``: :class:`allauth.socialaccount.forms.DisconnectForm`
+  * ``login``: :class:`allauth.account.forms.LoginForm`
+  * ``reset_password``: :class:`allauth.account.forms.ResetPasswordForm`
+  * ``reset_password_from_key``: :class:`allauth.account.forms.ResetPasswordKeyForm`
+  * ``set_password``: :class:`allauth.account.forms.SetPasswordForm`
+  * ``signup``: :class:`allauth.account.forms.SignupForm`
+  * ``signup``: :class:`allauth.socialaccount.forms.SignupForm`
 
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT (=5)
   Number of failed login attempts. When this number is
@@ -106,7 +130,7 @@ ACCOUNT_LOGOUT_ON_GET (=False)
 ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE (=False)
   Determines whether or not the user is automatically logged out after
   changing or setting their password. See documentation for
-  `Django's session invalidation on password change <https://docs.djangoproject.com/en/1.8/topics/auth/default/#session-invalidation-on-password-change>`_.
+  `Django's session invalidation on password change <https://docs.djangoproject.com/en/stable/topics/auth/default/#session-invalidation-on-password-change>`_.
 
 ACCOUNT_LOGIN_ON_PASSWORD_RESET (=False)
   By changing this setting to ``True``, users will automatically be logged in

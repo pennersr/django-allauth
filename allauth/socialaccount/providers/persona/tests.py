@@ -1,6 +1,6 @@
 from django.test.utils import override_settings
+from django.urls import reverse
 
-from allauth.compat import reverse
 from allauth.tests import TestCase, patch
 from allauth.utils import get_user_model
 

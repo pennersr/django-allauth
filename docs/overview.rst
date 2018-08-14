@@ -4,9 +4,9 @@ Overview
 Requirements
 ------------
 
-- Python 2.7, 3.3, 3.4, or 3.5
+- Python 2.7, 3.3, 3.4, 3.5 or 3.6
 
-- Django (1.8+)
+- Django (1.10+)
 
 - python-openid or python3-openid (depending on your Python version)
 
@@ -37,6 +37,8 @@ Supported Providers
 
 - 500px
 
+- AgaveAPI (OAuth2)
+
 - Amazon (OAuth2)
 
 - AngelList (OAuth2)
@@ -46,6 +48,8 @@ Supported Providers
 - Auth0 (OAuth2)
 
 - Authentiq (OAuth2)
+
+- Azure (OAuth2)
 
 - Basecamp (OAuth2)
 
@@ -59,11 +63,15 @@ Supported Providers
 
 - Box (OAuth2)
 
+- CERN (OAuth2)
+
 - Dataporten (OAuth2)
 
 - Daum (OAuth2)
 
 - Douban (OAuth2)
+
+- Disqus (OAuth2)
 
 - Doximity (OAuth2)
 
@@ -91,6 +99,8 @@ Supported Providers
 
 - GitLab (OAuth2)
 
+- Globus (OAuth2)
+
 - Google (OAuth2)
 
 - Hubic (OAuth2)
@@ -109,6 +119,8 @@ Supported Providers
 
 - Meetup (OAuth2)
 
+- Microsoft (Graph) (OAuth2)
+
 - Naver (OAuth2)
 
 - Odnoklassniki (OAuth2)
@@ -125,6 +137,8 @@ Supported Providers
 
 - Pinterest (OAuth2)
 
+- QuickBooks (OAuth2)
+
 - Reddit (OAuth2)
 
 - Salesforce (OAuth2)
@@ -140,6 +154,8 @@ Supported Providers
 - Stack Exchange (OAuth2)
 
 - Stripe (OAuth2)
+
+- Telegram
 
 - Trello (OAuth)
 
@@ -162,6 +178,8 @@ Supported Providers
 - Windows Live (OAuth2)
 
 - Xing (OAuth)
+
+- Yahoo (OAuth2)
 
 
 Note: OAuth/OAuth2 support is built using a common code base, making it easy to add support for additional OAuth/OAuth2 providers. More will follow soon...

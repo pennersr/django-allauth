@@ -42,6 +42,7 @@ class VKOAuth2Adapter(OAuth2Adapter):
     def complete_login(self, request, app, token, **kwargs):
         uid = kwargs['response'].get('user_id')
         params = {
+            'v': '3.0',
             'access_token': token.token,
             'fields': ','.join(USER_FIELDS),
         }

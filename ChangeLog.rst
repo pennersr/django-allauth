@@ -1,3 +1,67 @@
+0.37.0 (unreleased)
+*******************
+
+Note worthy changes
+-------------------
+
+- The Battle.net login backend now recognizes ``apac`` as a valid region.
+
+- User model using a ``UUIDField`` as it's primary key can now be logged
+  in upon email confirmation (if using ``ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION``).
+
+- New providers: Agave, Disqus, Globus
+
+
+0.36.0 (2018-05-08)
+*******************
+
+Note worthy changes
+-------------------
+
+- New providers: Telegram, QuickBooks.
+
+- The Facebook API version now defaults to v2.12.
+
+- ORCID upgraded to use API v2.1.
+
+
+Security notice
+---------------
+
+- In previous versions, the authentication backend did not invoke the
+  ``user_can_authenticate()`` method, potentially allowing users with
+  ``is_active=False`` to authenticate when the allauth authentication backend
+  was used in a non allauth context.
+
+
+0.35.0 (2018-02-02)
+*******************
+
+Note worthy changes
+-------------------
+
+- Add support for Django 2.0
+
+Security notice
+---------------
+
+- As an extra security measure on top of what the standard Django password reset
+  token generator is already facilitating, allauth now adds the user email
+  address to the hash such that whenever the user's email address changes the
+  token is invalidated.
+
+Backwards incompatible changes
+------------------------------
+
+- Drop support for Django 1.8 and Django 1.10.
+
+
+Note worthy changes
+-------------------
+
+- New provider: Azure, Microsoft Graph, Salesforce, Yahoo.
+
+
 0.34.0 (2017-10-29)
 *******************
 
@@ -1010,7 +1074,7 @@ Backwards incompatible changes
   social login to existing accounts. The symptom is you end up with
   users who have multiple primary email addresses which conflicts
   with assumptions made by the code. In addition to fixing the code
-  that allowed duplicates to occur, there is a managegement command
+  that allowed duplicates to occur, there is a management command
   you can run if you think this effects you (and if it doesn't effect
   you there is no harm in running it anyways if you are unsure):
 

@@ -215,7 +215,7 @@ def deserialize_instance(model, data):
                         # This is quite an ugly hack, but will cover most
                         # use cases...
                         v = f.from_db_value(v, None, None, None)
-                    except:
+                    except Exception:
                         raise ImproperlyConfigured(
                             "Unable to auto serialize field '{}', custom"
                             " serialization override required".format(k)

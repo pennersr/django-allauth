@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponseRedirect
+from django.urls import reverse, reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
@@ -13,7 +14,6 @@ from ..account.views import (
     CloseableSignupMixin,
     RedirectAuthenticatedUserMixin,
 )
-from ..compat import reverse, reverse_lazy
 from ..utils import get_form_class
 from .adapter import get_adapter
 from .forms import DisconnectForm, SignupForm
@@ -51,6 +51,7 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
         return ret
 
     def form_valid(self, form):
+        self.request.session.pop('socialaccount_sociallogin', None)
         form.save(self.request)
         return helpers.complete_social_signup(self.request,
                                               self.sociallogin)

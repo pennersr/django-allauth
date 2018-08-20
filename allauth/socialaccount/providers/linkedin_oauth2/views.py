@@ -11,8 +11,8 @@ from .provider import LinkedInOAuth2Provider
 
 class LinkedInOAuth2Adapter(OAuth2Adapter):
     provider_id = LinkedInOAuth2Provider.id
-    access_token_url = 'https://api.linkedin.com/uas/oauth2/accessToken'
-    authorize_url = 'https://www.linkedin.com/uas/oauth2/authorization'
+    access_token_url = 'https://www.linkedin.com/oauth/v2/accessToken'
+    authorize_url = 'https://www.linkedin.com/oauth/v2/authorization'
     profile_url = 'https://api.linkedin.com/v1/people/~'
     # See:
     # http://developer.linkedin.com/forum/unauthorized-invalid-or-expired-token-immediately-after-receiving-oauth2-token?page=1 # noqa

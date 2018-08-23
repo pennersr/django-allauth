@@ -176,11 +176,11 @@ msgstr "e-posta adresleri"
 
 #: account/models.py:83
 msgid "created"
-msgstr ""
+msgstr "oluşturuldu"
 
 #: account/models.py:85
 msgid "sent"
-msgstr ""
+msgstr "gönderildi"
 
 #: account/models.py:86 socialaccount/models.py:55
 msgid "key"
@@ -218,7 +218,7 @@ msgstr "Hesap"
 
 #: socialaccount/models.py:43 socialaccount/models.py:77
 msgid "provider"
-msgstr ""
+msgstr "sağlayıcı"
 
 #: socialaccount/models.py:46
 #, fuzzy
@@ -259,11 +259,11 @@ msgstr ""
 
 #: socialaccount/models.py:98
 msgid "last login"
-msgstr ""
+msgstr "son giriş"
 
 #: socialaccount/models.py:100
 msgid "date joined"
-msgstr ""
+msgstr "katıldığı tarih"
 
 #: socialaccount/models.py:102
 msgid "extra data"
@@ -307,7 +307,7 @@ msgstr ""
 
 #: socialaccount/providers/douban/views.py:36
 msgid "Invalid profile data"
-msgstr ""
+msgstr "Geçersiz profil bilgisi"
 
 #: socialaccount/providers/oauth/client.py:78
 #, python-format
@@ -428,6 +428,8 @@ msgid ""
 "Thank you from %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
+"%(site_name)s: Teşekkürler!\n"
+"%(site_domain)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 #, fuzzy
@@ -532,11 +534,11 @@ msgstr "Parolanızı mı unuttunuz?"
 #: templates/account/logout.html:5 templates/account/logout.html:8
 #: templates/account/logout.html:17
 msgid "Sign Out"
-msgstr ""
+msgstr "Çıkış Yap"
 
 #: templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
-msgstr ""
+msgstr "Çıkış yapmak istediğinize emin misiniz?"
 
 #: templates/account/messages/cannot_delete_primary_email.txt:2
 #, python-format
@@ -546,7 +548,7 @@ msgstr ""
 #: templates/account/messages/email_confirmation_sent.txt:2
 #, python-format
 msgid "Confirmation e-mail sent to %(email)s."
-msgstr ""
+msgstr "Doğrulama e-posta'sı %(email)s adresine gönderildi."
 
 #: templates/account/messages/email_confirmed.txt:2
 #, python-format
@@ -556,12 +558,12 @@ msgstr "%(email)s adresini onayladınız."
 #: templates/account/messages/email_deleted.txt:2
 #, python-format
 msgid "Removed e-mail address %(email)s."
-msgstr ""
+msgstr "%(email)s adresini sildiniz."
 
 #: templates/account/messages/logged_in.txt:4
 #, python-format
 msgid "Successfully signed in as %(name)s."
-msgstr ""
+msgstr "%(name)s olarak başarıyla giriş yapıldı."
 
 #: templates/account/messages/logged_out.txt:2
 msgid "You have signed out."
@@ -628,7 +630,7 @@ msgstr ""
 
 #: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
-msgstr "Kötü kod"
+msgstr ""
 
 #: templates/account/password_reset_from_key.html:11
 #, python-format
@@ -675,7 +677,7 @@ msgstr ""
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:8
 msgid "Sign Up Closed"
-msgstr ""
+msgstr "Kayıt Kapalı"
 
 #: templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."

@@ -148,6 +148,7 @@ METADATA = dict(
         'Framework :: Django',
         'Framework :: Django :: 1.11',
         'Framework :: Django :: 2.0',
+        'Framework :: Django :: 2.1',
     ],
     packages=find_packages(exclude=['example']),
     package_data=package_data,

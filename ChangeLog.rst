@@ -1,4 +1,4 @@
-0.37.0 (unreleased)
+0.37.0 (2018-08-27)
 *******************
 
 Note worthy changes
@@ -9,7 +9,7 @@ Note worthy changes
 - User model using a ``UUIDField`` as it's primary key can now be logged
   in upon email confirmation (if using ``ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION``).
 
-- New providers: Agave, Disqus, Globus
+- New providers: Agave, Cern, Disqus, Globus.
 
 
 0.36.0 (2018-05-08)

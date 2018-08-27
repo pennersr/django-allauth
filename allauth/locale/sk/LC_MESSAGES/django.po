@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-08 00:43-0500\n"
+"POT-Creation-Date: 2018-08-27 05:00-0500\n"
 "PO-Revision-Date: 2017-04-26 12:48+0200\n"
 "Last-Translator: Tomas Babej <tomasbabej@gmail.com>\n"
 "Language-Team: \n"
@@ -29,7 +29,7 @@ msgstr "Príliš veľa neúspešných pokusov o prihlásenie. Skúste neskôr."
 msgid "A user is already registered with this e-mail address."
 msgstr "Používateľ s touto e-mailovou adresou už existuje."
 
-#: account/adapter.py:288
+#: account/adapter.py:294
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Heslo musí mať aspoň {0} znakov."

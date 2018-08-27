@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-08 00:43-0500\n"
+"POT-Creation-Date: 2018-08-27 05:00-0500\n"
 "PO-Revision-Date: 2015-09-14 12:40-0000\n"
 "Last-Translator: NARIMAN GHARIB <NARIMAN.GH@GMAIL.COM>\n"
 "Language-Team: \n"
@@ -28,7 +28,7 @@ msgstr ""
 msgid "A user is already registered with this e-mail address."
 msgstr "کاربر دیگری قبلا با این نام کاربری ثبت نام کرده است."
 
-#: account/adapter.py:288
+#: account/adapter.py:294
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "پسورد تنها می‌تواند دارای {0} کاراکتر باشد."

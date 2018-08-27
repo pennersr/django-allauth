@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-08 00:43-0500\n"
+"POT-Creation-Date: 2018-08-27 05:00-0500\n"
 "PO-Revision-Date: 2017-11-04 16:22+0100\n"
 "Last-Translator: Jannis Vajen <jvajen@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/django-allauth/"
@@ -34,7 +34,7 @@ msgstr ""
 msgid "A user is already registered with this e-mail address."
 msgstr "Es ist bereits jemand mit dieser E-Mail-Adresse registriert."
 
-#: account/adapter.py:288
+#: account/adapter.py:294
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Das Passwort muss aus mindestens {0} Zeichen bestehen."

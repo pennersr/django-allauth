@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-08 00:43-0500\n"
+"POT-Creation-Date: 2018-08-27 05:00-0500\n"
 "PO-Revision-Date: 2017-08-26 16:11+0300\n"
 "Last-Translator: Udi Oron <udioron@gmail.com>\n"
 "Language-Team: Hebrew\n"
@@ -30,7 +30,7 @@ msgstr "יותר מדי ניסיונות התחברות כושלים. אנא נ�
 msgid "A user is already registered with this e-mail address."
 msgstr "משתמש אחר כבר רשום עם כתובת אימייל זו."
 
-#: account/adapter.py:288
+#: account/adapter.py:294
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "הסיסמה חייבת להיות באורך של לפחות {0} תווים."

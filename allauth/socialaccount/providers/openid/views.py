@@ -58,9 +58,10 @@ def login(request):
                     auth_request.addExtension(ax)
                 callback_url = reverse(callback)
                 SocialLogin.stash_state(request)
-                # https://github.com/pennersr/django-allauth/issues/1523
-                auth_request.return_to_args['next'] = \
-                    form.cleaned_data.get('next', '/')
+                # Fix for issues 1523 and 2072 (github django-allauth)
+                if 'next' in form.cleaned_data and form.cleaned_data['next']:
+                    auth_request.return_to_args['next'] = \
+                        form.cleaned_data['next']
                 redirect_url = auth_request.redirectURL(
                     request.build_absolute_uri('/'),
                     request.build_absolute_uri(callback_url))

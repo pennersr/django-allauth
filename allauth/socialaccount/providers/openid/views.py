@@ -36,7 +36,9 @@ def login(request):
         if form.is_valid():
             client = _openid_consumer(request)
             provider = OpenIDProvider(request)
-            realm = provider.get_settings().get('REALM', request.build_absolute_uri('/'))
+            realm = provider.get_settings().get(
+                'REALM',
+                request.build_absolute_uri('/'))
             try:
                 auth_request = client.begin(form.cleaned_data['openid'])
                 if QUERY_EMAIL:

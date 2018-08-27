@@ -26,9 +26,10 @@ class LinkedInOAuth2Adapter(OAuth2Adapter):
     def get_user_info(self, token):
         fields = self.get_provider().get_profile_fields()
         url = self.profile_url + ':(%s)?format=json' % ','.join(fields)
-        resp = requests.get(url,
-                            headers={'Authorization': ' '.join(('Bearer',
-                                     token.token)), 'x-li-src': 'msdk'})
+        headers = {}
+        headers.update(self.get_provider().get_settings().get('HEADERS', {}))
+        headers['Authorization'] = ' '.join(['Bearer', token.token])
+        resp = requests.get(url, headers=headers)
         resp.raise_for_status()
         return resp.json()
 

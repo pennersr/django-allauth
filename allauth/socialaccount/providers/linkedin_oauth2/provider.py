@@ -58,7 +58,7 @@ class LinkedInOAuth2Provider(OAuth2Provider):
         return fields
 
     def get_default_scope(self):
-        scope = []
+        scope = ['r_basicprofile']
         if app_settings.QUERY_EMAIL:
             scope.append('r_emailaddress')
         return scope

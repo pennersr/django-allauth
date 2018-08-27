@@ -1,3 +1,14 @@
+0.37.1 (2018-08-27)
+*******************
+
+Backwards incompatible changes
+------------------------------
+
+- Dropped the ``x-li-src: msdk`` headers from the ``linkedin_oauth2`` handshake.
+  This header is only required for mobile tokens, and breaks the regular flow.
+  Use the ``HEADERS`` setting to add this header if you need it.
+
+
 0.37.0 (2018-08-27)
 *******************
 

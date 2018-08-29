@@ -1,3 +1,12 @@
+Upcoming
+********
+
+Note worthy changes
+------------------------------
+
+- New translation: Basque.
+
+
 0.37.1 (2018-08-27)
 *******************
 

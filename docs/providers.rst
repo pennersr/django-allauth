@@ -57,6 +57,17 @@ Development callback URL
     http://localhost:8000/accounts/agave/login/callback/
     *May require https url, even for localhost*
 
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'agave': {
+            'AGAVE_URL': 'https://api.tacc.utexas.edu',
+        }
+    }
+
+In the absense of a specified AGAVE_URL, the default Agave tenant is
+    https://public.agaveapi.co/
+
 Amazon
 ------
 

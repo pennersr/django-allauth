@@ -22,7 +22,7 @@ class QQOAuth2Adapter(OAuth2Adapter):
         try:
             open_id_dict = json.loads(re.match(r'callback\( ({.*}) \);', open_id_resp.text).group(1))
         except Exception:
-            open_id_dict = {}
+            open_id_dict = {"client_id":"YOUR_APPID","openid":"YOUR_OPENID"}
         openid = open_id_dict.get('openid')
         oauth_consumer_key = open_id_dict.get('client_id')
         resp = requests.get(self.profile_url,

@@ -27,4 +27,5 @@ class QQProvider(OAuth2Provider):
         return dict(username=data.get('nickname'),
                     name=data.get('name'))
 
+
 providers.registry.register(QQProvider)

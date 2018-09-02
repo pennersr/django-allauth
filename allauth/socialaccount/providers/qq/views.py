@@ -19,8 +19,10 @@ class QQOAuth2Adapter(OAuth2Adapter):
     def complete_login(self, request, app, token, **kwargs):
         open_id_resp = requests.get(self.open_id_url, params={'access_token': token.token})
         # the open_id_resp.text will be 'callback( {"client_id":"YOUR_APPID","openid":"YOUR_OPENID"} )';
-
-        open_id_dict = json.loads(re.match(r'callback\( ({.*}) \);', open_id_resp.text).group(1))
+        try:
+            open_id_dict = json.loads(re.match(r'callback\( ({.*}) \);', open_id_resp.text).group(1))
+        except Exception:
+            open_id_dict = {}
         openid = open_id_dict.get('openid')
         oauth_consumer_key = open_id_dict.get('client_id')
         resp = requests.get(self.profile_url,

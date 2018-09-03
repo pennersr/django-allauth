@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-08 00:43-0500\n"
+"POT-Creation-Date: 2018-08-27 05:00-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,7 +30,7 @@ msgstr "登录失败次数过多，请稍后重试。"
 msgid "A user is already registered with this e-mail address."
 msgstr "此e-mail地址已被其他用户注册。"
 
-#: account/adapter.py:288
+#: account/adapter.py:294
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "密码长度不得少于 {0} 个字符。"
@@ -446,8 +446,7 @@ msgid ""
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"您收到此邮件表示您或者他人在网站 %(site_name)s上为您的账号请求了密码重"
-"置。\n"
+"您收到此邮件表示您或者他人在网站 %(site_name)s上为您的账号请求了密码重置。\n"
 "若您未请求密码重置，可以直接忽略此邮件。如要重置密码，请点击下面的链接。"
 
 #: templates/account/email/password_reset_key_message.txt:8

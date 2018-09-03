@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-08 00:43-0500\n"
+"POT-Creation-Date: 2018-08-27 05:00-0500\n"
 "PO-Revision-Date: 2016-07-25 15:18+0200\n"
 "Last-Translator: pennersr <raymond.penners@intenct.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/django-allauth/"
@@ -31,7 +31,7 @@ msgstr "Teveel foutieve inlog pogingen. Probeer het later nogmaals."
 msgid "A user is already registered with this e-mail address."
 msgstr "Er is al een gebruiker geregistreerd met dit e-mailadres."
 
-#: account/adapter.py:288
+#: account/adapter.py:294
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Het wachtwoord moet minimaal {0} tekens bevatten."

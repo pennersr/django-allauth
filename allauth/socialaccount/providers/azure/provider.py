@@ -37,6 +37,8 @@ class AzureProvider(OAuth2Provider):
 
     def extract_common_fields(self, data):
         email = data.get('mail')
+        if not email and 'userPrincipalName' in data:
+            email = data.get('userPrincipalName')
         return dict(email=email,
                     username=email,
                     last_name=data.get('surname'),

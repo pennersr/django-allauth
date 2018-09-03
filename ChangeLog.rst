@@ -11,6 +11,7 @@ Note worthy changes
 
 - New providers: Agave, Disqus, Globus
 
+- New translation: Danish.
 
 0.36.0 (2018-05-08)
 *******************

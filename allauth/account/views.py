@@ -49,13 +49,14 @@ sensitive_post_parameters_m = method_decorator(
 
 
 def _ajax_response(request, response, form=None, data=None):
-    if request.is_ajax():
+    adapter = get_adapter(request)
+    if adapter.is_ajax(request):
         if (isinstance(response, HttpResponseRedirect) or isinstance(
                 response, HttpResponsePermanentRedirect)):
             redirect_to = response['Location']
         else:
             redirect_to = None
-        response = get_adapter(request).ajax_response(
+        response = adapter.ajax_response(
             request,
             response,
             form=form,
@@ -114,7 +115,10 @@ class AjaxCapableProcessFormViewMixin(object):
         return form
 
     def _get_ajax_data_if(self):
-        return self.get_ajax_data() if self.request.is_ajax() else None
+        return (
+            self.get_ajax_data()
+            if get_adapter(self.request).is_ajax(self.request)
+            else None)
 
     def get_ajax_data(self):
         return None
@@ -517,6 +521,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
         data = []
         for emailaddress in self.request.user.emailaddress_set.all():
             data.append({
+                'id': emailaddress.pk,
                 'email': emailaddress.email,
                 'verified': emailaddress.verified,
                 'primary': emailaddress.primary,
@@ -760,15 +765,18 @@ class LogoutView(TemplateResponseMixin, View):
         if app_settings.LOGOUT_ON_GET:
             return self.post(*args, **kwargs)
         if not self.request.user.is_authenticated:
-            return redirect(self.get_redirect_url())
+            response = redirect(self.get_redirect_url())
+            return _ajax_response(self.request, response)
         ctx = self.get_context_data()
-        return self.render_to_response(ctx)
+        response = self.render_to_response(ctx)
+        return _ajax_response(self.request, response)
 
     def post(self, *args, **kwargs):
         url = self.get_redirect_url()
         if self.request.user.is_authenticated:
             self.logout()
-        return redirect(url)
+        response = redirect(url)
+        return _ajax_response(self.request, response)
 
     def logout(self):
         adapter = get_adapter(self.request)

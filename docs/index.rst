@@ -15,6 +15,7 @@ Contents
    providers
    signals
    views
+   forms
    templates
    decorators
    advanced

@@ -268,7 +268,13 @@ class DefaultAccountAdapter(object):
                     username_field).error_messages.get('unique')
                 if not error_message:
                     error_message = self.error_messages['username_taken']
-                raise forms.ValidationError(error_message)
+                raise forms.ValidationError(
+                    error_message,
+                    params={
+                        'model_name': user_model.__name__,
+                        'field_label': username_field,
+                    }
+                )
         return username
 
     def clean_email(self, email):
@@ -333,8 +339,8 @@ class DefaultAccountAdapter(object):
             if hasattr(response, 'render'):
                 response.render()
             resp['html'] = response.content.decode('utf8')
-            if data is not None:
-                resp['data'] = data
+        if data is not None:
+            resp['data'] = data
         return HttpResponse(json.dumps(resp),
                             status=status,
                             content_type='application/json')
@@ -407,7 +413,7 @@ class DefaultAccountAdapter(object):
 
     def is_safe_url(self, url):
         from django.utils.http import is_safe_url
-        return is_safe_url(url)
+        return is_safe_url(url, allowed_hosts=None)
 
     def get_email_confirmation_url(self, request, emailconfirmation):
         """Constructs the email confirmation (activation) url.
@@ -476,9 +482,14 @@ class DefaultAccountAdapter(object):
 
     def authenticate(self, request, **credentials):
         """Only authenticates, does not actually login. See `login`"""
+        from allauth.account.auth_backends import AuthenticationBackend
+
         self.pre_authenticate(request, **credentials)
+        AuthenticationBackend.unstash_authenticated_user()
         user = authenticate(request, **credentials)
-        if user:
+        alt_user = AuthenticationBackend.unstash_authenticated_user()
+        user = user or alt_user
+        if user and app_settings.LOGIN_ATTEMPTS_LIMIT:
             cache_key = self._get_login_attempts_cache_key(
                 request, **credentials)
             cache.delete(cache_key)
@@ -487,11 +498,17 @@ class DefaultAccountAdapter(object):
         return user
 
     def authentication_failed(self, request, **credentials):
-        cache_key = self._get_login_attempts_cache_key(request, **credentials)
-        data = cache.get(cache_key, [])
-        dt = timezone.now()
-        data.append(time.mktime(dt.timetuple()))
-        cache.set(cache_key, data, app_settings.LOGIN_ATTEMPTS_TIMEOUT)
+        if app_settings.LOGIN_ATTEMPTS_LIMIT:
+            cache_key = self._get_login_attempts_cache_key(
+                request, **credentials
+            )
+            data = cache.get(cache_key, [])
+            dt = timezone.now()
+            data.append(time.mktime(dt.timetuple()))
+            cache.set(cache_key, data, app_settings.LOGIN_ATTEMPTS_TIMEOUT)
+
+    def is_ajax(self, request):
+        return request.is_ajax()
 
 
 def get_adapter(request=None):

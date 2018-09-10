@@ -37,7 +37,7 @@ from .utils import (
     perform_login,
     sync_user_email_addresses,
     url_str_to_user_pk,
-    user_pk_to_url_str,  
+    user_pk_to_url_str,
 )
 
 

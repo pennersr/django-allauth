@@ -36,6 +36,7 @@ from .utils import (
     passthrough_next_redirect_url,
     perform_login,
     sync_user_email_addresses,
+    user_pk_to_url_str,
     url_str_to_user_pk,
 )
 
@@ -278,12 +279,20 @@ class ConfirmEmailView(TemplateResponseMixin, View):
     def post(self, *args, **kwargs):
         self.object = confirmation = self.get_object()
         confirmation.confirm(self.request)
-        get_adapter(self.request).add_message(
+        adapter = get_adapter(self.request)
+        adapter.add_message(
             self.request,
             messages.SUCCESS,
             'account/messages/email_confirmed.txt',
             {'email': confirmation.email_address.email})
         if app_settings.LOGIN_ON_EMAIL_CONFIRMATION:
+            # For #2106: stash the userid associated to this confirmation
+            adapter.stash_user(
+                self.request,
+                user_pk_to_url_str(
+                    confirmation.email_address.user
+                )
+            )
             resp = self.login_on_confirm(confirmation)
             if resp is not None:
                 return resp

@@ -1,4 +1,6 @@
-import requests, re, json
+import requests
+import re
+import json
 
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -17,9 +19,14 @@ class QQOAuth2Adapter(OAuth2Adapter):
     profile_url = 'https://graph.qq.com/user/get_user_info'
 
     def complete_login(self, request, app, token, **kwargs):
-        open_id_resp = requests.get(self.open_id_url, params={'access_token': token.token})
+        open_id_resp = requests.get(
+            self.open_id_url,
+            params={'access_token': token.token})
         try:
-            open_id_dict = json.loads(re.match(r'callback\( ({.*}) \);', open_id_resp.text).group(1))
+            open_id_dict = json.loads(
+                re.match(
+                    r'callback\( ({.*}) \);',
+                    open_id_resp.text).group(1))
         except Exception:
             open_id_dict = {"client_id": "client_id", "openid": "openid"}
         openid = open_id_dict.get('openid')
@@ -31,7 +38,9 @@ class QQOAuth2Adapter(OAuth2Adapter):
         extra_data = resp.json()
         # use the openid as uid
         extra_data['openid'] = openid
-        return self.get_provider().sociallogin_from_response(request, extra_data)
+        return self.get_provider().sociallogin_from_response(
+            request,
+            extra_data)
 
 
 oauth2_login = OAuth2LoginView.adapter_view(QQOAuth2Adapter)

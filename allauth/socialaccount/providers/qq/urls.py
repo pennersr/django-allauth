@@ -13,7 +13,7 @@ def qq_urlpatterns(provider):
     urlpatterns = [
         url(r'^login/$',
             login_view, name=provider.id + "_login"),
-        # need to remove the slash because of the QQ's strict rules of callback_url
+        # remove the slash because of the QQ's strict rules of callback_url
         url(r'^login/callback$',
             callback_view, name=provider.id + "_callback"),
     ]

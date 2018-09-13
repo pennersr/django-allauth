@@ -133,7 +133,7 @@ templates. Templates are named as follows::
     account/email/email_confirmation_signup_subject.txt
     account/email/email_confirmation_signup_message.txt
     
-    account/email/email_confirmation_signup_subject.txt
+    account/email/email_confirmation_subject.txt
     account/email/email_confirmation_message.txt
 
 In case you want to include an HTML representation, add an HTML

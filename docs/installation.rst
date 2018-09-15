@@ -41,6 +41,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         ...
         # The following apps are required:
         'django.contrib.auth',
+        'django.contrib.messages',
         'django.contrib.sites',
 
         'allauth',

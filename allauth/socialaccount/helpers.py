@@ -43,7 +43,7 @@ def _process_signup(request, sociallogin):
                 request,
                 "account/signup_closed." +
                 account_settings.TEMPLATE_EXTENSION)
-        get_adapter(request).save_user(request, sociallogin, form=None)
+        get_adapter(request).save_user(request, sociallogin)
         ret = complete_social_signup(request, sociallogin)
     return ret
 

@@ -23,7 +23,11 @@ class SignupForm(BaseSignupForm):
 
     def save(self, request):
         adapter = get_adapter(request)
-        user = adapter.save_user(request, self.sociallogin, **self.cleaned_data)
+        user = adapter.save_user(
+            request,
+            self.sociallogin,
+            **self.cleaned_data
+        )
         self.custom_signup(request, user)
         return user
 

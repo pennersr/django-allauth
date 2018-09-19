@@ -214,26 +214,25 @@ class DefaultAccountAdapter(object):
     def generate_unique_username(self, txts, regex=None):
         return generate_unique_username(txts, regex)
 
-    def save_user(self, request, user, form, commit=True):
+    def save_user(self, request, user, commit=True, **kwargs):
         """
         Saves a new `User` instance using information provided in the
         signup form.
         """
         from .utils import user_username, user_email, user_field
 
-        data = form.cleaned_data
-        first_name = data.get('first_name')
-        last_name = data.get('last_name')
-        email = data.get('email')
-        username = data.get('username')
+        first_name = kwargs.get('first_name')
+        last_name = kwargs.get('last_name')
+        email = kwargs.get('email')
+        username = kwargs.get('username')
         user_email(user, email)
         user_username(user, username)
         if first_name:
             user_field(user, 'first_name', first_name)
         if last_name:
             user_field(user, 'last_name', last_name)
-        if 'password1' in data:
-            user.set_password(data["password1"])
+        if 'password1' in kwargs:
+            user.set_password(kwargs["password1"])
         else:
             user.set_unusable_password()
         self.populate_username(request, user)

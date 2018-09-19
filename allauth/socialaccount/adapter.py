@@ -67,15 +67,15 @@ class DefaultSocialAccountAdapter(object):
         """
         return get_account_adapter().new_user(request)
 
-    def save_user(self, request, sociallogin, form=None):
+    def save_user(self, request, sociallogin, **kwargs):
         """
         Saves a newly signed up social login. In case of auto-signup,
         the signup form is not available.
         """
         u = sociallogin.user
         u.set_unusable_password()
-        if form:
-            get_account_adapter().save_user(request, u, form)
+        if kwargs:
+            get_account_adapter().save_user(request, u, **kwargs)
         else:
             get_account_adapter().populate_username(request, u)
         sociallogin.save(request)

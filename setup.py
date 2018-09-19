@@ -129,6 +129,8 @@ METADATA = dict(
     tests_require=test_requirements,
     install_requires=['Django >= 1.11',
                       openid_package,
+                      'graphene >= 2.1',
+                      'graphene-django >= 2.2',
                       'requests-oauthlib >= 0.3.0',
                       "requests"],
     include_package_data=True,

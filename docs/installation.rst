@@ -112,6 +112,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.twitter',
         'allauth.socialaccount.providers.untappd',
         'allauth.socialaccount.providers.vimeo',
+        'allauth.socialaccount.providers.vimeo_oauth2',
         'allauth.socialaccount.providers.vk',
         'allauth.socialaccount.providers.weibo',
         'allauth.socialaccount.providers.weixin',

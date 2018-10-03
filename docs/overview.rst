@@ -167,7 +167,7 @@ Supported Providers
 
 - Untappd (OAuth2)
 
-- Vimeo (OAuth)
+- Vimeo (OAuth, OAuth2)
 
 - VK (OAuth2)
 

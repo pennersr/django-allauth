@@ -4,9 +4,7 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 class BaiduAccount(ProviderAccount):
     def get_profile_url(self):
-        return (
-            'https://openapi.baidu.com'
-            '/rest/2.0/passport/users/getLoggedInUser')
+        return "http://www.baidu.com/p/" + self.account.extra_data.get('uname')
 
     def get_avatar_url(self):
         return (

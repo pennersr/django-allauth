@@ -1,6 +1,7 @@
 # Django settings for example project.
 import os
 
+
 PROJECT_ROOT = os.path.normpath(os.path.dirname(os.path.abspath(__file__)))
 
 DEBUG = True
@@ -152,6 +153,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.slack',
     'allauth.socialaccount.providers.soundcloud',
     'allauth.socialaccount.providers.stackexchange',
+    'allauth.socialaccount.providers.telegram',
     'allauth.socialaccount.providers.twitch',
     'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.vimeo',

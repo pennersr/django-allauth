@@ -44,6 +44,19 @@ Development callback URL
     http://localhost:8000/accounts/500px/login/callback/
 
 
+AgaveAPI
+--------
+
+Account Signup
+    https://public.agaveapi.co/create_account
+
+App registration
+    Run ``client-create`` from the cli: https://bitbucket.org/agaveapi/cli/overview
+
+Development callback URL
+    http://localhost:8000/accounts/agave/login/callback/
+    *May require https url, even for localhost*
+
 Amazon
 ------
 
@@ -178,9 +191,17 @@ Development callback URL
     http://localhost:8000/accounts/box/login/callback/
 
 
+CERN
+----
+App registration (get your key and secret here)
+    https://sso-management.web.cern.ch/OAuth/RegisterOAuthClient.aspx
+
+CERN OAuth2 Documentation
+    https://espace.cern.ch/authentication/CERN%20Authentication/OAuth.aspx
+
+
 Dataporten
 ----------
-
 App registration (get your key and secret here)
     https://docs.dataporten.no/docs/gettingstarted/
 
@@ -439,7 +460,7 @@ The following Facebook settings are available:
             'EXCHANGE_TOKEN': True,
             'LOCALE_FUNC': 'path.to.callable',
             'VERIFIED_EMAIL': False,
-            'VERSION': 'v2.5',
+            'VERSION': 'v2.12',
         }
     }
 
@@ -499,7 +520,7 @@ VERIFIED_EMAIL:
     risk.
 
 VERSION:
-    The Facebook Graph API version to use. The default is ``v2.5``.
+    The Facebook Graph API version to use. The default is ``v2.12``.
 
 App registration (get your key and secret here)
     A key and secret key can be obtained by
@@ -644,6 +665,32 @@ Example:
     }
 
 
+Globus
+------
+
+Registering an application:
+    https://developers.globus.org/
+
+By default, you will have access to the openid, profile, and offline_access
+scopes.  With the offline_access scope, the API will provide you with a
+refresh token.  For additional scopes, see the Globus API docs:
+    https://docs.globus.org/api/auth/reference/
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'globus': {
+            'SCOPE': [
+                'openid',
+                'profile',
+                'email',
+                'urn:globus:auth:scope:transfer.api.globus.org:all'
+            ]
+        }
+    }
+
+
+
 Google
 ------
 
@@ -708,6 +755,9 @@ Optionally, you can specify the scope to use as follows:
 By default, ``profile`` scope is required, and optionally ``email`` scope
 depending on whether or not ``SOCIALACCOUNT_QUERY_EMAIL`` is enabled.
 
+You must set ``AUTH_PARAMS['access_type']`` to ``offline`` in order to
+receive a refresh token on first login and on reauthentication requests.
+
 
 Instagram
 ---------
@@ -753,7 +803,8 @@ You can specify the scope and fields to fetch as follows:
     SOCIALACCOUNT_PROVIDERS = {
         'linkedin': {
             'SCOPE': [
-                'r_emailaddress',
+                'r_basicprofile',
+                'r_emailaddress'
             ],
             'PROFILE_FIELDS': [
                 'id',
@@ -780,6 +831,19 @@ using the same app. Attempting to do so resulted in a weird error message when
 fetching the access token::
 
     missing required parameters, includes an invalid parameter value, parameter more then once. : Unable to retrieve access token : authorization code not found
+
+If you are using tokens originating from the mobile SDK, you will need to specify
+additional headers:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'linkedin': {
+            'HEADERS': {
+                'x-li-src': 'msdk'
+            }
+        }
+    }
 
 App registration (get your key and secret here)
     https://www.linkedin.com/secure/developer?newapp=
@@ -1071,6 +1135,25 @@ SCOPE:
     For a full list of scope options, see
     https://developers.pinterest.com/docs/api/overview/#scopes
 
+QuickBooks
+------
+
+App registration (get your key and secret here)
+    https://developers.intuit.com/v2/ui#/app/startcreate
+
+Development callback URL
+    http://localhost:8000/accounts/quickbooks/login/callback/
+
+You can specify sandbox mode by adding the following to the SOCIALACCOUNT_PROVIDERS in your settings.
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'quickbooks': {
+            'SANDBOX': TRUE,
+        }
+    }
+
 
 Reddit
 ------
@@ -1101,6 +1184,10 @@ you will risk additional rate limiting in your application.
             'USER_AGENT': 'django:myappid:1.0 (by /u/yourredditname)',
         }
     }
+
+
+
+
 
 
 Salesforce
@@ -1328,6 +1415,18 @@ The configuration values come from your API dashboard on Untappd:
 * Client id: "Client ID" from Untappd
 * Secret key: "Client Secret" from Untappd
 * Sites: choose your site
+
+
+Telegram
+--------
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'telegram': {
+            'TOKEN': 'insert-token-received-from-botfather'
+        }
+    }
 
 
 Vimeo

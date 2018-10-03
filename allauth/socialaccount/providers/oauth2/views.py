@@ -91,7 +91,7 @@ class OAuth2View(object):
 
 
 class OAuth2LoginView(OAuth2View):
-    def dispatch(self, request):
+    def dispatch(self, request, *args, **kwargs):
         provider = self.adapter.get_provider()
         app = provider.get_app(self.request)
         client = self.get_client(request, app)
@@ -110,7 +110,7 @@ class OAuth2LoginView(OAuth2View):
 
 
 class OAuth2CallbackView(OAuth2View):
-    def dispatch(self, request):
+    def dispatch(self, request, *args, **kwargs):
         if 'error' in request.GET or 'code' not in request.GET:
             # Distinguish cancel from error
             auth_error = request.GET.get('error', None)

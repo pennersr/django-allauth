@@ -26,8 +26,8 @@ class Auth0OAuth2Adapter(OAuth2Adapter):
             'access_token': token.token
         }).json()
         extra_data = {
-            'user_id': extra_data['user_id'],
-            'id': extra_data['user_id'],
+            'user_id': extra_data['sub'],
+            'id': extra_data['sub'],
             'name': extra_data['name'],
             'email': extra_data['email']
         }

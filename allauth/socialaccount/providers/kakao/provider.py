@@ -31,12 +31,13 @@ class KakaoProvider(OAuth2Provider):
     def extract_email_addresses(self, data):
         ret = []
         email = data.get("kaccount_email")
-        verified = data.get("kaccount_email_verified")
-        # data["kaccount_email_verified"] imply the email address is
-        # verified
-        ret.append(EmailAddress(email=email,
-                                verified=verified,
-                                primary=True))
+        if email:
+            verified = data.get("kaccount_email_verified")
+            # data["kaccount_email_verified"] imply the email address is
+            # verified
+            ret.append(EmailAddress(email=email,
+                                    verified=verified,
+                                    primary=True))
         return ret
 
 

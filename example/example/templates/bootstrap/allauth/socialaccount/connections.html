@@ -16,7 +16,7 @@
 
 {% if form.non_field_errors %}
     <div class="alert alert-error">
-        <a class="close" data-dismiss="alert">&times;</a></a>
+        <a class="close" data-dismiss="alert">&times;</a>
         {% for non_field_error in form.non_field_errors %}
              {{ non_field_error }}
         {% endfor %}
@@ -57,8 +57,6 @@
 <div class="form-actions">
 <button class="btn btn-danger" type="submit">{% trans 'Remove' %}</button>
 </div>
-
-</fieldset>
 
 </form>
 

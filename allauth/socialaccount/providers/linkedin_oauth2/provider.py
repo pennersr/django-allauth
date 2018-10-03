@@ -1,5 +1,8 @@
 from allauth.socialaccount import app_settings
-from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.base import (
+    ProviderAccount,
+    ProviderException,
+)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -34,6 +37,11 @@ class LinkedInOAuth2Provider(OAuth2Provider):
     account_class = LinkedInOAuth2Account
 
     def extract_uid(self, data):
+        if 'id' not in data:
+            raise ProviderException(
+                'LinkedIn encountered an internal error while logging in. \
+                Please try again.'
+            )
         return str(data['id'])
 
     def get_profile_fields(self):
@@ -50,7 +58,7 @@ class LinkedInOAuth2Provider(OAuth2Provider):
         return fields
 
     def get_default_scope(self):
-        scope = []
+        scope = ['r_basicprofile']
         if app_settings.QUERY_EMAIL:
             scope.append('r_emailaddress')
         return scope

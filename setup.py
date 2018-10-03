@@ -127,7 +127,7 @@ METADATA = dict(
     keywords='django auth account social openid twitter facebook oauth'
     ' registration',
     tests_require=test_requirements,
-    install_requires=['Django >= 1.10',
+    install_requires=['Django >= 1.11',
                       openid_package,
                       'requests-oauthlib >= 0.3.0',
                       "requests"],
@@ -148,6 +148,7 @@ METADATA = dict(
         'Framework :: Django',
         'Framework :: Django :: 1.11',
         'Framework :: Django :: 2.0',
+        'Framework :: Django :: 2.1',
     ],
     packages=find_packages(exclude=['example']),
     package_data=package_data,

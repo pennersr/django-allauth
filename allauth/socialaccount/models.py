@@ -15,6 +15,7 @@ from allauth.account.utils import get_next_redirect_url, setup_user_email
 from allauth.utils import get_user_model
 
 from . import app_settings, providers
+from ..account import app_settings as account_settings
 from ..utils import get_request_param
 from .adapter import get_adapter
 from .fields import JSONField
@@ -102,7 +103,14 @@ class SocialAccount(models.Model):
     extra_data = JSONField(verbose_name=_('extra data'), default=dict)
 
     class Meta:
-        unique_together = ('provider', 'uid')
+        # using sites we might have 2 or more users for the same social
+        # account data. This works, but changing USE_SITES *will* change
+        # the database schema and require a migration to be created and
+        # applied
+        if account_settings.USE_SITES:
+            unique_together = ('user', 'provider', 'uid')
+        else:
+            unique_together = ('provider', 'uid')
         verbose_name = _('social account')
         verbose_name_plural = _('social accounts')
 
@@ -229,7 +237,9 @@ class SocialLogin(object):
         """
         assert not self.is_existing
         user = self.user
+        assert user.id, "SocialAccount is saving a new user from scratch"
         user.save()
+        assert user is self.user, "User.save() replaced the user object"
         self.account.user = user
         self.account.save()
         if app_settings.STORE_TOKENS and self.token:
@@ -254,8 +264,18 @@ class SocialLogin(object):
         """
         assert not self.is_existing
         try:
-            a = SocialAccount.objects.get(provider=self.account.provider,
-                                          uid=self.account.uid)
+            if not account_settings.USE_SITES:
+                a = SocialAccount.objects.get(provider=self.account.provider,
+                                              uid=self.account.uid)
+            else:
+                a = SocialAccount.objects.get(
+                    provider=self.account.provider,
+                    uid=self.account.uid,
+                    **{'user__' +
+                       account_settings.SITES_FIELD_NAME +
+                       '__exact': Site.objects.get_current()
+                      }
+                    )
             # Update account
             a.extra_data = self.account.extra_data
             self.account = a

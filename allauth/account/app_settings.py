@@ -22,7 +22,8 @@ class AppSettings(object):
                 self.AuthenticationMethod.EMAIL) or self.EMAIL_REQUIRED
         # If login includes email, login must be unique
         assert (self.AUTHENTICATION_METHOD ==
-                self.AuthenticationMethod.USERNAME) or self.UNIQUE_EMAIL
+                self.AuthenticationMethod.USERNAME) or self.UNIQUE_EMAIL or \
+                self.USE_SITES
         assert (self.EMAIL_VERIFICATION !=
                 self.EmailVerificationMethod.MANDATORY) \
             or self.EMAIL_REQUIRED
@@ -38,6 +39,23 @@ class AppSettings(object):
                          'ALLAUTH_SETTING_GETTER',
                          lambda name, dflt: getattr(settings, name, dflt))
         return getter(self.prefix + name, dflt)
+
+    @property
+    def USE_SITES(self):
+        """
+        Tell allauth that the user model a 'site' field pointing to a 
+        django.contrib.sites instance. This means the same user id
+        (either name or email) can be duplicated amongst different
+        sites
+        """
+        return self._setting("USE_SITES", False)
+
+    @property
+    def SITES_FIELD_NAME(self):
+        """
+        Name of the user model field that point to that user's site
+        """
+        return self._setting("SITES_FIELD_NAME", "site")
 
     @property
     def DEFAULT_HTTP_PROTOCOL(self):

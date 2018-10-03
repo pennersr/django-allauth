@@ -79,6 +79,7 @@ class DefaultSocialAccountAdapter(object):
         else:
             get_account_adapter().populate_username(request, u)
         sociallogin.save(request)
+        assert u is sociallogin.user, "user object can't be replaced"
         return u
 
     def populate_user(self,

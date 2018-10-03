@@ -16,6 +16,7 @@ from django.contrib.auth import (
 )
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.password_validation import validate_password
+from django.contrib.sites.models import Site
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.cache import cache
 from django.core.mail import EmailMessage, EmailMultiAlternatives
@@ -218,6 +219,27 @@ class DefaultAccountAdapter(object):
         """
         Saves a new `User` instance using information provided in the
         signup form.
+        WARNING NOTE
+        The original implementation fills up a User model instance that is
+        then saved to the database here. This is NOT how django user creation
+        is supposed to work, especially if user-defined User models with their
+        own Managers are used: the correct way is to call
+        get_user_model().objects.create_user() with the required parameters.
+        Since allauth relies on the user not being saved to the database until
+        here and since fixing this would require extensive changes that are
+        currently outside the scope of my work and more importantly outside
+        the scope of my knowledge of allauth, I'm simply using the existing
+        User model instance to get data to feed to create_user here.
+        WARNING
+        if you call this function with commit=False, it's your responsibility
+        to call create_user or do whatever else you need to make it work for
+        you
+        FIXME
+        Since different custom user models WILL have different fields, a more
+        generic approach about how to get the user's data from form/request
+        etc. is needed for a proper solution. In particular, extra fields that
+        aren't automaticall filled by the UserManager (like the current Site)
+        are to be extracted and passed to create_user()
         """
         from .utils import user_username, user_email, user_field
 
@@ -240,7 +262,20 @@ class DefaultAccountAdapter(object):
         if commit:
             # Ability not to commit makes it easier to derive from
             # this adapter by adding
-            user.save()
+            #HACK   since allauth created this user instance and it's using it
+            #       everywhere, but we NEED to callback create_user from its
+            #       UserModel, we copy the new_user data into the existing
+            #       object. In other words: we *CAN NOT* destroy/replace the
+            #       old user object because it would break everything
+            #FIXME: define a new app_setting for the account that lists the
+            #       fields to use
+            create_user_fields_args = ['email', 'password1']
+            create_user_fields_kwargs = []
+            new_user = get_user_model().objects.create_user(
+                getattr(user, create_user_fields_args[0], None),
+                getattr(user, create_user_fields_args[1], None)
+            )
+            user.__dict__.update(new_user.__dict__)
         return user
 
     def clean_username(self, username, shallow=False):

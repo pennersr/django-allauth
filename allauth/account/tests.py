@@ -12,6 +12,7 @@ from django.core import mail, validators
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.http import HttpResponseRedirect
+from django.template import Context, Template
 from django.test.client import Client, RequestFactory
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -1125,6 +1126,18 @@ class UtilsTests(TestCase):
         self.assertEqual(user_username(user), 'CamelCase')
         # TODO: Actually test something
         filter_users_by_username('camelcase', 'foobar')
+
+    def test_user_display(self):
+        user = get_user_model()(username='john<br/>doe')
+        expected_name = 'john&lt;br/&gt;doe'
+        templates = [
+            '{% load account %}{% user_display user %}',
+            '{% load account %}{% user_display user as x %}{{ x }}'
+        ]
+        for template in templates:
+            t = Template(template)
+            content = t.render(Context({'user': user}))
+            self.assertEqual(content, expected_name)
 
 
 class ConfirmationViewTests(TestCase):

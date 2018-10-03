@@ -1,10 +1,19 @@
-Upcoming
-********
+0.38.0 (2018-10-03)
+*******************
+
+Security notice
+---------------
+
+The ``{% user_display user %}`` tag did not escape properly. Depending on the
+username validation rules, this could lead to XSS issues.
+
 
 Note worthy changes
-------------------------------
+-------------------
 
-- New translation: Basque.
+- New provider: Vimeo (OAuth2).
+
+- New translations: Basque.
 
 
 0.37.1 (2018-08-27)

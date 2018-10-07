@@ -13,7 +13,7 @@ class KakaoOAuth2Adapter(OAuth2Adapter):
     provider_id = KakaoProvider.id
     access_token_url = 'https://kauth.kakao.com/oauth/token'
     authorize_url = 'https://kauth.kakao.com/oauth/authorize'
-    profile_url = 'https://kapi.kakao.com/v1/user/me'
+    profile_url = 'https://kapi.kakao.com/v2/user/me'
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {'Authorization': 'Bearer {0}'.format(token.token)}
@@ -25,3 +25,4 @@ class KakaoOAuth2Adapter(OAuth2Adapter):
 
 oauth2_login = OAuth2LoginView.adapter_view(KakaoOAuth2Adapter)
 oauth2_callback = OAuth2CallbackView.adapter_view(KakaoOAuth2Adapter)
+

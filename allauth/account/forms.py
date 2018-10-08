@@ -86,7 +86,19 @@ class SetPasswordField(PasswordField):
         return value
 
 
-class LoginForm(forms.Form):
+class AutoCompleteMixin(object):
+    def __init__(self, *args, **kwargs):
+        super(AutoCompleteMixin, self).__init__(*args, **kwargs)
+        for key in self.fields:
+            if key.lower() == "password":
+                self.fields[key].widget.attrs["autocomplete"] = "current-password"
+            if key.lower() in ("password1", "password2"):
+                self.fields[key].widget.attrs["autocomplete"] = "new-password"
+            if key.lower() in ("login", "username"):
+                self.fields[key].widget.attrs["autocomplete"] = "username"
+
+
+class LoginForm(AutoCompleteMixin, forms.Form):
 
     password = PasswordField(label=_("Password"))
     remember = forms.BooleanField(label=_("Remember Me"),
@@ -359,7 +371,7 @@ class BaseSignupForm(_base_signup_form_class()):
             custom_form.save(user)
 
 
-class SignupForm(BaseSignupForm):
+class SignupForm(AutoCompleteMixin, BaseSignupForm):
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)
         self.fields['password1'] = PasswordField(label=_("Password"))
@@ -415,7 +427,7 @@ class UserForm(forms.Form):
         super(UserForm, self).__init__(*args, **kwargs)
 
 
-class AddEmailForm(UserForm):
+class AddEmailForm(AutoCompleteMixin, UserForm):
 
     email = forms.EmailField(
         label=_("E-mail"),
@@ -451,7 +463,7 @@ class AddEmailForm(UserForm):
                                               confirm=True)
 
 
-class ChangePasswordForm(PasswordVerificationMixin, UserForm):
+class ChangePasswordForm(AutoCompleteMixin, PasswordVerificationMixin, UserForm):
 
     oldpassword = PasswordField(label=_("Current Password"))
     password1 = SetPasswordField(label=_("New Password"))
@@ -471,7 +483,7 @@ class ChangePasswordForm(PasswordVerificationMixin, UserForm):
         get_adapter().set_password(self.user, self.cleaned_data["password1"])
 
 
-class SetPasswordForm(PasswordVerificationMixin, UserForm):
+class SetPasswordForm(AutoCompleteMixin, PasswordVerificationMixin, UserForm):
 
     password1 = SetPasswordField(label=_("Password"))
     password2 = PasswordField(label=_("Password (again)"))
@@ -484,7 +496,7 @@ class SetPasswordForm(PasswordVerificationMixin, UserForm):
         get_adapter().set_password(self.user, self.cleaned_data["password1"])
 
 
-class ResetPasswordForm(forms.Form):
+class ResetPasswordForm(AutoCompleteMixin, forms.Form):
 
     email = forms.EmailField(
         label=_("E-mail"),
@@ -541,7 +553,7 @@ class ResetPasswordForm(forms.Form):
         return self.cleaned_data["email"]
 
 
-class ResetPasswordKeyForm(PasswordVerificationMixin, forms.Form):
+class ResetPasswordKeyForm(AutoCompleteMixin, PasswordVerificationMixin, forms.Form):
 
     password1 = SetPasswordField(label=_("New Password"))
     password2 = PasswordField(label=_("New Password (again)"))

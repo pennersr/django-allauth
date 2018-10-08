@@ -25,4 +25,3 @@ class KakaoOAuth2Adapter(OAuth2Adapter):
 
 oauth2_login = OAuth2LoginView.adapter_view(KakaoOAuth2Adapter)
 oauth2_callback = OAuth2CallbackView.adapter_view(KakaoOAuth2Adapter)
-

@@ -4,4 +4,3 @@ from .provider import KakaoProvider
 
 
 urlpatterns = default_urlpatterns(KakaoProvider)
-

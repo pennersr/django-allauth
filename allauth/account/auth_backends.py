@@ -47,7 +47,7 @@ class AuthenticationBackend(ModelBackend):
         # Even though allauth will pass along `email`, other apps may
         # not respect this setting. For example, when using
         # django-tastypie basic authentication, the login is always
-        # passed as `username`.  So let's place nice with other apps
+        # passed as `username`.  So let's play nice with other apps
         # and use username as fallback
         email = credentials.get('email', credentials.get('username'))
         if email:

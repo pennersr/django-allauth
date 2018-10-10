@@ -27,8 +27,8 @@ class AgaveProvider(OAuth2Provider):
         return dict(
             email=data.get('email'),
             username=data.get('username', ''),
-            name=(data.get('first_name', '') +
-                  ' ' + data.get('last_name', '')),
+            name=((data.get('first_name', '') + ' ' +
+                  data.get('last_name', '')).strip()),
         )
 
     def get_default_scope(self):

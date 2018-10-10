@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-27 05:00-0500\n"
-"PO-Revision-Date: 2016-12-05 10:43+0100\n"
+"POT-Creation-Date: 2018-10-03 19:15-0500\n"
+"PO-Revision-Date: 2018-10-04 02:18+0200\n"
 "Last-Translator: Adam Dobrawy <naczelnik@jawnosc.tk>\n"
 "Language-Team: \n"
 "Language: pl\n"
@@ -292,7 +292,7 @@ msgstr "Tokeny aplikacji społecznościowych"
 
 #: socialaccount/providers/douban/views.py:36
 msgid "Invalid profile data"
-msgstr ""
+msgstr "Nieprawidłowe dane profilu"
 
 #: socialaccount/providers/oauth/client.py:78
 #, python-format
@@ -390,15 +390,7 @@ msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Czy naprawdę chcesz usunąć wybrany adres e-mail?"
 
 #: templates/account/email/email_confirmation_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because user %(user_display)s at "
-#| "%(site_domain)s has given yours as an e-mail address to connect their "
-#| "account.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s\n"
+#, python-format
 msgid ""
 "Hello from %(site_name)s!\n"
 "\n"
@@ -407,12 +399,12 @@ msgid ""
 "\n"
 "To confirm this is correct, go to %(activate_url)s\n"
 msgstr ""
-"Witam w imieniu%(site_name)s!\n"
+"Witam w imieniu %(site_name)s!\n"
 "\n"
-"Otrzymujesz ten e-mail ,ponieważ użytkownik %(user_display)s na "
-"%(site_domain)s podał niniejszy adres e-mail, aby powiązać z swoim kontem.\n"
+"Otrzymujesz ten e-mail, ponieważ użytkownik %(user_display)s podał niniejszy "
+"adres e-mail, aby powiązać z swoim kontem.\n"
 "\n"
-"Jeżeli to prawda. Kliknij, aby go aktywować %(activate_url)s \n"
+"Aby to potwierdzić, kliknij w link %(activate_url)s \n"
 
 #: templates/account/email/email_confirmation_message.txt:7
 #, python-format
@@ -428,14 +420,7 @@ msgid "Please Confirm Your E-mail Address"
 msgstr "Proszę potwierdź adres e-mail"
 
 #: templates/account/email/password_reset_key_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account at %(site_domain)s.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
+#, python-format
 msgid ""
 "Hello from %(site_name)s!\n"
 "\n"
@@ -447,7 +432,7 @@ msgstr ""
 "Witam z %(site_name)s!\n"
 "\n"
 "Otrzymujesz tą wiadomość, ponieważ Ty lub ktoś inny zażądał zresetowania "
-"hasła do Twojego konta na stronie  %(site_domain)s.\n"
+"hasła do Twojego konta\n"
 "Niniejszą wiadomość możesz spokojnie zignorować, jeżeli nie żądałeś "
 "zresetowania hasła. Kliknij w link poniżej, aby zresetować hasło."
 

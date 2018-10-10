@@ -7,18 +7,30 @@ from .provider import KakaoProvider
 class KakaoTests(OAuth2TestsMixin, TestCase):
     provider_id = KakaoProvider.id
 
-    def get_mocked_response(self):
-        return MockedResponse(200, """
-{"id": 233652912,
-"kaccount_email": "insanejflow@example.com",
-"kaccount_email_verified": true,
-"properties":
-{
-"thumbnail_image":
-"http://mud-kage.kakao.co.kr/14/dn/btqegghHRjx/DbvFZTjNnQpsI8S6hh1cxK/o.jpg",
-"profile_image":
-"http://mud-kage.kakao.co.kr/14/dn/btqedGORigT/1TwogEZOBWnNkXolo5yVs1/o.jpg",
-"nickname": "\uc548\uc8fc\uc740"
-}
-}
-""")
+    kakao_data = """
+        {
+            "id": 123456789,
+            "properties": {
+                "nickname": "\uc9c0\uc724",
+                "thumbnail_image": "http://xxx.kakao.co.kr/.../aaa.jpg",
+                "profile_image": "http://xxx.kakao.co.kr/.../bbb.jpg"
+            },
+            "kakao_account": {
+                "has_email": true,
+                "is_email_valid": true,
+                "is_email_verified": true,
+                "email": "xxxxxxx@xxxxx.com",
+                "has_age_range": true,
+                "age_range": "20~29",
+                "has_birthday": true,
+                "birthday": "1130",
+                "has_gender": true,
+                "gender": "female"
+            }
+        }
+    """
+
+    def get_mocked_response(self, data=None):
+        if data is None:
+            data = self.kakao_data
+        return MockedResponse(200, data)

@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
 from openid.consumer import consumer
@@ -28,63 +29,102 @@ def _openid_consumer(request):
     return client
 
 
-def login(request):
-    if 'openid' in request.GET or request.method == 'POST':
-        form = LoginForm(
-            dict(list(request.GET.items()) + list(request.POST.items()))
-        )
+class OpenIDLoginView(View):
+    template_name = "openid/login.html"
+    form_class = LoginForm
+    provider = OpenIDProvider
+
+    def get(self, request):
+        form = self.get_form()
+        if not form.is_valid():
+            return render(request, self.template_name, {"form": form})
+
+        try:
+            return self.perform_openid_auth(form)
+        except (UnicodeDecodeError, DiscoveryFailure) as e:
+            # UnicodeDecodeError: necaris/python3-openid#1
+            return render_authentication_error(
+                request, self.provider.id, exception=e
+            )
+
+    def post(self, request):
+        form = self.get_form()
         if form.is_valid():
-            client = _openid_consumer(request)
-            provider = OpenIDProvider(request)
-            realm = provider.get_settings().get(
-                'REALM',
-                request.build_absolute_uri('/'))
             try:
-                auth_request = client.begin(form.cleaned_data['openid'])
-                if QUERY_EMAIL:
-                    sreg = SRegRequest()
-                    for name in SRegFields:
-                        sreg.requestField(field_name=name,
-                                          required=True)
-                    auth_request.addExtension(sreg)
-                    ax = FetchRequest()
-                    for name in AXAttributes:
-                        ax.add(AttrInfo(name,
-                                        required=True))
-                    provider = OpenIDProvider(request)
-                    server_settings = \
-                        provider.get_server_settings(request.GET.get('openid'))
-                    extra_attributes = \
-                        server_settings.get('extra_attributes', [])
-                    for _, name, required in extra_attributes:
-                        ax.add(AttrInfo(name,
-                                        required=required))
-                    auth_request.addExtension(ax)
-                callback_url = reverse(callback)
-                SocialLogin.stash_state(request)
-                # Fix for issues 1523 and 2072 (github django-allauth)
-                if 'next' in form.cleaned_data and form.cleaned_data['next']:
-                    auth_request.return_to_args['next'] = \
-                        form.cleaned_data['next']
-                redirect_url = auth_request.redirectURL(
-                    realm,
-                    request.build_absolute_uri(callback_url))
-                return HttpResponseRedirect(redirect_url)
-            # UnicodeDecodeError:
-            # see https://github.com/necaris/python3-openid/issues/1
+                return self.perform_openid_auth(form)
             except (UnicodeDecodeError, DiscoveryFailure) as e:
-                if request.method == 'POST':
-                    form._errors["openid"] = form.error_class([e])
-                else:
-                    return render_authentication_error(
-                        request,
-                        OpenIDProvider.id,
-                        exception=e)
-    else:
-        form = LoginForm(initial={'next': request.GET.get('next'),
-                                  'process': request.GET.get('process')})
-    d = dict(form=form)
-    return render(request, "openid/login.html", d)
+                form._errors["openid"] = form.error_class([e])
+
+        return render(request, self.template_name, {"form": form})
+
+    def get_form(self):
+        if self.request.method == "GET" and "openid" not in self.request.GET:
+            return self.form_class(initial={
+                "next": self.request.GET.get("next"),
+                "process": self.request.GET.get("process"),
+            })
+
+        return self.form_class(dict(
+            list(self.request.GET.items()) +
+            list(self.request.POST.items())
+        ))
+
+    def get_client(self):
+        return _openid_consumer(self.request)
+
+    def get_realm(self, provider):
+        return provider.get_settings().get(
+            "REALM",
+            self.request.build_absolute_uri("/")
+        )
+
+    def get_callback_url(self):
+        return reverse(callback)
+
+    def perform_openid_auth(self, form):
+        if not form.is_valid():
+            return form
+
+        request = self.request
+        client = self.get_client()
+        provider = self.provider(request)
+        realm = self.get_realm(provider)
+
+        auth_request = client.begin(form.cleaned_data['openid'])
+        if QUERY_EMAIL:
+            sreg = SRegRequest()
+            for name in SRegFields:
+                sreg.requestField(
+                    field_name=name, required=True
+                )
+            auth_request.addExtension(sreg)
+            ax = FetchRequest()
+            for name in AXAttributes:
+                ax.add(AttrInfo(name,
+                                required=True))
+            provider = OpenIDProvider(request)
+            server_settings = \
+                provider.get_server_settings(request.GET.get('openid'))
+            extra_attributes = \
+                server_settings.get('extra_attributes', [])
+            for _, name, required in extra_attributes:
+                ax.add(AttrInfo(name,
+                                required=required))
+            auth_request.addExtension(ax)
+
+        SocialLogin.stash_state(request)
+
+        # Fix for issues 1523 and 2072 (github django-allauth)
+        if "next" in form.cleaned_data and form.cleaned_data["next"]:
+            auth_request.return_to_args['next'] = \
+                form.cleaned_data['next']
+        redirect_url = auth_request.redirectURL(
+            realm,
+            request.build_absolute_uri(self.get_callback_url()))
+        return HttpResponseRedirect(redirect_url)
+
+
+login = OpenIDLoginView.as_view()
 
 
 @csrf_exempt

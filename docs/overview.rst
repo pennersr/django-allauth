@@ -153,6 +153,8 @@ Supported Providers
 
 - Stack Exchange (OAuth2)
 
+- Steam (OpenID)
+
 - Stripe (OAuth2)
 
 - Telegram

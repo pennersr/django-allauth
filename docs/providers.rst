@@ -1308,6 +1308,18 @@ Server Fault). This can be controlled by means of the ``SITE`` setting:
     }
 
 
+Steam
+-----
+
+Steam is an OpenID-compliant provider. However, the `steam` provider allows
+access to more of the user's details such as username, full name, avatar, etc.
+
+You need to register an API key here:
+    https://steamcommunity.com/dev/apikey
+
+Make sure to create a Steam SocialApp with that secret key.
+
+
 Stripe
 ------
 

@@ -1,3 +1,12 @@
+0.39.0 (Unreleased)
+*******************
+
+Note worthy changes
+-------------------
+
+- New provider: Steam (OpenID)
+
+
 0.38.0 (2018-10-03)
 *******************
 

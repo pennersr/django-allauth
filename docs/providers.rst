@@ -1307,6 +1307,18 @@ Server Fault). This can be controlled by means of the ``SITE`` setting:
         }
     }
 
+Strava
+-----
+
+App registration (get your key and secret here)
+    https://strava.com/settings/api
+
+Development callback URL (only the domain is required on strava.com/settings/api)
+    http://example.com/accounts/strava/login/callback/
+
+API documentation
+    https://developers.strava.com/docs/reference/
+
 
 Stripe
 ------

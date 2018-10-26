@@ -153,6 +153,8 @@ Supported Providers
 
 - Stack Exchange (OAuth2)
 
+- Strava (OAuth2)
+
 - Stripe (OAuth2)
 
 - Telegram

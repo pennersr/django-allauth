@@ -127,25 +127,47 @@ class OpenIDLoginView(View):
 login = OpenIDLoginView.as_view()
 
 
-@csrf_exempt
-def callback(request):
-    client = _openid_consumer(request)
-    response = client.complete(
-        dict(list(request.GET.items()) + list(request.POST.items())),
-        request.build_absolute_uri(request.path))
-    if response.status == consumer.SUCCESS:
-        login = providers.registry \
-            .by_id(OpenIDProvider.id, request) \
-            .sociallogin_from_response(request, response)
-        login.state = SocialLogin.unstash_state(request)
-        ret = complete_social_login(request, login)
-    else:
-        if response.status == consumer.CANCEL:
-            error = AuthError.CANCELLED
+class OpenIDCallbackView(View):
+    provider = OpenIDProvider
+
+    def get(self, request):
+        client = self.get_client()
+        response = self.get_openid_response(client)
+
+        if response.status == consumer.SUCCESS:
+            login = providers.registry \
+                .by_id(self.provider.id, request) \
+                .sociallogin_from_response(request, response)
+            login.state = SocialLogin.unstash_state(request)
+            return self.complete_login(login)
         else:
-            error = AuthError.UNKNOWN
-        ret = render_authentication_error(
-            request,
-            OpenIDProvider.id,
-            error=error)
-    return ret
+            if response.status == consumer.CANCEL:
+                error = AuthError.CANCELLED
+            else:
+                error = AuthError.UNKNOWN
+            return self.render_error(error)
+
+    post = get
+
+    def complete_login(self, login):
+        return complete_social_login(self.request, login)
+
+    def render_error(self, error):
+        return render_authentication_error(
+            self.request, self.provider.id, error=error
+        )
+
+    def get_client(self):
+        return _openid_consumer(self.request)
+
+    def get_openid_response(self, client):
+        return client.complete(
+            dict(
+                list(self.request.GET.items()) +
+                list(self.request.POST.items())
+            ),
+            self.request.build_absolute_uri(self.request.path)
+        )
+
+
+callback = csrf_exempt(OpenIDCallbackView.as_view())

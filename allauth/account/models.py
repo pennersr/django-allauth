@@ -3,27 +3,25 @@ from __future__ import unicode_literals
 import datetime
 
 from django.core import signing
-from django.db import models
-from django.db import transaction
-from django.utils.translation import ugettext_lazy as _
+from django.db import models, transaction
 from django.utils import timezone
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.crypto import get_random_string
+from django.utils.encoding import python_2_unicode_compatible
+from django.utils.translation import ugettext_lazy as _
 
+from . import app_settings, signals
 from .. import app_settings as allauth_app_settings
-from . import app_settings
-from . import signals
-
-from .utils import user_email
-from .managers import EmailAddressManager, EmailConfirmationManager
 from .adapter import get_adapter
+from .managers import EmailAddressManager, EmailConfirmationManager
+from .utils import user_email
 
 
 @python_2_unicode_compatible
 class EmailAddress(models.Model):
 
     user = models.ForeignKey(allauth_app_settings.USER_MODEL,
-                             verbose_name=_('user'))
+                             verbose_name=_('user'),
+                             on_delete=models.CASCADE)
     email = models.EmailField(unique=app_settings.UNIQUE_EMAIL,
                               max_length=app_settings.EMAIL_MAX_LENGTH,
                               verbose_name=_('e-mail address'))
@@ -66,12 +64,7 @@ class EmailAddress(models.Model):
         """
         Given a new email address, change self and re-confirm.
         """
-        try:
-            atomic_transaction = transaction.atomic
-        except AttributeError:
-            atomic_transaction = transaction.commit_on_success
-
-        with atomic_transaction():
+        with transaction.atomic():
             user_email(self.user, new_email)
             self.user.save()
             self.email = new_email
@@ -85,7 +78,8 @@ class EmailAddress(models.Model):
 class EmailConfirmation(models.Model):
 
     email_address = models.ForeignKey(EmailAddress,
-                                      verbose_name=_('e-mail address'))
+                                      verbose_name=_('e-mail address'),
+                                      on_delete=models.CASCADE)
     created = models.DateTimeField(verbose_name=_('created'),
                                    default=timezone.now)
     sent = models.DateTimeField(verbose_name=_('sent'), null=True)

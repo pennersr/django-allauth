@@ -1,50 +1,46 @@
 from __future__ import unicode_literals
 
+import hashlib
 import json
-import re
 import time
 import warnings
-import hashlib
 
 from django import forms
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import login as django_login, get_backends
-from django.contrib.auth import logout as django_logout, authenticate
+from django.contrib.auth import (
+    authenticate,
+    get_backends,
+    login as django_login,
+    logout as django_logout,
+)
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.password_validation import validate_password
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.cache import cache
-from django.core.mail import EmailMultiAlternatives, EmailMessage
-from django.core.urlresolvers import reverse
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
-from django.template.loader import render_to_string
+from django.core.mail import EmailMessage, EmailMultiAlternatives
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import resolve_url
 from django.template import TemplateDoesNotExist
+from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils import timezone
+from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 
-try:
-    from django.utils.encoding import force_text
-except ImportError:
-    from django.utils.encoding import force_unicode as force_text
-
-from ..compat import validate_password
-from ..utils import (build_absolute_uri, get_current_site,
-                     generate_unique_username,
-                     get_user_model, import_attribute,
-                     resolve_url, email_address_exists)
-
 from . import app_settings
+from ..utils import (
+    build_absolute_uri,
+    email_address_exists,
+    generate_unique_username,
+    get_user_model,
+    import_attribute,
+)
 
 
 class DefaultAccountAdapter(object):
 
-    # Don't bother turning this into a setting, as changing this also
-    # requires changing the accompanying form error message. So if you
-    # need to change any of this, simply override clean_username().
-    username_regex = re.compile(r'^[\w.@+-]+$')
     error_messages = {
-        'invalid_username':
-        _('Usernames can only contain letters, digits and @/./+/-/_.'),
         'username_blacklisted':
         _('Username can not be used. Please use other username.'),
         'username_taken':
@@ -146,7 +142,7 @@ class DefaultAccountAdapter(object):
         that URLs passed explicitly (e.g. by passing along a `next`
         GET parameter) take precedence over the value returned here.
         """
-        assert request.user.is_authenticated()
+        assert request.user.is_authenticated
         url = getattr(settings, "LOGIN_REDIRECT_URLNAME", None)
         if url:
             warnings.warn("LOGIN_REDIRECT_URLNAME is deprecated, simply"
@@ -169,7 +165,7 @@ class DefaultAccountAdapter(object):
         """
         The URL to return to after successful e-mail confirmation.
         """
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             if app_settings.EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL:
                 return  \
                     app_settings.EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL
@@ -252,9 +248,8 @@ class DefaultAccountAdapter(object):
         Validates the username. You can hook into this if you want to
         (dynamically) restrict what usernames can be chosen.
         """
-        if not self.username_regex.match(username):
-            raise forms.ValidationError(
-                self.error_messages['invalid_username'])
+        for validator in app_settings.USERNAME_VALIDATORS:
+            validator(username)
 
         # TODO: Add regexp support to USERNAME_BLACKLIST
         username_blacklist_lower = [ub.lower()
@@ -265,19 +260,21 @@ class DefaultAccountAdapter(object):
         # Skipping database lookups when shallow is True, needed for unique
         # username generation.
         if not shallow:
-            username_field = app_settings.USER_MODEL_USERNAME_FIELD
-            assert username_field
-            user_model = get_user_model()
-            try:
-                query = {username_field + '__iexact': username}
-                user_model.objects.get(**query)
-            except user_model.DoesNotExist:
-                return username
-            error_message = user_model._meta.get_field(
-                username_field).error_messages.get('unique')
-            if not error_message:
-                error_message = self.error_messages['username_taken']
-            raise forms.ValidationError(error_message)
+            from .utils import filter_users_by_username
+            if filter_users_by_username(username).exists():
+                user_model = get_user_model()
+                username_field = app_settings.USER_MODEL_USERNAME_FIELD
+                error_message = user_model._meta.get_field(
+                    username_field).error_messages.get('unique')
+                if not error_message:
+                    error_message = self.error_messages['username_taken']
+                raise forms.ValidationError(
+                    error_message,
+                    params={
+                        'model_name': user_model.__name__,
+                        'field_label': username_field,
+                    }
+                )
         return username
 
     def clean_email(self, email):
@@ -322,25 +319,56 @@ class DefaultAccountAdapter(object):
             except TemplateDoesNotExist:
                 pass
 
-    def ajax_response(self, request, response, redirect_to=None, form=None):
-        data = {}
+    def ajax_response(self, request, response, redirect_to=None, form=None,
+                      data=None):
+        resp = {}
         status = response.status_code
 
         if redirect_to:
             status = 200
-            data['location'] = redirect_to
+            resp['location'] = redirect_to
         if form:
-            if form.is_valid():
-                status = 200
+            if request.method == 'POST':
+                if form.is_valid():
+                    status = 200
+                else:
+                    status = 400
             else:
-                status = 400
-                data['form_errors'] = form._errors
+                status = 200
+            resp['form'] = self.ajax_response_form(form)
             if hasattr(response, 'render'):
                 response.render()
-            data['html'] = response.content.decode('utf8')
-        return HttpResponse(json.dumps(data),
+            resp['html'] = response.content.decode('utf8')
+        if data is not None:
+            resp['data'] = data
+        return HttpResponse(json.dumps(resp),
                             status=status,
                             content_type='application/json')
+
+    def ajax_response_form(self, form):
+        form_spec = {
+            'fields': {},
+            'field_order': [],
+            'errors': form.non_field_errors()
+        }
+        for field in form:
+            field_spec = {
+                'label': force_text(field.label),
+                'value': field.value(),
+                'help_text': force_text(field.help_text),
+                'errors': [
+                    force_text(e) for e in field.errors
+                ],
+                'widget': {
+                    'attrs': {
+                        k: force_text(v)
+                        for k, v in field.field.widget.attrs.items()
+                    }
+                }
+            }
+            form_spec['fields'][field.html_name] = field_spec
+            form_spec['field_order'].append(field.html_name)
+        return form_spec
 
     def login(self, request, user):
         # HACK: This is not nice. The proper Django way is to use an
@@ -348,13 +376,15 @@ class DefaultAccountAdapter(object):
         if not hasattr(user, 'backend'):
             from .auth_backends import AuthenticationBackend
             backends = get_backends()
-            for backend in backends:
-                if isinstance(backend, AuthenticationBackend):
+            backend = None
+            for b in backends:
+                if isinstance(b, AuthenticationBackend):
                     # prefer our own backend
+                    backend = b
                     break
-            else:
-                # Pick one
-                backend = backends[0]
+                elif not backend and hasattr(b, 'get_user'):
+                    # Pick the first vald one
+                    backend = b
             backend_path = '.'.join([backend.__module__,
                                      backend.__class__.__name__])
             user.backend = backend_path
@@ -383,7 +413,7 @@ class DefaultAccountAdapter(object):
 
     def is_safe_url(self, url):
         from django.utils.http import is_safe_url
-        return is_safe_url(url)
+        return is_safe_url(url, allowed_hosts=None)
 
     def get_email_confirmation_url(self, request, emailconfirmation):
         """Constructs the email confirmation (activation) url.
@@ -452,9 +482,14 @@ class DefaultAccountAdapter(object):
 
     def authenticate(self, request, **credentials):
         """Only authenticates, does not actually login. See `login`"""
+        from allauth.account.auth_backends import AuthenticationBackend
+
         self.pre_authenticate(request, **credentials)
-        user = authenticate(**credentials)
-        if user:
+        AuthenticationBackend.unstash_authenticated_user()
+        user = authenticate(request, **credentials)
+        alt_user = AuthenticationBackend.unstash_authenticated_user()
+        user = user or alt_user
+        if user and app_settings.LOGIN_ATTEMPTS_LIMIT:
             cache_key = self._get_login_attempts_cache_key(
                 request, **credentials)
             cache.delete(cache_key)
@@ -463,11 +498,17 @@ class DefaultAccountAdapter(object):
         return user
 
     def authentication_failed(self, request, **credentials):
-        cache_key = self._get_login_attempts_cache_key(request, **credentials)
-        data = cache.get(cache_key, [])
-        dt = timezone.now()
-        data.append(time.mktime(dt.timetuple()))
-        cache.set(cache_key, data, app_settings.LOGIN_ATTEMPTS_TIMEOUT)
+        if app_settings.LOGIN_ATTEMPTS_LIMIT:
+            cache_key = self._get_login_attempts_cache_key(
+                request, **credentials
+            )
+            data = cache.get(cache_key, [])
+            dt = timezone.now()
+            data.append(time.mktime(dt.timetuple()))
+            cache.set(cache_key, data, app_settings.LOGIN_ATTEMPTS_TIMEOUT)
+
+    def is_ajax(self, request):
+        return request.is_ajax()
 
 
 def get_adapter(request=None):

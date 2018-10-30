@@ -54,7 +54,7 @@ class FoursquareTests(OAuth2TestsMixin, TestCase):
    "checkins": {"count": 0, "items": []},
    "firstName": "\u03a1\u03c9\u03bc\u03b1\u03bd\u03cc\u03c2",
    "gender": "male",
-   "contact": {"email": "romdimtsouroplis@gmail.com"},
+   "contact": {"email": "romdimtsouroplis@example.com"},
    "lastName": "\u03a4\u03c3\u03bf\u03c5\u03c1\u03bf\u03c0\u03bb\u03ae\u03c2",
    "following": {"count": 0, "groups": [{"count": 0, "items": [],
 "type": "following", "name": "Mutual following"}, {"count": 0, "items": [],

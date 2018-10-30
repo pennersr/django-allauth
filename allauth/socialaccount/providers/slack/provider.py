@@ -1,4 +1,3 @@
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -29,8 +28,7 @@ class SlackProvider(OAuth2Provider):
                     email=data.get('user').get('email', None))
 
     def get_default_scope(self):
-        return ['identity.basic', 'identity.email',
-                'identity.avatar', 'identity.team']
+        return ['identify']
 
 
-providers.registry.register(SlackProvider)
+provider_classes = [SlackProvider]

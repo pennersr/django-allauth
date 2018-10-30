@@ -1,45 +1,70 @@
+# https://travis-ci.org/pennersr/django-allauth
 sudo: false
 language: python
-python:
- - "2.7"
- - "3.2"
- - "3.3"
- - "3.4"
- - "3.5"
+
+python: "3.6"
+
 env:
   matrix:
-   - DJANGO="Django<1.8"
-   - DJANGO="Django<1.9"
-   - DJANGO="Django<1.10"
-   - DJANGO="Django<1.11"
+   - TOXENV=py27-django111
+   - TOXENV=py34-django111
+   - TOXENV=py35-django111
+   - TOXENV=py36-django111
+   - TOXENV=py34-django20
+   - TOXENV=py35-django20
+   - TOXENV=py36-django20
+   - TOXENV=py35-django21
+   - TOXENV=py36-django21
+   - TOXENV=py36-djangomaster
+   - TOXENV=docs
+   - TOXENV=flake8
+   - TOXENV=standardjs
+
+matrix:
+  fast_finish: true
+  include:
+    - python: "3.5"
+      env: TOXENV=py35-django111
+    - python: "3.5"
+      env: TOXENV=py35-django20
+    - python: "3.5"
+      env: TOXENV=py35-django21
+  exclude:
+    - python: "3.6"
+      env: TOXENV=py35-django111
+    - python: "3.6"
+      env: TOXENV=py35-django20
+    - python: "3.6"
+      env: TOXENV=py35-django21
+  allow_failures:
+    - env: TOXENV=py36-djangomaster
+
 cache:
   directories:
     - $HOME/.cache/pip
+    - $TRAVIS_BUILD_DIR/.tox
+
 install:
- # pip >=8 dropped Python 3.2 support
- - pip install "pip<8.0.0" wheel
- - pip install "$DJANGO" "coverage==3.7.1" coveralls "mock>=1.0.1"
- - pip install .
- - pip install flake8
-matrix:
-  exclude:
-    - python: "3.5"
-      env: DJANGO="Django<1.8"
-    # Django 1.9+ no longer supports python 3.2/3.3
-    - python: "3.2"
-      env: DJANGO="Django<1.10"
-    - python: "3.3"
-      env: DJANGO="Django<1.10"
-    - python: "3.2"
-      env: DJANGO="Django<1.11"
-    - python: "3.3"
-      env: DJANGO="Django<1.11"
+  - if [[ $TOXENV == "standardjs" ]]; then nvm install 8; fi
+  - pip install --upgrade pip wheel setuptools
+  - pip install coveralls tox
+
+script:
+  - tox
+
+after_success:
+  - coveralls
+
 branches:
  only:
   - master
-script:
-  - flake8 --exclude=migrations,south_migrations allauth
-  - coverage run manage.py test allauth
-after_success:
-  - coverage report
-  - coveralls
+
+notifications:
+  webhooks:
+    urls:
+      - https://readthedocs.org/build/django-allauth
+    on_start: never
+    on_cancel: never
+    on_error: never
+    on_failure: never
+    on_success: always

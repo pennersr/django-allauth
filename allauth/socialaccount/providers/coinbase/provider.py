@@ -1,4 +1,3 @@
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -29,4 +28,5 @@ class CoinbaseProvider(OAuth2Provider):
         # See: https://coinbase.com/api/doc/1.0/users/index.html
         return dict(name=data['name'], email=data['email'])
 
-providers.registry.register(CoinbaseProvider)
+
+provider_classes = [CoinbaseProvider]

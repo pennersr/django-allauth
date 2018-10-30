@@ -1,4 +1,3 @@
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -32,4 +31,5 @@ class PinterestProvider(OAuth2Provider):
         return dict(first_name=data.get('data', {}).get('first_name'),
                     last_name=data.get('data', {}).get('last_name'))
 
-providers.registry.register(PinterestProvider)
+
+provider_classes = [PinterestProvider]

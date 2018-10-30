@@ -16,7 +16,7 @@ class LinkedInTests(OAuthTestsMixin, TestCase):
   <id>oKmTqN2ffc</id>
   <first-name>R@ymØnd</first-name>
   <last-name>Pènnèrs</last-name>
-  <email-address>raymond.penners@intenct.nl</email-address>
+  <email-address>raymond.penners@example.com</email-address>
   <picture-url>http://m.c.lnkd.licdn.com/mpr/mprx/0_e0hbvSLc8QWo3ggPeVKqvaFR860d342Pogq4vakwx8IJOyR1XJrwRmr5mIx9C0DxWpGMsW9Lb8EQ</picture-url>
   <public-profile-url>http://www.linkedin.com/in/intenct</public-profile-url>
 </person>

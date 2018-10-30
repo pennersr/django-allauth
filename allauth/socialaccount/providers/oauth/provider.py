@@ -1,11 +1,7 @@
-try:
-    from urllib.parse import parse_qsl
-except ImportError:
-    from urlparse import parse_qsl
-
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.http import urlencode
 
+from allauth.compat import parse_qsl
 from allauth.socialaccount.providers.base import Provider
 
 
@@ -19,7 +15,7 @@ class OAuthProvider(Provider):
 
     def get_auth_params(self, request, action):
         settings = self.get_settings()
-        ret = settings.get('AUTH_PARAMS', {})
+        ret = dict(settings.get('AUTH_PARAMS', {}))
         dynamic_auth_params = request.GET.get('auth_params', None)
         if dynamic_auth_params:
             ret.update(dict(parse_qsl(dynamic_auth_params)))

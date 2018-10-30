@@ -1,5 +1,7 @@
-from allauth.socialaccount import providers
-from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.base import (
+    ProviderAccount,
+    ProviderException,
+)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -23,11 +25,14 @@ class WeiboProvider(OAuth2Provider):
     account_class = WeiboAccount
 
     def extract_uid(self, data):
-        return data['idstr']
+        ret = data.get('idstr')
+        if not ret:
+            raise ProviderException("Missing 'idstr'")
+        return ret
 
     def extract_common_fields(self, data):
         return dict(username=data.get('screen_name'),
                     name=data.get('name'))
 
 
-providers.registry.register(WeiboProvider)
+provider_classes = [WeiboProvider]

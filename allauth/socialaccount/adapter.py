@@ -1,19 +1,22 @@
 from __future__ import absolute_import
 
-from django.utils.translation import ugettext_lazy as _
-from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
-
-from ..utils import (import_attribute,
-                     email_address_exists,
-                     valid_email_or_none)
-from ..account.utils import user_email, user_username, user_field
-from ..account.models import EmailAddress
-from ..account.adapter import get_adapter as get_account_adapter
-from ..account import app_settings as account_settings
-from ..account.app_settings import EmailVerificationMethod
+from django.urls import reverse
+from django.utils.translation import ugettext_lazy as _
 
 from . import app_settings
+from ..account import app_settings as account_settings
+from ..account.adapter import get_adapter as get_account_adapter
+from ..account.app_settings import EmailVerificationMethod
+from ..account.models import EmailAddress
+from ..account.utils import user_email, user_field, user_username
+from ..utils import (
+    deserialize_instance,
+    email_address_exists,
+    import_attribute,
+    serialize_instance,
+    valid_email_or_none,
+)
 
 
 class DefaultSocialAccountAdapter(object):
@@ -113,7 +116,7 @@ class DefaultSocialAccountAdapter(object):
         Returns the default URL to redirect to after successfully
         connecting a social account.
         """
-        assert request.user.is_authenticated()
+        assert request.user.is_authenticated
         url = reverse('socialaccount_connections')
         return url
 
@@ -180,6 +183,12 @@ class DefaultSocialAccountAdapter(object):
             'first_name': user_field(user, 'first_name') or '',
             'last_name': user_field(user, 'last_name') or ''}
         return initial
+
+    def deserialize_instance(self, model, data):
+        return deserialize_instance(model, data)
+
+    def serialize_instance(self, instance):
+        return serialize_instance(instance)
 
 
 def get_adapter(request=None):

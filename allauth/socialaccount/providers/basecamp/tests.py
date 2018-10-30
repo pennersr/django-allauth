@@ -15,7 +15,7 @@ class BasecampTests(OAuth2TestsMixin, TestCase):
                 "id": 9999999,
                 "first_name": "Jason Fried",
                 "last_name": "Jason Fried",
-                "email_address": "jason@basecamp.com"
+                "email_address": "jason@example.com"
             },
             "accounts": [
                 {

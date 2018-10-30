@@ -1,6 +1,7 @@
 # Django settings for example project.
 import os
 
+
 PROJECT_ROOT = os.path.normpath(os.path.dirname(os.path.abspath(__file__)))
 
 DEBUG = True
@@ -110,7 +111,7 @@ TEMPLATES = [
     },
 ]
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -139,6 +140,7 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.dropbox',
+    'allauth.socialaccount.providers.azure',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.evernote',
     'allauth.socialaccount.providers.google',
@@ -151,9 +153,11 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.slack',
     'allauth.socialaccount.providers.soundcloud',
     'allauth.socialaccount.providers.stackexchange',
+    'allauth.socialaccount.providers.telegram',
     'allauth.socialaccount.providers.twitch',
     'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.vimeo',
+    'allauth.socialaccount.providers.vimeo_oauth2',
     'allauth.socialaccount.providers.weibo',
     'allauth.socialaccount.providers.xing',
     'example.demo'

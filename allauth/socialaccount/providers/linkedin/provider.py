@@ -1,8 +1,6 @@
-from allauth.socialaccount import providers
+from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
-
-from allauth.socialaccount import app_settings
 
 
 class LinkedInAccount(ProviderAccount):
@@ -16,7 +14,7 @@ class LinkedInAccount(ProviderAccount):
                     'picture-url'):
                 return self.account.extra_data.get('picture-urls', {}).get(
                     'picture-url')
-        except:
+        except Exception:
             # if we can't get higher res for any reason, we'll just return the
             # low res
             pass
@@ -64,4 +62,4 @@ class LinkedInProvider(OAuthProvider):
                     last_name=data.get('last-name'))
 
 
-providers.registry.register(LinkedInProvider)
+provider_classes = [LinkedInProvider]

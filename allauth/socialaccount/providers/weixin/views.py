@@ -1,14 +1,17 @@
 import requests
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
-from allauth.utils import build_absolute_uri
 from allauth.account import app_settings
-from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
-                                                          OAuth2LoginView,
-                                                          OAuth2CallbackView)
-from .provider import WeixinProvider
+from allauth.socialaccount.providers.oauth2.views import (
+    OAuth2Adapter,
+    OAuth2CallbackView,
+    OAuth2LoginView,
+)
+from allauth.utils import build_absolute_uri
+
 from .client import WeixinOAuth2Client
+from .provider import WeixinProvider
 
 
 class WeixinOAuth2Adapter(OAuth2Adapter):
@@ -64,6 +67,7 @@ class WeixinOAuth2LoginView(WeixinOAuth2ClientMixin, OAuth2LoginView):
 
 class WeixinOAuth2CallbackView(WeixinOAuth2ClientMixin, OAuth2CallbackView):
     pass
+
 
 oauth2_login = WeixinOAuth2LoginView.adapter_view(WeixinOAuth2Adapter)
 oauth2_callback = WeixinOAuth2CallbackView.adapter_view(WeixinOAuth2Adapter)

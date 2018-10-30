@@ -1,40 +1,30 @@
+from collections import OrderedDict
 from datetime import timedelta
-try:
-    from django.utils.timezone import now
-except ImportError:
-    from datetime import datetime
-    now = datetime.now
 
-from django.contrib import messages
-from django.db import models
 from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.core.exceptions import FieldDoesNotExist, ValidationError
+from django.db import models
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.utils import six
+from django.utils.encoding import force_text
 from django.utils.http import urlencode
-from django.utils.http import int_to_base36, base36_to_int
-from django.core.exceptions import ValidationError
+from django.utils.timezone import now
 
-from allauth.compat import OrderedDict
+from allauth.compat import base36_to_int, int_to_base36
 
-try:
-    from django.contrib.auth import update_session_auth_hash
-except ImportError:
-    update_session_auth_hash = None
-
-try:
-    from django.utils.encoding import force_text
-except ImportError:
-    from django.utils.encoding import force_unicode as force_text
-
+from . import app_settings, signals
 from ..exceptions import ImmediateHttpResponse
-from ..utils import (import_callable, valid_email_or_none,
-                     get_user_model, get_request_param)
-
-from . import signals
-
-from .app_settings import EmailVerificationMethod
-from . import app_settings
+from ..utils import (
+    get_request_param,
+    get_user_model,
+    import_callable,
+    valid_email_or_none,
+)
 from .adapter import get_adapter
+from .app_settings import EmailVerificationMethod
 
 
 def get_next_redirect_url(request, redirect_field_name="next"):
@@ -61,6 +51,7 @@ def get_login_redirect_url(request, url=None, redirect_field_name="next"):
         get_adapter(request).get_login_redirect_url(request))
     return redirect_url
 
+
 _user_display_callable = None
 
 
@@ -68,8 +59,7 @@ def logout_on_password_change(request, user):
     # Since it is the default behavior of Django to invalidate all sessions on
     # password change, this function actually has to preserve the session when
     # logout isn't desired.
-    if (update_session_auth_hash is not None and
-            not app_settings.LOGOUT_ON_PASSWORD_CHANGE):
+    if not app_settings.LOGOUT_ON_PASSWORD_CHANGE:
         update_session_auth_hash(request, user)
 
 
@@ -93,20 +83,30 @@ def user_field(user, field, *args):
     """
     Gets or sets (optional) user model fields. No-op if fields do not exist.
     """
-    if field and hasattr(user, field):
-        if args:
-            # Setter
-            v = args[0]
-            if v:
-                User = get_user_model()
-                v = v[0:User._meta.get_field(field).max_length]
-            setattr(user, field, v)
-        else:
-            # Getter
-            return getattr(user, field)
+    if not field:
+        return
+    User = get_user_model()
+    try:
+        field_meta = User._meta.get_field(field)
+        max_length = field_meta.max_length
+    except FieldDoesNotExist:
+        if not hasattr(user, field):
+            return
+        max_length = None
+    if args:
+        # Setter
+        v = args[0]
+        if v:
+            v = v[0:max_length]
+        setattr(user, field, v)
+    else:
+        # Getter
+        return getattr(user, field)
 
 
 def user_username(user, *args):
+    if args and not app_settings.PRESERVE_USERNAME_CASING and args[0]:
+        args = [args[0].lower()]
     return user_field(user, app_settings.USER_MODEL_USERNAME_FIELD, *args)
 
 
@@ -251,7 +251,7 @@ def setup_user_email(request, user, addresses):
     """
     from .models import EmailAddress
 
-    assert EmailAddress.objects.filter(user=user).count() == 0
+    assert not EmailAddress.objects.filter(user=user).exists()
     priority_addresses = []
     # Is there a stashed e-mail?
     adapter = get_adapter(request)
@@ -289,11 +289,15 @@ def send_email_confirmation(request, user, signup=False):
 
     Especially in case of b), we want to limit the number of mails
     sent (consider a user retrying a few times), which is why there is
-    a cooldown period before sending a new mail.
+    a cooldown period before sending a new mail. This cooldown period
+    can be configured in ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN setting.
     """
     from .models import EmailAddress, EmailConfirmation
 
-    COOLDOWN_PERIOD = timedelta(minutes=3)
+    cooldown_period = timedelta(
+        seconds=app_settings.EMAIL_CONFIRMATION_COOLDOWN
+    )
+
     email = user_email(user)
     if email:
         try:
@@ -303,7 +307,7 @@ def send_email_confirmation(request, user, signup=False):
                     send_email = True
                 else:
                     send_email = not EmailConfirmation.objects.filter(
-                        sent__gt=now() - COOLDOWN_PERIOD,
+                        sent__gt=now() - cooldown_period,
                         email_address=email_address).exists()
                 if send_email:
                     email_address.send_confirmation(request,
@@ -352,6 +356,22 @@ def sync_user_email_addresses(user):
                                     verified=False)
 
 
+def filter_users_by_username(*username):
+    if app_settings.PRESERVE_USERNAME_CASING:
+        qlist = [
+            Q(**{app_settings.USER_MODEL_USERNAME_FIELD + '__iexact': u})
+            for u in username]
+        q = qlist[0]
+        for q2 in qlist[1:]:
+            q = q | q2
+        ret = get_user_model().objects.filter(q)
+    else:
+        ret = get_user_model().objects.filter(
+            **{app_settings.USER_MODEL_USERNAME_FIELD + '__in':
+               [u.lower() for u in username]})
+    return ret
+
+
 def filter_users_by_email(email):
     """Return list of users by email address
 
@@ -382,8 +402,7 @@ def user_pk_to_url_str(user):
     This should return a string.
     """
     User = get_user_model()
-    if (hasattr(models, 'UUIDField') and issubclass(
-            type(User._meta.pk), models.UUIDField)):
+    if issubclass(type(User._meta.pk), models.UUIDField):
         if isinstance(user.pk, six.string_types):
             return user.pk
         return user.pk.hex
@@ -398,13 +417,12 @@ def url_str_to_user_pk(s):
     User = get_user_model()
     # TODO: Ugh, isn't there a cleaner way to determine whether or not
     # the PK is a str-like field?
-    if getattr(User._meta.pk, 'rel', None):
-        pk_field = User._meta.pk.rel.to._meta.pk
+    if getattr(User._meta.pk, 'remote_field', None):
+        pk_field = User._meta.pk.remote_field.to._meta.pk
     else:
         pk_field = User._meta.pk
-    if (hasattr(models, 'UUIDField') and issubclass(
-            type(pk_field), models.UUIDField)):
-        return s
+    if issubclass(type(pk_field), models.UUIDField):
+        return pk_field.to_python(s)
     try:
         pk_field.to_python('a')
         pk = s

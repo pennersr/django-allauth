@@ -1,3 +1,281 @@
+0.38.0 (2018-10-03)
+*******************
+
+Security notice
+---------------
+
+The ``{% user_display user %}`` tag did not escape properly. Depending on the
+username validation rules, this could lead to XSS issues.
+
+
+Note worthy changes
+-------------------
+
+- New provider: Vimeo (OAuth2).
+
+- New translations: Basque.
+
+
+0.37.1 (2018-08-27)
+*******************
+
+Backwards incompatible changes
+------------------------------
+
+- Dropped the ``x-li-src: msdk`` headers from the ``linkedin_oauth2`` handshake.
+  This header is only required for mobile tokens, and breaks the regular flow.
+  Use the ``HEADERS`` setting to add this header if you need it.
+
+
+0.37.0 (2018-08-27)
+*******************
+
+Note worthy changes
+-------------------
+
+- The Battle.net login backend now recognizes ``apac`` as a valid region.
+
+- User model using a ``UUIDField`` as it's primary key can now be logged
+  in upon email confirmation (if using ``ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION``).
+
+- New providers: Agave, Cern, Disqus, Globus.
+
+- New translation: Danish.
+
+0.36.0 (2018-05-08)
+*******************
+
+Note worthy changes
+-------------------
+
+- New providers: Telegram, QuickBooks.
+
+- The Facebook API version now defaults to v2.12.
+
+- ORCID upgraded to use API v2.1.
+
+
+Security notice
+---------------
+
+- In previous versions, the authentication backend did not invoke the
+  ``user_can_authenticate()`` method, potentially allowing users with
+  ``is_active=False`` to authenticate when the allauth authentication backend
+  was used in a non allauth context.
+
+
+0.35.0 (2018-02-02)
+*******************
+
+Note worthy changes
+-------------------
+
+- Add support for Django 2.0
+
+Security notice
+---------------
+
+- As an extra security measure on top of what the standard Django password reset
+  token generator is already facilitating, allauth now adds the user email
+  address to the hash such that whenever the user's email address changes the
+  token is invalidated.
+
+Backwards incompatible changes
+------------------------------
+
+- Drop support for Django 1.8 and Django 1.10.
+
+
+Note worthy changes
+-------------------
+
+- New provider: Azure, Microsoft Graph, Salesforce, Yahoo.
+
+
+0.34.0 (2017-10-29)
+*******************
+
+Security notice
+---------------
+
+- The "Set Password" view did not properly check whether or not the user already
+  had a usable password set. This allowed an attacker to set the password
+  without providing the current password, but only in case the attacker already
+  gained control over the victim's session.
+
+
+Note worthy changes
+-------------------
+
+- New provider: Meetup.
+
+
+0.33.0 (2017-08-20)
+*******************
+
+Note worthy changes
+-------------------
+
+- Security: password reset tokens are now prevented from being leaked through
+  the password reset URL.
+
+- New providers: Patreon, Authentiq, Dataporten.
+
+- Dropbox has been upgraded to API V2.
+
+- New translation: Norwegian.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Dropped support for Django 1.9.
+
+
+0.32.0 (2017-04-27)
+*******************
+
+Note worthy changes
+-------------------
+
+- Improved AJAX support: the account management views (change/set password,
+  manage e-mail addresses and social connections) now support AJAX GET requests.
+  These views hand over all the required data for you to build your frontend
+  application upon.
+
+- New providers: Dwolla, Trello.
+
+- Shopify: support for per-user access mode.
+
+
+Backwards incompatible changes
+------------------------------
+
+- In previous versions, the views only responded with JSON responses when
+  issuing AJAX requests of type POST. Now, the views also respond in JSON when
+  making AJAX GET requests.
+
+- The structure of the response for AJAX requests has changed. Previously, it
+  contained a ``form_errors`` key containing all form validation errors, if any.
+  Now, it contains a ``form`` key that describes the complete form, including
+  the fields. Field specific errors are placed in
+  ``form.fields['some_field'].errors``, non-field errors in ``form.errors``.
+
+- The parameters passed to the Facebook JS SDK ``FB.init()`` method used to contain
+  ``cookie``, ``status``, and ``xfbml``, all set to ``true``. These parameters
+  are no longer explicitly passed. You can use the newly introduced ``INIT_PARAMS``
+  provider setting to provide your own values.
+
+
+
+0.31.0 (2017-02-28)
+*******************
+
+Note worthy changes
+-------------------
+
+- Added a new ``user_logged_out`` signal.
+
+- OpenId: Added support for requesting additional data.
+
+- New providers: Auth0, Box, Line, Naver, Kakao, Daum, MailChimp, Eventbrite.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Django 1.7 / Python 3.2 compatibility has been dropped.
+
+- Due to providers being registered in the same file as their definition
+  it was impossible to subclass a provider without having the parent be
+  registered. This has been addressed. If you have implemented a custom
+  provider, you will need to change
+  ``providers.registry.register(CustomProvider)``
+  into
+  ``provider_classes = [CustomProvider]``.
+
+
+0.30.0 (2017-01-01)
+*******************
+
+Note worthy changes
+-------------------
+
+- Changed the algorithm that generates unique usernames. Previously, in case the
+  provider did not hand over any information to base the username on, the
+  username "user" extended with an ever increasing numeric suffix would be
+  attempted until a free username was found. In case of a large number of
+  existing users, this could result in many queries being executed before a free
+  username would be found, potentially resulting in a denial of service. The new
+  algorithm uses a random suffix and only one query to determine the final
+  username.
+
+- Added a new setting: ``ACCOUNT_PRESERVE_USERNAME_CASING``. This setting
+  determines whether the username is stored in lowercase (``False``) or whether
+  its casing is to be preserved (``True``). Note that when casing is preserved,
+  potentially expensive ``__iexact`` lookups are performed when filter on
+  username. For now, the default is set to ``True`` to maintain backwards
+  compatibility.
+
+- The OAuth2Adapter class has gained a ``get_callback_url`` method for when
+  customizing the callback URL is desired.
+
+- The Battle.net login backend now accepts the ``region`` GET parameter.
+
+- New providers: 500px, Discord.
+
+
+Backwards incompatible changes
+------------------------------
+
+- In previous versions, the ``DefaultAccountAdapter`` contained a
+  ``username_regex`` property and accompanying
+  ``error_messages['invalid_username']`` validation error message. These have
+  been removed in favor of using the regex validation already defined at the
+  user model level. Alternatively, you can use the newly introduced
+  ``ACCOUNT_USERNAME_VALIDATORS`` setting.
+
+- The Battle.net backend no longer overrides username regex validation. In
+  order to use battletags as usernames, you are expected to override either
+  the ``username`` field on your User model, or to pass a custom validator
+  which will accept the ``#`` character using the new
+  ``ACCOUNT_USERNAME_VALIDATORS`` setting. Such a validator is available in
+  ``socialaccount.providers.battlenet.validators.BattletagUsernameValidator``.
+
+
+0.29.0 (2016-11-21)
+*******************
+
+Note worthy changes
+-------------------
+
+- Addressed Django 1.10 deprecation warnings.
+
+
+0.28.0 (2016-10-13)
+*******************
+
+Security notice
+---------------
+
+- Previous versions contained a vulnerability allowing an attacker to alter the
+  provider specific settings for ``SCOPE`` and/or ``AUTH_PARAMS`` (part of the
+  larger ``SOCIALACCOUNT_PROVIDERS`` setting). The changes would persist across
+  subsequent requests for all users, provided these settings were explicitly set
+  within your project. These settings translate directly into request
+  parameters, giving the attacker undesirable control over the OAuth(2)
+  handshake. You are not affected if you did not explicitly configure these
+  settings. Thanks to Ryan Kelly for reporting!
+
+
+Note worthy changes
+-------------------
+
+- New providers: Doximity.
+
+- New translations: Korean.
+
+
 0.27.0 (2016-08-18)
 *******************
 
@@ -826,7 +1104,7 @@ Backwards incompatible changes
   social login to existing accounts. The symptom is you end up with
   users who have multiple primary email addresses which conflicts
   with assumptions made by the code. In addition to fixing the code
-  that allowed duplicates to occur, there is a managegement command
+  that allowed duplicates to occur, there is a management command
   you can run if you think this effects you (and if it doesn't effect
   you there is no harm in running it anyways if you are unsure):
 

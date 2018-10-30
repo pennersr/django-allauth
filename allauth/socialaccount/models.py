@@ -1,27 +1,23 @@
 from __future__ import absolute_import
 
-from django.core.exceptions import PermissionDenied
-from django.db import models
 from django.contrib.auth import authenticate
 from django.contrib.sites.models import Site
-from django.utils.encoding import python_2_unicode_compatible
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.exceptions import PermissionDenied
+from django.db import models
 from django.utils.crypto import get_random_string
+from django.utils.encoding import force_text, python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
-try:
-    from django.utils.encoding import force_text
-except ImportError:
-    from django.utils.encoding import force_unicode as force_text
 
 import allauth.app_settings
 from allauth.account.models import EmailAddress
 from allauth.account.utils import get_next_redirect_url, setup_user_email
-from allauth.utils import (get_user_model, get_current_site,
-                           serialize_instance, deserialize_instance)
+from allauth.utils import get_user_model
 
-from . import app_settings
-from . import providers
-from .fields import JSONField
+from . import app_settings, providers
 from ..utils import get_request_param
+from .adapter import get_adapter
+from .fields import JSONField
 
 
 class SocialAppManager(models.Manager):
@@ -76,7 +72,8 @@ class SocialApp(models.Model):
 
 @python_2_unicode_compatible
 class SocialAccount(models.Model):
-    user = models.ForeignKey(allauth.app_settings.USER_MODEL)
+    user = models.ForeignKey(allauth.app_settings.USER_MODEL,
+                             on_delete=models.CASCADE)
     provider = models.CharField(verbose_name=_('provider'),
                                 max_length=30,
                                 choices=providers.registry.as_choices())
@@ -130,8 +127,8 @@ class SocialAccount(models.Model):
 
 @python_2_unicode_compatible
 class SocialToken(models.Model):
-    app = models.ForeignKey(SocialApp)
-    account = models.ForeignKey(SocialAccount)
+    app = models.ForeignKey(SocialApp, on_delete=models.CASCADE)
+    account = models.ForeignKey(SocialAccount, on_delete=models.CASCADE)
     token = models.TextField(
         verbose_name=_('token'),
         help_text=_(
@@ -194,6 +191,7 @@ class SocialLogin(object):
         self.save(request, connect=True)
 
     def serialize(self):
+        serialize_instance = get_adapter().serialize_instance
         ret = dict(account=serialize_instance(self.account),
                    user=serialize_instance(self.user),
                    state=self.state,
@@ -205,6 +203,7 @@ class SocialLogin(object):
 
     @classmethod
     def deserialize(cls, data):
+        deserialize_instance = get_adapter().deserialize_instance
         account = deserialize_instance(SocialAccount, data['account'])
         user = deserialize_instance(get_user_model(), data['user'])
         if 'token' in data:

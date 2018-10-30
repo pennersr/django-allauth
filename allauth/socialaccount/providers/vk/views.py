@@ -1,8 +1,10 @@
 import requests
 
-from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
-                                                          OAuth2LoginView,
-                                                          OAuth2CallbackView)
+from allauth.socialaccount.providers.oauth2.views import (
+    OAuth2Adapter,
+    OAuth2CallbackView,
+    OAuth2LoginView,
+)
 
 from .provider import VKProvider
 
@@ -19,6 +21,7 @@ USER_FIELDS = ['first_name',
                'photo',
                'photo_medium',
                'photo_big',
+               'photo_max_orig',
                'has_mobile',
                'contacts',
                'education',
@@ -37,11 +40,16 @@ class VKOAuth2Adapter(OAuth2Adapter):
     profile_url = 'https://api.vk.com/method/users.get'
 
     def complete_login(self, request, app, token, **kwargs):
-        uid = kwargs['response']['user_id']
+        uid = kwargs['response'].get('user_id')
+        params = {
+            'v': '3.0',
+            'access_token': token.token,
+            'fields': ','.join(USER_FIELDS),
+        }
+        if uid:
+            params['user_ids'] = uid
         resp = requests.get(self.profile_url,
-                            params={'access_token': token.token,
-                                    'fields': ','.join(USER_FIELDS),
-                                    'user_ids': uid})
+                            params=params)
         resp.raise_for_status()
         extra_data = resp.json()['response'][0]
         email = kwargs['response'].get('email')

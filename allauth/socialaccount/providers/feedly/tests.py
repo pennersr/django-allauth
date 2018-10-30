@@ -11,7 +11,7 @@ class FeedlyTests(OAuth2TestsMixin, TestCase):
         return MockedResponse(200, """
 {
   "id": "c805fcbf-3acf-4302-a97e-d82f9d7c897f",
-  "email": "jim.smith@gmail.com",
+  "email": "jim.smith@example.com",
   "givenName": "Jim",
   "familyName": "Smith",
   "picture": "https://www.google.com/profile_images/1771656873/bigger.jpg",

@@ -10,12 +10,12 @@ Contents
    :maxdepth: 2
 
    overview
-   showcase
    installation
    configuration
    providers
    signals
    views
+   forms
    templates
    decorators
    advanced

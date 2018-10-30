@@ -1,7 +1,9 @@
-from allauth.socialaccount import providers
-from allauth.socialaccount.providers.base import ProviderAccount
-from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 from allauth.socialaccount import app_settings
+from allauth.socialaccount.providers.base import (
+    ProviderAccount,
+    ProviderException,
+)
+from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class LinkedInOAuth2Account(ProviderAccount):
@@ -12,7 +14,7 @@ class LinkedInOAuth2Account(ProviderAccount):
         # try to return the higher res picture-urls::(original) first
         try:
             return self.account.extra_data['pictureUrls']['values'][0]
-        except:
+        except Exception:
             # if we can't get higher res for any reason, we'll just return the
             # low res
             pass
@@ -35,6 +37,11 @@ class LinkedInOAuth2Provider(OAuth2Provider):
     account_class = LinkedInOAuth2Account
 
     def extract_uid(self, data):
+        if 'id' not in data:
+            raise ProviderException(
+                'LinkedIn encountered an internal error while logging in. \
+                Please try again.'
+            )
         return str(data['id'])
 
     def get_profile_fields(self):
@@ -51,7 +58,7 @@ class LinkedInOAuth2Provider(OAuth2Provider):
         return fields
 
     def get_default_scope(self):
-        scope = []
+        scope = ['r_basicprofile']
         if app_settings.QUERY_EMAIL:
             scope.append('r_emailaddress')
         return scope
@@ -62,4 +69,4 @@ class LinkedInOAuth2Provider(OAuth2Provider):
                     last_name=data.get('lastName'))
 
 
-providers.registry.register(LinkedInOAuth2Provider)
+provider_classes = [LinkedInOAuth2Provider]

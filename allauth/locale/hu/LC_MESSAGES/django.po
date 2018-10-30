@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-25 08:20-0500\n"
+"POT-Creation-Date: 2018-08-27 05:00-0500\n"
 "PO-Revision-Date: 2015-05-08 22:42+0100\n"
 "Last-Translator: Tamás Makó <tom@greenplug.hu>\n"
 "Language-Team: \n"
@@ -17,190 +17,178 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.7.6\n"
 
-#: account/adapter.py:47
-msgid "Usernames can only contain letters, digits and @/./+/-/_."
-msgstr ""
-"A felhasználói azonosítók csak betűket, számokat és a @/./+/-/_ karaktereket "
-"tartalmazhatnak."
-
-#: account/adapter.py:49
+#: account/adapter.py:45
 msgid "Username can not be used. Please use other username."
 msgstr "Ez a felhasználói azonosító nem használható. Kérlek válassz másikat!"
 
-#: account/adapter.py:53
+#: account/adapter.py:49
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 
-#: account/adapter.py:296
+#: account/adapter.py:51
+msgid "A user is already registered with this e-mail address."
+msgstr "Egy felhasználó már regisztrált ezzel az email címmel."
+
+#: account/adapter.py:294
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "A jelszónak minimum {0} hosszúnak kell lennnie."
 
-#: account/apps.py:8
+#: account/apps.py:7
 msgid "Accounts"
 msgstr "Felhasználók"
 
-#: account/forms.py:39 account/forms.py:369
+#: account/forms.py:61 account/forms.py:398
 msgid "You must type the same password each time."
 msgstr "Ugyanazt a jelszót kell megadni mindannyiszor."
 
-#: account/forms.py:69 account/forms.py:338 account/forms.py:449
+#: account/forms.py:91 account/forms.py:365 account/forms.py:476
 msgid "Password"
 msgstr "Jelszó"
 
-#: account/forms.py:70
+#: account/forms.py:92
 msgid "Remember Me"
 msgstr "Emlékezz rám"
 
-#: account/forms.py:76
+#: account/forms.py:98
 msgid "This account is currently inactive."
 msgstr "A felhasználó jelenleg nem aktív."
 
-#: account/forms.py:79
+#: account/forms.py:101
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "A megadott email vagy a jelszó hibás."
 
-#: account/forms.py:82
+#: account/forms.py:104
 msgid "The username and/or password you specified are not correct."
 msgstr "A megadott felhasználó vagy a jelszó hibás."
 
-#: account/forms.py:85
-msgid "The login and/or password you specified are not correct."
-msgstr "A megadott bejelentkezési azonosító vagy a jelszó hibás."
-
-#: account/forms.py:94 account/forms.py:236 account/forms.py:260
-#: account/forms.py:399 account/forms.py:468
+#: account/forms.py:113 account/forms.py:268 account/forms.py:426
+#: account/forms.py:495
 msgid "E-mail address"
 msgstr "Email"
 
-#: account/forms.py:96 account/forms.py:276 account/forms.py:394
-#: account/forms.py:463
+#: account/forms.py:115 account/forms.py:301 account/forms.py:421
+#: account/forms.py:490
 msgid "E-mail"
 msgstr "Email"
 
-#: account/forms.py:101 account/forms.py:104 account/forms.py:228
-#: account/forms.py:232
+#: account/forms.py:120 account/forms.py:123 account/forms.py:260
+#: account/forms.py:264
 msgid "Username"
 msgstr "Felhasználó azonosító"
 
-#: account/forms.py:111
+#: account/forms.py:130
 msgid "Username or e-mail"
 msgstr "Felhasználó azonosító vagy email"
 
-#: account/forms.py:114
+#: account/forms.py:133
 msgctxt "field label"
 msgid "Login"
 msgstr "Bejelentkezés"
 
-#: account/forms.py:268
+#: account/forms.py:292
+#, fuzzy
+#| msgid "E-mail (optional)"
+msgid "E-mail (again)"
+msgstr "Email (nem kötelező)"
+
+#: account/forms.py:296
 #, fuzzy
 #| msgid "E-mail address"
 msgid "E-mail address confirmation"
 msgstr "Email"
 
-#: account/forms.py:279
+#: account/forms.py:304
 msgid "E-mail (optional)"
 msgstr "Email (nem kötelező)"
 
-#: account/forms.py:319
+#: account/forms.py:345
 #, fuzzy
 #| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
 msgstr "Ugyanazt a jelszót kell megadni mindannyiszor."
 
-#: account/forms.py:339 account/forms.py:450
+#: account/forms.py:368 account/forms.py:477
 msgid "Password (again)"
 msgstr "Jelszó (ismét)"
 
-#: account/forms.py:405
+#: account/forms.py:432
 msgid "This e-mail address is already associated with this account."
 msgstr "Ez az email cím már hozzá van rendelve ehhez a felhasználóhoz."
 
-#: account/forms.py:407
+#: account/forms.py:434
 msgid "This e-mail address is already associated with another account."
 msgstr "Ez az email cím már hozzá van rendelve egy másik felhasználóhoz."
 
-#: account/forms.py:429
+#: account/forms.py:456
 msgid "Current Password"
 msgstr "Jelenlegi jelszó"
 
-#: account/forms.py:430 account/forms.py:525
+#: account/forms.py:457 account/forms.py:546
 msgid "New Password"
 msgstr "Új jelszó"
 
-#: account/forms.py:431 account/forms.py:526
+#: account/forms.py:458 account/forms.py:547
 msgid "New Password (again)"
 msgstr "Új jelszó (ismét)"
 
-#: account/forms.py:439
+#: account/forms.py:466
 msgid "Please type your current password."
 msgstr "Kérlek add meg az aktuális jelszavadat!"
 
-#: account/forms.py:477
+#: account/forms.py:504
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Az email cím nincs hozzárendelve egyetlen felhasználóhoz sem"
 
-#: account/forms.py:547
+#: account/forms.py:568
 msgid "The password reset token was invalid."
 msgstr ""
 
-#: account/models.py:26
+#: account/models.py:23
 msgid "user"
 msgstr ""
 
-#: account/models.py:29 account/models.py:88
+#: account/models.py:27 account/models.py:81
 msgid "e-mail address"
 msgstr ""
 
-#: account/models.py:30
+#: account/models.py:28
 msgid "verified"
 msgstr ""
 
-#: account/models.py:31
+#: account/models.py:29
 msgid "primary"
 msgstr ""
 
-#: account/models.py:36
+#: account/models.py:34
 msgid "email address"
 msgstr ""
 
-#: account/models.py:37
+#: account/models.py:35
 msgid "email addresses"
 msgstr ""
 
-#: account/models.py:89
+#: account/models.py:83
 msgid "created"
 msgstr ""
 
-#: account/models.py:91
+#: account/models.py:85
 msgid "sent"
 msgstr ""
 
-#: account/models.py:92 socialaccount/models.py:59
+#: account/models.py:86 socialaccount/models.py:55
 msgid "key"
 msgstr ""
 
-#: account/models.py:97
+#: account/models.py:91
 msgid "email confirmation"
 msgstr ""
 
-#: account/models.py:98
+#: account/models.py:92
 msgid "email confirmations"
 msgstr ""
 
-#: socialaccount/adapter.py:121
-msgid "Your account has no password set up."
-msgstr "A felhasználódnak nincs beállított jelszava."
-
-#: socialaccount/adapter.py:128
-msgid "Your account has no verified e-mail address."
-msgstr "A felhasználódnak nincs ellenőrzött email címe."
-
-#: socialaccount/apps.py:8
-msgid "Social Accounts"
-msgstr "Közösségi Felhasználók"
-
-#: socialaccount/forms.py:41
+#: socialaccount/adapter.py:26
 #, python-format
 msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
@@ -209,115 +197,131 @@ msgstr ""
 "Ezzel az email címmel már létezik egy felhasználó . Először jelentkezz be, "
 "majd kapcsold össze a(z) %s felhasználóval."
 
-#: socialaccount/models.py:47 socialaccount/models.py:80
+#: socialaccount/adapter.py:131
+msgid "Your account has no password set up."
+msgstr "A felhasználódnak nincs beállított jelszava."
+
+#: socialaccount/adapter.py:138
+msgid "Your account has no verified e-mail address."
+msgstr "A felhasználódnak nincs ellenőrzött email címe."
+
+#: socialaccount/apps.py:7
+msgid "Social Accounts"
+msgstr "Közösségi Felhasználók"
+
+#: socialaccount/models.py:43 socialaccount/models.py:77
 msgid "provider"
 msgstr ""
 
-#: socialaccount/models.py:50
+#: socialaccount/models.py:46
 msgid "name"
 msgstr ""
 
-#: socialaccount/models.py:52
+#: socialaccount/models.py:48
 msgid "client id"
 msgstr ""
 
-#: socialaccount/models.py:54
+#: socialaccount/models.py:50
 msgid "App ID, or consumer key"
 msgstr ""
 
-#: socialaccount/models.py:55
+#: socialaccount/models.py:51
 msgid "secret key"
 msgstr ""
 
-#: socialaccount/models.py:57
+#: socialaccount/models.py:53
 msgid "API secret, client secret, or consumer secret"
 msgstr ""
 
-#: socialaccount/models.py:62
+#: socialaccount/models.py:58
 msgid "Key"
 msgstr ""
 
-#: socialaccount/models.py:70
+#: socialaccount/models.py:66
 msgid "social application"
 msgstr ""
 
-#: socialaccount/models.py:71
+#: socialaccount/models.py:67
 msgid "social applications"
 msgstr ""
 
-#: socialaccount/models.py:99
+#: socialaccount/models.py:96
 msgid "uid"
 msgstr ""
 
-#: socialaccount/models.py:101
+#: socialaccount/models.py:98
 msgid "last login"
 msgstr ""
 
-#: socialaccount/models.py:103
+#: socialaccount/models.py:100
 msgid "date joined"
 msgstr ""
 
-#: socialaccount/models.py:105
+#: socialaccount/models.py:102
 msgid "extra data"
 msgstr ""
 
-#: socialaccount/models.py:109
+#: socialaccount/models.py:106
 msgid "social account"
 msgstr ""
 
-#: socialaccount/models.py:110
+#: socialaccount/models.py:107
 msgid "social accounts"
 msgstr ""
 
-#: socialaccount/models.py:136
+#: socialaccount/models.py:133
 msgid "token"
 msgstr ""
 
-#: socialaccount/models.py:138
+#: socialaccount/models.py:135
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:141
+#: socialaccount/models.py:138
 msgid "token secret"
 msgstr ""
 
-#: socialaccount/models.py:143
+#: socialaccount/models.py:140
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:145
+#: socialaccount/models.py:142
 msgid "expires at"
 msgstr ""
 
-#: socialaccount/models.py:149
+#: socialaccount/models.py:146
 msgid "social application token"
 msgstr ""
 
-#: socialaccount/models.py:150
+#: socialaccount/models.py:147
 msgid "social application tokens"
 msgstr ""
 
-#: socialaccount/providers/oauth/client.py:77
+#: socialaccount/providers/douban/views.py:36
+msgid "Invalid profile data"
+msgstr ""
+
+#: socialaccount/providers/oauth/client.py:78
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr ""
 
-#: socialaccount/providers/oauth/client.py:108
+#: socialaccount/providers/oauth/client.py:109
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr ""
 
-#: socialaccount/providers/oauth/client.py:127
+#: socialaccount/providers/oauth/client.py:128
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr ""
 
-#: socialaccount/providers/oauth/client.py:176
+#: socialaccount/providers/oauth/client.py:177
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr ""
 
-#: socialaccount/providers/oauth/client.py:196
+#: socialaccount/providers/oauth/client.py:197
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr ""
@@ -402,9 +406,8 @@ msgstr "Tényleg törölni akarod a kijelölt email címet?"
 msgid ""
 "Hello from %(site_name)s!\n"
 "\n"
-"You're receiving this e-mail because user %(user_display)s at "
-"%(site_domain)s has given yours as an e-mail address to connect their "
-"account.\n"
+"You're receiving this e-mail because user %(user_display)s has given yours "
+"as an e-mail address to connect their account.\n"
 "\n"
 "To confirm this is correct, go to %(activate_url)s\n"
 msgstr ""
@@ -437,7 +440,7 @@ msgid ""
 "Hello from %(site_name)s!\n"
 "\n"
 "You're receiving this e-mail because you or someone else has requested a "
-"password for your user account at %(site_domain)s.\n"
+"password for your user account.\n"
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
@@ -801,8 +804,13 @@ msgstr ""
 "bejelentkezés\n"
 "Utolsó lépésként kérlek töltsd ki az alábbi adatlapot:"
 
-#~ msgid "A user is already registered with this e-mail address."
-#~ msgstr "Egy felhasználó már regisztrált ezzel az email címmel."
+#~ msgid "The login and/or password you specified are not correct."
+#~ msgstr "A megadott bejelentkezési azonosító vagy a jelszó hibás."
+
+#~ msgid "Usernames can only contain letters, digits and @/./+/-/_."
+#~ msgstr ""
+#~ "A felhasználói azonosítók csak betűket, számokat és a @/./+/-/_ "
+#~ "karaktereket tartalmazhatnak."
 
 #~ msgid "This username is already taken. Please choose another."
 #~ msgstr "Ez a felhasználói azonosító már foglalt. Kérlek válassz másikat!"

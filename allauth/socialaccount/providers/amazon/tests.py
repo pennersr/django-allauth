@@ -13,6 +13,6 @@ class AmazonTests(OAuth2TestsMixin, TestCase):
           "Profile":{
                         "CustomerId":"amzn1.account.K2LI23KL2LK2",
                         "Name":"John Doe",
-                        "PrimaryEmail":"johndoe@gmail.com"
+                        "PrimaryEmail":"johndoe@example.com"
                     }
         }""")

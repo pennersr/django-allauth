@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -7,7 +6,7 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 class GitLabAccount(ProviderAccount):
 
     def get_profile_url(self):
-        return self.account.extra_data.get('html_url')
+        return self.account.extra_data.get('web_url')
 
     def get_avatar_url(self):
         return self.account.extra_data.get('avatar_url')
@@ -33,4 +32,4 @@ class GitLabProvider(OAuth2Provider):
         )
 
 
-providers.registry.register(GitLabProvider)
+provider_classes = [GitLabProvider]

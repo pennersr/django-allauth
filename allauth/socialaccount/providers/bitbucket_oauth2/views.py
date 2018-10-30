@@ -1,10 +1,13 @@
-from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
-                                                          OAuth2LoginView,
-                                                          OAuth2CallbackView)
 import requests
 
-from .provider import BitbucketOAuth2Provider
 from allauth.socialaccount import app_settings
+from allauth.socialaccount.providers.oauth2.views import (
+    OAuth2Adapter,
+    OAuth2CallbackView,
+    OAuth2LoginView,
+)
+
+from .provider import BitbucketOAuth2Provider
 
 
 class BitbucketOAuth2Adapter(OAuth2Adapter):

@@ -1,13 +1,13 @@
 from hashlib import md5
 
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.contrib.sites.models import Site
+from django.urls import reverse
 from django.utils.http import urlencode
 
 from allauth.socialaccount import providers
-from allauth.socialaccount.models import SocialToken, SocialApp
-from allauth.utils import get_current_site
-from allauth.tests import TestCase, Mock, patch
+from allauth.socialaccount.models import SocialApp, SocialToken
+from allauth.tests import Mock, TestCase, patch
 
 from . import views
 from .provider import DraugiemProvider
@@ -18,7 +18,7 @@ class DraugiemTests(TestCase):
         # workaround to create a session. see:
         # https://code.djangoproject.com/ticket/11475
         User.objects.create_user(
-            'anakin', 'skywalker@deathstar.com', 's1thrul3s')
+            'anakin', 'skywalker@deathstar.example.com', 's1thrul3s')
         self.client.login(username='anakin', password='s1thrul3s')
 
         self.provider = providers.registry.by_id(DraugiemProvider.id)
@@ -27,7 +27,7 @@ class DraugiemTests(TestCase):
                                        client_id='app123id',
                                        key=self.provider.id,
                                        secret='dummy')
-        app.sites.add(get_current_site())
+        app.sites.add(Site.objects.get_current())
         self.app = app
 
     def get_draugiem_login_response(self):
@@ -78,15 +78,15 @@ class DraugiemTests(TestCase):
         session.save()
 
     def test_login_redirect(self):
-        response = self.client.get(reverse(views.login),
-                                   follow=False, **{'HTTP_HOST': 'localhost'})
-        redirect_url = 'http://localhost' + reverse(views.callback)
-        redirect_url_hash = md5(
-            (self.app.secret + redirect_url).encode('utf-8')).hexdigest()
+        response = self.client.get(reverse(views.login))
+        redirect_url = reverse(views.callback)
+        full_redirect_url = "http://testserver" + redirect_url
+        secret = self.app.secret + full_redirect_url
+        redirect_url_hash = md5(secret.encode("utf-8")).hexdigest()
         params = {
             'app': self.app.client_id,
             'hash': redirect_url_hash,
-            'redirect': redirect_url,
+            'redirect': full_redirect_url,
         }
         self.assertRedirects(response, '%s?%s' %
                              (views.AUTHORIZE_URL, urlencode(params)),

@@ -9,45 +9,49 @@ allauth.account
 ---------------
 
 
-- `allauth.account.signals.user_logged_in(request, user)`
+- ``allauth.account.signals.user_logged_in(request, user)``
 
   Sent when a user logs in.
 
-- `allauth.account.signals.user_signed_up(request, user)`
+- ``allauth.account.signals.user_logged_out(request, user)``
+
+  Sent when a user logs out.
+
+- ``allauth.account.signals.user_signed_up(request, user)``
 
   Sent when a user signs up for an account. This signal is
-  typically followed by a `user_logged_in`, unless e-mail verification
+  typically followed by a ``user_logged_in``, unless e-mail verification
   prohibits the user to log in.
 
-- `allauth.account.signals.password_set(request, user)`
+- ``allauth.account.signals.password_set(request, user)``
 
   Sent when a password has been successfully set for the first time.
 
-- `allauth.account.signals.password_changed(request, user)`
+- ``allauth.account.signals.password_changed(request, user)``
 
   Sent when a password has been successfully changed.
 
-- `allauth.account.signals.password_reset(request, user)`
+- ``allauth.account.signals.password_reset(request, user)``
 
   Sent when a password has been successfully reset.
 
-- `allauth.account.signals.email_confirmed(email_address)`
+- ``allauth.account.signals.email_confirmed(request, email_address)``
 
   Sent after the email address in the db was updated and set to confirmed.
 
-- `allauth.account.signals.email_confirmation_sent(confirmation)`
+- ``allauth.account.signals.email_confirmation_sent(request, confirmation, signup)``
 
   Sent right after the email confirmation is sent.
 
-- `allauth.account.signals.email_changed(request, user, from_email_address, to_email_address)`
+- ``allauth.account.signals.email_changed(request, user, from_email_address, to_email_address)``
 
   Sent when a primary email address has been changed.
 
-- `allauth.account.signals.email_added(request, user, email_address)`
+- ``allauth.account.signals.email_added(request, user, email_address)``
 
   Sent when a new email address has been added.
 
-- `allauth.account.signals.email_removed(request, user, email_address)`
+- ``allauth.account.signals.email_removed(request, user, email_address)``
 
   Sent when an email address has been deleted.
 
@@ -55,7 +59,7 @@ allauth.account
 allauth.socialaccount
 ---------------------
 
-- `allauth.socialaccount.signals.pre_social_login(request, sociallogin)`
+- ``allauth.socialaccount.signals.pre_social_login(request, sociallogin)``
 
   Sent after a user successfully authenticates via a social provider,
   but before the login is fully processed. This signal is emitted as
@@ -64,11 +68,18 @@ allauth.socialaccount
   tokens and profile information, if applicable for the provider, is
   provided.
 
-- `allauth.socialaccount.signals.social_account_added(request, sociallogin)`
+- ``allauth.socialaccount.signals.social_account_added(request, sociallogin)``
 
   Sent after a user connects a social account to a their local account.
 
-- `allauth.socialaccount.signals.social_account_removed(request, socialaccount)`
+- ``allauth.socialaccount.signals.social_account_updated(request, sociallogin)``
+
+  Sent after a social account has been updated. This happens when a user
+  logs in using an already connected social account, or completes a `connect`
+  flow for an already connected social account. Useful if you need to
+  unpack extra data for social accounts as they are updated.
+
+- ``allauth.socialaccount.signals.social_account_removed(request, socialaccount)``
 
   Sent after a user disconnects a social account from their local
   account.

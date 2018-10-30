@@ -1,9 +1,12 @@
 import requests
 
 from allauth.socialaccount import app_settings
-from allauth.socialaccount.providers.oauth2.views import (OAuth2Adapter,
-                                                          OAuth2LoginView,
-                                                          OAuth2CallbackView)
+from allauth.socialaccount.providers.oauth2.views import (
+    OAuth2Adapter,
+    OAuth2CallbackView,
+    OAuth2LoginView,
+)
+
 from .provider import OrcidProvider
 
 
@@ -24,7 +27,7 @@ class OrcidOAuth2Adapter(OAuth2Adapter):
 
     authorize_url = 'https://{0}/oauth/authorize'.format(base_domain)
     access_token_url = 'https://{0}/oauth/token'.format(api_domain)
-    profile_url = 'https://{0}/v1.2/%s/orcid-profile'.format(api_domain)
+    profile_url = 'https://{0}/v2.1/%s/record'.format(api_domain)
 
     def complete_login(self, request, app, token, **kwargs):
         params = {}

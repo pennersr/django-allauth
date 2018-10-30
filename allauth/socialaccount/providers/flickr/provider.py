@@ -1,4 +1,3 @@
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
 
@@ -13,9 +12,17 @@ class FlickrAccount(ProviderAccount):
 
     def to_str(self):
         dflt = super(FlickrAccount, self).to_str()
+
+        # Try to use name if it exists. If there is no name, the Flickr API
+        # returns an empty stirng.
         name = self.account.extra_data \
-            .get('person').get('realname').get('_content', dflt)
-        return name
+            .get('person').get('realname').get('_content', None)
+        if name:
+            return name
+
+        # Default to username if name does not exist.
+        return self.account.extra_data \
+            .get('person').get('username').get('_content', dflt)
 
 
 class FlickrProvider(OAuthProvider):
@@ -57,4 +64,4 @@ class FlickrProvider(OAuthProvider):
                     username=username)
 
 
-providers.registry.register(FlickrProvider)
+provider_classes = [FlickrProvider]

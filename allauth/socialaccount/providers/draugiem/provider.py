@@ -1,7 +1,6 @@
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.http import urlencode
 
-from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import Provider, ProviderAccount
 
 
@@ -47,16 +46,17 @@ class DraugiemProvider(Provider):
         return url
 
     def extract_uid(self, data):
-        return data['uid']
+        return str(data['uid'])
 
     def extract_common_fields(self, data):
-        uid = data['uid']
+        uid = self.extract_uid(data)
         user_data = data['users'][uid]
         return dict(first_name=user_data.get('name'),
                     last_name=user_data.get('surname'))
 
     def extract_extra_data(self, data):
-        uid = data['uid']
+        uid = self.extract_uid(data)
         return data['users'][uid]
 
-providers.registry.register(DraugiemProvider)
+
+provider_classes = [DraugiemProvider]

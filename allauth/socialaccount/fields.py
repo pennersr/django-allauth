@@ -6,24 +6,17 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import six
 
-try:
-    from django.utils.encoding import smart_unicode as smart_text
-except ImportError:
-    from django.utils.encoding import smart_text
 
-
-if django.VERSION < (1, 8):
-    JSONFieldBase = six.with_metaclass(models.SubfieldBase, models.TextField)
-else:
-    JSONFieldBase = models.TextField
-
-
-class JSONField(JSONFieldBase):
+class JSONField(models.TextField):
     """Simple JSON field that stores python structures as JSON strings
     on database.
     """
-    def from_db_value(self, value, expression, connection, context):
-        return self.to_python(value)
+    if django.VERSION < (2, 0):
+        def from_db_value(self, value, expression, connection, context):
+            return self.to_python(value)
+    else:
+        def from_db_value(self, value, expression, connection):
+            return self.to_python(value)
 
     def to_python(self, value):
         """
@@ -57,17 +50,7 @@ class JSONField(JSONFieldBase):
         except Exception as e:
             raise ValidationError(str(e))
 
-    def value_to_string(self, obj):
-        """Return value from object converted to string properly"""
-        return smart_text(self.get_prep_value(self._get_val_from_obj(obj)))
-
     def value_from_object(self, obj):
         """Return value dumped to string."""
-        return self.get_prep_value(self._get_val_from_obj(obj))
-
-
-try:
-    from south.modelsinspector import add_introspection_rules
-    add_introspection_rules([], ["^allauth\.socialaccount\.fields\.JSONField"])
-except:
-    pass
+        val = super(JSONField, self).value_from_object(obj)
+        return self.get_prep_value(val)

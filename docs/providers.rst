@@ -697,7 +697,7 @@ Google
 The Google provider is OAuth2 based.
 
 More info:
-    http://code.google.com/apis/accounts/docs/OAuth2.html#Registering
+    https://developers.google.com/identity/protocols/OAuth2
 
 
 App registration

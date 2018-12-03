@@ -9,9 +9,9 @@ Example of use :
 view.py
 
 from django.views.generic import ListView
-from allauth.account.mixins import VerifiedEmailRequired
+from allauth.account.mixins import VerifiedEmailRequiredMixin
 
-class IndexView(VerifiedEmailRequired, ListView):
+class IndexView(VerifiedEmailRequiredMixin, ListView):
     ...
 """
 
@@ -22,7 +22,7 @@ from .models import EmailAddress
 from .utils import send_email_confirmation
 
 
-class VerifiedEmailRequired(LoginRequiredMixin):
+class VerifiedEmailRequiredMixin(LoginRequiredMixin):
     """
     This class is a version of the 
     allauth.account.decorators.verified_email_required() 
@@ -38,4 +38,4 @@ class VerifiedEmailRequired(LoginRequiredMixin):
                                                verified=True).exists():
                 send_email_confirmation(request, request.user)
                 return HttpResponseRedirect(reverse('account_email_verification_sent'))
-        return super(VerifiedEmailRequired, self).dispatch(request, *args, **kwargs)
+        return super(VerifiedEmailRequiredMixin, self).dispatch(request, *args, **kwargs)

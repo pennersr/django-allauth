@@ -24,3 +24,20 @@ The behavior is as follows:
   e-mail verification mail is automatically resent and the user is
   presented with a page informing them they need to verify their email
   address.
+
+Mixins
+======
+
+Verified E-mail Required
+------------------------
+
+In the case you are using a class-based view, there is a mixin available
+in ``allauth.account.mixins.VerifiedEmailRequiredMixin`` which is use in 
+any class-based view from django, you can use it as follow ::
+
+
+    from django.views.generics import ListView
+    from allauth.account.mixins import VerifiedEmailRequiredMixin
+
+    class YouClassName(VerifiedEmailRequiredMixin, ListView):
+      ...

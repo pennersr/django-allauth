@@ -357,7 +357,7 @@ def sync_user_email_addresses(user):
 
 
 def filter_users_by_username(*username):
-    if app_settings.PRESERVE_USERNAME_CASING:
+    if not app_settings.PRESERVE_USERNAME_CASING:
         qlist = [
             Q(**{app_settings.USER_MODEL_USERNAME_FIELD + '__iexact': u})
             for u in username]

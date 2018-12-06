@@ -84,6 +84,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.google',
         'allauth.socialaccount.providers.hubic',
         'allauth.socialaccount.providers.instagram',
+        'allauth.socialaccount.providers.jupyterhub',
         'allauth.socialaccount.providers.kakao',
         'allauth.socialaccount.providers.line',
         'allauth.socialaccount.providers.linkedin',

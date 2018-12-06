@@ -107,6 +107,8 @@ Supported Providers
 
 - Instagram (OAuth2)
 
+- JupyterHub (OAuth2)
+
 - Kakao (OAuth2)
 
 - Line (OAuth2)

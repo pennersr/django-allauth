@@ -92,6 +92,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.hubic',
     'allauth.socialaccount.providers.instagram',
+    'allauth.socialaccount.providers.jupyterhub',
     'allauth.socialaccount.providers.kakao',
     'allauth.socialaccount.providers.line',
     'allauth.socialaccount.providers.linkedin',

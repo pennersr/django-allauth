@@ -4,7 +4,7 @@
 Note worthy changes
 -------------------
 
-- New provider: Steam (OpenID)
+- New providers: JupyterHub (OAuth2), Steam (OpenID)
 
 
 0.38.0 (2018-10-03)

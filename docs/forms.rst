@@ -13,7 +13,7 @@ If you decide to add fields to a form, you will need to
 manually save the custom fields data.
 
 ACCOUNT_FORMS
-=============
+-------------
 
 Default Settings::
 
@@ -29,7 +29,7 @@ Default Settings::
     }
 
 login (``allauth.account.forms.LoginForm``)
--------------------------------------------
+*******************************************
 
 Used on `account_login <views.html#login-account-login>`__ view.
 
@@ -55,7 +55,7 @@ You have access to the following:
     ACCOUNT_FORMS = {'login': 'mysite.forms.MyCustomLoginForm'}
 
 signup (``allauth.account.forms.SignupForm``)
----------------------------------------------
+*********************************************
 
 Used on `account_signup <views.html#signup-account-signup>`__ view.
 
@@ -80,7 +80,7 @@ Used on `account_signup <views.html#signup-account-signup>`__ view.
     ACCOUNT_FORMS = {'signup': 'mysite.forms.MyCustomSignupForm'}
 
 add_email (``allauth.account.forms.AddEmailForm``)
---------------------------------------------------
+**************************************************
 
 Used on `account_email <views.html#e-mails-management-account-email>`__ view.
 
@@ -109,7 +109,7 @@ You have access to the following:
     ACCOUNT_FORMS = {'add_email': 'mysite.forms.MyCustomAddEmailForm'}
 
 change_password (``allauth.account.forms.ChangePasswordForm``)
---------------------------------------------------------------
+**************************************************************
 
 Used on `account_change_password <views.html#password-management>`__ view.
 
@@ -135,7 +135,7 @@ You have access to the following:
     ACCOUNT_FORMS = {'change_password': 'mysite.forms.MyCustomChangePasswordForm'}
 
 set_password (``allauth.account.forms.SetPasswordForm``)
---------------------------------------------------------
+********************************************************
 
 Used on `account_set_password <views.html#password-management>`__ view.
 
@@ -161,7 +161,7 @@ You have access to the following:
     ACCOUNT_FORMS = {'set_password': 'mysite.forms.MyCustomSetPasswordForm'}
 
 reset_password (``allauth.account.forms.ResetPasswordForm``)
-------------------------------------------------------------
+************************************************************
 
 Used on `account_reset_password <views.html#password-reset-account-reset-password>`__ view.
 
@@ -190,7 +190,7 @@ You have access to the following:
     ACCOUNT_FORMS = {'reset_password': 'mysite.forms.MyCustomResetPasswordForm'}
 
 reset_password_from_key (``allauth.account.forms.ResetPasswordKeyForm``)
-------------------------------------------------------------------------
+************************************************************************
 
 Used on `account_reset_password <views.html#password-reset-account-reset-password>`__ view.
 
@@ -216,7 +216,7 @@ You have access to the following:
     ACCOUNT_FORMS = {'reset_password_from_key': 'mysite.forms.MyCustomResetPasswordKeyForm'}
 
 SOCIALACCOUNT_FORMS
-===================
+-------------------
 
 Default Settings::
 
@@ -226,7 +226,7 @@ Default Settings::
     }
 
 signup (``allauth.socialaccount.forms.SignupForm``)
----------------------------------------------------
+***************************************************
 
 Used on socialaccount_signup view used when someone initially signs up
 with a social account and needs to create an account.
@@ -256,7 +256,7 @@ You have access to the following:
     SOCIALACCOUNT_FORMS = {'signup': 'mysite.forms.MyCustomSocialSignupForm'}
 
 disconnect (``allauth.socialaccount.forms.DisconnectForm``)
------------------------------------------------------------
+***********************************************************
 
 Used on socialaccount_connections view, used when removing a social account.
 

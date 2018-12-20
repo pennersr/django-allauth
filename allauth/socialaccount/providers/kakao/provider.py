@@ -28,7 +28,7 @@ class KakaoProvider(OAuth2Provider):
         email = data['kakao_account'].get('email')
         nickname = data['properties'].get('nickname')
 
-        return dict(email=email, nickname=nickname)
+        return dict(email=email, username=nickname)
 
     def extract_email_addresses(self, data):
         ret = []

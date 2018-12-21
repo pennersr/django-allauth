@@ -25,10 +25,9 @@ class KakaoProvider(OAuth2Provider):
         return str(data['id'])
 
     def extract_common_fields(self, data):
-        email = data['kakao_account'].get('email')
         nickname = data['properties'].get('nickname')
 
-        return dict(email=email, username=nickname)
+        return dict(username=nickname)
 
     def extract_email_addresses(self, data):
         ret = []

@@ -8,7 +8,7 @@ class KakaoAccount(ProviderAccount):
     def properties(self):
         return self.account.extra_data.get('properties')
 
-    def get_avatar_url(self):
+    def get_profile_url(self):
         return self.properties.get('profile_image')
 
     def to_str(self):

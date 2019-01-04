@@ -162,10 +162,10 @@ Battle.net
 ----------
 
 The Battle.net OAuth2 authentication documentation
-    https://dev.battle.net/docs/read/oauth
+    https://develop.battle.net/documentation/guides/using-oauth
 
-Register your app here (Mashery account required)
-    https://dev.battle.net/apps/register
+Register your app here (Blizzard account required)
+    https://develop.battle.net/access/clients/create
 
 Development callback URL
     https://localhost:8000/accounts/battlenet/login/callback/

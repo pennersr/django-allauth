@@ -181,13 +181,14 @@ class DefaultAccountAdapter(object):
         Next to simply returning True/False you can also intervene the
         regular flow by raising an ImmediateHttpResponse
         """
-        return True
+        return app_settings.SIGNUP_OPEN
 
     def new_user(self, request):
         """
         Instantiates a new User instance.
         """
         user = get_user_model()()
+        user.is_active = app_settings.NEW_ACCOUNTS_ACTIVE
         return user
 
     def populate_username(self, request, user):

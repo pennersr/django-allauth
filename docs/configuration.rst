@@ -144,6 +144,11 @@ ACCOUNT_LOGOUT_REDIRECT_URL (="/")
   The URL (or URL name) to return to after the user logs out. This is
   the counterpart to Django's ``LOGIN_REDIRECT_URL``.
 
+ACCOUNT_NEW_ACCOUNTS_ACTIVE (=True)
+  Whether newly created accounts (through signup) should be active. Switch to
+  ``False`` to have them disabled, allowing for manual activation of new accounts
+  by administrators.
+
 ACCOUNT_PASSWORD_INPUT_RENDER_VALUE (=False)
   ``render_value`` parameter as passed to ``PasswordInput`` fields.
 
@@ -169,6 +174,10 @@ ACCOUNT_SIGNUP_FORM_CLASS (=None)
   the user for additional input (e.g. newsletter signup, birth
   date). This class should implement a ``def signup(self, request, user)``
   method, where user represents the newly signed up user.
+
+ACCOUNT_SIGNUP_OPEN (=True)
+  Whether signup is enabled. Set to ``False`` to prevent users from creating
+  accounts.
 
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE (=True)
   When signing up, let the user type in their password twice to avoid typos.

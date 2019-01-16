@@ -315,6 +315,14 @@ class AppSettings(object):
                 ret = []
         return ret
 
+    @property
+    def SIGNUP_OPEN(self):
+        return self._setting('SIGNUP_OPEN', True)
+
+    @property
+    def NEW_ACCOUNTS_ACTIVE(self):
+        return self._setting('NEW_ACCOUNTS_ACTIVE', True)
+
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

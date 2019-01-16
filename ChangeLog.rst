@@ -6,6 +6,8 @@ Note worthy changes
 
 - New providers: JupyterHub (OAuth2), Steam (OpenID)
 
+- Added support for ``ACCOUNT_SIGNUP_OPEN`` and `ACCOUNT_NEW_ACCOUNTS_ACTIVE``
+
 
 0.38.0 (2018-10-03)
 *******************

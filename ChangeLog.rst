@@ -5,6 +5,7 @@ Note worthy changes
 -------------------
 
 - New providers: JupyterHub (OAuth2), Steam (OpenID)
+- Refactor translations: Portuguese (Portugal).
 
 
 0.38.0 (2018-10-03)

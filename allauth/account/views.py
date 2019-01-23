@@ -338,7 +338,8 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         return None
 
     def get_object(self, queryset=None):
-        key = self.kwargs['key']
+        key = self.kwargs.get('key', '') or \
+              self.request.query_params.get('key', '')
         emailconfirmation = EmailConfirmationHMAC.from_key(key)
         if not emailconfirmation:
             if queryset is None:

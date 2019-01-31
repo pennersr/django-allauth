@@ -6,6 +6,8 @@ Note worthy changes
 
 - New providers: JupyterHub (OAuth2), Steam (OpenID)
 
+- Add testing for Django 2.2 (no code changes required)
+
 
 0.38.0 (2018-10-03)
 *******************

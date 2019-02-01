@@ -212,5 +212,5 @@ Architecture & Design
 
 - Consumer keys, tokens make use of the Django sites framework. This
   is especially helpful for larger multi-domain projects, but also
-  allows for for easy switching between a development (localhost) and
+  allows for easy switching between a development (localhost) and
   production setup without messing with your settings and database.

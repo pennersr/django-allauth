@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 from django.urls import reverse
 
-from allauth.socialaccount import providers
+from allauth.socialaccount import providers, signals
 from allauth.socialaccount.helpers import (
     complete_social_login,
     render_authentication_error,
@@ -101,6 +101,11 @@ class OAuthCallbackView(OAuthView):
                 token=access_token['oauth_token'],
                 # .get() -- e.g. Evernote does not feature a secret
                 token_secret=access_token.get('oauth_token_secret', ''))
+            signals.post_authorization_response.send(sender=SocialLogin,
+                                                     request=request,
+                                                     socialapp=app,
+                                                     socialtoken=token,
+                                                     response=access_token)
             login = self.adapter.complete_login(request,
                                                 app,
                                                 token,

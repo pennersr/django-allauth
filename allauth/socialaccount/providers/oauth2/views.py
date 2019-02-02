@@ -9,7 +9,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 from allauth.exceptions import ImmediateHttpResponse
-from allauth.socialaccount import providers
+from allauth.socialaccount import providers, signals
 from allauth.socialaccount.helpers import (
     complete_social_login,
     render_authentication_error,
@@ -128,6 +128,11 @@ class OAuth2CallbackView(OAuth2View):
             access_token = client.get_access_token(request.GET['code'])
             token = self.adapter.parse_token(access_token)
             token.app = app
+            signals.post_authorization_response.send(sender=SocialLogin,
+                                                     request=request,
+                                                     socialapp=app,
+                                                     socialtoken=token,
+                                                     response=access_token)
             login = self.adapter.complete_login(request,
                                                 app,
                                                 token,

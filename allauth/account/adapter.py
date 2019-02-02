@@ -440,6 +440,7 @@ class DefaultAccountAdapter(object):
             "activate_url": activate_url,
             "current_site": current_site,
             "key": emailconfirmation.key,
+            "request": request,
         }
         if signup:
             email_template = 'account/email/email_confirmation_signup'

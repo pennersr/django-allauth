@@ -109,7 +109,7 @@ def _add_social_account(request, sociallogin):
             # This account is already connected -- we give the opportunity
             # for customized behaviour through use of a signal.
             action = 'updated'
-            message = 'socialaccount/messages/account_updated.txt'
+            message = 'socialaccount/messages/account_connected_updated.txt'
             signals.social_account_updated.send(
                 sender=SocialLogin,
                 request=request,

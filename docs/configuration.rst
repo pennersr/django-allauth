@@ -165,10 +165,13 @@ ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE (=False)
 
 ACCOUNT_SIGNUP_FORM_CLASS (=None)
   A string pointing to a custom form class
-  (e.g. 'myapp.forms.SignupForm') that is used during signup to ask
-  the user for additional input (e.g. newsletter signup, birth
-  date). This class should implement a ``def signup(self, request, user)``
-  method, where user represents the newly signed up user.
+  (e.g. 'myapp.forms.SignupForm') that is used to extend the default signup
+  form used during signup to ask the user for additional input (e.g. newsletter
+  signup, birth date). This class should implement
+  a ``def signup(self, request, user)`` method, where user represents the
+  newly signed up user.
+
+  See `forms <forms.html#signup-allauth-account-forms-signupform>`__ for more information.
 
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE (=True)
   When signing up, let the user type in their password twice to avoid typos.

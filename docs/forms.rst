@@ -1,16 +1,21 @@
-Forms
-=====
+Customizing Forms
+=================
 
-The following forms can be overridden as needed in order to:
+All forms are based on ``django.forms.Form`` class, any custom fields you add
+will require custom logic to save the data. Some forms do not explicitly call
+the built-in save method, below lists all forms used and the final method
+called where you would want to save your custom data.
 
-- Add extra fields for extra required information
-- Override save to add extra functionality on save
+It is recommended that you review the default form classes provided that you
+wish to extend or replace in order to understand the fields and logic already
+supplied.
 
-Overriding Save
----------------
+To add additional fields or override functionality, create a custom class and
+inherit from the matching form listed below to supply your customizations.
 
-If you decide to add fields to a form, you will need to
-manually save the custom fields' data.
+To replace a form completely, create a custom class and inherit
+from ``forms.Form``. You will need to reimplement the original forms methods
+you have overridden
 
 ACCOUNT_FORMS
 -------------
@@ -74,6 +79,10 @@ Used on `account_signup <views.html#signup-account-signup>`__ view.
 
             # You must return the original result.
             return user
+
+The configuration setting ``ACCOUNT_SIGNUP_FORM_CLASS`` is the same as
+inheriting the SignupForm class. It is recommended to inherit and use the
+setting below instead.
 
 ``settings.py``::
 

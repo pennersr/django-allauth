@@ -15,6 +15,8 @@ env:
    - TOXENV=py36-django20
    - TOXENV=py35-django21
    - TOXENV=py36-django21
+   - TOXENV=py35-django22
+   - TOXENV=py36-django22
    - TOXENV=py36-djangomaster
    - TOXENV=docs
    - TOXENV=flake8
@@ -29,6 +31,8 @@ matrix:
       env: TOXENV=py35-django20
     - python: "3.5"
       env: TOXENV=py35-django21
+    - python: "3.5"
+      env: TOXENV=py35-django22
   exclude:
     - python: "3.6"
       env: TOXENV=py35-django111
@@ -36,6 +40,8 @@ matrix:
       env: TOXENV=py35-django20
     - python: "3.6"
       env: TOXENV=py35-django21
+    - python: "3.6"
+      env: TOXENV=py35-django22
   allow_failures:
     - env: TOXENV=py36-djangomaster
 

@@ -59,7 +59,7 @@ machine you are developing on. Therefore, ``allauth`` is unable to send
 verification mails.
 
 You can work around this by adding the following line to
-``settings.py``:
+``settings.py``::
 
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

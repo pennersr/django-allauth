@@ -105,12 +105,6 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
         return "https://%s.battle.net" % (region)
 
     @property
-    def battlenet_api_url(self):
-        if self.battlenet_region == "cn":
-            return "https://api.battlenet.com.cn"
-        return "https://%s.api.battle.net" % (self.battlenet_region)
-
-    @property
     def access_token_url(self):
         return self.battlenet_base_url + "/oauth/token"
 
@@ -120,7 +114,7 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
 
     @property
     def profile_url(self):
-        return self.battlenet_api_url + "/account/user"
+        return self.battlenet_base_url + "/oauth/userinfo"
 
     def complete_login(self, request, app, token, **kwargs):
         params = {"access_token": token.token}

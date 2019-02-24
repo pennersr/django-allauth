@@ -18,11 +18,11 @@ msgstr ""
 
 #: account/adapter.py:45
 msgid "Username can not be used. Please use other username."
-msgstr "این نام‌کاربری نمی‌تواند انتخاب شود، لطفا یک نام‌کاربری دیگر انتخاب کنید"
+msgstr "این نام ‌کاربری نمی‌تواند انتخاب شود، لطفا یک نام‌کاربری دیگر انتخاب کنید."
 
 #: account/adapter.py:49
 msgid "Too many failed login attempts. Try again later."
-msgstr ""
+msgstr "تعداد دفعات زیادی تلاش کردید، لطفا بعداً دوباره تلاش کنید."
 
 #: account/adapter.py:51
 msgid "A user is already registered with this e-mail address."
@@ -40,7 +40,7 @@ msgstr "حساب کاربری"
 
 #: account/forms.py:61 account/forms.py:398
 msgid "You must type the same password each time."
-msgstr "شما باید رمز عبور یکسانی را انتخاب کنید"
+msgstr "شما باید رمز عبور یکسانی را انتخاب کنید."
 
 #: account/forms.py:91 account/forms.py:365 account/forms.py:476
 msgid "Password"
@@ -52,15 +52,15 @@ msgstr "مرا به خاطر بسپار"
 
 #: account/forms.py:98
 msgid "This account is currently inactive."
-msgstr "این حساب کاربری درحال حاضر غیرفعال است"
+msgstr "این حساب کاربری درحال حاضر غیرفعال است."
 
 #: account/forms.py:101
 msgid "The e-mail address and/or password you specified are not correct."
-msgstr "نام کاربری یا رمز عبور صحیح نمی‌باشد."
+msgstr "آدرس ایمیل و/یا پسوردی که وارد کرده‌اید صحیح نیست."
 
 #: account/forms.py:104
 msgid "The username and/or password you specified are not correct."
-msgstr "نام کاربری یا رمز عبور صحیح نمی‌باشد."
+msgstr "نام کاربرد و/یا پسوردی که وارد کرده‌اید صحیح نیست."
 
 #: account/forms.py:113 account/forms.py:268 account/forms.py:426
 #: account/forms.py:495
@@ -106,7 +106,7 @@ msgstr "ایمیل (اختیاری)"
 #, fuzzy
 #| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
-msgstr "شما باید رمز عبور یکسانی را انتخاب کنید"
+msgstr "شما باید هر بار ایمیل یکسانی را انتخاب کنید."
 
 #: account/forms.py:368 account/forms.py:477
 msgid "Password (again)"
@@ -119,7 +119,7 @@ msgstr "ایمیل آدرسی که انتخاب کرده‌اید قبلا به 
 #: account/forms.py:434
 msgid "This e-mail address is already associated with another account."
 msgstr ""
-"ایمیل آدرسی که انتخاب کرده‌اید قبلا به این حساب کاربر دیگری وصل شده است."
+"ایمیل آدرسی که انتخاب کرده‌اید قبلا به حساب کاربر دیگری وصل شده است."
 
 #: account/forms.py:456
 msgid "Current Password"
@@ -135,7 +135,7 @@ msgstr "تکرار رمز عبور جدید"
 
 #: account/forms.py:466
 msgid "Please type your current password."
-msgstr "لطفا رمز عبور فعلی خود را تایپ کنید"
+msgstr "لطفا رمز عبور فعلی خود را وارد کنید."
 
 #: account/forms.py:504
 msgid "The e-mail address is not assigned to any user account"
@@ -143,7 +143,7 @@ msgstr "این آدرس ایمیل به هیچ حساب کاربری متصل ن
 
 #: account/forms.py:568
 msgid "The password reset token was invalid."
-msgstr ""
+msgstr "توکن بازنشانی پسورد غلط است."
 
 #: account/models.py:23
 msgid "user"
@@ -167,7 +167,7 @@ msgstr "آدرس ایمیل"
 
 #: account/models.py:35
 msgid "email addresses"
-msgstr "آدرس ایمیل"
+msgstr "آدرس‌های ایمیل"
 
 #: account/models.py:83
 msgid "created"
@@ -195,25 +195,25 @@ msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
 "account first, then connect your %s account."
 msgstr ""
-"یک جساب کاربری دیگری با این ایمیل آدرس موجود است. لطفا ابتدا از طریق آن حساب "
+"یک حساب کاربری دیگری با این ایمیل آدرس موجود است. لطفا ابتدا از طریق آن حساب "
 "وارد شوید. اول حساب کاربری و بعد حساب کاربری %s را متصل کنید."
 
 #: socialaccount/adapter.py:131
 msgid "Your account has no password set up."
-msgstr "حساب کاربری شما هنوز هیچ رمز عبوری ندارد"
+msgstr "حساب کاربری شما هنوز هیچ رمز عبوری ندارد."
 
 #: socialaccount/adapter.py:138
 msgid "Your account has no verified e-mail address."
-msgstr "حساب کاربری شما هنوز هیچ ایمیل تایید شده‌ای ندارد."
+msgstr "حساب کاربری شما هنوز هیچ ایمیل تاییدشده‌ای ندارد."
 
 #: socialaccount/apps.py:7
 #, fuzzy
 msgid "Social Accounts"
-msgstr "حساب کاربری"
+msgstr "حساب اجتماعی"
 
 #: socialaccount/models.py:43 socialaccount/models.py:77
 msgid "provider"
-msgstr ""
+msgstr "فراهم‌کننده"
 
 #: socialaccount/models.py:46
 #, fuzzy
@@ -222,19 +222,19 @@ msgstr "نام کاربری"
 
 #: socialaccount/models.py:48
 msgid "client id"
-msgstr ""
+msgstr "شماره کلاینت"
 
 #: socialaccount/models.py:50
 msgid "App ID, or consumer key"
-msgstr ""
+msgstr "شماره اپ یا کلید کلاینت"
 
 #: socialaccount/models.py:51
 msgid "secret key"
-msgstr ""
+msgstr "کلید مخفی"
 
 #: socialaccount/models.py:53
 msgid "API secret, client secret, or consumer secret"
-msgstr ""
+msgstr "رمز ای‌پی‌آی، رمز کلاینت یا رمز مشتری"
 
 #: socialaccount/models.py:58
 #, fuzzy
@@ -243,11 +243,11 @@ msgstr "کلید"
 
 #: socialaccount/models.py:66
 msgid "social application"
-msgstr ""
+msgstr "اپلیکیشن اجتماعی"
 
 #: socialaccount/models.py:67
 msgid "social applications"
-msgstr ""
+msgstr "اپلیکیشن‌های اجتماعی"
 
 #: socialaccount/models.py:96
 msgid "uid"
@@ -255,39 +255,39 @@ msgstr ""
 
 #: socialaccount/models.py:98
 msgid "last login"
-msgstr ""
+msgstr "آخرین ورود"
 
 #: socialaccount/models.py:100
 msgid "date joined"
-msgstr ""
+msgstr "تاریخ پیوستن"
 
 #: socialaccount/models.py:102
 msgid "extra data"
-msgstr ""
+msgstr "اطلاعات بیشتر"
 
 #: socialaccount/models.py:106
 msgid "social account"
-msgstr ""
+msgstr "حساب شبکهٔ اجتماعی"
 
 #: socialaccount/models.py:107
 msgid "social accounts"
-msgstr ""
+msgstr "حساب‌های شبکه‌های اجتماعی"
 
 #: socialaccount/models.py:133
 msgid "token"
-msgstr ""
+msgstr "توکن"
 
 #: socialaccount/models.py:135
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
-msgstr ""
+msgstr "\"oauth_token\" (OAuth1) یا توکن دسترسی (OAuth2)"
 
 #: socialaccount/models.py:138
 msgid "token secret"
-msgstr ""
+msgstr "رمز توکن"
 
 #: socialaccount/models.py:140
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
-msgstr ""
+msgstr "\"oauth_token_secret\" (OAuth1) یا توکن رفرش (OAuth2)"
 
 #: socialaccount/models.py:142
 msgid "expires at"
@@ -303,17 +303,17 @@ msgstr "توکن اپلیکیشن‌ها"
 
 #: socialaccount/providers/douban/views.py:36
 msgid "Invalid profile data"
-msgstr ""
+msgstr "اطلاعات پروفایل اشتباه"
 
 #: socialaccount/providers/oauth/client.py:78
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
-msgstr "Invalid response while obtaining request token from \"%s\"."
+msgstr "پاسخ اشتباه هنگام گرفتن توکن ریکوئست از \"%s\"."
 
 #: socialaccount/providers/oauth/client.py:109
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
-msgstr "پاسخ دریافتی به درخواست دریافت توکن دسترسی از \"%s\" معتبر نمی‌باشد."
+msgstr "پاسخ دریافتی به درخواست دریافت توکن دسترسی از \"%s\" معتبر نیست."
 
 #: socialaccount/providers/oauth/client.py:128
 #, python-format
@@ -449,7 +449,7 @@ msgid ""
 "link below to reset your password."
 msgstr ""
 "شما این ایمیل را دریافت می‌کنید بخاطر اینکه شخصی درخواست تغییر رمز عبور را در "
-"وب سایت %(site_domain)s داده است.\n"
+"وب‌سایت %(site_domain)s داده است.\n"
 "برای امنیت بیشتر اگر شما درخواست تغییر رمز را ندادید می‌توانید این ایمیل را "
 "پاک کنید اما اگر شما این درخواست را داده‌اید می‌توانید روی لینک پایین کلیک "
 "کنید\n"
@@ -481,7 +481,7 @@ msgstr "ایمیل درخواست راه اندازی دوباره رمز عبو
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
 msgid "Confirm E-mail Address"
-msgstr "ایمیل آدرس را تایید کنید"
+msgstr "آدرس ایمیل را تایید کنید"
 
 #: templates/account/email_confirm.html:16
 #, python-format
@@ -557,7 +557,7 @@ msgstr "شما نمی‌توانید ایمیل اصلی خودتان را حذ�
 #: templates/account/messages/email_confirmation_sent.txt:2
 #, python-format
 msgid "Confirmation e-mail sent to %(email)s."
-msgstr "تاییده اییمیل به آدرس %(email)sارسال شد."
+msgstr "تاییدهٔ ایمیل به آدرس %(email)s ارسال شد."
 
 #: templates/account/messages/email_confirmed.txt:2
 #, python-format
@@ -646,7 +646,7 @@ msgid ""
 "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
 "a>."
 msgstr ""
-"پیوند دریافت رمز جدید کار نمی‌کند، بخاطر اینکه قبلا یکبار استفاده شده است "
+"پیوند دریافت رمز جدید باطل شده است، بخاطر اینکه قبلا یکبار استفاده شده است "
 "لطفا درخواست جدیدی دهید a <a href=\"%(passwd_reset_url)s\">تا پیوند جدیدی "
 "برای دریافت رمز عبور برایتان ارسال شود</a>."
 
@@ -666,7 +666,7 @@ msgstr "انتخاب رمز عبور"
 
 #: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
-msgstr "قبت نام"
+msgstr "ثبت نام"
 
 #: templates/account/signup.html:8 templates/account/signup.html:18
 #: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
@@ -686,7 +686,7 @@ msgstr "ثبت نام بسته شده است"
 
 #: templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
-msgstr "ما متاسف هستیم اما قسمت ثبت نام درحال حاضر بسته است."
+msgstr "متاسفیم، اما قسمت ثبت نام درحال حاضر بسته است."
 
 #: templates/account/snippets/already_logged_in.html:5
 msgid "Note"
@@ -711,7 +711,7 @@ msgid ""
 "within a few minutes."
 msgstr ""
 "ما یک ایمیل برای تایید شما ارسال کردیم. ایمیل داخل ایمیل را مطالعه کنید تا "
-"با مراحل تکمیل فرایند تایید شدن آشنا شوید. اگر این ایمیل را پس از چند دقیقه "
+"با مراحل تکمیل فرایند تاییدشدن آشنا شوید. اگر این ایمیل را پس از چند دقیقه "
 "دریافت نکردید با ما تماس بگیرید."
 
 #: templates/account/verified_email_required.html:12
@@ -774,7 +774,7 @@ msgstr ""
 msgid ""
 "You currently have no social network accounts connected to this account."
 msgstr ""
-"شما درحال حاضر هیچ  ابزار و وب سایت شبکه‌ اجتماعی را به حساب کاربری خود وصل "
+"شما درحال حاضر هیچ  ابزار و وب‌سایت شبکهٔ‌ اجتماعی را به حساب کاربری خود وصل "
 "نکردید."
 
 #: templates/socialaccount/connections.html:46

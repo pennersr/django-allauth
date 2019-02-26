@@ -9,6 +9,13 @@ Note worthy changes
 
 - Add testing for Django 2.2 (no code changes required)
 
+Backwards incompatible changes
+------------------------------
+
+- ``linkedin_oauth2``: As the LinkedIn V1 API is deprecated, the user info
+  endpoint has been moved over to use the API V2. The format of the user
+  ``extra_data`` is different and profile picture is absent by default.
+
 
 0.38.0 (2018-10-03)
 *******************

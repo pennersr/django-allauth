@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-27 05:00-0500\n"
+"POT-Creation-Date: 2019-02-26 12:47-0600\n"
 "PO-Revision-Date: 2015-09-14 12:40-0000\n"
 "Last-Translator: NARIMAN GHARIB <NARIMAN.GH@GMAIL.COM>\n"
 "Language-Team: \n"
@@ -18,7 +18,8 @@ msgstr ""
 
 #: account/adapter.py:45
 msgid "Username can not be used. Please use other username."
-msgstr "این نام ‌کاربری نمی‌تواند انتخاب شود، لطفا یک نام‌کاربری دیگر انتخاب کنید."
+msgstr ""
+"این نام ‌کاربری نمی‌تواند انتخاب شود، لطفا یک نام‌کاربری دیگر انتخاب کنید."
 
 #: account/adapter.py:49
 msgid "Too many failed login attempts. Try again later."
@@ -118,8 +119,7 @@ msgstr "ایمیل آدرسی که انتخاب کرده‌اید قبلا به 
 
 #: account/forms.py:434
 msgid "This e-mail address is already associated with another account."
-msgstr ""
-"ایمیل آدرسی که انتخاب کرده‌اید قبلا به حساب کاربر دیگری وصل شده است."
+msgstr "ایمیل آدرسی که انتخاب کرده‌اید قبلا به حساب کاربر دیگری وصل شده است."
 
 #: account/forms.py:456
 msgid "Current Password"

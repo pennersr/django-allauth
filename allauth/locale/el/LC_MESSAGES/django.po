@@ -552,7 +552,7 @@ msgstr "Επιβεβαιωτικό e-mail στάλθηκε στο %(email)s."
 #: templates/account/messages/email_confirmed.txt:2
 #, python-format
 msgid "You have confirmed %(email)s."
-msgstr "Έχετε επιβαβαιώσει το %(email)s."
+msgstr "Έχετε επιβεβαιώσει το %(email)s."
 
 #: templates/account/messages/email_deleted.txt:2
 #, python-format
@@ -723,7 +723,7 @@ msgid ""
 "verification. Please click on the link inside this e-mail. Please\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
-"Σαςστείλαμε ένα e-mail\n"
+"Σας στείλαμε ένα e-mail\n"
 "για επιβεβαίωση. Παρακαλούμε ακολουθήστε τη σύνδεση που περιέχει. \n"
 "Παρακαλούμε επικοινωνήστε μαζί μας αν δε το λάβετε εντός λίγων λεπτών."
 

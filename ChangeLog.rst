@@ -1,3 +1,13 @@
+0.39.1 (2019-02-28)
+*******************
+
+Note worthy changes
+-------------------
+
+- The ``linkedin_oauth2`` provider now gracefully deals with old V1
+  data that might still be present in ``SocialAccount.extra_data``.
+
+
 0.39.0 (2019-02-26)
 *******************
 

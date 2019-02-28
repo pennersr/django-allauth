@@ -1,3 +1,5 @@
+from django.utils import six
+
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.base import (
     ProviderAccount,
@@ -10,16 +12,20 @@ def _extract_name_field(data, field_name):
     ret = ''
     v = data.get(field_name, {})
     if v:
-        localized = v.get('localized', {})
-        preferred_locale = v.get(
-            'preferredLocale', {'country': 'US', 'language': 'en'})
-        locale_key = '_'.join([
-            preferred_locale['language'],
-            preferred_locale['country']])
-        if locale_key in localized:
-            ret = localized.get(locale_key)
-        elif localized:
-            ret = next(iter(localized.values()))
+        if isinstance(v, six.string_types):
+            # Old V1 data
+            ret = v
+        else:
+            localized = v.get('localized', {})
+            preferred_locale = v.get(
+                'preferredLocale', {'country': 'US', 'language': 'en'})
+            locale_key = '_'.join([
+                preferred_locale['language'],
+                preferred_locale['country']])
+            if locale_key in localized:
+                ret = localized.get(locale_key)
+            elif localized:
+                ret = next(iter(localized.values()))
     return ret
 
 

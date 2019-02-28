@@ -1,3 +1,4 @@
+from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase
 
@@ -34,3 +35,16 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
   }
 }
 """)
+
+    def test_data_to_str(self):
+        data = {
+            'emailAddress': 'john@doe.org',
+            'firstName': 'John',
+            'id': 'a1b2c3d4e',
+            'lastName': 'Doe',
+            'pictureUrl': 'https://media.licdn.com/mpr/foo',
+            'pictureUrls': {'_total': 1,
+                            'values': ['https://media.licdn.com/foo']},
+            'publicProfileUrl': 'https://www.linkedin.com/in/johndoe'}
+        acc = SocialAccount(extra_data=data, provider='linkedin_oauth2')
+        self.assertEqual(acc.get_provider_account().to_str(), 'John Doe')

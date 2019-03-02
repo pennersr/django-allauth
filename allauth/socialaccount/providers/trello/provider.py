@@ -21,6 +21,13 @@ class TrelloProvider(OAuthProvider):
     def extract_uid(self, data):
         return data['id']
 
+    def extract_common_fields(self, data):
+        return dict(
+            email=data.get('email'),
+            username=data.get('username'),
+            name=data.get('name'),
+        )
+
     def get_auth_params(self, request, action):
         data = super(TrelloProvider, self).get_auth_params(request, action)
         app = self.get_app(request)

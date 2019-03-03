@@ -54,7 +54,8 @@ class LinkedInOAuth2Account(ProviderAccount):
         """
         Attempts the load the avatar associated to the avatar.
 
-        Requires the `profilePicture(displayImage~:playableStreams)` profile field
+        Requires the `profilePicture(displayImage~:playableStreams)`
+        profile field configured in settings.py
 
         :return:
         """
@@ -91,7 +92,7 @@ class LinkedInOAuth2Account(ProviderAccount):
                 continue
             if not width == req_size[0] or not height == req_size[1]:
                 continue
-            # Same displaysize, so get the uri
+            # Get the uri since actual size matches the requested size.
             to_return = single_element.get('identifiers', [{}, ])[0]\
                 .get('identifier')
             if to_return:

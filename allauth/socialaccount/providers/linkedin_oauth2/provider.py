@@ -50,6 +50,43 @@ class LinkedInOAuth2Account(ProviderAccount):
             ret = ' '.join([first_name, last_name]).strip()
         return ret
 
+    def get_avatar_url(self):
+        """
+        Attempts the load the avatar associated to the avatar.
+
+        Requires the `profilePicture(displayImage~:playableStreams)` profile field
+
+        :return:
+        """
+        provider_configuration = self.account.get_provider().get_settings()
+        configured_profile_fields = provider_configuration.get('PROFILE_FIELDS', [])
+        # Can't get the avatar when this field is not specified
+        picture_field = 'profilePicture(displayImage~:playableStreams)'
+        if picture_field not in configured_profile_fields:
+            return super(LinkedInOAuth2Account, self).get_avatar_url()
+        # Iterate over the fields and attempt to get it by configured size
+        profile_picture_config = provider_configuration.get('PROFILEPICTURE', {})
+        requested_size = profile_picture_config.get('display_size_w_h', (100.0, 100.0))
+        requested_authorization_method = profile_picture_config.get('authorization_method', 'PUBLIC')
+        # Iterate over the data returned by the provider
+        for single_image_element in self.account.extra_data.get('profilePicture', {}).get('displayImage~', {}).get('elements', []):
+            if not requested_authorization_method == single_image_element['authorizationMethod']:
+                continue
+            # Get the dimensions from the payload
+            image_data = single_image_element.get('data', {}).get('com.linkedin.digitalmedia.mediaartifact.StillImage', {}).get('displaySize', {})
+            if not image_data:
+                continue
+            width, height = image_data['width'], image_data['height']
+            if not width or not height:
+                continue
+            if not width == requested_size[0] or not height == requested_size[1]:
+                continue
+            # Same displaysize, so get the uri
+            to_return = single_image_element.get('identifiers', [{}, ])[0].get('identifier')
+            if to_return:
+                return to_return
+        return super(LinkedInOAuth2Account, self).get_avatar_url()
+
 
 class LinkedInOAuth2Provider(OAuth2Provider):
     id = 'linkedin_oauth2'

@@ -1,6 +1,6 @@
 import requests
 
-from django.utils.http import urlencode, urlquote
+from django.utils.http import urlencode
 
 from allauth.socialaccount.providers.oauth.views import (
     OAuthAdapter,

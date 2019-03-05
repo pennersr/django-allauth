@@ -4,6 +4,8 @@ from allauth.tests import MockedResponse, TestCase
 
 from django.test.utils import override_settings
 
+from json import loads
+
 from .provider import LinkedInOAuth2Provider
 
 
@@ -79,7 +81,7 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
 }
 '''
         acc = SocialAccount(
-            extra_data=extra_data,
+            extra_data=loads(extra_data),
             provider='linkedin_oauth2',
         )
         self.assertIsNone(acc.get_avatar_url())
@@ -126,7 +128,7 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
 }
 '''
         acc = SocialAccount(
-            extra_data=extra_data,
+            extra_data=loads(extra_data),
             provider='linkedin_oauth2',
         )
         self.assertIsNone(acc.get_avatar_url())
@@ -221,7 +223,7 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
 }
 '''
         acc = SocialAccount(
-            extra_data=extra_data,
+            extra_data=loads(extra_data),
             provider='linkedin_oauth2',
         )
         self.assertEquals('this-is-the-link', acc.get_avatar_url())
@@ -316,7 +318,7 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
 }
 '''
         acc = SocialAccount(
-            extra_data=extra_data,
+            extra_data=loads(extra_data),
             provider='linkedin_oauth2',
         )
         self.assertIsNone(acc.get_avatar_url())
@@ -411,7 +413,7 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
 }
 '''
         acc = SocialAccount(
-            extra_data=extra_data,
+            extra_data=loads(extra_data),
             provider='linkedin_oauth2',
         )
         self.assertIsNone(acc.get_avatar_url())
@@ -506,7 +508,7 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
 }
 '''
         acc = SocialAccount(
-            extra_data=extra_data,
+            extra_data=loads(extra_data),
             provider='linkedin_oauth2',
         )
         self.assertEquals('this-is-the-link', acc.get_avatar_url())

@@ -226,7 +226,7 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
             extra_data=loads(extra_data),
             provider='linkedin_oauth2',
         )
-        self.assertEquals('this-is-the-link', acc.get_avatar_url())
+        self.assertEqual('this-is-the-link', acc.get_avatar_url())
 
     @override_settings(
         SOCIALACCOUNT_PROVIDERS={
@@ -511,4 +511,4 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
             extra_data=loads(extra_data),
             provider='linkedin_oauth2',
         )
-        self.assertEquals('this-is-the-link', acc.get_avatar_url())
+        self.assertEqual('this-is-the-link', acc.get_avatar_url())

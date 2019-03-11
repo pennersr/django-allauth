@@ -67,8 +67,9 @@ class PasswordField(forms.CharField):
     _render_value = False
 
     def __init__(self, *args, **kwargs):
-        self._render_value = kwargs.pop('render_value',
-                                  app_settings.PASSWORD_INPUT_RENDER_VALUE)
+        self._render_value = kwargs.pop(
+                           'render_value',
+                           app_settings.PASSWORD_INPUT_RENDER_VALUE)
         kwargs['widget'] = forms.PasswordInput(render_value=self._render_value,
                                                attrs={'placeholder':
                                                       kwargs.get("label")})

@@ -64,14 +64,20 @@ class PasswordVerificationMixin(object):
 
 
 class PasswordField(forms.CharField):
+    _render_value = False
 
     def __init__(self, *args, **kwargs):
-        render_value = kwargs.pop('render_value',
+        self._render_value = kwargs.pop('render_value',
                                   app_settings.PASSWORD_INPUT_RENDER_VALUE)
-        kwargs['widget'] = forms.PasswordInput(render_value=render_value,
+        kwargs['widget'] = forms.PasswordInput(render_value=self._render_value,
                                                attrs={'placeholder':
                                                       kwargs.get("label")})
         super(PasswordField, self).__init__(*args, **kwargs)
+
+    def prepare_value(self, value):
+        if self._render_value:
+            return value
+        return None
 
 
 class SetPasswordField(PasswordField):

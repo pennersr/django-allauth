@@ -66,7 +66,7 @@
       if (action === 'reauthenticate' || action === 'rerequest') {
         this.opts.loginOptions.auth_type = action
       }
-      if (scope != '') {
+      if (scope !== '') {
         this.opts.loginOptions.scope = scope
       }
 

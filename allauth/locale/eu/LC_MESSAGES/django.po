@@ -1,0 +1,803 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: django-allauth\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-02-26 12:47-0600\n"
+"PO-Revision-Date: 2018-08-29 08:16+0200\n"
+"Last-Translator: Eneko Illarramendi <eneko@illarra.com>\n"
+"Language-Team: Basque <translate@tropela.eus>\n"
+"Language: eu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.1.1\n"
+
+#: account/adapter.py:45
+msgid "Username can not be used. Please use other username."
+msgstr ""
+"Erabiltzaile izen hau ezin da erabili. Aukeratu beste erabiltzaile izen bat."
+
+#: account/adapter.py:49
+msgid "Too many failed login attempts. Try again later."
+msgstr "Huts egite gehiegi saioa hasterakoan. Saiatu berriro beranduago."
+
+#: account/adapter.py:51
+msgid "A user is already registered with this e-mail address."
+msgstr ""
+"Erabiltzaile batek kontu bat sortu du iada helbide elektroniko honekin."
+
+#: account/adapter.py:294
+#, python-brace-format
+msgid "Password must be a minimum of {0} characters."
+msgstr "Pasahitzak gutxienez {0} karaktere izan behar ditu."
+
+#: account/apps.py:7
+msgid "Accounts"
+msgstr "Kontuak"
+
+#: account/forms.py:61 account/forms.py:398
+msgid "You must type the same password each time."
+msgstr "Pasahitz berdina idatzi behar duzu aldi bakoitzean."
+
+#: account/forms.py:91 account/forms.py:365 account/forms.py:476
+msgid "Password"
+msgstr "Pasahitza"
+
+#: account/forms.py:92
+msgid "Remember Me"
+msgstr "Gogora nazazue"
+
+#: account/forms.py:98
+msgid "This account is currently inactive."
+msgstr "Kontu hau ez dago aktiboa orain."
+
+#: account/forms.py:101
+msgid "The e-mail address and/or password you specified are not correct."
+msgstr "Sartutako helbide elektronikoa eta/edo pasahitza ez dira zuzenak."
+
+#: account/forms.py:104
+msgid "The username and/or password you specified are not correct."
+msgstr "Sartutako erabiltzailea eta/edo pasahitza ez dira zuzenak."
+
+#: account/forms.py:113 account/forms.py:268 account/forms.py:426
+#: account/forms.py:495
+msgid "E-mail address"
+msgstr "Helbide elektronikoa"
+
+#: account/forms.py:115 account/forms.py:301 account/forms.py:421
+#: account/forms.py:490
+msgid "E-mail"
+msgstr "Emaila"
+
+#: account/forms.py:120 account/forms.py:123 account/forms.py:260
+#: account/forms.py:264
+msgid "Username"
+msgstr "Erabiltzailea"
+
+#: account/forms.py:130
+msgid "Username or e-mail"
+msgstr "Erabiltzailea edo emaila"
+
+#: account/forms.py:133
+msgctxt "field label"
+msgid "Login"
+msgstr "Logina"
+
+#: account/forms.py:292
+msgid "E-mail (again)"
+msgstr "Emaila (berriro)"
+
+#: account/forms.py:296
+msgid "E-mail address confirmation"
+msgstr "Helbide elektronikoaren egiaztapena"
+
+#: account/forms.py:304
+msgid "E-mail (optional)"
+msgstr "Emaila (hautazkoa)"
+
+#: account/forms.py:345
+msgid "You must type the same email each time."
+msgstr "Email berdina idatzi behar duzu aldi bakoitzean."
+
+#: account/forms.py:368 account/forms.py:477
+msgid "Password (again)"
+msgstr "Pasahitza (berriro)"
+
+#: account/forms.py:432
+msgid "This e-mail address is already associated with this account."
+msgstr "Helbide elektroniko hau dagoeneko kontu honi lotuta dago."
+
+#: account/forms.py:434
+msgid "This e-mail address is already associated with another account."
+msgstr "Helbide elektroniko hau dagoeneko beste kontu bati lotuta dago."
+
+#: account/forms.py:456
+msgid "Current Password"
+msgstr "Oraingo pasahitza"
+
+#: account/forms.py:457 account/forms.py:546
+msgid "New Password"
+msgstr "Pasahitz berria"
+
+#: account/forms.py:458 account/forms.py:547
+msgid "New Password (again)"
+msgstr "Pasahitz berria (berriro)"
+
+#: account/forms.py:466
+msgid "Please type your current password."
+msgstr "Mesedez idatzi zure oraingo pasahitza."
+
+#: account/forms.py:504
+msgid "The e-mail address is not assigned to any user account"
+msgstr "Helbide elektroniko hau ez dago kontu bati lotuta"
+
+#: account/forms.py:568
+msgid "The password reset token was invalid."
+msgstr "Pasahitza berrezartzeko \"token\"-a baliogabea da."
+
+#: account/models.py:23
+msgid "user"
+msgstr "erabiltzailea"
+
+#: account/models.py:27 account/models.py:81
+msgid "e-mail address"
+msgstr "helbide elektronikoa"
+
+#: account/models.py:28
+msgid "verified"
+msgstr "egiaztatuta"
+
+#: account/models.py:29
+msgid "primary"
+msgstr "nagusia"
+
+#: account/models.py:34
+msgid "email address"
+msgstr "helbide elektronikoa"
+
+#: account/models.py:35
+msgid "email addresses"
+msgstr "helbide elektronikoak"
+
+#: account/models.py:83
+msgid "created"
+msgstr "sortuta"
+
+#: account/models.py:85
+msgid "sent"
+msgstr "bidalita"
+
+#: account/models.py:86 socialaccount/models.py:55
+msgid "key"
+msgstr "giltza"
+
+#: account/models.py:91
+msgid "email confirmation"
+msgstr "email egiaztapena"
+
+#: account/models.py:92
+msgid "email confirmations"
+msgstr "email egiaztapenak"
+
+#: socialaccount/adapter.py:26
+#, python-format
+msgid ""
+"An account already exists with this e-mail address. Please sign in to that "
+"account first, then connect your %s account."
+msgstr ""
+"Kontu bat sortu da iada helbide elektroniko honekin. Mesedez hasi saio berri "
+"bat kontu honekin eta gero zure %s kontua honi lotu."
+
+#: socialaccount/adapter.py:131
+msgid "Your account has no password set up."
+msgstr "Zure kontuak ez du pasahitzik zehaztuta."
+
+#: socialaccount/adapter.py:138
+msgid "Your account has no verified e-mail address."
+msgstr "Zure kontuak ez du egiaztatutako emailik."
+
+#: socialaccount/apps.py:7
+msgid "Social Accounts"
+msgstr "Sare sozial kontuak"
+
+#: socialaccount/models.py:43 socialaccount/models.py:77
+msgid "provider"
+msgstr "zerbitzua"
+
+#: socialaccount/models.py:46
+msgid "name"
+msgstr "izena"
+
+#: socialaccount/models.py:48
+msgid "client id"
+msgstr "client id"
+
+#: socialaccount/models.py:50
+msgid "App ID, or consumer key"
+msgstr "Aplikazioaren ID-a, edo \"consumer key\"-a"
+
+#: socialaccount/models.py:51
+msgid "secret key"
+msgstr "\"secret key\"-a"
+
+#: socialaccount/models.py:53
+msgid "API secret, client secret, or consumer secret"
+msgstr "\"API secret\"-a, \"client secret\"-a edo \"consumer secret\"-a"
+
+#: socialaccount/models.py:58
+msgid "Key"
+msgstr "Giltza"
+
+#: socialaccount/models.py:66
+msgid "social application"
+msgstr "aplikazio soziala"
+
+#: socialaccount/models.py:67
+msgid "social applications"
+msgstr "aplikazio sozialak"
+
+#: socialaccount/models.py:96
+msgid "uid"
+msgstr "uid"
+
+#: socialaccount/models.py:98
+msgid "last login"
+msgstr "azken logina"
+
+#: socialaccount/models.py:100
+msgid "date joined"
+msgstr "erregistro eguna"
+
+#: socialaccount/models.py:102
+msgid "extra data"
+msgstr "datu gehigarriak"
+
+#: socialaccount/models.py:106
+msgid "social account"
+msgstr "sare sozial kontua"
+
+#: socialaccount/models.py:107
+msgid "social accounts"
+msgstr "sare sozial kontuak"
+
+#: socialaccount/models.py:133
+msgid "token"
+msgstr "\"token\"-a"
+
+#: socialaccount/models.py:135
+msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
+msgstr "\"oauth_token\"-a (OAuth1) edo \"access token\"-a (OAuth2)"
+
+#: socialaccount/models.py:138
+msgid "token secret"
+msgstr "\"token secret\"-a"
+
+#: socialaccount/models.py:140
+msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
+msgstr "\"oauth_token_secret\"-a (OAuth1) edo \"refresh token\"-a (OAuth2)"
+
+#: socialaccount/models.py:142
+msgid "expires at"
+msgstr "iraungitze data"
+
+#: socialaccount/models.py:146
+msgid "social application token"
+msgstr "aplikazio sozial \"token\"-a"
+
+#: socialaccount/models.py:147
+msgid "social application tokens"
+msgstr "aplikazio sozial \"token\"-ak"
+
+#: socialaccount/providers/douban/views.py:36
+msgid "Invalid profile data"
+msgstr "Profil datu baliogabeak"
+
+#: socialaccount/providers/oauth/client.py:78
+#, python-format
+msgid "Invalid response while obtaining request token from \"%s\"."
+msgstr "Erantzun baliogabea \"%s\"-tik \"request token\"-a eskuratzean."
+
+#: socialaccount/providers/oauth/client.py:109
+#, python-format
+msgid "Invalid response while obtaining access token from \"%s\"."
+msgstr "Erantzun baliogabea \"%s\"-tik \"access token\"-a eskuratzean."
+
+#: socialaccount/providers/oauth/client.py:128
+#, python-format
+msgid "No request token saved for \"%s\"."
+msgstr "Ez dago \"request token\"-ik gordeta \"%s\"-entzat."
+
+#: socialaccount/providers/oauth/client.py:177
+#, python-format
+msgid "No access token saved for \"%s\"."
+msgstr "Ez dago \"access token\"-ik gordeta \"%s\"-entzat."
+
+#: socialaccount/providers/oauth/client.py:197
+#, python-format
+msgid "No access to private resources at \"%s\"."
+msgstr "Ez duzu baliabide pribatuetara sarbiderik: \"%s\"."
+
+#: templates/account/account_inactive.html:5
+#: templates/account/account_inactive.html:8
+msgid "Account Inactive"
+msgstr "Kontu ez aktiboa"
+
+#: templates/account/account_inactive.html:10
+msgid "This account is inactive."
+msgstr "Kontu hau ez dago aktiboa."
+
+#: templates/account/email.html:5
+msgid "Account"
+msgstr "Kontua"
+
+#: templates/account/email.html:8
+msgid "E-mail Addresses"
+msgstr "Helbide elektronikoak"
+
+#: templates/account/email.html:10
+msgid "The following e-mail addresses are associated with your account:"
+msgstr "Helbide elektroniko hauek zure kontuari lotuta daude:"
+
+#: templates/account/email.html:24
+msgid "Verified"
+msgstr "Egiaztatuta"
+
+#: templates/account/email.html:26
+msgid "Unverified"
+msgstr "Egiaztatu gabe"
+
+#: templates/account/email.html:28
+msgid "Primary"
+msgstr "Nagusia"
+
+#: templates/account/email.html:34
+msgid "Make Primary"
+msgstr "Nagusia egin"
+
+#: templates/account/email.html:35
+msgid "Re-send Verification"
+msgstr "Egiaztapen emaila berbidali"
+
+#: templates/account/email.html:36 templates/socialaccount/connections.html:35
+msgid "Remove"
+msgstr "Ezabatu"
+
+#: templates/account/email.html:43
+msgid "Warning:"
+msgstr "Adi:"
+
+#: templates/account/email.html:43
+msgid ""
+"You currently do not have any e-mail address set up. You should really add "
+"an e-mail address so you can receive notifications, reset your password, etc."
+msgstr ""
+"Oraingoz ez duzu helbide elektronikorik zehaztu. Helbide elektroniko bat "
+"gehitu beharko zenuke notifikazioak jaso ahal izateko, pasahitza "
+"berrezartzeko, etab."
+
+#: templates/account/email.html:48
+msgid "Add E-mail Address"
+msgstr "Helbide elektronikoa gehitu"
+
+#: templates/account/email.html:53
+msgid "Add E-mail"
+msgstr "Emaila gehitu"
+
+#: templates/account/email.html:62
+msgid "Do you really want to remove the selected e-mail address?"
+msgstr "Ziur al zaude aukeratutako helbide elektronikoa ezabatu nahi duzula?"
+
+#: templates/account/email/email_confirmation_message.txt:1
+#, python-format
+msgid ""
+"Hello from %(site_name)s!\n"
+"\n"
+"You're receiving this e-mail because user %(user_display)s has given yours "
+"as an e-mail address to connect their account.\n"
+"\n"
+"To confirm this is correct, go to %(activate_url)s\n"
+msgstr ""
+"Kaixo %(site_name)s webgunetik!\n"
+"\n"
+"Email hau jaso duzu %(user_display)s erabiltzaileak zure helbide "
+"elektronikoa bere kontuarekin lotu nahi duelako.\n"
+"\n"
+"Hau zuzena dela baieztatzeko, egin klik hemen: %(activate_url)s\n"
+
+#: templates/account/email/email_confirmation_message.txt:7
+#, python-format
+msgid ""
+"Thank you from %(site_name)s!\n"
+"%(site_domain)s"
+msgstr ""
+"Mila esker %(site_name)s-(e)tik!\n"
+"%(site_domain)s"
+
+#: templates/account/email/email_confirmation_subject.txt:3
+msgid "Please Confirm Your E-mail Address"
+msgstr "Mesedez egiaztatu zure helbide elektronikoa"
+
+#: templates/account/email/password_reset_key_message.txt:1
+#, python-format
+msgid ""
+"Hello from %(site_name)s!\n"
+"\n"
+"You're receiving this e-mail because you or someone else has requested a "
+"password for your user account.\n"
+"It can be safely ignored if you did not request a password reset. Click the "
+"link below to reset your password."
+msgstr ""
+"Kaixo %(site_name)s webgunetik!\n"
+"\n"
+"Email hau jaso duzu zuk edo beste norbaitek pasahitza berrezartzeko eskaera "
+"egin duelako zure kontuarentzat.\n"
+"Eskaera zuk egin ez baduzu mezu hau alde batera utzi dezakezu. Edo egin klik "
+"ondorengo estekan zure pasahitza berrezartzeko."
+
+#: templates/account/email/password_reset_key_message.txt:8
+#, python-format
+msgid "In case you forgot, your username is %(username)s."
+msgstr "Ahaztu baduzu, zure erabiltzaile izena %(username)s da."
+
+#: templates/account/email/password_reset_key_message.txt:10
+#, python-format
+msgid ""
+"Thank you for using %(site_name)s!\n"
+"%(site_domain)s"
+msgstr ""
+"Mila esker %(site_name)s webgunea erabiltzeagatik!\n"
+"%(site_domain)s"
+
+#: templates/account/email/password_reset_key_subject.txt:3
+msgid "Password Reset E-mail"
+msgstr "Pasahitza berrezartzeko emaila"
+
+#: templates/account/email_confirm.html:6
+#: templates/account/email_confirm.html:10
+msgid "Confirm E-mail Address"
+msgstr "Helbide elektronikoa egiaztatu"
+
+#: templates/account/email_confirm.html:16
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
+msgstr ""
+"Mesedez egiaztatu <a href=\"mailto:%(email)s\">%(email)s</a> "
+"%(user_display)s erabiltzailearen helbide elektroniko bat dela."
+
+#: templates/account/email_confirm.html:20
+msgid "Confirm"
+msgstr "Egiaztatu"
+
+#: templates/account/email_confirm.html:27
+#, python-format
+msgid ""
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+msgstr ""
+"Egiaztapen esteka hau iraungirik dago edo baliogabea da. Mesedez eskatu <a "
+"href=\"%(email_url)s\">egiaztapen email berri bat</a>."
+
+#: templates/account/login.html:6 templates/account/login.html:10
+#: templates/account/login.html:43
+msgid "Sign In"
+msgstr "Saioa hasi"
+
+#: templates/account/login.html:15
+#, python-format
+msgid ""
+"Please sign in with one\n"
+"of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign "
+"up</a>\n"
+"for a %(site_name)s account and sign in below:"
+msgstr ""
+"Mesedez hasi saioa lotutako sare sozial kontu bat\n"
+"erabiliz, edo <a href=\"%(signup_url)s\">sortu kontu bat</a>\n"
+"%(site_name)s webgunean eta saioa hasi hemen:"
+
+#: templates/account/login.html:25
+msgid "or"
+msgstr "edo"
+
+#: templates/account/login.html:32
+#, python-format
+msgid ""
+"If you have not created an account yet, then please\n"
+"<a href=\"%(signup_url)s\">sign up</a> first."
+msgstr ""
+"Oraindik kontu bat sortu ez baduzu, mesedez\n"
+"<a href=\"%(signup_url)s\">sortu kontu bat</a> lehenik."
+
+#: templates/account/login.html:42
+msgid "Forgot Password?"
+msgstr "Pasahitza ahaztu duzu?"
+
+#: templates/account/logout.html:5 templates/account/logout.html:8
+#: templates/account/logout.html:17
+msgid "Sign Out"
+msgstr "Saioa amaitu"
+
+#: templates/account/logout.html:10
+msgid "Are you sure you want to sign out?"
+msgstr "Ziur al zaude saioa amaitu nahi duzula?"
+
+#: templates/account/messages/cannot_delete_primary_email.txt:2
+#, python-format
+msgid "You cannot remove your primary e-mail address (%(email)s)."
+msgstr "Ezin duzu zure helbide elektroniko nagusia ezabatu (%(email)s)."
+
+#: templates/account/messages/email_confirmation_sent.txt:2
+#, python-format
+msgid "Confirmation e-mail sent to %(email)s."
+msgstr "Egiaztapen emaila bidali da %(email)s helbidera."
+
+#: templates/account/messages/email_confirmed.txt:2
+#, python-format
+msgid "You have confirmed %(email)s."
+msgstr "%(email)s emaila egiaztatu duzu."
+
+#: templates/account/messages/email_deleted.txt:2
+#, python-format
+msgid "Removed e-mail address %(email)s."
+msgstr "%(email)s helbide elektronikoa ezabatu da."
+
+#: templates/account/messages/logged_in.txt:4
+#, python-format
+msgid "Successfully signed in as %(name)s."
+msgstr "%(name)s bezala hasi duzu saioa."
+
+#: templates/account/messages/logged_out.txt:2
+msgid "You have signed out."
+msgstr "Saioa amaitu duzu."
+
+#: templates/account/messages/password_changed.txt:2
+msgid "Password successfully changed."
+msgstr "Pasahitza behar bezala aldatu da."
+
+#: templates/account/messages/password_set.txt:2
+msgid "Password successfully set."
+msgstr "Pasahitza behar bezala zehaztu da."
+
+#: templates/account/messages/primary_email_set.txt:2
+msgid "Primary e-mail address set."
+msgstr "Helbide elektroniko nagusia zehaztu da."
+
+#: templates/account/messages/unverified_primary_email.txt:2
+msgid "Your primary e-mail address must be verified."
+msgstr "Zure email nagusiak egiaztatuta egon behar du."
+
+#: templates/account/password_change.html:5
+#: templates/account/password_change.html:8
+#: templates/account/password_change.html:13
+#: templates/account/password_reset_from_key.html:4
+#: templates/account/password_reset_from_key.html:7
+#: templates/account/password_reset_from_key_done.html:4
+#: templates/account/password_reset_from_key_done.html:7
+msgid "Change Password"
+msgstr "Pasahitza aldatu"
+
+#: templates/account/password_reset.html:6
+#: templates/account/password_reset.html:10
+#: templates/account/password_reset_done.html:6
+#: templates/account/password_reset_done.html:9
+msgid "Password Reset"
+msgstr "Pasahitza berrezarri"
+
+#: templates/account/password_reset.html:15
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
+msgstr ""
+"Zure pasahitza ahaztu al duzu? Idatzi zure helbide elektronikoa hemen eta "
+"pasahitza berrezartzeko email bat bidaliko dizugu."
+
+#: templates/account/password_reset.html:20
+msgid "Reset My Password"
+msgstr "Nire pasahitza berrezarri"
+
+#: templates/account/password_reset.html:23
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr ""
+"Mesedez jarri gurekin kontaktuan zure pasahitza berrezartzeko arazorik "
+"baduzu."
+
+#: templates/account/password_reset_done.html:15
+msgid ""
+"We have sent you an e-mail. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+"Email bat bidali dizugu. Mesedez jarri gurekin kontaktuan hurrengo "
+"minutuetan jasotzen ez baduzu."
+
+#: templates/account/password_reset_from_key.html:7
+msgid "Bad Token"
+msgstr "Token baliogabea"
+
+#: templates/account/password_reset_from_key.html:11
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+"Pasahitza berrezartzeko esteka baliogabea da, beharbada lehendik ere erabili "
+"delako. Mesedez eskatu <a href=\"%(passwd_reset_url)s\">pasahitza "
+"berrezartzeko email berri bat</a>."
+
+#: templates/account/password_reset_from_key.html:17
+msgid "change password"
+msgstr "pasahitza aldatu"
+
+#: templates/account/password_reset_from_key.html:20
+#: templates/account/password_reset_from_key_done.html:8
+msgid "Your password is now changed."
+msgstr "Zure pasahitza aldatuta dago orain."
+
+#: templates/account/password_set.html:5 templates/account/password_set.html:8
+#: templates/account/password_set.html:13
+msgid "Set Password"
+msgstr "Pasahitza zehaztu"
+
+#: templates/account/signup.html:5 templates/socialaccount/signup.html:5
+msgid "Signup"
+msgstr "Kontua sortu"
+
+#: templates/account/signup.html:8 templates/account/signup.html:18
+#: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
+msgid "Sign Up"
+msgstr "Kontua sortu"
+
+#: templates/account/signup.html:10
+#, python-format
+msgid ""
+"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr ""
+"Lehendik kontu bat sortua duzu? <a href=\"%(login_url)s\">Saioa hasi</a> "
+"orduan."
+
+#: templates/account/signup_closed.html:5
+#: templates/account/signup_closed.html:8
+msgid "Sign Up Closed"
+msgstr "Ezin da konturik sortu iada"
+
+#: templates/account/signup_closed.html:10
+msgid "We are sorry, but the sign up is currently closed."
+msgstr "Sentitzen dugu baina ezin da kontu berririk sortu."
+
+#: templates/account/snippets/already_logged_in.html:5
+msgid "Note"
+msgstr "Oharra"
+
+#: templates/account/snippets/already_logged_in.html:5
+#, python-format
+msgid "you are already logged in as %(user_display)s."
+msgstr "lehendik saioa hasita duzu %(user_display)s bezala."
+
+#: templates/account/verification_sent.html:5
+#: templates/account/verification_sent.html:8
+#: templates/account/verified_email_required.html:5
+#: templates/account/verified_email_required.html:8
+msgid "Verify Your E-mail Address"
+msgstr "Zure helbide elektronikoa egiaztatu"
+
+#: templates/account/verification_sent.html:10
+msgid ""
+"We have sent an e-mail to you for verification. Follow the link provided to "
+"finalize the signup process. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+"Email bat bidali dizugu zure helbidea egiaztatzeko. Mesedez egin klik bertan "
+"aurkituko duzun estekan kontua sortzeko prozesua amaitzeko, edo jarri "
+"gurekin kontaktuan hurrengo minutuetan emailik jasotzen ez baduzu."
+
+#: templates/account/verified_email_required.html:12
+msgid ""
+"This part of the site requires us to verify that\n"
+"you are who you claim to be. For this purpose, we require that you\n"
+"verify ownership of your e-mail address. "
+msgstr ""
+"Webguneko atal honek zuk diozuna zarela egiaztatzea\n"
+"eskatzen digu. Honetarako zure helbide elektronikoa\n"
+"egiaztatzea beharrezkoa da. "
+
+#: templates/account/verified_email_required.html:16
+msgid ""
+"We have sent an e-mail to you for\n"
+"verification. Please click on the link inside this e-mail. Please\n"
+"contact us if you do not receive it within a few minutes."
+msgstr ""
+"Email bat bidali dizugu zure helbidea egiaztatzeko.\n"
+"Mesedez egin klik bertan aurkituko duzun estekan,\n"
+"edo jarri gurekin kontaktuan hurrengo minutuetan\n"
+"emailik jasotzen ez baduzu."
+
+#: templates/account/verified_email_required.html:20
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
+"mail address</a>."
+msgstr ""
+"<strong>Oharra:</strong> oraindik <a href=\"%(email_url)s\">zure helbide "
+"elektronikoa aldatu</a> dezakezu."
+
+#: templates/openid/login.html:9
+msgid "OpenID Sign In"
+msgstr "OpenID-rekin sartu"
+
+#: templates/socialaccount/authentication_error.html:5
+#: templates/socialaccount/authentication_error.html:8
+msgid "Social Network Login Failure"
+msgstr "Arazoak sare sozialarekin logina egitean"
+
+#: templates/socialaccount/authentication_error.html:10
+msgid ""
+"An error occurred while attempting to login via your social network account."
+msgstr ""
+"Arazoren bat izan da zure sare sozial kontua erabiltzen saioa hasteko "
+"ahaleginean."
+
+#: templates/socialaccount/connections.html:5
+#: templates/socialaccount/connections.html:8
+msgid "Account Connections"
+msgstr "Lotutako kontuak"
+
+#: templates/socialaccount/connections.html:11
+msgid ""
+"You can sign in to your account using any of the following third party "
+"accounts:"
+msgstr ""
+"Ondorengo zerbitzu hauetako edozein erabili dezakezu zure kontuan sartzeko:"
+
+#: templates/socialaccount/connections.html:43
+msgid ""
+"You currently have no social network accounts connected to this account."
+msgstr "Oraingoz ez duzu sare sozial konturik lotu kontu honekin."
+
+#: templates/socialaccount/connections.html:46
+msgid "Add a 3rd Party Account"
+msgstr "Sare sozial kontu bat gehitu"
+
+#: templates/socialaccount/login_cancelled.html:5
+#: templates/socialaccount/login_cancelled.html:9
+msgid "Login Cancelled"
+msgstr "Baliogabetutako logina"
+
+#: templates/socialaccount/login_cancelled.html:13
+#, python-format
+msgid ""
+"You decided to cancel logging in to our site using one of your existing "
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
+msgstr ""
+"Lotutako kontu batekin saioa hasteko saiakera bertan behera utzi duzu. "
+"Oharkabean gertatu bada, mesedez <a href=\"%(login_url)s\">saioa hasi</a> "
+"berriro."
+
+#: templates/socialaccount/messages/account_connected.txt:2
+msgid "The social account has been connected."
+msgstr "Sare sozial kontua behar bezala lotu da."
+
+#: templates/socialaccount/messages/account_connected_other.txt:2
+msgid "The social account is already connected to a different account."
+msgstr "Sare sozial kontua dagoeneko beste kontu bati lotuta dago."
+
+#: templates/socialaccount/messages/account_disconnected.txt:2
+msgid "The social account has been disconnected."
+msgstr "Sare sozial kontu honekin lotura ezabatu da."
+
+#: templates/socialaccount/signup.html:10
+#, python-format
+msgid ""
+"You are about to use your %(provider_name)s account to login to\n"
+"%(site_name)s. As a final step, please complete the following form:"
+msgstr ""
+"Zure %(provider_name)s kontua erabiltzear zaude %(site_name)s\n"
+"webgunean saioa hasteko. Azken pausu bezala, mesedez osa ezazu\n"
+"formulario hau:"

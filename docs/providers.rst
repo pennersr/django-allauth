@@ -57,6 +57,17 @@ Development callback URL
     http://localhost:8000/accounts/agave/login/callback/
     *May require https url, even for localhost*
 
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'agave': {
+            'API_URL': 'https://api.tacc.utexas.edu',
+        }
+    }
+
+In the absense of a specified API_URL, the default Agave tenant is
+    https://public.agaveapi.co/
+
 Amazon
 ------
 
@@ -151,10 +162,10 @@ Battle.net
 ----------
 
 The Battle.net OAuth2 authentication documentation
-    https://dev.battle.net/docs/read/oauth
+    https://develop.battle.net/documentation/guides/using-oauth
 
-Register your app here (Mashery account required)
-    https://dev.battle.net/apps/register
+Register your app here (Blizzard account required)
+    https://develop.battle.net/access/clients/create
 
 Development callback URL
     https://localhost:8000/accounts/battlenet/login/callback/
@@ -289,30 +300,6 @@ App registration (get your key and secret here)
 
 Development callback URL
     http://localhost:8000/accounts/dropbox/login/callback/
-
-Dwolla
-------------
-
-App registration (get your key and secret here)
-    https://dashboard-uat.dwolla.com/applications
-
-Development callback URL
-    http://127.0.0.1:8000/accounts/dwolla/login/callback/
-
-
-.. code-block:: python
-
-    SOCIALACCOUNT_PROVIDERS = {
-        'dwolla': {
-            'SCOPE': [
-                'Send',
-                'Transactions',
-                'Funding',
-                'AccountInfoFull',
-            ],
-            'ENVIROMENT':'sandbox',
-        }
-    }
 
 Dwolla
 ------------
@@ -697,7 +684,7 @@ Google
 The Google provider is OAuth2 based.
 
 More info:
-    http://code.google.com/apis/accounts/docs/OAuth2.html#Registering
+    https://developers.google.com/identity/protocols/OAuth2
 
 
 App registration
@@ -768,6 +755,25 @@ App registration (get your key and secret here)
 Development callback URL
     http://localhost:8000/accounts/instagram/login/callback/
 
+
+JupyterHub
+----------
+
+Documentation on configuring a key and secret key
+    https://jupyterhub.readthedocs.io/en/stable/api/services.auth.html
+
+Development callback URL
+    http://localhost:800/accounts/jupyterhub/login/callback/
+
+Specify the URL of your JupyterHub server as follows:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'jupyterhub': {
+            'API_URL': 'https://jupyterhub.example.com',
+        }
+    }
 
 Kakao
 -----
@@ -1308,6 +1314,18 @@ Server Fault). This can be controlled by means of the ``SITE`` setting:
     }
 
 
+Steam
+-----
+
+Steam is an OpenID-compliant provider. However, the `steam` provider allows
+access to more of the user's details such as username, full name, avatar, etc.
+
+You need to register an API key here:
+    https://steamcommunity.com/dev/apikey
+
+Make sure to create a Steam SocialApp with that secret key.
+
+
 Stripe
 ------
 
@@ -1328,6 +1346,32 @@ Stripe dashboard API page:
 
 See more in documentation
     https://stripe.com/docs/connect/standalone-accounts
+
+
+Trello
+------
+
+Register the application at
+    https://trello.com/app-key  
+You get one application key per account.
+
+Save the "Key" to "Client id", the "Secret" to "Secret Key" and "Key" to the "Key" 
+field.
+
+Verify which scope you need at 
+    https://developers.trello.com/page/authorization
+Need to change the default scope? Add or update the `trello` setting to
+`settings.py`
+
+```
+SOCIALACCOUNT_PROVIDERS = {
+    'trello': {
+        'AUTH_PARAMS': {
+            'scope': 'read,write',
+        },
+    },
+}    
+```
 
 
 Twitch
@@ -1436,8 +1480,16 @@ App registration (get your key and secret here)
     https://developer.vimeo.com/apps
 
 Development callback URL
-    http://localhost:8000
+    http://localhost:8000/a
 
+Vimeo (OAuth 2)
+-----
+
+App registration (get your key and secret here)
+    https://developer.vimeo.com/apps
+
+Development callback URL
+    http://localhost:8000/accounts/vimeo_oauth2/login/callback/
 
 VK
 --

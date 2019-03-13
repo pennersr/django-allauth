@@ -7,6 +7,7 @@ from allauth.compat import parse_qsl
 
 logger = logging.getLogger(__name__)
 
+
 class OAuth2Error(Exception):
     pass
 
@@ -75,7 +76,10 @@ class OAuth2Client(object):
             auth=auth)
 
         if resp.status_code < 200 or resp.status_code >= 300:
-            logger.error("{code} {content}".format(code=resp.status_code, content=resp.json()))
+            logger.error("{code} {content}".format(
+                code=resp.status_code,
+                content=resp.json()
+            ))
 
         access_token = None
         if resp.status_code in [200, 201]:

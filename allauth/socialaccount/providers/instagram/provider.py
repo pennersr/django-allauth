@@ -32,7 +32,8 @@ class InstagramProvider(OAuth2Provider):
         return str(data['data']['id'])
 
     def extract_common_fields(self, data):
-        return dict(username=data['data'].get('username'))
+        return dict(username=data['data'].get('username'),
+                    name=data['data'].get('full_name'))
 
 
 provider_classes = [InstagramProvider]

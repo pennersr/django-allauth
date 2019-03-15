@@ -1,3 +1,12 @@
+0.39.2 (unreleased)
+*******************
+
+Note worthy changes
+-------------------
+
+- The ``instagram`` provider now extracts the user's full name.
+
+
 0.39.1 (2019-02-28)
 *******************
 

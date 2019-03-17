@@ -34,7 +34,9 @@ class TwitchOAuth2Adapter(OAuth2Adapter):
         if "id" not in user_info:
             raise OAuth2Error("Invalid data from Twitch API: %r" % (data))
 
-        return self.get_provider().sociallogin_from_response(request, user_info)
+        return self.get_provider().sociallogin_from_response(
+            request, user_info
+        )
 
 
 oauth2_login = OAuth2LoginView.adapter_view(TwitchOAuth2Adapter)

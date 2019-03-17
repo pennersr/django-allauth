@@ -11,7 +11,7 @@ class TwitchAccount(ProviderAccount):
 
     def to_str(self):
         dflt = super(TwitchAccount, self).to_str()
-        return self.account.extra_data.get('name', dflt)
+        return self.account.extra_data.get('login', dflt)
 
 
 class TwitchProvider(OAuth2Provider):
@@ -24,7 +24,7 @@ class TwitchProvider(OAuth2Provider):
 
     def extract_common_fields(self, data):
         return {
-            "username": data.get("name"),
+            "username": data.get("login"),
             "name": data.get("display_name"),
             "email": data.get("email"),
         }

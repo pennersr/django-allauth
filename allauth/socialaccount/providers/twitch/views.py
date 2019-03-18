@@ -28,7 +28,7 @@ class TwitchOAuth2Adapter(OAuth2Adapter):
 
         try:
             user_info = data.get('data', [])[0]
-        except KeyError:
+        except IndexError:
             raise OAuth2Error("Invalid data from Twitch API: %r" % (data))
 
         if "id" not in user_info:

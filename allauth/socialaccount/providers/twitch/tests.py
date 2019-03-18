@@ -1,7 +1,12 @@
+from unittest.mock import MagicMock
+
+from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, TestCase
+from allauth.socialaccount.models import SocialToken
+from allauth.tests import MockedResponse, TestCase, mocked_response
 
 from .provider import TwitchProvider
+from .views import TwitchOAuth2Adapter
 
 
 class TwitchTests(OAuth2TestsMixin, TestCase):
@@ -24,3 +29,63 @@ class TwitchTests(OAuth2TestsMixin, TestCase):
           }]
         }
         """)  # noqa
+
+    def test_response_over_400_raises_OAuth2Error(self):
+        resp_mock = MockedResponse(
+            400, '{"error": "Invalid token"}'
+        )
+        expected_error = "Twitch API Error: Invalid token ()"
+
+        self.check_for_error(resp_mock, expected_error)
+
+    def test_empty_or_missing_data_key_raises_OAuth2Error(self):
+        resp_mock = MockedResponse(
+            200, '{"data": []}'
+        )
+        expected_error = "Invalid data from Twitch API: {'data': []}"
+
+        self.check_for_error(resp_mock, expected_error)
+
+        resp_mock = MockedResponse(
+            200, '{"missing_data": "key"}'
+        )
+        expected_error = (
+            "Invalid data from Twitch API: "
+            "{'missing_data': 'key'}"
+        )
+
+        self.check_for_error(resp_mock, expected_error)
+
+    def test_missing_twitch_id_raises_OAuth2Error(self):
+        resp_mock = MockedResponse(
+            200, '{"login": "fake_twitch", "display_name": "Fake_TWITCH"}'
+        )
+        expected_error = ( 
+            "Invalid data from Twitch API: "
+            "{'login': 'fake_twitch', 'display_name': 'Fake_TWITCH'}"
+        )
+
+        self.check_for_error(resp_mock, expected_error)
+
+    def check_for_error(self, resp_mock, expected_error):
+        with self.assertRaises(OAuth2Error) as error_ctx:
+            self._run_just_complete_login(resp_mock)
+
+        self.assertEqual(
+            str(error_ctx.exception), expected_error
+        )
+
+    def _run_just_complete_login(self, resp_mock):
+        """
+        Helper function for checking that Error cases are
+        handled correctly. Running only `complete_login` means
+        we can check that the specific erros are raised before
+        they are caught and rendered to generic error HTML
+        """
+        request = MagicMock()
+        app = MagicMock()
+        token = SocialToken(token='this-is-my-fake-token')
+
+        with mocked_response(resp_mock):
+            adapter = TwitchOAuth2Adapter(request)
+            adapter.complete_login(request, app, token)

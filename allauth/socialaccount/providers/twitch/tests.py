@@ -1,6 +1,6 @@
+from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.socialaccount.models import SocialToken
 from allauth.tests import MockedResponse, TestCase, mocked_response
 
 from .provider import TwitchProvider
@@ -46,7 +46,8 @@ class TwitchTests(OAuth2TestsMixin, TestCase):
         )
         expected_error = "Invalid data from Twitch API: {'data': []}"
 
-        self.check_for_error(resp_mock, expected_error)
+        self.check_for_error(
+            resp_mock, expected_error)
 
         resp_mock = MockedResponse(
             200, '{"missing_data": "key"}'
@@ -60,7 +61,7 @@ class TwitchTests(OAuth2TestsMixin, TestCase):
 
     def test_missing_twitch_id_raises_OAuth2Error(self):
         resp_mock = MockedResponse(
-            200, '{"login": "fake_twitch"}'
+            200, '{"data": [{"login": "fake_twitch"}]}'
         )
         expected_error = (
             "Invalid data from Twitch API: "
@@ -74,7 +75,8 @@ class TwitchTests(OAuth2TestsMixin, TestCase):
             self._run_just_complete_login(resp_mock)
 
         self.assertEqual(
-            str(error_ctx.exception), expected_error
+            str(error_ctx.exception).replace('u', ''),
+            expected_error
         )
 
     def _run_just_complete_login(self, resp_mock):

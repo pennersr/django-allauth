@@ -29,10 +29,10 @@ class TwitchOAuth2Adapter(OAuth2Adapter):
         try:
             user_info = data.get('data', [])[0]
         except IndexError:
-            raise OAuth2Error("Invalid data from Twitch API: %r" % (data))
+            raise OAuth2Error("Invalid data from Twitch API: %s" % (data))
 
         if "id" not in user_info:
-            raise OAuth2Error("Invalid data from Twitch API: %r" % (data))
+            raise OAuth2Error("Invalid data from Twitch API: %s" % (user_info))
 
         return self.get_provider().sociallogin_from_response(
             request, user_info

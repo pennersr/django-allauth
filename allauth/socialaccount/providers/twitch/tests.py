@@ -1,5 +1,3 @@
-from unittest.mock import MagicMock
-
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.socialaccount.models import SocialToken
@@ -7,6 +5,10 @@ from allauth.tests import MockedResponse, TestCase, mocked_response
 
 from .provider import TwitchProvider
 from .views import TwitchOAuth2Adapter
+
+
+class MockObject(object):
+    pass
 
 
 class TwitchTests(OAuth2TestsMixin, TestCase):
@@ -58,11 +60,11 @@ class TwitchTests(OAuth2TestsMixin, TestCase):
 
     def test_missing_twitch_id_raises_OAuth2Error(self):
         resp_mock = MockedResponse(
-            200, '{"login": "fake_twitch", "display_name": "Fake_TWITCH"}'
+            200, '{"login": "fake_twitch"}'
         )
-        expected_error = ( 
+        expected_error = (
             "Invalid data from Twitch API: "
-            "{'login': 'fake_twitch', 'display_name': 'Fake_TWITCH'}"
+            "{'login': 'fake_twitch'}"
         )
 
         self.check_for_error(resp_mock, expected_error)
@@ -82,8 +84,8 @@ class TwitchTests(OAuth2TestsMixin, TestCase):
         we can check that the specific erros are raised before
         they are caught and rendered to generic error HTML
         """
-        request = MagicMock()
-        app = MagicMock()
+        request = MockObject()
+        app = MockObject()
         token = SocialToken(token='this-is-my-fake-token')
 
         with mocked_response(resp_mock):

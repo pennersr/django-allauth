@@ -46,14 +46,14 @@ class SocialApp(models.Model):
     name = models.CharField(verbose_name=_('name'),
                             max_length=40)
     client_id = models.CharField(verbose_name=_('client id'),
-                                 max_length=191,
+                                 max_length=2000,
                                  help_text=_('App ID, or consumer key'))
     secret = models.CharField(verbose_name=_('secret key'),
-                              max_length=191,
+                              max_length=2000,
                               help_text=_('API secret, client secret, or'
                               ' consumer secret'))
     key = models.CharField(verbose_name=_('key'),
-                           max_length=191,
+                           max_length=2000,
                            blank=True,
                            help_text=_('Key'))
     # Most apps can be used across multiple domains, therefore we use

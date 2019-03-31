@@ -5,6 +5,7 @@ Note worthy changes
 -------------------
 
 - The ``instagram`` provider now extracts the user's full name.
+- New provider: NextCloud (OAuth2)
 
 
 0.39.1 (2019-02-28)

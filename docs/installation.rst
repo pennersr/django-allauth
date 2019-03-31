@@ -94,6 +94,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.meetup',
         'allauth.socialaccount.providers.microsoft',
         'allauth.socialaccount.providers.naver',
+        'allauth.socialaccount.providers.nextcloud',
         'allauth.socialaccount.providers.odnoklassniki',
         'allauth.socialaccount.providers.openid',
         'allauth.socialaccount.providers.orcid',

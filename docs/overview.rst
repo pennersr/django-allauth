@@ -123,6 +123,8 @@ Supported Providers
 
 - Microsoft (Graph) (OAuth2)
 
+- NextCloud (OAuth2)
+
 - Naver (OAuth2)
 
 - Odnoklassniki (OAuth2)

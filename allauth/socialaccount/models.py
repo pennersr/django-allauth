@@ -214,7 +214,7 @@ class SocialLogin(object):
         for ea in data['email_addresses']:
             email_address = deserialize_instance(EmailAddress, ea)
             email_addresses.append(email_address)
-        ret = SocialLogin()
+        ret = cls()
         ret.token = token
         ret.account = account
         ret.user = user

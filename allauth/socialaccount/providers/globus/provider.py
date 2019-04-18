@@ -22,7 +22,11 @@ class GlobusProvider(OAuth2Provider):
     account_class = GlobusAccount
 
     def extract_uid(self, data):
-        return str(data.get('create_time'))
+        if 'sub' not in data:
+            raise ProviderException(
+                'Globus OAuth error', data
+            )
+        return str(data['sub'])
 
     def extract_common_fields(self, data):
         return dict(

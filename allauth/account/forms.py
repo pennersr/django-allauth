@@ -10,12 +10,12 @@ from django.core import exceptions, validators
 from django.urls import reverse
 from django.utils.translation import pgettext, ugettext, ugettext_lazy as _
 
-from . import app_settings
 from ..utils import (
     build_absolute_uri,
     get_username_max_length,
     set_form_field_order,
 )
+from . import app_settings
 from .adapter import get_adapter
 from .app_settings import AuthenticationMethod
 from .models import EmailAddress

@@ -1,5 +1,5 @@
 # https://travis-ci.org/pennersr/django-allauth
-sudo: false
+dist: xenial
 language: python
 
 python: "3.6"

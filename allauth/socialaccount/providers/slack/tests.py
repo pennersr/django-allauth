@@ -11,8 +11,13 @@ class SlackOAuth2Tests(OAuth2TestsMixin, TestCase):
         return MockedResponse(200, """{
           "ok": true,
           "url": "https:\\/\\/myteam.slack.com\\/",
-          "team": "My Team",
-          "user": "cal",
-          "team_id": "T12345",
-          "user_id": "U12345"
+          "team": {
+            "name": "My Team",
+            "id": "T12345"
+          },
+          "user": {
+            "name": "cal",
+            "email": "cal@example.com",
+            "id": "U12345"
+          }
         }""")  # noqa

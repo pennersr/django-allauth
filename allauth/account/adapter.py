@@ -28,7 +28,6 @@ from django.utils import timezone
 from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 
-from . import app_settings
 from ..utils import (
     build_absolute_uri,
     email_address_exists,
@@ -36,6 +35,7 @@ from ..utils import (
     get_user_model,
     import_attribute,
 )
+from . import app_settings
 
 
 class DefaultAccountAdapter(object):

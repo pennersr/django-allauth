@@ -16,6 +16,12 @@ Note worthy changes
 - The ``linkedin_oauth2`` provider now gracefully deals with old V1
   data that might still be present in ``SocialAccount.extra_data``.
 
+Backwards incompatible changes
+------------------------------
+
+- The ``globus`` provider's ``extract_uid`` now uses the openid
+  required field ``sub`` instead of the ``create_time`` field.
+
 
 0.39.0 (2019-02-26)
 *******************

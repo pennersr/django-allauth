@@ -7,7 +7,8 @@ from datetime import date, datetime
 
 from django.core.files.base import ContentFile
 from django.db import models
-from django.test import TestCase
+from django.test import RequestFactory, TestCase
+from django.views import csrf
 
 from allauth.compat import base36_to_int, int_to_base36
 
@@ -66,6 +67,9 @@ class mocked_response:
 
 
 class BasicTests(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
 
     def test_generate_unique_username(self):
         examples = [('a.b-c@example.com', 'a.b-c'),
@@ -170,3 +174,16 @@ class BasicTests(TestCase):
         b36 = 'brxk553wvxbf3'
         assert int_to_base36(n) == b36
         assert base36_to_int(b36) == n
+
+    def test_templatetag_with_csrf_failure(self):
+        # Generate a fictitious GET request
+        request = self.factory.get('/tests/test_403_csrf.html')
+        # Simulate a CSRF failure by calling the View directly
+        # This template is using the `provider_login_url` templatetag
+        response = csrf.csrf_failure(
+            request,
+            template_name='tests/test_403_csrf.html'
+        )
+        # Ensure that CSRF failures with this template
+        # tag succeed with the expected 403 response
+        self.assertEqual(response.status_code, 403)

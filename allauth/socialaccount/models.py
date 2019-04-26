@@ -15,8 +15,8 @@ from allauth.account.utils import get_next_redirect_url, setup_user_email
 from allauth.compat import python_2_unicode_compatible
 from allauth.utils import get_user_model
 
-from . import app_settings, providers
 from ..utils import get_request_param
+from . import app_settings, providers
 from .adapter import get_adapter
 from .fields import JSONField
 

@@ -26,7 +26,8 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.encoding import force_text
-from django.utils.translation import ugettext_lazy as _
+
+from allauth.compat import ugettext_lazy as _
 
 from ..utils import (
     build_absolute_uri,

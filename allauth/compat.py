@@ -61,3 +61,11 @@ def base36_to_int(s):
         from django.utils.http import base36_to_int
         value = base36_to_int(s)
     return value
+
+
+if six.PY3:
+    from django.utils.translation import gettext as ugettext  # noqa
+    from django.utils.translation import gettext_lazy as ugettext_lazy  # noqa
+else:
+    from django.utils.translation import ugettext  # noqa
+    from django.utils.translation import ugettext_lazy  # noqa

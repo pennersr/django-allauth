@@ -147,6 +147,8 @@ Supported Providers
 
 - Salesforce (OAuth2)
 
+- ShareFile (OAuth2)
+
 - Shopify (OAuth2)
 
 - Slack (OAuth2)

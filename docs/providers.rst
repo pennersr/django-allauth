@@ -682,7 +682,8 @@ Registering an application:
 By default, you will have access to the openid, profile, and offline_access
 scopes.  With the offline_access scope, the API will provide you with a
 refresh token.  For additional scopes, see the Globus API docs:
-    https://docs.globus.org/api/auth/reference/
+
+ https://docs.globus.org/api/auth/reference/
 
 .. code-block:: python
 
@@ -1181,7 +1182,7 @@ SCOPE:
     https://developers.pinterest.com/docs/api/overview/#scopes
 
 QuickBooks
-------
+----------
 
 App registration (get your key and secret here)
     https://developers.intuit.com/v2/ui#/app/startcreate
@@ -1258,6 +1259,38 @@ To Use:
 - Create a Social application in Django admin, with client id,
   client key, and login_url (in "key" field)
 
+ShareFile
+---------
+
+The following ShareFile settings are available.
+  https://api.sharefile.com/rest/
+
+SUBDOMAIN:
+ Subdomain of your organization with ShareFile.  This is required.
+
+ Example:
+      ``test`` for ``https://test.sharefile.com``
+
+APICP:
+ Defaults to ``secure``.  Refer to the ShareFile documentation if you
+ need to change this value.
+
+DEFAULT_URL:
+ Defaults to ``https://secure.sharefile.com``  Refer to the ShareFile
+ documentation if you need to change this value.
+
+
+Example:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+    'sharefile': {
+        'SUBDOMAIN': 'TEST',
+        'APICP': 'sharefile.com',
+        'DEFAULT_URL': 'https://secure.sharefile.com',
+                 }
+    }
 
 Shopify
 -------
@@ -1370,48 +1403,54 @@ Stripe
 
 You register your OAUth2 app via the Connect->Settings page of the Stripe
 dashboard:
-	https://dashboard.stripe.com/account/applications/settings
+
+ https://dashboard.stripe.com/account/applications/settings
 
 This page will provide you with both a Development and Production `client_id`.
 
 You can also register your OAuth2 app callback on the Settings page in the
 "Website URL" box, e.g.:
-    http://example.com/accounts/stripe/login/callback/
+
+ http://example.com/accounts/stripe/login/callback/
 
 However, the OAuth2 secret key is not on this page. The secret key is the same
 secret key that you use with the Stripe API generally. This can be found on the
 Stripe dashboard API page:
-	https://dashboard.stripe.com/account/apikeys
+
+ https://dashboard.stripe.com/account/apikeys
 
 See more in documentation
-    https://stripe.com/docs/connect/standalone-accounts
+ https://stripe.com/docs/connect/standalone-accounts
 
 
 Trello
 ------
 
 Register the application at
-    https://trello.com/app-key  
+
+ https://trello.com/app-key
+
 You get one application key per account.
 
-Save the "Key" to "Client id", the "Secret" to "Secret Key" and "Key" to the "Key" 
+Save the "Key" to "Client id", the "Secret" to "Secret Key" and "Key" to the "Key"
 field.
 
-Verify which scope you need at 
-    https://developers.trello.com/page/authorization
+Verify which scope you need at
+
+ https://developers.trello.com/page/authorization
+
 Need to change the default scope? Add or update the `trello` setting to
 `settings.py`
 
-```
-SOCIALACCOUNT_PROVIDERS = {
-    'trello': {
-        'AUTH_PARAMS': {
-            'scope': 'read,write',
-        },
-    },
-}    
-```
+.. code-block:: python
 
+  SOCIALACCOUNT_PROVIDERS = {
+      'trello': {
+          'AUTH_PARAMS': {
+              'scope': 'read,write',
+          },
+      },
+  }
 
 Twitch
 ------
@@ -1522,7 +1561,7 @@ Development callback URL
     http://localhost:8000/a
 
 Vimeo (OAuth 2)
------
+---------------
 
 App registration (get your key and secret here)
     https://developer.vimeo.com/apps

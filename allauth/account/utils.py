@@ -8,11 +8,10 @@ from django.core.exceptions import FieldDoesNotExist, ValidationError
 from django.db import models
 from django.db.models import Q
 from django.http import HttpResponseRedirect
-from django.utils.encoding import force_text
 from django.utils.http import urlencode
 from django.utils.timezone import now
 
-from allauth.compat import base36_to_int, int_to_base36, six
+from allauth.compat import base36_to_int, force_str, int_to_base36, six
 
 from ..exceptions import ImmediateHttpResponse
 from ..utils import (
@@ -66,7 +65,7 @@ def default_user_display(user):
     if app_settings.USER_MODEL_USERNAME_FIELD:
         return getattr(user, app_settings.USER_MODEL_USERNAME_FIELD)
     else:
-        return force_text(user)
+        return force_str(user)
 
 
 def user_display(user):

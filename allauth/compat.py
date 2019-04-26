@@ -29,6 +29,14 @@ except ImportError:
     def python_2_unicode_compatible(c):
         return c
 
+if six.PY2:
+    from django.utils.encoding import force_text as force_str
+else:
+    try:
+        from django.utils.encoding import force_str
+    except ImportError:
+        from django.utils.encoding import force_text as force_str  # noqa
+
 
 def int_to_base36(i):
     """

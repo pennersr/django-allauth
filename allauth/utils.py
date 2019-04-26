@@ -21,9 +21,9 @@ from django.db.models.fields import (
     TimeField,
 )
 from django.utils import dateparse
-from django.utils.encoding import force_bytes, force_text
+from django.utils.encoding import force_bytes
 
-from allauth.compat import six, urlsplit
+from allauth.compat import force_str, six, urlsplit
 
 
 # Magic number 7: if you run into collisions with this number, then you are
@@ -42,9 +42,9 @@ def _generate_unique_username_base(txts, regex=None):
     for txt in txts:
         if not txt:
             continue
-        username = unicodedata.normalize('NFKD', force_text(txt))
+        username = unicodedata.normalize('NFKD', force_str(txt))
         username = username.encode('ascii', 'ignore').decode('ascii')
-        username = force_text(re.sub(regex, '', username).lower())
+        username = force_str(re.sub(regex, '', username).lower())
         # Django allows for '@' in usernames in order to accomodate for
         # project wanting to use e-mail for username. In allauth we don't
         # use this, we already have a proper place for putting e-mail
@@ -179,7 +179,7 @@ def serialize_instance(instance):
         try:
             field = instance._meta.get_field(k)
             if isinstance(field, BinaryField):
-                v = force_text(base64.b64encode(v))
+                v = force_str(base64.b64encode(v))
             elif isinstance(field, FileField):
                 if v and not isinstance(v, six.string_types):
                     v = v.name

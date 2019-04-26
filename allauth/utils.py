@@ -20,9 +20,10 @@ from django.db.models.fields import (
     EmailField,
     TimeField,
 )
-from django.utils import dateparse, six
+from django.utils import dateparse
 from django.utils.encoding import force_bytes, force_text
-from django.utils.six.moves.urllib.parse import urlsplit
+
+from allauth.compat import six, urlsplit
 
 
 # Magic number 7: if you run into collisions with this number, then you are

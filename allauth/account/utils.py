@@ -8,12 +8,11 @@ from django.core.exceptions import FieldDoesNotExist, ValidationError
 from django.db import models
 from django.db.models import Q
 from django.http import HttpResponseRedirect
-from django.utils import six
 from django.utils.encoding import force_text
 from django.utils.http import urlencode
 from django.utils.timezone import now
 
-from allauth.compat import base36_to_int, int_to_base36
+from allauth.compat import base36_to_int, int_to_base36, six
 
 from ..exceptions import ImmediateHttpResponse
 from ..utils import (

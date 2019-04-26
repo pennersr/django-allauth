@@ -1,4 +1,16 @@
-from django.utils import six
+try:
+    from django.utils.six.moves.urllib.parse import urlsplit
+except ImportError:
+    from urllib.parse import urlsplit  # noqa
+
+try:
+    from django.utils import six
+except ImportError:
+    class six:
+        PY3 = True
+        PY2 = False
+        integer_types = (int,)
+        string_types = (str,)
 
 
 try:

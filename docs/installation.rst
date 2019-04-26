@@ -104,6 +104,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.pinterest',
         'allauth.socialaccount.providers.reddit',
         'allauth.socialaccount.providers.robinhood',
+        'allauth.socialaccount.providers.sharefile',
         'allauth.socialaccount.providers.shopify',
         'allauth.socialaccount.providers.slack',
         'allauth.socialaccount.providers.soundcloud',

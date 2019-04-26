@@ -6,16 +6,17 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import PermissionDenied
 from django.db import models
 from django.utils.crypto import get_random_string
-from django.utils.encoding import force_text, python_2_unicode_compatible
+from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 
 import allauth.app_settings
 from allauth.account.models import EmailAddress
 from allauth.account.utils import get_next_redirect_url, setup_user_email
+from allauth.compat import python_2_unicode_compatible
 from allauth.utils import get_user_model
 
-from ..utils import get_request_param
 from . import app_settings, providers
+from ..utils import get_request_param
 from .adapter import get_adapter
 from .fields import JSONField
 

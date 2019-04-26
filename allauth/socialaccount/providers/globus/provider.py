@@ -1,5 +1,8 @@
 from allauth.socialaccount import app_settings
-from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.base import (
+    ProviderAccount,
+    ProviderException,
+)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 

@@ -17,7 +17,7 @@ env:
    - TOXENV=py36-django22
    - TOXENV=py36-djangomaster
    - TOXENV=docs
-   - TOXENV=flake8
+   - TOXENV=checkqa
    - TOXENV=standardjs
 
 matrix:

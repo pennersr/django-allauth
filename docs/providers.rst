@@ -1044,7 +1044,7 @@ to define the API you are using in your site's settings, as follows:
 Patreon
 -------
 
-App registration (get your key and secret here)
+App registration (get your key and secret for **v1** of the API here)
     https://www.patreon.com/platform/documentation/clients
 
 Development callback URL

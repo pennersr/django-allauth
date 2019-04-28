@@ -1,4 +1,16 @@
-from django.utils import six
+try:
+    from django.utils.six.moves.urllib.parse import urlsplit
+except ImportError:
+    from urllib.parse import urlsplit  # noqa
+
+try:
+    from django.utils import six
+except ImportError:
+    class six:
+        PY3 = True
+        PY2 = False
+        integer_types = (int,)
+        string_types = (str,)
 
 
 try:
@@ -10,6 +22,20 @@ try:
     from urllib.parse import parse_qsl, parse_qs, urlparse, urlunparse, urljoin
 except ImportError:
     from urlparse import parse_qsl, parse_qs, urlparse, urlunparse, urljoin  # noqa
+
+try:
+    from django.utils.encoding import python_2_unicode_compatible
+except ImportError:
+    def python_2_unicode_compatible(c):
+        return c
+
+if six.PY2:
+    from django.utils.encoding import force_text as force_str
+else:
+    try:
+        from django.utils.encoding import force_str
+    except ImportError:
+        from django.utils.encoding import force_text as force_str  # noqa
 
 
 def int_to_base36(i):
@@ -43,3 +69,11 @@ def base36_to_int(s):
         from django.utils.http import base36_to_int
         value = base36_to_int(s)
     return value
+
+
+if six.PY3:
+    from django.utils.translation import gettext as ugettext  # noqa
+    from django.utils.translation import gettext_lazy as ugettext_lazy  # noqa
+else:
+    from django.utils.translation import ugettext  # noqa
+    from django.utils.translation import ugettext_lazy  # noqa

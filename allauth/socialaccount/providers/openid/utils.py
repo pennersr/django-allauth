@@ -75,6 +75,8 @@ class DBOpenIDStore(OIDStore):
         except AttributeError:
             # Python 2.x compat
             secret = base64.encodestring(assoc.secret)
+        else:
+            secret = secret.decode()
         OpenIDStore.objects.create(
             server_url=server_url,
             handle=assoc.handle,

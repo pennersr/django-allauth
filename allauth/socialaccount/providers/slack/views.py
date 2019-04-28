@@ -15,7 +15,7 @@ class SlackOAuth2Adapter(OAuth2Adapter):
 
     access_token_url = 'https://slack.com/api/oauth.access'
     authorize_url = 'https://slack.com/oauth/authorize'
-    identity_url = 'https://slack.com/api/auth.test'
+    identity_url = 'https://slack.com/api/users.identity'
 
     def complete_login(self, request, app, token, **kwargs):
         extra_data = self.get_data(token.token)
@@ -33,20 +33,7 @@ class SlackOAuth2Adapter(OAuth2Adapter):
         if not resp.get('ok'):
             raise OAuth2Error()
 
-        # Fill in their generic info
-        info = {
-            'name': resp.get('user'),
-            'user': {
-                'name': resp.get('user'),
-                'id': resp.get('user_id')
-            },
-            'team': {
-                'name': resp.get('team'),
-                'id': resp.get('team_id')
-            }
-        }
-
-        return info
+        return resp
 
 
 oauth2_login = OAuth2LoginView.adapter_view(SlackOAuth2Adapter)

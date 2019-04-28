@@ -496,7 +496,7 @@ msgid ""
 msgstr ""
 "Vennligst logg in med en\n"
 "av dine eksisterende tredjeparts kontoer. Eller, <a href=\"%(signup_url)s"
-"\">registrerdeg</a>\n"
+"\">registrer deg</a>\n"
 "for en %(site_name)s konto og logg inn under:"
 
 #: templates/account/login.html:25

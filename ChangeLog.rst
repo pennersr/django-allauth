@@ -6,6 +6,7 @@ Note worthy changes
 
 - The ``instagram`` provider now extracts the user's full name.
 - New provider: NextCloud (OAuth2)
+- Stripe Connect Express provider added. API more or less the same as Stripe provider with an addtional option or two
 
 
 0.39.1 (2019-02-28)

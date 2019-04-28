@@ -10,7 +10,7 @@ class StripeExpressAccount(ProviderAccount):
 
 class StripeExpressProvider(OAuth2Provider):
     id = 'stripe_express'
-    name = 'Stripe Express'
+    name = 'Stripe Connect Express'
     account_class = StripeExpressAccount
 
     def extract_uid(self, data):

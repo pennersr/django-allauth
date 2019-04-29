@@ -249,7 +249,7 @@ class SocialLogin(object):
         """
         Account is temporary, not yet backed by a database record.
         """
-        return self.account.pk
+        return self.account.pk is not None
 
     def lookup(self):
         """

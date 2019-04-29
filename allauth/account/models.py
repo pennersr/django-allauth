@@ -33,6 +33,7 @@ class EmailAddress(models.Model):
     class Meta:
         verbose_name = _("email address")
         verbose_name_plural = _("email addresses")
+        app_label = "allauth.account"
         if not app_settings.UNIQUE_EMAIL:
             unique_together = [("user", "email")]
 
@@ -90,6 +91,7 @@ class EmailConfirmation(models.Model):
     class Meta:
         verbose_name = _("email confirmation")
         verbose_name_plural = _("email confirmations")
+        app_label = "allauth.account"
 
     def __str__(self):
         return "confirmation for %s" % self.email_address

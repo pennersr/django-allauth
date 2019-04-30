@@ -2,9 +2,9 @@ from __future__ import absolute_import
 
 from django.core.exceptions import ValidationError
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
 
-from . import app_settings
+from allauth.compat import ugettext_lazy as _
+
 from ..account import app_settings as account_settings
 from ..account.adapter import get_adapter as get_account_adapter
 from ..account.app_settings import EmailVerificationMethod
@@ -17,6 +17,7 @@ from ..utils import (
     serialize_instance,
     valid_email_or_none,
 )
+from . import app_settings
 
 
 class DefaultSocialAccountAdapter(object):

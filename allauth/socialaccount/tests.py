@@ -11,13 +11,13 @@ from django.test.client import RequestFactory
 from django.test.utils import override_settings
 from django.urls import reverse
 
-from . import providers
 from ..account import app_settings as account_settings
 from ..account.models import EmailAddress
 from ..account.utils import user_email, user_username
 from ..compat import parse_qs, urlparse
 from ..tests import MockedResponse, TestCase, mocked_response
 from ..utils import get_user_model
+from . import providers
 from .helpers import complete_social_login
 from .models import SocialAccount, SocialApp, SocialLogin
 from .views import signup

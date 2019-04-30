@@ -13,9 +13,9 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic.base import TemplateResponseMixin, TemplateView, View
 from django.views.generic.edit import FormView
 
-from . import app_settings, signals
 from ..exceptions import ImmediateHttpResponse
 from ..utils import get_form_class, get_request_param
+from . import app_settings, signals
 from .adapter import get_adapter
 from .forms import (
     AddEmailForm,

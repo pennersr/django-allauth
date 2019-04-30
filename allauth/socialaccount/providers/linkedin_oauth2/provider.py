@@ -1,5 +1,4 @@
-from django.utils import six
-
+from allauth.compat import six
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.base import (
     ProviderAccount,

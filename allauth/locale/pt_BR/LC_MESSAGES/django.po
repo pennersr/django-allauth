@@ -32,7 +32,7 @@ msgstr ""
 
 #: account/adapter.py:51
 msgid "A user is already registered with this e-mail address."
-msgstr "Um usuário já foi registado com este endereço de e-mail."
+msgstr "Um usuário já foi registrado com este endereço de e-mail."
 
 #: account/adapter.py:294
 #, python-brace-format

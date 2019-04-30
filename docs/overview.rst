@@ -123,6 +123,8 @@ Supported Providers
 
 - Microsoft (Graph) (OAuth2)
 
+- NextCloud (OAuth2)
+
 - Naver (OAuth2)
 
 - Odnoklassniki (OAuth2)
@@ -144,6 +146,8 @@ Supported Providers
 - Reddit (OAuth2)
 
 - Salesforce (OAuth2)
+
+- ShareFile (OAuth2)
 
 - Shopify (OAuth2)
 

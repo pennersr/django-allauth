@@ -48,7 +48,7 @@
         var id = 'facebook-jssdk'
         if (d.getElementById(id)) { return }
         js = d.createElement('script'); js.id = id; js.async = true
-        js.src = '//connect.facebook.net/' + opts.locale + '/sdk.js'
+        js.src = opts.sdkUrl
         d.getElementsByTagName('head')[0].appendChild(js)
       }(document))
     },

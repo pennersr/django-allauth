@@ -7,6 +7,9 @@ Note worthy changes
 - The ``instagram`` provider now extracts the user's full name.
 - New provider: NextCloud (OAuth2)
 
+- Added an ``SDK_URL`` setting for customizing the loading of the Facebook
+  JavaScript SDK.
+
 
 0.39.1 (2019-02-28)
 *******************

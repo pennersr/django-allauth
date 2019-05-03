@@ -449,6 +449,7 @@ The following Facebook settings are available:
     SOCIALACCOUNT_PROVIDERS = {
         'facebook': {
             'METHOD': 'oauth2',
+            'SDK_URL': '//connect.facebook.net/{locale}/sdk.js',
             'SCOPE': ['email', 'public_profile', 'user_friends'],
             'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
             'INIT_PARAMS': {'cookie': True},
@@ -474,6 +475,14 @@ The following Facebook settings are available:
 
 METHOD:
     Either ``js_sdk`` or ``oauth2``. The default is ``oauth2``.
+
+SDK_URL:
+    If needed, use ``SDK_URL`` to override the default Facebook JavaScript SDK
+    URL, ``//connect.facebook.net/{locale}/sdk.js``. This may be necessary, for
+    example, when using the `Customer Chat Plugin <https://developers.facebook.com/docs/messenger-platform/discovery/customer-chat-plugin/sdk#install>`_.
+    If the ``SDK_URL`` contains a ``{locale}`` format string named argument,
+    the locale given by the ``LOCALE_FUNC`` will be used to generate the
+    ``SDK_URL``.
 
 SCOPE:
     By default, the ``email`` scope is required depending on whether or not

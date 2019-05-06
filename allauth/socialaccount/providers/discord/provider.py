@@ -2,14 +2,17 @@ from allauth.account.models import EmailAddress
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
+
 class DiscordAccount(ProviderAccount):
     def to_str(self):
         dflt = super(DiscordAccount, self).to_str()
         return self.account.extra_data.get('username', dflt)
 
     def get_avatar_url(self):
-        if 'id' in self.account.extra_data.keys() and 'avatar' in self.account.extra_data.keys():
-            return 'https://cdn.discordapp.com/avatars/{id}/{avatar}.png'.format(**self.account.extra_data)
+        if ('id' in self.account.extra_data.keys() 
+                and 'avatar' in self.account.extra_data.keys()):
+            return 'https://cdn.discordapp.com/avatars/{id}/{avatar}.png'\
+                .format(**self.account.extra_data)
 
 
 class DiscordProvider(OAuth2Provider):

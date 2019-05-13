@@ -359,10 +359,14 @@ def sync_user_email_addresses(user):
                 and EmailAddress.objects.filter(email__iexact=email).exists():
             # Bail out
             return
-        EmailAddress.objects.create(user=user,
-                                    email=email,
-                                    primary=False,
-                                    verified=False)
+        EmailAddress.objects.get_or_create(
+            user=user,
+            email=email,
+            defaults={
+                'primary': False,
+                'verified': False
+            }
+        )
 
 
 def filter_users_by_username(*username):

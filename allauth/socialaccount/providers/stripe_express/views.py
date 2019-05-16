@@ -11,8 +11,8 @@ from .provider import StripeExpressProvider
 
 class StripeExpressOAuth2Adapter(OAuth2Adapter):
     provider_id = StripeExpressProvider.id
-    access_token_url = 'https://connect.stripe.com/express/oauth/token'
-    authorize_url = 'https://connect.stripe.com/oauth/authorize'
+    access_token_url = 'https://connect.stripe.com/oauth/token'
+    authorize_url = 'https://connect.stripe.com/express/oauth/authorize'
     profile_url = 'https://api.stripe.com/v1/accounts/%s'
 
     def complete_login(self, request, app, token, response, **kwargs):

@@ -12,11 +12,11 @@ from .provider import StripeExpressProvider
 class StripeExpressOAuth2Adapter(OAuth2Adapter):
     provider_id = StripeExpressProvider.id
     access_token_url = 'https://connect.stripe.com/express/oauth/token'
-    authorize_url = 'https://connect.stripe.com/express/oauth/authorize'
+    authorize_url = 'https://connect.stripe.com/oauth/authorize'
     profile_url = 'https://api.stripe.com/v1/accounts/%s'
 
     def complete_login(self, request, app, token, response, **kwargs):
-        headers = {'Authorization': 'Bearer {0}'.format(token.token), 'Stripe-Version': '2019-03-14'}
+        headers = {'Authorization': 'Bearer {0}'.format(token.token)}
         resp = requests.get(self.profile_url % response.get('stripe_user_id'),
                             headers=headers)
         extra_data = resp.json()

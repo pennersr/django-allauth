@@ -21,6 +21,9 @@ Here are a few third party resources to help you get started:
 - https://stackoverflow.com/questions/tagged/django-allauth
 - http://www.sarahhagstrom.com/2013/09/the-missing-django-allauth-tutorial/
 - https://github.com/aellerton/demo-allauth-bootstrap
+- https://medium.com/@gajeshbhat/django-allauth-setup-and-configuration-tutorial-63417bba339c
+- https://medium.com/@gajeshbhat/extending-and-customizing-django-allauth-eed206623a1a
+- https://medium.com/@gajeshbhat/django-allauth-social-login-tutorial-ad021c24d666
 
 I think I found a security issue... now what?
 *********************************************
@@ -59,7 +62,7 @@ machine you are developing on. Therefore, ``allauth`` is unable to send
 verification mails.
 
 You can work around this by adding the following line to
-``settings.py``:
+``settings.py``::
 
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

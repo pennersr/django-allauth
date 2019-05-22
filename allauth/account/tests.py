@@ -660,7 +660,8 @@ class AccountTests(TestCase):
         return c, getattr(c, method)(reverse('account_logout'))
 
     @override_settings(ACCOUNT_EMAIL_VERIFICATION=app_settings
-                       .EmailVerificationMethod.OPTIONAL)
+                       .EmailVerificationMethod.OPTIONAL,
+                       ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE=False)
     def test_optional_email_verification(self):
         c = Client()
         # Signup
@@ -668,8 +669,7 @@ class AccountTests(TestCase):
         resp = c.post(reverse('account_signup'),
                       {'username': 'johndoe',
                        'email': 'john@example.com',
-                       'password1': 'johndoe',
-                       'password2': 'johndoe'})
+                       'password1': 'johndoe'})
         # Logged in
         self.assertRedirects(resp,
                              settings.LOGIN_REDIRECT_URL,
@@ -990,7 +990,7 @@ class CustomSignupFormTests(TestCase):
 
     @override_settings(
         ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE=True,
-        ACCOUNT_SIGNUP_PASSOWRD_ENTER_TWICE=True)
+        ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE=True)
     def test_custom_form_field_order(self):
 
         expected_field_order = [

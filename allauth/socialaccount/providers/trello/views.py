@@ -1,6 +1,6 @@
 import requests
 
-from django.utils.http import urlencode, urlquote
+from django.utils.http import urlencode
 
 from allauth.socialaccount.providers.oauth.views import (
     OAuthAdapter,
@@ -19,11 +19,8 @@ class TrelloOAuthAdapter(OAuthAdapter):
 
     def complete_login(self, request, app, token, response):
         # we need to get the member id and the other information
-        # check: https://developers.trello.com/advanced-reference/token
-        # https://api.trello.com/1/tokens/91a6408305c1e5ec1b0b306688bc2e2f8fe67abf6a2ecec38c17e5b894fcf866?key=[application_key]&token=[optional_auth_token]
-        info_url = '{base}{token}?{query}'.format(
-            base='https://api.trello.com/1/tokens/',
-            token=urlquote(token),
+        info_url = '{base}?{query}'.format(
+            base='https://api.trello.com/1/members/me',
             query=urlencode({
                 'key': app.key,
                 'token': response.get('oauth_token')}))

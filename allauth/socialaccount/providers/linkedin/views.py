@@ -1,8 +1,7 @@
 from xml.etree import ElementTree
 from xml.parsers.expat import ExpatError
 
-from django.utils import six
-
+from allauth.compat import six
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.oauth.client import OAuth
 from allauth.socialaccount.providers.oauth.views import (

@@ -123,6 +123,8 @@ Supported Providers
 
 - Microsoft (Graph) (OAuth2)
 
+- NextCloud (OAuth2)
+
 - Naver (OAuth2)
 
 - Odnoklassniki (OAuth2)
@@ -144,6 +146,8 @@ Supported Providers
 - Reddit (OAuth2)
 
 - Salesforce (OAuth2)
+
+- ShareFile (OAuth2)
 
 - Shopify (OAuth2)
 
@@ -212,5 +216,5 @@ Architecture & Design
 
 - Consumer keys, tokens make use of the Django sites framework. This
   is especially helpful for larger multi-domain projects, but also
-  allows for for easy switching between a development (localhost) and
+  allows for easy switching between a development (localhost) and
   production setup without messing with your settings and database.

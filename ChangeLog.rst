@@ -1,4 +1,32 @@
-0.39.0 (Unreleased)
+0.39.2 (unreleased)
+*******************
+
+Note worthy changes
+-------------------
+
+- The ``instagram`` provider now extracts the user's full name.
+- New provider: NextCloud (OAuth2)
+
+- Added support for ``ACCOUNT_SIGNUP_OPEN`` and `ACCOUNT_NEW_ACCOUNTS_ACTIVE``
+
+
+0.39.1 (2019-02-28)
+*******************
+
+Note worthy changes
+-------------------
+
+- The ``linkedin_oauth2`` provider now gracefully deals with old V1
+  data that might still be present in ``SocialAccount.extra_data``.
+
+Backwards incompatible changes
+------------------------------
+
+- The ``globus`` provider's ``extract_uid`` now uses the openid
+  required field ``sub`` instead of the ``create_time`` field.
+
+
+0.39.0 (2019-02-26)
 *******************
 
 Note worthy changes
@@ -6,7 +34,16 @@ Note worthy changes
 
 - New providers: JupyterHub (OAuth2), Steam (OpenID)
 
-- Added support for ``ACCOUNT_SIGNUP_OPEN`` and `ACCOUNT_NEW_ACCOUNTS_ACTIVE``
+- Refactor translations: Portuguese (Portugal).
+
+- Add testing for Django 2.2 (no code changes required)
+
+Backwards incompatible changes
+------------------------------
+
+- ``linkedin_oauth2``: As the LinkedIn V1 API is deprecated, the user info
+  endpoint has been moved over to use the API V2. The format of the user
+  ``extra_data`` is different and the profile picture is absent by default.
 
 
 0.38.0 (2018-10-03)

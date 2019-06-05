@@ -37,7 +37,7 @@ class VKProvider(OAuth2Provider):
         return scope
 
     def extract_uid(self, data):
-        return str(data['uid'])
+        return str(data['id'])
 
     def extract_common_fields(self, data):
         return dict(email=data.get('email'),

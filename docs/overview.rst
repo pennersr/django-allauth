@@ -161,6 +161,8 @@ Supported Providers
 
 - Steam (OpenID)
 
+- Strava (OAuth2)
+
 - Stripe (OAuth2)
 
 - Telegram

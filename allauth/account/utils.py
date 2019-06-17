@@ -144,6 +144,14 @@ def perform_login(request, user, email_verification,
             send_email_confirmation(request, user, signup=signup)
             return adapter.respond_email_verification_sent(
                 request, user)
+
+    if signal_kwargs is None:
+        signal_kwargs = {}
+    signals.user_email_confirmation_check_sucess.send(sender=user.__class__,
+                                request=request,
+                                response=response,
+                                user=user,
+                                **signal_kwargs)
     try:
         adapter.login(request, user)
         response = HttpResponseRedirect(

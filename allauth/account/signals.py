@@ -2,7 +2,7 @@ from django.contrib.auth.signals import user_logged_out  # noqa
 from django.dispatch import Signal
 
 
-user_email_confirmation_check_success = Signal(providing_arg=["request", "user"])
+user_email_confirmation_check_success = Signal(providing_args=["request", "user"])
 user_logged_in = Signal(providing_args=["request", "user"])
 
 # Typically followed by `user_logged_in` (unless, e-mail verification kicks in)

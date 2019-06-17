@@ -147,9 +147,8 @@ def perform_login(request, user, email_verification,
 
     if signal_kwargs is None:
         signal_kwargs = {}
-    signals.user_email_confirmation_check_sucess.send(sender=user.__class__,
+    signals.user_email_confirmation_check_success.send(sender=user.__class__,
                                 request=request,
-                                response=response,
                                 user=user,
                                 **signal_kwargs)
     try:

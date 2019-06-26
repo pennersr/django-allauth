@@ -14,7 +14,7 @@ from django.utils.translation import gettext as _
 from requests_oauthlib import OAuth1
 
 from allauth.compat import parse_qsl, urlparse
-from allauth.utils import get_request_param
+from allauth.utils import build_absolute_uri, get_request_param
 
 
 def get_token_prefix(url):
@@ -67,8 +67,8 @@ class OAuthClient(object):
             get_params = {}
             if self.parameters:
                 get_params.update(self.parameters)
-            get_params['oauth_callback'] \
-                = self.request.build_absolute_uri(self.callback_url)
+            get_params['oauth_callback'] = build_absolute_uri(
+                self.request, self.callback_url)
             rt_url = self.request_token_url + '?' + urlencode(get_params)
             oauth = OAuth1(self.consumer_key,
                            client_secret=self.consumer_secret)

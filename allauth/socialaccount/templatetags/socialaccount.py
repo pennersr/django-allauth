@@ -15,7 +15,10 @@ class ProviderLoginURLNode(template.Node):
 
     def render(self, context):
         provider_id = self.provider_id_var.resolve(context)
-        request = context.get('request')
+        try:
+            request = context['request']
+        except KeyError:
+            request = context.request
         provider = providers.registry.by_id(provider_id, request)
         query = dict([(str(name), var.resolve(context)) for name, var
                       in self.params.items()])

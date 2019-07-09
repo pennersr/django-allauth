@@ -105,6 +105,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.nextcloud',
     'allauth.socialaccount.providers.odnoklassniki',
     'allauth.socialaccount.providers.openid',
+    'allauth.socialaccount.providers.openstreetmap',
     'allauth.socialaccount.providers.orcid',
     'allauth.socialaccount.providers.patreon',
     'allauth.socialaccount.providers.paypal',

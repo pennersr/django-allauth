@@ -131,6 +131,8 @@ Supported Providers
 
 - OpenId
 
+- OpenStreetMap (OAuth)
+
 - ORCID (OAuth2)
 
 - Patreon (OAuth2)

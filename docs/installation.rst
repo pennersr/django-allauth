@@ -97,6 +97,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.nextcloud',
         'allauth.socialaccount.providers.odnoklassniki',
         'allauth.socialaccount.providers.openid',
+        'allauth.socialaccount.providers.openstreetmap',
         'allauth.socialaccount.providers.orcid',
         'allauth.socialaccount.providers.paypal',
         'allauth.socialaccount.providers.patreon',

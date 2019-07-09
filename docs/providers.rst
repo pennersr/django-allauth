@@ -1503,8 +1503,10 @@ Twitch
 ------
 
 App registration (get your key and secret here)
-    http://www.twitch.tv/kraken/oauth2/clients/new
+    http://dev.twitch.tv/console
 
+Development callback URL
+    http://localhost:8000/accounts/twitch/login/callback/
 
 Twitter
 -------

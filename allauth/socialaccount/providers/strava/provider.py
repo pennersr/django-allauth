@@ -11,7 +11,7 @@ class StravaAccount(ProviderAccount):
 
     def get_avatar_url(self):
         avatar = self.account.extra_data.get('profile')
-        if avatar and avatar != "avatar/athlete/large.png"
+        if avatar and avatar != "avatar/athlete/large.png":
             return avatar
         return None
 

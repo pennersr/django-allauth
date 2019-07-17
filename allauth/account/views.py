@@ -45,7 +45,8 @@ INTERNAL_RESET_SESSION_KEY = "_password_reset_key"
 
 
 sensitive_post_parameters_m = method_decorator(
-    sensitive_post_parameters('password', 'password1', 'password2'))
+    sensitive_post_parameters(
+        'oldpassword', 'password', 'password1', 'password2'))
 
 
 def _ajax_response(request, response, form=None, data=None):

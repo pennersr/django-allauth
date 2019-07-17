@@ -31,7 +31,7 @@ Default Settings::
 login (``allauth.account.forms.LoginForm``)
 *******************************************
 
-Used on `account_login <views.html#login-account-login>`__ view.
+Used on `account_login <views.rst#login-account-login>`__ view.
 
 ``save`` is not called, you need to override ``login``
 ::
@@ -57,7 +57,7 @@ You have access to the following:
 signup (``allauth.account.forms.SignupForm``)
 *********************************************
 
-Used on `account_signup <views.html#signup-account-signup>`__ view.
+Used on `account_signup <views.rst#signup-account-signup>`__ view.
 
 ::
 
@@ -82,7 +82,7 @@ Used on `account_signup <views.html#signup-account-signup>`__ view.
 add_email (``allauth.account.forms.AddEmailForm``)
 **************************************************
 
-Used on `account_email <views.html#e-mails-management-account-email>`__ view.
+Used on `account_email <views.rst#e-mails-management-account-email>`__ view.
 
 ::
 
@@ -111,7 +111,7 @@ You have access to the following:
 change_password (``allauth.account.forms.ChangePasswordForm``)
 **************************************************************
 
-Used on `account_change_password <views.html#password-management>`__ view.
+Used on `account_change_password <views.rst#password-management>`__ view.
 
 ::
 
@@ -137,7 +137,7 @@ You have access to the following:
 set_password (``allauth.account.forms.SetPasswordForm``)
 ********************************************************
 
-Used on `account_set_password <views.html#password-management>`__ view.
+Used on `account_set_password <views.rst#password-management>`__ view.
 
 ::
 
@@ -163,7 +163,7 @@ You have access to the following:
 reset_password (``allauth.account.forms.ResetPasswordForm``)
 ************************************************************
 
-Used on `account_reset_password <views.html#password-reset-account-reset-password>`__ view.
+Used on `account_reset_password <views.rst#password-reset-account-reset-password>`__ view.
 
 ::
 
@@ -192,7 +192,7 @@ You have access to the following:
 reset_password_from_key (``allauth.account.forms.ResetPasswordKeyForm``)
 ************************************************************************
 
-Used on `account_reset_password <views.html#password-reset-account-reset-password>`__ view.
+Used on `account_reset_password <views.rst#password-reset-account-reset-password>`__ view.
 
 ::
 

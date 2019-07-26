@@ -30,7 +30,7 @@ class TwitchProvider(OAuth2Provider):
         }
 
     def get_default_scope(self):
-        return ["user_read"]
+        return ["user:read:email"]
 
 
 provider_classes = [TwitchProvider]

@@ -21,5 +21,6 @@ social_account_removed = Signal(providing_args=["request", "socialaccount"])
 
 # Sent after the user has authorized access and allauth has obtained the
 # token information from the code supplied.
-post_authorization_response = Signal(providing_args=["request", "socialapp",
-                                                     "socialtoken", "response"])
+post_authorization_response = Signal(providing_args=[
+    "request", "socialapp", "socialtoken", "response"
+])

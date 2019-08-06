@@ -296,8 +296,8 @@ class DefaultAccountAdapter(object):
         validate_password(password, user)
         return password
 
-    def validate_unique_email(self, email):
-        if email_address_exists(email):
+    def validate_unique_email(self, email, site=None):
+        if email_address_exists(email, site=site):
             raise forms.ValidationError(self.error_messages['email_taken'])
         return email
 

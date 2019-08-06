@@ -213,6 +213,11 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
     def dispatch(self, request, *args, **kwargs):
         return super(SignupView, self).dispatch(request, *args, **kwargs)
 
+    def get_form_kwargs(self):
+        kwargs = super(SignupView, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, 'signup', self.form_class)
 
@@ -384,6 +389,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
     def get_form_kwargs(self):
         kwargs = super(EmailView, self).get_form_kwargs()
         kwargs["user"] = self.request.user
+        kwargs['request'] = self.request
         return kwargs
 
     def form_valid(self, form):
@@ -639,6 +645,11 @@ class PasswordResetView(AjaxCapableProcessFormViewMixin, FormView):
         return get_form_class(app_settings.FORMS,
                               'reset_password',
                               self.form_class)
+
+    def get_form_kwargs(self):
+        kwargs = super(PasswordResetView, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
 
     def form_valid(self, form):
         form.save(self.request)

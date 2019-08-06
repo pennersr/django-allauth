@@ -14,6 +14,7 @@ _stash = local()
 class AuthenticationBackend(ModelBackend):
 
     def authenticate(self, request, **credentials):
+        self.request = request
         ret = None
         if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
             ret = self._authenticate_by_email(**credentials)
@@ -51,7 +52,7 @@ class AuthenticationBackend(ModelBackend):
         # and use username as fallback
         email = credentials.get('email', credentials.get('username'))
         if email:
-            for user in filter_users_by_email(email):
+            for user in filter_users_by_email(email, self.request):
                 if self._check_password(user, credentials["password"]):
                     return user
         return None

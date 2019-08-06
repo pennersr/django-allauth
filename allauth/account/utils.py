@@ -10,6 +10,7 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.utils.http import urlencode
 from django.utils.timezone import now
+from django.contrib.sites.shortcuts import get_current_site
 
 from allauth.compat import base36_to_int, force_str, int_to_base36, six
 
@@ -131,8 +132,12 @@ def perform_login(request, user, email_verification,
         return adapter.respond_user_inactive(request, user)
 
     from .models import EmailAddress
-    has_verified_email = EmailAddress.objects.filter(user=user,
-                                                     verified=True).exists()
+
+    extra_kwargs = {}
+    if app_settings.EMAIL_SITE_ID:
+        extra_kwargs[app_settings.EMAIL_SITE_ID] = get_current_site(request)
+    has_verified_email = EmailAddress.objects.filter(user=user, verified=True).exists()
+
     if email_verification == EmailVerificationMethod.NONE:
         pass
     elif email_verification == EmailVerificationMethod.OPTIONAL:
@@ -249,7 +254,13 @@ def setup_user_email(request, user, addresses):
     """
     from .models import EmailAddress
 
-    assert not EmailAddress.objects.filter(user=user).exists()
+    if app_settings.EMAIL_SITE_ID:
+        current_site = get_current_site(request)
+        assert not EmailAddress.objects.filter(user=user, **{
+            app_settings.EMAIL_SITE_ID:current_site}).exists()
+    else:
+        assert not EmailAddress.objects.filter(user=user).exists()
+
     priority_addresses = []
     # Is there a stashed e-mail?
     adapter = get_adapter(request)
@@ -370,7 +381,7 @@ def filter_users_by_username(*username):
     return ret
 
 
-def filter_users_by_email(email):
+def filter_users_by_email(email, request):
     """Return list of users by email address
 
     Typically one, at most just a few in length.  First we look through
@@ -379,10 +390,17 @@ def filter_users_by_email(email):
     """
     from .models import EmailAddress
     User = get_user_model()
-    mails = EmailAddress.objects.filter(email__iexact=email)
+    q_dict = {}
+    if app_settings.EMAIL_SITE_ID is not None:
+        q_dict[app_settings.EMAIL_SITE_ID] = get_current_site(request)
+    mails = EmailAddress.objects.filter(email__iexact=email, **q_dict)
     users = [e.user for e in mails.prefetch_related('user')]
+
+    q_dict = {}
+    if app_settings.EMAIL_SITE_ID is not None:
+        q_dict[app_settings.EMAIL_SITE_ID.replace('user__', '')] = get_current_site(request)
     if app_settings.USER_MODEL_EMAIL_FIELD:
-        q_dict = {app_settings.USER_MODEL_EMAIL_FIELD + '__iexact': email}
+        q_dict[app_settings.USER_MODEL_EMAIL_FIELD + '__iexact'] = email
         users += list(User.objects.filter(**q_dict))
     return list(set(users))
 

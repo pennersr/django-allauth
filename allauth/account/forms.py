@@ -274,6 +274,7 @@ class BaseSignupForm(_base_signup_form_class()):
                                     app_settings.EMAIL_REQUIRED)
         self.username_required = kwargs.pop('username_required',
                                             app_settings.USERNAME_REQUIRED)
+        self.request = kwargs.pop('request', None)
         super(BaseSignupForm, self).__init__(*args, **kwargs)
         username_field = self.fields['username']
         username_field.max_length = get_username_max_length()
@@ -335,7 +336,8 @@ class BaseSignupForm(_base_signup_form_class()):
         return value
 
     def validate_unique_email(self, value):
-        return get_adapter().validate_unique_email(value)
+        current_site = get_current_site(self.request)
+        return get_adapter().validate_unique_email(value, current_site)
 
     def clean(self):
         cleaned_data = super(BaseSignupForm, self).clean()
@@ -427,6 +429,10 @@ class AddEmailForm(UserForm):
                    "size": "30",
                    "placeholder": _('E-mail address')}))
 
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super(AddEmailForm, self).__init__(*args, **kwargs)
+
     def clean_email(self):
         value = self.cleaned_data["email"]
         value = get_adapter().clean_email(value)
@@ -436,7 +442,7 @@ class AddEmailForm(UserForm):
             "different_account": _("This e-mail address is already associated"
                                    " with another account."),
         }
-        users = filter_users_by_email(value)
+        users = filter_users_by_email(value, self.request)
         on_this_account = [u for u in users if u.pk == self.user.pk]
         on_diff_account = [u for u in users if u.pk != self.user.pk]
 
@@ -498,10 +504,14 @@ class ResetPasswordForm(forms.Form):
         })
     )
 
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super(ResetPasswordForm, self).__init__(*args, **kwargs)
+
     def clean_email(self):
         email = self.cleaned_data["email"]
         email = get_adapter().clean_email(email)
-        self.users = filter_users_by_email(email)
+        self.users = filter_users_by_email(email, self.request)
         if not self.users:
             raise forms.ValidationError(_("The e-mail address is not assigned"
                                           " to any user account"))

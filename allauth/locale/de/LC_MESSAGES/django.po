@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-02-26 12:47-0600\n"
-"PO-Revision-Date: 2017-11-04 16:22+0100\n"
+"PO-Revision-Date: 2019-08-07 12:13+0200\n"
 "Last-Translator: Jannis Vajen <jvajen@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/django-allauth/"
 "language/de/)\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.4\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: account/adapter.py:45
 msgid "Username can not be used. Please use other username."
@@ -145,7 +145,7 @@ msgstr "Das Sicherheits-Token zum Zurücksetzen des Passwortes war ungültig."
 
 #: account/models.py:23
 msgid "user"
-msgstr "Benutzer/in"
+msgstr "Benutzer"
 
 #: account/models.py:27 account/models.py:81
 msgid "e-mail address"
@@ -407,8 +407,8 @@ msgid ""
 msgstr ""
 "Hallo von %(site_name)s!\n"
 "\n"
-"Du erhältst diese E-Mail der/die Nutzer/in %(user_display)s deine E-Mail-"
-"Adresse als seine/ihre angab, um sie mit seinem/ihrem Konto zu verknüpfen.\n"
+"Du erhältst diese E-Mail, weil der Nutzer %(user_display)s deine E-Mail-"
+"Adresse als seine angab, um sie mit seinem Konto zu verknüpfen.\n"
 "\n"
 "Um dies zu bestätigen, rufe bitte folgende Adresse auf: %(activate_url)s\n"
 

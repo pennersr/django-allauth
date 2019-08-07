@@ -149,8 +149,8 @@ def email_address_exists(email, exclude_user=None, site=None):
                 users = users.exclude(pk=exclude_user.pk)
             q_dict = {email_field + '__iexact': email}
             if account_settings.EMAIL_SITE_ID and site is not None:
-                user_site = account_settings.EMAIL_SITE_ID.replace('user__', '')
-                q_dict[user_site] = site
+                u_site = account_settings.EMAIL_SITE_ID.replace('user__', '')
+                q_dict[u_site] = site
             ret = users.filter(**q_dict).exists()
     return ret
 

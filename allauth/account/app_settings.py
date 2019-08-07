@@ -122,6 +122,14 @@ class AppSettings(object):
         return self._setting("UNIQUE_EMAIL", True)
 
     @property
+    def EMAIL_SITE_ID(self):
+        """
+        It define the link between user and associated site_id. If defined
+        EmailAddress.email is unique per site_id
+        """
+        return self._setting("EMAIL_SITE_ID", None)
+
+    @property
     def SIGNUP_EMAIL_ENTER_TWICE(self):
         """
         Signup email verification

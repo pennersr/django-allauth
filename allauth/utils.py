@@ -133,8 +133,8 @@ def email_address_exists(email, exclude_user=None, site=None):
     from .account.models import EmailAddress
 
     q_dict = {}
-    if site is not None:
-        q_dict['site'] = site
+    if account_settings.EMAIL_SITE_ID and site is not None:
+        q_dict[str(account_settings.EMAIL_SITE_ID)] = site
 
     emailaddresses = EmailAddress.objects
     if exclude_user:

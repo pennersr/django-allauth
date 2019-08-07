@@ -337,7 +337,7 @@ class BaseSignupForm(_base_signup_form_class()):
 
     def validate_unique_email(self, value):
         current_site = get_current_site(self.request)
-        return get_adapter().validate_unique_email(value, current_site)
+        return get_adapter().validate_unique_email(value, site=current_site)
 
     def clean(self):
         cleaned_data = super(BaseSignupForm, self).clean()

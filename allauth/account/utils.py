@@ -256,8 +256,9 @@ def setup_user_email(request, user, addresses):
 
     if app_settings.EMAIL_SITE_ID:
         current_site = get_current_site(request)
+        site_field = app_settings.EMAIL_SITE_ID
         assert not EmailAddress.objects.filter(user=user, **{
-            app_settings.EMAIL_SITE_ID:current_site}).exists()
+            site_field:current_site}).exists()
     else:
         assert not EmailAddress.objects.filter(user=user).exists()
 

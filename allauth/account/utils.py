@@ -4,13 +4,13 @@ from datetime import timedelta
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import FieldDoesNotExist, ValidationError
 from django.db import models
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.utils.http import urlencode
 from django.utils.timezone import now
-from django.contrib.sites.shortcuts import get_current_site
 
 from allauth.compat import base36_to_int, force_str, int_to_base36, six
 
@@ -136,7 +136,8 @@ def perform_login(request, user, email_verification,
     extra_kwargs = {}
     if app_settings.EMAIL_SITE_ID:
         extra_kwargs[app_settings.EMAIL_SITE_ID] = get_current_site(request)
-    has_verified_email = EmailAddress.objects.filter(user=user, verified=True).exists()
+    has_verified_email = EmailAddress.objects.filter(
+        user=user, verified=True).exists()
 
     if email_verification == EmailVerificationMethod.NONE:
         pass
@@ -258,7 +259,7 @@ def setup_user_email(request, user, addresses):
         current_site = get_current_site(request)
         site_field = app_settings.EMAIL_SITE_ID
         assert not EmailAddress.objects.filter(user=user, **{
-            site_field:current_site}).exists()
+            site_field: current_site}).exists()
     else:
         assert not EmailAddress.objects.filter(user=user).exists()
 
@@ -392,14 +393,15 @@ def filter_users_by_email(email, request):
     from .models import EmailAddress
     User = get_user_model()
     q_dict = {}
+    current_site = get_current_site(request)
     if app_settings.EMAIL_SITE_ID is not None:
-        q_dict[app_settings.EMAIL_SITE_ID] = get_current_site(request)
+        q_dict[app_settings.EMAIL_SITE_ID] = current_site
     mails = EmailAddress.objects.filter(email__iexact=email, **q_dict)
     users = [e.user for e in mails.prefetch_related('user')]
 
     q_dict = {}
     if app_settings.EMAIL_SITE_ID is not None:
-        q_dict[app_settings.EMAIL_SITE_ID.replace('user__', '')] = get_current_site(request)
+        q_dict[app_settings.EMAIL_SITE_ID.replace('user__', '')] = current_site
     if app_settings.USER_MODEL_EMAIL_FIELD:
         q_dict[app_settings.USER_MODEL_EMAIL_FIELD + '__iexact'] = email
         users += list(User.objects.filter(**q_dict))

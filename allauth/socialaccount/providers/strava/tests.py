@@ -59,8 +59,8 @@ class StravaTests(OAuth2TestsMixin, TestCase):
                 "created_at": "2017-07-12T12:42:52Z",
                 "updated_at": "2017-10-21T11:01:23Z",
                 "badge_type_id": 0,
-                "profile_medium": "https://cloudfront.net/pictures/athletes/123/123/1/medium.jpg",
-                "profile": "https://cloudfront.net/pictures/athletes/123/12/1/large.jpg",
+                "profile_medium": "https://cloudfront.net/1/medium.jpg",
+                "profile": "https://cloudfront.net/1/large.jpg",
                 "friend": null,
                 "follower": null,
                 "email": "bill@example.com"
@@ -75,7 +75,7 @@ class StravaTests(OAuth2TestsMixin, TestCase):
                                                provider=self.provider.id).get()
         provider_account = soc_acc.get_provider_account()
         self.assertEqual(provider_account.get_avatar_url(),
-                         "https://cloudfront.net/pictures/athletes/123/12/1/large.jpg")
+                         "https://cloudfront.net/1/large.jpg")
         self.assertIsNone(provider_account.get_profile_url())
 
     def get_login_response_json(self, with_refresh_token=True):

@@ -5,10 +5,24 @@ Note worthy changes
 -------------------
 
 - The ``instagram`` provider now extracts the user's full name.
+
 - New provider: NextCloud (OAuth2)
 
 - Added an ``SDK_URL`` setting for customizing the loading of the Facebook
   JavaScript SDK.
+
+- Updated Twitch provider to use new authentication endpoints
+  (``https://id.twitch.tv``) over deprecated v5 endpoints
+  (``https://api.twitch.tv/kraken``)
+
+Backwards incompatible changes
+------------------------------
+
+- ``Twitch``: The new API's profile data is different in both
+  structure and content than the old V5 endpoint. Any project
+  that relies on data from ``SocialAccount.extra_data`` should
+  refer to the new API user endpoint documentation:
+  https://dev.twitch.tv/docs/api/reference/#get-users
 
 
 0.39.1 (2019-02-28)

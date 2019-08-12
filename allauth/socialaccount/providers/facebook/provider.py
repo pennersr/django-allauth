@@ -66,7 +66,11 @@ class FacebookProvider(OAuth2Provider):
                 kwargs.get('process') or AuthProcess.LOGIN)
             action = "'%s'" % escapejs(
                 kwargs.get('action') or AuthAction.AUTHENTICATE)
-            js = "allauth.facebook.login(%s, %s, %s)" % (next, action, process)
+            scope = "'%s'" % escapejs(
+                kwargs.get('scope', '')
+            )
+            js = "allauth.facebook.login(%s, %s, %s, %s)" % (
+                next, action, process, scope)
             ret = "javascript:%s" % (urlquote(js),)
         else:
             assert method == 'oauth2'
@@ -115,6 +119,8 @@ class FacebookProvider(OAuth2Provider):
                                                             action)
         if action == AuthAction.REAUTHENTICATE:
             ret['auth_type'] = 'reauthenticate'
+        elif action == AuthAction.REREQUEST:
+            ret['auth_type'] = 'rerequest'
         return ret
 
     def get_init_params(self, request, app):

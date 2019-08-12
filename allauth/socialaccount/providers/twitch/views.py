@@ -12,13 +12,13 @@ from .provider import TwitchProvider
 
 class TwitchOAuth2Adapter(OAuth2Adapter):
     provider_id = TwitchProvider.id
-    access_token_url = 'https://api.twitch.tv/kraken/oauth2/token'
-    authorize_url = 'https://api.twitch.tv/kraken/oauth2/authorize'
-    profile_url = 'https://api.twitch.tv/kraken/user'
+    access_token_url = 'https://id.twitch.tv/oauth2/token'
+    authorize_url = 'https://id.twitch.tv/oauth2/authorize'
+    profile_url = 'https://api.twitch.tv/helix/users'
 
     def complete_login(self, request, app, token, **kwargs):
-        params = {"oauth_token": token.token, "client_id": app.client_id}
-        response = requests.get(self.profile_url, params=params)
+        headers = {'Authorization': 'Bearer {}'.format(token.token)}
+        response = requests.get(self.profile_url, headers=headers)
 
         data = response.json()
         if response.status_code >= 400:
@@ -26,10 +26,17 @@ class TwitchOAuth2Adapter(OAuth2Adapter):
             message = data.get("message", "")
             raise OAuth2Error("Twitch API Error: %s (%s)" % (error, message))
 
-        if "_id" not in data:
-            raise OAuth2Error("Invalid data from Twitch API: %r" % (data))
+        try:
+            user_info = data.get('data', [])[0]
+        except IndexError:
+            raise OAuth2Error("Invalid data from Twitch API: %s" % (data))
 
-        return self.get_provider().sociallogin_from_response(request, data)
+        if "id" not in user_info:
+            raise OAuth2Error("Invalid data from Twitch API: %s" % (user_info))
+
+        return self.get_provider().sociallogin_from_response(
+            request, user_info
+        )
 
 
 oauth2_login = OAuth2LoginView.adapter_view(TwitchOAuth2Adapter)

@@ -291,7 +291,7 @@ class BaseSignupForm(_base_signup_form_class()):
         ]
         if app_settings.SIGNUP_EMAIL_ENTER_TWICE:
             self.fields["email2"] = forms.EmailField(
-                label=_("E-mail (again)"),
+                label=_("Confirm Email"),
                 widget=forms.TextInput(
                     attrs={
                         'type': 'email',
@@ -367,7 +367,7 @@ class SignupForm(BaseSignupForm):
         self.fields['password1'] = PasswordField(label=_("Password"))
         if app_settings.SIGNUP_PASSWORD_ENTER_TWICE:
             self.fields['password2'] = PasswordField(
-                label=_("Password (again)"))
+                label=_("Confirm Password"))
 
         if hasattr(self, 'field_order'):
             set_form_field_order(self, self.field_order)
@@ -457,7 +457,7 @@ class ChangePasswordForm(PasswordVerificationMixin, UserForm):
 
     oldpassword = PasswordField(label=_("Current Password"))
     password1 = SetPasswordField(label=_("New Password"))
-    password2 = PasswordField(label=_("New Password (again)"))
+    password2 = PasswordField(label=_("Confirm Password"))
 
     def __init__(self, *args, **kwargs):
         super(ChangePasswordForm, self).__init__(*args, **kwargs)
@@ -476,7 +476,7 @@ class ChangePasswordForm(PasswordVerificationMixin, UserForm):
 class SetPasswordForm(PasswordVerificationMixin, UserForm):
 
     password1 = SetPasswordField(label=_("Password"))
-    password2 = PasswordField(label=_("Password (again)"))
+    password2 = PasswordField(label=_("Confirm Password"))
 
     def __init__(self, *args, **kwargs):
         super(SetPasswordForm, self).__init__(*args, **kwargs)
@@ -494,7 +494,7 @@ class ResetPasswordForm(forms.Form):
         widget=forms.TextInput(attrs={
             "type": "email",
             "size": "30",
-            "placeholder": _("E-mail address"),
+            "placeholder": _("Type your Email"),
         })
     )
 
@@ -502,9 +502,6 @@ class ResetPasswordForm(forms.Form):
         email = self.cleaned_data["email"]
         email = get_adapter().clean_email(email)
         self.users = filter_users_by_email(email)
-        if not self.users:
-            raise forms.ValidationError(_("The e-mail address is not assigned"
-                                          " to any user account"))
         return self.cleaned_data["email"]
 
     def save(self, request, **kwargs):
@@ -546,7 +543,7 @@ class ResetPasswordForm(forms.Form):
 class ResetPasswordKeyForm(PasswordVerificationMixin, forms.Form):
 
     password1 = SetPasswordField(label=_("New Password"))
-    password2 = PasswordField(label=_("New Password (again)"))
+    password2 = PasswordField(label=_("Confirm Password"))
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user", None)

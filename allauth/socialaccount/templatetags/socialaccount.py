@@ -2,6 +2,7 @@ from django import template
 from django.template.defaulttags import token_kwargs
 
 from allauth.socialaccount import providers
+from allauth.socialaccount.models import SocialApp
 from allauth.utils import get_request_param
 
 
@@ -81,8 +82,8 @@ def get_social_accounts(user):
     return accounts
 
 
-@register.simple_tag
-def get_providers():
+@register.simple_tag(takes_context=True)
+def get_providers(context):
     """
     Returns a list of social authentication providers.
 
@@ -91,4 +92,14 @@ def get_providers():
     Then within the template context, `socialaccount_providers` will hold
     a list of social providers configured for the current site.
     """
-    return providers.registry.get_list()
+    configured_providers = []
+    for provider in providers.registry.get_list():
+        try:
+            # We try to get the SocialApp object to see if the provider is configured
+            SocialApp.objects.get_current(provider.id, context['request'])
+            configured_providers.append(provider)
+        except SocialApp.DoesNotExist:
+            # We skip unconfigured providers
+            pass
+
+    return configured_providers

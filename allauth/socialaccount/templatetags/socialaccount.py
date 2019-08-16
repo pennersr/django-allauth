@@ -85,7 +85,7 @@ def get_social_accounts(user):
 @register.simple_tag(takes_context=True)
 def get_providers(context):
     """
-    Returns a list of social authentication providers.
+    Returns a list of configured social authentication providers.
 
     Usage: `{% get_providers as socialaccount_providers %}`.
 
@@ -95,11 +95,9 @@ def get_providers(context):
     configured_providers = []
     for provider in providers.registry.get_list():
         try:
-            # We try to get the SocialApp object to see if the provider is configured
             SocialApp.objects.get_current(provider.id, context['request'])
             configured_providers.append(provider)
         except SocialApp.DoesNotExist:
-            # We skip unconfigured providers
             pass
 
     return configured_providers

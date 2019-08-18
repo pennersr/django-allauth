@@ -17,9 +17,9 @@ class IndexView(VerifiedEmailRequiredMixin, ListView):
 
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import EmailAddress
-from .utils import send_email_confirmation
+from allauth.account.decorators import verified_email_required
 
 
 class VerifiedEmailRequiredMixin(LoginRequiredMixin):
@@ -29,13 +29,9 @@ class VerifiedEmailRequiredMixin(LoginRequiredMixin):
     decorator, it is meant to be use in a class-based view.
     """
 
+    @method_decorator(verified_email_required)
     def dispatch(self, request, *args, **kwargs):
         """
         Just override the dispatch() method to run the control before doing anything in the class
         """
-        if request.user.is_authenticated:
-            if not EmailAddress.objects.filter(user=self.request.user,
-                                               verified=True).exists():
-                send_email_confirmation(request, request.user)
-                return HttpResponseRedirect(reverse('account_email_verification_sent'))
         return super(VerifiedEmailRequiredMixin, self).dispatch(request, *args, **kwargs)

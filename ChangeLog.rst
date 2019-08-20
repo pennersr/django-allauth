@@ -15,6 +15,9 @@ Note worthy changes
   (``https://id.twitch.tv``) over deprecated v5 endpoints
   (``https://api.twitch.tv/kraken``)
 
+- Added support for Patreon API v2, with API v1 set as default for
+  backwards compatibility.
+
 Backwards incompatible changes
 ------------------------------
 

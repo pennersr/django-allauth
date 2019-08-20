@@ -16,7 +16,7 @@ class PatreonProvider(OAuth2Provider):
     account_class = PatreonAccount
 
     def get_default_scope(self):
-        return ['pledges-to-me', 'users', 'my-campaign']
+        return ['identity', 'identity[email]', 'campaigns', 'campaigns.members']
 
     def extract_uid(self, data):
         return data.get('id')

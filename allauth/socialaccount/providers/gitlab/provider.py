@@ -21,6 +21,9 @@ class GitLabProvider(OAuth2Provider):
     name = 'GitLab'
     account_class = GitLabAccount
 
+    def get_default_scope(self):
+        return ['read_user']
+
     def extract_uid(self, data):
         return str(data['id'])
 

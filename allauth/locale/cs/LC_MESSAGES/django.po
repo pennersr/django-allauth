@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.35\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-26 12:47-0600\n"
+"POT-Creation-Date: 2019-08-29 16:33-0500\n"
 "PO-Revision-Date: 2018-04-17 16:52+0200\n"
 "Last-Translator: Beda Kosata <beda.kosata@gmail.com>\n"
 "Language-Team: Czech <>\n"
@@ -36,107 +36,107 @@ msgstr "Uživatel s tímto e-mailem je již registrován."
 msgid "Password must be a minimum of {0} characters."
 msgstr "Heslo musí obsahovat minimálně {0} znaků."
 
-#: account/apps.py:7
+#: account/apps.py:8
 msgid "Accounts"
 msgstr "Účty"
 
-#: account/forms.py:61 account/forms.py:398
+#: account/forms.py:63 account/forms.py:400
 msgid "You must type the same password each time."
 msgstr "Hesla se musí shodovat."
 
-#: account/forms.py:91 account/forms.py:365 account/forms.py:476
+#: account/forms.py:93 account/forms.py:367 account/forms.py:478
 msgid "Password"
 msgstr "Heslo"
 
-#: account/forms.py:92
+#: account/forms.py:94
 msgid "Remember Me"
 msgstr "Zapamatovat"
 
-#: account/forms.py:98
+#: account/forms.py:100
 msgid "This account is currently inactive."
 msgstr "Účet je v tuto chvíli neaktivní."
 
-#: account/forms.py:101
+#: account/forms.py:103
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "Zadaný e-mail nebo heslo není správné."
 
-#: account/forms.py:104
+#: account/forms.py:106
 msgid "The username and/or password you specified are not correct."
 msgstr "Zadané uživatelské jméno nebo heslo není správné."
 
-#: account/forms.py:113 account/forms.py:268 account/forms.py:426
-#: account/forms.py:495
+#: account/forms.py:115 account/forms.py:270 account/forms.py:428
+#: account/forms.py:497
 msgid "E-mail address"
 msgstr "E-mailová adresa"
 
-#: account/forms.py:115 account/forms.py:301 account/forms.py:421
-#: account/forms.py:490
+#: account/forms.py:117 account/forms.py:303 account/forms.py:423
+#: account/forms.py:492
 msgid "E-mail"
 msgstr "E-mail"
 
-#: account/forms.py:120 account/forms.py:123 account/forms.py:260
-#: account/forms.py:264
+#: account/forms.py:122 account/forms.py:125 account/forms.py:262
+#: account/forms.py:266
 msgid "Username"
 msgstr "Uživatelské jméno"
 
-#: account/forms.py:130
+#: account/forms.py:132
 msgid "Username or e-mail"
 msgstr "Uživatelské jméno nebo e-mail"
 
-#: account/forms.py:133
+#: account/forms.py:135
 msgctxt "field label"
 msgid "Login"
 msgstr "Login"
 
-#: account/forms.py:292
+#: account/forms.py:294
 msgid "E-mail (again)"
 msgstr "E-mail (znovu)"
 
-#: account/forms.py:296
+#: account/forms.py:298
 msgid "E-mail address confirmation"
 msgstr "Potrvzení e-mailové adresy"
 
-#: account/forms.py:304
+#: account/forms.py:306
 msgid "E-mail (optional)"
 msgstr "E-mail (nepovinné)"
 
-#: account/forms.py:345
+#: account/forms.py:347
 msgid "You must type the same email each time."
 msgstr "Vložené emaily se musí shodovat."
 
-#: account/forms.py:368 account/forms.py:477
+#: account/forms.py:370 account/forms.py:479
 msgid "Password (again)"
 msgstr "Heslo (znovu)"
 
-#: account/forms.py:432
+#: account/forms.py:434
 msgid "This e-mail address is already associated with this account."
 msgstr "Tento e-mail je již k tomuto účtu přiřazen."
 
-#: account/forms.py:434
+#: account/forms.py:436
 msgid "This e-mail address is already associated with another account."
 msgstr "Tento e-mail je již přiřazen k jinému účtu."
 
-#: account/forms.py:456
+#: account/forms.py:458
 msgid "Current Password"
 msgstr "Současné heslo"
 
-#: account/forms.py:457 account/forms.py:546
+#: account/forms.py:459 account/forms.py:548
 msgid "New Password"
 msgstr "Nové heslo"
 
-#: account/forms.py:458 account/forms.py:547
+#: account/forms.py:460 account/forms.py:549
 msgid "New Password (again)"
 msgstr "Nové heslo (znovu)"
 
-#: account/forms.py:466
+#: account/forms.py:468
 msgid "Please type your current password."
 msgstr "Prosím, zadejte svoje současné heslo."
 
-#: account/forms.py:504
+#: account/forms.py:506
 msgid "The e-mail address is not assigned to any user account"
 msgstr "E-mail není přiřazen k žádnému účtu"
 
-#: account/forms.py:568
+#: account/forms.py:570
 msgid "The password reset token was invalid."
 msgstr "Token pro reset hesla není platný."
 
@@ -172,7 +172,7 @@ msgstr "vytvořit"
 msgid "sent"
 msgstr "odeslaný"
 
-#: account/models.py:86 socialaccount/models.py:55
+#: account/models.py:86 socialaccount/models.py:58
 msgid "key"
 msgstr "klíč"
 
@@ -184,7 +184,7 @@ msgstr "Potvrzovací e-mail"
 msgid "email confirmations"
 msgstr "Ověřovací e-maily"
 
-#: socialaccount/adapter.py:26
+#: socialaccount/adapter.py:27
 #, python-format
 msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
@@ -193,107 +193,107 @@ msgstr ""
 "Účet s touto e-mailovou adresou již existuje. Prosím přihlaste se nejdříve "
 "pod tímto účtem a potom připojte svůj %s účet."
 
-#: socialaccount/adapter.py:131
+#: socialaccount/adapter.py:132
 msgid "Your account has no password set up."
 msgstr "Váš účet nemá nastavené heslo."
 
-#: socialaccount/adapter.py:138
+#: socialaccount/adapter.py:139
 msgid "Your account has no verified e-mail address."
 msgstr "Váš účet nemá žádný ověřený e-mail."
 
-#: socialaccount/apps.py:7
+#: socialaccount/apps.py:8
 msgid "Social Accounts"
 msgstr "Účty sociálních sítí"
 
-#: socialaccount/models.py:43 socialaccount/models.py:77
+#: socialaccount/models.py:46 socialaccount/models.py:80
 msgid "provider"
 msgstr "poskytovatel"
 
-#: socialaccount/models.py:46
+#: socialaccount/models.py:49
 msgid "name"
 msgstr "jméno"
 
-#: socialaccount/models.py:48
+#: socialaccount/models.py:51
 msgid "client id"
 msgstr "id klienta"
 
-#: socialaccount/models.py:50
+#: socialaccount/models.py:53
 msgid "App ID, or consumer key"
 msgstr "App ID nebo uživatelský klíč"
 
-#: socialaccount/models.py:51
+#: socialaccount/models.py:54
 msgid "secret key"
 msgstr "tajný klíč"
 
-#: socialaccount/models.py:53
+#: socialaccount/models.py:56
 msgid "API secret, client secret, or consumer secret"
 msgstr "tajný API klíč, tajný klientský klíč nebo uživatelský tajný klíč"
 
-#: socialaccount/models.py:58
+#: socialaccount/models.py:61
 msgid "Key"
 msgstr "Klíč"
 
-#: socialaccount/models.py:66
+#: socialaccount/models.py:69
 msgid "social application"
 msgstr "sociální aplikace"
 
-#: socialaccount/models.py:67
+#: socialaccount/models.py:70
 msgid "social applications"
 msgstr "sociální aplikace"
 
-#: socialaccount/models.py:96
+#: socialaccount/models.py:99
 msgid "uid"
 msgstr "uid"
 
-#: socialaccount/models.py:98
+#: socialaccount/models.py:101
 msgid "last login"
 msgstr "poslední přihlášení"
 
-#: socialaccount/models.py:100
+#: socialaccount/models.py:103
 msgid "date joined"
 msgstr "datum registrace"
 
-#: socialaccount/models.py:102
+#: socialaccount/models.py:105
 msgid "extra data"
 msgstr "extra data"
 
-#: socialaccount/models.py:106
+#: socialaccount/models.py:109
 msgid "social account"
 msgstr "účet sociální sítě"
 
-#: socialaccount/models.py:107
+#: socialaccount/models.py:110
 msgid "social accounts"
 msgstr "účty sociálních sítí"
 
-#: socialaccount/models.py:133
+#: socialaccount/models.py:136
 msgid "token"
 msgstr "token"
 
-#: socialaccount/models.py:135
+#: socialaccount/models.py:138
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) nebo přístupový token (OAuth2)"
 
-#: socialaccount/models.py:138
+#: socialaccount/models.py:141
 msgid "token secret"
 msgstr "tajný token"
 
-#: socialaccount/models.py:140
+#: socialaccount/models.py:143
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) nebo token pro obnovu (OAuth2)"
 
-#: socialaccount/models.py:142
+#: socialaccount/models.py:145
 msgid "expires at"
 msgstr "vyprší"
 
-#: socialaccount/models.py:146
+#: socialaccount/models.py:149
 msgid "social application token"
 msgstr "token sociální aplikace"
 
-#: socialaccount/models.py:147
+#: socialaccount/models.py:150
 msgid "social application tokens"
 msgstr "tokeny sociálních aplikací"
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:35
 msgid "Invalid profile data"
 msgstr "Neplatná data profilu"
 

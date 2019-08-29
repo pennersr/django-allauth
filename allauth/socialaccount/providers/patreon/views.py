@@ -11,7 +11,7 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import PatreonProvider, USE_API_V2, API_URL
+from .provider import API_URL, USE_API_V2, PatreonProvider
 
 
 class PatreonOAuth2Adapter(OAuth2Adapter):

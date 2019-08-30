@@ -176,27 +176,6 @@ which will accept the ``#`` character using the ``ACCOUNT_USERNAME_VALIDATORS``
 setting. Such a validator is available in
 ``socialaccount.providers.battlenet.validators.BattletagUsernameValidator``.
 
-The following Battle.net settings are available:
-
-.. code-block:: python
-
-    SOCIALACCOUNT_PROVIDERS = {
-        'facebook': {
-            'SCOPE': ['wow.profile', 'sc2.profile'],
-            'REGION': 'us',
-        }
-    }
-
-SCOPE:
-    Scope can be an array of the following options: ``wow.profile`` allows
-    access to the user's World of Warcraft characters. ``sc2.profile`` allows
-    access to the user's StarCraft 2 profile. The default setting is ``[]``.
-
-REGION:
-    Either ``apac``, ``cn``, ``eu``, ``kr``, ``sea``, ``tw`` or ``us``
-
-    Sets the default region to use, can be overriden using query parameters
-    in the URL, for example: ``?region=eu``. Defaults to ``us``.
 
 Bitbucket
 ---------
@@ -449,7 +428,6 @@ The following Facebook settings are available:
     SOCIALACCOUNT_PROVIDERS = {
         'facebook': {
             'METHOD': 'oauth2',
-            'SDK_URL': '//connect.facebook.net/{locale}/sdk.js',
             'SCOPE': ['email', 'public_profile', 'user_friends'],
             'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
             'INIT_PARAMS': {'cookie': True},
@@ -475,14 +453,6 @@ The following Facebook settings are available:
 
 METHOD:
     Either ``js_sdk`` or ``oauth2``. The default is ``oauth2``.
-
-SDK_URL:
-    If needed, use ``SDK_URL`` to override the default Facebook JavaScript SDK
-    URL, ``//connect.facebook.net/{locale}/sdk.js``. This may be necessary, for
-    example, when using the `Customer Chat Plugin <https://developers.facebook.com/docs/messenger-platform/discovery/customer-chat-plugin/sdk#install>`_.
-    If the ``SDK_URL`` contains a ``{locale}`` format string named argument,
-    the locale given by the ``LOCALE_FUNC`` will be used to generate the
-    ``SDK_URL``.
 
 SCOPE:
     By default, the ``email`` scope is required depending on whether or not
@@ -661,15 +631,14 @@ authentication provider as described in GitLab docs at
 http://doc.gitlab.com/ce/integration/oauth_provider.html
 
 The following GitLab settings are available, if unset https://gitlab.com will
-be used, with a ``read_user`` scope.
+be used.
 
 GITLAB_URL:
     Override endpoint to request an authorization and access token. For your
     private GitLab server you use: ``https://your.gitlab.server.tld``
 
 SCOPE:
-    The ``read_user`` scope is required for the login procedure, and is the default.
-    If more access is required, the scope should be set here.
+    The ``read_user`` scope is required for the login procedure.
 
 Example:
 
@@ -678,7 +647,7 @@ Example:
     SOCIALACCOUNT_PROVIDERS = {
         'gitlab': {
             'GITLAB_URL': 'https://your.gitlab.server.tld',
-            'SCOPE': ['api'],
+            'SCOPE': ['read_user'],
         },
     }
 
@@ -692,8 +661,7 @@ Registering an application:
 By default, you will have access to the openid, profile, and offline_access
 scopes.  With the offline_access scope, the API will provide you with a
 refresh token.  For additional scopes, see the Globus API docs:
-
- https://docs.globus.org/api/auth/reference/
+    https://docs.globus.org/api/auth/reference/
 
 .. code-block:: python
 
@@ -992,24 +960,6 @@ Development callback URL
     http://localhost:8000/accounts/naver/login/callback/
 
 
-NextCloud
----------
-
-The following NextCloud settings are available:
-
-.. code-block:: python
-
-    SOCIALACCOUNT_PROVIDERS = {
-        'nextcloud': {
-            'SERVER': 'https://nextcloud.example.org',
-        }
-    }
-
-
-App registration (get your key and secret here)
-
-    https://nextcloud.example.org/settings/admin/security
-
 Odnoklassniki
 -------------
 
@@ -1072,19 +1022,6 @@ following template tag:
     <a href="{% provider_login_url "openid" openid="https://www.google.com/accounts/o8/id" next="/success/url/" %}">Google</a>
 
 
-OpenStreetMap
------
-
-Register your client application under `My Settings`/`oauth settings`:
-
-    https://www.openstreetmap.org/user/{Display Name}/oauth_clients
-
-In this page you will get your key and secret
-
-For more information:
-OpenStreetMap OAuth documentation: https://wiki.openstreetmap.org/wiki/OAuth
-
-
 ORCID
 -----
 
@@ -1107,28 +1044,8 @@ to define the API you are using in your site's settings, as follows:
 Patreon
 -------
 
-The following Patreon settings are available:
-
-.. code-block:: python
-
-    SOCIALACCOUNT_PROVIDERS = {
-        'paypal': {
-            'VERSION': 'v1',
-            'SCOPE': ['pledges-to-me', 'users', 'my-campaign'],
-        }
-    }
-
-VERSION:
-    API version. Either ``v1`` or ``v2``. Defaults to ``v1``.
-
-SCOPE:
-    Defaults to the scope above if using API v1. If using v2, the scope defaults to ``['identity', 'identity[email]', 'campaigns', 'campaigns.members']``.
-
-API documentation:
+App registration (get your key and secret here)
     https://www.patreon.com/platform/documentation/clients
-
-App registration (get your key and secret for the API here):
-    https://www.patreon.com/portal/registration/register-clients
 
 Development callback URL
     http://127.0.0.1:8000/accounts/patreon/login/callback/
@@ -1225,7 +1142,7 @@ SCOPE:
     https://developers.pinterest.com/docs/api/overview/#scopes
 
 QuickBooks
-----------
+------
 
 App registration (get your key and secret here)
     https://developers.intuit.com/v2/ui#/app/startcreate
@@ -1235,21 +1152,14 @@ Development callback URL
 
 You can specify sandbox mode by adding the following to the SOCIALACCOUNT_PROVIDERS in your settings.
 
-You can also add space-delimited scope to utilize the QuickBooks Payments and Payroll API
-
 .. code-block:: python
 
     SOCIALACCOUNT_PROVIDERS = {
         'quickbooks': {
             'SANDBOX': TRUE,
-            'SCOPE': [
-              'openid',
-              'com.intuit.quickbooks.accounting com.intuit.quickbooks.payment',
-              'profile',
-              'phone',
-            ]
         }
     }
+
 
 Reddit
 ------
@@ -1309,38 +1219,6 @@ To Use:
 - Create a Social application in Django admin, with client id,
   client key, and login_url (in "key" field)
 
-ShareFile
----------
-
-The following ShareFile settings are available.
-  https://api.sharefile.com/rest/
-
-SUBDOMAIN:
- Subdomain of your organization with ShareFile.  This is required.
-
- Example:
-      ``test`` for ``https://test.sharefile.com``
-
-APICP:
- Defaults to ``secure``.  Refer to the ShareFile documentation if you
- need to change this value.
-
-DEFAULT_URL:
- Defaults to ``https://secure.sharefile.com``  Refer to the ShareFile
- documentation if you need to change this value.
-
-
-Example:
-
-.. code-block:: python
-
-    SOCIALACCOUNT_PROVIDERS = {
-    'sharefile': {
-        'SUBDOMAIN': 'TEST',
-        'APICP': 'sharefile.com',
-        'DEFAULT_URL': 'https://secure.sharefile.com',
-                 }
-    }
 
 Shopify
 -------
@@ -1448,86 +1326,60 @@ You need to register an API key here:
 Make sure to create a Steam SocialApp with that secret key.
 
 
-Strava
------
-
-Register your OAuth2 app in api settings page:
-
-    https://strava.com/settings/api
-
-In this page you will get your key and secret
-
-Development callback URL (only the domain is required on strava.com/settings/api)
-
-    http://example.com/accounts/strava/login/callback/
-
-For more information:
-Strava auth documentation: https://developers.strava.com/docs/authentication/
-API documentation: https://developers.strava.com/docs/reference/
-
-
 Stripe
 ------
 
 You register your OAUth2 app via the Connect->Settings page of the Stripe
 dashboard:
-
- https://dashboard.stripe.com/account/applications/settings
+	https://dashboard.stripe.com/account/applications/settings
 
 This page will provide you with both a Development and Production `client_id`.
 
 You can also register your OAuth2 app callback on the Settings page in the
 "Website URL" box, e.g.:
-
- http://example.com/accounts/stripe/login/callback/
+    http://example.com/accounts/stripe/login/callback/
 
 However, the OAuth2 secret key is not on this page. The secret key is the same
 secret key that you use with the Stripe API generally. This can be found on the
 Stripe dashboard API page:
-
- https://dashboard.stripe.com/account/apikeys
+	https://dashboard.stripe.com/account/apikeys
 
 See more in documentation
- https://stripe.com/docs/connect/standalone-accounts
+    https://stripe.com/docs/connect/standalone-accounts
 
 
 Trello
 ------
 
 Register the application at
-
- https://trello.com/app-key
-
+    https://trello.com/app-key  
 You get one application key per account.
 
-Save the "Key" to "Client id", the "Secret" to "Secret Key" and "Key" to the "Key"
+Save the "Key" to "Client id", the "Secret" to "Secret Key" and "Key" to the "Key" 
 field.
 
-Verify which scope you need at
-
- https://developers.trello.com/page/authorization
-
+Verify which scope you need at 
+    https://developers.trello.com/page/authorization
 Need to change the default scope? Add or update the `trello` setting to
 `settings.py`
 
-.. code-block:: python
+```
+SOCIALACCOUNT_PROVIDERS = {
+    'trello': {
+        'AUTH_PARAMS': {
+            'scope': 'read,write',
+        },
+    },
+}    
+```
 
-  SOCIALACCOUNT_PROVIDERS = {
-      'trello': {
-          'AUTH_PARAMS': {
-              'scope': 'read,write',
-          },
-      },
-  }
 
 Twitch
 ------
 
 App registration (get your key and secret here)
-    http://dev.twitch.tv/console
+    http://www.twitch.tv/kraken/oauth2/clients/new
 
-Development callback URL
-    http://localhost:8000/accounts/twitch/login/callback/
 
 Twitter
 -------
@@ -1631,7 +1483,7 @@ Development callback URL
     http://localhost:8000/a
 
 Vimeo (OAuth 2)
----------------
+-----
 
 App registration (get your key and secret here)
     https://developer.vimeo.com/apps

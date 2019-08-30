@@ -4,8 +4,7 @@ import json
 import django
 from django.core.exceptions import ValidationError
 from django.db import models
-
-from allauth.compat import six
+from django.utils import six
 
 
 class JSONField(models.TextField):

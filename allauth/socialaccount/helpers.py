@@ -107,9 +107,10 @@ def _add_social_account(request, sociallogin):
             message = 'socialaccount/messages/account_connected_other.txt'
         else:
             # This account is already connected -- we give the opportunity
-            # for customized behaviour through use of a signal.
+            # for customized behaviour through use of a signal. If not
+            # implemented, we render the standard "account connected"
+            # message without actually doing anything.
             action = 'updated'
-            message = 'socialaccount/messages/account_connected_updated.txt'
             signals.social_account_updated.send(
                 sender=SocialLogin,
                 request=request,

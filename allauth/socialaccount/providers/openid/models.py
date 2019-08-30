@@ -1,6 +1,5 @@
 from django.db import models
-
-from allauth.compat import python_2_unicode_compatible
+from django.utils.encoding import python_2_unicode_compatible
 
 
 @python_2_unicode_compatible

@@ -24,9 +24,8 @@ class SlackProvider(OAuth2Provider):
                           str(data.get('user').get('id')))
 
     def extract_common_fields(self, data):
-        user = data.get('user', {})
-        return {'name': user.get('name'),
-                'email': user.get('email', None)}
+        return dict(name=data.get('name'),
+                    email=data.get('user').get('email', None))
 
     def get_default_scope(self):
         return ['identify']

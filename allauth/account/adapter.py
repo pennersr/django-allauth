@@ -25,9 +25,10 @@ from django.template import TemplateDoesNotExist
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.encoding import force_text
+from django.utils.translation import ugettext_lazy as _
 
-from allauth.compat import force_str, ugettext_lazy as _
-
+from . import app_settings
 from ..utils import (
     build_absolute_uri,
     email_address_exists,
@@ -35,7 +36,6 @@ from ..utils import (
     get_user_model,
     import_attribute,
 )
-from . import app_settings
 
 
 class DefaultAccountAdapter(object):
@@ -85,7 +85,7 @@ class DefaultAccountAdapter(object):
         if prefix is None:
             site = get_current_site(self.request)
             prefix = "[{name}] ".format(name=site.name)
-        return prefix + force_str(subject)
+        return prefix + force_text(subject)
 
     def get_from_email(self):
         """
@@ -353,15 +353,15 @@ class DefaultAccountAdapter(object):
         }
         for field in form:
             field_spec = {
-                'label': force_str(field.label),
+                'label': force_text(field.label),
                 'value': field.value(),
-                'help_text': force_str(field.help_text),
+                'help_text': force_text(field.help_text),
                 'errors': [
-                    force_str(e) for e in field.errors
+                    force_text(e) for e in field.errors
                 ],
                 'widget': {
                     'attrs': {
-                        k: force_str(v)
+                        k: force_text(v)
                         for k, v in field.field.widget.attrs.items()
                     }
                 }

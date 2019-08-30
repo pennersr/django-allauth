@@ -8,16 +8,14 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core import exceptions, validators
 from django.urls import reverse
-from django.utils.translation import pgettext
+from django.utils.translation import pgettext, ugettext, ugettext_lazy as _
 
-from allauth.compat import ugettext, ugettext_lazy as _
-
+from . import app_settings
 from ..utils import (
     build_absolute_uri,
     get_username_max_length,
     set_form_field_order,
 )
-from . import app_settings
 from .adapter import get_adapter
 from .app_settings import AuthenticationMethod
 from .models import EmailAddress
@@ -41,7 +39,7 @@ class EmailAwarePasswordResetTokenGenerator(PasswordResetTokenGenerator):
             EmailAwarePasswordResetTokenGenerator, self)._make_hash_value(
                 user, timestamp)
         sync_user_email_addresses(user)
-        emails = set([user.email] if user.email else [])
+        emails = set([user.email])
         emails.update(
             EmailAddress.objects
             .filter(user=user)

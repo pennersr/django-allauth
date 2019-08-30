@@ -1,5 +1,6 @@
+from django.utils.encoding import python_2_unicode_compatible
+
 from allauth.account.models import EmailAddress
-from allauth.compat import python_2_unicode_compatible
 from allauth.socialaccount import app_settings
 
 from ..adapter import get_adapter
@@ -14,7 +15,6 @@ class AuthProcess(object):
 class AuthAction(object):
     AUTHENTICATE = 'authenticate'
     REAUTHENTICATE = 'reauthenticate'
-    REREQUEST = 'rerequest'
 
 
 class AuthError(object):

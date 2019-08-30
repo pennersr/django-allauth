@@ -28,7 +28,7 @@ msgstr "O nome de usuário não pode ser usado. Escolha outro."
 
 #: account/adapter.py:49
 msgid "Too many failed login attempts. Try again later."
-msgstr ""
+msgstr "Muitas tentativas de acesso sem sucesso. Tente novamente mais tarde."
 
 #: account/adapter.py:51
 msgid "A user is already registered with this e-mail address."
@@ -127,7 +127,7 @@ msgstr "Este endereço de e-mail já foi associado com outra conta."
 
 #: account/forms.py:458
 msgid "Current Password"
-msgstr "senha atual"
+msgstr "Senha Atual"
 
 #: account/forms.py:459 account/forms.py:548
 msgid "New Password"
@@ -147,7 +147,7 @@ msgstr "O endereço de e-mail não está associado a nenhuma conta de usuário"
 
 #: account/forms.py:570
 msgid "The password reset token was invalid."
-msgstr ""
+msgstr "O token de redefinição de senha era inválido"
 
 #: account/models.py:23
 msgid "user"

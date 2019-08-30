@@ -28,7 +28,7 @@ class OrcidProvider(OAuth2Provider):
 
     def extract_common_fields(self, data):
         common_fields = dict(
-            email=extract_from_dict(data, ['person', 'emails', 0,
+            email=extract_from_dict(data, ['person', 'emails', 'email', 0,
                                            'email']),
             last_name=extract_from_dict(data, ['person', 'name',
                                                'family-name', 'value']),

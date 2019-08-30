@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-26 12:47-0600\n"
+"POT-Creation-Date: 2019-08-29 16:33-0500\n"
 "PO-Revision-Date: 2014-08-12 00:29+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,113 +37,113 @@ msgstr "Ένας χρήστης έχει ήδη εγγραφεί με τη συ�
 msgid "Password must be a minimum of {0} characters."
 msgstr "Ο κωδικός πρέπει να είναι κατ' ελάχιστο {0} χαρακτήρες."
 
-#: account/apps.py:7
+#: account/apps.py:8
 msgid "Accounts"
 msgstr "Λογαριασμοί"
 
-#: account/forms.py:61 account/forms.py:398
+#: account/forms.py:63 account/forms.py:400
 msgid "You must type the same password each time."
 msgstr "Πρέπει να συμπληρώνετε τον ίδιο κωδικό κάθε φορά."
 
-#: account/forms.py:91 account/forms.py:365 account/forms.py:476
+#: account/forms.py:93 account/forms.py:367 account/forms.py:478
 msgid "Password"
 msgstr "Κωδικός"
 
-#: account/forms.py:92
+#: account/forms.py:94
 msgid "Remember Me"
 msgstr "Να με θυμάσαι"
 
-#: account/forms.py:98
+#: account/forms.py:100
 msgid "This account is currently inactive."
 msgstr "Ο λογαριασμός δεν είναι ενεργός"
 
-#: account/forms.py:101
+#: account/forms.py:103
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "Η διεύθυνση e-mail ή/και ο κωδικός δεν είναι σωστά."
 
-#: account/forms.py:104
+#: account/forms.py:106
 msgid "The username and/or password you specified are not correct."
 msgstr "Το όνομα χρήστη ή/και ο κωδικός δεν είναι σωστά."
 
-#: account/forms.py:113 account/forms.py:268 account/forms.py:426
-#: account/forms.py:495
+#: account/forms.py:115 account/forms.py:270 account/forms.py:428
+#: account/forms.py:497
 msgid "E-mail address"
 msgstr "Διεύθυνση e-mail"
 
-#: account/forms.py:115 account/forms.py:301 account/forms.py:421
-#: account/forms.py:490
+#: account/forms.py:117 account/forms.py:303 account/forms.py:423
+#: account/forms.py:492
 msgid "E-mail"
 msgstr "E-mail"
 
-#: account/forms.py:120 account/forms.py:123 account/forms.py:260
-#: account/forms.py:264
+#: account/forms.py:122 account/forms.py:125 account/forms.py:262
+#: account/forms.py:266
 msgid "Username"
 msgstr "Όνομα χρήστη"
 
-#: account/forms.py:130
+#: account/forms.py:132
 msgid "Username or e-mail"
 msgstr "Όνομα χρήστη ή e-mail"
 
-#: account/forms.py:133
+#: account/forms.py:135
 msgctxt "field label"
 msgid "Login"
 msgstr "Σύνδεση"
 
-#: account/forms.py:292
+#: account/forms.py:294
 #, fuzzy
 #| msgid "E-mail (optional)"
 msgid "E-mail (again)"
 msgstr "E-mail (προαιρετικό)"
 
-#: account/forms.py:296
+#: account/forms.py:298
 #, fuzzy
 #| msgid "email confirmation"
 msgid "E-mail address confirmation"
 msgstr "επιβεβαίωση email"
 
-#: account/forms.py:304
+#: account/forms.py:306
 msgid "E-mail (optional)"
 msgstr "E-mail (προαιρετικό)"
 
-#: account/forms.py:345
+#: account/forms.py:347
 #, fuzzy
 #| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
 msgstr "Πρέπει να συμπληρώνετε τον ίδιο κωδικό κάθε φορά."
 
-#: account/forms.py:368 account/forms.py:477
+#: account/forms.py:370 account/forms.py:479
 msgid "Password (again)"
 msgstr "Κωδικός (ξανά)"
 
-#: account/forms.py:432
+#: account/forms.py:434
 msgid "This e-mail address is already associated with this account."
 msgstr "Αυτή η διεύθυνση e-mail έχει ήδη συσχετιστεί με το λογαριασμό."
 
-#: account/forms.py:434
+#: account/forms.py:436
 msgid "This e-mail address is already associated with another account."
 msgstr "Αυτή η διεύθυνση e-mail έχει ήδη συσχετιστεί με έναν άλλο λογαριασμό."
 
-#: account/forms.py:456
+#: account/forms.py:458
 msgid "Current Password"
 msgstr "Τρέχον κωδικός"
 
-#: account/forms.py:457 account/forms.py:546
+#: account/forms.py:459 account/forms.py:548
 msgid "New Password"
 msgstr "Νέος κωδικός"
 
-#: account/forms.py:458 account/forms.py:547
+#: account/forms.py:460 account/forms.py:549
 msgid "New Password (again)"
 msgstr "Νέος κωδικός (ξανά)"
 
-#: account/forms.py:466
+#: account/forms.py:468
 msgid "Please type your current password."
 msgstr "Παρακαλούμε συμπληρώσατε τον κωδικό σας."
 
-#: account/forms.py:504
+#: account/forms.py:506
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Η διεύθυνση e-mail δεν έχει συσχετιστεί με κάποιο λογαριασμό"
 
-#: account/forms.py:568
+#: account/forms.py:570
 msgid "The password reset token was invalid."
 msgstr ""
 
@@ -179,7 +179,7 @@ msgstr "δημιουργήθηκε"
 msgid "sent"
 msgstr "στάλθηκε"
 
-#: account/models.py:86 socialaccount/models.py:55
+#: account/models.py:86 socialaccount/models.py:58
 msgid "key"
 msgstr "κλειδί"
 
@@ -191,7 +191,7 @@ msgstr "επιβεβαίωση email"
 msgid "email confirmations"
 msgstr "επιβεβαιώσεις email"
 
-#: socialaccount/adapter.py:26
+#: socialaccount/adapter.py:27
 #, python-format
 msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
@@ -201,107 +201,107 @@ msgstr ""
 "συνδεθείτε πρώτα σε αυτό το λογαριασμό και ακολούθως συνδέστε τον %s "
 "λογαριασμό."
 
-#: socialaccount/adapter.py:131
+#: socialaccount/adapter.py:132
 msgid "Your account has no password set up."
 msgstr "Ο λογαριασμός σας δεν έχει κωδικό."
 
-#: socialaccount/adapter.py:138
+#: socialaccount/adapter.py:139
 msgid "Your account has no verified e-mail address."
 msgstr "Ο λογαριασμός σας δεν έχει επιβεβαιωμένη διεύθυνση e-mail."
 
-#: socialaccount/apps.py:7
+#: socialaccount/apps.py:8
 msgid "Social Accounts"
 msgstr "Κοινωνικοί λογαριασμοί"
 
-#: socialaccount/models.py:43 socialaccount/models.py:77
+#: socialaccount/models.py:46 socialaccount/models.py:80
 msgid "provider"
 msgstr "πάροχος"
 
-#: socialaccount/models.py:46
+#: socialaccount/models.py:49
 msgid "name"
 msgstr "όνομα"
 
-#: socialaccount/models.py:48
+#: socialaccount/models.py:51
 msgid "client id"
 msgstr "client id"
 
-#: socialaccount/models.py:50
+#: socialaccount/models.py:53
 msgid "App ID, or consumer key"
 msgstr "App ID ή consumer key"
 
-#: socialaccount/models.py:51
+#: socialaccount/models.py:54
 msgid "secret key"
 msgstr "secret key"
 
-#: socialaccount/models.py:53
+#: socialaccount/models.py:56
 msgid "API secret, client secret, or consumer secret"
 msgstr "API secret, client secret, or consumer secret"
 
-#: socialaccount/models.py:58
+#: socialaccount/models.py:61
 msgid "Key"
 msgstr "Κλειδί"
 
-#: socialaccount/models.py:66
+#: socialaccount/models.py:69
 msgid "social application"
 msgstr "κοινωνική εφαρμογή"
 
-#: socialaccount/models.py:67
+#: socialaccount/models.py:70
 msgid "social applications"
 msgstr "κοινωνικές εφαρμογές"
 
-#: socialaccount/models.py:96
+#: socialaccount/models.py:99
 msgid "uid"
 msgstr "uid"
 
-#: socialaccount/models.py:98
+#: socialaccount/models.py:101
 msgid "last login"
 msgstr "τελευταία σύνδεση"
 
-#: socialaccount/models.py:100
+#: socialaccount/models.py:103
 msgid "date joined"
 msgstr "ημερομηνία εγγραφής"
 
-#: socialaccount/models.py:102
+#: socialaccount/models.py:105
 msgid "extra data"
 msgstr "επιπλέον πληροφορίες"
 
-#: socialaccount/models.py:106
+#: socialaccount/models.py:109
 msgid "social account"
 msgstr "κοινωνικός λογαριασμός"
 
-#: socialaccount/models.py:107
+#: socialaccount/models.py:110
 msgid "social accounts"
 msgstr "κοινωνικοί λογαριασμοί"
 
-#: socialaccount/models.py:133
+#: socialaccount/models.py:136
 msgid "token"
 msgstr ""
 
-#: socialaccount/models.py:135
+#: socialaccount/models.py:138
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) ή access token (OAuth2)"
 
-#: socialaccount/models.py:138
+#: socialaccount/models.py:141
 msgid "token secret"
 msgstr "token secret"
 
-#: socialaccount/models.py:140
+#: socialaccount/models.py:143
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) ή refresh token (OAuth2)"
 
-#: socialaccount/models.py:142
+#: socialaccount/models.py:145
 msgid "expires at"
 msgstr "λήγει στις"
 
-#: socialaccount/models.py:146
+#: socialaccount/models.py:149
 msgid "social application token"
 msgstr "token κοινωνικής εφαρμογής"
 
-#: socialaccount/models.py:147
+#: socialaccount/models.py:150
 msgid "social application tokens"
 msgstr "token κοινωνικών εφαρμογών"
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:35
 msgid "Invalid profile data"
 msgstr ""
 

@@ -51,8 +51,11 @@ ACCOUNT_EMAIL_REQUIRED (=False)
 
 ACCOUNT_EMAIL_VERIFICATION (="optional")
   Determines the e-mail verification method during signup -- choose
-  one of ``"mandatory"``, ``"optional"``, or ``"none"``. When set to
-  "mandatory" the user is blocked from logging in until the email
+  one of ``"mandatory"``, ``"optional"``, or ``"none"``.
+  
+  Setting this to `"mandatory"` requires `ACCOUNT_EMAIL_REQUIRED` to be `True`
+  
+  When set to "mandatory" the user is blocked from logging in until the email
   address is verified. Choose "optional" or "none" to allow logins
   with an unverified e-mail address. In case of "optional", the e-mail
   verification mail is still sent, whereas in case of "none" no e-mail

@@ -48,7 +48,7 @@
         var id = 'facebook-jssdk'
         if (d.getElementById(id)) { return }
         js = d.createElement('script'); js.id = id; js.async = true
-        js.src = '//connect.facebook.net/' + opts.locale + '/sdk.js'
+        js.src = opts.sdkUrl
         d.getElementsByTagName('head')[0].appendChild(js)
       }(document))
     },
@@ -56,15 +56,18 @@
     onInit: function () {
     },
 
-    login: function (nextUrl, action, process) {
+    login: function (nextUrl, action, process, scope) {
       var self = this
       if (!fbInitialized) {
-        var url = this.opts.loginUrl + '?next=' + encodeURIComponent(nextUrl) + '&action=' + encodeURIComponent(action) + '&process=' + encodeURIComponent(process)
+        var url = this.opts.loginUrl + '?next=' + encodeURIComponent(nextUrl) + '&action=' + encodeURIComponent(action) + '&process=' + encodeURIComponent(process) + '&scope=' + encodeURIComponent(scope)
         setLocationHref(url)
         return
       }
-      if (action === 'reauthenticate') {
+      if (action === 'reauthenticate' || action === 'rerequest') {
         this.opts.loginOptions.auth_type = action
+      }
+      if (scope !== '') {
+        this.opts.loginOptions.scope = scope
       }
 
       FB.login(function (response) {

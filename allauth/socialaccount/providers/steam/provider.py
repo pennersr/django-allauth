@@ -10,6 +10,10 @@ from allauth.socialaccount.providers.openid.provider import (
 
 
 class SteamAccount(OpenIDAccount):
+    def to_str(self):
+        dflt = super(SteamAccount, self).to_str()
+        return self.account.extra_data.get('personaname', dflt)
+
     def get_profile_url(self):
         return self.account.extra_data.get("profileurl")
 

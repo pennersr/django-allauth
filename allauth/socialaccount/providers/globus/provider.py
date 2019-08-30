@@ -1,5 +1,8 @@
 from allauth.socialaccount import app_settings
-from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.base import (
+    ProviderAccount,
+    ProviderException,
+)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -22,7 +25,11 @@ class GlobusProvider(OAuth2Provider):
     account_class = GlobusAccount
 
     def extract_uid(self, data):
-        return str(data.get('create_time'))
+        if 'sub' not in data:
+            raise ProviderException(
+                'Globus OAuth error', data
+            )
+        return str(data['sub'])
 
     def extract_common_fields(self, data):
         return dict(

@@ -14,6 +14,8 @@ Resources:
 """
 import requests
 
+from django.conf import settings
+
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -89,12 +91,21 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
 
     @property
     def battlenet_region(self):
+        # Check by URI query parameter first.
         region = self.request.GET.get("region", "").lower()
         if region == Region.SEA:
             # South-East Asia uses the same region as US everywhere
             return Region.US
         if region in self.valid_regions:
             return region
+
+        # Second, check the provider settings.
+        region = getattr(settings, 'SOCIALACCOUNT_PROVIDERS', {}).get(
+            'battlenet', {}).get('REGION', 'us')
+
+        if region in self.valid_regions:
+            return region
+
         return Region.US
 
     @property

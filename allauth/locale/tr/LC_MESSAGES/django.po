@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-26 12:47-0600\n"
+"POT-Creation-Date: 2019-08-29 16:33-0500\n"
 "PO-Revision-Date: 2014-08-12 00:35+0200\n"
 "Last-Translator: Jannis \n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/django-allauth/"
@@ -36,114 +36,114 @@ msgstr "Bu e-posta adresiyle bir kullanıcı zaten kayıtlı."
 msgid "Password must be a minimum of {0} characters."
 msgstr "Parola en az {0} karakter olmalıdır."
 
-#: account/apps.py:7
+#: account/apps.py:8
 #, fuzzy
 msgid "Accounts"
 msgstr "Hesap"
 
-#: account/forms.py:61 account/forms.py:398
+#: account/forms.py:63 account/forms.py:400
 msgid "You must type the same password each time."
 msgstr "Her seferinde aynı parolayı girmelisiniz."
 
-#: account/forms.py:91 account/forms.py:365 account/forms.py:476
+#: account/forms.py:93 account/forms.py:367 account/forms.py:478
 msgid "Password"
 msgstr "Parola"
 
-#: account/forms.py:92
+#: account/forms.py:94
 msgid "Remember Me"
 msgstr "Beni Hatırla"
 
-#: account/forms.py:98
+#: account/forms.py:100
 msgid "This account is currently inactive."
 msgstr "Bu hesap şu anda etkin değil."
 
-#: account/forms.py:101
+#: account/forms.py:103
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "Girdiğiniz e-posta adresi ve/veya parola doğru değil."
 
-#: account/forms.py:104
+#: account/forms.py:106
 msgid "The username and/or password you specified are not correct."
 msgstr "Girdiğiniz kullanıcı adı ve/veya parola doğru değil."
 
-#: account/forms.py:113 account/forms.py:268 account/forms.py:426
-#: account/forms.py:495
+#: account/forms.py:115 account/forms.py:270 account/forms.py:428
+#: account/forms.py:497
 msgid "E-mail address"
 msgstr "E-posta adresi"
 
-#: account/forms.py:115 account/forms.py:301 account/forms.py:421
-#: account/forms.py:490
+#: account/forms.py:117 account/forms.py:303 account/forms.py:423
+#: account/forms.py:492
 msgid "E-mail"
 msgstr "E-posta"
 
-#: account/forms.py:120 account/forms.py:123 account/forms.py:260
-#: account/forms.py:264
+#: account/forms.py:122 account/forms.py:125 account/forms.py:262
+#: account/forms.py:266
 msgid "Username"
 msgstr "Kullanıcı adı"
 
-#: account/forms.py:130
+#: account/forms.py:132
 msgid "Username or e-mail"
 msgstr "Kullanıcı adı ya da e-posta"
 
-#: account/forms.py:133
+#: account/forms.py:135
 msgctxt "field label"
 msgid "Login"
 msgstr "Giriş Yap"
 
-#: account/forms.py:292
+#: account/forms.py:294
 #, fuzzy
 #| msgid "E-mail (optional)"
 msgid "E-mail (again)"
 msgstr "E-posta (zorunlu değil)"
 
-#: account/forms.py:296
+#: account/forms.py:298
 #, fuzzy
 #| msgid "email confirmation"
 msgid "E-mail address confirmation"
 msgstr "e-posta onayı"
 
-#: account/forms.py:304
+#: account/forms.py:306
 msgid "E-mail (optional)"
 msgstr "E-posta (zorunlu değil)"
 
-#: account/forms.py:345
+#: account/forms.py:347
 #, fuzzy
 #| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
 msgstr "Her seferinde aynı parolayı girmelisiniz."
 
-#: account/forms.py:368 account/forms.py:477
+#: account/forms.py:370 account/forms.py:479
 msgid "Password (again)"
 msgstr "Parola (tekrar)"
 
-#: account/forms.py:432
+#: account/forms.py:434
 msgid "This e-mail address is already associated with this account."
 msgstr "Bu e-post adresi zaten bu hesap ile ilişkilendirilmiş."
 
-#: account/forms.py:434
+#: account/forms.py:436
 msgid "This e-mail address is already associated with another account."
 msgstr "Bu e-post adresi başka bir hesap ile ilişkilendirilmiş."
 
-#: account/forms.py:456
+#: account/forms.py:458
 msgid "Current Password"
 msgstr "Mevcut Parola"
 
-#: account/forms.py:457 account/forms.py:546
+#: account/forms.py:459 account/forms.py:548
 msgid "New Password"
 msgstr "Yeni Parola"
 
-#: account/forms.py:458 account/forms.py:547
+#: account/forms.py:460 account/forms.py:549
 msgid "New Password (again)"
 msgstr "Yeni Parola (tekrar)"
 
-#: account/forms.py:466
+#: account/forms.py:468
 msgid "Please type your current password."
 msgstr "Mevcut parolanızı tekrar yazın."
 
-#: account/forms.py:504
+#: account/forms.py:506
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Bu e-posta adresi hiçbir kullanıcı hesabıyla ilişkili değil"
 
-#: account/forms.py:568
+#: account/forms.py:570
 msgid "The password reset token was invalid."
 msgstr "Şifre sıfırlama kodu hatalı."
 
@@ -182,7 +182,7 @@ msgstr "oluşturuldu"
 msgid "sent"
 msgstr "gönderildi"
 
-#: account/models.py:86 socialaccount/models.py:55
+#: account/models.py:86 socialaccount/models.py:58
 msgid "key"
 msgstr ""
 
@@ -194,7 +194,7 @@ msgstr "e-posta onayı"
 msgid "email confirmations"
 msgstr "e-posta onayları"
 
-#: socialaccount/adapter.py:26
+#: socialaccount/adapter.py:27
 #, python-format
 msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
@@ -203,109 +203,109 @@ msgstr ""
 "Bu e-posta ile kayıtlı bir hesap bulunmaktadır. Lütfen önce bu hesaba giriş "
 "yapıp daha sonra %s hesabınızı bağlayın."
 
-#: socialaccount/adapter.py:131
+#: socialaccount/adapter.py:132
 msgid "Your account has no password set up."
 msgstr "Hesabınız için parola belirlemediniz."
 
-#: socialaccount/adapter.py:138
+#: socialaccount/adapter.py:139
 msgid "Your account has no verified e-mail address."
 msgstr "Hesabınızın doğrulanmış e-posta adresi yok."
 
-#: socialaccount/apps.py:7
+#: socialaccount/apps.py:8
 #, fuzzy
 msgid "Social Accounts"
 msgstr "Hesap"
 
-#: socialaccount/models.py:43 socialaccount/models.py:77
+#: socialaccount/models.py:46 socialaccount/models.py:80
 msgid "provider"
 msgstr "sağlayıcı"
 
-#: socialaccount/models.py:46
+#: socialaccount/models.py:49
 #, fuzzy
 msgid "name"
 msgstr "Kullanıcı adı"
 
-#: socialaccount/models.py:48
+#: socialaccount/models.py:51
 msgid "client id"
 msgstr ""
 
-#: socialaccount/models.py:50
+#: socialaccount/models.py:53
 msgid "App ID, or consumer key"
 msgstr ""
 
-#: socialaccount/models.py:51
+#: socialaccount/models.py:54
 msgid "secret key"
 msgstr ""
 
-#: socialaccount/models.py:53
+#: socialaccount/models.py:56
 msgid "API secret, client secret, or consumer secret"
 msgstr ""
 
-#: socialaccount/models.py:58
+#: socialaccount/models.py:61
 msgid "Key"
 msgstr ""
 
-#: socialaccount/models.py:66
+#: socialaccount/models.py:69
 msgid "social application"
 msgstr ""
 
-#: socialaccount/models.py:67
+#: socialaccount/models.py:70
 msgid "social applications"
 msgstr ""
 
-#: socialaccount/models.py:96
+#: socialaccount/models.py:99
 msgid "uid"
 msgstr ""
 
-#: socialaccount/models.py:98
+#: socialaccount/models.py:101
 msgid "last login"
 msgstr "son giriş"
 
-#: socialaccount/models.py:100
+#: socialaccount/models.py:103
 msgid "date joined"
 msgstr "katıldığı tarih"
 
-#: socialaccount/models.py:102
+#: socialaccount/models.py:105
 msgid "extra data"
 msgstr ""
 
-#: socialaccount/models.py:106
+#: socialaccount/models.py:109
 msgid "social account"
 msgstr ""
 
-#: socialaccount/models.py:107
+#: socialaccount/models.py:110
 msgid "social accounts"
 msgstr ""
 
-#: socialaccount/models.py:133
+#: socialaccount/models.py:136
 msgid "token"
 msgstr ""
 
-#: socialaccount/models.py:135
+#: socialaccount/models.py:138
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:138
+#: socialaccount/models.py:141
 msgid "token secret"
 msgstr ""
 
-#: socialaccount/models.py:140
+#: socialaccount/models.py:143
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:142
+#: socialaccount/models.py:145
 msgid "expires at"
 msgstr ""
 
-#: socialaccount/models.py:146
+#: socialaccount/models.py:149
 msgid "social application token"
 msgstr ""
 
-#: socialaccount/models.py:147
+#: socialaccount/models.py:150
 msgid "social application tokens"
 msgstr ""
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:35
 msgid "Invalid profile data"
 msgstr "Geçersiz profil bilgisi"
 

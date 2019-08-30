@@ -1,4 +1,5 @@
 import json
+import string
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
@@ -65,7 +66,11 @@ class FacebookProvider(OAuth2Provider):
                 kwargs.get('process') or AuthProcess.LOGIN)
             action = "'%s'" % escapejs(
                 kwargs.get('action') or AuthAction.AUTHENTICATE)
-            js = "allauth.facebook.login(%s, %s, %s)" % (next, action, process)
+            scope = "'%s'" % escapejs(
+                kwargs.get('scope', '')
+            )
+            js = "allauth.facebook.login(%s, %s, %s, %s)" % (
+                next, action, process, scope)
             ret = "javascript:%s" % (urlquote(js),)
         else:
             assert method == 'oauth2'
@@ -114,6 +119,8 @@ class FacebookProvider(OAuth2Provider):
                                                             action)
         if action == AuthAction.REAUTHENTICATE:
             ret['auth_type'] = 'reauthenticate'
+        elif action == AuthAction.REREQUEST:
+            ret['auth_type'] = 'rerequest'
         return ret
 
     def get_init_params(self, request, app):
@@ -132,11 +139,21 @@ class FacebookProvider(OAuth2Provider):
             ret['auth_nonce'] = self.get_nonce(request, or_create=True)
         return ret
 
+    def get_sdk_url(self, request):
+        settings = self.get_settings()
+        sdk_url = settings.get('SDK_URL',
+                               '//connect.facebook.net/{locale}/sdk.js')
+        field_names = [tup[1] for tup in string.Formatter().parse(sdk_url)
+                       if tup[1] is not None]
+        if 'locale' in field_names:
+            locale = self.get_locale_for_request(request)
+            sdk_url = sdk_url.format(locale=locale)
+        return sdk_url
+
     def media_js(self, request):
         # NOTE: Avoid loading models at top due to registry boot...
         from allauth.socialaccount.models import SocialApp
 
-        locale = self.get_locale_for_request(request)
         try:
             app = self.get_app(request)
         except SocialApp.DoesNotExist:
@@ -150,7 +167,7 @@ class FacebookProvider(OAuth2Provider):
         fb_data = {
             "appId": app.client_id,
             "version": GRAPH_API_VERSION,
-            "locale": locale,
+            "sdkUrl": self.get_sdk_url(request),
             "initParams": self.get_init_params(request, app),
             "loginOptions": self.get_fb_login_options(request),
             "loginByTokenUrl": abs_uri('facebook_login_by_token'),

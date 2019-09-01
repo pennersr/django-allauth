@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 from json import loads
 
+from django.test.client import RequestFactory
 from django.test.utils import override_settings
 
 from allauth.socialaccount.models import SocialAccount
+from allauth.socialaccount.providers.base import (
+    ProviderException,
+)
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase
 
@@ -513,3 +517,21 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
             provider='linkedin_oauth2',
         )
         self.assertEqual('this-is-the-link', acc.get_avatar_url())
+
+    def test_id_missing(self):
+        extra_data = '''
+{
+  "profilePicture": {
+    "displayImage": "urn:li:digitalmediaAsset:12345abcdefgh-12abcd"
+  },
+  "Id": "1234567"
+}
+'''
+        provider = LinkedInOAuth2Provider(
+            RequestFactory().get('/login')
+        )
+        self.assertRaises(
+            ProviderException,
+            provider.extract_uid,
+            loads(extra_data)
+        )

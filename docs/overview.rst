@@ -87,6 +87,8 @@ Supported Providers
 
 - Evernote (OAuth)
 
+- Exist (OAuth2)
+
 - Facebook (both OAuth2 and JS SDK)
 
 - Feedly (OAuth2)

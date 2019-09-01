@@ -415,6 +415,41 @@ Register your OAuth2 application at ``https://dev.evernote.com/doc/articles/auth
     }
 
 
+Exist
+-----
+
+Register your OAuth2 app in apps page:
+
+    https://exist.io/account/apps/
+
+During development set the callback url to:
+
+    http://localhost:8000/accounts/exist/login/callback/
+
+In production replace localhost with whatever domain you're hosting your app on.
+
+If your app is writing to certain attributes you need to specify this during the
+creation of the app.
+
+The following Exist settings are available:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'exist': {
+            'SCOPE': ['read+write'],
+        }
+    }
+
+SCOPE:
+    The default scope is ``read``. If you'd like to change this set the scope to
+    ``read+write``.
+
+For more information:
+OAuth documentation: http://developer.exist.io/#oauth2-authentication
+API documentation: http://developer.exist.io/
+
+
 Facebook
 --------
 

@@ -5,9 +5,7 @@ from django.test.client import RequestFactory
 from django.test.utils import override_settings
 
 from allauth.socialaccount.models import SocialAccount
-from allauth.socialaccount.providers.base import (
-    ProviderException,
-)
+from allauth.socialaccount.providers.base import ProviderException
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase
 

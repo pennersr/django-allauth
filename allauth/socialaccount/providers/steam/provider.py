@@ -35,7 +35,10 @@ def request_steam_account_summary(api_key, steam_id):
     params = {"key": api_key, "steamids": steam_id}
 
     resp = requests.get(api_base + method, params)
-    data = resp.json()
+    try:
+        data = resp.json()
+    except Exception:
+        data = {}
 
     playerlist = data.get("response", {}).get("players", [])
     return playerlist[0] if playerlist else {"steamid": steam_id}

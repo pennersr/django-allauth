@@ -16,9 +16,8 @@ class YNABOAuth2Adapter(OAuth2Adapter):
     profile_url = 'https://api.youneedabudget.com/v1/user'
 
     def complete_login(self, request, app, token, **kwargs):
-        key = 'Authorization'
         resp = requests.get(self.profile_url,
-                            headers={key: 'Bearer {}'.format(token.token)})
+                            headers={'Authorization': 'Bearer {}'.format(token.token)})
         resp.raise_for_status()
         extra_data = resp.json()
         login = self.get_provider() \

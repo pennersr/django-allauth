@@ -1,20 +1,13 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
-from importlib import import_module
 from requests.exceptions import HTTPError
-from django.conf import settings
-from django.contrib.auth.models import User
-from django.core import mail
+
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
 from django.urls import reverse
 
-from allauth.account import app_settings as account_settings
-from allauth.account.adapter import get_adapter
-from allauth.account.models import EmailAddress, EmailConfirmation
-from allauth.account.signals import user_signed_up
-from allauth.socialaccount.models import SocialAccount, SocialToken
+from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase, patch
 
@@ -24,6 +17,8 @@ from .provider import YNABProvider
 @override_settings(
     SOCIALACCOUNT_AUTO_SIGNUP=True,
     ACCOUNT_SIGNUP_FORM_CLASS=None, )
+# ACCOUNT_EMAIL_VERIFICATION=account_settings
+# .EmailVerificationMethod.MANDATORY)
 class YNABTests(OAuth2TestsMixin, TestCase):
     provider_id = YNABProvider.id
 
@@ -67,7 +62,11 @@ class YNABTests(OAuth2TestsMixin, TestCase):
             }""")
         with patch(
             'allauth.socialaccount.providers.ynab.views'
-                '.requests') as patched_requests:
+            '.requests') as patched_requests:
             patched_requests.get.return_value = response_with_401
             with self.assertRaises(HTTPError):
                 adapter.complete_login(request, app, token)
+
+
+
+

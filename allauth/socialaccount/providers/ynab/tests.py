@@ -66,7 +66,3 @@ class YNABTests(OAuth2TestsMixin, TestCase):
             patched_requests.get.return_value = response_with_401
             with self.assertRaises(HTTPError):
                 adapter.complete_login(request, app, token)
-
-
-
-

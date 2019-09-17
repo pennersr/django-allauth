@@ -3,7 +3,6 @@ from __future__ import absolute_import, unicode_literals
 
 from importlib import import_module
 from requests.exceptions import HTTPError
-
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core import mail

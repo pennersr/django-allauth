@@ -17,7 +17,9 @@ class YNABOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         resp = requests.get(self.profile_url,
-                            headers={'Authorization': 'Bearer {}'.format(token.token)})
+                            headers={
+                                'Authorization':
+                                    'Bearer {}'.format(token.token)})
         resp.raise_for_status()
         extra_data = resp.json()
         login = self.get_provider() \

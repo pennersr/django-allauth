@@ -24,8 +24,7 @@ from .provider import YNABProvider
 
 @override_settings(
     SOCIALACCOUNT_AUTO_SIGNUP=True,
-    ACCOUNT_SIGNUP_FORM_CLASS=None,)
-
+    ACCOUNT_SIGNUP_FORM_CLASS=None, )
 class YNABTests(OAuth2TestsMixin, TestCase):
     provider_id = YNABProvider.id
 
@@ -68,12 +67,8 @@ class YNABTests(OAuth2TestsMixin, TestCase):
               "message": "Invalid Credentials" }
             }""")
         with patch(
-                'allauth.socialaccount.providers.ynab.views'
-                '.requests') as patched_requests:
+            'allauth.socialaccount.providers.ynab.views'
+            '.requests') as patched_requests:
             patched_requests.get.return_value = response_with_401
             with self.assertRaises(HTTPError):
                 adapter.complete_login(request, app, token)
-
-
-
-

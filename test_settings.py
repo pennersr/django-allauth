@@ -140,6 +140,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.windowslive',
     'allauth.socialaccount.providers.xing',
     'allauth.socialaccount.providers.yahoo',
+    'allauth.socialaccount.providers.ynab',
 )
 
 AUTHENTICATION_BACKENDS = (

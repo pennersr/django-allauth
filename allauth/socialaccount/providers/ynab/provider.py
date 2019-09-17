@@ -5,8 +5,10 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 class Scope(object):
     ACCESS = 'read-only'
 
+
 class YNABAccount(ProviderAccount):
     pass
+
 
 class YNABProvider(OAuth2Provider):
     id = 'ynab'

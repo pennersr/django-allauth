@@ -25,7 +25,7 @@ msgstr "Deze gebruikersnaam mag je niet gebruiken, kies een andere."
 
 #: account/adapter.py:49
 msgid "Too many failed login attempts. Try again later."
-msgstr "Teveel foutieve inlog pogingen. Probeer het later nogmaals."
+msgstr "Te veel inlogpogingen. Probeer het later nogmaals."
 
 #: account/adapter.py:51
 msgid "A user is already registered with this e-mail address."

@@ -556,6 +556,14 @@ class ResetPasswordKeyForm(PasswordVerificationMixin, forms.Form):
 
     def save(self):
         get_adapter().set_password(self.user, self.cleaned_data["password1"])
+        try:
+            # verify user's EmailAddress on password reset via email
+            email_address = EmailAddress.objects.get_for_user(self.user, user_email(self.user))
+            email_address.verified = True
+            email_address.save()
+        except:
+            # do nothing if email, user does not exists in EmailAddress
+            pass
 
 
 class UserTokenForm(forms.Form):

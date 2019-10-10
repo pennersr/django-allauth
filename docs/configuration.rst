@@ -50,8 +50,8 @@ ACCOUNT_EMAIL_REQUIRED (=False)
   The user is required to hand over an e-mail address when signing up.
 
 ACCOUNT_EMAIL_VERIFICATION (="optional")
-  Determines the e-mail verification method during signup -- choose
-  one of ``"mandatory"``, ``"optional"``, or ``"none"``.
+  Determines the e-mail verification method during signup and adding mail
+  addresses -- choose one of ``"mandatory"``, ``"optional"``, or ``"none"``.
   
   Setting this to `"mandatory"` requires `ACCOUNT_EMAIL_REQUIRED` to be `True`
   

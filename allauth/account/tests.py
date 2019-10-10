@@ -815,7 +815,29 @@ class EmailFormTests(TestCase):
             verified=False,
             primary=False)
         self.assertTemplateUsed(resp,
+                                'account/email/email_confirmation_message.txt')
+        self.assertTemplateUsed(resp,
                                 'account/messages/email_confirmation_sent.txt')
+
+    @override_settings(ACCOUNT_EMAIL_VERIFICATION='none')
+    def test_add_no_confirmation(self):
+        resp = self.client.post(
+            reverse('account_email'),
+            {'action_add': '',
+             'email': 'john3@example.org'})
+        EmailAddress.objects.get(
+            email="john3@example.org",
+            user=self.user,
+            verified=False,
+            primary=False)
+        self.assertTemplateNotUsed(
+            resp,
+            'account/email/email_confirmation_message.txt'
+        )
+        self.assertTemplateNotUsed(
+            resp,
+            'account/messages/email_confirmation_sent.txt'
+        )
 
     def test_ajax_get(self):
         resp = self.client.get(

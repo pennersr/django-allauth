@@ -388,12 +388,15 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
 
     def form_valid(self, form):
         email_address = form.save(self.request)
-        get_adapter(self.request).add_message(
-            self.request,
-            messages.INFO,
-            'account/messages/'
-            'email_confirmation_sent.txt',
-            {'email': form.cleaned_data["email"]})
+        confirm_email_sent = (app_settings.EMAIL_VERIFICATION !=
+                              app_settings.EmailVerificationMethod.NONE)
+        if confirm_email_sent:
+            get_adapter(self.request).add_message(
+                self.request,
+                messages.INFO,
+                'account/messages/'
+                'email_confirmation_sent.txt',
+                {'email': form.cleaned_data["email"]})
         signals.email_added.send(sender=self.request.user.__class__,
                                  request=self.request,
                                  user=self.request.user,

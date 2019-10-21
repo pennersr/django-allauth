@@ -1,25 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
 # Translators:
 # guglielmo <guglielmo.celata@gmail.com>, 2014
 # joke2k <joke2k@gmail.com>, 2014
 # puntosit <lowenberger@gmail.com>, 2014
+# Sandro <sandro@e-den.it>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-29 16:33-0500\n"
-"PO-Revision-Date: 2018-03-08 00:40+0100\n"
-"Last-Translator: joke2k <joke2k@gmail.com>\n"
-"Language-Team: Italian (http://www.transifex.com/projects/p/django-allauth/"
-"language/it/)\n"
+"PO-Revision-Date: 2019-09-30 00:03+0200\n"
+"Last-Translator: Sandro <sandro@e-den.it>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: account/adapter.py:45
 msgid "Username can not be used. Please use other username."
@@ -27,7 +26,7 @@ msgstr "Questo username non può essere usato. Per favore scegline un altro."
 
 #: account/adapter.py:49
 msgid "Too many failed login attempts. Try again later."
-msgstr ""
+msgstr "Troppo tentativi di accesso. Riprova più tardi."
 
 #: account/adapter.py:51
 msgid "A user is already registered with this e-mail address."
@@ -39,7 +38,6 @@ msgid "Password must be a minimum of {0} characters."
 msgstr "La password deve essere lunga almeno {0} caratteri."
 
 #: account/apps.py:8
-#, fuzzy
 msgid "Accounts"
 msgstr "Account"
 
@@ -92,26 +90,23 @@ msgid "Login"
 msgstr "Login"
 
 #: account/forms.py:294
-#, fuzzy
 #| msgid "E-mail (optional)"
 msgid "E-mail (again)"
-msgstr "E-mail (opzionale)"
+msgstr "E-mail (di nuovo)"
 
 #: account/forms.py:298
-#, fuzzy
 #| msgid "email confirmation"
 msgid "E-mail address confirmation"
-msgstr "e-mail di conferma"
+msgstr "Conferma dell'indirizzo emai"
 
 #: account/forms.py:306
 msgid "E-mail (optional)"
 msgstr "E-mail (opzionale)"
 
 #: account/forms.py:347
-#, fuzzy
 #| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
-msgstr "Devi digitare la stessa password."
+msgstr "Devi digitare la stessa password ogni volta."
 
 #: account/forms.py:370 account/forms.py:479
 msgid "Password (again)"
@@ -211,37 +206,34 @@ msgid "Your account has no verified e-mail address."
 msgstr "Non hai ancora verificato il tuo indirizzo e-mail."
 
 #: socialaccount/apps.py:8
-#, fuzzy
 msgid "Social Accounts"
 msgstr "Account"
 
 #: socialaccount/models.py:46 socialaccount/models.py:80
 msgid "provider"
-msgstr ""
+msgstr "provider"
 
 #: socialaccount/models.py:49
-#, fuzzy
 msgid "name"
-msgstr "username"
+msgstr "nome"
 
 #: socialaccount/models.py:51
 msgid "client id"
-msgstr ""
+msgstr "Id cliente"
 
 #: socialaccount/models.py:53
 msgid "App ID, or consumer key"
-msgstr ""
+msgstr "App ID, o consumer key"
 
 #: socialaccount/models.py:54
 msgid "secret key"
-msgstr ""
+msgstr "secret key"
 
 #: socialaccount/models.py:56
 msgid "API secret, client secret, or consumer secret"
 msgstr ""
 
 #: socialaccount/models.py:61
-#, fuzzy
 msgid "Key"
 msgstr "Chiave"
 
@@ -259,15 +251,15 @@ msgstr ""
 
 #: socialaccount/models.py:101
 msgid "last login"
-msgstr ""
+msgstr "Ultimo accesso"
 
 #: socialaccount/models.py:103
 msgid "date joined"
-msgstr ""
+msgstr "data  iscrizione"
 
 #: socialaccount/models.py:105
 msgid "extra data"
-msgstr ""
+msgstr "dati aggiuntivi"
 
 #: socialaccount/models.py:109
 msgid "social account"
@@ -295,7 +287,7 @@ msgstr ""
 
 #: socialaccount/models.py:145
 msgid "expires at"
-msgstr ""
+msgstr "scade il"
 
 #: socialaccount/models.py:149
 msgid "social application token"
@@ -307,7 +299,7 @@ msgstr ""
 
 #: socialaccount/providers/douban/views.py:35
 msgid "Invalid profile data"
-msgstr ""
+msgstr "Dati profilo non validi"
 
 #: socialaccount/providers/oauth/client.py:78
 #, python-format
@@ -404,7 +396,7 @@ msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Sei sicuro di voler rimuovere l'indirizzo e-mail selezionato?"
 
 #: templates/account/email/email_confirmation_message.txt:1
-#, fuzzy, python-format
+#, python-format
 #| msgid ""
 #| "User %(user_display)s at %(site_name)s has given this as an email "
 #| "address.\n"
@@ -434,13 +426,12 @@ msgstr ""
 "%(site_domain)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
-#, fuzzy
 #| msgid "Confirm E-mail Address"
 msgid "Please Confirm Your E-mail Address"
 msgstr "Conferma l'Indirizzo E-Mail"
 
 #: templates/account/email/password_reset_key_message.txt:1
-#, fuzzy, python-format
+#, python-format
 #| msgid ""
 #| "You're receiving this e-mail because you or someone else has requested a "
 #| "password for your user account at %(site_domain)s.\n"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-11 14:46+0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2019-08-29 16:33-0500\n"
+"PO-Revision-Date: 2014-08-12 00:29+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: el\n"
@@ -89,10 +89,14 @@ msgid "Login"
 msgstr "Σύνδεση"
 
 #: account/forms.py:294
+#, fuzzy
+#| msgid "E-mail (optional)"
 msgid "E-mail (again)"
 msgstr "E-mail (επιβεβαίωση)"
 
 #: account/forms.py:298
+#, fuzzy
+#| msgid "email confirmation"
 msgid "E-mail address confirmation"
 msgstr "Επιβεβαίωση διεύθυνσης e-mail"
 
@@ -101,6 +105,8 @@ msgid "E-mail (optional)"
 msgstr "E-mail (προαιρετικό)"
 
 #: account/forms.py:347
+#, fuzzy
+#| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
 msgstr "Πρέπει να δοθεί το ίδιο email κάθε φορά."
 

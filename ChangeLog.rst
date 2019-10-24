@@ -1,4 +1,4 @@
-0.39.2 (unreleased)
+0.40.0 (2019-08-29)
 *******************
 
 Note worthy changes
@@ -14,6 +14,10 @@ Note worthy changes
 - Updated Twitch provider to use new authentication endpoints
   (``https://id.twitch.tv``) over deprecated v5 endpoints
   (``https://api.twitch.tv/kraken``)
+
+- Added support for Patreon API v2, with API v1 set as default for
+  backwards compatibility.
+
 
 Backwards incompatible changes
 ------------------------------

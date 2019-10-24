@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-26 12:47-0600\n"
+"POT-Creation-Date: 2019-08-29 16:33-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: account/adapter.py:45
 msgid "Username can not be used. Please use other username."
-msgstr "Brukernavnet kan ikke brukes. Vennligst bruk et annet brukernavn."
+msgstr "Brukernavnet kan ikke benyttes. Vennligst velg et annet brukernavn."
 
 #: account/adapter.py:49
 msgid "Too many failed login attempts. Try again later."
@@ -27,116 +27,116 @@ msgstr "For mange innloggingsforsøk. Vennligst prøv igjen senere."
 
 #: account/adapter.py:51
 msgid "A user is already registered with this e-mail address."
-msgstr "En bruker med følgende e-postadresse er allerede registrert."
+msgstr "En bruker med denne e-postadressen er allerede registrert."
 
 #: account/adapter.py:294
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Passordet må være minst {0} tegn."
 
-#: account/apps.py:7
+#: account/apps.py:8
 msgid "Accounts"
 msgstr "Kontoer"
 
-#: account/forms.py:61 account/forms.py:398
+#: account/forms.py:63 account/forms.py:400
 msgid "You must type the same password each time."
 msgstr "Du må skrive det samme passordet hver gang."
 
-#: account/forms.py:91 account/forms.py:365 account/forms.py:476
+#: account/forms.py:93 account/forms.py:367 account/forms.py:478
 msgid "Password"
 msgstr "Passord"
 
-#: account/forms.py:92
+#: account/forms.py:94
 msgid "Remember Me"
 msgstr "Husk meg"
 
-#: account/forms.py:98
+#: account/forms.py:100
 msgid "This account is currently inactive."
-msgstr "Denne kontoen er for tiden inaktiv."
+msgstr "Denne kontoen er inaktiv."
 
-#: account/forms.py:101
+#: account/forms.py:103
 msgid "The e-mail address and/or password you specified are not correct."
-msgstr "E-postadressen og/eller passordet du spesifiserte er feil."
+msgstr "E-postadressen og/eller passordet du oppgav er feil."
 
-#: account/forms.py:104
+#: account/forms.py:106
 msgid "The username and/or password you specified are not correct."
-msgstr "Brukernavnet og/eller passordet du spesifiserte er feil."
+msgstr "Brukernavnet og/eller passordet du oppgav er feil."
 
-#: account/forms.py:113 account/forms.py:268 account/forms.py:426
-#: account/forms.py:495
+#: account/forms.py:115 account/forms.py:270 account/forms.py:428
+#: account/forms.py:497
 msgid "E-mail address"
 msgstr "E-postadresse"
 
-#: account/forms.py:115 account/forms.py:301 account/forms.py:421
-#: account/forms.py:490
+#: account/forms.py:117 account/forms.py:303 account/forms.py:423
+#: account/forms.py:492
 msgid "E-mail"
 msgstr "E-post"
 
-#: account/forms.py:120 account/forms.py:123 account/forms.py:260
-#: account/forms.py:264
+#: account/forms.py:122 account/forms.py:125 account/forms.py:262
+#: account/forms.py:266
 msgid "Username"
 msgstr "Brukernavn"
 
-#: account/forms.py:130
+#: account/forms.py:132
 msgid "Username or e-mail"
 msgstr "Brukernavn eller e-post"
 
-#: account/forms.py:133
+#: account/forms.py:135
 msgctxt "field label"
 msgid "Login"
 msgstr "Logg inn"
 
-#: account/forms.py:292
+#: account/forms.py:294
 msgid "E-mail (again)"
 msgstr "E-post (igjen)"
 
-#: account/forms.py:296
+#: account/forms.py:298
 msgid "E-mail address confirmation"
-msgstr "E-postadresse bekreftelse"
+msgstr "Bekreftelse av e-postadresse"
 
-#: account/forms.py:304
+#: account/forms.py:306
 msgid "E-mail (optional)"
 msgstr "E-post (valgfritt)"
 
-#: account/forms.py:345
+#: account/forms.py:347
 msgid "You must type the same email each time."
 msgstr "Du må skrive inn samme e-post hver gang."
 
-#: account/forms.py:368 account/forms.py:477
+#: account/forms.py:370 account/forms.py:479
 msgid "Password (again)"
 msgstr "Passord (igjen)"
 
-#: account/forms.py:432
-msgid "This e-mail address is already associated with this account."
-msgstr "Denne e-postadressen er allerede assosiert med denne kontoen."
-
 #: account/forms.py:434
-msgid "This e-mail address is already associated with another account."
-msgstr "Denne e-postadressen er allerede assosiert med en annen konto."
+msgid "This e-mail address is already associated with this account."
+msgstr "Denne e-postadressen er allerede tilknyttet denne kontoen."
 
-#: account/forms.py:456
+#: account/forms.py:436
+msgid "This e-mail address is already associated with another account."
+msgstr "Denne e-postadressen er tilknyttet en annen konto."
+
+#: account/forms.py:458
 msgid "Current Password"
 msgstr "Nåværende passord"
 
-#: account/forms.py:457 account/forms.py:546
+#: account/forms.py:459 account/forms.py:548
 msgid "New Password"
 msgstr "Nytt passord"
 
-#: account/forms.py:458 account/forms.py:547
+#: account/forms.py:460 account/forms.py:549
 msgid "New Password (again)"
 msgstr "Nytt passord (igjen)"
 
-#: account/forms.py:466
+#: account/forms.py:468
 msgid "Please type your current password."
 msgstr "Vennligst skriv inn ditt passord."
 
-#: account/forms.py:504
+#: account/forms.py:506
 msgid "The e-mail address is not assigned to any user account"
-msgstr "E-postadressen er ikke gitt til en brukerkonto"
+msgstr "E-postadressen er ikke tilknyttet noen brukerkonto"
 
-#: account/forms.py:568
+#: account/forms.py:570
 msgid "The password reset token was invalid."
-msgstr "Passord gjennoprettelses token var ugyldig."
+msgstr "Nøkkelen for passordgjenopprettelse var ugyldig."
 
 #: account/models.py:23
 msgid "user"
@@ -164,156 +164,156 @@ msgstr "e-postadresser"
 
 #: account/models.py:83
 msgid "created"
-msgstr "laget"
+msgstr "opprettet"
 
 #: account/models.py:85
 msgid "sent"
 msgstr "sendt"
 
-#: account/models.py:86 socialaccount/models.py:55
+#: account/models.py:86 socialaccount/models.py:58
 msgid "key"
 msgstr "nøkkel"
 
 #: account/models.py:91
 msgid "email confirmation"
-msgstr "e-post bekreftelse"
+msgstr "e-postbekreftelse"
 
 #: account/models.py:92
 msgid "email confirmations"
-msgstr "e-post bekreftelser"
+msgstr "e-postbekreftelser"
 
-#: socialaccount/adapter.py:26
+#: socialaccount/adapter.py:27
 #, python-format
 msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
 "account first, then connect your %s account."
 msgstr ""
 "En konto med denne e-postadressen eksisterer fra før. Vennligst logg inn på "
-"den kontoen først, deretter koble til din %s konto."
+"den kontoen først for så å koble til din %s konto."
 
-#: socialaccount/adapter.py:131
+#: socialaccount/adapter.py:132
 msgid "Your account has no password set up."
-msgstr "Kontoen din har ingen passord satt opp."
+msgstr "Kontoen din har ikke noe passord."
 
-#: socialaccount/adapter.py:138
+#: socialaccount/adapter.py:139
 msgid "Your account has no verified e-mail address."
 msgstr "Din konto har ingen verifisert e-postadresse."
 
-#: socialaccount/apps.py:7
+#: socialaccount/apps.py:8
 msgid "Social Accounts"
-msgstr "Sosialkontoer"
+msgstr "Sosiale kontoer"
 
-#: socialaccount/models.py:43 socialaccount/models.py:77
+#: socialaccount/models.py:46 socialaccount/models.py:80
 msgid "provider"
 msgstr "tilbyder"
 
-#: socialaccount/models.py:46
+#: socialaccount/models.py:49
 msgid "name"
 msgstr "navn"
 
-#: socialaccount/models.py:48
-msgid "client id"
-msgstr "klient id"
-
-#: socialaccount/models.py:50
-msgid "App ID, or consumer key"
-msgstr "App ID, eller konsumer nøkkel"
-
 #: socialaccount/models.py:51
+msgid "client id"
+msgstr "klient-ID"
+
+#: socialaccount/models.py:53
+msgid "App ID, or consumer key"
+msgstr "App-ID eller konsumentnøkkel"
+
+#: socialaccount/models.py:54
 msgid "secret key"
 msgstr "hemmelig nøkkel"
 
-#: socialaccount/models.py:53
+#: socialaccount/models.py:56
 msgid "API secret, client secret, or consumer secret"
-msgstr "API hemmelighet, klient hemmelighet eller konsumer hemmelighet"
+msgstr "API-nøkkel, klient-nøkkel eller konsumentnøkkel"
 
-#: socialaccount/models.py:58
+#: socialaccount/models.py:61
 msgid "Key"
 msgstr "Nøkkel"
 
-#: socialaccount/models.py:66
+#: socialaccount/models.py:69
 msgid "social application"
 msgstr "sosial applikasjon"
 
-#: socialaccount/models.py:67
+#: socialaccount/models.py:70
 msgid "social applications"
-msgstr "sosial applikasjoner"
+msgstr "sosiale applikasjoner"
 
-#: socialaccount/models.py:96
+#: socialaccount/models.py:99
 msgid "uid"
 msgstr "uid"
 
-#: socialaccount/models.py:98
+#: socialaccount/models.py:101
 msgid "last login"
 msgstr "siste innlogging"
 
-#: socialaccount/models.py:100
+#: socialaccount/models.py:103
 msgid "date joined"
 msgstr "ble med dato"
 
-#: socialaccount/models.py:102
+#: socialaccount/models.py:105
 msgid "extra data"
 msgstr "ekstra data"
 
-#: socialaccount/models.py:106
+#: socialaccount/models.py:109
 msgid "social account"
 msgstr "sosialkonto"
 
-#: socialaccount/models.py:107
+#: socialaccount/models.py:110
 msgid "social accounts"
 msgstr "sosialkontoer"
 
-#: socialaccount/models.py:133
+#: socialaccount/models.py:136
 msgid "token"
-msgstr "token"
+msgstr "nøkkel"
 
-#: socialaccount/models.py:135
+#: socialaccount/models.py:138
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) eller aksess token (OAuth2)"
 
-#: socialaccount/models.py:138
+#: socialaccount/models.py:141
 msgid "token secret"
-msgstr "token hemmelighet"
+msgstr "hemmelig nøkkel"
 
-#: socialaccount/models.py:140
+#: socialaccount/models.py:143
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
-msgstr "\"oauth_token_secret\" (OAuth1) eller forfrisknings token (OAuth2)"
+msgstr "\"oauth_token_secret\" (OAuth1) eller oppdateringsnøkkel (OAuth2)"
 
-#: socialaccount/models.py:142
+#: socialaccount/models.py:145
 msgid "expires at"
 msgstr "utgår den"
 
-#: socialaccount/models.py:146
+#: socialaccount/models.py:149
 msgid "social application token"
-msgstr "sosial applikasjon token"
+msgstr "sosial applikasjonsnøkkel"
 
-#: socialaccount/models.py:147
+#: socialaccount/models.py:150
 msgid "social application tokens"
-msgstr "sosial applikasjon tokener"
+msgstr "sosial applikasjonsnøkler"
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:35
 msgid "Invalid profile data"
-msgstr "Ugyldig profil data"
+msgstr "Ugyldig profildata"
 
 #: socialaccount/providers/oauth/client.py:78
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
-msgstr "Ugyldig respons under henting av etterspørseltoken fra \"%s\"."
+msgstr "Ugyldig respons ved henting av forespørselsnøkkel fra \"%s\"."
 
 #: socialaccount/providers/oauth/client.py:109
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
-msgstr "Ugyldig respons under henting av tilgangstoken fra \"%s\"."
+msgstr "Ugyldig respons ved henting av tilgangsnøkkel fra \"%s\"."
 
 #: socialaccount/providers/oauth/client.py:128
 #, python-format
 msgid "No request token saved for \"%s\"."
-msgstr "Ingen etterspørselstoken lagret for \"%s\"."
+msgstr "Ingen etterspørselsnøkler lagret for \"%s\"."
 
 #: socialaccount/providers/oauth/client.py:177
 #, python-format
 msgid "No access token saved for \"%s\"."
-msgstr "Ingen tilgangstoken lagret for \"%s\"."
+msgstr "Ingen tilgangsnøkler lagret for \"%s\"."
 
 #: socialaccount/providers/oauth/client.py:197
 #, python-format
@@ -347,7 +347,7 @@ msgstr "Verifisert"
 
 #: templates/account/email.html:26
 msgid "Unverified"
-msgstr "Uverifisert"
+msgstr "Ikke verifisert"
 
 #: templates/account/email.html:28
 msgid "Primary"
@@ -355,7 +355,7 @@ msgstr "Primær"
 
 #: templates/account/email.html:34
 msgid "Make Primary"
-msgstr "Gjør til primær"
+msgstr "Sett som primær"
 
 #: templates/account/email.html:35
 msgid "Re-send Verification"
@@ -375,7 +375,7 @@ msgid ""
 "an e-mail address so you can receive notifications, reset your password, etc."
 msgstr ""
 "Du har for tiden ingen e-postadresse satt opp. Du burde legge til en e-"
-"postadresse slik at du kan motta notifikasjoner, gjennoprette passord ol."
+"postadresse slik at du kan motta varsler, gjennoprette passord ol."
 
 #: templates/account/email.html:48
 msgid "Add E-mail Address"
@@ -417,7 +417,7 @@ msgstr ""
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your E-mail Address"
-msgstr "Vennligst Bekreft Din E-postadresse"
+msgstr "Vennligst bekreft din e-postadresse"
 
 #: templates/account/email/password_reset_key_message.txt:1
 #, python-format
@@ -434,12 +434,12 @@ msgstr ""
 "Du mottar denne e-postadressen fordi du eller noen andre har etterspurt et "
 "passord for din brukerkonto.\n"
 "Meldingen kan trygt ignoreres om du ikke foretok denne etterspørselen. Klikk "
-"på linken under for å gjennopprette ditt passord."
+"på linken nedenfor for å gjennopprette ditt passord."
 
 #: templates/account/email/password_reset_key_message.txt:8
 #, python-format
 msgid "In case you forgot, your username is %(username)s."
-msgstr "I tilfelle du glemte, brukernavnet ditt er %(username)s."
+msgstr "I tilfelle du har glemt det: Brukernavnet ditt er %(username)s."
 
 #: templates/account/email/password_reset_key_message.txt:10
 #, python-format
@@ -452,12 +452,12 @@ msgstr ""
 
 #: templates/account/email/password_reset_key_subject.txt:3
 msgid "Password Reset E-mail"
-msgstr "Passordgjennopprettelse E-post"
+msgstr "E-post for gjenopprettelse av passord"
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
 msgid "Confirm E-mail Address"
-msgstr "Bekreft E-postadresse"
+msgstr "Bekreft e-postadresse"
 
 #: templates/account/email_confirm.html:16
 #, python-format
@@ -478,8 +478,8 @@ msgid ""
 "This e-mail confirmation link expired or is invalid. Please <a href="
 "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"Denne e-post bekreftelseslinken er utgått eller ugyldig. Vennligst <a href="
-"\"%(email_url)s\">etterspør en ny e-postbekreftelse link</a>."
+"Denne e-postbekreftelseslinken er utgått eller ugyldig. Vennligst <a href="
+"\"%(email_url)s\">etterspør en ny e-postbekreftelseslink</a>."
 
 #: templates/account/login.html:6 templates/account/login.html:10
 #: templates/account/login.html:43
@@ -497,7 +497,7 @@ msgstr ""
 "Vennligst logg in med en\n"
 "av dine eksisterende tredjeparts kontoer. Eller, <a href=\"%(signup_url)s"
 "\">registrer deg</a>\n"
-"for en %(site_name)s konto og logg inn under:"
+"og logg inn nedenfor:"
 
 #: templates/account/login.html:25
 msgid "or"
@@ -528,17 +528,17 @@ msgstr "Er du sikker at du ønsker å logge ut?"
 #: templates/account/messages/cannot_delete_primary_email.txt:2
 #, python-format
 msgid "You cannot remove your primary e-mail address (%(email)s)."
-msgstr "Du kan ikke fjerne en primær e-postadresse (%(email)s)."
+msgstr "Du kan ikke fjerne den primær e-postadressen (%(email)s)."
 
 #: templates/account/messages/email_confirmation_sent.txt:2
 #, python-format
 msgid "Confirmation e-mail sent to %(email)s."
-msgstr "Bekreftelses e-post er sendt til %(email)s."
+msgstr "Bekreftelsese-post er sendt til %(email)s."
 
 #: templates/account/messages/email_confirmed.txt:2
 #, python-format
 msgid "You have confirmed %(email)s."
-msgstr "Du har blitt bekreftet %(email)s."
+msgstr "Du har bekreftet %(email)s."
 
 #: templates/account/messages/email_deleted.txt:2
 #, python-format
@@ -548,7 +548,7 @@ msgstr "Fjern e-postadressen %(email)s."
 #: templates/account/messages/logged_in.txt:4
 #, python-format
 msgid "Successfully signed in as %(name)s."
-msgstr "Innlogging som %(name)s. suksessfull."
+msgstr "Logget inn som %(name)s."
 
 #: templates/account/messages/logged_out.txt:2
 msgid "You have signed out."
@@ -585,24 +585,24 @@ msgstr "Endre Passord"
 #: templates/account/password_reset_done.html:6
 #: templates/account/password_reset_done.html:9
 msgid "Password Reset"
-msgstr "Passord gjennopprettelse"
+msgstr "Passordgjenopprettelse"
 
 #: templates/account/password_reset.html:15
 msgid ""
 "Forgotten your password? Enter your e-mail address below, and we'll send you "
 "an e-mail allowing you to reset it."
 msgstr ""
-"Glemt ditt passord? Skriv inn din e-postadresse under, og så sender vi deg "
+"Glemt ditt passord? Skriv inn din e-postadresse nedenfor, så sender vi deg "
 "en e-post for å lage et nytt."
 
 #: templates/account/password_reset.html:20
 msgid "Reset My Password"
-msgstr "Gjennoprett mitt passord"
+msgstr "Gjenopprett mitt passord"
 
 #: templates/account/password_reset.html:23
 msgid "Please contact us if you have any trouble resetting your password."
 msgstr ""
-"Vennligst kontakt oss om du har problemer med passordgjennopprettelsen."
+"Vennligst kontakt oss om du har problemer med passordgjenopprettelsen."
 
 #: templates/account/password_reset_done.html:15
 msgid ""
@@ -623,9 +623,8 @@ msgid ""
 "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
 "a>."
 msgstr ""
-"Passordgjennoppretelseslinken er ugyldig, mulig fordi den allerede er brukt. "
-"Vennligst etterspør en <a href=\"%(passwd_reset_url)s\">ny passord "
-"gjennopprettelse</a>."
+"Passordgjenopprettelseslinken er ugyldig – muligens fordi den allerede er brukt. "
+"Vennligst etterspør en <a href=\"%(passwd_reset_url)s\">ny passordgjennopprettelse</a>."
 
 #: templates/account/password_reset_from_key.html:17
 msgid "change password"
@@ -673,14 +672,14 @@ msgstr "Notat"
 #: templates/account/snippets/already_logged_in.html:5
 #, python-format
 msgid "you are already logged in as %(user_display)s."
-msgstr "du er allerede logget in som %(user_display)s."
+msgstr "du er allerede logget inn som %(user_display)s."
 
 #: templates/account/verification_sent.html:5
 #: templates/account/verification_sent.html:8
 #: templates/account/verified_email_required.html:5
 #: templates/account/verified_email_required.html:8
 msgid "Verify Your E-mail Address"
-msgstr "Bekreft Din E-postadresse"
+msgstr "Bekreft din e-postadresse"
 
 #: templates/account/verification_sent.html:10
 msgid ""
@@ -708,7 +707,7 @@ msgid ""
 "contact us if you do not receive it within a few minutes."
 msgstr ""
 "Vi har send en e-post til deg for\n"
-"verifikasjon. Vennligst klikk på linken i e-posten.Vennligst kontakt oss om "
+"verifikasjon. Vennligst klikk på linken i e-posten. Vennligst kontakt oss om "
 "du ikke mottar den innen et par minutter."
 
 #: templates/account/verified_email_required.html:20
@@ -717,24 +716,24 @@ msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
 "mail address</a>."
 msgstr ""
-"<stron>Notat:</strong> du kan fremdeles <a href=\"%(email_url)s\">endre din "
+"<stron>Merk:</strong> du kan fremdeles <a href=\"%(email_url)s\">endre din "
 "your e-postadresse</a>."
 
 #: templates/openid/login.html:9
 msgid "OpenID Sign In"
-msgstr "OpenID innlogging"
+msgstr "OpenID-innlogging"
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:8
 msgid "Social Network Login Failure"
-msgstr "Sosialenettverk innlogging feilet"
+msgstr "Innlogging ved hjelp av sosialt nettverk mislyktes"
 
 #: templates/socialaccount/authentication_error.html:10
 msgid ""
 "An error occurred while attempting to login via your social network account."
 msgstr ""
-"Det skjedde en feil under forsøket på å logge inn via din "
-"sosialenettverkskonto."
+"Det skjedde en feil ved forsøket på å logge inn via din "
+"nettverkskonto."
 
 #: templates/socialaccount/connections.html:5
 #: templates/socialaccount/connections.html:8
@@ -751,11 +750,11 @@ msgstr ""
 #: templates/socialaccount/connections.html:43
 msgid ""
 "You currently have no social network accounts connected to this account."
-msgstr "Du har for tiden ingen sosialenettverkskontoer tilkoblet din konto."
+msgstr "Du har for tiden ingen tredjepartskontoer tilkoblet din konto."
 
 #: templates/socialaccount/connections.html:46
 msgid "Add a 3rd Party Account"
-msgstr "Legg til en tredjeparts konto"
+msgstr "Legg til en tredjepartskonto"
 
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9
@@ -775,15 +774,15 @@ msgstr ""
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."
-msgstr "Sosialkontoen har blitt tilknytet."
+msgstr "Tredjepartskontoen har blitt tilknytet."
 
 #: templates/socialaccount/messages/account_connected_other.txt:2
 msgid "The social account is already connected to a different account."
-msgstr "Sosialkontoen er allerede tilknytet til en annen konto."
+msgstr "Tredjepartskonten er allerede tilknytet til en annen konto."
 
 #: templates/socialaccount/messages/account_disconnected.txt:2
 msgid "The social account has been disconnected."
-msgstr "Sosialkontoen er blitt frakoblet."
+msgstr "Tredjepartskontoen er blitt frakoblet."
 
 #: templates/socialaccount/signup.html:10
 #, python-format

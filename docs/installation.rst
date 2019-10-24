@@ -73,6 +73,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.edmodo',
         'allauth.socialaccount.providers.eveonline',
         'allauth.socialaccount.providers.evernote',
+        'allauth.socialaccount.providers.exist',
         'allauth.socialaccount.providers.facebook',
         'allauth.socialaccount.providers.feedly',
         'allauth.socialaccount.providers.fivehundredpx',
@@ -127,6 +128,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.weixin',
         'allauth.socialaccount.providers.windowslive',
         'allauth.socialaccount.providers.xing',
+        'allauth.socialaccount.providers.ynab',
         ...
     )
 

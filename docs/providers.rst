@@ -415,6 +415,41 @@ Register your OAuth2 application at ``https://dev.evernote.com/doc/articles/auth
     }
 
 
+Exist
+-----
+
+Register your OAuth2 app in apps page:
+
+    https://exist.io/account/apps/
+
+During development set the callback url to:
+
+    http://localhost:8000/accounts/exist/login/callback/
+
+In production replace localhost with whatever domain you're hosting your app on.
+
+If your app is writing to certain attributes you need to specify this during the
+creation of the app.
+
+The following Exist settings are available:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'exist': {
+            'SCOPE': ['read+write'],
+        }
+    }
+
+SCOPE:
+    The default scope is ``read``. If you'd like to change this set the scope to
+    ``read+write``.
+
+For more information:
+OAuth documentation: http://developer.exist.io/#oauth2-authentication
+API documentation: http://developer.exist.io/
+
+
 Facebook
 --------
 
@@ -661,14 +696,15 @@ authentication provider as described in GitLab docs at
 http://doc.gitlab.com/ce/integration/oauth_provider.html
 
 The following GitLab settings are available, if unset https://gitlab.com will
-be used.
+be used, with a ``read_user`` scope.
 
 GITLAB_URL:
     Override endpoint to request an authorization and access token. For your
     private GitLab server you use: ``https://your.gitlab.server.tld``
 
 SCOPE:
-    The ``read_user`` scope is required for the login procedure.
+    The ``read_user`` scope is required for the login procedure, and is the default.
+    If more access is required, the scope should be set here.
 
 Example:
 
@@ -677,7 +713,7 @@ Example:
     SOCIALACCOUNT_PROVIDERS = {
         'gitlab': {
             'GITLAB_URL': 'https://your.gitlab.server.tld',
-            'SCOPE': ['read_user'],
+            'SCOPE': ['api'],
         },
     }
 
@@ -1106,8 +1142,28 @@ to define the API you are using in your site's settings, as follows:
 Patreon
 -------
 
-App registration (get your key and secret for **v1** of the API here)
+The following Patreon settings are available:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'paypal': {
+            'VERSION': 'v1',
+            'SCOPE': ['pledges-to-me', 'users', 'my-campaign'],
+        }
+    }
+
+VERSION:
+    API version. Either ``v1`` or ``v2``. Defaults to ``v1``.
+
+SCOPE:
+    Defaults to the scope above if using API v1. If using v2, the scope defaults to ``['identity', 'identity[email]', 'campaigns', 'campaigns.members']``.
+
+API documentation:
     https://www.patreon.com/platform/documentation/clients
+
+App registration (get your key and secret for the API here):
+    https://www.patreon.com/portal/registration/register-clients
 
 Development callback URL
     http://127.0.0.1:8000/accounts/patreon/login/callback/
@@ -1697,3 +1753,24 @@ Yahoo
 
 Register your OAuth2 app below and enter the resultant client id and secret into admin
     https://developer.yahoo.com/apps/create/
+
+YNAB
+------
+
+App Registration
+    https://app.youneedabudget.com/settings/developer
+
+Development callback URL
+    http://127.0.0.1:8000/accounts/ynab/login/callback/
+
+
+
+Default SCOPE permissions are 'read-only'. If this is the desired functionality, do not add SCOPE entry with ynab app
+in SOCIALACCOUNT_PROVIDERS. Otherwise, adding SCOPE and an empty string will give you read / write.
+
+.. code-block:: python
+    SOCIALACCOUNT_PROVIDERS = {
+        'ynab': {
+            'SCOPE': ''
+        }
+    }

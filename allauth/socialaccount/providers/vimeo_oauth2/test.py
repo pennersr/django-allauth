@@ -8,7 +8,9 @@ class VimeoOAuth2Tests(OAuth2TestsMixin, TestCase):
     provider_id = VimeoOAuth2Provider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """{
+        return MockedResponse(
+            200,
+            """{
             "uri": "/users/12345",
             "name": "AllAuth",
             "link": "https://vimeo.com/user12345",
@@ -26,4 +28,5 @@ class VimeoOAuth2Tests(OAuth2TestsMixin, TestCase):
             },
             "resource_key": "1234567890abcdef",
             "account": "pro"
-        }""")  # noqa
+        }""",
+        )  # noqa

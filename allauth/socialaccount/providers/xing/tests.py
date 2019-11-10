@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from allauth.socialaccount.tests import OAuthTestsMixin
 from allauth.tests import MockedResponse, TestCase
 
@@ -11,7 +8,10 @@ class XingTests(OAuthTestsMixin, TestCase):
     provider_id = XingProvider.id
 
     def get_mocked_response(self):
-        return [MockedResponse(200, """
+        return [
+            MockedResponse(
+                200,
+                """
 {"users":[{"id":"20493333_1cd028","active_email":"raymond.penners@example.com",
 "badges":[],"birth_date":{"year":null,"month":null,"day":null},
 "business_address":{"street":null,"zip_code":null,"city":null,"province":null,
@@ -37,4 +37,6 @@ class XingTests(OAuthTestsMixin, TestCase):
 "awards":[]},"time_zone":{"utc_offset":2.0,"name":"Europe/Berlin"},
 "wants":null,"web_profiles":{}}]}
 
-""")]
+""",
+            )
+        ]

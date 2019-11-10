@@ -40,9 +40,7 @@ def _check_errors(response):
     try:
         data = response.json()
     except ValueError:  # JSONDecodeError on py3
-        raise OAuth2Error(
-            "Invalid JSON from Battle.net API: %r" % (response.text)
-        )
+        raise OAuth2Error("Invalid JSON from Battle.net API: %r" % (response.text))
 
     if response.status_code >= 400 or "error" in data:
         # For errors, we expect the following format:
@@ -57,7 +55,7 @@ def _check_errors(response):
         error = data.get("error", "") or data.get("type", "")
         desc = data.get("error_description", "") or data.get("detail", "")
 
-        raise OAuth2Error("Battle.net error: %s (%s)" % (error, desc))
+        raise OAuth2Error("Battle.net error: {} ({})".format(error, desc))
 
     # The expected output from the API follows this format:
     # {"id": 12345, "battletag": "Example#12345"}
@@ -78,6 +76,7 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
     `region` GET parameter when performing a login.
     Can be any of eu, us, kr, sea, tw or cn
     """
+
     provider_id = BattleNetProvider.id
     valid_regions = (
         Region.APAC,
@@ -100,8 +99,11 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
             return region
 
         # Second, check the provider settings.
-        region = getattr(settings, 'SOCIALACCOUNT_PROVIDERS', {}).get(
-            'battlenet', {}).get('REGION', 'us')
+        region = (
+            getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
+            .get("battlenet", {})
+            .get("REGION", "us")
+        )
 
         if region in self.valid_regions:
             return region
@@ -138,7 +140,7 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
         return self.get_provider().sociallogin_from_response(request, data)
 
     def get_callback_url(self, request, app):
-        r = super(BattleNetOAuth2Adapter, self).get_callback_url(request, app)
+        r = super().get_callback_url(request, app)
         region = request.GET.get("region", "").lower()
         # Pass the region down to the callback URL if we specified it
         if region and region in self.valid_regions:

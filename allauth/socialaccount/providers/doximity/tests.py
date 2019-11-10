@@ -8,7 +8,9 @@ class DoximityTests(OAuth2TestsMixin, TestCase):
     provider_id = DoximityProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
         {
             "id": 41993552342,
             "npi": 1952635229,
@@ -59,4 +61,5 @@ class DoximityTests(OAuth2TestsMixin, TestCase):
 /profile_photos/7969/normal/profile.png",
             "colleague_count": 142
         }
-""")
+""",
+        )

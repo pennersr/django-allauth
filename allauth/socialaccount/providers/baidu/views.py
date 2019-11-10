@@ -11,16 +11,16 @@ from .provider import BaiduProvider
 
 class BaiduOAuth2Adapter(OAuth2Adapter):
     provider_id = BaiduProvider.id
-    access_token_url = 'https://openapi.baidu.com/oauth/2.0/token'
-    authorize_url = 'https://openapi.baidu.com/oauth/2.0/authorize'
-    profile_url = 'https://openapi.baidu.com/rest/2.0/passport/users/getLoggedInUser'  # noqa
+    access_token_url = "https://openapi.baidu.com/oauth/2.0/token"
+    authorize_url = "https://openapi.baidu.com/oauth/2.0/authorize"
+    profile_url = (
+        "https://openapi.baidu.com/rest/2.0/passport/users/getLoggedInUser"  # noqa
+    )
 
     def complete_login(self, request, app, token, **kwargs):
-        resp = requests.get(self.profile_url,
-                            params={'access_token': token.token})
+        resp = requests.get(self.profile_url, params={"access_token": token.token})
         extra_data = resp.json()
-        return self.get_provider().sociallogin_from_response(request,
-                                                             extra_data)
+        return self.get_provider().sociallogin_from_response(request, extra_data)
 
 
 oauth2_login = OAuth2LoginView.adapter_view(BaiduOAuth2Adapter)

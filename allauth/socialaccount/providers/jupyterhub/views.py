@@ -1,9 +1,7 @@
 import requests
 
 from allauth.socialaccount import app_settings
-from allauth.socialaccount.providers.jupyterhub.provider import (
-    JupyterHubProvider,
-)
+from allauth.socialaccount.providers.jupyterhub.provider import JupyterHubProvider
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -15,25 +13,20 @@ class JupyterHubAdapter(OAuth2Adapter):
     provider_id = JupyterHubProvider.id
 
     settings = app_settings.PROVIDERS.get(provider_id, {})
-    provider_base_url = settings.get("API_URL", '')
+    provider_base_url = settings.get("API_URL", "")
 
-    access_token_url = '{0}/hub/api/oauth2/token'.format(provider_base_url)
-    authorize_url = '{0}/hub/api/oauth2/authorize'.format(provider_base_url)
-    profile_url = '{0}/hub/api/user'.format(provider_base_url)
+    access_token_url = "{}/hub/api/oauth2/token".format(provider_base_url)
+    authorize_url = "{}/hub/api/oauth2/authorize".format(provider_base_url)
+    profile_url = "{}/hub/api/user".format(provider_base_url)
 
     def complete_login(self, request, app, access_token, **kwargs):
-        headers = {
-            'Authorization': 'Bearer {0}'.format(access_token)
-        }
+        headers = {"Authorization": "Bearer {}".format(access_token)}
 
         extra_data = requests.get(self.profile_url, headers=headers)
 
         user_profile = extra_data.json()
 
-        return self.get_provider().sociallogin_from_response(
-            request,
-            user_profile
-        )
+        return self.get_provider().sociallogin_from_response(request, user_profile)
 
 
 oauth2_login = OAuth2LoginView.adapter_view(JupyterHubAdapter)

@@ -81,5 +81,5 @@ class YahooTests(OAuth2TestsMixin, TestCase):
                 "uri": "https://social.yahooapis.com/v1/user/HZP2G4VBSQBVATWWTNO3CRKVP8/profile"
             }
         }
-        """ # noqa
+        """  # noqa
         return MockedResponse(200, response_data)

@@ -5,13 +5,14 @@ from allauth.tests import MockedResponse
 from .provider import RobinhoodProvider
 
 
-class RobinhoodTests(create_oauth2_tests(
-        registry.by_id(RobinhoodProvider.id))):
-
+class RobinhoodTests(create_oauth2_tests(registry.by_id(RobinhoodProvider.id))):
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
 {
   "username": "test_username",
   "id": "1234-5678-910"
 }
-        """)
+        """,
+        )

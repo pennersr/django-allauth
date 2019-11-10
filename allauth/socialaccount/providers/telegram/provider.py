@@ -6,16 +6,16 @@ class TelegramAccount(ProviderAccount):
 
 
 class TelegramProvider(Provider):
-    id = 'telegram'
-    name = 'Telegram'
+    id = "telegram"
+    name = "Telegram"
     account_class = TelegramAccount
 
     def get_login_url(self, request, **kwargs):
         # TODO: Find a way to better wrap the iframed button
-        return '#'
+        return "#"
 
     def extract_uid(self, data):
-        return data['id']
+        return data["id"]
 
 
 provider_classes = [TelegramProvider]

@@ -11,12 +11,12 @@ class EvernoteAccount(ProviderAccount):
 
 
 class EvernoteProvider(OAuthProvider):
-    id = 'evernote'
-    name = 'Evernote'
+    id = "evernote"
+    name = "Evernote"
     account_class = EvernoteAccount
 
     def extract_uid(self, data):
-        return str(data['edam_userId'])
+        return str(data["edam_userId"])
 
     def extract_common_fields(self, data):
         return data

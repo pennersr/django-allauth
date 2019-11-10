@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase
 
@@ -11,7 +8,9 @@ class StripeTests(OAuth2TestsMixin, TestCase):
     provider_id = StripeProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """{
+        return MockedResponse(
+            200,
+            """{
           "id": "acct_sometestid",
           "object": "account",
           "business_logo": null,
@@ -34,13 +33,15 @@ class StripeTests(OAuth2TestsMixin, TestCase):
           "support_phone": "+460123456789",
           "timezone": "Europe/Stockholm",
           "transfers_enabled": true
-        }""")
+        }""",
+        )
 
     def get_login_response_json(self, with_refresh_token=True):
-        rt = ''
+        rt = ""
         if with_refresh_token:
             rt = ',"refresh_token": "testrf"'
-        return """{
+        return (
+            """{
             "uid":"weibo",
             "access_token":"testac",
             "livemode": false,
@@ -48,4 +49,6 @@ class StripeTests(OAuth2TestsMixin, TestCase):
             "stripe_publishable_key": "pk_test_someteskey",
             "stripe_user_id": "acct_sometestid",
             "scope": "read_write"
-            %s }""" % rt
+            %s }"""
+            % rt
+        )

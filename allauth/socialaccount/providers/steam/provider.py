@@ -11,17 +11,17 @@ from allauth.socialaccount.providers.openid.provider import (
 
 class SteamAccount(OpenIDAccount):
     def to_str(self):
-        dflt = super(SteamAccount, self).to_str()
-        return self.account.extra_data.get('personaname', dflt)
+        dflt = super().to_str()
+        return self.account.extra_data.get("personaname", dflt)
 
     def get_profile_url(self):
         return self.account.extra_data.get("profileurl")
 
     def get_avatar_url(self):
         return (
-            self.account.extra_data.get("avatarfull") or
-            self.account.extra_data.get("avatarmedium") or
-            self.account.extra_data.get("avatar")
+            self.account.extra_data.get("avatarfull")
+            or self.account.extra_data.get("avatarmedium")
+            or self.account.extra_data.get("avatar")
         )
 
 
@@ -55,12 +55,8 @@ class SteamOpenIDProvider(OpenIDProvider):
     def sociallogin_from_response(self, request, response):
         steam_id = extract_steam_id(response.identity_url)
         steam_api_key = self.get_app(request).secret
-        response._extra = request_steam_account_summary(
-            steam_api_key, steam_id
-        )
-        return super(SteamOpenIDProvider, self).sociallogin_from_response(
-            request, response
-        )
+        response._extra = request_steam_account_summary(steam_api_key, steam_id)
+        return super().sociallogin_from_response(request, response)
 
     def extract_uid(self, response):
         return response._extra["steamid"]

@@ -1,33 +1,32 @@
 from allauth.account.models import EmailAddress
-from allauth.compat import python_2_unicode_compatible
 from allauth.socialaccount import app_settings
 
 from ..adapter import get_adapter
 
 
-class AuthProcess(object):
-    LOGIN = 'login'
-    CONNECT = 'connect'
-    REDIRECT = 'redirect'
+class AuthProcess:
+    LOGIN = "login"
+    CONNECT = "connect"
+    REDIRECT = "redirect"
 
 
-class AuthAction(object):
-    AUTHENTICATE = 'authenticate'
-    REAUTHENTICATE = 'reauthenticate'
-    REREQUEST = 'rerequest'
+class AuthAction:
+    AUTHENTICATE = "authenticate"
+    REAUTHENTICATE = "reauthenticate"
+    REREQUEST = "rerequest"
 
 
-class AuthError(object):
-    UNKNOWN = 'unknown'
-    CANCELLED = 'cancelled'  # Cancelled on request of user
-    DENIED = 'denied'  # Denied by server
+class AuthError:
+    UNKNOWN = "unknown"
+    CANCELLED = "cancelled"  # Cancelled on request of user
+    DENIED = "denied"  # Denied by server
 
 
 class ProviderException(Exception):
     pass
 
 
-class Provider(object):
+class Provider:
 
     slug = None
 
@@ -55,7 +54,7 @@ class Provider(object):
         """
         Some providers may require extra scripts (e.g. a Facebook connect)
         """
-        return ''
+        return ""
 
     def wrap_account(self, social_account):
         return self.account_class(social_account)
@@ -86,14 +85,12 @@ class Provider(object):
         uid = self.extract_uid(response)
         extra_data = self.extract_extra_data(response)
         common_fields = self.extract_common_fields(response)
-        socialaccount = SocialAccount(extra_data=extra_data,
-                                      uid=uid,
-                                      provider=self.id)
+        socialaccount = SocialAccount(extra_data=extra_data, uid=uid, provider=self.id)
         email_addresses = self.extract_email_addresses(response)
-        self.cleanup_email_addresses(common_fields.get('email'),
-                                     email_addresses)
-        sociallogin = SocialLogin(account=socialaccount,
-                                  email_addresses=email_addresses)
+        self.cleanup_email_addresses(common_fields.get("email"), email_addresses)
+        sociallogin = SocialLogin(
+            account=socialaccount, email_addresses=email_addresses
+        )
         user = sociallogin.user = adapter.new_user(request, sociallogin)
         user.set_unusable_password()
         adapter.populate_user(request, sociallogin, common_fields)
@@ -104,7 +101,7 @@ class Provider(object):
         Extracts the unique user ID from `data`
         """
         raise NotImplementedError(
-            'The provider must implement the `extract_uid()` method'
+            "The provider must implement the `extract_uid()` method"
         )
 
     def extract_extra_data(self, data):
@@ -132,14 +129,11 @@ class Provider(object):
 
     def cleanup_email_addresses(self, email, addresses):
         # Move user.email over to EmailAddress
-        if (email and email.lower() not in [
-                a.email.lower() for a in addresses]):
-            addresses.append(EmailAddress(email=email,
-                                          verified=False,
-                                          primary=True))
+        if email and email.lower() not in [a.email.lower() for a in addresses]:
+            addresses.append(EmailAddress(email=email, verified=False, primary=True))
         # Force verified emails
         settings = self.get_settings()
-        verified_email = settings.get('VERIFIED_EMAIL', False)
+        verified_email = settings.get("VERIFIED_EMAIL", False)
         if verified_email:
             for address in addresses:
                 address.verified = True
@@ -156,14 +150,13 @@ class Provider(object):
 
     @classmethod
     def get_package(cls):
-        pkg = getattr(cls, 'package', None)
+        pkg = getattr(cls, "package", None)
         if not pkg:
-            pkg = cls.__module__.rpartition('.')[0]
+            pkg = cls.__module__.rpartition(".")[0]
         return pkg
 
 
-@python_2_unicode_compatible
-class ProviderAccount(object):
+class ProviderAccount:
     def __init__(self, social_account):
         self.account = social_account
 
@@ -184,8 +177,7 @@ class ProviderAccount(object):
         url.
         """
         provider = self.account.get_provider()
-        return dict(id=provider.id,
-                    name=provider.name)
+        return dict(id=provider.id, name=provider.name)
 
     def __str__(self):
         return self.to_str()
@@ -194,14 +186,12 @@ class ProviderAccount(object):
         """
         Due to the way python_2_unicode_compatible works, this does not work:
 
-            @python_2_unicode_compatible
-            class GoogleAccount(ProviderAccount):
+                        class GoogleAccount(ProviderAccount):
                 def __str__(self):
                     dflt = super(GoogleAccount, self).__str__()
                     return self.account.extra_data.get('name', dflt)
 
         It will result in and infinite recursion loop. That's why we
         add a method `to_str` that can be overriden in a conventional
-        fashion, without having to worry about @python_2_unicode_compatible
-        """
-        return self.get_brand()['name']
+        fashion, without having to worry about         """
+        return self.get_brand()["name"]

@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import, unicode_literals
-
 from allauth.socialaccount.providers import registry
 from allauth.socialaccount.tests import create_oauth2_tests
 from allauth.tests import MockedResponse
@@ -8,15 +5,15 @@ from allauth.tests import MockedResponse
 from .provider import SalesforceProvider
 
 
-class SalesforceTests(create_oauth2_tests(registry.by_id(
-        SalesforceProvider.id))):
-
-    def get_mocked_response(self,
-                            last_name='Penners',
-                            first_name='Raymond',
-                            name='Raymond Penners',
-                            email='raymond.penners@gmail.com',
-                            verified_email=True):
+class SalesforceTests(create_oauth2_tests(registry.by_id(SalesforceProvider.id))):
+    def get_mocked_response(
+        self,
+        last_name="Penners",
+        first_name="Raymond",
+        name="Raymond Penners",
+        email="raymond.penners@gmail.com",
+        verified_email=True,
+    ):
         userinfo = USERINFO_RESPONSE.format(
             org_id="00Dxx00000000000A0",
             user_id="005xx000000aWwRQAU",
@@ -29,7 +26,7 @@ class SalesforceTests(create_oauth2_tests(registry.by_id(
             verified_email=repr(verified_email).lower(),
             email=email,
             active="true",
-            is_app_installed="true"
+            is_app_installed="true",
         )
         return MockedResponse(200, userinfo)
 

@@ -8,7 +8,9 @@ class StackExchangeTests(OAuth2TestsMixin, TestCase):
     provider_id = StackExchangeProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
         {
           "has_more": false,
            "items": [
@@ -39,4 +41,5 @@ class StackExchangeTests(OAuth2TestsMixin, TestCase):
            ],
            "quota_max": 10000,
            "quota_remaining": 9999
-        }""")  # noqa
+        }""",
+        )  # noqa

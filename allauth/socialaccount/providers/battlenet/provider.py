@@ -5,7 +5,7 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 class BattleNetAccount(ProviderAccount):
     def to_str(self):
         battletag = self.account.extra_data.get("battletag")
-        return battletag or super(BattleNetAccount, self).to_str()
+        return battletag or super().to_str()
 
 
 class BattleNetProvider(OAuth2Provider):

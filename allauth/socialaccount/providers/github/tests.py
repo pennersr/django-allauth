@@ -9,7 +9,9 @@ class GitHubTests(OAuth2TestsMixin, TestCase):
     provider_id = GitHubProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
         {
             "type":"User",
             "organizations_url":"https://api.github.com/users/pennersr/orgs",
@@ -39,7 +41,8 @@ class GitHubTests(OAuth2TestsMixin, TestCase):
             "email":"raymond.penners@intenct.nl",
             "events_url":"https://api.github.com/users/pennersr/events{/privacy}",
             "following_url":"https://api.github.com/users/pennersr/following"
-        }""")
+        }""",
+        )
 
     def test_account_name_null(self):
         """String conversion when GitHub responds with empty name"""
@@ -50,8 +53,8 @@ class GitHubTests(OAuth2TestsMixin, TestCase):
             "name": null
         }"""
         self.login(MockedResponse(200, data))
-        socialaccount = SocialAccount.objects.get(uid='201022')
-        self.assertIsNone(socialaccount.extra_data.get('name'))
+        socialaccount = SocialAccount.objects.get(uid="201022")
+        self.assertIsNone(socialaccount.extra_data.get("name"))
         account = socialaccount.get_provider_account()
         self.assertIsNotNone(account.to_str())
-        self.assertEqual(account.to_str(), 'pennersr')
+        self.assertEqual(account.to_str(), "pennersr")

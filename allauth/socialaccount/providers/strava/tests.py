@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.contrib.auth.models import User
 
 from allauth.socialaccount.models import SocialAccount
@@ -71,18 +68,21 @@ class StravaTests(OAuth2TestsMixin, TestCase):
         """ test response with Avatar URL """
         self.login(self.get_mocked_response_avatar_invalid_id())
         user = User.objects.get(email="bill@example.com")
-        soc_acc = SocialAccount.objects.filter(user=user,
-                                               provider=self.provider.id).get()
+        soc_acc = SocialAccount.objects.filter(
+            user=user, provider=self.provider.id
+        ).get()
         provider_account = soc_acc.get_provider_account()
-        self.assertEqual(provider_account.get_avatar_url(),
-                         "https://cloudfront.net/1/large.jpg")
+        self.assertEqual(
+            provider_account.get_avatar_url(), "https://cloudfront.net/1/large.jpg"
+        )
         self.assertIsNone(provider_account.get_profile_url())
 
     def get_login_response_json(self, with_refresh_token=True):
-        rt = ''
+        rt = ""
         if with_refresh_token:
             rt = ',"refresh_token": "testrf"'
-        return """{
+        return (
+            """{
             "uid":"weibo",
             "access_token":"testac",
             "livemode": false,
@@ -90,4 +90,6 @@ class StravaTests(OAuth2TestsMixin, TestCase):
             "strava_publishable_key": "pk_test_someteskey",
             "strava_user_id": "acct_sometestid",
             "scope": "read_write"
-            %s }""" % rt
+            %s }"""
+            % rt
+        )

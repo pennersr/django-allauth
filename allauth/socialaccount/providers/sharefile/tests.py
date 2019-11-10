@@ -8,7 +8,9 @@ class ShareFileTests(OAuth2TestsMixin, TestCase):
     provider_id = ShareFileProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
         {"access_token": "12345678abcdef",
          "refresh_token": "12345678abcdef",
          "token_type": "bearer",
@@ -22,4 +24,5 @@ class ShareFileTests(OAuth2TestsMixin, TestCase):
          "admin_accounts": true,
          "change_my_settings": true,
           "web_app_login": true}
-        """)
+        """,
+        )

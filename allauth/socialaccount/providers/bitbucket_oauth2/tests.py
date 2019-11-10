@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.test.utils import override_settings
 
 from allauth.socialaccount.models import SocialAccount
@@ -18,8 +15,9 @@ except ImportError:
 
 
 @override_settings(SOCIALACCOUNT_QUERY_EMAIL=True)
-class BitbucketOAuth2Tests(create_oauth2_tests(registry.by_id(
-        BitbucketOAuth2Provider.id))):
+class BitbucketOAuth2Tests(
+    create_oauth2_tests(registry.by_id(BitbucketOAuth2Provider.id))
+):
 
     response_data = """
         {
@@ -92,14 +90,14 @@ class BitbucketOAuth2Tests(create_oauth2_tests(registry.by_id(
     """  # noqa
 
     def setUp(self):
-        super(BitbucketOAuth2Tests, self).setUp()
+        super().setUp()
         self.mocks = {
-            'requests': patch('allauth.socialaccount.providers'
-                              '.bitbucket_oauth2.views.requests')
+            "requests": patch(
+                "allauth.socialaccount.providers" ".bitbucket_oauth2.views.requests"
+            )
         }
-        self.patches = dict((name, mocked.start())
-                            for (name, mocked) in self.mocks.items())
-        self.patches['requests'].get.side_effect = [
+        self.patches = {name: mocked.start() for (name, mocked) in self.mocks.items()}
+        self.patches["requests"].get.side_effect = [
             MockedResponse(200, self.response_data),
             MockedResponse(200, self.email_response_data),
         ]
@@ -113,46 +111,43 @@ class BitbucketOAuth2Tests(create_oauth2_tests(registry.by_id(
 
     def test_account_tokens(self, multiple_login=False):
         if multiple_login:
-            self.patches['requests'].get.side_effect = [
+            self.patches["requests"].get.side_effect = [
                 MockedResponse(200, self.response_data),
                 MockedResponse(200, self.email_response_data),
                 MockedResponse(200, self.response_data),
                 MockedResponse(200, self.email_response_data),
             ]
-        super(BitbucketOAuth2Tests, self).test_account_tokens(multiple_login)
+        super().test_account_tokens(multiple_login)
         calls = [
-            mock.call('https://api.bitbucket.org/2.0/user',
-                      params=mock.ANY),
-            mock.call('https://api.bitbucket.org/2.0/user/emails',
-                      params=mock.ANY),
+            mock.call("https://api.bitbucket.org/2.0/user", params=mock.ANY),
+            mock.call("https://api.bitbucket.org/2.0/user/emails", params=mock.ANY),
         ]
         if multiple_login:
-            calls.extend([
-                mock.call('https://api.bitbucket.org/2.0/user',
-                          params=mock.ANY),
-                mock.call('https://api.bitbucket.org/2.0/user/emails',
-                          params=mock.ANY),
-            ])
-        self.patches['requests'].get.assert_has_calls(calls)
+            calls.extend(
+                [
+                    mock.call("https://api.bitbucket.org/2.0/user", params=mock.ANY),
+                    mock.call(
+                        "https://api.bitbucket.org/2.0/user/emails", params=mock.ANY
+                    ),
+                ]
+            )
+        self.patches["requests"].get.assert_has_calls(calls)
 
     def test_provider_account(self):
         self.login(self.get_mocked_response())
-        socialaccount = SocialAccount.objects.get(uid='tutorials')
-        self.assertEqual(socialaccount.user.username, 'tutorials')
-        self.assertEqual(socialaccount.user.email, 'tutorials@bitbucket.org')
+        socialaccount = SocialAccount.objects.get(uid="tutorials")
+        self.assertEqual(socialaccount.user.username, "tutorials")
+        self.assertEqual(socialaccount.user.email, "tutorials@bitbucket.org")
         account = socialaccount.get_provider_account()
-        self.assertEqual(account.to_str(), 'tutorials account')
-        self.assertEqual(
-            account.get_profile_url(),
-            'https://bitbucket.org/tutorials'
-        )
+        self.assertEqual(account.to_str(), "tutorials account")
+        self.assertEqual(account.get_profile_url(), "https://bitbucket.org/tutorials")
         self.assertEqual(
             account.get_avatar_url(),
-            'https://bitbucket-assetroot.s3.amazonaws.com/c/photos/2013/Nov/25/tutorials-avatar-1563784409-6_avatar.png'  # noqa
+            "https://bitbucket-assetroot.s3.amazonaws.com/c/photos/2013/Nov/25/tutorials-avatar-1563784409-6_avatar.png",  # noqa
         )
-        self.patches['requests'].get.assert_has_calls([
-            mock.call('https://api.bitbucket.org/2.0/user',
-                      params=mock.ANY),
-            mock.call('https://api.bitbucket.org/2.0/user/emails',
-                      params=mock.ANY),
-        ])
+        self.patches["requests"].get.assert_has_calls(
+            [
+                mock.call("https://api.bitbucket.org/2.0/user", params=mock.ANY),
+                mock.call("https://api.bitbucket.org/2.0/user/emails", params=mock.ANY),
+            ]
+        )

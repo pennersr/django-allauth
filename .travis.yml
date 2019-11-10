@@ -1,26 +1,28 @@
-# https://travis-ci.org/pennersr/django-allauth
+version: ~> 1.0
 dist: xenial
 language: python
-
+os: linux
 python: "3.6"
 
 env:
   matrix:
-   - TOXENV=py27-django111
    - TOXENV=py35-django111
    - TOXENV=py36-django111
    - TOXENV=py35-django20
    - TOXENV=py36-django20
+   - TOXENV=py37-django20
    - TOXENV=py35-django21
    - TOXENV=py36-django21
+   - TOXENV=py37-django21
    - TOXENV=py35-django22
    - TOXENV=py36-django22
-   - TOXENV=py36-djangomaster
+   - TOXENV=py37-django22
+   - TOXENV=py37-djangomaster
    - TOXENV=docs
    - TOXENV=checkqa
    - TOXENV=standardjs
 
-matrix:
+jobs:
   fast_finish: true
   include:
     - python: "3.5"
@@ -31,13 +33,6 @@ matrix:
       env: TOXENV=py35-django21
     - python: "3.5"
       env: TOXENV=py35-django22
-
-    - python: "3.4"
-      env: TOXENV=py34-django111
-      dist: trusty
-    - python: "3.4"
-      env: TOXENV=py34-django20
-      dist: trusty
   exclude:
     - python: "3.6"
       env: TOXENV=py35-django111

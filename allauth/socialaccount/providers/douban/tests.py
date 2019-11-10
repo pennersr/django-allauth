@@ -8,7 +8,9 @@ class DoubanTests(OAuth2TestsMixin, TestCase):
     provider_id = DoubanProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
             {"name": "guoqiao",
              "created": "2009-02-18 01:07:52",
              "is_suicide": false,
@@ -21,4 +23,5 @@ class DoubanTests(OAuth2TestsMixin, TestCase):
              "type": "user",
              "id": "3659811",
              "large_avatar": "http://img3.douban.com/icon/up3659811-3.jpg"}
-""")
+""",
+        )

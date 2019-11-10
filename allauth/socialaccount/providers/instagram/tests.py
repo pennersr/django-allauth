@@ -8,7 +8,9 @@ class InstagramTests(OAuth2TestsMixin, TestCase):
     provider_id = InstagramProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
         {
           "meta": {
             "code": 200
@@ -27,4 +29,5 @@ class InstagramTests(OAuth2TestsMixin, TestCase):
             },
             "id": "11428116"
           }
-        }""")  # noqa
+        }""",
+        )  # noqa

@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase
 
@@ -11,7 +8,9 @@ class SpotifyOAuth2Tests(OAuth2TestsMixin, TestCase):
     provider_id = SpotifyOAuth2Provider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """{
+        return MockedResponse(
+            200,
+            """{
           "birthdate": "1937-06-01",
           "country": "SE",
           "display_name": "JM Wizzler",
@@ -36,4 +35,5 @@ class SpotifyOAuth2Tests(OAuth2TestsMixin, TestCase):
           "product": "premium",
           "type": "user",
           "uri": "spotify:user:wizzler"
-        }""")  # noqa
+        }""",
+        )  # noqa

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from allauth.socialaccount.tests import OAuthTestsMixin
 from allauth.tests import MockedResponse, TestCase
 
@@ -9,7 +8,10 @@ class FiveHundredPxTests(OAuthTestsMixin, TestCase):
     provider_id = FiveHundredPxProvider.id
 
     def get_mocked_response(self):
-        return [MockedResponse(200, """{
+        return [
+            MockedResponse(
+                200,
+                """{
           "user":  {
             "id": 5751454,
             "username": "testuser",
@@ -73,4 +75,6 @@ class FiveHundredPxTests(OAuthTestsMixin, TestCase):
               }
             }
           }
-        }""")]  # noqa
+        }""",
+            )
+        ]  # noqa

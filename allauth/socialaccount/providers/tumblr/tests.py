@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from allauth.socialaccount.tests import OAuthTestsMixin
 from allauth.tests import MockedResponse, TestCase
 
@@ -11,7 +8,10 @@ class TumblrTests(OAuthTestsMixin, TestCase):
     provider_id = TumblrProvider.id
 
     def get_mocked_response(self):
-        return [MockedResponse(200, """
+        return [
+            MockedResponse(
+                200,
+                """
 {
    "meta": {
       "status": 200,
@@ -39,4 +39,6 @@ class TumblrTests(OAuthTestsMixin, TestCase):
         ]
      }
 } }
-""")]
+""",
+            )
+        ]

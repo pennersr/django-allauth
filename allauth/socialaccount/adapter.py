@@ -1,9 +1,6 @@
-from __future__ import absolute_import
-
 from django.core.exceptions import ValidationError
 from django.urls import reverse
-
-from allauth.compat import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from ..account import app_settings as account_settings
 from ..account.adapter import get_adapter as get_account_adapter
@@ -20,13 +17,14 @@ from ..utils import (
 from . import app_settings
 
 
-class DefaultSocialAccountAdapter(object):
+class DefaultSocialAccountAdapter:
 
     error_messages = {
-        'email_taken':
-        _("An account already exists with this e-mail address."
-          " Please sign in to that account first, then connect"
-          " your %s account.")
+        "email_taken": _(
+            "An account already exists with this e-mail address."
+            " Please sign in to that account first, then connect"
+            " your %s account."
+        )
     }
 
     def __init__(self, request=None):
@@ -47,12 +45,9 @@ class DefaultSocialAccountAdapter(object):
         """
         pass
 
-    def authentication_error(self,
-                             request,
-                             provider_id,
-                             error=None,
-                             exception=None,
-                             extra_context=None):
+    def authentication_error(
+        self, request, provider_id, error=None, exception=None, extra_context=None
+    ):
         """
         Invoked when there is an error in the authentication cycle. In this
         case, pre_social_login will not be reached.
@@ -82,10 +77,7 @@ class DefaultSocialAccountAdapter(object):
         sociallogin.save(request)
         return u
 
-    def populate_user(self,
-                      request,
-                      sociallogin,
-                      data):
+    def populate_user(self, request, sociallogin, data):
         """
         Hook that can be used to further populate the user instance.
 
@@ -99,17 +91,17 @@ class DefaultSocialAccountAdapter(object):
         free. For example, verifying whether or not the username
         already exists, is not a responsibility.
         """
-        username = data.get('username')
-        first_name = data.get('first_name')
-        last_name = data.get('last_name')
-        email = data.get('email')
-        name = data.get('name')
+        username = data.get("username")
+        first_name = data.get("first_name")
+        last_name = data.get("last_name")
+        email = data.get("email")
+        name = data.get("name")
         user = sociallogin.user
-        user_username(user, username or '')
-        user_email(user, valid_email_or_none(email) or '')
-        name_parts = (name or '').partition(' ')
-        user_field(user, 'first_name', first_name or name_parts[0])
-        user_field(user, 'last_name', last_name or name_parts[2])
+        user_username(user, username or "")
+        user_email(user, valid_email_or_none(email) or "")
+        name_parts = (name or "").partition(" ")
+        user_field(user, "first_name", first_name or name_parts[0])
+        user_field(user, "last_name", last_name or name_parts[2])
         return user
 
     def get_connect_redirect_url(self, request, socialaccount):
@@ -118,7 +110,7 @@ class DefaultSocialAccountAdapter(object):
         connecting a social account.
         """
         assert request.user.is_authenticated
-        url = reverse('socialaccount_connections')
+        url = reverse("socialaccount_connections")
         return url
 
     def validate_disconnect(self, account, accounts):
@@ -129,15 +121,18 @@ class DefaultSocialAccountAdapter(object):
         if len(accounts) == 1:
             # No usable password would render the local account unusable
             if not account.user.has_usable_password():
-                raise ValidationError(_("Your account has no password set"
-                                        " up."))
+                raise ValidationError(_("Your account has no password set" " up."))
             # No email address, no password reset
-            if app_settings.EMAIL_VERIFICATION \
-                    == EmailVerificationMethod.MANDATORY:
-                if EmailAddress.objects.filter(user=account.user,
-                                               verified=True).count() == 0:
-                    raise ValidationError(_("Your account has no verified"
-                                            " e-mail address."))
+            if app_settings.EMAIL_VERIFICATION == EmailVerificationMethod.MANDATORY:
+                if (
+                    EmailAddress.objects.filter(
+                        user=account.user, verified=True
+                    ).count()
+                    == 0
+                ):
+                    raise ValidationError(
+                        _("Your account has no verified" " e-mail address.")
+                    )
 
     def is_auto_signup_allowed(self, request, sociallogin):
         # If email is specified, check for duplicate and if so, no auto signup.
@@ -179,10 +174,11 @@ class DefaultSocialAccountAdapter(object):
     def get_signup_form_initial_data(self, sociallogin):
         user = sociallogin.user
         initial = {
-            'email': user_email(user) or '',
-            'username': user_username(user) or '',
-            'first_name': user_field(user, 'first_name') or '',
-            'last_name': user_field(user, 'last_name') or ''}
+            "email": user_email(user) or "",
+            "username": user_username(user) or "",
+            "first_name": user_field(user, "first_name") or "",
+            "last_name": user_field(user, "last_name") or "",
+        }
         return initial
 
     def deserialize_instance(self, model, data):

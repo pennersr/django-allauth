@@ -4,7 +4,7 @@ Overview
 Requirements
 ------------
 
-- Python 2.7, 3.3, 3.4, 3.5 or 3.6
+- Python 2.7, 3.5, 3.6, 3.7 or 3.8
 
 - Django (1.11+)
 

@@ -32,7 +32,7 @@ class AmazonCognitoOAuth2Adapter(OAuth2Adapter):
 
     @property
     def profile_url(self):
-        return '{}/oauth2/userinfo'.format(self.domain)
+        return '{}/oauth2/userInfo'.format(self.domain)
 
     def complete_login(self, request, app, access_token, **kwargs):
         headers = {

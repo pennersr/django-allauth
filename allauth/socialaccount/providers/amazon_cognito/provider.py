@@ -1,4 +1,5 @@
 from allauth.account.models import EmailAddress
+from allauth.socialaccount.providers.amazon_cognito.utils import convert_to_python_bool_if_value_is_json_string_bool
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -36,7 +37,7 @@ class AmazonCognitoProvider(OAuth2Provider):
 
     def extract_email_addresses(self, data):
         email = data.get('email')
-        verified = data.get('email_verified', False)
+        verified = convert_to_python_bool_if_value_is_json_string_bool(data.get('email_verified', False))
 
         return [EmailAddress(email=email, verified=verified, primary=True)] if email else []
 
@@ -49,13 +50,19 @@ class AmazonCognitoProvider(OAuth2Provider):
             'middlename': data.get('middlename'),
             'nickname': data.get('nickname'),
             'phone_number': data.get('phone_number'),
-            'phone_number_verified': data.get('phone_number_verified'),
+            'phone_number_verified': convert_to_python_bool_if_value_is_json_string_bool(
+                data.get('phone_number_verified')),
             'picture': data.get('picture'),
             'preferred_username': data.get('preferred_username'),
             'profile': data.get('profile'),
             'website': data.get('website'),
             'zoneinfo': data.get('zoneinfo'),
         }
+
+    @classmethod
+    def get_slug(cls):
+        # IMPORTANT: Amazon Cognito does not support `_` characters as part of their redirect URI.
+        return super(AmazonCognitoProvider, cls).get_slug().replace("_", "-")
 
 
 provider_classes = [AmazonCognitoProvider]

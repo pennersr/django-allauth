@@ -11,14 +11,19 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class AmazonCognitoOAuth2Adapter(OAuth2Adapter):
     provider_id = AmazonCognitoProvider.id
-    settings = app_settings.PROVIDERS.get(provider_id, {})
+
+    DOMAIN_KEY_MISSING_ERROR = '"DOMAIN" key is missing in Amazon Cognito configuration.'
+
+    @property
+    def settings(self):
+        return app_settings.PROVIDERS.get(self.provider_id, {})
 
     @property
     def domain(self):
         domain = self.settings.get('DOMAIN')
 
         if domain is None:
-            raise ValueError('"DOMAIN" key is missing in Amazon Cognito configuration.')
+            raise ValueError(self.DOMAIN_KEY_MISSING_ERROR)
 
         return domain
 
@@ -39,6 +44,7 @@ class AmazonCognitoOAuth2Adapter(OAuth2Adapter):
             'Authorization': 'Bearer {}'.format(access_token),
         }
         extra_data = requests.get(self.profile_url, headers=headers)
+        extra_data.raise_for_status()
 
         return self.get_provider().sociallogin_from_response(
             request,

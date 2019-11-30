@@ -5,8 +5,6 @@ import django
 from django.core.exceptions import ValidationError
 from django.db import models
 
-from allauth.compat import six
-
 
 class JSONField(models.TextField):
     """Simple JSON field that stores python structures as JSON strings
@@ -26,7 +24,7 @@ class JSONField(models.TextField):
         """
         if self.blank and not value:
             return None
-        if isinstance(value, six.string_types):
+        if isinstance(value, str):
             try:
                 return json.loads(value)
             except Exception as e:
@@ -37,7 +35,7 @@ class JSONField(models.TextField):
     def validate(self, value, model_instance):
         """Check value is a valid JSON string, raise ValidationError on
         error."""
-        if isinstance(value, six.string_types):
+        if isinstance(value, str):
             super(JSONField, self).validate(value, model_instance)
             try:
                 json.loads(value)

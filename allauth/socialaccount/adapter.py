@@ -2,8 +2,7 @@ from __future__ import absolute_import
 
 from django.core.exceptions import ValidationError
 from django.urls import reverse
-
-from allauth.compat import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from ..account import app_settings as account_settings
 from ..account.adapter import get_adapter as get_account_adapter

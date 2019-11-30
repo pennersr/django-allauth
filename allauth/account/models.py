@@ -6,8 +6,7 @@ from django.core import signing
 from django.db import models, transaction
 from django.utils import timezone
 from django.utils.crypto import get_random_string
-
-from allauth.compat import python_2_unicode_compatible, ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from .. import app_settings as allauth_app_settings
 from . import app_settings, signals
@@ -16,7 +15,6 @@ from .managers import EmailAddressManager, EmailConfirmationManager
 from .utils import user_email
 
 
-@python_2_unicode_compatible
 class EmailAddress(models.Model):
 
     user = models.ForeignKey(allauth_app_settings.USER_MODEL,
@@ -74,7 +72,6 @@ class EmailAddress(models.Model):
                 self.send_confirmation(request)
 
 
-@python_2_unicode_compatible
 class EmailConfirmation(models.Model):
 
     email_address = models.ForeignKey(EmailAddress,

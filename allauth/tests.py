@@ -9,8 +9,7 @@ from django.core.files.base import ContentFile
 from django.db import models
 from django.test import RequestFactory, TestCase
 from django.views import csrf
-
-from allauth.compat import base36_to_int, int_to_base36
+from django.utils.http import int_to_base36, base36_to_int
 
 from . import utils
 

@@ -1,6 +1,7 @@
 import json
 import random
 import warnings
+from urllib.parse import parse_qs, urlparse
 
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
@@ -14,7 +15,6 @@ from django.urls import reverse
 from ..account import app_settings as account_settings
 from ..account.models import EmailAddress
 from ..account.utils import user_email, user_username
-from ..compat import parse_qs, urlparse
 from ..tests import MockedResponse, TestCase, mocked_response
 from ..utils import get_user_model
 from . import providers

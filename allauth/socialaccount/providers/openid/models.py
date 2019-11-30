@@ -1,9 +1,6 @@
 from django.db import models
 
-from allauth.compat import python_2_unicode_compatible
 
-
-@python_2_unicode_compatible
 class OpenIDStore(models.Model):
     server_url = models.CharField(max_length=255)
     handle = models.CharField(max_length=255)
@@ -16,7 +13,6 @@ class OpenIDStore(models.Model):
         return self.server_url
 
 
-@python_2_unicode_compatible
 class OpenIDNonce(models.Model):
     server_url = models.CharField(max_length=255)
     timestamp = models.IntegerField()

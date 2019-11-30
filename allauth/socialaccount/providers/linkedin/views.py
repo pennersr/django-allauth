@@ -1,7 +1,6 @@
 from xml.etree import ElementTree
 from xml.parsers.expat import ExpatError
 
-from allauth.compat import six
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.oauth.client import OAuth
 from allauth.socialaccount.providers.oauth.views import (
@@ -22,8 +21,6 @@ class LinkedInAPI(OAuth):
             .get_profile_fields()
         url = self.url + ':(%s)' % ','.join(fields)
         raw_xml = self.query(url)
-        if not six.PY3:
-            raw_xml = raw_xml.encode('utf8')
         try:
             return self.to_dict(ElementTree.fromstring(raw_xml))
         except (ExpatError, KeyError, IndexError):

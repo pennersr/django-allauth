@@ -8,9 +8,8 @@ from datetime import date, datetime
 from django.core.files.base import ContentFile
 from django.db import models
 from django.test import RequestFactory, TestCase
+from django.utils.http import base36_to_int, int_to_base36
 from django.views import csrf
-
-from allauth.compat import base36_to_int, int_to_base36
 
 from . import utils
 

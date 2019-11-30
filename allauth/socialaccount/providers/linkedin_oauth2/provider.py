@@ -1,4 +1,3 @@
-from allauth.compat import six
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.base import (
     ProviderAccount,
@@ -11,7 +10,7 @@ def _extract_name_field(data, field_name):
     ret = ''
     v = data.get(field_name, {})
     if v:
-        if isinstance(v, six.string_types):
+        if isinstance(v, str):
             # Old V1 data
             ret = v
         else:

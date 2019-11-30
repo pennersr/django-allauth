@@ -1,7 +1,8 @@
+from urllib.parse import parse_qsl
+
 from django.urls import reverse
 from django.utils.http import urlencode
 
-from allauth.compat import parse_qsl
 from allauth.socialaccount.providers.base import Provider
 
 

@@ -1,6 +1,6 @@
 import requests
+from urllib.parse import urljoin
 
-from allauth.compat import urljoin
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,

@@ -1,5 +1,4 @@
 from allauth.account.models import EmailAddress
-from allauth.compat import python_2_unicode_compatible
 from allauth.socialaccount import app_settings
 
 from ..adapter import get_adapter
@@ -162,7 +161,6 @@ class Provider(object):
         return pkg
 
 
-@python_2_unicode_compatible
 class ProviderAccount(object):
     def __init__(self, social_account):
         self.account = social_account
@@ -192,16 +190,14 @@ class ProviderAccount(object):
 
     def to_str(self):
         """
-        Due to the way python_2_unicode_compatible works, this does not work:
+        This did not use to work in the past due to py2 compatibility:
 
-            @python_2_unicode_compatible
             class GoogleAccount(ProviderAccount):
                 def __str__(self):
                     dflt = super(GoogleAccount, self).__str__()
                     return self.account.extra_data.get('name', dflt)
 
-        It will result in and infinite recursion loop. That's why we
-        add a method `to_str` that can be overriden in a conventional
-        fashion, without having to worry about @python_2_unicode_compatible
+        So we have this method `to_str` that can be overriden in a conventional
+        fashion, without having to worry about it.
         """
         return self.get_brand()['name']

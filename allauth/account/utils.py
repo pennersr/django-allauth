@@ -8,10 +8,9 @@ from django.core.exceptions import FieldDoesNotExist, ValidationError
 from django.db import models
 from django.db.models import Q
 from django.http import HttpResponseRedirect
-from django.utils.http import urlencode
+from django.utils.encoding import force_str
+from django.utils.http import base36_to_int, int_to_base36, urlencode
 from django.utils.timezone import now
-
-from allauth.compat import base36_to_int, force_str, int_to_base36, six
 
 from ..exceptions import ImmediateHttpResponse
 from ..utils import (
@@ -401,12 +400,12 @@ def user_pk_to_url_str(user):
     """
     User = get_user_model()
     if issubclass(type(User._meta.pk), models.UUIDField):
-        if isinstance(user.pk, six.string_types):
+        if isinstance(user.pk, str):
             return user.pk
         return user.pk.hex
 
     ret = user.pk
-    if isinstance(ret, six.integer_types):
+    if isinstance(ret, int):
         ret = int_to_base36(user.pk)
     return str(ret)
 

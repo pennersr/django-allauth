@@ -41,6 +41,8 @@ Supported Providers
 
 - Amazon (OAuth2)
 
+- Amazon Cognito (OAuth2)
+
 - AngelList (OAuth2)
 
 - Asana (OAuth2)

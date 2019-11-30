@@ -10,11 +10,7 @@ from allauth.tests import MockedResponse, patch
 
 from .provider import BitbucketOAuth2Provider
 
-
-try:
-    from unittest import mock
-except ImportError:
-    import mock
+from unittest import mock
 
 
 @override_settings(SOCIALACCOUNT_QUERY_EMAIL=True)

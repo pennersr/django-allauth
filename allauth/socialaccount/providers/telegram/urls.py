@@ -1,8 +1,8 @@
-from django.conf.urls import url
+from django.urls import path
 
 from . import views
 
 
 urlpatterns = [
-    url('^telegram/login/$', views.telegram_login, name="telegram_login")
+    path('telegram/login/', views.telegram_login, name="telegram_login")
 ]

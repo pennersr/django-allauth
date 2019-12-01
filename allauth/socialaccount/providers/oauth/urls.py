@@ -10,10 +10,8 @@ def default_urlpatterns(provider):
         provider.get_package() + '.views.oauth_callback')
 
     urlpatterns = [
-        path('login/',
-            login_view, name=provider.id + "_login"),
-        path('login/callback/', callback_view,
-            name=provider.id + "_callback"),
+        path('login/', login_view, name=provider.id + "_login"),
+        path('login/callback/', callback_view, name=provider.id + "_callback"),
     ]
 
     return [path(provider.get_slug() + '/', include(urlpatterns))]

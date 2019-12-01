@@ -16,8 +16,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': os.path.join(PROJECT_ROOT, 'example.db'), # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3',  # Add 'postgresql_psycopg2', 'postgresql',
+                                                 # 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': os.path.join(PROJECT_ROOT, 'example.db'),  # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -48,7 +49,7 @@ USE_I18N = True
 # calendars according to the current locale
 USE_L10N = True
 
-LOCALE_PATHS = ( os.path.join(PROJECT_ROOT, 'locale'), )
+LOCALE_PATHS = (os.path.join(PROJECT_ROOT, 'locale'), )
 
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
@@ -82,7 +83,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -124,8 +125,6 @@ AUTHENTICATION_BACKENDS = (
 )
 
 ROOT_URLCONF = 'example.urls'
-
-
 
 INSTALLED_APPS = (
     'django.contrib.auth',

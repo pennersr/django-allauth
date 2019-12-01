@@ -7,6 +7,7 @@ admin.autodiscover()
 urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html')),
     path('accounts/', include('allauth.urls')),
-    path('accounts/profile/', TemplateView.as_view(template_name='profile.html')),
+    path('accounts/profile/',
+         TemplateView.as_view(template_name='profile.html')),
     path('admin/', admin.site.urls),
 ]

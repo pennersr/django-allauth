@@ -3,9 +3,7 @@ from allauth.socialaccount.providers.amazon_cognito.utils import (
     convert_to_python_bool_if_value_is_json_string_bool,
 )
 from allauth.socialaccount.providers.base import ProviderAccount
-from allauth.socialaccount.providers.oauth2.provider import (
-    OAuth2Provider,
-)
+from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class AmazonCognitoAccount(ProviderAccount):

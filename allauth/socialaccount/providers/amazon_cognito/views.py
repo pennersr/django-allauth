@@ -6,8 +6,8 @@ from allauth.socialaccount.providers.amazon_cognito.provider import (
 )
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
-    OAuth2LoginView,
     OAuth2CallbackView,
+    OAuth2LoginView,
 )
 
 

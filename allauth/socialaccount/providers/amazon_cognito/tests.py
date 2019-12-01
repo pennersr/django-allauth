@@ -1,11 +1,9 @@
 import json
-from typing import Any, Dict
 
-from allauth.socialaccount.models import SocialAccount
-
-from allauth.account.models import EmailAddress
 from django.test import override_settings
 
+from allauth.account.models import EmailAddress
+from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers.amazon_cognito.provider import (
     AmazonCognitoProvider,
 )
@@ -13,10 +11,10 @@ from allauth.socialaccount.providers.amazon_cognito.views import (
     AmazonCognitoOAuth2Adapter,
 )
 from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import TestCase, MockedResponse
+from allauth.tests import MockedResponse, TestCase
 
 
-def _get_mocked_claims():  # type: () -> Dict[str, Any]
+def _get_mocked_claims():
     return {
         "sub": "4993b410-8a1b-4c36-b843-a9c1a697e6b7",
         "given_name": "John",

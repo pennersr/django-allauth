@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from unittest import mock
+
 from django.test.utils import override_settings
 
 from allauth.socialaccount.models import SocialAccount
@@ -9,8 +11,6 @@ from allauth.socialaccount.tests import create_oauth2_tests
 from allauth.tests import MockedResponse, patch
 
 from .provider import BitbucketOAuth2Provider
-
-from unittest import mock
 
 
 @override_settings(SOCIALACCOUNT_QUERY_EMAIL=True)

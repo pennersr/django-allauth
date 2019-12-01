@@ -3,6 +3,7 @@ from urllib.parse import parse_qs, urlparse
 
 from django.test.utils import override_settings
 from django.urls import reverse
+
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers import registry
 from allauth.socialaccount.tests import create_oauth2_tests

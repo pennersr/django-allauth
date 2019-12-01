@@ -2,6 +2,7 @@ from django.urls import path
 
 from . import views
 
+
 urlpatterns = [
     path('login/cancelled/', views.login_cancelled,
          name='socialaccount_login_cancelled'),

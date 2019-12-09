@@ -1,9 +1,9 @@
-from django.conf.urls import url
+from django.urls import path
 
 from . import views
 
 
 urlpatterns = [
-    url('^openid/login/$', views.login, name="openid_login"),
-    url('^openid/callback/$', views.callback, name='openid_callback'),
+    path('openid/login/', views.login, name="openid_login"),
+    path('openid/callback/', views.callback, name='openid_callback'),
 ]

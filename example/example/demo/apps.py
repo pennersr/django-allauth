@@ -23,10 +23,10 @@ def setup_dummy_social_apps(sender, **kwargs):
                 SocialApp.objects.get(provider=provider.id,
                                       sites=site)
             except SocialApp.DoesNotExist:
-                print ("Installing dummy application credentials for %s."
-                       " Authentication via this provider will not work"
-                       " until you configure proper credentials via the"
-                       " Django admin (`SocialApp` models)" % provider.id)
+                print("Installing dummy application credentials for %s."
+                      " Authentication via this provider will not work"
+                      " until you configure proper credentials via the"
+                      " Django admin (`SocialApp` models)" % provider.id)
                 app = SocialApp.objects.create(
                     provider=provider.id,
                     secret='secret',

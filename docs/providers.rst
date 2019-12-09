@@ -1118,7 +1118,7 @@ The OpenID provider can be forced to operate in stateless mode as follows::
                 )]}}
 
 OpenStreetMap
------
+-------------
 
 Register your client application under `My Settings`/`oauth settings`:
 
@@ -1494,7 +1494,7 @@ Make sure to create a Steam SocialApp with that secret key.
 
 
 Strava
------
+------
 
 Register your OAuth2 app in api settings page:
 
@@ -1779,6 +1779,7 @@ Default SCOPE permissions are 'read-only'. If this is the desired functionality,
 in SOCIALACCOUNT_PROVIDERS. Otherwise, adding SCOPE and an empty string will give you read / write.
 
 .. code-block:: python
+
     SOCIALACCOUNT_PROVIDERS = {
         'ynab': {
             'SCOPE': ''

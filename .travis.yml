@@ -4,17 +4,13 @@ language: python
 matrix:
   fast_finish: true
   include:
-    # Python 2.7
-    - python: 2.7
-      env: TOXENV=py27-django111
-
     # Python 3.5
     - python: 3.5
-      env: TOXENV=py35-django111,py35-django20,py35-django21,py35-django22
+      env: TOXENV=py35-django20,py35-django21,py35-django22
 
     # Python 3.6
     - python: 3.6
-      env: TOXENV=py36-django111,py36-django20,py36-django21,py36-django22
+      env: TOXENV=py36-django20,py36-django21,py36-django22
 
     # Python 3.7
     - python: 3.7

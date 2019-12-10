@@ -20,7 +20,6 @@ class EdxProvider(OAuth2Provider):
         """Extract uid ('id') and ensure it's a str."""
         return str(data['username'])
 
-
     def extract_common_fields(self, data):
         return dict(
             email=data.get('email'),

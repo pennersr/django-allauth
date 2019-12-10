@@ -30,9 +30,9 @@ class EdxOAuth2Adapter(OAuth2Adapter):
             params={'access_token': token})
         extra_data = response.json()
 
-        if (extra_data.get('email', None) == None):
+        if extra_data.get('email', None) is None:
             response = requests.get(
-                self.account_url.format(self.provider_base_url, username_data['username']),
+                self.account_url.format(self.provider_base_url, extra_data['username']),
                 params={'access_token': token})
             extra_data = response.json()
 

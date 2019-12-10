@@ -28,12 +28,13 @@ class EdxOAuth2Adapter(OAuth2Adapter):
         response = requests.get(
             self.profile_url,
             params={'access_token': token})
-        username_data = response.json()
-
-        response = requests.get(
-            self.account_url.format(self.provider_base_url, username_data['username']),
-            params={'access_token': token})
         extra_data = response.json()
+
+        if (extra_data.get('email', None) == None):
+            response = requests.get(
+                self.account_url.format(self.provider_base_url, username_data['username']),
+                params={'access_token': token})
+            extra_data = response.json()
 
         return self.get_provider().sociallogin_from_response(
             request,

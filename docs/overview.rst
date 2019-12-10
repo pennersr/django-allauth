@@ -81,6 +81,8 @@ Supported Providers
 
 - Edmodo (OAuth2)
 
+- Edx (open.edx.org) (OAuth2)
+
 - Eve Online (OAuth2)
 
 - Eventbrite (OAuth2)

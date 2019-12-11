@@ -55,6 +55,13 @@ class SteamOpenIDProvider(OpenIDProvider):
             url += "?" + urlencode(kwargs)
         return url
 
+    def get_server_settings(self, endpoint):
+        ret = super().get_server_settings(endpoint)
+        # Steam provider is set to stateless by default.
+        # See: https://github.com/pennersr/django-allauth/pull/1814
+        ret.setdefault("stateless", True)
+        return ret
+
     def sociallogin_from_response(self, request, response):
         steam_id = extract_steam_id(response.identity_url)
         steam_api_key = self.get_app(request).secret

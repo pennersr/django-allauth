@@ -1,6 +1,12 @@
 0.41.0 (Unreleased)
 *******************
 
+Note worthy changes
+-------------------
+
+- The ``facebook`` provider no longer raises ``ImproperlyConfigured``
+  within ``{% providers_media_js %}`` when it is not configured.
+
 Backwards incompatible changes
 ------------------------------
 

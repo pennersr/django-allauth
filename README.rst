@@ -2,9 +2,6 @@
 Welcome to django-allauth!
 ==========================
 
-.. image:: https://badge.fury.io/py/django-allauth.svg
-   :target: http://badge.fury.io/py/django-allauth
-
 .. image:: https://travis-ci.org/pennersr/django-allauth.svg
    :target: http://travis-ci.org/pennersr/django-allauth
 

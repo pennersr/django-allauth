@@ -1,6 +1,12 @@
 0.41.0 (Unreleased)
 *******************
 
+Note worthy changes
+-------------------
+
+- New providers: Exist.io., YNAB, Amazon Cognito.
+
+
 Backwards incompatible changes
 ------------------------------
 

@@ -1188,7 +1188,7 @@ The following Patreon settings are available:
 .. code-block:: python
 
     SOCIALACCOUNT_PROVIDERS = {
-        'paypal': {
+        'patreon': {
             'VERSION': 'v1',
             'SCOPE': ['pledges-to-me', 'users', 'my-campaign'],
         }

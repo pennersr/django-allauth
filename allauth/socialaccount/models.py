@@ -229,7 +229,7 @@ class SocialLogin(object):
         user.save()
         self.account.user = user
         self.account.save()
-        if app_settings.STORE_TOKENS and self.token:
+        if app_settings.STORE_TOKENS and self.token and self.token.app.pk:
             self.token.account = self.account
             self.token.save()
         if connect:
@@ -259,7 +259,7 @@ class SocialLogin(object):
             self.user = self.account.user
             a.save()
             # Update token
-            if app_settings.STORE_TOKENS and self.token:
+            if app_settings.STORE_TOKENS and self.token and self.token.app.pk:
                 assert not self.token.pk
                 try:
                     t = SocialToken.objects.get(account=self.account,

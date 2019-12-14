@@ -45,10 +45,8 @@ class Provider(object):
         raise NotImplementedError("get_login_url() for " + self.name)
 
     def get_app(self, request):
-        # NOTE: Avoid loading models at top due to registry boot...
-        from allauth.socialaccount.models import SocialApp
-
-        return SocialApp.objects.get_current(self.id, request)
+        adapter = get_adapter(request)
+        return adapter.get_app(request, self.id)
 
     def media_js(self, request):
         """

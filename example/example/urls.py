@@ -1,11 +1,13 @@
-from django.conf.urls import include, url
+from django.urls import include, path
 from django.contrib import admin
 from django.views.generic.base import TemplateView
+
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^accounts/', include('allauth.urls')),
-    url(r'^$', TemplateView.as_view(template_name='index.html')),
-    url(r'^accounts/profile/$', TemplateView.as_view(template_name='profile.html')),
-    url(r'^admin/', admin.site.urls),
+    path('', TemplateView.as_view(template_name='index.html')),
+    path('accounts/', include('allauth.urls')),
+    path('accounts/profile/',
+         TemplateView.as_view(template_name='profile.html')),
+    path('admin/', admin.site.urls),
 ]

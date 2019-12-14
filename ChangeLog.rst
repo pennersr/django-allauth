@@ -1,3 +1,22 @@
+0.41.0 (Unreleased)
+*******************
+
+Note worthy changes
+-------------------
+
+- New providers: Exist.io., YNAB, Amazon Cognito.
+
+- You can now store OAuth credentials directly in your
+  ``settings.SOCIALACCOUNT_PROVIDERS`` settings instead of storing them in the
+  database using a ``SocialApp`` record.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Dropped Python 2 and Django 1 compatibility.
+
+
 0.40.0 (2019-08-29)
 *******************
 

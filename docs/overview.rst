@@ -4,9 +4,9 @@ Overview
 Requirements
 ------------
 
-- Python 2.7, 3.3, 3.4, 3.5 or 3.6
+- Python 3.5, 3.6, 3.7 or 3.8
 
-- Django (1.11+)
+- Django (2.0+)
 
 - python-openid or python3-openid (depending on your Python version)
 
@@ -40,6 +40,8 @@ Supported Providers
 - AgaveAPI (OAuth2)
 
 - Amazon (OAuth2)
+
+- Amazon Cognito (OAuth2)
 
 - AngelList (OAuth2)
 
@@ -86,6 +88,8 @@ Supported Providers
 - Eventbrite (OAuth2)
 
 - Evernote (OAuth)
+
+- Exist (OAuth2)
 
 - Facebook (both OAuth2 and JS SDK)
 
@@ -192,6 +196,8 @@ Supported Providers
 - Xing (OAuth)
 
 - Yahoo (OAuth2)
+
+- YNAB (OAuth2)
 
 
 Note: OAuth/OAuth2 support is built using a common code base, making it easy to add support for additional OAuth/OAuth2 providers. More will follow soon...

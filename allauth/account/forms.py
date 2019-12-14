@@ -8,9 +8,7 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core import exceptions, validators
 from django.urls import reverse
-from django.utils.translation import pgettext
-
-from allauth.compat import ugettext, ugettext_lazy as _
+from django.utils.translation import gettext, gettext_lazy as _, pgettext
 
 from ..utils import (
     build_absolute_uri,
@@ -300,10 +298,10 @@ class BaseSignupForm(_base_signup_form_class()):
                 )
             )
         if email_required:
-            self.fields['email'].label = ugettext("E-mail")
+            self.fields['email'].label = gettext("E-mail")
             self.fields['email'].required = True
         else:
-            self.fields['email'].label = ugettext("E-mail (optional)")
+            self.fields['email'].label = gettext("E-mail (optional)")
             self.fields['email'].required = False
             self.fields['email'].widget.is_required = False
             if self.username_required:

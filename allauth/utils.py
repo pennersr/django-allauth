@@ -6,13 +6,14 @@ import re
 import string
 import unicodedata
 from collections import OrderedDict
+from urllib.parse import urlsplit
 
 from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.validators import ValidationError, validate_email
-from django.db.models import FieldDoesNotExist, FileField
+from django.db.models import FileField
 from django.db.models.fields import (
     BinaryField,
     DateField,
@@ -21,9 +22,7 @@ from django.db.models.fields import (
     TimeField,
 )
 from django.utils import dateparse
-from django.utils.encoding import force_bytes
-
-from allauth.compat import force_str, six, urlsplit
+from django.utils.encoding import force_bytes, force_str
 
 
 # Magic number 7: if you run into collisions with this number, then you are
@@ -147,7 +146,7 @@ def email_address_exists(email, exclude_user=None):
 
 
 def import_attribute(path):
-    assert isinstance(path, six.string_types)
+    assert isinstance(path, str)
     pkg, attr = path.rsplit('.', 1)
     ret = getattr(importlib.import_module(pkg), attr)
     return ret
@@ -181,7 +180,7 @@ def serialize_instance(instance):
             if isinstance(field, BinaryField):
                 v = force_str(base64.b64encode(v))
             elif isinstance(field, FileField):
-                if v and not isinstance(v, six.string_types):
+                if v and not isinstance(v, str):
                     v = v.name
             # Check if the field is serializable. If not, we'll fall back
             # to serializing the DB values which should cover most use cases.
@@ -293,10 +292,12 @@ def build_absolute_uri(request, location, protocol=None):
 
 def get_form_class(forms, form_id, default_form):
     form_class = forms.get(form_id, default_form)
-    if isinstance(form_class, six.string_types):
+    if isinstance(form_class, str):
         form_class = import_attribute(form_class)
     return form_class
 
 
 def get_request_param(request, param, default=None):
+    if request is None:
+        return default
     return request.POST.get(param) or request.GET.get(param, default)

@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount',
     'allauth.socialaccount.providers.agave',
     'allauth.socialaccount.providers.amazon',
+    'allauth.socialaccount.providers.amazon_cognito',
     'allauth.socialaccount.providers.angellist',
     'allauth.socialaccount.providers.asana',
     'allauth.socialaccount.providers.auth0',
@@ -80,6 +81,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.eveonline',
     'allauth.socialaccount.providers.evernote',
     'allauth.socialaccount.providers.eventbrite',
+    'allauth.socialaccount.providers.exist',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.feedly',
     'allauth.socialaccount.providers.fivehundredpx',
@@ -139,6 +141,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.windowslive',
     'allauth.socialaccount.providers.xing',
     'allauth.socialaccount.providers.yahoo',
+    'allauth.socialaccount.providers.ynab',
 )
 
 AUTHENTICATION_BACKENDS = (

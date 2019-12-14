@@ -1,7 +1,6 @@
 from xml.etree import ElementTree
 from xml.parsers.expat import ExpatError
 
-from allauth.compat import six
 from allauth.socialaccount.providers.oauth.client import OAuth
 from allauth.socialaccount.providers.oauth.views import (
     OAuthAdapter,
@@ -18,8 +17,6 @@ class OpenStreetMapAPI(OAuth):
 
     def get_user_info(self):
         raw_xml = self.query(self.url)
-        if not six.PY3:
-            raw_xml = raw_xml.encode('utf8')
         try:
             user_element = ElementTree.fromstring(raw_xml).find('user')
             user_info = user_element.attrib

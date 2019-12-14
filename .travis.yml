@@ -1,54 +1,36 @@
 # https://travis-ci.org/pennersr/django-allauth
-dist: xenial
 language: python
-
-python: "3.6"
-
-env:
-  matrix:
-   - TOXENV=py27-django111
-   - TOXENV=py35-django111
-   - TOXENV=py36-django111
-   - TOXENV=py35-django20
-   - TOXENV=py36-django20
-   - TOXENV=py35-django21
-   - TOXENV=py36-django21
-   - TOXENV=py35-django22
-   - TOXENV=py36-django22
-   - TOXENV=py36-djangomaster
-   - TOXENV=docs
-   - TOXENV=checkqa
-   - TOXENV=standardjs
 
 matrix:
   fast_finish: true
   include:
-    - python: "3.5"
-      env: TOXENV=py35-django111
-    - python: "3.5"
-      env: TOXENV=py35-django20
-    - python: "3.5"
-      env: TOXENV=py35-django21
-    - python: "3.5"
-      env: TOXENV=py35-django22
+    # Python 3.5
+    - python: 3.5
+      env: TOXENV=py35-django20,py35-django21,py35-django22
 
-    - python: "3.4"
-      env: TOXENV=py34-django111
-      dist: trusty
-    - python: "3.4"
-      env: TOXENV=py34-django20
-      dist: trusty
-  exclude:
-    - python: "3.6"
-      env: TOXENV=py35-django111
-    - python: "3.6"
-      env: TOXENV=py35-django20
-    - python: "3.6"
-      env: TOXENV=py35-django21
-    - python: "3.6"
-      env: TOXENV=py35-django22
+    # Python 3.6
+    - python: 3.6
+      env: TOXENV=py36-django20,py36-django21,py36-django22
+
+    # Python 3.7
+    - python: 3.7
+      env: TOXENV=py37-django20,py37-django21,py37-django22,docs,checkqa,standardjs
+
+    # Django Master
+    - python: 3.6
+      env: TOXENV=py36-djangomaster
+    - python: 3.7
+      env: TOXENV=py37-djangomaster
+    - python: 3.8
+      env: TOXENV=py38-djangomaster
+
   allow_failures:
-    - env: TOXENV=py36-djangomaster
+    - python: 3.6
+      env: TOXENV=py36-djangomaster
+    - python: 3.7
+      env: TOXENV=py37-djangomaster
+    - python: 3.8
+      env: TOXENV=py38-djangomaster
 
 cache:
   directories:

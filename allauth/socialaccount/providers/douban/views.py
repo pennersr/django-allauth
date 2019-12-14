@@ -1,6 +1,7 @@
 import requests
 
-from allauth.compat import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
+
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,

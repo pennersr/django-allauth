@@ -10,7 +10,7 @@ def _extract_name_field(data, field_name):
     ret = ''
     v = data.get(field_name, {})
     if v:
-        if isinstance(v, (str,)):
+        if isinstance(v, str):
             # Old V1 data
             ret = v
         else:

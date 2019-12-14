@@ -208,3 +208,21 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
         self.assertEqual(len(mail.outbox), 1)
         self.login(self.get_mocked_response(verified_email=False))
         self.assertEqual(len(mail.outbox), 1)
+
+
+@override_settings(
+    SOCIALACCOUNT_PROVIDERS={
+        'google': {
+            'APP': {
+                'client_id': 'app123id',
+                'key': 'google',
+                'secret': 'dummy'
+            }
+        }
+    }
+)
+class AppInSettingsTests(GoogleTests):
+    """
+    Run the same set of tests but without having a SocialApp entry.
+    """
+    pass

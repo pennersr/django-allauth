@@ -48,7 +48,7 @@ def get_default_locale_callable():
 
     def default_locale(request):
         """
-        Guess an appropiate FB locale based on the active Django locale.
+        Guess an appropriate FB locale based on the active Django locale.
         If the active locale is available, it is returned. Otherwise,
         it tries to return another locale with the same language. If there
         isn't one avaible, 'en_US' is returned.

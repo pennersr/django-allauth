@@ -48,6 +48,55 @@ class LinkedInOAuth2Account(ProviderAccount):
             ret = ' '.join([first_name, last_name]).strip()
         return ret
 
+    def get_avatar_url(self):
+        """
+        Attempts the load the avatar associated to the avatar.
+
+        Requires the `profilePicture(displayImage~:playableStreams)`
+        profile field configured in settings.py
+
+        :return:
+        """
+        provider_configuration = self.account.get_provider().get_settings()
+        configured_profile_fields = \
+            provider_configuration.get('PROFILE_FIELDS', [])
+        # Can't get the avatar when this field is not specified
+        picture_field = 'profilePicture(displayImage~:playableStreams)'
+        if picture_field not in configured_profile_fields:
+            return super(LinkedInOAuth2Account, self).get_avatar_url()
+        # Iterate over the fields and attempt to get it by configured size
+        profile_picture_config = \
+            provider_configuration.get('PROFILEPICTURE', {})
+        req_size = \
+            profile_picture_config.get('display_size_w_h', (100.0, 100.0))
+        req_auth_method = \
+            profile_picture_config.get('authorization_method', 'PUBLIC')
+        # Iterate over the data returned by the provider
+        profile_elements = self.account.extra_data\
+            .get('profilePicture', {})\
+            .get('displayImage~', {})\
+            .get('elements', [])
+        for single_element in profile_elements:
+            if not req_auth_method == single_element['authorizationMethod']:
+                continue
+            # Get the dimensions from the payload
+            image_data = single_element.get('data', {})\
+                .get('com.linkedin.digitalmedia.mediaartifact.StillImage', {})\
+                .get('displaySize', {})
+            if not image_data:
+                continue
+            width, height = image_data['width'], image_data['height']
+            if not width or not height:
+                continue
+            if not width == req_size[0] or not height == req_size[1]:
+                continue
+            # Get the uri since actual size matches the requested size.
+            to_return = single_element.get('identifiers', [{}, ])[0]\
+                .get('identifier')
+            if to_return:
+                return to_return
+        return super(LinkedInOAuth2Account, self).get_avatar_url()
+
 
 class LinkedInOAuth2Provider(OAuth2Provider):
     id = 'linkedin_oauth2'

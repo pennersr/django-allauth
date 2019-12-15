@@ -35,7 +35,7 @@ class EmailAddress(models.Model):
             unique_together = [("user", "email")]
 
     def __str__(self):
-        return "%s (%s)" % (self.email, self.user)
+        return self.email
 
     def set_as_primary(self, conditional=False):
         old_primary = EmailAddress.objects.get_primary(self.user)

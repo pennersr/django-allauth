@@ -30,6 +30,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='socialapp',
             name='secret',
-            field=models.CharField(help_text='API secret, client secret, or consumer secret', max_length=191, verbose_name='secret key'),
+            field=models.CharField(help_text='API secret, client secret, or consumer secret', max_length=191, verbose_name='secret key', blank=True),
         ),
     ]

@@ -1218,6 +1218,11 @@ class UtilsTests(TestCase):
             content = t.render(Context({'user': user}))
             self.assertEqual(content, expected_name)
 
+    @override_settings(ALLOWED_HOSTS=['localhost'])
+    def test_is_safe_url_allowed_hosts(self):
+        self.assertTrue(get_adapter().is_safe_url('http://localhost/'))
+        self.assertFalse(get_adapter().is_safe_url('http://example.com/'))
+
 
 class ConfirmationViewTests(TestCase):
     def _create_user(self, username='john', password='doe'):

@@ -419,7 +419,8 @@ class DefaultAccountAdapter(object):
                 is_safe_url as url_has_allowed_host_and_scheme,
             )
 
-        return url_has_allowed_host_and_scheme(url, allowed_hosts=None)
+        return url_has_allowed_host_and_scheme(
+            url, allowed_hosts=settings.ALLOWED_HOSTS)
 
     def get_email_confirmation_url(self, request, emailconfirmation):
         """Constructs the email confirmation (activation) url.

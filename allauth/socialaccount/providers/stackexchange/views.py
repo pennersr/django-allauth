@@ -22,6 +22,7 @@ class StackExchangeOAuth2Adapter(OAuth2Adapter):
                             params={'access_token': token.token,
                                     'key': app.key,
                                     'site': site})
+        resp.raise_for_status()
         extra_data = resp.json()['items'][0]
         return self.get_provider().sociallogin_from_response(request,
                                                              extra_data)

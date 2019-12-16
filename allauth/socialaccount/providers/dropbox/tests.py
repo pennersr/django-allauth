@@ -34,4 +34,4 @@ class DropboxOAuth2Tests(OAuth2TestsMixin, TestCase):
                                   "-DfAs?size=128x128"),
             "referral_link": "https://db.tt/ASDfAsDf"
         }
-        return [MockedResponse(200, json.dumps(payload))]
+        return MockedResponse(200, json.dumps(payload))

@@ -1219,6 +1219,20 @@ class ConfirmationViewTests(TestCase):
         assert mock_perform_login.called
 
 
+class TestResetPasswordForm(TestCase):
+
+    def test_user_email_not_sent_inactive_user(self):
+        User = get_user_model()
+        User.objects.create_user(
+            'mike123',
+            'mike@ixample.org',
+            'test123',
+            is_active=False)
+        data = {'email': 'mike@ixample.org'}
+        form = ResetPasswordForm(data)
+        self.assertFalse(form.is_valid())
+
+
 class TestCVE2019_19844(TestCase):
 
     global_request = RequestFactory().get('/')

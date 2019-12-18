@@ -882,6 +882,15 @@ App registration (get your key here)
 Development callback URL
     http://localhost:8000/accounts/kakao/login/callback/
 
+Keycloak
+--------
+
+Creating and Registering the Client
+    https://www.keycloak.org/docs/latest/getting_started/index.html#creating-and-registering-the-client
+
+Development callback URL
+    http://localhost:8000/accounts/keycloak/login/callback/
+
 
 Line
 ----

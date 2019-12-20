@@ -9,27 +9,27 @@ class EdxTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         print(self)
-        return MockedResponse(200, """{ 
+        return MockedResponse(200, """{
 "username":"krzysztof",
 "bio":null,
 "requires_parental_consent":true,
-"language_proficiencies":[ 
+"language_proficiencies":[
 
 ],
 "name":"Krzysztof Hoffmann",
 "country":null,
-"social_links":[ 
+"social_links":[
 
 ],
 "is_active":true,
-"profile_image":{ 
+"profile_image":{
   "image_url_small":"http://draft.navoica.pl/static/images/profiles/default_30.png",
   "image_url_full":"http://draft.navoica.pl/static/images/profiles/default_500.png",
   "image_url_large":"http://draft.navoica.pl/static/images/profiles/default_120.png",
   "image_url_medium":"http://draft.navoica.pl/static/images/profiles/default_50.png",
   "has_image":false
 },
-"extended_profile":[ 
+"extended_profile":[
 
 ],
 "year_of_birth":null,

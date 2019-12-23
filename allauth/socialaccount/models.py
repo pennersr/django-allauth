@@ -230,7 +230,7 @@ class SocialLogin(object):
         user.save()
         self.account.user = user
         self.account.save()
-        if app_settings.STORE_TOKENS and self.token and self.token.app.pk:
+        if app_settings.STORE_TOKENS and self.token and self.token.app:
             self.token.account = self.account
             self.token.save()
         if connect:

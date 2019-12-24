@@ -1,5 +1,6 @@
 import requests
 import jwt, cryptography
+from urllib.parse import parse_qsl
 
 from django.utils.http import urlencode
 from django.conf import settings

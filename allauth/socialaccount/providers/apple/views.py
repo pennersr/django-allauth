@@ -71,7 +71,7 @@ class AppleOAuth2CallbackView(OAuth2CallbackView):
                 'code':request.POST.get('code'),
                 'state':request.POST.get('state'),
             }
-            return HttpResponseRedirect(f"{url}?{urlencode(params)}")
+            return HttpResponseRedirect('%s?%s' % (url, urlencode(params)))
         if request.method == 'GET':
             return super().dispatch(request, *args, **kwargs)
 

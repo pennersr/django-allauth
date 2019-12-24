@@ -25,16 +25,14 @@ class AppleOAuth2Client(OAuth2Client):
     def generate_client_secret(self):
         APPLE_PROVIDER_SETTINGS = getattr(settings, 'SOCIALACCOUNT_PROVIDERS', {}).get('apple', {})
 
-        APPLEID_TEAM_ID = APPLE_PROVIDER_SETTINGS.get('APPLEID_TEAM_ID', 'APPLEID_TEAM_ID') 
-        CLIENT_ID = APPLE_PROVIDER_SETTINGS.get('CLIENT_ID', None) 
-        SECRET_KEY = APPLE_PROVIDER_SETTINGS.get('SECRET_KEY', None) 
+        MEMBER_ID = APPLE_PROVIDER_SETTINGS.get('MEMBER_ID', None)
+        SECRET_KEY = APPLE_PROVIDER_SETTINGS.get('SECRET_KEY', None)
 
         CURRENT_TIMESTAMP = int(time())
-
         claims = {
-            'iss': APPLEID_TEAM_ID,
+            'iss': MEMBER_ID,
             'aud': 'https://appleid.apple.com',
-            'sub': CLIENT_ID,
+            'sub': self.consumer_key,
             'iat': CURRENT_TIMESTAMP,
             'exp': CURRENT_TIMESTAMP + 15777000,
         }

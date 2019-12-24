@@ -144,8 +144,7 @@ In settings.py:
 
     SOCIALACCOUNT_PROVIDERS = {
         'apple': {
-            'APPLEID_TEAM_ID': 'Member ID/App ID Prefix',
-            'CLIENT_ID': 'Service ID identifier',
+            'MEMBER_ID': 'Member ID/App ID Prefix',
             'SECRET_KEY' : """-----PRIVATE KEY-----"""
         }
     }

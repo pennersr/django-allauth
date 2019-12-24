@@ -1,3 +1,12 @@
+0.42.0 (Unreleased)
+*******************
+
+Note worthy changes
+-------------------
+
+- New provider: Apple.
+
+
 0.41.0 (Unreleased)
 *******************
 

@@ -9,7 +9,6 @@ from collections import OrderedDict
 from urllib.parse import urlsplit
 
 import django
-
 from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured

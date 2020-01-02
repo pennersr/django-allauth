@@ -109,6 +109,8 @@ Supported Providers
 
 - Hubic (OAuth2)
 
+- HubSpot (OAuth2)
+
 - Instagram (OAuth2)
 
 - JupyterHub (OAuth2)

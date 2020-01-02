@@ -843,6 +843,14 @@ depending on whether or not ``SOCIALACCOUNT_QUERY_EMAIL`` is enabled.
 You must set ``AUTH_PARAMS['access_type']`` to ``offline`` in order to
 receive a refresh token on first login and on reauthentication requests.
 
+HubSpot
+---------
+
+App registration (get your client id and secret here)
+    https://app.hubspot.com/myaccounts-beta
+
+Development callback URL
+    http://localhost:8000/accounts/hubspot/login/callback/
 
 Instagram
 ---------

@@ -11,7 +11,7 @@ Security notice
 Note worthy changes
 -------------------
 
-- New providers: Exist.io., YNAB, Amazon Cognito.
+- New providers: Exist.io., YNAB, Amazon Cognito, HubSpot.
 
 - You can now store OAuth credentials directly in your
   ``settings.SOCIALACCOUNT_PROVIDERS`` settings instead of storing them in the

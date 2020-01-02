@@ -9,10 +9,8 @@ class HubSpotTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(200, """
-        {
-          "data": [{
-            "user_id": "44322889",
-            "username": "login@provider.com"
-          }]
-        }
-        """)  # noqa
+            {
+                "id": 2,
+                "username": "login@provider.com",
+            }
+        """)

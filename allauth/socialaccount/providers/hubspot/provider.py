@@ -18,9 +18,14 @@ class HubSpotProvider(OAuth2Provider):
     def extract_common_fields(self, data):
         return dict(username=data.get('user'))
 
+    def extract_uid(self, data):
+        return str(data['user_id'])
+
     def get_default_scope(self):
         scope = [Scope.oauth2]
         return scope
+
+
 
 
 provider_classes = [HubSpotProvider]

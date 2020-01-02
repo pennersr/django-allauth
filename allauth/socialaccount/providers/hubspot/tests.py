@@ -11,6 +11,7 @@ class HubSpotTests(OAuth2TestsMixin, TestCase):
         return MockedResponse(200, """
         {
           "data": [{
+            "user_id": "44322889",
             "username": "login@provider.com"
           }]
         }

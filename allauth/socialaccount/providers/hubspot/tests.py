@@ -9,5 +9,5 @@ class HubSpotTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         return MockedResponse(200, """
-        {"username": "user@example.com",}
+        {"username": "user@example.com"}
         """)

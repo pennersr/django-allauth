@@ -12,7 +12,7 @@ class HubSpotTests(OAuth2TestsMixin, TestCase):
           {
             "data": [{
               "id": "2",
-              "username": "login@provider.com",
+              "username": "login@provider.com"
             }]
           }  
-        """)
+        """)  # noqa

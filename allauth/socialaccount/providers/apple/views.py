@@ -1,23 +1,23 @@
-import jwt
 import json
 import requests
 from datetime import timedelta
-from django.views.decorators.csrf import csrf_exempt
+
+from django.http import HttpResponseRedirect
 from django.utils import timezone
 from django.utils.http import urlencode
+from django.views.decorators.csrf import csrf_exempt
 
+import jwt
+
+from allauth.socialaccount.models import SocialApp, SocialToken
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
     OAuth2LoginView,
 )
 
-from .provider import AppleProvider
 from .client import AppleOAuth2Client
-
-from allauth.socialaccount.models import SocialLogin, SocialToken, SocialApp
-
-from django.http import HttpResponseRedirect
+from .provider import AppleProvider
 
 
 class AppleOAuth2Adapter(OAuth2Adapter):
@@ -25,7 +25,7 @@ class AppleOAuth2Adapter(OAuth2Adapter):
     access_token_url = 'https://appleid.apple.com/auth/token'
     authorize_url = 'https://appleid.apple.com/auth/authorize'
     public_key_url = 'https://appleid.apple.com/auth/keys'
-    
+
     def get_public_key(self):
         apple_public_key = requests.get(self.public_key_url).json()['keys'][0]
         public_key = jwt.algorithms.RSAAlgorithm.from_jwk(
@@ -46,7 +46,7 @@ class AppleOAuth2Adapter(OAuth2Adapter):
         client_id = self.get_client_id(provider)
 
         token.user_data = jwt.decode(
-            data['id_token'], 
+            data['id_token'],
             public_key,
             algorithm="RS256",
             verify=True,
@@ -60,11 +60,16 @@ class AppleOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         extra_data = token.user_data
-        login = self.get_provider().sociallogin_from_response(request, extra_data)
+        login = self.get_provider().sociallogin_from_response(
+            request, extra_data
+        )
         return login
 
+
 class AppleOAuth2LoginView(OAuth2LoginView):
-    """ Custom AppleOAuth2LoginView to return AppleOAuth2Client """
+    """
+    Custom AppleOAuth2LoginView to return AppleOAuth2Client
+    """
 
     def get_client(self, request, app):
         client = super(AppleOAuth2LoginView, self).get_client(request, app)
@@ -74,8 +79,9 @@ class AppleOAuth2LoginView(OAuth2LoginView):
             client.callback_url, client.scope)
         return apple_client
 
+
 class AppleOAuth2CallbackView(OAuth2CallbackView):
-    """ 
+    """
     Custom OAuth2CallbackView because `Sign In With Apple`:
         * returns AppleOAuth2Client
         * Apple requests callback by POST
@@ -93,8 +99,8 @@ class AppleOAuth2CallbackView(OAuth2CallbackView):
         if request.method == 'POST':
             url = request.build_absolute_uri(request.get_full_path())
             params = {
-                'code':request.POST.get('code'),
-                'state':request.POST.get('state'),
+                'code': request.POST.get('code'),
+                'state': request.POST.get('state'),
             }
             return HttpResponseRedirect('%s?%s' % (url, urlencode(params)))
         if request.method == 'GET':
@@ -102,4 +108,6 @@ class AppleOAuth2CallbackView(OAuth2CallbackView):
 
 
 oauth2_login = AppleOAuth2LoginView.adapter_view(AppleOAuth2Adapter)
-oauth2_callback = csrf_exempt(AppleOAuth2CallbackView.adapter_view(AppleOAuth2Adapter))
+oauth2_callback = csrf_exempt(
+    AppleOAuth2CallbackView.adapter_view(AppleOAuth2Adapter)
+)

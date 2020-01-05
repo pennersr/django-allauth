@@ -1,15 +1,17 @@
 import requests
-import jwt, cryptography
+from time import time
 from urllib.parse import parse_qsl
 
-from django.utils.http import urlencode
 from django.conf import settings
-from time import time
+from django.utils.http import urlencode
+
+import jwt
 
 from allauth.socialaccount.providers.oauth2.client import (
     OAuth2Client,
     OAuth2Error,
 )
+
 
 class Scope(object):
     EMAIL = 'email'
@@ -20,11 +22,13 @@ class AppleOAuth2Client(OAuth2Client):
     """
     Custom client because `Sign In With Apple`:
         * requires `response_mode` field in redirect_url
-        * requires special `client_secret` as JWT 
+        * requires special `client_secret` as JWT
     """
 
     def generate_client_secret(self):
-        APPLE_PROVIDER_SETTINGS = getattr(settings, 'SOCIALACCOUNT_PROVIDERS', {}).get('apple', {})
+        APPLE_PROVIDER_SETTINGS = getattr(
+            settings, 'SOCIALACCOUNT_PROVIDERS', {}
+        ).get('apple', {})
 
         MEMBER_ID = APPLE_PROVIDER_SETTINGS.get('MEMBER_ID', None)
         SECRET_KEY = APPLE_PROVIDER_SETTINGS.get('SECRET_KEY', None)
@@ -39,9 +43,9 @@ class AppleOAuth2Client(OAuth2Client):
         }
         headers = {'kid': self.consumer_secret, 'alg': 'ES256'}
         client_secret = jwt.encode(
-            payload=claims, 
-            key=SECRET_KEY, 
-            algorithm='ES256', 
+            payload=claims,
+            key=SECRET_KEY,
+            algorithm='ES256',
             headers=headers
         ).decode('utf-8')
         return client_secret
@@ -74,8 +78,7 @@ class AppleOAuth2Client(OAuth2Client):
                               % resp.content)
         return access_token
 
-
-    def get_redirect_url(self, authorization_url, extra_params):       
+    def get_redirect_url(self, authorization_url, extra_params):
         params = {
             'client_id': self.consumer_key,
             'redirect_uri': self.callback_url,

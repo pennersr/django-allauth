@@ -8,7 +8,7 @@ class AppleProvider(OAuth2Provider):
 
     def extract_uid(self, data):
         return str(data['sub'])
-        
+
     def extract_common_fields(self, data):
         return dict(
             email=data.get('email'),
@@ -23,5 +23,6 @@ class AppleProvider(OAuth2Provider):
         if email and data.get('email_verified'):
             ret.append(EmailAddress(email=email, verified=True, primary=True))
         return ret
+
 
 provider_classes = [AppleProvider]

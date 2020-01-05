@@ -1,5 +1,4 @@
 0.42.0 (Unreleased)
-*******************
 
 Note worthy changes
 -------------------
@@ -7,8 +6,14 @@ Note worthy changes
 - New provider: Apple.
 
 
-0.41.0 (Unreleased)
-*******************
+0.41.0 (2019-12-18)
+
+Security notice
+---------------
+
+- See `CVE-2019-19844
+  <https://www.djangoproject.com/weblog/2019/dec/18/security-releases/>`_.
+
 
 Note worthy changes
 -------------------

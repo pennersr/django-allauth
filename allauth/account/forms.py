@@ -499,7 +499,7 @@ class ResetPasswordForm(forms.Form):
     def clean_email(self):
         email = self.cleaned_data["email"]
         email = get_adapter().clean_email(email)
-        self.users = filter_users_by_email(email)
+        self.users = filter_users_by_email(email, is_active=True)
         if not self.users:
             raise forms.ValidationError(_("The e-mail address is not assigned"
                                           " to any user account"))

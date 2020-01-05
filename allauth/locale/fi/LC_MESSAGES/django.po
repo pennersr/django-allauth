@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-29 16:33-0500\n"
+"POT-Creation-Date: 2019-12-18 11:53-0600\n"
 "PO-Revision-Date: 2015-08-13 15:17+0300\n"
 "Last-Translator: Anonymous User <seppo.erviala@iki.fi>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,161 +37,161 @@ msgstr "Tämä sähköpostiosoite on jo käytössä."
 msgid "Password must be a minimum of {0} characters."
 msgstr "Salasanan tulee olla vähintään {0} merkkiä pitkä."
 
-#: account/apps.py:8
+#: account/apps.py:7
 msgid "Accounts"
 msgstr "Tili"
 
-#: account/forms.py:63 account/forms.py:400
+#: account/forms.py:61 account/forms.py:398
 msgid "You must type the same password each time."
 msgstr "Salasanojen tulee olla samat."
 
-#: account/forms.py:93 account/forms.py:367 account/forms.py:478
+#: account/forms.py:91 account/forms.py:365 account/forms.py:476
 msgid "Password"
 msgstr "Salasana"
 
-#: account/forms.py:94
+#: account/forms.py:92
 msgid "Remember Me"
 msgstr "Muista minut"
 
-#: account/forms.py:100
+#: account/forms.py:98
 msgid "This account is currently inactive."
 msgstr "Tämä tili on poistettu käytöstä."
 
-#: account/forms.py:103
+#: account/forms.py:101
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "Annettu sähköposti tai salasana ei ole oikein."
 
-#: account/forms.py:106
+#: account/forms.py:104
 msgid "The username and/or password you specified are not correct."
 msgstr "Annettu käyttäjänimi tai salasana ei ole oikein."
 
-#: account/forms.py:115 account/forms.py:270 account/forms.py:428
-#: account/forms.py:497
+#: account/forms.py:113 account/forms.py:268 account/forms.py:426
+#: account/forms.py:495
 msgid "E-mail address"
 msgstr "Sähköpostiosoite"
 
-#: account/forms.py:117 account/forms.py:303 account/forms.py:423
-#: account/forms.py:492
+#: account/forms.py:115 account/forms.py:301 account/forms.py:421
+#: account/forms.py:490
 msgid "E-mail"
 msgstr "Sähköposti"
 
-#: account/forms.py:122 account/forms.py:125 account/forms.py:262
-#: account/forms.py:266
+#: account/forms.py:120 account/forms.py:123 account/forms.py:260
+#: account/forms.py:264
 msgid "Username"
 msgstr "Käyttäjänimi"
 
-#: account/forms.py:132
+#: account/forms.py:130
 msgid "Username or e-mail"
 msgstr "Käyttäjänimi tai sähköposti"
 
-#: account/forms.py:135
+#: account/forms.py:133
 msgctxt "field label"
 msgid "Login"
 msgstr "Käyttäjätunnus"
 
-#: account/forms.py:294
+#: account/forms.py:292
 #, fuzzy
 #| msgid "E-mail (optional)"
 msgid "E-mail (again)"
 msgstr "Sähköpostiosoite (valinnainen)"
 
-#: account/forms.py:298
+#: account/forms.py:296
 #, fuzzy
 #| msgid "email confirmation"
 msgid "E-mail address confirmation"
 msgstr "sähköpostivarmistus"
 
-#: account/forms.py:306
+#: account/forms.py:304
 msgid "E-mail (optional)"
 msgstr "Sähköpostiosoite (valinnainen)"
 
-#: account/forms.py:347
+#: account/forms.py:345
 #, fuzzy
 #| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
 msgstr "Salasanojen tulee olla samat."
 
-#: account/forms.py:370 account/forms.py:479
+#: account/forms.py:368 account/forms.py:477
 msgid "Password (again)"
 msgstr "Salasana (uudestaan)"
 
-#: account/forms.py:434
+#: account/forms.py:432
 msgid "This e-mail address is already associated with this account."
 msgstr "Sähköpostiosoite on jo liitetty tähän tilliin."
 
-#: account/forms.py:436
+#: account/forms.py:434
 msgid "This e-mail address is already associated with another account."
 msgstr "Sähköpostiosoite on jo liitetty toiseen tiliin."
 
-#: account/forms.py:458
+#: account/forms.py:456
 msgid "Current Password"
 msgstr "Nykyinen salasana"
 
-#: account/forms.py:459 account/forms.py:548
+#: account/forms.py:457 account/forms.py:546
 msgid "New Password"
 msgstr "Uusi salasana"
 
-#: account/forms.py:460 account/forms.py:549
+#: account/forms.py:458 account/forms.py:547
 msgid "New Password (again)"
 msgstr "Uusi salasana (uudestaan)"
 
-#: account/forms.py:468
+#: account/forms.py:466
 msgid "Please type your current password."
 msgstr "Ole hyvä ja anna nykyinen salasanasi."
 
-#: account/forms.py:506
+#: account/forms.py:504
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Sähköpostiosoite ei vastaa yhtäkään käyttäjätiliä."
 
-#: account/forms.py:570
+#: account/forms.py:568
 msgid "The password reset token was invalid."
 msgstr "Salasanan uusimistarkiste ei kelpaa."
 
-#: account/models.py:23
+#: account/models.py:21
 msgid "user"
 msgstr "käyttäjä"
 
-#: account/models.py:27 account/models.py:81
+#: account/models.py:25 account/models.py:78
 msgid "e-mail address"
 msgstr "sähköpostiosoite"
 
-#: account/models.py:28
+#: account/models.py:26
 msgid "verified"
 msgstr "vahvistettu"
 
-#: account/models.py:29
+#: account/models.py:27
 msgid "primary"
 msgstr "ensisijainen"
 
-#: account/models.py:34
+#: account/models.py:32
 msgid "email address"
 msgstr "sähköpostiosoite"
 
-#: account/models.py:35
+#: account/models.py:33
 msgid "email addresses"
 msgstr "sähköpostiosoitteet"
 
-#: account/models.py:83
+#: account/models.py:80
 msgid "created"
 msgstr "luotu"
 
-#: account/models.py:85
+#: account/models.py:82
 msgid "sent"
 msgstr "lähetetty"
 
-#: account/models.py:86 socialaccount/models.py:58
+#: account/models.py:83 socialaccount/models.py:55
 msgid "key"
 msgstr "avain"
 
-#: account/models.py:91
+#: account/models.py:88
 msgid "email confirmation"
 msgstr "sähköpostivarmistus"
 
-#: account/models.py:92
+#: account/models.py:89
 msgid "email confirmations"
 msgstr "sähköpostivarmistukset"
 
-#: socialaccount/adapter.py:27
+#: socialaccount/adapter.py:26
 #, python-format
 msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
@@ -200,107 +200,107 @@ msgstr ""
 "Sähköpostiosoite on jo liitetty olemassaolevaan tiliin. Kirjaudu ensin "
 "kyseiseen tiliin ja liitä %s-tilisi vasta sitten."
 
-#: socialaccount/adapter.py:132
+#: socialaccount/adapter.py:131
 msgid "Your account has no password set up."
 msgstr "Tilillesi ei ole asetettu salasanaa."
 
-#: socialaccount/adapter.py:139
+#: socialaccount/adapter.py:138
 msgid "Your account has no verified e-mail address."
 msgstr "Tiliisi ei ole liitetty vahvistettua sähköpostiosoitetta."
 
-#: socialaccount/apps.py:8
+#: socialaccount/apps.py:7
 msgid "Social Accounts"
 msgstr "Sosiaalisen median tilit"
 
-#: socialaccount/models.py:46 socialaccount/models.py:80
+#: socialaccount/models.py:42 socialaccount/models.py:76
 msgid "provider"
 msgstr "tarjoaja"
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:45
 msgid "name"
 msgstr "nimi"
 
-#: socialaccount/models.py:51
+#: socialaccount/models.py:47
 msgid "client id"
 msgstr "asiakas id"
 
-#: socialaccount/models.py:53
+#: socialaccount/models.py:49
 msgid "App ID, or consumer key"
 msgstr "Sovellus ID tai kuluttajan avain"
 
-#: socialaccount/models.py:54
+#: socialaccount/models.py:50
 msgid "secret key"
 msgstr "salainen avain"
 
-#: socialaccount/models.py:56
+#: socialaccount/models.py:53
 msgid "API secret, client secret, or consumer secret"
 msgstr "API:n, asiakkaan tai kuluttajan salaisuus"
 
-#: socialaccount/models.py:61
+#: socialaccount/models.py:58
 msgid "Key"
 msgstr "Avain"
 
-#: socialaccount/models.py:69
+#: socialaccount/models.py:66
 msgid "social application"
 msgstr "sosiaalinen applikaatio"
 
-#: socialaccount/models.py:70
+#: socialaccount/models.py:67
 msgid "social applications"
 msgstr "sosiaaliset applikaatiot"
 
-#: socialaccount/models.py:99
+#: socialaccount/models.py:95
 msgid "uid"
 msgstr "uid"
 
-#: socialaccount/models.py:101
+#: socialaccount/models.py:97
 msgid "last login"
 msgstr "viimeisin sisäänkirjautuminen"
 
-#: socialaccount/models.py:103
+#: socialaccount/models.py:99
 msgid "date joined"
 msgstr "liittymispäivämäärä"
 
-#: socialaccount/models.py:105
+#: socialaccount/models.py:101
 msgid "extra data"
 msgstr "lisätiedot"
 
-#: socialaccount/models.py:109
+#: socialaccount/models.py:105
 msgid "social account"
 msgstr "sosiaalisen median tili"
 
-#: socialaccount/models.py:110
+#: socialaccount/models.py:106
 msgid "social accounts"
 msgstr "sosiaalisen median tilit"
 
-#: socialaccount/models.py:136
+#: socialaccount/models.py:131
 msgid "token"
 msgstr ""
 
-#: socialaccount/models.py:138
+#: socialaccount/models.py:133
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:141
+#: socialaccount/models.py:136
 msgid "token secret"
 msgstr ""
 
-#: socialaccount/models.py:143
+#: socialaccount/models.py:138
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:145
+#: socialaccount/models.py:140
 msgid "expires at"
 msgstr "vanhenee"
 
-#: socialaccount/models.py:149
+#: socialaccount/models.py:144
 msgid "social application token"
 msgstr ""
 
-#: socialaccount/models.py:150
+#: socialaccount/models.py:145
 msgid "social application tokens"
 msgstr ""
 
-#: socialaccount/providers/douban/views.py:35
+#: socialaccount/providers/douban/views.py:36
 msgid "Invalid profile data"
 msgstr ""
 

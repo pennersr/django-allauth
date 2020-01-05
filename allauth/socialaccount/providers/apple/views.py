@@ -1,4 +1,6 @@
 import jwt
+import json
+import requests
 from datetime import timedelta
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
@@ -13,7 +15,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 from .provider import AppleProvider
 from .client import AppleOAuth2Client
 
-from allauth.socialaccount.models import SocialLogin, SocialToken
+from allauth.socialaccount.models import SocialLogin, SocialToken, SocialApp
 
 from django.http import HttpResponseRedirect
 
@@ -22,11 +24,34 @@ class AppleOAuth2Adapter(OAuth2Adapter):
     provider_id = AppleProvider.id
     access_token_url = 'https://appleid.apple.com/auth/token'
     authorize_url = 'https://appleid.apple.com/auth/authorize'
-        
+    public_key_url = 'https://appleid.apple.com/auth/keys'
+    
+    def get_public_key(self):
+        apple_public_key = requests.get(self.public_key_url).json()['keys'][0]
+        public_key = jwt.algorithms.RSAAlgorithm.from_jwk(
+            json.dumps(apple_public_key)
+        )
+        return public_key
+
+    def get_client_id(self, provider):
+        app = SocialApp.objects.get(provider=provider.id)
+        return app.client_id
+
     def parse_token(self, data):
         token = SocialToken(token=data['access_token'])
         token.token_secret = data.get('refresh_token', '')
-        token.user_data = jwt.decode(data['id_token'], '', verify=False)
+
+        public_key = self.get_public_key()
+        provider = self.get_provider()
+        client_id = self.get_client_id(provider)
+
+        token.user_data = jwt.decode(
+            data['id_token'], 
+            public_key,
+            algorithm="RS256",
+            verify=True,
+            audience=client_id
+        )
         expires_in = data.get(self.expires_in_key, None)
         if expires_in:
             token.expires_at = timezone.now() + timedelta(

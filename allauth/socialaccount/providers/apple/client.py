@@ -38,7 +38,12 @@ class AppleOAuth2Client(OAuth2Client):
             'exp': CURRENT_TIMESTAMP + 15777000,
         }
         headers = {'kid': self.consumer_secret, 'alg': 'ES256'}
-        client_secret = jwt.encode(payload=claims, key=SECRET_KEY, algorithm='ES256', headers=headers).decode('utf-8')
+        client_secret = jwt.encode(
+            payload=claims, 
+            key=SECRET_KEY, 
+            algorithm='ES256', 
+            headers=headers
+        ).decode('utf-8')
         return client_secret
 
     def get_access_token(self, code):

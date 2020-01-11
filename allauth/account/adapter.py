@@ -28,6 +28,7 @@ from django.utils import timezone
 from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 
+from . import app_settings
 from ..utils import (
     build_absolute_uri,
     email_address_exists,
@@ -35,7 +36,6 @@ from ..utils import (
     get_user_model,
     import_attribute,
 )
-from . import app_settings
 
 
 class DefaultAccountAdapter(object):
@@ -415,7 +415,8 @@ class DefaultAccountAdapter(object):
         try:
             from django.utils.http import url_has_allowed_host_and_scheme
         except ImportError:
-            from django.utils.http import is_safe_url as url_has_allowed_host_and_scheme
+            from django.utils.http import \
+                is_safe_url as url_has_allowed_host_and_scheme
 
         return url_has_allowed_host_and_scheme(url, allowed_hosts=None)
 

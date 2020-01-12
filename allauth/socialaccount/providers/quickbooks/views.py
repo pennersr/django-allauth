@@ -23,12 +23,11 @@ class QuickBooksOAuth2Adapter(OAuth2Adapter):
     access_token_method = 'POST'
 
     def complete_login(self, request, app, token, **kwargs):
-        resp = self.get_user_info(token)
-        extra_data = resp
+        extra_data = self.get_user_info(request, token)
         return self.get_provider().sociallogin_from_response(
             request, extra_data)
 
-    def get_user_info(self, token):
+    def get_user_info(self, request, token):
         auth_header = 'Bearer ' + token.token
         headers = {'Accept': 'application/json',
                    'Authorization': auth_header,
@@ -39,8 +38,8 @@ class QuickBooksOAuth2Adapter(OAuth2Adapter):
             r = requests.get(self.profile_test, headers=headers)
         else:
             r = requests.get(self.profile_url, headers=headers)
-#        status_code = r.status_code
         response = json.loads(r.text)
+        response['realmId'] = request.GET['realmId']
         return response
 
 

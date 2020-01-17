@@ -5,6 +5,7 @@ import json
 import time
 import warnings
 
+import django
 from django import forms
 from django.conf import settings
 from django.contrib import messages
@@ -36,6 +37,11 @@ from ..utils import (
     import_attribute,
 )
 from . import app_settings
+
+if django.VERSION >= (3, 0):
+    from django.utils.http import url_has_allowed_host_and_scheme
+else:
+    from django.utils.http import is_safe_url as url_has_allowed_host_and_scheme
 
 
 class DefaultAccountAdapter(object):
@@ -412,8 +418,7 @@ class DefaultAccountAdapter(object):
                        'first_name', 'last_name', 'email'])
 
     def is_safe_url(self, url):
-        from django.utils.http import is_safe_url
-        return is_safe_url(url, allowed_hosts=None)
+        return url_has_allowed_host_and_scheme(url, allowed_hosts=None)
 
     def get_email_confirmation_url(self, request, emailconfirmation):
         """Constructs the email confirmation (activation) url.

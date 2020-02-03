@@ -80,7 +80,7 @@ instances are created and populated with data
 
 - ``allauth.socialaccount.adapter.DefaultSocialAccountAdapter``:
 
-  - ``is_open_for_signup(self, request)``: The default function
+  - ``is_open_for_signup(self, request, socialaccount)``: The default function
     returns that is the same as ``ACCOUNT_ADAPTER`` in ``settings.py``.
     You can override this method by returning ``True``/``False``
     if you want to enable/disable socialaccount signup.

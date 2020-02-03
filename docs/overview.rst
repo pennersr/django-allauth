@@ -197,6 +197,8 @@ Supported Providers
 
 - Yahoo (OAuth2)
 
+- Yandex (OAuth2)
+
 - YNAB (OAuth2)
 
 

@@ -1,3 +1,12 @@
+0.42.0 (Unreleased)
+*******************
+
+Note worthy changes
+-------------------
+
+- New provider: Yandex (OAuth2)
+
+
 0.41.0 (2019-12-18)
 *******************
 

@@ -121,7 +121,9 @@ METADATA = dict(
     install_requires=['Django >= 2.0',
                       'python3-openid >= 3.0.8',
                       'requests-oauthlib >= 0.3.0',
-                      "requests"],
+                      "requests",
+                      "pyjwt >=1.7",
+                      "cryptography >= 2.8"],
     include_package_data=True,
     classifiers=[
         'Development Status :: 4 - Beta',

@@ -78,6 +78,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.dropbox',
     'allauth.socialaccount.providers.dwolla',
     'allauth.socialaccount.providers.edmodo',
+    'allauth.socialaccount.providers.edx',
     'allauth.socialaccount.providers.eveonline',
     'allauth.socialaccount.providers.evernote',
     'allauth.socialaccount.providers.eventbrite',
@@ -141,6 +142,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.windowslive',
     'allauth.socialaccount.providers.xing',
     'allauth.socialaccount.providers.yahoo',
+    'allauth.socialaccount.providers.yandex',
     'allauth.socialaccount.providers.ynab',
 )
 

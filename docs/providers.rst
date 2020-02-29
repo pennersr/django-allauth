@@ -403,6 +403,23 @@ value is set, the Edmodo provider will use ``basic`` by default:
     }
 
 
+Edx
+------
+
+Open Edx OAuth2 documentation
+    https://course-catalog-api-guide.readthedocs.io/en/latest/authentication/
+
+It is necessary to set ``EDX_URL`` to your open edx installation. If no ``EDX_URL``
+value is set, the Edx provider will use ``https://edx.org`` which does not work:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+      'edx': {
+          'EDX_URL': "https://openedx.local",
+      }
+    }
+
 Eve Online
 ----------
 
@@ -1794,6 +1811,21 @@ Yahoo
 
 Register your OAuth2 app below and enter the resultant client id and secret into admin
     https://developer.yahoo.com/apps/create/
+
+
+Yandex
+------
+
+App registration (get key and secret here)
+    https://oauth.yandex.com/client/new
+
+Development callback URL
+    https://oauth.yandex.com/verification_code
+
+Yandex OAuth app has many different access rights for its services. For the basic access level,
+you just need to a choose "Yandex.Passport API" section and check "Access to email address" and
+"Access to username, first name and surname, gender". Everything else is optional.
+
 
 YNAB
 ------

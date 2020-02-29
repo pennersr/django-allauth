@@ -83,6 +83,8 @@ Supported Providers
 
 - Edmodo (OAuth2)
 
+- Edx (open.edx.org) (OAuth2)
+
 - Eve Online (OAuth2)
 
 - Eventbrite (OAuth2)
@@ -196,6 +198,8 @@ Supported Providers
 - Xing (OAuth)
 
 - Yahoo (OAuth2)
+
+- Yandex (OAuth2)
 
 - YNAB (OAuth2)
 

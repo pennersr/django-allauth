@@ -26,8 +26,10 @@ class AppleOAuth2Adapter(OAuth2Adapter):
     authorize_url = 'https://appleid.apple.com/auth/authorize'
     public_key_url = 'https://appleid.apple.com/auth/keys'
 
-    def get_public_key(self):
-        apple_public_key = requests.get(self.public_key_url).json()['keys'][0]
+    def get_public_key(self, id_token):
+        kid = jwt.get_unverified_header(id_token)['kid']
+        apple_public_key = [d for d in requests.get(self.public_key_url).json()[
+            'keys'] if d['kid'] == kid][0]
         public_key = jwt.algorithms.RSAAlgorithm.from_jwk(
             json.dumps(apple_public_key)
         )
@@ -41,7 +43,7 @@ class AppleOAuth2Adapter(OAuth2Adapter):
         token = SocialToken(token=data['access_token'])
         token.token_secret = data.get('refresh_token', '')
 
-        public_key = self.get_public_key()
+        public_key = self.get_public_key(data['id_token'])
         provider = self.get_provider()
         client_id = self.get_client_id(provider)
 

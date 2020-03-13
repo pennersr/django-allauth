@@ -25,11 +25,11 @@ msgstr "اسم المستخدم غير مسموح به. الرجاء اختيا�
 
 #: account/adapter.py:49
 msgid "Too many failed login attempts. Try again later."
-msgstr ""
+msgstr "تجاوزت الحد المسموح لمحاولة تسجيل الدخول, حاول في وقت لاحق"
 
 #: account/adapter.py:51
 msgid "A user is already registered with this e-mail address."
-msgstr "هنالك مستخدم مسجل سابقا مع نفس عنوان البريد الاكتروني‪.‬"
+msgstr "هنالك مستخدم مسجل سابقا مع نفس عنوان البريد الالكتروني‪.‬"
 
 #: account/adapter.py:294
 #, python-brace-format
@@ -138,7 +138,7 @@ msgstr "لم يتم تعيين عنوان البريد الإلكتروني لأ
 
 #: account/forms.py:568
 msgid "The password reset token was invalid."
-msgstr ""
+msgstr "خطأ في شهادة اعادة تعيين كلمة المرور."
 
 #: account/models.py:21
 msgid "user"
@@ -170,7 +170,7 @@ msgstr "تمّ إنشاؤه"
 
 #: account/models.py:82
 msgid "sent"
-msgstr "مبعوث"
+msgstr "تم ارساله"
 
 #: account/models.py:83 socialaccount/models.py:55
 msgid "key"
@@ -203,7 +203,7 @@ msgstr "حسابك ليس لديه عنوان البريد الإلكتروني 
 
 #: socialaccount/apps.py:7
 msgid "Social Accounts"
-msgstr "الحسابات الاجتماعية"
+msgstr "حسابات التواصل الاجتماعية"
 
 #: socialaccount/models.py:42 socialaccount/models.py:76
 msgid "provider"
@@ -295,7 +295,7 @@ msgstr ""
 
 #: socialaccount/providers/douban/views.py:36
 msgid "Invalid profile data"
-msgstr ""
+msgstr "معلومات بروفايل غير صالحة"
 
 #: socialaccount/providers/oauth/client.py:78
 #, python-format
@@ -361,7 +361,7 @@ msgstr "اجعله اولي"
 
 #: templates/account/email.html:35
 msgid "Re-send Verification"
-msgstr "ابعث رسالة التحقيق مرة أخرى"
+msgstr "اعادة ارسال رسالة التأكيد"
 
 #: templates/account/email.html:36 templates/socialaccount/connections.html:35
 msgid "Remove"
@@ -376,13 +376,13 @@ msgid ""
 "You currently do not have any e-mail address set up. You should really add "
 "an e-mail address so you can receive notifications, reset your password, etc."
 msgstr ""
-"أنت حاليا ليس لديك أي عنوان البريد الإلكتروني. يجب أن تضيف عنوان البريد "
-"الإلكتروني حتى تتمكن من تلقي الإخطارات، إعادة تعيين كلمة المرور الخاصة بك، "
+"ليس لديك أي عنوان البريد الإلكتروني. يجب أن تضيف عنوان البريد"
+"الإلكتروني حتى تتمكن من تلقي الاشعارات, إعادة تعيين كلمة المرور الخاصة بك، "
 "الخ"
 
 #: templates/account/email.html:48
 msgid "Add E-mail Address"
-msgstr "أضف عنوان البريد الاكتريني"
+msgstr "أضف عنوان البريد الالكتروني"
 
 #: templates/account/email.html:53
 msgid "Add E-mail"
@@ -390,15 +390,9 @@ msgstr "أضف عنوان البريد الالكتروني"
 
 #: templates/account/email.html:62
 msgid "Do you really want to remove the selected e-mail address?"
-msgstr "هل تريد حقا ان تحذف عنوان البريد الاكتروني المختار؟"
+msgstr "هل تريد حقا ان تحذف عنوان البريد الالكتروني المحدد؟"
 
 #: templates/account/email/email_confirmation_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "User %(user_display)s at %(site_name)s has given this as an email "
-#| "address.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s\n"
 msgid ""
 "Hello from %(site_name)s!\n"
 "\n"
@@ -407,10 +401,12 @@ msgid ""
 "\n"
 "To confirm this is correct, go to %(activate_url)s\n"
 msgstr ""
-"المستخدم %(user_display)s في الموقع %(site_name)s أعطى هذا كعنوان بريد "
-"إلكتروني.\n"
-"‏\n"
-"لتأكيد هذه المعلومات صحيحة، انتقل إلى %(activate_url)s\n"
+"مرحبا من %(site_name)s!\n"
+"\n"
+"تتلقى هذه الرسالة بسبب أن المستخدم %(user_display)s قام باضافة بريدك الالكترني "
+"لحسابه في الموقع.\n"
+"\n"
+"لتأكيد صحة هذا الاجراء, اضغط على الرابط %(activate_url)s\n"
 
 #: templates/account/email/email_confirmation_message.txt:7
 #, python-format
@@ -423,7 +419,7 @@ msgstr ""
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your E-mail Address"
-msgstr "قم بتأكيد عنوان البريد الاكتروني"
+msgstr "قم بتأكيد عنوان البريد الالكتروني"
 
 #: templates/account/email/password_reset_key_message.txt:1
 msgid ""
@@ -462,7 +458,7 @@ msgstr "البريد الإلكتروني لإعادة تعيين كلمة ال�
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
 msgid "Confirm E-mail Address"
-msgstr "قم بتحقيق عنوان البريد الاكتروني"
+msgstr "قم بتحقيق عنوان البريد الالكتروني"
 
 #: templates/account/email_confirm.html:16
 #, python-format
@@ -547,7 +543,7 @@ msgstr "قد اكّدت عنوان البريد الالكتروني %(email)s."
 #: templates/account/messages/email_deleted.txt:2
 #, python-format
 msgid "Removed e-mail address %(email)s."
-msgstr "قد أزلنا عنوان البريد الاكتروني %(email)s."
+msgstr "قد أزلنا عنوان البريد الالكتروني %(email)s."
 
 #: templates/account/messages/logged_in.txt:4
 #, python-format

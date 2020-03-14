@@ -1701,6 +1701,20 @@ The configuration values come from your API dashboard on Untappd:
 * Secret key: "Client Secret" from Untappd
 * Sites: choose your site
 
+In addition, you should override your user agent to comply with Untappd's API
+rules, and specify something in the format
+``<platform>:<app ID>:<version string>``. Otherwise,
+you will risk additional rate limiting in your application.
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'untappd': {
+            'USER_AGENT': 'django:myappid:1.0',
+        }
+    }
+
+
 
 Telegram
 --------

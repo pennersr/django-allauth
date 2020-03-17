@@ -564,7 +564,7 @@ msgstr "Hasło zostało ustawione."
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary e-mail address set."
-msgstr "Ustaw podstawowy adres e-mail."
+msgstr "Podstawowy adres e-mail został ustawiony."
 
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary e-mail address must be verified."

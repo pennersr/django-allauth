@@ -1,3 +1,5 @@
+import logging
+
 import requests
 
 from allauth.socialaccount.providers.oauth2.views import (
@@ -8,6 +10,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 from .provider import AmazonProvider
 
+log = logging.getLogger(__name__)
 
 class AmazonOAuth2Adapter(OAuth2Adapter):
     provider_id = AmazonProvider.id
@@ -21,6 +24,12 @@ class AmazonOAuth2Adapter(OAuth2Adapter):
         response = requests.get(
             self.profile_url,
             params={'access_token': token})
+        log.debug(
+            f'{self.__class__.__name__}. complete_login '
+            f'user_id -> {request.user.id} '
+            f'status code -> {response.status_code} '
+            f'response text -> {response.text}'
+        )
         extra_data = response.json()
         if 'Profile' in extra_data:
             extra_data = {

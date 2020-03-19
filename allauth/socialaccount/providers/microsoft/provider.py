@@ -11,6 +11,7 @@ class MicrosoftGraphAccount(ProviderAccount):
         if not name is None:
             if name.strip() != '':
                 return name
+            return name
         return super(MicrosoftGraphAccount, self).to_str()
 
 

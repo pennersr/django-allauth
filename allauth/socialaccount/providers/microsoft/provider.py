@@ -8,8 +8,8 @@ class MicrosoftGraphAccount(ProviderAccount):
 
     def to_str(self):
         name = self.account.extra_data.get('displayName')
-        if not name is None:
-            if name.strip() != '':
+        if name:
+            name.strip() != ''
                 return name
         else:
             return name

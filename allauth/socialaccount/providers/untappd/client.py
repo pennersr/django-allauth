@@ -32,7 +32,7 @@ class UntappdOAuth2Client(OAuth2Client):
         # Allow custom User Agent to comply with Untappd API
         settings = app_settings.PROVIDERS.get(UntappdProvider.id, {})
         headers = {
-            'User-Agent': settings.get('USER_AGENT', 'django-allauth-header')}
+            'User-Agent': settings.get('USER_AGENT', 'django-allauth')}
         # TODO: Proper exception handling
         resp = requests.request(self.access_token_method,
                                 url,

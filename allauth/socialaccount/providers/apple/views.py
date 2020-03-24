@@ -27,9 +27,14 @@ class AppleOAuth2Adapter(OAuth2Adapter):
     public_key_url = 'https://appleid.apple.com/auth/keys'
 
     def get_public_key(self, id_token):
+        """
+        Get the public key which matches the `kid` in the id_token header.
+        """
         kid = jwt.get_unverified_header(id_token)['kid']
-        apple_public_key = [d for d in requests.get(self.public_key_url).json()[
-            'keys'] if d['kid'] == kid][0]
+        apple_public_key = [
+            d for d in requests.get(self.public_key_url).json()['keys']
+            if d['kid'] == kid
+        ][0]
         public_key = jwt.algorithms.RSAAlgorithm.from_jwk(
             json.dumps(apple_public_key)
         )
@@ -50,7 +55,7 @@ class AppleOAuth2Adapter(OAuth2Adapter):
         token.user_data = jwt.decode(
             data['id_token'],
             public_key,
-            algorithm="RS256",
+            algorithms=["RS256"],
             verify=True,
             audience=client_id
         )

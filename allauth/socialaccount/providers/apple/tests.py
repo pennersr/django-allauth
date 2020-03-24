@@ -1,22 +1,173 @@
+import json
+from datetime import datetime, timedelta
+
+from django.test.utils import override_settings
+from django.urls import reverse
+
+import jwt
+
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase
 
 from .provider import AppleProvider
 
 
+# Generated on https://mkjwk.org/, used to sign and verify the apple id_token
+TESTING_JWT_KEYSET = {
+    "p": (
+        "4ADzS5jKx_kdQihyOocVS0Qwwo7m0f7Ow56EadySJ-cmnwoHHF3AxgRaq-h-KwybSphv"
+        "dc-X7NbS79-b9dumHKyt1MeVLAsDZD1a-uQCEneY1g9LsQkscNr7OggcpvMg5UUFwv6A"
+        "kavu8cB0iyhNdha5_AWX27K5lNebvpaXEJ8"
+    ),
+    "kty": "RSA",
+    "q": (
+        "yy5UvMjrvZyO1Os_nxXIugCa3NyWOkC8oMppPvr1Bl5AnF_xwXN2n9ozPd9Nb3Q3n-om"
+        "NgLayyUxhwIjWDlI67Vbx-ESuff8ZEBKuTK0Gdmr4C_QU_j0gvvNMNJweSPxDdRmIUgO"
+        "njTVNWmdqFTZs43jXAT4J519rgveNLAkGNE"
+    ),
+    "d": (
+        "riPuGIDde88WS03CVbo_mZ9toFWPyTxvuz8VInJ9S1ZxULo-hQWDBohWGYwvg8cgfXck"
+        "cqWt5OBqNvPYdLgwb84uVi2JeEHmhcQSc_x0zfRTau5HVE2KdR-gWxQjPWoaBHeDVqwo"
+        "PKaU2XYxa-gYDXcuSJWHz3BX13oInDEFCXr6VwiLiwLBFsb63EEHwyWXJbTpoar7AARW"
+        "kz76qtngDkk4t9gk_Q0L1y1qf1GeWiAL7xWb-bdptma4-1ui-R2219-1ONEZ41v_jsIS"
+        "_z8ooXmVCbUsHV4Z1UDpRvpORVE3u57WK3qXUdAtZsXjaIwkdItbDmL1jFUgefwfO91Y"
+        "YQ"
+    ),
+    "e": "AQAB",
+    "use": "sig",
+    "kid": "testkey",
+    "qi": (
+        "R0Hu4YmpHzw3SKWGYuAcAo6B97-JlN2fXiTjZ2g8eHGQX7LSoKEu0Hmu5hcBZYSgOuor"
+        "IPsPUu3mNtx3pjLMOaJRk34VwcYu7h23ogEKGcPUt1c4tTotFDdw8WFptDOw4ow31Tml"
+        "BPExLqzzGjJeQSNULB1bExuuhYMWx6wBXo8"
+    ),
+    "dp": (
+        "WBaHlnbjZ3hDVTzqjrGIYizSr-_aPUJitPKlR6wBncd8nJYo7bLAmB4mOewXkX5HozIG"
+        "wuF78RsZoFLi1fAmhqgxQ7eopcU-9DBcksUPO4vkgmlJbrkYzNiQauW9vrllekOGXIQQ"
+        "szhVoqP4MLEMpR-Sy9S3PyItcKbJDE3T4ik"
+    ),
+    "alg": "RS256",
+    "dq": (
+        "Ar5kbIw2CsBzeVKX8FkF9eUOMk9URAMdyPoSw8P1zRk2vCXbiOY7Qttad8ptLEUgfytV"
+        "SsNtGvMsoQsZWRak8nHnhGJ4s0QzB1OK7sdNgU_cL1HV-VxSSPaHhdJBrJEcrzggDPEB"
+        "KYfDHU6Iz34d1nvjBxoWE8rfqJsGbCW4xxE"
+    ),
+    "n": (
+        "sclLPioUv4VOcOZWAKoRhcvwIH2jOhoHhSI_Cj5c5zSp7qaK8jCU6T7-GObsgrhpty-k"
+        "26ZuqRdgu9d-62WO8OBGt1e0wxbTh128-nTTrOESHUlV_K1wpJmXOxNpJiybcgzZNbAm"
+        "ACmsHfxZvN9bt7gKPXxf3-_zFAf12PbYMrOionAJ1N_4HxL7fz3xkr5C87Av06QNilIC"
+        "-mA-4n9Eqw_R2DYNpE3RYMdWtwKqBwJC8qs3677RpG9vcc-yZ_97pEiytd2FBJ8uoTwH"
+        "d3DHJB8UVgBSh1kMUpSdoM7HxVzKx732nx6Kusln79LrsfOzrXF4enkfKJYI40-uwT95"
+        "zw"
+    ),
+}
+
+MOCK_APPLE_API_JWT_SIGNING_KEY = """-----BEGIN PRIVATE KEY-----
+MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQg2+Eybl8ojH4wB30C
+3/iDkpsrxuPfs3DZ+3nHNghBOpmhRANCAAQSpo1eQ+EpNgQQyQVs/F27dkq3gvAI
+28m95JEk26v64YAea5NTH56mru30RDqTKPgRVi5qRu3XGyqy3mdb8gMy
+-----END PRIVATE KEY-----"""
+
+
+# Mocked version of the test data from https://appleid.apple.com/auth/keys
+KEY_SERVER_RESP_JSON = json.dumps({
+    "keys": [
+        {
+            "kty": TESTING_JWT_KEYSET["kty"],
+            "kid": TESTING_JWT_KEYSET["kid"],
+            "use": TESTING_JWT_KEYSET["use"],
+            "alg": TESTING_JWT_KEYSET["alg"],
+            "n": TESTING_JWT_KEYSET["n"],
+            "e": TESTING_JWT_KEYSET["e"],
+        }
+    ]
+})
+
+
+def sign_id_token(payload):
+    """
+    Sign a payload as apple normally would for the id_token.
+    """
+    signing_key = jwt.algorithms.RSAAlgorithm.from_jwk(
+        json.dumps(TESTING_JWT_KEYSET)
+    )
+    return jwt.encode(
+        payload,
+        signing_key,
+        algorithm='RS256',
+        headers={'kid': TESTING_JWT_KEYSET["kid"]}
+    ).decode("utf8")
+
+
+@override_settings(
+    SOCIALACCOUNT_PROVIDERS={
+        'apple': {
+            'MEMBER_ID': "123ABC123",
+            'SECRET_KEY': MOCK_APPLE_API_JWT_SIGNING_KEY
+        }
+    }
+)
 class AppleTests(OAuth2TestsMixin, TestCase):
     provider_id = AppleProvider.id
 
+    def get_apple_id_token_payload(self):
+        now = datetime.utcnow()
+        return {
+            "iss": "https://appleid.apple.com",
+            "aud": "app123id",  # Matches `setup_app`
+            "exp": now + timedelta(hours=1),
+            "iat": now,
+            "sub": "000313.c9720f41e9434e18987a.1218",
+            "at_hash": "CkaUPjk4MJinaAq6Z0tGUA",
+            "email": "test@privaterelay.appleid.com",
+            "email_verified": "true",
+            "is_private_email": "true",
+            "auth_time": 1234345345,  # not converted automatically by pyjwt
+        }
+
+    def get_login_response_json(self, with_refresh_token=True):
+        """
+        `with_refresh_token` is not optional for apple, so it's ignored.
+        """
+        id_token = sign_id_token(self.get_apple_id_token_payload())
+
+        return json.dumps(
+            {
+              "access_token": "testac",  # Matches OAuth2TestsMixin value
+              "expires_in": 3600,
+              "id_token": id_token,
+              "refresh_token": "testrt",  # Matches OAuth2TestsMixin value
+              "token_type": "Bearer"
+            }
+        )
+
     def get_mocked_response(self):
-        return MockedResponse(200, """
-{"iss": "https://appleid.apple.com",
-"aud": "ru.apple.signin",
-"exp": 1577627338,
-"iat": 1577626738,
-"sub": "000313.c9720f41e9434e18987a.1218",
-"at_hash": "CkaUPjk4MJinaAq6Z0tGUA",
-"email": "test@privaterelay.appleid.com",
-"email_verified": "true",
-"is_private_email": "true",
-"auth_time": 1577626731}
-""")
+        """
+        Apple is unusual in that the `id_token` contains all the user info
+        so no profile info request is made. However, it does need the
+        public key verification, so this mocked response is the public
+        key request in order to verify the authenticity of the id_token.
+        """
+        return MockedResponse(
+            200, KEY_SERVER_RESP_JSON, {'content-type': 'application/json'}
+        )
+
+    # Apple specific test cases
+    def test_form_post_response(self):
+        """
+        Ensure that the `form_post` response from apple is correctly
+        redirected to the normal flow.
+        """
+        expected_code = "test"
+        expected_state = "random"
+        complete_url = reverse(self.provider.id + '_callback')
+        resp = self.client.post(
+            complete_url, {'code': expected_code, 'state': expected_state}
+        )
+
+        assert resp.status_code == 302
+        assert resp["Location"]
+        location = resp["Location"]
+        assert complete_url in location
+        assert expected_code in location
+        assert expected_state in location

@@ -54,8 +54,9 @@ class AppleOAuth2Client(OAuth2Client):
     @classmethod
     def is_json_response(cls, response):
         return (
-            resp.headers['content-type'].split(';')[0] == 'application/json'
-            or resp.text[:2] == '{"'
+            response.headers['content-type'].split(
+                ';')[0] == 'application/json'
+            or response.text[:2] == '{"'
         )
 
     def get_access_token(self, code):

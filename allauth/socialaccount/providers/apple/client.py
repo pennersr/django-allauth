@@ -52,7 +52,7 @@ class AppleOAuth2Client(OAuth2Client):
         return client_secret
 
     @classmethod
-    def is_json_response(cls, response):
+    def is_json_response(cls, resp):
         return (
             resp.headers['content-type'].split(';')[0] == 'application/json'
             or resp.text[:2] == '{"'

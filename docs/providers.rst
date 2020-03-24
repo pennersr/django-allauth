@@ -124,7 +124,7 @@ Development callback URL
 Apple
 ---------
 
-App registration (create App ID and related Service ID here)
+App registration (create an App ID and then a related Service ID here)
     https://developer.apple.com/account/resources/certificates/list
 
 Private Key registration (be sure to save it)

@@ -26,6 +26,7 @@ class AppleOAuth2Client(OAuth2Client):
     """
 
     def generate_client_secret(self):
+        """Create a JWT signed with an apple provided private key"""
         APPLE_PROVIDER_SETTINGS = getattr(
             settings, 'SOCIALACCOUNT_PROVIDERS', {}
         ).get('apple', {})
@@ -50,6 +51,13 @@ class AppleOAuth2Client(OAuth2Client):
         ).decode('utf-8')
         return client_secret
 
+    @classmethod
+    def is_json_response(cls, response):
+        return (
+            resp.headers['content-type'].split(';')[0] == 'application/json'
+            or resp.text[:2] == '{"'
+        )
+
     def get_access_token(self, code):
         url = self.access_token_url
         client_secret = self.generate_client_secret()
@@ -68,8 +76,7 @@ class AppleOAuth2Client(OAuth2Client):
             headers=self.headers)
         access_token = None
         if resp.status_code in [200, 201]:
-            if (resp.headers['content-type'].split(
-                    ';')[0] == 'application/json' or resp.text[:2] == '{"'):
+            if self.is_json_response(resp):
                 access_token = resp.json()
             else:
                 access_token = dict(parse_qsl(resp.text))
@@ -83,7 +90,7 @@ class AppleOAuth2Client(OAuth2Client):
             'client_id': self.consumer_key,
             'redirect_uri': self.callback_url,
             'response_mode': 'form_post',
-            'scope': ' '.join([Scope.NAME, Scope.EMAIL]),
+            'scope': ' '.join([Scope.EMAIL]),
             'response_type': 'code'
         }
         if self.state:

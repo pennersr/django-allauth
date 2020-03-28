@@ -44,19 +44,9 @@ class AppleOAuth2Client(OAuth2Client):
         }
         headers = {'kid': self.consumer_secret, 'alg': 'ES256'}
         client_secret = jwt.encode(
-            payload=claims,
-            key=SECRET_KEY,
-            algorithm='ES256',
-            headers=headers
+            payload=claims, key=SECRET_KEY, algorithm='ES256', headers=headers
         ).decode('utf-8')
         return client_secret
-
-    @classmethod
-    def is_json_response(cls, resp):
-        return (
-            resp.headers['content-type'].split(';')[0] == 'application/json'
-            or resp.text[:2] == '{"'
-        )
 
     def get_access_token(self, code):
         url = self.access_token_url
@@ -66,23 +56,22 @@ class AppleOAuth2Client(OAuth2Client):
             'code': code,
             'grant_type': 'authorization_code',
             'redirect_uri': self.callback_url,
-            'client_secret': client_secret
+            'client_secret': client_secret,
         }
         self._strip_empty_keys(data)
         resp = requests.request(
-            self.access_token_method,
-            url,
-            data=data,
-            headers=self.headers)
+            self.access_token_method, url, data=data, headers=self.headers
+        )
         access_token = None
         if resp.status_code in [200, 201]:
-            if self.is_json_response(resp):
+            try:
                 access_token = resp.json()
-            else:
+            except ValueError:
                 access_token = dict(parse_qsl(resp.text))
         if not access_token or 'access_token' not in access_token:
-            raise OAuth2Error('Error retrieving access token: %s'
-                              % resp.content)
+            raise OAuth2Error(
+                'Error retrieving access token: %s' % resp.content
+            )
         return access_token
 
     def get_redirect_url(self, authorization_url, extra_params):
@@ -91,7 +80,7 @@ class AppleOAuth2Client(OAuth2Client):
             'redirect_uri': self.callback_url,
             'response_mode': 'form_post',
             'scope': ' '.join([Scope.EMAIL]),
-            'response_type': 'code'
+            'response_type': 'code',
         }
         if self.state:
             params['state'] = self.state

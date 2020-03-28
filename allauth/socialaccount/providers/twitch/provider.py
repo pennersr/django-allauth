@@ -7,7 +7,10 @@ class TwitchAccount(ProviderAccount):
         return 'http://twitch.tv/' + self.account.extra_data.get('login')
 
     def get_avatar_url(self):
-        return self.account.extra_data.get('logo')
+        # We're using `logo` as a failback for legacy profiles retrieved
+        # with the old https://api.twitch.tv/kraken/user endpoint.
+        logo = self.account.extra_data.get('logo')
+        return self.account.extra_data.get('profile_image_url', logo)
 
     def to_str(self):
         dflt = super(TwitchAccount, self).to_str()

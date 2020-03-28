@@ -141,6 +141,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.dropbox',
     'allauth.socialaccount.providers.azure',
     'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.edx',
     'allauth.socialaccount.providers.evernote',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
@@ -178,3 +179,10 @@ try:
     from local_settings import *  # noqa
 except ImportError:
     pass
+ALLOWED_HOSTS = ['5d825be1.ngrok.io','127.0.0.1']
+
+SOCIALACCOUNT_PROVIDERS = {
+    'edx': {
+        'EDX_URL': "https://draft.navoica.pl",
+    }
+}

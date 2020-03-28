@@ -10,7 +10,7 @@ class JSONField(models.TextField):
     """Simple JSON field that stores python structures as JSON strings
     on database.
     """
-    if django.VERSION < (2, 0):
+    if django.VERSION < (3, 0):
         def from_db_value(self, value, expression, connection, context):
             return self.to_python(value)
     else:

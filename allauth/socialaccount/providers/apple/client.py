@@ -2,7 +2,6 @@ import requests
 from datetime import datetime, timedelta
 from urllib.parse import parse_qsl
 
-from django.conf import settings
 from django.utils.http import urlencode
 
 import jwt
@@ -27,16 +26,9 @@ class AppleOAuth2Client(OAuth2Client):
 
     def generate_client_secret(self):
         """Create a JWT signed with an apple provided private key"""
-        APPLE_PROVIDER_SETTINGS = getattr(
-            settings, 'SOCIALACCOUNT_PROVIDERS', {}
-        ).get('apple', {})
-
-        MEMBER_ID = APPLE_PROVIDER_SETTINGS.get('MEMBER_ID', None)
-        SECRET_KEY = APPLE_PROVIDER_SETTINGS.get('SECRET_KEY', None)
-
         now = datetime.utcnow()
         claims = {
-            'iss': MEMBER_ID,
+            'iss': self.key,
             'aud': 'https://appleid.apple.com',
             'sub': self.consumer_key,
             'iat': now,
@@ -44,7 +36,7 @@ class AppleOAuth2Client(OAuth2Client):
         }
         headers = {'kid': self.consumer_secret, 'alg': 'ES256'}
         client_secret = jwt.encode(
-            payload=claims, key=SECRET_KEY, algorithm='ES256', headers=headers
+            payload=claims, key=self.cert, algorithm='ES256', headers=headers
         ).decode('utf-8')
         return client_secret
 

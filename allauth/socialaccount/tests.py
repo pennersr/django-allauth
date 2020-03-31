@@ -23,6 +23,13 @@ from .models import SocialAccount, SocialApp, SocialLogin
 from .views import signup
 
 
+MOCK_CERT_KEY = """-----BEGIN PRIVATE KEY-----
+MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQg2+Eybl8ojH4wB30C
+3/iDkpsrxuPfs3DZ+3nHNghBOpmhRANCAAQSpo1eQ+EpNgQQyQVs/F27dkq3gvAI
+28m95JEk26v64YAea5NTH56mru30RDqTKPgRVi5qRu3XGyqy3mdb8gMy
+-----END PRIVATE KEY-----"""
+
+
 def setup_app(provider):
     app = None
     if not app_settings.PROVIDERS.get(provider.id, {}).get('APP'):
@@ -31,7 +38,8 @@ def setup_app(provider):
             name=provider.id,
             client_id='app123id',
             key=provider.id,
-            secret='dummy')
+            secret='dummy',
+            cert=MOCK_CERT_KEY)
         app.sites.add(Site.objects.get_current())
     return app
 

@@ -79,11 +79,15 @@ class OAuth2View(object):
         callback_url = self.adapter.get_callback_url(request, app)
         provider = self.adapter.get_provider()
         scope = provider.get_scope(request)
-        client = OAuth2Client(self.request, app.client_id, app.secret,
+        client = OAuth2Client(self.request,
+                              app.client_id,
+                              app.secret,
                               self.adapter.access_token_method,
                               self.adapter.access_token_url,
                               callback_url,
                               scope,
+                              key=app.key,
+                              cert=app.cert,
                               scope_delimiter=self.adapter.scope_delimiter,
                               headers=self.adapter.headers,
                               basic_auth=self.adapter.basic_auth)

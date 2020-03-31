@@ -91,6 +91,8 @@ class AppleOAuth2ClientMixin:
             client.access_token_url,
             client.callback_url,
             client.scope,
+            key=client.key,
+            cert=client.cert,
         )
         return apple_client
 

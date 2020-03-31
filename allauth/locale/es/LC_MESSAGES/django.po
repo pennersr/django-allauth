@@ -780,8 +780,8 @@ msgid ""
 "accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
 "\">sign in</a>."
 msgstr ""
-"Has decidido cancelar el inicio de sesión a nuestro sitio usando las "
-"siguientes cuentas. Si esto fue un error, <a href=\"%(login_url)s\">inicie "
+"Has decidido cancelar el inicio de sesión a nuestro sitio usando una de tus "
+"cuentas. Si esto fue un error, <a href=\"%(login_url)s\">inicie "
 "sesión</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2

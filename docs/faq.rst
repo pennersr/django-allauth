@@ -17,14 +17,12 @@ This information is nice and all, but... I need more!
 
 Here are a few third party resources to help you get started:
 
+- https://dev.to/gajesh/the-complete-django-allauth-guide-la3
 - https://www.youtube.com/watch?v=2QLAc7RJ99s
 - https://speakerdeck.com/tedtieken/signing-up-and-signing-in-users-in-django-with-django-allauth
 - https://stackoverflow.com/questions/tagged/django-allauth
 - http://www.sarahhagstrom.com/2013/09/the-missing-django-allauth-tutorial/
 - https://github.com/aellerton/demo-allauth-bootstrap
-- https://medium.com/@gajeshbhat/django-allauth-setup-and-configuration-tutorial-63417bba339c
-- https://medium.com/@gajeshbhat/extending-and-customizing-django-allauth-eed206623a1a
-- https://medium.com/@gajeshbhat/django-allauth-social-login-tutorial-ad021c24d666
 
 I think I found a security issue... now what?
 *********************************************

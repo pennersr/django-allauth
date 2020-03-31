@@ -5,6 +5,7 @@ import json
 import requests
 from datetime import date, datetime
 
+import django
 from django.core.files.base import ContentFile
 from django.db import models
 from django.test import RequestFactory, TestCase
@@ -93,9 +94,14 @@ class BasicTests(TestCase):
         class SomeField(models.Field):
             def get_prep_value(self, value):
                 return 'somevalue'
-
-            def from_db_value(self, value, expression, connection, context):
-                return some_value
+            if django.VERSION < (3, 0):
+                def from_db_value(
+                    self, value, expression, connection, context
+                ):
+                    return some_value
+            else:
+                def from_db_value(self, value, expression, connection):
+                    return some_value
 
         class SomeModel(models.Model):
             dt = models.DateTimeField()

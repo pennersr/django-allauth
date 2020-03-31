@@ -1,5 +1,5 @@
 import requests
-from time import time
+from datetime import datetime, timedelta
 from urllib.parse import parse_qsl
 
 from django.conf import settings
@@ -34,13 +34,13 @@ class AppleOAuth2Client(OAuth2Client):
         MEMBER_ID = APPLE_PROVIDER_SETTINGS.get('MEMBER_ID', None)
         SECRET_KEY = APPLE_PROVIDER_SETTINGS.get('SECRET_KEY', None)
 
-        CURRENT_TIMESTAMP = int(time())
+        now = datetime.utcnow()
         claims = {
             'iss': MEMBER_ID,
             'aud': 'https://appleid.apple.com',
             'sub': self.consumer_key,
-            'iat': CURRENT_TIMESTAMP,
-            'exp': CURRENT_TIMESTAMP + 15777000,
+            'iat': now,
+            'exp': now + timedelta(hours=1),
         }
         headers = {'kid': self.consumer_secret, 'alg': 'ES256'}
         client_secret = jwt.encode(

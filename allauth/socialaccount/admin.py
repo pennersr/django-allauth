@@ -13,7 +13,8 @@ class SocialAppForm(forms.ModelForm):
         widgets = {
             'client_id': forms.TextInput(attrs={'size': '100'}),
             'key': forms.TextInput(attrs={'size': '100'}),
-            'secret': forms.TextInput(attrs={'size': '100'})
+            'secret': forms.TextInput(attrs={'size': '100'}),
+            'cert': forms.Textarea(),
         }
 
 

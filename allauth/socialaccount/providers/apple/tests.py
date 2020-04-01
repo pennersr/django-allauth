@@ -1,7 +1,6 @@
 import json
 from datetime import datetime, timedelta
 
-from django.test.utils import override_settings
 from django.urls import reverse
 
 import jwt
@@ -62,12 +61,6 @@ TESTING_JWT_KEYSET = {
     ),
 }
 
-MOCK_APPLE_API_JWT_SIGNING_KEY = """-----BEGIN PRIVATE KEY-----
-MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQg2+Eybl8ojH4wB30C
-3/iDkpsrxuPfs3DZ+3nHNghBOpmhRANCAAQSpo1eQ+EpNgQQyQVs/F27dkq3gvAI
-28m95JEk26v64YAea5NTH56mru30RDqTKPgRVi5qRu3XGyqy3mdb8gMy
------END PRIVATE KEY-----"""
-
 
 # Mocked version of the test data from https://appleid.apple.com/auth/keys
 KEY_SERVER_RESP_JSON = json.dumps({
@@ -99,14 +92,6 @@ def sign_id_token(payload):
     ).decode("utf8")
 
 
-@override_settings(
-    SOCIALACCOUNT_PROVIDERS={
-        'apple': {
-            'MEMBER_ID': "123ABC123",
-            'SECRET_KEY': MOCK_APPLE_API_JWT_SIGNING_KEY
-        }
-    }
-)
 class AppleTests(OAuth2TestsMixin, TestCase):
     provider_id = AppleProvider.id
 

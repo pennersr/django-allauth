@@ -138,16 +138,9 @@ You'll need to specify Developer's and Application's data:
 In Social App:
     Client ID: Service ID identifier
     Secret Key: Key ID
-
-In settings.py:
-.. code-block:: python
-
-    SOCIALACCOUNT_PROVIDERS = {
-        'apple': {
-            'MEMBER_ID': 'Member ID/App ID Prefix',
-            'SECRET_KEY' : """-----PRIVATE KEY-----"""
-        }
-    }
+    Key: Member ID/App ID Prefix (find it below your name at the top right corner of the
+page, or it’s your App ID Prefix in your App ID)
+    Cert: The contents of your private key, including "-----BEGIN/END PRIVATE KEY-----" and line breaks
 
 Auth0
 -----

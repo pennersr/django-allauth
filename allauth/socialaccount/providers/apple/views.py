@@ -44,7 +44,7 @@ class AppleOAuth2Adapter(OAuth2Adapter):
 
     def get_client_id(self, provider):
         app = SocialApp.objects.get(provider=provider.id)
-        return app.client_id
+        return [aud.strip() for aud in app.client_id.split(",")]
 
     def parse_token(self, data):
         try:
@@ -53,14 +53,14 @@ class AppleOAuth2Adapter(OAuth2Adapter):
 
             public_key = self.get_public_key(data["id_token"])
             provider = self.get_provider()
-            client_id = self.get_client_id(provider)
+            allowed_auds = self.get_client_id(provider)
 
             token.user_data = jwt.decode(
                 data["id_token"],
                 public_key,
                 algorithms=["RS256"],
                 verify=True,
-                audience=client_id,
+                audience=allowed_auds,
             )
             expires_in = data.get(self.expires_in_key, None)
             if expires_in:

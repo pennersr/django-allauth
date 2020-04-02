@@ -30,7 +30,7 @@ class AppleOAuth2Client(OAuth2Client):
         claims = {
             'iss': self.key,
             'aud': 'https://appleid.apple.com',
-            'sub': self.consumer_key,
+            'sub': self.get_client_id(),
             'iat': now,
             'exp': now + timedelta(hours=1),
         }
@@ -40,11 +40,15 @@ class AppleOAuth2Client(OAuth2Client):
         ).decode('utf-8')
         return client_secret
 
+    def get_client_id(self):
+        """ We support multiple client_ids, but use the first one for api calls """
+        return self.consumer_key.split(',')[0]
+
     def get_access_token(self, code):
         url = self.access_token_url
         client_secret = self.generate_client_secret()
         data = {
-            'client_id': self.consumer_key,
+            'client_id': self.get_client_id(),
             'code': code,
             'grant_type': 'authorization_code',
             'redirect_uri': self.callback_url,
@@ -68,7 +72,7 @@ class AppleOAuth2Client(OAuth2Client):
 
     def get_redirect_url(self, authorization_url, extra_params):
         params = {
-            'client_id': self.consumer_key,
+            'client_id': self.get_client_id(),
             'redirect_uri': self.callback_url,
             'response_mode': 'form_post',
             'scope': ' '.join([Scope.EMAIL]),

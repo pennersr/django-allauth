@@ -136,7 +136,7 @@ Development callback URL
 You'll need to specify Developer's and Application's data:
 
 In Social App:
-    Client ID: Service ID identifier
+    Client ID: Service ID identifier. In the case that you have an app too, this field should be a comma separated list, with the service identifier first, followed by any app identifiers.
     Secret Key: Key ID
     Key: Member ID/App ID Prefix (find it below your name at the top right corner of the
 page, or it’s your App ID Prefix in your App ID)

@@ -60,14 +60,6 @@ class OAuth2Adapter(object):
 
 class OAuth2View(object):
 
-    @property
-    def app(self):
-        return self.adapter.get_provider().get_app(self.request)
-
-    @property
-    def client(self):
-        return self.get_client(self.request, self.app)
-
     @classmethod
     def adapter_view(cls, adapter):
         def view(request, *args, **kwargs):
@@ -105,14 +97,20 @@ class OAuth2View(object):
 class OAuth2LoginView(OAuth2View):
     def dispatch(self, request, *args, **kwargs):
         provider = self.adapter.get_provider()
-        action = request.GET.get("action", AuthAction.AUTHENTICATE)
+        app = provider.get_app(self.request)
+        client = self.get_client(request, app)
+        action = request.GET.get('action', AuthAction.AUTHENTICATE)
         auth_url = self.adapter.authorize_url
         auth_params = provider.get_auth_params(request, action)
-        self.client.state = SocialLogin.stash_state(request)
+        client.state = SocialLogin.stash_state(request)
         try:
-            return HttpResponseRedirect(self.client.get_redirect_url(auth_url, auth_params))
+            return HttpResponseRedirect(client.get_redirect_url(
+                auth_url, auth_params))
         except OAuth2Error as e:
-            return render_authentication_error(request, provider.id, exception=e)
+            return render_authentication_error(
+                request,
+                provider.id,
+                exception=e)
 
 
 class OAuth2CallbackView(OAuth2View):
@@ -128,14 +126,15 @@ class OAuth2CallbackView(OAuth2View):
 
             raise AuthException(error=error)
 
-    @property
-    def code(self):
-        return get_request_param(self.request, "code")
-
-    def get_token_data(self):
-        return self.client.get_access_token(self.code)
+    def get_token_data(self, app):
+        code = get_request_param(self.request, "code")
+        client = self.get_client(self.request, app)
+        return client.get_access_token(code)
 
     def dispatch(self, request, *args, **kwargs):
+        provider = self.adapter.get_provider()
+        app = provider.get_app(self.request)
+
         try:
             self.validate_request()
         except AuthException as e:
@@ -144,13 +143,13 @@ class OAuth2CallbackView(OAuth2View):
             )
 
         try:
-            token_data = self.get_token_data()
+            token_data = self.get_token_data(app=app)
 
             token = self.adapter.parse_token(data=token_data)
-            token.app = self.app
+            token.app = app
 
             login = self.adapter.complete_login(
-                request, self.app, token, response=token_data
+                request, app, token, response=token_data
             )
             login.token = token
 

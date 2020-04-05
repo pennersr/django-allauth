@@ -56,11 +56,11 @@ class AppleOAuth2Adapter(OAuth2Adapter):
         return [aud.strip() for aud in app.client_id.split(",")]
 
     def get_verified_identity_data(self, id_token):
-        public_key = self.get_public_key(id_token)
         provider = self.get_provider()
         allowed_auds = self.get_client_id(provider)
 
         try:
+            public_key = self.get_public_key(id_token)
             identity_data = jwt.decode(
                 id_token,
                 public_key,
@@ -147,9 +147,10 @@ class AppleOAuth2CallbackView(AppleOAuth2ClientMixin, OAuth2CallbackView):
 
         return identity_token_data
 
-    def get_token_data(self):
+    def get_token_data(self, app):
+        client = self.get_client(self.request, app)
         identity_data = self.get_identity_data()
-        access_token_data = self.client.get_access_token(self.code)
+        access_token_data = client.get_access_token(self.code)
         data = {"identity_data": identity_data, "access_token_data": access_token_data}
         return data
 

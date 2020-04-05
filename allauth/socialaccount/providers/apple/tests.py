@@ -136,23 +136,3 @@ class AppleTests(OAuth2TestsMixin, TestCase):
         return MockedResponse(
             200, KEY_SERVER_RESP_JSON, {'content-type': 'application/json'}
         )
-
-    # Apple specific test cases
-    def test_form_post_response(self):
-        """
-        Ensure that the `form_post` response from apple is correctly
-        redirected to the normal flow.
-        """
-        expected_code = "test"
-        expected_state = "random"
-        complete_url = reverse(self.provider.id + '_callback')
-        resp = self.client.post(
-            complete_url, {'code': expected_code, 'state': expected_state}
-        )
-
-        assert resp.status_code == 302
-        assert resp["Location"]
-        location = resp["Location"]
-        assert complete_url in location
-        assert expected_code in location
-        assert expected_state in location

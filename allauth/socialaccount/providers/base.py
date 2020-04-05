@@ -22,12 +22,6 @@ class AuthError(object):
     DENIED = 'denied'  # Denied by server
 
 
-class AuthException(Exception):
-
-    def __init__(self, error):
-        self.error = error
-
-
 class ProviderException(Exception):
     pass
 

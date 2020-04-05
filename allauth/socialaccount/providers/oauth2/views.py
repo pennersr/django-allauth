@@ -15,7 +15,7 @@ from allauth.socialaccount.helpers import (
     render_authentication_error,
 )
 from allauth.socialaccount.models import SocialLogin, SocialToken
-from allauth.socialaccount.providers.base import ProviderException, AuthException
+from allauth.socialaccount.providers.base import ProviderException
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client, OAuth2Error
 from allauth.utils import build_absolute_uri, get_request_param
 
@@ -114,17 +114,6 @@ class OAuth2LoginView(OAuth2View):
 
 
 class OAuth2CallbackView(OAuth2View):
-    def validate_request(self):
-        request = self.request
-        if "error" in request.GET or "code" not in request.GET:
-            # Distinguish cancel from error
-            auth_error = request.GET.get("error", None)
-            if auth_error == self.adapter.login_cancelled_error:
-                error = AuthError.CANCELLED
-            else:
-                error = AuthError.UNKNOWN
-
-            raise AuthException(error=error)
 
     def get_token_data(self, app):
         code = get_request_param(self.request, "code")

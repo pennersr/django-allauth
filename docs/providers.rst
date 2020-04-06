@@ -146,7 +146,9 @@ In your django settings, the means by which apple returns data to your app requi
 
 .. code-block:: python
 
-    SESSION_COOKIE_SAMESITE = None
+    SESSION_COOKIE_SAMESITE = None  # Needed to allow `form_post` response from apple
+    SESSION_COOKIE_SECURE = True # Required when setting SameSite=None
+
 
 Auth0
 -----

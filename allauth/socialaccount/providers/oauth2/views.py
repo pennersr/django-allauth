@@ -23,6 +23,7 @@ from ..base import AuthAction, AuthError
 
 
 class OAuth2Adapter(object):
+    client_cls = OAuth2Client
     expires_in_key = "expires_in"
     supports_state = True
     redirect_uri_protocol = None
@@ -65,8 +66,6 @@ class OAuth2Adapter(object):
 
 class OAuth2View(object):
 
-    client_cls = OAuth2Client
-
     @classmethod
     def adapter_view(cls, adapter):
         def view(request, *args, **kwargs):
@@ -84,7 +83,7 @@ class OAuth2View(object):
         callback_url = self.adapter.get_callback_url(request, app)
         provider = self.adapter.get_provider()
         scope = provider.get_scope(request)
-        client = self.client_cls(
+        client = self.adapter.client_cls(
             self.request,
             app.client_id,
             app.secret,

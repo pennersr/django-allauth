@@ -43,7 +43,7 @@ class AppleProvider(OAuth2Provider):
     def get_default_scope(self):
         scopes = ["name"]
         if QUERY_EMAIL:
-            scopes.append("email")
+            scopes += ["email"]
         return scopes
 
 provider_classes = [AppleProvider]

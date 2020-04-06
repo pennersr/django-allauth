@@ -57,8 +57,15 @@ class OAuth2Adapter(object):
             token.expires_at = timezone.now() + timedelta(seconds=int(expires_in))
         return token
 
+    def get_access_token_data(self, request, app, client):
+        code = get_request_param(self.request, "code")
+        return client.get_access_token(code)
+
+
 
 class OAuth2View(object):
+
+    client_cls = OAuth2Client
 
     @classmethod
     def adapter_view(cls, adapter):
@@ -77,7 +84,7 @@ class OAuth2View(object):
         callback_url = self.adapter.get_callback_url(request, app)
         provider = self.adapter.get_provider()
         scope = provider.get_scope(request)
-        client = OAuth2Client(
+        client = self.client_cls(
             self.request,
             app.client_id,
             app.secret,
@@ -115,11 +122,6 @@ class OAuth2LoginView(OAuth2View):
 
 class OAuth2CallbackView(OAuth2View):
 
-    def get_token_data(self, app):
-        code = get_request_param(self.request, "code")
-        client = self.get_client(self.request, app)
-        return client.get_access_token(code)
-
     def dispatch(self, request, *args, **kwargs):
         auth_error = get_request_param(request, "error")
         code = get_request_param(request, "code")
@@ -135,10 +137,12 @@ class OAuth2CallbackView(OAuth2View):
                 error=error)
 
         app = self.adapter.get_provider().get_app(self.request)
+        client = self.get_client(self.request, app)
 
         try:
-            token_data = self.get_token_data(app=app)
-
+            token_data = self.adapter.get_access_token_data(
+                self.request, app=app, client=client
+            )
             token = self.adapter.parse_token(data=token_data)
             token.app = app
 

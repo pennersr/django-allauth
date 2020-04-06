@@ -75,8 +75,8 @@ class AppleOAuth2Client(OAuth2Client):
             'client_id': self.get_client_id(),
             'redirect_uri': self.callback_url,
             'response_mode': 'form_post',
-            'scope': ' '.join([Scope.EMAIL]),
-            'response_type': 'code',
+            'scope': self.scope,
+            'response_type': ['code', 'id_token'],
         }
         if self.state:
             params['state'] = self.state

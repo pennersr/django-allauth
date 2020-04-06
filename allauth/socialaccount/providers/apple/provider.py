@@ -13,7 +13,7 @@ class AppleProvider(OAuth2Provider):
         return str(data['sub'])
 
     def extract_common_fields(self, data):
-        data = {
+        fields = {
             "email": data.get("email")
         }
 
@@ -22,10 +22,10 @@ class AppleProvider(OAuth2Provider):
         # So check whether there is name
         name = user_scope_data.get("name")
         if name:
-            data["first_name"] = name.get("firstName", "")
-            data["last_name"] = name.get("lastName", "")
+            fields["first_name"] = name.get("firstName", "")
+            fields["last_name"] = name.get("lastName", "")
 
-        return data
+        return fields
 
     def extract_email_addresses(self, data):
         ret = []

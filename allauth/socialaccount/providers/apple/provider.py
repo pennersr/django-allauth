@@ -1,4 +1,5 @@
 from allauth.account.models import EmailAddress
+from allauth.account.app_settings import QUERY_EMAIL
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -40,7 +41,9 @@ class AppleProvider(OAuth2Provider):
         return ret
 
     def get_default_scope(self):
-        return ["name"]
-
+        scopes = ["name"]
+        if QUERY_EMAIL:
+            scopes.append("email")
+        return scopes
 
 provider_classes = [AppleProvider]

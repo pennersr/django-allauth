@@ -81,14 +81,12 @@ class AppleOAuth2Adapter(OAuth2Adapter):
         expires_in = access_token_data[self.expires_in_key]
         expires_at = timezone.now() + timedelta(seconds=int(expires_in))
 
-        social_token_data = {
-            "token": access_token_data["access_token"],
-            "token_secret": access_token_data["refresh_token"],
-            "user_data": identity_data,
-            "expires_at": expires_at,
-        }
-
-        token = SocialToken(**social_token_data)
+        token = SocialToken(
+            token=access_token_data["access_token"],
+            token_secret=access_token_data["refresh_token"],
+            expires_at=expires_at,
+        )
+        token.user_data = identity_data
         return token
 
     def complete_login(self, request, app, token, **kwargs):
@@ -141,18 +139,23 @@ class AppleOAuth2CallbackView(AppleOAuth2ClientMixin, OAuth2CallbackView):
 
     def get_identity_data(self):
         id_token = get_request_param(self.request, "id_token")
-        identity_token_data = self.adapter.get_verified_identity_data(id_token=id_token)
-
-        identity_token_data["user_scope_data"] = self.get_user_scope_data()
-
-        return identity_token_data
+        identity_data = self.adapter.get_verified_identity_data(id_token=id_token)
+        identity_data["user_scope_data"] = self.get_user_scope_data()
+        return identity_data
 
     def get_token_data(self, app):
-        client = self.get_client(self.request, app)
+        # Parse id_token and other form_post response data
         identity_data = self.get_identity_data()
-        access_token_data = client.get_access_token(self.code)
-        data = {"identity_data": identity_data, "access_token_data": access_token_data}
-        return data
+
+        # Exchange `code`
+        client = self.get_client(self.request, app)
+        code = get_request_param(self.request, "code")
+        access_token_data = client.get_access_token(code)
+
+        return {
+            "identity_data": identity_data,
+            "access_token_data": access_token_data
+        }
 
 
 oauth2_login = AppleOAuth2LoginView.adapter_view(AppleOAuth2Adapter)

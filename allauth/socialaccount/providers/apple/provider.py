@@ -1,4 +1,5 @@
 from allauth.account.models import EmailAddress
+from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -12,7 +13,7 @@ class AppleProvider(OAuth2Provider):
         return str(data['sub'])
 
     def extract_common_fields(self, data):
-        data = {
+        fields = {
             "email": data.get("email")
         }
 
@@ -21,10 +22,10 @@ class AppleProvider(OAuth2Provider):
         # So check whether there is name
         name = user_scope_data.get("name")
         if name:
-            data["first_name"] = name.get("firstName", "")
-            data["last_name"] = name.get("lastName", "")
+            fields["first_name"] = name.get("firstName", "")
+            fields["last_name"] = name.get("lastName", "")
 
-        return data
+        return fields
 
     def extract_email_addresses(self, data):
         ret = []
@@ -40,7 +41,9 @@ class AppleProvider(OAuth2Provider):
         return ret
 
     def get_default_scope(self):
-        return ["name"]
-
+        scopes = ["name"]
+        if QUERY_EMAIL:
+            scopes.append("email")
+        return scopes
 
 provider_classes = [AppleProvider]

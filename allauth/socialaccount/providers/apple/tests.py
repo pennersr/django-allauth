@@ -1,12 +1,13 @@
 import json
 from datetime import datetime, timedelta
+from urllib.parse import parse_qs, urlparse
 
 from django.urls import reverse
 
 import jwt
 
 from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, TestCase
+from allauth.tests import MockedResponse, TestCase, mocked_response
 
 from .provider import AppleProvider
 
@@ -136,3 +137,47 @@ class AppleTests(OAuth2TestsMixin, TestCase):
         return MockedResponse(
             200, KEY_SERVER_RESP_JSON, {'content-type': 'application/json'}
         )
+
+    def get_complete_parameters(self, auth_request_params):
+        """
+        Add apple specific response parameters which they include in the
+        form_post response.
+
+        https://developer.apple.com/documentation/sign_in_with_apple/sign_in_with_apple_js/incorporating_sign_in_with_apple_into_other_platforms
+        """
+        params = super().get_complete_parameters(auth_request_params)
+        params.update({
+            "id_token": sign_id_token(self.get_apple_id_token_payload()),
+            "user": json.dumps({
+                "email": "private@appleid.apple.com",
+                "name": {
+                    "firstName": "A",
+                    "lastName": "B",
+                }
+            })
+        })
+        return params
+
+    def login(self, resp_mock, process='login',
+              with_refresh_token=True):
+        resp = self.client.get(reverse(self.provider.id + '_login'),
+                               dict(process=process))
+        p = urlparse(resp['location'])
+        q = parse_qs(p.query)
+        complete_url = reverse(self.provider.id + '_callback')
+        self.assertGreater(q['redirect_uri'][0]
+                           .find(complete_url), 0)
+        response_json = self .get_login_response_json(
+            with_refresh_token=with_refresh_token
+        )
+        with mocked_response(
+                resp_mock,
+                MockedResponse(
+                    200,
+                    response_json,
+                    {'content-type': 'application/json'}),
+                ):
+            resp = self.client.get(
+                complete_url, self.get_complete_parameters(q)
+            )
+        return resp

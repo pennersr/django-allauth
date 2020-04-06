@@ -121,9 +121,10 @@ class OAuth2CallbackView(OAuth2View):
         return client.get_access_token(code)
 
     def dispatch(self, request, *args, **kwargs):
-        if 'error' in request.GET or 'code' not in request.GET:
+        auth_error = get_request_param(request, "error")
+        code = get_request_param(request, "code")
+        if auth_error or not code:
             # Distinguish cancel from error
-            auth_error = request.GET.get('error', None)
             if auth_error == self.adapter.login_cancelled_error:
                 error = AuthError.CANCELLED
             else:

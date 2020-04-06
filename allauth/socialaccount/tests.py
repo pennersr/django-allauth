@@ -158,6 +158,34 @@ class OAuth2TestsMixin(object):
             "access_token":"testac"
             %s }""" % rt
 
+    def get_complete_parameters(self, auth_request_params):
+        return {
+            "code": "test",
+            "state": auth_request_params["state"][0]
+        }
+
+    def login(self, resp_mock, process='login',
+              with_refresh_token=True):
+        resp = self.client.get(reverse(self.provider.id + '_login'),
+                               dict(process=process))
+        p = urlparse(resp['location'])
+        q = parse_qs(p.query)
+        complete_url = reverse(self.provider.id + '_callback')
+        self.assertGreater(q['redirect_uri'][0]
+                           .find(complete_url), 0)
+        response_json = self \
+            .get_login_response_json(with_refresh_token=with_refresh_token)
+        with mocked_response(
+                MockedResponse(
+                    200,
+                    response_json,
+                    {'content-type': 'application/json'}),
+                resp_mock):
+            resp = self.client.get(
+                complete_url, self.get_complete_parameters(q)
+            )
+        return resp
+
     def setUp(self):
         super(OAuth2TestsMixin, self).setUp()
         self.provider = providers.registry.by_id(self.provider_id)
@@ -219,28 +247,6 @@ class OAuth2TestsMixin(object):
         a refresh token on first login.
         """
         self.test_account_tokens(multiple_login=True)
-
-    def login(self, resp_mock, process='login',
-              with_refresh_token=True):
-        resp = self.client.get(reverse(self.provider.id + '_login'),
-                               dict(process=process))
-        p = urlparse(resp['location'])
-        q = parse_qs(p.query)
-        complete_url = reverse(self.provider.id + '_callback')
-        self.assertGreater(q['redirect_uri'][0]
-                           .find(complete_url), 0)
-        response_json = self \
-            .get_login_response_json(with_refresh_token=with_refresh_token)
-        with mocked_response(
-                MockedResponse(
-                    200,
-                    response_json,
-                    {'content-type': 'application/json'}),
-                resp_mock):
-            resp = self.client.get(complete_url,
-                                   {'code': 'test',
-                                    'state': q['state'][0]})
-        return resp
 
     def test_authentication_error(self):
         resp = self.client.get(reverse(self.provider.id + '_callback'))

@@ -1,5 +1,5 @@
 from allauth.account.models import EmailAddress
-from allauth.account.app_settings import QUERY_EMAIL
+from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 

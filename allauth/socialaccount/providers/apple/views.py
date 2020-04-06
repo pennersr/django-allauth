@@ -81,14 +81,12 @@ class AppleOAuth2Adapter(OAuth2Adapter):
         expires_in = access_token_data[self.expires_in_key]
         expires_at = timezone.now() + timedelta(seconds=int(expires_in))
 
-        social_token_data = {
-            "token": access_token_data["access_token"],
-            "token_secret": access_token_data["refresh_token"],
-            "user_data": identity_data,
-            "expires_at": expires_at,
-        }
-
-        token = SocialToken(**social_token_data)
+        token = SocialToken(
+            token=access_token_data["access_token"],
+            token_secret=access_token_data["refresh_token"],
+            expires_at=expires_at,
+        )
+        token.user_data = identity_data
         return token
 
     def complete_login(self, request, app, token, **kwargs):

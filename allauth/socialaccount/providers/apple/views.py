@@ -97,7 +97,7 @@ class AppleOAuth2Adapter(OAuth2Adapter):
         return login
 
     def get_user_scope_data(self, request):
-        user_scope_data = get_request_param(request, "user")
+        user_scope_data = get_request_param(request, "user", "")
         try:
             return json.loads(user_scope_data)
         except json.JSONDecodeError:

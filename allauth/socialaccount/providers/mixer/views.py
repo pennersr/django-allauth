@@ -18,6 +18,7 @@ class MixerOAuth2Adapter(OAuth2Adapter):
     def complete_login(self, request, app, token, **kwargs):
         headers = {'Authorization': 'Bearer {}'.format(token.token)}
         response = requests.get(self.profile_url, headers=headers)
+        response.raise_for_status()
 
         data = response.json()
 

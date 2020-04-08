@@ -3,6 +3,7 @@ import requests
 from datetime import timedelta
 
 from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.http import urlencode
 from django.views.decorators.csrf import csrf_exempt
@@ -19,9 +20,9 @@ from allauth.socialaccount.providers.oauth2.views import (
 )
 from allauth.utils import get_request_param
 
+from .apple_session import add_apple_session, persist_apple_session
 from .client import AppleOAuth2Client
 from .provider import AppleProvider
-
 
 class AppleOAuth2Adapter(OAuth2Adapter):
     client_cls = AppleOAuth2Client
@@ -76,28 +77,34 @@ class AppleOAuth2Adapter(OAuth2Adapter):
             raise OAuth2Error("Invalid id_token") from e
 
     def parse_token(self, data):
-        access_token_data = data["access_token_data"]
-        identity_data = data["identity_data"]
+        identity_data = self.get_verified_identity_data(data["id_token"])
 
-        expires_in = access_token_data[self.expires_in_key]
+        expires_in = data[self.expires_in_key]
         expires_at = timezone.now() + timedelta(seconds=int(expires_in))
 
         token = SocialToken(
-            token=access_token_data["access_token"],
-            token_secret=access_token_data["refresh_token"],
+            token=data["access_token"],
+            token_secret=data["refresh_token"],
             expires_at=expires_at,
         )
-        token.user_data = identity_data
+        # `user_data` is a big flat dictionary with the parsed JWT claims
+        # access_tokens, and user info from the apple post.
+        token.user_data = {**data, **identity_data}
         return token
 
     def complete_login(self, request, app, token, **kwargs):
         extra_data = token.user_data
         login = self.get_provider().sociallogin_from_response(request=request, response=extra_data)
         login.state["id_token"] = token.user_data
+
+        # We can safely remove the apple login session now
+        # Note: The cookie will remain, but it's set to delete on browser close
+        request.apple_login_session.delete()
+
         return login
 
     def get_user_scope_data(self, request):
-        user_scope_data = get_request_param(request, "user", "")
+        user_scope_data = request.apple_login_session.get("user", "")
         try:
             return json.loads(user_scope_data)
         except json.JSONDecodeError:
@@ -105,25 +112,56 @@ class AppleOAuth2Adapter(OAuth2Adapter):
             # so return blank dictionary instead
             return {}
 
-    def get_identity_data(self, request):
-        id_token = get_request_param(request, "id_token")
-        identity_data = self.get_verified_identity_data(id_token=id_token)
-        identity_data["user_scope_data"] = self.get_user_scope_data(request)
-        return identity_data
-
     def get_access_token_data(self, request, app, client):
-        # Parse id_token and other form_post response data
-        identity_data = self.get_identity_data(request)
+        """ We need to gather the info from the apple specific login """
+        add_apple_session(request)
 
         # Exchange `code`
         code = get_request_param(request, "code")
         access_token_data = client.get_access_token(code)
 
         return {
-            "identity_data": identity_data,
-            "access_token_data": access_token_data
+            **access_token_data,
+            **self.get_user_scope_data(request),
+            "id_token":request.apple_login_session.get("id_token")
         }
 
 
+@csrf_exempt
+def apple_post_callback(request):
+    """
+    Apple uses a `form_post` response type, which due to
+    CORS/Samesite-cookie rules means this request cannot access
+    the request since the session cookie is unavailable.
+
+    We work around this by storing the apple response in a
+    separate, temporary session and redirecting to a more normal
+    oauth flow.
+    """
+
+    add_apple_session(request)
+
+    # Add regular OAuth2 params to the URL - reduces the overrides required
+    keys_to_put_in_url = ["code", "state", "error"]
+    url_params = {}
+    for key in keys_to_put_in_url:
+        value = get_request_param(request, key, "")
+        if value:
+            url_params[key] = value
+
+    # Add other params to the apple_login_session
+    keys_to_save_to_session = ["user", "id_token"]
+    for key in keys_to_save_to_session:
+        request.apple_login_session[key] = get_request_param(request, key, "")
+
+    url = request.build_absolute_uri(reverse("apple_finish_callback"))
+    response = HttpResponseRedirect("{url}?{query}".format(
+        url=url, query=urlencode(url_params)
+    ))
+    persist_apple_session(request, response)
+    return response
+
+
 oauth2_login = OAuth2LoginView.adapter_view(AppleOAuth2Adapter)
-oauth2_callback = csrf_exempt(OAuth2CallbackView.adapter_view(AppleOAuth2Adapter))
+oauth2_callback = apple_post_callback
+oauth2_finish_login = OAuth2CallbackView.adapter_view(AppleOAuth2Adapter)

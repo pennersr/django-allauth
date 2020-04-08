@@ -142,13 +142,6 @@ In Social App:
 page, or it’s your App ID Prefix in your App ID)
     Cert: The contents of your private key, including "-----BEGIN/END PRIVATE KEY-----" and line breaks
 
-In your django settings, the means by which apple returns data to your app requires that cross-site cookies are allowed. This can be done in your Django settings:
-
-.. code-block:: python
-
-    SESSION_COOKIE_SAMESITE = None  # Needed to allow `form_post` response from apple
-    SESSION_COOKIE_SECURE = True # Required when setting SameSite=None
-
 
 Auth0
 -----

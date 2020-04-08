@@ -17,10 +17,8 @@ class AppleProvider(OAuth2Provider):
             "email": data.get("email")
         }
 
-        user_scope_data = data["user_scope_data"]
-        # Apple provide user name in nested json
-        # So check whether there is name
-        name = user_scope_data.get("name")
+        # If the name was provided
+        name = data.get("name")
         if name:
             fields["first_name"] = name.get("firstName", "")
             fields["last_name"] = name.get("lastName", "")

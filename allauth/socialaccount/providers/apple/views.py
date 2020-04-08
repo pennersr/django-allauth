@@ -99,7 +99,10 @@ class AppleOAuth2Adapter(OAuth2Adapter):
 
         # We can safely remove the apple login session now
         # Note: The cookie will remain, but it's set to delete on browser close
-        request.apple_login_session.delete()
+        try:
+            request.apple_login_session.delete()
+        except AttributeError:
+            pass
 
         return login
 

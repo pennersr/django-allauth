@@ -77,24 +77,29 @@ class AppleOAuth2Adapter(OAuth2Adapter):
             raise OAuth2Error("Invalid id_token") from e
 
     def parse_token(self, data):
-        identity_data = self.get_verified_identity_data(data["id_token"])
-
-        expires_in = data[self.expires_in_key]
-        expires_at = timezone.now() + timedelta(seconds=int(expires_in))
-
         token = SocialToken(
             token=data["access_token"],
-            token_secret=data["refresh_token"],
-            expires_at=expires_at,
         )
+        token.token_secret=data["refresh_token"]
+
+        expires_in = data.get(self.expires_in_key)
+        if expires_in:
+            token.expires_at = (
+                timezone.now() + timedelta(seconds=int(expires_in))
+            )
+
         # `user_data` is a big flat dictionary with the parsed JWT claims
         # access_tokens, and user info from the apple post.
+        identity_data = self.get_verified_identity_data(data["id_token"])
         token.user_data = {**data, **identity_data}
+
         return token
 
     def complete_login(self, request, app, token, **kwargs):
         extra_data = token.user_data
-        login = self.get_provider().sociallogin_from_response(request=request, response=extra_data)
+        login = self.get_provider().sociallogin_from_response(
+            request=request, response=extra_data
+        )
         login.state["id_token"] = token.user_data
 
         # We can safely remove the apple login session now
@@ -131,7 +136,7 @@ class AppleOAuth2Adapter(OAuth2Adapter):
 
 
 @csrf_exempt
-def apple_post_callback(request):
+def apple_post_callback(request, finish_endpoint_name="apple_finish_callback"):
     """
     Apple uses a `form_post` response type, which due to
     CORS/Samesite-cookie rules means this request cannot access
@@ -140,6 +145,11 @@ def apple_post_callback(request):
     We work around this by storing the apple response in a
     separate, temporary session and redirecting to a more normal
     oauth flow.
+
+    args:
+        finish_endpoint_name (str): The name of a defined URL, which can be
+            overridden in your url configuration if you have more than one
+            callback endpoint.
     """
 
     add_apple_session(request)
@@ -157,7 +167,7 @@ def apple_post_callback(request):
     for key in keys_to_save_to_session:
         request.apple_login_session[key] = get_request_param(request, key, "")
 
-    url = request.build_absolute_uri(reverse("apple_finish_callback"))
+    url = request.build_absolute_uri(reverse(finish_endpoint_name))
     response = HttpResponseRedirect("{url}?{query}".format(
         url=url, query=urlencode(url_params)
     ))

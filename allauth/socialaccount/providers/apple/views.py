@@ -80,7 +80,7 @@ class AppleOAuth2Adapter(OAuth2Adapter):
         token = SocialToken(
             token=data["access_token"],
         )
-        token.token_secret=data["refresh_token"]
+        token.token_secret=data.get("refresh_token", "")
 
         expires_in = data.get(self.expires_in_key)
         if expires_in:

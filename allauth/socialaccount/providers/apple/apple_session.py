@@ -1,6 +1,5 @@
 from importlib import import_module
 
-from django.urls import reverse
 from django.conf import settings
 from django.utils.cache import patch_vary_headers
 
@@ -29,7 +28,7 @@ def persist_apple_session(request, response):
         expires=None,
         domain=settings.SESSION_COOKIE_DOMAIN,
         # The cookie is only needed on this endpoint
-        path=reverse("apple_finish_callback"),
+        path=response.url,
         secure=True,
         httponly=None,
         samesite=settings.SESSION_COOKIE_SAMESITE,

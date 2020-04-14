@@ -2,6 +2,7 @@ import json
 from datetime import datetime, timedelta
 from urllib.parse import parse_qs, urlparse
 
+from django.conf import settings
 from django.urls import reverse
 
 import jwt
@@ -171,13 +172,37 @@ class AppleTests(OAuth2TestsMixin, TestCase):
             with_refresh_token=with_refresh_token
         )
         with mocked_response(
-                resp_mock,
                 MockedResponse(
                     200,
                     response_json,
                     {'content-type': 'application/json'}),
+                resp_mock,
                 ):
-            resp = self.client.get(
-                complete_url, self.get_complete_parameters(q)
+            resp = self.client.post(
+                complete_url,
+                data=self.get_complete_parameters(q),
             )
+            assert reverse('apple_finish_callback') in resp.url
+
+            # Follow the redirect
+            resp = self.client.get(resp.url)
+
         return resp
+
+    def test_authentication_error(self):
+        """ Override base test because apple posts errors """
+        resp = self.client.post(
+            reverse(self.provider.id + '_callback'),
+            data={
+                "error": "misc",
+                "state": "testingstate123"
+            }
+        )
+        assert reverse('apple_finish_callback') in resp.url
+        # Follow the redirect
+        resp = self.client.get(resp.url)
+
+        self.assertTemplateUsed(
+            resp,
+            'socialaccount/authentication_error.%s' % getattr(
+                settings, 'ACCOUNT_TEMPLATE_EXTENSION', 'html'))

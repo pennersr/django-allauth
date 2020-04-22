@@ -1,8 +1,6 @@
 import requests
 from datetime import datetime, timedelta
-from urllib.parse import parse_qsl
-
-from django.utils.http import urlencode
+from urllib.parse import parse_qsl, quote, urlencode
 
 import jwt
 
@@ -81,4 +79,4 @@ class AppleOAuth2Client(OAuth2Client):
         if self.state:
             params['state'] = self.state
         params.update(extra_params)
-        return '%s?%s' % (authorization_url, urlencode(params))
+        return '%s?%s' % (authorization_url, urlencode(params, quote_via=quote))

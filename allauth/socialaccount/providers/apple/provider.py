@@ -28,11 +28,14 @@ class AppleProvider(OAuth2Provider):
     def extract_email_addresses(self, data):
         ret = []
         email = data.get('email')
+        verified = data.get('email_verified')
+        if not isinstance(verified, bool):
+            verified = verified.lower() == 'true'
         if email:
             ret.append(
                 EmailAddress(
                     email=email,
-                    verified=data.get('email_verified'),
+                    verified=verified,
                     primary=True,
                 )
             )

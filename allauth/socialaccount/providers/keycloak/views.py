@@ -15,23 +15,24 @@ class KeycloakOAuth2Adapter(OAuth2Adapter):
     supports_state = True
 
     settings = app_settings.PROVIDERS.get(provider_id, {})
-    provider_base_url = settings.get("KEYCLOAK_URL")
+    provider_base_url = '{0}/realms/{1}'.format(
+        settings.get("KEYCLOAK_URL"), settings.get("KEYCLOAK_REALM"))
 
-    access_token_url = '{0}/protocol/openid-connect/token'.format(provider_base_url)
-    authorize_url = '{0}/protocol/openid-connect/auth'.format(provider_base_url)
-    profile_url = '{0}/protocol/openid-connect/userinfo'.format(provider_base_url)
+    access_token_url = '{0}/protocol/openid-connect/token' \
+        .format(provider_base_url)
+    authorize_url = '{0}/protocol/openid-connect/auth' \
+        .format(provider_base_url)
+    profile_url = '{0}/protocol/openid-connect/userinfo' \
+        .format(provider_base_url)
 
     def complete_login(self, request, app, token, response):
-        extra_data = requests.post(self.profile_url, headers={
+        response = requests.post(self.profile_url, headers={
             'Authorization': 'Bearer ' + str(token)
-        }).json()
-        print(extra_data)
-        extra_data = {
-            'user_id': extra_data['sub'],
-            'id': extra_data['sub'],
-            'name': extra_data['name'],
-            'email': extra_data['email']
-        }
+        })
+        response.raise_for_status()
+        extra_data = response.json()
+        extra_data['id'] = extra_data['sub']
+        del extra_data['sub']
 
         return self.get_provider().sociallogin_from_response(
             request,

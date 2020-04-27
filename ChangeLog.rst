@@ -29,6 +29,8 @@ Note worthy changes
   ``settings.SOCIALACCOUNT_PROVIDERS`` settings instead of storing them in the
   database using a ``SocialApp`` record.
 
+- Adding Keycloak Provider
+
 
 Backwards incompatible changes
 ------------------------------

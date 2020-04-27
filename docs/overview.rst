@@ -117,6 +117,8 @@ Supported Providers
 
 - Kakao (OAuth2)
 
+- Keycloak (OAuth2)
+
 - Line (OAuth2)
 
 - LinkedIn (OAuth, OAuth2)

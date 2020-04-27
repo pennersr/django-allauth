@@ -899,6 +899,34 @@ App registration (get your key here)
 Development callback URL
     http://localhost:8000/accounts/kakao/login/callback/
 
+Keycloak
+--------
+
+Creating and Registering the Client
+    https://www.keycloak.org/docs/latest/getting_started/index.html#creating-and-registering-the-client
+
+Development callback URL
+    http://localhost:8000/accounts/keycloak/login/callback/
+
+The following Keycloak settings are available.
+
+KEYCLOAK_URL:
+    The url of your hosted keycloak server, it must end with ``/auth``. For
+    example, you can use: ``https://your.keycloak.server/auth``
+
+KEYCLOAK_REAML:
+    The name of the ``realm`` you want to use.
+
+Example:
+
+.. code-block:: python
+
+  SOCIALACCOUNT_PROVIDERS = {
+      'keycloak': {
+          'KEYCLOAK_URL': 'https://keycloak.custom/auth',
+          'KEYCLOAK_REALM': 'master'
+      }
+  }
 
 Line
 ----

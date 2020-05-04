@@ -5,7 +5,7 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 class VKAccount(ProviderAccount):
     def get_profile_url(self):
-        return 'https://vk.com/id%s' % self.account.extra_data.get('uid')
+        return 'https://vk.com/id%s' % self.account.extra_data.get('id')
 
     def get_avatar_url(self):
         ret = None

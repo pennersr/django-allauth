@@ -1,3 +1,6 @@
+from django.test.client import RequestFactory
+from django.urls import reverse
+
 from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.tests import OAuth2TestsMixin
@@ -5,10 +8,6 @@ from allauth.tests import MockedResponse, TestCase, mocked_response
 
 from .provider import TwitchProvider
 from .views import TwitchOAuth2Adapter
-
-
-class MockObject(object):
-    pass
 
 
 class TwitchTests(OAuth2TestsMixin, TestCase):
@@ -86,8 +85,12 @@ class TwitchTests(OAuth2TestsMixin, TestCase):
         we can check that the specific erros are raised before
         they are caught and rendered to generic error HTML
         """
-        request = MockObject()
-        app = MockObject()
+        request = RequestFactory().get(
+            reverse(self.provider.id + '_login'),
+            {'process': 'login'},
+        )
+        adapter = TwitchOAuth2Adapter(request)
+        app = adapter.get_provider().get_app(request)
         token = SocialToken(token='this-is-my-fake-token')
 
         with mocked_response(resp_mock):

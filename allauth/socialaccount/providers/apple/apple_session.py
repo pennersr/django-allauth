@@ -1,4 +1,5 @@
 from importlib import import_module
+from urllib.parse import urlparse
 
 from django.conf import settings
 from django.utils.cache import patch_vary_headers
@@ -8,12 +9,14 @@ APPLE_SESSION_COOKIE_NAME = "apple-login-session"
 engine = import_module(settings.SESSION_ENGINE)
 SessionStore = engine.SessionStore
 
+
 def add_apple_session(request):
     """
     Fetch an apple login session
     """
     session_key = request.COOKIES.get(APPLE_SESSION_COOKIE_NAME)
     request.apple_login_session = SessionStore(session_key)
+
 
 def persist_apple_session(request, response):
     """
@@ -28,7 +31,7 @@ def persist_apple_session(request, response):
         expires=None,
         domain=settings.SESSION_COOKIE_DOMAIN,
         # The cookie is only needed on this endpoint
-        path=response.url,
+        path=urlparse(response.url).path,
         secure=True,
         httponly=None,
         samesite=settings.SESSION_COOKIE_SAMESITE,

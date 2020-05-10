@@ -17,7 +17,10 @@ class TwitchOAuth2Adapter(OAuth2Adapter):
     profile_url = 'https://api.twitch.tv/helix/users'
 
     def complete_login(self, request, app, token, **kwargs):
-        headers = {'Authorization': 'Bearer {}'.format(token.token)}
+        headers = {
+            'Authorization': 'Bearer {}'.format(token.token),
+            'Client-ID': app.client_id,
+        }
         response = requests.get(self.profile_url, headers=headers)
 
         data = response.json()

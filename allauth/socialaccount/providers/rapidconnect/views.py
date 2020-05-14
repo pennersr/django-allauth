@@ -30,7 +30,7 @@ def login(request):
         url = urljoin(BASE_URL, url)
         # request.build_absolute_uri()
 
-    # SocialLogin.stash_state(request)
+    SocialLogin.stash_state(request)
     return HttpResponseRedirect(url)
 
 

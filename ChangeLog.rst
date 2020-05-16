@@ -4,7 +4,7 @@
 Note worthy changes
 -------------------
 
-- New provider: Yandex (OAuth2)
+- New providers: Yandex, Mixer.
 
 - Fixed Twitch ``get_avatar_url()`` method to use the profile picture retrieved
   by new user details endpoint introduced in version 0.40.0.

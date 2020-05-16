@@ -4,7 +4,7 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 class OdnoklassnikiAccount(ProviderAccount):
     def get_profile_url(self):
-        return self.account.extra_data.get('link')
+        return 'https://ok.ru/profile/' + self.account.extra_data['uid']
 
     def get_avatar_url(self):
         ret = None

@@ -533,7 +533,7 @@ The following Facebook settings are available:
         'facebook': {
             'METHOD': 'oauth2',
             'SDK_URL': '//connect.facebook.net/{locale}/sdk.js',
-            'SCOPE': ['email', 'public_profile', 'user_friends'],
+            'SCOPE': ['email', 'public_profile'],
             'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
             'INIT_PARAMS': {'cookie': True},
             'FIELDS': [
@@ -570,7 +570,7 @@ SDK_URL:
 SCOPE:
     By default, the ``email`` scope is required depending on whether or not
     ``SOCIALACCOUNT_QUERY_EMAIL`` is enabled.
-    Apps using permissions beyond ``email``, ``public_profile`` and ``user_friends``
+    Apps using permissions beyond ``email`` and ``public_profile``
     require review by Facebook.
     See `Permissions with Facebook Login <https://developers.facebook.com/docs/facebook-login/permissions>`_
     for more information.

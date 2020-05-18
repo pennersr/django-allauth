@@ -1,5 +1,6 @@
 import json
 from datetime import datetime, timedelta
+from importlib import import_module
 from urllib.parse import parse_qs, urlparse
 
 from django.conf import settings
@@ -10,6 +11,7 @@ import jwt
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase, mocked_response
 
+from .apple_session import APPLE_SESSION_COOKIE_NAME
 from .provider import AppleProvider
 
 
@@ -206,3 +208,26 @@ class AppleTests(OAuth2TestsMixin, TestCase):
             resp,
             'socialaccount/authentication_error.%s' % getattr(
                 settings, 'ACCOUNT_TEMPLATE_EXTENSION', 'html'))
+
+    def test_apple_finish(self):
+        resp = self.login(self.get_mocked_response())
+
+        # Check request generating the response
+        finish_url = reverse('apple_finish_callback')
+        self.assertEqual(resp.request['PATH_INFO'], finish_url)
+        self.assertTrue('state' in resp.request['QUERY_STRING'])
+        self.assertTrue('code' in resp.request['QUERY_STRING'])
+
+        # Check have cookie containing apple session
+        self.assertTrue(APPLE_SESSION_COOKIE_NAME in self.client.cookies)
+
+        # Session should have been cleared
+        apple_session_cookie = self.client.cookies.get(
+            APPLE_SESSION_COOKIE_NAME)
+        engine = import_module(settings.SESSION_ENGINE)
+        SessionStore = engine.SessionStore
+        apple_login_session = SessionStore(apple_session_cookie.value)
+        self.assertEqual(len(apple_login_session.keys()), 0)
+
+        # Check cookie path was correctly set
+        self.assertEqual(apple_session_cookie.get('path'), finish_url)

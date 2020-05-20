@@ -105,6 +105,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.mailru',
     'allauth.socialaccount.providers.meetup',
     'allauth.socialaccount.providers.microsoft',
+    'allauth.socialaccount.providers.mixer',
     'allauth.socialaccount.providers.naver',
     'allauth.socialaccount.providers.nextcloud',
     'allauth.socialaccount.providers.odnoklassniki',

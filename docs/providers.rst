@@ -533,7 +533,7 @@ The following Facebook settings are available:
         'facebook': {
             'METHOD': 'oauth2',
             'SDK_URL': '//connect.facebook.net/{locale}/sdk.js',
-            'SCOPE': ['email', 'public_profile', 'user_friends'],
+            'SCOPE': ['email', 'public_profile'],
             'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
             'INIT_PARAMS': {'cookie': True},
             'FIELDS': [
@@ -552,7 +552,7 @@ The following Facebook settings are available:
             'EXCHANGE_TOKEN': True,
             'LOCALE_FUNC': 'path.to.callable',
             'VERIFIED_EMAIL': False,
-            'VERSION': 'v2.12',
+            'VERSION': 'v7.0',
         }
     }
 
@@ -570,7 +570,7 @@ SDK_URL:
 SCOPE:
     By default, the ``email`` scope is required depending on whether or not
     ``SOCIALACCOUNT_QUERY_EMAIL`` is enabled.
-    Apps using permissions beyond ``email``, ``public_profile`` and ``user_friends``
+    Apps using permissions beyond ``email`` and ``public_profile``
     require review by Facebook.
     See `Permissions with Facebook Login <https://developers.facebook.com/docs/facebook-login/permissions>`_
     for more information.
@@ -620,7 +620,7 @@ VERIFIED_EMAIL:
     risk.
 
 VERSION:
-    The Facebook Graph API version to use. The default is ``v2.12``.
+    The Facebook Graph API version to use. The default is ``v7.0``.
 
 App registration (get your key and secret here)
     A key and secret key can be obtained by
@@ -1092,6 +1092,33 @@ for the login. To restrict it, change the `tenant` setting as shown below.
         }
     }
 
+
+Mixer
+-----
+
+API documentation
+    https://dev.mixer.com/guides/core/introduction
+
+App registration (get your key and secret here)
+    https://mixer.com/lab/oauth
+
+Development callback URL
+    http://localhost:8000/accounts/mixer/login/callback/
+
+You can change scopes for Mixer using the ``SCOPE`` parameter. For example, to add the ability to edit your mixer profile, you'd use:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'mixer': {
+            'SCOPE': [
+                'user:details:self',
+                'user:update:self',
+            ]
+        }
+    }
+
+The default scope list is ``['user:details:self']``, which is required to get your email address from Mixer. The full list of scopes is available at https://dev.mixer.com/reference/oauth/scopes
 
 Naver
 -----

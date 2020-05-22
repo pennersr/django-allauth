@@ -1,8 +1,10 @@
-from allauth.account.models import EmailAddress
-from allauth.socialaccount.providers.base import Provider, ProviderAccount
 from django.conf import settings
 from django.urls import reverse
 from django.utils.http import urlencode
+
+from allauth.account.models import EmailAddress
+from allauth.socialaccount.providers.base import Provider, ProviderAccount
+
 
 rapidconnect_settings = getattr(settings, "SOCIALACCOUNT_PROVIDERS", {}).get("rapidconnect", {})
 ATTRIBUTE_KEY = rapidconnect_settings.get("ATTRIBUTE_KEY", "https://aaf.edu.au/attributes")
@@ -43,6 +45,9 @@ class RapidConnectProvider(Provider):
     def extract_uid(self, data):
         return str(data.get("edupersonprincipalname") or data.get("mail"))
 
+    def extract_extra_data(self, data):
+        return data
+
     def extract_common_fields(self, data):
         cn = data.get("cn")
         displayname = data.get("displayname")
@@ -50,16 +55,26 @@ class RapidConnectProvider(Provider):
         givenname = data.get("givenname")
         email = data.get("mail")
         orcid = data.get("edupersonorcid")
-        # edupersonprincipalname = data.get("edupersonprincipalname")
-        # edupersonscopedaffiliation = data.get("edupersonscopedaffiliation")
+        # principalname = data.get("edupersonprincipalname")
+        # affiliation = data.get("edupersonscopedaffiliation")
 
-        return dict(
+        # 'cn': 'Radomirs Cirskis',
+        # 'displayname': 'Radomirs Cirskis',
+        # 'surname': 'Cirskis',
+        # 'givenname': 'Radomirs',
+        # 'mail': 'rcir178@aucklanduni.ac.nz',
+        # 'edupersonprincipalname': 'rcir178@auckland.ac.nz',
+        # 'edupersonorcid': 'http://orcid.org/0000-0002-7902-638X',
+        # 'edupersonscopedaffiliation': '',
+
+        data = dict(
             name=cn or displayname,
             first_name=givenname,
             last_name=surname,
             email=email,
             orcid=orcid,
         )
+        return data
 
     def extract_email_addresses(self, data):
         email = data.get("mail")
@@ -68,12 +83,8 @@ class RapidConnectProvider(Provider):
         return []
 
     def cleanup_email_addresses(self, email, addresses):
-        # Move user.email over to EmailAddress
         if email and email.lower() not in [a.email.lower() for a in addresses]:
             addresses.append(EmailAddress(email=email, verified=False, primary=True))
-
-    def extract_extra_data(self, data):
-        return data
 
 
 provider_classes = [RapidConnectProvider]

@@ -1399,6 +1399,23 @@ You can also add space-delimited scope to utilize the QuickBooks Payments and Pa
         }
     }
 
+RapidConnect
+------------
+
+Service/App registration (submit your callback URL and the secret key for JWT encryption) at the
+Rapid Connect provider site, e.g.,
+    https://rapidconnect.tuakiri.ac.nz/
+
+Register the social application filling in name, e.g., "TUAKIRI", client id - the full request URL given by the provider,
+and the secret key - the key submitted at your service/app registration.
+
+Development callback URL
+    http://localhost:8000/accounts/rapidconnect/login/callback/
+
+Rapid Connect documentation
+    https://rapidconnect.tuakiri.ac.nz/developers
+
+
 Reddit
 ------
 

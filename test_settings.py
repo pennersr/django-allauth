@@ -1,5 +1,6 @@
 SECRET_KEY = 'psst'
 SITE_ID = 1
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 10240
 
 DATABASES = {
     'default': {
@@ -117,6 +118,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.persona',
     'allauth.socialaccount.providers.pinterest',
     'allauth.socialaccount.providers.quickbooks',
+    'allauth.socialaccount.providers.rapidconnect',
     'allauth.socialaccount.providers.reddit',
     'allauth.socialaccount.providers.robinhood',
     'allauth.socialaccount.providers.salesforce',

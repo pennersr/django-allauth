@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 11:53-0600\n"
+"POT-Creation-Date: 2020-05-24 13:46-0500\n"
 "PO-Revision-Date: 2016-01-19 19:32+0100\n"
 "Last-Translator: David D Lowe <daviddlowe.flimm@gmail.com>\n"
 "Language-Team: Arabic\n"
@@ -331,11 +331,7 @@ msgstr "حساب غير نشط"
 msgid "This account is inactive."
 msgstr "هذا الحساب غير نشط"
 
-#: templates/account/email.html:5
-msgid "Account"
-msgstr "حساب"
-
-#: templates/account/email.html:8
+#: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "عناوين البريد الالكتروني"
 
@@ -376,9 +372,8 @@ msgid ""
 "You currently do not have any e-mail address set up. You should really add "
 "an e-mail address so you can receive notifications, reset your password, etc."
 msgstr ""
-"ليس لديك أي عنوان البريد الإلكتروني. يجب أن تضيف عنوان البريد"
-"الإلكتروني حتى تتمكن من تلقي الاشعارات, إعادة تعيين كلمة المرور الخاصة بك، "
-"الخ"
+"ليس لديك أي عنوان البريد الإلكتروني. يجب أن تضيف عنوان البريدالإلكتروني حتى "
+"تتمكن من تلقي الاشعارات, إعادة تعيين كلمة المرور الخاصة بك، الخ"
 
 #: templates/account/email.html:48
 msgid "Add E-mail Address"
@@ -393,6 +388,7 @@ msgid "Do you really want to remove the selected e-mail address?"
 msgstr "هل تريد حقا ان تحذف عنوان البريد الالكتروني المحدد؟"
 
 #: templates/account/email/email_confirmation_message.txt:1
+#, python-format
 msgid ""
 "Hello from %(site_name)s!\n"
 "\n"
@@ -403,8 +399,8 @@ msgid ""
 msgstr ""
 "مرحبا من %(site_name)s!\n"
 "\n"
-"تتلقى هذه الرسالة بسبب أن المستخدم %(user_display)s قام باضافة بريدك الالكترني "
-"لحسابه في الموقع.\n"
+"تتلقى هذه الرسالة بسبب أن المستخدم %(user_display)s قام باضافة بريدك "
+"الالكترني لحسابه في الموقع.\n"
 "\n"
 "لتأكيد صحة هذا الاجراء, اضغط على الرابط %(activate_url)s\n"
 
@@ -422,6 +418,7 @@ msgid "Please Confirm Your E-mail Address"
 msgstr "قم بتأكيد عنوان البريد الالكتروني"
 
 #: templates/account/email/password_reset_key_message.txt:1
+#, python-format
 msgid ""
 "Hello from %(site_name)s!\n"
 "\n"
@@ -432,10 +429,10 @@ msgid ""
 msgstr ""
 "مرحبا من %(site_name)s!\n"
 "\n"
-"أنت تتلقى هذه الرسالة بسبب طلبك أو طلب شخص أخر"
-"الحصول على كلمة المرور الخاصة بك.\n"
-"اذا لم تقم بطلب كلمة مرور يمكنك تجاهل هذه الريالة. اضغط على "
-" الرابط بالاسفل لاعادة تعيين كلمة المرور."
+"أنت تتلقى هذه الرسالة بسبب طلبك أو طلب شخص أخرالحصول على كلمة المرور الخاصة "
+"بك.\n"
+"اذا لم تقم بطلب كلمة مرور يمكنك تجاهل هذه الريالة. اضغط على  الرابط بالاسفل "
+"لاعادة تعيين كلمة المرور."
 
 #: templates/account/email/password_reset_key_message.txt:8
 #, python-format
@@ -789,6 +786,9 @@ msgid ""
 msgstr ""
 "أنت على وشك استخدام حسابك من %(provider_name)s لتسجيل الدخول إلى "
 "%(site_name)s. وكخطوة أخيرة، يرجى ملء النموذج التالي:"
+
+#~ msgid "Account"
+#~ msgstr "حساب"
 
 #~ msgid "The login and/or password you specified are not correct."
 #~ msgstr "تسجيل الدخول و / أو كلمة المرور الذي حددته غير صحيحة."

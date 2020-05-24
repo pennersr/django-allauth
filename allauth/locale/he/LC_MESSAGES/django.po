@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 11:53-0600\n"
+"POT-Creation-Date: 2020-05-24 13:46-0500\n"
 "PO-Revision-Date: 2017-08-26 16:11+0300\n"
 "Last-Translator: Udi Oron <udioron@gmail.com>\n"
 "Language-Team: Hebrew\n"
@@ -330,11 +330,7 @@ msgstr "חשבון לא פעיל"
 msgid "This account is inactive."
 msgstr "חשבון זה אינו פעיל."
 
-#: templates/account/email.html:5
-msgid "Account"
-msgstr "חשבון"
-
-#: templates/account/email.html:8
+#: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "כתובות אימייל"
 
@@ -780,6 +776,9 @@ msgid ""
 msgstr ""
 "אתה עומד להשתמש בחשבון %(provider_name)s שלך כדי\n"
 "להתחבר ל%(site_name)s. לסיום, אנא מלא את הטופס הבא:"
+
+#~ msgid "Account"
+#~ msgstr "חשבון"
 
 #~ msgid "The login and/or password you specified are not correct."
 #~ msgstr "שם המשתמש ו/או הסיסמא אינם נכונים"

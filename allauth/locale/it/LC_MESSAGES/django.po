@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 11:53-0600\n"
+"POT-Creation-Date: 2020-05-24 13:46-0500\n"
 "PO-Revision-Date: 2019-09-30 00:03+0200\n"
 "Last-Translator: Sandro <sandro@e-den.it>\n"
 "Language: it\n"
@@ -332,11 +332,7 @@ msgstr "Account non attivo"
 msgid "This account is inactive."
 msgstr "Questo account non è attivo."
 
-#: templates/account/email.html:5
-msgid "Account"
-msgstr "Account"
-
-#: templates/account/email.html:8
+#: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "Indirizzi e-mail"
 
@@ -796,6 +792,9 @@ msgstr ""
 "su\n"
 "%(site_name)s. Come ultima operazione ti chiediamo di riempire il form qui "
 "sotto:"
+
+#~ msgid "Account"
+#~ msgstr "Account"
 
 #~ msgid "The login and/or password you specified are not correct."
 #~ msgstr "Il login e/o la password che hai usato non sono corretti."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 11:53-0600\n"
+"POT-Creation-Date: 2020-05-24 13:46-0500\n"
 "PO-Revision-Date: 2016-07-20 22:24+0600\n"
 "Last-Translator: Murat Jumashev <jumasheff at gmail dot com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -335,11 +335,7 @@ msgstr "Эсеп активдүү эмес"
 msgid "This account is inactive."
 msgstr "Бул эсеп активдүү эмес."
 
-#: templates/account/email.html:5
-msgid "Account"
-msgstr "Эсеп"
-
-#: templates/account/email.html:8
+#: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "Эмейл даректер"
 
@@ -811,6 +807,9 @@ msgstr ""
 "Сиз азыр %(provider_name)s эсебиңизди колдонуп, %(site_name)s\n"
 "сайтына кирейин деп турасыз. Акыркы кадам катары кийинки калыпты\n"
 "толтуруп коюңузду суранабыз :"
+
+#~ msgid "Account"
+#~ msgstr "Эсеп"
 
 #~ msgid "The login and/or password you specified are not correct."
 #~ msgstr "Сиз берген логин жана/же купуя туура эмес."

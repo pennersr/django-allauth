@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 11:53-0600\n"
+"POT-Creation-Date: 2020-05-24 13:46-0500\n"
 "PO-Revision-Date: 2014-08-12 00:29+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -336,11 +336,7 @@ msgstr "Λογαριασμός Ανενεργός"
 msgid "This account is inactive."
 msgstr "Αυτός ο λογαριασμός είναι ανενεργός."
 
-#: templates/account/email.html:5
-msgid "Account"
-msgstr "Λογαριασμός"
-
-#: templates/account/email.html:8
+#: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "Διεύθυνση e-mail"
 
@@ -811,3 +807,6 @@ msgstr ""
 "Πρόκειται να χρησιμοποιήσετε τον %(provider_name)s λογαριασμό σας για να "
 "συνδεθείτε στην σελίδα\n"
 "%(site_name)s. Ως τελικό βήμα, παρακαλούμε συμπληρώστε την παρακάτω φόρμα:"
+
+#~ msgid "Account"
+#~ msgstr "Λογαριασμός"

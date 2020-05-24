@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 11:53-0600\n"
+"POT-Creation-Date: 2020-05-24 13:46-0500\n"
 "PO-Revision-Date: 2018-02-14 17:46-0600\n"
 "Last-Translator: Jannis \n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/django-allauth/"
@@ -334,11 +334,7 @@ msgstr "Cuenta desactivada"
 msgid "This account is inactive."
 msgstr "Esta cuenta está desactivada."
 
-#: templates/account/email.html:5
-msgid "Account"
-msgstr "Cuenta"
-
-#: templates/account/email.html:8
+#: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "Direcciones de correo electrónico"
 
@@ -781,8 +777,7 @@ msgid ""
 "\">sign in</a>."
 msgstr ""
 "Has decidido cancelar el inicio de sesión a nuestro sitio usando una de tus "
-"cuentas. Si esto fue un error, <a href=\"%(login_url)s\">inicie "
-"sesión</a>."
+"cuentas. Si esto fue un error, <a href=\"%(login_url)s\">inicie sesión</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."
@@ -804,6 +799,9 @@ msgid ""
 msgstr ""
 "Estas a punto de utilizar tu cuenta %(provider_name)s para acceder a "
 "%(site_name)s. Como paso final, por favor completa el siguiente formulario:"
+
+#~ msgid "Account"
+#~ msgstr "Cuenta"
 
 #~ msgid "The login and/or password you specified are not correct."
 #~ msgstr ""

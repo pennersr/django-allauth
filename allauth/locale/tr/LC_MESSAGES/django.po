@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 11:53-0600\n"
+"POT-Creation-Date: 2020-05-24 13:46-0500\n"
 "PO-Revision-Date: 2014-08-12 00:35+0200\n"
 "Last-Translator: Jannis \n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/django-allauth/"
@@ -343,11 +343,7 @@ msgstr "Hesap Etkin Değil"
 msgid "This account is inactive."
 msgstr "Bu hesap etkin değil."
 
-#: templates/account/email.html:5
-msgid "Account"
-msgstr "Hesap"
-
-#: templates/account/email.html:8
+#: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "E-posta Adresleri"
 
@@ -810,6 +806,9 @@ msgid ""
 msgstr ""
 "%(site_name)s sitesine giriş yapmak için %(provider_name)s hesabınızı "
 "kullanmak üzeresiniz. Son bir adım olarak, lütfen şu formu doldurun:"
+
+#~ msgid "Account"
+#~ msgstr "Hesap"
 
 #~ msgid "The login and/or password you specified are not correct."
 #~ msgstr "Girdiğiniz giriş bilgisi ve/veya parola doğru değil."

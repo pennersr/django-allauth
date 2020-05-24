@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 11:53-0600\n"
+"POT-Creation-Date: 2020-05-24 13:46-0500\n"
 "PO-Revision-Date: 2017-04-26 12:48+0200\n"
 "Last-Translator: Tomas Babej <tomasbabej@gmail.com>\n"
 "Language-Team: \n"
@@ -333,11 +333,7 @@ msgstr "Účet neaktívny"
 msgid "This account is inactive."
 msgstr "Tento účet je neaktívny."
 
-#: templates/account/email.html:5
-msgid "Account"
-msgstr "Účet"
-
-#: templates/account/email.html:8
+#: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "E-mailová adresa"
 
@@ -806,6 +802,9 @@ msgid ""
 msgstr ""
 "Chystáte sa použiť váš %(provider_name)s účet na prihlásenie do\n"
 "%(site_name)s. Ako posledný krok vyplňte nasledujúci formulár:"
+
+#~ msgid "Account"
+#~ msgstr "Účet"
 
 #~ msgid "The login and/or password you specified are not correct."
 #~ msgstr "Uvedený login alebo heslo nie je správne."

@@ -15,6 +15,23 @@ class ProviderRegistry(object):
             provider_cls(request)
             for provider_cls in self.provider_map.values()]
 
+    def get_site_list(self, site, request=None):
+        from allauth.socialaccount.models import SocialApp
+
+        self.load()
+        providers = []
+        site_provider_ids = SocialApp.objects.filter(
+            sites__id=getattr(site, 'id', None)
+        ).values_list('provider', flat=True)
+
+        for provider_cls in self.provider_map.values():
+            provider = provider_cls(request)
+
+            if provider.id in site_provider_ids:
+                providers.append(provider)
+
+        return providers
+
     def register(self, cls):
         self.provider_map[cls.id] = cls
 

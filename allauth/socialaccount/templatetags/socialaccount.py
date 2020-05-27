@@ -89,6 +89,19 @@ def get_providers():
     Usage: `{% get_providers as socialaccount_providers %}`.
 
     Then within the template context, `socialaccount_providers` will hold
-    a list of social providers configured for the current site.
+    a list of social providers configured for the current installation.
     """
     return providers.registry.get_list()
+
+
+@register.simple_tag
+def get_site_providers(site):
+    """
+    Returns a list of social authentication providers enabled for `site`.
+
+    Usage: `{% get_site_providers site as socialaccount_providers %}`.
+
+    Then within the template context, `socialaccount_providers` will hold
+    a list of social providers configured for the current site.
+    """
+    return providers.registry.get_site_list(site=site)

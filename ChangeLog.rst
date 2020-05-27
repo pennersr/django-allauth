@@ -1,3 +1,13 @@
+0.43.0 (2020-05-27)
+*******************
+
+Note worthy changes
+-------------------
+
+- Added ``get_site_providers`` method to provide the ability to only list
+  providers that are enabled for a specific site.
+
+
 0.42.0 (2020-05-24)
 *******************
 

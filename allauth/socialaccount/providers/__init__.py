@@ -24,13 +24,10 @@ class ProviderRegistry(object):
             sites__id=getattr(site, 'id', None)
         ).values_list('provider', flat=True)
 
-        for provider_cls in self.provider_map.values():
-            provider = provider_cls(request)
-
-            if provider.id in site_provider_ids:
-                providers.append(provider)
-
-        return providers
+        return [
+            provider_cls(request)
+            for provider_cls in self.provider_map.values()
+            if provider_cls.id in site_provider_ids]
 
     def register(self, cls):
         self.provider_map[cls.id] = cls

@@ -23,7 +23,7 @@ class SalesforceProvider(OAuth2Provider):
     account_class = SalesforceAccount
 
     def get_default_scope(self):
-        return ['id', 'openid']
+        return ['id', 'openid', 'api']
 
     def get_auth_params(self, request, action):
         ret = super(SalesforceProvider, self).get_auth_params(request, action)

@@ -53,9 +53,10 @@ def provider_login_url(parser, token):
 
 class ProvidersMediaJSNode(template.Node):
     def render(self, context):
-        request = context['request']
-        ret = '\n'.join([p.media_js(request)
-                         for p in providers.registry.get_list(request)])
+        request = context["request"]
+        ret = "\n".join(
+            p.media_js(request) for p in providers.registry.get_list(request)
+        )
         return ret
 
 

@@ -222,6 +222,10 @@ class AppSettings(object):
         return self._setting('LOGOUT_REDIRECT_URL', '/')
 
     @property
+    def PASSWORD_CHANGE_REDIRECT_URL(self):
+        return self._setting('PASSWORD_CHANGE_REDIRECT_URL', '/')
+
+    @property
     def LOGOUT_ON_GET(self):
         return self._setting('LOGOUT_ON_GET', False)
 

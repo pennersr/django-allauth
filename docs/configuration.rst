@@ -147,6 +147,9 @@ ACCOUNT_LOGOUT_REDIRECT_URL (="/")
   The URL (or URL name) to return to after the user logs out. This is
   the counterpart to Django's ``LOGIN_REDIRECT_URL``.
 
+ACCOUNT_PASSWORD_CHANGE_REDIRECT_URL (="/")
+  The URL (or URL name) to return to after the user changes password.
+
 ACCOUNT_PASSWORD_INPUT_RENDER_VALUE (=False)
   ``render_value`` parameter as passed to ``PasswordInput`` fields.
 

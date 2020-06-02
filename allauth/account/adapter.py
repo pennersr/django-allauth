@@ -161,6 +161,12 @@ class DefaultAccountAdapter(object):
         """
         return resolve_url(app_settings.LOGOUT_REDIRECT_URL)
 
+    def get_password_change_redirect_url(self, request):
+        """
+        Returns the URL to redirect to after the user changes password
+        """
+        return resolve_url(app_settings.PASSWORD_CHANGE_REDIRECT_URL)
+
     def get_email_confirmation_redirect_url(self, request):
         """
         The URL to return to after successful e-mail confirmation.

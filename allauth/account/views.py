@@ -537,7 +537,8 @@ class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = (
         "account/password_change." + app_settings.TEMPLATE_EXTENSION)
     form_class = ChangePasswordForm
-    success_url = reverse_lazy("account_change_password")
+    redirect_field_name = "next"
+    success_url = None
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS,
@@ -559,6 +560,16 @@ class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
         kwargs = super(PasswordChangeView, self).get_form_kwargs()
         kwargs["user"] = self.request.user
         return kwargs
+
+    def get_success_url(self):
+        ret = (
+            get_next_redirect_url(self.request, self.redirect_field_name) or
+            self.success_url or
+            get_adapter(self.request).get_password_change_redirect_url(
+                self.request
+            )
+        )
+        return ret
 
     def form_valid(self, form):
         form.save()

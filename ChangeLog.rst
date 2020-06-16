@@ -1,6 +1,17 @@
 0.42.0 (Unreleased)
 *******************
 
+Backwards incompatible changes
+------------------------------
+
+- see issue ``#370``
+  ``templates/base.html`` has now been moved to ``templates/account/base.html``,
+  this will prevent conflicts with the users ``base.html`` and allauth's ``base.html``.
+
+  I have reflected this change in the example application.
+  projects will now need to overide ``account/base.html`` instead of ``base.html``.
+
+
 Note worthy changes
 -------------------
 

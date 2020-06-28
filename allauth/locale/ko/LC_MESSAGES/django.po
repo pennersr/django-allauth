@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 11:53-0600\n"
+"POT-Creation-Date: 2020-05-24 13:46-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -330,11 +330,7 @@ msgstr "계정 비활성"
 msgid "This account is inactive."
 msgstr "해당 계정은 비활성화된 상태입니다."
 
-#: templates/account/email.html:5
-msgid "Account"
-msgstr "계정"
-
-#: templates/account/email.html:8
+#: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "이메일 계정"
 
@@ -777,6 +773,9 @@ msgid ""
 msgstr ""
 "%(provider_name)s 의 계정을 이용하여 %(site_name)s 으로 로그인하려 합니다.\n"
 "마지막으로 다음 폼을 작성해주세요:"
+
+#~ msgid "Account"
+#~ msgstr "계정"
 
 #~ msgid "The login and/or password you specified are not correct."
 #~ msgstr "로그인 또는 비밀번호가 올바르지 않습니다."

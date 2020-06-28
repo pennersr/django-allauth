@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 11:53-0600\n"
+"POT-Creation-Date: 2020-05-24 13:46-0500\n"
 "PO-Revision-Date: 2014-08-12 00:36+0200\n"
 "Last-Translator: jresins <jresins@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -338,11 +338,7 @@ msgstr "账号未激活"
 msgid "This account is inactive."
 msgstr "此账号未激活"
 
-#: templates/account/email.html:5
-msgid "Account"
-msgstr "账号"
-
-#: templates/account/email.html:8
+#: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "E-mail地址"
 
@@ -792,6 +788,9 @@ msgid ""
 msgstr ""
 "您将使用您的%(provider_name)s账号登录\n"
 "%(site_name)s。作为最后一步，请完成以下表单："
+
+#~ msgid "Account"
+#~ msgstr "账号"
 
 #~ msgid "The login and/or password you specified are not correct."
 #~ msgstr "您提供的账号或密码错误"

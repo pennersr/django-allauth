@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.35\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 11:53-0600\n"
+"POT-Creation-Date: 2020-05-24 13:46-0500\n"
 "PO-Revision-Date: 2018-04-17 16:52+0200\n"
 "Last-Translator: Beda Kosata <beda.kosata@gmail.com>\n"
 "Language-Team: Czech <>\n"
@@ -331,11 +331,7 @@ msgstr "Neaktivní účet"
 msgid "This account is inactive."
 msgstr "Tento účet není aktivní."
 
-#: templates/account/email.html:5
-msgid "Account"
-msgstr "Účet"
-
-#: templates/account/email.html:8
+#: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "E-mailové adresy"
 
@@ -792,6 +788,9 @@ msgid ""
 msgstr ""
 "Chystáte se použít vaš %(provider_name)s účtu k přihlášení na naše stránky \n"
 "%(site_name)s. Jako poslední krok, prosím, vyplňte následující formulář:"
+
+#~ msgid "Account"
+#~ msgstr "Účet"
 
 #~| msgid "The password reset token was invalid."
 #~ msgid "The provided password is not valid."

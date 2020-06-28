@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 11:53-0600\n"
+"POT-Creation-Date: 2020-05-24 13:46-0500\n"
 "PO-Revision-Date: 2018-10-04 02:18+0200\n"
 "Last-Translator: Adam Dobrawy <naczelnik@jawnosc.tk>\n"
 "Language-Team: \n"
@@ -328,11 +328,7 @@ msgstr "Konto nieaktywne"
 msgid "This account is inactive."
 msgstr "To konto jest nieaktywne."
 
-#: templates/account/email.html:5
-msgid "Account"
-msgstr "Konto"
-
-#: templates/account/email.html:8
+#: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "Adresy e-mail"
 
@@ -793,6 +789,9 @@ msgid ""
 msgstr ""
 "Masz zamiar użyć konta %(provider_name)s do zalogowania się w \n"
 "%(site_name)s. Jako ostatni krok, proszę wypełnij formularz:"
+
+#~ msgid "Account"
+#~ msgstr "Konto"
 
 #~ msgid "The login and/or password you specified are not correct."
 #~ msgstr "Login i/lub hasło, które podałeś, są niepoprawne."

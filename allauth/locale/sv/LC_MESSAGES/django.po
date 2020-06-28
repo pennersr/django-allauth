@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 11:53-0600\n"
+"POT-Creation-Date: 2020-05-24 13:46-0500\n"
 "PO-Revision-Date: 2014-08-12 00:35+0200\n"
 "Last-Translator: Jannis \n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/django-allauth/"
@@ -340,11 +340,7 @@ msgstr "Kontot inaktivt"
 msgid "This account is inactive."
 msgstr "Detta konto är inaktivt."
 
-#: templates/account/email.html:5
-msgid "Account"
-msgstr "Konto"
-
-#: templates/account/email.html:8
+#: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "Epost-adresser"
 
@@ -807,6 +803,9 @@ msgid ""
 msgstr ""
 "Du håller på att logga in via ditt konto på %(provider_name)s på \n"
 "%(site_name)s. Fyll i följande formulär för att slutföra inloggningen:"
+
+#~ msgid "Account"
+#~ msgstr "Konto"
 
 #~ msgid "The login and/or password you specified are not correct."
 #~ msgstr "Inloggningen och/eller lösenordet är felaktigt."

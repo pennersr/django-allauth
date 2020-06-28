@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 11:53-0600\n"
+"POT-Creation-Date: 2020-05-24 13:46-0500\n"
 "PO-Revision-Date: 2017-04-05 22:48+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -329,11 +329,7 @@ msgstr "Аккаунт неактивен"
 msgid "This account is inactive."
 msgstr "Этот аккаунт неактивен."
 
-#: templates/account/email.html:5
-msgid "Account"
-msgstr "Аккаунт"
-
-#: templates/account/email.html:8
+#: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "E-mail адреса"
 
@@ -785,6 +781,9 @@ msgid ""
 msgstr ""
 "Вы используете %(provider_name)s для авторизации на \n"
 "%(site_name)s. Чтобы завершить, заполните следующую форму:"
+
+#~ msgid "Account"
+#~ msgstr "Аккаунт"
 
 #~ msgid "The login and/or password you specified are not correct."
 #~ msgstr "Логин и/или пароль не верны."

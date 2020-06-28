@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 11:53-0600\n"
+"POT-Creation-Date: 2020-05-24 13:46-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Nikola Vulovic <nivukiki@gmail.com>\n"
 "Language-Team: NONE\n"
@@ -332,11 +332,7 @@ msgstr "Račun neaktivan"
 msgid "This account is inactive."
 msgstr "Ovaj nalog je neaktivan."
 
-#: templates/account/email.html:5
-msgid "Account"
-msgstr "Račun"
-
-#: templates/account/email.html:8
+#: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "Adrese e-pošte"
 
@@ -801,3 +797,6 @@ msgid ""
 msgstr ""
 "Upravo koristite svoj račun kod %(provider_name)s da biste se prijavili na\n"
 "%(site_name)s. Kao poslednji korak, molimo popunite sledeći obrazac:"
+
+#~ msgid "Account"
+#~ msgstr "Račun"

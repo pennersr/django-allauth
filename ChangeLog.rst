@@ -1,10 +1,10 @@
-0.42.0 (Unreleased)
+0.42.0 (2020-05-24)
 *******************
 
 Note worthy changes
 -------------------
 
-- New providers: Yandex, Mixer.
+- New providers: EDX, Yandex, Mixer.
 
 - Fixed Twitch ``get_avatar_url()`` method to use the profile picture retrieved
   by new user details endpoint introduced in version 0.40.0.

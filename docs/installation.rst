@@ -27,7 +27,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         },
     ]
 
-    AUTHENTICATION_BACKENDS = (
+    AUTHENTICATION_BACKENDS = [
         ...
         # Needed to login by username in Django admin, regardless of `allauth`
         'django.contrib.auth.backends.ModelBackend',
@@ -35,9 +35,9 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         # `allauth` specific authentication methods, such as login by e-mail
         'allauth.account.auth_backends.AuthenticationBackend',
         ...
-    )
+    ]
 
-    INSTALLED_APPS = (
+    INSTALLED_APPS = [
         ...
         # The following apps are required:
         'django.contrib.auth',
@@ -134,7 +134,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.yandex',
         'allauth.socialaccount.providers.ynab',
         ...
-    )
+    ]
 
     SITE_ID = 1
 
@@ -156,7 +156,7 @@ urls.py::
 
     urlpatterns = [
         ...
-        url(r'^accounts/', include('allauth.urls')),
+        path('accounts/', include('allauth.urls')),
         ...
     ]
 

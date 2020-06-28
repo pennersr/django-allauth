@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 11:53-0600\n"
+"POT-Creation-Date: 2020-05-24 13:46-0500\n"
 "PO-Revision-Date: 2014-08-12 00:36+0200\n"
 "Last-Translator: jresins <jresins@gmail.com>\n"
 "Language-Team: Chinese (Traditional)\n"
@@ -333,11 +333,7 @@ msgstr "帳號未啟用"
 msgid "This account is inactive."
 msgstr "這個帳號未啟用"
 
-#: templates/account/email.html:5
-msgid "Account"
-msgstr "帳號"
-
-#: templates/account/email.html:8
+#: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "電子郵件地址"
 
@@ -790,6 +786,9 @@ msgid ""
 msgstr ""
 "您將使用 %(provider_name)s 這個帳號登入\n"
 " %(site_name)s 這個網站。最後一步，請填完下列表單："
+
+#~ msgid "Account"
+#~ msgstr "帳號"
 
 #~ msgid "The login and/or password you specified are not correct."
 #~ msgstr "您提供的帳號或密碼不正確。"

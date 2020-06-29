@@ -22,7 +22,7 @@ msgstr "نام‌کاربری قابل استفاده نیست. لطفا نام�
 
 #: account/adapter.py:49
 msgid "Too many failed login attempts. Try again later."
-msgstr "تلاش‌های ناموفق زیادی کردی، لطفا بعدا ازنو سعی کن."
+msgstr "خیلی زیاد تلاش ناموفق کردی، لطفا بعدا ازنو سعی کن."
 
 #: account/adapter.py:51
 msgid "A user is already registered with this e-mail address."
@@ -116,11 +116,11 @@ msgstr "گذرواژه (ازنو)"
 #, fuzzy
 #| msgid "This e-mail address is already associated with another account."
 msgid "This e-mail address is already associated with this account."
-msgstr "این نشانی رایانامه قبلا به این حساب وصل شده."
+msgstr "این نشانی رایانامه ازقبل به این حساب وصل شده."
 
 #: account/forms.py:434
 msgid "This e-mail address is already associated with another account."
-msgstr "این نشانی رایانامه قبلا به حساب دیگری وصل شده."
+msgstr "این نشانی رایانامه ازقبل به حساب دیگری وصل شده."
 
 #: account/forms.py:456
 msgid "Current Password"
@@ -201,11 +201,11 @@ msgstr ""
 
 #: socialaccount/adapter.py:131
 msgid "Your account has no password set up."
-msgstr "هیچ گذرواژه‌ای برای حسابتان نهاده نشده."
+msgstr "هیچ گذرواژه‌ای برای حساب‌ات نهاده نشده."
 
 #: socialaccount/adapter.py:138
 msgid "Your account has no verified e-mail address."
-msgstr "حسابتان هیچ رایانامه‌ي تایید‌شده‌ای ندارد."
+msgstr "حساب‌ات هیچ رایانامه‌ي تایید‌شده‌ای ندارد."
 
 #: socialaccount/apps.py:7
 #, fuzzy
@@ -235,7 +235,7 @@ msgstr "کلید محرمانه"
 
 #: socialaccount/models.py:53
 msgid "API secret, client secret, or consumer secret"
-msgstr "رمز رابک (میانای برنامه‌ی کاربردی API)، رمز مشتری، یا رمز مصرف‌کننده"
+msgstr "رمز رابک (رابط برنامه‌ی کاربردی API)، رمز مشتری، یا رمز مصرف‌کننده"
 
 #: socialaccount/models.py:58
 #, fuzzy
@@ -304,7 +304,7 @@ msgstr "توکن‌های اپلیکیشن اجتماعی"
 
 #: socialaccount/providers/douban/views.py:36
 msgid "Invalid profile data"
-msgstr "داده نمایه نامعتبر"
+msgstr "داده نامعتبر نمایه"
 
 #: socialaccount/providers/oauth/client.py:78
 #, python-format
@@ -366,7 +366,7 @@ msgstr "اصلی کردن"
 
 #: templates/account/email.html:35
 msgid "Re-send Verification"
-msgstr "بازارسال تاییده"
+msgstr "بازارسال تاییدیه"
 
 #: templates/account/email.html:36 templates/socialaccount/connections.html:35
 msgid "Remove"
@@ -417,7 +417,7 @@ msgstr ""
 "سلام،\n"
 "\n"
 "این رایانامه را دریافت کردی چون کاربر %(user_display)s نشانی رایانامه‌ات را "
-"برای اتصال به حسابش در %(site_name)s داده.\n"
+"برای اتصال به حساب‌اش در %(site_name)s داده.\n"
 "\n"
 "برای تایید درستی این به ‌%(activate_url)s برو.\n"
 
@@ -451,7 +451,7 @@ msgstr ""
 "این رایانامه را دریافت کرده‌ای چون برای حساب کاربری‌ات در %(site_name)s،  از "
 "جانب خودت یا کسی دیگر، یه گذرواژه درخواست شده.\n"
 "برای بازنشانی گذرواژه پیوند زیر را دنبال کن. وگرنه چشم‌پوشی از این هنگامی که "
-"شما هم درخواست نکردی می‌تواند امن باشد."
+"خودت هم درخواست نکردی می‌تواند امن باشد."
 
 #: templates/account/email/password_reset_key_message.txt:8
 #, python-format
@@ -464,7 +464,7 @@ msgid ""
 "Thank you for using %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
-"سپاس‌گزاریم به خاطر استفاده از %(site_name)s.\n"
+"سپاس‌گزاریم برای استفاده از %(site_name)s.\n"
 "‏%(site_domain)s"
 
 #: templates/account/email/password_reset_key_subject.txt:3
@@ -496,7 +496,7 @@ msgid ""
 "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
 "این پیوند تاییدیه رایانامه باطل‌شده ویا نامعتبر است. لطفا یه <a href="
-"\"%(email_url)s\">تاییدیه رایانامه‌ی جدید</a> درخواست کن."
+"\"%(email_url)s\">تاییدیه جدید رایانامه</a> درخواست کن."
 
 #: templates/account/login.html:6 templates/account/login.html:10
 #: templates/account/login.html:43
@@ -583,7 +583,7 @@ msgstr "نشانی رانامه اصلی نهاده شد."
 
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary e-mail address must be verified."
-msgstr "نشانی رایانامه‌ی اصلی‌ات باید تایید شود."
+msgstr "نشانی رایانامه‌ی اصلی‌ات باید تاییدشده باشد."
 
 #: templates/account/password_change.html:5
 #: templates/account/password_change.html:8
@@ -642,7 +642,7 @@ msgid ""
 "a>."
 msgstr ""
 "پیوند بازنشانی گذرواژه نادرست است؛ شاید قبلا استفاده شده. لطفا یه <a class="
-"\"alert-link\" href=\"{{ passwd_reset_url }}\">بازنشان گذرواژه‌ی جدید</"
+"\"alert-link\" href=\"{{ passwd_reset_url }}\">بازنشان جدید گذرواژه</"
 "a>درخواست کن."
 
 #: templates/account/password_reset_from_key.html:17
@@ -705,7 +705,7 @@ msgid ""
 "finalize the signup process. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"یه رایانامه تاییدیه بهت فرستادیم. پیوند درونش را برای تمام کردن فرایند "
+"یه رایانامه تاییدیه بهت فرستادیم. پیوند درونش را برای کامل کردن فرایند "
 "ثبت‌نام دنبال کن. اگر تا چند دقیقه‌ی دیگر دریافتش نکردی، لطفا با ما تماس بگیر."
 
 #: templates/account/verified_email_required.html:12
@@ -781,7 +781,7 @@ msgid ""
 "accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
 "\">sign in</a>."
 msgstr ""
-"ورودت به سایتمان با یکی از حساب‌هایت را لغو کردی. اگر اشتباهی شده، لطفا اقدام "
+"ورودت به سایت‌مان با یکی از حساب‌هایت را لغو کردی. اگر اشتباهی شده، لطفا اقدام "
 "به <a href=\"%(login_url)s\">ورود</a> کن."
 
 #: templates/socialaccount/messages/account_connected.txt:2

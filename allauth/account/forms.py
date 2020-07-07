@@ -8,14 +8,14 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core import exceptions, validators
 from django.urls import reverse
-from django.utils.translation import pgettext, ugettext, ugettext_lazy as _
+from django.utils.translation import gettext, gettext_lazy as _, pgettext
 
-from . import app_settings
 from ..utils import (
     build_absolute_uri,
     get_username_max_length,
     set_form_field_order,
 )
+from . import app_settings
 from .adapter import get_adapter
 from .app_settings import AuthenticationMethod
 from .models import EmailAddress
@@ -39,7 +39,7 @@ class EmailAwarePasswordResetTokenGenerator(PasswordResetTokenGenerator):
             EmailAwarePasswordResetTokenGenerator, self)._make_hash_value(
                 user, timestamp)
         sync_user_email_addresses(user)
-        emails = set([user.email])
+        emails = set([user.email] if user.email else [])
         emails.update(
             EmailAddress.objects
             .filter(user=user)
@@ -298,10 +298,10 @@ class BaseSignupForm(_base_signup_form_class()):
                 )
             )
         if email_required:
-            self.fields['email'].label = ugettext("E-mail")
+            self.fields['email'].label = gettext("E-mail")
             self.fields['email'].required = True
         else:
-            self.fields['email'].label = ugettext("E-mail (optional)")
+            self.fields['email'].label = gettext("E-mail (optional)")
             self.fields['email'].required = False
             self.fields['email'].widget.is_required = False
             if self.username_required:
@@ -499,7 +499,7 @@ class ResetPasswordForm(forms.Form):
     def clean_email(self):
         email = self.cleaned_data["email"]
         email = get_adapter().clean_email(email)
-        self.users = filter_users_by_email(email)
+        self.users = filter_users_by_email(email, is_active=True)
         if not self.users:
             raise forms.ValidationError(_("The e-mail address is not assigned"
                                           " to any user account"))

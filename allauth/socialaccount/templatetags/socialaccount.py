@@ -15,16 +15,16 @@ class ProviderLoginURLNode(template.Node):
 
     def render(self, context):
         provider_id = self.provider_id_var.resolve(context)
-        request = context['request']
+        request = context.get('request')
         provider = providers.registry.by_id(provider_id, request)
         query = dict([(str(name), var.resolve(context)) for name, var
                       in self.params.items()])
         auth_params = query.get('auth_params', None)
         scope = query.get('scope', None)
         process = query.get('process', None)
-        if scope is '':
+        if scope == '':
             del query['scope']
-        if auth_params is '':
+        if auth_params == '':
             del query['auth_params']
         if 'next' not in query:
             next = get_request_param(request, 'next')

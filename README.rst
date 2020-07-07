@@ -2,9 +2,6 @@
 Welcome to django-allauth!
 ==========================
 
-.. image:: https://badge.fury.io/py/django-allauth.svg
-   :target: http://badge.fury.io/py/django-allauth
-
 .. image:: https://travis-ci.org/pennersr/django-allauth.svg
    :target: http://travis-ci.org/pennersr/django-allauth
 
@@ -23,6 +20,9 @@ Welcome to django-allauth!
 
 .. image:: https://img.shields.io/badge/code_style-standard-brightgreen.svg
    :target: http://standardjs.com
+
+.. image:: https://pennersr.github.io/img/emacs-badge.svg
+   :target: https://www.gnu.org/software/emacs/
 
 Integrated set of Django applications addressing authentication,
 registration, account management as well as 3rd party (social) account

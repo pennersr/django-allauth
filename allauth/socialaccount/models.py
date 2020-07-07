@@ -6,16 +6,16 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import PermissionDenied
 from django.db import models
 from django.utils.crypto import get_random_string
-from django.utils.encoding import force_text, python_2_unicode_compatible
-from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import force_str
+from django.utils.translation import gettext_lazy as _
 
 import allauth.app_settings
 from allauth.account.models import EmailAddress
 from allauth.account.utils import get_next_redirect_url, setup_user_email
 from allauth.utils import get_user_model
 
-from . import app_settings, providers
 from ..utils import get_request_param
+from . import app_settings, providers
 from .adapter import get_adapter
 from .fields import JSONField
 
@@ -36,7 +36,6 @@ class SocialAppManager(models.Manager):
         return app
 
 
-@python_2_unicode_compatible
 class SocialApp(models.Model):
     objects = SocialAppManager()
 
@@ -50,6 +49,7 @@ class SocialApp(models.Model):
                                  help_text=_('App ID, or consumer key'))
     secret = models.CharField(verbose_name=_('secret key'),
                               max_length=191,
+                              blank=True,
                               help_text=_('API secret, client secret, or'
                               ' consumer secret'))
     key = models.CharField(verbose_name=_('key'),
@@ -70,7 +70,6 @@ class SocialApp(models.Model):
         return self.name
 
 
-@python_2_unicode_compatible
 class SocialAccount(models.Model):
     user = models.ForeignKey(allauth.app_settings.USER_MODEL,
                              on_delete=models.CASCADE)
@@ -110,7 +109,7 @@ class SocialAccount(models.Model):
         return authenticate(account=self)
 
     def __str__(self):
-        return force_text(self.user)
+        return force_str(self.user)
 
     def get_profile_url(self):
         return self.get_provider_account().get_profile_url()
@@ -125,7 +124,6 @@ class SocialAccount(models.Model):
         return self.get_provider().wrap_account(self)
 
 
-@python_2_unicode_compatible
 class SocialToken(models.Model):
     app = models.ForeignKey(SocialApp, on_delete=models.CASCADE)
     account = models.ForeignKey(SocialAccount, on_delete=models.CASCADE)
@@ -214,7 +212,7 @@ class SocialLogin(object):
         for ea in data['email_addresses']:
             email_address = deserialize_instance(EmailAddress, ea)
             email_addresses.append(email_address)
-        ret = SocialLogin()
+        ret = cls()
         ret.token = token
         ret.account = account
         ret.user = user
@@ -232,7 +230,7 @@ class SocialLogin(object):
         user.save()
         self.account.user = user
         self.account.save()
-        if app_settings.STORE_TOKENS and self.token:
+        if app_settings.STORE_TOKENS and self.token and self.token.app.pk:
             self.token.account = self.account
             self.token.save()
         if connect:
@@ -246,7 +244,7 @@ class SocialLogin(object):
         """
         Account is temporary, not yet backed by a database record.
         """
-        return self.account.pk
+        return self.account.pk is not None
 
     def lookup(self):
         """
@@ -262,7 +260,7 @@ class SocialLogin(object):
             self.user = self.account.user
             a.save()
             # Update token
-            if app_settings.STORE_TOKENS and self.token:
+            if app_settings.STORE_TOKENS and self.token and self.token.app.pk:
                 assert not self.token.pk
                 try:
                     t = SocialToken.objects.get(account=self.account,

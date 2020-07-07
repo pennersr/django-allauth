@@ -18,6 +18,9 @@ class Auth0Provider(OAuth2Provider):
     name = 'Auth0'
     account_class = Auth0Account
 
+    def get_default_scope(self):
+        return ['openid', 'profile', 'email']
+
     def extract_uid(self, data):
         return str(data['id'])
 

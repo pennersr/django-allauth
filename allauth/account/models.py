@@ -6,17 +6,15 @@ from django.core import signing
 from django.db import models, transaction
 from django.utils import timezone
 from django.utils.crypto import get_random_string
-from django.utils.encoding import python_2_unicode_compatible
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
-from . import app_settings, signals
 from .. import app_settings as allauth_app_settings
+from . import app_settings, signals
 from .adapter import get_adapter
 from .managers import EmailAddressManager, EmailConfirmationManager
 from .utils import user_email
 
 
-@python_2_unicode_compatible
 class EmailAddress(models.Model):
 
     user = models.ForeignKey(allauth_app_settings.USER_MODEL,
@@ -37,7 +35,7 @@ class EmailAddress(models.Model):
             unique_together = [("user", "email")]
 
     def __str__(self):
-        return "%s (%s)" % (self.email, self.user)
+        return self.email
 
     def set_as_primary(self, conditional=False):
         old_primary = EmailAddress.objects.get_primary(self.user)
@@ -74,7 +72,6 @@ class EmailAddress(models.Model):
                 self.send_confirmation(request)
 
 
-@python_2_unicode_compatible
 class EmailConfirmation(models.Model):
 
     email_address = models.ForeignKey(EmailAddress,

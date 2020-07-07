@@ -53,7 +53,7 @@ class WeixinOAuth2ClientMixin(object):
         provider = self.adapter.get_provider()
         scope = provider.get_scope(request)
         client = WeixinOAuth2Client(
-            self.request, app.client_id, app.secret,
+            request, app.client_id, app.secret,
             self.adapter.access_token_method,
             self.adapter.access_token_url,
             callback_url,

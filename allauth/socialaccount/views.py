@@ -6,7 +6,6 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
-from . import app_settings, helpers
 from ..account import app_settings as account_settings
 from ..account.adapter import get_adapter as get_account_adapter
 from ..account.views import (
@@ -15,6 +14,7 @@ from ..account.views import (
     RedirectAuthenticatedUserMixin,
 )
 from ..utils import get_form_class
+from . import app_settings, helpers
 from .adapter import get_adapter
 from .forms import DisconnectForm, SignupForm
 from .models import SocialAccount, SocialLogin
@@ -51,6 +51,7 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
         return ret
 
     def form_valid(self, form):
+        self.request.session.pop('socialaccount_sociallogin', None)
         form.save(self.request)
         return helpers.complete_social_signup(self.request,
                                               self.sociallogin)

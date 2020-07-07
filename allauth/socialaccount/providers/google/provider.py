@@ -36,7 +36,7 @@ class GoogleProvider(OAuth2Provider):
         ret = super(GoogleProvider, self).get_auth_params(request,
                                                           action)
         if action == AuthAction.REAUTHENTICATE:
-            ret['prompt'] = 'select_account'
+            ret['prompt'] = 'select_account consent'
         return ret
 
     def extract_uid(self, data):

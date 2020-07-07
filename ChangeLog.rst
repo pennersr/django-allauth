@@ -1,5 +1,185 @@
-0.35.0 (Unreleased)
+0.42.0 (2020-05-24)
 *******************
+
+Note worthy changes
+-------------------
+
+- New providers: EDX, Yandex, Mixer.
+
+- Fixed Twitch ``get_avatar_url()`` method to use the profile picture retrieved
+  by new user details endpoint introduced in version 0.40.0.
+
+- The Facebook API version now defaults to v7.0.
+
+
+0.41.0 (2019-12-18)
+*******************
+
+Security notice
+---------------
+
+- See `CVE-2019-19844
+  <https://www.djangoproject.com/weblog/2019/dec/18/security-releases/>`_.
+
+
+Note worthy changes
+-------------------
+
+- New providers: Exist.io., YNAB, Amazon Cognito.
+
+- You can now store OAuth credentials directly in your
+  ``settings.SOCIALACCOUNT_PROVIDERS`` settings instead of storing them in the
+  database using a ``SocialApp`` record.
+
+- Adding Keycloak Provider
+
+
+Backwards incompatible changes
+------------------------------
+
+- Dropped Python 2 and Django 1 compatibility.
+
+
+0.40.0 (2019-08-29)
+*******************
+
+Note worthy changes
+-------------------
+
+- The ``instagram`` provider now extracts the user's full name.
+
+- New provider: NextCloud (OAuth2)
+
+- Added an ``SDK_URL`` setting for customizing the loading of the Facebook
+  JavaScript SDK.
+
+- Updated Twitch provider to use new authentication endpoints
+  (``https://id.twitch.tv``) over deprecated v5 endpoints
+  (``https://api.twitch.tv/kraken``)
+
+- Added support for Patreon API v2, with API v1 set as default for
+  backwards compatibility.
+
+
+Backwards incompatible changes
+------------------------------
+
+- ``Twitch``: The new API's profile data is different in both
+  structure and content than the old V5 endpoint. Any project
+  that relies on data from ``SocialAccount.extra_data`` should
+  refer to the new API user endpoint documentation:
+  https://dev.twitch.tv/docs/api/reference/#get-users
+
+
+0.39.1 (2019-02-28)
+*******************
+
+Note worthy changes
+-------------------
+
+- The ``linkedin_oauth2`` provider now gracefully deals with old V1
+  data that might still be present in ``SocialAccount.extra_data``.
+
+Backwards incompatible changes
+------------------------------
+
+- The ``globus`` provider's ``extract_uid`` now uses the openid
+  required field ``sub`` instead of the ``create_time`` field.
+
+
+0.39.0 (2019-02-26)
+*******************
+
+Note worthy changes
+-------------------
+
+- New providers: JupyterHub (OAuth2), Steam (OpenID)
+
+- Refactor translations: Portuguese (Portugal).
+
+- Add testing for Django 2.2 (no code changes required)
+
+Backwards incompatible changes
+------------------------------
+
+- ``linkedin_oauth2``: As the LinkedIn V1 API is deprecated, the user info
+  endpoint has been moved over to use the API V2. The format of the user
+  ``extra_data`` is different and the profile picture is absent by default.
+
+
+0.38.0 (2018-10-03)
+*******************
+
+Security notice
+---------------
+
+The ``{% user_display user %}`` tag did not escape properly. Depending on the
+username validation rules, this could lead to XSS issues.
+
+
+Note worthy changes
+-------------------
+
+- New provider: Vimeo (OAuth2).
+
+- New translations: Basque.
+
+
+0.37.1 (2018-08-27)
+*******************
+
+Backwards incompatible changes
+------------------------------
+
+- Dropped the ``x-li-src: msdk`` headers from the ``linkedin_oauth2`` handshake.
+  This header is only required for mobile tokens, and breaks the regular flow.
+  Use the ``HEADERS`` setting to add this header if you need it.
+
+
+0.37.0 (2018-08-27)
+*******************
+
+Note worthy changes
+-------------------
+
+- The Battle.net login backend now recognizes ``apac`` as a valid region.
+
+- User model using a ``UUIDField`` as it's primary key can now be logged
+  in upon email confirmation (if using ``ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION``).
+
+- New providers: Agave, Cern, Disqus, Globus.
+
+- New translation: Danish.
+
+0.36.0 (2018-05-08)
+*******************
+
+Note worthy changes
+-------------------
+
+- New providers: Telegram, QuickBooks.
+
+- The Facebook API version now defaults to v2.12.
+
+- ORCID upgraded to use API v2.1.
+
+
+Security notice
+---------------
+
+- In previous versions, the authentication backend did not invoke the
+  ``user_can_authenticate()`` method, potentially allowing users with
+  ``is_active=False`` to authenticate when the allauth authentication backend
+  was used in a non allauth context.
+
+
+0.35.0 (2018-02-02)
+*******************
+
+Note worthy changes
+-------------------
+
+- Add support for Django 2.0
 
 Security notice
 ---------------
@@ -8,6 +188,11 @@ Security notice
   token generator is already facilitating, allauth now adds the user email
   address to the hash such that whenever the user's email address changes the
   token is invalidated.
+
+Backwards incompatible changes
+------------------------------
+
+- Drop support for Django 1.8 and Django 1.10.
 
 
 Note worthy changes
@@ -1028,7 +1213,7 @@ Backwards incompatible changes
   social login to existing accounts. The symptom is you end up with
   users who have multiple primary email addresses which conflicts
   with assumptions made by the code. In addition to fixing the code
-  that allowed duplicates to occur, there is a managegement command
+  that allowed duplicates to occur, there is a management command
   you can run if you think this effects you (and if it doesn't effect
   you there is no harm in running it anyways if you are unsure):
 

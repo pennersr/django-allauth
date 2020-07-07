@@ -1,6 +1,7 @@
 import json
 import random
 import warnings
+from urllib.parse import parse_qs, urlparse
 
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
@@ -11,16 +12,28 @@ from django.test.client import RequestFactory
 from django.test.utils import override_settings
 from django.urls import reverse
 
-from . import providers
 from ..account import app_settings as account_settings
 from ..account.models import EmailAddress
 from ..account.utils import user_email, user_username
-from ..compat import parse_qs, urlparse
 from ..tests import MockedResponse, TestCase, mocked_response
 from ..utils import get_user_model
+from . import app_settings, providers
 from .helpers import complete_social_login
 from .models import SocialAccount, SocialApp, SocialLogin
 from .views import signup
+
+
+def setup_app(provider):
+    app = None
+    if not app_settings.PROVIDERS.get(provider.id, {}).get('APP'):
+        app = SocialApp.objects.create(
+            provider=provider.id,
+            name=provider.id,
+            client_id='app123id',
+            key=provider.id,
+            secret='dummy')
+        app.sites.add(Site.objects.get_current())
+    return app
 
 
 class OAuthTestsMixin(object):
@@ -32,13 +45,7 @@ class OAuthTestsMixin(object):
     def setUp(self):
         super(OAuthTestsMixin, self).setUp()
         self.provider = providers.registry.by_id(self.provider_id)
-        app = SocialApp.objects.create(
-            provider=self.provider.id,
-            name=self.provider.id,
-            client_id='app123id',
-            key=self.provider.id,
-            secret='dummy')
-        app.sites.add(Site.objects.get_current())
+        self.app = setup_app(self.provider)
 
     @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=False)
     def test_login(self):
@@ -146,12 +153,7 @@ class OAuth2TestsMixin(object):
     def setUp(self):
         super(OAuth2TestsMixin, self).setUp()
         self.provider = providers.registry.by_id(self.provider_id)
-        app = SocialApp.objects.create(provider=self.provider.id,
-                                       name=self.provider.id,
-                                       client_id='app123id',
-                                       key=self.provider.id,
-                                       secret='dummy')
-        app.sites.add(Site.objects.get_current())
+        self.app = setup_app(self.provider)
 
     @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=False)
     def test_login(self):
@@ -193,13 +195,14 @@ class OAuth2TestsMixin(object):
         provider_account.get_brand()
         provider_account.to_str()
         # get token
-        t = sa.socialtoken_set.get()
-        # verify access_token and refresh_token
-        self.assertEqual('testac', t.token)
-        self.assertEqual(t.token_secret,
-                         json.loads(self.get_login_response_json(
-                             with_refresh_token=True)).get(
-                                 'refresh_token', ''))
+        if self.app:
+            t = sa.socialtoken_set.get()
+            # verify access_token and refresh_token
+            self.assertEqual('testac', t.token)
+            self.assertEqual(t.token_secret,
+                             json.loads(self.get_login_response_json(
+                                 with_refresh_token=True)).get(
+                                     'refresh_token', ''))
 
     def test_account_refresh_token_saved_next_login(self):
         """
@@ -587,3 +590,43 @@ class SocialAccountTests(TestCase):
             'An account already exists with this e-mail address.'
             ' Please sign in to that account first, then connect'
             ' your Google account.')
+
+    @override_settings(
+        ACCOUNT_EMAIL_REQUIRED=True,
+        ACCOUNT_EMAIL_VERIFICATION='mandatory',
+        ACCOUNT_UNIQUE_EMAIL=True,
+        ACCOUNT_USERNAME_REQUIRED=True,
+        ACCOUNT_AUTHENTICATION_METHOD='email',
+        SOCIALACCOUNT_AUTO_SIGNUP=False)
+    def test_social_account_taken_at_signup(self):
+        """
+        Test scenario for when the user signs up with a social account
+        and uses email address in that social account. But upon seeing the
+        verification screen, they realize that email address is somehow
+        unusable for them, and so backs up and enters a different email
+        address (and is forced to choose a new username) while providing
+        the same social account token which is owned by their first attempt.
+        """
+        session = self.client.session
+        User = get_user_model()
+        sociallogin = SocialLogin(
+            user=User(email="me1@example.com"),
+            account=SocialAccount(
+                provider='facebook'
+            ),
+        )
+        session['socialaccount_sociallogin'] = sociallogin.serialize()
+        session.save()
+        resp = self.client.get(reverse('socialaccount_signup'))
+        form = resp.context['form']
+        self.assertEqual(form['email'].value(), "me1@example.com")
+        resp = self.client.post(
+            reverse('socialaccount_signup'),
+            data={'username': "me1",
+                  'email': "me1@example.com"})
+        self.assertEqual(resp.status_code, 302)
+        self.assertEqual(User.objects.count(), 1)
+        self.assertEqual(SocialAccount.objects.count(), 1)
+
+        resp = self.client.get(reverse('socialaccount_signup'))
+        self.assertRedirects(resp, reverse('account_login'))

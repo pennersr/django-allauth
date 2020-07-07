@@ -5,11 +5,12 @@ import json
 import requests
 from datetime import date, datetime
 
+import django
 from django.core.files.base import ContentFile
 from django.db import models
-from django.test import TestCase
-
-from allauth.compat import base36_to_int, int_to_base36
+from django.test import RequestFactory, TestCase
+from django.utils.http import base36_to_int, int_to_base36
+from django.views import csrf
 
 from . import utils
 
@@ -67,6 +68,9 @@ class mocked_response:
 
 class BasicTests(TestCase):
 
+    def setUp(self):
+        self.factory = RequestFactory()
+
     def test_generate_unique_username(self):
         examples = [('a.b-c@example.com', 'a.b-c'),
                     ('Üsêrnamê', 'username'),
@@ -90,9 +94,14 @@ class BasicTests(TestCase):
         class SomeField(models.Field):
             def get_prep_value(self, value):
                 return 'somevalue'
-
-            def from_db_value(self, value, expression, connection, context):
-                return some_value
+            if django.VERSION < (3, 0):
+                def from_db_value(
+                    self, value, expression, connection, context
+                ):
+                    return some_value
+            else:
+                def from_db_value(self, value, expression, connection):
+                    return some_value
 
         class SomeModel(models.Model):
             dt = models.DateTimeField()
@@ -170,3 +179,16 @@ class BasicTests(TestCase):
         b36 = 'brxk553wvxbf3'
         assert int_to_base36(n) == b36
         assert base36_to_int(b36) == n
+
+    def test_templatetag_with_csrf_failure(self):
+        # Generate a fictitious GET request
+        request = self.factory.get('/tests/test_403_csrf.html')
+        # Simulate a CSRF failure by calling the View directly
+        # This template is using the `provider_login_url` templatetag
+        response = csrf.csrf_failure(
+            request,
+            template_name='tests/test_403_csrf.html'
+        )
+        # Ensure that CSRF failures with this template
+        # tag succeed with the expected 403 response
+        self.assertEqual(response.status_code, 403)

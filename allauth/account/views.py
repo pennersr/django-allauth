@@ -13,9 +13,9 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic.base import TemplateResponseMixin, TemplateView, View
 from django.views.generic.edit import FormView
 
-from . import app_settings, signals
 from ..exceptions import ImmediateHttpResponse
 from ..utils import get_form_class, get_request_param
+from . import app_settings, signals
 from .adapter import get_adapter
 from .forms import (
     AddEmailForm,
@@ -45,7 +45,8 @@ INTERNAL_RESET_SESSION_KEY = "_password_reset_key"
 
 
 sensitive_post_parameters_m = method_decorator(
-    sensitive_post_parameters('password', 'password1', 'password2'))
+    sensitive_post_parameters(
+        'oldpassword', 'password', 'password1', 'password2'))
 
 
 def _ajax_response(request, response, form=None, data=None):
@@ -521,6 +522,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
         data = []
         for emailaddress in self.request.user.emailaddress_set.all():
             data.append({
+                'id': emailaddress.pk,
                 'email': emailaddress.email,
                 'verified': emailaddress.verified,
                 'primary': emailaddress.primary,
@@ -764,15 +766,18 @@ class LogoutView(TemplateResponseMixin, View):
         if app_settings.LOGOUT_ON_GET:
             return self.post(*args, **kwargs)
         if not self.request.user.is_authenticated:
-            return redirect(self.get_redirect_url())
+            response = redirect(self.get_redirect_url())
+            return _ajax_response(self.request, response)
         ctx = self.get_context_data()
-        return self.render_to_response(ctx)
+        response = self.render_to_response(ctx)
+        return _ajax_response(self.request, response)
 
     def post(self, *args, **kwargs):
         url = self.get_redirect_url()
         if self.request.user.is_authenticated:
             self.logout()
-        return redirect(url)
+        response = redirect(url)
+        return _ajax_response(self.request, response)
 
     def logout(self):
         adapter = get_adapter(self.request)

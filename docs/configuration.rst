@@ -51,8 +51,11 @@ ACCOUNT_EMAIL_REQUIRED (=False)
 
 ACCOUNT_EMAIL_VERIFICATION (="optional")
   Determines the e-mail verification method during signup -- choose
-  one of ``"mandatory"``, ``"optional"``, or ``"none"``. When set to
-  "mandatory" the user is blocked from logging in until the email
+  one of ``"mandatory"``, ``"optional"``, or ``"none"``.
+  
+  Setting this to `"mandatory"` requires `ACCOUNT_EMAIL_REQUIRED` to be `True`
+  
+  When set to "mandatory" the user is blocked from logging in until the email
   address is verified. Choose "optional" or "none" to allow logins
   with an unverified e-mail address. In case of "optional", the e-mail
   verification mail is still sent, whereas in case of "none" no e-mail
@@ -69,7 +72,10 @@ ACCOUNT_DEFAULT_HTTP_PROTOCOL (="http")
 
 ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN (=180)
   The cooldown period (in seconds) after a confirmation email is sent,
-  during which further emails are not sent.
+  during which further emails are not sent. Note that this cooldown is
+  ignored if you are using HMAC confirmation and you need to disable
+  HMAC by setting **ACCOUNT_EMAIL_CONFIRMATION_HMAC=False** in order
+  for a cooldown to be employed.
 
 ACCOUNT_EMAIL_MAX_LENGTH(=254)
   Maximum length of the email field. You won't need to alter this unless using
@@ -86,6 +92,18 @@ ACCOUNT_EMAIL_MAX_LENGTH(=254)
 ACCOUNT_FORMS (={})
   Used to override forms, for example:
   ``{'login': 'myapp.forms.LoginForm'}``
+
+  Possible keys (and default values):
+
+  * ``add_email``: :class:`allauth.account.forms.AddEmailForm`
+  * ``change_password``: :class:`allauth.account.forms.ChangePasswordForm`
+  * ``disconnect``: :class:`allauth.socialaccount.forms.DisconnectForm`
+  * ``login``: :class:`allauth.account.forms.LoginForm`
+  * ``reset_password``: :class:`allauth.account.forms.ResetPasswordForm`
+  * ``reset_password_from_key``: :class:`allauth.account.forms.ResetPasswordKeyForm`
+  * ``set_password``: :class:`allauth.account.forms.SetPasswordForm`
+  * ``signup``: :class:`allauth.account.forms.SignupForm`
+  * ``signup``: :class:`allauth.socialaccount.forms.SignupForm`
 
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT (=5)
   Number of failed login attempts. When this number is
@@ -118,7 +136,7 @@ ACCOUNT_LOGOUT_ON_GET (=False)
 ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE (=False)
   Determines whether or not the user is automatically logged out after
   changing or setting their password. See documentation for
-  `Django's session invalidation on password change <https://docs.djangoproject.com/en/1.8/topics/auth/default/#session-invalidation-on-password-change>`_.
+  `Django's session invalidation on password change <https://docs.djangoproject.com/en/stable/topics/auth/default/#session-invalidation-on-password-change>`_.
 
 ACCOUNT_LOGIN_ON_PASSWORD_RESET (=False)
   By changing this setting to ``True``, users will automatically be logged in

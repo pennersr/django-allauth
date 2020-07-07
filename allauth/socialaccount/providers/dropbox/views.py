@@ -17,17 +17,13 @@ class DropboxOAuth2Adapter(OAuth2Adapter):
     redirect_uri_protocol = 'https'
 
     def complete_login(self, request, app, token, **kwargs):
-        extra_data = requests.post(self.profile_url, headers={
+        response = requests.post(self.profile_url, headers={
             'Authorization': 'Bearer %s' % (token.token, )
         })
-
-        # This only here because of weird response from the test suite
-        if isinstance(extra_data, list):
-            extra_data = extra_data[0]
-
+        response.raise_for_status()
         return self.get_provider().sociallogin_from_response(
             request,
-            extra_data.json()
+            response.json()
         )
 
 

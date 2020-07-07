@@ -3,6 +3,7 @@
 You're receiving this e-mail because user {{ user_display }} has given yours as an e-mail address to connect their account.
 
 To confirm this is correct, go to {{ activate_url }}
-{% endblocktrans %}{% endautoescape %}
+{% endblocktrans %}
 {% blocktrans with site_name=current_site.name site_domain=current_site.domain %}Thank you from {{ site_name }}!
 {{ site_domain }}{% endblocktrans %}
+{% endautoescape %}

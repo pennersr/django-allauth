@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from __future__ import print_function
 import io
 import os
 import sys
@@ -61,9 +62,9 @@ def find_package_data(where=".", package="", exclude=standard_exclude,
                             or fn.lower() == pattern.lower()):
                         bad_name = True
                         if show_ignored:
-                            print >> sys.stderr, (
+                            print(
                                 "Directory %s ignored by pattern %s"
-                                % (fn, pattern))
+                                % (fn, pattern), file=sys.stderr)
                         break
                 if bad_name:
                     continue
@@ -85,9 +86,9 @@ def find_package_data(where=".", package="", exclude=standard_exclude,
                             or fn.lower() == pattern.lower()):
                         bad_name = True
                         if show_ignored:
-                            print >> sys.stderr, (
+                            print(
                                 "File %s ignored by pattern %s"
-                                % (fn, pattern))
+                                % (fn, pattern), file=sys.stderr)
                         break
                 if bad_name:
                     continue
@@ -98,16 +99,6 @@ def find_package_data(where=".", package="", exclude=standard_exclude,
 excluded_directories = standard_exclude_directories
 
 package_data = find_package_data(exclude_directories=excluded_directories)
-
-test_requirements = []
-
-IS_PY2 = sys.version_info[0] < 3
-
-if IS_PY2:
-    openid_package = 'python-openid >= 2.2.5'
-    test_requirements.append('mock >= 1.0.1')
-else:
-    openid_package = 'python3-openid >= 3.0.8'
 
 long_description = io.open('README.rst', encoding='utf-8').read()
 
@@ -126,9 +117,9 @@ METADATA = dict(
     url='http://github.com/pennersr/django-allauth',
     keywords='django auth account social openid twitter facebook oauth'
     ' registration',
-    tests_require=test_requirements,
-    install_requires=['Django >= 1.10',
-                      openid_package,
+    tests_require=[],
+    install_requires=['Django >= 2.0',
+                      'python3-openid >= 3.0.8',
                       'requests-oauthlib >= 0.3.0',
                       "requests"],
     include_package_data=True,
@@ -141,13 +132,16 @@ METADATA = dict(
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Framework :: Django',
-        'Framework :: Django :: 1.11',
         'Framework :: Django :: 2.0',
+        'Framework :: Django :: 2.1',
+        'Framework :: Django :: 2.2',
+        'Framework :: Django :: 3.0',
     ],
     packages=find_packages(exclude=['example']),
     package_data=package_data,

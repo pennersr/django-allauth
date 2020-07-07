@@ -1,6 +1,7 @@
 # Django settings for example project.
 import os
 
+
 PROJECT_ROOT = os.path.normpath(os.path.dirname(os.path.abspath(__file__)))
 
 DEBUG = True
@@ -15,8 +16,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': os.path.join(PROJECT_ROOT, 'example.db'), # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3',  # Add 'postgresql_psycopg2', 'postgresql',
+                                                 # 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': os.path.join(PROJECT_ROOT, 'example.db'),  # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -47,7 +49,7 @@ USE_I18N = True
 # calendars according to the current locale
 USE_L10N = True
 
-LOCALE_PATHS = ( os.path.join(PROJECT_ROOT, 'locale'), )
+LOCALE_PATHS = (os.path.join(PROJECT_ROOT, 'locale'), )
 
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
@@ -81,7 +83,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -124,8 +126,6 @@ AUTHENTICATION_BACKENDS = (
 
 ROOT_URLCONF = 'example.urls'
 
-
-
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -141,6 +141,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.dropbox',
     'allauth.socialaccount.providers.azure',
     'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.edx',
     'allauth.socialaccount.providers.evernote',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
@@ -152,9 +153,11 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.slack',
     'allauth.socialaccount.providers.soundcloud',
     'allauth.socialaccount.providers.stackexchange',
+    'allauth.socialaccount.providers.telegram',
     'allauth.socialaccount.providers.twitch',
     'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.vimeo',
+    'allauth.socialaccount.providers.vimeo_oauth2',
     'allauth.socialaccount.providers.weibo',
     'allauth.socialaccount.providers.xing',
     'example.demo'
@@ -176,3 +179,10 @@ try:
     from local_settings import *  # noqa
 except ImportError:
     pass
+ALLOWED_HOSTS = ['5d825be1.ngrok.io','127.0.0.1']
+
+SOCIALACCOUNT_PROVIDERS = {
+    'edx': {
+        'EDX_URL': "https://draft.navoica.pl",
+    }
+}

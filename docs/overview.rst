@@ -4,9 +4,9 @@ Overview
 Requirements
 ------------
 
-- Python 2.7, 3.3, 3.4, or 3.5
+- Python 3.5, 3.6, 3.7 or 3.8
 
-- Django (1.10+)
+- Django (2.0+)
 
 - python-openid or python3-openid (depending on your Python version)
 
@@ -37,7 +37,11 @@ Supported Providers
 
 - 500px
 
+- AgaveAPI (OAuth2)
+
 - Amazon (OAuth2)
+
+- Amazon Cognito (OAuth2)
 
 - AngelList (OAuth2)
 
@@ -61,11 +65,15 @@ Supported Providers
 
 - Box (OAuth2)
 
+- CERN (OAuth2)
+
 - Dataporten (OAuth2)
 
 - Daum (OAuth2)
 
 - Douban (OAuth2)
+
+- Disqus (OAuth2)
 
 - Doximity (OAuth2)
 
@@ -75,11 +83,15 @@ Supported Providers
 
 - Edmodo (OAuth2)
 
+- Edx (open.edx.org) (OAuth2)
+
 - Eve Online (OAuth2)
 
 - Eventbrite (OAuth2)
 
 - Evernote (OAuth)
+
+- Exist (OAuth2)
 
 - Facebook (both OAuth2 and JS SDK)
 
@@ -93,13 +105,19 @@ Supported Providers
 
 - GitLab (OAuth2)
 
+- Globus (OAuth2)
+
 - Google (OAuth2)
 
 - Hubic (OAuth2)
 
 - Instagram (OAuth2)
 
+- JupyterHub (OAuth2)
+
 - Kakao (OAuth2)
+
+- Keycloak (OAuth2)
 
 - Line (OAuth2)
 
@@ -113,11 +131,17 @@ Supported Providers
 
 - Microsoft (Graph) (OAuth2)
 
+- Mixer (OAuth2)
+
+- NextCloud (OAuth2)
+
 - Naver (OAuth2)
 
 - Odnoklassniki (OAuth2)
 
 - OpenId
+
+- OpenStreetMap (OAuth)
 
 - ORCID (OAuth2)
 
@@ -129,9 +153,13 @@ Supported Providers
 
 - Pinterest (OAuth2)
 
+- QuickBooks (OAuth2)
+
 - Reddit (OAuth2)
 
 - Salesforce (OAuth2)
+
+- ShareFile (OAuth2)
 
 - Shopify (OAuth2)
 
@@ -143,7 +171,13 @@ Supported Providers
 
 - Stack Exchange (OAuth2)
 
+- Steam (OpenID)
+
+- Strava (OAuth2)
+
 - Stripe (OAuth2)
+
+- Telegram
 
 - Trello (OAuth)
 
@@ -155,7 +189,7 @@ Supported Providers
 
 - Untappd (OAuth2)
 
-- Vimeo (OAuth)
+- Vimeo (OAuth, OAuth2)
 
 - VK (OAuth2)
 
@@ -168,6 +202,10 @@ Supported Providers
 - Xing (OAuth)
 
 - Yahoo (OAuth2)
+
+- Yandex (OAuth2)
+
+- YNAB (OAuth2)
 
 
 Note: OAuth/OAuth2 support is built using a common code base, making it easy to add support for additional OAuth/OAuth2 providers. More will follow soon...
@@ -196,5 +234,5 @@ Architecture & Design
 
 - Consumer keys, tokens make use of the Django sites framework. This
   is especially helpful for larger multi-domain projects, but also
-  allows for for easy switching between a development (localhost) and
+  allows for easy switching between a development (localhost) and
   production setup without messing with your settings and database.

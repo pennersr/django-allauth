@@ -91,6 +91,8 @@ Supported Providers
 
 - Feedly (OAuth2)
 
+- Figma (OAuth2)
+
 - Firefox Accounts (OAuth2)
 
 - Flickr (OAuth)

@@ -212,7 +212,7 @@ The following Battle.net settings are available:
 .. code-block:: python
 
     SOCIALACCOUNT_PROVIDERS = {
-        'facebook': {
+        'battlenet': {
             'SCOPE': ['wow.profile', 'sc2.profile'],
             'REGION': 'us',
         }

@@ -20,9 +20,6 @@ class ZoomProvider(OAuth2Provider):
     name = 'Zoom'
     account_class = ZoomAccount
 
-    def get_default_scope(self):
-        return ['user:read', 'user_profile']
-
     def extract_uid(self, data):
         return data['id']
 

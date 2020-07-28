@@ -9,7 +9,6 @@ from django.utils.http import urlencode
 from django.views.decorators.csrf import csrf_exempt
 
 import jwt
-from requests import HTTPError
 
 from allauth.socialaccount.models import SocialApp, SocialToken
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
@@ -23,6 +22,7 @@ from allauth.utils import get_request_param
 from .apple_session import add_apple_session, persist_apple_session
 from .client import AppleOAuth2Client
 from .provider import AppleProvider
+
 
 class AppleOAuth2Adapter(OAuth2Adapter):
     client_cls = AppleOAuth2Client
@@ -50,7 +50,8 @@ class AppleOAuth2Adapter(OAuth2Adapter):
         kid = jwt.get_unverified_header(id_token)["kid"]
         apple_public_key = self._get_apple_public_key(kid=kid)
 
-        public_key = jwt.algorithms.RSAAlgorithm.from_jwk(json.dumps(apple_public_key))
+        public_key = jwt.algorithms.RSAAlgorithm.from_jwk(
+            json.dumps(apple_public_key))
         return public_key
 
     def get_client_id(self, provider):
@@ -80,7 +81,7 @@ class AppleOAuth2Adapter(OAuth2Adapter):
         token = SocialToken(
             token=data["access_token"],
         )
-        token.token_secret=data.get("refresh_token", "")
+        token.token_secret = data.get("refresh_token", "")
 
         expires_in = data.get(self.expires_in_key)
         if expires_in:
@@ -90,7 +91,8 @@ class AppleOAuth2Adapter(OAuth2Adapter):
 
         # `user_data` is a big flat dictionary with the parsed JWT claims
         # access_tokens, and user info from the apple post.
-        identity_data = self.get_verified_identity_data(data["id_token"])
+        identity_data = self.get_verified_identity_data(
+            data.get('id_token', data.get('access_token')))
         token.user_data = {**data, **identity_data}
 
         return token
@@ -131,7 +133,7 @@ class AppleOAuth2Adapter(OAuth2Adapter):
         return {
             **access_token_data,
             **self.get_user_scope_data(request),
-            "id_token":request.apple_login_session.get("id_token")
+            "id_token": request.apple_login_session.get("id_token")
         }
 
 

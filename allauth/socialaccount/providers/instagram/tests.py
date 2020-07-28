@@ -10,10 +10,6 @@ class InstagramTests(OAuth2TestsMixin, TestCase):
     def get_mocked_response(self):
         return MockedResponse(200, """
         {
-          "meta": {
-            "code": 200
-          },
-          "data": {
             "username": "georgewhewell",
             "bio": "",
             "website": "",
@@ -26,5 +22,4 @@ class InstagramTests(OAuth2TestsMixin, TestCase):
               "follows": 104
             },
             "id": "11428116"
-          }
         }""")  # noqa

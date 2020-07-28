@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 11:53-0600\n"
+"POT-Creation-Date: 2020-05-24 13:46-0500\n"
 "PO-Revision-Date: 2015-08-13 15:17+0300\n"
 "Last-Translator: Anonymous User <seppo.erviala@iki.fi>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -338,11 +338,7 @@ msgstr "Tili poissa käytöstä"
 msgid "This account is inactive."
 msgstr "Tämä tili ei ole käytössä."
 
-#: templates/account/email.html:5
-msgid "Account"
-msgstr "Tili"
-
-#: templates/account/email.html:8
+#: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "Sähköpostiosoitteet"
 
@@ -812,6 +808,9 @@ msgid ""
 msgstr ""
 "Olet aikeissa käyttää %(provider_name)s-tiliäsi kirjautuaksesi palveluun\n"
 "%(site_name)s. Täytä vielä seuraava lomake:"
+
+#~ msgid "Account"
+#~ msgstr "Tili"
 
 #~ msgid "The login and/or password you specified are not correct."
 #~ msgstr "Kirjautumistiedot eivät ole oikein."

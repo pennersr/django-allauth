@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 11:53-0600\n"
+"POT-Creation-Date: 2020-05-24 13:46-0500\n"
 "PO-Revision-Date: 2014-08-12 00:31+0200\n"
 "Last-Translator:   <goran.cetusic@gmail.com>\n"
 "Language-Team: Bojan Mihelac <bmihelac@mihelac.org>\n"
@@ -341,11 +341,7 @@ msgstr "Račun je neaktivan"
 msgid "This account is inactive."
 msgstr "Ovaj korisnički račun je neaktivan."
 
-#: templates/account/email.html:5
-msgid "Account"
-msgstr "Korisnički račun"
-
-#: templates/account/email.html:8
+#: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "E-mail adrese"
 
@@ -816,6 +812,9 @@ msgstr ""
 "Odabrali ste da ćete koristiti vaš %(provider_name)s račun za prijavu u "
 "stranicu %(site_name)s. Kao posljednji korak, molimo vas ispunite sljedeći "
 "obrazac:"
+
+#~ msgid "Account"
+#~ msgstr "Korisnički račun"
 
 #~ msgid "The login and/or password you specified are not correct."
 #~ msgstr "Korisničko ime i/ili zaporka nisu ispravni."

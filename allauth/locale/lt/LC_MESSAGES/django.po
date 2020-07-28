@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 11:53-0600\n"
+"POT-Creation-Date: 2020-05-24 13:46-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -339,11 +339,7 @@ msgstr "Paskyra neaktyvi"
 msgid "This account is inactive."
 msgstr "Ši paskyra neaktyvi."
 
-#: templates/account/email.html:5
-msgid "Account"
-msgstr "Paskyra"
-
-#: templates/account/email.html:8
+#: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "El. pašto adresai"
 
@@ -820,6 +816,9 @@ msgid ""
 msgstr ""
 "Jūs beveik prisijungėte prie %(site_name)s naudodami %(provider_name)s\n"
 "paskyrą. Liko paskutinis žingsnis, užpildyti sekančią formą:"
+
+#~ msgid "Account"
+#~ msgstr "Paskyra"
 
 #~ msgid "The login and/or password you specified are not correct."
 #~ msgstr "Pateiktas prisijungimo vardas ir/arba slaptažodis yra neteisingi."

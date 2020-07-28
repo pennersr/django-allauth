@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 11:53-0600\n"
+"POT-Creation-Date: 2020-05-24 13:46-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -339,11 +339,7 @@ msgstr "Neaktīvs konts"
 msgid "This account is inactive."
 msgstr "Šis konts ir neaktīvs."
 
-#: templates/account/email.html:5
-msgid "Account"
-msgstr "Konts"
-
-#: templates/account/email.html:8
+#: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "E-pasta adreses"
 
@@ -818,6 +814,9 @@ msgid ""
 msgstr ""
 "Jūs izmantosiet savu %(provider_name)s kontu, lai ieietu\n"
 "%(site_name)s. Kā pēdējo soli, lūdzu aizpildiet sekojošo formu:"
+
+#~ msgid "Account"
+#~ msgstr "Konts"
 
 #~ msgid "The login and/or password you specified are not correct."
 #~ msgstr "Nepareiza pieteikšanās informācija un/vai parole."

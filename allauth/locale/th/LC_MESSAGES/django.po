@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 11:53-0600\n"
+"POT-Creation-Date: 2020-05-24 13:46-0500\n"
 "PO-Revision-Date: 2015-06-26 13:09+0700\n"
 "Last-Translator: Nattaphoom Chaipreecha <attomos@gmail.com>\n"
 "Language-Team: Thai <LL@li.org>\n"
@@ -336,11 +336,7 @@ msgstr "บัญชีไม่มีการใช้งาน"
 msgid "This account is inactive."
 msgstr "บัญชีนี้ไม่มีการใช้งาน"
 
-#: templates/account/email.html:5
-msgid "Account"
-msgstr "บัญชี"
-
-#: templates/account/email.html:8
+#: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "อีเมล"
 
@@ -802,6 +798,9 @@ msgid ""
 msgstr ""
 "คุณกำลังจะทำการใช้บัญชี %(provider_name)s ของคุณ ในการเข้าสู่ระบบของ\n"
 "%(site_name)s. ในขั้นตอนสุดท้าย กรุณากรอกฟอร์มข้างล่าง:"
+
+#~ msgid "Account"
+#~ msgstr "บัญชี"
 
 #~ msgid "The login and/or password you specified are not correct."
 #~ msgstr "การลงชื่เข้าใช้และ/หรือรหัสผ่านที่ระบุมาไม่ถูกต้อง"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 11:53-0600\n"
+"POT-Creation-Date: 2020-05-24 13:46-0500\n"
 "PO-Revision-Date: 2015-05-08 22:42+0100\n"
 "Last-Translator: Tamás Makó <tom@greenplug.hu>\n"
 "Language-Team: \n"
@@ -335,11 +335,7 @@ msgstr "Felhasználó nem aktív"
 msgid "This account is inactive."
 msgstr "A felhasználó nem aktív."
 
-#: templates/account/email.html:5
-msgid "Account"
-msgstr "Felhasználó"
-
-#: templates/account/email.html:8
+#: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "Email címek"
 
@@ -803,6 +799,9 @@ msgstr ""
 "A(z) %(provider_name)s felhasználódat használod a (z) %(site_name)s "
 "bejelentkezés\n"
 "Utolsó lépésként kérlek töltsd ki az alábbi adatlapot:"
+
+#~ msgid "Account"
+#~ msgstr "Felhasználó"
 
 #~ msgid "The login and/or password you specified are not correct."
 #~ msgstr "A megadott bejelentkezési azonosító vagy a jelszó hibás."

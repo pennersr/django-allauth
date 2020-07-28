@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 11:53-0600\n"
+"POT-Creation-Date: 2020-05-24 13:46-0500\n"
 "PO-Revision-Date: 2014-08-12 00:32+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -338,11 +338,7 @@ msgstr "無効なアカウント"
 msgid "This account is inactive."
 msgstr "このアカウントは無効です。"
 
-#: templates/account/email.html:5
-msgid "Account"
-msgstr "アカウント"
-
-#: templates/account/email.html:8
+#: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "メールアドレス"
 
@@ -803,6 +799,9 @@ msgstr ""
 "%(provider_name)s アカウントを使って %(site_name)s にログインしようとしていま"
 "す。\n"
 "ユーザー登録のために、以下のフォームに記入してください。"
+
+#~ msgid "Account"
+#~ msgstr "アカウント"
 
 #~ msgid "The login and/or password you specified are not correct."
 #~ msgstr "入力されたログインIDもしくはパスワードが正しくありません。"

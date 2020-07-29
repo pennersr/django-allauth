@@ -315,6 +315,10 @@ class AppSettings(object):
                 ret = []
         return ret
 
+    @property
+    def EMAIL_TIMEOUTS(self):
+        return self._setting('EMAIL_TIMEOUTS', {})
+
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

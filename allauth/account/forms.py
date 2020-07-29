@@ -29,6 +29,9 @@ from .utils import (
     user_email,
     user_pk_to_url_str,
     user_username,
+    email_timeout_is_active,
+    email_timeout_apply,
+    email_timeout,
 )
 
 
@@ -501,6 +504,8 @@ class ResetPasswordForm(forms.Form):
         if not self.users:
             raise forms.ValidationError(_("The e-mail address is not assigned"
                                           " to any user account"))
+        if email_timeout_is_active(email, self):
+            raise forms.ValidationError(_('Please wait before trying again.'))
         return self.cleaned_data["email"]
 
     def save(self, request, **kwargs):
@@ -536,6 +541,7 @@ class ResetPasswordForm(forms.Form):
                 'account/email/password_reset_key',
                 email,
                 context)
+            email_timeout_apply(email, self)
         return self.cleaned_data["email"]
 
 

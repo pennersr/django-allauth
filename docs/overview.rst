@@ -131,8 +131,6 @@ Supported Providers
 
 - Microsoft (Graph) (OAuth2)
 
-- Mixer (OAuth2)
-
 - NextCloud (OAuth2)
 
 - Naver (OAuth2)

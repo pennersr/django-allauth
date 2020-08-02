@@ -5,7 +5,7 @@ from requests import RequestException
 
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.core.urlresolvers import reverse
 from django.utils import timezone
 
 from allauth.exceptions import ImmediateHttpResponse

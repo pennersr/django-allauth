@@ -22,6 +22,9 @@ class AuthError(object):
     CANCELLED = 'cancelled'  # Cancelled on request of user
     DENIED = 'denied'  # Denied by server
 
+class ProviderException(Exception):
+    pass
+
 
 class Provider(object):
     def get_login_url(self, request, next=None, **kwargs):

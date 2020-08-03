@@ -1,5 +1,9 @@
+try:
+    from urllib.parse import parse_qsl, urlencode
+except ImportError:
+    from urllib import urlencode
+    from urlparse import parse_qsl
 import requests
-from urlparse import parse_qsl 
 
 
 from django.utils.http import urlencode

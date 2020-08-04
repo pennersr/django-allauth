@@ -1,3 +1,5 @@
+from unittest import expectedFailure
+
 from django.test import override_settings
 from django.urls import reverse
 
@@ -23,7 +25,9 @@ class OpenIDTests(TestCase):
                                 dict(openid='http://www.google.com'))
         self.assertTrue('openid' in resp.context['form'].errors)
 
+    @expectedFailure
     def test_login(self):
+        # Location: https://s.yimg.com/wm/mbr/html/openid-eol-0.0.1.html
         resp = self.client.post(reverse(views.login),
                                 dict(openid='http://me.yahoo.com'))
         assert 'login.yahooapis' in resp['location']
@@ -55,6 +59,7 @@ class OpenIDTests(TestCase):
                     )
                     get_user_model().objects.get(first_name='raymond')
 
+    @expectedFailure
     @override_settings(SOCIALACCOUNT_PROVIDERS={'openid': {'SERVERS': [
         dict(id='yahoo',
              name='Yahoo',

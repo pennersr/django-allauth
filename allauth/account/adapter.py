@@ -196,7 +196,7 @@ class DefaultAccountAdapter(object):
         username is already present it is assumed to be valid
         (unique).
         """
-        from .utils import user_username, user_email, user_field
+        from .utils import user_email, user_field, user_username
         first_name = user_field(user, 'first_name')
         last_name = user_field(user, 'last_name')
         email = user_email(user)
@@ -219,7 +219,7 @@ class DefaultAccountAdapter(object):
         Saves a new `User` instance using information provided in the
         signup form.
         """
-        from .utils import user_username, user_email, user_field
+        from .utils import user_email, user_field, user_username
 
         data = form.cleaned_data
         first_name = data.get('first_name')
@@ -415,8 +415,9 @@ class DefaultAccountAdapter(object):
         try:
             from django.utils.http import url_has_allowed_host_and_scheme
         except ImportError:
-            from django.utils.http import \
-                is_safe_url as url_has_allowed_host_and_scheme
+            from django.utils.http import (
+                is_safe_url as url_has_allowed_host_and_scheme,
+            )
 
         return url_has_allowed_host_and_scheme(url, allowed_hosts=None)
 

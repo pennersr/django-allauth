@@ -298,8 +298,8 @@ class AppSettings(object):
     @property
     def USERNAME_VALIDATORS(self):
         from django.core.exceptions import ImproperlyConfigured
-        from allauth.utils import import_attribute
-        from allauth.utils import get_user_model
+
+        from allauth.utils import get_user_model, import_attribute
 
         path = self._setting('USERNAME_VALIDATORS', None)
         if path:

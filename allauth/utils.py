@@ -96,9 +96,10 @@ def generate_username_candidates(basename):
 
 
 def generate_unique_username(txts, regex=None):
-    from .account.app_settings import USER_MODEL_USERNAME_FIELD
-    from .account.adapter import get_adapter
     from allauth.account.utils import filter_users_by_username
+
+    from .account.adapter import get_adapter
+    from .account.app_settings import USER_MODEL_USERNAME_FIELD
 
     adapter = get_adapter()
     basename = _generate_unique_username_base(txts, regex)

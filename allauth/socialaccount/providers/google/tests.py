@@ -51,8 +51,9 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
                (repr(verified_email).lower())))
 
     def test_google_compelete_login_401(self):
-        from allauth.socialaccount.providers.google.views import \
-            GoogleOAuth2Adapter
+        from allauth.socialaccount.providers.google.views import (
+            GoogleOAuth2Adapter,
+        )
 
         class LessMockedResponse(MockedResponse):
             def raise_for_status(self):

@@ -185,4 +185,6 @@ class FacebookProvider(OAuth2Provider):
                                     primary=True))
         return ret
 
-providers.registry.register(FacebookProvider)
+# providers.registry.register(FacebookProvider)
+
+provider_classes = [FacebookProvider]

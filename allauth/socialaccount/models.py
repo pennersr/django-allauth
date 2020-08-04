@@ -45,12 +45,17 @@ class SocialApp(models.Model):
                                  help_text=_('App ID, or consumer key'))
     secret = models.CharField(verbose_name=_('secret key'),
                               max_length=191,
+                              blank=True,
                               help_text=_('API secret, client secret, or'
                               ' consumer secret'))
     key = models.CharField(verbose_name=_('key'),
                            max_length=191,
                            blank=True,
                            help_text=_('Key'))
+    cert = models.CharField(verbose_name=_('Certificate'),
+                            max_length=500,
+                            blank=True,
+                            help_text=_('.p8 file contents (if required)'))
     # Most apps can be used across multiple domains, therefore we use
     # a ManyToManyField. Note that Facebook requires an app per domain
     # (unless the domains share a common base name).

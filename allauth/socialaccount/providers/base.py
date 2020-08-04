@@ -15,6 +15,7 @@ class AuthProcess(object):
 class AuthAction(object):
     AUTHENTICATE = 'authenticate'
     REAUTHENTICATE = 'reauthenticate'
+    REREQUEST = 'rerequest'
 
 
 class AuthError(object):
@@ -27,6 +28,16 @@ class ProviderException(Exception):
 
 
 class Provider(object):
+
+    slug = None
+
+    def __init__(self, request):
+        self.request = request
+
+    @classmethod
+    def get_slug(cls):
+        return cls.slug or cls.id
+
     def get_login_url(self, request, next=None, **kwargs):
         """
         Builds the URL to redirect to when initiating a login for this
@@ -35,10 +46,8 @@ class Provider(object):
         raise NotImplementedError("get_login_url() for " + self.name)
 
     def get_app(self, request):
-        # NOTE: Avoid loading models at top due to registry boot...
-        from allauth.socialaccount.models import SocialApp
-
-        return SocialApp.objects.get_current(self.id, request)
+        adapter = get_adapter(request)
+        return adapter.get_app(request, self.id)
 
     def media_js(self, request):
         """
@@ -71,7 +80,7 @@ class Provider(object):
         # NOTE: Avoid loading models at top due to registry boot...
         from allauth.socialaccount.models import SocialLogin, SocialAccount
 
-        adapter = get_adapter()
+        adapter = get_adapter(request)
         uid = self.extract_uid(response)
         extra_data = self.extract_extra_data(response)
         common_fields = self.extract_common_fields(response)
@@ -137,12 +146,18 @@ class Provider(object):
         """
         For example:
 
-        [EmailAddress(email='john@doe.org',
+        [EmailAddress(email='john@example.com',
                       verified=True,
                       primary=True)]
         """
         return []
 
+    @classmethod
+    def get_package(cls):
+        pkg = getattr(cls, 'package', None)
+        if not pkg:
+            pkg = cls.__module__.rpartition('.')[0]
+        return pkg
 
 @python_2_unicode_compatible
 class ProviderAccount(object):

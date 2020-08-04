@@ -27,9 +27,7 @@ class OAuth2Provider(Provider):
 
     def get_scope(self, request):
         settings = self.get_settings()
-        scope = settings.get('SCOPE')
-        if scope is None:
-            scope = self.get_default_scope()
+        scope = list(settings.get('SCOPE', self.get_default_scope()))
         dynamic_scope = request.GET.get('scope', None)
         if dynamic_scope:
             scope.extend(dynamic_scope.split(','))

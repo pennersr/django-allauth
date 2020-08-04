@@ -60,4 +60,5 @@ class GoogleProvider(OAuth2Provider):
         return ret
 
 
-providers.registry.register(GoogleProvider)
+# providers.registry.register(GoogleProvider)
+provider_classes = [GoogleProvider]

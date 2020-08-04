@@ -60,4 +60,5 @@ class LinkedInOAuth2Provider(OAuth2Provider):
                     last_name=data.get('lastName'))
 
 
-providers.registry.register(LinkedInOAuth2Provider)
+# providers.registry.register(LinkedInOAuth2Provider)
+provider_classes = [LinkedInOAuth2Provider]

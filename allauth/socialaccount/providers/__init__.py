@@ -1,28 +1,31 @@
-from django.conf import settings
+import importlib
+from collections import OrderedDict
 
-from allauth.compat import importlib
+from django.conf import settings
 
 
 class ProviderRegistry(object):
     def __init__(self):
-        self.provider_map = {}
+        self.provider_map = OrderedDict()
         self.loaded = False
 
-    def get_list(self):
+    def get_list(self, request=None):
         self.load()
-        return self.provider_map.values()
+        return [
+            provider_cls(request)
+            for provider_cls in self.provider_map.values()]
 
     def register(self, cls):
-        self.provider_map[cls.id] = cls()
+        self.provider_map[cls.id] = cls
 
-    def by_id(self, id):
+    def by_id(self, id, request=None):
         self.load()
-        return self.provider_map[id]
+        return self.provider_map[id](request=request)
 
     def as_choices(self):
         self.load()
-        for provider in self.get_list():
-            yield (provider.id, provider.name)
+        for provider_cls in self.provider_map.values():
+            yield (provider_cls.id, provider_cls.name)
 
     def load(self):
         # TODO: Providers register with the provider registry when
@@ -33,11 +36,18 @@ class ProviderRegistry(object):
         # all of this really needs to be revisited.
         if not self.loaded:
             for app in settings.INSTALLED_APPS:
-                provider_module = app + '.provider'
                 try:
-                    importlib.import_module(provider_module)
+                    provider_module = importlib.import_module(
+                        app + '.provider'
+                    )
                 except ImportError:
                     pass
+                else:
+                    for cls in getattr(
+                        provider_module, 'provider_classes', []
+                    ):
+                        self.register(cls)
             self.loaded = True
+
 
 registry = ProviderRegistry()

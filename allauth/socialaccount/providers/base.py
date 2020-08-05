@@ -80,7 +80,7 @@ class Provider(object):
         # NOTE: Avoid loading models at top due to registry boot...
         from allauth.socialaccount.models import SocialLogin, SocialAccount
 
-        adapter = get_adapter(request)
+        adapter = get_adapter()
         uid = self.extract_uid(response)
         extra_data = self.extract_extra_data(response)
         common_fields = self.extract_common_fields(response)

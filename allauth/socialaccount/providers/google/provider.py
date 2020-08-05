@@ -43,21 +43,40 @@ class GoogleProvider(OAuth2Provider):
         return ret
 
     def extract_uid(self, data):
-        return str(data['id'])
+        return str(data['emailAddresses'][0]['metadata']['source']['id'])
 
     def extract_common_fields(self, data):
-        return dict(email=data.get('email'),
-                    last_name=data.get('family_name'),
-                    first_name=data.get('given_name'))
+        return dict(email=data['emailAddresses'][0]['value'],
+                    last_name=data['names'][0]['familyName'],
+                    first_name=data['names'][0]['givenName'])
 
     def extract_email_addresses(self, data):
         ret = []
-        email = data.get('email')
-        if email and data.get('verified_email'):
+        email = data['emailAddresses'][0]['value']
+        if email:
             ret.append(EmailAddress(email=email,
                        verified=True,
                        primary=True))
         return ret
+
+
+
+    # def extract_uid(self, data):
+    #     return str(data['id'])
+
+    # def extract_common_fields(self, data):
+    #     return dict(email=data.get('email'),
+    #                 last_name=data.get('family_name'),
+    #                 first_name=data.get('given_name'))
+
+    # def extract_email_addresses(self, data):
+    #     ret = []
+    #     email = data.get('email')
+    #     if email and data.get('verified_email'):
+    #         ret.append(EmailAddress(email=email,
+    #                    verified=True,
+    #                    primary=True))
+    #     return ret
 
 
 # providers.registry.register(GoogleProvider)

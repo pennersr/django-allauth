@@ -1209,25 +1209,26 @@ class AuthenticationBackendTests(TestCase):
     @override_settings(
         ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL,
         ACCOUNT_LOGIN_VERIFIED_ONLY=True)  # noqa
-    def test_auth_by_email_verified_only_fails_two_unverified(self):
+    def test_auth_by_email_verified_only_success_two_unverified(self):
         user = self.user
+        backend = AuthenticationBackend()
 
         email1 = user.emailaddress_set.create(email='email1@domain.com')
         email2 = user.emailaddress_set.create(email='email2@domain.com')
 
-        backend = AuthenticationBackend()
-
-        with self.assertRaises(PermissionDenied):
+        self.assertEqual(
             backend.authenticate(
                 request=None,
                 username=email1.email,
-                password=user.username)
+                password=user.username).pk,
+            user.pk)
 
-        with self.assertRaises(PermissionDenied):
+        self.assertEqual(
             backend.authenticate(
                 request=None,
                 username=email2.email,
-                password=user.username)
+                password=user.username).pk,
+            user.pk)
 
     @override_settings(
         ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL,
@@ -1376,10 +1377,10 @@ class UtilsTests(TestCase):
         email1 = self._create_user_email_address(user, 'email1@domain.com')
         email2 = self._create_user_email_address(user, 'email2@domain.com')
 
-        with self.assertRaises(PermissionDenied):
-            verify_login_user_email_verified_flag(user, email1.email)
-        with self.assertRaises(PermissionDenied):
-            verify_login_user_email_verified_flag(user, email2.email)
+        val = verify_login_user_email_verified_flag(user, email1.email)
+        self.assertTrue(val)
+        val = verify_login_user_email_verified_flag(user, email2.email)
+        self.assertTrue(val)
 
     def test_vlue_verified_flag_with_multiple_emailaddress_one_verified(self):
         user = get_user_model().objects.create(

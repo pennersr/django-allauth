@@ -12,6 +12,7 @@ from django.http import HttpResponseRedirect
 from django.utils.encoding import force_str
 from django.utils.http import base36_to_int, int_to_base36, urlencode
 from django.utils.timezone import now
+from django.utils.translation import gettext_lazy as _
 
 from ..exceptions import ImmediateHttpResponse
 from ..utils import (
@@ -476,11 +477,14 @@ def verify_login_user_email_verified_flag(user, email):
     users_unverified_emails = users_emails.filter(verified=False)
 
     # If the user has no unverified emails, no need to block
-    if not users_unverified_emails.exists():
+    # or if user only has unverified emails, do not block as the
+    # verification system blocks login and sends confirmation emails.
+    if not users_unverified_emails.exists() or \
+        users_emails.count() == users_unverified_emails.count():
         return True
 
     # If the email supplied is unverified, block.
     if users_unverified_emails.filter(email=email).exists():
-        raise PermissionDenied('test')
+        raise PermissionDenied(_('email address is unverified'))
 
     return True

@@ -5,7 +5,7 @@ from datetime import timedelta
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
-from django.core.exceptions import FieldDoesNotExist, ValidationError
+from django.core.exceptions import FieldDoesNotExist, PermissionDenied, ValidationError
 from django.db import models
 from django.db.models import Q
 from django.http import HttpResponseRedirect
@@ -449,3 +449,38 @@ def url_str_to_user_pk(s):
     except ValidationError:
         pk = base36_to_int(s)
     return pk
+
+
+def verify_login_user_email_verified_flag(user, email):
+    """ Verifies that the supplied user has more than one email address and
+        whether or not the supplied email is on file and verified.
+
+    Args:
+        user: User object to match emails against
+        email: email address to verify
+
+    Returns:
+        True if the user is allowed to login
+
+    Raises:
+        PermissionDenied if the user should NOT be allowed to login.
+    """
+    from .models import EmailAddress
+
+    users_emails = EmailAddress.objects.filter(user=user)
+
+    # Do not block login with one or none EmailAddress on the account
+    if users_emails.count() <= 1:
+        return True
+
+    users_unverified_emails = users_emails.filter(verified=False)
+
+    # If the user has no unverified emails, no need to block
+    if not users_unverified_emails.exists():
+        return True
+
+    # If the email supplied is unverified, block.
+    if users_unverified_emails.filter(email=email).exists():
+        raise PermissionDenied('test')
+
+    return True

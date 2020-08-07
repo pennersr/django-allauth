@@ -7,6 +7,9 @@ Note worthy changes
 - If ``ACCOUNT_LOGIN_ATTEMPTS_LIMIT`` is set and the user successfully
   resets their password, the timeout is cleared to allow immediate login.
 
+- New setting ``ACCOUNT_LOGIN_VERIFIED_ONLY(=False)`` allows
+  blocking unverified EmailAddress logins
+
 0.42.0 (2020-05-24)
 *******************
 

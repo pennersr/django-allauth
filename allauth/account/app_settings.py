@@ -315,6 +315,10 @@ class AppSettings(object):
                 ret = []
         return ret
 
+    @property
+    def LOGIN_VERIFIED_ONLY(self):
+        return self._setting('LOGIN_VERIFIED_ONLY', False)
+
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

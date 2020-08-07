@@ -5,7 +5,11 @@ from django.contrib.auth.backends import ModelBackend
 from ..utils import get_user_model
 from . import app_settings
 from .app_settings import AuthenticationMethod
-from .utils import filter_users_by_email, filter_users_by_username
+from .utils import (
+    filter_users_by_email,
+    filter_users_by_username,
+    verify_login_user_email_verified_flag
+)
 
 
 _stash = local()
@@ -53,6 +57,13 @@ class AuthenticationBackend(ModelBackend):
         if email:
             for user in filter_users_by_email(email):
                 if self._check_password(user, credentials["password"]):
+
+                    if app_settings.LOGIN_VERIFIED_ONLY:
+
+                        # function raises PermissionDenied exception in the
+                        # case the user is not allowed to login.
+                        verify_login_user_email_verified_flag(user, email)
+
                     return user
         return None
 

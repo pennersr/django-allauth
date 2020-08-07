@@ -32,6 +32,7 @@ from .adapter import get_adapter
 from .auth_backends import AuthenticationBackend
 from .signals import user_logged_in, user_logged_out
 from .utils import (
+    email_timeout_is_active,
     filter_users_by_username,
     url_str_to_user_pk,
     user_pk_to_url_str,
@@ -1351,3 +1352,52 @@ class TestCVE2019_19844(TestCase):
         data = {'email': 'mike@ıxample.org'}
         form = ResetPasswordForm(data)
         self.assertFalse(form.is_valid())
+
+
+class EmailTimeoutTests(TestCase):
+
+    def setUp(self):
+        User = get_user_model()
+        self.user = User.objects.create(username='john',
+                                        email="john1@example.org")
+        self.email_address = EmailAddress.objects.create(
+            user=self.user,
+            email=self.user.email,
+            verified=True,
+            primary=True)
+
+    def test_email_timeout_apply_does_not_interfere_with_original_operation(self):
+        form = ResetPasswordForm({'email': self.email_address.email})
+        self.assertTrue(form.is_valid())
+        form.save(request=None)
+
+        form = ResetPasswordForm({'email': self.email_address.email})
+        self.assertTrue(form.is_valid())
+
+    @override_settings(
+        ACCOUNT_EMAIL_TIMEOUTS={'ResetPasswordForm': timedelta(minutes=1)}
+    )
+    def test_email_timeout_apply_works(self):
+        form = ResetPasswordForm({'email': self.email_address.email})
+        self.assertTrue(form.is_valid())
+        form.save(request=None)
+
+        form = ResetPasswordForm({'email': self.email_address.email})
+        self.assertFalse(form.is_valid())
+
+    @override_settings(
+        ACCOUNT_EMAIL_TIMEOUTS={'ResetPasswordForm': timedelta(minutes=1)}
+    )
+    def test_email_timeout_is_active_is_correct(self):
+        form = ResetPasswordForm({'email': self.email_address.email})
+
+        self.assertFalse(
+            email_timeout_is_active(self.email_address.email, form)
+        )
+
+        form.is_valid()
+        form.save(request=None)
+
+        self.assertTrue(
+            email_timeout_is_active(self.email_address.email, form)
+        )

@@ -457,7 +457,7 @@ def _email_timeout_action_value(action):
     return action
 
 
-def email_timeout(action):
+def _email_action_timeout_duration(action):
     action = _email_timeout_action_value(action)
     timeout = app_settings.EMAIL_TIMEOUTS.get(action)
     if not timeout:
@@ -470,7 +470,7 @@ def email_timeout(action):
 def email_timeout_is_active(email, action):
     from .models import EmailAddress
     action = _email_timeout_action_value(action)
-    timeout = email_timeout(action)
+    timeout = _email_action_timeout_duration(action)
     if not timeout:
         return False
     return EmailAddress.objects.filter(

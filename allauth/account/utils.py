@@ -463,7 +463,8 @@ def _email_action_timeout_duration(action):
     if not timeout:
         return False
     if not isinstance(timeout, timedelta):
-        raise ValueError('ACCOUNT_EMAIL_TIMEOUTS[{}] must be timedelta object'.format(action))
+        raise ValueError('Email Timeout for {} must be timedelta object, '
+                         'found {} instead.'.format(action, type(timeout).__name__))
     return timeout
 
 

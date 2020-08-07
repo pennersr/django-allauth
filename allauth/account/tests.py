@@ -32,6 +32,7 @@ from .adapter import get_adapter
 from .auth_backends import AuthenticationBackend
 from .signals import user_logged_in, user_logged_out
 from .utils import (
+    _email_action_timeout_duration,
     email_timeout_is_active,
     filter_users_by_username,
     url_str_to_user_pk,
@@ -1401,3 +1402,10 @@ class EmailTimeoutTests(TestCase):
         self.assertTrue(
             email_timeout_is_active(self.email_address.email, form)
         )
+
+    @override_settings(
+        ACCOUNT_EMAIL_TIMEOUTS={'ResetPasswordForm': 2}
+    )
+    def test_email_action_timeout_duration_raises_on_non_timedelta(self):
+        with self.assertRaises(ValueError):
+            _email_action_timeout_duration('ResetPasswordForm')

@@ -31,6 +31,8 @@ class AppSettings(object):
             assert self.AUTHENTICATION_METHOD \
                 not in (self.AuthenticationMethod.USERNAME,
                         self.AuthenticationMethod.USERNAME_EMAIL)
+        if self.EMAIL_LIMIT_ON_ACCOUNT:
+            assert self.EMAIL_LIMIT_ON_ACCOUNT > 0
 
     def _setting(self, name, dflt):
         from django.conf import settings
@@ -100,6 +102,10 @@ class AppSettings(object):
         elif ret is False:
             ret = self.EmailVerificationMethod.OPTIONAL
         return ret
+
+    @property
+    def EMAIL_LIMIT_ON_ACCOUNT(self):
+        return self._setting('EMAIL_LIMIT_ON_ACCOUNT', None)
 
     @property
     def AUTHENTICATION_METHOD(self):

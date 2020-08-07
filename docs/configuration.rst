@@ -89,6 +89,12 @@ ACCOUNT_EMAIL_MAX_LENGTH(=254)
   3-byte and 4-byte Unicode character sets
   <https://dev.mysql.com/doc/refman/5.5/en/charset-unicode-conversion.html>`_.
 
+ACCOUNT_EMAIL_LIMIT_ON_ACCOUNT(=None)
+  Limit how many EmailAddress records a user can add to their account.
+
+  Will not affect users that already have more than the limit after changing
+  this value later on in your projects lifespan.
+
 ACCOUNT_FORMS (={})
   Used to override forms, for example:
   ``{'login': 'myapp.forms.LoginForm'}``

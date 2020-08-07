@@ -44,14 +44,19 @@
 
 {% endif %}
 
-
+  {% if can_add_emails %}
     <h2>{% trans "Add E-mail Address" %}</h2>
+
+    {% if account_email_limit and account_email_limit > 1 %}
+      <p>{% trans "You may have a maximum of " %} {{ account_email_limit }} {% trans "email addresses on your account" %}</p>
+    {% endif %}
 
     <form method="post" action="{% url 'account_email' %}" class="add_email">
         {% csrf_token %}
         {{ form.as_p }}
         <button name="action_add" type="submit">{% trans "Add E-mail" %}</button>
     </form>
+  {% endif %}
 
 {% endblock %}
 

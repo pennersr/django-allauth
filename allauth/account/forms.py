@@ -20,6 +20,8 @@ from .adapter import get_adapter
 from .app_settings import AuthenticationMethod
 from .models import EmailAddress
 from .utils import (
+    email_timeout_apply,
+    email_timeout_is_active,
     filter_users_by_email,
     get_user_model,
     perform_login,
@@ -29,9 +31,6 @@ from .utils import (
     user_email,
     user_pk_to_url_str,
     user_username,
-    email_timeout_is_active,
-    email_timeout_apply,
-    email_timeout,
 )
 
 

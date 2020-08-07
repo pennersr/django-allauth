@@ -451,14 +451,14 @@ def url_str_to_user_pk(s):
     return pk
 
 
-def email_timeout_action_value(action):
+def _email_timeout_action_value(action):
     if not isinstance(action, str):
         return type(action).__name__
     return action
 
 
 def email_timeout(action):
-    action = email_timeout_action_value(action)
+    action = _email_timeout_action_value(action)
     timeout = app_settings.EMAIL_TIMEOUTS.get(action)
     if not timeout:
         return False
@@ -469,7 +469,7 @@ def email_timeout(action):
 
 def email_timeout_is_active(email, action):
     from .models import EmailAddress
-    action = email_timeout_action_value(action)
+    action = _email_timeout_action_value(action)
     timeout = email_timeout(action)
     if not timeout:
         return False
@@ -482,7 +482,7 @@ def email_timeout_is_active(email, action):
 
 def email_timeout_apply(email, action):
     from .models import EmailAddress
-    action = email_timeout_action_value(action)
+    action = _email_timeout_action_value(action)
     mails = EmailAddress.objects.filter(email__iexact=email)
     for e in mails:  # type: EmailAddress
         e.emailtimeout_set.create(action=action)

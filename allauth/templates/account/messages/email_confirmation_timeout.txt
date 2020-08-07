@@ -1,0 +1,2 @@
+{% load i18n %}
+{% blocktrans %}Please wait {{ timeout_remaining }} seconds before requesting verification again.{% endblocktrans %}

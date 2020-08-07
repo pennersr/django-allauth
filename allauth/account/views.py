@@ -30,6 +30,9 @@ from .forms import (
 from .models import EmailAddress, EmailConfirmation, EmailConfirmationHMAC
 from .utils import (
     complete_signup,
+    email_timeout_apply,
+    email_timeout_is_active,
+    email_timeout_seconds_remaining,
     get_login_redirect_url,
     get_next_redirect_url,
     logout_on_password_change,
@@ -429,16 +432,26 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                 user=request.user,
                 email=email,
             )
-            get_adapter(request).add_message(
-                request,
-                messages.INFO,
-                'account/messages/'
-                'email_confirmation_sent.txt',
-                {'email': email})
-            email_address.send_confirmation(request)
-            return HttpResponseRedirect(self.get_success_url())
         except EmailAddress.DoesNotExist:
-            pass
+            return
+
+        action = 'ResendEmailVerification'
+        remaining = None
+        if email_timeout_is_active(email, action):
+            message_template = 'account/messages/email_confirmation_timeout.txt'
+            remaining = email_timeout_seconds_remaining(email, action)
+        else:
+            message_template = 'account/messages/email_confirmation_sent.txt'
+            email_address.send_confirmation(request)
+            email_timeout_apply(email, action)
+
+        get_adapter(request).add_message(
+            request,
+            messages.INFO,
+            message_template,
+            {'email': email, 'timeout_remaining': remaining})
+
+        return HttpResponseRedirect(self.get_success_url())
 
     def _action_remove(self, request, *args, **kwargs):
         email = request.POST["email"]

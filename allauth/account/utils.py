@@ -493,7 +493,7 @@ def email_timeout_is_active(email, action):
         email__iexact=email,
         emailtimeout__action=action,
         emailtimeout__created__gt=now() - timeout
-    ).exists()
+    )
 
 
 def email_timeout_apply(email, action):
@@ -507,5 +507,25 @@ def email_timeout_apply(email, action):
     action = _email_timeout_action_value(action)
     email = _email_timeout_email_value(email)
     mails = EmailAddress.objects.filter(email__iexact=email)
-    for e in mails:  # type: EmailAddress
+    for e in mails:
         e.emailtimeout_set.create(action=action)
+
+
+def email_timeout_seconds_remaining(email, action):
+    """ Calculates the seconds remaining on an active timeout.
+
+    Args:
+        email: The email address to check for a timeout
+        action: The action that is happening. string or object.
+
+    Returns:
+        None if no active timeout or integer of seconds
+    """
+    duration = _email_action_timeout_duration(action)
+    val = email_timeout_is_active(email, action).order_by('-emailtimeout__created').first()
+    if not val:
+        return None
+    val = val.emailtimeout_set.order_by('-created').first()
+    if not val:
+        return None
+    return int((val.created - (now() - duration)).total_seconds())

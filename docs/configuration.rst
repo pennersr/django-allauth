@@ -105,13 +105,18 @@ ACCOUNT_EMAIL_TIMEOUTS(={})
 
     ACCOUNT_EMAIL_TIMEOUTS = {
         'ResetPasswordForm': timezone.timedelta(minutes=5),
+        'ResendEmailVerification': timezone.timedelta(minutes=5),
     }
 
-  At the time of this writing only ``ResetPasswordForm`` is covered.
-  If you've overridden the ``reset_password`` form using ``ACCOUNT_FORMS``
-  you need to use the name of the class instead of ResetPasswordForm.
-  If you've changed ``clean_email`` or ``save`` methods on ``ResetPasswordForm``
-  you may need to apply the code necessary to apply and check timeouts.
+  Current Options
+
+  - ``ResetPasswordForm``: If you've overridden the ``reset_password`` form
+    using ``ACCOUNT_FORMS`` you need to use the name of the class instead of
+    ResetPasswordForm. If you've changed ``clean_email`` or ``save`` methods
+    on ``ResetPasswordForm`` you may need to apply the code necessary to
+    apply and check timeouts.
+  - ``ResendEmailVerification``: timeout the users ability to click
+    `Re-send Verification` button on the E-mail Address view.
 
 ACCOUNT_FORMS (={})
   Used to override forms, for example:

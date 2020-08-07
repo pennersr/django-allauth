@@ -16,7 +16,7 @@ from django.template import Context, Template
 from django.test.client import Client, RequestFactory
 from django.test.utils import override_settings
 from django.urls import reverse
-from django.utils.timezone import now
+from django.utils.timezone import now, timedelta
 
 from allauth.account.forms import BaseSignupForm, ResetPasswordForm, SignupForm
 from allauth.account.models import (
@@ -996,11 +996,40 @@ class EmailFormTests(TestCase):
             resp,
             'account/messages/primary_email_set.txt')
 
-    def test_verify(self):
-        resp = self.client.post(
+    def _send_verify(self):
+        return self.client.post(
             reverse('account_email'),
             {'action_send': '',
              'email': self.email_address2.email})
+
+    def test_verify(self):
+        resp = self._send_verify()
+        self.assertTemplateUsed(
+            resp,
+            'account/messages/email_confirmation_sent.txt')
+
+    @override_settings(
+        ACCOUNT_EMAIL_TIMEOUTS={
+            'ResendEmailVerification': timedelta(minutes=5)
+        })
+    def test_verify_with_limiter(self):
+        resp = self._send_verify()
+        self.assertTemplateUsed(
+            resp,
+            'account/messages/email_confirmation_sent.txt')
+
+        resp = self._send_verify()
+        self.assertTemplateUsed(
+            resp,
+            'account/messages/email_confirmation_timeout.txt')
+
+    def test_verify_without_limiter(self):
+        resp = self._send_verify()
+        self.assertTemplateUsed(
+            resp,
+            'account/messages/email_confirmation_sent.txt')
+
+        resp = self._send_verify()
         self.assertTemplateUsed(
             resp,
             'account/messages/email_confirmation_sent.txt')

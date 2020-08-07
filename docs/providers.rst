@@ -1593,7 +1593,8 @@ access to more of the user's details such as username, full name, avatar, etc.
 You need to register an API key here:
     https://steamcommunity.com/dev/apikey
 
-Make sure to create a Steam SocialApp with that secret key.
+Copy the Key supplied by the website above into BOTH Client ID and Secret
+Key fields of the Social Application.
 
 
 Strava

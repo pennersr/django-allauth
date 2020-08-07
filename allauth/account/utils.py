@@ -467,12 +467,27 @@ def _email_action_timeout_duration(action):
     return timeout
 
 
+def _email_timeout_email_value(email):
+    return getattr(email, 'email', email)
+
+
 def email_timeout_is_active(email, action):
+    """ Determines whether or not the given email has an active timeout for the
+        given action.
+
+    Args:
+        email: The email address to check for a timeout
+        action: The action that is happening. string or object.
+
+    Returns:
+        bool if email has an active timeout
+    """
     from .models import EmailAddress
     action = _email_timeout_action_value(action)
     timeout = _email_action_timeout_duration(action)
     if not timeout:
         return False
+    email = _email_timeout_email_value(email)
     return EmailAddress.objects.filter(
         email__iexact=email,
         emailtimeout__action=action,
@@ -481,8 +496,15 @@ def email_timeout_is_active(email, action):
 
 
 def email_timeout_apply(email, action):
+    """ Applies a timeout to the given email for the given action.
+
+    Args:
+        email: The email address to check for a timeout
+        action: The action that is happening. string or object.
+    """
     from .models import EmailAddress
     action = _email_timeout_action_value(action)
+    email = _email_timeout_email_value(email)
     mails = EmailAddress.objects.filter(email__iexact=email)
     for e in mails:  # type: EmailAddress
         e.emailtimeout_set.create(action=action)

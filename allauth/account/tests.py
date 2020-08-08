@@ -536,6 +536,84 @@ class AccountTests(TestCase):
                 else
                 'The username and/or password you specified are not correct.')
 
+    @override_settings(
+        ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL,
+        ACCOUNT_LOGIN_ATTEMPTS_LIMIT=1)
+    def test_login_failed_attempts_exceeded_password_reset_attempts_cleared(self):
+        # Ensure that login attempts, once they hit the limit,
+        # can use the password reset mechanism to regain access.
+        user = get_user_model().objects.create(
+            username='john', email="john@example.org", is_active=True)
+        user.set_password('doe')
+        user.save()
+
+        EmailAddress.objects.create(
+            user=user,
+            email='john@example.com',
+            primary=True,
+            verified=True
+        )
+
+        resp = self.client.post(
+            reverse('account_login'),
+            {'login': user.email, 'password': 'bad'})
+        self.assertFormError(
+            resp,
+            'form',
+            None,
+            'The e-mail address and/or password you specified are not correct.')
+
+        resp = self.client.post(
+            reverse('account_login'),
+            {'login': user.email, 'password': 'bad'})
+        self.assertFormError(
+            resp,
+            'form',
+            None,
+            'Too many failed login attempts. Try again later.')
+
+        self.client.post(
+            reverse('account_reset_password'),
+            data={'email': user.email})
+
+        body = mail.outbox[0].body
+        self.assertGreater(body.find('https://'), 0)
+
+        # Extract URL for `password_reset_from_key` view and access it
+        url = body[body.find('/password/reset/'):].split()[0]
+        resp = self.client.get(url)
+        # Follow the redirect the actual password reset page with the key
+        # hidden.
+        url = resp.url
+        resp = self.client.get(url)
+        self.assertTemplateUsed(
+            resp,
+            'account/password_reset_from_key.%s' %
+            app_settings.TEMPLATE_EXTENSION)
+        self.assertFalse('token_fail' in resp.context_data)
+
+        new_password = 'newpass123'
+
+        # Reset the password
+        resp = self.client.post(url,
+                                {'password1': new_password,
+                                 'password2': new_password})
+        self.assertRedirects(resp,
+                             reverse('account_reset_password_from_key_done'))
+
+        # Check the new password is in effect
+        user = get_user_model().objects.get(pk=user.pk)
+        self.assertTrue(user.check_password(new_password))
+
+        resp = self.client.post(
+            reverse('account_login'),
+            {'login': user.email,
+             'password': new_password})
+
+        self.assertRedirects(resp,
+                             settings.LOGIN_REDIRECT_URL,
+                             fetch_redirect_response=False)
+
     def test_login_unverified_account_mandatory(self):
         """Tests login behavior when email verification is mandatory."""
         user = get_user_model().objects.create(username='john')

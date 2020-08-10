@@ -519,7 +519,11 @@ class DefaultAccountAdapter(object):
             cache.set(cache_key, data, app_settings.LOGIN_ATTEMPTS_TIMEOUT)
 
     def is_ajax(self, request):
-        return request.is_ajax()
+        return any([
+            request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest',
+            request.content_type == 'application/json',
+            request.META.get('HTTP_ACCEPT') == 'application/json',
+        ])
 
 
 def get_adapter(request=None):

@@ -52,9 +52,9 @@ ACCOUNT_EMAIL_REQUIRED (=False)
 ACCOUNT_EMAIL_VERIFICATION (="optional")
   Determines the e-mail verification method during signup -- choose
   one of ``"mandatory"``, ``"optional"``, or ``"none"``.
-  
+
   Setting this to `"mandatory"` requires `ACCOUNT_EMAIL_REQUIRED` to be `True`
-  
+
   When set to "mandatory" the user is blocked from logging in until the email
   address is verified. Choose "optional" or "none" to allow logins
   with an unverified e-mail address. In case of "optional", the e-mail
@@ -94,6 +94,10 @@ ACCOUNT_EMAIL_LIMIT_ON_ACCOUNT(=None)
 
   Will not affect users that already have more than the limit after changing
   this value later on in your projects lifespan.
+
+  Warning: An account must have at least One email address. A user cannot
+  remove the only email address on their account. If you set this option to 1
+  they will be unable to ever add or change their current email address.
 
 ACCOUNT_FORMS (={})
   Used to override forms, for example:
@@ -221,17 +225,17 @@ ACCOUNT_USERNAME_VALIDATORS (=None)
   (``'some.module.validators.custom_username_validators'``) to a list of
   custom username validators. If left unset, the validators setup
   within the user model username field are used.
-  
+
   Example::
-  
+
       # In validators.py
-      
+
       from django.contrib.auth.validators import ASCIIUsernameValidator
 
       custom_username_validators = [ASCIIUsernameValidator()]
-      
+
       # In settings.py
-      
+
       ACCOUNT_USERNAME_VALIDATORS = 'some.module.validators.custom_username_validators'
 
 SOCIALACCOUNT_ADAPTER (="allauth.socialaccount.adapter.DefaultSocialAccountAdapter")

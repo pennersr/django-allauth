@@ -125,6 +125,17 @@ class AjaxCapableProcessFormViewMixin(object):
         return None
 
 
+class LogoutFunctionalityMixin(object):
+
+    def logout(self):
+        adapter = get_adapter(self.request)
+        adapter.add_message(
+            self.request,
+            messages.SUCCESS,
+            'account/messages/logged_out.txt')
+        adapter.logout(self.request)
+
+
 class LoginView(RedirectAuthenticatedUserMixin,
                 AjaxCapableProcessFormViewMixin,
                 FormView):
@@ -262,7 +273,7 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
 signup = SignupView.as_view()
 
 
-class ConfirmEmailView(TemplateResponseMixin, View):
+class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
 
     template_name = "account/email_confirm." + app_settings.TEMPLATE_EXTENSION
 
@@ -279,6 +290,15 @@ class ConfirmEmailView(TemplateResponseMixin, View):
     def post(self, *args, **kwargs):
         self.object = confirmation = self.get_object()
         confirmation.confirm(self.request)
+
+        # In the event someone clicks on an email confirmation link
+        # for one account while logged into another account,
+        # logout of the currently logged in account.
+        cur_user = self.request.user
+        if cur_user.is_authenticated and \
+            cur_user != confirmation.email_address.user:
+            self.logout()
+
         get_adapter(self.request).add_message(
             self.request,
             messages.SUCCESS,
@@ -668,7 +688,9 @@ class PasswordResetDoneView(TemplateView):
 password_reset_done = PasswordResetDoneView.as_view()
 
 
-class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, FormView):
+class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin,
+                               LogoutFunctionalityMixin,
+                               FormView):
     template_name = (
         "account/password_reset_from_key." + app_settings.TEMPLATE_EXTENSION)
     form_class = ResetPasswordKeyForm
@@ -690,6 +712,15 @@ class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, FormView):
                 data={'uidb36': uidb36, 'key': self.key})
             if token_form.is_valid():
                 self.reset_user = token_form.reset_user
+
+                # In the event someone clicks on a password reset link
+                # for one account while logged into another account,
+                # logout of the currently logged in account.
+                cur_user = self.request.user
+                if cur_user.is_authenticated and cur_user != self.reset_user:
+                    self.logout()
+                    self.request.session[INTERNAL_RESET_SESSION_KEY] = self.key
+
                 return super(PasswordResetFromKeyView, self).dispatch(request,
                                                                       uidb36,
                                                                       self.key,
@@ -766,7 +797,7 @@ class PasswordResetFromKeyDoneView(TemplateView):
 password_reset_from_key_done = PasswordResetFromKeyDoneView.as_view()
 
 
-class LogoutView(TemplateResponseMixin, View):
+class LogoutView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
 
     template_name = "account/logout." + app_settings.TEMPLATE_EXTENSION
     redirect_field_name = "next"
@@ -787,14 +818,6 @@ class LogoutView(TemplateResponseMixin, View):
             self.logout()
         response = redirect(url)
         return _ajax_response(self.request, response)
-
-    def logout(self):
-        adapter = get_adapter(self.request)
-        adapter.add_message(
-            self.request,
-            messages.SUCCESS,
-            'account/messages/logged_out.txt')
-        adapter.logout(self.request)
 
     def get_context_data(self, **kwargs):
         ctx = kwargs

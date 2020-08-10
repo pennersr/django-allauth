@@ -781,6 +781,17 @@ class AccountTests(TestCase):
             ValidationError,
             lambda: get_adapter().clean_username('def'))
 
+    def test_password_field_does_not_return_value(self):
+        from .forms import PasswordField
+
+        self.assertIsNone(PasswordField().prepare_value('12345'))
+
+    @override_settings(ACCOUNT_PASSWORD_INPUT_RENDER_VALUE=True)
+    def test_password_field_does_not_return_value(self):
+        from .forms import PasswordField
+
+        self.assertEqual('12345', PasswordField().prepare_value('12345'))
+
 
 class EmailFormTests(TestCase):
 

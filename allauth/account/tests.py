@@ -1351,3 +1351,39 @@ class TestCVE2019_19844(TestCase):
         data = {'email': 'mike@ıxample.org'}
         form = ResetPasswordForm(data)
         self.assertFalse(form.is_valid())
+
+
+class RequestAjaxTests(TestCase):
+
+    def _send_post_request(self, **kwargs):
+        return self.client.post(
+            reverse('account_signup'), {
+                'username': 'johndoe',
+                'email': 'john@example.org',
+                'email2': 'john@example.org',
+                'password1': 'johndoe',
+                'password2': 'johndoe'
+            },
+            **kwargs
+        )
+
+    def test_no_ajax_header(self):
+        resp = self._send_post_request()
+        self.assertEqual(302, resp.status_code)
+        self.assertRedirects(
+            resp, settings.LOGIN_REDIRECT_URL, fetch_redirect_response=False
+        )
+
+    def test_ajax_header_x_requested_with(self):
+        resp = self._send_post_request(
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(200, resp.status_code)
+        self.assertEqual(settings.LOGIN_REDIRECT_URL, resp.json()['location'])
+
+    def test_ajax_header_http_accept(self):
+        resp = self._send_post_request(
+            HTTP_ACCEPT='application/json'
+        )
+        self.assertEqual(200, resp.status_code)
+        self.assertEqual(settings.LOGIN_REDIRECT_URL, resp.json()['location'])

@@ -8,7 +8,7 @@ from .app_settings import AuthenticationMethod
 from .utils import (
     filter_users_by_email,
     filter_users_by_username,
-    verify_login_user_email_verified_flag
+    verify_login_user_email_verified_flag,
 )
 
 

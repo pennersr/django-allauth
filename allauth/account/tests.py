@@ -1190,7 +1190,9 @@ class AuthenticationBackendTests(TestCase):
         user = self.user
         backend = AuthenticationBackend()
 
-        email1 = user.emailaddress_set.create(email='email1@domain.com', verified=True)
+        email1 = user.emailaddress_set.create(
+            email='email1@domain.com', verified=True
+        )
         self.assertEqual(
             backend.authenticate(
                 request=None,
@@ -1199,12 +1201,10 @@ class AuthenticationBackendTests(TestCase):
             user.pk)
 
         email2 = user.emailaddress_set.create(email='email2@domain.com')
-        self.assertEqual(
+        with self.assertRaises(PermissionDenied):
             backend.authenticate(
-                request=None,
-                username=email1.email,
-                password=user.username).pk,
-            user.pk)
+                request=None, username=email2.email, password=user.username
+            )
 
     @override_settings(
         ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL,
@@ -1233,10 +1233,10 @@ class AuthenticationBackendTests(TestCase):
     @override_settings(
         ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL,
         ACCOUNT_LOGIN_VERIFIED_ONLY=True)  # noqa
-    def test_auth_by_email_verified_only_fails_one_unverified_using_unverified(self):
+    def test_auth_by_email_verified_only_fails_one_uv_using_unverified(self):
         user = self.user
 
-        email1 = user.emailaddress_set.create(email='email1@domain.com', verified=True)
+        user.emailaddress_set.create(email='email1@domain.com', verified=True)
         email2 = user.emailaddress_set.create(email='email2@domain.com')
 
         backend = AuthenticationBackend()
@@ -1250,11 +1250,13 @@ class AuthenticationBackendTests(TestCase):
     @override_settings(
         ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL,
         ACCOUNT_LOGIN_VERIFIED_ONLY=True)  # noqa
-    def test_auth_by_email_verified_only_success_one_unverified_using_verified(self):
+    def test_auth_by_email_verified_only_success_one_uv_using_verified(self):
         user = self.user
 
-        email1 = user.emailaddress_set.create(email='email1@domain.com', verified=True)
-        email2 = user.emailaddress_set.create(email='email2@domain.com')
+        email1 = user.emailaddress_set.create(
+            email='email1@domain.com', verified=True
+        )
+        user.emailaddress_set.create(email='email2@domain.com')
 
         backend = AuthenticationBackend()
 
@@ -1271,8 +1273,12 @@ class AuthenticationBackendTests(TestCase):
     def test_auth_by_email_verified_only_success_both_verified(self):
         user = self.user
 
-        email1 = user.emailaddress_set.create(email='email1@domain.com', verified=True)
-        email2 = user.emailaddress_set.create(email='email2@domain.com', verified=True)
+        email1 = user.emailaddress_set.create(
+            email='email1@domain.com', verified=True
+        )
+        email2 = user.emailaddress_set.create(
+            email='email2@domain.com', verified=True
+        )
 
         backend = AuthenticationBackend()
 
@@ -1357,7 +1363,7 @@ class UtilsTests(TestCase):
     def _create_user_email_address(self, user, email, **kwargs):
         return user.emailaddress_set.create(email=email, **kwargs)
 
-    def test_vlue_verified_flag_with_one_emailaddress(self):
+    def test_vluevf_with_one_emailaddress(self):
         user = get_user_model().objects.create(
             is_active=True,
             email='john@example.com',
@@ -1368,7 +1374,7 @@ class UtilsTests(TestCase):
 
         self.assertTrue(val)
 
-    def test_vlue_verified_flag_with_multiple_emailaddress_all_unverified(self):
+    def test_vluevf_with_multiple_emailaddress_all_unverified(self):
         user = get_user_model().objects.create(
             is_active=True,
             email='john@example.com',
@@ -1382,26 +1388,32 @@ class UtilsTests(TestCase):
         val = verify_login_user_email_verified_flag(user, email2.email)
         self.assertTrue(val)
 
-    def test_vlue_verified_flag_with_multiple_emailaddress_one_verified(self):
+    def test_vluevf_with_multiple_emailaddress_one_verified(self):
         user = get_user_model().objects.create(
             is_active=True,
             email='john@example.com',
             username='john')
 
-        email1 = self._create_user_email_address(user, 'email1@domain.com', verified=True)
-        email2 = self._create_user_email_address(user, 'email2@domain.com')
+        email1 = self._create_user_email_address(
+            user, 'email1@domain.com', verified=True
+        )
+        self._create_user_email_address(user, 'email2@domain.com')
 
         val = verify_login_user_email_verified_flag(user, email1.email)
         self.assertTrue(val)
 
-    def test_vlue_verified_flag_with_multiple_emailaddress_one_verified_using_unverified(self):
+    def test_vluevf_with_multiple_emailaddress_one_v_using_unverified(self):
         user = get_user_model().objects.create(
             is_active=True,
             email='john@example.com',
             username='john')
 
-        email1 = self._create_user_email_address(user, 'email1@domain.com', verified=True)
-        email2 = self._create_user_email_address(user, 'email2@domain.com')
+        self._create_user_email_address(
+            user, 'email1@domain.com', verified=True
+        )
+        email2 = self._create_user_email_address(
+            user, 'email2@domain.com'
+        )
 
         with self.assertRaises(PermissionDenied):
             verify_login_user_email_verified_flag(user, email2.email)
@@ -1412,8 +1424,12 @@ class UtilsTests(TestCase):
             email='john@example.com',
             username='john')
 
-        email1 = self._create_user_email_address(user, 'email1@domain.com', verified=True)
-        email2 = self._create_user_email_address(user, 'email2@domain.com', verified=True)
+        email1 = self._create_user_email_address(
+            user, 'email1@domain.com', verified=True
+        )
+        email2 = self._create_user_email_address(
+            user, 'email2@domain.com', verified=True
+        )
 
         val = verify_login_user_email_verified_flag(user, email1.email)
         self.assertTrue(val)

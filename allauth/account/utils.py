@@ -5,7 +5,11 @@ from datetime import timedelta
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
-from django.core.exceptions import FieldDoesNotExist, PermissionDenied, ValidationError
+from django.core.exceptions import (
+    FieldDoesNotExist,
+    PermissionDenied,
+    ValidationError,
+)
 from django.db import models
 from django.db.models import Q
 from django.http import HttpResponseRedirect
@@ -480,7 +484,7 @@ def verify_login_user_email_verified_flag(user, email):
     # or if user only has unverified emails, do not block as the
     # verification system blocks login and sends confirmation emails.
     if not users_unverified_emails.exists() or \
-        users_emails.count() == users_unverified_emails.count():
+            users_emails.count() == users_unverified_emails.count():
         return True
 
     # If the email supplied is unverified, block.

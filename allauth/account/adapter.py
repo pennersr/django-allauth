@@ -473,7 +473,9 @@ class DefaultAccountAdapter(object):
 
     def _delete_login_attempts_cached_email(self, request, **credentials):
         if app_settings.LOGIN_ATTEMPTS_LIMIT:
-            cache_key = self._get_login_attempts_cache_key(request, **credentials)
+            cache_key = self._get_login_attempts_cache_key(
+                request,
+                **credentials)
             cache.delete(cache_key)
 
     def pre_authenticate(self, request, **credentials):

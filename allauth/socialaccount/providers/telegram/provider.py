@@ -24,4 +24,5 @@ class TelegramProvider(Provider):
             'username': data['username'],
         }
 
+
 provider_classes = [TelegramProvider]

@@ -539,7 +539,7 @@ class AccountTests(TestCase):
     @override_settings(
         ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL,
         ACCOUNT_LOGIN_ATTEMPTS_LIMIT=1)
-    def test_login_failed_attempts_exceeded_password_reset_attempts_cleared(self):
+    def test_login_failed_attempts_exceeded_cleared_on_password_reset(self):
         # Ensure that login attempts, once they hit the limit,
         # can use the password reset mechanism to regain access.
         user = get_user_model().objects.create(
@@ -561,7 +561,8 @@ class AccountTests(TestCase):
             resp,
             'form',
             None,
-            'The e-mail address and/or password you specified are not correct.')
+            'The e-mail address and/or password you specified'
+            ' are not correct.')
 
         resp = self.client.post(
             reverse('account_login'),

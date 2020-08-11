@@ -1,6 +1,5 @@
 from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse
-from allauth.tests import TestCase
+from allauth.tests import MockedResponse, TestCase
 
 from .provider import FigmaProvider
 

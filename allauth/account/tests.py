@@ -2,7 +2,6 @@ from __future__ import absolute_import
 
 import json
 import uuid
-from datetime import timedelta
 
 from django import forms
 from django.conf import settings
@@ -1396,7 +1395,7 @@ class EmailTimeoutTests(TestCase):
             verified=True,
             primary=True)
 
-    def test_email_timeout_apply_does_not_interfere_with_original_operation(self):
+    def test_email_timeout_apply_does_not_interfere_with_original_op(self):
         form = ResetPasswordForm({'email': self.email_address.email})
         self.assertTrue(form.is_valid())
         form.save(request=None)

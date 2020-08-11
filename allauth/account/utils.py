@@ -464,7 +464,8 @@ def _email_action_timeout_duration(action):
         return False
     if not isinstance(timeout, timedelta):
         raise ValueError('Email Timeout for {} must be timedelta object, '
-                         'found {} instead.'.format(action, type(timeout).__name__))
+                         'found {} instead.'.format(action,
+                                                    type(timeout).__name__))
     return timeout
 
 
@@ -522,7 +523,9 @@ def email_timeout_seconds_remaining(email, action):
         None if no active timeout or integer of seconds
     """
     duration = _email_action_timeout_duration(action)
-    val = email_timeout_is_active(email, action).order_by('-emailtimeout__created').first()
+    val = email_timeout_is_active(
+        email, action
+    ).order_by('-emailtimeout__created').first()
     if not val:
         return None
     val = val.emailtimeout_set.order_by('-created').first()

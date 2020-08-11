@@ -438,17 +438,17 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
         action = 'ResendEmailVerification'
         remaining = None
         if email_timeout_is_active(email, action):
-            message_template = 'account/messages/email_confirmation_timeout.txt'
+            template = 'account/messages/email_confirmation_timeout.txt'
             remaining = email_timeout_seconds_remaining(email, action)
         else:
-            message_template = 'account/messages/email_confirmation_sent.txt'
+            template = 'account/messages/email_confirmation_sent.txt'
             email_address.send_confirmation(request)
             email_timeout_apply(email, action)
 
         get_adapter(request).add_message(
             request,
             messages.INFO,
-            message_template,
+            template,
             {'email': email, 'timeout_remaining': remaining})
 
         return HttpResponseRedirect(self.get_success_url())

@@ -471,6 +471,11 @@ class DefaultAccountAdapter(object):
             site_id=site.pk,
             login=login_key)
 
+    def _delete_login_attempts_cached_email(self, request, **credentials):
+        if app_settings.LOGIN_ATTEMPTS_LIMIT:
+            cache_key = self._get_login_attempts_cache_key(request, **credentials)
+            cache.delete(cache_key)
+
     def pre_authenticate(self, request, **credentials):
         if app_settings.LOGIN_ATTEMPTS_LIMIT:
             cache_key = self._get_login_attempts_cache_key(
@@ -496,9 +501,7 @@ class DefaultAccountAdapter(object):
         alt_user = AuthenticationBackend.unstash_authenticated_user()
         user = user or alt_user
         if user and app_settings.LOGIN_ATTEMPTS_LIMIT:
-            cache_key = self._get_login_attempts_cache_key(
-                request, **credentials)
-            cache.delete(cache_key)
+            self._delete_login_attempts_cached_email(request, **credentials)
         else:
             self.authentication_failed(request, **credentials)
         return user

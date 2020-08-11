@@ -729,7 +729,16 @@ class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin, FormView):
 
     def form_valid(self, form):
         form.save()
-        get_adapter(self.request).add_message(
+        adapter = get_adapter(self.request)
+
+        if self.reset_user and app_settings.LOGIN_ATTEMPTS_LIMIT:
+            # User successfully reset the password, clear any
+            # possible cache entries for all email addresses.
+            for email in self.reset_user.emailaddress_set.all():
+                adapter._delete_login_attempts_cached_email(
+                    self.request, email=email.email)
+
+        adapter.add_message(
             self.request,
             messages.SUCCESS,
             'account/messages/password_changed.txt')

@@ -168,7 +168,7 @@ Used on `account_reset_password <views.html#password-reset-account-reset-passwor
 ::
 
     from allauth.account.forms import ResetPasswordForm
-    class MyCustomSetPasswordForm(ResetPasswordForm):
+    class MyCustomResetPasswordForm(ResetPasswordForm):
 
         def save(self):
 

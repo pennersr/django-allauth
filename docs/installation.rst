@@ -171,7 +171,7 @@ Post-Installation
 
 In your Django root execute the command below to create your database tables::
 
-    ./manage.py migrate
+    python manage.py migrate
 
 Now start your server, visit your admin pages (e.g. http://localhost:8000/admin/)
 and follow these steps:

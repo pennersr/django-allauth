@@ -296,7 +296,7 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
         # logout of the currently logged in account.
         cur_user = self.request.user
         if cur_user.is_authenticated and \
-            cur_user != confirmation.email_address.user:
+                cur_user != confirmation.email_address.user:
             self.logout()
 
         get_adapter(self.request).add_message(

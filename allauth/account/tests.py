@@ -389,7 +389,7 @@ class AccountTests(TestCase):
         the link, ensure User A is logged out before continuing.
         """
         # Request new password
-        user = self._request_new_password()
+        self._request_new_password()
         body = mail.outbox[0].body
         self.assertGreater(body.find('https://'), 0)
 

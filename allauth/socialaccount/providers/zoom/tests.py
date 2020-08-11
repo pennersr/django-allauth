@@ -26,7 +26,7 @@ class ZoomTests(OAuth2TestsMixin, TestCase):
   "created_at": "2019-04-05T15:24:32Z",
   "last_login_time": "2019-12-16T18:02:48Z",
   "last_client_version": "4.6.12611.1124(mac)",
-  "pic_url": "https://janedev.zoom.us/p/KdYKjnimFR5Td8KKdQt9FQ/19f6430f-ca72-4154-8998-ede6be4542c7-837",
+  "pic_url": "https://janedev.zoom.us/p/KdYKjnimFR5Td8KKdQt9FQ/19f6430f-...",
   "host_key": "533895",
   "jid": "kdykjnimt4kpd8kkdqt9fq@xmpp.zoom.us",
   "group_ids": [],

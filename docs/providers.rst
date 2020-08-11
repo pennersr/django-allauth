@@ -1100,33 +1100,6 @@ for the login. To restrict it, change the `tenant` setting as shown below.
     }
 
 
-Mixer
------
-
-API documentation
-    https://dev.mixer.com/guides/core/introduction
-
-App registration (get your key and secret here)
-    https://mixer.com/lab/oauth
-
-Development callback URL
-    http://localhost:8000/accounts/mixer/login/callback/
-
-You can change scopes for Mixer using the ``SCOPE`` parameter. For example, to add the ability to edit your mixer profile, you'd use:
-
-.. code-block:: python
-
-    SOCIALACCOUNT_PROVIDERS = {
-        'mixer': {
-            'SCOPE': [
-                'user:details:self',
-                'user:update:self',
-            ]
-        }
-    }
-
-The default scope list is ``['user:details:self']``, which is required to get your email address from Mixer. The full list of scopes is available at https://dev.mixer.com/reference/oauth/scopes
-
 Naver
 -----
 

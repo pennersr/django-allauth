@@ -1011,7 +1011,9 @@ class EmailFormTests(TestCase):
             reverse('account_email'),
             {'action_add': '',
              'email': 'john3@example.org'})
-        self.assertTemplateNotUsed(resp, 'account/messages/email_confirmation_sent.txt')
+        self.assertTemplateNotUsed(
+            resp, 'account/messages/email_confirmation_sent.txt'
+        )
 
     @override_settings(
         ACCOUNT_EMAIL_LIMIT_ON_ACCOUNT=None
@@ -1021,7 +1023,9 @@ class EmailFormTests(TestCase):
             reverse('account_email'),
             {'action_add': '',
              'email': 'john3@example.org'})
-        self.assertTemplateUsed(resp, 'account/messages/email_confirmation_sent.txt')
+        self.assertTemplateUsed(
+            resp, 'account/messages/email_confirmation_sent.txt'
+        )
 
     @override_settings(
         ACCOUNT_EMAIL_LIMIT_ON_ACCOUNT=0
@@ -1031,7 +1035,9 @@ class EmailFormTests(TestCase):
             reverse('account_email'),
             {'action_add': '',
              'email': 'john3@example.org'})
-        self.assertTemplateUsed(resp, 'account/messages/email_confirmation_sent.txt')
+        self.assertTemplateUsed(
+            resp, 'account/messages/email_confirmation_sent.txt'
+        )
 
 
 class BaseSignupFormTests(TestCase):

@@ -519,7 +519,9 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
 
         email_limit = app_settings.EMAIL_LIMIT_ON_ACCOUNT
         users_emails = self.request.user.emailaddress_set.count()
-        can_add_emails = not email_limit or (email_limit and users_emails < email_limit)
+        can_add_emails = not email_limit or (
+            email_limit and users_emails < email_limit
+        )
         ret['can_add_emails'] = can_add_emails
         ret['account_email_limit'] = email_limit
 

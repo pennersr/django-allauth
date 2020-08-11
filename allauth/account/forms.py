@@ -355,7 +355,7 @@ class BaseSignupForm(_base_signup_form_class()):
                           DeprecationWarning)
             # Historically, it was called .save, but this is confusing
             # in case of ModelForm
-            self.save(user)
+            super(BaseSignupForm, self).save(user)
 
 
 class SignupForm(BaseSignupForm):

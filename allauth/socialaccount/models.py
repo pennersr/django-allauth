@@ -289,6 +289,12 @@ class SocialLogin(object):
         next_url = get_next_redirect_url(request)
         if next_url:
             state['next'] = next_url
+
+        for key in app_settings.FIELDS_STORED_IN_SESSION:
+            val = request.GET.get(key)
+            if val is not None:
+                state[key] = val
+
         state['process'] = get_request_param(request, 'process', 'login')
         state['scope'] = get_request_param(request, 'scope', '')
         state['auth_params'] = get_request_param(request, 'auth_params', '')

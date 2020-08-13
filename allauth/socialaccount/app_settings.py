@@ -6,7 +6,7 @@ class AppSettings(object):
     def _setting(self, name, dflt):
         from django.conf import settings
         getter = getattr(settings,
-                         'ALLAUTH_SETTING_GETTER',
+            'ALLAUTH_SETTING_GETTER',
                          lambda name, dflt: getattr(settings, name, dflt))
         return getter(self.prefix + name, dflt)
 
@@ -70,6 +70,10 @@ class AppSettings(object):
     @property
     def UID_MAX_LENGTH(self):
         return 191
+
+    @property
+    def FIELDS_STORED_IN_SESSION(self):
+        return self._setting('FIELDS_STORED_IN_SESSION', [])
 
 
 # Ugly? Guido recommends this himself ...

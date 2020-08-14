@@ -87,12 +87,15 @@ class OAuthCallbackView(OAuthView):
                 error = AuthError.CANCELLED
             else:
                 error = AuthError.UNKNOWN
-            extra_context = dict(oauth_client=client)
             return render_authentication_error(
                 request,
                 self.adapter.provider_id,
                 error=error,
-                extra_context=extra_context)
+                extra_context={
+                    'oauth_client': client,
+                    'callback_view': self,
+                },
+            )
         app = self.adapter.get_provider().get_app(request)
         try:
             access_token = client.get_access_token()

@@ -121,7 +121,11 @@ class OAuth2CallbackView(OAuth2View):
             return render_authentication_error(
                 request,
                 self.adapter.provider_id,
-                error=error)
+                error=error,
+                extra_context={
+                    'callback_view': self,
+                },
+            )
         app = self.adapter.get_provider().get_app(self.request)
         client = self.get_client(request, app)
         try:

@@ -146,6 +146,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.yahoo',
     'allauth.socialaccount.providers.yandex',
     'allauth.socialaccount.providers.ynab',
+    'allauth.socialaccount.providers.zoom',
 )
 
 AUTHENTICATION_BACKENDS = (

@@ -111,8 +111,9 @@ class DefaultAccountAdapter(object):
         for ext in ['html', 'txt']:
             try:
                 template_name = '{0}_message.{1}'.format(template_prefix, ext)
-                bodies[ext] = render_to_string(template_name,
-                                               context).strip()
+                bodies[ext] = render_to_string(
+                    template_name, context, self.request,
+                ).strip()
             except TemplateDoesNotExist:
                 if ext == 'txt' and not bodies:
                     # We need at least one body
@@ -311,8 +312,9 @@ class DefaultAccountAdapter(object):
             try:
                 if message_context is None:
                     message_context = {}
-                message = render_to_string(message_template,
-                                           message_context).strip()
+                message = render_to_string(
+                    message_template, message_context, self.request,
+                ).strip()
                 if message:
                     messages.add_message(request, level, message,
                                          extra_tags=extra_tags)

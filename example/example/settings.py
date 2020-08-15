@@ -174,7 +174,7 @@ AUTH_PASSWORD_VALIDATORS = [
     }
 ]
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 try:
     from .local_settings import *  # noqa

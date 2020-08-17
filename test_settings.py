@@ -127,6 +127,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.spotify',
     'allauth.socialaccount.providers.stackexchange',
     'allauth.socialaccount.providers.steam',
+    'allauth.socialaccount.providers.stocktwits',
     'allauth.socialaccount.providers.strava',
     'allauth.socialaccount.providers.stripe',
     'allauth.socialaccount.providers.telegram',

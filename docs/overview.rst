@@ -173,6 +173,8 @@ Supported Providers
 
 - Steam (OpenID)
 
+- Stocktwits (OAuth2)
+
 - Strava (OAuth2)
 
 - Stripe (OAuth2)

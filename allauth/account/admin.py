@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from . import app_settings
 from .adapter import get_adapter
-from .models import EmailAddress, EmailConfirmation, EmailTimeout
+from .models import EmailAddress, EmailConfirmation
 
 
 class EmailAddressAdmin(admin.ModelAdmin):
@@ -22,13 +22,6 @@ class EmailConfirmationAdmin(admin.ModelAdmin):
     raw_id_fields = ('email_address',)
 
 
-class EmailTimeoutAdmin(admin.ModelAdmin):
-    list_display = ('email_address', 'action', 'created')
-    list_filter = ('created',)
-    raw_id_fields = ('email_address',)
-
-
 if not app_settings.EMAIL_CONFIRMATION_HMAC:
     admin.site.register(EmailConfirmation, EmailConfirmationAdmin)
 admin.site.register(EmailAddress, EmailAddressAdmin)
-admin.site.register(EmailTimeout, EmailTimeoutAdmin)

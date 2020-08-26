@@ -20,8 +20,6 @@ from .adapter import get_adapter
 from .app_settings import AuthenticationMethod
 from .models import EmailAddress
 from .utils import (
-    email_timeout_apply,
-    email_timeout_is_active,
     filter_users_by_email,
     get_user_model,
     perform_login,
@@ -498,12 +496,13 @@ class ResetPasswordForm(forms.Form):
 
     def clean_email(self):
         email = self.cleaned_data["email"]
-        email = get_adapter().clean_email(email)
+        adapter = get_adapter()
+        email = adapter.clean_email(email)
         self.users = filter_users_by_email(email, is_active=True)
         if not self.users:
             raise forms.ValidationError(_("The e-mail address is not assigned"
                                           " to any user account"))
-        if email_timeout_is_active(email, self):
+        if adapter.timeout_status(email, self):
             raise forms.ValidationError(_('Please wait before trying again.'))
         return self.cleaned_data["email"]
 
@@ -536,11 +535,12 @@ class ResetPasswordForm(forms.Form):
             if app_settings.AUTHENTICATION_METHOD \
                     != AuthenticationMethod.EMAIL:
                 context['username'] = user_username(user)
-            get_adapter(request).send_mail(
+            adapter = get_adapter(request)
+            adapter.send_mail(
                 'account/email/password_reset_key',
                 email,
                 context)
-            email_timeout_apply(email, self)
+            adapter.timeout_apply(email, self)
         return self.cleaned_data["email"]
 
 

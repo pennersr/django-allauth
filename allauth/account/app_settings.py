@@ -316,8 +316,8 @@ class AppSettings(object):
         return ret
 
     @property
-    def EMAIL_TIMEOUTS(self):
-        return self._setting('EMAIL_TIMEOUTS', {})
+    def TIMEOUTS(self):
+        return self._setting('TIMEOUTS', {})
 
 
 # Ugly? Guido recommends this himself ...

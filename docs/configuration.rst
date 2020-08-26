@@ -89,10 +89,10 @@ ACCOUNT_EMAIL_MAX_LENGTH(=254)
   3-byte and 4-byte Unicode character sets
   <https://dev.mysql.com/doc/refman/5.5/en/charset-unicode-conversion.html>`_.
 
-ACCOUNT_EMAIL_TIMEOUTS(={})
+ACCOUNT_TIMEOUTS(={})
 
-  Allows you to set a timeout using a timedelta object on how often a user can
-  do an action which sends them an email.
+  Allows you to set a timeout (in seconds) on how often a user can
+  do a certain action.
 
   e.g. by default the password reset form sends an email every single time
   someone fills it out. Setting the timeout will prevent someone requesting
@@ -103,9 +103,9 @@ ACCOUNT_EMAIL_TIMEOUTS(={})
 
     from django.utils import timezone
 
-    ACCOUNT_EMAIL_TIMEOUTS = {
-        'ResetPasswordForm': timezone.timedelta(minutes=5),
-        'ResendEmailVerification': timezone.timedelta(minutes=5),
+    ACCOUNT_TIMEOUTS = {
+        'ResetPasswordForm': 5*60,
+        'ResendEmailVerification': 5*60,
     }
 
   Current Options

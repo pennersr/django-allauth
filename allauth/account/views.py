@@ -30,9 +30,6 @@ from .forms import (
 from .models import EmailAddress, EmailConfirmation, EmailConfirmationHMAC
 from .utils import (
     complete_signup,
-    email_timeout_apply,
-    email_timeout_is_active,
-    email_timeout_seconds_remaining,
     get_login_redirect_url,
     get_next_redirect_url,
     logout_on_password_change,
@@ -436,20 +433,19 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
             return
 
         action = 'ResendEmailVerification'
-        remaining = None
-        if email_timeout_is_active(email, action):
+        adapter = get_adapter(request)
+        if adapter.timeout_status(email, action):
             template = 'account/messages/email_confirmation_timeout.txt'
-            remaining = email_timeout_seconds_remaining(email, action)
         else:
             template = 'account/messages/email_confirmation_sent.txt'
             email_address.send_confirmation(request)
-            email_timeout_apply(email, action)
+            adapter.timeout_apply(email, action)
 
-        get_adapter(request).add_message(
+        adapter.add_message(
             request,
             messages.INFO,
             template,
-            {'email': email, 'timeout_remaining': remaining})
+            {'email': email})
 
         return HttpResponseRedirect(self.get_success_url())
 

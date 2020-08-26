@@ -8,6 +8,7 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser, AnonymousUser
 from django.contrib.sites.models import Site
 from django.core import mail, validators
+from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.http import HttpResponseRedirect
@@ -31,8 +32,6 @@ from .adapter import get_adapter
 from .auth_backends import AuthenticationBackend
 from .signals import user_logged_in, user_logged_out
 from .utils import (
-    _email_action_timeout_duration,
-    email_timeout_is_active,
     filter_users_by_username,
     url_str_to_user_pk,
     user_pk_to_url_str,
@@ -884,6 +883,9 @@ class EmailFormTests(TestCase):
             primary=False)
         self.client.login(username='john', password='doe')
 
+    def tearDown(self):
+        cache.clear()
+
     def test_add(self):
         resp = self.client.post(
             reverse('account_email'),
@@ -1008,9 +1010,10 @@ class EmailFormTests(TestCase):
             'account/messages/email_confirmation_sent.txt')
 
     @override_settings(
-        ACCOUNT_EMAIL_TIMEOUTS={
-            'ResendEmailVerification': timedelta(minutes=5)
-        })
+        ACCOUNT_TIMEOUTS={
+            'ResendEmailVerification': 60,
+        }
+    )
     def test_verify_with_limiter(self):
         resp = self._send_verify()
         self.assertTemplateUsed(
@@ -1395,6 +1398,9 @@ class EmailTimeoutTests(TestCase):
             verified=True,
             primary=True)
 
+    def tearDown(self):
+        cache.clear()
+
     def test_email_timeout_apply_does_not_interfere_with_original_op(self):
         form = ResetPasswordForm({'email': self.email_address.email})
         self.assertTrue(form.is_valid())
@@ -1404,7 +1410,7 @@ class EmailTimeoutTests(TestCase):
         self.assertTrue(form.is_valid())
 
     @override_settings(
-        ACCOUNT_EMAIL_TIMEOUTS={'ResetPasswordForm': timedelta(minutes=1)}
+        ACCOUNT_TIMEOUTS={'ResetPasswordForm': 60}
     )
     def test_email_timeout_apply_works(self):
         form = ResetPasswordForm({'email': self.email_address.email})
@@ -1415,25 +1421,18 @@ class EmailTimeoutTests(TestCase):
         self.assertFalse(form.is_valid())
 
     @override_settings(
-        ACCOUNT_EMAIL_TIMEOUTS={'ResetPasswordForm': timedelta(minutes=1)}
+        ACCOUNT_TIMEOUTS={'ResetPasswordForm': 60}
     )
     def test_email_timeout_is_active_is_correct(self):
         form = ResetPasswordForm({'email': self.email_address.email})
 
-        self.assertFalse(
-            email_timeout_is_active(self.email_address.email, form)
+        self.assertIsNone(
+            get_adapter().timeout_status(self.email_address.email, form)
         )
 
         form.is_valid()
         form.save(request=None)
 
         self.assertTrue(
-            email_timeout_is_active(self.email_address.email, form)
+            bool(get_adapter().timeout_status(self.email_address.email, form))
         )
-
-    @override_settings(
-        ACCOUNT_EMAIL_TIMEOUTS={'ResetPasswordForm': 2}
-    )
-    def test_email_action_timeout_duration_raises_on_non_timedelta(self):
-        with self.assertRaises(ValueError):
-            _email_action_timeout_duration('ResetPasswordForm')

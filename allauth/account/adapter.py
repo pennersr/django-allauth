@@ -521,6 +521,72 @@ class DefaultAccountAdapter(object):
     def is_ajax(self, request):
         return request.is_ajax()
 
+    def _get_timeout_action_as_str(self, action):
+        if not isinstance(action, str):
+            action = type(action).__name__
+        return force_str(action)
+
+    def _get_timeout_value_as_str(self, value):
+        return force_str(value)
+
+    def _get_timeout_cache_key(self, action, email):
+        action = self._get_timeout_action_as_str(action)
+        email = self._get_timeout_value_as_str(email)
+        site = get_current_site(self.request)
+        login_key = hashlib.sha256(email.encode('utf8')).hexdigest()
+        return 'allauth/{action}@{site_id}:{login}'.format(
+            action=action,
+            site_id=site.pk,
+            login=login_key
+        )
+
+    def get_timeout_duration(self, action):
+        action = self._get_timeout_action_as_str(action)
+        timeout = app_settings.TIMEOUTS.get(action)
+        if timeout:
+            return timeout
+
+    def timeout_status(self, email, action):
+        """ Returns the current expiration datetime is the eiven email has an
+            active timeout for the given action.
+
+        Args:
+            email: The email address to check for a timeout
+            action: The action that is happening. string or object.
+        """
+        return cache.get(
+            self._get_timeout_cache_key(action, email)
+        )
+
+    def timeout_apply(self, email, action):
+        """ Applies a timeout to the given email for the given action.
+
+        Args:
+            email: The email address to check for a timeout
+            action: The action that is happening. string or object.
+        """
+        duration = self.get_timeout_duration(action)
+        if duration:
+            cache.set(
+                self._get_timeout_cache_key(action, email),
+                (timezone.now() + timezone.timedelta(seconds=duration)),
+                duration,
+            )
+
+    def timeout_seconds_remaining(self, email, action):
+        """ Calculates the seconds remaining on an active timeout.
+
+        Args:
+            email: The email address to check for a timeout
+            action: The action that is happening. string or object.
+
+        Returns:
+            None if no active timeout or integer of seconds
+        """
+        current_datetime = self.timeout_status(email, action)
+        if current_datetime:
+            return (current_datetime - timezone.now()).total_seconds()
+
 
 def get_adapter(request=None):
     return import_attribute(app_settings.ADAPTER)(request)

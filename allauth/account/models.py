@@ -165,16 +165,3 @@ class EmailConfirmationHMAC:
                                              request=request,
                                              confirmation=self,
                                              signup=signup)
-
-
-class EmailTimeout(models.Model):
-    email_address = models.ForeignKey(EmailAddress,
-                                      verbose_name=_('e-mail address'),
-                                      on_delete=models.CASCADE)
-    action = models.CharField(verbose_name=_('action'),
-                              max_length=255)
-    created = models.DateTimeField(verbose_name=_('created'),
-                                   default=timezone.now)
-
-    def __str__(self):
-        return 'EmailTimeout {} for {}'.format(self.email_address, self.action)

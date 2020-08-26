@@ -1577,6 +1577,16 @@ Copy the Key supplied by the website above into BOTH Client ID and Secret
 Key fields of the Social Application.
 
 
+Stocktwits
+----------
+
+App Registration
+  https://api.stocktwits.com/developers/apps/new
+
+- Site Domain, Must be an external url (127.0.0.1 and localhost do not work).
+- Consumer key is your ``client id``
+- Consumer secret is your ``secret key``
+
 Strava
 ------
 
@@ -1898,3 +1908,15 @@ in SOCIALACCOUNT_PROVIDERS. Otherwise, adding SCOPE and an empty string will giv
             'SCOPE': ''
         }
     }
+
+
+Zoom
+----
+
+App Registration
+  https://marketplace.zoom.us/develop/create
+
+Development callback URL
+    http://127.0.0.1:8000/accounts/zoom/login/callback/
+
+Select scope user:read during app registration.

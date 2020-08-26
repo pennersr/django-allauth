@@ -173,6 +173,8 @@ Supported Providers
 
 - Steam (OpenID)
 
+- Stocktwits (OAuth2)
+
 - Strava (OAuth2)
 
 - Stripe (OAuth2)
@@ -206,6 +208,8 @@ Supported Providers
 - Yandex (OAuth2)
 
 - YNAB (OAuth2)
+
+- Zoom (OAuth2)
 
 
 Note: OAuth/OAuth2 support is built using a common code base, making it easy to add support for additional OAuth/OAuth2 providers. More will follow soon...

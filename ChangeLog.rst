@@ -7,8 +7,11 @@ Note worthy changes
 - If ``ACCOUNT_LOGIN_ATTEMPTS_LIMIT`` is set and the user successfully
   resets their password, the timeout is cleared to allow immediate login.
 
+- New provider: Zoom, Stocktwits
+
 - New setting ``ACCOUNT_TIMEOUTS`` allows limiting how fast someone
   can do certain actions that involve sending an email.
+
 
 0.42.0 (2020-05-24)
 *******************

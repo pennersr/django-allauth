@@ -157,3 +157,23 @@ AUTHENTICATION_BACKENDS = (
 
 STATIC_ROOT = '/tmp/'  # Dummy
 STATIC_URL = '/static/'
+
+from django.contrib.auth.hashers import PBKDF2PasswordHasher
+
+
+class MyPBKDF2PasswordHasher(PBKDF2PasswordHasher):
+    """
+    A subclass of PBKDF2PasswordHasher that uses 1 iteration.
+
+    This is for test purposes only. Never use anywhere else.
+    """
+    iterations = 1
+
+
+PASSWORD_HASHERS = [
+    'test_settings.MyPBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+]

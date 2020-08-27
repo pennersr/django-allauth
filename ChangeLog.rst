@@ -10,7 +10,7 @@ Note worthy changes
 - New provider: Zoom, Stocktwits
 
 - New setting ``ACCOUNT_TIMEOUTS`` allows limiting how fast someone
-  can do certain actions that involve sending an email.
+  can do certain actions.
 
 
 0.42.0 (2020-05-24)

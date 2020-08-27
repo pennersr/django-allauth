@@ -101,22 +101,20 @@ ACCOUNT_TIMEOUTS(={})
   In this example, restrict the ResetPasswordForm to only allow sending an
   email every 5 minutes::
 
-    from django.utils import timezone
-
     ACCOUNT_TIMEOUTS = {
         'ResetPasswordForm': 5*60,
         'ResendEmailVerification': 5*60,
+        'ChangePasswordForm': 10,
     }
 
   Current Options
 
-  - ``ResetPasswordForm``: If you've overridden the ``reset_password`` form
-    using ``ACCOUNT_FORMS`` you need to use the name of the class instead of
-    ResetPasswordForm. If you've changed ``clean_email`` or ``save`` methods
-    on ``ResetPasswordForm`` you may need to apply the code necessary to
-    apply and check timeouts.
+  - ``ResetPasswordForm``: Set how fast someone can attempt to reset
+    their password
   - ``ResendEmailVerification``: timeout the users ability to click
     `Re-send Verification` button on the E-mail Address view.
+  - ``ChangePasswordForm``: Set how fast someone can attempt to change
+    their password
 
 ACCOUNT_FORMS (={})
   Used to override forms, for example:

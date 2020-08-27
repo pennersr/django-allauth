@@ -461,6 +461,13 @@ class ChangePasswordForm(PasswordVerificationMixin, UserForm):
         self.fields['password1'].user = self.user
 
     def clean_oldpassword(self):
+
+        adapter = get_adapter()
+        if adapter.timeout_status(self.user.email, self):
+            raise forms.ValidationError(_('Please wait before trying again.'))
+        else:
+            adapter.timeout_apply(self.user.email, self)
+
         if not self.user.check_password(self.cleaned_data.get("oldpassword")):
             raise forms.ValidationError(_("Please type your current"
                                           " password."))

@@ -147,6 +147,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.yahoo',
     'allauth.socialaccount.providers.yandex',
     'allauth.socialaccount.providers.ynab',
+    'allauth.socialaccount.providers.zoho',
     'allauth.socialaccount.providers.zoom',
 )
 

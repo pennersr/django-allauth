@@ -134,6 +134,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.xing',
         'allauth.socialaccount.providers.yandex',
         'allauth.socialaccount.providers.ynab',
+        'allauth.socialaccount.providers.zoho',
         'allauth.socialaccount.providers.zoom',
         ...
     ]

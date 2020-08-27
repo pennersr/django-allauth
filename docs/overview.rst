@@ -209,6 +209,8 @@ Supported Providers
 
 - YNAB (OAuth2)
 
+- Zoho (Oauth2)
+
 - Zoom (OAuth2)
 
 

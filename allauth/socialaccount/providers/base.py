@@ -77,7 +77,7 @@ class Provider(object):
         :return: A populated instance of the `SocialLogin` model (unsaved).
         """
         # NOTE: Avoid loading models at top due to registry boot...
-        from allauth.socialaccount.models import SocialLogin, SocialAccount
+        from allauth.socialaccount.models import SocialAccount, SocialLogin
 
         adapter = get_adapter(request)
         uid = self.extract_uid(response)

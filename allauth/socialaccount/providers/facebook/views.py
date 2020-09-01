@@ -59,7 +59,7 @@ class FacebookOAuth2Adapter(OAuth2Adapter):
             GRAPH_API_VERSION))
 
     settings = app_settings.PROVIDERS.get(provider_id, {})
-
+    scope_delimiter = ','
     authorize_url = settings.get('AUTHORIZE_URL', provider_default_auth_url)
     access_token_url = GRAPH_API_URL + '/oauth/access_token'
     expires_in_key = 'expires_in'

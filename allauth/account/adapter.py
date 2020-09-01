@@ -111,8 +111,9 @@ class DefaultAccountAdapter(object):
         for ext in ['html', 'txt']:
             try:
                 template_name = '{0}_message.{1}'.format(template_prefix, ext)
-                bodies[ext] = render_to_string(template_name,
-                                               context).strip()
+                bodies[ext] = render_to_string(
+                    template_name, context, self.request,
+                ).strip()
             except TemplateDoesNotExist:
                 if ext == 'txt' and not bodies:
                     # We need at least one body
@@ -196,7 +197,7 @@ class DefaultAccountAdapter(object):
         username is already present it is assumed to be valid
         (unique).
         """
-        from .utils import user_username, user_email, user_field
+        from .utils import user_email, user_field, user_username
         first_name = user_field(user, 'first_name')
         last_name = user_field(user, 'last_name')
         email = user_email(user)
@@ -219,7 +220,7 @@ class DefaultAccountAdapter(object):
         Saves a new `User` instance using information provided in the
         signup form.
         """
-        from .utils import user_username, user_email, user_field
+        from .utils import user_email, user_field, user_username
 
         data = form.cleaned_data
         first_name = data.get('first_name')
@@ -311,8 +312,9 @@ class DefaultAccountAdapter(object):
             try:
                 if message_context is None:
                     message_context = {}
-                message = render_to_string(message_template,
-                                           message_context).strip()
+                message = render_to_string(
+                    message_template, message_context, self.request,
+                ).strip()
                 if message:
                     messages.add_message(request, level, message,
                                          extra_tags=extra_tags)
@@ -415,8 +417,9 @@ class DefaultAccountAdapter(object):
         try:
             from django.utils.http import url_has_allowed_host_and_scheme
         except ImportError:
-            from django.utils.http import \
-                is_safe_url as url_has_allowed_host_and_scheme
+            from django.utils.http import (
+                is_safe_url as url_has_allowed_host_and_scheme,
+            )
 
         return url_has_allowed_host_and_scheme(url, allowed_hosts=None)
 
@@ -470,6 +473,13 @@ class DefaultAccountAdapter(object):
             site_id=site.pk,
             login=login_key)
 
+    def _delete_login_attempts_cached_email(self, request, **credentials):
+        if app_settings.LOGIN_ATTEMPTS_LIMIT:
+            cache_key = self._get_login_attempts_cache_key(
+                request,
+                **credentials)
+            cache.delete(cache_key)
+
     def pre_authenticate(self, request, **credentials):
         if app_settings.LOGIN_ATTEMPTS_LIMIT:
             cache_key = self._get_login_attempts_cache_key(
@@ -495,9 +505,7 @@ class DefaultAccountAdapter(object):
         alt_user = AuthenticationBackend.unstash_authenticated_user()
         user = user or alt_user
         if user and app_settings.LOGIN_ATTEMPTS_LIMIT:
-            cache_key = self._get_login_attempts_cache_key(
-                request, **credentials)
-            cache.delete(cache_key)
+            self._delete_login_attempts_cached_email(request, **credentials)
         else:
             self.authentication_failed(request, **credentials)
         return user
@@ -513,7 +521,11 @@ class DefaultAccountAdapter(object):
             cache.set(cache_key, data, app_settings.LOGIN_ATTEMPTS_TIMEOUT)
 
     def is_ajax(self, request):
-        return request.is_ajax()
+        return any([
+            request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest',
+            request.content_type == 'application/json',
+            request.META.get('HTTP_ACCEPT') == 'application/json',
+        ])
 
 
 def get_adapter(request=None):

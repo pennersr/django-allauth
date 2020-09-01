@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+from allauth.socialaccount.models import EmailAddress
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -8,8 +9,8 @@ class YahooAccount(ProviderAccount):
 
     def to_str(self):
         name = '{0} {1}'.format(
-            self.account.extra_data['profile'].get('givenName', ''),
-            self.account.extra_data['profile'].get('familyName', '')
+            self.account.extra_data.get('given_name', ''),
+            self.account.extra_data.get('family_name', ''),
         )
         if name.strip() != '':
             return name
@@ -26,21 +27,24 @@ class YahooProvider(OAuth2Provider):
         Doc on scopes available at
         https://developer.yahoo.com/oauth2/guide/yahoo_scopes/
         """
-        return ['sdps-r']
+        return ['profile', 'email']
 
     def extract_uid(self, data):
-        return str(data['profile']['guid'])
+        return data['sub']
 
     def extract_common_fields(self, data):
-        emails = data['profile'].get('emails')
-        if emails:
-            email = emails[0]['handle']
-        else:
-            email = None
+        return dict(email=data['email'],
+                    last_name=data['family_name'],
+                    first_name=data['given_name'])
 
-        return dict(email=email,
-                    last_name=data['profile'].get('familyName'),
-                    first_name=data['profile'].get('givenName'))
+    def extract_email_addresses(self, data):
+        ret = []
+        email = data.get('email')
+        if email and data.get('email_verified'):
+            ret.append(EmailAddress(email=email,
+                       verified=True,
+                       primary=True))
+        return ret
 
 
 provider_classes = [YahooProvider]

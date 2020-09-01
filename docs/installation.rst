@@ -77,6 +77,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.exist',
         'allauth.socialaccount.providers.facebook',
         'allauth.socialaccount.providers.feedly',
+        'allauth.socialaccount.providers.figma',
         'allauth.socialaccount.providers.fivehundredpx',
         'allauth.socialaccount.providers.flickr',
         'allauth.socialaccount.providers.foursquare',
@@ -96,7 +97,6 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.mailchimp',
         'allauth.socialaccount.providers.meetup',
         'allauth.socialaccount.providers.microsoft',
-        'allauth.socialaccount.providers.mixer',
         'allauth.socialaccount.providers.naver',
         'allauth.socialaccount.providers.nextcloud',
         'allauth.socialaccount.providers.odnoklassniki',
@@ -116,6 +116,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.spotify',
         'allauth.socialaccount.providers.stackexchange',
         'allauth.socialaccount.providers.steam',
+        'allauth.socialaccount.providers.stocktwits',
         'allauth.socialaccount.providers.strava',
         'allauth.socialaccount.providers.stripe',
         'allauth.socialaccount.providers.trello',
@@ -133,6 +134,8 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.xing',
         'allauth.socialaccount.providers.yandex',
         'allauth.socialaccount.providers.ynab',
+        'allauth.socialaccount.providers.zoho',
+        'allauth.socialaccount.providers.zoom',
         ...
     ]
 
@@ -171,7 +174,7 @@ Post-Installation
 
 In your Django root execute the command below to create your database tables::
 
-    ./manage.py migrate
+    python manage.py migrate
 
 Now start your server, visit your admin pages (e.g. http://localhost:8000/admin/)
 and follow these steps:

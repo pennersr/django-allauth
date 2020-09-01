@@ -212,7 +212,7 @@ The following Battle.net settings are available:
 .. code-block:: python
 
     SOCIALACCOUNT_PROVIDERS = {
-        'facebook': {
+        'battlenet': {
             'SCOPE': ['wow.profile', 'sc2.profile'],
             'REGION': 'us',
         }
@@ -538,16 +538,13 @@ The following Facebook settings are available:
             'INIT_PARAMS': {'cookie': True},
             'FIELDS': [
                 'id',
-                'email',
-                'name',
                 'first_name',
                 'last_name',
-                'verified',
-                'locale',
-                'timezone',
-                'link',
-                'gender',
-                'updated_time',
+                'middle_name',
+                'name',
+                'name_format',
+                'picture',
+                'short_name'
             ],
             'EXCHANGE_TOKEN': True,
             'LOCALE_FUNC': 'path.to.callable',
@@ -633,6 +630,16 @@ Development callback URL
     Leave your App Domains empty and put ``http://localhost:8000`` in the
     section labeled ``Website with Facebook Login``. Note that you'll need to
     add your site's actual domain to this section once it goes live.
+
+
+Figma
+------------------
+
+App registration (get your key and secret here)
+    https://www.figma.com/developers/apps
+
+Development callback URL
+    http://localhost:8000/accounts/figma/login/callback/
 
 
 Firefox Accounts
@@ -1092,33 +1099,6 @@ for the login. To restrict it, change the `tenant` setting as shown below.
         }
     }
 
-
-Mixer
------
-
-API documentation
-    https://dev.mixer.com/guides/core/introduction
-
-App registration (get your key and secret here)
-    https://mixer.com/lab/oauth
-
-Development callback URL
-    http://localhost:8000/accounts/mixer/login/callback/
-
-You can change scopes for Mixer using the ``SCOPE`` parameter. For example, to add the ability to edit your mixer profile, you'd use:
-
-.. code-block:: python
-
-    SOCIALACCOUNT_PROVIDERS = {
-        'mixer': {
-            'SCOPE': [
-                'user:details:self',
-                'user:update:self',
-            ]
-        }
-    }
-
-The default scope list is ``['user:details:self']``, which is required to get your email address from Mixer. The full list of scopes is available at https://dev.mixer.com/reference/oauth/scopes
 
 Naver
 -----
@@ -1593,8 +1573,19 @@ access to more of the user's details such as username, full name, avatar, etc.
 You need to register an API key here:
     https://steamcommunity.com/dev/apikey
 
-Make sure to create a Steam SocialApp with that secret key.
+Copy the Key supplied by the website above into BOTH Client ID and Secret
+Key fields of the Social Application.
 
+
+Stocktwits
+----------
+
+App Registration
+  https://api.stocktwits.com/developers/apps/new
+
+- Site Domain, Must be an external url (127.0.0.1 and localhost do not work).
+- Consumer key is your ``client id``
+- Consumer secret is your ``secret key``
 
 Strava
 ------
@@ -1917,3 +1908,27 @@ in SOCIALACCOUNT_PROVIDERS. Otherwise, adding SCOPE and an empty string will giv
             'SCOPE': ''
         }
     }
+
+
+Zoho
+----
+
+App Registration
+  https://api-console.zoho.com/add
+
+  Select "Server-base Applications"
+
+Authorized Redirect URI
+    http://127.0.0.1:8000/accounts/zoho/login/callback/
+
+
+Zoom
+----
+
+App Registration
+  https://marketplace.zoom.us/develop/create
+
+Development callback URL
+    http://127.0.0.1:8000/accounts/zoom/login/callback/
+
+Select scope user:read during app registration.

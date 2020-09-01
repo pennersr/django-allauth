@@ -85,6 +85,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.exist',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.feedly',
+    'allauth.socialaccount.providers.figma',
     'allauth.socialaccount.providers.fivehundredpx',
     'allauth.socialaccount.providers.flickr',
     'allauth.socialaccount.providers.foursquare',
@@ -105,7 +106,6 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.mailru',
     'allauth.socialaccount.providers.meetup',
     'allauth.socialaccount.providers.microsoft',
-    'allauth.socialaccount.providers.mixer',
     'allauth.socialaccount.providers.naver',
     'allauth.socialaccount.providers.nextcloud',
     'allauth.socialaccount.providers.odnoklassniki',
@@ -127,6 +127,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.spotify',
     'allauth.socialaccount.providers.stackexchange',
     'allauth.socialaccount.providers.steam',
+    'allauth.socialaccount.providers.stocktwits',
     'allauth.socialaccount.providers.strava',
     'allauth.socialaccount.providers.stripe',
     'allauth.socialaccount.providers.telegram',
@@ -146,6 +147,8 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.yahoo',
     'allauth.socialaccount.providers.yandex',
     'allauth.socialaccount.providers.ynab',
+    'allauth.socialaccount.providers.zoho',
+    'allauth.socialaccount.providers.zoom',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -155,3 +158,23 @@ AUTHENTICATION_BACKENDS = (
 
 STATIC_ROOT = '/tmp/'  # Dummy
 STATIC_URL = '/static/'
+
+from django.contrib.auth.hashers import PBKDF2PasswordHasher
+
+
+class MyPBKDF2PasswordHasher(PBKDF2PasswordHasher):
+    """
+    A subclass of PBKDF2PasswordHasher that uses 1 iteration.
+
+    This is for test purposes only. Never use anywhere else.
+    """
+    iterations = 1
+
+
+PASSWORD_HASHERS = [
+    'test_settings.MyPBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+]

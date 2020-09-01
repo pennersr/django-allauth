@@ -33,8 +33,9 @@ class YNABTests(OAuth2TestsMixin, TestCase):
         """)
 
     def test_ynab_compelete_login_401(self):
-        from allauth.socialaccount.providers.ynab.views import \
-            YNABOAuth2Adapter
+        from allauth.socialaccount.providers.ynab.views import (
+            YNABOAuth2Adapter,
+        )
 
         class LessMockedResponse(MockedResponse):
             def raise_for_status(self):

@@ -422,7 +422,6 @@ class AddEmailForm(UserForm):
         required=True,
         widget=forms.TextInput(
             attrs={"type": "email",
-                   "size": "30",
                    "placeholder": _('E-mail address')}))
 
     def clean_email(self):
@@ -491,7 +490,6 @@ class ResetPasswordForm(forms.Form):
         required=True,
         widget=forms.TextInput(attrs={
             "type": "email",
-            "size": "30",
             "placeholder": _("E-mail address"),
         })
     )

@@ -197,7 +197,7 @@ class DefaultSocialAccountAdapter(object):
         config = app_settings.PROVIDERS.get(provider, {}).get('APP')
         if config:
             app = SocialApp(provider=provider)
-            for field in ['client_id', 'secret', 'key']:
+            for field in ['client_id', 'secret', 'key', 'certificate']:
                 setattr(app, field, config.get(field))
         else:
             app = SocialApp.objects.get_current(provider, request)

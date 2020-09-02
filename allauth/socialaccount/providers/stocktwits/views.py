@@ -14,6 +14,7 @@ class StocktwitsOAuth2Adapter(OAuth2Adapter):
     access_token_url = 'https://api.stocktwits.com/api/2/oauth/token'
     authorize_url = 'https://api.stocktwits.com/api/2/oauth/authorize'
     profile_url = 'https://api.stocktwits.com/api/2/streams/user/{user}.json'
+    scope_delimiter = ','
 
     def complete_login(self, request, app, token, **kwargs):
         user_id = kwargs.get('response').get('user_id')

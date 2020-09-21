@@ -65,8 +65,8 @@ class SocialApp(models.Model):
     # We want to move away from storing secrets in the database. So, we're
     # putting a halt towards adding more fields for additional secrets, such as
     # the certificate some providers need. Therefore, the certificate is not a
-    # DB backed field and can only be set using the ``APP`` configuration key in
-    # the provider settings.
+    # DB backed field and can only be set using the ``APP`` configuration key
+    # in the provider settings.
     certificate = None
 
     class Meta:

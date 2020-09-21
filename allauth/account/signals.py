@@ -1,6 +1,7 @@
 from django.contrib.auth.signals import user_logged_out  # noqa
 from django.dispatch import Signal
 
+
 # Provides the arguments "request", "user"
 user_logged_in = Signal()
 

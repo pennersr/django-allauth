@@ -20,7 +20,8 @@ email_confirmed = Signal()
 # Provides the arguments "request", "confirmation", "signup"
 email_confirmation_sent = Signal()
 
-# Provides the arguments "request", "user", "from_email_address", "to_email_address"
+# Provides the arguments "request", "user", "from_email_address",
+# "to_email_address"
 email_changed = Signal()
 # Provides the arguments "request", "user", "email_address"
 email_added = Signal()

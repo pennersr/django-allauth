@@ -1,23 +1,29 @@
 from django.contrib.auth.signals import user_logged_out  # noqa
 from django.dispatch import Signal
 
-
-user_logged_in = Signal(providing_args=["request", "user"])
+# Provides the arguments "request", "user"
+user_logged_in = Signal()
 
 # Typically followed by `user_logged_in` (unless, e-mail verification kicks in)
-user_signed_up = Signal(providing_args=["request", "user"])
+# Provides the arguments "request", "user"
+user_signed_up = Signal()
 
-password_set = Signal(providing_args=["request", "user"])
-password_changed = Signal(providing_args=["request", "user"])
-password_reset = Signal(providing_args=["request", "user"])
+# Provides the arguments "request", "user"
+password_set = Signal()
+# Provides the arguments "request", "user"
+password_changed = Signal()
+# Provides the arguments "request", "user"
+password_reset = Signal()
 
-email_confirmed = Signal(providing_args=["request", "email_address"])
-email_confirmation_sent = Signal(
-    providing_args=["request", "confirmation", "signup"])
+# Provides the arguments "request", "email_address"
+email_confirmed = Signal()
+# Provides the arguments "request", "confirmation", "signup"
+email_confirmation_sent = Signal()
 
-email_changed = Signal(
-    providing_args=[
-        "request", "user",
-        "from_email_address", "to_email_address"])
-email_added = Signal(providing_args=["request", "user", "email_address"])
-email_removed = Signal(providing_args=["request", "user", "email_address"])
+# Provides the arguments "request", "user", "from_email_address",
+# "to_email_address"
+email_changed = Signal()
+# Provides the arguments "request", "user", "email_address"
+email_added = Signal()
+# Provides the arguments "request", "user", "email_address"
+email_removed = Signal()

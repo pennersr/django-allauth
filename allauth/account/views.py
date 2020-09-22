@@ -253,7 +253,10 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
         redirect_field_name = self.redirect_field_name
         redirect_field_value = get_request_param(self.request,
                                                  redirect_field_name)
+        site = get_current_site(self.request)
+
         ret.update({"login_url": login_url,
+                    "site": site,
                     "redirect_field_name": redirect_field_name,
                     "redirect_field_value": redirect_field_value})
         return ret

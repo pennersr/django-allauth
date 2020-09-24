@@ -27,6 +27,37 @@ matrix:
       env: TOXENV=py37-djangomaster
     - python: 3.8
       env: TOXENV=py38-djangomaster
+    # Adding jobs for ppc64le architectures
+    # Python 3.5
+    - python: 3.5
+      env: TOXENV=py35-django20,py35-django21,py35-django22
+      arch: ppc64le
+
+    # Python 3.6
+    - python: 3.6
+      env: TOXENV=py36-django20,py36-django21,py36-django22,py36-django30
+      arch: ppc64le
+
+    # Python 3.7
+    - python: 3.7
+      env: TOXENV=py37-django20,py37-django21,py37-django22,py37-django30,docs,checkqa,standardjs
+      arch: ppc64le
+
+    # Python 3.8
+    - python: 3.8
+      env: TOXENV=py38-django22,py38-django30
+      arch: ppc64le
+
+    # Django Master
+    - python: 3.6
+      env: TOXENV=py36-djangomaster
+      arch: ppc64le
+    - python: 3.7
+      env: TOXENV=py37-djangomaster
+      arch: ppc64le
+    - python: 3.8
+      env: TOXENV=py38-djangomaster
+      arch: ppc64le
 
   allow_failures:
     - python: 3.6
@@ -35,6 +66,16 @@ matrix:
       env: TOXENV=py37-djangomaster
     - python: 3.8
       env: TOXENV=py38-djangomaster
+    #Adding allowed failure jobs for ppc64le
+    - python: 3.6
+      env: TOXENV=py36-djangomaster
+      arch: ppc64le
+    - python: 3.7
+      env: TOXENV=py37-djangomaster
+      arch: ppc64le
+    - python: 3.8
+      env: TOXENV=py38-djangomaster
+      arch: ppc64le
 
 cache:
   directories:

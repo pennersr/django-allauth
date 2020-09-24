@@ -24,7 +24,7 @@ class GitHubOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         resp = requests.get(self.profile_url,
-                            params={'access_token': token.token})
+                            headers={'Authorization': 'token ' + token.token})
         extra_data = resp.json()
         if app_settings.QUERY_EMAIL and not extra_data.get('email'):
             extra_data['email'] = self.get_email(token)
@@ -34,7 +34,7 @@ class GitHubOAuth2Adapter(OAuth2Adapter):
     def get_email(self, token):
         email = None
         resp = requests.get(self.emails_url,
-                            params={'access_token': token.token})
+                            headers={'Authorization': 'token ' + token.token})
         emails = resp.json()
         if emails:
             email = emails[0]

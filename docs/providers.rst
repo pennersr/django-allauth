@@ -121,6 +121,27 @@ App registration (get your key and secret here)
 Development callback URL
     http://localhost:8000/accounts/angellist/login/callback/
 
+Apple
+---------
+
+App registration (create an App ID and then a related Service ID here)
+    https://developer.apple.com/account/resources/certificates/list
+
+Private Key registration (be sure to save it)
+    https://developer.apple.com/account/resources/authkeys/list
+
+Development callback URL
+    http://domain.com/accounts/apple/login/callback/
+
+You'll need to specify Developer's and Application's data:
+
+In Social App:
+    Client ID: Service ID identifier. In the case that you have an app too, this field should be a comma separated list, with the service identifier first, followed by any app identifiers.
+    Secret Key: Key ID
+    Key: Member ID/App ID Prefix (find it below your name at the top right corner of the
+page, or it’s your App ID Prefix in your App ID)
+    Cert: The contents of your private key, including "-----BEGIN/END PRIVATE KEY-----" and line breaks
+
 
 Auth0
 -----

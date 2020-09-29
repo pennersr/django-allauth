@@ -20,6 +20,8 @@ Note worthy changes
 
 - New providers: EDX, Yandex, Mixer.
 
+- New provider: Apple.
+
 - Fixed Twitch ``get_avatar_url()`` method to use the profile picture retrieved
   by new user details endpoint introduced in version 0.40.0.
 
@@ -27,7 +29,6 @@ Note worthy changes
 
 
 0.41.0 (2019-12-18)
-*******************
 
 Security notice
 ---------------

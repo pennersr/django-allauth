@@ -49,7 +49,8 @@ Rationale
 Most existing Django apps that address the problem of social
 authentication focus on just that. You typically need to integrate
 another app in order to support authentication via a local
-account.
+account and thats all.
+
 
 This approach separates the worlds of local and social
 authentication. However, there are common scenarios to be dealt with

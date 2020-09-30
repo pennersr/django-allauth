@@ -66,6 +66,7 @@ This is the reason this project got started -- to offer a fully
 integrated authentication app that allows for both local and social
 authentication, with flows that just work.
 
+Django-allauth is best inbuilt for social media authentication
 
 Commercial Support
 ==================

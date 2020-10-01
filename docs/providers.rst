@@ -199,7 +199,7 @@ Register your app here (Blizzard account required)
     https://develop.battle.net/access/clients/create
 
 Development callback URL
-    https://localhost:8000/accounts/battlenet/login/callback/
+    http://localhost:8000/accounts/battlenet/login/callback/
 
 Note that in order to use battletags as usernames, you are expected to override
 either the ``username`` field on your User model, or to pass a custom validator

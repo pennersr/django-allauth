@@ -14,18 +14,17 @@ from .provider import NextCloudProvider
 class NextCloudAdapter(OAuth2Adapter):
     provider_id = NextCloudProvider.id
     settings = app_settings.PROVIDERS.get(provider_id, {})
-    server = settings.get('SERVER', 'https://nextcloud.example.org')
-    access_token_url = '{0}/apps/oauth2/api/v1/token'.format(server)
-    authorize_url = '{0}/apps/oauth2/authorize'.format(server)
-    profile_url = '{0}/ocs/v1.php/cloud/users/'.format(server)
+    server = settings.get("SERVER", "https://nextcloud.example.org")
+    access_token_url = "{0}/apps/oauth2/api/v1/token".format(server)
+    authorize_url = "{0}/apps/oauth2/authorize".format(server)
+    profile_url = "{0}/ocs/v1.php/cloud/users/".format(server)
 
     def complete_login(self, request, app, token, **kwargs):
-        extra_data = self.get_user_info(token, kwargs['response']['user_id'])
-        return self.get_provider().sociallogin_from_response(
-            request, extra_data)
+        extra_data = self.get_user_info(token, kwargs["response"]["user_id"])
+        return self.get_provider().sociallogin_from_response(request, extra_data)
 
     def get_user_info(self, token, user_id):
-        headers = {'Authorization': 'Bearer {0}'.format(token)}
+        headers = {"Authorization": "Bearer {0}".format(token)}
         resp = requests.get(self.profile_url + user_id, headers=headers)
         resp.raise_for_status()
         data = ET.fromstring(resp.content.decode())[1]

@@ -13,7 +13,9 @@ class EventbriteTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         """Test authentication with an non-null image_id"""
-        return MockedResponse(200, """{
+        return MockedResponse(
+            200,
+            """{
             "emails": [{
                 "email": "test@example.com",
                 "verified": "True",
@@ -24,4 +26,5 @@ class EventbriteTests(OAuth2TestsMixin, TestCase):
             "first_name": "Andrew",
             "last_name": "Godwin",
             "image_id": "99999999"
-        }""")
+        }""",
+        )

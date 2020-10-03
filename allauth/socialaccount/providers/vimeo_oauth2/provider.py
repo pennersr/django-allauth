@@ -10,19 +10,19 @@ class VimeoOAuth2Account(ProviderAccount):
 
 
 class VimeoOAuth2Provider(OAuth2Provider):
-    id = 'vimeo_oauth2'
-    name = 'Vimeo'
+    id = "vimeo_oauth2"
+    name = "Vimeo"
     account_class = VimeoOAuth2Account
 
     def get_default_scope(self):
-        return ['public', 'private']
+        return ["public", "private"]
 
     def extract_uid(self, data):
-        return data.get('uri').split('/')[-1]
+        return data.get("uri").split("/")[-1]
 
     def extract_common_fields(self, data):
         return {
-            'fullname': data.get('name'),
+            "fullname": data.get("name"),
         }
 
 

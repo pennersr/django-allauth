@@ -19,5 +19,5 @@ class YahooTests(OAuth2TestsMixin, TestCase):
          "email_verified": true,
          "picture": "http://example.com/janedoe/me.jpg"
         }
-        """ # noqa
+        """  # noqa
         return MockedResponse(200, response_data)

@@ -31,8 +31,8 @@ def _unicode_ci_compare(s1, s2):
     recommended algorithm from Unicode Technical Report 36, section
     2.11.2(B)(2).
     """
-    norm_s1 = unicodedata.normalize('NFKC', s1).casefold()
-    norm_s2 = unicodedata.normalize('NFKC', s2).casefold()
+    norm_s1 = unicodedata.normalize("NFKC", s1).casefold()
+    norm_s2 = unicodedata.normalize("NFKC", s2).casefold()
     return norm_s1 == norm_s2
 
 
@@ -53,11 +53,10 @@ def get_login_redirect_url(request, url=None, redirect_field_name="next"):
         # on e.g. the authenticated state.
         url = url()
     redirect_url = (
-        url or
-        get_next_redirect_url(
-            request,
-            redirect_field_name=redirect_field_name) or
-        get_adapter(request).get_login_redirect_url(request))
+        url
+        or get_next_redirect_url(request, redirect_field_name=redirect_field_name)
+        or get_adapter(request).get_login_redirect_url(request)
+    )
     return redirect_url
 
 
@@ -82,8 +81,7 @@ def default_user_display(user):
 def user_display(user):
     global _user_display_callable
     if not _user_display_callable:
-        f = getattr(settings, "ACCOUNT_USER_DISPLAY",
-                    default_user_display)
+        f = getattr(settings, "ACCOUNT_USER_DISPLAY", default_user_display)
         _user_display_callable = import_callable(f)
     return _user_display_callable(user)
 
@@ -123,9 +121,14 @@ def user_email(user, *args):
     return user_field(user, app_settings.USER_MODEL_EMAIL_FIELD, *args)
 
 
-def perform_login(request, user, email_verification,
-                  redirect_url=None, signal_kwargs=None,
-                  signup=False):
+def perform_login(
+    request,
+    user,
+    email_verification,
+    redirect_url=None,
+    signal_kwargs=None,
+    signup=False,
+):
     """
     Keyword arguments:
 
@@ -142,8 +145,8 @@ def perform_login(request, user, email_verification,
         return adapter.respond_user_inactive(request, user)
 
     from .models import EmailAddress
-    has_verified_email = EmailAddress.objects.filter(user=user,
-                                                     verified=True).exists()
+
+    has_verified_email = EmailAddress.objects.filter(user=user, verified=True).exists()
     if email_verification == EmailVerificationMethod.NONE:
         pass
     elif email_verification == EmailVerificationMethod.OPTIONAL:
@@ -153,43 +156,45 @@ def perform_login(request, user, email_verification,
     elif email_verification == EmailVerificationMethod.MANDATORY:
         if not has_verified_email:
             send_email_confirmation(request, user, signup=signup)
-            return adapter.respond_email_verification_sent(
-                request, user)
+            return adapter.respond_email_verification_sent(request, user)
     try:
         adapter.login(request, user)
-        response = HttpResponseRedirect(
-            get_login_redirect_url(request, redirect_url))
+        response = HttpResponseRedirect(get_login_redirect_url(request, redirect_url))
 
         if signal_kwargs is None:
             signal_kwargs = {}
-        signals.user_logged_in.send(sender=user.__class__,
-                                    request=request,
-                                    response=response,
-                                    user=user,
-                                    **signal_kwargs)
+        signals.user_logged_in.send(
+            sender=user.__class__,
+            request=request,
+            response=response,
+            user=user,
+            **signal_kwargs,
+        )
         adapter.add_message(
             request,
             messages.SUCCESS,
-            'account/messages/logged_in.txt',
-            {'user': user})
+            "account/messages/logged_in.txt",
+            {"user": user},
+        )
     except ImmediateHttpResponse as e:
         response = e.response
     return response
 
 
-def complete_signup(request, user, email_verification, success_url,
-                    signal_kwargs=None):
+def complete_signup(request, user, email_verification, success_url, signal_kwargs=None):
     if signal_kwargs is None:
         signal_kwargs = {}
-    signals.user_signed_up.send(sender=user.__class__,
-                                request=request,
-                                user=user,
-                                **signal_kwargs)
-    return perform_login(request, user,
-                         email_verification=email_verification,
-                         signup=True,
-                         redirect_url=success_url,
-                         signal_kwargs=signal_kwargs)
+    signals.user_signed_up.send(
+        sender=user.__class__, request=request, user=user, **signal_kwargs
+    )
+    return perform_login(
+        request,
+        user,
+        email_verification=email_verification,
+        signup=True,
+        redirect_url=success_url,
+        signal_kwargs=signal_kwargs,
+    )
 
 
 def cleanup_email_addresses(request, addresses):
@@ -201,6 +206,7 @@ def cleanup_email_addresses(request, addresses):
     exist, the first one encountered will be kept as primary.
     """
     from .models import EmailAddress
+
     adapter = get_adapter(request)
     # Let's group by `email`
     e2a = OrderedDict()  # maps email to EmailAddress
@@ -213,8 +219,10 @@ def cleanup_email_addresses(request, addresses):
         if not email:
             continue
         # ... and non-conflicting ones...
-        if (app_settings.UNIQUE_EMAIL and
-                EmailAddress.objects.filter(email__iexact=email).exists()):
+        if (
+            app_settings.UNIQUE_EMAIL
+            and EmailAddress.objects.filter(email__iexact=email).exists()
+        ):
             continue
         a = e2a.get(email.lower())
         if a:
@@ -222,8 +230,7 @@ def cleanup_email_addresses(request, addresses):
             a.verified = a.verified or address.verified
         else:
             a = address
-            a.verified = a.verified or adapter.is_email_verified(request,
-                                                                 a.email)
+            a.verified = a.verified or adapter.is_email_verified(request, a.email)
             e2a[email.lower()] = a
         if a.primary:
             primary_addresses.append(a)
@@ -266,24 +273,22 @@ def setup_user_email(request, user, addresses):
     adapter = get_adapter(request)
     stashed_email = adapter.unstash_verified_email(request)
     if stashed_email:
-        priority_addresses.append(EmailAddress(user=user,
-                                               email=stashed_email,
-                                               primary=True,
-                                               verified=True))
+        priority_addresses.append(
+            EmailAddress(user=user, email=stashed_email, primary=True, verified=True)
+        )
     email = user_email(user)
     if email:
-        priority_addresses.append(EmailAddress(user=user,
-                                               email=email,
-                                               primary=True,
-                                               verified=False))
+        priority_addresses.append(
+            EmailAddress(user=user, email=email, primary=True, verified=False)
+        )
     addresses, primary = cleanup_email_addresses(
-        request,
-        priority_addresses + addresses)
+        request, priority_addresses + addresses
+    )
     for a in addresses:
         a.user = user
         a.save()
     EmailAddress.objects.fill_cache_for_user(user, addresses)
-    if (primary and email and email.lower() != primary.email.lower()):
+    if primary and email and email.lower() != primary.email.lower():
         user_email(user, primary.email)
         user.save()
     return primary
@@ -303,9 +308,7 @@ def send_email_confirmation(request, user, signup=False):
     """
     from .models import EmailAddress, EmailConfirmation
 
-    cooldown_period = timedelta(
-        seconds=app_settings.EMAIL_CONFIRMATION_COOLDOWN
-    )
+    cooldown_period = timedelta(seconds=app_settings.EMAIL_CONFIRMATION_COOLDOWN)
 
     email = user_email(user)
     if email:
@@ -317,28 +320,26 @@ def send_email_confirmation(request, user, signup=False):
                 else:
                     send_email = not EmailConfirmation.objects.filter(
                         sent__gt=now() - cooldown_period,
-                        email_address=email_address).exists()
+                        email_address=email_address,
+                    ).exists()
                 if send_email:
-                    email_address.send_confirmation(request,
-                                                    signup=signup)
+                    email_address.send_confirmation(request, signup=signup)
             else:
                 send_email = False
         except EmailAddress.DoesNotExist:
             send_email = True
-            email_address = EmailAddress.objects.add_email(request,
-                                                           user,
-                                                           email,
-                                                           signup=signup,
-                                                           confirm=True)
+            email_address = EmailAddress.objects.add_email(
+                request, user, email, signup=signup, confirm=True
+            )
             assert email_address
         # At this point, if we were supposed to send an email we have sent it.
         if send_email:
             get_adapter(request).add_message(
                 request,
                 messages.INFO,
-                'account/messages/'
-                'email_confirmation_sent.txt',
-                {'email': email})
+                "account/messages/" "email_confirmation_sent.txt",
+                {"email": email},
+            )
     if signup:
         get_adapter(request).stash_user(request, user_pk_to_url_str(user))
 
@@ -352,32 +353,40 @@ def sync_user_email_addresses(user):
     users.
     """
     from .models import EmailAddress
+
     email = user_email(user)
-    if email and not EmailAddress.objects.filter(user=user,
-                                                 email__iexact=email).exists():
-        if app_settings.UNIQUE_EMAIL \
-                and EmailAddress.objects.filter(email__iexact=email).exists():
+    if (
+        email
+        and not EmailAddress.objects.filter(user=user, email__iexact=email).exists()
+    ):
+        if (
+            app_settings.UNIQUE_EMAIL
+            and EmailAddress.objects.filter(email__iexact=email).exists()
+        ):
             # Bail out
             return
-        EmailAddress.objects.create(user=user,
-                                    email=email,
-                                    primary=False,
-                                    verified=False)
+        EmailAddress.objects.create(
+            user=user, email=email, primary=False, verified=False
+        )
 
 
 def filter_users_by_username(*username):
     if app_settings.PRESERVE_USERNAME_CASING:
         qlist = [
-            Q(**{app_settings.USER_MODEL_USERNAME_FIELD + '__iexact': u})
-            for u in username]
+            Q(**{app_settings.USER_MODEL_USERNAME_FIELD + "__iexact": u})
+            for u in username
+        ]
         q = qlist[0]
         for q2 in qlist[1:]:
             q = q | q2
         ret = get_user_model().objects.filter(q)
     else:
         ret = get_user_model().objects.filter(
-            **{app_settings.USER_MODEL_USERNAME_FIELD + '__in':
-               [u.lower() for u in username]})
+            **{
+                app_settings.USER_MODEL_USERNAME_FIELD
+                + "__in": [u.lower() for u in username]
+            }
+        )
     return ret
 
 
@@ -389,16 +398,17 @@ def filter_users_by_email(email, is_active=None):
     together avoiding SQL joins and deduplicate.
     """
     from .models import EmailAddress
+
     User = get_user_model()
     mails = EmailAddress.objects.filter(email__iexact=email)
     if is_active is not None:
         mails = mails.filter(user__is_active=is_active)
     users = []
-    for e in mails.prefetch_related('user'):
+    for e in mails.prefetch_related("user"):
         if _unicode_ci_compare(e.email, email):
             users.append(e.user)
     if app_settings.USER_MODEL_EMAIL_FIELD:
-        q_dict = {app_settings.USER_MODEL_EMAIL_FIELD + '__iexact': email}
+        q_dict = {app_settings.USER_MODEL_EMAIL_FIELD + "__iexact": email}
         user_qs = User.objects.filter(**q_dict)
         if is_active is not None:
             user_qs = user_qs.filter(is_active=is_active)
@@ -413,7 +423,7 @@ def passthrough_next_redirect_url(request, url, redirect_field_name):
     assert url.find("?") < 0  # TODO: Handle this case properly
     next_url = get_next_redirect_url(request, redirect_field_name)
     if next_url:
-        url = url + '?' + urlencode({redirect_field_name: next_url})
+        url = url + "?" + urlencode({redirect_field_name: next_url})
     return url
 
 
@@ -437,14 +447,14 @@ def url_str_to_user_pk(s):
     User = get_user_model()
     # TODO: Ugh, isn't there a cleaner way to determine whether or not
     # the PK is a str-like field?
-    if getattr(User._meta.pk, 'remote_field', None):
+    if getattr(User._meta.pk, "remote_field", None):
         pk_field = User._meta.pk.remote_field.to._meta.pk
     else:
         pk_field = User._meta.pk
     if issubclass(type(pk_field), models.UUIDField):
         return pk_field.to_python(s)
     try:
-        pk_field.to_python('a')
+        pk_field.to_python("a")
         pk = s
     except ValidationError:
         pk = base36_to_int(s)

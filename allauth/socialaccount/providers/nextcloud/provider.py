@@ -7,21 +7,21 @@ class NextCloudAccount(ProviderAccount):
 
 
 class NextCloudProvider(OAuth2Provider):
-    id = 'nextcloud'
-    name = 'NextCloud'
+    id = "nextcloud"
+    name = "NextCloud"
     account_class = NextCloudAccount
 
     def extract_uid(self, data):
-        return str(data['id'])
+        return str(data["id"])
 
     def extract_common_fields(self, data):
         return dict(
-            username=data['displayname'],
-            email=data['email'],
+            username=data["displayname"],
+            email=data["email"],
         )
 
     def get_default_scope(self):
-        scope = ['read']
+        scope = ["read"]
         return scope
 
 

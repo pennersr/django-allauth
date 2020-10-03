@@ -7,15 +7,15 @@ class DigitalOceanAccount(ProviderAccount):
 
 
 class DigitalOceanProvider(OAuth2Provider):
-    id = 'digitalocean'
-    name = 'DigitalOcean'
+    id = "digitalocean"
+    name = "DigitalOcean"
     account_class = DigitalOceanAccount
 
     def extract_uid(self, data):
-        return str(data['account']['uuid'])
+        return str(data["account"]["uuid"])
 
     def extract_common_fields(self, data):
-        return dict(email=data['account']['email'])
+        return dict(email=data["account"]["email"])
 
 
 provider_classes = [DigitalOceanProvider]

@@ -29,10 +29,7 @@ class SteamOpenIDLoginView(OpenIDLoginView):
     provider = SteamOpenIDProvider
 
     def get_form(self):
-        items = dict(
-            list(self.request.GET.items()) +
-            list(self.request.POST.items())
-        )
+        items = dict(list(self.request.GET.items()) + list(self.request.POST.items()))
         items["openid"] = STEAM_OPENID_URL
         return self.form_class(items)
 

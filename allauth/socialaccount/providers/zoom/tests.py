@@ -8,7 +8,9 @@ class ZoomTests(OAuth2TestsMixin, TestCase):
     provider_id = ZoomProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
 {
   "id": "KdYKjnimT4KPd8FFgQt9FQ",
   "first_name": "Jane",
@@ -39,4 +41,5 @@ class ZoomTests(OAuth2TestsMixin, TestCase):
   "phone_number": "+1 1234567891",
   "status": "active"
 }
-""")
+""",
+        )

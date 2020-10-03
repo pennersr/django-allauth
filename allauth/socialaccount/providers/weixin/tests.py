@@ -9,9 +9,10 @@ from .provider import WeixinProvider
 
 
 class WeixinTests(create_oauth2_tests(registry.by_id(WeixinProvider.id))):
-
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
 {"access_token":
  "OezXcEiiBSKSxW0eoylIeO5cPxb4Ks1RpbXGMv9uiV35032zNHGzXcld-EKsSScE3gRZMrUU78skCbp1ShtZnR0dQB8Wr_LUf7FA-H97Lnd2HgQah_GnkQex-vPFsGEwPPcNAV6q1Vz3uRNgL0MUFg",
  "city": "Pudong New District",
@@ -28,4 +29,5 @@ class WeixinTests(create_oauth2_tests(registry.by_id(WeixinProvider.id))):
  "OezXcEiiBSKSxW0eoylIeO5cPxb4Ks1RpbXGMv9uiV35032zNHGzXcld-EKsSScEbMnnMqVExcSpj7KRAuBA8BU2j2e_FK5dgBe-ro32k7OuHtznwqqBn5QR7LZGo2-P8G7gG0eitjyZ751sFlnTAw",
  "scope": "snsapi_login",
  "sex": 1,
- "unionid": "ohHrhwKnD9TOunEW0eKTS45vS5Qo"}""")  # noqa
+ "unionid": "ohHrhwKnD9TOunEW0eKTS45vS5Qo"}""",
+        )  # noqa

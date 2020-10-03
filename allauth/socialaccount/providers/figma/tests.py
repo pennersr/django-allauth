@@ -17,5 +17,5 @@ class FigmaTests(OAuth2TestsMixin, TestCase):
                   "handle": "John Doe",
                   "img_url": "https://www.example.com/image.png"
                 }
-            """
+            """,
         )

@@ -8,7 +8,9 @@ class DigitalOceanTests(OAuth2TestsMixin, TestCase):
     provider_id = DigitalOceanProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
         {
           "account": {
             "droplet_limit": 25,
@@ -20,7 +22,8 @@ class DigitalOceanTests(OAuth2TestsMixin, TestCase):
             "status_message": ""
           }
         }
-        """)
+        """,
+        )
 
     def get_login_response_json(self, with_refresh_token=True):
         return """

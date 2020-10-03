@@ -16,22 +16,20 @@ class AuthentiqOAuth2Adapter(OAuth2Adapter):
 
     settings = app_settings.PROVIDERS.get(provider_id, {})
 
-    provider_url = settings.get('PROVIDER_URL',
-                                'https://connect.authentiq.io/')
-    if not provider_url.endswith('/'):
-        provider_url += '/'
+    provider_url = settings.get("PROVIDER_URL", "https://connect.authentiq.io/")
+    if not provider_url.endswith("/"):
+        provider_url += "/"
 
-    access_token_url = urljoin(provider_url, 'token')
-    authorize_url = urljoin(provider_url, 'authorize')
-    profile_url = urljoin(provider_url, 'userinfo')
+    access_token_url = urljoin(provider_url, "token")
+    authorize_url = urljoin(provider_url, "authorize")
+    profile_url = urljoin(provider_url, "userinfo")
 
     def complete_login(self, request, app, token, **kwargs):
-        auth = {'Authorization': 'Bearer ' + token.token}
+        auth = {"Authorization": "Bearer " + token.token}
         resp = requests.get(self.profile_url, headers=auth)
         resp.raise_for_status()
         extra_data = resp.json()
-        login = self.get_provider() \
-            .sociallogin_from_response(request, extra_data)
+        login = self.get_provider().sociallogin_from_response(request, extra_data)
         return login
 
 

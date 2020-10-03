@@ -41,32 +41,34 @@ from . import app_settings
 class DefaultAccountAdapter(object):
 
     error_messages = {
-        'username_blacklisted':
-        _('Username can not be used. Please use other username.'),
-        'username_taken':
-        AbstractUser._meta.get_field('username').error_messages['unique'],
-        'too_many_login_attempts':
-        _('Too many failed login attempts. Try again later.'),
-        'email_taken':
-        _("A user is already registered with this e-mail address."),
+        "username_blacklisted": _(
+            "Username can not be used. Please use other username."
+        ),
+        "username_taken": AbstractUser._meta.get_field("username").error_messages[
+            "unique"
+        ],
+        "too_many_login_attempts": _(
+            "Too many failed login attempts. Try again later."
+        ),
+        "email_taken": _("A user is already registered with this e-mail address."),
     }
 
     def __init__(self, request=None):
         self.request = request
 
     def stash_verified_email(self, request, email):
-        request.session['account_verified_email'] = email
+        request.session["account_verified_email"] = email
 
     def unstash_verified_email(self, request):
-        ret = request.session.get('account_verified_email')
-        request.session['account_verified_email'] = None
+        ret = request.session.get("account_verified_email")
+        request.session["account_verified_email"] = None
         return ret
 
     def stash_user(self, request, user):
-        request.session['account_user'] = user
+        request.session["account_user"] = user
 
     def unstash_user(self, request):
-        return request.session.pop('account_user', None)
+        return request.session.pop("account_user", None)
 
     def is_email_verified(self, request, email):
         """
@@ -75,7 +77,7 @@ class DefaultAccountAdapter(object):
         invitation before signing up.
         """
         ret = False
-        verified_email = request.session.get('account_verified_email')
+        verified_email = request.session.get("account_verified_email")
         if verified_email:
             ret = verified_email.lower() == email.lower()
         return ret
@@ -99,8 +101,7 @@ class DefaultAccountAdapter(object):
         Renders an e-mail to `email`.  `template_prefix` identifies the
         e-mail that is to be sent, e.g. "account/email/email_confirmation"
         """
-        subject = render_to_string('{0}_subject.txt'.format(template_prefix),
-                                   context)
+        subject = render_to_string("{0}_subject.txt".format(template_prefix), context)
         # remove superfluous line breaks
         subject = " ".join(subject.splitlines()).strip()
         subject = self.format_email_subject(subject)
@@ -108,29 +109,25 @@ class DefaultAccountAdapter(object):
         from_email = self.get_from_email()
 
         bodies = {}
-        for ext in ['html', 'txt']:
+        for ext in ["html", "txt"]:
             try:
-                template_name = '{0}_message.{1}'.format(template_prefix, ext)
+                template_name = "{0}_message.{1}".format(template_prefix, ext)
                 bodies[ext] = render_to_string(
-                    template_name, context, self.request,
+                    template_name,
+                    context,
+                    self.request,
                 ).strip()
             except TemplateDoesNotExist:
-                if ext == 'txt' and not bodies:
+                if ext == "txt" and not bodies:
                     # We need at least one body
                     raise
-        if 'txt' in bodies:
-            msg = EmailMultiAlternatives(subject,
-                                         bodies['txt'],
-                                         from_email,
-                                         [email])
-            if 'html' in bodies:
-                msg.attach_alternative(bodies['html'], 'text/html')
+        if "txt" in bodies:
+            msg = EmailMultiAlternatives(subject, bodies["txt"], from_email, [email])
+            if "html" in bodies:
+                msg.attach_alternative(bodies["html"], "text/html")
         else:
-            msg = EmailMessage(subject,
-                               bodies['html'],
-                               from_email,
-                               [email])
-            msg.content_subtype = 'html'  # Main content is now text/html
+            msg = EmailMessage(subject, bodies["html"], from_email, [email])
+            msg.content_subtype = "html"  # Main content is now text/html
         return msg
 
     def send_mail(self, template_prefix, email, context):
@@ -146,9 +143,11 @@ class DefaultAccountAdapter(object):
         assert request.user.is_authenticated
         url = getattr(settings, "LOGIN_REDIRECT_URLNAME", None)
         if url:
-            warnings.warn("LOGIN_REDIRECT_URLNAME is deprecated, simply"
-                          " use LOGIN_REDIRECT_URL with a URL name",
-                          DeprecationWarning)
+            warnings.warn(
+                "LOGIN_REDIRECT_URLNAME is deprecated, simply"
+                " use LOGIN_REDIRECT_URL with a URL name",
+                DeprecationWarning,
+            )
         else:
             url = settings.LOGIN_REDIRECT_URL
         return resolve_url(url)
@@ -168,8 +167,7 @@ class DefaultAccountAdapter(object):
         """
         if request.user.is_authenticated:
             if app_settings.EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL:
-                return  \
-                    app_settings.EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL
+                return app_settings.EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL
             else:
                 return self.get_login_redirect_url(request)
         else:
@@ -198,19 +196,19 @@ class DefaultAccountAdapter(object):
         (unique).
         """
         from .utils import user_email, user_field, user_username
-        first_name = user_field(user, 'first_name')
-        last_name = user_field(user, 'last_name')
+
+        first_name = user_field(user, "first_name")
+        last_name = user_field(user, "last_name")
         email = user_email(user)
         username = user_username(user)
         if app_settings.USER_MODEL_USERNAME_FIELD:
             user_username(
                 user,
-                username or self.generate_unique_username([
-                    first_name,
-                    last_name,
-                    email,
-                    username,
-                    'user']))
+                username
+                or self.generate_unique_username(
+                    [first_name, last_name, email, username, "user"]
+                ),
+            )
 
     def generate_unique_username(self, txts, regex=None):
         return generate_unique_username(txts, regex)
@@ -223,17 +221,17 @@ class DefaultAccountAdapter(object):
         from .utils import user_email, user_field, user_username
 
         data = form.cleaned_data
-        first_name = data.get('first_name')
-        last_name = data.get('last_name')
-        email = data.get('email')
-        username = data.get('username')
+        first_name = data.get("first_name")
+        last_name = data.get("last_name")
+        email = data.get("email")
+        username = data.get("username")
         user_email(user, email)
         user_username(user, username)
         if first_name:
-            user_field(user, 'first_name', first_name)
+            user_field(user, "first_name", first_name)
         if last_name:
-            user_field(user, 'last_name', last_name)
-        if 'password1' in data:
+            user_field(user, "last_name", last_name)
+        if "password1" in data:
             user.set_password(data["password1"])
         else:
             user.set_unusable_password()
@@ -253,28 +251,30 @@ class DefaultAccountAdapter(object):
             validator(username)
 
         # TODO: Add regexp support to USERNAME_BLACKLIST
-        username_blacklist_lower = [ub.lower()
-                                    for ub in app_settings.USERNAME_BLACKLIST]
+        username_blacklist_lower = [
+            ub.lower() for ub in app_settings.USERNAME_BLACKLIST
+        ]
         if username.lower() in username_blacklist_lower:
-            raise forms.ValidationError(
-                self.error_messages['username_blacklisted'])
+            raise forms.ValidationError(self.error_messages["username_blacklisted"])
         # Skipping database lookups when shallow is True, needed for unique
         # username generation.
         if not shallow:
             from .utils import filter_users_by_username
+
             if filter_users_by_username(username).exists():
                 user_model = get_user_model()
                 username_field = app_settings.USER_MODEL_USERNAME_FIELD
                 error_message = user_model._meta.get_field(
-                    username_field).error_messages.get('unique')
+                    username_field
+                ).error_messages.get("unique")
                 if not error_message:
-                    error_message = self.error_messages['username_taken']
+                    error_message = self.error_messages["username_taken"]
                 raise forms.ValidationError(
                     error_message,
                     params={
-                        'model_name': user_model.__name__,
-                        'field_label': username_field,
-                    }
+                        "model_name": user_model.__name__,
+                        "field_label": username_field,
+                    },
                 )
         return username
 
@@ -292,91 +292,96 @@ class DefaultAccountAdapter(object):
         """
         min_length = app_settings.PASSWORD_MIN_LENGTH
         if min_length and len(password) < min_length:
-            raise forms.ValidationError(_("Password must be a minimum of {0} "
-                                          "characters.").format(min_length))
+            raise forms.ValidationError(
+                _("Password must be a minimum of {0} " "characters.").format(min_length)
+            )
         validate_password(password, user)
         return password
 
     def validate_unique_email(self, email):
         if email_address_exists(email):
-            raise forms.ValidationError(self.error_messages['email_taken'])
+            raise forms.ValidationError(self.error_messages["email_taken"])
         return email
 
-    def add_message(self, request, level, message_template,
-                    message_context=None, extra_tags=''):
+    def add_message(
+        self,
+        request,
+        level,
+        message_template,
+        message_context=None,
+        extra_tags="",
+    ):
         """
         Wrapper of `django.contrib.messages.add_message`, that reads
         the message text from a template.
         """
-        if 'django.contrib.messages' in settings.INSTALLED_APPS:
+        if "django.contrib.messages" in settings.INSTALLED_APPS:
             try:
                 if message_context is None:
                     message_context = {}
                 message = render_to_string(
-                    message_template, message_context, self.request,
+                    message_template,
+                    message_context,
+                    self.request,
                 ).strip()
                 if message:
-                    messages.add_message(request, level, message,
-                                         extra_tags=extra_tags)
+                    messages.add_message(request, level, message, extra_tags=extra_tags)
             except TemplateDoesNotExist:
                 pass
 
-    def ajax_response(self, request, response, redirect_to=None, form=None,
-                      data=None):
+    def ajax_response(self, request, response, redirect_to=None, form=None, data=None):
         resp = {}
         status = response.status_code
 
         if redirect_to:
             status = 200
-            resp['location'] = redirect_to
+            resp["location"] = redirect_to
         if form:
-            if request.method == 'POST':
+            if request.method == "POST":
                 if form.is_valid():
                     status = 200
                 else:
                     status = 400
             else:
                 status = 200
-            resp['form'] = self.ajax_response_form(form)
-            if hasattr(response, 'render'):
+            resp["form"] = self.ajax_response_form(form)
+            if hasattr(response, "render"):
                 response.render()
-            resp['html'] = response.content.decode('utf8')
+            resp["html"] = response.content.decode("utf8")
         if data is not None:
-            resp['data'] = data
-        return HttpResponse(json.dumps(resp),
-                            status=status,
-                            content_type='application/json')
+            resp["data"] = data
+        return HttpResponse(
+            json.dumps(resp), status=status, content_type="application/json"
+        )
 
     def ajax_response_form(self, form):
         form_spec = {
-            'fields': {},
-            'field_order': [],
-            'errors': form.non_field_errors()
+            "fields": {},
+            "field_order": [],
+            "errors": form.non_field_errors(),
         }
         for field in form:
             field_spec = {
-                'label': force_str(field.label),
-                'value': field.value(),
-                'help_text': force_str(field.help_text),
-                'errors': [
-                    force_str(e) for e in field.errors
-                ],
-                'widget': {
-                    'attrs': {
-                        k: force_str(v)
-                        for k, v in field.field.widget.attrs.items()
+                "label": force_str(field.label),
+                "value": field.value(),
+                "help_text": force_str(field.help_text),
+                "errors": [force_str(e) for e in field.errors],
+                "widget": {
+                    "attrs": {
+                        k: force_str(v) for k, v in field.field.widget.attrs.items()
                     }
-                }
+                },
             }
-            form_spec['fields'][field.html_name] = field_spec
-            form_spec['field_order'].append(field.html_name)
+            form_spec["fields"][field.html_name] = field_spec
+            form_spec["field_order"].append(field.html_name)
         return form_spec
 
     def login(self, request, user):
         # HACK: This is not nice. The proper Django way is to use an
         # authentication backend
-        if not hasattr(user, 'backend'):
+        if not hasattr(user, "backend"):
             from .auth_backends import AuthenticationBackend
+
             backends = get_backends()
             backend = None
             for b in backends:
@@ -384,11 +389,10 @@ class DefaultAccountAdapter(object):
                     # prefer our own backend
                     backend = b
                     break
-                elif not backend and hasattr(b, 'get_user'):
+                elif not backend and hasattr(b, "get_user"):
                     # Pick the first vald one
                     backend = b
-            backend_path = '.'.join([backend.__module__,
-                                     backend.__class__.__name__])
+            backend_path = ".".join([backend.__module__, backend.__class__.__name__])
             user.backend = backend_path
         django_login(request, user)
 
@@ -409,9 +413,15 @@ class DefaultAccountAdapter(object):
 
     def get_user_search_fields(self):
         user = get_user_model()()
-        return filter(lambda a: a and hasattr(user, a),
-                      [app_settings.USER_MODEL_USERNAME_FIELD,
-                       'first_name', 'last_name', 'email'])
+        return filter(
+            lambda a: a and hasattr(user, a),
+            [
+                app_settings.USER_MODEL_USERNAME_FIELD,
+                "first_name",
+                "last_name",
+                "email",
+            ],
+        )
 
     def is_safe_url(self, url):
         try:
@@ -430,19 +440,13 @@ class DefaultAccountAdapter(object):
         confirmations are sent outside of the request context `request`
         can be `None` here.
         """
-        url = reverse(
-            "account_confirm_email",
-            args=[emailconfirmation.key])
-        ret = build_absolute_uri(
-            request,
-            url)
+        url = reverse("account_confirm_email", args=[emailconfirmation.key])
+        ret = build_absolute_uri(request, url)
         return ret
 
     def send_confirmation_mail(self, request, emailconfirmation, signup):
         current_site = get_current_site(request)
-        activate_url = self.get_email_confirmation_url(
-            request,
-            emailconfirmation)
+        activate_url = self.get_email_confirmation_url(request, emailconfirmation)
         ctx = {
             "user": emailconfirmation.email_address.user,
             "activate_url": activate_url,
@@ -450,50 +454,45 @@ class DefaultAccountAdapter(object):
             "key": emailconfirmation.key,
         }
         if signup:
-            email_template = 'account/email/email_confirmation_signup'
+            email_template = "account/email/email_confirmation_signup"
         else:
-            email_template = 'account/email/email_confirmation'
-        self.send_mail(email_template,
-                       emailconfirmation.email_address.email,
-                       ctx)
+            email_template = "account/email/email_confirmation"
+        self.send_mail(email_template, emailconfirmation.email_address.email, ctx)
 
     def respond_user_inactive(self, request, user):
-        return HttpResponseRedirect(
-            reverse('account_inactive'))
+        return HttpResponseRedirect(reverse("account_inactive"))
 
     def respond_email_verification_sent(self, request, user):
-        return HttpResponseRedirect(
-            reverse('account_email_verification_sent'))
+        return HttpResponseRedirect(reverse("account_email_verification_sent"))
 
     def _get_login_attempts_cache_key(self, request, **credentials):
         site = get_current_site(request)
-        login = credentials.get('email', credentials.get('username', ''))
-        login_key = hashlib.sha256(login.encode('utf8')).hexdigest()
-        return 'allauth/login_attempts@{site_id}:{login}'.format(
-            site_id=site.pk,
-            login=login_key)
+        login = credentials.get("email", credentials.get("username", ""))
+        login_key = hashlib.sha256(login.encode("utf8")).hexdigest()
+        return "allauth/login_attempts@{site_id}:{login}".format(
+            site_id=site.pk, login=login_key
+        )
 
     def _delete_login_attempts_cached_email(self, request, **credentials):
         if app_settings.LOGIN_ATTEMPTS_LIMIT:
-            cache_key = self._get_login_attempts_cache_key(
-                request,
-                **credentials)
+            cache_key = self._get_login_attempts_cache_key(request, **credentials)
             cache.delete(cache_key)
 
     def pre_authenticate(self, request, **credentials):
         if app_settings.LOGIN_ATTEMPTS_LIMIT:
-            cache_key = self._get_login_attempts_cache_key(
-                request, **credentials)
+            cache_key = self._get_login_attempts_cache_key(request, **credentials)
             login_data = cache.get(cache_key, None)
             if login_data:
                 dt = timezone.now()
                 current_attempt_time = time.mktime(dt.timetuple())
-                if (len(login_data) >= app_settings.LOGIN_ATTEMPTS_LIMIT and
-                        current_attempt_time < (
-                            login_data[-1] +
-                            app_settings.LOGIN_ATTEMPTS_TIMEOUT)):
+                if len(
+                    login_data
+                ) >= app_settings.LOGIN_ATTEMPTS_LIMIT and current_attempt_time < (
+                    login_data[-1] + app_settings.LOGIN_ATTEMPTS_TIMEOUT
+                ):
                     raise forms.ValidationError(
-                        self.error_messages['too_many_login_attempts'])
+                        self.error_messages["too_many_login_attempts"]
+                    )
 
     def authenticate(self, request, **credentials):
         """Only authenticates, does not actually login. See `login`"""
@@ -512,20 +511,20 @@ class DefaultAccountAdapter(object):
 
     def authentication_failed(self, request, **credentials):
         if app_settings.LOGIN_ATTEMPTS_LIMIT:
-            cache_key = self._get_login_attempts_cache_key(
-                request, **credentials
-            )
+            cache_key = self._get_login_attempts_cache_key(request, **credentials)
             data = cache.get(cache_key, [])
             dt = timezone.now()
             data.append(time.mktime(dt.timetuple()))
             cache.set(cache_key, data, app_settings.LOGIN_ATTEMPTS_TIMEOUT)
 
     def is_ajax(self, request):
-        return any([
-            request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest',
-            request.content_type == 'application/json',
-            request.META.get('HTTP_ACCEPT') == 'application/json',
-        ])
+        return any(
+            [
+                request.META.get("HTTP_X_REQUESTED_WITH") == "XMLHttpRequest",
+                request.content_type == "application/json",
+                request.META.get("HTTP_ACCEPT") == "application/json",
+            ]
+        )
 
 
 def get_adapter(request=None):

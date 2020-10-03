@@ -8,7 +8,9 @@ class AgaveTests(OAuth2TestsMixin, TestCase):
     provider_id = AgaveProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
         {
         "status": "success",
         "message": "User details retrieved successfully.",
@@ -25,4 +27,5 @@ class AgaveTests(OAuth2TestsMixin, TestCase):
           "username": "jdoe"
           }
         }
-        """)
+        """,
+        )

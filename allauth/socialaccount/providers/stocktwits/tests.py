@@ -8,7 +8,9 @@ class StocktwitsTests(OAuth2TestsMixin, TestCase):
     provider_id = StocktwitsProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
 {
   "response": {
     "status": 200
@@ -25,4 +27,5 @@ class StocktwitsTests(OAuth2TestsMixin, TestCase):
     ]
   }
 }
-""")  # noqa
+""",
+        )  # noqa

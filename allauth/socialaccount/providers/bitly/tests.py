@@ -8,7 +8,9 @@ class BitlyTests(OAuth2TestsMixin, TestCase):
     provider_id = BitlyProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """{
+        return MockedResponse(
+            200,
+            """{
             "data": {
                 "apiKey": "R_f6397a37e765574f2e198dba5bb59522",
                 "custom_short_domain": null,
@@ -24,4 +26,5 @@ class BitlyTests(OAuth2TestsMixin, TestCase):
             },
             "status_code": 200,
             "status_txt": "OK"
-        }""")
+        }""",
+        )

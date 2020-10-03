@@ -8,7 +8,9 @@ class PatreonTests(OAuth2TestsMixin, TestCase):
     provider_id = PatreonProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """{
+        return MockedResponse(
+            200,
+            """{
         "data": {
             "relationships": {
                 "pledges": {
@@ -16,23 +18,23 @@ class PatreonTests(OAuth2TestsMixin, TestCase):
                         "type": "pledge", "id": "123456"
                     }]
                 }
-            }, 
+            },
             "attributes": {
-                "last_name": "Interwebs", 
-                "is_suspended": false, 
-                "has_password": true, 
+                "last_name": "Interwebs",
+                "is_suspended": false,
+                "has_password": true,
                 "full_name": "John Interwebs",
                 "is_nuked": false,
                 "first_name": "John",
                 "social_connections": {
-                    "spotify": null, 
+                    "spotify": null,
                     "discord": null,
                     "twitter": null,
                     "youtube": null,
                     "facebook": null,
                     "deviantart": null,
                     "twitch": null
-                }, 
+                },
                 "twitter": null,
                 "is_email_verified": true,
                 "facebook_id": null,
@@ -47,10 +49,11 @@ class PatreonTests(OAuth2TestsMixin, TestCase):
                 "gender": 0,
                 "youtube": null,
                 "discord_id": null,
-                "image_url": "https://c8.patreon.com/400/123456", 
+                "image_url": "https://c8.patreon.com/400/123456",
                 "twitch": null
-            }, 
+            },
             "type": "user",
             "id": "123456"
         }
-        }""")  # noqa
+        }""",
+        )  # noqa

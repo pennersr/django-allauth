@@ -7,8 +7,8 @@ class VimeoAccount(ProviderAccount):
 
 
 class VimeoProvider(OAuthProvider):
-    id = 'vimeo'
-    name = 'Vimeo'
+    id = "vimeo"
+    name = "Vimeo"
     account_class = VimeoAccount
 
     def get_default_scope(self):
@@ -16,11 +16,10 @@ class VimeoProvider(OAuthProvider):
         return scope
 
     def extract_uid(self, data):
-        return data['id']
+        return data["id"]
 
     def extract_common_fields(self, data):
-        return dict(name=data.get('display_name'),
-                    username=data.get('username'))
+        return dict(name=data.get("display_name"), username=data.get("username"))
 
 
 provider_classes = [VimeoProvider]

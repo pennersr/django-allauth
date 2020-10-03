@@ -8,7 +8,9 @@ class ExistTests(OAuth2TestsMixin, TestCase):
     provider_id = ExistProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
             {
                 "id": 1,
                 "username": "josh",
@@ -28,4 +30,5 @@ class ExistTests(OAuth2TestsMixin, TestCase):
                 "imperial_temperature": false,
                 "attributes": []
             }
-        """)
+        """,
+        )

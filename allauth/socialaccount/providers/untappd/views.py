@@ -11,6 +11,7 @@ from .provider import UntappdProvider
 
 
 class UntappdOAuth2Adapter(OAuth2Adapter):
+    client_class = UntappdOAuth2Client
     provider_id = UntappdProvider.id
     access_token_url = 'https://untappd.com/oauth/authorize/'
     access_token_method = 'GET'
@@ -27,18 +28,5 @@ class UntappdOAuth2Adapter(OAuth2Adapter):
                                                              extra_data)
 
 
-class UntappdOAuth2CallbackView(OAuth2CallbackView):
-    """ Custom OAuth2CallbackView to return UntappdOAuth2Client """
-
-    def get_client(self, request, app):
-        client = super(UntappdOAuth2CallbackView, self).get_client(request,
-                                                                   app)
-        untappd_client = UntappdOAuth2Client(
-            client.request, client.consumer_key, client.consumer_secret,
-            client.access_token_method, client.access_token_url,
-            client.callback_url, client.scope)
-        return untappd_client
-
-
 oauth2_login = OAuth2LoginView.adapter_view(UntappdOAuth2Adapter)
-oauth2_callback = UntappdOAuth2CallbackView.adapter_view(UntappdOAuth2Adapter)
+oauth2_callback = OAuth2CallbackView.adapter_view(UntappdOAuth2Adapter)

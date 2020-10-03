@@ -27,6 +27,7 @@ from ..base import AuthAction, AuthError
 
 class OAuth2Adapter(object):
     expires_in_key = 'expires_in'
+    client_class = OAuth2Client
     supports_state = True
     redirect_uri_protocol = None
     access_token_method = 'POST'

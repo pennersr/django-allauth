@@ -149,6 +149,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.ynab',
     'allauth.socialaccount.providers.zoho',
     'allauth.socialaccount.providers.zoom',
+    'allauth.socialaccount.providers.okta',
 )
 
 AUTHENTICATION_BACKENDS = (

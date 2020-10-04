@@ -51,6 +51,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.agave',
         'allauth.socialaccount.providers.amazon',
         'allauth.socialaccount.providers.angellist',
+        'allauth.socialaccount.providers.apple',
         'allauth.socialaccount.providers.asana',
         'allauth.socialaccount.providers.auth0',
         'allauth.socialaccount.providers.authentiq',

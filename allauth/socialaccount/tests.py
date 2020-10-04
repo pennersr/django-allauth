@@ -170,6 +170,8 @@ class OAuth2TestsMixin(object):
         self.assertRedirects(resp, reverse("socialaccount_signup"))
 
     def test_account_tokens(self, multiple_login=False):
+        if not app_settings.STORE_TOKENS:
+            return
         email = "user@example.com"
         user = get_user_model()(is_active=True)
         user_email(user, email)
@@ -229,10 +231,11 @@ class OAuth2TestsMixin(object):
             MockedResponse(200, response_json, {"content-type": "application/json"}),
             resp_mock,
         ):
-            resp = self.client.get(
-                complete_url, {"code": "test", "state": q["state"][0]}
-            )
+            resp = self.client.get(complete_url, self.get_complete_parameters(q))
         return resp
+
+    def get_complete_parameters(self, q):
+        return {"code": "test", "state": q["state"][0]}
 
     def test_authentication_error(self):
         resp = self.client.get(reverse(self.provider.id + "_callback"))

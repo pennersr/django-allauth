@@ -61,6 +61,10 @@ class OAuth2Adapter(object):
             token.expires_at = timezone.now() + timedelta(seconds=int(expires_in))
         return token
 
+    def get_access_token_data(self, request, app, client):
+        code = get_request_param(self.request, "code")
+        return client.get_access_token(code)
+
 
 class OAuth2View(object):
     @classmethod
@@ -123,7 +127,8 @@ class OAuth2CallbackView(OAuth2View):
                 request, self.adapter.provider_id, error=error
             )
         app = self.adapter.get_provider().get_app(self.request)
-        client = self.get_client(request, app)
+        client = self.get_client(self.request, app)
+
         try:
             access_token = client.get_access_token(request.GET["code"])
             token = self.adapter.parse_token(access_token)
@@ -138,6 +143,7 @@ class OAuth2CallbackView(OAuth2View):
                 )
             else:
                 login.state = SocialLogin.unstash_state(request)
+
             return complete_social_login(request, login)
         except (
             PermissionDenied,

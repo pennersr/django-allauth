@@ -45,6 +45,8 @@ Supported Providers
 
 - AngelList (OAuth2)
 
+- Apple ("OAuth2")
+
 - Asana (OAuth2)
 
 - Auth0 (OAuth2)

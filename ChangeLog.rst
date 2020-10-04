@@ -9,7 +9,7 @@ Note worthy changes
 - If ``ACCOUNT_LOGIN_ATTEMPTS_LIMIT`` is set and the user successfully
   resets their password, the timeout is cleared to allow immediate login.
 
-- New provider: Zoom, Stocktwits, Zoho
+- New provider: Zoom, Stocktwits, Zoho, Apple.
 
 
 0.42.0 (2020-05-24)

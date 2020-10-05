@@ -4,7 +4,7 @@
 
  - [ ] Make sure you use [semantic commit messages](https://seesparkbox.com/foundry/semantic_commit_messages).
        Examples: `"fix(google): Fixed foobar bug"`, `"feat(accounts): Added foobar feature"`.
- - [ ] All Python code must be 100% pep8 and isort clean.
+ - [ ] All Python code must formatted using Black, and clean from pep8 and isort issues.
  - [ ] JavaScript code should adhere to [StandardJS](https://standardjs.com).
  - [ ] If your changes are significant, please update `ChangeLog.rst`.
  - [ ] If your change is substantial, feel free to add yourself to `AUTHORS`.

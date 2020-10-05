@@ -141,6 +141,8 @@ Supported Providers
 
 - Odnoklassniki (OAuth2)
 
+- Okta (OAuth2)
+
 - OpenId
 
 - OpenStreetMap (OAuth)

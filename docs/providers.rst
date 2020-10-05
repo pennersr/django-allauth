@@ -1180,6 +1180,20 @@ Development callback URL
     http://example.com/accounts/odnoklassniki/login/callback/
 
 
+Okta
+-----
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'okta': {
+            'OKTA_BASE_URL': 'example.okta.com',
+        }
+    }
+
+Okta OIDC
+    https://developer.okta.com/docs/reference/api/oidc/
+
 OpenID
 ------
 

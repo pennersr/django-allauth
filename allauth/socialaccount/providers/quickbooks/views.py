@@ -1,4 +1,3 @@
-import json
 import requests
 
 from allauth.socialaccount.providers.oauth2.views import (
@@ -20,8 +19,10 @@ class QuickBooksOAuth2Adapter(OAuth2Adapter):
     access_token_method = "POST"
 
     def complete_login(self, request, app, token, **kwargs):
-        resp = self.get_user_info(token)
-        extra_data = resp
+        realm_id = request.GET.get("realmId")
+        extra_data = self.get_user_info(token)
+        if realm_id:
+            extra_data["realmId"] = realm_id
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
     def get_user_info(self, token):
@@ -31,14 +32,11 @@ class QuickBooksOAuth2Adapter(OAuth2Adapter):
             "Authorization": auth_header,
             "accept": "application/json",
         }
-        QBO_sandbox = self.get_provider().get_settings().get("SANDBOX", False)
-        if QBO_sandbox:
-            r = requests.get(self.profile_test, headers=headers)
-        else:
-            r = requests.get(self.profile_url, headers=headers)
-        #        status_code = r.status_code
-        response = json.loads(r.text)
-        return response
+        is_sandbox = self.get_provider().get_settings().get("SANDBOX", False)
+        url = self.profile_test if is_sandbox else self.profile_url
+        resp = requests.get(url, headers=headers)
+        resp.raise_for_status()
+        return resp.json()
 
 
 oauth2_login = OAuth2LoginView.adapter_view(QuickBooksOAuth2Adapter)

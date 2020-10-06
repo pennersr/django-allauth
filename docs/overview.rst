@@ -55,9 +55,9 @@ Supported Providers
 
 - Azure (OAuth2)
 
-- Basecamp (OAuth2)
-
 - Baidu (OAuth2)
+
+- Basecamp (OAuth2)
 
 - Battle.net (OAuth2)
 
@@ -69,15 +69,23 @@ Supported Providers
 
 - CERN (OAuth2)
 
+- Coinbase (OAuth2)
+
 - Dataporten (OAuth2)
 
 - Daum (OAuth2)
 
-- Douban (OAuth2)
+- Digital Ocean (OAuth2)
+
+- Discord (OAuth2)
 
 - Disqus (OAuth2)
 
+- Douban (OAuth2)
+
 - Doximity (OAuth2)
+
+- Draugiem
 
 - Dropbox (OAuth, OAuth2)
 
@@ -104,6 +112,8 @@ Supported Providers
 - Firefox Accounts (OAuth2)
 
 - Flickr (OAuth)
+
+- FourSquare (OAuth2)
 
 - Github (OAuth2)
 
@@ -135,9 +145,9 @@ Supported Providers
 
 - Microsoft (Graph) (OAuth2)
 
-- NextCloud (OAuth2)
-
 - Naver (OAuth2)
+
+- NextCloud (OAuth2)
 
 - Odnoklassniki (OAuth2)
 
@@ -160,6 +170,8 @@ Supported Providers
 - QuickBooks (OAuth2)
 
 - Reddit (OAuth2)
+
+- Robinhood (OAuth2)
 
 - Salesforce (OAuth2)
 

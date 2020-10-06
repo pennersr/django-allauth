@@ -1004,7 +1004,7 @@ class EmailFormTests(TestCase):
             'account/messages/email_confirmation_sent.txt')
 
     @override_settings(
-        ACCOUNT_EMAIL_LIMIT_ON_ACCOUNT=2
+        ACCOUNT_MAX_EMAIL_ADDRESSES=2
     )
     def test_add_with_two_limiter(self):
         resp = self.client.post(
@@ -1016,7 +1016,7 @@ class EmailFormTests(TestCase):
         )
 
     @override_settings(
-        ACCOUNT_EMAIL_LIMIT_ON_ACCOUNT=None
+        ACCOUNT_MAX_EMAIL_ADDRESSES=None
     )
     def test_add_with_none_limiter(self):
         resp = self.client.post(
@@ -1028,7 +1028,7 @@ class EmailFormTests(TestCase):
         )
 
     @override_settings(
-        ACCOUNT_EMAIL_LIMIT_ON_ACCOUNT=0
+        ACCOUNT_MAX_EMAIL_ADDRESSES=0
     )
     def test_add_with_zero_limiter(self):
         resp = self.client.post(

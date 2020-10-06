@@ -7,7 +7,7 @@ Note worthy changes
 - If ``ACCOUNT_LOGIN_ATTEMPTS_LIMIT`` is set and the user successfully
   resets their password, the timeout is cleared to allow immediate login.
 
-- New setting ``ACCOUNT_EMAIL_LIMIT_ON_ACCOUNT`` lets you decide how many
+- New setting ``ACCOUNT_MAX_EMAIL_ADDRESSES`` lets you decide how many
   EmailAddress records can be added to an account.
 
 0.42.0 (2020-05-24)

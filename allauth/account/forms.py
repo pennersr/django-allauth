@@ -432,8 +432,8 @@ class AddEmailForm(UserForm):
                               " with this account."),
             "different_account": _("This e-mail address is already associated"
                                    " with another account."),
-            'over_account_limit': _("You cannot add more email addresses as "
-                                    "you are at maximum allowance.")
+            'over_account_limit': _("You cannot setup more than "
+                                    "%d e-mail addresses.")
         }
         users = filter_users_by_email(value)
         on_this_account = [u for u in users if u.pk == self.user.pk]
@@ -444,11 +444,15 @@ class AddEmailForm(UserForm):
         if on_diff_account and app_settings.UNIQUE_EMAIL:
             raise forms.ValidationError(errors["different_account"])
         if self.is_over_account_email_limit():
-            raise forms.ValidationError(errors['over_account_limit'])
+            raise forms.ValidationError(
+                errors['over_account_limit'] % app_settings.MAX_EMAIL_ADDRESSES
+            )
         return value
 
     def is_over_account_email_limit(self):
-        email_limit = app_settings.EMAIL_LIMIT_ON_ACCOUNT
+        email_limit = app_settings.MAX_EMAIL_ADDRESSES
+        if not email_limit:
+            return
         users_emails = self.user.emailaddress_set.count()
         return email_limit and users_emails >= email_limit
 

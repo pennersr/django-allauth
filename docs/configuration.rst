@@ -89,13 +89,13 @@ ACCOUNT_EMAIL_MAX_LENGTH(=254)
   3-byte and 4-byte Unicode character sets
   <https://dev.mysql.com/doc/refman/5.5/en/charset-unicode-conversion.html>`_.
 
-ACCOUNT_EMAIL_LIMIT_ON_ACCOUNT(=None)
+ACCOUNT_MAX_EMAIL_ADDRESSES(=None)
   Limit how many EmailAddress records a user can add to their account.
 
   Will not affect users that already have more than the limit after changing
   this value later on in your projects lifespan.
 
-  Warning: An account must have at least One email address. A user cannot
+  Warning: An account must have at least one email address. A user cannot
   remove the only email address on their account. If you set this option to 1
   they will be unable to ever add or change their current email address.
 

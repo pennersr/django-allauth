@@ -12,6 +12,16 @@ Note worthy changes
 - New providers: Apple, Okta, Stocktwits, Zoho, Zoom.
 
 
+Backwards incompatible changes
+------------------------------
+
+- In previous versions, the ``allauth`` app included a ``base.html``
+  template. This template could conflict with an equally named template at
+  project level. Therefore, ``base.html`` has now been moved to
+  ``account/base.html`` -- you will need to check your templates and likely
+  override ``account/base.html`` within your project.
+
+
 0.42.0 (2020-05-24)
 *******************
 

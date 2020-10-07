@@ -96,7 +96,7 @@ TEMPLATES = [
         'DIRS': [
             # allauth templates: you could copy this directory into your
             # project and tweak it according to your needs
-            # os.path.join(PROJECT_ROOT, 'templates', 'uniform', 'allauth'),
+            # os.path.join(PROJECT_ROOT, 'templates', 'bootstrap', 'allauth'),
             # example project specific templates
             os.path.join(PROJECT_ROOT, 'templates', 'plain', 'example'),
         ],

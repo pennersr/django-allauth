@@ -12,7 +12,7 @@
 {% if user.emailaddress_set.all %}
 <p>{% trans 'The following e-mail addresses are associated to your account:' %}</p>
 
-<form action="{% url 'account_email' %}" class="email_list uniForm" method="post">
+<form action="{% url 'account_email' %}" class="email_list" method="post">
 {% csrf_token %}
 
 <table class="table">

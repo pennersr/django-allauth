@@ -259,12 +259,14 @@ class SignupView(
             self.request, reverse("account_login"), self.redirect_field_name
         )
         redirect_field_name = self.redirect_field_name
+        site = get_current_site(self.request)
         redirect_field_value = get_request_param(self.request, redirect_field_name)
         ret.update(
             {
                 "login_url": login_url,
                 "redirect_field_name": redirect_field_name,
                 "redirect_field_value": redirect_field_value,
+                "site": site,
             }
         )
         return ret

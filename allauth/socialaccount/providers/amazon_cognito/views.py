@@ -50,14 +50,8 @@ class AmazonCognitoOAuth2Adapter(OAuth2Adapter):
         extra_data = requests.get(self.profile_url, headers=headers)
         extra_data.raise_for_status()
 
-        return self.get_provider().sociallogin_from_response(
-            request, extra_data.json()
-        )
+        return self.get_provider().sociallogin_from_response(request, extra_data.json())
 
 
-oauth2_login = OAuth2LoginView.adapter_view(
-    AmazonCognitoOAuth2Adapter
-)
-oauth2_callback = OAuth2CallbackView.adapter_view(
-    AmazonCognitoOAuth2Adapter
-)
+oauth2_login = OAuth2LoginView.adapter_view(AmazonCognitoOAuth2Adapter)
+oauth2_callback = OAuth2CallbackView.adapter_view(AmazonCognitoOAuth2Adapter)

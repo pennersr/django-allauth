@@ -36,10 +36,17 @@ class OAuthError(Exception):
 
 
 class OAuthClient(object):
-
-    def __init__(self, request, consumer_key, consumer_secret,
-                 request_token_url, access_token_url, callback_url,
-                 parameters=None, provider=None):
+    def __init__(
+        self,
+        request,
+        consumer_key,
+        consumer_secret,
+        request_token_url,
+        access_token_url,
+        callback_url,
+        parameters=None,
+        provider=None,
+    ):
 
         self.request = request
 
@@ -67,20 +74,21 @@ class OAuthClient(object):
             get_params = {}
             if self.parameters:
                 get_params.update(self.parameters)
-            get_params['oauth_callback'] = build_absolute_uri(
-                self.request, self.callback_url)
-            rt_url = self.request_token_url + '?' + urlencode(get_params)
-            oauth = OAuth1(self.consumer_key,
-                           client_secret=self.consumer_secret)
+            get_params["oauth_callback"] = build_absolute_uri(
+                self.request, self.callback_url
+            )
+            rt_url = self.request_token_url + "?" + urlencode(get_params)
+            oauth = OAuth1(self.consumer_key, client_secret=self.consumer_secret)
             response = requests.post(url=rt_url, auth=oauth)
             if response.status_code not in [200, 201]:
                 raise OAuthError(
-                    _('Invalid response while obtaining request token'
-                      ' from "%s".') % get_token_prefix(
-                          self.request_token_url))
+                    _("Invalid response while obtaining request token" ' from "%s".')
+                    % get_token_prefix(self.request_token_url)
+                )
             self.request_token = dict(parse_qsl(response.text))
-            self.request.session['oauth_%s_request_token' % get_token_prefix(
-                self.request_token_url)] = self.request_token
+            self.request.session[
+                "oauth_%s_request_token" % get_token_prefix(self.request_token_url)
+            ] = self.request_token
         return self.request_token
 
     def get_access_token(self):
@@ -93,26 +101,27 @@ class OAuthClient(object):
             oauth = OAuth1(
                 self.consumer_key,
                 client_secret=self.consumer_secret,
-                resource_owner_key=request_token['oauth_token'],
-                resource_owner_secret=request_token['oauth_token_secret'])
+                resource_owner_key=request_token["oauth_token"],
+                resource_owner_secret=request_token["oauth_token_secret"],
+            )
             at_url = self.access_token_url
             # Passing along oauth_verifier is required according to:
             # http://groups.google.com/group/twitter-development-talk/browse_frm/thread/472500cfe9e7cdb9#
             # Though, the custom oauth_callback seems to work without it?
-            oauth_verifier = get_request_param(self.request, 'oauth_verifier')
+            oauth_verifier = get_request_param(self.request, "oauth_verifier")
             if oauth_verifier:
-                at_url = at_url + '?' + urlencode(
-                    {'oauth_verifier': oauth_verifier})
+                at_url = at_url + "?" + urlencode({"oauth_verifier": oauth_verifier})
             response = requests.post(url=at_url, auth=oauth)
             if response.status_code not in [200, 201]:
                 raise OAuthError(
-                    _('Invalid response while obtaining access token'
-                      ' from "%s".') % get_token_prefix(
-                          self.request_token_url))
+                    _("Invalid response while obtaining access token" ' from "%s".')
+                    % get_token_prefix(self.request_token_url)
+                )
             self.access_token = dict(parse_qsl(response.text))
 
-            self.request.session['oauth_%s_access_token' % get_token_prefix(
-                self.request_token_url)] = self.access_token
+            self.request.session[
+                "oauth_%s_access_token" % get_token_prefix(self.request_token_url)
+            ] = self.access_token
         return self.access_token
 
     def _get_rt_from_session(self):
@@ -121,12 +130,14 @@ class OAuthClient(object):
         ``_get_request_token``
         """
         try:
-            return self.request.session['oauth_%s_request_token'
-                                        % get_token_prefix(
-                                            self.request_token_url)]
+            return self.request.session[
+                "oauth_%s_request_token" % get_token_prefix(self.request_token_url)
+            ]
         except KeyError:
-            raise OAuthError(_('No request token saved for "%s".')
-                             % get_token_prefix(self.request_token_url))
+            raise OAuthError(
+                _('No request token saved for "%s".')
+                % get_token_prefix(self.request_token_url)
+            )
 
     def is_valid(self):
         try:
@@ -143,11 +154,12 @@ class OAuthClient(object):
         to the URL the OAuth provider handles authorization.
         """
         request_token = self._get_request_token()
-        params = {'oauth_token': request_token['oauth_token'],
-                  'oauth_callback': self.request.build_absolute_uri(
-                      self.callback_url)}
+        params = {
+            "oauth_token": request_token["oauth_token"],
+            "oauth_callback": self.request.build_absolute_uri(self.callback_url),
+        }
         params.update(extra_params)
-        url = authorization_url + '?' + urlencode(params)
+        url = authorization_url + "?" + urlencode(params)
         return HttpResponseRedirect(url)
 
 
@@ -169,13 +181,14 @@ class OAuth(object):
         Get the saved access token for private resources from the session.
         """
         try:
-            return self.request.session['oauth_%s_access_token'
-                                        % get_token_prefix(
-                                            self.request_token_url)]
+            return self.request.session[
+                "oauth_%s_access_token" % get_token_prefix(self.request_token_url)
+            ]
         except KeyError:
             raise OAuthError(
                 _('No access token saved for "%s".')
-                % get_token_prefix(self.request_token_url))
+                % get_token_prefix(self.request_token_url)
+            )
 
     def query(self, url, method="GET", params=dict(), headers=dict()):
         """
@@ -186,15 +199,16 @@ class OAuth(object):
         oauth = OAuth1(
             self.consumer_key,
             client_secret=self.secret_key,
-            resource_owner_key=access_token['oauth_token'],
-            resource_owner_secret=access_token['oauth_token_secret'])
-        response = getattr(requests, method.lower())(url,
-                                                     auth=oauth,
-                                                     headers=headers,
-                                                     params=params)
+            resource_owner_key=access_token["oauth_token"],
+            resource_owner_secret=access_token["oauth_token_secret"],
+        )
+        response = getattr(requests, method.lower())(
+            url, auth=oauth, headers=headers, params=params
+        )
         if response.status_code != 200:
             raise OAuthError(
                 _('No access to private resources at "%s".')
-                % get_token_prefix(self.request_token_url))
+                % get_token_prefix(self.request_token_url)
+            )
 
         return response.text

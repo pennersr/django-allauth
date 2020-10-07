@@ -27,11 +27,13 @@ class DropboxOAuth2Tests(OAuth2TestsMixin, TestCase):
                 "display_name": "All Auth",
                 "familiar_name": "All",
                 "given_name": "All",
-                "surname": "Auth"
+                "surname": "Auth",
             },
-            "profile_photo_url": ("https://dl-web.dropbox.com/account_photo"
-                                  "/get/dbid%ASDFasd3ASdfasdFAsd1AS2ASDF1aS"
-                                  "-DfAs?size=128x128"),
-            "referral_link": "https://db.tt/ASDfAsDf"
+            "profile_photo_url": (
+                "https://dl-web.dropbox.com/account_photo"
+                "/get/dbid%ASDFasd3ASdfasdFAsd1AS2ASDF1aS"
+                "-DfAs?size=128x128"
+            ),
+            "referral_link": "https://db.tt/ASDfAsDf",
         }
         return MockedResponse(200, json.dumps(payload))

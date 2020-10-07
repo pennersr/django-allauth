@@ -122,6 +122,48 @@ Development callback URL
     http://localhost:8000/accounts/angellist/login/callback/
 
 
+Apple
+-----
+
+App registration (create an App ID and then a related Service ID here)
+    https://developer.apple.com/account/resources/certificates/list
+
+Private Key registration (be sure to save it)
+    https://developer.apple.com/account/resources/authkeys/list
+
+Development callback URL
+    http://domain.com/accounts/apple/login/callback/
+
+Add the following configuration to your settings:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        "apple": {
+            "APP": {
+                # Your service identifier.
+                "client_id": "your.service.id",
+
+                # The Key ID (visible in the "View Key Details" page).
+                "secret": "KEYID",
+
+                 # Member ID/App ID Prefix -- you can find it below your name
+                 # at the top right corner of the page, or it’s your App ID
+                 # Prefix in your App ID.
+                "key": "MEMAPPIDPREFIX",
+
+                # The certificate you downloaded when generating the key.
+                "certificate": """-----BEGIN PRIVATE KEY-----
+    s3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr
+    3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3
+    c3ts3cr3t
+    -----END PRIVATE KEY-----
+    """
+            }
+        }
+    }
+
+
 Auth0
 -----
 
@@ -1138,6 +1180,20 @@ Development callback URL
     http://example.com/accounts/odnoklassniki/login/callback/
 
 
+Okta
+-----
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'okta': {
+            'OKTA_BASE_URL': 'example.okta.com',
+        }
+    }
+
+Okta OIDC
+    https://developer.okta.com/docs/reference/api/oidc/
+
 OpenID
 ------
 
@@ -1577,6 +1633,16 @@ Copy the Key supplied by the website above into BOTH Client ID and Secret
 Key fields of the Social Application.
 
 
+Stocktwits
+----------
+
+App Registration
+  https://api.stocktwits.com/developers/apps/new
+
+- Site Domain, Must be an external url (127.0.0.1 and localhost do not work).
+- Consumer key is your ``client id``
+- Consumer secret is your ``secret key``
+
 Strava
 ------
 
@@ -1898,3 +1964,27 @@ in SOCIALACCOUNT_PROVIDERS. Otherwise, adding SCOPE and an empty string will giv
             'SCOPE': ''
         }
     }
+
+
+Zoho
+----
+
+App Registration
+  https://api-console.zoho.com/add
+
+  Select "Server-base Applications"
+
+Authorized Redirect URI
+    http://127.0.0.1:8000/accounts/zoho/login/callback/
+
+
+Zoom
+----
+
+App Registration
+  https://marketplace.zoom.us/develop/create
+
+Development callback URL
+    http://127.0.0.1:8000/accounts/zoom/login/callback/
+
+Select scope user:read during app registration.

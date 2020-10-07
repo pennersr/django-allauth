@@ -16,7 +16,9 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
     provider_id = LinkedInOAuth2Provider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
 {
   "profilePicture": {
     "displayImage": "urn:li:digitalmediaAsset:12345abcdefgh-12abcd"
@@ -41,23 +43,27 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
     }
   }
 }
-""")
+""",
+        )
 
     def test_data_to_str(self):
         data = {
-            'emailAddress': 'john@doe.org',
-            'firstName': 'John',
-            'id': 'a1b2c3d4e',
-            'lastName': 'Doe',
-            'pictureUrl': 'https://media.licdn.com/mpr/foo',
-            'pictureUrls': {'_total': 1,
-                            'values': ['https://media.licdn.com/foo']},
-            'publicProfileUrl': 'https://www.linkedin.com/in/johndoe'}
-        acc = SocialAccount(extra_data=data, provider='linkedin_oauth2')
-        self.assertEqual(acc.get_provider_account().to_str(), 'John Doe')
+            "emailAddress": "john@doe.org",
+            "firstName": "John",
+            "id": "a1b2c3d4e",
+            "lastName": "Doe",
+            "pictureUrl": "https://media.licdn.com/mpr/foo",
+            "pictureUrls": {
+                "_total": 1,
+                "values": ["https://media.licdn.com/foo"],
+            },
+            "publicProfileUrl": "https://www.linkedin.com/in/johndoe",
+        }
+        acc = SocialAccount(extra_data=data, provider="linkedin_oauth2")
+        self.assertEqual(acc.get_provider_account().to_str(), "John Doe")
 
     def test_get_avatar_url_no_picture_setting(self):
-        extra_data = '''
+        extra_data = """
 {
   "profilePicture": {
     "displayImage": "urn:li:digitalmediaAsset:12345abcdefgh-12abcd"
@@ -82,29 +88,30 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
     }
   }
 }
-'''
+"""
         acc = SocialAccount(
             extra_data=loads(extra_data),
-            provider='linkedin_oauth2',
+            provider="linkedin_oauth2",
         )
         self.assertIsNone(acc.get_avatar_url())
 
     @override_settings(
         SOCIALACCOUNT_PROVIDERS={
-            'linkedin_oauth2': {
-                'PROFILE_FIELDS': [
-                    'id',
-                    'firstName',
-                    'lastName',
-                    'profilePicture(displayImage~:playableStreams)',
+            "linkedin_oauth2": {
+                "PROFILE_FIELDS": [
+                    "id",
+                    "firstName",
+                    "lastName",
+                    "profilePicture(displayImage~:playableStreams)",
                 ],
-                'PROFILEPICTURE': {
-                    'display_size_w_h': (400, 400.0),
+                "PROFILEPICTURE": {
+                    "display_size_w_h": (400, 400.0),
                 },
             },
-        })
+        }
+    )
     def test_get_avatar_url_with_setting(self):
-        extra_data = '''
+        extra_data = """
 {
   "profilePicture": {
     "displayImage": "urn:li:digitalmediaAsset:12345abcdefgh-12abcd"
@@ -129,29 +136,30 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
     }
   }
 }
-'''
+"""
         acc = SocialAccount(
             extra_data=loads(extra_data),
-            provider='linkedin_oauth2',
+            provider="linkedin_oauth2",
         )
         self.assertIsNone(acc.get_avatar_url())
 
     @override_settings(
         SOCIALACCOUNT_PROVIDERS={
-            'linkedin_oauth2': {
-                'PROFILE_FIELDS': [
-                    'id',
-                    'firstName',
-                    'lastName',
-                    'profilePicture(displayImage~:playableStreams)',
+            "linkedin_oauth2": {
+                "PROFILE_FIELDS": [
+                    "id",
+                    "firstName",
+                    "lastName",
+                    "profilePicture(displayImage~:playableStreams)",
                 ],
-                'PROFILEPICTURE': {
-                    'display_size_w_h': (100, 100.0),
+                "PROFILEPICTURE": {
+                    "display_size_w_h": (100, 100.0),
                 },
             },
-        })
+        }
+    )
     def test_get_avatar_url_with_picture(self):
-        extra_data = '''
+        extra_data = """
 {
   "profilePicture": {
     "displayImage": "urn:li:digitalmediaAsset:12345abcdefgh-12abcd"
@@ -224,29 +232,30 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
     }
   }
 }
-'''
+"""
         acc = SocialAccount(
             extra_data=loads(extra_data),
-            provider='linkedin_oauth2',
+            provider="linkedin_oauth2",
         )
-        self.assertEqual('this-is-the-link', acc.get_avatar_url())
+        self.assertEqual("this-is-the-link", acc.get_avatar_url())
 
     @override_settings(
         SOCIALACCOUNT_PROVIDERS={
-            'linkedin_oauth2': {
-                'PROFILE_FIELDS': [
-                    'id',
-                    'firstName',
-                    'lastName',
-                    'profilePicture(displayImage~:playableStreams)',
+            "linkedin_oauth2": {
+                "PROFILE_FIELDS": [
+                    "id",
+                    "firstName",
+                    "lastName",
+                    "profilePicture(displayImage~:playableStreams)",
                 ],
-                'PROFILEPICTURE': {
-                    'display_size_w_h': (400, 400.0),
+                "PROFILEPICTURE": {
+                    "display_size_w_h": (400, 400.0),
                 },
             },
-        })
+        }
+    )
     def test_get_avatar_url_size_mismatch(self):
-        extra_data = '''
+        extra_data = """
 {
   "profilePicture": {
     "displayImage": "urn:li:digitalmediaAsset:12345abcdefgh-12abcd"
@@ -319,29 +328,30 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
     }
   }
 }
-'''
+"""
         acc = SocialAccount(
             extra_data=loads(extra_data),
-            provider='linkedin_oauth2',
+            provider="linkedin_oauth2",
         )
         self.assertIsNone(acc.get_avatar_url())
 
     @override_settings(
         SOCIALACCOUNT_PROVIDERS={
-            'linkedin_oauth2': {
-                'PROFILE_FIELDS': [
-                    'id',
-                    'firstName',
-                    'lastName',
-                    'profilePicture(displayImage~:playableStreams)',
+            "linkedin_oauth2": {
+                "PROFILE_FIELDS": [
+                    "id",
+                    "firstName",
+                    "lastName",
+                    "profilePicture(displayImage~:playableStreams)",
                 ],
-                'PROFILEPICTURE': {
-                    'display_size_w_h': (400, 400.0),
+                "PROFILEPICTURE": {
+                    "display_size_w_h": (400, 400.0),
                 },
             },
-        })
+        }
+    )
     def test_get_avatar_url_auth_mismatch(self):
-        extra_data = '''
+        extra_data = """
 {
   "profilePicture": {
     "displayImage": "urn:li:digitalmediaAsset:12345abcdefgh-12abcd"
@@ -414,29 +424,30 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
     }
   }
 }
-'''
+"""
         acc = SocialAccount(
             extra_data=loads(extra_data),
-            provider='linkedin_oauth2',
+            provider="linkedin_oauth2",
         )
         self.assertIsNone(acc.get_avatar_url())
 
     @override_settings(
         SOCIALACCOUNT_PROVIDERS={
-            'linkedin_oauth2': {
-                'PROFILE_FIELDS': [
-                    'id',
-                    'firstName',
-                    'lastName',
-                    'profilePicture(displayImage~:playableStreams)',
+            "linkedin_oauth2": {
+                "PROFILE_FIELDS": [
+                    "id",
+                    "firstName",
+                    "lastName",
+                    "profilePicture(displayImage~:playableStreams)",
                 ],
-                'PROFILEPICTURE': {
-                    'display_size_w_h': (100, 100),
+                "PROFILEPICTURE": {
+                    "display_size_w_h": (100, 100),
                 },
             },
-        })
+        }
+    )
     def test_get_avatar_url_float_vs_int(self):
-        extra_data = '''
+        extra_data = """
 {
   "profilePicture": {
     "displayImage": "urn:li:digitalmediaAsset:12345abcdefgh-12abcd"
@@ -509,27 +520,21 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
     }
   }
 }
-'''
+"""
         acc = SocialAccount(
             extra_data=loads(extra_data),
-            provider='linkedin_oauth2',
+            provider="linkedin_oauth2",
         )
-        self.assertEqual('this-is-the-link', acc.get_avatar_url())
+        self.assertEqual("this-is-the-link", acc.get_avatar_url())
 
     def test_id_missing(self):
-        extra_data = '''
+        extra_data = """
 {
   "profilePicture": {
     "displayImage": "urn:li:digitalmediaAsset:12345abcdefgh-12abcd"
   },
   "Id": "1234567"
 }
-'''
-        provider = LinkedInOAuth2Provider(
-            RequestFactory().get('/login')
-        )
-        self.assertRaises(
-            ProviderException,
-            provider.extract_uid,
-            loads(extra_data)
-        )
+"""
+        provider = LinkedInOAuth2Provider(RequestFactory().get("/login"))
+        self.assertRaises(ProviderException, provider.extract_uid, loads(extra_data))

@@ -8,7 +8,9 @@ class PinterestTests(OAuth2TestsMixin, TestCase):
     provider_id = PinterestProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
         {
             "data": {
                 "url": "https://www.pinterest.com/muravskiyyarosl/",
@@ -17,4 +19,5 @@ class PinterestTests(OAuth2TestsMixin, TestCase):
                 "id": "351247977031674143"
             }
         }
-        """)
+        """,
+        )

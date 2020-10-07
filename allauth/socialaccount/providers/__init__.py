@@ -11,9 +11,7 @@ class ProviderRegistry(object):
 
     def get_list(self, request=None):
         self.load()
-        return [
-            provider_cls(request)
-            for provider_cls in self.provider_map.values()]
+        return [provider_cls(request) for provider_cls in self.provider_map.values()]
 
     def register(self, cls):
         self.provider_map[cls.id] = cls
@@ -37,15 +35,11 @@ class ProviderRegistry(object):
         if not self.loaded:
             for app in settings.INSTALLED_APPS:
                 try:
-                    provider_module = importlib.import_module(
-                        app + '.provider'
-                    )
+                    provider_module = importlib.import_module(app + ".provider")
                 except ImportError:
                     pass
                 else:
-                    for cls in getattr(
-                        provider_module, 'provider_classes', []
-                    ):
+                    for cls in getattr(provider_module, "provider_classes", []):
                         self.register(cls)
             self.loaded = True
 

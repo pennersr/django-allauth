@@ -4,11 +4,25 @@
 Note worthy changes
 -------------------
 
+- New translation: Slovenian.
+
 - If ``ACCOUNT_LOGIN_ATTEMPTS_LIMIT`` is set and the user successfully
   resets their password, the timeout is cleared to allow immediate login.
-
 - New setting ``ACCOUNT_MAX_EMAIL_ADDRESSES`` lets you decide how many
   EmailAddress records can be added to an account.
+
+- New providers: Apple, Okta, Stocktwits, Zoho, Zoom.
+
+
+Backwards incompatible changes
+------------------------------
+
+- In previous versions, the ``allauth`` app included a ``base.html``
+  template. This template could conflict with an equally named template at
+  project level. Therefore, ``base.html`` has now been moved to
+  ``account/base.html`` -- you will need to check your templates and likely
+  override ``account/base.html`` within your project.
+
 
 0.42.0 (2020-05-24)
 *******************

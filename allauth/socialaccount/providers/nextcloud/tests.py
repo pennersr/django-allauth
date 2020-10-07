@@ -6,21 +6,23 @@ from allauth.tests import MockedResponse, TestCase
 from .provider import NextCloudProvider
 
 
-@override_settings(SOCIALACCOUNT_PROVIDERS={
-    'nextcloud': {
-        'SERVER': 'https://nextcloud.example.org'
-    }
-})
+@override_settings(
+    SOCIALACCOUNT_PROVIDERS={"nextcloud": {"SERVER": "https://nextcloud.example.org"}}
+)
 class NextCloudTests(OAuth2TestsMixin, TestCase):
     provider_id = NextCloudProvider.id
 
     def get_login_response_json(self, with_refresh_token=True):
-        return super(NextCloudTests, self).get_login_response_json(
-            with_refresh_token=with_refresh_token).replace('uid', 'user_id')
+        return (
+            super(NextCloudTests, self)
+            .get_login_response_json(with_refresh_token=with_refresh_token)
+            .replace("uid", "user_id")
+        )
 
     def get_mocked_response(self):
         return MockedResponse(
-            200, """<?xml version="1.0"?>
+            200,
+            """<?xml version="1.0"?>
 <ocs>
  <meta>
   <status>ok</status>
@@ -60,4 +62,5 @@ class NextCloudTests(OAuth2TestsMixin, TestCase):
   </backendCapabilities>
  </data>
 </ocs>
-""")
+""",
+        )

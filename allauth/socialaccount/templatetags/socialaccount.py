@@ -15,26 +15,27 @@ class ProviderLoginURLNode(template.Node):
 
     def render(self, context):
         provider_id = self.provider_id_var.resolve(context)
-        request = context.get('request')
+        request = context.get("request")
         provider = providers.registry.by_id(provider_id, request)
-        query = dict([(str(name), var.resolve(context)) for name, var
-                      in self.params.items()])
-        auth_params = query.get('auth_params', None)
-        scope = query.get('scope', None)
-        process = query.get('process', None)
-        if scope == '':
-            del query['scope']
-        if auth_params == '':
-            del query['auth_params']
-        if 'next' not in query:
-            next = get_request_param(request, 'next')
+        query = dict(
+            [(str(name), var.resolve(context)) for name, var in self.params.items()]
+        )
+        auth_params = query.get("auth_params", None)
+        scope = query.get("scope", None)
+        process = query.get("process", None)
+        if scope == "":
+            del query["scope"]
+        if auth_params == "":
+            del query["auth_params"]
+        if "next" not in query:
+            next = get_request_param(request, "next")
             if next:
-                query['next'] = next
-            elif process == 'redirect':
-                query['next'] = request.get_full_path()
+                query["next"] = next
+            elif process == "redirect":
+                query["next"] = request.get_full_path()
         else:
-            if not query['next']:
-                del query['next']
+            if not query["next"]:
+                del query["next"]
         # get the login url and append query as url parameters
         return provider.get_login_url(request, **query)
 
@@ -53,9 +54,10 @@ def provider_login_url(parser, token):
 
 class ProvidersMediaJSNode(template.Node):
     def render(self, context):
-        request = context['request']
-        ret = '\n'.join([p.media_js(request)
-                         for p in providers.registry.get_list(request)])
+        request = context["request"]
+        ret = "\n".join(
+            [p.media_js(request) for p in providers.registry.get_list(request)]
+        )
         return ret
 
 

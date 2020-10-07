@@ -17,25 +17,22 @@ class Auth0OAuth2Adapter(OAuth2Adapter):
     settings = app_settings.PROVIDERS.get(provider_id, {})
     provider_base_url = settings.get("AUTH0_URL")
 
-    access_token_url = '{0}/oauth/token'.format(provider_base_url)
-    authorize_url = '{0}/authorize'.format(provider_base_url)
-    profile_url = '{0}/userinfo'.format(provider_base_url)
+    access_token_url = "{0}/oauth/token".format(provider_base_url)
+    authorize_url = "{0}/authorize".format(provider_base_url)
+    profile_url = "{0}/userinfo".format(provider_base_url)
 
     def complete_login(self, request, app, token, response):
-        extra_data = requests.get(self.profile_url, params={
-            'access_token': token.token
-        }).json()
+        extra_data = requests.get(
+            self.profile_url, params={"access_token": token.token}
+        ).json()
         extra_data = {
-            'user_id': extra_data['sub'],
-            'id': extra_data['sub'],
-            'name': extra_data['name'],
-            'email': extra_data['email']
+            "user_id": extra_data["sub"],
+            "id": extra_data["sub"],
+            "name": extra_data["name"],
+            "email": extra_data["email"],
         }
 
-        return self.get_provider().sociallogin_from_response(
-            request,
-            extra_data
-        )
+        return self.get_provider().sociallogin_from_response(request, extra_data)
 
 
 oauth2_login = OAuth2LoginView.adapter_view(Auth0OAuth2Adapter)

@@ -8,7 +8,9 @@ class PaypalTests(OAuth2TestsMixin, TestCase):
     provider_id = PaypalProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
         {
             "user_id":
             "https://www.paypal.com/webapps/auth/server/64ghr894040044",
@@ -17,4 +19,5 @@ class PaypalTests(OAuth2TestsMixin, TestCase):
             "family_name": "Doe",
             "email": "janedoe@example.com"
         }
-        """)
+        """,
+        )

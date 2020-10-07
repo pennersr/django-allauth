@@ -8,7 +8,9 @@ class QuickBooksOAuth2Tests(OAuth2TestsMixin, TestCase):
     provider_id = QuickBooksOAuth2Provider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
 {       "sub": "d8752092-0f2b-4b6e-86ef-6b72f2457a00",
         "emailVerified": true,
         "familyName": "Mckeeman",
@@ -16,4 +18,5 @@ class QuickBooksOAuth2Tests(OAuth2TestsMixin, TestCase):
         "givenName": "Darren",
         "phoneNumberVerified": true,
         "email": "darren@blocklight.io"}
-""")
+""",
+        )

@@ -18,13 +18,10 @@ from .provider import FacebookProvider
 @override_settings(
     SOCIALACCOUNT_AUTO_SIGNUP=True,
     ACCOUNT_SIGNUP_FORM_CLASS=None,
-    LOGIN_REDIRECT_URL='/accounts/profile/',
-    ACCOUNT_EMAIL_VERIFICATION=account_settings
-    .EmailVerificationMethod.NONE,
-    SOCIALACCOUNT_PROVIDERS={
-        'facebook': {
-            'AUTH_PARAMS': {},
-            'VERIFIED_EMAIL': False}})
+    LOGIN_REDIRECT_URL="/accounts/profile/",
+    ACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.NONE,
+    SOCIALACCOUNT_PROVIDERS={"facebook": {"AUTH_PARAMS": {}, "VERIFIED_EMAIL": False}},
+)
 class FacebookTests(OAuth2TestsMixin, TestCase):
     provider_id = FacebookProvider.id
 
@@ -59,67 +56,69 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
 
     def test_username_conflict(self):
         User = get_user_model()
-        User.objects.create(username='raymond.penners')
+        User.objects.create(username="raymond.penners")
         self.login(self.get_mocked_response())
-        socialaccount = SocialAccount.objects.get(uid='630595557')
-        self.assertEqual(socialaccount.user.username, 'raymond')
+        socialaccount = SocialAccount.objects.get(uid="630595557")
+        self.assertEqual(socialaccount.user.username, "raymond")
 
     def test_username_based_on_provider(self):
         self.login(self.get_mocked_response())
-        socialaccount = SocialAccount.objects.get(uid='630595557')
-        self.assertEqual(socialaccount.user.username, 'raymond.penners')
+        socialaccount = SocialAccount.objects.get(uid="630595557")
+        self.assertEqual(socialaccount.user.username, "raymond.penners")
 
     def test_username_based_on_provider_with_simple_name(self):
         data = '{"id": "1234567", "name": "Harvey McGillicuddy"}'
         self.login(self.get_mocked_response(data=data))
-        socialaccount = SocialAccount.objects.get(uid='1234567')
-        self.assertEqual(socialaccount.user.username, 'harvey')
+        socialaccount = SocialAccount.objects.get(uid="1234567")
+        self.assertEqual(socialaccount.user.username, "harvey")
 
     def test_media_js(self):
         provider = providers.registry.by_id(FacebookProvider.id)
-        request = RequestFactory().get(reverse('account_login'))
+        request = RequestFactory().get(reverse("account_login"))
         request.session = {}
         script = provider.media_js(request)
         self.assertTrue('"appId": "app123id"' in script)
 
     def test_login_by_token(self):
-        resp = self.client.get(reverse('account_login'))
-        with patch('allauth.socialaccount.providers.facebook.views'
-                   '.requests') as requests_mock:
+        resp = self.client.get(reverse("account_login"))
+        with patch(
+            "allauth.socialaccount.providers.facebook.views" ".requests"
+        ) as requests_mock:
             mocks = [self.get_mocked_response().json()]
-            requests_mock.get.return_value.json \
-                = lambda: mocks.pop()
-            resp = self.client.post(reverse('facebook_login_by_token'),
-                                    data={'access_token': 'dummy'})
+            requests_mock.get.return_value.json = lambda: mocks.pop()
+            resp = self.client.post(
+                reverse("facebook_login_by_token"),
+                data={"access_token": "dummy"},
+            )
             self.assertRedirects(
                 resp, "/accounts/profile/", fetch_redirect_response=False
             )
 
     @override_settings(
         SOCIALACCOUNT_PROVIDERS={
-            'facebook': {
-                'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-                'VERIFIED_EMAIL': False}})
+            "facebook": {
+                "AUTH_PARAMS": {"auth_type": "reauthenticate"},
+                "VERIFIED_EMAIL": False,
+            }
+        }
+    )
     def test_login_by_token_reauthenticate(self):
-        resp = self.client.get(reverse('account_login'))
-        nonce = json.loads(
-            resp.context['fb_data'])['loginOptions']['auth_nonce']
-        with patch('allauth.socialaccount.providers.facebook.views'
-                   '.requests') as requests_mock:
-            mocks = [self.get_mocked_response().json(),
-                     {'auth_nonce': nonce}]
-            requests_mock.get.return_value.json \
-                = lambda: mocks.pop()
-            resp = self.client.post(reverse('facebook_login_by_token'),
-                                    data={'access_token': 'dummy'})
+        resp = self.client.get(reverse("account_login"))
+        nonce = json.loads(resp.context["fb_data"])["loginOptions"]["auth_nonce"]
+        with patch(
+            "allauth.socialaccount.providers.facebook.views" ".requests"
+        ) as requests_mock:
+            mocks = [self.get_mocked_response().json(), {"auth_nonce": nonce}]
+            requests_mock.get.return_value.json = lambda: mocks.pop()
+            resp = self.client.post(
+                reverse("facebook_login_by_token"),
+                data={"access_token": "dummy"},
+            )
             self.assertRedirects(
                 resp, "/accounts/profile/", fetch_redirect_response=False
             )
 
-    @override_settings(
-        SOCIALACCOUNT_PROVIDERS={
-            'facebook': {
-                'VERIFIED_EMAIL': True}})
+    @override_settings(SOCIALACCOUNT_PROVIDERS={"facebook": {"VERIFIED_EMAIL": True}})
     def test_login_verified(self):
         emailaddress = self._login_verified()
         self.assertTrue(emailaddress.verified)
@@ -130,4 +129,4 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
 
     def _login_verified(self):
         self.login(self.get_mocked_response())
-        return EmailAddress.objects.get(email='raymond.penners@example.com')
+        return EmailAddress.objects.get(email="raymond.penners@example.com")

@@ -34,7 +34,7 @@ Home page
 Source code
   http://github.com/pennersr/django-allauth
 
-Mailinglist
+Mailing list
   http://groups.google.com/group/django-allauth
 
 Documentation

@@ -8,7 +8,9 @@ class AngelListTests(OAuth2TestsMixin, TestCase):
     provider_id = AngelListProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
 {"name":"pennersr","id":424732,"bio":"","follower_count":0,
 "angellist_url":"https://angel.co/dsxtst",
 "image":"https://angel.co/images/shared/nopic.png",
@@ -19,4 +21,5 @@ class AngelListTests(OAuth2TestsMixin, TestCase):
 "what_ive_built":null,"locations":[],"roles":[],"skills":[],
 "investor":false,"scopes":["message","talent","dealflow","comment",
 "email"]}
-""")
+""",
+        )

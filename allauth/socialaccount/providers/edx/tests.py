@@ -9,7 +9,9 @@ class EdxTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         print(self)
-        return MockedResponse(200, """{
+        return MockedResponse(
+            200,
+            """{
 "username":"krzysztof",
 "bio":null,
 "requires_parental_consent":true,
@@ -41,4 +43,5 @@ class EdxTests(OAuth2TestsMixin, TestCase):
 "mailing_address":"",
 "email":"krzysztof.hoffmann@opi.org.pl",
 "account_privacy":"private"
-}""")
+}""",
+        )

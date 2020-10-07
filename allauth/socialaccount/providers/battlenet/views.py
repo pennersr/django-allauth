@@ -40,9 +40,7 @@ def _check_errors(response):
     try:
         data = response.json()
     except ValueError:  # JSONDecodeError on py3
-        raise OAuth2Error(
-            "Invalid JSON from Battle.net API: %r" % (response.text)
-        )
+        raise OAuth2Error("Invalid JSON from Battle.net API: %r" % (response.text))
 
     if response.status_code >= 400 or "error" in data:
         # For errors, we expect the following format:
@@ -78,6 +76,7 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
     `region` GET parameter when performing a login.
     Can be any of eu, us, kr, sea, tw or cn
     """
+
     provider_id = BattleNetProvider.id
     valid_regions = (
         Region.APAC,
@@ -100,8 +99,11 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
             return region
 
         # Second, check the provider settings.
-        region = getattr(settings, 'SOCIALACCOUNT_PROVIDERS', {}).get(
-            'battlenet', {}).get('REGION', 'us')
+        region = (
+            getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
+            .get("battlenet", {})
+            .get("REGION", "us")
+        )
 
         if region in self.valid_regions:
             return region

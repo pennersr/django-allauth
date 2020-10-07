@@ -8,9 +8,7 @@ from . import app_settings
 
 
 class EmailAddressManager(models.Manager):
-
-    def add_email(self, request, user, email,
-                  confirm=False, signup=False):
+    def add_email(self, request, user, email, confirm=False, signup=False):
         email_address, created = self.get_or_create(
             user=user, email__iexact=email, defaults={"email": email}
         )
@@ -29,8 +27,9 @@ class EmailAddressManager(models.Manager):
     def get_users_for(self, email):
         # this is a list rather than a generator because we probably want to
         # do a len() on it right away
-        return [address.user for address in self.filter(verified=True,
-                                                        email__iexact=email)]
+        return [
+            address.user for address in self.filter(verified=True, email__iexact=email)
+        ]
 
     def fill_cache_for_user(self, user, addresses):
         """
@@ -42,11 +41,10 @@ class EmailAddressManager(models.Manager):
         user._emailaddress_cache = addresses
 
     def get_for_user(self, user, email):
-        cache_key = '_emailaddress_cache'
+        cache_key = "_emailaddress_cache"
         addresses = getattr(user, cache_key, None)
         if addresses is None:
-            ret = self.get(user=user,
-                           email__iexact=email)
+            ret = self.get(user=user, email__iexact=email)
             # To avoid additional lookups when e.g.
             # EmailAddress.set_as_primary() starts touching self.user
             ret.user = user
@@ -59,7 +57,6 @@ class EmailAddressManager(models.Manager):
 
 
 class EmailConfirmationManager(models.Manager):
-
     def all_expired(self):
         return self.filter(self.expired_q())
 
@@ -67,8 +64,9 @@ class EmailConfirmationManager(models.Manager):
         return self.exclude(self.expired_q())
 
     def expired_q(self):
-        sent_threshold = timezone.now() \
-            - timedelta(days=app_settings.EMAIL_CONFIRMATION_EXPIRE_DAYS)
+        sent_threshold = timezone.now() - timedelta(
+            days=app_settings.EMAIL_CONFIRMATION_EXPIRE_DAYS
+        )
         return Q(sent__lt=sent_threshold)
 
     def delete_expired_confirmations(self):

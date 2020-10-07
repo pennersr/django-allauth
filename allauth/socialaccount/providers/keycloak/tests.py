@@ -8,7 +8,9 @@ class KeycloakTests(OAuth2TestsMixin, TestCase):
     provider_id = KeycloakProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
             {
                 "picture": "https://secure.gravatar.com/avatar/123",
                 "email": "mr.bob@your.Keycloak.server.example.com",
@@ -17,4 +19,5 @@ class KeycloakTests(OAuth2TestsMixin, TestCase):
                 "identities": [],
                 "name": "Mr Bob"
             }
-        """)
+        """,
+        )

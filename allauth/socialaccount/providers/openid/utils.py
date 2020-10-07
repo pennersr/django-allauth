@@ -18,30 +18,31 @@ class JSONSafeSession(UserDict):
     Django 1.6 no longer pickles stuff, so we'll need to do some
     hacking here...
     """
+
     def __init__(self, session):
         UserDict.__init__(self)
         self.data = session
 
     def __setitem__(self, key, value):
-        data = base64.b64encode(pickle.dumps(value)).decode('ascii')
+        data = base64.b64encode(pickle.dumps(value)).decode("ascii")
         return UserDict.__setitem__(self, key, data)
 
     def __getitem__(self, key):
         data = UserDict.__getitem__(self, key)
-        return pickle.loads(base64.b64decode(data.encode('ascii')))
+        return pickle.loads(base64.b64decode(data.encode("ascii")))
 
 
 class OldAXAttribute:
-    PERSON_NAME = 'http://openid.net/schema/namePerson'
-    PERSON_FIRST_NAME = 'http://openid.net/schema/namePerson/first'
-    PERSON_LAST_NAME = 'http://openid.net/schema/namePerson/last'
+    PERSON_NAME = "http://openid.net/schema/namePerson"
+    PERSON_FIRST_NAME = "http://openid.net/schema/namePerson/first"
+    PERSON_LAST_NAME = "http://openid.net/schema/namePerson/last"
 
 
 class AXAttribute:
-    CONTACT_EMAIL = 'http://axschema.org/contact/email'
-    PERSON_NAME = 'http://axschema.org/namePerson'
-    PERSON_FIRST_NAME = 'http://axschema.org/namePerson/first'
-    PERSON_LAST_NAME = 'http://axschema.org/namePerson/last'
+    CONTACT_EMAIL = "http://axschema.org/contact/email"
+    PERSON_NAME = "http://axschema.org/namePerson"
+    PERSON_FIRST_NAME = "http://axschema.org/namePerson/first"
+    PERSON_LAST_NAME = "http://axschema.org/namePerson/last"
 
 
 AXAttributes = [
@@ -56,8 +57,8 @@ AXAttributes = [
 
 
 class SRegField:
-    EMAIL = 'email'
-    NAME = 'fullname'
+    EMAIL = "email"
+    NAME = "fullname"
 
 
 SRegFields = [
@@ -83,17 +84,15 @@ class DBOpenIDStore(OIDStore):
             secret=secret,
             issued=assoc.issued,
             lifetime=assoc.lifetime,
-            assoc_type=assoc.assoc_type
+            assoc_type=assoc.assoc_type,
         )
 
     def getAssociation(self, server_url, handle=None):
-        stored_assocs = OpenIDStore.objects.filter(
-            server_url=server_url
-        )
+        stored_assocs = OpenIDStore.objects.filter(server_url=server_url)
         if handle:
             stored_assocs = stored_assocs.filter(handle=handle)
 
-        stored_assocs.order_by('-issued')
+        stored_assocs.order_by("-issued")
 
         if stored_assocs.count() == 0:
             return None
@@ -103,13 +102,14 @@ class DBOpenIDStore(OIDStore):
         for stored_assoc in stored_assocs:
             assoc = OIDAssociation(
                 stored_assoc.handle,
-                base64.decodestring(stored_assoc.secret.encode('utf-8')),
-                stored_assoc.issued, stored_assoc.lifetime,
-                stored_assoc.assoc_type
+                base64.decodestring(stored_assoc.secret.encode("utf-8")),
+                stored_assoc.issued,
+                stored_assoc.lifetime,
+                stored_assoc.assoc_type,
             )
             # See:
             # necaris/python3-openid@1abb155c8fc7b508241cbe9d2cae24f18e4a379b
-            if hasattr(assoc, 'getExpiresIn'):
+            if hasattr(assoc, "getExpiresIn"):
                 expires_in = assoc.getExpiresIn()
             else:
                 expires_in = assoc.expiresIn
@@ -122,9 +122,7 @@ class DBOpenIDStore(OIDStore):
         return return_val
 
     def removeAssociation(self, server_url, handle):
-        stored_assocs = OpenIDStore.objects.filter(
-            server_url=server_url
-        )
+        stored_assocs = OpenIDStore.objects.filter(server_url=server_url)
         if handle:
             stored_assocs = stored_assocs.filter(handle=handle)
 
@@ -133,15 +131,11 @@ class DBOpenIDStore(OIDStore):
     def useNonce(self, server_url, timestamp, salt):
         try:
             OpenIDNonce.objects.get(
-                server_url=server_url,
-                timestamp=timestamp,
-                salt=salt
+                server_url=server_url, timestamp=timestamp, salt=salt
             )
         except OpenIDNonce.DoesNotExist:
             OpenIDNonce.objects.create(
-                server_url=server_url,
-                timestamp=timestamp,
-                salt=salt
+                server_url=server_url, timestamp=timestamp, salt=salt
             )
             return True
 

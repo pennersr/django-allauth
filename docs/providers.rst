@@ -141,7 +141,7 @@ Add the following configuration to your settings:
     SOCIALACCOUNT_PROVIDERS = {
         "apple": {
             "APP": {
-                # Your service identifier
+                # Your service identifier.
                 "client_id": "your.service.id",
 
                 # The Key ID (visible in the "View Key Details" page).
@@ -152,7 +152,7 @@ Add the following configuration to your settings:
                  # Prefix in your App ID.
                 "key": "MEMAPPIDPREFIX",
 
-                # The certificate you downloaded when generating th key.
+                # The certificate you downloaded when generating the key.
                 "certificate": """-----BEGIN PRIVATE KEY-----
     s3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr
     3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3

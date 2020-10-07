@@ -32,7 +32,7 @@ class AppSettings(object):
                 not in (self.AuthenticationMethod.USERNAME,
                         self.AuthenticationMethod.USERNAME_EMAIL)
         if self.MAX_EMAIL_ADDRESSES:
-            assert self.MAX_EMAIL_ADDRESSES > 0
+            assert self.MAX_EMAIL_ADDRESSES > 1
 
     def _setting(self, name, dflt):
         from django.conf import settings

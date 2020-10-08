@@ -35,6 +35,7 @@ def request_steam_account_summary(api_key, steam_id):
     params = {"key": api_key, "steamids": steam_id}
 
     resp = requests.get(api_base + method, params)
+    resp.raise_for_status()
     data = resp.json()
 
     playerlist = data.get("response", {}).get("players", [])

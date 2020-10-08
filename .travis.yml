@@ -10,15 +10,15 @@ matrix:
 
     # Python 3.6
     - python: 3.6
-      env: TOXENV=py36-django20,py36-django21,py36-django22,py36-django30
+      env: TOXENV=py36-django20,py36-django21,py36-django22,py36-django30,py36-django31
 
     # Python 3.7
     - python: 3.7
-      env: TOXENV=py37-django20,py37-django21,py37-django22,py37-django30,docs,checkqa,standardjs
+      env: TOXENV=py37-django20,py37-django21,py37-django22,py37-django30,py37-django31,docs,checkqa,standardjs
 
     # Python 3.8
     - python: 3.8
-      env: TOXENV=py38-django22,py38-django30
+      env: TOXENV=py38-django22,py38-django30,py38-django31
 
     # Django Master
     - python: 3.6

@@ -95,9 +95,7 @@ class BitbucketOAuth2Tests(
                 "allauth.socialaccount.providers" ".bitbucket_oauth2.views.requests"
             )
         }
-        self.patches = dict(
-            (name, mocked.start()) for (name, mocked) in self.mocks.items()
-        )
+        self.patches = {name: mocked.start() for (name, mocked) in self.mocks.items()}
         self.patches["requests"].get.side_effect = [
             MockedResponse(200, self.response_data),
             MockedResponse(200, self.email_response_data),

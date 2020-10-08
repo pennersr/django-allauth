@@ -24,7 +24,7 @@ class MailRuOAuth2Adapter(OAuth2Adapter):
             "secure": "1",
             "uids": uid,
         }
-        param_list = sorted(list(item + "=" + data[item] for item in data))
+        param_list = sorted([item + "=" + data[item] for item in data])
         data["sig"] = md5(
             ("".join(param_list) + app.secret).encode("utf-8")
         ).hexdigest()

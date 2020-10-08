@@ -190,7 +190,7 @@ class OAuth(object):
                 % get_token_prefix(self.request_token_url)
             )
 
-    def query(self, url, method="GET", params=dict(), headers=dict()):
+    def query(self, url, method="GET", params=None, headers=None):
         """
         Request a API endpoint at ``url`` with ``params`` being either the
         POST or GET data.

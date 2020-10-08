@@ -8,6 +8,13 @@ from . import app_settings
 
 
 class EmailAddressManager(models.Manager):
+    def can_add_email(self, user):
+        ret = True
+        if app_settings.MAX_EMAIL_ADDRESSES:
+            count = self.filter(user=user).count()
+            ret = count < app_settings.MAX_EMAIL_ADDRESSES
+        return ret
+
     def add_email(self, request, user, email, confirm=False, signup=False):
         email_address, created = self.get_or_create(
             user=user, email__iexact=email, defaults={"email": email}

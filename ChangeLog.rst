@@ -9,6 +9,9 @@ Note worthy changes
 - If ``ACCOUNT_LOGIN_ATTEMPTS_LIMIT`` is set and the user successfully
   resets their password, the timeout is cleared to allow immediate login.
 
+- You can now limit the amount of email addresses a user can associate to his
+  account by setting ``ACCOUNT_MAX_EMAIL_ADDRESSES``.
+
 - New providers: Apple, Okta, Stocktwits, Zoho, Zoom.
 
 

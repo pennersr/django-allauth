@@ -540,6 +540,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
         # NOTE: For backwards compatibility
         ret["add_email_form"] = ret.get("form")
         # (end NOTE)
+        ret["can_add_email"] = EmailAddress.objects.can_add_email(self.request.user)
         return ret
 
     def get_ajax_data(self):

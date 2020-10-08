@@ -33,6 +33,8 @@ class AppSettings(object):
                 self.AuthenticationMethod.USERNAME,
                 self.AuthenticationMethod.USERNAME_EMAIL,
             )
+        if self.MAX_EMAIL_ADDRESSES is not None:
+            assert self.MAX_EMAIL_ADDRESSES > 0
 
     def _setting(self, name, dflt):
         from django.conf import settings
@@ -108,6 +110,10 @@ class AppSettings(object):
         elif ret is False:
             ret = self.EmailVerificationMethod.OPTIONAL
         return ret
+
+    @property
+    def MAX_EMAIL_ADDRESSES(self):
+        return self._setting("MAX_EMAIL_ADDRESSES", None)
 
     @property
     def AUTHENTICATION_METHOD(self):

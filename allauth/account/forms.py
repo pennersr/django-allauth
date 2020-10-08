@@ -440,6 +440,7 @@ class AddEmailForm(UserForm):
             "different_account": _(
                 "This e-mail address is already associated" " with another account."
             ),
+            "max_email_addresses": _("You cannot add more than %d e-mail addresses."),
         }
         users = filter_users_by_email(value)
         on_this_account = [u for u in users if u.pk == self.user.pk]
@@ -449,6 +450,10 @@ class AddEmailForm(UserForm):
             raise forms.ValidationError(errors["this_account"])
         if on_diff_account and app_settings.UNIQUE_EMAIL:
             raise forms.ValidationError(errors["different_account"])
+        if not EmailAddress.objects.can_add_email(self.user):
+            raise forms.ValidationError(
+                errors["max_email_addresses"] % app_settings.MAX_EMAIL_ADDRESSES
+            )
         return value
 
     def save(self, request):

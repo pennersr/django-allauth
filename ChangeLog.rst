@@ -14,6 +14,11 @@ Note worthy changes
 
 - New providers: Apple, Okta, Stocktwits, Zoho, Zoom.
 
+- If email verification is set to mandatory, the email address you use to login
+  with must now be verified as well. In previous versions, it was sufficient if
+  the account had at least one verified email address, not necessarily the one
+  used to login with.
+
 
 Backwards incompatible changes
 ------------------------------

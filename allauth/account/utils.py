@@ -121,6 +121,22 @@ def user_email(user, *args):
     return user_field(user, app_settings.USER_MODEL_EMAIL_FIELD, *args)
 
 
+def _has_verified_for_login(user, email):
+    from .models import EmailAddress
+
+    emailaddress = None
+    if email:
+        ret = False
+        try:
+            emailaddress = EmailAddress.objects.get_for_user(user, email)
+            ret = emailaddress.verified
+        except EmailAddress.DoesNotExist:
+            pass
+    else:
+        ret = EmailAddress.objects.filter(user=user, verified=True).exists()
+    return ret
+
+
 def perform_login(
     request,
     user,
@@ -128,6 +144,7 @@ def perform_login(
     redirect_url=None,
     signal_kwargs=None,
     signup=False,
+    email=None,
 ):
     """
     Keyword arguments:
@@ -144,18 +161,15 @@ def perform_login(
     if not user.is_active:
         return adapter.respond_user_inactive(request, user)
 
-    from .models import EmailAddress
-
-    has_verified_email = EmailAddress.objects.filter(user=user, verified=True).exists()
     if email_verification == EmailVerificationMethod.NONE:
         pass
     elif email_verification == EmailVerificationMethod.OPTIONAL:
         # In case of OPTIONAL verification: send on signup.
-        if not has_verified_email and signup:
-            send_email_confirmation(request, user, signup=signup)
+        if not _has_verified_for_login(user, email) and signup:
+            send_email_confirmation(request, user, signup=signup, email=email)
     elif email_verification == EmailVerificationMethod.MANDATORY:
-        if not has_verified_email:
-            send_email_confirmation(request, user, signup=signup)
+        if not _has_verified_for_login(user, email):
+            send_email_confirmation(request, user, signup=signup, email=email)
             return adapter.respond_email_verification_sent(request, user)
     try:
         adapter.login(request, user)
@@ -294,7 +308,7 @@ def setup_user_email(request, user, addresses):
     return primary
 
 
-def send_email_confirmation(request, user, signup=False):
+def send_email_confirmation(request, user, signup=False, email=None):
     """
     E-mail verification mails are sent:
     a) Explicitly: when a user signs up
@@ -310,7 +324,8 @@ def send_email_confirmation(request, user, signup=False):
 
     cooldown_period = timedelta(seconds=app_settings.EMAIL_CONFIRMATION_COOLDOWN)
 
-    email = user_email(user)
+    if not email:
+        email = user_email(user)
     if email:
         try:
             email_address = EmailAddress.objects.get_for_user(user, email)

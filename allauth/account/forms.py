@@ -190,11 +190,13 @@ class LoginForm(forms.Form):
         return self.cleaned_data
 
     def login(self, request, redirect_url=None):
+        email = self.user_credentials().get("email")
         ret = perform_login(
             request,
             self.user,
             email_verification=app_settings.EMAIL_VERIFICATION,
             redirect_url=redirect_url,
+            email=email,
         )
         remember = app_settings.SESSION_REMEMBER
         if remember is None:

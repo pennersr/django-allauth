@@ -551,6 +551,7 @@ class AccountTests(TestCase):
 
     @override_settings(
         ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL,
+        ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.MANDATORY,
         ACCOUNT_LOGIN_ATTEMPTS_LIMIT=1,
     )
     def test_login_failed_attempts_exceeded_cleared_on_password_reset(self):
@@ -563,7 +564,7 @@ class AccountTests(TestCase):
         user.save()
 
         EmailAddress.objects.create(
-            user=user, email="john@example.com", primary=True, verified=True
+            user=user, email="john@example.org", primary=True, verified=True
         )
 
         resp = self.client.post(
@@ -624,6 +625,36 @@ class AccountTests(TestCase):
         self.assertRedirects(
             resp, settings.LOGIN_REDIRECT_URL, fetch_redirect_response=False
         )
+
+    @override_settings(
+        ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL,
+        ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.MANDATORY,
+        ACCOUNT_LOGIN_ATTEMPTS_LIMIT=1,
+    )
+    def test_login_using_unverified_email_address_is_prohibited(self):
+        user = get_user_model().objects.create(
+            username="john", email="john@example.org", is_active=True
+        )
+        user.set_password("doe")
+        user.save()
+
+        EmailAddress.objects.create(
+            user=user, email="john@example.org", primary=True, verified=True
+        )
+        EmailAddress.objects.create(
+            user=user, email="john@example.com", primary=True, verified=False
+        )
+
+        resp = self.client.post(
+            reverse("account_login"), {"login": "john@example.com", "password": "doe"}
+        )
+        self.assertRedirects(
+            resp,
+            reverse("account_email_verification_sent"),
+            fetch_redirect_response=False,
+        )
+        self.assertEqual(len(mail.outbox), 1)
+        assert mail.outbox[0].to == ["john@example.com"]
 
     def test_login_unverified_account_mandatory(self):
         """Tests login behavior when email verification is mandatory."""

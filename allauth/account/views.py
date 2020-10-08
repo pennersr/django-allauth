@@ -294,9 +294,8 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
         # In the event someone clicks on an email confirmation link
         # for one account while logged into another account,
         # logout of the currently logged in account.
-        cur_user = self.request.user
-        if cur_user.is_authenticated and \
-                cur_user != confirmation.email_address.user:
+        if self.request.user.is_authenticated and \
+                self.request.user.pk != confirmation.email_address.user_id:
             self.logout()
 
         get_adapter(self.request).add_message(
@@ -716,8 +715,8 @@ class PasswordResetFromKeyView(AjaxCapableProcessFormViewMixin,
                 # In the event someone clicks on a password reset link
                 # for one account while logged into another account,
                 # logout of the currently logged in account.
-                cur_user = self.request.user
-                if cur_user.is_authenticated and cur_user != self.reset_user:
+                if self.request.user.is_authenticated and \
+                        self.request.user.pk != self.reset_user.pk:
                     self.logout()
                     self.request.session[INTERNAL_RESET_SESSION_KEY] = self.key
 

@@ -6,9 +6,9 @@ from .models import EmailAddress
 from .utils import send_email_confirmation
 
 
-def verified_email_required(function=None,
-                            login_url=None,
-                            redirect_field_name=REDIRECT_FIELD_NAME):
+def verified_email_required(
+    function=None, login_url=None, redirect_field_name=REDIRECT_FIELD_NAME
+):
     """
     Even when email verification is not mandatory during signup, there
     may be circumstances during which you really want to prevent
@@ -20,16 +20,17 @@ def verified_email_required(function=None,
     presented with a page informing them they needs to verify their email
     address.
     """
+
     def decorator(view_func):
-        @login_required(redirect_field_name=redirect_field_name,
-                        login_url=login_url)
+        @login_required(redirect_field_name=redirect_field_name, login_url=login_url)
         def _wrapped_view(request, *args, **kwargs):
-            if not EmailAddress.objects.filter(user=request.user,
-                                               verified=True).exists():
+            if not EmailAddress.objects.filter(
+                user=request.user, verified=True
+            ).exists():
                 send_email_confirmation(request, request.user)
-                return render(request,
-                              'account/verified_email_required.html')
+                return render(request, "account/verified_email_required.html")
             return view_func(request, *args, **kwargs)
+
         return _wrapped_view
 
     if function:

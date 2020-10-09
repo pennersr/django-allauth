@@ -9,7 +9,10 @@ class OpenStreetMapTests(OAuthTestsMixin, TestCase):
     provider_id = OpenStreetMapProvider.id
 
     def get_mocked_response(self):
-        return [MockedResponse(200, r"""<?xml version="1.0" encoding="UTF-8"?>
+        return [
+            MockedResponse(
+                200,
+                r"""<?xml version="1.0" encoding="UTF-8"?>
 <osm version="0.6" generator="OpenStreetMap server" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
 <user id="1" display_name="Steve" account_created="2005-09-13T15:32:57Z">
   <description></description>
@@ -24,14 +27,19 @@ class OpenStreetMapTests(OAuthTestsMixin, TestCase):
   </blocks>
 </user>
 </osm>
-""")]  # noqa
+""",
+            )
+        ]  # noqa
 
     def test_login(self):
         account = super(OpenStreetMapTests, self).test_login()
         osm_account = account.get_provider_account()
-        self.assertEqual(osm_account.get_username(),
-                         'Steve')
-        self.assertEqual(osm_account.get_avatar_url(),
-                         'https://secure.gravatar.com/avatar.jpg')
-        self.assertEqual(osm_account.get_profile_url(),
-                         'https://www.openstreetmap.org/user/Steve')
+        self.assertEqual(osm_account.get_username(), "Steve")
+        self.assertEqual(
+            osm_account.get_avatar_url(),
+            "https://secure.gravatar.com/avatar.jpg",
+        )
+        self.assertEqual(
+            osm_account.get_profile_url(),
+            "https://www.openstreetmap.org/user/Steve",
+        )

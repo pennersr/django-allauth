@@ -1,7 +1,6 @@
 # Courtesy of django-social-auth
 import json
 
-import django
 from django.core.exceptions import ValidationError
 from django.db import models
 
@@ -10,12 +9,9 @@ class JSONField(models.TextField):
     """Simple JSON field that stores python structures as JSON strings
     on database.
     """
-    if django.VERSION < (3, 0):
-        def from_db_value(self, value, expression, connection, context):
-            return self.to_python(value)
-    else:
-        def from_db_value(self, value, expression, connection):
-            return self.to_python(value)
+
+    def from_db_value(self, value, *args, **kwargs):
+        return self.to_python(value)
 
     def to_python(self, value):
         """

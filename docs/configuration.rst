@@ -89,6 +89,15 @@ ACCOUNT_EMAIL_MAX_LENGTH(=254)
   3-byte and 4-byte Unicode character sets
   <https://dev.mysql.com/doc/refman/5.5/en/charset-unicode-conversion.html>`_.
 
+ACCOUNT_MAX_EMAIL_ADDRESSES(=None)
+  The maximum amount of email addresses a user can associate to his account. It
+  is safe to change this setting for an already running project -- it will not
+  negatively affect users that already exceed the allowed amount. Note that if
+  you set the maximum to 1, users will not be able to change their email address
+  as they are unable to add the new address, followed by removing the old
+  address.
+
+
 ACCOUNT_FORMS (={})
   Used to override forms, for example:
   ``{'login': 'myapp.forms.LoginForm'}``

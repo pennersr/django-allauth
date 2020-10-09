@@ -221,7 +221,7 @@ SOCIALACCOUNT_FORMS
 Default Settings::
 
     SOCIALACCOUNT_FORMS = {
-        'login': 'allauth.socialaccount.forms.DisconnectForm',
+        'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
         'signup': 'allauth.socialaccount.forms.SignupForm',
     }
 

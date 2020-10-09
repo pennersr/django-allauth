@@ -6,36 +6,49 @@ from django.db import models, migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='OpenIDNonce',
+            name="OpenIDNonce",
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('server_url', models.CharField(max_length=255)),
-                ('timestamp', models.IntegerField()),
-                ('salt', models.CharField(max_length=255)),
-                ('date_created', models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        verbose_name="ID",
+                        serialize=False,
+                        auto_created=True,
+                        primary_key=True,
+                    ),
+                ),
+                ("server_url", models.CharField(max_length=255)),
+                ("timestamp", models.IntegerField()),
+                ("salt", models.CharField(max_length=255)),
+                ("date_created", models.DateTimeField(auto_now_add=True)),
             ],
-            options={
-            },
+            options={},
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='OpenIDStore',
+            name="OpenIDStore",
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('server_url', models.CharField(max_length=255)),
-                ('handle', models.CharField(max_length=255)),
-                ('secret', models.TextField()),
-                ('issued', models.IntegerField()),
-                ('lifetime', models.IntegerField()),
-                ('assoc_type', models.TextField()),
+                (
+                    "id",
+                    models.AutoField(
+                        verbose_name="ID",
+                        serialize=False,
+                        auto_created=True,
+                        primary_key=True,
+                    ),
+                ),
+                ("server_url", models.CharField(max_length=255)),
+                ("handle", models.CharField(max_length=255)),
+                ("secret", models.TextField()),
+                ("issued", models.IntegerField()),
+                ("lifetime", models.IntegerField()),
+                ("assoc_type", models.TextField()),
             ],
-            options={
-            },
+            options={},
             bases=(models.Model,),
         ),
     ]

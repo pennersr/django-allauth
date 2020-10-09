@@ -23,5 +23,5 @@ class MicrosoftGraphTests(OAuth2TestsMixin, TestCase):
             "surname": "Weiler",
             "userPrincipalName": "annew@CIE493742.onmicrosoft.com"
         }
-        """ # noqa
+        """  # noqa
         return MockedResponse(200, response_data)

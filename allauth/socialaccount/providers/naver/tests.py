@@ -8,7 +8,9 @@ class NaverTests(OAuth2TestsMixin, TestCase):
     provider_id = NaverProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
 {
 "response":
 {
@@ -26,4 +28,5 @@ class NaverTests(OAuth2TestsMixin, TestCase):
 "message": "success",
 "resultcode": "00"
 }
-""")
+""",
+        )

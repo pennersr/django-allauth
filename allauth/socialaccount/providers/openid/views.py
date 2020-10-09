@@ -25,7 +25,7 @@ from .utils import AXAttributes, DBOpenIDStore, JSONSafeSession, SRegFields
 
 def _openid_consumer(request, provider, endpoint):
     server_settings = provider.get_server_settings(endpoint)
-    stateless = server_settings.get('stateless', False)
+    stateless = server_settings.get("stateless", False)
     store = None if stateless else DBOpenIDStore()
     client = consumer.Consumer(JSONSafeSession(request.session), store)
     return client
@@ -45,9 +45,7 @@ class OpenIDLoginView(View):
             return self.perform_openid_auth(form)
         except (UnicodeDecodeError, DiscoveryFailure) as e:
             # UnicodeDecodeError: necaris/python3-openid#1
-            return render_authentication_error(
-                request, self.provider.id, exception=e
-            )
+            return render_authentication_error(request, self.provider.id, exception=e)
 
     def post(self, request):
         form = self.get_form()
@@ -61,23 +59,23 @@ class OpenIDLoginView(View):
 
     def get_form(self):
         if self.request.method == "GET" and "openid" not in self.request.GET:
-            return self.form_class(initial={
-                "next": self.request.GET.get("next"),
-                "process": self.request.GET.get("process"),
-            })
+            return self.form_class(
+                initial={
+                    "next": self.request.GET.get("next"),
+                    "process": self.request.GET.get("process"),
+                }
+            )
 
-        return self.form_class(dict(
-            list(self.request.GET.items()) +
-            list(self.request.POST.items())
-        ))
+        return self.form_class(
+            dict(list(self.request.GET.items()) + list(self.request.POST.items()))
+        )
 
     def get_client(self, provider, endpoint):
         return _openid_consumer(self.request, provider, endpoint)
 
     def get_realm(self, provider):
         return provider.get_settings().get(
-            "REALM",
-            self.request.build_absolute_uri("/")
+            "REALM", self.request.build_absolute_uri("/")
         )
 
     def get_callback_url(self):
@@ -89,7 +87,7 @@ class OpenIDLoginView(View):
 
         request = self.request
         provider = self.provider(request)
-        endpoint = form.cleaned_data['openid']
+        endpoint = form.cleaned_data["openid"]
         client = self.get_client(provider, endpoint)
         realm = self.get_realm(provider)
 
@@ -97,33 +95,26 @@ class OpenIDLoginView(View):
         if QUERY_EMAIL:
             sreg = SRegRequest()
             for name in SRegFields:
-                sreg.requestField(
-                    field_name=name, required=True
-                )
+                sreg.requestField(field_name=name, required=True)
             auth_request.addExtension(sreg)
             ax = FetchRequest()
             for name in AXAttributes:
-                ax.add(AttrInfo(name,
-                                required=True))
+                ax.add(AttrInfo(name, required=True))
             provider = OpenIDProvider(request)
-            server_settings = \
-                provider.get_server_settings(request.GET.get('openid'))
-            extra_attributes = \
-                server_settings.get('extra_attributes', [])
+            server_settings = provider.get_server_settings(request.GET.get("openid"))
+            extra_attributes = server_settings.get("extra_attributes", [])
             for _, name, required in extra_attributes:
-                ax.add(AttrInfo(name,
-                                required=required))
+                ax.add(AttrInfo(name, required=required))
             auth_request.addExtension(ax)
 
         SocialLogin.stash_state(request)
 
         # Fix for issues 1523 and 2072 (github django-allauth)
         if "next" in form.cleaned_data and form.cleaned_data["next"]:
-            auth_request.return_to_args['next'] = \
-                form.cleaned_data['next']
+            auth_request.return_to_args["next"] = form.cleaned_data["next"]
         redirect_url = auth_request.redirectURL(
-            realm,
-            request.build_absolute_uri(self.get_callback_url()))
+            realm, request.build_absolute_uri(self.get_callback_url())
+        )
         return HttpResponseRedirect(redirect_url)
 
 
@@ -135,14 +126,14 @@ class OpenIDCallbackView(View):
 
     def get(self, request):
         provider = self.provider(request)
-        endpoint = request.GET.get('openid.op_endpoint', '')
+        endpoint = request.GET.get("openid.op_endpoint", "")
         client = self.get_client(provider, endpoint)
         response = self.get_openid_response(client)
 
         if response.status == consumer.SUCCESS:
-            login = providers.registry \
-                .by_id(self.provider.id, request) \
-                .sociallogin_from_response(request, response)
+            login = providers.registry.by_id(
+                self.provider.id, request
+            ).sociallogin_from_response(request, response)
             login.state = SocialLogin.unstash_state(request)
             return self.complete_login(login)
         else:
@@ -158,20 +149,15 @@ class OpenIDCallbackView(View):
         return complete_social_login(self.request, login)
 
     def render_error(self, error):
-        return render_authentication_error(
-            self.request, self.provider.id, error=error
-        )
+        return render_authentication_error(self.request, self.provider.id, error=error)
 
     def get_client(self, provider, endpoint):
         return _openid_consumer(self.request, provider, endpoint)
 
     def get_openid_response(self, client):
         return client.complete(
-            dict(
-                list(self.request.GET.items()) +
-                list(self.request.POST.items())
-            ),
-            self.request.build_absolute_uri(self.request.path)
+            dict(list(self.request.GET.items()) + list(self.request.POST.items())),
+            self.request.build_absolute_uri(self.request.path),
         )
 
 

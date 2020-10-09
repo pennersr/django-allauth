@@ -8,7 +8,9 @@ class GitLabTests(OAuth2TestsMixin, TestCase):
     provider_id = GitLabProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
             {
                 "avatar_url": "https://secure.gravatar.com/avatar/123",
                 "bio": null,
@@ -39,4 +41,5 @@ class GitLabTests(OAuth2TestsMixin, TestCase):
                 "web_url": "https://gitlab.example.com/u/mr.bob",
                 "website_url": ""
             }
-        """)
+        """,
+        )

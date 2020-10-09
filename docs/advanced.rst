@@ -132,7 +132,7 @@ templates. Templates are named as follows::
 
     account/email/email_confirmation_signup_subject.txt
     account/email/email_confirmation_signup_message.txt
-    
+
     account/email/email_confirmation_subject.txt
     account/email/email_confirmation_message.txt
 
@@ -140,7 +140,7 @@ In case you want to include an HTML representation, add an HTML
 template as follows::
 
     account/email/email_confirmation_signup_message.html
-    
+
     account/email/email_confirmation_message.html
 
 The project does not contain any HTML email templates out of the box.
@@ -255,3 +255,36 @@ the scope of this documentation.
             return []
 
     provider_classes = [GoogleNoDefaultScopeProvider]
+
+Changing provider scopes
+------------------------
+
+Some projects may need more scopes than the default required for authentication purposes.
+
+Scopes can be modified via ``SOCIALACCOUNT_PROVIDERS`` in your project settings.py file.
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        '<ProviderNameHere>': {
+            'SCOPE': [...]
+        }
+    }
+
+You need to obtain the default scopes that allauth uses by
+looking in ``allauth/socialaccount/providers/<ProviderNameHere>/provider.py``
+and look for ``def get_default_scope(self):`` method. Copy those default scopes
+into the SCOPE list shown above.
+
+Example of adding calendar.readonly scope to Google scopes::
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'google': {
+            'SCOPE': [
+                'profile',
+                'email',
+                'openid',
+                'https://www.googleapis.com/auth/calendar.readonly'
+            ],
+        }
+    }

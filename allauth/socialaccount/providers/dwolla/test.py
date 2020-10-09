@@ -8,18 +8,24 @@ class DwollaTests(OAuth2TestsMixin, TestCase):
     provider_id = DwollaProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """{
+        return MockedResponse(
+            200,
+            """{
             "id": "123",
             "_links":{"account":{"href":"http://localhost"}},
             "name":"John Doe"
-        }""")
+        }""",
+        )
 
     def get_login_response_json(self, with_refresh_token=True):
-        rt = ''
+        rt = ""
         if with_refresh_token:
             rt = ',"refresh_token": "testrf"'
-        return """{
+        return (
+            """{
             "uid":"weibo",
             "access_token":"testac",
             "_links":{"account":{"href":"http://localhost"}}
-            %s }""" % rt
+            %s }"""
+            % rt
+        )

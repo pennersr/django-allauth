@@ -29,41 +29,43 @@ from django.utils.encoding import force_bytes, force_str
 # Magic number 7: if you run into collisions with this number, then you are
 # of big enough scale to start investing in a decent user model...
 MAX_USERNAME_SUFFIX_LENGTH = 7
-USERNAME_SUFFIX_CHARS = (
-    [string.digits] * 4 +
-    [string.ascii_letters] * (MAX_USERNAME_SUFFIX_LENGTH - 4))
+USERNAME_SUFFIX_CHARS = [string.digits] * 4 + [string.ascii_letters] * (
+    MAX_USERNAME_SUFFIX_LENGTH - 4
+)
 
 
 def _generate_unique_username_base(txts, regex=None):
     from .account.adapter import get_adapter
+
     adapter = get_adapter()
     username = None
-    regex = regex or r'[^\w\s@+.-]'
+    regex = regex or r"[^\w\s@+.-]"
     for txt in txts:
         if not txt:
             continue
-        username = unicodedata.normalize('NFKD', force_str(txt))
-        username = username.encode('ascii', 'ignore').decode('ascii')
-        username = force_str(re.sub(regex, '', username).lower())
+        username = unicodedata.normalize("NFKD", force_str(txt))
+        username = username.encode("ascii", "ignore").decode("ascii")
+        username = force_str(re.sub(regex, "", username).lower())
         # Django allows for '@' in usernames in order to accomodate for
         # project wanting to use e-mail for username. In allauth we don't
         # use this, we already have a proper place for putting e-mail
         # addresses (EmailAddress), so let's not use the full e-mail
         # address and only take the part leading up to the '@'.
-        username = username.split('@')[0]
+        username = username.split("@")[0]
         username = username.strip()
-        username = re.sub(r'\s+', '_', username)
+        username = re.sub(r"\s+", "_", username)
         # Finally, validating base username without database lookups etc.
         try:
             username = adapter.clean_username(username, shallow=True)
             break
         except ValidationError:
             pass
-    return username or 'user'
+    return username or "user"
 
 
 def get_username_max_length():
     from .account.app_settings import USER_MODEL_USERNAME_FIELD
+
     if USER_MODEL_USERNAME_FIELD is not None:
         User = get_user_model()
         max_length = User._meta.get_field(USER_MODEL_USERNAME_FIELD).max_length
@@ -74,22 +76,21 @@ def get_username_max_length():
 
 def generate_username_candidate(basename, suffix_length):
     max_length = get_username_max_length()
-    suffix = ''.join(
-        random.choice(USERNAME_SUFFIX_CHARS[i])
-        for i in range(suffix_length))
-    return basename[0:max_length - len(suffix)] + suffix
+    suffix = "".join(
+        random.choice(USERNAME_SUFFIX_CHARS[i]) for i in range(suffix_length)
+    )
+    return basename[0 : max_length - len(suffix)] + suffix
 
 
 def generate_username_candidates(basename):
     from .account.app_settings import USERNAME_MIN_LENGTH
+
     if len(basename) >= USERNAME_MIN_LENGTH:
         ret = [basename]
     else:
         ret = []
     min_suffix_length = max(1, USERNAME_MIN_LENGTH - len(basename))
-    max_suffix_length = min(
-        get_username_max_length(),
-        MAX_USERNAME_SUFFIX_LENGTH)
+    max_suffix_length = min(get_username_max_length(), MAX_USERNAME_SUFFIX_LENGTH)
     for suffix_length in range(min_suffix_length, max_suffix_length):
         ret.append(generate_username_candidate(basename, suffix_length))
     return ret
@@ -105,7 +106,8 @@ def generate_unique_username(txts, regex=None):
     basename = _generate_unique_username_base(txts, regex)
     candidates = generate_username_candidates(basename)
     existing_usernames = filter_users_by_username(*candidates).values_list(
-        USER_MODEL_USERNAME_FIELD, flat=True)
+        USER_MODEL_USERNAME_FIELD, flat=True
+    )
     existing_usernames = set([n.lower() for n in existing_usernames])
     for candidate in candidates:
         if candidate.lower() not in existing_usernames:
@@ -114,7 +116,7 @@ def generate_unique_username(txts, regex=None):
             except ValidationError:
                 pass
     # This really should not happen
-    raise NotImplementedError('Unable to find a unique username')
+    raise NotImplementedError("Unable to find a unique username")
 
 
 def valid_email_or_none(email):
@@ -143,26 +145,26 @@ def email_address_exists(email, exclude_user=None):
             users = get_user_model().objects
             if exclude_user:
                 users = users.exclude(pk=exclude_user.pk)
-            ret = users.filter(**{email_field + '__iexact': email}).exists()
+            ret = users.filter(**{email_field + "__iexact": email}).exists()
     return ret
 
 
 def import_attribute(path):
     assert isinstance(path, str)
-    pkg, attr = path.rsplit('.', 1)
+    pkg, attr = path.rsplit(".", 1)
     ret = getattr(importlib.import_module(pkg), attr)
     return ret
 
 
 def import_callable(path_or_callable):
-    if not hasattr(path_or_callable, '__call__'):
+    if not hasattr(path_or_callable, "__call__"):
         ret = import_attribute(path_or_callable)
     else:
         ret = path_or_callable
     return ret
 
 
-SERIALIZED_DB_FIELD_PREFIX = '_db_'
+SERIALIZED_DB_FIELD_PREFIX = "_db_"
 
 
 def serialize_instance(instance):
@@ -175,7 +177,7 @@ def serialize_instance(instance):
     """
     data = {}
     for k, v in instance.__dict__.items():
-        if k.startswith('_') or callable(v):
+        if k.startswith("_") or callable(v):
             continue
         try:
             field = instance._meta.get_field(k)
@@ -202,7 +204,7 @@ def deserialize_instance(model, data):
     for k, v in data.items():
         is_db_value = False
         if k.startswith(SERIALIZED_DB_FIELD_PREFIX):
-            k = k[len(SERIALIZED_DB_FIELD_PREFIX):]
+            k = k[len(SERIALIZED_DB_FIELD_PREFIX) :]
             is_db_value = True
         if v is not None:
             try:
@@ -214,9 +216,7 @@ def deserialize_instance(model, data):
                 elif isinstance(f, DateField):
                     v = dateparse.parse_date(v)
                 elif isinstance(f, BinaryField):
-                    v = force_bytes(
-                        base64.b64decode(
-                            force_bytes(v)))
+                    v = force_bytes(base64.b64decode(force_bytes(v)))
                 elif is_db_value:
                     try:
                         # This is quite an ugly hack, but will cover most
@@ -274,10 +274,11 @@ def build_absolute_uri(request, location, protocol=None):
         site = Site.objects.get_current()
         bits = urlsplit(location)
         if not (bits.scheme and bits.netloc):
-            uri = '{proto}://{domain}{url}'.format(
+            uri = "{proto}://{domain}{url}".format(
                 proto=account_settings.DEFAULT_HTTP_PROTOCOL,
                 domain=site.domain,
-                url=location)
+                url=location,
+            )
         else:
             uri = location
     else:
@@ -289,11 +290,11 @@ def build_absolute_uri(request, location, protocol=None):
     # would want to make sure HTTPS links end up in password reset
     # mails even while they were initiated on an HTTP password reset
     # form.
-    if not protocol and account_settings.DEFAULT_HTTP_PROTOCOL == 'https':
+    if not protocol and account_settings.DEFAULT_HTTP_PROTOCOL == "https":
         protocol = account_settings.DEFAULT_HTTP_PROTOCOL
     # (end NOTE)
     if protocol:
-        uri = protocol + ':' + uri.partition(':')[2]
+        uri = protocol + ":" + uri.partition(":")[2]
     return uri
 
 

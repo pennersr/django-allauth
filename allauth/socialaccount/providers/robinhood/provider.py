@@ -8,23 +8,23 @@ class RobinhoodAccount(ProviderAccount):
 
     def to_str(self):
         return self.account.extra_data.get(
-            'username',
-            super(RobinhoodAccount, self).to_str())
+            "username", super(RobinhoodAccount, self).to_str()
+        )
 
 
 class RobinhoodProvider(OAuth2Provider):
-    id = 'robinhood'
-    name = 'Robinhood'
+    id = "robinhood"
+    name = "Robinhood"
     account_class = RobinhoodAccount
 
     def get_default_scope(self):
-        return ['read']
+        return ["read"]
 
     def extract_uid(self, data):
-        return data['id']
+        return data["id"]
 
     def extract_common_fields(self, data):
-        return dict(username=data.get('username'))
+        return dict(username=data.get("username"))
 
 
 provider_classes = [RobinhoodProvider]

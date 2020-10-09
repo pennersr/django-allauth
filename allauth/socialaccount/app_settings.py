@@ -1,13 +1,15 @@
 class AppSettings(object):
-
     def __init__(self, prefix):
         self.prefix = prefix
 
     def _setting(self, name, dflt):
         from django.conf import settings
-        getter = getattr(settings,
-                         'ALLAUTH_SETTING_GETTER',
-                         lambda name, dflt: getattr(settings, name, dflt))
+
+        getter = getattr(
+            settings,
+            "ALLAUTH_SETTING_GETTER",
+            lambda name, dflt: getattr(settings, name, dflt),
+        )
         return getter(self.prefix + name, dflt)
 
     @property
@@ -17,8 +19,8 @@ class AppSettings(object):
         E.g. using OpenID AX
         """
         from allauth.account import app_settings as account_settings
-        return self._setting("QUERY_EMAIL",
-                             account_settings.EMAIL_REQUIRED)
+
+        return self._setting("QUERY_EMAIL", account_settings.EMAIL_REQUIRED)
 
     @property
     def AUTO_SIGNUP(self):
@@ -42,6 +44,7 @@ class AppSettings(object):
         The user is required to hand over an e-mail address when signing up
         """
         from allauth.account import app_settings as account_settings
+
         return self._setting("EMAIL_REQUIRED", account_settings.EMAIL_REQUIRED)
 
     @property
@@ -50,22 +53,23 @@ class AppSettings(object):
         See e-mail verification method
         """
         from allauth.account import app_settings as account_settings
-        return self._setting("EMAIL_VERIFICATION",
-                             account_settings.EMAIL_VERIFICATION)
+
+        return self._setting("EMAIL_VERIFICATION", account_settings.EMAIL_VERIFICATION)
 
     @property
     def ADAPTER(self):
-        return self._setting('ADAPTER',
-                             'allauth.socialaccount.adapter'
-                             '.DefaultSocialAccountAdapter')
+        return self._setting(
+            "ADAPTER",
+            "allauth.socialaccount.adapter" ".DefaultSocialAccountAdapter",
+        )
 
     @property
     def FORMS(self):
-        return self._setting('FORMS', {})
+        return self._setting("FORMS", {})
 
     @property
     def STORE_TOKENS(self):
-        return self._setting('STORE_TOKENS', True)
+        return self._setting("STORE_TOKENS", True)
 
     @property
     def UID_MAX_LENGTH(self):
@@ -77,6 +81,6 @@ class AppSettings(object):
 import sys  # noqa
 
 
-app_settings = AppSettings('SOCIALACCOUNT_')
+app_settings = AppSettings("SOCIALACCOUNT_")
 app_settings.__name__ = __name__
 sys.modules[__name__] = app_settings

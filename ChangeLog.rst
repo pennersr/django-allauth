@@ -4,8 +4,31 @@
 Note worthy changes
 -------------------
 
+- New translation: Slovenian.
+
 - If ``ACCOUNT_LOGIN_ATTEMPTS_LIMIT`` is set and the user successfully
   resets their password, the timeout is cleared to allow immediate login.
+
+- You can now limit the amount of email addresses a user can associate to his
+  account by setting ``ACCOUNT_MAX_EMAIL_ADDRESSES``.
+
+- New providers: Apple, Okta, Stocktwits, Zoho, Zoom.
+
+- If email verification is set to mandatory, the email address you use to login
+  with must now be verified as well. In previous versions, it was sufficient if
+  the account had at least one verified email address, not necessarily the one
+  used to login with.
+
+
+Backwards incompatible changes
+------------------------------
+
+- In previous versions, the ``allauth`` app included a ``base.html``
+  template. This template could conflict with an equally named template at
+  project level. Therefore, ``base.html`` has now been moved to
+  ``account/base.html`` -- you will need to check your templates and likely
+  override ``account/base.html`` within your project.
+
 
 0.42.0 (2020-05-24)
 *******************

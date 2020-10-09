@@ -94,11 +94,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            # allauth templates: you could copy this directory into your
-            # project and tweak it according to your needs
-            # os.path.join(PROJECT_ROOT, 'templates', 'uniform', 'allauth'),
-            # example project specific templates
-            os.path.join(PROJECT_ROOT, 'templates', 'plain', 'example'),
+            os.path.join(PROJECT_ROOT, 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -174,15 +170,9 @@ AUTH_PASSWORD_VALIDATORS = [
     }
 ]
 
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 try:
-    from local_settings import *  # noqa
+    from .local_settings import *  # noqa
 except ImportError:
     pass
-ALLOWED_HOSTS = ['5d825be1.ngrok.io','127.0.0.1']
-
-SOCIALACCOUNT_PROVIDERS = {
-    'edx': {
-        'EDX_URL': "https://draft.navoica.pl",
-    }
-}

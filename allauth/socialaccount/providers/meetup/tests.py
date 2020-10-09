@@ -5,11 +5,11 @@ from allauth.tests import MockedResponse
 from .provider import MeetupProvider
 
 
-class MeetupTests(create_oauth2_tests(
-        registry.by_id(MeetupProvider.id))):
-
+class MeetupTests(create_oauth2_tests(registry.by_id(MeetupProvider.id))):
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
         {"id": 1, "lang": "en_US", "city": "Bhubaneswar",
         "photo": {
         "thumb_link":"",
@@ -31,4 +31,5 @@ class MeetupTests(create_oauth2_tests(
         "id": 173662372, "status": "active",
         "link": "http://www.meetup.com/members/173662372",
         "hometown": "Kolkata", "lat": 20.270000457763672,
-        "visited": 1488829924000, "self": {"common": {}}}}""")
+        "visited": 1488829924000, "self": {"common": {}}}}""",
+        )

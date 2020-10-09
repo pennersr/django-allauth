@@ -8,7 +8,9 @@ class BasecampTests(OAuth2TestsMixin, TestCase):
     provider_id = BasecampProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
         {
             "expires_at": "2012-03-22T16:56:48-05:00",
             "identity": {
@@ -37,4 +39,5 @@ class BasecampTests(OAuth2TestsMixin, TestCase):
                     "href": "https://acme4444444.campfirenow.com"
                 }
             ]
-        }""")
+        }""",
+        )

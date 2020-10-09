@@ -8,7 +8,9 @@ class CernTests(OAuth2TestsMixin, TestCase):
     provider_id = CernProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
         {
             "name":"Max Mustermann",
             "username":"mmuster",
@@ -22,4 +24,5 @@ class CernTests(OAuth2TestsMixin, TestCase):
             "phone":null,
             "mobile":null
         }
-        """)
+        """,
+        )

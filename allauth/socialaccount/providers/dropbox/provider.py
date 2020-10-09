@@ -8,16 +8,15 @@ class DropboxOAuth2Account(ProviderAccount):
 
 
 class DropboxOAuth2Provider(OAuth2Provider):
-    id = 'dropbox'
-    name = 'Dropbox'
+    id = "dropbox"
+    name = "Dropbox"
     account_class = DropboxOAuth2Account
 
     def extract_uid(self, data):
-        return data['account_id']
+        return data["account_id"]
 
     def extract_common_fields(self, data):
-        return dict(name=data['name']['display_name'],
-                    email=data['email'])
+        return dict(name=data["name"]["display_name"], email=data["email"])
 
 
 providers.registry.register(DropboxOAuth2Provider)

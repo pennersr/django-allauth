@@ -18,6 +18,7 @@ This information is nice and all, but... I need more!
 Here are a few third party resources to help you get started:
 
 - https://dev.to/gajesh/the-complete-django-allauth-guide-la3
+- https://learndjango.com/tutorials/django-allauth-tutorial
 - https://www.youtube.com/watch?v=2QLAc7RJ99s
 - https://speakerdeck.com/tedtieken/signing-up-and-signing-in-users-in-django-with-django-allauth
 - https://stackoverflow.com/questions/tagged/django-allauth

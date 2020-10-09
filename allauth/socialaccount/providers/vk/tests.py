@@ -10,7 +10,9 @@ class VKTests(OAuth2TestsMixin, TestCase):
     provider_id = VKProvider.id
 
     def get_mocked_response(self, verified_email=True):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
 {"response": [{"last_name": "Penners", "university_name": "",
 "photo": "http://vk.com/images/camera_c.gif", "sex": 2,
 "photo_medium": "http://vk.com/images/camera_b.gif", "relation": "0",
@@ -22,7 +24,8 @@ class VKTests(OAuth2TestsMixin, TestCase):
 "nickname": "", "screen_name": "id219004864", "has_mobile": 1,
 "country": "139", "university": 0, "graduation": 0, "activity": "",
 "last_seen": {"time": 1377805189}}]}
-""")
+""",
+        )
 
     def get_login_response_json(self, with_refresh_token=True):
         return '{"user_id": 219004864, "access_token":"testac"}'

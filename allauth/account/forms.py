@@ -106,14 +106,11 @@ class LoginForm(forms.Form):
                 attrs={
                     "type": "email",
                     "placeholder": _("E-mail address"),
-                    "autofocus": "autofocus",
                 }
             )
             login_field = forms.EmailField(label=_("E-mail"), widget=login_widget)
         elif app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.USERNAME:
-            login_widget = forms.TextInput(
-                attrs={"placeholder": _("Username"), "autofocus": "autofocus"}
-            )
+            login_widget = forms.TextInput(attrs={"placeholder": _("Username")})
             login_field = forms.CharField(
                 label=_("Username"),
                 widget=login_widget,
@@ -127,7 +124,6 @@ class LoginForm(forms.Form):
             login_widget = forms.TextInput(
                 attrs={
                     "placeholder": _("Username or e-mail"),
-                    "autofocus": "autofocus",
                 }
             )
             login_field = forms.CharField(
@@ -267,7 +263,9 @@ class BaseSignupForm(_base_signup_form_class()):
         label=_("Username"),
         min_length=app_settings.USERNAME_MIN_LENGTH,
         widget=forms.TextInput(
-            attrs={"placeholder": _("Username"), "autofocus": "autofocus"}
+            attrs={
+                "placeholder": _("Username"),
+            }
         ),
     )
     email = forms.EmailField(

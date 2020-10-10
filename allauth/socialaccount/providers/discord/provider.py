@@ -6,7 +6,14 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 class DiscordAccount(ProviderAccount):
     def to_str(self):
         dflt = super(DiscordAccount, self).to_str()
-        return self.account.extra_data.get("username", dflt)
+        username = self.account.extra_data.get("username")
+        discriminator = self.account.extra_data.get("discriminator")
+        if username and discriminator:
+            return "{}#{}".format(username, discriminator)
+        elif username:
+            return username
+        else:
+            return dflt
 
     def get_avatar_url(self):
         if (

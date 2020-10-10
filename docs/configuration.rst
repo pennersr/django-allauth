@@ -261,6 +261,36 @@ SOCIALACCOUNT_FORMS (={})
 SOCIALACCOUNT_PROVIDERS (= dict)
   Dictionary containing provider specific settings.
 
+  The 'APP' section for each provider is generic to all providers and
+  can also be specified in the database using a ``SocialApp`` model
+  instance instead of here. All other sections are provider-specific and
+  are documented in the `for each provider separately
+  <providers.html>`__.
+
+  Example::
+
+      SOCIALACCOUNT_PROVIDERS = {
+	'google': {
+	    # For each OAuth based provider, either add a ``SocialApp``
+	    # (``socialaccount`` app) containing the required client
+	    # credentials, or list them here:
+	    'APP': {
+		'client_id': '123',
+		'secret': '456',
+		'key': ''
+	    },
+            # These are provider-specific settings that can only be
+            # listed here:
+	    'SCOPE': [
+		'profile',
+		'email',
+	    ],
+	    'AUTH_PARAMS': {
+		'access_type': 'online',
+	    }
+	 }
+      }
+
 SOCIALACCOUNT_QUERY_EMAIL (=ACCOUNT_EMAIL_REQUIRED)
   Request e-mail address from 3rd party account provider? E.g. using
   OpenID AX, or the Facebook "email" permission.

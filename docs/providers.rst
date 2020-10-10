@@ -903,11 +903,15 @@ Optionally, you can specify the scope to use as follows:
         }
     }
 
-By default, ``profile`` scope is required, and optionally ``email`` scope
-depending on whether or not ``SOCIALACCOUNT_QUERY_EMAIL`` is enabled.
+By default (if you do not specify ``SCOPE``), ``profile`` scope is
+requested, and optionally ``email`` scope depending on whether or not
+``SOCIALACCOUNT_QUERY_EMAIL`` is enabled.
 
 You must set ``AUTH_PARAMS['access_type']`` to ``offline`` in order to
-receive a refresh token on first login and on reauthentication requests.
+receive a refresh token on first login and on reauthentication requests
+(which is needed to refresh authentication tokens in the background,
+without involving the user's browser). When unspecified, Google defaults
+to ``online``.
 
 
 Instagram

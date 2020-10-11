@@ -187,8 +187,10 @@ class AccountTests(TestCase):
         user = get_user_model().objects.get(username="johndoe")
         self.assertEqual(user.email, "john@example.org")
 
-    def _create_user(self, username="john", password="doe"):
-        user = get_user_model().objects.create(username=username, is_active=True)
+    def _create_user(self, username="john", password="doe", **kwargs):
+        user = get_user_model().objects.create(
+            username=username, is_active=True, **kwargs
+        )
         if password:
             user.set_password(password)
         else:
@@ -389,6 +391,54 @@ class AccountTests(TestCase):
         self.assertEqual(response.status_code, 400)
         data = json.loads(response.content.decode("utf8"))
         assert "invalid" in data["form"]["errors"][0]
+
+    @override_settings(
+        ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL
+    )
+    def test_password_reset_flow_with_another_user_logged_in(self):
+        """
+        Tests the password reset flow: if User B requested a password
+        reset earlier and now User A is logged in, User B now clicks on
+        the link, ensure User A is logged out before continuing.
+        """
+        # Request new password
+        self._request_new_password()
+        body = mail.outbox[0].body
+        self.assertGreater(body.find("https://"), 0)
+
+        user2 = self._create_user(username="john2", email="john2@example.com")
+        EmailAddress.objects.create(
+            user=user2, email=user2.email, primary=True, verified=True
+        )
+        resp = self.client.post(
+            reverse("account_login"),
+            {
+                "login": user2.email,
+                "password": "doe",
+            },
+        )
+        self.assertEqual(user2, resp.context["user"])
+
+        # Extract URL for `password_reset_from_key` view and access it
+        url = body[body.find("/password/reset/") :].split()[0]
+        resp = self.client.get(url)
+        # Follow the redirect the actual password reset page with the key
+        # hidden.
+        url = resp.url
+        resp = self.client.get(url)
+        self.assertTemplateUsed(
+            resp, "account/password_reset_from_key.%s" % app_settings.TEMPLATE_EXTENSION
+        )
+        self.assertFalse("token_fail" in resp.context_data)
+
+        # Reset the password
+        resp = self.client.post(
+            url, {"password1": "newpass123", "password2": "newpass123"}, follow=True
+        )
+        self.assertRedirects(resp, reverse("account_reset_password_from_key_done"))
+
+        self.assertNotEqual(user2, resp.context["user"])
+        self.assertEqual(AnonymousUser(), resp.context["user"])
 
     def test_password_reset_flow_with_email_changed(self):
         """
@@ -903,6 +953,80 @@ class AccountTests(TestCase):
     def test_username_validator(self):
         get_adapter().clean_username("abc")
         self.assertRaises(ValidationError, lambda: get_adapter().clean_username("def"))
+
+    @override_settings(
+        ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL
+    )
+    def test_confirm_email_with_another_user_logged_in(self):
+        """Test the email confirmation view. If User B clicks on an email
+        verification link while logged in as User A, ensure User A gets
+        logged out."""
+        user = get_user_model().objects.create_user(
+            username="john", email="john@example.org", password="doe"
+        )
+        self.client.force_login(user)
+        self.client.post(
+            reverse("account_email"), {"email": user.email, "action_send": ""}
+        )
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, [user.email])
+        self.client.logout()
+
+        body = mail.outbox[0].body
+        self.assertGreater(body.find("https://"), 0)
+
+        user2 = self._create_user(username="john2", email="john2@example.com")
+        EmailAddress.objects.create(
+            user=user2, email=user2.email, primary=True, verified=True
+        )
+        resp = self.client.post(
+            reverse("account_login"),
+            {
+                "login": user2.email,
+                "password": "doe",
+            },
+        )
+        self.assertEqual(user2, resp.context["user"])
+
+        url = body[body.find("/confirm-email/") :].split()[0]
+        resp = self.client.post(url)
+
+        self.assertTemplateUsed(resp, "account/messages/logged_out.txt")
+        self.assertTemplateUsed(resp, "account/messages/email_confirmed.txt")
+
+        self.assertRedirects(resp, settings.LOGIN_URL, fetch_redirect_response=False)
+
+    @override_settings(
+        ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL
+    )
+    def test_confirm_email_with_same_user_logged_in(self):
+        """Test the email confirmation view. If User A clicks on an email
+        verification link while logged in, ensure the user
+        stayed logged in."""
+        user = get_user_model().objects.create_user(
+            username="john", email="john@example.org", password="doe"
+        )
+        self.client.force_login(user)
+        self.client.post(
+            reverse("account_email"), {"email": user.email, "action_send": ""}
+        )
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, [user.email])
+
+        body = mail.outbox[0].body
+        self.assertGreater(body.find("https://"), 0)
+
+        url = body[body.find("/confirm-email/") :].split()[0]
+        resp = self.client.post(url)
+
+        self.assertTemplateNotUsed(resp, "account/messages/logged_out.txt")
+        self.assertTemplateUsed(resp, "account/messages/email_confirmed.txt")
+
+        self.assertRedirects(
+            resp, settings.LOGIN_REDIRECT_URL, fetch_redirect_response=False
+        )
+
+        self.assertEqual(user, resp.wsgi_request.user)
 
 
 class EmailFormTests(TestCase):

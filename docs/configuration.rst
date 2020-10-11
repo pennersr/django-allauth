@@ -185,6 +185,14 @@ ACCOUNT_SIGNUP_FORM_CLASS (=None)
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE (=True)
   When signing up, let the user type in their password twice to avoid typos.
 
+ACCOUNT_SIGNUP_REDIRECT_URL (=``settings.LOGIN_REDIRECT_URL``)
+  The URL (or URL name) to redirect to directly after signing up. Note that
+  users are only redirected to this URL if the signup went through
+  uninterruptedly, for example, without any side steps due to email
+  verification. If your project requires the user to always pass through certain
+  onboarding views after signup, you will have to keep track of state indicating
+  whether or not the user successfully onboarded, and handle accordingly.
+
 ACCOUNT_TEMPLATE_EXTENSION (="html")
   A string defining the template extension to use, defaults to ``html``.
 

@@ -47,17 +47,20 @@ def get_next_redirect_url(request, redirect_field_name="next"):
     return redirect_to
 
 
-def get_login_redirect_url(request, url=None, redirect_field_name="next"):
+def get_login_redirect_url(request, url=None, redirect_field_name="next", signup=False):
+    ret = url
     if url and callable(url):
         # In order to be able to pass url getters around that depend
         # on e.g. the authenticated state.
-        url = url()
-    redirect_url = (
-        url
-        or get_next_redirect_url(request, redirect_field_name=redirect_field_name)
-        or get_adapter(request).get_login_redirect_url(request)
-    )
-    return redirect_url
+        ret = url()
+    if not ret:
+        ret = get_next_redirect_url(request, redirect_field_name=redirect_field_name)
+    if not ret:
+        if signup:
+            ret = get_adapter(request).get_signup_redirect_url(request)
+        else:
+            ret = get_adapter(request).get_login_redirect_url(request)
+    return ret
 
 
 _user_display_callable = None
@@ -173,7 +176,9 @@ def perform_login(
             return adapter.respond_email_verification_sent(request, user)
     try:
         adapter.login(request, user)
-        response = HttpResponseRedirect(get_login_redirect_url(request, redirect_url))
+        response = HttpResponseRedirect(
+            get_login_redirect_url(request, redirect_url, signup=signup)
+        )
 
         if signal_kwargs is None:
             signal_kwargs = {}

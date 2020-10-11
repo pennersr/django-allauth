@@ -150,6 +150,12 @@ class AppSettings(object):
         return self._setting("SIGNUP_PASSWORD_ENTER_TWICE", legacy)
 
     @property
+    def SIGNUP_REDIRECT_URL(self):
+        from django.conf import settings
+
+        return self._setting("SIGNUP_REDIRECT_URL", settings.LOGIN_REDIRECT_URL)
+
+    @property
     def PASSWORD_MIN_LENGTH(self):
         """
         Minimum password Length

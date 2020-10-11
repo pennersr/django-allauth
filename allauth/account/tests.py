@@ -51,6 +51,7 @@ test_username_validators = [
     ACCOUNT_SIGNUP_FORM_CLASS=None,
     ACCOUNT_EMAIL_SUBJECT_PREFIX=None,
     LOGIN_REDIRECT_URL="/accounts/profile/",
+    ACCOUNT_SIGNUP_REDIRECT_URL="/accounts/welcome/",
     ACCOUNT_ADAPTER="allauth.account.adapter.DefaultAccountAdapter",
     ACCOUNT_USERNAME_REQUIRED=True,
 )
@@ -134,7 +135,7 @@ class AccountTests(TestCase):
         resp = signup(request)
         self.assertEqual(resp.status_code, 302)
         self.assertEqual(
-            resp["location"], get_adapter().get_login_redirect_url(request)
+            resp["location"], get_adapter().get_signup_redirect_url(request)
         )
         self.assertEqual(len(mail.outbox), 0)
         return get_user_model().objects.get(username=username)
@@ -798,7 +799,7 @@ class AccountTests(TestCase):
         )
         # Logged in
         self.assertRedirects(
-            resp, settings.LOGIN_REDIRECT_URL, fetch_redirect_response=False
+            resp, settings.ACCOUNT_SIGNUP_REDIRECT_URL, fetch_redirect_response=False
         )
         self.assertEqual(mail.outbox[0].to, ["john@example.com"])
         self.assertEqual(len(mail.outbox), 1)

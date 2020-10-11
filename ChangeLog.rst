@@ -19,6 +19,9 @@ Note worthy changes
   the account had at least one verified email address, not necessarily the one
   used to login with.
 
+- Added a new setting: ``ACCOUNT_SIGNUP_REDIRECT_URL`` -- the URL (or URL
+  name) to redirect to directly after signing up.
+
 
 Backwards incompatible changes
 ------------------------------

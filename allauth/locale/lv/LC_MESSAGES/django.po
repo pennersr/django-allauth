@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-24 13:46-0500\n"
+"POT-Creation-Date: 2020-10-11 11:15-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,16 +24,16 @@ msgid "Username can not be used. Please use other username."
 msgstr ""
 "Lietotājvārds nevar tikt izmantots. Lūdzu izvēlietis citu lietotājvārdu."
 
-#: account/adapter.py:49
+#: account/adapter.py:51
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 "Pārāk daudz neveiksmīgi pieslēgšanās mēģinājumi. Mēģiniet vēlreiz vēlāk."
 
-#: account/adapter.py:51
+#: account/adapter.py:53
 msgid "A user is already registered with this e-mail address."
 msgstr "Lietotājs ar šādu e-pasta adresi jau ir reģistrēts."
 
-#: account/adapter.py:294
+#: account/adapter.py:300
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Parolei jābūt vismaz {0} simbolus garai."
@@ -42,153 +42,159 @@ msgstr "Parolei jābūt vismaz {0} simbolus garai."
 msgid "Accounts"
 msgstr "Konti"
 
-#: account/forms.py:61 account/forms.py:398
+#: account/forms.py:58 account/forms.py:403
 msgid "You must type the same password each time."
 msgstr "Katru reizi jums ir jāievada tā pati parole."
 
-#: account/forms.py:91 account/forms.py:365 account/forms.py:476
+#: account/forms.py:87 account/forms.py:372 account/forms.py:486
 msgid "Password"
 msgstr "Parole"
 
-#: account/forms.py:92
+#: account/forms.py:88
 msgid "Remember Me"
 msgstr "Atcerēties mani"
 
-#: account/forms.py:98
+#: account/forms.py:92
 msgid "This account is currently inactive."
 msgstr "Šis konts šobrīd ir neaktīvs."
 
-#: account/forms.py:101
+#: account/forms.py:94
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "Nepareizs e-pasts un/vai parole."
 
-#: account/forms.py:104
+#: account/forms.py:97
 msgid "The username and/or password you specified are not correct."
 msgstr "Nepareizs lietotāja vārds un/vai parole."
 
-#: account/forms.py:113 account/forms.py:268 account/forms.py:426
-#: account/forms.py:495
+#: account/forms.py:108 account/forms.py:273 account/forms.py:429
+#: account/forms.py:505
 msgid "E-mail address"
 msgstr "E-pasta adrese"
 
-#: account/forms.py:115 account/forms.py:301 account/forms.py:421
-#: account/forms.py:490
+#: account/forms.py:111 account/forms.py:308 account/forms.py:426
+#: account/forms.py:500
 msgid "E-mail"
 msgstr "E-pasts"
 
-#: account/forms.py:120 account/forms.py:123 account/forms.py:260
-#: account/forms.py:264
+#: account/forms.py:113 account/forms.py:115 account/forms.py:263
+#: account/forms.py:267
 msgid "Username"
 msgstr "Lietotājvārds"
 
-#: account/forms.py:130
+#: account/forms.py:126
 msgid "Username or e-mail"
 msgstr "Lietotājvārds vai e-pasts"
 
-#: account/forms.py:133
+#: account/forms.py:130
 msgctxt "field label"
 msgid "Login"
 msgstr "Ieiet"
 
-#: account/forms.py:292
+#: account/forms.py:299
 #, fuzzy
 #| msgid "E-mail (optional)"
 msgid "E-mail (again)"
 msgstr "E-pasts (izvēles)"
 
-#: account/forms.py:296
+#: account/forms.py:303
 #, fuzzy
 #| msgid "email confirmation"
 msgid "E-mail address confirmation"
 msgstr "e-pasta apstiprinājums"
 
-#: account/forms.py:304
+#: account/forms.py:311
 msgid "E-mail (optional)"
 msgstr "E-pasts (izvēles)"
 
-#: account/forms.py:345
+#: account/forms.py:351
 #, fuzzy
 #| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
 msgstr "Katru reizi jums ir jāievada tā pati parole."
 
-#: account/forms.py:368 account/forms.py:477
+#: account/forms.py:374 account/forms.py:487
 msgid "Password (again)"
 msgstr "Parole (vēlreiz)"
 
-#: account/forms.py:432
+#: account/forms.py:438
 msgid "This e-mail address is already associated with this account."
 msgstr "Šī e-pasta adrese jau ir piesaistīta šim kontam."
 
-#: account/forms.py:434
+#: account/forms.py:441
 msgid "This e-mail address is already associated with another account."
 msgstr "Šī e-pasta adrese jau ir piesaistīta citam kontam."
 
-#: account/forms.py:456
+#: account/forms.py:443
+#, fuzzy, python-format
+#| msgid "Your account has no verified e-mail address."
+msgid "You cannot add more than %d e-mail addresses."
+msgstr "Jūsu kontam nav apstiprinātas e-pasta adreses."
+
+#: account/forms.py:467
 msgid "Current Password"
 msgstr "Šobrīdējā parole"
 
-#: account/forms.py:457 account/forms.py:546
+#: account/forms.py:468 account/forms.py:557
 msgid "New Password"
 msgstr "Jaunā parole"
 
-#: account/forms.py:458 account/forms.py:547
+#: account/forms.py:469 account/forms.py:558
 msgid "New Password (again)"
 msgstr "Jaunā parole (vēlreiz)"
 
-#: account/forms.py:466
+#: account/forms.py:477
 msgid "Please type your current password."
 msgstr "Lūdzu ievadiet jūsu šobrīdējo paroli."
 
-#: account/forms.py:504
+#: account/forms.py:516
 msgid "The e-mail address is not assigned to any user account"
 msgstr "E-pasta adrese nav piesaistīta nevienam lietotāja kontam"
 
-#: account/forms.py:568
+#: account/forms.py:579
 msgid "The password reset token was invalid."
 msgstr "Paroles atjaunošanas marķieris bija nederīgs."
 
-#: account/models.py:21
+#: account/models.py:22
 msgid "user"
 msgstr "lietotājs"
 
-#: account/models.py:25 account/models.py:78
+#: account/models.py:28 account/models.py:83
 msgid "e-mail address"
 msgstr "e-pasta adrese"
 
-#: account/models.py:26
+#: account/models.py:30
 msgid "verified"
 msgstr "apstiprināts"
 
-#: account/models.py:27
+#: account/models.py:31
 msgid "primary"
 msgstr "primārā"
 
-#: account/models.py:32
+#: account/models.py:36
 msgid "email address"
 msgstr "e-pasta adrese"
 
-#: account/models.py:33
+#: account/models.py:37
 msgid "email addresses"
 msgstr "e-pasta adreses"
 
-#: account/models.py:80
+#: account/models.py:86
 msgid "created"
 msgstr "izveidots"
 
-#: account/models.py:82
+#: account/models.py:87
 msgid "sent"
 msgstr "nosūtīts"
 
-#: account/models.py:83 socialaccount/models.py:55
+#: account/models.py:88 socialaccount/models.py:58
 msgid "key"
 msgstr "atslēga"
 
-#: account/models.py:88
+#: account/models.py:93
 msgid "email confirmation"
 msgstr "e-pasta apstiprinājums"
 
-#: account/models.py:89
+#: account/models.py:94
 msgid "email confirmations"
 msgstr "e-pasta apstiprinājumi"
 
@@ -205,7 +211,7 @@ msgstr ""
 msgid "Your account has no password set up."
 msgstr "Jūsu kontam nav uzstādīta parole."
 
-#: socialaccount/adapter.py:138
+#: socialaccount/adapter.py:141
 msgid "Your account has no verified e-mail address."
 msgstr "Jūsu kontam nav apstiprinātas e-pasta adreses."
 
@@ -213,7 +219,7 @@ msgstr "Jūsu kontam nav apstiprinātas e-pasta adreses."
 msgid "Social Accounts"
 msgstr "Sociālie konti"
 
-#: socialaccount/models.py:42 socialaccount/models.py:76
+#: socialaccount/models.py:41 socialaccount/models.py:84
 msgid "provider"
 msgstr "sniedzējs"
 
@@ -229,11 +235,11 @@ msgstr "klienta id"
 msgid "App ID, or consumer key"
 msgstr "App ID, vai consumer key"
 
-#: socialaccount/models.py:50
+#: socialaccount/models.py:52
 msgid "secret key"
 msgstr "secret key"
 
-#: socialaccount/models.py:53
+#: socialaccount/models.py:55
 msgid "API secret, client secret, or consumer secret"
 msgstr "API secret, client secret, vai consumer secret"
 
@@ -241,63 +247,63 @@ msgstr "API secret, client secret, vai consumer secret"
 msgid "Key"
 msgstr "Key"
 
-#: socialaccount/models.py:66
+#: socialaccount/models.py:74
 msgid "social application"
 msgstr "sociālā aplikācija"
 
-#: socialaccount/models.py:67
+#: socialaccount/models.py:75
 msgid "social applications"
 msgstr "sociālās aplikācijas"
 
-#: socialaccount/models.py:95
+#: socialaccount/models.py:105
 msgid "uid"
 msgstr "uid"
 
-#: socialaccount/models.py:97
+#: socialaccount/models.py:107
 msgid "last login"
 msgstr "pēdējā pieslēgšanās"
 
-#: socialaccount/models.py:99
+#: socialaccount/models.py:108
 msgid "date joined"
 msgstr "reģistrācijas datums"
 
-#: socialaccount/models.py:101
+#: socialaccount/models.py:109
 msgid "extra data"
 msgstr "papildus informācija"
 
-#: socialaccount/models.py:105
+#: socialaccount/models.py:113
 msgid "social account"
 msgstr "sociālais konts"
 
-#: socialaccount/models.py:106
+#: socialaccount/models.py:114
 msgid "social accounts"
 msgstr "sociālie konti"
 
-#: socialaccount/models.py:131
+#: socialaccount/models.py:139
 msgid "token"
 msgstr "token"
 
-#: socialaccount/models.py:133
+#: socialaccount/models.py:140
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) vai piekļūt marķierim (OAuth2)"
 
-#: socialaccount/models.py:136
+#: socialaccount/models.py:144
 msgid "token secret"
 msgstr "token secret"
 
-#: socialaccount/models.py:138
+#: socialaccount/models.py:145
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) vai atjaunot marķieri (OAuth2)"
 
-#: socialaccount/models.py:140
+#: socialaccount/models.py:148
 msgid "expires at"
 msgstr "beidzas"
 
-#: socialaccount/models.py:144
+#: socialaccount/models.py:153
 msgid "social application token"
 msgstr "sociālās aplikācijas marķieris"
 
-#: socialaccount/models.py:145
+#: socialaccount/models.py:154
 msgid "social application tokens"
 msgstr "sociālās aplikācijas marķieri"
 
@@ -305,27 +311,27 @@ msgstr "sociālās aplikācijas marķieri"
 msgid "Invalid profile data"
 msgstr ""
 
-#: socialaccount/providers/oauth/client.py:78
+#: socialaccount/providers/oauth/client.py:85
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "Nederīga atbilde iegūstot pieprasījuma marķieri no \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:109
+#: socialaccount/providers/oauth/client.py:117
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Nederīga atbilde iegūstot pieejas marķieri no \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:128
+#: socialaccount/providers/oauth/client.py:138
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr "Netika saglabāts pieprasījuma marķieris priekš \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:177
+#: socialaccount/providers/oauth/client.py:189
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "Netika saglabāts pieejas marķieris priekš  \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:197
+#: socialaccount/providers/oauth/client.py:210
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "Nav pieejas privātam resursam \"%s\"."
@@ -392,11 +398,30 @@ msgstr "Pievienot e-pasta adresi"
 msgid "Add E-mail"
 msgstr "Pievienot e-pastu"
 
-#: templates/account/email.html:62
+#: templates/account/email.html:63
 msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Vai jūs tiešām vēlaties noņemt izvēlēto e-pasta adresi?"
 
-#: templates/account/email/email_confirmation_message.txt:1
+#: templates/account/email/base_message.txt:1
+#, fuzzy, python-format
+#| msgid ""
+#| "Thank you from %(site_name)s!\n"
+#| "%(site_domain)s"
+msgid "Hello from %(site_name)s!"
+msgstr ""
+"Visu labu vēlot, %(site_name)s!\n"
+"%(site_domain)s"
+
+#: templates/account/email/base_message.txt:5
+#, python-format
+msgid ""
+"Thank you for using %(site_name)s!\n"
+"%(site_domain)s"
+msgstr ""
+"Paldies, ka izmantojat %(site_name)s!\n"
+"%(site_domain)s"
+
+#: templates/account/email/email_confirmation_message.txt:5
 #, fuzzy, python-format
 #| msgid ""
 #| "Hello from %(site_name)s!\n"
@@ -407,12 +432,10 @@ msgstr "Vai jūs tiešām vēlaties noņemt izvēlēto e-pasta adresi?"
 #| "\n"
 #| "To confirm this is correct, go to %(activate_url)s\n"
 msgid ""
-"Hello from %(site_name)s!\n"
+"You're receiving this e-mail because user %(user_display)s has given your e-"
+"mail address to register an account on %(site_domain)s.\n"
 "\n"
-"You're receiving this e-mail because user %(user_display)s has given yours "
-"as an e-mail address to connect their account.\n"
-"\n"
-"To confirm this is correct, go to %(activate_url)s\n"
+"To confirm this is correct, go to %(activate_url)s"
 msgstr ""
 "Sveiciens no %(site_name)s!\n"
 "\n"
@@ -422,21 +445,12 @@ msgstr ""
 "\n"
 "Lai apstiprinātu, ka viss ir parezi, ejiet uz %(activate_url)s\n"
 
-#: templates/account/email/email_confirmation_message.txt:7
-#, python-format
-msgid ""
-"Thank you from %(site_name)s!\n"
-"%(site_domain)s"
-msgstr ""
-"Visu labu vēlot, %(site_name)s!\n"
-"%(site_domain)s"
-
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your E-mail Address"
 msgstr "Lūdzu apstipriniet savu e-pasta adresi"
 
-#: templates/account/email/password_reset_key_message.txt:1
-#, fuzzy, python-format
+#: templates/account/email/password_reset_key_message.txt:4
+#, fuzzy
 #| msgid ""
 #| "Hello from %(site_name)s!\n"
 #| "\n"
@@ -445,8 +459,6 @@ msgstr "Lūdzu apstipriniet savu e-pasta adresi"
 #| "It can be safely ignored if you did not request a password reset. Click "
 #| "the link below to reset your password."
 msgid ""
-"Hello from %(site_name)s!\n"
-"\n"
 "You're receiving this e-mail because you or someone else has requested a "
 "password for your user account.\n"
 "It can be safely ignored if you did not request a password reset. Click the "
@@ -459,19 +471,10 @@ msgstr ""
 "Jūs varat droši ignorēt šo e-pasta vēstuli, ja jūs nepieprasījat paroles "
 "atjaunošanu. Spiedied uz linka zemāk, lai atjaunotu jūsu paroli."
 
-#: templates/account/email/password_reset_key_message.txt:8
+#: templates/account/email/password_reset_key_message.txt:9
 #, python-format
 msgid "In case you forgot, your username is %(username)s."
 msgstr "Gadījumā ja jūs aizmirsāt, tad jūsu lietotājvārds ir %(username)s."
-
-#: templates/account/email/password_reset_key_message.txt:10
-#, python-format
-msgid ""
-"Thank you for using %(site_name)s!\n"
-"%(site_domain)s"
-msgstr ""
-"Paldies, ka izmantojat %(site_name)s!\n"
-"%(site_domain)s"
 
 #: templates/account/email/password_reset_key_subject.txt:3
 msgid "Password Reset E-mail"
@@ -536,7 +539,7 @@ msgstr ""
 "Ja jūs vēl neesat izveidojuši kontu, tad lūdzu\n"
 "<a href=\"%(signup_url)s\">piereģistrējaties</a>."
 
-#: templates/account/login.html:42
+#: templates/account/login.html:42 templates/account/password_change.html:14
 msgid "Forgot Password?"
 msgstr "Aizmirsāt paroli?"
 

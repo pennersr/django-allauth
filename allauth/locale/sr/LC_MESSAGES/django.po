@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-24 13:46-0500\n"
+"POT-Creation-Date: 2020-10-11 11:15-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Nikola Vulovic <nivukiki@gmail.com>\n"
 "Language-Team: NONE\n"
@@ -24,15 +24,15 @@ msgid "Username can not be used. Please use other username."
 msgstr ""
 "Корисничко име се не може користити. Молимо користите друго корисничко име."
 
-#: account/adapter.py:49
+#: account/adapter.py:51
 msgid "Too many failed login attempts. Try again later."
 msgstr "Превише неуспелих покушаја пријављивања. Покушајте поново касније."
 
-#: account/adapter.py:51
+#: account/adapter.py:53
 msgid "A user is already registered with this e-mail address."
 msgstr "Корисник је већ регистрован на овој адреси е-поште."
 
-#: account/adapter.py:294
+#: account/adapter.py:300
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Лозинка мора бити најмање {0} знакова."
@@ -41,147 +41,153 @@ msgstr "Лозинка мора бити најмање {0} знакова."
 msgid "Accounts"
 msgstr "Рачуни"
 
-#: account/forms.py:61 account/forms.py:398
+#: account/forms.py:58 account/forms.py:403
 msgid "You must type the same password each time."
 msgstr "Морате унијети исту лозинку сваки пут"
 
-#: account/forms.py:91 account/forms.py:365 account/forms.py:476
+#: account/forms.py:87 account/forms.py:372 account/forms.py:486
 msgid "Password"
 msgstr "Лозинка"
 
-#: account/forms.py:92
+#: account/forms.py:88
 msgid "Remember Me"
 msgstr "Сети ме се"
 
-#: account/forms.py:98
+#: account/forms.py:92
 msgid "This account is currently inactive."
 msgstr "Овај налог је тренутно неактиван."
 
-#: account/forms.py:101
+#: account/forms.py:94
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "Адреса е-поште и/или лозинка коју сте навели нису тачни."
 
-#: account/forms.py:104
+#: account/forms.py:97
 msgid "The username and/or password you specified are not correct."
 msgstr "Корисничко име и/или лозинка коју сте навели нису тачни."
 
-#: account/forms.py:113 account/forms.py:268 account/forms.py:426
-#: account/forms.py:495
+#: account/forms.py:108 account/forms.py:273 account/forms.py:429
+#: account/forms.py:505
 msgid "E-mail address"
 msgstr "Адреса е-поште"
 
-#: account/forms.py:115 account/forms.py:301 account/forms.py:421
-#: account/forms.py:490
+#: account/forms.py:111 account/forms.py:308 account/forms.py:426
+#: account/forms.py:500
 msgid "E-mail"
 msgstr "Е-пошта"
 
-#: account/forms.py:120 account/forms.py:123 account/forms.py:260
-#: account/forms.py:264
+#: account/forms.py:113 account/forms.py:115 account/forms.py:263
+#: account/forms.py:267
 msgid "Username"
 msgstr "Корисничко име"
 
-#: account/forms.py:130
+#: account/forms.py:126
 msgid "Username or e-mail"
 msgstr "Корисничко име или е-пошта"
 
-#: account/forms.py:133
+#: account/forms.py:130
 msgctxt "field label"
 msgid "Login"
 msgstr "Пријавите се"
 
-#: account/forms.py:292
+#: account/forms.py:299
 msgid "E-mail (again)"
 msgstr "Е-пошта (опет)"
 
-#: account/forms.py:296
+#: account/forms.py:303
 msgid "E-mail address confirmation"
 msgstr "Потврда адресе е-поште"
 
-#: account/forms.py:304
+#: account/forms.py:311
 msgid "E-mail (optional)"
 msgstr "Е-пошта (опционо)"
 
-#: account/forms.py:345
+#: account/forms.py:351
 msgid "You must type the same email each time."
 msgstr "Морате унијети исту адресу е-поште сваки пут."
 
-#: account/forms.py:368 account/forms.py:477
+#: account/forms.py:374 account/forms.py:487
 msgid "Password (again)"
 msgstr "Лозинка (поново)"
 
-#: account/forms.py:432
+#: account/forms.py:438
 msgid "This e-mail address is already associated with this account."
 msgstr "Ова адреса е-поште је већ повезана са овим налогом."
 
-#: account/forms.py:434
+#: account/forms.py:441
 msgid "This e-mail address is already associated with another account."
 msgstr "Ова адреса е-поште је већ повезана са другим налогом."
 
-#: account/forms.py:456
+#: account/forms.py:443
+#, fuzzy, python-format
+#| msgid "Your account has no verified e-mail address."
+msgid "You cannot add more than %d e-mail addresses."
+msgstr "Ваш налог нема потврђену е-маил адресу."
+
+#: account/forms.py:467
 msgid "Current Password"
 msgstr "Тренутна лозинка"
 
-#: account/forms.py:457 account/forms.py:546
+#: account/forms.py:468 account/forms.py:557
 msgid "New Password"
 msgstr "Нова лозинка"
 
-#: account/forms.py:458 account/forms.py:547
+#: account/forms.py:469 account/forms.py:558
 msgid "New Password (again)"
 msgstr "Нова лозинка (поново)"
 
-#: account/forms.py:466
+#: account/forms.py:477
 msgid "Please type your current password."
 msgstr "Молимо унесите тренутну лозинку."
 
-#: account/forms.py:504
+#: account/forms.py:516
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Адреса е-поште није додељена било ком корисничком налогу"
 
-#: account/forms.py:568
+#: account/forms.py:579
 msgid "The password reset token was invalid."
 msgstr "Токен ресетовања лозинке је неважећи."
 
-#: account/models.py:21
+#: account/models.py:22
 msgid "user"
 msgstr "корисник"
 
-#: account/models.py:25 account/models.py:78
+#: account/models.py:28 account/models.py:83
 msgid "e-mail address"
 msgstr "адреса е-поште"
 
-#: account/models.py:26
+#: account/models.py:30
 msgid "verified"
 msgstr "проверено"
 
-#: account/models.py:27
+#: account/models.py:31
 msgid "primary"
 msgstr "примарна"
 
-#: account/models.py:32
+#: account/models.py:36
 msgid "email address"
 msgstr "адреса е-поште"
 
-#: account/models.py:33
+#: account/models.py:37
 msgid "email addresses"
 msgstr "адресе е-поште"
 
-#: account/models.py:80
+#: account/models.py:86
 msgid "created"
 msgstr "створено"
 
-#: account/models.py:82
+#: account/models.py:87
 msgid "sent"
 msgstr "послат"
 
-#: account/models.py:83 socialaccount/models.py:55
+#: account/models.py:88 socialaccount/models.py:58
 msgid "key"
 msgstr "кључ"
 
-#: account/models.py:88
+#: account/models.py:93
 msgid "email confirmation"
 msgstr "потврда е-поште"
 
-#: account/models.py:89
+#: account/models.py:94
 msgid "email confirmations"
 msgstr "потврде е-поште"
 
@@ -198,7 +204,7 @@ msgstr ""
 msgid "Your account has no password set up."
 msgstr "Ваш налог нема подешену лозинку."
 
-#: socialaccount/adapter.py:138
+#: socialaccount/adapter.py:141
 msgid "Your account has no verified e-mail address."
 msgstr "Ваш налог нема потврђену е-маил адресу."
 
@@ -206,7 +212,7 @@ msgstr "Ваш налог нема потврђену е-маил адресу."
 msgid "Social Accounts"
 msgstr "Друштвени рачуни"
 
-#: socialaccount/models.py:42 socialaccount/models.py:76
+#: socialaccount/models.py:41 socialaccount/models.py:84
 msgid "provider"
 msgstr "провидер"
 
@@ -222,11 +228,11 @@ msgstr "ИД клијента"
 msgid "App ID, or consumer key"
 msgstr "ИД апликације или потрошачки кључ"
 
-#: socialaccount/models.py:50
+#: socialaccount/models.py:52
 msgid "secret key"
 msgstr "тајни кључ"
 
-#: socialaccount/models.py:53
+#: socialaccount/models.py:55
 msgid "API secret, client secret, or consumer secret"
 msgstr "Тајна АПИ-ја, тајна клијента или тајна потрошача"
 
@@ -234,63 +240,63 @@ msgstr "Тајна АПИ-ја, тајна клијента или тајна п
 msgid "Key"
 msgstr "Кључ"
 
-#: socialaccount/models.py:66
+#: socialaccount/models.py:74
 msgid "social application"
 msgstr "друштвена апликација"
 
-#: socialaccount/models.py:67
+#: socialaccount/models.py:75
 msgid "social applications"
 msgstr "друштвена апликације"
 
-#: socialaccount/models.py:95
+#: socialaccount/models.py:105
 msgid "uid"
 msgstr "уид"
 
-#: socialaccount/models.py:97
+#: socialaccount/models.py:107
 msgid "last login"
 msgstr "Последње пријављивање"
 
-#: socialaccount/models.py:99
+#: socialaccount/models.py:108
 msgid "date joined"
 msgstr "Датум придружио"
 
-#: socialaccount/models.py:101
+#: socialaccount/models.py:109
 msgid "extra data"
 msgstr "додатни подаци"
 
-#: socialaccount/models.py:105
+#: socialaccount/models.py:113
 msgid "social account"
 msgstr "друштвени рачун"
 
-#: socialaccount/models.py:106
+#: socialaccount/models.py:114
 msgid "social accounts"
 msgstr "друштвени рачуни"
 
-#: socialaccount/models.py:131
+#: socialaccount/models.py:139
 msgid "token"
 msgstr "токен"
 
-#: socialaccount/models.py:133
+#: socialaccount/models.py:140
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) или токен приступа (OAuth2)"
 
-#: socialaccount/models.py:136
+#: socialaccount/models.py:144
 msgid "token secret"
 msgstr "токен тајна"
 
-#: socialaccount/models.py:138
+#: socialaccount/models.py:145
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) или освежени токен (OAuth2)"
 
-#: socialaccount/models.py:140
+#: socialaccount/models.py:148
 msgid "expires at"
 msgstr "истиче у"
 
-#: socialaccount/models.py:144
+#: socialaccount/models.py:153
 msgid "social application token"
 msgstr "Токен друштвених апликација"
 
-#: socialaccount/models.py:145
+#: socialaccount/models.py:154
 msgid "social application tokens"
 msgstr "токени друштвених апликација"
 
@@ -298,27 +304,27 @@ msgstr "токени друштвених апликација"
 msgid "Invalid profile data"
 msgstr "Невељавни подаци о профилу"
 
-#: socialaccount/providers/oauth/client.py:78
+#: socialaccount/providers/oauth/client.py:85
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "Неважећи одговор при добијању токена за захтев од \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:109
+#: socialaccount/providers/oauth/client.py:117
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Неважећи одговор при добијању токена за приступ од \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:128
+#: socialaccount/providers/oauth/client.py:138
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr "нема сачуваних токена за захтев од \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:177
+#: socialaccount/providers/oauth/client.py:189
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "нема сачуваних токена за приступ од \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:197
+#: socialaccount/providers/oauth/client.py:210
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "Нема приступа приватним ресурсима у \"%s\"."
@@ -384,19 +390,43 @@ msgstr "Додај адресу е-поште"
 msgid "Add E-mail"
 msgstr "Додај е-пошту"
 
-#: templates/account/email.html:62
+#: templates/account/email.html:63
 msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Да ли стварно желите да уклоните изабрану адресу е-поште?"
 
-#: templates/account/email/email_confirmation_message.txt:1
+#: templates/account/email/base_message.txt:1
+#, fuzzy, python-format
+#| msgid ""
+#| "Thank you from %(site_name)s!\n"
+#| "%(site_domain)s"
+msgid "Hello from %(site_name)s!"
+msgstr ""
+"Хвала од %(site_name)s!\n"
+"%(site_domain)s"
+
+#: templates/account/email/base_message.txt:5
 #, python-format
 msgid ""
-"Hello from %(site_name)s!\n"
+"Thank you for using %(site_name)s!\n"
+"%(site_domain)s"
+msgstr ""
+"Хвала вам што користите %(site_name)s!\n"
+"%(site_domain)s"
+
+#: templates/account/email/email_confirmation_message.txt:5
+#, fuzzy, python-format
+#| msgid ""
+#| "Hello from %(site_name)s!\n"
+#| "\n"
+#| "You're receiving this e-mail because user %(user_display)s has given "
+#| "yours as an e-mail address to connect their account.\n"
+#| "\n"
+#| "To confirm this is correct, go to %(activate_url)s\n"
+msgid ""
+"You're receiving this e-mail because user %(user_display)s has given your e-"
+"mail address to register an account on %(site_domain)s.\n"
 "\n"
-"You're receiving this e-mail because user %(user_display)s has given yours "
-"as an e-mail address to connect their account.\n"
-"\n"
-"To confirm this is correct, go to %(activate_url)s\n"
+"To confirm this is correct, go to %(activate_url)s"
 msgstr ""
 "Здраво из %(site_name)s!\n"
 "\n"
@@ -405,24 +435,20 @@ msgstr ""
 "\n"
 "Да бисте потврдили ово, идите на %(activate_url)s\n"
 
-#: templates/account/email/email_confirmation_message.txt:7
-#, python-format
-msgid ""
-"Thank you from %(site_name)s!\n"
-"%(site_domain)s"
-msgstr ""
-"Хвала од %(site_name)s!\n"
-"%(site_domain)s"
-
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your E-mail Address"
 msgstr "Молим вас потврдите вашу адресу е-поште"
 
-#: templates/account/email/password_reset_key_message.txt:1
-#, python-format
+#: templates/account/email/password_reset_key_message.txt:4
+#, fuzzy
+#| msgid ""
+#| "Hello from %(site_name)s!\n"
+#| "\n"
+#| "You're receiving this e-mail because you or someone else has requested a "
+#| "password for your user account.\n"
+#| "It can be safely ignored if you did not request a password reset. Click "
+#| "the link below to reset your password."
 msgid ""
-"Hello from %(site_name)s!\n"
-"\n"
 "You're receiving this e-mail because you or someone else has requested a "
 "password for your user account.\n"
 "It can be safely ignored if you did not request a password reset. Click the "
@@ -435,19 +461,10 @@ msgstr ""
 "Ова порука се може игнорисати ако нисте затражили ресет лозинке. Кликните на "
 "линк испод да бисте поништили своју лозинку."
 
-#: templates/account/email/password_reset_key_message.txt:8
+#: templates/account/email/password_reset_key_message.txt:9
 #, python-format
 msgid "In case you forgot, your username is %(username)s."
 msgstr "У случају да сте заборавили, ваше корисничко име је %(username)s."
-
-#: templates/account/email/password_reset_key_message.txt:10
-#, python-format
-msgid ""
-"Thank you for using %(site_name)s!\n"
-"%(site_domain)s"
-msgstr ""
-"Хвала вам што користите %(site_name)s!\n"
-"%(site_domain)s"
 
 #: templates/account/email/password_reset_key_subject.txt:3
 msgid "Password Reset E-mail"
@@ -511,7 +528,7 @@ msgstr ""
 "Ако још нисте створили рачун, онда се прво <a href=\"%(signup_url)s"
 "\">региструјте</a>."
 
-#: templates/account/login.html:42
+#: templates/account/login.html:42 templates/account/password_change.html:14
 msgid "Forgot Password?"
 msgstr "Заборавили сте лозинку?"
 

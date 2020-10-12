@@ -394,7 +394,7 @@ class DefaultAccountAdapter(object):
                     backend = b
                     break
                 elif not backend and hasattr(b, "get_user"):
-                    # Pick the first vald one
+                    # Pick the first valid one
                     backend = b
             backend_path = ".".join([backend.__module__, backend.__class__.__name__])
             user.backend = backend_path

@@ -68,11 +68,15 @@ class PasswordField(forms.CharField):
             render_value=render_value,
             attrs={"placeholder": kwargs.get("label")},
         )
+        autocomplete = kwargs.pop("autocomplete", None)
+        if autocomplete is not None:
+            kwargs["widget"].attrs["autocomplete"] = autocomplete
         super(PasswordField, self).__init__(*args, **kwargs)
 
 
 class SetPasswordField(PasswordField):
     def __init__(self, *args, **kwargs):
+        kwargs["autocomplete"] = "new-password"
         super(SetPasswordField, self).__init__(*args, **kwargs)
         self.user = None
 
@@ -84,7 +88,7 @@ class SetPasswordField(PasswordField):
 
 class LoginForm(forms.Form):
 
-    password = PasswordField(label=_("Password"))
+    password = PasswordField(label=_("Password"), autocomplete="current-password")
     remember = forms.BooleanField(label=_("Remember Me"), required=False)
 
     user = None
@@ -106,11 +110,14 @@ class LoginForm(forms.Form):
                 attrs={
                     "type": "email",
                     "placeholder": _("E-mail address"),
+                    "autocomplete": "email",
                 }
             )
             login_field = forms.EmailField(label=_("E-mail"), widget=login_widget)
         elif app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.USERNAME:
-            login_widget = forms.TextInput(attrs={"placeholder": _("Username")})
+            login_widget = forms.TextInput(
+                attrs={"placeholder": _("Username"), "autocomplete": "username"}
+            )
             login_field = forms.CharField(
                 label=_("Username"),
                 widget=login_widget,
@@ -122,9 +129,7 @@ class LoginForm(forms.Form):
                 == AuthenticationMethod.USERNAME_EMAIL
             )
             login_widget = forms.TextInput(
-                attrs={
-                    "placeholder": _("Username or e-mail"),
-                }
+                attrs={"placeholder": _("Username or e-mail"), "autocomplete": "email"}
             )
             login_field = forms.CharField(
                 label=pgettext("field label", "Login"), widget=login_widget
@@ -263,14 +268,16 @@ class BaseSignupForm(_base_signup_form_class()):
         label=_("Username"),
         min_length=app_settings.USERNAME_MIN_LENGTH,
         widget=forms.TextInput(
-            attrs={
-                "placeholder": _("Username"),
-            }
+            attrs={"placeholder": _("Username"), "autocomplete": "username"}
         ),
     )
     email = forms.EmailField(
         widget=forms.TextInput(
-            attrs={"type": "email", "placeholder": _("E-mail address")}
+            attrs={
+                "type": "email",
+                "placeholder": _("E-mail address"),
+                "autocomplete": "email",
+            }
         )
     )
 
@@ -369,7 +376,9 @@ class BaseSignupForm(_base_signup_form_class()):
 class SignupForm(BaseSignupForm):
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)
-        self.fields["password1"] = PasswordField(label=_("Password"))
+        self.fields["password1"] = PasswordField(
+            label=_("Password"), autocomplete="new-password"
+        )
         if app_settings.SIGNUP_PASSWORD_ENTER_TWICE:
             self.fields["password2"] = PasswordField(label=_("Password (again)"))
 
@@ -464,7 +473,9 @@ class AddEmailForm(UserForm):
 
 class ChangePasswordForm(PasswordVerificationMixin, UserForm):
 
-    oldpassword = PasswordField(label=_("Current Password"))
+    oldpassword = PasswordField(
+        label=_("Current Password"), autocomplete="current-password"
+    )
     password1 = SetPasswordField(label=_("New Password"))
     password2 = PasswordField(label=_("New Password (again)"))
 
@@ -503,6 +514,7 @@ class ResetPasswordForm(forms.Form):
             attrs={
                 "type": "email",
                 "placeholder": _("E-mail address"),
+                "autocomplete": "email",
             }
         ),
     )

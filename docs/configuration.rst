@@ -277,27 +277,33 @@ SOCIALACCOUNT_PROVIDERS (= dict)
 
   Example::
 
-      SOCIALACCOUNT_PROVIDERS = {
-	'google': {
-	    # For each OAuth based provider, either add a ``SocialApp``
-	    # (``socialaccount`` app) containing the required client
-	    # credentials, or list them here:
-	    'APP': {
-		'client_id': '123',
-		'secret': '456',
-		'key': ''
-	    },
+    SOCIALACCOUNT_PROVIDERS = {
+        "github": {
+            # For each provider, you can choose whether or not the
+            # email address(es) retrieved from the provider are to be
+            # interpreted as verified.
+            "VERIFIED_EMAIL": True
+        },
+        "google": {
+            # For each OAuth based provider, either add a ``SocialApp``
+            # (``socialaccount`` app) containing the required client
+            # credentials, or list them here:
+            "APP": {
+                "client_id": "123",
+                "secret": "456",
+                "key": ""
+            },
             # These are provider-specific settings that can only be
             # listed here:
-	    'SCOPE': [
-		'profile',
-		'email',
-	    ],
-	    'AUTH_PARAMS': {
-		'access_type': 'online',
-	    }
-	 }
-      }
+            "SCOPE": [
+                "profile",
+                "email",
+            ],
+            "AUTH_PARAMS": {
+                "access_type": "online",
+            }
+        }
+    }
 
 SOCIALACCOUNT_QUERY_EMAIL (=ACCOUNT_EMAIL_REQUIRED)
   Request e-mail address from 3rd party account provider? E.g. using

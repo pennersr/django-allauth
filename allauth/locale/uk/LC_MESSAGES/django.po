@@ -3,13 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-11 11:15-0500\n"
-"PO-Revision-Date: 2014-08-12 00:36+0200\n"
+"PO-Revision-Date: 2020-10-15 19:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -397,14 +396,9 @@ msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Ви дійсно бажаєте видалити дану e-mail адресу?"
 
 #: templates/account/email/base_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "Thank you from %(site_name)s!\n"
-#| "%(site_domain)s"
+#, python-format
 msgid "Hello from %(site_name)s!"
-msgstr ""
-"Спасибі Вам від %(site_name)s!\n"
-"%(site_domain)s"
+msgstr "Вітання від %(site_name)s!"
 
 #: templates/account/email/base_message.txt:5
 #, python-format
@@ -416,54 +410,30 @@ msgstr ""
 "%(site_domain)s"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because user %(user_display)s at "
-#| "%(site_domain)s has given yours as an e-mail address to connect their "
-#| "account.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s\n"
+#, python-format
 msgid ""
 "You're receiving this e-mail because user %(user_display)s has given your e-"
 "mail address to register an account on %(site_domain)s.\n"
 "\n"
 "To confirm this is correct, go to %(activate_url)s"
 msgstr ""
-"Вітання від %(site_name)s!\n"
+"Ви отримали дане повідомлення тому, що користувач %(user_display)s на %(site_domain)s зареєстрував дану e-mail адресу.\n"
 "\n"
-"Ви отримали дане повідомлення тому, що користувач %(user_display)s на "
-"%(site_domain)s зареєстрував дану e-mail адресу.\n"
-"\n"
-"Для підтвердження, що все правильно, будь ласка, перейдіть за "
-"%(activate_url)s\n"
+"Для підтвердження, що все правильно, будь ласка, перейдіть за %(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your E-mail Address"
 msgstr "Будь ласка, підтвердіть Вашу e-mail адресу"
 
 #: templates/account/email/password_reset_key_message.txt:4
-#, fuzzy
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account at %(site_domain)s.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
 msgid ""
 "You're receiving this e-mail because you or someone else has requested a "
 "password for your user account.\n"
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"Вітання від %(site_name)s!\n"
-"\n"
-"Ви отримали дане повідомлення, тому що Ви або хтось інший зробили запит на "
-"пароль для Вашого акаунту користувача на сайті %(site_domain)s.\n"
-"Дане повідомлення можна проігнорувати, якщо Ви не робили такого запиту. "
-"Перейдіть за посиланням для відновлення паролю."
+"Ви отримали дане повідомлення, тому що Ви або хтось інший зробили запит на пароль для Вашого акаунту користувача на сайті %(site_domain)s.\n"
+"Дане повідомлення можна проігнорувати, якщо Ви не робили такого запиту. Перейдіть за посиланням для відновлення паролю."
 
 #: templates/account/email/password_reset_key_message.txt:9
 #, python-format

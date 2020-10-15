@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-11 11:15-0500\n"
-"PO-Revision-Date: 2019-08-12 15:14+0200\n"
+"PO-Revision-Date: 2020-10-15 19:45+0200\n"
 "Last-Translator: Gilou <contact+dev@gilouweb.com>\n"
 "Language-Team: français <>\n"
 "Language: fr\n"
@@ -398,14 +398,9 @@ msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Voulez-vous vraiment retirer cette adresse e-mail ?"
 
 #: templates/account/email/base_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "Thank you from %(site_name)s!\n"
-#| "%(site_domain)s"
+#, python-format
 msgid "Hello from %(site_name)s!"
-msgstr ""
-"Merci, de la part de %(site_name)s!\n"
-"%(site_domain)s"
+msgstr "Bonjour, c'est %(site_name)s !"
 
 #: templates/account/email/base_message.txt:5
 #, python-format
@@ -417,53 +412,30 @@ msgstr ""
 "%(site_domain)s"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because user %(user_display)s has given "
-#| "yours as an e-mail address to connect their account.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s\n"
+#, python-format
 msgid ""
 "You're receiving this e-mail because user %(user_display)s has given your e-"
 "mail address to register an account on %(site_domain)s.\n"
 "\n"
 "To confirm this is correct, go to %(activate_url)s"
 msgstr ""
-"Bonjour, c'est %(site_name)s !\n"
-"Vous recevez cet e-mail car l'utilisateur %(user_display)s a indiqué votre "
-"adresse pour se connecter à son compte.\n"
+"Vous recevez cet e-mail car l'utilisateur %(user_display)s a indiqué votre adresse pour se connecter à son compte.\n"
 "\n"
-"Pour confirmer que vous en êtes bien le propriétaire, allez à "
-"%(activate_url)s\n"
+"Pour confirmer que vous en êtes bien le propriétaire, allez à %(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your E-mail Address"
 msgstr "Confirmez votre adresse e-mail"
 
 #: templates/account/email/password_reset_key_message.txt:4
-#, fuzzy
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
 msgid ""
 "You're receiving this e-mail because you or someone else has requested a "
 "password for your user account.\n"
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"Bonjour, c'est%(site_name)s!\n"
-"\n"
-"Vous recevez cet e-mail car vous ou quelqu'un d'autre a demandé le mot de "
-"passe pour votre compte utilisateur.\n"
-"Vous pouvez simplement ignorer ce message si vous n'êtes pas à l'origine de "
-"cette demande. Sinon, cliquez sur le lien ci-dessous pour réinitialiser "
-"votre mot de passe."
+"Vous recevez cet e-mail car vous ou quelqu'un d'autre a demandé le mot de passe pour votre compte utilisateur.\n"
+"Vous pouvez simplement ignorer ce message si vous n'êtes pas à l'origine de cette demande. Sinon, cliquez sur le lien ci-dessous pour réinitialiser votre mot de passe."
 
 #: templates/account/email/password_reset_key_message.txt:9
 #, python-format

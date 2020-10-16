@@ -31,8 +31,8 @@ class AppleOAuth2Client(OAuth2Client):
         app = get_adapter().get_app(self.request, "apple")
         if not app.key:
             raise ImproperlyConfigured("Apple 'key' missing")
-        if not app.certificate:
-            raise ImproperlyConfigured("Apple 'certificate' missing")
+        if not app.certificate_key:
+            raise ImproperlyConfigured("Apple 'certificate_key' missing")
         claims = {
             "iss": app.key,
             "aud": "https://appleid.apple.com",
@@ -42,7 +42,7 @@ class AppleOAuth2Client(OAuth2Client):
         }
         headers = {"kid": self.consumer_secret, "alg": "ES256"}
         client_secret = jwt.encode(
-            payload=claims, key=app.certificate, algorithm="ES256", headers=headers
+            payload=claims, key=app.certificate_key, algorithm="ES256", headers=headers
         ).decode("utf-8")
         return client_secret
 

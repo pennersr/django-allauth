@@ -68,7 +68,7 @@ class SocialApp(models.Model):
     # the certificate some providers need. Therefore, the certificate is not a
     # DB backed field and can only be set using the ``APP`` configuration key
     # in the provider settings.
-    certificate = None
+    certificate_key = None
 
     class Meta:
         verbose_name = _("social application")

@@ -7,6 +7,14 @@ Note worthy changes
 - ...
 
 
+Backwards incompatible changes
+------------------------------
+
+- The ``certificate`` key part of the ``SOCIALACCOUNT_PROVIDERS`` configuration has
+  been renamed to ``certificate_key``. This is done to prevent the key from being displayed
+  without being masked in Django debug pages.
+
+
 0.43.0 (2020-10-15)
 *******************
 

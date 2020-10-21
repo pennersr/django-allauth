@@ -20,8 +20,8 @@ class TelegramProvider(Provider):
     def extract_common_fields(self, data):
         return {
             "first_name": data["first_name"],
-            "last_name": data["last_name"],
-            "username": data["username"],
+            "last_name": data.get("last_name"),
+            "username": data.get("username"),
         }
 
 

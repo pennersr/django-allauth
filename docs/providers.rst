@@ -163,6 +163,13 @@ Add the following configuration to your settings:
         }
     }
 
+Note: Sign In With Apple uses a slight variation of OAuth2, which uses a POST
+instead of a GET. Unlike a GET with SameSite=Lax, the session cookie will not
+get sent along with a POST. If you encounter 'PermissionDenied' errors during
+Apple log in, check that you don't have any 3rd party middleweare that is
+generating a new session on this cross-origin POST, as this will prevent the
+login process from being able to access the original session after the POST
+completes.
 
 Auth0
 -----

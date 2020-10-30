@@ -6,7 +6,6 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import PermissionDenied
 from django.db import models
 from django.utils.crypto import get_random_string
-from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 
 import allauth.app_settings
@@ -117,7 +116,7 @@ class SocialAccount(models.Model):
         return authenticate(account=self)
 
     def __str__(self):
-        return force_str(self.user)
+        return get_adapter().get_socialaccount_model_str(self)
 
     def get_profile_url(self):
         return self.get_provider_account().get_profile_url()

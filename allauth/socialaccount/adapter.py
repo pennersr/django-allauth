@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 from django.core.exceptions import ValidationError
 from django.urls import reverse
+from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 
 from ..account import app_settings as account_settings
@@ -206,6 +207,9 @@ class DefaultSocialAccountAdapter(object):
         else:
             app = SocialApp.objects.get_current(provider, request)
         return app
+
+    def get_socialaccount_model_str(self, obj):
+        return force_str(obj.user)
 
 
 def get_adapter(request=None):

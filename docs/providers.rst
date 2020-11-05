@@ -163,7 +163,7 @@ Add the following configuration to your settings:
         }
     }
 
-Sign in with Apple ID will get a user's email address (or a proxy email address by Apple if the user decline to share the real email address), and according to Apple's API no additional information besides email is shared.
+Sign in with Apple ID will get a user's email address (or a proxy email address by Apple if the user decline to share the real email address), and according to Apple's API no additional information besides email is shared. https://developer.apple.com/documentation/sign_in_with_apple/sign_in_with_apple_rest_api/authenticating_users_with_sign_in_with_apple
 
 Note: Sign In With Apple uses a slight variation of OAuth2, which uses a POST
 instead of a GET. Unlike a GET with SameSite=Lax, the session cookie will not

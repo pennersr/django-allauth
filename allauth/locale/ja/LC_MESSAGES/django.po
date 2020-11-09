@@ -88,10 +88,8 @@ msgid "Login"
 msgstr "ログイン"
 
 #: account/forms.py:299
-#, fuzzy
-#| msgid "E-mail (optional)"
 msgid "E-mail (again)"
-msgstr "メールアドレス（オプション）"
+msgstr "メールアドレス（確認用）"
 
 #: account/forms.py:303
 #, fuzzy

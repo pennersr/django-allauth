@@ -467,7 +467,9 @@ def url_str_to_user_pk(s):
     User = get_user_model()
     # TODO: Ugh, isn't there a cleaner way to determine whether or not
     # the PK is a str-like field?
-    if getattr(User._meta.pk, "remote_field", None):
+    if getattr(User._meta.pk, "remote_field", None) and getattr(User._meta.pk.remote_field, "to", None):
+        # TODO: "and getattr.." is just hotfix for missing .to, need review, see
+        #   https://github.com/pennersr/django-allauth/issues/2027
         pk_field = User._meta.pk.remote_field.to._meta.pk
     else:
         pk_field = User._meta.pk

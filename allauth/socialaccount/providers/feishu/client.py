@@ -32,18 +32,6 @@ class FeishuOAuth2Client(OAuth2Client):
         return "%s?%s" % (authorization_url, urlencode(sorted_params))
 
     def app_access_token(self):
-        """获取 app_access_token（企业自建应用）
-
-        Returns:
-            {
-                "code":0,
-                "msg":"ok",
-                "app_access_token":"xxxxx",
-                "expire":7200,  // 过期时间，单位为秒（两小时失效）
-                "tenant_access_token":"xxxxx"
-            }
-        """
-
         data = {
             "app_id": self.consumer_key,
             "app_secret": self.consumer_secret,

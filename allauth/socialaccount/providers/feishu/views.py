@@ -39,8 +39,8 @@ class FeishuOAuth2Adapter(OAuth2Adapter):
         openid = kwargs.get("response", {}).get("openid")
         resp = requests.get(
             self.user_info_url,
-            headers ={'Content-Type': 'application/json',
-                      'Authorization': f'Bearer {token}',},
+            headers={'Content-Type': 'application/json',
+                     'Authorization': f'Bearer {token}', },
         )
         extra_data = resp.json()
         if extra_data['code'] != 0:

@@ -1,10 +1,12 @@
 0.44.0 (unreleased)
 *******************
 
-Note worthy changes
--------------------
+Security notice
+---------------
 
-- ...
+In previous versions, the mechanism to prevent too many failed login attempts
+(``ACCOUNT_LOGIN_ATTEMPTS_LIMIT``) could be bypassed by changing the casing of
+the login.
 
 
 Backwards incompatible changes

@@ -587,7 +587,7 @@ class AccountTests(TestCase):
             resp = self.client.post(
                 reverse("account_login"),
                 {
-                    "login": "john",
+                    "login": ["john", "John", "JOHN", "JOhn", "joHN"][i],
                     "password": ("doe" if is_valid_attempt else "wrong"),
                 },
             )

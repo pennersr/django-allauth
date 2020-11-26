@@ -36,12 +36,12 @@ class FeishuOAuth2Adapter(OAuth2Adapter):
         return url
 
     def complete_login(self, request, app, token, **kwargs):
-        openid = kwargs.get("response", {}).get("openid")
         resp = requests.get(
             self.user_info_url,
             headers={'Content-Type': 'application/json',
                      'Authorization': f'Bearer {token}', },
         )
+        resp.raise_for_status()
         extra_data = resp.json()
         if extra_data['code'] != 0:
             raise OAuth2Error("Error retrieving code: %s" % resp.content)

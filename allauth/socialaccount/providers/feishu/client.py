@@ -42,9 +42,8 @@ class FeishuOAuth2Client(OAuth2Client):
 
         # TODO: Proper exception handling
         resp = requests.request('POST', url, data=data)
-        access_token = None
-        if resp.status_code == 200:
-            access_token = resp.json()
+        resp.raise_for_status()
+        access_token = resp.json()
         if not access_token or "app_access_token" not in access_token:
             raise OAuth2Error(
                 "Error retrieving app access token: %s" % resp.content)
@@ -64,9 +63,8 @@ class FeishuOAuth2Client(OAuth2Client):
             data = None
         # TODO: Proper exception handling
         resp = requests.request(self.access_token_method, url, params=params, data=json.dumps(data), headers={'Content-Type': 'application/json'})
-        access_token = None
-        if resp.status_code == 200:
-            access_token = resp.json()
+        resp.raise_for_status()
+        access_token = resp.json()
         if not access_token or "data" not in access_token or "access_token" not in access_token['data']:
             raise OAuth2Error("Error retrieving access token: %s" % resp.content)
         return access_token['data']

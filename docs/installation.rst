@@ -149,6 +149,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.zoho',
         'allauth.socialaccount.providers.zoom',
         'allauth.socialaccount.providers.okta',
+        'allauth.socialaccount.providers.feishu',
         ...
     ]
 

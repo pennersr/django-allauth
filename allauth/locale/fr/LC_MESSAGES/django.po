@@ -624,7 +624,7 @@ msgstr ""
 
 #: templates/account/password_reset_from_key.html:17
 msgid "change password"
-msgstr "modifer le mot de passe"
+msgstr "modifier le mot de passe"
 
 #: templates/account/password_reset_from_key.html:20
 #: templates/account/password_reset_from_key_done.html:8

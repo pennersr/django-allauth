@@ -229,7 +229,7 @@ msgstr "klucz prywatny"
 
 #: socialaccount/models.py:55
 msgid "API secret, client secret, or consumer secret"
-msgstr "Klucz prywatny API/klienta/dbiorcy"
+msgstr "Klucz prywatny API, klienta lub odbiorcy"
 
 #: socialaccount/models.py:58
 msgid "Key"
@@ -603,7 +603,7 @@ msgstr ""
 
 #: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
-msgstr "Zły klucz"
+msgstr "Nieprawidłowy klucz"
 
 #: templates/account/password_reset_from_key.html:11
 #, python-format
@@ -698,7 +698,7 @@ msgid ""
 msgstr ""
 "Wysłaliśmy Ci wiadomość e-mail.\n"
 "W celu weryfikacji musisz kliknąć w łącze zawarte w wiadomości. Proszę "
-"skontaktuj się z nami, jeśli nie dotarła do Ciebie w ciągu paru minut."
+"skontaktuj się z nami, jeśli nie dotarła do Ciebie w ciągu kilku minut."
 
 #: templates/account/verified_email_required.html:20
 #, python-format

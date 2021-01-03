@@ -43,7 +43,11 @@ class AppleOAuth2Client(OAuth2Client):
         headers = {"kid": self.consumer_secret, "alg": "ES256"}
         client_secret = jwt.encode(
             payload=claims, key=app.certificate_key, algorithm="ES256", headers=headers
-        ).decode("utf-8")
+        )
+        if isinstance(client_secret, bytes):
+            # For PyJWT <= 1.7.1
+            return client_secret.decode('utf-8')
+        # For PyJWT >= 2.0.0a1
         return client_secret
 
     def get_client_id(self):

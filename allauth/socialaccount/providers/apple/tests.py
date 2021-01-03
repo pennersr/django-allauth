@@ -13,6 +13,7 @@ from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase, mocked_response
 
 from .apple_session import APPLE_SESSION_COOKIE_NAME
+from .client import jwt_encode
 from .provider import AppleProvider
 
 
@@ -89,12 +90,12 @@ def sign_id_token(payload):
     Sign a payload as apple normally would for the id_token.
     """
     signing_key = jwt.algorithms.RSAAlgorithm.from_jwk(json.dumps(TESTING_JWT_KEYSET))
-    return jwt.encode(
+    return jwt_encode(
         payload,
         signing_key,
         algorithm="RS256",
         headers={"kid": TESTING_JWT_KEYSET["kid"]},
-    ).decode("utf8")
+    )
 
 
 @override_settings(

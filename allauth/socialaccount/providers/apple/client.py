@@ -13,6 +13,14 @@ from allauth.socialaccount.providers.oauth2.client import (
 )
 
 
+def jwt_encode(*args, **kwargs):
+    resp = jwt.encode(*args, **kwargs)
+    if isinstance(resp, bytes):
+        # For PyJWT <2
+        resp = resp.decode("utf-8")
+    return resp
+
+
 class Scope(object):
     EMAIL = "email"
     NAME = "name"
@@ -41,9 +49,9 @@ class AppleOAuth2Client(OAuth2Client):
             "exp": now + timedelta(hours=1),
         }
         headers = {"kid": self.consumer_secret, "alg": "ES256"}
-        client_secret = jwt.encode(
+        client_secret = jwt_encode(
             payload=claims, key=app.certificate_key, algorithm="ES256", headers=headers
-        ).decode("utf-8")
+        )
         return client_secret
 
     def get_client_id(self):

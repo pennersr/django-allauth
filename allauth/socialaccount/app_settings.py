@@ -60,7 +60,7 @@ class AppSettings(object):
     def ADAPTER(self):
         return self._setting(
             "ADAPTER",
-            "allauth.socialaccount.adapter" ".DefaultSocialAccountAdapter",
+            "allauth.socialaccount.adapter.DefaultSocialAccountAdapter",
         )
 
     @property

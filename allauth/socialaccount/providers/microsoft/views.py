@@ -1,7 +1,9 @@
 from __future__ import unicode_literals
 
+import json
 import requests
 
+from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -9,6 +11,24 @@ from allauth.socialaccount.providers.oauth2.views import (
 )
 
 from .provider import MicrosoftGraphProvider
+
+
+def _check_errors(response):
+    try:
+        data = response.json()
+    except json.decoder.JSONDecodeError:
+        raise OAuth2Error(
+            "Invalid JSON from Microsoft Graph API: {}".format(response.text)
+        )
+
+    if "id" not in data:
+        error_message = "Error retrieving Microsoft profile"
+        microsoft_error_message = data.get("error", {}).get("message")
+        if microsoft_error_message:
+            error_message = ": ".join((error_message, microsoft_error_message))
+        raise OAuth2Error(error_message)
+
+    return data
 
 
 class MicrosoftGraphOAuth2Adapter(OAuth2Adapter):
@@ -25,8 +45,8 @@ class MicrosoftGraphOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {"Authorization": "Bearer {0}".format(token.token)}
-        resp = requests.get(self.profile_url, headers=headers)
-        extra_data = resp.json()
+        response = requests.get(self.profile_url, headers=headers)
+        extra_data = _check_errors(response)
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 

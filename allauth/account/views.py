@@ -806,7 +806,7 @@ class PasswordResetFromKeyView(
         )
 
         if app_settings.LOGIN_ON_PASSWORD_RESET:
-            return perform_login(
+            perform_login(
                 self.request,
                 self.reset_user,
                 email_verification=app_settings.EMAIL_VERIFICATION,

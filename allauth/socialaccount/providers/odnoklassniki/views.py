@@ -31,6 +31,7 @@ USER_FIELDS = [
     "pic640x480",  # medium
     "pic1024x768",  # big
     "location",
+    "email"
 ]
 
 

@@ -131,6 +131,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.strava',
         'allauth.socialaccount.providers.stripe',
         'allauth.socialaccount.providers.telegram',
+        'allauth.socialaccount.providers.trainingpeaks',
         'allauth.socialaccount.providers.trello',
         'allauth.socialaccount.providers.tumblr',
         'allauth.socialaccount.providers.twentythreeandme',

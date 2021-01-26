@@ -201,6 +201,8 @@ Supported Providers
 
 - Telegram
 
+- TrainingPeaks (OAuth2)
+
 - Trello (OAuth)
 
 - Tumblr (OAuth)

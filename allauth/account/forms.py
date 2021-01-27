@@ -523,6 +523,9 @@ class ResetPasswordForm(forms.Form):
         email = self.cleaned_data["email"]
         email = get_adapter().clean_email(email)
         self.users = filter_users_by_email(email, is_active=True)
+        unverified_email_exists = tuple(EmailAddress.objects.filter(email=email, verified=False).values_list('email', flat=True))
+        if email in unverified_email_exists and app_settings.PASSWORD_RESET_VERIFIED_ONLY is True:
+            raise forms.ValidationError("Only verified e-mails can reset passwords")
         if not self.users:
             raise forms.ValidationError(
                 _("The e-mail address is not assigned" " to any user account")

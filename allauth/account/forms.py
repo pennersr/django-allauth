@@ -458,7 +458,7 @@ class AddEmailForm(UserForm):
                 "This e-mail address is already associated" " with this account."
             ),
             "different_account": _(
-                "This e-mail address is already associated" " with another account."
+                "A link to activate your account has been emailed to the address provided."
             ),
             "max_email_addresses": _("You cannot add more than %d e-mail addresses."),
         }

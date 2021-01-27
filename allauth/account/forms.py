@@ -19,6 +19,7 @@ from . import app_settings
 from .adapter import get_adapter
 from .app_settings import AuthenticationMethod
 from .models import EmailAddress
+from django.contrib.auth.models import User
 from .utils import (
     filter_users_by_email,
     get_user_model,
@@ -335,13 +336,23 @@ class BaseSignupForm(_base_signup_form_class()):
         )
 
     def clean_username(self):
-        value = self.cleaned_data["username"]
-        value = get_adapter().clean_username(value)
+        if self.cleaned_data["username"]:
+            value = self.cleaned_data["username"]
+        else:
+            value = get_adapter().clean_username(value)
+        users = User.objects.filter(username__iexact=value)
+        if users:
+            raise forms.ValidationError("A link to activate your account has been emailed to the address provided")
         return value
 
     def clean_email(self):
-        value = self.cleaned_data["email"]
-        value = get_adapter().clean_email(value)
+        if self.cleaned_data["email"]:
+            value = self.cleaned_data['email']
+        else:
+            value = get_adapter().clean_email(value)
+        emails = EmailAddress.objects.filter(email__iexact=value)
+        if emails:
+            raise forms.ValidationError("A link to activate your account has been emailed to the address provided")
         if value and app_settings.UNIQUE_EMAIL:
             value = self.validate_unique_email(value)
         return value

@@ -26,6 +26,7 @@ from .forms import (
     SetPasswordForm,
     SignupForm,
     UserTokenForm,
+    ConfirmEmailForm,
 )
 from .models import EmailAddress, EmailConfirmation, EmailConfirmationHMAC
 from .utils import (
@@ -300,7 +301,13 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
 
     def post(self, *args, **kwargs):
         self.object = confirmation = self.get_object()
-        confirmation.confirm(self.request)
+        user = confirmation.email_address.user
+        success = user.check_password(self.request.POST['password'])
+        if not success and app_settings.VERIFY_WITH_PASSWORD is True:
+            get_adapter(self.request).add_message(self.request,messages.ERROR,"account/messages/email_unconfirmed_password.txt",{"errors": form.errors},)
+            return HttpResponseRedirect(self.request.path_info)
+        else:
+            confirmation.confirm(self.request)
 
         # In the event someone clicks on an email confirmation link
         # for one account while logged into another account,
@@ -394,7 +401,11 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
         ctx = kwargs
         ctx["confirmation"] = self.object
         site = get_current_site(self.request)
-        ctx.update({"site": site})
+        confirmation = self.get_object()
+        user = confirmation.email_address.user_id
+        verify_with_password = app_settings.VERIFY_WITH_PASSWORD
+        form = ConfirmEmailForm(user=confirmation.email_address.user, data=self.request.POST)
+        ctx.update({'site': site, 'form':form, 'verify_with_password':verify_with_password, })
         return ctx
 
     def get_redirect_url(self):

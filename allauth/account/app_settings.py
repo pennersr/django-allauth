@@ -339,6 +339,9 @@ class AppSettings(object):
                 ret = []
         return ret
 
+    @property
+    def VERIFY_WITH_PASSWORD(self):
+        return  self._setting('VERIFY_WITH_PASSWORD', True)
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

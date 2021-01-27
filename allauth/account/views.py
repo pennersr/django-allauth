@@ -493,6 +493,8 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
             elif email in unverified_primary_email:
                 email_address.delete()
             else:
+                if EmailAddress.objects.filter(user=request.user).count() == 1 and app_settings.EMAIL_REQUIRED is False:
+                    User.objects.filter(username=request.user).update(email="")
                 email_address.delete()
                 signals.email_removed.send(
                     sender=request.user.__class__,

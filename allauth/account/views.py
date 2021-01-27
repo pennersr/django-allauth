@@ -463,7 +463,9 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
     def _action_send(self, request, *args, **kwargs):
         email = request.POST["email"]
         if EmailAddress.objects.filter(email=email, verified=True).exists():
-            messages.error(self.request, "A link to activate your account has been emailed to the address provided")
+            adapter = get_adapter(request)
+            template = 'account/messages/resend_verified_error.txt'
+            adapter.add_message(request,messages.INFO,template,{'email': email})
             return HttpResponseRedirect(self.request.path_info)
         try:
             email_address = EmailAddress.objects.get(

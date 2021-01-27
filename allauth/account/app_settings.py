@@ -339,6 +339,9 @@ class AppSettings(object):
                 ret = []
         return ret
 
+    @property
+    def PASSWORD_RESET_VERIFIED_ONLY(self):
+        return  self._setting('PASSWORD_RESET_VERIFIED_ONLY', True)
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

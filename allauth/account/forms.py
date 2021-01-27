@@ -455,7 +455,7 @@ class AddEmailForm(UserForm):
         value = get_adapter().clean_email(value)
         errors = {
             "this_account": _(
-                "This e-mail address is already associated" " with this account."
+                "A link to activate your account has been emailed to the address provided."
             ),
             "different_account": _(
                 "A link to activate your account has been emailed to the address provided."

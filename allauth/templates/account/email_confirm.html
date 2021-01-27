@@ -17,6 +17,11 @@
 
 <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
 {% csrf_token %}
+  
+{% if verify_with_password is True %}
+{{ form.password.label }} {{ form.password }}
+{% endif %}
+
     <button type="submit">{% trans 'Confirm' %}</button>
 </form>
 

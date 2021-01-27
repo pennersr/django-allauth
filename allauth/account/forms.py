@@ -615,3 +615,11 @@ class UserTokenForm(forms.Form):
             raise forms.ValidationError(self.error_messages["token_invalid"])
 
         return cleaned_data
+
+class ConfirmEmailForm(forms.Form):
+    password = PasswordField(label=_("Password"),required=True)
+
+    def __init__(self, user, data, *args, **kwargs):
+        self.user = user
+        super(ConfirmEmailForm, self).__init__(data=data, *args, **kwargs)
+        self.fields['password'].widget.attrs['placeholder'] = 'Password'

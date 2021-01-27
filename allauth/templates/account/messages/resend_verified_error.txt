@@ -1,1 +1,2 @@
-A link to activate your account has been emailed to the address provided
+{% load i18n %}
+{% blocktrans %}A link to activate your account has been emailed to the address provided{% endblocktrans %}

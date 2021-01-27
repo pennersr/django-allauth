@@ -536,7 +536,7 @@ class ResetPasswordForm(forms.Form):
         self.users = filter_users_by_email(email, is_active=True)
         if not self.users:
             raise forms.ValidationError(
-                _("The e-mail address is not assigned" " to any user account")
+                _("If that email address is in our database, we will send you an email to reset your password")
             )
         return self.cleaned_data["email"]
 

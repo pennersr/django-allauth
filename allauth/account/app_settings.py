@@ -340,8 +340,20 @@ class AppSettings(object):
         return ret
 
     @property
-    def DELETE_PRIMARY_VERIFIED_EMAIL(self):
-        return  self._setting('DELETE_PRIMARY_VERIFIED_EMAIL', True)
+    def DELETE_UNVERIFIED_PRIMARY_EMAIL(self):
+        return  self._setting('DELETE_UNVERIFIED_PRIMARY_EMAIL', True)
+
+    @property
+    def DELETE_UNVERIFIED_UNPRIMARY_EMAIL(self):
+        return  self._setting('DELETE_UNVERIFIED_UNPRIMARY_EMAIL', True)
+
+    @property
+    def DELETE_VERIFIED_PRIMARY_EMAIL(self):
+        return  self._setting('DELETE_VERIFIED_PRIMARY_EMAIL', True)
+
+    @property
+    def DELETE_VERIFIED_UNPRIMARY_EMAIL(self):
+        return  self._setting('DELETE_VERIFIED_UNPRIMARY_EMAIL', True)
 
 
 # Ugly? Guido recommends this himself ...

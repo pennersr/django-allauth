@@ -339,6 +339,10 @@ class AppSettings(object):
                 ret = []
         return ret
 
+    @property
+    def DELETE_PRIMARY_VERIFIED_EMAIL(self):
+        return  self._setting('DELETE_PRIMARY_VERIFIED_EMAIL', True)
+
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

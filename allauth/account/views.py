@@ -482,6 +482,9 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
         email = request.POST["email"]
         try:
             email_address = EmailAddress.objects.get(user=request.user, email=email)
+            if EmailAddress.objects.filter(user=request.user, email=email, primary=True, verified=True) and app_settings.DELETE_PRIMARY_VERIFIED_EMAIL is True:
+                User.objects.filter(username=request.user).update(email="")
+                email_address.delete()
             unverified_primary_email = EmailAddress.objects.filter(user=request.user,email=email, primary=True, verified=False).values_list('email', flat=True)
             if email_address.primary and email not in unverified_primary_email:
                 get_adapter(request).add_message(

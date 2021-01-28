@@ -482,36 +482,40 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
         email = request.POST["email"]
         try:
             email_address = EmailAddress.objects.get(user=request.user, email=email)
-            if EmailAddress.objects.filter(user=request.user, email=email, primary=True, verified=True) and app_settings.DELETE_PRIMARY_VERIFIED_EMAIL is True:
-                User.objects.filter(username=request.user).update(email="")
-                email_address.delete()
+            verified_primary_email = EmailAddress.objects.filter(user=request.user,email=email, primary=True, verified=True).values_list('email', flat=True)
+            verified_unprimary_email = EmailAddress.objects.filter(user=request.user,email=email, primary=False, verified=True).values_list('email', flat=True)
             unverified_primary_email = EmailAddress.objects.filter(user=request.user,email=email, primary=True, verified=False).values_list('email', flat=True)
-            if email_address.primary and email not in unverified_primary_email:
-                get_adapter(request).add_message(
-                    request,
-                    messages.ERROR,
-                    'account/messages/'
-                    'cannot_delete_primary_email.txt',
-                    {"email": email})
-            elif email in unverified_primary_email:
-                email_address.delete()
-            else:
-                if EmailAddress.objects.filter(user=request.user).count() == 1 and app_settings.EMAIL_REQUIRED is False:
-                    User.objects.filter(username=request.user).update(email="")
-                email_address.delete()
-                signals.email_removed.send(
-                    sender=request.user.__class__,
-                    request=request,
-                    user=request.user,
-                    email_address=email_address,
-                )
-                get_adapter(request).add_message(
-                    request,
-                    messages.SUCCESS,
-                    "account/messages/email_deleted.txt",
-                    {"email": email},
-                )
+            unverified_unprimary_email = EmailAddress.objects.filter(user=request.user,email=email, primary=False, verified=False).values_list('email', flat=True)
+
+            if email in verified_primary_email and app_settings.DELETE_VERIFIED_PRIMARY_EMAIL is True:
+                User.objects.filter(username=request.user).update(email="")
+            if email in verified_unprimary_email and app_settings.DELETE_VERIFIED_UNPRIMARY_EMAIL is True:
+                User.objects.filter(username=request.user).update(email="")
+            if email in unverified_primary_email and app_settings.DELETE_UNVERIFIED_PRIMARY_EMAIL is True:
+                User.objects.filter(username=request.user).update(email="")
+            if email in unverified_unprimary_email and app_settings.DELETE_UNVERIFIED_UNPRIMARY_EMAIL is True:
+                User.objects.filter(username=request.user).update(email="")
+
+
+            if email in verified_primary_email and app_settings.DELETE_VERIFIED_PRIMARY_EMAIL is False:
+                messages.error(self.request, "You cannot delete a verified primary email address")
                 return HttpResponseRedirect(self.get_success_url())
+            if email in verified_unprimary_email and app_settings.DELETE_VERIFIED_UNPRIMARY_EMAIL is False:
+                messages.error(self.request, "You cannot delete a verified unprimary email address")
+                return HttpResponseRedirect(self.get_success_url())
+            if email in unverified_primary_email and app_settings.DELETE_UNVERIFIED_PRIMARY_EMAIL is False:
+                messages.error(self.request, "You cannot delete an unverified primary email address")
+                return HttpResponseRedirect(self.get_success_url())
+            if email in unverified_unprimary_email and app_settings.DELETE_UNVERIFIED_UNPRIMARY_EMAIL is False:
+                messages.error(self.request, "You cannot delete an unverified unprimary email address")
+                return HttpResponseRedirect(self.get_success_url())
+
+            else:
+                email_address.delete()
+                signals.email_removed.send(sender=request.user.__class__,request=request,user=request.user,email_address=email_address)
+                get_adapter(request).add_message(request,messages.SUCCESS,'account/messages/email_deleted.txt',{"email": email})
+                return HttpResponseRedirect(self.get_success_url())
+            
         except EmailAddress.DoesNotExist:
             pass
 

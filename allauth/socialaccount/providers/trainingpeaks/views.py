@@ -37,6 +37,11 @@ class TrainingPeaksOauth2Adapter(OAuth2Adapter):
     def profile_url(self):
         return "https://api." + self.get_hostname() + "/v1/athlete/profile"
     
+    @property
+    def api_hostname(self):
+        """ Return https://api.hostname.tld """
+        return "https://api." + self.get_hostname()
+
     # https://oauth.sandbox.trainingpeaks.com/oauth/deauthorize
 
 

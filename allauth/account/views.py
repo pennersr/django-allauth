@@ -521,6 +521,9 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
 
     def _action_primary(self, request, *args, **kwargs):
         email = request.POST["email"]
+        if email in EmailAddress.objects.filter(user=request.user,email=email, verified=False).values_list('email', flat=True):
+            messages.error(self.request, "E-mail needs to be verified before making it primary")
+            return HttpResponseRedirect(self.request.path_info)
         try:
             email_address = EmailAddress.objects.get_for_user(
                 user=request.user, email=email

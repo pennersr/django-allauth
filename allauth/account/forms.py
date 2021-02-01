@@ -19,6 +19,7 @@ from . import app_settings
 from .adapter import get_adapter
 from .app_settings import AuthenticationMethod
 from .models import EmailAddress
+from django.contrib.auth.models import User
 from .utils import (
     filter_users_by_email,
     get_user_model,
@@ -526,6 +527,11 @@ class ResetPasswordForm(forms.Form):
         unverified_email_exists = tuple(EmailAddress.objects.filter(email=email, verified=False).values_list('email', flat=True))
         if email in unverified_email_exists and app_settings.PASSWORD_RESET_VERIFIED_ONLY is True:
             raise forms.ValidationError("Only verified e-mails can reset passwords")
+        inactive_users = User.objects.filter(is_active="False")
+        for x in inactive_users:
+            emails = EmailAddress.objects.filter(user=x).values_list('user', flat=True)
+            for y in emails:
+                raise forms.ValidationError("Only active users can reset passwords")
         if not self.users:
             raise forms.ValidationError(
                 _("The e-mail address is not assigned" " to any user account")

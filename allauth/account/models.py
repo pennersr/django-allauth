@@ -14,18 +14,22 @@ from .adapter import get_adapter
 from .managers import EmailAddressManager, EmailConfirmationManager
 from .utils import user_email
 
+from django.conf import settings
+if settings.PGCRYPTO_KEY:
+   from pgcrypto import fields
+
 
 class EmailAddress(models.Model):
+
+    if app_settings.EMAIL_ENCRYPTED is True:
+        email = fields.EmailPGPSymmetricKeyField(unique=app_settings.UNIQUE_EMAIL,max_length=app_settings.EMAIL_MAX_LENGTH,verbose_name=_('e-mail address'))
+    else:
+        email = models.EmailField(unique=app_settings.UNIQUE_EMAIL,max_length=app_settings.EMAIL_MAX_LENGTH,verbose_name=_('e-mail address'))
 
     user = models.ForeignKey(
         allauth_app_settings.USER_MODEL,
         verbose_name=_("user"),
         on_delete=models.CASCADE,
-    )
-    email = models.EmailField(
-        unique=app_settings.UNIQUE_EMAIL,
-        max_length=app_settings.EMAIL_MAX_LENGTH,
-        verbose_name=_("e-mail address"),
     )
     verified = models.BooleanField(verbose_name=_("verified"), default=False)
     primary = models.BooleanField(verbose_name=_("primary"), default=False)

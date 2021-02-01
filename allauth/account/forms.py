@@ -526,12 +526,13 @@ class ResetPasswordForm(forms.Form):
         self.users = filter_users_by_email(email, is_active=True)
         unverified_email_exists = tuple(EmailAddress.objects.filter(email=email, verified=False).values_list('email', flat=True))
         if email in unverified_email_exists and app_settings.PASSWORD_RESET_VERIFIED_ONLY is True:
-            raise forms.ValidationError("Only verified e-mails can reset passwords")
+            raise forms.ValidationError("If that email address is in our database, we will send you an email to reset your password.")
         inactive_users = User.objects.filter(is_active="False")
         for x in inactive_users:
             emails = EmailAddress.objects.filter(user=x).values_list('user', flat=True)
             for y in emails:
-                raise forms.ValidationError("Only active users can reset passwords")
+                if app_settings.PASSWORD_RESET_VERIFIED_ONLY is True:
+                    raise forms.ValidationError("If that email address is in our database, we will send you an email to reset your password.")
         if not self.users:
             raise forms.ValidationError(
                 _("The e-mail address is not assigned" " to any user account")

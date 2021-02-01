@@ -343,6 +343,10 @@ class AppSettings(object):
     def PASSWORD_RESET_VERIFIED_ONLY(self):
         return  self._setting('PASSWORD_RESET_VERIFIED_ONLY', True)
 
+    @property
+    def PASSWORD_RESET_ACTIVE_ONLY(self):
+        return  self._setting('PASSWORD_RESET_ACTIVE_ONLY', True)
+
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html
 import sys  # noqa

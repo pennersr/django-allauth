@@ -394,7 +394,8 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
         ctx = kwargs
         ctx["confirmation"] = self.object
         site = get_current_site(self.request)
-        ctx.update({"site": site})
+        max_email_addresses = app_settings.MAX_EMAIL_ADDRESSES
+        ctx.update({"site": site, "max_email_addresses":max_email_addresses})
         return ctx
 
     def get_redirect_url(self):

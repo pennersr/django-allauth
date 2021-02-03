@@ -2,6 +2,8 @@ from django.urls import path, re_path
 
 from . import views
 
+from django.conf import settings
+from django.views.defaults import page_not_found
 
 urlpatterns = [
     path("signup/", views.signup, name="account_signup"),
@@ -15,7 +17,6 @@ urlpatterns = [
     path("password/set/", views.password_set, name="account_set_password"),
     path("inactive/", views.account_inactive, name="account_inactive"),
     # E-mail
-    path("email/", views.email, name="account_email"),
     path(
         "confirm-email/",
         views.email_verification_sent,
@@ -44,3 +45,12 @@ urlpatterns = [
         name="account_reset_password_from_key_done",
     ),
 ]
+
+if settings.ACCOUNT_MAX_EMAIL_ADDRESSES == 1:
+    urlpatterns += [
+        path('email/', page_not_found, {'exception': Exception()}, name="account_email",),
+    ]
+else:
+    urlpatterns += [
+        path("email/", views.email, name="account_email"),
+    ]

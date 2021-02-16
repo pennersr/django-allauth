@@ -318,6 +318,10 @@ class AppSettings(object):
     @property
     def DELETE_REDIRECT_URL(self):
         return  self._setting('DELETE_REDIRECT_URL', '/accounts/login/')
+    
+    @property
+    def DELETE(self):
+        return  self._setting('DELETE', False)
 
     @property
     def USERNAME_VALIDATORS(self):

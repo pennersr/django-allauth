@@ -48,6 +48,10 @@ class EmailAwarePasswordResetTokenGenerator(PasswordResetTokenGenerator):
 
 default_token_generator = EmailAwarePasswordResetTokenGenerator()
 
+class DeactivateAccount(forms.Form):
+    deactivate_checkbox = forms.BooleanField(label='Are you sure you want to deactivate your account?', required=True)
+    def __init__(self, *args, **kwargs):
+        super(DeactivateAccount, self).__init__(*args, **kwargs)
 
 class PasswordVerificationMixin(object):
     def clean(self):

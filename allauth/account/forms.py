@@ -32,6 +32,11 @@ from .utils import (
 )
 
 
+class DeleteAccount(forms.Form):
+    delete_checkbox = forms.BooleanField(label='Are you sure you want to delete your account?', required=True)
+    def __init__(self, *args, **kwargs):
+        super(DeleteAccount, self).__init__(*args, **kwargs)
+
 class EmailAwarePasswordResetTokenGenerator(PasswordResetTokenGenerator):
     def _make_hash_value(self, user, timestamp):
         ret = super(EmailAwarePasswordResetTokenGenerator, self)._make_hash_value(

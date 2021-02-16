@@ -26,6 +26,7 @@ from .forms import (
     SetPasswordForm,
     SignupForm,
     UserTokenForm,
+    DeleteAccount,
 )
 from .models import EmailAddress, EmailConfirmation, EmailConfirmationHMAC
 from .utils import (
@@ -48,6 +49,32 @@ sensitive_post_parameters_m = method_decorator(
     sensitive_post_parameters("oldpassword", "password", "password1", "password2")
 )
 
+
+from django.contrib.auth import logout
+from django.shortcuts import render
+from django.contrib.auth.models import User
+
+def delete_account(request):
+    if request.user.is_anonymous:
+        return HttpResponseRedirect(app_settings.DELETE_REDIRECT_URL)
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = DeleteAccount(request.POST)
+
+            if form.is_valid():
+                if request.POST["delete_checkbox"]:
+                    account = User.objects.get(username=request.user)
+                    if account is not None:
+                        account.delete()
+                        logout(request)
+                        messages.info(request, "Your account has been deleted.")
+                        return HttpResponseRedirect(app_settings.DELETE_REDIRECT_URL)
+                    else:
+                        messages.error(request, "There was an error.")
+        else:
+            form = DeleteAccount()
+        context = {'form': form}
+        return render(request, 'account/delete.html', context)
 
 def _ajax_response(request, response, form=None, data=None):
     adapter = get_adapter(request)

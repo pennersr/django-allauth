@@ -1,0 +1,17 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Deactivate Account" %}{% endblock %}
+
+{% block content %}
+<h1>{% trans "Deactivate Account" %}</h1>
+
+<form method="post" action="{% url 'account_deactivate' %}">
+  {% csrf_token %}
+{{ form.deactivate_checkbox.label }} {{ form.deactivate_checkbox }}
+  <button type="submit">{% trans 'Deactivate Account' %}</button>
+</form>
+
+
+{% endblock %}

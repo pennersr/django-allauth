@@ -1,0 +1,16 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Delete Account" %}{% endblock %}
+
+{% block content %}
+<h1>{% trans "Delete Account" %}</h1>
+
+<form method="post" action="{% url 'account_delete' %}">
+  {% csrf_token %}
+{{ form.delete_checkbox.label }} {{ form.delete_checkbox }}
+  <button type="submit">{% trans 'Delete Account' %}</button>
+</form>
+
+{% endblock %}

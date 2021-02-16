@@ -316,6 +316,10 @@ class AppSettings(object):
         return self._setting("PRESERVE_USERNAME_CASING", True)
 
     @property
+    def DELETE_REDIRECT_URL(self):
+        return  self._setting('DELETE_REDIRECT_URL', '/accounts/login/')
+
+    @property
     def USERNAME_VALIDATORS(self):
         from django.core.exceptions import ImproperlyConfigured
 

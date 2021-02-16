@@ -339,6 +339,13 @@ class AppSettings(object):
                 ret = []
         return ret
 
+    @property
+    def DEACTIVATE_REDIRECT_URL(self):
+        return  self._setting('DEACTIVATE_REDIRECT_URL', '/accounts/login/')
+
+    @property
+    def DEACTIVATE(self):
+        return  self._setting('DEACTIVATE', False)
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

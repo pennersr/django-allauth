@@ -43,4 +43,9 @@ urlpatterns = [
         views.password_reset_from_key_done,
         name="account_reset_password_from_key_done",
     ),
+    path(
+        "delete/",
+        views.delete_account,
+        name="account_delete",
+    ),
 ]

@@ -2,6 +2,8 @@ from django.urls import path, re_path
 
 from . import views
 
+from django.conf import settings
+from django.views.defaults import page_not_found
 
 urlpatterns = [
     path("signup/", views.signup, name="account_signup"),
@@ -44,3 +46,12 @@ urlpatterns = [
         name="account_reset_password_from_key_done",
     ),
 ]
+
+if settings.ACCOUNT_DEACTIVATE is False:
+    urlpatterns += [
+        path('deactivate/', page_not_found, {'exception': Exception()}, name="account_deactivate",),
+    ]
+else:
+    urlpatterns += [
+        path("deactivate/", views.deactivate_account, name="account_deactivate"),
+    ]

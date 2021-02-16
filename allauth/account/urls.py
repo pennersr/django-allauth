@@ -2,6 +2,9 @@ from django.urls import path, re_path
 
 from . import views
 
+from django.conf import settings
+from django.views.defaults import page_not_found
+
 
 urlpatterns = [
     path("signup/", views.signup, name="account_signup"),
@@ -43,9 +46,13 @@ urlpatterns = [
         views.password_reset_from_key_done,
         name="account_reset_password_from_key_done",
     ),
-    path(
-        "delete/",
-        views.delete_account,
-        name="account_delete",
-    ),
 ]
+
+if settings.ACCOUNT_DELETE is False:
+    urlpatterns += [
+        path('delete/', page_not_found, {'exception': Exception()}, name="account_delete",),
+    ]
+else:
+    urlpatterns += [
+        path("delete/", views.delete_account, name="account_delete"),
+    ]

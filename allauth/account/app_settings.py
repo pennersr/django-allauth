@@ -316,6 +316,10 @@ class AppSettings(object):
         return self._setting("PRESERVE_USERNAME_CASING", True)
 
     @property
+    def EMAIL_PAGE_404(self):
+        return self._setting("EMAIL_PAGE_404", False)
+    
+    @property
     def USERNAME_VALIDATORS(self):
         from django.core.exceptions import ImproperlyConfigured
 

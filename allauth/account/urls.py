@@ -46,7 +46,7 @@ urlpatterns = [
     ),
 ]
 
-if settings.ACCOUNT_MAX_EMAIL_ADDRESSES == 1:
+if settings.ACCOUNT_EMAIL_PAGE_404 is True:
     urlpatterns += [
         path('email/', page_not_found, {'exception': Exception()}, name="account_email",),
     ]

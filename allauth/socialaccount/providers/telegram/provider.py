@@ -18,11 +18,14 @@ class TelegramProvider(Provider):
         return data["id"]
 
     def extract_common_fields(self, data):
-        return {
-            "first_name": data["first_name"],
-            "last_name": data["last_name"],
-            "username": data["username"],
-        }
+        ret = {}
+        if data.get("first_name"):
+            ret["first_name"] = data.get("first_name")
+        if data.get("last_name"):
+            ret["last_name"] = data.get("last_name")
+        if data.get("username"):
+            ret["username"] = data.get("username")
+        return ret
 
 
 provider_classes = [TelegramProvider]

@@ -227,9 +227,14 @@ class OAuth2TestsMixin(object):
         response_json = self.get_login_response_json(
             with_refresh_token=with_refresh_token
         )
+        if isinstance(resp_mock, list):
+            resp_mocks = resp_mock
+        else:
+            resp_mocks = [resp_mock]
+
         with mocked_response(
             MockedResponse(200, response_json, {"content-type": "application/json"}),
-            resp_mock,
+            *resp_mocks,
         ):
             resp = self.client.get(complete_url, self.get_complete_parameters(q))
         return resp

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import requests
 import json
+import requests
 from collections import OrderedDict
 
 from django.utils.http import urlencode
@@ -14,7 +14,9 @@ from allauth.socialaccount.providers.oauth2.client import (
 
 class FeishuOAuth2Client(OAuth2Client):
 
-    app_access_token_url = 'https://open.feishu.cn/open-apis/auth/v3/app_access_token/internal/'
+    app_access_token_url = (
+        "https://open.feishu.cn/open-apis/auth/v3/app_access_token/internal/"
+    )
 
     def get_redirect_url(self, authorization_url, extra_params):
         params = {
@@ -41,19 +43,18 @@ class FeishuOAuth2Client(OAuth2Client):
         url = self.app_access_token_url
 
         # TODO: Proper exception handling
-        resp = requests.request('POST', url, data=data)
+        resp = requests.request("POST", url, data=data)
         resp.raise_for_status()
         access_token = resp.json()
         if not access_token or "app_access_token" not in access_token:
-            raise OAuth2Error(
-                "Error retrieving app access token: %s" % resp.content)
-        return access_token['app_access_token']
+            raise OAuth2Error("Error retrieving app access token: %s" % resp.content)
+        return access_token["app_access_token"]
 
     def get_access_token(self, code):
         data = {
             "grant_type": "authorization_code",
             "code": code,
-            "app_access_token": self.app_access_token()
+            "app_access_token": self.app_access_token(),
         }
         params = None
         self._strip_empty_keys(data)
@@ -62,9 +63,19 @@ class FeishuOAuth2Client(OAuth2Client):
             params = data
             data = None
         # TODO: Proper exception handling
-        resp = requests.request(self.access_token_method, url, params=params, data=json.dumps(data), headers={'Content-Type': 'application/json'})
+        resp = requests.request(
+            self.access_token_method,
+            url,
+            params=params,
+            data=json.dumps(data),
+            headers={"Content-Type": "application/json"},
+        )
         resp.raise_for_status()
         access_token = resp.json()
-        if not access_token or "data" not in access_token or "access_token" not in access_token['data']:
+        if (
+            not access_token
+            or "data" not in access_token
+            or "access_token" not in access_token["data"]
+        ):
             raise OAuth2Error("Error retrieving access token: %s" % resp.content)
-        return access_token['data']
+        return access_token["data"]

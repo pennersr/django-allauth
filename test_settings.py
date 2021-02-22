@@ -151,6 +151,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.zoho",
     "allauth.socialaccount.providers.zoom",
     "allauth.socialaccount.providers.okta",
+    "allauth.socialaccount.providers.feishu",
 )
 
 AUTHENTICATION_BACKENDS = (

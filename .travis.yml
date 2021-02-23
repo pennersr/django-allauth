@@ -1,5 +1,6 @@
 # https://travis-ci.org/pennersr/django-allauth
 language: python
+dist: focal
 
 matrix:
   fast_finish: true

@@ -126,8 +126,8 @@ class AccountTests(TestCase):
         from django.contrib.messages.middleware import MessageMiddleware
         from django.contrib.sessions.middleware import SessionMiddleware
 
-        SessionMiddleware().process_request(request)
-        MessageMiddleware().process_request(request)
+        SessionMiddleware(lambda request: None).process_request(request)
+        MessageMiddleware(lambda request: None).process_request(request)
         request.user = AnonymousUser()
         request.session["account_verified_email"] = verified_email
         from .views import signup
@@ -178,8 +178,8 @@ class AccountTests(TestCase):
         from django.contrib.messages.middleware import MessageMiddleware
         from django.contrib.sessions.middleware import SessionMiddleware
 
-        SessionMiddleware().process_request(request)
-        MessageMiddleware().process_request(request)
+        SessionMiddleware(lambda request: None).process_request(request)
+        MessageMiddleware(lambda request: None).process_request(request)
         request.user = AnonymousUser()
         from .views import signup
 

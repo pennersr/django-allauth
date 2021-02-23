@@ -284,8 +284,8 @@ class SocialAccountTests(TestCase):
         factory = RequestFactory()
         request = factory.get("/accounts/login/callback/")
         request.user = AnonymousUser()
-        SessionMiddleware().process_request(request)
-        MessageMiddleware().process_request(request)
+        SessionMiddleware(lambda request: None).process_request(request)
+        MessageMiddleware(lambda request: None).process_request(request)
 
         User = get_user_model()
         user = User()
@@ -376,8 +376,8 @@ class SocialAccountTests(TestCase):
         factory = RequestFactory()
         request = factory.get("/accounts/twitter/login/callback/")
         request.user = AnonymousUser()
-        SessionMiddleware().process_request(request)
-        MessageMiddleware().process_request(request)
+        SessionMiddleware(lambda request: None).process_request(request)
+        MessageMiddleware(lambda request: None).process_request(request)
 
         User = get_user_model()
         user = User()
@@ -413,8 +413,8 @@ class SocialAccountTests(TestCase):
         factory = RequestFactory()
         request = factory.get("/accounts/twitter/login/callback/")
         request.user = AnonymousUser()
-        SessionMiddleware().process_request(request)
-        MessageMiddleware().process_request(request)
+        SessionMiddleware(lambda request: None).process_request(request)
+        MessageMiddleware(lambda request: None).process_request(request)
         resp = complete_social_login(request, sociallogin)
         return request, resp
 

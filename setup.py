@@ -128,10 +128,10 @@ METADATA = dict(
     tests_require=[],
     install_requires=[
         "Django >= 2.0",
-        "python3-openid >= 3.0.8",
-        "requests-oauthlib >= 0.3.0",
-        "requests",
         "pyjwt[crypto] >= 1.7",
+        "python3-openid >= 3.0.8",
+        "requests",
+        "requests-oauthlib >= 0.3.0",
     ],
     include_package_data=True,
     classifiers=[

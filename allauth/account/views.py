@@ -509,6 +509,11 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
 
     def _action_primary(self, request, *args, **kwargs):
         email = request.POST["email"]
+        primary_email_address = EmailAddress.objects.get(user=request.user,primary=True)
+        if app_settings.PRIMARY_EMAIL_CHANGE is False:
+            if email not in primary_email_address:
+                messages.error(self.request, "You cannot make this email a primary email address")
+                return HttpResponseRedirect(self.request.path_info)
         try:
             email_address = EmailAddress.objects.get_for_user(
                 user=request.user, email=email

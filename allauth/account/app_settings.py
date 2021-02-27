@@ -316,6 +316,10 @@ class AppSettings(object):
         return self._setting("PRESERVE_USERNAME_CASING", True)
 
     @property
+    def PRIMARY_EMAIL_CHANGE(self):
+        return self._setting("PRIMARY_EMAIL_CHANGE", True)
+
+    @property
     def USERNAME_VALIDATORS(self):
         from django.core.exceptions import ImproperlyConfigured
 

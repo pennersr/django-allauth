@@ -50,7 +50,8 @@ sensitive_post_parameters_m = method_decorator(
 )
 
 from django.contrib.auth import logout
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+User = get_user_model()
 from django.shortcuts import render
 
 def deactivate_account(request):

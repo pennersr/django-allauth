@@ -36,6 +36,13 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.account.auth_backends.AuthenticationBackend',
         ...
     ]
+    
+    MIDDLEWARE = [
+    ...
+    # Needed to get site context in templates 
+    'django.contrib.sites.middleware.CurrentSiteMiddleware',
+    ...
+    ]
 
     INSTALLED_APPS = [
         ...

@@ -13,6 +13,8 @@ RUN apt-get update \
 	  python3-pip \
 	  && python3.9 -m pip install --upgrade pip \
 	  && pip3 install tox \
+	  && apt-get install -y nodejs \
+	  npm \
 	  && apt-get autoremove \
 	  && rm -rf /var/lib/apt/lists/*
 

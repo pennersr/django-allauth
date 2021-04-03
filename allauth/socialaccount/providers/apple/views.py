@@ -89,7 +89,7 @@ class AppleOAuth2Adapter(OAuth2Adapter):
 
         # `user_data` is a big flat dictionary with the parsed JWT claims
         # access_tokens, and user info from the apple post.
-        identity_data = self.get_verified_identity_data(data["id_token"])
+        identity_data = self.get_verified_identity_data(data["access_token"])
         token.user_data = {**data, **identity_data}
 
         return token

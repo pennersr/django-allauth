@@ -1202,6 +1202,12 @@ Okta
         }
     }
 
+Callback URL:
+  http://example.com/accounts/okta/login/callback
+
+Follow instructions in Okta below, and then add in Callback URL, then create a social provider 
+for okta and copy/paste in credentials.
+
 Okta OIDC
     https://developer.okta.com/docs/reference/api/oidc/
 

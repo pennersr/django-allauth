@@ -399,9 +399,9 @@ def filter_users_by_username(*username):
         q = qlist[0]
         for q2 in qlist[1:]:
             q = q | q2
-        ret = get_user_model().objects.filter(q)
+        ret = get_user_model()._default_manager.filter(q)
     else:
-        ret = get_user_model().objects.filter(
+        ret = get_user_model()._default_manager.filter(
             **{
                 app_settings.USER_MODEL_USERNAME_FIELD
                 + "__in": [u.lower() for u in username]

@@ -190,7 +190,7 @@ class FacebookProvider(OAuth2Provider):
         else:
             nonce = request.session.get(NONCE_SESSION_KEY)
         if not nonce and or_create:
-            nonce = get_random_string(32)
+            nonce = get_random_string(NONCE_LENGTH)
             request.session[NONCE_SESSION_KEY] = nonce
         return nonce
 

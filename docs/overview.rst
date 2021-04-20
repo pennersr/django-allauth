@@ -147,6 +147,8 @@ Supported Providers
 
 - Naver (OAuth2)
 
+- NetIQ/Microfocus AccessManager (OAuth2)
+
 - NextCloud (OAuth2)
 
 - Odnoklassniki (OAuth2)

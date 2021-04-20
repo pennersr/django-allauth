@@ -10,10 +10,16 @@ class EmailAddressAdmin(admin.ModelAdmin):
     list_filter = ("primary", "verified")
     search_fields = []
     raw_id_fields = ("user",)
+    actions = ["make_verified"]
 
     def get_search_fields(self, request):
         base_fields = get_adapter(request).get_user_search_fields()
         return ["email"] + list(map(lambda a: "user__" + a, base_fields))
+
+    def make_verified(self, request, queryset):
+        queryset.update(verified=True)
+
+    make_verified.short_description = "Mark selected email addresses as verified"
 
 
 class EmailConfirmationAdmin(admin.ModelAdmin):

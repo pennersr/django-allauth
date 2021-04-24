@@ -1,3 +1,13 @@
+0.46.0 (unreleased)
+*******************
+
+Note worthy changes
+-------------------
+
+- Fixed a bug where tokens weren't saved when credentials were provided with the
+  ``SOCIALACCOUNT_PROVIDERS`` configuration.
+
+
 0.45.0 (2021-07-11)
 *******************
 

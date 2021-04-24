@@ -197,9 +197,22 @@ class DefaultSocialAccountAdapter(object):
 
         config = app_settings.PROVIDERS.get(provider, {}).get("APP")
         if config:
-            app = SocialApp(provider=provider)
-            for field in ["client_id", "secret", "key", "certificate_key"]:
-                setattr(app, field, config.get(field))
+            if (
+                app_settings.STORE_TOKENS
+                and SocialApp.objects.filter(provider=provider).exists()
+            ):
+                # We already saved the app. Fetch and return it right away...
+
+                # FIXME: Ideally there should be a way to specify specific sites
+                # with settings-based credentials. We currently don't, so we can't
+                # use the get_current method that consider sites as well.
+                app = SocialApp.objects.get(provider=provider)
+            else:
+                app = SocialApp(provider=provider)
+                for field in ["client_id", "secret", "key", "certificate_key"]:
+                    setattr(app, field, config.get(field))
+                if app_settings.STORE_TOKENS:
+                    app.save()
         else:
             app = SocialApp.objects.get_current(provider, request)
         return app

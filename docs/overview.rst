@@ -115,7 +115,7 @@ Supported Providers
 
 - FourSquare (OAuth2)
 
-- Frontier Development (OAuth2)
+- Frontier (OAuth2)
 
 - Github (OAuth2)
 

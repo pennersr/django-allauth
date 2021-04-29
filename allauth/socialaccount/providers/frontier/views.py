@@ -5,11 +5,11 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2CallbackView,
     OAuth2LoginView,
 )
-from .provider import FDevProvider
+from .provider import FrontierProvider
 
 
-class FDevOAuth2Adapter(OAuth2Adapter):
-    provider_id = FDevProvider.id
+class FrontierOAuth2Adapter(OAuth2Adapter):
+    provider_id = FrontierProvider.id
     AUTH_API = "https://auth.frontierstore.net"
     access_token_url = AUTH_API + "/token"
     authorize_url = AUTH_API + "/auth"
@@ -25,5 +25,5 @@ class FDevOAuth2Adapter(OAuth2Adapter):
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 
-oauth2_login = OAuth2LoginView.adapter_view(FDevOAuth2Adapter)
-oauth2_callback = OAuth2CallbackView.adapter_view(FDevOAuth2Adapter)
+oauth2_login = OAuth2LoginView.adapter_view(FrontierOAuth2Adapter)
+oauth2_callback = OAuth2CallbackView.adapter_view(FrontierOAuth2Adapter)

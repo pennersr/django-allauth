@@ -752,10 +752,10 @@ More info:
     https://www.flickr.com/services/api/auth.oauth.html#authorization
 
 
-Frontier Development
---------------------
+Frontier
+--------
 
-The Frontier Development provider is OAuth2 based.
+The Frontier provider is OAuth2 based.
 
 Client registration
 *******************
@@ -779,7 +779,7 @@ interface. Create a new socialapp through ``/admin/socialaccount/socialapp/``.
 
 Fill in the form as follows:
 
-* Provider, "FDev"
+* Provider, "Frontier"
 * Name, your pick, suggest "Frontier"
 * Client id, is called "Client ID" by Frontier
 * Secret key, is called "Shared Key" by Frontier
@@ -790,7 +790,7 @@ Optionally, you can specify the scope to use as follows:
 .. code-block:: python
 
     SOCIALACCOUNT_PROVIDERS = {
-      'frontierdev': {
+      'frontier': {
         'SCOPE': ['auth', 'capi'],
         'VERIFIED_EMAIL': True
       },

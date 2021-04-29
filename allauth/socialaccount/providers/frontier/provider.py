@@ -6,7 +6,7 @@ from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
-class FDevAccount(ProviderAccount):
+class FrontierAccount(ProviderAccount):
     def get_profile_url(self):
         return None
 
@@ -16,16 +16,16 @@ class FDevAccount(ProviderAccount):
             urlencode({'d': 'mp'}))
 
     def to_str(self):
-        dflt = super(FDevAccount, self).to_str()
+        dflt = super(FrontierAccount, self).to_str()
         full_name = "%s %s" % (self.account.extra_data.get("firstname", dflt),
                                self.account.extra_data.get("lastname", dflt))
         return full_name
 
 
-class FDevProvider(OAuth2Provider):
-    id = "frontierdev"
-    name = "FDev"
-    account_class = FDevAccount
+class FrontierProvider(OAuth2Provider):
+    id = "frontier"
+    name = "Frontier"
+    account_class = FrontierAccount
 
     def get_default_scope(self):
         scope = ['auth', 'capi']
@@ -50,4 +50,4 @@ class FDevProvider(OAuth2Provider):
         return ret
 
 
-provider_classes = [FDevProvider]
+provider_classes = [FrontierProvider]

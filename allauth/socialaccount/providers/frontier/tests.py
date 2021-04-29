@@ -1,11 +1,11 @@
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase
 
-from .provider import FDevProvider
+from .provider import FrontierProvider
 
 
-class FDevTests(OAuth2TestsMixin, TestCase):
-    provider_id = FDevProvider.id
+class FrontierTests(OAuth2TestsMixin, TestCase):
+    provider_id = FrontierProvider.id
 
     def get_mocked_response(self):
         return MockedResponse(

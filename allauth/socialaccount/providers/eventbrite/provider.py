@@ -34,7 +34,7 @@ class EventbriteProvider(OAuth2Provider):
         email = None
         for curr_email in data.get("emails", []):
             email = email or curr_email.get("email")
-            if curr_email.get("verified", False) and curr_email.get("primary", False):
+            if curr_email.get("verified", False):
                 email = curr_email.get("email")
 
         return dict(
@@ -53,7 +53,6 @@ class EventbriteProvider(OAuth2Provider):
                 EmailAddress(
                     email=email.get("email"),
                     verified=email.get("verfified"),
-                    primary=email.get("primary"),
                 )
             )
 

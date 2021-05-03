@@ -1,3 +1,13 @@
+0.45.0 (xxxx-xx-xx)
+*******************
+
+Note worthy changes
+-------------------
+- Fixed Eventbrite's ``extract_email_addresses`` and ``extract_common_fields`` methods
+  that tried to query a non-existent attribute
+
+
+
 0.44.0 (2020-11-25)
 *******************
 

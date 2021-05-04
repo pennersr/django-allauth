@@ -1,3 +1,7 @@
+- Fixed Eventbrite provider methods ``extract_common_fields()`` and
+  ``extract_email_addresses`` that tried to get a non-existent attribute `primary`
+
+
 0.44.0 (2020-11-25)
 *******************
 

@@ -69,6 +69,8 @@ Supported Providers
 
 - CERN (OAuth2)
 
+- CILogon (OAuth2)
+
 - Coinbase (OAuth2)
 
 - Dataporten (OAuth2)

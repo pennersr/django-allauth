@@ -522,22 +522,22 @@ class ResetPasswordForm(forms.Form):
     )
 
     def clean_email(self):
+
         email = self.cleaned_data["email"]
         email = get_adapter().clean_email(email)
-        self.users = filter_users_by_email(email, is_active=True)
-        unverified_email_exists = tuple(EmailAddress.objects.filter(email=email, verified=False).values_list('email', flat=True))
-        if email in unverified_email_exists and app_settings.PASSWORD_RESET_VERIFIED_ONLY is True:
-            raise forms.ValidationError("If that email address is in our database, we will send you an email to reset your password.")
+        self.users = filter_users_by_email(email)
+        unverified_email_exists = EmailAddress.objects.filter(email=email, verified=False).values_list('email', flat=True).exists()
         inactive_users = User.objects.filter(is_active="False")
+        if not inactive_users:
+            inactive_user = False
         for x in inactive_users:
-            emails = EmailAddress.objects.filter(user=x).values_list('user', flat=True)
-            for y in emails:
-                if app_settings.PASSWORD_RESET_VERIFIED_ONLY is True:
-                    raise forms.ValidationError("If that email address is in our database, we will send you an email to reset your password.")
-        if not self.users:
-            raise forms.ValidationError(
-                _("The e-mail address is not assigned" " to any user account")
-            )
+            inactive_emails = EmailAddress.objects.filter(user=x, email=email).values_list('user', flat=True).exists()
+            if inactive_emails is True:
+                inactive_user = True
+        if unverified_email_exists is True or inactive_user is True and app_settings.PASSWORD_RESET_VERIFIED_ONLY is True:
+            raise forms.ValidationError("If that email address is in our database, we will send you an email to reset your password.")
+        if not self.users: 
+            raise forms.ValidationError(("The e-mail address is not assigned to any user account"))
         return self.cleaned_data["email"]
 
     def save(self, request, **kwargs):

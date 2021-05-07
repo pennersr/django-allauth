@@ -19,6 +19,7 @@ class CILogonTests(OAuth2TestsMixin, TestCase):
             "eppn": "u1234567@example.edu",
             "firstname": "John",
             "lastname": "Doe",
-            "idp_name": "Example University"
+            "idp_name": "Example University",
+            "sub": "http://cilogon.org/serverA/users/1234567"
         }""",
         )

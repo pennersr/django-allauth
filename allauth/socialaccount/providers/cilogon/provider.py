@@ -23,7 +23,7 @@ class CILogonProvider(OAuth2Provider):
     account_class = CILogonAccount
 
     def get_default_scope(self):
-        scope = [Scope.PROFILE]
+        scope = [Scope.PROFILE, Scope.USERINFO, Scope.OPENID]
         if QUERY_EMAIL:
             scope.append(Scope.EMAIL)
         return scope
@@ -41,7 +41,8 @@ class CILogonProvider(OAuth2Provider):
         return dict(
             email=data.get("email"),
             last_name=data.get("family_name"),
-            first_name=data.get("given_name")
+            first_name=data.get("given_name"),
+            eppn=data.get("eppn")
         )
 
     def extract_email_addresses(self, data):

@@ -339,6 +339,9 @@ class AppSettings(object):
                 ret = []
         return ret
 
+    @property
+    def EMAIL_RESEND_VERIFICATION_UNVERIFIED(self):
+        return self._setting("EMAIL_RESEND_VERIFICATION_UNVERIFIED", True)
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

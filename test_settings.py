@@ -90,6 +90,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.fivehundredpx",
     "allauth.socialaccount.providers.flickr",
     "allauth.socialaccount.providers.foursquare",
+    "allauth.socialaccount.providers.frontier",
     "allauth.socialaccount.providers.fxa",
     "allauth.socialaccount.providers.github",
     "allauth.socialaccount.providers.gitlab",

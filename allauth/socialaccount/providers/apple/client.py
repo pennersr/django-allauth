@@ -55,7 +55,7 @@ class AppleOAuth2Client(OAuth2Client):
         return client_secret
 
     def get_client_id(self):
-        """ We support multiple client_ids, but use the first one for api calls """
+        """We support multiple client_ids, but use the first one for api calls"""
         return self.consumer_key.split(",")[0]
 
     def get_access_token(self, code):

@@ -212,7 +212,7 @@ class AppleTests(OAuth2TestsMixin, TestCase):
         return resp
 
     def test_authentication_error(self):
-        """ Override base test because apple posts errors """
+        """Override base test because apple posts errors"""
         resp = self.client.post(
             reverse(self.provider.id + "_callback"),
             data={"error": "misc", "state": "testingstate123"},

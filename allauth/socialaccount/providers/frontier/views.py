@@ -5,6 +5,7 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2CallbackView,
     OAuth2LoginView,
 )
+
 from .provider import FrontierProvider
 
 

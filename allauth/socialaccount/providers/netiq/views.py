@@ -20,11 +20,11 @@ class NetIQOAuth2Adapter(OAuth2Adapter):
     @property
     def access_token_url(self):
         return "{}/nidp/oauth/nam/token".format(self.provider_base_url)
-    
+
     @property
     def authorize_url(self):
         return "{}/nidp/oauth/nam/authz".format(self.provider_base_url)
-    
+
     @property
     def userinfo_url(self):
         return "{}/nidp/oauth/nam/userinfo".format(self.provider_base_url)
@@ -51,5 +51,5 @@ class NetIQOAuth2Adapter(OAuth2Adapter):
         return login
 
 
-oauth2_login = OAuth2LoginView.adapter_view(NetIQOAuth2Adapter)                  
+oauth2_login = OAuth2LoginView.adapter_view(NetIQOAuth2Adapter)
 oauth2_callback = OAuth2CallbackView.adapter_view(NetIQOAuth2Adapter)

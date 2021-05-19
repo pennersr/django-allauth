@@ -14,13 +14,12 @@ class NetIQTests(OAuth2TestsMixin, TestCase):
             {
                 "sub": "d4c094dd899ab0408fb9d4c094dd899a",
                 "acr": "secure/name/password/uri",
-                "prefered_name": "Mocktest",
+                "preferred_username": "Mocktest",
                 "email": "mocktest@your.netiq.server.example.com",
                 "nickname": "Mocktest",
                 "family_name": "test",
                 "given_name": "Mock",
-                "preferred_name": "Mocktest",
-                "website": "https://www.exanple.com",
+                "website": "https://www.exanple.com"
             }
         """,
         )

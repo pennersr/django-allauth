@@ -1,11 +1,13 @@
-# -*- coding: utf-8 -*-                                                   
+# -*- coding: utf-8 -*-
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+
 
 class NetIQAccount(ProviderAccount):
     def to_str(self):
         dflt = super(NetIQAccount, self).to_str()
         return self.account.extra_data.get("name", dflt)
+
 
 class NetIQProvider(OAuth2Provider):
     id = "netiq"

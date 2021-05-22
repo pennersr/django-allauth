@@ -106,6 +106,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.linkedin_oauth2',
         'allauth.socialaccount.providers.mailchimp',
         'allauth.socialaccount.providers.mailru',
+        'allauth.socialaccount.providers.mediawiki',
         'allauth.socialaccount.providers.meetup',
         'allauth.socialaccount.providers.microsoft',
         'allauth.socialaccount.providers.naver',

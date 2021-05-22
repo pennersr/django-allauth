@@ -147,6 +147,8 @@ Supported Providers
 
 - MailChimp (OAuth2)
 
+- MediaWiki (OAuth2)
+
 - Meetup (OAuth2)
 
 - Microsoft (Graph) (OAuth2)

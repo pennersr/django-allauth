@@ -8,7 +8,9 @@ class DoximityTests(OAuth2TestsMixin, TestCase):
     provider_id = DoximityProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
         {
             "id": 41993552342,
             "npi": 1952635229,
@@ -23,7 +25,7 @@ class DoximityTests(OAuth2TestsMixin, TestCase):
             "zip": "94107",
             "phone": "(650) 200-3901",
             "fax": "888-416-8572",
-            "email": "abelalmd@mail.com",
+            "email": "abelalmd@example.com",
             "address_1": "500 3rd St.",
             "address_2": "Suite 510",
             "lat": 42.3663926,
@@ -59,4 +61,5 @@ class DoximityTests(OAuth2TestsMixin, TestCase):
 /profile_photos/7969/normal/profile.png",
             "colleague_count": 142
         }
-""")
+""",
+        )

@@ -8,19 +8,22 @@ class DigitalOceanTests(OAuth2TestsMixin, TestCase):
     provider_id = DigitalOceanProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
         {
           "account": {
             "droplet_limit": 25,
             "floating_ip_limit": 5,
-            "email": "sammy@digitalocean.com",
+            "email": "sammy@example.com",
             "uuid": "b6fr89dbf6d9156cace5f3c78dc9851d957381ef",
             "email_verified": true,
             "status": "active",
             "status_message": ""
           }
         }
-        """)
+        """,
+        )
 
     def get_login_response_json(self, with_refresh_token=True):
         return """
@@ -32,7 +35,7 @@ class DigitalOceanTests(OAuth2TestsMixin, TestCase):
           "scope": "read write",
           "info": {
             "name": "Sammy the Shark",
-            "email":"sammy@digitalocean.com",
+            "email":"sammy@example.com",
             "uuid":"b6fr89dbf6d9156cace5f3c78dc9851d957381ef"
           }
         }"""

@@ -2,16 +2,13 @@
 Welcome to django-allauth!
 ==========================
 
-.. image:: https://badge.fury.io/py/django-allauth.png
-   :target: http://badge.fury.io/py/django-allauth
-
-.. image:: https://travis-ci.org/pennersr/django-allauth.png
+.. image:: https://travis-ci.org/pennersr/django-allauth.svg
    :target: http://travis-ci.org/pennersr/django-allauth
 
 .. image:: https://img.shields.io/pypi/v/django-allauth.svg
    :target: https://pypi.python.org/pypi/django-allauth
 
-.. image:: https://coveralls.io/repos/pennersr/django-allauth/badge.png?branch=master
+.. image:: https://coveralls.io/repos/pennersr/django-allauth/badge.svg?branch=master
    :alt: Coverage Status
    :target: https://coveralls.io/r/pennersr/django-allauth
 
@@ -24,6 +21,9 @@ Welcome to django-allauth!
 .. image:: https://img.shields.io/badge/code_style-standard-brightgreen.svg
    :target: http://standardjs.com
 
+.. image:: https://pennersr.github.io/img/emacs-badge.svg
+   :target: https://www.gnu.org/software/emacs/
+
 Integrated set of Django applications addressing authentication,
 registration, account management as well as 3rd party (social) account
 authentication.
@@ -34,7 +34,7 @@ Home page
 Source code
   http://github.com/pennersr/django-allauth
 
-Mailinglist
+Mailing list
   http://groups.google.com/group/django-allauth
 
 Documentation

@@ -8,7 +8,9 @@ class NaverTests(OAuth2TestsMixin, TestCase):
     provider_id = NaverProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
 {
 "response":
 {
@@ -20,10 +22,11 @@ class NaverTests(OAuth2TestsMixin, TestCase):
 "id": "7163491",
 "age": "20-29",
 "birthday": "03-22",
-"email": "shlee940322@naver.com",
+"email": "shlee940322@example.com",
 "name": "\uc774\uc0c1\ud601"
 },
 "message": "success",
 "resultcode": "00"
 }
-""")
+""",
+        )

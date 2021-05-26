@@ -17,6 +17,9 @@ This information is nice and all, but... I need more!
 
 Here are a few third party resources to help you get started:
 
+- https://dev.to/gajesh/the-complete-django-allauth-guide-la3
+- https://learndjango.com/tutorials/django-allauth-tutorial
+- https://www.youtube.com/watch?v=2QLAc7RJ99s
 - https://speakerdeck.com/tedtieken/signing-up-and-signing-in-users-in-django-with-django-allauth
 - https://stackoverflow.com/questions/tagged/django-allauth
 - http://www.sarahhagstrom.com/2013/09/the-missing-django-allauth-tutorial/
@@ -59,7 +62,7 @@ machine you are developing on. Therefore, ``allauth`` is unable to send
 verification mails.
 
 You can work around this by adding the following line to
-``settings.py``:
+``settings.py``::
 
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -88,3 +91,12 @@ types of issues:
   one piece of the puzzle and for example a stack trace indicates another
   module crashing, please try to come up stripped version of the issue where it
   is clear that ``allauth`` is the one that is misbehaving.
+
+- **Social login trouble:** There are many reasons why the social login for a
+  provider is not working for you. Common causes are errors in setting up the
+  credential for the OAuth app and/or having setup invalid callback URLs. Filing
+  issues stating that things are not working for you is not very helpful. It is
+  simply not feasible to debug your specific setup. If you really do think that
+  there is an issue in ``allauth``, please do the initial debugging and analysis
+  yourself, and, provide detailed information in the issue. If the issue does
+  not point to any concrete issue in ``allauth``, it is likely to get closed.

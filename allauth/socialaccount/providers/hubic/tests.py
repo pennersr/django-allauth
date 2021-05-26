@@ -8,9 +8,11 @@ class HubicTests(OAuth2TestsMixin, TestCase):
     provider_id = HubicProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
 {
-    "email": "asdf@asdf.com",
+    "email": "user@example.com",
     "firstname": "Test",
     "activated": true,
     "creationDate": "2014-04-17T17:04:01+02:00",
@@ -19,7 +21,8 @@ class HubicTests(OAuth2TestsMixin, TestCase):
     "offer": "25g",
     "lastname": "User"
 }
-""")
+""",
+        )
 
     def get_login_response_json(self, with_refresh_token=True):
         return '{\

@@ -1,9 +1,0 @@
-django>=1.6
-mock>=1.0.1
-# There is no OpenID lib that support both Python 2 and 3 from a single-source base.
-# So we have to choose between:
-# python-openid>=2.2.5
-# python3-openid>=3.0.1
-python-openid>=2.2.5
-requests>=2.0.0
-requests-oauthlib>=0.3.0

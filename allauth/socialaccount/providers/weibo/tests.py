@@ -8,7 +8,9 @@ class WeiboTests(OAuth2TestsMixin, TestCase):
     provider_id = WeiboProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
 {"bi_followers_count": 0,
  "domain": "", "avatar_large": "http://tp3.sinaimg.cn/3195025850/180/0/0",
  "block_word": 0, "star": 0, "id": 3195025850, "city": "1", "verified": false,
@@ -24,4 +26,5 @@ class WeiboTests(OAuth2TestsMixin, TestCase):
  "created_at": "Tue Feb 19 19:43:39 +0800 2013", "verified_type": -1,
  "following": false}
 
-""")
+""",
+        )

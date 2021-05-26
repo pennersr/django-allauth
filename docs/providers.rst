@@ -44,6 +44,30 @@ Development callback URL
     http://localhost:8000/accounts/500px/login/callback/
 
 
+AgaveAPI
+--------
+
+Account Signup
+    https://public.agaveapi.co/create_account
+
+App registration
+    Run ``client-create`` from the cli: https://bitbucket.org/agaveapi/cli/overview
+
+Development callback URL
+    http://localhost:8000/accounts/agave/login/callback/
+    *May require https url, even for localhost*
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'agave': {
+            'API_URL': 'https://api.tacc.utexas.edu',
+        }
+    }
+
+In the absense of a specified API_URL, the default Agave tenant is
+    https://public.agaveapi.co/
+
 Amazon
 ------
 
@@ -57,6 +81,37 @@ Development callback URL
     https://example.com/accounts/amazon/login/callback/
 
 
+Amazon Cognito
+--------------
+
+App registration (get your key and secret here)
+  1. Go to your https://console.aws.amazon.com/cognito/ and create a Cognito User Pool if you haven't already.
+  2. Go to General Settings > App Clients section and create a new App Client if you haven't already. Please make sure you select the option to generate a secret key.
+  3. Go to App Integration > App Client Settings section and:
+
+    1. Enable Cognito User Pool as an identity provider.
+    2. Set the callback and sign-out URLs. (see next section for development callback URL)
+    3. Enable Authorization Code Grant OAuth flow.
+    4. Select the OAuth scopes you'd like to allow.
+
+  4. Go to App Integration > Domain Name section and create a domain prefix for your Cognito User Pool.
+
+Development callback URL:
+  http://localhost:8000/accounts/amazon-cognito/login/callback/
+
+In addition, you'll need to specify your user pool's domain like so:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'amazon_cognito': {
+            'DOMAIN': 'https://<domain-prefix>.auth.us-east-1.amazoncognito.com',
+        }
+    }
+
+Your domain prefix is the value you specified in step 4 of the app registration process.
+If you provided a custom domain such as accounts.example.com provide that instead.
+
 AngelList
 ---------
 
@@ -66,6 +121,55 @@ App registration (get your key and secret here)
 Development callback URL
     http://localhost:8000/accounts/angellist/login/callback/
 
+
+Apple
+-----
+
+App registration (create an App ID and then a related Service ID here)
+    https://developer.apple.com/account/resources/certificates/list
+
+Private Key registration (be sure to save it)
+    https://developer.apple.com/account/resources/authkeys/list
+
+Development callback URL
+    http://domain.com/accounts/apple/login/callback/
+
+Add the following configuration to your settings:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        "apple": {
+            "APP": {
+                # Your service identifier.
+                "client_id": "your.service.id",
+
+                # The Key ID (visible in the "View Key Details" page).
+                "secret": "KEYID",
+
+                 # Member ID/App ID Prefix -- you can find it below your name
+                 # at the top right corner of the page, or it’s your App ID
+                 # Prefix in your App ID.
+                "key": "MEMAPPIDPREFIX",
+
+                # The certificate you downloaded when generating the key.
+                "certificate_key": """-----BEGIN PRIVATE KEY-----
+    s3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr
+    3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3
+    c3ts3cr3t
+    -----END PRIVATE KEY-----
+    """
+            }
+        }
+    }
+
+Note: Sign In With Apple uses a slight variation of OAuth2, which uses a POST
+instead of a GET. Unlike a GET with SameSite=Lax, the session cookie will not
+get sent along with a POST. If you encounter 'PermissionDenied' errors during
+Apple log in, check that you don't have any 3rd party middleweare that is
+generating a new session on this cross-origin POST, as this will prevent the
+login process from being able to access the original session after the POST
+completes.
 
 Auth0
 -----
@@ -86,6 +190,32 @@ You'll need to specify the base URL for your Auth0 domain:
             'AUTH0_URL': 'https://your.auth0domain.auth0.com',
         }
     }
+
+
+Authentiq
+---------
+
+Browse to https://www.authentiq.com/developers to get started.
+
+App registration
+    https://dashboard.authentiq.com/
+
+Sign in or register with your Authentiq ID (select ``Download the app`` while signing in if you don't have Authentiq ID yet).
+
+Development redirect URL
+    http://localhost:8000/accounts/authentiq/login/callback/
+
+While testing you can leave the ``Redirect URIs`` field empty in the dashboard. You can specify what identity details to request via the ``SCOPE`` parameter.
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'authentiq': {
+          'SCOPE': ['email', 'aq:name']
+        }
+    }
+
+Valid scopes include: ``email``, ``phone``, ``address``, ``aq:name``, ``aq:location``. The default is to request a user's name, and email address if ``SOCIALACCOUNT_QUERY_EMAIL=True``. You can request and require a verified email address by setting ``SOCIALACCOUNT_EMAIL_VERIFICATION=True`` and ``SOCIALACCOUNT_EMAIL_REQUIRED=True``.
 
 Baidu
 -----
@@ -112,10 +242,10 @@ Battle.net
 ----------
 
 The Battle.net OAuth2 authentication documentation
-    https://dev.battle.net/docs/read/oauth
+    https://develop.battle.net/documentation/guides/using-oauth
 
-Register your app here (Mashery account required)
-    https://dev.battle.net/apps/register
+Register your app here (Blizzard account required)
+    https://develop.battle.net/access/clients/create
 
 Development callback URL
     https://localhost:8000/accounts/battlenet/login/callback/
@@ -126,6 +256,27 @@ which will accept the ``#`` character using the ``ACCOUNT_USERNAME_VALIDATORS``
 setting. Such a validator is available in
 ``socialaccount.providers.battlenet.validators.BattletagUsernameValidator``.
 
+The following Battle.net settings are available:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'battlenet': {
+            'SCOPE': ['wow.profile', 'sc2.profile'],
+            'REGION': 'us',
+        }
+    }
+
+SCOPE:
+    Scope can be an array of the following options: ``wow.profile`` allows
+    access to the user's World of Warcraft characters. ``sc2.profile`` allows
+    access to the user's StarCraft 2 profile. The default setting is ``[]``.
+
+REGION:
+    Either ``apac``, ``cn``, ``eu``, ``kr``, ``sea``, ``tw`` or ``us``
+
+    Sets the default region to use, can be overriden using query parameters
+    in the URL, for example: ``?region=eu``. Defaults to ``us``.
 
 Bitbucket
 ---------
@@ -150,6 +301,24 @@ App registration (get your key and secret here)
 
 Development callback URL
     http://localhost:8000/accounts/box/login/callback/
+
+
+CERN
+----
+App registration (get your key and secret here)
+    https://sso-management.web.cern.ch/OAuth/RegisterOAuthClient.aspx
+
+CERN OAuth2 Documentation
+    https://espace.cern.ch/authentication/CERN%20Authentication/OAuth.aspx
+
+
+Dataporten
+----------
+App registration (get your key and secret here)
+    https://docs.dataporten.no/docs/gettingstarted/
+
+Development callback URL
+    http://localhost:8000/accounts/dataporten/login/callback
 
 
 daum
@@ -201,7 +370,7 @@ Development callback (redirect) URL
 Doximity
 --------
 
-Doximity Oauth2 implementation documentation
+Doximity OAuth2 implementation documentation
     https://www.doximity.com/developers/documentation#oauth
 
 Request API keys here
@@ -231,11 +400,7 @@ App registration (get your key and secret here)
     https://www.dropbox.com/developers/apps/
 
 Development callback URL
-    http://localhost:8000/accounts/dropbox_oauth2/login/callback/
-
-Note that Dropbox has deprecated version 1 of their API as of 28 June 2016.
-This also affects apps. All new apps you create will automatically use OAuth
-2.0, and you have to use the ``dropbox_oauth2`` provider with ``allauth``.
+    http://localhost:8000/accounts/dropbox/login/callback/
 
 Dwolla
 ------------
@@ -287,6 +452,23 @@ value is set, the Edmodo provider will use ``basic`` by default:
     }
 
 
+Edx
+------
+
+Open Edx OAuth2 documentation
+    https://course-catalog-api-guide.readthedocs.io/en/latest/authentication/
+
+It is necessary to set ``EDX_URL`` to your open edx installation. If no ``EDX_URL``
+value is set, the Edx provider will use ``https://edx.org`` which does not work:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+      'edx': {
+          'EDX_URL': "https://openedx.local",
+      }
+    }
+
 Eve Online
 ----------
 
@@ -330,6 +512,41 @@ Register your OAuth2 application at ``https://dev.evernote.com/doc/articles/auth
     }
 
 
+Exist
+-----
+
+Register your OAuth2 app in apps page:
+
+    https://exist.io/account/apps/
+
+During development set the callback url to:
+
+    http://localhost:8000/accounts/exist/login/callback/
+
+In production replace localhost with whatever domain you're hosting your app on.
+
+If your app is writing to certain attributes you need to specify this during the
+creation of the app.
+
+The following Exist settings are available:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'exist': {
+            'SCOPE': ['read+write'],
+        }
+    }
+
+SCOPE:
+    The default scope is ``read``. If you'd like to change this set the scope to
+    ``read+write``.
+
+For more information:
+OAuth documentation: http://developer.exist.io/#oauth2-authentication
+API documentation: http://developer.exist.io/
+
+
 Facebook
 --------
 
@@ -364,35 +581,42 @@ The following Facebook settings are available:
     SOCIALACCOUNT_PROVIDERS = {
         'facebook': {
             'METHOD': 'oauth2',
-            'SCOPE': ['email', 'public_profile', 'user_friends'],
+            'SDK_URL': '//connect.facebook.net/{locale}/sdk.js',
+            'SCOPE': ['email', 'public_profile'],
             'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+            'INIT_PARAMS': {'cookie': True},
             'FIELDS': [
                 'id',
-                'email',
-                'name',
                 'first_name',
                 'last_name',
-                'verified',
-                'locale',
-                'timezone',
-                'link',
-                'gender',
-                'updated_time',
+                'middle_name',
+                'name',
+                'name_format',
+                'picture',
+                'short_name'
             ],
             'EXCHANGE_TOKEN': True,
             'LOCALE_FUNC': 'path.to.callable',
             'VERIFIED_EMAIL': False,
-            'VERSION': 'v2.4',
+            'VERSION': 'v7.0',
         }
     }
 
 METHOD:
     Either ``js_sdk`` or ``oauth2``. The default is ``oauth2``.
 
+SDK_URL:
+    If needed, use ``SDK_URL`` to override the default Facebook JavaScript SDK
+    URL, ``//connect.facebook.net/{locale}/sdk.js``. This may be necessary, for
+    example, when using the `Customer Chat Plugin <https://developers.facebook.com/docs/messenger-platform/discovery/customer-chat-plugin/sdk#install>`_.
+    If the ``SDK_URL`` contains a ``{locale}`` format string named argument,
+    the locale given by the ``LOCALE_FUNC`` will be used to generate the
+    ``SDK_URL``.
+
 SCOPE:
     By default, the ``email`` scope is required depending on whether or not
     ``SOCIALACCOUNT_QUERY_EMAIL`` is enabled.
-    Apps using permissions beyond ``email``, ``public_profile`` and ``user_friends``
+    Apps using permissions beyond ``email`` and ``public_profile``
     require review by Facebook.
     See `Permissions with Facebook Login <https://developers.facebook.com/docs/facebook-login/permissions>`_
     for more information.
@@ -442,7 +666,7 @@ VERIFIED_EMAIL:
     risk.
 
 VERSION:
-    The Facebook Graph API version to use. The default is ``v2.4``.
+    The Facebook Graph API version to use. The default is ``v7.0``.
 
 App registration (get your key and secret here)
     A key and secret key can be obtained by
@@ -455,6 +679,16 @@ Development callback URL
     Leave your App Domains empty and put ``http://localhost:8000`` in the
     section labeled ``Website with Facebook Login``. Note that you'll need to
     add your site's actual domain to this section once it goes live.
+
+
+Figma
+------------------
+
+App registration (get your key and secret here)
+    https://www.figma.com/developers/apps
+
+Development callback URL
+    http://localhost:8000/accounts/figma/login/callback/
 
 
 Firefox Accounts
@@ -518,6 +752,51 @@ More info:
     https://www.flickr.com/services/api/auth.oauth.html#authorization
 
 
+Frontier
+--------
+
+The Frontier provider is OAuth2 based.
+
+Client registration
+*******************
+Frontier Developments switched to OAuth2 based authentication in early 2019.
+Before a developer can use the authentication and CAPI (Companion API) service
+from Frontier, they must first apply for access.
+
+Go to https://user.frontierstore.net/ and apply for access. Once your application
+is approved for access. Under "Developer Zone", you will see a list of authorized
+clients granted access. To add access for your client, click on the "Create Client"
+button and fill out the form and submit the form.
+
+After creating the client access, click on "View" to reveal your Client ID and
+Shared Key. You can also regenerate the key in an event tha your shared key is
+compromised.
+
+Configuring Django
+******************
+The app credentials are configured for your Django installation via the admin
+interface. Create a new socialapp through ``/admin/socialaccount/socialapp/``.
+
+Fill in the form as follows:
+
+* Provider, "Frontier"
+* Name, your pick, suggest "Frontier"
+* Client id, is called "Client ID" by Frontier
+* Secret key, is called "Shared Key" by Frontier
+* Key, is not needed, leave blank.
+
+Optionally, you can specify the scope to use as follows:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+      'frontier': {
+        'SCOPE': ['auth', 'capi'],
+        'VERIFIED_EMAIL': True
+      },
+    }
+
+
 GitHub
 ------
 
@@ -566,11 +845,15 @@ authentication provider as described in GitLab docs at
 http://doc.gitlab.com/ce/integration/oauth_provider.html
 
 The following GitLab settings are available, if unset https://gitlab.com will
-be used.
+be used, with a ``read_user`` scope.
 
 GITLAB_URL:
     Override endpoint to request an authorization and access token. For your
     private GitLab server you use: ``https://your.gitlab.server.tld``
+
+SCOPE:
+    The ``read_user`` scope is required for the login procedure, and is the default.
+    If more access is required, the scope should be set here.
 
 Example:
 
@@ -579,8 +862,36 @@ Example:
     SOCIALACCOUNT_PROVIDERS = {
         'gitlab': {
             'GITLAB_URL': 'https://your.gitlab.server.tld',
+            'SCOPE': ['api'],
+        },
+    }
+
+
+Globus
+------
+
+Registering an application:
+    https://developers.globus.org/
+
+By default, you will have access to the openid, profile, and offline_access
+scopes.  With the offline_access scope, the API will provide you with a
+refresh token.  For additional scopes, see the Globus API docs:
+
+ https://docs.globus.org/api/auth/reference/
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'globus': {
+            'SCOPE': [
+                'openid',
+                'profile',
+                'email',
+                'urn:globus:auth:scope:transfer.api.globus.org:all'
+            ]
         }
     }
+
 
 
 Google
@@ -589,7 +900,7 @@ Google
 The Google provider is OAuth2 based.
 
 More info:
-    http://code.google.com/apis/accounts/docs/OAuth2.html#Registering
+    https://developers.google.com/identity/protocols/OAuth2
 
 
 App registration
@@ -644,8 +955,15 @@ Optionally, you can specify the scope to use as follows:
         }
     }
 
-By default, ``profile`` scope is required, and optionally ``email`` scope
-depending on whether or not ``SOCIALACCOUNT_QUERY_EMAIL`` is enabled.
+By default (if you do not specify ``SCOPE``), ``profile`` scope is
+requested, and optionally ``email`` scope depending on whether or not
+``SOCIALACCOUNT_QUERY_EMAIL`` is enabled.
+
+You must set ``AUTH_PARAMS['access_type']`` to ``offline`` in order to
+receive a refresh token on first login and on reauthentication requests
+(which is needed to refresh authentication tokens in the background,
+without involving the user's browser). When unspecified, Google defaults
+to ``online``.
 
 
 Instagram
@@ -658,6 +976,25 @@ Development callback URL
     http://localhost:8000/accounts/instagram/login/callback/
 
 
+JupyterHub
+----------
+
+Documentation on configuring a key and secret key
+    https://jupyterhub.readthedocs.io/en/stable/api/services.auth.html
+
+Development callback URL
+    http://localhost:800/accounts/jupyterhub/login/callback/
+
+Specify the URL of your JupyterHub server as follows:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'jupyterhub': {
+            'API_URL': 'https://jupyterhub.example.com',
+        }
+    }
+
 Kakao
 -----
 
@@ -667,6 +1004,34 @@ App registration (get your key here)
 Development callback URL
     http://localhost:8000/accounts/kakao/login/callback/
 
+Keycloak
+--------
+
+Creating and Registering the Client
+    https://www.keycloak.org/docs/latest/getting_started/index.html#creating-and-registering-the-client
+
+Development callback URL
+    http://localhost:8000/accounts/keycloak/login/callback/
+
+The following Keycloak settings are available.
+
+KEYCLOAK_URL:
+    The url of your hosted keycloak server, it must end with ``/auth``. For
+    example, you can use: ``https://your.keycloak.server/auth``
+
+KEYCLOAK_REAML:
+    The name of the ``realm`` you want to use.
+
+Example:
+
+.. code-block:: python
+
+  SOCIALACCOUNT_PROVIDERS = {
+      'keycloak': {
+          'KEYCLOAK_URL': 'https://keycloak.custom/auth',
+          'KEYCLOAK_REALM': 'master'
+      }
+  }
 
 Line
 ----
@@ -692,7 +1057,8 @@ You can specify the scope and fields to fetch as follows:
     SOCIALACCOUNT_PROVIDERS = {
         'linkedin': {
             'SCOPE': [
-                'r_emailaddress',
+                'r_basicprofile',
+                'r_emailaddress'
             ],
             'PROFILE_FIELDS': [
                 'id',
@@ -720,12 +1086,36 @@ fetching the access token::
 
     missing required parameters, includes an invalid parameter value, parameter more then once. : Unable to retrieve access token : authorization code not found
 
+If you are using tokens originating from the mobile SDK, you will need to specify
+additional headers:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'linkedin': {
+            'HEADERS': {
+                'x-li-src': 'msdk'
+            }
+        }
+    }
+
 App registration (get your key and secret here)
     https://www.linkedin.com/secure/developer?newapp=
 
-Development callback URL
-    Leave the OAuth redirect URL empty.
+Authorized Redirect URLs (OAuth2)
+*********************************
+Add any you need (up to 200) consisting of:
 
+    {``ACCOUNT_DEFAULT_HTTP_PROTOCOL``}://{hostname}{:optional_port}/{allauth_base_url}/linkedin_oauth2/login/callback/
+
+For example when using the built-in django server and default settings:
+
+    http://localhost:8000/accounts/linkedin_oauth2/login/callback/
+
+
+Development "Accept" and "Cancel" redirect URL (OAuth 1.0a)
+***********************************************************
+    Leave the OAuth1 redirect URLs empty.
 
 MailChimp (OAuth2)
 ------------------
@@ -787,6 +1177,27 @@ browsers may require enabling this on localhost and not support by default and
 ask for permission.
 
 
+Microsoft Graph
+-----------------
+
+Microsoft Graph API is the gateway to connect to mail, calendar, contacts,
+documents, directory, devices and more.
+
+Apps can be registered (for consumer key and secret) here
+    https://apps.dev.microsoft.com/
+
+By default, `common` (`organizations` and `consumers`) tenancy is configured
+for the login. To restrict it, change the `tenant` setting as shown below.
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'microsoft': {
+            'tenant': 'organizations',
+        }
+    }
+
+
 Naver
 -----
 
@@ -796,6 +1207,40 @@ App registration (get your key and secret here)
 Development callback URL
     http://localhost:8000/accounts/naver/login/callback/
 
+NetIQ/Microfocus AccessManager (NAM)
+-----------------------------------
+
+The following AccessManager settings are available:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'netiq': {
+            'NETIQ_URL': 'https://my.identity.provider.example.org',
+        }
+    }
+	
+	
+App registration (get your key and secret here) is done by the administrator of your NetIQ/Microfocus AccessManager.
+
+
+NextCloud
+---------
+
+The following NextCloud settings are available:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'nextcloud': {
+            'SERVER': 'https://nextcloud.example.org',
+        }
+    }
+
+
+App registration (get your key and secret here)
+
+    https://nextcloud.example.org/settings/admin/security
 
 Odnoklassniki
 -------------
@@ -806,6 +1251,20 @@ App registration (get your key and secret here)
 Development callback URL
     http://example.com/accounts/odnoklassniki/login/callback/
 
+
+Okta
+-----
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'okta': {
+            'OKTA_BASE_URL': 'example.okta.com',
+        }
+    }
+
+Okta OIDC
+    https://developer.okta.com/docs/reference/api/oidc/
 
 OpenID
 ------
@@ -858,6 +1317,29 @@ following template tag:
     {% load socialaccount %}
     <a href="{% provider_login_url "openid" openid="https://www.google.com/accounts/o8/id" next="/success/url/" %}">Google</a>
 
+The OpenID provider can be forced to operate in stateless mode as follows::
+
+    SOCIALACCOUNT_PROVIDERS = \
+        { 'openid':
+            { 'SERVERS':
+                [ dict(id='steam',
+                    name='Steam',
+                    openid_url='https://steamcommunity.com/openid',
+                    stateless=True,
+                )]}}
+
+OpenStreetMap
+-------------
+
+Register your client application under `My Settings`/`oauth settings`:
+
+    https://www.openstreetmap.org/user/{Display Name}/oauth_clients
+
+In this page you will get your key and secret
+
+For more information:
+OpenStreetMap OAuth documentation: https://wiki.openstreetmap.org/wiki/OAuth
+
 
 ORCID
 -----
@@ -876,6 +1358,36 @@ to define the API you are using in your site's settings, as follows:
             'MEMBER_API': True,  # for the member API
         }
     }
+
+
+Patreon
+-------
+
+The following Patreon settings are available:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'patreon': {
+            'VERSION': 'v1',
+            'SCOPE': ['pledges-to-me', 'users', 'my-campaign'],
+        }
+    }
+
+VERSION:
+    API version. Either ``v1`` or ``v2``. Defaults to ``v1``.
+
+SCOPE:
+    Defaults to the scope above if using API v1. If using v2, the scope defaults to ``['identity', 'identity[email]', 'campaigns', 'campaigns.members']``.
+
+API documentation:
+    https://www.patreon.com/platform/documentation/clients
+
+App registration (get your key and secret for the API here):
+    https://www.patreon.com/portal/registration/register-clients
+
+Development callback URL
+    http://127.0.0.1:8000/accounts/patreon/login/callback/
 
 
 Paypal
@@ -910,7 +1422,7 @@ Development callback URL
 Persona
 -------
 
-Note: Mozilla Persona will be shut down on November 30th 2016. See
+Note: Mozilla Persona was shut down on November 30th 2016. See
 `the announcement <https://wiki.mozilla.org/Identity/Persona_Shutdown_Guidelines_for_Reliers>`_
 for details.
 
@@ -968,6 +1480,32 @@ SCOPE:
     For a full list of scope options, see
     https://developers.pinterest.com/docs/api/overview/#scopes
 
+QuickBooks
+----------
+
+App registration (get your key and secret here)
+    https://developers.intuit.com/v2/ui#/app/startcreate
+
+Development callback URL
+    http://localhost:8000/accounts/quickbooks/login/callback/
+
+You can specify sandbox mode by adding the following to the SOCIALACCOUNT_PROVIDERS in your settings.
+
+You can also add space-delimited scope to utilize the QuickBooks Payments and Payroll API
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'quickbooks': {
+            'SANDBOX': TRUE,
+            'SCOPE': [
+              'openid',
+              'com.intuit.quickbooks.accounting com.intuit.quickbooks.payment',
+              'profile',
+              'phone',
+            ]
+        }
+    }
 
 Reddit
 ------
@@ -999,6 +1537,66 @@ you will risk additional rate limiting in your application.
         }
     }
 
+
+
+
+
+
+Salesforce
+----------
+
+The Salesforce provider requires you to set the login VIP as the provider
+model's 'key' (in addition to client id and secret). Production environments
+use https://login.salesforce.com/. Sandboxes use https://test.salesforce.com/.
+
+HTTPS is required for the callback.
+
+Development callback URL
+    https://localhost:8000/accounts/salesforce/login/callback/
+
+Salesforce OAuth2 documentation
+    https://developer.salesforce.com/page/Digging_Deeper_into_OAuth_2.0_on_Force.com
+
+To Use:
+
+- Include allauth.socialaccount.providers.salesforce in INSTALLED_APPS
+- In a new Salesforce Developer Org, create a Connected App
+  with OAuth (minimum scope id, openid), and a callback URL
+- Create a Social application in Django admin, with client id,
+  client key, and login_url (in "key" field)
+
+ShareFile
+---------
+
+The following ShareFile settings are available.
+  https://api.sharefile.com/rest/
+
+SUBDOMAIN:
+ Subdomain of your organization with ShareFile.  This is required.
+
+ Example:
+      ``test`` for ``https://test.sharefile.com``
+
+APICP:
+ Defaults to ``secure``.  Refer to the ShareFile documentation if you
+ need to change this value.
+
+DEFAULT_URL:
+ Defaults to ``https://secure.sharefile.com``  Refer to the ShareFile
+ documentation if you need to change this value.
+
+
+Example:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+    'sharefile': {
+        'SUBDOMAIN': 'TEST',
+        'APICP': 'sharefile.com',
+        'DEFAULT_URL': 'https://secure.sharefile.com',
+                 }
+    }
 
 Shopify
 -------
@@ -1036,6 +1634,16 @@ If your Shopify app is embedded you will want to tell allauth to do the required
 Note that there is more an embedded app creator must do in order to have a page work as an iFrame within
 Shopify (building the x_frame_exempt landing page, handing session expiration, etc...).
 However that functionality is outside the scope of django-allauth.
+
+**Online/per-user access mode**
+Shopify has two access modes, offline (the default) and online/per-user. Enabling 'online' access will
+cause all-auth to tie the logged in Shopify user to the all-auth account (rather than the shop as a whole).::
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'shopify': {
+            'AUTH_PARAMS': {'grant_options[]': 'per-user'},
+        }
+    }
 
 
 Slack
@@ -1084,22 +1692,109 @@ Server Fault). This can be controlled by means of the ``SITE`` setting:
     }
 
 
+Steam
+-----
+
+Steam is an OpenID-compliant provider. However, the `steam` provider allows
+access to more of the user's details such as username, full name, avatar, etc.
+
+You need to register an API key here:
+    https://steamcommunity.com/dev/apikey
+
+Copy the Key supplied by the website above into BOTH Client ID and Secret
+Key fields of the Social Application.
+
+
+Stocktwits
+----------
+
+App Registration
+  https://api.stocktwits.com/developers/apps/new
+
+- Site Domain, Must be an external url (127.0.0.1 and localhost do not work).
+- Consumer key is your ``client id``
+- Consumer secret is your ``secret key``
+
+Strava
+------
+
+Register your OAuth2 app in api settings page:
+
+    https://strava.com/settings/api
+
+In this page you will get your key and secret
+
+Development callback URL (only the domain is required on strava.com/settings/api)
+
+    http://example.com/accounts/strava/login/callback/
+
+For more information:
+Strava auth documentation: https://developers.strava.com/docs/authentication/
+API documentation: https://developers.strava.com/docs/reference/
+
+
 Stripe
 ------
 
-You can register your OAuth2 app via the admin interface
-    http://example.com/accounts/stripe/login/callback/
+You register your OAUth2 app via the Connect->Settings page of the Stripe
+dashboard:
+
+ https://dashboard.stripe.com/account/applications/settings
+
+This page will provide you with both a Development and Production `client_id`.
+
+You can also register your OAuth2 app callback on the Settings page in the
+"Website URL" box, e.g.:
+
+ http://example.com/accounts/stripe/login/callback/
+
+However, the OAuth2 secret key is not on this page. The secret key is the same
+secret key that you use with the Stripe API generally. This can be found on the
+Stripe dashboard API page:
+
+ https://dashboard.stripe.com/account/apikeys
 
 See more in documentation
-    https://stripe.com/docs/connect/standalone-accounts
+ https://stripe.com/docs/connect/standalone-accounts
 
+
+Trello
+------
+
+Register the application at
+
+ https://trello.com/app-key
+
+You get one application key per account.
+
+Save the "Key" to "Client id", the "Secret" to "Secret Key" and "Key" to the "Key"
+field.
+
+Verify which scope you need at
+
+ https://developers.trello.com/page/authorization
+
+Need to change the default scope? Add or update the `trello` setting to
+`settings.py`
+
+.. code-block:: python
+
+  SOCIALACCOUNT_PROVIDERS = {
+      'trello': {
+          'AUTH_PARAMS': {
+              'scope': 'read,write',
+          },
+      },
+  }
 
 Twitch
 ------
 
 App registration (get your key and secret here)
-    http://www.twitch.tv/kraken/oauth2/clients/new
+    http://dev.twitch.tv/console
 
+Development callback URL
+    http://localhost:8000/accounts/twitch/login/callback/
 
 Twitter
 -------
@@ -1180,6 +1875,32 @@ The configuration values come from your API dashboard on Untappd:
 * Secret key: "Client Secret" from Untappd
 * Sites: choose your site
 
+In addition, you should override your user agent to comply with Untappd's API
+rules, and specify something in the format
+``<platform>:<app ID>:<version string>``. Otherwise,
+you will risk additional rate limiting in your application.
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'untappd': {
+            'USER_AGENT': 'django:myappid:1.0',
+        }
+    }
+
+
+
+Telegram
+--------
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'telegram': {
+            'TOKEN': 'insert-token-received-from-botfather'
+        }
+    }
+
 
 Vimeo
 -----
@@ -1188,14 +1909,22 @@ App registration (get your key and secret here)
     https://developer.vimeo.com/apps
 
 Development callback URL
-    http://localhost:8000
+    http://localhost:8000/a
 
+Vimeo (OAuth 2)
+---------------
+
+App registration (get your key and secret here)
+    https://developer.vimeo.com/apps
+
+Development callback URL
+    http://localhost:8000/accounts/vimeo_oauth2/login/callback/
 
 VK
 --
 
 App registration
-    http://vk.com/apps?act=settings
+    https://vk.com/editapp?act=create
 
 Development callback URL ("Site address")
     http://localhost
@@ -1242,13 +1971,15 @@ will support open platform by default, which value is
 ``https://open.weixin.qq.com/connect/qrconnect``.
 
 You can optionally specify additional scope to use. If no ``SCOPE`` value
-is set, will use ``snsapi_login`` by default.
+is set, will use ``snsapi_login`` by default(for Open Platform Account, need
+registration). Other ``SCOPE`` options are: snsapi_base, snsapi_userinfo.
 
 .. code-block:: python
 
     SOCIALACCOUNT_PROVIDERS = {
         'weixin': {
             'AUTHORIZE_URL': 'https://open.weixin.qq.com/connect/oauth2/authorize',  # for media platform
+            'SCOPE': ['snsapi_base'],
         }
     }
 
@@ -1261,3 +1992,96 @@ App registration (get your key and secret here)
 
 Development callback URL
     http://localhost:8000
+
+
+Yahoo
+------
+
+Register your OAuth2 app below and enter the resultant client id and secret into admin
+    https://developer.yahoo.com/apps/create/
+
+The Redirect URL requires secure URLs, please see the section on HTTPS about how this is handled.
+
+When you register the app within yahoo, ensure you select the following API Permissions
+
+- OpenID Connect Permissions
+ - Email
+ - Profile
+
+When copying the supplied Client ID and Client Secret, do not include the 4 starting spaces.
+
+
+Yandex
+------
+
+App registration (get key and secret here)
+    https://oauth.yandex.com/client/new
+
+Development callback URL
+    https://oauth.yandex.com/verification_code
+
+Yandex OAuth app has many different access rights for its services. For the basic access level,
+you just need to a choose "Yandex.Passport API" section and check "Access to email address" and
+"Access to username, first name and surname, gender". Everything else is optional.
+
+
+YNAB
+------
+
+App Registration
+    https://app.youneedabudget.com/settings/developer
+
+Development callback URL
+    http://127.0.0.1:8000/accounts/ynab/login/callback/
+
+
+
+Default SCOPE permissions are 'read-only'. If this is the desired functionality, do not add SCOPE entry with ynab app
+in SOCIALACCOUNT_PROVIDERS. Otherwise, adding SCOPE and an empty string will give you read / write.
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'ynab': {
+            'SCOPE': ''
+        }
+    }
+
+
+Zoho
+----
+
+App Registration
+  https://api-console.zoho.com/add
+
+  Select "Server-base Applications"
+
+Authorized Redirect URI
+    http://127.0.0.1:8000/accounts/zoho/login/callback/
+
+
+Zoom
+----
+
+App Registration
+  https://marketplace.zoom.us/develop/create
+
+Development callback URL
+    http://127.0.0.1:8000/accounts/zoom/login/callback/
+
+Select scope user:read during app registration.
+
+
+Feishu
+----
+
+App Registration
+  https://open.feishu.cn/app
+
+Authorized Redirect URI
+    http://127.0.0.1:8000/accounts/feishu/login/callback/
+
+Into the developer background https://open.feishu.cn/app, click on the create self-built application, obtain app_id and app_secret.
+In the configuration of application security domain name added to redirect URL, such as https://open.feishu.cn/document.
+Redirect URL is the interface through which the application obtains the user's identity by using the user login pre-authorization code after the user has logged in.
+If it is not configured or configured incorrectly, the open platform will prompt the request to be illegal.

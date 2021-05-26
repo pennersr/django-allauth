@@ -13,18 +13,21 @@ class MailChimpTests(OAuth2TestsMixin, TestCase):
 
     def get_mocked_response(self):
         """Test authentication with an non-null avatar."""
-        return MockedResponse(200, """{
+        return MockedResponse(
+            200,
+            """{
             "dc": "usX",
             "role": "owner",
             "accountname": "Name can have spaces",
             "user_id": "99999999",
             "login": {
-                "email": "test@test.com",
+                "email": "test@example.com",
                 "avatar": "http://gallery.mailchimp.com/1a1a/avatar/2a2a.png",
                 "login_id": "88888888",
-                "login_name": "test@test.com",
-                "login_email": "test@test.com"
+                "login_name": "test@example.com",
+                "login_email": "test@example.com"
             },
             "login_url": "https://login.mailchimp.com",
             "api_endpoint": "https://usX.api.mailchimp.com"
-        }""")
+        }""",
+        )

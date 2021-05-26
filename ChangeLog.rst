@@ -1,5 +1,302 @@
-Unreleased
-**********
+0.44.0 (2020-11-25)
+*******************
+
+Security notice
+---------------
+
+In previous versions, the mechanism to prevent too many failed login attempts
+(``ACCOUNT_LOGIN_ATTEMPTS_LIMIT``) could be bypassed by changing the casing of
+the login.
+
+
+Backwards incompatible changes
+------------------------------
+
+- The ``certificate`` key part of the ``SOCIALACCOUNT_PROVIDERS`` configuration has
+  been renamed to ``certificate_key``. This is done to prevent the key from being displayed
+  without being masked in Django debug pages.
+
+
+0.43.0 (2020-10-15)
+*******************
+
+Note worthy changes
+-------------------
+
+- New translation: Slovenian.
+
+- If ``ACCOUNT_LOGIN_ATTEMPTS_LIMIT`` is set and the user successfully
+  resets their password, the timeout is cleared to allow immediate login.
+
+- You can now limit the amount of email addresses a user can associate to his
+  account by setting ``ACCOUNT_MAX_EMAIL_ADDRESSES``.
+
+- New providers: Apple, Okta, Stocktwits, Zoho, Zoom.
+
+- If email verification is set to mandatory, the email address you use to login
+  with must now be verified as well. In previous versions, it was sufficient if
+  the account had at least one verified email address, not necessarily the one
+  used to login with.
+
+- Added a new setting: ``ACCOUNT_SIGNUP_REDIRECT_URL`` -- the URL (or URL
+  name) to redirect to directly after signing up.
+
+
+Backwards incompatible changes
+------------------------------
+
+- In previous versions, the ``allauth`` app included a ``base.html``
+  template. This template could conflict with an equally named template at
+  project level. Therefore, ``base.html`` has now been moved to
+  ``account/base.html`` -- you will need to check your templates and likely
+  override ``account/base.html`` within your project.
+
+
+0.42.0 (2020-05-24)
+*******************
+
+Note worthy changes
+-------------------
+
+- New providers: EDX, Yandex, Mixer.
+
+- Fixed Twitch ``get_avatar_url()`` method to use the profile picture retrieved
+  by new user details endpoint introduced in version 0.40.0.
+
+- The Facebook API version now defaults to v7.0.
+
+
+0.41.0 (2019-12-18)
+*******************
+
+Security notice
+---------------
+
+- See `CVE-2019-19844
+  <https://www.djangoproject.com/weblog/2019/dec/18/security-releases/>`_.
+
+
+Note worthy changes
+-------------------
+
+- New providers: Exist.io., YNAB, Amazon Cognito.
+
+- You can now store OAuth credentials directly in your
+  ``settings.SOCIALACCOUNT_PROVIDERS`` settings instead of storing them in the
+  database using a ``SocialApp`` record.
+
+- Adding Keycloak Provider
+
+
+Backwards incompatible changes
+------------------------------
+
+- Dropped Python 2 and Django 1 compatibility.
+
+
+0.40.0 (2019-08-29)
+*******************
+
+Note worthy changes
+-------------------
+
+- The ``instagram`` provider now extracts the user's full name.
+
+- New provider: NextCloud (OAuth2)
+
+- Added an ``SDK_URL`` setting for customizing the loading of the Facebook
+  JavaScript SDK.
+
+- Updated Twitch provider to use new authentication endpoints
+  (``https://id.twitch.tv``) over deprecated v5 endpoints
+  (``https://api.twitch.tv/kraken``)
+
+- Added support for Patreon API v2, with API v1 set as default for
+  backwards compatibility.
+
+
+Backwards incompatible changes
+------------------------------
+
+- ``Twitch``: The new API's profile data is different in both
+  structure and content than the old V5 endpoint. Any project
+  that relies on data from ``SocialAccount.extra_data`` should
+  refer to the new API user endpoint documentation:
+  https://dev.twitch.tv/docs/api/reference/#get-users
+
+
+0.39.1 (2019-02-28)
+*******************
+
+Note worthy changes
+-------------------
+
+- The ``linkedin_oauth2`` provider now gracefully deals with old V1
+  data that might still be present in ``SocialAccount.extra_data``.
+
+Backwards incompatible changes
+------------------------------
+
+- The ``globus`` provider's ``extract_uid`` now uses the openid
+  required field ``sub`` instead of the ``create_time`` field.
+
+
+0.39.0 (2019-02-26)
+*******************
+
+Note worthy changes
+-------------------
+
+- New providers: JupyterHub (OAuth2), Steam (OpenID)
+
+- Refactor translations: Portuguese (Portugal).
+
+- Add testing for Django 2.2 (no code changes required)
+
+Backwards incompatible changes
+------------------------------
+
+- ``linkedin_oauth2``: As the LinkedIn V1 API is deprecated, the user info
+  endpoint has been moved over to use the API V2. The format of the user
+  ``extra_data`` is different and the profile picture is absent by default.
+
+
+0.38.0 (2018-10-03)
+*******************
+
+Security notice
+---------------
+
+The ``{% user_display user %}`` tag did not escape properly. Depending on the
+username validation rules, this could lead to XSS issues.
+
+
+Note worthy changes
+-------------------
+
+- New provider: Vimeo (OAuth2).
+
+- New translations: Basque.
+
+
+0.37.1 (2018-08-27)
+*******************
+
+Backwards incompatible changes
+------------------------------
+
+- Dropped the ``x-li-src: msdk`` headers from the ``linkedin_oauth2`` handshake.
+  This header is only required for mobile tokens, and breaks the regular flow.
+  Use the ``HEADERS`` setting to add this header if you need it.
+
+
+0.37.0 (2018-08-27)
+*******************
+
+Note worthy changes
+-------------------
+
+- The Battle.net login backend now recognizes ``apac`` as a valid region.
+
+- User model using a ``UUIDField`` as it's primary key can now be logged
+  in upon email confirmation (if using ``ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION``).
+
+- New providers: Agave, Cern, Disqus, Globus.
+
+- New translation: Danish.
+
+0.36.0 (2018-05-08)
+*******************
+
+Note worthy changes
+-------------------
+
+- New providers: Telegram, QuickBooks.
+
+- The Facebook API version now defaults to v2.12.
+
+- ORCID upgraded to use API v2.1.
+
+
+Security notice
+---------------
+
+- In previous versions, the authentication backend did not invoke the
+  ``user_can_authenticate()`` method, potentially allowing users with
+  ``is_active=False`` to authenticate when the allauth authentication backend
+  was used in a non allauth context.
+
+
+0.35.0 (2018-02-02)
+*******************
+
+Note worthy changes
+-------------------
+
+- Add support for Django 2.0
+
+Security notice
+---------------
+
+- As an extra security measure on top of what the standard Django password reset
+  token generator is already facilitating, allauth now adds the user email
+  address to the hash such that whenever the user's email address changes the
+  token is invalidated.
+
+Backwards incompatible changes
+------------------------------
+
+- Drop support for Django 1.8 and Django 1.10.
+
+
+Note worthy changes
+-------------------
+
+- New provider: Azure, Microsoft Graph, Salesforce, Yahoo.
+
+
+0.34.0 (2017-10-29)
+*******************
+
+Security notice
+---------------
+
+- The "Set Password" view did not properly check whether or not the user already
+  had a usable password set. This allowed an attacker to set the password
+  without providing the current password, but only in case the attacker already
+  gained control over the victim's session.
+
+
+Note worthy changes
+-------------------
+
+- New provider: Meetup.
+
+
+0.33.0 (2017-08-20)
+*******************
+
+Note worthy changes
+-------------------
+
+- Security: password reset tokens are now prevented from being leaked through
+  the password reset URL.
+
+- New providers: Patreon, Authentiq, Dataporten.
+
+- Dropbox has been upgraded to API V2.
+
+- New translation: Norwegian.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Dropped support for Django 1.9.
+
+
+0.32.0 (2017-04-27)
+*******************
 
 Note worthy changes
 -------------------
@@ -8,6 +305,10 @@ Note worthy changes
   manage e-mail addresses and social connections) now support AJAX GET requests.
   These views hand over all the required data for you to build your frontend
   application upon.
+
+- New providers: Dwolla, Trello.
+
+- Shopify: support for per-user access mode.
 
 
 Backwards incompatible changes
@@ -22,6 +323,12 @@ Backwards incompatible changes
   Now, it contains a ``form`` key that describes the complete form, including
   the fields. Field specific errors are placed in
   ``form.fields['some_field'].errors``, non-field errors in ``form.errors``.
+
+- The parameters passed to the Facebook JS SDK ``FB.init()`` method used to contain
+  ``cookie``, ``status``, and ``xfbml``, all set to ``true``. These parameters
+  are no longer explicitly passed. You can use the newly introduced ``INIT_PARAMS``
+  provider setting to provide your own values.
+
 
 
 0.31.0 (2017-02-28)
@@ -960,7 +1267,7 @@ Backwards incompatible changes
   social login to existing accounts. The symptom is you end up with
   users who have multiple primary email addresses which conflicts
   with assumptions made by the code. In addition to fixing the code
-  that allowed duplicates to occur, there is a managegement command
+  that allowed duplicates to occur, there is a management command
   you can run if you think this effects you (and if it doesn't effect
   you there is no harm in running it anyways if you are unsure):
 

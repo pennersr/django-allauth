@@ -8,10 +8,12 @@ class FeedlyTests(OAuth2TestsMixin, TestCase):
     provider_id = FeedlyProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
 {
   "id": "c805fcbf-3acf-4302-a97e-d82f9d7c897f",
-  "email": "jim.smith@gmail.com",
+  "email": "jim.smith@example.com",
   "givenName": "Jim",
   "familyName": "Smith",
   "picture": "https://www.google.com/profile_images/1771656873/bigger.jpg",
@@ -22,4 +24,5 @@ class FeedlyTests(OAuth2TestsMixin, TestCase):
   "twitter": "jimsmith",
   "facebook": "",
   "wave": "2013.7"
-}""")
+}""",
+        )

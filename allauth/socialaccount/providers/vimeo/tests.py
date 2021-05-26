@@ -9,7 +9,10 @@ class VimeoTests(OAuthTestsMixin, TestCase):
     provider_id = VimeoProvider.id
 
     def get_mocked_response(self):
-        return [MockedResponse(200, """
+        return [
+            MockedResponse(
+                200,
+                """
 {"generated_in":"0.0137",
  "stat":"ok","person":{
  "created_on": "2013-04-08 14:24:47",
@@ -32,4 +35,6 @@ class VimeoTests(OAuthTestsMixin, TestCase):
  "http:\\/\\/a.vimeocdn.com\\/images_v6\\/portraits\\/portrait_100_yellow.png"},
  {"height":"300","width":"300","_content":
  "http:\\/\\/a.vimeocdn.com\\/images_v6\\/portraits\\/portrait_300_yellow.png"}]}}}
-""")]
+""",
+            )
+        ]

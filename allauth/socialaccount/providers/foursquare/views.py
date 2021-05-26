@@ -11,11 +11,11 @@ from .provider import FoursquareProvider
 
 class FoursquareOAuth2Adapter(OAuth2Adapter):
     provider_id = FoursquareProvider.id
-    access_token_url = 'https://foursquare.com/oauth2/access_token'
+    access_token_url = "https://foursquare.com/oauth2/access_token"
     # Issue ?? -- this one authenticates over and over again...
     # authorize_url = 'https://foursquare.com/oauth2/authorize'
-    authorize_url = 'https://foursquare.com/oauth2/authenticate'
-    profile_url = 'https://api.foursquare.com/v2/users/self'
+    authorize_url = "https://foursquare.com/oauth2/authenticate"
+    profile_url = "https://api.foursquare.com/v2/users/self"
 
     def complete_login(self, request, app, token, **kwargs):
         # Foursquare needs a version number for their API requests as
@@ -23,10 +23,10 @@ class FoursquareOAuth2Adapter(OAuth2Adapter):
         # https://developer.foursquare.com/overview/versioning
         resp = requests.get(
             self.profile_url,
-            params={'oauth_token': token.token, 'v': '20140116'})
-        extra_data = resp.json()['response']['user']
-        return self.get_provider().sociallogin_from_response(request,
-                                                             extra_data)
+            params={"oauth_token": token.token, "v": "20140116"},
+        )
+        extra_data = resp.json()["response"]["user"]
+        return self.get_provider().sociallogin_from_response(request, extra_data)
 
 
 oauth2_login = OAuth2LoginView.adapter_view(FoursquareOAuth2Adapter)

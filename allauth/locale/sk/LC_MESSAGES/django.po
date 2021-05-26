@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-11 07:33-0500\n"
-"PO-Revision-Date: 2021-02-22 20:18+0100\n"
-"Last-Translator: Erik Telepovsky <erik@pragmaticmates.com>\n"
+"POT-Creation-Date: 2021-05-26 08:26+0200\n"
+"PO-Revision-Date: 2021-05-26 08:26+0200\n"
+"Last-Translator: Erik Telepovský <erik@pragmaticmates.com>\n"
 "Language-Team: \n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.1\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
 ">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+"X-Translated-Using: django-rosetta 0.9.4\n"
 
 #: account/adapter.py:45
 msgid "Username can not be used. Please use other username."
@@ -100,9 +100,9 @@ msgstr "Potvrdenie e-mailu"
 msgid "E-mail (optional)"
 msgstr "E-mail (nepovinné)"
 
-#: account/forms.py:314
+#: account/forms.py:358
 msgid "You must type the same email each time."
-msgstr "Heslá sa nezhodujú."
+msgstr "E-maily sa nezhodujú."
 
 #: account/forms.py:383 account/forms.py:498
 msgid "Password (again)"
@@ -341,10 +341,6 @@ msgstr "Účet neaktívny"
 msgid "This account is inactive."
 msgstr "Tento účet je neaktívny."
 
-#: templates/account/email.html:5
-msgid "Account"
-msgstr "Účet"
-
 #: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "E-mailová adresa"
@@ -423,14 +419,10 @@ msgstr ""
 #: templates/account/email/email_confirmation_message.txt:5
 #, fuzzy, python-format
 #| msgid ""
-#| "Hello from %(site_name)s!\n"
+#| "You're receiving this e-mail because user %(user_display)s has given your "
+#| "e-mail address to register an account on %(site_domain)s.\n"
 #| "\n"
-#| "You're receiving this e-mail because user %(user_display)s at "
-#| "%(site_domain)s has given yours as an e-mail address to connect their "
-#| "account.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s\n"
-
+#| "To confirm this is correct, go to %(activate_url)s"
 msgid ""
 "You're receiving this e-mail because user %(user_display)s has given your e-"
 "mail address to register an account on %(site_domain)s.\n"
@@ -443,15 +435,6 @@ msgstr ""
 "%(site_domain)s zadal túto e-mailovú adresu na prepojenie s jeho účtom.\n"
 "\n"
 "Pre potvrdenie nasledujte %(activate_url)s\n"
-
-#: templates/account/email/email_confirmation_message.txt:7
-#, python-format
-msgid ""
-"Thank you from %(site_name)s!\n"
-"%(site_domain)s"
-msgstr ""
-"Vďaka z %(site_name)s!\n"
-"%(site_domain)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your E-mail Address"
@@ -475,15 +458,6 @@ msgstr ""
 #, python-format
 msgid "In case you forgot, your username is %(username)s."
 msgstr "Ak ste náhodou zabudli, vaše používateľské meno je %(username)s."
-
-#: templates/account/email/password_reset_key_message.txt:10
-#, python-format
-msgid ""
-"Thank you for using %(site_name)s!\n"
-"%(site_domain)s"
-msgstr ""
-"Ďakujeme za využitie %(site_name)s!\n"
-"%(site_domain)s"
 
 #: templates/account/email/password_reset_key_subject.txt:3
 msgid "Password Reset E-mail"

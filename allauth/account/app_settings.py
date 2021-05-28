@@ -316,6 +316,10 @@ class AppSettings(object):
         return self._setting("PRESERVE_USERNAME_CASING", True)
 
     @property
+    def LOGIN_VERIFIED_EMAIL_ONLY(self):
+        return self._setting("LOGIN_VERIFIED_EMAIL_ONLY", False)
+    
+    @property
     def USERNAME_VALIDATORS(self):
         from django.core.exceptions import ImproperlyConfigured
 

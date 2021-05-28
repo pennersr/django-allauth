@@ -175,17 +175,20 @@ class LoginForm(forms.Form):
             return
         credentials = self.user_credentials()
         user = get_adapter(self.request).authenticate(self.request, **credentials)
-        email = user.email
-        if EmailAddress.objects.filter(email=email, verified=False).exists() is True and app_settings.LOGIN_VERIFIED_EMAIL_ONLY is True:
-            raise forms.ValidationError('Please check ' + email + ' to verify your email address.')
         if user:
             self.user = user
         else:
             auth_method = app_settings.AUTHENTICATION_METHOD
             if auth_method == app_settings.AuthenticationMethod.USERNAME_EMAIL:
                 login = self.cleaned_data["login"]
+                email = user.email
+                if EmailAddress.objects.filter(email=email, verified=False).exists() is True and app_settings.LOGIN_VERIFIED_EMAIL_ONLY is True:
+                    raise forms.ValidationError('Please check ' + email + ' to verify your email address.')
                 if self._is_login_email(login):
                     auth_method = app_settings.AuthenticationMethod.EMAIL
+                    email = user.email
+                    if EmailAddress.objects.filter(email=email, verified=False).exists() is True and app_settings.LOGIN_VERIFIED_EMAIL_ONLY is True:
+                        raise forms.ValidationError('Please check ' + email + ' to verify your email address.')
                 else:
                     auth_method = app_settings.AuthenticationMethod.USERNAME
             raise forms.ValidationError(

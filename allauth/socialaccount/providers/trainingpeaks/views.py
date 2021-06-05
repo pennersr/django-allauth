@@ -10,7 +10,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 from .provider import TrainingPeaksProvider
 
 
-class TrainingPeaksOauth2Adapter(OAuth2Adapter):
+class TrainingPeaksOAuth2Adapter(OAuth2Adapter):
     # https://github.com/TrainingPeaks/PartnersAPI/wiki/OAuth
     provider_id = TrainingPeaksProvider.id
 
@@ -55,5 +55,5 @@ class TrainingPeaksOauth2Adapter(OAuth2Adapter):
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 
-oauth2_login = OAuth2LoginView.adapter_view(TrainingPeaksOauth2Adapter)
-oauth2_callback = OAuth2CallbackView.adapter_view(TrainingPeaksOauth2Adapter)
+oauth2_login = OAuth2LoginView.adapter_view(TrainingPeaksOAuth2Adapter)
+oauth2_callback = OAuth2CallbackView.adapter_view(TrainingPeaksOAuth2Adapter)

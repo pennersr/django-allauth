@@ -15,7 +15,7 @@ from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase
 
 from .provider import TrainingPeaksProvider
-from .views import TrainingPeaksOauth2Adapter
+from .views import TrainingPeaksOAuth2Adapter
 
 
 class TrainingPeaksTests(OAuth2TestsMixin, TestCase):
@@ -50,7 +50,7 @@ class TrainingPeaksTests(OAuth2TestsMixin, TestCase):
         )
 
     def test_default_use_sandbox_uri(self):
-        adapter = TrainingPeaksOauth2Adapter(None)
+        adapter = TrainingPeaksOAuth2Adapter(None)
         self.assertTrue('.sandbox.' in adapter.authorize_url)
         self.assertTrue('.sandbox.' in adapter.access_token_url)
         self.assertTrue('.sandbox.' in adapter.profile_url)
@@ -61,7 +61,7 @@ class TrainingPeaksTests(OAuth2TestsMixin, TestCase):
         }
     })
     def test_use_production_uri(self):
-        adapter = TrainingPeaksOauth2Adapter(None)
+        adapter = TrainingPeaksOAuth2Adapter(None)
         self.assertFalse('.sandbox.' in adapter.authorize_url)
         self.assertFalse('.sandbox.' in adapter.access_token_url)
         self.assertFalse('.sandbox.' in adapter.profile_url)

@@ -1019,6 +1019,12 @@ KEYCLOAK_URL:
     The url of your hosted keycloak server, it must end with ``/auth``. For
     example, you can use: ``https://your.keycloak.server/auth``
 
+KEYCLOAK_URL_ALT:
+    An alternate url of your hosted keycloak server, it must end with ``/auth``. For
+    example, you can use: ``https://your.keycloak.server/auth``
+
+    This can be used when working with Docker on localhost, with a frontend and a backend hosted in different containers.
+
 KEYCLOAK_REAML:
     The name of the ``realm`` you want to use.
 
@@ -1219,8 +1225,8 @@ The following AccessManager settings are available:
             'NETIQ_URL': 'https://my.identity.provider.example.org',
         }
     }
-	
-	
+
+
 App registration (get your key and secret here) is done by the administrator of your NetIQ/Microfocus AccessManager.
 
 

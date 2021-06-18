@@ -357,7 +357,7 @@ def send_email_confirmation(request, user, signup=False, email=None):
             get_adapter(request).add_message(
                 request,
                 messages.INFO,
-                "account/messages/" "email_confirmation_sent.txt",
+                "account/messages/email_confirmation_sent.txt",
                 {"email": email},
             )
     if signup:

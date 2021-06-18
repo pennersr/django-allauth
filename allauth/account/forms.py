@@ -236,7 +236,7 @@ def _base_signup_form_class():
         fc_module, fc_classname = app_settings.SIGNUP_FORM_CLASS.rsplit(".", 1)
     except ValueError:
         raise exceptions.ImproperlyConfigured(
-            "%s does not point to a form" " class" % app_settings.SIGNUP_FORM_CLASS
+            "%s does not point to a form class" % app_settings.SIGNUP_FORM_CLASS
         )
     try:
         mod = import_module(fc_module)
@@ -445,10 +445,10 @@ class AddEmailForm(UserForm):
         value = get_adapter().clean_email(value)
         errors = {
             "this_account": _(
-                "This e-mail address is already associated" " with this account."
+                "This e-mail address is already associated with this account."
             ),
             "different_account": _(
-                "This e-mail address is already associated" " with another account."
+                "This e-mail address is already associated with another account."
             ),
             "max_email_addresses": _("You cannot add more than %d e-mail addresses."),
         }
@@ -486,7 +486,7 @@ class ChangePasswordForm(PasswordVerificationMixin, UserForm):
 
     def clean_oldpassword(self):
         if not self.user.check_password(self.cleaned_data.get("oldpassword")):
-            raise forms.ValidationError(_("Please type your current" " password."))
+            raise forms.ValidationError(_("Please type your current password."))
         return self.cleaned_data["oldpassword"]
 
     def save(self):
@@ -526,7 +526,7 @@ class ResetPasswordForm(forms.Form):
         self.users = filter_users_by_email(email, is_active=True)
         if not self.users:
             raise forms.ValidationError(
-                _("The e-mail address is not assigned" " to any user account")
+                _("The e-mail address is not assigned to any user account")
             )
         return self.cleaned_data["email"]
 

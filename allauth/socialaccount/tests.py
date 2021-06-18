@@ -94,7 +94,7 @@ class OAuthTestsMixin(object):
         with mocked_response(
             MockedResponse(
                 200,
-                "oauth_token=token&" "oauth_token_secret=psst",
+                "oauth_token=token&oauth_token_secret=psst",
                 {"content-type": "text/html"},
             )
         ):

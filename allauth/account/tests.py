@@ -625,7 +625,7 @@ class AccountTests(TestCase):
             resp,
             "form",
             None,
-            "The e-mail address and/or password you specified" " are not correct.",
+            "The e-mail address and/or password you specified are not correct.",
         )
 
         resp = self.client.post(
@@ -902,7 +902,7 @@ class AccountTests(TestCase):
             resp,
             "form",
             "password1",
-            ["This password is too short." " It must contain at least 9 characters."],
+            ["This password is too short. It must contain at least 9 characters."],
         )
 
     @override_settings(ACCOUNT_EMAIL_CONFIRMATION_HMAC=True)
@@ -948,7 +948,7 @@ class AccountTests(TestCase):
         self.assertFalse(email.verified)
 
     @override_settings(
-        ACCOUNT_USERNAME_VALIDATORS="allauth.account.tests" ".test_username_validators"
+        ACCOUNT_USERNAME_VALIDATORS="allauth.account.tests.test_username_validators"
     )
     def test_username_validator(self):
         get_adapter().clean_username("abc")

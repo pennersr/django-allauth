@@ -790,10 +790,45 @@ class AccountTests(TestCase):
         data = json.loads(resp.content.decode("utf8"))
         self.assertEqual(data["location"], "/accounts/profile/")
 
-    def test_email_view(self):
-        self._create_user_and_login()
-        self.client.get(reverse("account_email"))
-        # TODO: Actually test something
+    def test_email_view_add_action(self):
+        user = self._create_user_and_login()
+        new_email = "test@test.com"
+
+        resp = self.client.post(
+            reverse("account_email"), {"email": new_email, "action_add": True}
+        )
+        self.assertRedirects(resp, reverse("account_email"))
+        self.assertTrue(user.emailaddress_set.filter(email=new_email).exists())
+
+    @override_settings(
+        ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.NONE
+    )
+    @patch("allauth.account.forms.EmailAddress.objects.add_email")
+    def test_email_view_no_email_verification(self, add_email):
+        user = self._create_user_and_login()
+        new_email = "test@test.com"
+
+        resp = self.client.post(
+            reverse("account_email"), {"email": new_email, "action_add": True}
+        )
+        add_email.assert_called_once_with(
+            resp.wsgi_request, user, new_email, confirm=False
+        )
+
+    @override_settings(
+        ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.OPTIONAL
+    )
+    @patch("allauth.account.forms.EmailAddress.objects.add_email")
+    def test_email_view_optional_email_verification(self, add_email):
+        user = self._create_user_and_login()
+        new_email = "test@test.com"
+
+        resp = self.client.post(
+            reverse("account_email"), {"email": new_email, "action_add": True}
+        )
+        add_email.assert_called_once_with(
+            resp.wsgi_request, user, new_email, confirm=True
+        )
 
     @override_settings(ACCOUNT_LOGOUT_ON_GET=True)
     def test_logout_view_on_get(self):

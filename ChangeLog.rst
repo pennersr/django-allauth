@@ -1,3 +1,13 @@
+0.45.0 (2021-07-11)
+*******************
+
+
+Note worthy changes
+-------------------
+
+- New providers: Feishu, NetIQ, Frontier, CILogin.
+
+
 0.44.0 (2020-11-25)
 *******************
 

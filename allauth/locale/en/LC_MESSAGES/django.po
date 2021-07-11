@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-11 11:15-0500\n"
+"POT-Creation-Date: 2021-07-11 07:33-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,108 +39,108 @@ msgstr ""
 msgid "Accounts"
 msgstr ""
 
-#: account/forms.py:58 account/forms.py:403
+#: account/forms.py:58 account/forms.py:412
 msgid "You must type the same password each time."
 msgstr ""
 
-#: account/forms.py:87 account/forms.py:372 account/forms.py:486
+#: account/forms.py:91 account/forms.py:380 account/forms.py:497
 msgid "Password"
 msgstr ""
 
-#: account/forms.py:88
+#: account/forms.py:92
 msgid "Remember Me"
 msgstr ""
 
-#: account/forms.py:92
+#: account/forms.py:96
 msgid "This account is currently inactive."
 msgstr ""
 
-#: account/forms.py:94
+#: account/forms.py:98
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr ""
 
-#: account/forms.py:97
+#: account/forms.py:101
 msgid "The username and/or password you specified are not correct."
 msgstr ""
 
-#: account/forms.py:108 account/forms.py:273 account/forms.py:429
-#: account/forms.py:505
+#: account/forms.py:112 account/forms.py:278 account/forms.py:438
+#: account/forms.py:516
 msgid "E-mail address"
 msgstr ""
 
-#: account/forms.py:111 account/forms.py:308 account/forms.py:426
-#: account/forms.py:500
+#: account/forms.py:116 account/forms.py:315 account/forms.py:435
+#: account/forms.py:511
 msgid "E-mail"
 msgstr ""
 
-#: account/forms.py:113 account/forms.py:115 account/forms.py:263
-#: account/forms.py:267
+#: account/forms.py:119 account/forms.py:122 account/forms.py:268
+#: account/forms.py:271
 msgid "Username"
 msgstr ""
 
-#: account/forms.py:126
+#: account/forms.py:132
 msgid "Username or e-mail"
 msgstr ""
 
-#: account/forms.py:130
+#: account/forms.py:135
 msgctxt "field label"
 msgid "Login"
 msgstr ""
 
-#: account/forms.py:299
+#: account/forms.py:306
 msgid "E-mail (again)"
 msgstr ""
 
-#: account/forms.py:303
+#: account/forms.py:310
 msgid "E-mail address confirmation"
 msgstr ""
 
-#: account/forms.py:311
+#: account/forms.py:318
 msgid "E-mail (optional)"
 msgstr ""
 
-#: account/forms.py:351
+#: account/forms.py:358
 msgid "You must type the same email each time."
 msgstr ""
 
-#: account/forms.py:374 account/forms.py:487
+#: account/forms.py:383 account/forms.py:498
 msgid "Password (again)"
 msgstr ""
 
-#: account/forms.py:438
+#: account/forms.py:447
 msgid "This e-mail address is already associated with this account."
 msgstr ""
 
-#: account/forms.py:441
+#: account/forms.py:450
 msgid "This e-mail address is already associated with another account."
 msgstr ""
 
-#: account/forms.py:443
+#: account/forms.py:452
 #, python-format
 msgid "You cannot add more than %d e-mail addresses."
 msgstr ""
 
-#: account/forms.py:467
+#: account/forms.py:477
 msgid "Current Password"
 msgstr ""
 
-#: account/forms.py:468 account/forms.py:557
+#: account/forms.py:479 account/forms.py:569
 msgid "New Password"
 msgstr ""
 
-#: account/forms.py:469 account/forms.py:558
+#: account/forms.py:480 account/forms.py:570
 msgid "New Password (again)"
 msgstr ""
 
-#: account/forms.py:477
+#: account/forms.py:488
 msgid "Please type your current password."
 msgstr ""
 
-#: account/forms.py:516
+#: account/forms.py:528
 msgid "The e-mail address is not assigned to any user account"
 msgstr ""
 
-#: account/forms.py:579
+#: account/forms.py:591
 msgid "The password reset token was invalid."
 msgstr ""
 
@@ -199,7 +199,7 @@ msgstr ""
 msgid "Your account has no password set up."
 msgstr ""
 
-#: socialaccount/adapter.py:141
+#: socialaccount/adapter.py:138
 msgid "Your account has no verified e-mail address."
 msgstr ""
 

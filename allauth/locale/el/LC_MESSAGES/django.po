@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-11 11:15-0500\n"
+"POT-Creation-Date: 2021-07-11 07:33-0500\n"
 "PO-Revision-Date: 2014-08-12 00:29+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,115 +39,115 @@ msgstr "Το συνθηματικό πρέπει να περιέχει τουλ�
 msgid "Accounts"
 msgstr "Λογαριασμοί"
 
-#: account/forms.py:58 account/forms.py:403
+#: account/forms.py:58 account/forms.py:412
 msgid "You must type the same password each time."
 msgstr "Πρέπει να δοθεί το ίδιο συνθηματικό κάθε φορά."
 
-#: account/forms.py:87 account/forms.py:372 account/forms.py:486
+#: account/forms.py:91 account/forms.py:380 account/forms.py:497
 msgid "Password"
 msgstr "Συνθηματικό"
 
-#: account/forms.py:88
+#: account/forms.py:92
 msgid "Remember Me"
 msgstr "Αυτόματη Σύνδεση"
 
-#: account/forms.py:92
+#: account/forms.py:96
 msgid "This account is currently inactive."
 msgstr "Αυτός ο λογαριασμός είναι ανενεργός."
 
-#: account/forms.py:94
+#: account/forms.py:98
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "Η διέυθυνση e-mail ή/και το συνθηματικό που δόθηκαν δεν είναι σωστά."
 
-#: account/forms.py:97
+#: account/forms.py:101
 msgid "The username and/or password you specified are not correct."
 msgstr "Το όνομα χρήστη ή/και το συνθηματικό που δόθηκαν δεν είναι σωστά."
 
-#: account/forms.py:108 account/forms.py:273 account/forms.py:429
-#: account/forms.py:505
+#: account/forms.py:112 account/forms.py:278 account/forms.py:438
+#: account/forms.py:516
 msgid "E-mail address"
 msgstr "Διεύθυνση e-mail"
 
-#: account/forms.py:111 account/forms.py:308 account/forms.py:426
-#: account/forms.py:500
+#: account/forms.py:116 account/forms.py:315 account/forms.py:435
+#: account/forms.py:511
 msgid "E-mail"
 msgstr "E-mail"
 
-#: account/forms.py:113 account/forms.py:115 account/forms.py:263
-#: account/forms.py:267
+#: account/forms.py:119 account/forms.py:122 account/forms.py:268
+#: account/forms.py:271
 msgid "Username"
 msgstr "Όνομα χρήστη"
 
-#: account/forms.py:126
+#: account/forms.py:132
 msgid "Username or e-mail"
 msgstr "Όνομα χρήστη ή e-mail"
 
-#: account/forms.py:130
+#: account/forms.py:135
 msgctxt "field label"
 msgid "Login"
 msgstr "Σύνδεση"
 
-#: account/forms.py:299
+#: account/forms.py:306
 #, fuzzy
 #| msgid "E-mail (optional)"
 msgid "E-mail (again)"
 msgstr "E-mail (επιβεβαίωση)"
 
-#: account/forms.py:303
+#: account/forms.py:310
 #, fuzzy
 #| msgid "email confirmation"
 msgid "E-mail address confirmation"
 msgstr "Επιβεβαίωση διεύθυνσης e-mail"
 
-#: account/forms.py:311
+#: account/forms.py:318
 msgid "E-mail (optional)"
 msgstr "E-mail (προαιρετικό)"
 
-#: account/forms.py:351
+#: account/forms.py:358
 #, fuzzy
 #| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
 msgstr "Πρέπει να δοθεί το ίδιο email κάθε φορά."
 
-#: account/forms.py:374 account/forms.py:487
+#: account/forms.py:383 account/forms.py:498
 msgid "Password (again)"
 msgstr "Συνθηματικό (επιβεβαίωση)"
 
-#: account/forms.py:438
+#: account/forms.py:447
 msgid "This e-mail address is already associated with this account."
 msgstr "Αυτό το e-mail χρησιμοποιείται ήδη από αυτό το λογαριασμό."
 
-#: account/forms.py:441
+#: account/forms.py:450
 msgid "This e-mail address is already associated with another account."
 msgstr "Αυτό το e-mail χρησιμοποιείται ήδη από άλλο λογαριασμό."
 
-#: account/forms.py:443
+#: account/forms.py:452
 #, fuzzy, python-format
 #| msgid "Your account has no verified e-mail address."
 msgid "You cannot add more than %d e-mail addresses."
 msgstr "Δεν έχει επιβεβαιωθεί κανένα e-mail του λογαριασμού σας."
 
-#: account/forms.py:467
+#: account/forms.py:477
 msgid "Current Password"
 msgstr "Τρέχον συνθηματικό"
 
-#: account/forms.py:468 account/forms.py:557
+#: account/forms.py:479 account/forms.py:569
 msgid "New Password"
 msgstr "Νέο συνθηματικό"
 
-#: account/forms.py:469 account/forms.py:558
+#: account/forms.py:480 account/forms.py:570
 msgid "New Password (again)"
 msgstr "Νέο συνθηματικό (επιβεβαίωση)"
 
-#: account/forms.py:477
+#: account/forms.py:488
 msgid "Please type your current password."
 msgstr "Παρακαλώ γράψτε το τρέχον συνθηματικό σας."
 
-#: account/forms.py:516
+#: account/forms.py:528
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Το e-mail δεν χρησιμοποιείται από κανέναν λογαριασμό"
 
-#: account/forms.py:579
+#: account/forms.py:591
 msgid "The password reset token was invalid."
 msgstr "Το κουπόνι επαναφοράς του συνθηματικού δεν ήταν έγκυρο."
 
@@ -208,7 +208,7 @@ msgstr ""
 msgid "Your account has no password set up."
 msgstr "Δεν έχει οριστεί συνθηματικό στον λογαριασμό σας."
 
-#: socialaccount/adapter.py:141
+#: socialaccount/adapter.py:138
 msgid "Your account has no verified e-mail address."
 msgstr "Δεν έχει επιβεβαιωθεί κανένα e-mail του λογαριασμού σας."
 

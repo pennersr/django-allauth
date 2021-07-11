@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-11 11:15-0500\n"
+"POT-Creation-Date: 2021-07-11 07:33-0500\n"
 "PO-Revision-Date: 2017-08-26 16:11+0300\n"
 "Last-Translator: Udi Oron <udioron@gmail.com>\n"
 "Language-Team: Hebrew\n"
@@ -39,109 +39,109 @@ msgstr "הסיסמה חייבת להיות באורך של לפחות {0} תוו
 msgid "Accounts"
 msgstr "חשבונות"
 
-#: account/forms.py:58 account/forms.py:403
+#: account/forms.py:58 account/forms.py:412
 msgid "You must type the same password each time."
 msgstr "יש להזין את אותה הסיסמה פעמיים."
 
-#: account/forms.py:87 account/forms.py:372 account/forms.py:486
+#: account/forms.py:91 account/forms.py:380 account/forms.py:497
 msgid "Password"
 msgstr "סיסמה"
 
-#: account/forms.py:88
+#: account/forms.py:92
 msgid "Remember Me"
 msgstr "זכור אותי"
 
-#: account/forms.py:92
+#: account/forms.py:96
 msgid "This account is currently inactive."
 msgstr "חשבון זה אינו פעיל כעת."
 
-#: account/forms.py:94
+#: account/forms.py:98
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "כתובת האימייל ו/או הסיסמה אינם נכונים."
 
-#: account/forms.py:97
+#: account/forms.py:101
 msgid "The username and/or password you specified are not correct."
 msgstr "שם המשתמש ו/או הסיסמה אינם נכונים."
 
-#: account/forms.py:108 account/forms.py:273 account/forms.py:429
-#: account/forms.py:505
+#: account/forms.py:112 account/forms.py:278 account/forms.py:438
+#: account/forms.py:516
 msgid "E-mail address"
 msgstr "כתובת אימייל"
 
-#: account/forms.py:111 account/forms.py:308 account/forms.py:426
-#: account/forms.py:500
+#: account/forms.py:116 account/forms.py:315 account/forms.py:435
+#: account/forms.py:511
 msgid "E-mail"
 msgstr "אימייל"
 
-#: account/forms.py:113 account/forms.py:115 account/forms.py:263
-#: account/forms.py:267
+#: account/forms.py:119 account/forms.py:122 account/forms.py:268
+#: account/forms.py:271
 msgid "Username"
 msgstr "שם משתמש"
 
-#: account/forms.py:126
+#: account/forms.py:132
 msgid "Username or e-mail"
 msgstr "שם משתמש או אימייל"
 
-#: account/forms.py:130
+#: account/forms.py:135
 msgctxt "field label"
 msgid "Login"
 msgstr "כניסה"
 
-#: account/forms.py:299
+#: account/forms.py:306
 msgid "E-mail (again)"
 msgstr "אימייל (שוב)"
 
-#: account/forms.py:303
+#: account/forms.py:310
 msgid "E-mail address confirmation"
 msgstr "אישור כתובת אימייל"
 
-#: account/forms.py:311
+#: account/forms.py:318
 msgid "E-mail (optional)"
 msgstr "אימייל (לא חובה)"
 
-#: account/forms.py:351
+#: account/forms.py:358
 msgid "You must type the same email each time."
 msgstr "יש להזין את אותו האימייל פעמיים."
 
-#: account/forms.py:374 account/forms.py:487
+#: account/forms.py:383 account/forms.py:498
 msgid "Password (again)"
 msgstr "סיסמה (שוב)"
 
-#: account/forms.py:438
+#: account/forms.py:447
 msgid "This e-mail address is already associated with this account."
 msgstr "כתובת אימייל זו כבר משויכת לחשבון זה."
 
-#: account/forms.py:441
+#: account/forms.py:450
 msgid "This e-mail address is already associated with another account."
 msgstr "כתובת אימייל זו כבר משויכת לחשבון אחר."
 
-#: account/forms.py:443
+#: account/forms.py:452
 #, fuzzy, python-format
 #| msgid "Your account has no verified e-mail address."
 msgid "You cannot add more than %d e-mail addresses."
 msgstr "לא נמצאו כתובות אימייל מאומתות לחשבונך."
 
-#: account/forms.py:467
+#: account/forms.py:477
 msgid "Current Password"
 msgstr "סיסמה נוכחית"
 
-#: account/forms.py:468 account/forms.py:557
+#: account/forms.py:479 account/forms.py:569
 msgid "New Password"
 msgstr "סיסמה חדשה"
 
-#: account/forms.py:469 account/forms.py:558
+#: account/forms.py:480 account/forms.py:570
 msgid "New Password (again)"
 msgstr "סיסמה חדשה (שוב)"
 
-#: account/forms.py:477
+#: account/forms.py:488
 msgid "Please type your current password."
 msgstr "אנא הזן את הסיסמה הנוכחית."
 
-#: account/forms.py:516
+#: account/forms.py:528
 msgid "The e-mail address is not assigned to any user account"
 msgstr "כתובת אימייל זו אינה משויכת לאף חשבון"
 
-#: account/forms.py:579
+#: account/forms.py:591
 msgid "The password reset token was invalid."
 msgstr "אסימון איפוס הסיסמה אינו תקין."
 
@@ -202,7 +202,7 @@ msgstr ""
 msgid "Your account has no password set up."
 msgstr "לא נבחרה סיסמה לחשבונך."
 
-#: socialaccount/adapter.py:141
+#: socialaccount/adapter.py:138
 msgid "Your account has no verified e-mail address."
 msgstr "לא נמצאו כתובות אימייל מאומתות לחשבונך."
 

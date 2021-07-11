@@ -15,11 +15,11 @@ class TrainingPeaksOAuth2Adapter(OAuth2Adapter):
     provider_id = TrainingPeaksProvider.id
 
     def get_settings(self):
-        """ Provider settings """
+        """Provider settings"""
         return app_settings.PROVIDERS.get(self.provider_id, {})
 
     def get_hostname(self):
-        """ Return hostname depending on sandbox seting """
+        """Return hostname depending on sandbox seting"""
         settings = self.get_settings()
         if settings.get("USE_PRODUCTION"):
             return "trainingpeaks.com"
@@ -39,7 +39,7 @@ class TrainingPeaksOAuth2Adapter(OAuth2Adapter):
 
     @property
     def api_hostname(self):
-        """ Return https://api.hostname.tld """
+        """Return https://api.hostname.tld"""
         return "https://api." + self.get_hostname()
 
     # https://oauth.sandbox.trainingpeaks.com/oauth/deauthorize

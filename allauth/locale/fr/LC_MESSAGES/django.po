@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-11 11:15-0500\n"
+"POT-Creation-Date: 2021-07-11 07:33-0500\n"
 "PO-Revision-Date: 2020-10-15 19:47+0200\n"
 "Last-Translator: Gilou <contact+dev@gilouweb.com>\n"
 "Language-Team: français <>\n"
@@ -43,109 +43,109 @@ msgstr "Le mot de passe doit contenir au minimum {0} caractères."
 msgid "Accounts"
 msgstr "Comptes"
 
-#: account/forms.py:58 account/forms.py:403
+#: account/forms.py:58 account/forms.py:412
 msgid "You must type the same password each time."
 msgstr "Vous devez saisir deux fois le même mot de passe."
 
-#: account/forms.py:87 account/forms.py:372 account/forms.py:486
+#: account/forms.py:91 account/forms.py:380 account/forms.py:497
 msgid "Password"
 msgstr "Mot de passe"
 
-#: account/forms.py:88
+#: account/forms.py:92
 msgid "Remember Me"
 msgstr "Se souvenir de moi"
 
-#: account/forms.py:92
+#: account/forms.py:96
 msgid "This account is currently inactive."
 msgstr "Ce compte est actuellement désactivé."
 
-#: account/forms.py:94
+#: account/forms.py:98
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "L’adresse e-mail ou le mot de passe sont incorrects."
 
-#: account/forms.py:97
+#: account/forms.py:101
 msgid "The username and/or password you specified are not correct."
 msgstr "Le pseudo ou le mot de passe sont incorrects."
 
-#: account/forms.py:108 account/forms.py:273 account/forms.py:429
-#: account/forms.py:505
+#: account/forms.py:112 account/forms.py:278 account/forms.py:438
+#: account/forms.py:516
 msgid "E-mail address"
 msgstr "Adresse e-mail"
 
-#: account/forms.py:111 account/forms.py:308 account/forms.py:426
-#: account/forms.py:500
+#: account/forms.py:116 account/forms.py:315 account/forms.py:435
+#: account/forms.py:511
 msgid "E-mail"
 msgstr "E-mail"
 
-#: account/forms.py:113 account/forms.py:115 account/forms.py:263
-#: account/forms.py:267
+#: account/forms.py:119 account/forms.py:122 account/forms.py:268
+#: account/forms.py:271
 msgid "Username"
 msgstr "Pseudonyme"
 
-#: account/forms.py:126
+#: account/forms.py:132
 msgid "Username or e-mail"
 msgstr "Pseudonyme ou e-mail"
 
-#: account/forms.py:130
+#: account/forms.py:135
 msgctxt "field label"
 msgid "Login"
 msgstr "Identifiant"
 
-#: account/forms.py:299
+#: account/forms.py:306
 msgid "E-mail (again)"
 msgstr "E-mail (confirmation)"
 
-#: account/forms.py:303
+#: account/forms.py:310
 msgid "E-mail address confirmation"
 msgstr "Confirmation d'adresse e-mail"
 
-#: account/forms.py:311
+#: account/forms.py:318
 msgid "E-mail (optional)"
 msgstr "E-mail (facultatif)"
 
-#: account/forms.py:351
+#: account/forms.py:358
 msgid "You must type the same email each time."
 msgstr "Vous devez saisir deux fois le même email."
 
-#: account/forms.py:374 account/forms.py:487
+#: account/forms.py:383 account/forms.py:498
 msgid "Password (again)"
 msgstr "Mot de passe (confirmation)"
 
-#: account/forms.py:438
+#: account/forms.py:447
 msgid "This e-mail address is already associated with this account."
 msgstr "L'adresse e-mail est déjà associée à votre compte."
 
-#: account/forms.py:441
+#: account/forms.py:450
 msgid "This e-mail address is already associated with another account."
 msgstr "L'adresse e-mail est déjà associée à un autre compte."
 
-#: account/forms.py:443
+#: account/forms.py:452
 #, fuzzy, python-format
 #| msgid "Your account has no verified e-mail address."
 msgid "You cannot add more than %d e-mail addresses."
 msgstr "Vous devez d'abord associer une adresse e-mail à votre compte."
 
-#: account/forms.py:467
+#: account/forms.py:477
 msgid "Current Password"
 msgstr "Mot de passe actuel"
 
-#: account/forms.py:468 account/forms.py:557
+#: account/forms.py:479 account/forms.py:569
 msgid "New Password"
 msgstr "Nouveau mot de passe"
 
-#: account/forms.py:469 account/forms.py:558
+#: account/forms.py:480 account/forms.py:570
 msgid "New Password (again)"
 msgstr "Nouveau mot de passe (confirmation)"
 
-#: account/forms.py:477
+#: account/forms.py:488
 msgid "Please type your current password."
 msgstr "Merci d'indiquer votre mot de passe actuel."
 
-#: account/forms.py:516
+#: account/forms.py:528
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Cette adresse e-mail n'est pas associée à un compte utilisateur"
 
-#: account/forms.py:579
+#: account/forms.py:591
 msgid "The password reset token was invalid."
 msgstr "Le jeton de réinitialisation de mot de passe est invalide."
 
@@ -206,7 +206,7 @@ msgstr ""
 msgid "Your account has no password set up."
 msgstr "Vous devez d'abord définir le mot de passe de votre compte."
 
-#: socialaccount/adapter.py:141
+#: socialaccount/adapter.py:138
 msgid "Your account has no verified e-mail address."
 msgstr "Vous devez d'abord associer une adresse e-mail à votre compte."
 
@@ -419,9 +419,11 @@ msgid ""
 "\n"
 "To confirm this is correct, go to %(activate_url)s"
 msgstr ""
-"Vous recevez cet e-mail car l'utilisateur %(user_display)s a indiqué votre adresse pour se connecter à son compte sur %(site_domain)s.\n"
+"Vous recevez cet e-mail car l'utilisateur %(user_display)s a indiqué votre "
+"adresse pour se connecter à son compte sur %(site_domain)s.\n"
 "\n"
-"Pour confirmer que vous en êtes bien le propriétaire, allez à %(activate_url)s"
+"Pour confirmer que vous en êtes bien le propriétaire, allez à "
+"%(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your E-mail Address"
@@ -434,8 +436,11 @@ msgid ""
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"Vous recevez cet e-mail car vous ou quelqu'un d'autre a demandé le mot de passe pour votre compte utilisateur.\n"
-"Vous pouvez simplement ignorer ce message si vous n'êtes pas à l'origine de cette demande. Sinon, cliquez sur le lien ci-dessous pour réinitialiser votre mot de passe."
+"Vous recevez cet e-mail car vous ou quelqu'un d'autre a demandé le mot de "
+"passe pour votre compte utilisateur.\n"
+"Vous pouvez simplement ignorer ce message si vous n'êtes pas à l'origine de "
+"cette demande. Sinon, cliquez sur le lien ci-dessous pour réinitialiser "
+"votre mot de passe."
 
 #: templates/account/email/password_reset_key_message.txt:9
 #, python-format

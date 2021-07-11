@@ -172,7 +172,7 @@ msgstr "e-mailové adresy"
 
 #: account/models.py:86
 msgid "created"
-msgstr "vytvořit"
+msgstr "vytvořil"
 
 #: account/models.py:87
 msgid "sent"

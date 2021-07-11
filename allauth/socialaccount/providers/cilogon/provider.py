@@ -42,7 +42,7 @@ class CILogonProvider(OAuth2Provider):
             email=data.get("email"),
             last_name=data.get("family_name"),
             first_name=data.get("given_name"),
-            eppn=data.get("eppn")
+            eppn=data.get("eppn"),
         )
 
     def extract_email_addresses(self, data):

@@ -8,6 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 from .provider import CILogonProvider
 
+
 class CILogonOAuth2Adapter(OAuth2Adapter):
     provider_id = CILogonProvider.id
     access_token_url = "https://cilogon.org/oauth2/token"

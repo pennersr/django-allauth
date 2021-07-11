@@ -21,13 +21,13 @@ class TrainingPeaksOAuth2Adapter(OAuth2Adapter):
     def get_hostname(self):
         """ Return hostname depending on sandbox seting """
         settings = self.get_settings()
-        if (settings.get('USE_PRODUCTION')):
-            return 'trainingpeaks.com'
-        return 'sandbox.trainingpeaks.com'
+        if settings.get("USE_PRODUCTION"):
+            return "trainingpeaks.com"
+        return "sandbox.trainingpeaks.com"
 
     @property
     def access_token_url(self):
-         return "https://oauth." + self.get_hostname() + "/oauth/token"
+        return "https://oauth." + self.get_hostname() + "/oauth/token"
 
     @property
     def authorize_url(self):
@@ -36,14 +36,13 @@ class TrainingPeaksOAuth2Adapter(OAuth2Adapter):
     @property
     def profile_url(self):
         return "https://api." + self.get_hostname() + "/v1/athlete/profile"
-    
+
     @property
     def api_hostname(self):
         """ Return https://api.hostname.tld """
         return "https://api." + self.get_hostname()
 
     # https://oauth.sandbox.trainingpeaks.com/oauth/deauthorize
-
 
     scope_delimiter = " "
 

@@ -25,9 +25,7 @@ class KeycloakOAuth2Adapter(OAuth2Adapter):
     if other_url is None:
         other_url = settings.get("KEYCLOAK_URL")
 
-    server_base_url= "{0}/realms/{1}".format(
-        other_url, settings.get("KEYCLOAK_REALM")
-    )
+    server_base_url = "{0}/realms/{1}".format(other_url, settings.get("KEYCLOAK_REALM"))
     access_token_url = "{0}/protocol/openid-connect/token".format(server_base_url)
     profile_url = "{0}/protocol/openid-connect/userinfo".format(server_base_url)
 

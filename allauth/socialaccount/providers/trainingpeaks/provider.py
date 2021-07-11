@@ -10,11 +10,15 @@ class TrainingPeaksAccount(ProviderAccount):
         return None
 
     def to_str(self):
-        name = self.account.extra_data.get("FirstName") + \
-            " " + self.account.extra_data.get("LastName")
+        name = (
+            self.account.extra_data.get("FirstName")
+            + " "
+            + self.account.extra_data.get("LastName")
+        )
         if name != " ":
             return name
         return super(TrainingPeaksAccount, self).to_str()
+
 
 class TrainingPeaksProvider(OAuth2Provider):
     id = "trainingpeaks"
@@ -42,5 +46,6 @@ class TrainingPeaksProvider(OAuth2Provider):
 
     def get_default_scope(self):
         return ["athlete:profile"]
+
 
 provider_classes = [TrainingPeaksProvider]

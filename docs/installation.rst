@@ -197,5 +197,5 @@ and follow these steps:
 
 - Add a ``Site`` for your domain, matching ``settings.SITE_ID`` (``django.contrib.sites`` app).
 - For each OAuth based provider, either add a ``SocialApp`` (``socialaccount``
-  app) containing the required client credentials, or, make make sure that these are
+  app) containing the required client credentials, or, make sure that these are
   configured via the ``SOCIALACCOUNT_PROVIDERS[<provider>]['APP']`` setting (see example above).

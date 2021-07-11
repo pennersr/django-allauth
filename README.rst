@@ -2,8 +2,8 @@
 Welcome to django-allauth!
 ==========================
 
-.. image:: https://travis-ci.org/pennersr/django-allauth.svg
-   :target: http://travis-ci.org/pennersr/django-allauth
+.. image:: https://api.travis-ci.com/pennersr/django-allauth.svg?branch=master
+   :target: http://travis-ci.com/pennersr/django-allauth
 
 .. image:: https://img.shields.io/pypi/v/django-allauth.svg
    :target: https://pypi.python.org/pypi/django-allauth

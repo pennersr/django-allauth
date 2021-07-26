@@ -1,14 +1,10 @@
 import requests
 
-from django.urls import reverse
-
-from allauth.account import app_settings
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
     OAuth2LoginView,
 )
-from allauth.utils import build_absolute_uri
 
 from .client import WeixinOAuth2Client
 from .provider import WeixinProvider

@@ -118,10 +118,9 @@ msgid "This e-mail address is already associated with another account."
 msgstr "Helbide elektroniko hau dagoeneko beste kontu bati lotuta dago."
 
 #: account/forms.py:452
-#, fuzzy, python-format
-#| msgid "Your account has no verified e-mail address."
+#, python-format
 msgid "You cannot add more than %d e-mail addresses."
-msgstr "Zure kontuak ez du egiaztatutako emailik."
+msgstr "Ezin dituzu %d email helbide baino gehiago erabili."
 
 #: account/forms.py:477
 msgid "Current Password"
@@ -396,14 +395,9 @@ msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Ziur al zaude aukeratutako helbide elektronikoa ezabatu nahi duzula?"
 
 #: templates/account/email/base_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "Thank you from %(site_name)s!\n"
-#| "%(site_domain)s"
+#, python-format
 msgid "Hello from %(site_name)s!"
-msgstr ""
-"Mila esker %(site_name)s-(e)tik!\n"
-"%(site_domain)s"
+msgstr "Kaixo %(site_name)s webgunetik!"
 
 #: templates/account/email/base_message.txt:5
 #, python-format
@@ -415,24 +409,15 @@ msgstr ""
 "%(site_domain)s"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because user %(user_display)s has given "
-#| "yours as an e-mail address to connect their account.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s\n"
+#, python-format
 msgid ""
 "You're receiving this e-mail because user %(user_display)s has given your e-"
 "mail address to register an account on %(site_domain)s.\n"
 "\n"
 "To confirm this is correct, go to %(activate_url)s"
 msgstr ""
-"Kaixo %(site_name)s webgunetik!\n"
-"\n"
 "Email hau jaso duzu %(user_display)s erabiltzaileak zure helbide "
-"elektronikoa bere kontuarekin lotu nahi duelako.\n"
+"elektronikoa bere kontuarekin lotu nahi duelako %(site_domain)s orrialdean.\n"
 "\n"
 "Hau zuzena dela baieztatzeko, egin klik hemen: %(activate_url)s\n"
 
@@ -441,22 +426,12 @@ msgid "Please Confirm Your E-mail Address"
 msgstr "Mesedez egiaztatu zure helbide elektronikoa"
 
 #: templates/account/email/password_reset_key_message.txt:4
-#, fuzzy
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
 msgid ""
 "You're receiving this e-mail because you or someone else has requested a "
 "password for your user account.\n"
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"Kaixo %(site_name)s webgunetik!\n"
-"\n"
 "Email hau jaso duzu zuk edo beste norbaitek pasahitza berrezartzeko eskaera "
 "egin duelako zure kontuarentzat.\n"
 "Eskaera zuk egin ez baduzu mezu hau alde batera utzi dezakezu. Edo egin klik "

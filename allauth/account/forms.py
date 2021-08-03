@@ -413,10 +413,10 @@ class SignupForm(BaseSignupForm):
                 )
         return self.cleaned_data
 
-    def save(self, request):
+    def save(self, request, commit=True):
         adapter = get_adapter(request)
         user = adapter.new_user(request)
-        adapter.save_user(request, user, self)
+        adapter.save_user(request, user, self, commit)
         self.custom_signup(request, user)
         # TODO: Move into adapter `save_user` ?
         setup_user_email(request, user, [])

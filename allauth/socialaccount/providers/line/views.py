@@ -24,7 +24,7 @@ class LineOAuth2Adapter(OAuth2Adapter):
         data: access_token data from line
         """
         settings = app_settings.PROVIDERS.get(self.provider_id, {})
-        if 'email' in settings.get('SCOPE', ''):
+        if "email" in settings.get("SCOPE", ""):
             token = SocialToken(token=data["id_token"])
         else:
             token = SocialToken(token=data["access_token"])
@@ -37,11 +37,8 @@ class LineOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         settings = app_settings.PROVIDERS.get(self.provider_id, {})
-        if 'email' in settings.get('SCOPE', ''):
-            payload = {
-                "client_id": app.client_id,
-                "id_token": token.token
-            }
+        if "email" in settings.get("SCOPE", ""):
+            payload = {"client_id": app.client_id, "id_token": token.token}
             resp = requests.post(self.id_token_url, payload)
         else:
             headers = {"Authorization": "Bearer {0}".format(token.token)}

@@ -4,7 +4,9 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 class LineAccount(ProviderAccount):
     def get_avatar_url(self):
-        return self.account.extra_data.get("pictureUrl") or self.account.extra_data.get('picture')
+        return self.account.extra_data.get("pictureUrl") or self.account.extra_data.get(
+            "picture"
+        )
 
     def to_str(self):
         return self.account.extra_data.get("displayName", self.account.uid)
@@ -19,7 +21,7 @@ class LineProvider(OAuth2Provider):
         return []
 
     def extract_uid(self, data):
-        return str(data.get('userId') or data.get('sub'))
+        return str(data.get("userId") or data.get("sub"))
 
     def extract_common_fields(self, data):
         return dict(

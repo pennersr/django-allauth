@@ -40,11 +40,13 @@ ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS (=3)
   Determines the expiration date of email confirmation mails (# of days).
 
 ACCOUNT_EMAIL_CONFIRMATION_HMAC (=True)
-  In order to verify an email address a key is mailed identifying the
-  email address to be verified. In previous versions, a record was
-  stored in the database for each ongoing email confirmation, keeping
-  track of these keys. Current versions use HMAC based keys that do not
-  require server side state.
+  In order to verify an email address a key is mailed identifying the email 
+  address to be verified. Currently two options are provided. The default 
+  ``True`` is based on HMAC algorithm, and there is a one-to-one 
+  correspondence between email addresses and keys and hence it does not 
+  require server side state. In previous versions as well as the ``False`` 
+  option, a record with a randomly generated key was stored in the database 
+  for each ongoing email confirmation.
 
 ACCOUNT_EMAIL_REQUIRED (=False)
   The user is required to hand over an e-mail address when signing up.

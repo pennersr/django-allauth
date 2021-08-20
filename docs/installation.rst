@@ -91,6 +91,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.foursquare',
         'allauth.socialaccount.providers.frontier',
         'allauth.socialaccount.providers.fxa',
+        'allauth.socialaccount.providers.gitea',
         'allauth.socialaccount.providers.github',
         'allauth.socialaccount.providers.gitlab',
         'allauth.socialaccount.providers.globus',

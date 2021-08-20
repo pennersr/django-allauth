@@ -119,6 +119,8 @@ Supported Providers
 
 - Frontier (OAuth2)
 
+- Gitea (OAuth2)
+
 - Github (OAuth2)
 
 - GitLab (OAuth2)

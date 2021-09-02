@@ -38,7 +38,8 @@ class EmailAwarePasswordResetTokenGenerator(PasswordResetTokenGenerator):
             user, timestamp
         )
         sync_user_email_addresses(user)
-        emails = set([user.email] if user.email else [])
+        email = user_email(user)
+        emails = set([email] if email else [])
         emails.update(
             EmailAddress.objects.filter(user=user).values_list("email", flat=True)
         )

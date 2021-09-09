@@ -26,6 +26,11 @@ Backwards incompatible changes
   been renamed to ``certificate_key``. This is done to prevent the key from being displayed
   without being masked in Django debug pages.
 
+0.44.0
+******
+
+- Better compatibility with Django 3.2
+
 
 0.43.0 (2020-10-15)
 *******************

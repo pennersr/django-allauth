@@ -25,7 +25,8 @@ class MicrosoftGraphTests(OAuth2TestsMixin, TestCase):
             "officeLocation": null,
             "preferredLanguage": "en-US",
             "surname": "Weiler",
-            "userPrincipalName": "annew@CIE493742.onmicrosoft.com"
+            "userPrincipalName": "annew@CIE493742.onmicrosoft.com",
+            "mailNickname": "annew"
         }
         """  # noqa
         return MockedResponse(200, response_data)

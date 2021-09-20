@@ -24,7 +24,7 @@ msgstr "このユーザー名は使用できません。他のユーザー名を
 
 #: account/adapter.py:51
 msgid "Too many failed login attempts. Try again later."
-msgstr ""
+msgstr "ログイン失敗が連続しています。時間が経ってからやり直してください。"
 
 #: account/adapter.py:53
 msgid "A user is already registered with this e-mail address."
@@ -401,7 +401,7 @@ msgstr "選択されたメールアドレスを削除してもよろしいです
 #: templates/account/email/base_message.txt:1
 #, python-format
 msgid "Hello from %(site_name)s!"
-msgstr ""
+msgstr "こんにちは、%(site_name)sです。"
 
 #: templates/account/email/base_message.txt:5
 #, python-format
@@ -409,44 +409,32 @@ msgid ""
 "Thank you for using %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
+"%(site_name)sを利用いただきありがとうございます!\n"
+"%(site_domain)s"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "User %(user_display)s at %(site_name)s has given this as an email "
-#| "address.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s\n"
 msgid ""
 "You're receiving this e-mail because user %(user_display)s has given your e-"
 "mail address to register an account on %(site_domain)s.\n"
 "\n"
 "To confirm this is correct, go to %(activate_url)s"
 msgstr ""
-"%(user_display)s さんが %(site_name)s でこのメールアドレスを登録しようとして"
-"います。問題がなければ、確認のためにこのURLをクリックしてください。\n"
-"%(activate_url)s\n"
+"%(user_display)s さんが %(site_domain)s にこのメールアドレスを登録しようとして"
+"います。問題がなければ、確認のために以下のURLをクリックしてください。\n"
+"%(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
-#, fuzzy
-#| msgid "Confirm E-mail Address"
 msgid "Please Confirm Your E-mail Address"
-msgstr "メールアドレスの確認"
+msgstr "メールアドレスを確認してください"
 
 #: templates/account/email/password_reset_key_message.txt:4
-#, fuzzy
-#| msgid ""
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account at %(site_domain)s.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
 msgid ""
 "You're receiving this e-mail because you or someone else has requested a "
 "password for your user account.\n"
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"このメールは、あなた（もしくは別の誰か）が %(site_domain)s でパスワードの再設"
+"このメールは、あなた（もしくは別の誰か）がパスワードの再設"
 "定を行おうとしたために送られました。\n"
 "パスワードの再設定を要求したのがあなたではない場合、このメールは無視してくだ"
 "さい。パスワードを再設定するためには、以下のリンクをクリックしてください。"

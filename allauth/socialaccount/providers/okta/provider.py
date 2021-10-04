@@ -33,8 +33,8 @@ class OktaProvider(OAuth2Provider):
     def extract_common_fields(self, data):
         return dict(
             email=data["email"],
-            last_name=data["family_name"],
-            first_name=data["given_name"],
+            name=data["name"],
+            nickname=data["nickname"]
         )
 
 

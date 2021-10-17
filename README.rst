@@ -43,7 +43,7 @@ Documentation
 Stack Overflow
   http://stackoverflow.com/questions/tagged/django-allauth
 
-Rationale
+Rationale :
 =========
 
 Most existing Django apps that address the problem of social
@@ -67,7 +67,7 @@ integrated authentication app that allows for both local and social
 authentication, with flows that just work.
 
 
-Commercial Support
+Commercial Support :
 ==================
 
 This project is sponsored by IntenCT_. If you require assistance on
@@ -76,7 +76,7 @@ your project(s), please contact us: info@intenct.nl.
 .. _IntenCT: http://www.intenct.info
 
 
-Cross-Selling
+Cross-Selling :
 =============
 
 If you like this, you may also like:

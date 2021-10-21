@@ -36,9 +36,9 @@ USER_FIELDS = [
 
 class OdnoklassnikiOAuth2Adapter(OAuth2Adapter):
     provider_id = OdnoklassnikiProvider.id
-    access_token_url = "http://api.odnoklassniki.ru/oauth/token.do"
-    authorize_url = "http://www.odnoklassniki.ru/oauth/authorize"
-    profile_url = "http://api.odnoklassniki.ru/fb.do"
+    access_token_url = "https://api.odnoklassniki.ru/oauth/token.do"
+    authorize_url = "https://www.odnoklassniki.ru/oauth/authorize"
+    profile_url = "https://api.odnoklassniki.ru/fb.do"
     access_token_method = "POST"
 
     def complete_login(self, request, app, token, **kwargs):

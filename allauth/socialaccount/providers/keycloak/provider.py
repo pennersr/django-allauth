@@ -1,7 +1,13 @@
 # -*- coding: utf-8 -*-
+from django.conf import settings
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
+OVERRIDE_NAME = (
+    getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
+    .get("keycloak", {})
+    .get("OVERRIDE_NAME", "Keycloak")
+)
 
 class KeycloakAccount(ProviderAccount):
     def get_avatar_url(self):
@@ -14,7 +20,7 @@ class KeycloakAccount(ProviderAccount):
 
 class KeycloakProvider(OAuth2Provider):
     id = "keycloak"
-    name = "Keycloak"
+    name = OVERRIDE_NAME
     account_class = KeycloakAccount
 
     def get_default_scope(self):

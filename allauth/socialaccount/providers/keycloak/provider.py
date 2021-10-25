@@ -9,6 +9,7 @@ OVERRIDE_NAME = (
     .get("OVERRIDE_NAME", "Keycloak")
 )
 
+
 class KeycloakAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("picture")

@@ -27,7 +27,7 @@ msgid "Too many failed login attempts. Try again later."
 msgstr "Der er for mange mislykkede logonforsøg. Prøv igen senere."
 
 #: account/adapter.py:53
-msgid "A user is already registered with this e-mail address."
+msgid "A user is already registered with this address."
 msgstr "En bruger er allerede registreret med denne emailadresse."
 
 #: account/adapter.py:300
@@ -100,7 +100,7 @@ msgid "E-mail (optional)"
 msgstr "Email (valgfri)"
 
 #: account/forms.py:358
-msgid "You must type the same each time."
+msgid "You must type the same email each time."
 msgstr "Du skal skrive den samme emailadresse hver gang."
 
 #: account/forms.py:383 account/forms.py:498
@@ -429,7 +429,7 @@ msgid ""
 msgstr ""
 "Hej fra %(site_name)s!\n"
 "\n"
-"Du modtager denne email fordi brugeren %(user_display)s ønsker at bruge den "
+"Du modtager denne email, fordi brugeren %(user_display)s ønsker at bruge den "
 "til sin konto.\n"
 "\n"
 "For at bekræfte dette, gå til %(activate_url)s\n"

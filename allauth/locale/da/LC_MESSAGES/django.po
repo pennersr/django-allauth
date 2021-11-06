@@ -187,7 +187,7 @@ msgstr "emailbekræfelse"
 
 #: account/models.py:94
 msgid "email confirmations"
-msgstr "e-mailbekræftelse"
+msgstr "emailbekræftelse"
 
 #: socialaccount/adapter.py:26
 #, python-format

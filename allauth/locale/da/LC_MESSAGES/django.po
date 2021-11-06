@@ -119,7 +119,7 @@ msgstr "Denne emailadresse er allerede knyttet til en anden konto."
 #, fuzzy, python-format
 #| msgid "Your account has no verified e-mail address."
 msgid "You cannot add more than %d e-mail addresses."
-msgstr "Din konto har ikke noget bekræftiget emailadresse."
+msgstr "Din konto har ikke nogen bekræftet emailadresse."
 
 #: account/forms.py:477
 msgid "Current Password"
@@ -204,7 +204,7 @@ msgstr "Der er ikke oprettet noget password til din konto."
 
 #: socialaccount/adapter.py:138
 msgid "Your account has no verified e-mail address."
-msgstr "Din konto har ikke noget bekræftiget emailadresse."
+msgstr "Din konto har ikke nogen bekræftet emailadresse."
 
 #: socialaccount/apps.py:7
 msgid "Social Accounts"
@@ -362,7 +362,7 @@ msgstr "Gør primær"
 
 #: templates/account/email.html:35
 msgid "Re-send Verification"
-msgstr "Send bekræftigelse igen"
+msgstr "Send bekræftelse igen"
 
 #: templates/account/email.html:36 templates/socialaccount/connections.html:35
 msgid "Remove"
@@ -493,7 +493,7 @@ msgid ""
 "This e-mail confirmation link expired or is invalid. Please <a href="
 "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"Dette email-bekræftigelseslink er udløbet eller ugyldigt. Lav venligst <a "
+"Dette link til bekræftelse af email er udløbet eller ugyldigt. Lav venligst <a "
 "href=\"%(email_url)s\">et nyt</a>."
 
 #: templates/account/login.html:6 templates/account/login.html:10
@@ -711,9 +711,9 @@ msgid ""
 "you are who you claim to be. For this purpose, we require that you\n"
 "verify ownership of your e-mail address. "
 msgstr ""
-"Denne del af siden kræver at du bekræftiger at\n"
+"Denne del af siden kræver, at du bekræfter, at\n"
 "du er hvem du påstår du er. Derfor er du nødt til at\n"
-"bekræftige, at du ejer din emailadresse "
+"bekræfte, at du ejer din emailadresse "
 
 #: templates/account/verified_email_required.html:16
 msgid ""
@@ -721,7 +721,7 @@ msgid ""
 "verification. Please click on the link inside this e-mail. Please\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
-"Vi har sendt en email til dig for bekræftigelse.\n"
+"Vi har sendt en email til dig for bekræftelse.\n"
 "Klik på linket i den. Kontakt os venligst, hvis du ikke modtager\n"
 " den i løbet af et par minutter."
 

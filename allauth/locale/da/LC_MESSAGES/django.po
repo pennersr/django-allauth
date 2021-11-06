@@ -378,7 +378,7 @@ msgid ""
 "an e-mail address so you can receive notifications, reset your password, etc."
 msgstr ""
 "Du har på nuværende tidspunkt ikke nogen emailadresser tilknyttet. Du bør "
-"virkeligt tilknytte en emailadresse, så du kan modtage notifikationer, "
+"virkelig tilknytte en emailadresse, så du kan modtage notifikationer, "
 "resette dit password osv."
 
 #: templates/account/email.html:48

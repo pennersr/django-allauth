@@ -731,7 +731,8 @@ msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
 "mail address</a>."
 msgstr ""
-"<strong>Bemærk:</strong> du kan stadig <a href=\"%(email_url)s\">ændre din emailadresse</a>."
+"<strong>Bemærk:</strong> du kan stadig <a href=\"%(email_url)s\">ændre din "
+"emailadresse</a>."
 
 #: templates/openid/login.html:9
 msgid "OpenID Sign In"

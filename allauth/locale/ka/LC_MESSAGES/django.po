@@ -417,7 +417,7 @@ msgstr ""
 "თქვენ იღებთ ამ ელ. წერილს რადგან მომხმარებემა - %(user_display)s მიუთითა თქვენი ელ."
 "ფოსტის ანგარიში რომ დარეგისტრირდეს შემდეგ საიტზე - %(site_domain)s.\n"
 "\n"
-"იმისთვის, რომ დაადასტუროთ ეს გადადით შემდეგ ლინკზე %(activate_url)s"
+"იმისთვის, რომ დაადასტუროთ ეს, გადადით შემდეგ ლინკზე %(activate_url)s"
 
 #: .\templates\account\email\email_confirmation_subject.txt:3
 msgid "Please Confirm Your E-mail Address"

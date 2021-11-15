@@ -27,8 +27,8 @@ msgid "Too many failed login attempts. Try again later."
 msgstr "Der er for mange mislykkede logonforsøg. Prøv igen senere."
 
 #: account/adapter.py:53
-msgid "A user is already registered with this e-mail address."
-msgstr "En bruger er allerede registreret med denne e-mail-adresse."
+msgid "A user is already registered with this address."
+msgstr "En bruger er allerede registreret med denne emailadresse."
 
 #: account/adapter.py:300
 #, python-brace-format
@@ -57,7 +57,7 @@ msgstr "Denne konto er i øjeblikket inaktiv."
 
 #: account/forms.py:98
 msgid "The e-mail address and/or password you specified are not correct."
-msgstr "Den angivne e-mail-adresse og/eller adgangskode er ikke korrekt."
+msgstr "Den angivne emailadresse og/eller adgangskode er ikke korrekt."
 
 #: account/forms.py:101
 msgid "The username and/or password you specified are not correct."
@@ -66,12 +66,12 @@ msgstr "Det angivne brugernavn og/eller adgangskoden er ikke korrekt."
 #: account/forms.py:112 account/forms.py:278 account/forms.py:438
 #: account/forms.py:516
 msgid "E-mail address"
-msgstr "E-mail adresse"
+msgstr "Emailadresse"
 
 #: account/forms.py:116 account/forms.py:315 account/forms.py:435
 #: account/forms.py:511
 msgid "E-mail"
-msgstr "E-mail"
+msgstr "Email"
 
 #: account/forms.py:119 account/forms.py:122 account/forms.py:268
 #: account/forms.py:271
@@ -80,7 +80,7 @@ msgstr "Brugernavn"
 
 #: account/forms.py:132
 msgid "Username or e-mail"
-msgstr "Brugernavn eller e-mail"
+msgstr "Brugernavn eller email"
 
 #: account/forms.py:135
 msgctxt "field label"
@@ -89,19 +89,19 @@ msgstr "Bruger"
 
 #: account/forms.py:306
 msgid "E-mail (again)"
-msgstr "E-mail (igen)"
+msgstr "Email (igen)"
 
 #: account/forms.py:310
 msgid "E-mail address confirmation"
-msgstr "Bekræftelse af e-mail-adresse"
+msgstr "Bekræftelse af emailadresse"
 
 #: account/forms.py:318
 msgid "E-mail (optional)"
-msgstr "E-mail (valgfri)"
+msgstr "Email (valgfri)"
 
 #: account/forms.py:358
 msgid "You must type the same email each time."
-msgstr "Du skal skrive den samme e-mail hver gang."
+msgstr "Du skal skrive den samme emailadresse hver gang."
 
 #: account/forms.py:383 account/forms.py:498
 msgid "Password (again)"
@@ -109,17 +109,17 @@ msgstr "Adgangskode (igen)"
 
 #: account/forms.py:447
 msgid "This e-mail address is already associated with this account."
-msgstr "Denne e-mail-adresse er allerede knyttet til denne konto."
+msgstr "Denne emailadresse er allerede knyttet til denne konto."
 
 #: account/forms.py:450
 msgid "This e-mail address is already associated with another account."
-msgstr "Denne e-mail-adresse er allerede knyttet til en anden konto."
+msgstr "Denne emailadresse er allerede knyttet til en anden konto."
 
 #: account/forms.py:452
 #, fuzzy, python-format
 #| msgid "Your account has no verified e-mail address."
 msgid "You cannot add more than %d e-mail addresses."
-msgstr "Din konto har ikke noget bekræftiget e-mail adresse."
+msgstr "Din konto har ikke nogen bekræftet emailadresse."
 
 #: account/forms.py:477
 msgid "Current Password"
@@ -139,7 +139,7 @@ msgstr "Indtast din nuværende adgangskode."
 
 #: account/forms.py:528
 msgid "The e-mail address is not assigned to any user account"
-msgstr "E-mail-adressen er ikke tildelt til nogen brugerkonto"
+msgstr "Emailadressen er ikke tildelt til nogen brugerkonto"
 
 #: account/forms.py:591
 msgid "The password reset token was invalid."
@@ -151,7 +151,7 @@ msgstr "bruger"
 
 #: account/models.py:28 account/models.py:83
 msgid "e-mail address"
-msgstr "e-mail adresse"
+msgstr "emailadresse"
 
 #: account/models.py:30
 msgid "verified"
@@ -163,11 +163,11 @@ msgstr "primær"
 
 #: account/models.py:36
 msgid "email address"
-msgstr "e-mail adresse"
+msgstr "emailadresse"
 
 #: account/models.py:37
 msgid "email addresses"
-msgstr "e-mail adresser"
+msgstr "emailadresser"
 
 #: account/models.py:86
 msgid "created"
@@ -183,11 +183,11 @@ msgstr "nøgle"
 
 #: account/models.py:93
 msgid "email confirmation"
-msgstr "e-mail bekræftigelse"
+msgstr "emailbekræfelse"
 
 #: account/models.py:94
 msgid "email confirmations"
-msgstr "e-mail bekræftigelser"
+msgstr "emailbekræftelse"
 
 #: socialaccount/adapter.py:26
 #, python-format
@@ -195,7 +195,7 @@ msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
 "account first, then connect your %s account."
 msgstr ""
-"En konto med denne e-mail adresse eksisterer allerede. Log venligst ind med "
+"En konto med denne emailadresse eksisterer allerede. Log venligst ind med "
 "den konto først og tilknyt din %s konto derefter."
 
 #: socialaccount/adapter.py:131
@@ -204,7 +204,7 @@ msgstr "Der er ikke oprettet noget password til din konto."
 
 #: socialaccount/adapter.py:138
 msgid "Your account has no verified e-mail address."
-msgstr "Din konto har ikke noget bekræftiget e-mail adresse."
+msgstr "Din konto har ikke nogen bekræftet emailadresse."
 
 #: socialaccount/apps.py:7
 msgid "Social Accounts"
@@ -338,11 +338,11 @@ msgstr "Denne konto er inaktiv."
 
 #: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
-msgstr "E-mail adresser"
+msgstr "Emailadresser"
 
 #: templates/account/email.html:10
 msgid "The following e-mail addresses are associated with your account:"
-msgstr "De følgende e-mail adresser er tilknyttet din konto:"
+msgstr "De følgende emailadresser er tilknyttet din konto:"
 
 #: templates/account/email.html:24
 msgid "Verified"
@@ -362,7 +362,7 @@ msgstr "Gør primær"
 
 #: templates/account/email.html:35
 msgid "Re-send Verification"
-msgstr "Send bekræftigelse igen"
+msgstr "Send bekræftelse igen"
 
 #: templates/account/email.html:36 templates/socialaccount/connections.html:35
 msgid "Remove"
@@ -378,20 +378,20 @@ msgid ""
 "an e-mail address so you can receive notifications, reset your password, etc."
 msgstr ""
 "Du har på nuværende tidspunkt ikke nogen emailadresser tilknyttet. Du bør "
-"virkeligt tilknytte en email-adresse, så du kan modtage notifikationer, "
+"virkelig tilknytte en emailadresse, så du kan modtage notifikationer, "
 "resette dit password osv."
 
 #: templates/account/email.html:48
 msgid "Add E-mail Address"
-msgstr "Tilføj e-mail adresse"
+msgstr "Tilføj emailadresse"
 
 #: templates/account/email.html:53
 msgid "Add E-mail"
-msgstr "Tilføj e-mail"
+msgstr "Tilføj email"
 
 #: templates/account/email.html:63
 msgid "Do you really want to remove the selected e-mail address?"
-msgstr "Vil du virkeligt fjerne den valgte e-mail adresse?"
+msgstr "Vil du virkelig fjerne den valgte emailadresse?"
 
 #: templates/account/email/base_message.txt:1
 #, fuzzy, python-format
@@ -429,14 +429,14 @@ msgid ""
 msgstr ""
 "Hej fra %(site_name)s!\n"
 "\n"
-"Du modtager denne e-mail fordi brugeren %(user_display)s ønsker at bruge den "
+"Du modtager denne email, fordi brugeren %(user_display)s ønsker at bruge den "
 "til sin konto.\n"
 "\n"
 "For at bekræfte dette, gå til %(activate_url)s\n"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your E-mail Address"
-msgstr "Bekræft venligst din e-mail adresse"
+msgstr "Bekræft venligst din emailadresse"
 
 #: templates/account/email/password_reset_key_message.txt:4
 #, fuzzy
@@ -472,7 +472,7 @@ msgstr "Token for nulstilling af adgangskode var ugyldig"
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
 msgid "Confirm E-mail Address"
-msgstr "Bekræft venligst din e-mail adresse"
+msgstr "Bekræft venligst din emailadresse"
 
 #: templates/account/email_confirm.html:16
 #, python-format
@@ -493,7 +493,7 @@ msgid ""
 "This e-mail confirmation link expired or is invalid. Please <a href="
 "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"Dette e-mail bekræftigelseslink er udløbet eller ugyldigt. Lav venligst <a "
+"Dette link til bekræftelse af email er udløbet eller ugyldigt. Lav venligst <a "
 "href=\"%(email_url)s\">et nyt</a>."
 
 #: templates/account/login.html:6 templates/account/login.html:10
@@ -543,12 +543,12 @@ msgstr "Er du sikker på, at du vil logge af?"
 #: templates/account/messages/cannot_delete_primary_email.txt:2
 #, python-format
 msgid "You cannot remove your primary e-mail address (%(email)s)."
-msgstr "Du kan ikke fjerne din primære e-mail adresse (%(email)s)."
+msgstr "Du kan ikke fjerne din primære emailadresse (%(email)s)."
 
 #: templates/account/messages/email_confirmation_sent.txt:2
 #, python-format
 msgid "Confirmation e-mail sent to %(email)s."
-msgstr "Bekræftigelses-email sendt til %(email)s."
+msgstr "Bekræftelses-email sendt til %(email)s."
 
 #: templates/account/messages/email_confirmed.txt:2
 #, python-format
@@ -558,7 +558,7 @@ msgstr "Du har bekræftet %(email)s."
 #: templates/account/messages/email_deleted.txt:2
 #, python-format
 msgid "Removed e-mail address %(email)s."
-msgstr "Fjernede e-mail adressen %(email)s."
+msgstr "Fjernede emailadressen %(email)s."
 
 #: templates/account/messages/logged_in.txt:4
 #, python-format
@@ -579,11 +579,11 @@ msgstr "Password indstillet med success."
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary e-mail address set."
-msgstr "Primær e-mail indstillet."
+msgstr "Primær emailadresse indstillet."
 
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary e-mail address must be verified."
-msgstr "Din primære e-mail adresse skal bekræftes."
+msgstr "Din primære emailadresse skal bekræftes."
 
 #: templates/account/password_change.html:5
 #: templates/account/password_change.html:8
@@ -607,8 +607,8 @@ msgid ""
 "Forgotten your password? Enter your e-mail address below, and we'll send you "
 "an e-mail allowing you to reset it."
 msgstr ""
-"Glemt dit password? Skriv din e-mail adresse herunder, og vi vil sende dig "
-"en e-mail, hvorfra du kan nulstille det."
+"Glemt dit password? Skriv din emailadresse herunder, og vi vil sende dig "
+"en email, hvorfra du kan nulstille det."
 
 #: templates/account/password_reset.html:20
 msgid "Reset My Password"
@@ -624,7 +624,7 @@ msgid ""
 "We have sent you an e-mail. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"Vi har sendt dig en e-mail. Kontakt os venligst, hvis du ikke modtager den i "
+"Vi har sendt dig en email. Kontakt os venligst, hvis du ikke modtager den i "
 "løbet af et par minutter."
 
 #: templates/account/password_reset_from_key.html:7
@@ -693,7 +693,7 @@ msgstr "du er allerede logget ind som %(user_display)s."
 #: templates/account/verified_email_required.html:5
 #: templates/account/verified_email_required.html:8
 msgid "Verify Your E-mail Address"
-msgstr "Bekræft din e-mail adresse"
+msgstr "Bekræft din emailadresse"
 
 #: templates/account/verification_sent.html:10
 msgid ""
@@ -701,7 +701,7 @@ msgid ""
 "finalize the signup process. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"Vi har sendt en e-mail til dig. Følg linket i den for at færdiggøre "
+"Vi har sendt en email til dig. Følg linket i den for at færdiggøre "
 "oprettelsesprocessen. Kontakt os venligst, hvis du ikke modtager den i løbet "
 "af et par minutter."
 
@@ -711,9 +711,9 @@ msgid ""
 "you are who you claim to be. For this purpose, we require that you\n"
 "verify ownership of your e-mail address. "
 msgstr ""
-"Denne del af siden kræver at du bekræftiger at\n"
+"Denne del af siden kræver, at du bekræfter, at\n"
 "du er hvem du påstår du er. Derfor er du nødt til at\n"
-"bekræftige at du ejer din e-mail adresse "
+"bekræfte, at du ejer din emailadresse "
 
 #: templates/account/verified_email_required.html:16
 msgid ""
@@ -721,7 +721,7 @@ msgid ""
 "verification. Please click on the link inside this e-mail. Please\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
-"Vi har sendt en e-mail til dig for bekræftigelse.\n"
+"Vi har sendt en email til dig for bekræftelse.\n"
 "Klik på linket i den. Kontakt os venligst, hvis du ikke modtager\n"
 " den i løbet af et par minutter."
 
@@ -731,8 +731,8 @@ msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
 "mail address</a>."
 msgstr ""
-"<strong>Bemærk:</strong> du kan stadig <a href=\"%(email_url)s\">ændre din e-"
-"mail adresse</a>."
+"<strong>Bemærk:</strong> du kan stadig <a href=\"%(email_url)s\">ændre din "
+"emailadresse</a>."
 
 #: templates/openid/login.html:9
 msgid "OpenID Sign In"

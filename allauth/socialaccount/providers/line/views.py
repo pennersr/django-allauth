@@ -1,8 +1,10 @@
 import requests
 from datetime import timedelta
+
 from django.utils import timezone
+
 from allauth.socialaccount import app_settings
-from allauth.socialaccount.models import SocialLogin, SocialToken
+from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-11 07:33-0500\n"
+"POT-Creation-Date: 2021-11-15 10:12-0600\n"
 "PO-Revision-Date: 2021-11-12 09:54+0800\n"
 "Last-Translator: Bilgutei Erdenebayar <beke0130@gmail.com>\n"
 "Language-Team: Mongolian <beke0130@gmail.com>\n"
@@ -194,8 +194,8 @@ msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
 "account first, then connect your %s account."
 msgstr ""
-"Энэ имэйл хаягтай бүртгэл системд байна. Түүгээр нэвтэрнэ үү"
-"эхлээд бүртгэл, дараа нь %s бүртгэлээ холбоно уу"
+"Энэ имэйл хаягтай бүртгэл системд байна. Түүгээр нэвтэрнэ үүэхлээд бүртгэл, "
+"дараа нь %s бүртгэлээ холбоно уу"
 
 #: socialaccount/adapter.py:131
 msgid "Your account has no password set up."
@@ -376,8 +376,9 @@ msgid ""
 "You currently do not have any e-mail address set up. You should really add "
 "an e-mail address so you can receive notifications, reset your password, etc."
 msgstr ""
-"Танд одоогоор тохируулсан имэйл хаяг байхгүй байна. Та имэйл хаяг нэмэх хэрэгтэй"
-"ингэснээр та мэдэгдэл хүлээн авах, нууц үгээ шинэчлэх г.м боломжтой болно."
+"Танд одоогоор тохируулсан имэйл хаяг байхгүй байна. Та имэйл хаяг нэмэх "
+"хэрэгтэйингэснээр та мэдэгдэл хүлээн авах, нууц үгээ шинэчлэх г.м боломжтой "
+"болно."
 
 #: templates/account/email.html:48
 msgid "Add E-mail Address"
@@ -401,9 +402,7 @@ msgstr "%(site_name)s-с мэнд хүргэж байна!"
 msgid ""
 "Thank you for using %(site_name)s!\n"
 "%(site_domain)s"
-msgstr ""
-"%(site_name)s-г хэрэглэсэнд баярлалаа!"
-"%(site_domain)s"
+msgstr "%(site_name)s-г хэрэглэсэнд баярлалаа!%(site_domain)s"
 
 #: templates/account/email/email_confirmation_message.txt:5
 #, python-format
@@ -413,8 +412,8 @@ msgid ""
 "\n"
 "To confirm this is correct, go to %(activate_url)s"
 msgstr ""
-"%(user_display)s хэрэглэгч %(site_domain)s дээр бүртгэл бүртгүүлэхийн тулд"
-"аны и-мэйл хаягийг өгсөн тул та энэ имэйлийг хүлээн авч байна.\n"
+"%(user_display)s хэрэглэгч %(site_domain)s дээр бүртгэл бүртгүүлэхийн "
+"тулданы и-мэйл хаягийг өгсөн тул та энэ имэйлийг хүлээн авч байна.\n"
 "\n"
 "Үүнийг зөв эсэхийг баталгаажуулахын тулд %(activate_url)s руу очно уу"
 
@@ -429,8 +428,8 @@ msgid ""
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"Та эсвэл өөр хэн нэгэн таны бүртгэлтэй нууц үгийг хүссэн тул нэ имэйлийг"
-"хүлээн авч байна.\n"
+"Та эсвэл өөр хэн нэгэн таны бүртгэлтэй нууц үгийг хүссэн тул нэ "
+"имэйлийгхүлээн авч байна.\n"
 "Хэрэв та нууц үг шинэчлэх хүсэлт гаргаагүй бол энэ имэйлийг устгаж болно."
 "Нууц үгээ шинэчлэх бол доорх холбоос дээр дарна уу."
 
@@ -454,8 +453,8 @@ msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
 "address for user %(user_display)s."
 msgstr ""
-"<a href=\"mailto:%(email)s\">%(email)s</a> нь %(user_display)s хэрэглэгчийн"
-"имайл хаяг гэдгийг баталгаажуулна уу."
+"<a href=\"mailto:%(email)s\">%(email)s</a> нь %(user_display)s "
+"хэрэглэгчийнимайл хаяг гэдгийг баталгаажуулна уу."
 
 #: templates/account/email_confirm.html:20
 msgid "Confirm"
@@ -467,8 +466,8 @@ msgid ""
 "This e-mail confirmation link expired or is invalid. Please <a href="
 "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"Энэ и-мэйл баталгаажуулах холбоосын хугацаа дууссан эсвэл хүчингүй байна."
-"<a href=\"%(email_url)s\">шинэ имэйлээр баталгаажуулах хүсэлт гаргана уу</a>."
+"Энэ и-мэйл баталгаажуулах холбоосын хугацаа дууссан эсвэл хүчингүй байна.<a "
+"href=\"%(email_url)s\">шинэ имэйлээр баталгаажуулах хүсэлт гаргана уу</a>."
 
 #: templates/account/login.html:6 templates/account/login.html:10
 #: templates/account/login.html:43
@@ -484,9 +483,8 @@ msgid ""
 "for a %(site_name)s account and sign in below:"
 msgstr ""
 "Одоо байгаа гуравдагч\n"
-"этгээдийн бүртгэлийн аль нэгээр нэвтэрнэ үү. Эсвэл %(site_name)s бүртгэлд "
-"<a href=\"%(signup_url)s\">бүртгүүлж</a>"
-"доор нэвтэрнэ үү:"
+"этгээдийн бүртгэлийн аль нэгээр нэвтэрнэ үү. Эсвэл %(site_name)s бүртгэлд <a "
+"href=\"%(signup_url)s\">бүртгүүлж</a>доор нэвтэрнэ үү:"
 
 #: templates/account/login.html:25
 msgid "or"
@@ -500,7 +498,6 @@ msgid ""
 msgstr ""
 "Хэрэв та бүртгэл үүсгээгүй байгаа бол\n"
 "эхлээд <a href=\"%(signup_url)s\">бүртгүүлнэ үү</a>."
-
 
 #: templates/account/login.html:42 templates/account/password_change.html:14
 msgid "Forgot Password?"
@@ -598,8 +595,8 @@ msgid ""
 "We have sent you an e-mail. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"Бид танд имэйл илгээсэн. Хэдхэн минутын дотор хүлээж авахгүй бол "
-"бидэнтэй холбоо барина уу."
+"Бид танд имэйл илгээсэн. Хэдхэн минутын дотор хүлээж авахгүй бол бидэнтэй "
+"холбоо барина уу."
 
 #: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -644,7 +641,8 @@ msgstr "Бүртгүүлэх"
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
 msgstr ""
-"Бүртгэлтэй юу? Тэгвэл бүртгэлтэй хаягаар <a href=\"%(login_url)s\">нэвтрэнэ үү</a>."
+"Бүртгэлтэй юу? Тэгвэл бүртгэлтэй хаягаар <a href=\"%(login_url)s\">нэвтрэнэ "
+"үү</a>."
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:8
@@ -677,9 +675,9 @@ msgid ""
 "finalize the signup process. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"Бид танд баталгаажуулах и-мэйл илгээсэн. Бүртгүүлэх үйл явцыг дуусгахын "
-"тулд өгөгдсөн холбоосыг дагана уу. Хэдэн минутын дотор хүлээж авахгүй "
-"бол бидэнтэй холбоо барина уу."
+"Бид танд баталгаажуулах и-мэйл илгээсэн. Бүртгүүлэх үйл явцыг дуусгахын тулд "
+"өгөгдсөн холбоосыг дагана уу. Хэдэн минутын дотор хүлээж авахгүй бол "
+"бидэнтэй холбоо барина уу."
 
 #: templates/account/verified_email_required.html:12
 msgid ""
@@ -707,8 +705,8 @@ msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
 "mail address</a>."
 msgstr ""
-"<strong>Санамж:</strong> та <a href=\"%(email_url)s\">мэйл хаягаа өөрчлөх</a>"
-"боломжтой хэвээр байна."
+"<strong>Санамж:</strong> та <a href=\"%(email_url)s\">мэйл хаягаа өөрчлөх</"
+"a>боломжтой хэвээр байна."
 
 #: templates/openid/login.html:9
 msgid "OpenID Sign In"
@@ -722,8 +720,7 @@ msgstr "Сошиал-р нэвтрэхэд алдаа гарлаа"
 #: templates/socialaccount/authentication_error.html:10
 msgid ""
 "An error occurred while attempting to login via your social network account."
-msgstr ""
-"Таны сошиал бүртгэлээр нэвтрэхийг оролдох үед алдаа гарлаа."
+msgstr "Таны сошиал бүртгэлээр нэвтрэхийг оролдох үед алдаа гарлаа."
 
 #: templates/socialaccount/connections.html:5
 #: templates/socialaccount/connections.html:8
@@ -741,8 +738,7 @@ msgstr ""
 #: templates/socialaccount/connections.html:43
 msgid ""
 "You currently have no social network accounts connected to this account."
-msgstr ""
-"Танд одоогоор энэ бүртгэлд холбогдсон сошиал бүртгэл байхгүй байна."
+msgstr "Танд одоогоор энэ бүртгэлд холбогдсон сошиал бүртгэл байхгүй байна."
 
 #: templates/socialaccount/connections.html:46
 msgid "Add a 3rd Party Account"
@@ -761,7 +757,8 @@ msgid ""
 "\">sign in</a>."
 msgstr ""
 "Та одоо байгаа бүртгэлийнхээ аль нэгийг ашиглан манай сайтад нэвтрэхээ "
-"цуцлахаар шийдсэн. Хэрэв энэ нь алдаа байсан бол <a href=\"%(login_url)s\"\">нэвтэрнэ үү</a>."
+"цуцлахаар шийдсэн. Хэрэв энэ нь алдаа байсан бол <a href=\"%(login_url)s"
+"\"\">нэвтэрнэ үү</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."

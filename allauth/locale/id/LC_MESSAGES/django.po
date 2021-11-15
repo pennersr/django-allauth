@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-11 07:33-0500\n"
+"POT-Creation-Date: 2021-11-15 10:12-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,8 @@ msgstr ""
 
 #: account/adapter.py:45
 msgid "Username can not be used. Please use other username."
-msgstr "Name pengguna tidak dapat digunakan. Silahkan gunakan nama pengguna lain."
+msgstr ""
+"Name pengguna tidak dapat digunakan. Silahkan gunakan nama pengguna lain."
 
 #: account/adapter.py:51
 msgid "Too many failed login attempts. Try again later."
@@ -194,8 +195,8 @@ msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
 "account first, then connect your %s account."
 msgstr ""
-"Sudah ada akun yang menggunakan alamat e-mail ini. Silahkan masuk ke akun itu "
-"terlebih dahulu, lalu sambungkan akun %s Anda."
+"Sudah ada akun yang menggunakan alamat e-mail ini. Silahkan masuk ke akun "
+"itu terlebih dahulu, lalu sambungkan akun %s Anda."
 
 #: socialaccount/adapter.py:131
 msgid "Your account has no password set up."
@@ -377,8 +378,7 @@ msgid ""
 "an e-mail address so you can receive notifications, reset your password, etc."
 msgstr ""
 "Anda saat ini tidak memiliki alamat e-mail yang disetel. Anda seharusnya "
-"menambahkan alamat e-mail untuk menerima notifikasi, mereset kata sandi, "
-"dll."
+"menambahkan alamat e-mail untuk menerima notifikasi, mereset kata sandi, dll."
 
 #: templates/account/email.html:48
 msgid "Add E-mail Address"
@@ -468,8 +468,8 @@ msgid ""
 "This e-mail confirmation link expired or is invalid. Please <a href="
 "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"Link konfirmasi e-mail ini sudah kadaluwarsa atau tidak valid. Mohon "
-"<a href=\"%(email_url)s\">mengirimkan permintaan konfirmasi e-mail baru</a>."
+"Link konfirmasi e-mail ini sudah kadaluwarsa atau tidak valid. Mohon <a href="
+"\"%(email_url)s\">mengirimkan permintaan konfirmasi e-mail baru</a>."
 
 #: templates/account/login.html:6 templates/account/login.html:10
 #: templates/account/login.html:43
@@ -590,16 +590,16 @@ msgstr "Reset Kata Sandi Saya"
 
 #: templates/account/password_reset.html:23
 msgid "Please contact us if you have any trouble resetting your password."
-msgstr "Mohon hubungi kami jika Anda mengalami masalah saat mengubah kata "
-"sandi Anda."
+msgstr ""
+"Mohon hubungi kami jika Anda mengalami masalah saat mengubah kata sandi Anda."
 
 #: templates/account/password_reset_done.html:15
 msgid ""
 "We have sent you an e-mail. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"Kami telah mengirimkan e-mail. Mohon hubungi kami jika Anda tidak menerimanya "
-"dalam beberapa menit."
+"Kami telah mengirimkan e-mail. Mohon hubungi kami jika Anda tidak "
+"menerimanya dalam beberapa menit."
 
 #: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -642,8 +642,7 @@ msgstr "Daftar"
 #, python-format
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr ""
-"Sudah memiliki akun? Silakan <a href=\"%(login_url)s\">masuk</a>."
+msgstr "Sudah memiliki akun? Silakan <a href=\"%(login_url)s\">masuk</a>."
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:8
@@ -676,9 +675,9 @@ msgid ""
 "finalize the signup process. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"Kami telah mengirimkan e-mail kepada Anda untuk verifikasi. Ikuti tautan yang "
-"disediakan untuk menyelesaikan proses pendaftaran. Silahkan hubungi kami jika "
-"Anda tidak menerimanya dalam beberapa menit."
+"Kami telah mengirimkan e-mail kepada Anda untuk verifikasi. Ikuti tautan "
+"yang disediakan untuk menyelesaikan proses pendaftaran. Silahkan hubungi "
+"kami jika Anda tidak menerimanya dalam beberapa menit."
 
 #: templates/account/verified_email_required.html:12
 msgid ""
@@ -706,8 +705,8 @@ msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
 "mail address</a>."
 msgstr ""
-"<strong>Catatan:</strong> Anda masih bisa <a href=\"%(email_url)s\">mengganti "
-"alamat e-mail Anda</a>."
+"<strong>Catatan:</strong> Anda masih bisa <a href=\"%(email_url)s"
+"\">mengganti alamat e-mail Anda</a>."
 
 #: templates/openid/login.html:9
 msgid "OpenID Sign In"
@@ -761,8 +760,8 @@ msgid ""
 "\">sign in</a>."
 msgstr ""
 "Anda memutuskan untuk membatalkan masuk ke situs kami menggunakan salah satu "
-"dari akun Anda. Jika ini adalah kesalahan, silakan lanjutkan ke <a "
-"href=\"%(login_url)s\">masuk</a>."
+"dari akun Anda. Jika ini adalah kesalahan, silakan lanjutkan ke <a href="
+"\"%(login_url)s\">masuk</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."

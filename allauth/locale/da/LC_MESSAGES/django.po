@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-11 07:33-0500\n"
+"POT-Creation-Date: 2021-11-15 10:12-0600\n"
 "PO-Revision-Date: 2018-09-03 16:04+0200\n"
 "Last-Translator: b'Tuk Bredsdorff <tukodeb@gmail.com>'\n"
 "Language-Team: \n"
@@ -27,7 +27,9 @@ msgid "Too many failed login attempts. Try again later."
 msgstr "Der er for mange mislykkede logonforsøg. Prøv igen senere."
 
 #: account/adapter.py:53
-msgid "A user is already registered with this address."
+#, fuzzy
+#| msgid "A user is already registered with this address."
+msgid "A user is already registered with this e-mail address."
 msgstr "En bruger er allerede registreret med denne emailadresse."
 
 #: account/adapter.py:300
@@ -493,8 +495,8 @@ msgid ""
 "This e-mail confirmation link expired or is invalid. Please <a href="
 "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"Dette link til bekræftelse af email er udløbet eller ugyldigt. Lav venligst <a "
-"href=\"%(email_url)s\">et nyt</a>."
+"Dette link til bekræftelse af email er udløbet eller ugyldigt. Lav venligst "
+"<a href=\"%(email_url)s\">et nyt</a>."
 
 #: templates/account/login.html:6 templates/account/login.html:10
 #: templates/account/login.html:43
@@ -607,8 +609,8 @@ msgid ""
 "Forgotten your password? Enter your e-mail address below, and we'll send you "
 "an e-mail allowing you to reset it."
 msgstr ""
-"Glemt dit password? Skriv din emailadresse herunder, og vi vil sende dig "
-"en email, hvorfra du kan nulstille det."
+"Glemt dit password? Skriv din emailadresse herunder, og vi vil sende dig en "
+"email, hvorfra du kan nulstille det."
 
 #: templates/account/password_reset.html:20
 msgid "Reset My Password"

@@ -37,6 +37,7 @@ def setup_dummy_social_apps(sender, **kwargs):
 class DemoConfig(AppConfig):
     name = 'example.demo'
     verbose_name = _('Demo')
+    default_auto_field = 'django.db.models.AutoField'
 
     def ready(self):
         post_migrate.connect(setup_dummy_social_apps, sender=self)

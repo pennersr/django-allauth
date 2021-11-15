@@ -38,14 +38,31 @@ class MicrosoftGraphOAuth2Adapter(OAuth2Adapter):
         super(MicrosoftGraphOAuth2Adapter, self).__init__(request)
         provider = self.get_provider()
         tenant = provider.get_settings().get("tenant") or "common"
+        user_properties = (
+            "businessPhones",
+            "displayName",
+            "givenName",
+            "id",
+            "jobTitle",
+            "mail",
+            "mobilePhone",
+            "officeLocation",
+            "preferredLanguage",
+            "surname",
+            "userPrincipalName",
+            "mailNickname",
+        )
         base_url = "https://login.microsoftonline.com/{0}".format(tenant)
         self.access_token_url = "{0}/oauth2/v2.0/token".format(base_url)
         self.authorize_url = "{0}/oauth2/v2.0/authorize".format(base_url)
         self.profile_url = "https://graph.microsoft.com/v1.0/me/"
+        self.profile_url_params = {"$select": ",".join(user_properties)}
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {"Authorization": "Bearer {0}".format(token.token)}
-        response = requests.get(self.profile_url, headers=headers)
+        response = requests.get(
+            self.profile_url, self.profile_url_params, headers=headers
+        )
         extra_data = _check_errors(response)
         return self.get_provider().sociallogin_from_response(request, extra_data)
 

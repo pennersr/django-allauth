@@ -1,3 +1,16 @@
+0.46.0 (2021-11-15)
+*******************
+
+Note worthy changes
+-------------------
+
+- New providers: Gitea, MediaWiki.
+
+- New translations: Georgian, Mongolian.
+
+- Django 3.2 compatibility.
+
+
 0.45.0 (2021-07-11)
 *******************
 

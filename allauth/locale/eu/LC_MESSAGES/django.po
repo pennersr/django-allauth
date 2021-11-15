@@ -419,7 +419,7 @@ msgstr ""
 "Email hau jaso duzu %(user_display)s erabiltzaileak zure helbide "
 "elektronikoa bere kontuarekin lotu nahi duelako %(site_domain)s orrialdean.\n"
 "\n"
-"Hau zuzena dela baieztatzeko, egin klik hemen: %(activate_url)s\n"
+"Hau zuzena dela baieztatzeko, egin klik hemen: %(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your E-mail Address"

@@ -441,7 +441,7 @@ msgstr "Хэрэв та мартсан бол таны хэрэглэгчийн 
 
 #: templates/account/email/password_reset_key_subject.txt:3
 msgid "Password Reset E-mail"
-msgstr Нууц Үг Шинэчлэх Имэйл
+msgstr "Нууц Үг Шинэчлэх Имэйл"
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
@@ -582,7 +582,7 @@ msgid ""
 "Forgotten your password? Enter your e-mail address below, and we'll send you "
 "an e-mail allowing you to reset it."
 msgstr ""
-"Нууц үгээ мартсан уу? Доор бүртгэлтэй и-мэйл хаягаа оруулж нууц үг шинэчлэх " 
+"Нууц үгээ мартсан уу? Доор бүртгэлтэй и-мэйл хаягаа оруулж нууц үг шинэчлэх "
 "имэйлээр нууц үгээ сэргээнэ уу."
 
 #: templates/account/password_reset.html:20
@@ -614,7 +614,7 @@ msgid ""
 msgstr ""
 "Нууц үг шинэчлэх холбоос хүчингүй байсан, үүнийг аль хэдийн ашигласан байж "
 "магадгүй. <a href=\"%(passwd_reset_url)s\">шинэ нууц үг шинэчлэх</a> хүсэлт "
-гаргана уу."
+"гаргана уу."
 
 #: templates/account/password_reset_from_key.html:17
 msgid "change password"
@@ -761,8 +761,7 @@ msgid ""
 "\">sign in</a>."
 msgstr ""
 "Та одоо байгаа бүртгэлийнхээ аль нэгийг ашиглан манай сайтад нэвтрэхээ "
-"цуцлахаар шийдсэн. Хэрэв энэ нь алдаа байсан бол <a href=\"%(login_url)s
-"\">нэвтэрнэ үү</a>."
+"цуцлахаар шийдсэн. Хэрэв энэ нь алдаа байсан бол <a href=\"%(login_url)s\"\">нэвтэрнэ үү</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."

@@ -25,7 +25,7 @@ class AmazonProvider(OAuth2Provider):
         first_name, last_name = name, ""
         if name and " " in name:
             first_name, last_name = name.split(" ", 1)
-        return dict(email=data["email"], last_name=last_name, first_name=first_name)
+        return dict(email=data.get("email", ""), last_name=last_name, first_name=first_name)
 
 
 provider_classes = [AmazonProvider]

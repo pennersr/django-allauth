@@ -13,8 +13,6 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic.base import TemplateResponseMixin, TemplateView, View
 from django.views.generic.edit import FormView
 
-from ..exceptions import ImmediateHttpResponse
-from ..utils import get_form_class, get_request_param
 from . import app_settings, signals
 from .adapter import get_adapter
 from .forms import (
@@ -38,11 +36,11 @@ from .utils import (
     sync_user_email_addresses,
     url_str_to_user_pk,
 )
-
+from ..exceptions import ImmediateHttpResponse
+from ..utils import get_form_class, get_request_param
 
 INTERNAL_RESET_URL_KEY = "set-password"
 INTERNAL_RESET_SESSION_KEY = "_password_reset_key"
-
 
 sensitive_post_parameters_m = method_decorator(
     sensitive_post_parameters("oldpassword", "password", "password1", "password2")
@@ -285,7 +283,6 @@ signup = SignupView.as_view()
 
 
 class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
-
     template_name = "account/email_confirm." + app_settings.TEMPLATE_EXTENSION
 
     def get(self, *args, **kwargs):
@@ -632,7 +629,9 @@ password_change = login_required(PasswordChangeView.as_view())
 class PasswordSetView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_set." + app_settings.TEMPLATE_EXTENSION
     form_class = SetPasswordForm
-    success_url = reverse_lazy("account_set_password")
+
+    def get_success_url(self):
+        return get_login_redirect_url(self.request)
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, "set_password", self.form_class)
@@ -828,7 +827,6 @@ password_reset_from_key_done = PasswordResetFromKeyDoneView.as_view()
 
 
 class LogoutView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
-
     template_name = "account/logout." + app_settings.TEMPLATE_EXTENSION
     redirect_field_name = "next"
 

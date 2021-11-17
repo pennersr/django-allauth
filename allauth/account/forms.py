@@ -184,7 +184,7 @@ class LoginForm(forms.Form):
                 if self._is_login_email(login):
                     auth_method = app_settings.AuthenticationMethod.EMAIL
                     email = user.email
-                    if EmailAddress.objects.filter(email=email, verified=False).exists() is True and app_settings.LOGIN_VERIFIED_EMAIL_ONLY is True:
+                    if app_settings.LOGIN_VERIFIED_EMAIL_ONLY is True and EmailAddress.objects.filter(email=email, verified=False).exists() is True:
                         raise forms.ValidationError('Please check ' + email + ' to verify your email address.')
                 else:
                     auth_method = app_settings.AuthenticationMethod.USERNAME

@@ -129,6 +129,8 @@ Supported Providers
 
 - Google (OAuth2)
 
+- Gumroad (OAuth2)
+
 - Hubic (OAuth2)
 
 - Instagram (OAuth2)

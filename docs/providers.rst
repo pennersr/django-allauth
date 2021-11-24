@@ -807,6 +807,29 @@ Optionally, you can specify the scope to use as follows:
       },
     }
 
+Gitea
+------
+
+App registration (get your key and secret here)
+    https://gitea.com/user/settings/applications
+
+Development callback URL
+    http://127.0.0.1:8000/accounts/github/login/callback/
+
+
+Self-hosted Support
+******************
+
+If you use a self-hosted Gitea instance add your server URL to your Django settings as
+follows:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'gitea': {
+            'GITEA_URL': 'https://your.gitea-server.domain',
+        }
+    }
 
 GitHub
 ------
@@ -977,6 +1000,16 @@ without involving the user's browser). When unspecified, Google defaults
 to ``online``.
 
 
+Gumroad
+---------
+
+App registration (get your key and secret here)
+    https://help.gumroad.com/article/280-create-application-api
+
+Development callback URL
+    http://localhost:8000/accounts/instagram/login/callback/
+
+
 Instagram
 ---------
 
@@ -1053,11 +1086,26 @@ Example:
 Line
 ----
 
-App registration (get your key and secret here)
-    https://business.line.me
+scope options
+  https://developers.line.biz/en/docs/line-login/integrate-line-login/#scopes
+
+App registration, create a Line login channel (get your channel_id and channel_secret here)
+    https://developers.line.biz/console/
 
 Development callback URL
     http://127.0.0.1:8000/accounts/line/login/callback/
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+              'line': {
+                  'APP': {
+                      'client_id': 'LINE_LOGIN_CHANNEL_ID',
+                      'secret': 'LINE_LOGIN_CHANNEL_SECRET'
+                  },
+                  "SCOPE": ['profile', 'openid', 'email']
+              }
+          }
 
 
 LinkedIn
@@ -1192,6 +1240,34 @@ and then run::
 which should allow you to test locally via https://127.0.0.1:8000. Some
 browsers may require enabling this on localhost and not support by default and
 ask for permission.
+
+
+MediaWiki
+---------
+
+MediaWiki OAuth2 documentation:
+    https://www.mediawiki.org/wiki/OAuth/For_Developers
+
+The following MediaWiki settings are available:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'mediawiki': {
+            'REST_API': 'https://meta.wikimedia.org/w/rest.php',
+            'USERPAGE_TEMPLATE': 'https://meta.wikimedia.org/wiki/{username}',
+        }
+    }
+
+REST_API:
+    Base URL of the MediaWiki site's REST API.
+USERPAGE_TEMPLATE:
+    Link template for linking to users. Must have a ``{username}`` format field.
+
+With the default settings, Wikimedia user identities (meta.wikimedia.org) will be used.
+
+App registration for Wikimedia wikis:
+    https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose
 
 
 Microsoft Graph

@@ -152,9 +152,9 @@ ACCOUNT_LOGIN_ON_PASSWORD_RESET (=False)
   once they have reset their password. By default they are redirected to the
   password reset done page.
 
-ACCOUNT_LOGOUT_REDIRECT_URL (="/")
-  The URL (or URL name) to return to after the user logs out. This is
-  the counterpart to Django's ``LOGIN_REDIRECT_URL``.
+ACCOUNT_LOGOUT_REDIRECT_URL (=`settings.LOGOUT_REDIRECT_URL or "/"`)
+  The URL (or URL name) to return to after the user logs out. Defaults to
+  Django's `LOGOUT_REDIRECT_URL`, unless that is empty, then `"/"` is used.
 
 ACCOUNT_PASSWORD_INPUT_RENDER_VALUE (=False)
   ``render_value`` parameter as passed to ``PasswordInput`` fields.

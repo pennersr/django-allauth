@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-11 07:33-0500\n"
+"POT-Creation-Date: 2021-11-15 10:12-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +24,7 @@ msgstr "無法使用此使用者名稱，請使用其他名稱。"
 
 #: account/adapter.py:51
 msgid "Too many failed login attempts. Try again later."
-msgstr ""
+msgstr "登錄失敗次數過多，請稍後再試。"
 
 #: account/adapter.py:53
 msgid "A user is already registered with this e-mail address."

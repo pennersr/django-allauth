@@ -108,7 +108,7 @@ class ConnectionsView(AjaxCapableProcessFormViewMixin, FormView):
         get_account_adapter().add_message(
             self.request,
             messages.INFO,
-            "socialaccount/messages/" "account_disconnected.txt",
+            "socialaccount/messages/account_disconnected.txt",
         )
         form.save()
         return super(ConnectionsView, self).form_valid(form)

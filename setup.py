@@ -124,7 +124,7 @@ METADATA = dict(
     " 3rd party (social) account authentication.",
     long_description=long_description,
     url="http://github.com/pennersr/django-allauth",
-    keywords="django auth account social openid twitter facebook oauth" " registration",
+    keywords="django auth account social openid twitter facebook oauth registration",
     tests_require=[],
     install_requires=[
         "Django >= 2.0",

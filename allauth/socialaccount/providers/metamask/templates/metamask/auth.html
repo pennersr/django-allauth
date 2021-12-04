@@ -26,6 +26,7 @@ async function getAccount(next, process="login") {
         url : "/accounts/metamask/login/",
         type : "POST",
         data : {
+            username: account,
             account: account,
             accounts : accounts,
             next : next,

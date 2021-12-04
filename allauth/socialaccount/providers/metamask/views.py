@@ -13,21 +13,13 @@ from .provider import MetamaskProvider
 
 
 def metamask_login(request):
-    assertion = request.POST.get("assertion", "")
+    account = request.POST.get("account", "")
+    accounts = request.POST.get("accounts", "")
+    next = request.POST.get("next", "")
+    process = request.POST.get("process ", "")
+    extra_data = accounts
+
     settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})
-    try:
-        resp.raise_for_status()
-        extra_data = resp.json()
-        if extra_data["status"] != "okay":
-            return render_authentication_error(
-                request,
-                provider_id=MetamaskProvider.id,
-                extra_context={"response": extra_data},
-            )
-    except (ValueError, requests.RequestException) as e:
-        return render_authentication_error(
-            request, provider_id=MetamaskProvider.id, exception=e
-        )
     login = providers.registry.by_id(
         MetamaskProvider.id, request
     ).sociallogin_from_response(request, extra_data)

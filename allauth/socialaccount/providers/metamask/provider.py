@@ -28,15 +28,5 @@ class MetamaskProvider(Provider):
         process = "'%s'" % escapejs(kwargs.get("process") or "login")
         return "javascript:getAccount(%s, %s)" % (next_url, process)
 
-    def extract_uid(self, data):
-        return data["email"]
-
-    def extract_common_fields(self, data):
-        return dict(email=data["email"])
-
-    def extract_email_addresses(self, data):
-        ret = [EmailAddress(email=data["email"], verified=True, primary=True)]
-        return ret
-
 
 provider_classes = [MetamaskProvider]

@@ -28,5 +28,7 @@ class MetamaskProvider(Provider):
         process = "'%s'" % escapejs(kwargs.get("process") or "login")
         return "javascript:getAccount(%s, %s)" % (next_url, process)
 
+ def extract_uid(self, data):
+        return data["account"]
 
 provider_classes = [MetamaskProvider]

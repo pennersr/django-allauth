@@ -8,18 +8,15 @@ from allauth.socialaccount.helpers import (
     render_authentication_error,
 )
 from allauth.socialaccount.models import SocialLogin
-
+from django.http import HttpRequest
 from .provider import MetamaskProvider
 
 
 def metamask_login(request):
-    account = request.POST.get("account", "")
     accounts = request.POST.get("accounts", "")
-    next = request.POST.get("next", "")
-    process = request.POST.get("process ", "")
     extra_data = accounts
-
-    settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})
+    request.uid = request.POST.get("account","")
+    request.settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})
     login = providers.registry.by_id(
         MetamaskProvider.id, request
     ).sociallogin_from_response(request, extra_data)

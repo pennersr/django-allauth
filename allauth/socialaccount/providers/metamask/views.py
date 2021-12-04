@@ -15,10 +15,6 @@ from .provider import MetamaskProvider
 def metamask_login(request):
     assertion = request.POST.get("assertion", "")
     settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})
-
-
-
-
     try:
         resp.raise_for_status()
         extra_data = resp.json()

@@ -29,6 +29,6 @@ class MetamaskProvider(Provider):
         return "javascript:getAccount(%s, %s)" % (next_url, process)
 
     def extract_uid(self, data):
-        return data["account"]
+        return data["username"]
 
 provider_classes = [MetamaskProvider]

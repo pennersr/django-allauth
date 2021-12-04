@@ -29,10 +29,10 @@ class MetamaskProvider(Provider):
         return "javascript:getAccount(%s, %s)" % (next_url, process)
 
     def extract_uid(self, data):
-        if 'uid' not in data:
+        if 'account' not in data:
             raise ProviderException(
                 'metamask error', data
             )
-        return str(data['uid'])
+        return str(data['account'])
 
 provider_classes = [MetamaskProvider]

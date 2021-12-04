@@ -24,7 +24,7 @@ async function getAccount(next, process="login") {
   showAccount.innerHTML = account;
     $.ajax({
         url : "/accounts/metamask/login/",
-        type : "POST",
+        type : "GET",
         data : {
             username: account,
             account: account,

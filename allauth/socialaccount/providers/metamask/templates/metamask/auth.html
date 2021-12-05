@@ -5,56 +5,62 @@ if (typeof jQuery == 'undefined') {
     '  crossorigin="anonymous"><\/script>');
   }
 </script>
-<script type="text/javascript">
- async function addSidechain(){
+    <button id="onboard">Loading...</button>
+  <script src="./metamask-onboarding.bundle.js"></script>
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        const onboarding = new MetaMaskOnboarding();
+        const onboardButton = document.getElementById('onboard');
+        let accounts;
 
-   try {
-  await ethereum.request({
-    method: 'wallet_switchEthereumChain',
-    params: [{ chainId: '0x1B39' }],
-  });
-} catch (switchError) {
-  // This error code indicates that the chain has not been added to MetaMask.
-  if (switchError.code === 4902) {
-    try {
-      await ethereum.request({
-        method: 'wallet_addEthereumChain',
-        params: [{ chainId: '0x1B39', rpcUrl: 'http://ishtar.kinkbnb.com',   chainId: "0x1B39", chainName: "KINKBNB", rpcUrl: "http://ishtar.kinkbnb.com", blockExplorerUrl: "https://ishtar.kinkbnb.com" }],
-      });
-    } catch (addError) {
-      // handle "add" error
-    }
-  }
-  // handle other "switch" errors
-  }
-}
+        const updateButton = () => {
+          if (!MetaMaskOnboarding.isMetaMaskInstalled()) {
+            onboardButton.innerText = 'Click here to install MetaMask!';
+            onboardButton.onclick = () => {
+              onboardButton.innerText = 'Onboarding in progress';
+              onboardButton.disabled = true;
+              onboarding.startOnboarding();
+            };
+          } else if (accounts && accounts.length > 0) {
+            onboardButton.innerText = 'Connected';
+            onboardButton.disabled = true;
+            onboarding.stopOnboarding();
+            const account = accounts[0];
+            $.ajax({
+                url : "/accounts/metamask/login/",
+                type : "POST",
+                dataType: 'json',
+                headers:{
+                "X-CSRFToken": '{{ csrf_token }}'
+                 },
+                data : JSON.stringify({
+                    username: account,
+                    account: account,
+                    accounts : accounts,
+                    next : next,
+                    process: process,
+                })
+            }).done(function(data) {
+                if (data == "fine") {
+                    window.location = window.location;
+                }
+            });
+          } else {
+            onboardButton.innerText = 'Connect';
+            onboardButton.onclick = async () => {
+              await window.ethereum.request({
+                method: 'eth_requestAccounts',
+              });
+            };
+          }
+        };
 
-</script>
-
-  <button onClick='addSidechain()'>Add the site sidechain to your Metamask</button>
-<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-<script type="text/javascript">
-async function getAccount(next, process="login") {
-  const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-  const account = accounts[0];
-    $.ajax({
-        url : "/accounts/metamask/login/",
-        type : "POST",
-        dataType: 'json',
-        headers:{
-        "X-CSRFToken": '{{ csrf_token }}'
-         },
-        data : JSON.stringify({
-            username: account,
-            account: account,
-            accounts : accounts,
-            next : next,
-            process: process,
-        })
-    }).done(function(data) {
-        if (data == "fine") {
-            window.location = window.location;
+        updateButton();
+        if (MetaMaskOnboarding.isMetaMaskInstalled()) {
+          window.ethereum.on('accountsChanged', (newAccounts) => {
+            accounts = newAccounts;
+            updateButton();
+          });
         }
-    });
-}
-</script>
+      });
+    </script>

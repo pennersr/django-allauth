@@ -20,8 +20,7 @@ class MetamaskTests(TestCase):
                 "status": "okay",
                 "account": "0xfbfa21e9931f647bd6cc5be9e1a0dd9a41da535e",
             }
-
-            resp = self.client.post(reverse("metamask_login"), dict(assertion="dummy"))
+            resp = self.client.post("/accounts/metamask/login", dict(account="0xfbfa21e9931f647bd6cc5be9e1a0dd9a41da535e"))
             self.assertRedirects(
                 resp, "/accounts/profile/", fetch_redirect_response=False
             )

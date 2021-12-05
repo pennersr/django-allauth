@@ -3,7 +3,7 @@ from django.urls import reverse
 
 from allauth.tests import TestCase, patch
 from allauth.utils import get_user_model
-
+from .views import metamask_login
 
 SOCIALACCOUNT_PROVIDERS = {"metamask": {"chainid": "6969"}}
 

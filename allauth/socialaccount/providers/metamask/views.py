@@ -1,4 +1,4 @@
-import requests
+import json
 
 from django.core.exceptions import ImproperlyConfigured
 
@@ -13,8 +13,8 @@ from .provider import MetamaskProvider
 
 
 def metamask_login(request):
-    account = request.POST.get("account", "")
-    extra_data = account
+    accounts = request.POST.get("accounts", "")
+    extra_data = json.dumps(accounts)
     request.account = account
     request.uid = request.POST.get("account","")
     request.settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})

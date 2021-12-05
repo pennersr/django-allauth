@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django.test.utils import override_settings
 
 from allauth.socialaccount.tests import OAuthTestsMixin
-from allauth.tests import TestCase, MockedResponse
+from allauth.tests import TestCase, MockedResponse, patch
 from django.urls import reverse
 
 from .provider import MetamaskProvider

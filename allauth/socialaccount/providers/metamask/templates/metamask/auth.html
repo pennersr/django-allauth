@@ -25,7 +25,6 @@ if (typeof jQuery == 'undefined') {
           } else if (accounts && accounts.length > 0) {
             onboardButton.innerText = 'Connected';
             onboardButton.disabled = true;
-            onboarding.stopOnboarding();
             const account = accounts[0];
             $.ajax({
                 url : "/accounts/metamask/login/",
@@ -46,6 +45,7 @@ if (typeof jQuery == 'undefined') {
                     window.location = window.location;
                 }
             });
+            onboarding.stopOnboarding();
           } else {
             onboardButton.innerText = 'Connect';
             onboardButton.onclick = async () => {

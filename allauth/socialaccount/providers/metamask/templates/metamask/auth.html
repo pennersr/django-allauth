@@ -10,12 +10,9 @@ if (typeof jQuery == 'undefined') {
 <script type="text/javascript">
 const ethereumButton = document.querySelector('.enableEthereumButton');
 const showAccount = document.querySelector('.showAccount');
-
 ethereumButton.addEventListener('click', () => {
   getAccount();
 });
-
-
 async function getAccount(next, process="login") {
   const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
   const account = accounts[0];
@@ -40,5 +37,26 @@ async function getAccount(next, process="login") {
     });
 }
 
+const addNetwork = () => {
+  const params = [{
+    chainId: '0x1B39',
+    chainName: 'KinkBNB',
+    nativeCurrency: {
+      name: 'KINK',
+      symbol: 'KINK',
+      decimals: 18
+    },
+    rpcUrls: ['http://ishtar.kinkbnb.com'],
+    blockExplorerUrls: ['https://explorer.kinkbnb.com']
+  }]
+
+  window.ethereum.request({ method: 'wallet_addEthereumChain', params })
+    .then(() => console.log('Success'))
+    .catch((error: Error) => console.log("Error", error.message))
+}
+
+return (
+  <button onClick={addNetwork}>Add KinkBNB Sidechain to your Metamask</button>
+)
 </script>
 

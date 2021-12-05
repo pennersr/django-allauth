@@ -28,6 +28,11 @@ class MetamaskProvider(Provider):
         process = "'%s'" % escapejs(kwargs.get("process") or "login")
         return "javascript:getAccount(%s, %s)" % (next_url, process)
 
+    def extract_common_fields(self, data):
+        return dict(
+            username=data.get("account"),
+        )
+
     def extract_uid(self, data):
         if 'account' not in data:
             raise ProviderException(

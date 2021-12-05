@@ -7,7 +7,6 @@ from allauth.utils import get_user_model
 
 SOCIALACCOUNT_PROVIDERS = {"metamask": {"chainid": "6969"}}
 
-
 class MetamaskTests(TestCase):
     @override_settings(SOCIALACCOUNT_PROVIDERS=SOCIALACCOUNT_PROVIDERS)
     def test_login(self):

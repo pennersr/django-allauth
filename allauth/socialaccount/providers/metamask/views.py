@@ -15,6 +15,7 @@ from .provider import MetamaskProvider
 def metamask_login(request):
     account = request.POST.get("account", "")
     extra_data = account
+    request.account = account
     request.uid = request.POST.get("account","")
     request.settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})
     login = providers.registry.by_id(

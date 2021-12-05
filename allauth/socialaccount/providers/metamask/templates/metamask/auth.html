@@ -1,3 +1,4 @@
+{% load static %}
 <script type="text/javascript">
 if (typeof jQuery == 'undefined') {
   document.write('<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"\n' +
@@ -6,7 +7,7 @@ if (typeof jQuery == 'undefined') {
   }
 </script>
     <button id="onboard">Loading...</button>
-  <script src="./metamask-onboarding.bundle.js"></script>
+  <script src="{% static 'metamask/js/metamask-onboarding.bundle.js' %}"></script>
     <script>
       window.addEventListener('DOMContentLoaded', () => {
         const onboarding = new MetaMaskOnboarding();

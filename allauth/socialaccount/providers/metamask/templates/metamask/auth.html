@@ -5,6 +5,23 @@ if (typeof jQuery == 'undefined') {
     '  crossorigin="anonymous"><\/script>');
   }
 </script>
+<script type="text/javascript">
+ async function addSidechain(){
+await ethereum.request({ method: 'wallet_addEthereumChain',
+   params:[
+      {chainId: "0x1B39",
+      chainName: "KINKBNB",
+      nativeCurrency: {
+         name: "KinkBNB",
+         symbol: "KINK",
+         decimals: 18 //In number form
+      },
+      rpcUrls: ["http://ishtar.kinkbnb.com"],
+      blockExplorerUrls: ["https://ishtar.kinkbnb.com"],
+   ]});
+}
+</script>
+
   <button onClick='addSidechain()'>Add the site sidechain to your Metamask</button>
 <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 <script type="text/javascript">
@@ -30,23 +47,5 @@ async function getAccount(next, process="login") {
             window.location = window.location;
         }
     });
-}
-</script>
-
-<script type="text/javascript">
-
- async function addSidechain(){
-await ethereum.request({ method: 'wallet_addEthereumChain',
-   params:[
-      {chainId: "0x1B39",
-      chainName: "KINKBNB",
-      nativeCurrency: {
-         name: "KinkBNB",
-         symbol: "KINK",
-         decimals: 18 //In number form
-      },
-      rpcUrls: ["http://ishtar.kinkbnb.com"],
-      blockExplorerUrls: ["https://ishtar.kinkbnb.com"]
-   ]});
 }
 </script>

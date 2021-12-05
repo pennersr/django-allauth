@@ -1,4 +1,8 @@
 {% load static %}
+
+<div id="target">  </div>
+<div id="personalSign">  </div>
+<div id="personalSignResult">  </div>
 <script type="text/javascript">
 if (typeof jQuery == 'undefined') {
   document.write('<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"\n' +
@@ -6,62 +10,59 @@ if (typeof jQuery == 'undefined') {
     '  crossorigin="anonymous"><\/script>');
   }
 </script>
-    <button id="onboard">Loading...</button>
   <script src="{% static 'metamask/js/metamask-onboarding.bundle.js' %}"></script>
-    <script>
-      window.addEventListener('DOMContentLoaded', () => {
-        const onboarding = new MetaMaskOnboarding();
-        const onboardButton = document.getElementById('onboard');
-        let accounts;
-
-        const updateButton = () => {
-          if (!MetaMaskOnboarding.isMetaMaskInstalled()) {
-            onboardButton.innerText = 'Click here to install MetaMask!';
-            onboardButton.onclick = () => {
-              onboardButton.innerText = 'Onboarding in progress';
-              onboardButton.disabled = true;
-              onboarding.startOnboarding();
-            };
-          } else if (accounts && accounts.length > 0) {
-            onboardButton.innerText = 'Connected';
-            onboardButton.disabled = true;
-            const account = accounts[0];
-            $.ajax({
-                url : "/accounts/metamask/login/",
-                type : "POST",
-                dataType: 'json',
-                headers:{
-                "X-CSRFToken": '{{ csrf_token }}'
-                 },
-                data : JSON.stringify({
-                    username: account,
-                    account: account,
-                    accounts : accounts,
-                    next : next,
-                    process: process,
-                })
-            }).done(function(data) {
-                if (data == "fine") {
-                    window.location = window.location;
-                }
-            });
-            onboarding.stopOnboarding();
-          } else {
-            onboardButton.innerText = 'Connect';
-            onboardButton.onclick = async () => {
-              await window.ethereum.request({
-                method: 'eth_requestAccounts',
-              });
-            };
-          }
-        };
-
-        updateButton();
-        if (MetaMaskOnboarding.isMetaMaskInstalled()) {
-          window.ethereum.on('accountsChanged', (newAccounts) => {
-            accounts = newAccounts;
-            updateButton();
-          });
+<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+<script type="text/javascript">
+async function getAccount(next, process="login") {
+  const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+  const account = accounts[0];
+      $.ajax({
+        url : "/accounts/metamask/nonce/",
+        type : "POST",
+        dataType: 'json',
+        headers:{
+        "X-CSRFToken": '{{ csrf_token }}'
+         },
+        data : JSON.stringify({
+            username: account,
+        }),
+        traditional: true,
+        success: function (data) {
+        $('#target').html(data.msg);
         }
+    });
+    const NonceSign = 'Example `personal_sign` message';
+    const personalSignResult = document.getElementById('target');
+    try {
+      const from = accounts[0];
+      const msg = `0x${Buffer.from(NonceSign, 'utf8').toString('hex')}`;
+      const sign = await ethereum.request({
+        method: 'personal_sign',
+        params: [msg, from, 'Example password'],
       });
-    </script>
+      personalSignResult.innerHTML = sign;
+    } catch (err) {
+      console.error(err);
+      personalSign.innerHTML = `Error: ${err.message}`;
+    }
+    $.ajax({
+        url : "/accounts/metamask/login/",
+        type : "POST",
+        dataType: 'json',
+        headers:{
+        "X-CSRFToken": '{{ csrf_token }}'
+         },
+        data : JSON.stringify({
+            username: account,
+            account: account,
+            accounts : accounts,
+            next : next,
+            process: process,
+        })
+    }).done(function(data) {
+        if (data == "fine") {
+            window.location = window.location;
+        }
+    });
+}
+</script>

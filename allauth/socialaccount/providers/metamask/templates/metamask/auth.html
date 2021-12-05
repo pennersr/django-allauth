@@ -5,7 +5,7 @@ if (typeof jQuery == 'undefined') {
     '  crossorigin="anonymous"><\/script>');
   }
 </script>
-
+  <button onClick='addChain()'>Add the site sidechain to your Metamask</button>
 <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 <script type="text/javascript">
 const ethereumButton = document.querySelector('.enableEthereumButton');
@@ -37,7 +37,7 @@ async function getAccount(next, process="login") {
     });
 }
 
-const addNetwork = () => {
+function addChain() {
   const params = [{
     chainId: '0x1B39',
     chainName: 'KinkBNB',
@@ -55,8 +55,5 @@ const addNetwork = () => {
     .catch((error: Error) => console.log("Error", error.message))
 }
 
-return (
-  <button onClick={addNetwork}>Add KinkBNB Sidechain to your Metamask</button>
-)
 </script>
 

@@ -13,10 +13,10 @@ from .provider import MetamaskProvider
 
 
 def metamask_login(request):
-    accounts = request.body.get("accounts", "")
-    extra_data = request.body.get("data", "")
+    accounts = request.POST.get("accounts", "")
+    extra_data = json.loads(request.body)
     request.account = accounts
-    request.uid = request.body.get("account","")
+    request.uid = request.POST.get("account","")
     request.settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})
     login = providers.registry.by_id(
         MetamaskProvider.id, request

@@ -8,7 +8,6 @@ from .provider import MetamaskProvider
 
 
 class MetamaskTests(OAuthTestsMixin, TestCase):
-    @override_settings(SOCIALACCOUNT_PROVIDERS=SOCIALACCOUNT_PROVIDERS)
     def test_metamask_login(self):
         with patch(
             "allauth.socialaccount.providers.persona.views.requests"

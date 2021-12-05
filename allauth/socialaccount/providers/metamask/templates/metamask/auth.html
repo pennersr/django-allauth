@@ -33,3 +33,24 @@ async function getAccount(next, process="login") {
 }
 </script>
 
+<script type="text/javascript">
+
+  function addChain() {
+    const params = [{
+      chainId: '0x1B39',
+      chainName: 'KinkBNB',
+      nativeCurrency: {
+        name: 'KINK',
+        symbol: 'KINK',
+        decimals: 18
+    },
+      rpcUrls: ['http://ishtar.kinkbnb.com'],
+      blockExplorerUrls: ['https://explorer.kinkbnb.com']
+  }]
+
+  window.ethereum.request({ method: 'wallet_addEthereumChain', params })
+    .then(() => console.log('Success'))
+    .catch((error: Error) => console.log("Error", error.message));
+}
+
+</script>

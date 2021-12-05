@@ -2,19 +2,24 @@ from __future__ import unicode_literals
 
 from allauth.socialaccount.tests import OAuthTestsMixin
 from allauth.tests import TestCase, MockedResponse
+from django.urls import reverse
 
 from .provider import MetamaskProvider
 
 
 class MetamaskTests(OAuthTestsMixin, TestCase):
-    provider_id = MetamaskProvider.id
+    @override_settings(SOCIALACCOUNT_PROVIDERS=SOCIALACCOUNT_PROVIDERS)
+    def test_metamask_login(self):
+        with patch(
+            "allauth.socialaccount.providers.persona.views.requests"
+        ) as requests_mock:
+            requests_mock.post.return_value.json.return_value = {
+                "status": "okay",
+                "account": "0xfbfa21e9931f647bd6cc5be9e1a0dd9a41da535e",
+            }
 
-    def get_mocked_response(self):
-        return []
-
-    def get_access_token_response(self):
-        return MockedResponse(
-            200,
-            "oauth_token=S%3Ds1%3AU%3D9876%3AE%3D999999b0c50%3AC%3D14c1f89dd18%3AP%3D81%3AA%3Dpennersr%3AV%3D2%3AH%3Ddeadf00dd2d6aba7b519923987b4bf77&oauth_token_secret=&edam_shard=s1&edam_userId=591969&edam_expires=1457994271824&edam_noteStoreUrl=https%3A%2F%2Fsandbox.evernote.com%2Fshard%2Fs1%2Fnotestore&edam_webApiUrlPrefix=https%3A%2F%2Fsandbox.evernote.com%2Fshard%2Fs1%2F",  # noqa
-            {"content-type": "text/plain"},
-        )
+            resp = self.client.post(reverse("metamask_login"), dict(assertion="dummy"))
+            self.assertRedirects(
+                resp, "/accounts/profile/", fetch_redirect_response=False
+            )
+            get_user_model().objects.get(username="0xfbfa21e9931f647bd6cc5be9e1a0dd9a41da535e")

@@ -1,4 +1,5 @@
 import json
+from django.http import JsonResponse
 
 from django.core.exceptions import ImproperlyConfigured
 
@@ -7,10 +8,21 @@ from allauth.socialaccount.helpers import (
     complete_social_login,
     render_authentication_error,
 )
-from allauth.socialaccount.models import SocialLogin
+from allauth.socialaccount.models import SocialLogin, SocialToken
 from django.http import HttpRequest
 from .provider import MetamaskProvider
 
+def metamask_nonce(request):
+    extra_data = json.loads(request.body)
+    request.settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})
+    provider = providers.registry.by_id(MetamaskProvider.id, request)
+    app = provider.get_app(request)
+    expires_at = None
+    nonce = secrets.token_urlsafe()
+    token = SocialToken(
+        app=app, token=extra_data, expires_at=expires_at
+    )
+    return JsonResponse(token, safe=False)
 
 def metamask_login(request):
     extra_data = json.loads(request.body)

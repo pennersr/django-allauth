@@ -7,21 +7,27 @@ if (typeof jQuery == 'undefined') {
 </script>
 <script type="text/javascript">
  async function addSidechain(){
-await ethereum.request({ method: 'wallet_addEthereumChain',
-   params:[
-     {
-       chainId: "0x1B39",
-       chainName: "KINKBNB",
-       nativeCurrency: {
-         name: "KinkBNB",
-         symbol: "KINK",
-         decimals: 18 //In number form
-       },
-       rpcUrls: ["http://ishtar.kinkbnb.com"],
-       blockExplorerUrls: ["https://ishtar.kinkbnb.com"]
-     }
-     ]});
- }
+
+   try {
+  await ethereum.request({
+    method: 'wallet_switchEthereumChain',
+    params: [{ chainId: '0x1B39' }],
+  });
+} catch (switchError) {
+  // This error code indicates that the chain has not been added to MetaMask.
+  if (switchError.code === 4902) {
+    try {
+      await ethereum.request({
+        method: 'wallet_addEthereumChain',
+        params: [{ chainId: '0x1B39', rpcUrl: 'http://ishtar.kinkbnb.com',   chainId: "0x1B39", chainName: "KINKBNB", rpcUrl: "http://ishtar.kinkbnb.com", blockExplorerUrl: "https://ishtar.kinkbnb.com" }],
+      });
+    } catch (addError) {
+      // handle "add" error
+    }
+  }
+  // handle other "switch" errors
+  }
+}
 
 </script>
 

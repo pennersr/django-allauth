@@ -13,4 +13,4 @@ SOCIALACCOUNT_PROVIDERS = {"metamask": {"ChainID": "6969"}}
 class MetamaskTests(TestCase):
     @override_settings(SOCIALACCOUNT_PROVIDERS=SOCIALACCOUNT_PROVIDERS)
     def test_login(self):
-        return
+        pass

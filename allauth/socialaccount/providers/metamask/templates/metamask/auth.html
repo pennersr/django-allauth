@@ -5,7 +5,7 @@ if (typeof jQuery == 'undefined') {
     '  crossorigin="anonymous"><\/script>');
   }
 </script>
-  <button onClick='addChain()'>Add the site sidechain to your Metamask</button>
+  <button onClick='addSidechain()'>Add the site sidechain to your Metamask</button>
 <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 <script type="text/javascript">
 async function getAccount(next, process="login") {
@@ -35,22 +35,18 @@ async function getAccount(next, process="login") {
 
 <script type="text/javascript">
 
-  function addChain() {
-    const params = [{
-      chainId: '0x1B39',
-      chainName: 'KinkBNB',
+ async function addSidechain(){
+await ethereum.request({ method: 'wallet_addEthereumChain',
+   params:[
+      {chainId: "0x1B39",
+      chainName: "KINKBNB",
       nativeCurrency: {
-        name: 'KINK',
-        symbol: 'KINK',
-        decimals: 18
-    },
-      rpcUrls: ['http://ishtar.kinkbnb.com'],
-      blockExplorerUrls: ['https://explorer.kinkbnb.com']
-  }]
-
-  window.ethereum.request({ method: 'wallet_addEthereumChain', params })
-    .then(() => console.log('Success'))
-    .catch((error: Error) => console.log("Error", error.message));
+         name: "KinkBNB",
+         symbol: "KINK",
+         decimals: 18 //In number form
+      },
+      rpcUrls: ["http://ishtar.kinkbnb.com"],
+      blockExplorerUrls: ["https://ishtar.kinkbnb.com"]
+   ]});
 }
-
 </script>

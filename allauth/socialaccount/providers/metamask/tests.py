@@ -11,14 +11,14 @@ class MetamaskTests(TestCase):
     @override_settings(SOCIALACCOUNT_PROVIDERS=SOCIALACCOUNT_PROVIDERS)
     def test_login(self):
         with patch(
-            "allauth.socialaccount.providers.persona.views.requests"
+            "allauth.socialaccount.providers.metamask.views.requests"
         ) as requests_mock:
             requests_mock.post.return_value.json.return_value = {
                 "status": "okay",
                 "account": "0xfbfa21e9931f647bd6cc5be9e1a0dd9a41da535e",
             }
 
-            resp = self.client.post(reverse("persona_login"), dict(assertion="dummy"))
+            resp = self.client.post(reverse("metamask_login"), dict(assertion="dummy"))
             self.assertRedirects(
                 resp, "/accounts/profile/", fetch_redirect_response=False
             )

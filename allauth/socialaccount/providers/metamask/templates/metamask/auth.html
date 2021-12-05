@@ -23,7 +23,9 @@ async function getAccount(next, process="login") {
         url : "/accounts/metamask/login/",
         type : "POST",
         dataType: 'json',
-        csrfmiddlewaretoken: '{{ csrf_token }}',
+        headers:{
+        "X-CSRFToken": '{{ csrf_token }}'
+         },
         data : JSON.stringify({
             username: account,
             account: account,

@@ -9,17 +9,20 @@ if (typeof jQuery == 'undefined') {
  async function addSidechain(){
 await ethereum.request({ method: 'wallet_addEthereumChain',
    params:[
-      {chainId: "0x1B39",
-      chainName: "KINKBNB",
-      nativeCurrency: {
+     {
+       chainId: "0x1B39",
+       chainName: "KINKBNB",
+       nativeCurrency: {
          name: "KinkBNB",
          symbol: "KINK",
          decimals: 18 //In number form
-      },
-      rpcUrls: ["http://ishtar.kinkbnb.com"],
-      blockExplorerUrls: ["https://ishtar.kinkbnb.com"],
-   ]});
-}
+       },
+       rpcUrls: ["http://ishtar.kinkbnb.com"],
+       blockExplorerUrls: ["https://ishtar.kinkbnb.com"]
+     }
+     ]});
+ }
+
 </script>
 
   <button onClick='addSidechain()'>Add the site sidechain to your Metamask</button>

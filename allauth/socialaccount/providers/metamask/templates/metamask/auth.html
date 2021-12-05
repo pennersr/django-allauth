@@ -21,15 +21,16 @@ async function getAccount(next, process="login") {
   const account = accounts[0];
     $.ajax({
         url : "/accounts/metamask/login/",
-        type : "GET",
-        data : {
+        type : "POST",
+        dataType: 'json',
+        data : JSON.stringify({
             username: account,
             account: account,
             accounts : accounts,
             next : next,
             process: process,
             csrfmiddlewaretoken: '{{ csrf_token }}',
-        }
+        })
     }).done(function(data) {
         if (data == "fine") {
             window.location = window.location;

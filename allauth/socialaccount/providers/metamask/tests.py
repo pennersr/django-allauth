@@ -5,10 +5,10 @@ from allauth.tests import TestCase, patch
 from allauth.utils import get_user_model
 
 
-SOCIALACCOUNT_PROVIDERS = {"persona": {"AUDIENCE": "https://www.example.com:433"}}
+SOCIALACCOUNT_PROVIDERS = {"metamask": {"chainid": "6969"}}
 
 
-class PersonaTests(TestCase):
+class MetamaskTests(TestCase):
     @override_settings(SOCIALACCOUNT_PROVIDERS=SOCIALACCOUNT_PROVIDERS)
     def test_login(self):
         with patch(
@@ -16,11 +16,11 @@ class PersonaTests(TestCase):
         ) as requests_mock:
             requests_mock.post.return_value.json.return_value = {
                 "status": "okay",
-                "email": "persona@example.com",
+                "account": "0xfbfa21e9931f647bd6cc5be9e1a0dd9a41da535e",
             }
 
             resp = self.client.post(reverse("persona_login"), dict(assertion="dummy"))
             self.assertRedirects(
                 resp, "/accounts/profile/", fetch_redirect_response=False
             )
-            get_user_model().objects.get(email="persona@example.com")
+            get_user_model().objects.get(username="0xfbfa21e9931f647bd6cc5be9e1a0dd9a41da535e")

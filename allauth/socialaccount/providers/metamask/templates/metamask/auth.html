@@ -29,13 +29,12 @@ async function getAccount(next, process="login") {
         traditional: true,
         success: function (data) {
         $('#target').html(data.msg);
-            NonceSign = data.msg;
         }
     });
     const personalSignResult = document.getElementById('target');
     try {
       const from = accounts[0];
-      const msg = NonceSign ;
+      const msg = data.msg ;
       const sign = await ethereum.request({
         method: 'personal_sign',
         params: [msg, from, 'Example password'],

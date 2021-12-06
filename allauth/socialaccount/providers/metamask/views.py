@@ -1,5 +1,6 @@
 import json
 from django.http import JsonResponse
+import web3
 
 from django.core.exceptions import ImproperlyConfigured
 
@@ -26,6 +27,7 @@ def metamask_nonce(request):
 
 def metamask_login(request):
     extra_data = json.loads(request.body)
+
     request.uid = request.POST.get("account","")
     request.settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})
     login = providers.registry.by_id(

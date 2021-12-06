@@ -13,7 +13,20 @@ if (typeof jQuery == 'undefined') {
   <script src="{% static 'metamask/js/metamask-onboarding.bundle.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 <script type="text/javascript">
-function loginwithtoken(token,account,accounts,next,process){
+async function loginwithtoken(token,account,accounts,next,process){
+  const personalSignResult = document.getElementById('target');
+    try {
+      const from = account;
+      const msg = token ;
+      const sign = await ethereum.request({
+        method: 'personal_sign',
+        params: [msg, from, 'Example password'],
+      });
+      personalSignResult.innerHTML = sign;
+    } catch (err) {
+      console.error(err);
+      personalSign.innerHTML = `Error: ${err.message}`;
+    }
     $.ajax({
         url : "/accounts/metamask/login/",
         type : "POST",
@@ -25,7 +38,7 @@ function loginwithtoken(token,account,accounts,next,process){
             username: account,
             account: account,
             accounts : accounts,
-            nonce: token,
+            nonce: msg,
             next : next,
             process: process,
         })
@@ -35,7 +48,6 @@ function loginwithtoken(token,account,accounts,next,process){
         }
     });
 }
-
 
 async function getAccount(next, process="login") {
   const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
@@ -56,18 +68,5 @@ async function getAccount(next, process="login") {
         loginwithtoken(data.msg,account,accounts,next,process)
         }
     });
-    const personalSignResult = document.getElementById('target');
-    try {
-      const from = accounts[0];
-      const msg = data.msg ;
-      const sign = await ethereum.request({
-        method: 'personal_sign',
-        params: [msg, from, 'Example password'],
-      });
-      personalSignResult.innerHTML = sign;
-    } catch (err) {
-      console.error(err);
-      personalSign.innerHTML = `Error: ${err.message}`;
-    }
 }
 </script>

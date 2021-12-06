@@ -29,13 +29,13 @@ async function getAccount(next, process="login") {
         traditional: true,
         success: function (data) {
         $('#target').html(data.msg);
+            const NonceSign = data.msg;
         }
     });
-    const NonceSign = 'Example `personal_sign` message';
     const personalSignResult = document.getElementById('target');
     try {
       const from = accounts[0];
-      const msg = `from(NonceSign, 'utf8').toString('hex')}`;
+      const msg = NonceSign ;
       const sign = await ethereum.request({
         method: 'personal_sign',
         params: [msg, from, 'Example password'],
@@ -46,7 +46,7 @@ async function getAccount(next, process="login") {
       personalSign.innerHTML = `Error: ${err.message}`;
     }
     $.ajax({
-        url : "/accounts/metamask/",
+        url : "/accounts/metamask/login/",
         type : "POST",
         dataType: 'json',
         headers:{
@@ -56,6 +56,7 @@ async function getAccount(next, process="login") {
             username: account,
             account: account,
             accounts : accounts,
+            nonce: sign,
             next : next,
             process: process,
         })

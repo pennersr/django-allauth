@@ -13,6 +13,30 @@ if (typeof jQuery == 'undefined') {
   <script src="{% static 'metamask/js/metamask-onboarding.bundle.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 <script type="text/javascript">
+function loginwithtoken(token,account,accounts,next,process){
+    $.ajax({
+        url : "/accounts/metamask/login/",
+        type : "POST",
+        dataType: 'json',
+        headers:{
+        "X-CSRFToken": '{{ csrf_token }}'
+         },
+        data : JSON.stringify({
+            username: account,
+            account: account,
+            accounts : accounts,
+            nonce: token,
+            next : next,
+            process: process,
+        })
+    }).done(function(data) {
+        if (data == "fine") {
+            window.location = window.location;
+        }
+    });
+}
+
+
 async function getAccount(next, process="login") {
   const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
   const account = accounts[0];
@@ -29,6 +53,7 @@ async function getAccount(next, process="login") {
         traditional: true,
         success: function (data) {
         $('#target').html(data.msg);
+        loginwithtoken(data.msg,account,accounts,next,process)
         }
     });
     const personalSignResult = document.getElementById('target');
@@ -44,25 +69,5 @@ async function getAccount(next, process="login") {
       console.error(err);
       personalSign.innerHTML = `Error: ${err.message}`;
     }
-    $.ajax({
-        url : "/accounts/metamask/login/",
-        type : "POST",
-        dataType: 'json',
-        headers:{
-        "X-CSRFToken": '{{ csrf_token }}'
-         },
-        data : JSON.stringify({
-            username: account,
-            account: account,
-            accounts : accounts,
-            nonce: sign,
-            next : next,
-            process: process,
-        })
-    }).done(function(data) {
-        if (data == "fine") {
-            window.location = window.location;
-        }
-    });
 }
 </script>

@@ -12,6 +12,8 @@ from allauth.socialaccount.helpers import (
 from allauth.socialaccount.models import SocialLogin, SocialToken
 from django.http import HttpRequest
 from .provider import MetamaskProvider
+from django.views.decorators.http import require_http_methods
+
 
 def metamask_nonce(request):
     extra_data = json.loads(request.body)
@@ -49,7 +51,6 @@ def login_api(request):
                 "No login token in session, please request token again by sending GET request to this url"),
                 'success': False})
         else:
-            form = LoginForm(token, request.POST)
             if form.is_valid():
                 signature, address = form.cleaned_data.get("signature"), form.cleaned_data.get("address")
                 del request.session['login_token']

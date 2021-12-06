@@ -64,10 +64,10 @@ async function getAccount(next, process="login") {
         }),
         traditional: true,
         success: function (data) {
-        $('#target').html(data.msg);
-        var resp = JSON.parse(data.msg);
-        var token = resp.data;
-        loginwithtoken(token,account,accounts,next,process)
+          $('#target').html(data.msg)
+          var resp = JSON.parse(data.msg)
+          var token = resp.data
+          loginwithtoken(token,account,accounts,next,process)
         }
     });
 }

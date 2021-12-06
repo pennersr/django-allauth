@@ -42,9 +42,24 @@ def metamask_login(request):
 
 @require_http_methods(["GET", "POST"])
 def login_api(request):
+    extra_data = json.loads(request.body)
+    request.uid = request.POST.get("account", "")
+    request.settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})
     if request.method == 'GET':
         token = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for i in range(32))
         request.session['login_token'] = token
+        app = provider.get_app(request)
+        access_token = form.cleaned_data["access_token"]
+        expires_at = None
+        storetoken = SocialToken(
+            app=app, token=access_token, expires_at=expires_at
+        )
+        login = providers.registry.by_id(
+            MetamaskProvider.id, request
+        ).sociallogin_from_response(request, extra_data)
+        login.state = SocialLogin.state_from_request(request)
+        login.token = storetoken
+        login.save
         return JsonResponse({'data': token, 'success': True})
     else:
         token = request.session.get('login_token')
@@ -56,9 +71,7 @@ def login_api(request):
             if form.is_valid():
                 signature, address = form.cleaned_data.get("signature"), form.cleaned_data.get("address")
                 del request.session['login_token']
-                user = authenticate(request, token=token, address=address, signature=signature)
                 if user:
-                    login(request, user, 'web3auth.backend.Web3Backend')
 
                     return JsonResponse({'success': True, 'redirect_url': get_redirect_url(request)})
                 else:

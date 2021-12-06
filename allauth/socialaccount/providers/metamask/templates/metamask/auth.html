@@ -35,7 +35,7 @@ async function getAccount(next, process="login") {
     const personalSignResult = document.getElementById('target');
     try {
       const from = accounts[0];
-      const msg = `0x${Buffer.from(NonceSign, 'utf8').toString('hex')}`;
+      const msg = `from(NonceSign, 'utf8').toString('hex')}`;
       const sign = await ethereum.request({
         method: 'personal_sign',
         params: [msg, from, 'Example password'],

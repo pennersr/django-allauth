@@ -46,7 +46,7 @@ async function getAccount(next, process="login") {
       personalSign.innerHTML = `Error: ${err.message}`;
     }
     $.ajax({
-        url : "/accounts/metamask/login/",
+        url : "/accounts/metamask/",
         type : "POST",
         dataType: 'json',
         headers:{

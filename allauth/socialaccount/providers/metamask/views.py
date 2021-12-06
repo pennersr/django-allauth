@@ -42,7 +42,7 @@ def metamask_login(request):
 
 @require_http_methods(["GET", "POST"])
 def login_api(request):
-    extra_data = json.loads(request.body)
+    extra_data = request.body
     request.uid = request.POST.get("account", "")
     request.settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})
     if request.method == 'GET':

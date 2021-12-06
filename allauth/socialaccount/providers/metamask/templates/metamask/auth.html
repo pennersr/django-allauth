@@ -63,8 +63,8 @@ async function getAccount(next, process="login") {
             username: account,
         }),
         traditional: true,
-        success: function (data) {
-          $('#target').html(data.msg)
+        success: function (json) {
+          $('#target').html(json)
 //          var resp = JSON.parse(data.msg)
 //          var token = resp.data
 //          loginwithtoken(token,account,accounts,next,process)

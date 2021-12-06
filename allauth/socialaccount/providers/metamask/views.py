@@ -22,7 +22,7 @@ def metamask_nonce(request):
     token = SocialToken(
         app=app, token=extra_data, expires_at=expires_at
     )
-    return JsonResponse(token, safe=False)
+    return JsonResponse(token.token, safe=False)
 
 def metamask_login(request):
     extra_data = json.loads(request.body)

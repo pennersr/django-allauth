@@ -27,9 +27,10 @@ def metamask_nonce(request):
 
 def metamask_login(request):
     extra_data = json.loads(request.body)
-
     request.uid = request.POST.get("account","")
     request.settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})
+    # Verify token signed here, and if so use the nonce to log in.
+
     login = providers.registry.by_id(
         MetamaskProvider.id, request
     ).sociallogin_from_response(request, extra_data)

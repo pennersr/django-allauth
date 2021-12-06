@@ -29,7 +29,7 @@ async function getAccount(next, process="login") {
         traditional: true,
         success: function (data) {
         $('#target').html(data.msg);
-            const NonceSign = data.msg;
+            NonceSign = data.msg;
         }
     });
     const personalSignResult = document.getElementById('target');

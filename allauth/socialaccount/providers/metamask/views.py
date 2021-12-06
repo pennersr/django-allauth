@@ -19,7 +19,6 @@ def metamask_nonce(request):
     provider = providers.registry.by_id(MetamaskProvider.id, request)
     app = 'metamask'
     expires_at = None
-    nonce = secrets.token_urlsafe()
     token = SocialToken(
         app=app, token=extra_data, expires_at=expires_at
     )

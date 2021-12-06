@@ -17,7 +17,7 @@ def metamask_nonce(request):
     extra_data = json.loads(request.body)
     request.settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})
     provider = providers.registry.by_id(MetamaskProvider.id, request)
-    app = 'metamask'
+    app = provider.get_app(request)
     expires_at = None
     token = SocialToken(
         app=app, token=extra_data, expires_at=expires_at

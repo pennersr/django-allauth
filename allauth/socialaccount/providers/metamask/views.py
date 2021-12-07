@@ -62,8 +62,7 @@ def login_api(request):
             local_token = local.token
             endpoint = url+':'+ str(port)
             w3 = Web3(Web3.HTTPProvider(endpoint))
-            encoded_message = Web3.sha3(text=local_token)
-            recoveredAddress = w3.eth.account.recover_message(encoded_message, data["login_token"])
+            recoveredAddress = w3.eth.account.recover_message(local_token, data["login_token"])
             if recoveredAddress == data['account']:
                 return complete_social_login(request, login)
             else:

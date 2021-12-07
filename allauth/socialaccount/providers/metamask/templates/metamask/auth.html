@@ -54,7 +54,7 @@ async function getAccount(next, process="login") {
   const account = accounts[0];
       $.ajax({
         url : "/accounts/metamask/login_api/",
-        type : "GET",
+        type : "POST",
         dataType: 'json',
         headers:{
         "X-CSRFToken": '{{ csrf_token }}'

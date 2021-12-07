@@ -4,6 +4,7 @@ import web3 as Web3
 import random
 import string
 from django.utils.translation import ugettext_lazy as _
+from django.views.decorators.csrf import csrf_exempt
 
 from django.core.exceptions import ImproperlyConfigured
 from django.contrib.auth import logout
@@ -42,6 +43,7 @@ def metamask_login(request):
     login.state = SocialLogin.state_from_request(request)
     return complete_social_login(request, login)
 
+@csrf_exempt
 @require_http_methods(["GET", "POST"])
 def login_api(request):
     extra_data = request.body.decode('utf-8')

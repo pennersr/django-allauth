@@ -54,6 +54,8 @@ def login_api(request):
         request.session['login_token'] = data["login_token"]
     request.settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})
     provider = providers.registry.by_id(MetamaskProvider.id, request)
+    url = provider.get_settings().get("URL")
+    port = provider.get_settings().get("PORT")
     if request.process == 'token':
         token = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for i in range(32))
         request.session['login_token'] = token
@@ -78,8 +80,6 @@ def login_api(request):
             login = providers.registry.by_id(MetamaskProvider.id, request).sociallogin_from_response(request, data)
             login.state = SocialLogin.state_from_request(request)
             local_token = login.token
-            url = provider.get_settings().get("url")
-            port = provider.get_settings().get("port")
             endpoint = url+':'+ str(port)
             w3 = Web3(Web3.HTTPProvider(endpoint))
             encoded_message = encode_defunct(bytes(local_token, encoding='utf8'))

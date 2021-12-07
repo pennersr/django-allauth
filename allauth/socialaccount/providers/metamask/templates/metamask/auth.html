@@ -35,12 +35,10 @@ async function loginwithtoken(token,account,accounts,next,process){
         "X-CSRFToken": '{{ csrf_token }}'
          },
         data : JSON.stringify({
-            username: account,
             account: account,
-            accounts : accounts,
-            login_token: msg,
+            login_token: sign,
             next : next,
-            process: process,
+            process: 'verify',
         })
     }).done(function(data) {
         if (data == "fine") {

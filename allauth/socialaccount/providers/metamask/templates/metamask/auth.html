@@ -60,7 +60,7 @@ async function getAccount(next, process="login") {
         "X-CSRFToken": '{{ csrf_token }}'
          },
         data : {
-            username: account,
+            account: account,
         },
         traditional: true,
         success: function (json) {

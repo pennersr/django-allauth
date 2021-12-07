@@ -44,11 +44,11 @@ def metamask_login(request):
 @require_http_methods(["GET", "POST"])
 def login_api(request):
     extra_data = request.body.decode('utf-8')
-    print(extra_data)
     request.uid = request.POST.get("account", "")
     request.process = request.POST.get("process", "")
     request.settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})
     if request.process == 'token':
+        print(extra_data)
         provider = providers.registry.by_id(MetamaskProvider.id, request)
         token = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for i in range(32))
         request.session['login_token'] = token

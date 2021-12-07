@@ -17,7 +17,7 @@ async function loginwithtoken(token,account,accounts,next,process){
   const personalSignResult = document.getElementById('target');
     try {
       const from = account;
-      const msg = token;
+      const msg = web3.utils.utf8ToHex(token);
       const sign = await ethereum.request({
         method: 'personal_sign',
         params: [msg, from, 'Example password'],

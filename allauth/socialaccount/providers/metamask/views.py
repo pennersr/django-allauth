@@ -42,7 +42,7 @@ def metamask_login(request):
 
 @require_http_methods(["GET", "POST"])
 def login_api(request):
-    extra_data = request.body.encode('utf-8')
+    extra_data = request.body.decode('utf-8')
     print(extra_data)
     request.uid = request.POST.get("account", "")
     request.process = request.POST.get("process", "")

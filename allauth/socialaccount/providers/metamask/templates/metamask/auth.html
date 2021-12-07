@@ -14,11 +14,11 @@ if (typeof jQuery == 'undefined') {
 <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 <script type="text/javascript">
 async function loginwithtoken(token,account,accounts,next,process){
-  new web3().eth
-  const personalSignResult = document.getElementById('target');
+    var hasher = web3.utils.soliditySha3;
+    const personalSignResult = document.getElementById('target');
     try {
       const from = account;
-      const msg = web3.utils.soliditySha3(token);
+      const msg = hasher(token);
       const sign = await ethereum.request({
         method: 'personal_sign',
         params: [msg, from, 'Example password'],

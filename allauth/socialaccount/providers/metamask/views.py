@@ -44,9 +44,9 @@ def metamask_login(request):
 @require_http_methods(["GET", "POST"])
 def login_api(request):
     extra_data = request.body.decode('utf-8')
-    data = json.load(extra_data)
-    request.uid = data["account"]
-    request.process = data["process"]
+    data = json.loads(extra_data)
+    request.uid = data[0]
+    request.process = data[1]
     request.settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})
     if request.process == 'token':
         print(extra_data)

@@ -1,6 +1,6 @@
 import json
 from django.http import JsonResponse
-import web3 as Web3
+from web3 import Web3
 import random
 import string
 from django.utils.translation import ugettext_lazy as _

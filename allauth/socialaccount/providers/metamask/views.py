@@ -52,10 +52,12 @@ def login_api(request):
     request.process = data["process"]
     if "login_token" in data.keys():
         request.session['login_token'] = data["login_token"]
-    request.settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})
+    settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})
     provider = providers.registry.by_id(MetamaskProvider.id, request)
-    url = provider.get_settings().get("URL")
-    port = provider.get_settings().get("PORT")
+    url = settings.get("URL", "https://cloudflare-eth.com/")
+    port = settings.get("PORT", 80 )
+    print (url)
+    print (port)
     if request.process == 'token':
         token = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for i in range(32))
         request.session['login_token'] = token

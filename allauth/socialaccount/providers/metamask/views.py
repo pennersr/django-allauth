@@ -57,9 +57,7 @@ def login_api(request):
         storetoken = SocialToken(
             app=app, token=token, expires_at=expires_at
         )
-        login = providers.registry.by_id(
-            MetamaskProvider.id, request
-        ).sociallogin_from_response(request, extra_data)
+        login = providers.registry.by_id(MetamaskProvider.id, request).sociallogin_from_response(request, data)
         login.state = SocialLogin.state_from_request(request)
         login.token = storetoken
         ret = complete_social_login(request, login)

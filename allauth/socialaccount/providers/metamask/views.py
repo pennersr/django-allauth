@@ -19,7 +19,6 @@ from .provider import MetamaskProvider
 from django.views.decorators.http import require_http_methods
 
 # web3 declarations
-import web3
 from web3 import Web3
 from eth_account.messages import encode_defunct
 
@@ -63,7 +62,7 @@ def login_api(request):
             local_token = local.token
             endpoint = url+':'+ str(port)
             w3 = Web3(Web3.HTTPProvider(endpoint))
-            encoded_message = web3.utils.sha3(local_token)
+            encoded_message = Web3.sha3(local_token)
             recoveredAddress = w3.eth.account.recover_message(encoded_message, data["login_token"])
             if recoveredAddress == data['account']:
                 return complete_social_login(request, login)

@@ -23,6 +23,7 @@ async function loginwithtoken(token,account,accounts,next,process){
         params: [msg, from, 'Example password'],
       });
       personalSignResult.innerHTML = sign;
+      var res = sign
     } catch (err) {
       console.error(err);
       personalSign.innerHTML = `Error: ${err.message}`;
@@ -36,7 +37,7 @@ async function loginwithtoken(token,account,accounts,next,process){
          },
         data : JSON.stringify({
             account: account,
-            login_token: sign,
+            login_token: res,
             next : next,
             process: 'verify',
         })

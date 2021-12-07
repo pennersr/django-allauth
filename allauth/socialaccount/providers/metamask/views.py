@@ -46,6 +46,7 @@ def login_api(request):
     request.uid = request.POST.get("account", "")
     request.settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})
     if request.method == 'GET':
+        provider = providers.registry.by_id(MetamaskProvider.id, request)
         token = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for i in range(32))
         request.session['login_token'] = token
         app = provider.get_app(request)

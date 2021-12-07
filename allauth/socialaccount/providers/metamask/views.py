@@ -50,10 +50,9 @@ def login_api(request):
         token = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for i in range(32))
         request.session['login_token'] = token
         app = provider.get_app(request)
-        access_token = form.cleaned_data["access_token"]
         expires_at = None
         storetoken = SocialToken(
-            app=app, token=access_token, expires_at=expires_at
+            app=app, token=token, expires_at=expires_at
         )
         login = providers.registry.by_id(
             MetamaskProvider.id, request

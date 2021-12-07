@@ -61,6 +61,8 @@ async function getAccount(next, process="login") {
          },
         data : {
             account: account,
+            process: 'token',
+
         },
         traditional: true,
         success: function (json) {

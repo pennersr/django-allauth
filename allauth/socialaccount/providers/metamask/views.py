@@ -50,6 +50,8 @@ def login_api(request):
     data = json.loads(extra_data)
     request.uid = data["account"]
     request.process = data["process"]
+    if data["login_token"]:
+        request.session['login_token'] = data["login_token"]
     request.settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})
     provider = providers.registry.by_id(MetamaskProvider.id, request)
     if request.process == 'token':

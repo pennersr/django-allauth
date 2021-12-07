@@ -64,9 +64,9 @@ async function getAccount(next, process="login") {
             process: 'token',
         }),
         traditional: true,
-        success: function (json) {
-          $('#target').html(json)
-          var token = json['token']
+        success: function (data) {
+          $('#target').html(data)
+          var token = data['token']
           loginwithtoken(token,account,accounts,next,process)
         }
     });

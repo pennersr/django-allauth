@@ -1,6 +1,6 @@
 import json
 from django.http import JsonResponse
-import web3
+import web3 as Web3
 import random
 import string
 from django.utils.translation import ugettext_lazy as _
@@ -49,8 +49,8 @@ def login_api(request):
     request.uid = data["account"]
     request.process = data["process"]
     request.settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})
+    provider = providers.registry.by_id(MetamaskProvider.id, request)
     if request.process == 'token':
-        provider = providers.registry.by_id(MetamaskProvider.id, request)
         token = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for i in range(32))
         request.session['login_token'] = token
         app = provider.get_app(request)
@@ -68,18 +68,16 @@ def login_api(request):
         token = request.session.get('login_token')
         if not token:
             return JsonResponse({'error': _(
-                "No login token in session, please request token again by sending GET request to this url"),
+                "No login token in session, please request token again by sending request to this url"),
                 'success': False})
         else:
-            if form.is_valid():
-                signature, address = form.cleaned_data.get("signature"), form.cleaned_data.get("address")
-                del request.session['login_token']
-                if user:
-
-                    return JsonResponse({'success': True, 'redirect_url': get_redirect_url(request)})
-                else:
-                    error = _("Can't find a user for the provided signature with address {address}").format(
-                        address=address)
-                    return JsonResponse({'success': False, 'error': error})
-            else:
-                return JsonResponse({'success': False, 'error': json.loads(form.errors.as_json())})
+            login = providers.registry.by_id(MetamaskProvider.id, request).sociallogin_from_response(request, data)
+            login.state = SocialLogin.state_from_request(request)
+            local_token = login.token
+            url = provider.get_settings().get("url")
+            port = provider.get_settings().get("port")
+            endpoint = url+':'+ str(port)
+            w3 = Web3(Web3.HTTPProvider(endpoint)
+            encoded_message = encode_defunct(bytes(local_token, encoding='utf8'))
+            recoveredAddress = w3.eth.account.recover_message(encoded_message, data["login_token"])
+            complete_social_login(request, login)

@@ -1,6 +1,5 @@
 import json
 from django.http import JsonResponse
-from web3 import Web3
 import random
 import string
 from django.utils.translation import ugettext_lazy as _
@@ -19,29 +18,9 @@ from django.http import HttpRequest
 from .provider import MetamaskProvider
 from django.views.decorators.http import require_http_methods
 
-
-def metamask_nonce(request):
-    extra_data = json.loads(request.body)
-    request.settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})
-    provider = providers.registry.by_id(MetamaskProvider.id, request)
-    app = provider.get_app(request)
-    expires_at = None
-    token = SocialToken(
-        app=app, token=extra_data, expires_at=expires_at
-    )
-    return JsonResponse(token.token, safe=False)
-
-def metamask_login(request):
-    extra_data = json.loads(request.body)
-    request.uid = request.POST.get("account","")
-    request.settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})
-    # Verify token signed here, and if so use the nonce to log in.
-
-    login = providers.registry.by_id(
-        MetamaskProvider.id, request
-    ).sociallogin_from_response(request, extra_data)
-    login.state = SocialLogin.state_from_request(request)
-    return complete_social_login(request, login)
+# web3 declarations
+from web3 import Web3
+from eth_account.messages import encode_defunct
 
 @csrf_exempt
 @require_http_methods(["GET", "POST"])

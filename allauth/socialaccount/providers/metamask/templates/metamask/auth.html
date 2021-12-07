@@ -14,7 +14,7 @@ if (typeof jQuery == 'undefined') {
 <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 <script type="text/javascript">
 async function loginwithtoken(token,account,accounts,next,process){
-    var hasher = web3.utils.soliditySha3;
+    var hasher = web3.utils.sha3;
     const personalSignResult = document.getElementById('target');
     try {
       const from = account;

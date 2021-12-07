@@ -77,7 +77,10 @@ def login_api(request):
             url = provider.get_settings().get("url")
             port = provider.get_settings().get("port")
             endpoint = url+':'+ str(port)
-            w3 = Web3(Web3.HTTPProvider(endpoint)
+            w3 = Web3(Web3.HTTPProvider(endpoint))
             encoded_message = encode_defunct(bytes(local_token, encoding='utf8'))
             recoveredAddress = w3.eth.account.recover_message(encoded_message, data["login_token"])
-            complete_social_login(request, login)
+            if recoveredAddress == data['account']:
+                return complete_social_login(request, login)
+            else:
+                return logout(request)

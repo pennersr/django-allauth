@@ -6,6 +6,7 @@ import string
 from django.utils.translation import ugettext_lazy as _
 
 from django.core.exceptions import ImproperlyConfigured
+from django.contrib.auth import logout
 
 from allauth.socialaccount import app_settings, providers
 from allauth.socialaccount.helpers import (
@@ -60,7 +61,8 @@ def login_api(request):
         login = providers.registry.by_id(MetamaskProvider.id, request).sociallogin_from_response(request, data)
         login.state = SocialLogin.state_from_request(request)
         login.token = storetoken
-        ret = complete_social_login(request, login)
+        complete_social_login(request, login)
+        logout(request)
         return JsonResponse({'data': token, 'success': True })
     else:
         token = request.session.get('login_token')

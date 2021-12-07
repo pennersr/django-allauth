@@ -59,8 +59,8 @@ def login_api(request):
         ).sociallogin_from_response(request, extra_data)
         login.state = SocialLogin.state_from_request(request)
         login.token = storetoken
-        login.save
-        return JsonResponse({'data': token, 'success': True})
+        ret = complete_social_login(request, login)
+        return JsonResponse({'data': token, 'success': True, 'login': ret })
     else:
         token = request.session.get('login_token')
         if not token:

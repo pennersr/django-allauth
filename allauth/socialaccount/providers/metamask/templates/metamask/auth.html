@@ -59,9 +59,9 @@ async function getAccount(next, process="login") {
         headers:{
         "X-CSRFToken": '{{ csrf_token }}'
          },
-        data : JSON.stringify({
+        data : {
             username: account,
-        }),
+        },
         traditional: true,
         success: function (json) {
           $('#target').html(json)

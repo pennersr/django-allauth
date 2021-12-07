@@ -58,8 +58,7 @@ def login_api(request):
                 "No login token in session, please request token again by sending request to this url"),
                 'success': False})
         else:
-            from allauth.socialaccount.models import SocialToken
-            local = SocialToken.objects.get(account__user__username=data["account"])
+            local = SocialToken.objects.all().filter(account__user__username=data["account"]).first()
             local_token = local.token
             endpoint = url+':'+ str(port)
             w3 = Web3(Web3.HTTPProvider(endpoint))

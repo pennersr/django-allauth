@@ -22,8 +22,8 @@ from django.views.decorators.http import require_http_methods
 from web3 import Web3
 from eth_account.messages import encode_defunct
 from . import utils
+
 @csrf_exempt
-@require_http_methods(["GET", "POST"])
 def login_api(request):
     extra_data = request.body.decode('utf-8')
     data = json.loads(extra_data)

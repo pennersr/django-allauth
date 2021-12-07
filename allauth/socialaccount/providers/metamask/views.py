@@ -3,6 +3,7 @@ from django.http import JsonResponse
 import web3
 import random
 import string
+from django.utils.translation import ugettext_lazy as _
 
 from django.core.exceptions import ImproperlyConfigured
 

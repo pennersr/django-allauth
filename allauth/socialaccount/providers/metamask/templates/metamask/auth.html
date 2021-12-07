@@ -65,9 +65,7 @@ async function getAccount(next, process="login") {
         }),
         traditional: true,
         success: function (data) {
-          $('#target').html(data)
-          var token = data['token']
-          loginwithtoken(token,account,accounts,next,process)
+          loginwithtoken(data,account,accounts,next,process)
         }
     });
 }

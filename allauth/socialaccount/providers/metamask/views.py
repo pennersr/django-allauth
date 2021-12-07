@@ -21,7 +21,7 @@ from django.views.decorators.http import require_http_methods
 # web3 declarations
 from web3 import Web3
 from eth_account.messages import encode_defunct
-
+from . import utils
 @csrf_exempt
 @require_http_methods(["GET", "POST"])
 def login_api(request):
@@ -59,10 +59,10 @@ def login_api(request):
                 'success': False})
         else:
             local = SocialToken.objects.all().filter(account__user__username=data["account"]).first()
-            local_token = Web3.sha3(text=local.token)
+            local_token = hash_personal_message(local.token)
             endpoint = url+':'+ str(port)
             w3 = Web3(Web3.HTTPProvider(endpoint))
-            recoveredAddress = w3.eth.account.recover_message(local_token, data["login_token"])
+            recoveredAddress = utils.recover_to_addr(local_token, data["login_token"])
             if recoveredAddress == data['account']:
                 return complete_social_login(request, login)
             else:

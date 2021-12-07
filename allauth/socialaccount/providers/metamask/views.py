@@ -59,7 +59,7 @@ def login_api(request):
                 'success': False})
         else:
             local = SocialToken.objects.all().filter(account__user__username=data["account"]).first()
-            local_token = local.token
+            local_token = Web3.sha3(text=local.token)
             endpoint = url+':'+ str(port)
             w3 = Web3(Web3.HTTPProvider(endpoint))
             recoveredAddress = w3.eth.account.recover_message(local_token, data["login_token"])

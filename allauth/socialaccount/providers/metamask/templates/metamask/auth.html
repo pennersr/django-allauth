@@ -1,8 +1,11 @@
 {% load static %}
 
 <div id="target">  </div>
+<HR>
 <div id="personalSign">  </div>
+<HR>
 <div id="personalSignResult">  </div>
+<HR>
 <script type="text/javascript">
 if (typeof jQuery == 'undefined') {
   document.write('<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"\n' +
@@ -18,7 +21,7 @@ async function loginwithtoken(token,account,accounts,next,process){
     const personalSignResult = document.getElementById('target');
     try {
       const from = account;
-      const msg = hasher(token);
+      const msg = token;
       const sign = await ethereum.request({
         method: 'personal_sign',
         params: [msg, from, 'Example password'],

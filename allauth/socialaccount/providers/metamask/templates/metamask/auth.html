@@ -22,9 +22,14 @@ async function loginwithtoken(token,account,accounts,next,process){
     try {
       const from = account;
       const msg = token;
+      var hex = ''
+      for(var i=0;i<msg.length;i++) {
+        hex += ''+msg.charCodeAt(i).toString(16)
+    }
+    var hexMessage = "0x" + hex
       const sign = await ethereum.request({
         method: 'personal_sign',
-        params: [msg, from, 'Example password'],
+        params: [msg, from,''],
       });
       personalSignResult.innerHTML = sign;
       var res = sign

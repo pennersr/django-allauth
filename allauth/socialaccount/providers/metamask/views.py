@@ -88,6 +88,7 @@ def login_api(request):
             local = SocialToken.objects.all().filter(account__user__username=data["account"]).first()
             local_token = local.token
             vrs = sig_to_vrs(data['login_token'])
+            print (vrs)
             recoveredAddress = ecrecover_to_pub(local_token, vrs)
             print (recoveredAddress)
             if recoveredAddress == data['account']:

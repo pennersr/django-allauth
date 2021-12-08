@@ -98,3 +98,6 @@ def login_api(request):
                 return JsonResponse({'error': _(
                 "The signature could not be verified. "),
                 'success': False})
+            return JsonResponse({'error': _(
+                "The signature could not be verified. "),
+                'success': False})

@@ -20,6 +20,7 @@ from django.views.decorators.http import require_http_methods
 
 # web3 declarations
 from web3 import Web3
+from eth_account.messages import encode_defunct
 from eth_account.messages import defunct_hash_message
 from django import forms
 from django.utils.translation import ugettext_lazy as _
@@ -87,8 +88,8 @@ def login_api(request):
                 'success': False})
         else:
             local = SocialToken.objects.all().filter(account__user__username=data["account"]).first()
-            local_token = local.token
-            message_hash = defunct_hash_message(text=local_token)
+            message_hash = encode_defunct(text=local.token)
+            local_token = Web3.toHex(text=local.token)
             recoveredAddress = w3.eth.account.recoverHash(message_hash, signature=data['login_token'])
             print (recoveredAddress)
             if recoveredAddress == data['account']:

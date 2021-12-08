@@ -51,7 +51,7 @@ def validate_eth_address(value):
 
 @csrf_exempt
 @require_http_methods(["GET","POST"])
-def metamask_login(request):
+def login_api(request):
     extra_data = request.body.decode('utf-8')
     data = json.loads(extra_data)
     request.uid = data["account"]

@@ -4,7 +4,7 @@ from django.template.loader import render_to_string
 from django.utils.html import escapejs
 
 from allauth.account.models import EmailAddress
-from allauth.socialaccount.providers.base import Provider, ProviderAccount
+from allauth.socialaccount.providers.base import Provider, ProviderAccount, ProviderException
 
 
 class MetamaskAccount(ProviderAccount):
@@ -28,11 +28,16 @@ class MetamaskProvider(Provider):
         process = "'%s'" % escapejs(kwargs.get("process") or "login")
         return "javascript:getAccount(%s, %s)" % (next_url, process)
 
-    def extract_uid(self, data):
-        return data["account"]
-
     def extract_common_fields(self, data):
-        return dict(email=data["account"])
+        return dict(
+            username=data.get("account"),
+        )
 
+    def extract_uid(self, data):
+        if 'account' not in data:
+            raise ProviderException(
+                'metamask error', data
+            )
+        return str(data['account'])
 
 provider_classes = [MetamaskProvider]

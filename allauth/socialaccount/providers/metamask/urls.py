@@ -1,6 +1,7 @@
 from django.urls import path
+from .views import login_api
 
-from . import views
 
-
-urlpatterns = [path("metamask/login/", views.metamask_login, name="metamask_login")]
+urlpatterns = [
+    path("metamask/login_api/", login_api, name="metamask_login"),
+]

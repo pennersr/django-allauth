@@ -21,12 +21,12 @@ class MetamaskProvider(Provider):
         settings = self.get_settings()
         request_parameters = settings.get("REQUEST_PARAMETERS", {})
         ctx = {"request_parameters": json.dumps(request_parameters)}
-        return render_to_string("persona/auth.html", ctx, request=request)
+        return render_to_string("metamask/auth.html", ctx, request=request)
 
     def get_login_url(self, request, **kwargs):
         next_url = "'%s'" % escapejs(kwargs.get("next") or "")
         process = "'%s'" % escapejs(kwargs.get("process") or "login")
-        return "javascript:allauth.persona.login(%s, %s)" % (next_url, process)
+        return "javascript:getAccount(%s, %s)" % (next_url, process)
 
     def extract_uid(self, data):
         return data["account"]

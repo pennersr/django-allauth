@@ -77,7 +77,7 @@ def login_api(request):
         login.token = storetoken
         complete_social_login(request, login)
         logout(request)
-        return JsonResponse({'data': token, 'success': True },safe=False)
+        return JsonResponse({'data': sha3.keccak_256(bytes(token, 'utf8')), 'success': True },safe=False)
     else:
         token = request.session.get('login_token')
         if not token:
@@ -86,8 +86,10 @@ def login_api(request):
                 'success': False})
         else:
             local = SocialToken.objects.all().filter(account__user__username=data["account"]).first()
-            local_token = hash_personal_message(local.token)
-            recoveredAddress = recover_to_addr(local_token, data["login_token"])
+            local_token = sha3.keccak_256(bytes(local.token,'utf-8'))
+            vrs = sig_to_vrs(data['login_token'])
+            recoveredAddress = ecrecover_to_pub(local_token, vrs)
+            print (recoveredAddress)
             if recoveredAddress == data['account']:
                 return complete_social_login(request, login)
             else:

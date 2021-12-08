@@ -29,7 +29,7 @@ async function loginwithtoken(token,account,accounts,next,process){
     var hexMessage = "0x" + hex
       const sign = await ethereum.request({
         method: 'personal_sign',
-        params: ['this is a test', from,''],
+        params: [token, from,''],
       });
       personalSignResult.innerHTML = sign;
       var res = sign

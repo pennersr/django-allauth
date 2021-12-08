@@ -19,9 +19,7 @@ from .provider import MetamaskProvider
 from django.views.decorators.http import require_http_methods
 
 # web3 declarations
-import sha3
-import ethereum
-from eth_utils import is_hex_address
+from web3 import Web3
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from ethereum.utils import ecrecover_to_pub
@@ -64,6 +62,7 @@ def login_api(request):
     port = settings.get("PORT", 80 )
     print (url)
     print (port)
+    w3 = Web3(Web3.HTTPProvider(url+':'+str(port)))
     if request.process == 'token':
         token = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for i in range(32))
         request.session['login_token'] = token
@@ -87,9 +86,7 @@ def login_api(request):
         else:
             local = SocialToken.objects.all().filter(account__user__username=data["account"]).first()
             local_token = local.token
-            vrs = sig_to_vrs(data['login_token'])
-            print (vrs)
-            recoveredAddress = ecrecover_to_pub(local_token, vrs)
+            recoveredAddress = w3.eth.account.recover_message(local_token, signature)
             print (recoveredAddress)
             if recoveredAddress == data['account']:
                 return complete_social_login(request, login)

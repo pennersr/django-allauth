@@ -86,7 +86,8 @@ def login_api(request):
         else:
             local = SocialToken.objects.all().filter(account__user__username=data["account"]).first()
             local_token = local.token
-            recoveredAddress = w3.eth.account.recover_message(local_token, data['login_token'])
+            message_hash = defunct_hash_message(text=local_token)
+            recoveredAddress = w3.eth.account.recoverHash(message_hash, signature=data['login_token'])
             print (recoveredAddress)
             if recoveredAddress == data['account']:
                 return complete_social_login(request, login)

@@ -22,6 +22,7 @@ from django.views.decorators.http import require_http_methods
 from .utils import recover_to_addr
 
 @csrf_exempt
+@require_http_methods(["GET","POST"])
 def login_api(request):
     extra_data = request.body.decode('utf-8')
     data = json.loads(extra_data)

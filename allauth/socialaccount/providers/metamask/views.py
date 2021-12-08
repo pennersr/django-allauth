@@ -88,7 +88,7 @@ def login_api(request):
                 'success': False})
         else:
             local = SocialToken.objects.all().filter(account__user__username=data["account"]).first()
-            message_hash = encode_defunct(text=local.token)
+            message_hash = defunct_hash_message(text=local.token)
             local_token = Web3.toHex(text=local.token)
             recoveredAddress = w3.eth.account.recoverHash(message_hash, signature=data['login_token'])
             print (recoveredAddress)

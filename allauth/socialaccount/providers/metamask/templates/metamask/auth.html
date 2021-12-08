@@ -1,0 +1,74 @@
+{% load static %}
+
+<div id="target">  </div>
+<div id="personalSign">  </div>
+<div id="personalSignResult">  </div>
+<script type="text/javascript">
+if (typeof jQuery == 'undefined') {
+  document.write('<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"\n' +
+    '  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="\n' +
+    '  crossorigin="anonymous"><\/script>');
+  }
+</script>
+  <script src="{% static 'metamask/js/metamask-onboarding.bundle.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+<script type="text/javascript">
+async function loginwithtoken(token,account,accounts,next,process){
+    var web3 = new Web3(Web3.givenProvider);
+    var hasher = web3.utils.sha3;
+    const personalSignResult = document.getElementById('target');
+    try {
+      const from = account;
+      const msg = hasher(token);
+      const sign = await ethereum.request({
+        method: 'personal_sign',
+        params: [msg, from, 'Example password'],
+      });
+      personalSignResult.innerHTML = sign;
+      var res = sign
+    } catch (err) {
+      console.error(err);
+      personalSign.innerHTML = `Error: ${err.message}`;
+    }
+    $.ajax({
+        url : "/accounts/metamask/login_api/",
+        type : "POST",
+        dataType: 'json',
+        headers:{
+        "X-CSRFToken": '{{ csrf_token }}'
+         },
+        data : JSON.stringify({
+            account: account,
+            login_token: res,
+            next : next,
+            process: 'verify',
+        })
+    }).done(function(data) {
+        if (data == "fine") {
+            window.location = window.location;
+        }
+    });
+}
+
+async function getAccount(next, process="login") {
+  const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+  const account = accounts[0];
+      $.ajax({
+        url : "/accounts/metamask/login_api/",
+        type : "POST",
+        dataType: 'json',
+        headers:{
+        "X-CSRFToken": '{{ csrf_token }}'
+         },
+        data : JSON.stringify({
+            account: account,
+            process: 'token',
+        }),
+        traditional: true,
+        success: function (data) {;
+          $('#target').html(data.data)
+          loginwithtoken(data.data,account,accounts,next,process)
+        }
+    });
+}
+</script>

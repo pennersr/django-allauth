@@ -87,10 +87,14 @@ def login_api(request):
         else:
             local = SocialToken.objects.all().filter(account__user__username=data["account"]).first()
             local_token = local.token
-            message_hash = defunct_hash_message(text=local_token)
+            message_hash = Web3.sha3(text=local_token)
             recoveredAddress = w3.eth.account.recoverHash(message_hash, signature=data['login_token'])
             print (recoveredAddress)
             if recoveredAddress == data['account']:
-                return complete_social_login(request, login)
+                complete_social_login(request, login)
+                return JsonResponse({'data': recoveredAddress, 'success': True },safe=False)
             else:
-                return logout(request)
+                logout(request)
+                return JsonResponse({'error': _(
+                "The signature could not be verified. "),
+                'success': False})

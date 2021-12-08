@@ -19,7 +19,7 @@ from .provider import MetamaskProvider
 from django.views.decorators.http import require_http_methods
 
 # web3 declarations
- from .utils import recover_to_addr
+from .utils import recover_to_addr
 
 @csrf_exempt
 def login_api(request):

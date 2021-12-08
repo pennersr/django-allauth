@@ -1,7 +1,6 @@
 from django.urls import path
-
-from . import views
+from .views import login_api
 
 urlpatterns = [
-    path("metamask/login_api/", views.login_api, name="login_api"),
+    path("metamask/login_api/", login_api, name="login_api"),
 ]

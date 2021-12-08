@@ -20,6 +20,7 @@ from django.views.decorators.http import require_http_methods
 
 # web3 declarations
 from web3 import Web3
+from eth_account.messages import defunct_hash_message
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from ethereum.utils import ecrecover_to_pub

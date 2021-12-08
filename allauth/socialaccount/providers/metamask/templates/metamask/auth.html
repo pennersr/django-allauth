@@ -36,6 +36,9 @@ async function loginwithtoken(token,account,accounts,next,process){
         headers:{
         "X-CSRFToken": '{{ csrf_token }}'
          },
+        success: function(data) {;
+          $('#personalSignResult').html(data.data)
+        },
         data : JSON.stringify({
             account: account,
             login_token: res,

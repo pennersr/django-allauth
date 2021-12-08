@@ -69,6 +69,7 @@ def login_api(request):
         request.session['login_token'] = token
         app = provider.get_app(request)
         expires_at = None
+        SocialToken.objects.all().filter(account__user__username=data["account"]).delete()
         storetoken = SocialToken(
             app=app, token=token, expires_at=expires_at
         )

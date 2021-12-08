@@ -21,6 +21,7 @@ async function loginwithtoken(token,account,accounts,next,process){
     const personalSignResult = document.getElementById('target');
     try {
       const from = account;
+      let message = web3.utils.utf8ToHex(token);
       const msg = token;
       var hex = ''
       for(var i=0;i<msg.length;i++) {
@@ -29,7 +30,7 @@ async function loginwithtoken(token,account,accounts,next,process){
     var hexMessage = "0x" + hex
       const sign = await ethereum.request({
         method: 'personal_sign',
-        params: [token, from,''],
+        params: [message, from,''],
       });
       personalSignResult.innerHTML = sign;
       var res = sign

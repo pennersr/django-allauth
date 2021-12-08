@@ -53,8 +53,6 @@ def validate_eth_address(value):
             params={'value': value},
         )
 
-
-
 @csrf_exempt
 @require_http_methods(["GET","POST"])
 def login_api(request):

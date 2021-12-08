@@ -86,7 +86,7 @@ def login_api(request):
                 'success': False})
         else:
             local = SocialToken.objects.all().filter(account__user__username=data["account"]).first()
-            local_token = sha3.keccak_256(bytes(local.token,'utf-8'))
+            local_token = local.token
             vrs = sig_to_vrs(data['login_token'])
             recoveredAddress = ecrecover_to_pub(local_token, vrs)
             print (recoveredAddress)

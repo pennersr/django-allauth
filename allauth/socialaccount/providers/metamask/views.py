@@ -77,7 +77,7 @@ def login_api(request):
         login.token = storetoken
         complete_social_login(request, login)
         logout(request)
-        return JsonResponse({'data': sha3.keccak_256(bytes(token, 'utf8')), 'success': True },safe=False)
+        return JsonResponse({'data': token, 'success': True },safe=False)
     else:
         token = request.session.get('login_token')
         if not token:

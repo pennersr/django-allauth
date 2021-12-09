@@ -1269,6 +1269,33 @@ With the default settings, Wikimedia user identities (meta.wikimedia.org) will b
 App registration for Wikimedia wikis:
     https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose
 
+Metamask
+---------
+
+To use Metamask, you must install web3 via "pip install web3" to your project, or put it in your requirements file.
+
+The following Metamask settings are available:
+
+.. code-block:: python
+
+  SOCIALACCOUNT_PROVIDERS = {
+  'metamask': {
+      # For each OAuth based provider, either add a ``SocialApp``
+      # (``socialaccount`` app) containing the required client
+      # credentials, or list them here:
+      'PRIMARY': {
+          'CHAIN_ID': '6969',
+          'URL': 'https://cloudflare-eth.com/',
+          'PORT': '80'
+      }
+    }
+  }
+
+
+There is not much to set up. The chain_id is normally not used, is included for future features.
+
+The network URL and port are set to this as a default - if you want to use your own testnet or geth provider, change this value. Other than this, no other setup is required other than having metamask or another wallet that addresses window.ethereum in your browser installed.
+
 
 Microsoft Graph
 -----------------

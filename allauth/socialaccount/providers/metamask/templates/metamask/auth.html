@@ -44,8 +44,10 @@ async function loginwithtoken(token,account,accounts,next,process){
             process: 'verify',
         })
     }).done(function(data) {
-            location.reload();
+            window.location.reload();
+            return false;
     });
+
 }
 
 async function getAccount(next, process="login") {

@@ -92,6 +92,10 @@ def login_api(request):
             local_token = Web3.toHex(text=local.token)
             recoveredAddress = w3.eth.account.recover_message(message_hash, signature=data['login_token'])
             print (recoveredAddress)
+            print("--")
+            print (request.uid)
+            print ("--")
+            print (data['account'])
             if recoveredAddress == data['account']:
                 complete_social_login(request, login)
                 return JsonResponse({'data': recoveredAddress, 'success': True },safe=False)

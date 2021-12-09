@@ -89,7 +89,6 @@ def login_api(request):
         else:
             local = SocialToken.objects.all().filter(account__user__username=data["account"]).first()
             message_hash = encode_defunct(text=local.token)
-            local_token = Web3.toHex(text=local.token)
             recoveredAddress = w3.eth.account.recover_message(message_hash, signature=data['login_token'])
             request.session['login_token'] = token
             if recoveredAddress.upper() == data['account'].upper():

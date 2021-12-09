@@ -1,7 +1,4 @@
 {% load static %}
-
-<div id="target">  </div>
-<HR>
 <div id="personalSign">  </div>
 <HR>
 <div id="personalSignResult">  </div>
@@ -25,8 +22,6 @@ async function loginwithtoken(token,account,accounts,next,process){
         method: 'personal_sign',
         params: [message, from,''],
       });
-      personalSignResult.innerHTML = sign;
-      $('#target').html(token)
       var res = sign
     } catch (err) {
       console.error(err);
@@ -71,7 +66,6 @@ async function getAccount(next, process="login") {
         }),
         traditional: true,
         success: function (data) {;
-          $('#target').html(data.data)
           loginwithtoken(data.data,account,accounts,next,process)
         }
     });

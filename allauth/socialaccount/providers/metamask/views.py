@@ -62,8 +62,6 @@ def login_api(request):
     provider = providers.registry.by_id(MetamaskProvider.id, request)
     url = settings.get("URL", "https://cloudflare-eth.com/")
     port = settings.get("PORT", 80 )
-    print (url)
-    print (port)
     w3 = Web3(Web3.HTTPProvider(url+':'+str(port)))
     if request.process == 'token':
         token = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for i in range(32))

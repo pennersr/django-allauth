@@ -91,14 +91,11 @@ def login_api(request):
             message_hash = encode_defunct(text=local.token)
             local_token = Web3.toHex(text=local.token)
             recoveredAddress = w3.eth.account.recover_message(message_hash, signature=data['login_token'])
-            print (recoveredAddress)
-            print("--")
-            print (request.uid)
-            print ("--")
-            print (data['account'])
+            request.session['login_token'] = token
             if recoveredAddress.upper() == data['account'].upper():
-                complete_social_login(request, login)
-                return JsonResponse({'data': recoveredAddress, 'success': True },safe=False)
+                login = providers.registry.by_id(MetamaskProvider.id, request).sociallogin_from_response(request, data)
+                login.state = SocialLogin.state_from_request(request)
+                return complete_social_login(request, login)
             return JsonResponse({'error': _(
                 "The signature could not be verified. "),
                 'success': False})

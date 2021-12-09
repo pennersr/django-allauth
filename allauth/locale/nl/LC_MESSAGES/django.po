@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-09 08:41-0600\n"
-"PO-Revision-Date: 2020-10-11 18:21+0200\n"
+"PO-Revision-Date: 2021-12-09 16:29+0100\n"
 "Last-Translator: pennersr <raymond.penners@intenct.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/django-allauth/"
 "language/nl/)\n"
@@ -753,26 +753,26 @@ msgstr "Voeg een extern account toe"
 #: templates/socialaccount/login.html:6
 #, python-format
 msgid "Connect %(provider)s"
-msgstr ""
+msgstr "Koppel %(provider)s"
 
 #: templates/socialaccount/login.html:8
 #, python-format
 msgid "You are about to connect a new third party account from %(provider)s."
-msgstr ""
+msgstr "Je staat op het punt om een nieuw account van %(provider)s aan je account te koppelen."
 
 #: templates/socialaccount/login.html:10
 #, python-format
 msgid "Sign In Via %(provider)s"
-msgstr ""
+msgstr "Aanmelden via %(provider)s"
 
 #: templates/socialaccount/login.html:12
 #, python-format
 msgid "You are about to sign in using a third party account from %(provider)s."
-msgstr ""
+msgstr "Je staat op het punt om jezelf aan te melden via %(provider)s."
 
 #: templates/socialaccount/login.html:17
 msgid "Continue"
-msgstr ""
+msgstr "Ga verder"
 
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9

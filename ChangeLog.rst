@@ -1,4 +1,4 @@
-0.47.0 (unreleased)
+0.47.0 (2021-12-09)
 *******************
 
 Note worthy changes

@@ -44,9 +44,7 @@ async function loginwithtoken(token,account,accounts,next,process){
             process: 'verify',
         })
     }).done(function(data) {
-        if (data == "fine") {
             window.location = window.location;
-        }
     });
 }
 

@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-15 10:12-0600\n"
-"PO-Revision-Date: 2021-02-22 20:18+0100\n"
-"Last-Translator: Tomas Babej <tomasbabej@gmail.com>\n"
+"POT-Creation-Date: 2021-05-26 16:13+0200\n"
+"PO-Revision-Date: 2021-05-26 16:13+0058\n"
+"Last-Translator: b'Erik Telepovsky <erik@pragmaticmates.com>'\n"
 "Language-Team: \n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.1\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
 ">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+"X-Translated-Using: django-rosetta 0.9.4\n"
 
 #: account/adapter.py:45
 msgid "Username can not be used. Please use other username."
@@ -102,7 +102,7 @@ msgstr "E-mail (nepovinné)"
 
 #: account/forms.py:358
 msgid "You must type the same email each time."
-msgstr "Heslá sa nezhodujú."
+msgstr "E-maily sa nezhodujú."
 
 #: account/forms.py:383 account/forms.py:498
 msgid "Password (again)"
@@ -117,10 +117,9 @@ msgid "This e-mail address is already associated with another account."
 msgstr "Táto e-mailová adresa je už spojená s iným účtom."
 
 #: account/forms.py:452
-#, fuzzy, python-format
-#| msgid "Your account has no verified e-mail address."
+#, python-format
 msgid "You cannot add more than %d e-mail addresses."
-msgstr "Váš účet nemá overenú e-mailovú adresu."
+msgstr "Nemôžte pridať viac než %d e-mailových adries."
 
 #: account/forms.py:477
 msgid "Current Password"
@@ -218,7 +217,7 @@ msgstr "poskytovateľ"
 
 #: socialaccount/models.py:45
 msgid "name"
-msgstr "užívateľské meno"
+msgstr "meno"
 
 #: socialaccount/models.py:47
 msgid "client id"
@@ -398,14 +397,9 @@ msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Naozaj chcete odstrániť vybranú e-mailovú adresu?"
 
 #: templates/account/email/base_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "Thank you from %(site_name)s!\n"
-#| "%(site_domain)s"
+#, python-format
 msgid "Hello from %(site_name)s!"
-msgstr ""
-"Vďaka z %(site_name)s!\n"
-"%(site_domain)s"
+msgstr "Dobrý deň z %(site_name)s!"
 
 #: templates/account/email/base_message.txt:5
 #, python-format
@@ -417,52 +411,32 @@ msgstr ""
 "%(site_domain)s"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because user %(user_display)s at "
-#| "%(site_domain)s has given yours as an e-mail address to connect their "
-#| "account.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s\n"
+#, python-format
 msgid ""
 "You're receiving this e-mail because user %(user_display)s has given your e-"
 "mail address to register an account on %(site_domain)s.\n"
 "\n"
 "To confirm this is correct, go to %(activate_url)s"
 msgstr ""
-"Zdravíme z %(site_name)s!\n"
-"\n"
 "Tento e-mail ste dostali, pretože používateľ %(user_display)s na "
 "%(site_domain)s zadal túto e-mailovú adresu na prepojenie s jeho účtom.\n"
 "\n"
-"Pre potvrdenie nasledujte %(activate_url)s\n"
+"Pre potvrdenie nasledujte %(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your E-mail Address"
 msgstr "Potvrďte prosím svoju e-mailovú adresu"
 
 #: templates/account/email/password_reset_key_message.txt:4
-#, fuzzy
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account at %(site_domain)s.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
 msgid ""
 "You're receiving this e-mail because you or someone else has requested a "
 "password for your user account.\n"
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"Zdravíme z %(site_name)s!\n"
-"\n"
-"Toto je žiadosť o heslo pre užívateľský účet na %(site_domain)s.\n"
-"Ak ste nežiadali o obnovu hesla, správu môžete pokojne ignorovať. Odkaz "
-"nižšie obnoví heslo."
+"Tento e-mail ste dostali, pretože niekto požiadal o heslo k Vášmu "
+"používateľskému účtu. Ak ste to neboli Vy, správu môžete pokojne ignorovať. "
+"Odkaz nižšie obnoví heslo."
 
 #: templates/account/email/password_reset_key_message.txt:9
 #, python-format
@@ -612,7 +586,7 @@ msgid ""
 "an e-mail allowing you to reset it."
 msgstr ""
 "Zabudli ste heslo? Vložte nižšie svoju e-mailovú adresu a čoskoro vám "
-"pošlemee-mail na obnovenie hesla."
+"pošleme e-mail na obnovenie hesla."
 
 #: templates/account/password_reset.html:20
 msgid "Reset My Password"
@@ -805,11 +779,5 @@ msgid ""
 "You are about to use your %(provider_name)s account to login to\n"
 "%(site_name)s. As a final step, please complete the following form:"
 msgstr ""
-"Chystáte sa použiť váš %(provider_name)s účet na prihlásenie do\n"
+"Chystáte sa použiť váš %(provider_name)s účet na prihlásenie do "
 "%(site_name)s. Ako posledný krok vyplňte nasledujúci formulár:"
-
-#~ msgid "Account"
-#~ msgstr "Účet"
-
-#~ msgid "The login and/or password you specified are not correct."
-#~ msgstr "Uvedený login alebo heslo nie je správne."

@@ -157,6 +157,8 @@ Supported Providers
 
 - MailChimp (OAuth2)
 
+- Metamask (Ethereum Wallet)
+
 - MediaWiki (OAuth2)
 
 - Meetup (OAuth2)

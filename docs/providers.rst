@@ -1274,6 +1274,19 @@ Metamask
 
 To use Metamask, you must install web3 via "pip install web3" to your project, or put it in your requirements file.
 
+This module implements an ajax powered login flow between metamask and django-allauth.
+
+The javascript first checks for Metamask, and if it is available then it grabs the wallet address. django-allauth uses this wallet address as the username. Be aware that every wallet you connect to the site will generate a new account. You can have only one account attached to the site at a time, but to log in as another account you must disconnect Metamask as you log out from django, and reconnect using a different wallet address.
+
+This account is NOT LOGGED IN immediately. To verify that the correct user is signing it, the Metamask provider now sends a login token to be signed by the metamask wallet. Metamask pops up a dialogue to sign the token, and sends it back.
+
+django-allauth now uses web3 to verify that the wallet address in username signed this token. It uses the SocialToken model to store the token for comparison. If the addresses match, then django-allauth completes the login and spits the user out at the designated page.
+
+TODO:
+  - Helpers incoming in the next week to add custom chain_ids and tokens to metamask.
+  - verification off private chains instead of the mainnet.
+  -
+
 The following Metamask settings are available:
 
 .. code-block:: python

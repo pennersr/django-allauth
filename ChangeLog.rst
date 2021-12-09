@@ -1,6 +1,12 @@
 0.47.0 (unreleased)
 *******************
 
+Note worthy changes
+-------------------
+
+- New providers: Gumroad.
+
+
 Backwards incompatible changes
 ------------------------------
 

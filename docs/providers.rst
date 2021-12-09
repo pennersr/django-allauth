@@ -1278,7 +1278,7 @@ This module implements an ajax powered login flow between metamask and django-al
 
 The javascript first checks for Metamask, and if it is available then it grabs the wallet address. django-allauth uses this wallet address as the username. Be aware that every wallet you connect to the site will generate a new account. You can have only one account attached to the site at a time, but to log in as another account you must disconnect Metamask as you log out from django, and reconnect using a different wallet address.
 
-This account is NOT LOGGED IN immediately. To verify that the correct user is signing it, the Metamask provider now sends a login token to be signed by the metamask wallet. Metamask pops up a dialogue to sign the token, and sends it back.
+This account is *not logged in* immediately. To verify that the correct user is signing it, the Metamask provider now sends a login token to be signed by the metamask wallet. Metamask pops up a dialogue to sign the token, and sends it back.
 
 django-allauth now uses web3 to verify that the wallet address in username signed this token. It uses the SocialToken model to store the token for comparison. If the addresses match, then django-allauth completes the login and spits the user out at the designated page.
 

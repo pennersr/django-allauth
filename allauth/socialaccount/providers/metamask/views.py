@@ -96,7 +96,7 @@ def login_api(request):
             print (request.uid)
             print ("--")
             print (data['account'])
-            if recoveredAddress is data['account']:
+            if recoveredAddress.upper() == data['account'].upper():
                 complete_social_login(request, login)
                 return JsonResponse({'data': recoveredAddress, 'success': True },safe=False)
             return JsonResponse({'error': _(

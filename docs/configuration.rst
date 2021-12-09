@@ -266,6 +266,12 @@ SOCIALACCOUNT_FORMS (={})
   Used to override forms, for example:
   ``{'signup': 'myapp.forms.SignupForm'}``
 
+SOCIALACCOUNT_LOGIN_ON_GET (=False)
+  Controls whether or not the endpoints for initiating a social login (for
+  example, "/accounts/google/login/") require a POST request to initiate the
+  handshake. For security considerations, it is strongly recommended to
+  require POST requests.
+
 SOCIALACCOUNT_PROVIDERS (= dict)
   Dictionary containing provider specific settings.
 

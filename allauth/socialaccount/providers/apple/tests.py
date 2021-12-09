@@ -6,6 +6,7 @@ from urllib.parse import parse_qs, urlparse
 from django.conf import settings
 from django.test.utils import override_settings
 from django.urls import reverse
+from django.utils.http import urlencode
 
 import jwt
 
@@ -186,8 +187,10 @@ class AppleTests(OAuth2TestsMixin, TestCase):
         return params
 
     def login(self, resp_mock, process="login", with_refresh_token=True):
-        resp = self.client.get(
-            reverse(self.provider.id + "_login"), dict(process=process)
+        resp = self.client.post(
+            reverse(self.provider.id + "_login")
+            + "?"
+            + urlencode(dict(process=process))
         )
         p = urlparse(resp["location"])
         q = parse_qs(p.query)

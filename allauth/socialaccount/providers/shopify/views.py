@@ -59,15 +59,20 @@ class ShopifyOAuth2Adapter(OAuth2Adapter):
 
 
 class ShopifyOAuth2LoginView(OAuth2LoginView):
-    def dispatch(self, request):
-        response = super(ShopifyOAuth2LoginView, self).dispatch(request)
-
+    def dispatch(self, request, *args, **kwargs):
         is_embedded = (
             getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
             .get("shopify", {})
             .get("IS_EMBEDDED", False)
         )
         if is_embedded:
+            # TODO: This bypasses LOGIN_ON_GET, but:
+            #
+            #     The Embedded App SDK (EASDK) and backwards compatibility layer
+            #     are being removed from Shopify on January 1, 2022.
+            #
+            # So this needs to be dropped/revisitted anyway.
+            response = super().login(request, *args, **kwargs)
             """
             Shopify embedded apps (that run within an iFrame) require a JS
             (not server) redirect for starting the oauth2 process.
@@ -85,7 +90,8 @@ class ShopifyOAuth2LoginView(OAuth2LoginView):
             response = HttpResponse(content=js)
             # Because this view will be within shopify's iframe
             response.xframe_options_exempt = True
-        return response
+            return response
+        return super().dispatch(request, *args, **kwargs)
 
 
 oauth2_login = ShopifyOAuth2LoginView.adapter_view(ShopifyOAuth2Adapter)

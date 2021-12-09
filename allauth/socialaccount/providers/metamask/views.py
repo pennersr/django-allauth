@@ -96,14 +96,9 @@ def login_api(request):
             print (request.uid)
             print ("--")
             print (data['account'])
-            if recoveredAddress == data['account']:
+            if recoveredAddress is data['account']:
                 complete_social_login(request, login)
                 return JsonResponse({'data': recoveredAddress, 'success': True },safe=False)
-            else:
-                logout(request)
-                return JsonResponse({'error': _(
-                "The signature could not be verified. "),
-                'success': False})
             return JsonResponse({'error': _(
                 "The signature could not be verified. "),
                 'success': False})

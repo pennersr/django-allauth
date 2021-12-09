@@ -3,5 +3,5 @@ from .views import login_api
 
 
 urlpatterns = [
-    path("metamask/login_api/", login_api, name="metamask_login"),
+    path("metamask/login/", login_api, name="metamask_login"),
 ]

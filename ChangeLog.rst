@@ -1,10 +1,89 @@
-0.44.0 (unreleased)
+0.48.0 (unreleased)
 *******************
 
 Note worthy changes
 -------------------
 
-- ...
+- New translation: Bulgarian.
+
+- Introduced a new setting `ACCOUNT_PREVENT_ENUMERATION` that controls whether
+  or not information is revealed about whether or not a user account exists.
+  **Warning**: this is a work in progress, password reset is covered, yet,
+  signing up is not.
+
+
+Backwards incompatible changes
+------------------------------
+
+- The newly introduced `ACCOUNT_PREVENT_ENUMERATION` defaults to `True` impacting
+  the current behavior of the password reset flow.
+
+
+0.47.0 (2021-12-09)
+*******************
+
+Note worthy changes
+-------------------
+
+- New providers: Gumroad.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Added a new setting `SOCIALACCOUNT_LOGIN_ON_GET` that controls whether or not
+  the endpoints for initiating a social login (for example,
+  "/accounts/google/login/") require a POST request to initiate the
+  handshake. As requiring a POST is more secure, the default of this new setting
+  is `False`.
+
+
+Security notice
+---------------
+
+Automatically signing in users into their account and connecting additional
+third party accounts via a simple redirect ("/accounts/facebook/login/") can
+lead to unexpected results and become a security issue especially when the
+redirect is triggered from a malicious web site. For example, if an attacker
+prepares a malicious website that (ab)uses the Facebook password recovery
+mechanism to first sign into his/her own Facebook account, followed by a
+redirect to connect a new social account, you may end up with the attacker's
+Facebook account added to the account of the victim. To mitigate this,
+`SOCIALACCOUNT_LOGIN_ON_GET` is introduced.
+
+
+0.46.0 (2021-11-15)
+*******************
+
+Note worthy changes
+-------------------
+
+- New providers: Gitea, MediaWiki.
+
+- New translations: Georgian, Mongolian.
+
+- Django 3.2 compatibility.
+
+
+0.45.0 (2021-07-11)
+*******************
+
+
+Note worthy changes
+-------------------
+
+- New providers: Feishu, NetIQ, Frontier, CILogin.
+
+
+0.44.0 (2020-11-25)
+*******************
+
+Security notice
+---------------
+
+In previous versions, the mechanism to prevent too many failed login attempts
+(``ACCOUNT_LOGIN_ATTEMPTS_LIMIT``) could be bypassed by changing the casing of
+the login.
 
 
 Backwards incompatible changes
@@ -13,6 +92,11 @@ Backwards incompatible changes
 - The ``certificate`` key part of the ``SOCIALACCOUNT_PROVIDERS`` configuration has
   been renamed to ``certificate_key``. This is done to prevent the key from being displayed
   without being masked in Django debug pages.
+
+0.44.0
+******
+
+- Better compatibility with Django 3.2
 
 
 0.43.0 (2020-10-15)

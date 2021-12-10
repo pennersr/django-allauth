@@ -357,7 +357,7 @@ def send_email_confirmation(request, user, signup=False, email=None):
             get_adapter(request).add_message(
                 request,
                 messages.INFO,
-                "account/messages/" "email_confirmation_sent.txt",
+                "account/messages/email_confirmation_sent.txt",
                 {"email": email},
             )
     if signup:
@@ -399,9 +399,9 @@ def filter_users_by_username(*username):
         q = qlist[0]
         for q2 in qlist[1:]:
             q = q | q2
-        ret = get_user_model().objects.filter(q)
+        ret = get_user_model()._default_manager.filter(q)
     else:
-        ret = get_user_model().objects.filter(
+        ret = get_user_model()._default_manager.filter(
             **{
                 app_settings.USER_MODEL_USERNAME_FIELD
                 + "__in": [u.lower() for u in username]
@@ -467,7 +467,8 @@ def url_str_to_user_pk(s):
     User = get_user_model()
     # TODO: Ugh, isn't there a cleaner way to determine whether or not
     # the PK is a str-like field?
-    if getattr(User._meta.pk, "remote_field", None):
+    remote_field = getattr(User._meta.pk, "remote_field", None)
+    if remote_field and getattr(remote_field, "to", None):
         pk_field = User._meta.pk.remote_field.to._meta.pk
     else:
         pk_field = User._meta.pk

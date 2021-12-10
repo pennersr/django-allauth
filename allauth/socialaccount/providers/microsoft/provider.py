@@ -29,7 +29,9 @@ class MicrosoftGraphProvider(OAuth2Provider):
 
     def extract_common_fields(self, data):
         email = data.get("mail") or data.get("userPrincipalName")
+        username = data.get("mailNickname")
         return dict(
+            username=username,
             email=email,
             last_name=data.get("surname"),
             first_name=data.get("givenName"),

@@ -3,6 +3,7 @@ from urllib.parse import parse_qs, urlparse
 
 from django.test.utils import override_settings
 from django.urls import reverse
+from django.utils.http import urlencode
 
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers import registry
@@ -34,10 +35,12 @@ class ShopifyTests(create_oauth2_tests(registry.by_id(ShopifyProvider.id))):
         return resp
 
     def login(self, resp_mock, process="login", with_refresh_token=True):
-        resp = self.client.get(
-            reverse(self.provider.id + "_login"),
-            {"process": process, "shop": "test"},
+        url = (
+            reverse(self.provider.id + "_login")
+            + "?"
+            + urlencode({"process": process, "shop": "test"})
         )
+        resp = self.client.post(url)
         self.assertEqual(resp.status_code, 302)
         p = urlparse(resp["location"])
         q = parse_qs(p.query)
@@ -70,9 +73,10 @@ class ShopifyEmbeddedTests(ShopifyTests):
     """
 
     def login(self, resp_mock, process="login", with_refresh_token=True):
-        resp = self.client.get(
-            reverse(self.provider.id + "_login"),
-            {"process": process, "shop": "test"},
+        resp = self.client.post(
+            reverse(self.provider.id + "_login")
+            + "?"
+            + urlencode({"process": process, "shop": "test"}),
         )
         self.assertEqual(resp.status_code, 200)  # No re-direct, JS must do it
         actual_content = resp.content.decode("utf8")

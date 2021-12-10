@@ -297,7 +297,7 @@ class DefaultAccountAdapter(object):
         min_length = app_settings.PASSWORD_MIN_LENGTH
         if min_length and len(password) < min_length:
             raise forms.ValidationError(
-                _("Password must be a minimum of {0} " "characters.").format(min_length)
+                _("Password must be a minimum of {0} characters.").format(min_length)
             )
         validate_password(password, user)
         return password
@@ -471,7 +471,7 @@ class DefaultAccountAdapter(object):
 
     def _get_login_attempts_cache_key(self, request, **credentials):
         site = get_current_site(request)
-        login = credentials.get("email", credentials.get("username", ""))
+        login = credentials.get("email", credentials.get("username", "")).lower()
         login_key = hashlib.sha256(login.encode("utf8")).hexdigest()
         return "allauth/login_attempts@{site_id}:{login}".format(
             site_id=site.pk, login=login_key

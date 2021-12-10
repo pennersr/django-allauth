@@ -112,7 +112,7 @@ class DraugiemTests(TestCase):
 
     def test_callback(self):
         with patch(
-            "allauth.socialaccount.providers.draugiem.views" ".draugiem_complete_login"
+            "allauth.socialaccount.providers.draugiem.views.draugiem_complete_login"
         ) as draugiem_complete_login:
             self.mock_socialaccount_state()
 

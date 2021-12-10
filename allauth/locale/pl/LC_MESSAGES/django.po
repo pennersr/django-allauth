@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-11 11:15-0500\n"
+"POT-Creation-Date: 2021-12-09 08:41-0600\n"
 "PO-Revision-Date: 2020-10-12 12:34+0200\n"
 "Last-Translator: Radek Czajka <radekczajka@mdrn.pl>\n"
 "Language-Team: \n"
@@ -15,6 +15,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.3\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
+"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #: account/adapter.py:45
 msgid "Username can not be used. Please use other username."
@@ -37,108 +40,108 @@ msgstr "Hasło musi składać się z co najmniej {0} znaków."
 msgid "Accounts"
 msgstr "Konta"
 
-#: account/forms.py:58 account/forms.py:403
+#: account/forms.py:59 account/forms.py:413
 msgid "You must type the same password each time."
 msgstr "Musisz wpisać za każdym razem to samo hasło."
 
-#: account/forms.py:87 account/forms.py:372 account/forms.py:486
+#: account/forms.py:92 account/forms.py:381 account/forms.py:498
 msgid "Password"
 msgstr "Hasło"
 
-#: account/forms.py:88
+#: account/forms.py:93
 msgid "Remember Me"
 msgstr "Pamiętaj mnie"
 
-#: account/forms.py:92
+#: account/forms.py:97
 msgid "This account is currently inactive."
 msgstr "Konto jest obecnie nieaktywne."
 
-#: account/forms.py:94
+#: account/forms.py:99
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "Podany adres e-mail i/lub hasło są niepoprawne."
 
-#: account/forms.py:97
+#: account/forms.py:102
 msgid "The username and/or password you specified are not correct."
 msgstr "Podana nazwa użytkownika i/lub hasło są niepoprawne."
 
-#: account/forms.py:108 account/forms.py:273 account/forms.py:429
-#: account/forms.py:505
+#: account/forms.py:113 account/forms.py:279 account/forms.py:439
+#: account/forms.py:517
 msgid "E-mail address"
 msgstr "Adres e-mail"
 
-#: account/forms.py:111 account/forms.py:308 account/forms.py:426
-#: account/forms.py:500
+#: account/forms.py:117 account/forms.py:316 account/forms.py:436
+#: account/forms.py:512
 msgid "E-mail"
 msgstr "E-mail"
 
-#: account/forms.py:113 account/forms.py:115 account/forms.py:263
-#: account/forms.py:267
+#: account/forms.py:120 account/forms.py:123 account/forms.py:269
+#: account/forms.py:272
 msgid "Username"
 msgstr "Nazwa użytkownika"
 
-#: account/forms.py:126
+#: account/forms.py:133
 msgid "Username or e-mail"
 msgstr "Nazwa użytkownika lub e-mail"
 
-#: account/forms.py:130
+#: account/forms.py:136
 msgctxt "field label"
 msgid "Login"
 msgstr "Login"
 
-#: account/forms.py:299
+#: account/forms.py:307
 msgid "E-mail (again)"
 msgstr "E-mail (ponownie)"
 
-#: account/forms.py:303
+#: account/forms.py:311
 msgid "E-mail address confirmation"
 msgstr "Powierdzenie adresu email"
 
-#: account/forms.py:311
+#: account/forms.py:319
 msgid "E-mail (optional)"
 msgstr "E-mail (opcjonalnie)"
 
-#: account/forms.py:351
+#: account/forms.py:359
 msgid "You must type the same email each time."
 msgstr "Musisz wpisać za każdym razem ten sam e-mail."
 
-#: account/forms.py:374 account/forms.py:487
+#: account/forms.py:384 account/forms.py:499
 msgid "Password (again)"
 msgstr "Hasło (ponownie)"
 
-#: account/forms.py:438
+#: account/forms.py:448
 msgid "This e-mail address is already associated with this account."
 msgstr "Ten adres e-mail jest już powiązany z tym kontem."
 
-#: account/forms.py:441
+#: account/forms.py:451
 msgid "This e-mail address is already associated with another account."
 msgstr "Ten adres e-mail jest już powiązany z innym kontem."
 
-#: account/forms.py:443
+#: account/forms.py:453
 #, python-format
 msgid "You cannot add more than %d e-mail addresses."
 msgstr "Nie możesz dodać więcej niż %d adresów e-mail."
 
-#: account/forms.py:467
+#: account/forms.py:478
 msgid "Current Password"
 msgstr "Obecne hasło"
 
-#: account/forms.py:468 account/forms.py:557
+#: account/forms.py:480 account/forms.py:570
 msgid "New Password"
 msgstr "Nowe hasło"
 
-#: account/forms.py:469 account/forms.py:558
+#: account/forms.py:481 account/forms.py:571
 msgid "New Password (again)"
 msgstr "Nowe hasło (ponownie)"
 
-#: account/forms.py:477
+#: account/forms.py:489
 msgid "Please type your current password."
 msgstr "Proszę wpisz swoje obecne hasło."
 
-#: account/forms.py:516
+#: account/forms.py:529
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Adres e-mail nie jest powiązany z żadnym kontem użytkownika"
 
-#: account/forms.py:579
+#: account/forms.py:592
 msgid "The password reset token was invalid."
 msgstr "Token resetowania hasła był nieprawidłowy."
 
@@ -199,7 +202,7 @@ msgstr ""
 msgid "Your account has no password set up."
 msgstr "Twoje konto nie posiada hasła."
 
-#: socialaccount/adapter.py:141
+#: socialaccount/adapter.py:138
 msgid "Your account has no verified e-mail address."
 msgstr "Twoje konto nie ma zweryfikowanego adresu e-mail."
 
@@ -229,7 +232,7 @@ msgstr "klucz prywatny"
 
 #: socialaccount/models.py:55
 msgid "API secret, client secret, or consumer secret"
-msgstr "Klucz prywatny API/klienta/dbiorcy"
+msgstr "Klucz prywatny API, klienta lub odbiorcy"
 
 #: socialaccount/models.py:58
 msgid "Key"
@@ -603,7 +606,7 @@ msgstr ""
 
 #: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
-msgstr "Zły klucz"
+msgstr "Nieprawidłowy klucz"
 
 #: templates/account/password_reset_from_key.html:11
 #, python-format
@@ -636,7 +639,7 @@ msgstr "Zarejestruj się"
 #: templates/account/signup.html:8 templates/account/signup.html:18
 #: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
 msgid "Sign Up"
-msgstr "Zarejestuj się"
+msgstr "Zarejestruj się"
 
 #: templates/account/signup.html:10
 #, python-format
@@ -676,10 +679,9 @@ msgid ""
 "finalize the signup process. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
-"Przesłaliśmy weryfikacyjny e-mail na adres <a href=\"mailto:%(email)s\">"
-"%(email)s</a>. Kliknij w łącze w wiadomości, aby zakończyć proces "
-"rejestracji. Skontaktuj się z nami, jeśli nie otrzymasz jej w ciągu kilku "
-"minut."
+"Przesłaliśmy weryfikacyjny e-mail na twój adres. Kliknij w łącze w "
+"wiadomości, aby zakończyć proces rejestracji. Skontaktuj się z nami, jeśli "
+"nie otrzymasz jej w ciągu kilku minut."
 
 #: templates/account/verified_email_required.html:12
 msgid ""
@@ -698,7 +700,7 @@ msgid ""
 msgstr ""
 "Wysłaliśmy Ci wiadomość e-mail.\n"
 "W celu weryfikacji musisz kliknąć w łącze zawarte w wiadomości. Proszę "
-"skontaktuj się z nami, jeśli nie dotarła do Ciebie w ciągu paru minut."
+"skontaktuj się z nami, jeśli nie dotarła do Ciebie w ciągu kilku minut."
 
 #: templates/account/verified_email_required.html:20
 #, python-format
@@ -746,6 +748,30 @@ msgstr ""
 #: templates/socialaccount/connections.html:46
 msgid "Add a 3rd Party Account"
 msgstr "Dodaj konto zewnętrzne"
+
+#: templates/socialaccount/login.html:6
+#, python-format
+msgid "Connect %(provider)s"
+msgstr ""
+
+#: templates/socialaccount/login.html:8
+#, python-format
+msgid "You are about to connect a new third party account from %(provider)s."
+msgstr ""
+
+#: templates/socialaccount/login.html:10
+#, python-format
+msgid "Sign In Via %(provider)s"
+msgstr ""
+
+#: templates/socialaccount/login.html:12
+#, python-format
+msgid "You are about to sign in using a third party account from %(provider)s."
+msgstr ""
+
+#: templates/socialaccount/login.html:17
+msgid "Continue"
+msgstr ""
 
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9

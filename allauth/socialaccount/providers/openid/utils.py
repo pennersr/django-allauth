@@ -94,7 +94,7 @@ class DBOpenIDStore(OIDStore):
 
         stored_assocs.order_by("-issued")
 
-        if stored_assocs.count() == 0:
+        if not stored_assocs.exists():
             return None
 
         return_val = None

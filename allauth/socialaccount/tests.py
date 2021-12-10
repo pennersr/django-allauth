@@ -11,6 +11,7 @@ from django.contrib.sites.models import Site
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
 from django.urls import reverse
+from django.utils.http import urlencode
 
 from ..account import app_settings as account_settings
 from ..account.models import EmailAddress
@@ -94,12 +95,14 @@ class OAuthTestsMixin(object):
         with mocked_response(
             MockedResponse(
                 200,
-                "oauth_token=token&" "oauth_token_secret=psst",
+                "oauth_token=token&oauth_token_secret=psst",
                 {"content-type": "text/html"},
             )
         ):
-            resp = self.client.get(
-                reverse(self.provider.id + "_login"), dict(process=process)
+            resp = self.client.post(
+                reverse(self.provider.id + "_login")
+                + "?"
+                + urlencode(dict(process=process))
             )
         p = urlparse(resp["location"])
         q = parse_qs(p.query)
@@ -217,8 +220,10 @@ class OAuth2TestsMixin(object):
         self.test_account_tokens(multiple_login=True)
 
     def login(self, resp_mock, process="login", with_refresh_token=True):
-        resp = self.client.get(
-            reverse(self.provider.id + "_login"), dict(process=process)
+        resp = self.client.post(
+            reverse(self.provider.id + "_login")
+            + "?"
+            + urlencode(dict(process=process))
         )
         p = urlparse(resp["location"])
         q = parse_qs(p.query)
@@ -227,9 +232,14 @@ class OAuth2TestsMixin(object):
         response_json = self.get_login_response_json(
             with_refresh_token=with_refresh_token
         )
+        if isinstance(resp_mock, list):
+            resp_mocks = resp_mock
+        else:
+            resp_mocks = [resp_mock]
+
         with mocked_response(
             MockedResponse(200, response_json, {"content-type": "application/json"}),
-            resp_mock,
+            *resp_mocks,
         ):
             resp = self.client.get(complete_url, self.get_complete_parameters(q))
         return resp
@@ -279,8 +289,8 @@ class SocialAccountTests(TestCase):
         factory = RequestFactory()
         request = factory.get("/accounts/login/callback/")
         request.user = AnonymousUser()
-        SessionMiddleware().process_request(request)
-        MessageMiddleware().process_request(request)
+        SessionMiddleware(lambda request: None).process_request(request)
+        MessageMiddleware(lambda request: None).process_request(request)
 
         User = get_user_model()
         user = User()
@@ -371,8 +381,8 @@ class SocialAccountTests(TestCase):
         factory = RequestFactory()
         request = factory.get("/accounts/twitter/login/callback/")
         request.user = AnonymousUser()
-        SessionMiddleware().process_request(request)
-        MessageMiddleware().process_request(request)
+        SessionMiddleware(lambda request: None).process_request(request)
+        MessageMiddleware(lambda request: None).process_request(request)
 
         User = get_user_model()
         user = User()
@@ -408,8 +418,8 @@ class SocialAccountTests(TestCase):
         factory = RequestFactory()
         request = factory.get("/accounts/twitter/login/callback/")
         request.user = AnonymousUser()
-        SessionMiddleware().process_request(request)
-        MessageMiddleware().process_request(request)
+        SessionMiddleware(lambda request: None).process_request(request)
+        MessageMiddleware(lambda request: None).process_request(request)
         resp = complete_social_login(request, sociallogin)
         return request, resp
 

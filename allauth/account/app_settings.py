@@ -47,6 +47,10 @@ class AppSettings(object):
         return getter(self.prefix + name, dflt)
 
     @property
+    def PREVENT_ENUMERATION(self):
+        return self._setting("PREVENT_ENUMERATION", True)
+
+    @property
     def DEFAULT_HTTP_PROTOCOL(self):
         return self._setting("DEFAULT_HTTP_PROTOCOL", "http").lower()
 
@@ -238,7 +242,9 @@ class AppSettings(object):
 
     @property
     def LOGOUT_REDIRECT_URL(self):
-        return self._setting("LOGOUT_REDIRECT_URL", "/")
+        from django.conf import settings
+
+        return self._setting("LOGOUT_REDIRECT_URL", settings.LOGOUT_REDIRECT_URL or "/")
 
     @property
     def LOGOUT_ON_GET(self):

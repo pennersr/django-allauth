@@ -60,12 +60,16 @@ class AppSettings(object):
     def ADAPTER(self):
         return self._setting(
             "ADAPTER",
-            "allauth.socialaccount.adapter" ".DefaultSocialAccountAdapter",
+            "allauth.socialaccount.adapter.DefaultSocialAccountAdapter",
         )
 
     @property
     def FORMS(self):
         return self._setting("FORMS", {})
+
+    @property
+    def LOGIN_ON_GET(self):
+        return self._setting("LOGIN_ON_GET", False)
 
     @property
     def STORE_TOKENS(self):

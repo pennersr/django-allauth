@@ -428,7 +428,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
         get_adapter(self.request).add_message(
             self.request,
             messages.INFO,
-            "account/messages/" "email_confirmation_sent.txt",
+            "account/messages/email_confirmation_sent.txt",
             {"email": form.cleaned_data["email"]},
         )
         signals.email_added.send(
@@ -450,7 +450,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                 res = self._action_remove(request)
             elif "action_primary" in request.POST:
                 res = self._action_primary(request)
-            res = res or HttpResponseRedirect(self.success_url)
+            res = res or HttpResponseRedirect(self.get_success_url())
             # Given that we bypassed AjaxCapableProcessFormViewMixin,
             # we'll have to call invoke it manually...
             res = _ajax_response(request, res, data=self._get_ajax_data_if())
@@ -466,15 +466,15 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
             email_address = EmailAddress.objects.get(
                 user=request.user,
                 email=email,
+                verified=False,
             )
             get_adapter(request).add_message(
                 request,
                 messages.INFO,
-                "account/messages/" "email_confirmation_sent.txt",
+                "account/messages/email_confirmation_sent.txt",
                 {"email": email},
             )
             email_address.send_confirmation(request)
-            return HttpResponseRedirect(self.get_success_url())
         except EmailAddress.DoesNotExist:
             pass
 
@@ -486,7 +486,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                 get_adapter(request).add_message(
                     request,
                     messages.ERROR,
-                    "account/messages/" "cannot_delete_primary_email.txt",
+                    "account/messages/cannot_delete_primary_email.txt",
                     {"email": email},
                 )
             else:
@@ -526,7 +526,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                 get_adapter(request).add_message(
                     request,
                     messages.ERROR,
-                    "account/messages/" "unverified_primary_email.txt",
+                    "account/messages/unverified_primary_email.txt",
                 )
             else:
                 # Sending the old primary address to the signal

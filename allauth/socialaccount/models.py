@@ -52,7 +52,7 @@ class SocialApp(models.Model):
         verbose_name=_("secret key"),
         max_length=191,
         blank=True,
-        help_text=_("API secret, client secret, or" " consumer secret"),
+        help_text=_("API secret, client secret, or consumer secret"),
     )
     key = models.CharField(
         verbose_name=_("key"), max_length=191, blank=True, help_text=_("Key")

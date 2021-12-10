@@ -152,9 +152,9 @@ ACCOUNT_LOGIN_ON_PASSWORD_RESET (=False)
   once they have reset their password. By default they are redirected to the
   password reset done page.
 
-ACCOUNT_LOGOUT_REDIRECT_URL (="/")
-  The URL (or URL name) to return to after the user logs out. This is
-  the counterpart to Django's ``LOGIN_REDIRECT_URL``.
+ACCOUNT_LOGOUT_REDIRECT_URL (=`settings.LOGOUT_REDIRECT_URL or "/"`)
+  The URL (or URL name) to return to after the user logs out. Defaults to
+  Django's `LOGOUT_REDIRECT_URL`, unless that is empty, then `"/"` is used.
 
 ACCOUNT_PASSWORD_INPUT_RENDER_VALUE (=False)
   ``render_value`` parameter as passed to ``PasswordInput`` fields.
@@ -165,6 +165,16 @@ ACCOUNT_PRESERVE_USERNAME_CASING (=True)
   casing is preserved, potentially expensive ``__iexact`` lookups are performed
   when filter on username. For now, the default is set to ``True`` to maintain
   backwards compatibility.
+
+ACCOUNT_PREVENT_ENUMERATION (=True)
+  Controls whether or not information is revealed about whether or not a user
+  account exists. For example, by entering random email addresses in the
+  password reset form you can test whether or not those email addresses are
+  associated with an account. Enabling this setting prevents that, and an email
+  is always sent, regardless of whether or not the account exists. Note that
+  there is a slight usability tax to pay because there is no immediate feedback.
+  **Warning**: this is a work in progress, password reset is covered, yet,
+   signing up is not.
 
 ACCOUNT_SESSION_REMEMBER (=None)
   Controls the life time of the session. Set to ``None`` to ask the user
@@ -265,6 +275,12 @@ SOCIALACCOUNT_EMAIL_REQUIRED (=ACCOUNT_EMAIL_REQUIRED)
 SOCIALACCOUNT_FORMS (={})
   Used to override forms, for example:
   ``{'signup': 'myapp.forms.SignupForm'}``
+
+SOCIALACCOUNT_LOGIN_ON_GET (=False)
+  Controls whether or not the endpoints for initiating a social login (for
+  example, "/accounts/google/login/") require a POST request to initiate the
+  handshake. For security considerations, it is strongly recommended to
+  require POST requests.
 
 SOCIALACCOUNT_PROVIDERS (= dict)
   Dictionary containing provider specific settings.

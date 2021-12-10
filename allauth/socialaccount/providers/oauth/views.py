@@ -8,12 +8,15 @@ from allauth.socialaccount.helpers import (
     render_authentication_error,
 )
 from allauth.socialaccount.models import SocialLogin, SocialToken
+from allauth.socialaccount.providers.base.constants import (
+    AuthAction,
+    AuthError,
+)
+from allauth.socialaccount.providers.base.mixins import OAuthLoginMixin
 from allauth.socialaccount.providers.oauth.client import (
     OAuthClient,
     OAuthError,
 )
-
-from ..base import AuthAction, AuthError
 
 
 class OAuthAdapter(object):
@@ -61,8 +64,8 @@ class OAuthView(object):
         return client
 
 
-class OAuthLoginView(OAuthView):
-    def dispatch(self, request):
+class OAuthLoginView(OAuthLoginMixin, OAuthView):
+    def login(self, request, *args, **kwargs):
         callback_url = reverse(self.adapter.provider_id + "_callback")
         SocialLogin.stash_state(request)
         action = request.GET.get("action", AuthAction.AUTHENTICATE)

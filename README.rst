@@ -83,3 +83,4 @@ If you like this, you may also like:
 
 - django-trackstats: https://github.com/pennersr/django-trackstats
 - netwell: https://github.com/pennersr/netwell
+- Shove: https://github.com/pennersr/shove

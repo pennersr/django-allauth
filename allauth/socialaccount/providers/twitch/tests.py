@@ -47,13 +47,13 @@ class TwitchTests(OAuth2TestsMixin, TestCase):
         self.check_for_error(resp_mock, expected_error)
 
         resp_mock = MockedResponse(200, '{"missing_data": "key"}')
-        expected_error = "Invalid data from Twitch API: " "{'missing_data': 'key'}"
+        expected_error = "Invalid data from Twitch API: {'missing_data': 'key'}"
 
         self.check_for_error(resp_mock, expected_error)
 
     def test_missing_twitch_id_raises_OAuth2Error(self):
         resp_mock = MockedResponse(200, '{"data": [{"login": "fake_twitch"}]}')
-        expected_error = "Invalid data from Twitch API: " "{'login': 'fake_twitch'}"
+        expected_error = "Invalid data from Twitch API: {'login': 'fake_twitch'}"
 
         self.check_for_error(resp_mock, expected_error)
 

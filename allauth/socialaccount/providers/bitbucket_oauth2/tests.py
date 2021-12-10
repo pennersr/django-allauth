@@ -92,7 +92,7 @@ class BitbucketOAuth2Tests(
         super(BitbucketOAuth2Tests, self).setUp()
         self.mocks = {
             "requests": patch(
-                "allauth.socialaccount.providers" ".bitbucket_oauth2.views.requests"
+                "allauth.socialaccount.providers.bitbucket_oauth2.views.requests"
             )
         }
         self.patches = {name: mocked.start() for (name, mocked) in self.mocks.items()}

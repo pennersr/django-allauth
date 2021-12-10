@@ -12,7 +12,7 @@ class PersonaTests(TestCase):
     @override_settings(SOCIALACCOUNT_PROVIDERS=SOCIALACCOUNT_PROVIDERS)
     def test_login(self):
         with patch(
-            "allauth.socialaccount.providers.persona.views" ".requests"
+            "allauth.socialaccount.providers.persona.views.requests"
         ) as requests_mock:
             requests_mock.post.return_value.json.return_value = {
                 "status": "okay",

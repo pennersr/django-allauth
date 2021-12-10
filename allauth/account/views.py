@@ -428,7 +428,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
         get_adapter(self.request).add_message(
             self.request,
             messages.INFO,
-            "account/messages/" "email_confirmation_sent.txt",
+            "account/messages/email_confirmation_sent.txt",
             {"email": form.cleaned_data["email"]},
         )
         signals.email_added.send(
@@ -470,7 +470,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
             get_adapter(request).add_message(
                 request,
                 messages.INFO,
-                "account/messages/" "email_confirmation_sent.txt",
+                "account/messages/email_confirmation_sent.txt",
                 {"email": email},
             )
             email_address.send_confirmation(request)
@@ -486,7 +486,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                 get_adapter(request).add_message(
                     request,
                     messages.ERROR,
-                    "account/messages/" "cannot_delete_primary_email.txt",
+                    "account/messages/cannot_delete_primary_email.txt",
                     {"email": email},
                 )
             else:
@@ -526,7 +526,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                 get_adapter(request).add_message(
                     request,
                     messages.ERROR,
-                    "account/messages/" "unverified_primary_email.txt",
+                    "account/messages/unverified_primary_email.txt",
                 )
             else:
                 # Sending the old primary address to the signal

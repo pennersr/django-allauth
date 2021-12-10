@@ -38,7 +38,8 @@ class EmailAwarePasswordResetTokenGenerator(PasswordResetTokenGenerator):
             user, timestamp
         )
         sync_user_email_addresses(user)
-        emails = set([user.email] if user.email else [])
+        email = user_email(user)
+        emails = set([email] if email else [])
         emails.update(
             EmailAddress.objects.filter(user=user).values_list("email", flat=True)
         )
@@ -235,7 +236,7 @@ def _base_signup_form_class():
         fc_module, fc_classname = app_settings.SIGNUP_FORM_CLASS.rsplit(".", 1)
     except ValueError:
         raise exceptions.ImproperlyConfigured(
-            "%s does not point to a form" " class" % app_settings.SIGNUP_FORM_CLASS
+            "%s does not point to a form class" % app_settings.SIGNUP_FORM_CLASS
         )
     try:
         mod = import_module(fc_module)
@@ -444,10 +445,10 @@ class AddEmailForm(UserForm):
         value = get_adapter().clean_email(value)
         errors = {
             "this_account": _(
-                "This e-mail address is already associated" " with this account."
+                "This e-mail address is already associated with this account."
             ),
             "different_account": _(
-                "This e-mail address is already associated" " with another account."
+                "This e-mail address is already associated with another account."
             ),
             "max_email_addresses": _("You cannot add more than %d e-mail addresses."),
         }
@@ -485,7 +486,7 @@ class ChangePasswordForm(PasswordVerificationMixin, UserForm):
 
     def clean_oldpassword(self):
         if not self.user.check_password(self.cleaned_data.get("oldpassword")):
-            raise forms.ValidationError(_("Please type your current" " password."))
+            raise forms.ValidationError(_("Please type your current password."))
         return self.cleaned_data["oldpassword"]
 
     def save(self):
@@ -523,18 +524,34 @@ class ResetPasswordForm(forms.Form):
         email = self.cleaned_data["email"]
         email = get_adapter().clean_email(email)
         self.users = filter_users_by_email(email, is_active=True)
-        if not self.users:
+        if not self.users and not app_settings.PREVENT_ENUMERATION:
             raise forms.ValidationError(
-                _("The e-mail address is not assigned" " to any user account")
+                _("The e-mail address is not assigned to any user account")
             )
         return self.cleaned_data["email"]
 
     def save(self, request, **kwargs):
-        current_site = get_current_site(request)
         email = self.cleaned_data["email"]
+        if not self.users:
+            self._send_unknown_account_mail(request, email)
+        else:
+            self._send_password_reset_mail(request, email, self.users, **kwargs)
+        return email
+
+    def _send_unknown_account_mail(self, request, email):
+        signup_url = build_absolute_uri(request, reverse("account_signup"))
+        context = {
+            "current_site": get_current_site(request),
+            "email": email,
+            "request": request,
+            "signup_url": signup_url,
+        }
+        get_adapter(request).send_mail("account/email/unknown_account", email, context)
+
+    def _send_password_reset_mail(self, request, email, users, **kwargs):
         token_generator = kwargs.get("token_generator", default_token_generator)
 
-        for user in self.users:
+        for user in users:
 
             temp_key = token_generator.make_token(user)
 
@@ -550,7 +567,7 @@ class ResetPasswordForm(forms.Form):
             url = build_absolute_uri(request, path)
 
             context = {
-                "current_site": current_site,
+                "current_site": get_current_site(request),
                 "user": user,
                 "password_reset_url": url,
                 "request": request,
@@ -561,7 +578,6 @@ class ResetPasswordForm(forms.Form):
             get_adapter(request).send_mail(
                 "account/email/password_reset_key", email, context
             )
-        return self.cleaned_data["email"]
 
 
 class ResetPasswordKeyForm(PasswordVerificationMixin, forms.Form):

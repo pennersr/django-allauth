@@ -1,3 +1,22 @@
+0.48.0 (unreleased)
+*******************
+
+Note worthy changes
+-------------------
+
+- Introduced a new setting `ACCOUNT_PREVENT_ENUMERATION` that controls whether
+  or not information is revealed about whether or not a user account exists.
+  **Warning**: this is a work in progress, password reset is covered, yet,
+  signing up is not.
+
+
+Backwards incompatible changes
+------------------------------
+
+- The newly introduced `ACCOUNT_PREVENT_ENUMERATION` defaults to `True` impacting
+  the current behavior of the password reset flow.
+
+
 0.47.0 (2021-12-09)
 *******************
 

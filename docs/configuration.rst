@@ -166,6 +166,16 @@ ACCOUNT_PRESERVE_USERNAME_CASING (=True)
   when filter on username. For now, the default is set to ``True`` to maintain
   backwards compatibility.
 
+ACCOUNT_PREVENT_ENUMERATION (=True)
+  Controls whether or not information is revealed about whether or not a user
+  account exists. For example, by entering random email addresses in the
+  password reset form you can test whether or not those email addresses are
+  associated with an account. Enabling this setting prevents that, and an email
+  is always sent, regardless of whether or not the account exists. Note that
+  there is a slight usability tax to pay because there is no immediate feedback.
+  **Warning**: this is a work in progress, password reset is covered, yet,
+   signing up is not.
+
 ACCOUNT_SESSION_REMEMBER (=None)
   Controls the life time of the session. Set to ``None`` to ask the user
   ("Remember me?"), ``False`` to not remember, and ``True`` to always

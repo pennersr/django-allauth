@@ -1464,6 +1464,7 @@ class ConfirmationViewTests(TestCase):
         assert mock_perform_login.called
 
 
+@override_settings(ACCOUNT_PREVENT_ENUMERATION=False)
 class TestResetPasswordForm(TestCase):
     def test_user_email_not_sent_inactive_user(self):
         User = get_user_model()
@@ -1475,6 +1476,7 @@ class TestResetPasswordForm(TestCase):
         self.assertFalse(form.is_valid())
 
 
+@override_settings(ACCOUNT_PREVENT_ENUMERATION=False)
 class TestCVE2019_19844(TestCase):
 
     global_request = RequestFactory().get("/")

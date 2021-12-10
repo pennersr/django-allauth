@@ -47,6 +47,10 @@ class AppSettings(object):
         return getter(self.prefix + name, dflt)
 
     @property
+    def PREVENT_ENUMERATION(self):
+        return self._setting("PREVENT_ENUMERATION", True)
+
+    @property
     def DEFAULT_HTTP_PROTOCOL(self):
         return self._setting("DEFAULT_HTTP_PROTOCOL", "http").lower()
 

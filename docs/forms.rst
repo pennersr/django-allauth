@@ -170,11 +170,11 @@ Used on `account_reset_password <views.html#password-reset-account-reset-passwor
     from allauth.account.forms import ResetPasswordForm
     class MyCustomResetPasswordForm(ResetPasswordForm):
 
-        def save(self):
+        def save(self, request):
 
             # Ensure you call the parent class's save.
             # .save() returns a string containing the email address supplied
-            email_address = super(MyCustomResetPasswordForm, self).save()
+            email_address = super(MyCustomResetPasswordForm, self).save(request)
 
             # Add your own processing here.
 

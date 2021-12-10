@@ -1069,7 +1069,7 @@ KEYCLOAK_URL_ALT:
 
     This can be used when working with Docker on localhost, with a frontend and a backend hosted in different containers.
 
-KEYCLOAK_REAML:
+KEYCLOAK_REALM:
     The name of the ``realm`` you want to use.
 
 Example:

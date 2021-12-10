@@ -1277,7 +1277,7 @@ Microsoft Graph API is the gateway to connect to mail, calendar, contacts,
 documents, directory, devices and more.
 
 Apps can be registered (for consumer key and secret) here
-    https://apps.dev.microsoft.com/
+    https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade
 
 By default, `common` (`organizations` and `consumers`) tenancy is configured
 for the login. To restrict it, change the `tenant` setting as shown below.

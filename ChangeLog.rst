@@ -4,6 +4,8 @@
 Note worthy changes
 -------------------
 
+- New translation: Bulgarian.
+
 - Introduced a new setting `ACCOUNT_PREVENT_ENUMERATION` that controls whether
   or not information is revealed about whether or not a user account exists.
   **Warning**: this is a work in progress, password reset is covered, yet,

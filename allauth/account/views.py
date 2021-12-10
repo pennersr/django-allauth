@@ -450,7 +450,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                 res = self._action_remove(request)
             elif "action_primary" in request.POST:
                 res = self._action_primary(request)
-            res = res or HttpResponseRedirect(self.success_url)
+            res = res or HttpResponseRedirect(self.get_success_url())
             # Given that we bypassed AjaxCapableProcessFormViewMixin,
             # we'll have to call invoke it manually...
             res = _ajax_response(request, res, data=self._get_ajax_data_if())
@@ -466,6 +466,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
             email_address = EmailAddress.objects.get(
                 user=request.user,
                 email=email,
+                verified=False,
             )
             get_adapter(request).add_message(
                 request,
@@ -474,7 +475,6 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                 {"email": email},
             )
             email_address.send_confirmation(request)
-            return HttpResponseRedirect(self.get_success_url())
         except EmailAddress.DoesNotExist:
             pass
 

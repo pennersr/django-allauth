@@ -32,10 +32,8 @@ async function loginwithtoken(token,account,next,process){
 	return response.text();
 }).then(function (html) {
 
-	// Convert the HTML string into a document object
-	var parser = new DOMParser();
-	var doc = parser.parseFromString(html, 'text/html');
-	document.querySelector('html').innerHTML = doc
+	// Rewrite the page with fetch response
+	document.querySelector('html').innerHTML = html
 
 }).catch(function (err) {
 	// There was an error

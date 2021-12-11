@@ -32,9 +32,14 @@ def login_api(request):
         return JsonResponse({'error': _(
                 "The value was not in JSON. error %s" % e),
                 'success': False})
-    if (data["account"]) and (data["login_token"]) and (data["process"]):
+    if ("account" in data.keys()) and ("process" in data.keys()):
         request.uid = data["account"]
         request.process = data["process"]
+    else:
+        return JsonResponse({'error': _(
+            "JSON key error "),
+            'success': False})
+    if "login_token" in data.keys():
         request.session['login_token'] = data["login_token"]
     settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})
     provider = providers.registry.by_id(MetamaskProvider.id, request)

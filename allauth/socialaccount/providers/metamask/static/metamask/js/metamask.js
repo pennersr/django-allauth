@@ -27,9 +27,7 @@ async function loginwithtoken(token,account,next,process){
             process: 'verify',
         })
 })
-      .then(
-              window.location.href = next
-      )
+  window.location.href = next;
 }
 
 async function getAccount(next, process="login") {

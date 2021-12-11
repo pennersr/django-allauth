@@ -26,10 +26,15 @@ from django.utils.translation import ugettext_lazy as _
 @require_http_methods(["GET","POST"])
 def login_api(request):
     extra_data = request.body.decode('utf-8')
-    data = json.loads(extra_data)
-    request.uid = data["account"]
-    request.process = data["process"]
-    if "login_token" in data.keys():
+    try:
+        data = json.loads(extra_data)
+    except ValueError as e:
+        return JsonResponse({'error': _(
+                "The value was not in JSON. error %s" % e),
+                'success': False})
+    if (data["account"]) and (data["login_token"]) and (data["process"]):
+        request.uid = data["account"]
+        request.process = data["process"]
         request.session['login_token'] = data["login_token"]
     settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})
     provider = providers.registry.by_id(MetamaskProvider.id, request)

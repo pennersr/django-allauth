@@ -49,6 +49,5 @@ async function getAccount(next, process="login") {
   .then((responseJson) => {
     loginwithtoken(responseJson.data, account, next, process)
   })
-  location.reload();
 }
 

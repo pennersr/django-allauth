@@ -4,6 +4,8 @@ import random
 import string
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import redirect
+
 
 from django.core.exceptions import ImproperlyConfigured
 from django.contrib.auth import logout
@@ -65,7 +67,8 @@ def login_api(request):
             if recoveredAddress.upper() == data['account'].upper():
                 login = providers.registry.by_id(MetamaskProvider.id, request).sociallogin_from_response(request, data)
                 login.state = SocialLogin.state_from_request(request)
-                return complete_social_login(request, login)
+                complete_social_login(request, login)
+                return redirect(data["next"])
             return JsonResponse({'error': _(
                 "The signature could not be verified. "),
                 'success': False})

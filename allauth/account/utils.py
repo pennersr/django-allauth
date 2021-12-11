@@ -325,9 +325,9 @@ def send_email_confirmation(request, user, signup=False, email=None):
     a cooldown period before sending a new mail. This cooldown period
     can be configured in ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN setting.
     """
-    from .models import EmailAddress, EmailConfirmation
+    from .models import EmailAddress
 
-    cooldown_period = timedelta(seconds=app_settings.EMAIL_CONFIRMATION_COOLDOWN)
+    adapter = get_adapter(request)
 
     if not email:
         email = user_email(user)
@@ -335,13 +335,9 @@ def send_email_confirmation(request, user, signup=False, email=None):
         try:
             email_address = EmailAddress.objects.get_for_user(user, email)
             if not email_address.verified:
-                if app_settings.EMAIL_CONFIRMATION_HMAC:
-                    send_email = True
-                else:
-                    send_email = not EmailConfirmation.objects.filter(
-                        sent__gt=now() - cooldown_period,
-                        email_address=email_address,
-                    ).exists()
+                send_email = adapter.should_send_confirmation_mail(
+                    request, email_address
+                )
                 if send_email:
                     email_address.send_confirmation(request, signup=signup)
             else:
@@ -354,14 +350,14 @@ def send_email_confirmation(request, user, signup=False, email=None):
             assert email_address
         # At this point, if we were supposed to send an email we have sent it.
         if send_email:
-            get_adapter(request).add_message(
+            adapter.add_message(
                 request,
                 messages.INFO,
                 "account/messages/email_confirmation_sent.txt",
                 {"email": email},
             )
     if signup:
-        get_adapter(request).stash_user(request, user_pk_to_url_str(user))
+        adapter.stash_user(request, user_pk_to_url_str(user))
 
 
 def sync_user_email_addresses(user):

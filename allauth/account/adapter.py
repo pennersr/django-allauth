@@ -4,6 +4,7 @@ import hashlib
 import json
 import time
 import warnings
+from datetime import timedelta
 
 from django import forms
 from django.conf import settings
@@ -28,13 +29,14 @@ from django.utils import timezone
 from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 
-from ..utils import (
+from allauth.utils import (
     build_absolute_uri,
     email_address_exists,
     generate_unique_username,
     get_user_model,
     import_attribute,
 )
+
 from . import app_settings
 
 
@@ -447,6 +449,19 @@ class DefaultAccountAdapter(object):
         url = reverse("account_confirm_email", args=[emailconfirmation.key])
         ret = build_absolute_uri(request, url)
         return ret
+
+    def should_send_confirmation_mail(self, request, email_address):
+        from allauth.account.models import EmailConfirmation
+
+        cooldown_period = timedelta(seconds=app_settings.EMAIL_CONFIRMATION_COOLDOWN)
+        if app_settings.EMAIL_CONFIRMATION_HMAC:
+            send_email = True
+        else:
+            send_email = not EmailConfirmation.objects.filter(
+                sent__gt=timezone.now() - cooldown_period,
+                email_address=email_address,
+            ).exists()
+        return send_email
 
     def send_confirmation_mail(self, request, emailconfirmation, signup):
         current_site = get_current_site(request)

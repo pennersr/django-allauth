@@ -41,7 +41,7 @@ def login_api(request):
         request.session['login_token'] = token
         app = provider.get_app(request)
         expires_at = None
-        SocialToken.objects.all().filter(account__user__username=data["account"]).delete()
+        SocialToken.objects.all().filter(account__uid=data["account"], account__provider=MetamaskProvider.id).delete()
         storetoken = SocialToken(
             app=app, token=token, expires_at=expires_at
         )
@@ -58,7 +58,7 @@ def login_api(request):
                 "No login token in session, please request token again by sending request to this url"),
                 'success': False})
         else:
-            local = SocialToken.objects.all().filter(account__user__username=data["account"]).first()
+            local = SocialToken.objects.all().filter(account__uid=data["account"],account__provider=MetamaskProvider.id).first()
             message_hash = encode_defunct(text=local.token)
             recoveredAddress = w3.eth.account.recover_message(message_hash, signature=data['login_token'])
             request.session['login_token'] = token

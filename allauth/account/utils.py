@@ -1,6 +1,5 @@
 import unicodedata
 from collections import OrderedDict
-from datetime import timedelta
 
 from django.conf import settings
 from django.contrib import messages
@@ -11,18 +10,17 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.utils.encoding import force_str
 from django.utils.http import base36_to_int, int_to_base36, urlencode
-from django.utils.timezone import now
 
-from ..exceptions import ImmediateHttpResponse
-from ..utils import (
+from allauth.account import app_settings, signals
+from allauth.account.adapter import get_adapter
+from allauth.account.app_settings import EmailVerificationMethod
+from allauth.exceptions import ImmediateHttpResponse
+from allauth.utils import (
     get_request_param,
     get_user_model,
     import_callable,
     valid_email_or_none,
 )
-from . import app_settings, signals
-from .adapter import get_adapter
-from .app_settings import EmailVerificationMethod
 
 
 def _unicode_ci_compare(s1, s2):

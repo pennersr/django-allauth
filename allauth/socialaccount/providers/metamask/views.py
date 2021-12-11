@@ -39,8 +39,7 @@ def login_api(request):
     settings = app_settings.PROVIDERS.get(MetamaskProvider.id, {})
     provider = providers.registry.by_id(MetamaskProvider.id, request)
     url = settings.get("URL", "https://cloudflare-eth.com/")
-    port = settings.get("PORT", 80 )
-    w3 = Web3(Web3.HTTPProvider(url+':'+str(port)))
+    w3 = Web3(Web3.HTTPProvider(url))
     if request.process == 'token':
         token = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for i in range(32))
         request.session['login_token'] = token

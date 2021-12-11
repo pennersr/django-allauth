@@ -29,6 +29,7 @@ from django.utils import timezone
 from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 
+from allauth.ratelimit import consume_rate_limit
 from allauth.utils import (
     build_absolute_uri,
     email_address_exists,
@@ -455,7 +456,12 @@ class DefaultAccountAdapter(object):
 
         cooldown_period = timedelta(seconds=app_settings.EMAIL_CONFIRMATION_COOLDOWN)
         if app_settings.EMAIL_CONFIRMATION_HMAC:
-            send_email = True
+            send_email = consume_rate_limit(
+                request,
+                "confirm:%s" % (email_address.email),
+                1,
+                cooldown_period.total_seconds(),
+            )
         else:
             send_email = not EmailConfirmation.objects.filter(
                 sent__gt=timezone.now() - cooldown_period,
@@ -544,6 +550,14 @@ class DefaultAccountAdapter(object):
                 request.META.get("HTTP_ACCEPT") == "application/json",
             ]
         )
+
+    def get_client_ip(self, request):
+        x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(",")[0]
+        else:
+            ip = request.META.get("REMOTE_ADDR")
+        return ip
 
 
 def get_adapter(request=None):

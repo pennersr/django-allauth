@@ -35,6 +35,7 @@ from .utils import (
     logout_on_password_change,
     passthrough_next_redirect_url,
     perform_login,
+    send_email_confirmation,
     sync_user_email_addresses,
     url_str_to_user_pk,
 )
@@ -462,21 +463,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
 
     def _action_send(self, request, *args, **kwargs):
         email = request.POST["email"]
-        try:
-            email_address = EmailAddress.objects.get(
-                user=request.user,
-                email=email,
-                verified=False,
-            )
-            get_adapter(request).add_message(
-                request,
-                messages.INFO,
-                "account/messages/email_confirmation_sent.txt",
-                {"email": email},
-            )
-            email_address.send_confirmation(request)
-        except EmailAddress.DoesNotExist:
-            pass
+        send_email_confirmation(self.request, request.user, email=email)
 
     def _action_remove(self, request, *args, **kwargs):
         email = request.POST["email"]

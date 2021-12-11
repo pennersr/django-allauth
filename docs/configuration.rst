@@ -71,11 +71,11 @@ ACCOUNT_DEFAULT_HTTP_PROTOCOL (="http")
   see the section on HTTPS for more information.
 
 ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN (=180)
-  The cooldown period (in seconds) after a confirmation email is sent,
-  during which further emails are not sent. Note that this cooldown is
-  ignored if you are using HMAC confirmation and you need to disable
-  HMAC by setting **ACCOUNT_EMAIL_CONFIRMATION_HMAC=False** in order
-  for a cooldown to be employed.
+  Users can request email confirmation mails via the email management view, and,
+  implicitly, when logging in with an unverified account. In order to prevent
+  users from sending too many of these mails, a rate limit is in place that
+  allows for one confirmation mail to be sent per the specified cooldown period
+  (in seconds).
 
 ACCOUNT_EMAIL_MAX_LENGTH(=254)
   Maximum length of the email field. You won't need to alter this unless using

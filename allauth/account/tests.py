@@ -473,7 +473,9 @@ class AccountTests(TestCase):
         # EmailVerificationMethod.MANDATORY sends us to the confirm-email page
         self.assertRedirects(resp, "/confirm-email/")
 
-    @override_settings(ACCOUNT_EMAIL_CONFIRMATION_HMAC=False)
+    @override_settings(
+        ACCOUNT_EMAIL_CONFIRMATION_HMAC=False, ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN=10
+    )
     def test_email_verification_mandatory(self):
         c = Client()
         # Signup

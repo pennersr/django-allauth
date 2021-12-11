@@ -11,6 +11,10 @@ Note worthy changes
   **Warning**: this is a work in progress, password reset is covered, yet,
   signing up is not.
 
+- The `ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN` is now also respected when using
+  HMAC based email confirmations. In earlier versions, users could trigger email
+  verification mails without any limits.
+
 
 Backwards incompatible changes
 ------------------------------

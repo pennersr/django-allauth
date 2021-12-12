@@ -29,7 +29,7 @@ from django.utils import timezone
 from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 
-from allauth.ratelimit import consume_rate_limit
+from allauth import ratelimit
 from allauth.utils import (
     build_absolute_uri,
     email_address_exists,
@@ -456,11 +456,11 @@ class DefaultAccountAdapter(object):
 
         cooldown_period = timedelta(seconds=app_settings.EMAIL_CONFIRMATION_COOLDOWN)
         if app_settings.EMAIL_CONFIRMATION_HMAC:
-            send_email = consume_rate_limit(
+            send_email = ratelimit.consume(
                 request,
-                "confirm:%s" % (email_address.email),
-                1,
-                cooldown_period.total_seconds(),
+                action="confirm:%s" % (email_address.email),
+                amount=1,
+                duration=cooldown_period.total_seconds(),
             )
         else:
             send_email = not EmailConfirmation.objects.filter(

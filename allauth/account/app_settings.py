@@ -172,6 +172,13 @@ class AppSettings(object):
         return ret
 
     @property
+    def RATE_LIMITS(self):
+        dflt = {
+            "reset_password": "5/m",
+        }
+        return self._setting("RATE_LIMITS", dflt)
+
+    @property
     def EMAIL_SUBJECT_PREFIX(self):
         """
         Subject-line prefix to use for email messages sent

@@ -1,18 +1,32 @@
 import time
-from contextlib import contextmanager
+from collections import namedtuple
 
 from django.core.cache import cache
 
 
-class RateLimitExceeded(Exception):
-    pass
+Rate = namedtuple("Rate", "amount duration")
 
 
-@contextmanager
-def rate_limit(request, action, amount, duration):
+def parse(rate):
+    ret = None
+    if rate:
+        amount, duration = rate.split("/")
+        amount = int(amount)
+        duration_map = {"s": 1, "m": 60, "h": 3600, "d": 86400}
+        if duration not in duration_map:
+            raise ValueError("Invalid duration: %s" % duration)
+        duration = duration_map[duration]
+        ret = Rate(amount, duration)
+    return ret
+
+
+def consume(request, *, action, amount=None, duration=None):
+    allowed = True
     from allauth.account.adapter import get_adapter
 
-    if request.method != "GET" and duration > 0:
+    if request.method == "GET" or not amount or not duration:
+        pass
+    else:
         if request.user.is_authenticated:
             source = ("user", str(request.user.pk))
         else:
@@ -26,16 +40,4 @@ def rate_limit(request, action, amount, duration):
         if allowed:
             history.insert(0, now)
             cache.set(key, history, duration)
-            yield
-        else:
-            raise RateLimitExceeded
-    else:
-        yield
-
-
-def consume_rate_limit(*args, **kwargs):
-    try:
-        with rate_limit(*args, **kwargs):
-            return True
-    except RateLimitExceeded:
-        return False
+    return allowed

@@ -13,8 +13,10 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic.base import TemplateResponseMixin, TemplateView, View
 from django.views.generic.edit import FormView
 
-from ..exceptions import ImmediateHttpResponse
-from ..utils import get_form_class, get_request_param
+from allauth.decorators import rate_limit
+from allauth.exceptions import ImmediateHttpResponse
+from allauth.utils import get_form_class, get_request_param
+
 from . import app_settings, signals
 from .adapter import get_adapter
 from .forms import (
@@ -664,6 +666,7 @@ class PasswordSetView(AjaxCapableProcessFormViewMixin, FormView):
 password_set = login_required(PasswordSetView.as_view())
 
 
+@method_decorator(rate_limit(action="reset_password"), name="dispatch")
 class PasswordResetView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_reset." + app_settings.TEMPLATE_EXTENSION
     form_class = ResetPasswordForm

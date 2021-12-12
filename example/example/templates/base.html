@@ -28,6 +28,7 @@
       <ul>
 	{% if user.is_authenticated %}
 	<li><a href="{% url 'account_email' %}">Change E-mail</a></li>
+	<li><a href="{% url 'account_change_password' %}">Change Password</a></li>
 	<li><a href="{% url 'socialaccount_connections' %}">Social Accounts</a></li>
 	<li><a href="{% url 'account_logout' %}">Sign Out</a></li>
 	{% else %}

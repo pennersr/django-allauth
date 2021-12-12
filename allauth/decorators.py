@@ -1,7 +1,5 @@
 from functools import wraps
 
-from django.shortcuts import render
-
 from allauth import ratelimit
 
 
@@ -17,12 +15,10 @@ def rate_limit(*, action, **rl_kwargs):
     def decorator(function):
         @wraps(function)
         def wrap(request, *args, **kwargs):
-            if ratelimit.consume(request, action=action, **rl_kwargs):
-                return function(request, *args, **kwargs)
-            else:
-                return render(
-                    request, "429." + app_settings.TEMPLATE_EXTENSION, status=429
-                )
+            resp = ratelimit.consume_or_429(request, action=action, **rl_kwargs)
+            if not resp:
+                resp = function(request, *args, **kwargs)
+            return resp
 
         return wrap
 

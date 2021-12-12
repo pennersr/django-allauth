@@ -174,7 +174,12 @@ class AppSettings(object):
     @property
     def RATE_LIMITS(self):
         dflt = {
-            "reset_password": "5/m",
+            "change_password": "5/m",
+            # Global rate limit per IP
+            "reset_password": "20/m",
+            # Rate limit measured per individual email address
+            "reset_password_email": "5/m",
+            "signup": "20/m",
         }
         return self._setting("RATE_LIMITS", dflt)
 

@@ -13,6 +13,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic.base import TemplateResponseMixin, TemplateView, View
 from django.views.generic.edit import FormView
 
+from allauth import ratelimit
 from allauth.decorators import rate_limit
 from allauth.exceptions import ImmediateHttpResponse
 from allauth.utils import get_form_class, get_request_param
@@ -217,6 +218,7 @@ class CloseableSignupMixin(object):
         return self.response_class(**response_kwargs)
 
 
+@method_decorator(rate_limit(action="signup"), name="dispatch")
 class SignupView(
     RedirectAuthenticatedUserMixin,
     CloseableSignupMixin,
@@ -568,6 +570,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
 email = login_required(EmailView.as_view())
 
 
+@method_decorator(rate_limit(action="change_password"), name="dispatch")
 class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_change." + app_settings.TEMPLATE_EXTENSION
     form_class = ChangePasswordForm
@@ -618,6 +621,12 @@ class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
 password_change = login_required(PasswordChangeView.as_view())
 
 
+@method_decorator(
+    # NOTE: 'change_password' (iso 'set_') is intentional, there is no need to
+    # differentiate between set and change.
+    rate_limit(action="change_password"),
+    name="dispatch",
+)
 class PasswordSetView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_set." + app_settings.TEMPLATE_EXTENSION
     form_class = SetPasswordForm
@@ -677,6 +686,13 @@ class PasswordResetView(AjaxCapableProcessFormViewMixin, FormView):
         return get_form_class(app_settings.FORMS, "reset_password", self.form_class)
 
     def form_valid(self, form):
+        r429 = ratelimit.consume_or_429(
+            self.request,
+            action="reset_password_email",
+            key=form.cleaned_data["email"],
+        )
+        if r429:
+            return r429
         form.save(self.request)
         return super(PasswordResetView, self).form_valid(form)
 

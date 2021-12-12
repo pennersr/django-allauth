@@ -2,6 +2,7 @@ import time
 from collections import namedtuple
 
 from django.core.cache import cache
+from django.shortcuts import render
 
 
 Rate = namedtuple("Rate", "amount duration")
@@ -20,24 +21,43 @@ def parse(rate):
     return ret
 
 
-def consume(request, *, action, amount=None, duration=None):
+def consume(request, *, action, key=None, amount=None, duration=None, user=None):
     allowed = True
+    from allauth.account import app_settings
     from allauth.account.adapter import get_adapter
+
+    rate = app_settings.RATE_LIMITS.get(action)
+    if rate:
+        rate = parse(rate)
+        if not amount:
+            amount = rate.amount
+        if not duration:
+            duration = rate.duration
 
     if request.method == "GET" or not amount or not duration:
         pass
     else:
-        if request.user.is_authenticated:
-            source = ("user", str(request.user.pk))
+        if user or request.user.is_authenticated:
+            source = ("user", str((user or request.user).pk))
         else:
             source = ("ip", get_adapter().get_client_ip(request))
-        key = ":".join(["allauth", "rl", action, *source])
-        history = cache.get(key, [])
+        keys = ["allauth", "rl", action, *source]
+        if key is not None:
+            keys.append(key)
+        cache_key = ":".join(keys)
+        history = cache.get(cache_key, [])
         now = time.time()
         while history and history[-1] <= now - duration:
             history.pop()
         allowed = len(history) < amount
         if allowed:
             history.insert(0, now)
-            cache.set(key, history, duration)
+            cache.set(cache_key, history, duration)
     return allowed
+
+
+def consume_or_429(request, *args, **kwargs):
+    from allauth.account import app_settings
+
+    if not consume(request, *args, **kwargs):
+        return render(request, "429." + app_settings.TEMPLATE_EXTENSION, status=429)

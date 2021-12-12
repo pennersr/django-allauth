@@ -458,7 +458,8 @@ class DefaultAccountAdapter(object):
         if app_settings.EMAIL_CONFIRMATION_HMAC:
             send_email = ratelimit.consume(
                 request,
-                action="confirm:%s" % (email_address.email),
+                action="confirm_email",
+                key=email_address.email,
                 amount=1,
                 duration=cooldown_period.total_seconds(),
             )

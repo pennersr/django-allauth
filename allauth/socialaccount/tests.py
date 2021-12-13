@@ -11,6 +11,7 @@ from django.contrib.sites.models import Site
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
 from django.urls import reverse
+from django.utils.http import urlencode
 
 from ..account import app_settings as account_settings
 from ..account.models import EmailAddress
@@ -98,8 +99,10 @@ class OAuthTestsMixin(object):
                 {"content-type": "text/html"},
             )
         ):
-            resp = self.client.get(
-                reverse(self.provider.id + "_login"), dict(process=process)
+            resp = self.client.post(
+                reverse(self.provider.id + "_login")
+                + "?"
+                + urlencode(dict(process=process))
             )
         p = urlparse(resp["location"])
         q = parse_qs(p.query)
@@ -217,8 +220,10 @@ class OAuth2TestsMixin(object):
         self.test_account_tokens(multiple_login=True)
 
     def login(self, resp_mock, process="login", with_refresh_token=True):
-        resp = self.client.get(
-            reverse(self.provider.id + "_login"), dict(process=process)
+        resp = self.client.post(
+            reverse(self.provider.id + "_login")
+            + "?"
+            + urlencode(dict(process=process))
         )
         p = urlparse(resp["location"])
         q = parse_qs(p.query)

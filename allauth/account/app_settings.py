@@ -47,6 +47,10 @@ class AppSettings(object):
         return getter(self.prefix + name, dflt)
 
     @property
+    def PREVENT_ENUMERATION(self):
+        return self._setting("PREVENT_ENUMERATION", True)
+
+    @property
     def DEFAULT_HTTP_PROTOCOL(self):
         return self._setting("DEFAULT_HTTP_PROTOCOL", "http").lower()
 
@@ -166,6 +170,25 @@ class AppSettings(object):
         if not settings.AUTH_PASSWORD_VALIDATORS:
             ret = self._setting("PASSWORD_MIN_LENGTH", 6)
         return ret
+
+    @property
+    def RATE_LIMITS(self):
+        dflt = {
+            # Change password view (for users already logged in)
+            "change_password": "5/m",
+            # Email management (e.g. add, remove, change primary)
+            "manage_email": "10/m",
+            # Request a password reset, global rate limit per IP
+            "reset_password": "20/m",
+            # Rate limit measured per individual email address
+            "reset_password_email": "5/m",
+            # Password reset (the view the password reset email links to).
+            "reset_password_from_key": "20/m",
+            # Signups.
+            "signup": "20/m",
+            # NOTE: Login is already protected via `ACCOUNT_LOGIN_ATTEMPTS_LIMIT`
+        }
+        return self._setting("RATE_LIMITS", dflt)
 
     @property
     def EMAIL_SUBJECT_PREFIX(self):

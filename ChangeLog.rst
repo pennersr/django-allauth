@@ -1,3 +1,66 @@
+0.48.0 (unreleased)
+*******************
+
+Note worthy changes
+-------------------
+
+- New translation: Bulgarian.
+
+- Introduced a new setting `ACCOUNT_PREVENT_ENUMERATION` that controls whether
+  or not information is revealed about whether or not a user account exists.
+  **Warning**: this is a work in progress, password reset is covered, yet,
+  signing up is not.
+
+- The `ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN` is now also respected when using
+  HMAC based email confirmations. In earlier versions, users could trigger email
+  verification mails without any limits.
+
+- Added builtin rate limitting (see `ACCOUNT_RATE_LIMITS`).
+
+
+Backwards incompatible changes
+------------------------------
+
+- The newly introduced `ACCOUNT_PREVENT_ENUMERATION` defaults to `True` impacting
+  the current behavior of the password reset flow.
+
+- The newly introduced rate limitting is by default turned on. You will need to provide
+  a `429.html` template.
+
+
+0.47.0 (2021-12-09)
+*******************
+
+Note worthy changes
+-------------------
+
+- New providers: Gumroad.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Added a new setting `SOCIALACCOUNT_LOGIN_ON_GET` that controls whether or not
+  the endpoints for initiating a social login (for example,
+  "/accounts/google/login/") require a POST request to initiate the
+  handshake. As requiring a POST is more secure, the default of this new setting
+  is `False`.
+
+
+Security notice
+---------------
+
+Automatically signing in users into their account and connecting additional
+third party accounts via a simple redirect ("/accounts/facebook/login/") can
+lead to unexpected results and become a security issue especially when the
+redirect is triggered from a malicious web site. For example, if an attacker
+prepares a malicious website that (ab)uses the Facebook password recovery
+mechanism to first sign into his/her own Facebook account, followed by a
+redirect to connect a new social account, you may end up with the attacker's
+Facebook account added to the account of the victim. To mitigate this,
+`SOCIALACCOUNT_LOGIN_ON_GET` is introduced.
+
+
 0.46.0 (2021-11-15)
 *******************
 

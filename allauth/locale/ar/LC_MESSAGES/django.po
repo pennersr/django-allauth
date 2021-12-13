@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-15 10:12-0600\n"
+"POT-Creation-Date: 2021-12-09 08:41-0600\n"
 "PO-Revision-Date: 2016-01-19 19:32+0100\n"
 "Last-Translator: David D Lowe <daviddlowe.flimm@gmail.com>\n"
 "Language-Team: Arabic\n"
@@ -40,109 +40,109 @@ msgstr "كلمة المرور يجب أن لا تقل عن {0} حروف."
 msgid "Accounts"
 msgstr "الحسابات"
 
-#: account/forms.py:58 account/forms.py:412
+#: account/forms.py:59 account/forms.py:413
 msgid "You must type the same password each time."
 msgstr "يجب عليك كتابة نفس كلمة المرور في كل مرة‪.‬"
 
-#: account/forms.py:91 account/forms.py:380 account/forms.py:497
+#: account/forms.py:92 account/forms.py:381 account/forms.py:498
 msgid "Password"
 msgstr "كلمة السر"
 
-#: account/forms.py:92
+#: account/forms.py:93
 msgid "Remember Me"
 msgstr "تذكرني"
 
-#: account/forms.py:96
+#: account/forms.py:97
 msgid "This account is currently inactive."
 msgstr "هذا الحساب غير نشط حاليا."
 
-#: account/forms.py:98
+#: account/forms.py:99
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "عنوان البريد الإلكتروني و / أو كلمة المرور الذي حددته غير صحيحة."
 
-#: account/forms.py:101
+#: account/forms.py:102
 msgid "The username and/or password you specified are not correct."
 msgstr "اسم المستخدم و / أو كلمة المرور الذي حددته غير صحيحة."
 
-#: account/forms.py:112 account/forms.py:278 account/forms.py:438
-#: account/forms.py:516
+#: account/forms.py:113 account/forms.py:279 account/forms.py:439
+#: account/forms.py:517
 msgid "E-mail address"
 msgstr "عنوان البريد الالكتروني"
 
-#: account/forms.py:116 account/forms.py:315 account/forms.py:435
-#: account/forms.py:511
+#: account/forms.py:117 account/forms.py:316 account/forms.py:436
+#: account/forms.py:512
 msgid "E-mail"
 msgstr "البريد الالكتروني"
 
-#: account/forms.py:119 account/forms.py:122 account/forms.py:268
-#: account/forms.py:271
+#: account/forms.py:120 account/forms.py:123 account/forms.py:269
+#: account/forms.py:272
 msgid "Username"
 msgstr "اسم المستخدم"
 
-#: account/forms.py:132
+#: account/forms.py:133
 msgid "Username or e-mail"
 msgstr "اسم المستخدم أو البريد الالكتروني"
 
-#: account/forms.py:135
+#: account/forms.py:136
 msgctxt "field label"
 msgid "Login"
 msgstr "تسجيل الدخول"
 
-#: account/forms.py:306
+#: account/forms.py:307
 msgid "E-mail (again)"
 msgstr "البريد الالكتروني ‪(مجددا)‬"
 
-#: account/forms.py:310
+#: account/forms.py:311
 msgid "E-mail address confirmation"
 msgstr "تأكيد البريد الإلكتروني"
 
-#: account/forms.py:318
+#: account/forms.py:319
 msgid "E-mail (optional)"
 msgstr "البريد الالكتروني ‪)‬اختياري‪(‬"
 
-#: account/forms.py:358
+#: account/forms.py:359
 msgid "You must type the same email each time."
 msgstr "يجب عليك كتابة نفس البريد الالكتروني في كل مرة‪.‬"
 
-#: account/forms.py:383 account/forms.py:498
+#: account/forms.py:384 account/forms.py:499
 msgid "Password (again)"
 msgstr "كلمة السر ‪)‬مرة أخرى‪(‬"
 
-#: account/forms.py:447
+#: account/forms.py:448
 msgid "This e-mail address is already associated with this account."
 msgstr "عنوان البريد الإلكتروني هذا بالفعل المقترنة مع هذا الحساب."
 
-#: account/forms.py:450
+#: account/forms.py:451
 msgid "This e-mail address is already associated with another account."
 msgstr "عنوان البريد الإلكتروني هذا مقترن بالفعل بحساب آخر."
 
-#: account/forms.py:452
+#: account/forms.py:453
 #, fuzzy, python-format
 #| msgid "Your account has no verified e-mail address."
 msgid "You cannot add more than %d e-mail addresses."
 msgstr "حسابك ليس لديه عنوان البريد الإلكتروني تحققنا منها."
 
-#: account/forms.py:477
+#: account/forms.py:478
 msgid "Current Password"
 msgstr "كلمة المرور الحالية"
 
-#: account/forms.py:479 account/forms.py:569
+#: account/forms.py:480 account/forms.py:570
 msgid "New Password"
 msgstr "كلمة المرور الجديدة"
 
-#: account/forms.py:480 account/forms.py:570
+#: account/forms.py:481 account/forms.py:571
 msgid "New Password (again)"
 msgstr "كلمة المرور الجديدة (مرة أخرى)"
 
-#: account/forms.py:488
+#: account/forms.py:489
 msgid "Please type your current password."
 msgstr "الرجاء كتابة كلمة المرور الحالية الخاصة بك."
 
-#: account/forms.py:528
+#: account/forms.py:529
 msgid "The e-mail address is not assigned to any user account"
 msgstr "لم يتم تعيين عنوان البريد الإلكتروني لأي حساب مستخدم"
 
-#: account/forms.py:591
+#: account/forms.py:592
 msgid "The password reset token was invalid."
 msgstr "خطأ في شهادة اعادة تعيين كلمة المرور."
 
@@ -766,6 +766,30 @@ msgstr "ليس لديك حاليا اي شبكة اجتماعية متصلة ب�
 #: templates/socialaccount/connections.html:46
 msgid "Add a 3rd Party Account"
 msgstr "إضافة حساب طرف الثالث"
+
+#: templates/socialaccount/login.html:6
+#, python-format
+msgid "Connect %(provider)s"
+msgstr ""
+
+#: templates/socialaccount/login.html:8
+#, python-format
+msgid "You are about to connect a new third party account from %(provider)s."
+msgstr ""
+
+#: templates/socialaccount/login.html:10
+#, python-format
+msgid "Sign In Via %(provider)s"
+msgstr ""
+
+#: templates/socialaccount/login.html:12
+#, python-format
+msgid "You are about to sign in using a third party account from %(provider)s."
+msgstr ""
+
+#: templates/socialaccount/login.html:17
+msgid "Continue"
+msgstr ""
 
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9

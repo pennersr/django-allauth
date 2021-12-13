@@ -1,11 +1,18 @@
 # -*- coding: utf-8 -*-
+import json
+
+from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers.gitlab.provider import GitLabProvider
+from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase
+
+from .views import _check_errors
 
 
 class GitLabTests(OAuth2TestsMixin, TestCase):
     provider_id = GitLabProvider.id
+    _uid = 2
 
     def get_mocked_response(self):
         return MockedResponse(
@@ -43,3 +50,54 @@ class GitLabTests(OAuth2TestsMixin, TestCase):
             }
         """,
         )
+
+    def test_valid_response(self):
+        data = {"id": 12345}
+        response = MockedResponse(200, json.dumps(data))
+        self.assertEqual(_check_errors(response), data)
+
+    def test_invalid_data(self):
+        response = MockedResponse(200, json.dumps({}))
+        with self.assertRaises(OAuth2Error):
+            # No id, raises
+            _check_errors(response)
+
+    def test_account_invalid_response(self):
+        body = (
+            "403 Forbidden  - You (@domain.com) must accept the Terms of "
+            "Service in order to perform this action. Please access GitLab "
+            "from a web browser to accept these terms."
+        )
+        response = MockedResponse(403, body)
+
+        # GitLab allow users to login with their API and provides
+        # an error requiring the user to accept the Terms of Service.
+        # see: https://gitlab.com/gitlab-org/gitlab-foss/-/issues/45849
+        with self.assertRaises(OAuth2Error):
+            # no id, 4xx code, raises
+            _check_errors(response)
+
+    def test_error_response(self):
+        body = "403 Forbidden"
+        response = MockedResponse(403, body)
+
+        with self.assertRaises(OAuth2Error):
+            # no id, 4xx code, raises
+            _check_errors(response)
+
+    def test_invalid_response(self):
+        response = MockedResponse(200, json.dumps({}))
+        with self.assertRaises(OAuth2Error):
+            # No id, raises
+            _check_errors(response)
+
+    def test_bad_response(self):
+        response = MockedResponse(400, json.dumps({}))
+        with self.assertRaises(OAuth2Error):
+            # bad json, raises
+            _check_errors(response)
+
+    def test_extra_data(self):
+        self.login(self.get_mocked_response())
+        account = SocialAccount.objects.get(uid=str(self._uid))
+        self.assertEqual(account.extra_data["id"], self._uid)

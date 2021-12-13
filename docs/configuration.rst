@@ -71,11 +71,11 @@ ACCOUNT_DEFAULT_HTTP_PROTOCOL (="http")
   see the section on HTTPS for more information.
 
 ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN (=180)
-  The cooldown period (in seconds) after a confirmation email is sent,
-  during which further emails are not sent. Note that this cooldown is
-  ignored if you are using HMAC confirmation and you need to disable
-  HMAC by setting **ACCOUNT_EMAIL_CONFIRMATION_HMAC=False** in order
-  for a cooldown to be employed.
+  Users can request email confirmation mails via the email management view, and,
+  implicitly, when logging in with an unverified account. In order to prevent
+  users from sending too many of these mails, a rate limit is in place that
+  allows for one confirmation mail to be sent per the specified cooldown period
+  (in seconds).
 
 ACCOUNT_EMAIL_MAX_LENGTH(=254)
   Maximum length of the email field. You won't need to alter this unless using
@@ -165,6 +165,40 @@ ACCOUNT_PRESERVE_USERNAME_CASING (=True)
   casing is preserved, potentially expensive ``__iexact`` lookups are performed
   when filter on username. For now, the default is set to ``True`` to maintain
   backwards compatibility.
+
+ACCOUNT_PREVENT_ENUMERATION (=True)
+  Controls whether or not information is revealed about whether or not a user
+  account exists. For example, by entering random email addresses in the
+  password reset form you can test whether or not those email addresses are
+  associated with an account. Enabling this setting prevents that, and an email
+  is always sent, regardless of whether or not the account exists. Note that
+  there is a slight usability tax to pay because there is no immediate feedback.
+  **Warning**: this is a work in progress, password reset is covered, yet,
+   signing up is not.
+
+ACCOUNT_RATE_LIMITS
+  In order to be secure out of the box various rate limits are in place. The
+  rate limit mechanism is backed by a Django cache. Hence, rate limitting will
+  not work properly if you are using the `DummyCache`. To disable, set to
+  ``{}``. When rate limits are hit the ``429.html`` template is rendered.
+  Defaults to::
+
+    ACCOUNT_RATE_LIMITS = {
+        # Change password view (for users already logged in)
+        "change_password": "5/m",
+        # Email management (e.g. add, remove, change primary)
+        "manage_email": "10/m",
+        # Request a password reset, global rate limit per IP
+        "reset_password": "20/m",
+        # Rate limit measured per individual email address
+        "reset_password_email": "5/m",
+        # Password reset (the view the password reset email links to).
+        "reset_password_from_key": "20/m",
+        # Signups.
+        "signup": "20/m",
+        # NOTE: Login is already protected via `ACCOUNT_LOGIN_ATTEMPTS_LIMIT`
+    }
+
 
 ACCOUNT_SESSION_REMEMBER (=None)
   Controls the life time of the session. Set to ``None`` to ask the user
@@ -265,6 +299,12 @@ SOCIALACCOUNT_EMAIL_REQUIRED (=ACCOUNT_EMAIL_REQUIRED)
 SOCIALACCOUNT_FORMS (={})
   Used to override forms, for example:
   ``{'signup': 'myapp.forms.SignupForm'}``
+
+SOCIALACCOUNT_LOGIN_ON_GET (=False)
+  Controls whether or not the endpoints for initiating a social login (for
+  example, "/accounts/google/login/") require a POST request to initiate the
+  handshake. For security considerations, it is strongly recommended to
+  require POST requests.
 
 SOCIALACCOUNT_PROVIDERS (= dict)
   Dictionary containing provider specific settings.

@@ -6,7 +6,11 @@ from datetime import timedelta
 
 from django import forms
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.models import AbstractUser, AnonymousUser
+from django.contrib.messages.api import get_messages
+from django.contrib.messages.middleware import MessageMiddleware
+from django.contrib.sessions.middleware import SessionMiddleware
 from django.contrib.sites.models import Site
 from django.core import mail, validators
 from django.core.exceptions import ValidationError
@@ -123,9 +127,6 @@ class AccountTests(TestCase):
             },
         )
         # Fake stash_verified_email
-        from django.contrib.messages.middleware import MessageMiddleware
-        from django.contrib.sessions.middleware import SessionMiddleware
-
         SessionMiddleware(lambda request: None).process_request(request)
         MessageMiddleware(lambda request: None).process_request(request)
         request.user = AnonymousUser()
@@ -175,9 +176,6 @@ class AccountTests(TestCase):
                 "password2": "johndoe",
             },
         )
-        from django.contrib.messages.middleware import MessageMiddleware
-        from django.contrib.sessions.middleware import SessionMiddleware
-
         SessionMiddleware(lambda request: None).process_request(request)
         MessageMiddleware(lambda request: None).process_request(request)
         request.user = AnonymousUser()
@@ -473,7 +471,9 @@ class AccountTests(TestCase):
         # EmailVerificationMethod.MANDATORY sends us to the confirm-email page
         self.assertRedirects(resp, "/confirm-email/")
 
-    @override_settings(ACCOUNT_EMAIL_CONFIRMATION_HMAC=False)
+    @override_settings(
+        ACCOUNT_EMAIL_CONFIRMATION_HMAC=False, ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN=10
+    )
     def test_email_verification_mandatory(self):
         c = Client()
         # Signup
@@ -1028,6 +1028,20 @@ class AccountTests(TestCase):
 
         self.assertEqual(user, resp.wsgi_request.user)
 
+    def test_message_escaping(self):
+        request = RequestFactory().get("/")
+        SessionMiddleware(lambda request: None).process_request(request)
+        MessageMiddleware(lambda request: None).process_request(request)
+        user = get_user_model()()
+        user_username(user, "'<8")
+        context = {"user": user}
+        get_adapter().add_message(
+            request, messages.SUCCESS, "account/messages/logged_in.txt", context
+        )
+        msgs = get_messages(request)
+        actual_message = msgs._queued_messages[0].message
+        assert user.username in actual_message, actual_message
+
 
 class EmailFormTests(TestCase):
     def setUp(self):
@@ -1464,6 +1478,7 @@ class ConfirmationViewTests(TestCase):
         assert mock_perform_login.called
 
 
+@override_settings(ACCOUNT_PREVENT_ENUMERATION=False)
 class TestResetPasswordForm(TestCase):
     def test_user_email_not_sent_inactive_user(self):
         User = get_user_model()
@@ -1475,6 +1490,7 @@ class TestResetPasswordForm(TestCase):
         self.assertFalse(form.is_valid())
 
 
+@override_settings(ACCOUNT_PREVENT_ENUMERATION=False)
 class TestCVE2019_19844(TestCase):
 
     global_request = RequestFactory().get("/")

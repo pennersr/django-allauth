@@ -8,7 +8,9 @@ class FoursquareTests(OAuth2TestsMixin, TestCase):
     provider_id = FoursquareProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
 {"notifications": [{"item": {"unreadCount": 0}, "type": "notificationTray"}],
                                 "meta": {"code": 200},
  "response": {
@@ -62,4 +64,5 @@ class FoursquareTests(OAuth2TestsMixin, TestCase):
    "requests": {"count": 0}, "mayorships": {"count": 0, "items": []}}
                                     }
                                  }
-""")
+""",
+        )

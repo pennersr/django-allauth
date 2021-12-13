@@ -11,7 +11,9 @@ class OrcidTests(OAuth2TestsMixin, TestCase):
     provider_id = OrcidProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
     {
     "orcid-identifier": {
         "uri": "https://sandbox.orcid.org/0000-0001-6796-198X",
@@ -368,7 +370,8 @@ class OrcidTests(OAuth2TestsMixin, TestCase):
     },
     "path": "/0000-0001-6796-198X"
     }
-        """)
+        """,
+        )
 
     def get_login_response_json(self, with_refresh_token=True):
         # FIXME: This is not an actual response. I added this in order

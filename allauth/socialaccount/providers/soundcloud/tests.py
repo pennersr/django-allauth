@@ -8,7 +8,9 @@ class SoundCloudTests(OAuth2TestsMixin, TestCase):
     provider_id = SoundCloudProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
         {
            "website": null,
             "myspace_name": null,
@@ -36,4 +38,5 @@ class SoundCloudTests(OAuth2TestsMixin, TestCase):
             "avatar_url":
             "https://a1.sndcdn.com/images/default_avatar_large.png?4b4189b",
             "plan": "Free"
-        }""")
+        }""",
+        )

@@ -8,7 +8,9 @@ class EdmodoTests(OAuth2TestsMixin, TestCase):
     provider_id = EdmodoProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
 {
   "url": "https://api.edmodo.com/users/74721257",
   "id": 74721257,
@@ -38,4 +40,5 @@ class EdmodoTests(OAuth2TestsMixin, TestCase):
   "email":"test@example.com",
   "sync_enabled": false
 }
-""")  # noqa
+""",
+        )  # noqa

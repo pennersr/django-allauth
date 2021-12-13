@@ -1,3 +1,6 @@
+from django.test.client import RequestFactory
+from django.urls import reverse
+
 from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.tests import OAuth2TestsMixin
@@ -7,15 +10,13 @@ from .provider import TwitchProvider
 from .views import TwitchOAuth2Adapter
 
 
-class MockObject(object):
-    pass
-
-
 class TwitchTests(OAuth2TestsMixin, TestCase):
     provider_id = TwitchProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
         {
           "data": [{
             "id": "44322889",
@@ -30,43 +31,29 @@ class TwitchTests(OAuth2TestsMixin, TestCase):
             "email": "login@provider.com"
           }]
         }
-        """)  # noqa
+        """,
+        )  # noqa
 
     def test_response_over_400_raises_OAuth2Error(self):
-        resp_mock = MockedResponse(
-            400, '{"error": "Invalid token"}'
-        )
+        resp_mock = MockedResponse(400, '{"error": "Invalid token"}')
         expected_error = "Twitch API Error: Invalid token ()"
 
         self.check_for_error(resp_mock, expected_error)
 
     def test_empty_or_missing_data_key_raises_OAuth2Error(self):
-        resp_mock = MockedResponse(
-            200, '{"data": []}'
-        )
+        resp_mock = MockedResponse(200, '{"data": []}')
         expected_error = "Invalid data from Twitch API: {'data': []}"
 
-        self.check_for_error(
-            resp_mock, expected_error)
+        self.check_for_error(resp_mock, expected_error)
 
-        resp_mock = MockedResponse(
-            200, '{"missing_data": "key"}'
-        )
-        expected_error = (
-            "Invalid data from Twitch API: "
-            "{'missing_data': 'key'}"
-        )
+        resp_mock = MockedResponse(200, '{"missing_data": "key"}')
+        expected_error = "Invalid data from Twitch API: {'missing_data': 'key'}"
 
         self.check_for_error(resp_mock, expected_error)
 
     def test_missing_twitch_id_raises_OAuth2Error(self):
-        resp_mock = MockedResponse(
-            200, '{"data": [{"login": "fake_twitch"}]}'
-        )
-        expected_error = (
-            "Invalid data from Twitch API: "
-            "{'login': 'fake_twitch'}"
-        )
+        resp_mock = MockedResponse(200, '{"data": [{"login": "fake_twitch"}]}')
+        expected_error = "Invalid data from Twitch API: {'login': 'fake_twitch'}"
 
         self.check_for_error(resp_mock, expected_error)
 
@@ -74,10 +61,7 @@ class TwitchTests(OAuth2TestsMixin, TestCase):
         with self.assertRaises(OAuth2Error) as error_ctx:
             self._run_just_complete_login(resp_mock)
 
-        self.assertEqual(
-            str(error_ctx.exception).replace('u', ''),
-            expected_error
-        )
+        self.assertEqual(str(error_ctx.exception).replace("u", ""), expected_error)
 
     def _run_just_complete_login(self, resp_mock):
         """
@@ -86,9 +70,13 @@ class TwitchTests(OAuth2TestsMixin, TestCase):
         we can check that the specific erros are raised before
         they are caught and rendered to generic error HTML
         """
-        request = MockObject()
-        app = MockObject()
-        token = SocialToken(token='this-is-my-fake-token')
+        request = RequestFactory().get(
+            reverse(self.provider.id + "_login"),
+            {"process": "login"},
+        )
+        adapter = TwitchOAuth2Adapter(request)
+        app = adapter.get_provider().get_app(request)
+        token = SocialToken(token="this-is-my-fake-token")
 
         with mocked_response(resp_mock):
             adapter = TwitchOAuth2Adapter(request)

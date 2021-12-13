@@ -8,7 +8,9 @@ class EveOnlineTests(OAuth2TestsMixin, TestCase):
     provider_id = EveOnlineProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
         {
             "CharacterID": 273042051,
             "CharacterName": "CCP illurkall",
@@ -16,4 +18,5 @@ class EveOnlineTests(OAuth2TestsMixin, TestCase):
             "Scopes": " ",
             "TokenType": "Character",
             "CharacterOwnerHash": "XM4D...FoY="
-        }""")
+        }""",
+        )

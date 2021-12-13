@@ -18,7 +18,9 @@ class UntappdTests(create_oauth2_tests(registry.by_id(UntappdProvider.id))):
             }"""
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
 {
    "meta":{
       "code":200,
@@ -92,4 +94,5 @@ class UntappdTests(create_oauth2_tests(registry.by_id(UntappdProvider.id))):
       }
    }
 }
-        """)
+        """,
+        )

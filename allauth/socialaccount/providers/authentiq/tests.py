@@ -17,13 +17,18 @@ class AuthentiqTests(OAuth2TestsMixin, TestCase):
     provider_id = AuthentiqProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, json.dumps({
-            "sub": "ZLARGMFT1M",
-            "email": "jane@email.invalid",
-            "email_verified": True,
-            "given_name": "Jane",
-            "family_name": "Doe",
-        }))
+        return MockedResponse(
+            200,
+            json.dumps(
+                {
+                    "sub": "ZLARGMFT1M",
+                    "email": "jane@email.invalid",
+                    "email_verified": True,
+                    "given_name": "Jane",
+                    "family_name": "Doe",
+                }
+            ),
+        )
 
     def test_default_scopes_no_email(self):
         scopes = self.provider.get_default_scope()
@@ -46,8 +51,7 @@ class AuthentiqTests(OAuth2TestsMixin, TestCase):
 
     def test_dynamic_scopes(self):
         request = RequestFactory().get(
-            AuthentiqOAuth2Adapter.authorize_url,
-            dict(scope="foo")
+            AuthentiqOAuth2Adapter.authorize_url, dict(scope="foo")
         )
         scopes = self.provider.get_scope(request)
         self.assertIn("openid", scopes)

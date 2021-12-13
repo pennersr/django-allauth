@@ -168,13 +168,13 @@ Used on `account_reset_password <views.html#password-reset-account-reset-passwor
 ::
 
     from allauth.account.forms import ResetPasswordForm
-    class MyCustomSetPasswordForm(ResetPasswordForm):
+    class MyCustomResetPasswordForm(ResetPasswordForm):
 
-        def save(self):
+        def save(self, request):
 
             # Ensure you call the parent class's save.
             # .save() returns a string containing the email address supplied
-            email_address = super(MyCustomResetPasswordForm, self).save()
+            email_address = super(MyCustomResetPasswordForm, self).save(request)
 
             # Add your own processing here.
 
@@ -221,7 +221,7 @@ SOCIALACCOUNT_FORMS
 Default Settings::
 
     SOCIALACCOUNT_FORMS = {
-        'login': 'allauth.socialaccount.forms.DisconnectForm',
+        'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
         'signup': 'allauth.socialaccount.forms.SignupForm',
     }
 
@@ -236,11 +236,11 @@ with a social account and needs to create an account.
     from allauth.socialaccount.forms import SignupForm
     class MyCustomSocialSignupForm(SignupForm):
 
-        def save(self):
+        def save(self, request):
 
             # Ensure you call the parent class's save.
             # .save() returns a User object.
-            user = super(MyCustomSocialSignupForm, self).save()
+            user = super(MyCustomSocialSignupForm, self).save(request)
 
             # Add your own processing here.
 

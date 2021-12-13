@@ -8,25 +8,25 @@ class CoinbaseAccount(ProviderAccount):
 
     def to_str(self):
         return self.account.extra_data.get(
-            'name',
-            super(CoinbaseAccount, self).to_str())
+            "name", super(CoinbaseAccount, self).to_str()
+        )
 
 
 class CoinbaseProvider(OAuth2Provider):
-    id = 'coinbase'
-    name = 'Coinbase'
+    id = "coinbase"
+    name = "Coinbase"
     account_class = CoinbaseAccount
 
     def get_default_scope(self):
         # See: https://coinbase.com/docs/api/permissions
-        return ['user']
+        return ["user"]
 
     def extract_uid(self, data):
-        return str(data['id'])
+        return str(data["id"])
 
     def extract_common_fields(self, data):
         # See: https://coinbase.com/api/doc/1.0/users/index.html
-        return dict(name=data['name'], email=data['email'])
+        return dict(name=data["name"], email=data["email"])
 
 
 provider_classes = [CoinbaseProvider]

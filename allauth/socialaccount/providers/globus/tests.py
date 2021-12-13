@@ -11,7 +11,9 @@ class GlobusTests(OAuth2TestsMixin, TestCase):
 
     @override_settings(SOCIALACCOUNT_QUERY_EMAIL=True)
     def get_mocked_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
         {
             "identity_provider_display_name": "University of Gozorpazorp",
             "sub": "a6fc81e-4a6c1-97ac-b4c6-84ff6a8ce662",
@@ -21,4 +23,5 @@ class GlobusTests(OAuth2TestsMixin, TestCase):
             "email": "morty@ugz.edu",
             "name": "Morty Smith"
         }
-        """)
+        """,
+        )

@@ -2,7 +2,7 @@
 
 {% load i18n %}
 
-{% block head_title %}{% trans "Account" %}{% endblock %}
+{% block head_title %}{% trans "E-mail Addresses" %}{% endblock %}
 
 {% block content %}
     <h1>{% trans "E-mail Addresses" %}</h1>
@@ -44,7 +44,7 @@
 
 {% endif %}
 
-
+  {% if can_add_email %}
     <h2>{% trans "Add E-mail Address" %}</h2>
 
     <form method="post" action="{% url 'account_email' %}" class="add_email">
@@ -52,6 +52,7 @@
         {{ form.as_p }}
         <button name="action_add" type="submit">{% trans "Add E-mail" %}</button>
     </form>
+  {% endif %}
 
 {% endblock %}
 

@@ -27,7 +27,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         },
     ]
 
-    AUTHENTICATION_BACKENDS = (
+    AUTHENTICATION_BACKENDS = [
         ...
         # Needed to login by username in Django admin, regardless of `allauth`
         'django.contrib.auth.backends.ModelBackend',
@@ -35,9 +35,9 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         # `allauth` specific authentication methods, such as login by e-mail
         'allauth.account.auth_backends.AuthenticationBackend',
         ...
-    )
+    ]
 
-    INSTALLED_APPS = (
+    INSTALLED_APPS = [
         ...
         # The following apps are required:
         'django.contrib.auth',
@@ -50,16 +50,22 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         # ... include the providers you want to enable:
         'allauth.socialaccount.providers.agave',
         'allauth.socialaccount.providers.amazon',
+        'allauth.socialaccount.providers.amazon_cognito',
         'allauth.socialaccount.providers.angellist',
+        'allauth.socialaccount.providers.apple',
         'allauth.socialaccount.providers.asana',
         'allauth.socialaccount.providers.auth0',
         'allauth.socialaccount.providers.authentiq',
+        'allauth.socialaccount.providers.azure',
         'allauth.socialaccount.providers.baidu',
         'allauth.socialaccount.providers.basecamp',
+        'allauth.socialaccount.providers.battlenet',
         'allauth.socialaccount.providers.bitbucket',
         'allauth.socialaccount.providers.bitbucket_oauth2',
         'allauth.socialaccount.providers.bitly',
+        'allauth.socialaccount.providers.box',
         'allauth.socialaccount.providers.cern',
+        'allauth.socialaccount.providers.cilogon',
         'allauth.socialaccount.providers.coinbase',
         'allauth.socialaccount.providers.dataporten',
         'allauth.socialaccount.providers.daum',
@@ -67,31 +73,41 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.discord',
         'allauth.socialaccount.providers.disqus',
         'allauth.socialaccount.providers.douban',
+        'allauth.socialaccount.providers.doximity',
         'allauth.socialaccount.providers.draugiem',
         'allauth.socialaccount.providers.dropbox',
         'allauth.socialaccount.providers.dwolla',
         'allauth.socialaccount.providers.edmodo',
+        'allauth.socialaccount.providers.edx',
+        'allauth.socialaccount.providers.eventbrite',
         'allauth.socialaccount.providers.eveonline',
         'allauth.socialaccount.providers.evernote',
         'allauth.socialaccount.providers.exist',
         'allauth.socialaccount.providers.facebook',
         'allauth.socialaccount.providers.feedly',
+        'allauth.socialaccount.providers.figma',
         'allauth.socialaccount.providers.fivehundredpx',
         'allauth.socialaccount.providers.flickr',
         'allauth.socialaccount.providers.foursquare',
+        'allauth.socialaccount.providers.frontier',
         'allauth.socialaccount.providers.fxa',
+        'allauth.socialaccount.providers.gitea',
         'allauth.socialaccount.providers.github',
         'allauth.socialaccount.providers.gitlab',
+        'allauth.socialaccount.providers.globus',
         'allauth.socialaccount.providers.google',
+        'allauth.socialaccount.providers.gumroad',
         'allauth.socialaccount.providers.hubic',
         'allauth.socialaccount.providers.instagram',
         'allauth.socialaccount.providers.jupyterhub',
         'allauth.socialaccount.providers.kakao',
+        'allauth.socialaccount.providers.keycloak',
         'allauth.socialaccount.providers.line',
         'allauth.socialaccount.providers.linkedin',
         'allauth.socialaccount.providers.linkedin_oauth2',
-        'allauth.socialaccount.providers.mailru',
         'allauth.socialaccount.providers.mailchimp',
+        'allauth.socialaccount.providers.mailru',
+        'allauth.socialaccount.providers.mediawiki',
         'allauth.socialaccount.providers.meetup',
         'allauth.socialaccount.providers.microsoft',
         'allauth.socialaccount.providers.naver',
@@ -100,12 +116,14 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.openid',
         'allauth.socialaccount.providers.openstreetmap',
         'allauth.socialaccount.providers.orcid',
-        'allauth.socialaccount.providers.paypal',
         'allauth.socialaccount.providers.patreon',
+        'allauth.socialaccount.providers.paypal',
         'allauth.socialaccount.providers.persona',
         'allauth.socialaccount.providers.pinterest',
+        'allauth.socialaccount.providers.quickbooks',
         'allauth.socialaccount.providers.reddit',
         'allauth.socialaccount.providers.robinhood',
+        'allauth.socialaccount.providers.salesforce',
         'allauth.socialaccount.providers.sharefile',
         'allauth.socialaccount.providers.shopify',
         'allauth.socialaccount.providers.slack',
@@ -113,8 +131,11 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.spotify',
         'allauth.socialaccount.providers.stackexchange',
         'allauth.socialaccount.providers.steam',
+        'allauth.socialaccount.providers.stocktwits',
         'allauth.socialaccount.providers.strava',
         'allauth.socialaccount.providers.stripe',
+        'allauth.socialaccount.providers.telegram',
+        'allauth.socialaccount.providers.trainingpeaks',
         'allauth.socialaccount.providers.trello',
         'allauth.socialaccount.providers.tumblr',
         'allauth.socialaccount.providers.twentythreeandme',
@@ -128,9 +149,15 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.weixin',
         'allauth.socialaccount.providers.windowslive',
         'allauth.socialaccount.providers.xing',
+        'allauth.socialaccount.providers.yahoo',
+        'allauth.socialaccount.providers.yandex',
         'allauth.socialaccount.providers.ynab',
+        'allauth.socialaccount.providers.zoho',
+        'allauth.socialaccount.providers.zoom',
+        'allauth.socialaccount.providers.okta',
+        'allauth.socialaccount.providers.feishu',
         ...
-    )
+    ]
 
     SITE_ID = 1
 
@@ -152,7 +179,7 @@ urls.py::
 
     urlpatterns = [
         ...
-        url(r'^accounts/', include('allauth.urls')),
+        path('accounts/', include('allauth.urls')),
         ...
     ]
 
@@ -167,12 +194,12 @@ Post-Installation
 
 In your Django root execute the command below to create your database tables::
 
-    ./manage.py migrate
+    python manage.py migrate
 
 Now start your server, visit your admin pages (e.g. http://localhost:8000/admin/)
 and follow these steps:
 
 - Add a ``Site`` for your domain, matching ``settings.SITE_ID`` (``django.contrib.sites`` app).
 - For each OAuth based provider, either add a ``SocialApp`` (``socialaccount``
-  app) containing the required client credentials, or, make make sure that these are
-  configured via the ``SOCIALACCOUNT_PROVIDERS[<provider>]['APP']`` setting.
+  app) containing the required client credentials, or, make sure that these are
+  configured via the ``SOCIALACCOUNT_PROVIDERS[<provider>]['APP']`` setting (see example above).

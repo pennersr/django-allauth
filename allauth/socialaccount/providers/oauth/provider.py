@@ -7,17 +7,16 @@ from allauth.socialaccount.providers.base import Provider
 
 
 class OAuthProvider(Provider):
-
     def get_login_url(self, request, **kwargs):
         url = reverse(self.id + "_login")
         if kwargs:
-            url = url + '?' + urlencode(kwargs)
+            url = url + "?" + urlencode(kwargs)
         return url
 
     def get_auth_params(self, request, action):
         settings = self.get_settings()
-        ret = dict(settings.get('AUTH_PARAMS', {}))
-        dynamic_auth_params = request.GET.get('auth_params', None)
+        ret = dict(settings.get("AUTH_PARAMS", {}))
+        dynamic_auth_params = request.GET.get("auth_params", None)
         if dynamic_auth_params:
             ret.update(dict(parse_qsl(dynamic_auth_params)))
         return ret
@@ -30,7 +29,7 @@ class OAuthProvider(Provider):
 
     def get_scope(self, request):
         settings = self.get_settings()
-        scope = settings.get('SCOPE')
+        scope = settings.get("SCOPE")
         if scope is None:
             scope = self.get_default_scope()
         return scope

@@ -14,22 +14,20 @@ class CoinbaseOAuth2Adapter(OAuth2Adapter):
 
     @property
     def authorize_url(self):
-        return 'https://coinbase.com/oauth/authorize'
+        return "https://coinbase.com/oauth/authorize"
 
     @property
     def access_token_url(self):
-        return 'https://coinbase.com/oauth/token'
+        return "https://coinbase.com/oauth/token"
 
     @property
     def profile_url(self):
-        return 'https://coinbase.com/api/v1/users'
+        return "https://coinbase.com/api/v1/users"
 
     def complete_login(self, request, app, token, **kwargs):
-        response = requests.get(self.profile_url,
-                                params={'access_token': token})
-        extra_data = response.json()['users'][0]['user']
-        return self.get_provider().sociallogin_from_response(
-            request, extra_data)
+        response = requests.get(self.profile_url, params={"access_token": token})
+        extra_data = response.json()["users"][0]["user"]
+        return self.get_provider().sociallogin_from_response(request, extra_data)
 
 
 oauth2_login = OAuth2LoginView.adapter_view(CoinbaseOAuth2Adapter)

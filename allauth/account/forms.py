@@ -381,7 +381,9 @@ class SignupForm(BaseSignupForm):
             label=_("Password"), autocomplete="new-password"
         )
         if app_settings.SIGNUP_PASSWORD_ENTER_TWICE:
-            self.fields["password2"] = PasswordField(label=_("Password (again)"))
+            self.fields["password2"] = PasswordField(
+                label=_("Password (again)"), autocomplete="new-password"
+            )
 
         if hasattr(self, "field_order"):
             set_form_field_order(self, self.field_order)

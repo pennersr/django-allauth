@@ -314,7 +314,7 @@ class AppSettings(object):
     @property
     def PRESERVE_USERNAME_CASING(self):
         return self._setting("PRESERVE_USERNAME_CASING", True)
-    
+
     @property
     def USERNAME_VALIDATORS(self):
         from django.core.exceptions import ImproperlyConfigured

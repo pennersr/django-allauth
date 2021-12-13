@@ -294,8 +294,6 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
             if app_settings.CONFIRM_EMAIL_ON_GET:
                 return self.post(*args, **kwargs)
             email = self.object.email_address.email
-            if EmailAddress.objects.filter(email=email, verified=True).exists() and app_settings.EMAIL_CONFIRMATION_UNVERIFIED_ONLY is True:
-                raise Http404
         except Http404:
             self.object = None
         ctx = self.get_context_data()

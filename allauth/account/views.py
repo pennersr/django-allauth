@@ -411,6 +411,7 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
 confirm_email = ConfirmEmailView.as_view()
 
 
+@method_decorator(rate_limit(action="manage_email"), name="dispatch")
 class EmailView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/email." + app_settings.TEMPLATE_EXTENSION
     form_class = AddEmailForm
@@ -718,6 +719,7 @@ class PasswordResetDoneView(TemplateView):
 password_reset_done = PasswordResetDoneView.as_view()
 
 
+@method_decorator(rate_limit(action="reset_password_from_key"), name="dispatch")
 class PasswordResetFromKeyView(
     AjaxCapableProcessFormViewMixin, LogoutFunctionalityMixin, FormView
 ):

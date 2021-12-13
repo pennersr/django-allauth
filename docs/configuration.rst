@@ -176,6 +176,30 @@ ACCOUNT_PREVENT_ENUMERATION (=True)
   **Warning**: this is a work in progress, password reset is covered, yet,
    signing up is not.
 
+ACCOUNT_RATE_LIMITS
+  In order to be secure out of the box various rate limits are in place. The
+  rate limit mechanism is backed by a Django cache. Hence, rate limitting will
+  not work properly if you are using the `DummyCache`. To disable, set to
+  ``{}``. When rate limits are hit the ``429.html`` template is rendered.
+  Defaults to::
+
+    ACCOUNT_RATE_LIMITS = {
+        # Change password view (for users already logged in)
+        "change_password": "5/m",
+        # Email management (e.g. add, remove, change primary)
+        "manage_email": "10/m",
+        # Request a password reset, global rate limit per IP
+        "reset_password": "20/m",
+        # Rate limit measured per individual email address
+        "reset_password_email": "5/m",
+        # Password reset (the view the password reset email links to).
+        "reset_password_from_key": "20/m",
+        # Signups.
+        "signup": "20/m",
+        # NOTE: Login is already protected via `ACCOUNT_LOGIN_ATTEMPTS_LIMIT`
+    }
+
+
 ACCOUNT_SESSION_REMEMBER (=None)
   Controls the life time of the session. Set to ``None`` to ask the user
   ("Remember me?"), ``False`` to not remember, and ``True`` to always

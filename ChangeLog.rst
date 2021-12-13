@@ -15,12 +15,17 @@ Note worthy changes
   HMAC based email confirmations. In earlier versions, users could trigger email
   verification mails without any limits.
 
+- Added builtin rate limitting (see `ACCOUNT_RATE_LIMITS`).
+
 
 Backwards incompatible changes
 ------------------------------
 
 - The newly introduced `ACCOUNT_PREVENT_ENUMERATION` defaults to `True` impacting
   the current behavior of the password reset flow.
+
+- The newly introduced rate limitting is by default turned on. You will need to provide
+  a `429.html` template.
 
 
 0.47.0 (2021-12-09)

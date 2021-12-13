@@ -1,8 +1,6 @@
 from __future__ import unicode_literals
 
-import hashlib
 import json
-import time
 import warnings
 from datetime import timedelta
 
@@ -18,7 +16,6 @@ from django.contrib.auth import (
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.cache import cache
 from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import resolve_url
@@ -494,31 +491,26 @@ class DefaultAccountAdapter(object):
     def _get_login_attempts_cache_key(self, request, **credentials):
         site = get_current_site(request)
         login = credentials.get("email", credentials.get("username", "")).lower()
-        login_key = hashlib.sha256(login.encode("utf8")).hexdigest()
-        return "allauth/login_attempts@{site_id}:{login}".format(
-            site_id=site.pk, login=login_key
-        )
+        return "{site_id}:{login}".format(site_id=site.pk, login=login)
 
     def _delete_login_attempts_cached_email(self, request, **credentials):
         if app_settings.LOGIN_ATTEMPTS_LIMIT:
             cache_key = self._get_login_attempts_cache_key(request, **credentials)
-            cache.delete(cache_key)
+            ratelimit.clear(request, action="login_failed", key=cache_key)
 
     def pre_authenticate(self, request, **credentials):
         if app_settings.LOGIN_ATTEMPTS_LIMIT:
             cache_key = self._get_login_attempts_cache_key(request, **credentials)
-            login_data = cache.get(cache_key, None)
-            if login_data:
-                dt = timezone.now()
-                current_attempt_time = time.mktime(dt.timetuple())
-                if len(
-                    login_data
-                ) >= app_settings.LOGIN_ATTEMPTS_LIMIT and current_attempt_time < (
-                    login_data[-1] + app_settings.LOGIN_ATTEMPTS_TIMEOUT
-                ):
-                    raise forms.ValidationError(
-                        self.error_messages["too_many_login_attempts"]
-                    )
+            if not ratelimit.consume(
+                request,
+                action="login_failed",
+                key=cache_key,
+                amount=app_settings.LOGIN_ATTEMPTS_LIMIT,
+                duration=app_settings.LOGIN_ATTEMPTS_TIMEOUT,
+            ):
+                raise forms.ValidationError(
+                    self.error_messages["too_many_login_attempts"]
+                )
 
     def authenticate(self, request, **credentials):
         """Only authenticates, does not actually login. See `login`"""
@@ -536,12 +528,7 @@ class DefaultAccountAdapter(object):
         return user
 
     def authentication_failed(self, request, **credentials):
-        if app_settings.LOGIN_ATTEMPTS_LIMIT:
-            cache_key = self._get_login_attempts_cache_key(request, **credentials)
-            data = cache.get(cache_key, [])
-            dt = timezone.now()
-            data.append(time.mktime(dt.timetuple()))
-            cache.set(cache_key, data, app_settings.LOGIN_ATTEMPTS_TIMEOUT)
+        pass
 
     def is_ajax(self, request):
         return any(

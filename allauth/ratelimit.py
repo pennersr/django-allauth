@@ -1,3 +1,4 @@
+import hashlib
 import time
 from collections import namedtuple
 
@@ -21,10 +22,28 @@ def parse(rate):
     return ret
 
 
+def _cache_key(request, *, action, key=None, user=None):
+    from allauth.account.adapter import get_adapter
+
+    if user or request.user.is_authenticated:
+        source = ("user", str((user or request.user).pk))
+    else:
+        source = ("ip", get_adapter().get_client_ip(request))
+    keys = ["allauth", "rl", action, *source]
+    if key is not None:
+        key_hash = hashlib.sha256(key.encode("utf8")).hexdigest()
+        keys.append(key_hash)
+    return ":".join(keys)
+
+
+def clear(request, *, action, key=None, user=None):
+    cache_key = _cache_key(request, action=action, key=key, user=user)
+    cache.delete(cache_key)
+
+
 def consume(request, *, action, key=None, amount=None, duration=None, user=None):
     allowed = True
     from allauth.account import app_settings
-    from allauth.account.adapter import get_adapter
 
     rate = app_settings.RATE_LIMITS.get(action)
     if rate:
@@ -37,14 +56,7 @@ def consume(request, *, action, key=None, amount=None, duration=None, user=None)
     if request.method == "GET" or not amount or not duration:
         pass
     else:
-        if user or request.user.is_authenticated:
-            source = ("user", str((user or request.user).pk))
-        else:
-            source = ("ip", get_adapter().get_client_ip(request))
-        keys = ["allauth", "rl", action, *source]
-        if key is not None:
-            keys.append(key)
-        cache_key = ":".join(keys)
+        cache_key = _cache_key(request, action=action, key=key, user=user)
         history = cache.get(cache_key, [])
         now = time.time()
         while history and history[-1] <= now - duration:

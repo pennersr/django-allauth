@@ -33,7 +33,7 @@ class OpenIDTests(TestCase):
         )
         assert "login.yahooapis" in resp["location"]
         with patch(
-            "allauth.socialaccount.providers" ".openid.views._openid_consumer"
+            "allauth.socialaccount.providers.openid.views._openid_consumer"
         ) as consumer_mock:
             client = Mock()
             complete = Mock()
@@ -44,10 +44,10 @@ class OpenIDTests(TestCase):
             complete_response.status = consumer.SUCCESS
             complete_response.identity_url = "http://dummy/john/"
             with patch(
-                "allauth.socialaccount.providers" ".openid.utils.SRegResponse"
+                "allauth.socialaccount.providers.openid.utils.SRegResponse"
             ) as sr_mock:
                 with patch(
-                    "allauth.socialaccount.providers" ".openid.utils.FetchResponse"
+                    "allauth.socialaccount.providers.openid.utils.FetchResponse"
                 ) as fr_mock:
                     sreg_mock = Mock()
                     ax_mock = Mock()
@@ -91,7 +91,7 @@ class OpenIDTests(TestCase):
             )
         assert "login.yahooapis" in resp["location"]
         with patch(
-            "allauth.socialaccount.providers" ".openid.views._openid_consumer"
+            "allauth.socialaccount.providers.openid.views._openid_consumer"
         ) as consumer_mock:
             client = Mock()
             complete = Mock()
@@ -105,10 +105,10 @@ class OpenIDTests(TestCase):
             complete_response.status = consumer.SUCCESS
             complete_response.identity_url = "http://dummy/john/"
             with patch(
-                "allauth.socialaccount.providers" ".openid.utils.SRegResponse"
+                "allauth.socialaccount.providers.openid.utils.SRegResponse"
             ) as sr_mock:
                 with patch(
-                    "allauth.socialaccount.providers" ".openid.utils.FetchResponse"
+                    "allauth.socialaccount.providers.openid.utils.FetchResponse"
                 ) as fr_mock:
                     sreg_mock = Mock()
                     ax_mock = Mock()

@@ -67,6 +67,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.bitly",
     "allauth.socialaccount.providers.box",
     "allauth.socialaccount.providers.cern",
+    "allauth.socialaccount.providers.cilogon",
     "allauth.socialaccount.providers.coinbase",
     "allauth.socialaccount.providers.dataporten",
     "allauth.socialaccount.providers.daum",
@@ -90,11 +91,14 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.fivehundredpx",
     "allauth.socialaccount.providers.flickr",
     "allauth.socialaccount.providers.foursquare",
+    "allauth.socialaccount.providers.frontier",
     "allauth.socialaccount.providers.fxa",
+    "allauth.socialaccount.providers.gitea",
     "allauth.socialaccount.providers.github",
     "allauth.socialaccount.providers.gitlab",
     "allauth.socialaccount.providers.globus",
     "allauth.socialaccount.providers.google",
+    "allauth.socialaccount.providers.gumroad",
     "allauth.socialaccount.providers.hubic",
     "allauth.socialaccount.providers.instagram",
     "allauth.socialaccount.providers.jupyterhub",
@@ -105,9 +109,11 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.linkedin_oauth2",
     "allauth.socialaccount.providers.mailchimp",
     "allauth.socialaccount.providers.mailru",
+    "allauth.socialaccount.providers.mediawiki",
     "allauth.socialaccount.providers.meetup",
     "allauth.socialaccount.providers.microsoft",
     "allauth.socialaccount.providers.naver",
+    "allauth.socialaccount.providers.netiq",
     "allauth.socialaccount.providers.nextcloud",
     "allauth.socialaccount.providers.odnoklassniki",
     "allauth.socialaccount.providers.openid",
@@ -132,6 +138,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.strava",
     "allauth.socialaccount.providers.stripe",
     "allauth.socialaccount.providers.telegram",
+    "allauth.socialaccount.providers.trainingpeaks",
     "allauth.socialaccount.providers.trello",
     "allauth.socialaccount.providers.tumblr",
     "allauth.socialaccount.providers.twentythreeandme",
@@ -151,6 +158,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.zoho",
     "allauth.socialaccount.providers.zoom",
     "allauth.socialaccount.providers.okta",
+    "allauth.socialaccount.providers.feishu",
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -181,3 +189,7 @@ PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.Argon2PasswordHasher",
     "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
 ]
+
+
+ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN = 0
+ACCOUNT_RATE_LIMITS = {}

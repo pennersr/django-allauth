@@ -68,7 +68,7 @@ class StravaTests(OAuth2TestsMixin, TestCase):
         )  # noqa
 
     def test_valid_avatar(self):
-        """ test response with Avatar URL """
+        """test response with Avatar URL"""
         self.login(self.get_mocked_response_avatar_invalid_id())
         user = User.objects.get(email="bill@example.com")
         soc_acc = SocialAccount.objects.filter(

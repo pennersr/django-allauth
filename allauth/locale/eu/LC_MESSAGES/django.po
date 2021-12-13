@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-11 11:15-0500\n"
+"POT-Creation-Date: 2021-12-09 08:41-0600\n"
 "PO-Revision-Date: 2018-08-29 08:16+0200\n"
 "Last-Translator: Eneko Illarramendi <eneko@illarra.com>\n"
 "Language-Team: Basque <translate@tropela.eus>\n"
@@ -41,109 +41,108 @@ msgstr "Pasahitzak gutxienez {0} karaktere izan behar ditu."
 msgid "Accounts"
 msgstr "Kontuak"
 
-#: account/forms.py:58 account/forms.py:403
+#: account/forms.py:59 account/forms.py:413
 msgid "You must type the same password each time."
 msgstr "Pasahitz berdina idatzi behar duzu aldi bakoitzean."
 
-#: account/forms.py:87 account/forms.py:372 account/forms.py:486
+#: account/forms.py:92 account/forms.py:381 account/forms.py:498
 msgid "Password"
 msgstr "Pasahitza"
 
-#: account/forms.py:88
+#: account/forms.py:93
 msgid "Remember Me"
 msgstr "Gogora nazazue"
 
-#: account/forms.py:92
+#: account/forms.py:97
 msgid "This account is currently inactive."
 msgstr "Kontu hau ez dago aktiboa orain."
 
-#: account/forms.py:94
+#: account/forms.py:99
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "Sartutako helbide elektronikoa eta/edo pasahitza ez dira zuzenak."
 
-#: account/forms.py:97
+#: account/forms.py:102
 msgid "The username and/or password you specified are not correct."
 msgstr "Sartutako erabiltzailea eta/edo pasahitza ez dira zuzenak."
 
-#: account/forms.py:108 account/forms.py:273 account/forms.py:429
-#: account/forms.py:505
+#: account/forms.py:113 account/forms.py:279 account/forms.py:439
+#: account/forms.py:517
 msgid "E-mail address"
 msgstr "Helbide elektronikoa"
 
-#: account/forms.py:111 account/forms.py:308 account/forms.py:426
-#: account/forms.py:500
+#: account/forms.py:117 account/forms.py:316 account/forms.py:436
+#: account/forms.py:512
 msgid "E-mail"
 msgstr "Emaila"
 
-#: account/forms.py:113 account/forms.py:115 account/forms.py:263
-#: account/forms.py:267
+#: account/forms.py:120 account/forms.py:123 account/forms.py:269
+#: account/forms.py:272
 msgid "Username"
 msgstr "Erabiltzailea"
 
-#: account/forms.py:126
+#: account/forms.py:133
 msgid "Username or e-mail"
 msgstr "Erabiltzailea edo emaila"
 
-#: account/forms.py:130
+#: account/forms.py:136
 msgctxt "field label"
 msgid "Login"
 msgstr "Logina"
 
-#: account/forms.py:299
+#: account/forms.py:307
 msgid "E-mail (again)"
 msgstr "Emaila (berriro)"
 
-#: account/forms.py:303
+#: account/forms.py:311
 msgid "E-mail address confirmation"
 msgstr "Helbide elektronikoaren egiaztapena"
 
-#: account/forms.py:311
+#: account/forms.py:319
 msgid "E-mail (optional)"
 msgstr "Emaila (hautazkoa)"
 
-#: account/forms.py:351
+#: account/forms.py:359
 msgid "You must type the same email each time."
 msgstr "Email berdina idatzi behar duzu aldi bakoitzean."
 
-#: account/forms.py:374 account/forms.py:487
+#: account/forms.py:384 account/forms.py:499
 msgid "Password (again)"
 msgstr "Pasahitza (berriro)"
 
-#: account/forms.py:438
+#: account/forms.py:448
 msgid "This e-mail address is already associated with this account."
 msgstr "Helbide elektroniko hau dagoeneko kontu honi lotuta dago."
 
-#: account/forms.py:441
+#: account/forms.py:451
 msgid "This e-mail address is already associated with another account."
 msgstr "Helbide elektroniko hau dagoeneko beste kontu bati lotuta dago."
 
-#: account/forms.py:443
-#, fuzzy, python-format
-#| msgid "Your account has no verified e-mail address."
+#: account/forms.py:453
+#, python-format
 msgid "You cannot add more than %d e-mail addresses."
-msgstr "Zure kontuak ez du egiaztatutako emailik."
+msgstr "Ezin dituzu %d email helbide baino gehiago erabili."
 
-#: account/forms.py:467
+#: account/forms.py:478
 msgid "Current Password"
 msgstr "Oraingo pasahitza"
 
-#: account/forms.py:468 account/forms.py:557
+#: account/forms.py:480 account/forms.py:570
 msgid "New Password"
 msgstr "Pasahitz berria"
 
-#: account/forms.py:469 account/forms.py:558
+#: account/forms.py:481 account/forms.py:571
 msgid "New Password (again)"
 msgstr "Pasahitz berria (berriro)"
 
-#: account/forms.py:477
+#: account/forms.py:489
 msgid "Please type your current password."
 msgstr "Mesedez idatzi zure oraingo pasahitza."
 
-#: account/forms.py:516
+#: account/forms.py:529
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Helbide elektroniko hau ez dago kontu bati lotuta"
 
-#: account/forms.py:579
+#: account/forms.py:592
 msgid "The password reset token was invalid."
 msgstr "Pasahitza berrezartzeko \"token\"-a baliogabea da."
 
@@ -204,7 +203,7 @@ msgstr ""
 msgid "Your account has no password set up."
 msgstr "Zure kontuak ez du pasahitzik zehaztuta."
 
-#: socialaccount/adapter.py:141
+#: socialaccount/adapter.py:138
 msgid "Your account has no verified e-mail address."
 msgstr "Zure kontuak ez du egiaztatutako emailik."
 
@@ -396,14 +395,9 @@ msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Ziur al zaude aukeratutako helbide elektronikoa ezabatu nahi duzula?"
 
 #: templates/account/email/base_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "Thank you from %(site_name)s!\n"
-#| "%(site_domain)s"
+#, python-format
 msgid "Hello from %(site_name)s!"
-msgstr ""
-"Mila esker %(site_name)s-(e)tik!\n"
-"%(site_domain)s"
+msgstr "Kaixo %(site_name)s webgunetik!"
 
 #: templates/account/email/base_message.txt:5
 #, python-format
@@ -415,48 +409,29 @@ msgstr ""
 "%(site_domain)s"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because user %(user_display)s has given "
-#| "yours as an e-mail address to connect their account.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s\n"
+#, python-format
 msgid ""
 "You're receiving this e-mail because user %(user_display)s has given your e-"
 "mail address to register an account on %(site_domain)s.\n"
 "\n"
 "To confirm this is correct, go to %(activate_url)s"
 msgstr ""
-"Kaixo %(site_name)s webgunetik!\n"
-"\n"
 "Email hau jaso duzu %(user_display)s erabiltzaileak zure helbide "
-"elektronikoa bere kontuarekin lotu nahi duelako.\n"
+"elektronikoa bere kontuarekin lotu nahi duelako %(site_domain)s orrialdean.\n"
 "\n"
-"Hau zuzena dela baieztatzeko, egin klik hemen: %(activate_url)s\n"
+"Hau zuzena dela baieztatzeko, egin klik hemen: %(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your E-mail Address"
 msgstr "Mesedez egiaztatu zure helbide elektronikoa"
 
 #: templates/account/email/password_reset_key_message.txt:4
-#, fuzzy
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
 msgid ""
 "You're receiving this e-mail because you or someone else has requested a "
 "password for your user account.\n"
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"Kaixo %(site_name)s webgunetik!\n"
-"\n"
 "Email hau jaso duzu zuk edo beste norbaitek pasahitza berrezartzeko eskaera "
 "egin duelako zure kontuarentzat.\n"
 "Eskaera zuk egin ez baduzu mezu hau alde batera utzi dezakezu. Edo egin klik "
@@ -776,6 +751,30 @@ msgstr "Oraingoz ez duzu sare sozial konturik lotu kontu honekin."
 #: templates/socialaccount/connections.html:46
 msgid "Add a 3rd Party Account"
 msgstr "Sare sozial kontu bat gehitu"
+
+#: templates/socialaccount/login.html:6
+#, python-format
+msgid "Connect %(provider)s"
+msgstr ""
+
+#: templates/socialaccount/login.html:8
+#, python-format
+msgid "You are about to connect a new third party account from %(provider)s."
+msgstr ""
+
+#: templates/socialaccount/login.html:10
+#, python-format
+msgid "Sign In Via %(provider)s"
+msgstr ""
+
+#: templates/socialaccount/login.html:12
+#, python-format
+msgid "You are about to sign in using a third party account from %(provider)s."
+msgstr ""
+
+#: templates/socialaccount/login.html:17
+msgid "Continue"
+msgstr ""
 
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9

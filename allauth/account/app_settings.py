@@ -47,6 +47,10 @@ class AppSettings(object):
         return getter(self.prefix + name, dflt)
 
     @property
+    def PREVENT_ENUMERATION(self):
+        return self._setting("PREVENT_ENUMERATION", True)
+
+    @property
     def DEFAULT_HTTP_PROTOCOL(self):
         return self._setting("DEFAULT_HTTP_PROTOCOL", "http").lower()
 
@@ -168,6 +172,18 @@ class AppSettings(object):
         return ret
 
     @property
+    def RATE_LIMITS(self):
+        dflt = {
+            "change_password": "5/m",
+            # Global rate limit per IP
+            "reset_password": "20/m",
+            # Rate limit measured per individual email address
+            "reset_password_email": "5/m",
+            "signup": "20/m",
+        }
+        return self._setting("RATE_LIMITS", dflt)
+
+    @property
     def EMAIL_SUBJECT_PREFIX(self):
         """
         Subject-line prefix to use for email messages sent
@@ -238,7 +254,9 @@ class AppSettings(object):
 
     @property
     def LOGOUT_REDIRECT_URL(self):
-        return self._setting("LOGOUT_REDIRECT_URL", "/")
+        from django.conf import settings
+
+        return self._setting("LOGOUT_REDIRECT_URL", settings.LOGOUT_REDIRECT_URL or "/")
 
     @property
     def LOGOUT_ON_GET(self):

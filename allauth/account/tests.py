@@ -126,8 +126,8 @@ class AccountTests(TestCase):
         from django.contrib.messages.middleware import MessageMiddleware
         from django.contrib.sessions.middleware import SessionMiddleware
 
-        SessionMiddleware().process_request(request)
-        MessageMiddleware().process_request(request)
+        SessionMiddleware(lambda request: None).process_request(request)
+        MessageMiddleware(lambda request: None).process_request(request)
         request.user = AnonymousUser()
         request.session["account_verified_email"] = verified_email
         from .views import signup
@@ -178,8 +178,8 @@ class AccountTests(TestCase):
         from django.contrib.messages.middleware import MessageMiddleware
         from django.contrib.sessions.middleware import SessionMiddleware
 
-        SessionMiddleware().process_request(request)
-        MessageMiddleware().process_request(request)
+        SessionMiddleware(lambda request: None).process_request(request)
+        MessageMiddleware(lambda request: None).process_request(request)
         request.user = AnonymousUser()
         from .views import signup
 
@@ -473,7 +473,9 @@ class AccountTests(TestCase):
         # EmailVerificationMethod.MANDATORY sends us to the confirm-email page
         self.assertRedirects(resp, "/confirm-email/")
 
-    @override_settings(ACCOUNT_EMAIL_CONFIRMATION_HMAC=False)
+    @override_settings(
+        ACCOUNT_EMAIL_CONFIRMATION_HMAC=False, ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN=10
+    )
     def test_email_verification_mandatory(self):
         c = Client()
         # Signup
@@ -625,7 +627,7 @@ class AccountTests(TestCase):
             resp,
             "form",
             None,
-            "The e-mail address and/or password you specified" " are not correct.",
+            "The e-mail address and/or password you specified are not correct.",
         )
 
         resp = self.client.post(
@@ -902,7 +904,7 @@ class AccountTests(TestCase):
             resp,
             "form",
             "password1",
-            ["This password is too short." " It must contain at least 9 characters."],
+            ["This password is too short. It must contain at least 9 characters."],
         )
 
     @override_settings(ACCOUNT_EMAIL_CONFIRMATION_HMAC=True)
@@ -948,7 +950,7 @@ class AccountTests(TestCase):
         self.assertFalse(email.verified)
 
     @override_settings(
-        ACCOUNT_USERNAME_VALIDATORS="allauth.account.tests" ".test_username_validators"
+        ACCOUNT_USERNAME_VALIDATORS="allauth.account.tests.test_username_validators"
     )
     def test_username_validator(self):
         get_adapter().clean_username("abc")
@@ -1464,6 +1466,7 @@ class ConfirmationViewTests(TestCase):
         assert mock_perform_login.called
 
 
+@override_settings(ACCOUNT_PREVENT_ENUMERATION=False)
 class TestResetPasswordForm(TestCase):
     def test_user_email_not_sent_inactive_user(self):
         User = get_user_model()
@@ -1475,6 +1478,7 @@ class TestResetPasswordForm(TestCase):
         self.assertFalse(form.is_valid())
 
 
+@override_settings(ACCOUNT_PREVENT_ENUMERATION=False)
 class TestCVE2019_19844(TestCase):
 
     global_request = RequestFactory().get("/")

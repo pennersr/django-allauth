@@ -4,7 +4,7 @@ Overview
 Requirements
 ------------
 
-- Python 3.5, 3.6, 3.7 or 3.8
+- Python 3.5, 3.6, 3.7, 3.8 or 3.9
 
 - Django (2.0+)
 
@@ -69,6 +69,8 @@ Supported Providers
 
 - CERN (OAuth2)
 
+- CILogon (OAuth2)
+
 - Coinbase (OAuth2)
 
 - Dataporten (OAuth2)
@@ -115,6 +117,10 @@ Supported Providers
 
 - FourSquare (OAuth2)
 
+- Frontier (OAuth2)
+
+- Gitea (OAuth2)
+
 - Github (OAuth2)
 
 - GitLab (OAuth2)
@@ -122,6 +128,8 @@ Supported Providers
 - Globus (OAuth2)
 
 - Google (OAuth2)
+
+- Gumroad (OAuth2)
 
 - Hubic (OAuth2)
 
@@ -141,11 +149,15 @@ Supported Providers
 
 - MailChimp (OAuth2)
 
+- MediaWiki (OAuth2)
+
 - Meetup (OAuth2)
 
 - Microsoft (Graph) (OAuth2)
 
 - Naver (OAuth2)
+
+- NetIQ/Microfocus AccessManager (OAuth2)
 
 - NextCloud (OAuth2)
 
@@ -197,6 +209,8 @@ Supported Providers
 
 - Telegram
 
+- TrainingPeaks (OAuth2)
+
 - Trello (OAuth)
 
 - Tumblr (OAuth)
@@ -228,6 +242,8 @@ Supported Providers
 - Zoho (Oauth2)
 
 - Zoom (OAuth2)
+
+- Feishu (OAuth2)
 
 
 Note: OAuth/OAuth2 support is built using a common code base, making it easy to add support for additional OAuth/OAuth2 providers. More will follow soon...

@@ -68,7 +68,6 @@ class AppleOAuth2Adapter(OAuth2Adapter):
                 id_token,
                 public_key,
                 algorithms=["RS256"],
-                verify=True,
                 audience=allowed_auds,
                 issuer="https://appleid.apple.com",
             )
@@ -118,7 +117,7 @@ class AppleOAuth2Adapter(OAuth2Adapter):
             return {}
 
     def get_access_token_data(self, request, app, client):
-        """ We need to gather the info from the apple specific login """
+        """We need to gather the info from the apple specific login"""
         add_apple_session(request)
 
         # Exchange `code`

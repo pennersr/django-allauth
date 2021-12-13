@@ -1,6 +1,5 @@
 import unicodedata
 from collections import OrderedDict
-from datetime import timedelta
 
 from django.conf import settings
 from django.contrib import messages
@@ -11,18 +10,17 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.utils.encoding import force_str
 from django.utils.http import base36_to_int, int_to_base36, urlencode
-from django.utils.timezone import now
 
-from ..exceptions import ImmediateHttpResponse
-from ..utils import (
+from allauth.account import app_settings, signals
+from allauth.account.adapter import get_adapter
+from allauth.account.app_settings import EmailVerificationMethod
+from allauth.exceptions import ImmediateHttpResponse
+from allauth.utils import (
     get_request_param,
     get_user_model,
     import_callable,
     valid_email_or_none,
 )
-from . import app_settings, signals
-from .adapter import get_adapter
-from .app_settings import EmailVerificationMethod
 
 
 def _unicode_ci_compare(s1, s2):
@@ -325,9 +323,9 @@ def send_email_confirmation(request, user, signup=False, email=None):
     a cooldown period before sending a new mail. This cooldown period
     can be configured in ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN setting.
     """
-    from .models import EmailAddress, EmailConfirmation
+    from .models import EmailAddress
 
-    cooldown_period = timedelta(seconds=app_settings.EMAIL_CONFIRMATION_COOLDOWN)
+    adapter = get_adapter(request)
 
     if not email:
         email = user_email(user)
@@ -335,13 +333,9 @@ def send_email_confirmation(request, user, signup=False, email=None):
         try:
             email_address = EmailAddress.objects.get_for_user(user, email)
             if not email_address.verified:
-                if app_settings.EMAIL_CONFIRMATION_HMAC:
-                    send_email = True
-                else:
-                    send_email = not EmailConfirmation.objects.filter(
-                        sent__gt=now() - cooldown_period,
-                        email_address=email_address,
-                    ).exists()
+                send_email = adapter.should_send_confirmation_mail(
+                    request, email_address
+                )
                 if send_email:
                     email_address.send_confirmation(request, signup=signup)
             else:
@@ -354,14 +348,14 @@ def send_email_confirmation(request, user, signup=False, email=None):
             assert email_address
         # At this point, if we were supposed to send an email we have sent it.
         if send_email:
-            get_adapter(request).add_message(
+            adapter.add_message(
                 request,
                 messages.INFO,
-                "account/messages/" "email_confirmation_sent.txt",
+                "account/messages/email_confirmation_sent.txt",
                 {"email": email},
             )
     if signup:
-        get_adapter(request).stash_user(request, user_pk_to_url_str(user))
+        adapter.stash_user(request, user_pk_to_url_str(user))
 
 
 def sync_user_email_addresses(user):
@@ -399,9 +393,9 @@ def filter_users_by_username(*username):
         q = qlist[0]
         for q2 in qlist[1:]:
             q = q | q2
-        ret = get_user_model().objects.filter(q)
+        ret = get_user_model()._default_manager.filter(q)
     else:
-        ret = get_user_model().objects.filter(
+        ret = get_user_model()._default_manager.filter(
             **{
                 app_settings.USER_MODEL_USERNAME_FIELD
                 + "__in": [u.lower() for u in username]
@@ -467,7 +461,8 @@ def url_str_to_user_pk(s):
     User = get_user_model()
     # TODO: Ugh, isn't there a cleaner way to determine whether or not
     # the PK is a str-like field?
-    if getattr(User._meta.pk, "remote_field", None):
+    remote_field = getattr(User._meta.pk, "remote_field", None)
+    if remote_field and getattr(remote_field, "to", None):
         pk_field = User._meta.pk.remote_field.to._meta.pk
     else:
         pk_field = User._meta.pk

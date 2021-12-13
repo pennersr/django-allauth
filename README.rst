@@ -2,8 +2,8 @@
 Welcome to django-allauth!
 ==========================
 
-.. image:: https://travis-ci.org/pennersr/django-allauth.svg
-   :target: http://travis-ci.org/pennersr/django-allauth
+.. image:: https://github.com/pennersr/django-allauth/actions/workflows/ci.yml/badge.svg
+   :target: https://github.com/pennersr/django-allauth/actions
 
 .. image:: https://img.shields.io/pypi/v/django-allauth.svg
    :target: https://pypi.python.org/pypi/django-allauth
@@ -83,3 +83,4 @@ If you like this, you may also like:
 
 - django-trackstats: https://github.com/pennersr/django-trackstats
 - netwell: https://github.com/pennersr/netwell
+- Shove: https://github.com/pennersr/shove

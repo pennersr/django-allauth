@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+import html
 import json
 import warnings
 from datetime import timedelta
@@ -323,12 +324,13 @@ class DefaultAccountAdapter(object):
             try:
                 if message_context is None:
                     message_context = {}
-                message = render_to_string(
+                escaped_message = render_to_string(
                     message_template,
                     message_context,
                     self.request,
                 ).strip()
-                if message:
+                if escaped_message:
+                    message = html.unescape(escaped_message)
                     messages.add_message(request, level, message, extra_tags=extra_tags)
             except TemplateDoesNotExist:
                 pass

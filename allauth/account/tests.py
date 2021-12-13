@@ -6,7 +6,11 @@ from datetime import timedelta
 
 from django import forms
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.models import AbstractUser, AnonymousUser
+from django.contrib.messages.api import get_messages
+from django.contrib.messages.middleware import MessageMiddleware
+from django.contrib.sessions.middleware import SessionMiddleware
 from django.contrib.sites.models import Site
 from django.core import mail, validators
 from django.core.exceptions import ValidationError
@@ -123,9 +127,6 @@ class AccountTests(TestCase):
             },
         )
         # Fake stash_verified_email
-        from django.contrib.messages.middleware import MessageMiddleware
-        from django.contrib.sessions.middleware import SessionMiddleware
-
         SessionMiddleware(lambda request: None).process_request(request)
         MessageMiddleware(lambda request: None).process_request(request)
         request.user = AnonymousUser()
@@ -175,9 +176,6 @@ class AccountTests(TestCase):
                 "password2": "johndoe",
             },
         )
-        from django.contrib.messages.middleware import MessageMiddleware
-        from django.contrib.sessions.middleware import SessionMiddleware
-
         SessionMiddleware(lambda request: None).process_request(request)
         MessageMiddleware(lambda request: None).process_request(request)
         request.user = AnonymousUser()
@@ -1029,6 +1027,20 @@ class AccountTests(TestCase):
         )
 
         self.assertEqual(user, resp.wsgi_request.user)
+
+    def test_message_escaping(self):
+        request = RequestFactory().get("/")
+        SessionMiddleware(lambda request: None).process_request(request)
+        MessageMiddleware(lambda request: None).process_request(request)
+        user = get_user_model()()
+        user_username(user, "'<8")
+        context = {"user": user}
+        get_adapter().add_message(
+            request, messages.SUCCESS, "account/messages/logged_in.txt", context
+        )
+        msgs = get_messages(request)
+        actual_message = msgs._queued_messages[0].message
+        assert user.username in actual_message, actual_message
 
 
 class EmailFormTests(TestCase):

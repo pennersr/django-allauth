@@ -293,7 +293,6 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
             self.object = self.get_object()
             if app_settings.CONFIRM_EMAIL_ON_GET:
                 return self.post(*args, **kwargs)
-            email = self.object.email_address.email
         except Http404:
             self.object = None
         ctx = self.get_context_data()

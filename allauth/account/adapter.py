@@ -4,6 +4,7 @@ import hashlib
 import json
 import time
 import warnings
+import html
 
 from django import forms
 from django.conf import settings
@@ -323,10 +324,12 @@ class DefaultAccountAdapter(object):
             try:
                 if message_context is None:
                     message_context = {}
-                message = render_to_string(
-                    message_template,
-                    message_context,
-                    self.request,
+                message = html.unescape(
+                    render_to_string(
+                        message_template,
+                        message_context,
+                        self.request,
+                    )
                 ).strip()
                 if message:
                     messages.add_message(request, level, message, extra_tags=extra_tags)

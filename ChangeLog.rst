@@ -17,6 +17,10 @@ Note worthy changes
 
 - Added builtin rate limitting (see `ACCOUNT_RATE_LIMITS`).
 
+- Added ``reset_url_token`` attribute in
+  ``allauth.account.views.PasswordResetFromKeyView`` which allows specifying
+  a token parameter displayed as a component of password reset URLs.
+
 
 Backwards incompatible changes
 ------------------------------

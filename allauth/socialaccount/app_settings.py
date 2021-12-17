@@ -73,7 +73,7 @@ class AppSettings(object):
 
     @property
     def STORE_TOKENS(self):
-        return self._setting("STORE_TOKENS", True)
+        return self._setting("STORE_TOKENS", False)
 
     @property
     def UID_MAX_LENGTH(self):

@@ -6,25 +6,25 @@ Note worthy changes
 
 - New translation: Bulgarian.
 
-- Introduced a new setting `ACCOUNT_PREVENT_ENUMERATION` that controls whether
+- Introduced a new setting ``ACCOUNT_PREVENT_ENUMERATION`` that controls whether
   or not information is revealed about whether or not a user account exists.
   **Warning**: this is a work in progress, password reset is covered, yet,
   signing up is not.
 
-- The `ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN` is now also respected when using
+- The ``ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN`` is now also respected when using
   HMAC based email confirmations. In earlier versions, users could trigger email
   verification mails without any limits.
 
-- Added builtin rate limitting (see `ACCOUNT_RATE_LIMITS`).
+- Added builtin rate limitting (see ``ACCOUNT_RATE_LIMITS``).
 
 - Added ``reset_url_token`` attribute in
   ``allauth.account.views.PasswordResetFromKeyView`` which allows specifying
   a token parameter displayed as a component of password reset URLs.
 
-- It is now possible to use allauth without having `sites` installed. Whether or
+- It is now possible to use allauth without having ``sites`` installed. Whether or
   not sites is used affects the data models. For example, the social app model
-  uses a many-to-many pointing to the sites model if the `sites` app is
-  installed. Therefore, enabling or disabling `sites` is not something you can
+  uses a many-to-many pointing to the sites model if the ``sites`` app is
+  installed. Therefore, enabling or disabling ``sites`` is not something you can
   do on the fly.
 
 
@@ -32,11 +32,16 @@ Note worthy changes
 Backwards incompatible changes
 ------------------------------
 
-- The newly introduced `ACCOUNT_PREVENT_ENUMERATION` defaults to `True` impacting
+- The newly introduced ``ACCOUNT_PREVENT_ENUMERATION`` defaults to ``True`` impacting
   the current behavior of the password reset flow.
 
 - The newly introduced rate limitting is by default turned on. You will need to provide
-  a `429.html` template.
+  a ``429.html`` template.
+
+- The default of ``SOCIALACCOUNT_STORE_TOKENS`` has been changed to
+  ``False``. Rationale is that storing sensitive information should be opt in, not
+  opt out. If you were relying on this functionality without having it
+  explicitly turned on, please add it to your ``settings.py``.
 
 
 0.47.0 (2021-12-09)
@@ -51,11 +56,11 @@ Note worthy changes
 Backwards incompatible changes
 ------------------------------
 
-- Added a new setting `SOCIALACCOUNT_LOGIN_ON_GET` that controls whether or not
+- Added a new setting ``SOCIALACCOUNT_LOGIN_ON_GET`` that controls whether or not
   the endpoints for initiating a social login (for example,
   "/accounts/google/login/") require a POST request to initiate the
   handshake. As requiring a POST is more secure, the default of this new setting
-  is `False`.
+  is ``False``.
 
 
 Security notice
@@ -69,7 +74,7 @@ prepares a malicious website that (ab)uses the Facebook password recovery
 mechanism to first sign into his/her own Facebook account, followed by a
 redirect to connect a new social account, you may end up with the attacker's
 Facebook account added to the account of the victim. To mitigate this,
-`SOCIALACCOUNT_LOGIN_ON_GET` is introduced.
+``SOCIALACCOUNT_LOGIN_ON_GET`` is introduced.
 
 
 0.46.0 (2021-11-15)

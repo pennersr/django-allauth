@@ -349,5 +349,5 @@ SOCIALACCOUNT_QUERY_EMAIL (=ACCOUNT_EMAIL_REQUIRED)
   Request e-mail address from 3rd party account provider? E.g. using
   OpenID AX, or the Facebook "email" permission.
 
-SOCIALACCOUNT_STORE_TOKENS (=True)
+SOCIALACCOUNT_STORE_TOKENS (=False)
   Indicates whether or not the access tokens are stored in the database.

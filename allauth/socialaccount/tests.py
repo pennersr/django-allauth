@@ -7,11 +7,12 @@ from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
-from django.contrib.sites.models import Site
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils.http import urlencode
+
+import allauth.app_settings
 
 from ..account import app_settings as account_settings
 from ..account.models import EmailAddress
@@ -34,7 +35,10 @@ def setup_app(provider):
             key=provider.id,
             secret="dummy",
         )
-        app.sites.add(Site.objects.get_current())
+        if allauth.app_settings.SITES_ENABLED:
+            from django.contrib.sites.models import Site
+
+            app.sites.add(Site.objects.get_current())
     return app
 
 
@@ -269,7 +273,6 @@ def create_oauth2_tests(provider):
 class SocialAccountTests(TestCase):
     def setUp(self):
         super(SocialAccountTests, self).setUp()
-        site = Site.objects.get_current()
         for provider in providers.registry.get_list():
             app = SocialApp.objects.create(
                 provider=provider.id,
@@ -278,7 +281,11 @@ class SocialAccountTests(TestCase):
                 key="123",
                 secret="dummy",
             )
-            app.sites.add(site)
+            if allauth.app_settings.SITES_ENABLED:
+                from django.contrib.sites.models import Site
+
+                site = Site.objects.get_current()
+                app.sites.add(site)
 
     @override_settings(
         SOCIALACCOUNT_AUTO_SIGNUP=True,

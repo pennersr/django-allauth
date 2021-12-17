@@ -21,6 +21,13 @@ Note worthy changes
   ``allauth.account.views.PasswordResetFromKeyView`` which allows specifying
   a token parameter displayed as a component of password reset URLs.
 
+- It is now possible to use allauth without having `sites` installed. Whether or
+  not sites is used affects the data models. For example, the social app model
+  uses a many-to-many pointing to the sites model if the `sites` app is
+  installed. Therefore, enabling or disabling `sites` is not something you can
+  do on the fly.
+
+
 
 Backwards incompatible changes
 ------------------------------

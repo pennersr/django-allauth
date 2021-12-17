@@ -493,7 +493,7 @@ class DefaultAccountAdapter(object):
     def _get_login_attempts_cache_key(self, request, **credentials):
         site = get_current_site(request)
         login = credentials.get("email", credentials.get("username", "")).lower()
-        return "{site_id}:{login}".format(site_id=site.pk, login=login)
+        return "{site}:{login}".format(site=site.domain, login=login)
 
     def _delete_login_attempts_cached_email(self, request, **credentials):
         if app_settings.LOGIN_ATTEMPTS_LIMIT:

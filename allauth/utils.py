@@ -10,7 +10,6 @@ from urllib.parse import urlsplit
 
 import django
 from django.contrib.auth import get_user_model
-from django.contrib.sites.models import Site
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.validators import ValidationError, validate_email
@@ -24,6 +23,8 @@ from django.db.models.fields import (
 )
 from django.utils import dateparse
 from django.utils.encoding import force_bytes, force_str
+
+from allauth import app_settings
 
 
 # Magic number 7: if you run into collisions with this number, then you are
@@ -271,6 +272,12 @@ def build_absolute_uri(request, location, protocol=None):
     from .account import app_settings as account_settings
 
     if request is None:
+        if not app_settings.SITES_ENABLED:
+            raise ImproperlyConfigured(
+                "Passing `request=None` requires `sites` to be enabled."
+            )
+        from django.contrib.sites.models import Site
+
         site = Site.objects.get_current()
         bits = urlsplit(location)
         if not (bits.scheme and bits.netloc):

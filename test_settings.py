@@ -1,5 +1,6 @@
 SECRET_KEY = "psst"
 SITE_ID = 1
+ALLOWED_HOSTS = ("*",)
 
 DATABASES = {
     "default": {

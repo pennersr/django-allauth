@@ -97,7 +97,7 @@ class DefaultAccountAdapter(object):
         """
         return settings.DEFAULT_FROM_EMAIL
 
-    def render_mail(self, template_prefix, email, context):
+    def render_mail(self, template_prefix, email, context, headers=None):
         """
         Renders an e-mail to `email`.  `template_prefix` identifies the
         e-mail that is to be sent, e.g. "account/email/email_confirmation"
@@ -124,11 +124,13 @@ class DefaultAccountAdapter(object):
                     # We need at least one body
                     raise
         if "txt" in bodies:
-            msg = EmailMultiAlternatives(subject, bodies["txt"], from_email, to)
+            msg = EmailMultiAlternatives(
+                subject, bodies["txt"], from_email, to, headers=headers
+            )
             if "html" in bodies:
                 msg.attach_alternative(bodies["html"], "text/html")
         else:
-            msg = EmailMessage(subject, bodies["html"], from_email, to)
+            msg = EmailMessage(subject, bodies["html"], from_email, to, headers=headers)
             msg.content_subtype = "html"  # Main content is now text/html
         return msg
 

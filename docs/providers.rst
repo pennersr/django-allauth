@@ -2204,3 +2204,13 @@ Into the developer background https://open.feishu.cn/app, click on the create se
 In the configuration of application security domain name added to redirect URL, such as https://open.feishu.cn/document.
 Redirect URL is the interface through which the application obtains the user's identity by using the user login pre-authorization code after the user has logged in.
 If it is not configured or configured incorrectly, the open platform will prompt the request to be illegal.
+
+
+DAuth
+----
+
+App Registration
+  https://auth.delta.nitt.edu/
+
+Development callback URL
+    http://127.0.0.1:8000/accounts/dauth/login/callback/

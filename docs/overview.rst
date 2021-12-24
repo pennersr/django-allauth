@@ -245,6 +245,7 @@ Supported Providers
 
 - Feishu (OAuth2)
 
+- DAuth (OAuth2)
 
 Note: OAuth/OAuth2 support is built using a common code base, making it easy to add support for additional OAuth/OAuth2 providers. More will follow soon...
 

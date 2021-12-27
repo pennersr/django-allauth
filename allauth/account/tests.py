@@ -11,7 +11,6 @@ from django.contrib.auth.models import AbstractUser, AnonymousUser
 from django.contrib.messages.api import get_messages
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
-from django.contrib.sites.models import Site
 from django.core import mail, validators
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -22,6 +21,7 @@ from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils.timezone import now
 
+import allauth.app_settings
 from allauth.account.forms import BaseSignupForm, ResetPasswordForm, SignupForm
 from allauth.account.models import (
     EmailAddress,
@@ -66,7 +66,10 @@ class AccountTests(TestCase):
             from ..socialaccount.models import SocialApp
 
             sa = SocialApp.objects.create(name="testfb", provider="facebook")
-            sa.sites.add(Site.objects.get_current())
+            if allauth.app_settings.SITES_ENABLED:
+                from django.contrib.sites.models import Site
+
+                sa.sites.add(Site.objects.get_current())
 
     @override_settings(
         ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.USERNAME_EMAIL
@@ -544,13 +547,17 @@ class AccountTests(TestCase):
         )
 
     def test_email_escaping(self):
-        site = Site.objects.get_current()
-        site.name = '<enc&"test>'
-        site.save()
+        site_name = "testserver"
+        if allauth.app_settings.SITES_ENABLED:
+            from django.contrib.sites.models import Site
+
+            site = Site.objects.get_current()
+            site.name = site_name = '<enc&"test>'
+            site.save()
         u = get_user_model().objects.create(username="test", email="user@example.com")
         request = RequestFactory().get("/")
         EmailAddress.objects.add_email(request, u, u.email, confirm=True)
-        self.assertTrue(mail.outbox[0].subject[1:].startswith(site.name))
+        self.assertTrue(mail.outbox[0].subject[1:].startswith(site_name))
 
     @override_settings(
         ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.OPTIONAL
@@ -925,7 +932,8 @@ class AccountTests(TestCase):
             user=user, email="a@b.com", verified=False, primary=True
         )
         confirmation = EmailConfirmationHMAC(email)
-        confirmation.send()
+        request = RequestFactory().get("/")
+        confirmation.send(request=request)
         self.assertEqual(len(mail.outbox), 1)
         self.client.post(reverse("account_confirm_email", args=[confirmation.key]))
         email = EmailAddress.objects.get(pk=email.pk)
@@ -941,7 +949,8 @@ class AccountTests(TestCase):
             user=user, email="a@b.com", verified=False, primary=True
         )
         confirmation = EmailConfirmationHMAC(email)
-        confirmation.send()
+        request = RequestFactory().get("/")
+        confirmation.send(request=request)
         self.assertEqual(len(mail.outbox), 1)
         self.client.post(reverse("account_confirm_email", args=[confirmation.key]))
         email = EmailAddress.objects.get(pk=email.pk)

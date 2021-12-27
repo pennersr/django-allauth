@@ -1,7 +1,6 @@
 from __future__ import absolute_import
 
 from django.contrib.auth import authenticate
-from django.contrib.sites.models import Site
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import PermissionDenied
 from django.db import models
@@ -28,8 +27,11 @@ class SocialAppManager(models.Manager):
             request._socialapp_cache = cache
         app = cache.get(provider)
         if not app:
-            site = get_current_site(request)
-            app = self.get(sites__id=site.id, provider=provider)
+            if allauth.app_settings.SITES_ENABLED:
+                site = get_current_site(request)
+                app = self.get(sites__id=site.id, provider=provider)
+            else:
+                app = self.get(provider=provider)
             cache[provider] = app
         return app
 
@@ -57,11 +59,12 @@ class SocialApp(models.Model):
     key = models.CharField(
         verbose_name=_("key"), max_length=191, blank=True, help_text=_("Key")
     )
-    # Most apps can be used across multiple domains, therefore we use
-    # a ManyToManyField. Note that Facebook requires an app per domain
-    # (unless the domains share a common base name).
-    # blank=True allows for disabling apps without removing them
-    sites = models.ManyToManyField(Site, blank=True)
+    if allauth.app_settings.SITES_ENABLED:
+        # Most apps can be used across multiple domains, therefore we use
+        # a ManyToManyField. Note that Facebook requires an app per domain
+        # (unless the domains share a common base name).
+        # blank=True allows for disabling apps without removing them
+        sites = models.ManyToManyField("sites.Site", blank=True)
 
     # We want to move away from storing secrets in the database. So, we're
     # putting a halt towards adding more fields for additional secrets, such as

@@ -11,26 +11,27 @@ from .provider import OdnoklassnikiProvider
 
 
 USER_FIELDS = [
-    "uid",
-    "locale",
-    "first_name",
-    "last_name",
-    "name",
-    "gender",
     "age",
     "birthday",
-    "has_email",
     "current_status",
-    "current_status_id",
     "current_status_date",
+    "current_status_id",
+    "email",
+    "first_name",
+    "gender",
+    "has_email",
+    "last_name",
+    "locale",
+    "location",
+    "name",
     "online",
     "photo_id",
-    "pic_1",  # aka pic50x50
-    "pic_2",  # aka pic128max
+    "pic1024x768",  # big
     "pic190x190",  # small
     "pic640x480",  # medium
-    "pic1024x768",  # big
-    "location",
+    "pic_1",  # aka pic50x50
+    "pic_2",  # aka pic128max
+    "uid",
 ]
 
 

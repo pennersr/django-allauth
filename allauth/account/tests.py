@@ -1065,6 +1065,19 @@ class AccountTests(TestCase):
         self.assertEqual(initial_data_form_in_response, query_string_dict)
 
 
+    def test_get_signup_view_with_query_strings_prefills_form(self):
+        from .views import SignupView
+        form_fields = SignupView.form_class().fields
+        self.assertNotEqual(form_fields, {})
+
+        query_string_dict = {k: "query" for k,_ in form_fields.items()}
+        response = self.client.get(reverse("account_signup"), query_string_dict)
+        initial_data_form_in_response = {
+            k: v[0] for k,v in dict(response.context_data["form"].initial).items()
+        }
+        self.assertEqual(initial_data_form_in_response, query_string_dict)
+
+
 class EmailFormTests(TestCase):
     def setUp(self):
         User = get_user_model()

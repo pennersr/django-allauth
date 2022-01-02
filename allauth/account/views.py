@@ -289,6 +289,11 @@ class SignupView(
         )
         return ret
 
+    def get_initial(self):
+        if self.request.GET:
+            self.initial = self.request.GET.copy()
+        return super().get_initial()
+
 
 signup = SignupView.as_view()
 

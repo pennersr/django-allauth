@@ -1052,6 +1052,16 @@ class AccountTests(TestCase):
         assert user.username in actual_message, actual_message
 
 
+    def test_get_login_view_with_query_strings_prefills_form(self):
+        from .views import LoginView
+        form_fields = LoginView.form_class().fields
+        self.assertNotEqual(form_fields, {})
+        
+        query_string_dict = {k: "query" for k,_ in form_fields.items()}
+        response = self.client.get(reverse("account_login"), query_string_dict)
+        self.assertNotEqual(response.context_data["form"].initial, {})
+
+
 class EmailFormTests(TestCase):
     def setUp(self):
         User = get_user_model()

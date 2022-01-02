@@ -1056,10 +1056,13 @@ class AccountTests(TestCase):
         from .views import LoginView
         form_fields = LoginView.form_class().fields
         self.assertNotEqual(form_fields, {})
-        
+
         query_string_dict = {k: "query" for k,_ in form_fields.items()}
         response = self.client.get(reverse("account_login"), query_string_dict)
-        self.assertNotEqual(response.context_data["form"].initial, {})
+        initial_data_form_in_response = {
+            k: v[0] for k,v in dict(response.context_data["form"].initial).items()
+        }
+        self.assertEqual(initial_data_form_in_response, query_string_dict)
 
 
 class EmailFormTests(TestCase):

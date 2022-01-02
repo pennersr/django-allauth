@@ -189,6 +189,11 @@ class LoginView(
         )
         return ret
 
+    def get_initial(self):
+        if self.request.GET:
+            self.initial = self.request.GET.copy()
+        return super().get_initial()
+
 
 login = LoginView.as_view()
 

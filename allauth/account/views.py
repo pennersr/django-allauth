@@ -135,9 +135,15 @@ class LogoutFunctionalityMixin(object):
         )
         adapter.logout(self.request)
 
+class PrefillFormWithQueryString(object):
+    def get_initial(self):
+        if self.request.GET:
+            self.initial = self.request.GET.copy()
+        return super().get_initial()
+
 
 class LoginView(
-    RedirectAuthenticatedUserMixin, AjaxCapableProcessFormViewMixin, FormView
+    RedirectAuthenticatedUserMixin, AjaxCapableProcessFormViewMixin, PrefillFormWithQueryString, FormView
 ):
     form_class = LoginForm
     template_name = "account/login." + app_settings.TEMPLATE_EXTENSION
@@ -189,11 +195,6 @@ class LoginView(
         )
         return ret
 
-    def get_initial(self):
-        if self.request.GET:
-            self.initial = self.request.GET.copy()
-        return super().get_initial()
-
 
 login = LoginView.as_view()
 
@@ -227,6 +228,7 @@ class SignupView(
     RedirectAuthenticatedUserMixin,
     CloseableSignupMixin,
     AjaxCapableProcessFormViewMixin,
+    PrefillFormWithQueryString,
     FormView,
 ):
     template_name = "account/signup." + app_settings.TEMPLATE_EXTENSION
@@ -288,11 +290,6 @@ class SignupView(
             }
         )
         return ret
-
-    def get_initial(self):
-        if self.request.GET:
-            self.initial = self.request.GET.copy()
-        return super().get_initial()
 
 
 signup = SignupView.as_view()

@@ -27,6 +27,10 @@ Note worthy changes
   installed. Therefore, enabling or disabling ``sites`` is not something you can
   do on the fly.
 
+- The ``login`` and ``signup`` pages support now the prefilling of form fields with the 
+  GET query strings. Examples: 
+  ``https://example.com/accounts/login/?login=myuser&remember=true``,
+  ``https://example.com/accounts/signup/?username=myuser&email=user@mail.com``
 
 
 Backwards incompatible changes

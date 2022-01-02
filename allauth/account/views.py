@@ -135,6 +135,7 @@ class LogoutFunctionalityMixin(object):
         )
         adapter.logout(self.request)
 
+
 class PrefillFormWithQueryString(object):
     def get_initial(self):
         if self.request.GET:
@@ -143,7 +144,10 @@ class PrefillFormWithQueryString(object):
 
 
 class LoginView(
-    RedirectAuthenticatedUserMixin, AjaxCapableProcessFormViewMixin, PrefillFormWithQueryString, FormView
+    RedirectAuthenticatedUserMixin,
+    AjaxCapableProcessFormViewMixin,
+    PrefillFormWithQueryString,
+    FormView,
 ):
     form_class = LoginForm
     template_name = "account/login." + app_settings.TEMPLATE_EXTENSION

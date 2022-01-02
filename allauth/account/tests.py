@@ -1051,29 +1051,29 @@ class AccountTests(TestCase):
         actual_message = msgs._queued_messages[0].message
         assert user.username in actual_message, actual_message
 
-
     def test_get_login_view_with_query_strings_prefills_form(self):
         from .views import LoginView
+
         form_fields = LoginView.form_class().fields
         self.assertNotEqual(form_fields, {})
 
-        query_string_dict = {k: "query" for k,_ in form_fields.items()}
+        query_string_dict = {k: "query" for k, _ in form_fields.items()}
         response = self.client.get(reverse("account_login"), query_string_dict)
         initial_data_form_in_response = {
-            k: v[0] for k,v in dict(response.context_data["form"].initial).items()
+            k: v[0] for k, v in dict(response.context_data["form"].initial).items()
         }
         self.assertEqual(initial_data_form_in_response, query_string_dict)
 
-
     def test_get_signup_view_with_query_strings_prefills_form(self):
         from .views import SignupView
+
         form_fields = SignupView.form_class().fields
         self.assertNotEqual(form_fields, {})
 
-        query_string_dict = {k: "query" for k,_ in form_fields.items()}
+        query_string_dict = {k: "query" for k, _ in form_fields.items()}
         response = self.client.get(reverse("account_signup"), query_string_dict)
         initial_data_form_in_response = {
-            k: v[0] for k,v in dict(response.context_data["form"].initial).items()
+            k: v[0] for k, v in dict(response.context_data["form"].initial).items()
         }
         self.assertEqual(initial_data_form_in_response, query_string_dict)
 

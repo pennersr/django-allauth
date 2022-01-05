@@ -123,7 +123,7 @@ METADATA = dict(
     " authentication, registration, account management as well as"
     " 3rd party (social) account authentication.",
     long_description=long_description,
-    url="http://github.com/pennersr/django-allauth",
+    url="http://www.intenct.nl/projects/django-allauth/",
     keywords="django auth account social openid twitter facebook oauth registration",
     project_urls={
         "Documentation": "https://django-allauth.readthedocs.io/en/latest/",

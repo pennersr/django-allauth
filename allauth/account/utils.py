@@ -418,6 +418,8 @@ def filter_users_by_email(email, is_active=None):
     mails = EmailAddress.objects.filter(email__iexact=email)
     if is_active is not None:
         mails = mails.filter(user__is_active=is_active)
+    if app_settings.EMAIL_ONLY_PRIMARY_LOGIN:
+        mails = mails.filter(primary=True)
     users = []
     for e in mails.prefetch_related("user"):
         if _unicode_ci_compare(e.email, email):

@@ -132,6 +132,13 @@ class AppSettings(object):
         return self._setting("EMAIL_MAX_LENGTH", 254)
 
     @property
+    def EMAIL_ONLY_PRIMARY_LOGIN(self):
+        """
+        Only allow login/password reset for primary email
+        """
+        return self._setting("EMAIL_ONLY_PRIMARY_LOGIN", False)
+
+    @property
     def UNIQUE_EMAIL(self):
         """
         Enforce uniqueness of e-mail addresses

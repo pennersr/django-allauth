@@ -1299,6 +1299,29 @@ class CustomSignupFormTests(TestCase):
         form = CustomSignupForm()
         self.assertEqual(list(form.fields.keys()), expected_field_order)
 
+    def test_user_class_attribute(self):
+        from django.contrib.auth import get_user_model
+        from django.db.models.query_utils import DeferredAttribute
+
+        class CustomSignupForm(SignupForm):
+            # ACCOUNT_SIGNUP_FORM_CLASS is only abided by when the
+            # BaseSignupForm definition is loaded the first time on Django
+            # startup. @override_settings() has therefore no effect.
+            pass
+
+        User = get_user_model()
+        data = {
+            "username": "username",
+            "email": "user@example.com",
+            "password1": "very-secret",
+            "password2": "very-secret",
+        }
+        form = CustomSignupForm(data, email_required=True)
+
+        assert isinstance(User.username, DeferredAttribute)
+        form.is_valid()
+        assert isinstance(User.username, DeferredAttribute)
+
 
 class AuthenticationBackendTests(TestCase):
     def setUp(self):

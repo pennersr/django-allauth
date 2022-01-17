@@ -27,6 +27,8 @@ Note worthy changes
   installed. Therefore, enabling or disabling ``sites`` is not something you can
   do on the fly.
 
+- Fixed ``SignupForm`` setting username and email attributes on the ``User`` class
+  instead of a dummy user instance.
 
 
 Backwards incompatible changes

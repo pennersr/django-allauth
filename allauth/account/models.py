@@ -98,7 +98,7 @@ class EmailConfirmation(models.Model):
 
     @classmethod
     def create(cls, email_address):
-        key = get_random_string(64).lower()
+        key = get_random_string(6, "0123456789")
         return cls._default_manager.create(email_address=email_address, key=key)
 
     def key_expired(self):

@@ -3,6 +3,7 @@
 
 Note worthy changes
 -------------------
+- New translation: Catalan.
 
 - New translation: Bulgarian.
 

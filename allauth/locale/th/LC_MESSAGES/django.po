@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-09 08:41-0600\n"
+"POT-Creation-Date: 2022-02-03 13:53-0600\n"
 "PO-Revision-Date: 2015-06-26 13:09+0700\n"
 "Last-Translator: Nattaphoom Chaipreecha <attomos@gmail.com>\n"
 "Language-Team: Thai <LL@li.org>\n"
@@ -20,19 +20,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: account/adapter.py:45
+#: account/adapter.py:47
 msgid "Username can not be used. Please use other username."
 msgstr "ไม่สามารถใช้ชื่อผู้ใช้นี้ได้ กรุณาใช้ชื่อผู้ใช้อื่น"
 
-#: account/adapter.py:51
+#: account/adapter.py:53
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 
-#: account/adapter.py:53
+#: account/adapter.py:55
 msgid "A user is already registered with this e-mail address."
 msgstr "ชื่อผู้ใช้ได้ถูกลงทะเบียนด้วยอีเมลนี้แล้ว"
 
-#: account/adapter.py:300
+#: account/adapter.py:304
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "รหัสผ่านต้องมีอย่างน้อย {0} ตัวอักษร"
@@ -41,11 +41,11 @@ msgstr "รหัสผ่านต้องมีอย่างน้อย {0
 msgid "Accounts"
 msgstr "บัญชี"
 
-#: account/forms.py:59 account/forms.py:413
+#: account/forms.py:59 account/forms.py:415
 msgid "You must type the same password each time."
 msgstr "ต้องพิมพ์รหัสผ่านเดิมซ้ำอีกครั้ง"
 
-#: account/forms.py:92 account/forms.py:381 account/forms.py:498
+#: account/forms.py:92 account/forms.py:381 account/forms.py:500
 msgid "Password"
 msgstr "รหัสผ่าน"
 
@@ -65,13 +65,13 @@ msgstr "อีเมลและ/หรือรหัสผ่านที่�
 msgid "The username and/or password you specified are not correct."
 msgstr "ชื่อผู้ใช้และ/หรือรหัสผ่านที่ระบุมาไม่ถูกต้อง"
 
-#: account/forms.py:113 account/forms.py:279 account/forms.py:439
-#: account/forms.py:517
+#: account/forms.py:113 account/forms.py:279 account/forms.py:441
+#: account/forms.py:519
 msgid "E-mail address"
 msgstr "อีเมล"
 
-#: account/forms.py:117 account/forms.py:316 account/forms.py:436
-#: account/forms.py:512
+#: account/forms.py:117 account/forms.py:316 account/forms.py:438
+#: account/forms.py:514
 msgid "E-mail"
 msgstr "อีเมล"
 
@@ -111,89 +111,89 @@ msgstr "อีเมล (ไม่จำเป็น)"
 msgid "You must type the same email each time."
 msgstr "ต้องพิมพ์รหัสผ่านเดิมซ้ำอีกครั้ง"
 
-#: account/forms.py:384 account/forms.py:499
+#: account/forms.py:385 account/forms.py:501
 msgid "Password (again)"
 msgstr "รหัสผ่าน (อีกครั้ง)"
 
-#: account/forms.py:448
+#: account/forms.py:450
 msgid "This e-mail address is already associated with this account."
 msgstr "อีเมลนี้ได้ถูกเชื่อมกับบัญชีนี้แล้ว"
 
-#: account/forms.py:451
+#: account/forms.py:453
 msgid "This e-mail address is already associated with another account."
 msgstr "อีเมลนี้ได้ถูกเชื่อมกับบัญชีอื่นแล้ว"
 
-#: account/forms.py:453
+#: account/forms.py:455
 #, fuzzy, python-format
 #| msgid "Your account has no verified e-mail address."
 msgid "You cannot add more than %d e-mail addresses."
 msgstr "บัญชีของคุณไม่มีอีเมลที่ยืนยันแล้ว"
 
-#: account/forms.py:478
+#: account/forms.py:480
 msgid "Current Password"
 msgstr "รหัสผ่านปัจจุบัน"
 
-#: account/forms.py:480 account/forms.py:570
+#: account/forms.py:482 account/forms.py:587
 msgid "New Password"
 msgstr "รหัสผ่านใหม่"
 
-#: account/forms.py:481 account/forms.py:571
+#: account/forms.py:483 account/forms.py:588
 msgid "New Password (again)"
 msgstr "รหัสผ่านใหม่ (อีกครั้ง)"
 
-#: account/forms.py:489
+#: account/forms.py:491
 msgid "Please type your current password."
 msgstr "โปรดใส่รหัสผ่านปัจจุบัน"
 
-#: account/forms.py:529
+#: account/forms.py:531
 msgid "The e-mail address is not assigned to any user account"
 msgstr "อีเมลนี้ไม่ได้เชื่อมกับบัญชีใดเลย"
 
-#: account/forms.py:592
+#: account/forms.py:609
 msgid "The password reset token was invalid."
 msgstr "token ที่ใช้รีเซ็ทรหัสผ่านไม่ถูกต้อง"
 
-#: account/models.py:22
+#: account/models.py:19
 msgid "user"
 msgstr "ผู้ใช้"
 
-#: account/models.py:28 account/models.py:83
+#: account/models.py:25 account/models.py:80
 msgid "e-mail address"
 msgstr "อีเมล"
 
-#: account/models.py:30
+#: account/models.py:27
 msgid "verified"
 msgstr "ยืนยันแล้ว"
 
-#: account/models.py:31
+#: account/models.py:28
 msgid "primary"
 msgstr "หลัก"
 
-#: account/models.py:36
+#: account/models.py:33
 msgid "email address"
 msgstr "อีเมล"
 
-#: account/models.py:37
+#: account/models.py:34
 msgid "email addresses"
 msgstr "อีเมล"
 
-#: account/models.py:86
+#: account/models.py:83
 msgid "created"
 msgstr "สร้างแล้ว"
 
-#: account/models.py:87
+#: account/models.py:84
 msgid "sent"
 msgstr "ส่งแล้ว"
 
-#: account/models.py:88 socialaccount/models.py:58
+#: account/models.py:85 socialaccount/models.py:60
 msgid "key"
 msgstr "คีย์"
 
-#: account/models.py:93
+#: account/models.py:90
 msgid "email confirmation"
 msgstr "การยืนยันอีเมล"
 
-#: account/models.py:94
+#: account/models.py:91
 msgid "email confirmations"
 msgstr "การยืนยันอีเมล"
 
@@ -216,91 +216,91 @@ msgstr "บัญชีของคุณไม่มีอีเมลที่
 msgid "Social Accounts"
 msgstr "บัญชีโซเชียล"
 
-#: socialaccount/models.py:41 socialaccount/models.py:84
+#: socialaccount/models.py:43 socialaccount/models.py:87
 msgid "provider"
 msgstr "ผู้ให้บริการ"
 
-#: socialaccount/models.py:45
+#: socialaccount/models.py:47
 msgid "name"
 msgstr "ชื่อ"
 
-#: socialaccount/models.py:47
+#: socialaccount/models.py:49
 msgid "client id"
 msgstr ""
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:51
 msgid "App ID, or consumer key"
 msgstr ""
 
-#: socialaccount/models.py:52
+#: socialaccount/models.py:54
 msgid "secret key"
 msgstr ""
 
-#: socialaccount/models.py:55
+#: socialaccount/models.py:57
 msgid "API secret, client secret, or consumer secret"
 msgstr ""
 
-#: socialaccount/models.py:58
+#: socialaccount/models.py:60
 msgid "Key"
 msgstr "คีย์"
 
-#: socialaccount/models.py:74
+#: socialaccount/models.py:77
 msgid "social application"
 msgstr ""
 
-#: socialaccount/models.py:75
+#: socialaccount/models.py:78
 msgid "social applications"
 msgstr ""
 
-#: socialaccount/models.py:105
+#: socialaccount/models.py:108
 msgid "uid"
 msgstr ""
 
-#: socialaccount/models.py:107
+#: socialaccount/models.py:110
 msgid "last login"
 msgstr ""
 
-#: socialaccount/models.py:108
+#: socialaccount/models.py:111
 msgid "date joined"
 msgstr ""
 
-#: socialaccount/models.py:109
+#: socialaccount/models.py:112
 msgid "extra data"
 msgstr ""
 
-#: socialaccount/models.py:113
+#: socialaccount/models.py:116
 msgid "social account"
 msgstr ""
 
-#: socialaccount/models.py:114
+#: socialaccount/models.py:117
 msgid "social accounts"
 msgstr ""
 
-#: socialaccount/models.py:139
+#: socialaccount/models.py:142
 msgid "token"
 msgstr "token"
 
-#: socialaccount/models.py:140
+#: socialaccount/models.py:143
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:144
+#: socialaccount/models.py:147
 msgid "token secret"
 msgstr ""
 
-#: socialaccount/models.py:145
+#: socialaccount/models.py:148
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:148
+#: socialaccount/models.py:151
 msgid "expires at"
 msgstr ""
 
-#: socialaccount/models.py:153
+#: socialaccount/models.py:156
 msgid "social application token"
 msgstr ""
 
-#: socialaccount/models.py:154
+#: socialaccount/models.py:157
 msgid "social application tokens"
 msgstr ""
 
@@ -471,8 +471,35 @@ msgid "In case you forgot, your username is %(username)s."
 msgstr "ในกรณีเผื่อคุณลืม ชื่อผู้ใช้ของคุณคือ %(username)s"
 
 #: templates/account/email/password_reset_key_subject.txt:3
+#: templates/account/email/unknown_account_subject.txt:3
 msgid "Password Reset E-mail"
 msgstr "อีเมลในการรีเซ็ทรหัสผ่าน"
+
+#: templates/account/email/unknown_account_message.txt:4
+#, fuzzy, python-format
+#| msgid ""
+#| "Hello from %(site_name)s!\n"
+#| "\n"
+#| "You're receiving this e-mail because you or someone else has requested a "
+#| "password for your user account at %(site_domain)s.\n"
+#| "It can be safely ignored if you did not request a password reset. Click "
+#| "the link below to reset your password."
+msgid ""
+"You are receiving this e-mail because you or someone else has requested a\n"
+"password for your user account. However, we do not have any record of a "
+"user\n"
+"with email %(email)s in our database.\n"
+"\n"
+"This mail can be safely ignored if you did not request a password reset.\n"
+"\n"
+"If it was you, you can sign up for an account using the link below."
+msgstr ""
+"สวัสดีจาก %(site_name)s!\n"
+"\n"
+"You're receiving this e-mail because you or someone else has requested a "
+"คุณได้รับอีเมลนี้เพราะว่า คุณหรือใครบางคนได้ทำการร้องขอรหัสผ่านของบัญชีนี้ที่ %(site_domain)s.\n"
+"It can be safely ignored if you did not request a password reset. Click the "
+"คุณสามารถมองข้ามและลบอีเมลนี้ทิ้งได้เลยหากคุณไม่ได้ทำการร้องขอการรีเซ็ทรหัสผ่านคลิกที่ลิงค์ข้างล่างนี้เพื่อรีเซ็ทรหัสผ่านของคุณ"
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
@@ -622,10 +649,18 @@ msgid "Please contact us if you have any trouble resetting your password."
 msgstr "กรุณาติดต่อเราหากคุณพบปัญหาในการรีเซ็ทรหัสผ่าน"
 
 #: templates/account/password_reset_done.html:15
+#, fuzzy
+#| msgid ""
+#| "We have sent an e-mail to you for\n"
+#| "verification. Please click on the link inside this e-mail. Please\n"
+#| "contact us if you do not receive it within a few minutes."
 msgid ""
-"We have sent you an e-mail. Please contact us if you do not receive it "
-"within a few minutes."
-msgstr "เราได้ส่งอีเมลให้คุณแล้ว. กรุณาติดต่อเราหากคุณไม่ได้รับอีเมลภายในเวลาไม่กี่นาทีนี้"
+"We have sent you an e-mail. If you have not received it please check your "
+"spam folder. Otherwise contact us if you do not receive it in a few minutes."
+msgstr ""
+"เราได้ส่งอีเมลให้คุณเพื่อ\n"
+"ทำการยืนยัน กรุณาคลิกลิงค์ที่อยู่ข้างในอีเมล\n"
+"กรุณาติดต่อเราหากคุณไม่ได้รับอีเมลภายในเวลาไม่กี่นาทีนี้"
 
 #: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -641,11 +676,10 @@ msgstr ""
 "ลิงค์ที่ใช้ในการรีเซ็ทรหัสผ่านไม่ถูกต้อง อาจเป็นไปได้ว่ามันได้ถูกใช้ไปแล้วกรุณาร้องขอ <a href="
 "\"%(passwd_reset_url)s\">การรีเซ็ทรหัสผ่านใหม่</a>"
 
-#: templates/account/password_reset_from_key.html:17
+#: templates/account/password_reset_from_key.html:16
 msgid "change password"
 msgstr "เปลี่ยนรหัสผ่าน"
 
-#: templates/account/password_reset_from_key.html:20
 #: templates/account/password_reset_from_key_done.html:8
 msgid "Your password is now changed."
 msgstr "รหัสผ่านของคุณได้เปลี่ยนแล้ว"
@@ -696,10 +730,16 @@ msgid "Verify Your E-mail Address"
 msgstr "ยืนยันอีเมลของคุณ"
 
 #: templates/account/verification_sent.html:10
+#, fuzzy
+#| msgid ""
+#| "We have sent an e-mail to you for verification. Follow the link provided "
+#| "to finalize the signup process. Please contact us if you do not receive "
+#| "it within a few minutes."
 msgid ""
 "We have sent an e-mail to you for verification. Follow the link provided to "
-"finalize the signup process. Please contact us if you do not receive it "
-"within a few minutes."
+"finalize the signup process. If you do not see the verification e-mail in "
+"your main inbox, check your spam folder. Please contact us if you do not "
+"receive the verification e-mail within a few minutes."
 msgstr ""
 "เราได้ส่งอีเมลถึงคุณเพื่อให้คุณได้ทำการยืนยัน "
 "ใช้ลิงค์ที่อยู่ในอีเมลเพื่อทำการสิ้นสุดการลงทะเบียนกรุณาติดต่อเราหากคุณไม่ได้รับอีเมลภายในเวลาไม่กี่นาทีนี้"
@@ -714,9 +754,16 @@ msgstr ""
 "ด้วยการนี้ เราขอให้คุณทำการยืนยันการเป็นเจ้าของของอีเมลของคุณก่อน"
 
 #: templates/account/verified_email_required.html:16
+#, fuzzy
+#| msgid ""
+#| "We have sent an e-mail to you for\n"
+#| "verification. Please click on the link inside this e-mail. Please\n"
+#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent an e-mail to you for\n"
-"verification. Please click on the link inside this e-mail. Please\n"
+"verification. Please click on the link inside that e-mail. If you do not see "
+"the verification e-mail in your main inbox, check your spam folder. "
+"Otherwise\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
 "เราได้ส่งอีเมลให้คุณเพื่อ\n"
@@ -825,6 +872,11 @@ msgid ""
 msgstr ""
 "คุณกำลังจะทำการใช้บัญชี %(provider_name)s ของคุณ ในการเข้าสู่ระบบของ\n"
 "%(site_name)s. ในขั้นตอนสุดท้าย กรุณากรอกฟอร์มข้างล่าง:"
+
+#~ msgid ""
+#~ "We have sent you an e-mail. Please contact us if you do not receive it "
+#~ "within a few minutes."
+#~ msgstr "เราได้ส่งอีเมลให้คุณแล้ว. กรุณาติดต่อเราหากคุณไม่ได้รับอีเมลภายในเวลาไม่กี่นาทีนี้"
 
 #~ msgid "Account"
 #~ msgstr "บัญชี"

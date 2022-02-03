@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-08 11:24+0300\n"
+"POT-Creation-Date: 2022-02-03 13:53-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,20 +18,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: account/adapter.py:45
+#: account/adapter.py:47
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Това потребителско име не може да бъде използвано. Моля, изберете друго."
 
-#: account/adapter.py:51
+#: account/adapter.py:53
 msgid "Too many failed login attempts. Try again later."
 msgstr "Твърде много неуспешни опити за влизане. Опитайте отново по-късно."
 
-#: account/adapter.py:53
+#: account/adapter.py:55
 msgid "A user is already registered with this e-mail address."
 msgstr "Вече има регистриран потребител с този e-mail адрес."
 
-#: account/adapter.py:300
+#: account/adapter.py:304
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Паролата трябва да бъде поне {0} символа."
@@ -40,152 +40,152 @@ msgstr "Паролата трябва да бъде поне {0} символа.
 msgid "Accounts"
 msgstr "Акаунти"
 
-#: account/forms.py:58 account/forms.py:412
+#: account/forms.py:59 account/forms.py:415
 msgid "You must type the same password each time."
 msgstr "Трябва да въведете една и съща парола."
 
-#: account/forms.py:91 account/forms.py:380 account/forms.py:497
+#: account/forms.py:92 account/forms.py:381 account/forms.py:500
 msgid "Password"
 msgstr "Парола"
 
-#: account/forms.py:92
+#: account/forms.py:93
 msgid "Remember Me"
 msgstr "Запомни ме"
 
-#: account/forms.py:96
+#: account/forms.py:97
 msgid "This account is currently inactive."
 msgstr "Този акаунт в момента е неактивен."
 
-#: account/forms.py:98
+#: account/forms.py:99
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "E-mail адресът и/или паролата, които въведохте, са грешни."
 
-#: account/forms.py:101
+#: account/forms.py:102
 msgid "The username and/or password you specified are not correct."
 msgstr "Потребителското име и/или паролата, които въведохте, са грешни."
 
-#: account/forms.py:112 account/forms.py:278 account/forms.py:438
-#: account/forms.py:516
+#: account/forms.py:113 account/forms.py:279 account/forms.py:441
+#: account/forms.py:519
 msgid "E-mail address"
 msgstr "E-mail адрес"
 
-#: account/forms.py:116 account/forms.py:315 account/forms.py:435
-#: account/forms.py:511
+#: account/forms.py:117 account/forms.py:316 account/forms.py:438
+#: account/forms.py:514
 msgid "E-mail"
 msgstr "E-mail"
 
-#: account/forms.py:119 account/forms.py:122 account/forms.py:268
-#: account/forms.py:271
+#: account/forms.py:120 account/forms.py:123 account/forms.py:269
+#: account/forms.py:272
 msgid "Username"
 msgstr "Потребителско име"
 
-#: account/forms.py:132
+#: account/forms.py:133
 msgid "Username or e-mail"
 msgstr "Потребителско име или e-mail"
 
-#: account/forms.py:135
+#: account/forms.py:136
 msgctxt "field label"
 msgid "Login"
 msgstr "Акаунт"
 
-#: account/forms.py:306
+#: account/forms.py:307
 msgid "E-mail (again)"
 msgstr "E-mail (отново)"
 
-#: account/forms.py:310
+#: account/forms.py:311
 msgid "E-mail address confirmation"
 msgstr "Потвърждение на e-mail адрес"
 
-#: account/forms.py:318
+#: account/forms.py:319
 msgid "E-mail (optional)"
 msgstr "E-mail (опционален)"
 
-#: account/forms.py:358
+#: account/forms.py:359
 msgid "You must type the same email each time."
 msgstr "Трябва да въведете един и същ email."
 
-#: account/forms.py:383 account/forms.py:498
+#: account/forms.py:385 account/forms.py:501
 msgid "Password (again)"
 msgstr "Парола (отново)"
 
-#: account/forms.py:447
+#: account/forms.py:450
 msgid "This e-mail address is already associated with this account."
 msgstr "Този e-mail адрес вече е свързан с този акаунт."
 
-#: account/forms.py:450
+#: account/forms.py:453
 msgid "This e-mail address is already associated with another account."
 msgstr "Този e-mail адрес вече е свързан с друг акаунт."
 
-#: account/forms.py:452
+#: account/forms.py:455
 #, python-format
 msgid "You cannot add more than %d e-mail addresses."
 msgstr "Не можете да добавяте повече от %d e-mail адреса."
 
-#: account/forms.py:477
+#: account/forms.py:480
 msgid "Current Password"
 msgstr "Текуща парола"
 
-#: account/forms.py:479 account/forms.py:569
+#: account/forms.py:482 account/forms.py:587
 msgid "New Password"
 msgstr "Нова парола"
 
-#: account/forms.py:480 account/forms.py:570
+#: account/forms.py:483 account/forms.py:588
 msgid "New Password (again)"
 msgstr "Нова парола (отново)"
 
-#: account/forms.py:488
+#: account/forms.py:491
 msgid "Please type your current password."
 msgstr "Моля, въведете вашата текуща парола."
 
-#: account/forms.py:528
+#: account/forms.py:531
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Няма потребител с този e-mail адрес."
 
-#: account/forms.py:591
+#: account/forms.py:609
 msgid "The password reset token was invalid."
 msgstr "Невалиден код за възстановяване на парола."
 
-#: account/models.py:22
+#: account/models.py:19
 msgid "user"
 msgstr "потребител"
 
-#: account/models.py:28 account/models.py:83
+#: account/models.py:25 account/models.py:80
 msgid "e-mail address"
 msgstr "e-mail адрес"
 
-#: account/models.py:30
+#: account/models.py:27
 msgid "verified"
 msgstr "потвърден"
 
-#: account/models.py:31
+#: account/models.py:28
 msgid "primary"
 msgstr "основен"
 
-#: account/models.py:36
+#: account/models.py:33
 msgid "email address"
 msgstr "email адрес"
 
-#: account/models.py:37
+#: account/models.py:34
 msgid "email addresses"
 msgstr "email адреси"
 
-#: account/models.py:86
+#: account/models.py:83
 msgid "created"
 msgstr "създадено"
 
-#: account/models.py:87
+#: account/models.py:84
 msgid "sent"
 msgstr "изпратено"
 
-#: account/models.py:88 socialaccount/models.py:58
+#: account/models.py:85 socialaccount/models.py:60
 msgid "key"
 msgstr "ключ"
 
-#: account/models.py:93
+#: account/models.py:90
 msgid "email confirmation"
 msgstr "email потвърждение"
 
-#: account/models.py:94
+#: account/models.py:91
 msgid "email confirmations"
 msgstr "email потвърждения"
 
@@ -202,7 +202,7 @@ msgstr ""
 msgid "Your account has no password set up."
 msgstr "Вашият акаунт няма парола."
 
-#: socialaccount/adapter.py:141
+#: socialaccount/adapter.py:138
 msgid "Your account has no verified e-mail address."
 msgstr "Вашият акаунт няма потвърден e-mail адрес."
 
@@ -210,91 +210,91 @@ msgstr "Вашият акаунт няма потвърден e-mail адрес.
 msgid "Social Accounts"
 msgstr "Социални акаунти"
 
-#: socialaccount/models.py:41 socialaccount/models.py:84
+#: socialaccount/models.py:43 socialaccount/models.py:87
 msgid "provider"
 msgstr "доставчик"
 
-#: socialaccount/models.py:45
+#: socialaccount/models.py:47
 msgid "name"
 msgstr "име"
 
-#: socialaccount/models.py:47
+#: socialaccount/models.py:49
 msgid "client id"
 msgstr "id на клиент"
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:51
 msgid "App ID, or consumer key"
 msgstr "ID на приложение, или ключ на консуматор"
 
-#: socialaccount/models.py:52
+#: socialaccount/models.py:54
 msgid "secret key"
 msgstr "таен ключ"
 
-#: socialaccount/models.py:55
+#: socialaccount/models.py:57
 msgid "API secret, client secret, or consumer secret"
 msgstr "таен ключ на API, клиент или консуматор"
 
-#: socialaccount/models.py:58
+#: socialaccount/models.py:60
 msgid "Key"
 msgstr "Ключ"
 
-#: socialaccount/models.py:74
+#: socialaccount/models.py:77
 msgid "social application"
 msgstr "социално приложение"
 
-#: socialaccount/models.py:75
+#: socialaccount/models.py:78
 msgid "social applications"
 msgstr "социални приложения"
 
-#: socialaccount/models.py:105
+#: socialaccount/models.py:108
 msgid "uid"
 msgstr "uid"
 
-#: socialaccount/models.py:107
+#: socialaccount/models.py:110
 msgid "last login"
 msgstr "последно влизане"
 
-#: socialaccount/models.py:108
+#: socialaccount/models.py:111
 msgid "date joined"
 msgstr "дата на регистрация"
 
-#: socialaccount/models.py:109
+#: socialaccount/models.py:112
 msgid "extra data"
 msgstr "допълнителни данни"
 
-#: socialaccount/models.py:113
+#: socialaccount/models.py:116
 msgid "social account"
 msgstr "социален акаунт"
 
-#: socialaccount/models.py:114
+#: socialaccount/models.py:117
 msgid "social accounts"
 msgstr "социални акаунти"
 
-#: socialaccount/models.py:139
+#: socialaccount/models.py:142
 msgid "token"
 msgstr "код"
 
-#: socialaccount/models.py:140
+#: socialaccount/models.py:143
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) или access token (OAuth2)"
 
-#: socialaccount/models.py:144
+#: socialaccount/models.py:147
 msgid "token secret"
 msgstr "таен код"
 
-#: socialaccount/models.py:145
+#: socialaccount/models.py:148
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) или refresh token (OAuth2)"
 
-#: socialaccount/models.py:148
+#: socialaccount/models.py:151
 msgid "expires at"
 msgstr "изтича"
 
-#: socialaccount/models.py:153
+#: socialaccount/models.py:156
 msgid "social application token"
 msgstr "код на социално приложение"
 
-#: socialaccount/models.py:154
+#: socialaccount/models.py:157
 msgid "social application tokens"
 msgstr "кодове на социални приложения"
 
@@ -442,8 +442,31 @@ msgid "In case you forgot, your username is %(username)s."
 msgstr "В случай, че сте забравили, вашето потребителско име е %(username)s."
 
 #: templates/account/email/password_reset_key_subject.txt:3
+#: templates/account/email/unknown_account_subject.txt:3
 msgid "Password Reset E-mail"
 msgstr "Възстановяване на парола"
+
+#: templates/account/email/unknown_account_message.txt:4
+#, fuzzy, python-format
+#| msgid ""
+#| "You're receiving this e-mail because you or someone else has requested a "
+#| "password for your user account.\n"
+#| "It can be safely ignored if you did not request a password reset. Click "
+#| "the link below to reset your password."
+msgid ""
+"You are receiving this e-mail because you or someone else has requested a\n"
+"password for your user account. However, we do not have any record of a "
+"user\n"
+"with email %(email)s in our database.\n"
+"\n"
+"This mail can be safely ignored if you did not request a password reset.\n"
+"\n"
+"If it was you, you can sign up for an account using the link below."
+msgstr ""
+"Получавате този e-mail защото вие или някой друг е поискал парола за вашия "
+"потребителски акаунт.\n"
+"Можете да го пренебрегнете ако не сте поискали възстановяване на парола. "
+"Кликнете линка по-долу за да възстановите вашата парола."
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
@@ -597,12 +620,18 @@ msgstr ""
 "парола."
 
 #: templates/account/password_reset_done.html:15
+#, fuzzy
+#| msgid ""
+#| "We have sent an e-mail to you for\n"
+#| "verification. Please click on the link inside this e-mail. Please\n"
+#| "contact us if you do not receive it within a few minutes."
 msgid ""
-"We have sent you an e-mail. Please contact us if you do not receive it "
-"within a few minutes."
+"We have sent you an e-mail. If you have not received it please check your "
+"spam folder. Otherwise contact us if you do not receive it in a few minutes."
 msgstr ""
-"Изпратихме ви e-mail. Моля, свържете се с нас ако не го получите до няколко "
-"минути."
+"Изпратихме ви e-mail за потвърждение.\n"
+"Моля, кликнете линка в него.\n"
+"Моля, свържете се с нас ако не го получите до няколко минути."
 
 #: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -619,11 +648,10 @@ msgstr ""
 "използван. Моля, заявете <a href=\"%(passwd_reset_url)s\">ново "
 "възстановяване на парола</a>."
 
-#: templates/account/password_reset_from_key.html:17
+#: templates/account/password_reset_from_key.html:16
 msgid "change password"
 msgstr "смени паролата"
 
-#: templates/account/password_reset_from_key.html:20
 #: templates/account/password_reset_from_key_done.html:8
 msgid "Your password is now changed."
 msgstr "Паролата ви е сменена."
@@ -674,10 +702,16 @@ msgid "Verify Your E-mail Address"
 msgstr "Потвърдете вашия e-mail адрес"
 
 #: templates/account/verification_sent.html:10
+#, fuzzy
+#| msgid ""
+#| "We have sent an e-mail to you for verification. Follow the link provided "
+#| "to finalize the signup process. Please contact us if you do not receive "
+#| "it within a few minutes."
 msgid ""
 "We have sent an e-mail to you for verification. Follow the link provided to "
-"finalize the signup process. Please contact us if you do not receive it "
-"within a few minutes."
+"finalize the signup process. If you do not see the verification e-mail in "
+"your main inbox, check your spam folder. Please contact us if you do not "
+"receive the verification e-mail within a few minutes."
 msgstr ""
 "Изпратихме ви e-mail за потвърждение. Последвайте посочения в него линк за "
 "да завършите процеса на регистрация. Моля, свържете се с нас ако не го "
@@ -694,9 +728,16 @@ msgstr ""
 "потвърдите притежанието на вашия e-mail адрес. "
 
 #: templates/account/verified_email_required.html:16
+#, fuzzy
+#| msgid ""
+#| "We have sent an e-mail to you for\n"
+#| "verification. Please click on the link inside this e-mail. Please\n"
+#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent an e-mail to you for\n"
-"verification. Please click on the link inside this e-mail. Please\n"
+"verification. Please click on the link inside that e-mail. If you do not see "
+"the verification e-mail in your main inbox, check your spam folder. "
+"Otherwise\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
 "Изпратихме ви e-mail за потвърждение.\n"
@@ -747,6 +788,30 @@ msgstr "В момента нямате акаунти от социални мр
 msgid "Add a 3rd Party Account"
 msgstr "Добавяне на външен акаунт"
 
+#: templates/socialaccount/login.html:6
+#, python-format
+msgid "Connect %(provider)s"
+msgstr ""
+
+#: templates/socialaccount/login.html:8
+#, python-format
+msgid "You are about to connect a new third party account from %(provider)s."
+msgstr ""
+
+#: templates/socialaccount/login.html:10
+#, python-format
+msgid "Sign In Via %(provider)s"
+msgstr ""
+
+#: templates/socialaccount/login.html:12
+#, python-format
+msgid "You are about to sign in using a third party account from %(provider)s."
+msgstr ""
+
+#: templates/socialaccount/login.html:17
+msgid "Continue"
+msgstr ""
+
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9
 msgid "Login Cancelled"
@@ -782,3 +847,10 @@ msgid ""
 msgstr ""
 "На път сте да използвате вашия %(provider_name)s акаунт за вход в\n"
 "%(site_name)s. Като последна стъпка, моля, попълнете следната форма:"
+
+#~ msgid ""
+#~ "We have sent you an e-mail. Please contact us if you do not receive it "
+#~ "within a few minutes."
+#~ msgstr ""
+#~ "Изпратихме ви e-mail. Моля, свържете се с нас ако не го получите до "
+#~ "няколко минути."

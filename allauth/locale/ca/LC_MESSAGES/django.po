@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-01 13:02-0600\n"
+"POT-Creation-Date: 2022-02-03 13:53-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Marc Seguí Coll <metarizard@gmail.com>\n"
 "Language-Team: Català \n"
@@ -19,390 +19,393 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: allauth/account/adapter.py:46
+#: account/adapter.py:47
 msgid "Username can not be used. Please use other username."
-msgstr "Aquest nom d'usuari no pot ser emprat. Si us plau utilitzeu-ne un altre."
+msgstr ""
+"Aquest nom d'usuari no pot ser emprat. Si us plau utilitzeu-ne un altre."
 
-#: allauth/account/adapter.py:52
+#: account/adapter.py:53
 msgid "Too many failed login attempts. Try again later."
 msgstr "Massa intents fallits. Intenteu-ho de nou més tard."
 
-#: allauth/account/adapter.py:54
+#: account/adapter.py:55
 msgid "A user is already registered with this e-mail address."
-msgstr "Un usuari ja ha estat registrat amb aquesta direcció de correu electrònic."
+msgstr ""
+"Un usuari ja ha estat registrat amb aquesta direcció de correu electrònic."
 
-#: allauth/account/adapter.py:303
+#: account/adapter.py:304
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "La contrasenya ha de contenir al menys {0} caràcters."
 
-#: allauth/account/apps.py:7
+#: account/apps.py:7
 msgid "Accounts"
 msgstr "Comptes"
 
-#: allauth/account/forms.py:59 allauth/account/forms.py:415
+#: account/forms.py:59 account/forms.py:415
 msgid "You must type the same password each time."
 msgstr "Heu d'escriure la mateixa contrasenya cada cop."
 
-#: allauth/account/forms.py:92 allauth/account/forms.py:381
-#: allauth/account/forms.py:500
+#: account/forms.py:92 account/forms.py:381 account/forms.py:500
 msgid "Password"
 msgstr "Contrasenya"
 
-#: allauth/account/forms.py:93
+#: account/forms.py:93
 msgid "Remember Me"
 msgstr "Recordar-me"
 
-#: allauth/account/forms.py:97
+#: account/forms.py:97
 msgid "This account is currently inactive."
 msgstr "Ara mateix aquest compte està inactiu."
 
-#: allauth/account/forms.py:99
+#: account/forms.py:99
 msgid "The e-mail address and/or password you specified are not correct."
-msgstr "El correu electrònic i/o la contrasenya que heu especificat no són correctes."
+msgstr ""
+"El correu electrònic i/o la contrasenya que heu especificat no són correctes."
 
-#: allauth/account/forms.py:102
+#: account/forms.py:102
 msgid "The username and/or password you specified are not correct."
 msgstr "L'usuari i/o la contrasenya que heu especificat no són correctes."
 
-#: allauth/account/forms.py:113 allauth/account/forms.py:279
-#: allauth/account/forms.py:441 allauth/account/forms.py:519
+#: account/forms.py:113 account/forms.py:279 account/forms.py:441
+#: account/forms.py:519
 msgid "E-mail address"
 msgstr "Correu electrònic"
 
-#: allauth/account/forms.py:117 allauth/account/forms.py:316
-#: allauth/account/forms.py:438 allauth/account/forms.py:514
+#: account/forms.py:117 account/forms.py:316 account/forms.py:438
+#: account/forms.py:514
 msgid "E-mail"
 msgstr "Correu electrònic"
 
-#: allauth/account/forms.py:120 allauth/account/forms.py:123
-#: allauth/account/forms.py:269 allauth/account/forms.py:272
+#: account/forms.py:120 account/forms.py:123 account/forms.py:269
+#: account/forms.py:272
 msgid "Username"
 msgstr "Nom d'usuari"
 
-#: allauth/account/forms.py:133
+#: account/forms.py:133
 msgid "Username or e-mail"
 msgstr "Nom d'usuari o correu electrònic"
 
-#: allauth/account/forms.py:136
+#: account/forms.py:136
 msgctxt "field label"
 msgid "Login"
 msgstr "Iniciar sessió"
 
-#: allauth/account/forms.py:307
+#: account/forms.py:307
 msgid "E-mail (again)"
 msgstr "Correu electrònic (un altre cop)"
 
-#: allauth/account/forms.py:311
+#: account/forms.py:311
 msgid "E-mail address confirmation"
 msgstr "Confirmació de direcció de correu electrònic"
 
-#: allauth/account/forms.py:319
+#: account/forms.py:319
 msgid "E-mail (optional)"
 msgstr "Correu electrònic (opcional)"
 
-#: allauth/account/forms.py:359
+#: account/forms.py:359
 msgid "You must type the same email each time."
 msgstr "Heu d'escriure el mateix correu electrònic cada cop."
 
-#: allauth/account/forms.py:385 allauth/account/forms.py:501
+#: account/forms.py:385 account/forms.py:501
 msgid "Password (again)"
 msgstr "Contrasenya (de nou)"
 
-#: allauth/account/forms.py:450
+#: account/forms.py:450
 msgid "This e-mail address is already associated with this account."
 msgstr "Aquest correu electrònic ja està associat amb aquest compte."
 
-#: allauth/account/forms.py:453
+#: account/forms.py:453
 msgid "This e-mail address is already associated with another account."
 msgstr "Aquest correu electrònic ja està associat amb un altre compte."
 
-#: allauth/account/forms.py:455
+#: account/forms.py:455
 #, python-format
 msgid "You cannot add more than %d e-mail addresses."
 msgstr "No es poden afegit més de %d adreces de correu electrònic."
 
-#: allauth/account/forms.py:480
+#: account/forms.py:480
 msgid "Current Password"
 msgstr "Contrasenya actual"
 
-#: allauth/account/forms.py:482 allauth/account/forms.py:587
+#: account/forms.py:482 account/forms.py:587
 msgid "New Password"
 msgstr "Nova contrasenya"
 
-#: allauth/account/forms.py:483 allauth/account/forms.py:588
+#: account/forms.py:483 account/forms.py:588
 msgid "New Password (again)"
 msgstr "Nova contrasenya (de nou)"
 
-#: allauth/account/forms.py:491
+#: account/forms.py:491
 msgid "Please type your current password."
 msgstr "Si us plau, escriviu la vostra contrasenya actual."
 
-#: allauth/account/forms.py:531
+#: account/forms.py:531
 msgid "The e-mail address is not assigned to any user account"
 msgstr "El correu electrònic no està assignat a cap compte d'usuari"
 
-#: allauth/account/forms.py:609
+#: account/forms.py:609
 msgid "The password reset token was invalid."
 msgstr "El token per reiniciar la contrasenya no és vàlid."
 
-#: allauth/account/models.py:22
+#: account/models.py:19
 msgid "user"
 msgstr "usuari"
 
-#: allauth/account/models.py:28 allauth/account/models.py:83
+#: account/models.py:25 account/models.py:80
 msgid "e-mail address"
 msgstr "correu electrònic"
 
-#: allauth/account/models.py:30
+#: account/models.py:27
 msgid "verified"
 msgstr "verificat"
 
-#: allauth/account/models.py:31
+#: account/models.py:28
 msgid "primary"
 msgstr "principal"
 
-#: allauth/account/models.py:36
+#: account/models.py:33
 msgid "email address"
 msgstr "correu electrònic"
 
-#: allauth/account/models.py:37
+#: account/models.py:34
 msgid "email addresses"
 msgstr "correus electrònics"
 
-#: allauth/account/models.py:86
+#: account/models.py:83
 msgid "created"
 msgstr "creat"
 
-#: allauth/account/models.py:87
+#: account/models.py:84
 msgid "sent"
 msgstr "enviat"
 
-#: allauth/account/models.py:88 allauth/socialaccount/models.py:60
+#: account/models.py:85 socialaccount/models.py:60
 msgid "key"
 msgstr "clau"
 
-#: allauth/account/models.py:93
+#: account/models.py:90
 msgid "email confirmation"
 msgstr "confirmació de correu electrònic"
 
-#: allauth/account/models.py:94
+#: account/models.py:91
 msgid "email confirmations"
 msgstr "confirmacions de correu electrònic"
 
-#: allauth/socialaccount/adapter.py:26
+#: socialaccount/adapter.py:26
 #, python-format
 msgid ""
 "An account already exists with this e-mail address. Please sign in to that "
 "account first, then connect your %s account."
 msgstr ""
 "Ja existeix un compte associat a aquesta adreça de correu electrònic. Si us "
-"plau, primer identifiqueu-vos utilitzant aquest compte, i després vinculeu el vostre compte %s."
+"plau, primer identifiqueu-vos utilitzant aquest compte, i després vinculeu "
+"el vostre compte %s."
 
-#: allauth/socialaccount/adapter.py:131
+#: socialaccount/adapter.py:131
 msgid "Your account has no password set up."
 msgstr "El vostre compte no té una contrasenya definida."
 
-#: allauth/socialaccount/adapter.py:138
+#: socialaccount/adapter.py:138
 msgid "Your account has no verified e-mail address."
 msgstr "El vostre compte no té un correu electrònic verificat."
 
-#: allauth/socialaccount/apps.py:7
+#: socialaccount/apps.py:7
 msgid "Social Accounts"
 msgstr "Comptes de xarxes socials"
 
-#: allauth/socialaccount/models.py:43 allauth/socialaccount/models.py:87
+#: socialaccount/models.py:43 socialaccount/models.py:87
 msgid "provider"
 msgstr "proveïdor"
 
-#: allauth/socialaccount/models.py:47
+#: socialaccount/models.py:47
 msgid "name"
 msgstr "nom"
 
-#: allauth/socialaccount/models.py:49
+#: socialaccount/models.py:49
 msgid "client id"
 msgstr "identificador client"
 
-#: allauth/socialaccount/models.py:51
+#: socialaccount/models.py:51
 msgid "App ID, or consumer key"
 msgstr "Identificador de App o clau de consumidor"
 
-#: allauth/socialaccount/models.py:54
+#: socialaccount/models.py:54
 msgid "secret key"
 msgstr "clau secreta"
 
-#: allauth/socialaccount/models.py:57
+#: socialaccount/models.py:57
 msgid "API secret, client secret, or consumer secret"
-msgstr "frase secrete de API, frase secreta client o frase secreta de consumidor"
+msgstr ""
+"frase secrete de API, frase secreta client o frase secreta de consumidor"
 
-#: allauth/socialaccount/models.py:60
+#: socialaccount/models.py:60
 msgid "Key"
 msgstr "Clau"
 
-#: allauth/socialaccount/models.py:77
+#: socialaccount/models.py:77
 msgid "social application"
 msgstr "aplicació de xarxa social"
 
-#: allauth/socialaccount/models.py:78
+#: socialaccount/models.py:78
 msgid "social applications"
 msgstr "aplicacions de xarxes socials"
 
-#: allauth/socialaccount/models.py:108
+#: socialaccount/models.py:108
 msgid "uid"
 msgstr ""
 
-#: allauth/socialaccount/models.py:110
+#: socialaccount/models.py:110
 msgid "last login"
 msgstr "darrer inici de sessió"
 
-#: allauth/socialaccount/models.py:111
+#: socialaccount/models.py:111
 msgid "date joined"
 msgstr "data d'incorporació"
 
-#: allauth/socialaccount/models.py:112
+#: socialaccount/models.py:112
 msgid "extra data"
 msgstr "dades extra"
 
-#: allauth/socialaccount/models.py:116
+#: socialaccount/models.py:116
 msgid "social account"
 msgstr "compte de xarxa social"
 
-#: allauth/socialaccount/models.py:117
+#: socialaccount/models.py:117
 msgid "social accounts"
 msgstr "comptes de xarxes socials"
 
-#: allauth/socialaccount/models.py:142
+#: socialaccount/models.py:142
 msgid "token"
 msgstr ""
 
-#: allauth/socialaccount/models.py:143
+#: socialaccount/models.py:143
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) o token d'accés (OAuth2)"
 
-#: allauth/socialaccount/models.py:147
+#: socialaccount/models.py:147
 msgid "token secret"
 msgstr "frase secreta de token"
 
-#: allauth/socialaccount/models.py:148
+#: socialaccount/models.py:148
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) o token de refrescament (OAuth2)"
 
-#: allauth/socialaccount/models.py:151
+#: socialaccount/models.py:151
 msgid "expires at"
 msgstr "expira el"
 
-#: allauth/socialaccount/models.py:156
+#: socialaccount/models.py:156
 msgid "social application token"
 msgstr "token d'aplicació de xarxa social"
 
-#: allauth/socialaccount/models.py:157
+#: socialaccount/models.py:157
 msgid "social application tokens"
 msgstr "tokens d'aplicació de xarxa social"
 
-#: allauth/socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:36
 msgid "Invalid profile data"
 msgstr "Dades de perfil invàlides"
 
-#: allauth/socialaccount/providers/oauth/client.py:85
+#: socialaccount/providers/oauth/client.py:85
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "Resposta invàlida a l'hora d'obtenir token de sol·licitud de \"%s\"."
 
-#: allauth/socialaccount/providers/oauth/client.py:117
+#: socialaccount/providers/oauth/client.py:117
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Resposta invàlida a l'hora d'obtenir token d'accés de \"%s\"."
 
-#: allauth/socialaccount/providers/oauth/client.py:138
+#: socialaccount/providers/oauth/client.py:138
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr "No hi ha token de sol·licitud guardat per \"%s\"."
 
-#: allauth/socialaccount/providers/oauth/client.py:189
+#: socialaccount/providers/oauth/client.py:189
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "No hi ha token d'accés guardat per \"%s\"."
 
-#: allauth/socialaccount/providers/oauth/client.py:210
+#: socialaccount/providers/oauth/client.py:210
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "Sense accés recursos privats de \"%s\"."
 
-#: allauth/templates/account/account_inactive.html:5
-#: allauth/templates/account/account_inactive.html:8
+#: templates/account/account_inactive.html:5
+#: templates/account/account_inactive.html:8
 msgid "Account Inactive"
 msgstr "Compte inactiu"
 
-#: allauth/templates/account/account_inactive.html:10
+#: templates/account/account_inactive.html:10
 msgid "This account is inactive."
 msgstr "Aquest compte està inactiu."
 
-#: allauth/templates/account/email.html:5
-#: allauth/templates/account/email.html:8
+#: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
 msgstr "Adreces de correu electrònic"
 
-#: allauth/templates/account/email.html:10
+#: templates/account/email.html:10
 msgid "The following e-mail addresses are associated with your account:"
-msgstr "Les següents adreces de correu electrònic estan associades al vostre compte:"
+msgstr ""
+"Les següents adreces de correu electrònic estan associades al vostre compte:"
 
-#: allauth/templates/account/email.html:24
+#: templates/account/email.html:24
 msgid "Verified"
 msgstr "Verificat"
 
-#: allauth/templates/account/email.html:26
+#: templates/account/email.html:26
 msgid "Unverified"
 msgstr "Sense verificar"
 
-#: allauth/templates/account/email.html:28
+#: templates/account/email.html:28
 msgid "Primary"
 msgstr "Principal"
 
-#: allauth/templates/account/email.html:34
+#: templates/account/email.html:34
 msgid "Make Primary"
 msgstr "Definir com a principal"
 
-#: allauth/templates/account/email.html:35
+#: templates/account/email.html:35
 msgid "Re-send Verification"
 msgstr "Reenviar Verificació"
 
-#: allauth/templates/account/email.html:36
-#: allauth/templates/socialaccount/connections.html:35
+#: templates/account/email.html:36 templates/socialaccount/connections.html:35
 msgid "Remove"
 msgstr "Eliminar"
 
-#: allauth/templates/account/email.html:43
+#: templates/account/email.html:43
 msgid "Warning:"
 msgstr "Advertència:"
 
-#: allauth/templates/account/email.html:43
+#: templates/account/email.html:43
 msgid ""
 "You currently do not have any e-mail address set up. You should really add "
 "an e-mail address so you can receive notifications, reset your password, etc."
 msgstr ""
-"Actualment no teniu cap adreça de correu electrònic definida. "
-"Hauríeu d'afegir una adreça de correu electrònic per poder rebre "
-"notificacions, restablir la contrasenya, etc."
+"Actualment no teniu cap adreça de correu electrònic definida. Hauríeu "
+"d'afegir una adreça de correu electrònic per poder rebre notificacions, "
+"restablir la contrasenya, etc."
 
-#: allauth/templates/account/email.html:48
+#: templates/account/email.html:48
 msgid "Add E-mail Address"
 msgstr "Afegir adreça de correu electrònic"
 
-#: allauth/templates/account/email.html:53
+#: templates/account/email.html:53
 msgid "Add E-mail"
 msgstr "Afegir correu electrònic"
 
-#: allauth/templates/account/email.html:63
+#: templates/account/email.html:63
 msgid "Do you really want to remove the selected e-mail address?"
-msgstr "Esteu segurs de voler eliminar l'adreça de correu electrònic "
-"seleccionada?"
+msgstr ""
+"Esteu segurs de voler eliminar l'adreça de correu electrònic seleccionada?"
 
-#: allauth/templates/account/email/base_message.txt:1
+#: templates/account/email/base_message.txt:1
 #, python-format
 msgid "Hello from %(site_name)s!"
 msgstr "Hola des de %(site_name)s!"
 
-#: allauth/templates/account/email/base_message.txt:5
+#: templates/account/email/base_message.txt:5
 #, python-format
 msgid ""
 "Thank you for using %(site_name)s!\n"
@@ -411,7 +414,7 @@ msgstr ""
 "Gràcies per utilitzar %(site_name)s!\n"
 "%(site_domain)s"
 
-#: allauth/templates/account/email/email_confirmation_message.txt:5
+#: templates/account/email/email_confirmation_message.txt:5
 #, python-format
 msgid ""
 "You're receiving this e-mail because user %(user_display)s has given your e-"
@@ -419,16 +422,16 @@ msgid ""
 "\n"
 "To confirm this is correct, go to %(activate_url)s"
 msgstr ""
-"Heu rebut aquest missatge perquè l'usuari %(user_display)s ha proporcionat la vostra "
-"adreça per registrar un compte a %(site_domain)s.\n"
+"Heu rebut aquest missatge perquè l'usuari %(user_display)s ha proporcionat "
+"la vostra adreça per registrar un compte a %(site_domain)s.\n"
 "\n"
 "Per confirmar que això és correcte, seguiu aquest enllaç %(activate_url)s"
 
-#: allauth/templates/account/email/email_confirmation_subject.txt:3
+#: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your E-mail Address"
 msgstr "Si us plau, confirmeu la vostra adreça de correu electrònic"
 
-#: allauth/templates/account/email/password_reset_key_message.txt:4
+#: templates/account/email/password_reset_key_message.txt:4
 msgid ""
 "You're receiving this e-mail because you or someone else has requested a "
 "password for your user account.\n"
@@ -440,17 +443,17 @@ msgstr ""
 "Es pot ignorar de forma segura si no es va sol·licitar el restabliment de "
 "contrasenya. Seguiu el següent enllaç per restablir la vostra contrasenya."
 
-#: allauth/templates/account/email/password_reset_key_message.txt:9
+#: templates/account/email/password_reset_key_message.txt:9
 #, python-format
 msgid "In case you forgot, your username is %(username)s."
 msgstr "En cas d'haver-lo oblidat, el vostre nom d'usuari és %(username)s."
 
-#: allauth/templates/account/email/password_reset_key_subject.txt:3
-#: allauth/templates/account/email/unknown_account_subject.txt:3
+#: templates/account/email/password_reset_key_subject.txt:3
+#: templates/account/email/unknown_account_subject.txt:3
 msgid "Password Reset E-mail"
 msgstr "Correu electrònic per restablir contrasenya"
 
-#: allauth/templates/account/email/unknown_account_message.txt:4
+#: templates/account/email/unknown_account_message.txt:4
 #, python-format
 msgid ""
 "You are receiving this e-mail because you or someone else has requested a\n"
@@ -462,21 +465,24 @@ msgid ""
 "\n"
 "If it was you, you can sign up for an account using the link below."
 msgstr ""
-"Has rebut aquest correu electrònic perquè vosaltres o algú altre heu sol·licitat una\n"
-"contrasenya per al vostre compte d'usuari. Tot i això, no tenim cap registre d'un "
-"usuari\n"
+"Has rebut aquest correu electrònic perquè vosaltres o algú altre heu "
+"sol·licitat una\n"
+"contrasenya per al vostre compte d'usuari. Tot i això, no tenim cap registre "
+"d'un usuari\n"
 "amb correu electrònic %(email)s a la nostra base de dades.\n"
 "\n"
-"Aquest correu es pot ignorar de forma segura si no heu sol·licitat un canvi de contrasenya.\n"
+"Aquest correu es pot ignorar de forma segura si no heu sol·licitat un canvi "
+"de contrasenya.\n"
 "\n"
-"Si heu estat vosaltres, podeu registrar un compte d'usuari utilitzant el link de sota."
+"Si heu estat vosaltres, podeu registrar un compte d'usuari utilitzant el "
+"link de sota."
 
-#: allauth/templates/account/email_confirm.html:6
-#: allauth/templates/account/email_confirm.html:10
+#: templates/account/email_confirm.html:6
+#: templates/account/email_confirm.html:10
 msgid "Confirm E-mail Address"
 msgstr "Confirmar adreça de correu electrònic"
 
-#: allauth/templates/account/email_confirm.html:16
+#: templates/account/email_confirm.html:16
 #, python-format
 msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
@@ -485,26 +491,26 @@ msgstr ""
 "Si us plau confirmeu que <a href=\"mailto:%(email)s\">%(email)s</a> és una "
 "adreça de correu electrònic de l'usuari %(user_display)s."
 
-#: allauth/templates/account/email_confirm.html:20
+#: templates/account/email_confirm.html:20
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: allauth/templates/account/email_confirm.html:27
+#: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
 "This e-mail confirmation link expired or is invalid. Please <a href="
 "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"Aquest enllaç de verificació de correu electrònic ha expirat o és invàlid. Si us plau, "
-"<a href=\"%(email_url)s\">sol·liciteu una nova verificació per correu electrònic.</a>."
+"Aquest enllaç de verificació de correu electrònic ha expirat o és invàlid. "
+"Si us plau, <a href=\"%(email_url)s\">sol·liciteu una nova verificació per "
+"correu electrònic.</a>."
 
-#: allauth/templates/account/login.html:6
-#: allauth/templates/account/login.html:10
-#: allauth/templates/account/login.html:43
+#: templates/account/login.html:6 templates/account/login.html:10
+#: templates/account/login.html:43
 msgid "Sign In"
 msgstr "Iniciar sessió"
 
-#: allauth/templates/account/login.html:15
+#: templates/account/login.html:15
 #, python-format
 msgid ""
 "Please sign in with one\n"
@@ -513,14 +519,15 @@ msgid ""
 "for a %(site_name)s account and sign in below:"
 msgstr ""
 "Si us plau, inicieu sessió amb un\n"
-"compte d'una altra xarxa social. O <a href=\"%(signup_url)s\">registreu-vos</a> \n"
+"compte d'una altra xarxa social. O <a href=\"%(signup_url)s\">registreu-vos</"
+"a> \n"
 "com a usuari de %(site_name)s i inicieu sessió a continuació:"
 
-#: allauth/templates/account/login.html:25
+#: templates/account/login.html:25
 msgid "or"
 msgstr "o"
 
-#: allauth/templates/account/login.html:32
+#: templates/account/login.html:32
 #, python-format
 msgid ""
 "If you have not created an account yet, then please\n"
@@ -529,100 +536,100 @@ msgstr ""
 "Si encara no heu creat un compte, llavors si us plau\n"
 "<a href=\"%(signup_url)s\">registreu-vos</a> primer."
 
-#: allauth/templates/account/login.html:42
-#: allauth/templates/account/password_change.html:14
+#: templates/account/login.html:42 templates/account/password_change.html:14
 msgid "Forgot Password?"
 msgstr "Heu oblidat la vostra contrasenya?"
 
-#: allauth/templates/account/logout.html:5
-#: allauth/templates/account/logout.html:8
-#: allauth/templates/account/logout.html:17
+#: templates/account/logout.html:5 templates/account/logout.html:8
+#: templates/account/logout.html:17
 msgid "Sign Out"
 msgstr "Tancar sessió"
 
-#: allauth/templates/account/logout.html:10
+#: templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
 msgstr "Esteu segurs de voler tancar sessió?"
 
-#: allauth/templates/account/messages/cannot_delete_primary_email.txt:2
+#: templates/account/messages/cannot_delete_primary_email.txt:2
 #, python-format
 msgid "You cannot remove your primary e-mail address (%(email)s)."
 msgstr "No podeu eliminar el vostre correu electrònic principal (%(email)s)."
 
-#: allauth/templates/account/messages/email_confirmation_sent.txt:2
+#: templates/account/messages/email_confirmation_sent.txt:2
 #, python-format
 msgid "Confirmation e-mail sent to %(email)s."
 msgstr "Correu electrònic de confirmació enviat a %(email)s."
 
-#: allauth/templates/account/messages/email_confirmed.txt:2
+#: templates/account/messages/email_confirmed.txt:2
 #, python-format
 msgid "You have confirmed %(email)s."
 msgstr "Heu confirmat %(email)s."
 
-#: allauth/templates/account/messages/email_deleted.txt:2
+#: templates/account/messages/email_deleted.txt:2
 #, python-format
 msgid "Removed e-mail address %(email)s."
 msgstr "Eliminat correu electrònic %(email)s."
 
-#: allauth/templates/account/messages/logged_in.txt:4
+#: templates/account/messages/logged_in.txt:4
 #, python-format
 msgid "Successfully signed in as %(name)s."
 msgstr "Heu iniciat sessió exitosament com a %(name)s."
 
-#: allauth/templates/account/messages/logged_out.txt:2
+#: templates/account/messages/logged_out.txt:2
 msgid "You have signed out."
 msgstr "Heu tancat sessió."
 
-#: allauth/templates/account/messages/password_changed.txt:2
+#: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
 msgstr "Contrasenya canviada amb èxit."
 
-#: allauth/templates/account/messages/password_set.txt:2
+#: templates/account/messages/password_set.txt:2
 msgid "Password successfully set."
 msgstr "Contrasenya establerta amb èxit."
 
-#: allauth/templates/account/messages/primary_email_set.txt:2
+#: templates/account/messages/primary_email_set.txt:2
 msgid "Primary e-mail address set."
 msgstr "Adreça de correu electrònic principal establerta"
 
-#: allauth/templates/account/messages/unverified_primary_email.txt:2
+#: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary e-mail address must be verified."
 msgstr "La vostra adreça de correu electrònic principal ha de ser verificada."
 
-#: allauth/templates/account/password_change.html:5
-#: allauth/templates/account/password_change.html:8
-#: allauth/templates/account/password_change.html:13
-#: allauth/templates/account/password_reset_from_key.html:4
-#: allauth/templates/account/password_reset_from_key.html:7
-#: allauth/templates/account/password_reset_from_key_done.html:4
-#: allauth/templates/account/password_reset_from_key_done.html:7
+#: templates/account/password_change.html:5
+#: templates/account/password_change.html:8
+#: templates/account/password_change.html:13
+#: templates/account/password_reset_from_key.html:4
+#: templates/account/password_reset_from_key.html:7
+#: templates/account/password_reset_from_key_done.html:4
+#: templates/account/password_reset_from_key_done.html:7
 msgid "Change Password"
 msgstr "Canviar Contrasenya"
 
-#: allauth/templates/account/password_reset.html:6
-#: allauth/templates/account/password_reset.html:10
-#: allauth/templates/account/password_reset_done.html:6
-#: allauth/templates/account/password_reset_done.html:9
+#: templates/account/password_reset.html:6
+#: templates/account/password_reset.html:10
+#: templates/account/password_reset_done.html:6
+#: templates/account/password_reset_done.html:9
 msgid "Password Reset"
 msgstr "Restablir Contrasenya"
 
-#: allauth/templates/account/password_reset.html:15
+#: templates/account/password_reset.html:15
 msgid ""
 "Forgotten your password? Enter your e-mail address below, and we'll send you "
 "an e-mail allowing you to reset it."
 msgstr ""
-"Heu oblidat la vostra contrasenya? Introduïu el vostre correu electrònic i us enviarem "
-"un correu que us permetrà restablir-la."
+"Heu oblidat la vostra contrasenya? Introduïu el vostre correu electrònic i "
+"us enviarem un correu que us permetrà restablir-la."
 
-#: allauth/templates/account/password_reset.html:20
+#: templates/account/password_reset.html:20
 msgid "Reset My Password"
 msgstr "Restablir la meva contrasenya"
 
-#: allauth/templates/account/password_reset.html:23
+#: templates/account/password_reset.html:23
 msgid "Please contact us if you have any trouble resetting your password."
-msgstr "Si us plau contacteu-nis si teniu algun problema per restablir la vostra contrasenya."
+msgstr ""
+"Si us plau contacteu-nis si teniu algun problema per restablir la vostra "
+"contrasenya."
 
-#: allauth/templates/account/password_reset_done.html:15
+#: templates/account/password_reset_done.html:15
 msgid ""
 "We have sent you an e-mail. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
@@ -630,80 +637,76 @@ msgstr ""
 "Us hem enviat un correu electrònic. Si us plau contacteu-nos si no el rebeu "
 "en uns minuts."
 
-#: allauth/templates/account/password_reset_from_key.html:7
+#: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
 msgstr ""
 
-#: allauth/templates/account/password_reset_from_key.html:11
+#: templates/account/password_reset_from_key.html:11
 #, python-format
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
 "a>."
 msgstr ""
-"L'enllaç per restablir la contrasenya és invàlid, probablement porquè "
-"ja ha estat utilitzat. Si us plau soliciteu <a href=\"%(passwd_reset_url)s"
+"L'enllaç per restablir la contrasenya és invàlid, probablement porquè ja ha "
+"estat utilitzat. Si us plau soliciteu <a href=\"%(passwd_reset_url)s"
 "\">restablir la contrasenya novament</a>."
 
-#: allauth/templates/account/password_reset_from_key.html:16
+#: templates/account/password_reset_from_key.html:16
 msgid "change password"
 msgstr "canviar la contrasenya"
 
-#: allauth/templates/account/password_reset_from_key_done.html:8
+#: templates/account/password_reset_from_key_done.html:8
 msgid "Your password is now changed."
 msgstr "La vostra contrasenya ha canviat."
 
-#: allauth/templates/account/password_set.html:5
-#: allauth/templates/account/password_set.html:8
-#: allauth/templates/account/password_set.html:13
+#: templates/account/password_set.html:5 templates/account/password_set.html:8
+#: templates/account/password_set.html:13
 msgid "Set Password"
 msgstr "Establir contrasenya"
 
-#: allauth/templates/account/signup.html:5
-#: allauth/templates/socialaccount/signup.html:5
+#: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
 msgstr "Registrar-se"
 
-#: allauth/templates/account/signup.html:8
-#: allauth/templates/account/signup.html:18
-#: allauth/templates/socialaccount/signup.html:8
-#: allauth/templates/socialaccount/signup.html:19
+#: templates/account/signup.html:8 templates/account/signup.html:18
+#: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
 msgid "Sign Up"
 msgstr "Registrar-se"
 
-#: allauth/templates/account/signup.html:10
+#: templates/account/signup.html:10
 #, python-format
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
 msgstr ""
 "Ja teniu un compte? Si us plau <a href=\"%(login_url)s\">inicieu sessió</a>."
 
-#: allauth/templates/account/signup_closed.html:5
-#: allauth/templates/account/signup_closed.html:8
+#: templates/account/signup_closed.html:5
+#: templates/account/signup_closed.html:8
 msgid "Sign Up Closed"
 msgstr "Registre tancat"
 
-#: allauth/templates/account/signup_closed.html:10
+#: templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
 msgstr "Ho sentim, en aquest moment el registre está tancat."
 
-#: allauth/templates/account/snippets/already_logged_in.html:5
+#: templates/account/snippets/already_logged_in.html:5
 msgid "Note"
 msgstr "Nota"
 
-#: allauth/templates/account/snippets/already_logged_in.html:5
+#: templates/account/snippets/already_logged_in.html:5
 #, python-format
 msgid "you are already logged in as %(user_display)s."
 msgstr "ja heu iniciat sessió com a %(user_display)s."
 
-#: allauth/templates/account/verification_sent.html:5
-#: allauth/templates/account/verification_sent.html:8
-#: allauth/templates/account/verified_email_required.html:5
-#: allauth/templates/account/verified_email_required.html:8
+#: templates/account/verification_sent.html:5
+#: templates/account/verification_sent.html:8
+#: templates/account/verified_email_required.html:5
+#: templates/account/verified_email_required.html:8
 msgid "Verify Your E-mail Address"
 msgstr "Verifiqueu la vostra direcció de correu electrònic"
 
-#: allauth/templates/account/verification_sent.html:10
+#: templates/account/verification_sent.html:10
 msgid ""
 "We have sent an e-mail to you for verification. Follow the link provided to "
 "finalize the signup process. If you do not see the verification e-mail in "
@@ -714,17 +717,16 @@ msgstr ""
 "per completar el procés de registre. Si us plau contacteu-nos si no el rebeu "
 "en uns minuts."
 
-#: allauth/templates/account/verified_email_required.html:12
+#: templates/account/verified_email_required.html:12
 msgid ""
 "This part of the site requires us to verify that\n"
 "you are who you claim to be. For this purpose, we require that you\n"
 "verify ownership of your e-mail address. "
 msgstr ""
-"Aquesta part del lloc web requereix que verifiquem que sou qui dieu ser. "
-"Per això us requerim que verifiqueu la propietat del vostre correu "
-"electrònic. "
+"Aquesta part del lloc web requereix que verifiquem que sou qui dieu ser. Per "
+"això us requerim que verifiqueu la propietat del vostre correu electrònic. "
 
-#: allauth/templates/account/verified_email_required.html:16
+#: templates/account/verified_email_required.html:16
 msgid ""
 "We have sent an e-mail to you for\n"
 "verification. Please click on the link inside that e-mail. If you do not see "
@@ -733,111 +735,117 @@ msgid ""
 "contact us if you do not receive it within a few minutes."
 msgstr ""
 "Us hem enviat un correu electrònic per la vostra\n"
-"verificació. Si us plau accediu al link dins el correu electrònic. Si no veieu "
-"el correu de verificació a la vostra bústia principal, comproveu la carpeta d'spam. "
-"D'altra banda\n"
+"verificació. Si us plau accediu al link dins el correu electrònic. Si no "
+"veieu el correu de verificació a la vostra bústia principal, comproveu la "
+"carpeta d'spam. D'altra banda\n"
 "contacteu-nos si no el rebeu en uns minuts."
 
-#: allauth/templates/account/verified_email_required.html:20
+#: templates/account/verified_email_required.html:20
 #, python-format
 msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
 "mail address</a>."
 msgstr ""
-"<strong>Nota:</strong> encara podeu <a href=\"%(email_url)s\">canviar la vostra "
-"adreça de correu electrònic</a>."
+"<strong>Nota:</strong> encara podeu <a href=\"%(email_url)s\">canviar la "
+"vostra adreça de correu electrònic</a>."
 
-#: allauth/templates/openid/login.html:9
+#: templates/openid/login.html:9
 msgid "OpenID Sign In"
 msgstr "Iniciar sessió amb OpenID"
 
-#: allauth/templates/socialaccount/authentication_error.html:5
-#: allauth/templates/socialaccount/authentication_error.html:8
+#: templates/socialaccount/authentication_error.html:5
+#: templates/socialaccount/authentication_error.html:8
 msgid "Social Network Login Failure"
 msgstr "Error d'inici de sessió amb xarxa social"
 
-#: allauth/templates/socialaccount/authentication_error.html:10
+#: templates/socialaccount/authentication_error.html:10
 msgid ""
 "An error occurred while attempting to login via your social network account."
 msgstr ""
-"S'ha produït un error intentant iniciar sessió a través del vostre compte de xarxa social."
-#: allauth/templates/socialaccount/connections.html:5
-#: allauth/templates/socialaccount/connections.html:8
+"S'ha produït un error intentant iniciar sessió a través del vostre compte de "
+"xarxa social."
+
+#: templates/socialaccount/connections.html:5
+#: templates/socialaccount/connections.html:8
 msgid "Account Connections"
 msgstr "Connexions de Compte"
 
-#: allauth/templates/socialaccount/connections.html:11
+#: templates/socialaccount/connections.html:11
 msgid ""
 "You can sign in to your account using any of the following third party "
 "accounts:"
-msgstr ""
-"Podeu iniciar sessió amb algun dels següents comptes externs:"
+msgstr "Podeu iniciar sessió amb algun dels següents comptes externs:"
 
-#: allauth/templates/socialaccount/connections.html:43
+#: templates/socialaccount/connections.html:43
 msgid ""
 "You currently have no social network accounts connected to this account."
 msgstr ""
 "Actualment no tens cap compte de xarxa social associat a aquest compte."
-#: allauth/templates/socialaccount/connections.html:46
+
+#: templates/socialaccount/connections.html:46
 msgid "Add a 3rd Party Account"
 msgstr "Afegir un compte d'una xarxa social externa"
 
-#: allauth/templates/socialaccount/login.html:6
+#: templates/socialaccount/login.html:6
 #, python-format
 msgid "Connect %(provider)s"
 msgstr "Connectar %(provider)s"
 
-#: allauth/templates/socialaccount/login.html:8
+#: templates/socialaccount/login.html:8
 #, python-format
 msgid "You are about to connect a new third party account from %(provider)s."
 msgstr "Esteu a punt de connectar un nou compte extern des de %(provider)s."
 
-#: allauth/templates/socialaccount/login.html:10
+#: templates/socialaccount/login.html:10
 #, python-format
 msgid "Sign In Via %(provider)s"
 msgstr "Iniciar sessió via %(provider)s"
 
-#: allauth/templates/socialaccount/login.html:12
+#: templates/socialaccount/login.html:12
 #, python-format
 msgid "You are about to sign in using a third party account from %(provider)s."
-msgstr "Esteu a punt d'iniciar sessió utilitzant un compte extern des de %(provider)s."
+msgstr ""
+"Esteu a punt d'iniciar sessió utilitzant un compte extern des de "
+"%(provider)s."
 
-#: allauth/templates/socialaccount/login.html:17
+#: templates/socialaccount/login.html:17
 msgid "Continue"
 msgstr "Continuar"
 
-#: allauth/templates/socialaccount/login_cancelled.html:5
-#: allauth/templates/socialaccount/login_cancelled.html:9
+#: templates/socialaccount/login_cancelled.html:5
+#: templates/socialaccount/login_cancelled.html:9
 msgid "Login Cancelled"
 msgstr "Inici de sessió cancel·lat"
 
-#: allauth/templates/socialaccount/login_cancelled.html:13
+#: templates/socialaccount/login_cancelled.html:13
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
 "accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
 "\">sign in</a>."
 msgstr ""
-"Heu decidit cancel·lar l'inici de sessió al vostre lloc web utilitzant un dels vostres comptes "
-"existents. Si ha estat un error, si us plau <a href=\"%(login_url)s"
-"\">inicieu sessió</a>."
-#: allauth/templates/socialaccount/messages/account_connected.txt:2
+"Heu decidit cancel·lar l'inici de sessió al vostre lloc web utilitzant un "
+"dels vostres comptes existents. Si ha estat un error, si us plau <a href="
+"\"%(login_url)s\">inicieu sessió</a>."
+
+#: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."
 msgstr "El compte de xarxa social ha estat connectat."
 
-#: allauth/templates/socialaccount/messages/account_connected_other.txt:2
+#: templates/socialaccount/messages/account_connected_other.txt:2
 msgid "The social account is already connected to a different account."
 msgstr "El compte de xarxa social ja està connectada a un compte diferent."
 
-#: allauth/templates/socialaccount/messages/account_disconnected.txt:2
+#: templates/socialaccount/messages/account_disconnected.txt:2
 msgid "The social account has been disconnected."
 msgstr "El compte de xarxa social s'ha desconnectat."
 
-#: allauth/templates/socialaccount/signup.html:10
+#: templates/socialaccount/signup.html:10
 #, python-format
 msgid ""
 "You are about to use your %(provider_name)s account to login to\n"
 "%(site_name)s. As a final step, please complete the following form:"
 msgstr ""
-"Esteu a punt d'utilitzar el vostre compte de %(provider_name)s per iniciar sessió a\n"
+"Esteu a punt d'utilitzar el vostre compte de %(provider_name)s per iniciar "
+"sessió a\n"
 "%(site_name)s. Com a pas final, si us plau completeu el següent formulari:"

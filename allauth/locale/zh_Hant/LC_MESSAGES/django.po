@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-09 08:41-0600\n"
+"POT-Creation-Date: 2022-02-03 13:53-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,19 +18,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: account/adapter.py:45
+#: account/adapter.py:47
 msgid "Username can not be used. Please use other username."
 msgstr "無法使用此使用者名稱，請使用其他名稱。"
 
-#: account/adapter.py:51
+#: account/adapter.py:53
 msgid "Too many failed login attempts. Try again later."
 msgstr "登錄失敗次數過多，請稍後再試。"
 
-#: account/adapter.py:53
+#: account/adapter.py:55
 msgid "A user is already registered with this e-mail address."
 msgstr "已經有人使用這一個電子郵件註冊了。"
 
-#: account/adapter.py:300
+#: account/adapter.py:304
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "密碼長度至少要有 {0} 個字元。"
@@ -39,11 +39,11 @@ msgstr "密碼長度至少要有 {0} 個字元。"
 msgid "Accounts"
 msgstr "帳號"
 
-#: account/forms.py:59 account/forms.py:413
+#: account/forms.py:59 account/forms.py:415
 msgid "You must type the same password each time."
 msgstr "每次輸入的密碼必須相同"
 
-#: account/forms.py:92 account/forms.py:381 account/forms.py:498
+#: account/forms.py:92 account/forms.py:381 account/forms.py:500
 msgid "Password"
 msgstr "密碼"
 
@@ -63,13 +63,13 @@ msgstr "您提供的電子郵件地址或密碼不正確。"
 msgid "The username and/or password you specified are not correct."
 msgstr "您提供的使用者名稱或密碼不正確。"
 
-#: account/forms.py:113 account/forms.py:279 account/forms.py:439
-#: account/forms.py:517
+#: account/forms.py:113 account/forms.py:279 account/forms.py:441
+#: account/forms.py:519
 msgid "E-mail address"
 msgstr "電子郵件地址"
 
-#: account/forms.py:117 account/forms.py:316 account/forms.py:436
-#: account/forms.py:512
+#: account/forms.py:117 account/forms.py:316 account/forms.py:438
+#: account/forms.py:514
 msgid "E-mail"
 msgstr "E-mail"
 
@@ -109,90 +109,90 @@ msgstr "E-mail (可不填)"
 msgid "You must type the same email each time."
 msgstr "每次輸入的密碼必須相同"
 
-#: account/forms.py:384 account/forms.py:499
+#: account/forms.py:385 account/forms.py:501
 msgid "Password (again)"
 msgstr "密碼 (再一次)"
 
-#: account/forms.py:448
+#: account/forms.py:450
 msgid "This e-mail address is already associated with this account."
 msgstr "此電子郵件已與這個帳號連結了。"
 
-#: account/forms.py:451
+#: account/forms.py:453
 msgid "This e-mail address is already associated with another account."
 msgstr "此電子郵件已經與別的帳號連結了。"
 
-#: account/forms.py:453
+#: account/forms.py:455
 #, fuzzy, python-format
 #| msgid "Your account has no verified e-mail address."
 msgid "You cannot add more than %d e-mail addresses."
 msgstr "您的帳號下沒有驗證過的電子郵件地址。"
 
-#: account/forms.py:478
+#: account/forms.py:480
 msgid "Current Password"
 msgstr "目前密碼"
 
-#: account/forms.py:480 account/forms.py:570
+#: account/forms.py:482 account/forms.py:587
 msgid "New Password"
 msgstr "新密碼"
 
-#: account/forms.py:481 account/forms.py:571
+#: account/forms.py:483 account/forms.py:588
 msgid "New Password (again)"
 msgstr "新密碼 (再一次)"
 
-#: account/forms.py:489
+#: account/forms.py:491
 msgid "Please type your current password."
 msgstr "請輸入您目前的密碼"
 
-#: account/forms.py:529
+#: account/forms.py:531
 msgid "The e-mail address is not assigned to any user account"
 msgstr "還沒有其他帳號使用這個電子郵件地址"
 
-#: account/forms.py:592
+#: account/forms.py:609
 msgid "The password reset token was invalid."
 msgstr ""
 
-#: account/models.py:22
+#: account/models.py:19
 msgid "user"
 msgstr "使用者"
 
-#: account/models.py:28 account/models.py:83
+#: account/models.py:25 account/models.py:80
 #, fuzzy
 msgid "e-mail address"
 msgstr "電子郵件地址"
 
-#: account/models.py:30
+#: account/models.py:27
 msgid "verified"
 msgstr "已驗證"
 
-#: account/models.py:31
+#: account/models.py:28
 msgid "primary"
 msgstr "主要的"
 
-#: account/models.py:36
+#: account/models.py:33
 msgid "email address"
 msgstr "電子郵件地址"
 
-#: account/models.py:37
+#: account/models.py:34
 msgid "email addresses"
 msgstr "電子郵件地址"
 
-#: account/models.py:86
+#: account/models.py:83
 msgid "created"
 msgstr "以建立"
 
-#: account/models.py:87
+#: account/models.py:84
 msgid "sent"
 msgstr "已送出"
 
-#: account/models.py:88 socialaccount/models.py:58
+#: account/models.py:85 socialaccount/models.py:60
 msgid "key"
 msgstr "key"
 
-#: account/models.py:93
+#: account/models.py:90
 msgid "email confirmation"
 msgstr "電子郵件確認"
 
-#: account/models.py:94
+#: account/models.py:91
 msgid "email confirmations"
 msgstr "電子郵件確認"
 
@@ -216,91 +216,91 @@ msgstr "您的帳號下沒有驗證過的電子郵件地址。"
 msgid "Social Accounts"
 msgstr "社群帳號"
 
-#: socialaccount/models.py:41 socialaccount/models.py:84
+#: socialaccount/models.py:43 socialaccount/models.py:87
 msgid "provider"
 msgstr "提供者"
 
-#: socialaccount/models.py:45
+#: socialaccount/models.py:47
 msgid "name"
 msgstr "名稱"
 
-#: socialaccount/models.py:47
+#: socialaccount/models.py:49
 msgid "client id"
 msgstr "client id"
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:51
 msgid "App ID, or consumer key"
 msgstr "App ID, or consumer key"
 
-#: socialaccount/models.py:52
+#: socialaccount/models.py:54
 msgid "secret key"
 msgstr "secret key"
 
-#: socialaccount/models.py:55
+#: socialaccount/models.py:57
 msgid "API secret, client secret, or consumer secret"
 msgstr "API secret, client secret, or consumer secret"
 
-#: socialaccount/models.py:58
+#: socialaccount/models.py:60
 msgid "Key"
 msgstr "Key"
 
-#: socialaccount/models.py:74
+#: socialaccount/models.py:77
 msgid "social application"
 msgstr "社群應用程式"
 
-#: socialaccount/models.py:75
+#: socialaccount/models.py:78
 msgid "social applications"
 msgstr "社群應用程式"
 
-#: socialaccount/models.py:105
+#: socialaccount/models.py:108
 msgid "uid"
 msgstr "uid"
 
-#: socialaccount/models.py:107
+#: socialaccount/models.py:110
 msgid "last login"
 msgstr "最後一次登入"
 
-#: socialaccount/models.py:108
+#: socialaccount/models.py:111
 msgid "date joined"
 msgstr "加入日期"
 
-#: socialaccount/models.py:109
+#: socialaccount/models.py:112
 msgid "extra data"
 msgstr "額外資料"
 
-#: socialaccount/models.py:113
+#: socialaccount/models.py:116
 msgid "social account"
 msgstr "社群帳號"
 
-#: socialaccount/models.py:114
+#: socialaccount/models.py:117
 msgid "social accounts"
 msgstr "社群帳號"
 
-#: socialaccount/models.py:139
+#: socialaccount/models.py:142
 msgid "token"
 msgstr ""
 
-#: socialaccount/models.py:140
+#: socialaccount/models.py:143
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:144
+#: socialaccount/models.py:147
 msgid "token secret"
 msgstr ""
 
-#: socialaccount/models.py:145
+#: socialaccount/models.py:148
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:148
+#: socialaccount/models.py:151
 msgid "expires at"
 msgstr "過期日"
 
-#: socialaccount/models.py:153
+#: socialaccount/models.py:156
 msgid "social application token"
 msgstr "社群應用程式 Token"
 
-#: socialaccount/models.py:154
+#: socialaccount/models.py:157
 msgid "social application tokens"
 msgstr "社群應用程式 Token"
 
@@ -457,8 +457,31 @@ msgid "In case you forgot, your username is %(username)s."
 msgstr "提醒您，您的使用者名稱是 %(username)s 。"
 
 #: templates/account/email/password_reset_key_subject.txt:3
+#: templates/account/email/unknown_account_subject.txt:3
 msgid "Password Reset E-mail"
 msgstr "密碼重設電子郵件"
+
+#: templates/account/email/unknown_account_message.txt:4
+#, fuzzy, python-format
+#| msgid ""
+#| "You're receiving this e-mail because you or someone else has requested a "
+#| "password for your user account at %(site_domain)s.\n"
+#| "It can be safely ignored if you did not request a password reset. Click "
+#| "the link below to reset your password."
+msgid ""
+"You are receiving this e-mail because you or someone else has requested a\n"
+"password for your user account. However, we do not have any record of a "
+"user\n"
+"with email %(email)s in our database.\n"
+"\n"
+"This mail can be safely ignored if you did not request a password reset.\n"
+"\n"
+"If it was you, you can sign up for an account using the link below."
+msgstr ""
+"您會收到這封信是因為您或是某人在 %(site_domain)s 這個網站上要求重設您帳號的密"
+"碼。\n"
+"若您沒有要求我們重設密碼，請您直接忽略這封信。若要重設您的密碼，請點擊下面的"
+"連結。"
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
@@ -609,10 +632,17 @@ msgid "Please contact us if you have any trouble resetting your password."
 msgstr "如果在重設密碼時碰到問題，請與我們聯絡。"
 
 #: templates/account/password_reset_done.html:15
+#, fuzzy
+#| msgid ""
+#| "We have sent an e-mail to you for\n"
+#| "verification. Please click on the link inside this e-mail. Please\n"
+#| "contact us if you do not receive it within a few minutes."
 msgid ""
-"We have sent you an e-mail. Please contact us if you do not receive it "
-"within a few minutes."
-msgstr "我們已經寄了一封電子郵件給您，如果數分鐘內您沒有收到，請與我們聯絡。"
+"We have sent you an e-mail. If you have not received it please check your "
+"spam folder. Otherwise contact us if you do not receive it in a few minutes."
+msgstr ""
+"我們剛剛寄了一封電子郵件確認信給您，\n"
+"請點擊郵件中的連結。您在數分鐘內尚無法收到郵件，請與我們聯絡。"
 
 #: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -628,11 +658,10 @@ msgstr ""
 "密碼重設連結已失效，可能是因為該連結已經被人用過了，請重新申請<a href="
 "\"%(passwd_reset_url)s\">重設密碼</a>。"
 
-#: templates/account/password_reset_from_key.html:17
+#: templates/account/password_reset_from_key.html:16
 msgid "change password"
 msgstr "修改密碼"
 
-#: templates/account/password_reset_from_key.html:20
 #: templates/account/password_reset_from_key_done.html:8
 msgid "Your password is now changed."
 msgstr "您的密碼已變更。"
@@ -683,10 +712,16 @@ msgid "Verify Your E-mail Address"
 msgstr "驗證您的電子郵件地址"
 
 #: templates/account/verification_sent.html:10
+#, fuzzy
+#| msgid ""
+#| "We have sent an e-mail to you for verification. Follow the link provided "
+#| "to finalize the signup process. Please contact us if you do not receive "
+#| "it within a few minutes."
 msgid ""
 "We have sent an e-mail to you for verification. Follow the link provided to "
-"finalize the signup process. Please contact us if you do not receive it "
-"within a few minutes."
+"finalize the signup process. If you do not see the verification e-mail in "
+"your main inbox, check your spam folder. Please contact us if you do not "
+"receive the verification e-mail within a few minutes."
 msgstr ""
 "我們剛剛寄了一封電子郵件確認信給您，請點擊郵件中的連結以完成註冊流程。若您在"
 "數分鐘內尚無法收到郵件，請與我們聯絡。"
@@ -701,9 +736,16 @@ msgstr ""
 "因此我們需要確認您的電子郵件地址。"
 
 #: templates/account/verified_email_required.html:16
+#, fuzzy
+#| msgid ""
+#| "We have sent an e-mail to you for\n"
+#| "verification. Please click on the link inside this e-mail. Please\n"
+#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent an e-mail to you for\n"
-"verification. Please click on the link inside this e-mail. Please\n"
+"verification. Please click on the link inside that e-mail. If you do not see "
+"the verification e-mail in your main inbox, check your spam folder. "
+"Otherwise\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
 "我們剛剛寄了一封電子郵件確認信給您，\n"
@@ -813,6 +855,12 @@ msgid ""
 msgstr ""
 "您將使用 %(provider_name)s 這個帳號登入\n"
 " %(site_name)s 這個網站。最後一步，請填完下列表單："
+
+#~ msgid ""
+#~ "We have sent you an e-mail. Please contact us if you do not receive it "
+#~ "within a few minutes."
+#~ msgstr ""
+#~ "我們已經寄了一封電子郵件給您，如果數分鐘內您沒有收到，請與我們聯絡。"
 
 #~ msgid "Account"
 #~ msgstr "帳號"

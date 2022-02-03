@@ -1,11 +1,8 @@
-from __future__ import unicode_literals
-
 import datetime
 
 from django.core import signing
 from django.db import models, transaction
 from django.utils import timezone
-from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 
 from .. import app_settings as allauth_app_settings
@@ -98,7 +95,7 @@ class EmailConfirmation(models.Model):
 
     @classmethod
     def create(cls, email_address):
-        key = get_random_string(64).lower()
+        key = get_adapter().generate_emailconfirmation_key(email_address.email)
         return cls._default_manager.create(email_address=email_address, key=key)
 
     def key_expired(self):

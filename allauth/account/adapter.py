@@ -384,7 +384,17 @@ class DefaultAccountAdapter(object):
             form_spec["field_order"].append(field.html_name)
         return form_spec
 
-    def pre_login(self, request, user, *, email_verification, signal_kwargs, email, signup, redirect_url):
+    def pre_login(
+        self,
+        request,
+        user,
+        *,
+        email_verification,
+        signal_kwargs,
+        email,
+        signup,
+        redirect_url
+    ):
         from .utils import has_verified_email, send_email_confirmation
 
         if not user.is_active:
@@ -401,7 +411,17 @@ class DefaultAccountAdapter(object):
                 send_email_confirmation(request, user, signup=signup, email=email)
                 return self.respond_email_verification_sent(request, user)
 
-    def post_login(self, request, user, *, email_verification, signal_kwargs, email, signup, redirect_url):
+    def post_login(
+        self,
+        request,
+        user,
+        *,
+        email_verification,
+        signal_kwargs,
+        email,
+        signup,
+        redirect_url
+    ):
         from .utils import get_login_redirect_url
 
         response = HttpResponseRedirect(

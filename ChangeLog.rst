@@ -1,11 +1,9 @@
-0.48.0 (unreleased)
+0.48.0 (2022-02-03)
 *******************
 
 Note worthy changes
 -------------------
-- New translation: Catalan.
-
-- New translation: Bulgarian.
+- New translations: Catalan, Bulgarian.
 
 - Introduced a new setting ``ACCOUNT_PREVENT_ENUMERATION`` that controls whether
   or not information is revealed about whether or not a user account exists.

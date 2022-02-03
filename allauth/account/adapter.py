@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 import html
 import json
 import warnings
@@ -28,6 +26,8 @@ from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 
 from allauth import ratelimit
+from allauth.account import signals
+from allauth.account.app_settings import EmailVerificationMethod
 from allauth.utils import (
     build_absolute_uri,
     email_address_exists,
@@ -383,6 +383,47 @@ class DefaultAccountAdapter(object):
             form_spec["fields"][field.html_name] = field_spec
             form_spec["field_order"].append(field.html_name)
         return form_spec
+
+    def pre_login(self, request, user, *, email_verification, signal_kwargs, email, signup, redirect_url):
+        from .utils import has_verified_email, send_email_confirmation
+
+        if not user.is_active:
+            return self.respond_user_inactive(request, user)
+
+        if email_verification == EmailVerificationMethod.NONE:
+            pass
+        elif email_verification == EmailVerificationMethod.OPTIONAL:
+            # In case of OPTIONAL verification: send on signup.
+            if not has_verified_email(user, email) and signup:
+                send_email_confirmation(request, user, signup=signup, email=email)
+        elif email_verification == EmailVerificationMethod.MANDATORY:
+            if not has_verified_email(user, email):
+                send_email_confirmation(request, user, signup=signup, email=email)
+                return self.respond_email_verification_sent(request, user)
+
+    def post_login(self, request, user, *, email_verification, signal_kwargs, email, signup, redirect_url):
+        from .utils import get_login_redirect_url
+
+        response = HttpResponseRedirect(
+            get_login_redirect_url(request, redirect_url, signup=signup)
+        )
+
+        if signal_kwargs is None:
+            signal_kwargs = {}
+        signals.user_logged_in.send(
+            sender=user.__class__,
+            request=request,
+            response=response,
+            user=user,
+            **signal_kwargs,
+        )
+        self.add_message(
+            request,
+            messages.SUCCESS,
+            "account/messages/logged_in.txt",
+            {"user": user},
+        )
+        return response
 
     def login(self, request, user):
         # HACK: This is not nice. The proper Django way is to use an

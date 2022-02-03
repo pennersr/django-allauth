@@ -3,19 +3,19 @@ from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
-class LemonldapAccount(ProviderAccount):
+class LemonLDAPAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("picture")
 
     def to_str(self):
-        dflt = super(LemonldapAccount, self).to_str()
+        dflt = super(LemonLDAPAccount, self).to_str()
         return self.account.extra_data.get("name", dflt)
 
 
-class LemonldapProvider(OAuth2Provider):
+class LemonLDAPProvider(OAuth2Provider):
     id = "lemonldap"
     name = "LemonLDAP::NG"
-    account_class = LemonldapAccount
+    account_class = LemonLDAPAccount
 
     def get_default_scope(self):
         return ["openid", "profile", "email"]
@@ -32,4 +32,4 @@ class LemonldapProvider(OAuth2Provider):
         )
 
 
-provider_classes = [LemonldapProvider]
+provider_classes = [LemonLDAPProvider]

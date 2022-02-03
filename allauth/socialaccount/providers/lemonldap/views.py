@@ -2,7 +2,7 @@
 import requests
 
 from allauth.socialaccount import app_settings
-from allauth.socialaccount.providers.lemonldap.provider import LemonldapProvider
+from allauth.socialaccount.providers.lemonldap.provider import LemonLDAPProvider
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -10,8 +10,8 @@ from allauth.socialaccount.providers.oauth2.views import (
 )
 
 
-class LemonldapOAuth2Adapter(OAuth2Adapter):
-    provider_id = LemonldapProvider.id
+class LemonLDAPOAuth2Adapter(OAuth2Adapter):
+    provider_id = LemonLDAPProvider.id
     supports_state = True
 
     settings = app_settings.PROVIDERS.get(provider_id, {})
@@ -33,5 +33,5 @@ class LemonldapOAuth2Adapter(OAuth2Adapter):
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 
-oauth2_login = OAuth2LoginView.adapter_view(LemonldapOAuth2Adapter)
-oauth2_callback = OAuth2CallbackView.adapter_view(LemonldapOAuth2Adapter)
+oauth2_login = OAuth2LoginView.adapter_view(LemonLDAPOAuth2Adapter)
+oauth2_callback = OAuth2CallbackView.adapter_view(LemonLDAPOAuth2Adapter)

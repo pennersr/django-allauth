@@ -28,6 +28,9 @@ Note worthy changes
   installed. Therefore, enabling or disabling ``sites`` is not something you can
   do on the fly.
 
+- The ``facebook`` provider no longer raises ``ImproperlyConfigured``
+  within ``{% providers_media_js %}`` when it is not configured.
+
 
 
 Backwards incompatible changes

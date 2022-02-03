@@ -3,7 +3,6 @@ import string
 from urllib.parse import quote
 
 from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
 from django.middleware.csrf import get_token
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -157,11 +156,10 @@ class FacebookProvider(OAuth2Provider):
         try:
             app = self.get_app(request)
         except SocialApp.DoesNotExist:
-            raise ImproperlyConfigured(
-                "No Facebook app configured: please"
-                " add a SocialApp using the Django"
-                " admin"
-            )
+            # It's a problem that Facebook isn't configured; but don't raise
+            # an error. Other providers don't raise errors when they're missing
+            # SocialApps in media_js().
+            return ""
 
         def abs_uri(name):
             return request.build_absolute_uri(reverse(name))

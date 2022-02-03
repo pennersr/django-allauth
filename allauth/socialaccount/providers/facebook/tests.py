@@ -79,6 +79,14 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
         script = provider.media_js(request)
         self.assertTrue('"appId": "app123id"' in script)
 
+    def test_media_js_when_not_configured(self):
+        provider = providers.registry.by_id(FacebookProvider.id)
+        provider.get_app(None).delete()
+        request = RequestFactory().get(reverse("account_login"))
+        request.session = {}
+        script = provider.media_js(request)
+        self.assertEqual(script, "")
+
     def test_login_by_token(self):
         resp = self.client.get(reverse("account_login"))
         with patch(

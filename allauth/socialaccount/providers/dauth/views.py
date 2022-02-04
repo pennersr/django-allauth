@@ -24,6 +24,7 @@ class DAuthAdapter(OAuth2Adapter):
     # After successfully logging in, use access token to retrieve user info
     def complete_login(self, request, app, token, **kwargs):
         resp = requests.post(self.profile_url, data={"access_token": token.token})
+        resp.raise_for_status()
         return self.get_provider().sociallogin_from_response(request, resp.json())
 
 

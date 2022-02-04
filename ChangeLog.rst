@@ -1799,7 +1799,7 @@ Note worthy changes
 
 - The existing migrations for allauth.openid were not compatible
   with MySQL due to the use of an URLField with max_length above
-  1.   The issue has now been addressed but unfortunately at the
+  255.   The issue has now been addressed but unfortunately at the
   cost of the existing migrations for this app. Existing
   installations will have to be dealt with manually (altering the
   "identity" column of OpenIDAccount, deleting ghost migrations).

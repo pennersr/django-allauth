@@ -725,7 +725,7 @@ class PasswordResetFromKeyView(
     template_name = "account/password_reset_from_key." + app_settings.TEMPLATE_EXTENSION
     form_class = ResetPasswordKeyForm
     success_url = reverse_lazy("account_reset_password_from_key_done")
-    internal_reset_url_key = "set-password"
+    reset_url_key = "set-password"
 
     def get_form_class(self):
         return get_form_class(
@@ -736,7 +736,7 @@ class PasswordResetFromKeyView(
         self.request = request
         self.key = key
 
-        if self.key == self.internal_reset_url_key:
+        if self.key == self.reset_url_key:
             self.key = self.request.session.get(INTERNAL_RESET_SESSION_KEY, "")
             # (Ab)using forms here to be able to handle errors in XHR #890
             token_form = UserTokenForm(data={"uidb36": uidb36, "key": self.key})
@@ -765,7 +765,7 @@ class PasswordResetFromKeyView(
                 # HTTP Referer header.
                 self.request.session[INTERNAL_RESET_SESSION_KEY] = self.key
                 redirect_url = self.request.path.replace(
-                    self.key, self.internal_reset_url_key
+                    self.key, self.reset_url_key
                 )
                 return redirect(redirect_url)
 

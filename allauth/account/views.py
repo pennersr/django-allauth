@@ -764,9 +764,7 @@ class PasswordResetFromKeyView(
                 # avoids the possibility of leaking the key in the
                 # HTTP Referer header.
                 self.request.session[INTERNAL_RESET_SESSION_KEY] = self.key
-                redirect_url = self.request.path.replace(
-                    self.key, self.reset_url_key
-                )
+                redirect_url = self.request.path.replace(self.key, self.reset_url_key)
                 return redirect(redirect_url)
 
         self.reset_user = None

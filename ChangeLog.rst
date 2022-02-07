@@ -1,3 +1,13 @@
+0.49.0 (unreleased)
+*******************
+
+Backwards incompatible changes
+------------------------------
+
+- Changed naming of ``internal_reset_url_key`` attribute in
+  ``allauth.account.views.PasswordResetFromKeyView`` to ``reset_url_key``.
+
+
 0.48.0 (2022-02-03)
 *******************
 
@@ -16,7 +26,7 @@ Note worthy changes
 
 - Added builtin rate limitting (see ``ACCOUNT_RATE_LIMITS``).
 
-- Added ``reset_url_token`` attribute in
+- Added ``internal_reset_url_key`` attribute in
   ``allauth.account.views.PasswordResetFromKeyView`` which allows specifying
   a token parameter displayed as a component of password reset URLs.
 

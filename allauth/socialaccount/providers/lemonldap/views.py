@@ -2,7 +2,9 @@
 import requests
 
 from allauth.socialaccount import app_settings
-from allauth.socialaccount.providers.lemonldap.provider import LemonLDAPProvider
+from allauth.socialaccount.providers.lemonldap.provider import (
+    LemonLDAPProvider,
+)
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,

@@ -1,6 +1,13 @@
 0.49.0 (unreleased)
 *******************
 
+Note worthy changes
+-------------------
+
+- Fixed ``SignupForm`` setting username and email attributes on the ``User`` class
+  instead of a dummy user instance.
+
+
 Backwards incompatible changes
 ------------------------------
 
@@ -38,7 +45,6 @@ Note worthy changes
 
 - The ``facebook`` provider no longer raises ``ImproperlyConfigured``
   within ``{% providers_media_js %}`` when it is not configured.
-
 
 
 Backwards incompatible changes

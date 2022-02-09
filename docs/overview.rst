@@ -141,6 +141,8 @@ Supported Providers
 
 - Keycloak (OAuth2)
 
+- LemonLDAP::NG (OAuth2)
+
 - Line (OAuth2)
 
 - LinkedIn (OAuth, OAuth2)

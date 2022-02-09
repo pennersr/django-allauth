@@ -102,6 +102,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.jupyterhub',
         'allauth.socialaccount.providers.kakao',
         'allauth.socialaccount.providers.keycloak',
+        'allauth.socialaccount.providers.lemonldap',
         'allauth.socialaccount.providers.line',
         'allauth.socialaccount.providers.linkedin',
         'allauth.socialaccount.providers.linkedin_oauth2',

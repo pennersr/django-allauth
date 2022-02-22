@@ -1,11 +1,20 @@
-0.49.0 (unreleased)
+0.49.0 (2022-02-22)
 *******************
 
 Note worthy changes
 -------------------
 
+- New providers: LemonLDAP::NG.
+
 - Fixed ``SignupForm`` setting username and email attributes on the ``User`` class
   instead of a dummy user instance.
+
+- Email addresses POST'ed to the email management view (done in order to resend
+  the confirmation email) were not properly validated. Yet, these email
+  addresses were still added as secondary email addresses. Given the lack of
+  proper validation, invalid email addresses could have entered the database.
+
+- New translations: Romanian.
 
 
 Backwards incompatible changes

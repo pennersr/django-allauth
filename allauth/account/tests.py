@@ -1187,7 +1187,7 @@ class EmailFormTests(TestCase):
 
     def test_verify_unknown_email(self):
         assert EmailAddress.objects.filter(user=self.user).count() == 2
-        resp = self.client.post(
+        self.client.post(
             reverse("account_email"),
             {"action_send": "", "email": "email@unknown.org"},
         )

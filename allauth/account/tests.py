@@ -1185,6 +1185,15 @@ class EmailFormTests(TestCase):
         )
         self.assertTemplateUsed(resp, "account/messages/email_confirmation_sent.txt")
 
+    def test_verify_unknown_email(self):
+        assert EmailAddress.objects.filter(user=self.user).count() == 2
+        resp = self.client.post(
+            reverse("account_email"),
+            {"action_send": "", "email": "email@unknown.org"},
+        )
+        # This unkown email address must not be implicitly added.
+        assert EmailAddress.objects.filter(user=self.user).count() == 2
+
     @override_settings(ACCOUNT_MAX_EMAIL_ADDRESSES=2)
     def test_add_with_two_limiter(self):
         resp = self.client.post(

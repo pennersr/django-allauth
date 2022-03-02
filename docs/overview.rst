@@ -89,6 +89,8 @@ Supported Providers
 
 - Draugiem
 
+- Drip
+
 - Dropbox (OAuth, OAuth2)
 
 - Dwolla (OAuth2)

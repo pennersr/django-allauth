@@ -36,7 +36,7 @@ class MicrosoftGraphOAuth2Adapter(OAuth2Adapter):
     provider_id = MicrosoftGraphProvider.id
 
     settings = app_settings.PROVIDERS.get(provider_id, {})
-    tenant = settings.get("TENANT", "common")
+    tenant = settings.get("tenant", "common")
 
     provider_base_url = "https://login.microsoftonline.com/{0}".format(tenant)
     access_token_url = "{0}/oauth2/v2.0/token".format(provider_base_url)

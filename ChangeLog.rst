@@ -1,3 +1,13 @@
+0.51.0 (unreleased)
+*******************
+
+Note worthy changes
+-------------------
+
+- Updated URLs of Google's endpoints to the latest version; removed a redundant
+  ``userinfo`` call.
+
+
 0.50.0 (2022-03-25)
 *******************
 

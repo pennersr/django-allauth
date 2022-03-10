@@ -4,6 +4,7 @@ import warnings
 from importlib import import_module
 
 from django import forms
+from django.conf import settings
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core import exceptions, validators
@@ -13,6 +14,7 @@ from django.utils.translation import gettext, gettext_lazy as _, pgettext
 from ..utils import (
     build_absolute_uri,
     get_username_max_length,
+    import_attribute,
     set_form_field_order,
 )
 from . import app_settings
@@ -47,7 +49,12 @@ class EmailAwarePasswordResetTokenGenerator(PasswordResetTokenGenerator):
         return ret
 
 
-default_token_generator = EmailAwarePasswordResetTokenGenerator()
+if hasattr(settings, "ACCOUNT_PASSWORD_RESET_TOKEN_GENERATOR"):
+    token_generator = import_attribute(settings.ACCOUNT_PASSWORD_RESET_TOKEN_GENERATOR)
+else:
+    token_generator = EmailAwarePasswordResetTokenGenerator
+
+default_token_generator = token_generator()
 
 
 class PasswordVerificationMixin(object):

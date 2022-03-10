@@ -4,6 +4,9 @@
 Note worthy changes
 -------------------
 
+- Introduced a new setting ``ACCOUNT_PASSWORD_RESET_TOKEN_GENERATOR`` that
+  allows you to specify the token generator for password resets.
+
 - Dropped support for Django 2.x and 3.0.
 
 - Officially support Django 4.2.

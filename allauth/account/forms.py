@@ -47,7 +47,7 @@ class EmailAwarePasswordResetTokenGenerator(PasswordResetTokenGenerator):
         return ret
 
 
-default_token_generator = EmailAwarePasswordResetTokenGenerator()
+default_token_generator = app_settings.PASSWORD_RESET_TOKEN_GENERATOR()
 
 
 class PasswordVerificationMixin(object):

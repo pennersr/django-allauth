@@ -329,6 +329,8 @@ class OAuth2TestsMixin(object):
 
         if isinstance(resp_mock, list):
             resp_mocks = resp_mock
+        elif resp_mock is None:
+            resp_mocks = []
         else:
             resp_mocks = [resp_mock]
 

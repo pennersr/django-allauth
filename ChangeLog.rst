@@ -17,6 +17,10 @@ Note worthy changes
   (`templates/account/email/acccount_already_exists_message.txt`) that will be
   used in this scenario.
 
+- Updated URLs of Google's endpoints to the latest version; removed a redundant
+  ``userinfo`` call.
+
+
 
 0.51.0 (2022-06-07)
 *******************

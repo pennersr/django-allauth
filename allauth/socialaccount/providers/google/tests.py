@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
+import json
+from datetime import datetime, timedelta
 from importlib import import_module
-from requests.exceptions import HTTPError
 
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -15,9 +16,10 @@ from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.models import EmailAddress, EmailConfirmation
 from allauth.account.signals import user_signed_up
-from allauth.socialaccount.models import SocialAccount, SocialToken
+from allauth.socialaccount.models import SocialAccount
+from allauth.socialaccount.providers.apple.client import jwt_encode
 from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, TestCase, patch
+from allauth.tests import TestCase
 
 from .provider import GoogleProvider
 
@@ -30,94 +32,61 @@ from .provider import GoogleProvider
 class GoogleTests(OAuth2TestsMixin, TestCase):
     provider_id = GoogleProvider.id
 
-    def get_mocked_response(
-        self,
-        family_name="Penners",
-        given_name="Raymond",
-        name="Raymond Penners",
-        email="raymond.penners@example.com",
-        email_verified=True,
-    ):
-        return MockedResponse(
-            200,
-            """
-              {"family_name": "%s", "name": "%s",
-               "picture": "https://lh5.googleusercontent.com/photo.jpg",
-               "locale": "nl", "gender": "male",
-               "email": "%s",
-               "link": "https://plus.google.com/108204268033311374519",
-               "given_name": "%s", "sub": "108204268033311374519",
-               "email_verified": %s }
-        """
-            % (
-                family_name,
-                name,
-                email,
-                given_name,
-                (repr(email_verified).lower()),
-            ),
-        )
+    def setUp(self):
+        super().setUp()
+        self.email = "raymond.penners@example.com"
+        self.identity_overwrites = {}
 
-    def test_google_compelete_login_401(self):
-        from allauth.socialaccount.providers.google.views import (
-            GoogleOAuth2Adapter,
-        )
+    def get_google_id_token_payload(self):
+        now = datetime.utcnow()
+        client_id = "app123id"  # Matches `setup_app`
+        payload = {
+            "iss": "https://accounts.google.com",
+            "azp": client_id,
+            "aud": client_id,
+            "sub": "108204268033311374519",
+            "hd": "example.com",
+            "email": self.email,
+            "email_verified": True,
+            "at_hash": "HK6E_P6Dh8Y93mRNtsDB1Q",
+            "name": "Raymond Penners",
+            "picture": "https://lh5.googleusercontent.com/photo.jpg",
+            "given_name": "Raymond",
+            "family_name": "Penners",
+            "locale": "en",
+            "iat": now,
+            "exp": now + timedelta(hours=1),
+        }
+        payload.update(self.identity_overwrites)
+        return payload
 
-        class LessMockedResponse(MockedResponse):
-            def raise_for_status(self):
-                if self.status_code != 200:
-                    raise HTTPError(None)
+    def get_login_response_json(self, with_refresh_token=True):
+        data = {
+            "access_token": "testac",
+            "expires_in": 3600,
+            "scope": "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid",
+            "token_type": "Bearer",
+            "id_token": jwt_encode(self.get_google_id_token_payload(), "secret"),
+        }
+        return json.dumps(data)
 
-        request = RequestFactory().get(
-            reverse(self.provider.id + "_login"), dict(process="login")
-        )
-
-        adapter = GoogleOAuth2Adapter(request)
-        app = adapter.get_provider().get_app(request)
-        token = SocialToken(token="some_token")
-        response_with_401 = LessMockedResponse(
-            401,
-            """
-            {"error": {
-              "errors": [{
-                "domain": "global",
-                "reason": "authError",
-                "message": "Invalid Credentials",
-                "locationType": "header",
-                "location": "Authorization" } ],
-              "code": 401,
-              "message": "Invalid Credentials" }
-            }""",
-        )
-        with patch(
-            "allauth.socialaccount.providers.google.views.requests"
-        ) as patched_requests:
-            patched_requests.get.return_value = response_with_401
-            with self.assertRaises(HTTPError):
-                adapter.complete_login(request, app, token)
+    @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=False)
+    def test_login(self):
+        resp = self.login(resp_mock=None)
+        self.assertRedirects(resp, reverse("socialaccount_signup"))
 
     def test_username_based_on_email(self):
-        first_name = "明"
-        last_name = "小"
-        email = "raymond.penners@example.com"
-        self.login(
-            self.get_mocked_response(
-                name=first_name + " " + last_name,
-                email=email,
-                given_name=first_name,
-                family_name=last_name,
-                email_verified=True,
-            )
-        )
-        user = User.objects.get(email=email)
+        self.identity_overwrites = {"given_name": "明", "family_name": "小"}
+        self.login(resp_mock=None)
+        user = User.objects.get(email=self.email)
         self.assertEqual(user.username, "raymond.penners")
 
     def test_email_verified(self):
-        test_email = "raymond.penners@example.com"
-        self.login(self.get_mocked_response(email_verified=True))
-        email_address = EmailAddress.objects.get(email=test_email, verified=True)
+        self.identity_overwrites = {"email_verified": True}
+        self.login(resp_mock=None)
+        email_address = EmailAddress.objects.get(email=self.email, verified=True)
         self.assertFalse(
-            EmailConfirmation.objects.filter(email_address__email=test_email).exists()
+            EmailConfirmation.objects.filter(email_address__email=self.email).exists()
         )
         account = email_address.user.socialaccount_set.all()[0]
         self.assertEqual(account.extra_data["given_name"], "Raymond")
@@ -132,17 +101,17 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
             sent_signals.append(sender)
 
         user_signed_up.connect(on_signed_up)
-        self.login(self.get_mocked_response(email_verified=True))
+        self.login(resp_mock=None)
         self.assertTrue(len(sent_signals) > 0)
 
     @override_settings(ACCOUNT_EMAIL_CONFIRMATION_HMAC=False)
     def test_email_unverified(self):
-        test_email = "raymond.penners@example.com"
-        resp = self.login(self.get_mocked_response(email_verified=False))
-        email_address = EmailAddress.objects.get(email=test_email)
+        self.identity_overwrites = {"email_verified": False}
+        resp = self.login(resp_mock=None)
+        email_address = EmailAddress.objects.get(email=self.email)
         self.assertFalse(email_address.verified)
         self.assertTrue(
-            EmailConfirmation.objects.filter(email_address__email=test_email).exists()
+            EmailConfirmation.objects.filter(email_address__email=self.email).exists()
         )
         self.assertTemplateUsed(
             resp, "account/email/email_confirmation_signup_subject.txt"
@@ -157,15 +126,15 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
         request = RequestFactory().get("/")
         request.session = self.client.session
         adapter = get_adapter(request)
-        test_email = "raymond.penners@example.com"
-        adapter.stash_verified_email(request, test_email)
+        adapter.stash_verified_email(request, self.email)
         request.session.save()
 
-        self.login(self.get_mocked_response(email_verified=False))
-        email_address = EmailAddress.objects.get(email=test_email)
+        self.identity_overwrites = {"email_verified": False}
+        self.login(resp_mock=None)
+        email_address = EmailAddress.objects.get(email=self.email)
         self.assertTrue(email_address.verified)
         self.assertFalse(
-            EmailConfirmation.objects.filter(email_address__email=test_email).exists()
+            EmailConfirmation.objects.filter(email_address__email=self.email).exists()
         )
 
     def test_account_connect(self):
@@ -175,7 +144,8 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
         user.save()
         EmailAddress.objects.create(user=user, email=email, primary=True, verified=True)
         self.client.login(username=user.username, password="test")
-        self.login(self.get_mocked_response(email_verified=True), process="connect")
+        self.identity_overwrites = {"email": email, "email_verified": True}
+        self.login(resp_mock=None, process="connect")
         # Check if we connected...
         self.assertTrue(
             SocialAccount.objects.filter(user=user, provider=GoogleProvider.id).exists()
@@ -189,12 +159,12 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
         SOCIALACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.NONE,
     )
     def test_social_email_verification_skipped(self):
-        test_email = "raymond.penners@example.com"
-        self.login(self.get_mocked_response(email_verified=False))
-        email_address = EmailAddress.objects.get(email=test_email)
+        self.identity_overwrites = {"email_verified": False}
+        self.login(resp_mock=None)
+        email_address = EmailAddress.objects.get(email=self.email)
         self.assertFalse(email_address.verified)
         self.assertFalse(
-            EmailConfirmation.objects.filter(email_address__email=test_email).exists()
+            EmailConfirmation.objects.filter(email_address__email=self.email).exists()
         )
 
     @override_settings(
@@ -202,9 +172,10 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
         SOCIALACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.OPTIONAL,
     )
     def test_social_email_verification_optional(self):
-        self.login(self.get_mocked_response(email_verified=False))
+        self.identity_overwrites = {"email_verified": False}
+        self.login(resp_mock=None)
         self.assertEqual(len(mail.outbox), 1)
-        self.login(self.get_mocked_response(email_verified=False))
+        self.login(resp_mock=None)
         self.assertEqual(len(mail.outbox), 1)
 
 

@@ -11,9 +11,9 @@ from .provider import GoogleProvider
 
 class GoogleOAuth2Adapter(OAuth2Adapter):
     provider_id = GoogleProvider.id
-    access_token_url = "https://accounts.google.com/o/oauth2/token"
-    authorize_url = "https://accounts.google.com/o/oauth2/auth"
-    profile_url = "https://www.googleapis.com/oauth2/v1/userinfo"
+    access_token_url = "https://oauth2.googleapis.com/token"
+    authorize_url = "https://accounts.google.com/o/oauth2/v2/auth"
+    profile_url = "https://openidconnect.googleapis.com/v1/userinfo"
 
     def complete_login(self, request, app, token, **kwargs):
         resp = requests.get(

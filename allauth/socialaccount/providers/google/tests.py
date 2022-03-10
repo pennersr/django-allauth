@@ -36,7 +36,7 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
         given_name="Raymond",
         name="Raymond Penners",
         email="raymond.penners@example.com",
-        verified_email=True,
+        email_verified=True,
     ):
         return MockedResponse(
             200,
@@ -46,15 +46,15 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
                "locale": "nl", "gender": "male",
                "email": "%s",
                "link": "https://plus.google.com/108204268033311374519",
-               "given_name": "%s", "id": "108204268033311374519",
-               "verified_email": %s }
+               "given_name": "%s", "sub": "108204268033311374519",
+               "email_verified": %s }
         """
             % (
                 family_name,
                 name,
                 email,
                 given_name,
-                (repr(verified_email).lower()),
+                (repr(email_verified).lower()),
             ),
         )
 
@@ -106,7 +106,7 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
                 email=email,
                 given_name=first_name,
                 family_name=last_name,
-                verified_email=True,
+                email_verified=True,
             )
         )
         user = User.objects.get(email=email)
@@ -114,7 +114,7 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
 
     def test_email_verified(self):
         test_email = "raymond.penners@example.com"
-        self.login(self.get_mocked_response(verified_email=True))
+        self.login(self.get_mocked_response(email_verified=True))
         email_address = EmailAddress.objects.get(email=test_email, verified=True)
         self.assertFalse(
             EmailConfirmation.objects.filter(email_address__email=test_email).exists()
@@ -132,13 +132,13 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
             sent_signals.append(sender)
 
         user_signed_up.connect(on_signed_up)
-        self.login(self.get_mocked_response(verified_email=True))
+        self.login(self.get_mocked_response(email_verified=True))
         self.assertTrue(len(sent_signals) > 0)
 
     @override_settings(ACCOUNT_EMAIL_CONFIRMATION_HMAC=False)
     def test_email_unverified(self):
         test_email = "raymond.penners@example.com"
-        resp = self.login(self.get_mocked_response(verified_email=False))
+        resp = self.login(self.get_mocked_response(email_verified=False))
         email_address = EmailAddress.objects.get(email=test_email)
         self.assertFalse(email_address.verified)
         self.assertTrue(
@@ -161,7 +161,7 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
         adapter.stash_verified_email(request, test_email)
         request.session.save()
 
-        self.login(self.get_mocked_response(verified_email=False))
+        self.login(self.get_mocked_response(email_verified=False))
         email_address = EmailAddress.objects.get(email=test_email)
         self.assertTrue(email_address.verified)
         self.assertFalse(
@@ -175,7 +175,7 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
         user.save()
         EmailAddress.objects.create(user=user, email=email, primary=True, verified=True)
         self.client.login(username=user.username, password="test")
-        self.login(self.get_mocked_response(verified_email=True), process="connect")
+        self.login(self.get_mocked_response(email_verified=True), process="connect")
         # Check if we connected...
         self.assertTrue(
             SocialAccount.objects.filter(user=user, provider=GoogleProvider.id).exists()
@@ -190,7 +190,7 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
     )
     def test_social_email_verification_skipped(self):
         test_email = "raymond.penners@example.com"
-        self.login(self.get_mocked_response(verified_email=False))
+        self.login(self.get_mocked_response(email_verified=False))
         email_address = EmailAddress.objects.get(email=test_email)
         self.assertFalse(email_address.verified)
         self.assertFalse(
@@ -202,9 +202,9 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
         SOCIALACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.OPTIONAL,
     )
     def test_social_email_verification_optional(self):
-        self.login(self.get_mocked_response(verified_email=False))
+        self.login(self.get_mocked_response(email_verified=False))
         self.assertEqual(len(mail.outbox), 1)
-        self.login(self.get_mocked_response(verified_email=False))
+        self.login(self.get_mocked_response(email_verified=False))
         self.assertEqual(len(mail.outbox), 1)
 
 

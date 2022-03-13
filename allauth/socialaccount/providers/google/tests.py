@@ -75,6 +75,22 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
         resp = self.login(resp_mock=None)
         self.assertRedirects(resp, reverse("socialaccount_signup"))
 
+    def test_wrong_id_token_claim_values(self):
+        wrong_claim_values = {
+            "iss": "not-google",
+            "exp": datetime.utcnow() - timedelta(seconds=1),
+            "aud": "foo",
+        }
+        for key, value in wrong_claim_values.items():
+            with self.subTest(key):
+                self.identity_overwrites = {key: value}
+                resp = self.login(resp_mock=None)
+                self.assertTemplateUsed(
+                    resp,
+                    "socialaccount/authentication_error.%s"
+                    % getattr(settings, "ACCOUNT_TEMPLATE_EXTENSION", "html"),
+                )
+
     def test_username_based_on_email(self):
         self.identity_overwrites = {"given_name": "明", "family_name": "小"}
         self.login(resp_mock=None)

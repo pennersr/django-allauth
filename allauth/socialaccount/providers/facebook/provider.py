@@ -25,7 +25,7 @@ from .locale import get_default_locale_callable
 GRAPH_API_VERSION = (
     getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
     .get("facebook", {})
-    .get("VERSION", "v7.0")
+    .get("VERSION", "v13.0")
 )
 GRAPH_API_URL = "https://graph.facebook.com/" + GRAPH_API_VERSION
 

@@ -16,7 +16,7 @@ class UntappdOAuth2Client(OAuth2Client):
         * nests access_token inside an extra 'response' object
     """
 
-    def get_access_token(self, code):
+    def get_access_token(self, code, **extra_data):
         data = {
             "client_id": self.consumer_key,
             "redirect_url": self.callback_url,
@@ -24,6 +24,7 @@ class UntappdOAuth2Client(OAuth2Client):
             "response_type": "code",
             "client_secret": self.consumer_secret,
             "code": code,
+            **extra_data
         }
         params = None
         self._strip_empty_keys(data)

@@ -45,11 +45,12 @@ class OAuth2Client(object):
         params.update(extra_params)
         return "%s?%s" % (authorization_url, urlencode(params))
 
-    def get_access_token(self, code):
+    def get_access_token(self, code, **extra_data):
         data = {
             "redirect_uri": self.callback_url,
             "grant_type": "authorization_code",
             "code": code,
+            **extra_data
         }
         if self.basic_auth:
             auth = requests.auth.HTTPBasicAuth(self.consumer_key, self.consumer_secret)

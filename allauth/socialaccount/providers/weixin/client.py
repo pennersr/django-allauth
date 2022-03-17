@@ -25,7 +25,7 @@ class WeixinOAuth2Client(OAuth2Client):
             sorted_params[param] = params[param]
         return "%s?%s" % (authorization_url, urlencode(sorted_params))
 
-    def get_access_token(self, code):
+    def get_access_token(self, code, **extra_data):
         data = {
             "appid": self.consumer_key,
             "redirect_uri": self.callback_url,
@@ -33,6 +33,7 @@ class WeixinOAuth2Client(OAuth2Client):
             "secret": self.consumer_secret,
             "scope": self.scope,
             "code": code,
+            **extra_data
         }
         params = None
         self._strip_empty_keys(data)

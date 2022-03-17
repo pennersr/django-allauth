@@ -58,7 +58,7 @@ class AppleOAuth2Client(OAuth2Client):
         """We support multiple client_ids, but use the first one for api calls"""
         return self.consumer_key.split(",")[0]
 
-    def get_access_token(self, code):
+    def get_access_token(self, code, **extra_data):
         url = self.access_token_url
         client_secret = self.generate_client_secret()
         data = {
@@ -67,6 +67,7 @@ class AppleOAuth2Client(OAuth2Client):
             "grant_type": "authorization_code",
             "redirect_uri": self.callback_url,
             "client_secret": client_secret,
+            **extra_data
         }
         self._strip_empty_keys(data)
         resp = requests.request(

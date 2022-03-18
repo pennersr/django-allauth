@@ -609,7 +609,7 @@ The following Facebook settings are available:
             'EXCHANGE_TOKEN': True,
             'LOCALE_FUNC': 'path.to.callable',
             'VERIFIED_EMAIL': False,
-            'VERSION': 'v7.0',
+            'VERSION': 'v13.0',
         }
     }
 
@@ -677,7 +677,7 @@ VERIFIED_EMAIL:
     risk.
 
 VERSION:
-    The Facebook Graph API version to use. The default is ``v7.0``.
+    The Facebook Graph API version to use. The default is ``v13.0``.
 
 App registration (get your key and secret here)
     A key and secret key can be obtained by

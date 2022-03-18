@@ -1,3 +1,12 @@
+0.50.0 (unreleased)
+*******************
+
+Note worthy changes
+-------------------
+
+- The Facebook API version now defaults to v13.0.
+
+
 0.49.0 (2022-02-22)
 *******************
 

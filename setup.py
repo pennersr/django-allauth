@@ -4,9 +4,10 @@ from __future__ import print_function
 import io
 import os
 import sys
+from distutils.util import convert_path
 from fnmatch import fnmatchcase
 
-from setuptools import convert_path, find_packages, setup
+from setuptools import find_packages, setup
 
 
 # Provided as an attribute, so you can append to these instead

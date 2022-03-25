@@ -1,8 +1,12 @@
-0.50.0 (unreleased)
+0.50.0 (2022-03-25)
 *******************
 
 Note worthy changes
 -------------------
+
+- Fixed compatibility issue with setuptools 61.
+
+- New providers: Drip.
 
 - The Facebook API version now defaults to v13.0.
 

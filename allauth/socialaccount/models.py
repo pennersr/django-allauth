@@ -120,6 +120,7 @@ class SocialAccount(models.Model):
 
     def __str__(self):
         from .helpers import socialaccount_user_display
+
         return socialaccount_user_display(self)
 
     def get_profile_url(self):

@@ -636,18 +636,18 @@ class SocialAccountTests(TestCase):
 
     def test_social_account_str_default(self):
         User = get_user_model()
-        user = User(username='test')
+        user = User(username="test")
         sa = SocialAccount(user=user)
-        self.assertEqual('test', str(sa))
+        self.assertEqual("test", str(sa))
 
     def socialaccount_str_custom_formatter(socialaccount):
-        return 'A custom str builder for {}'.format(socialaccount.user)
+        return "A custom str builder for {}".format(socialaccount.user)
 
     @override_settings(
         SOCIALACCOUNT_SOCIALACCOUNT_STR=socialaccount_str_custom_formatter
     )
     def test_social_account_str_customized(self):
         User = get_user_model()
-        user = User(username='test')
+        user = User(username="test")
         sa = SocialAccount(user=user)
-        self.assertEqual('A custom str builder for test', str(sa))
+        self.assertEqual("A custom str builder for test", str(sa))

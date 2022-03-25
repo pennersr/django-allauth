@@ -79,6 +79,10 @@ class AppSettings(object):
     def UID_MAX_LENGTH(self):
         return 191
 
+    @property
+    def SOCIALACCOUNT_STR(self):
+        return self._setting("SOCIALACCOUNT_STR", None)
+
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

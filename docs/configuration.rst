@@ -349,5 +349,10 @@ SOCIALACCOUNT_QUERY_EMAIL (=ACCOUNT_EMAIL_REQUIRED)
   Request e-mail address from 3rd party account provider? E.g. using
   OpenID AX, or the Facebook "email" permission.
 
+SOCIALACCOUNT_SOCIALACCOUNT_STR(=str of user object)
+  Used to override the str value for the SocialAccount model.
+
+  Must be a function accepting a single parameter for the socialaccount object.
+
 SOCIALACCOUNT_STORE_TOKENS (=False)
   Indicates whether or not the access tokens are stored in the database.

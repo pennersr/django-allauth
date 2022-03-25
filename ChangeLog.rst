@@ -29,6 +29,8 @@ Note worthy changes
 Backwards incompatible changes
 ------------------------------
 
+- The Microsoft ``tenant`` setting must now be specified using uppercase ``TENANT``.
+
 - Changed naming of ``internal_reset_url_key`` attribute in
   ``allauth.account.views.PasswordResetFromKeyView`` to ``reset_url_key``.
 

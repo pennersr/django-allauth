@@ -433,7 +433,7 @@ msgid ""
 msgstr ""
 "Получавате този e-mail, защото вие или някой друг е поискал парола за вашия "
 "потребителски акаунт.\n"
-"Можете да го пренебрегнете ако не сте поискали възстановяване на парола. "
+"Можете да го пренебрегнете, ако не сте поискали възстановяване на парола. "
 "Кликнете линка по-долу за да възстановите вашата парола."
 
 #: templates/account/email/password_reset_key_message.txt:9
@@ -447,12 +447,7 @@ msgid "Password Reset E-mail"
 msgstr "Възстановяване на парола"
 
 #: templates/account/email/unknown_account_message.txt:4
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
+#, python-format
 msgid ""
 "You are receiving this e-mail because you or someone else has requested a\n"
 "password for your user account. However, we do not have any record of a "
@@ -465,8 +460,9 @@ msgid ""
 msgstr ""
 "Получавате този e-mail, защото вие или някой друг е поискал парола за вашия "
 "потребителски акаунт.\n"
-"Можете да го пренебрегнете ако не сте поискали възстановяване на парола. "
-"Кликнете линка по-долу за да възстановите вашата парола."
+"На сървъра обаче не беше намерен потребител свързван с електронния адрес %(email)s.\n"
+"\nМожете да пренебрегнете това писмо, ако не сте поискали възстановяване на парола. "
+"Кликнете линка по-долу, за да направите нов акаунт."
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
@@ -616,22 +612,16 @@ msgstr "Възстанови паролата ми"
 #: templates/account/password_reset.html:23
 msgid "Please contact us if you have any trouble resetting your password."
 msgstr ""
-"Моля, свържете се с нас ако имате проблеми с възстановяването на вашата "
+"Моля, свържете се с нас, ако имате проблеми с възстановяването на вашата "
 "парола."
 
 #: templates/account/password_reset_done.html:15
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent you an e-mail. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
 msgstr ""
-"Изпратихме ви e-mail за потвърждение.\n"
-"Моля, кликнете линка в него.\n"
-"Моля, свържете се с нас ако не го получите до няколко минути."
+"Изпратихме ви електронно писмо. То може да пристигнало в папката Спам. "
+"Моля, свържете се с нас, ако не го получите до няколко минути."
 
 #: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -709,8 +699,8 @@ msgid ""
 "receive the verification e-mail within a few minutes."
 msgstr ""
 "Изпратихме ви e-mail за потвърждение. Последвайте посочения в него линк за "
-"да завършите процеса на регистрация. Ако не намерите писмото във Входящи си проверете "
-"спам папката.  Моля, свържете се с нас ако не го получите до няколко минути."
+"да завършите процеса на регистрация. То може да е пристигнало в папката "
+"Спам.  Моля, свържете се с нас, ако не го получите до няколко минути."
 
 #: templates/account/verified_email_required.html:12
 msgid ""
@@ -723,11 +713,6 @@ msgstr ""
 "потвърдите притежанието на вашия e-mail адрес. "
 
 #: templates/account/verified_email_required.html:16
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent an e-mail to you for\n"
 "verification. Please click on the link inside that e-mail. If you do not see "
@@ -735,9 +720,9 @@ msgid ""
 "Otherwise\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
-"Изпратихме ви e-mail за потвърждение.\n"
-"Моля, кликнете линка в него.\n"
-"Моля, свържете се с нас ако не го получите до няколко минути."
+"Изпратихме ви e-mail за потвърждение. То може да е попаднало в папката Спам. "
+"Моля, кликнете линка в него. "
+"Свържете се с нас, ако не го получите до няколко минути."
 
 #: templates/account/verified_email_required.html:20
 #, python-format
@@ -842,10 +827,3 @@ msgid ""
 msgstr ""
 "На път сте да използвате вашия %(provider_name)s акаунт за вход в\n"
 "%(site_name)s. Като последна стъпка, моля, попълнете следната форма:"
-
-#~ msgid ""
-#~ "We have sent you an e-mail. Please contact us if you do not receive it "
-#~ "within a few minutes."
-#~ msgstr ""
-#~ "Изпратихме ви e-mail. Моля, свържете се с нас ако не го получите до "
-#~ "няколко минути."

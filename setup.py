@@ -4,9 +4,10 @@ from __future__ import print_function
 import io
 import os
 import sys
+from distutils.util import convert_path
 from fnmatch import fnmatchcase
 
-from setuptools import convert_path, find_packages, setup
+from setuptools import find_packages, setup
 
 
 # Provided as an attribute, so you can append to these instead
@@ -123,8 +124,15 @@ METADATA = dict(
     " authentication, registration, account management as well as"
     " 3rd party (social) account authentication.",
     long_description=long_description,
-    url="http://github.com/pennersr/django-allauth",
-    keywords="django auth account social openid twitter facebook oauth" " registration",
+    url="http://www.intenct.nl/projects/django-allauth/",
+    keywords="django auth account social openid twitter facebook oauth registration",
+    project_urls={
+        "Documentation": "https://django-allauth.readthedocs.io/en/latest/",
+        "Changelog": "https://github.com/pennersr/django-allauth/blob/master/ChangeLog.rst",
+        "Source": "http://github.com/pennersr/django-allauth",
+        "Tracker": "https://github.com/pennersr/django-allauth/issues",
+        "Donate": "https://github.com/sponsors/pennersr",
+    },
     tests_require=[],
     install_requires=[
         "Django >= 2.0",
@@ -154,6 +162,9 @@ METADATA = dict(
         "Framework :: Django :: 2.1",
         "Framework :: Django :: 2.2",
         "Framework :: Django :: 3.0",
+        "Framework :: Django :: 3.1",
+        "Framework :: Django :: 3.2",
+        "Framework :: Django :: 4.0",
     ],
     packages=find_packages(exclude=["example"]),
     package_data=package_data,

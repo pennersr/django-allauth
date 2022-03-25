@@ -68,8 +68,12 @@ class AppSettings(object):
         return self._setting("FORMS", {})
 
     @property
+    def LOGIN_ON_GET(self):
+        return self._setting("LOGIN_ON_GET", False)
+
+    @property
     def STORE_TOKENS(self):
-        return self._setting("STORE_TOKENS", True)
+        return self._setting("STORE_TOKENS", False)
 
     @property
     def UID_MAX_LENGTH(self):

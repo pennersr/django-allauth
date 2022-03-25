@@ -79,10 +79,18 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
         script = provider.media_js(request)
         self.assertTrue('"appId": "app123id"' in script)
 
+    def test_media_js_when_not_configured(self):
+        provider = providers.registry.by_id(FacebookProvider.id)
+        provider.get_app(None).delete()
+        request = RequestFactory().get(reverse("account_login"))
+        request.session = {}
+        script = provider.media_js(request)
+        self.assertEqual(script, "")
+
     def test_login_by_token(self):
         resp = self.client.get(reverse("account_login"))
         with patch(
-            "allauth.socialaccount.providers.facebook.views" ".requests"
+            "allauth.socialaccount.providers.facebook.views.requests"
         ) as requests_mock:
             mocks = [self.get_mocked_response().json()]
             requests_mock.get.return_value.json = lambda: mocks.pop()
@@ -106,7 +114,7 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
         resp = self.client.get(reverse("account_login"))
         nonce = json.loads(resp.context["fb_data"])["loginOptions"]["auth_nonce"]
         with patch(
-            "allauth.socialaccount.providers.facebook.views" ".requests"
+            "allauth.socialaccount.providers.facebook.views.requests"
         ) as requests_mock:
             mocks = [self.get_mocked_response().json(), {"auth_nonce": nonce}]
             requests_mock.get.return_value.json = lambda: mocks.pop()

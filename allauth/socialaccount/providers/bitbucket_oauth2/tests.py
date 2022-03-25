@@ -13,7 +13,7 @@ from allauth.tests import MockedResponse, patch
 from .provider import BitbucketOAuth2Provider
 
 
-@override_settings(SOCIALACCOUNT_QUERY_EMAIL=True)
+@override_settings(SOCIALACCOUNT_QUERY_EMAIL=True, SOCIALACCOUNT_STORE_TOKENS=True)
 class BitbucketOAuth2Tests(
     create_oauth2_tests(registry.by_id(BitbucketOAuth2Provider.id))
 ):
@@ -92,7 +92,7 @@ class BitbucketOAuth2Tests(
         super(BitbucketOAuth2Tests, self).setUp()
         self.mocks = {
             "requests": patch(
-                "allauth.socialaccount.providers" ".bitbucket_oauth2.views.requests"
+                "allauth.socialaccount.providers.bitbucket_oauth2.views.requests"
             )
         }
         self.patches = {name: mocked.start() for (name, mocked) in self.mocks.items()}

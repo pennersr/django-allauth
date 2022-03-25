@@ -1,3 +1,133 @@
+0.50.0 (unreleased)
+*******************
+
+Note worthy changes
+-------------------
+
+- The Facebook API version now defaults to v13.0.
+
+
+0.49.0 (2022-02-22)
+*******************
+
+Note worthy changes
+-------------------
+
+- New providers: LemonLDAP::NG.
+
+- Fixed ``SignupForm`` setting username and email attributes on the ``User`` class
+  instead of a dummy user instance.
+
+- Email addresses POST'ed to the email management view (done in order to resend
+  the confirmation email) were not properly validated. Yet, these email
+  addresses were still added as secondary email addresses. Given the lack of
+  proper validation, invalid email addresses could have entered the database.
+
+- New translations: Romanian.
+
+
+Backwards incompatible changes
+------------------------------
+
+- The Microsoft ``tenant`` setting must now be specified using uppercase ``TENANT``.
+
+- Changed naming of ``internal_reset_url_key`` attribute in
+  ``allauth.account.views.PasswordResetFromKeyView`` to ``reset_url_key``.
+
+
+0.48.0 (2022-02-03)
+*******************
+
+Note worthy changes
+-------------------
+- New translations: Catalan, Bulgarian.
+
+- Introduced a new setting ``ACCOUNT_PREVENT_ENUMERATION`` that controls whether
+  or not information is revealed about whether or not a user account exists.
+  **Warning**: this is a work in progress, password reset is covered, yet,
+  signing up is not.
+
+- The ``ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN`` is now also respected when using
+  HMAC based email confirmations. In earlier versions, users could trigger email
+  verification mails without any limits.
+
+- Added builtin rate limitting (see ``ACCOUNT_RATE_LIMITS``).
+
+- Added ``internal_reset_url_key`` attribute in
+  ``allauth.account.views.PasswordResetFromKeyView`` which allows specifying
+  a token parameter displayed as a component of password reset URLs.
+
+- It is now possible to use allauth without having ``sites`` installed. Whether or
+  not sites is used affects the data models. For example, the social app model
+  uses a many-to-many pointing to the sites model if the ``sites`` app is
+  installed. Therefore, enabling or disabling ``sites`` is not something you can
+  do on the fly.
+
+- The ``facebook`` provider no longer raises ``ImproperlyConfigured``
+  within ``{% providers_media_js %}`` when it is not configured.
+
+
+Backwards incompatible changes
+------------------------------
+
+- The newly introduced ``ACCOUNT_PREVENT_ENUMERATION`` defaults to ``True`` impacting
+  the current behavior of the password reset flow.
+
+- The newly introduced rate limitting is by default turned on. You will need to provide
+  a ``429.html`` template.
+
+- The default of ``SOCIALACCOUNT_STORE_TOKENS`` has been changed to
+  ``False``. Rationale is that storing sensitive information should be opt in, not
+  opt out. If you were relying on this functionality without having it
+  explicitly turned on, please add it to your ``settings.py``.
+
+
+0.47.0 (2021-12-09)
+*******************
+
+Note worthy changes
+-------------------
+
+- New providers: Gumroad.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Added a new setting ``SOCIALACCOUNT_LOGIN_ON_GET`` that controls whether or not
+  the endpoints for initiating a social login (for example,
+  "/accounts/google/login/") require a POST request to initiate the
+  handshake. As requiring a POST is more secure, the default of this new setting
+  is ``False``.
+
+
+Security notice
+---------------
+
+Automatically signing in users into their account and connecting additional
+third party accounts via a simple redirect ("/accounts/facebook/login/") can
+lead to unexpected results and become a security issue especially when the
+redirect is triggered from a malicious web site. For example, if an attacker
+prepares a malicious website that (ab)uses the Facebook password recovery
+mechanism to first sign into his/her own Facebook account, followed by a
+redirect to connect a new social account, you may end up with the attacker's
+Facebook account added to the account of the victim. To mitigate this,
+``SOCIALACCOUNT_LOGIN_ON_GET`` is introduced.
+
+
+0.46.0 (2021-11-15)
+*******************
+
+Note worthy changes
+-------------------
+
+- New providers: Gitea, MediaWiki.
+
+- New translations: Georgian, Mongolian.
+
+- Django 3.2 compatibility.
+
+
 0.45.0 (2021-07-11)
 *******************
 
@@ -25,6 +155,11 @@ Backwards incompatible changes
 - The ``certificate`` key part of the ``SOCIALACCOUNT_PROVIDERS`` configuration has
   been renamed to ``certificate_key``. This is done to prevent the key from being displayed
   without being masked in Django debug pages.
+
+0.44.0
+******
+
+- Better compatibility with Django 3.2
 
 
 0.43.0 (2020-10-15)

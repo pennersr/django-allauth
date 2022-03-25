@@ -34,7 +34,11 @@ class OdnoklassnikiProvider(OAuth2Provider):
         return data["uid"]
 
     def extract_common_fields(self, data):
-        return dict(last_name=data.get("last_name"), first_name=data.get("first_name"))
+        return dict(
+            last_name=data.get("last_name"),
+            first_name=data.get("first_name"),
+            email=data.get("email"),
+        )
 
 
 provider_classes = [OdnoklassnikiProvider]

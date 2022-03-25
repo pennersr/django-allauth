@@ -1,5 +1,6 @@
 SECRET_KEY = "psst"
 SITE_ID = 1
+ALLOWED_HOSTS = ("*",)
 
 DATABASES = {
     "default": {
@@ -77,6 +78,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.douban",
     "allauth.socialaccount.providers.doximity",
     "allauth.socialaccount.providers.draugiem",
+    "allauth.socialaccount.providers.drip",
     "allauth.socialaccount.providers.dropbox",
     "allauth.socialaccount.providers.dwolla",
     "allauth.socialaccount.providers.edmodo",
@@ -93,20 +95,24 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.foursquare",
     "allauth.socialaccount.providers.frontier",
     "allauth.socialaccount.providers.fxa",
+    "allauth.socialaccount.providers.gitea",
     "allauth.socialaccount.providers.github",
     "allauth.socialaccount.providers.gitlab",
     "allauth.socialaccount.providers.globus",
     "allauth.socialaccount.providers.google",
+    "allauth.socialaccount.providers.gumroad",
     "allauth.socialaccount.providers.hubic",
     "allauth.socialaccount.providers.instagram",
     "allauth.socialaccount.providers.jupyterhub",
     "allauth.socialaccount.providers.kakao",
     "allauth.socialaccount.providers.keycloak",
+    "allauth.socialaccount.providers.lemonldap",
     "allauth.socialaccount.providers.line",
     "allauth.socialaccount.providers.linkedin",
     "allauth.socialaccount.providers.linkedin_oauth2",
     "allauth.socialaccount.providers.mailchimp",
     "allauth.socialaccount.providers.mailru",
+    "allauth.socialaccount.providers.mediawiki",
     "allauth.socialaccount.providers.meetup",
     "allauth.socialaccount.providers.microsoft",
     "allauth.socialaccount.providers.naver",
@@ -186,3 +192,7 @@ PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.Argon2PasswordHasher",
     "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
 ]
+
+
+ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN = 0
+ACCOUNT_RATE_LIMITS = {}

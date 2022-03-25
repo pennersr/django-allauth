@@ -68,7 +68,7 @@ class YNABTests(OAuth2TestsMixin, TestCase):
             }""",
         )
         with patch(
-            "allauth.socialaccount.providers.ynab.views" ".requests"
+            "allauth.socialaccount.providers.ynab.views.requests"
         ) as patched_requests:
             patched_requests.get.return_value = response_with_401
             with self.assertRaises(HTTPError):

@@ -128,7 +128,7 @@ class DefaultSocialAccountAdapter(object):
         if len(accounts) == 1:
             # No usable password would render the local account unusable
             if not account.user.has_usable_password():
-                raise ValidationError(_("Your account has no password set" " up."))
+                raise ValidationError(_("Your account has no password set up."))
             # No email address, no password reset
             if app_settings.EMAIL_VERIFICATION == EmailVerificationMethod.MANDATORY:
                 if not EmailAddress.objects.filter(

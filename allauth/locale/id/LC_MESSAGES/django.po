@@ -1,0 +1,857 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-02-03 13:53-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: account/adapter.py:47
+msgid "Username can not be used. Please use other username."
+msgstr ""
+"Name pengguna tidak dapat digunakan. Silahkan gunakan nama pengguna lain."
+
+#: account/adapter.py:53
+msgid "Too many failed login attempts. Try again later."
+msgstr "Terlalu banyak percobaan masuk yang gagal. Coba lagi nanti."
+
+#: account/adapter.py:55
+msgid "A user is already registered with this e-mail address."
+msgstr "Seorang pengguna sudah terdaftar dengan alamat e-mail ini."
+
+#: account/adapter.py:304
+#, python-brace-format
+msgid "Password must be a minimum of {0} characters."
+msgstr "Kata sandi harus memiliki panjang minimal {0} karakter."
+
+#: account/apps.py:7
+msgid "Accounts"
+msgstr "Akun"
+
+#: account/forms.py:59 account/forms.py:415
+msgid "You must type the same password each time."
+msgstr "Anda harus mengetikkan kata sandi yang sama setiap kali."
+
+#: account/forms.py:92 account/forms.py:381 account/forms.py:500
+msgid "Password"
+msgstr "Kata sandi"
+
+#: account/forms.py:93
+msgid "Remember Me"
+msgstr "Ingat Saya"
+
+#: account/forms.py:97
+msgid "This account is currently inactive."
+msgstr "Akun ini sedang tidak aktif."
+
+#: account/forms.py:99
+msgid "The e-mail address and/or password you specified are not correct."
+msgstr "Alamat e-mail dan/atau kata sandi yang anda masukkan tidak benar."
+
+#: account/forms.py:102
+msgid "The username and/or password you specified are not correct."
+msgstr "Nama pengguna dan/atau kata sandi yang anda masukkan tidak benar."
+
+#: account/forms.py:113 account/forms.py:279 account/forms.py:441
+#: account/forms.py:519
+msgid "E-mail address"
+msgstr "Alamat e-mail"
+
+#: account/forms.py:117 account/forms.py:316 account/forms.py:438
+#: account/forms.py:514
+msgid "E-mail"
+msgstr "E-mail"
+
+#: account/forms.py:120 account/forms.py:123 account/forms.py:269
+#: account/forms.py:272
+msgid "Username"
+msgstr "Nama pengguna"
+
+#: account/forms.py:133
+msgid "Username or e-mail"
+msgstr "Nama pengguna atau e-mail"
+
+#: account/forms.py:136
+msgctxt "field label"
+msgid "Login"
+msgstr "Masuk"
+
+#: account/forms.py:307
+msgid "E-mail (again)"
+msgstr "E-mail (lagi)"
+
+#: account/forms.py:311
+msgid "E-mail address confirmation"
+msgstr "Konfirmasi alamat e-mail"
+
+#: account/forms.py:319
+msgid "E-mail (optional)"
+msgstr "E-mail (opsional)"
+
+#: account/forms.py:359
+msgid "You must type the same email each time."
+msgstr "Anda harus mengetikkan e-mail yang sama setiap kali."
+
+#: account/forms.py:385 account/forms.py:501
+msgid "Password (again)"
+msgstr "Kata sandi (lagi)"
+
+#: account/forms.py:450
+msgid "This e-mail address is already associated with this account."
+msgstr "Alamat e-mail ini sudah terhubung dengan akun ini."
+
+#: account/forms.py:453
+msgid "This e-mail address is already associated with another account."
+msgstr "Alamat e-mail ini sudah terhubung dengan akun lain."
+
+#: account/forms.py:455
+#, python-format
+msgid "You cannot add more than %d e-mail addresses."
+msgstr "Anda tidak dapat menambahkan lebih dari %d alamat e-mail."
+
+#: account/forms.py:480
+msgid "Current Password"
+msgstr "Kata sandi saat ini"
+
+#: account/forms.py:482 account/forms.py:587
+msgid "New Password"
+msgstr "Kata sandi baru"
+
+#: account/forms.py:483 account/forms.py:588
+msgid "New Password (again)"
+msgstr "Kata sandi baru (lagi)"
+
+#: account/forms.py:491
+msgid "Please type your current password."
+msgstr "Silahkan ketik kata sandi Anda saat ini."
+
+#: account/forms.py:531
+msgid "The e-mail address is not assigned to any user account"
+msgstr "Alamat e-mail ini tidak terhubung dengan akun pengguna mana pun"
+
+#: account/forms.py:609
+msgid "The password reset token was invalid."
+msgstr "Token untuk mengatur ulang kata sandi tidak valid."
+
+#: account/models.py:19
+msgid "user"
+msgstr "pengguna"
+
+#: account/models.py:25 account/models.py:80
+msgid "e-mail address"
+msgstr "alamat e-mail"
+
+#: account/models.py:27
+msgid "verified"
+msgstr "terverifikasi"
+
+#: account/models.py:28
+msgid "primary"
+msgstr "utama"
+
+#: account/models.py:33
+msgid "email address"
+msgstr "alamat e-mail"
+
+#: account/models.py:34
+msgid "email addresses"
+msgstr "alamat e-mail"
+
+#: account/models.py:83
+msgid "created"
+msgstr "dibuat"
+
+#: account/models.py:84
+msgid "sent"
+msgstr "dikirim"
+
+#: account/models.py:85 socialaccount/models.py:60
+msgid "key"
+msgstr "kunci"
+
+#: account/models.py:90
+msgid "email confirmation"
+msgstr "konfirmasi e-mail"
+
+#: account/models.py:91
+msgid "email confirmations"
+msgstr "konfirmasi e-mail"
+
+#: socialaccount/adapter.py:26
+#, python-format
+msgid ""
+"An account already exists with this e-mail address. Please sign in to that "
+"account first, then connect your %s account."
+msgstr ""
+"Sudah ada akun yang menggunakan alamat e-mail ini. Silahkan masuk ke akun "
+"itu terlebih dahulu, lalu sambungkan akun %s Anda."
+
+#: socialaccount/adapter.py:131
+msgid "Your account has no password set up."
+msgstr "Akun Anda tidak memiliki kata sandi."
+
+#: socialaccount/adapter.py:138
+msgid "Your account has no verified e-mail address."
+msgstr "Akun Anda tidak memiliki alamat e-mail yang terverifikasi."
+
+#: socialaccount/apps.py:7
+msgid "Social Accounts"
+msgstr "Akun Sosial"
+
+#: socialaccount/models.py:43 socialaccount/models.py:87
+msgid "provider"
+msgstr "pemberi"
+
+#: socialaccount/models.py:47
+msgid "name"
+msgstr "nama"
+
+#: socialaccount/models.py:49
+msgid "client id"
+msgstr "id klien"
+
+#: socialaccount/models.py:51
+msgid "App ID, or consumer key"
+msgstr "ID Aplikasi, atau kunci konsumen"
+
+#: socialaccount/models.py:54
+msgid "secret key"
+msgstr "kunci rahasia"
+
+#: socialaccount/models.py:57
+msgid "API secret, client secret, or consumer secret"
+msgstr "Kunci API, kunci klien, atau kunci konsumen"
+
+#: socialaccount/models.py:60
+msgid "Key"
+msgstr "Kunci"
+
+#: socialaccount/models.py:77
+msgid "social application"
+msgstr "aplikasi sosial"
+
+#: socialaccount/models.py:78
+msgid "social applications"
+msgstr "aplikasi sosial"
+
+#: socialaccount/models.py:108
+msgid "uid"
+msgstr "uid"
+
+#: socialaccount/models.py:110
+msgid "last login"
+msgstr "masuk terakhir"
+
+#: socialaccount/models.py:111
+msgid "date joined"
+msgstr "tanggal bergabung"
+
+#: socialaccount/models.py:112
+msgid "extra data"
+msgstr "data tambahan"
+
+#: socialaccount/models.py:116
+msgid "social account"
+msgstr "akun sosial"
+
+#: socialaccount/models.py:117
+msgid "social accounts"
+msgstr "akun sosial"
+
+#: socialaccount/models.py:142
+msgid "token"
+msgstr "token"
+
+#: socialaccount/models.py:143
+msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
+msgstr "\"oauth_token\" (OAuth1) atau token akses (OAuth2)"
+
+#: socialaccount/models.py:147
+msgid "token secret"
+msgstr "rahasia token"
+
+#: socialaccount/models.py:148
+msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
+msgstr "\"oauth_token_secret\" (OAuth1) atau token refresh (OAuth2)"
+
+#: socialaccount/models.py:151
+msgid "expires at"
+msgstr "kadaluarsa pada"
+
+#: socialaccount/models.py:156
+msgid "social application token"
+msgstr "token aplikasi sosial"
+
+#: socialaccount/models.py:157
+msgid "social application tokens"
+msgstr "token-token aplikasi sosial"
+
+#: socialaccount/providers/douban/views.py:36
+msgid "Invalid profile data"
+msgstr "Data profil tidak valid"
+
+#: socialaccount/providers/oauth/client.py:85
+#, python-format
+msgid "Invalid response while obtaining request token from \"%s\"."
+msgstr "Respon tidak valid saat meminta token request dari \"%s\"."
+
+#: socialaccount/providers/oauth/client.py:117
+#, python-format
+msgid "Invalid response while obtaining access token from \"%s\"."
+msgstr "Respon tidak valid saat meminta token akses dari \"%s\"."
+
+#: socialaccount/providers/oauth/client.py:138
+#, python-format
+msgid "No request token saved for \"%s\"."
+msgstr "Tidak ada token request yang disimpan untuk \"%s\"."
+
+#: socialaccount/providers/oauth/client.py:189
+#, python-format
+msgid "No access token saved for \"%s\"."
+msgstr "Tidak ada token akses yang disimpan untuk \"%s\"."
+
+#: socialaccount/providers/oauth/client.py:210
+#, python-format
+msgid "No access to private resources at \"%s\"."
+msgstr "Tidak ada akses ke sumber daya pribadi pada \"%s\"."
+
+#: templates/account/account_inactive.html:5
+#: templates/account/account_inactive.html:8
+msgid "Account Inactive"
+msgstr "Akun Tidak Aktif"
+
+#: templates/account/account_inactive.html:10
+msgid "This account is inactive."
+msgstr "Akun ini tidak aktif."
+
+#: templates/account/email.html:5 templates/account/email.html:8
+msgid "E-mail Addresses"
+msgstr "Alamat E-mail"
+
+#: templates/account/email.html:10
+msgid "The following e-mail addresses are associated with your account:"
+msgstr "Alamat-alamat e-mail berikut ini terkait dengan akun Anda:"
+
+#: templates/account/email.html:24
+msgid "Verified"
+msgstr "Terverifikasi"
+
+#: templates/account/email.html:26
+msgid "Unverified"
+msgstr "Tidak Terverifikasi"
+
+#: templates/account/email.html:28
+msgid "Primary"
+msgstr "Utama"
+
+#: templates/account/email.html:34
+msgid "Make Primary"
+msgstr "Jadikan Utama"
+
+#: templates/account/email.html:35
+msgid "Re-send Verification"
+msgstr "Kirim Ulang Verifikasi"
+
+#: templates/account/email.html:36 templates/socialaccount/connections.html:35
+msgid "Remove"
+msgstr "Hapus"
+
+#: templates/account/email.html:43
+msgid "Warning:"
+msgstr "Peringatan:"
+
+#: templates/account/email.html:43
+msgid ""
+"You currently do not have any e-mail address set up. You should really add "
+"an e-mail address so you can receive notifications, reset your password, etc."
+msgstr ""
+"Anda saat ini tidak memiliki alamat e-mail yang disetel. Anda seharusnya "
+"menambahkan alamat e-mail untuk menerima notifikasi, mereset kata sandi, dll."
+
+#: templates/account/email.html:48
+msgid "Add E-mail Address"
+msgstr "Tambahkan Alamat E-mail"
+
+#: templates/account/email.html:53
+msgid "Add E-mail"
+msgstr "Tambahkan E-mail"
+
+#: templates/account/email.html:63
+msgid "Do you really want to remove the selected e-mail address?"
+msgstr "Apakah Anda benar-benar ingin menghapus alamat e-mail yang dipilih?"
+
+#: templates/account/email/base_message.txt:1
+#, python-format
+msgid "Hello from %(site_name)s!"
+msgstr "Halo dari %(site_name)s!"
+
+#: templates/account/email/base_message.txt:5
+#, python-format
+msgid ""
+"Thank you for using %(site_name)s!\n"
+"%(site_domain)s"
+msgstr ""
+"Terima kasih telah menggunakan %(site_name)s!\n"
+"%(site_domain)s"
+
+#: templates/account/email/email_confirmation_message.txt:5
+#, python-format
+msgid ""
+"You're receiving this e-mail because user %(user_display)s has given your e-"
+"mail address to register an account on %(site_domain)s.\n"
+"\n"
+"To confirm this is correct, go to %(activate_url)s"
+msgstr ""
+"Anda menerima e-mail ini karena pengguna %(user_display)s telah memberikan "
+"alamat e-mail Anda untuk mendaftarkan akun di %(site_domain)s.\n"
+"\n"
+"Untuk mengkonfirmasi bahwa ini benar, kunjungi %(activate_url)s"
+
+#: templates/account/email/email_confirmation_subject.txt:3
+msgid "Please Confirm Your E-mail Address"
+msgstr "Mohon Konfirmasi Alamat E-mail Anda"
+
+#: templates/account/email/password_reset_key_message.txt:4
+msgid ""
+"You're receiving this e-mail because you or someone else has requested a "
+"password for your user account.\n"
+"It can be safely ignored if you did not request a password reset. Click the "
+"link below to reset your password."
+msgstr ""
+"Anda menerima e-mail ini karena Anda atau orang lain telah meminta kata "
+"sandi untuk akun Anda.\n"
+"Abaikan jika Anda tidak meminta reset kata sandi. Klik link di bawah untuk "
+"mereset kata sandi Anda."
+
+#: templates/account/email/password_reset_key_message.txt:9
+#, python-format
+msgid "In case you forgot, your username is %(username)s."
+msgstr "Jikalau Anda lupa, nama pengguna Anda adalah %(username)s."
+
+#: templates/account/email/password_reset_key_subject.txt:3
+#: templates/account/email/unknown_account_subject.txt:3
+msgid "Password Reset E-mail"
+msgstr "E-mail Reset Kata Sandi"
+
+#: templates/account/email/unknown_account_message.txt:4
+#, fuzzy, python-format
+#| msgid ""
+#| "You're receiving this e-mail because you or someone else has requested a "
+#| "password for your user account.\n"
+#| "It can be safely ignored if you did not request a password reset. Click "
+#| "the link below to reset your password."
+msgid ""
+"You are receiving this e-mail because you or someone else has requested a\n"
+"password for your user account. However, we do not have any record of a "
+"user\n"
+"with email %(email)s in our database.\n"
+"\n"
+"This mail can be safely ignored if you did not request a password reset.\n"
+"\n"
+"If it was you, you can sign up for an account using the link below."
+msgstr ""
+"Anda menerima e-mail ini karena Anda atau orang lain telah meminta kata "
+"sandi untuk akun Anda.\n"
+"Abaikan jika Anda tidak meminta reset kata sandi. Klik link di bawah untuk "
+"mereset kata sandi Anda."
+
+#: templates/account/email_confirm.html:6
+#: templates/account/email_confirm.html:10
+msgid "Confirm E-mail Address"
+msgstr "Konfirmasi Alamat E-mail"
+
+#: templates/account/email_confirm.html:16
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
+msgstr ""
+"Mohon konfirmasi bahwa <a href=\"mailto:%(email)s\">%(email)s</a> adalah "
+"alamat e-mail untuk pengguna %(user_display)s."
+
+#: templates/account/email_confirm.html:20
+msgid "Confirm"
+msgstr "Konfirmasi"
+
+#: templates/account/email_confirm.html:27
+#, python-format
+msgid ""
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+msgstr ""
+"Link konfirmasi e-mail ini sudah kadaluwarsa atau tidak valid. Mohon <a href="
+"\"%(email_url)s\">mengirimkan permintaan konfirmasi e-mail baru</a>."
+
+#: templates/account/login.html:6 templates/account/login.html:10
+#: templates/account/login.html:43
+msgid "Sign In"
+msgstr "Masuk"
+
+#: templates/account/login.html:15
+#, python-format
+msgid ""
+"Please sign in with one\n"
+"of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign "
+"up</a>\n"
+"for a %(site_name)s account and sign in below:"
+msgstr ""
+"Mohon masuk dengan salah satu\n"
+"dari akun pihak ketiga Anda. Atau, <a href=\"%(signup_url)s\">daftar</a>\n"
+"untuk akun %(site_name)s dan masuk di bawah:"
+
+#: templates/account/login.html:25
+msgid "or"
+msgstr "atau"
+
+#: templates/account/login.html:32
+#, python-format
+msgid ""
+"If you have not created an account yet, then please\n"
+"<a href=\"%(signup_url)s\">sign up</a> first."
+msgstr ""
+"Jika Anda belum membuat akun, mohon\n"
+"<a href=\"%(signup_url)s\">daftar</a> terlebih dahulu."
+
+#: templates/account/login.html:42 templates/account/password_change.html:14
+msgid "Forgot Password?"
+msgstr "Lupa Kata Sandi?"
+
+#: templates/account/logout.html:5 templates/account/logout.html:8
+#: templates/account/logout.html:17
+msgid "Sign Out"
+msgstr "Keluar"
+
+#: templates/account/logout.html:10
+msgid "Are you sure you want to sign out?"
+msgstr "Anda yakin ingin keluar?"
+
+#: templates/account/messages/cannot_delete_primary_email.txt:2
+#, python-format
+msgid "You cannot remove your primary e-mail address (%(email)s)."
+msgstr "Anda tidak dapat menghapus alamat e-mail utama Anda (%(email)s)."
+
+#: templates/account/messages/email_confirmation_sent.txt:2
+#, python-format
+msgid "Confirmation e-mail sent to %(email)s."
+msgstr "E-mail konfirmasi dikirim ke %(email)s."
+
+#: templates/account/messages/email_confirmed.txt:2
+#, python-format
+msgid "You have confirmed %(email)s."
+msgstr "Anda telah mengkonfirmasi %(email)s."
+
+#: templates/account/messages/email_deleted.txt:2
+#, python-format
+msgid "Removed e-mail address %(email)s."
+msgstr "Alamat e-mail %(email)s telah dihapus."
+
+#: templates/account/messages/logged_in.txt:4
+#, python-format
+msgid "Successfully signed in as %(name)s."
+msgstr "Berhasil masuk sebagai %(name)s."
+
+#: templates/account/messages/logged_out.txt:2
+msgid "You have signed out."
+msgstr "Anda telah keluar."
+
+#: templates/account/messages/password_changed.txt:2
+msgid "Password successfully changed."
+msgstr "Kata sandi berhasil diubah."
+
+#: templates/account/messages/password_set.txt:2
+msgid "Password successfully set."
+msgstr "Kata sandi berhasil setel."
+
+#: templates/account/messages/primary_email_set.txt:2
+msgid "Primary e-mail address set."
+msgstr "Alamat e-mail utama telah disetel."
+
+#: templates/account/messages/unverified_primary_email.txt:2
+msgid "Your primary e-mail address must be verified."
+msgstr "Alamat e-mail utama Anda harus diverifikasi."
+
+#: templates/account/password_change.html:5
+#: templates/account/password_change.html:8
+#: templates/account/password_change.html:13
+#: templates/account/password_reset_from_key.html:4
+#: templates/account/password_reset_from_key.html:7
+#: templates/account/password_reset_from_key_done.html:4
+#: templates/account/password_reset_from_key_done.html:7
+msgid "Change Password"
+msgstr "Ubah Kata Sandi"
+
+#: templates/account/password_reset.html:6
+#: templates/account/password_reset.html:10
+#: templates/account/password_reset_done.html:6
+#: templates/account/password_reset_done.html:9
+msgid "Password Reset"
+msgstr "Reset Kata Sandi"
+
+#: templates/account/password_reset.html:15
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
+msgstr ""
+"Lupa kata sandi Anda? Masukkan alamat e-mail Anda di bawah, dan kami akan "
+"mengirimkan e-mail yang membolehkan Anda untuk mengubahnya."
+
+#: templates/account/password_reset.html:20
+msgid "Reset My Password"
+msgstr "Reset Kata Sandi Saya"
+
+#: templates/account/password_reset.html:23
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr ""
+"Mohon hubungi kami jika Anda mengalami masalah saat mengubah kata sandi Anda."
+
+#: templates/account/password_reset_done.html:15
+#, fuzzy
+#| msgid ""
+#| "We have sent an e-mail to you for\n"
+#| "verification. Please click on the link inside this e-mail. Please\n"
+#| "contact us if you do not receive it within a few minutes."
+msgid ""
+"We have sent you an e-mail. If you have not received it please check your "
+"spam folder. Otherwise contact us if you do not receive it in a few minutes."
+msgstr ""
+"Kami telah mengirimkan e-mail kepada Anda untuk\n"
+"verifikasi. Silakan klik tautan didalam e-mail ini. Silakan\n"
+"hubungi kami jika Anda tidak menerimanya dalam beberapa menit."
+
+#: templates/account/password_reset_from_key.html:7
+msgid "Bad Token"
+msgstr "Token Salah"
+
+#: templates/account/password_reset_from_key.html:11
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+"Link reset kata sandi tidak valid, mungkin karena telah digunakan.  Silakan "
+"minta <a href=\"%(passwd_reset_url)s\">reset kata sandi baru</a>."
+
+#: templates/account/password_reset_from_key.html:16
+msgid "change password"
+msgstr "ubah kata sandi"
+
+#: templates/account/password_reset_from_key_done.html:8
+msgid "Your password is now changed."
+msgstr "Kata sandi Anda telah diubah."
+
+#: templates/account/password_set.html:5 templates/account/password_set.html:8
+#: templates/account/password_set.html:13
+msgid "Set Password"
+msgstr "Setel Kata Sandi"
+
+#: templates/account/signup.html:5 templates/socialaccount/signup.html:5
+msgid "Signup"
+msgstr "Daftar"
+
+#: templates/account/signup.html:8 templates/account/signup.html:18
+#: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
+msgid "Sign Up"
+msgstr "Daftar"
+
+#: templates/account/signup.html:10
+#, python-format
+msgid ""
+"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr "Sudah memiliki akun? Silakan <a href=\"%(login_url)s\">masuk</a>."
+
+#: templates/account/signup_closed.html:5
+#: templates/account/signup_closed.html:8
+msgid "Sign Up Closed"
+msgstr "Daftar Ditutup"
+
+#: templates/account/signup_closed.html:10
+msgid "We are sorry, but the sign up is currently closed."
+msgstr "Mohon maaf, tapi pendaftaran saat ini ditutup."
+
+#: templates/account/snippets/already_logged_in.html:5
+msgid "Note"
+msgstr "Catatan"
+
+#: templates/account/snippets/already_logged_in.html:5
+#, python-format
+msgid "you are already logged in as %(user_display)s."
+msgstr "Anda sudah masuk sebagai %(user_display)s."
+
+#: templates/account/verification_sent.html:5
+#: templates/account/verification_sent.html:8
+#: templates/account/verified_email_required.html:5
+#: templates/account/verified_email_required.html:8
+msgid "Verify Your E-mail Address"
+msgstr "Verifikasi Alamat E-mail Anda"
+
+#: templates/account/verification_sent.html:10
+#, fuzzy
+#| msgid ""
+#| "We have sent an e-mail to you for verification. Follow the link provided "
+#| "to finalize the signup process. Please contact us if you do not receive "
+#| "it within a few minutes."
+msgid ""
+"We have sent an e-mail to you for verification. Follow the link provided to "
+"finalize the signup process. If you do not see the verification e-mail in "
+"your main inbox, check your spam folder. Please contact us if you do not "
+"receive the verification e-mail within a few minutes."
+msgstr ""
+"Kami telah mengirimkan e-mail kepada Anda untuk verifikasi. Ikuti tautan "
+"yang disediakan untuk menyelesaikan proses pendaftaran. Silahkan hubungi "
+"kami jika Anda tidak menerimanya dalam beberapa menit."
+
+#: templates/account/verified_email_required.html:12
+msgid ""
+"This part of the site requires us to verify that\n"
+"you are who you claim to be. For this purpose, we require that you\n"
+"verify ownership of your e-mail address. "
+msgstr ""
+"Bagian dari situs ini mengharuskan kami untuk memverifikasi bahwa\n"
+"Anda adalah apa yang Anda klaim. Untuk tujuan ini, kami mengharuskan Anda\n"
+"memverifikasi kepemilikan alamat e-mail Anda. "
+
+#: templates/account/verified_email_required.html:16
+#, fuzzy
+#| msgid ""
+#| "We have sent an e-mail to you for\n"
+#| "verification. Please click on the link inside this e-mail. Please\n"
+#| "contact us if you do not receive it within a few minutes."
+msgid ""
+"We have sent an e-mail to you for\n"
+"verification. Please click on the link inside that e-mail. If you do not see "
+"the verification e-mail in your main inbox, check your spam folder. "
+"Otherwise\n"
+"contact us if you do not receive it within a few minutes."
+msgstr ""
+"Kami telah mengirimkan e-mail kepada Anda untuk\n"
+"verifikasi. Silakan klik tautan didalam e-mail ini. Silakan\n"
+"hubungi kami jika Anda tidak menerimanya dalam beberapa menit."
+
+#: templates/account/verified_email_required.html:20
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
+"mail address</a>."
+msgstr ""
+"<strong>Catatan:</strong> Anda masih bisa <a href=\"%(email_url)s"
+"\">mengganti alamat e-mail Anda</a>."
+
+#: templates/openid/login.html:9
+msgid "OpenID Sign In"
+msgstr "Masuk Dengan OpenID"
+
+#: templates/socialaccount/authentication_error.html:5
+#: templates/socialaccount/authentication_error.html:8
+msgid "Social Network Login Failure"
+msgstr "Kegagalan Login Jejaring Sosial"
+
+#: templates/socialaccount/authentication_error.html:10
+msgid ""
+"An error occurred while attempting to login via your social network account."
+msgstr ""
+"Terjadi kesalahan saat mencoba untuk masuk menggunakan akun jejaring sosial "
+"Anda."
+
+#: templates/socialaccount/connections.html:5
+#: templates/socialaccount/connections.html:8
+msgid "Account Connections"
+msgstr "Koneksi Akun"
+
+#: templates/socialaccount/connections.html:11
+msgid ""
+"You can sign in to your account using any of the following third party "
+"accounts:"
+msgstr ""
+"Anda dapat masuk ke akun Anda menggunakan salah satu dari akun jejaring "
+"sosial berikut:"
+
+#: templates/socialaccount/connections.html:43
+msgid ""
+"You currently have no social network accounts connected to this account."
+msgstr ""
+"Anda saat ini tidak memiliki akun jejaring sosial terhubung ke akun ini."
+
+#: templates/socialaccount/connections.html:46
+msgid "Add a 3rd Party Account"
+msgstr "Tambahkan Akun Pihak Ketiga"
+
+#: templates/socialaccount/login.html:6
+#, python-format
+msgid "Connect %(provider)s"
+msgstr ""
+
+#: templates/socialaccount/login.html:8
+#, python-format
+msgid "You are about to connect a new third party account from %(provider)s."
+msgstr ""
+
+#: templates/socialaccount/login.html:10
+#, python-format
+msgid "Sign In Via %(provider)s"
+msgstr ""
+
+#: templates/socialaccount/login.html:12
+#, python-format
+msgid "You are about to sign in using a third party account from %(provider)s."
+msgstr ""
+
+#: templates/socialaccount/login.html:17
+msgid "Continue"
+msgstr ""
+
+#: templates/socialaccount/login_cancelled.html:5
+#: templates/socialaccount/login_cancelled.html:9
+msgid "Login Cancelled"
+msgstr "Login Dibatalkan"
+
+#: templates/socialaccount/login_cancelled.html:13
+#, python-format
+msgid ""
+"You decided to cancel logging in to our site using one of your existing "
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
+msgstr ""
+"Anda memutuskan untuk membatalkan masuk ke situs kami menggunakan salah satu "
+"dari akun Anda. Jika ini adalah kesalahan, silakan lanjutkan ke <a href="
+"\"%(login_url)s\">masuk</a>."
+
+#: templates/socialaccount/messages/account_connected.txt:2
+msgid "The social account has been connected."
+msgstr "Akun sosial telah terhubung."
+
+#: templates/socialaccount/messages/account_connected_other.txt:2
+msgid "The social account is already connected to a different account."
+msgstr "Akun sosial sudah terhubung ke akun lain."
+
+#: templates/socialaccount/messages/account_disconnected.txt:2
+msgid "The social account has been disconnected."
+msgstr "Akun sosial telah terputus."
+
+#: templates/socialaccount/signup.html:10
+#, python-format
+msgid ""
+"You are about to use your %(provider_name)s account to login to\n"
+"%(site_name)s. As a final step, please complete the following form:"
+msgstr ""
+"Anda akan menggunakan akun %(provider_name)s untuk masuk ke\n"
+"%(site_name)s. Sebagai langkah akhir, silakan lengkapi formulir berikut:"
+
+#~ msgid ""
+#~ "We have sent you an e-mail. Please contact us if you do not receive it "
+#~ "within a few minutes."
+#~ msgstr ""
+#~ "Kami telah mengirimkan e-mail. Mohon hubungi kami jika Anda tidak "
+#~ "menerimanya dalam beberapa menit."

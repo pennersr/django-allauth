@@ -16,13 +16,16 @@ from allauth.socialaccount.helpers import (
 )
 from allauth.socialaccount.models import SocialLogin, SocialToken
 from allauth.socialaccount.providers.base import ProviderException
+from allauth.socialaccount.providers.base.constants import (
+    AuthAction,
+    AuthError,
+)
+from allauth.socialaccount.providers.base.mixins import OAuthLoginMixin
 from allauth.socialaccount.providers.oauth2.client import (
     OAuth2Client,
     OAuth2Error,
 )
 from allauth.utils import build_absolute_uri, get_request_param
-
-from ..base import AuthAction, AuthError
 
 
 class OAuth2Adapter(object):
@@ -99,8 +102,8 @@ class OAuth2View(object):
         return client
 
 
-class OAuth2LoginView(OAuth2View):
-    def dispatch(self, request, *args, **kwargs):
+class OAuth2LoginView(OAuthLoginMixin, OAuth2View):
+    def login(self, request, *args, **kwargs):
         provider = self.adapter.get_provider()
         app = provider.get_app(self.request)
         client = self.get_client(request, app)

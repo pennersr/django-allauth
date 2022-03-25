@@ -1,6 +1,5 @@
 import unicodedata
 from collections import OrderedDict
-from datetime import timedelta
 
 from django.conf import settings
 from django.contrib import messages
@@ -8,21 +7,18 @@ from django.contrib.auth import update_session_auth_hash
 from django.core.exceptions import FieldDoesNotExist, ValidationError
 from django.db import models
 from django.db.models import Q
-from django.http import HttpResponseRedirect
 from django.utils.encoding import force_str
 from django.utils.http import base36_to_int, int_to_base36, urlencode
-from django.utils.timezone import now
 
-from ..exceptions import ImmediateHttpResponse
-from ..utils import (
+from allauth.account import app_settings, signals
+from allauth.account.adapter import get_adapter
+from allauth.exceptions import ImmediateHttpResponse
+from allauth.utils import (
     get_request_param,
     get_user_model,
     import_callable,
     valid_email_or_none,
 )
-from . import app_settings, signals
-from .adapter import get_adapter
-from .app_settings import EmailVerificationMethod
 
 
 def _unicode_ci_compare(s1, s2):
@@ -124,7 +120,7 @@ def user_email(user, *args):
     return user_field(user, app_settings.USER_MODEL_EMAIL_FIELD, *args)
 
 
-def _has_verified_for_login(user, email):
+def has_verified_email(user, email=None):
     from .models import EmailAddress
 
     emailaddress = None
@@ -161,40 +157,21 @@ def perform_login(
     # `user_signed_up` signal. Furthermore, social users should be
     # stopped anyway.
     adapter = get_adapter(request)
-    if not user.is_active:
-        return adapter.respond_user_inactive(request, user)
-
-    if email_verification == EmailVerificationMethod.NONE:
-        pass
-    elif email_verification == EmailVerificationMethod.OPTIONAL:
-        # In case of OPTIONAL verification: send on signup.
-        if not _has_verified_for_login(user, email) and signup:
-            send_email_confirmation(request, user, signup=signup, email=email)
-    elif email_verification == EmailVerificationMethod.MANDATORY:
-        if not _has_verified_for_login(user, email):
-            send_email_confirmation(request, user, signup=signup, email=email)
-            return adapter.respond_email_verification_sent(request, user)
     try:
+        hook_kwargs = dict(
+            email_verification=email_verification,
+            redirect_url=redirect_url,
+            signal_kwargs=signal_kwargs,
+            signup=signup,
+            email=email,
+        )
+        response = adapter.pre_login(request, user, **hook_kwargs)
+        if response:
+            return response
         adapter.login(request, user)
-        response = HttpResponseRedirect(
-            get_login_redirect_url(request, redirect_url, signup=signup)
-        )
-
-        if signal_kwargs is None:
-            signal_kwargs = {}
-        signals.user_logged_in.send(
-            sender=user.__class__,
-            request=request,
-            response=response,
-            user=user,
-            **signal_kwargs,
-        )
-        adapter.add_message(
-            request,
-            messages.SUCCESS,
-            "account/messages/logged_in.txt",
-            {"user": user},
-        )
+        response = adapter.post_login(request, user, **hook_kwargs)
+        if response:
+            return response
     except ImmediateHttpResponse as e:
         response = e.response
     return response
@@ -325,9 +302,9 @@ def send_email_confirmation(request, user, signup=False, email=None):
     a cooldown period before sending a new mail. This cooldown period
     can be configured in ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN setting.
     """
-    from .models import EmailAddress, EmailConfirmation
+    from .models import EmailAddress
 
-    cooldown_period = timedelta(seconds=app_settings.EMAIL_CONFIRMATION_COOLDOWN)
+    adapter = get_adapter(request)
 
     if not email:
         email = user_email(user)
@@ -335,13 +312,9 @@ def send_email_confirmation(request, user, signup=False, email=None):
         try:
             email_address = EmailAddress.objects.get_for_user(user, email)
             if not email_address.verified:
-                if app_settings.EMAIL_CONFIRMATION_HMAC:
-                    send_email = True
-                else:
-                    send_email = not EmailConfirmation.objects.filter(
-                        sent__gt=now() - cooldown_period,
-                        email_address=email_address,
-                    ).exists()
+                send_email = adapter.should_send_confirmation_mail(
+                    request, email_address
+                )
                 if send_email:
                     email_address.send_confirmation(request, signup=signup)
             else:
@@ -354,14 +327,14 @@ def send_email_confirmation(request, user, signup=False, email=None):
             assert email_address
         # At this point, if we were supposed to send an email we have sent it.
         if send_email:
-            get_adapter(request).add_message(
+            adapter.add_message(
                 request,
                 messages.INFO,
-                "account/messages/" "email_confirmation_sent.txt",
+                "account/messages/email_confirmation_sent.txt",
                 {"email": email},
             )
     if signup:
-        get_adapter(request).stash_user(request, user_pk_to_url_str(user))
+        adapter.stash_user(request, user_pk_to_url_str(user))
 
 
 def sync_user_email_addresses(user):
@@ -385,8 +358,9 @@ def sync_user_email_addresses(user):
         ):
             # Bail out
             return
-        EmailAddress.objects.create(
-            user=user, email=email, primary=False, verified=False
+        # get_or_create() to gracefully handle races
+        EmailAddress.objects.get_or_create(
+            user=user, email=email, defaults={"primary": False, "verified": False}
         )
 
 

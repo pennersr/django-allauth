@@ -403,6 +403,20 @@ Authentication documentation
 Development callback URL
     http://localhost:8000/accounts/draugiem/login/callback/
 
+Drip
+--------
+
+App registration (get your key and secret here)
+    https://www.getdrip.com/user/applications
+
+Authentication documentation
+    https://developer.drip.com/?shell#oauth
+
+Development callback URL
+    https://localhost:8000/accounts/drip/login/callback/
+
+Make sure the registed application is active.
+
 
 Dropbox
 -------
@@ -609,7 +623,7 @@ The following Facebook settings are available:
             'EXCHANGE_TOKEN': True,
             'LOCALE_FUNC': 'path.to.callable',
             'VERIFIED_EMAIL': False,
-            'VERSION': 'v7.0',
+            'VERSION': 'v13.0',
         }
     }
 
@@ -677,7 +691,7 @@ VERIFIED_EMAIL:
     risk.
 
 VERSION:
-    The Facebook Graph API version to use. The default is ``v7.0``.
+    The Facebook Graph API version to use. The default is ``v13.0``.
 
 App registration (get your key and secret here)
     A key and secret key can be obtained by
@@ -807,6 +821,29 @@ Optionally, you can specify the scope to use as follows:
       },
     }
 
+Gitea
+------
+
+App registration (get your key and secret here)
+    https://gitea.com/user/settings/applications
+
+Development callback URL
+    http://127.0.0.1:8000/accounts/github/login/callback/
+
+
+Self-hosted Support
+******************
+
+If you use a self-hosted Gitea instance add your server URL to your Django settings as
+follows:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'gitea': {
+            'GITEA_URL': 'https://your.gitea-server.domain',
+        }
+    }
 
 GitHub
 ------
@@ -977,6 +1014,16 @@ without involving the user's browser). When unspecified, Google defaults
 to ``online``.
 
 
+Gumroad
+---------
+
+App registration (get your key and secret here)
+    https://help.gumroad.com/article/280-create-application-api
+
+Development callback URL
+    http://localhost:8000/accounts/instagram/login/callback/
+
+
 Instagram
 ---------
 
@@ -1036,7 +1083,7 @@ KEYCLOAK_URL_ALT:
 
     This can be used when working with Docker on localhost, with a frontend and a backend hosted in different containers.
 
-KEYCLOAK_REAML:
+KEYCLOAK_REALM:
     The name of the ``realm`` you want to use.
 
 Example:
@@ -1050,14 +1097,59 @@ Example:
       }
   }
 
+LemonLDAP::NG
+-------------
+
+Create a new OpenID Connect Relying Party with the following settings:
+
+* Exported attributes:
+
+    * ``email``
+    * ``name``
+    * ``preferred_username``
+
+* Basic options:
+
+    * Development Redirect URI: http://localhost:8000/accounts/lemonldap/login/callback/
+
+The following LemonLDAP::NG settings are available.
+
+LEMONLDAP_URL:
+    The base URL of your LemonLDAP::NG portal. For example: ``https://auth.example.com``
+
+Example:
+
+.. code-block:: python
+
+  SOCIALACCOUNT_PROVIDERS = {
+      'lemonldap': {
+          'LEMONLDAP_URL': 'https://auth.example.com'
+      }
+  }
+
 Line
 ----
 
-App registration (get your key and secret here)
-    https://business.line.me
+scope options
+  https://developers.line.biz/en/docs/line-login/integrate-line-login/#scopes
+
+App registration, create a Line login channel (get your channel_id and channel_secret here)
+    https://developers.line.biz/console/
 
 Development callback URL
     http://127.0.0.1:8000/accounts/line/login/callback/
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+              'line': {
+                  'APP': {
+                      'client_id': 'LINE_LOGIN_CHANNEL_ID',
+                      'secret': 'LINE_LOGIN_CHANNEL_SECRET'
+                  },
+                  "SCOPE": ['profile', 'openid', 'email']
+              }
+          }
 
 
 LinkedIn
@@ -1194,6 +1286,34 @@ browsers may require enabling this on localhost and not support by default and
 ask for permission.
 
 
+MediaWiki
+---------
+
+MediaWiki OAuth2 documentation:
+    https://www.mediawiki.org/wiki/OAuth/For_Developers
+
+The following MediaWiki settings are available:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'mediawiki': {
+            'REST_API': 'https://meta.wikimedia.org/w/rest.php',
+            'USERPAGE_TEMPLATE': 'https://meta.wikimedia.org/wiki/{username}',
+        }
+    }
+
+REST_API:
+    Base URL of the MediaWiki site's REST API.
+USERPAGE_TEMPLATE:
+    Link template for linking to users. Must have a ``{username}`` format field.
+
+With the default settings, Wikimedia user identities (meta.wikimedia.org) will be used.
+
+App registration for Wikimedia wikis:
+    https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose
+
+
 Microsoft Graph
 -----------------
 
@@ -1201,16 +1321,16 @@ Microsoft Graph API is the gateway to connect to mail, calendar, contacts,
 documents, directory, devices and more.
 
 Apps can be registered (for consumer key and secret) here
-    https://apps.dev.microsoft.com/
+    https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade
 
 By default, `common` (`organizations` and `consumers`) tenancy is configured
-for the login. To restrict it, change the `tenant` setting as shown below.
+for the login. To restrict it, change the `TENANT` setting as shown below.
 
 .. code-block:: python
 
     SOCIALACCOUNT_PROVIDERS = {
         'microsoft': {
-            'tenant': 'organizations',
+            'TENANT': 'organizations',
         }
     }
 

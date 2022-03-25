@@ -18,7 +18,7 @@ class RedditProvider(OAuth2Provider):
         return data["name"]
 
     def extract_common_fields(self, data):
-        return dict(name=data.get("name"))
+        return dict(username=data.get("name"))
 
     def get_default_scope(self):
         scope = ["identity"]

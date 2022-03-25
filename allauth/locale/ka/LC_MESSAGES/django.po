@@ -742,8 +742,8 @@ msgid ""
 "contact us if you do not receive it within a few minutes."
 msgstr ""
 "ჩვენ გამოგიგზავნეთ ელ. წერილი\n"
-"ვერიფიკაციისთვის. გთხოვთ მიჰყევით მასში მოცემულ ლინკს. გთხოვთ\n"
-"გთხოვთ დაგვიკავშირდით თუ არ მიიღებთ მას რამდენიმე წუთში."
+"ვერიფიკაციისთვის, მიჰყევით მასში მოცემულ ლინკს. გთხოვთ\n"
+"დაგვიკავშირდით თუ არ მიიღებთ მას რამდენიმე წუთში."
 
 #: templates/account/verified_email_required.html:20
 #, python-format
@@ -795,26 +795,26 @@ msgstr "სოციალური ანგარიშის დამატ�
 #: templates/socialaccount/login.html:6
 #, python-format
 msgid "Connect %(provider)s"
-msgstr ""
+msgstr "%(provider)s ანგარიშის დაკავშირება"
 
 #: templates/socialaccount/login.html:8
 #, python-format
 msgid "You are about to connect a new third party account from %(provider)s."
-msgstr ""
+msgstr "თქვენ აპირებთ დააკავშიროთ %(provider)s ანგარიში."
 
 #: templates/socialaccount/login.html:10
 #, python-format
 msgid "Sign In Via %(provider)s"
-msgstr ""
+msgstr "შესვლა %(provider)s ანგარიშით"
 
 #: templates/socialaccount/login.html:12
 #, python-format
 msgid "You are about to sign in using a third party account from %(provider)s."
-msgstr ""
+msgstr "თქვენ აპირებთ შესვლას %(provider)s ანგარიშით."
 
 #: templates/socialaccount/login.html:17
 msgid "Continue"
-msgstr ""
+msgstr "გაგრძელება"
 
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9

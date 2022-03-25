@@ -1316,7 +1316,7 @@ for the login. To restrict it, change the `tenant` setting as shown below.
 
     SOCIALACCOUNT_PROVIDERS = {
         'microsoft': {
-            'tenant': 'organizations',
+            'TENANT': 'organizations',
         }
     }
 

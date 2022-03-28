@@ -33,7 +33,9 @@ class WeixinOAuth2Client(OAuth2Client):
             "secret": self.consumer_secret,
             "scope": self.scope,
             "code": code,
-            **extra_data
+            # Trailing comma added by Black is not compatible with Python 3.5.
+            # https://github.com/psf/black/issues/1356
+            **extra_data  # fmt: skip
         }
         params = None
         self._strip_empty_keys(data)

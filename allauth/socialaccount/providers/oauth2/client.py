@@ -50,7 +50,9 @@ class OAuth2Client(object):
             "redirect_uri": self.callback_url,
             "grant_type": "authorization_code",
             "code": code,
-            **extra_data
+            # Trailing comma added by Black is not compatible with Python 3.5.
+            # https://github.com/psf/black/issues/1356
+            **extra_data  # fmt: skip
         }
         if self.basic_auth:
             auth = requests.auth.HTTPBasicAuth(self.consumer_key, self.consumer_secret)

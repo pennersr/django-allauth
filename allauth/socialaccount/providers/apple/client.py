@@ -67,7 +67,9 @@ class AppleOAuth2Client(OAuth2Client):
             "grant_type": "authorization_code",
             "redirect_uri": self.callback_url,
             "client_secret": client_secret,
-            **extra_data
+            # Trailing comma added by Black is not compatible with Python 3.5.
+            # https://github.com/psf/black/issues/1356
+            **extra_data  # fmt: skip
         }
         self._strip_empty_keys(data)
         resp = requests.request(

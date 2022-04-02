@@ -66,7 +66,8 @@ class OAuth2Adapter(object):
 
     def get_access_token_data(self, request, app, client):
         code = get_request_param(self.request, "code")
-        return client.get_access_token(code)
+        pkce_code_verifier = request.session.pop("pkce_code_verifier", None)
+        return client.get_access_token(code, pkce_code_verifier=pkce_code_verifier)
 
 
 class OAuth2View(object):
@@ -110,6 +111,13 @@ class OAuth2LoginView(OAuthLoginMixin, OAuth2View):
         action = request.GET.get("action", AuthAction.AUTHENTICATE)
         auth_url = self.adapter.authorize_url
         auth_params = provider.get_auth_params(request, action)
+
+        pkce_params = provider.get_pkce_params()
+        code_verifier = pkce_params.pop("code_verifier", None)
+        auth_params.update(pkce_params)
+        if code_verifier:
+            request.session["pkce_code_verifier"] = code_verifier
+
         client.state = SocialLogin.stash_state(request)
         try:
             return HttpResponseRedirect(client.get_redirect_url(auth_url, auth_params))

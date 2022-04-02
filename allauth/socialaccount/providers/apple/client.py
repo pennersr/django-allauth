@@ -58,7 +58,7 @@ class AppleOAuth2Client(OAuth2Client):
         """We support multiple client_ids, but use the first one for api calls"""
         return self.consumer_key.split(",")[0]
 
-    def get_access_token(self, code):
+    def get_access_token(self, code, pkce_code_verifier=None):
         url = self.access_token_url
         client_secret = self.generate_client_secret()
         data = {
@@ -68,6 +68,8 @@ class AppleOAuth2Client(OAuth2Client):
             "redirect_uri": self.callback_url,
             "client_secret": client_secret,
         }
+        if pkce_code_verifier:
+            data["code_verifier"] = pkce_code_verifier
         self._strip_empty_keys(data)
         resp = requests.request(
             self.access_token_method, url, data=data, headers=self.headers

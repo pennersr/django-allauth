@@ -1,3 +1,13 @@
+0.51.0 (unreleased)
+*******************
+
+Note worthy changes
+-------------------
+
+- Introduced a new provider setting ``OAUTH_PKCE_ENABLED`` that enables the
+  PKCE-enhanced Authorization Code Flow for OAuth 2.0 providers.
+
+
 0.50.0 (2022-03-25)
 *******************
 

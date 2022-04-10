@@ -2009,6 +2009,15 @@ The configuration is as follows:
 * Key, is not needed, leave blank
 
 
+UNiDAYS
+-------
+
+App registration
+    Client Registration is performed offline between you and a UNiDAYS Account Manager. 
+
+API documentation
+    https://live-analytics.myunidays.com/tools/oauth
+
 Untappd
 -------
 

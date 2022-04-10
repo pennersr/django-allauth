@@ -223,6 +223,8 @@ Supported Providers
 
 - Twitter (OAuth)
 
+- UNiDAYS (OAuth2)
+
 - Untappd (OAuth2)
 
 - Vimeo (OAuth, OAuth2)

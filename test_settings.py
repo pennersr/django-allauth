@@ -148,6 +148,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.twentythreeandme",
     "allauth.socialaccount.providers.twitch",
     "allauth.socialaccount.providers.twitter",
+    "allauth.socialaccount.providers.unidays",
     "allauth.socialaccount.providers.untappd",
     "allauth.socialaccount.providers.vimeo",
     "allauth.socialaccount.providers.vimeo_oauth2",

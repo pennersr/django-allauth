@@ -1,3 +1,13 @@
+0.51.0 (unreleased)
+*******************
+
+Note worthy changes
+-------------------
+
+- Introduced a new setting ``ACCOUNT_PASSWORD_RESET_TOKEN_GENERATOR`` that allows
+  you to specify the token generator for password resets.
+
+
 0.50.0 (2022-03-25)
 *******************
 

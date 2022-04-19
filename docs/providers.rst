@@ -1617,6 +1617,12 @@ SCOPE:
     For a full list of scope options, see
     https://developers.pinterest.com/docs/api/overview/#scopes
 
+Pocket
+-------------
+
+App registration (get your consumer key here)
+    https://getpocket.com/developer/apps/
+
 QuickBooks
 ----------
 

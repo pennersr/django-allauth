@@ -183,6 +183,8 @@ Supported Providers
 
 - Pinterest (OAuth2)
 
+- Pocket (OAuth)
+
 - QuickBooks (OAuth2)
 
 - Reddit (OAuth2)

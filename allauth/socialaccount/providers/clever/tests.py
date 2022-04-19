@@ -8,7 +8,9 @@ class SlackOAuth2Tests(OAuth2TestsMixin, TestCase):
     provider_id = SlackProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """{
+        return MockedResponse(
+            200,
+            """{
             "type": "user",
             "data": {
                 "id": "62027798269867124d10259e",
@@ -30,4 +32,5 @@ class SlackOAuth2Tests(OAuth2TestsMixin, TestCase):
                 "uri": "/v3.0/districts/6202763c8243d2100123dae5"
                 }
             ]
-        }""")  # noqa
+        }""",
+        )  # noqa

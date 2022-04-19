@@ -66,6 +66,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.box',
         'allauth.socialaccount.providers.cern',
         'allauth.socialaccount.providers.cilogon',
+        'allauth.socialaccount.providers.clever',
         'allauth.socialaccount.providers.coinbase',
         'allauth.socialaccount.providers.dataporten',
         'allauth.socialaccount.providers.daum',

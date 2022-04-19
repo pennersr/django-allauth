@@ -322,6 +322,13 @@ App registration (get your key and secret here)
 CILogon OIDC/OAuth2 Documentation
     https://www.cilogon.org/oidc
 
+Clever
+----
+Single sign-on for education
+
+Clever OAUth2 Documentation
+    https://dev.clever.com/docs/classroom-with-oauth
+
 
 Dataporten
 ----------

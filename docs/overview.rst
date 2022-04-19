@@ -71,6 +71,8 @@ Supported Providers
 
 - CILogon (OAuth2)
 
+- Clever (OAuth2)
+
 - Coinbase (OAuth2)
 
 - Dataporten (OAuth2)

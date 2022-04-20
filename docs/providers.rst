@@ -378,6 +378,36 @@ Development callback (redirect) URL
     http://127.0.0.1:8000/accounts/discord/login/callback/
 
 
+Django OAuth Toolkit
+--------------------
+
+Django OAuth Toolkit documentation:
+    https://django-oauth-toolkit.readthedocs.io/en/latest/
+
+This provider should be used to connect to any Django application
+implementing an authorization server with Django OAuth Toolkit.
+It's expected that the Django OAuth Toolkit base URL be informed
+in the ``SERVER_URL`` property of the ``dj_oauth_toolkit``
+configuration as shown1 below.
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'dj_oauth_toolkit': {
+            'SERVER_URL': 'https://your.django.app/o/',
+        }
+    }
+
+The Django OAuth Toolkit should be configured to support OpenID
+Connect. The instructions can be found on:
+    https://django-oauth-toolkit.readthedocs.io/en/latest/oidc.html
+
+Also, make sure the server is returning OIDC response with additional
+claims. At least the user's e-mail or username is necessary. The
+instructions how to do that can be found on:
+    https://django-oauth-toolkit.readthedocs.io/en/latest/oidc.html#adding-claims-to-the-id-token
+
+
 Doximity
 --------
 

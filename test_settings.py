@@ -76,6 +76,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.digitalocean",
     "allauth.socialaccount.providers.discord",
     "allauth.socialaccount.providers.disqus",
+    "allauth.socialaccount.providers.dj_oauth_toolkit",
     "allauth.socialaccount.providers.douban",
     "allauth.socialaccount.providers.doximity",
     "allauth.socialaccount.providers.draugiem",

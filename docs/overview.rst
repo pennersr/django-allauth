@@ -83,6 +83,8 @@ Supported Providers
 
 - Disqus (OAuth2)
 
+- Django OAuth Toolkit (OAuth2)
+
 - Douban (OAuth2)
 
 - Doximity (OAuth2)

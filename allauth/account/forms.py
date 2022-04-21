@@ -572,6 +572,7 @@ class ResetPasswordForm(forms.Form):
             context = {
                 "current_site": get_current_site(request),
                 "user": user,
+                "password_reset_path": path,
                 "password_reset_url": url,
                 "request": request,
             }

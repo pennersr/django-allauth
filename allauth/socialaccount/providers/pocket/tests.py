@@ -1,8 +1,9 @@
-from urllib.parse import urlencode, urlparse, parse_qs
+from urllib.parse import parse_qs, urlencode, urlparse
+
+from django.urls import reverse
 
 from allauth.socialaccount.tests import OAuthTestsMixin
 from allauth.tests import MockedResponse, TestCase, mocked_response
-from django.urls import reverse
 
 from .provider import PocketProvider
 
@@ -14,10 +15,13 @@ class PocketOAuthTests(OAuthTestsMixin, TestCase):
         return []
 
     def get_access_token_response(self):
-        return MockedResponse(200, """
+        return MockedResponse(
+            200,
+            """
         {"access_token":"5678defg-5678-defg-5678-defg56",
         "username":"name@example.com"}
-        """)
+        """,
+        )
 
     def login(self, resp_mocks, process="login"):
         with mocked_response(

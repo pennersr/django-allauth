@@ -1,13 +1,13 @@
+from ..oauth.views import OAuthAdapter, OAuthCallbackView, OAuthLoginView
 from .client import PocketOAuthClient
 from .provider import PocketProvider
-from ..oauth.views import OAuthAdapter, OAuthLoginView, OAuthCallbackView
 
 
 class PocketOAuthAdapter(OAuthAdapter):
     provider_id = PocketProvider.id
-    request_token_url = 'https://getpocket.com/v3/oauth/request'
-    access_token_url = 'https://getpocket.com/v3/oauth/authorize'
-    authorize_url = 'https://getpocket.com/auth/authorize'
+    request_token_url = "https://getpocket.com/v3/oauth/request"
+    access_token_url = "https://getpocket.com/v3/oauth/authorize"
+    authorize_url = "https://getpocket.com/auth/authorize"
 
     def complete_login(self, request, app, token, response):
         return self.get_provider().sociallogin_from_response(request, response)
@@ -35,7 +35,6 @@ class PocketOAuthLoginView(OAuthLoginView):
 
 
 class PocketOAuthCallbackView(OAuthCallbackView):
-
     def _get_client(self, request, callback_url):
         provider = self.adapter.get_provider()
         app = provider.get_app(request)

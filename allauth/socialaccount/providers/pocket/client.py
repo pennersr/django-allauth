@@ -1,24 +1,25 @@
+import requests
 from urllib.parse import urlencode
 
-import requests
 from django.http import HttpResponseRedirect
 from django.utils.translation import gettext as _
 
-from allauth.socialaccount.providers.oauth.client import OAuthClient, OAuthError, get_token_prefix
+from allauth.socialaccount.providers.oauth.client import (
+    OAuthClient,
+    OAuthError,
+    get_token_prefix,
+)
 from allauth.utils import build_absolute_uri
 
 
 class PocketOAuthClient(OAuthClient):
-
     def _get_request_token(self):
         """
         Obtain a temporary request token to authorize an access token and to
         sign the request to obtain the access token
         """
         if self.request_token is None:
-            redirect_url = build_absolute_uri(
-                self.request, self.callback_url
-            )
+            redirect_url = build_absolute_uri(self.request, self.callback_url)
             headers = {
                 "X-Accept": "application/json",
             }
@@ -39,7 +40,7 @@ class PocketOAuthClient(OAuthClient):
             self.request_token = response.json()["code"]
             self.request.session[
                 "oauth_%s_request_token" % get_token_prefix(self.request_token_url)
-                ] = self.request_token
+            ] = self.request_token
         return self.request_token
 
     def get_redirect(self, authorization_url, extra_params):

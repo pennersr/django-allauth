@@ -173,7 +173,7 @@ AUTHENTICATION_BACKENDS = (
 STATIC_ROOT = "/tmp/"  # Dummy
 STATIC_URL = "/static/"
 
-from django.contrib.auth.hashers import PBKDF2PasswordHasher
+from django.contrib.auth.hashers import PBKDF2PasswordHasher  # noqa:E402
 
 
 class MyPBKDF2PasswordHasher(PBKDF2PasswordHasher):

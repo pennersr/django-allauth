@@ -106,6 +106,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.google",
     "allauth.socialaccount.providers.gumroad",
     "allauth.socialaccount.providers.hubic",
+    'allauth.socialaccount.providers.hubspot',
     "allauth.socialaccount.providers.instagram",
     "allauth.socialaccount.providers.jupyterhub",
     "allauth.socialaccount.providers.kakao",

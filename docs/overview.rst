@@ -135,6 +135,8 @@ Supported Providers
 
 - Hubic (OAuth2)
 
+- Hubspot (OAuth2)
+
 - Instagram (OAuth2)
 
 - JupyterHub (OAuth2)

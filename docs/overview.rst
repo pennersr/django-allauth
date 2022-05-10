@@ -4,7 +4,7 @@ Overview
 Requirements
 ------------
 
-- Python 3.5, 3.6, 3.7, 3.8 or 3.9
+- Python 3.5, 3.6, 3.7, 3.8, 3.9, or 3.10
 
 - Django (2.0+)
 
@@ -89,6 +89,8 @@ Supported Providers
 
 - Draugiem
 
+- Drip
+
 - Dropbox (OAuth, OAuth2)
 
 - Dwolla (OAuth2)
@@ -140,6 +142,8 @@ Supported Providers
 - Kakao (OAuth2)
 
 - Keycloak (OAuth2)
+
+- LemonLDAP::NG (OAuth2)
 
 - Line (OAuth2)
 

@@ -25,7 +25,9 @@ def parse(rate):
 def _cache_key(request, *, action, key=None, user=None):
     from allauth.account.adapter import get_adapter
 
-    if user or request.user.is_authenticated:
+    if key:
+        source = ()
+    elif user or request.user.is_authenticated:
         source = ("user", str((user or request.user).pk))
     else:
         source = ("ip", get_adapter().get_client_ip(request))

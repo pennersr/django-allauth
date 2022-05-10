@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-09 08:41-0600\n"
+"POT-Creation-Date: 2022-02-03 13:53-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,20 +18,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: account/adapter.py:45
+#: account/adapter.py:47
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Name pengguna tidak dapat digunakan. Silahkan gunakan nama pengguna lain."
 
-#: account/adapter.py:51
+#: account/adapter.py:53
 msgid "Too many failed login attempts. Try again later."
 msgstr "Terlalu banyak percobaan masuk yang gagal. Coba lagi nanti."
 
-#: account/adapter.py:53
+#: account/adapter.py:55
 msgid "A user is already registered with this e-mail address."
 msgstr "Seorang pengguna sudah terdaftar dengan alamat e-mail ini."
 
-#: account/adapter.py:300
+#: account/adapter.py:304
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Kata sandi harus memiliki panjang minimal {0} karakter."
@@ -40,11 +40,11 @@ msgstr "Kata sandi harus memiliki panjang minimal {0} karakter."
 msgid "Accounts"
 msgstr "Akun"
 
-#: account/forms.py:59 account/forms.py:413
+#: account/forms.py:59 account/forms.py:415
 msgid "You must type the same password each time."
 msgstr "Anda harus mengetikkan kata sandi yang sama setiap kali."
 
-#: account/forms.py:92 account/forms.py:381 account/forms.py:498
+#: account/forms.py:92 account/forms.py:381 account/forms.py:500
 msgid "Password"
 msgstr "Kata sandi"
 
@@ -64,13 +64,13 @@ msgstr "Alamat e-mail dan/atau kata sandi yang anda masukkan tidak benar."
 msgid "The username and/or password you specified are not correct."
 msgstr "Nama pengguna dan/atau kata sandi yang anda masukkan tidak benar."
 
-#: account/forms.py:113 account/forms.py:279 account/forms.py:439
-#: account/forms.py:517
+#: account/forms.py:113 account/forms.py:279 account/forms.py:441
+#: account/forms.py:519
 msgid "E-mail address"
 msgstr "Alamat e-mail"
 
-#: account/forms.py:117 account/forms.py:316 account/forms.py:436
-#: account/forms.py:512
+#: account/forms.py:117 account/forms.py:316 account/forms.py:438
+#: account/forms.py:514
 msgid "E-mail"
 msgstr "E-mail"
 
@@ -104,88 +104,88 @@ msgstr "E-mail (opsional)"
 msgid "You must type the same email each time."
 msgstr "Anda harus mengetikkan e-mail yang sama setiap kali."
 
-#: account/forms.py:384 account/forms.py:499
+#: account/forms.py:385 account/forms.py:501
 msgid "Password (again)"
 msgstr "Kata sandi (lagi)"
 
-#: account/forms.py:448
+#: account/forms.py:450
 msgid "This e-mail address is already associated with this account."
 msgstr "Alamat e-mail ini sudah terhubung dengan akun ini."
 
-#: account/forms.py:451
+#: account/forms.py:453
 msgid "This e-mail address is already associated with another account."
 msgstr "Alamat e-mail ini sudah terhubung dengan akun lain."
 
-#: account/forms.py:453
+#: account/forms.py:455
 #, python-format
 msgid "You cannot add more than %d e-mail addresses."
 msgstr "Anda tidak dapat menambahkan lebih dari %d alamat e-mail."
 
-#: account/forms.py:478
+#: account/forms.py:480
 msgid "Current Password"
 msgstr "Kata sandi saat ini"
 
-#: account/forms.py:480 account/forms.py:570
+#: account/forms.py:482 account/forms.py:587
 msgid "New Password"
 msgstr "Kata sandi baru"
 
-#: account/forms.py:481 account/forms.py:571
+#: account/forms.py:483 account/forms.py:588
 msgid "New Password (again)"
 msgstr "Kata sandi baru (lagi)"
 
-#: account/forms.py:489
+#: account/forms.py:491
 msgid "Please type your current password."
 msgstr "Silahkan ketik kata sandi Anda saat ini."
 
-#: account/forms.py:529
+#: account/forms.py:531
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Alamat e-mail ini tidak terhubung dengan akun pengguna mana pun"
 
-#: account/forms.py:592
+#: account/forms.py:609
 msgid "The password reset token was invalid."
 msgstr "Token untuk mengatur ulang kata sandi tidak valid."
 
-#: account/models.py:22
+#: account/models.py:19
 msgid "user"
 msgstr "pengguna"
 
-#: account/models.py:28 account/models.py:83
+#: account/models.py:25 account/models.py:80
 msgid "e-mail address"
 msgstr "alamat e-mail"
 
-#: account/models.py:30
+#: account/models.py:27
 msgid "verified"
 msgstr "terverifikasi"
 
-#: account/models.py:31
+#: account/models.py:28
 msgid "primary"
 msgstr "utama"
 
-#: account/models.py:36
+#: account/models.py:33
 msgid "email address"
 msgstr "alamat e-mail"
 
-#: account/models.py:37
+#: account/models.py:34
 msgid "email addresses"
 msgstr "alamat e-mail"
 
-#: account/models.py:86
+#: account/models.py:83
 msgid "created"
 msgstr "dibuat"
 
-#: account/models.py:87
+#: account/models.py:84
 msgid "sent"
 msgstr "dikirim"
 
-#: account/models.py:88 socialaccount/models.py:58
+#: account/models.py:85 socialaccount/models.py:60
 msgid "key"
 msgstr "kunci"
 
-#: account/models.py:93
+#: account/models.py:90
 msgid "email confirmation"
 msgstr "konfirmasi e-mail"
 
-#: account/models.py:94
+#: account/models.py:91
 msgid "email confirmations"
 msgstr "konfirmasi e-mail"
 
@@ -210,91 +210,91 @@ msgstr "Akun Anda tidak memiliki alamat e-mail yang terverifikasi."
 msgid "Social Accounts"
 msgstr "Akun Sosial"
 
-#: socialaccount/models.py:41 socialaccount/models.py:84
+#: socialaccount/models.py:43 socialaccount/models.py:87
 msgid "provider"
 msgstr "pemberi"
 
-#: socialaccount/models.py:45
+#: socialaccount/models.py:47
 msgid "name"
 msgstr "nama"
 
-#: socialaccount/models.py:47
+#: socialaccount/models.py:49
 msgid "client id"
 msgstr "id klien"
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:51
 msgid "App ID, or consumer key"
 msgstr "ID Aplikasi, atau kunci konsumen"
 
-#: socialaccount/models.py:52
+#: socialaccount/models.py:54
 msgid "secret key"
 msgstr "kunci rahasia"
 
-#: socialaccount/models.py:55
+#: socialaccount/models.py:57
 msgid "API secret, client secret, or consumer secret"
 msgstr "Kunci API, kunci klien, atau kunci konsumen"
 
-#: socialaccount/models.py:58
+#: socialaccount/models.py:60
 msgid "Key"
 msgstr "Kunci"
 
-#: socialaccount/models.py:74
+#: socialaccount/models.py:77
 msgid "social application"
 msgstr "aplikasi sosial"
 
-#: socialaccount/models.py:75
+#: socialaccount/models.py:78
 msgid "social applications"
 msgstr "aplikasi sosial"
 
-#: socialaccount/models.py:105
+#: socialaccount/models.py:108
 msgid "uid"
 msgstr "uid"
 
-#: socialaccount/models.py:107
+#: socialaccount/models.py:110
 msgid "last login"
 msgstr "masuk terakhir"
 
-#: socialaccount/models.py:108
+#: socialaccount/models.py:111
 msgid "date joined"
 msgstr "tanggal bergabung"
 
-#: socialaccount/models.py:109
+#: socialaccount/models.py:112
 msgid "extra data"
 msgstr "data tambahan"
 
-#: socialaccount/models.py:113
+#: socialaccount/models.py:116
 msgid "social account"
 msgstr "akun sosial"
 
-#: socialaccount/models.py:114
+#: socialaccount/models.py:117
 msgid "social accounts"
 msgstr "akun sosial"
 
-#: socialaccount/models.py:139
+#: socialaccount/models.py:142
 msgid "token"
 msgstr "token"
 
-#: socialaccount/models.py:140
+#: socialaccount/models.py:143
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) atau token akses (OAuth2)"
 
-#: socialaccount/models.py:144
+#: socialaccount/models.py:147
 msgid "token secret"
 msgstr "rahasia token"
 
-#: socialaccount/models.py:145
+#: socialaccount/models.py:148
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) atau token refresh (OAuth2)"
 
-#: socialaccount/models.py:148
+#: socialaccount/models.py:151
 msgid "expires at"
 msgstr "kadaluarsa pada"
 
-#: socialaccount/models.py:153
+#: socialaccount/models.py:156
 msgid "social application token"
 msgstr "token aplikasi sosial"
 
-#: socialaccount/models.py:154
+#: socialaccount/models.py:157
 msgid "social application tokens"
 msgstr "token-token aplikasi sosial"
 
@@ -441,8 +441,31 @@ msgid "In case you forgot, your username is %(username)s."
 msgstr "Jikalau Anda lupa, nama pengguna Anda adalah %(username)s."
 
 #: templates/account/email/password_reset_key_subject.txt:3
+#: templates/account/email/unknown_account_subject.txt:3
 msgid "Password Reset E-mail"
 msgstr "E-mail Reset Kata Sandi"
+
+#: templates/account/email/unknown_account_message.txt:4
+#, fuzzy, python-format
+#| msgid ""
+#| "You're receiving this e-mail because you or someone else has requested a "
+#| "password for your user account.\n"
+#| "It can be safely ignored if you did not request a password reset. Click "
+#| "the link below to reset your password."
+msgid ""
+"You are receiving this e-mail because you or someone else has requested a\n"
+"password for your user account. However, we do not have any record of a "
+"user\n"
+"with email %(email)s in our database.\n"
+"\n"
+"This mail can be safely ignored if you did not request a password reset.\n"
+"\n"
+"If it was you, you can sign up for an account using the link below."
+msgstr ""
+"Anda menerima e-mail ini karena Anda atau orang lain telah meminta kata "
+"sandi untuk akun Anda.\n"
+"Abaikan jika Anda tidak meminta reset kata sandi. Klik link di bawah untuk "
+"mereset kata sandi Anda."
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
@@ -594,12 +617,18 @@ msgstr ""
 "Mohon hubungi kami jika Anda mengalami masalah saat mengubah kata sandi Anda."
 
 #: templates/account/password_reset_done.html:15
+#, fuzzy
+#| msgid ""
+#| "We have sent an e-mail to you for\n"
+#| "verification. Please click on the link inside this e-mail. Please\n"
+#| "contact us if you do not receive it within a few minutes."
 msgid ""
-"We have sent you an e-mail. Please contact us if you do not receive it "
-"within a few minutes."
+"We have sent you an e-mail. If you have not received it please check your "
+"spam folder. Otherwise contact us if you do not receive it in a few minutes."
 msgstr ""
-"Kami telah mengirimkan e-mail. Mohon hubungi kami jika Anda tidak "
-"menerimanya dalam beberapa menit."
+"Kami telah mengirimkan e-mail kepada Anda untuk\n"
+"verifikasi. Silakan klik tautan didalam e-mail ini. Silakan\n"
+"hubungi kami jika Anda tidak menerimanya dalam beberapa menit."
 
 #: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -615,11 +644,10 @@ msgstr ""
 "Link reset kata sandi tidak valid, mungkin karena telah digunakan.  Silakan "
 "minta <a href=\"%(passwd_reset_url)s\">reset kata sandi baru</a>."
 
-#: templates/account/password_reset_from_key.html:17
+#: templates/account/password_reset_from_key.html:16
 msgid "change password"
 msgstr "ubah kata sandi"
 
-#: templates/account/password_reset_from_key.html:20
 #: templates/account/password_reset_from_key_done.html:8
 msgid "Your password is now changed."
 msgstr "Kata sandi Anda telah diubah."
@@ -670,10 +698,16 @@ msgid "Verify Your E-mail Address"
 msgstr "Verifikasi Alamat E-mail Anda"
 
 #: templates/account/verification_sent.html:10
+#, fuzzy
+#| msgid ""
+#| "We have sent an e-mail to you for verification. Follow the link provided "
+#| "to finalize the signup process. Please contact us if you do not receive "
+#| "it within a few minutes."
 msgid ""
 "We have sent an e-mail to you for verification. Follow the link provided to "
-"finalize the signup process. Please contact us if you do not receive it "
-"within a few minutes."
+"finalize the signup process. If you do not see the verification e-mail in "
+"your main inbox, check your spam folder. Please contact us if you do not "
+"receive the verification e-mail within a few minutes."
 msgstr ""
 "Kami telah mengirimkan e-mail kepada Anda untuk verifikasi. Ikuti tautan "
 "yang disediakan untuk menyelesaikan proses pendaftaran. Silahkan hubungi "
@@ -690,9 +724,16 @@ msgstr ""
 "memverifikasi kepemilikan alamat e-mail Anda. "
 
 #: templates/account/verified_email_required.html:16
+#, fuzzy
+#| msgid ""
+#| "We have sent an e-mail to you for\n"
+#| "verification. Please click on the link inside this e-mail. Please\n"
+#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent an e-mail to you for\n"
-"verification. Please click on the link inside this e-mail. Please\n"
+"verification. Please click on the link inside that e-mail. If you do not see "
+"the verification e-mail in your main inbox, check your spam folder. "
+"Otherwise\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
 "Kami telah mengirimkan e-mail kepada Anda untuk\n"
@@ -807,3 +848,10 @@ msgid ""
 msgstr ""
 "Anda akan menggunakan akun %(provider_name)s untuk masuk ke\n"
 "%(site_name)s. Sebagai langkah akhir, silakan lengkapi formulir berikut:"
+
+#~ msgid ""
+#~ "We have sent you an e-mail. Please contact us if you do not receive it "
+#~ "within a few minutes."
+#~ msgstr ""
+#~ "Kami telah mengirimkan e-mail. Mohon hubungi kami jika Anda tidak "
+#~ "menerimanya dalam beberapa menit."

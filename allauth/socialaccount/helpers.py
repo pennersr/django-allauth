@@ -6,7 +6,12 @@ from django.urls import reverse
 
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
-from allauth.account.utils import complete_signup, perform_login, user_username
+from allauth.account.utils import (
+    complete_signup,
+    perform_login,
+    user_display,
+    user_username,
+)
 from allauth.exceptions import ImmediateHttpResponse
 
 from . import app_settings, signals
@@ -189,3 +194,10 @@ def import_path(path):
     modname, _, attr = path.rpartition(".")
     m = __import__(modname, fromlist=[attr])
     return getattr(m, attr)
+
+
+def socialaccount_user_display(socialaccount):
+    func = app_settings.SOCIALACCOUNT_STR
+    if not func:
+        return user_display(socialaccount.user)
+    return func(socialaccount)

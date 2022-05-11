@@ -20,7 +20,7 @@ from django.views.decorators.http import require_http_methods
 # web3 declarations
 from web3 import Web3
 from eth_account.messages import encode_defunct
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 @csrf_exempt
 @require_http_methods(["GET","POST"])

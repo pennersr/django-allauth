@@ -20,7 +20,13 @@ class MetamaskProvider(Provider):
     def media_js(self, request):
         settings = self.get_settings()
         request_parameters = settings.get("REQUEST_PARAMETERS", {})
-        ctx = {"request_parameters": json.dumps(request_parameters)}
+        metamask_data = {
+            "chainId": settings.get("CHAIN_ID",1 ),
+            "RPC_URL": settings.get("URL", "https://cloudflare-eth.com/"),
+            "PORT": settings.get("PORT",8545 ),
+            "chainName": settings.get("CHAIN_NAME", "mainnet" ),
+        }
+        ctx = {"metamask_data": json.dumps(metamask_data),"request_parameters": json.dumps(request_parameters)}
         return render_to_string("metamask/auth.html", ctx, request=request)
 
     def get_login_url(self, request, **kwargs):

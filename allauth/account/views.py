@@ -465,20 +465,29 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
             res = _ajax_response(request, res, data=self._get_ajax_data_if())
         return res
 
-    def _action_send(self, request, *args, **kwargs):
-        email = request.POST["email"]
-        send_email_confirmation(self.request, request.user, email=email)
-
-    def _action_remove(self, request, *args, **kwargs):
+    def _get_email_address(self, request):
         email = request.POST["email"]
         try:
-            email_address = EmailAddress.objects.get(user=request.user, email=email)
+            return EmailAddress.objects.get_for_user(user=request.user, email=email)
+        except EmailAddress.DoesNotExist:
+            pass
+
+    def _action_send(self, request, *args, **kwargs):
+        email_address = self._get_email_address(request)
+        if email_address:
+            send_email_confirmation(
+                self.request, request.user, email=email_address.email
+            )
+
+    def _action_remove(self, request, *args, **kwargs):
+        email_address = self._get_email_address(request)
+        if email_address:
             if email_address.primary:
                 get_adapter(request).add_message(
                     request,
                     messages.ERROR,
                     "account/messages/cannot_delete_primary_email.txt",
-                    {"email": email},
+                    {"email": email_address.email},
                 )
             else:
                 email_address.delete()
@@ -492,18 +501,13 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                     request,
                     messages.SUCCESS,
                     "account/messages/email_deleted.txt",
-                    {"email": email},
+                    {"email": email_address.email},
                 )
                 return HttpResponseRedirect(self.get_success_url())
-        except EmailAddress.DoesNotExist:
-            pass
 
     def _action_primary(self, request, *args, **kwargs):
-        email = request.POST["email"]
-        try:
-            email_address = EmailAddress.objects.get_for_user(
-                user=request.user, email=email
-            )
+        email_address = self._get_email_address(request)
+        if email_address:
             # Not primary=True -- Slightly different variation, don't
             # require verified unless moving from a verified
             # address. Ignore constraint if previous primary email
@@ -542,8 +546,6 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                     to_email_address=email_address,
                 )
                 return HttpResponseRedirect(self.get_success_url())
-        except EmailAddress.DoesNotExist:
-            pass
 
     def get_context_data(self, **kwargs):
         ret = super(EmailView, self).get_context_data(**kwargs)
@@ -725,7 +727,7 @@ class PasswordResetFromKeyView(
     template_name = "account/password_reset_from_key." + app_settings.TEMPLATE_EXTENSION
     form_class = ResetPasswordKeyForm
     success_url = reverse_lazy("account_reset_password_from_key_done")
-    internal_reset_url_key = "set-password"
+    reset_url_key = "set-password"
 
     def get_form_class(self):
         return get_form_class(
@@ -736,7 +738,7 @@ class PasswordResetFromKeyView(
         self.request = request
         self.key = key
 
-        if self.key == self.internal_reset_url_key:
+        if self.key == self.reset_url_key:
             self.key = self.request.session.get(INTERNAL_RESET_SESSION_KEY, "")
             # (Ab)using forms here to be able to handle errors in XHR #890
             token_form = UserTokenForm(data={"uidb36": uidb36, "key": self.key})
@@ -764,9 +766,7 @@ class PasswordResetFromKeyView(
                 # avoids the possibility of leaking the key in the
                 # HTTP Referer header.
                 self.request.session[INTERNAL_RESET_SESSION_KEY] = self.key
-                redirect_url = self.request.path.replace(
-                    self.key, self.internal_reset_url_key
-                )
+                redirect_url = self.request.path.replace(self.key, self.reset_url_key)
                 return redirect(redirect_url)
 
         self.reset_user = None

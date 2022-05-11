@@ -1185,6 +1185,15 @@ class EmailFormTests(TestCase):
         )
         self.assertTemplateUsed(resp, "account/messages/email_confirmation_sent.txt")
 
+    def test_verify_unknown_email(self):
+        assert EmailAddress.objects.filter(user=self.user).count() == 2
+        self.client.post(
+            reverse("account_email"),
+            {"action_send": "", "email": "email@unknown.org"},
+        )
+        # This unkown email address must not be implicitly added.
+        assert EmailAddress.objects.filter(user=self.user).count() == 2
+
     @override_settings(ACCOUNT_MAX_EMAIL_ADDRESSES=2)
     def test_add_with_two_limiter(self):
         resp = self.client.post(
@@ -1298,6 +1307,29 @@ class CustomSignupFormTests(TestCase):
 
         form = CustomSignupForm()
         self.assertEqual(list(form.fields.keys()), expected_field_order)
+
+    def test_user_class_attribute(self):
+        from django.contrib.auth import get_user_model
+        from django.db.models.query_utils import DeferredAttribute
+
+        class CustomSignupForm(SignupForm):
+            # ACCOUNT_SIGNUP_FORM_CLASS is only abided by when the
+            # BaseSignupForm definition is loaded the first time on Django
+            # startup. @override_settings() has therefore no effect.
+            pass
+
+        User = get_user_model()
+        data = {
+            "username": "username",
+            "email": "user@example.com",
+            "password1": "very-secret",
+            "password2": "very-secret",
+        }
+        form = CustomSignupForm(data, email_required=True)
+
+        assert isinstance(User.username, DeferredAttribute)
+        form.is_valid()
+        assert isinstance(User.username, DeferredAttribute)
 
 
 class AuthenticationBackendTests(TestCase):

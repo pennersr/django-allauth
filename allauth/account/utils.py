@@ -7,13 +7,11 @@ from django.contrib.auth import update_session_auth_hash
 from django.core.exceptions import FieldDoesNotExist, ValidationError
 from django.db import models
 from django.db.models import Q
-from django.http import HttpResponseRedirect
 from django.utils.encoding import force_str
 from django.utils.http import base36_to_int, int_to_base36, urlencode
 
 from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
-from allauth.account.app_settings import EmailVerificationMethod
 from allauth.exceptions import ImmediateHttpResponse
 from allauth.utils import (
     get_request_param,
@@ -122,7 +120,7 @@ def user_email(user, *args):
     return user_field(user, app_settings.USER_MODEL_EMAIL_FIELD, *args)
 
 
-def _has_verified_for_login(user, email):
+def has_verified_email(user, email=None):
     from .models import EmailAddress
 
     emailaddress = None
@@ -159,40 +157,21 @@ def perform_login(
     # `user_signed_up` signal. Furthermore, social users should be
     # stopped anyway.
     adapter = get_adapter(request)
-    if not user.is_active:
-        return adapter.respond_user_inactive(request, user)
-
-    if email_verification == EmailVerificationMethod.NONE:
-        pass
-    elif email_verification == EmailVerificationMethod.OPTIONAL:
-        # In case of OPTIONAL verification: send on signup.
-        if not _has_verified_for_login(user, email) and signup:
-            send_email_confirmation(request, user, signup=signup, email=email)
-    elif email_verification == EmailVerificationMethod.MANDATORY:
-        if not _has_verified_for_login(user, email):
-            send_email_confirmation(request, user, signup=signup, email=email)
-            return adapter.respond_email_verification_sent(request, user)
     try:
+        hook_kwargs = dict(
+            email_verification=email_verification,
+            redirect_url=redirect_url,
+            signal_kwargs=signal_kwargs,
+            signup=signup,
+            email=email,
+        )
+        response = adapter.pre_login(request, user, **hook_kwargs)
+        if response:
+            return response
         adapter.login(request, user)
-        response = HttpResponseRedirect(
-            get_login_redirect_url(request, redirect_url, signup=signup)
-        )
-
-        if signal_kwargs is None:
-            signal_kwargs = {}
-        signals.user_logged_in.send(
-            sender=user.__class__,
-            request=request,
-            response=response,
-            user=user,
-            **signal_kwargs,
-        )
-        adapter.add_message(
-            request,
-            messages.SUCCESS,
-            "account/messages/logged_in.txt",
-            {"user": user},
-        )
+        response = adapter.post_login(request, user, **hook_kwargs)
+        if response:
+            return response
     except ImmediateHttpResponse as e:
         response = e.response
     return response

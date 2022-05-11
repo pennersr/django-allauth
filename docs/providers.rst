@@ -403,6 +403,20 @@ Authentication documentation
 Development callback URL
     http://localhost:8000/accounts/draugiem/login/callback/
 
+Drip
+--------
+
+App registration (get your key and secret here)
+    https://www.getdrip.com/user/applications
+
+Authentication documentation
+    https://developer.drip.com/?shell#oauth
+
+Development callback URL
+    https://localhost:8000/accounts/drip/login/callback/
+
+Make sure the registed application is active.
+
 
 Dropbox
 -------
@@ -609,7 +623,7 @@ The following Facebook settings are available:
             'EXCHANGE_TOKEN': True,
             'LOCALE_FUNC': 'path.to.callable',
             'VERIFIED_EMAIL': False,
-            'VERSION': 'v7.0',
+            'VERSION': 'v13.0',
         }
     }
 
@@ -677,7 +691,7 @@ VERIFIED_EMAIL:
     risk.
 
 VERSION:
-    The Facebook Graph API version to use. The default is ``v7.0``.
+    The Facebook Graph API version to use. The default is ``v13.0``.
 
 App registration (get your key and secret here)
     A key and secret key can be obtained by
@@ -1083,6 +1097,36 @@ Example:
       }
   }
 
+LemonLDAP::NG
+-------------
+
+Create a new OpenID Connect Relying Party with the following settings:
+
+* Exported attributes:
+
+    * ``email``
+    * ``name``
+    * ``preferred_username``
+
+* Basic options:
+
+    * Development Redirect URI: http://localhost:8000/accounts/lemonldap/login/callback/
+
+The following LemonLDAP::NG settings are available.
+
+LEMONLDAP_URL:
+    The base URL of your LemonLDAP::NG portal. For example: ``https://auth.example.com``
+
+Example:
+
+.. code-block:: python
+
+  SOCIALACCOUNT_PROVIDERS = {
+      'lemonldap': {
+          'LEMONLDAP_URL': 'https://auth.example.com'
+      }
+  }
+
 Line
 ----
 
@@ -1320,13 +1364,13 @@ Apps can be registered (for consumer key and secret) here
     https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade
 
 By default, `common` (`organizations` and `consumers`) tenancy is configured
-for the login. To restrict it, change the `tenant` setting as shown below.
+for the login. To restrict it, change the `TENANT` setting as shown below.
 
 .. code-block:: python
 
     SOCIALACCOUNT_PROVIDERS = {
         'microsoft': {
-            'tenant': 'organizations',
+            'TENANT': 'organizations',
         }
     }
 

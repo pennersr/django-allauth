@@ -1285,7 +1285,7 @@ django-allauth now uses web3 to verify that the wallet address in username signe
 TODO:
   - Helpers incoming in the next week to add custom chain_ids and tokens to metamask.
   - verification off private chains instead of the mainnet.
-  -
+
 
 The following Metamask settings are available:
 

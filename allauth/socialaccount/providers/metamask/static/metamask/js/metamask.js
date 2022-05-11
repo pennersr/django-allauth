@@ -1,4 +1,20 @@
 /* global document, window, metamask */
+var metamaskSettings = JSON.parse(document.getElementById('allauth-metamask-settings').innerHTML)
+
+ try {
+      await ethereum.request({
+        method: 'wallet_addEthereumChain',
+        params: [
+          {
+            chainId: metamaskSettings.chainId,
+            chainName: metamaskSettings.chainName,
+            rpcUrls: [metamaskSettings.rpcUrl+':'+metamaskSettings.rpcPort],
+          },
+        ],
+      });
+    } catch (addError) {
+      // handle "add" error
+    }
 
 async function loginwithtoken(token,account,next,process){
     try {
@@ -63,4 +79,3 @@ async function getAccount(next, process="login") {
     loginwithtoken(responseJson.data, account, next, process)
   })
 }
-

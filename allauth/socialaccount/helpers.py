@@ -1,7 +1,10 @@
+from django.apps import apps
+from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth import login as django_login, _get_backends
 from django.forms import ValidationError
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from allauth.account import app_settings as account_settings
@@ -140,22 +143,22 @@ def _add_social_account(request, sociallogin):
 
 
 def complete_social_login(request, sociallogin):
-    assert not sociallogin.is_existing
-    sociallogin.lookup()
-    try:
-        get_adapter(request).pre_social_login(request, sociallogin)
-        signals.pre_social_login.send(
-            sender=SocialLogin, request=request, sociallogin=sociallogin
-        )
-        process = sociallogin.state.get("process")
-        if process == AuthProcess.REDIRECT:
-            return _social_login_redirect(request, sociallogin)
-        elif process == AuthProcess.CONNECT:
-            return _add_social_account(request, sociallogin)
-        else:
-            return _complete_social_login(request, sociallogin)
-    except ImmediateHttpResponse as e:
-        return e.response
+    social_model = apps.get_model(settings.SOCIAL_MODEL, require_ready=False)
+    _sns_type = settings.SNS_TYPES
+    sns_id = sociallogin.account.uid
+    social_type = sociallogin.account.provider  # settings id
+    sns_type = _sns_type.get(social_type)
+    social_obj = social_model.objects.select_related('user').filter(sns_id=sns_id, sns_type=sns_type).first()
+    if social_obj:
+        backends = _get_backends(return_tuples=True)
+        _, backend = backends[0]
+        user = social_obj.user
+        user.backend = backend
+        django_login(request, user)
+        return redirect('/')
+    email = sociallogin.email_addresses
+    region = None  # test required
+    return redirect(f'/login/sns_register?email={email}&sns_type=${sns_type}&sns_id=${sns_id}&region=${region}')
 
 
 def _social_login_redirect(request, sociallogin):

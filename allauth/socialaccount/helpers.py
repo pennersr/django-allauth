@@ -156,8 +156,9 @@ def complete_social_login(request, sociallogin):
         user.backend = backend
         django_login(request, user)
         return redirect('/')
-    email = sociallogin.user.email
-    region = sociallogin.account.extra_data.get('region', None)
+    user = sociallogin.user
+    email = user.email
+    region = user.region if user.region is not None else sociallogin.account.extra_data.get('region', None)
     return redirect(f'/login/sns_register?email={email}&sns_type=${sns_type}&sns_id=${sns_id}&region=${region}')
 
 

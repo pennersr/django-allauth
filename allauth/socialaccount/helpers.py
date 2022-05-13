@@ -159,7 +159,7 @@ def complete_social_login(request, sociallogin):
     user = sociallogin.user
     email = user.email
     region = user.region if user.region is not None else sociallogin.account.extra_data.get('region', None)
-    return redirect(f'/login/sns_register?email={email}&sns_type=${sns_type}&sns_id=${sns_id}&region=${region}')
+    return redirect(f'/login/sns_register?email={email}&sns_type={sns_type}&sns_id={sns_id}&region={region}')
 
 
 def _social_login_redirect(request, sociallogin):

@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.forms import ValidationError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -25,6 +26,12 @@ def _process_signup(request, sociallogin):
     if not auto_signup:
         request.session["socialaccount_sociallogin"] = sociallogin.serialize()
         url = reverse("socialaccount_signup")
+        next = sociallogin.state.get(REDIRECT_FIELD_NAME, None)
+        if next:
+            url = "{}?{}={}".format(
+                url, REDIRECT_FIELD_NAME, next
+            )
+
         ret = HttpResponseRedirect(url)
     else:
         # Ok, auto signup it is, at least the e-mail address is ok.

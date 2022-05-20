@@ -13,7 +13,8 @@ from ..account.views import (
     CloseableSignupMixin,
     RedirectAuthenticatedUserMixin,
 )
-from ..utils import get_form_class
+from ..account.utils import passthrough_next_redirect_url
+from ..utils import get_form_class, get_request_param
 from . import app_settings, helpers
 from .adapter import get_adapter
 from .forms import DisconnectForm, SignupForm
@@ -28,6 +29,7 @@ class SignupView(
 ):
     form_class = SignupForm
     template_name = "socialaccount/signup." + account_settings.TEMPLATE_EXTENSION
+    redirect_field_name = "next"
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, "signup", self.form_class)
@@ -58,11 +60,21 @@ class SignupView(
 
     def get_context_data(self, **kwargs):
         ret = super(SignupView, self).get_context_data(**kwargs)
+
+        login_url = passthrough_next_redirect_url(
+            self.request, reverse("account_login"), self.redirect_field_name
+        )
+        redirect_field_name = self.redirect_field_name
+        site = get_current_site(self.request)
+        redirect_field_value = get_request_param(self.request, redirect_field_name)
         ret.update(
-            dict(
-                site=get_current_site(self.request),
-                account=self.sociallogin.account,
-            )
+            {
+                "login_url": login_url,
+                "redirect_field_name": redirect_field_name,
+                "redirect_field_value": redirect_field_value,
+                "site": site,
+                "account": self.sociallogin.account,
+            }
         )
         return ret
 

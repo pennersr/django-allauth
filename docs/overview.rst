@@ -197,6 +197,8 @@ Supported Providers
 
 - Slack (OAuth2)
 
+- Snapchat (OAuth2)
+
 - SoundCloud (OAuth2)
 
 - Spotify (OAuth2)

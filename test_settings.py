@@ -134,6 +134,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.sharefile",
     "allauth.socialaccount.providers.shopify",
     "allauth.socialaccount.providers.slack",
+    "allauth.socialaccount.providers.snapchat",
     "allauth.socialaccount.providers.soundcloud",
     "allauth.socialaccount.providers.spotify",
     "allauth.socialaccount.providers.stackexchange",

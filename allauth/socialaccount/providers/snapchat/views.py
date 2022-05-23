@@ -39,6 +39,7 @@ class SnapchatOAuth2Adapter(OAuth2Adapter):
         else:
             data = {"query": "{ me { externalId displayName } }"}
         resp = requests.post(self.identity_url, headers=hed, json=data)
+        resp.raise_for_status()
         resp = resp.json()
 
         if not resp.get("data"):

@@ -602,9 +602,10 @@ class ResetPasswordForm(forms.Form):
             # password_reset.save()
 
             # send the password reset email
+            uid = user_pk_to_url_str(user)
             path = reverse(
                 "account_reset_password_from_key",
-                kwargs=dict(uidb36=user_pk_to_url_str(user), key=temp_key),
+                kwargs=dict(uidb36=uid, key=temp_key),
             )
             url = build_absolute_uri(request, path)
 
@@ -612,6 +613,8 @@ class ResetPasswordForm(forms.Form):
                 "current_site": get_current_site(request),
                 "user": user,
                 "password_reset_url": url,
+                "uid": uid,
+                "key": temp_key,
                 "request": request,
             }
 

@@ -161,6 +161,8 @@ Supported Providers
 
 - Naver (OAuth2)
 
+- Notion (OAuth2)
+
 - NetIQ/Microfocus AccessManager (OAuth2)
 
 - NextCloud (OAuth2)

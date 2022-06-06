@@ -1379,6 +1379,16 @@ App registration (get your key and secret here)
 
     https://nextcloud.example.org/settings/admin/security
 
+
+Notion
+---------
+
+Ensure your integration has user capabilities that allow access to email addresses.
+
+App registration (get your key and secret here)
+
+    https://www.notion.so/my-integrations/public
+
 Odnoklassniki
 -------------
 

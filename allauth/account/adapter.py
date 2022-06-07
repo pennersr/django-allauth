@@ -522,7 +522,7 @@ class DefaultAccountAdapter(object):
             send_email = ratelimit.consume(
                 request,
                 action="confirm_email",
-                key=email_address.email,
+                key=email_address.email.lower(),
                 amount=1,
                 duration=cooldown_period.total_seconds(),
             )

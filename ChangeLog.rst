@@ -1,3 +1,15 @@
+0.51.0 (unreleased)
+*******************
+
+Security notice
+---------------
+
+The reset password form is protected by rate limits. There is a limit per IP,
+and per email. In previous versions, the latter rate limit could be bypassed by
+changing the casing of the email address. Note that in that case, the former
+rate limit would still kick in.
+
+
 0.50.0 (2022-03-25)
 *******************
 

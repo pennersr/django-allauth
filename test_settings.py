@@ -1,3 +1,6 @@
+import os
+
+
 SECRET_KEY = "psst"
 SITE_ID = 1
 ALLOWED_HOSTS = ("*",)
@@ -19,7 +22,7 @@ ROOT_URLCONF = "allauth.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(os.path.dirname(__file__), "example", "example", "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

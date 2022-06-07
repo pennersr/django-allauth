@@ -691,7 +691,7 @@ class PasswordResetView(AjaxCapableProcessFormViewMixin, FormView):
         r429 = ratelimit.consume_or_429(
             self.request,
             action="reset_password_email",
-            key=form.cleaned_data["email"],
+            key=form.cleaned_data["email"].lower(),
         )
         if r429:
             return r429

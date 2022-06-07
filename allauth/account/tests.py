@@ -1615,7 +1615,7 @@ class RequestAjaxTests(TestCase):
 )
 class RateLimitTests(TestCase):
     def test_case_insensitive_password_reset(self):
-        user = get_user_model().objects.create(email="a@b.com")
+        get_user_model().objects.create(email="a@b.com")
         resp = self.client.post(
             reverse("account_reset_password"), data={"email": "a@b.com"}
         )

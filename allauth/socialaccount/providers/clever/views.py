@@ -1,11 +1,12 @@
 import requests
 
+from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
-    OAuth2LoginView,
     OAuth2CallbackView,
+    OAuth2LoginView,
 )
-from allauth.socialaccount.providers.oauth2.client import OAuth2Error
+
 from .provider import CleverProvider
 
 
@@ -36,6 +37,7 @@ class CleverOAuth2Adapter(OAuth2Adapter):
             f"{self.user_details_url}/{user_id}",
             headers={"Authorization": f"Bearer {token}"},
         )
+        user_details.raise_for_status()
         user_details = user_details.json()
         return user_details
 

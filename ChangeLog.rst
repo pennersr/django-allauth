@@ -1,5 +1,11 @@
-0.51.0 (unreleased)
+0.51.0 (2022-06-07)
 *******************
+
+Note worthy changes
+-------------------
+
+- New providers: Snapchat, Hubspot, Pocket, Clever.
+
 
 Security notice
 ---------------

@@ -142,6 +142,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.github",
     "allauth.socialaccount.providers.linkedin",
     "allauth.socialaccount.providers.mediawiki",
+    "allauth.socialaccount.providers.metamask",
     "allauth.socialaccount.providers.openid",
     "allauth.socialaccount.providers.pocket",
     "allauth.socialaccount.providers.persona",

@@ -1,6 +1,4 @@
 {% load static %}
-<script id="allauth-metamask-settings" type="application/json">
-{{ metamask_data }}
-</script>
+{{ metamask_data|json_script:"allauth-metamask-settings" }}
 <script type="text/javascript" src="{% static 'metamask/js/metamask.js' %}">
 </script>

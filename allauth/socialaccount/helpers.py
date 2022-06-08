@@ -154,9 +154,6 @@ def complete_social_login(request, sociallogin):
         _, backend = backends[0]
         user = social_obj.user
         user.backend = backend
-        if user.is_dropout:
-            # 프론트에서 팝업처리.
-            return redirect('/login/?error=dropout')
         django_login(request, user)
         return redirect('/')
     user = sociallogin.user

@@ -1,3 +1,4 @@
+import logging
 from django.apps import apps
 from django.conf import settings
 from django.contrib import messages
@@ -21,6 +22,8 @@ from . import app_settings, signals
 from .adapter import get_adapter
 from .models import SocialLogin
 from .providers.base import AuthError, AuthProcess
+
+logger = logging.getLogger(__name__)
 
 
 def _process_signup(request, sociallogin):
@@ -82,7 +85,7 @@ def render_authentication_error(
     except ImmediateHttpResponse as e:
         return e.response
     if error == AuthError.CANCELLED:
-        return HttpResponseRedirect(reverse("socialaccount_login_cancelled"))
+        return redirect('/login/?error=social_cancel')
     context = {
         "auth_error": {
             "provider": provider_id,
@@ -91,11 +94,8 @@ def render_authentication_error(
         }
     }
     context.update(extra_context)
-    return render(
-        request,
-        settings.SOCIAL_AUTH_ERROR_TEMPLATE_NAME + account_settings.TEMPLATE_EXTENSION,
-        context,
-    )
+    logger.error(context)
+    return redirect('/login/?error=social')
 
 
 def _add_social_account(request, sociallogin):
@@ -154,6 +154,9 @@ def complete_social_login(request, sociallogin):
         _, backend = backends[0]
         user = social_obj.user
         user.backend = backend
+        if user.is_dropout:
+            # 프론트에서 팝업처리.
+            return redirect('/login/?error=dropout')
         django_login(request, user)
         return redirect('/')
     user = sociallogin.user

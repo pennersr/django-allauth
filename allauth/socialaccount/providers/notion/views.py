@@ -1,4 +1,4 @@
-"""Views for Drip API."""
+"""Views for Notion API."""
 import requests
 
 from allauth.socialaccount.providers.oauth2.views import (
@@ -11,9 +11,6 @@ from .provider import NotionProvider
 
 
 class NotionOAuth2Adapter(OAuth2Adapter):
-
-    """OAuth2Adapter for Drip API v3."""
-
     provider_id = NotionProvider.id
     basic_auth = True
 

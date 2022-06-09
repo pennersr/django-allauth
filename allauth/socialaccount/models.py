@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 from django.contrib.auth import authenticate
 from django.contrib.sites.shortcuts import get_current_site
+from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
 from django.db import models
 from django.utils.crypto import get_random_string
@@ -313,7 +314,10 @@ class SocialLogin(object):
     def stash_state(cls, request):
         state = cls.state_from_request(request)
         verifier = get_random_string(12)
-        request.session["socialaccount_state"] = (state, verifier)
+        if 'apple' in request.path:
+            cache.set(f'social:{verifier}:verifier', state, timeout=60 * 5)
+        else:
+            request.session["socialaccount_state"] = (state, verifier)
         return verifier
 
     @classmethod
@@ -325,9 +329,14 @@ class SocialLogin(object):
 
     @classmethod
     def verify_and_unstash_state(cls, request, verifier):
-        if "socialaccount_state" not in request.session:
-            raise PermissionDenied()
-        state, verifier2 = request.session.pop("socialaccount_state")
-        if verifier != verifier2:
-            raise PermissionDenied()
+        if 'apple' in request.path:
+            state = cache.get(f'social:{verifier}:verifier')
+            if not state:
+                raise PermissionDenied()
+        else:
+            if "socialaccount_state" not in request.session:
+                raise PermissionDenied()
+            state, verifier2 = request.session.pop("socialaccount_state")
+            if verifier != verifier2:
+                raise PermissionDenied()
         return state

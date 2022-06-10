@@ -8,7 +8,7 @@ r"""
 
 """
 
-VERSION = (0, 51, 0, "final", 0)
+VERSION = (0, 52, 0, "dev", 0)
 
 __title__ = "django-allauth"
 __version_info__ = VERSION

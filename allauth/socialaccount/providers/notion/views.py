@@ -21,7 +21,9 @@ class NotionOAuth2Adapter(OAuth2Adapter):
     access_token_url = "https://api.notion.com/v1/oauth/token"
 
     def complete_login(self, request, app, token, **kwargs):
-        return self.get_provider().sociallogin_from_response(request, kwargs['response'])
+        return self.get_provider().sociallogin_from_response(
+            request, kwargs["response"]
+        )
 
 
 oauth2_login = OAuth2LoginView.adapter_view(NotionOAuth2Adapter)

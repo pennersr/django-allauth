@@ -13,7 +13,7 @@ from .utils import user_email
 
 
 class EmailAddress(models.Model):
-
+    id = models.BigAutoField(primary_key=True)
     user = models.ForeignKey(
         allauth_app_settings.USER_MODEL,
         verbose_name=_("user"),
@@ -74,7 +74,7 @@ class EmailAddress(models.Model):
 
 
 class EmailConfirmation(models.Model):
-
+    id = models.BigAutoField(primary_key=True)
     email_address = models.ForeignKey(
         EmailAddress,
         verbose_name=_("e-mail address"),

@@ -1,5 +1,6 @@
 from django.middleware.csrf import get_token
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils.html import escapejs
 
 from allauth.socialaccount.providers.base import (
@@ -19,13 +20,25 @@ class MetamaskProvider(Provider):
     name = "Metamask"
     account_class = MetamaskAccount
 
+    def get_settings(self):
+        ret = dict()
+        ret.update(super().get_settings())
+        ret.setdefault("CHAIN_ID", "0x1")
+        ret.setdefault("CHAIN_METHOD", "wallet_switchEthereumChain")
+        ret.setdefault("CHAIN_NAME", "mainnet")
+        ret.setdefault("URL", "https://cloudflare-eth.com:8545/")
+        return ret
+
     def media_js(self, request):
         settings = self.get_settings()
         metamask_data = {
-            "chainId": settings.get("CHAIN_ID", "0x1"),
-            "chainName": settings.get("CHAIN_NAME", "mainnet"),
+            "chainId": settings["CHAIN_ID"],
+            "chainMethod": settings["CHAIN_METHOD"],
+            "chainName": settings["CHAIN_NAME"],
             "csrfToken": get_token(request),
-            "rpcURL": settings.get("URL", "https://cloudflare-eth.com:8545/"),
+            "nonceURL": reverse("metamask_nonce"),
+            "verifyURL": reverse("metamask_verify"),
+            "rpcURL": settings["URL"],
         }
         ctx = {
             "metamask_data": metamask_data,

@@ -5,27 +5,43 @@
   const settings = JSON.parse(document.getElementById('allauth-metamask-settings').textContent)
   let initialized = false
 
+  function postForm (action, data) {
+    const f = document.createElement('form')
+    f.method = 'POST'
+    f.action = action
+
+    for (const key in data) {
+      const d = document.createElement('input')
+      d.type = 'hidden'
+      d.name = key
+      d.value = data[key]
+      f.appendChild(d)
+    }
+    document.body.appendChild(f)
+    f.submit()
+  }
+
   async function init () {
     try {
-      alert('aQ')
+      const params = {
+        chainId: settings.chainId
+      }
+      if (settings.chainMethod !== 'wallet_switchEthereumChain') {
+        params.chainName = settings.chainName
+        params.rpcUrls = [settings.rpcURL]
+      }
       await ethereum.request({
-        method: 'wallet_addEthereumChain',
-        params: [
-          {
-            chainId: settings.chainId,
-            chainName: settings.chainName,
-            rpcUrls: [settings.rpcURL]
-          }
-        ]
+        method: settings.chainMethod,
+        params: [params]
       })
       initialized = true
     } catch (e) {
       console.error(e)
-    // FIXME: proper error handling
+      // FIXME: proper error handling
     }
   }
 
-  async function loginwithtoken (token, account, next, process) {
+  async function verifySignature (token, account, next, process) {
     try {
       const from = account
       const message = token
@@ -39,31 +55,12 @@
       console.error(err)
     }
 
-    fetch('/accounts/metamask/login/', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'X-CSRFToken': settings.csrfToken
-      },
-      body: JSON.stringify({
-        account: account,
-        login_token: res,
-        next: next,
-        process: 'verify'
-      })
+    postForm(settings.verifyURL, {
+      account: account,
+      signature: res,
+      next: next,
+      process: 'verify'
     })
-      .then(function (response) {
-        // The API call was successful!
-        return response.text()
-      }).then(function (html) {
-        // Rewrite the page with fetch response
-        document.querySelector('html').innerHTML = html
-      }).catch(function (err) {
-        // There was an error
-        console.warn('Something went wrong.', err)
-      })
-  // window.location.href = next;
   }
 
   async function getAccount (next, process = 'login') {
@@ -73,7 +70,7 @@
     }
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
     const account = accounts[0]
-    fetch('/accounts/metamask/login/', {
+    fetch(settings.nonceURL, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -88,7 +85,7 @@
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        loginwithtoken(responseJson.data, account, next, process)
+        verifySignature(responseJson.data, account, next, process)
       })
   }
 

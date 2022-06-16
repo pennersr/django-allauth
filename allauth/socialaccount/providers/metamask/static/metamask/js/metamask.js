@@ -48,6 +48,7 @@
               }
             ]
           })
+          initialized = true
         } catch (addError) {
           console.error(e)
         }

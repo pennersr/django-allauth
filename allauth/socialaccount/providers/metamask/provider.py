@@ -1,3 +1,4 @@
+from django.core.exceptions import ImproperlyConfigured
 from django.middleware.csrf import get_token
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -23,7 +24,7 @@ class MetamaskProvider(Provider):
     def get_settings(self):
         ret = dict()
         ret.update(super().get_settings())
-        ret.setdefault("CHAIN_ID", "0x1")
+        ret.setdefault("CHAIN_ID", 1)
         ret.setdefault("CHAIN_METHOD", "wallet_switchEthereumChain")
         ret.setdefault("CHAIN_NAME", "mainnet")
         ret.setdefault("URL", "https://cloudflare-eth.com:8545/")
@@ -31,8 +32,10 @@ class MetamaskProvider(Provider):
 
     def media_js(self, request):
         settings = self.get_settings()
+        if not isinstance(settings['CHAIN_ID'], int):
+            raise ImproperlyConfigured("CHAIN_ID must be an integer")
         metamask_data = {
-            "chainId": settings["CHAIN_ID"],
+            "chainId": "0x%x" % settings["CHAIN_ID"],
             "chainMethod": settings["CHAIN_METHOD"],
             "chainName": settings["CHAIN_NAME"],
             "csrfToken": get_token(request),

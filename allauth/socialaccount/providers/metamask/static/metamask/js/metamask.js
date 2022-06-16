@@ -36,8 +36,22 @@
       })
       initialized = true
     } catch (e) {
-      console.error(e)
-      // FIXME: proper error handling
+      if (e.code && e.code === 4902) {
+        try {
+          await ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [
+              {
+                chainId: settings.chainId,
+                chainName: settings.chainName,
+                rpcUrls: [settings.rpcURL]
+              }
+            ]
+          })
+        } catch (addError) {
+          console.error(e)
+        }
+      }
     }
   }
 

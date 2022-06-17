@@ -322,6 +322,13 @@ App registration (get your key and secret here)
 CILogon OIDC/OAuth2 Documentation
     https://www.cilogon.org/oidc
 
+Clever
+----
+Single sign-on for education
+
+Clever OAUth2 Documentation
+    https://dev.clever.com/docs/classroom-with-oauth
+
 
 Dataporten
 ----------
@@ -402,6 +409,20 @@ Authentication documentation
 
 Development callback URL
     http://localhost:8000/accounts/draugiem/login/callback/
+
+Drip
+--------
+
+App registration (get your key and secret here)
+    https://www.getdrip.com/user/applications
+
+Authentication documentation
+    https://developer.drip.com/?shell#oauth
+
+Development callback URL
+    https://localhost:8000/accounts/drip/login/callback/
+
+Make sure the registed application is active.
 
 
 Dropbox
@@ -609,7 +630,7 @@ The following Facebook settings are available:
             'EXCHANGE_TOKEN': True,
             'LOCALE_FUNC': 'path.to.callable',
             'VERIFIED_EMAIL': False,
-            'VERSION': 'v7.0',
+            'VERSION': 'v13.0',
         }
     }
 
@@ -677,7 +698,7 @@ VERIFIED_EMAIL:
     risk.
 
 VERSION:
-    The Facebook Graph API version to use. The default is ``v7.0``.
+    The Facebook Graph API version to use. The default is ``v13.0``.
 
 App registration (get your key and secret here)
     A key and secret key can be obtained by
@@ -1010,6 +1031,18 @@ Development callback URL
     http://localhost:8000/accounts/instagram/login/callback/
 
 
+Hubspot
+--------
+
+App registration (get your key and secret here)
+    https://developers.hubspot.com/docs/api/creating-an-app
+
+Authentication documentation
+    https://developers.hubspot.com/docs/api/working-with-oauth
+
+Development callback URL
+    https://localhost:8000/accounts/hubspot/login/callback/
+
 Instagram
 ---------
 
@@ -1310,13 +1343,13 @@ Apps can be registered (for consumer key and secret) here
     https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade
 
 By default, `common` (`organizations` and `consumers`) tenancy is configured
-for the login. To restrict it, change the `tenant` setting as shown below.
+for the login. To restrict it, change the `TENANT` setting as shown below.
 
 .. code-block:: python
 
     SOCIALACCOUNT_PROVIDERS = {
         'microsoft': {
-            'tenant': 'organizations',
+            'TENANT': 'organizations',
         }
     }
 
@@ -1603,6 +1636,12 @@ SCOPE:
     For a full list of scope options, see
     https://developers.pinterest.com/docs/api/overview/#scopes
 
+Pocket
+-------------
+
+App registration (get your consumer key here)
+    https://getpocket.com/developer/apps/
+
 QuickBooks
 ----------
 
@@ -1780,6 +1819,19 @@ Development callback URL
 
 API documentation
     https://api.slack.com/docs/sign-in-with-slack
+    
+
+Snapchat
+-----
+
+App registration (get your key and secret here)
+    https://kit.snapchat.com/manage/
+
+Development callback URL
+    http://example.com/accounts/snap/login/callback/
+
+API documentation
+    https://docs.snap.com/docs/snap-kit/login-kit/overview
 
 
 SoundCloud

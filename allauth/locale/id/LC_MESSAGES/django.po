@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-03 13:53-0600\n"
+"POT-Creation-Date: 2022-06-07 04:23-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,11 +40,11 @@ msgstr "Kata sandi harus memiliki panjang minimal {0} karakter."
 msgid "Accounts"
 msgstr "Akun"
 
-#: account/forms.py:59 account/forms.py:415
+#: account/forms.py:59 account/forms.py:416
 msgid "You must type the same password each time."
 msgstr "Anda harus mengetikkan kata sandi yang sama setiap kali."
 
-#: account/forms.py:92 account/forms.py:381 account/forms.py:500
+#: account/forms.py:92 account/forms.py:381 account/forms.py:501
 msgid "Password"
 msgstr "Kata sandi"
 
@@ -64,13 +64,13 @@ msgstr "Alamat e-mail dan/atau kata sandi yang anda masukkan tidak benar."
 msgid "The username and/or password you specified are not correct."
 msgstr "Nama pengguna dan/atau kata sandi yang anda masukkan tidak benar."
 
-#: account/forms.py:113 account/forms.py:279 account/forms.py:441
-#: account/forms.py:519
+#: account/forms.py:113 account/forms.py:279 account/forms.py:442
+#: account/forms.py:520
 msgid "E-mail address"
 msgstr "Alamat e-mail"
 
-#: account/forms.py:117 account/forms.py:316 account/forms.py:438
-#: account/forms.py:514
+#: account/forms.py:117 account/forms.py:316 account/forms.py:439
+#: account/forms.py:515
 msgid "E-mail"
 msgstr "E-mail"
 
@@ -104,44 +104,44 @@ msgstr "E-mail (opsional)"
 msgid "You must type the same email each time."
 msgstr "Anda harus mengetikkan e-mail yang sama setiap kali."
 
-#: account/forms.py:385 account/forms.py:501
+#: account/forms.py:385 account/forms.py:502
 msgid "Password (again)"
 msgstr "Kata sandi (lagi)"
 
-#: account/forms.py:450
+#: account/forms.py:451
 msgid "This e-mail address is already associated with this account."
 msgstr "Alamat e-mail ini sudah terhubung dengan akun ini."
 
-#: account/forms.py:453
+#: account/forms.py:454
 msgid "This e-mail address is already associated with another account."
 msgstr "Alamat e-mail ini sudah terhubung dengan akun lain."
 
-#: account/forms.py:455
+#: account/forms.py:456
 #, python-format
 msgid "You cannot add more than %d e-mail addresses."
 msgstr "Anda tidak dapat menambahkan lebih dari %d alamat e-mail."
 
-#: account/forms.py:480
+#: account/forms.py:481
 msgid "Current Password"
 msgstr "Kata sandi saat ini"
 
-#: account/forms.py:482 account/forms.py:587
+#: account/forms.py:483 account/forms.py:588
 msgid "New Password"
 msgstr "Kata sandi baru"
 
-#: account/forms.py:483 account/forms.py:588
+#: account/forms.py:484 account/forms.py:589
 msgid "New Password (again)"
 msgstr "Kata sandi baru (lagi)"
 
-#: account/forms.py:491
+#: account/forms.py:492
 msgid "Please type your current password."
 msgstr "Silahkan ketik kata sandi Anda saat ini."
 
-#: account/forms.py:531
+#: account/forms.py:532
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Alamat e-mail ini tidak terhubung dengan akun pengguna mana pun"
 
-#: account/forms.py:609
+#: account/forms.py:610
 msgid "The password reset token was invalid."
 msgstr "Token untuk mengatur ulang kata sandi tidak valid."
 
@@ -177,7 +177,7 @@ msgstr "dibuat"
 msgid "sent"
 msgstr "dikirim"
 
-#: account/models.py:85 socialaccount/models.py:60
+#: account/models.py:85 socialaccount/models.py:59
 msgid "key"
 msgstr "kunci"
 
@@ -210,91 +210,91 @@ msgstr "Akun Anda tidak memiliki alamat e-mail yang terverifikasi."
 msgid "Social Accounts"
 msgstr "Akun Sosial"
 
-#: socialaccount/models.py:43 socialaccount/models.py:87
+#: socialaccount/models.py:42 socialaccount/models.py:86
 msgid "provider"
 msgstr "pemberi"
 
-#: socialaccount/models.py:47
+#: socialaccount/models.py:46
 msgid "name"
 msgstr "nama"
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:48
 msgid "client id"
 msgstr "id klien"
 
-#: socialaccount/models.py:51
+#: socialaccount/models.py:50
 msgid "App ID, or consumer key"
 msgstr "ID Aplikasi, atau kunci konsumen"
 
-#: socialaccount/models.py:54
+#: socialaccount/models.py:53
 msgid "secret key"
 msgstr "kunci rahasia"
 
-#: socialaccount/models.py:57
+#: socialaccount/models.py:56
 msgid "API secret, client secret, or consumer secret"
 msgstr "Kunci API, kunci klien, atau kunci konsumen"
 
-#: socialaccount/models.py:60
+#: socialaccount/models.py:59
 msgid "Key"
 msgstr "Kunci"
 
-#: socialaccount/models.py:77
+#: socialaccount/models.py:76
 msgid "social application"
 msgstr "aplikasi sosial"
 
-#: socialaccount/models.py:78
+#: socialaccount/models.py:77
 msgid "social applications"
 msgstr "aplikasi sosial"
 
-#: socialaccount/models.py:108
+#: socialaccount/models.py:107
 msgid "uid"
 msgstr "uid"
 
-#: socialaccount/models.py:110
+#: socialaccount/models.py:109
 msgid "last login"
 msgstr "masuk terakhir"
 
-#: socialaccount/models.py:111
+#: socialaccount/models.py:110
 msgid "date joined"
 msgstr "tanggal bergabung"
 
-#: socialaccount/models.py:112
+#: socialaccount/models.py:111
 msgid "extra data"
 msgstr "data tambahan"
 
-#: socialaccount/models.py:116
+#: socialaccount/models.py:115
 msgid "social account"
 msgstr "akun sosial"
 
-#: socialaccount/models.py:117
+#: socialaccount/models.py:116
 msgid "social accounts"
 msgstr "akun sosial"
 
-#: socialaccount/models.py:142
+#: socialaccount/models.py:143
 msgid "token"
 msgstr "token"
 
-#: socialaccount/models.py:143
+#: socialaccount/models.py:144
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) atau token akses (OAuth2)"
 
-#: socialaccount/models.py:147
+#: socialaccount/models.py:148
 msgid "token secret"
 msgstr "rahasia token"
 
-#: socialaccount/models.py:148
+#: socialaccount/models.py:149
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) atau token refresh (OAuth2)"
 
-#: socialaccount/models.py:151
+#: socialaccount/models.py:152
 msgid "expires at"
 msgstr "kadaluarsa pada"
 
-#: socialaccount/models.py:156
+#: socialaccount/models.py:157
 msgid "social application token"
 msgstr "token aplikasi sosial"
 
-#: socialaccount/models.py:157
+#: socialaccount/models.py:158
 msgid "social application tokens"
 msgstr "token-token aplikasi sosial"
 
@@ -303,11 +303,13 @@ msgid "Invalid profile data"
 msgstr "Data profil tidak valid"
 
 #: socialaccount/providers/oauth/client.py:85
+#: socialaccount/providers/pocket/client.py:37
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "Respon tidak valid saat meminta token request dari \"%s\"."
 
 #: socialaccount/providers/oauth/client.py:117
+#: socialaccount/providers/pocket/client.py:78
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Respon tidak valid saat meminta token akses dari \"%s\"."
@@ -495,7 +497,7 @@ msgstr ""
 "\"%(email_url)s\">mengirimkan permintaan konfirmasi e-mail baru</a>."
 
 #: templates/account/login.html:6 templates/account/login.html:10
-#: templates/account/login.html:43
+#: templates/account/login.html:43 templates/socialaccount/login.html:4
 msgid "Sign In"
 msgstr "Masuk"
 
@@ -788,27 +790,27 @@ msgstr ""
 msgid "Add a 3rd Party Account"
 msgstr "Tambahkan Akun Pihak Ketiga"
 
-#: templates/socialaccount/login.html:6
+#: templates/socialaccount/login.html:8
 #, python-format
 msgid "Connect %(provider)s"
 msgstr ""
 
-#: templates/socialaccount/login.html:8
+#: templates/socialaccount/login.html:10
 #, python-format
 msgid "You are about to connect a new third party account from %(provider)s."
 msgstr ""
 
-#: templates/socialaccount/login.html:10
+#: templates/socialaccount/login.html:12
 #, python-format
 msgid "Sign In Via %(provider)s"
 msgstr ""
 
-#: templates/socialaccount/login.html:12
+#: templates/socialaccount/login.html:14
 #, python-format
 msgid "You are about to sign in using a third party account from %(provider)s."
 msgstr ""
 
-#: templates/socialaccount/login.html:17
+#: templates/socialaccount/login.html:19
 msgid "Continue"
 msgstr ""
 

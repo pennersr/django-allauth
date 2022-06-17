@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-03 13:53-0600\n"
+"POT-Creation-Date: 2022-06-07 04:23-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,11 +39,11 @@ msgstr "비밀번호는 최소 {0}자 이상이어야 합니다."
 msgid "Accounts"
 msgstr "계정"
 
-#: account/forms.py:59 account/forms.py:415
+#: account/forms.py:59 account/forms.py:416
 msgid "You must type the same password each time."
 msgstr "동일한 비밀번호를 입력해야 합니다."
 
-#: account/forms.py:92 account/forms.py:381 account/forms.py:500
+#: account/forms.py:92 account/forms.py:381 account/forms.py:501
 msgid "Password"
 msgstr "비밀번호"
 
@@ -63,13 +63,13 @@ msgstr "이메일 또는 비밀번호가 올바르지 않습니다."
 msgid "The username and/or password you specified are not correct."
 msgstr "아이디 또는 비밀번호가 올바르지 않습니다."
 
-#: account/forms.py:113 account/forms.py:279 account/forms.py:441
-#: account/forms.py:519
+#: account/forms.py:113 account/forms.py:279 account/forms.py:442
+#: account/forms.py:520
 msgid "E-mail address"
 msgstr "이메일 주소"
 
-#: account/forms.py:117 account/forms.py:316 account/forms.py:438
-#: account/forms.py:514
+#: account/forms.py:117 account/forms.py:316 account/forms.py:439
+#: account/forms.py:515
 msgid "E-mail"
 msgstr "이메일"
 
@@ -103,45 +103,45 @@ msgstr "이메일 (선택사항)"
 msgid "You must type the same email each time."
 msgstr "동일한 이메일을 입력해야 합니다."
 
-#: account/forms.py:385 account/forms.py:501
+#: account/forms.py:385 account/forms.py:502
 msgid "Password (again)"
 msgstr "비밀번호 (확인)"
 
-#: account/forms.py:450
+#: account/forms.py:451
 msgid "This e-mail address is already associated with this account."
 msgstr "해당 이메일은 이미 이 계정에 등록되어 있습니다."
 
-#: account/forms.py:453
+#: account/forms.py:454
 msgid "This e-mail address is already associated with another account."
 msgstr "해당 이메일은 다른 계정에 등록되어 있습니다."
 
-#: account/forms.py:455
+#: account/forms.py:456
 #, fuzzy, python-format
 #| msgid "Your account has no verified e-mail address."
 msgid "You cannot add more than %d e-mail addresses."
 msgstr "당신의 계정에는 인증된 이메일이 없습니다."
 
-#: account/forms.py:480
+#: account/forms.py:481
 msgid "Current Password"
 msgstr "현재 비밀번호"
 
-#: account/forms.py:482 account/forms.py:587
+#: account/forms.py:483 account/forms.py:588
 msgid "New Password"
 msgstr "새 비밀번호"
 
-#: account/forms.py:483 account/forms.py:588
+#: account/forms.py:484 account/forms.py:589
 msgid "New Password (again)"
 msgstr "새 비밀번호 (확인)"
 
-#: account/forms.py:491
+#: account/forms.py:492
 msgid "Please type your current password."
 msgstr "현재 비밀번호를 입력하세요."
 
-#: account/forms.py:531
+#: account/forms.py:532
 msgid "The e-mail address is not assigned to any user account"
 msgstr "해당 이메일을 가지고 있는 사용자가 없습니다."
 
-#: account/forms.py:609
+#: account/forms.py:610
 msgid "The password reset token was invalid."
 msgstr "비밀번호 초기화 토큰이 올바르지 않습니다."
 
@@ -177,7 +177,7 @@ msgstr "생성됨"
 msgid "sent"
 msgstr "전송됨"
 
-#: account/models.py:85 socialaccount/models.py:60
+#: account/models.py:85 socialaccount/models.py:59
 msgid "key"
 msgstr "키"
 
@@ -210,91 +210,91 @@ msgstr "당신의 계정에는 인증된 이메일이 없습니다."
 msgid "Social Accounts"
 msgstr "소셜 계정"
 
-#: socialaccount/models.py:43 socialaccount/models.py:87
+#: socialaccount/models.py:42 socialaccount/models.py:86
 msgid "provider"
 msgstr "제공자"
 
-#: socialaccount/models.py:47
+#: socialaccount/models.py:46
 msgid "name"
 msgstr "이름"
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:48
 msgid "client id"
 msgstr "클라이언트 아이디"
 
-#: socialaccount/models.py:51
+#: socialaccount/models.py:50
 msgid "App ID, or consumer key"
 msgstr "앱 아이디 또는 컨슈머 아이디"
 
-#: socialaccount/models.py:54
+#: socialaccount/models.py:53
 msgid "secret key"
 msgstr "비밀 키"
 
-#: socialaccount/models.py:57
+#: socialaccount/models.py:56
 msgid "API secret, client secret, or consumer secret"
 msgstr "API 비밀 키, 클라이언트 비밀 키, 또는 컨슈머 비밀 키"
 
-#: socialaccount/models.py:60
+#: socialaccount/models.py:59
 msgid "Key"
 msgstr "키"
 
-#: socialaccount/models.py:77
+#: socialaccount/models.py:76
 msgid "social application"
 msgstr "소셜 어플리케이션"
 
-#: socialaccount/models.py:78
+#: socialaccount/models.py:77
 msgid "social applications"
 msgstr "소셜 어플리케이션"
 
-#: socialaccount/models.py:108
+#: socialaccount/models.py:107
 msgid "uid"
 msgstr ""
 
-#: socialaccount/models.py:110
+#: socialaccount/models.py:109
 msgid "last login"
 msgstr "최종 로그인"
 
-#: socialaccount/models.py:111
+#: socialaccount/models.py:110
 msgid "date joined"
 msgstr "가입 날짜"
 
-#: socialaccount/models.py:112
+#: socialaccount/models.py:111
 msgid "extra data"
 msgstr "추가 정보"
 
-#: socialaccount/models.py:116
+#: socialaccount/models.py:115
 msgid "social account"
 msgstr "소셜 계정"
 
-#: socialaccount/models.py:117
+#: socialaccount/models.py:116
 msgid "social accounts"
 msgstr "소셜 계정"
 
-#: socialaccount/models.py:142
+#: socialaccount/models.py:143
 msgid "token"
 msgstr "토큰"
 
-#: socialaccount/models.py:143
+#: socialaccount/models.py:144
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) 또는 access token (OAuth2)"
 
-#: socialaccount/models.py:147
+#: socialaccount/models.py:148
 msgid "token secret"
 msgstr "시크릿 토큰"
 
-#: socialaccount/models.py:148
+#: socialaccount/models.py:149
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) 또는 refresh token (OAuth2)"
 
-#: socialaccount/models.py:151
+#: socialaccount/models.py:152
 msgid "expires at"
 msgstr "만료일"
 
-#: socialaccount/models.py:156
+#: socialaccount/models.py:157
 msgid "social application token"
 msgstr "소셜 어플리케이션 토큰"
 
-#: socialaccount/models.py:157
+#: socialaccount/models.py:158
 msgid "social application tokens"
 msgstr "소셜 어플리케이션 토큰"
 
@@ -303,11 +303,13 @@ msgid "Invalid profile data"
 msgstr "올바르지 않은 프로필 데이터"
 
 #: socialaccount/providers/oauth/client.py:85
+#: socialaccount/providers/pocket/client.py:37
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "\"%s\".로 부터 request 토큰을 받는 도중 잘못된 응답을 받았습니다."
 
 #: socialaccount/providers/oauth/client.py:117
+#: socialaccount/providers/pocket/client.py:78
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "\"%s\".로 부터 access 토큰을 받는 도중 잘못된 응답을 받았습니다."
@@ -493,7 +495,7 @@ msgstr ""
 "\">새로운 이메일 확인 요청</a>을 해주세요."
 
 #: templates/account/login.html:6 templates/account/login.html:10
-#: templates/account/login.html:43
+#: templates/account/login.html:43 templates/socialaccount/login.html:4
 msgid "Sign In"
 msgstr "로그인"
 
@@ -779,27 +781,27 @@ msgstr "해당 계정에 연결되어있는 소셜 계정이 없습니다."
 msgid "Add a 3rd Party Account"
 msgstr "서드파티 계정을 추가하세요."
 
-#: templates/socialaccount/login.html:6
+#: templates/socialaccount/login.html:8
 #, python-format
 msgid "Connect %(provider)s"
 msgstr "%(provider)s 계정 연결"
 
-#: templates/socialaccount/login.html:8
+#: templates/socialaccount/login.html:10
 #, python-format
 msgid "You are about to connect a new third party account from %(provider)s."
 msgstr "%(provider)s에서 제공하는 서드파티 계정을 연결하려 합니다."
 
-#: templates/socialaccount/login.html:10
+#: templates/socialaccount/login.html:12
 #, python-format
 msgid "Sign In Via %(provider)s"
 msgstr "%(provider)s을 통한 로그인"
 
-#: templates/socialaccount/login.html:12
+#: templates/socialaccount/login.html:14
 #, python-format
 msgid "You are about to sign in using a third party account from %(provider)s."
 msgstr "서드파티 %(provider)s의 계정을 사용해 로그인을 진행하려 합니다."
 
-#: templates/socialaccount/login.html:17
+#: templates/socialaccount/login.html:19
 msgid "Continue"
 msgstr "계속"
 

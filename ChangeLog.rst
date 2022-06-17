@@ -1,3 +1,34 @@
+0.51.0 (2022-06-07)
+*******************
+
+Note worthy changes
+-------------------
+
+- New providers: Snapchat, Hubspot, Pocket, Clever.
+
+
+Security notice
+---------------
+
+The reset password form is protected by rate limits. There is a limit per IP,
+and per email. In previous versions, the latter rate limit could be bypassed by
+changing the casing of the email address. Note that in that case, the former
+rate limit would still kick in.
+
+
+0.50.0 (2022-03-25)
+*******************
+
+Note worthy changes
+-------------------
+
+- Fixed compatibility issue with setuptools 61.
+
+- New providers: Drip.
+
+- The Facebook API version now defaults to v13.0.
+
+
 0.49.0 (2022-02-22)
 *******************
 
@@ -19,6 +50,8 @@ Note worthy changes
 
 Backwards incompatible changes
 ------------------------------
+
+- The Microsoft ``tenant`` setting must now be specified using uppercase ``TENANT``.
 
 - Changed naming of ``internal_reset_url_key`` attribute in
   ``allauth.account.views.PasswordResetFromKeyView`` to ``reset_url_key``.

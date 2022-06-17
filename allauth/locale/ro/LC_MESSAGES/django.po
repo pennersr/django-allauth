@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauthrr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-11 07:33-0500\n"
+"POT-Creation-Date: 2022-06-07 04:23-0500\n"
 "PO-Revision-Date: 2021-11-08 19:23+0200\n"
 "Last-Translator: Gilou <contact+dev@gilouweb.com>\n"
 "Language-Team: \n"
@@ -22,21 +22,21 @@ msgstr ""
 "%100<=19) ? 1 : 2);\n"
 "X-Generator: Poedit 3.0\n"
 
-#: account/adapter.py:45
+#: account/adapter.py:47
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Numele de utilizator nu este disponibil. Te rugam alege alt nume de "
 "utilizator."
 
-#: account/adapter.py:51
+#: account/adapter.py:53
 msgid "Too many failed login attempts. Try again later."
 msgstr "Prea multe incercări de conectare esuate. Incearca mai tarziu."
 
-#: account/adapter.py:53
+#: account/adapter.py:55
 msgid "A user is already registered with this e-mail address."
 msgstr "Un utilizator este deja inregistrat cu aceasta adresa de e-mail."
 
-#: account/adapter.py:300
+#: account/adapter.py:304
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Parola trebuie să aibă minimum {0} caractere."
@@ -45,153 +45,152 @@ msgstr "Parola trebuie să aibă minimum {0} caractere."
 msgid "Accounts"
 msgstr "Conturi"
 
-#: account/forms.py:58 account/forms.py:412
+#: account/forms.py:59 account/forms.py:416
 msgid "You must type the same password each time."
 msgstr "Trebuie sa tastezi aceeași parolă de fiecare data."
 
-#: account/forms.py:91 account/forms.py:380 account/forms.py:497
+#: account/forms.py:92 account/forms.py:381 account/forms.py:501
 msgid "Password"
 msgstr "Parola"
 
-#: account/forms.py:92
+#: account/forms.py:93
 msgid "Remember Me"
 msgstr "Tine-ma minte"
 
-#: account/forms.py:96
+#: account/forms.py:97
 msgid "This account is currently inactive."
 msgstr "Acest cont este in prezent inactiv."
 
-#: account/forms.py:98
+#: account/forms.py:99
 msgid "The e-mail address and/or password you specified are not correct."
 msgstr "Adresa de e-mail si / sau parola sunt incorecte."
 
-#: account/forms.py:101
+#: account/forms.py:102
 msgid "The username and/or password you specified are not correct."
 msgstr "Numele de utilizator si / sau parola sunt incorecte."
 
-#: account/forms.py:112 account/forms.py:278 account/forms.py:438
-#: account/forms.py:516
+#: account/forms.py:113 account/forms.py:279 account/forms.py:442
+#: account/forms.py:520
 msgid "E-mail address"
 msgstr "Adresa de e-mail"
 
-#: account/forms.py:116 account/forms.py:315 account/forms.py:435
-#: account/forms.py:511
+#: account/forms.py:117 account/forms.py:316 account/forms.py:439
+#: account/forms.py:515
 msgid "E-mail"
 msgstr "E-mail"
 
-#: account/forms.py:119 account/forms.py:122 account/forms.py:268
-#: account/forms.py:271
+#: account/forms.py:120 account/forms.py:123 account/forms.py:269
+#: account/forms.py:272
 msgid "Username"
 msgstr "Nume de utilizator"
 
-#: account/forms.py:132
+#: account/forms.py:133
 msgid "Username or e-mail"
 msgstr "Nume de utilizator sau e-mail"
 
-#: account/forms.py:135
+#: account/forms.py:136
 msgctxt "field label"
 msgid "Login"
 msgstr "Nume de utilizator sau e-mail"
 
-#: account/forms.py:306
+#: account/forms.py:307
 msgid "E-mail (again)"
 msgstr "E-mail (confirma)"
 
-#: account/forms.py:310
+#: account/forms.py:311
 msgid "E-mail address confirmation"
 msgstr "Confirmarea adresei de e-mail"
 
-#: account/forms.py:318
+#: account/forms.py:319
 msgid "E-mail (optional)"
 msgstr "E-mail (optional)"
 
-#: account/forms.py:358
+#: account/forms.py:359
 msgid "You must type the same email each time."
 msgstr "Trebuie sa tastezi aceeasi adresa de e-mail de fiecare data."
 
-#: account/forms.py:383 account/forms.py:498
+#: account/forms.py:385 account/forms.py:502
 msgid "Password (again)"
 msgstr "Parola (confirma)"
 
-#: account/forms.py:447
+#: account/forms.py:451
 msgid "This e-mail address is already associated with this account."
 msgstr "Aceasta adresa de e-mail este deja asociata acestui cont."
 
-#: account/forms.py:450
+#: account/forms.py:454
 msgid "This e-mail address is already associated with another account."
 msgstr "Aceasta adresa de e-mail este deja asociata altui cont."
 
-#: account/forms.py:452
+#: account/forms.py:456
 #, python-format
-#| msgid "Your account has no verified e-mail address."
 msgid "You cannot add more than %d e-mail addresses."
 msgstr "Nu poti adauga mai mult de %d adrese de e-mail."
 
-#: account/forms.py:477
+#: account/forms.py:481
 msgid "Current Password"
 msgstr "Parola actuala"
 
-#: account/forms.py:479 account/forms.py:569
+#: account/forms.py:483 account/forms.py:588
 msgid "New Password"
 msgstr "Parola noua"
 
-#: account/forms.py:480 account/forms.py:570
+#: account/forms.py:484 account/forms.py:589
 msgid "New Password (again)"
 msgstr "Parola noua (confirma)"
 
-#: account/forms.py:488
+#: account/forms.py:492
 msgid "Please type your current password."
 msgstr "Te rugam tasteaza parola actuala."
 
-#: account/forms.py:528
+#: account/forms.py:532
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Adresa de e-mail nu este atribuita niciunui cont de utilizator"
 
-#: account/forms.py:591
+#: account/forms.py:610
 msgid "The password reset token was invalid."
 msgstr "Link-ul de resetare a parolei nu era valid."
 
-#: account/models.py:22
+#: account/models.py:19
 msgid "user"
 msgstr "utilizator"
 
-#: account/models.py:28 account/models.py:83
+#: account/models.py:25 account/models.py:80
 msgid "e-mail address"
 msgstr "adresa de e-mail"
 
-#: account/models.py:30
+#: account/models.py:27
 msgid "verified"
 msgstr "verificata"
 
-#: account/models.py:31
+#: account/models.py:28
 msgid "primary"
 msgstr "principala"
 
-#: account/models.py:36
+#: account/models.py:33
 msgid "email address"
 msgstr "adresa de e-mail"
 
-#: account/models.py:37
+#: account/models.py:34
 msgid "email addresses"
 msgstr "adrese de e-mail"
 
-#: account/models.py:86
+#: account/models.py:83
 msgid "created"
 msgstr "creata"
 
-#: account/models.py:87
+#: account/models.py:84
 msgid "sent"
 msgstr "trimis"
 
-#: account/models.py:88 socialaccount/models.py:58
+#: account/models.py:85 socialaccount/models.py:59
 msgid "key"
 msgstr "cheie"
 
-#: account/models.py:93
+#: account/models.py:90
 msgid "email confirmation"
 msgstr "confirmare e-mail"
 
-#: account/models.py:94
+#: account/models.py:91
 msgid "email confirmations"
 msgstr "confirmari e-mail"
 
@@ -216,91 +215,91 @@ msgstr "Contul tau nu are o adresa de e-mail confirmata."
 msgid "Social Accounts"
 msgstr "Retele de socializare"
 
-#: socialaccount/models.py:41 socialaccount/models.py:84
+#: socialaccount/models.py:42 socialaccount/models.py:86
 msgid "provider"
 msgstr "furnizor"
 
-#: socialaccount/models.py:45
+#: socialaccount/models.py:46
 msgid "name"
 msgstr "nume"
 
-#: socialaccount/models.py:47
+#: socialaccount/models.py:48
 msgid "client id"
 msgstr "id client"
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:50
 msgid "App ID, or consumer key"
 msgstr "ID-ul aplicatiei sau cheia consumatorului"
 
-#: socialaccount/models.py:52
+#: socialaccount/models.py:53
 msgid "secret key"
 msgstr "cheie secreta"
 
-#: socialaccount/models.py:55
+#: socialaccount/models.py:56
 msgid "API secret, client secret, or consumer secret"
 msgstr "API secret, client secret sau consumator secret"
 
-#: socialaccount/models.py:58
+#: socialaccount/models.py:59
 msgid "Key"
 msgstr "Cheie"
 
-#: socialaccount/models.py:74
+#: socialaccount/models.py:76
 msgid "social application"
 msgstr "aplicatie sociala"
 
-#: socialaccount/models.py:75
+#: socialaccount/models.py:77
 msgid "social applications"
 msgstr "aplicatii sociale"
 
-#: socialaccount/models.py:105
+#: socialaccount/models.py:107
 msgid "uid"
 msgstr "uid"
 
-#: socialaccount/models.py:107
+#: socialaccount/models.py:109
 msgid "last login"
 msgstr "ultima logare"
 
-#: socialaccount/models.py:108
+#: socialaccount/models.py:110
 msgid "date joined"
 msgstr "data inscrierii"
 
-#: socialaccount/models.py:109
+#: socialaccount/models.py:111
 msgid "extra data"
 msgstr "date suplimentare"
 
-#: socialaccount/models.py:113
+#: socialaccount/models.py:115
 msgid "social account"
 msgstr "retea de socializare"
 
-#: socialaccount/models.py:114
+#: socialaccount/models.py:116
 msgid "social accounts"
 msgstr "retele de socializare"
 
-#: socialaccount/models.py:139
+#: socialaccount/models.py:143
 msgid "token"
 msgstr "token"
 
-#: socialaccount/models.py:140
+#: socialaccount/models.py:144
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) sau token de acces (OAuth2)"
 
-#: socialaccount/models.py:144
+#: socialaccount/models.py:148
 msgid "token secret"
 msgstr "token secret"
 
-#: socialaccount/models.py:145
+#: socialaccount/models.py:149
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) token de reimprospatare (OAuth2)"
 
-#: socialaccount/models.py:148
+#: socialaccount/models.py:152
 msgid "expires at"
 msgstr "expira la"
 
-#: socialaccount/models.py:153
+#: socialaccount/models.py:157
 msgid "social application token"
 msgstr "token pentru aplicatia de socializare"
 
-#: socialaccount/models.py:154
+#: socialaccount/models.py:158
 msgid "social application tokens"
 msgstr "token-uri pentru aplicatiile de socializare"
 
@@ -309,11 +308,13 @@ msgid "Invalid profile data"
 msgstr "Date de profil invalide"
 
 #: socialaccount/providers/oauth/client.py:85
+#: socialaccount/providers/pocket/client.py:37
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "Raspuns invalid la obtinerea token-ului de solicitare de la \"% s\"."
 
 #: socialaccount/providers/oauth/client.py:117
+#: socialaccount/providers/pocket/client.py:78
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Raspuns invalid la obtinerea token-ului de acces de la \"% s\"."
@@ -448,8 +449,32 @@ msgid "In case you forgot, your username is %(username)s."
 msgstr "In cazul in care ai uitat, numele tau de utilizator este %(username)s."
 
 #: templates/account/email/password_reset_key_subject.txt:3
+#: templates/account/email/unknown_account_subject.txt:3
 msgid "Password Reset E-mail"
 msgstr "E-mail pentru resetarea parolei"
+
+#: templates/account/email/unknown_account_message.txt:4
+#, fuzzy, python-format
+#| msgid ""
+#| "You're receiving this e-mail because you or someone else has requested a "
+#| "password for your user account.\n"
+#| "It can be safely ignored if you did not request a password reset. Click "
+#| "the link below to reset your password."
+msgid ""
+"You are receiving this e-mail because you or someone else has requested a\n"
+"password for your user account. However, we do not have any record of a "
+"user\n"
+"with email %(email)s in our database.\n"
+"\n"
+"This mail can be safely ignored if you did not request a password reset.\n"
+"\n"
+"If it was you, you can sign up for an account using the link below."
+msgstr ""
+"Ai primit acest e-mail pentru ca tu sau altcineva a solicitat o resetare de "
+"parola.\n"
+"Daca nu ai fost tu cel care a solicitat resetarea parolei, te rugam sa "
+"ignori acest e-mail.\n"
+"Pentru resetarea parolei acceseaza linkul de mai jos."
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
@@ -479,7 +504,7 @@ msgstr ""
 "rugam <a href=\"%(email_url)s\"> solicita un nou link de confirmare</a>."
 
 #: templates/account/login.html:6 templates/account/login.html:10
-#: templates/account/login.html:43
+#: templates/account/login.html:43 templates/socialaccount/login.html:4
 msgid "Sign In"
 msgstr "Conecteaza-te"
 
@@ -606,13 +631,18 @@ msgstr ""
 "Te rugam contacteaza-ne daca intampini dificultati in resetarea parolei."
 
 #: templates/account/password_reset_done.html:15
+#, fuzzy
+#| msgid ""
+#| "We have sent an e-mail to you for\n"
+#| "verification. Please click on the link inside this e-mail. Please\n"
+#| "contact us if you do not receive it within a few minutes."
 msgid ""
-"We have sent you an e-mail. Please contact us if you do not receive it "
-"within a few minutes."
+"We have sent you an e-mail. If you have not received it please check your "
+"spam folder. Otherwise contact us if you do not receive it in a few minutes."
 msgstr ""
-"Ti-am trimis un e-mail. Daca nu-l gasesti in \"inbox\", te rugam verifica si "
-"folderul \"spam\".\n"
-"Te rugam contacteaza-ne daca nu-l primesti in cateva minute."
+"Ti-am trimis un e-mail pentru verificare (confirmare). \n"
+"Acceseaza link-ul din e-mail pentru confirmare. \n"
+"Te rugam contacteaza-ne daca nu primesti e-mailul in cateva minute."
 
 #: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -629,11 +659,10 @@ msgstr ""
 "folosit. Te rugam solicita <a href=\"%(passwd_reset_url)s\">un nou link de "
 "resetare a parolei</a>."
 
-#: templates/account/password_reset_from_key.html:17
+#: templates/account/password_reset_from_key.html:16
 msgid "change password"
 msgstr "schimba parola"
 
-#: templates/account/password_reset_from_key.html:20
 #: templates/account/password_reset_from_key_done.html:8
 msgid "Your password is now changed."
 msgstr "Parola ta a fost schimbata cu succes."
@@ -684,10 +713,16 @@ msgid "Verify Your E-mail Address"
 msgstr "Verifica-ti adresa de e-mail"
 
 #: templates/account/verification_sent.html:10
+#, fuzzy
+#| msgid ""
+#| "We have sent an e-mail to you for verification. Follow the link provided "
+#| "to finalize the signup process. Please contact us if you do not receive "
+#| "it within a few minutes."
 msgid ""
 "We have sent an e-mail to you for verification. Follow the link provided to "
-"finalize the signup process. Please contact us if you do not receive it "
-"within a few minutes."
+"finalize the signup process. If you do not see the verification e-mail in "
+"your main inbox, check your spam folder. Please contact us if you do not "
+"receive the verification e-mail within a few minutes."
 msgstr ""
 "Ti-am trimis un e-mail pentru verificare (confirmare). Acceseaza link-ul din "
 "e-mail pentru a finaliza procesul de inregistrare. Te rugam contacteaza-ne "
@@ -703,9 +738,16 @@ msgstr ""
 "te rugam sa confirmi ca aceasta adresa de e-mail iti apartine. "
 
 #: templates/account/verified_email_required.html:16
+#, fuzzy
+#| msgid ""
+#| "We have sent an e-mail to you for\n"
+#| "verification. Please click on the link inside this e-mail. Please\n"
+#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent an e-mail to you for\n"
-"verification. Please click on the link inside this e-mail. Please\n"
+"verification. Please click on the link inside that e-mail. If you do not see "
+"the verification e-mail in your main inbox, check your spam folder. "
+"Otherwise\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
 "Ti-am trimis un e-mail pentru verificare (confirmare). \n"
@@ -759,6 +801,30 @@ msgstr "In present nu ai niciun cont de retea sociala asociat cu acest cont."
 msgid "Add a 3rd Party Account"
 msgstr "Adauga un cont de retea sociala"
 
+#: templates/socialaccount/login.html:8
+#, python-format
+msgid "Connect %(provider)s"
+msgstr ""
+
+#: templates/socialaccount/login.html:10
+#, python-format
+msgid "You are about to connect a new third party account from %(provider)s."
+msgstr ""
+
+#: templates/socialaccount/login.html:12
+#, python-format
+msgid "Sign In Via %(provider)s"
+msgstr ""
+
+#: templates/socialaccount/login.html:14
+#, python-format
+msgid "You are about to sign in using a third party account from %(provider)s."
+msgstr ""
+
+#: templates/socialaccount/login.html:19
+msgid "Continue"
+msgstr ""
+
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9
 msgid "Login Cancelled"
@@ -798,6 +864,14 @@ msgstr ""
 "Esti pe cale de a folosi contul %(provider_name)s pentru a te conecta la\n"
 "%(site_name)s. Pentru finalizarea procesului, te rugam completeaza urmatorul "
 "formular:"
+
+#~ msgid ""
+#~ "We have sent you an e-mail. Please contact us if you do not receive it "
+#~ "within a few minutes."
+#~ msgstr ""
+#~ "Ti-am trimis un e-mail. Daca nu-l gasesti in \"inbox\", te rugam verifica "
+#~ "si folderul \"spam\".\n"
+#~ "Te rugam contacteaza-ne daca nu-l primesti in cateva minute."
 
 #~ msgid "Account"
 #~ msgstr "Compte"

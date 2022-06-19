@@ -15,6 +15,9 @@ Welcome to django-allauth!
 .. image:: https://pennersr.github.io/img/bitcoin-badge.svg
    :target: https://blockchain.info/address/1AJXuBMPHkaDCNX2rwAy34bGgs7hmrePEr
 
+.. image: https://badgen.net/liberapay/receives/pennersr
+   :target: https://en.liberapay.com/pennersr
+
 .. image:: https://img.shields.io/badge/code%20style-pep8-green.svg
    :target: https://www.python.org/dev/peps/pep-0008/
 

@@ -5,7 +5,6 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2CallbackView,
     OAuth2LoginView,
 )
-from allauth.utils import get_request_param
 
 from .client import DingtalkOAuth2Client
 from .provider import DingtalkProvider
@@ -18,9 +17,14 @@ class DingtalkOAuth2Adapter(OAuth2Adapter):
     profile_url = "https://api.dingtalk.com/v1.0/contact/users/me"
     client_class = DingtalkOAuth2Client
 
-    def get_access_token_data(self, request, app, client):
-        code = get_request_param(self.request, "authCode")
-        return client.get_access_token(code)
+    def __init__(self, request):
+        # dingtalk set "authCode" intead of "code" in callback url
+        if "authCode" in request.GET:
+            request.GET._mutable = True
+            request.GET["code"] = request.GET["authCode"]
+            request.GET._mutable = False
+
+        super(OAuth2Adapter, self).__init__(request)
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {"x-acs-dingtalk-access-token": token.token}

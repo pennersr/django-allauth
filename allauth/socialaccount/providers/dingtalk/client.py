@@ -25,4 +25,8 @@ class DingtalkOAuth2Client(OAuth2Client):
             access_token = resp.json()
         if not access_token or "accessToken" not in access_token:
             raise OAuth2Error("Error retrieving access token: %s" % resp.content)
+
+        access_token["access_token"] = access_token.pop("accessToken")
+        access_token["refresh_token"] = access_token.pop("refreshToken")
+        access_token["expires_in"] = access_token.pop("expireIn")
         return access_token

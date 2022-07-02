@@ -393,7 +393,7 @@ class SignupForm(BaseSignupForm):
 
         # `password` cannot be of type `SetPasswordField`, as we don't
         # have a `User` yet. So, let's populate a dummy user to be used
-        # for password validaton.
+        # for password validation.
         User = get_user_model()
         dummy_user = User()
         user_username(dummy_user, self.cleaned_data.get("username"))

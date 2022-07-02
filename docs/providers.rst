@@ -275,7 +275,7 @@ SCOPE:
 REGION:
     Either ``apac``, ``cn``, ``eu``, ``kr``, ``sea``, ``tw`` or ``us``
 
-    Sets the default region to use, can be overriden using query parameters
+    Sets the default region to use, can be overridden using query parameters
     in the URL, for example: ``?region=eu``. Defaults to ``us``.
 
 Bitbucket
@@ -422,7 +422,7 @@ Authentication documentation
 Development callback URL
     https://localhost:8000/accounts/drip/login/callback/
 
-Make sure the registed application is active.
+Make sure the registered application is active.
 
 
 Dropbox

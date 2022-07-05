@@ -19,7 +19,7 @@ class DingtalkOAuth2Client(OAuth2Client):
         if self.access_token_method == "GET":
             params = data
             data = None
-        resp = requests.request(self.access_token_method, url, params=params, data=data)
+        resp = requests.request(self.access_token_method, url, params=params, json=data)
         access_token = None
         if resp.status_code == 200:
             access_token = resp.json()

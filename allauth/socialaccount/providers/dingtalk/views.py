@@ -24,7 +24,7 @@ class DingtalkOAuth2Adapter(OAuth2Adapter):
             request.GET["code"] = request.GET["authCode"]
             request.GET._mutable = False
 
-        super(OAuth2Adapter, self).__init__(request)
+        super(DingtalkOAuth2Adapter, self).__init__(request)
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {"x-acs-dingtalk-access-token": token.token}

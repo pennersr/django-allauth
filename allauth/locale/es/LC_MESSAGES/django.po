@@ -692,12 +692,12 @@ msgstr "Establecer contraseña"
 
 #: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
-msgstr "Regístrarse"
+msgstr "Registrarse"
 
 #: templates/account/signup.html:8 templates/account/signup.html:18
 #: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
 msgid "Sign Up"
-msgstr "Regístrarse"
+msgstr "Registrarse"
 
 #: templates/account/signup.html:10
 #, python-format

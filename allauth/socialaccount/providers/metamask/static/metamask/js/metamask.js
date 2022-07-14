@@ -50,7 +50,7 @@
           })
           initialized = true
         } catch (addError) {
-          console.error(e)
+          console.error(addError)
         }
       }
     }

@@ -404,12 +404,8 @@ msgstr ""
 "seleccionada?"
 
 #: templates/account/email/base_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "Thank you from %(site_name)s!\n"
-#| "%(site_domain)s"
 msgid "Hello from %(site_name)s!"
-msgstr "¡Hola desde %(site_name)s!"
+msgstr "¡Hola de parte de %(site_name)s!"
 
 #: templates/account/email/base_message.txt:5
 #, python-format

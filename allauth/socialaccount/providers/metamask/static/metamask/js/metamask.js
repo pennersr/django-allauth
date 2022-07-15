@@ -36,7 +36,7 @@
       })
       initialized = true
     } catch (e) {
-      if (e.code && e.code === 4902) {
+      if (e.code === 4902 || (e.data && e.data.orginalError && e.data.orginalError.code === 4902)) {
         try {
           await ethereum.request({
             method: 'wallet_addEthereumChain',

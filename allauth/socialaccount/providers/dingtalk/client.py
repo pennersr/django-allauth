@@ -1,4 +1,5 @@
 import requests
+
 from allauth.socialaccount.providers.oauth2.client import (
     OAuth2Client,
     OAuth2Error,
@@ -11,7 +12,7 @@ class DingtalkOAuth2Client(OAuth2Client):
             "clientId": self.consumer_key,
             "clientSecret": self.consumer_secret,
             "code": code,
-            "grantType": "authorization_code"
+            "grantType": "authorization_code",
         }
         params = None
         self._strip_empty_keys(data)

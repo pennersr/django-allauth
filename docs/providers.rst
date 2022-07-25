@@ -1095,6 +1095,8 @@ The following Keycloak settings are available.
 KEYCLOAK_URL:
     The url of your hosted keycloak server, it must end with ``/auth``. For
     example, you can use: ``https://your.keycloak.server/auth``
+    
+    Note: you don't have to use ``/auth`` in the end of URL starting from KeyCloak 17.0.0
 
 KEYCLOAK_URL_ALT:
     An alternate url of your hosted keycloak server, it must end with ``/auth``. For

@@ -135,6 +135,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount",
     "allauth.socialaccount.providers.dropbox",
     "allauth.socialaccount.providers.azure",
+    "allauth.socialaccount.providers.dingtalk",
     "allauth.socialaccount.providers.facebook",
     "allauth.socialaccount.providers.edx",
     "allauth.socialaccount.providers.evernote",

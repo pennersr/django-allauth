@@ -145,6 +145,8 @@ Supported Providers
 
 - Kakao (OAuth2)
 
+- Keap (OAuth2)
+
 - Keycloak (OAuth2)
 
 - LemonLDAP::NG (OAuth2)

@@ -103,6 +103,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.instagram',
         'allauth.socialaccount.providers.jupyterhub',
         'allauth.socialaccount.providers.kakao',
+        'allauth.socialaccount.providers.keap',
         'allauth.socialaccount.providers.keycloak',
         'allauth.socialaccount.providers.lemonldap',
         'allauth.socialaccount.providers.line',

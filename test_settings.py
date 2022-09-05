@@ -110,6 +110,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.instagram",
     "allauth.socialaccount.providers.jupyterhub",
     "allauth.socialaccount.providers.kakao",
+    "allauth.socialaccount.providers.keap",
     "allauth.socialaccount.providers.keycloak",
     "allauth.socialaccount.providers.lemonldap",
     "allauth.socialaccount.providers.line",

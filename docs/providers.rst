@@ -1081,6 +1081,18 @@ App registration (get your key here)
 Development callback URL
     http://localhost:8000/accounts/kakao/login/callback/
 
+Keap (Formerly Infusionsoft)
+--------
+
+App registration (get your key and secret here)
+    https://keys.developer.keap.com/my-apps
+
+Authentication documentation
+    https://developer.keap.com/getting-started-oauth-keys/
+
+Development callback URL
+    https://localhost:8000/accounts/keap/login/callback/
+
 Keycloak
 --------
 

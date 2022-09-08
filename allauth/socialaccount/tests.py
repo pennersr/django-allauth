@@ -3,6 +3,7 @@ import random
 import warnings
 from urllib.parse import parse_qs, urlparse
 
+import django
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.messages.middleware import MessageMiddleware
@@ -586,14 +587,23 @@ class SocialAccountTests(TestCase):
         resp = self.client.post(
             reverse("socialaccount_signup"), data={"email": "me@example.com"}
         )
-        self.assertFormError(
-            resp,
-            "form",
-            "email",
-            "An account already exists with this e-mail address."
-            " Please sign in to that account first, then connect"
-            " your Google account.",
-        )
+        if django.VERSION >= (4, 1):
+            self.assertFormError(
+                resp.context["form"],
+                "email",
+                "An account already exists with this e-mail address."
+                " Please sign in to that account first, then connect"
+                " your Google account.",
+            )
+        else:
+            self.assertFormError(
+                resp,
+                "form",
+                "email",
+                "An account already exists with this e-mail address."
+                " Please sign in to that account first, then connect"
+                " your Google account.",
+            )
 
     @override_settings(
         ACCOUNT_EMAIL_REQUIRED=True,

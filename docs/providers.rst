@@ -1093,12 +1093,10 @@ Development callback URL
 The following Keycloak settings are available.
 
 KEYCLOAK_URL:
-    The url of your hosted keycloak server, it must end with ``/auth``. For
-    example, you can use: ``https://your.keycloak.server/auth``
+    The url of your hosted keycloak server. For example, you can use: ``https://your.keycloak.server``
 
 KEYCLOAK_URL_ALT:
-    An alternate url of your hosted keycloak server, it must end with ``/auth``. For
-    example, you can use: ``https://your.keycloak.server/auth``
+    An alternate url of your hosted keycloak server. For example, you can use: ``https://your.keycloak.server``
 
     This can be used when working with Docker on localhost, with a frontend and a backend hosted in different containers.
 

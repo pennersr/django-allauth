@@ -34,7 +34,7 @@ class CleverOAuth2Adapter(OAuth2Adapter):
         resp = resp.json()
         user_id = resp.get("data", {}).get("id")
         user_details = requests.get(
-            f"{self.user_details_url}/{user_id}",
+            "{}/{}".format(self.user_details_url, user_id),
             headers={"Authorization": "Bearer {}".format(token)},
         )
         user_details.raise_for_status()

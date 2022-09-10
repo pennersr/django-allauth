@@ -1,16 +1,17 @@
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase
 
-from .provider import SlackProvider
+from .provider import CleverProvider
 
 
-class SlackOAuth2Tests(OAuth2TestsMixin, TestCase):
-    provider_id = SlackProvider.id
+class CleverOAuth2Tests(OAuth2TestsMixin, TestCase):
+    provider_id = CleverProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(
-            200,
-            """{
+        return [
+            MockedResponse(
+                200,
+                """{
             "type": "user",
             "data": {
                 "id": "62027798269867124d10259e",
@@ -33,4 +34,16 @@ class SlackOAuth2Tests(OAuth2TestsMixin, TestCase):
                 }
             ]
         }""",
-        )  # noqa
+            ),
+            MockedResponse(
+                200,
+                """{
+                "data": {
+                  "roles": {
+                "district_admin": {},
+                "contact": {}
+                }
+                }
+                }""",
+            ),
+        ]

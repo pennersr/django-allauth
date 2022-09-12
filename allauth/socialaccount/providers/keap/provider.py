@@ -30,7 +30,7 @@ class KeapProvider(OAuth2Provider):
             middle_name=data.get("middle_name"),
             last_name=data.get("family_name"),
             name=data.get("preferred_name") if data.get("preferred_name")
-            else f"{data.get('given_name')} {data.get('family_name')}",
+            else "{} {}".format(data.get("given_name", ""), data.get("family_name", "")),
         )
 
     def extract_email_addresses(self, data):

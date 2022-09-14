@@ -18,7 +18,7 @@ class UNiDAYSOAuth2Adapter(OAuth2Adapter):
     def complete_login(self, request, app, token, **kwargs):
         resp = requests.get(
             self.profile_url,
-            headers={"Authorization": "Bearer: "+ str(token.token)},
+            headers={"Authorization": "Bearer: " + str(token.token)},
         )
 
         resp.raise_for_status()

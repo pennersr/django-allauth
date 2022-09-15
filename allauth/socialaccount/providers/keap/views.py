@@ -20,16 +20,16 @@ class KeapOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         response = kwargs.get("response", None)
-        scope = response.get("scope")
+        scope = response.get("scope", "")
         app_name = scope.split("|")[1].split(".")[0]
 
-        extra_data = requests.get(
+        profile_response = requests.get(
             self.profile_url, params={"access_token": token.token}
-        ).json()
+        )
+        profile_response.raise_for_status()
+        extra_data = profile_response.json()
         extra_data["scope"] = response.get("scope")
         extra_data["app_name"] = app_name
-
-        return self.get_provider().sociallogin_from_response(request, extra_data)
 
 
 oauth2_login = OAuth2LoginView.adapter_view(KeapOAuth2Adapter)

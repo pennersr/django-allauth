@@ -11,7 +11,7 @@ class KeapAccount(ProviderAccount):
 
 
 class KeapProvider(OAuth2Provider):
-    id = "Keap"
+    id = "keap"
     name = "Keap"
     account_class = KeapAccount
 

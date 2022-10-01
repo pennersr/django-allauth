@@ -124,12 +124,14 @@ class DefaultAccountAdapter(object):
                 if ext == "txt" and not bodies:
                     # We need at least one body
                     raise
-        if "txt" in bodies:
+        if "html" in bodies and "txt" in bodies:
             msg = EmailMultiAlternatives(
-                subject, bodies["txt"], from_email, to, headers=headers
+                subject, bodies["html"], from_email, to, headers=headers
             )
-            if "html" in bodies:
-                msg.attach_alternative(bodies["html"], "text/html")
+            msg.attach_alternative(bodies["txt"], "text/html")
+        elif "txt" in bodies:
+            msg = EmailMessage(subject, bodies["txt"], from_email, to, headers=headers)
+            msg.content_subtype = "txt"  # Main content is now text/html
         else:
             msg = EmailMessage(subject, bodies["html"], from_email, to, headers=headers)
             msg.content_subtype = "html"  # Main content is now text/html

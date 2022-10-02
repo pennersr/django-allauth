@@ -1482,6 +1482,41 @@ The OpenID provider can be forced to operate in stateless mode as follows::
                     stateless=True,
                 )]}}
 
+
+OpenID Connect
+--------------
+
+The OpenID Connect provider provides a dynamic instance for each configured
+server. To expose an OpenID Connect server as an authentication method,
+configuration of one or more servers is required:
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'openid-connect': {
+            'SERVERS': [
+                dict(
+                    id='my-server',
+                    name="My Login Server",
+                    server_url="https://my.server.example.com",
+                ),
+                dict(
+                    id='other-server',
+                    name="Other Login Server",
+                    server_url="https://other.server.example.com",
+                ),
+            ]
+        }
+    }
+
+This configuration example will create two independent provider instances,
+``My Login Server`` and ``Other Login Server``.
+
+The OpenID Connect callback URL for each configured server is at
+``/accounts/oidc/{id}/login/callback/`` where ``{id}`` is the configured
+server's ``id`` value (``my-server`` or ``other-server`` in the above example).
+
+
 OpenStreetMap
 -------------
 

@@ -126,6 +126,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.nextcloud",
     "allauth.socialaccount.providers.odnoklassniki",
     "allauth.socialaccount.providers.openid",
+    "allauth.socialaccount.providers.openid_connect",
     "allauth.socialaccount.providers.openstreetmap",
     "allauth.socialaccount.providers.orcid",
     "allauth.socialaccount.providers.patreon",
@@ -204,3 +205,21 @@ PASSWORD_HASHERS = [
 
 ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN = 0
 ACCOUNT_RATE_LIMITS = {}
+
+
+SOCIALACCOUNT_PROVIDERS = {
+    "openid-connect": {
+        "SERVERS": [
+            dict(
+                id="unittest-server",
+                name="Unittest Server",
+                openid_url="https://unittest.example.com",
+            ),
+            dict(
+                id="other-server",
+                name="Other Example Server",
+                openid_url="https://other.example.com",
+            ),
+        ],
+    }
+}

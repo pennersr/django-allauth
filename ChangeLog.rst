@@ -6,6 +6,9 @@ Note worthy changes
 
 - Officially support Django 4.1.
 
+- New providers: OpenID Connect.
+
+
 0.51.0 (2022-06-07)
 *******************
 

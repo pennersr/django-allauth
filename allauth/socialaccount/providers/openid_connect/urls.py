@@ -15,9 +15,6 @@ from allauth.socialaccount.providers.openid_connect.views import (
 )
 
 
-# from allauth.utils import import_attribute
-
-
 def _factory(_provider_id):
     class OpenIDConnectAdapterServer(OpenIDConnectAdapter):
         provider_id = _provider_id

@@ -213,12 +213,12 @@ SOCIALACCOUNT_PROVIDERS = {
             dict(
                 id="unittest-server",
                 name="Unittest Server",
-                openid_url="https://unittest.example.com",
+                server_url="https://unittest.example.com",
             ),
             dict(
                 id="other-server",
                 name="Other Example Server",
-                openid_url="https://other.example.com",
+                server_url="https://other.example.com",
             ),
         ],
     }

@@ -52,7 +52,7 @@ def _provider_factory(server_settings):
         name = server_settings.get("name", OpenIDConnectProvider.name)
         id = f"{OpenIDConnectProvider.id}_{server_settings['id']}"
         _server_id = server_settings["id"]
-        _server_url = server_settings["openid_url"]
+        _server_url = server_settings["server_url"]
 
     return OpenIDConnectProviderServer
 

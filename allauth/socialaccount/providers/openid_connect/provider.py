@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import functools
-
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
@@ -19,17 +17,21 @@ class OpenIDConnectProvider(OAuth2Provider):
     _server_url = None
     account_class = OpenIDConnectProviderAccount
 
-    @functools.cached_property
     def server_url(self):
-        well_known_uri = "/.well-known/openid-configuration"
-        url = self._server_url
-        if not url.endswith(well_known_uri):
-            url += well_known_uri
-        return url
+        if not hasattr(self, "_server_url"):
+            well_known_uri = "/.well-known/openid-configuration"
+            url = self._server_url
+            if not url.endswith(well_known_uri):
+                url += well_known_uri
+            self._server_url = url
+        return self._server_url
 
     @classmethod
     def get_slug(cls):
-        return f"oidc/{cls._server_id}"
+        slug = "oidc"
+        if cls._server_id:
+            slug += "/" + cls._server_id
+        return slug
 
     def get_default_scope(self):
         return ["openid", "profile", "email"]
@@ -50,7 +52,7 @@ class OpenIDConnectProvider(OAuth2Provider):
 def _provider_factory(server_settings):
     class OpenIDConnectProviderServer(OpenIDConnectProvider):
         name = server_settings.get("name", OpenIDConnectProvider.name)
-        id = f"{OpenIDConnectProvider.id}_{server_settings['id']}"
+        id = OpenIDConnectProvider.id + "_" + server_settings["id"]
         _server_id = server_settings["id"]
         _server_url = server_settings["server_url"]
 

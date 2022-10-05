@@ -64,7 +64,7 @@ def _provider_factory(server_settings):
 
 provider_classes = [
     _provider_factory(server_settings)
-    for server_settings in app_settings.PROVIDERS.get(
-        OpenIDConnectProvider.id, {}
-    ).get("SERVERS", [])
+    for server_settings in app_settings.PROVIDERS.get(OpenIDConnectProvider.id, {}).get(
+        "SERVERS", []
+    )
 ]

@@ -23,9 +23,7 @@ class OpenIDConnectTestsBase(OAuth2TestsMixin):
             }
             """,
         )
-        return super(OpenIDConnectTestsBase, self).login(
-            resp_mock, *args, **kwargs
-        )
+        return super(OpenIDConnectTestsBase, self).login(resp_mock, *args, **kwargs)
 
     def get_mocked_response(self):
         return MockedResponse(

@@ -41,8 +41,5 @@ def default_urlpatterns(provider):
 
 
 urlpatterns = itertools.chain.from_iterable(
-    [
-        default_urlpatterns(provider_class)
-        for provider_class in provider_classes
-    ]
+    [default_urlpatterns(provider_class) for provider_class in provider_classes]
 )

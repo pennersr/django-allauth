@@ -37,6 +37,4 @@ class OpenIDConnectAdapter(OAuth2Adapter):
         extra_data["id"] = extra_data["sub"]
         del extra_data["sub"]
 
-        return self.get_provider().sociallogin_from_response(
-            request, extra_data
-        )
+        return self.get_provider().sociallogin_from_response(request, extra_data)

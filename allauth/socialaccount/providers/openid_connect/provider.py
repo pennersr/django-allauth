@@ -17,6 +17,7 @@ class OpenIDConnectProvider(OAuth2Provider):
     _server_url = None
     account_class = OpenIDConnectProviderAccount
 
+    @property
     def server_url(self):
         if not hasattr(self, "_server_url"):
             well_known_uri = "/.well-known/openid-configuration"

@@ -54,6 +54,10 @@ def _provider_factory(server_settings):
         id = OpenIDConnectProvider.id + "_" + server_settings["id"]
         _server_id = server_settings["id"]
         _server_url = server_settings["server_url"]
+        _app_settings = server_settings.get("APP")
+
+        def get_app(self, request, config=None):
+            return super().get_app(request, config=self._app_settings)
 
     return OpenIDConnectProviderServer
 

@@ -25,9 +25,9 @@ class Provider(object):
         """
         raise NotImplementedError("get_login_url() for " + self.name)
 
-    def get_app(self, request):
+    def get_app(self, request, config=None):
         adapter = get_adapter(request)
-        return adapter.get_app(request, self.id)
+        return adapter.get_app(request, self.id, config=config)
 
     def media_js(self, request):
         """

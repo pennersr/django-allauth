@@ -1499,11 +1499,19 @@ configuration of one or more servers is required:
                     id='my-server',
                     name="My Login Server",
                     server_url="https://my.server.example.com",
+                    APP=dict(
+                        client_id="your.service.id",
+                        secret="your.service.secret",
+                    ),
                 ),
                 dict(
                     id='other-server',
                     name="Other Login Server",
                     server_url="https://other.server.example.com",
+                    APP=dict(
+                        client_id="your.other.service.id",
+                        secret="your.other.service.secret",
+                    ),
                 ),
             ]
         }

@@ -191,11 +191,11 @@ class DefaultSocialAccountAdapter(object):
     def serialize_instance(self, instance):
         return serialize_instance(instance)
 
-    def get_app(self, request, provider):
+    def get_app(self, request, provider, config=None):
         # NOTE: Avoid loading models at top due to registry boot...
         from allauth.socialaccount.models import SocialApp
 
-        config = app_settings.PROVIDERS.get(provider, {}).get("APP")
+        config = config or app_settings.PROVIDERS.get(provider, {}).get("APP")
         if config:
             app = SocialApp(provider=provider)
             for field in ["client_id", "secret", "key", "certificate_key"]:

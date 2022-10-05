@@ -19,13 +19,11 @@ class OpenIDConnectProvider(OAuth2Provider):
 
     @property
     def server_url(self):
-        if not hasattr(self, "_server_url"):
-            well_known_uri = "/.well-known/openid-configuration"
-            url = self._server_url
-            if not url.endswith(well_known_uri):
-                url += well_known_uri
-            self._server_url = url
-        return self._server_url
+        well_known_uri = "/.well-known/openid-configuration"
+        url = self._server_url
+        if not url.endswith(well_known_uri):
+            url += well_known_uri
+        return url
 
     @classmethod
     def get_slug(cls):

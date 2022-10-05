@@ -9,22 +9,24 @@ class OpenIDConnectAdapter(OAuth2Adapter):
     provider_id = "openid-connect"
 
     @property
-    def _openid_config(self):
-        resp = requests.get(self.get_provider().server_url)
-        resp.raise_for_status()
-        return resp.json()
+    def openid_config(self):
+        if not hasattr(self, "_openid_config"):
+            resp = requests.get(self.get_provider().server_url)
+            resp.raise_for_status()
+            self._openid_config = resp.json()
+        return self._openid_config
 
     @property
     def access_token_url(self):
-        return self._openid_config["token_endpoint"]
+        return self.openid_config["token_endpoint"]
 
     @property
     def authorize_url(self):
-        return self._openid_config["authorization_endpoint"]
+        return self.openid_config["authorization_endpoint"]
 
     @property
     def profile_url(self):
-        return self._openid_config["userinfo_endpoint"]
+        return self.openid_config["userinfo_endpoint"]
 
     def complete_login(self, request, app, token, response):
         response = requests.post(

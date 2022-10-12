@@ -1,4 +1,7 @@
 import logging
+
+from urllib.parse import parse_qsl, quote, urlencode
+
 from django.apps import apps
 from django.conf import settings
 from django.contrib import messages
@@ -156,10 +159,16 @@ def complete_social_login(request, sociallogin):
         user.backend = backend
         django_login(request, user)
         return redirect('/')
+
     user = sociallogin.user
-    email = user.email
     region = user.region if user.region is not None else sociallogin.account.extra_data.get('region', None)
-    return redirect(f'/login/sns_register?email={email}&sns_type={sns_type}&sns_id={sns_id}&region={region}')
+    params = {
+        "email": user.email,
+        "sns_type": sns_type,
+        "sns_id": sns_id,
+        "region": region,
+    }
+    return redirect(f'/login/sns_register?{urlencode(params, quote_via=quote)}')
 
 
 def _social_login_redirect(request, sociallogin):

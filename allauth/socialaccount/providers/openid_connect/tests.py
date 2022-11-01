@@ -45,6 +45,9 @@ def _test_class_factory(provider_class):
     class Provider_OpenIDConnectTests(OpenIDConnectTestsBase, TestCase):
         provider_id = provider_class.id
 
+    Provider_OpenIDConnectTests.__name__ = (
+        "Provider_OpenIDConnectTests_" + provider_class.id
+    )
     return Provider_OpenIDConnectTests
 
 

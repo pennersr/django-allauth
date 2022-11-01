@@ -59,6 +59,9 @@ def _provider_factory(server_settings):
         def get_app(self, request, config=None):
             return super().get_app(request, config=self._app_settings)
 
+    OpenIDConnectProviderServer.__name__ = (
+        "OpenIDConnectProviderServer_" + server_settings["id"]
+    )
     return OpenIDConnectProviderServer
 
 

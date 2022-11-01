@@ -29,7 +29,7 @@ class OpenIDConnectAdapter(OAuth2Adapter):
         return self.openid_config["userinfo_endpoint"]
 
     def complete_login(self, request, app, token, response):
-        response = requests.post(
+        response = requests.get(
             self.profile_url, headers={"Authorization": "Bearer " + str(token)}
         )
         response.raise_for_status()

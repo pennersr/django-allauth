@@ -277,7 +277,7 @@ class OpenIDConnectTests(OAuth2TestsMixin):
         resp = self.login()
         self.assertRedirects(resp, "/accounts/profile/", fetch_redirect_response=False)
         sa = SocialAccount.objects.get(provider=self.provider.id)
-        self.assertDictEqual(sa.extra_data, self.get_extra_data())
+        self.assertDictEqual(sa.extra_data, self.extra_data)
 
 
 class SocialAccountTests(TestCase):

@@ -12,16 +12,23 @@ from allauth.tests import Mock, MockedResponse, TestCase, patch
 
 class OpenIDConnectTestsBase(OpenIDConnectTests):
     provider_id = None
-    oidc_info = {
+    oidc_info_content = {
         "authorization_endpoint": "/login",
         "userinfo_endpoint": "/userinfo",
         "token_endpoint": "/token",
     }
-    extra_data = {
+    userinfo_content = {
         "picture": "https://secure.gravatar.com/avatar/123",
         "email": "ness@some.oidc.server.onett.example",
         "id": 1138,
         "sub": 2187,
+        "identities": [],
+        "name": "Ness",
+    }
+    extra_data = {
+        "picture": "https://secure.gravatar.com/avatar/123",
+        "email": "ness@some.oidc.server.onett.example",
+        "id": 2187,
         "identities": [],
         "name": "Ness",
     }
@@ -35,20 +42,15 @@ class OpenIDConnectTestsBase(OpenIDConnectTests):
         self.mock_requests = patcher.start()
         self.addCleanup(patcher.stop)
 
-    def get_extra_data(self):
-        data_copy = copy.deepcopy(self.extra_data)
-        data_copy["id"] = data_copy.pop("sub")
-        return data_copy
-
     def get_mocked_response(self):
         # Enable test_login in OAuth2TestsMixin, but this response mock is unused
         return True
 
     def _mocked_responses(self, url, *args, **kwargs):
         if url.endswith("/.well-known/openid-configuration"):
-            return MockedResponse(200, json.dumps(self.oidc_info))
+            return MockedResponse(200, json.dumps(self.oidc_info_content))
         elif url.endswith("/userinfo"):
-            return MockedResponse(200, json.dumps(self.extra_data))
+            return MockedResponse(200, json.dumps(self.userinfo_content))
 
 
 def _test_class_factory(provider_class):

@@ -224,7 +224,7 @@ class OAuth2TestsMixin(object):
         """
         self.test_account_tokens(multiple_login=True)
 
-    def login(self, resp_mock, process="login", with_refresh_token=True):
+    def login(self, resp_mock=None, process="login", with_refresh_token=True):
         resp = self.client.post(
             reverse(self.provider.id + "_login")
             + "?"
@@ -269,6 +269,15 @@ def create_oauth2_tests(provider):
 
     Class.__name__ = "OAuth2Tests_" + provider.id
     return Class
+
+
+class OpenIDConnectTests(OAuth2TestsMixin):
+    @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=True)
+    def test_login_auto_signup(self):
+        resp = self.login()
+        self.assertRedirects(resp, "/accounts/profile/", fetch_redirect_response=False)
+        sa = SocialAccount.objects.get(provider=self.provider.id)
+        self.assertDictEqual(sa.extra_data, self.get_extra_data())
 
 
 class SocialAccountTests(TestCase):

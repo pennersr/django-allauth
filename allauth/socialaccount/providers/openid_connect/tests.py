@@ -1,44 +1,54 @@
 # -*- coding: utf-8 -*-
+import copy
+import json
 from unittest import TestSuite
 
 from allauth.socialaccount.providers.openid_connect.provider import (
     provider_classes,
 )
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, TestCase, patch
+from allauth.socialaccount.tests import OpenIDConnectTests
+from allauth.tests import Mock, MockedResponse, TestCase, patch
 
 
-class OpenIDConnectTestsBase(OAuth2TestsMixin):
+class OpenIDConnectTestsBase(OpenIDConnectTests):
     provider_id = None
+    oidc_info = {
+        "authorization_endpoint": "/login",
+        "userinfo_endpoint": "/userinfo",
+        "token_endpoint": "/token",
+    }
+    extra_data = {
+        "picture": "https://secure.gravatar.com/avatar/123",
+        "email": "ness@some.oidc.server.onett.example",
+        "id": 1138,
+        "sub": 2187,
+        "identities": [],
+        "name": "Ness",
+    }
 
-    @patch("allauth.socialaccount.providers.openid_connect.views.requests")
-    def login(self, resp_mock, mock_requests, *args, **kwargs):
-        mock_requests.get.return_value = MockedResponse(
-            200,
-            """
-            {
-                "authorization_endpoint": "/login",
-                "userinfo_endpoint": "/userinfo",
-                "token_endpoint": "/token"
-            }
-            """,
+    def setUp(self):
+        super(OpenIDConnectTestsBase, self).setUp()
+        patcher = patch(
+            "allauth.socialaccount.providers.openid_connect.views.requests",
+            get=Mock(side_effect=self._mocked_responses),
         )
-        return super(OpenIDConnectTestsBase, self).login(resp_mock, *args, **kwargs)
+        self.mock_requests = patcher.start()
+        self.addCleanup(patcher.stop)
+
+    def get_extra_data(self):
+        data_copy = copy.deepcopy(self.extra_data)
+        data_copy["id"] = data_copy.pop("sub")
+        return data_copy
 
     def get_mocked_response(self):
-        return MockedResponse(
-            200,
-            """
-            {
-                "picture": "https://secure.gravatar.com/avatar/123",
-                "email": "ness@some.oidc.server.onett.example",
-                "id": 1138,
-                "sub": 2187,
-                "identities": [],
-                "name": "Ness"
-            }
-        """,
-        )
+        # Enable test_login in OAuth2TestsMixin, but this response mock is unused
+        return True
+
+    def _mocked_responses(self, url, *args, **kwargs):
+        if url.endswith("/.well-known/openid-configuration"):
+            return MockedResponse(200, json.dumps(self.oidc_info))
+        elif url.endswith("/userinfo"):
+            return MockedResponse(200, json.dumps(self.extra_data))
 
 
 def _test_class_factory(provider_class):

@@ -30,7 +30,7 @@ class KeycloakOAuth2Adapter(OAuth2Adapter):
     profile_url = "{0}/protocol/openid-connect/userinfo".format(server_base_url)
 
     def complete_login(self, request, app, token, response):
-        response = requests.post(
+        response = requests.get(
             self.profile_url, headers={"Authorization": "Bearer " + str(token)}
         )
         response.raise_for_status()

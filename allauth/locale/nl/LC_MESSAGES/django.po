@@ -58,11 +58,11 @@ msgstr "Dit account is niet actief"
 
 #: account/forms.py:99
 msgid "The e-mail address and/or password you specified are not correct."
-msgstr "Je e-mailadres en wachtwoord komen niet overeen."
+msgstr "Je e-mailadres en/of wachtwoord zijn incorrect."
 
 #: account/forms.py:102
 msgid "The username and/or password you specified are not correct."
-msgstr "Je gebruikersnaam en wachtwoord komen niet overeen."
+msgstr "Je gebruikersnaam en/of wachtwoord zijn incorrect."
 
 #: account/forms.py:113 account/forms.py:279 account/forms.py:442
 #: account/forms.py:520
@@ -90,7 +90,7 @@ msgstr "Login"
 
 #: account/forms.py:307
 msgid "E-mail (again)"
-msgstr "E-mail (optioneel)"
+msgstr "E-mail (bevestigen)"
 
 #: account/forms.py:311
 msgid "E-mail address confirmation"
@@ -331,7 +331,7 @@ msgstr "Geen toegangssleutel opgeslagen voor \"%s\"."
 #: socialaccount/providers/oauth/client.py:210
 #, python-format
 msgid "No access to private resources at \"%s\"."
-msgstr "Geen toegang tot prive data bij \"%s\"."
+msgstr "Geen toegang tot privé data bij \"%s\"."
 
 #: templates/account/account_inactive.html:5
 #: templates/account/account_inactive.html:8
@@ -894,18 +894,18 @@ msgstr ""
 #~ msgstr "Bevestigings e-mail verzonden aan %(email)s"
 
 #~ msgid "Delete Password"
-#~ msgstr "Wis wachtwoord"
+#~ msgstr "Verwijder wachtwoord"
 
 #~ msgid ""
 #~ "You may delete your password since you are currently logged in using "
 #~ "OpenID."
-#~ msgstr "Je kunt je wachtwoord wissen omdat je via OpenID bent ingelogd."
+#~ msgstr "Je kunt je wachtwoord verwijderen omdat je via OpenID bent ingelogd."
 
 #~ msgid "delete my password"
-#~ msgstr "Wis mijn wachtwoord"
+#~ msgstr "Verwijder mijn wachtwoord"
 
 #~ msgid "Password Deleted"
-#~ msgstr "Wachtwoord gewist"
+#~ msgstr "Wachtwoord verwijderd"
 
 #~ msgid "Your password has been deleted."
-#~ msgstr "Je wachtwoord is gewist."
+#~ msgstr "Je wachtwoord is verwijderd."

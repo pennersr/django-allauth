@@ -15,10 +15,9 @@ class GiteaOAuth2Adapter(OAuth2Adapter):
 
     if "GITEA_URL" in settings:
         web_url = settings.get("GITEA_URL").rstrip("/")
-        api_url = "{0}/api/v1".format(web_url)
     else:
         web_url = "https://gitea.com"
-        api_url = "https://gitea.com"
+    api_url = "{0}/api/v1".format(web_url)
 
     access_token_url = "{0}/login/oauth/access_token".format(web_url)
     authorize_url = "{0}/login/oauth/authorize".format(web_url)

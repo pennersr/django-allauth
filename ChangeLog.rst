@@ -1,11 +1,34 @@
-0.51.0 (unreleased)
+0.52.0 (unreleased)
 *******************
 
 Note worthy changes
 -------------------
 
+- Officially support Django 4.1.
+
+- Introduced a new provider setting ``OAUTH_PKCE_ENABLED`` that enables the
+  PKCE-enhanced Authorization Code Flow for OAuth 2.0 providers.
+
 - Updated URLs of Google's endpoints to the latest version; removed a redundant
   ``userinfo`` call.
+
+
+0.51.0 (2022-06-07)
+*******************
+
+Note worthy changes
+-------------------
+
+- New providers: Snapchat, Hubspot, Pocket, Clever.
+
+
+Security notice
+---------------
+
+The reset password form is protected by rate limits. There is a limit per IP,
+and per email. In previous versions, the latter rate limit could be bypassed by
+changing the casing of the email address. Note that in that case, the former
+rate limit would still kick in.
 
 
 0.50.0 (2022-03-25)

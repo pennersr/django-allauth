@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-03 13:53-0600\n"
+"POT-Creation-Date: 2022-06-07 04:23-0500\n"
 "PO-Revision-Date: 2014-08-12 00:35+0200\n"
 "Last-Translator: Jannis \n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/django-allauth/"
@@ -40,11 +40,11 @@ msgstr "Lösenordet måste vara minst {0} tecken långt"
 msgid "Accounts"
 msgstr "Konto"
 
-#: account/forms.py:59 account/forms.py:415
+#: account/forms.py:59 account/forms.py:416
 msgid "You must type the same password each time."
 msgstr "Du måste ange samma lösenord"
 
-#: account/forms.py:92 account/forms.py:381 account/forms.py:500
+#: account/forms.py:92 account/forms.py:381 account/forms.py:501
 msgid "Password"
 msgstr "Lösenord"
 
@@ -64,13 +64,13 @@ msgstr "Epost-adressen och/eller lösenordet är felaktigt."
 msgid "The username and/or password you specified are not correct."
 msgstr "Användarnamnet och/eller lösenordet är felaktigt."
 
-#: account/forms.py:113 account/forms.py:279 account/forms.py:441
-#: account/forms.py:519
+#: account/forms.py:113 account/forms.py:279 account/forms.py:442
+#: account/forms.py:520
 msgid "E-mail address"
 msgstr "Epost-adress"
 
-#: account/forms.py:117 account/forms.py:316 account/forms.py:438
-#: account/forms.py:514
+#: account/forms.py:117 account/forms.py:316 account/forms.py:439
+#: account/forms.py:515
 msgid "E-mail"
 msgstr "Epost"
 
@@ -110,45 +110,45 @@ msgstr "Epost (valfritt)"
 msgid "You must type the same email each time."
 msgstr "Du måste ange samma lösenord"
 
-#: account/forms.py:385 account/forms.py:501
+#: account/forms.py:385 account/forms.py:502
 msgid "Password (again)"
 msgstr "Lösenord (igen)"
 
-#: account/forms.py:450
+#: account/forms.py:451
 msgid "This e-mail address is already associated with this account."
 msgstr "Denna epost-adress är redan knuten till detta konto"
 
-#: account/forms.py:453
+#: account/forms.py:454
 msgid "This e-mail address is already associated with another account."
 msgstr "Denna epost-adress är redan knuten till ett annat konto"
 
-#: account/forms.py:455
+#: account/forms.py:456
 #, fuzzy, python-format
 #| msgid "Your account has no verified e-mail address."
 msgid "You cannot add more than %d e-mail addresses."
 msgstr "Ditt konto har ingen verifierad epost-adress."
 
-#: account/forms.py:480
+#: account/forms.py:481
 msgid "Current Password"
 msgstr "Nuvarande lösenord"
 
-#: account/forms.py:482 account/forms.py:587
+#: account/forms.py:483 account/forms.py:588
 msgid "New Password"
 msgstr "Nytt lösenord"
 
-#: account/forms.py:483 account/forms.py:588
+#: account/forms.py:484 account/forms.py:589
 msgid "New Password (again)"
 msgstr "Nytt lösenord (igen)"
 
-#: account/forms.py:491
+#: account/forms.py:492
 msgid "Please type your current password."
 msgstr "Skriv in ditt nuvarande lösenord."
 
-#: account/forms.py:531
+#: account/forms.py:532
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Epost-adressen är inte knuten till något konto"
 
-#: account/forms.py:609
+#: account/forms.py:610
 msgid "The password reset token was invalid."
 msgstr ""
 
@@ -187,7 +187,7 @@ msgstr ""
 msgid "sent"
 msgstr ""
 
-#: account/models.py:85 socialaccount/models.py:60
+#: account/models.py:85 socialaccount/models.py:59
 msgid "key"
 msgstr ""
 
@@ -219,92 +219,92 @@ msgstr "Ditt konto har ingen verifierad epost-adress."
 msgid "Social Accounts"
 msgstr "Konto"
 
-#: socialaccount/models.py:43 socialaccount/models.py:87
+#: socialaccount/models.py:42 socialaccount/models.py:86
 msgid "provider"
 msgstr ""
 
-#: socialaccount/models.py:47
+#: socialaccount/models.py:46
 #, fuzzy
 msgid "name"
 msgstr "Användarnamn"
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:48
 msgid "client id"
 msgstr ""
 
-#: socialaccount/models.py:51
+#: socialaccount/models.py:50
 msgid "App ID, or consumer key"
 msgstr ""
 
-#: socialaccount/models.py:54
+#: socialaccount/models.py:53
 msgid "secret key"
 msgstr ""
 
-#: socialaccount/models.py:57
+#: socialaccount/models.py:56
 msgid "API secret, client secret, or consumer secret"
 msgstr ""
 
-#: socialaccount/models.py:60
+#: socialaccount/models.py:59
 msgid "Key"
 msgstr ""
 
-#: socialaccount/models.py:77
+#: socialaccount/models.py:76
 msgid "social application"
 msgstr ""
 
-#: socialaccount/models.py:78
+#: socialaccount/models.py:77
 msgid "social applications"
 msgstr ""
 
-#: socialaccount/models.py:108
+#: socialaccount/models.py:107
 msgid "uid"
 msgstr ""
 
-#: socialaccount/models.py:110
+#: socialaccount/models.py:109
 msgid "last login"
 msgstr ""
 
-#: socialaccount/models.py:111
+#: socialaccount/models.py:110
 msgid "date joined"
 msgstr ""
 
-#: socialaccount/models.py:112
+#: socialaccount/models.py:111
 msgid "extra data"
 msgstr ""
 
-#: socialaccount/models.py:116
+#: socialaccount/models.py:115
 msgid "social account"
 msgstr ""
 
-#: socialaccount/models.py:117
+#: socialaccount/models.py:116
 msgid "social accounts"
 msgstr ""
 
-#: socialaccount/models.py:142
+#: socialaccount/models.py:143
 msgid "token"
 msgstr ""
 
-#: socialaccount/models.py:143
+#: socialaccount/models.py:144
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:147
+#: socialaccount/models.py:148
 msgid "token secret"
 msgstr ""
 
-#: socialaccount/models.py:148
+#: socialaccount/models.py:149
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:151
+#: socialaccount/models.py:152
 msgid "expires at"
 msgstr ""
 
-#: socialaccount/models.py:156
+#: socialaccount/models.py:157
 msgid "social application token"
 msgstr ""
 
-#: socialaccount/models.py:157
+#: socialaccount/models.py:158
 msgid "social application tokens"
 msgstr ""
 
@@ -313,11 +313,13 @@ msgid "Invalid profile data"
 msgstr ""
 
 #: socialaccount/providers/oauth/client.py:85
+#: socialaccount/providers/pocket/client.py:37
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "Felaktigt svar vid hämtning av fråge-nyckel från \"%s\"."
 
 #: socialaccount/providers/oauth/client.py:117
+#: socialaccount/providers/pocket/client.py:78
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Felaktigt svar vid hämtning av access-nyckel från \"%s\"."
@@ -517,7 +519,7 @@ msgstr ""
 "href=\"%(email_url)s\">Skapa en ny epost-verification.</a>"
 
 #: templates/account/login.html:6 templates/account/login.html:10
-#: templates/account/login.html:43
+#: templates/account/login.html:43 templates/socialaccount/login.html:4
 msgid "Sign In"
 msgstr "Logga in"
 
@@ -804,27 +806,27 @@ msgstr "Du har för närvarande inga tredjeparts-konton knutna till ditt konto."
 msgid "Add a 3rd Party Account"
 msgstr "Lägg till tredjeparts-konto"
 
-#: templates/socialaccount/login.html:6
+#: templates/socialaccount/login.html:8
 #, python-format
 msgid "Connect %(provider)s"
 msgstr ""
 
-#: templates/socialaccount/login.html:8
+#: templates/socialaccount/login.html:10
 #, python-format
 msgid "You are about to connect a new third party account from %(provider)s."
 msgstr ""
 
-#: templates/socialaccount/login.html:10
+#: templates/socialaccount/login.html:12
 #, python-format
 msgid "Sign In Via %(provider)s"
 msgstr ""
 
-#: templates/socialaccount/login.html:12
+#: templates/socialaccount/login.html:14
 #, python-format
 msgid "You are about to sign in using a third party account from %(provider)s."
 msgstr ""
 
-#: templates/socialaccount/login.html:17
+#: templates/socialaccount/login.html:19
 msgid "Continue"
 msgstr ""
 

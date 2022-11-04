@@ -1,7 +1,11 @@
+import os
+
+
 SECRET_KEY = "psst"
 SITE_ID = 1
 ALLOWED_HOSTS = ("*",)
 USE_I18N = False
+USE_TZ = True
 
 DATABASES = {
     "default": {
@@ -19,7 +23,7 @@ ROOT_URLCONF = "allauth.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(os.path.dirname(__file__), "example", "example", "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -103,6 +107,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.google",
     "allauth.socialaccount.providers.gumroad",
     "allauth.socialaccount.providers.hubic",
+    'allauth.socialaccount.providers.hubspot',
     "allauth.socialaccount.providers.instagram",
     "allauth.socialaccount.providers.jupyterhub",
     "allauth.socialaccount.providers.kakao",
@@ -127,6 +132,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.paypal",
     "allauth.socialaccount.providers.persona",
     "allauth.socialaccount.providers.pinterest",
+    "allauth.socialaccount.providers.pocket",
     "allauth.socialaccount.providers.quickbooks",
     "allauth.socialaccount.providers.reddit",
     "allauth.socialaccount.providers.robinhood",
@@ -134,6 +140,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.sharefile",
     "allauth.socialaccount.providers.shopify",
     "allauth.socialaccount.providers.slack",
+    "allauth.socialaccount.providers.snapchat",
     "allauth.socialaccount.providers.soundcloud",
     "allauth.socialaccount.providers.spotify",
     "allauth.socialaccount.providers.stackexchange",

@@ -19,7 +19,7 @@ class TrainingPeaksOAuth2Adapter(OAuth2Adapter):
         return app_settings.PROVIDERS.get(self.provider_id, {})
 
     def get_hostname(self):
-        """Return hostname depending on sandbox seting"""
+        """Return hostname depending on sandbox setting"""
         settings = self.get_settings()
         if settings.get("USE_PRODUCTION"):
             return "trainingpeaks.com"

@@ -188,6 +188,7 @@ You'll need to specify the base URL for your Auth0 domain:
     SOCIALACCOUNT_PROVIDERS = {
         'auth0': {
             'AUTH0_URL': 'https://your.auth0domain.auth0.com',
+            'OAUTH_PKCE_ENABLED': True,
         }
     }
 
@@ -275,7 +276,7 @@ SCOPE:
 REGION:
     Either ``apac``, ``cn``, ``eu``, ``kr``, ``sea``, ``tw`` or ``us``
 
-    Sets the default region to use, can be overriden using query parameters
+    Sets the default region to use, can be overridden using query parameters
     in the URL, for example: ``?region=eu``. Defaults to ``us``.
 
 Bitbucket
@@ -321,6 +322,13 @@ App registration (get your key and secret here)
 
 CILogon OIDC/OAuth2 Documentation
     https://www.cilogon.org/oidc
+
+Clever
+----
+Single sign-on for education
+
+Clever OAUth2 Documentation
+    https://dev.clever.com/docs/classroom-with-oauth
 
 
 Dataporten
@@ -415,7 +423,7 @@ Authentication documentation
 Development callback URL
     https://localhost:8000/accounts/drip/login/callback/
 
-Make sure the registed application is active.
+Make sure the registered application is active.
 
 
 Dropbox
@@ -999,7 +1007,8 @@ Optionally, you can specify the scope to use as follows:
             ],
             'AUTH_PARAMS': {
                 'access_type': 'online',
-            }
+            },
+            'OAUTH_PKCE_ENABLED': True,
         }
     }
 
@@ -1023,6 +1032,18 @@ App registration (get your key and secret here)
 Development callback URL
     http://localhost:8000/accounts/instagram/login/callback/
 
+
+Hubspot
+--------
+
+App registration (get your key and secret here)
+    https://developers.hubspot.com/docs/api/creating-an-app
+
+Authentication documentation
+    https://developers.hubspot.com/docs/api/working-with-oauth
+
+Development callback URL
+    https://localhost:8000/accounts/hubspot/login/callback/
 
 Instagram
 ---------
@@ -1074,12 +1095,10 @@ Development callback URL
 The following Keycloak settings are available.
 
 KEYCLOAK_URL:
-    The url of your hosted keycloak server, it must end with ``/auth``. For
-    example, you can use: ``https://your.keycloak.server/auth``
+    The url of your hosted keycloak server. For example, you can use: ``https://your.keycloak.server``
 
 KEYCLOAK_URL_ALT:
-    An alternate url of your hosted keycloak server, it must end with ``/auth``. For
-    example, you can use: ``https://your.keycloak.server/auth``
+    An alternate url of your hosted keycloak server. For example, you can use: ``https://your.keycloak.server``
 
     This can be used when working with Docker on localhost, with a frontend and a backend hosted in different containers.
 
@@ -1397,6 +1416,7 @@ Okta
     SOCIALACCOUNT_PROVIDERS = {
         'okta': {
             'OKTA_BASE_URL': 'example.okta.com',
+            'OAUTH_PKCE_ENABLED': True,
         }
     }
 
@@ -1617,6 +1637,12 @@ SCOPE:
     For a full list of scope options, see
     https://developers.pinterest.com/docs/api/overview/#scopes
 
+Pocket
+-------------
+
+App registration (get your consumer key here)
+    https://getpocket.com/developer/apps/
+
 QuickBooks
 ----------
 
@@ -1794,6 +1820,19 @@ Development callback URL
 
 API documentation
     https://api.slack.com/docs/sign-in-with-slack
+    
+
+Snapchat
+-----
+
+App registration (get your key and secret here)
+    https://kit.snapchat.com/manage/
+
+Development callback URL
+    http://example.com/accounts/snap/login/callback/
+
+API documentation
+    https://docs.snap.com/docs/snap-kit/login-kit/overview
 
 
 SoundCloud

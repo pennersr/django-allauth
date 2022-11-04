@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-03 13:53-0600\n"
+"POT-Creation-Date: 2022-06-07 04:23-0500\n"
 "PO-Revision-Date: 2018-08-29 08:16+0200\n"
 "Last-Translator: Eneko Illarramendi <eneko@illarra.com>\n"
 "Language-Team: Basque <translate@tropela.eus>\n"
@@ -41,11 +41,11 @@ msgstr "Pasahitzak gutxienez {0} karaktere izan behar ditu."
 msgid "Accounts"
 msgstr "Kontuak"
 
-#: account/forms.py:59 account/forms.py:415
+#: account/forms.py:59 account/forms.py:416
 msgid "You must type the same password each time."
 msgstr "Pasahitz berdina idatzi behar duzu aldi bakoitzean."
 
-#: account/forms.py:92 account/forms.py:381 account/forms.py:500
+#: account/forms.py:92 account/forms.py:381 account/forms.py:501
 msgid "Password"
 msgstr "Pasahitza"
 
@@ -65,13 +65,13 @@ msgstr "Sartutako helbide elektronikoa eta/edo pasahitza ez dira zuzenak."
 msgid "The username and/or password you specified are not correct."
 msgstr "Sartutako erabiltzailea eta/edo pasahitza ez dira zuzenak."
 
-#: account/forms.py:113 account/forms.py:279 account/forms.py:441
-#: account/forms.py:519
+#: account/forms.py:113 account/forms.py:279 account/forms.py:442
+#: account/forms.py:520
 msgid "E-mail address"
 msgstr "Helbide elektronikoa"
 
-#: account/forms.py:117 account/forms.py:316 account/forms.py:438
-#: account/forms.py:514
+#: account/forms.py:117 account/forms.py:316 account/forms.py:439
+#: account/forms.py:515
 msgid "E-mail"
 msgstr "Emaila"
 
@@ -105,44 +105,44 @@ msgstr "Emaila (hautazkoa)"
 msgid "You must type the same email each time."
 msgstr "Email berdina idatzi behar duzu aldi bakoitzean."
 
-#: account/forms.py:385 account/forms.py:501
+#: account/forms.py:385 account/forms.py:502
 msgid "Password (again)"
 msgstr "Pasahitza (berriro)"
 
-#: account/forms.py:450
+#: account/forms.py:451
 msgid "This e-mail address is already associated with this account."
 msgstr "Helbide elektroniko hau dagoeneko kontu honi lotuta dago."
 
-#: account/forms.py:453
+#: account/forms.py:454
 msgid "This e-mail address is already associated with another account."
 msgstr "Helbide elektroniko hau dagoeneko beste kontu bati lotuta dago."
 
-#: account/forms.py:455
+#: account/forms.py:456
 #, python-format
 msgid "You cannot add more than %d e-mail addresses."
 msgstr "Ezin dituzu %d email helbide baino gehiago erabili."
 
-#: account/forms.py:480
+#: account/forms.py:481
 msgid "Current Password"
 msgstr "Oraingo pasahitza"
 
-#: account/forms.py:482 account/forms.py:587
+#: account/forms.py:483 account/forms.py:588
 msgid "New Password"
 msgstr "Pasahitz berria"
 
-#: account/forms.py:483 account/forms.py:588
+#: account/forms.py:484 account/forms.py:589
 msgid "New Password (again)"
 msgstr "Pasahitz berria (berriro)"
 
-#: account/forms.py:491
+#: account/forms.py:492
 msgid "Please type your current password."
 msgstr "Mesedez idatzi zure oraingo pasahitza."
 
-#: account/forms.py:531
+#: account/forms.py:532
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Helbide elektroniko hau ez dago kontu bati lotuta"
 
-#: account/forms.py:609
+#: account/forms.py:610
 msgid "The password reset token was invalid."
 msgstr "Pasahitza berrezartzeko \"token\"-a baliogabea da."
 
@@ -178,7 +178,7 @@ msgstr "sortuta"
 msgid "sent"
 msgstr "bidalita"
 
-#: account/models.py:85 socialaccount/models.py:60
+#: account/models.py:85 socialaccount/models.py:59
 msgid "key"
 msgstr "giltza"
 
@@ -211,91 +211,91 @@ msgstr "Zure kontuak ez du egiaztatutako emailik."
 msgid "Social Accounts"
 msgstr "Sare sozial kontuak"
 
-#: socialaccount/models.py:43 socialaccount/models.py:87
+#: socialaccount/models.py:42 socialaccount/models.py:86
 msgid "provider"
 msgstr "zerbitzua"
 
-#: socialaccount/models.py:47
+#: socialaccount/models.py:46
 msgid "name"
 msgstr "izena"
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:48
 msgid "client id"
 msgstr "client id"
 
-#: socialaccount/models.py:51
+#: socialaccount/models.py:50
 msgid "App ID, or consumer key"
 msgstr "Aplikazioaren ID-a, edo \"consumer key\"-a"
 
-#: socialaccount/models.py:54
+#: socialaccount/models.py:53
 msgid "secret key"
 msgstr "\"secret key\"-a"
 
-#: socialaccount/models.py:57
+#: socialaccount/models.py:56
 msgid "API secret, client secret, or consumer secret"
 msgstr "\"API secret\"-a, \"client secret\"-a edo \"consumer secret\"-a"
 
-#: socialaccount/models.py:60
+#: socialaccount/models.py:59
 msgid "Key"
 msgstr "Giltza"
 
-#: socialaccount/models.py:77
+#: socialaccount/models.py:76
 msgid "social application"
 msgstr "aplikazio soziala"
 
-#: socialaccount/models.py:78
+#: socialaccount/models.py:77
 msgid "social applications"
 msgstr "aplikazio sozialak"
 
-#: socialaccount/models.py:108
+#: socialaccount/models.py:107
 msgid "uid"
 msgstr "uid"
 
-#: socialaccount/models.py:110
+#: socialaccount/models.py:109
 msgid "last login"
 msgstr "azken logina"
 
-#: socialaccount/models.py:111
+#: socialaccount/models.py:110
 msgid "date joined"
 msgstr "erregistro eguna"
 
-#: socialaccount/models.py:112
+#: socialaccount/models.py:111
 msgid "extra data"
 msgstr "datu gehigarriak"
 
-#: socialaccount/models.py:116
+#: socialaccount/models.py:115
 msgid "social account"
 msgstr "sare sozial kontua"
 
-#: socialaccount/models.py:117
+#: socialaccount/models.py:116
 msgid "social accounts"
 msgstr "sare sozial kontuak"
 
-#: socialaccount/models.py:142
+#: socialaccount/models.py:143
 msgid "token"
 msgstr "\"token\"-a"
 
-#: socialaccount/models.py:143
+#: socialaccount/models.py:144
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\"-a (OAuth1) edo \"access token\"-a (OAuth2)"
 
-#: socialaccount/models.py:147
+#: socialaccount/models.py:148
 msgid "token secret"
 msgstr "\"token secret\"-a"
 
-#: socialaccount/models.py:148
+#: socialaccount/models.py:149
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\"-a (OAuth1) edo \"refresh token\"-a (OAuth2)"
 
-#: socialaccount/models.py:151
+#: socialaccount/models.py:152
 msgid "expires at"
 msgstr "iraungitze data"
 
-#: socialaccount/models.py:156
+#: socialaccount/models.py:157
 msgid "social application token"
 msgstr "aplikazio sozial \"token\"-a"
 
-#: socialaccount/models.py:157
+#: socialaccount/models.py:158
 msgid "social application tokens"
 msgstr "aplikazio sozial \"token\"-ak"
 
@@ -304,11 +304,13 @@ msgid "Invalid profile data"
 msgstr "Profil datu baliogabeak"
 
 #: socialaccount/providers/oauth/client.py:85
+#: socialaccount/providers/pocket/client.py:37
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "Erantzun baliogabea \"%s\"-tik \"request token\"-a eskuratzean."
 
 #: socialaccount/providers/oauth/client.py:117
+#: socialaccount/providers/pocket/client.py:78
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Erantzun baliogabea \"%s\"-tik \"access token\"-a eskuratzean."
@@ -497,7 +499,7 @@ msgstr ""
 "href=\"%(email_url)s\">egiaztapen email berri bat</a>."
 
 #: templates/account/login.html:6 templates/account/login.html:10
-#: templates/account/login.html:43
+#: templates/account/login.html:43 templates/socialaccount/login.html:4
 msgid "Sign In"
 msgstr "Saioa hasi"
 
@@ -794,27 +796,27 @@ msgstr "Oraingoz ez duzu sare sozial konturik lotu kontu honekin."
 msgid "Add a 3rd Party Account"
 msgstr "Sare sozial kontu bat gehitu"
 
-#: templates/socialaccount/login.html:6
+#: templates/socialaccount/login.html:8
 #, python-format
 msgid "Connect %(provider)s"
 msgstr ""
 
-#: templates/socialaccount/login.html:8
+#: templates/socialaccount/login.html:10
 #, python-format
 msgid "You are about to connect a new third party account from %(provider)s."
 msgstr ""
 
-#: templates/socialaccount/login.html:10
+#: templates/socialaccount/login.html:12
 #, python-format
 msgid "Sign In Via %(provider)s"
 msgstr ""
 
-#: templates/socialaccount/login.html:12
+#: templates/socialaccount/login.html:14
 #, python-format
 msgid "You are about to sign in using a third party account from %(provider)s."
 msgstr ""
 
-#: templates/socialaccount/login.html:17
+#: templates/socialaccount/login.html:19
 msgid "Continue"
 msgstr ""
 

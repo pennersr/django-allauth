@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-03 13:53-0600\n"
+"POT-Creation-Date: 2022-06-07 04:23-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,11 +40,11 @@ msgstr "Паролата трябва да бъде поне {0} символа.
 msgid "Accounts"
 msgstr "Акаунти"
 
-#: account/forms.py:59 account/forms.py:415
+#: account/forms.py:59 account/forms.py:416
 msgid "You must type the same password each time."
 msgstr "Трябва да въведете една и съща парола."
 
-#: account/forms.py:92 account/forms.py:381 account/forms.py:500
+#: account/forms.py:92 account/forms.py:381 account/forms.py:501
 msgid "Password"
 msgstr "Парола"
 
@@ -64,13 +64,13 @@ msgstr "E-mail адресът и/или паролата, които въвед�
 msgid "The username and/or password you specified are not correct."
 msgstr "Потребителското име и/или паролата, които въведохте, са грешни."
 
-#: account/forms.py:113 account/forms.py:279 account/forms.py:441
-#: account/forms.py:519
+#: account/forms.py:113 account/forms.py:279 account/forms.py:442
+#: account/forms.py:520
 msgid "E-mail address"
 msgstr "E-mail адрес"
 
-#: account/forms.py:117 account/forms.py:316 account/forms.py:438
-#: account/forms.py:514
+#: account/forms.py:117 account/forms.py:316 account/forms.py:439
+#: account/forms.py:515
 msgid "E-mail"
 msgstr "E-mail"
 
@@ -104,44 +104,44 @@ msgstr "E-mail (опционален)"
 msgid "You must type the same email each time."
 msgstr "Трябва да въведете един и същ email."
 
-#: account/forms.py:385 account/forms.py:501
+#: account/forms.py:385 account/forms.py:502
 msgid "Password (again)"
 msgstr "Парола (отново)"
 
-#: account/forms.py:450
+#: account/forms.py:451
 msgid "This e-mail address is already associated with this account."
 msgstr "Този e-mail адрес вече е свързан с този акаунт."
 
-#: account/forms.py:453
+#: account/forms.py:454
 msgid "This e-mail address is already associated with another account."
 msgstr "Този e-mail адрес вече е свързан с друг акаунт."
 
-#: account/forms.py:455
+#: account/forms.py:456
 #, python-format
 msgid "You cannot add more than %d e-mail addresses."
 msgstr "Не можете да добавяте повече от %d e-mail адреса."
 
-#: account/forms.py:480
+#: account/forms.py:481
 msgid "Current Password"
 msgstr "Текуща парола"
 
-#: account/forms.py:482 account/forms.py:587
+#: account/forms.py:483 account/forms.py:588
 msgid "New Password"
 msgstr "Нова парола"
 
-#: account/forms.py:483 account/forms.py:588
+#: account/forms.py:484 account/forms.py:589
 msgid "New Password (again)"
 msgstr "Нова парола (отново)"
 
-#: account/forms.py:491
+#: account/forms.py:492
 msgid "Please type your current password."
 msgstr "Моля, въведете вашата текуща парола."
 
-#: account/forms.py:531
+#: account/forms.py:532
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Няма потребител с този e-mail адрес."
 
-#: account/forms.py:609
+#: account/forms.py:610
 msgid "The password reset token was invalid."
 msgstr "Невалиден код за възстановяване на парола."
 
@@ -177,7 +177,7 @@ msgstr "създадено"
 msgid "sent"
 msgstr "изпратено"
 
-#: account/models.py:85 socialaccount/models.py:60
+#: account/models.py:85 socialaccount/models.py:59
 msgid "key"
 msgstr "ключ"
 
@@ -210,91 +210,91 @@ msgstr "Вашият акаунт няма потвърден e-mail адрес.
 msgid "Social Accounts"
 msgstr "Социални акаунти"
 
-#: socialaccount/models.py:43 socialaccount/models.py:87
+#: socialaccount/models.py:42 socialaccount/models.py:86
 msgid "provider"
 msgstr "доставчик"
 
-#: socialaccount/models.py:47
+#: socialaccount/models.py:46
 msgid "name"
 msgstr "име"
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:48
 msgid "client id"
 msgstr "id на клиент"
 
-#: socialaccount/models.py:51
+#: socialaccount/models.py:50
 msgid "App ID, or consumer key"
 msgstr "ID на приложение, или ключ на консуматор"
 
-#: socialaccount/models.py:54
+#: socialaccount/models.py:53
 msgid "secret key"
 msgstr "таен ключ"
 
-#: socialaccount/models.py:57
+#: socialaccount/models.py:56
 msgid "API secret, client secret, or consumer secret"
 msgstr "таен ключ на API, клиент или консуматор"
 
-#: socialaccount/models.py:60
+#: socialaccount/models.py:59
 msgid "Key"
 msgstr "Ключ"
 
-#: socialaccount/models.py:77
+#: socialaccount/models.py:76
 msgid "social application"
 msgstr "социално приложение"
 
-#: socialaccount/models.py:78
+#: socialaccount/models.py:77
 msgid "social applications"
 msgstr "социални приложения"
 
-#: socialaccount/models.py:108
+#: socialaccount/models.py:107
 msgid "uid"
 msgstr "uid"
 
-#: socialaccount/models.py:110
+#: socialaccount/models.py:109
 msgid "last login"
 msgstr "последно влизане"
 
-#: socialaccount/models.py:111
+#: socialaccount/models.py:110
 msgid "date joined"
 msgstr "дата на регистрация"
 
-#: socialaccount/models.py:112
+#: socialaccount/models.py:111
 msgid "extra data"
 msgstr "допълнителни данни"
 
-#: socialaccount/models.py:116
+#: socialaccount/models.py:115
 msgid "social account"
 msgstr "социален акаунт"
 
-#: socialaccount/models.py:117
+#: socialaccount/models.py:116
 msgid "social accounts"
 msgstr "социални акаунти"
 
-#: socialaccount/models.py:142
+#: socialaccount/models.py:143
 msgid "token"
 msgstr "код"
 
-#: socialaccount/models.py:143
+#: socialaccount/models.py:144
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) или access token (OAuth2)"
 
-#: socialaccount/models.py:147
+#: socialaccount/models.py:148
 msgid "token secret"
 msgstr "таен код"
 
-#: socialaccount/models.py:148
+#: socialaccount/models.py:149
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) или refresh token (OAuth2)"
 
-#: socialaccount/models.py:151
+#: socialaccount/models.py:152
 msgid "expires at"
 msgstr "изтича"
 
-#: socialaccount/models.py:156
+#: socialaccount/models.py:157
 msgid "social application token"
 msgstr "код на социално приложение"
 
-#: socialaccount/models.py:157
+#: socialaccount/models.py:158
 msgid "social application tokens"
 msgstr "кодове на социални приложения"
 
@@ -303,11 +303,13 @@ msgid "Invalid profile data"
 msgstr "Невалидни профилни данни"
 
 #: socialaccount/providers/oauth/client.py:85
+#: socialaccount/providers/pocket/client.py:37
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "Грешен отговор при получаване на код за заявка от \"%s\"."
 
 #: socialaccount/providers/oauth/client.py:117
+#: socialaccount/providers/pocket/client.py:78
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Грешен отговор при получаване на код за достъп от \"%s\"."
@@ -415,8 +417,8 @@ msgid ""
 "\n"
 "To confirm this is correct, go to %(activate_url)s"
 msgstr ""
-"Получавате този e-mail, защото потребител %(user_display)s е дал вашия e-mail "
-"адрес за да регистрира акаунт в %(site_domain)s.\n"
+"Получавате този e-mail, защото потребител %(user_display)s е дал вашия e-"
+"mail адрес за да регистрира акаунт в %(site_domain)s.\n"
 "\n"
 "За да потвърдите, че това е вярно, посетете %(activate_url)s"
 
@@ -460,9 +462,11 @@ msgid ""
 msgstr ""
 "Получавате този e-mail, защото вие или някой друг е поискал парола за вашия "
 "потребителски акаунт.\n"
-"На сървъра обаче не беше намерен потребител свързван с електронния адрес %(email)s.\n"
-"\nМожете да пренебрегнете това писмо, ако не сте поискали възстановяване на парола. "
-"Кликнете линка по-долу, за да направите нов акаунт."
+"На сървъра обаче не беше намерен потребител свързван с електронния адрес "
+"%(email)s.\n"
+"\n"
+"Можете да пренебрегнете това писмо, ако не сте поискали възстановяване на "
+"парола. Кликнете линка по-долу, за да направите нов акаунт."
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
@@ -492,7 +496,7 @@ msgstr ""
 "\"%(email_url)s\">подайте нова заявка за потвърждение на e-mail</a>."
 
 #: templates/account/login.html:6 templates/account/login.html:10
-#: templates/account/login.html:43
+#: templates/account/login.html:43 templates/socialaccount/login.html:4
 msgid "Sign In"
 msgstr "Вход"
 
@@ -620,8 +624,8 @@ msgid ""
 "We have sent you an e-mail. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
 msgstr ""
-"Изпратихме ви електронно писмо. То може да пристигнало в папката Спам. "
-"Моля, свържете се с нас, ако не го получите до няколко минути."
+"Изпратихме ви електронно писмо. То може да пристигнало в папката Спам. Моля, "
+"свържете се с нас, ако не го получите до няколко минути."
 
 #: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -721,8 +725,8 @@ msgid ""
 "contact us if you do not receive it within a few minutes."
 msgstr ""
 "Изпратихме ви e-mail за потвърждение. То може да е попаднало в папката Спам. "
-"Моля, кликнете линка в него. "
-"Свържете се с нас, ако не го получите до няколко минути."
+"Моля, кликнете линка в него. Свържете се с нас, ако не го получите до "
+"няколко минути."
 
 #: templates/account/verified_email_required.html:20
 #, python-format
@@ -768,27 +772,27 @@ msgstr "В момента нямате акаунти от социални мр
 msgid "Add a 3rd Party Account"
 msgstr "Добавяне на външен акаунт"
 
-#: templates/socialaccount/login.html:6
+#: templates/socialaccount/login.html:8
 #, python-format
 msgid "Connect %(provider)s"
 msgstr ""
 
-#: templates/socialaccount/login.html:8
+#: templates/socialaccount/login.html:10
 #, python-format
 msgid "You are about to connect a new third party account from %(provider)s."
 msgstr ""
 
-#: templates/socialaccount/login.html:10
+#: templates/socialaccount/login.html:12
 #, python-format
 msgid "Sign In Via %(provider)s"
 msgstr ""
 
-#: templates/socialaccount/login.html:12
+#: templates/socialaccount/login.html:14
 #, python-format
 msgid "You are about to sign in using a third party account from %(provider)s."
 msgstr ""
 
-#: templates/socialaccount/login.html:17
+#: templates/socialaccount/login.html:19
 msgid "Continue"
 msgstr ""
 

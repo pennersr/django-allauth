@@ -58,7 +58,7 @@ class mocked_response:
                     return self.responses.pop(0)
                 return f(*args, **kwargs)
 
-            return new_f
+            return Mock(side_effect=new_f)
 
         requests.get = mockable_request(requests.get)
         requests.post = mockable_request(requests.post)

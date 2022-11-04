@@ -57,6 +57,7 @@ class MicrosoftGraphOAuth2Adapter(OAuth2Adapter):
         "surname",
         "userPrincipalName",
         "mailNickname",
+        "companyName",
     )
     profile_url_params = {"$select": ",".join(user_properties)}
 

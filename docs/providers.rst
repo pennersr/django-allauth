@@ -188,6 +188,7 @@ You'll need to specify the base URL for your Auth0 domain:
     SOCIALACCOUNT_PROVIDERS = {
         'auth0': {
             'AUTH0_URL': 'https://your.auth0domain.auth0.com',
+            'OAUTH_PKCE_ENABLED': True,
         }
     }
 
@@ -1006,7 +1007,8 @@ Optionally, you can specify the scope to use as follows:
             ],
             'AUTH_PARAMS': {
                 'access_type': 'online',
-            }
+            },
+            'OAUTH_PKCE_ENABLED': True,
         }
     }
 
@@ -1414,6 +1416,7 @@ Okta
     SOCIALACCOUNT_PROVIDERS = {
         'okta': {
             'OKTA_BASE_URL': 'example.okta.com',
+            'OAUTH_PKCE_ENABLED': True,
         }
     }
 

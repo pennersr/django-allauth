@@ -122,7 +122,10 @@ class AppleOAuth2Adapter(OAuth2Adapter):
 
         # Exchange `code`
         code = get_request_param(request, "code")
-        access_token_data = client.get_access_token(code)
+        pkce_code_verifier = request.session.pop("pkce_code_verifier", None)
+        access_token_data = client.get_access_token(
+            code, pkce_code_verifier=pkce_code_verifier
+        )
 
         return {
             **access_token_data,

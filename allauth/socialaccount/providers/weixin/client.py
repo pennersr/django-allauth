@@ -25,7 +25,7 @@ class WeixinOAuth2Client(OAuth2Client):
             sorted_params[param] = params[param]
         return "%s?%s" % (authorization_url, urlencode(sorted_params))
 
-    def get_access_token(self, code):
+    def get_access_token(self, code, pkce_code_verifier=None):
         data = {
             "appid": self.consumer_key,
             "redirect_uri": self.callback_url,
@@ -40,6 +40,8 @@ class WeixinOAuth2Client(OAuth2Client):
         if self.access_token_method == "GET":
             params = data
             data = None
+        if data and pkce_code_verifier:
+            data["code_verifier"] = pkce_code_verifier
         # TODO: Proper exception handling
         resp = requests.request(self.access_token_method, url, params=params, data=data)
         access_token = None

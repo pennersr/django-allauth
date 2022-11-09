@@ -151,7 +151,7 @@ def apple_post_callback(request, finish_endpoint_name="apple_finish_callback"):
             callback endpoint.
     """
     if request.method != "POST":
-        raise HttpResponseNotAllowed(["POST"])
+        return HttpResponseNotAllowed(["POST"])
     add_apple_session(request)
 
     # Add regular OAuth2 params to the URL - reduces the overrides required

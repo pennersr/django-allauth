@@ -373,10 +373,10 @@ https://developers.digitalocean.com/documentation/oauth/#scopes for details.
     }
 
 
-Dingtalk
+DingTalk
 ------
 
-The Dingtalk OAuth2 documentation:
+The DingTalk OAuth2 documentation:
 
     https://open.dingtalk.com/document/orgapp-server/obtain-identity-credentials
 

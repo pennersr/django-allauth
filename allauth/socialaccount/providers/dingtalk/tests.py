@@ -1,11 +1,11 @@
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase
 
-from .provider import DingtalkProvider
+from .provider import DingTalkProvider
 
 
-class DingtalkTests(OAuth2TestsMixin, TestCase):
-    provider_id = DingtalkProvider.id
+class DingTalkTests(OAuth2TestsMixin, TestCase):
+    provider_id = DingTalkProvider.id
 
     def get_mocked_response(self):
         return MockedResponse(

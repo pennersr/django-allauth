@@ -2,20 +2,20 @@ from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
-class DingtalkAccount(ProviderAccount):
+class DingTalkAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("avatarUrl")
 
     def to_str(self):
         return self.account.extra_data.get(
-            "nick", super(DingtalkAccount, self).to_str()
+            "nick", super(DingTalkAccount, self).to_str()
         )
 
 
-class DingtalkProvider(OAuth2Provider):
+class DingTalkProvider(OAuth2Provider):
     id = "dingtalk"
-    name = "Dingtalk"
-    account_class = DingtalkAccount
+    name = "DingTalk"
+    account_class = DingTalkAccount
 
     def extract_uid(self, data):
         return data["openId"]
@@ -27,4 +27,4 @@ class DingtalkProvider(OAuth2Provider):
         return dict(username=data.get("nick"), name=data.get("nick"))
 
 
-provider_classes = [DingtalkProvider]
+provider_classes = [DingTalkProvider]

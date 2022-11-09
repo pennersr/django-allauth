@@ -6,7 +6,7 @@ from allauth.socialaccount.providers.oauth2.client import (
 )
 
 
-class DingtalkOAuth2Client(OAuth2Client):
+class DingTalkOAuth2Client(OAuth2Client):
     def get_access_token(self, code):
         data = {
             "clientId": self.consumer_key,

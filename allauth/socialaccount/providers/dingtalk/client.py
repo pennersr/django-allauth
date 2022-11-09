@@ -21,9 +21,8 @@ class DingTalkOAuth2Client(OAuth2Client):
             params = data
             data = None
         resp = requests.request(self.access_token_method, url, params=params, json=data)
-        access_token = None
-        if resp.status_code == 200:
-            access_token = resp.json()
+        resp.raise_for_status()
+        access_token = resp.json()
         if not access_token or "accessToken" not in access_token:
             raise OAuth2Error("Error retrieving access token: %s" % resp.content)
 

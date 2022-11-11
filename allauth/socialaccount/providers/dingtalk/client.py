@@ -7,7 +7,7 @@ from allauth.socialaccount.providers.oauth2.client import (
 
 
 class DingTalkOAuth2Client(OAuth2Client):
-    def get_access_token(self, code):
+    def get_access_token(self, code, pkce_code_verifier=None):
         data = {
             "clientId": self.consumer_key,
             "clientSecret": self.consumer_secret,
@@ -15,6 +15,8 @@ class DingTalkOAuth2Client(OAuth2Client):
             "grantType": "authorization_code",
         }
         params = None
+        if pkce_code_verifier:
+            data["code_verifier"] = pkce_code_verifier
         self._strip_empty_keys(data)
         url = self.access_token_url
         if self.access_token_method == "GET":

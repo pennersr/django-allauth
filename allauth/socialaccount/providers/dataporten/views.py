@@ -29,7 +29,7 @@ class DataportenAdapter(OAuth2Adapter):
             by the methods of the DataportenProvider view, i.e.
             extract_uid(), extract_extra_data(), and extract_common_fields()
         """
-        # The athentication header
+        # The authentication header
         headers = {"Authorization": "Bearer " + token.token}
 
         # Userinfo endpoint, for documentation see:

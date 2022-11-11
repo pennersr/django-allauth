@@ -150,7 +150,7 @@ class DefaultSocialAccountAdapter(object):
                         # Oops, another user already has this address.
                         # We cannot simply connect this social account
                         # to the existing user. Reason is that the
-                        # email adress may not be verified, meaning,
+                        # email address may not be verified, meaning,
                         # the user may be a hacker that has added your
                         # email address to their account in the hope
                         # that you fall in their trap.  We cannot

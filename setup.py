@@ -143,7 +143,7 @@ METADATA = dict(
     ],
     include_package_data=True,
     classifiers=[
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Environment :: Web Environment",
@@ -166,6 +166,7 @@ METADATA = dict(
         "Framework :: Django :: 3.1",
         "Framework :: Django :: 3.2",
         "Framework :: Django :: 4.0",
+        "Framework :: Django :: 4.1",
     ],
     packages=find_packages(exclude=["example"]),
     package_data=package_data,

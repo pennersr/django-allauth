@@ -139,7 +139,7 @@ msgstr "Nueva contraseña (de nuevo)"
 
 #: account/forms.py:492
 msgid "Please type your current password."
-msgstr "Por favor, escribe tu contraseña actual."
+msgstr "Por favor, escriba su contraseña actual."
 
 #: account/forms.py:532
 msgid "The e-mail address is not assigned to any user account"
@@ -404,12 +404,8 @@ msgstr ""
 "seleccionada?"
 
 #: templates/account/email/base_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "Thank you from %(site_name)s!\n"
-#| "%(site_domain)s"
 msgid "Hello from %(site_name)s!"
-msgstr "¡Hola desde %(site_name)s!"
+msgstr "¡Hola de parte de %(site_name)s!"
 
 #: templates/account/email/base_message.txt:5
 #, python-format
@@ -421,22 +417,15 @@ msgstr ""
 "%(site_domain)s"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because user %(user_display)s has given "
-#| "yours as an e-mail address to connect their account.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s\n"
+#, python-format
 msgid ""
 "You're receiving this e-mail because user %(user_display)s has given your e-"
 "mail address to register an account on %(site_domain)s.\n"
 "\n"
 "To confirm this is correct, go to %(activate_url)s"
 msgstr ""
-"Recibe este mensaje porque el usuario %(user_display)s ha proporcionado "
-"sudirección para registrar una cuenta en %(site_domain)s.\n"
+"Ha recibido este correo electrónico porque el usuario %(user_display)s ha proporcionado "
+"su dirección para registrar una cuenta en %(site_domain)s.\n"
 "\n"
 "Para confirmar que esto es correcto, siga este enlace %(activate_url)s"
 
@@ -445,14 +434,6 @@ msgid "Please Confirm Your E-mail Address"
 msgstr "Por favor, confirme su dirección de correo electrónico"
 
 #: templates/account/email/password_reset_key_message.txt:4
-#, fuzzy
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
 msgid ""
 "You're receiving this e-mail because you or someone else has requested a "
 "password for your user account.\n"
@@ -475,14 +456,7 @@ msgid "Password Reset E-mail"
 msgstr "Correo electrónico para restablecer contraseña"
 
 #: templates/account/email/unknown_account_message.txt:4
-#, fuzzy, python-format
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
+#, python-format
 msgid ""
 "You are receiving this e-mail because you or someone else has requested a\n"
 "password for your user account. However, we do not have any record of a "
@@ -587,7 +561,7 @@ msgstr "Ha confirmado %(email)s."
 #: templates/account/messages/email_deleted.txt:2
 #, python-format
 msgid "Removed e-mail address %(email)s."
-msgstr "Eliminado correo electrónico %(email)s."
+msgstr "Correo electrónico %(email)s eliminado."
 
 #: templates/account/messages/logged_in.txt:4
 #, python-format
@@ -650,17 +624,13 @@ msgstr ""
 "contáctenos."
 
 #: templates/account/password_reset_done.html:15
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent you an e-mail. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
 msgstr ""
-"Le hemos enviado un correo electrónico para su verificación. Por favor, siga "
-"el enlace de ese correo. Contáctenos si no lo recibe en unos minutos."
+"Le hemos enviado un correo electrónico. Si no lo ha recibido, por favor revise su "
+"carpeta de correo no deseado. En caso contrario, póngase en contacto con nosotros "
+"si no lo recibe en unos minutos."
 
 #: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -692,12 +662,12 @@ msgstr "Establecer contraseña"
 
 #: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
-msgstr "Regístrarse"
+msgstr "Registrarse"
 
 #: templates/account/signup.html:8 templates/account/signup.html:18
 #: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
 msgid "Sign Up"
-msgstr "Regístrarse"
+msgstr "Registrarse"
 
 #: templates/account/signup.html:10
 #, python-format
@@ -732,11 +702,6 @@ msgid "Verify Your E-mail Address"
 msgstr "Verifique su dirección de correo electrónico"
 
 #: templates/account/verification_sent.html:10
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for verification. Follow the link provided "
-#| "to finalize the signup process. Please contact us if you do not receive "
-#| "it within a few minutes."
 msgid ""
 "We have sent an e-mail to you for verification. Follow the link provided to "
 "finalize the signup process. If you do not see the verification e-mail in "
@@ -744,8 +709,8 @@ msgid ""
 "receive the verification e-mail within a few minutes."
 msgstr ""
 "Le hemos enviado un correo electrónico para su verificación. Siga el enlace "
-"para completar el proceso de registro. Por favor contáctenos si no lo recibe "
-"en unos minutos."
+"para completar el proceso de registro. Por favor contacte con nosotros si "
+"no lo recibe en unos minutos."
 
 #: templates/account/verified_email_required.html:12
 msgid ""
@@ -758,11 +723,6 @@ msgstr ""
 "electrónico. "
 
 #: templates/account/verified_email_required.html:16
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent an e-mail to you for\n"
 "verification. Please click on the link inside that e-mail. If you do not see "
@@ -771,7 +731,7 @@ msgid ""
 "contact us if you do not receive it within a few minutes."
 msgstr ""
 "Le hemos enviado un correo electrónico para su verificación. Por favor, siga "
-"el enlace de ese correo. Contáctenos si no lo recibe en unos minutos."
+"el enlace de ese correo. Contacte con nosotros si no lo recibe en unos minutos."
 
 #: templates/account/verified_email_required.html:20
 #, python-format
@@ -822,26 +782,26 @@ msgstr "Agregar una cuenta de una red social externa"
 #: templates/socialaccount/login.html:8
 #, python-format
 msgid "Connect %(provider)s"
-msgstr ""
+msgstr "Conectar %(provider)s"
 
 #: templates/socialaccount/login.html:10
 #, python-format
 msgid "You are about to connect a new third party account from %(provider)s."
-msgstr ""
+msgstr "Está a punto de conectar una nueva cuenta externa desde %(provider)s"
 
 #: templates/socialaccount/login.html:12
 #, python-format
 msgid "Sign In Via %(provider)s"
-msgstr ""
+msgstr "Inicie sesión mediante %(provider)s"
 
 #: templates/socialaccount/login.html:14
 #, python-format
 msgid "You are about to sign in using a third party account from %(provider)s."
-msgstr ""
+msgstr "Está a punto de iniciar sesión usando una cuenta externa desde %(provider)s"
 
 #: templates/socialaccount/login.html:19
 msgid "Continue"
-msgstr ""
+msgstr "Continuar"
 
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9
@@ -856,7 +816,7 @@ msgid ""
 "\">sign in</a>."
 msgstr ""
 "Ha decidido cancelar el inicio de sesión en nuestro sitio usando una de sus "
-"cuentas. Si esto fue un error, <a href=\"%(login_url)s\">inicie sesión</a>."
+"cuentas. Si ha sido un error, por favor acceda a <a href=\"%(login_url)s\">inicie sesión</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."

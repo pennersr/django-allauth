@@ -5,13 +5,24 @@ from django.utils.http import urlencode
 
 from allauth.socialaccount.providers.base import Provider
 
+from .utils import generate_code_challenge
+
 
 class OAuth2Provider(Provider):
+    pkce_enabled_default = False
+
     def get_login_url(self, request, **kwargs):
         url = reverse(self.id + "_login")
         if kwargs:
             url = url + "?" + urlencode(kwargs)
         return url
+
+    def get_pkce_params(self):
+        settings = self.get_settings()
+        if settings.get("OAUTH_PKCE_ENABLED", self.pkce_enabled_default):
+            pkce_code_params = generate_code_challenge()
+            return pkce_code_params
+        return {}
 
     def get_auth_params(self, request, action):
         settings = self.get_settings()

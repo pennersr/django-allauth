@@ -50,7 +50,7 @@ class FeishuOAuth2Client(OAuth2Client):
             raise OAuth2Error("Error retrieving app access token: %s" % resp.content)
         return access_token["app_access_token"]
 
-    def get_access_token(self, code):
+    def get_access_token(self, code, pkce_code_verifier=None):
         data = {
             "grant_type": "authorization_code",
             "code": code,
@@ -62,6 +62,8 @@ class FeishuOAuth2Client(OAuth2Client):
         if self.access_token_method == "GET":
             params = data
             data = None
+        if data and pkce_code_verifier:
+            data["code_verifier"] = pkce_code_verifier
         # TODO: Proper exception handling
         resp = requests.request(
             self.access_token_method,

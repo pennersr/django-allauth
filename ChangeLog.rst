@@ -1,3 +1,15 @@
+0.52.0 (unreleased)
+*******************
+
+Note worthy changes
+-------------------
+
+- Officially support Django 4.1.
+
+- Introduced a new provider setting ``OAUTH_PKCE_ENABLED`` that enables the
+  PKCE-enhanced Authorization Code Flow for OAuth 2.0 providers.
+
+
 0.51.0 (2022-06-07)
 *******************
 

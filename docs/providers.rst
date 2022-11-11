@@ -188,6 +188,7 @@ You'll need to specify the base URL for your Auth0 domain:
     SOCIALACCOUNT_PROVIDERS = {
         'auth0': {
             'AUTH0_URL': 'https://your.auth0domain.auth0.com',
+            'OAUTH_PKCE_ENABLED': True,
         }
     }
 
@@ -275,7 +276,7 @@ SCOPE:
 REGION:
     Either ``apac``, ``cn``, ``eu``, ``kr``, ``sea``, ``tw`` or ``us``
 
-    Sets the default region to use, can be overriden using query parameters
+    Sets the default region to use, can be overridden using query parameters
     in the URL, for example: ``?region=eu``. Defaults to ``us``.
 
 Bitbucket
@@ -445,7 +446,7 @@ Authentication documentation
 Development callback URL
     https://localhost:8000/accounts/drip/login/callback/
 
-Make sure the registed application is active.
+Make sure the registered application is active.
 
 
 Dropbox
@@ -1029,7 +1030,8 @@ Optionally, you can specify the scope to use as follows:
             ],
             'AUTH_PARAMS': {
                 'access_type': 'online',
-            }
+            },
+            'OAUTH_PKCE_ENABLED': True,
         }
     }
 
@@ -1116,12 +1118,10 @@ Development callback URL
 The following Keycloak settings are available.
 
 KEYCLOAK_URL:
-    The url of your hosted keycloak server, it must end with ``/auth``. For
-    example, you can use: ``https://your.keycloak.server/auth``
+    The url of your hosted keycloak server. For example, you can use: ``https://your.keycloak.server``
 
 KEYCLOAK_URL_ALT:
-    An alternate url of your hosted keycloak server, it must end with ``/auth``. For
-    example, you can use: ``https://your.keycloak.server/auth``
+    An alternate url of your hosted keycloak server. For example, you can use: ``https://your.keycloak.server``
 
     This can be used when working with Docker on localhost, with a frontend and a backend hosted in different containers.
 
@@ -1439,6 +1439,7 @@ Okta
     SOCIALACCOUNT_PROVIDERS = {
         'okta': {
             'OKTA_BASE_URL': 'example.okta.com',
+            'OAUTH_PKCE_ENABLED': True,
         }
     }
 

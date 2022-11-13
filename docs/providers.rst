@@ -632,6 +632,7 @@ The following Facebook settings are available:
             'LOCALE_FUNC': 'path.to.callable',
             'VERIFIED_EMAIL': False,
             'VERSION': 'v13.0',
+            'GRAPH_API_URL': 'https://graph.facebook.com/v13.0',
         }
     }
 

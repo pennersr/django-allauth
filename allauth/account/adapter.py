@@ -334,7 +334,10 @@ class DefaultAccountAdapter(object):
                 ).strip()
                 if escaped_message:
                     message = html.unescape(escaped_message)
-                    messages.add_message(request, level, message, extra_tags=extra_tags)
+                    try:
+                        messages.add_message(request, level, message, extra_tags=extra_tags)
+                    except ValueError:
+                        pass
             except TemplateDoesNotExist:
                 pass
 

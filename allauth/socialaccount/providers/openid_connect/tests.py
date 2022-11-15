@@ -3,10 +3,13 @@ import json
 from unittest import TestSuite
 
 from allauth.socialaccount.providers.openid_connect.provider import (
+    OpenIDConnectProvider,
     provider_classes,
 )
 from allauth.socialaccount.tests import OpenIDConnectTests
 from allauth.tests import Mock, MockedResponse, TestCase, patch
+
+from ... import app_settings
 
 
 class OpenIDConnectTestsBase(OpenIDConnectTests):
@@ -50,6 +53,25 @@ class OpenIDConnectTestsBase(OpenIDConnectTests):
             return MockedResponse(200, json.dumps(self.oidc_info_content))
         elif url.endswith("/userinfo"):
             return MockedResponse(200, json.dumps(self.userinfo_content))
+
+    def test_oidc_base_and_provider_settings_sync(self):
+        # Retrieve settings via this OpenID Connect server's specific provider ID
+        provider_settings = self.provider.get_settings()
+        # Retrieve settings via the base OpenID Connect provider ID
+        oidc_server_settings = app_settings.PROVIDERS[OpenIDConnectProvider.id][
+            "SERVERS"
+        ]
+        # Find the matching entry in the base OpenID Connect provider's servers list
+        matching_servers = list(
+            filter(
+                lambda server_settings: server_settings["id"]
+                == provider_settings["id"],
+                oidc_server_settings,
+            )
+        )
+        # Make sure there's only one matching entry and that it's identical
+        self.assertEqual(len(matching_servers), 1)
+        self.assertDictEqual(matching_servers[0], provider_settings)
 
 
 def _test_class_factory(provider_class):

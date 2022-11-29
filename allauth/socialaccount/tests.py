@@ -21,7 +21,7 @@ import allauth.app_settings
 from ..account import app_settings as account_settings
 from ..account.models import EmailAddress
 from ..account.utils import user_email, user_username
-from ..tests import MockedResponse, TestCase, mocked_response
+from ..tests import Mock, MockedResponse, TestCase, mocked_response, patch
 from ..utils import get_user_model
 from . import app_settings, providers
 from .helpers import complete_social_login
@@ -386,6 +386,46 @@ def create_oauth2_tests(provider):
 
 
 class OpenIDConnectTests(OAuth2TestsMixin):
+    oidc_info_content = {
+        "authorization_endpoint": "/login",
+        "userinfo_endpoint": "/userinfo",
+        "token_endpoint": "/token",
+    }
+    userinfo_content = {
+        "picture": "https://secure.gravatar.com/avatar/123",
+        "email": "ness@some.oidc.server.onett.example",
+        "id": 1138,
+        "sub": 2187,
+        "identities": [],
+        "name": "Ness",
+    }
+    extra_data = {
+        "picture": "https://secure.gravatar.com/avatar/123",
+        "email": "ness@some.oidc.server.onett.example",
+        "id": 2187,
+        "identities": [],
+        "name": "Ness",
+    }
+
+    def setUp(self):
+        super(OpenIDConnectTests, self).setUp()
+        patcher = patch(
+            "allauth.socialaccount.providers.openid_connect.views.requests",
+            get=Mock(side_effect=self._mocked_responses),
+        )
+        self.mock_requests = patcher.start()
+        self.addCleanup(patcher.stop)
+
+    def get_mocked_response(self):
+        # Enable test_login in OAuth2TestsMixin, but this response mock is unused
+        return True
+
+    def _mocked_responses(self, url, *args, **kwargs):
+        if url.endswith("/.well-known/openid-configuration"):
+            return MockedResponse(200, json.dumps(self.oidc_info_content))
+        elif url.endswith("/userinfo"):
+            return MockedResponse(200, json.dumps(self.userinfo_content))
+
     @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=True)
     def test_login_auto_signup(self):
         resp = self.login()

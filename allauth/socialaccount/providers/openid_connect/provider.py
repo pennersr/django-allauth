@@ -26,6 +26,10 @@ class OpenIDConnectProvider(OAuth2Provider):
             url += well_known_uri
         return url
 
+    @property
+    def token_auth_method(self):
+        return app_settings.PROVIDERS.get(self.id, {}).get("token_auth_method")
+
     @classmethod
     def get_slug(cls):
         slug = "oidc"

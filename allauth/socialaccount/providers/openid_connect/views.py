@@ -17,6 +17,15 @@ class OpenIDConnectAdapter(OAuth2Adapter):
         return self._openid_config
 
     @property
+    def basic_auth(self):
+        token_auth_method = self.get_provider().token_auth_method
+        if token_auth_method:
+            return token_auth_method == "client_secret_basic"
+        return "client_secret_basic" in self.openid_config.get(
+            "token_endpoint_auth_methods_supported", []
+        )
+
+    @property
     def access_token_url(self):
         return self.openid_config["token_endpoint"]
 

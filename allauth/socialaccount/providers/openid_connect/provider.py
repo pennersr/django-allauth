@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from allauth.account.models import EmailAddress
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
@@ -40,12 +41,24 @@ class OpenIDConnectProvider(OAuth2Provider):
 
     def extract_common_fields(self, data):
         return dict(
-            email=data.get("email"),
             username=data.get("preferred_username"),
             name=data.get("name"),
             user_id=data.get("user_id"),
             picture=data.get("picture"),
         )
+
+    def extract_email_addresses(self, data):
+        addresses = []
+        email = data.get("email")
+        if email:
+            addresses.append(
+                EmailAddress(
+                    email=email,
+                    verified=data.get("email_verified", False),
+                    primary=True,
+                )
+            )
+        return addresses
 
 
 def _provider_factory(server_settings):

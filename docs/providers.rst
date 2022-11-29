@@ -1499,7 +1499,7 @@ configuration of one or more servers is required:
         'openid-connect': {
             'SERVERS': [
                 dict(
-                    id='my-server',
+                    id="my-server",  # 15 characters or less
                     name="My Login Server",
                     server_url="https://my.server.example.com",
                     APP=dict(
@@ -1508,7 +1508,7 @@ configuration of one or more servers is required:
                     ),
                 ),
                 dict(
-                    id='other-server',
+                    id="other-server",  # 15 characters or less
                     name="Other Login Server",
                     server_url="https://other.server.example.com",
                     APP=dict(

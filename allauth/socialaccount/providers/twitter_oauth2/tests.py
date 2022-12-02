@@ -22,15 +22,3 @@ class TwitterOAuth2Tests(OAuth2TestsMixin, TestCase):
             }
             """,
         )  # noqa
-
-    def test_login(self):
-        account = super(TwitterOAuth2Tests, self).test_login()
-        tw_account = account.get_provider_account()
-        self.assertEqual(tw_account.get_username(), "realllkk520")
-        self.assertEqual(
-            tw_account.get_avatar_url(),
-            "https://pbs.twimg.com/profile_images/1537259565632593920/OoRGPbUg_normal.jpg",
-        )
-        self.assertEqual(
-            tw_account.get_profile_url(), "https://twitter.com/realllkk520"
-        )

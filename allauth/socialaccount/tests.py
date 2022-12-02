@@ -312,7 +312,7 @@ class OAuth2TestsMixin(object):
         q = parse_qs(p.query)
 
         pkce_enabled = app_settings.PROVIDERS.get(self.provider_id, {}).get(
-            "OAUTH_PKCE_ENABLED", False
+            "OAUTH_PKCE_ENABLED", self.provider.pkce_enabled_default
         )
 
         self.assertEqual("code_challenge" in q, pkce_enabled)

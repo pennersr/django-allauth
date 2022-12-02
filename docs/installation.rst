@@ -146,6 +146,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.twentythreeandme',
         'allauth.socialaccount.providers.twitch',
         'allauth.socialaccount.providers.twitter',
+        'allauth.socialaccount.providers.twitter_oauth2',
         'allauth.socialaccount.providers.untappd',
         'allauth.socialaccount.providers.vimeo',
         'allauth.socialaccount.providers.vimeo_oauth2',

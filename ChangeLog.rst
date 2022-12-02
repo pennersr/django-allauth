@@ -9,6 +9,8 @@ Note worthy changes
 - Introduced a new provider setting ``OAUTH_PKCE_ENABLED`` that enables the
   PKCE-enhanced Authorization Code Flow for OAuth 2.0 providers.
 
+- New providers: Twitter (OAuth2).
+
 
 0.51.0 (2022-06-07)
 *******************

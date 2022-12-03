@@ -46,6 +46,9 @@ def _test_class_factory(provider_class):
 
 def load_tests(loader, tests, pattern):
     suite = TestSuite()
+    assert len(
+        provider_classes
+    ), "No OpenID Connect servers are configured in test_settings.py"
     for provider_class in provider_classes:
         suite.addTests(
             loader.loadTestsFromTestCase(_test_class_factory(provider_class))

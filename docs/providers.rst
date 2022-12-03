@@ -1497,7 +1497,7 @@ configuration of one or more servers is required:
 .. code-block:: python
 
     SOCIALACCOUNT_PROVIDERS = {
-        "openid-connect": {
+        "openid_connect": {
             "SERVERS": [
                 {
                     "id": "my-server",  # 15 characters or less

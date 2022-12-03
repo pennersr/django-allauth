@@ -12,7 +12,7 @@ class OpenIDConnectProviderAccount(ProviderAccount):
 
 
 class OpenIDConnectProvider(OAuth2Provider):
-    id = "openid-connect"
+    id = "openid_connect"
     name = "OpenID Connect"
     _server_id = None
     _server_url = None

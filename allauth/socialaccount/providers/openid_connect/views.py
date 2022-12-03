@@ -6,7 +6,7 @@ from allauth.socialaccount.providers.oauth2.views import OAuth2Adapter
 
 class OpenIDConnectAdapter(OAuth2Adapter):
     supports_state = True
-    provider_id = "openid-connect"
+    provider_id = "openid_connect"
 
     @property
     def openid_config(self):

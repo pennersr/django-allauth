@@ -209,7 +209,7 @@ ACCOUNT_RATE_LIMITS = {}
 
 
 SOCIALACCOUNT_PROVIDERS = {
-    "openid-connect": {
+    "openid_connect": {
         "SERVERS": [
             {
                 "id": "unittest-server",

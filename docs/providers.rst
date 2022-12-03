@@ -1530,7 +1530,7 @@ This configuration example will create two independent provider instances,
 ``My Login Server`` and ``Other Login Server``.
 
 The OpenID Connect callback URL for each configured server is at
-``/accounts/oidc/{id}/login/callback/`` where ``{id}`` is the configured
+``/accounts/{id}/login/callback/`` where ``{id}`` is the configured
 server's ``id`` value (``my-server`` or ``other-server`` in the above example).
 
 

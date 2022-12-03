@@ -27,7 +27,11 @@ GRAPH_API_VERSION = (
     .get("facebook", {})
     .get("VERSION", "v13.0")
 )
-GRAPH_API_URL = "https://graph.facebook.com/" + GRAPH_API_VERSION
+GRAPH_API_URL = (
+    getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
+    .get("facebook", {})
+    .get("GRAPH_API_URL", "https://graph.facebook.com/{}".format(GRAPH_API_VERSION))
+)
 
 NONCE_SESSION_KEY = "allauth_facebook_nonce"
 NONCE_LENGTH = 32

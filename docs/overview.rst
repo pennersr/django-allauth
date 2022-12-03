@@ -233,6 +233,8 @@ Supported Providers
 
 - Twitter (OAuth)
 
+- Twitter (OAuth2)
+
 - Untappd (OAuth2)
 
 - Vimeo (OAuth, OAuth2)

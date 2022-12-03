@@ -1497,31 +1497,31 @@ configuration of one or more servers is required:
 .. code-block:: python
 
     SOCIALACCOUNT_PROVIDERS = {
-        'openid-connect': {
-            'SERVERS': [
-                dict(
-                    id="my-server",  # 15 characters or less
-                    name="My Login Server",
-                    server_url="https://my.server.example.com",
+        "openid-connect": {
+            "SERVERS": [
+                {
+                    "id": "my-server",  # 15 characters or less
+                    "name": "My Login Server",
+                    "server_url": "https://my.server.example.com",
                     # Optional token endpoint authentication method.
                     # May be one of "client_secret_basic", "client_secret_post"
                     # If omitted, a method from the the server's
                     # token auth methods list is used
-                    token_auth_method="client_secret_basic",
-                    APP=dict(
-                        client_id="your.service.id",
-                        secret="your.service.secret",
-                    ),
-                ),
-                dict(
-                    id="other-server",  # 15 characters or less
-                    name="Other Login Server",
-                    server_url="https://other.server.example.com",
-                    APP=dict(
-                        client_id="your.other.service.id",
-                        secret="your.other.service.secret",
-                    ),
-                ),
+                    "token_auth_method": "client_secret_basic",
+                    "APP": {
+                        "client_id": "your.service.id",
+                        "secret": "your.service.secret",
+                    },
+                },
+                {
+                    "id": "other-server",  # 15 characters or less
+                    "name": "Other Login Server",
+                    "server_url": "https://other.server.example.com",
+                    "APP": {
+                        "client_id": "your.other.service.id",
+                        "secret": "your.other.service.secret",
+                    },
+                },
             ]
         }
     }

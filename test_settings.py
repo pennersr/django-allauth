@@ -211,16 +211,16 @@ ACCOUNT_RATE_LIMITS = {}
 SOCIALACCOUNT_PROVIDERS = {
     "openid-connect": {
         "SERVERS": [
-            dict(
-                id="unittest-server",
-                name="Unittest Server",
-                server_url="https://unittest.example.com",
-            ),
-            dict(
-                id="other-server",
-                name="Other Example Server",
-                server_url="https://other.example.com",
-            ),
+            {
+                "id": "unittest-server",
+                "name": "Unittest Server",
+                "server_url": "https://unittest.example.com",
+            },
+            {
+                "id": "other-server",
+                "name": "Other Example Server",
+                "server_url": "https://other.example.com",
+            },
         ],
     }
 }

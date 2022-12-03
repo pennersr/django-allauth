@@ -43,7 +43,4 @@ class OpenIDConnectAdapter(OAuth2Adapter):
         )
         response.raise_for_status()
         extra_data = response.json()
-        extra_data["id"] = extra_data["sub"]
-        del extra_data["sub"]
-
         return self.get_provider().sociallogin_from_response(request, extra_data)

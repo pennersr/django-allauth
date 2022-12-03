@@ -41,7 +41,7 @@ class OpenIDConnectProvider(OAuth2Provider):
         return ["openid", "profile", "email"]
 
     def extract_uid(self, data):
-        return str(data["id"])
+        return str(data["sub"])
 
     def extract_common_fields(self, data):
         return dict(

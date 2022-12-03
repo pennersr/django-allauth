@@ -394,7 +394,6 @@ class OpenIDConnectTests(OAuth2TestsMixin):
     userinfo_content = {
         "picture": "https://secure.gravatar.com/avatar/123",
         "email": "ness@some.oidc.server.onett.example",
-        "id": 1138,
         "sub": 2187,
         "identities": [],
         "name": "Ness",
@@ -402,7 +401,7 @@ class OpenIDConnectTests(OAuth2TestsMixin):
     extra_data = {
         "picture": "https://secure.gravatar.com/avatar/123",
         "email": "ness@some.oidc.server.onett.example",
-        "id": 2187,
+        "sub": 2187,
         "identities": [],
         "name": "Ness",
     }

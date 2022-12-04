@@ -26,8 +26,12 @@ class PinterestOAuth2Adapter(OAuth2Adapter):
     access_token_url = "https://{0}/{1}/oauth/token".format(
         provider_base_url, provider_api_version
     )
-    authorize_url = "https://{0}/oauth/".format(provider_base_url)
-    profile_url = "https://{0}/{1}/me".format(provider_base_url, provider_api_version)
+    if provider_api_version == "v5":
+        authorize_url = "https://www.pinterest.com/oauth/"
+        profile_url = "https://api.pinterest.com/v5/user_account"
+    else:
+        authorize_url = "https://{0}/oauth/".format(provider_base_url)
+        profile_url = "https://{0}/{1}/me".format(provider_base_url, provider_api_version)
 
     def complete_login(self, request, app, token, **kwargs):
         response = requests.get(self.profile_url, params={"access_token": token.token})

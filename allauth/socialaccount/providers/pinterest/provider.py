@@ -3,11 +3,18 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class PinterestAccount(ProviderAccount):
+    def get_username(self):
+        return self.account.extra_data.get("username")
+
     def get_profile_url(self):
         # v5 extra_data not same as v1
-        if "profile_image" in self.account.extra_data:
-            return self.account.extra_data.get("profile_image")
+        username = self.get_username()
+        if username:
+            return "https://www.pinterest.com/{}/".format(username)
         return self.account.extra_data.get("url")
+
+    def get_avatar_url(self):
+        return self.account.extra_data.get("profile_image")
 
     def to_str(self):
         dflt = super(PinterestAccount, self).to_str()
@@ -42,9 +49,7 @@ class PinterestProvider(OAuth2Provider):
 
     def extract_common_fields(self, data):
         if self.api_version == "v5":
-            return dict(
-                username=data["username"]
-            )
+            return dict(username=data["username"])
         return dict(
             first_name=data.get("data", {}).get("first_name"),
             last_name=data.get("data", {}).get("last_name"),

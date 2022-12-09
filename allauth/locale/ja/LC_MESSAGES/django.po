@@ -578,7 +578,7 @@ msgstr "パスワードが変更されました。"
 
 #: templates/account/messages/password_set.txt:2
 msgid "Password successfully set."
-msgstr "メインのメールアドレスが設定されました。"
+msgstr "パスワードが設定されました。"
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary e-mail address set."

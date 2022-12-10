@@ -816,26 +816,26 @@ msgstr "Добавить внешний аккаунт"
 #: templates/socialaccount/login.html:8
 #, python-format
 msgid "Connect %(provider)s"
-msgstr ""
+msgstr "Соединение с %(provider)s"
 
 #: templates/socialaccount/login.html:10
 #, python-format
 msgid "You are about to connect a new third party account from %(provider)s."
-msgstr ""
+msgstr "Вы собираетесь подключить новый сторонний аккаунт из %(provider)s"
 
 #: templates/socialaccount/login.html:12
 #, python-format
 msgid "Sign In Via %(provider)s"
-msgstr ""
+msgstr "Вход через %(provider)s"
 
 #: templates/socialaccount/login.html:14
 #, python-format
 msgid "You are about to sign in using a third party account from %(provider)s."
-msgstr ""
+msgstr "Вы собираетесь войти, используя стороннюю учетную запись из %(provider)s"
 
 #: templates/socialaccount/login.html:19
 msgid "Continue"
-msgstr ""
+msgstr "Продолжить"
 
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9
@@ -921,7 +921,7 @@ msgstr ""
 #~ msgstr "Вы можете удалить свой пароль, при использовании OpenID."
 
 #~ msgid "delete my password"
-#~ msgstr "удалите мой парль"
+#~ msgstr "удалите мой пароль"
 
 #~ msgid "Password Deleted"
 #~ msgstr "Пароль удалён"

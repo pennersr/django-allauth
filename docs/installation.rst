@@ -71,6 +71,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.dataporten',
         'allauth.socialaccount.providers.daum',
         'allauth.socialaccount.providers.digitalocean',
+        'allauth.socialaccount.providers.dingtalk',
         'allauth.socialaccount.providers.discord',
         'allauth.socialaccount.providers.disqus',
         'allauth.socialaccount.providers.douban',

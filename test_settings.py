@@ -78,6 +78,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.dataporten",
     "allauth.socialaccount.providers.daum",
     "allauth.socialaccount.providers.digitalocean",
+    "allauth.socialaccount.providers.dingtalk",
     "allauth.socialaccount.providers.discord",
     "allauth.socialaccount.providers.disqus",
     "allauth.socialaccount.providers.douban",

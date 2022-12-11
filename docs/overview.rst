@@ -81,6 +81,8 @@ Supported Providers
 
 - Digital Ocean (OAuth2)
 
+- DingTalk (OAuth2)
+
 - Discord (OAuth2)
 
 - Disqus (OAuth2)

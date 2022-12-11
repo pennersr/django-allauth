@@ -25,7 +25,7 @@ ENVIRONMENTS = {
 ENV = (
     getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
     .get("dwolla", {})
-    .get("ENVIROMENT", "production")
+    .get("ENVIRONMENT", "production")
 )
 
 AUTH_URL = ENVIRONMENTS[ENV]["auth_url"]

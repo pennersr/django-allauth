@@ -67,7 +67,7 @@ class TwitchTests(OAuth2TestsMixin, TestCase):
         """
         Helper function for checking that Error cases are
         handled correctly. Running only `complete_login` means
-        we can check that the specific erros are raised before
+        we can check that the specific errors are raised before
         they are caught and rendered to generic error HTML
         """
         request = RequestFactory().get(

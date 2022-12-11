@@ -65,7 +65,7 @@ Development callback URL
         }
     }
 
-In the absense of a specified API_URL, the default Agave tenant is
+In the absence of a specified API_URL, the default Agave tenant is
     https://public.agaveapi.co/
 
 Amazon
@@ -803,7 +803,7 @@ clients granted access. To add access for your client, click on the "Create Clie
 button and fill out the form and submit the form.
 
 After creating the client access, click on "View" to reveal your Client ID and
-Shared Key. You can also regenerate the key in an event tha your shared key is
+Shared Key. You can also regenerate the key in an event that your shared key is
 compromised.
 
 Configuring Django

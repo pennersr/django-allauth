@@ -14,6 +14,13 @@ class DingTalkTests(OAuth2TestsMixin, TestCase):
             "nick": "aiden",
             "unionId": "hTaCSb1nM4RXii6jaQvHZqQiEiE",
             "avatarUrl": "https://static-legacy.dingtalk.com/media/lADPDg7mViaksW3NBJPNBJI_1170_1171.jpg",
-            "openId": "ELdCPlk0V2LodZHx3n0p5AiEiE",
+            "openId": "ELdCPlk0V2LodZHx3n0p5AiEiE"
             }""",
         )
+
+    def get_login_response_json(self, with_refresh_token=True):
+        return """{
+    "accessToken": "testac",
+    "expireIn": "3600",
+    "refreshToken": "testrf"
+}"""

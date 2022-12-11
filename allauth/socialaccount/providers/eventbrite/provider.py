@@ -52,7 +52,7 @@ class EventbriteProvider(OAuth2Provider):
             addresses.append(
                 EmailAddress(
                     email=email.get("email"),
-                    verified=email.get("verfified"),
+                    verified=email.get("verified"),
                     primary=email.get("primary"),
                 )
             )

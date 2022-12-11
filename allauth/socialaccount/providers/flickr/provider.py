@@ -13,7 +13,7 @@ class FlickrAccount(ProviderAccount):
         dflt = super(FlickrAccount, self).to_str()
 
         # Try to use name if it exists. If there is no name, the Flickr API
-        # returns an empty stirng.
+        # returns an empty string.
         name = (
             self.account.extra_data.get("person").get("realname").get("_content", None)
         )

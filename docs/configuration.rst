@@ -178,7 +178,7 @@ ACCOUNT_PREVENT_ENUMERATION (=True)
 
 ACCOUNT_RATE_LIMITS
   In order to be secure out of the box various rate limits are in place. The
-  rate limit mechanism is backed by a Django cache. Hence, rate limitting will
+  rate limit mechanism is backed by a Django cache. Hence, rate limiting will
   not work properly if you are using the `DummyCache`. To disable, set to
   ``{}``. When rate limits are hit the ``429.html`` template is rendered.
   Defaults to::

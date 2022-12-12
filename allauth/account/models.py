@@ -109,12 +109,21 @@ class EmailConfirmation(models.Model):
     def confirm(self, request):
         if not self.key_expired() and not self.email_address.verified:
             email_address = self.email_address
+            replaced_email = None
+            if app_settings.MAX_EMAIL_ADDRESSES == 1:
+                replaced_email = EmailAddress.objects.filter(
+                    user=email_address.user, primary=True
+                )
+
             get_adapter(request).confirm_email(request, email_address)
             signals.email_confirmed.send(
                 sender=self.__class__,
                 request=request,
                 email_address=email_address,
             )
+            if replaced_email is not None:
+                email_address.set_as_primary()
+                replaced_email.delete()
             return email_address
 
     def send(self, request=None, signup=False):

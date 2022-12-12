@@ -52,6 +52,14 @@
         {{ form.as_p }}
         <button name="action_add" type="submit">{% trans "Add E-mail" %}</button>
     </form>
+  {% elif can_replace_email %}
+    <h2>{% trans "Change E-mail Address" %}</h2>
+
+    <form method="post" action="{% url 'account_email' %}" class="change_email">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="action_replace_one" type="submit">{% trans "Change E-mail" %}</button>
+    </form>
   {% endif %}
 
 {% endblock %}

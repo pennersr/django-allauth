@@ -20,9 +20,11 @@ from allauth.utils import get_form_class, get_request_param
 
 from . import app_settings, signals
 from .adapter import get_adapter
+from .app_settings import EmailVerificationMethod
 from .forms import (
     AddEmailForm,
     ChangePasswordForm,
+    EmailChangeForm,
     LoginForm,
     ResetPasswordForm,
     ResetPasswordKeyForm,
@@ -413,11 +415,17 @@ confirm_email = ConfirmEmailView.as_view()
 @method_decorator(rate_limit(action="manage_email"), name="dispatch")
 class EmailView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/email." + app_settings.TEMPLATE_EXTENSION
-    form_class = AddEmailForm
+    add_form_class = AddEmailForm
+    replace_form_class = EmailChangeForm
     success_url = reverse_lazy("account_email")
 
     def get_form_class(self):
-        return get_form_class(app_settings.FORMS, "add_email", self.form_class)
+        if self._is_replacing_email():
+            return get_form_class(
+                app_settings.FORMS, "replace_email", self.replace_form_class
+            )
+        else:
+            return get_form_class(app_settings.FORMS, "add_email", self.add_form_class)
 
     def dispatch(self, request, *args, **kwargs):
         sync_user_email_addresses(request.user)
@@ -455,6 +463,8 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                 res = self._action_remove(request)
             elif "action_primary" in request.POST:
                 res = self._action_primary(request)
+            elif "action_replace_one" in request.POST:
+                res = self._action_replace_one(request)
             res = res or HttpResponseRedirect(self.get_success_url())
             # Given that we bypassed AjaxCapableProcessFormViewMixin,
             # we'll have to call invoke it manually...
@@ -547,12 +557,37 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                 )
                 return HttpResponseRedirect(self.get_success_url())
 
+    def _action_replace_one(self, request, *args, **kwargs):
+        user = request.user
+        form = EmailChangeForm(request.POST, user=user)
+        if app_settings.EMAIL_VERIFICATION == EmailVerificationMethod.MANDATORY:
+            EmailAddress.objects.filter(user=user, primary=False).delete()
+            new_email = EmailAddress.objects.add_email(
+                request, user, form.cleaned_data["email"], confirm=True
+            )
+            new_email.save()
+        else:
+            if form.is_valid():
+                old_email = EmailAddress.objects.get(user=user, primary=True)
+                new_email = EmailAddress.objects.add_email(
+                    request, user, form.cleaned_data["email"], confirm=True
+                )
+                new_email.set_as_primary()
+                old_email.delete()
+
+    def _is_replacing_email(self) -> bool:
+        return (
+            not EmailAddress.objects.can_add_email(self.request.user)
+            and app_settings.MAX_EMAIL_ADDRESSES == 1
+        )
+
     def get_context_data(self, **kwargs):
         ret = super(EmailView, self).get_context_data(**kwargs)
         # NOTE: For backwards compatibility
         ret["add_email_form"] = ret.get("form")
         # (end NOTE)
         ret["can_add_email"] = EmailAddress.objects.can_add_email(self.request.user)
+        ret["can_replace_email"] = self._is_replacing_email()
         return ret
 
     def get_ajax_data(self):

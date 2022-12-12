@@ -65,7 +65,7 @@ class OpenIDConnectProvider(OAuth2Provider):
 def _provider_factory(server_settings):
     class OpenIDConnectProviderServer(OpenIDConnectProvider):
         name = server_settings.get("name", OpenIDConnectProvider.name)
-        id = OpenIDConnectProvider.id + "_" + server_settings["id"]
+        id = server_settings["id"]
         _server_id = server_settings["id"]
         _server_url = server_settings["server_url"]
 

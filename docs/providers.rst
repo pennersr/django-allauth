@@ -1500,7 +1500,7 @@ configuration of one or more servers is required:
         "openid_connect": {
             "SERVERS": [
                 {
-                    "id": "my-server",  # 15 characters or less
+                    "id": "my-server",  # 30 characters or less
                     "name": "My Login Server",
                     "server_url": "https://my.server.example.com",
                     # Optional token endpoint authentication method.
@@ -1514,7 +1514,7 @@ configuration of one or more servers is required:
                     },
                 },
                 {
-                    "id": "other-server",  # 15 characters or less
+                    "id": "other-server",  # 30 characters or less
                     "name": "Other Login Server",
                     "server_url": "https://other.server.example.com",
                     "APP": {

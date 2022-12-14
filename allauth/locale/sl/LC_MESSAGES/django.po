@@ -8,11 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-07 04:23-0500\n"
+"POT-Creation-Date: 2022-12-13 10:38-0600\n"
 "PO-Revision-Date: 2020-06-27 12:21+0122\n"
-"Last-Translator: Lev Predan Kowarski <lev@filmoteka.si>\n"
-"Language-Team: Bojan Mihelac <bmihelac@mihelac.org>, Lev Predan Kowarski "
-"<lev@filmoteka.si>\n"
+"Last-Translator: Klemen Štrajhar <klemen.strajhar@gmail.com>\n"
+"Language-Team: Bojan Mihelac <bmihelac@mihelac.org>, Lev Predan Kowarski, "
+"Klemen Štrajhar <lev@filmoteka.si>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -154,8 +154,6 @@ msgid "user"
 msgstr "uporabnik"
 
 #: account/models.py:25 account/models.py:80
-#, fuzzy
-#| msgid "E-mail address"
 msgid "e-mail address"
 msgstr "E-poštni naslov"
 
@@ -401,12 +399,9 @@ msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Želite odstraniti izbran e-poštni nalsov?"
 
 #: templates/account/email/base_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "Thank you from %(site_name)s!\n"
-#| "%(site_domain)s"
+#, python-format
 msgid "Hello from %(site_name)s!"
-msgstr "Najlepša hvala od %(site_name)s, %(site_domain)s"
+msgstr "Pozdravljeni iz %(site_name)s"
 
 #: templates/account/email/base_message.txt:5
 #, python-format
@@ -418,50 +413,32 @@ msgstr ""
 "%(site_domain)s"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because user %(user_display)s has given "
-#| "yours as an e-mail address to connect their account.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s\n"
+#, python-format
 msgid ""
 "You're receiving this e-mail because user %(user_display)s has given your e-"
 "mail address to register an account on %(site_domain)s.\n"
 "\n"
 "To confirm this is correct, go to %(activate_url)s"
 msgstr ""
-"Pozdravljeni od %(site_name)s!\n"
-"To sporočilo ste prejeli, ker je uporabnik %(user_display)s povezal vaše-"
-"poštni naslov s svojim uporabniškim računom.\n"
+"To sporočilo ste prejeli, ker je uporabnik %(user_display)s povezal vaš e-"
+"poštni naslov s svojim uporabniškim računom na %(site_domain)s.\n"
 "\n"
-"Za potrditev sledite povezavi: %(activate_url)s\n"
+"Za potrditev sledite povezavi: %(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your E-mail Address"
 msgstr "Prosimo, potrdite svoj e-poštni naslov."
 
 #: templates/account/email/password_reset_key_message.txt:4
-#, fuzzy
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
 msgid ""
 "You're receiving this e-mail because you or someone else has requested a "
 "password for your user account.\n"
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"Pozdravljeni od %(site_name)s!\n"
-"To sporočilo ste prejeli, ker ste zahtevali ponastavitev gesla na "
-"%(site_name)s!\n"
+"To sporočilo ste prejeli, ker ste zahtevali ponastavitev gesla za vaš račun."
 "To sporočilo lahko zavržete, če niste poslali zahtevka za spremembo gesla. "
-"Za ponastavitev gelsa, sledie spodnji pvezavi:"
+"Za ponastavitev gesla, sledie spodnji povezavi:"
 
 #: templates/account/email/password_reset_key_message.txt:9
 #, python-format
@@ -648,11 +625,6 @@ msgid "Please contact us if you have any trouble resetting your password."
 msgstr "V primeru težav pri ponastavljanju gesla, nas kontaktirajte."
 
 #: templates/account/password_reset_done.html:15
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent you an e-mail. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
@@ -731,18 +703,13 @@ msgid "Verify Your E-mail Address"
 msgstr "Potrdite e-poštni naslov."
 
 #: templates/account/verification_sent.html:10
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for verification. Follow the link provided "
-#| "to finalize the signup process. Please contact us if you do not receive "
-#| "it within a few minutes."
 msgid ""
 "We have sent an e-mail to you for verification. Follow the link provided to "
 "finalize the signup process. If you do not see the verification e-mail in "
 "your main inbox, check your spam folder. Please contact us if you do not "
 "receive the verification e-mail within a few minutes."
 msgstr ""
-"Na vaš e-poštni naslov je bil poslano sporočilo za potrditev. Skledite "
+"Na vaš e-poštni naslov je bil poslano sporočilo za potrditev. Sledite "
 "povezavi za zaključek registracije. Če sporočila ne boste prejeli v nekaj "
 "minutah, nas kontaktirajte."
 
@@ -756,11 +723,6 @@ msgstr ""
 "Prosimo, da potrdite navedeni e-poštni naslov."
 
 #: templates/account/verified_email_required.html:16
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent an e-mail to you for\n"
 "verification. Please click on the link inside that e-mail. If you do not see "

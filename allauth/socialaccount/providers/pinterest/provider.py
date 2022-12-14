@@ -35,6 +35,8 @@ class PinterestProvider(OAuth2Provider):
         if self.api_version == "v5":
             # See: https://developers.pinterest.com/docs/getting-started/scopes/
             return ["user_accounts:read"]
+        elif self.api_version == "v3":
+            return ["read_users"]
         return ["read_public"]
 
     def extract_extra_data(self, data):

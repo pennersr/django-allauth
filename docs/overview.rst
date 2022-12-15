@@ -177,6 +177,8 @@ Supported Providers
 
 - OpenId
 
+- OpenID Connect (OAuth2)
+
 - OpenStreetMap (OAuth)
 
 - ORCID (OAuth2)

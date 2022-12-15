@@ -118,6 +118,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         'allauth.socialaccount.providers.nextcloud',
         'allauth.socialaccount.providers.odnoklassniki',
         'allauth.socialaccount.providers.openid',
+        'allauth.socialaccount.providers.openid_connect',
         'allauth.socialaccount.providers.openstreetmap',
         'allauth.socialaccount.providers.orcid',
         'allauth.socialaccount.providers.patreon',

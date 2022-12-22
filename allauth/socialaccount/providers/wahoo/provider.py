@@ -8,11 +8,6 @@ class WahooAccount(ProviderAccount):
     def get_profile_url(self):
         return "https://api.wahooligan.com/v1/user"
 
-    def to_str(self):
-        # TODO: What does this do?
-        name = super(WahooAccount, self).to_str()
-        return self.account.extra_data.get("name", name)
-
 
 class WahooProvider(OAuth2Provider):
     id = "wahoo"

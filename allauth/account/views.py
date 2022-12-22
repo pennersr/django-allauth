@@ -245,9 +245,11 @@ class SignupView(
         return ret
 
     def form_valid(self, form):
-        # By assigning the User to a property on the view, we allow subclasses
-        # of SignupView to access the newly created User instance
         self.user = form.save(self.request)
+        if not self.user:
+            return get_adapter(self.request).respond_email_verification_sent(
+                self.request, None
+            )
         try:
             return complete_signup(
                 self.request,

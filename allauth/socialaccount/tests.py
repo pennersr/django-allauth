@@ -723,6 +723,7 @@ class SocialAccountTests(TestCase):
         )
 
     @override_settings(
+        ACCOUNT_PREVENT_ENUMERATION=False,
         ACCOUNT_EMAIL_REQUIRED=True,
         ACCOUNT_EMAIL_VERIFICATION="mandatory",
         ACCOUNT_UNIQUE_EMAIL=True,

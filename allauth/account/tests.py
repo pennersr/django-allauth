@@ -1090,6 +1090,35 @@ class AccountTests(TestCase):
         actual_message = msgs._queued_messages[0].message
         assert user.username in actual_message, actual_message
 
+    @override_settings(
+        ACCOUNT_PREVENT_ENUMERATION=True,
+        ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL,
+        ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.MANDATORY,
+    )
+    def test_prevent_account_enumeration_at_signup(self):
+        user = get_user_model().objects.create_user(
+            username="john", email="john@example.org", password="doe"
+        )
+        EmailAddress.objects.create(
+            user=user, email=user.email, primary=True, verified=True
+        )
+        c = Client()
+        # Signup
+        resp = c.post(
+            reverse("account_signup"),
+            {
+                "username": "johndoe",
+                "email": user.email,
+                "password1": "johndoe",
+                "password2": "johndoe",
+            },
+        )
+        self.assertEqual(resp.status_code, 302)
+        assert resp["location"] == reverse("account_email_verification_sent")
+        self.assertTemplateUsed(
+            resp, "account/email/account_already_exists_message.txt"
+        )
+
 
 class EmailFormTests(TestCase):
     def setUp(self):

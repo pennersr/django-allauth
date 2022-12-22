@@ -11,6 +11,11 @@ Note worthy changes
 - Introduced a new provider setting ``OAUTH_PKCE_ENABLED`` that enables the
   PKCE-enhanced Authorization Code Flow for OAuth 2.0 providers.
 
+- When ``ACCOUNT_PREVENT_ENUMERATION`` is turned on, enumeration is now also
+  prevented during signup, provided you are using mandatory email
+  verification. There is a new email template
+  (`templates/account/email/acccount_already_exists_message.txt`) that will be
+  used in this scenario.
 
 
 0.51.0 (2022-06-07)

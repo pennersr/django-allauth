@@ -287,6 +287,14 @@ class BaseSignupForm(_base_signup_form_class()):
         self.username_required = kwargs.pop(
             "username_required", app_settings.USERNAME_REQUIRED
         )
+        # We can only truly prevent enumeration if email verification is
+        # mandatory, because in that case, regardless of whether or not the
+        # email is in use, the user will always receive an email.
+        self.prevent_enumeration = app_settings.PREVENT_ENUMERATION and (
+            app_settings.EMAIL_VERIFICATION
+            == app_settings.EmailVerificationMethod.MANDATORY
+        )
+        self.account_already_exists = False
         super(BaseSignupForm, self).__init__(*args, **kwargs)
         username_field = self.fields["username"]
         username_field.max_length = get_username_max_length()
@@ -338,13 +346,22 @@ class BaseSignupForm(_base_signup_form_class()):
     def clean_username(self):
         value = self.cleaned_data["username"]
         value = get_adapter().clean_username(value)
+        # Note regarding preventing enumeration: if the username is already
+        # taken, but the email address is not, we would still leak information
+        # if we were to send an email to that email address stating that the
+        # username is already in use.
         return value
 
     def clean_email(self):
         value = self.cleaned_data["email"]
         value = get_adapter().clean_email(value)
         if value and app_settings.UNIQUE_EMAIL:
-            value = self.validate_unique_email(value)
+            try:
+                value = self.validate_unique_email(value)
+            except forms.ValidationError:
+                if not self.prevent_enumeration:
+                    raise
+                self.account_already_exists = True
         return value
 
     def validate_unique_email(self, value):
@@ -418,6 +435,11 @@ class SignupForm(BaseSignupForm):
         return self.cleaned_data
 
     def save(self, request):
+        if self.account_already_exists:
+            # Don't create a new acount, only send an email informing the user
+            # that (s)he already has one...
+            self._send_account_already_exists_mail(request)
+            return
         adapter = get_adapter(request)
         user = adapter.new_user(request)
         adapter.save_user(request, user, self)
@@ -425,6 +447,23 @@ class SignupForm(BaseSignupForm):
         # TODO: Move into adapter `save_user` ?
         setup_user_email(request, user, [])
         return user
+
+    def _send_account_already_exists_mail(self, request):
+        signup_url = build_absolute_uri(request, reverse("account_signup"))
+        password_reset_url = build_absolute_uri(
+            request, reverse("account_reset_password")
+        )
+        email = self.cleaned_data["email"]
+        context = {
+            "request": request,
+            "current_site": get_current_site(request),
+            "email": email,
+            "signup_url": signup_url,
+            "password_reset_url": password_reset_url,
+        }
+        get_adapter(request).send_mail(
+            "account/email/account_already_exists", email, context
+        )
 
 
 class UserForm(forms.Form):

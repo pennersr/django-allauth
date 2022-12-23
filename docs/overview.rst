@@ -243,6 +243,8 @@ Supported Providers
 
 - VK (OAuth2)
 
+- Wahoo (OAuth2)
+
 - Weibo (OAuth2)
 
 - Weixin (OAuth2)

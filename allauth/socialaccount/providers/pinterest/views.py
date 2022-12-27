@@ -32,6 +32,10 @@ class PinterestOAuth2Adapter(OAuth2Adapter):
         profile_url = "https://{0}/{1}/user_account".format(
             provider_base_url, provider_api_version
         )
+    elif provider_api_version == "v3":
+        profile_url = "https://{0}/{1}/users/me".format(
+            provider_base_url, provider_api_version
+        )
     else:
         profile_url = "https://{0}/{1}/me".format(
             provider_base_url, provider_api_version

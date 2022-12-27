@@ -20,6 +20,7 @@ Note worthy changes
 - Updated URLs of Google's endpoints to the latest version; removed a redundant
   ``userinfo`` call.
 
+- Fixed Pinterest provider on new api version.
 
 
 0.51.0 (2022-06-07)

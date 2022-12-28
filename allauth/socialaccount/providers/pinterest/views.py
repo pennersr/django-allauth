@@ -20,7 +20,7 @@ class PinterestOAuth2Adapter(OAuth2Adapter):
 
     provider_base_url = settings.get("PINTEREST_URL", provider_default_url)
     provider_api_version = settings.get(
-        "PINTEREST_VERSION", provider_default_api_version
+        "API_VERSION", provider_default_api_version
     )
 
     authorize_url = "https://www.pinterest.com/oauth/"

@@ -28,7 +28,7 @@ class PinterestTests(OAuth2TestsMixin, TestCase):
         SOCIALACCOUNT_AUTO_SIGNUP=False,
         SOCIALACCOUNT_PROVIDERS={
             "pinterest": {
-                "PINTEREST_VERSION": "v5",
+                "API_VERSION": "v5",
             }
         },
     )

@@ -28,7 +28,7 @@ class PinterestProvider(OAuth2Provider):
 
     @property
     def api_version(self):
-        return self.get_settings().get("PINTEREST_VERSION", "v1")
+        return self.get_settings().get("API_VERSION", "v1")
 
     def get_default_scope(self):
         # See: https://developers.pinterest.com/docs/api/overview/#scopes

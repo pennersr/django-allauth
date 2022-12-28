@@ -1706,7 +1706,7 @@ value is set, the Pinterest provider will use reading scope by default.
     SOCIALACCOUNT_PROVIDERS = {
         'pinterest': {
             'SCOPE': ['user_accounts:read'],
-            "PINTEREST_VERSION": "v5",
+            "API_VERSION": "v5",
         }
     }
 

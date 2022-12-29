@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-07 04:23-0500\n"
+"POT-Creation-Date: 2022-12-29 01:58-0600\n"
 "PO-Revision-Date: 2018-08-29 08:16+0200\n"
 "Last-Translator: Eneko Illarramendi <eneko@illarra.com>\n"
 "Language-Team: Basque <translate@tropela.eus>\n"
@@ -41,11 +41,11 @@ msgstr "Pasahitzak gutxienez {0} karaktere izan behar ditu."
 msgid "Accounts"
 msgstr "Kontuak"
 
-#: account/forms.py:59 account/forms.py:416
+#: account/forms.py:59 account/forms.py:433
 msgid "You must type the same password each time."
 msgstr "Pasahitz berdina idatzi behar duzu aldi bakoitzean."
 
-#: account/forms.py:92 account/forms.py:381 account/forms.py:501
+#: account/forms.py:92 account/forms.py:398 account/forms.py:540
 msgid "Password"
 msgstr "Pasahitza"
 
@@ -65,13 +65,13 @@ msgstr "Sartutako helbide elektronikoa eta/edo pasahitza ez dira zuzenak."
 msgid "The username and/or password you specified are not correct."
 msgstr "Sartutako erabiltzailea eta/edo pasahitza ez dira zuzenak."
 
-#: account/forms.py:113 account/forms.py:279 account/forms.py:442
-#: account/forms.py:520
+#: account/forms.py:113 account/forms.py:279 account/forms.py:481
+#: account/forms.py:559
 msgid "E-mail address"
 msgstr "Helbide elektronikoa"
 
-#: account/forms.py:117 account/forms.py:316 account/forms.py:439
-#: account/forms.py:515
+#: account/forms.py:117 account/forms.py:324 account/forms.py:478
+#: account/forms.py:554
 msgid "E-mail"
 msgstr "Emaila"
 
@@ -89,60 +89,60 @@ msgctxt "field label"
 msgid "Login"
 msgstr "Logina"
 
-#: account/forms.py:307
+#: account/forms.py:315
 msgid "E-mail (again)"
 msgstr "Emaila (berriro)"
 
-#: account/forms.py:311
+#: account/forms.py:319
 msgid "E-mail address confirmation"
 msgstr "Helbide elektronikoaren egiaztapena"
 
-#: account/forms.py:319
+#: account/forms.py:327
 msgid "E-mail (optional)"
 msgstr "Emaila (hautazkoa)"
 
-#: account/forms.py:359
+#: account/forms.py:376
 msgid "You must type the same email each time."
 msgstr "Email berdina idatzi behar duzu aldi bakoitzean."
 
-#: account/forms.py:385 account/forms.py:502
+#: account/forms.py:402 account/forms.py:541
 msgid "Password (again)"
 msgstr "Pasahitza (berriro)"
 
-#: account/forms.py:451
+#: account/forms.py:490
 msgid "This e-mail address is already associated with this account."
 msgstr "Helbide elektroniko hau dagoeneko kontu honi lotuta dago."
 
-#: account/forms.py:454
+#: account/forms.py:493
 msgid "This e-mail address is already associated with another account."
 msgstr "Helbide elektroniko hau dagoeneko beste kontu bati lotuta dago."
 
-#: account/forms.py:456
+#: account/forms.py:495
 #, python-format
 msgid "You cannot add more than %d e-mail addresses."
 msgstr "Ezin dituzu %d email helbide baino gehiago erabili."
 
-#: account/forms.py:481
+#: account/forms.py:520
 msgid "Current Password"
 msgstr "Oraingo pasahitza"
 
-#: account/forms.py:483 account/forms.py:588
+#: account/forms.py:522 account/forms.py:627
 msgid "New Password"
 msgstr "Pasahitz berria"
 
-#: account/forms.py:484 account/forms.py:589
+#: account/forms.py:523 account/forms.py:628
 msgid "New Password (again)"
 msgstr "Pasahitz berria (berriro)"
 
-#: account/forms.py:492
+#: account/forms.py:531
 msgid "Please type your current password."
 msgstr "Mesedez idatzi zure oraingo pasahitza."
 
-#: account/forms.py:532
+#: account/forms.py:571
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Helbide elektroniko hau ez dago kontu bati lotuta"
 
-#: account/forms.py:610
+#: account/forms.py:649
 msgid "The password reset token was invalid."
 msgstr "Pasahitza berrezartzeko \"token\"-a baliogabea da."
 
@@ -396,6 +396,28 @@ msgstr "Emaila gehitu"
 msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Ziur al zaude aukeratutako helbide elektronikoa ezabatu nahi duzula?"
 
+#: templates/account/email/account_already_exists_message.txt:4
+#, python-format
+msgid ""
+"You are receiving this e-mail because you or someone else tried to signup "
+"for an\n"
+"account using e-mail address:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"However, an account using that e-mail address already exists.  In case you "
+"have\n"
+"forgotten about this, please use the password forgotten procedure to "
+"recover\n"
+"your account:\n"
+"\n"
+"%(password_reset_url)s"
+msgstr ""
+
+#: templates/account/email/account_already_exists_subject.txt:3
+msgid "Account Already Exists"
+msgstr ""
+
 #: templates/account/email/base_message.txt:1
 #, python-format
 msgid "Hello from %(site_name)s!"
@@ -492,8 +514,8 @@ msgstr "Egiaztatu"
 #: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a href="
-"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
 "Egiaztapen esteka hau iraungirik dago edo baliogabea da. Mesedez eskatu <a "
 "href=\"%(email_url)s\">egiaztapen email berri bat</a>."
@@ -829,8 +851,8 @@ msgstr "Baliogabetutako logina"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
-"\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a "
+"href=\"%(login_url)s\">sign in</a>."
 msgstr ""
 "Lotutako kontu batekin saioa hasteko saiakera bertan behera utzi duzu. "
 "Oharkabean gertatu bada, mesedez <a href=\"%(login_url)s\">saioa hasi</a> "

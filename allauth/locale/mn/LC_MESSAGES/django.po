@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-07 04:23-0500\n"
+"POT-Creation-Date: 2022-12-29 01:58-0600\n"
 "PO-Revision-Date: 2021-11-12 09:54+0800\n"
 "Last-Translator: Bilgutei Erdenebayar <beke0130@gmail.com>\n"
 "Language-Team: Mongolian <beke0130@gmail.com>\n"
@@ -39,11 +39,11 @@ msgstr "Нууц үг хамгийн багадаа {0} тэмдэгттэй б�
 msgid "Accounts"
 msgstr "Бүртгэлүүд"
 
-#: account/forms.py:59 account/forms.py:416
+#: account/forms.py:59 account/forms.py:433
 msgid "You must type the same password each time."
 msgstr "Та өмнө оруулсантай ижил нууц үг оруулах ёстой."
 
-#: account/forms.py:92 account/forms.py:381 account/forms.py:501
+#: account/forms.py:92 account/forms.py:398 account/forms.py:540
 msgid "Password"
 msgstr "Нууц үг"
 
@@ -63,13 +63,13 @@ msgstr "Таны оруулсан имэйл хаяг болон/эсвэл ну
 msgid "The username and/or password you specified are not correct."
 msgstr "Таны оруулсан имэйл хаяг болон/эсвэл нууц үг буруу байна."
 
-#: account/forms.py:113 account/forms.py:279 account/forms.py:442
-#: account/forms.py:520
+#: account/forms.py:113 account/forms.py:279 account/forms.py:481
+#: account/forms.py:559
 msgid "E-mail address"
 msgstr ""
 
-#: account/forms.py:117 account/forms.py:316 account/forms.py:439
-#: account/forms.py:515
+#: account/forms.py:117 account/forms.py:324 account/forms.py:478
+#: account/forms.py:554
 msgid "E-mail"
 msgstr "Имэйл хаяг"
 
@@ -87,60 +87,60 @@ msgctxt "field label"
 msgid "Login"
 msgstr "Нэвтрэх"
 
-#: account/forms.py:307
+#: account/forms.py:315
 msgid "E-mail (again)"
 msgstr "Имэйл (дахин)"
 
-#: account/forms.py:311
+#: account/forms.py:319
 msgid "E-mail address confirmation"
 msgstr "Имэйл хаягийн баталгаажуулалт"
 
-#: account/forms.py:319
+#: account/forms.py:327
 msgid "E-mail (optional)"
 msgstr "Имэйл (заавал биш)"
 
-#: account/forms.py:359
+#: account/forms.py:376
 msgid "You must type the same email each time."
 msgstr "Та өмнө оруулсантай ижил имэйл бичих ёстой."
 
-#: account/forms.py:385 account/forms.py:502
+#: account/forms.py:402 account/forms.py:541
 msgid "Password (again)"
 msgstr "Нууц үг (дахин)"
 
-#: account/forms.py:451
+#: account/forms.py:490
 msgid "This e-mail address is already associated with this account."
 msgstr "Энэ имэйл хаяг энэ бүртгэлтэй холбогдсон байна."
 
-#: account/forms.py:454
+#: account/forms.py:493
 msgid "This e-mail address is already associated with another account."
 msgstr "Энэ имэйл хаяг өөр бүртгэлтэй холбогдсон байна."
 
-#: account/forms.py:456
+#: account/forms.py:495
 #, python-format
 msgid "You cannot add more than %d e-mail addresses."
 msgstr "Та %d-с илүү имэйл хаяг нэмэх боломжгүй."
 
-#: account/forms.py:481
+#: account/forms.py:520
 msgid "Current Password"
 msgstr "Одоогын Нууц Үг"
 
-#: account/forms.py:483 account/forms.py:588
+#: account/forms.py:522 account/forms.py:627
 msgid "New Password"
 msgstr "Шинэ Нууц Үг"
 
-#: account/forms.py:484 account/forms.py:589
+#: account/forms.py:523 account/forms.py:628
 msgid "New Password (again)"
 msgstr "Шинэ Нууц Үг (дахин)"
 
-#: account/forms.py:492
+#: account/forms.py:531
 msgid "Please type your current password."
 msgstr "Одоогийн нууц үгээ оруулна уу."
 
-#: account/forms.py:532
+#: account/forms.py:571
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Имэйл хаяг ямар ч хэрэглэгчийн бүртгэлтэй холбогдоогүй"
 
-#: account/forms.py:610
+#: account/forms.py:649
 msgid "The password reset token was invalid."
 msgstr "Нууц үг шинэчлэх токен буруу байна."
 
@@ -394,6 +394,28 @@ msgstr "Имэйл нэмэх"
 msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Та үнэхээр сонгосон имэйл хаягаа устгахыг хүсэж байна уу?"
 
+#: templates/account/email/account_already_exists_message.txt:4
+#, python-format
+msgid ""
+"You are receiving this e-mail because you or someone else tried to signup "
+"for an\n"
+"account using e-mail address:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"However, an account using that e-mail address already exists.  In case you "
+"have\n"
+"forgotten about this, please use the password forgotten procedure to "
+"recover\n"
+"your account:\n"
+"\n"
+"%(password_reset_url)s"
+msgstr ""
+
+#: templates/account/email/account_already_exists_subject.txt:3
+msgid "Account Already Exists"
+msgstr ""
+
 #: templates/account/email/base_message.txt:1
 #, python-format
 msgid "Hello from %(site_name)s!"
@@ -488,8 +510,8 @@ msgstr "Баталгаажуулах"
 #: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a href="
-"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
 "Энэ и-мэйл баталгаажуулах холбоосын хугацаа дууссан эсвэл хүчингүй байна.<a "
 "href=\"%(email_url)s\">шинэ имэйлээр баталгаажуулах хүсэлт гаргана уу</a>."
@@ -820,12 +842,12 @@ msgstr "Нэвтрэлт цуцлагдсан"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
-"\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a "
+"href=\"%(login_url)s\">sign in</a>."
 msgstr ""
 "Та одоо байгаа бүртгэлийнхээ аль нэгийг ашиглан манай сайтад нэвтрэхээ "
-"цуцлахаар шийдсэн. Хэрэв энэ нь алдаа байсан бол <a href=\"%(login_url)s"
-"\"\">нэвтэрнэ үү</a>."
+"цуцлахаар шийдсэн. Хэрэв энэ нь алдаа байсан бол <a "
+"href=\"%(login_url)s\"\">нэвтэрнэ үү</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."

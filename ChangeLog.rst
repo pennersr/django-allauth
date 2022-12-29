@@ -1,4 +1,4 @@
-0.52.0 (unreleased)
+0.52.0 (2022-12-29)
 *******************
 
 Note worthy changes
@@ -6,7 +6,7 @@ Note worthy changes
 
 - Officially support Django 4.1.
 
-- New providers: OpenID Connect, Twitter (OAuth2).
+- New providers: OpenID Connect, Twitter (OAuth2), Wahoo, DingTalk.
 
 - Introduced a new provider setting ``OAUTH_PKCE_ENABLED`` that enables the
   PKCE-enhanced Authorization Code Flow for OAuth 2.0 providers.

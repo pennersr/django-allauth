@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-07 04:23-0500\n"
+"POT-Creation-Date: 2022-12-29 01:58-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,11 +39,11 @@ msgstr "비밀번호는 최소 {0}자 이상이어야 합니다."
 msgid "Accounts"
 msgstr "계정"
 
-#: account/forms.py:59 account/forms.py:416
+#: account/forms.py:59 account/forms.py:433
 msgid "You must type the same password each time."
 msgstr "동일한 비밀번호를 입력해야 합니다."
 
-#: account/forms.py:92 account/forms.py:381 account/forms.py:501
+#: account/forms.py:92 account/forms.py:398 account/forms.py:540
 msgid "Password"
 msgstr "비밀번호"
 
@@ -63,13 +63,13 @@ msgstr "이메일 또는 비밀번호가 올바르지 않습니다."
 msgid "The username and/or password you specified are not correct."
 msgstr "아이디 또는 비밀번호가 올바르지 않습니다."
 
-#: account/forms.py:113 account/forms.py:279 account/forms.py:442
-#: account/forms.py:520
+#: account/forms.py:113 account/forms.py:279 account/forms.py:481
+#: account/forms.py:559
 msgid "E-mail address"
 msgstr "이메일 주소"
 
-#: account/forms.py:117 account/forms.py:316 account/forms.py:439
-#: account/forms.py:515
+#: account/forms.py:117 account/forms.py:324 account/forms.py:478
+#: account/forms.py:554
 msgid "E-mail"
 msgstr "이메일"
 
@@ -87,61 +87,61 @@ msgctxt "field label"
 msgid "Login"
 msgstr "로그인"
 
-#: account/forms.py:307
+#: account/forms.py:315
 msgid "E-mail (again)"
 msgstr "이메일 (확인)"
 
-#: account/forms.py:311
+#: account/forms.py:319
 msgid "E-mail address confirmation"
 msgstr "이메일 주소 확인"
 
-#: account/forms.py:319
+#: account/forms.py:327
 msgid "E-mail (optional)"
 msgstr "이메일 (선택사항)"
 
-#: account/forms.py:359
+#: account/forms.py:376
 msgid "You must type the same email each time."
 msgstr "동일한 이메일을 입력해야 합니다."
 
-#: account/forms.py:385 account/forms.py:502
+#: account/forms.py:402 account/forms.py:541
 msgid "Password (again)"
 msgstr "비밀번호 (확인)"
 
-#: account/forms.py:451
+#: account/forms.py:490
 msgid "This e-mail address is already associated with this account."
 msgstr "해당 이메일은 이미 이 계정에 등록되어 있습니다."
 
-#: account/forms.py:454
+#: account/forms.py:493
 msgid "This e-mail address is already associated with another account."
 msgstr "해당 이메일은 다른 계정에 등록되어 있습니다."
 
-#: account/forms.py:456
+#: account/forms.py:495
 #, fuzzy, python-format
 #| msgid "Your account has no verified e-mail address."
 msgid "You cannot add more than %d e-mail addresses."
 msgstr "당신의 계정에는 인증된 이메일이 없습니다."
 
-#: account/forms.py:481
+#: account/forms.py:520
 msgid "Current Password"
 msgstr "현재 비밀번호"
 
-#: account/forms.py:483 account/forms.py:588
+#: account/forms.py:522 account/forms.py:627
 msgid "New Password"
 msgstr "새 비밀번호"
 
-#: account/forms.py:484 account/forms.py:589
+#: account/forms.py:523 account/forms.py:628
 msgid "New Password (again)"
 msgstr "새 비밀번호 (확인)"
 
-#: account/forms.py:492
+#: account/forms.py:531
 msgid "Please type your current password."
 msgstr "현재 비밀번호를 입력하세요."
 
-#: account/forms.py:532
+#: account/forms.py:571
 msgid "The e-mail address is not assigned to any user account"
 msgstr "해당 이메일을 가지고 있는 사용자가 없습니다."
 
-#: account/forms.py:610
+#: account/forms.py:649
 msgid "The password reset token was invalid."
 msgstr "비밀번호 초기화 토큰이 올바르지 않습니다."
 
@@ -394,6 +394,28 @@ msgstr "이메일 추가"
 msgid "Do you really want to remove the selected e-mail address?"
 msgstr "정말로 선택하신 이메일을 제거하시겠습니까?"
 
+#: templates/account/email/account_already_exists_message.txt:4
+#, python-format
+msgid ""
+"You are receiving this e-mail because you or someone else tried to signup "
+"for an\n"
+"account using e-mail address:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"However, an account using that e-mail address already exists.  In case you "
+"have\n"
+"forgotten about this, please use the password forgotten procedure to "
+"recover\n"
+"your account:\n"
+"\n"
+"%(password_reset_url)s"
+msgstr ""
+
+#: templates/account/email/account_already_exists_subject.txt:3
+msgid "Account Already Exists"
+msgstr ""
+
 #: templates/account/email/base_message.txt:1
 #, python-format
 msgid "Hello from %(site_name)s!"
@@ -488,11 +510,11 @@ msgstr "확인"
 #: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a href="
-"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"이 이메일 확인 링크는 만료되었거나 유효하지 않습니다. <a href=\"%(email_url)s"
-"\">새로운 이메일 확인 요청</a>을 해주세요."
+"이 이메일 확인 링크는 만료되었거나 유효하지 않습니다. <a "
+"href=\"%(email_url)s\">새로운 이메일 확인 요청</a>을 해주세요."
 
 #: templates/account/login.html:6 templates/account/login.html:10
 #: templates/account/login.html:43 templates/socialaccount/login.html:4
@@ -640,8 +662,8 @@ msgid ""
 "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
 "a>."
 msgstr ""
-"비밀번호 초기화 링크가 올바르지 않습니다. 다시 <a href=\"%(passwd_reset_url)s"
-"\">비밀번호 초기화</a> 하세요."
+"비밀번호 초기화 링크가 올바르지 않습니다. 다시 <a "
+"href=\"%(passwd_reset_url)s\">비밀번호 초기화</a> 하세요."
 
 #: templates/account/password_reset_from_key.html:16
 msgid "change password"
@@ -814,11 +836,11 @@ msgstr "로그인 취소됨"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
-"\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a "
+"href=\"%(login_url)s\">sign in</a>."
 msgstr ""
-"기존 계정중 하나를 사용한 로그인을 취소하였습니다. 실수로 인한 경우, <a href="
-"\"%(login_url)s\">로그인</a>을 진행해 주세요."
+"기존 계정중 하나를 사용한 로그인을 취소하였습니다. 실수로 인한 경우, <a "
+"href=\"%(login_url)s\">로그인</a>을 진행해 주세요."
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."

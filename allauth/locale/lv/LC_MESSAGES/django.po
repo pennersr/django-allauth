@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-07 04:23-0500\n"
+"POT-Creation-Date: 2022-12-29 01:58-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,11 +42,11 @@ msgstr "Parolei jābūt vismaz {0} simbolus garai."
 msgid "Accounts"
 msgstr "Konti"
 
-#: account/forms.py:59 account/forms.py:416
+#: account/forms.py:59 account/forms.py:433
 msgid "You must type the same password each time."
 msgstr "Katru reizi jums ir jāievada tā pati parole."
 
-#: account/forms.py:92 account/forms.py:381 account/forms.py:501
+#: account/forms.py:92 account/forms.py:398 account/forms.py:540
 msgid "Password"
 msgstr "Parole"
 
@@ -66,13 +66,13 @@ msgstr "Nepareizs e-pasts un/vai parole."
 msgid "The username and/or password you specified are not correct."
 msgstr "Nepareizs lietotāja vārds un/vai parole."
 
-#: account/forms.py:113 account/forms.py:279 account/forms.py:442
-#: account/forms.py:520
+#: account/forms.py:113 account/forms.py:279 account/forms.py:481
+#: account/forms.py:559
 msgid "E-mail address"
 msgstr "E-pasta adrese"
 
-#: account/forms.py:117 account/forms.py:316 account/forms.py:439
-#: account/forms.py:515
+#: account/forms.py:117 account/forms.py:324 account/forms.py:478
+#: account/forms.py:554
 msgid "E-mail"
 msgstr "E-pasts"
 
@@ -90,67 +90,67 @@ msgctxt "field label"
 msgid "Login"
 msgstr "Ieiet"
 
-#: account/forms.py:307
+#: account/forms.py:315
 #, fuzzy
 #| msgid "E-mail (optional)"
 msgid "E-mail (again)"
 msgstr "E-pasts (izvēles)"
 
-#: account/forms.py:311
+#: account/forms.py:319
 #, fuzzy
 #| msgid "email confirmation"
 msgid "E-mail address confirmation"
 msgstr "e-pasta apstiprinājums"
 
-#: account/forms.py:319
+#: account/forms.py:327
 msgid "E-mail (optional)"
 msgstr "E-pasts (izvēles)"
 
-#: account/forms.py:359
+#: account/forms.py:376
 #, fuzzy
 #| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
 msgstr "Katru reizi jums ir jāievada tā pati parole."
 
-#: account/forms.py:385 account/forms.py:502
+#: account/forms.py:402 account/forms.py:541
 msgid "Password (again)"
 msgstr "Parole (vēlreiz)"
 
-#: account/forms.py:451
+#: account/forms.py:490
 msgid "This e-mail address is already associated with this account."
 msgstr "Šī e-pasta adrese jau ir piesaistīta šim kontam."
 
-#: account/forms.py:454
+#: account/forms.py:493
 msgid "This e-mail address is already associated with another account."
 msgstr "Šī e-pasta adrese jau ir piesaistīta citam kontam."
 
-#: account/forms.py:456
+#: account/forms.py:495
 #, fuzzy, python-format
 #| msgid "Your account has no verified e-mail address."
 msgid "You cannot add more than %d e-mail addresses."
 msgstr "Jūsu kontam nav apstiprinātas e-pasta adreses."
 
-#: account/forms.py:481
+#: account/forms.py:520
 msgid "Current Password"
 msgstr "Šobrīdējā parole"
 
-#: account/forms.py:483 account/forms.py:588
+#: account/forms.py:522 account/forms.py:627
 msgid "New Password"
 msgstr "Jaunā parole"
 
-#: account/forms.py:484 account/forms.py:589
+#: account/forms.py:523 account/forms.py:628
 msgid "New Password (again)"
 msgstr "Jaunā parole (vēlreiz)"
 
-#: account/forms.py:492
+#: account/forms.py:531
 msgid "Please type your current password."
 msgstr "Lūdzu ievadiet jūsu šobrīdējo paroli."
 
-#: account/forms.py:532
+#: account/forms.py:571
 msgid "The e-mail address is not assigned to any user account"
 msgstr "E-pasta adrese nav piesaistīta nevienam lietotāja kontam"
 
-#: account/forms.py:610
+#: account/forms.py:649
 msgid "The password reset token was invalid."
 msgstr "Paroles atjaunošanas marķieris bija nederīgs."
 
@@ -404,6 +404,28 @@ msgstr "Pievienot e-pastu"
 msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Vai jūs tiešām vēlaties noņemt izvēlēto e-pasta adresi?"
 
+#: templates/account/email/account_already_exists_message.txt:4
+#, python-format
+msgid ""
+"You are receiving this e-mail because you or someone else tried to signup "
+"for an\n"
+"account using e-mail address:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"However, an account using that e-mail address already exists.  In case you "
+"have\n"
+"forgotten about this, please use the password forgotten procedure to "
+"recover\n"
+"your account:\n"
+"\n"
+"%(password_reset_url)s"
+msgstr ""
+
+#: templates/account/email/account_already_exists_subject.txt:3
+msgid "Account Already Exists"
+msgstr ""
+
 #: templates/account/email/base_message.txt:1
 #, fuzzy, python-format
 #| msgid ""
@@ -530,8 +552,8 @@ msgstr "Apstiprināt"
 #: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a href="
-"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
 "Šī e-pasta apstiprināšanas saitei ir beidzies derīguma termiņš vai tas ir "
 "nederīgs. Lūdzu <a href=\"%(email_url)s\">pieprasiet jaunu e-pasta "
@@ -551,8 +573,8 @@ msgid ""
 "for a %(site_name)s account and sign in below:"
 msgstr ""
 "Lūdzu ieejiet iekšā ar vienu\n"
-"no jūsu eksistējošiem trešās puses kontiem. Vai <a href=\"%(signup_url)s"
-"\">reģistrējieties</a>\n"
+"no jūsu eksistējošiem trešās puses kontiem. Vai <a "
+"href=\"%(signup_url)s\">reģistrējieties</a>\n"
 "%(site_name)s kontam un ieejiet zemāk:"
 
 #: templates/account/login.html:25
@@ -790,8 +812,8 @@ msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
 "mail address</a>."
 msgstr ""
-"<strong>Piezīme:</strong> jūs vēljoprojām varat <a href=\"%(email_url)s"
-"\">nomainīt jūsu e-pasta adresi</a>."
+"<strong>Piezīme:</strong> jūs vēljoprojām varat <a "
+"href=\"%(email_url)s\">nomainīt jūsu e-pasta adresi</a>."
 
 #: templates/openid/login.html:9
 msgid "OpenID Sign In"
@@ -862,8 +884,8 @@ msgstr "Ieiešana pārtraukta"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
-"\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a "
+"href=\"%(login_url)s\">sign in</a>."
 msgstr ""
 "Jūs nolēmāt pārtraukt ieiešanu mūsu lapa izmantojot vienu no jūsu kontiem. "
 "Ja šī ir kļūda, lūdzu dodaties uz <a href=\"%(login_url)s\">ieiet</a>."

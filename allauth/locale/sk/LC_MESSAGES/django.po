@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-07 04:23-0500\n"
+"POT-Creation-Date: 2022-12-29 01:58-0600\n"
 "PO-Revision-Date: 2021-05-26 16:13+0058\n"
 "Last-Translator: b'Erik Telepovsky <erik@pragmaticmates.com>'\n"
 "Language-Team: \n"
@@ -40,11 +40,11 @@ msgstr "Heslo musí mať aspoň {0} znakov."
 msgid "Accounts"
 msgstr "Účty"
 
-#: account/forms.py:59 account/forms.py:416
+#: account/forms.py:59 account/forms.py:433
 msgid "You must type the same password each time."
 msgstr "Heslá sa nezhodujú."
 
-#: account/forms.py:92 account/forms.py:381 account/forms.py:501
+#: account/forms.py:92 account/forms.py:398 account/forms.py:540
 msgid "Password"
 msgstr "Heslo"
 
@@ -64,13 +64,13 @@ msgstr "Uvedený e-mail alebo heslo nie je správne."
 msgid "The username and/or password you specified are not correct."
 msgstr "Uvedené užívateľské meno alebo heslo nie je správne."
 
-#: account/forms.py:113 account/forms.py:279 account/forms.py:442
-#: account/forms.py:520
+#: account/forms.py:113 account/forms.py:279 account/forms.py:481
+#: account/forms.py:559
 msgid "E-mail address"
 msgstr "E-mailová adresa"
 
-#: account/forms.py:117 account/forms.py:316 account/forms.py:439
-#: account/forms.py:515
+#: account/forms.py:117 account/forms.py:324 account/forms.py:478
+#: account/forms.py:554
 msgid "E-mail"
 msgstr "E-mail"
 
@@ -88,61 +88,61 @@ msgctxt "field label"
 msgid "Login"
 msgstr "Login"
 
-#: account/forms.py:307
+#: account/forms.py:315
 msgid "E-mail (again)"
 msgstr "E-mail (znova)"
 
-#: account/forms.py:311
+#: account/forms.py:319
 msgid "E-mail address confirmation"
 msgstr "Potvrdenie e-mailu"
 
-#: account/forms.py:319
+#: account/forms.py:327
 msgid "E-mail (optional)"
 msgstr "E-mail (nepovinné)"
 
-#: account/forms.py:359
+#: account/forms.py:376
 msgid "You must type the same email each time."
 msgstr "E-maily sa nezhodujú."
 
-#: account/forms.py:385 account/forms.py:502
+#: account/forms.py:402 account/forms.py:541
 msgid "Password (again)"
 msgstr "Heslo (znovu)"
 
-#: account/forms.py:451
+#: account/forms.py:490
 msgid "This e-mail address is already associated with this account."
 msgstr "Táto e-mailová adresa je už spojená s týmto účtom."
 
-#: account/forms.py:454
+#: account/forms.py:493
 msgid "This e-mail address is already associated with another account."
 msgstr "Táto e-mailová adresa je už spojená s iným účtom."
 
-#: account/forms.py:456
+#: account/forms.py:495
 #, python-format
 msgid "You cannot add more than %d e-mail addresses."
 msgstr "Nemôžte pridať viac než %d e-mailových adries."
 
-#: account/forms.py:481
+#: account/forms.py:520
 msgid "Current Password"
 msgstr "Súčasné heslo"
 
-#: account/forms.py:483 account/forms.py:588
+#: account/forms.py:522 account/forms.py:627
 msgid "New Password"
 msgstr "Nové heslo"
 
-#: account/forms.py:484 account/forms.py:589
+#: account/forms.py:523 account/forms.py:628
 msgid "New Password (again)"
 msgstr "Nové heslo (znovu)"
 
-#: account/forms.py:492
+#: account/forms.py:531
 msgid "Please type your current password."
 msgstr "Prosím, napíšte svoje súčasné heslo."
 
-#: account/forms.py:532
+#: account/forms.py:571
 msgid "The e-mail address is not assigned to any user account"
 msgstr ""
 "Táto e-mailová adresa nie je pridelená k žiadnemu používateľskému kontu"
 
-#: account/forms.py:610
+#: account/forms.py:649
 msgid "The password reset token was invalid."
 msgstr "Token na obnovu hesla bol nesprávny."
 
@@ -398,6 +398,28 @@ msgstr "Pridať e-mail"
 msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Naozaj chcete odstrániť vybranú e-mailovú adresu?"
 
+#: templates/account/email/account_already_exists_message.txt:4
+#, python-format
+msgid ""
+"You are receiving this e-mail because you or someone else tried to signup "
+"for an\n"
+"account using e-mail address:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"However, an account using that e-mail address already exists.  In case you "
+"have\n"
+"forgotten about this, please use the password forgotten procedure to "
+"recover\n"
+"your account:\n"
+"\n"
+"%(password_reset_url)s"
+msgstr ""
+
+#: templates/account/email/account_already_exists_subject.txt:3
+msgid "Account Already Exists"
+msgstr ""
+
 #: templates/account/email/base_message.txt:1
 #, python-format
 msgid "Hello from %(site_name)s!"
@@ -492,11 +514,11 @@ msgstr "Potvrdiť"
 #: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a href="
-"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"Odkaz na potvrdenie e-mailu je neplatný alebo vypršal. <a href="
-"\"%(email_url)s\">Zaslať novú žiadosť o overovací e-mail</a>."
+"Odkaz na potvrdenie e-mailu je neplatný alebo vypršal. <a "
+"href=\"%(email_url)s\">Zaslať novú žiadosť o overovací e-mail</a>."
 
 #: templates/account/login.html:6 templates/account/login.html:10
 #: templates/account/login.html:43 templates/socialaccount/login.html:4
@@ -512,8 +534,8 @@ msgid ""
 "for a %(site_name)s account and sign in below:"
 msgstr ""
 "Prosím prihláste sa s jedným\n"
-"z vašich existujúcich účtov iných služieb. Alebo <a href=\"%(signup_url)s"
-"\">sa zaregistrujte</a>\n"
+"z vašich existujúcich účtov iných služieb. Alebo <a "
+"href=\"%(signup_url)s\">sa zaregistrujte</a>\n"
 "na %(site_name)s a prihláste sa nižšie:"
 
 #: templates/account/login.html:25
@@ -645,8 +667,8 @@ msgid ""
 "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
 "a>."
 msgstr ""
-"Odkaz na obnovu heslo je neplatný, pravdepodobne už bol použitý. <a href="
-"\"%(passwd_reset_url)s\">Nové obnovenie hesla</a>."
+"Odkaz na obnovu heslo je neplatný, pravdepodobne už bol použitý. <a "
+"href=\"%(passwd_reset_url)s\">Nové obnovenie hesla</a>."
 
 #: templates/account/password_reset_from_key.html:16
 msgid "change password"
@@ -819,8 +841,8 @@ msgstr "Prihlásenie zrušené"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
-"\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a "
+"href=\"%(login_url)s\">sign in</a>."
 msgstr ""
 "Rozhodli ste sa zrušiť prihlasovanie sa na našu stránku použitím jedného z "
 "vašich existujúcich účtov. Ak se chceli vykonať inú operáciu, pokračujte na "

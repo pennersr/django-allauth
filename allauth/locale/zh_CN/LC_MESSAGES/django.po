@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-07 04:23-0500\n"
+"POT-Creation-Date: 2022-12-29 01:58-0600\n"
 "PO-Revision-Date: 2014-08-12 00:36+0200\n"
 "Last-Translator: jresins <jresins@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,11 +38,11 @@ msgstr "密码长度不得少于 {0} 个字符。"
 msgid "Accounts"
 msgstr "账号"
 
-#: account/forms.py:59 account/forms.py:416
+#: account/forms.py:59 account/forms.py:433
 msgid "You must type the same password each time."
 msgstr "每次输入的密码必须相同"
 
-#: account/forms.py:92 account/forms.py:381 account/forms.py:501
+#: account/forms.py:92 account/forms.py:398 account/forms.py:540
 msgid "Password"
 msgstr "密码"
 
@@ -62,13 +62,13 @@ msgstr "您提供的e-mail地址或密码不正确。"
 msgid "The username and/or password you specified are not correct."
 msgstr "您提供的用户名或密码不正确。"
 
-#: account/forms.py:113 account/forms.py:279 account/forms.py:442
-#: account/forms.py:520
+#: account/forms.py:113 account/forms.py:279 account/forms.py:481
+#: account/forms.py:559
 msgid "E-mail address"
 msgstr "E-mail地址"
 
-#: account/forms.py:117 account/forms.py:316 account/forms.py:439
-#: account/forms.py:515
+#: account/forms.py:117 account/forms.py:324 account/forms.py:478
+#: account/forms.py:554
 msgid "E-mail"
 msgstr "E-mail"
 
@@ -86,67 +86,67 @@ msgctxt "field label"
 msgid "Login"
 msgstr "账号"
 
-#: account/forms.py:307
+#: account/forms.py:315
 #, fuzzy
 #| msgid "E-mail (optional)"
 msgid "E-mail (again)"
 msgstr "E-mail （选填项）"
 
-#: account/forms.py:311
+#: account/forms.py:319
 #, fuzzy
 #| msgid "email confirmation"
 msgid "E-mail address confirmation"
 msgstr "e-mail确认"
 
-#: account/forms.py:319
+#: account/forms.py:327
 msgid "E-mail (optional)"
 msgstr "E-mail （选填项）"
 
-#: account/forms.py:359
+#: account/forms.py:376
 #, fuzzy
 #| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
 msgstr "每次输入的密码必须相同"
 
-#: account/forms.py:385 account/forms.py:502
+#: account/forms.py:402 account/forms.py:541
 msgid "Password (again)"
 msgstr "密码（重复）"
 
-#: account/forms.py:451
+#: account/forms.py:490
 msgid "This e-mail address is already associated with this account."
 msgstr "此e-mail地址已关联到这个账号。"
 
-#: account/forms.py:454
+#: account/forms.py:493
 msgid "This e-mail address is already associated with another account."
 msgstr "此e-mail地址已关联到其他账号。"
 
-#: account/forms.py:456
+#: account/forms.py:495
 #, fuzzy, python-format
 #| msgid "Your account has no verified e-mail address."
 msgid "You cannot add more than %d e-mail addresses."
 msgstr "您的账号下无任何验证过的e-mail地址。"
 
-#: account/forms.py:481
+#: account/forms.py:520
 msgid "Current Password"
 msgstr "当前密码"
 
-#: account/forms.py:483 account/forms.py:588
+#: account/forms.py:522 account/forms.py:627
 msgid "New Password"
 msgstr "新密码"
 
-#: account/forms.py:484 account/forms.py:589
+#: account/forms.py:523 account/forms.py:628
 msgid "New Password (again)"
 msgstr "新密码（重复）"
 
-#: account/forms.py:492
+#: account/forms.py:531
 msgid "Please type your current password."
 msgstr "请输入您的当前密码"
 
-#: account/forms.py:532
+#: account/forms.py:571
 msgid "The e-mail address is not assigned to any user account"
 msgstr "此e-mail地址未分配给任何用户账号"
 
-#: account/forms.py:610
+#: account/forms.py:649
 msgid "The password reset token was invalid."
 msgstr "重设密码的token不合法。"
 
@@ -401,6 +401,28 @@ msgstr "添加E-mail"
 msgid "Do you really want to remove the selected e-mail address?"
 msgstr "您真的想移除选定的e-mail地址吗？"
 
+#: templates/account/email/account_already_exists_message.txt:4
+#, python-format
+msgid ""
+"You are receiving this e-mail because you or someone else tried to signup "
+"for an\n"
+"account using e-mail address:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"However, an account using that e-mail address already exists.  In case you "
+"have\n"
+"forgotten about this, please use the password forgotten procedure to "
+"recover\n"
+"your account:\n"
+"\n"
+"%(password_reset_url)s"
+msgstr ""
+
+#: templates/account/email/account_already_exists_subject.txt:3
+msgid "Account Already Exists"
+msgstr ""
+
 #: templates/account/email/base_message.txt:1
 #, python-format
 msgid "Hello from %(site_name)s!"
@@ -505,8 +527,8 @@ msgstr "确认"
 #: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a href="
-"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
 "e-mail验证链接失效或无效。请点击 <a href=\"%(email_url)s\">发起新的e-mail验证"
 "请求。"
@@ -655,8 +677,8 @@ msgid ""
 "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
 "a>."
 msgstr ""
-"密码重置链接无效，可能该链接已被使用。请重新申请<a href="
-"\"%(passwd_reset_url)s\">链接重置</a>。"
+"密码重置链接无效，可能该链接已被使用。请重新申请<a "
+"href=\"%(passwd_reset_url)s\">链接重置</a>。"
 
 #: templates/account/password_reset_from_key.html:16
 msgid "change password"
@@ -827,11 +849,11 @@ msgstr "登录已取消"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
-"\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a "
+"href=\"%(login_url)s\">sign in</a>."
 msgstr ""
-"您决定取消使用您的已有账号登录我们的网站。如果这是一个失误，请继续<a href="
-"\"%(login_url)s\">登录</a>."
+"您决定取消使用您的已有账号登录我们的网站。如果这是一个失误，请继续<a "
+"href=\"%(login_url)s\">登录</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
 #, fuzzy
@@ -912,8 +934,8 @@ msgstr ""
 #~ msgstr "您的e-mail地址已经认证。"
 
 #~ msgid ""
-#~ "If you have any trouble resetting your password, contact us at <a href="
-#~ "\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
+#~ "If you have any trouble resetting your password, contact us at <a "
+#~ "href=\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
 #~ msgstr ""
 #~ "如果您在重置密码中遇到任何问题，请联系我们<a href=\"mailto:"
 #~ "%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
@@ -994,8 +1016,8 @@ msgstr ""
 #~ msgstr "Afmelden"
 
 #~ msgid ""
-#~ "When you receive the new password, you should <a href=\"%(login_url)s"
-#~ "\">log in</a> and change it as soon as possible."
+#~ "When you receive the new password, you should <a "
+#~ "href=\"%(login_url)s\">log in</a> and change it as soon as possible."
 #~ msgstr ""
 #~ "Zodra je het nieuwe wachtwoord ontvangen hebt moet je zo snel mogelijk <a "
 #~ "href=\"%(login_url)s\">inloggen</a> en het wachtwoord wijzigen."
@@ -1005,16 +1027,17 @@ msgstr ""
 
 #~ msgid ""
 #~ "By clicking \"Sign Up\", you are indicating that you have read and agree "
-#~ "to the <a href=\"%(terms_url)s\">Terms of Use</a> and <a href="
-#~ "\"%(privacy_url)s\">Privacy Policy</a>."
+#~ "to the <a href=\"%(terms_url)s\">Terms of Use</a> and <a "
+#~ "href=\"%(privacy_url)s\">Privacy Policy</a>."
 #~ msgstr ""
-#~ "Door te registreren geef je aan dat je de <a href=\"%(terms_url)s"
-#~ "\">gebruiksvoorwaarden</a> en de <a href=\"%(privacy_url)s\">privacy "
-#~ "policy</a> gelezen hebt en ermee akkoord gaat."
+#~ "Door te registreren geef je aan dat je de <a "
+#~ "href=\"%(terms_url)s\">gebruiksvoorwaarden</a> en de <a "
+#~ "href=\"%(privacy_url)s\">privacy policy</a> gelezen hebt en ermee akkoord "
+#~ "gaat."
 
 #~ msgid ""
-#~ "If you have any trouble creating your account, contact us at <a href="
-#~ "\"mailto:%(contact_email)s\">%(contact_email)s</a>."
+#~ "If you have any trouble creating your account, contact us at <a "
+#~ "href=\"mailto:%(contact_email)s\">%(contact_email)s</a>."
 #~ msgstr ""
 #~ "Als je problemen hebt om een account aan te maken, neem dan contact op "
 #~ "met <a href=\"mailto:%(contact_email)s\">%(contact_email)s</a>."

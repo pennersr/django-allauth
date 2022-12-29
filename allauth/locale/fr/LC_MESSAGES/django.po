@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-07 04:23-0500\n"
+"POT-Creation-Date: 2022-12-29 01:58-0600\n"
 "PO-Revision-Date: 2020-10-15 19:47+0200\n"
 "Last-Translator: Gilou <contact+dev@gilouweb.com>\n"
 "Language-Team: français <>\n"
@@ -43,11 +43,11 @@ msgstr "Le mot de passe doit contenir au minimum {0} caractères."
 msgid "Accounts"
 msgstr "Comptes"
 
-#: account/forms.py:59 account/forms.py:416
+#: account/forms.py:59 account/forms.py:433
 msgid "You must type the same password each time."
 msgstr "Vous devez saisir deux fois le même mot de passe."
 
-#: account/forms.py:92 account/forms.py:381 account/forms.py:501
+#: account/forms.py:92 account/forms.py:398 account/forms.py:540
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -67,13 +67,13 @@ msgstr "L’adresse e-mail ou le mot de passe sont incorrects."
 msgid "The username and/or password you specified are not correct."
 msgstr "Le pseudo ou le mot de passe sont incorrects."
 
-#: account/forms.py:113 account/forms.py:279 account/forms.py:442
-#: account/forms.py:520
+#: account/forms.py:113 account/forms.py:279 account/forms.py:481
+#: account/forms.py:559
 msgid "E-mail address"
 msgstr "Adresse e-mail"
 
-#: account/forms.py:117 account/forms.py:316 account/forms.py:439
-#: account/forms.py:515
+#: account/forms.py:117 account/forms.py:324 account/forms.py:478
+#: account/forms.py:554
 msgid "E-mail"
 msgstr "E-mail"
 
@@ -91,61 +91,61 @@ msgctxt "field label"
 msgid "Login"
 msgstr "Identifiant"
 
-#: account/forms.py:307
+#: account/forms.py:315
 msgid "E-mail (again)"
 msgstr "E-mail (confirmation)"
 
-#: account/forms.py:311
+#: account/forms.py:319
 msgid "E-mail address confirmation"
 msgstr "Confirmation d'adresse e-mail"
 
-#: account/forms.py:319
+#: account/forms.py:327
 msgid "E-mail (optional)"
 msgstr "E-mail (facultatif)"
 
-#: account/forms.py:359
+#: account/forms.py:376
 msgid "You must type the same email each time."
 msgstr "Vous devez saisir deux fois le même email."
 
-#: account/forms.py:385 account/forms.py:502
+#: account/forms.py:402 account/forms.py:541
 msgid "Password (again)"
 msgstr "Mot de passe (confirmation)"
 
-#: account/forms.py:451
+#: account/forms.py:490
 msgid "This e-mail address is already associated with this account."
 msgstr "L'adresse e-mail est déjà associée à votre compte."
 
-#: account/forms.py:454
+#: account/forms.py:493
 msgid "This e-mail address is already associated with another account."
 msgstr "L'adresse e-mail est déjà associée à un autre compte."
 
-#: account/forms.py:456
+#: account/forms.py:495
 #, fuzzy, python-format
 #| msgid "Your account has no verified e-mail address."
 msgid "You cannot add more than %d e-mail addresses."
 msgstr "Vous devez d'abord associer une adresse e-mail à votre compte."
 
-#: account/forms.py:481
+#: account/forms.py:520
 msgid "Current Password"
 msgstr "Mot de passe actuel"
 
-#: account/forms.py:483 account/forms.py:588
+#: account/forms.py:522 account/forms.py:627
 msgid "New Password"
 msgstr "Nouveau mot de passe"
 
-#: account/forms.py:484 account/forms.py:589
+#: account/forms.py:523 account/forms.py:628
 msgid "New Password (again)"
 msgstr "Nouveau mot de passe (confirmation)"
 
-#: account/forms.py:492
+#: account/forms.py:531
 msgid "Please type your current password."
 msgstr "Merci d'indiquer votre mot de passe actuel."
 
-#: account/forms.py:532
+#: account/forms.py:571
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Cette adresse e-mail n'est pas associée à un compte utilisateur"
 
-#: account/forms.py:610
+#: account/forms.py:649
 msgid "The password reset token was invalid."
 msgstr "Le jeton de réinitialisation de mot de passe est invalide."
 
@@ -399,6 +399,28 @@ msgstr "Ajouter un e-mail"
 msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Voulez-vous vraiment retirer cette adresse e-mail ?"
 
+#: templates/account/email/account_already_exists_message.txt:4
+#, python-format
+msgid ""
+"You are receiving this e-mail because you or someone else tried to signup "
+"for an\n"
+"account using e-mail address:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"However, an account using that e-mail address already exists.  In case you "
+"have\n"
+"forgotten about this, please use the password forgotten procedure to "
+"recover\n"
+"your account:\n"
+"\n"
+"%(password_reset_url)s"
+msgstr ""
+
+#: templates/account/email/account_already_exists_subject.txt:3
+msgid "Account Already Exists"
+msgstr ""
+
 #: templates/account/email/base_message.txt:1
 #, python-format
 msgid "Hello from %(site_name)s!"
@@ -499,8 +521,8 @@ msgstr "Confirmer"
 #: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a href="
-"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
 "Ce lien de confirmation d'adresse e-mail a expiré ou n'est pas valide. "
 "Veuillez lancer <a href=\"%(email_url)s\">une nouvelle demande de "
@@ -533,8 +555,8 @@ msgid ""
 "If you have not created an account yet, then please\n"
 "<a href=\"%(signup_url)s\">sign up</a> first."
 msgstr ""
-"Si vous n'avez pas encore créé de compte, merci de vous <a href="
-"\"%(signup_url)s\">enregistrer</a> au préalable."
+"Si vous n'avez pas encore créé de compte, merci de vous <a "
+"href=\"%(signup_url)s\">enregistrer</a> au préalable."
 
 #: templates/account/login.html:42 templates/account/password_change.html:14
 msgid "Forgot Password?"
@@ -656,8 +678,9 @@ msgid ""
 "a>."
 msgstr ""
 "Le lien de réinitialisation du mot de passe est invalide. Il a peut être "
-"déjà été utilisé. Veuillez faire une nouvelle <a href=\"%(passwd_reset_url)s"
-"\">demande de réinitialisation de mot de passe</a>."
+"déjà été utilisé. Veuillez faire une nouvelle <a "
+"href=\"%(passwd_reset_url)s\">demande de réinitialisation de mot de passe</"
+"a>."
 
 #: templates/account/password_reset_from_key.html:16
 msgid "change password"
@@ -763,8 +786,8 @@ msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
 "mail address</a>."
 msgstr ""
-"<strong>Remarque :</strong> vous pouvez toujours <a href=\"%(email_url)s"
-"\">changer votre adresse e-mail</a>."
+"<strong>Remarque :</strong> vous pouvez toujours <a "
+"href=\"%(email_url)s\">changer votre adresse e-mail</a>."
 
 #: templates/openid/login.html:9
 msgid "OpenID Sign In"
@@ -836,12 +859,12 @@ msgstr "Ouverture de session annulée"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
-"\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a "
+"href=\"%(login_url)s\">sign in</a>."
 msgstr ""
 "Vous avez annulé la connexion à notre site depuis l'un de vos comptes de "
-"réseau social. S'il s'agit d'une erreur, merci de <a href=\"%(login_url)s"
-"\">connecter</a>."
+"réseau social. S'il s'agit d'une erreur, merci de <a "
+"href=\"%(login_url)s\">connecter</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."

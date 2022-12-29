@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-07 04:23-0500\n"
+"POT-Creation-Date: 2022-12-29 01:58-0600\n"
 "PO-Revision-Date: 2020-06-14 17:00-0000\n"
 "Last-Translator: Mohammad Ali Amini <hakhsin@gmail.com>\n"
 "Language-Team: \n"
@@ -39,11 +39,11 @@ msgstr "گذرواژه باید حداقل {0} کاراکتر باشد."
 msgid "Accounts"
 msgstr "حساب‌ها"
 
-#: account/forms.py:59 account/forms.py:416
+#: account/forms.py:59 account/forms.py:433
 msgid "You must type the same password each time."
 msgstr "هربار باید گذرواژه‌ی یکسانی وارد کنی."
 
-#: account/forms.py:92 account/forms.py:381 account/forms.py:501
+#: account/forms.py:92 account/forms.py:398 account/forms.py:540
 msgid "Password"
 msgstr "گذرواژه"
 
@@ -63,13 +63,13 @@ msgstr "نشانی رایانامه یا گذرواژه نادرست است."
 msgid "The username and/or password you specified are not correct."
 msgstr "نام‌کاربری یا گذرواژه نادرست است."
 
-#: account/forms.py:113 account/forms.py:279 account/forms.py:442
-#: account/forms.py:520
+#: account/forms.py:113 account/forms.py:279 account/forms.py:481
+#: account/forms.py:559
 msgid "E-mail address"
 msgstr "نشانی رایانامه"
 
-#: account/forms.py:117 account/forms.py:316 account/forms.py:439
-#: account/forms.py:515
+#: account/forms.py:117 account/forms.py:324 account/forms.py:478
+#: account/forms.py:554
 msgid "E-mail"
 msgstr "رایانامه"
 
@@ -87,69 +87,69 @@ msgctxt "field label"
 msgid "Login"
 msgstr "ورود"
 
-#: account/forms.py:307
+#: account/forms.py:315
 #, fuzzy
 #| msgid "E-mail (optional)"
 msgid "E-mail (again)"
 msgstr "رایانامه (ازنو)"
 
-#: account/forms.py:311
+#: account/forms.py:319
 #, fuzzy
 #| msgid "email confirmation"
 msgid "E-mail address confirmation"
 msgstr "تاییدیه‌ی نشانی رایانامه"
 
-#: account/forms.py:319
+#: account/forms.py:327
 msgid "E-mail (optional)"
 msgstr "رایانامه (اختیاری)"
 
-#: account/forms.py:359
+#: account/forms.py:376
 #, fuzzy
 #| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
 msgstr "هربار باید رایانامه‌ی یکسانی وارد کنی."
 
-#: account/forms.py:385 account/forms.py:502
+#: account/forms.py:402 account/forms.py:541
 msgid "Password (again)"
 msgstr "گذرواژه (ازنو)"
 
-#: account/forms.py:451
+#: account/forms.py:490
 #, fuzzy
 #| msgid "This e-mail address is already associated with another account."
 msgid "This e-mail address is already associated with this account."
 msgstr "این نشانی رایانامه ازقبل به این حساب وصل شده."
 
-#: account/forms.py:454
+#: account/forms.py:493
 msgid "This e-mail address is already associated with another account."
 msgstr "این نشانی رایانامه ازقبل به حساب دیگری وصل شده."
 
-#: account/forms.py:456
+#: account/forms.py:495
 #, fuzzy, python-format
 #| msgid "Your account has no verified e-mail address."
 msgid "You cannot add more than %d e-mail addresses."
 msgstr "حساب‌ات هیچ رایانامه‌ي تایید‌شده‌ای ندارد."
 
-#: account/forms.py:481
+#: account/forms.py:520
 msgid "Current Password"
 msgstr "گذرواژه کنونی"
 
-#: account/forms.py:483 account/forms.py:588
+#: account/forms.py:522 account/forms.py:627
 msgid "New Password"
 msgstr "گذرواژه جدید"
 
-#: account/forms.py:484 account/forms.py:589
+#: account/forms.py:523 account/forms.py:628
 msgid "New Password (again)"
 msgstr "گذرواژه جدید (ازنو)"
 
-#: account/forms.py:492
+#: account/forms.py:531
 msgid "Please type your current password."
 msgstr "لطفا گذرواژه کنونی‌‌ات را وارد کن."
 
-#: account/forms.py:532
+#: account/forms.py:571
 msgid "The e-mail address is not assigned to any user account"
 msgstr "این نشانی رایانامه به هیچ حساب کاربری‌ای منتسب نشده."
 
-#: account/forms.py:610
+#: account/forms.py:649
 msgid "The password reset token was invalid."
 msgstr "توکن بازنشانی گذرواژه نامعتبر است."
 
@@ -405,6 +405,28 @@ msgstr "افزودن رایانامه"
 msgid "Do you really want to remove the selected e-mail address?"
 msgstr "واقعا می‌خواهی نشانی رایانامه‌ی انتخاب‌شده را حذف کنی؟"
 
+#: templates/account/email/account_already_exists_message.txt:4
+#, python-format
+msgid ""
+"You are receiving this e-mail because you or someone else tried to signup "
+"for an\n"
+"account using e-mail address:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"However, an account using that e-mail address already exists.  In case you "
+"have\n"
+"forgotten about this, please use the password forgotten procedure to "
+"recover\n"
+"your account:\n"
+"\n"
+"%(password_reset_url)s"
+msgstr ""
+
+#: templates/account/email/account_already_exists_subject.txt:3
+msgid "Account Already Exists"
+msgstr ""
+
 #: templates/account/email/base_message.txt:1
 #, fuzzy, python-format
 #| msgid ""
@@ -518,11 +540,11 @@ msgstr "تایید"
 #: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a href="
-"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"این پیوند تاییدیه رایانامه باطل‌شده ویا نامعتبر است. لطفا یه <a href="
-"\"%(email_url)s\">تاییدیه جدید رایانامه</a> درخواست کن."
+"این پیوند تاییدیه رایانامه باطل‌شده ویا نامعتبر است. لطفا یه <a "
+"href=\"%(email_url)s\">تاییدیه جدید رایانامه</a> درخواست کن."
 
 #: templates/account/login.html:6 templates/account/login.html:10
 #: templates/account/login.html:43 templates/socialaccount/login.html:4
@@ -537,8 +559,8 @@ msgid ""
 "up</a>\n"
 "for a %(site_name)s account and sign in below:"
 msgstr ""
-"لطفا با یکی از حساب‌های شخص سوم موجودت وارد شو. یا در %(site_name)s<a href="
-"\"%(signup_url)s\">ثبت‌نام</a> کن و از زیر وارد شو:"
+"لطفا با یکی از حساب‌های شخص سوم موجودت وارد شو. یا در %(site_name)s<a "
+"href=\"%(signup_url)s\">ثبت‌نام</a> کن و از زیر وارد شو:"
 
 #: templates/account/login.html:25
 msgid "or"
@@ -672,8 +694,8 @@ msgid ""
 "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
 "a>."
 msgstr ""
-"پیوند بازنشانی گذرواژه نادرست است؛ شاید قبلا استفاده شده. لطفا یه <a class="
-"\"alert-link\" href=\"{{ passwd_reset_url }}\">بازنشان جدید گذرواژه</"
+"پیوند بازنشانی گذرواژه نادرست است؛ شاید قبلا استفاده شده. لطفا یه <a "
+"class=\"alert-link\" href=\"{{ passwd_reset_url }}\">بازنشان جدید گذرواژه</"
 "a>درخواست کن."
 
 #: templates/account/password_reset_from_key.html:16
@@ -845,8 +867,8 @@ msgstr "لغو ورود"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
-"\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a "
+"href=\"%(login_url)s\">sign in</a>."
 msgstr ""
 "ورودت به سایت‌مان با یکی از حساب‌هایت را لغو کردی. اگر اشتباهی شده، لطفا اقدام "
 "به <a href=\"%(login_url)s\">ورود</a> کن."

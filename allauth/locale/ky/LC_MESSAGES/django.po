@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-07 04:23-0500\n"
+"POT-Creation-Date: 2022-12-29 01:58-0600\n"
 "PO-Revision-Date: 2016-07-20 22:24+0600\n"
 "Last-Translator: Murat Jumashev <jumasheff at gmail dot com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,11 +39,11 @@ msgstr "Купуя жок дегенде {0} белгиден турушу ке�
 msgid "Accounts"
 msgstr "Эсептер"
 
-#: account/forms.py:59 account/forms.py:416
+#: account/forms.py:59 account/forms.py:433
 msgid "You must type the same password each time."
 msgstr "Сиз ошол эле купуяны кайрадан териңиз."
 
-#: account/forms.py:92 account/forms.py:381 account/forms.py:501
+#: account/forms.py:92 account/forms.py:398 account/forms.py:540
 msgid "Password"
 msgstr "Купуя"
 
@@ -63,13 +63,13 @@ msgstr "Сиз берген эмейл дарек жана/же купуя ту�
 msgid "The username and/or password you specified are not correct."
 msgstr "Сиз берген колдонуучу аты жана/же купуя туура эмес."
 
-#: account/forms.py:113 account/forms.py:279 account/forms.py:442
-#: account/forms.py:520
+#: account/forms.py:113 account/forms.py:279 account/forms.py:481
+#: account/forms.py:559
 msgid "E-mail address"
 msgstr "Эмейл дарек"
 
-#: account/forms.py:117 account/forms.py:316 account/forms.py:439
-#: account/forms.py:515
+#: account/forms.py:117 account/forms.py:324 account/forms.py:478
+#: account/forms.py:554
 msgid "E-mail"
 msgstr "Эмейл"
 
@@ -87,67 +87,67 @@ msgctxt "field label"
 msgid "Login"
 msgstr "Логин"
 
-#: account/forms.py:307
+#: account/forms.py:315
 #, fuzzy
 #| msgid "E-mail (optional)"
 msgid "E-mail (again)"
 msgstr "Эмейл (милдеттүү эмес)"
 
-#: account/forms.py:311
+#: account/forms.py:319
 #, fuzzy
 #| msgid "email confirmation"
 msgid "E-mail address confirmation"
 msgstr "эмейл ырастоо"
 
-#: account/forms.py:319
+#: account/forms.py:327
 msgid "E-mail (optional)"
 msgstr "Эмейл (милдеттүү эмес)"
 
-#: account/forms.py:359
+#: account/forms.py:376
 #, fuzzy
 #| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
 msgstr "Сиз ошол эле купуяны кайрадан териңиз."
 
-#: account/forms.py:385 account/forms.py:502
+#: account/forms.py:402 account/forms.py:541
 msgid "Password (again)"
 msgstr "Купуя (дагы бир жолу)"
 
-#: account/forms.py:451
+#: account/forms.py:490
 msgid "This e-mail address is already associated with this account."
 msgstr "Бул эмейл дарек ушул эсеп менен буга чейин туташтырылган."
 
-#: account/forms.py:454
+#: account/forms.py:493
 msgid "This e-mail address is already associated with another account."
 msgstr "Бул эмейл дарек башка бир эсеп менен буга чейин туташтырылган."
 
-#: account/forms.py:456
+#: account/forms.py:495
 #, fuzzy, python-format
 #| msgid "Your account has no verified e-mail address."
 msgid "You cannot add more than %d e-mail addresses."
 msgstr "Сиздин эсебиңизде дурусталган эмейл даректер жок."
 
-#: account/forms.py:481
+#: account/forms.py:520
 msgid "Current Password"
 msgstr "Азыркы купуя"
 
-#: account/forms.py:483 account/forms.py:588
+#: account/forms.py:522 account/forms.py:627
 msgid "New Password"
 msgstr "Жаңы купуя"
 
-#: account/forms.py:484 account/forms.py:589
+#: account/forms.py:523 account/forms.py:628
 msgid "New Password (again)"
 msgstr "Жаңы купуя (кайрадан)"
 
-#: account/forms.py:492
+#: account/forms.py:531
 msgid "Please type your current password."
 msgstr "Учурдагы купуяңызды жазыңыз."
 
-#: account/forms.py:532
+#: account/forms.py:571
 msgid "The e-mail address is not assigned to any user account"
 msgstr "Эмейл дарек эч бир колдонуучу эсебине байланган эмес"
 
-#: account/forms.py:610
+#: account/forms.py:649
 msgid "The password reset token was invalid."
 msgstr "Купуяны жаңыртуу токени туура эмес."
 
@@ -400,6 +400,28 @@ msgstr "Эмейл кошуу"
 msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Тандалган эмейл даректи алып салууну дурустайсызбы?"
 
+#: templates/account/email/account_already_exists_message.txt:4
+#, python-format
+msgid ""
+"You are receiving this e-mail because you or someone else tried to signup "
+"for an\n"
+"account using e-mail address:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"However, an account using that e-mail address already exists.  In case you "
+"have\n"
+"forgotten about this, please use the password forgotten procedure to "
+"recover\n"
+"your account:\n"
+"\n"
+"%(password_reset_url)s"
+msgstr ""
+
+#: templates/account/email/account_already_exists_subject.txt:3
+msgid "Account Already Exists"
+msgstr ""
+
 #: templates/account/email/base_message.txt:1
 #, fuzzy, python-format
 #| msgid ""
@@ -526,8 +548,8 @@ msgstr "Ырастоо"
 #: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a href="
-"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
 "Бул эмейлди ырастоо шилтемесинин мөөнөтү өтүп кеткен же ал туура эмес. <a "
 "href=\"%(email_url)s\">эмейлди ырастоо сурамын кайрадан жөнөтүңүз</a>."
@@ -679,8 +701,9 @@ msgid ""
 "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
 "a>."
 msgstr ""
-"Купуя жаңыртуу шилтемеси туура эмес экен, ал мурун колдонулса керек. <a href="
-"\"%(passwd_reset_url)s\">Купуяны жаңыртуу</a> сурамын кайрадан жөнөтүңүз."
+"Купуя жаңыртуу шилтемеси туура эмес экен, ал мурун колдонулса керек. <a "
+"href=\"%(passwd_reset_url)s\">Купуяны жаңыртуу</a> сурамын кайрадан "
+"жөнөтүңүз."
 
 #: templates/account/password_reset_from_key.html:16
 msgid "change password"
@@ -783,8 +806,8 @@ msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
 "mail address</a>."
 msgstr ""
-"<strong>Эскертүү:</strong> эмейл дарегиңизди дагы деле <a href="
-"\"%(email_url)s\">өзгөртсөңүз болот</a>."
+"<strong>Эскертүү:</strong> эмейл дарегиңизди дагы деле <a "
+"href=\"%(email_url)s\">өзгөртсөңүз болот</a>."
 
 #: templates/openid/login.html:9
 msgid "OpenID Sign In"
@@ -854,8 +877,8 @@ msgstr "Кирүү токтотулду"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
-"\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a "
+"href=\"%(login_url)s\">sign in</a>."
 msgstr ""
 "Эсептериңизин бирөөсүн колдонуп сайтыбызга кирүүдөн баш тарттыңыз. Аны "
 "байкабастан кылып алсаңыз, <a href=\"%(login_url)s\">кирүүнү</a> улантсаңыз "

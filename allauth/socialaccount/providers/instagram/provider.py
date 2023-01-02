@@ -23,7 +23,7 @@ class InstagramProvider(OAuth2Provider):
         return data
 
     def get_default_scope(self):
-        return ["basic"]
+        return ["user_profile"]
 
     def extract_uid(self, data):
         return str(data["id"])

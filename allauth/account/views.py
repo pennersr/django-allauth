@@ -16,7 +16,7 @@ from django.views.generic.edit import FormView
 from allauth import ratelimit
 from allauth.decorators import rate_limit
 from allauth.exceptions import ImmediateHttpResponse
-from allauth.utils import get_form_class, get_request_param
+from allauth.utils import build_absolute_uri, get_form_class, get_request_param
 
 from . import app_settings, signals
 from .adapter import get_adapter
@@ -245,11 +245,15 @@ class SignupView(
         return ret
 
     def form_valid(self, form):
-        self.user = form.save(self.request)
-        if not self.user:
+        if form.account_already_exists:
+            email = form.cleaned_data["email"]
+            # Don't create a new account, only send an email informing the user
+            # that (s)he already has one...
+            self._send_account_already_exists_mail(email)
             return get_adapter(self.request).respond_email_verification_sent(
                 self.request, None
             )
+        self.user = form.save(self.request)
         try:
             return complete_signup(
                 self.request,
@@ -285,6 +289,22 @@ class SignupView(
             }
         )
         return ret
+
+    def _send_account_already_exists_mail(self, email):
+        signup_url = build_absolute_uri(self.request, reverse("account_signup"))
+        password_reset_url = build_absolute_uri(
+            self.request, reverse("account_reset_password")
+        )
+        context = {
+            "request": self.request,
+            "current_site": get_current_site(self.request),
+            "email": email,
+            "signup_url": signup_url,
+            "password_reset_url": password_reset_url,
+        }
+        get_adapter(self.request).send_mail(
+            "account/email/account_already_exists", email, context
+        )
 
 
 signup = SignupView.as_view()

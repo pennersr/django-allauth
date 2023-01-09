@@ -12,6 +12,7 @@ from django.contrib.auth.models import AbstractUser, AnonymousUser
 from django.contrib.messages.api import get_messages
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
+from django.contrib.sessions.models import Session
 from django.core import mail, validators
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -1170,6 +1171,38 @@ class AccountTests(TestCase):
         self.assertTemplateUsed(
             resp, "account/email/account_already_exists_message.txt"
         )
+
+
+class SignupFormTest(TestCase):
+    @override_settings(
+        ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.MANDATORY
+    )
+    def test_cannot_save_signupform_with_an_existing_account(self):
+        user = get_user_model().objects.create_user(
+            username="john", email="john@example.org"
+        )
+        EmailAddress.objects.create(
+            user=user, email=user.email, primary=True, verified=True
+        )
+        data = {
+            "username": "othername",
+            "email": user.email,
+            "password1": "very-secret",
+            "password2": "very-secret",
+        }
+        form = SignupForm(data)
+        self.assertIs(form.is_valid(), True)
+        # SignupView handles reporting the duplication to the owner of the email address.
+        self.assertIs(form.account_already_exists, True)
+
+        # Guard against saving that form, the owner should not be changed.
+        fake_request = RequestFactory().get("/")
+        fake_request.session = Session()
+        with self.assertRaisesMessage(
+            TypeError,
+            "Cannot save changes through SignupForm form for an existing user.",
+        ):
+            user = form.save(fake_request)
 
 
 class EmailFormTests(TestCase):

@@ -436,10 +436,9 @@ class SignupForm(BaseSignupForm):
 
     def save(self, request):
         if self.account_already_exists:
-            # Don't create a new acount, only send an email informing the user
-            # that (s)he already has one...
-            self._send_account_already_exists_mail(request)
-            return
+            raise TypeError(
+                f"Cannot save changes through {self.__class__.__name__} form for an existing user."
+            )
         adapter = get_adapter(request)
         user = adapter.new_user(request)
         adapter.save_user(request, user, self)
@@ -447,23 +446,6 @@ class SignupForm(BaseSignupForm):
         # TODO: Move into adapter `save_user` ?
         setup_user_email(request, user, [])
         return user
-
-    def _send_account_already_exists_mail(self, request):
-        signup_url = build_absolute_uri(request, reverse("account_signup"))
-        password_reset_url = build_absolute_uri(
-            request, reverse("account_reset_password")
-        )
-        email = self.cleaned_data["email"]
-        context = {
-            "request": request,
-            "current_site": get_current_site(request),
-            "email": email,
-            "signup_url": signup_url,
-            "password_reset_url": password_reset_url,
-        }
-        get_adapter(request).send_mail(
-            "account/email/account_already_exists", email, context
-        )
 
 
 class UserForm(forms.Form):

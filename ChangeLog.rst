@@ -1,3 +1,12 @@
+0.52.1 (unreleased)
+*******************
+
+Note worthy changes
+-------------------
+
+- Adds `user_token_form` to `PasswordResetFromKeyView` to allow the change of the password reset token generator by subclassing the classes in the flow.
+
+
 0.52.0 (2022-12-29)
 *******************
 

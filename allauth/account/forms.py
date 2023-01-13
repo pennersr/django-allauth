@@ -283,6 +283,7 @@ class BaseSignupForm(_base_signup_form_class()):
     )
 
     def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request", None)
         email_required = kwargs.pop("email_required", app_settings.EMAIL_REQUIRED)
         self.username_required = kwargs.pop(
             "username_required", app_settings.USERNAME_REQUIRED
@@ -365,7 +366,7 @@ class BaseSignupForm(_base_signup_form_class()):
         return value
 
     def validate_unique_email(self, value):
-        return get_adapter().validate_unique_email(value)
+        return get_adapter(self.request).validate_unique_email(value)
 
     def clean(self):
         cleaned_data = super(BaseSignupForm, self).clean()

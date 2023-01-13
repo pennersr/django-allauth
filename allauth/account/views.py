@@ -233,6 +233,11 @@ class SignupView(
     def dispatch(self, request, *args, **kwargs):
         return super(SignupView, self).dispatch(request, *args, **kwargs)
 
+    def get_form_kwargs(self):
+        kwargs = super(SignupView, self).get_form_kwargs()
+        kwargs["request"] = self.request
+        return kwargs
+
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, "signup", self.form_class)
 

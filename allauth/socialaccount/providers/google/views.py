@@ -1,3 +1,5 @@
+from django.conf import settings
+
 import jwt
 
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
@@ -10,11 +12,30 @@ from allauth.socialaccount.providers.oauth2.views import (
 from .provider import GoogleProvider
 
 
+ACCESS_TOKEN_URL = (
+    getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
+    .get("google", {})
+    .get("ACCESS_TOKEN_URL", "https://oauth2.googleapis.com/token")
+)
+
+AUTHORIZE_URL = (
+    getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
+    .get("google", {})
+    .get("ACCESS_TOKEN_URL", "https://accounts.google.com/o/oauth2/v2/auth")
+)
+
+ID_TOKEN_ISSUER = (
+    getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
+    .get("google", {})
+    .get("ID_TOKEN_ISSUER", "https://accounts.google.com")
+)
+
+
 class GoogleOAuth2Adapter(OAuth2Adapter):
     provider_id = GoogleProvider.id
-    access_token_url = "https://oauth2.googleapis.com/token"
-    authorize_url = "https://accounts.google.com/o/oauth2/v2/auth"
-    id_token_issuer = "https://accounts.google.com"
+    access_token_url = ACCESS_TOKEN_URL
+    authorize_url = AUTHORIZE_URL
+    id_token_issuer = ID_TOKEN_ISSUER
 
     def complete_login(self, request, app, token, response, **kwargs):
         try:

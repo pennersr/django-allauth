@@ -1,6 +1,5 @@
 import base64
 import hashlib
-import random
 
 
 try:
@@ -17,9 +16,8 @@ except ImportError:
 
 
 def generate_code_challenge():
-    # minimum length of 43 characters, maximum length of 128 characters
-    nbytes = random.randint(43, 128)
-    code_verifier = token_urlsafe(nbytes)
+    # Create a code verifier with a length of 128 characters
+    code_verifier = token_urlsafe(96)
     hashed_verifier = hashlib.sha256(code_verifier.encode("ascii"))
     code_challenge = base64.urlsafe_b64encode(hashed_verifier.digest())
     code_challenge_without_padding = code_challenge.rstrip(b"=")

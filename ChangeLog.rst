@@ -1,3 +1,12 @@
+UNRELEASED
+*******************
+
+Note worthy changes
+-------------------
+
+- Fixed bug (``IntegrityError``) after signing up with a social account when
+  ``ACCOUNT_PREVENT_ENUMERATION`` is turned on.
+
 0.52.0 (2022-12-29)
 *******************
 

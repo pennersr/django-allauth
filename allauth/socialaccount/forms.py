@@ -3,6 +3,8 @@ from __future__ import absolute_import
 from django import forms
 
 from allauth.account.forms import BaseSignupForm
+from allauth.account.adapter import get_adapter as get_account_adapter
+from allauth.account import app_settings as account_settings
 
 from . import app_settings, signals
 from .adapter import get_adapter
@@ -37,6 +39,13 @@ class SignupForm(BaseSignupForm):
                 get_adapter().error_messages["email_taken"]
                 % self.sociallogin.account.get_provider().name
             )
+
+    def clean_email(self):
+        value = self.cleaned_data["email"]
+        value = get_account_adapter().clean_email(value)
+        if value and account_settings.UNIQUE_EMAIL:
+            value = self.validate_unique_email(value)
+        return value
 
 
 class DisconnectForm(forms.Form):

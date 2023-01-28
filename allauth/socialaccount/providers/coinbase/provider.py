@@ -19,7 +19,7 @@ class CoinbaseProvider(OAuth2Provider):
 
     def get_default_scope(self):
         # See: https://coinbase.com/docs/api/permissions
-        return ["user"]
+        return ['wallets:addresses:read', 'wallet:user:email]
 
     def extract_uid(self, data):
         return str(data["id"])

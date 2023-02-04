@@ -22,7 +22,7 @@ class CoinbaseOAuth2Adapter(OAuth2Adapter):
 
     @property
     def profile_url(self):
-        return 'https://api.coinbase.com/v2/user'
+        return "https://api.coinbase.com/v2/user"
 
     def complete_login(self, request, app, token, **kwargs):
         response = requests.get(self.profile_url, params={"access_token": token})

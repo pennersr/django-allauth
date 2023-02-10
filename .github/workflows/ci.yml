@@ -64,6 +64,8 @@ jobs:
             django-version: 'main'
           - python-version: '3.8'
             django-version: 'main'
+          - python-version: '3.9'
+            django-version: 'main'
 
     steps:
     - uses: actions/checkout@v3

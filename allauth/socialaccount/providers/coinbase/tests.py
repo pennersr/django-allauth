@@ -10,41 +10,16 @@ class CoinbaseTests(OAuth2TestsMixin, TestCase):
     def get_mocked_response(self):
         return MockedResponse(
             200,
-            """
-{
-  "users": [
-    {
-      "user": {
-        "id": "512db383f8182bd24d000001",
-        "name": "User One",
-        "email": "user1@example.com",
-        "time_zone": "Pacific Time (US & Canada)",
-        "native_currency": "USD",
-        "balance": {
-          "amount": "49.76000000",
-          "currency": "BTC"
-        },
-        "merchant": {
-          "company_name": "Company Name, Inc.",
-          "logo": {
-            "small": "http://smalllogo.example",
-            "medium": "http://mediumlogo.example",
-            "url": "http://logo.example"
-          }
-        },
-        "buy_level": 1,
-        "sell_level": 1,
-        "buy_limit": {
-          "amount": "10.00000000",
-          "currency": "BTC"
-        },
-        "sell_limit": {
-          "amount": "100.00000000",
-          "currency": "BTC"
-        }
-      }
-    }
-  ]
-}
-        """,
+            """{
+          "id": "9da7a204-544e-5fd1-9a12-61176c5d4cd8",
+          "name": "User One",
+          "username": "user1",
+          "email": "user1@example.com",
+          "profile_location": null,
+          "profile_bio": null,
+          "profile_url": "https://coinbase.com/user1",
+          "avatar_url": "https://images.coinbase.com/avatar?h=vR%2FY8igBoPwuwGren5JMwvDNGpURAY%2F0nRIOgH%2FY2Qh%2BQ6nomR3qusA%2Bh6o2%0Af9rH&s=128",
+          "resource": "user",
+          "resource_path": "/v2/user"
+            }""",
         )

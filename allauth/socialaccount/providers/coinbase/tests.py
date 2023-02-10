@@ -8,45 +8,18 @@ class CoinbaseTests(OAuth2TestsMixin, TestCase):
     provider_id = CoinbaseProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(200, """
-
-
-{
-    {
-  "data": [
-    {
-      "id": "58542935-67b5-56e1-a3f9-42686e07fa40",
-      "name": "My Vault",
-      "primary": false,
-      "type": "vault",
-      "currency": "BTC",
-      "balance": {
-        "amount": "4.00000000",
-        "currency": "BTC"
-      },
-      "created_at": "2015-01-31T20:49:02Z",
-      "updated_at": "2015-01-31T20:49:02Z",
-      "resource": "account",
-      "resource_path": "/v2/accounts/58542935-67b5-56e1-a3f9-42686e07fa40",
-      "ready": true
-    },
-    {
-      "id": "2bbf394c-193b-5b2a-9155-3b4732659ede",
-      "name": "My Wallet",
-      "primary": true,
-      "type": "wallet",
-      "currency": "BTC",
-      "balance": {
-        "amount": "39.59000000",
-        "currency": "BTC"
-      },
-      "created_at": "2015-01-31T20:49:02Z",
-      "updated_at": "2015-01-31T20:49:02Z",
-      "resource": "account",
-      "resource_path": "/v2/accounts/2bbf394c-193b-5b2a-9155-3b4732659ede"
-    }
-    ]
-  }
-}
-        """)
-
+        return MockedResponse(
+            200,
+            """{
+          "id": "9da7a204-544e-5fd1-9a12-61176c5d4cd8",
+          "name": "User One",
+          "username": "user1",
+          "email": "user1@example.com",
+          "profile_location": null,
+          "profile_bio": null,
+          "profile_url": "https://coinbase.com/user1",
+          "avatar_url": "https://images.coinbase.com/avatar?h=vR%2FY8igBoPwuwGren5JMwvDNGpURAY%2F0nRIOgH%2FY2Qh%2BQ6nomR3qusA%2Bh6o2%0Af9rH&s=128",
+          "resource": "user",
+          "resource_path": "/v2/user"
+            }""",
+        )

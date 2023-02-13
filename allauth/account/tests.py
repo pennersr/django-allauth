@@ -1094,6 +1094,7 @@ class AccountTests(TestCase):
         ACCOUNT_PREVENT_ENUMERATION=True,
         ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL,
         ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.MANDATORY,
+        ACCOUNT_SEND_ACCOUNT_ALREADY_EXISTS_EMAIL=True,
     )
     def test_prevent_account_enumeration_at_signup(self):
         user = get_user_model().objects.create_user(
@@ -1118,6 +1119,35 @@ class AccountTests(TestCase):
         self.assertTemplateUsed(
             resp, "account/email/account_already_exists_message.txt"
         )
+
+    @override_settings(
+        ACCOUNT_PREVENT_ENUMERATION=True,
+        ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL,
+        ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.MANDATORY,
+        ACCOUNT_SEND_ACCOUNT_ALREADY_EXISTS_EMAIL=False,
+    )
+    def test_signup_account_enumeration_send_email_is_respected(self):
+        user = get_user_model().objects.create_user(
+            username="john", email="john@example.org", password="doe"
+        )
+        EmailAddress.objects.create(
+            user=user, email=user.email, primary=True, verified=True
+        )
+        c = Client()
+        # Signup
+        resp = c.post(
+            reverse("account_signup"),
+            {
+                "username": "johndoe",
+                "email": user.email,
+                "password1": "johndoe",
+                "password2": "johndoe",
+            },
+        )
+        self.assertTemplateNotUsed(
+            resp, "account/email/account_already_exists_message.txt"
+        )
+
 
 
 class EmailFormTests(TestCase):

@@ -170,11 +170,12 @@ ACCOUNT_PREVENT_ENUMERATION (=True)
   Controls whether or not information is revealed about whether or not a user
   account exists. For example, by entering random email addresses in the
   password reset form you can test whether or not those email addresses are
-  associated with an account. Enabling this setting prevents that, and an email
-  is always sent, regardless of whether or not the account exists. Note that
-  there is a slight usability tax to pay because there is no immediate feedback.
-  **Warning**: this is a work in progress, password reset is covered, yet,
-  signing up is not.
+  associated with an account. Enabling this setting prevents that, and sends
+  an email to the user (configurable through
+  ``ACCOUNT_SEND_ACCOUNT_ALREADY_EXISTS_EMAIL``), regardless of whether or not
+  the account exists. Note that there is a slight usability tax to pay because
+  there is no immediate feedback. **Warning**: this is a work in progress,
+  password reset is covered, yet, signing up is not.
 
 ACCOUNT_RATE_LIMITS
   In order to be secure out of the box various rate limits are in place. The
@@ -198,6 +199,12 @@ ACCOUNT_RATE_LIMITS
         "signup": "20/m",
         # NOTE: Login is already protected via `ACCOUNT_LOGIN_ATTEMPTS_LIMIT`
     }
+
+
+ACCOUNT_SEND_ACCOUNT_ALREADY_EXISTS_EMAIL (=True)
+  Control whether an email is sent to inform the user an account already
+  exists when they try signing up with the pre-existing email. See
+  ``ACCOUNT_PREVENT_ENUMERATION``.
 
 
 ACCOUNT_SESSION_REMEMBER (=None)

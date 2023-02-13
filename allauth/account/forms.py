@@ -449,6 +449,8 @@ class SignupForm(BaseSignupForm):
         return user
 
     def _send_account_already_exists_mail(self, request):
+        if not app_settings.SEND_ACCOUNT_ALREADY_EXISTS_EMAIL:
+            return
         signup_url = build_absolute_uri(request, reverse("account_signup"))
         password_reset_url = build_absolute_uri(
             request, reverse("account_reset_password")

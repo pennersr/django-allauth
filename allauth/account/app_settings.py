@@ -51,6 +51,10 @@ class AppSettings(object):
         return self._setting("PREVENT_ENUMERATION", True)
 
     @property
+    def SEND_ACCOUNT_ALREADY_EXISTS_EMAIL(self):
+        return self._setting("SEND_ACCOUNT_ALREADY_EXISTS_EMAIL", True)
+
+    @property
     def DEFAULT_HTTP_PROTOCOL(self):
         return self._setting("DEFAULT_HTTP_PROTOCOL", "http").lower()
 

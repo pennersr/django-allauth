@@ -1515,6 +1515,11 @@ class UtilsTests(TestCase):
             content = t.render(Context({"user": user}))
             self.assertEqual(content, expected_name)
 
+    @override_settings(ALLOWED_HOSTS=['allowed_host'])
+    def test_is_safe_url_allowed_hosts(self):
+        self.assertTrue(get_adapter().is_safe_url('http://allowed_host/'))
+        self.assertFalse(get_adapter().is_safe_url('http://other_host/'))
+
 
 class ConfirmationViewTests(TestCase):
     def _create_user(self, username="john", password="doe"):

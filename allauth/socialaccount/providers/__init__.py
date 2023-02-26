@@ -1,7 +1,7 @@
 import importlib
 from collections import OrderedDict
 
-from django.conf import settings
+from django.apps import apps
 
 
 class ProviderRegistry(object):
@@ -33,9 +33,11 @@ class ProviderRegistry(object):
         # mechanism is way to magical and depends on the import order et al, so
         # all of this really needs to be revisited.
         if not self.loaded:
-            for app in settings.INSTALLED_APPS:
+            for app_config in apps.get_app_configs():
                 try:
-                    provider_module = importlib.import_module(app + ".provider")
+                    provider_module = importlib.import_module(
+                        app_config.name + ".provider"
+                    )
                 except ImportError:
                     pass
                 else:

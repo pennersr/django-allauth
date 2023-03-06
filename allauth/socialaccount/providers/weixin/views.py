@@ -30,6 +30,7 @@ class WeixinOAuth2Adapter(OAuth2Adapter):
             self.profile_url,
             params={"access_token": token.token, "openid": openid},
         )
+        resp.raise_for_status()
         extra_data = resp.json()
         nickname = extra_data.get("nickname")
         if nickname:

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-29 01:58-0600\n"
+"POT-Creation-Date: 2023-03-07 22:31+0100\n"
 "PO-Revision-Date: 2020-10-15 19:48+0200\n"
 "Last-Translator: Jannis Vajen <jvajen@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/django-allauth/"
@@ -120,10 +120,9 @@ msgid "This e-mail address is already associated with another account."
 msgstr "Diese E-Mail-Adresse wird bereits in einem anderen Konto verwendet."
 
 #: account/forms.py:495
-#, fuzzy, python-format
-#| msgid "Your account has no verified e-mail address."
+#, python-format
 msgid "You cannot add more than %d e-mail addresses."
-msgstr "Dein Konto hat keine bestätigte E-Mail-Adresse."
+msgstr "Du kannst nicht mehr als %d E-Mail-Adressen hinzufügen."
 
 #: account/forms.py:520
 msgid "Current Password"
@@ -416,6 +415,16 @@ msgid ""
 "\n"
 "%(password_reset_url)s"
 msgstr ""
+"Du erhältst diese E-Mail, weil du oder jemand anderes versucht hat, sich für "
+"ein Konto anzumelden mit E-Mail-Adresse:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"Es existiert jedoch bereits ein Konto mit dieser E-Mail-Adresse. Falls du "
+"dies vergessen hast, verwende bitte das Passwort-Vergessen-Verfahren, um "
+"dein Konto wiederherzustellen:\n"
+"\n"
+"%(password_reset_url)s"
 
 #: templates/account/email/account_already_exists_subject.txt:3
 msgid "Account Already Exists"
@@ -478,12 +487,7 @@ msgid "Password Reset E-mail"
 msgstr "E-Mail zum Zurücksetzen des Passworts"
 
 #: templates/account/email/unknown_account_message.txt:4
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
+#, python-format
 msgid ""
 "You are receiving this e-mail because you or someone else has requested a\n"
 "password for your user account. However, we do not have any record of a "
@@ -495,9 +499,14 @@ msgid ""
 "If it was you, you can sign up for an account using the link below."
 msgstr ""
 "Du erhältst diese E-Mail weil du oder jemand anderes die Zurücksetzung des "
-"Passwortes für dein Konto gefordert hat.\n"
+"Passwortes für dein Konto gefordert hat. Wir haben jedoch keinen Eintrag "
+"eines Benutzers mit der E-Mail-Adresse %(email)s in unserer Datenbank.\n"
+"\n"
 "Falls es sich dabei nicht um dich handelt, kann diese Nachricht ignoriert "
-"werden. Rufe folgende Adresse auf um dein Passwort zurückzusetzen."
+"werden.\n"
+"\n"
+"Ansonsten kannst du dich über den unten stehenden Link für ein Konto "
+"anmelden."
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
@@ -649,19 +658,13 @@ msgstr ""
 "Bitte kontaktiere uns, wenn das Zurücksetzen des Passworts nicht klappt."
 
 #: templates/account/password_reset_done.html:15
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent you an e-mail. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
 msgstr ""
-"Wir haben Dir eine E-Mail geschickt, um deine\n"
-"Adresse zu verifizieren. Bitte klick auf den Link\n"
-"in der E-Mail. Wenn die E-Mail nicht in ein paar Minuten\n"
-"angekommen ist, gib uns bitte Bescheid."
+"Wir haben Dir eine E-Mail geschickt. Wenn du die E-Mail nicht in deinem "
+"Posteingang siehst, überprüfe bitte deinen Spam-Ordner. Wenn die E-Mail "
+"ansonsten nicht in ein paar Minuten angekommen ist, gib uns bitte Bescheid."
 
 #: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -734,11 +737,6 @@ msgid "Verify Your E-mail Address"
 msgstr "Bestätige deine E-Mail-Adresse"
 
 #: templates/account/verification_sent.html:10
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for verification. Follow the link provided "
-#| "to finalize the signup process. Please contact us if you do not receive "
-#| "it within a few minutes."
 msgid ""
 "We have sent an e-mail to you for verification. Follow the link provided to "
 "finalize the signup process. If you do not see the verification e-mail in "
@@ -746,8 +744,10 @@ msgid ""
 "receive the verification e-mail within a few minutes."
 msgstr ""
 "Wir haben dir eine E-Mail geschickt, um deine Adresse zu verifizieren. Bitte "
-"folge dem Link in der E-Mail um den Anmeldeprozess abzuschließen. Bitte "
-"kontaktiere uns, falls die E-Mail nicht in ein paar Minuten angekommen ist."
+"folge dem Link in der E-Mail um den Anmeldeprozess abzuschließen. Wenn du "
+"die E-Mail nicht in deinem Posteingang siehst, überprüfe bitte deinen Spam-"
+"Ordner. Wenn die E-Mail nicht in ein paar Minuten angekommen ist, gib uns "
+"bitte Bescheid."
 
 #: templates/account/verified_email_required.html:12
 msgid ""
@@ -760,11 +760,6 @@ msgstr ""
 "Dazu musst du deine E-Mail-Adresse verifizieren. "
 
 #: templates/account/verified_email_required.html:16
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent an e-mail to you for\n"
 "verification. Please click on the link inside that e-mail. If you do not see "
@@ -774,8 +769,9 @@ msgid ""
 msgstr ""
 "Wir haben Dir eine E-Mail geschickt, um deine\n"
 "Adresse zu verifizieren. Bitte klick auf den Link\n"
-"in der E-Mail. Wenn die E-Mail nicht in ein paar Minuten\n"
-"angekommen ist, gib uns bitte Bescheid."
+"in der E-Mail. Wenn du die E-Mail nicht in deinem Posteingang siehst, "
+"überprüfe bitte deinen Spam-Ordner. Wenn die E-Mail ansonsten nicht in ein "
+"paar Minuten angekommen ist, gib uns bitte Bescheid."
 
 #: templates/account/verified_email_required.html:20
 #, python-format
@@ -825,26 +821,26 @@ msgstr "Soziales Netzwerk hinzufügen"
 #: templates/socialaccount/login.html:8
 #, python-format
 msgid "Connect %(provider)s"
-msgstr ""
+msgstr "Mit %(provider)s verbinden"
 
 #: templates/socialaccount/login.html:10
 #, python-format
 msgid "You are about to connect a new third party account from %(provider)s."
-msgstr ""
+msgstr "Du bist dabei, ein neues Konto von %(provider)s zu verbinden."
 
 #: templates/socialaccount/login.html:12
 #, python-format
 msgid "Sign In Via %(provider)s"
-msgstr ""
+msgstr "Anmelden über %(provider)s"
 
 #: templates/socialaccount/login.html:14
 #, python-format
 msgid "You are about to sign in using a third party account from %(provider)s."
-msgstr ""
+msgstr "Du bist dabei, dich mit einem Konto von %(provider)s anzumelden."
 
 #: templates/socialaccount/login.html:19
 msgid "Continue"
-msgstr ""
+msgstr "Fortfahren"
 
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9

@@ -860,7 +860,7 @@ App registration (get your key and secret here)
     https://gitea.com/user/settings/applications
 
 Development callback URL
-    http://127.0.0.1:8000/accounts/github/login/callback/
+    http://127.0.0.1:8000/accounts/gitea/login/callback/
 
 
 Self-hosted Support

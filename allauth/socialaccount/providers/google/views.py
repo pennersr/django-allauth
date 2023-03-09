@@ -18,8 +18,11 @@ class GoogleOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, response, **kwargs):
         try:
+            id_token = response["id_token"]
+            if type(id_token) is dict:
+                id_token = id_token["id_token"]
             identity_data = jwt.decode(
-                response["id_token"],
+                id_token,
                 # Since the token was received by direct communication
                 # protected by TLS between this library and Google, we
                 # are allowed to skip checking the token signature

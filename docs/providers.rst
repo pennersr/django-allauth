@@ -1110,8 +1110,8 @@ Development callback URL
 Keycloak
 --------
 
-Creating and Registering the Client
-    https://www.keycloak.org/docs/latest/getting_started/index.html#creating-and-registering-the-client
+Creating a client application
+    https://www.keycloak.org/docs/latest/authorization_services/#_resource_server_create_client
 
 Development callback URL
     http://localhost:8000/accounts/keycloak/login/callback/

@@ -88,7 +88,6 @@ class SetPasswordField(PasswordField):
 
 
 class LoginForm(forms.Form):
-
     password = PasswordField(label=_("Password"), autocomplete="current-password")
     remember = forms.BooleanField(label=_("Remember Me"), required=False)
 
@@ -106,6 +105,13 @@ class LoginForm(forms.Form):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request", None)
         super(LoginForm, self).__init__(*args, **kwargs)
+        
+        self.fields["login"] = self.get_login_field()
+        set_form_field_order(self, ["login", "password", "remember"])
+        if app_settings.SESSION_REMEMBER is not None:
+            del self.fields["remember"]
+       
+    def get_login_field(self):
         if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
             login_widget = forms.TextInput(
                 attrs={
@@ -135,10 +141,8 @@ class LoginForm(forms.Form):
             login_field = forms.CharField(
                 label=pgettext("field label", "Login"), widget=login_widget
             )
-        self.fields["login"] = login_field
-        set_form_field_order(self, ["login", "password", "remember"])
-        if app_settings.SESSION_REMEMBER is not None:
-            del self.fields["remember"]
+        
+        return login_field
 
     def user_credentials(self):
         """

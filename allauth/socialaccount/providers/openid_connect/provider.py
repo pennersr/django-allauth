@@ -32,7 +32,7 @@ class OpenIDConnectProvider(OAuth2Provider):
 
     @classmethod
     def get_slug(cls):
-        return cls._server_id if cls._server_id else "openid_connect"
+        return cls._server_id or super().get_slug()
 
     def get_default_scope(self):
         return ["openid", "profile", "email"]

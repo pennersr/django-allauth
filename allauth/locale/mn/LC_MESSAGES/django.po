@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-29 01:58-0600\n"
+"POT-Creation-Date: 2023-03-16 04:15-0500\n"
 "PO-Revision-Date: 2021-11-12 09:54+0800\n"
 "Last-Translator: Bilgutei Erdenebayar <beke0130@gmail.com>\n"
 "Language-Team: Mongolian <beke0130@gmail.com>\n"
@@ -148,7 +148,7 @@ msgstr "Нууц үг шинэчлэх токен буруу байна."
 msgid "user"
 msgstr "хэрэглэгч"
 
-#: account/models.py:25 account/models.py:80
+#: account/models.py:25 account/models.py:82
 msgid "e-mail address"
 msgstr "имэйл хаяг"
 
@@ -168,23 +168,23 @@ msgstr "имэйл хаяг"
 msgid "email addresses"
 msgstr "имэйл хаягууд"
 
-#: account/models.py:83
+#: account/models.py:85
 msgid "created"
 msgstr "үүсгэсэн"
 
-#: account/models.py:84
+#: account/models.py:86
 msgid "sent"
 msgstr "илгээсэн"
 
-#: account/models.py:85 socialaccount/models.py:59
+#: account/models.py:87 socialaccount/models.py:59
 msgid "key"
 msgstr "түлхүүр"
 
-#: account/models.py:90
+#: account/models.py:92
 msgid "email confirmation"
 msgstr "имэйл баталгаажуулалт"
 
-#: account/models.py:91
+#: account/models.py:93
 msgid "email confirmations"
 msgstr "имэйл баталгаажуулалт"
 
@@ -336,6 +336,37 @@ msgstr "Бүртгэл идэвхгүй"
 #: templates/account/account_inactive.html:10
 msgid "This account is inactive."
 msgstr "Энэ бүртгэл идэвхгүй байна."
+
+#: templates/account/base.html:15
+msgid "Messages:"
+msgstr ""
+
+#: templates/account/base.html:25
+msgid "Menu:"
+msgstr ""
+
+#: templates/account/base.html:28
+#, fuzzy
+#| msgid "E-mail"
+msgid "Change E-mail"
+msgstr "Имэйл хаяг"
+
+#: templates/account/base.html:29 templates/account/logout.html:5
+#: templates/account/logout.html:8 templates/account/logout.html:17
+msgid "Sign Out"
+msgstr "Гарах"
+
+#: templates/account/base.html:31 templates/account/login.html:6
+#: templates/account/login.html:10 templates/account/login.html:43
+#: templates/socialaccount/login.html:4
+msgid "Sign In"
+msgstr "Нэвтрэх"
+
+#: templates/account/base.html:32 templates/account/signup.html:8
+#: templates/account/signup.html:18 templates/socialaccount/signup.html:8
+#: templates/socialaccount/signup.html:19
+msgid "Sign Up"
+msgstr "Бүртгүүлэх"
 
 #: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
@@ -510,16 +541,11 @@ msgstr "Баталгаажуулах"
 #: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a "
-"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
 "Энэ и-мэйл баталгаажуулах холбоосын хугацаа дууссан эсвэл хүчингүй байна.<a "
 "href=\"%(email_url)s\">шинэ имэйлээр баталгаажуулах хүсэлт гаргана уу</a>."
-
-#: templates/account/login.html:6 templates/account/login.html:10
-#: templates/account/login.html:43 templates/socialaccount/login.html:4
-msgid "Sign In"
-msgstr "Нэвтрэх"
 
 #: templates/account/login.html:15
 #, python-format
@@ -549,11 +575,6 @@ msgstr ""
 #: templates/account/login.html:42 templates/account/password_change.html:14
 msgid "Forgot Password?"
 msgstr "Нууц Үг Мартсан?"
-
-#: templates/account/logout.html:5 templates/account/logout.html:8
-#: templates/account/logout.html:17
-msgid "Sign Out"
-msgstr "Гарах"
 
 #: templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
@@ -681,11 +702,6 @@ msgstr "Нууц үг тохируулах"
 
 #: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
-msgstr "Бүртгүүлэх"
-
-#: templates/account/signup.html:8 templates/account/signup.html:18
-#: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
-msgid "Sign Up"
 msgstr "Бүртгүүлэх"
 
 #: templates/account/signup.html:10
@@ -842,12 +858,12 @@ msgstr "Нэвтрэлт цуцлагдсан"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a "
-"href=\"%(login_url)s\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
 msgstr ""
 "Та одоо байгаа бүртгэлийнхээ аль нэгийг ашиглан манай сайтад нэвтрэхээ "
-"цуцлахаар шийдсэн. Хэрэв энэ нь алдаа байсан бол <a "
-"href=\"%(login_url)s\"\">нэвтэрнэ үү</a>."
+"цуцлахаар шийдсэн. Хэрэв энэ нь алдаа байсан бол <a href=\"%(login_url)s"
+"\"\">нэвтэрнэ үү</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."

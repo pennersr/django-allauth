@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-29 01:58-0600\n"
+"POT-Creation-Date: 2023-03-16 04:15-0500\n"
 "PO-Revision-Date: 2020-10-12 12:34+0200\n"
 "Last-Translator: Radek Czajka <radekczajka@mdrn.pl>\n"
 "Language-Team: \n"
@@ -15,9 +15,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.3\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
-"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
+"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #: account/adapter.py:47
 msgid "Username can not be used. Please use other username."
@@ -149,7 +149,7 @@ msgstr "Token resetowania hasła był nieprawidłowy."
 msgid "user"
 msgstr "użytkownik"
 
-#: account/models.py:25 account/models.py:80
+#: account/models.py:25 account/models.py:82
 msgid "e-mail address"
 msgstr "adres e-mail"
 
@@ -169,23 +169,23 @@ msgstr "adres e-mail"
 msgid "email addresses"
 msgstr "adresy e-mail"
 
-#: account/models.py:83
+#: account/models.py:85
 msgid "created"
 msgstr "utworzono"
 
-#: account/models.py:84
+#: account/models.py:86
 msgid "sent"
 msgstr "wysłano"
 
-#: account/models.py:85 socialaccount/models.py:59
+#: account/models.py:87 socialaccount/models.py:59
 msgid "key"
 msgstr "klucz"
 
-#: account/models.py:90
+#: account/models.py:92
 msgid "email confirmation"
 msgstr "potwierdzenie adresu e-mail"
 
-#: account/models.py:91
+#: account/models.py:93
 msgid "email confirmations"
 msgstr "potwierdzenia adresów e-mail"
 
@@ -337,6 +337,37 @@ msgstr "Konto nieaktywne"
 #: templates/account/account_inactive.html:10
 msgid "This account is inactive."
 msgstr "To konto jest nieaktywne."
+
+#: templates/account/base.html:15
+msgid "Messages:"
+msgstr ""
+
+#: templates/account/base.html:25
+msgid "Menu:"
+msgstr ""
+
+#: templates/account/base.html:28
+#, fuzzy
+#| msgid "E-mail"
+msgid "Change E-mail"
+msgstr "E-mail"
+
+#: templates/account/base.html:29 templates/account/logout.html:5
+#: templates/account/logout.html:8 templates/account/logout.html:17
+msgid "Sign Out"
+msgstr "Wyloguj się"
+
+#: templates/account/base.html:31 templates/account/login.html:6
+#: templates/account/login.html:10 templates/account/login.html:43
+#: templates/socialaccount/login.html:4
+msgid "Sign In"
+msgstr "Zaloguj"
+
+#: templates/account/base.html:32 templates/account/signup.html:8
+#: templates/account/signup.html:18 templates/socialaccount/signup.html:8
+#: templates/socialaccount/signup.html:19
+msgid "Sign Up"
+msgstr "Zarejestruj się"
 
 #: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
@@ -514,16 +545,11 @@ msgstr "Potwierdź"
 #: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a "
-"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"Łącze z adresem do zresetowania hasła wygasło lub jest niepoprawne.  <a "
-"href=\"%(email_url)s\">wygenerować nowe łącze dla Twojego adresu. </a>."
-
-#: templates/account/login.html:6 templates/account/login.html:10
-#: templates/account/login.html:43 templates/socialaccount/login.html:4
-msgid "Sign In"
-msgstr "Zaloguj"
+"Łącze z adresem do zresetowania hasła wygasło lub jest niepoprawne.  <a href="
+"\"%(email_url)s\">wygenerować nowe łącze dla Twojego adresu. </a>."
 
 #: templates/account/login.html:15
 #, python-format
@@ -548,17 +574,12 @@ msgid ""
 "If you have not created an account yet, then please\n"
 "<a href=\"%(signup_url)s\">sign up</a> first."
 msgstr ""
-"Jeżeli nie masz jeszcze konta, to proszę <a "
-"href=\"%(signup_url)s\">zarejestruj się</a>."
+"Jeżeli nie masz jeszcze konta, to proszę <a href=\"%(signup_url)s"
+"\">zarejestruj się</a>."
 
 #: templates/account/login.html:42 templates/account/password_change.html:14
 msgid "Forgot Password?"
 msgstr "Nie pamiętasz hasła?"
-
-#: templates/account/logout.html:5 templates/account/logout.html:8
-#: templates/account/logout.html:17
-msgid "Sign Out"
-msgstr "Wyloguj się"
 
 #: templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
@@ -686,11 +707,6 @@ msgstr "Ustaw hasło"
 
 #: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
-msgstr "Zarejestruj się"
-
-#: templates/account/signup.html:8 templates/account/signup.html:18
-#: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
-msgid "Sign Up"
 msgstr "Zarejestruj się"
 
 #: templates/account/signup.html:10
@@ -847,8 +863,8 @@ msgstr "Logowanie anulowane"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a "
-"href=\"%(login_url)s\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
 msgstr ""
 "Wybrano anulowanie logowania przez jedno z istniejących kont. Jeżeli to była "
 "pomyłka, proszę przejdź do <a href=\"%(login_url)s\">zaloguj</a>."

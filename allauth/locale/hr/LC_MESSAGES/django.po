@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-29 01:58-0600\n"
+"POT-Creation-Date: 2023-03-16 04:15-0500\n"
 "PO-Revision-Date: 2014-08-12 00:31+0200\n"
 "Last-Translator:   <goran.cetusic@gmail.com>\n"
 "Language-Team: Bojan Mihelac <bmihelac@mihelac.org>\n"
@@ -18,8 +18,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Poedit 1.5.4\n"
 "X-Translated-Using: django-rosetta 0.7.2\n"
 
@@ -160,7 +160,7 @@ msgstr ""
 msgid "user"
 msgstr "korisnik"
 
-#: account/models.py:25 account/models.py:80
+#: account/models.py:25 account/models.py:82
 msgid "e-mail address"
 msgstr "e-mail adresa"
 
@@ -180,23 +180,23 @@ msgstr "E-mail adresa"
 msgid "email addresses"
 msgstr "E-mail adrese"
 
-#: account/models.py:83
+#: account/models.py:85
 msgid "created"
 msgstr ""
 
-#: account/models.py:84
+#: account/models.py:86
 msgid "sent"
 msgstr ""
 
-#: account/models.py:85 socialaccount/models.py:59
+#: account/models.py:87 socialaccount/models.py:59
 msgid "key"
 msgstr ""
 
-#: account/models.py:90
+#: account/models.py:92
 msgid "email confirmation"
 msgstr "E-mail potvrda"
 
-#: account/models.py:91
+#: account/models.py:93
 msgid "email confirmations"
 msgstr "E-mail potvrde"
 
@@ -348,6 +348,37 @@ msgstr "Račun je neaktivan"
 #: templates/account/account_inactive.html:10
 msgid "This account is inactive."
 msgstr "Ovaj korisnički račun je neaktivan."
+
+#: templates/account/base.html:15
+msgid "Messages:"
+msgstr ""
+
+#: templates/account/base.html:25
+msgid "Menu:"
+msgstr ""
+
+#: templates/account/base.html:28
+#, fuzzy
+#| msgid "E-mail"
+msgid "Change E-mail"
+msgstr "E-mail"
+
+#: templates/account/base.html:29 templates/account/logout.html:5
+#: templates/account/logout.html:8 templates/account/logout.html:17
+msgid "Sign Out"
+msgstr "Odjava"
+
+#: templates/account/base.html:31 templates/account/login.html:6
+#: templates/account/login.html:10 templates/account/login.html:43
+#: templates/socialaccount/login.html:4
+msgid "Sign In"
+msgstr "Prijava"
+
+#: templates/account/base.html:32 templates/account/signup.html:8
+#: templates/account/signup.html:18 templates/socialaccount/signup.html:8
+#: templates/socialaccount/signup.html:19
+msgid "Sign Up"
+msgstr "Registracija"
 
 #: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
@@ -545,16 +576,11 @@ msgstr "Potvrda"
 #: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a "
-"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
 "Ovaj link za potvrdu je istekao ili je neispravan. Zatražite <a href=\\"
 "\"%(email_url)s\\\">novi e-mail za potvrdu</a>."
-
-#: templates/account/login.html:6 templates/account/login.html:10
-#: templates/account/login.html:43 templates/socialaccount/login.html:4
-msgid "Sign In"
-msgstr "Prijava"
 
 #: templates/account/login.html:15
 #, python-format
@@ -578,17 +604,12 @@ msgid ""
 "If you have not created an account yet, then please\n"
 "<a href=\"%(signup_url)s\">sign up</a> first."
 msgstr ""
-"Ukoliko još niste napravili korisnički račun, prvo se <a "
-"href=\"%(signup_url)s\">registrirajte</a>."
+"Ukoliko još niste napravili korisnički račun, prvo se <a href="
+"\"%(signup_url)s\">registrirajte</a>."
 
 #: templates/account/login.html:42 templates/account/password_change.html:14
 msgid "Forgot Password?"
 msgstr "Zaboravili ste lozinku?"
-
-#: templates/account/logout.html:5 templates/account/logout.html:8
-#: templates/account/logout.html:17
-msgid "Sign Out"
-msgstr "Odjava"
 
 #: templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
@@ -716,11 +737,6 @@ msgstr "Postavljanje lozinke"
 
 #: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
-msgstr "Registracija"
-
-#: templates/account/signup.html:8 templates/account/signup.html:18
-#: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
-msgid "Sign Up"
 msgstr "Registracija"
 
 #: templates/account/signup.html:10
@@ -877,8 +893,8 @@ msgstr "Prijava otkazana"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a "
-"href=\"%(login_url)s\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
 msgstr ""
 "Odlučili ste da se ne želite prijaviti na našu stranicu koristeći jedan od "
 "vaših postojećih računa s društvenih mreža. Ako je to bila greška, molimo "

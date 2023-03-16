@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-29 01:58-0600\n"
+"POT-Creation-Date: 2023-03-16 04:15-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -149,7 +149,7 @@ msgstr "비밀번호 초기화 토큰이 올바르지 않습니다."
 msgid "user"
 msgstr "사용자"
 
-#: account/models.py:25 account/models.py:80
+#: account/models.py:25 account/models.py:82
 msgid "e-mail address"
 msgstr "이메일 주소"
 
@@ -169,23 +169,23 @@ msgstr "이메일 주소"
 msgid "email addresses"
 msgstr "이메일 주소"
 
-#: account/models.py:83
+#: account/models.py:85
 msgid "created"
 msgstr "생성됨"
 
-#: account/models.py:84
+#: account/models.py:86
 msgid "sent"
 msgstr "전송됨"
 
-#: account/models.py:85 socialaccount/models.py:59
+#: account/models.py:87 socialaccount/models.py:59
 msgid "key"
 msgstr "키"
 
-#: account/models.py:90
+#: account/models.py:92
 msgid "email confirmation"
 msgstr "이메일 확인"
 
-#: account/models.py:91
+#: account/models.py:93
 msgid "email confirmations"
 msgstr "이메일 확인"
 
@@ -337,6 +337,37 @@ msgstr "계정 비활성"
 #: templates/account/account_inactive.html:10
 msgid "This account is inactive."
 msgstr "해당 계정은 비활성화된 상태입니다."
+
+#: templates/account/base.html:15
+msgid "Messages:"
+msgstr ""
+
+#: templates/account/base.html:25
+msgid "Menu:"
+msgstr ""
+
+#: templates/account/base.html:28
+#, fuzzy
+#| msgid "E-mail"
+msgid "Change E-mail"
+msgstr "이메일"
+
+#: templates/account/base.html:29 templates/account/logout.html:5
+#: templates/account/logout.html:8 templates/account/logout.html:17
+msgid "Sign Out"
+msgstr "로그아웃"
+
+#: templates/account/base.html:31 templates/account/login.html:6
+#: templates/account/login.html:10 templates/account/login.html:43
+#: templates/socialaccount/login.html:4
+msgid "Sign In"
+msgstr "로그인"
+
+#: templates/account/base.html:32 templates/account/signup.html:8
+#: templates/account/signup.html:18 templates/socialaccount/signup.html:8
+#: templates/socialaccount/signup.html:19
+msgid "Sign Up"
+msgstr "회원가입"
 
 #: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
@@ -510,16 +541,11 @@ msgstr "확인"
 #: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a "
-"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"이 이메일 확인 링크는 만료되었거나 유효하지 않습니다. <a "
-"href=\"%(email_url)s\">새로운 이메일 확인 요청</a>을 해주세요."
-
-#: templates/account/login.html:6 templates/account/login.html:10
-#: templates/account/login.html:43 templates/socialaccount/login.html:4
-msgid "Sign In"
-msgstr "로그인"
+"이 이메일 확인 링크는 만료되었거나 유효하지 않습니다. <a href=\"%(email_url)s"
+"\">새로운 이메일 확인 요청</a>을 해주세요."
 
 #: templates/account/login.html:15
 #, python-format
@@ -549,11 +575,6 @@ msgstr ""
 #: templates/account/login.html:42 templates/account/password_change.html:14
 msgid "Forgot Password?"
 msgstr "비밀번호를 잊으셨나요?"
-
-#: templates/account/logout.html:5 templates/account/logout.html:8
-#: templates/account/logout.html:17
-msgid "Sign Out"
-msgstr "로그아웃"
 
 #: templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
@@ -662,8 +683,8 @@ msgid ""
 "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
 "a>."
 msgstr ""
-"비밀번호 초기화 링크가 올바르지 않습니다. 다시 <a "
-"href=\"%(passwd_reset_url)s\">비밀번호 초기화</a> 하세요."
+"비밀번호 초기화 링크가 올바르지 않습니다. 다시 <a href=\"%(passwd_reset_url)s"
+"\">비밀번호 초기화</a> 하세요."
 
 #: templates/account/password_reset_from_key.html:16
 msgid "change password"
@@ -680,11 +701,6 @@ msgstr "비밀번호 설정"
 
 #: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
-msgstr "회원가입"
-
-#: templates/account/signup.html:8 templates/account/signup.html:18
-#: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
-msgid "Sign Up"
 msgstr "회원가입"
 
 #: templates/account/signup.html:10
@@ -836,11 +852,11 @@ msgstr "로그인 취소됨"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a "
-"href=\"%(login_url)s\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
 msgstr ""
-"기존 계정중 하나를 사용한 로그인을 취소하였습니다. 실수로 인한 경우, <a "
-"href=\"%(login_url)s\">로그인</a>을 진행해 주세요."
+"기존 계정중 하나를 사용한 로그인을 취소하였습니다. 실수로 인한 경우, <a href="
+"\"%(login_url)s\">로그인</a>을 진행해 주세요."
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."

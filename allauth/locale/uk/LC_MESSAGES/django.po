@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-29 01:58-0600\n"
+"POT-Creation-Date: 2023-03-16 04:15-0500\n"
 "PO-Revision-Date: 2020-10-15 19:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -153,7 +153,7 @@ msgstr "Токен відновлення паролю був невірним."
 msgid "user"
 msgstr "користувач"
 
-#: account/models.py:25 account/models.py:80
+#: account/models.py:25 account/models.py:82
 msgid "e-mail address"
 msgstr "e-mail адреса"
 
@@ -173,23 +173,23 @@ msgstr "e-mail адреса"
 msgid "email addresses"
 msgstr "e-mail адреса"
 
-#: account/models.py:83
+#: account/models.py:85
 msgid "created"
 msgstr "створено"
 
-#: account/models.py:84
+#: account/models.py:86
 msgid "sent"
 msgstr "відправлено"
 
-#: account/models.py:85 socialaccount/models.py:59
+#: account/models.py:87 socialaccount/models.py:59
 msgid "key"
 msgstr "ключ"
 
-#: account/models.py:90
+#: account/models.py:92
 msgid "email confirmation"
 msgstr "e-mail підтвердження"
 
-#: account/models.py:91
+#: account/models.py:93
 msgid "email confirmations"
 msgstr "e-mail підтвердження"
 
@@ -342,6 +342,37 @@ msgstr "Акаунт неактивний"
 #: templates/account/account_inactive.html:10
 msgid "This account is inactive."
 msgstr "Даний акаунт неактивний"
+
+#: templates/account/base.html:15
+msgid "Messages:"
+msgstr ""
+
+#: templates/account/base.html:25
+msgid "Menu:"
+msgstr ""
+
+#: templates/account/base.html:28
+#, fuzzy
+#| msgid "E-mail"
+msgid "Change E-mail"
+msgstr "E-mail"
+
+#: templates/account/base.html:29 templates/account/logout.html:5
+#: templates/account/logout.html:8 templates/account/logout.html:17
+msgid "Sign Out"
+msgstr "Вийти"
+
+#: templates/account/base.html:31 templates/account/login.html:6
+#: templates/account/login.html:10 templates/account/login.html:43
+#: templates/socialaccount/login.html:4
+msgid "Sign In"
+msgstr "Увійти"
+
+#: templates/account/base.html:32 templates/account/signup.html:8
+#: templates/account/signup.html:18 templates/socialaccount/signup.html:8
+#: templates/socialaccount/signup.html:19
+msgid "Sign Up"
+msgstr "Зареєструватись"
 
 #: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
@@ -518,17 +549,12 @@ msgstr "Підтвердити"
 #: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a "
-"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
 "Дане посилання для підтвердження e-mail неактивне або неправильне. Будь "
 "ласка, <a href=\"%(email_url)s\"> зробіть новий запит для підтвердження e-"
 "mail адреси</a>."
-
-#: templates/account/login.html:6 templates/account/login.html:10
-#: templates/account/login.html:43 templates/socialaccount/login.html:4
-msgid "Sign In"
-msgstr "Увійти"
 
 #: templates/account/login.html:15
 #, python-format
@@ -539,8 +565,8 @@ msgid ""
 "for a %(site_name)s account and sign in below:"
 msgstr ""
 "Будь ласка, увійдіть із одним \n"
-"із Ваших існуючих зовнішніх акаунтів accounts. Або, <a "
-"href=\"%(signup_url)s\">Зареєструйте</a>\n"
+"із Ваших існуючих зовнішніх акаунтів accounts. Або, <a href=\"%(signup_url)s"
+"\">Зареєструйте</a>\n"
 " %(site_name)s акаунт і Увійдіть:"
 
 #: templates/account/login.html:25
@@ -559,11 +585,6 @@ msgstr ""
 #: templates/account/login.html:42 templates/account/password_change.html:14
 msgid "Forgot Password?"
 msgstr "Забули пароль?"
-
-#: templates/account/logout.html:5 templates/account/logout.html:8
-#: templates/account/logout.html:17
-msgid "Sign Out"
-msgstr "Вийти"
 
 #: templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
@@ -677,8 +698,8 @@ msgid ""
 "a>."
 msgstr ""
 "Посилання для відновлення паролю некоректне, можливо через те, що посилання "
-"уже використане.  Будь ласка, зробіть запит на <a "
-"href=\"%(passwd_reset_url)s\">нове відновлення паролю</a>."
+"уже використане.  Будь ласка, зробіть запит на <a href=\"%(passwd_reset_url)s"
+"\">нове відновлення паролю</a>."
 
 #: templates/account/password_reset_from_key.html:16
 msgid "change password"
@@ -695,11 +716,6 @@ msgstr "Введіть пароль"
 
 #: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
-msgstr "Зареєструватись"
-
-#: templates/account/signup.html:8 templates/account/signup.html:18
-#: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
-msgid "Sign Up"
 msgstr "Зареєструватись"
 
 #: templates/account/signup.html:10
@@ -782,8 +798,8 @@ msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
 "mail address</a>."
 msgstr ""
-"<strong>Зауважте:</strong> Ви все ще можете <a "
-"href=\"%(email_url)s\">змінити Вашу e-mail адресу</a>."
+"<strong>Зауважте:</strong> Ви все ще можете <a href=\"%(email_url)s"
+"\">змінити Вашу e-mail адресу</a>."
 
 #: templates/openid/login.html:9
 msgid "OpenID Sign In"
@@ -855,12 +871,12 @@ msgstr "Вхід відмінено"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a "
-"href=\"%(login_url)s\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
 msgstr ""
 "Ви відмінили вхід на наш сайт, використовуючи один з Ваших існуючих "
-"акаунтів.  Якщо це сталось помилково, будь ласка, <a "
-"href=\"%(login_url)s\">увійдіть</a>."
+"акаунтів.  Якщо це сталось помилково, будь ласка, <a href=\"%(login_url)s"
+"\">увійдіть</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-29 01:58-0600\n"
+"POT-Creation-Date: 2023-03-16 04:15-0500\n"
 "PO-Revision-Date: 2014-08-12 00:35+0200\n"
 "Last-Translator: Jannis \n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/django-allauth/"
@@ -156,7 +156,7 @@ msgstr ""
 msgid "user"
 msgstr ""
 
-#: account/models.py:25 account/models.py:80
+#: account/models.py:25 account/models.py:82
 #, fuzzy
 msgid "e-mail address"
 msgstr "epost-adress"
@@ -179,23 +179,23 @@ msgstr "epost-adress"
 msgid "email addresses"
 msgstr "epost-adresser"
 
-#: account/models.py:83
+#: account/models.py:85
 msgid "created"
 msgstr ""
 
-#: account/models.py:84
+#: account/models.py:86
 msgid "sent"
 msgstr ""
 
-#: account/models.py:85 socialaccount/models.py:59
+#: account/models.py:87 socialaccount/models.py:59
 msgid "key"
 msgstr ""
 
-#: account/models.py:90
+#: account/models.py:92
 msgid "email confirmation"
 msgstr "epost-bekräftelse"
 
-#: account/models.py:91
+#: account/models.py:93
 msgid "email confirmations"
 msgstr "epost-bekräftelser"
 
@@ -347,6 +347,37 @@ msgstr "Kontot inaktivt"
 #: templates/account/account_inactive.html:10
 msgid "This account is inactive."
 msgstr "Detta konto är inaktivt."
+
+#: templates/account/base.html:15
+msgid "Messages:"
+msgstr ""
+
+#: templates/account/base.html:25
+msgid "Menu:"
+msgstr ""
+
+#: templates/account/base.html:28
+#, fuzzy
+#| msgid "E-mail"
+msgid "Change E-mail"
+msgstr "Epost"
+
+#: templates/account/base.html:29 templates/account/logout.html:5
+#: templates/account/logout.html:8 templates/account/logout.html:17
+msgid "Sign Out"
+msgstr "Logga ut"
+
+#: templates/account/base.html:31 templates/account/login.html:6
+#: templates/account/login.html:10 templates/account/login.html:43
+#: templates/socialaccount/login.html:4
+msgid "Sign In"
+msgstr "Logga in"
+
+#: templates/account/base.html:32 templates/account/signup.html:8
+#: templates/account/signup.html:18 templates/socialaccount/signup.html:8
+#: templates/socialaccount/signup.html:19
+msgid "Sign Up"
+msgstr "Skapa konto"
 
 #: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
@@ -534,16 +565,11 @@ msgstr "Verifiera"
 #: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a "
-"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
 "Länken för att verifiera epost-adressen har förfallit eller är ogiltig. <a "
 "href=\"%(email_url)s\">Skapa en ny epost-verification.</a>"
-
-#: templates/account/login.html:6 templates/account/login.html:10
-#: templates/account/login.html:43 templates/socialaccount/login.html:4
-msgid "Sign In"
-msgstr "Logga in"
 
 #: templates/account/login.html:15
 #, fuzzy, python-format
@@ -573,11 +599,6 @@ msgstr ""
 #: templates/account/login.html:42 templates/account/password_change.html:14
 msgid "Forgot Password?"
 msgstr "Glömt lösenordet?"
-
-#: templates/account/logout.html:5 templates/account/logout.html:8
-#: templates/account/logout.html:17
-msgid "Sign Out"
-msgstr "Logga ut"
 
 #: templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
@@ -708,11 +729,6 @@ msgstr "Skapa lösenord"
 msgid "Signup"
 msgstr "Skapa konto"
 
-#: templates/account/signup.html:8 templates/account/signup.html:18
-#: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
-msgid "Sign Up"
-msgstr "Skapa konto"
-
 #: templates/account/signup.html:10
 #, python-format
 msgid ""
@@ -753,9 +769,9 @@ msgid ""
 "your main inbox, check your spam folder. Please contact us if you do not "
 "receive the verification e-mail within a few minutes."
 msgstr ""
-"Ett mail för verifiering har skickats till <a href=\"mailto:"
-"%(email)s\">%(email)s</a>. Klicka på länken i mailet för att slutföra "
-"anmälan. Kontakta oss om det inte dyker upp inom ett par minuter."
+"Ett mail för verifiering har skickats till <a href=\"mailto:%(email)s\">"
+"%(email)s</a>. Klicka på länken i mailet för att slutföra anmälan. Kontakta "
+"oss om det inte dyker upp inom ett par minuter."
 
 #: templates/account/verified_email_required.html:12
 msgid ""
@@ -790,8 +806,8 @@ msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
 "mail address</a>."
 msgstr ""
-"<strong>Information:</strong> du kan fortfarande <a "
-"href=\"%(email_url)s\">ändra din epost-adress</a>."
+"<strong>Information:</strong> du kan fortfarande <a href=\"%(email_url)s"
+"\">ändra din epost-adress</a>."
 
 #: templates/openid/login.html:9
 msgid "OpenID Sign In"
@@ -861,8 +877,8 @@ msgstr "Inloggning avbruten"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a "
-"href=\"%(login_url)s\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
 msgstr ""
 "Du valde att avbryta inloggningen via ett av dina tredjeparts-konton. Om "
 "detta var ett misstag kan du <a href=\"%(login_url)s\">logga in igen</a>."

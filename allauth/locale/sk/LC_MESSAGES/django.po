@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-29 01:58-0600\n"
+"POT-Creation-Date: 2023-03-16 04:15-0500\n"
 "PO-Revision-Date: 2021-05-26 16:13+0058\n"
 "Last-Translator: b'Erik Telepovsky <erik@pragmaticmates.com>'\n"
 "Language-Team: \n"
@@ -150,7 +150,7 @@ msgstr "Token na obnovu hesla bol nesprávny."
 msgid "user"
 msgstr "používateľ"
 
-#: account/models.py:25 account/models.py:80
+#: account/models.py:25 account/models.py:82
 msgid "e-mail address"
 msgstr "e-mailová adresa"
 
@@ -170,23 +170,23 @@ msgstr "e-mailová adresa"
 msgid "email addresses"
 msgstr "e-mailové adresy"
 
-#: account/models.py:83
+#: account/models.py:85
 msgid "created"
 msgstr "vytvorený"
 
-#: account/models.py:84
+#: account/models.py:86
 msgid "sent"
 msgstr "odoslané"
 
-#: account/models.py:85 socialaccount/models.py:59
+#: account/models.py:87 socialaccount/models.py:59
 msgid "key"
 msgstr "kľúč"
 
-#: account/models.py:90
+#: account/models.py:92
 msgid "email confirmation"
 msgstr "potvrdenie e-mailu"
 
-#: account/models.py:91
+#: account/models.py:93
 msgid "email confirmations"
 msgstr "potvrdenia e-mailu"
 
@@ -341,6 +341,37 @@ msgstr "Účet neaktívny"
 #: templates/account/account_inactive.html:10
 msgid "This account is inactive."
 msgstr "Tento účet je neaktívny."
+
+#: templates/account/base.html:15
+msgid "Messages:"
+msgstr ""
+
+#: templates/account/base.html:25
+msgid "Menu:"
+msgstr ""
+
+#: templates/account/base.html:28
+#, fuzzy
+#| msgid "E-mail"
+msgid "Change E-mail"
+msgstr "E-mail"
+
+#: templates/account/base.html:29 templates/account/logout.html:5
+#: templates/account/logout.html:8 templates/account/logout.html:17
+msgid "Sign Out"
+msgstr "Odhlásiť"
+
+#: templates/account/base.html:31 templates/account/login.html:6
+#: templates/account/login.html:10 templates/account/login.html:43
+#: templates/socialaccount/login.html:4
+msgid "Sign In"
+msgstr "Prihlásiť sa"
+
+#: templates/account/base.html:32 templates/account/signup.html:8
+#: templates/account/signup.html:18 templates/socialaccount/signup.html:8
+#: templates/socialaccount/signup.html:19
+msgid "Sign Up"
+msgstr "Zaregistrovať"
 
 #: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
@@ -514,16 +545,11 @@ msgstr "Potvrdiť"
 #: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a "
-"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"Odkaz na potvrdenie e-mailu je neplatný alebo vypršal. <a "
-"href=\"%(email_url)s\">Zaslať novú žiadosť o overovací e-mail</a>."
-
-#: templates/account/login.html:6 templates/account/login.html:10
-#: templates/account/login.html:43 templates/socialaccount/login.html:4
-msgid "Sign In"
-msgstr "Prihlásiť sa"
+"Odkaz na potvrdenie e-mailu je neplatný alebo vypršal. <a href="
+"\"%(email_url)s\">Zaslať novú žiadosť o overovací e-mail</a>."
 
 #: templates/account/login.html:15
 #, python-format
@@ -534,8 +560,8 @@ msgid ""
 "for a %(site_name)s account and sign in below:"
 msgstr ""
 "Prosím prihláste sa s jedným\n"
-"z vašich existujúcich účtov iných služieb. Alebo <a "
-"href=\"%(signup_url)s\">sa zaregistrujte</a>\n"
+"z vašich existujúcich účtov iných služieb. Alebo <a href=\"%(signup_url)s"
+"\">sa zaregistrujte</a>\n"
 "na %(site_name)s a prihláste sa nižšie:"
 
 #: templates/account/login.html:25
@@ -554,11 +580,6 @@ msgstr ""
 #: templates/account/login.html:42 templates/account/password_change.html:14
 msgid "Forgot Password?"
 msgstr "Zabudnuté heslo?"
-
-#: templates/account/logout.html:5 templates/account/logout.html:8
-#: templates/account/logout.html:17
-msgid "Sign Out"
-msgstr "Odhlásiť"
 
 #: templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
@@ -667,8 +688,8 @@ msgid ""
 "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
 "a>."
 msgstr ""
-"Odkaz na obnovu heslo je neplatný, pravdepodobne už bol použitý. <a "
-"href=\"%(passwd_reset_url)s\">Nové obnovenie hesla</a>."
+"Odkaz na obnovu heslo je neplatný, pravdepodobne už bol použitý. <a href="
+"\"%(passwd_reset_url)s\">Nové obnovenie hesla</a>."
 
 #: templates/account/password_reset_from_key.html:16
 msgid "change password"
@@ -686,11 +707,6 @@ msgstr "Nastaviť heslo"
 #: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
 msgstr "Registrácia"
-
-#: templates/account/signup.html:8 templates/account/signup.html:18
-#: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
-msgid "Sign Up"
-msgstr "Zaregistrovať"
 
 #: templates/account/signup.html:10
 #, python-format
@@ -841,8 +857,8 @@ msgstr "Prihlásenie zrušené"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a "
-"href=\"%(login_url)s\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
 msgstr ""
 "Rozhodli ste sa zrušiť prihlasovanie sa na našu stránku použitím jedného z "
 "vašich existujúcich účtov. Ak se chceli vykonať inú operáciu, pokračujte na "

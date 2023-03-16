@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-29 01:58-0600\n"
+"POT-Creation-Date: 2023-03-16 04:15-0500\n"
 "PO-Revision-Date: 2016-01-19 19:32+0100\n"
 "Last-Translator: David D Lowe <daviddlowe.flimm@gmail.com>\n"
 "Language-Team: Arabic\n"
@@ -150,7 +150,7 @@ msgstr "خطأ في شهادة اعادة تعيين كلمة المرور."
 msgid "user"
 msgstr "مستخدم"
 
-#: account/models.py:25 account/models.py:80
+#: account/models.py:25 account/models.py:82
 msgid "e-mail address"
 msgstr "عنوان بريد إلكتروني"
 
@@ -170,23 +170,23 @@ msgstr "عنوان بريد الكتروني"
 msgid "email addresses"
 msgstr "عناوين البريد الالكتروني"
 
-#: account/models.py:83
+#: account/models.py:85
 msgid "created"
 msgstr "تمّ إنشاؤه"
 
-#: account/models.py:84
+#: account/models.py:86
 msgid "sent"
 msgstr "تم ارساله"
 
-#: account/models.py:85 socialaccount/models.py:59
+#: account/models.py:87 socialaccount/models.py:59
 msgid "key"
 msgstr "مفتاح"
 
-#: account/models.py:90
+#: account/models.py:92
 msgid "email confirmation"
 msgstr "تأكيد البريد الإلكتروني"
 
-#: account/models.py:91
+#: account/models.py:93
 msgid "email confirmations"
 msgstr "تأكيدات البريد الإلكتروني"
 
@@ -338,6 +338,37 @@ msgstr "حساب غير نشط"
 #: templates/account/account_inactive.html:10
 msgid "This account is inactive."
 msgstr "هذا الحساب غير نشط"
+
+#: templates/account/base.html:15
+msgid "Messages:"
+msgstr ""
+
+#: templates/account/base.html:25
+msgid "Menu:"
+msgstr ""
+
+#: templates/account/base.html:28
+#, fuzzy
+#| msgid "E-mail"
+msgid "Change E-mail"
+msgstr "البريد الالكتروني"
+
+#: templates/account/base.html:29 templates/account/logout.html:5
+#: templates/account/logout.html:8 templates/account/logout.html:17
+msgid "Sign Out"
+msgstr "تسجيل الخروج"
+
+#: templates/account/base.html:31 templates/account/login.html:6
+#: templates/account/login.html:10 templates/account/login.html:43
+#: templates/socialaccount/login.html:4
+msgid "Sign In"
+msgstr "تسجيل الدخول"
+
+#: templates/account/base.html:32 templates/account/signup.html:8
+#: templates/account/signup.html:18 templates/socialaccount/signup.html:8
+#: templates/socialaccount/signup.html:19
+msgid "Sign Up"
+msgstr "الاشتراك"
 
 #: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
@@ -541,16 +572,11 @@ msgstr "التأكيد"
 #: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a "
-"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
 "هذا الرابط لتأكيد البريد الإلكتروني إنتهت فترة صلاحيته أو إنه غير صالح. يرجى "
 "<a href=\"%(email_url)s\"> إصدار البريد الإلكتروني طلب تأكيد الجديدة </a>."
-
-#: templates/account/login.html:6 templates/account/login.html:10
-#: templates/account/login.html:43 templates/socialaccount/login.html:4
-msgid "Sign In"
-msgstr "تسجيل الدخول"
 
 #: templates/account/login.html:15
 #, python-format
@@ -574,17 +600,12 @@ msgid ""
 "If you have not created an account yet, then please\n"
 "<a href=\"%(signup_url)s\">sign up</a> first."
 msgstr ""
-"إذا لم تكن قد أنشأت حسابا حتى الآن، فالرجاء <a "
-"href=\"%(signup_url)s\">الاشتراك </a> أولا."
+"إذا لم تكن قد أنشأت حسابا حتى الآن، فالرجاء <a href=\"%(signup_url)s"
+"\">الاشتراك </a> أولا."
 
 #: templates/account/login.html:42 templates/account/password_change.html:14
 msgid "Forgot Password?"
 msgstr "هل نسيت كلمة المرور؟"
-
-#: templates/account/logout.html:5 templates/account/logout.html:8
-#: templates/account/logout.html:17
-msgid "Sign Out"
-msgstr "تسجيل الخروج"
 
 #: templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
@@ -711,11 +732,6 @@ msgstr "تعيين كلمة مرور"
 
 #: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
-msgstr "الاشتراك"
-
-#: templates/account/signup.html:8 templates/account/signup.html:18
-#: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
-msgid "Sign Up"
 msgstr "الاشتراك"
 
 #: templates/account/signup.html:10
@@ -868,8 +884,8 @@ msgstr "تم الغاء تسجيل الدخول"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a "
-"href=\"%(login_url)s\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
 msgstr ""
 "قد قررت إلغاء تسجيل الدخول إلى الموقع باستخدام أحد الحسابات الموجودة الخاصة "
 "بك. إذا كان هذا خطأ، الرجاء المتابعة <a href=\"%(login_url)s\">تسجيل الدخول</"

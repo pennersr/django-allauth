@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-29 01:58-0600\n"
+"POT-Creation-Date: 2023-03-16 04:15-0500\n"
 "PO-Revision-Date: 2020-06-14 17:00-0000\n"
 "Last-Translator: Mohammad Ali Amini <hakhsin@gmail.com>\n"
 "Language-Team: \n"
@@ -157,7 +157,7 @@ msgstr "توکن بازنشانی گذرواژه نامعتبر است."
 msgid "user"
 msgstr "کاربر"
 
-#: account/models.py:25 account/models.py:80
+#: account/models.py:25 account/models.py:82
 msgid "e-mail address"
 msgstr "نشانی رایانامه"
 
@@ -177,23 +177,23 @@ msgstr "نشانی رایانامه"
 msgid "email addresses"
 msgstr "نشانی‌های رایانامه"
 
-#: account/models.py:83
+#: account/models.py:85
 msgid "created"
 msgstr "ایجاد‌شده"
 
-#: account/models.py:84
+#: account/models.py:86
 msgid "sent"
 msgstr "ارسال شد"
 
-#: account/models.py:85 socialaccount/models.py:59
+#: account/models.py:87 socialaccount/models.py:59
 msgid "key"
 msgstr "کلید"
 
-#: account/models.py:90
+#: account/models.py:92
 msgid "email confirmation"
 msgstr "تاییدیه‌ی رایانامه"
 
-#: account/models.py:91
+#: account/models.py:93
 msgid "email confirmations"
 msgstr "تاییدیه‌های رایانامه"
 
@@ -348,6 +348,37 @@ msgstr "حساب غیرفعال"
 #: templates/account/account_inactive.html:10
 msgid "This account is inactive."
 msgstr "این حساب‌کاربری غیرفعال است."
+
+#: templates/account/base.html:15
+msgid "Messages:"
+msgstr ""
+
+#: templates/account/base.html:25
+msgid "Menu:"
+msgstr ""
+
+#: templates/account/base.html:28
+#, fuzzy
+#| msgid "E-mail"
+msgid "Change E-mail"
+msgstr "رایانامه"
+
+#: templates/account/base.html:29 templates/account/logout.html:5
+#: templates/account/logout.html:8 templates/account/logout.html:17
+msgid "Sign Out"
+msgstr "خروج"
+
+#: templates/account/base.html:31 templates/account/login.html:6
+#: templates/account/login.html:10 templates/account/login.html:43
+#: templates/socialaccount/login.html:4
+msgid "Sign In"
+msgstr "ورود"
+
+#: templates/account/base.html:32 templates/account/signup.html:8
+#: templates/account/signup.html:18 templates/socialaccount/signup.html:8
+#: templates/socialaccount/signup.html:19
+msgid "Sign Up"
+msgstr "ثبت نام"
 
 #: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
@@ -540,16 +571,11 @@ msgstr "تایید"
 #: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a "
-"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"این پیوند تاییدیه رایانامه باطل‌شده ویا نامعتبر است. لطفا یه <a "
-"href=\"%(email_url)s\">تاییدیه جدید رایانامه</a> درخواست کن."
-
-#: templates/account/login.html:6 templates/account/login.html:10
-#: templates/account/login.html:43 templates/socialaccount/login.html:4
-msgid "Sign In"
-msgstr "ورود"
+"این پیوند تاییدیه رایانامه باطل‌شده ویا نامعتبر است. لطفا یه <a href="
+"\"%(email_url)s\">تاییدیه جدید رایانامه</a> درخواست کن."
 
 #: templates/account/login.html:15
 #, python-format
@@ -559,8 +585,8 @@ msgid ""
 "up</a>\n"
 "for a %(site_name)s account and sign in below:"
 msgstr ""
-"لطفا با یکی از حساب‌های شخص سوم موجودت وارد شو. یا در %(site_name)s<a "
-"href=\"%(signup_url)s\">ثبت‌نام</a> کن و از زیر وارد شو:"
+"لطفا با یکی از حساب‌های شخص سوم موجودت وارد شو. یا در %(site_name)s<a href="
+"\"%(signup_url)s\">ثبت‌نام</a> کن و از زیر وارد شو:"
 
 #: templates/account/login.html:25
 msgid "or"
@@ -578,11 +604,6 @@ msgstr ""
 #: templates/account/login.html:42 templates/account/password_change.html:14
 msgid "Forgot Password?"
 msgstr "گذرواژه‌ات را فراموش کرده‌ای؟"
-
-#: templates/account/logout.html:5 templates/account/logout.html:8
-#: templates/account/logout.html:17
-msgid "Sign Out"
-msgstr "خروج"
 
 #: templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
@@ -694,8 +715,8 @@ msgid ""
 "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
 "a>."
 msgstr ""
-"پیوند بازنشانی گذرواژه نادرست است؛ شاید قبلا استفاده شده. لطفا یه <a "
-"class=\"alert-link\" href=\"{{ passwd_reset_url }}\">بازنشان جدید گذرواژه</"
+"پیوند بازنشانی گذرواژه نادرست است؛ شاید قبلا استفاده شده. لطفا یه <a class="
+"\"alert-link\" href=\"{{ passwd_reset_url }}\">بازنشان جدید گذرواژه</"
 "a>درخواست کن."
 
 #: templates/account/password_reset_from_key.html:16
@@ -714,11 +735,6 @@ msgstr "نهادن گذرواژه"
 #: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
 msgstr "ثبت‌نام"
-
-#: templates/account/signup.html:8 templates/account/signup.html:18
-#: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
-msgid "Sign Up"
-msgstr "ثبت نام"
 
 #: templates/account/signup.html:10
 #, python-format
@@ -867,8 +883,8 @@ msgstr "لغو ورود"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a "
-"href=\"%(login_url)s\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
 msgstr ""
 "ورودت به سایت‌مان با یکی از حساب‌هایت را لغو کردی. اگر اشتباهی شده، لطفا اقدام "
 "به <a href=\"%(login_url)s\">ورود</a> کن."

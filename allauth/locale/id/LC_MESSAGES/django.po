@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-29 01:58-0600\n"
+"POT-Creation-Date: 2023-03-16 04:15-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -149,7 +149,7 @@ msgstr "Token untuk mengatur ulang kata sandi tidak valid."
 msgid "user"
 msgstr "pengguna"
 
-#: account/models.py:25 account/models.py:80
+#: account/models.py:25 account/models.py:82
 msgid "e-mail address"
 msgstr "alamat e-mail"
 
@@ -169,23 +169,23 @@ msgstr "alamat e-mail"
 msgid "email addresses"
 msgstr "alamat e-mail"
 
-#: account/models.py:83
+#: account/models.py:85
 msgid "created"
 msgstr "dibuat"
 
-#: account/models.py:84
+#: account/models.py:86
 msgid "sent"
 msgstr "dikirim"
 
-#: account/models.py:85 socialaccount/models.py:59
+#: account/models.py:87 socialaccount/models.py:59
 msgid "key"
 msgstr "kunci"
 
-#: account/models.py:90
+#: account/models.py:92
 msgid "email confirmation"
 msgstr "konfirmasi e-mail"
 
-#: account/models.py:91
+#: account/models.py:93
 msgid "email confirmations"
 msgstr "konfirmasi e-mail"
 
@@ -337,6 +337,37 @@ msgstr "Akun Tidak Aktif"
 #: templates/account/account_inactive.html:10
 msgid "This account is inactive."
 msgstr "Akun ini tidak aktif."
+
+#: templates/account/base.html:15
+msgid "Messages:"
+msgstr ""
+
+#: templates/account/base.html:25
+msgid "Menu:"
+msgstr ""
+
+#: templates/account/base.html:28
+#, fuzzy
+#| msgid "E-mail"
+msgid "Change E-mail"
+msgstr "E-mail"
+
+#: templates/account/base.html:29 templates/account/logout.html:5
+#: templates/account/logout.html:8 templates/account/logout.html:17
+msgid "Sign Out"
+msgstr "Keluar"
+
+#: templates/account/base.html:31 templates/account/login.html:6
+#: templates/account/login.html:10 templates/account/login.html:43
+#: templates/socialaccount/login.html:4
+msgid "Sign In"
+msgstr "Masuk"
+
+#: templates/account/base.html:32 templates/account/signup.html:8
+#: templates/account/signup.html:18 templates/socialaccount/signup.html:8
+#: templates/socialaccount/signup.html:19
+msgid "Sign Up"
+msgstr "Daftar"
 
 #: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
@@ -512,16 +543,11 @@ msgstr "Konfirmasi"
 #: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a "
-"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"Link konfirmasi e-mail ini sudah kadaluwarsa atau tidak valid. Mohon <a "
-"href=\"%(email_url)s\">mengirimkan permintaan konfirmasi e-mail baru</a>."
-
-#: templates/account/login.html:6 templates/account/login.html:10
-#: templates/account/login.html:43 templates/socialaccount/login.html:4
-msgid "Sign In"
-msgstr "Masuk"
+"Link konfirmasi e-mail ini sudah kadaluwarsa atau tidak valid. Mohon <a href="
+"\"%(email_url)s\">mengirimkan permintaan konfirmasi e-mail baru</a>."
 
 #: templates/account/login.html:15
 #, python-format
@@ -551,11 +577,6 @@ msgstr ""
 #: templates/account/login.html:42 templates/account/password_change.html:14
 msgid "Forgot Password?"
 msgstr "Lupa Kata Sandi?"
-
-#: templates/account/logout.html:5 templates/account/logout.html:8
-#: templates/account/logout.html:17
-msgid "Sign Out"
-msgstr "Keluar"
 
 #: templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
@@ -685,11 +706,6 @@ msgstr "Setel Kata Sandi"
 msgid "Signup"
 msgstr "Daftar"
 
-#: templates/account/signup.html:8 templates/account/signup.html:18
-#: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
-msgid "Sign Up"
-msgstr "Daftar"
-
 #: templates/account/signup.html:10
 #, python-format
 msgid ""
@@ -770,8 +786,8 @@ msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
 "mail address</a>."
 msgstr ""
-"<strong>Catatan:</strong> Anda masih bisa <a "
-"href=\"%(email_url)s\">mengganti alamat e-mail Anda</a>."
+"<strong>Catatan:</strong> Anda masih bisa <a href=\"%(email_url)s"
+"\">mengganti alamat e-mail Anda</a>."
 
 #: templates/openid/login.html:9
 msgid "OpenID Sign In"
@@ -845,12 +861,12 @@ msgstr "Login Dibatalkan"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a "
-"href=\"%(login_url)s\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
 msgstr ""
 "Anda memutuskan untuk membatalkan masuk ke situs kami menggunakan salah satu "
-"dari akun Anda. Jika ini adalah kesalahan, silakan lanjutkan ke <a "
-"href=\"%(login_url)s\">masuk</a>."
+"dari akun Anda. Jika ini adalah kesalahan, silakan lanjutkan ke <a href="
+"\"%(login_url)s\">masuk</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."

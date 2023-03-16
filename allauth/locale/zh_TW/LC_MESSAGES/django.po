@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-29 01:58-0600\n"
+"POT-Creation-Date: 2023-03-16 04:15-0500\n"
 "PO-Revision-Date: 2014-08-12 00:36+0200\n"
 "Last-Translator: jresins <jresins@gmail.com>\n"
 "Language-Team: Chinese (Traditional)\n"
@@ -152,7 +152,7 @@ msgstr ""
 msgid "user"
 msgstr "使用者"
 
-#: account/models.py:25 account/models.py:80
+#: account/models.py:25 account/models.py:82
 #, fuzzy
 msgid "e-mail address"
 msgstr "電子郵件地址"
@@ -173,23 +173,23 @@ msgstr "電子郵件地址"
 msgid "email addresses"
 msgstr "電子郵件地址"
 
-#: account/models.py:83
+#: account/models.py:85
 msgid "created"
 msgstr "以建立"
 
-#: account/models.py:84
+#: account/models.py:86
 msgid "sent"
 msgstr "已送出"
 
-#: account/models.py:85 socialaccount/models.py:59
+#: account/models.py:87 socialaccount/models.py:59
 msgid "key"
 msgstr "key"
 
-#: account/models.py:90
+#: account/models.py:92
 msgid "email confirmation"
 msgstr "電子郵件確認"
 
-#: account/models.py:91
+#: account/models.py:93
 msgid "email confirmations"
 msgstr "電子郵件確認"
 
@@ -340,6 +340,37 @@ msgstr "帳號未啟用"
 #: templates/account/account_inactive.html:10
 msgid "This account is inactive."
 msgstr "這個帳號未啟用"
+
+#: templates/account/base.html:15
+msgid "Messages:"
+msgstr ""
+
+#: templates/account/base.html:25
+msgid "Menu:"
+msgstr ""
+
+#: templates/account/base.html:28
+#, fuzzy
+#| msgid "E-mail"
+msgid "Change E-mail"
+msgstr "E-mail"
+
+#: templates/account/base.html:29 templates/account/logout.html:5
+#: templates/account/logout.html:8 templates/account/logout.html:17
+msgid "Sign Out"
+msgstr "登出"
+
+#: templates/account/base.html:31 templates/account/login.html:6
+#: templates/account/login.html:10 templates/account/login.html:43
+#: templates/socialaccount/login.html:4
+msgid "Sign In"
+msgstr "登入"
+
+#: templates/account/base.html:32 templates/account/signup.html:8
+#: templates/account/signup.html:18 templates/socialaccount/signup.html:8
+#: templates/socialaccount/signup.html:19
+msgid "Sign Up"
+msgstr "註冊"
 
 #: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
@@ -525,16 +556,11 @@ msgstr "確認"
 #: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a "
-"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
 "電子郵件確認連結已經過期或失效了，請點擊 <a href=\"%(email_url)s\"> 以要求發"
 "送新的電子郵件確認信。"
-
-#: templates/account/login.html:6 templates/account/login.html:10
-#: templates/account/login.html:43 templates/socialaccount/login.html:4
-msgid "Sign In"
-msgstr "登入"
 
 #: templates/account/login.html:15
 #, fuzzy, python-format
@@ -564,11 +590,6 @@ msgstr ""
 #: templates/account/login.html:42 templates/account/password_change.html:14
 msgid "Forgot Password?"
 msgstr "忘記密碼了？"
-
-#: templates/account/logout.html:5 templates/account/logout.html:8
-#: templates/account/logout.html:17
-msgid "Sign Out"
-msgstr "登出"
 
 #: templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
@@ -676,8 +697,8 @@ msgid ""
 "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
 "a>."
 msgstr ""
-"密碼重設連結已失效，可能是因為該連結已經被人用過了，請重新申請<a "
-"href=\"%(passwd_reset_url)s\">重設密碼</a>。"
+"密碼重設連結已失效，可能是因為該連結已經被人用過了，請重新申請<a href="
+"\"%(passwd_reset_url)s\">重設密碼</a>。"
 
 #: templates/account/password_reset_from_key.html:16
 msgid "change password"
@@ -694,11 +715,6 @@ msgstr "設定密碼"
 
 #: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
-msgstr "註冊"
-
-#: templates/account/signup.html:8 templates/account/signup.html:18
-#: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
-msgid "Sign Up"
 msgstr "註冊"
 
 #: templates/account/signup.html:10
@@ -848,8 +864,8 @@ msgstr "登入取消了"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a "
-"href=\"%(login_url)s\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
 msgstr ""
 "您決定不繼續登入這一個網站。若這是一個失誤，請<a href=\"%(login_url)s\">由此"
 "</a>重新登入。"
@@ -934,8 +950,8 @@ msgstr ""
 #~ msgstr "Je e-mail adres is al geverifieerd"
 
 #~ msgid ""
-#~ "If you have any trouble resetting your password, contact us at <a "
-#~ "href=\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
+#~ "If you have any trouble resetting your password, contact us at <a href="
+#~ "\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
 #~ msgstr ""
 #~ "Als je problemen hebt je wachtwoord opnieuw in te stellen, neem dan "
 #~ "contact op met <a href=\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
@@ -1016,8 +1032,8 @@ msgstr ""
 #~ msgstr "Afmelden"
 
 #~ msgid ""
-#~ "When you receive the new password, you should <a "
-#~ "href=\"%(login_url)s\">log in</a> and change it as soon as possible."
+#~ "When you receive the new password, you should <a href=\"%(login_url)s"
+#~ "\">log in</a> and change it as soon as possible."
 #~ msgstr ""
 #~ "Zodra je het nieuwe wachtwoord ontvangen hebt moet je zo snel mogelijk <a "
 #~ "href=\"%(login_url)s\">inloggen</a> en het wachtwoord wijzigen."
@@ -1027,17 +1043,16 @@ msgstr ""
 
 #~ msgid ""
 #~ "By clicking \"Sign Up\", you are indicating that you have read and agree "
-#~ "to the <a href=\"%(terms_url)s\">Terms of Use</a> and <a "
-#~ "href=\"%(privacy_url)s\">Privacy Policy</a>."
+#~ "to the <a href=\"%(terms_url)s\">Terms of Use</a> and <a href="
+#~ "\"%(privacy_url)s\">Privacy Policy</a>."
 #~ msgstr ""
-#~ "Door te registreren geef je aan dat je de <a "
-#~ "href=\"%(terms_url)s\">gebruiksvoorwaarden</a> en de <a "
-#~ "href=\"%(privacy_url)s\">privacy policy</a> gelezen hebt en ermee akkoord "
-#~ "gaat."
+#~ "Door te registreren geef je aan dat je de <a href=\"%(terms_url)s"
+#~ "\">gebruiksvoorwaarden</a> en de <a href=\"%(privacy_url)s\">privacy "
+#~ "policy</a> gelezen hebt en ermee akkoord gaat."
 
 #~ msgid ""
-#~ "If you have any trouble creating your account, contact us at <a "
-#~ "href=\"mailto:%(contact_email)s\">%(contact_email)s</a>."
+#~ "If you have any trouble creating your account, contact us at <a href="
+#~ "\"mailto:%(contact_email)s\">%(contact_email)s</a>."
 #~ msgstr ""
 #~ "Als je problemen hebt om een account aan te maken, neem dan contact op "
 #~ "met <a href=\"mailto:%(contact_email)s\">%(contact_email)s</a>."

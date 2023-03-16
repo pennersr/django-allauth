@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-29 01:58-0600\n"
+"POT-Creation-Date: 2023-03-16 04:15-0500\n"
 "PO-Revision-Date: 2022-11-28 12:06+0900\n"
 "Last-Translator: Sora Yanai <sora@mail.skyarrow.xyz>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -153,7 +153,7 @@ msgstr "パスワードリセットトークンが無効です。"
 msgid "user"
 msgstr "ユーザー"
 
-#: account/models.py:25 account/models.py:80
+#: account/models.py:25 account/models.py:82
 msgid "e-mail address"
 msgstr "メールアドレス"
 
@@ -173,23 +173,23 @@ msgstr "メールアドレス"
 msgid "email addresses"
 msgstr "メールアドレス"
 
-#: account/models.py:83
+#: account/models.py:85
 msgid "created"
 msgstr "作成日時"
 
-#: account/models.py:84
+#: account/models.py:86
 msgid "sent"
 msgstr "送信日時"
 
-#: account/models.py:85 socialaccount/models.py:59
+#: account/models.py:87 socialaccount/models.py:59
 msgid "key"
 msgstr "キー"
 
-#: account/models.py:90
+#: account/models.py:92
 msgid "email confirmation"
 msgstr "メールアドレスの確認"
 
-#: account/models.py:91
+#: account/models.py:93
 msgid "email confirmations"
 msgstr "メールアドレスの確認"
 
@@ -346,6 +346,37 @@ msgstr "無効なアカウント"
 #: templates/account/account_inactive.html:10
 msgid "This account is inactive."
 msgstr "このアカウントは無効です。"
+
+#: templates/account/base.html:15
+msgid "Messages:"
+msgstr ""
+
+#: templates/account/base.html:25
+msgid "Menu:"
+msgstr ""
+
+#: templates/account/base.html:28
+#, fuzzy
+#| msgid "E-mail"
+msgid "Change E-mail"
+msgstr "メールアドレス"
+
+#: templates/account/base.html:29 templates/account/logout.html:5
+#: templates/account/logout.html:8 templates/account/logout.html:17
+msgid "Sign Out"
+msgstr "ログアウト"
+
+#: templates/account/base.html:31 templates/account/login.html:6
+#: templates/account/login.html:10 templates/account/login.html:43
+#: templates/socialaccount/login.html:4
+msgid "Sign In"
+msgstr "ログイン"
+
+#: templates/account/base.html:32 templates/account/signup.html:8
+#: templates/account/signup.html:18 templates/socialaccount/signup.html:8
+#: templates/socialaccount/signup.html:19
+msgid "Sign Up"
+msgstr "ユーザー登録"
 
 #: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
@@ -520,16 +551,11 @@ msgstr "確認する"
 #: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a "
-"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"メールアドレス確認用のリンクが不正か、期限が切れています。<a "
-"href=\"%(email_url)s\">確認用のメールを再送</a>してください。"
-
-#: templates/account/login.html:6 templates/account/login.html:10
-#: templates/account/login.html:43 templates/socialaccount/login.html:4
-msgid "Sign In"
-msgstr "ログイン"
+"メールアドレス確認用のリンクが不正か、期限が切れています。<a href="
+"\"%(email_url)s\">確認用のメールを再送</a>してください。"
 
 #: templates/account/login.html:15
 #, python-format
@@ -539,8 +565,8 @@ msgid ""
 "up</a>\n"
 "for a %(site_name)s account and sign in below:"
 msgstr ""
-"お持ちの外部アカウントでログインするか、%(site_name)sに <a "
-"href=\"%(signup_url)s\">ユーザー登録</a> してログインしてください。"
+"お持ちの外部アカウントでログインするか、%(site_name)sに <a href="
+"\"%(signup_url)s\">ユーザー登録</a> してログインしてください。"
 
 #: templates/account/login.html:25
 msgid "or"
@@ -558,11 +584,6 @@ msgstr ""
 #: templates/account/login.html:42 templates/account/password_change.html:14
 msgid "Forgot Password?"
 msgstr "パスワードをお忘れですか？"
-
-#: templates/account/logout.html:5 templates/account/logout.html:8
-#: templates/account/logout.html:17
-msgid "Sign Out"
-msgstr "ログアウト"
 
 #: templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
@@ -690,11 +711,6 @@ msgstr "パスワード設定"
 
 #: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
-msgstr "ユーザー登録"
-
-#: templates/account/signup.html:8 templates/account/signup.html:18
-#: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
-msgid "Sign Up"
 msgstr "ユーザー登録"
 
 #: templates/account/signup.html:10
@@ -853,8 +869,8 @@ msgstr "ログインはキャンセルされました"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a "
-"href=\"%(login_url)s\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
 msgstr ""
 "既存の外部アカウントを使ったログインはキャンセルされました。\n"
 "やり直される場合は<a href=\"%(login_url)s\">ログイン</a>ページにお進みくださ"

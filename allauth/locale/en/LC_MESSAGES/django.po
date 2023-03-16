@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-29 01:58-0600\n"
+"POT-Creation-Date: 2023-03-16 04:15-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -148,7 +148,7 @@ msgstr ""
 msgid "user"
 msgstr ""
 
-#: account/models.py:25 account/models.py:80
+#: account/models.py:25 account/models.py:82
 msgid "e-mail address"
 msgstr ""
 
@@ -168,23 +168,23 @@ msgstr ""
 msgid "email addresses"
 msgstr ""
 
-#: account/models.py:83
+#: account/models.py:85
 msgid "created"
 msgstr ""
 
-#: account/models.py:84
+#: account/models.py:86
 msgid "sent"
 msgstr ""
 
-#: account/models.py:85 socialaccount/models.py:59
+#: account/models.py:87 socialaccount/models.py:59
 msgid "key"
 msgstr ""
 
-#: account/models.py:90
+#: account/models.py:92
 msgid "email confirmation"
 msgstr ""
 
-#: account/models.py:91
+#: account/models.py:93
 msgid "email confirmations"
 msgstr ""
 
@@ -333,6 +333,35 @@ msgstr ""
 
 #: templates/account/account_inactive.html:10
 msgid "This account is inactive."
+msgstr ""
+
+#: templates/account/base.html:15
+msgid "Messages:"
+msgstr ""
+
+#: templates/account/base.html:25
+msgid "Menu:"
+msgstr ""
+
+#: templates/account/base.html:28
+msgid "Change E-mail"
+msgstr ""
+
+#: templates/account/base.html:29 templates/account/logout.html:5
+#: templates/account/logout.html:8 templates/account/logout.html:17
+msgid "Sign Out"
+msgstr ""
+
+#: templates/account/base.html:31 templates/account/login.html:6
+#: templates/account/login.html:10 templates/account/login.html:43
+#: templates/socialaccount/login.html:4
+msgid "Sign In"
+msgstr ""
+
+#: templates/account/base.html:32 templates/account/signup.html:8
+#: templates/account/signup.html:18 templates/socialaccount/signup.html:8
+#: templates/socialaccount/signup.html:19
+msgid "Sign Up"
 msgstr ""
 
 #: templates/account/email.html:5 templates/account/email.html:8
@@ -486,13 +515,8 @@ msgstr ""
 #: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a "
-"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
-msgstr ""
-
-#: templates/account/login.html:6 templates/account/login.html:10
-#: templates/account/login.html:43 templates/socialaccount/login.html:4
-msgid "Sign In"
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
 
 #: templates/account/login.html:15
@@ -517,11 +541,6 @@ msgstr ""
 
 #: templates/account/login.html:42 templates/account/password_change.html:14
 msgid "Forgot Password?"
-msgstr ""
-
-#: templates/account/logout.html:5 templates/account/logout.html:8
-#: templates/account/logout.html:17
-msgid "Sign Out"
 msgstr ""
 
 #: templates/account/logout.html:10
@@ -637,11 +656,6 @@ msgstr ""
 
 #: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
-msgstr ""
-
-#: templates/account/signup.html:8 templates/account/signup.html:18
-#: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
-msgid "Sign Up"
 msgstr ""
 
 #: templates/account/signup.html:10
@@ -773,8 +787,8 @@ msgstr ""
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a "
-"href=\"%(login_url)s\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
 msgstr ""
 
 #: templates/socialaccount/messages/account_connected.txt:2

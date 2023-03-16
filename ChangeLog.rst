@@ -1,4 +1,4 @@
-0.53.0 (Unreleased)
+0.53.0 (2023-03-16)
 *******************
 
 Note worthy changes
@@ -7,6 +7,10 @@ Note worthy changes
 - You can now override the use of the ``UserTokenForm`` over at the
   ``PasswordResetFromKeyView`` by configuring ``ACCOUNT_FORMS["user_token"]`` to
   allow the change of the password reset token generator.
+
+- The Google API URLs are now configurable via the provider setting which
+  enables use-cases such as overriding the endpoint during integration tests to
+  talk to a mocked version of the API.
 
 
 0.52.0 (2022-12-29)

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-29 01:58-0600\n"
+"POT-Creation-Date: 2023-03-16 04:15-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Marc Seguí Coll <metarizard@gmail.com>\n"
 "Language-Team: Català \n"
@@ -152,7 +152,7 @@ msgstr "El token per reiniciar la contrasenya no és vàlid."
 msgid "user"
 msgstr "usuari"
 
-#: account/models.py:25 account/models.py:80
+#: account/models.py:25 account/models.py:82
 msgid "e-mail address"
 msgstr "correu electrònic"
 
@@ -172,23 +172,23 @@ msgstr "correu electrònic"
 msgid "email addresses"
 msgstr "correus electrònics"
 
-#: account/models.py:83
+#: account/models.py:85
 msgid "created"
 msgstr "creat"
 
-#: account/models.py:84
+#: account/models.py:86
 msgid "sent"
 msgstr "enviat"
 
-#: account/models.py:85 socialaccount/models.py:59
+#: account/models.py:87 socialaccount/models.py:59
 msgid "key"
 msgstr "clau"
 
-#: account/models.py:90
+#: account/models.py:92
 msgid "email confirmation"
 msgstr "confirmació de correu electrònic"
 
-#: account/models.py:91
+#: account/models.py:93
 msgid "email confirmations"
 msgstr "confirmacions de correu electrònic"
 
@@ -342,6 +342,37 @@ msgstr "Compte inactiu"
 #: templates/account/account_inactive.html:10
 msgid "This account is inactive."
 msgstr "Aquest compte està inactiu."
+
+#: templates/account/base.html:15
+msgid "Messages:"
+msgstr ""
+
+#: templates/account/base.html:25
+msgid "Menu:"
+msgstr ""
+
+#: templates/account/base.html:28
+#, fuzzy
+#| msgid "E-mail"
+msgid "Change E-mail"
+msgstr "Correu electrònic"
+
+#: templates/account/base.html:29 templates/account/logout.html:5
+#: templates/account/logout.html:8 templates/account/logout.html:17
+msgid "Sign Out"
+msgstr "Tancar sessió"
+
+#: templates/account/base.html:31 templates/account/login.html:6
+#: templates/account/login.html:10 templates/account/login.html:43
+#: templates/socialaccount/login.html:4
+msgid "Sign In"
+msgstr "Iniciar sessió"
+
+#: templates/account/base.html:32 templates/account/signup.html:8
+#: templates/account/signup.html:18 templates/socialaccount/signup.html:8
+#: templates/socialaccount/signup.html:19
+msgid "Sign Up"
+msgstr "Registrar-se"
 
 #: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
@@ -522,17 +553,12 @@ msgstr "Confirmar"
 #: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a "
-"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
 "Aquest enllaç de verificació de correu electrònic ha expirat o és invàlid. "
 "Si us plau, <a href=\"%(email_url)s\">sol·liciteu una nova verificació per "
 "correu electrònic.</a>."
-
-#: templates/account/login.html:6 templates/account/login.html:10
-#: templates/account/login.html:43 templates/socialaccount/login.html:4
-msgid "Sign In"
-msgstr "Iniciar sessió"
 
 #: templates/account/login.html:15
 #, python-format
@@ -563,11 +589,6 @@ msgstr ""
 #: templates/account/login.html:42 templates/account/password_change.html:14
 msgid "Forgot Password?"
 msgstr "Heu oblidat la vostra contrasenya?"
-
-#: templates/account/logout.html:5 templates/account/logout.html:8
-#: templates/account/logout.html:17
-msgid "Sign Out"
-msgstr "Tancar sessió"
 
 #: templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
@@ -673,8 +694,8 @@ msgid ""
 "a>."
 msgstr ""
 "L'enllaç per restablir la contrasenya és invàlid, probablement porquè ja ha "
-"estat utilitzat. Si us plau soliciteu <a "
-"href=\"%(passwd_reset_url)s\">restablir la contrasenya novament</a>."
+"estat utilitzat. Si us plau soliciteu <a href=\"%(passwd_reset_url)s"
+"\">restablir la contrasenya novament</a>."
 
 #: templates/account/password_reset_from_key.html:16
 msgid "change password"
@@ -691,11 +712,6 @@ msgstr "Establir contrasenya"
 
 #: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
-msgstr "Registrar-se"
-
-#: templates/account/signup.html:8 templates/account/signup.html:18
-#: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
-msgid "Sign Up"
 msgstr "Registrar-se"
 
 #: templates/account/signup.html:10
@@ -845,12 +861,12 @@ msgstr "Inici de sessió cancel·lat"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a "
-"href=\"%(login_url)s\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
 msgstr ""
 "Heu decidit cancel·lar l'inici de sessió al vostre lloc web utilitzant un "
-"dels vostres comptes existents. Si ha estat un error, si us plau <a "
-"href=\"%(login_url)s\">inicieu sessió</a>."
+"dels vostres comptes existents. Si ha estat un error, si us plau <a href="
+"\"%(login_url)s\">inicieu sessió</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."

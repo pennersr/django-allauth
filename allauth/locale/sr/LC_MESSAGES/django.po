@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-29 01:58-0600\n"
+"POT-Creation-Date: 2023-03-16 04:15-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Nikola Vulovic <nivukiki@gmail.com>\n"
 "Language-Team: NONE\n"
@@ -16,8 +16,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: account/adapter.py:47
 msgid "Username can not be used. Please use other username."
@@ -151,7 +151,7 @@ msgstr "Токен ресетовања лозинке је неважећи."
 msgid "user"
 msgstr "корисник"
 
-#: account/models.py:25 account/models.py:80
+#: account/models.py:25 account/models.py:82
 msgid "e-mail address"
 msgstr "адреса е-поште"
 
@@ -171,23 +171,23 @@ msgstr "адреса е-поште"
 msgid "email addresses"
 msgstr "адресе е-поште"
 
-#: account/models.py:83
+#: account/models.py:85
 msgid "created"
 msgstr "створено"
 
-#: account/models.py:84
+#: account/models.py:86
 msgid "sent"
 msgstr "послат"
 
-#: account/models.py:85 socialaccount/models.py:59
+#: account/models.py:87 socialaccount/models.py:59
 msgid "key"
 msgstr "кључ"
 
-#: account/models.py:90
+#: account/models.py:92
 msgid "email confirmation"
 msgstr "потврда е-поште"
 
-#: account/models.py:91
+#: account/models.py:93
 msgid "email confirmations"
 msgstr "потврде е-поште"
 
@@ -339,6 +339,37 @@ msgstr "Рачун неактиван"
 #: templates/account/account_inactive.html:10
 msgid "This account is inactive."
 msgstr "Овај налог је неактиван."
+
+#: templates/account/base.html:15
+msgid "Messages:"
+msgstr ""
+
+#: templates/account/base.html:25
+msgid "Menu:"
+msgstr ""
+
+#: templates/account/base.html:28
+#, fuzzy
+#| msgid "E-mail"
+msgid "Change E-mail"
+msgstr "Е-пошта"
+
+#: templates/account/base.html:29 templates/account/logout.html:5
+#: templates/account/logout.html:8 templates/account/logout.html:17
+msgid "Sign Out"
+msgstr "Одјава"
+
+#: templates/account/base.html:31 templates/account/login.html:6
+#: templates/account/login.html:10 templates/account/login.html:43
+#: templates/socialaccount/login.html:4
+msgid "Sign In"
+msgstr "Пријавите се"
+
+#: templates/account/base.html:32 templates/account/signup.html:8
+#: templates/account/signup.html:18 templates/socialaccount/signup.html:8
+#: templates/socialaccount/signup.html:19
+msgid "Sign Up"
+msgstr "Региструјте се"
 
 #: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
@@ -542,16 +573,11 @@ msgstr "Потврди"
 #: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a "
-"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
 "Овај линк за потврду е-поште је истекао или је неважећи. Молимо вас да <a "
 "href=\"%(email_url)s\">затражите нови захтев за потврду е-поште </а>."
-
-#: templates/account/login.html:6 templates/account/login.html:10
-#: templates/account/login.html:43 templates/socialaccount/login.html:4
-msgid "Sign In"
-msgstr "Пријавите се"
 
 #: templates/account/login.html:15
 #, python-format
@@ -562,8 +588,8 @@ msgid ""
 "for a %(site_name)s account and sign in below:"
 msgstr ""
 "Молимо Вас да се пријавите са једним од\n"
-"постојећих рачуна трећих страна. Или, се <a "
-"href=\"%(signup_url)s\">региструјте</a>\n"
+"постојећих рачуна трећих страна. Или, се <a href=\"%(signup_url)s"
+"\">региструјте</a>\n"
 "за рачун код  %(site_name)s и пријавите се доле:"
 
 #: templates/account/login.html:25
@@ -576,17 +602,12 @@ msgid ""
 "If you have not created an account yet, then please\n"
 "<a href=\"%(signup_url)s\">sign up</a> first."
 msgstr ""
-"Ако још нисте створили рачун, онда се прво <a "
-"href=\"%(signup_url)s\">региструјте</a>."
+"Ако још нисте створили рачун, онда се прво <a href=\"%(signup_url)s"
+"\">региструјте</a>."
 
 #: templates/account/login.html:42 templates/account/password_change.html:14
 msgid "Forgot Password?"
 msgstr "Заборавили сте лозинку?"
-
-#: templates/account/logout.html:5 templates/account/logout.html:8
-#: templates/account/logout.html:17
-msgid "Sign Out"
-msgstr "Одјава"
 
 #: templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
@@ -698,8 +719,8 @@ msgid ""
 "a>."
 msgstr ""
 "Веза за поништавање лозинке је неважећа, вероватно зато што је већ "
-"билаискоришћена. Молимо Вас да затражите ново <a "
-"href=\"%(passwd_reset_url)s\">поништаванје лозинке</а>."
+"билаискоришћена. Молимо Вас да затражите ново <a href=\"%(passwd_reset_url)s"
+"\">поништаванје лозинке</а>."
 
 #: templates/account/password_reset_from_key.html:16
 msgid "change password"
@@ -717,11 +738,6 @@ msgstr "Постави лозинку"
 #: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
 msgstr "Регистрација"
-
-#: templates/account/signup.html:8 templates/account/signup.html:18
-#: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
-msgid "Sign Up"
-msgstr "Региструјте се"
 
 #: templates/account/signup.html:10
 #, python-format
@@ -880,12 +896,12 @@ msgstr "Пријава је отказана"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a "
-"href=\"%(login_url)s\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
 msgstr ""
 "Одлучили сте да откажете пријављивање на нашу веб страницу помоћу једног од "
-"ваших постојећихрачуна. Ако је ово грешка, молимо вас да пређете на <a "
-"href=\"%(login_url)s\">и прјавите се</a>."
+"ваших постојећихрачуна. Ако је ово грешка, молимо вас да пређете на <a href="
+"\"%(login_url)s\">и прјавите се</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-29 01:58-0600\n"
+"POT-Creation-Date: 2023-03-16 04:15-0500\n"
 "PO-Revision-Date: 2021-12-09 16:29+0100\n"
 "Last-Translator: pennersr <raymond.penners@intenct.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/django-allauth/"
@@ -149,7 +149,7 @@ msgstr "De wachtwoordherstel-sleutel is niet geldig."
 msgid "user"
 msgstr "gebruiker"
 
-#: account/models.py:25 account/models.py:80
+#: account/models.py:25 account/models.py:82
 msgid "e-mail address"
 msgstr "e-mailadres"
 
@@ -169,23 +169,23 @@ msgstr "e-mailadres"
 msgid "email addresses"
 msgstr "e-mailadressen"
 
-#: account/models.py:83
+#: account/models.py:85
 msgid "created"
 msgstr "aangemaakt"
 
-#: account/models.py:84
+#: account/models.py:86
 msgid "sent"
 msgstr "verstuurd"
 
-#: account/models.py:85 socialaccount/models.py:59
+#: account/models.py:87 socialaccount/models.py:59
 msgid "key"
 msgstr "sleutel"
 
-#: account/models.py:90
+#: account/models.py:92
 msgid "email confirmation"
 msgstr "e-mailadres bevestiging"
 
-#: account/models.py:91
+#: account/models.py:93
 msgid "email confirmations"
 msgstr "e-mailadres bevestigingen"
 
@@ -341,6 +341,37 @@ msgstr "Account inactief"
 #: templates/account/account_inactive.html:10
 msgid "This account is inactive."
 msgstr "Dit account is niet actief"
+
+#: templates/account/base.html:15
+msgid "Messages:"
+msgstr ""
+
+#: templates/account/base.html:25
+msgid "Menu:"
+msgstr ""
+
+#: templates/account/base.html:28
+#, fuzzy
+#| msgid "E-mail"
+msgid "Change E-mail"
+msgstr "E-mail"
+
+#: templates/account/base.html:29 templates/account/logout.html:5
+#: templates/account/logout.html:8 templates/account/logout.html:17
+msgid "Sign Out"
+msgstr "Afmelden"
+
+#: templates/account/base.html:31 templates/account/login.html:6
+#: templates/account/login.html:10 templates/account/login.html:43
+#: templates/socialaccount/login.html:4
+msgid "Sign In"
+msgstr "Aanmelden"
+
+#: templates/account/base.html:32 templates/account/signup.html:8
+#: templates/account/signup.html:18 templates/socialaccount/signup.html:8
+#: templates/socialaccount/signup.html:19
+msgid "Sign Up"
+msgstr "Registreren"
 
 #: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
@@ -519,16 +550,11 @@ msgstr "Bevestigen"
 #: templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a "
-"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
 "Deze e-mail verificatie link is verlopen of niet geldig. Dien een\n"
 "<a href=\"%(email_url)s\">nieuw e-mail verificatie verzoek</a> in."
-
-#: templates/account/login.html:6 templates/account/login.html:10
-#: templates/account/login.html:43 templates/socialaccount/login.html:4
-msgid "Sign In"
-msgstr "Aanmelden"
 
 #: templates/account/login.html:15
 #, python-format
@@ -558,11 +584,6 @@ msgstr ""
 #: templates/account/login.html:42 templates/account/password_change.html:14
 msgid "Forgot Password?"
 msgstr "Wachtwoord vergeten?"
-
-#: templates/account/logout.html:5 templates/account/logout.html:8
-#: templates/account/logout.html:17
-msgid "Sign Out"
-msgstr "Afmelden"
 
 #: templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
@@ -691,11 +712,6 @@ msgstr "Zet wachtwoord"
 
 #: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
-msgstr "Registreren"
-
-#: templates/account/signup.html:8 templates/account/signup.html:18
-#: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
-msgid "Sign Up"
 msgstr "Registreren"
 
 #: templates/account/signup.html:10
@@ -850,8 +866,8 @@ msgstr "Aanmelden geannuleerd"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a "
-"href=\"%(login_url)s\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
 msgstr ""
 "Je hebt het aanmelden via een extern account geannuleerd. Als dit een "
 "vergissing was, <a href=\"%(login_url)s\">meld je dan opnieuw aan</a>."

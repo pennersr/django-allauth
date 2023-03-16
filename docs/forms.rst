@@ -18,14 +18,15 @@ ACCOUNT_FORMS
 Default Settings::
 
     ACCOUNT_FORMS = {
-        'login': 'allauth.account.forms.LoginForm',
-        'signup': 'allauth.account.forms.SignupForm',
         'add_email': 'allauth.account.forms.AddEmailForm',
         'change_password': 'allauth.account.forms.ChangePasswordForm',
-        'set_password': 'allauth.account.forms.SetPasswordForm',
+        'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
+        'login': 'allauth.account.forms.LoginForm',
         'reset_password': 'allauth.account.forms.ResetPasswordForm',
         'reset_password_from_key': 'allauth.account.forms.ResetPasswordKeyForm',
-        'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
+        'set_password': 'allauth.account.forms.SetPasswordForm',
+        'signup': 'allauth.account.forms.SignupForm',
+        'user_token': 'allauth.account.forms.UserTokenForm',
     }
 
 login (``allauth.account.forms.LoginForm``)

@@ -740,10 +740,13 @@ class PasswordResetFromKeyView(
         self.request = request
         self.key = key
 
+        user_token_form_class = get_form_class(
+            app_settings.FORMS, "user_token", UserTokenForm
+        )
         if self.key == self.reset_url_key:
             self.key = self.request.session.get(INTERNAL_RESET_SESSION_KEY, "")
             # (Ab)using forms here to be able to handle errors in XHR #890
-            token_form = UserTokenForm(data={"uidb36": uidb36, "key": self.key})
+            token_form = user_token_form_class(data={"uidb36": uidb36, "key": self.key})
             if token_form.is_valid():
                 self.reset_user = token_form.reset_user
 
@@ -761,7 +764,7 @@ class PasswordResetFromKeyView(
                     request, uidb36, self.key, **kwargs
                 )
         else:
-            token_form = UserTokenForm(data={"uidb36": uidb36, "key": self.key})
+            token_form = user_token_form_class(data={"uidb36": uidb36, "key": self.key})
             if token_form.is_valid():
                 # Store the key in the session and redirect to the
                 # password reset form at a URL without the key. That

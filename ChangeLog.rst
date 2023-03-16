@@ -1,3 +1,14 @@
+0.53.0 (Unreleased)
+*******************
+
+Note worthy changes
+-------------------
+
+- You can now override the use of the ``UserTokenForm`` over at the
+  ``PasswordResetFromKeyView`` by configuring ``ACCOUNT_FORMS["user_token"]`` to
+  allow the change of the password reset token generator.
+
+
 0.52.0 (2022-12-29)
 *******************
 

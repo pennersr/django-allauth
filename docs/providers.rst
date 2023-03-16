@@ -582,7 +582,9 @@ During development set the callback url to:
 In production replace localhost with whatever domain you're hosting your app on.
 
 If your app is writing to certain attributes you need to specify this during the
-creation of the app.
+creation of the app. For a full list of scopes see:
+
+https://developer.exist.io/reference/authentication/oauth2/#scopes
 
 The following Exist settings are available:
 
@@ -590,17 +592,17 @@ The following Exist settings are available:
 
     SOCIALACCOUNT_PROVIDERS = {
         'exist': {
-            'SCOPE': ['read+write'],
+            'SCOPE': ['mood_read', 'health_read', 'productivity_read'],
         }
     }
 
 SCOPE:
-    The default scope is ``read``. If you'd like to change this set the scope to
-    ``read+write``.
+    The default scopes are listed above. For reading additional attributes or writing data see
+    https://developer.exist.io/reference/authentication/oauth2/#scopes.
 
 For more information:
-OAuth documentation: http://developer.exist.io/#oauth2-authentication
-API documentation: http://developer.exist.io/
+OAuth documentation: https://developer.exist.io/reference/authentication/oauth2
+API documentation: https://developer.exist.io/reference/important_values/
 
 
 Facebook

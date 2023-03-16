@@ -48,7 +48,8 @@ class EmailAddress(models.Model):
         self.primary = True
         self.save()
         user_email(self.user, self.email)
-        self.user.save()
+        if app_settings.USER_MODEL_EMAIL_FIELD:
+            self.user.save(update_fields=[app_settings.USER_MODEL_EMAIL_FIELD])
         return True
 
     def send_confirmation(self, request=None, signup=False):
@@ -65,7 +66,8 @@ class EmailAddress(models.Model):
         """
         with transaction.atomic():
             user_email(self.user, new_email)
-            self.user.save()
+            if app_settings.USER_MODEL_EMAIL_FIELD:
+                self.user.save(update_fields=[app_settings.USER_MODEL_EMAIL_FIELD])
             self.email = new_email
             self.verified = False
             self.save()

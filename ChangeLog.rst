@@ -1,3 +1,12 @@
+0.53.1 (2023-03-20)
+*******************
+
+Note worthy changes
+-------------------
+
+- Example base template was missing ``{% load i18n}``, fixed.
+
+
 0.53.0 (2023-03-16)
 *******************
 

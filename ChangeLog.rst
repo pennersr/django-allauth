@@ -1,3 +1,11 @@
+0.54.0 (unreleased)
+*******************
+
+Note worthy changes
+-------------------
+
+- Officially support Django 4.2.
+
 0.53.1 (2023-03-20)
 *******************
 

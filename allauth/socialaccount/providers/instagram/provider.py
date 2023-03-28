@@ -3,7 +3,6 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class InstagramAccount(ProviderAccount):
-
     PROFILE_URL = "http://instagram.com/"
 
     def get_profile_url(self):

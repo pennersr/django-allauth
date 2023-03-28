@@ -23,7 +23,9 @@ ROOT_URLCONF = "allauth.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(os.path.dirname(__file__), "example", "example", "templates")],
+        "DIRS": [
+            os.path.join(os.path.dirname(__file__), "example", "example", "templates")
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -108,7 +110,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.google",
     "allauth.socialaccount.providers.gumroad",
     "allauth.socialaccount.providers.hubic",
-    'allauth.socialaccount.providers.hubspot',
+    "allauth.socialaccount.providers.hubspot",
     "allauth.socialaccount.providers.instagram",
     "allauth.socialaccount.providers.jupyterhub",
     "allauth.socialaccount.providers.kakao",

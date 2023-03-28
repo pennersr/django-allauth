@@ -91,7 +91,12 @@ class LinkedInOAuth2Account(ProviderAccount):
             if not width == req_size[0] or not height == req_size[1]:
                 continue
             # Get the uri since actual size matches the requested size.
-            to_return = single_element.get("identifiers", [{},])[
+            to_return = single_element.get(
+                "identifiers",
+                [
+                    {},
+                ],
+            )[
                 0
             ].get("identifier")
             if to_return:

@@ -13,7 +13,6 @@ from allauth.socialaccount.providers.oauth2.client import (
 
 
 class FeishuOAuth2Client(OAuth2Client):
-
     app_access_token_url = (
         "https://open.feishu.cn/open-apis/auth/v3/app_access_token/internal/"
     )

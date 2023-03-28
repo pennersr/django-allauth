@@ -42,7 +42,6 @@ class DwollaOAuth2Adapter(OAuth2Adapter):
     authorize_url = AUTH_URL
 
     def complete_login(self, request, app, token, response, **kwargs):
-
         resp = requests.get(
             response["_links"]["account"]["href"],
             headers={

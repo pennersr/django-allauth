@@ -85,7 +85,7 @@ class BasicTests(TestCase):
             self.assertEqual(utils.generate_unique_username([input]), username)
 
     def test_email_validation(self):
-        s = "this.email.address.is.a.bit.too.long.but.should.still.validate@example.com"  # noqa
+        s = "this.email.address.is.a.bit.too.long.but.should.still.validate@example.com"
         self.assertEqual(s, utils.valid_email_or_none(s))
 
     def test_serializer(self):

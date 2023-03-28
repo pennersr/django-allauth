@@ -29,4 +29,4 @@ class VimeoOAuth2Tests(OAuth2TestsMixin, TestCase):
             "resource_key": "1234567890abcdef",
             "account": "pro"
         }""",
-        )  # noqa
+        )

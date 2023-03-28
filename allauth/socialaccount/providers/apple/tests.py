@@ -3,12 +3,11 @@ from datetime import datetime, timedelta
 from importlib import import_module
 from urllib.parse import parse_qs, urlparse
 
+import jwt
 from django.conf import settings
 from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils.http import urlencode
-
-import jwt
 
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase, mocked_response

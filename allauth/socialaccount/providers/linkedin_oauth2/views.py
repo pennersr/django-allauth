@@ -15,9 +15,9 @@ class LinkedInOAuth2Adapter(OAuth2Adapter):
     access_token_url = "https://www.linkedin.com/oauth/v2/accessToken"
     authorize_url = "https://www.linkedin.com/oauth/v2/authorization"
     profile_url = "https://api.linkedin.com/v2/me"
-    email_url = "https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))"  # noqa
+    email_url = "https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))"
     # See:
-    # http://developer.linkedin.com/forum/unauthorized-invalid-or-expired-token-immediately-after-receiving-oauth2-token?page=1 # noqa
+    # http://developer.linkedin.com/forum/unauthorized-invalid-or-expired-token-immediately-after-receiving-oauth2-token?page=1
     access_token_method = "GET"
 
     def complete_login(self, request, app, token, **kwargs):

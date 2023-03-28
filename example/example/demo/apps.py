@@ -12,8 +12,8 @@ def setup_dummy_social_apps(sender, **kwargs):
 
     from allauth.socialaccount.models import SocialApp
     from allauth.socialaccount.providers import registry
-    from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
     from allauth.socialaccount.providers.oauth.provider import OAuthProvider
+    from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
     site = Site.objects.get_current()
     for provider in registry.get_list():

@@ -18,4 +18,4 @@ class SlackOAuth2Tests(OAuth2TestsMixin, TestCase):
           "team_id": "T12345",
           "user_id": "U12345"
         }""",
-        )  # noqa
+        )

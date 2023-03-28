@@ -1,5 +1,7 @@
 import os
 
+from django.contrib.auth.hashers import PBKDF2PasswordHasher
+
 
 SECRET_KEY = "psst"
 SITE_ID = 1
@@ -186,8 +188,6 @@ AUTHENTICATION_BACKENDS = (
 STATIC_ROOT = "/tmp/"  # Dummy
 STATIC_URL = "/static/"
 
-from django.contrib.auth.hashers import PBKDF2PasswordHasher
-
 
 class MyPBKDF2PasswordHasher(PBKDF2PasswordHasher):
     """
@@ -207,10 +207,8 @@ PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
 ]
 
-
 ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN = 0
 ACCOUNT_RATE_LIMITS = {}
-
 
 SOCIALACCOUNT_PROVIDERS = {
     "openid_connect": {

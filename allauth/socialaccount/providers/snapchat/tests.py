@@ -23,4 +23,4 @@ class SnapchatOAuth2Tests(OAuth2TestsMixin, TestCase):
                   },
                   "errors":[]
             }""",
-        )  # noqa
+        )

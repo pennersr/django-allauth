@@ -49,7 +49,7 @@ class FacebookAccount(ProviderAccount):
             GRAPH_API_URL
             + "/%s/picture?type=square&height=600&width=600&return_ssl_resources=1"
             % uid
-        )  # noqa
+        )
 
     def to_str(self):
         dflt = super(FacebookAccount, self).to_str()

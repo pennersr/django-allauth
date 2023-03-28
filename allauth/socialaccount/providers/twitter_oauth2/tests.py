@@ -21,4 +21,4 @@ class TwitterOAuth2Tests(OAuth2TestsMixin, TestCase):
                 }
             }
             """,
-        )  # noqa
+        )

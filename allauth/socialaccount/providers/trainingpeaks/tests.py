@@ -31,7 +31,7 @@ class TrainingPeaksTests(OAuth2TestsMixin, TestCase):
                 "CoachedBy": 987654,
                 "Weight": 87.5223617553711
             }""",
-        )  # noqa
+        )
 
     def get_login_response_json(self, with_refresh_token=True):
         rtoken = ""

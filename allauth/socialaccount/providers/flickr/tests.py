@@ -20,7 +20,7 @@ class FlickrTests(OAuthTestsMixin, TestCase):
     "_content": "pennersr"},
     "id": "12345678@N00"}}
 """,
-            ),  # noqa
+            ),
             MockedResponse(
                 200,
                 r"""
@@ -42,7 +42,7 @@ class FlickrTests(OAuthTestsMixin, TestCase):
  "iconfarm": 0}, "stat": "ok"}
 """,
             ),
-        ]  # noqa
+        ]
 
     def test_login(self):
         account = super(FlickrTests, self).test_login()
@@ -73,7 +73,7 @@ class FlickrWithoutRealNameTests(OAuthTestsMixin, TestCase):
     "_content": "pennersr"},
     "id": "12345678@N00"}}
 """,
-            ),  # noqa
+            ),
             MockedResponse(
                 200,
                 r"""
@@ -95,7 +95,7 @@ class FlickrWithoutRealNameTests(OAuthTestsMixin, TestCase):
  "iconfarm": 0}, "stat": "ok"}
 """,
             ),
-        ]  # noqa
+        ]
 
     def test_login(self):
         account = super(FlickrWithoutRealNameTests, self).test_login()

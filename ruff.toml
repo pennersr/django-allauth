@@ -1,0 +1,16 @@
+target-version = "py37"  # TODO: the current target for the repo itself is py35
+ignore = ["E501"]
+line-length = 88
+select = [
+  "E",
+  "F",
+  "I",
+  "RUF100",  # Unused noqas
+  "W",
+]
+
+[isort]
+combine-as-imports = true
+extra-standard-library = ["requests", "types"]
+known-first-party = ["allauth"]
+lines-after-imports = 2

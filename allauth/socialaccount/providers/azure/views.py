@@ -28,7 +28,7 @@ class AzureOAuth2Adapter(OAuth2Adapter):
     # Can be used later to obtain group data. Needs 'Group.Read.All' or
     # similar.
     #
-    # See https://developer.microsoft.com/en-us/graph/docs/api-reference/beta/api/user_list_memberof  # noqa
+    # See https://developer.microsoft.com/en-us/graph/docs/api-reference/beta/api/user_list_memberof
     groups_url = GRAPH_URL + "/me/memberOf?$select=displayName"
 
     def complete_login(self, request, app, token, **kwargs):
@@ -39,7 +39,7 @@ class AzureOAuth2Adapter(OAuth2Adapter):
 
         # See:
         #
-        # https://developer.microsoft.com/en-us/graph/docs/api-reference/v1.0/api/user_get  # noqa
+        # https://developer.microsoft.com/en-us/graph/docs/api-reference/v1.0/api/user_get
         #
         # example of what's returned (in python format)
         #

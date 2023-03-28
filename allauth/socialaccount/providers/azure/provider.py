@@ -7,7 +7,7 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 class AzureAccount(ProviderAccount):
     # TODO:
     # - avatar_url:
-    #   https://developer.microsoft.com/en-us/graph/docs/api-reference/beta/api/profilephoto_get  # noqa
+    #   https://developer.microsoft.com/en-us/graph/docs/api-reference/beta/api/profilephoto_get
     def get_username(self):
         return self.account.extra_data["email"]
 

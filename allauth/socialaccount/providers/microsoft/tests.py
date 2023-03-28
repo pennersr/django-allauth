@@ -28,7 +28,7 @@ class MicrosoftGraphTests(OAuth2TestsMixin, TestCase):
             "userPrincipalName": "annew@CIE493742.onmicrosoft.com",
             "mailNickname": "annew"
         }
-        """  # noqa
+        """
         return MockedResponse(200, response_data)
 
     def test_invalid_data(self):

@@ -29,7 +29,7 @@ class OpenStreetMapTests(OAuthTestsMixin, TestCase):
 </osm>
 """,
             )
-        ]  # noqa
+        ]
 
     def test_login(self):
         account = super(OpenStreetMapTests, self).test_login()

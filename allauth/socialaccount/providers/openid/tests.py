@@ -2,7 +2,6 @@ from unittest import expectedFailure
 
 from django.test import override_settings
 from django.urls import reverse
-
 from openid.consumer import consumer
 
 from allauth.socialaccount.models import SocialAccount

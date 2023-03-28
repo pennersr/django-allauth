@@ -37,7 +37,7 @@ class StravaTests(OAuth2TestsMixin, TestCase):
                 "follower": null,
                 "email": "bill@example.com"
             }""",
-        )  # noqa
+        )
 
     def get_mocked_response_avatar_invalid_id(self):
         """Profile including realistic avatar URL
@@ -65,7 +65,7 @@ class StravaTests(OAuth2TestsMixin, TestCase):
                 "follower": null,
                 "email": "bill@example.com"
             }""",
-        )  # noqa
+        )
 
     def test_valid_avatar(self):
         """test response with Avatar URL"""

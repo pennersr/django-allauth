@@ -39,4 +39,4 @@ class SpotifyOAuth2Tests(OAuth2TestsMixin, TestCase):
           "type": "user",
           "uri": "spotify:user:wizzler"
         }""",
-        )  # noqa
+        )

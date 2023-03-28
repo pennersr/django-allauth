@@ -41,4 +41,4 @@ class EdmodoTests(OAuth2TestsMixin, TestCase):
   "sync_enabled": false
 }
 """,
-        )  # noqa
+        )

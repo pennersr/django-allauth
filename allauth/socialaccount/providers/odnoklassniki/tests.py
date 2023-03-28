@@ -25,4 +25,4 @@ class OdnoklassnikiTests(OAuth2TestsMixin, TestCase):
         )
 
     def get_login_response_json(self, with_refresh_token=True):
-        return '{"access_token": "testac"}'  # noqa
+        return '{"access_token": "testac"}'

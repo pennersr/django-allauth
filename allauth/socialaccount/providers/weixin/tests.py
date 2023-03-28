@@ -30,4 +30,4 @@ class WeixinTests(create_oauth2_tests(registry.by_id(WeixinProvider.id))):
  "scope": "snsapi_login",
  "sex": 1,
  "unionid": "ohHrhwKnD9TOunEW0eKTS45vS5Qo"}""",
-        )  # noqa
+        )

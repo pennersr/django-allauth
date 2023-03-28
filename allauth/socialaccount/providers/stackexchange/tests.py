@@ -42,4 +42,4 @@ class StackExchangeTests(OAuth2TestsMixin, TestCase):
            "quota_max": 10000,
            "quota_remaining": 9999
         }""",
-        )  # noqa
+        )

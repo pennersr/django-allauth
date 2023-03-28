@@ -16,7 +16,7 @@ class PaypalProvider(OAuth2Provider):
     account_class = PaypalAccount
 
     def get_default_scope(self):
-        # See: https://developer.paypal.com/docs/integration/direct/identity/attributes/  # noqa
+        # See: https://developer.paypal.com/docs/integration/direct/identity/attributes/
         return ["openid", "email"]
 
     def extract_uid(self, data):

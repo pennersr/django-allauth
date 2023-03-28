@@ -1462,7 +1462,7 @@ class AuthenticationBackendTests(TestCase):
 
     @override_settings(
         ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.USERNAME
-    )  # noqa
+    )
     def test_auth_by_username(self):
         user = self.user
         backend = AuthenticationBackend()
@@ -1481,7 +1481,7 @@ class AuthenticationBackendTests(TestCase):
 
     @override_settings(
         ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL
-    )  # noqa
+    )
     def test_auth_by_email(self):
         user = self.user
         backend = AuthenticationBackend()
@@ -1500,7 +1500,7 @@ class AuthenticationBackendTests(TestCase):
 
     @override_settings(
         ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.USERNAME_EMAIL
-    )  # noqa
+    )
     def test_auth_by_username_or_email(self):
         user = self.user
         backend = AuthenticationBackend()

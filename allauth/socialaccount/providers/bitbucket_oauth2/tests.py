@@ -51,7 +51,7 @@ class BitbucketOAuth2Tests(
             "uuid": "{c788b2da-b7a2-404c-9e26-d3f077557007}",
             "website": "https://tutorials.bitbucket.org/"
         }
-    """  # noqa
+    """
 
     email_response_data = """
         {
@@ -85,7 +85,7 @@ class BitbucketOAuth2Tests(
                 }
             ]
         }
-    """  # noqa
+    """
 
     def setUp(self):
         super(BitbucketOAuth2Tests, self).setUp()
@@ -142,7 +142,7 @@ class BitbucketOAuth2Tests(
         self.assertEqual(account.get_profile_url(), "https://bitbucket.org/tutorials")
         self.assertEqual(
             account.get_avatar_url(),
-            "https://bitbucket-assetroot.s3.amazonaws.com/c/photos/2013/Nov/25/tutorials-avatar-1563784409-6_avatar.png",  # noqa
+            "https://bitbucket-assetroot.s3.amazonaws.com/c/photos/2013/Nov/25/tutorials-avatar-1563784409-6_avatar.png",
         )
         self.patches["requests"].get.assert_has_calls(
             [

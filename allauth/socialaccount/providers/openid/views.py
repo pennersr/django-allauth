@@ -3,7 +3,6 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
-
 from openid.consumer import consumer
 from openid.consumer.discover import DiscoveryFailure
 from openid.extensions.ax import AttrInfo, FetchRequest

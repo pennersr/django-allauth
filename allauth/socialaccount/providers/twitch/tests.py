@@ -32,7 +32,7 @@ class TwitchTests(OAuth2TestsMixin, TestCase):
           }]
         }
         """,
-        )  # noqa
+        )
 
     def test_response_over_400_raises_OAuth2Error(self):
         resp_mock = MockedResponse(400, '{"error": "Invalid token"}')

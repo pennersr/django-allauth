@@ -28,4 +28,4 @@ class StocktwitsTests(OAuth2TestsMixin, TestCase):
   }
 }
 """,
-        )  # noqa
+        )

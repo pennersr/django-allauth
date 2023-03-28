@@ -455,7 +455,7 @@ class SocialAccountTests(TestCase):
     @override_settings(
         SOCIALACCOUNT_AUTO_SIGNUP=True,
         ACCOUNT_SIGNUP_FORM_CLASS=None,
-        ACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.NONE,  # noqa
+        ACCOUNT_EMAIL_VERIFICATION=account_settings.EmailVerificationMethod.NONE,
     )
     def test_email_address_created(self):
         factory = RequestFactory()

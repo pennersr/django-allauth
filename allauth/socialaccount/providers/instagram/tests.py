@@ -25,4 +25,4 @@ class InstagramTests(OAuth2TestsMixin, TestCase):
             },
             "id": "11428116"
         }""",
-        )  # noqa
+        )

@@ -78,4 +78,4 @@ class FiveHundredPxTests(OAuthTestsMixin, TestCase):
           }
         }""",
             )
-        ]  # noqa
+        ]

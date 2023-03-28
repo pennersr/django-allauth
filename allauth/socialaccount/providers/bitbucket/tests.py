@@ -32,7 +32,7 @@ class BitbucketTests(OAuthTestsMixin, TestCase):
            "username": "pennersr"}}
  """,
             ),
-        ]  # noqa
+        ]
 
     def test_login(self):
         account = super(BitbucketTests, self).test_login()

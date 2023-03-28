@@ -56,4 +56,4 @@ class PatreonTests(OAuth2TestsMixin, TestCase):
             "id": "123456"
         }
         }""",
-        )  # noqa
+        )

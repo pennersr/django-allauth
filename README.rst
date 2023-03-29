@@ -55,7 +55,7 @@ Most developers end up integrating another app in order to support authenticatio
 flows that are locally generated. 
 
 This approach creates a development gap between local and social
-authentication flows. It has remained an issue inspite numerous common 
+authentication flows. It has remained an issue in spite of numerous common 
 scenarios that both require. For example, an e-mail address passed along by an
 OpenID provider may not be verified. Therefore, prior to hooking up
 an OpenID account to a local account the e-mail address must be

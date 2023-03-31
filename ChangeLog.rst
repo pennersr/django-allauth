@@ -1,3 +1,20 @@
+0.54.0 (2023-03-31)
+*******************
+
+Note worthy changes
+-------------------
+
+- Dropped support for EOL Python versions (3.5, 3.6).
+
+
+Security notice
+---------------
+
+- Even when account enumeration prevention was turned on, it was possible for an
+  attacker to infer whether or not a given account exists based upon the
+  response time of an authentication attempt. Fixed.
+
+
 0.53.1 (2023-03-20)
 *******************
 

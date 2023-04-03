@@ -297,7 +297,6 @@ signup = SignupView.as_view()
 
 
 class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
-
     template_name = "account/email_confirm." + app_settings.TEMPLATE_EXTENSION
 
     def get(self, *args, **kwargs):
@@ -847,7 +846,6 @@ password_reset_from_key_done = PasswordResetFromKeyDoneView.as_view()
 
 
 class LogoutView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
-
     template_name = "account/logout." + app_settings.TEMPLATE_EXTENSION
     redirect_field_name = "next"
 

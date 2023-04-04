@@ -234,7 +234,6 @@ class SignupView(
     success_url = None
 
     @sensitive_post_parameters_m
-    @method_decorator(csrf_protect)
     @method_decorator(never_cache)
     def dispatch(self, request, *args, **kwargs):
         return super(SignupView, self).dispatch(request, *args, **kwargs)

@@ -8,7 +8,7 @@ HTTPS
 This app currently provides no functionality for enforcing views to be
 HTTPS only, or switching from HTTP to HTTPS (and back) on demand.
 There are third party packages aimed at providing precisely this,
-so please use these.
+so please use those.
 
 What is provided is the following:
 

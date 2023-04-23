@@ -878,12 +878,12 @@ msgstr ""
 #: templates/socialaccount/login.html:10
 #, python-format
 msgid "You are about to connect a new third party account from %(provider)s."
-msgstr ""
+msgstr "Πρόκειται να συνδεθείτε χρησιμοποιώντας έναν λογαριασμό τρίτου μέρους από %(provider)s."
 
 #: templates/socialaccount/login.html:12
 #, python-format
 msgid "Sign In Via %(provider)s"
-msgstr ""
+msgstr "Συνδεθείτε με %(provider)s"
 
 #: templates/socialaccount/login.html:14
 #, python-format

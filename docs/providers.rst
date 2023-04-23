@@ -1380,6 +1380,16 @@ for the login. To restrict it, change the `TENANT` setting as shown below.
     }
 
 
+Miro
+----
+
+Create your app here and aquire Client ID and Client Secret
+    https://miro.com/app/settings/user-profile/apps
+
+Development callback URL
+    http://localhost:8000/accounts/miro/login/callback/
+
+
 Naver
 -----
 

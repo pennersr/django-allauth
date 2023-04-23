@@ -28,7 +28,7 @@ Note worthy changes
 
 - Dropped support for Django 2.x.
 - Officially support Django 4.2.
-
+- New provider: Miro.
 
 
 0.54.0 (2023-03-31)

@@ -165,6 +165,8 @@ Supported Providers
 
 - Microsoft (Graph) (OAuth2)
 
+- Miro (OAuth2)
+
 - Naver (OAuth2)
 
 - NetIQ/Microfocus AccessManager (OAuth2)

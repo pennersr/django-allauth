@@ -6,10 +6,15 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 class DiscordAccount(ProviderAccount):
     def to_str(self):
         dflt = super(DiscordAccount, self).to_str()
+
+        if not isinstance(self.account.extra_data, dict):
+            return dflt
+
         username = self.account.extra_data.get("username")
         discriminator = self.account.extra_data.get("discriminator")
+
         if username and discriminator:
-            return "{}#{}".format(username, discriminator)
+            return f"{username}#{discriminator}"
         elif username:
             return username
         else:

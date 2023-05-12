@@ -171,6 +171,8 @@ Supported Providers
 
 - NextCloud (OAuth2)
 
+- Notion (OAuth2)
+
 - Odnoklassniki (OAuth2)
 
 - Okta (OAuth2)

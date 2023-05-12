@@ -1427,11 +1427,17 @@ App registration (get your key and secret here)
 Notion
 ------
 
-Integration *must* have access to user's email.
+After creating an integration perform the following steps:
+
+1. Navigate to your integration then Capabilities, User Capabilities, and select 'Read user information cncluding email addresses.' 
+2. Click 'Distribution' and check 'Do you want to make this integration public?'.
+3. In the 'Redirect URL' paste the callback URL below.
 
 App registration (get your key and secret here)
-    https://www.notion.so/my-integrations/public
+    https://www.notion.so/my-integrations
 
+Development callback URL
+    https://localhost:8000/accounts/notion/login/callback/
 
 Odnoklassniki
 -------------

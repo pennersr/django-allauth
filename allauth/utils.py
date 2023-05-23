@@ -11,6 +11,7 @@ from urllib.parse import urlsplit
 import django
 from django.contrib.auth import get_user_model
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
+from django.core.files.base import ContentFile
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.validators import ValidationError, validate_email
 from django.db.models import FileField
@@ -186,7 +187,10 @@ def serialize_instance(instance):
                 v = force_str(base64.b64encode(v))
             elif isinstance(field, FileField):
                 if v and not isinstance(v, str):
-                    v = v.name
+                    v = {
+                        "name": v.name,
+                        "content": base64.b64encode(v.read()).decode("ascii"),
+                    }
             # Check if the field is serializable. If not, we'll fall back
             # to serializing the DB values which should cover most use cases.
             try:
@@ -218,6 +222,9 @@ def deserialize_instance(model, data):
                     v = dateparse.parse_date(v)
                 elif isinstance(f, BinaryField):
                     v = force_bytes(base64.b64decode(force_bytes(v)))
+                elif isinstance(f, FileField):
+                    if isinstance(v, dict):
+                        v = ContentFile(base64.b64decode(v["content"]), name=v["name"])
                 elif is_db_value:
                     try:
                         # This is quite an ugly hack, but will cover most

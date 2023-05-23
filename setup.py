@@ -133,7 +133,9 @@ METADATA = dict(
         "Tracker": "https://github.com/pennersr/django-allauth/issues",
         "Donate": "https://github.com/sponsors/pennersr",
     },
-    tests_require=[],
+    tests_require=[
+        "Pillow >= 9.0",
+    ],
     install_requires=[
         "Django >= 2.0",
         "python3-openid >= 3.0.8",

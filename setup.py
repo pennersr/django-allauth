@@ -137,7 +137,7 @@ METADATA = dict(
         "Pillow >= 9.0",
     ],
     install_requires=[
-        "Django >= 2.0",
+        "Django >= 3.0",
         "python3-openid >= 3.0.8",
         "requests-oauthlib >= 0.3.0",
         "requests",
@@ -161,9 +161,6 @@ METADATA = dict(
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Framework :: Django",
-        "Framework :: Django :: 2.0",
-        "Framework :: Django :: 2.1",
-        "Framework :: Django :: 2.2",
         "Framework :: Django :: 3.0",
         "Framework :: Django :: 3.1",
         "Framework :: Django :: 3.2",

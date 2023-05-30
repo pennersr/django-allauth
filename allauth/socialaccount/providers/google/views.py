@@ -21,7 +21,7 @@ ACCESS_TOKEN_URL = (
 AUTHORIZE_URL = (
     getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
     .get("google", {})
-    .get("ACCESS_TOKEN_URL", "https://accounts.google.com/o/oauth2/v2/auth")
+    .get("AUTHORIZE_URL", "https://accounts.google.com/o/oauth2/v2/auth")
 )
 
 ID_TOKEN_ISSUER = (

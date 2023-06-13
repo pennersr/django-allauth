@@ -472,9 +472,11 @@ class DefaultAccountAdapter(object):
         """
         Marks the email address as confirmed on the db
         """
-        email_address.verified = True
+        if not email_address.set_verified(commit=False):
+            return False
         email_address.set_as_primary(conditional=True)
-        email_address.save()
+        email_address.save(update_fields=["verified", "primary"])
+        return True
 
     def set_password(self, user, password):
         user.set_password(password)

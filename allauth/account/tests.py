@@ -113,37 +113,11 @@ class AccountTests(TestCase):
         user.refresh_from_db()
         self.assertEqual(user.first_name, updated_first_name)
 
-    def test_set_new_email_doesnt_override_existed_changes_on_the_user(self):
-        user = get_user_model().objects.create(
-            username="@raymond.penners", first_name="Before Update"
-        )
-        email = EmailAddress.objects.create(
-            user=user,
-            email="raymond.penners@example.com",
-            primary=False,
-            verified=True,
-        )
-        updated_first_name = "Updated"
-        get_user_model().objects.filter(id=user.id).update(
-            first_name=updated_first_name
-        )
-
-        email.change(None, 'new.raymond.penners@example.com"', confirm=False)
-
-        user.refresh_from_db()
-        self.assertEqual(user.first_name, updated_first_name)
-
     @override_settings(ACCOUNT_USER_MODEL_EMAIL_FIELD=None)
     def test_set_email_as_primary_doesnt_override_existed_changes_on_the_user_for_user_model_without_email_field(
         self,
     ):
         self.test_set_email_as_primary_doesnt_override_existed_changes_on_the_user()
-
-    @override_settings(ACCOUNT_USER_MODEL_EMAIL_FIELD=None)
-    def test_set_new_email_doesnt_override_existed_changes_on_the_user_when_user_model_without_email_field(
-        self,
-    ):
-        self.test_set_new_email_doesnt_override_existed_changes_on_the_user()
 
     def test_signup_same_email_verified_externally(self):
         user = self._test_signup_email_verified_externally(

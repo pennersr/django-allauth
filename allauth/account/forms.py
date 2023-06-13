@@ -88,7 +88,6 @@ class SetPasswordField(PasswordField):
 
 
 class LoginForm(forms.Form):
-
     password = PasswordField(label=_("Password"), autocomplete="current-password")
     remember = forms.BooleanField(label=_("Remember Me"), required=False)
 
@@ -473,7 +472,6 @@ class UserForm(forms.Form):
 
 
 class AddEmailForm(UserForm):
-
     email = forms.EmailField(
         label=_("E-mail"),
         required=True,
@@ -515,7 +513,6 @@ class AddEmailForm(UserForm):
 
 
 class ChangePasswordForm(PasswordVerificationMixin, UserForm):
-
     oldpassword = PasswordField(
         label=_("Current Password"), autocomplete="current-password"
     )
@@ -536,7 +533,6 @@ class ChangePasswordForm(PasswordVerificationMixin, UserForm):
 
 
 class SetPasswordForm(PasswordVerificationMixin, UserForm):
-
     password1 = SetPasswordField(label=_("Password"))
     password2 = PasswordField(label=_("Password (again)"))
 
@@ -549,7 +545,6 @@ class SetPasswordForm(PasswordVerificationMixin, UserForm):
 
 
 class ResetPasswordForm(forms.Form):
-
     email = forms.EmailField(
         label=_("E-mail"),
         required=True,
@@ -594,7 +589,6 @@ class ResetPasswordForm(forms.Form):
         token_generator = kwargs.get("token_generator", default_token_generator)
 
         for user in users:
-
             temp_key = token_generator.make_token(user)
 
             # save it to the password reset model
@@ -626,7 +620,6 @@ class ResetPasswordForm(forms.Form):
 
 
 class ResetPasswordKeyForm(PasswordVerificationMixin, forms.Form):
-
     password1 = SetPasswordField(label=_("New Password"))
     password2 = PasswordField(label=_("New Password (again)"))
 
@@ -641,7 +634,6 @@ class ResetPasswordKeyForm(PasswordVerificationMixin, forms.Form):
 
 
 class UserTokenForm(forms.Form):
-
     uidb36 = forms.CharField()
     key = forms.CharField()
 

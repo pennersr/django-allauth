@@ -1402,7 +1402,6 @@ class CustomSignupFormTests(TestCase):
         ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE=True,
     )
     def test_custom_form_field_order(self):
-
         expected_field_order = [
             "email",
             "email2",
@@ -1653,7 +1652,6 @@ class TestResetPasswordForm(TestCase):
 
 @override_settings(ACCOUNT_PREVENT_ENUMERATION=False)
 class TestCVE2019_19844(TestCase):
-
     global_request = RequestFactory().get("/")
 
     def test_user_email_unicode_collision(self):

@@ -20,7 +20,6 @@ from . import app_settings
 
 
 class DefaultSocialAccountAdapter(object):
-
     error_messages = {
         "email_taken": _(
             "An account already exists with this e-mail address."

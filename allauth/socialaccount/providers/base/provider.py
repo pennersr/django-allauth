@@ -8,7 +8,6 @@ class ProviderException(Exception):
 
 
 class Provider(object):
-
     slug = None
 
     def __init__(self, request):

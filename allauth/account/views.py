@@ -305,7 +305,15 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
 
     def post(self, *args, **kwargs):
         self.object = confirmation = self.get_object()
-        confirmation.confirm(self.request)
+        email_address = confirmation.confirm(self.request)
+        if not email_address:
+            get_adapter(self.request).add_message(
+                self.request,
+                messages.ERROR,
+                "account/messages/email_confirmation_failed.txt",
+                {"email": confirmation.email_address.email},
+            )
+            return self.respond(False)
 
         # In the event someone clicks on an email confirmation link
         # for one account while logged into another account,
@@ -332,6 +340,9 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
         # user = confirmation.email_address.user
         # user.is_active = True
         # user.save()
+        return self.respond(True)
+
+    def respond(self, success):
         redirect_url = self.get_redirect_url()
         if not redirect_url:
             ctx = self.get_context_data()

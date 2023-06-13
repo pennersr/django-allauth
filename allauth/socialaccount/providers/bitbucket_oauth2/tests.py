@@ -17,7 +17,6 @@ from .provider import BitbucketOAuth2Provider
 class BitbucketOAuth2Tests(
     create_oauth2_tests(registry.by_id(BitbucketOAuth2Provider.id))
 ):
-
     response_data = """
         {
             "created_on": "2011-12-20T16:34:07.132459+00:00",
@@ -102,7 +101,7 @@ class BitbucketOAuth2Tests(
         ]
 
     def tearDown(self):
-        for (_, mocked) in self.mocks.items():
+        for _, mocked in self.mocks.items():
             mocked.stop()
 
     def get_mocked_response(self):

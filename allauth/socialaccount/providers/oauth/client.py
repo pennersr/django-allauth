@@ -47,7 +47,6 @@ class OAuthClient(object):
         parameters=None,
         provider=None,
     ):
-
         self.request = request
 
         self.request_token_url = request_token_url

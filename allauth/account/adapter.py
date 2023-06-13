@@ -41,7 +41,6 @@ from . import app_settings
 
 
 class DefaultAccountAdapter(object):
-
     error_messages = {
         "username_blacklisted": _(
             "Username can not be used. Please use other username."

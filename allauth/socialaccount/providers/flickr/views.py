@@ -13,7 +13,6 @@ from .provider import FlickrProvider
 
 
 class FlickrAPI(OAuth):
-
     api_url = "https://api.flickr.com/services/rest"
 
     def get_user_info(self):

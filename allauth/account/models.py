@@ -1,7 +1,7 @@
 import datetime
 
 from django.core import signing
-from django.db import models, transaction
+from django.db import models
 from django.db.models import Q
 from django.db.models.constraints import UniqueConstraint
 from django.utils import timezone

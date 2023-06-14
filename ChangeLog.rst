@@ -1,6 +1,22 @@
 0.55.0 (unreleased)
 *******************
 
+Backwards incompatible changes
+------------------------------
+
+- Data model changes: when ``ACCOUNT_UNIQUE_EMAIL=True`` (the default), there
+  was a unique constraint on set on the ``email`` field of the ``EmailAddress``
+  model. This constraint has been relaxed, now there is a unique constraint on
+  the combination of ``email`` and ``verified=True``. Migrations are in place to
+  automatically transition, but if you have a lot of accounts, you may need to
+  take special care using ``CREATE INDEX CONCURRENTLY``.
+
+- The method ``allauth.utils.email_address_exists()`` now only returns ``True``
+  when an ``EmailAddress`` record exists that is verified. Previously, it would
+  return ``True`` when the email has any match (regardless of the verified
+  state) with an ``EmailAddress`` or user (``User.email``).
+
+
 Note worthy changes
 -------------------
 

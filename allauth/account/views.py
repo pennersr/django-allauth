@@ -408,9 +408,15 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
 
     def get_context_data(self, **kwargs):
         ctx = kwargs
-        ctx["confirmation"] = self.object
         site = get_current_site(self.request)
-        ctx.update({"site": site})
+        ctx.update(
+            {
+                "site": site,
+                "confirmation": self.object,
+                "can_confirm": self.object.email_address.can_set_verified(),
+                "email": self.object.email_address.email,
+            }
+        )
         return ctx
 
     def get_redirect_url(self):

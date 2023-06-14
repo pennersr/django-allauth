@@ -487,19 +487,13 @@ class AddEmailForm(UserForm):
             "this_account": _(
                 "This e-mail address is already associated with this account."
             ),
-            "different_account": _(
-                "This e-mail address is already associated with another account."
-            ),
             "max_email_addresses": _("You cannot add more than %d e-mail addresses."),
         }
         users = filter_users_by_email(value)
         on_this_account = [u for u in users if u.pk == self.user.pk]
-        on_diff_account = [u for u in users if u.pk != self.user.pk]
 
         if on_this_account:
             raise forms.ValidationError(errors["this_account"])
-        if on_diff_account and app_settings.UNIQUE_EMAIL:
-            raise forms.ValidationError(errors["different_account"])
         if not EmailAddress.objects.can_add_email(self.user):
             raise forms.ValidationError(
                 errors["max_email_addresses"] % app_settings.MAX_EMAIL_ADDRESSES
@@ -560,7 +554,7 @@ class ResetPasswordForm(forms.Form):
     def clean_email(self):
         email = self.cleaned_data["email"]
         email = get_adapter().clean_email(email)
-        self.users = filter_users_by_email(email, is_active=True)
+        self.users = filter_users_by_email(email, is_active=True, prefer_verified=True)
         if not self.users and not app_settings.PREVENT_ENUMERATION:
             raise forms.ValidationError(
                 _("The e-mail address is not assigned to any user account")

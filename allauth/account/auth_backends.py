@@ -53,7 +53,7 @@ class AuthenticationBackend(ModelBackend):
         # and use username as fallback
         email = credentials.get("email", credentials.get("username"))
         if email:
-            for user in filter_users_by_email(email):
+            for user in filter_users_by_email(email, prefer_verified=True):
                 if self._check_password(user, credentials["password"]):
                     return user
         return None

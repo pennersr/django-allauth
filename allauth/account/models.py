@@ -2,6 +2,8 @@ import datetime
 
 from django.core import signing
 from django.db import models, transaction
+from django.db.models import Q
+from django.db.models.constraints import UniqueConstraint
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -19,7 +21,6 @@ class EmailAddress(models.Model):
         on_delete=models.CASCADE,
     )
     email = models.EmailField(
-        unique=app_settings.UNIQUE_EMAIL,
         max_length=app_settings.EMAIL_MAX_LENGTH,
         verbose_name=_("e-mail address"),
     )
@@ -31,13 +32,20 @@ class EmailAddress(models.Model):
     class Meta:
         verbose_name = _("email address")
         verbose_name_plural = _("email addresses")
-        if not app_settings.UNIQUE_EMAIL:
-            unique_together = [("user", "email")]
+        unique_together = [("user", "email")]
+        if app_settings.UNIQUE_EMAIL:
+            constraints = [
+                UniqueConstraint(
+                    fields=["email"],
+                    name="unique_verified_email",
+                    condition=Q(verified=True),
+                )
+            ]
 
     def __str__(self):
         return self.email
 
-    def set_verified(self, commit=True):
+    def can_set_verified(self):
         if self.verified:
             return True
         conflict = False
@@ -45,11 +53,16 @@ class EmailAddress(models.Model):
             conflict = EmailAddress.objects.exclude(pk=self.pk).filter(
                 verified=True, email__iexact=self.email
             )
-        if not conflict:
+        return not conflict
+
+    def set_verified(self, commit=True):
+        if self.verified:
+            return True
+        if self.can_set_verified():
             self.verified = True
             if commit:
                 self.save(update_fields=["verified"])
-        return not conflict
+        return self.verified
 
     def set_as_primary(self, conditional=False):
         old_primary = EmailAddress.objects.get_primary(self.user)

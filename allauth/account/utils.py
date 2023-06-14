@@ -352,12 +352,6 @@ def sync_user_email_addresses(user):
         email
         and not EmailAddress.objects.filter(user=user, email__iexact=email).exists()
     ):
-        if (
-            app_settings.UNIQUE_EMAIL
-            and EmailAddress.objects.filter(email__iexact=email).exists()
-        ):
-            # Bail out
-            return
         # get_or_create() to gracefully handle races
         EmailAddress.objects.get_or_create(
             user=user, email=email, defaults={"primary": False, "verified": False}
@@ -384,24 +378,37 @@ def filter_users_by_username(*username):
     return ret
 
 
-def filter_users_by_email(email, is_active=None):
+def filter_users_by_email(email, is_active=None, prefer_verified=False):
     """Return list of users by email address
 
     Typically one, at most just a few in length.  First we look through
     EmailAddress table, than customisable User model table. Add results
     together avoiding SQL joins and deduplicate.
+
+    `prefer_verified`: When looking up users by email, there can be cases where
+    users with verified email addresses are preferable above users who did not
+    verify their email address. The password reset is such a use case -- if
+    there is a user with a verified email than that user should be returned, not
+    one of the other users.
     """
     from .models import EmailAddress
 
     User = get_user_model()
-    mails = EmailAddress.objects.filter(email__iexact=email)
+    mails = EmailAddress.objects.filter(email__iexact=email).prefetch_related("user")
     if is_active is not None:
         mails = mails.filter(user__is_active=is_active)
+    mails = list(mails)
+    is_verified = False
+    if prefer_verified:
+        verified_mails = list(filter(lambda e: e.verified, mails))
+        if verified_mails:
+            mails = verified_mails
+            is_verified = True
     users = []
-    for e in mails.prefetch_related("user"):
+    for e in mails:
         if _unicode_ci_compare(e.email, email):
             users.append(e.user)
-    if app_settings.USER_MODEL_EMAIL_FIELD:
+    if app_settings.USER_MODEL_EMAIL_FIELD and not is_verified:
         q_dict = {app_settings.USER_MODEL_EMAIL_FIELD + "__iexact": email}
         user_qs = User.objects.filter(**q_dict)
         if is_active is not None:

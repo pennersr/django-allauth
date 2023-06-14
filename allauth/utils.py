@@ -134,20 +134,12 @@ def valid_email_or_none(email):
 
 
 def email_address_exists(email, exclude_user=None):
-    from .account import app_settings as account_settings
     from .account.models import EmailAddress
 
     emailaddresses = EmailAddress.objects
     if exclude_user:
         emailaddresses = emailaddresses.exclude(user=exclude_user)
-    ret = emailaddresses.filter(email__iexact=email).exists()
-    if not ret:
-        email_field = account_settings.USER_MODEL_EMAIL_FIELD
-        if email_field:
-            users = get_user_model().objects
-            if exclude_user:
-                users = users.exclude(pk=exclude_user.pk)
-            ret = users.filter(**{email_field + "__iexact": email}).exists()
+    ret = emailaddresses.filter(email__iexact=email, verified=True).exists()
     return ret
 
 

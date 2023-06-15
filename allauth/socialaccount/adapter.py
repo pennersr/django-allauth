@@ -11,7 +11,6 @@ from ..account.models import EmailAddress
 from ..account.utils import user_email, user_field, user_username
 from ..utils import (
     deserialize_instance,
-    email_address_exists,
     import_attribute,
     serialize_instance,
     valid_email_or_none,
@@ -144,7 +143,7 @@ class DefaultSocialAccountAdapter(object):
             # Let's check if auto_signup is really possible...
             if email:
                 if account_settings.UNIQUE_EMAIL:
-                    if email_address_exists(email):
+                    if EmailAddress.objects.is_verified(email):
                         # Oops, another user already has this address.
                         # We cannot simply connect this social account
                         # to the existing user. Reason is that the

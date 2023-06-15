@@ -62,6 +62,9 @@ class EmailAddressManager(models.Manager):
                     return address
             raise self.model.DoesNotExist()
 
+    def is_verified(self, email):
+        return self.filter(email__iexact=email, verified=True).exists()
+
 
 class EmailConfirmationManager(models.Manager):
     def all_expired(self):

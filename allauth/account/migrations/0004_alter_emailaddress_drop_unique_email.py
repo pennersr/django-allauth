@@ -5,7 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("account", "0003_alter_emailaddress_unique_together_and_more"),
+        ("account", "0003_alter_emailaddress_create_unique_verified_email"),
     ]
 
     operations = [

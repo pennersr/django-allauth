@@ -133,16 +133,6 @@ def valid_email_or_none(email):
     return ret
 
 
-def email_address_exists(email, exclude_user=None):
-    from .account.models import EmailAddress
-
-    emailaddresses = EmailAddress.objects
-    if exclude_user:
-        emailaddresses = emailaddresses.exclude(user=exclude_user)
-    ret = emailaddresses.filter(email__iexact=email, verified=True).exists()
-    return ret
-
-
 def import_attribute(path):
     assert isinstance(path, str)
     pkg, attr = path.rsplit(".", 1)

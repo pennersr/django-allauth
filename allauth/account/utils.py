@@ -14,7 +14,6 @@ from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
 from allauth.exceptions import ImmediateHttpResponse
 from allauth.utils import (
-    email_address_exists,
     get_request_param,
     get_user_model,
     import_callable,
@@ -202,6 +201,8 @@ def cleanup_email_addresses(request, addresses):
     Order is important: e.g. if multiple primary e-mail addresses
     exist, the first one encountered will be kept as primary.
     """
+    from .models import EmailAddress
+
     adapter = get_adapter(request)
     # Let's group by `email`
     e2a = OrderedDict()  # maps email to EmailAddress
@@ -217,7 +218,7 @@ def cleanup_email_addresses(request, addresses):
         if (
             app_settings.UNIQUE_EMAIL
             and address.verified
-            and email_address_exists(email)
+            and EmailAddress.objects.is_verified(email)
         ):
             continue
         a = e2a.get(email.lower())

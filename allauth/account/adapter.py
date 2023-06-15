@@ -31,7 +31,6 @@ from allauth.account import signals
 from allauth.account.app_settings import EmailVerificationMethod
 from allauth.utils import (
     build_absolute_uri,
-    email_address_exists,
     generate_unique_username,
     get_user_model,
     import_attribute,
@@ -306,7 +305,9 @@ class DefaultAccountAdapter(object):
         return password
 
     def validate_unique_email(self, email):
-        if email_address_exists(email):
+        from .models import EmailAddress
+
+        if EmailAddress.objects.is_verified(email):
             raise forms.ValidationError(self.error_messages["email_taken"])
         return email
 

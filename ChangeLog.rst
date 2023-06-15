@@ -11,10 +11,7 @@ Backwards incompatible changes
   automatically transition, but if you have a lot of accounts, you may need to
   take special care using ``CREATE INDEX CONCURRENTLY``.
 
-- The method ``allauth.utils.email_address_exists()`` now only returns ``True``
-  when an ``EmailAddress`` record exists that is verified. Previously, it would
-  return ``True`` when the email has any match (regardless of the verified
-  state) with an ``EmailAddress`` or user (``User.email``).
+- The method ``allauth.utils.email_address_exists()`` has been removed.
 
 
 Note worthy changes

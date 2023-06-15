@@ -576,8 +576,12 @@ class SocialAccountTests(TestCase):
         # Some existig user
         exi_user = User()
         user_username(exi_user, "test")
-        user_email(exi_user, "test@example.com")
+        exi_user_email = "test@example.com"
+        user_email(exi_user, exi_user_email)
         exi_user.save()
+        EmailAddress.objects.create(
+            user=exi_user, email=exi_user_email, verified=True, primary=True
+        )
 
         # A social user being signed up...
         account = SocialAccount(provider="twitter", uid="123")
@@ -736,7 +740,9 @@ class SocialAccountTests(TestCase):
     def test_unique_email_validation_signup(self):
         session = self.client.session
         User = get_user_model()
-        User.objects.create(email="me@example.com")
+        email = "me@example.com"
+        user = User.objects.create(email=email)
+        EmailAddress.objects.create(email=email, user=user, verified=True)
         sociallogin = SocialLogin(
             user=User(email="me@example.com"),
             account=SocialAccount(provider="google"),
@@ -748,10 +754,8 @@ class SocialAccountTests(TestCase):
         session.save()
         resp = self.client.get(reverse("socialaccount_signup"))
         form = resp.context["form"]
-        self.assertEqual(form["email"].value(), "me@example.com")
-        resp = self.client.post(
-            reverse("socialaccount_signup"), data={"email": "me@example.com"}
-        )
+        self.assertEqual(form["email"].value(), email)
+        resp = self.client.post(reverse("socialaccount_signup"), data={"email": email})
         if django.VERSION >= (4, 1):
             self.assertFormError(
                 resp.context["form"],

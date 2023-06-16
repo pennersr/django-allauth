@@ -509,6 +509,33 @@ class AccountTests(TestCase):
         self.assertRedirects(resp, "/confirm-email/")
 
     @override_settings(
+        ACCOUNT_EMAIL_CONFIRMATION_HMAC=False,
+    )
+    def test_email_verification_failed(self):
+        verified_user = get_user_model().objects.create(username="foobar")
+        unverified_user = get_user_model().objects.create(username="foobar2")
+        EmailAddress.objects.create(
+            user=verified_user,
+            email="foo@bar.org",
+            verified=True,
+            primary=True,
+        )
+        email_address = EmailAddress.objects.create(
+            user=unverified_user,
+            email="foo@bar.org",
+            verified=False,
+            primary=False,
+        )
+        confirmation = EmailConfirmation.objects.create(
+            email_address=email_address,
+            key="dummy",
+            sent=now(),
+        )
+        c = Client()
+        resp = c.post(reverse("account_confirm_email", args=[confirmation.key]))
+        self.assertTemplateUsed(resp, "account/messages/email_confirmation_failed.txt")
+
+    @override_settings(
         ACCOUNT_EMAIL_CONFIRMATION_HMAC=False, ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN=10
     )
     def test_email_verification_mandatory(self):

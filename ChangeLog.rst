@@ -1,6 +1,15 @@
 0.55.0 (unreleased)
 *******************
 
+Security notice
+---------------
+
+- Even with account enumeration prevention in place, it was possible for a user
+  to infer whether or not a given account exists based by trying to add
+  secondary email addresses .  This has been fixed -- see the note on backwards
+  incompatible changes.
+
+
 Backwards incompatible changes
 ------------------------------
 

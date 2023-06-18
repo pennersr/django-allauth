@@ -7,6 +7,7 @@ import warnings
 from urllib.parse import parse_qs, urlparse
 
 import django
+from django.apps import AppConfig, apps
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.messages.middleware import MessageMiddleware
@@ -830,3 +831,54 @@ class SocialAccountTests(TestCase):
         user = User(username="test")
         sa = SocialAccount(user=user)
         self.assertEqual("A custom str builder for test", str(sa))
+
+
+class CustomFacebookAppConfig(AppConfig):
+    name = "allauth.socialaccount.providers.facebook"
+    label = "allauth_facebook"
+
+
+class ProviderRegistryTests(TestCase):
+    @override_settings(
+        INSTALLED_APPS=[
+            "allauth.socialaccount.providers.facebook",
+        ]
+    )
+    def test_load_provider_with_default_app_config(self):
+        registry = providers.ProviderRegistry()
+        provider_list = registry.get_list()
+
+        self.assertTrue(registry.loaded)
+        self.assertEqual(1, len(provider_list))
+        self.assertIsInstance(
+            provider_list[0],
+            providers.facebook.provider.FacebookProvider,
+        )
+
+        app_config_list = list(apps.get_app_configs())
+        self.assertEqual(1, len(app_config_list))
+        app_config = app_config_list[0]
+        self.assertEqual("allauth.socialaccount.providers.facebook", app_config.name)
+        self.assertEqual("facebook", app_config.label)
+
+    @override_settings(
+        INSTALLED_APPS=[
+            "allauth.socialaccount.tests.CustomFacebookAppConfig",
+        ]
+    )
+    def test_load_provider_with_custom_app_config(self):
+        registry = providers.ProviderRegistry()
+        provider_list = registry.get_list()
+
+        self.assertTrue(registry.loaded)
+        self.assertEqual(1, len(provider_list))
+        self.assertIsInstance(
+            provider_list[0],
+            providers.facebook.provider.FacebookProvider,
+        )
+
+        app_config_list = list(apps.get_app_configs())
+        self.assertEqual(1, len(app_config_list))
+        app_config = app_config_list[0]
+        self.assertEqual("allauth.socialaccount.providers.facebook", app_config.name)
+        self.assertEqual("allauth_facebook", app_config.label)

@@ -23,6 +23,7 @@ Here are a few third party resources to help you get started:
 - https://speakerdeck.com/tedtieken/signing-up-and-signing-in-users-in-django-with-django-allauth
 - https://stackoverflow.com/questions/tagged/django-allauth
 - https://github.com/aellerton/demo-allauth-bootstrap
+- https://github.com/danihodovic/django-allauth-ui
 
 I think I found a security issue... now what?
 *********************************************

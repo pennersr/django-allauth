@@ -127,10 +127,15 @@ class AppleOAuth2Adapter(OAuth2Adapter):
             code, pkce_code_verifier=pkce_code_verifier
         )
 
+        id_token = access_token_data.get("id_token", None)
+        # In case of missing id_token in access_token_data
+        if id_token is None:
+            id_token = request.apple_login_session.get("id_token")
+
         return {
             **access_token_data,
             **self.get_user_scope_data(request),
-            "id_token": request.apple_login_session.get("id_token"),
+            "id_token": id_token,
         }
 
 

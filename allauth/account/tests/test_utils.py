@@ -107,16 +107,19 @@ class UtilsTests(TestCase):
         get_adapter().clean_username("abc")
         self.assertRaises(ValidationError, lambda: get_adapter().clean_username("def"))
 
-    @override_settings(ALLOWED_HOSTS=["allowed_host"])
+    @override_settings(ALLOWED_HOSTS=["allowed_host", "testserver"])
     def test_is_safe_url_no_wildcard(self):
-        self.assertTrue(get_adapter().is_safe_url("http://allowed_host/"))
-        self.assertFalse(get_adapter().is_safe_url("http://other_host/"))
+        request = RequestFactory().get("/")
+        self.assertTrue(get_adapter(request).is_safe_url("http://allowed_host/"))
+        self.assertFalse(get_adapter(request).is_safe_url("http://other_host/"))
 
     @override_settings(ALLOWED_HOSTS=["*"])
     def test_is_safe_url_wildcard(self):
-        self.assertTrue(get_adapter().is_safe_url("http://foobar.com/"))
-        self.assertTrue(get_adapter().is_safe_url("http://other_host/"))
+        request = RequestFactory().get("/")
+        self.assertTrue(get_adapter(request).is_safe_url("http://foobar.com/"))
+        self.assertTrue(get_adapter(request).is_safe_url("http://other_host/"))
 
-    @override_settings(ALLOWED_HOSTS=["allowed_host"])
+    @override_settings(ALLOWED_HOSTS=["allowed_host", "testserver"])
     def test_is_safe_url_relative_path(self):
-        self.assertTrue(get_adapter().is_safe_url("/foo/bar"))
+        request = RequestFactory().get("/")
+        self.assertTrue(get_adapter(request).is_safe_url("/foo/bar"))

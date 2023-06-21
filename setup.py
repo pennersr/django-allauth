@@ -128,7 +128,7 @@ METADATA = dict(
     keywords="django auth account social openid twitter facebook oauth registration",
     project_urls={
         "Documentation": "https://django-allauth.readthedocs.io/en/latest/",
-        "Changelog": "https://github.com/pennersr/django-allauth/blob/master/ChangeLog.rst",
+        "Changelog": "https://github.com/pennersr/django-allauth/blob/main/ChangeLog.rst",
         "Source": "http://github.com/pennersr/django-allauth",
         "Tracker": "https://github.com/pennersr/django-allauth/issues",
         "Donate": "https://github.com/sponsors/pennersr",

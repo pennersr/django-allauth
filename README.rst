@@ -8,7 +8,7 @@ Welcome to django-allauth!
 .. image:: https://img.shields.io/pypi/v/django-allauth.svg
    :target: https://pypi.python.org/pypi/django-allauth
 
-.. image:: https://coveralls.io/repos/pennersr/django-allauth/badge.svg?branch=master
+.. image:: https://coveralls.io/repos/pennersr/django-allauth/badge.svg?branch=main
    :alt: Coverage Status
    :target: https://coveralls.io/r/pennersr/django-allauth
 

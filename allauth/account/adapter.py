@@ -508,8 +508,9 @@ class DefaultAccountAdapter(object):
         allowed_hosts = {self.request.get_host()} | set(settings.ALLOWED_HOSTS)
 
         if "*" in allowed_hosts:
-            parsed_host = {urlparse(url).netloc} if parsed_host else None
-            return url_has_allowed_host_and_scheme(url, allowed_hosts=parsed_host)
+            parsed_host = urlparse(url).netloc
+            allowed_host = {parsed_host} if parsed_host else None
+            return url_has_allowed_host_and_scheme(url, allowed_hosts=allowed_host)
 
         return url_has_allowed_host_and_scheme(url, allowed_hosts=allowed_hosts)
 

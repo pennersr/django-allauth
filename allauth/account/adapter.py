@@ -2,6 +2,7 @@ import html
 import json
 import warnings
 from datetime import timedelta
+from urllib.parse import urlparse
 
 from django import forms
 from django.conf import settings
@@ -503,7 +504,15 @@ class DefaultAccountAdapter(object):
                 is_safe_url as url_has_allowed_host_and_scheme,
             )
 
-        return url_has_allowed_host_and_scheme(url, allowed_hosts=None)
+        # get_host already validates the given host, so no need to check it again
+        allowed_hosts = {self.request.get_host()} | set(settings.ALLOWED_HOSTS)
+
+        if "*" in allowed_hosts:
+            parsed_host = urlparse(url).netloc
+            allowed_host = {parsed_host} if parsed_host else None
+            return url_has_allowed_host_and_scheme(url, allowed_hosts=allowed_host)
+
+        return url_has_allowed_host_and_scheme(url, allowed_hosts=allowed_hosts)
 
     def get_email_confirmation_url(self, request, emailconfirmation):
         """Constructs the email confirmation (activation) url.

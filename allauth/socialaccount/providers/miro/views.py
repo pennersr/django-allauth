@@ -15,7 +15,10 @@ class MiroOAuth2Adapter(OAuth2Adapter):
     profile_url = "https://api.miro.com/v1/users/me"
 
     def complete_login(self, request, app, token, response):
-        headers = {"Authorization": f"Bearer {token.token}", "Content-Type": "application/json"}
+        headers = {
+            "Authorization": f"Bearer {token.token}",
+            "Content-Type": "application/json",
+        }
         extra_data = requests.get(self.profile_url, headers=headers)
         extra_data.raise_for_status()
         return self.get_provider().sociallogin_from_response(request, extra_data.json())

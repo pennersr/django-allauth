@@ -7,6 +7,7 @@ import warnings
 from urllib.parse import parse_qs, urlparse
 
 from django.conf import settings
+from django.test import RequestFactory
 from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils.http import urlencode
@@ -14,7 +15,8 @@ from django.utils.http import urlencode
 import allauth.app_settings
 from allauth.account.models import EmailAddress
 from allauth.account.utils import user_email, user_username
-from allauth.socialaccount import app_settings, providers
+from allauth.socialaccount import app_settings
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.models import SocialAccount, SocialApp
 from allauth.tests import (
     Mock,
@@ -26,20 +28,23 @@ from allauth.tests import (
 from allauth.utils import get_user_model
 
 
-def setup_app(provider):
-    app = None
-    if not app_settings.PROVIDERS.get(provider.id, {}).get("APP"):
-        app = SocialApp.objects.create(
-            provider=provider.id,
-            name=provider.id,
-            client_id="app123id",
-            key=provider.id,
-            secret="dummy",
-        )
-        if allauth.app_settings.SITES_ENABLED:
-            from django.contrib.sites.models import Site
+def setup_app(provider_id):
+    request = RequestFactory().get("/")
+    apps = get_adapter(request).list_apps(request, provider_id)
+    if apps:
+        return apps[0]
 
-            app.sites.add(Site.objects.get_current())
+    app = SocialApp.objects.create(
+        provider=provider_id,
+        name=provider_id,
+        client_id="app123id",
+        key=provider_id,
+        secret="dummy",
+    )
+    if allauth.app_settings.SITES_ENABLED:
+        from django.contrib.sites.models import Site
+
+        app.sites.add(Site.objects.get_current())
     return app
 
 
@@ -51,8 +56,9 @@ class OAuthTestsMixin(object):
 
     def setUp(self):
         super(OAuthTestsMixin, self).setUp()
-        self.provider = providers.registry.by_id(self.provider_id)
-        self.app = setup_app(self.provider)
+        self.app = setup_app(self.provider_id)
+        request = RequestFactory().get("/")
+        self.provider = self.app.get_provider(request)
 
     @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=False)
     def test_login(self):
@@ -163,26 +169,30 @@ class OAuth2TestsMixin(object):
 
     def setUp(self):
         super(OAuth2TestsMixin, self).setUp()
-        self.provider = providers.registry.by_id(self.provider_id)
-        self.app = setup_app(self.provider)
+        self.setup_provider()
+
+    def setup_provider(self):
+        self.app = setup_app(self.provider_id)
+        self.request = RequestFactory().get("/")
+        self.provider = self.app.get_provider(self.request)
 
     def test_provider_has_no_pkce_params(self):
-        provider_settings = app_settings.PROVIDERS.get(self.provider_id, {})
+        provider_settings = app_settings.PROVIDERS.get(self.app.provider, {})
         provider_settings_with_pkce_set = provider_settings.copy()
         provider_settings_with_pkce_set["OAUTH_PKCE_ENABLED"] = False
 
         with self.settings(
-            SOCIALACCOUNT_PROVIDERS={self.provider_id: provider_settings_with_pkce_set}
+            SOCIALACCOUNT_PROVIDERS={self.app.provider: provider_settings_with_pkce_set}
         ):
             self.assertEqual(self.provider.get_pkce_params(), {})
 
     def test_provider_has_pkce_params(self):
-        provider_settings = app_settings.PROVIDERS.get(self.provider_id, {})
+        provider_settings = app_settings.PROVIDERS.get(self.app.provider, {})
         provider_settings_with_pkce_set = provider_settings.copy()
         provider_settings_with_pkce_set["OAUTH_PKCE_ENABLED"] = True
 
         with self.settings(
-            SOCIALACCOUNT_PROVIDERS={self.provider_id: provider_settings_with_pkce_set}
+            SOCIALACCOUNT_PROVIDERS={self.app.provider: provider_settings_with_pkce_set}
         ):
             pkce_params = self.provider.get_pkce_params()
             self.assertEqual(
@@ -209,13 +219,13 @@ class OAuth2TestsMixin(object):
 
     @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=False)
     def test_login_with_pkce_disabled(self):
-        provider_settings = app_settings.PROVIDERS.get(self.provider_id, {})
+        provider_settings = app_settings.PROVIDERS.get(self.app.provider, {})
         provider_settings_with_pkce_disabled = provider_settings.copy()
         provider_settings_with_pkce_disabled["OAUTH_PKCE_ENABLED"] = False
 
         with self.settings(
             SOCIALACCOUNT_PROVIDERS={
-                self.provider_id: provider_settings_with_pkce_disabled
+                self.app.provider: provider_settings_with_pkce_disabled
             }
         ):
             resp_mock = self.get_mocked_response()
@@ -231,12 +241,12 @@ class OAuth2TestsMixin(object):
 
     @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=False)
     def test_login_with_pkce_enabled(self):
-        provider_settings = app_settings.PROVIDERS.get(self.provider_id, {})
+        provider_settings = app_settings.PROVIDERS.get(self.app.provider, {})
         provider_settings_with_pkce_enabled = provider_settings.copy()
         provider_settings_with_pkce_enabled["OAUTH_PKCE_ENABLED"] = True
         with self.settings(
             SOCIALACCOUNT_PROVIDERS={
-                self.provider_id: provider_settings_with_pkce_enabled
+                self.app.provider: provider_settings_with_pkce_enabled
             }
         ):
             resp_mock = self.get_mocked_response()
@@ -300,15 +310,12 @@ class OAuth2TestsMixin(object):
 
     def login(self, resp_mock=None, process="login", with_refresh_token=True):
         resp = self.client.post(
-            reverse(self.provider.id + "_login")
-            + "?"
-            + urlencode(dict(process=process))
+            self.provider.get_login_url(self.request, process=process)
         )
-
         p = urlparse(resp["location"])
         q = parse_qs(p.query)
 
-        pkce_enabled = app_settings.PROVIDERS.get(self.provider_id, {}).get(
+        pkce_enabled = app_settings.PROVIDERS.get(self.app.provider, {}).get(
             "OAUTH_PKCE_ENABLED", self.provider.pkce_enabled_default
         )
 
@@ -318,7 +325,7 @@ class OAuth2TestsMixin(object):
             code_challenge = q["code_challenge"][0]
             self.assertEqual(q["code_challenge_method"][0], "S256")
 
-        complete_url = reverse(self.provider.id + "_callback")
+        complete_url = self.provider.get_callback_url()
         self.assertGreater(q["redirect_uri"][0].find(complete_url), 0)
         response_json = self.get_login_response_json(
             with_refresh_token=with_refresh_token
@@ -366,22 +373,12 @@ class OAuth2TestsMixin(object):
         return {"code": "test", "state": q["state"][0]}
 
     def test_authentication_error(self):
-        resp = self.client.get(reverse(self.provider.id + "_callback"))
+        resp = self.client.get(self.provider.get_callback_url())
         self.assertTemplateUsed(
             resp,
             "socialaccount/authentication_error.%s"
             % getattr(settings, "ACCOUNT_TEMPLATE_EXTENSION", "html"),
         )
-
-
-# For backward-compatibility with third-party provider tests that call
-# create_oauth2_tests() rather than using the mixin directly.
-def create_oauth2_tests(provider):
-    class Class(OAuth2TestsMixin, TestCase):
-        provider_id = provider.id
-
-    Class.__name__ = "OAuth2Tests_" + provider.id
-    return Class
 
 
 class OpenIDConnectTests(OAuth2TestsMixin):
@@ -414,6 +411,18 @@ class OpenIDConnectTests(OAuth2TestsMixin):
         self.mock_requests = patcher.start()
         self.addCleanup(patcher.stop)
 
+    def setup_provider(self):
+        self.app = setup_app(self.provider_id)
+        if self.provider_id not in ["keycloak"]:
+            self.app.provider_id = self.provider_id
+            self.app.provider = "openid_connect"
+            self.app.settings = {
+                "server_url": "https://unittest.example.com",
+            }
+            self.app.save()
+        self.request = RequestFactory().get("/")
+        self.provider = self.app.get_provider(self.request)
+
     def get_mocked_response(self):
         # Enable test_login in OAuth2TestsMixin, but this response mock is unused
         return True
@@ -428,5 +437,9 @@ class OpenIDConnectTests(OAuth2TestsMixin):
     def test_login_auto_signup(self):
         resp = self.login()
         self.assertRedirects(resp, "/accounts/profile/", fetch_redirect_response=False)
-        sa = SocialAccount.objects.get(provider=self.provider.id)
+        sa = SocialAccount.objects.get(
+            # For Keycloak, `provider_id` is empty.
+            provider=self.app.provider_id
+            or self.app.provider
+        )
         self.assertDictEqual(sa.extra_data, self.extra_data)

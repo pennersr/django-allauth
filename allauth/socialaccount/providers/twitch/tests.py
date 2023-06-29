@@ -75,7 +75,7 @@ class TwitchTests(OAuth2TestsMixin, TestCase):
             {"process": "login"},
         )
         adapter = TwitchOAuth2Adapter(request)
-        app = adapter.get_provider().get_app(request)
+        app = adapter.get_provider().app
         token = SocialToken(token="this-is-my-fake-token")
 
         with mocked_response(resp_mock):

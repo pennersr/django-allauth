@@ -144,6 +144,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.linkedin",
     "allauth.socialaccount.providers.mediawiki",
     "allauth.socialaccount.providers.openid",
+    "allauth.socialaccount.providers.openid_connect",
     "allauth.socialaccount.providers.pinterest",
     "allauth.socialaccount.providers.pocket",
     "allauth.socialaccount.providers.reddit",
@@ -174,7 +175,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
-
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 try:
     from .local_settings import *  # noqa
 except ImportError:

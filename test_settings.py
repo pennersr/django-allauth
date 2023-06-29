@@ -1,5 +1,7 @@
 import os
 
+from django.contrib.auth.hashers import PBKDF2PasswordHasher
+
 
 SECRET_KEY = "psst"
 SITE_ID = 1
@@ -23,7 +25,9 @@ ROOT_URLCONF = "allauth.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(os.path.dirname(__file__), "example", "example", "templates")],
+        "DIRS": [
+            os.path.join(os.path.dirname(__file__), "example", "example", "templates")
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -184,8 +188,6 @@ AUTHENTICATION_BACKENDS = (
 STATIC_ROOT = "/tmp/"  # Dummy
 STATIC_URL = "/static/"
 
-from django.contrib.auth.hashers import PBKDF2PasswordHasher
-
 
 class MyPBKDF2PasswordHasher(PBKDF2PasswordHasher):
     """
@@ -212,16 +214,24 @@ ACCOUNT_RATE_LIMITS = {}
 
 SOCIALACCOUNT_PROVIDERS = {
     "openid_connect": {
-        "SERVERS": [
+        "APPS": [
             {
-                "id": "unittest-server",
+                "provider_id": "unittest-server",
                 "name": "Unittest Server",
-                "server_url": "https://unittest.example.com",
+                "client_id": "Unittest client_id",
+                "client_secret": "Unittest client_secret",
+                "settings": {
+                    "server_url": "https://unittest.example.com",
+                },
             },
             {
-                "id": "other-server",
+                "provider_id": "other-server",
                 "name": "Other Example Server",
-                "server_url": "https://other.example.com",
+                "client_id": "other client_id",
+                "client_secret": "other client_secret",
+                "settings": {
+                    "server_url": "https://other.example.com",
+                },
             },
         ],
     }

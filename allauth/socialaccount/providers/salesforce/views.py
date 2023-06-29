@@ -14,7 +14,7 @@ class SalesforceOAuth2Adapter(OAuth2Adapter):
 
     @property
     def base_url(self):
-        return self.get_provider().get_app(self.request).key
+        return self.get_provider().app.key
 
     @property
     def authorize_url(self):

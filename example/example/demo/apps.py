@@ -16,22 +16,22 @@ def setup_dummy_social_apps(sender, **kwargs):
     from allauth.socialaccount.providers.oauth.provider import OAuthProvider
 
     site = Site.objects.get_current()
-    for provider in registry.get_list():
-        if isinstance(provider, OAuth2Provider) or isinstance(provider, OAuthProvider):
+    for provider_class in registry.get_class_list():
+        if issubclass(provider_class, (OAuthProvider,OAuth2Provider)):
             try:
-                SocialApp.objects.get(provider=provider.id, sites=site)
+                SocialApp.objects.get(provider=provider_class.id, sites=site)
             except SocialApp.DoesNotExist:
                 print(
                     "Installing dummy application credentials for %s."
                     " Authentication via this provider will not work"
                     " until you configure proper credentials via the"
-                    " Django admin (`SocialApp` models)" % provider.id
+                    " Django admin (`SocialApp` models)" % provider_class.id
                 )
                 app = SocialApp.objects.create(
-                    provider=provider.id,
+                    provider=provider_class.id,
                     secret="secret",
                     client_id="client-id",
-                    name="Dummy %s app" % provider.id,
+                    name="Dummy %s app" % provider_class.id,
                 )
                 app.sites.add(site)
 
@@ -39,7 +39,7 @@ def setup_dummy_social_apps(sender, **kwargs):
 class DemoConfig(AppConfig):
     name = "example.demo"
     verbose_name = _("Demo")
-    default_auto_field = 'django.db.models.AutoField'
+    default_auto_field = "django.db.models.AutoField"
 
     def ready(self):
         post_migrate.connect(setup_dummy_social_apps, sender=self)

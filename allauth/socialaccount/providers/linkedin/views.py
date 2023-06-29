@@ -1,7 +1,7 @@
 from xml.etree import ElementTree
 from xml.parsers.expat import ExpatError
 
-from allauth.socialaccount import providers
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth.client import OAuth
 from allauth.socialaccount.providers.oauth.views import (
     OAuthAdapter,
@@ -16,9 +16,9 @@ class LinkedInAPI(OAuth):
     url = "https://api.linkedin.com/v1/people/~"
 
     def get_user_info(self):
-        fields = providers.registry.by_id(
-            LinkedInProvider.id, self.request
-        ).get_profile_fields()
+        adapter = get_adapter(self.request)
+        provider = adapter.get_provider(self.request, LinkedInProvider.id)
+        fields = provider.get_profile_fields()
         url = self.url + ":(%s)" % ",".join(fields)
         raw_xml = self.query(url)
         try:

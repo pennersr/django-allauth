@@ -6,7 +6,8 @@ from datetime import timedelta
 
 from django.utils import timezone
 
-from allauth.socialaccount import app_settings, providers
+from allauth.socialaccount import app_settings
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.helpers import (
     complete_social_login,
     render_authentication_error,
@@ -35,7 +36,7 @@ def compute_appsecret_proof(app, token):
 
 
 def fb_complete_login(request, app, token):
-    provider = providers.registry.by_id(app.provider, request)
+    provider = app.get_provider(request)
     resp = requests.get(
         GRAPH_API_URL + "/me",
         params={
@@ -77,9 +78,10 @@ def login_by_token(request):
         form = FacebookConnectForm(request.POST)
         if form.is_valid():
             try:
-                provider = providers.registry.by_id(FacebookProvider.id, request)
+                adapter = get_adapter(request)
+                provider = adapter.get_provider(request, FacebookProvider.id)
                 login_options = provider.get_fb_login_options(request)
-                app = provider.get_app(request)
+                app = provider.app
                 access_token = form.cleaned_data["access_token"]
                 expires_at = None
                 if login_options.get("auth_type") == "reauthenticate":

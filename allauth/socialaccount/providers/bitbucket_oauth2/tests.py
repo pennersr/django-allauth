@@ -6,17 +6,16 @@ from unittest import mock
 from django.test.utils import override_settings
 
 from allauth.socialaccount.models import SocialAccount
-from allauth.socialaccount.providers import registry
-from allauth.socialaccount.tests import create_oauth2_tests
-from allauth.tests import MockedResponse, patch
+from allauth.socialaccount.tests import OAuth2TestsMixin
+from allauth.tests import MockedResponse, TestCase, patch
 
 from .provider import BitbucketOAuth2Provider
 
 
 @override_settings(SOCIALACCOUNT_QUERY_EMAIL=True, SOCIALACCOUNT_STORE_TOKENS=True)
-class BitbucketOAuth2Tests(
-    create_oauth2_tests(registry.by_id(BitbucketOAuth2Provider.id))
-):
+class BitbucketOAuth2Tests(OAuth2TestsMixin, TestCase):
+    provider_id = BitbucketOAuth2Provider.id
+
     response_data = """
         {
             "created_on": "2011-12-20T16:34:07.132459+00:00",

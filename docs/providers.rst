@@ -1523,36 +1523,37 @@ The OpenID provider can be forced to operate in stateless mode as follows::
 OpenID Connect
 --------------
 
-The OpenID Connect provider provides a dynamic instance for each configured
-server. To expose an OpenID Connect server as an authentication method,
-configuration of one or more servers is required:
+The OpenID Connect provider provides access to multiple independent OpenID
+Connect (sub)providers. You configure these (sub)providers by adding apps to the
+configuration of the overall OpenID connect provider. Each app represents a
+standalone OpenID Connect provider:
 
 .. code-block:: python
 
     SOCIALACCOUNT_PROVIDERS = {
         "openid_connect": {
-            "SERVERS": [
+            "APPS": [
                 {
-                    "id": "my-server",  # 30 characters or less
+                    "provider_id": "my-server",
                     "name": "My Login Server",
-                    "server_url": "https://my.server.example.com",
-                    # Optional token endpoint authentication method.
-                    # May be one of "client_secret_basic", "client_secret_post"
-                    # If omitted, a method from the the server's
-                    # token auth methods list is used
-                    "token_auth_method": "client_secret_basic",
-                    "APP": {
-                        "client_id": "your.service.id",
-                        "secret": "your.service.secret",
+                    "client_id": "your.service.id",
+                    "secret": "your.service.secret",
+                    "settings": {
+                        "server_url": "https://my.server.example.com",
+                        # Optional token endpoint authentication method.
+                        # May be one of "client_secret_basic", "client_secret_post"
+                        # If omitted, a method from the the server's
+                        # token auth methods list is used
+                        "token_auth_method": "client_secret_basic",
                     },
                 },
                 {
-                    "id": "other-server",  # 30 characters or less
+                    "provider_id": "other-server",
                     "name": "Other Login Server",
-                    "server_url": "https://other.server.example.com",
-                    "APP": {
-                        "client_id": "your.other.service.id",
-                        "secret": "your.other.service.secret",
+                    "client_id": "your.other.service.id",
+                    "secret": "your.other.service.secret",
+                    "settings": {
+                        "server_url": "https://other.server.example.com",
                     },
                 },
             ]
@@ -1563,8 +1564,8 @@ This configuration example will create two independent provider instances,
 ``My Login Server`` and ``Other Login Server``.
 
 The OpenID Connect callback URL for each configured server is at
-``/accounts/{id}/login/callback/`` where ``{id}`` is the configured
-server's ``id`` value (``my-server`` or ``other-server`` in the above example).
+``/accounts/{id}/login/callback/`` where ``{id}`` is the configured app's
+``provider_id`` value (``my-server`` or ``other-server`` in the above example).
 
 
 OpenStreetMap

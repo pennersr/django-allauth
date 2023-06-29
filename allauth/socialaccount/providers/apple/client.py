@@ -36,7 +36,7 @@ class AppleOAuth2Client(OAuth2Client):
     def generate_client_secret(self):
         """Create a JWT signed with an apple provided private key"""
         now = datetime.utcnow()
-        app = get_adapter().get_app(self.request, "apple")
+        app = get_adapter(self.request).get_app(self.request, "apple")
         if not app.key:
             raise ImproperlyConfigured("Apple 'key' missing")
         if not app.certificate_key:

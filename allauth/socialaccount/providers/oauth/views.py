@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 from django.urls import reverse
 
-from allauth.socialaccount import providers
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.helpers import (
     complete_social_login,
     render_authentication_error,
@@ -30,7 +30,9 @@ class OAuthAdapter(object):
         raise NotImplementedError
 
     def get_provider(self):
-        return providers.registry.by_id(self.provider_id, self.request)
+        adapter = get_adapter(self.request)
+        app = adapter.get_app(self.request, provider=self.provider_id)
+        return app.get_provider(self.request)
 
 
 class OAuthView(object):
@@ -46,7 +48,7 @@ class OAuthView(object):
 
     def _get_client(self, request, callback_url):
         provider = self.adapter.get_provider()
-        app = provider.get_app(request)
+        app = provider.app
         scope = " ".join(provider.get_scope(request))
         parameters = {}
         if scope:
@@ -101,7 +103,7 @@ class OAuthCallbackView(OAuthView):
                 error=error,
                 extra_context=extra_context,
             )
-        app = self.adapter.get_provider().get_app(request)
+        app = self.adapter.get_provider().app
         try:
             access_token = client.get_access_token()
             token = SocialToken(

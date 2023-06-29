@@ -199,6 +199,14 @@ class BasicTests(TestCase):
 
     def test_templatetag_with_csrf_failure(self):
         # Generate a fictitious GET request
+        from allauth.socialaccount.models import SocialApp
+
+        app = SocialApp.objects.create(provider="google")
+        if app_settings.SITES_ENABLED:
+            from django.contrib.sites.models import Site
+
+            app.sites.add(Site.objects.get_current())
+
         request = self.factory.get("/tests/test_403_csrf.html")
         # Simulate a CSRF failure by calling the View directly
         # This template is using the `provider_login_url` templatetag

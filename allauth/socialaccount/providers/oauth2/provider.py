@@ -17,6 +17,9 @@ class OAuth2Provider(Provider):
             url = url + "?" + urlencode(kwargs)
         return url
 
+    def get_callback_url(self):
+        return reverse(self.id + "_callback")
+
     def get_pkce_params(self):
         settings = self.get_settings()
         if settings.get("OAUTH_PKCE_ENABLED", self.pkce_enabled_default):

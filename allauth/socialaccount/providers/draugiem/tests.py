@@ -1,11 +1,11 @@
 from hashlib import md5
 
 from django.contrib.auth.models import User
+from django.test import RequestFactory
 from django.urls import reverse
 from django.utils.http import urlencode
 
 from allauth import app_settings
-from allauth.socialaccount import providers
 from allauth.socialaccount.models import SocialApp, SocialToken
 from allauth.tests import Mock, TestCase, patch
 
@@ -22,14 +22,15 @@ class DraugiemTests(TestCase):
         )
         self.client.login(username="anakin", password="s1thrul3s")
 
-        self.provider = providers.registry.by_id(DraugiemProvider.id)
         app = SocialApp.objects.create(
-            provider=self.provider.id,
-            name=self.provider.id,
+            provider=DraugiemProvider.id,
+            name=DraugiemProvider.id,
             client_id="app123id",
-            key=self.provider.id,
+            key=DraugiemProvider.id,
             secret="dummy",
         )
+        request = RequestFactory().get("/")
+        self.provider = app.get_provider(request)
         if app_settings.SITES_ENABLED:
             from django.contrib.sites.models import Site
 

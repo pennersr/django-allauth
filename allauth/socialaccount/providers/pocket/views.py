@@ -16,7 +16,7 @@ class PocketOAuthAdapter(OAuthAdapter):
 class PocketOAuthLoginView(OAuthLoginView):
     def _get_client(self, request, callback_url):
         provider = self.adapter.get_provider()
-        app = provider.get_app(request)
+        app = provider.app
         scope = " ".join(provider.get_scope(request))
         parameters = {}
         if scope:
@@ -37,7 +37,7 @@ class PocketOAuthLoginView(OAuthLoginView):
 class PocketOAuthCallbackView(OAuthCallbackView):
     def _get_client(self, request, callback_url):
         provider = self.adapter.get_provider()
-        app = provider.get_app(request)
+        app = provider.app
         scope = " ".join(provider.get_scope(request))
         parameters = {}
         if scope:

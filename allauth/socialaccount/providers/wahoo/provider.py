@@ -15,7 +15,7 @@ class WahooProvider(OAuth2Provider):
     account_class = WahooAccount
 
     def extract_uid(self, data):
-        return data.get("id")
+        return str(data["id"])
 
     def extract_common_fields(self, data):
         extra_common = super(WahooProvider, self).extract_common_fields(data)

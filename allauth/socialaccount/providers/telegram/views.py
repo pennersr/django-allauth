@@ -2,7 +2,7 @@ import hashlib
 import hmac
 import time
 
-from allauth.socialaccount import providers
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.helpers import (
     complete_social_login,
     render_authentication_error,
@@ -12,7 +12,8 @@ from .provider import TelegramProvider
 
 
 def telegram_login(request):
-    provider = providers.registry.by_id(TelegramProvider.id, request)
+    request = get_adapter(request)
+    provider = request.get_provider(request, TelegramProvider.id)
     data = dict(request.GET.items())
     hash = data.pop("hash")
     payload = "\n".join(sorted(["{}={}".format(k, v) for k, v in data.items()]))

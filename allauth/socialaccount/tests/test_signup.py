@@ -21,7 +21,9 @@ from allauth.utils import get_user_model
 class SignupTests(TestCase):
     def setUp(self):
         super().setUp()
-        for provider in providers.registry.get_list():
+        for provider in providers.registry.get_class_list():
+            if provider.id == "openid_connect":
+                continue
             app = SocialApp.objects.create(
                 provider=provider.id,
                 name=provider.id,

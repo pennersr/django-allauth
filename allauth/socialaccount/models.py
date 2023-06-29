@@ -19,29 +19,30 @@ from .fields import JSONField
 
 
 class SocialAppManager(models.Manager):
-    def get_current(self, provider, request=None):
-        cache = {}
-        if request:
-            cache = getattr(request, "_socialapp_cache", {})
-            request._socialapp_cache = cache
-        app = cache.get(provider)
-        if not app:
-            if allauth.app_settings.SITES_ENABLED:
-                site = get_current_site(request)
-                app = self.get(sites__id=site.id, provider=provider)
-            else:
-                app = self.get(provider=provider)
-            cache[provider] = app
-        return app
+    def on_site(self, request):
+        if allauth.app_settings.SITES_ENABLED:
+            site = get_current_site(request)
+            return self.filter(sites__id=site.id)
+        return self.all()
 
 
 class SocialApp(models.Model):
     objects = SocialAppManager()
 
+    # The provider type, e.g. "google", "telegram", "saml".
     provider = models.CharField(
         verbose_name=_("provider"),
         max_length=30,
         choices=providers.registry.as_choices(),
+    )
+    # For providers that support subproviders, such as OpenID Connect and SAML,
+    # this ID identifies that instance. SocialAccount's originating from app
+    # will have their `provider` field set to the `provider_id` if available,
+    # else `provider`.
+    provider_id = models.CharField(
+        verbose_name=_("provider ID"),
+        max_length=200,
+        blank=True,
     )
     name = models.CharField(verbose_name=_("name"), max_length=40)
     client_id = models.CharField(
@@ -58,6 +59,8 @@ class SocialApp(models.Model):
     key = models.CharField(
         verbose_name=_("key"), max_length=191, blank=True, help_text=_("Key")
     )
+    settings = models.JSONField(default=dict, blank=True)
+
     if allauth.app_settings.SITES_ENABLED:
         # Most apps can be used across multiple domains, therefore we use
         # a ManyToManyField. Note that Facebook requires an app per domain
@@ -79,13 +82,18 @@ class SocialApp(models.Model):
     def __str__(self):
         return self.name
 
+    def get_provider(self, request):
+        provider_class = providers.registry.get_class(self.provider)
+        return provider_class(request=request, app=self)
+
 
 class SocialAccount(models.Model):
     user = models.ForeignKey(allauth.app_settings.USER_MODEL, on_delete=models.CASCADE)
+    # Given a `SocialApp` from which this account originates, this field equals
+    # the app's `app.provider_id` if available, `app.provider` otherwise.
     provider = models.CharField(
         verbose_name=_("provider"),
-        max_length=30,
-        choices=providers.registry.as_choices(),
+        max_length=200,
     )
     # Just in case you're wondering if an OpenID identity URL is going
     # to fit in a 'uid':
@@ -129,8 +137,15 @@ class SocialAccount(models.Model):
     def get_avatar_url(self):
         return self.get_provider_account().get_avatar_url()
 
-    def get_provider(self):
-        return providers.registry.by_id(self.provider)
+    def get_provider(self, request=None):
+        provider = getattr(self, "_provider", None)
+        if provider:
+            return provider
+        adapter = get_adapter(request)
+        provider = self._provider = adapter.get_provider(
+            request, provider=self.provider
+        )
+        return provider
 
     def get_provider_account(self):
         return self.get_provider().wrap_account(self)

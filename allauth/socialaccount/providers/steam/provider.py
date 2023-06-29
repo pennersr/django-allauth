@@ -55,7 +55,7 @@ class SteamOpenIDProvider(OpenIDProvider):
 
     def sociallogin_from_response(self, request, response):
         steam_id = extract_steam_id(response.identity_url)
-        steam_api_key = self.get_app(request).secret
+        steam_api_key = self.app.secret
         response._extra = request_steam_account_summary(steam_api_key, steam_id)
         return super(SteamOpenIDProvider, self).sociallogin_from_response(
             request, response

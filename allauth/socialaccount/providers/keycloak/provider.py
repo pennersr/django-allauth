@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from django.conf import settings
 
 from allauth.socialaccount import app_settings
@@ -25,12 +24,23 @@ class KeycloakProvider(OpenIDConnectProvider):
     name = OVERRIDE_NAME
     account_class = KeycloakAccount
 
+    def get_login_url(self, request, **kwargs):
+        return super(OpenIDConnectProvider, self).get_login_url(request, **kwargs)
+
+    def get_callback_url(self):
+        return super(OpenIDConnectProvider, self).get_callback_url()
+
     @property
-    def _server_url(self):
+    def server_url(self):
+        return self.wk_server_url(self.base_server_url)
+
+    @property
+    def base_server_url(self):
         other_url = self.settings.get("KEYCLOAK_URL_ALT")
         if other_url is None:
             other_url = self.settings.get("KEYCLOAK_URL")
-        return "{0}/realms/{1}".format(other_url, self.settings.get("KEYCLOAK_REALM"))
+        url = "{0}/realms/{1}".format(other_url, self.settings.get("KEYCLOAK_REALM"))
+        return url
 
     @property
     def provider_base_url(self):

@@ -36,7 +36,35 @@ class AppSettings(object):
         """
         Provider specific settings
         """
-        return self._setting("PROVIDERS", {})
+        ret = self._setting("PROVIDERS", {})
+        oidc = ret.get("openid_connect")
+        if oidc:
+            ret["openid_connect"] = self._migrate_oidc(oidc)
+        return ret
+
+    def _migrate_oidc(self, oidc):
+        servers = oidc.get("SERVERS")
+        if servers is None:
+            return oidc
+        ret = {}
+        apps = []
+        for server in servers:
+            app = dict(**server["APP"])
+            app_settings = {}
+            if "token_auth_method" in server:
+                app_settings["token_auth_method"] = server["token_auth_method"]
+            app_settings["server_url"] = server["server_url"]
+            app.update(
+                {
+                    "name": server.get("name", ""),
+                    "provider_id": server["id"],
+                    "settings": app_settings,
+                }
+            )
+            assert app["provider_id"]
+            apps.append(app)
+        ret["APPS"] = apps
+        return ret
 
     @property
     def EMAIL_REQUIRED(self):

@@ -1,6 +1,11 @@
 from __future__ import absolute_import
 
-from django.core.exceptions import ValidationError
+from django.core.exceptions import (
+    ImproperlyConfigured,
+    MultipleObjectsReturned,
+    ValidationError,
+)
+from django.db.models import Q
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
@@ -188,18 +193,120 @@ class DefaultSocialAccountAdapter(object):
     def serialize_instance(self, instance):
         return serialize_instance(instance)
 
-    def get_app(self, request, provider, config=None):
+    def list_providers(self, request):
+        from allauth.socialaccount.providers import registry
+
+        ret = []
+        provider_classes = registry.get_class_list()
+        apps = self.list_apps(request)
+        apps_map = {}
+        for app in apps:
+            apps_map.setdefault(app.provider, []).append(app)
+        for provider_class in provider_classes:
+            provider_apps = apps_map.get(provider_class.id, [])
+            if not provider_apps:
+                if provider_class.uses_apps:
+                    continue
+                provider_apps = [None]
+            for app in provider_apps:
+                provider = provider_class(request=request, app=app)
+                ret.append(provider)
+        return ret
+
+    def get_provider(self, request, provider):
+        """Looks up a `provider`, supporting subproviders by looking up by
+        `provider_id`.
+        """
+        from allauth.socialaccount.providers import registry
+
+        provider_class = registry.get_class(provider)
+        if provider_class is None or provider_class.uses_apps:
+            app = self.get_app(request, provider=provider)
+            if not provider_class:
+                # In this case, the `provider` argument passed was a
+                # `provider_id`.
+                provider_class = registry.get_class(app.provider)
+            if not provider_class:
+                raise ImproperlyConfigured(f"unknown provider: {app.provider}")
+            return provider_class(request, app=app)
+        elif provider_class:
+            assert not provider_class.uses_apps
+            return provider_class(request, app=None)
+        else:
+            raise ImproperlyConfigured(f"unknown provider: {app.provider}")
+
+    def list_apps(self, request, provider=None, client_id=None):
+        """SocialApp's can be setup in the database, or, via
+        `settings.SOCIALACCOUNT_PROVIDERS`.  This methods returns a uniform list
+        of all known apps matching the specified criteria, and blends both
+        (db/settings) sources of data.
+        """
         # NOTE: Avoid loading models at top due to registry boot...
         from allauth.socialaccount.models import SocialApp
 
-        config = config or app_settings.PROVIDERS.get(provider, {}).get("APP")
-        if config:
-            app = SocialApp(provider=provider)
-            for field in ["client_id", "secret", "key", "certificate_key"]:
-                setattr(app, field, config.get(field))
-        else:
-            app = SocialApp.objects.get_current(provider, request)
-        return app
+        # Map provider to the list of apps.
+        provider_to_apps = {}
+
+        # First, populate it with the DB backed apps.
+        db_apps = SocialApp.objects.on_site(request)
+        if provider:
+            db_apps = db_apps.filter(
+                Q(provider_id="", provider=provider) | Q(provider_id=provider)
+            )
+        if client_id:
+            db_apps = db_apps.filter(client_id=client_id)
+        for app in db_apps:
+            apps = provider_to_apps.setdefault(app.provider, [])
+            apps.append(app)
+
+        # Then, extend it with the settings backed apps.
+        for p, pcfg in app_settings.PROVIDERS.items():
+            app_configs = pcfg.get("APPS")
+            if app_configs is None:
+                app_config = pcfg.get("APP")
+                if app_config is None:
+                    continue
+                app_configs = [app_config]
+
+            apps = provider_to_apps.setdefault(p, [])
+            for config in app_configs:
+                app = SocialApp(provider=p)
+                for field in [
+                    "name",
+                    "provider_id",
+                    "client_id",
+                    "secret",
+                    "key",
+                    "certificate_key",
+                    "settings",
+                ]:
+                    if field in config:
+                        setattr(app, field, config[field])
+                if client_id and app.client_id != client_id:
+                    continue
+                if (
+                    provider
+                    and app.provider_id != provider
+                    and app.provider != provider
+                ):
+                    continue
+                apps.append(app)
+
+        # Flatten the list of apps.
+        apps = []
+        for provider_apps in provider_to_apps.values():
+            apps.extend(provider_apps)
+        return apps
+
+    def get_app(self, request, provider, client_id=None):
+        from allauth.socialaccount.models import SocialApp
+
+        apps = self.list_apps(request, provider=provider, client_id=client_id)
+        if len(apps) > 1:
+            raise MultipleObjectsReturned
+        elif len(apps) == 0:
+            raise SocialApp.DoesNotExist()
+        return apps[0]
 
 
 def get_adapter(request=None):

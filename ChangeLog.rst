@@ -10,6 +10,9 @@ Note worthy changes
 
 - New provider: Miro.
 
+ - It is now possible to manage OpenID Connect providers via the Django
+   admin. Simply add a `SocialApp` for each OpenID Connect provider.
+
 
 Security notice
 ---------------
@@ -34,6 +37,27 @@ Backwards incompatible changes
 
 - The Mozilla Persona provider has been removed. The project was shut down on
   November 30th 2016.
+
+- A large internal refactor has been performed to be able to add support for
+  providers oferring one or more subproviders. This refactor has the following
+  impact:
+
+  - The provider registry methods ``get_list()``, ``by_id()`` have been
+    removed. The registry now only providers access to the provider classes, not
+    the instances.
+
+  - ``provider.get_app()`` has been removed -- use ``provider.app`` instead.
+
+  - ``SocialApp.objects.get_current()`` has been removed.
+
+  - The ``SocialApp`` model now has additional fields ``provider_id``, and
+    ``settings``.
+
+  - The OpenID Connect provider ``SOCIALACCOUNT_PROVIDERS`` settings structure
+    changed.  Instead of the OpenID Connect specific ``SERVERS`` construct, it
+    now uses the regular ``APPS`` approach. Please refer to the OpenID Connect
+    documentation for details.
+
 
 
 0.54.0 (2023-03-31)

@@ -51,7 +51,7 @@ class YNABTests(OAuth2TestsMixin, TestCase):
         )
 
         adapter = YNABOAuth2Adapter(request)
-        app = adapter.get_provider().get_app(request)
+        app = adapter.get_provider().app
         token = SocialToken(token="some_token")
         response_with_401 = LessMockedResponse(
             401,

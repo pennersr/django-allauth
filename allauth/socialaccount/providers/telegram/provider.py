@@ -9,6 +9,7 @@ class TelegramProvider(Provider):
     id = "telegram"
     name = "Telegram"
     account_class = TelegramAccount
+    uses_apps = False
 
     def get_login_url(self, request, **kwargs):
         # TODO: Find a way to better wrap the iframed button

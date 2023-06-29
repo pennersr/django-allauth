@@ -18,13 +18,15 @@ class ProviderRegistryTests(TestCase):
     )
     def test_load_provider_with_default_app_config(self):
         registry = providers.ProviderRegistry()
-        provider_list = registry.get_list()
+        provider_list = registry.get_class_list()
 
         self.assertTrue(registry.loaded)
         self.assertEqual(1, len(provider_list))
-        self.assertIsInstance(
-            provider_list[0],
-            providers.facebook.provider.FacebookProvider,
+        self.assertTrue(
+            issubclass(
+                provider_list[0],
+                providers.facebook.provider.FacebookProvider,
+            )
         )
 
         app_config_list = list(apps.get_app_configs())
@@ -40,13 +42,15 @@ class ProviderRegistryTests(TestCase):
     )
     def test_load_provider_with_custom_app_config(self):
         registry = providers.ProviderRegistry()
-        provider_list = registry.get_list()
+        provider_list = registry.get_class_list()
 
         self.assertTrue(registry.loaded)
         self.assertEqual(1, len(provider_list))
-        self.assertIsInstance(
-            provider_list[0],
-            providers.facebook.provider.FacebookProvider,
+        self.assertTrue(
+            issubclass(
+                provider_list[0],
+                providers.facebook.provider.FacebookProvider,
+            )
         )
 
         app_config_list = list(apps.get_app_configs())

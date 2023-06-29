@@ -26,7 +26,7 @@ class TrainingPeaksProvider(OAuth2Provider):
     account_class = TrainingPeaksAccount
 
     def extract_uid(self, data):
-        return data.get("Id")
+        return str(data["Id"])
 
     def extract_common_fields(self, data):
         extra_common = super(TrainingPeaksProvider, self).extract_common_fields(data)

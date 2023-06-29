@@ -20,7 +20,7 @@ class DoximityProvider(OAuth2Provider):
     account_class = DoximityAccount
 
     def extract_uid(self, data):
-        return data[str("id")]  # the Doximity id is long
+        return str(data["id"])  # the Doximity id is long
 
     def extract_common_fields(self, data):
         return dict(

@@ -32,7 +32,7 @@ class CleverOAuth2Adapter(OAuth2Adapter):
         if resp.status_code != 200:
             raise OAuth2Error()
         resp = resp.json()
-        user_id = resp.get("data", {}).get("id")
+        user_id = resp["data"]["id"]
         user_details = requests.get(
             "{}/{}".format(self.user_details_url, user_id),
             headers={"Authorization": "Bearer {}".format(token)},

@@ -146,7 +146,6 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.openid",
     "allauth.socialaccount.providers.pinterest",
     "allauth.socialaccount.providers.pocket",
-    "allauth.socialaccount.providers.persona",
     "allauth.socialaccount.providers.reddit",
     "allauth.socialaccount.providers.shopify",
     "allauth.socialaccount.providers.slack",

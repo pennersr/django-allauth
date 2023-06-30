@@ -760,8 +760,6 @@ delegate authentication. There is no committed timeline for this.
 The provider is OAuth2 based. More info:
     https://developer.mozilla.org/en-US/Firefox_Accounts
 
-Note: This is not the same as the Mozilla Persona provider below.
-
 The following Firefox Accounts settings are available:
 
 .. code-block:: python
@@ -1658,42 +1656,6 @@ App registration (get your key and secret here)
 
 Development callback URL
     http://example.com/accounts/paypal/login/callback
-
-
-Persona
--------
-
-Note: Mozilla Persona was shut down on November 30th 2016. See
-`the announcement <https://wiki.mozilla.org/Identity/Persona_Shutdown_Guidelines_for_Reliers>`_
-for details.
-
-Mozilla Persona requires one setting, the "AUDIENCE" which needs to be the
-hardcoded hostname and port of your website. See
-https://developer.mozilla.org/en-US/Persona/Security_Considerations#Explicitly_specify_the_audience_parameter
-for more information why this needs to be set explicitly and can't be derived
-from user provided data:
-
-.. code-block:: python
-
-    SOCIALACCOUNT_PROVIDERS = {
-        'persona': {
-            'AUDIENCE': 'https://www.example.com',
-        }
-    }
-
-
-The optional ``REQUEST_PARAMETERS`` dictionary contains parameters that are
-passed as is to the ``navigator.id.request()`` method to influence the
-look and feel of the Persona dialog:
-
-.. code-block:: python
-
-    SOCIALACCOUNT_PROVIDERS = {
-        'persona': {
-            'AUDIENCE': 'https://www.example.com',
-            'REQUEST_PARAMETERS': {'siteName': 'Example'},
-        }
-    }
 
 
 Pinterest

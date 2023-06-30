@@ -189,8 +189,6 @@ Supported Providers
 
 - Paypal (OAuth2)
 
-- Persona
-
 - Pinterest (OAuth2)
 
 - Pocket (OAuth)

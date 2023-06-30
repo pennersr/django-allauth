@@ -1,6 +1,16 @@
 0.55.0 (unreleased)
 *******************
 
+Note worthy changes
+-------------------
+
+- Dropped support for Django 2.x.
+
+- Officially support Django 4.2.
+
+- New provider: Miro.
+
+
 Security notice
 ---------------
 
@@ -22,13 +32,8 @@ Backwards incompatible changes
 
 - The method ``allauth.utils.email_address_exists()`` has been removed.
 
-
-Note worthy changes
--------------------
-
-- Dropped support for Django 2.x.
-- Officially support Django 4.2.
-- New provider: Miro.
+- The Mozilla Persona provider has been removed. The project was shut down on
+  November 30th 2016.
 
 
 0.54.0 (2023-03-31)

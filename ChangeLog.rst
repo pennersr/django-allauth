@@ -4,7 +4,7 @@
 Note worthy changes
 -------------------
 
-- Dropped support for Django 2.x.
+- Dropped support for Django 2.x and 3.0.
 
 - Officially support Django 4.2.
 

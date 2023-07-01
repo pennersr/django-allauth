@@ -10,8 +10,8 @@ Note worthy changes
 
 - New provider: Miro.
 
- - It is now possible to manage OpenID Connect providers via the Django
-   admin. Simply add a `SocialApp` for each OpenID Connect provider.
+- It is now possible to manage OpenID Connect providers via the Django
+  admin. Simply add a `SocialApp` for each OpenID Connect provider.
 
 
 Security notice

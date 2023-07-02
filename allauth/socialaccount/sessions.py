@@ -49,7 +49,7 @@ class LoginSession:
             domain=settings.SESSION_COOKIE_DOMAIN,
             # The cookie is only needed on this endpoint
             path=urlparse(response.url).path,
-            secure=True,
+            secure=settings.SESSION_COOKIE_SECURE,
             httponly=None,
             **kwargs
         )

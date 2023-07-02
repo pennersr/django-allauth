@@ -56,7 +56,10 @@ Backwards incompatible changes
   - The OpenID Connect provider ``SOCIALACCOUNT_PROVIDERS`` settings structure
     changed.  Instead of the OpenID Connect specific ``SERVERS`` construct, it
     now uses the regular ``APPS`` approach. Please refer to the OpenID Connect
-    documentation for details.
+    provider documentation for details.
+
+  - The Telegram provider settings structure, it now requires to app. Please
+    refer to the Telegram provider documentation for details.
 
 
 

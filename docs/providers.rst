@@ -2203,7 +2203,10 @@ Telegram
 
     SOCIALACCOUNT_PROVIDERS = {
         'telegram': {
-            'TOKEN': 'insert-token-received-from-botfather'
+            'APP': {
+                'client_id': '<bot_id>',
+                'secret': '<bot token>',
+            }
         }
     }
 

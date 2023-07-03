@@ -76,6 +76,9 @@ ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN (=180)
   users from sending too many of these mails, a rate limit is in place that
   allows for one confirmation mail to be sent per the specified cooldown period
   (in seconds).
+  It is recommended to change this setting to ``"0"`` when running tests, 
+  as it can cause unintended and sporadic failures when your testcase
+  relies on sent mails.
 
 ACCOUNT_EMAIL_MAX_LENGTH(=254)
   Maximum length of the email field. You won't need to alter this unless using

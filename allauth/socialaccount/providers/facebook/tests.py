@@ -71,6 +71,13 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
         socialaccount = SocialAccount.objects.get(uid="1234567")
         self.assertEqual(socialaccount.user.username, "harvey")
 
+    @override_settings(
+        SOCIALACCOUNT_PROVIDERS={
+            "facebook": {
+                "METHOD": "js_sdk",
+            }
+        },
+    )
     def test_media_js(self):
         request = RequestFactory().get(reverse("account_login"))
         request.session = {}
@@ -95,6 +102,7 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
     @override_settings(
         SOCIALACCOUNT_PROVIDERS={
             "facebook": {
+                "METHOD": "js_sdk",
                 "AUTH_PARAMS": {"auth_type": "reauthenticate"},
                 "VERIFIED_EMAIL": False,
             }

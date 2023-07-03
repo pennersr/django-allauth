@@ -154,6 +154,9 @@ class FacebookProvider(OAuth2Provider):
         return sdk_url
 
     def media_js(self, request):
+        if self.get_method() != "js_sdk":
+            return ""
+
         def abs_uri(name):
             return request.build_absolute_uri(reverse(name))
 

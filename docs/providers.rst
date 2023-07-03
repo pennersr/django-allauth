@@ -623,14 +623,7 @@ To initiate a login use:
 
     {% load socialaccount %}
     {% providers_media_js %}
-    <a href="{% provider_login_url "facebook" method="js_sdk" %}">Facebook Connect</a>
-
-or:
-
-.. code-block:: python
-
-    {% load socialaccount %}
-    <a href="{% provider_login_url "facebook" method="oauth2" %}">Facebook OAuth2</a>
+    <a href="{% provider_login_url "facebook" %}">Facebook Connect</a>
 
 The following Facebook settings are available:
 
@@ -638,7 +631,7 @@ The following Facebook settings are available:
 
     SOCIALACCOUNT_PROVIDERS = {
         'facebook': {
-            'METHOD': 'oauth2',
+            'METHOD': 'oauth2',  # Set to 'js_sdk' to use the Facebook connect SDK
             'SDK_URL': '//connect.facebook.net/{locale}/sdk.js',
             'SCOPE': ['email', 'public_profile'],
             'AUTH_PARAMS': {'auth_type': 'reauthenticate'},

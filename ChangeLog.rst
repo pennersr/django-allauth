@@ -61,6 +61,10 @@ Backwards incompatible changes
   - The Telegram provider settings structure, it now requires to app. Please
     refer to the Telegram provider documentation for details.
 
+- The Facebook provider loaded the Facebook connect ``sdk.js`` regardless of the
+  value of the ``METHOD`` setting. To prevent tracking, now it only loads the
+  Javascript if ``METHOD`` is explicitly set to ``"js_sdk"``.
+
 
 
 0.54.0 (2023-03-31)

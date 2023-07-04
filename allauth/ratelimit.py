@@ -55,7 +55,7 @@ def consume(request, *, action, key=None, amount=None, duration=None, user=None)
         if not duration:
             duration = rate.duration
 
-    if request.method == "GET" or not amount or not duration:
+    if not request or request.method == "GET" or not amount or not duration:
         pass
     else:
         cache_key = _cache_key(request, action=action, key=key, user=user)

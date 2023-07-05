@@ -327,7 +327,7 @@ class SocialLogin(object):
     @classmethod
     def stash_state(cls, request):
         state = cls.state_from_request(request)
-        verifier = get_random_string(12)
+        verifier = get_random_string(16)
         request.session["socialaccount_state"] = (state, verifier)
         return verifier
 

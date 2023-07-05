@@ -50,9 +50,11 @@ class EmailAddress(models.Model):
             return True
         conflict = False
         if app_settings.UNIQUE_EMAIL:
-            conflict = EmailAddress.objects.exclude(pk=self.pk).filter(
-                verified=True, email__iexact=self.email
-            ).exists()
+            conflict = (
+                EmailAddress.objects.exclude(pk=self.pk)
+                .filter(verified=True, email__iexact=self.email)
+                .exists()
+            )
         return not conflict
 
     def set_verified(self, commit=True):

@@ -1,5 +1,5 @@
 Snapchat
------
+--------
 
 App registration (get your key and secret here)
     https://kit.snapchat.com/manage/

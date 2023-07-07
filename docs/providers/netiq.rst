@@ -1,5 +1,5 @@
 NetIQ/Microfocus AccessManager (NAM)
------------------------------------
+------------------------------------
 
 The following AccessManager settings are available:
 

@@ -1,5 +1,6 @@
 CILogon
-----
+-------
+
 CILogon is a federated identity provider for hundreds of universities and research institutions around the world.
 
 App registration (get your key and secret here)

@@ -1,5 +1,5 @@
 Gitea
-------
+-----
 
 App registration (get your key and secret here)
     https://gitea.com/user/settings/applications
@@ -9,7 +9,7 @@ Development callback URL
 
 
 Self-hosted Support
-******************
+*******************
 
 If you use a self-hosted Gitea instance add your server URL to your Django settings as
 follows:

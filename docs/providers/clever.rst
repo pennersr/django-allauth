@@ -1,5 +1,6 @@
 Clever
-----
+------
+
 Single sign-on for education
 
 Clever OAUth2 Documentation

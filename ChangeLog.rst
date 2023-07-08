@@ -25,6 +25,8 @@ Note worthy changes
   trend over the years has been towards the simpler and more streamlined form
   "email".
 
+- Added support for SAML 2.0.
+
 
 Security notice
 ---------------

@@ -4,9 +4,9 @@ Overview
 Requirements
 ------------
 
-- Python 3.5, 3.6, 3.7, 3.8, 3.9, or 3.10
+- Python 3.7, 3.8, 3.9, or 3.10, 3.11
 
-- Django (2.0+)
+- Django (3.1+)
 
 - python-openid or python3-openid (depending on your Python version)
 
@@ -272,25 +272,6 @@ Note: OAuth/OAuth2 support is built using a common code base, making it easy to 
 Features
 --------
 
-- Supports multiple authentication schemes (e.g. login by user name,
-  or by e-mail), as well as multiple strategies for account
-  verification (ranging from none to e-mail verification).
-
-- All access tokens are consistently stored so that you can publish
-  wall updates etc.
-
-Architecture & Design
----------------------
-
-- Pluggable signup form for asking additional questions during signup.
-
-- Support for connecting multiple social accounts to a Django user account.
-
-- The required consumer keys and secrets for interacting with
-  Facebook, Twitter and the likes are to be configured in the database
-  via the Django admin using the SocialApp model.
-
-- Consumer keys, tokens make use of the Django sites framework. This
-  is especially helpful for larger multi-domain projects, but also
-  allows for easy switching between a development (localhost) and
-  production setup without messing with your settings and database.
+.. include:: ../README.rst
+    :start-after: .. begin-features
+    :end-before: .. end-features

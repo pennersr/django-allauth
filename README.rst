@@ -50,16 +50,16 @@ Rationale
 =========
 
 Most existing Django apps that address the problem of social
-authentication unfortunately focus only on one dimension - the social. 
-Most developers end up integrating another app in order to support authentication 
-flows that are locally generated. 
+authentication unfortunately focus only on one dimension - the social.
+Most developers end up integrating another app in order to support authentication
+flows that are locally generated.
 
 This approach creates a development gap between local and social
-authentication flows. It has remained an issue in spite of numerous common 
+authentication flows. It has remained an issue in spite of numerous common
 scenarios that both require. For example, an e-mail address passed along by an
 OpenID provider may not be verified. Therefore, prior to hooking up
 an OpenID account to a local account the e-mail address must be
-verified. This essentially is one of many use cases that mandate e-mail 
+verified. This essentially is one of many use cases that mandate e-mail
 verification to be present in both worlds.
 
 Integrating both is a humongous and tedious process. It is not as
@@ -70,6 +70,58 @@ This inadequacy is the reason for this project's existence  -- to offer a fully
 integrated authentication app that allows for both local and social
 authentication, with flows that just work, beautifully !
 
+
+Features
+========
+
+.. begin-features
+
+**🔑 Comprehensive account functionality**
+    Supports multiple authentication
+    schemes (e.g. login by user name, or by e-mail), as well as multiple
+    strategies for account verification (ranging from none to mandatory email
+    verification).
+
+**👥 Social Login**
+    Login using external identity providers, supporting any *Open ID Connect
+    compatible* provider, many *OAuth 1.0/2.0* providers, as well as
+    custom protocols such as, for example, *Telegram* authentication.
+
+**🕵️ Battle-tested**
+    The package has been out in the open since 2010. It is in use by many
+    commercial companies whose business depens on it and has hence been subject
+    to various penetration testing attempts.
+
+**⏳Rate limiting**
+    When you expose an authentication-enabled web service to
+    the internet, it is important to be prepared for potential brute force
+    attempts. Therefore, rate limiting is enabled out of the box.
+
+**🔒 Private**
+    Many sites leak information. For example, on many sites you can
+    check whether someone you know has an account by input their email address
+    into the password forgotten form, or trying to signup with it. We offer
+    account enumeration prevention, making it impossible to tell whether or not
+    somebody already has an account.
+
+**🧩 Customizable**
+    As a developer, you have the flexibility to customize the core functionality
+    according to your specific requirements. By employing the adapter pattern, you
+    can effortlessly introduce interventions at the desired points to deviate from
+    the standard behavior. This level of customization empowers you to tailor the
+    software to meet your unique needs and preferences.
+
+**⚙️ Configuration**
+    The required consumer keys and secrets for interacting with Facebook,
+    Twitter and the likes can be configured using regular settings, or, can be
+    configured in the database via the Django admin. Here, optional support for
+    the Django sites framework is available, which is helpful for larger
+    multi-domain projects, but also allows for easy switching between a
+    development (localhost) and production setup without messing with your
+    settings and database.
+
+
+.. end-features
 
 Commercial Support
 ==================

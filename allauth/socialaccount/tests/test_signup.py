@@ -397,3 +397,87 @@ class SignupTests(TestCase):
 
         resp = self.client.get(reverse("socialaccount_signup"))
         self.assertRedirects(resp, reverse("account_login"))
+
+
+def test_email_address_required_missing_from_sociallogin(
+    db, settings, sociallogin_factory, client, rf
+):
+    """Tests that when the email address is missing from the sociallogin email
+    verification kicks in.
+    """
+    settings.ACCOUNT_EMAIL_REQUIRED = True
+    settings.ACCOUNT_UNIQUE_EMAIL = True
+    settings.ACCOUNT_USERNAME_REQUIRED = False
+    settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
+    settings.ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+    settings.SOCIALACCOUNT_AUTO_SIGNUP = True
+
+    sociallogin = sociallogin_factory(with_email=False)
+
+    request = rf.get("/")
+    request.session = {}
+    request.user = AnonymousUser()
+    resp = complete_social_login(request, sociallogin)
+    assert resp["location"] == reverse("socialaccount_signup")
+
+    session = client.session
+    session["socialaccount_sociallogin"] = sociallogin.serialize()
+    session.save()
+    resp = client.post(reverse("socialaccount_signup"), {"email": "other@example.org"})
+    assert resp["location"] == reverse("account_email_verification_sent")
+
+
+def test_email_address_conflict_at_social_signup_form(
+    db, settings, user_factory, sociallogin_factory, client, rf, mailoutbox
+):
+    """Tests that when an already existing email is given at the social signup
+    form, enumeration preventation kicks in.
+    """
+    settings.ACCOUNT_EMAIL_REQUIRED = True
+    settings.ACCOUNT_UNIQUE_EMAIL = True
+    settings.ACCOUNT_USERNAME_REQUIRED = False
+    settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
+    settings.ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+    settings.SOCIALACCOUNT_AUTO_SIGNUP = True
+
+    user = user_factory()
+    sociallogin = sociallogin_factory(with_email=False)
+
+    request = rf.get("/")
+    request.session = {}
+    request.user = AnonymousUser()
+
+    resp = complete_social_login(request, sociallogin)
+    assert resp["location"] == reverse("socialaccount_signup")
+
+    session = client.session
+    session["socialaccount_sociallogin"] = sociallogin.serialize()
+    session.save()
+    resp = client.post(reverse("socialaccount_signup"), {"email": user.email})
+    # TODO: This is wrong -- prevent enumeration should kick in.
+    assert mailoutbox[0].subject == "[example.com] Please Confirm Your E-mail Address"
+
+
+def test_email_address_conflict_during_auto_signup(
+    db, settings, user_factory, sociallogin_factory, client, rf
+):
+    """Tests that when an already existing email is received from the provider,
+    enumeration preventation kicks in.
+    """
+    settings.ACCOUNT_EMAIL_REQUIRED = True
+    settings.ACCOUNT_UNIQUE_EMAIL = True
+    settings.ACCOUNT_USERNAME_REQUIRED = False
+    settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
+    settings.ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+    settings.SOCIALACCOUNT_AUTO_SIGNUP = True
+
+    user = user_factory()
+    sociallogin = sociallogin_factory(email=user.email, with_email=True)
+
+    request = rf.get("/")
+    request.session = {}
+    request.user = AnonymousUser()
+
+    resp = complete_social_login(request, sociallogin)
+    # TODO: This is wrong -- prevent enumeration should result in sending an email
+    assert resp["location"] == reverse("socialaccount_signup")

@@ -448,21 +448,8 @@ class SignupForm(BaseSignupForm):
         return user
 
     def _send_account_already_exists_mail(self, request):
-        signup_url = build_absolute_uri(request, reverse("account_signup"))
-        password_reset_url = build_absolute_uri(
-            request, reverse("account_reset_password")
-        )
         email = self.cleaned_data["email"]
-        context = {
-            "request": request,
-            "current_site": get_current_site(request),
-            "email": email,
-            "signup_url": signup_url,
-            "password_reset_url": password_reset_url,
-        }
-        get_adapter(request).send_mail(
-            "account/email/account_already_exists", email, context
-        )
+        get_adapter(request).send_account_already_exists_mail(email)
 
 
 class UserForm(forms.Form):

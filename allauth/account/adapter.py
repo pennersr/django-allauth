@@ -544,6 +544,20 @@ class DefaultAccountAdapter(object):
             ).exists()
         return send_email
 
+    def send_account_already_exists_mail(self, email):
+        signup_url = build_absolute_uri(self.request, reverse("account_signup"))
+        password_reset_url = build_absolute_uri(
+            self.request, reverse("account_reset_password")
+        )
+        context = {
+            "request": self.request,
+            "current_site": get_current_site(self.request),
+            "email": email,
+            "signup_url": signup_url,
+            "password_reset_url": password_reset_url,
+        }
+        self.send_mail("account/email/account_already_exists", email, context)
+
     def send_confirmation_mail(self, request, emailconfirmation, signup):
         current_site = get_current_site(request)
         activate_url = self.get_email_confirmation_url(request, emailconfirmation)

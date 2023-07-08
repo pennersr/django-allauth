@@ -448,18 +448,20 @@ def test_email_address_conflict_at_social_signup_form(
     request.user = AnonymousUser()
 
     resp = complete_social_login(request, sociallogin)
+    # Auto signup does not kick in as the `sociallogin` does not have an email.
     assert resp["location"] == reverse("socialaccount_signup")
 
     session = client.session
     session["socialaccount_sociallogin"] = sociallogin.serialize()
     session.save()
+    # Here, we input the already existing email.
     resp = client.post(reverse("socialaccount_signup"), {"email": user.email})
     # TODO: This is wrong -- prevent enumeration should kick in.
     assert mailoutbox[0].subject == "[example.com] Please Confirm Your E-mail Address"
 
 
 def test_email_address_conflict_during_auto_signup(
-    db, settings, user_factory, sociallogin_factory, client, rf
+    db, settings, user_factory, sociallogin_factory, client, rf, mailoutbox
 ):
     """Tests that when an already existing email is received from the provider,
     enumeration preventation kicks in.
@@ -479,5 +481,5 @@ def test_email_address_conflict_during_auto_signup(
     request.user = AnonymousUser()
 
     resp = complete_social_login(request, sociallogin)
-    # TODO: This is wrong -- prevent enumeration should result in sending an email
-    assert resp["location"] == reverse("socialaccount_signup")
+    assert resp["location"] == reverse("account_email_verification_sent")
+    assert mailoutbox[0].subject == "[example.com] Account Already Exists"

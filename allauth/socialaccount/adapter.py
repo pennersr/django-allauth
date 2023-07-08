@@ -143,29 +143,6 @@ class DefaultSocialAccountAdapter(object):
     def is_auto_signup_allowed(self, request, sociallogin):
         # If email is specified, check for duplicate and if so, no auto signup.
         auto_signup = app_settings.AUTO_SIGNUP
-        if auto_signup:
-            email = user_email(sociallogin.user)
-            # Let's check if auto_signup is really possible...
-            if email:
-                if account_settings.UNIQUE_EMAIL:
-                    if EmailAddress.objects.is_verified(email):
-                        # Oops, another user already has this address.
-                        # We cannot simply connect this social account
-                        # to the existing user. Reason is that the
-                        # email address may not be verified, meaning,
-                        # the user may be a hacker that has added your
-                        # email address to their account in the hope
-                        # that you fall in their trap.  We cannot
-                        # check on 'email_address.verified' either,
-                        # because 'email_address' is not guaranteed to
-                        # be verified.
-                        auto_signup = False
-                        # FIXME: We redirect to signup form -- user will
-                        # see email address conflict only after posting
-                        # whereas we detected it here already.
-            elif app_settings.EMAIL_REQUIRED:
-                # Nope, email is required and we don't have it yet...
-                auto_signup = False
         return auto_signup
 
     def is_open_for_signup(self, request, sociallogin):

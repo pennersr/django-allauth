@@ -9,7 +9,6 @@ from django.db.models import Q
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
-from ..account import app_settings as account_settings
 from ..account.adapter import get_adapter as get_account_adapter
 from ..account.app_settings import EmailVerificationMethod
 from ..account.models import EmailAddress

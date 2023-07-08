@@ -11,6 +11,8 @@ usage:
 	@echo '  isort         Fix isort issues'
 	@echo '  po            (Re)generate .po files'
 	@echo '  mo            Compile .po into .mo'
+	@echo '  qa            Perform QA checks'
+	@echo '  test          Execute test suite'
 
 .PHONY: po
 po:
@@ -31,3 +33,9 @@ black:
 .PHONY: test
 test:
 	pytest allauth/
+
+.PHONY: qa
+qa:
+	flake8 allauth
+	isort --check-only --skip-glob '*/migrations/*' --diff allauth
+	black --check allauth setup.py

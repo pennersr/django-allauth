@@ -31,3 +31,4 @@ virtualenv
 *.prefs
 *.mo
 /.stfolder
+.direnv/

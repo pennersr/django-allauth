@@ -53,8 +53,10 @@ class SignupView(
 
     def form_valid(self, form):
         self.request.session.pop("socialaccount_sociallogin", None)
-        form.save(self.request)
-        return helpers.complete_social_signup(self.request, self.sociallogin)
+        user, resp = form.try_save(self.request)
+        if not resp:
+            resp = helpers.complete_social_signup(self.request, self.sociallogin)
+        return resp
 
     def get_context_data(self, **kwargs):
         ret = super(SignupView, self).get_context_data(**kwargs)

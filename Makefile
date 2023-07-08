@@ -27,3 +27,7 @@ isort:
 .PHONY: black
 black:
 	black allauth/ setup.py
+
+.PHONY: test
+test:
+	pytest allauth/

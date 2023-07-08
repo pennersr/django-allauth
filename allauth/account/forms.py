@@ -389,6 +389,24 @@ class BaseSignupForm(_base_signup_form_class()):
             # in case of ModelForm
             custom_form.save(user)
 
+    def try_save(self, request):
+        """Try and save te user. This can fail in case of a conflict on the
+        email address, in that case we will send an "account already exists"
+        email and return a standard "email verification sent" response.
+        """
+        if self.account_already_exists:
+            # Don't create a new acount, only send an email informing the user
+            # that (s)he already has one...
+            email = self.cleaned_data["email"]
+            adapter = get_adapter(request)
+            adapter.send_account_already_exists_mail(email)
+            user = None
+            resp = adapter.respond_email_verification_sent(request, None)
+        else:
+            user = self.save(request)
+            resp = None
+        return user, resp
+
 
 class SignupForm(BaseSignupForm):
     def __init__(self, *args, **kwargs):
@@ -435,10 +453,7 @@ class SignupForm(BaseSignupForm):
 
     def save(self, request):
         if self.account_already_exists:
-            # Don't create a new acount, only send an email informing the user
-            # that (s)he already has one...
-            self._send_account_already_exists_mail(request)
-            return
+            raise ValueError(self.cleaned_data.get("email"))
         adapter = get_adapter(request)
         user = adapter.new_user(request)
         adapter.save_user(request, user, self)
@@ -446,10 +461,6 @@ class SignupForm(BaseSignupForm):
         # TODO: Move into adapter `save_user` ?
         setup_user_email(request, user, [])
         return user
-
-    def _send_account_already_exists_mail(self, request):
-        email = self.cleaned_data["email"]
-        get_adapter(request).send_account_already_exists_mail(email)
 
 
 class UserForm(forms.Form):

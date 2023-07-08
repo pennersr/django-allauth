@@ -456,8 +456,8 @@ def test_email_address_conflict_at_social_signup_form(
     session.save()
     # Here, we input the already existing email.
     resp = client.post(reverse("socialaccount_signup"), {"email": user.email})
-    # TODO: This is wrong -- prevent enumeration should kick in.
-    assert mailoutbox[0].subject == "[example.com] Please Confirm Your E-mail Address"
+    assert mailoutbox[0].subject == "[example.com] Account Already Exists"
+    assert resp["location"] == reverse("account_email_verification_sent")
 
 
 def test_email_address_conflict_during_auto_signup(

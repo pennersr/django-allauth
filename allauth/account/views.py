@@ -245,11 +245,9 @@ class SignupView(
         return ret
 
     def form_valid(self, form):
-        self.user = form.save(self.request)
-        if not self.user:
-            return get_adapter(self.request).respond_email_verification_sent(
-                self.request, None
-            )
+        self.user, resp = form.try_save(self.request)
+        if resp:
+            return resp
         try:
             return complete_signup(
                 self.request,

@@ -28,6 +28,15 @@ def test_acs(client, db, saml_settings, acs_saml_response, mocked_signature_vali
     assert email.email == "john.doe@email.org"
 
 
+def test_acs_error(client, db, saml_settings):
+    data = {"SAMLResponse": "bad-response"}
+    resp = client.post(
+        reverse("saml_acs", kwargs={"organization_slug": "org"}), data=data
+    )
+    assert resp.status_code == 200
+    assert "socialaccount/authentication_error.html" in (t.name for t in resp.templates)
+
+
 def test_login(
     client,
     db,

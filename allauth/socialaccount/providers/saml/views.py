@@ -1,3 +1,4 @@
+import binascii
 import logging
 
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -49,8 +50,12 @@ class ACSView(SAMLViewMixin, View):
     def dispatch(self, request, organization_slug):
         provider = self.get_provider(organization_slug)
         auth = self.build_auth(provider, organization_slug)
-        auth.process_response()
-        errors = auth.get_errors()
+        try:
+            auth.process_response()
+        except binascii.Error:
+            errors = ["invalid_response"]
+        else:
+            errors = auth.get_errors()
         if errors:
             # e.g. ['invalid_response']
             logger.error(

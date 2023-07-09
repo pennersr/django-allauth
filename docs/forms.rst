@@ -90,11 +90,11 @@ Used on `account_email <views.html#e-mails-management-account-email>`__ view.
     from allauth.account.forms import AddEmailForm
     class MyCustomAddEmailForm(AddEmailForm):
 
-        def save(self):
+        def save(self, request):
 
             # Ensure you call the parent class's save.
             # .save() returns an allauth.account.models.EmailAddress object.
-            email_address_obj = super(MyCustomAddEmailForm, self).save()
+            email_address_obj = super(MyCustomAddEmailForm, self).save(request)
 
             # Add your own processing here.
 

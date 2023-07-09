@@ -89,8 +89,8 @@ Features
 
 **🕵️ Battle-tested**
     The package has been out in the open since 2010. It is in use by many
-    commercial companies whose business depens on it and has hence been subject
-    to various penetration testing attempts.
+    commercial companies whose business depends on it and has hence been
+    subjected to various penetration testing attempts.
 
 **⏳Rate limiting**
     When you expose an authentication-enabled web service to

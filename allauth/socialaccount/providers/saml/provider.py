@@ -12,6 +12,26 @@ class SAMLAccount(ProviderAccount):
 class SAMLProvider(Provider):
     id = "saml"
     account_class = SAMLAccount
+    default_attribute_mapping = {
+        "uid": [
+            "http://schemas.auth0.com/clientID",
+            "urn:oasis:names:tc:SAML:attribute:subject-id",
+        ],
+        "email": [
+            "urn:oid:0.9.2342.19200300.100.1.3",
+            "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress",
+        ],
+        "first_name": [
+            "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname",
+            "urn:oid:2.5.4.42",
+        ],
+        "last_name": [
+            "urn:oid:2.5.4.4",
+        ],
+        "username": [
+            "http://schemas.auth0.com/nickname",
+        ],
+    }
 
     @property
     def name(self):
@@ -42,12 +62,18 @@ class SAMLProvider(Provider):
         provider_config = self.app.settings
         raw_attributes = data.get_attributes()
         attributes = {}
-        attribute_mapping = provider_config["attribute_mapping"]
+        attribute_mapping = provider_config.get(
+            "attribute_mapping", self.default_attribute_mapping
+        )
         # map configured provider attributes
-        for key, provider_key in attribute_mapping.items():
-            attribute_list = raw_attributes.get(provider_key, [""])
-            attributes[key] = attribute_list[0] if len(attribute_list) > 0 else ""
-
+        for key, provider_keys in attribute_mapping.items():
+            if isinstance(provider_keys, str):
+                provider_keys = [provider_keys]
+            for provider_key in provider_keys:
+                attribute_list = raw_attributes.get(provider_key, [""])
+                if len(attribute_list) > 0:
+                    attributes[key] = attribute_list[0]
+                    break
         # TODO email_verified 'true' -> True
         return attributes
 

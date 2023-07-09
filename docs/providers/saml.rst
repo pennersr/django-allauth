@@ -69,6 +69,8 @@ via the Django admin as well:
                     # `SocialApp.settings`:
                     "settings": {
                         # Mapping account attributes to upstream (IdP specific) attributes.
+                        # If left empty, an attempt will be done to map the attributes using
+                        # built-in defaults.
                         "attribute_mapping": {
                             "uid": "http://schemas.auth0.com/clientID",
                             "email_verified": "http://schemas.auth0.com/email_verified",

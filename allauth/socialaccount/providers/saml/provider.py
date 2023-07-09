@@ -21,6 +21,9 @@ class SAMLProvider(Provider):
             "urn:oid:0.9.2342.19200300.100.1.3",
             "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress",
         ],
+        "email_verified": [
+            "http://schemas.auth0.com/email_verified",
+        ],
         "first_name": [
             "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname",
             "urn:oid:2.5.4.42",
@@ -74,7 +77,10 @@ class SAMLProvider(Provider):
                 if len(attribute_list) > 0:
                     attributes[key] = attribute_list[0]
                     break
-        # TODO email_verified 'true' -> True
+        email_verified = attributes.get("email_verified")
+        if email_verified:
+            email_verified = email_verified.lower() in ["true", "1", "t", "y", "yes"]
+            attributes["email_verified"] = email_verified
         return attributes
 
 

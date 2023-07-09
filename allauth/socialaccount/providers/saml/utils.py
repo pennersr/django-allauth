@@ -64,7 +64,7 @@ def fetch_metadata_url_config(idp_config):
         cache.set(
             cache_key,
             saml_config,
-            idp_config.get("metadata_request_timeout", 60 * 60 * 4),
+            idp_config.get("metadata_cache_timeout", 60 * 60 * 4),
         )
     return saml_config
 

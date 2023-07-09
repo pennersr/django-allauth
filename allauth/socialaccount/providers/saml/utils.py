@@ -1,7 +1,9 @@
+from django.core.cache import cache
 from django.http import Http404
 from django.urls import reverse
 
 from onelogin.saml2.constants import OneLogin_Saml2_Constants
+from onelogin.saml2.idp_metadata_parser import OneLogin_Saml2_IdPMetadataParser
 
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.models import SocialApp
@@ -31,7 +33,51 @@ def prepare_django_request(request):
     return result
 
 
+def build_sp_config(request, org):
+    acs_url = request.build_absolute_uri(reverse("saml_acs", args=[org]))
+    sls_url = request.build_absolute_uri(reverse("saml_sls", args=[org]))
+    metadata_url = request.build_absolute_uri(reverse("saml_metadata", args=[org]))
+    return {
+        "entityId": metadata_url,
+        "assertionConsumerService": {
+            "url": acs_url,
+            "binding": OneLogin_Saml2_Constants.BINDING_HTTP_POST,
+        },
+        "singleLogoutService": {
+            "url": sls_url,
+            "binding": OneLogin_Saml2_Constants.BINDING_HTTP_REDIRECT,
+        },
+    }
+
+
+def fetch_metadata_url_config(idp_config):
+    metadata_url = idp_config["metadata_url"]
+    entity_id = idp_config["entity_id"]
+    cache_key = f"saml.metadata.{metadata_url}.{entity_id}"
+    saml_config = cache.get(cache_key)
+    if saml_config is None:
+        saml_config = OneLogin_Saml2_IdPMetadataParser.parse_remote(
+            metadata_url,
+            entity_id=entity_id,
+            timeout=idp_config.get("metadata_request_timeout", 10),
+        )
+        cache.set(
+            cache_key,
+            saml_config,
+            idp_config.get("metadata_request_timeout", 60 * 60 * 4),
+        )
+    return saml_config
+
+
 def build_saml_config(request, provider_config, org):
+    idp = provider_config.get("idp")
+
+    if idp is not None:
+        metadata_url = idp.get("metadata_url")
+        if metadata_url:
+            saml_config = fetch_metadata_url_config(idp)
+            saml_config["sp"] = build_sp_config(request, org)
+            return saml_config
     avd = provider_config.get("advanced", {})
 
     security_config = {
@@ -49,26 +95,11 @@ def build_saml_config(request, provider_config, org):
         "wantMessagesSigned": avd.get("want_message_signed", False),
         "wantNameId": False,
     }
-    acs_url = request.build_absolute_uri(reverse("saml_acs", args=[org]))
-    sls_url = request.build_absolute_uri(reverse("saml_sls", args=[org]))
-    metadata_url = request.build_absolute_uri(reverse("saml_metadata", args=[org]))
     saml_config = {
         "strict": avd.get("strict", True),
-        "sp": {
-            "entityId": metadata_url,
-            "assertionConsumerService": {
-                "url": acs_url,
-                "binding": OneLogin_Saml2_Constants.BINDING_HTTP_POST,
-            },
-            "singleLogoutService": {
-                "url": sls_url,
-                "binding": OneLogin_Saml2_Constants.BINDING_HTTP_REDIRECT,
-            },
-        },
+        "sp": build_sp_config(request, org),
         "security": security_config,
     }
-
-    idp = provider_config.get("idp")
 
     if idp is not None:
         saml_config["idp"] = {

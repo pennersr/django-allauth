@@ -76,7 +76,13 @@ via the Django admin as well:
                         },
                         # The configuration of the IdP.
                         "idp": {
+                            # The entity ID of the IdP is required.
                             "entity_id": "urn:dev-123.us.auth0.com",
+
+                            # Then, you can either specify the IdP's metadata URL:
+                            "metadata_url": "https://dev-123.us.auth0.com/samlp/metadata/456",
+
+                            # Or, you can inline the IdP parameters here as follows:
                             "sso_url": "https://dev-123.us.auth0.com/samlp/456",
                             "slo_url": "https://dev-123.us.auth0.com/samlp/456",
                             "x509cert": """

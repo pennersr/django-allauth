@@ -165,6 +165,12 @@ def acs_saml_response():
 
 
 @pytest.fixture
+def sls_saml_request():
+    xml = "<dummy></dummy>"
+    return base64.b64encode(xml.encode("utf8")).decode("utf8")
+
+
+@pytest.fixture
 def mocked_signature_validation():
     with patch("onelogin.saml2.utils.OneLogin_Saml2_Utils.validate_sign") as mock:
         mock.return_value = True

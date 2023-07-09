@@ -1,4 +1,7 @@
+from unittest.mock import patch
+
 from django.urls import reverse
+from django.utils.http import urlencode
 
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.models import SocialAccount
@@ -43,4 +46,18 @@ def test_metadata(
     assert resp.status_code == 200
     assert resp.content.startswith(
         b'<?xml version="1.0"?>\n<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata'
+    )
+
+
+def test_sls(auth_client, db, saml_settings, user_factory, sls_saml_request):
+    with patch("allauth.account.adapter.DefaultAccountAdapter.logout") as logout_mock:
+        resp = auth_client.get(
+            reverse("saml_sls", kwargs={"organization_slug": "org"})
+            + "?"
+            + urlencode({"SAMLRequest": sls_saml_request})
+        )
+        assert logout_mock.call_count == 1
+    assert resp.status_code == 302
+    assert resp["location"].startswith(
+        "https://dev-123.us.auth0.com/samlp/456?SAMLResponse="
     )

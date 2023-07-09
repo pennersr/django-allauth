@@ -20,3 +20,27 @@ def test_acs(client, db, saml_settings, acs_saml_response, mocked_signature_vali
 
     email = EmailAddress.objects.get(user=account.user)
     assert email.email == "john.doe@email.org"
+
+
+def test_login(
+    client,
+    db,
+    saml_settings,
+):
+    resp = client.get(reverse("saml_login", kwargs={"organization_slug": "org"}))
+    assert resp.status_code == 302
+    assert resp["location"].startswith(
+        "https://dev-123.us.auth0.com/samlp/456?SAMLRequest="
+    )
+
+
+def test_metadata(
+    client,
+    db,
+    saml_settings,
+):
+    resp = client.get(reverse("saml_metadata", kwargs={"organization_slug": "org"}))
+    assert resp.status_code == 200
+    assert resp.content.startswith(
+        b'<?xml version="1.0"?>\n<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata'
+    )

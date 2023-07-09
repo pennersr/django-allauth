@@ -31,10 +31,7 @@ class SAMLProvider(Provider):
         The `uid` is not unique across different SAML IdP's. Therefore,
         we're using a fully qualified ID: <uid>@<entity_id>.
         """
-        uid = self._extract(data)["uid"]
-        entity_id = self.app.provider_id
-        fq_uid = f"{uid}@{entity_id}"
-        return fq_uid
+        return self._extract(data)["uid"]
 
     def extract_common_fields(self, data):
         ret = self._extract(data)

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-16 04:15-0500\n"
-"PO-Revision-Date: 2021-05-26 16:13+0058\n"
+"PO-Revision-Date: 2023-07-11 15:22+0200\n"
 "Last-Translator: b'Erik Telepovsky <erik@pragmaticmates.com>'\n"
 "Language-Team: \n"
 "Language: sk\n"
@@ -344,17 +344,15 @@ msgstr "Tento účet je neaktívny."
 
 #: templates/account/base.html:15
 msgid "Messages:"
-msgstr ""
+msgstr "Správy:"
 
 #: templates/account/base.html:25
 msgid "Menu:"
-msgstr ""
+msgstr "Menu:"
 
 #: templates/account/base.html:28
-#, fuzzy
-#| msgid "E-mail"
 msgid "Change E-mail"
-msgstr "E-mail"
+msgstr "Zmeniť e-mail"
 
 #: templates/account/base.html:29 templates/account/logout.html:5
 #: templates/account/logout.html:8 templates/account/logout.html:17
@@ -446,10 +444,20 @@ msgid ""
 "\n"
 "%(password_reset_url)s"
 msgstr ""
+"Tento e-mail ste dostali, pretože ste sa Vy, alebo niekto iný\n"
+"pokúšali vytvoriť účet pre e-mailovu adresu:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"Účet s touto e-mailovou adresou už však existuje.  V prípade,\n"
+"že ste na svoju registráciu zabudli, použite prosím funkciu obnovy hesla k "
+"Vášmu účtu:\n"
+"\n"
+"%(password_reset_url)s"
 
 #: templates/account/email/account_already_exists_subject.txt:3
 msgid "Account Already Exists"
-msgstr ""
+msgstr "Účet už existuje"
 
 #: templates/account/email/base_message.txt:1
 #, python-format
@@ -504,12 +512,6 @@ msgid "Password Reset E-mail"
 msgstr "E-mail pre obnovu hesla"
 
 #: templates/account/email/unknown_account_message.txt:4
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
 msgid ""
 "You are receiving this e-mail because you or someone else has requested a\n"
 "password for your user account. However, we do not have any record of a "
@@ -520,9 +522,14 @@ msgid ""
 "\n"
 "If it was you, you can sign up for an account using the link below."
 msgstr ""
-"Tento e-mail ste dostali, pretože niekto požiadal o heslo k Vášmu "
-"používateľskému účtu. Ak ste to neboli Vy, správu môžete pokojne ignorovať. "
-"Odkaz nižšie obnoví heslo."
+"Tento e-mail ste dostali, pretože niekto požiadal o heslo k Vášmu\n"
+"používateľskému účtu. V našej databáze však nemáme žiadny záznam o "
+"používateľovi\n"
+"s e-mailom %(email)s.\n"
+"\n"
+"Ak ste nežidali o obnovenie hesla, môžete tento e-mail pokojne ignorovať.\n"
+"\n"
+"Ak ste to boli Vy, môžete si zaregistrovať účet pomocou odkazu nižšie."
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
@@ -665,17 +672,12 @@ msgstr ""
 "Prosím, kontaktujte nás, ak máte nejaký problém s obnovením svojho hesla."
 
 #: templates/account/password_reset_done.html:15
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent you an e-mail. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
 msgstr ""
-"Bol vám zaslaný e-mail s overovacím odkazom. Ak  ste v priebehu pár minút "
-"žiaden neobdržali, kontaktujte nás."
+"Poslali sme vám e-mail.  Ak ste ho nedostali, skontrolujte si priečinok "
+"so spamom.  Ak ste v priebehu pár minút žiaden neobdržali, kontaktujte nás."
 
 #: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -741,20 +743,15 @@ msgid "Verify Your E-mail Address"
 msgstr "Potvrďte e-mailovú adresu"
 
 #: templates/account/verification_sent.html:10
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for verification. Follow the link provided "
-#| "to finalize the signup process. Please contact us if you do not receive "
-#| "it within a few minutes."
 msgid ""
 "We have sent an e-mail to you for verification. Follow the link provided to "
 "finalize the signup process. If you do not see the verification e-mail in "
 "your main inbox, check your spam folder. Please contact us if you do not "
 "receive the verification e-mail within a few minutes."
 msgstr ""
-"Bol vám zaslaný overovací e-mail. Pre dokončenie registrácie použite "
-"overovací odkaz. Ak ste v priebehu pár minút žiaden neobdržali, kontaktujte "
-"nás."
+"Poslali sme Vám overovací e-mail. Kliknutím na uvedený odkaz dokončite "
+"proces registrácie. Ak ste ho nedostali, skontrolujte si priečinok so spamom. "
+"V prípade, že do niekoľkých minút nedostanete overovací e-mail, kontaktujte nás."
 
 #: templates/account/verified_email_required.html:12
 msgid ""
@@ -766,11 +763,6 @@ msgstr ""
 "adresy. "
 
 #: templates/account/verified_email_required.html:16
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent an e-mail to you for\n"
 "verification. Please click on the link inside that e-mail. If you do not see "
@@ -778,8 +770,9 @@ msgid ""
 "Otherwise\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
-"Bol vám zaslaný e-mail s overovacím odkazom. Ak  ste v priebehu pár minút "
-"žiaden neobdržali, kontaktujte nás."
+"Poslali sme Vám overovací e-mail.\n"
+"Kliknite prosím na odkaz v e-maili.\n"
+"V prípade, že ho do niekoľkých minút nedostanete, kontaktujte nás."
 
 #: templates/account/verified_email_required.html:20
 #, python-format
@@ -822,31 +815,31 @@ msgstr "Momentálne nemáte pripojený žiaden sociálny účet."
 
 #: templates/socialaccount/connections.html:46
 msgid "Add a 3rd Party Account"
-msgstr "Pridaj účet"
+msgstr "Pridajte účet tretej strany"
 
 #: templates/socialaccount/login.html:8
 #, python-format
 msgid "Connect %(provider)s"
-msgstr ""
+msgstr "Prepojiť s %(provider)s"
 
 #: templates/socialaccount/login.html:10
 #, python-format
 msgid "You are about to connect a new third party account from %(provider)s."
-msgstr ""
+msgstr "Chystáte sa prepojiť nový účet tretej strany %(provider)s."
 
 #: templates/socialaccount/login.html:12
 #, python-format
 msgid "Sign In Via %(provider)s"
-msgstr ""
+msgstr "Prihlásiť sa cez %(provider)s."
 
 #: templates/socialaccount/login.html:14
 #, python-format
 msgid "You are about to sign in using a third party account from %(provider)s."
-msgstr ""
+msgstr "Chystáte sa registrovať cez účet tretej strany %(provider)s."
 
 #: templates/socialaccount/login.html:19
 msgid "Continue"
-msgstr ""
+msgstr "Pokračovať"
 
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9

@@ -6,6 +6,7 @@ from django.test.utils import override_settings
 from django.urls import reverse
 
 from allauth.account.models import EmailAddress
+from allauth.account.utils import user_email
 from allauth.tests import TestCase
 from allauth.utils import get_user_model
 
@@ -198,3 +199,42 @@ class ChangeEmailTests(TestCase):
         self,
     ):
         self.test_set_email_as_primary_doesnt_override_existed_changes_on_the_user()
+
+
+def test_delete_email_changes_user_email(user_factory, client, email_factory):
+    user = user_factory(email_verified=False)
+    client.force_login(user)
+    first_email = EmailAddress.objects.get(user=user)
+    first_email.primary = False
+    first_email.save()
+    # other_unverified_email
+    EmailAddress.objects.create(
+        user=user, email=email_factory(), verified=False, primary=False
+    )
+    other_verified_email = EmailAddress.objects.create(
+        user=user, email=email_factory(), verified=True, primary=False
+    )
+    assert user_email(user) == first_email.email
+    resp = client.post(
+        reverse("account_email"),
+        {"action_remove": "", "email": first_email.email},
+    )
+    assert resp.status_code == 302
+    user.refresh_from_db()
+    assert user_email(user) == other_verified_email.email
+
+
+def test_delete_email_wipes_user_email(user_factory, client, email_factory):
+    user = user_factory(email_verified=False)
+    client.force_login(user)
+    first_email = EmailAddress.objects.get(user=user)
+    first_email.primary = False
+    first_email.save()
+    assert user_email(user) == first_email.email
+    resp = client.post(
+        reverse("account_email"),
+        {"action_remove": "", "email": first_email.email},
+    )
+    assert resp.status_code == 302
+    user.refresh_from_db()
+    assert user_email(user) == ""

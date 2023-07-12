@@ -506,7 +506,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                     {"email": email_address.email},
                 )
             else:
-                email_address.delete()
+                email_address.remove()
                 signals.email_removed.send(
                     sender=request.user.__class__,
                     request=request,

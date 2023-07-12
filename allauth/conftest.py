@@ -8,8 +8,10 @@ from allauth.utils import get_user_model
 
 
 @pytest.fixture
-def user_factory(email_factory):
-    def factory(email=None, username=None, commit=True, with_email=True):
+def user_factory(db, email_factory):
+    def factory(
+        email=None, username=None, commit=True, with_email=True, email_verified=True
+    ):
         if not username:
             username = uuid.uuid4().hex
 
@@ -24,7 +26,7 @@ def user_factory(email_factory):
             user.save()
             if email:
                 EmailAddress.objects.create(
-                    user=user, email=email, verified=True, primary=True
+                    user=user, email=email, verified=email_verified, primary=True
                 )
 
         return user

@@ -88,6 +88,19 @@ class EmailAddress(models.Model):
         confirmation.send(request, signup=signup)
         return confirmation
 
+    def remove(self):
+        self.delete()
+        if user_email(self.user) == self.email:
+            alt = (
+                EmailAddress.objects.filter(user=self.user)
+                .order_by("-verified")
+                .first()
+            )
+            alt_email = ""
+            if alt:
+                alt_email = alt.email
+            user_email(self.user, alt_email, commit=True)
+
 
 class EmailConfirmation(models.Model):
     email_address = models.ForeignKey(

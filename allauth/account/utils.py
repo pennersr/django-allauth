@@ -85,7 +85,7 @@ def user_display(user):
     return _user_display_callable(user)
 
 
-def user_field(user, field, *args):
+def user_field(user, field, *args, commit=False):
     """
     Gets or sets (optional) user model fields. No-op if fields do not exist.
     """
@@ -105,19 +105,21 @@ def user_field(user, field, *args):
         if v:
             v = v[0:max_length]
         setattr(user, field, v)
+        if commit:
+            user.save(update_fields=[field])
     else:
         # Getter
         return getattr(user, field)
 
 
-def user_username(user, *args):
+def user_username(user, *args, commit=False):
     if args and not app_settings.PRESERVE_USERNAME_CASING and args[0]:
         args = [args[0].lower()]
     return user_field(user, app_settings.USER_MODEL_USERNAME_FIELD, *args)
 
 
-def user_email(user, *args):
-    return user_field(user, app_settings.USER_MODEL_EMAIL_FIELD, *args)
+def user_email(user, *args, commit=False):
+    return user_field(user, app_settings.USER_MODEL_EMAIL_FIELD, *args, commit=commit)
 
 
 def has_verified_email(user, email=None):

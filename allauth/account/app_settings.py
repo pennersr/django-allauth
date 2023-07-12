@@ -377,11 +377,9 @@ class AppSettings(object):
         return token_generator
 
 
-# Ugly? Guido recommends this himself ...
-# http://mail.python.org/pipermail/python-ideas/2012-May/014969.html
-import sys  # noqa
+_app_settings = AppSettings("ACCOUNT_")
 
 
-app_settings = AppSettings("ACCOUNT_")
-app_settings.__name__ = __name__
-sys.modules[__name__] = app_settings
+def __getattr__(name):
+    # See https://peps.python.org/pep-0562/
+    return getattr(_app_settings, name)

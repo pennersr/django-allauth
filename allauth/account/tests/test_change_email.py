@@ -5,7 +5,7 @@ import json
 from django.test.utils import override_settings
 from django.urls import reverse
 
-from allauth.account.models import EmailAddress
+from allauth.account.models import EmailAddress, EmailConfirmationHMAC
 from allauth.account.utils import user_email
 from allauth.tests import TestCase
 from allauth.utils import get_user_model
@@ -224,7 +224,7 @@ def test_delete_email_changes_user_email(user_factory, client, email_factory):
     assert user_email(user) == other_verified_email.email
 
 
-def test_delete_email_wipes_user_email(user_factory, client, email_factory):
+def test_delete_email_wipes_user_email(user_factory, client):
     user = user_factory(email_verified=False)
     client.force_login(user)
     first_email = EmailAddress.objects.get(user=user)
@@ -238,3 +238,23 @@ def test_delete_email_wipes_user_email(user_factory, client, email_factory):
     assert resp.status_code == 302
     user.refresh_from_db()
     assert user_email(user) == ""
+
+
+def test_change_email_with_max_1(user_factory, client, settings):
+    settings.ACCOUNT_MAX_EMAIL_ADDRESSES = 1
+    settings.ACCOUNT_EMAIL_CONFIRMATION_HMAC = True
+
+    user = user_factory(email_verified=False)
+    client.force_login(user)
+    current_email = EmailAddress.objects.get(user=user)
+    resp = client.post(
+        reverse("account_email"),
+        {"action_add": "", "email": "change-to@this.org"},
+    )
+    assert resp.status_code == 302
+    change_email = EmailAddress.objects.get(email="change-to@this.org")
+    key = EmailConfirmationHMAC(change_email).key
+    resp = client.post(reverse("account_confirm_email", args=[key]))
+    assert resp.status_code == 302
+    assert not EmailAddress.objects.filter(pk=current_email.pk).exists()
+    assert EmailAddress.objects.filter(user=user).count() == 1

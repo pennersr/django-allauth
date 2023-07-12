@@ -75,9 +75,7 @@ class EmailAddress(models.Model):
             old_primary.save()
         self.primary = True
         self.save()
-        user_email(self.user, self.email)
-        if app_settings.USER_MODEL_EMAIL_FIELD:
-            self.user.save(update_fields=[app_settings.USER_MODEL_EMAIL_FIELD])
+        user_email(self.user, self.email, commit=True)
         return True
 
     def send_confirmation(self, request=None, signup=False):

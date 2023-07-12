@@ -1,7 +1,9 @@
 import datetime
 
 from django.core import signing
-from django.db import models, transaction
+from django.db import models
+from django.db.models import Q
+from django.db.models.constraints import UniqueConstraint
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -13,14 +15,12 @@ from .utils import user_email
 
 
 class EmailAddress(models.Model):
-
     user = models.ForeignKey(
         allauth_app_settings.USER_MODEL,
         verbose_name=_("user"),
         on_delete=models.CASCADE,
     )
     email = models.EmailField(
-        unique=app_settings.UNIQUE_EMAIL,
         max_length=app_settings.EMAIL_MAX_LENGTH,
         verbose_name=_("e-mail address"),
     )
@@ -32,11 +32,39 @@ class EmailAddress(models.Model):
     class Meta:
         verbose_name = _("email address")
         verbose_name_plural = _("email addresses")
-        if not app_settings.UNIQUE_EMAIL:
-            unique_together = [("user", "email")]
+        unique_together = [("user", "email")]
+        if app_settings.UNIQUE_EMAIL:
+            constraints = [
+                UniqueConstraint(
+                    fields=["email"],
+                    name="unique_verified_email",
+                    condition=Q(verified=True),
+                )
+            ]
 
     def __str__(self):
         return self.email
+
+    def can_set_verified(self):
+        if self.verified:
+            return True
+        conflict = False
+        if app_settings.UNIQUE_EMAIL:
+            conflict = (
+                EmailAddress.objects.exclude(pk=self.pk)
+                .filter(verified=True, email__iexact=self.email)
+                .exists()
+            )
+        return not conflict
+
+    def set_verified(self, commit=True):
+        if self.verified:
+            return True
+        if self.can_set_verified():
+            self.verified = True
+            if commit:
+                self.save(update_fields=["verified"])
+        return self.verified
 
     def set_as_primary(self, conditional=False):
         old_primary = EmailAddress.objects.get_primary(self.user)
@@ -60,23 +88,8 @@ class EmailAddress(models.Model):
         confirmation.send(request, signup=signup)
         return confirmation
 
-    def change(self, request, new_email, confirm=True):
-        """
-        Given a new email address, change self and re-confirm.
-        """
-        with transaction.atomic():
-            user_email(self.user, new_email)
-            if app_settings.USER_MODEL_EMAIL_FIELD:
-                self.user.save(update_fields=[app_settings.USER_MODEL_EMAIL_FIELD])
-            self.email = new_email
-            self.verified = False
-            self.save()
-            if confirm:
-                self.send_confirmation(request)
-
 
 class EmailConfirmation(models.Model):
-
     email_address = models.ForeignKey(
         EmailAddress,
         verbose_name=_("e-mail address"),
@@ -111,13 +124,14 @@ class EmailConfirmation(models.Model):
     def confirm(self, request):
         if not self.key_expired() and not self.email_address.verified:
             email_address = self.email_address
-            get_adapter(request).confirm_email(request, email_address)
-            signals.email_confirmed.send(
-                sender=self.__class__,
-                request=request,
-                email_address=email_address,
-            )
-            return email_address
+            confirmed = get_adapter(request).confirm_email(request, email_address)
+            if confirmed:
+                signals.email_confirmed.send(
+                    sender=self.__class__,
+                    request=request,
+                    email_address=email_address,
+                )
+                return email_address
 
     def send(self, request=None, signup=False):
         get_adapter(request).send_confirmation_mail(request, self, signup)
@@ -156,13 +170,14 @@ class EmailConfirmationHMAC:
     def confirm(self, request):
         if not self.email_address.verified:
             email_address = self.email_address
-            get_adapter(request).confirm_email(request, email_address)
-            signals.email_confirmed.send(
-                sender=self.__class__,
-                request=request,
-                email_address=email_address,
-            )
-            return email_address
+            confirmed = get_adapter(request).confirm_email(request, email_address)
+            if confirmed:
+                signals.email_confirmed.send(
+                    sender=self.__class__,
+                    request=request,
+                    email_address=email_address,
+                )
+                return email_address
 
     def send(self, request=None, signup=False):
         get_adapter(request).send_confirmation_mail(request, self, signup)

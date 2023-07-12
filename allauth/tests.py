@@ -126,10 +126,13 @@ class BasicTests(TestCase):
             something=some_value,
             t=datetime.now().time(),
         )
-        content_file = ContentFile(b"%PDF")
-        content_file.name = "foo.pdf"
-        instance.img1 = content_file
-        instance.img2 = "foo.png"
+        instance.img1 = ContentFile(b"%PDF", name="foo.pdf")
+        instance.img2 = ContentFile(
+            b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x01\x00"
+            b"\x00\x00\x007n\xf9$\x00\x00\x00\nIDATx\x9cc`\x00\x00\x00\x02\x00\x01H\xaf"
+            b"\xa4q\x00\x00\x00\x00IEND\xaeB`\x82",
+            name="foo.png",
+        )
         # make sure serializer doesn't fail if a method is attached to
         # the instance
         instance.method = method
@@ -196,6 +199,14 @@ class BasicTests(TestCase):
 
     def test_templatetag_with_csrf_failure(self):
         # Generate a fictitious GET request
+        from allauth.socialaccount.models import SocialApp
+
+        app = SocialApp.objects.create(provider="google")
+        if app_settings.SITES_ENABLED:
+            from django.contrib.sites.models import Site
+
+            app.sites.add(Site.objects.get_current())
+
         request = self.factory.get("/tests/test_403_csrf.html")
         # Simulate a CSRF failure by calling the View directly
         # This template is using the `provider_login_url` templatetag

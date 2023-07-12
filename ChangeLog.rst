@@ -1,3 +1,75 @@
+0.55.0 (unreleased)
+*******************
+
+Note worthy changes
+-------------------
+
+- Introduced a new setting ``ACCOUNT_PASSWORD_RESET_TOKEN_GENERATOR`` that
+  allows you to specify the token generator for password resets.
+
+- Dropped support for Django 2.x and 3.0.
+
+- Officially support Django 4.2.
+
+- New provider: Miro.
+
+- It is now possible to manage OpenID Connect providers via the Django
+  admin. Simply add a `SocialApp` for each OpenID Connect provider.
+
+
+Security notice
+---------------
+
+- Even with account enumeration prevention in place, it was possible for a user
+  to infer whether or not a given account exists based by trying to add
+  secondary email addresses .  This has been fixed -- see the note on backwards
+  incompatible changes.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Data model changes: when ``ACCOUNT_UNIQUE_EMAIL=True`` (the default), there
+  was a unique constraint on set on the ``email`` field of the ``EmailAddress``
+  model. This constraint has been relaxed, now there is a unique constraint on
+  the combination of ``email`` and ``verified=True``. Migrations are in place to
+  automatically transition, but if you have a lot of accounts, you may need to
+  take special care using ``CREATE INDEX CONCURRENTLY``.
+
+- The method ``allauth.utils.email_address_exists()`` has been removed.
+
+- The Mozilla Persona provider has been removed. The project was shut down on
+  November 30th 2016.
+
+- A large internal refactor has been performed to be able to add support for
+  providers oferring one or more subproviders. This refactor has the following
+  impact:
+
+  - The provider registry methods ``get_list()``, ``by_id()`` have been
+    removed. The registry now only providers access to the provider classes, not
+    the instances.
+
+  - ``provider.get_app()`` has been removed -- use ``provider.app`` instead.
+
+  - ``SocialApp.objects.get_current()`` has been removed.
+
+  - The ``SocialApp`` model now has additional fields ``provider_id``, and
+    ``settings``.
+
+  - The OpenID Connect provider ``SOCIALACCOUNT_PROVIDERS`` settings structure
+    changed.  Instead of the OpenID Connect specific ``SERVERS`` construct, it
+    now uses the regular ``APPS`` approach. Please refer to the OpenID Connect
+    provider documentation for details.
+
+  - The Telegram provider settings structure, it now requires to app. Please
+    refer to the Telegram provider documentation for details.
+
+- The Facebook provider loaded the Facebook connect ``sdk.js`` regardless of the
+  value of the ``METHOD`` setting. To prevent tracking, now it only loads the
+  Javascript if ``METHOD`` is explicitly set to ``"js_sdk"``.
+
+
+
 0.54.0 (2023-03-31)
 *******************
 

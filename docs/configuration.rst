@@ -159,6 +159,12 @@ ACCOUNT_LOGOUT_REDIRECT_URL (=`settings.LOGOUT_REDIRECT_URL or "/"`)
 ACCOUNT_PASSWORD_INPUT_RENDER_VALUE (=False)
   ``render_value`` parameter as passed to ``PasswordInput`` fields.
 
+ACCOUNT_PASSWORD_RESET_TOKEN_GENERATOR (=allauth.account.forms.EmailAwarePasswordResetTokenGenerator)
+  A string pointing to a custom token generator
+  (e.g. 'myapp.auth.CustomTokenGenerator') for password resets. This class
+  should implement the same methods as
+  ``django.contrib.auth.tokens.PasswordResetTokenGenerator`` or subclass it.
+
 ACCOUNT_PRESERVE_USERNAME_CASING (=True)
   This setting determines whether the username is stored in lowercase
   (``False``) or whether its casing is to be preserved (``True``). Note that when

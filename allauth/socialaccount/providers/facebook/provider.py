@@ -61,9 +61,9 @@ class FacebookProvider(OAuth2Provider):
     name = "Facebook"
     account_class = FacebookAccount
 
-    def __init__(self, request):
+    def __init__(self, *args, **kwargs):
         self._locale_callable_cache = None
-        super(FacebookProvider, self).__init__(request)
+        super().__init__(*args, **kwargs)
 
     def get_method(self):
         return self.get_settings().get("METHOD", "oauth2")
@@ -154,25 +154,17 @@ class FacebookProvider(OAuth2Provider):
         return sdk_url
 
     def media_js(self, request):
-        # NOTE: Avoid loading models at top due to registry boot...
-        from allauth.socialaccount.models import SocialApp
-
-        try:
-            app = self.get_app(request)
-        except SocialApp.DoesNotExist:
-            # It's a problem that Facebook isn't configured; but don't raise
-            # an error. Other providers don't raise errors when they're missing
-            # SocialApps in media_js().
+        if self.get_method() != "js_sdk":
             return ""
 
         def abs_uri(name):
             return request.build_absolute_uri(reverse(name))
 
         fb_data = {
-            "appId": app.client_id,
+            "appId": self.app.client_id,
             "version": GRAPH_API_VERSION,
             "sdkUrl": self.get_sdk_url(request),
-            "initParams": self.get_init_params(request, app),
+            "initParams": self.get_init_params(request, self.app),
             "loginOptions": self.get_fb_login_options(request),
             "loginByTokenUrl": abs_uri("facebook_login_by_token"),
             "cancelUrl": abs_uri("socialaccount_login_cancelled"),

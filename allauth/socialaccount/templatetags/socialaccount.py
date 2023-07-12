@@ -1,7 +1,7 @@
 from django import template
 from django.template.defaulttags import token_kwargs
 
-from allauth.socialaccount import providers
+from allauth.socialaccount.adapter import get_adapter
 from allauth.utils import get_request_param
 
 
@@ -14,9 +14,11 @@ class ProviderLoginURLNode(template.Node):
         self.params = params
 
     def render(self, context):
-        provider_id = self.provider_id_var.resolve(context)
+        provider = self.provider_id_var.resolve(context)
         request = context.get("request")
-        provider = providers.registry.by_id(provider_id, request)
+        if isinstance(provider, str):
+            adapter = get_adapter(request)
+            provider = adapter.get_provider(request, provider)
         query = dict(
             [(str(name), var.resolve(context)) for name, var in self.params.items()]
         )
@@ -55,9 +57,8 @@ def provider_login_url(parser, token):
 class ProvidersMediaJSNode(template.Node):
     def render(self, context):
         request = context["request"]
-        ret = "\n".join(
-            p.media_js(request) for p in providers.registry.get_list(request)
-        )
+        providers = get_adapter(request).list_providers(request)
+        ret = "\n".join(p.media_js(request) for p in providers)
         return ret
 
 
@@ -83,8 +84,8 @@ def get_social_accounts(user):
     return accounts
 
 
-@register.simple_tag
-def get_providers():
+@register.simple_tag(takes_context=True)
+def get_providers(context):
     """
     Returns a list of social authentication providers.
 
@@ -93,4 +94,7 @@ def get_providers():
     Then within the template context, `socialaccount_providers` will hold
     a list of social providers configured for the current site.
     """
-    return providers.registry.get_list()
+    request = context["request"]
+    adapter = get_adapter(request)
+    providers = adapter.list_providers(request)
+    return sorted(providers, key=lambda p: p.name)

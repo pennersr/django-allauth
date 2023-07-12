@@ -746,7 +746,7 @@ msgstr "Já tem uma conta? Por favor <a href=\"%(login_url)s\">entre</a>."
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:8
 msgid "Sign Up Closed"
-msgstr "Resgitos fechados"
+msgstr "Registos fechados"
 
 #: templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."

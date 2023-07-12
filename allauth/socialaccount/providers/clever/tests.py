@@ -39,6 +39,7 @@ class CleverOAuth2Tests(OAuth2TestsMixin, TestCase):
                 200,
                 """{
                 "data": {
+                "id": "62027798269867124d10259e",
                   "roles": {
                 "district_admin": {},
                 "contact": {}

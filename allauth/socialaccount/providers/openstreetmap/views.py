@@ -12,7 +12,6 @@ from .provider import OpenStreetMapProvider
 
 
 class OpenStreetMapAPI(OAuth):
-
     url = "https://www.openstreetmap.org/api/0.6/user/details"
 
     def get_user_info(self):

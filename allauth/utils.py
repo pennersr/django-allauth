@@ -11,6 +11,7 @@ from urllib.parse import urlsplit
 import django
 from django.contrib.auth import get_user_model
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
+from django.core.files.base import ContentFile
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.validators import ValidationError, validate_email
 from django.db.models import FileField
@@ -132,24 +133,6 @@ def valid_email_or_none(email):
     return ret
 
 
-def email_address_exists(email, exclude_user=None):
-    from .account import app_settings as account_settings
-    from .account.models import EmailAddress
-
-    emailaddresses = EmailAddress.objects
-    if exclude_user:
-        emailaddresses = emailaddresses.exclude(user=exclude_user)
-    ret = emailaddresses.filter(email__iexact=email).exists()
-    if not ret:
-        email_field = account_settings.USER_MODEL_EMAIL_FIELD
-        if email_field:
-            users = get_user_model().objects
-            if exclude_user:
-                users = users.exclude(pk=exclude_user.pk)
-            ret = users.filter(**{email_field + "__iexact": email}).exists()
-    return ret
-
-
 def import_attribute(path):
     assert isinstance(path, str)
     pkg, attr = path.rsplit(".", 1)
@@ -186,7 +169,10 @@ def serialize_instance(instance):
                 v = force_str(base64.b64encode(v))
             elif isinstance(field, FileField):
                 if v and not isinstance(v, str):
-                    v = v.name
+                    v = {
+                        "name": v.name,
+                        "content": base64.b64encode(v.read()).decode("ascii"),
+                    }
             # Check if the field is serializable. If not, we'll fall back
             # to serializing the DB values which should cover most use cases.
             try:
@@ -218,6 +204,9 @@ def deserialize_instance(model, data):
                     v = dateparse.parse_date(v)
                 elif isinstance(f, BinaryField):
                     v = force_bytes(base64.b64decode(force_bytes(v)))
+                elif isinstance(f, FileField):
+                    if isinstance(v, dict):
+                        v = ContentFile(base64.b64decode(v["content"]), name=v["name"])
                 elif is_db_value:
                     try:
                         # This is quite an ugly hack, but will cover most

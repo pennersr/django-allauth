@@ -8,7 +8,7 @@ HTTPS
 This app currently provides no functionality for enforcing views to be
 HTTPS only, or switching from HTTP to HTTPS (and back) on demand.
 There are third party packages aimed at providing precisely this,
-so please use these.
+so please use those.
 
 What is provided is the following:
 
@@ -221,10 +221,14 @@ every instance of ``AdminSite``):
 
 .. code-block:: python
 
+    from django.conf import settings
     from django.contrib import admin
-    from django.contrib.auth.decorators import login_required
+    from django.contrib.admin.views.decorators import staff_member_required
 
-    admin.site.login = login_required(admin.site.login)
+    admin.site.login = staff_member_required(
+        admin.site.login, login_url=settings.LOGIN_URL
+    )
+
 
 Customizing providers
 ---------------------

@@ -22,15 +22,25 @@ class KeycloakOAuth2Adapter(OpenIDConnectAdapter):
     @property
     def access_token_url(self):
         return "{0}/protocol/openid-connect/token".format(
-            self.get_provider()._server_url
+            self.get_provider().base_server_url
         )
 
     @property
     def profile_url(self):
         return "{0}/protocol/openid-connect/userinfo".format(
-            self.get_provider()._server_url
+            self.get_provider().base_server_url
         )
 
 
-oauth2_login = OAuth2LoginView.adapter_view(KeycloakOAuth2Adapter)
-oauth2_callback = OAuth2CallbackView.adapter_view(KeycloakOAuth2Adapter)
+def oauth2_login(request):
+    view = OAuth2LoginView.adapter_view(
+        KeycloakOAuth2Adapter(request, KeycloakProvider.id)
+    )
+    return view(request)
+
+
+def oauth2_callback(request):
+    view = OAuth2CallbackView.adapter_view(
+        KeycloakOAuth2Adapter(request, KeycloakProvider.id)
+    )
+    return view(request)

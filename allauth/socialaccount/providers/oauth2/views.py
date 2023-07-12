@@ -9,7 +9,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 from allauth.exceptions import ImmediateHttpResponse
-from allauth.socialaccount import providers
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.helpers import (
     complete_social_login,
     render_authentication_error,
@@ -43,7 +43,9 @@ class OAuth2Adapter(object):
         self.request = request
 
     def get_provider(self):
-        return providers.registry.by_id(self.provider_id, self.request)
+        return get_adapter(self.request).get_provider(
+            self.request, provider=self.provider_id
+        )
 
     def complete_login(self, request, app, access_token, **kwargs):
         """
@@ -76,7 +78,10 @@ class OAuth2View(object):
         def view(request, *args, **kwargs):
             self = cls()
             self.request = request
-            self.adapter = adapter(request)
+            if not isinstance(adapter, OAuth2Adapter):
+                self.adapter = adapter(request)
+            else:
+                self.adapter = adapter
             try:
                 return self.dispatch(request, *args, **kwargs)
             except ImmediateHttpResponse as e:
@@ -106,7 +111,7 @@ class OAuth2View(object):
 class OAuth2LoginView(OAuthLoginMixin, OAuth2View):
     def login(self, request, *args, **kwargs):
         provider = self.adapter.get_provider()
-        app = provider.get_app(self.request)
+        app = provider.app
         client = self.get_client(request, app)
         action = request.GET.get("action", AuthAction.AUTHENTICATE)
         auth_url = self.adapter.authorize_url
@@ -137,7 +142,7 @@ class OAuth2CallbackView(OAuth2View):
             return render_authentication_error(
                 request, self.adapter.provider_id, error=error
             )
-        app = self.adapter.get_provider().get_app(self.request)
+        app = self.adapter.get_provider().app
         client = self.get_client(self.request, app)
 
         try:

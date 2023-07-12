@@ -1,6 +1,7 @@
-# -*- coding: utf-8 -*-
+from django.urls import reverse
+from django.utils.http import urlencode
+
 from allauth.account.models import EmailAddress
-from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -14,25 +15,40 @@ class OpenIDConnectProviderAccount(ProviderAccount):
 class OpenIDConnectProvider(OAuth2Provider):
     id = "openid_connect"
     name = "OpenID Connect"
-    _server_id = None
-    _server_url = None
     account_class = OpenIDConnectProviderAccount
 
     @property
+    def name(self):
+        return self.app.name
+
+    @property
     def server_url(self):
+        url = self.app.settings["server_url"]
+        return self.wk_server_url(url)
+
+    def wk_server_url(self, url):
         well_known_uri = "/.well-known/openid-configuration"
-        url = self._server_url
         if not url.endswith(well_known_uri):
             url += well_known_uri
         return url
 
+    def get_login_url(self, request, **kwargs):
+        url = reverse(
+            self.app.provider + "_login", kwargs={"provider_id": self.app.provider_id}
+        )
+        if kwargs:
+            url = url + "?" + urlencode(kwargs)
+        return url
+
+    def get_callback_url(self):
+        return reverse(
+            self.app.provider + "_callback",
+            kwargs={"provider_id": self.app.provider_id},
+        )
+
     @property
     def token_auth_method(self):
-        return app_settings.PROVIDERS.get(self.id, {}).get("token_auth_method")
-
-    @classmethod
-    def get_slug(cls):
-        return cls._server_id or super().get_slug()
+        return self.app.settings.get("token_auth_method")
 
     def get_default_scope(self):
         return ["openid", "profile", "email"]
@@ -63,27 +79,4 @@ class OpenIDConnectProvider(OAuth2Provider):
         return addresses
 
 
-def _provider_factory(server_settings):
-    class OpenIDConnectProviderServer(OpenIDConnectProvider):
-        name = server_settings.get("name", OpenIDConnectProvider.name)
-        id = server_settings["id"]
-        _server_id = server_settings["id"]
-        _server_url = server_settings["server_url"]
-
-        def get_app(self, request, config=None):
-            return super().get_app(request, config=server_settings.get("APP"))
-
-    OpenIDConnectProviderServer.__name__ = (
-        "OpenIDConnectProviderServer_" + server_settings["id"]
-    )
-    app_settings.PROVIDERS.setdefault(OpenIDConnectProviderServer.id, {})
-    app_settings.PROVIDERS[OpenIDConnectProviderServer.id].update(server_settings)
-    return OpenIDConnectProviderServer
-
-
-provider_classes = [
-    _provider_factory(server_settings)
-    for server_settings in app_settings.PROVIDERS.get(OpenIDConnectProvider.id, {}).get(
-        "SERVERS", []
-    )
-]
+provider_classes = [OpenIDConnectProvider]

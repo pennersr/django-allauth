@@ -2,6 +2,7 @@ import html
 import json
 import warnings
 from datetime import timedelta
+from urllib.parse import urlparse
 
 from django import forms
 from django.conf import settings
@@ -31,7 +32,6 @@ from allauth.account import signals
 from allauth.account.app_settings import EmailVerificationMethod
 from allauth.utils import (
     build_absolute_uri,
-    email_address_exists,
     generate_unique_username,
     get_user_model,
     import_attribute,
@@ -41,7 +41,6 @@ from . import app_settings
 
 
 class DefaultAccountAdapter(object):
-
     error_messages = {
         "username_blacklisted": _(
             "Username can not be used. Please use other username."
@@ -307,7 +306,9 @@ class DefaultAccountAdapter(object):
         return password
 
     def validate_unique_email(self, email):
-        if email_address_exists(email):
+        from .models import EmailAddress
+
+        if EmailAddress.objects.is_verified(email):
             raise forms.ValidationError(self.error_messages["email_taken"])
         return email
 
@@ -473,9 +474,11 @@ class DefaultAccountAdapter(object):
         """
         Marks the email address as confirmed on the db
         """
-        email_address.verified = True
+        if not email_address.set_verified(commit=False):
+            return False
         email_address.set_as_primary(conditional=True)
-        email_address.save()
+        email_address.save(update_fields=["verified", "primary"])
+        return True
 
     def set_password(self, user, password):
         user.set_password(password)
@@ -501,7 +504,15 @@ class DefaultAccountAdapter(object):
                 is_safe_url as url_has_allowed_host_and_scheme,
             )
 
-        return url_has_allowed_host_and_scheme(url, allowed_hosts=None)
+        # get_host already validates the given host, so no need to check it again
+        allowed_hosts = {self.request.get_host()} | set(settings.ALLOWED_HOSTS)
+
+        if "*" in allowed_hosts:
+            parsed_host = urlparse(url).netloc
+            allowed_host = {parsed_host} if parsed_host else None
+            return url_has_allowed_host_and_scheme(url, allowed_hosts=allowed_host)
+
+        return url_has_allowed_host_and_scheme(url, allowed_hosts=allowed_hosts)
 
     def get_email_confirmation_url(self, request, emailconfirmation):
         """Constructs the email confirmation (activation) url.
@@ -532,6 +543,20 @@ class DefaultAccountAdapter(object):
                 email_address=email_address,
             ).exists()
         return send_email
+
+    def send_account_already_exists_mail(self, email):
+        signup_url = build_absolute_uri(self.request, reverse("account_signup"))
+        password_reset_url = build_absolute_uri(
+            self.request, reverse("account_reset_password")
+        )
+        context = {
+            "request": self.request,
+            "current_site": get_current_site(self.request),
+            "email": email,
+            "signup_url": signup_url,
+            "password_reset_url": password_reset_url,
+        }
+        self.send_mail("account/email/account_already_exists", email, context)
 
     def send_confirmation_mail(self, request, emailconfirmation, signup):
         current_site = get_current_site(request)

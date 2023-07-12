@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.utils.http import urlencode
 from django.views.decorators.csrf import csrf_exempt
 
-from allauth.socialaccount import providers
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.helpers import (
     complete_social_login,
     render_authentication_error,
@@ -26,7 +26,7 @@ AUTHORIZE_URL = "http://api.draugiem.lv/authorize"
 
 
 def login(request):
-    app = providers.registry.by_id(DraugiemProvider.id, request).get_app(request)
+    app = get_adapter(request).get_app(request, DraugiemProvider.id)
     redirect_url = request.build_absolute_uri(reverse(callback))
     redirect_url_hash = md5((app.secret + redirect_url).encode("utf-8")).hexdigest()
     params = {
@@ -58,7 +58,7 @@ def callback(request):
     ret = None
     auth_exception = None
     try:
-        app = providers.registry.by_id(DraugiemProvider.id, request).get_app(request)
+        app = get_adapter(request).get_app(request, DraugiemProvider.id)
         login = draugiem_complete_login(request, app, request.GET["dr_auth_code"])
         login.state = SocialLogin.unstash_state(request)
 
@@ -75,7 +75,7 @@ def callback(request):
 
 
 def draugiem_complete_login(request, app, code):
-    provider = providers.registry.by_id(DraugiemProvider.id, request)
+    provider = get_adapter(request).get_provider(request, DraugiemProvider.id)
     response = requests.get(
         ACCESS_TOKEN_URL,
         {"action": "authorize", "app": app.secret, "code": code},

@@ -40,7 +40,7 @@ class TwitterProvider(OAuthProvider):
         return url
 
     def extract_uid(self, data):
-        return data["id"]
+        return str(data["id"])
 
     def extract_common_fields(self, data):
         return dict(

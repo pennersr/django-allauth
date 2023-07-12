@@ -245,11 +245,9 @@ class SignupView(
         return ret
 
     def form_valid(self, form):
-        self.user = form.save(self.request)
-        if not self.user:
-            return get_adapter(self.request).respond_email_verification_sent(
-                self.request, None
-            )
+        self.user, resp = form.try_save(self.request)
+        if resp:
+            return resp
         try:
             return complete_signup(
                 self.request,
@@ -291,7 +289,6 @@ signup = SignupView.as_view()
 
 
 class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
-
     template_name = "account/email_confirm." + app_settings.TEMPLATE_EXTENSION
 
     def get(self, *args, **kwargs):
@@ -306,7 +303,15 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
 
     def post(self, *args, **kwargs):
         self.object = confirmation = self.get_object()
-        confirmation.confirm(self.request)
+        email_address = confirmation.confirm(self.request)
+        if not email_address:
+            get_adapter(self.request).add_message(
+                self.request,
+                messages.ERROR,
+                "account/messages/email_confirmation_failed.txt",
+                {"email": confirmation.email_address.email},
+            )
+            return self.respond(False)
 
         # In the event someone clicks on an email confirmation link
         # for one account while logged into another account,
@@ -333,6 +338,9 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
         # user = confirmation.email_address.user
         # user.is_active = True
         # user.save()
+        return self.respond(True)
+
+    def respond(self, success):
         redirect_url = self.get_redirect_url()
         if not redirect_url:
             ctx = self.get_context_data()
@@ -398,9 +406,15 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
 
     def get_context_data(self, **kwargs):
         ctx = kwargs
-        ctx["confirmation"] = self.object
         site = get_current_site(self.request)
-        ctx.update({"site": site})
+        ctx.update(
+            {
+                "site": site,
+                "confirmation": self.object,
+                "can_confirm": self.object.email_address.can_set_verified(),
+                "email": self.object.email_address.email,
+            }
+        )
         return ctx
 
     def get_redirect_url(self):
@@ -588,7 +602,13 @@ class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
         return super(PasswordChangeView, self).dispatch(request, *args, **kwargs)
 
     def render_to_response(self, context, **response_kwargs):
-        if not self.request.user.has_usable_password():
+        if self.request.user.is_anonymous:
+            # We end up here when `ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True`.
+            redirect_url = get_adapter(self.request).get_logout_redirect_url(
+                self.request
+            )
+            return HttpResponseRedirect(redirect_url)
+        elif not self.request.user.has_usable_password():
             return HttpResponseRedirect(reverse("account_set_password"))
         return super(PasswordChangeView, self).render_to_response(
             context, **response_kwargs
@@ -841,7 +861,6 @@ password_reset_from_key_done = PasswordResetFromKeyDoneView.as_view()
 
 
 class LogoutView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
-
     template_name = "account/logout." + app_settings.TEMPLATE_EXTENSION
     redirect_field_name = "next"
 

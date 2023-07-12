@@ -10,7 +10,6 @@ from allauth.socialaccount.providers import registry
 
 
 class Migration(migrations.Migration):
-
     dependencies = (
         [
             ("sites", "0001_initial"),

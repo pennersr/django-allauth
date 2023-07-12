@@ -5,7 +5,7 @@ Overridable templates
 ---------------------
 
 ``allauth`` ships many templates, viewable in the
-`allauth/templates <https://github.com/pennersr/django-allauth/tree/master/allauth/templates>`__
+`allauth/templates <https://github.com/pennersr/django-allauth/tree/main/allauth/templates>`__
 directory.
 
 For instance, the view corresponding to the ``account_login`` URL uses the

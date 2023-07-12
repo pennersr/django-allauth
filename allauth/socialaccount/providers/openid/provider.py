@@ -39,6 +39,7 @@ class OpenIDProvider(Provider):
     id = "openid"
     name = "OpenID"
     account_class = OpenIDAccount
+    uses_apps = False
 
     def get_login_url(self, request, **kwargs):
         url = reverse("openid_login")

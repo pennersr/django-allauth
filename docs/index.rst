@@ -12,7 +12,7 @@ Contents
    overview
    installation
    configuration
-   providers
+   providers/index.rst
    signals
    views
    forms

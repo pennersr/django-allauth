@@ -17,7 +17,7 @@ class StocktwitsProvider(OAuth2Provider):
     account_class = StocktwitsAccount
 
     def extract_uid(self, data):
-        return data.get("user", {}).get("id")
+        return str(data["user"]["id"])
 
     def extract_common_fields(self, data):
         return dict(

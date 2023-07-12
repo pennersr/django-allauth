@@ -93,6 +93,7 @@ Provider Specifics
    naver
    netiq
    nextcloud
+   notion
    odnoklassniki
    okta
    openid_connect

@@ -16,6 +16,39 @@ Note worthy changes
 - It is now possible to manage OpenID Connect providers via the Django
   admin. Simply add a `SocialApp` for each OpenID Connect provider.
 
+- The CERN provider has been updated to use OIDC, in order to comply with
+  the planned deprecation of the current Single Sign-On solution. This change
+  introduces two breaking changes:
+    
+    - Egroups are no longer supported, and your
+      application must be modified to use Roles
+      through the `Application Portal <application-portal.web.cern.ch/>`_. 
+      See the `official CERN Auth docs <auth.docs.cern.ch/>`_
+      for more information.  
+    
+    - The new SSO does not provide the `id` value that was previously
+      used to uniquely map a logged in user with an existing `SocialAccount`
+      (stored in the `uid` column). We are now using the `sub` field, 
+      which is guaranteed to be unique for each user or service account. 
+      
+      This means that, once you update your `django-allauth` package, you will
+      need to update the `SocialAccount` entries too, so that all 
+      the existing CERN accounts in your database can be mapped to the users
+      which login through the new SSO. Luckily, all existing entries in your
+      database have a `username` field in the `extra_data` column of the `SocialAccount`
+      table. To update the existing entries, you will need to enter a 
+      django shell session (`python manage.py shell`)
+      and run the following: 
+
+      .. code-block:: python
+
+        from allauth.socialaccount.models import SocialAccount
+        sa = SocialAccount.objects.get(provider="cern")
+        for s in sa:
+          if 'username' in s.extra_data:
+            s.uid = s.extra_data["username"]
+            s.save()
+
 
 Security notice
 ---------------

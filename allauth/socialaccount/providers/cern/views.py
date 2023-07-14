@@ -1,32 +1,36 @@
-import requests
-
+import jwt
 from allauth.socialaccount.providers.oauth2.views import (
-    OAuth2Adapter,
     OAuth2CallbackView,
     OAuth2LoginView,
 )
+from allauth.socialaccount.providers.openid_connect.views import OpenIDConnectAdapter
 
 from .provider import CernProvider
 
 
-class CernOAuth2Adapter(OAuth2Adapter):
+class CernOIDCAdapter(OpenIDConnectAdapter):
     provider_id = CernProvider.id
-    access_token_url = "https://oauth.web.cern.ch/OAuth/Token"
-    authorize_url = "https://oauth.web.cern.ch/OAuth/Authorize"
-    profile_url = "https://oauthresource.web.cern.ch/api/User"
-    groups_url = "https://oauthresource.web.cern.ch/api/Groups"
-
     supports_state = False
-    redirect_uri_protocol = "https"
 
-    def complete_login(self, request, app, token, **kwargs):
-        headers = {"Authorization": "Bearer {0}".format(token.token)}
-        user_response = requests.get(self.profile_url, headers=headers)
-        groups_response = requests.get(self.groups_url, headers=headers)
-        extra_data = user_response.json()
-        extra_data.update(groups_response.json())
+    def complete_login(self, request, app, token, response):
+        # All required data can be found within either the access_token
+        # or the id_token. To decode, we will also need the publick key from
+        # the jwks url.
+
+        key = jwt.PyJWKClient(self.openid_config["jwks_uri"]).get_signing_keys()[0]
+
+        extra_data = jwt.decode(
+            jwt=response["id_token"],
+            key=key.key,
+            algorithms=["RS256"],
+            audience=app.client_id,
+        )
+
+        # Groups are no longer provided, and they have been replaced
+        # by cern_roles.
+
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 
-oauth2_login = OAuth2LoginView.adapter_view(CernOAuth2Adapter)
-oauth2_callback = OAuth2CallbackView.adapter_view(CernOAuth2Adapter)
+oauth2_login = OAuth2LoginView.adapter_view(CernOIDCAdapter)
+oauth2_callback = OAuth2CallbackView.adapter_view(CernOIDCAdapter)

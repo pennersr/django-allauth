@@ -147,7 +147,7 @@ msgstr "El correo electrónico no está asignado a ninguna cuenta de usuario"
 
 #: account/forms.py:649
 msgid "The password reset token was invalid."
-msgstr "El token para reiniciar la contraseña no es válido"
+msgstr "El token para restablecer la contraseña no es válido"
 
 #: account/models.py:19
 msgid "user"
@@ -349,13 +349,11 @@ msgstr ""
 
 #: templates/account/base.html:25
 msgid "Menu:"
-msgstr ""
+msgstr "Menú:"
 
 #: templates/account/base.html:28
-#, fuzzy
-#| msgid "E-mail"
 msgid "Change E-mail"
-msgstr "Correo electrónico"
+msgstr "Cambiar correo electrónico"
 
 #: templates/account/base.html:29 templates/account/logout.html:5
 #: templates/account/logout.html:8 templates/account/logout.html:17
@@ -454,7 +452,7 @@ msgstr ""
 
 #: templates/account/email/account_already_exists_subject.txt:3
 msgid "Account Already Exists"
-msgstr ""
+msgstr "La cuenta ya existe"
 
 #: templates/account/email/base_message.txt:1
 #, python-format
@@ -591,7 +589,7 @@ msgstr "No puede eliminar su correo electrónico principal (%(email)s)."
 #: templates/account/messages/email_confirmation_sent.txt:2
 #, python-format
 msgid "Confirmation e-mail sent to %(email)s."
-msgstr "Correo electrónico enviado a %(email)s."
+msgstr "Correo electrónico de confirmación enviado a %(email)s."
 
 #: templates/account/messages/email_confirmed.txt:2
 #, python-format
@@ -622,11 +620,11 @@ msgstr "Contraseña establecida con éxito."
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary e-mail address set."
-msgstr "Dirección principal de correo eletrónico establecida."
+msgstr "Dirección principal de correo electrónico establecida."
 
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary e-mail address must be verified."
-msgstr "Su dirección principal de correo eletrónico debe ser verificada."
+msgstr "Su dirección principal de correo electrónico debe ser verificada."
 
 #: templates/account/password_change.html:5
 #: templates/account/password_change.html:8
@@ -843,7 +841,7 @@ msgstr "Continuar"
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9
 msgid "Login Cancelled"
-msgstr "Incio de sesión cancelado"
+msgstr "Inicio de sesión cancelado"
 
 #: templates/socialaccount/login_cancelled.html:13
 #, python-format

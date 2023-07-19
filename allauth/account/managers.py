@@ -20,25 +20,14 @@ class EmailAddressManager(models.Manager):
             ret = count < app_settings.MAX_EMAIL_ADDRESSES
         return ret
 
-    def get_change_email(self, user):
+    def get_new(self, user):
         """
-        Returns the email address the user is in the process of changing to.
+        Returns the email address the user is in the process of changing to, if any.
         """
         assert app_settings.CHANGE_EMAIL
-        qs = self.model.objects.filter(user=user).order_by("pk")
-        count = qs.count()
-        instance = None
-        if count > 1:
-            # There are already more than 1 email addresses attached, yet, there
-            # should only be one + a temporary one. Let's find it.
-            instance = qs.filter(verified=False, primary=False).last()
-            if not instance:
-                instance = qs.filter(verified=False, primary=True).last()
-            if not instance:
-                instance = qs.filter(verified=True, primary=False).last()
-            if not instance:
-                instance = qs.last()
-        return instance
+        return (
+            self.model.objects.filter(user=user, verified=False).order_by("pk").last()
+        )
 
     def add_change_email(self, request, user, email):
         """
@@ -46,7 +35,7 @@ class EmailAddressManager(models.Manager):
         current email address once confirmed.
         """
         assert app_settings.CHANGE_EMAIL
-        instance = self.get_change_email(user)
+        instance = self.get_new(user)
         if not instance:
             instance = self.model.objects.create(user=user, email=email)
         else:
@@ -68,6 +57,9 @@ class EmailAddressManager(models.Manager):
             email_address.send_confirmation(request, signup=signup)
 
         return email_address
+
+    def get_verified(self, user):
+        return self.filter(user=user, verified=True).order_by("-primary", "pk").first()
 
     def get_primary(self, user):
         try:

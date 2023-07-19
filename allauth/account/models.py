@@ -67,6 +67,9 @@ class EmailAddress(models.Model):
         return self.verified
 
     def set_as_primary(self, conditional=False):
+        """Marks the email address as primary. In case of `conditional`, it is
+        only marked as primary if there is no other primary email address set.
+        """
         old_primary = EmailAddress.objects.get_primary(self.user)
         if old_primary:
             if conditional:

@@ -252,9 +252,12 @@ def test_change_email(user_factory, client, settings):
         {"action_add": "", "email": "change-to@this.org"},
     )
     assert resp.status_code == 302
-    change_email = EmailAddress.objects.get(email="change-to@this.org")
-    key = EmailConfirmationHMAC(change_email).key
+    new_email = EmailAddress.objects.get(email="change-to@this.org")
+    key = EmailConfirmationHMAC(new_email).key
     resp = client.post(reverse("account_confirm_email", args=[key]))
     assert resp.status_code == 302
     assert not EmailAddress.objects.filter(pk=current_email.pk).exists()
     assert EmailAddress.objects.filter(user=user).count() == 1
+    new_email.refresh_from_db()
+    assert new_email.verified
+    assert new_email.primary

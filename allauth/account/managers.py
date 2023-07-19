@@ -29,7 +29,7 @@ class EmailAddressManager(models.Manager):
             self.model.objects.filter(user=user, verified=False).order_by("pk").last()
         )
 
-    def add_change_email(self, request, user, email):
+    def add_new_email(self, request, user, email):
         """
         Adds an email address the user wishes to change to, replacing his
         current email address once confirmed.

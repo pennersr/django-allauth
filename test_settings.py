@@ -139,6 +139,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.paypal",
     "allauth.socialaccount.providers.pinterest",
     "allauth.socialaccount.providers.pocket",
+    "allauth.socialaccount.providers.questrade",
     "allauth.socialaccount.providers.quickbooks",
     "allauth.socialaccount.providers.reddit",
     "allauth.socialaccount.providers.robinhood",

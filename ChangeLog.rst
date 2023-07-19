@@ -11,7 +11,7 @@ Note worthy changes
 
 - Officially support Django 4.2.
 
-- New provider: Miro.
+- New providers: Miro, Questrade
 
 - It is now possible to manage OpenID Connect providers via the Django
   admin. Simply add a `SocialApp` for each OpenID Connect provider.

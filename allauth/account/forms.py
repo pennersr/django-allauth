@@ -499,7 +499,7 @@ class AddEmailForm(UserForm):
         return value
 
     def save(self, request):
-        if app_settings.MAX_EMAIL_ADDRESSES == 1:
+        if app_settings.CHANGE_EMAIL:
             return EmailAddress.objects.add_change_email(
                 request, self.user, self.cleaned_data["email"]
             )

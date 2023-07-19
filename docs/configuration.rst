@@ -19,6 +19,14 @@ ACCOUNT_AUTHENTICATION_METHOD (="username" | "email" | "username_email")
   entering their username, e-mail address, or either one of both.
   Setting this to "email" requires ACCOUNT_EMAIL_REQUIRED=True
 
+ACCOUNT_CHANGE_EMAIL (=False)
+  When disabled (``False``), users can either add one or more email addresses
+  (up to a maximum of ``ACCOUNT_MAX_EMAIL_ADDRESSES``) to their account and
+  freely manage those email addresses. When enabled (``True``), users are
+  limited to having exactly one email address that they can change by adding a
+  temporary second email address that, when verified, replaces the current email
+  address.
+
 ACCOUNT_CONFIRM_EMAIL_ON_GET (=False)
   Determines whether or not an e-mail address is automatically confirmed by
   a GET request. `GET is not designed to modify the server state
@@ -94,9 +102,7 @@ ACCOUNT_MAX_EMAIL_ADDRESSES(=None)
   is safe to change this setting for an already running project -- it will not
   negatively affect users that already exceed the allowed amount. Note that if
   you set the maximum to 1, users will not be able to change their email address
-  as they are unable to add the new address, followed by removing the old
-  address.
-
+  unless you enable ``ACCOUNT_CHANGE_EMAIL``.
 
 ACCOUNT_FORMS (={})
   Used to override forms, for example:

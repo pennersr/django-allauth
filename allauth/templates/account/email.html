@@ -45,12 +45,16 @@
 {% endif %}
 
   {% if can_add_email %}
-    <h2>{% trans "Add E-mail Address" %}</h2>
+<h2>
+  {% if add_changes_email %}{% trans "Change E-mail Address" %}{% else %}{% trans "Add E-mail Address" %}{% endif %}
+</h2>
 
     <form method="post" action="{% url 'account_email' %}" class="add_email">
         {% csrf_token %}
         {{ form.as_p }}
-        <button name="action_add" type="submit">{% trans "Add E-mail" %}</button>
+        <button name="action_add" type="submit">
+          {% if add_changes_email %}{% trans "Change E-mail" %}{% else %}{% trans "Add E-mail" %}{% endif %}
+        </button>
     </form>
   {% endif %}
 

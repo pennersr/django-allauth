@@ -240,8 +240,8 @@ def test_delete_email_wipes_user_email(user_factory, client):
     assert user_email(user) == ""
 
 
-def test_change_email_with_max_1(user_factory, client, settings):
-    settings.ACCOUNT_MAX_EMAIL_ADDRESSES = 1
+def test_change_email(user_factory, client, settings):
+    settings.ACCOUNT_CHANGE_EMAIL = True
     settings.ACCOUNT_EMAIL_CONFIRMATION_HMAC = True
 
     user = user_factory(email_verified=False)

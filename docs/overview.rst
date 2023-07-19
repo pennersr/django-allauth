@@ -193,6 +193,8 @@ Supported Providers
 
 - Pocket (OAuth)
 
+- Questrade (OAuth2)
+
 - QuickBooks (OAuth2)
 
 - Reddit (OAuth2)

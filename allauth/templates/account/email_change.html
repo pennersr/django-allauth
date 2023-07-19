@@ -1,0 +1,33 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+{% block head_title %}
+    {% trans "E-mail Address" %}
+{% endblock %}
+{% block content %}
+    <h1>{% trans "E-mail Address" %}</h1>
+    {% if emailaddresses %}
+        {% if current_emailaddress %}
+            <p>
+                {% trans 'The following e-mail address is associated with your account:' %} <a href="mailto:{{ current_emailaddress.email }}">{{ current_emailaddress.email }}</a>
+            </p>
+        {% endif %}
+        {% if new_emailaddress %}
+            <p>
+                {% trans 'Your e-mail address is still pending verification:' %} <a href="mailto:{{ new_emailaddress.email }}">{{ new_emailaddress.email }}</a>
+            </p>
+            <form method="post" action="{% url 'account_email' %}">
+                {% csrf_token %}
+                <input type="hidden" name="email" value="{{ new_emailaddress.email }}">
+                <button type="submit" name="action_send">{% trans 'Re-send Verification' %}</button>
+            </form>
+        {% endif %}
+    {% else %}
+        {% include "account/snippets/warn_no_email.html" %}
+    {% endif %}
+    <h2>{% trans "Change E-mail Address" %}</h2>
+    <form method="post" action="{% url 'account_email' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="action_add" type="submit">{% trans "Change E-mail" %}</button>
+    </form>
+{% endblock %}

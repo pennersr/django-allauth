@@ -428,7 +428,9 @@ confirm_email = ConfirmEmailView.as_view()
 
 @method_decorator(rate_limit(action="manage_email"), name="dispatch")
 class EmailView(AjaxCapableProcessFormViewMixin, FormView):
-    template_name = "account/email." + app_settings.TEMPLATE_EXTENSION
+    template_name = (
+        "account/email_change." if app_settings.CHANGE_EMAIL else "account/email."
+    ) + app_settings.TEMPLATE_EXTENSION
     form_class = AddEmailForm
     success_url = reverse_lazy("account_email")
 
@@ -565,17 +567,25 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
 
     def get_context_data(self, **kwargs):
         ret = super(EmailView, self).get_context_data(**kwargs)
-        add_changes_email = app_settings.CHANGE_EMAIL
         ret.update(
             {
+                "emailaddresses": list(
+                    EmailAddress.objects.filter(user=self.request.user).order_by(
+                        "email"
+                    )
+                ),
                 "add_email_form": ret.get("form"),
                 "can_add_email": EmailAddress.objects.can_add_email(self.request.user),
-                "add_changes_email": add_changes_email,
             }
         )
-        if add_changes_email:
-            ret["change_email"] = EmailAddress.objects.get_change_email(
-                self.request.user
+        if app_settings.CHANGE_EMAIL:
+            ret.update(
+                {
+                    "new_emailaddress": EmailAddress.objects.get_new(self.request.user),
+                    "current_emailaddress": EmailAddress.objects.get_verified(
+                        self.request.user
+                    ),
+                }
             )
         return ret
 

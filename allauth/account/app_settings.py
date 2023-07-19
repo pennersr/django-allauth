@@ -1,3 +1,6 @@
+from django.core.exceptions import ImproperlyConfigured
+
+
 class AppSettings(object):
     class AuthenticationMethod:
         USERNAME = "username"
@@ -35,6 +38,11 @@ class AppSettings(object):
             )
         if self.MAX_EMAIL_ADDRESSES is not None:
             assert self.MAX_EMAIL_ADDRESSES > 0
+        if self.CHANGE_EMAIL:
+            if self.MAX_EMAIL_ADDRESSES is not None and self.MAX_EMAIL_ADDRESSES != 2:
+                raise ImproperlyConfigured(
+                    "Invalid combination of ACCOUNT_CHANGE_EMAIL and ACCOUNT_MAX_EMAIL_ADDRESSES"
+                )
 
     def _setting(self, name, dflt):
         from django.conf import settings
@@ -118,6 +126,10 @@ class AppSettings(object):
     @property
     def MAX_EMAIL_ADDRESSES(self):
         return self._setting("MAX_EMAIL_ADDRESSES", None)
+
+    @property
+    def CHANGE_EMAIL(self):
+        return self._setting("CHANGE_EMAIL", False)
 
     @property
     def AUTHENTICATION_METHOD(self):

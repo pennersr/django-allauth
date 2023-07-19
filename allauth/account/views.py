@@ -565,10 +565,18 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
 
     def get_context_data(self, **kwargs):
         ret = super(EmailView, self).get_context_data(**kwargs)
-        # NOTE: For backwards compatibility
-        ret["add_email_form"] = ret.get("form")
-        # (end NOTE)
-        ret["can_add_email"] = EmailAddress.objects.can_add_email(self.request.user)
+        add_changes_email = app_settings.CHANGE_EMAIL
+        ret.update(
+            {
+                "add_email_form": ret.get("form"),
+                "can_add_email": EmailAddress.objects.can_add_email(self.request.user),
+                "add_changes_email": add_changes_email,
+            }
+        )
+        if add_changes_email:
+            ret["change_email"] = EmailAddress.objects.get_change_email(
+                self.request.user
+            )
         return ret
 
     def get_ajax_data(self):

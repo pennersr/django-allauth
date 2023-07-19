@@ -480,7 +480,7 @@ class DefaultAccountAdapter(object):
             return False
         email_address.set_as_primary(conditional=True)
         email_address.save(update_fields=["verified", "primary"])
-        if app_settings.MAX_EMAIL_ADDRESSES == 1:
+        if app_settings.CHANGE_EMAIL:
             for instance in EmailAddress.objects.filter(
                 user_id=email_address.user_id
             ).exclude(pk=email_address.pk):

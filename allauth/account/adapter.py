@@ -478,7 +478,7 @@ class DefaultAccountAdapter(object):
 
         if not email_address.set_verified(commit=False):
             return False
-        email_address.set_as_primary(conditional=True)
+        email_address.set_as_primary(conditional=(not app_settings.CHANGE_EMAIL))
         email_address.save(update_fields=["verified", "primary"])
         if app_settings.CHANGE_EMAIL:
             for instance in EmailAddress.objects.filter(

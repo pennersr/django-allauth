@@ -103,6 +103,7 @@ Provider Specifics
    paypal
    pinterest
    pocket
+   questrade
    quickbooks
    reddit
    salesforce

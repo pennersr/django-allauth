@@ -500,7 +500,7 @@ class AddEmailForm(UserForm):
 
     def save(self, request):
         if app_settings.CHANGE_EMAIL:
-            return EmailAddress.objects.add_change_email(
+            return EmailAddress.objects.add_new_email(
                 request, self.user, self.cleaned_data["email"]
             )
         return EmailAddress.objects.add_email(

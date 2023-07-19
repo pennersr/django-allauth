@@ -244,7 +244,7 @@ def test_change_email(user_factory, client, settings):
     settings.ACCOUNT_CHANGE_EMAIL = True
     settings.ACCOUNT_EMAIL_CONFIRMATION_HMAC = True
 
-    user = user_factory(email_verified=False)
+    user = user_factory(email_verified=True)
     client.force_login(user)
     current_email = EmailAddress.objects.get(user=user)
     resp = client.post(

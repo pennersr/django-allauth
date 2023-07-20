@@ -33,11 +33,11 @@ def prepare_django_request(request):
     return result
 
 
-def build_sp_config(request, org):
+def build_sp_config(request, provider_config, org):
     acs_url = request.build_absolute_uri(reverse("saml_acs", args=[org]))
     sls_url = request.build_absolute_uri(reverse("saml_sls", args=[org]))
     metadata_url = request.build_absolute_uri(reverse("saml_metadata", args=[org]))
-    return {
+    sp_config = {
         "entityId": metadata_url,
         "assertionConsumerService": {
             "url": acs_url,
@@ -48,6 +48,13 @@ def build_sp_config(request, org):
             "binding": OneLogin_Saml2_Constants.BINDING_HTTP_REDIRECT,
         },
     }
+    avd = provider_config.get("advanced", {})
+    if avd.get("x509cert") is not None:
+        sp_config["x509cert"] = avd["x509cert"]
+
+    if avd.get("private_key") is not None:
+        sp_config["privateKey"] = avd["private_key"]
+    return sp_config
 
 
 def fetch_metadata_url_config(idp_config):
@@ -76,7 +83,7 @@ def build_saml_config(request, provider_config, org):
         metadata_url = idp.get("metadata_url")
         if metadata_url:
             saml_config = fetch_metadata_url_config(idp)
-            saml_config["sp"] = build_sp_config(request, org)
+            saml_config["sp"] = build_sp_config(request, provider_config, org)
             return saml_config
     avd = provider_config.get("advanced", {})
 
@@ -97,7 +104,7 @@ def build_saml_config(request, provider_config, org):
     }
     saml_config = {
         "strict": avd.get("strict", True),
-        "sp": build_sp_config(request, org),
+        "sp": build_sp_config(request, provider_config, org),
         "security": security_config,
     }
 
@@ -108,11 +115,4 @@ def build_saml_config(request, provider_config, org):
             "singleSignOnService": {"url": idp["sso_url"]},
             "singleLogoutService": {"url": idp["slo_url"]},
         }
-
-    if avd.get("x509cert") is not None:
-        saml_config["sp"]["x509cert"] = avd["x509cert"]
-
-    if avd.get("private_key") is not None:
-        saml_config["sp"]["privateKey"] = avd["private_key"]
-
     return saml_config

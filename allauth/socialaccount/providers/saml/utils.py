@@ -1,4 +1,5 @@
 from django.core.cache import cache
+from django.core.exceptions import ImproperlyConfigured
 from django.http import Http404
 from django.urls import reverse
 
@@ -77,16 +78,7 @@ def fetch_metadata_url_config(idp_config):
 
 
 def build_saml_config(request, provider_config, org):
-    idp = provider_config.get("idp")
-
-    if idp is not None:
-        metadata_url = idp.get("metadata_url")
-        if metadata_url:
-            saml_config = fetch_metadata_url_config(idp)
-            saml_config["sp"] = build_sp_config(request, provider_config, org)
-            return saml_config
     avd = provider_config.get("advanced", {})
-
     security_config = {
         "authnRequestsSigned": avd.get("authn_request_signed", False),
         "digestAlgorithm": avd.get("digest_algorithm", OneLogin_Saml2_Constants.SHA256),
@@ -104,15 +96,22 @@ def build_saml_config(request, provider_config, org):
     }
     saml_config = {
         "strict": avd.get("strict", True),
-        "sp": build_sp_config(request, provider_config, org),
         "security": security_config,
     }
 
-    if idp is not None:
+    idp = provider_config.get("idp")
+    if idp is None:
+        raise ImproperlyConfigured("`idp` missing")
+    metadata_url = idp.get("metadata_url")
+    if metadata_url:
+        meta_config = fetch_metadata_url_config(idp)
+        saml_config["idp"] = meta_config["idp"]
+    else:
         saml_config["idp"] = {
             "entityId": idp["entity_id"],
             "x509cert": idp["x509cert"],
             "singleSignOnService": {"url": idp["sso_url"]},
             "singleLogoutService": {"url": idp["slo_url"]},
         }
+    saml_config["sp"] = build_sp_config(request, provider_config, org)
     return saml_config

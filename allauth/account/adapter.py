@@ -476,6 +476,11 @@ class DefaultAccountAdapter(object):
         """
         from allauth.account.models import EmailAddress
 
+        from_email_address = (
+            EmailAddress.objects.filter(user_id=email_address.user_id)
+            .exclude(pk=email_address.pk)
+            .first()
+        )
         if not email_address.set_verified(commit=False):
             return False
         email_address.set_as_primary(conditional=(not app_settings.CHANGE_EMAIL))
@@ -485,6 +490,13 @@ class DefaultAccountAdapter(object):
                 user_id=email_address.user_id
             ).exclude(pk=email_address.pk):
                 instance.remove()
+            signals.email_changed.send(
+                sender=get_user_model(),
+                request=request,
+                user=email_address.user,
+                from_email_address=from_email_address,
+                to_email_address=email_address,
+            )
         return True
 
     def set_password(self, user, password):

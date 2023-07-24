@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 
 import json
+from unittest.mock import patch
 
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -254,10 +255,12 @@ def test_change_email(user_factory, client, settings):
     assert resp.status_code == 302
     new_email = EmailAddress.objects.get(email="change-to@this.org")
     key = EmailConfirmationHMAC(new_email).key
-    resp = client.post(reverse("account_confirm_email", args=[key]))
+    with patch("allauth.account.signals.email_changed.send") as email_changed_mock:
+        resp = client.post(reverse("account_confirm_email", args=[key]))
     assert resp.status_code == 302
     assert not EmailAddress.objects.filter(pk=current_email.pk).exists()
     assert EmailAddress.objects.filter(user=user).count() == 1
     new_email.refresh_from_db()
     assert new_email.verified
     assert new_email.primary
+    assert email_changed_mock.called

@@ -24,11 +24,11 @@ Supported Flows
 
 - Optional instant-signup for social accounts -- no questions asked
 
-- E-mail address management (multiple e-mail addresses, setting a primary)
+- Email address management (multiple email addresses, setting a primary)
 
 - Password forgotten flow
 
-- E-mail address verification flow
+- Email address verification flow
 
 Supported Providers
 -------------------

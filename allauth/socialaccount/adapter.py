@@ -25,7 +25,7 @@ from . import app_settings
 class DefaultSocialAccountAdapter(object):
     error_messages = {
         "email_taken": _(
-            "An account already exists with this e-mail address."
+            "An account already exists with this email address."
             " Please sign in to that account first, then connect"
             " your %s account."
         )
@@ -136,7 +136,7 @@ class DefaultSocialAccountAdapter(object):
                     user=account.user, verified=True
                 ).exists():
                     raise ValidationError(
-                        _("Your account has no verified e-mail address.")
+                        _("Your account has no verified email address.")
                     )
 
     def is_auto_signup_allowed(self, request, sociallogin):

@@ -11,10 +11,10 @@ class AppSettings(object):
         # After signing up, keep the user account inactive until the email
         # address is verified
         MANDATORY = "mandatory"
-        # Allow login with unverified e-mail (e-mail verification is
+        # Allow login with unverified email (email verification is
         # still sent)
         OPTIONAL = "optional"
-        # Don't send e-mail verification mails during signup
+        # Don't send email verification mails during signup
         NONE = "none"
 
     def __init__(self, prefix):
@@ -65,7 +65,7 @@ class AppSettings(object):
     @property
     def EMAIL_CONFIRMATION_EXPIRE_DAYS(self):
         """
-        Determines the expiration date of e-mail confirmation mails (#
+        Determines the expiration date of email confirmation mails (#
         of days)
         """
         from django.conf import settings
@@ -78,7 +78,7 @@ class AppSettings(object):
     @property
     def EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL(self):
         """
-        The URL to redirect to after a successful e-mail confirmation, in
+        The URL to redirect to after a successful email confirmation, in
         case of an authenticated user
         """
         return self._setting("EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL", None)
@@ -86,7 +86,7 @@ class AppSettings(object):
     @property
     def EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL(self):
         """
-        The URL to redirect to after a successful e-mail confirmation, in
+        The URL to redirect to after a successful email confirmation, in
         case no user is logged in
         """
         from django.conf import settings
@@ -106,14 +106,14 @@ class AppSettings(object):
     @property
     def EMAIL_REQUIRED(self):
         """
-        The user is required to hand over an e-mail address when signing up
+        The user is required to hand over an email address when signing up
         """
         return self._setting("EMAIL_REQUIRED", False)
 
     @property
     def EMAIL_VERIFICATION(self):
         """
-        See e-mail verification method
+        See email verification method
         """
         ret = self._setting("EMAIL_VERIFICATION", self.EmailVerificationMethod.OPTIONAL)
         # Deal with legacy (boolean based) setting
@@ -139,14 +139,14 @@ class AppSettings(object):
     @property
     def EMAIL_MAX_LENGTH(self):
         """
-        Adjust max_length of e-mail addresses
+        Adjust max_length of email addresses
         """
         return self._setting("EMAIL_MAX_LENGTH", 254)
 
     @property
     def UNIQUE_EMAIL(self):
         """
-        Enforce uniqueness of e-mail addresses
+        Enforce uniqueness of email addresses
         """
         return self._setting("UNIQUE_EMAIL", True)
 

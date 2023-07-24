@@ -1,7 +1,7 @@
 Decorators
 ==========
 
-Verified E-mail Required
+Verified Email Required
 ------------------------
 
 Even when email verification is not mandatory during signup, there
@@ -20,7 +20,7 @@ The behavior is as follows:
 - If the user isn't logged in, it acts identically to the
   ``login_required`` decorator.
 
-- If the user is logged in but has no verified e-mail address, an
-  e-mail verification mail is automatically resent and the user is
+- If the user is logged in but has no verified email address, an
+  email verification mail is automatically resent and the user is
   presented with a page informing them they need to verify their email
   address.

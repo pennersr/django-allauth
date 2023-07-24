@@ -15,7 +15,7 @@ class AppSettings(object):
     @property
     def QUERY_EMAIL(self):
         """
-        Request e-mail address from 3rd party account provider?
+        Request email address from 3rd party account provider?
         E.g. using OpenID AX
         """
         from allauth.account import app_settings as account_settings
@@ -27,7 +27,7 @@ class AppSettings(object):
         """
         Attempt to bypass the signup form by using fields (e.g. username,
         email) retrieved from the social account provider. If a conflict
-        arises due to a duplicate e-mail signup form will still kick in.
+        arises due to a duplicate email signup form will still kick in.
         """
         return self._setting("AUTO_SIGNUP", True)
 
@@ -69,7 +69,7 @@ class AppSettings(object):
     @property
     def EMAIL_REQUIRED(self):
         """
-        The user is required to hand over an e-mail address when signing up
+        The user is required to hand over an email address when signing up
         """
         from allauth.account import app_settings as account_settings
 
@@ -78,7 +78,7 @@ class AppSettings(object):
     @property
     def EMAIL_VERIFICATION(self):
         """
-        See e-mail verification method
+        See email verification method
         """
         from allauth.account import app_settings as account_settings
 

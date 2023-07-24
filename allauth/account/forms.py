@@ -95,7 +95,7 @@ class LoginForm(forms.Form):
     error_messages = {
         "account_inactive": _("This account is currently inactive."),
         "email_password_mismatch": _(
-            "The e-mail address and/or password you specified are not correct."
+            "The email address and/or password you specified are not correct."
         ),
         "username_password_mismatch": _(
             "The username and/or password you specified are not correct."
@@ -109,11 +109,11 @@ class LoginForm(forms.Form):
             login_widget = forms.TextInput(
                 attrs={
                     "type": "email",
-                    "placeholder": _("E-mail address"),
+                    "placeholder": _("Email address"),
                     "autocomplete": "email",
                 }
             )
-            login_field = forms.EmailField(label=_("E-mail"), widget=login_widget)
+            login_field = forms.EmailField(label=_("Email"), widget=login_widget)
         elif app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.USERNAME:
             login_widget = forms.TextInput(
                 attrs={"placeholder": _("Username"), "autocomplete": "username"}
@@ -129,7 +129,7 @@ class LoginForm(forms.Form):
                 == AuthenticationMethod.USERNAME_EMAIL
             )
             login_widget = forms.TextInput(
-                attrs={"placeholder": _("Username or e-mail"), "autocomplete": "email"}
+                attrs={"placeholder": _("Username or email"), "autocomplete": "email"}
             )
             login_field = forms.CharField(
                 label=pgettext("field label", "Login"), widget=login_widget
@@ -275,7 +275,7 @@ class BaseSignupForm(_base_signup_form_class()):
         widget=forms.TextInput(
             attrs={
                 "type": "email",
-                "placeholder": _("E-mail address"),
+                "placeholder": _("Email address"),
                 "autocomplete": "email",
             }
         )
@@ -311,19 +311,19 @@ class BaseSignupForm(_base_signup_form_class()):
         ]
         if app_settings.SIGNUP_EMAIL_ENTER_TWICE:
             self.fields["email2"] = forms.EmailField(
-                label=_("E-mail (again)"),
+                label=_("Email (again)"),
                 widget=forms.TextInput(
                     attrs={
                         "type": "email",
-                        "placeholder": _("E-mail address confirmation"),
+                        "placeholder": _("Email address confirmation"),
                     }
                 ),
             )
         if email_required:
-            self.fields["email"].label = gettext("E-mail")
+            self.fields["email"].label = gettext("Email")
             self.fields["email"].required = True
         else:
-            self.fields["email"].label = gettext("E-mail (optional)")
+            self.fields["email"].label = gettext("Email (optional)")
             self.fields["email"].required = False
             self.fields["email"].widget.is_required = False
             if self.username_required:
@@ -471,10 +471,10 @@ class UserForm(forms.Form):
 
 class AddEmailForm(UserForm):
     email = forms.EmailField(
-        label=_("E-mail"),
+        label=_("Email"),
         required=True,
         widget=forms.TextInput(
-            attrs={"type": "email", "placeholder": _("E-mail address")}
+            attrs={"type": "email", "placeholder": _("Email address")}
         ),
     )
 
@@ -483,9 +483,9 @@ class AddEmailForm(UserForm):
         value = get_adapter().clean_email(value)
         errors = {
             "this_account": _(
-                "This e-mail address is already associated with this account."
+                "This email address is already associated with this account."
             ),
-            "max_email_addresses": _("You cannot add more than %d e-mail addresses."),
+            "max_email_addresses": _("You cannot add more than %d email addresses."),
         }
         users = filter_users_by_email(value)
         on_this_account = [u for u in users if u.pk == self.user.pk]
@@ -542,12 +542,12 @@ class SetPasswordForm(PasswordVerificationMixin, UserForm):
 
 class ResetPasswordForm(forms.Form):
     email = forms.EmailField(
-        label=_("E-mail"),
+        label=_("Email"),
         required=True,
         widget=forms.TextInput(
             attrs={
                 "type": "email",
-                "placeholder": _("E-mail address"),
+                "placeholder": _("Email address"),
                 "autocomplete": "email",
             }
         ),
@@ -559,7 +559,7 @@ class ResetPasswordForm(forms.Form):
         self.users = filter_users_by_email(email, is_active=True, prefer_verified=True)
         if not self.users and not app_settings.PREVENT_ENUMERATION:
             raise forms.ValidationError(
-                _("The e-mail address is not assigned to any user account")
+                _("The email address is not assigned to any user account")
             )
         return self.cleaned_data["email"]
 

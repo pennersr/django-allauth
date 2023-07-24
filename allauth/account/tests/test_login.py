@@ -167,14 +167,14 @@ class LoginTests(TestCase):
             self.assertFormError(
                 resp.context["form"],
                 None,
-                "The e-mail address and/or password you specified are not correct.",
+                "The email address and/or password you specified are not correct.",
             )
         else:
             self.assertFormError(
                 resp,
                 "form",
                 None,
-                "The e-mail address and/or password you specified are not correct.",
+                "The email address and/or password you specified are not correct.",
             )
 
         resp = self.client.post(

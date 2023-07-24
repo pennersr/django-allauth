@@ -17,7 +17,7 @@ allauth.account
 
 - ``allauth.account.signals.user_signed_up(request, user)``
     Sent when a user signs up for an account. This signal is
-    typically followed by a ``user_logged_in``, unless e-mail verification
+    typically followed by a ``user_logged_in``, unless email verification
     prohibits the user to log in.
 
 - ``allauth.account.signals.password_set(request, user)``

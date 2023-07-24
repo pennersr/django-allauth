@@ -200,7 +200,7 @@ def cleanup_email_addresses(request, addresses):
     Takes a list of EmailAddress instances and cleans it up, making
     sure only valid ones remain, without multiple primaries etc.
 
-    Order is important: e.g. if multiple primary e-mail addresses
+    Order is important: e.g. if multiple primary email addresses
     exist, the first one encountered will be kept as primary.
     """
     from .models import EmailAddress
@@ -268,7 +268,7 @@ def setup_user_email(request, user, addresses):
 
     assert not EmailAddress.objects.filter(user=user).exists()
     priority_addresses = []
-    # Is there a stashed e-mail?
+    # Is there a stashed email?
     adapter = get_adapter(request)
     stashed_email = adapter.unstash_verified_email(request)
     if stashed_email:
@@ -295,10 +295,10 @@ def setup_user_email(request, user, addresses):
 
 def send_email_confirmation(request, user, signup=False, email=None):
     """
-    E-mail verification mails are sent:
+    Email verification mails are sent:
     a) Explicitly: when a user signs up
     b) Implicitly: when a user attempts to log in using an unverified
-    e-mail while EMAIL_VERIFICATION is mandatory.
+    email while EMAIL_VERIFICATION is mandatory.
 
     Especially in case of b), we want to limit the number of mails
     sent (consider a user retrying a few times), which is why there is

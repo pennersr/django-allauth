@@ -51,7 +51,7 @@ class DefaultAccountAdapter(object):
         "too_many_login_attempts": _(
             "Too many failed login attempts. Try again later."
         ),
-        "email_taken": _("A user is already registered with this e-mail address."),
+        "email_taken": _("A user is already registered with this email address."),
     }
 
     def __init__(self, request=None):
@@ -99,8 +99,8 @@ class DefaultAccountAdapter(object):
 
     def render_mail(self, template_prefix, email, context, headers=None):
         """
-        Renders an e-mail to `email`.  `template_prefix` identifies the
-        e-mail that is to be sent, e.g. "account/email/email_confirmation"
+        Renders an email to `email`.  `template_prefix` identifies the
+        email that is to be sent, e.g. "account/email/email_confirmation"
         """
         to = [email] if isinstance(email, str) else email
         subject = render_to_string("{0}_subject.txt".format(template_prefix), context)
@@ -170,7 +170,7 @@ class DefaultAccountAdapter(object):
 
     def get_email_confirmation_redirect_url(self, request):
         """
-        The URL to return to after successful e-mail confirmation.
+        The URL to return to after successful email confirmation.
         """
         if request.user.is_authenticated:
             if app_settings.EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL:

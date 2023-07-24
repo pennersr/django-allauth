@@ -21,6 +21,10 @@ Note worthy changes
   address that they can change by adding a temporary second email address that,
   when verified, replaces the current email address.
 
+- Changed spelling from "e-mail" to "email". Both are correct, however, the
+  trend over the years has been towards the simpler and more streamlined form
+  "email".
+
 
 Security notice
 ---------------
@@ -612,7 +616,7 @@ Note worthy changes
 -------------------
 
 - Improved AJAX support: the account management views (change/set password,
-  manage e-mail addresses and social connections) now support AJAX GET requests.
+  manage email addresses and social connections) now support AJAX GET requests.
   These views hand over all the required data for you to build your frontend
   application upon.
 
@@ -763,7 +767,7 @@ Note worthy changes
 Backwards incompatible changes
 ------------------------------
 
-- When ``ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE`` was turned on, the e-mail field key
+- When ``ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE`` was turned on, the email field key
   changed from ``email`` to ``email1``, which could introduce subtle bugs. This
   has now been changed: there always is an ``email`` field, and optionally an
   ``email2`` field.
@@ -1149,7 +1153,7 @@ Note worthy changes
 - ``joke2k`` contributed an Italian translation, thanks!
 
 - socialaccount: All providers now support the ``VERIFIED_EMAIL``
-  property have e-mail addresses forced to be interpreted as
+  property have email addresses forced to be interpreted as
   verified.
 
 
@@ -1190,7 +1194,7 @@ Note worthy changes
 - Facebook reauthentication now uses an ``auth_nonce``.
 
 - Added a new option ``ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION``, to
-  indicate whether or not e-mail confirmation is to automatically
+  indicate whether or not email confirmation is to automatically
   log in.
 
 - socialaccount: Added Bitbucket provider.
@@ -1230,13 +1234,13 @@ Note worthy changes
 
 - facebook: Added a new setting: VERIFIED_EMAIL.
 
-- socialaccount: a collision on e-mail address when you sign up
+- socialaccount: a collision on email address when you sign up
   using a third party social account is now more clearly explained:
-  "An account already exists with this e-mail address.  Please sign
+  "An account already exists with this email address.  Please sign
   in to that account first, then connect your Google account".
 
 - account: You are now automatically logged in after confirming
-  your e-mail address during sign up.
+  your email address during sign up.
 
 - account: The ``/accounts/login/`` view now supports AJAX requests.
 
@@ -1248,7 +1252,7 @@ Note worthy changes
 - socialaccount: Dropped django-avatar support.
 
 - openid: First, last and full name are now also queried together
-  with the e-mail address. Thanks, @andrvb.
+  with the email address. Thanks, @andrvb.
 
 - openid: Compatibility fix for Django 1.6 (JSON serializer).
 
@@ -1264,8 +1268,8 @@ Backwards incompatible changes
   ``/accounts/confirm-email/``.
 
 - The ``account/verification_sent.html`` template no longer receives the
-  e-mail address in the context (``email``). Note that a message
-  containing that e-mail address is still emitted using the messages
+  email address in the context (``email``). Note that a message
+  containing that email address is still emitted using the messages
   framework.
 
 - The ``/accounts/confirm_email/key/`` view has been
@@ -1469,7 +1473,7 @@ Note worthy changes
 
 - Messages (as in ``django.contrib.messages``) are now configurable
   through templates.
-- Added support for differentiating e-mail handling (verification,
+- Added support for differentiating email handling (verification,
   required) between local and social accounts:
   ``SOCIALACCOUNT_EMAIL_REQUIRED`` and
   ``SOCIALACCOUNT_EMAIL_VERIFICATION``.
@@ -1520,8 +1524,8 @@ Note worthy changes
 - Dropped dependency on (unmaintained?) oauth2 package, in favor
   of requests-oauthlib.
 
-- account: E-mail confirmation mails generated at signup can now
-  be differentiated from regular e-mail confirmation mails by
+- account: Email confirmation mails generated at signup can now
+  be differentiated from regular email confirmation mails by
   placing e.g. a welcome message into the
   ``account/email/email_confirmation_signup*`` templates. Thanks to
   Sam Solomon for the patch.
@@ -1534,7 +1538,7 @@ Note worthy changes
 
 - socialaccount: Added support for Weibo.
 
-- account: Added support for sending HTML e-mail. Add
+- account: Added support for sending HTML email. Add
   ``*_message.html`` templates and they will be automatically picked
   up.
 
@@ -1624,7 +1628,7 @@ Note worthy changes
   intervention in social logins.
 
 - google: support for Google's ``verified_email`` flag to determine
-  whether or not to send confirmation e-mails.
+  whether or not to send confirmation emails.
 
 - Fábio Santos contributed a Portuguese translation, thanks!
 
@@ -1633,7 +1637,7 @@ Note worthy changes
 - socialaccount: Added ``get_social_accounts`` template tag.
 
 - account: Default URL to redirect to after login can now be
-  overridden via the adapter, both for login and e-mail confirmation
+  overridden via the adapter, both for login and email confirmation
   redirects.
 
 
@@ -1661,11 +1665,11 @@ Note worthy changes
   (Facebook cannot).
 
 - account: Added adapter class for increased pluggability. Added
-  hook for 3rd party invitation system to by pass e-mail
+  hook for 3rd party invitation system to by pass email
   verification (``stash_email_verified``). Moved sending of mail to
   adapter.
 
-- account: Added option to completely disable e-mail verification
+- account: Added option to completely disable email verification
   during signup.
 
 
@@ -1697,7 +1701,7 @@ Note worthy changes
 
 - LinkedIn: Added support for passing along the OAuth scope.
 
-- account: Improved e-mail confirmation error handling, no more
+- account: Improved email confirmation error handling, no more
   confusing 404s.
 
 - account: Aldiantoro Nugroho contributed support for a new
@@ -1761,13 +1765,13 @@ Note worthy changes
 
 - SoundCloud: Rabi Alam contributed a SoundCloud provider, thanks!
 
-- account: Sam Solomon cleaned up the e-mail management view:
+- account: Sam Solomon cleaned up the email management view:
   added proper redirect after POSTs, prevent deletion of primary
-  e-mail. Thanks.
+  email. Thanks.
 
 - account: When signing up, instead of generating a completely
   random username a more sensible username is automatically derived
-  from first/last name or e-mail.
+  from first/last name or email.
 
 
 Backwards incompatible changes
@@ -1785,7 +1789,7 @@ Backwards incompatible changes
   - The ``emailconfirmation`` setting ``EMAIL_CONFIRMATION_DAYS`` has been
     replaced by ``ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS``.
 
-  - Instead of directly confirming the e-mail address upon the GET
+  - Instead of directly confirming the email address upon the GET
     request the confirmation is now processed as part of an explicit
     POST. Therefore, a new template ``account/email_confirm.html`` must
     be setup.
@@ -1853,7 +1857,7 @@ Note worthy changes
   providers.
 
 - account: Added ACCOUNT_AUTHENTICATION_METHOD setting, supporting
-  login by username, e-mail or both.
+  login by username, email or both.
 
 
 Backwards incompatible changes
@@ -1899,8 +1903,8 @@ Note worthy changes
   there is more refactoring to be done -- this first step only
   focuses on the database models.
 
-- account: E-mail confirmation mails are now automatically resent
-  whenever a user attempts to login with an unverified e-mail
+- account: Email confirmation mails are now automatically resent
+  whenever a user attempts to login with an unverified email
   address (if ACCOUNT_EMAIL_VERIFICATION=True).
 
 
@@ -1934,7 +1938,7 @@ Note worthy changes
   used for additional questions to ask during signup.
 
 - account: ``is_active`` is no longer used to keep users with an
-  unverified e-mail address from logging in.
+  unverified email address from logging in.
 
 - Dropping uniform dependency. Moved uniform templates into
   example project.
@@ -1952,8 +1956,8 @@ None
 Note worthy changes
 -------------------
 
-- The e-mail authentication backend now attempts to use the
-  'username' parameter as an e-mail address. This is needed to
+- The email authentication backend now attempts to use the
+  'username' parameter as an email address. This is needed to
   properly integrate with other apps invoking authenticate.
 
 - SmileyChris contributed support for automatically generating a

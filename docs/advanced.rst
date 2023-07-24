@@ -13,7 +13,7 @@ so please use those.
 What is provided is the following:
 
 - The protocol to be used for generating links (e.g. password
-  forgotten) for e-mails is configurable by means of the
+  forgotten) for emails is configurable by means of the
   ``ACCOUNT_DEFAULT_HTTP_PROTOCOL`` setting.
 
 - Automatically switching to HTTPS is built-in for OAuth providers
@@ -28,11 +28,11 @@ Custom User Models
 If you use a custom user model you need to specify what field
 represents the ``username``, if any. Here, ``username`` really refers to
 the field representing the nickname that the user uses to login, and not to
-some unique identifier (possibly including an e-mail address) as is
+some unique identifier (possibly including an email address) as is
 the case for Django's ``AbstractBaseUser.USERNAME_FIELD``.
 
 Therefore, if your custom user model does not have a ``username`` field
-(again, not to be mistaken with an e-mail address or user id), you
+(again, not to be mistaken with an email address or user id), you
 will need to set ``ACCOUNT_USER_MODEL_USERNAME_FIELD`` to ``None``. This
 will disable username related functionality in ``allauth``. Remember to
 also set ``ACCOUNT_USERNAME_REQUIRED`` to ``False``.

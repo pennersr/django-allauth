@@ -16,7 +16,7 @@ ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS (=True)
 
 ACCOUNT_AUTHENTICATION_METHOD (="username" | "email" | "username_email")
   Specifies the login method to use -- whether the user logs in by
-  entering their username, e-mail address, or either one of both.
+  entering their username, email address, or either one of both.
   Setting this to "email" requires ACCOUNT_EMAIL_REQUIRED=True
 
 ACCOUNT_CHANGE_EMAIL (=False)
@@ -27,7 +27,7 @@ ACCOUNT_CHANGE_EMAIL (=False)
   email address that, when verified, replaces the current email address.
 
 ACCOUNT_CONFIRM_EMAIL_ON_GET (=False)
-  Determines whether or not an e-mail address is automatically confirmed by
+  Determines whether or not an email address is automatically confirmed by
   a GET request. `GET is not designed to modify the server state
   <http://programmers.stackexchange.com/questions/188860/>`_, though it is
   commonly used for email confirmation. To avoid requiring user interaction,
@@ -35,11 +35,11 @@ ACCOUNT_CONFIRM_EMAIL_ON_GET (=False)
   an alternative to setting this to True.
 
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL (=settings.LOGIN_URL)
-  The URL to redirect to after a successful e-mail confirmation, in case no
+  The URL to redirect to after a successful email confirmation, in case no
   user is logged in.
 
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL (=None)
-  The URL to redirect to after a successful e-mail confirmation, in
+  The URL to redirect to after a successful email confirmation, in
   case of an authenticated user. Set to ``None`` to use
   ``settings.LOGIN_REDIRECT_URL``.
 
@@ -54,18 +54,18 @@ ACCOUNT_EMAIL_CONFIRMATION_HMAC (=True)
   require server side state.
 
 ACCOUNT_EMAIL_REQUIRED (=False)
-  The user is required to hand over an e-mail address when signing up.
+  The user is required to hand over an email address when signing up.
 
 ACCOUNT_EMAIL_VERIFICATION (="optional")
-  Determines the e-mail verification method during signup -- choose
+  Determines the email verification method during signup -- choose
   one of ``"mandatory"``, ``"optional"``, or ``"none"``.
 
   Setting this to `"mandatory"` requires `ACCOUNT_EMAIL_REQUIRED` to be `True`
 
   When set to "mandatory" the user is blocked from logging in until the email
   address is verified. Choose "optional" or "none" to allow logins
-  with an unverified e-mail address. In case of "optional", the e-mail
-  verification mail is still sent, whereas in case of "none" no e-mail
+  with an unverified email address. In case of "optional", the email
+  verification mail is still sent, whereas in case of "none" no email
   verification mails are sent.
 
 ACCOUNT_EMAIL_SUBJECT_PREFIX (="[Site] ")
@@ -243,7 +243,7 @@ ACCOUNT_USERNAME_BLACKLIST (=[])
   A list of usernames that can't be used by user.
 
 ACCOUNT_UNIQUE_EMAIL (=True)
-  Enforce uniqueness of e-mail addresses. The ``emailaddress.email``
+  Enforce uniqueness of email addresses. The ``emailaddress.email``
   model field is set to ``UNIQUE``. Forms prevent a user from registering
   with or adding an additional email address if that email address is
   in use by another account.
@@ -295,14 +295,14 @@ SOCIALACCOUNT_ADAPTER (="allauth.socialaccount.adapter.DefaultSocialAccountAdapt
 SOCIALACCOUNT_AUTO_SIGNUP (=True)
   Attempt to bypass the signup form by using fields (e.g. username,
   email) retrieved from the social account provider. If a conflict
-  arises due to a duplicate e-mail address the signup form will still
+  arises due to a duplicate email address the signup form will still
   kick in.
 
 SOCIALACCOUNT_EMAIL_VERIFICATION (=ACCOUNT_EMAIL_VERIFICATION)
   As ``ACCOUNT_EMAIL_VERIFICATION``, but for social accounts.
 
 SOCIALACCOUNT_EMAIL_REQUIRED (=ACCOUNT_EMAIL_REQUIRED)
-  The user is required to hand over an e-mail address when signing up
+  The user is required to hand over an email address when signing up
   using a social account.
 
 SOCIALACCOUNT_FORMS (={})
@@ -355,7 +355,7 @@ SOCIALACCOUNT_PROVIDERS (= dict)
     }
 
 SOCIALACCOUNT_QUERY_EMAIL (=ACCOUNT_EMAIL_REQUIRED)
-  Request e-mail address from 3rd party account provider? E.g. using
+  Request email address from 3rd party account provider? E.g. using
   OpenID AX, or the Facebook "email" permission.
 
 SOCIALACCOUNT_SOCIALACCOUNT_STR(=str of user object)

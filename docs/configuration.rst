@@ -20,12 +20,11 @@ ACCOUNT_AUTHENTICATION_METHOD (="username" | "email" | "username_email")
   Setting this to "email" requires ACCOUNT_EMAIL_REQUIRED=True
 
 ACCOUNT_CHANGE_EMAIL (=False)
-  When disabled (``False``), users can either add one or more email addresses
-  (up to a maximum of ``ACCOUNT_MAX_EMAIL_ADDRESSES``) to their account and
-  freely manage those email addresses. When enabled (``True``), users are
-  limited to having exactly one email address that they can change by adding a
-  temporary second email address that, when verified, replaces the current email
-  address.
+  When disabled (``False``), users can add one or more email addresses (up to a
+  maximum of ``ACCOUNT_MAX_EMAIL_ADDRESSES``) to their account and freely manage
+  those email addresses. When enabled (``True``), users are limited to having
+  exactly one email address that they can change by adding a temporary second
+  email address that, when verified, replaces the current email address.
 
 ACCOUNT_CONFIRM_EMAIL_ON_GET (=False)
   Determines whether or not an e-mail address is automatically confirmed by

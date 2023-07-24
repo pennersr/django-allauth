@@ -16,6 +16,11 @@ Note worthy changes
 - It is now possible to manage OpenID Connect providers via the Django
   admin. Simply add a `SocialApp` for each OpenID Connect provider.
 
+- There is now a new flow for changing the email address. When enabled
+  (``ACCOUNT_CHANGE_EMAIL``), users are limited to having exactly one email
+  address that they can change by adding a temporary second email address that,
+  when verified, replaces the current email address.
+
 
 Security notice
 ---------------

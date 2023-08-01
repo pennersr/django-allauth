@@ -166,7 +166,7 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
         self.assertTrue(
             SocialAccount.objects.filter(user=user, provider=GoogleProvider.id).exists()
         )
-        # For now, we do not pick up any new e-mail addresses on connect
+        # For now, we do not pick up any new email addresses on connect
         self.assertEqual(EmailAddress.objects.filter(user=user).count(), 1)
         self.assertEqual(EmailAddress.objects.filter(user=user, email=email).count(), 1)
 

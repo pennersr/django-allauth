@@ -428,7 +428,9 @@ confirm_email = ConfirmEmailView.as_view()
 
 @method_decorator(rate_limit(action="manage_email"), name="dispatch")
 class EmailView(AjaxCapableProcessFormViewMixin, FormView):
-    template_name = "account/email." + app_settings.TEMPLATE_EXTENSION
+    template_name = (
+        "account/email_change." if app_settings.CHANGE_EMAIL else "account/email."
+    ) + app_settings.TEMPLATE_EXTENSION
     form_class = AddEmailForm
     success_url = reverse_lazy("account_email")
 
@@ -506,7 +508,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                     {"email": email_address.email},
                 )
             else:
-                email_address.delete()
+                email_address.remove()
                 signals.email_removed.send(
                     sender=request.user.__class__,
                     request=request,
@@ -565,10 +567,26 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
 
     def get_context_data(self, **kwargs):
         ret = super(EmailView, self).get_context_data(**kwargs)
-        # NOTE: For backwards compatibility
-        ret["add_email_form"] = ret.get("form")
-        # (end NOTE)
-        ret["can_add_email"] = EmailAddress.objects.can_add_email(self.request.user)
+        ret.update(
+            {
+                "emailaddresses": list(
+                    EmailAddress.objects.filter(user=self.request.user).order_by(
+                        "email"
+                    )
+                ),
+                "add_email_form": ret.get("form"),
+                "can_add_email": EmailAddress.objects.can_add_email(self.request.user),
+            }
+        )
+        if app_settings.CHANGE_EMAIL:
+            ret.update(
+                {
+                    "new_emailaddress": EmailAddress.objects.get_new(self.request.user),
+                    "current_emailaddress": EmailAddress.objects.get_verified(
+                        self.request.user
+                    ),
+                }
+            )
         return ret
 
     def get_ajax_data(self):

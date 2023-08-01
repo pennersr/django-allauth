@@ -83,7 +83,7 @@ Used on `account_signup <views.html#signup-account-signup>`__ view.
 add_email (``allauth.account.forms.AddEmailForm``)
 **************************************************
 
-Used on `account_email <views.html#e-mails-management-account-email>`__ view.
+Used on `account_email <views.html#emails-management-account-email>`__ view.
 
 ::
 

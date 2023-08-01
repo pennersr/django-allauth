@@ -61,25 +61,25 @@ Password Reset (``account_reset_password``)
 
 Users can request a password reset using the
 ``allauth.account.views.PasswordResetView`` view over at
-``/accounts/password/reset/`` (URL name ``account_reset_password``).  An e-mail
+``/accounts/password/reset/`` (URL name ``account_reset_password``).  An email
 will be sent containing a reset link pointing to ``PasswordResetFromKeyView``
 view.
 
 
-E-mails Management (``account_email``)
+Emails Management (``account_email``)
 --------------------------------------
 
-Users manage the e-mail addresses tied to their account using the
+Users manage the email addresses tied to their account using the
 ``allauth.account.views.EmailView`` view over at ``/accounts/email/`` (URL name
-``account_email``). Here, users can add (and verify) e-mail addresses, remove
-e-mail addresses, and choose a new primary e-mail address.
+``account_email``). Here, users can add (and verify) email addresses, remove
+email addresses, and choose a new primary email address.
 
 
-E-mail Verification
+Email Verification
 -------------------
 
 Depending on the setting ``ACCOUNT_EMAIL_VERIFICATION``, a verification
-e-mail is sent pointing to the
+email is sent pointing to the
 ``allauth.account.views.ConfirmEmailView`` view.
 
 The setting ``ACCOUNT_CONFIRM_EMAIL_ON_GET`` determines whether users

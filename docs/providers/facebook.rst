@@ -100,9 +100,9 @@ LOCALE_FUNC:
 
 VERIFIED_EMAIL:
     It is not clear from the Facebook documentation whether or not the fact
-    that the account is verified implies that the e-mail address is verified
+    that the account is verified implies that the email address is verified
     as well. For example, verification could also be done by phone or credit
-    card. To be on the safe side, the default is to treat e-mail addresses
+    card. To be on the safe side, the default is to treat email addresses
     from Facebook as unverified. But, if you feel that is too paranoid, then
     use this setting to mark them as verified. Due to lack of an official
     statement from the side of Facebook, attempts have been made to

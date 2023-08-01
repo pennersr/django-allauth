@@ -57,7 +57,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
 When I sign up I run into connectivity errors (connection refused et al)
 ************************************************************************
 
-You probably have not got an e-mail (SMTP) server running on the
+You probably have not got an email (SMTP) server running on the
 machine you are developing on. Therefore, ``allauth`` is unable to send
 verification mails.
 
@@ -66,7 +66,7 @@ You can work around this by adding the following line to
 
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-This will avoid the need for an SMTP server as e-mails will be printed
+This will avoid the need for an SMTP server as emails will be printed
 to the console. For more information, please refer to:
 
 https://docs.djangoproject.com/en/dev/ref/settings/#email-host

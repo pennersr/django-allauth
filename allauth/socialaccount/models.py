@@ -199,7 +199,7 @@ class SocialLogin(object):
     the url to redirect to after login.
 
     `email_addresses` (list of `EmailAddress`): Optional list of
-    e-mail addresses retrieved from the provider.
+    email addresses retrieved from the provider.
     """
 
     def __init__(self, user=None, account=None, token=None, email_addresses=[]):

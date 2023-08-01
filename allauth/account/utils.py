@@ -85,7 +85,7 @@ def user_display(user):
     return _user_display_callable(user)
 
 
-def user_field(user, field, *args):
+def user_field(user, field, *args, commit=False):
     """
     Gets or sets (optional) user model fields. No-op if fields do not exist.
     """
@@ -105,19 +105,21 @@ def user_field(user, field, *args):
         if v:
             v = v[0:max_length]
         setattr(user, field, v)
+        if commit:
+            user.save(update_fields=[field])
     else:
         # Getter
         return getattr(user, field)
 
 
-def user_username(user, *args):
+def user_username(user, *args, commit=False):
     if args and not app_settings.PRESERVE_USERNAME_CASING and args[0]:
         args = [args[0].lower()]
     return user_field(user, app_settings.USER_MODEL_USERNAME_FIELD, *args)
 
 
-def user_email(user, *args):
-    return user_field(user, app_settings.USER_MODEL_EMAIL_FIELD, *args)
+def user_email(user, *args, commit=False):
+    return user_field(user, app_settings.USER_MODEL_EMAIL_FIELD, *args, commit=commit)
 
 
 def has_verified_email(user, email=None):
@@ -198,7 +200,7 @@ def cleanup_email_addresses(request, addresses):
     Takes a list of EmailAddress instances and cleans it up, making
     sure only valid ones remain, without multiple primaries etc.
 
-    Order is important: e.g. if multiple primary e-mail addresses
+    Order is important: e.g. if multiple primary email addresses
     exist, the first one encountered will be kept as primary.
     """
     from .models import EmailAddress
@@ -266,7 +268,7 @@ def setup_user_email(request, user, addresses):
 
     assert not EmailAddress.objects.filter(user=user).exists()
     priority_addresses = []
-    # Is there a stashed e-mail?
+    # Is there a stashed email?
     adapter = get_adapter(request)
     stashed_email = adapter.unstash_verified_email(request)
     if stashed_email:
@@ -293,10 +295,10 @@ def setup_user_email(request, user, addresses):
 
 def send_email_confirmation(request, user, signup=False, email=None):
     """
-    E-mail verification mails are sent:
+    Email verification mails are sent:
     a) Explicitly: when a user signs up
     b) Implicitly: when a user attempts to log in using an unverified
-    e-mail while EMAIL_VERIFICATION is mandatory.
+    email while EMAIL_VERIFICATION is mandatory.
 
     Especially in case of b), we want to limit the number of mails
     sent (consider a user retrying a few times), which is why there is
@@ -332,7 +334,7 @@ def send_email_confirmation(request, user, signup=False, email=None):
                 request,
                 messages.INFO,
                 "account/messages/email_confirmation_sent.txt",
-                {"email": email},
+                {"email": email, "login": not signup, "signup": signup},
             )
     if signup:
         adapter.stash_user(request, user_pk_to_url_str(user))

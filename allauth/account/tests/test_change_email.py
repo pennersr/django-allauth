@@ -1,11 +1,13 @@
 from __future__ import absolute_import
 
 import json
+from unittest.mock import patch
 
 from django.test.utils import override_settings
 from django.urls import reverse
 
-from allauth.account.models import EmailAddress
+from allauth.account.models import EmailAddress, EmailConfirmationHMAC
+from allauth.account.utils import user_email
 from allauth.tests import TestCase
 from allauth.utils import get_user_model
 
@@ -198,3 +200,67 @@ class ChangeEmailTests(TestCase):
         self,
     ):
         self.test_set_email_as_primary_doesnt_override_existed_changes_on_the_user()
+
+
+def test_delete_email_changes_user_email(user_factory, client, email_factory):
+    user = user_factory(email_verified=False)
+    client.force_login(user)
+    first_email = EmailAddress.objects.get(user=user)
+    first_email.primary = False
+    first_email.save()
+    # other_unverified_email
+    EmailAddress.objects.create(
+        user=user, email=email_factory(), verified=False, primary=False
+    )
+    other_verified_email = EmailAddress.objects.create(
+        user=user, email=email_factory(), verified=True, primary=False
+    )
+    assert user_email(user) == first_email.email
+    resp = client.post(
+        reverse("account_email"),
+        {"action_remove": "", "email": first_email.email},
+    )
+    assert resp.status_code == 302
+    user.refresh_from_db()
+    assert user_email(user) == other_verified_email.email
+
+
+def test_delete_email_wipes_user_email(user_factory, client):
+    user = user_factory(email_verified=False)
+    client.force_login(user)
+    first_email = EmailAddress.objects.get(user=user)
+    first_email.primary = False
+    first_email.save()
+    assert user_email(user) == first_email.email
+    resp = client.post(
+        reverse("account_email"),
+        {"action_remove": "", "email": first_email.email},
+    )
+    assert resp.status_code == 302
+    user.refresh_from_db()
+    assert user_email(user) == ""
+
+
+def test_change_email(user_factory, client, settings):
+    settings.ACCOUNT_CHANGE_EMAIL = True
+    settings.ACCOUNT_EMAIL_CONFIRMATION_HMAC = True
+
+    user = user_factory(email_verified=True)
+    client.force_login(user)
+    current_email = EmailAddress.objects.get(user=user)
+    resp = client.post(
+        reverse("account_email"),
+        {"action_add": "", "email": "change-to@this.org"},
+    )
+    assert resp.status_code == 302
+    new_email = EmailAddress.objects.get(email="change-to@this.org")
+    key = EmailConfirmationHMAC(new_email).key
+    with patch("allauth.account.signals.email_changed.send") as email_changed_mock:
+        resp = client.post(reverse("account_confirm_email", args=[key]))
+    assert resp.status_code == 302
+    assert not EmailAddress.objects.filter(pk=current_email.pk).exists()
+    assert EmailAddress.objects.filter(user=user).count() == 1
+    new_email.refresh_from_db()
+    assert new_email.verified
+    assert new_email.primary
+    assert email_changed_mock.called

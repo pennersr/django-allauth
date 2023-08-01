@@ -1,3 +1,6 @@
+from django.core.exceptions import ImproperlyConfigured
+
+
 class AppSettings(object):
     class AuthenticationMethod:
         USERNAME = "username"
@@ -8,10 +11,10 @@ class AppSettings(object):
         # After signing up, keep the user account inactive until the email
         # address is verified
         MANDATORY = "mandatory"
-        # Allow login with unverified e-mail (e-mail verification is
+        # Allow login with unverified email (email verification is
         # still sent)
         OPTIONAL = "optional"
-        # Don't send e-mail verification mails during signup
+        # Don't send email verification mails during signup
         NONE = "none"
 
     def __init__(self, prefix):
@@ -35,6 +38,11 @@ class AppSettings(object):
             )
         if self.MAX_EMAIL_ADDRESSES is not None:
             assert self.MAX_EMAIL_ADDRESSES > 0
+        if self.CHANGE_EMAIL:
+            if self.MAX_EMAIL_ADDRESSES is not None and self.MAX_EMAIL_ADDRESSES != 2:
+                raise ImproperlyConfigured(
+                    "Invalid combination of ACCOUNT_CHANGE_EMAIL and ACCOUNT_MAX_EMAIL_ADDRESSES"
+                )
 
     def _setting(self, name, dflt):
         from django.conf import settings
@@ -57,7 +65,7 @@ class AppSettings(object):
     @property
     def EMAIL_CONFIRMATION_EXPIRE_DAYS(self):
         """
-        Determines the expiration date of e-mail confirmation mails (#
+        Determines the expiration date of email confirmation mails (#
         of days)
         """
         from django.conf import settings
@@ -70,7 +78,7 @@ class AppSettings(object):
     @property
     def EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL(self):
         """
-        The URL to redirect to after a successful e-mail confirmation, in
+        The URL to redirect to after a successful email confirmation, in
         case of an authenticated user
         """
         return self._setting("EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL", None)
@@ -78,7 +86,7 @@ class AppSettings(object):
     @property
     def EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL(self):
         """
-        The URL to redirect to after a successful e-mail confirmation, in
+        The URL to redirect to after a successful email confirmation, in
         case no user is logged in
         """
         from django.conf import settings
@@ -98,14 +106,14 @@ class AppSettings(object):
     @property
     def EMAIL_REQUIRED(self):
         """
-        The user is required to hand over an e-mail address when signing up
+        The user is required to hand over an email address when signing up
         """
         return self._setting("EMAIL_REQUIRED", False)
 
     @property
     def EMAIL_VERIFICATION(self):
         """
-        See e-mail verification method
+        See email verification method
         """
         ret = self._setting("EMAIL_VERIFICATION", self.EmailVerificationMethod.OPTIONAL)
         # Deal with legacy (boolean based) setting
@@ -120,6 +128,10 @@ class AppSettings(object):
         return self._setting("MAX_EMAIL_ADDRESSES", None)
 
     @property
+    def CHANGE_EMAIL(self):
+        return self._setting("CHANGE_EMAIL", False)
+
+    @property
     def AUTHENTICATION_METHOD(self):
         ret = self._setting("AUTHENTICATION_METHOD", self.AuthenticationMethod.USERNAME)
         return ret
@@ -127,14 +139,14 @@ class AppSettings(object):
     @property
     def EMAIL_MAX_LENGTH(self):
         """
-        Adjust max_length of e-mail addresses
+        Adjust max_length of email addresses
         """
         return self._setting("EMAIL_MAX_LENGTH", 254)
 
     @property
     def UNIQUE_EMAIL(self):
         """
-        Enforce uniqueness of e-mail addresses
+        Enforce uniqueness of email addresses
         """
         return self._setting("UNIQUE_EMAIL", True)
 
@@ -377,11 +389,9 @@ class AppSettings(object):
         return token_generator
 
 
-# Ugly? Guido recommends this himself ...
-# http://mail.python.org/pipermail/python-ideas/2012-May/014969.html
-import sys  # noqa
+_app_settings = AppSettings("ACCOUNT_")
 
 
-app_settings = AppSettings("ACCOUNT_")
-app_settings.__name__ = __name__
-sys.modules[__name__] = app_settings
+def __getattr__(name):
+    # See https://peps.python.org/pep-0562/
+    return getattr(_app_settings, name)

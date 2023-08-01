@@ -56,10 +56,10 @@ flows that are locally generated.
 
 This approach creates a development gap between local and social
 authentication flows. It has remained an issue in spite of numerous common
-scenarios that both require. For example, an e-mail address passed along by an
+scenarios that both require. For example, an email address passed along by an
 OpenID provider may not be verified. Therefore, prior to hooking up
-an OpenID account to a local account the e-mail address must be
-verified. This essentially is one of many use cases that mandate e-mail
+an OpenID account to a local account the email address must be
+verified. This essentially is one of many use cases that mandate email
 verification to be present in both worlds.
 
 Integrating both is a humongous and tedious process. It is not as
@@ -78,7 +78,7 @@ Features
 
 **🔑 Comprehensive account functionality**
     Supports multiple authentication
-    schemes (e.g. login by user name, or by e-mail), as well as multiple
+    schemes (e.g. login by user name, or by email), as well as multiple
     strategies for account verification (ranging from none to mandatory email
     verification).
 

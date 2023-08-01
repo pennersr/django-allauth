@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
                     models.EmailField(
                         unique=UNIQUE_EMAIL,
                         max_length=75,
-                        verbose_name="e-mail address",
+                        verbose_name="email address",
                     ),
                 ),
                 (
@@ -85,7 +85,7 @@ class Migration(migrations.Migration):
                 (
                     "email_address",
                     models.ForeignKey(
-                        verbose_name="e-mail address",
+                        verbose_name="email address",
                         to="account.EmailAddress",
                         on_delete=models.CASCADE,
                     ),

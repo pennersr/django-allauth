@@ -22,7 +22,7 @@ class EmailAddress(models.Model):
     )
     email = models.EmailField(
         max_length=app_settings.EMAIL_MAX_LENGTH,
-        verbose_name=_("e-mail address"),
+        verbose_name=_("email address"),
     )
     verified = models.BooleanField(verbose_name=_("verified"), default=False)
     primary = models.BooleanField(verbose_name=_("primary"), default=False)
@@ -67,6 +67,9 @@ class EmailAddress(models.Model):
         return self.verified
 
     def set_as_primary(self, conditional=False):
+        """Marks the email address as primary. In case of `conditional`, it is
+        only marked as primary if there is no other primary email address set.
+        """
         old_primary = EmailAddress.objects.get_primary(self.user)
         if old_primary:
             if conditional:
@@ -75,9 +78,7 @@ class EmailAddress(models.Model):
             old_primary.save()
         self.primary = True
         self.save()
-        user_email(self.user, self.email)
-        if app_settings.USER_MODEL_EMAIL_FIELD:
-            self.user.save(update_fields=[app_settings.USER_MODEL_EMAIL_FIELD])
+        user_email(self.user, self.email, commit=True)
         return True
 
     def send_confirmation(self, request=None, signup=False):
@@ -88,11 +89,47 @@ class EmailAddress(models.Model):
         confirmation.send(request, signup=signup)
         return confirmation
 
+    def remove(self):
+        self.delete()
+        if user_email(self.user) == self.email:
+            alt = (
+                EmailAddress.objects.filter(user=self.user)
+                .order_by("-verified")
+                .first()
+            )
+            alt_email = ""
+            if alt:
+                alt_email = alt.email
+            user_email(self.user, alt_email, commit=True)
 
-class EmailConfirmation(models.Model):
+
+class EmailConfirmationMixin:
+    def confirm(self, request):
+        email_address = self.email_address
+        if not email_address.verified:
+            confirmed = get_adapter(request).confirm_email(request, email_address)
+            if confirmed:
+                signals.email_confirmed.send(
+                    sender=self.__class__,
+                    request=request,
+                    email_address=email_address,
+                )
+                return email_address
+
+    def send(self, request=None, signup=False):
+        get_adapter(request).send_confirmation_mail(request, self, signup)
+        signals.email_confirmation_sent.send(
+            sender=self.__class__,
+            request=request,
+            confirmation=self,
+            signup=signup,
+        )
+
+
+class EmailConfirmation(EmailConfirmationMixin, models.Model):
     email_address = models.ForeignKey(
         EmailAddress,
-        verbose_name=_("e-mail address"),
+        verbose_name=_("email address"),
         on_delete=models.CASCADE,
     )
     created = models.DateTimeField(verbose_name=_("created"), default=timezone.now)
@@ -122,30 +159,16 @@ class EmailConfirmation(models.Model):
     key_expired.boolean = True
 
     def confirm(self, request):
-        if not self.key_expired() and not self.email_address.verified:
-            email_address = self.email_address
-            confirmed = get_adapter(request).confirm_email(request, email_address)
-            if confirmed:
-                signals.email_confirmed.send(
-                    sender=self.__class__,
-                    request=request,
-                    email_address=email_address,
-                )
-                return email_address
+        if not self.key_expired():
+            return super().confirm(request)
 
     def send(self, request=None, signup=False):
-        get_adapter(request).send_confirmation_mail(request, self, signup)
+        super().send(request=request, signup=signup)
         self.sent = timezone.now()
         self.save()
-        signals.email_confirmation_sent.send(
-            sender=self.__class__,
-            request=request,
-            confirmation=self,
-            signup=signup,
-        )
 
 
-class EmailConfirmationHMAC:
+class EmailConfirmationHMAC(EmailConfirmationMixin, object):
     def __init__(self, email_address):
         self.email_address = email_address
 
@@ -166,24 +189,3 @@ class EmailConfirmationHMAC:
         ):
             ret = None
         return ret
-
-    def confirm(self, request):
-        if not self.email_address.verified:
-            email_address = self.email_address
-            confirmed = get_adapter(request).confirm_email(request, email_address)
-            if confirmed:
-                signals.email_confirmed.send(
-                    sender=self.__class__,
-                    request=request,
-                    email_address=email_address,
-                )
-                return email_address
-
-    def send(self, request=None, signup=False):
-        get_adapter(request).send_confirmation_mail(request, self, signup)
-        signals.email_confirmation_sent.send(
-            sender=self.__class__,
-            request=request,
-            confirmation=self,
-            signup=signup,
-        )

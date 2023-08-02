@@ -49,7 +49,7 @@ class TwitterOAuth2Provider(OAuth2Provider):
         return settings.get("FIELDS", default_fields)
 
     def get_default_scope(self):
-        return ["users.read"]
+        return ["users.read", "tweet.read"]
 
 
 provider_classes = [TwitterOAuth2Provider]

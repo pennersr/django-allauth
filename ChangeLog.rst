@@ -25,6 +25,7 @@ Note worthy changes
   trend over the years has been towards the simpler and more streamlined form
   "email".
 
+- Fixed Twitter OAuth2 authentication by using basic auth and adding scope `tweet.read`
 
 Security notice
 ---------------

@@ -130,6 +130,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.naver",
     "allauth.socialaccount.providers.netiq",
     "allauth.socialaccount.providers.nextcloud",
+    "allauth.socialaccount.providers.notion",
     "allauth.socialaccount.providers.odnoklassniki",
     "allauth.socialaccount.providers.openid",
     "allauth.socialaccount.providers.openid_connect",

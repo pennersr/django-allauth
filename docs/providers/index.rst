@@ -106,6 +106,7 @@ Provider Specifics
    questrade
    quickbooks
    reddit
+   saml
    salesforce
    sharefile
    shopify

@@ -87,6 +87,9 @@ Features
     compatible* provider, many *OAuth 1.0/2.0* providers, as well as
     custom protocols such as, for example, *Telegram* authentication.
 
+**💼 Enterprise ready**
+    Supports SAML 2.0, which is often used in a B2B context.
+
 **🕵️ Battle-tested**
     The package has been out in the open since 2010. It is in use by many
     commercial companies whose business depends on it and has hence been

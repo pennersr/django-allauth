@@ -201,6 +201,8 @@ Supported Providers
 
 - Salesforce (OAuth2)
 
+- SAML 2.0
+
 - ShareFile (OAuth2)
 
 - Shopify (OAuth2)

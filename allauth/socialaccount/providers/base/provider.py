@@ -78,7 +78,11 @@ class Provider(object):
             provider=self.app.provider_id or self.app.provider,
         )
         email_addresses = self.extract_email_addresses(response)
-        self.cleanup_email_addresses(common_fields.get("email"), email_addresses)
+        self.cleanup_email_addresses(
+            common_fields.get("email"),
+            email_addresses,
+            email_verified=common_fields.get("email_verified"),
+        )
         sociallogin = SocialLogin(
             account=socialaccount, email_addresses=email_addresses
         )
@@ -118,10 +122,12 @@ class Provider(object):
         """
         return {}
 
-    def cleanup_email_addresses(self, email, addresses):
+    def cleanup_email_addresses(self, email, addresses, email_verified=False):
         # Move user.email over to EmailAddress
         if email and email.lower() not in [a.email.lower() for a in addresses]:
-            addresses.append(EmailAddress(email=email, verified=False, primary=True))
+            addresses.append(
+                EmailAddress(email=email, verified=bool(email_verified), primary=True)
+            )
         # Force verified emails
         settings = self.get_settings()
         verified_email = settings.get("VERIFIED_EMAIL", False)

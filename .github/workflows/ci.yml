@@ -47,6 +47,8 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
+    - name: Install xmlsec
+      run: sudo apt-get install -y xmlsec1 libxmlsec1-dev
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -77,6 +79,8 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
+    - name: Install xmlsec
+      run: sudo apt-get install -y xmlsec1 libxmlsec1-dev
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip

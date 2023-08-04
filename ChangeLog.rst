@@ -25,7 +25,8 @@ Note worthy changes
   trend over the years has been towards the simpler and more streamlined form
   "email".
 
-- Added support for SAML 2.0.
+- Added support for SAML 2.0. Thanks to `Dskrpt <https://dskrpt.de>`_
+  for sponsoring the development of this feature!
 
 - Fixed Twitter OAuth2 authentication by using basic auth and adding scope `tweet.read`.
 

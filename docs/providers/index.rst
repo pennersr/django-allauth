@@ -93,6 +93,7 @@ Provider Specifics
    naver
    netiq
    nextcloud
+   notion
    odnoklassniki
    okta
    openid_connect
@@ -106,6 +107,7 @@ Provider Specifics
    questrade
    quickbooks
    reddit
+   saml
    salesforce
    sharefile
    shopify

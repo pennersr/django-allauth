@@ -8,7 +8,18 @@ from allauth.utils import get_user_model
 
 
 @pytest.fixture
-def user_factory(db, email_factory):
+def user(user_factory):
+    return user_factory()
+
+
+@pytest.fixture
+def auth_client(client, user):
+    client.force_login(user)
+    return client
+
+
+@pytest.fixture
+def user_factory(email_factory, db):
     def factory(
         email=None, username=None, commit=True, with_email=True, email_verified=True
     ):

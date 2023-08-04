@@ -173,6 +173,8 @@ Supported Providers
 
 - NextCloud (OAuth2)
 
+- Notion (OAuth2)
+
 - Odnoklassniki (OAuth2)
 
 - Okta (OAuth2)
@@ -200,6 +202,8 @@ Supported Providers
 - Robinhood (OAuth2)
 
 - Salesforce (OAuth2)
+
+- SAML 2.0
 
 - ShareFile (OAuth2)
 

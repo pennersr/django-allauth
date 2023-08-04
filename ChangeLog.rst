@@ -27,6 +27,8 @@ Note worthy changes
 
 - Added support for SAML 2.0.
 
+- Fixed Twitter OAuth2 authentication by using basic auth and adding scope `tweet.read`.
+
 
 Security notice
 ---------------

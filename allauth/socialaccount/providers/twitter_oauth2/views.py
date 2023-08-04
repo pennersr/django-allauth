@@ -14,6 +14,7 @@ class TwitterOAuth2Adapter(OAuth2Adapter):
     access_token_url = "https://api.twitter.com/2/oauth2/token"
     authorize_url = "https://twitter.com/i/oauth2/authorize"
     profile_url = "https://api.twitter.com/2/users/me"
+    basic_auth = True
 
     def complete_login(self, request, app, access_token, **kwargs):
         extra_data = self.get_user_info(access_token)

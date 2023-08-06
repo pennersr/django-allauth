@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-24 15:33-0500\n"
-"PO-Revision-Date: 2021-12-09 16:29+0100\n"
+"PO-Revision-Date: 2023-08-06 20:51+0200\n"
 "Last-Translator: pennersr <raymond.penners@intenct.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/django-allauth/"
 "language/nl/)\n"
@@ -227,7 +227,7 @@ msgstr ""
 
 #: socialaccount/models.py:54
 msgid "secret key"
-msgstr ""
+msgstr "geheime sleutel"
 
 #: socialaccount/models.py:57
 msgid "API secret, client secret, or consumer secret"
@@ -235,7 +235,7 @@ msgstr ""
 
 #: socialaccount/models.py:60
 msgid "Key"
-msgstr ""
+msgstr "Sleutel"
 
 #: socialaccount/models.py:79
 msgid "social application"
@@ -247,19 +247,19 @@ msgstr ""
 
 #: socialaccount/models.py:115
 msgid "uid"
-msgstr ""
+msgstr "uid"
 
 #: socialaccount/models.py:117
 msgid "last login"
-msgstr ""
+msgstr "laatst ingelogd"
 
 #: socialaccount/models.py:118
 msgid "date joined"
-msgstr ""
+msgstr "datum toegetreden"
 
 #: socialaccount/models.py:119
 msgid "extra data"
-msgstr ""
+msgstr "extra data"
 
 #: socialaccount/models.py:123
 msgid "social account"
@@ -287,7 +287,7 @@ msgstr ""
 
 #: socialaccount/models.py:167
 msgid "expires at"
-msgstr ""
+msgstr "verloopt op"
 
 #: socialaccount/models.py:172
 msgid "social application token"
@@ -299,7 +299,7 @@ msgstr ""
 
 #: socialaccount/providers/douban/views.py:36
 msgid "Invalid profile data"
-msgstr ""
+msgstr "Ongeldige profiel data"
 
 #: socialaccount/providers/oauth/client.py:84
 #: socialaccount/providers/pocket/client.py:37
@@ -343,11 +343,11 @@ msgstr "Dit account is niet actief"
 
 #: templates/account/base.html:16
 msgid "Messages:"
-msgstr ""
+msgstr "Berichten:"
 
 #: templates/account/base.html:26
 msgid "Menu:"
-msgstr ""
+msgstr "Menu:"
 
 #: templates/account/base.html:29 templates/account/email_change.html:31
 #, fuzzy
@@ -433,10 +433,20 @@ msgid ""
 "\n"
 "%(password_reset_url)s"
 msgstr ""
+"Je ontvangt deze e-mail omdat jij of iemand anders geprobeerd heeft een account\n"
+"te registreren met dit e-mail adres:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"Echter, er bestaat al een account met dit e-mail adres.  Als je dit vergeten\n"
+"was, gebruik dan de wachtwoord vergeten procedure om de toegang tot je account\n"
+"te herstellen:\n"
+"\n"
+"%(password_reset_url)s"
 
 #: templates/account/email/account_already_exists_subject.txt:3
 msgid "Account Already Exists"
-msgstr ""
+msgstr "Account bestaat al"
 
 #: templates/account/email/base_message.txt:1
 #, python-format

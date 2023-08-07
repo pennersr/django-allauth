@@ -15,7 +15,7 @@ class AppSettings(object):
     @property
     def QUERY_EMAIL(self):
         """
-        Request email address from 3rd party account provider?
+        Request e-mail address from 3rd party account provider?
         E.g. using OpenID AX
         """
         from allauth.account import app_settings as account_settings
@@ -27,7 +27,7 @@ class AppSettings(object):
         """
         Attempt to bypass the signup form by using fields (e.g. username,
         email) retrieved from the social account provider. If a conflict
-        arises due to a duplicate email signup form will still kick in.
+        arises due to a duplicate e-mail signup form will still kick in.
         """
         return self._setting("AUTO_SIGNUP", True)
 
@@ -36,40 +36,12 @@ class AppSettings(object):
         """
         Provider specific settings
         """
-        ret = self._setting("PROVIDERS", {})
-        oidc = ret.get("openid_connect")
-        if oidc:
-            ret["openid_connect"] = self._migrate_oidc(oidc)
-        return ret
-
-    def _migrate_oidc(self, oidc):
-        servers = oidc.get("SERVERS")
-        if servers is None:
-            return oidc
-        ret = {}
-        apps = []
-        for server in servers:
-            app = dict(**server["APP"])
-            app_settings = {}
-            if "token_auth_method" in server:
-                app_settings["token_auth_method"] = server["token_auth_method"]
-            app_settings["server_url"] = server["server_url"]
-            app.update(
-                {
-                    "name": server.get("name", ""),
-                    "provider_id": server["id"],
-                    "settings": app_settings,
-                }
-            )
-            assert app["provider_id"]
-            apps.append(app)
-        ret["APPS"] = apps
-        return ret
+        return self._setting("PROVIDERS", {})
 
     @property
     def EMAIL_REQUIRED(self):
         """
-        The user is required to hand over an email address when signing up
+        The user is required to hand over an e-mail address when signing up
         """
         from allauth.account import app_settings as account_settings
 
@@ -78,7 +50,7 @@ class AppSettings(object):
     @property
     def EMAIL_VERIFICATION(self):
         """
-        See email verification method
+        See e-mail verification method
         """
         from allauth.account import app_settings as account_settings
 
@@ -88,7 +60,7 @@ class AppSettings(object):
     def ADAPTER(self):
         return self._setting(
             "ADAPTER",
-            "allauth.socialaccount.adapter.DefaultSocialAccountAdapter",
+            "allauth.socialaccount.adapter" ".DefaultSocialAccountAdapter",
         )
 
     @property
@@ -96,25 +68,19 @@ class AppSettings(object):
         return self._setting("FORMS", {})
 
     @property
-    def LOGIN_ON_GET(self):
-        return self._setting("LOGIN_ON_GET", False)
-
-    @property
     def STORE_TOKENS(self):
-        return self._setting("STORE_TOKENS", False)
+        return self._setting("STORE_TOKENS", True)
 
     @property
     def UID_MAX_LENGTH(self):
         return 191
 
-    @property
-    def SOCIALACCOUNT_STR(self):
-        return self._setting("SOCIALACCOUNT_STR", None)
+
+# Ugly? Guido recommends this himself ...
+# http://mail.python.org/pipermail/python-ideas/2012-May/014969.html
+import sys  # noqa
 
 
-_app_settings = AppSettings("SOCIALACCOUNT_")
-
-
-def __getattr__(name):
-    # See https://peps.python.org/pep-0562/
-    return getattr(_app_settings, name)
+app_settings = AppSettings("SOCIALACCOUNT_")
+app_settings.__name__ = __name__
+sys.modules[__name__] = app_settings

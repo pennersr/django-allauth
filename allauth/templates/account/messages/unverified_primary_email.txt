@@ -1,2 +1,2 @@
 {% load i18n %}
-{% blocktrans %}Your primary email address must be verified.{% endblocktrans %}
+{% blocktrans %}Your primary e-mail address must be verified.{% endblocktrans %}

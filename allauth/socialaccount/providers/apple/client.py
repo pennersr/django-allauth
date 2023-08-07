@@ -13,14 +13,6 @@ from allauth.socialaccount.providers.oauth2.client import (
 )
 
 
-def jwt_encode(*args, **kwargs):
-    resp = jwt.encode(*args, **kwargs)
-    if isinstance(resp, bytes):
-        # For PyJWT <2
-        resp = resp.decode("utf-8")
-    return resp
-
-
 class Scope(object):
     EMAIL = "email"
     NAME = "name"
@@ -36,7 +28,7 @@ class AppleOAuth2Client(OAuth2Client):
     def generate_client_secret(self):
         """Create a JWT signed with an apple provided private key"""
         now = datetime.utcnow()
-        app = get_adapter(self.request).get_app(self.request, "apple")
+        app = get_adapter().get_app(self.request, "apple")
         if not app.key:
             raise ImproperlyConfigured("Apple 'key' missing")
         if not app.certificate_key:
@@ -49,16 +41,16 @@ class AppleOAuth2Client(OAuth2Client):
             "exp": now + timedelta(hours=1),
         }
         headers = {"kid": self.consumer_secret, "alg": "ES256"}
-        client_secret = jwt_encode(
+        client_secret = jwt.encode(
             payload=claims, key=app.certificate_key, algorithm="ES256", headers=headers
-        )
+        ).decode("utf-8")
         return client_secret
 
     def get_client_id(self):
-        """We support multiple client_ids, but use the first one for api calls"""
+        """ We support multiple client_ids, but use the first one for api calls """
         return self.consumer_key.split(",")[0]
 
-    def get_access_token(self, code, pkce_code_verifier=None):
+    def get_access_token(self, code):
         url = self.access_token_url
         client_secret = self.generate_client_secret()
         data = {
@@ -68,8 +60,6 @@ class AppleOAuth2Client(OAuth2Client):
             "redirect_uri": self.callback_url,
             "client_secret": client_secret,
         }
-        if pkce_code_verifier:
-            data["code_verifier"] = pkce_code_verifier
         self._strip_empty_keys(data)
         resp = requests.request(
             self.access_token_method, url, data=data, headers=self.headers

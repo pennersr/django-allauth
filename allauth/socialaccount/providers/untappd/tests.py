@@ -1,12 +1,11 @@
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, TestCase
+from allauth.socialaccount.providers import registry
+from allauth.socialaccount.tests import create_oauth2_tests
+from allauth.tests import MockedResponse
 
 from .provider import UntappdProvider
 
 
-class UntappdTests(OAuth2TestsMixin, TestCase):
-    provider_id = UntappdProvider.id
-
+class UntappdTests(create_oauth2_tests(registry.by_id(UntappdProvider.id))):
     def get_login_response_json(self, with_refresh_token=True):
         return """
             {

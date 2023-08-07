@@ -1,11 +1,11 @@
 from hashlib import md5
 
 from django.contrib.auth.models import User
-from django.test import RequestFactory
+from django.contrib.sites.models import Site
 from django.urls import reverse
 from django.utils.http import urlencode
 
-from allauth import app_settings
+from allauth.socialaccount import providers
 from allauth.socialaccount.models import SocialApp, SocialToken
 from allauth.tests import Mock, TestCase, patch
 
@@ -22,19 +22,15 @@ class DraugiemTests(TestCase):
         )
         self.client.login(username="anakin", password="s1thrul3s")
 
+        self.provider = providers.registry.by_id(DraugiemProvider.id)
         app = SocialApp.objects.create(
-            provider=DraugiemProvider.id,
-            name=DraugiemProvider.id,
+            provider=self.provider.id,
+            name=self.provider.id,
             client_id="app123id",
-            key=DraugiemProvider.id,
+            key=self.provider.id,
             secret="dummy",
         )
-        request = RequestFactory().get("/")
-        self.provider = app.get_provider(request)
-        if app_settings.SITES_ENABLED:
-            from django.contrib.sites.models import Site
-
-            app.sites.add(Site.objects.get_current())
+        app.sites.add(Site.objects.get_current())
         self.app = app
 
     def get_draugiem_login_response(self):
@@ -116,7 +112,7 @@ class DraugiemTests(TestCase):
 
     def test_callback(self):
         with patch(
-            "allauth.socialaccount.providers.draugiem.views.draugiem_complete_login"
+            "allauth.socialaccount.providers.draugiem.views" ".draugiem_complete_login"
         ) as draugiem_complete_login:
             self.mock_socialaccount_state()
 

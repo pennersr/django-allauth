@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib import admin
 
-from allauth import app_settings
 from allauth.account.adapter import get_adapter
 
 from .models import SocialAccount, SocialApp, SocialToken
@@ -24,7 +23,7 @@ class SocialAppAdmin(admin.ModelAdmin):
         "name",
         "provider",
     )
-    filter_horizontal = ("sites",) if app_settings.SITES_ENABLED else ()
+    filter_horizontal = ("sites",)
 
 
 class SocialAccountAdmin(admin.ModelAdmin):

@@ -1,13 +1,14 @@
 import json
 import string
-from urllib.parse import quote
 
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 from django.middleware.csrf import get_token
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.utils.html import escapejs, mark_safe
+from django.utils.http import urlquote
 
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.app_settings import QUERY_EMAIL
@@ -25,13 +26,9 @@ from .locale import get_default_locale_callable
 GRAPH_API_VERSION = (
     getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
     .get("facebook", {})
-    .get("VERSION", "v13.0")
+    .get("VERSION", "v7.0")
 )
-GRAPH_API_URL = (
-    getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
-    .get("facebook", {})
-    .get("GRAPH_API_URL", "https://graph.facebook.com/{}".format(GRAPH_API_VERSION))
-)
+GRAPH_API_URL = "https://graph.facebook.com/" + GRAPH_API_VERSION
 
 NONCE_SESSION_KEY = "allauth_facebook_nonce"
 NONCE_LENGTH = 32
@@ -61,9 +58,9 @@ class FacebookProvider(OAuth2Provider):
     name = "Facebook"
     account_class = FacebookAccount
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, request):
         self._locale_callable_cache = None
-        super().__init__(*args, **kwargs)
+        super(FacebookProvider, self).__init__(request)
 
     def get_method(self):
         return self.get_settings().get("METHOD", "oauth2")
@@ -81,7 +78,7 @@ class FacebookProvider(OAuth2Provider):
                 process,
                 scope,
             )
-            ret = "javascript:%s" % (quote(js),)
+            ret = "javascript:%s" % (urlquote(js),)
         elif method == "oauth2":
             ret = super(FacebookProvider, self).get_login_url(request, **kwargs)
         else:
@@ -154,17 +151,26 @@ class FacebookProvider(OAuth2Provider):
         return sdk_url
 
     def media_js(self, request):
-        if self.get_method() != "js_sdk":
-            return ""
+        # NOTE: Avoid loading models at top due to registry boot...
+        from allauth.socialaccount.models import SocialApp
+
+        try:
+            app = self.get_app(request)
+        except SocialApp.DoesNotExist:
+            raise ImproperlyConfigured(
+                "No Facebook app configured: please"
+                " add a SocialApp using the Django"
+                " admin"
+            )
 
         def abs_uri(name):
             return request.build_absolute_uri(reverse(name))
 
         fb_data = {
-            "appId": self.app.client_id,
+            "appId": app.client_id,
             "version": GRAPH_API_VERSION,
             "sdkUrl": self.get_sdk_url(request),
-            "initParams": self.get_init_params(request, self.app),
+            "initParams": self.get_init_params(request, app),
             "loginOptions": self.get_fb_login_options(request),
             "loginByTokenUrl": abs_uri("facebook_login_by_token"),
             "cancelUrl": abs_uri("socialaccount_login_cancelled"),
@@ -184,7 +190,7 @@ class FacebookProvider(OAuth2Provider):
         else:
             nonce = request.session.get(NONCE_SESSION_KEY)
         if not nonce and or_create:
-            nonce = get_random_string(NONCE_LENGTH)
+            nonce = get_random_string(32)
             request.session[NONCE_SESSION_KEY] = nonce
         return nonce
 

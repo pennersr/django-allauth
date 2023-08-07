@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from json import loads
 
+from django.test.client import RequestFactory
 from django.test.utils import override_settings
 
 from allauth.socialaccount.models import SocialAccount
@@ -535,6 +536,5 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
   "Id": "1234567"
 }
 """
-        self.assertRaises(
-            ProviderException, self.provider.extract_uid, loads(extra_data)
-        )
+        provider = LinkedInOAuth2Provider(RequestFactory().get("/login"))
+        self.assertRaises(ProviderException, provider.extract_uid, loads(extra_data))

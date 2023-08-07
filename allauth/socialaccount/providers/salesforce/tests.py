@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, TestCase
+from allauth.socialaccount.providers import registry
+from allauth.socialaccount.tests import create_oauth2_tests
+from allauth.tests import MockedResponse
 
 from .provider import SalesforceProvider
 
 
-class SalesforceTests(OAuth2TestsMixin, TestCase):
-    provider_id = SalesforceProvider.id
-
+class SalesforceTests(create_oauth2_tests(registry.by_id(SalesforceProvider.id))):
     def get_mocked_response(
         self,
         last_name="Penners",

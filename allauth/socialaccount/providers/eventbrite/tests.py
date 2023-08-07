@@ -18,7 +18,8 @@ class EventbriteTests(OAuth2TestsMixin, TestCase):
             """{
             "emails": [{
                 "email": "test@example.com",
-                "verified": true
+                "verified": "True",
+                "primary": "True"
             }],
             "id": "999999999",
             "name": "Andrew Godwin",

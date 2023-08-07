@@ -11,35 +11,34 @@ from .provider import OdnoklassnikiProvider
 
 
 USER_FIELDS = [
+    "uid",
+    "locale",
+    "first_name",
+    "last_name",
+    "name",
+    "gender",
     "age",
     "birthday",
-    "current_status",
-    "current_status_date",
-    "current_status_id",
-    "email",
-    "first_name",
-    "gender",
     "has_email",
-    "last_name",
-    "locale",
-    "location",
-    "name",
+    "current_status",
+    "current_status_id",
+    "current_status_date",
     "online",
     "photo_id",
-    "pic1024x768",  # big
-    "pic190x190",  # small
-    "pic640x480",  # medium
     "pic_1",  # aka pic50x50
     "pic_2",  # aka pic128max
-    "uid",
+    "pic190x190",  # small
+    "pic640x480",  # medium
+    "pic1024x768",  # big
+    "location",
 ]
 
 
 class OdnoklassnikiOAuth2Adapter(OAuth2Adapter):
     provider_id = OdnoklassnikiProvider.id
-    access_token_url = "https://api.odnoklassniki.ru/oauth/token.do"
-    authorize_url = "https://www.odnoklassniki.ru/oauth/authorize"
-    profile_url = "https://api.odnoklassniki.ru/fb.do"
+    access_token_url = "http://api.odnoklassniki.ru/oauth/token.do"
+    authorize_url = "http://www.odnoklassniki.ru/oauth/authorize"
+    profile_url = "http://api.odnoklassniki.ru/fb.do"
     access_token_method = "POST"
 
     def complete_login(self, request, app, token, **kwargs):

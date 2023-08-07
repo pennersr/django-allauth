@@ -1,25 +1,18 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.db import models, migrations
 from django.conf import settings
-from django.db import migrations, models
-
 import allauth.socialaccount.fields
-from allauth import app_settings
 from allauth.socialaccount.providers import registry
 
 
 class Migration(migrations.Migration):
-    dependencies = (
-        [
-            ("sites", "0001_initial"),
-        ]
-        if app_settings.SITES_ENABLED
-        else []
-        + [
-            migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ]
-    )
+
+    dependencies = [
+        ("sites", "0001_initial"),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+    ]
 
     operations = [
         migrations.CreateModel(
@@ -124,14 +117,8 @@ class Migration(migrations.Migration):
                         blank=True,
                     ),
                 ),
-            ]
-            + (
-                [
-                    ("sites", models.ManyToManyField(to="sites.Site", blank=True)),
-                ]
-                if app_settings.SITES_ENABLED
-                else []
-            ),
+                ("sites", models.ManyToManyField(to="sites.Site", blank=True)),
+            ],
             options={
                 "verbose_name": "social application",
                 "verbose_name_plural": "social applications",

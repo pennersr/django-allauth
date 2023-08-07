@@ -3,18 +3,16 @@ from urllib.parse import parse_qs, urlparse
 
 from django.test.utils import override_settings
 from django.urls import reverse
-from django.utils.http import urlencode
 
 from allauth.socialaccount.models import SocialAccount
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, TestCase, mocked_response
+from allauth.socialaccount.providers import registry
+from allauth.socialaccount.tests import create_oauth2_tests
+from allauth.tests import MockedResponse, mocked_response
 
 from .provider import ShopifyProvider
 
 
-class ShopifyTests(OAuth2TestsMixin, TestCase):
-    provider_id = ShopifyProvider.id
-
+class ShopifyTests(create_oauth2_tests(registry.by_id(ShopifyProvider.id))):
     def _complete_shopify_login(self, q, resp, resp_mock, with_refresh_token):
         complete_url = reverse(self.provider.id + "_callback")
         self.assertGreater(q["redirect_uri"][0].find(complete_url), 0)
@@ -36,12 +34,10 @@ class ShopifyTests(OAuth2TestsMixin, TestCase):
         return resp
 
     def login(self, resp_mock, process="login", with_refresh_token=True):
-        url = (
-            reverse(self.provider.id + "_login")
-            + "?"
-            + urlencode({"process": process, "shop": "test"})
+        resp = self.client.get(
+            reverse(self.provider.id + "_login"),
+            {"process": process, "shop": "test"},
         )
-        resp = self.client.post(url)
         self.assertEqual(resp.status_code, 302)
         p = urlparse(resp["location"])
         q = parse_qs(p.query)
@@ -74,10 +70,9 @@ class ShopifyEmbeddedTests(ShopifyTests):
     """
 
     def login(self, resp_mock, process="login", with_refresh_token=True):
-        resp = self.client.post(
-            reverse(self.provider.id + "_login")
-            + "?"
-            + urlencode({"process": process, "shop": "test"}),
+        resp = self.client.get(
+            reverse(self.provider.id + "_login"),
+            {"process": process, "shop": "test"},
         )
         self.assertEqual(resp.status_code, 200)  # No re-direct, JS must do it
         actual_content = resp.content.decode("utf8")

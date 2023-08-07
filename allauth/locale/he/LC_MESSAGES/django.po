@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-24 15:33-0500\n"
+"POT-Creation-Date: 2020-10-11 11:15-0500\n"
 "PO-Revision-Date: 2017-08-26 16:11+0300\n"
 "Last-Translator: Udi Oron <udioron@gmail.com>\n"
 "Language-Team: Hebrew\n"
@@ -18,19 +18,19 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.0.3\n"
 
-#: account/adapter.py:46
+#: account/adapter.py:45
 msgid "Username can not be used. Please use other username."
 msgstr "לא ניתן להשתמש בשם משתמש זה. אנא בחר שם משתמש אחר."
 
-#: account/adapter.py:52
+#: account/adapter.py:51
 msgid "Too many failed login attempts. Try again later."
 msgstr "יותר מדי ניסיונות התחברות כושלים. אנא נסה שוב מאוחר יותר."
 
-#: account/adapter.py:54
-msgid "A user is already registered with this email address."
+#: account/adapter.py:53
+msgid "A user is already registered with this e-mail address."
 msgstr "משתמש אחר כבר רשום עם כתובת אימייל זו."
 
-#: account/adapter.py:303
+#: account/adapter.py:300
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "הסיסמה חייבת להיות באורך של לפחות {0} תווים."
@@ -39,261 +39,262 @@ msgstr "הסיסמה חייבת להיות באורך של לפחות {0} תוו
 msgid "Accounts"
 msgstr "חשבונות"
 
-#: account/forms.py:59 account/forms.py:450
+#: account/forms.py:58 account/forms.py:403
 msgid "You must type the same password each time."
 msgstr "יש להזין את אותה הסיסמה פעמיים."
 
-#: account/forms.py:91 account/forms.py:415 account/forms.py:532
+#: account/forms.py:87 account/forms.py:372 account/forms.py:486
 msgid "Password"
 msgstr "סיסמה"
 
-#: account/forms.py:92
+#: account/forms.py:88
 msgid "Remember Me"
 msgstr "זכור אותי"
 
-#: account/forms.py:96
+#: account/forms.py:92
 msgid "This account is currently inactive."
 msgstr "חשבון זה אינו פעיל כעת."
 
-#: account/forms.py:98
-msgid "The email address and/or password you specified are not correct."
+#: account/forms.py:94
+msgid "The e-mail address and/or password you specified are not correct."
 msgstr "כתובת האימייל ו/או הסיסמה אינם נכונים."
 
-#: account/forms.py:101
+#: account/forms.py:97
 msgid "The username and/or password you specified are not correct."
 msgstr "שם המשתמש ו/או הסיסמה אינם נכונים."
 
-#: account/forms.py:112 account/forms.py:278 account/forms.py:477
-#: account/forms.py:550
-msgid "Email address"
+#: account/forms.py:108 account/forms.py:273 account/forms.py:429
+#: account/forms.py:505
+msgid "E-mail address"
 msgstr "כתובת אימייל"
 
-#: account/forms.py:116 account/forms.py:323 account/forms.py:474
-#: account/forms.py:545
-msgid "Email"
+#: account/forms.py:111 account/forms.py:308 account/forms.py:426
+#: account/forms.py:500
+msgid "E-mail"
 msgstr "אימייל"
 
-#: account/forms.py:119 account/forms.py:122 account/forms.py:268
-#: account/forms.py:271
+#: account/forms.py:113 account/forms.py:115 account/forms.py:263
+#: account/forms.py:267
 msgid "Username"
 msgstr "שם משתמש"
 
-#: account/forms.py:132
-msgid "Username or email"
+#: account/forms.py:126
+msgid "Username or e-mail"
 msgstr "שם משתמש או אימייל"
 
-#: account/forms.py:135
+#: account/forms.py:130
 msgctxt "field label"
 msgid "Login"
 msgstr "כניסה"
 
-#: account/forms.py:314
-msgid "Email (again)"
+#: account/forms.py:299
+msgid "E-mail (again)"
 msgstr "אימייל (שוב)"
 
-#: account/forms.py:318
-msgid "Email address confirmation"
+#: account/forms.py:303
+msgid "E-mail address confirmation"
 msgstr "אישור כתובת אימייל"
 
-#: account/forms.py:326
-msgid "Email (optional)"
+#: account/forms.py:311
+msgid "E-mail (optional)"
 msgstr "אימייל (לא חובה)"
 
-#: account/forms.py:375
+#: account/forms.py:351
 msgid "You must type the same email each time."
 msgstr "יש להזין את אותו האימייל פעמיים."
 
-#: account/forms.py:419 account/forms.py:533
+#: account/forms.py:374 account/forms.py:487
 msgid "Password (again)"
 msgstr "סיסמה (שוב)"
 
-#: account/forms.py:486
-msgid "This email address is already associated with this account."
+#: account/forms.py:438
+msgid "This e-mail address is already associated with this account."
 msgstr "כתובת אימייל זו כבר משויכת לחשבון זה."
 
-#: account/forms.py:488
+#: account/forms.py:441
+msgid "This e-mail address is already associated with another account."
+msgstr "כתובת אימייל זו כבר משויכת לחשבון אחר."
+
+#: account/forms.py:443
 #, fuzzy, python-format
-#| msgid "Your account has no verified email address."
-msgid "You cannot add more than %d email addresses."
+#| msgid "Your account has no verified e-mail address."
+msgid "You cannot add more than %d e-mail addresses."
 msgstr "לא נמצאו כתובות אימייל מאומתות לחשבונך."
 
-#: account/forms.py:513
+#: account/forms.py:467
 msgid "Current Password"
 msgstr "סיסמה נוכחית"
 
-#: account/forms.py:515 account/forms.py:619
+#: account/forms.py:468 account/forms.py:557
 msgid "New Password"
 msgstr "סיסמה חדשה"
 
-#: account/forms.py:516 account/forms.py:620
+#: account/forms.py:469 account/forms.py:558
 msgid "New Password (again)"
 msgstr "סיסמה חדשה (שוב)"
 
-#: account/forms.py:524
+#: account/forms.py:477
 msgid "Please type your current password."
 msgstr "אנא הזן את הסיסמה הנוכחית."
 
-#: account/forms.py:562
-msgid "The email address is not assigned to any user account"
+#: account/forms.py:516
+msgid "The e-mail address is not assigned to any user account"
 msgstr "כתובת אימייל זו אינה משויכת לאף חשבון"
 
-#: account/forms.py:640
+#: account/forms.py:579
 msgid "The password reset token was invalid."
 msgstr "אסימון איפוס הסיסמה אינו תקין."
 
-#: account/models.py:20
+#: account/models.py:22
 msgid "user"
 msgstr "משתמש"
 
-#: account/models.py:25 account/models.py:33 account/models.py:132
-msgid "email address"
+#: account/models.py:28 account/models.py:83
+msgid "e-mail address"
 msgstr "כתובת אימייל"
 
-#: account/models.py:27
+#: account/models.py:30
 msgid "verified"
 msgstr "מאומת"
 
-#: account/models.py:28
+#: account/models.py:31
 msgid "primary"
 msgstr "ראשי"
 
-#: account/models.py:34
+#: account/models.py:36
+msgid "email address"
+msgstr "כתובת אימייל"
+
+#: account/models.py:37
 msgid "email addresses"
 msgstr "כתובות אימייל"
 
-#: account/models.py:135
+#: account/models.py:86
 msgid "created"
 msgstr "נוצר"
 
-#: account/models.py:136
+#: account/models.py:87
 msgid "sent"
 msgstr "נשלח"
 
-#: account/models.py:137 socialaccount/models.py:60
+#: account/models.py:88 socialaccount/models.py:58
 msgid "key"
 msgstr "מפתח"
 
-#: account/models.py:142
+#: account/models.py:93
 msgid "email confirmation"
 msgstr "אישור באימייל"
 
-#: account/models.py:143
+#: account/models.py:94
 msgid "email confirmations"
 msgstr "אישורים בדואל"
 
-#: socialaccount/adapter.py:28
-#, fuzzy, python-format
-#| msgid ""
-#| "An account already exists with this e-mail address. Please sign in to "
-#| "that account first, then connect your %s account."
+#: socialaccount/adapter.py:26
+#, python-format
 msgid ""
-"An account already exists with this email address. Please sign in to that "
+"An account already exists with this e-mail address. Please sign in to that "
 "account first, then connect your %s account."
 msgstr ""
 "קיים כבר חשבון עם כתובת אימייל זו. אנא התחבר לחשבון זה, ואז קשר את חשבון %s "
 "שלך."
 
-#: socialaccount/adapter.py:132
+#: socialaccount/adapter.py:131
 msgid "Your account has no password set up."
 msgstr "לא נבחרה סיסמה לחשבונך."
 
-#: socialaccount/adapter.py:139
-msgid "Your account has no verified email address."
+#: socialaccount/adapter.py:141
+msgid "Your account has no verified e-mail address."
 msgstr "לא נמצאו כתובות אימייל מאומתות לחשבונך."
 
 #: socialaccount/apps.py:7
 msgid "Social Accounts"
 msgstr "חשבונות חברתיים"
 
-#: socialaccount/models.py:34 socialaccount/models.py:95
+#: socialaccount/models.py:41 socialaccount/models.py:84
 msgid "provider"
 msgstr ""
 
-#: socialaccount/models.py:43
-msgid "provider ID"
-msgstr ""
-
-#: socialaccount/models.py:47
+#: socialaccount/models.py:45
 msgid "name"
 msgstr "שם"
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:47
 msgid "client id"
 msgstr ""
 
-#: socialaccount/models.py:51
+#: socialaccount/models.py:49
 msgid "App ID, or consumer key"
 msgstr ""
 
-#: socialaccount/models.py:54
+#: socialaccount/models.py:52
 msgid "secret key"
 msgstr ""
 
-#: socialaccount/models.py:57
+#: socialaccount/models.py:55
 msgid "API secret, client secret, or consumer secret"
 msgstr ""
 
-#: socialaccount/models.py:60
+#: socialaccount/models.py:58
 msgid "Key"
 msgstr ""
 
-#: socialaccount/models.py:79
+#: socialaccount/models.py:74
 msgid "social application"
 msgstr ""
 
-#: socialaccount/models.py:80
+#: socialaccount/models.py:75
 msgid "social applications"
 msgstr ""
 
-#: socialaccount/models.py:115
+#: socialaccount/models.py:105
 msgid "uid"
 msgstr ""
 
-#: socialaccount/models.py:117
+#: socialaccount/models.py:107
 msgid "last login"
 msgstr "התחברות אחרונה"
 
-#: socialaccount/models.py:118
+#: socialaccount/models.py:108
 msgid "date joined"
 msgstr "תאריך הצטרפות"
 
-#: socialaccount/models.py:119
+#: socialaccount/models.py:109
 msgid "extra data"
 msgstr ""
 
-#: socialaccount/models.py:123
+#: socialaccount/models.py:113
 msgid "social account"
 msgstr "חשבון חברתי"
 
-#: socialaccount/models.py:124
+#: socialaccount/models.py:114
 msgid "social accounts"
 msgstr "חשבונות חברתיים"
 
-#: socialaccount/models.py:158
+#: socialaccount/models.py:139
 msgid "token"
 msgstr ""
 
-#: socialaccount/models.py:159
+#: socialaccount/models.py:140
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:163
+#: socialaccount/models.py:144
 msgid "token secret"
 msgstr ""
 
-#: socialaccount/models.py:164
+#: socialaccount/models.py:145
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:167
+#: socialaccount/models.py:148
 msgid "expires at"
 msgstr "פג תוקף בתאריך"
 
-#: socialaccount/models.py:172
+#: socialaccount/models.py:153
 msgid "social application token"
 msgstr ""
 
-#: socialaccount/models.py:173
+#: socialaccount/models.py:154
 msgid "social application tokens"
 msgstr ""
 
@@ -301,29 +302,27 @@ msgstr ""
 msgid "Invalid profile data"
 msgstr ""
 
-#: socialaccount/providers/oauth/client.py:84
-#: socialaccount/providers/pocket/client.py:37
+#: socialaccount/providers/oauth/client.py:85
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr ""
 
-#: socialaccount/providers/oauth/client.py:116
-#: socialaccount/providers/pocket/client.py:78
+#: socialaccount/providers/oauth/client.py:117
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr ""
 
-#: socialaccount/providers/oauth/client.py:137
+#: socialaccount/providers/oauth/client.py:138
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr ""
 
-#: socialaccount/providers/oauth/client.py:188
+#: socialaccount/providers/oauth/client.py:189
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr ""
 
-#: socialaccount/providers/oauth/client.py:209
+#: socialaccount/providers/oauth/client.py:210
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr ""
@@ -337,43 +336,12 @@ msgstr "חשבון לא פעיל"
 msgid "This account is inactive."
 msgstr "חשבון זה אינו פעיל."
 
-#: templates/account/base.html:16
-msgid "Messages:"
-msgstr ""
-
-#: templates/account/base.html:26
-msgid "Menu:"
-msgstr ""
-
-#: templates/account/base.html:29 templates/account/email_change.html:31
-#, fuzzy
-#| msgid "Email"
-msgid "Change Email"
-msgstr "אימייל"
-
-#: templates/account/base.html:30 templates/account/logout.html:5
-#: templates/account/logout.html:8 templates/account/logout.html:17
-msgid "Sign Out"
-msgstr "יציאה"
-
-#: templates/account/base.html:32 templates/account/login.html:6
-#: templates/account/login.html:10 templates/account/login.html:43
-#: templates/socialaccount/login.html:4
-msgid "Sign In"
-msgstr "כניסה"
-
-#: templates/account/base.html:33 templates/account/signup.html:8
-#: templates/account/signup.html:18 templates/socialaccount/signup.html:8
-#: templates/socialaccount/signup.html:19
-msgid "Sign Up"
-msgstr "הרשמה"
-
 #: templates/account/email.html:5 templates/account/email.html:8
-msgid "Email Addresses"
+msgid "E-mail Addresses"
 msgstr "כתובות אימייל"
 
 #: templates/account/email.html:10
-msgid "The following email addresses are associated with your account:"
+msgid "The following e-mail addresses are associated with your account:"
 msgstr "כתובות האימייל הבאות משויכות לחשבונך:"
 
 #: templates/account/email.html:24
@@ -392,7 +360,7 @@ msgstr "ראשי"
 msgid "Make Primary"
 msgstr "הפוך לראשי"
 
-#: templates/account/email.html:35 templates/account/email_change.html:21
+#: templates/account/email.html:35
 msgid "Re-send Verification"
 msgstr "שלח אימייל אימות מחדש"
 
@@ -400,39 +368,29 @@ msgstr "שלח אימייל אימות מחדש"
 msgid "Remove"
 msgstr "הסר"
 
-#: templates/account/email.html:47
-msgid "Add Email Address"
+#: templates/account/email.html:43
+msgid "Warning:"
+msgstr "אזהרה:"
+
+#: templates/account/email.html:43
+msgid ""
+"You currently do not have any e-mail address set up. You should really add "
+"an e-mail address so you can receive notifications, reset your password, etc."
+msgstr ""
+"טרם שייכת כתובת אימייל לחשבונך. מומלץ לשייך כתובת אימייל על מנת לקבל התראות, "
+"לאפס סיסמה וכו'."
+
+#: templates/account/email.html:48
+msgid "Add E-mail Address"
 msgstr "הוסף כתובת אימייל"
 
-#: templates/account/email.html:52
-msgid "Add Email"
+#: templates/account/email.html:53
+msgid "Add E-mail"
 msgstr "הוסף אימייל"
 
-#: templates/account/email.html:62
-msgid "Do you really want to remove the selected email address?"
+#: templates/account/email.html:63
+msgid "Do you really want to remove the selected e-mail address?"
 msgstr "האם ברצונך להסיר את כתובות האימייל המסומנות?"
-
-#: templates/account/email/account_already_exists_message.txt:4
-#, python-format
-msgid ""
-"You are receiving this email because you or someone else tried to signup for "
-"an\n"
-"account using email address:\n"
-"\n"
-"%(email)s\n"
-"\n"
-"However, an account using that email address already exists.  In case you "
-"have\n"
-"forgotten about this, please use the password forgotten procedure to "
-"recover\n"
-"your account:\n"
-"\n"
-"%(password_reset_url)s"
-msgstr ""
-
-#: templates/account/email/account_already_exists_subject.txt:3
-msgid "Account Already Exists"
-msgstr ""
 
 #: templates/account/email/base_message.txt:1
 #, fuzzy, python-format
@@ -463,8 +421,8 @@ msgstr ""
 #| "\n"
 #| "To confirm this is correct, go to %(activate_url)s\n"
 msgid ""
-"You're receiving this email because user %(user_display)s has given your "
-"email address to register an account on %(site_domain)s.\n"
+"You're receiving this e-mail because user %(user_display)s has given your e-"
+"mail address to register an account on %(site_domain)s.\n"
 "\n"
 "To confirm this is correct, go to %(activate_url)s"
 msgstr ""
@@ -476,7 +434,7 @@ msgstr ""
 "כדי לאמת זאת, לחץ על הקישור %(activate_url)s.\n"
 
 #: templates/account/email/email_confirmation_subject.txt:3
-msgid "Please Confirm Your Email Address"
+msgid "Please Confirm Your E-mail Address"
 msgstr "אנא אמת את כתובת האימייל שלך"
 
 #: templates/account/email/password_reset_key_message.txt:4
@@ -489,8 +447,8 @@ msgstr "אנא אמת את כתובת האימייל שלך"
 #| "It can be safely ignored if you did not request a password reset. Click "
 #| "the link below to reset your password."
 msgid ""
-"You're receiving this email because you or someone else has requested a "
-"password reset for your user account.\n"
+"You're receiving this e-mail because you or someone else has requested a "
+"password for your user account.\n"
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
@@ -507,101 +465,40 @@ msgid "In case you forgot, your username is %(username)s."
 msgstr "במידת ושכחת, שם המשתמש שלך הוא %(username)s."
 
 #: templates/account/email/password_reset_key_subject.txt:3
-#: templates/account/email/unknown_account_subject.txt:3
-msgid "Password Reset Email"
+msgid "Password Reset E-mail"
 msgstr "מייל איפוס סיסמה"
-
-#: templates/account/email/unknown_account_message.txt:4
-#, fuzzy, python-format
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
-msgid ""
-"You are receiving this email because you or someone else has requested a\n"
-"password for your user account. However, we do not have any record of a "
-"user\n"
-"with email %(email)s in our database.\n"
-"\n"
-"This mail can be safely ignored if you did not request a password reset.\n"
-"\n"
-"If it was you, you can sign up for an account using the link below."
-msgstr ""
-"שלום מ%(site_name)s!\n"
-"\n"
-"מייל זה נשלח אליך כיוון שאתה או מישהו אחר ביקש סיסמה עבור חשבונך ב "
-"%(site_name)s.\n"
-"במידה ולא ביקשת איפוס סיסמה ניתן להתעלם ממייל זה ללא חשש. לחץ על הקישור מטה "
-"לאיפוס סיסמתך."
-
-#: templates/account/email_change.html:4 templates/account/email_change.html:7
-#, fuzzy
-#| msgid "Email Addresses"
-msgid "Email Address"
-msgstr "כתובות אימייל"
-
-#: templates/account/email_change.html:11
-#, fuzzy
-#| msgid "The following email addresses are associated with your account:"
-msgid "The following email address is associated with your account:"
-msgstr "כתובות האימייל הבאות משויכות לחשבונך:"
-
-#: templates/account/email_change.html:16
-#, fuzzy
-#| msgid "Your primary email address must be verified."
-msgid "Your email address is still pending verification:"
-msgstr "עליך לאמת את כתובת האימייל הראשית שלך."
-
-#: templates/account/email_change.html:27
-#, fuzzy
-#| msgid "Confirm Email Address"
-msgid "Change Email Address"
-msgstr "אימות כתובת אימייל"
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
-msgid "Confirm Email Address"
+msgid "Confirm E-mail Address"
 msgstr "אימות כתובת אימייל"
 
-#: templates/account/email_confirm.html:17
-#, fuzzy, python-format
-#| msgid ""
-#| "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
-#| "mail address for user %(user_display)s."
+#: templates/account/email_confirm.html:16
+#, python-format
 msgid ""
-"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an email "
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
 "address for user %(user_display)s."
 msgstr ""
 "אנא אמת ש<a href=\"mailto:%(email)s\">%(email)s</a> היא כתובת האימייל של "
 "המשתמש %(user_display)s."
 
-#: templates/account/email_confirm.html:21
+#: templates/account/email_confirm.html:20
 msgid "Confirm"
 msgstr "אמת"
 
-#: templates/account/email_confirm.html:24
-#: templates/account/messages/email_confirmation_failed.txt:2
-#, fuzzy, python-format
-#| msgid "The social account is already connected to a different account."
+#: templates/account/email_confirm.html:27
+#, python-format
 msgid ""
-"Unable to confirm %(email)s because it is already confirmed by a different "
-"account."
-msgstr "חשבון חברתי זה כבר מקושר למשתמש אחר."
-
-#: templates/account/email_confirm.html:31
-#, fuzzy, python-format
-#| msgid ""
-#| "This e-mail confirmation link expired or is invalid. Please <a href="
-#| "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
-msgid ""
-"This email confirmation link expired or is invalid. Please <a href="
-"\"%(email_url)s\">issue a new email confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
 "קישור זה לאימות כתובת אימייל פג תוקף או שאינו תקין. יש <a href="
 "\"%(email_url)s\">להנפיק בקשה חדשה לאימות כתובת אימייל</a>."
+
+#: templates/account/login.html:6 templates/account/login.html:10
+#: templates/account/login.html:43
+msgid "Sign In"
+msgstr "כניסה"
 
 #: templates/account/login.html:15
 #, python-format
@@ -630,18 +527,23 @@ msgstr ""
 msgid "Forgot Password?"
 msgstr "שכחת סיסמה?"
 
+#: templates/account/logout.html:5 templates/account/logout.html:8
+#: templates/account/logout.html:17
+msgid "Sign Out"
+msgstr "יציאה"
+
 #: templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
 msgstr "האם אתה בטוח שברצונך לצאת?"
 
 #: templates/account/messages/cannot_delete_primary_email.txt:2
 #, python-format
-msgid "You cannot remove your primary email address (%(email)s)."
+msgid "You cannot remove your primary e-mail address (%(email)s)."
 msgstr "לא ניתן להסיר את כתובת האימייל הראשית שלך (%(email)s)."
 
 #: templates/account/messages/email_confirmation_sent.txt:2
 #, python-format
-msgid "Confirmation email sent to %(email)s."
+msgid "Confirmation e-mail sent to %(email)s."
 msgstr "מייל אימות נשלח ל %(email)s."
 
 #: templates/account/messages/email_confirmed.txt:2
@@ -651,7 +553,7 @@ msgstr "כתובת האימייל %(email)s אומתה בהצלחה."
 
 #: templates/account/messages/email_deleted.txt:2
 #, python-format
-msgid "Removed email address %(email)s."
+msgid "Removed e-mail address %(email)s."
 msgstr "כתובת האימייל %(email)s הוסרה."
 
 #: templates/account/messages/logged_in.txt:4
@@ -672,11 +574,11 @@ msgid "Password successfully set."
 msgstr "הסיסמה נקבעה בהצלחה."
 
 #: templates/account/messages/primary_email_set.txt:2
-msgid "Primary email address set."
+msgid "Primary e-mail address set."
 msgstr "כתובת אימייל ראשית הוגדרה."
 
 #: templates/account/messages/unverified_primary_email.txt:2
-msgid "Your primary email address must be verified."
+msgid "Your primary e-mail address must be verified."
 msgstr "עליך לאמת את כתובת האימייל הראשית שלך."
 
 #: templates/account/password_change.html:5
@@ -697,13 +599,9 @@ msgid "Password Reset"
 msgstr "איפוס סיסמה"
 
 #: templates/account/password_reset.html:15
-#, fuzzy
-#| msgid ""
-#| "Forgotten your password? Enter your e-mail address below, and we'll send "
-#| "you an e-mail allowing you to reset it."
 msgid ""
-"Forgotten your password? Enter your email address below, and we'll send you "
-"an email allowing you to reset it."
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
 msgstr ""
 "שכחת את סיסמתך? הזן את כתובת האימייל שלך כאן, ונשלח לך מייל לאיפוס הסיסמה."
 
@@ -716,18 +614,10 @@ msgid "Please contact us if you have any trouble resetting your password."
 msgstr "אנא צור איתנו קשר אם אתה מתקשה לאפס את הסיסמה."
 
 #: templates/account/password_reset_done.html:15
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
-"We have sent you an email. If you have not received it please check your "
-"spam folder. Otherwise contact us if you do not receive it in a few minutes."
-msgstr ""
-"שלחנו אליך מייל למטרת אימות.\n"
-"אנא ללץ על הקישור בתוך אימייל זה.\n"
-"אנא צור עמנו קשר במידה והמייל לא התקבל תוך מספר דקות."
+"We have sent you an e-mail. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr "המייל נשלח. אנא צור איתנו קשר אם הוא אינו מתקבל תוך מספר דקות."
 
 #: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -743,10 +633,11 @@ msgstr ""
 "הקישור לאיפוס הסיסמה אינו תקין, כנראה מכיוון שכבר נעשה בו שימוש.  לחץ כאן "
 "לבקשת <a href=\"%(passwd_reset_url)s\">איפוס סיסמה</a> מחדש."
 
-#: templates/account/password_reset_from_key.html:16
+#: templates/account/password_reset_from_key.html:17
 msgid "change password"
 msgstr "החלפת סיסמה"
 
+#: templates/account/password_reset_from_key.html:20
 #: templates/account/password_reset_from_key_done.html:8
 msgid "Your password is now changed."
 msgstr "סיסמתך שונתה."
@@ -758,6 +649,11 @@ msgstr "קביעת סיסמה"
 
 #: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
+msgstr "הרשמה"
+
+#: templates/account/signup.html:8 templates/account/signup.html:18
+#: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
+msgid "Sign Up"
 msgstr "הרשמה"
 
 #: templates/account/signup.html:10
@@ -784,70 +680,35 @@ msgstr "הערה"
 msgid "you are already logged in as %(user_display)s."
 msgstr "הנך מחובר כבר כ%(user_display)s."
 
-#: templates/account/snippets/warn_no_email.html:3
-msgid "Warning:"
-msgstr "אזהרה:"
-
-#: templates/account/snippets/warn_no_email.html:3
-#, fuzzy
-#| msgid ""
-#| "You currently do not have any e-mail address set up. You should really "
-#| "add an e-mail address so you can receive notifications, reset your "
-#| "password, etc."
-msgid ""
-"You currently do not have any email address set up. You should really add an "
-"email address so you can receive notifications, reset your password, etc."
-msgstr ""
-"טרם שייכת כתובת אימייל לחשבונך. מומלץ לשייך כתובת אימייל על מנת לקבל התראות, "
-"לאפס סיסמה וכו'."
-
 #: templates/account/verification_sent.html:5
 #: templates/account/verification_sent.html:8
 #: templates/account/verified_email_required.html:5
 #: templates/account/verified_email_required.html:8
-msgid "Verify Your Email Address"
+msgid "Verify Your E-mail Address"
 msgstr "אשר את כתובת הדואל שלך"
 
 #: templates/account/verification_sent.html:10
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for verification. Follow the link provided "
-#| "to finalize the signup process. Please contact us if you do not receive "
-#| "it within a few minutes."
 msgid ""
-"We have sent an email to you for verification. Follow the link provided to "
-"finalize the signup process. If you do not see the verification email in "
-"your main inbox, check your spam folder. Please contact us if you do not "
-"receive the verification email within a few minutes."
+"We have sent an e-mail to you for verification. Follow the link provided to "
+"finalize the signup process. Please contact us if you do not receive it "
+"within a few minutes."
 msgstr ""
 "שלחנו אליך מייל למטרת אימות. לחץ על הקישור במייל לסיום תהליך ההרשמה. אנא צור "
 "עמנו קשר במידה והמייל לא התקבל תוך מספר דקות."
 
 #: templates/account/verified_email_required.html:12
-#, fuzzy
-#| msgid ""
-#| "This part of the site requires us to verify that\n"
-#| "you are who you claim to be. For this purpose, we require that you\n"
-#| "verify ownership of your e-mail address. "
 msgid ""
 "This part of the site requires us to verify that\n"
 "you are who you claim to be. For this purpose, we require that you\n"
-"verify ownership of your email address. "
+"verify ownership of your e-mail address. "
 msgstr ""
 "חלק זה באתר דורש מאיתנו לוודא כי הנך אכן מי שאתה טוען שאתה.\n"
 "למטרה זו, אנו מבקשים כי תאמת בעלות על כתובת האימייל שלך."
 
 #: templates/account/verified_email_required.html:16
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
-"We have sent an email to you for\n"
-"verification. Please click on the link inside that email. If you do not see "
-"the verification email in your main inbox, check your spam folder. "
-"Otherwise\n"
+"We have sent an e-mail to you for\n"
+"verification. Please click on the link inside this e-mail. Please\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
 "שלחנו אליך מייל למטרת אימות.\n"
@@ -855,13 +716,10 @@ msgstr ""
 "אנא צור עמנו קשר במידה והמייל לא התקבל תוך מספר דקות."
 
 #: templates/account/verified_email_required.html:20
-#, fuzzy, python-format
-#| msgid ""
-#| "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change "
-#| "your e-mail address</a>."
+#, python-format
 msgid ""
-"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
-"email address</a>."
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
+"mail address</a>."
 msgstr ""
 "<strong>הערה:</strong> אתה עדיין יכול <a href=\"%(email_url)s\">לשנות את "
 "כתובת האימייל שלך </a>."
@@ -900,30 +758,6 @@ msgstr "לא קיימים חשבונות רשת חברתית המקושרים ל
 msgid "Add a 3rd Party Account"
 msgstr "הוסף חשבון צד שלישי"
 
-#: templates/socialaccount/login.html:8
-#, python-format
-msgid "Connect %(provider)s"
-msgstr ""
-
-#: templates/socialaccount/login.html:10
-#, python-format
-msgid "You are about to connect a new third party account from %(provider)s."
-msgstr ""
-
-#: templates/socialaccount/login.html:12
-#, python-format
-msgid "Sign In Via %(provider)s"
-msgstr ""
-
-#: templates/socialaccount/login.html:14
-#, python-format
-msgid "You are about to sign in using a third party account from %(provider)s."
-msgstr ""
-
-#: templates/socialaccount/login.html:19
-msgid "Continue"
-msgstr ""
-
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9
 msgid "Login Cancelled"
@@ -960,14 +794,6 @@ msgstr ""
 "אתה עומד להשתמש בחשבון %(provider_name)s שלך כדי\n"
 "להתחבר ל%(site_name)s. לסיום, אנא מלא את הטופס הבא:"
 
-#~ msgid "This email address is already associated with another account."
-#~ msgstr "כתובת אימייל זו כבר משויכת לחשבון אחר."
-
-#~ msgid ""
-#~ "We have sent you an e-mail. Please contact us if you do not receive it "
-#~ "within a few minutes."
-#~ msgstr "המייל נשלח. אנא צור איתנו קשר אם הוא אינו מתקבל תוך מספר דקות."
-
 #~ msgid "Account"
 #~ msgstr "חשבון"
 
@@ -989,7 +815,7 @@ msgstr ""
 #~ "אישרת בהצלחה כי <a href=\"mailto:%(email)s\">%(email)s</a> הנה כתובת דואר "
 #~ "אלקטרוני עבור המשתמש %(user_display)s."
 
-#~ msgid "Confirmation email sent to %(email)s"
+#~ msgid "Confirmation e-mail sent to %(email)s"
 #~ msgstr "דואל אישור נשלח אל %(email)s"
 
 #~ msgid "Delete Password"

@@ -51,7 +51,7 @@ class YNABTests(OAuth2TestsMixin, TestCase):
         )
 
         adapter = YNABOAuth2Adapter(request)
-        app = adapter.get_provider().app
+        app = adapter.get_provider().get_app(request)
         token = SocialToken(token="some_token")
         response_with_401 = LessMockedResponse(
             401,
@@ -68,7 +68,7 @@ class YNABTests(OAuth2TestsMixin, TestCase):
             }""",
         )
         with patch(
-            "allauth.socialaccount.providers.ynab.views.requests"
+            "allauth.socialaccount.providers.ynab.views" ".requests"
         ) as patched_requests:
             patched_requests.get.return_value = response_with_401
             with self.assertRaises(HTTPError):

@@ -26,7 +26,7 @@ class StravaProvider(OAuth2Provider):
     account_class = StravaAccount
 
     def extract_uid(self, data):
-        return str(data["id"])
+        return data.get("id")
 
     def extract_common_fields(self, data):
         extra_common = super(StravaProvider, self).extract_common_fields(data)

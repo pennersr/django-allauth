@@ -18,8 +18,7 @@ class YandexAuth2Adapter(OAuth2Adapter):
     def complete_login(self, request, app, token, **kwargs):
         resp = requests.get(
             self.profile_url,
-            params={"format": "json"},
-            headers={"Authorization": f"OAuth {token.token}"},
+            params={"oauth_token": token.token, "format": "json"},
         )
         resp.raise_for_status()
         extra_data = resp.json()

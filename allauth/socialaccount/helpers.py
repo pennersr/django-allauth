@@ -6,14 +6,7 @@ from django.urls import reverse
 
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
-from allauth.account.models import EmailAddress
-from allauth.account.utils import (
-    complete_signup,
-    perform_login,
-    user_display,
-    user_email,
-    user_username,
-)
+from allauth.account.utils import complete_signup, perform_login, user_username
 from allauth.exceptions import ImmediateHttpResponse
 
 from . import app_settings, signals
@@ -22,56 +15,14 @@ from .models import SocialLogin
 from .providers.base import AuthError, AuthProcess
 
 
-def _process_auto_signup(request, sociallogin):
-    auto_signup = get_adapter(request).is_auto_signup_allowed(request, sociallogin)
-    if not auto_signup:
-        return False, None
-    email = user_email(sociallogin.user)
-    # Let's check if auto_signup is really possible...
-    if email:
-        if account_settings.UNIQUE_EMAIL and EmailAddress.objects.is_verified(email):
-            if (
-                account_settings.PREVENT_ENUMERATION
-                and account_settings.EMAIL_VERIFICATION
-                == account_settings.EmailVerificationMethod.MANDATORY
-            ):
-                # Prevent enumeration is properly turned on, meaning, we cannot
-                # show the signup form to allow the user to input another email
-                # address. Instead, we're going to send the user an email that
-                # the account already exists, and on the outside make it appear
-                # as if an email verification mail was sent.
-                account_adapter = get_account_adapter(request)
-                account_adapter.send_account_already_exists_mail(email)
-                resp = account_adapter.respond_email_verification_sent(request, None)
-                return False, resp
-            else:
-                # Oops, another user already has this address.  We cannot simply
-                # connect this social account to the existing user. Reason is
-                # that the email address may not be verified, meaning, the user
-                # may be a hacker that has added your email address to their
-                # account in the hope that you fall in their trap.  We cannot
-                # check on 'email_address.verified' either, because
-                # 'email_address' is not guaranteed to be verified.
-                auto_signup = False
-                # TODO: We redirect to signup form -- user will see email
-                # address conflict only after posting whereas we detected it
-                # here already.
-    elif app_settings.EMAIL_REQUIRED:
-        # Nope, email is required and we don't have it yet...
-        auto_signup = False
-    return auto_signup, None
-
-
 def _process_signup(request, sociallogin):
-    auto_signup, resp = _process_auto_signup(request, sociallogin)
-    if resp:
-        return resp
+    auto_signup = get_adapter(request).is_auto_signup_allowed(request, sociallogin)
     if not auto_signup:
         request.session["socialaccount_sociallogin"] = sociallogin.serialize()
         url = reverse("socialaccount_signup")
-        resp = HttpResponseRedirect(url)
+        ret = HttpResponseRedirect(url)
     else:
-        # Ok, auto signup it is, at least the email address is ok.
+        # Ok, auto signup it is, at least the e-mail address is ok.
         # We still need to check the username though...
         if account_settings.USER_MODEL_USERNAME_FIELD:
             username = user_username(sociallogin.user)
@@ -80,7 +31,7 @@ def _process_signup(request, sociallogin):
             except ValidationError:
                 # This username is no good ...
                 user_username(sociallogin.user, "")
-        # TODO: This part contains a lot of duplication of logic
+        # FIXME: This part contains a lot of duplication of logic
         # ("closed" rendering, create user, send email, in active
         # etc..)
         if not get_adapter(request).is_open_for_signup(request, sociallogin):
@@ -89,8 +40,8 @@ def _process_signup(request, sociallogin):
                 "account/signup_closed." + account_settings.TEMPLATE_EXTENSION,
             )
         get_adapter(request).save_user(request, sociallogin, form=None)
-        resp = complete_social_signup(request, sociallogin)
-    return resp
+        ret = complete_social_signup(request, sociallogin)
+    return ret
 
 
 def _login_social_account(request, sociallogin):
@@ -143,10 +94,7 @@ def _add_social_account(request, sociallogin):
     if request.user.is_anonymous:
         # This should not happen. Simply redirect to the connections
         # view (which has a login required)
-        connect_redirect_url = get_adapter(request).get_connect_redirect_url(
-            request, sociallogin.account
-        )
-        return HttpResponseRedirect(connect_redirect_url)
+        return HttpResponseRedirect(reverse("socialaccount_connections"))
     level = messages.INFO
     message = "socialaccount/messages/account_connected.txt"
     action = None
@@ -173,7 +121,6 @@ def _add_social_account(request, sociallogin):
         signals.social_account_added.send(
             sender=SocialLogin, request=request, sociallogin=sociallogin
         )
-    assert request.user.is_authenticated
     default_next = get_adapter(request).get_connect_redirect_url(
         request, sociallogin.account
     )
@@ -242,10 +189,3 @@ def import_path(path):
     modname, _, attr = path.rpartition(".")
     m = __import__(modname, fromlist=[attr])
     return getattr(m, attr)
-
-
-def socialaccount_user_display(socialaccount):
-    func = app_settings.SOCIALACCOUNT_STR
-    if not func:
-        return user_display(socialaccount.user)
-    return func(socialaccount)

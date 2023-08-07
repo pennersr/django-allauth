@@ -1,12 +1,11 @@
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, TestCase
+from allauth.socialaccount.providers import registry
+from allauth.socialaccount.tests import create_oauth2_tests
+from allauth.tests import MockedResponse
 
 from .provider import AsanaProvider
 
 
-class AsanaTests(OAuth2TestsMixin, TestCase):
-    provider_id = AsanaProvider.id
-
+class AsanaTests(create_oauth2_tests(registry.by_id(AsanaProvider.id))):
     def get_mocked_response(self):
         return MockedResponse(
             200,

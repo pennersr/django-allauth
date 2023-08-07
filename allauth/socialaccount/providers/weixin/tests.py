@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, TestCase
+from allauth.socialaccount.providers import registry
+from allauth.socialaccount.tests import create_oauth2_tests
+from allauth.tests import MockedResponse
 
 from .provider import WeixinProvider
 
 
-class WeixinTests(OAuth2TestsMixin, TestCase):
-    provider_id = WeixinProvider.id
-
+class WeixinTests(create_oauth2_tests(registry.by_id(WeixinProvider.id))):
     def get_mocked_response(self):
         return MockedResponse(
             200,

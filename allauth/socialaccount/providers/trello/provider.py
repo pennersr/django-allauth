@@ -30,8 +30,9 @@ class TrelloProvider(OAuthProvider):
 
     def get_auth_params(self, request, action):
         data = super(TrelloProvider, self).get_auth_params(request, action)
+        app = self.get_app(request)
         data["type"] = "web_server"
-        data["name"] = self.app.name
+        data["name"] = app.name
         data["scope"] = self.get_scope(request)
         # define here for how long it will be, this can be configured on the
         # social app

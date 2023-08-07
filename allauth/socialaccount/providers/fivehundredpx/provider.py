@@ -25,7 +25,7 @@ class FiveHundredPxProvider(OAuthProvider):
         return []
 
     def extract_uid(self, data):
-        return str(data["id"])
+        return data["id"]
 
     def extract_common_fields(self, data):
         return dict(

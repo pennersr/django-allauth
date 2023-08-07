@@ -1,5 +1,6 @@
 import unicodedata
 from collections import OrderedDict
+from datetime import timedelta
 
 from django.conf import settings
 from django.contrib import messages
@@ -7,18 +8,21 @@ from django.contrib.auth import update_session_auth_hash
 from django.core.exceptions import FieldDoesNotExist, ValidationError
 from django.db import models
 from django.db.models import Q
+from django.http import HttpResponseRedirect
 from django.utils.encoding import force_str
 from django.utils.http import base36_to_int, int_to_base36, urlencode
+from django.utils.timezone import now
 
-from allauth.account import app_settings, signals
-from allauth.account.adapter import get_adapter
-from allauth.exceptions import ImmediateHttpResponse
-from allauth.utils import (
+from ..exceptions import ImmediateHttpResponse
+from ..utils import (
     get_request_param,
     get_user_model,
     import_callable,
     valid_email_or_none,
 )
+from . import app_settings, signals
+from .adapter import get_adapter
+from .app_settings import EmailVerificationMethod
 
 
 def _unicode_ci_compare(s1, s2):
@@ -85,7 +89,7 @@ def user_display(user):
     return _user_display_callable(user)
 
 
-def user_field(user, field, *args, commit=False):
+def user_field(user, field, *args):
     """
     Gets or sets (optional) user model fields. No-op if fields do not exist.
     """
@@ -105,24 +109,22 @@ def user_field(user, field, *args, commit=False):
         if v:
             v = v[0:max_length]
         setattr(user, field, v)
-        if commit:
-            user.save(update_fields=[field])
     else:
         # Getter
         return getattr(user, field)
 
 
-def user_username(user, *args, commit=False):
+def user_username(user, *args):
     if args and not app_settings.PRESERVE_USERNAME_CASING and args[0]:
         args = [args[0].lower()]
     return user_field(user, app_settings.USER_MODEL_USERNAME_FIELD, *args)
 
 
-def user_email(user, *args, commit=False):
-    return user_field(user, app_settings.USER_MODEL_EMAIL_FIELD, *args, commit=commit)
+def user_email(user, *args):
+    return user_field(user, app_settings.USER_MODEL_EMAIL_FIELD, *args)
 
 
-def has_verified_email(user, email=None):
+def _has_verified_for_login(user, email):
     from .models import EmailAddress
 
     emailaddress = None
@@ -159,21 +161,40 @@ def perform_login(
     # `user_signed_up` signal. Furthermore, social users should be
     # stopped anyway.
     adapter = get_adapter(request)
+    if not user.is_active:
+        return adapter.respond_user_inactive(request, user)
+
+    if email_verification == EmailVerificationMethod.NONE:
+        pass
+    elif email_verification == EmailVerificationMethod.OPTIONAL:
+        # In case of OPTIONAL verification: send on signup.
+        if not _has_verified_for_login(user, email) and signup:
+            send_email_confirmation(request, user, signup=signup, email=email)
+    elif email_verification == EmailVerificationMethod.MANDATORY:
+        if not _has_verified_for_login(user, email):
+            send_email_confirmation(request, user, signup=signup, email=email)
+            return adapter.respond_email_verification_sent(request, user)
     try:
-        hook_kwargs = dict(
-            email_verification=email_verification,
-            redirect_url=redirect_url,
-            signal_kwargs=signal_kwargs,
-            signup=signup,
-            email=email,
-        )
-        response = adapter.pre_login(request, user, **hook_kwargs)
-        if response:
-            return response
         adapter.login(request, user)
-        response = adapter.post_login(request, user, **hook_kwargs)
-        if response:
-            return response
+        response = HttpResponseRedirect(
+            get_login_redirect_url(request, redirect_url, signup=signup)
+        )
+
+        if signal_kwargs is None:
+            signal_kwargs = {}
+        signals.user_logged_in.send(
+            sender=user.__class__,
+            request=request,
+            response=response,
+            user=user,
+            **signal_kwargs,
+        )
+        adapter.add_message(
+            request,
+            messages.SUCCESS,
+            "account/messages/logged_in.txt",
+            {"user": user},
+        )
     except ImmediateHttpResponse as e:
         response = e.response
     return response
@@ -200,7 +221,7 @@ def cleanup_email_addresses(request, addresses):
     Takes a list of EmailAddress instances and cleans it up, making
     sure only valid ones remain, without multiple primaries etc.
 
-    Order is important: e.g. if multiple primary email addresses
+    Order is important: e.g. if multiple primary e-mail addresses
     exist, the first one encountered will be kept as primary.
     """
     from .models import EmailAddress
@@ -219,8 +240,7 @@ def cleanup_email_addresses(request, addresses):
         # ... and non-conflicting ones...
         if (
             app_settings.UNIQUE_EMAIL
-            and address.verified
-            and EmailAddress.objects.is_verified(email)
+            and EmailAddress.objects.filter(email__iexact=email).exists()
         ):
             continue
         a = e2a.get(email.lower())
@@ -268,7 +288,7 @@ def setup_user_email(request, user, addresses):
 
     assert not EmailAddress.objects.filter(user=user).exists()
     priority_addresses = []
-    # Is there a stashed email?
+    # Is there a stashed e-mail?
     adapter = get_adapter(request)
     stashed_email = adapter.unstash_verified_email(request)
     if stashed_email:
@@ -295,19 +315,19 @@ def setup_user_email(request, user, addresses):
 
 def send_email_confirmation(request, user, signup=False, email=None):
     """
-    Email verification mails are sent:
+    E-mail verification mails are sent:
     a) Explicitly: when a user signs up
     b) Implicitly: when a user attempts to log in using an unverified
-    email while EMAIL_VERIFICATION is mandatory.
+    e-mail while EMAIL_VERIFICATION is mandatory.
 
     Especially in case of b), we want to limit the number of mails
     sent (consider a user retrying a few times), which is why there is
     a cooldown period before sending a new mail. This cooldown period
     can be configured in ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN setting.
     """
-    from .models import EmailAddress
+    from .models import EmailAddress, EmailConfirmation
 
-    adapter = get_adapter(request)
+    cooldown_period = timedelta(seconds=app_settings.EMAIL_CONFIRMATION_COOLDOWN)
 
     if not email:
         email = user_email(user)
@@ -315,9 +335,13 @@ def send_email_confirmation(request, user, signup=False, email=None):
         try:
             email_address = EmailAddress.objects.get_for_user(user, email)
             if not email_address.verified:
-                send_email = adapter.should_send_confirmation_mail(
-                    request, email_address
-                )
+                if app_settings.EMAIL_CONFIRMATION_HMAC:
+                    send_email = True
+                else:
+                    send_email = not EmailConfirmation.objects.filter(
+                        sent__gt=now() - cooldown_period,
+                        email_address=email_address,
+                    ).exists()
                 if send_email:
                     email_address.send_confirmation(request, signup=signup)
             else:
@@ -330,14 +354,14 @@ def send_email_confirmation(request, user, signup=False, email=None):
             assert email_address
         # At this point, if we were supposed to send an email we have sent it.
         if send_email:
-            adapter.add_message(
+            get_adapter(request).add_message(
                 request,
                 messages.INFO,
-                "account/messages/email_confirmation_sent.txt",
-                {"email": email, "login": not signup, "signup": signup},
+                "account/messages/" "email_confirmation_sent.txt",
+                {"email": email},
             )
     if signup:
-        adapter.stash_user(request, user_pk_to_url_str(user))
+        get_adapter(request).stash_user(request, user_pk_to_url_str(user))
 
 
 def sync_user_email_addresses(user):
@@ -355,9 +379,14 @@ def sync_user_email_addresses(user):
         email
         and not EmailAddress.objects.filter(user=user, email__iexact=email).exists()
     ):
-        # get_or_create() to gracefully handle races
-        EmailAddress.objects.get_or_create(
-            user=user, email=email, defaults={"primary": False, "verified": False}
+        if (
+            app_settings.UNIQUE_EMAIL
+            and EmailAddress.objects.filter(email__iexact=email).exists()
+        ):
+            # Bail out
+            return
+        EmailAddress.objects.create(
+            user=user, email=email, primary=False, verified=False
         )
 
 
@@ -370,9 +399,9 @@ def filter_users_by_username(*username):
         q = qlist[0]
         for q2 in qlist[1:]:
             q = q | q2
-        ret = get_user_model()._default_manager.filter(q)
+        ret = get_user_model().objects.filter(q)
     else:
-        ret = get_user_model()._default_manager.filter(
+        ret = get_user_model().objects.filter(
             **{
                 app_settings.USER_MODEL_USERNAME_FIELD
                 + "__in": [u.lower() for u in username]
@@ -381,37 +410,24 @@ def filter_users_by_username(*username):
     return ret
 
 
-def filter_users_by_email(email, is_active=None, prefer_verified=False):
+def filter_users_by_email(email, is_active=None):
     """Return list of users by email address
 
     Typically one, at most just a few in length.  First we look through
     EmailAddress table, than customisable User model table. Add results
     together avoiding SQL joins and deduplicate.
-
-    `prefer_verified`: When looking up users by email, there can be cases where
-    users with verified email addresses are preferable above users who did not
-    verify their email address. The password reset is such a use case -- if
-    there is a user with a verified email than that user should be returned, not
-    one of the other users.
     """
     from .models import EmailAddress
 
     User = get_user_model()
-    mails = EmailAddress.objects.filter(email__iexact=email).prefetch_related("user")
+    mails = EmailAddress.objects.filter(email__iexact=email)
     if is_active is not None:
         mails = mails.filter(user__is_active=is_active)
-    mails = list(mails)
-    is_verified = False
-    if prefer_verified:
-        verified_mails = list(filter(lambda e: e.verified, mails))
-        if verified_mails:
-            mails = verified_mails
-            is_verified = True
     users = []
-    for e in mails:
+    for e in mails.prefetch_related("user"):
         if _unicode_ci_compare(e.email, email):
             users.append(e.user)
-    if app_settings.USER_MODEL_EMAIL_FIELD and not is_verified:
+    if app_settings.USER_MODEL_EMAIL_FIELD:
         q_dict = {app_settings.USER_MODEL_EMAIL_FIELD + "__iexact": email}
         user_qs = User.objects.filter(**q_dict)
         if is_active is not None:
@@ -451,8 +467,7 @@ def url_str_to_user_pk(s):
     User = get_user_model()
     # TODO: Ugh, isn't there a cleaner way to determine whether or not
     # the PK is a str-like field?
-    remote_field = getattr(User._meta.pk, "remote_field", None)
-    if remote_field and getattr(remote_field, "to", None):
+    if getattr(User._meta.pk, "remote_field", None):
         pk_field = User._meta.pk.remote_field.to._meta.pk
     else:
         pk_field = User._meta.pk

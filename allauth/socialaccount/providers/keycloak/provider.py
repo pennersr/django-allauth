@@ -1,56 +1,36 @@
-from django.conf import settings
-
-from allauth.socialaccount import app_settings
-from allauth.socialaccount.providers.openid_connect.provider import (
-    OpenIDConnectProvider,
-    OpenIDConnectProviderAccount,
-)
+# -*- coding: utf-8 -*-
+from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
-OVERRIDE_NAME = (
-    getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
-    .get("keycloak", {})
-    .get("OVERRIDE_NAME", "Keycloak")
-)
-
-
-class KeycloakAccount(OpenIDConnectProviderAccount):
+class KeycloakAccount(ProviderAccount):
     def get_avatar_url(self):
         return self.account.extra_data.get("picture")
 
+    def to_str(self):
+        dflt = super(KeycloakAccount, self).to_str()
+        return self.account.extra_data.get("name", dflt)
 
-class KeycloakProvider(OpenIDConnectProvider):
+
+class KeycloakProvider(OAuth2Provider):
     id = "keycloak"
-    name = OVERRIDE_NAME
+    name = "Keycloak"
     account_class = KeycloakAccount
 
-    def get_login_url(self, request, **kwargs):
-        return super(OpenIDConnectProvider, self).get_login_url(request, **kwargs)
+    def get_default_scope(self):
+        return ["openid", "profile", "email"]
 
-    def get_callback_url(self):
-        return super(OpenIDConnectProvider, self).get_callback_url()
+    def extract_uid(self, data):
+        return str(data["id"])
 
-    @property
-    def server_url(self):
-        return self.wk_server_url(self.base_server_url)
-
-    @property
-    def base_server_url(self):
-        other_url = self.settings.get("KEYCLOAK_URL_ALT")
-        if other_url is None:
-            other_url = self.settings.get("KEYCLOAK_URL")
-        url = "{0}/realms/{1}".format(other_url, self.settings.get("KEYCLOAK_REALM"))
-        return url
-
-    @property
-    def provider_base_url(self):
-        return "{0}/realms/{1}".format(
-            self.settings.get("KEYCLOAK_URL"), self.settings.get("KEYCLOAK_REALM")
+    def extract_common_fields(self, data):
+        return dict(
+            email=data.get("email"),
+            username=data.get("preferred_username"),
+            name=data.get("name"),
+            user_id=data.get("user_id"),
+            picture=data.get("picture"),
         )
-
-    @property
-    def settings(self):
-        return app_settings.PROVIDERS.get(self.id, {})
 
 
 provider_classes = [KeycloakProvider]

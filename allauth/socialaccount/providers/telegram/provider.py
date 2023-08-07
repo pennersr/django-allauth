@@ -1,6 +1,3 @@
-from django.urls import reverse
-from django.utils.http import urlencode
-
 from allauth.socialaccount.providers.base import Provider, ProviderAccount
 
 
@@ -14,23 +11,18 @@ class TelegramProvider(Provider):
     account_class = TelegramAccount
 
     def get_login_url(self, request, **kwargs):
-        url = reverse("telegram_login")
-        if kwargs:
-            url = url + "?" + urlencode(kwargs)
-        return url
+        # TODO: Find a way to better wrap the iframed button
+        return "#"
 
     def extract_uid(self, data):
-        return str(data["id"])
+        return data["id"]
 
     def extract_common_fields(self, data):
-        ret = {}
-        if data.get("first_name"):
-            ret["first_name"] = data.get("first_name")
-        if data.get("last_name"):
-            ret["last_name"] = data.get("last_name")
-        if data.get("username"):
-            ret["username"] = data.get("username")
-        return ret
+        return {
+            "first_name": data["first_name"],
+            "last_name": data["last_name"],
+            "username": data["username"],
+        }
 
 
 provider_classes = [TelegramProvider]

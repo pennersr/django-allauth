@@ -1,0 +1,35 @@
+<script src="https://login.persona.org/include.js"></script>
+<script type="text/javascript">
+(function() {
+  var allauth = window.allauth = window.allauth || {};
+
+  function startWatching() {
+    navigator.id.watch({
+      onlogin: function(assertion) {
+        // TODO: next url handling
+        document.getElementById("_persona_assertion").value = assertion;
+        document.getElementById("_persona_login").submit();
+      },
+      onlogout: function() {
+        // TODO
+      }
+    })
+  };
+
+  allauth.persona = {
+    login: function(nextUrl, process) {
+        document.getElementById("_persona_next_url").value = nextUrl || '';
+        document.getElementById("_persona_process").value = process;
+        startWatching();
+        navigator.id.request({{ request_parameters|safe }});
+    }
+  }
+})();
+</script>
+
+<form id="_persona_login" method="post" action="{% url 'persona_login' %}">
+{% csrf_token %}
+<input type="hidden" name="next" value="" id="_persona_next_url"/>
+<input type="hidden" name="process" value="" id="_persona_process"/>
+<input type="hidden" name="assertion" id="_persona_assertion"/>
+</form>

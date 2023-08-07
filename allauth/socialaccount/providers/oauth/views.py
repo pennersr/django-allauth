@@ -2,21 +2,18 @@ from __future__ import absolute_import
 
 from django.urls import reverse
 
-from allauth.socialaccount.adapter import get_adapter
+from allauth.socialaccount import providers
 from allauth.socialaccount.helpers import (
     complete_social_login,
     render_authentication_error,
 )
 from allauth.socialaccount.models import SocialLogin, SocialToken
-from allauth.socialaccount.providers.base.constants import (
-    AuthAction,
-    AuthError,
-)
-from allauth.socialaccount.providers.base.mixins import OAuthLoginMixin
 from allauth.socialaccount.providers.oauth.client import (
     OAuthClient,
     OAuthError,
 )
+
+from ..base import AuthAction, AuthError
 
 
 class OAuthAdapter(object):
@@ -30,9 +27,7 @@ class OAuthAdapter(object):
         raise NotImplementedError
 
     def get_provider(self):
-        adapter = get_adapter(self.request)
-        app = adapter.get_app(self.request, provider=self.provider_id)
-        return app.get_provider(self.request)
+        return providers.registry.by_id(self.provider_id, self.request)
 
 
 class OAuthView(object):
@@ -48,7 +43,7 @@ class OAuthView(object):
 
     def _get_client(self, request, callback_url):
         provider = self.adapter.get_provider()
-        app = provider.app
+        app = provider.get_app(request)
         scope = " ".join(provider.get_scope(request))
         parameters = {}
         if scope:
@@ -66,8 +61,8 @@ class OAuthView(object):
         return client
 
 
-class OAuthLoginView(OAuthLoginMixin, OAuthView):
-    def login(self, request, *args, **kwargs):
+class OAuthLoginView(OAuthView):
+    def dispatch(self, request):
         callback_url = reverse(self.adapter.provider_id + "_callback")
         SocialLogin.stash_state(request)
         action = request.GET.get("action", AuthAction.AUTHENTICATE)
@@ -103,7 +98,7 @@ class OAuthCallbackView(OAuthView):
                 error=error,
                 extra_context=extra_context,
             )
-        app = self.adapter.get_provider().app
+        app = self.adapter.get_provider().get_app(request)
         try:
             access_token = client.get_access_token()
             token = SocialToken(

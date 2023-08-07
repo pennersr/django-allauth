@@ -12,8 +12,6 @@ from django.test import RequestFactory, TestCase
 from django.utils.http import base36_to_int, int_to_base36
 from django.views import csrf
 
-from allauth import app_settings
-
 from . import utils
 
 
@@ -58,7 +56,7 @@ class mocked_response:
                     return self.responses.pop(0)
                 return f(*args, **kwargs)
 
-            return Mock(side_effect=new_f)
+            return new_f
 
         requests.get = mockable_request(requests.get)
         requests.post = mockable_request(requests.post)
@@ -126,13 +124,10 @@ class BasicTests(TestCase):
             something=some_value,
             t=datetime.now().time(),
         )
-        instance.img1 = ContentFile(b"%PDF", name="foo.pdf")
-        instance.img2 = ContentFile(
-            b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x01\x00"
-            b"\x00\x00\x007n\xf9$\x00\x00\x00\nIDATx\x9cc`\x00\x00\x00\x02\x00\x01H\xaf"
-            b"\xa4q\x00\x00\x00\x00IEND\xaeB`\x82",
-            name="foo.png",
-        )
+        content_file = ContentFile(b"%PDF")
+        content_file.name = "foo.pdf"
+        instance.img1 = content_file
+        instance.img2 = "foo.png"
         # make sure serializer doesn't fail if a method is attached to
         # the instance
         instance.method = method
@@ -175,19 +170,15 @@ class BasicTests(TestCase):
         self.assertEqual(deserialized.bb_empty, b"")
 
     def test_build_absolute_uri(self):
-        request = None
-        if not app_settings.SITES_ENABLED:
-            request = self.factory.get("/")
-            request.META["SERVER_NAME"] = "example.com"
         self.assertEqual(
-            utils.build_absolute_uri(request, "/foo"), "http://example.com/foo"
+            utils.build_absolute_uri(None, "/foo"), "http://example.com/foo"
         )
         self.assertEqual(
-            utils.build_absolute_uri(request, "/foo", protocol="ftp"),
+            utils.build_absolute_uri(None, "/foo", protocol="ftp"),
             "ftp://example.com/foo",
         )
         self.assertEqual(
-            utils.build_absolute_uri(request, "http://foo.com/bar"),
+            utils.build_absolute_uri(None, "http://foo.com/bar"),
             "http://foo.com/bar",
         )
 
@@ -199,14 +190,6 @@ class BasicTests(TestCase):
 
     def test_templatetag_with_csrf_failure(self):
         # Generate a fictitious GET request
-        from allauth.socialaccount.models import SocialApp
-
-        app = SocialApp.objects.create(provider="google")
-        if app_settings.SITES_ENABLED:
-            from django.contrib.sites.models import Site
-
-            app.sites.add(Site.objects.get_current())
-
         request = self.factory.get("/tests/test_403_csrf.html")
         # Simulate a CSRF failure by calling the View directly
         # This template is using the `provider_login_url` templatetag

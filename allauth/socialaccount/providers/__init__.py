@@ -1,10 +1,7 @@
 import importlib
 from collections import OrderedDict
 
-from django.apps import apps
 from django.conf import settings
-
-from allauth.utils import import_attribute
 
 
 class ProviderRegistry(object):
@@ -12,15 +9,16 @@ class ProviderRegistry(object):
         self.provider_map = OrderedDict()
         self.loaded = False
 
-    def get_class_list(self):
+    def get_list(self, request=None):
         self.load()
-        return list(self.provider_map.values())
+        return [provider_cls(request) for provider_cls in self.provider_map.values()]
 
     def register(self, cls):
         self.provider_map[cls.id] = cls
 
-    def get_class(self, id):
-        return self.provider_map.get(id)
+    def by_id(self, id, request=None):
+        self.load()
+        return self.provider_map[id](request=request)
 
     def as_choices(self):
         self.load()
@@ -35,21 +33,13 @@ class ProviderRegistry(object):
         # mechanism is way to magical and depends on the import order et al, so
         # all of this really needs to be revisited.
         if not self.loaded:
-            for app_config in apps.get_app_configs():
+            for app in settings.INSTALLED_APPS:
                 try:
-                    provider_module = importlib.import_module(
-                        app_config.name + ".provider"
-                    )
+                    provider_module = importlib.import_module(app + ".provider")
                 except ImportError:
                     pass
                 else:
-                    provider_settings = getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
                     for cls in getattr(provider_module, "provider_classes", []):
-                        provider_class = provider_settings.get(cls.id, {}).get(
-                            "provider_class"
-                        )
-                        if provider_class:
-                            cls = import_attribute(provider_class)
                         self.register(cls)
             self.loaded = True
 

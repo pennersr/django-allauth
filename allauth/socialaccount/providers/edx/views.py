@@ -25,14 +25,13 @@ class EdxOAuth2Adapter(OAuth2Adapter):
     redirect_uri_protocol = "https"
 
     def complete_login(self, request, app, token, **kwargs):
-        headers = {"Authorization": "Bearer {0}".format(token.token)}
-        response = requests.get(self.profile_url, headers=headers)
+        response = requests.get(self.profile_url, params={"access_token": token})
         extra_data = response.json()
 
         if extra_data.get("email", None) is None:
             response = requests.get(
                 self.account_url.format(self.provider_base_url, extra_data["username"]),
-                headers=headers,
+                params={"access_token": token},
             )
             extra_data = response.json()
 

@@ -53,10 +53,8 @@ class SignupView(
 
     def form_valid(self, form):
         self.request.session.pop("socialaccount_sociallogin", None)
-        user, resp = form.try_save(self.request)
-        if not resp:
-            resp = helpers.complete_social_signup(self.request, self.sociallogin)
-        return resp
+        form.save(self.request)
+        return helpers.complete_social_signup(self.request, self.sociallogin)
 
     def get_context_data(self, **kwargs):
         ret = super(SignupView, self).get_context_data(**kwargs)
@@ -110,7 +108,7 @@ class ConnectionsView(AjaxCapableProcessFormViewMixin, FormView):
         get_account_adapter().add_message(
             self.request,
             messages.INFO,
-            "socialaccount/messages/account_disconnected.txt",
+            "socialaccount/messages/" "account_disconnected.txt",
         )
         form.save()
         return super(ConnectionsView, self).form_valid(form)

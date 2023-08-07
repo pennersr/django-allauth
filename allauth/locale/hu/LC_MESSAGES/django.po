@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-24 15:33-0500\n"
+"POT-Creation-Date: 2020-10-11 11:15-0500\n"
 "PO-Revision-Date: 2015-05-08 22:42+0100\n"
 "Last-Translator: Tamás Makó <tom@greenplug.hu>\n"
 "Language-Team: \n"
@@ -16,21 +16,20 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.7.6\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: account/adapter.py:46
+#: account/adapter.py:45
 msgid "Username can not be used. Please use other username."
 msgstr "Ez a felhasználói azonosító nem használható. Kérlek válassz másikat!"
 
-#: account/adapter.py:52
+#: account/adapter.py:51
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 
-#: account/adapter.py:54
-msgid "A user is already registered with this email address."
+#: account/adapter.py:53
+msgid "A user is already registered with this e-mail address."
 msgstr "Egy felhasználó már regisztrált ezzel az email címmel."
 
-#: account/adapter.py:303
+#: account/adapter.py:300
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "A jelszónak minimum {0} hosszúnak kell lennnie."
@@ -39,267 +38,268 @@ msgstr "A jelszónak minimum {0} hosszúnak kell lennnie."
 msgid "Accounts"
 msgstr "Felhasználók"
 
-#: account/forms.py:59 account/forms.py:450
+#: account/forms.py:58 account/forms.py:403
 msgid "You must type the same password each time."
 msgstr "Ugyanazt a jelszót kell megadni mindannyiszor."
 
-#: account/forms.py:91 account/forms.py:415 account/forms.py:532
+#: account/forms.py:87 account/forms.py:372 account/forms.py:486
 msgid "Password"
 msgstr "Jelszó"
 
-#: account/forms.py:92
+#: account/forms.py:88
 msgid "Remember Me"
 msgstr "Emlékezz rám"
 
-#: account/forms.py:96
+#: account/forms.py:92
 msgid "This account is currently inactive."
 msgstr "A felhasználó jelenleg nem aktív."
 
-#: account/forms.py:98
-msgid "The email address and/or password you specified are not correct."
+#: account/forms.py:94
+msgid "The e-mail address and/or password you specified are not correct."
 msgstr "A megadott email vagy a jelszó hibás."
 
-#: account/forms.py:101
+#: account/forms.py:97
 msgid "The username and/or password you specified are not correct."
 msgstr "A megadott felhasználó vagy a jelszó hibás."
 
-#: account/forms.py:112 account/forms.py:278 account/forms.py:477
-#: account/forms.py:550
-msgid "Email address"
+#: account/forms.py:108 account/forms.py:273 account/forms.py:429
+#: account/forms.py:505
+msgid "E-mail address"
 msgstr "Email"
 
-#: account/forms.py:116 account/forms.py:323 account/forms.py:474
-#: account/forms.py:545
-msgid "Email"
+#: account/forms.py:111 account/forms.py:308 account/forms.py:426
+#: account/forms.py:500
+msgid "E-mail"
 msgstr "Email"
 
-#: account/forms.py:119 account/forms.py:122 account/forms.py:268
-#: account/forms.py:271
+#: account/forms.py:113 account/forms.py:115 account/forms.py:263
+#: account/forms.py:267
 msgid "Username"
 msgstr "Felhasználó azonosító"
 
-#: account/forms.py:132
-msgid "Username or email"
+#: account/forms.py:126
+msgid "Username or e-mail"
 msgstr "Felhasználó azonosító vagy email"
 
-#: account/forms.py:135
+#: account/forms.py:130
 msgctxt "field label"
 msgid "Login"
 msgstr "Bejelentkezés"
 
-#: account/forms.py:314
+#: account/forms.py:299
 #, fuzzy
-#| msgid "Email (optional)"
-msgid "Email (again)"
+#| msgid "E-mail (optional)"
+msgid "E-mail (again)"
 msgstr "Email (nem kötelező)"
 
-#: account/forms.py:318
+#: account/forms.py:303
 #, fuzzy
-#| msgid "Email address"
-msgid "Email address confirmation"
+#| msgid "E-mail address"
+msgid "E-mail address confirmation"
 msgstr "Email"
 
-#: account/forms.py:326
-msgid "Email (optional)"
+#: account/forms.py:311
+msgid "E-mail (optional)"
 msgstr "Email (nem kötelező)"
 
-#: account/forms.py:375
+#: account/forms.py:351
 #, fuzzy
 #| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
 msgstr "Ugyanazt a jelszót kell megadni mindannyiszor."
 
-#: account/forms.py:419 account/forms.py:533
+#: account/forms.py:374 account/forms.py:487
 msgid "Password (again)"
 msgstr "Jelszó (ismét)"
 
-#: account/forms.py:486
-msgid "This email address is already associated with this account."
+#: account/forms.py:438
+msgid "This e-mail address is already associated with this account."
 msgstr "Ez az email cím már hozzá van rendelve ehhez a felhasználóhoz."
 
-#: account/forms.py:488
+#: account/forms.py:441
+msgid "This e-mail address is already associated with another account."
+msgstr "Ez az email cím már hozzá van rendelve egy másik felhasználóhoz."
+
+#: account/forms.py:443
 #, fuzzy, python-format
-#| msgid "Your account has no verified email address."
-msgid "You cannot add more than %d email addresses."
+#| msgid "Your account has no verified e-mail address."
+msgid "You cannot add more than %d e-mail addresses."
 msgstr "A felhasználódnak nincs ellenőrzött email címe."
 
-#: account/forms.py:513
+#: account/forms.py:467
 msgid "Current Password"
 msgstr "Jelenlegi jelszó"
 
-#: account/forms.py:515 account/forms.py:619
+#: account/forms.py:468 account/forms.py:557
 msgid "New Password"
 msgstr "Új jelszó"
 
-#: account/forms.py:516 account/forms.py:620
+#: account/forms.py:469 account/forms.py:558
 msgid "New Password (again)"
 msgstr "Új jelszó (ismét)"
 
-#: account/forms.py:524
+#: account/forms.py:477
 msgid "Please type your current password."
 msgstr "Kérlek add meg az aktuális jelszavadat!"
 
-#: account/forms.py:562
-msgid "The email address is not assigned to any user account"
+#: account/forms.py:516
+msgid "The e-mail address is not assigned to any user account"
 msgstr "Az email cím nincs hozzárendelve egyetlen felhasználóhoz sem"
 
-#: account/forms.py:640
+#: account/forms.py:579
 msgid "The password reset token was invalid."
 msgstr ""
 
-#: account/models.py:20
+#: account/models.py:22
 msgid "user"
 msgstr ""
 
-#: account/models.py:25 account/models.py:33 account/models.py:132
-msgid "email address"
+#: account/models.py:28 account/models.py:83
+msgid "e-mail address"
 msgstr ""
 
-#: account/models.py:27
+#: account/models.py:30
 msgid "verified"
 msgstr ""
 
-#: account/models.py:28
+#: account/models.py:31
 msgid "primary"
 msgstr ""
 
-#: account/models.py:34
+#: account/models.py:36
+msgid "email address"
+msgstr ""
+
+#: account/models.py:37
 msgid "email addresses"
 msgstr ""
 
-#: account/models.py:135
+#: account/models.py:86
 msgid "created"
 msgstr ""
 
-#: account/models.py:136
+#: account/models.py:87
 msgid "sent"
 msgstr ""
 
-#: account/models.py:137 socialaccount/models.py:60
+#: account/models.py:88 socialaccount/models.py:58
 msgid "key"
 msgstr ""
 
-#: account/models.py:142
+#: account/models.py:93
 msgid "email confirmation"
 msgstr ""
 
-#: account/models.py:143
+#: account/models.py:94
 msgid "email confirmations"
 msgstr ""
 
-#: socialaccount/adapter.py:28
-#, fuzzy, python-format
-#| msgid ""
-#| "An account already exists with this e-mail address. Please sign in to "
-#| "that account first, then connect your %s account."
+#: socialaccount/adapter.py:26
+#, python-format
 msgid ""
-"An account already exists with this email address. Please sign in to that "
+"An account already exists with this e-mail address. Please sign in to that "
 "account first, then connect your %s account."
 msgstr ""
 "Ezzel az email címmel már létezik egy felhasználó . Először jelentkezz be, "
 "majd kapcsold össze a(z) %s felhasználóval."
 
-#: socialaccount/adapter.py:132
+#: socialaccount/adapter.py:131
 msgid "Your account has no password set up."
 msgstr "A felhasználódnak nincs beállított jelszava."
 
-#: socialaccount/adapter.py:139
-msgid "Your account has no verified email address."
+#: socialaccount/adapter.py:141
+msgid "Your account has no verified e-mail address."
 msgstr "A felhasználódnak nincs ellenőrzött email címe."
 
 #: socialaccount/apps.py:7
 msgid "Social Accounts"
 msgstr "Közösségi Felhasználók"
 
-#: socialaccount/models.py:34 socialaccount/models.py:95
+#: socialaccount/models.py:41 socialaccount/models.py:84
 msgid "provider"
 msgstr ""
 
-#: socialaccount/models.py:43
-msgid "provider ID"
-msgstr ""
-
-#: socialaccount/models.py:47
+#: socialaccount/models.py:45
 msgid "name"
 msgstr ""
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:47
 msgid "client id"
 msgstr ""
 
-#: socialaccount/models.py:51
+#: socialaccount/models.py:49
 msgid "App ID, or consumer key"
 msgstr ""
 
-#: socialaccount/models.py:54
+#: socialaccount/models.py:52
 msgid "secret key"
 msgstr ""
 
-#: socialaccount/models.py:57
+#: socialaccount/models.py:55
 msgid "API secret, client secret, or consumer secret"
 msgstr ""
 
-#: socialaccount/models.py:60
+#: socialaccount/models.py:58
 msgid "Key"
 msgstr ""
 
-#: socialaccount/models.py:79
+#: socialaccount/models.py:74
 msgid "social application"
 msgstr ""
 
-#: socialaccount/models.py:80
+#: socialaccount/models.py:75
 msgid "social applications"
 msgstr ""
 
-#: socialaccount/models.py:115
+#: socialaccount/models.py:105
 msgid "uid"
 msgstr ""
 
-#: socialaccount/models.py:117
+#: socialaccount/models.py:107
 msgid "last login"
 msgstr ""
 
-#: socialaccount/models.py:118
+#: socialaccount/models.py:108
 msgid "date joined"
 msgstr ""
 
-#: socialaccount/models.py:119
+#: socialaccount/models.py:109
 msgid "extra data"
 msgstr ""
 
-#: socialaccount/models.py:123
+#: socialaccount/models.py:113
 msgid "social account"
 msgstr ""
 
-#: socialaccount/models.py:124
+#: socialaccount/models.py:114
 msgid "social accounts"
 msgstr ""
 
-#: socialaccount/models.py:158
+#: socialaccount/models.py:139
 msgid "token"
 msgstr ""
 
-#: socialaccount/models.py:159
+#: socialaccount/models.py:140
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:163
+#: socialaccount/models.py:144
 msgid "token secret"
 msgstr ""
 
-#: socialaccount/models.py:164
+#: socialaccount/models.py:145
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:167
+#: socialaccount/models.py:148
 msgid "expires at"
 msgstr ""
 
-#: socialaccount/models.py:172
+#: socialaccount/models.py:153
 msgid "social application token"
 msgstr ""
 
-#: socialaccount/models.py:173
+#: socialaccount/models.py:154
 msgid "social application tokens"
 msgstr ""
 
@@ -307,29 +307,27 @@ msgstr ""
 msgid "Invalid profile data"
 msgstr ""
 
-#: socialaccount/providers/oauth/client.py:84
-#: socialaccount/providers/pocket/client.py:37
+#: socialaccount/providers/oauth/client.py:85
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr ""
 
-#: socialaccount/providers/oauth/client.py:116
-#: socialaccount/providers/pocket/client.py:78
+#: socialaccount/providers/oauth/client.py:117
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr ""
 
-#: socialaccount/providers/oauth/client.py:137
+#: socialaccount/providers/oauth/client.py:138
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr ""
 
-#: socialaccount/providers/oauth/client.py:188
+#: socialaccount/providers/oauth/client.py:189
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr ""
 
-#: socialaccount/providers/oauth/client.py:209
+#: socialaccount/providers/oauth/client.py:210
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr ""
@@ -343,43 +341,12 @@ msgstr "Felhasználó nem aktív"
 msgid "This account is inactive."
 msgstr "A felhasználó nem aktív."
 
-#: templates/account/base.html:16
-msgid "Messages:"
-msgstr ""
-
-#: templates/account/base.html:26
-msgid "Menu:"
-msgstr ""
-
-#: templates/account/base.html:29 templates/account/email_change.html:31
-#, fuzzy
-#| msgid "Email"
-msgid "Change Email"
-msgstr "Email"
-
-#: templates/account/base.html:30 templates/account/logout.html:5
-#: templates/account/logout.html:8 templates/account/logout.html:17
-msgid "Sign Out"
-msgstr "Kilépés"
-
-#: templates/account/base.html:32 templates/account/login.html:6
-#: templates/account/login.html:10 templates/account/login.html:43
-#: templates/socialaccount/login.html:4
-msgid "Sign In"
-msgstr "Belépés"
-
-#: templates/account/base.html:33 templates/account/signup.html:8
-#: templates/account/signup.html:18 templates/socialaccount/signup.html:8
-#: templates/socialaccount/signup.html:19
-msgid "Sign Up"
-msgstr "Regisztráció"
-
 #: templates/account/email.html:5 templates/account/email.html:8
-msgid "Email Addresses"
+msgid "E-mail Addresses"
 msgstr "Email címek"
 
 #: templates/account/email.html:10
-msgid "The following email addresses are associated with your account:"
+msgid "The following e-mail addresses are associated with your account:"
 msgstr "A következő email címek tartoznak a felhasználódhoz:"
 
 #: templates/account/email.html:24
@@ -398,7 +365,7 @@ msgstr "Elsődleges"
 msgid "Make Primary"
 msgstr "Legyen elsődleges"
 
-#: templates/account/email.html:35 templates/account/email_change.html:21
+#: templates/account/email.html:35
 msgid "Re-send Verification"
 msgstr "Ellenőrzés újraküldése"
 
@@ -406,39 +373,30 @@ msgstr "Ellenőrzés újraküldése"
 msgid "Remove"
 msgstr "Töröl"
 
-#: templates/account/email.html:47
-msgid "Add Email Address"
+#: templates/account/email.html:43
+msgid "Warning:"
+msgstr "Figyelem:"
+
+#: templates/account/email.html:43
+msgid ""
+"You currently do not have any e-mail address set up. You should really add "
+"an e-mail address so you can receive notifications, reset your password, etc."
+msgstr ""
+"Jelenleg nincs egyetlen email címed sem beállítva. Nagyon fontos lenne, "
+"hiszen csak így kaphatsz értesítéseket és így tudod a jelszavadat "
+"megváltoztatni."
+
+#: templates/account/email.html:48
+msgid "Add E-mail Address"
 msgstr "Új email cím"
 
-#: templates/account/email.html:52
-msgid "Add Email"
+#: templates/account/email.html:53
+msgid "Add E-mail"
 msgstr "Új email"
 
-#: templates/account/email.html:62
-msgid "Do you really want to remove the selected email address?"
+#: templates/account/email.html:63
+msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Tényleg törölni akarod a kijelölt email címet?"
-
-#: templates/account/email/account_already_exists_message.txt:4
-#, python-format
-msgid ""
-"You are receiving this email because you or someone else tried to signup for "
-"an\n"
-"account using email address:\n"
-"\n"
-"%(email)s\n"
-"\n"
-"However, an account using that email address already exists.  In case you "
-"have\n"
-"forgotten about this, please use the password forgotten procedure to "
-"recover\n"
-"your account:\n"
-"\n"
-"%(password_reset_url)s"
-msgstr ""
-
-#: templates/account/email/account_already_exists_subject.txt:3
-msgid "Account Already Exists"
-msgstr ""
 
 #: templates/account/email/base_message.txt:1
 #, python-format
@@ -460,8 +418,8 @@ msgstr ""
 #| "\n"
 #| "To confirm this is correct, go to %(activate_url)s\n"
 msgid ""
-"You're receiving this email because user %(user_display)s has given your "
-"email address to register an account on %(site_domain)s.\n"
+"You're receiving this e-mail because user %(user_display)s has given your e-"
+"mail address to register an account on %(site_domain)s.\n"
 "\n"
 "To confirm this is correct, go to %(activate_url)s"
 msgstr ""
@@ -472,8 +430,8 @@ msgstr ""
 
 #: templates/account/email/email_confirmation_subject.txt:3
 #, fuzzy
-#| msgid "Confirm Email Address"
-msgid "Please Confirm Your Email Address"
+#| msgid "Confirm E-mail Address"
+msgid "Please Confirm Your E-mail Address"
 msgstr "Email cím megerősítése"
 
 #: templates/account/email/password_reset_key_message.txt:4
@@ -484,8 +442,8 @@ msgstr "Email cím megerősítése"
 #| "It can be safely ignored if you did not request a password reset. Click "
 #| "the link below to reset your password."
 msgid ""
-"You're receiving this email because you or someone else has requested a "
-"password reset for your user account.\n"
+"You're receiving this e-mail because you or someone else has requested a "
+"password for your user account.\n"
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
@@ -500,97 +458,40 @@ msgid "In case you forgot, your username is %(username)s."
 msgstr "Ha esetleg nem emlékeznél pontosan, a felhasználód %(username)s."
 
 #: templates/account/email/password_reset_key_subject.txt:3
-#: templates/account/email/unknown_account_subject.txt:3
-msgid "Password Reset Email"
+msgid "Password Reset E-mail"
 msgstr "Jelszó csere email"
-
-#: templates/account/email/unknown_account_message.txt:4
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account at %(site_domain)s.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
-msgid ""
-"You are receiving this email because you or someone else has requested a\n"
-"password for your user account. However, we do not have any record of a "
-"user\n"
-"with email %(email)s in our database.\n"
-"\n"
-"This mail can be safely ignored if you did not request a password reset.\n"
-"\n"
-"If it was you, you can sign up for an account using the link below."
-msgstr ""
-"Azért kaptad ezt a levelet, mert te vagy valaki más jelszócserét kért a(z) "
-"%(site_domain)s oldalon.\n"
-"Nyugodtan hagyd levelünket figyelmen kívül, ha nem te kérted. A jelszó "
-"cseréjéhez kövesd az alábbi linket."
-
-#: templates/account/email_change.html:4 templates/account/email_change.html:7
-#, fuzzy
-#| msgid "Email Addresses"
-msgid "Email Address"
-msgstr "Email címek"
-
-#: templates/account/email_change.html:11
-#, fuzzy
-#| msgid "The following email addresses are associated with your account:"
-msgid "The following email address is associated with your account:"
-msgstr "A következő email címek tartoznak a felhasználódhoz:"
-
-#: templates/account/email_change.html:16
-#, fuzzy
-#| msgid "Your primary email address must be verified."
-msgid "Your email address is still pending verification:"
-msgstr "Az elsődleges email címet ellenőriznunk kell."
-
-#: templates/account/email_change.html:27
-#, fuzzy
-#| msgid "Confirm Email Address"
-msgid "Change Email Address"
-msgstr "Email cím megerősítése"
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
-msgid "Confirm Email Address"
+msgid "Confirm E-mail Address"
 msgstr "Email cím megerősítése"
 
-#: templates/account/email_confirm.html:17
-#, fuzzy, python-format
-#| msgid ""
-#| "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
-#| "mail address for user %(user_display)s."
+#: templates/account/email_confirm.html:16
+#, python-format
 msgid ""
-"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an email "
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
 "address for user %(user_display)s."
 msgstr ""
 "Kérlek erősítsd meg, hogy a(z) <a href=\"mailto:%(email)s\">%(email)s</a> "
 "email a(z) %(user_display)s felhasználóhoz tartozik."
 
-#: templates/account/email_confirm.html:21
+#: templates/account/email_confirm.html:20
 msgid "Confirm"
 msgstr "Megerősítés"
 
-#: templates/account/email_confirm.html:24
-#: templates/account/messages/email_confirmation_failed.txt:2
-#, fuzzy, python-format
-#| msgid "The social account is already connected to a different account."
+#: templates/account/email_confirm.html:27
+#, python-format
 msgid ""
-"Unable to confirm %(email)s because it is already confirmed by a different "
-"account."
-msgstr "A közösségi felhasználó már egy másik felhasználóhoz tartozik."
-
-#: templates/account/email_confirm.html:31
-#, fuzzy, python-format
-#| msgid ""
-#| "This e-mail confirmation link expired or is invalid. Please <a href="
-#| "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
-msgid ""
-"This email confirmation link expired or is invalid. Please <a href="
-"\"%(email_url)s\">issue a new email confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
 "Az email visszaigazolás címe már lejárt vagy érvénytelen. <a href="
 "\"\"%(email_url)s\">Itt kérhetsz újat</a>.\""
+
+#: templates/account/login.html:6 templates/account/login.html:10
+#: templates/account/login.html:43
+msgid "Sign In"
+msgstr "Belépés"
 
 #: templates/account/login.html:15
 #, python-format
@@ -621,18 +522,23 @@ msgstr ""
 msgid "Forgot Password?"
 msgstr "Elfelejtett jelszó?"
 
+#: templates/account/logout.html:5 templates/account/logout.html:8
+#: templates/account/logout.html:17
+msgid "Sign Out"
+msgstr "Kilépés"
+
 #: templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
 msgstr "Biztosan kijelentkezel?"
 
 #: templates/account/messages/cannot_delete_primary_email.txt:2
 #, python-format
-msgid "You cannot remove your primary email address (%(email)s)."
+msgid "You cannot remove your primary e-mail address (%(email)s)."
 msgstr "Az elsődleges email cím (%(email)s) nem törölhető."
 
 #: templates/account/messages/email_confirmation_sent.txt:2
 #, python-format
-msgid "Confirmation email sent to %(email)s."
+msgid "Confirmation e-mail sent to %(email)s."
 msgstr "Megerősítő levelet küldtünk a(z) %(email)s címre."
 
 #: templates/account/messages/email_confirmed.txt:2
@@ -642,7 +548,7 @@ msgstr "A(z) %(email)s cím visszaigazolása megtörtént."
 
 #: templates/account/messages/email_deleted.txt:2
 #, python-format
-msgid "Removed email address %(email)s."
+msgid "Removed e-mail address %(email)s."
 msgstr "%(email)s email cím törölve."
 
 #: templates/account/messages/logged_in.txt:4
@@ -663,11 +569,11 @@ msgid "Password successfully set."
 msgstr "Jelszó sikeresen beállítva."
 
 #: templates/account/messages/primary_email_set.txt:2
-msgid "Primary email address set."
+msgid "Primary e-mail address set."
 msgstr "Elsődleges email cím beállítva."
 
 #: templates/account/messages/unverified_primary_email.txt:2
-msgid "Your primary email address must be verified."
+msgid "Your primary e-mail address must be verified."
 msgstr "Az elsődleges email címet ellenőriznunk kell."
 
 #: templates/account/password_change.html:5
@@ -688,13 +594,9 @@ msgid "Password Reset"
 msgstr "Új jelszó kérése"
 
 #: templates/account/password_reset.html:15
-#, fuzzy
-#| msgid ""
-#| "Forgotten your password? Enter your e-mail address below, and we'll send "
-#| "you an e-mail allowing you to reset it."
 msgid ""
-"Forgotten your password? Enter your email address below, and we'll send you "
-"an email allowing you to reset it."
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
 msgstr ""
 "Elfelejtetted a jelszavadat? Add meg az email címedet és küldünk egy linket, "
 "ahol újat kérhetsz."
@@ -710,18 +612,12 @@ msgstr ""
 "beállításával."
 
 #: templates/account/password_reset_done.html:15
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
-"We have sent you an email. If you have not received it please check your "
-"spam folder. Otherwise contact us if you do not receive it in a few minutes."
+"We have sent you an e-mail. Please contact us if you do not receive it "
+"within a few minutes."
 msgstr ""
-"Elküldtük az ellenőrző emailt.\n"
-"Az ellenőrzéshez kövesd a benne található címet! Kérlek vedd fel \n"
-"velünk a kapcsolatot, ha az email nem érkezik meg perceken belül!"
+"Elküldtük az emailt. Kérlek vedd fel velünk a kapcsolatot, ha nem kapod meg "
+"perceken belül."
 
 #: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -737,10 +633,11 @@ msgstr ""
 "Az új jelszó kérő cím érvénytelen vagy már felhasználták. <a href="
 "\"%(passwd_reset_url)s\">Itt tudsz</a> újat kérni."
 
-#: templates/account/password_reset_from_key.html:16
+#: templates/account/password_reset_from_key.html:17
 msgid "change password"
 msgstr ""
 
+#: templates/account/password_reset_from_key.html:20
 #: templates/account/password_reset_from_key_done.html:8
 msgid "Your password is now changed."
 msgstr "A jelszavad megváltozott."
@@ -752,6 +649,11 @@ msgstr "Jelszó beállítása"
 
 #: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
+msgstr "Regisztráció"
+
+#: templates/account/signup.html:8 templates/account/signup.html:18
+#: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
+msgid "Sign Up"
 msgstr "Regisztráció"
 
 #: templates/account/signup.html:10
@@ -779,73 +681,37 @@ msgstr "Megjegyzés"
 msgid "you are already logged in as %(user_display)s."
 msgstr "Már bejelentkeztél, mint %(user_display)s."
 
-#: templates/account/snippets/warn_no_email.html:3
-msgid "Warning:"
-msgstr "Figyelem:"
-
-#: templates/account/snippets/warn_no_email.html:3
-#, fuzzy
-#| msgid ""
-#| "You currently do not have any e-mail address set up. You should really "
-#| "add an e-mail address so you can receive notifications, reset your "
-#| "password, etc."
-msgid ""
-"You currently do not have any email address set up. You should really add an "
-"email address so you can receive notifications, reset your password, etc."
-msgstr ""
-"Jelenleg nincs egyetlen email címed sem beállítva. Nagyon fontos lenne, "
-"hiszen csak így kaphatsz értesítéseket és így tudod a jelszavadat "
-"megváltoztatni."
-
 #: templates/account/verification_sent.html:5
 #: templates/account/verification_sent.html:8
 #: templates/account/verified_email_required.html:5
 #: templates/account/verified_email_required.html:8
-msgid "Verify Your Email Address"
+msgid "Verify Your E-mail Address"
 msgstr "Ellenőrizd az emailedet"
 
 #: templates/account/verification_sent.html:10
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for verification. Follow the link provided "
-#| "to finalize the signup process. Please contact us if you do not receive "
-#| "it within a few minutes."
 msgid ""
-"We have sent an email to you for verification. Follow the link provided to "
-"finalize the signup process. If you do not see the verification email in "
-"your main inbox, check your spam folder. Please contact us if you do not "
-"receive the verification email within a few minutes."
+"We have sent an e-mail to you for verification. Follow the link provided to "
+"finalize the signup process. Please contact us if you do not receive it "
+"within a few minutes."
 msgstr ""
 "Elküldtük az ellenőrző emailt. A regisztráció befejezéséhez kövesd a benne "
 "található linket! Kérlek vedd fel velünk a kapcsolatot, ha az email nem "
 "érkezik meg perceken belül!"
 
 #: templates/account/verified_email_required.html:12
-#, fuzzy
-#| msgid ""
-#| "This part of the site requires us to verify that\n"
-#| "you are who you claim to be. For this purpose, we require that you\n"
-#| "verify ownership of your e-mail address. "
 msgid ""
 "This part of the site requires us to verify that\n"
 "you are who you claim to be. For this purpose, we require that you\n"
-"verify ownership of your email address. "
+"verify ownership of your e-mail address. "
 msgstr ""
 "Az oldal ezen része megköveteli, hogy ellenőrizzük\n"
 "a felhasználó azonosságát. Ezért most arra kérünk, \n"
 "hogy ellenőrizd a hozzáférésedet az email címedhez. "
 
 #: templates/account/verified_email_required.html:16
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
-"We have sent an email to you for\n"
-"verification. Please click on the link inside that email. If you do not see "
-"the verification email in your main inbox, check your spam folder. "
-"Otherwise\n"
+"We have sent an e-mail to you for\n"
+"verification. Please click on the link inside this e-mail. Please\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
 "Elküldtük az ellenőrző emailt.\n"
@@ -853,13 +719,10 @@ msgstr ""
 "velünk a kapcsolatot, ha az email nem érkezik meg perceken belül!"
 
 #: templates/account/verified_email_required.html:20
-#, fuzzy, python-format
-#| msgid ""
-#| "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change "
-#| "your e-mail address</a>."
+#, python-format
 msgid ""
-"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
-"email address</a>."
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
+"mail address</a>."
 msgstr ""
 "<strong>Megjegyzés:</strong> az email címet még mindig <a href="
 "\"%(email_url)s\">meg tudod változtatni</a>."
@@ -900,30 +763,6 @@ msgstr "Jelenleg nincs közösségi felhasználó a fiókodhoz rendelve."
 msgid "Add a 3rd Party Account"
 msgstr "Új közösségi felhasználó hozzáadása"
 
-#: templates/socialaccount/login.html:8
-#, python-format
-msgid "Connect %(provider)s"
-msgstr ""
-
-#: templates/socialaccount/login.html:10
-#, python-format
-msgid "You are about to connect a new third party account from %(provider)s."
-msgstr ""
-
-#: templates/socialaccount/login.html:12
-#, python-format
-msgid "Sign In Via %(provider)s"
-msgstr ""
-
-#: templates/socialaccount/login.html:14
-#, python-format
-msgid "You are about to sign in using a third party account from %(provider)s."
-msgstr ""
-
-#: templates/socialaccount/login.html:19
-msgid "Continue"
-msgstr ""
-
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9
 msgid "Login Cancelled"
@@ -960,16 +799,6 @@ msgstr ""
 "A(z) %(provider_name)s felhasználódat használod a (z) %(site_name)s "
 "bejelentkezés\n"
 "Utolsó lépésként kérlek töltsd ki az alábbi adatlapot:"
-
-#~ msgid "This email address is already associated with another account."
-#~ msgstr "Ez az email cím már hozzá van rendelve egy másik felhasználóhoz."
-
-#~ msgid ""
-#~ "We have sent you an e-mail. Please contact us if you do not receive it "
-#~ "within a few minutes."
-#~ msgstr ""
-#~ "Elküldtük az emailt. Kérlek vedd fel velünk a kapcsolatot, ha nem kapod "
-#~ "meg perceken belül."
 
 #~ msgid "Account"
 #~ msgstr "Felhasználó"

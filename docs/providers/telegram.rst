@@ -1,12 +1,13 @@
 Telegram
 --------
 
-If the time of the telegram server differs from the time of your
-server, then you may need to increase the authorization period using
-the ``auth_date_validity`` parameter.
+Telegram does not strictly regulate the authorization expiration
+time, so you may need to set your own expiration time, which can be
+less than the default value.
 You can also set this parameter in Social applications settings as
 json ``{"auth_date_validity": 100}``.
 The default value of the ``auth_date_validity`` is 30 seconds.
+
 
 .. code-block:: python
 
@@ -19,3 +20,9 @@ The default value of the ``auth_date_validity`` is 30 seconds.
             'AUTH_PARAMS': {'auth_date_validity': 30},
         }
     }
+
+.. code-block:: python
+
+
+Attention! If your server time is different from the telegram
+server time, you need NTP.

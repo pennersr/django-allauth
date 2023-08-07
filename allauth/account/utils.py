@@ -4,7 +4,7 @@ from collections import OrderedDict
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
-from django.core.exceptions import FieldDoesNotExist, ValidationError
+from django.core.exceptions import FieldDoesNotExist
 from django.db import models
 from django.db.models import Q
 from django.utils.encoding import force_str
@@ -436,31 +436,29 @@ def user_pk_to_url_str(user):
     This should return a string.
     """
     User = get_user_model()
-    if issubclass(type(User._meta.pk), models.UUIDField):
+    pk_field_class = type(User._meta.pk)
+    if issubclass(pk_field_class, models.UUIDField):
         if isinstance(user.pk, str):
             return user.pk
         return user.pk.hex
-
-    ret = user.pk
-    if isinstance(ret, int):
-        ret = int_to_base36(user.pk)
-    return str(ret)
+    elif issubclass(pk_field_class, models.IntegerField):
+        return int_to_base36(int(user.pk))
+    return str(user.pk)
 
 
-def url_str_to_user_pk(s):
+def url_str_to_user_pk(pk_str):
     User = get_user_model()
-    # TODO: Ugh, isn't there a cleaner way to determine whether or not
-    # the PK is a str-like field?
     remote_field = getattr(User._meta.pk, "remote_field", None)
     if remote_field and getattr(remote_field, "to", None):
         pk_field = User._meta.pk.remote_field.to._meta.pk
     else:
         pk_field = User._meta.pk
-    if issubclass(type(pk_field), models.UUIDField):
-        return pk_field.to_python(s)
-    try:
-        pk_field.to_python("a")
-        pk = s
-    except ValidationError:
-        pk = base36_to_int(s)
+    pk_field_class = type(pk_field)
+    if issubclass(pk_field_class, models.IntegerField):
+        pk = base36_to_int(pk_str)
+        # always call to_python() -- because there are fields like HashidField
+        # that derive from IntegerField.
+        pk = pk_field.to_python(pk)
+    else:
+        pk = pk_field.to_python(pk_str)
     return pk

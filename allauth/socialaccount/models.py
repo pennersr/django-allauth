@@ -9,7 +9,11 @@ from django.utils.translation import gettext_lazy as _
 
 import allauth.app_settings
 from allauth.account.models import EmailAddress
-from allauth.account.utils import get_next_redirect_url, setup_user_email
+from allauth.account.utils import (
+    filter_users_by_email,
+    get_next_redirect_url,
+    setup_user_email,
+)
 from allauth.utils import get_user_model
 
 from ..utils import get_request_param
@@ -253,7 +257,6 @@ class SocialLogin(object):
         Saves a new account. Note that while the account is new,
         the user may be an existing one (when connecting accounts)
         """
-        assert not self.is_existing
         user = self.user
         user.save()
         self.account.user = user
@@ -269,15 +272,19 @@ class SocialLogin(object):
 
     @property
     def is_existing(self):
+        """When `False`, this social login represents a temporary account, not
+        yet backed by a database record.
         """
-        Account is temporary, not yet backed by a database record.
-        """
-        return self.account.pk is not None
+        return self.user.pk is not None
 
     def lookup(self):
+        """Look up the existing local user account to which this social login
+        points, if any.
         """
-        Lookup existing account, if any.
-        """
+        if not self._lookup_by_socialaccount() and app_settings.EMAIL_AUTHENTICATION:
+            self._lookup_by_email()
+
+    def _lookup_by_socialaccount(self):
         assert not self.is_existing
         try:
             a = SocialAccount.objects.get(
@@ -306,8 +313,20 @@ class SocialLogin(object):
                 except SocialToken.DoesNotExist:
                     self.token.account = a
                     self.token.save()
+            return True
         except SocialAccount.DoesNotExist:
             pass
+
+    def _lookup_by_email(self):
+        users = set()
+        emails = [e.email for e in self.email_addresses if e.verified]
+        if not emails:
+            return
+        address = (
+            EmailAddress.objects.lookup(emails).order_by("-verified", "user_id").first()
+        )
+        if address:
+            self.user = address.user
 
     def get_redirect_url(self, request):
         url = self.state.get("next")

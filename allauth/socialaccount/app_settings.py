@@ -85,6 +85,25 @@ class AppSettings(object):
         return self._setting("EMAIL_VERIFICATION", account_settings.EMAIL_VERIFICATION)
 
     @property
+    def EMAIL_AUTHENTICATION(self):
+        """Consider a scenario where a social login occurs, and the social
+        account comes with a verified email address (verified by the account
+        provider), but that email address is already taken by a local user
+        account. Additionally, assume that the local user account does not have
+        any social account connected. Now, if the provider can be fully trusted,
+        you can argue that we should treat this scenario as a login to the
+        existing local user account even if the local account does not already
+        have the social account connected, because -- according to the provider
+        -- the user logging in has ownership of the email address.  This is how
+        this scenario is handled when `EMAIL_AUTHENTICATION` is set to
+        `True`. As this implies that an untrustworthy provider can login to any
+        local account by fabricating social account data, this setting defaults
+        to `False`. Only set it to `True` if you are using providers that can be
+        fully trusted.
+        """
+        return self._setting("EMAIL_AUTHENTICATION", False)
+
+    @property
     def ADAPTER(self):
         return self._setting(
             "ADAPTER",

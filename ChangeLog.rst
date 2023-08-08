@@ -30,6 +30,9 @@ Note worthy changes
 
 - Fixed Twitter OAuth2 authentication by using basic auth and adding scope `tweet.read`.
 
+- Added (optional) support for authentication by email for social logins (see
+  ``SOCIALACCOUNT_EMAIL_AUTHENTICATION``).
+
 
 Security notice
 ---------------

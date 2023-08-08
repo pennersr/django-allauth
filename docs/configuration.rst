@@ -298,6 +298,21 @@ SOCIALACCOUNT_AUTO_SIGNUP (=True)
   arises due to a duplicate email address the signup form will still
   kick in.
 
+SOCIALACCOUNT_EMAIL_AUTHENTICATION (=False)
+  Consider a scenario where a social login occurs, and the social account comes
+  with a verified email address (verified by the account provider), but that
+  email address is already taken by a local user account. Additionally, assume
+  that the local user account does not have any social account connected. Now,
+  if the provider can be fully trusted, you can argue that we should treat this
+  scenario as a login to the existing local user account even if the local
+  account does not already have the social account connected, because --
+  according to the provider -- the user logging in has ownership of the email
+  address.  This is how this scenario is handled when
+  ``SOCIALACCOUNT_EMAIL_AUTHENTICATION`` is set to ``True``. As this implies
+  that an untrustworthy provider can login to any local account by fabricating
+  social account data, this setting defaults to ``False``. Only set it to
+  ``True`` if you are using providers that can be fully trusted.
+
 SOCIALACCOUNT_EMAIL_VERIFICATION (=ACCOUNT_EMAIL_VERIFICATION)
   As ``ACCOUNT_EMAIL_VERIFICATION``, but for social accounts.
 

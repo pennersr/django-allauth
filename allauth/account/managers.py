@@ -1,3 +1,4 @@
+import functools
 from datetime import timedelta
 
 from django.db import models
@@ -100,6 +101,13 @@ class EmailAddressManager(models.Manager):
 
     def is_verified(self, email):
         return self.filter(email__iexact=email, verified=True).exists()
+
+    def lookup(self, emails):
+        q_list = [Q(email__iexact=e) for e in emails]
+        if not q_list:
+            return self.none()
+        q = functools.reduce(lambda a, b: a | b, q_list)
+        return self.filter(q)
 
 
 class EmailConfirmationManager(models.Manager):

@@ -6,9 +6,9 @@ from allauth.socialaccount.models import SocialAccount, SocialLogin
 
 @pytest.fixture
 def sociallogin_factory(user_factory):
-    def factory(email=None, with_email=True):
+    def factory(email=None, with_email=True, provider="unittest-server", uid="123"):
         user = user_factory(email=email, commit=False, with_email=with_email)
-        account = SocialAccount(provider="unittest-server", uid="123")
+        account = SocialAccount(provider=provider, uid=uid)
         sociallogin = SocialLogin(user=user, account=account)
         if with_email:
             sociallogin.email_addresses = [

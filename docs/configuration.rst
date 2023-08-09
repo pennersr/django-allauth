@@ -311,7 +311,16 @@ SOCIALACCOUNT_EMAIL_AUTHENTICATION (=False)
   ``SOCIALACCOUNT_EMAIL_AUTHENTICATION`` is set to ``True``. As this implies
   that an untrustworthy provider can login to any local account by fabricating
   social account data, this setting defaults to ``False``. Only set it to
-  ``True`` if you are using providers that can be fully trusted.
+  ``True`` if you are using providers that can be fully trusted. Instead of
+  turning this on globally, you can also turn it on selectively per provider,
+  for example::
+
+      SOCIALACCOUNT_PROVIDERS = {
+        'google': {
+            'EMAIL_AUTHENTICATION': True
+        }
+      }
+
 
 SOCIALACCOUNT_EMAIL_VERIFICATION (=ACCOUNT_EMAIL_VERIFICATION)
   As ``ACCOUNT_EMAIL_VERIFICATION``, but for social accounts.

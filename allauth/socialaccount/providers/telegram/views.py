@@ -62,7 +62,8 @@ class CallbackView(View):
             token_sha256, payload.encode(), hashlib.sha256
         ).hexdigest()
         auth_date = int(data.pop("auth_date"))
-        if hash != expected_hash or time.time() - auth_date > 30:
+        auth_date_validity = provider.get_auth_date_validity()
+        if hash != expected_hash or time.time() - auth_date > auth_date_validity:
             return render_authentication_error(
                 request, provider_id=provider.id, extra_context={"response": data}
             )

@@ -32,5 +32,17 @@ class TelegramProvider(Provider):
             ret["username"] = data.get("username")
         return ret
 
+    def get_auth_date_validity(self):
+        auth_date_validity = 30
+        settings = self.get_settings()
+        if "AUTH_PARAMS" in settings:
+            auth_date_validity = settings.get("AUTH_PARAMS").get(
+                "auth_date_validity", auth_date_validity
+            )
+        auth_date_validity = self.app.settings.get(
+            "auth_date_validity", auth_date_validity
+        )
+        return auth_date_validity
+
 
 provider_classes = [TelegramProvider]

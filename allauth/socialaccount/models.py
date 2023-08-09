@@ -9,11 +9,7 @@ from django.utils.translation import gettext_lazy as _
 
 import allauth.app_settings
 from allauth.account.models import EmailAddress
-from allauth.account.utils import (
-    filter_users_by_email,
-    get_next_redirect_url,
-    setup_user_email,
-)
+from allauth.account.utils import get_next_redirect_url, setup_user_email
 from allauth.utils import get_user_model
 
 from ..utils import get_request_param
@@ -281,8 +277,11 @@ class SocialLogin(object):
         """Look up the existing local user account to which this social login
         points, if any.
         """
-        if not self._lookup_by_socialaccount() and app_settings.EMAIL_AUTHENTICATION:
-            self._lookup_by_email()
+        if not self._lookup_by_socialaccount():
+            if app_settings.EMAIL_AUTHENTICATION or app_settings.PROVIDERS.get(
+                self.account.provider, {}
+            ).get("EMAIL_AUTHENTICATION", False):
+                self._lookup_by_email()
 
     def _lookup_by_socialaccount(self):
         assert not self.is_existing
@@ -318,7 +317,6 @@ class SocialLogin(object):
             pass
 
     def _lookup_by_email(self):
-        users = set()
         emails = [e.email for e in self.email_addresses if e.verified]
         if not emails:
             return

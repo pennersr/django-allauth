@@ -1,5 +1,7 @@
 import requests
 
+from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse
 from django.utils.http import urlencode
 
@@ -7,6 +9,12 @@ from allauth.socialaccount.providers.openid.provider import (
     OpenIDAccount,
     OpenIDProvider,
 )
+
+
+if "allauth.socialaccount.providers.openid" not in settings.INSTALLED_APPS:
+    raise ImproperlyConfigured(
+        "The steam provider requires 'allauth.socialaccount.providers.openid' to be installed"
+    )
 
 
 class SteamAccount(OpenIDAccount):

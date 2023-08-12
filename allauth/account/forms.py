@@ -1,6 +1,5 @@
 from __future__ import absolute_import
 
-import warnings
 from importlib import import_module
 
 from django import forms
@@ -250,16 +249,10 @@ def _base_signup_form_class():
             'Module "%s" does not define a' ' "%s" class' % (fc_module, fc_classname)
         )
     if not hasattr(fc_class, "signup"):
-        if hasattr(fc_class, "save"):
-            warnings.warn(
-                "The custom signup form must offer"
-                " a `def signup(self, request, user)` method",
-                DeprecationWarning,
-            )
-        else:
-            raise exceptions.ImproperlyConfigured(
-                'The custom signup form must implement a "signup" method'
-            )
+        raise exceptions.ImproperlyConfigured(
+            "The custom signup form must offer"
+            " a `def signup(self, request, user)` method",
+        )
     return fc_class
 
 
@@ -376,18 +369,7 @@ class BaseSignupForm(_base_signup_form_class()):
         return cleaned_data
 
     def custom_signup(self, request, user):
-        custom_form = super(BaseSignupForm, self)
-        if hasattr(custom_form, "signup") and callable(custom_form.signup):
-            custom_form.signup(request, user)
-        else:
-            warnings.warn(
-                "The custom signup form must offer"
-                " a `def signup(self, request, user)` method",
-                DeprecationWarning,
-            )
-            # Historically, it was called .save, but this is confusing
-            # in case of ModelForm
-            custom_form.save(user)
+        self.signup(request, user)
 
     def try_save(self, request):
         """Try and save te user. This can fail in case of a conflict on the

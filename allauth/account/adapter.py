@@ -16,6 +16,7 @@ from django.contrib.auth import (
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.sites.shortcuts import get_current_site
+from django.core.exceptions import FieldDoesNotExist
 from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import resolve_url
@@ -504,16 +505,21 @@ class DefaultAccountAdapter(object):
         user.save()
 
     def get_user_search_fields(self):
-        user = get_user_model()()
-        return filter(
-            lambda a: a and hasattr(user, a),
-            [
-                app_settings.USER_MODEL_USERNAME_FIELD,
-                "first_name",
-                "last_name",
-                "email",
-            ],
-        )
+        ret = []
+        User = get_user_model()
+        candidates = [
+            app_settings.USER_MODEL_USERNAME_FIELD,
+            "first_name",
+            "last_name",
+            "email",
+        ]
+        for candidate in candidates:
+            try:
+                User._meta.get_field(candidate)
+                ret.append(candidate)
+            except FieldDoesNotExist:
+                pass
+        return ret
 
     def is_safe_url(self, url):
         try:

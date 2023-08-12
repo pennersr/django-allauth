@@ -3,14 +3,9 @@ class AppSettings(object):
         self.prefix = prefix
 
     def _setting(self, name, dflt):
-        from django.conf import settings
+        from allauth.utils import get_setting
 
-        getter = getattr(
-            settings,
-            "ALLAUTH_SETTING_GETTER",
-            lambda name, dflt: getattr(settings, name, dflt),
-        )
-        return getter(self.prefix + name, dflt)
+        return get_setting(self.prefix + name, dflt)
 
     @property
     def QUERY_EMAIL(self):

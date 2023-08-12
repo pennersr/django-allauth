@@ -9,6 +9,7 @@ from collections import OrderedDict
 from urllib.parse import urlsplit
 
 import django
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.core.files.base import ContentFile
@@ -305,3 +306,13 @@ def get_request_param(request, param, default=None):
     if request is None:
         return default
     return request.POST.get(param) or request.GET.get(param, default)
+
+
+def get_setting(name, dflt):
+    getter = getattr(
+        settings,
+        "ALLAUTH_SETTING_GETTER",
+        lambda name, dflt: getattr(settings, name, dflt),
+    )
+    getter = import_callable(getter)
+    return getter(name, dflt)

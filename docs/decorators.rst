@@ -33,11 +33,11 @@ Verified E-mail Required
 
 In the case you are using a class-based view, there is a mixin available
 in ``allauth.account.mixins.VerifiedEmailRequiredMixin`` which is use in 
-any class-based view from django, you can use it as follow ::
+any class-based view from django, you can use it as follows ::
 
 
     from django.views.generics import ListView
     from allauth.account.mixins import VerifiedEmailRequiredMixin
 
-    class YouClassName(VerifiedEmailRequiredMixin, ListView):
+    class YourClassName(VerifiedEmailRequiredMixin, ListView):
       ...

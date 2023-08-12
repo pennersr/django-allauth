@@ -1,8 +1,8 @@
 """
 This module contain a class mixin design to bring email verification
 to class based views in django-allauth
-It is used like django's LoginRequiedMixin, so when using this
-there is no need to use LoginRequiedMixin fro django
+It is used like django's LoginRequiredMixin, so when using this
+there is no need to use LoginRequiredMixin fro django
 
 Example of use :
 

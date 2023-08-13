@@ -17,7 +17,10 @@ def setup_dummy_social_apps(sender, **kwargs):
 
     site = Site.objects.get_current()
     for provider_class in registry.get_class_list():
-        if issubclass(provider_class, (OAuthProvider,OAuth2Provider)):
+        if (
+            issubclass(provider_class, (OAuthProvider, OAuth2Provider))
+            and provider_class.id != "openid_connect"
+        ):
             try:
                 SocialApp.objects.get(provider=provider_class.id, sites=site)
             except SocialApp.DoesNotExist:

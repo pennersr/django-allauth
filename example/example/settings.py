@@ -133,6 +133,7 @@ INSTALLED_APPS = (
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    "allauth.mfa",
     "allauth.socialaccount.providers.dropbox",
     "allauth.socialaccount.providers.azure",
     "allauth.socialaccount.providers.dingtalk",

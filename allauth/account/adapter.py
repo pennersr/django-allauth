@@ -28,7 +28,7 @@ from django.utils.crypto import get_random_string
 from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 
-from allauth import ratelimit
+from allauth import app_settings as allauth_app_settings, ratelimit
 from allauth.account import signals
 from allauth.account.app_settings import EmailVerificationMethod
 from allauth.utils import (
@@ -666,6 +666,12 @@ class DefaultAccountAdapter(object):
     def generate_emailconfirmation_key(self, email):
         key = get_random_string(64).lower()
         return key
+
+    def get_login_stages(self):
+        ret = []
+        if allauth_app_settings.MFA_ENABLED:
+            ret.append("allauth.mfa.stages.AuthenticateStage")
+        return ret
 
 
 def get_adapter(request=None):

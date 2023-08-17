@@ -1,5 +1,6 @@
 import datetime
 
+from django.contrib.auth import get_user_model
 from django.core import signing
 from django.db import models
 from django.db.models import Index, Q
@@ -12,7 +13,6 @@ from .. import app_settings as allauth_app_settings
 from . import app_settings, signals
 from .adapter import get_adapter
 from .managers import EmailAddressManager, EmailConfirmationManager
-from .utils import user_email
 
 
 class EmailAddress(models.Model):
@@ -72,6 +72,8 @@ class EmailAddress(models.Model):
         """Marks the email address as primary. In case of `conditional`, it is
         only marked as primary if there is no other primary email address set.
         """
+        from allauth.account.utils import user_email
+
         old_primary = EmailAddress.objects.get_primary(self.user)
         if old_primary:
             if conditional:
@@ -92,6 +94,8 @@ class EmailAddress(models.Model):
         return confirmation
 
     def remove(self):
+        from allauth.account.utils import user_email
+
         self.delete()
         if user_email(self.user) == self.email:
             alt = (
@@ -191,3 +195,81 @@ class EmailConfirmationHMAC(EmailConfirmationMixin, object):
         ):
             ret = None
         return ret
+
+
+class Login:
+    """
+    Represents a user that is in the process of logging in.
+    """
+
+    def __init__(
+        self,
+        user,
+        email_verification,
+        redirect_url=None,
+        signal_kwargs=None,
+        signup=False,
+        email=None,
+        state=None,
+    ):
+        self.user = user
+        self.email_verification = email_verification
+        self.redirect_url = redirect_url
+        self.signal_kwargs = signal_kwargs
+        self.signup = signup
+        self.email = email
+        self.state = {} if state is None else state
+
+    def serialize(self):
+        from allauth.account.utils import user_pk_to_url_str
+
+        # :-( Knowledge of the `socialaccount` is entering the `account` app.
+        signal_kwargs = self.signal_kwargs
+        if signal_kwargs is not None:
+            sociallogin = signal_kwargs.get("sociallogin")
+            if sociallogin is not None:
+                signal_kwargs = signal_kwargs.copy()
+                signal_kwargs["sociallogin"] = sociallogin.serialize()
+
+        data = {
+            "user_pk": user_pk_to_url_str(self.user),
+            "email_verification": self.email_verification,
+            "signup": self.signup,
+            "redirect_url": self.redirect_url,
+            "email": self.email,
+            "signal_kwargs": signal_kwargs,
+            "state": self.state,
+        }
+        return data
+
+    @classmethod
+    def deserialize(cls, data):
+        from allauth.account.utils import url_str_to_user_pk
+        from allauth.socialaccount.models import SocialLogin
+
+        user = (
+            get_user_model()
+            .objects.filter(pk=url_str_to_user_pk(data["user_pk"]))
+            .first()
+        )
+        if user is None:
+            raise ValueError()
+        try:
+            # :-( Knowledge of the `socialaccount` is entering the `account` app.
+            signal_kwargs = data["signal_kwargs"]
+            if signal_kwargs is not None:
+                sociallogin = signal_kwargs.get("sociallogin")
+                if sociallogin is not None:
+                    signal_kwargs = signal_kwargs.copy()
+                    signal_kwargs["sociallogin"] = SocialLogin.deserialize(sociallogin)
+
+            return Login(
+                user=user,
+                email_verification=data["email_verification"],
+                redirect_url=data["redirect_url"],
+                signup=data["signup"],
+                signal_kwargs=signal_kwargs,
+                state=data["state"],
+            )
+        except KeyError:
+            raise ValueError()

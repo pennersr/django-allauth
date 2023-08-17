@@ -1,0 +1,18 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+<h1>{% trans "Two Factor Authentication" %}</h1>
+
+
+<form class="authenticate" method="POST" action="{% url 'mfa_authenticate' %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">{% trans "Sign In" %}</button>
+</form>
+
+{% endblock %}

@@ -11,6 +11,7 @@ class SAMLAccount(ProviderAccount):
 
 class SAMLProvider(Provider):
     id = "saml"
+    name = "SAML"
     account_class = SAMLAccount
     default_attribute_mapping = {
         "uid": [
@@ -36,9 +37,9 @@ class SAMLProvider(Provider):
         ],
     }
 
-    @property
-    def name(self):
-        return self.app.name or self.app.client_id or self.id
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.name = self.app.name or self.app.client_id or self.name
 
     def get_login_url(self, request, **kwargs):
         url = reverse("saml_login", kwargs={"organization_slug": self.app.client_id})

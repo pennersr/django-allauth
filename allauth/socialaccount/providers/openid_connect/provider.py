@@ -17,9 +17,9 @@ class OpenIDConnectProvider(OAuth2Provider):
     name = "OpenID Connect"
     account_class = OpenIDConnectProviderAccount
 
-    @property
-    def name(self):
-        return self.app.name
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.name = self.app.name
 
     @property
     def server_url(self):

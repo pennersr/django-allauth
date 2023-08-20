@@ -25,6 +25,11 @@ class AuthenticateView(FormView):
             return HttpResponseRedirect(reverse("account_login"))
         return super().dispatch(request, *args, **kwargs)
 
+    def get_form_kwargs(self):
+        ret = super().get_form_kwargs()
+        ret["user"] = self.stage.login.user
+        return ret
+
     def form_valid(self, form):
         return self.stage.exit()
 

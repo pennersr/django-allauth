@@ -1,0 +1,30 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Two Factor Authentication" %}{% endblock %}
+
+{% block content %}
+<h1>{% trans "Two Factor Authentication" %}</h1>
+
+<h2>{% translate "TOTP Authentication" %}</h2>
+
+{% if authenticators.totp %}
+<p>{% translate "TOTP Authentication is active. " %}</p>
+
+<a href="{% url 'mfa_deactivate_totp' %}">{% translate "Deactivate" %}</a>
+{% else %}
+<p>{% translate "TOTP Authentication is not set up. " %}</p>
+
+<a href="{% url 'mfa_activate_totp' %}">{% translate "Activate" %}</a>
+
+{% endif %}
+
+<h2>{% translate "Recovery Codes" %}</h2>
+
+{% if authenticators.recovery_codes %}
+{% else %}
+<p>{% translate "No recovery codes set up." %}</p>
+{% endif %}
+
+{% endblock %}

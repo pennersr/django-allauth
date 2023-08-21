@@ -1,5 +1,5 @@
-* MFA Tasks [1/7]
-** TODO Recovery codes
+* MFA Tasks [3/7]
+** DONE Recovery codes
 ** TODO Documentation
 ** TODO Test suite
 ** DONE Require verified email before MFA can be enabled
@@ -7,4 +7,4 @@
 ** TODO Purge login stage
 - Maximum age on login stages?
 - Purge login stages on certain URLs?
-** TODO Move encryption into adapter
+** DONE Move encryption into adapter

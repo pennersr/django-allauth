@@ -19,13 +19,6 @@ class AppSettings(object):
         return self._setting("RECOVERY_CODE_COUNT", 10)
 
     @property
-    def FERNET_KEY(self):
-        """
-        The Fernet key used for symmetrically encrypting the 2FA key.
-        """
-        return self._setting("FERNET_KEY", "")
-
-    @property
     def TOTP_PERIOD(self):
         """
         The period that a TOTP code will be valid for, in seconds.

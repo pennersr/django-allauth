@@ -36,6 +36,17 @@ class DefaultMFAAdapter:
                 issuer = self.request.get_host()
         return issuer
 
+    def encrypt(self, text):
+        """We need to store secrets such as the TOTP key in the database.  This
+        hook can be used to encrypt those so that they are not stored in the
+        clear in the database.
+        """
+        return text
+
+    def decrypt(self, encrypted_text):
+        text = encrypted_text
+        return text
+
 
 def get_adapter(request=None):
     return import_attribute(app_settings.ADAPTER)(request)

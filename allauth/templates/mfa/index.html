@@ -23,6 +23,9 @@
 <h2>{% translate "Recovery Codes" %}</h2>
 
 {% if authenticators.recovery_codes %}
+
+{% blocktranslate with total_count=authenticators.recovery_codes.generate_codes|length count unused_count=authenticators.recovery_codes.get_unused_codes|length %}There is {{ unused_count }} out of {{ total_count }} recovery codes available.{% plural %}There are {{ unused_count }} out of {{ total_count }} recovery codes available.{% endblocktranslate %}
+
 {% else %}
 <p>{% translate "No recovery codes set up." %}</p>
 {% endif %}

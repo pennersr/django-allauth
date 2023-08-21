@@ -7,7 +7,7 @@ from django.views.generic.edit import FormView
 
 from allauth.account import app_settings as account_settings
 from allauth.account.stages import LoginStageController
-from allauth.mfa import totp
+from allauth.mfa import recovery_codes, totp
 from allauth.mfa.adapter import get_adapter
 from allauth.mfa.forms import ActivateTOTPForm, AuthenticateForm
 from allauth.mfa.models import Authenticator
@@ -44,7 +44,7 @@ class IndexView(TemplateView):
     def get_context_data(self, **kwargs):
         ret = super().get_context_data(**kwargs)
         authenticators = {
-            auth.type: auth
+            auth.type: auth.wrap()
             for auth in Authenticator.objects.filter(user=self.request.user)
         }
         ret["authenticators"] = authenticators
@@ -84,6 +84,7 @@ class ActivateTOTPView(FormView):
 
     def form_valid(self, form):
         totp.TOTP.activate(self.request.user, form.secret)
+        recovery_codes.RecoveryCodes.activate(self.request.user)
         return super().form_valid(form)
 
 

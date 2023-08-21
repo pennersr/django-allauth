@@ -20,5 +20,8 @@ def decrypt(encrypted_text):
     )
 
 
-def is_mfa_enabled(request, user):
-    return Authenticator.objects.filter(user=user).exists()
+def is_mfa_enabled(request, user, types=None):
+    qs = Authenticator.objects.filter(user=user)
+    if types is not None:
+        qs = qs.filter(type__in=types)
+    return qs.exists()

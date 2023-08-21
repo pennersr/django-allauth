@@ -82,6 +82,11 @@ class ActivateTOTPView(FormView):
         )
         return ret
 
+    def get_form_kwargs(self):
+        ret = super().get_form_kwargs()
+        ret["user"] = self.request.user
+        return ret
+
     def form_valid(self, form):
         totp.TOTP.activate(self.request.user, form.secret)
         recovery_codes.RecoveryCodes.activate(self.request.user)

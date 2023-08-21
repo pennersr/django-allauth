@@ -61,7 +61,7 @@ class ActivateTOTPView(FormView):
     success_url = reverse_lazy("mfa_index")
 
     def dispatch(self, request, *args, **kwargs):
-        if is_mfa_enabled(request, request.user, [Authenticator.Type.TOTP]):
+        if is_mfa_enabled(request.user, [Authenticator.Type.TOTP]):
             return HttpResponseRedirect(reverse("mfa_deactivate_totp"))
         return super().dispatch(request, *args, **kwargs)
 
@@ -103,7 +103,7 @@ class DeactivateTOTPView(FormView):
     success_url = reverse_lazy("mfa_index")
 
     def dispatch(self, request, *args, **kwargs):
-        if not is_mfa_enabled(request, request.user, [Authenticator.Type.TOTP]):
+        if not is_mfa_enabled(request.user, [Authenticator.Type.TOTP]):
             return HttpResponseRedirect(reverse("mfa_activate_totp"))
         return super().dispatch(request, *args, **kwargs)
 

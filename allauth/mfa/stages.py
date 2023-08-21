@@ -10,6 +10,6 @@ class AuthenticateStage(LoginStage):
 
     def handle(self):
         response, cont = None, True
-        if is_mfa_enabled(self.request, self.login.user):
+        if is_mfa_enabled(self.login.user):
             response = HttpResponseRedirect(reverse("mfa_authenticate"))
         return response, cont

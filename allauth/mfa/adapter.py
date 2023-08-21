@@ -11,6 +11,9 @@ class DefaultMFAAdapter:
         "unverified_email": _(
             "You cannot activate two-factor authentication until you have verified your email address."
         ),
+        "add_email_blocked": _(
+            "You cannot add an email address to an account protected by two-factor authentication."
+        ),
         "incorrect_code": _("Incorrect code."),
     }
 

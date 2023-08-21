@@ -10,7 +10,7 @@ def decrypt(encrypted_text):
     return get_adapter().decrypt(encrypted_text)
 
 
-def is_mfa_enabled(request, user, types=None):
+def is_mfa_enabled(user, types=None):
     qs = Authenticator.objects.filter(user=user)
     if types is not None:
         qs = qs.filter(type__in=types)

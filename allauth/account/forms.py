@@ -461,6 +461,8 @@ class AddEmailForm(UserForm):
     )
 
     def clean_email(self):
+        from allauth.account import signals
+
         value = self.cleaned_data["email"]
         value = get_adapter().clean_email(value)
         errors = {
@@ -478,6 +480,12 @@ class AddEmailForm(UserForm):
             raise forms.ValidationError(
                 errors["max_email_addresses"] % app_settings.MAX_EMAIL_ADDRESSES
             )
+
+        signals._add_email.send(
+            sender=self.user.__class__,
+            email=value,
+            user=self.user,
+        )
         return value
 
     def save(self, request):

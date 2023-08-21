@@ -19,7 +19,12 @@ def auth_client(client, user):
 
 
 @pytest.fixture
-def user_factory(email_factory, db):
+def user_password():
+    return str(uuid.uuid4())
+
+
+@pytest.fixture
+def user_factory(email_factory, db, user_password):
     def factory(
         email=None, username=None, commit=True, with_email=True, email_verified=True
     ):
@@ -31,6 +36,7 @@ def user_factory(email_factory, db):
 
         User = get_user_model()
         user = User()
+        user.set_password(user_password)
         user_username(user, username)
         user_email(user, email or "")
         if commit:

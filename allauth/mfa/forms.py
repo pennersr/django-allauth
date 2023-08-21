@@ -68,7 +68,7 @@ class ActivateTOTPForm(forms.Form):
             )
 
         if secret and code:
-            value = totp.hotp_value(secret, totp.hotp_counter_from_time())
-            if code != totp.format_hotp_value(value):
-                self.add_error("code", _("Incorrect code."))
+            if not totp.validate_totp_code(secret, code):
+                self.add_error("code", get_adapter().error_messages["incorrect_code"])
+
         return cleaned_data

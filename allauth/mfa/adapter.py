@@ -1,3 +1,5 @@
+from django.utils.translation import gettext_lazy as _
+
 from allauth import app_settings as allauth_settings
 from allauth.account.utils import user_email, user_username
 from allauth.mfa import app_settings
@@ -5,6 +7,13 @@ from allauth.utils import import_attribute
 
 
 class DefaultMFAAdapter:
+    error_messages = {
+        "unverified_email": _(
+            "You cannot activate two-factor authentication until you have verified your email address."
+        ),
+        "incorrect_code": _("Incorrect code."),
+    }
+
     def __init__(self, request=None):
         self.request = request
 

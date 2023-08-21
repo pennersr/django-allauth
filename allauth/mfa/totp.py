@@ -70,6 +70,11 @@ def format_hotp_value(value):
     return f"{value:0{app_settings.TOTP_DIGITS}}"
 
 
+def validate_totp_code(secret, code):
+    value = hotp_value(secret, hotp_counter_from_time())
+    return code == format_hotp_value(value)
+
+
 class TOTP:
     def __init__(self, instance):
         self.instance = instance
@@ -87,7 +92,4 @@ class TOTP:
 
     def validate_code(self, code):
         secret = decrypt(self.instance.data["secret"])
-        value = hotp_value(secret, hotp_counter_from_time())
-        if code == format_hotp_value(value):
-            return True
-        return False
+        return validate_totp_code(secret, code)

@@ -21,6 +21,7 @@ DATABASES = {
 }
 
 ROOT_URLCONF = "allauth.urls"
+LOGIN_URL = "/login/"
 
 TEMPLATES = [
     {
@@ -59,6 +60,7 @@ INSTALLED_APPS = (
     "django.contrib.admin",
     "allauth",
     "allauth.account",
+    "allauth.mfa",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.agave",
     "allauth.socialaccount.providers.amazon",

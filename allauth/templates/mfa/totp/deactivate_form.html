@@ -1,13 +1,12 @@
-{% extends "account/base.html" %}
+{% extends "mfa/totp/base.html" %}
 
 {% load i18n %}
-{% load account socialaccount %}
-
-{% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
 <h1>{% trans "Deactivate TOTP" %}</h1>
 
+<p>{% blocktranslate %}You are about to remove TOTP based Two-Factor
+Authentication from your account. Are you sure?{% endblocktranslate %}
 <form method="POST" action="{% url 'mfa_deactivate_totp' %}">
   {% csrf_token %}
   {{ form.as_p }}

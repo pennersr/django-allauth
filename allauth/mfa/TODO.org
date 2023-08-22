@@ -1,5 +1,8 @@
-* MFA Tasks [5/9]
+* MFA Tasks [6/9]
 ** DONE Recovery codes
+** DONE Flows [100%]
+*** DONE Generate recovery codes on TOTP activate
+*** DONE Regenerate recovery codes
 ** TODO Documentation
 ** DONE Test suite
 ** TODO Increase test suite coverage

@@ -1,0 +1,2 @@
+{% load i18n %}
+{% blocktrans %}A new set of recovery codes has been generated.{% endblocktrans %}

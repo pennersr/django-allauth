@@ -1,9 +1,6 @@
-{% extends "account/base.html" %}
+{% extends "mfa/totp/base.html" %}
 
 {% load i18n %}
-{% load account socialaccount %}
-
-{% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
 <h1>{% trans "Activate TOTP" %}</h1>
@@ -14,7 +11,7 @@
   {% csrf_token %}
   <p>
       <label>{% translate "Authenticator secret" %}:</label>
-      <input type="text" disabled="disabled" value="{{ form.secret }}">
+      <input type="text" disabled="disabled" value="{{ form.secret }}" size="{{ form.secret|length }}">
   </p>
   {{ form.as_p }}
   <button type="submit">{% trans "Activate" %}</button>

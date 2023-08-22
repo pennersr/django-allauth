@@ -15,4 +15,22 @@ urlpatterns = [
             ]
         ),
     ),
+    path(
+        "recovery-codes/",
+        include(
+            [
+                path("", views.view_recovery_codes, name="mfa_view_recovery_codes"),
+                path(
+                    "generate/",
+                    views.generate_recovery_codes,
+                    name="mfa_generate_recovery_codes",
+                ),
+                path(
+                    "download/",
+                    views.download_recovery_codes,
+                    name="mfa_download_recovery_codes",
+                ),
+            ]
+        ),
+    ),
 ]

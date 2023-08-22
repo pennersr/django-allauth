@@ -9,7 +9,7 @@ from allauth.mfa.models import Authenticator
 
 
 class AuthenticateForm(forms.Form):
-    code = forms.CharField(label=_("Authenticator code"))
+    code = forms.CharField(label=_("Code"))
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")

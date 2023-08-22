@@ -65,13 +65,12 @@ def test_activate_totp_success(auth_client, totp_validation_bypass):
                 "signed_secret": resp.context["form"].initial["signed_secret"],
             },
         )
-    assert resp["location"] == reverse("mfa_index")
+    assert resp["location"] == reverse("mfa_view_recovery_codes")
 
 
 def test_user_without_totp_deactivate_totp(auth_client):
     resp = auth_client.get(reverse("mfa_deactivate_totp"))
-    assert resp.status_code == 302
-    assert resp["location"] == reverse("mfa_activate_totp")
+    assert resp.status_code == 404
 
 
 def test_user_with_totp_activate_totp(auth_client, user_with_totp):

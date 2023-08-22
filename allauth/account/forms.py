@@ -654,3 +654,19 @@ class UserTokenForm(forms.Form):
             raise forms.ValidationError(self.error_messages["token_invalid"])
 
         return cleaned_data
+
+
+class ReauthenticateForm(forms.Form):
+    password = PasswordField(label=_("Password"), autocomplete="current-password")
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user")
+        super().__init__(*args, **kwargs)
+
+    def clean_password(self):
+        password = self.cleaned_data.get("password")
+        if not self.user.check_password(password):
+            raise forms.ValidationError(
+                get_adapter().error_messages["incorrect_password"]
+            )
+        return password

@@ -1,3 +1,4 @@
+import time
 import unicodedata
 from collections import OrderedDict
 
@@ -516,3 +517,24 @@ def url_str_to_user_pk(pk_str):
     else:
         pk = pk_field.to_python(pk_str)
     return pk
+
+
+def record_authentication(request, user):
+    request.session["account_authenticated_at"] = time.time()
+
+
+def is_authentication_recent(request):
+    if request.user.is_anonymous:
+        return False
+    if not request.user.has_usable_password():
+        # TODO: This user only has social accounts attached. Now, ideally, you
+        # would want to reauthenticate over at the social account provider. For
+        # now, this is not implemented. Although definitely suboptimal, this
+        # method is currently used for reauthentication checks over at MFA, and,
+        # users that delegate the security of their account to an external
+        # provider like Google typically use MFA over there anyway.
+        return True
+    authenticated_at = request.session.get("account_authenticated_at")
+    if not authenticated_at:
+        return False
+    return time.time() - authenticated_at < app_settings.RECENT_AUTHENTICATION_TIMEOUT

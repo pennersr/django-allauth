@@ -53,6 +53,7 @@ class DefaultAccountAdapter(object):
             "Too many failed login attempts. Try again later."
         ),
         "email_taken": _("A user is already registered with this email address."),
+        "incorrect_password": _("Incorrect password."),
     }
 
     def __init__(self, request=None):
@@ -449,6 +450,8 @@ class DefaultAccountAdapter(object):
         return response
 
     def login(self, request, user):
+        from allauth.account.utils import record_authentication
+
         # HACK: This is not nice. The proper Django way is to use an
         # authentication backend
         if not hasattr(user, "backend"):
@@ -467,6 +470,7 @@ class DefaultAccountAdapter(object):
             backend_path = ".".join([backend.__module__, backend.__class__.__name__])
             user.backend = backend_path
         django_login(request, user)
+        record_authentication(request, user)
 
     def logout(self, request):
         django_logout(request)

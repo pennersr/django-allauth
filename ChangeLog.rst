@@ -1,4 +1,4 @@
-0.55.0 (unreleased)
+0.55.0 (2023-08-22)
 *******************
 
 Note worthy changes

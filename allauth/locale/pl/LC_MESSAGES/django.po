@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-24 15:33-0500\n"
+"POT-Creation-Date: 2023-08-22 12:11-0500\n"
 "PO-Revision-Date: 2020-10-12 12:34+0200\n"
 "Last-Translator: Radek Czajka <radekczajka@mdrn.pl>\n"
 "Language-Team: \n"
@@ -19,19 +19,19 @@ msgstr ""
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: account/adapter.py:46
+#: account/adapter.py:47
 msgid "Username can not be used. Please use other username."
 msgstr "Nie możesz użyć tej nazwy użytkownika. Proszę wybierz inną."
 
-#: account/adapter.py:52
+#: account/adapter.py:53
 msgid "Too many failed login attempts. Try again later."
 msgstr "Zbyt wiele nieudanych prób logowania. Spróbuj ponownie później."
 
-#: account/adapter.py:54
+#: account/adapter.py:55
 msgid "A user is already registered with this email address."
 msgstr "W systemie jest już zarejestrowany użytkownik o tym adresie e-mail."
 
-#: account/adapter.py:303
+#: account/adapter.py:304
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Hasło musi składać się z co najmniej {0} znaków."
@@ -40,104 +40,104 @@ msgstr "Hasło musi składać się z co najmniej {0} znaków."
 msgid "Accounts"
 msgstr "Konta"
 
-#: account/forms.py:59 account/forms.py:450
+#: account/forms.py:58 account/forms.py:432
 msgid "You must type the same password each time."
 msgstr "Musisz wpisać za każdym razem to samo hasło."
 
-#: account/forms.py:91 account/forms.py:415 account/forms.py:532
+#: account/forms.py:90 account/forms.py:397 account/forms.py:514
 msgid "Password"
 msgstr "Hasło"
 
-#: account/forms.py:92
+#: account/forms.py:91
 msgid "Remember Me"
 msgstr "Pamiętaj mnie"
 
-#: account/forms.py:96
+#: account/forms.py:95
 msgid "This account is currently inactive."
 msgstr "Konto jest obecnie nieaktywne."
 
-#: account/forms.py:98
+#: account/forms.py:97
 msgid "The email address and/or password you specified are not correct."
 msgstr "Podany adres e-mail i/lub hasło są niepoprawne."
 
-#: account/forms.py:101
+#: account/forms.py:100
 msgid "The username and/or password you specified are not correct."
 msgstr "Podana nazwa użytkownika i/lub hasło są niepoprawne."
 
-#: account/forms.py:112 account/forms.py:278 account/forms.py:477
-#: account/forms.py:550
+#: account/forms.py:111 account/forms.py:271 account/forms.py:459
+#: account/forms.py:532
 msgid "Email address"
 msgstr "Adres e-mail"
 
-#: account/forms.py:116 account/forms.py:323 account/forms.py:474
-#: account/forms.py:545
+#: account/forms.py:115 account/forms.py:316 account/forms.py:456
+#: account/forms.py:527
 msgid "Email"
 msgstr "E-mail"
 
-#: account/forms.py:119 account/forms.py:122 account/forms.py:268
-#: account/forms.py:271
+#: account/forms.py:118 account/forms.py:121 account/forms.py:261
+#: account/forms.py:264
 msgid "Username"
 msgstr "Nazwa użytkownika"
 
-#: account/forms.py:132
+#: account/forms.py:131
 msgid "Username or email"
 msgstr "Nazwa użytkownika lub e-mail"
 
-#: account/forms.py:135
+#: account/forms.py:134
 msgctxt "field label"
 msgid "Login"
 msgstr "Login"
 
-#: account/forms.py:314
+#: account/forms.py:307
 msgid "Email (again)"
 msgstr "E-mail (ponownie)"
 
-#: account/forms.py:318
+#: account/forms.py:311
 msgid "Email address confirmation"
 msgstr "Powierdzenie adresu email"
 
-#: account/forms.py:326
+#: account/forms.py:319
 msgid "Email (optional)"
 msgstr "E-mail (opcjonalnie)"
 
-#: account/forms.py:375
+#: account/forms.py:368
 msgid "You must type the same email each time."
 msgstr "Musisz wpisać za każdym razem ten sam e-mail."
 
-#: account/forms.py:419 account/forms.py:533
+#: account/forms.py:401 account/forms.py:515
 msgid "Password (again)"
 msgstr "Hasło (ponownie)"
 
-#: account/forms.py:486
+#: account/forms.py:468
 msgid "This email address is already associated with this account."
 msgstr "Ten adres e-mail jest już powiązany z tym kontem."
 
-#: account/forms.py:488
+#: account/forms.py:470
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Nie możesz dodać więcej niż %d adresów e-mail."
 
-#: account/forms.py:513
+#: account/forms.py:495
 msgid "Current Password"
 msgstr "Obecne hasło"
 
-#: account/forms.py:515 account/forms.py:619
+#: account/forms.py:497 account/forms.py:601
 msgid "New Password"
 msgstr "Nowe hasło"
 
-#: account/forms.py:516 account/forms.py:620
+#: account/forms.py:498 account/forms.py:602
 msgid "New Password (again)"
 msgstr "Nowe hasło (ponownie)"
 
-#: account/forms.py:524
+#: account/forms.py:506
 msgid "Please type your current password."
 msgstr "Proszę wpisz swoje obecne hasło."
 
-#: account/forms.py:562
+#: account/forms.py:544
 msgid "The email address is not assigned to any user account"
 msgstr "Adres e-mail nie jest powiązany z żadnym kontem użytkownika"
 
-#: account/forms.py:640
+#: account/forms.py:622
 msgid "The password reset token was invalid."
 msgstr "Token resetowania hasła był nieprawidłowy."
 

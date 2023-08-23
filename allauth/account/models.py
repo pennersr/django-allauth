@@ -12,6 +12,8 @@ from . import app_settings, signals
 from .adapter import get_adapter
 from .managers import EmailAddressManager, EmailConfirmationManager
 from .utils import user_email
+from django.db.models.functions import Upper
+from django.db.models import Index
 
 
 class EmailAddress(models.Model):
@@ -41,6 +43,7 @@ class EmailAddress(models.Model):
                     condition=Q(verified=True),
                 )
             ]
+        indexes = [Index(Upper("email"), name="idx_upper_email")]
 
     def __str__(self):
         return self.email

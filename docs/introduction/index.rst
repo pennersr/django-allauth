@@ -26,5 +26,7 @@ target a specific functional part:
 
 - Functionality related to social accounts is implemented in the ``allauth.socialaccount`` app.
 
+- Functionality related to multi-factor authentication is implemented in the ``allauth.mfa`` app.
+
 The documentation is structured according to the subdivision above, where each
 functional part is covered by its own chapter.

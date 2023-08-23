@@ -14,6 +14,7 @@ Contents
    installation/index
    account/index
    socialaccount/index
+   mfa/index
    common/index
    project/index
    faq

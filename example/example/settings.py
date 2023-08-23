@@ -116,6 +116,7 @@ MIDDLEWARE = (
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 )
 
 AUTHENTICATION_BACKENDS = ("allauth.account.auth_backends.AuthenticationBackend",)

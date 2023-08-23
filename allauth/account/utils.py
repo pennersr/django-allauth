@@ -225,6 +225,7 @@ def unstash_login(request, peek=False):
     if data is not None:
         try:
             login = Login.deserialize(data)
+            request._account_login_accessed = True
         except ValueError:
             pass
     return login
@@ -232,6 +233,7 @@ def unstash_login(request, peek=False):
 
 def stash_login(request, login):
     request.session["account_login"] = login.serialize()
+    request._account_login_accessed = True
 
 
 def complete_signup(request, user, email_verification, success_url, signal_kwargs=None):

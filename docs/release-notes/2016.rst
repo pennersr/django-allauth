@@ -1,0 +1,162 @@
+0.29.0 (2016-11-21)
+*******************
+
+Note worthy changes
+-------------------
+
+- Addressed Django 1.10 deprecation warnings.
+
+
+0.28.0 (2016-10-13)
+*******************
+
+Security notice
+---------------
+
+- Previous versions contained a vulnerability allowing an attacker to alter the
+  provider specific settings for ``SCOPE`` and/or ``AUTH_PARAMS`` (part of the
+  larger ``SOCIALACCOUNT_PROVIDERS`` setting). The changes would persist across
+  subsequent requests for all users, provided these settings were explicitly set
+  within your project. These settings translate directly into request
+  parameters, giving the attacker undesirable control over the OAuth(2)
+  handshake. You are not affected if you did not explicitly configure these
+  settings. Thanks to Ryan Kelly for reporting!
+
+
+Note worthy changes
+-------------------
+
+- New providers: Doximity.
+
+- New translations: Korean.
+
+
+0.27.0 (2016-08-18)
+*******************
+
+Note worthy changes
+-------------------
+
+- Django 1.10 compatibility.
+
+- The Twitter and GitHub providers now support querying of the email address.
+
+
+Backwards incompatible changes
+------------------------------
+
+- When ``ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE`` was turned on, the email field key
+  changed from ``email`` to ``email1``, which could introduce subtle bugs. This
+  has now been changed: there always is an ``email`` field, and optionally an
+  ``email2`` field.
+
+- The "You must type the same password each time" form validation error that can
+  be triggered during signup is now added to the ``password2`` field instead of
+  being added to the non field errors.
+
+- The ``email_confirmation_sent`` signal is now passed ``request``,
+  ``confirmation`` and ``signup`` instead of only the ``confirmation``.
+
+- ``ACCOUNT_PASSWORD_MIN_LENGTH`` was already deprecated, but is now completely
+  ignored if ``AUTH_PASSWORD_VALIDATORS`` is not empty.
+
+
+0.26.1 (2016-07-25)
+*******************
+
+Note worthy changes
+-------------------
+
+- Locale files wrongly packaged, fixed.
+
+- Fixed bug (``KeyError``) when ``ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE`` was set to
+  ``True``.
+
+
+0.26.0 (2016-07-24)
+*******************
+
+Note worthy changes
+-------------------
+
+- New providers: Weixin, Battle.net, Asana, Eve Online, 23andMe, Slack
+
+- Django's password validation mechanism (see ``AUTH_PASSWORD_VALIDATORS``) is now
+  used to validate passwords.
+
+- By default, email confirmations are no longer stored in the
+  database. Instead, the email confirmation mail contains an HMAC
+  based key identifying the email address to confirm. The verification
+  lookup includes a fallback to the previous strategy so that there is
+  no negative impact on pending verification emails.
+
+- A new setting ``ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE`` was added, requiring users to
+  input their email address twice. The setting
+  ``ACCOUNT_SIGNUP_PASSWORD_VERIFICATION`` has been renamed to
+  ``ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE``.
+
+- New translations: Latvian, Kyrgyz.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Dropped support for Django 1.6
+
+- In order to accommodate for Django's password validation, the
+  ``clean_password`` method of the adapter now takes an (optional)
+  ``user`` parameter as its second argument.
+
+- The new HMAC based keys may contain colons. If you have forked
+  ``account/urls.py``, be sure to sync the ``account_confirm_email``
+  pattern.
+
+
+0.25.2 (2016-03-13)
+*******************
+
+Note worthy changes
+-------------------
+
+- Bug fix release (MemcachedKeyCharacterError: "Control characters not allowed")
+
+
+0.25.1 (2016-03-13)
+*******************
+
+Note worthy changes
+-------------------
+
+- Bug fix release (AttributeError in password reset view).
+
+
+0.25.0 (2016-03-12)
+*******************
+
+Note worthy changes
+-------------------
+
+- Many providers were added: Reddit, Untappd, GitLab, Stripe,
+  Pinterest, Shopify, Draugiem, DigitalOcean, Robinhood,
+  Bitbucket(OAuth2).
+
+- The account connections view is now AJAX aware.
+
+- You can now customize the template extension that is being used to
+  render all HTML templates (``ACCOUNT_TEMPLATE_EXTENSION``)
+
+- In order to be secure by default, users are now blocked from logging
+  in after exceeding a maximum number of failed login attempts (see
+  ``ACCOUNT_LOGIN_ATTEMPTS_LIMIT``,
+  ``ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT``). Set
+  ``ACCOUNT_LOGIN_ATTEMPTS_LIMIT`` to ``None`` to disable this
+  functionality. Important: while this protects the allauth login view, it
+  does not protect Django's admin login from being brute forced.
+
+- New translations: Arabic, Lithuanian
+
+
+Backwards incompatible changes
+------------------------------
+
+None

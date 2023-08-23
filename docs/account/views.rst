@@ -1,8 +1,11 @@
 Views
 =====
 
-Login (``account_login``)
--------------------------
+Login
+-----
+
+*URL name*:
+  ``account_login``
 
 Users login via the ``allauth.account.views.LoginView`` view over at
 ``/accounts/login/`` (URL name ``account_login``). When users attempt to login
@@ -10,15 +13,21 @@ while their account is inactive (``user.is_active``) they are presented with the
 ``account/account_inactive.html`` template.
 
 
-Signup (``account_signup``)
----------------------------
+Signup
+------
+
+*URL name*:
+  ``account_signup``
 
 Users sign up via the ``allauth.account.views.SignupView`` view over at
 ``/accounts/signup/`` (URL name ``account_signup``).
 
 
-Logout (``account_logout``)
-----------------------------
+Logout
+------
+
+*URL name*:
+  ``account_logout``
 
 The logout view (``allauth.account.views.LogoutView``) over at
 ``/accounts/logout/`` (URL name ``account_logout``) requests for confirmation
@@ -56,8 +65,11 @@ when users signup via a social provider they will not have a password
 set.
 
 
-Password Reset (``account_reset_password``)
--------------------------------------------
+Password Reset
+--------------
+
+*URL name*:
+  ``account_reset_password``
 
 Users can request a password reset using the
 ``allauth.account.views.PasswordResetView`` view over at
@@ -66,8 +78,11 @@ will be sent containing a reset link pointing to ``PasswordResetFromKeyView``
 view.
 
 
-Emails Management (``account_email``)
---------------------------------------
+Emails Management
+-----------------
+
+*URL name*:
+  ``account_email``
 
 Users manage the email addresses tied to their account using the
 ``allauth.account.views.EmailView`` view over at ``/accounts/email/`` (URL name
@@ -86,11 +101,3 @@ The setting ``ACCOUNT_CONFIRM_EMAIL_ON_GET`` determines whether users
 have to manually confirm the address by submiting a confirmation form,
 or whether the address is automatically confirmed by a mere GET
 request.
-
-
-Social Connections (``socialaccount_connections``)
---------------------------------------------------
-
-The ``allauth.socialaccount.views.ConnectionsView`` view over at
-``/accounts/social/connections/`` (URL name ``socialaccount_connections``) allows
-users to manage the social accounts tied to their local account.

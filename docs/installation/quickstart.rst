@@ -1,14 +1,12 @@
-Installation
-============
+Quickstart
+==========
 
-Django
-------
-
-Python package::
+First, Install the python package::
 
     pip install django-allauth
 
-settings.py (Important - Please note 'django.contrib.sites' is required as INSTALLED_APPS)::
+Then, assuming you have a Django project up and running, add the following to
+the ``settings.py`` of your project::
 
     # Specify the context processors as follows:
     TEMPLATES = [
@@ -42,7 +40,6 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         # The following apps are required:
         'django.contrib.auth',
         'django.contrib.messages',
-        'django.contrib.sites',
 
         'allauth',
         'allauth.account',
@@ -171,8 +168,6 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         ...
     ]
 
-    SITE_ID = 1
-
     # Provider specific settings
     SOCIALACCOUNT_PROVIDERS = {
         'google': {
@@ -187,7 +182,7 @@ settings.py (Important - Please note 'django.contrib.sites' is required as INSTA
         }
     }
 
-urls.py::
+Additionally, add this to your project ``urls.py``::
 
     urlpatterns = [
         ...
@@ -211,7 +206,6 @@ In your Django root execute the command below to create your database tables::
 Now start your server, visit your admin pages (e.g. http://localhost:8000/admin/)
 and follow these steps:
 
-- Add a ``Site`` for your domain, matching ``settings.SITE_ID`` (``django.contrib.sites`` app).
 - For each OAuth based provider, either add a ``SocialApp`` (``socialaccount``
   app) containing the required client credentials, or, make sure that these are
   configured via the ``SOCIALACCOUNT_PROVIDERS[<provider>]['APP']`` setting (see example above).

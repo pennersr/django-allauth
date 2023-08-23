@@ -1,0 +1,358 @@
+0.8.3 (2012-12-06)
+******************
+
+Note worthy changes
+-------------------
+
+- Markus Thielen contributed a German translation, thanks!
+
+- The ``site`` foreign key from ``SocialApp`` to ``Site`` has been replaced
+  by a ``ManyToManyField``. Many apps can be used across multiple domains
+  (Facebook cannot).
+
+- account: Added adapter class for increased pluggability. Added
+  hook for 3rd party invitation system to by pass email
+  verification (``stash_email_verified``). Moved sending of mail to
+  adapter.
+
+- account: Added option to completely disable email verification
+  during signup.
+
+
+Backwards incompatible changes
+------------------------------
+
+- The ``ACCOUNT_EMAIL_VERIFICATION`` setting is no longer a boolean
+  based setting. Use a string value of "none", "optional" or
+  "mandatory" instead.
+
+- The template "account/password_reset_key_message.txt" has been moved
+  to "account/email/password_reset_key_message.txt". The subject of
+  the message has been moved into a template
+  ("account/email/password_reset_key_subject.txt").
+
+- The ``site`` foreign key from ``SocialApp`` to ``Site`` has been replaced
+  by a ``ManyToManyField``. Many apps can be used across multiple
+  domains (Facebook cannot).
+
+
+0.8.2 (2012-10-10)
+******************
+
+Note worthy changes
+-------------------
+
+- Twitter: Login was broken due to change at in URLs at Twitter,
+  fixed.
+
+- LinkedIn: Added support for passing along the OAuth scope.
+
+- account: Improved email confirmation error handling, no more
+  confusing 404s.
+
+- account: Aldiantoro Nugroho contributed support for a new
+  setting: ACCOUNT_USERNAME_MIN_LENGTH
+
+- socialaccount: Added preliminary support for Mozilla Persona.
+
+- account: Sam Solomon added various signals for email and
+  password related changes.
+
+- account: Usernames may now contain @, +, . and - characters.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Dropped support for ``CONTACT_EMAIL`` from the ``account`` template
+  context processor. It was never documented and only used in the
+  templates as an example -- there is no need to pollute the ``allauth``
+  settings with that. If your templates rely on it then you will have
+  to put it in a context processor yourself.
+
+
+0.8.1 (2012-09-03)
+******************
+
+Note worthy changes
+-------------------
+
+- Python 2.6.2 compatibility issue, fixed.
+
+- The example project was unintentionally packaged, fixed.
+
+
+Backwards incompatible changes
+------------------------------
+
+None
+
+
+0.8.0 (2012-09-01)
+******************
+
+Note worthy changes
+-------------------
+
+- account: Dropped dependency on the emailconfirmation app,
+  integrating its functionality into the account app. This change is
+  of major impact, please refer to the documentation on how to
+  upgrade.
+
+- account: Documented ACCOUNT_USERNAME_REQUIRED. This is actually
+  not a new setting, but it somehow got overlooked in the
+  documentation.
+
+- account/socialaccount: Dropped the _tags postfix from the
+  template tag libraries. Simply use {% load account %} and {% load
+  socialaccount %}.
+
+- Added signup and social login signals.
+
+- SoundCloud: Rabi Alam contributed a SoundCloud provider, thanks!
+
+- account: Sam Solomon cleaned up the email management view:
+  added proper redirect after POSTs, prevent deletion of primary
+  email. Thanks.
+
+- account: When signing up, instead of generating a completely
+  random username a more sensible username is automatically derived
+  from first/last name or email.
+
+
+Backwards incompatible changes
+------------------------------
+
+- ``allauth`` now depends on Django 1.4 or higher.
+
+- Major impact: dropped dependency on the ``emailconfirmation`` app, as
+  this project is clearly left unmaintained. Important tickets such
+  as https://github.com/pinax/django-email-confirmation/pull/5 are not
+  being addressed. All models and related functionality have been
+  directly integrated into the ``allauth.account`` app. When upgrading
+  take care of the following:
+
+  - The ``emailconfirmation`` setting ``EMAIL_CONFIRMATION_DAYS`` has been
+    replaced by ``ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS``.
+
+  - Instead of directly confirming the email address upon the GET
+    request the confirmation is now processed as part of an explicit
+    POST. Therefore, a new template ``account/email_confirm.html`` must
+    be setup.
+
+  - Existing ``emailconfirmation`` data should be migrated to the new
+    tables. For this purpose a special management command is
+    available: ``python manage.py
+    account_emailconfirmationmigration``. This command does not drop
+    the old ``emailconfirmation`` tables -- you will have to do this
+    manually yourself. Why not use South? EmailAddress uniqueness
+    depends on the configuration (``ACCOUNT_UNIQUE_EMAIL``), South does
+    not handle settings dependent database models.
+
+- ``{% load account_tags %}`` is deprecated, simply use: ``{% load account %}``
+
+- ``{% load socialaccount_tags %}`` is deprecated, simply use:
+  ``{% load socialaccount %}``
+
+
+0.7.0 (2012-07-18)
+******************
+
+Note worthy changes
+-------------------
+
+- Facebook: Facundo Gaich contributed support for dynamically
+  deriving the Facebook locale from the Django locale, thanks!.
+
+- OAuth: All OAuth/OAuth2 tokens are now consistently stored
+  across the board. Cleaned up OAuth flow removing superfluous
+  redirect.
+
+- Facebook: Dropped Facebook SDK dependency.
+
+- socialaccount: DRY focused refactoring of social login.
+
+- socialaccount: Added support for Google OAuth2 and Facebook
+  OAuth2. Fixed GitHub.
+
+- account: Added verified_email_required decorator.
+
+- socialaccount: When signing up, user.first/last_name where
+  always taken from the provider signup data, even when a custom
+  signup form was in place that offered user inputs for editing
+  these fields. Fixed.
+
+
+Backwards incompatible changes
+------------------------------
+
+None
+
+
+0.6.0 (2012-06-20)
+******************
+
+Note worthy changes
+-------------------
+
+- account: Added ACCOUNT_USER_DISPLAY to render a user name
+  without making assumptions on how the user is represented.
+
+- allauth, socialaccount: Removed the last remaining bits of
+  hardcodedness with respect to the enabled social authentication
+  providers.
+
+- account: Added ACCOUNT_AUTHENTICATION_METHOD setting, supporting
+  login by username, email or both.
+
+
+Backwards incompatible changes
+------------------------------
+
+- The ``ACCOUNT_EMAIL_AUTHENTICATION`` setting has been dropped in favor
+  of ``ACCOUNT_AUTHENTICATION_METHOD``.
+
+- The login form field is now always named ``login``. This used to by
+  either ``username`` or ``email``, depending on the authentication
+  method. If needed, update your templates accordingly.
+
+- The ``allauth`` template tags (containing template tags for
+  OpenID, Twitter and Facebook) have been removed. Use the
+  ``socialaccount`` template tags instead (specifically: ``{% provider_login_url
+  ... %}``).
+
+- The ``allauth.context_processors.allauth`` context processor has been
+  removed, in favor of
+  ``allauth.socialaccount.context_processors.socialaccount``. In doing
+  so, all hardcodedness with respect to providers (e.g
+  ``allauth.facebook_enabled``) has been removed.
+
+
+0.5.0 (2012-06-08)
+******************
+
+Note worthy changes
+-------------------
+
+- account: Added setting ACCOUNT_PASSWORD_MIN_LENGTH for
+  specifying the minimum password length.
+
+- socialaccount: Added generic OAuth2 support. Added GitHub
+  support as proof of concept.
+
+- socialaccount: More refactoring: generic provider & OAuth
+  consumer approach. Added LinkedIn support to test this approach.
+
+- socialaccount: Introduced generic models for storing social
+  apps, accounts and tokens in a central and consistent manner,
+  making way for adding support for more account providers. Note:
+  there is more refactoring to be done -- this first step only
+  focuses on the database models.
+
+- account: Email confirmation mails are now automatically resent
+  whenever a user attempts to login with an unverified email
+  address (if ACCOUNT_EMAIL_VERIFICATION=True).
+
+
+Backwards incompatible changes
+------------------------------
+
+- Upgrade your ``settings.INSTALLED_APPS``: Replace ``allauth.<provider>``
+  (where provider is one of ``twitter``, ``facebook`` or ``openid``) with
+  ``allauth.socialaccount.providers.<provider>``
+
+- All provider related models (``FacebookAccount``, ``FacebookApp``,
+  ``TwitterAccount``, ``TwitterApp``, ``OpenIDAccount``) have been unified
+  into generic ``SocialApp`` and ``SocialAccount`` models. South migrations
+  are in place to move the data over to the new models, after which
+  the original tables are dropped. Therefore, be sure to run migrate
+  using South.
+
+
+0.4.0 (2012-03-25)
+******************
+
+Note worthy changes
+-------------------
+
+- account: The render_value parameter of all PasswordInput fields
+  used can now be configured via a setting.
+
+- account: Added support for prefixing the subject of sent emails.
+
+- account: Added support for a plugging in a custom signup form
+  used for additional questions to ask during signup.
+
+- account: ``is_active`` is no longer used to keep users with an
+  unverified email address from logging in.
+
+- Dropping uniform dependency. Moved uniform templates into
+  example project.
+
+
+Backwards incompatible changes
+------------------------------
+
+None
+
+
+0.3.0 (2012-01-19)
+******************
+
+Note worthy changes
+-------------------
+
+- The email authentication backend now attempts to use the
+  'username' parameter as an email address. This is needed to
+  properly integrate with other apps invoking authenticate.
+
+- SmileyChris contributed support for automatically generating a
+  user name at signup when ``ACCOUNT_USERNAME_REQUIRED`` is set to
+  False.
+
+- Vuong Nguyen contributed support for (optionally) asking for the
+  password just once during signup
+  (``ACCOUNT_SIGNUP_PASSWORD_VERIFICATION``).
+
+- The Twitter oauth sequence now respects the "oauth_callback"
+  parameter instead of defaulting to the callback URL
+  configured at Twitter.
+
+- Pass along ``?next=`` parameter between login and signup views.
+
+- Added Dutch translation.
+
+- Added template tags for pointing to social login URLs. These
+  tags automatically pass along any ``?next=``
+  parameter. Additionally, added an overall allauth_tags that
+  gracefully degrades when e.g. allauth.facebook is not installed.
+
+- Pass along next URL, if any, at ``/accounts/social/signup/``.
+
+- Duplicate email address handling could throw a
+  MultipleObjectsReturned exception, fixed.
+
+- Removed separate social account login view, in favour of having
+  a single unified login view including both forms of login.
+
+- Added support for passing along a next URL parameter to
+  Facebook, OpenID logins.
+
+- Added support for django-avatar, copying the Twitter profile
+  image locally on signup.
+
+- ``allauth/account/forms.py`` (``BaseSignupForm.clean_email``): With
+  ``ACCOUNT_EMAIL_REQUIRED=False``, empty email addresses were
+  considered duplicates. Fixed.
+
+- The existing migrations for allauth.openid were not compatible
+  with MySQL due to the use of an URLField with max_length above
+  255. The issue has now been addressed but unfortunately at the
+  cost of the existing migrations for this app. Existing
+  installations will have to be dealt with manually (altering the
+  "identity" column of OpenIDAccount, deleting ghost migrations).
+
+Backwards incompatible changes
+------------------------------
+
+- None

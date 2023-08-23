@@ -1,8 +1,8 @@
 Providers
 =========
 
-Overall
-*******
+Introduction
+************
 
 Most providers require you to sign up for a so called API client or app,
 containing a client ID and API secret. You must add a ``SocialApp``

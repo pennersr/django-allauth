@@ -72,6 +72,9 @@ to the console. For more information, please refer to:
 https://docs.djangoproject.com/en/dev/ref/settings/#email-host
 
 
+Development
+-----------
+
 Why did you just close my issue?
 ********************************
 

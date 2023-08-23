@@ -1,0 +1,18 @@
+Requirements
+------------
+
+This package has the following external dependencies:
+
+- Python 3.7, 3.8, 3.9, or 3.10, 3.11
+
+- Django (3.1+)
+
+- Depending on which social providers you use:
+
+  - requests and requests-oauthlib
+
+  - python-openid or python3-openid (depending on your Python version)
+
+  - pyjwt
+
+  - python3-saml

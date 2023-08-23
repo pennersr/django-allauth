@@ -46,8 +46,12 @@ Documentation
 Stack Overflow
   http://stackoverflow.com/questions/tagged/django-allauth
 
+.. end-welcome
+
 Rationale
 =========
+
+.. begin-rationale
 
 Most existing Django apps that address the problem of social
 authentication unfortunately focus only on one dimension - the social.
@@ -69,6 +73,8 @@ local account registration app to your ``INSTALLED_APPS`` list.
 This inadequacy is the reason for this project's existence  -- to offer a fully
 integrated authentication app that allows for both local and social
 authentication, with flows that just work, beautifully !
+
+.. end-rationale
 
 
 Features
@@ -126,13 +132,16 @@ Features
 
 .. end-features
 
+
 Commercial Support
 ==================
 
-This project is sponsored by IntenCT_. If you require assistance on
-your project(s), please contact us: info@intenct.nl.
+.. begin-support
 
-.. _IntenCT: http://www.intenct.info
+Commercial support is available. If you find certain functionality missing, or
+require assistance on your project(s), please contact us: info@intenct.nl.
+
+.. end-support
 
 
 Cross-Selling

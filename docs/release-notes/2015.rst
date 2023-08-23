@@ -1,0 +1,211 @@
+0.24.1 (2015-11-09)
+*******************
+
+Note worthy changes
+-------------------
+
+- Non-test code accidentally had test packages as a dependency.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Setting a password after logging in with a social account no longer logs out
+  the user by default on Django 1.7+. Setting an initial password and changing
+  the password both respect ``settings.ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE``.
+
+
+0.24.0 (2015-11-08)
+*******************
+
+Note worthy changes
+-------------------
+
+- Django 1.9b1 compatibility.
+
+- Seppo Erviälä contributed a Finnish translation, thanks!
+
+- Iurii Kriachko contributed a Basecamp provider, thanks!
+
+Backwards incompatible changes
+------------------------------
+
+- Increased ``SocialApp`` key/secret/token sizes to 191, decreased
+  ``SocialAccount.uid`` size to 191. The latter was done in order to
+  accommodate for MySQL in combination with utf8mb4 and constraints on
+  ``uid``. Note that ``uid`` is used to store OpenID URLs, which can
+  theoretically be longer than 191 characters, although in practice
+  this does not seem to be the case. In case you really need to
+  control the ``uid`` length, set ``settings.SOCIALACCOUNT_UID_MAX_LENGTH``
+  accordingly. Migrations are in place.
+
+
+0.23.0 (2015-08-02)
+*******************
+
+Note worthy changes
+-------------------
+
+- David Friedman contributed Edmodo support, thanks!
+
+- Added support for ``ACCOUNT_LOGIN_ON_PASSWORD_RESET`` (thanks Julen!)
+
+
+Backwards incompatible changes
+------------------------------
+
+None
+
+
+0.22.0 (2015-07-23)
+*******************
+
+Note worthy changes
+-------------------
+
+- Reversal of the email confirmation url can now be overridden in
+  the adapter (``get_email_confirmation_url``). Additionally, the
+  complete confirmation email handling can be overridden via
+  ``send_confirmation_mail``.
+
+- Template context processors are no longer used.
+
+- The Facebook Graph API fields (/me/?fields=...) can now be
+  configured using the provider ``FIELDS`` setting.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Dropped support for Python 2.6 and Django <1.6.
+
+- The default Facebook Graph API version is now v2.4.
+
+- Template context processors are no longer used. The context
+  processor for ``allauth.account`` was already empty, and the context
+  processor for ``allauth.socialaccount`` has been converted into the
+  :doc:``{% get_providers %} <templates>`` template tag.
+
+
+0.21.0 (2015-07-02)
+*******************
+
+Note worthy changes
+-------------------
+
+- You can now tweak the authentication params per OAuth provider,
+  as you already could for OAuth2. Contributed by Peter Rowlands,
+  thanks.
+
+- Nattaphoom Ch. contributed a Thai translation, thanks!
+
+- Guoyu Hao contributed a Baidu provider, thanks!
+
+- Rod Xavier Bondoc contributed support logging out on password
+  change (see setting: ``ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE``)
+
+
+Backwards incompatible changes
+------------------------------
+
+- In version 0.20.0 an ``account`` migration (``0002_email_max_length``)
+  was added to alter the maximum length of the email
+  field. Unfortunately, a side effect of this migration was that the
+  ``unique=True`` setting slipped through as well. Hardcoding this to
+  ``True`` is wrong, as uniqueness actually depends on the
+  ``ACCOUNT_UNIQUE_EMAIL`` setting. We cannot create a followup ``0003``
+  migration to set things straight, as the ``0002`` migration may fail
+  on installations where email addresses are not unique. Therefore, we
+  had to resort to changing an existing migration which is normally
+  not the right thing to do. In case your installation has
+  ``ACCOUNT_UNIQUE_EMAIL`` set to ``True``, you need not take any further
+  action. In case it is set to ``False`` and migration ``0002`` already
+  ran, please issue a ``--fake`` migration down to ``0001``, followed by a
+  re-run of the updated ``0002``.
+
+
+0.20.0 (2015-05-25)
+*******************
+
+Note worthy changes
+-------------------
+
+- Patrick Paul contributed a provider for Evernote, thanks!
+
+- Josh Wright contributed a provider for Spotify, thanks!
+
+- Björn Andersson added support for Dropbox OAuth2, thanks!
+
+- guoqiao contributed a provider for Douban, thanks!
+
+
+Backwards incompatible changes
+------------------------------
+
+- Given that the ``max_length`` for the Django 1.8 ``EmailField`` has been
+  bumped to 254, allauth is following up. Migrations (``account``) are
+  in place.
+
+
+0.19.1 (2015-02-05)
+*******************
+
+Note worthy changes
+-------------------
+
+- Fixed migrations when using South & Django 1.6.
+
+
+0.19.0 (2015-01-04)
+*******************
+
+Note worthy changes
+-------------------
+
+- Basil Shubin contributed an Odnoklassniki provider, thanks!
+
+- Facebook: If the JS SDK is not available, for example due to a
+  browser plugin like Disconnect.me that blocks it, login falls back
+  to the regular non JS handshake.
+
+- ``is_safe_url`` can now be overridden
+
+- Facebook: The Graph API version is now configurable via
+  ``SOCIALACCOUNT_PROVIDERS``.
+
+- A Firefox Accounts provider was added by Jannis Leidel, thanks!
+
+- Josh Owen contributed Coinbase support, thanks!
+
+- Tomas Babej contributed a Slovak translation, thanks!
+
+- Moved existing migrations into ``south_migrations``
+
+- "zbryikt" contributed a Taiwanese Chinese translation, thanks!
+
+- Added support for custom password rules via ``clean_password``.
+
+
+Backwards incompatible changes
+------------------------------
+
+- In the upcoming Django 1.8 it is no longer possible to hookup an
+  unsaved ``User`` instance to a ``SocialAccount``. Therefore, if you are
+  inspecting the ``sociallogin`` object, you should now use
+  ``sociallogin.user`` instead of ``sociallogin.account.user``.
+
+- When users logged in while ``User.is_active`` was ``False``, they were
+  sent to ``/accounts/inactive/`` in case of a social login, and
+  received a form validation error in case of a local login. This
+  needless inconsistency has been removed. The validation error no
+  longer appears and local logins are also redirected to
+  ``/accounts/inactive/``.
+
+- In case you were overriding the ``ResetPasswordForm``: the save method
+  now takes ``request`` as its first argument.
+
+- All existing migrations have been moved into ``south_migrations``
+  packages, this in order not to conflict with Django's built-in
+  support for migrations. South 1.0 automatically picks up this new
+  location. Upgrade South if you are still dependent on these
+  migrations.

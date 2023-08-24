@@ -1,8 +1,6 @@
 from django.core.exceptions import ImproperlyConfigured
 
-from allauth.account.models import EmailAddress
 from allauth.socialaccount import app_settings
-from allauth.socialaccount.adapter import get_adapter
 
 
 class ProviderException(Exception):
@@ -59,6 +57,7 @@ class Provider(object):
         :return: A populated instance of the `SocialLogin` model (unsaved).
         """
         # NOTE: Avoid loading models at top due to registry boot...
+        from allauth.socialaccount.adapter import get_adapter
         from allauth.socialaccount.models import SocialAccount, SocialLogin
 
         adapter = get_adapter(request)
@@ -123,6 +122,9 @@ class Provider(object):
         return {}
 
     def cleanup_email_addresses(self, email, addresses, email_verified=False):
+        # Avoid loading models before adapters have been registered.
+        from allauth.account.models import EmailAddress
+
         # Move user.email over to EmailAddress
         if email and email.lower() not in [a.email.lower() for a in addresses]:
             addresses.append(

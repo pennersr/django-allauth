@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
             model_name="emailaddress",
             index=models.Index(
                 django.db.models.functions.text.Upper("email"),
-                name="account_emailaddress_upper_email",
+                name="account_emailaddress_upper",
             ),
         ),
     ]

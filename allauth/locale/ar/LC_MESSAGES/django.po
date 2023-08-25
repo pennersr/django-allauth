@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-22 12:11-0500\n"
-"PO-Revision-Date: 2016-01-19 19:32+0100\n"
-"Last-Translator: David D Lowe <daviddlowe.flimm@gmail.com>\n"
+"POT-Creation-Date: 2023-08-25 20:49+0300\n"
+"PO-Revision-Date: 2023-08-15 04:00+0300\n"
+"Last-Translator: Abdo <abdo@abdnh.net>\n"
 "Language-Team: Arabic\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -17,405 +17,398 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 3.3.2\n"
 
-#: account/adapter.py:47
+#: .\account\adapter.py:47
 msgid "Username can not be used. Please use other username."
-msgstr "اسم المستخدم غير مسموح به. الرجاء اختيار اسم اخر‪.‬"
+msgstr "اسم المستخدم غير مسموح به. الرجاء اختيار اسم آخر‪."
 
-#: account/adapter.py:53
+#: .\account\adapter.py:53
 msgid "Too many failed login attempts. Try again later."
-msgstr "تجاوزت الحد المسموح لمحاولة تسجيل الدخول, حاول في وقت لاحق"
+msgstr "تجاوزت الحد المسموح لمحاولة تسجيل الدخول. حاول في وقت لاحق."
 
-#: account/adapter.py:55
+#: .\account\adapter.py:55
 msgid "A user is already registered with this email address."
-msgstr "هنالك مستخدم مسجل سابقا مع نفس عنوان البريد الالكتروني‪.‬"
+msgstr "هنالك مستخدم مسجل سابقا يستخدم عنوان البريد الإلكتروني نفسه."
 
-#: account/adapter.py:304
+#: .\account\adapter.py:304
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "كلمة المرور يجب أن لا تقل عن {0} حروف."
 
-#: account/apps.py:7
+#: .\account\apps.py:7
 msgid "Accounts"
 msgstr "الحسابات"
 
-#: account/forms.py:58 account/forms.py:432
+#: .\account\forms.py:58 .\account\forms.py:432
 msgid "You must type the same password each time."
-msgstr "يجب عليك كتابة نفس كلمة المرور في كل مرة‪.‬"
+msgstr "يجب عليك كتابة كلمة المرور نفسها في كل مرة‪."
 
-#: account/forms.py:90 account/forms.py:397 account/forms.py:514
+#: .\account\forms.py:90 .\account\forms.py:397 .\account\forms.py:514
 msgid "Password"
-msgstr "كلمة السر"
+msgstr "كلمة المرور"
 
-#: account/forms.py:91
+#: .\account\forms.py:91
 msgid "Remember Me"
 msgstr "تذكرني"
 
-#: account/forms.py:95
+#: .\account\forms.py:95
 msgid "This account is currently inactive."
 msgstr "هذا الحساب غير نشط حاليا."
 
-#: account/forms.py:97
+#: .\account\forms.py:97
 msgid "The email address and/or password you specified are not correct."
-msgstr "عنوان البريد الإلكتروني و / أو كلمة المرور الذي حددته غير صحيحة."
+msgstr "عنوان البريد الإلكتروني و / أو كلمة المرور غير صحيحة."
 
-#: account/forms.py:100
+#: .\account\forms.py:100
 msgid "The username and/or password you specified are not correct."
-msgstr "اسم المستخدم و / أو كلمة المرور الذي حددته غير صحيحة."
+msgstr "اسم المستخدم و / أو كلمة المرور غير صحيحة."
 
-#: account/forms.py:111 account/forms.py:271 account/forms.py:459
-#: account/forms.py:532
+#: .\account\forms.py:111 .\account\forms.py:271 .\account\forms.py:459
+#: .\account\forms.py:532
 msgid "Email address"
 msgstr "عنوان البريد الالكتروني"
 
-#: account/forms.py:115 account/forms.py:316 account/forms.py:456
-#: account/forms.py:527
+#: .\account\forms.py:115 .\account\forms.py:316 .\account\forms.py:456
+#: .\account\forms.py:527
 msgid "Email"
 msgstr "البريد الالكتروني"
 
-#: account/forms.py:118 account/forms.py:121 account/forms.py:261
-#: account/forms.py:264
+#: .\account\forms.py:118 .\account\forms.py:121 .\account\forms.py:261
+#: .\account\forms.py:264
 msgid "Username"
 msgstr "اسم المستخدم"
 
-#: account/forms.py:131
+#: .\account\forms.py:131
 msgid "Username or email"
-msgstr "اسم المستخدم أو البريد الالكتروني"
+msgstr "اسم المستخدم أو البريد الإلكتروني"
 
-#: account/forms.py:134
+#: .\account\forms.py:134
 msgctxt "field label"
 msgid "Login"
 msgstr "تسجيل الدخول"
 
-#: account/forms.py:307
+#: .\account\forms.py:307
 msgid "Email (again)"
-msgstr "البريد الالكتروني ‪(مجددا)‬"
+msgstr "البريد الإلكتروني ‪(مجددا)"
 
-#: account/forms.py:311
+#: .\account\forms.py:311
 msgid "Email address confirmation"
 msgstr "تأكيد البريد الإلكتروني"
 
-#: account/forms.py:319
+#: .\account\forms.py:319
 msgid "Email (optional)"
-msgstr "البريد الالكتروني ‪)‬اختياري‪(‬"
+msgstr "البريد الالكتروني (اختياري)"
 
-#: account/forms.py:368
+#: .\account\forms.py:368
 msgid "You must type the same email each time."
-msgstr "يجب عليك كتابة نفس البريد الالكتروني في كل مرة‪.‬"
+msgstr "يجب عليك كتابة البريد الإلكتروني نفسه في كل مرة‪."
 
-#: account/forms.py:401 account/forms.py:515
+#: .\account\forms.py:401 .\account\forms.py:515
 msgid "Password (again)"
-msgstr "كلمة السر ‪)‬مرة أخرى‪(‬"
+msgstr "كلمة المرور (مجددا)"
 
-#: account/forms.py:468
+#: .\account\forms.py:468
 msgid "This email address is already associated with this account."
-msgstr "عنوان البريد الإلكتروني هذا بالفعل المقترنة مع هذا الحساب."
+msgstr "عنوان البريد الإلكتروني هذا مربوط بالفعل مع هذا الحساب."
 
-#: account/forms.py:470
-#, fuzzy, python-format
-#| msgid "Your account has no verified email address."
+#: .\account\forms.py:470
+#, python-format
 msgid "You cannot add more than %d email addresses."
-msgstr "حسابك ليس لديه عنوان البريد الإلكتروني تحققنا منها."
+msgstr "لا يمكنك إضافة أكثر من %d بريد إلكتروني."
 
-#: account/forms.py:495
+#: .\account\forms.py:495
 msgid "Current Password"
 msgstr "كلمة المرور الحالية"
 
-#: account/forms.py:497 account/forms.py:601
+#: .\account\forms.py:497 .\account\forms.py:601
 msgid "New Password"
 msgstr "كلمة المرور الجديدة"
 
-#: account/forms.py:498 account/forms.py:602
+#: .\account\forms.py:498 .\account\forms.py:602
 msgid "New Password (again)"
-msgstr "كلمة المرور الجديدة (مرة أخرى)"
+msgstr "كلمة المرور الجديدة (مجددا)"
 
-#: account/forms.py:506
+#: .\account\forms.py:506
 msgid "Please type your current password."
-msgstr "الرجاء كتابة كلمة المرور الحالية الخاصة بك."
+msgstr "الرجاء كتابة كلمة المرور الحالية."
 
-#: account/forms.py:544
+#: .\account\forms.py:544
 msgid "The email address is not assigned to any user account"
-msgstr "لم يتم تعيين عنوان البريد الإلكتروني لأي حساب مستخدم"
+msgstr "لم يتم ربط عنوان البريد الإلكتروني مع أي حساب مستخدم"
 
-#: account/forms.py:622
+#: .\account\forms.py:622
 msgid "The password reset token was invalid."
-msgstr "خطأ في شهادة اعادة تعيين كلمة المرور."
+msgstr "كود إعادة تعيين كلمة المرور غير صالح."
 
-#: account/models.py:20
+#: .\account\models.py:21
 msgid "user"
 msgstr "مستخدم"
 
-#: account/models.py:25 account/models.py:33 account/models.py:132
+#: .\account\models.py:26 .\account\models.py:34 .\account\models.py:134
 msgid "email address"
 msgstr "عنوان بريد إلكتروني"
 
-#: account/models.py:27
+#: .\account\models.py:28
 msgid "verified"
-msgstr "تمّ تحقيقه"
+msgstr "موثق"
 
-#: account/models.py:28
+#: .\account\models.py:29
 msgid "primary"
-msgstr "أوّلي"
+msgstr "رئيسي"
 
-#: account/models.py:34
+#: .\account\models.py:35
 msgid "email addresses"
 msgstr "عناوين البريد الالكتروني"
 
-#: account/models.py:135
+#: .\account\models.py:137
 msgid "created"
 msgstr "تمّ إنشاؤه"
 
-#: account/models.py:136
+#: .\account\models.py:138
 msgid "sent"
 msgstr "تم ارساله"
 
-#: account/models.py:137 socialaccount/models.py:60
+#: .\account\models.py:139 .\socialaccount\models.py:60
 msgid "key"
 msgstr "مفتاح"
 
-#: account/models.py:142
+#: .\account\models.py:144
 msgid "email confirmation"
 msgstr "تأكيد البريد الإلكتروني"
 
-#: account/models.py:143
+#: .\account\models.py:145
 msgid "email confirmations"
 msgstr "تأكيدات البريد الإلكتروني"
 
-#: socialaccount/adapter.py:28
-#, fuzzy, python-format
-#| msgid ""
-#| "An account already exists with this e-mail address. Please sign in to "
-#| "that account first, then connect your %s account."
+#: .\socialaccount\adapter.py:28
+#, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
 "account first, then connect your %s account."
 msgstr ""
-"حساب موجود بالفعل مع هذا عنوان البريد الإلكتروني. يرجى تسجيل الدخول إلى هذا "
-"الحساب أولا، ثم ربط حساب %s الخاص بك."
+"يوجد حساب بالفعل مربوط مع هذا البريد الإلكتروني. يرجى الدخول إلى ذاك الحساب "
+"أولا، ثم ربط حسابك في %s."
 
-#: socialaccount/adapter.py:132
+#: .\socialaccount\adapter.py:132
 msgid "Your account has no password set up."
-msgstr "حسابك ليس لديه كلمة مرور اقامة."
+msgstr "حسابك ليست له كلمة مرور مضبوطة."
 
-#: socialaccount/adapter.py:139
+#: .\socialaccount\adapter.py:139
 msgid "Your account has no verified email address."
-msgstr "حسابك ليس لديه عنوان البريد الإلكتروني تحققنا منها."
+msgstr "حسابك ليس لديه عنوان بريد إلكتروني موثقف."
 
-#: socialaccount/apps.py:7
+#: .\socialaccount\apps.py:7
 msgid "Social Accounts"
-msgstr "حسابات التواصل الاجتماعية"
+msgstr "حسابات التواصل الاجتماعي"
 
-#: socialaccount/models.py:34 socialaccount/models.py:95
+#: .\socialaccount\models.py:34 .\socialaccount\models.py:95
 msgid "provider"
 msgstr "مزود"
 
-#: socialaccount/models.py:43
-#, fuzzy
-#| msgid "provider"
+#: .\socialaccount\models.py:43
 msgid "provider ID"
-msgstr "مزود"
+msgstr "معرف المزود"
 
-#: socialaccount/models.py:47
+#: .\socialaccount\models.py:47
 msgid "name"
 msgstr "اسم"
 
-#: socialaccount/models.py:49
+#: .\socialaccount\models.py:49
 msgid "client id"
-msgstr ""
+msgstr "معرف العميل"
 
-#: socialaccount/models.py:51
+#: .\socialaccount\models.py:51
 msgid "App ID, or consumer key"
-msgstr ""
+msgstr "معرف آبل، أو مفتاح المستهلك"
 
-#: socialaccount/models.py:54
+#: .\socialaccount\models.py:54
 msgid "secret key"
-msgstr ""
+msgstr "مفتاح سري"
 
-#: socialaccount/models.py:57
+#: .\socialaccount\models.py:57
 msgid "API secret, client secret, or consumer secret"
-msgstr ""
+msgstr "مفتاح واجهة برمجية سري أو مفتاح مستهلك"
 
-#: socialaccount/models.py:60
+#: .\socialaccount\models.py:60
 msgid "Key"
-msgstr ""
+msgstr "مفتاح"
 
-#: socialaccount/models.py:79
+#: .\socialaccount\models.py:79
 msgid "social application"
 msgstr "تطبيق اجتماعي"
 
-#: socialaccount/models.py:80
+#: .\socialaccount\models.py:80
 msgid "social applications"
 msgstr "تطبيقات اجتماعية"
 
-#: socialaccount/models.py:115
+#: .\socialaccount\models.py:115
 msgid "uid"
-msgstr ""
+msgstr "معرف المستخدم"
 
-#: socialaccount/models.py:117
+#: .\socialaccount\models.py:117
 msgid "last login"
 msgstr "أخر دخول"
 
-#: socialaccount/models.py:118
+#: .\socialaccount\models.py:118
 msgid "date joined"
 msgstr "تاريخ الانضمام"
 
-#: socialaccount/models.py:119
+#: .\socialaccount\models.py:119
 msgid "extra data"
-msgstr "بيانات اضافية"
+msgstr "بيانات إضافية"
 
-#: socialaccount/models.py:123
+#: .\socialaccount\models.py:123
 msgid "social account"
 msgstr "حساب تواصل اجتماعي"
 
-#: socialaccount/models.py:124
+#: .\socialaccount\models.py:124
 msgid "social accounts"
 msgstr "حسابات تواصل اجتماعي"
 
-#: socialaccount/models.py:158
+#: .\socialaccount\models.py:158
 msgid "token"
-msgstr ""
+msgstr "كود"
 
-#: socialaccount/models.py:159
+#: .\socialaccount\models.py:159
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
-msgstr ""
+msgstr "\"oauth_token\" (OAuth1) أو مفتاح وصول (OAuth2)"
 
-#: socialaccount/models.py:163
+#: .\socialaccount\models.py:163
 msgid "token secret"
-msgstr ""
+msgstr "كود سري"
 
-#: socialaccount/models.py:164
+#: .\socialaccount\models.py:164
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
-msgstr ""
+msgstr "\"oauth_token_secret\" (OAuth1) أو رمز تحديث (OAuth2)"
 
-#: socialaccount/models.py:167
+#: .\socialaccount\models.py:167
 msgid "expires at"
 msgstr "ينتهي في"
 
-#: socialaccount/models.py:172
+#: .\socialaccount\models.py:172
 msgid "social application token"
-msgstr ""
+msgstr "كود تطبيق اجتماعي"
 
-#: socialaccount/models.py:173
+#: .\socialaccount\models.py:173
 msgid "social application tokens"
-msgstr ""
+msgstr "أكواد التطبيقات الاجتماعية"
 
-#: socialaccount/providers/douban/views.py:36
+#: .\socialaccount\providers\douban\views.py:36
 msgid "Invalid profile data"
-msgstr "معلومات بروفايل غير صالحة"
+msgstr "معلومات ملف شخصي غير صالحة"
 
-#: socialaccount/providers/oauth/client.py:84
-#: socialaccount/providers/pocket/client.py:37
+#: .\socialaccount\providers\oauth\client.py:84
+#: .\socialaccount\providers\pocket\client.py:37
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
-msgstr ""
+msgstr "تم تلقي رد غير صالح عند الحصول على كود الطلب من \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:116
-#: socialaccount/providers/pocket/client.py:78
+#: .\socialaccount\providers\oauth\client.py:116
+#: .\socialaccount\providers\pocket\client.py:78
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
-msgstr ""
+msgstr "تم تلقي رد غير صالح عند الحصول على كود الوصول من \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:137
+#: .\socialaccount\providers\oauth\client.py:137
 #, python-format
 msgid "No request token saved for \"%s\"."
-msgstr ""
+msgstr "لا يوجد كود طلب محفوظ لـ \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:188
+#: .\socialaccount\providers\oauth\client.py:188
 #, python-format
 msgid "No access token saved for \"%s\"."
-msgstr ""
+msgstr "لا يوجد كود وصول محفوظ لـ \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:209
+#: .\socialaccount\providers\oauth\client.py:209
 #, python-format
 msgid "No access to private resources at \"%s\"."
-msgstr ""
+msgstr "لا وصول للموارد الخاصة في \"%s\"."
 
-#: templates/account/account_inactive.html:5
-#: templates/account/account_inactive.html:8
+#: .\templates\account\account_inactive.html:5
+#: .\templates\account\account_inactive.html:8
 msgid "Account Inactive"
-msgstr "حساب غير نشط"
+msgstr "الحساب غير نشط"
 
-#: templates/account/account_inactive.html:10
+#: .\templates\account\account_inactive.html:10
 msgid "This account is inactive."
-msgstr "هذا الحساب غير نشط"
+msgstr "هذا الحساب غير نشط."
 
-#: templates/account/base.html:16
+#: .\templates\account\base.html:16
 msgid "Messages:"
-msgstr ""
+msgstr "رسائل:"
 
-#: templates/account/base.html:26
+#: .\templates\account\base.html:26
 msgid "Menu:"
-msgstr ""
+msgstr "قائمة:"
 
-#: templates/account/base.html:29 templates/account/email_change.html:31
-#, fuzzy
-#| msgid "Email"
+#: .\templates\account\base.html:29 .\templates\account\email_change.html:31
 msgid "Change Email"
-msgstr "البريد الالكتروني"
+msgstr "تغيير البريد الإلكتروني"
 
-#: templates/account/base.html:30 templates/account/logout.html:5
-#: templates/account/logout.html:8 templates/account/logout.html:17
+#: .\templates\account\base.html:30 .\templates\account\logout.html:5
+#: .\templates\account\logout.html:8 .\templates\account\logout.html:17
 msgid "Sign Out"
 msgstr "تسجيل الخروج"
 
-#: templates/account/base.html:32 templates/account/login.html:6
-#: templates/account/login.html:10 templates/account/login.html:43
-#: templates/socialaccount/login.html:4
+#: .\templates\account\base.html:32 .\templates\account\login.html:6
+#: .\templates\account\login.html:10 .\templates\account\login.html:43
+#: .\templates\socialaccount\login.html:4
 msgid "Sign In"
 msgstr "تسجيل الدخول"
 
-#: templates/account/base.html:33 templates/account/signup.html:8
-#: templates/account/signup.html:18 templates/socialaccount/signup.html:8
-#: templates/socialaccount/signup.html:19
+#: .\templates\account\base.html:33 .\templates\account\signup.html:8
+#: .\templates\account\signup.html:18 .\templates\socialaccount\signup.html:8
+#: .\templates\socialaccount\signup.html:19
 msgid "Sign Up"
 msgstr "الاشتراك"
 
-#: templates/account/email.html:5 templates/account/email.html:8
+#: .\templates\account\email.html:5 .\templates\account\email.html:8
 msgid "Email Addresses"
-msgstr "عناوين البريد الالكتروني"
+msgstr "عناوين البريد الإلكتروني"
 
-#: templates/account/email.html:10
+#: .\templates\account\email.html:10
 msgid "The following email addresses are associated with your account:"
-msgstr "ترتبط عناوين البريد الإلكتروني التالية مع حسابك:"
+msgstr "عناوين البريد الإلكتروني التالية مربوطة مع حسابك:"
 
-#: templates/account/email.html:24
+#: .\templates\account\email.html:24
 msgid "Verified"
-msgstr "تمّ التحقق منه"
+msgstr "موثق"
 
-#: templates/account/email.html:26
+#: .\templates\account\email.html:26
 msgid "Unverified"
-msgstr "لم يتم التحقق منه"
+msgstr "غير موثق"
 
-#: templates/account/email.html:28
+#: .\templates\account\email.html:28
 msgid "Primary"
-msgstr "أولي"
+msgstr "أساسي"
 
-#: templates/account/email.html:34
+#: .\templates\account\email.html:34
 msgid "Make Primary"
-msgstr "اجعله اولي"
+msgstr "اجعله أساسيا"
 
-#: templates/account/email.html:35 templates/account/email_change.html:21
+#: .\templates\account\email.html:35 .\templates\account\email_change.html:21
 msgid "Re-send Verification"
-msgstr "اعادة ارسال رسالة التأكيد"
+msgstr "إعادة ارسال رسالة التأكيد"
 
-#: templates/account/email.html:36 templates/socialaccount/connections.html:35
+#: .\templates\account\email.html:36
+#: .\templates\socialaccount\connections.html:35
 msgid "Remove"
 msgstr "احذف"
 
-#: templates/account/email.html:47
+#: .\templates\account\email.html:47
 msgid "Add Email Address"
-msgstr "أضف عنوان البريد الالكتروني"
+msgstr "أضف عنوان بريد إلكتروني"
 
-#: templates/account/email.html:52
+#: .\templates\account\email.html:52
 msgid "Add Email"
-msgstr "أضف عنوان البريد الالكتروني"
+msgstr "أضف بريدا إلكترونيا"
 
-#: templates/account/email.html:62
+#: .\templates\account\email.html:62
 msgid "Do you really want to remove the selected email address?"
-msgstr "هل تريد حقا ان تحذف عنوان البريد الالكتروني المحدد؟"
+msgstr "هل تريد حقا حذف عنوان البريد الإلكتروني المحدد؟"
 
-#: templates/account/email/account_already_exists_message.txt:4
+#: .\templates\account\email\account_already_exists_message.txt:4
 #, python-format
 msgid ""
 "You are receiving this email because you or someone else tried to signup for "
@@ -432,22 +425,27 @@ msgid ""
 "\n"
 "%(password_reset_url)s"
 msgstr ""
+"تلقيت هذه الرسالة لأنك أو أحد آخر حاول تسجيل حساب\n"
+"باستخدام البريد الإلكتروني:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"لكن حسابا مربوطا بهذا البريد موجود بالفعل. في حال نسيت هذا، يمكنك استخدام "
+"رابط\n"
+"إعادة ضبط كلمة المرور لاستعادة حسابك:\n"
+"\n"
+"%(password_reset_url)s"
 
-#: templates/account/email/account_already_exists_subject.txt:3
+#: .\templates\account\email\account_already_exists_subject.txt:3
 msgid "Account Already Exists"
-msgstr ""
+msgstr "الحساب موجود بالفعل"
 
-#: templates/account/email/base_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "Thank you from %(site_name)s!\n"
-#| "%(site_domain)s"
+#: .\templates\account\email\base_message.txt:1
+#, python-format
 msgid "Hello from %(site_name)s!"
-msgstr ""
-"شكرا لك من فريق %(site_name)s!\n"
-"%(site_domain)s"
+msgstr "مرحبا من موقع %(site_name)s!"
 
-#: templates/account/email/base_message.txt:5
+#: .\templates\account\email\base_message.txt:5
 #, python-format
 msgid ""
 "Thank you for using %(site_name)s!\n"
@@ -456,73 +454,46 @@ msgstr ""
 "شكرا لاستخدامك %(site_name)s!\n"
 "%(site_domain)s"
 
-#: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because user %(user_display)s has given "
-#| "yours as an e-mail address to connect their account.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s\n"
+#: .\templates\account\email\email_confirmation_message.txt:5
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s.\n"
 "\n"
 "To confirm this is correct, go to %(activate_url)s"
 msgstr ""
-"مرحبا من %(site_name)s!\n"
+"تلقيت هذه الرسالة لأن المستخدم %(user_display)s أعطانا بريدك الإلكتروني "
+"لتسجيل حساب في %(site_domain)s.\n"
 "\n"
-"تتلقى هذه الرسالة بسبب أن المستخدم %(user_display)s قام باضافة بريدك "
-"الالكترني لحسابه في الموقع.\n"
-"\n"
-"لتأكيد صحة هذا الاجراء, اضغط على الرابط %(activate_url)s\n"
+"لتأكيد هذا، يرجى الذهاب إلى %(activate_url)s"
 
-#: templates/account/email/email_confirmation_subject.txt:3
+#: .\templates\account\email\email_confirmation_subject.txt:3
 msgid "Please Confirm Your Email Address"
-msgstr "قم بتأكيد عنوان البريد الالكتروني"
+msgstr "أكد عنوان البريد الإلكتروني"
 
-#: templates/account/email/password_reset_key_message.txt:4
-#, fuzzy
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
+#: .\templates\account\email\password_reset_key_message.txt:4
 msgid ""
 "You're receiving this email because you or someone else has requested a "
 "password reset for your user account.\n"
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"مرحبا من %(site_name)s!\n"
-"\n"
-"أنت تتلقى هذه الرسالة بسبب طلبك أو طلب شخص أخرالحصول على كلمة المرور الخاصة "
-"بك.\n"
-"اذا لم تقم بطلب كلمة مرور يمكنك تجاهل هذه الريالة. اضغط على  الرابط بالاسفل "
-"لاعادة تعيين كلمة المرور."
+"تلقيت هذه الرسالة لأنك أو أحد آخر طلب إعادة ضبط كلمة مرور حسابك.\n"
+"يمكنك تجاهل الرسالة بأمان إذا لم تطلب هذا. اضغط الرابط في الأسفل لإعادة ضبط "
+"كلمة المرور."
 
-#: templates/account/email/password_reset_key_message.txt:9
+#: .\templates\account\email\password_reset_key_message.txt:9
 #, python-format
 msgid "In case you forgot, your username is %(username)s."
-msgstr "في حال كنت قد نسيت اسم المستخدم الخاص بك هو %(username)s."
+msgstr "في حال كنت قد نسيت، اسم المستخدم الخاص بك هو %(username)s."
 
-#: templates/account/email/password_reset_key_subject.txt:3
-#: templates/account/email/unknown_account_subject.txt:3
+#: .\templates\account\email\password_reset_key_subject.txt:3
+#: .\templates\account\email\unknown_account_subject.txt:3
 msgid "Password Reset Email"
-msgstr "البريد الإلكتروني لإعادة تعيين كلمة المرور"
+msgstr "رسالة إعادة ضبط كلمة المرور"
 
-#: templates/account/email/unknown_account_message.txt:4
-#, fuzzy, python-format
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
+#: .\templates\account\email\unknown_account_message.txt:4
+#, python-format
 msgid ""
 "You are receiving this email because you or someone else has requested a\n"
 "password for your user account. However, we do not have any record of a "
@@ -533,80 +504,67 @@ msgid ""
 "\n"
 "If it was you, you can sign up for an account using the link below."
 msgstr ""
-"مرحبا من %(site_name)s!\n"
+"تلقيت هذه الرسالة لأنك أو أحد آخر طلب كلمة لحسابك.\n"
+"لكن ليس لدينا قيد مستخدم يستخدم عنوان البريد الإلكتروني %(email)s\n"
+"في قاعدة بياناتنا.\n"
 "\n"
-"أنت تتلقى هذه الرسالة بسبب طلبك أو طلب شخص أخرالحصول على كلمة المرور الخاصة "
-"بك.\n"
-"اذا لم تقم بطلب كلمة مرور يمكنك تجاهل هذه الريالة. اضغط على  الرابط بالاسفل "
-"لاعادة تعيين كلمة المرور."
+"يمكنك تجاهل هذه الرسالة بأمان إذا لم تطلب إعادة ضبط كلمة المرور.\n"
+"\n"
+"إذا كنت أنت من طلب، يمكنك تسجيل حساب باستخدام الرابط في الأسفل."
 
-#: templates/account/email_change.html:4 templates/account/email_change.html:7
-#, fuzzy
-#| msgid "Email Addresses"
+#: .\templates\account\email_change.html:4
+#: .\templates\account\email_change.html:7
 msgid "Email Address"
-msgstr "عناوين البريد الالكتروني"
+msgstr "بريد إلكتروني"
 
-#: templates/account/email_change.html:11
-#, fuzzy
-#| msgid "The following email addresses are associated with your account:"
+#: .\templates\account\email_change.html:11
 msgid "The following email address is associated with your account:"
-msgstr "ترتبط عناوين البريد الإلكتروني التالية مع حسابك:"
+msgstr "عناوين البريد الإلكتروني التالية مربوطة مع حسابك:"
 
-#: templates/account/email_change.html:16
-#, fuzzy
-#| msgid "Your primary email address must be verified."
+#: .\templates\account\email_change.html:16
 msgid "Your email address is still pending verification:"
-msgstr "لا بد من التحقق من صحة البريد الإلكتروني‪.‬"
+msgstr "ما زال عنوان البريد الإلكتروني بانتظار التوثيق:"
 
-#: templates/account/email_change.html:27
-#, fuzzy
-#| msgid "Confirm Email Address"
+#: .\templates\account\email_change.html:27
 msgid "Change Email Address"
-msgstr "قم بتحقيق عنوان البريد الالكتروني"
+msgstr "تغيير البريد الإلكتروني"
 
-#: templates/account/email_confirm.html:6
-#: templates/account/email_confirm.html:10
+#: .\templates\account\email_confirm.html:6
+#: .\templates\account\email_confirm.html:10
 msgid "Confirm Email Address"
-msgstr "قم بتحقيق عنوان البريد الالكتروني"
+msgstr "تأكيد البريد الإلكتروني"
 
-#: templates/account/email_confirm.html:17
-#, fuzzy, python-format
-#| msgid ""
-#| "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
-#| "mail address for user %(user_display)s."
+#: .\templates\account\email_confirm.html:17
+#, python-format
 msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an email "
 "address for user %(user_display)s."
 msgstr ""
-"يرجى التأكيد ان <a href=\"mailto:%(email)s\">%(email)s</a> من إحدى العنوان "
-"للمستعمل %(user_display)s."
+"يرجى تأكيد أن <a href=\"mailto:%(email)s\">%(email)s</a> هو عنوان بريد "
+"إلكتروني للمستخدم %(user_display)s."
 
-#: templates/account/email_confirm.html:21
+#: .\templates\account\email_confirm.html:21
 msgid "Confirm"
-msgstr "التأكيد"
+msgstr "تأكيد"
 
-#: templates/account/email_confirm.html:24
-#: templates/account/messages/email_confirmation_failed.txt:2
-#, fuzzy, python-format
-#| msgid "The social account is already connected to a different account."
+#: .\templates\account\email_confirm.html:24
+#: .\templates\account\messages\email_confirmation_failed.txt:2
+#, python-format
 msgid ""
 "Unable to confirm %(email)s because it is already confirmed by a different "
 "account."
-msgstr "حساب التواصل الاجتماعي متصل مسبقاً إلى حساب مختلف."
+msgstr "فشل تأكيد %(email)s لأنه مؤكد بالفعل في حساب مختلف."
 
-#: templates/account/email_confirm.html:31
-#, fuzzy, python-format
-#| msgid ""
-#| "This e-mail confirmation link expired or is invalid. Please <a href="
-#| "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+#: .\templates\account\email_confirm.html:31
+#, python-format
 msgid ""
 "This email confirmation link expired or is invalid. Please <a href="
 "\"%(email_url)s\">issue a new email confirmation request</a>."
 msgstr ""
-"هذا الرابط لتأكيد البريد الإلكتروني إنتهت فترة صلاحيته أو إنه غير صالح. يرجى "
-"<a href=\"%(email_url)s\"> إصدار البريد الإلكتروني طلب تأكيد الجديدة </a>."
+"هذا الرابط لتأكيد البريد الإلكتروني نتهت فترة صلاحيته أو إنه غير صالح. يرجى "
+"<a href=\"%(email_url)s\">طلب رابط جديد لتأكيد البريد الإلكتروني</a>."
 
-#: templates/account/login.html:15
+#: .\templates\account\login.html:15
 #, python-format
 msgid ""
 "Please sign in with one\n"
@@ -614,241 +572,214 @@ msgid ""
 "up</a>\n"
 "for a %(site_name)s account and sign in below:"
 msgstr ""
-"يرجى تسجيل الدخول مع واحد من حسابات طرف ثالث الموجودة لديك‪.‬ كما يمكنك <a "
-"href=\"%(signup_url)s\">الاشتراك‪</‬a‪>‬ للتحصل على حساب في الموقع %(site_name)s "
-"ثم تسجيل الدخول بالأسفل‪.‬"
+"يرجى تسجيل الدخول مع واحد من حسابات الطرف الثالث الموجودة لديك‪.‬\n"
+"كما يمكنك <a href=\"%(signup_url)s\">تسجيل</a> حساب\n"
+"في موقع %(site_name)s والدخول في الأسفل:"
 
-#: templates/account/login.html:25
+#: .\templates\account\login.html:25
 msgid "or"
 msgstr "أو"
 
-#: templates/account/login.html:32
+#: .\templates\account\login.html:32
 #, python-format
 msgid ""
 "If you have not created an account yet, then please\n"
 "<a href=\"%(signup_url)s\">sign up</a> first."
 msgstr ""
-"إذا لم تكن قد أنشأت حسابا حتى الآن، فالرجاء <a href=\"%(signup_url)s"
-"\">الاشتراك </a> أولا."
+"إذا لم يكن لديك حساب بالفعل،\n"
+"يرجى <a href=\"%(signup_url)s\">التسجيل</a> أولا."
 
-#: templates/account/login.html:42 templates/account/password_change.html:14
+#: .\templates\account\login.html:42
+#: .\templates\account\password_change.html:14
 msgid "Forgot Password?"
 msgstr "هل نسيت كلمة المرور؟"
 
-#: templates/account/logout.html:10
+#: .\templates\account\logout.html:10
 msgid "Are you sure you want to sign out?"
-msgstr "هل تريد حقا ان تسجل خروجك؟"
+msgstr "هل تريد حقا تسجيل الخروج؟"
 
-#: templates/account/messages/cannot_delete_primary_email.txt:2
+#: .\templates\account\messages\cannot_delete_primary_email.txt:2
 #, python-format
 msgid "You cannot remove your primary email address (%(email)s)."
-msgstr "لا يمكنك إزالة عنوان البريد الإلكتروني الرئيسي الخاص بك (%(email)s)."
+msgstr "لا يمكنك إزالة عنوان البريد الإلكتروني الرئيسي (%(email)s)."
 
-#: templates/account/messages/email_confirmation_sent.txt:2
+#: .\templates\account\messages\email_confirmation_sent.txt:2
 #, python-format
 msgid "Confirmation email sent to %(email)s."
-msgstr "قد أرسلنا رسالة تأكيد إلى العنوان %(email)s."
+msgstr "تم إرسال رسالة تأكيد إلى العنوان %(email)s."
 
-#: templates/account/messages/email_confirmed.txt:2
+#: .\templates\account\messages\email_confirmed.txt:2
 #, python-format
 msgid "You have confirmed %(email)s."
-msgstr "قد اكّدت عنوان البريد الالكتروني %(email)s."
+msgstr "لقد أكدت عنوان البريد الإلكتروني %(email)s."
 
-#: templates/account/messages/email_deleted.txt:2
+#: .\templates\account\messages\email_deleted.txt:2
 #, python-format
 msgid "Removed email address %(email)s."
-msgstr "قد أزلنا عنوان البريد الالكتروني %(email)s."
+msgstr "تمت إزالة عنوان البريد الإلكتروني %(email)s."
 
-#: templates/account/messages/logged_in.txt:4
+#: .\templates\account\messages\logged_in.txt:4
 #, python-format
 msgid "Successfully signed in as %(name)s."
 msgstr "لقد سجلت الدخول بنجاح يا %(name)s."
 
-#: templates/account/messages/logged_out.txt:2
+#: .\templates\account\messages\logged_out.txt:2
 msgid "You have signed out."
 msgstr "تم تسجيل خروجك."
 
-#: templates/account/messages/password_changed.txt:2
+#: .\templates\account\messages\password_changed.txt:2
 msgid "Password successfully changed."
-msgstr "تم تغيير كلمة المرور بنجاح‪.‬"
+msgstr "تم تغيير كلمة المرور بنجاح‪."
 
-#: templates/account/messages/password_set.txt:2
+#: .\templates\account\messages\password_set.txt:2
 msgid "Password successfully set."
-msgstr "تم إعداد كلمة المرور بنجاح‪.‬"
+msgstr "تم إعداد كلمة المرور بنجاح‪."
 
-#: templates/account/messages/primary_email_set.txt:2
+#: .\templates\account\messages\primary_email_set.txt:2
 msgid "Primary email address set."
-msgstr "تمّ تعيين عنوان البريد الالكتروني الرئيسي‪.‬"
+msgstr "تم تعيين عنوان البريد الإلكتروني الرئيسي‪."
 
-#: templates/account/messages/unverified_primary_email.txt:2
+#: .\templates\account\messages\unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
-msgstr "لا بد من التحقق من صحة البريد الإلكتروني‪.‬"
+msgstr "يجب توثيق عنوان بريدك الإلكتروني الرئيسي."
 
-#: templates/account/password_change.html:5
-#: templates/account/password_change.html:8
-#: templates/account/password_change.html:13
-#: templates/account/password_reset_from_key.html:4
-#: templates/account/password_reset_from_key.html:7
-#: templates/account/password_reset_from_key_done.html:4
-#: templates/account/password_reset_from_key_done.html:7
+#: .\templates\account\password_change.html:5
+#: .\templates\account\password_change.html:8
+#: .\templates\account\password_change.html:13
+#: .\templates\account\password_reset_from_key.html:4
+#: .\templates\account\password_reset_from_key.html:7
+#: .\templates\account\password_reset_from_key_done.html:4
+#: .\templates\account\password_reset_from_key_done.html:7
 msgid "Change Password"
 msgstr "غيّر كلمة المرور"
 
-#: templates/account/password_reset.html:6
-#: templates/account/password_reset.html:10
-#: templates/account/password_reset_done.html:6
-#: templates/account/password_reset_done.html:9
+#: .\templates\account\password_reset.html:6
+#: .\templates\account\password_reset.html:10
+#: .\templates\account\password_reset_done.html:6
+#: .\templates\account\password_reset_done.html:9
 msgid "Password Reset"
 msgstr "إعادة تعيين كلمة المرور"
 
-#: templates/account/password_reset.html:15
-#, fuzzy
-#| msgid ""
-#| "Forgotten your password? Enter your e-mail address below, and we'll send "
-#| "you an e-mail allowing you to reset it."
+#: .\templates\account\password_reset.html:15
 msgid ""
 "Forgotten your password? Enter your email address below, and we'll send you "
 "an email allowing you to reset it."
 msgstr ""
-"هل نسيت كلمة المرور؟ أدخل عنوان البريد الإلكتروني أدناه، وسوف نرسل لك عن "
-"طريق البريد الإلكتروني مما يتيح لك إعادة تعيينها."
+"هل نسيت كلمة المرور؟ أدخل عنوان البريد الإلكتروني أدناه، وسنرسل لك رسالة "
+"تتيح لك إعادة تعيينها."
 
-#: templates/account/password_reset.html:20
+#: .\templates\account\password_reset.html:20
 msgid "Reset My Password"
-msgstr "إعادة تعيين كلمة المرور الخاصة بي"
+msgstr "إعادة تعيين كلمة المرور"
 
-#: templates/account/password_reset.html:23
+#: .\templates\account\password_reset.html:23
 msgid "Please contact us if you have any trouble resetting your password."
-msgstr ""
-"يرجى الاتصال بنا إذا كان لديك أي مشكلة في إعادة تعيين كلمة المرور الخاصة بك."
+msgstr "يرجى الاتصال بنا إذا كنت تواجه أي مشاكل في إعادة تعيين كلمة المرور."
 
-#: templates/account/password_reset_done.html:15
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
+#: .\templates\account\password_reset_done.html:15
 msgid ""
 "We have sent you an email. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
 msgstr ""
-"لقد أرسلنا رسالة بريد إلكتروني لك للتحقق. الرجاء النقر فوق الارتباط داخل هذا "
-"البريد الإلكتروني. يرجى الاتصال بنا إذا كنت لا تحصل عليه في غضون دقائق قليلة."
+"أرسلنا لك رسالة. إذا لم تصلك يرجى التحقق من صندوق الرسائل غير المرغوب فيها. "
+"اتصل بنا إذا لم تصل في غضون دقائق."
 
-#: templates/account/password_reset_from_key.html:7
+#: .\templates\account\password_reset_from_key.html:7
 msgid "Bad Token"
-msgstr ""
+msgstr "كود غير صالح"
 
-#: templates/account/password_reset_from_key.html:11
+#: .\templates\account\password_reset_from_key.html:11
 #, python-format
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
 "a>."
 msgstr ""
-"كان رابط إعادة تعيين كلمة المرور غير صالحة، ربما لأنه قد تم استخدامه مسبقا. "
-"يرجى طلب <a href=\"%(passwd_reset_url)s\"> كلمة المرور الجديدة</a>."
+"رابط إعادة تعيين كلمة المرور غير صالح، ربما لأنه قد تم استخدامه مسبقا. يرجى "
+"طلب <a href=\"%(passwd_reset_url)s\">رابط جديد</a>."
 
-#: templates/account/password_reset_from_key.html:16
+#: .\templates\account\password_reset_from_key.html:16
 msgid "change password"
 msgstr "تغيير كلمة المرور"
 
-#: templates/account/password_reset_from_key_done.html:8
+#: .\templates\account\password_reset_from_key_done.html:8
 msgid "Your password is now changed."
-msgstr "تم تغيير كلمة المرور الخاصة بك"
+msgstr "تم تغيير كلمة المرور الخاصة بك."
 
-#: templates/account/password_set.html:5 templates/account/password_set.html:8
-#: templates/account/password_set.html:13
+#: .\templates\account\password_set.html:5
+#: .\templates\account\password_set.html:8
+#: .\templates\account\password_set.html:13
 msgid "Set Password"
 msgstr "تعيين كلمة مرور"
 
-#: templates/account/signup.html:5 templates/socialaccount/signup.html:5
+#: .\templates\account\signup.html:5 .\templates\socialaccount\signup.html:5
 msgid "Signup"
-msgstr "الاشتراك"
+msgstr "التسجيل"
 
-#: templates/account/signup.html:10
+#: .\templates\account\signup.html:10
 #, python-format
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr "لديك حساب؟ من فضلك <a href=\"%(login_url)s\">قم بتسجيل الدخول</a>."
+msgstr "لديك حساب؟ <a href=\"%(login_url)s\">سجل الدخول</a>."
 
-#: templates/account/signup_closed.html:5
-#: templates/account/signup_closed.html:8
+#: .\templates\account\signup_closed.html:5
+#: .\templates\account\signup_closed.html:8
 msgid "Sign Up Closed"
 msgstr "الاشتراك مغلق"
 
-#: templates/account/signup_closed.html:10
+#: .\templates\account\signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
-msgstr "نحن آسفون‪:‬ الاشتراك مغلق حاليا‪.‬"
+msgstr "نحن آسفون‪:‬ الاشتراك مغلق حاليا‪."
 
-#: templates/account/snippets/already_logged_in.html:5
+#: .\templates\account\snippets\already_logged_in.html:5
 msgid "Note"
 msgstr "ملاحظة"
 
-#: templates/account/snippets/already_logged_in.html:5
+#: .\templates\account\snippets\already_logged_in.html:5
 #, python-format
 msgid "you are already logged in as %(user_display)s."
 msgstr "تم تسجيل دخولك بالفعل يا %(user_display)s."
 
-#: templates/account/snippets/warn_no_email.html:3
+#: .\templates\account\snippets\warn_no_email.html:3
 msgid "Warning:"
-msgstr "تحذير‪:‬"
+msgstr "تحذير‪:"
 
-#: templates/account/snippets/warn_no_email.html:3
-#, fuzzy
-#| msgid ""
-#| "You currently do not have any e-mail address set up. You should really "
-#| "add an e-mail address so you can receive notifications, reset your "
-#| "password, etc."
+#: .\templates\account\snippets\warn_no_email.html:3
 msgid ""
 "You currently do not have any email address set up. You should really add an "
 "email address so you can receive notifications, reset your password, etc."
 msgstr ""
-"ليس لديك أي عنوان البريد الإلكتروني. يجب أن تضيف عنوان البريدالإلكتروني حتى "
-"تتمكن من تلقي الاشعارات, إعادة تعيين كلمة المرور الخاصة بك، الخ"
+"ليس لديك أي بريد إلكتروني مضبوط. عليك حقا إضافة عنوان لكي تتلقى الإشعارات، "
+"وتعيد تعيين كلمة المرور، إلخ."
 
-#: templates/account/verification_sent.html:5
-#: templates/account/verification_sent.html:8
-#: templates/account/verified_email_required.html:5
-#: templates/account/verified_email_required.html:8
+#: .\templates\account\verification_sent.html:5
+#: .\templates\account\verification_sent.html:8
+#: .\templates\account\verified_email_required.html:5
+#: .\templates\account\verified_email_required.html:8
 msgid "Verify Your Email Address"
-msgstr "التحقق من عنوان البريد الإلكتروني الخاص بك"
+msgstr "التحقق من البريد الإلكتروني"
 
-#: templates/account/verification_sent.html:10
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for verification. Follow the link provided "
-#| "to finalize the signup process. Please contact us if you do not receive "
-#| "it within a few minutes."
+#: .\templates\account\verification_sent.html:10
 msgid ""
 "We have sent an email to you for verification. Follow the link provided to "
 "finalize the signup process. If you do not see the verification email in "
 "your main inbox, check your spam folder. Please contact us if you do not "
 "receive the verification email within a few minutes."
 msgstr ""
-"لقد أرسلنا رسالة بريد إلكتروني لك للتحقق. اتبع الارتباط المتوفر لإتمام عملية "
-"التسجيل. يرجى الاتصال بنا إذا كنت لا تحصل عليه في غضون دقائق قليلة."
+"لقد أرسلنا لك رسالة للتوثيق. اتبع الرابط المزود لإكمال عملية التسجيل. إذا لم "
+"ترى الرسالة في صندوقك الرئيسي، تحقق من صندوق الرسائل غير المرغوب فيها. يرجى "
+"التواصل معنا إذا لم تتلقى الرسالة في غضو دقائق."
 
-#: templates/account/verified_email_required.html:12
-#, fuzzy
-#| msgid ""
-#| "This part of the site requires us to verify that\n"
-#| "you are who you claim to be. For this purpose, we require that you\n"
-#| "verify ownership of your e-mail address. "
+#: .\templates\account\verified_email_required.html:12
 msgid ""
 "This part of the site requires us to verify that\n"
 "you are who you claim to be. For this purpose, we require that you\n"
 "verify ownership of your email address. "
 msgstr ""
-"هذا الجزء من الموقع يتطلب منك تثبيت هويتك. ولهذا الغرض، نطلب لك التحقق من "
-"ملكيتك لعنوان البريد الإلكتروني الخاص بك."
+"تتطلب هذه الصفحة توثيق هويتك.\n"
+"لهذا نطلب منك توثيق ملكية بريدك الإلكتروني. "
 
-#: templates/account/verified_email_required.html:16
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
+#: .\templates\account\verified_email_required.html:16
 msgid ""
 "We have sent an email to you for\n"
 "verification. Please click on the link inside that email. If you do not see "
@@ -856,88 +787,85 @@ msgid ""
 "Otherwise\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
-"لقد أرسلنا رسالة بريد إلكتروني لك للتحقق. الرجاء النقر فوق الارتباط داخل هذا "
-"البريد الإلكتروني. يرجى الاتصال بنا إذا كنت لا تحصل عليه في غضون دقائق قليلة."
+"أرسلنا لك رسالة للتوثيق.\n"
+"يرجى الضغط على الرابط في الرسالة. إذا لم ترى الرسالة في صندوقك الرئيسي، تحقق "
+"من صندوق الرسائل غير المرغوب فيها.\n"
+"يرجى التواصل معنا إذا لم تتلقاه في غضون دقائق."
 
-#: templates/account/verified_email_required.html:20
-#, fuzzy, python-format
-#| msgid ""
-#| "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change "
-#| "your e-mail address</a>."
+#: .\templates\account\verified_email_required.html:20
+#, python-format
 msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
 "email address</a>."
 msgstr ""
-"<strong>ملاحظة:</strong> مازال يمكنك <a href=\"%(email_url)s\">تغيير عنوان "
-"البريد الإلكتروني الخاص بك</a>."
+"<strong>ملاحظة:</strong> ما زال بإمكانك <a href=\"%(email_url)s\">تغيير "
+"البريد الإلكتروني</a>."
 
-#: templates/openid/login.html:9
+#: .\templates\openid\login.html:9
 msgid "OpenID Sign In"
 msgstr "تسجيل الدخول عبر OpenID"
 
-#: templates/socialaccount/authentication_error.html:5
-#: templates/socialaccount/authentication_error.html:8
+#: .\templates\socialaccount\authentication_error.html:5
+#: .\templates\socialaccount\authentication_error.html:8
 msgid "Social Network Login Failure"
 msgstr "فشل تسجيل الدخول الاجتماعي"
 
-#: templates/socialaccount/authentication_error.html:10
+#: .\templates\socialaccount\authentication_error.html:10
 msgid ""
 "An error occurred while attempting to login via your social network account."
-msgstr ""
-"حدث خطأ أثناء محاولة تسجيل الدخول عن طريق حساب الشبكة الاجتماعية الخاصة بك."
+msgstr "حدث خطأ أثناء محاولة تسجيل الدخول عن طريق حساب الشبكة الاجتماعية."
 
-#: templates/socialaccount/connections.html:5
-#: templates/socialaccount/connections.html:8
+#: .\templates\socialaccount\connections.html:5
+#: .\templates\socialaccount\connections.html:8
 msgid "Account Connections"
 msgstr "اتصالات الحساب"
 
-#: templates/socialaccount/connections.html:11
+#: .\templates\socialaccount\connections.html:11
 msgid ""
 "You can sign in to your account using any of the following third party "
 "accounts:"
 msgstr ""
-"يمكنك تسجيل الدخول إلى الحساب الخاص بك باستخدام أي من حسابات الطرف الثالث "
-"التالية:"
+"يمكنك تسجيل الدخول إلى حسابك باستخدام أي من حسابات الطرف الثالث التالية:"
 
-#: templates/socialaccount/connections.html:43
+#: .\templates\socialaccount\connections.html:43
 msgid ""
 "You currently have no social network accounts connected to this account."
-msgstr "ليس لديك حاليا اي شبكة اجتماعية متصلة بهذا الحساب."
+msgstr "ليس لديك حاليا أي شبكة اجتماعية متصلة بهذا الحساب."
 
-#: templates/socialaccount/connections.html:46
+#: .\templates\socialaccount\connections.html:46
 msgid "Add a 3rd Party Account"
 msgstr "إضافة حساب طرف الثالث"
 
-#: templates/socialaccount/login.html:8
+#: .\templates\socialaccount\login.html:8
 #, python-format
 msgid "Connect %(provider)s"
-msgstr ""
+msgstr "ربط %(provider)s"
 
-#: templates/socialaccount/login.html:10
+#: .\templates\socialaccount\login.html:10
 #, python-format
 msgid "You are about to connect a new third party account from %(provider)s."
-msgstr ""
+msgstr "أنت على وشك ربط حساب طرف ثالث جديد من %(provider)s."
 
-#: templates/socialaccount/login.html:12
+#: .\templates\socialaccount\login.html:12
 #, python-format
 msgid "Sign In Via %(provider)s"
-msgstr ""
+msgstr "تسجيل الدخول عبر %(provider)s"
 
-#: templates/socialaccount/login.html:14
+#: .\templates\socialaccount\login.html:14
 #, python-format
 msgid "You are about to sign in using a third party account from %(provider)s."
-msgstr ""
+msgstr "أنت على وشك تسجيل الدخول باستخدام حساب الطرف الثالث من %(provider)s."
 
-#: templates/socialaccount/login.html:19
+#: .\templates\socialaccount\login.html:19
 msgid "Continue"
-msgstr ""
+msgstr "المتابعة"
 
-#: templates/socialaccount/login_cancelled.html:5
-#: templates/socialaccount/login_cancelled.html:9
+#: .\templates\socialaccount\login_cancelled.html:5
+#: .\templates\socialaccount\login_cancelled.html:9
 msgid "Login Cancelled"
-msgstr "تم الغاء تسجيل الدخول"
+msgstr "تم إلغاء تسجيل الدخول"
 
-#: templates/socialaccount/login_cancelled.html:13
+#: .\templates\socialaccount\login_cancelled.html:13
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
@@ -945,29 +873,30 @@ msgid ""
 "\">sign in</a>."
 msgstr ""
 "قد قررت إلغاء تسجيل الدخول إلى الموقع باستخدام أحد الحسابات الموجودة الخاصة "
-"بك. إذا كان هذا خطأ، الرجاء المتابعة <a href=\"%(login_url)s\">تسجيل الدخول</"
-"a>."
+"بك. إذا كان هذا خطأ، الرجاء المتابعة إلى <a href=\"%(login_url)s\">تسجيل "
+"الدخول</a>."
 
-#: templates/socialaccount/messages/account_connected.txt:2
+#: .\templates\socialaccount\messages\account_connected.txt:2
 msgid "The social account has been connected."
-msgstr "قد تم ربط حساب التواصل الاجتماعي."
+msgstr "تم ربط حساب التواصل الاجتماعي."
 
-#: templates/socialaccount/messages/account_connected_other.txt:2
+#: .\templates\socialaccount\messages\account_connected_other.txt:2
 msgid "The social account is already connected to a different account."
-msgstr "حساب التواصل الاجتماعي متصل مسبقاً إلى حساب مختلف."
+msgstr "حساب التواصل الاجتماعي متصل مسبقا مع حساب مختلف."
 
-#: templates/socialaccount/messages/account_disconnected.txt:2
+#: .\templates\socialaccount\messages\account_disconnected.txt:2
 msgid "The social account has been disconnected."
 msgstr "تم قطع الاتصال بحساب التواصل الاجتماعي."
 
-#: templates/socialaccount/signup.html:10
+#: .\templates\socialaccount\signup.html:10
 #, python-format
 msgid ""
 "You are about to use your %(provider_name)s account to login to\n"
 "%(site_name)s. As a final step, please complete the following form:"
 msgstr ""
 "أنت على وشك استخدام حسابك من %(provider_name)s لتسجيل الدخول إلى "
-"%(site_name)s. وكخطوة أخيرة، يرجى ملء النموذج التالي:"
+"%(site_name)s.\n"
+"كخطوة أخيرة، يرجى ملء النموذج التالي:"
 
 #~ msgid "This email address is already associated with another account."
 #~ msgstr "عنوان البريد الإلكتروني هذا مقترن بالفعل بحساب آخر."

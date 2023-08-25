@@ -1,3 +1,13 @@
+0.55.2 (2023-08-30)
+*******************
+
+Fixes
+-----
+
+- Email confirmation: An attribute error could occur when following invalid
+  email confirmation links.
+
+
 0.55.1 (2023-08-30)
 *******************
 

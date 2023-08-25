@@ -411,10 +411,12 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
             {
                 "site": site,
                 "confirmation": self.object,
-                "can_confirm": self.object.email_address.can_set_verified(),
-                "email": self.object.email_address.email,
+                "can_confirm": self.object
+                and self.object.email_address.can_set_verified(),
             }
         )
+        if self.object:
+            ctx["email"] = self.object.email_address.email
         return ctx
 
     def get_redirect_url(self):

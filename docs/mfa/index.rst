@@ -5,3 +5,4 @@ Multi-Factor Authentication
 
    introduction
    configuration
+   adapter

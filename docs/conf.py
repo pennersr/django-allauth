@@ -1,3 +1,7 @@
+import os
+import sys
+
+
 # -*- coding: utf-8 -*-
 #
 # django-allauth documentation build configuration file, created by
@@ -38,8 +42,8 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = u"django-allauth"
-copyright = u"2017, Raymond Penners"
+project = "django-allauth"
+copyright = "2017, Raymond Penners"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -182,8 +186,8 @@ latex_documents = [
     (
         "index",
         "django-allauth.tex",
-        u"django-allauth Documentation",
-        u"Raymond Penners",
+        "django-allauth Documentation",
+        "Raymond Penners",
         "manual",
     ),
 ]
@@ -217,8 +221,8 @@ man_pages = [
     (
         "index",
         "django-allauth",
-        u"django-allauth Documentation",
-        [u"Raymond Penners"],
+        "django-allauth Documentation",
+        ["Raymond Penners"],
         1,
     )
 ]
@@ -236,8 +240,8 @@ texinfo_documents = [
     (
         "index",
         "django-allauth",
-        u"django-allauth Documentation",
-        u"Raymond Penners",
+        "django-allauth Documentation",
+        "Raymond Penners",
         "django-allauth",
         "One line description of project.",
         "Miscellaneous",
@@ -252,3 +256,12 @@ texinfo_documents = [
 
 # How to display URL addresses: 'footnote', 'no', or 'inline'.
 # texinfo_show_urls = 'footnote'
+
+extensions = [
+    "sphinx.ext.autodoc",
+]
+
+sys.path.insert(0, os.path.abspath("../"))
+autodoc_mock_imports = [
+    "allauth.account.utils",
+]

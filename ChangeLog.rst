@@ -7,6 +7,12 @@ Note worthy changes
 - ...
 
 
+Backwards incompatible changes
+------------------------------
+
+- Dropped support for Django 3.1.
+
+
 0.55.0 (2023-08-22)
 *******************
 

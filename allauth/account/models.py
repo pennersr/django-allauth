@@ -2,8 +2,9 @@ import datetime
 
 from django.core import signing
 from django.db import models
-from django.db.models import Q
+from django.db.models import Index, Q
 from django.db.models.constraints import UniqueConstraint
+from django.db.models.functions import Upper
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -41,6 +42,7 @@ class EmailAddress(models.Model):
                     condition=Q(verified=True),
                 )
             ]
+        indexes = [Index(Upper("email"), name="account_emailaddress_upper_email")]
 
     def __str__(self):
         return self.email

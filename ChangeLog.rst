@@ -4,13 +4,16 @@
 Note worthy changes
 -------------------
 
-- ...
+- Added builtin support for Two-Factor Authentication via the ``allauth.mfa`` app.
 
 
 Backwards incompatible changes
 ------------------------------
 
 - Dropped support for Django 3.1.
+
+- The ``"allauth.account.middleware.AccountMiddleware"`` middleware is required to be present
+  in your ``settings.MIDDLEWARE``.
 
 
 0.55.0 (2023-08-22)

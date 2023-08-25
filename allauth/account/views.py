@@ -9,6 +9,7 @@ from django.http import (
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic.base import TemplateResponseMixin, TemplateView, View
 from django.views.generic.edit import FormView
@@ -145,6 +146,7 @@ class LoginView(
     redirect_field_name = "next"
 
     @sensitive_post_parameters_m
+    @method_decorator(never_cache)
     def dispatch(self, request, *args, **kwargs):
         return super(LoginView, self).dispatch(request, *args, **kwargs)
 
@@ -230,6 +232,7 @@ class SignupView(
     success_url = None
 
     @sensitive_post_parameters_m
+    @method_decorator(never_cache)
     def dispatch(self, request, *args, **kwargs):
         return super(SignupView, self).dispatch(request, *args, **kwargs)
 

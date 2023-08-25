@@ -2,8 +2,9 @@ import datetime
 
 from django.core import signing
 from django.db import models
-from django.db.models import Q
+from django.db.models import Index, Q
 from django.db.models.constraints import UniqueConstraint
+from django.db.models.functions import Upper
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -12,8 +13,6 @@ from . import app_settings, signals
 from .adapter import get_adapter
 from .managers import EmailAddressManager, EmailConfirmationManager
 from .utils import user_email
-from django.db.models.functions import Upper
-from django.db.models import Index
 
 
 class EmailAddress(models.Model):

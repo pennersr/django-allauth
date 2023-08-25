@@ -17,6 +17,7 @@ from allauth import ratelimit
 from allauth.decorators import rate_limit
 from allauth.exceptions import ImmediateHttpResponse
 from allauth.utils import get_form_class, get_request_param
+from django.views.decorators.cache import never_cache
 
 from . import app_settings, signals
 from .adapter import get_adapter
@@ -145,6 +146,7 @@ class LoginView(
     redirect_field_name = "next"
 
     @sensitive_post_parameters_m
+    @method_decorator(never_cache)
     def dispatch(self, request, *args, **kwargs):
         return super(LoginView, self).dispatch(request, *args, **kwargs)
 
@@ -230,6 +232,7 @@ class SignupView(
     success_url = None
 
     @sensitive_post_parameters_m
+    @method_decorator(never_cache)
     def dispatch(self, request, *args, **kwargs):
         return super(SignupView, self).dispatch(request, *args, **kwargs)
 

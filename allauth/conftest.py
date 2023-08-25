@@ -1,4 +1,6 @@
 import uuid
+from contextlib import contextmanager
+from unittest.mock import patch
 
 import pytest
 
@@ -59,3 +61,14 @@ def email_factory():
         return f"{username}@{uuid.uuid4().hex}.org"
 
     return factory
+
+
+@pytest.fixture
+def reauthentication_bypass():
+    @contextmanager
+    def f():
+        with patch("allauth.account.decorators.is_authentication_recent") as m:
+            m.return_value = True
+            yield
+
+    return f

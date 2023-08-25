@@ -62,7 +62,7 @@ class IndexView(TemplateView):
 index = IndexView.as_view()
 
 
-@method_decorator(login_required, name="dispatch")
+@method_decorator(reauthentication_required, name="dispatch")
 class ActivateTOTPView(FormView):
     form_class = ActivateTOTPForm
     template_name = "mfa/totp/activate_form." + account_settings.TEMPLATE_EXTENSION

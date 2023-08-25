@@ -386,8 +386,8 @@ class AppSettings(object):
         return token_generator
 
     @property
-    def RECENT_AUTHENTICATION_TIMEOUT(self):
-        return self._setting("RECENT_AUTHENTICATION_TIMEOUT", 300)
+    def REAUTHENTICATION_TIMEOUT(self):
+        return self._setting("REAUTHENTICATION_TIMEOUT", 300)
 
 
 _app_settings = AppSettings("ACCOUNT_")

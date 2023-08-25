@@ -43,9 +43,7 @@ def verified_email_required(
     return decorator
 
 
-def recent_authentication_required(
-    function=None, redirect_field_name=REDIRECT_FIELD_NAME
-):
+def reauthentication_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME):
     def decorator(view_func):
         @wraps(view_func)
         def _wrapper_view(request, *args, **kwargs):

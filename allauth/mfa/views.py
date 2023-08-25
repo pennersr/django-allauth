@@ -10,7 +10,7 @@ from django.views.generic.edit import FormView
 
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
-from allauth.account.decorators import recent_authentication_required
+from allauth.account.decorators import reauthentication_required
 from allauth.account.stages import LoginStageController
 from allauth.mfa import app_settings, totp
 from allauth.mfa.adapter import get_adapter
@@ -124,11 +124,11 @@ class DeactivateTOTPView(FormView):
             return HttpResponseRedirect(reverse("mfa_activate_totp"))
         return self._dispatch(request, *args, **kwargs)
 
-    @method_decorator(recent_authentication_required)
+    @method_decorator(reauthentication_required)
     def _dispatch(self, request, *args, **kwargs):
         """There's no point to reauthenticate when MFA is not enabled, so the
         `is_mfa_enabled` chheck needs to go first, which is why we cannot slap a
-        `recent_authentication_required` decorator on the `dispatch` directly.
+        `reauthentication_required` decorator on the `dispatch` directly.
         """
         return super().dispatch(request, *args, **kwargs)
 
@@ -144,7 +144,7 @@ class DeactivateTOTPView(FormView):
 deactivate_totp = DeactivateTOTPView.as_view()
 
 
-@method_decorator(recent_authentication_required, name="dispatch")
+@method_decorator(reauthentication_required, name="dispatch")
 class GenerateRecoveryCodesView(FormView):
     form_class = forms.Form
     template_name = "mfa/recovery_codes/generate." + account_settings.TEMPLATE_EXTENSION
@@ -165,7 +165,7 @@ class GenerateRecoveryCodesView(FormView):
 generate_recovery_codes = GenerateRecoveryCodesView.as_view()
 
 
-@method_decorator(recent_authentication_required, name="dispatch")
+@method_decorator(reauthentication_required, name="dispatch")
 class DownloadRecoveryCodesView(TemplateView):
     template_name = "mfa/recovery_codes/download.txt"
     content_type = "text/plain"
@@ -195,7 +195,7 @@ class DownloadRecoveryCodesView(TemplateView):
 download_recovery_codes = DownloadRecoveryCodesView.as_view()
 
 
-@method_decorator(recent_authentication_required, name="dispatch")
+@method_decorator(reauthentication_required, name="dispatch")
 class ViewRecoveryCodesView(TemplateView):
     template_name = "mfa/recovery_codes/index." + account_settings.TEMPLATE_EXTENSION
 

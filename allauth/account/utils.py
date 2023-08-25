@@ -539,4 +539,4 @@ def is_authentication_recent(request):
     authenticated_at = request.session.get("account_authenticated_at")
     if not authenticated_at:
         return False
-    return time.time() - authenticated_at < app_settings.RECENT_AUTHENTICATION_TIMEOUT
+    return time.time() - authenticated_at < app_settings.REAUTHENTICATION_TIMEOUT

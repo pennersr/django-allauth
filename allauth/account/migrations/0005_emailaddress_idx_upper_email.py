@@ -13,7 +13,8 @@ class Migration(migrations.Migration):
         migrations.AddIndex(
             model_name="emailaddress",
             index=models.Index(
-                django.db.models.functions.text.Upper("email"), name="account_emailaddress_upper_email"
+                django.db.models.functions.text.Upper("email"),
+                name="account_emailaddress_upper_email",
             ),
         ),
     ]

@@ -9,6 +9,7 @@ from django.http import (
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic.base import TemplateResponseMixin, TemplateView, View
 from django.views.generic.edit import FormView
@@ -17,7 +18,6 @@ from allauth import ratelimit
 from allauth.decorators import rate_limit
 from allauth.exceptions import ImmediateHttpResponse
 from allauth.utils import get_form_class, get_request_param
-from django.views.decorators.cache import never_cache
 
 from . import app_settings, signals
 from .adapter import get_adapter

@@ -13,6 +13,7 @@ stdenv.mkDerivation {
         python310Packages.pyls-flake8
         python310Packages.pylsp-rope
         python310Packages.pytest
+        python310Packages.pytest-cov
         python310Packages.pytest-django
         python310Packages.python-lsp-server
         python310Packages.python3-openid

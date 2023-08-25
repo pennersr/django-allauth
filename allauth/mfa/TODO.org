@@ -1,11 +1,11 @@
-* MFA Tasks [8/9]
+* MFA Tasks [9/10]
 ** DONE Recovery codes
 ** DONE Flows [100%]
 *** DONE Generate recovery codes on TOTP activate
 *** DONE Regenerate recovery codes
 ** DONE Documentation
 ** DONE Test suite
-** TODO Increase test suite coverage
+** DONE Increase test suite coverage
 ** DONE Require verified email before MFA can be enabled
 ** DONE Prevent new (unverified) emails from being added when MFA is enabled
 ** DONE Purge login stage

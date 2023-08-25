@@ -43,7 +43,7 @@ class EmailAddress(models.Model):
                     condition=Q(verified=True),
                 )
             ]
-        indexes = [Index(Upper("email"), name="idx_upper_email")]
+        indexes = [Index(Upper("email"), name="account_emailaddress_upper_email")]
 
     def __str__(self):
         return self.email

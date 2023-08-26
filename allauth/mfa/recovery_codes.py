@@ -36,8 +36,13 @@ class RecoveryCodes:
         key = binascii.hexlify(os.urandom(20)).decode("ascii")
         return key
 
+    def _get_migrated_codes(self):
+        codes = self.instance.data.get("migrated_codes")
+        if codes is not None:
+            return [decrypt(code) for code in codes]
+
     def generate_codes(self):
-        migrated_codes = self.instance.data.get("migrated_codes")
+        migrated_codes = self._get_migrated_codes()
         if migrated_codes is not None:
             return migrated_codes
 
@@ -63,7 +68,7 @@ class RecoveryCodes:
         self.instance.save()
 
     def get_unused_codes(self):
-        migrated_codes = self.instance.data.get("migrated_codes")
+        migrated_codes = self._get_migrated_codes()
         if migrated_codes is not None:
             return migrated_codes
 
@@ -75,15 +80,19 @@ class RecoveryCodes:
         return ret
 
     def _validate_migrated_code(self, code):
-        migrated_codes = self.instance.data.get("migrated_codes")
+        migrated_codes = self._get_migrated_codes()
         if migrated_codes is None:
             return None
-        if code in migrated_codes:
-            migrated_codes.remove(code)
+        try:
+            idx = migrated_codes.index(code)
+        except ValueError:
+            return False
+        else:
+            migrated_codes = self.instance.data["migrated_codes"]
+            migrated_codes.pop(idx)
             self.instance.data["migrated_codes"] = migrated_codes
             self.instance.save()
             return True
-        return False
 
     def validate_code(self, code):
         ret = self._validate_migrated_code(code)

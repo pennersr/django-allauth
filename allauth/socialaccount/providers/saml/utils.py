@@ -55,6 +55,10 @@ def build_sp_config(request, provider_config, org):
 
     if avd.get("private_key") is not None:
         sp_config["privateKey"] = avd["private_key"]
+
+    if avd.get("name_id_format") is not None:
+        sp_config["NameIDFormat"] = avd["name_id_format"]
+
     return sp_config
 
 
@@ -92,7 +96,11 @@ def build_saml_config(request, provider_config, org):
         "wantAssertionsEncrypted": avd.get("want_assertion_encrypted", False),
         "wantAssertionsSigned": avd.get("want_assertion_signed", False),
         "wantMessagesSigned": avd.get("want_message_signed", False),
-        "wantNameId": False,
+        "nameIdEncrypted": avd.get("name_id_encrypted", False),
+        "wantNameIdEncrypted": avd.get("want_name_id_encrypted", False),
+        "allowSingleLabelDomains": avd.get("allow_single_label_domains", False),
+        "rejectDeprecatedAlgorithm": avd.get("reject_deprecated_algorithm", True),
+        "wantNameId": avd.get("want_name_id", False),
     }
     saml_config = {
         "strict": avd.get("strict", True),
@@ -114,4 +122,10 @@ def build_saml_config(request, provider_config, org):
             "singleLogoutService": {"url": idp["slo_url"]},
         }
     saml_config["sp"] = build_sp_config(request, provider_config, org)
+    contacts = provider_config.get("contactPerson")
+    if contacts:
+        saml_config["contactPerson"] = contacts
+    organization = provider_config.get("organization")
+    if organization:
+        saml_config["organization"] = organization
     return saml_config

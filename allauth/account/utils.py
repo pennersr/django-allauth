@@ -525,7 +525,7 @@ def record_authentication(request, user):
     request.session["account_authenticated_at"] = time.time()
 
 
-def is_authentication_recent(request):
+def did_recently_authenticate(request):
     if request.user.is_anonymous:
         return False
     if not request.user.has_usable_password():

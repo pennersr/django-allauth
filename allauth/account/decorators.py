@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.utils.http import urlencode
 
 from .models import EmailAddress
-from .utils import is_authentication_recent, send_email_confirmation
+from .utils import did_recently_authenticate, send_email_confirmation
 
 
 def verified_email_required(
@@ -56,7 +56,7 @@ def reauthentication_required(function=None, redirect_field_name=REDIRECT_FIELD_
                 )
                 return HttpResponseRedirect(redirect_url)
 
-            if not is_authentication_recent(request):
+            if not did_recently_authenticate(request):
                 redirect_url = (
                     reverse("account_reauthenticate")
                     + "?"

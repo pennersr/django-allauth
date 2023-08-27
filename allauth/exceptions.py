@@ -4,6 +4,5 @@ class ImmediateHttpResponse(Exception):
     return a custom HttpResponse.
     """
 
-    def __init__(self, response, stash_state=False):
+    def __init__(self, response):
         self.response = response
-        self.stash_state = stash_state

@@ -67,7 +67,7 @@ def email_factory():
 def reauthentication_bypass():
     @contextmanager
     def f():
-        with patch("allauth.account.decorators.is_authentication_recent") as m:
+        with patch("allauth.account.decorators.did_recently_authenticate") as m:
             m.return_value = True
             yield
 

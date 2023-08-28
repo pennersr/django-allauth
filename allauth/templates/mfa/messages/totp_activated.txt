@@ -1,2 +1,2 @@
 {% load i18n %}
-{% blocktrans %}TOTP authentication activated.{% endblocktrans %}
+{% blocktrans %}Authenticator app activated.{% endblocktrans %}

@@ -111,7 +111,10 @@ def build_saml_config(request, provider_config, org):
             "entityId": idp["entity_id"],
             "x509cert": idp["x509cert"],
             "singleSignOnService": {"url": idp["sso_url"]},
-            "singleLogoutService": {"url": idp["slo_url"]},
         }
+        slo_url = idp.get("slo_url")
+        if slo_url:
+            saml_config["idp"]["singleLogoutService"] = {"url": slo_url}
+
     saml_config["sp"] = build_sp_config(request, provider_config, org)
     return saml_config

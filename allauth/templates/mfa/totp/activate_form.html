@@ -1,0 +1,18 @@
+{% extends "mfa/totp/base.html" %}
+{% load i18n %}
+{% block content %}
+    <h1>{% trans "Activate Authenticator App" %}</h1>
+    {{ totp_svg|safe }}
+    <form method="POST" action="{% url 'mfa_activate_totp' %}">
+        {% csrf_token %}
+        <p>
+            <label>{% translate "Authenticator secret" %}:</label>
+            <input type="text"
+                   disabled="disabled"
+                   value="{{ form.secret }}"
+                   size="{{ form.secret|length }}">
+        </p>
+        {{ form.as_p }}
+        <button type="submit">{% trans "Activate" %}</button>
+    </form>
+{% endblock %}

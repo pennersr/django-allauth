@@ -28,3 +28,6 @@ email_changed = Signal()
 email_added = Signal()
 # Provides the arguments "request", "user", "email_address"
 email_removed = Signal()
+
+# Internal/private signal.
+_add_email = Signal()

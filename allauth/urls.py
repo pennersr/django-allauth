@@ -8,6 +8,8 @@ from . import app_settings
 
 
 urlpatterns = [path("", include("allauth.account.urls"))]
+if app_settings.MFA_ENABLED:
+    urlpatterns += [path("2fa/", include("allauth.mfa.urls"))]
 
 if app_settings.SOCIALACCOUNT_ENABLED:
     urlpatterns += [path("social/", include("allauth.socialaccount.urls"))]

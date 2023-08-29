@@ -1,0 +1,18 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+{% block head_title %}
+    {% trans "Sign In" %}
+{% endblock %}
+{% block content %}
+    <h1>{% trans "Two-Factor Authentication" %}</h1>
+    <p>
+        {% blocktranslate %}Your account is protected by two-factor authentication. Please enter an authenticator code:{% endblocktranslate %}
+    </p>
+    <form class="authenticate"
+          method="POST"
+          action="{% url 'mfa_authenticate' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">{% trans "Sign In" %}</button>
+    </form>
+{% endblock %}

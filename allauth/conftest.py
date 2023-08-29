@@ -1,4 +1,6 @@
 import uuid
+from contextlib import contextmanager
+from unittest.mock import patch
 
 import pytest
 
@@ -19,7 +21,12 @@ def auth_client(client, user):
 
 
 @pytest.fixture
-def user_factory(email_factory, db):
+def user_password():
+    return str(uuid.uuid4())
+
+
+@pytest.fixture
+def user_factory(email_factory, db, user_password):
     def factory(
         email=None, username=None, commit=True, with_email=True, email_verified=True
     ):
@@ -31,6 +38,7 @@ def user_factory(email_factory, db):
 
         User = get_user_model()
         user = User()
+        user.set_password(user_password)
         user_username(user, username)
         user_email(user, email or "")
         if commit:
@@ -53,3 +61,14 @@ def email_factory():
         return f"{username}@{uuid.uuid4().hex}.org"
 
     return factory
+
+
+@pytest.fixture
+def reauthentication_bypass():
+    @contextmanager
+    def f():
+        with patch("allauth.account.decorators.did_recently_authenticate") as m:
+            m.return_value = True
+            yield
+
+    return f

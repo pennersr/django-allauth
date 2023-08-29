@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import (
@@ -25,6 +26,7 @@ from .forms import (
     AddEmailForm,
     ChangePasswordForm,
     LoginForm,
+    ReauthenticateForm,
     ResetPasswordForm,
     ResetPasswordKeyForm,
     SetPasswordForm,
@@ -39,6 +41,7 @@ from .utils import (
     logout_on_password_change,
     passthrough_next_redirect_url,
     perform_login,
+    record_authentication,
     send_email_confirmation,
     sync_user_email_addresses,
     url_str_to_user_pk,
@@ -143,7 +146,7 @@ class LoginView(
     form_class = LoginForm
     template_name = "account/login." + app_settings.TEMPLATE_EXTENSION
     success_url = None
-    redirect_field_name = "next"
+    redirect_field_name = REDIRECT_FIELD_NAME
 
     @sensitive_post_parameters_m
     @method_decorator(never_cache)
@@ -228,7 +231,7 @@ class SignupView(
 ):
     template_name = "account/signup." + app_settings.TEMPLATE_EXTENSION
     form_class = SignupForm
-    redirect_field_name = "next"
+    redirect_field_name = REDIRECT_FIELD_NAME
     success_url = None
 
     @sensitive_post_parameters_m
@@ -727,7 +730,7 @@ class PasswordResetView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_reset." + app_settings.TEMPLATE_EXTENSION
     form_class = ResetPasswordForm
     success_url = reverse_lazy("account_reset_password_done")
-    redirect_field_name = "next"
+    redirect_field_name = REDIRECT_FIELD_NAME
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, "reset_password", self.form_class)
@@ -885,7 +888,7 @@ password_reset_from_key_done = PasswordResetFromKeyDoneView.as_view()
 
 class LogoutView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
     template_name = "account/logout." + app_settings.TEMPLATE_EXTENSION
-    redirect_field_name = "next"
+    redirect_field_name = REDIRECT_FIELD_NAME
 
     def get(self, *args, **kwargs):
         if app_settings.LOGOUT_ON_GET:
@@ -936,3 +939,51 @@ class EmailVerificationSentView(TemplateView):
 
 
 email_verification_sent = EmailVerificationSentView.as_view()
+
+
+class ReauthenticateView(FormView):
+    form_class = ReauthenticateForm
+    template_name = "account/reauthenticate." + app_settings.TEMPLATE_EXTENSION
+    redirect_field_name = REDIRECT_FIELD_NAME
+
+    def dispatch(self, request, *args, **kwargs):
+        r429 = ratelimit.consume_or_429(
+            self.request,
+            action="reauthenticate",
+            user=self.request.user,
+        )
+        if r429:
+            return r429
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_form_class(self):
+        return get_form_class(app_settings.FORMS, "reauthenticate", self.form_class)
+
+    def get_success_url(self):
+        url = get_next_redirect_url(self.request, self.redirect_field_name)
+        if not url:
+            url = get_adapter(self.request).get_login_redirect_url(self.request)
+        return url
+
+    def get_form_kwargs(self):
+        ret = super().get_form_kwargs()
+        ret["user"] = self.request.user
+        return ret
+
+    def form_valid(self, form):
+        record_authentication(self.request, self.request.user)
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        ret = super(ReauthenticateView, self).get_context_data(**kwargs)
+        redirect_field_value = get_request_param(self.request, self.redirect_field_name)
+        ret.update(
+            {
+                "redirect_field_name": self.redirect_field_name,
+                "redirect_field_value": redirect_field_value,
+            }
+        )
+        return ret
+
+
+reauthenticate = login_required(ReauthenticateView.as_view())

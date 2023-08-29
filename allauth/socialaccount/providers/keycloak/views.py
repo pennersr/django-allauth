@@ -6,11 +6,11 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 from allauth.socialaccount.providers.openid_connect.views import (
-    OpenIDConnectAdapter,
+    BaseOpenIDConnectAdapter,
 )
 
 
-class KeycloakOAuth2Adapter(OpenIDConnectAdapter):
+class KeycloakOAuth2Adapter(BaseOpenIDConnectAdapter):
     provider_id = KeycloakProvider.id
 
     @property
@@ -32,15 +32,5 @@ class KeycloakOAuth2Adapter(OpenIDConnectAdapter):
         )
 
 
-def oauth2_login(request):
-    view = OAuth2LoginView.adapter_view(
-        KeycloakOAuth2Adapter(request, KeycloakProvider.id)
-    )
-    return view(request)
-
-
-def oauth2_callback(request):
-    view = OAuth2CallbackView.adapter_view(
-        KeycloakOAuth2Adapter(request, KeycloakProvider.id)
-    )
-    return view(request)
+oauth2_login = OAuth2LoginView.adapter_view(KeycloakOAuth2Adapter)
+oauth2_callback = OAuth2CallbackView.adapter_view(KeycloakOAuth2Adapter)

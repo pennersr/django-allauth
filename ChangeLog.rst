@@ -4,7 +4,11 @@
 Note worthy changes
 -------------------
 
-- ...
+- Fixed reversal of the Keycloak callback URL, which was reversed using
+  ``"openid_connect_callback"`` instead of ``"keycloak_callback"``. Although the
+  resulting URL is the same, it results in a ``NoReverseMatch`` error when
+  ``allauth.socialaccount.providers.openid_connect`` is not present in
+  ``INSTALLED_APPS``.
 
 
 0.55.0 (2023-08-22)

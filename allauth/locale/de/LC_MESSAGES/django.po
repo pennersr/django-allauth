@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-22 12:11-0500\n"
+"POT-Creation-Date: 2023-08-30 16:00-0500\n"
 "PO-Revision-Date: 2020-10-15 19:48+0200\n"
 "Last-Translator: Jannis Vajen <jvajen@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/django-allauth/"
@@ -34,12 +34,18 @@ msgstr ""
 msgid "A user is already registered with this email address."
 msgstr "Es ist bereits jemand mit dieser E-Mail-Adresse registriert."
 
-#: account/adapter.py:304
+#: account/adapter.py:56
+#, fuzzy
+#| msgid "Current Password"
+msgid "Incorrect password."
+msgstr "Aktuelles Passwort"
+
+#: account/adapter.py:305
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Das Passwort muss aus mindestens {0} Zeichen bestehen."
 
-#: account/apps.py:7
+#: account/apps.py:9
 msgid "Accounts"
 msgstr "Konten"
 
@@ -47,7 +53,8 @@ msgstr "Konten"
 msgid "You must type the same password each time."
 msgstr "Du musst zweimal das selbe Passwort eingeben."
 
-#: account/forms.py:90 account/forms.py:397 account/forms.py:514
+#: account/forms.py:90 account/forms.py:397 account/forms.py:522
+#: account/forms.py:660
 msgid "Password"
 msgstr "Passwort"
 
@@ -68,12 +75,12 @@ msgid "The username and/or password you specified are not correct."
 msgstr "Der Anmeldename und/oder das Passwort sind leider falsch."
 
 #: account/forms.py:111 account/forms.py:271 account/forms.py:459
-#: account/forms.py:532
+#: account/forms.py:540
 msgid "Email address"
 msgstr "E-Mail-Adresse"
 
 #: account/forms.py:115 account/forms.py:316 account/forms.py:456
-#: account/forms.py:527
+#: account/forms.py:535
 msgid "Email"
 msgstr "E-Mail"
 
@@ -107,82 +114,118 @@ msgstr "E-Mail (optional)"
 msgid "You must type the same email each time."
 msgstr "Du musst zweimal dieselbe E-Mail-Adresse eingeben."
 
-#: account/forms.py:401 account/forms.py:515
+#: account/forms.py:401 account/forms.py:523
 msgid "Password (again)"
 msgstr "Passwort (Wiederholung)"
 
-#: account/forms.py:468
+#: account/forms.py:470
 msgid "This email address is already associated with this account."
 msgstr "Diese E-Mail-Adresse wird bereits in diesem Konto verwendet."
 
-#: account/forms.py:470
+#: account/forms.py:472
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Du kannst nicht mehr als %d E-Mail-Adressen hinzufügen."
 
-#: account/forms.py:495
+#: account/forms.py:503
 msgid "Current Password"
 msgstr "Aktuelles Passwort"
 
-#: account/forms.py:497 account/forms.py:601
+#: account/forms.py:505 account/forms.py:609
 msgid "New Password"
 msgstr "Neues Passwort"
 
-#: account/forms.py:498 account/forms.py:602
+#: account/forms.py:506 account/forms.py:610
 msgid "New Password (again)"
 msgstr "Neues Passwort (Wiederholung)"
 
-#: account/forms.py:506
+#: account/forms.py:514
 msgid "Please type your current password."
 msgstr "Bitte gib dein aktuelles Passwort ein."
 
-#: account/forms.py:544
+#: account/forms.py:552
 msgid "The email address is not assigned to any user account"
 msgstr "Diese E-Mail-Adresse ist keinem Konto zugeordnet"
 
-#: account/forms.py:622
+#: account/forms.py:630
 msgid "The password reset token was invalid."
 msgstr "Das Sicherheits-Token zum Zurücksetzen des Passwortes war ungültig."
 
-#: account/models.py:20
+#: account/models.py:21
 msgid "user"
 msgstr "Benutzer"
 
-#: account/models.py:25 account/models.py:33 account/models.py:132
+#: account/models.py:26 account/models.py:34 account/models.py:138
 msgid "email address"
 msgstr "E-Mail-Adresse"
 
-#: account/models.py:27
+#: account/models.py:28
 msgid "verified"
 msgstr "bestätigt"
 
-#: account/models.py:28
+#: account/models.py:29
 msgid "primary"
 msgstr "Primär"
 
-#: account/models.py:34
+#: account/models.py:35
 msgid "email addresses"
 msgstr "E-Mail-Adressen"
 
-#: account/models.py:135
+#: account/models.py:141
 msgid "created"
 msgstr "Erstellt"
 
-#: account/models.py:136
+#: account/models.py:142
 msgid "sent"
 msgstr "Gesendet"
 
-#: account/models.py:137 socialaccount/models.py:60
+#: account/models.py:143 socialaccount/models.py:60
 msgid "key"
 msgstr "Schlüssel"
 
-#: account/models.py:142
+#: account/models.py:148
 msgid "email confirmation"
 msgstr "E-Mail-Bestätigung"
 
-#: account/models.py:143
+#: account/models.py:149
 msgid "email confirmations"
 msgstr "E-Mail-Bestätigungen"
+
+#: mfa/adapter.py:18
+msgid ""
+"You cannot activate two-factor authentication until you have verified your "
+"email address."
+msgstr ""
+
+#: mfa/adapter.py:21
+msgid ""
+"You cannot add an email address to an account protected by two-factor "
+"authentication."
+msgstr ""
+
+#: mfa/adapter.py:23
+msgid "Incorrect code."
+msgstr ""
+
+#: mfa/apps.py:7
+msgid "MFA"
+msgstr ""
+
+#: mfa/forms.py:12
+msgid "Code"
+msgstr ""
+
+#: mfa/forms.py:29
+msgid "Authenticator code"
+msgstr ""
+
+#: mfa/models.py:15
+msgid "Recovery codes"
+msgstr ""
+
+#: mfa/models.py:16
+msgid "TOTP Authenticator"
+msgstr ""
 
 #: socialaccount/adapter.py:28
 #, fuzzy, python-format
@@ -306,32 +349,38 @@ msgstr "Tokens für soziale Anwendungen"
 msgid "Invalid profile data"
 msgstr "Ungültige Profildaten"
 
-#: socialaccount/providers/oauth/client.py:84
-#: socialaccount/providers/pocket/client.py:37
-#, python-format
-msgid "Invalid response while obtaining request token from \"%s\"."
+#: socialaccount/providers/oauth/client.py:85
+#, fuzzy, python-format
+#| msgid "Invalid response while obtaining request token from \"%s\"."
+msgid ""
+"Invalid response while obtaining request token from \"%s\". Response was: %s."
 msgstr "Ungültige Antwort von \"%s\" als Anfrageschlüssel erbeten wurde."
 
-#: socialaccount/providers/oauth/client.py:116
+#: socialaccount/providers/oauth/client.py:119
 #: socialaccount/providers/pocket/client.py:78
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Ungültige Antwort von \"%s\" als Zugangsschlüssel erbeten wurde."
 
-#: socialaccount/providers/oauth/client.py:137
+#: socialaccount/providers/oauth/client.py:140
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr "Kein Request-Token gespeichert für \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:188
+#: socialaccount/providers/oauth/client.py:191
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "Kein Access-Token gespeichert für \"%s\"."
 
-#: socialaccount/providers/oauth/client.py:209
+#: socialaccount/providers/oauth/client.py:212
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "Kein Zugriff zu privaten Daten auf \"%s\"."
+
+#: socialaccount/providers/pocket/client.py:37
+#, python-format
+msgid "Invalid response while obtaining request token from \"%s\"."
+msgstr "Ungültige Antwort von \"%s\" als Anfrageschlüssel erbeten wurde."
 
 #: templates/account/account_inactive.html:5
 #: templates/account/account_inactive.html:8
@@ -363,6 +412,7 @@ msgstr "Abmelden"
 
 #: templates/account/base.html:32 templates/account/login.html:6
 #: templates/account/login.html:10 templates/account/login.html:43
+#: templates/mfa/authenticate.html:4 templates/mfa/authenticate.html:16
 #: templates/socialaccount/login.html:4
 msgid "Sign In"
 msgstr "Anmeldung"
@@ -604,6 +654,7 @@ msgstr ""
 "Adresse von %(user_display)s ist."
 
 #: templates/account/email_confirm.html:21
+#: templates/account/reauthenticate.html:19
 msgid "Confirm"
 msgstr "Bestätigen"
 
@@ -788,6 +839,17 @@ msgstr "Dein Passwort wurde geändert."
 msgid "Set Password"
 msgstr "Passwort setzen"
 
+#: templates/account/reauthenticate.html:5
+#: templates/account/reauthenticate.html:9
+#, fuzzy
+#| msgid "Confirm Email Address"
+msgid "Confirm Access"
+msgstr "E-Mail-Adresse bestätigen"
+
+#: templates/account/reauthenticate.html:11
+msgid "To safeguard the security of your account, please enter your password:"
+msgstr ""
+
 #: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
 msgstr "Registrieren"
@@ -909,6 +971,110 @@ msgid ""
 msgstr ""
 "<strong>Anmerkung:</strong> Du kannst <a href=\"%(email_url)s\">Deine E-Mail-"
 "Adresse ändern</a>."
+
+#: templates/mfa/authenticate.html:7 templates/mfa/index.html:4
+#: templates/mfa/index.html:7
+msgid "Two-Factor Authentication"
+msgstr ""
+
+#: templates/mfa/authenticate.html:9
+msgid ""
+"Your account is protected by two-factor authentication. Please enter an "
+"authenticator code:"
+msgstr ""
+
+#: templates/mfa/index.html:9 templates/mfa/totp/base.html:4
+msgid "Authenticator App"
+msgstr ""
+
+#: templates/mfa/index.html:11
+msgid "Authentication using an authenticator app is active."
+msgstr ""
+
+#: templates/mfa/index.html:14 templates/mfa/totp/deactivate_form.html:11
+msgid "Deactivate"
+msgstr ""
+
+#: templates/mfa/index.html:18
+msgid "An authenticator app is not active."
+msgstr ""
+
+#: templates/mfa/index.html:21 templates/mfa/totp/activate_form.html:16
+msgid "Activate"
+msgstr ""
+
+#: templates/mfa/index.html:27 templates/mfa/recovery_codes/base.html:4
+#: templates/mfa/recovery_codes/generate.html:4
+#: templates/mfa/recovery_codes/index.html:4
+msgid "Recovery Codes"
+msgstr ""
+
+#: templates/mfa/index.html:30 templates/mfa/recovery_codes/index.html:6
+#, python-format
+msgid ""
+"There is %(unused_count)s out of %(total_count)s recovery codes available."
+msgid_plural ""
+"There are %(unused_count)s out of %(total_count)s recovery codes available."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/mfa/index.html:34
+msgid "View codes"
+msgstr ""
+
+#: templates/mfa/index.html:37 templates/mfa/recovery_codes/index.html:16
+msgid "Download codes"
+msgstr ""
+
+#: templates/mfa/index.html:40 templates/mfa/recovery_codes/index.html:20
+msgid "Generate new codes"
+msgstr ""
+
+#: templates/mfa/index.html:44
+msgid "No recovery codes set up."
+msgstr ""
+
+#: templates/mfa/messages/recovery_codes_generated.txt:2
+msgid "A new set of recovery codes has been generated."
+msgstr ""
+
+#: templates/mfa/messages/totp_activated.txt:2
+msgid "Authenticator app activated."
+msgstr ""
+
+#: templates/mfa/messages/totp_deactivated.txt:2
+msgid "Authenticator app deactivated."
+msgstr ""
+
+#: templates/mfa/recovery_codes/generate.html:6
+msgid ""
+"You are about to generate a new set of recovery codes for your account. This "
+"action will invalidate your existing codes. Are you sure?"
+msgstr ""
+
+#: templates/mfa/recovery_codes/generate.html:11
+msgid "Generate"
+msgstr ""
+
+#: templates/mfa/totp/activate_form.html:4
+msgid "Activate Authenticator App"
+msgstr ""
+
+#: templates/mfa/totp/activate_form.html:9
+#, fuzzy
+#| msgid "token secret"
+msgid "Authenticator secret"
+msgstr "Geheimes Token"
+
+#: templates/mfa/totp/deactivate_form.html:4
+msgid "Deactivate Authenticator App"
+msgstr ""
+
+#: templates/mfa/totp/deactivate_form.html:6
+msgid ""
+"You are about to deactivate authenticator app based authentication. Are you "
+"sure?"
+msgstr ""
 
 #: templates/openid/login.html:9
 msgid "OpenID Sign In"

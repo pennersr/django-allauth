@@ -226,9 +226,7 @@ class DefaultSocialAccountAdapter(object):
         # First, populate it with the DB backed apps.
         db_apps = SocialApp.objects.on_site(request)
         if provider:
-            db_apps = db_apps.filter(
-                Q(provider_id="", provider=provider) | Q(provider_id=provider)
-            )
+            db_apps = db_apps.filter(Q(provider=provider) | Q(provider_id=provider))
         if client_id:
             db_apps = db_apps.filter(client_id=client_id)
         for app in db_apps:

@@ -16,6 +16,33 @@ Backwards incompatible changes
   in your ``settings.MIDDLEWARE``.
 
 
+0.55.2 (2023-08-30)
+*******************
+
+Fixes
+-----
+
+- Email confirmation: An attribute error could occur when following invalid
+  email confirmation links.
+
+
+0.55.1 (2023-08-30)
+*******************
+
+Fixes
+-----
+
+- SAML: the lookup of the app (``SocialApp``) was working correctly for apps
+  configured via the settings, but failed when the app was configured via the
+  Django admin.
+
+- Keycloak: fixed reversal of the callback URL, which was reversed using
+  ``"openid_connect_callback"`` instead of ``"keycloak_callback"``. Although the
+  resulting URL is the same, it results in a ``NoReverseMatch`` error when
+  ``allauth.socialaccount.providers.openid_connect`` is not present in
+  ``INSTALLED_APPS``.
+
+
 0.55.0 (2023-08-22)
 *******************
 

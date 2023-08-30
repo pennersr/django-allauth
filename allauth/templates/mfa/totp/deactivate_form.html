@@ -1,0 +1,13 @@
+{% extends "mfa/totp/base.html" %}
+{% load i18n %}
+{% block content %}
+    <h1>{% trans "Deactivate Authenticator App" %}</h1>
+    <p>
+        {% blocktranslate %}You are about to deactivate authenticator app based authentication. Are you sure?{% endblocktranslate %}
+    </p>
+    <form method="POST" action="{% url 'mfa_deactivate_totp' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">{% trans "Deactivate" %}</button>
+    </form>
+{% endblock %}

@@ -461,6 +461,8 @@ class AddEmailForm(UserForm):
     )
 
     def clean_email(self):
+        from allauth.account import signals
+
         value = self.cleaned_data["email"]
         value = get_adapter().clean_email(value)
         errors = {
@@ -478,6 +480,12 @@ class AddEmailForm(UserForm):
             raise forms.ValidationError(
                 errors["max_email_addresses"] % app_settings.MAX_EMAIL_ADDRESSES
             )
+
+        signals._add_email.send(
+            sender=self.user.__class__,
+            email=value,
+            user=self.user,
+        )
         return value
 
     def save(self, request):
@@ -646,3 +654,19 @@ class UserTokenForm(forms.Form):
             raise forms.ValidationError(self.error_messages["token_invalid"])
 
         return cleaned_data
+
+
+class ReauthenticateForm(forms.Form):
+    password = PasswordField(label=_("Password"), autocomplete="current-password")
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user")
+        super().__init__(*args, **kwargs)
+
+    def clean_password(self):
+        password = self.cleaned_data.get("password")
+        if not self.user.check_password(password):
+            raise forms.ValidationError(
+                get_adapter().error_messages["incorrect_password"]
+            )
+        return password

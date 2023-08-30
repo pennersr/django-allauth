@@ -1,5 +1,7 @@
 from __future__ import absolute_import
 
+import logging
+
 from django.urls import reverse
 
 from allauth.socialaccount.adapter import get_adapter
@@ -17,6 +19,9 @@ from allauth.socialaccount.providers.oauth.client import (
     OAuthClient,
     OAuthError,
 )
+
+
+logger = logging.getLogger(__name__)
 
 
 class OAuthAdapter(object):
@@ -78,6 +83,7 @@ class OAuthLoginView(OAuthLoginMixin, OAuthView):
         try:
             return client.get_redirect(auth_url, auth_params)
         except OAuthError as e:
+            logger.error("OAuth authentication error", exc_info=True)
             return render_authentication_error(
                 request, self.adapter.provider_id, exception=e
             )

@@ -189,6 +189,8 @@ class AppSettings(object):
             "reset_password": "20/m",
             # Rate limit measured per individual email address
             "reset_password_email": "5/m",
+            # Reauthentication for users already logged in)
+            "reauthenticate": "10/m",
             # Password reset (the view the password reset email links to).
             "reset_password_from_key": "20/m",
             # Signups.
@@ -382,6 +384,10 @@ class AppSettings(object):
         else:
             token_generator = EmailAwarePasswordResetTokenGenerator
         return token_generator
+
+    @property
+    def REAUTHENTICATION_TIMEOUT(self):
+        return self._setting("REAUTHENTICATION_TIMEOUT", 300)
 
 
 _app_settings = AppSettings("ACCOUNT_")

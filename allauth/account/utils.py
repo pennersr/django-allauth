@@ -1,3 +1,4 @@
+import time
 import unicodedata
 from collections import OrderedDict
 
@@ -12,6 +13,7 @@ from django.utils.http import base36_to_int, int_to_base36, urlencode
 
 from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
+from allauth.account.models import Login
 from allauth.exceptions import ImmediateHttpResponse
 from allauth.utils import (
     get_request_param,
@@ -154,29 +156,84 @@ def perform_login(
     email is essential (during signup), or if it can be skipped (e.g. in
     case email verification is optional and we are only logging in).
     """
+    login = Login(
+        user=user,
+        email_verification=email_verification,
+        redirect_url=redirect_url,
+        signal_kwargs=signal_kwargs,
+        signup=signup,
+        email=email,
+    )
+    return _perform_login(request, login)
+
+
+def _perform_login(request, login):
     # Local users are stopped due to form validation checking
     # is_active, yet, adapter methods could toy with is_active in a
     # `user_signed_up` signal. Furthermore, social users should be
     # stopped anyway.
     adapter = get_adapter(request)
     try:
-        hook_kwargs = dict(
-            email_verification=email_verification,
-            redirect_url=redirect_url,
-            signal_kwargs=signal_kwargs,
-            signup=signup,
-            email=email,
-        )
-        response = adapter.pre_login(request, user, **hook_kwargs)
+        hook_kwargs = _get_login_hook_kwargs(login)
+        response = adapter.pre_login(request, login.user, **hook_kwargs)
         if response:
             return response
-        adapter.login(request, user)
-        response = adapter.post_login(request, user, **hook_kwargs)
+    except ImmediateHttpResponse as e:
+        response = e.response
+    return resume_login(request, login)
+
+
+def _get_login_hook_kwargs(login):
+    """
+    TODO: Just break backwards compatibility and pass only `login` to
+    `pre/post_login()`.
+    """
+    return dict(
+        email_verification=login.email_verification,
+        redirect_url=login.redirect_url,
+        signal_kwargs=login.signal_kwargs,
+        signup=login.signup,
+        email=login.email,
+    )
+
+
+def resume_login(request, login):
+    from allauth.account.stages import LoginStageController
+
+    adapter = get_adapter(request)
+    ctrl = LoginStageController(request, login)
+    try:
+        response = ctrl.handle()
+        if response:
+            return response
+        adapter.login(request, login.user)
+        hook_kwargs = _get_login_hook_kwargs(login)
+        response = adapter.post_login(request, login.user, **hook_kwargs)
         if response:
             return response
     except ImmediateHttpResponse as e:
         response = e.response
     return response
+
+
+def unstash_login(request, peek=False):
+    login = None
+    if peek:
+        data = request.session.get("account_login")
+    else:
+        data = request.session.pop("account_login", None)
+    if data is not None:
+        try:
+            login = Login.deserialize(data)
+            request._account_login_accessed = True
+        except ValueError:
+            pass
+    return login
+
+
+def stash_login(request, login):
+    request.session["account_login"] = login.serialize()
+    request._account_login_accessed = True
 
 
 def complete_signup(request, user, email_verification, success_url, signal_kwargs=None):
@@ -462,3 +519,24 @@ def url_str_to_user_pk(pk_str):
     else:
         pk = pk_field.to_python(pk_str)
     return pk
+
+
+def record_authentication(request, user):
+    request.session["account_authenticated_at"] = time.time()
+
+
+def did_recently_authenticate(request):
+    if request.user.is_anonymous:
+        return False
+    if not request.user.has_usable_password():
+        # TODO: This user only has social accounts attached. Now, ideally, you
+        # would want to reauthenticate over at the social account provider. For
+        # now, this is not implemented. Although definitely suboptimal, this
+        # method is currently used for reauthentication checks over at MFA, and,
+        # users that delegate the security of their account to an external
+        # provider like Google typically use MFA over there anyway.
+        return True
+    authenticated_at = request.session.get("account_authenticated_at")
+    if not authenticated_at:
+        return False
+    return time.time() - authenticated_at < app_settings.REAUTHENTICATION_TIMEOUT

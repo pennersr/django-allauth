@@ -1,0 +1,13 @@
+{% extends "mfa/recovery_codes/base.html" %}
+{% load i18n %}
+{% block content %}
+    <h1>{% translate "Recovery Codes" %}</h1>
+    <p>
+        {% blocktranslate %}You are about to generate a new set of recovery codes for your account. This action will invalidate your existing codes. Are you sure?{% endblocktranslate %}
+    </p>
+    <form method="POST" action="{% url 'mfa_generate_recovery_codes' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">{% trans "Generate" %}</button>
+    </form>
+{% endblock %}

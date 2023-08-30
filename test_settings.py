@@ -21,6 +21,7 @@ DATABASES = {
 }
 
 ROOT_URLCONF = "allauth.urls"
+LOGIN_URL = "/login/"
 
 TEMPLATES = [
     {
@@ -47,6 +48,8 @@ MIDDLEWARE = (
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+
+    "allauth.account.middleware.AccountMiddleware",
 )
 
 INSTALLED_APPS = (
@@ -59,6 +62,7 @@ INSTALLED_APPS = (
     "django.contrib.admin",
     "allauth",
     "allauth.account",
+    "allauth.mfa",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.agave",
     "allauth.socialaccount.providers.amazon",

@@ -81,8 +81,11 @@ class OAuthClient(object):
             response = requests.post(url=rt_url, auth=oauth)
             if response.status_code not in [200, 201]:
                 raise OAuthError(
-                    _("Invalid response while obtaining request token" ' from "%s".')
-                    % get_token_prefix(self.request_token_url)
+                    _(
+                        "Invalid response while obtaining request token"
+                        ' from "%s". Response was: %s.'
+                    )
+                    % (get_token_prefix(self.request_token_url), response.text)
                 )
             self.request_token = dict(parse_qsl(response.text))
             self.request.session[

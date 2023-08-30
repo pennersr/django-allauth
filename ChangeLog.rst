@@ -1,10 +1,14 @@
 0.55.1 (unreleased)
 *******************
 
-Note worthy changes
--------------------
+Fixes
+-----
 
-- Fixed reversal of the Keycloak callback URL, which was reversed using
+- SAML: the lookup of the app (``SocialApp``) was working correctly for apps
+  configured via the settings, but failed when the app was configured via the
+  Django admin.
+
+- Keycloak: fixed reversal of the callback URL, which was reversed using
   ``"openid_connect_callback"`` instead of ``"keycloak_callback"``. Although the
   resulting URL is the same, it results in a ``NoReverseMatch`` error when
   ``allauth.socialaccount.providers.openid_connect`` is not present in

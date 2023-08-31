@@ -5,6 +5,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse
 from django.utils.http import urlencode
 
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.openid.provider import (
     OpenIDAccount,
     OpenIDProvider,
@@ -54,6 +55,12 @@ class SteamOpenIDProvider(OpenIDProvider):
     id = "steam"
     name = "Steam"
     account_class = SteamAccount
+    uses_apps = True
+
+    def __init__(self, request, app=None):
+        if app is None:
+            app = get_adapter(request).get_app(request, self.id)
+        super().__init__(request, app=app)
 
     def get_login_url(self, request, **kwargs):
         url = reverse("steam_login")

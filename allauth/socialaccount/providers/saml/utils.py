@@ -53,6 +53,9 @@ def build_sp_config(request, provider_config, org):
     if avd.get("x509cert") is not None:
         sp_config["x509cert"] = avd["x509cert"]
 
+    if avd.get("x509cert_new"):
+        sp_config["x509certNew"] = avd["x509cert_new"]
+
     if avd.get("private_key") is not None:
         sp_config["privateKey"] = avd["private_key"]
 
@@ -101,11 +104,21 @@ def build_saml_config(request, provider_config, org):
         "allowSingleLabelDomains": avd.get("allow_single_label_domains", False),
         "rejectDeprecatedAlgorithm": avd.get("reject_deprecated_algorithm", True),
         "wantNameId": avd.get("want_name_id", False),
+        "wantAttributeStatement": avd.get("want_attribute_statement", True),
+        "allowRepeatAttributeName": avd.get("allow_repeat_attribute_name", True),
     }
     saml_config = {
         "strict": avd.get("strict", True),
         "security": security_config,
     }
+
+    contacts = provider_config.get("contacts")
+    if contacts:
+        saml_config["contactPerson"] = contacts
+
+    organization = provider_config.get("organization")
+    if organization:
+        saml_config["organization"] = organization
 
     idp = provider_config.get("idp")
     if idp is None:
@@ -125,10 +138,4 @@ def build_saml_config(request, provider_config, org):
             saml_config["idp"]["singleLogoutService"] = {"url": slo_url}
 
     saml_config["sp"] = build_sp_config(request, provider_config, org)
-    contacts = provider_config.get("contactPerson")
-    if contacts:
-        saml_config["contactPerson"] = contacts
-    organization = provider_config.get("organization")
-    if organization:
-        saml_config["organization"] = organization
     return saml_config

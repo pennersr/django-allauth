@@ -112,9 +112,9 @@ def build_saml_config(request, provider_config, org):
         "security": security_config,
     }
 
-    contacts = provider_config.get("contacts")
-    if contacts:
-        saml_config["contactPerson"] = contacts
+    contact_person = provider_config.get("contact_person")
+    if contact_person:
+        saml_config["contactPerson"] = contact_person
 
     organization = provider_config.get("organization")
     if organization:

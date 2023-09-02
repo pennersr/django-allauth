@@ -61,7 +61,6 @@ the ``settings.py`` of your project::
         'allauth.socialaccount.providers.bitbucket_oauth2',
         'allauth.socialaccount.providers.bitly',
         'allauth.socialaccount.providers.box',
-        'allauth.socialaccount.providers.cern',
         'allauth.socialaccount.providers.cilogon',
         'allauth.socialaccount.providers.clever',
         'allauth.socialaccount.providers.coinbase',

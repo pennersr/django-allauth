@@ -12,8 +12,29 @@ Backwards incompatible changes
 
 - Dropped support for Django 3.1.
 
-- The ``"allauth.account.middleware.AccountMiddleware"`` middleware is required to be present
-  in your ``settings.MIDDLEWARE``.
+- The ``"allauth.account.middleware.AccountMiddleware"`` middleware is required
+  to be present in your ``settings.MIDDLEWARE``.
+
+- Starting from September 1st 2023, CERN upgraded their SSO to a standard OpenID
+  Connect based solution. As a result, the previously builtin CERN provider is
+  no longer needed and has been removed. Instead, use the regular OpenID Connect
+  configuration::
+
+    SOCIALACCOUNT_PROVIDERS = {
+        "openid_connect": {
+            "APPS": [
+                {
+                    "provider_id": "cern",
+                    "name": "CERN",
+                    "client_id": "<insert-id>",
+                    "secret": "<insert-secret>",
+                    "settings": {
+                        "server_url": "https://auth.cern.ch/auth/realms/cern/.well-known/openid-configuration",
+                    },
+                }
+            ]
+        }
+    }
 
 
 0.55.2 (2023-08-30)

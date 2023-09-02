@@ -264,4 +264,6 @@ extensions = [
 sys.path.insert(0, os.path.abspath("../"))
 autodoc_mock_imports = [
     "allauth.account.utils",
+    "allauth.mfa.app_settings",
+    "allauth.app_settings",
 ]

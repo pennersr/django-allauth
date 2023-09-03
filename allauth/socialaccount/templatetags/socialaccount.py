@@ -16,7 +16,7 @@ def provider_login_url(context, provider, **params):
     """
     request = context.get("request")
     if isinstance(provider, str):
-        adapter = get_adapter(request)
+        adapter = get_adapter()
         provider = adapter.get_provider(request, provider)
     query = dict(params)
     auth_params = query.get("auth_params", None)
@@ -42,7 +42,7 @@ def provider_login_url(context, provider, **params):
 @register.simple_tag(takes_context=True)
 def providers_media_js(context):
     request = context["request"]
-    providers = get_adapter(request).list_providers(request)
+    providers = get_adapter().list_providers(request)
     ret = "\n".join(p.media_js(request) for p in providers)
     return mark_safe(ret)
 
@@ -75,6 +75,6 @@ def get_providers(context):
     a list of social providers configured for the current site.
     """
     request = context["request"]
-    adapter = get_adapter(request)
+    adapter = get_adapter()
     providers = adapter.list_providers(request)
     return sorted(providers, key=lambda p: p.name)

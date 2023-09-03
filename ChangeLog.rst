@@ -6,6 +6,16 @@ Note worthy changes
 
 - Added builtin support for Two-Factor Authentication via the ``allauth.mfa`` app.
 
+- The fact that ``request`` is not available globally has left its mark on the
+  code over the years. Some functions get explicitly passed a request, some do
+  not, and some constructs have it available both as a parameter and as
+  ``self.request``.  As having request available is essential, especially when
+  trying to implement adapter hooks, the request has now been made globally
+  available via::
+
+    from allauth.core import context
+    context.request
+
 
 Backwards incompatible changes
 ------------------------------

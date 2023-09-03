@@ -141,7 +141,7 @@ class SocialAccount(models.Model):
         provider = getattr(self, "_provider", None)
         if provider:
             return provider
-        adapter = get_adapter(request)
+        adapter = get_adapter()
         provider = self._provider = adapter.get_provider(
             request, provider=self.provider
         )

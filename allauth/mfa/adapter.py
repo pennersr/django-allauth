@@ -2,6 +2,7 @@ from django.utils.translation import gettext_lazy as _
 
 from allauth import app_settings as allauth_settings
 from allauth.account.utils import user_email, user_username
+from allauth.core import context
 from allauth.mfa import app_settings
 from allauth.utils import import_attribute
 
@@ -24,9 +25,6 @@ class DefaultMFAAdapter:
     }
     "The error messages that can occur as part of MFA form handling."
 
-    def __init__(self, request=None):
-        self.request = request
-
     def get_totp_label(self, user) -> str:
         """Returns the label used for representing the given user in a TOTP QR
         code.
@@ -47,9 +45,9 @@ class DefaultMFAAdapter:
             if allauth_settings.SITES_ENABLED:
                 from django.contrib.sites.models import Site
 
-                issuer = Site.objects.get_current(self.request).name
+                issuer = Site.objects.get_current(context.request).name
             else:
-                issuer = self.request.get_host()
+                issuer = context.request.get_host()
         return issuer
 
     def encrypt(self, text: str) -> str:
@@ -65,5 +63,5 @@ class DefaultMFAAdapter:
         return text
 
 
-def get_adapter(request=None):
-    return import_attribute(app_settings.ADAPTER)(request)
+def get_adapter():
+    return import_attribute(app_settings.ADAPTER)()

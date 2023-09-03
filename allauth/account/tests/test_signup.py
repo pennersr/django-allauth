@@ -14,6 +14,7 @@ from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.forms import BaseSignupForm, SignupForm
 from allauth.account.models import EmailAddress
+from allauth.core import context
 from allauth.tests import TestCase
 from allauth.utils import get_user_model, get_username_max_length
 
@@ -218,7 +219,8 @@ class SignupTests(TestCase):
         request.session["account_verified_email"] = verified_email
         from allauth.account.views import signup
 
-        resp = signup(request)
+        with context.request_context(request):
+            resp = signup(request)
         self.assertEqual(resp.status_code, 302)
         self.assertEqual(
             resp["location"], get_adapter().get_signup_redirect_url(request)
@@ -273,7 +275,8 @@ class SignupTests(TestCase):
         request.user = AnonymousUser()
         from allauth.account.views import signup
 
-        signup(request)
+        with context.request_context(request):
+            signup(request)
         user = get_user_model().objects.get(username="johndoe")
         self.assertEqual(user.email, "john@example.org")
 

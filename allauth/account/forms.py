@@ -380,7 +380,7 @@ class BaseSignupForm(_base_signup_form_class()):
             # Don't create a new acount, only send an email informing the user
             # that (s)he already has one...
             email = self.cleaned_data["email"]
-            adapter = get_adapter(request)
+            adapter = get_adapter()
             adapter.send_account_already_exists_mail(email)
             user = None
             resp = adapter.respond_email_verification_sent(request, None)
@@ -436,7 +436,7 @@ class SignupForm(BaseSignupForm):
     def save(self, request):
         if self.account_already_exists:
             raise ValueError(self.cleaned_data.get("email"))
-        adapter = get_adapter(request)
+        adapter = get_adapter()
         user = adapter.new_user(request)
         adapter.save_user(request, user, self)
         self.custom_signup(request, user)
@@ -569,7 +569,7 @@ class ResetPasswordForm(forms.Form):
             "request": request,
             "signup_url": signup_url,
         }
-        get_adapter(request).send_mail("account/email/unknown_account", email, context)
+        get_adapter().send_mail("account/email/unknown_account", email, context)
 
     def _send_password_reset_mail(self, request, email, users, **kwargs):
         token_generator = kwargs.get("token_generator", default_token_generator)
@@ -600,9 +600,7 @@ class ResetPasswordForm(forms.Form):
 
             if app_settings.AUTHENTICATION_METHOD != AuthenticationMethod.EMAIL:
                 context["username"] = user_username(user)
-            get_adapter(request).send_mail(
-                "account/email/password_reset_key", email, context
-            )
+            get_adapter().send_mail("account/email/password_reset_key", email, context)
 
 
 class ResetPasswordKeyForm(PasswordVerificationMixin, forms.Form):

@@ -7,6 +7,7 @@ from django.urls import reverse
 
 import pytest
 
+from allauth.core import context
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.models import SocialAccount
 
@@ -44,8 +45,8 @@ def test_email_authentication(
     SessionMiddleware(lambda request: None).process_request(request)
     MessageMiddleware(lambda request: None).process_request(request)
     request.user = AnonymousUser()
-
-    resp = complete_social_login(request, sociallogin)
+    with context.request_context(request):
+        resp = complete_social_login(request, sociallogin)
     if setting == "off":
         assert resp["location"] == reverse("account_email_verification_sent")
     else:

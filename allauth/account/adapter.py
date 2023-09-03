@@ -31,6 +31,7 @@ from django.utils.translation import gettext_lazy as _
 from allauth import app_settings as allauth_app_settings, ratelimit
 from allauth.account import signals
 from allauth.account.app_settings import EmailVerificationMethod
+from allauth.core import context
 from allauth.utils import (
     build_absolute_uri,
     generate_unique_username,
@@ -57,7 +58,9 @@ class DefaultAccountAdapter(object):
     }
 
     def __init__(self, request=None):
-        self.request = request
+        # Explicitly passing `request` is deprecated, just use:
+        # `allauth.core.context.request`.
+        self.request = context.request
 
     def stash_verified_email(self, request, email):
         request.session["account_verified_email"] = email
@@ -88,7 +91,7 @@ class DefaultAccountAdapter(object):
     def format_email_subject(self, subject):
         prefix = app_settings.EMAIL_SUBJECT_PREFIX
         if prefix is None:
-            site = get_current_site(self.request)
+            site = get_current_site(context.request)
             prefix = "[{name}] ".format(name=site.name)
         return prefix + force_str(subject)
 
@@ -119,7 +122,7 @@ class DefaultAccountAdapter(object):
                 bodies[ext] = render_to_string(
                     template_name,
                     context,
-                    self.request,
+                    globals()["context"].request,
                 ).strip()
             except TemplateDoesNotExist:
                 if ext == "txt" and not bodies:
@@ -333,7 +336,7 @@ class DefaultAccountAdapter(object):
                 escaped_message = render_to_string(
                     message_template,
                     message_context,
-                    self.request,
+                    context.request,
                 ).strip()
                 if escaped_message:
                     message = html.unescape(escaped_message)
@@ -534,7 +537,7 @@ class DefaultAccountAdapter(object):
             )
 
         # get_host already validates the given host, so no need to check it again
-        allowed_hosts = {self.request.get_host()} | set(settings.ALLOWED_HOSTS)
+        allowed_hosts = {context.request.get_host()} | set(settings.ALLOWED_HOSTS)
 
         if "*" in allowed_hosts:
             parsed_host = urlparse(url).netloc
@@ -574,18 +577,18 @@ class DefaultAccountAdapter(object):
         return send_email
 
     def send_account_already_exists_mail(self, email):
-        signup_url = build_absolute_uri(self.request, reverse("account_signup"))
+        signup_url = build_absolute_uri(context.request, reverse("account_signup"))
         password_reset_url = build_absolute_uri(
-            self.request, reverse("account_reset_password")
+            context.request, reverse("account_reset_password")
         )
-        context = {
-            "request": self.request,
-            "current_site": get_current_site(self.request),
+        ctx = {
+            "request": context.request,
+            "current_site": get_current_site(context.request),
             "email": email,
             "signup_url": signup_url,
             "password_reset_url": password_reset_url,
         }
-        self.send_mail("account/email/account_already_exists", email, context)
+        self.send_mail("account/email/account_already_exists", email, ctx)
 
     def send_confirmation_mail(self, request, emailconfirmation, signup):
         current_site = get_current_site(request)

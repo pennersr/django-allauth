@@ -40,7 +40,7 @@ def get_next_redirect_url(request, redirect_field_name="next"):
     via the request.
     """
     redirect_to = get_request_param(request, redirect_field_name)
-    if not get_adapter(request).is_safe_url(redirect_to):
+    if not get_adapter().is_safe_url(redirect_to):
         redirect_to = None
     return redirect_to
 
@@ -55,9 +55,9 @@ def get_login_redirect_url(request, url=None, redirect_field_name="next", signup
         ret = get_next_redirect_url(request, redirect_field_name=redirect_field_name)
     if not ret:
         if signup:
-            ret = get_adapter(request).get_signup_redirect_url(request)
+            ret = get_adapter().get_signup_redirect_url(request)
         else:
-            ret = get_adapter(request).get_login_redirect_url(request)
+            ret = get_adapter().get_login_redirect_url(request)
     return ret
 
 
@@ -172,7 +172,7 @@ def _perform_login(request, login):
     # is_active, yet, adapter methods could toy with is_active in a
     # `user_signed_up` signal. Furthermore, social users should be
     # stopped anyway.
-    adapter = get_adapter(request)
+    adapter = get_adapter()
     try:
         hook_kwargs = _get_login_hook_kwargs(login)
         response = adapter.pre_login(request, login.user, **hook_kwargs)
@@ -200,7 +200,7 @@ def _get_login_hook_kwargs(login):
 def resume_login(request, login):
     from allauth.account.stages import LoginStageController
 
-    adapter = get_adapter(request)
+    adapter = get_adapter()
     ctrl = LoginStageController(request, login)
     try:
         response = ctrl.handle()
@@ -262,7 +262,7 @@ def cleanup_email_addresses(request, addresses):
     """
     from .models import EmailAddress
 
-    adapter = get_adapter(request)
+    adapter = get_adapter()
     # Let's group by `email`
     e2a = OrderedDict()  # maps email to EmailAddress
     primary_addresses = []
@@ -326,7 +326,7 @@ def setup_user_email(request, user, addresses):
     assert not EmailAddress.objects.filter(user=user).exists()
     priority_addresses = []
     # Is there a stashed email?
-    adapter = get_adapter(request)
+    adapter = get_adapter()
     stashed_email = adapter.unstash_verified_email(request)
     if stashed_email:
         priority_addresses.append(
@@ -364,7 +364,7 @@ def send_email_confirmation(request, user, signup=False, email=None):
     """
     from .models import EmailAddress
 
-    adapter = get_adapter(request)
+    adapter = get_adapter()
 
     if not email:
         email = user_email(user)

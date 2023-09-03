@@ -28,10 +28,10 @@ from django.utils.crypto import get_random_string
 from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 
-from allauth import app_settings as allauth_app_settings, ratelimit
+from allauth import app_settings as allauth_app_settings
 from allauth.account import signals
 from allauth.account.app_settings import EmailVerificationMethod
-from allauth.core import context
+from allauth.core import context, ratelimit
 from allauth.utils import (
     build_absolute_uri,
     generate_unique_username,

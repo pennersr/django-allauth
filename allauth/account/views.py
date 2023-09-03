@@ -15,7 +15,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic.base import TemplateResponseMixin, TemplateView, View
 from django.views.generic.edit import FormView
 
-from allauth import ratelimit
+from allauth.core import ratelimit
 from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.decorators import rate_limit
 from allauth.utils import get_form_class, get_request_param

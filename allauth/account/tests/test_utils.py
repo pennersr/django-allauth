@@ -21,6 +21,7 @@ from allauth.account.utils import (
     user_pk_to_url_str,
     user_username,
 )
+from allauth.core import context
 from allauth.tests import TestCase, patch
 from allauth.utils import get_user_model
 
@@ -111,17 +112,17 @@ class UtilsTests(TestCase):
 
     @override_settings(ALLOWED_HOSTS=["allowed_host", "testserver"])
     def test_is_safe_url_no_wildcard(self):
-        request = RequestFactory().get("/")
-        self.assertTrue(get_adapter(request).is_safe_url("http://allowed_host/"))
-        self.assertFalse(get_adapter(request).is_safe_url("http://other_host/"))
+        with context.request_context(RequestFactory().get("/")):
+            self.assertTrue(get_adapter().is_safe_url("http://allowed_host/"))
+            self.assertFalse(get_adapter().is_safe_url("http://other_host/"))
 
     @override_settings(ALLOWED_HOSTS=["*"])
     def test_is_safe_url_wildcard(self):
-        request = RequestFactory().get("/")
-        self.assertTrue(get_adapter(request).is_safe_url("http://foobar.com/"))
-        self.assertTrue(get_adapter(request).is_safe_url("http://other_host/"))
+        with context.request_context(RequestFactory().get("/")):
+            self.assertTrue(get_adapter().is_safe_url("http://foobar.com/"))
+            self.assertTrue(get_adapter().is_safe_url("http://other_host/"))
 
     @override_settings(ALLOWED_HOSTS=["allowed_host", "testserver"])
     def test_is_safe_url_relative_path(self):
-        request = RequestFactory().get("/")
-        self.assertTrue(get_adapter(request).is_safe_url("/foo/bar"))
+        with context.request_context(RequestFactory().get("/")):
+            self.assertTrue(get_adapter().is_safe_url("/foo/bar"))

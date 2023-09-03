@@ -30,7 +30,7 @@ from allauth.utils import get_user_model
 
 def setup_app(provider_id):
     request = RequestFactory().get("/")
-    apps = get_adapter(request).list_apps(request, provider_id)
+    apps = get_adapter().list_apps(request, provider_id)
     if apps:
         return apps[0]
 

@@ -79,7 +79,7 @@ def login_by_token(request):
         form = FacebookConnectForm(request.POST)
         if form.is_valid():
             try:
-                adapter = get_adapter(request)
+                adapter = get_adapter()
                 provider = adapter.get_provider(request, FacebookProvider.id)
                 login_options = provider.get_fb_login_options(request)
                 app = provider.app

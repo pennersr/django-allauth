@@ -9,6 +9,8 @@ from django.db.models import Q
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
+from allauth.core import context
+
 from ..account.adapter import get_adapter as get_account_adapter
 from ..account.app_settings import EmailVerificationMethod
 from ..account.models import EmailAddress
@@ -32,7 +34,9 @@ class DefaultSocialAccountAdapter(object):
     }
 
     def __init__(self, request=None):
-        self.request = request
+        # Explicitly passing `request` is deprecated, just use:
+        # `allauth.core.context.request`.
+        self.request = context.request
 
     def pre_social_login(self, request, sociallogin):
         """

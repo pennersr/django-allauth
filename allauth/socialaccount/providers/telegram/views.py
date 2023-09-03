@@ -23,7 +23,7 @@ from .provider import TelegramProvider
 
 class LoginView(View):
     def dispatch(self, request):
-        provider = get_adapter(request).get_provider(request, TelegramProvider.id)
+        provider = get_adapter().get_provider(request, TelegramProvider.id)
         return_to = request.build_absolute_uri(
             reverse("telegram_callback") + "?" + request.GET.urlencode()
         )
@@ -52,7 +52,7 @@ class CallbackView(View):
         result = request.POST.get("tgAuthResult")
         padding = "=" * (4 - (len(result) % 4))
         data = json.loads(base64.b64decode(result + padding))
-        adapter = get_adapter(request)
+        adapter = get_adapter()
         provider = adapter.get_provider(request, TelegramProvider.id)
         hash = data.pop("hash")
         payload = "\n".join(sorted(["{}={}".format(k, v) for k, v in data.items()]))

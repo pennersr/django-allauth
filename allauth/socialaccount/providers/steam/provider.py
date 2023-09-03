@@ -59,7 +59,7 @@ class SteamOpenIDProvider(OpenIDProvider):
 
     def __init__(self, request, app=None):
         if app is None:
-            app = get_adapter(request).get_app(request, self.id)
+            app = get_adapter().get_app(request, self.id)
         super().__init__(request, app=app)
 
     def get_login_url(self, request, **kwargs):

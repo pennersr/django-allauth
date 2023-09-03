@@ -13,7 +13,7 @@ from .provider import SAMLProvider
 
 
 def get_app_or_404(request, organization_slug):
-    adapter = get_adapter(request)
+    adapter = get_adapter()
     try:
         return adapter.get_app(
             request, provider=SAMLProvider.id, client_id=organization_slug

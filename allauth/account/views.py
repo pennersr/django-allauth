@@ -57,7 +57,7 @@ sensitive_post_parameters_m = method_decorator(
 
 
 def _ajax_response(request, response, form=None, data=None):
-    adapter = get_adapter(request)
+    adapter = get_adapter()
     if adapter.is_ajax(request):
         if isinstance(response, HttpResponseRedirect) or isinstance(
             response, HttpResponsePermanentRedirect
@@ -509,7 +509,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
         email_address = self._get_email_address(request)
         if email_address:
             if email_address.primary:
-                get_adapter(request).add_message(
+                get_adapter().add_message(
                     request,
                     messages.ERROR,
                     "account/messages/cannot_delete_primary_email.txt",
@@ -523,7 +523,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                     user=request.user,
                     email_address=email_address,
                 )
-                get_adapter(request).add_message(
+                get_adapter().add_message(
                     request,
                     messages.SUCCESS,
                     "account/messages/email_deleted.txt",
@@ -544,7 +544,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                     user=request.user, verified=True
                 ).exists()
             ):
-                get_adapter(request).add_message(
+                get_adapter().add_message(
                     request,
                     messages.ERROR,
                     "account/messages/unverified_primary_email.txt",
@@ -559,7 +559,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                 except EmailAddress.DoesNotExist:
                     from_email_address = None
                 email_address.set_as_primary()
-                get_adapter(request).add_message(
+                get_adapter().add_message(
                     request,
                     messages.SUCCESS,
                     "account/messages/primary_email_set.txt",

@@ -152,7 +152,7 @@ class SocialAccount(models.Model):
 
 
 class SocialToken(models.Model):
-    app = models.ForeignKey(SocialApp, on_delete=models.CASCADE)
+    app = models.ForeignKey(SocialApp, on_delete=models.SET_NULL, blank=True, null=True)
     account = models.ForeignKey(SocialAccount, on_delete=models.CASCADE)
     token = models.TextField(
         verbose_name=_("token"),
@@ -257,7 +257,7 @@ class SocialLogin(object):
         user.save()
         self.account.user = user
         self.account.save()
-        if app_settings.STORE_TOKENS and self.token and self.token.app_id:
+        if app_settings.STORE_TOKENS and self.token:
             self.token.account = self.account
             self.token.save()
         if connect:

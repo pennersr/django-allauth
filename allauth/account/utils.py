@@ -14,7 +14,7 @@ from django.utils.http import base36_to_int, int_to_base36, urlencode
 from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
 from allauth.account.models import Login
-from allauth.exceptions import ImmediateHttpResponse
+from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.utils import (
     get_request_param,
     get_user_model,

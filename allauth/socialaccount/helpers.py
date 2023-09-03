@@ -14,7 +14,7 @@ from allauth.account.utils import (
     user_email,
     user_username,
 )
-from allauth.exceptions import ImmediateHttpResponse
+from allauth.core.exceptions import ImmediateHttpResponse
 
 from . import app_settings, signals
 from .adapter import get_adapter

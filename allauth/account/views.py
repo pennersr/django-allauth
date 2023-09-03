@@ -16,8 +16,8 @@ from django.views.generic.base import TemplateResponseMixin, TemplateView, View
 from django.views.generic.edit import FormView
 
 from allauth import ratelimit
+from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.decorators import rate_limit
-from allauth.exceptions import ImmediateHttpResponse
 from allauth.utils import get_form_class, get_request_param
 
 from . import app_settings, signals

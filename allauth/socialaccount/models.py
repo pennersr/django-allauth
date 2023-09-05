@@ -295,7 +295,7 @@ class SocialLogin(object):
             self.user = self.account.user
             a.save()
             # Update token
-            if app_settings.STORE_TOKENS and self.token and self.token.app.pk:
+            if app_settings.STORE_TOKENS and self.token:
                 assert not self.token.pk
                 try:
                     t = SocialToken.objects.get(

@@ -148,7 +148,8 @@ class OAuth2CallbackView(OAuth2View):
         try:
             access_token = self.adapter.get_access_token_data(request, app, client)
             token = self.adapter.parse_token(access_token)
-            token.app = app
+            if app.pk:
+                token.app = app
             login = self.adapter.complete_login(
                 request, app, token, response=access_token
             )

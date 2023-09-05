@@ -10,6 +10,8 @@ from django.utils.translation import gettext_lazy as _
 import allauth.app_settings
 from allauth.account.models import EmailAddress
 from allauth.account.utils import get_next_redirect_url, setup_user_email
+from allauth.core import context
+from allauth.socialaccount import signals
 from allauth.utils import get_user_model
 
 from ..utils import get_request_param
@@ -325,6 +327,11 @@ class SocialLogin(object):
         )
         if address:
             self.user = address.user
+            if app_settings.EMAIL_AUTHENTICATION_AUTO_CONNECT:
+                self.save(request=context.request, connect=True)
+                signals.social_account_added.send(
+                    sender=SocialLogin, request=context.request, sociallogin=self
+                )
 
     def get_redirect_url(self, request):
         url = self.state.get("next")

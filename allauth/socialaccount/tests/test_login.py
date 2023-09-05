@@ -1,5 +1,3 @@
-import uuid
-
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -12,9 +10,18 @@ from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.models import SocialAccount
 
 
+@pytest.mark.parametrize("auto_connect", [False, True])
 @pytest.mark.parametrize("setting", ["off", "on-global", "on-provider"])
 def test_email_authentication(
-    db, setting, settings, user_factory, sociallogin_factory, client, rf, mailoutbox
+    db,
+    setting,
+    settings,
+    user_factory,
+    sociallogin_factory,
+    client,
+    rf,
+    mailoutbox,
+    auto_connect,
 ):
     """Tests that when an already existing email is given at the social signup
     form, enumeration preventation kicks in.
@@ -31,13 +38,9 @@ def test_email_authentication(
         settings.SOCIALACCOUNT_PROVIDERS["google"] = {"EMAIL_AUTHENTICATION": True}
     else:
         settings.SOCIALACCOUNT_EMAIL_AUTHENTICATION = False
+    settings.SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = auto_connect
 
     user = user_factory()
-    SocialAccount.objects.create(
-        user=user,
-        provider="google",
-        uid=uuid.uuid4().hex,
-    )
 
     sociallogin = sociallogin_factory(email=user.email, provider="google")
 
@@ -51,3 +54,4 @@ def test_email_authentication(
         assert resp["location"] == reverse("account_email_verification_sent")
     else:
         assert resp["location"] == "/accounts/profile/"
+        assert SocialAccount.objects.filter(user=user.pk).exists() == auto_connect

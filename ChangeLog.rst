@@ -5,6 +5,7 @@ Note worthy changes
 -------------------
 
 - Added builtin support for Two-Factor Authentication via the ``allauth.mfa`` app.
+- Added django password validation help text to password1 on set/change/signup forms.
 
 
 Backwards incompatible changes

@@ -163,16 +163,10 @@ def _add_social_account(request, sociallogin):
             # for customized behaviour through use of a signal.
             action = "updated"
             message = "socialaccount/messages/account_connected_updated.txt"
-            signals.social_account_updated.send(
-                sender=SocialLogin, request=request, sociallogin=sociallogin
-            )
     else:
         # New account, let's connect
         action = "added"
         sociallogin.connect(request, request.user)
-        signals.social_account_added.send(
-            sender=SocialLogin, request=request, sociallogin=sociallogin
-        )
     assert request.user.is_authenticated
     default_next = get_adapter().get_connect_redirect_url(request, sociallogin.account)
     next_url = sociallogin.get_redirect_url(request) or default_next
@@ -215,9 +209,6 @@ def _complete_social_login(request, sociallogin):
     if sociallogin.is_existing:
         # Login existing user
         ret = _login_social_account(request, sociallogin)
-        signals.social_account_updated.send(
-            sender=SocialLogin, request=request, sociallogin=sociallogin
-        )
     else:
         # New social user
         ret = _process_signup(request, sociallogin)

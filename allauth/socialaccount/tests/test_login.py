@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -49,9 +51,19 @@ def test_email_authentication(
     MessageMiddleware(lambda request: None).process_request(request)
     request.user = AnonymousUser()
     with context.request_context(request):
-        resp = complete_social_login(request, sociallogin)
+        with patch(
+            "allauth.socialaccount.signals.social_account_updated.send"
+        ) as updated_signal:
+            with patch(
+                "allauth.socialaccount.signals.social_account_added.send"
+            ) as added_signal:
+                resp = complete_social_login(request, sociallogin)
     if setting == "off":
         assert resp["location"] == reverse("account_email_verification_sent")
+        assert not added_signal.called
+        assert not updated_signal.called
     else:
         assert resp["location"] == "/accounts/profile/"
         assert SocialAccount.objects.filter(user=user.pk).exists() == auto_connect
+        assert added_signal.called == auto_connect
+        assert not updated_signal.called

@@ -216,6 +216,9 @@ class SocialLogin(object):
     def connect(self, request, user):
         self.user = user
         self.save(request, connect=True)
+        signals.social_account_added.send(
+            sender=SocialLogin, request=request, sociallogin=self
+        )
 
     def serialize(self):
         serialize_instance = get_adapter().serialize_instance
@@ -296,6 +299,9 @@ class SocialLogin(object):
             self.account = a
             self.user = self.account.user
             a.save()
+            signals.social_account_updated.send(
+                sender=SocialLogin, request=context.request, sociallogin=self
+            )
             # Update token
             if app_settings.STORE_TOKENS and self.token:
                 assert not self.token.pk
@@ -326,12 +332,10 @@ class SocialLogin(object):
             EmailAddress.objects.lookup(emails).order_by("-verified", "user_id").first()
         )
         if address:
-            self.user = address.user
             if app_settings.EMAIL_AUTHENTICATION_AUTO_CONNECT:
-                self.save(request=context.request, connect=True)
-                signals.social_account_added.send(
-                    sender=SocialLogin, request=context.request, sociallogin=self
-                )
+                self.connect(context.request, address.user)
+            else:
+                self.user = address.user
 
     def get_redirect_url(self, request):
         url = self.state.get("next")

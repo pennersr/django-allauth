@@ -395,7 +395,8 @@ class SignupForm(BaseSignupForm):
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)
         self.fields["password1"] = PasswordField(
-            label=_("Password"), autocomplete="new-password",
+            label=_("Password"),
+            autocomplete="new-password",
             help_text=password_validation.password_validators_help_text_html(),
         )
         if app_settings.SIGNUP_PASSWORD_ENTER_TWICE:
@@ -504,8 +505,10 @@ class ChangePasswordForm(PasswordVerificationMixin, UserForm):
     oldpassword = PasswordField(
         label=_("Current Password"), autocomplete="current-password"
     )
-    password1 = SetPasswordField(label=_("New Password"),
-                                 help_text=password_validation.password_validators_help_text_html())
+    password1 = SetPasswordField(
+        label=_("New Password"),
+        help_text=password_validation.password_validators_help_text_html(),
+    )
     password2 = PasswordField(label=_("New Password (again)"))
 
     def __init__(self, *args, **kwargs):
@@ -522,8 +525,10 @@ class ChangePasswordForm(PasswordVerificationMixin, UserForm):
 
 
 class SetPasswordForm(PasswordVerificationMixin, UserForm):
-    password1 = SetPasswordField(label=_("Password"),
-                                 help_text=password_validation.password_validators_help_text_html())
+    password1 = SetPasswordField(
+        label=_("Password"),
+        help_text=password_validation.password_validators_help_text_html(),
+    )
     password2 = PasswordField(label=_("Password (again)"))
 
     def __init__(self, *args, **kwargs):

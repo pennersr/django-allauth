@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-30 16:00-0500\n"
-"PO-Revision-Date: 2023-08-06 20:51+0200\n"
+"PO-Revision-Date: 2023-09-07 10:53+0200\n"
 "Last-Translator: pennersr <raymond.penners@intenct.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/django-allauth/"
 "language/nl/)\n"
@@ -32,10 +32,8 @@ msgid "A user is already registered with this email address."
 msgstr "Er is al een gebruiker geregistreerd met dit e-mailadres."
 
 #: account/adapter.py:56
-#, fuzzy
-#| msgid "Current Password"
 msgid "Incorrect password."
-msgstr "Huidig wachtwoord"
+msgstr "Ongeldig wachtwoord."
 
 #: account/adapter.py:305
 #, python-brace-format
@@ -192,43 +190,40 @@ msgstr "e-mailadres bevestigingen"
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
-msgstr ""
+msgstr "Je moet eerst je e-mailadres verifiëren voordat je twee-factor-authenticatie kunt activeren."
 
 #: mfa/adapter.py:21
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
-msgstr ""
+msgstr "Je kunt geen e-mailadres toevoegen aan een account dat beveiligd is met twee-factor-authenticatie is."
 
 #: mfa/adapter.py:23
 msgid "Incorrect code."
-msgstr ""
+msgstr "Ongeldige code."
 
 #: mfa/apps.py:7
 msgid "MFA"
-msgstr ""
+msgstr "MFA"
 
 #: mfa/forms.py:12
 msgid "Code"
-msgstr ""
+msgstr "Code"
 
 #: mfa/forms.py:29
 msgid "Authenticator code"
-msgstr ""
+msgstr "Authenticator code"
 
 #: mfa/models.py:15
 msgid "Recovery codes"
-msgstr ""
+msgstr "Herstelcodes"
 
 #: mfa/models.py:16
 msgid "TOTP Authenticator"
-msgstr ""
+msgstr "TOTP Authenticator"
 
 #: socialaccount/adapter.py:28
-#, fuzzy, python-format
-#| msgid ""
-#| "An account already exists with this e-mail address. Please sign in to "
-#| "that account first, then connect your %s account."
+#, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
 "account first, then connect your %s account."
@@ -250,11 +245,11 @@ msgstr "Sociale accounts"
 
 #: socialaccount/models.py:34 socialaccount/models.py:95
 msgid "provider"
-msgstr ""
+msgstr "provider"
 
 #: socialaccount/models.py:43
 msgid "provider ID"
-msgstr ""
+msgstr "provider ID"
 
 #: socialaccount/models.py:47
 msgid "name"
@@ -262,11 +257,11 @@ msgstr "naam"
 
 #: socialaccount/models.py:49
 msgid "client id"
-msgstr ""
+msgstr "client id"
 
 #: socialaccount/models.py:51
 msgid "App ID, or consumer key"
-msgstr ""
+msgstr "App ID, of consumer key"
 
 #: socialaccount/models.py:54
 msgid "secret key"
@@ -274,7 +269,7 @@ msgstr "geheime sleutel"
 
 #: socialaccount/models.py:57
 msgid "API secret, client secret, or consumer secret"
-msgstr ""
+msgstr "API secret, client secret, of consumer secret"
 
 #: socialaccount/models.py:60
 msgid "Key"
@@ -282,11 +277,11 @@ msgstr "Sleutel"
 
 #: socialaccount/models.py:79
 msgid "social application"
-msgstr ""
+msgstr "social application"
 
 #: socialaccount/models.py:80
 msgid "social applications"
-msgstr ""
+msgstr "social applications"
 
 #: socialaccount/models.py:115
 msgid "uid"
@@ -306,15 +301,15 @@ msgstr "extra data"
 
 #: socialaccount/models.py:123
 msgid "social account"
-msgstr ""
+msgstr "social account"
 
 #: socialaccount/models.py:124
 msgid "social accounts"
-msgstr ""
+msgstr "social accounts"
 
 #: socialaccount/models.py:158
 msgid "token"
-msgstr ""
+msgstr "token"
 
 #: socialaccount/models.py:159
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
@@ -345,13 +340,10 @@ msgid "Invalid profile data"
 msgstr "Ongeldige profiel data"
 
 #: socialaccount/providers/oauth/client.py:85
-#, fuzzy, python-format
-#| msgid "Invalid response while obtaining request token from \"%s\"."
+#, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
-msgstr ""
-"Ongeldig antwoord ontvangen tijdens het ophalen van een verzoeksleutel van "
-"\"%s\"."
+msgstr "Ongeldig antwoord ontvangen tijdens het ophalen van een verzoeksleutel van \"%s\", antwoord: \"%s\"."
 
 #: socialaccount/providers/oauth/client.py:119
 #: socialaccount/providers/pocket/client.py:78
@@ -401,10 +393,8 @@ msgid "Menu:"
 msgstr "Menu:"
 
 #: templates/account/base.html:29 templates/account/email_change.html:31
-#, fuzzy
-#| msgid "Email"
 msgid "Change Email"
-msgstr "E-mail"
+msgstr "E-mail wijzigen"
 
 #: templates/account/base.html:30 templates/account/logout.html:5
 #: templates/account/logout.html:8 templates/account/logout.html:17
@@ -518,12 +508,7 @@ msgstr ""
 "%(site_domain)s"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because user %(user_display)s has given your "
-#| "e-mail address to register an account on %(site_domain)s.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s"
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s.\n"
@@ -541,23 +526,15 @@ msgid "Please Confirm Your Email Address"
 msgstr "Bevestig je e-mailadres"
 
 #: templates/account/email/password_reset_key_message.txt:4
-#, fuzzy
-#| msgid ""
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
 msgid ""
 "You're receiving this email because you or someone else has requested a "
 "password reset for your user account.\n"
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"Je ontvangt deze mail omdat er een verzoek is ingelegd om het\n"
-"wachtwoord behorende bij je %(site_domain)s account opnieuw in te\n"
-"stellen. Je kunt deze gerust mail negeren als je dit niet zelf gedaan\n"
-"hebt. Anders, klik op de volgende link om je wachtwoord opnieuw in te\n"
-"stellen."
+"Je ontvangt deze mail omdat er een verzoek is ingelegd om je wachtwoord opnieuw\n"
+"in te stellen. Je kunt deze gerust mail negeren als je dit niet zelf gedaan\n"
+"hebt. Anders, klik op de volgende link om je wachtwoord opnieuw in te stellen."
 
 #: templates/account/email/password_reset_key_message.txt:9
 #, python-format
@@ -570,12 +547,7 @@ msgid "Password Reset Email"
 msgstr "Nieuw wachtwoord"
 
 #: templates/account/email/unknown_account_message.txt:4
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
+#, python-format
 msgid ""
 "You are receiving this email because you or someone else has requested a\n"
 "password for your user account. However, we do not have any record of a "
@@ -586,35 +558,29 @@ msgid ""
 "\n"
 "If it was you, you can sign up for an account using the link below."
 msgstr ""
-"Je ontvangt deze mail omdat er een verzoek is ingelegd om het\n"
-"wachtwoord behorende bij je %(site_domain)s account opnieuw in te\n"
-"stellen. Je kunt deze gerust mail negeren als je dit niet zelf gedaan\n"
-"hebt. Anders, klik op de volgende link om je wachtwoord opnieuw in te\n"
-"stellen."
+"Je ontvang deze e-mail omdat er een verzoek is ingelegd om het wachtwoord te\n"
+"veranderen van account met e-mailadres %(email)s. Echter, dit account bestaat\n"
+"niet.\n"
+"\n"
+"Je kunt deze e-mail negeren als jij dit verzoek niet zelf hebt ingelegd.\n"
+"\n"
+"Als jij dit wel hebt gedaan, dan kun je je via de volgende link registreren."
 
 #: templates/account/email_change.html:4 templates/account/email_change.html:7
-#, fuzzy
-#| msgid "Email Addresses"
 msgid "Email Address"
-msgstr "E-mailadressen"
+msgstr "E-mailadres"
 
 #: templates/account/email_change.html:11
-#, fuzzy
-#| msgid "The following email addresses are associated with your account:"
 msgid "The following email address is associated with your account:"
 msgstr "De volgende e-mailadressen zijn gekoppeld aan jouw account:"
 
 #: templates/account/email_change.html:16
-#, fuzzy
-#| msgid "Your primary email address must be verified."
 msgid "Your email address is still pending verification:"
-msgstr "Je primaire e-mailadres moet geverifieerd zijn."
+msgstr "Je primaire e-mailadres wacht op verificatie."
 
 #: templates/account/email_change.html:27
-#, fuzzy
-#| msgid "Confirm Email Address"
 msgid "Change Email Address"
-msgstr "Bevestig e-mailadres"
+msgstr "Wijzig e-mailadres"
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
@@ -622,16 +588,11 @@ msgid "Confirm Email Address"
 msgstr "Bevestig e-mailadres"
 
 #: templates/account/email_confirm.html:17
-#, fuzzy, python-format
-#| msgid ""
-#| "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
-#| "mail address for user %(user_display)s."
+#, python-format
 msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an email "
 "address for user %(user_display)s."
-msgstr ""
-"Bevestig dat <a href=\"mailto:%(email)s\">%(email)s</a> een e-mailadres is "
-"voor gebruiker %(user_display)s."
+msgstr "Bevestig dat <a href=\"mailto:%(email)s\">%(email)s</a> een e-mailadres is voor gebruiker %(user_display)s."
 
 #: templates/account/email_confirm.html:21
 #: templates/account/reauthenticate.html:19
@@ -640,18 +601,14 @@ msgstr "Bevestigen"
 
 #: templates/account/email_confirm.html:24
 #: templates/account/messages/email_confirmation_failed.txt:2
-#, fuzzy, python-format
-#| msgid "The social account is already connected to a different account."
+#, python-format
 msgid ""
 "Unable to confirm %(email)s because it is already confirmed by a different "
 "account."
-msgstr "Dit externe account is al gekoppeld aan een ander account."
+msgstr "Het e-mail adres %(email)s kon niet worden geverifieerd omdat het gekoppeld is aan een ander account."
 
 #: templates/account/email_confirm.html:31
-#, fuzzy, python-format
-#| msgid ""
-#| "This e-mail confirmation link expired or is invalid. Please <a href="
-#| "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+#, python-format
 msgid ""
 "This email confirmation link expired or is invalid. Please <a href="
 "\"%(email_url)s\">issue a new email confirmation request</a>."
@@ -755,10 +712,6 @@ msgid "Password Reset"
 msgstr "Nieuw wachtwoord"
 
 #: templates/account/password_reset.html:15
-#, fuzzy
-#| msgid ""
-#| "Forgotten your password? Enter your e-mail address below, and we'll send "
-#| "you an e-mail allowing you to reset it."
 msgid ""
 "Forgotten your password? Enter your email address below, and we'll send you "
 "an email allowing you to reset it."
@@ -777,11 +730,6 @@ msgstr ""
 "stellen."
 
 #: templates/account/password_reset_done.html:15
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent you an email. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
@@ -819,14 +767,12 @@ msgstr "Zet wachtwoord"
 
 #: templates/account/reauthenticate.html:5
 #: templates/account/reauthenticate.html:9
-#, fuzzy
-#| msgid "Confirm Email Address"
 msgid "Confirm Access"
-msgstr "Bevestig e-mailadres"
+msgstr "Toegang bevestigen"
 
 #: templates/account/reauthenticate.html:11
 msgid "To safeguard the security of your account, please enter your password:"
-msgstr ""
+msgstr "Om de beveiliging van je account te waarborgen, voert eerst je wachtwoord in:"
 
 #: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
@@ -861,11 +807,6 @@ msgid "Warning:"
 msgstr "Waarschuwing:"
 
 #: templates/account/snippets/warn_no_email.html:3
-#, fuzzy
-#| msgid ""
-#| "You currently do not have any e-mail address set up. You should really "
-#| "add an e-mail address so you can receive notifications, reset your "
-#| "password, etc."
 msgid ""
 "You currently do not have any email address set up. You should really add an "
 "email address so you can receive notifications, reset your password, etc."
@@ -881,11 +822,6 @@ msgid "Verify Your Email Address"
 msgstr "Verifieer je e-mailadres"
 
 #: templates/account/verification_sent.html:10
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for verification. Follow the link provided "
-#| "to finalize the signup process. Please contact us if you do not receive "
-#| "it within a few minutes."
 msgid ""
 "We have sent an email to you for verification. Follow the link provided to "
 "finalize the signup process. If you do not see the verification email in "
@@ -897,11 +833,6 @@ msgstr ""
 "mail niet binnen enkele minuten ontvangt."
 
 #: templates/account/verified_email_required.html:12
-#, fuzzy
-#| msgid ""
-#| "This part of the site requires us to verify that\n"
-#| "you are who you claim to be. For this purpose, we require that you\n"
-#| "verify ownership of your e-mail address. "
 msgid ""
 "This part of the site requires us to verify that\n"
 "you are who you claim to be. For this purpose, we require that you\n"
@@ -912,11 +843,6 @@ msgstr ""
 "daadwerkelijk toegang hebt tot het opgegeven e-mailadres."
 
 #: templates/account/verified_email_required.html:16
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent an email to you for\n"
 "verification. Please click on the link inside that email. If you do not see "
@@ -928,10 +854,7 @@ msgstr ""
 "b. contact met ons op als je de e-mail niet binnen enkele minuten ontvangt."
 
 #: templates/account/verified_email_required.html:20
-#, fuzzy, python-format
-#| msgid ""
-#| "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change "
-#| "your e-mail address</a>."
+#, python-format
 msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
 "email address</a>."
@@ -942,39 +865,39 @@ msgstr ""
 #: templates/mfa/authenticate.html:7 templates/mfa/index.html:4
 #: templates/mfa/index.html:7
 msgid "Two-Factor Authentication"
-msgstr ""
+msgstr "Twee-factor-authenticatie"
 
 #: templates/mfa/authenticate.html:9
 msgid ""
 "Your account is protected by two-factor authentication. Please enter an "
 "authenticator code:"
-msgstr ""
+msgstr "Je account is beveiligd met twee-factor-authenticatie. Voer alstublieft een authenticatiecode in:"
 
 #: templates/mfa/index.html:9 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
-msgstr ""
+msgstr "Authenticator-app"
 
 #: templates/mfa/index.html:11
 msgid "Authentication using an authenticator app is active."
-msgstr ""
+msgstr "Authenticatie middels een authenticator-app is actief."
 
 #: templates/mfa/index.html:14 templates/mfa/totp/deactivate_form.html:11
 msgid "Deactivate"
-msgstr ""
+msgstr "Deactiveer"
 
 #: templates/mfa/index.html:18
 msgid "An authenticator app is not active."
-msgstr ""
+msgstr "Een authenticator-app is not actief."
 
 #: templates/mfa/index.html:21 templates/mfa/totp/activate_form.html:16
 msgid "Activate"
-msgstr ""
+msgstr "Activeer"
 
 #: templates/mfa/index.html:27 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:4
 #: templates/mfa/recovery_codes/index.html:4
 msgid "Recovery Codes"
-msgstr ""
+msgstr "Herstelcodes"
 
 #: templates/mfa/index.html:30 templates/mfa/recovery_codes/index.html:6
 #, python-format
@@ -982,64 +905,64 @@ msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
 msgid_plural ""
 "There are %(unused_count)s out of %(total_count)s recovery codes available."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Er is nog %(unused_count)s van de %(total_count)s herstelcodes beschikbaar."
+msgstr[1] "Er zijn nog %(unused_count)s van de %(total_count)s herstelcodes beschikbaar."
 
 #: templates/mfa/index.html:34
 msgid "View codes"
-msgstr ""
+msgstr "Codes inzien"
 
 #: templates/mfa/index.html:37 templates/mfa/recovery_codes/index.html:16
 msgid "Download codes"
-msgstr ""
+msgstr "Codes downloaden"
 
 #: templates/mfa/index.html:40 templates/mfa/recovery_codes/index.html:20
 msgid "Generate new codes"
-msgstr ""
+msgstr "Nieuwe codes genereren"
 
 #: templates/mfa/index.html:44
 msgid "No recovery codes set up."
-msgstr ""
+msgstr "Er zijn geen herstelcodes ingesteld."
 
 #: templates/mfa/messages/recovery_codes_generated.txt:2
 msgid "A new set of recovery codes has been generated."
-msgstr ""
+msgstr "Er zijn nieuwe herstelcodes gegenereerd."
 
 #: templates/mfa/messages/totp_activated.txt:2
 msgid "Authenticator app activated."
-msgstr ""
+msgstr "Authenticator-app geactiveerd."
 
 #: templates/mfa/messages/totp_deactivated.txt:2
 msgid "Authenticator app deactivated."
-msgstr ""
+msgstr "Authenticator-app gedeactiveerd."
 
 #: templates/mfa/recovery_codes/generate.html:6
 msgid ""
 "You are about to generate a new set of recovery codes for your account. This "
 "action will invalidate your existing codes. Are you sure?"
-msgstr ""
+msgstr "Je staat op het punt nieuwe herstelcodes te genereren voor je account. Hierdoor zullen eventuele eerdere herstelcodes niet langer werken. Wil je dit echt?"
 
 #: templates/mfa/recovery_codes/generate.html:11
 msgid "Generate"
-msgstr ""
+msgstr "Genereer"
 
 #: templates/mfa/totp/activate_form.html:4
 msgid "Activate Authenticator App"
-msgstr ""
+msgstr "Activeer authenticator-app"
 
 #: templates/mfa/totp/activate_form.html:9
 msgid "Authenticator secret"
-msgstr ""
+msgstr "Authenticator geheim"
 
 #: templates/mfa/totp/deactivate_form.html:4
 msgid "Deactivate Authenticator App"
-msgstr ""
+msgstr "Deactiveer authenticator-app"
 
 #: templates/mfa/totp/deactivate_form.html:6
 msgid ""
 "You are about to deactivate authenticator app based authentication. Are you "
 "sure?"
-msgstr ""
+msgstr "Je staat op het punt authenticatie middels een authenticator-app te deactiveren. Wil je dit echt?"
 
 #: templates/openid/login.html:9
 msgid "OpenID Sign In"

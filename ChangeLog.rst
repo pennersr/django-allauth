@@ -46,6 +46,28 @@ Backwards incompatible changes
         }
     }
 
+- The Keycloak provider was added before the OpenID Connect functionality
+  landed. Afterwards, the Keycloak implementation was refactored to reuse the
+  regular OIDC provider. As this approach led to bugs (see 0.55.1), it was
+  decided to remove the Keycloak implementation altogether.  Instead, use the
+  regular OpenID Connect configuration::
+
+    SOCIALACCOUNT_PROVIDERS = {
+        "openid_connect": {
+            "APPS": [
+                {
+                    "provider_id": "keycloak",
+                    "name": "Keycloak",
+                    "client_id": "<insert-id>",
+                    "secret": "<insert-secret>",
+                    "settings": {
+                        "server_url": "http://keycloak:8080/realms/master/.well-known/openid-configuration",
+                    },
+                }
+            ]
+        }
+    }
+
 
 0.55.2 (2023-08-30)
 *******************

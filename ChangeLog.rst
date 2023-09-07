@@ -1,4 +1,4 @@
-0.56.0 (unreleased)
+0.56.0 (2023-09-07)
 *******************
 
 Note worthy changes
@@ -15,6 +15,10 @@ Note worthy changes
 
     from allauth.core import context
     context.request
+
+- Previously, ``SOCIALACCOUNT_STORE_TOKENS = True`` did not work when the social
+  app was configured in the settings instead of in the database. Now, this
+  functionality works regardless of how you configure the app.
 
 
 Backwards incompatible changes

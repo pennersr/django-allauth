@@ -1,6 +1,14 @@
 0.56.1 (unreleased)
 *******************
 
+Security notice
+---------------
+
+- ``ImmediateHttpResponse`` exceptions were not handled properly when raised
+  inside ``adapter.pre_login()``.  If you relied on aborting the login using
+  this mechanism, that would not work. Most notably, django-allauth-2fa uses
+  this approach, resulting in 2FA not being triggered.
+
 
 0.56.0 (2023-09-07)
 *******************

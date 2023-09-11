@@ -8,6 +8,28 @@
     {% element h1 tags="mfa,index" %}
         {% trans "Two-Factor Authentication" %}
     {% endelement %}
+    {% if "webauthn" in MFA_SUPPORTED_TYPES %}
+        {% element panel %}
+            {% slot title %}
+                {% translate "Security Keys" %}
+            {% endslot %}
+            {% slot body %}
+                {% if authenticators.webauthn %}
+                    <ul>
+                        {% for auth in authenticators.webauthn %}<li>{{ auth }}</li>{% endfor %}
+                    </ul>
+                {% else %}
+                    <p>{% translate "No security keys have been added." %}</p>
+                {% endif %}
+            {% endslot %}
+            {% slot actions %}
+                {% url 'mfa_add_webauthn' as add_webauthn_url %}
+                {% element button href=add_webauthn_url tags="panel" %}
+                    {% translate "Add" %}
+                {% endelement %}
+            {% endslot %}
+        {% endelement %}
+    {% endif %}
     {% if "totp" in MFA_SUPPORTED_TYPES %}
         {% element panel %}
             {% slot title %}

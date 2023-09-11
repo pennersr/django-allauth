@@ -63,6 +63,10 @@ class AppSettings:
         dflt = ["recovery_codes", "totp"]
         return self._setting("SUPPORTED_TYPES", dflt)
 
+    @property
+    def WEBAUTHN_ALLOW_INSECURE_ORIGIN(self):
+        return self._setting("WEBAUTHN_ALLOW_INSECURE_ORIGIN", False)
+
 
 _app_settings = AppSettings("MFA_")
 

@@ -49,3 +49,16 @@ if "recovery_codes" in app_settings.SUPPORTED_TYPES:
             ),
         ),
     )
+
+if "webauthn" in app_settings.SUPPORTED_TYPES:
+    urlpatterns.append(
+        path(
+            "webauthn/",
+            include(
+                [
+                    path("add/", views.add_webauthn, name="mfa_add_webauthn"),
+                    path("remove/", views.deactivate_totp, name="mfa_remove_webauthn"),
+                ]
+            ),
+        ),
+    )

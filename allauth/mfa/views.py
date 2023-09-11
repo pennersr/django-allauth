@@ -12,11 +12,13 @@ from allauth.account import app_settings as account_settings
 from allauth.account.decorators import reauthentication_required
 from allauth.account.stages import LoginStageController
 from allauth.account.views import BaseReauthenticateView
-from allauth.mfa import app_settings, totp
+from allauth.mfa import app_settings, signals, totp, webauthn
 from allauth.mfa.adapter import get_adapter
 from allauth.mfa.forms import (
     ActivateTOTPForm,
+    AddWebAuthnForm,
     AuthenticateForm,
+    AuthenticateWebAuthnForm,
     DeactivateTOTPForm,
     GenerateRecoveryCodesForm,
     ReauthenticateForm,
@@ -28,22 +30,44 @@ from allauth.mfa.utils import is_mfa_enabled
 from allauth.utils import get_form_class
 
 
-class AuthenticateView(FormView):
+class AuthenticateView(TemplateView):
     form_class = AuthenticateForm
     template_name = "mfa/authenticate." + account_settings.TEMPLATE_EXTENSION
 
     def dispatch(self, request, *args, **kwargs):
         self.stage = LoginStageController.enter(request, AuthenticateStage.key)
         if not self.stage or not is_mfa_enabled(
-            self.stage.login.user, [Authenticator.Type.TOTP]
+            self.stage.login.user,
+            [Authenticator.Type.TOTP, Authenticator.Type.WEBAUTHN],
         ):
             return HttpResponseRedirect(reverse("account_login"))
+        self.form = self._build_forms()
         return super().dispatch(request, *args, **kwargs)
 
-    def get_form_kwargs(self):
-        ret = super().get_form_kwargs()
-        ret["user"] = self.stage.login.user
-        return ret
+    def post(self, request, *args, **kwargs):
+        if self.form.is_valid():
+            return self.form_valid(self.form)
+        else:
+            return self.form_invalid(self.form)
+
+    def _build_forms(self):
+        posted_form = None
+        user = self.stage.login.user
+        if self.request.method == "POST":
+            if "code" in self.request.POST:
+                posted_form = self.auth_form = AuthenticateForm(
+                    user=user, data=self.request.POST
+                )
+                self.webauthn_form = AuthenticateWebAuthnForm(user=user)
+            else:
+                self.auth_form = AuthenticateForm(user=user)
+                posted_form = self.webauthn_form = AuthenticateWebAuthnForm(
+                    user=user, data=self.request.POST
+                )
+        else:
+            self.auth_form = AuthenticateForm(user=user)
+            self.webauthn_form = AuthenticateWebAuthnForm(user=user)
+        return posted_form
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, "authenticate", self.form_class)
@@ -51,6 +75,20 @@ class AuthenticateView(FormView):
     def form_valid(self, form):
         form.save()
         return self.stage.exit()
+
+    def form_invalid(self, form):
+        return super().get(self.request)
+
+    def get_context_data(self, **kwargs):
+        ret = super().get_context_data()
+        ret.update(
+            {
+                "form": self.auth_form,
+                "webauthn_form": self.webauthn_form,
+                "js_data": {"credentials": self.webauthn_form.authentication_data},
+            }
+        )
+        return ret
 
 
 authenticate = AuthenticateView.as_view()
@@ -83,10 +121,13 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         ret = super().get_context_data(**kwargs)
-        authenticators = {
-            auth.type: auth.wrap()
-            for auth in Authenticator.objects.filter(user=self.request.user)
-        }
+        authenticators = {}
+        for auth in Authenticator.objects.filter(user=self.request.user):
+            if auth.type == Authenticator.Type.WEBAUTHN:
+                auths = authenticators.setdefault(auth.type, [])
+                auths.append(auth.wrap())
+            else:
+                authenticators[auth.type] = auth.wrap()
         ret["authenticators"] = authenticators
         ret["MFA_SUPPORTED_TYPES"] = app_settings.SUPPORTED_TYPES
         ret["is_mfa_enabled"] = is_mfa_enabled(self.request.user)
@@ -268,3 +309,36 @@ class ViewRecoveryCodesView(TemplateView):
 
 
 view_recovery_codes = ViewRecoveryCodesView.as_view()
+
+
+@method_decorator(reauthentication_required, name="dispatch")
+class AddWebAuthnView(FormView):
+    form_class = AddWebAuthnForm
+    template_name = "mfa/webauthn/add_form." + account_settings.TEMPLATE_EXTENSION
+    success_url = reverse_lazy("mfa_index")
+
+    def get_context_data(self, **kwargs):
+        ret = super().get_context_data()
+        ret["js_data"] = {"credentials": ret["form"].registration_data}
+        return ret
+
+    def get_form_kwargs(self):
+        ret = super().get_form_kwargs()
+        ret["user"] = self.request.user
+        return ret
+
+    def form_valid(self, form):
+        webauthn.WebAuthn.add(
+            self.request.user, form.cleaned_data["authenticator_data"]
+        )
+        RecoveryCodes.activate(self.request.user)
+        adapter = get_account_adapter(self.request)
+        adapter.add_message(
+            self.request, messages.SUCCESS, "mfa/messages/webauthn_added.txt"
+        )
+        return super().form_valid(form)
+
+
+add_webauthn = AddWebAuthnView.as_view()
+
+remove_webauthn = None

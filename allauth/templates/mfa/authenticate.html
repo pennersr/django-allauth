@@ -1,6 +1,7 @@
 {% extends "mfa/base_entrance.html" %}
 {% load i18n %}
 {% load allauth %}
+{% load allauth static %}
 {% block head_title %}
     {% trans "Sign In" %}
 {% endblock head_title %}
@@ -28,4 +29,22 @@
             {% endelement %}
         {% endslot %}
     {% endelement %}
+    <form class="authenticate"
+          method="POST"
+          action="{% url 'mfa_authenticate' %}">
+        {% csrf_token %}
+        {{ webauthn_form.as_p }}
+        <button id="mfa_webauthn_authenticate" type="button">{% trans "Use security key or device" %}</button>
+    </form>
+    {{ js_data|json_script:"js_data" }}
+    <script type="text/javascript" src="{% static 'mfa/js/webauthn.js' %}"></script>
+    <script>
+        allauth.webauthn.forms.authenticateForm({
+            ids: {
+                authenticate: "mfa_webauthn_authenticate",
+                credential: "{{ webauthn_form.credential.auto_id }}"
+            },
+            data: JSON.parse(document.getElementById('js_data').textContent)
+        })
+    </script>
 {% endblock content %}

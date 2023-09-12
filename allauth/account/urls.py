@@ -13,6 +13,7 @@ urlpatterns = [
         views.password_change,
         name="account_change_password",
     ),
+    path("password/change/done/", views.password_change_done, name="account_change_password_done"),
     path("password/set/", views.password_set, name="account_set_password"),
     path("inactive/", views.account_inactive, name="account_inactive"),
     # Email

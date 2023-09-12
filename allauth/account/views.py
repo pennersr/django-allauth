@@ -614,11 +614,18 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
 email = login_required(EmailView.as_view())
 
 
+class PasswordChangeDone(TemplateView):
+    template_name = "account/password_change_done." + app_settings.TEMPLATE_EXTENSION
+
+
+password_change_done = login_required(PasswordChangeDone.as_view())
+
+
 @method_decorator(rate_limit(action="change_password"), name="dispatch")
 class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_change." + app_settings.TEMPLATE_EXTENSION
     form_class = ChangePasswordForm
-    success_url = reverse_lazy("account_change_password")
+    success_url = reverse_lazy("account_change_password_done")
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, "change_password", self.form_class)

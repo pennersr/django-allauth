@@ -53,8 +53,15 @@ def build_sp_config(request, provider_config, org):
     if avd.get("x509cert") is not None:
         sp_config["x509cert"] = avd["x509cert"]
 
+    if avd.get("x509cert_new"):
+        sp_config["x509certNew"] = avd["x509cert_new"]
+
     if avd.get("private_key") is not None:
         sp_config["privateKey"] = avd["private_key"]
+
+    if avd.get("name_id_format") is not None:
+        sp_config["NameIDFormat"] = avd["name_id_format"]
+
     return sp_config
 
 
@@ -92,12 +99,26 @@ def build_saml_config(request, provider_config, org):
         "wantAssertionsEncrypted": avd.get("want_assertion_encrypted", False),
         "wantAssertionsSigned": avd.get("want_assertion_signed", False),
         "wantMessagesSigned": avd.get("want_message_signed", False),
-        "wantNameId": False,
+        "nameIdEncrypted": avd.get("name_id_encrypted", False),
+        "wantNameIdEncrypted": avd.get("want_name_id_encrypted", False),
+        "allowSingleLabelDomains": avd.get("allow_single_label_domains", False),
+        "rejectDeprecatedAlgorithm": avd.get("reject_deprecated_algorithm", True),
+        "wantNameId": avd.get("want_name_id", False),
+        "wantAttributeStatement": avd.get("want_attribute_statement", True),
+        "allowRepeatAttributeName": avd.get("allow_repeat_attribute_name", True),
     }
     saml_config = {
         "strict": avd.get("strict", True),
         "security": security_config,
     }
+
+    contact_person = provider_config.get("contact_person")
+    if contact_person:
+        saml_config["contactPerson"] = contact_person
+
+    organization = provider_config.get("organization")
+    if organization:
+        saml_config["organization"] = organization
 
     idp = provider_config.get("idp")
     if idp is None:

@@ -4,6 +4,7 @@
 Note worthy changes
 -------------------
 
+- Added django password validation help text to password1 on set/change/signup forms.
 - ...
 
 
@@ -26,7 +27,6 @@ Note worthy changes
 -------------------
 
 - Added builtin support for Two-Factor Authentication via the ``allauth.mfa`` app.
-- Added django password validation help text to password1 on set/change/signup forms.
 
 - The fact that ``request`` is not available globally has left its mark on the
   code over the years. Some functions get explicitly passed a request, some do

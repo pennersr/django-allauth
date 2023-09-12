@@ -10,6 +10,7 @@ import allauth.app_settings
 from allauth.account import app_settings as account_settings
 from allauth.account.models import EmailAddress
 from allauth.account.utils import user_email, user_username
+from allauth.core import context
 from allauth.socialaccount import providers
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.models import SocialAccount, SocialApp, SocialLogin
@@ -56,7 +57,8 @@ class SignupTests(TestCase):
 
         account = SocialAccount(provider="openid", uid="123")
         sociallogin = SocialLogin(user=user, account=account)
-        complete_social_login(request, sociallogin)
+        with context.request_context(request):
+            complete_social_login(request, sociallogin)
 
         user = User.objects.get(**{account_settings.USER_MODEL_USERNAME_FIELD: "test"})
         self.assertTrue(
@@ -81,7 +83,8 @@ class SignupTests(TestCase):
         # POST different username/email to social signup form
         request.method = "POST"
         request.POST = {"username": "other", "email": "other@example.com"}
-        resp = signup(request)
+        with context.request_context(request):
+            resp = signup(request)
         self.assertEqual(resp["location"], "/accounts/profile/")
         user = get_user_model().objects.get(
             **{account_settings.USER_MODEL_EMAIL_FIELD: "other@example.com"}
@@ -103,7 +106,8 @@ class SignupTests(TestCase):
         # POST email to social signup form (username not present)
         request.method = "POST"
         request.POST = {"email": "other@example.com"}
-        resp = signup(request)
+        with context.request_context(request):
+            resp = signup(request)
         self.assertEqual(resp["location"], "/accounts/profile/")
         user = get_user_model().objects.get(
             **{account_settings.USER_MODEL_EMAIL_FIELD: "other@example.com"}
@@ -152,7 +156,8 @@ class SignupTests(TestCase):
 
         account = SocialAccount(provider="twitter", uid="123")
         sociallogin = SocialLogin(user=user, account=account)
-        complete_social_login(request, sociallogin)
+        with context.request_context(request):
+            complete_social_login(request, sociallogin)
 
         self.assertNotIn(request.user.username, account_settings.USERNAME_BLACKLIST)
 
@@ -181,7 +186,8 @@ class SignupTests(TestCase):
         request.user = AnonymousUser()
         SessionMiddleware(lambda request: None).process_request(request)
         MessageMiddleware(lambda request: None).process_request(request)
-        resp = complete_social_login(request, sociallogin)
+        with context.request_context(request):
+            resp = complete_social_login(request, sociallogin)
         return request, resp
 
     def test_disconnect(self):

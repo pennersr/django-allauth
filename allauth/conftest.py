@@ -6,6 +6,7 @@ import pytest
 
 from allauth.account.models import EmailAddress
 from allauth.account.utils import user_email, user_username
+from allauth.core import context
 from allauth.utils import get_user_model
 
 
@@ -72,3 +73,8 @@ def reauthentication_bypass():
             yield
 
     return f
+
+
+@pytest.fixture(autouse=True)
+def clear_context_request():
+    context._request_var.set(None)

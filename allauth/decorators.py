@@ -1,6 +1,6 @@
 from functools import wraps
 
-from allauth import ratelimit
+from allauth.core import ratelimit
 
 
 def rate_limit(*, action, **rl_kwargs):

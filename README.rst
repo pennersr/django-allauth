@@ -32,7 +32,7 @@ registration, account management as well as 3rd party (social) account
 authentication.
 
 Home page
-  http://www.intenct.nl/projects/django-allauth/
+  https://allauth.org/
 
 Source code
   http://github.com/pennersr/django-allauth

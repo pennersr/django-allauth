@@ -14,7 +14,7 @@ from allauth.account.utils import (
     user_email,
     user_username,
 )
-from allauth.exceptions import ImmediateHttpResponse
+from allauth.core.exceptions import ImmediateHttpResponse
 
 from . import app_settings, signals
 from .adapter import get_adapter
@@ -23,7 +23,7 @@ from .providers.base import AuthError, AuthProcess
 
 
 def _process_auto_signup(request, sociallogin):
-    auto_signup = get_adapter(request).is_auto_signup_allowed(request, sociallogin)
+    auto_signup = get_adapter().is_auto_signup_allowed(request, sociallogin)
     if not auto_signup:
         return False, None
     email = user_email(sociallogin.user)
@@ -83,12 +83,12 @@ def _process_signup(request, sociallogin):
         # TODO: This part contains a lot of duplication of logic
         # ("closed" rendering, create user, send email, in active
         # etc..)
-        if not get_adapter(request).is_open_for_signup(request, sociallogin):
+        if not get_adapter().is_open_for_signup(request, sociallogin):
             return render(
                 request,
                 "account/signup_closed." + account_settings.TEMPLATE_EXTENSION,
             )
-        get_adapter(request).save_user(request, sociallogin, form=None)
+        get_adapter().save_user(request, sociallogin, form=None)
         resp = complete_social_signup(request, sociallogin)
     return resp
 
@@ -113,7 +113,7 @@ def render_authentication_error(
     try:
         if extra_context is None:
             extra_context = {}
-        get_adapter(request).authentication_error(
+        get_adapter().authentication_error(
             request,
             provider_id,
             error=error,
@@ -143,7 +143,7 @@ def _add_social_account(request, sociallogin):
     if request.user.is_anonymous:
         # This should not happen. Simply redirect to the connections
         # view (which has a login required)
-        connect_redirect_url = get_adapter(request).get_connect_redirect_url(
+        connect_redirect_url = get_adapter().get_connect_redirect_url(
             request, sociallogin.account
         )
         return HttpResponseRedirect(connect_redirect_url)
@@ -163,20 +163,12 @@ def _add_social_account(request, sociallogin):
             # for customized behaviour through use of a signal.
             action = "updated"
             message = "socialaccount/messages/account_connected_updated.txt"
-            signals.social_account_updated.send(
-                sender=SocialLogin, request=request, sociallogin=sociallogin
-            )
     else:
         # New account, let's connect
         action = "added"
         sociallogin.connect(request, request.user)
-        signals.social_account_added.send(
-            sender=SocialLogin, request=request, sociallogin=sociallogin
-        )
     assert request.user.is_authenticated
-    default_next = get_adapter(request).get_connect_redirect_url(
-        request, sociallogin.account
-    )
+    default_next = get_adapter().get_connect_redirect_url(request, sociallogin.account)
     next_url = sociallogin.get_redirect_url(request) or default_next
     get_account_adapter(request).add_message(
         request,
@@ -191,7 +183,7 @@ def complete_social_login(request, sociallogin):
     assert not sociallogin.is_existing
     sociallogin.lookup()
     try:
-        get_adapter(request).pre_social_login(request, sociallogin)
+        get_adapter().pre_social_login(request, sociallogin)
         signals.pre_social_login.send(
             sender=SocialLogin, request=request, sociallogin=sociallogin
         )
@@ -217,9 +209,6 @@ def _complete_social_login(request, sociallogin):
     if sociallogin.is_existing:
         # Login existing user
         ret = _login_social_account(request, sociallogin)
-        signals.social_account_updated.send(
-            sender=SocialLogin, request=request, sociallogin=sociallogin
-        )
     else:
         # New social user
         ret = _process_signup(request, sociallogin)

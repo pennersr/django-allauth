@@ -1,8 +1,9 @@
-class ImmediateHttpResponse(Exception):
-    """
-    This exception is used to interrupt the flow of processing to immediately
-    return a custom HttpResponse.
-    """
+import warnings
 
-    def __init__(self, response):
-        self.response = response
+from allauth.core.exceptions import ImmediateHttpResponse
+
+
+__all__ = ["ImmediateHttpResponse"]
+
+
+warnings.warn("allauth.exceptions is deprecated, use allauth.core.exceptions")

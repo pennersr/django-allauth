@@ -9,6 +9,8 @@ from django.db.models import Q
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
+from allauth.core import context
+
 from ..account.adapter import get_adapter as get_account_adapter
 from ..account.app_settings import EmailVerificationMethod
 from ..account.models import EmailAddress
@@ -32,7 +34,9 @@ class DefaultSocialAccountAdapter(object):
     }
 
     def __init__(self, request=None):
-        self.request = request
+        # Explicitly passing `request` is deprecated, just use:
+        # `allauth.core.context.request`.
+        self.request = context.request
 
     def pre_social_login(self, request, sociallogin):
         """
@@ -226,9 +230,7 @@ class DefaultSocialAccountAdapter(object):
         # First, populate it with the DB backed apps.
         db_apps = SocialApp.objects.on_site(request)
         if provider:
-            db_apps = db_apps.filter(
-                Q(provider_id="", provider=provider) | Q(provider_id=provider)
-            )
+            db_apps = db_apps.filter(Q(provider=provider) | Q(provider_id=provider))
         if client_id:
             db_apps = db_apps.filter(client_id=client_id)
         for app in db_apps:

@@ -36,6 +36,15 @@ Available settings:
         }
       }
 
+``SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT`` (default: ``False``)
+  In case email authentication is applied, this setting controls whether or not
+  the social account is automatically connected to the local account. In case of
+  ``False`` the local account remains unchanged during the login. In case of
+  ``True``, the social account for which the email matched, is automatically
+  added to the list of social accounts connected to the local account. As a
+  result, even if the user were to change the email address afterwards, social
+  login would still be possible when using ``True``, but not in case of
+  ``False``.
 
 ``SOCIALACCOUNT_EMAIL_VERIFICATION`` (default: ``ACCOUNT_EMAIL_VERIFICATION``)
   As ``ACCOUNT_EMAIL_VERIFICATION``, but for social accounts.

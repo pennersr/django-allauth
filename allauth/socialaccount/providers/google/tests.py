@@ -141,7 +141,7 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
         self.client.cookies[settings.SESSION_COOKIE_NAME] = store.session_key
         request = RequestFactory().get("/")
         request.session = self.client.session
-        adapter = get_adapter(request)
+        adapter = get_adapter()
         adapter.stash_verified_email(request, self.email)
         request.session.save()
 

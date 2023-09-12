@@ -1,4 +1,25 @@
-0.56.0 (unreleased)
+0.57.0 (unreleased)
+*******************
+
+Note worthy changes
+-------------------
+
+- ...
+
+
+0.56.1 (2023-09-08)
+*******************
+
+Security notice
+---------------
+
+- ``ImmediateHttpResponse`` exceptions were not handled properly when raised
+  inside ``adapter.pre_login()``.  If you relied on aborting the login using
+  this mechanism, that would not work. Most notably, django-allauth-2fa uses
+  this approach, resulting in 2FA not being triggered.
+
+
+0.56.0 (2023-09-07)
 *******************
 
 Note worthy changes
@@ -7,14 +28,98 @@ Note worthy changes
 - Added builtin support for Two-Factor Authentication via the ``allauth.mfa`` app.
 - Added django password validation help text to password1 on set/change/signup forms.
 
+- The fact that ``request`` is not available globally has left its mark on the
+  code over the years. Some functions get explicitly passed a request, some do
+  not, and some constructs have it available both as a parameter and as
+  ``self.request``.  As having request available is essential, especially when
+  trying to implement adapter hooks, the request has now been made globally
+  available via::
+
+    from allauth.core import context
+    context.request
+
+- Previously, ``SOCIALACCOUNT_STORE_TOKENS = True`` did not work when the social
+  app was configured in the settings instead of in the database. Now, this
+  functionality works regardless of how you configure the app.
+
 
 Backwards incompatible changes
 ------------------------------
 
 - Dropped support for Django 3.1.
 
-- The ``"allauth.account.middleware.AccountMiddleware"`` middleware is required to be present
-  in your ``settings.MIDDLEWARE``.
+- The ``"allauth.account.middleware.AccountMiddleware"`` middleware is required
+  to be present in your ``settings.MIDDLEWARE``.
+
+- Starting from September 1st 2023, CERN upgraded their SSO to a standard OpenID
+  Connect based solution. As a result, the previously builtin CERN provider is
+  no longer needed and has been removed. Instead, use the regular OpenID Connect
+  configuration::
+
+    SOCIALACCOUNT_PROVIDERS = {
+        "openid_connect": {
+            "APPS": [
+                {
+                    "provider_id": "cern",
+                    "name": "CERN",
+                    "client_id": "<insert-id>",
+                    "secret": "<insert-secret>",
+                    "settings": {
+                        "server_url": "https://auth.cern.ch/auth/realms/cern/.well-known/openid-configuration",
+                    },
+                }
+            ]
+        }
+    }
+
+- The Keycloak provider was added before the OpenID Connect functionality
+  landed. Afterwards, the Keycloak implementation was refactored to reuse the
+  regular OIDC provider. As this approach led to bugs (see 0.55.1), it was
+  decided to remove the Keycloak implementation altogether.  Instead, use the
+  regular OpenID Connect configuration::
+
+    SOCIALACCOUNT_PROVIDERS = {
+        "openid_connect": {
+            "APPS": [
+                {
+                    "provider_id": "keycloak",
+                    "name": "Keycloak",
+                    "client_id": "<insert-id>",
+                    "secret": "<insert-secret>",
+                    "settings": {
+                        "server_url": "http://keycloak:8080/realms/master/.well-known/openid-configuration",
+                    },
+                }
+            ]
+        }
+    }
+
+
+0.55.2 (2023-08-30)
+*******************
+
+Fixes
+-----
+
+- Email confirmation: An attribute error could occur when following invalid
+  email confirmation links.
+
+
+0.55.1 (2023-08-30)
+*******************
+
+Fixes
+-----
+
+- SAML: the lookup of the app (``SocialApp``) was working correctly for apps
+  configured via the settings, but failed when the app was configured via the
+  Django admin.
+
+- Keycloak: fixed reversal of the callback URL, which was reversed using
+  ``"openid_connect_callback"`` instead of ``"keycloak_callback"``. Although the
+  resulting URL is the same, it results in a ``NoReverseMatch`` error when
+  ``allauth.socialaccount.providers.openid_connect`` is not present in
+  ``INSTALLED_APPS``.
 
 
 0.55.0 (2023-08-22)

@@ -75,7 +75,7 @@ class ActivateTOTPView(FormView):
 
     def get_context_data(self, **kwargs):
         ret = super().get_context_data(**kwargs)
-        adapter = get_adapter(self.request)
+        adapter = get_adapter()
         totp_url = totp.build_totp_url(
             adapter.get_totp_label(self.request.user),
             adapter.get_totp_issuer(),

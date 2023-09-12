@@ -10,6 +10,8 @@ from django.utils.translation import gettext_lazy as _
 import allauth.app_settings
 from allauth.account.models import EmailAddress
 from allauth.account.utils import get_next_redirect_url, setup_user_email
+from allauth.core import context
+from allauth.socialaccount import signals
 from allauth.utils import get_user_model
 
 from ..utils import get_request_param
@@ -141,7 +143,7 @@ class SocialAccount(models.Model):
         provider = getattr(self, "_provider", None)
         if provider:
             return provider
-        adapter = get_adapter(request)
+        adapter = get_adapter()
         provider = self._provider = adapter.get_provider(
             request, provider=self.provider
         )
@@ -152,7 +154,7 @@ class SocialAccount(models.Model):
 
 
 class SocialToken(models.Model):
-    app = models.ForeignKey(SocialApp, on_delete=models.CASCADE)
+    app = models.ForeignKey(SocialApp, on_delete=models.SET_NULL, blank=True, null=True)
     account = models.ForeignKey(SocialAccount, on_delete=models.CASCADE)
     token = models.TextField(
         verbose_name=_("token"),
@@ -214,6 +216,9 @@ class SocialLogin(object):
     def connect(self, request, user):
         self.user = user
         self.save(request, connect=True)
+        signals.social_account_added.send(
+            sender=SocialLogin, request=request, sociallogin=self
+        )
 
     def serialize(self):
         serialize_instance = get_adapter().serialize_instance
@@ -257,7 +262,7 @@ class SocialLogin(object):
         user.save()
         self.account.user = user
         self.account.save()
-        if app_settings.STORE_TOKENS and self.token and self.token.app_id:
+        if app_settings.STORE_TOKENS and self.token:
             self.token.account = self.account
             self.token.save()
         if connect:
@@ -294,8 +299,11 @@ class SocialLogin(object):
             self.account = a
             self.user = self.account.user
             a.save()
+            signals.social_account_updated.send(
+                sender=SocialLogin, request=context.request, sociallogin=self
+            )
             # Update token
-            if app_settings.STORE_TOKENS and self.token and self.token.app.pk:
+            if app_settings.STORE_TOKENS and self.token:
                 assert not self.token.pk
                 try:
                     t = SocialToken.objects.get(
@@ -324,7 +332,10 @@ class SocialLogin(object):
             EmailAddress.objects.lookup(emails).order_by("-verified", "user_id").first()
         )
         if address:
-            self.user = address.user
+            if app_settings.EMAIL_AUTHENTICATION_AUTO_CONNECT:
+                self.connect(context.request, address.user)
+            else:
+                self.user = address.user
 
     def get_redirect_url(self, request):
         url = self.state.get("next")

@@ -99,6 +99,20 @@ class AppSettings(object):
         return self._setting("EMAIL_AUTHENTICATION", False)
 
     @property
+    def EMAIL_AUTHENTICATION_AUTO_CONNECT(self):
+        """In case email authentication is applied, this setting controls
+        whether or not the social account is automatically connected to the
+        local account. In case of ``False`` (the default) the local account
+        remains unchanged during the login. In case of ``True``, the social
+        account for which the email matched, is automatically added to the list
+        of social accounts connected to the local account. As a result, even if
+        the user were to change the email address afterwards, social login
+        would still be possible when using ``True``, but not in case of
+        ``False``.
+        """
+        return self._setting("EMAIL_AUTHENTICATION_AUTO_CONNECT", False)
+
+    @property
     def ADAPTER(self):
         return self._setting(
             "ADAPTER",

@@ -113,7 +113,7 @@ class EmailConfirmationMixin:
     def confirm(self, request):
         email_address = self.email_address
         if not email_address.verified:
-            confirmed = get_adapter(request).confirm_email(request, email_address)
+            confirmed = get_adapter().confirm_email(request, email_address)
             if confirmed:
                 signals.email_confirmed.send(
                     sender=self.__class__,
@@ -123,7 +123,7 @@ class EmailConfirmationMixin:
                 return email_address
 
     def send(self, request=None, signup=False):
-        get_adapter(request).send_confirmation_mail(request, self, signup)
+        get_adapter().send_confirmation_mail(request, self, signup)
         signals.email_confirmation_sent.send(
             sender=self.__class__,
             request=request,

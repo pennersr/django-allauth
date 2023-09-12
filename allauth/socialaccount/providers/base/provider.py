@@ -60,7 +60,7 @@ class Provider(object):
         from allauth.socialaccount.adapter import get_adapter
         from allauth.socialaccount.models import SocialAccount, SocialLogin
 
-        adapter = get_adapter(request)
+        adapter = get_adapter()
         uid = self.extract_uid(response)
         if not isinstance(uid, str):
             raise ValueError(f"uid must be a string: {repr(uid)}")

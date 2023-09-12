@@ -3,6 +3,7 @@ from __future__ import absolute_import
 from importlib import import_module
 
 from django import forms
+from django.contrib.auth import password_validation
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core import exceptions, validators
@@ -394,7 +395,9 @@ class SignupForm(BaseSignupForm):
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)
         self.fields["password1"] = PasswordField(
-            label=_("Password"), autocomplete="new-password"
+            label=_("Password"),
+            autocomplete="new-password",
+            help_text=password_validation.password_validators_help_text_html(),
         )
         if app_settings.SIGNUP_PASSWORD_ENTER_TWICE:
             self.fields["password2"] = PasswordField(
@@ -502,7 +505,10 @@ class ChangePasswordForm(PasswordVerificationMixin, UserForm):
     oldpassword = PasswordField(
         label=_("Current Password"), autocomplete="current-password"
     )
-    password1 = SetPasswordField(label=_("New Password"))
+    password1 = SetPasswordField(
+        label=_("New Password"),
+        help_text=password_validation.password_validators_help_text_html(),
+    )
     password2 = PasswordField(label=_("New Password (again)"))
 
     def __init__(self, *args, **kwargs):
@@ -519,7 +525,10 @@ class ChangePasswordForm(PasswordVerificationMixin, UserForm):
 
 
 class SetPasswordForm(PasswordVerificationMixin, UserForm):
-    password1 = SetPasswordField(label=_("Password"))
+    password1 = SetPasswordField(
+        label=_("Password"),
+        help_text=password_validation.password_validators_help_text_html(),
+    )
     password2 = PasswordField(label=_("Password (again)"))
 
     def __init__(self, *args, **kwargs):

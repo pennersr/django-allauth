@@ -4,6 +4,7 @@
 Note worthy changes
 -------------------
 
+- Added django password validation help text to password1 on set/change/signup forms.
 - ...
 
 

@@ -173,13 +173,10 @@ def _perform_login(request, login):
     # `user_signed_up` signal. Furthermore, social users should be
     # stopped anyway.
     adapter = get_adapter()
-    try:
-        hook_kwargs = _get_login_hook_kwargs(login)
-        response = adapter.pre_login(request, login.user, **hook_kwargs)
-        if response:
-            return response
-    except ImmediateHttpResponse as e:
-        response = e.response
+    hook_kwargs = _get_login_hook_kwargs(login)
+    response = adapter.pre_login(request, login.user, **hook_kwargs)
+    if response:
+        return response
     return resume_login(request, login)
 
 

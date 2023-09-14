@@ -10,8 +10,12 @@ from allauth.socialaccount.providers.oauth2.views import (
 from allauth.utils import build_absolute_uri
 
 
-class BaseOpenIDConnectAdapter(OAuth2Adapter):
+class OpenIDConnectAdapter(OAuth2Adapter):
     supports_state = True
+
+    def __init__(self, request, provider_id):
+        self.provider_id = provider_id
+        super().__init__(request)
 
     @property
     def openid_config(self):
@@ -50,12 +54,6 @@ class BaseOpenIDConnectAdapter(OAuth2Adapter):
         response.raise_for_status()
         extra_data = response.json()
         return self.get_provider().sociallogin_from_response(request, extra_data)
-
-
-class OpenIDConnectAdapter(BaseOpenIDConnectAdapter):
-    def __init__(self, request, provider_id):
-        self.provider_id = provider_id
-        super().__init__(request)
 
     def get_callback_url(self, request, app):
         callback_url = reverse(

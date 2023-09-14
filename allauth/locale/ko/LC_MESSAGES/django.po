@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-30 16:00-0500\n"
+"POT-Creation-Date: 2023-09-07 04:22-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,25 +18,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: account/adapter.py:47
+#: account/adapter.py:48
 msgid "Username can not be used. Please use other username."
 msgstr "해당 아이디는 이미 사용중입니다. 다른 사용자명을 이용해 주세요."
 
-#: account/adapter.py:53
+#: account/adapter.py:54
 msgid "Too many failed login attempts. Try again later."
 msgstr "너무 많은 로그인 실패가 감지되었습니다. 잠시 후에 다시 시도하세요."
 
-#: account/adapter.py:55
+#: account/adapter.py:56
 msgid "A user is already registered with this email address."
 msgstr "해당 이메일은 이미 사용되고 있습니다."
 
-#: account/adapter.py:56
+#: account/adapter.py:57
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "현재 비밀번호"
 
-#: account/adapter.py:305
+#: account/adapter.py:308
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "비밀번호는 최소 {0}자 이상이어야 합니다."
@@ -50,7 +50,7 @@ msgid "You must type the same password each time."
 msgstr "동일한 비밀번호를 입력해야 합니다."
 
 #: account/forms.py:90 account/forms.py:397 account/forms.py:522
-#: account/forms.py:660
+#: account/forms.py:658
 msgid "Password"
 msgstr "비밀번호"
 
@@ -128,11 +128,11 @@ msgstr "당신의 계정에는 인증된 이메일이 없습니다."
 msgid "Current Password"
 msgstr "현재 비밀번호"
 
-#: account/forms.py:505 account/forms.py:609
+#: account/forms.py:505 account/forms.py:607
 msgid "New Password"
 msgstr "새 비밀번호"
 
-#: account/forms.py:506 account/forms.py:610
+#: account/forms.py:506 account/forms.py:608
 msgid "New Password (again)"
 msgstr "새 비밀번호 (확인)"
 
@@ -144,7 +144,7 @@ msgstr "현재 비밀번호를 입력하세요."
 msgid "The email address is not assigned to any user account"
 msgstr "해당 이메일을 가지고 있는 사용자가 없습니다."
 
-#: account/forms.py:630
+#: account/forms.py:628
 msgid "The password reset token was invalid."
 msgstr "비밀번호 초기화 토큰이 올바르지 않습니다."
 
@@ -176,7 +176,7 @@ msgstr "생성됨"
 msgid "sent"
 msgstr "전송됨"
 
-#: account/models.py:143 socialaccount/models.py:60
+#: account/models.py:143 socialaccount/models.py:62
 msgid "key"
 msgstr "키"
 
@@ -188,19 +188,19 @@ msgstr "이메일 확인"
 msgid "email confirmations"
 msgstr "이메일 확인"
 
-#: mfa/adapter.py:18
+#: mfa/adapter.py:19
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
 msgstr ""
 
-#: mfa/adapter.py:21
+#: mfa/adapter.py:22
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
 msgstr ""
 
-#: mfa/adapter.py:23
+#: mfa/adapter.py:24
 msgid "Incorrect code."
 msgstr ""
 
@@ -224,7 +224,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:28
+#: socialaccount/adapter.py:30
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -236,11 +236,11 @@ msgstr ""
 "해당 이메일을 사용중인 계정이 이미 존재합니다. 해당 계정으로 로그인 후에 %s "
 "계정으로 연결하세요."
 
-#: socialaccount/adapter.py:132
+#: socialaccount/adapter.py:136
 msgid "Your account has no password set up."
 msgstr "당신의 계정에 비밀번호가 설정되어있지 않습니다."
 
-#: socialaccount/adapter.py:139
+#: socialaccount/adapter.py:143
 msgid "Your account has no verified email address."
 msgstr "당신의 계정에는 인증된 이메일이 없습니다."
 
@@ -248,97 +248,97 @@ msgstr "당신의 계정에는 인증된 이메일이 없습니다."
 msgid "Social Accounts"
 msgstr "소셜 계정"
 
-#: socialaccount/models.py:34 socialaccount/models.py:95
+#: socialaccount/models.py:36 socialaccount/models.py:97
 msgid "provider"
 msgstr "제공자"
 
-#: socialaccount/models.py:43
+#: socialaccount/models.py:45
 #, fuzzy
 #| msgid "provider"
 msgid "provider ID"
 msgstr "제공자"
 
-#: socialaccount/models.py:47
+#: socialaccount/models.py:49
 msgid "name"
 msgstr "이름"
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:51
 msgid "client id"
 msgstr "클라이언트 아이디"
 
-#: socialaccount/models.py:51
+#: socialaccount/models.py:53
 msgid "App ID, or consumer key"
 msgstr "앱 아이디 또는 컨슈머 아이디"
 
-#: socialaccount/models.py:54
+#: socialaccount/models.py:56
 msgid "secret key"
 msgstr "비밀 키"
 
-#: socialaccount/models.py:57
+#: socialaccount/models.py:59
 msgid "API secret, client secret, or consumer secret"
 msgstr "API 비밀 키, 클라이언트 비밀 키, 또는 컨슈머 비밀 키"
 
-#: socialaccount/models.py:60
+#: socialaccount/models.py:62
 msgid "Key"
 msgstr "키"
 
-#: socialaccount/models.py:79
+#: socialaccount/models.py:81
 msgid "social application"
 msgstr "소셜 어플리케이션"
 
-#: socialaccount/models.py:80
+#: socialaccount/models.py:82
 msgid "social applications"
 msgstr "소셜 어플리케이션"
 
-#: socialaccount/models.py:115
+#: socialaccount/models.py:117
 msgid "uid"
 msgstr ""
 
-#: socialaccount/models.py:117
+#: socialaccount/models.py:119
 msgid "last login"
 msgstr "최종 로그인"
 
-#: socialaccount/models.py:118
+#: socialaccount/models.py:120
 msgid "date joined"
 msgstr "가입 날짜"
 
-#: socialaccount/models.py:119
+#: socialaccount/models.py:121
 msgid "extra data"
 msgstr "추가 정보"
 
-#: socialaccount/models.py:123
+#: socialaccount/models.py:125
 msgid "social account"
 msgstr "소셜 계정"
 
-#: socialaccount/models.py:124
+#: socialaccount/models.py:126
 msgid "social accounts"
 msgstr "소셜 계정"
 
-#: socialaccount/models.py:158
+#: socialaccount/models.py:160
 msgid "token"
 msgstr "토큰"
 
-#: socialaccount/models.py:159
+#: socialaccount/models.py:161
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) 또는 access token (OAuth2)"
 
-#: socialaccount/models.py:163
+#: socialaccount/models.py:165
 msgid "token secret"
 msgstr "시크릿 토큰"
 
-#: socialaccount/models.py:164
+#: socialaccount/models.py:166
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) 또는 refresh token (OAuth2)"
 
-#: socialaccount/models.py:167
+#: socialaccount/models.py:169
 msgid "expires at"
 msgstr "만료일"
 
-#: socialaccount/models.py:172
+#: socialaccount/models.py:174
 msgid "social application token"
 msgstr "소셜 어플리케이션 토큰"
 
-#: socialaccount/models.py:173
+#: socialaccount/models.py:175
 msgid "social application tokens"
 msgstr "소셜 어플리케이션 토큰"
 

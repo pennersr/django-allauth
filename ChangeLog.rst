@@ -1,4 +1,26 @@
-0.56.0 (unreleased)
+0.57.0 (unreleased)
+*******************
+
+Note worthy changes
+-------------------
+
+- Added django password validation help text to password1 on set/change/signup forms.
+- ...
+
+
+0.56.1 (2023-09-08)
+*******************
+
+Security notice
+---------------
+
+- ``ImmediateHttpResponse`` exceptions were not handled properly when raised
+  inside ``adapter.pre_login()``.  If you relied on aborting the login using
+  this mechanism, that would not work. Most notably, django-allauth-2fa uses
+  this approach, resulting in 2FA not being triggered.
+
+
+0.56.0 (2023-09-07)
 *******************
 
 Note worthy changes
@@ -15,6 +37,10 @@ Note worthy changes
 
     from allauth.core import context
     context.request
+
+- Previously, ``SOCIALACCOUNT_STORE_TOKENS = True`` did not work when the social
+  app was configured in the settings instead of in the database. Now, this
+  functionality works regardless of how you configure the app.
 
 
 Backwards incompatible changes
@@ -40,6 +66,28 @@ Backwards incompatible changes
                     "secret": "<insert-secret>",
                     "settings": {
                         "server_url": "https://auth.cern.ch/auth/realms/cern/.well-known/openid-configuration",
+                    },
+                }
+            ]
+        }
+    }
+
+- The Keycloak provider was added before the OpenID Connect functionality
+  landed. Afterwards, the Keycloak implementation was refactored to reuse the
+  regular OIDC provider. As this approach led to bugs (see 0.55.1), it was
+  decided to remove the Keycloak implementation altogether.  Instead, use the
+  regular OpenID Connect configuration::
+
+    SOCIALACCOUNT_PROVIDERS = {
+        "openid_connect": {
+            "APPS": [
+                {
+                    "provider_id": "keycloak",
+                    "name": "Keycloak",
+                    "client_id": "<insert-id>",
+                    "secret": "<insert-secret>",
+                    "settings": {
+                        "server_url": "http://keycloak:8080/realms/master/.well-known/openid-configuration",
                     },
                 }
             ]

@@ -413,13 +413,12 @@ class OpenIDConnectTests(OAuth2TestsMixin):
 
     def setup_provider(self):
         self.app = setup_app(self.provider_id)
-        if self.provider_id not in ["keycloak"]:
-            self.app.provider_id = self.provider_id
-            self.app.provider = "openid_connect"
-            self.app.settings = {
-                "server_url": "https://unittest.example.com",
-            }
-            self.app.save()
+        self.app.provider_id = self.provider_id
+        self.app.provider = "openid_connect"
+        self.app.settings = {
+            "server_url": "https://unittest.example.com",
+        }
+        self.app.save()
         self.request = RequestFactory().get("/")
         self.provider = self.app.get_provider(self.request)
 
@@ -437,9 +436,5 @@ class OpenIDConnectTests(OAuth2TestsMixin):
     def test_login_auto_signup(self):
         resp = self.login()
         self.assertRedirects(resp, "/accounts/profile/", fetch_redirect_response=False)
-        sa = SocialAccount.objects.get(
-            # For Keycloak, `provider_id` is empty.
-            provider=self.app.provider_id
-            or self.app.provider
-        )
+        sa = SocialAccount.objects.get(provider=self.app.provider_id)
         self.assertDictEqual(sa.extra_data, self.extra_data)

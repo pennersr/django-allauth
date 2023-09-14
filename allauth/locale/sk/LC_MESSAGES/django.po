@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-30 16:00-0500\n"
+"POT-Creation-Date: 2023-09-07 04:22-0500\n"
 "PO-Revision-Date: 2023-07-11 15:22+0200\n"
 "Last-Translator: b'Erik Telepovsky <erik@pragmaticmates.com>'\n"
 "Language-Team: \n"
@@ -19,25 +19,25 @@ msgstr ""
 ">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 "X-Translated-Using: django-rosetta 0.9.4\n"
 
-#: account/adapter.py:47
+#: account/adapter.py:48
 msgid "Username can not be used. Please use other username."
 msgstr "Užívateľské meno nemôže byť použité. Prosím, použite iné meno."
 
-#: account/adapter.py:53
+#: account/adapter.py:54
 msgid "Too many failed login attempts. Try again later."
 msgstr "Príliš veľa neúspešných pokusov o prihlásenie. Skúste neskôr."
 
-#: account/adapter.py:55
+#: account/adapter.py:56
 msgid "A user is already registered with this email address."
 msgstr "Používateľ s touto e-mailovou adresou už existuje."
 
-#: account/adapter.py:56
+#: account/adapter.py:57
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "Súčasné heslo"
 
-#: account/adapter.py:305
+#: account/adapter.py:308
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Heslo musí mať aspoň {0} znakov."
@@ -51,7 +51,7 @@ msgid "You must type the same password each time."
 msgstr "Heslá sa nezhodujú."
 
 #: account/forms.py:90 account/forms.py:397 account/forms.py:522
-#: account/forms.py:660
+#: account/forms.py:658
 msgid "Password"
 msgstr "Heslo"
 
@@ -128,11 +128,11 @@ msgstr "Nemôžte pridať viac než %d e-mailových adries."
 msgid "Current Password"
 msgstr "Súčasné heslo"
 
-#: account/forms.py:505 account/forms.py:609
+#: account/forms.py:505 account/forms.py:607
 msgid "New Password"
 msgstr "Nové heslo"
 
-#: account/forms.py:506 account/forms.py:610
+#: account/forms.py:506 account/forms.py:608
 msgid "New Password (again)"
 msgstr "Nové heslo (znovu)"
 
@@ -145,7 +145,7 @@ msgid "The email address is not assigned to any user account"
 msgstr ""
 "Táto e-mailová adresa nie je pridelená k žiadnemu používateľskému kontu"
 
-#: account/forms.py:630
+#: account/forms.py:628
 msgid "The password reset token was invalid."
 msgstr "Token na obnovu hesla bol nesprávny."
 
@@ -177,7 +177,7 @@ msgstr "vytvorený"
 msgid "sent"
 msgstr "odoslané"
 
-#: account/models.py:143 socialaccount/models.py:60
+#: account/models.py:143 socialaccount/models.py:62
 msgid "key"
 msgstr "kľúč"
 
@@ -189,19 +189,19 @@ msgstr "potvrdenie e-mailu"
 msgid "email confirmations"
 msgstr "potvrdenia e-mailu"
 
-#: mfa/adapter.py:18
+#: mfa/adapter.py:19
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
 msgstr ""
 
-#: mfa/adapter.py:21
+#: mfa/adapter.py:22
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
 msgstr ""
 
-#: mfa/adapter.py:23
+#: mfa/adapter.py:24
 msgid "Incorrect code."
 msgstr ""
 
@@ -225,7 +225,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:28
+#: socialaccount/adapter.py:30
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -237,11 +237,11 @@ msgstr ""
 "Účet s touto e-mailovou adresou už existuje. Prosím, prihláste sa najprv na "
 "tento účet a potom pripojte svoj %s účet."
 
-#: socialaccount/adapter.py:132
+#: socialaccount/adapter.py:136
 msgid "Your account has no password set up."
 msgstr "Váš účet nemá nastavené heslo."
 
-#: socialaccount/adapter.py:139
+#: socialaccount/adapter.py:143
 msgid "Your account has no verified email address."
 msgstr "Váš účet nemá overenú e-mailovú adresu."
 
@@ -249,100 +249,100 @@ msgstr "Váš účet nemá overenú e-mailovú adresu."
 msgid "Social Accounts"
 msgstr "Účty na sociálnych sieťach"
 
-#: socialaccount/models.py:34 socialaccount/models.py:95
+#: socialaccount/models.py:36 socialaccount/models.py:97
 msgid "provider"
 msgstr "poskytovateľ"
 
-#: socialaccount/models.py:43
+#: socialaccount/models.py:45
 #, fuzzy
 #| msgid "provider"
 msgid "provider ID"
 msgstr "poskytovateľ"
 
-#: socialaccount/models.py:47
+#: socialaccount/models.py:49
 msgid "name"
 msgstr "meno"
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:51
 msgid "client id"
 msgstr "identifikátor klienta"
 
-#: socialaccount/models.py:51
+#: socialaccount/models.py:53
 msgid "App ID, or consumer key"
 msgstr "ID aplikácie alebo zákaznícky kľúč"
 
-#: socialaccount/models.py:54
+#: socialaccount/models.py:56
 msgid "secret key"
 msgstr "tajný kľúč"
 
-#: socialaccount/models.py:57
+#: socialaccount/models.py:59
 msgid "API secret, client secret, or consumer secret"
 msgstr "Kľúč API, klienta alebo zákazníka"
 
-#: socialaccount/models.py:60
+#: socialaccount/models.py:62
 msgid "Key"
 msgstr "Kľúč"
 
-#: socialaccount/models.py:79
+#: socialaccount/models.py:81
 msgid "social application"
 msgstr "sociálna aplikácia"
 
-#: socialaccount/models.py:80
+#: socialaccount/models.py:82
 msgid "social applications"
 msgstr "sociálne aplikácie"
 
-#: socialaccount/models.py:115
+#: socialaccount/models.py:117
 msgid "uid"
 msgstr "uid"
 
-#: socialaccount/models.py:117
+#: socialaccount/models.py:119
 msgid "last login"
 msgstr "posledné prihlásenie"
 
-#: socialaccount/models.py:118
+#: socialaccount/models.py:120
 msgid "date joined"
 msgstr "dáum pripojenia"
 
-#: socialaccount/models.py:119
+#: socialaccount/models.py:121
 msgid "extra data"
 msgstr "ďalšie údaje"
 
-#: socialaccount/models.py:123
+#: socialaccount/models.py:125
 msgid "social account"
 msgstr "sociálny účet"
 
-#: socialaccount/models.py:124
+#: socialaccount/models.py:126
 msgid "social accounts"
 msgstr "sociálne účty"
 
-#: socialaccount/models.py:158
+#: socialaccount/models.py:160
 msgid "token"
 msgstr "token"
 
-#: socialaccount/models.py:159
+#: socialaccount/models.py:161
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr ""
 "\"Oauth_token\" (Podpora protokolu OAuth1) alebo prístup tokenu (OAuth2)"
 
-#: socialaccount/models.py:163
+#: socialaccount/models.py:165
 msgid "token secret"
 msgstr "heslo prístupového tokenu"
 
-#: socialaccount/models.py:164
+#: socialaccount/models.py:166
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr ""
 "\"Oauth_token_secret\" (Podpora protokolu OAuth1) alebo token obnovenie "
 "(OAuth2)"
 
-#: socialaccount/models.py:167
+#: socialaccount/models.py:169
 msgid "expires at"
 msgstr "vyexpiruje"
 
-#: socialaccount/models.py:172
+#: socialaccount/models.py:174
 msgid "social application token"
 msgstr "token sociálnej aplikácie"
 
-#: socialaccount/models.py:173
+#: socialaccount/models.py:175
 msgid "social application tokens"
 msgstr "tokeny sociálnej aplikácie"
 

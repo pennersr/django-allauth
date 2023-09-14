@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-30 16:00-0500\n"
+"POT-Creation-Date: 2023-09-07 04:22-0500\n"
 "PO-Revision-Date: 2022-11-28 12:06+0900\n"
 "Last-Translator: Sora Yanai <sora@mail.skyarrow.xyz>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,25 +18,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: account/adapter.py:47
+#: account/adapter.py:48
 msgid "Username can not be used. Please use other username."
 msgstr "このユーザー名は使用できません。他のユーザー名を選んでください。"
 
-#: account/adapter.py:53
+#: account/adapter.py:54
 msgid "Too many failed login attempts. Try again later."
 msgstr "ログイン失敗が連続しています。時間が経ってからやり直してください。"
 
-#: account/adapter.py:55
+#: account/adapter.py:56
 msgid "A user is already registered with this email address."
 msgstr "他のユーザーがこのメールアドレスを使用しています。"
 
-#: account/adapter.py:56
+#: account/adapter.py:57
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "現在のパスワード"
 
-#: account/adapter.py:305
+#: account/adapter.py:308
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "パスワードは {0} 文字以上の長さが必要です。"
@@ -50,7 +50,7 @@ msgid "You must type the same password each time."
 msgstr "同じパスワードを入力してください。"
 
 #: account/forms.py:90 account/forms.py:397 account/forms.py:522
-#: account/forms.py:660
+#: account/forms.py:658
 msgid "Password"
 msgstr "パスワード"
 
@@ -132,11 +132,11 @@ msgstr "確認済みのメールアドレスの登録が必要です。"
 msgid "Current Password"
 msgstr "現在のパスワード"
 
-#: account/forms.py:505 account/forms.py:609
+#: account/forms.py:505 account/forms.py:607
 msgid "New Password"
 msgstr "新しいパスワード"
 
-#: account/forms.py:506 account/forms.py:610
+#: account/forms.py:506 account/forms.py:608
 msgid "New Password (again)"
 msgstr "新しいパスワード（再入力）"
 
@@ -148,7 +148,7 @@ msgstr "現在のパスワードを入力してください。"
 msgid "The email address is not assigned to any user account"
 msgstr "このメールアドレスで登録されたユーザーアカウントがありません。"
 
-#: account/forms.py:630
+#: account/forms.py:628
 msgid "The password reset token was invalid."
 msgstr "パスワードリセットトークンが無効です。"
 
@@ -180,7 +180,7 @@ msgstr "作成日時"
 msgid "sent"
 msgstr "送信日時"
 
-#: account/models.py:143 socialaccount/models.py:60
+#: account/models.py:143 socialaccount/models.py:62
 msgid "key"
 msgstr "キー"
 
@@ -192,19 +192,19 @@ msgstr "メールアドレスの確認"
 msgid "email confirmations"
 msgstr "メールアドレスの確認"
 
-#: mfa/adapter.py:18
+#: mfa/adapter.py:19
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
 msgstr ""
 
-#: mfa/adapter.py:21
+#: mfa/adapter.py:22
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
 msgstr ""
 
-#: mfa/adapter.py:23
+#: mfa/adapter.py:24
 msgid "Incorrect code."
 msgstr ""
 
@@ -228,7 +228,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:28
+#: socialaccount/adapter.py:30
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -240,11 +240,11 @@ msgstr ""
 "このメールアドレスを使用するアカウントが既にあります。そのアカウントにログイ"
 "ンしてから%sアカウントを接続してください"
 
-#: socialaccount/adapter.py:132
+#: socialaccount/adapter.py:136
 msgid "Your account has no password set up."
 msgstr "アカウントにパスワードを設定する必要があります。"
 
-#: socialaccount/adapter.py:139
+#: socialaccount/adapter.py:143
 msgid "Your account has no verified email address."
 msgstr "確認済みのメールアドレスの登録が必要です。"
 
@@ -252,98 +252,98 @@ msgstr "確認済みのメールアドレスの登録が必要です。"
 msgid "Social Accounts"
 msgstr "外部アカウント"
 
-#: socialaccount/models.py:34 socialaccount/models.py:95
+#: socialaccount/models.py:36 socialaccount/models.py:97
 msgid "provider"
 msgstr "プロバイダー"
 
-#: socialaccount/models.py:43
+#: socialaccount/models.py:45
 #, fuzzy
 #| msgid "provider"
 msgid "provider ID"
 msgstr "プロバイダー"
 
-#: socialaccount/models.py:47
+#: socialaccount/models.py:49
 msgid "name"
 msgstr "ユーザー名"
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:51
 msgid "client id"
 msgstr "ユーザID"
 
-#: socialaccount/models.py:51
+#: socialaccount/models.py:53
 msgid "App ID, or consumer key"
 msgstr "App IDもしくはコンシューマキー"
 
-#: socialaccount/models.py:54
+#: socialaccount/models.py:56
 msgid "secret key"
 msgstr "シークレットキー"
 
-#: socialaccount/models.py:57
+#: socialaccount/models.py:59
 msgid "API secret, client secret, or consumer secret"
 msgstr ""
 "APIシークレット、クライアントシークレット、またはコンシューマーシークレット"
 
-#: socialaccount/models.py:60
+#: socialaccount/models.py:62
 msgid "Key"
 msgstr "キー"
 
-#: socialaccount/models.py:79
+#: socialaccount/models.py:81
 msgid "social application"
 msgstr "ソーシャルアプリケーション"
 
-#: socialaccount/models.py:80
+#: socialaccount/models.py:82
 msgid "social applications"
 msgstr "ソーシャルアプリケーション"
 
-#: socialaccount/models.py:115
+#: socialaccount/models.py:117
 msgid "uid"
 msgstr ""
 
-#: socialaccount/models.py:117
+#: socialaccount/models.py:119
 msgid "last login"
 msgstr "最終ログイン"
 
-#: socialaccount/models.py:118
+#: socialaccount/models.py:120
 msgid "date joined"
 msgstr "アカウント作成日"
 
-#: socialaccount/models.py:119
+#: socialaccount/models.py:121
 msgid "extra data"
 msgstr "エクストラデータ"
 
-#: socialaccount/models.py:123
+#: socialaccount/models.py:125
 msgid "social account"
 msgstr "ソーシャルアカウント"
 
-#: socialaccount/models.py:124
+#: socialaccount/models.py:126
 msgid "social accounts"
 msgstr "ソーシャルアカウント"
 
-#: socialaccount/models.py:158
+#: socialaccount/models.py:160
 msgid "token"
 msgstr "トークン"
 
-#: socialaccount/models.py:159
+#: socialaccount/models.py:161
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) もしくは Access Token (OAuth2)"
 
-#: socialaccount/models.py:163
+#: socialaccount/models.py:165
 msgid "token secret"
 msgstr "トークンシークレット"
 
-#: socialaccount/models.py:164
+#: socialaccount/models.py:166
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) もしくは Refresh Token (OAuth2)"
 
-#: socialaccount/models.py:167
+#: socialaccount/models.py:169
 msgid "expires at"
 msgstr "失効期限"
 
-#: socialaccount/models.py:172
+#: socialaccount/models.py:174
 msgid "social application token"
 msgstr "ソーシャルアプリケーショントークン"
 
-#: socialaccount/models.py:173
+#: socialaccount/models.py:175
 msgid "social application tokens"
 msgstr "ソーシャルアプリケーショントークン"
 

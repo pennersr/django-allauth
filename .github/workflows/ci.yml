@@ -37,7 +37,7 @@ jobs:
             django-version: 'main'
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
       with:
@@ -65,7 +65,7 @@ jobs:
       matrix:
         extra-env: ['docs', 'black', 'isort', 'flake8', 'standardjs']
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: actions/setup-node@v3
       if: ${{ matrix.extra-env == 'standardjs' }}
       with:

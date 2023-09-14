@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-30 16:00-0500\n"
+"POT-Creation-Date: 2023-09-07 04:22-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,27 +19,27 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
-#: account/adapter.py:47
+#: account/adapter.py:48
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Lietotājvārds nevar tikt izmantots. Lūdzu izvēlietis citu lietotājvārdu."
 
-#: account/adapter.py:53
+#: account/adapter.py:54
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 "Pārāk daudz neveiksmīgi pieslēgšanās mēģinājumi. Mēģiniet vēlreiz vēlāk."
 
-#: account/adapter.py:55
+#: account/adapter.py:56
 msgid "A user is already registered with this email address."
 msgstr "Lietotājs ar šādu e-pasta adresi jau ir reģistrēts."
 
-#: account/adapter.py:56
+#: account/adapter.py:57
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "Šobrīdējā parole"
 
-#: account/adapter.py:305
+#: account/adapter.py:308
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Parolei jābūt vismaz {0} simbolus garai."
@@ -53,7 +53,7 @@ msgid "You must type the same password each time."
 msgstr "Katru reizi jums ir jāievada tā pati parole."
 
 #: account/forms.py:90 account/forms.py:397 account/forms.py:522
-#: account/forms.py:660
+#: account/forms.py:658
 msgid "Password"
 msgstr "Parole"
 
@@ -137,11 +137,11 @@ msgstr "Jūsu kontam nav apstiprinātas e-pasta adreses."
 msgid "Current Password"
 msgstr "Šobrīdējā parole"
 
-#: account/forms.py:505 account/forms.py:609
+#: account/forms.py:505 account/forms.py:607
 msgid "New Password"
 msgstr "Jaunā parole"
 
-#: account/forms.py:506 account/forms.py:610
+#: account/forms.py:506 account/forms.py:608
 msgid "New Password (again)"
 msgstr "Jaunā parole (vēlreiz)"
 
@@ -153,7 +153,7 @@ msgstr "Lūdzu ievadiet jūsu šobrīdējo paroli."
 msgid "The email address is not assigned to any user account"
 msgstr "E-pasta adrese nav piesaistīta nevienam lietotāja kontam"
 
-#: account/forms.py:630
+#: account/forms.py:628
 msgid "The password reset token was invalid."
 msgstr "Paroles atjaunošanas marķieris bija nederīgs."
 
@@ -185,7 +185,7 @@ msgstr "izveidots"
 msgid "sent"
 msgstr "nosūtīts"
 
-#: account/models.py:143 socialaccount/models.py:60
+#: account/models.py:143 socialaccount/models.py:62
 msgid "key"
 msgstr "atslēga"
 
@@ -197,19 +197,19 @@ msgstr "e-pasta apstiprinājums"
 msgid "email confirmations"
 msgstr "e-pasta apstiprinājumi"
 
-#: mfa/adapter.py:18
+#: mfa/adapter.py:19
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
 msgstr ""
 
-#: mfa/adapter.py:21
+#: mfa/adapter.py:22
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
 msgstr ""
 
-#: mfa/adapter.py:23
+#: mfa/adapter.py:24
 msgid "Incorrect code."
 msgstr ""
 
@@ -233,7 +233,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:28
+#: socialaccount/adapter.py:30
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -245,11 +245,11 @@ msgstr ""
 "Jau eksistē konts ar šo e-pasta adresi. Lūdzu sākumā ieejiet tajā kontā, tad "
 "pievienojiet %s kontu."
 
-#: socialaccount/adapter.py:132
+#: socialaccount/adapter.py:136
 msgid "Your account has no password set up."
 msgstr "Jūsu kontam nav uzstādīta parole."
 
-#: socialaccount/adapter.py:139
+#: socialaccount/adapter.py:143
 msgid "Your account has no verified email address."
 msgstr "Jūsu kontam nav apstiprinātas e-pasta adreses."
 
@@ -257,97 +257,97 @@ msgstr "Jūsu kontam nav apstiprinātas e-pasta adreses."
 msgid "Social Accounts"
 msgstr "Sociālie konti"
 
-#: socialaccount/models.py:34 socialaccount/models.py:95
+#: socialaccount/models.py:36 socialaccount/models.py:97
 msgid "provider"
 msgstr "sniedzējs"
 
-#: socialaccount/models.py:43
+#: socialaccount/models.py:45
 #, fuzzy
 #| msgid "provider"
 msgid "provider ID"
 msgstr "sniedzējs"
 
-#: socialaccount/models.py:47
+#: socialaccount/models.py:49
 msgid "name"
 msgstr "vārds"
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:51
 msgid "client id"
 msgstr "klienta id"
 
-#: socialaccount/models.py:51
+#: socialaccount/models.py:53
 msgid "App ID, or consumer key"
 msgstr "App ID, vai consumer key"
 
-#: socialaccount/models.py:54
+#: socialaccount/models.py:56
 msgid "secret key"
 msgstr "secret key"
 
-#: socialaccount/models.py:57
+#: socialaccount/models.py:59
 msgid "API secret, client secret, or consumer secret"
 msgstr "API secret, client secret, vai consumer secret"
 
-#: socialaccount/models.py:60
+#: socialaccount/models.py:62
 msgid "Key"
 msgstr "Key"
 
-#: socialaccount/models.py:79
+#: socialaccount/models.py:81
 msgid "social application"
 msgstr "sociālā aplikācija"
 
-#: socialaccount/models.py:80
+#: socialaccount/models.py:82
 msgid "social applications"
 msgstr "sociālās aplikācijas"
 
-#: socialaccount/models.py:115
+#: socialaccount/models.py:117
 msgid "uid"
 msgstr "uid"
 
-#: socialaccount/models.py:117
+#: socialaccount/models.py:119
 msgid "last login"
 msgstr "pēdējā pieslēgšanās"
 
-#: socialaccount/models.py:118
+#: socialaccount/models.py:120
 msgid "date joined"
 msgstr "reģistrācijas datums"
 
-#: socialaccount/models.py:119
+#: socialaccount/models.py:121
 msgid "extra data"
 msgstr "papildus informācija"
 
-#: socialaccount/models.py:123
+#: socialaccount/models.py:125
 msgid "social account"
 msgstr "sociālais konts"
 
-#: socialaccount/models.py:124
+#: socialaccount/models.py:126
 msgid "social accounts"
 msgstr "sociālie konti"
 
-#: socialaccount/models.py:158
+#: socialaccount/models.py:160
 msgid "token"
 msgstr "token"
 
-#: socialaccount/models.py:159
+#: socialaccount/models.py:161
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) vai piekļūt marķierim (OAuth2)"
 
-#: socialaccount/models.py:163
+#: socialaccount/models.py:165
 msgid "token secret"
 msgstr "token secret"
 
-#: socialaccount/models.py:164
+#: socialaccount/models.py:166
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) vai atjaunot marķieri (OAuth2)"
 
-#: socialaccount/models.py:167
+#: socialaccount/models.py:169
 msgid "expires at"
 msgstr "beidzas"
 
-#: socialaccount/models.py:172
+#: socialaccount/models.py:174
 msgid "social application token"
 msgstr "sociālās aplikācijas marķieris"
 
-#: socialaccount/models.py:173
+#: socialaccount/models.py:175
 msgid "social application tokens"
 msgstr "sociālās aplikācijas marķieri"
 

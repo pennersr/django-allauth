@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-30 16:00-0500\n"
+"POT-Creation-Date: 2023-09-07 04:22-0500\n"
 "PO-Revision-Date: 2014-12-01 01:20+0000\n"
 "Last-Translator: cacarrara <caiocarrara@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
@@ -23,26 +23,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: account/adapter.py:47
+#: account/adapter.py:48
 msgid "Username can not be used. Please use other username."
 msgstr "Este nome de usuário não pode ser usado. É preciso escolher outro."
 
-#: account/adapter.py:53
+#: account/adapter.py:54
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 "Excedida a quantidade de tentativas de login. Tente novamente mais tarde."
 
-#: account/adapter.py:55
+#: account/adapter.py:56
 msgid "A user is already registered with this email address."
 msgstr "Um usuário já foi registrado com este endereço de e-mail."
 
-#: account/adapter.py:56
+#: account/adapter.py:57
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "Senha Atual"
 
-#: account/adapter.py:305
+#: account/adapter.py:308
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "A senha deve ter no mínimo {0} caracteres."
@@ -56,7 +56,7 @@ msgid "You must type the same password each time."
 msgstr "A mesma senha deve ser escrita em ambos os campos."
 
 #: account/forms.py:90 account/forms.py:397 account/forms.py:522
-#: account/forms.py:660
+#: account/forms.py:658
 msgid "Password"
 msgstr "Senha"
 
@@ -133,11 +133,11 @@ msgstr "Não se pode adicionar mais de %d endereços de e-mail."
 msgid "Current Password"
 msgstr "Senha Atual"
 
-#: account/forms.py:505 account/forms.py:609
+#: account/forms.py:505 account/forms.py:607
 msgid "New Password"
 msgstr "Nova Senha"
 
-#: account/forms.py:506 account/forms.py:610
+#: account/forms.py:506 account/forms.py:608
 msgid "New Password (again)"
 msgstr "Nova Senha (novamente)"
 
@@ -149,7 +149,7 @@ msgstr "Por favor insira a sua senha atual."
 msgid "The email address is not assigned to any user account"
 msgstr "Este endereço de e-mail não está associado a nenhuma conta de usuário"
 
-#: account/forms.py:630
+#: account/forms.py:628
 msgid "The password reset token was invalid."
 msgstr "Token de redefinição de senha inválido"
 
@@ -181,7 +181,7 @@ msgstr "criado"
 msgid "sent"
 msgstr "enviado"
 
-#: account/models.py:143 socialaccount/models.py:60
+#: account/models.py:143 socialaccount/models.py:62
 msgid "key"
 msgstr "chave"
 
@@ -193,19 +193,19 @@ msgstr "confirmação de e-mail"
 msgid "email confirmations"
 msgstr "confirmações de e-mail"
 
-#: mfa/adapter.py:18
+#: mfa/adapter.py:19
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
 msgstr ""
 
-#: mfa/adapter.py:21
+#: mfa/adapter.py:22
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
 msgstr ""
 
-#: mfa/adapter.py:23
+#: mfa/adapter.py:24
 msgid "Incorrect code."
 msgstr ""
 
@@ -229,7 +229,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:28
+#: socialaccount/adapter.py:30
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -241,11 +241,11 @@ msgstr ""
 "Já existe uma conta com esse endereço de e-mail. Por favor, faça login na "
 "conta existente e, em seguida, conecte com %s."
 
-#: socialaccount/adapter.py:132
+#: socialaccount/adapter.py:136
 msgid "Your account has no password set up."
 msgstr "Sua conta não tem uma senha definida."
 
-#: socialaccount/adapter.py:139
+#: socialaccount/adapter.py:143
 msgid "Your account has no verified email address."
 msgstr "Sua conta não tem um endereço de e-mail verificado."
 
@@ -253,97 +253,97 @@ msgstr "Sua conta não tem um endereço de e-mail verificado."
 msgid "Social Accounts"
 msgstr "Contas Sociais"
 
-#: socialaccount/models.py:34 socialaccount/models.py:95
+#: socialaccount/models.py:36 socialaccount/models.py:97
 msgid "provider"
 msgstr "provedor"
 
-#: socialaccount/models.py:43
+#: socialaccount/models.py:45
 #, fuzzy
 #| msgid "provider"
 msgid "provider ID"
 msgstr "provedor"
 
-#: socialaccount/models.py:47
+#: socialaccount/models.py:49
 msgid "name"
 msgstr "nome"
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:51
 msgid "client id"
 msgstr "id do cliente"
 
-#: socialaccount/models.py:51
+#: socialaccount/models.py:53
 msgid "App ID, or consumer key"
 msgstr "App ID ou chave de consumidor"
 
-#: socialaccount/models.py:54
+#: socialaccount/models.py:56
 msgid "secret key"
 msgstr "Chave secreta"
 
-#: socialaccount/models.py:57
+#: socialaccount/models.py:59
 msgid "API secret, client secret, or consumer secret"
 msgstr "Segredo de API, segredo de cliente ou segredo de consumidor"
 
-#: socialaccount/models.py:60
+#: socialaccount/models.py:62
 msgid "Key"
 msgstr "Chave"
 
-#: socialaccount/models.py:79
+#: socialaccount/models.py:81
 msgid "social application"
 msgstr "aplicativo social"
 
-#: socialaccount/models.py:80
+#: socialaccount/models.py:82
 msgid "social applications"
 msgstr "aplicativos sociais"
 
-#: socialaccount/models.py:115
+#: socialaccount/models.py:117
 msgid "uid"
 msgstr "uid"
 
-#: socialaccount/models.py:117
+#: socialaccount/models.py:119
 msgid "last login"
 msgstr "último acesso"
 
-#: socialaccount/models.py:118
+#: socialaccount/models.py:120
 msgid "date joined"
 msgstr "data de adesão"
 
-#: socialaccount/models.py:119
+#: socialaccount/models.py:121
 msgid "extra data"
 msgstr "dados extras"
 
-#: socialaccount/models.py:123
+#: socialaccount/models.py:125
 msgid "social account"
 msgstr "conta social"
 
-#: socialaccount/models.py:124
+#: socialaccount/models.py:126
 msgid "social accounts"
 msgstr "contas sociais"
 
-#: socialaccount/models.py:158
+#: socialaccount/models.py:160
 msgid "token"
 msgstr "token"
 
-#: socialaccount/models.py:159
+#: socialaccount/models.py:161
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) ou token de acesso (OAuth2)"
 
-#: socialaccount/models.py:163
+#: socialaccount/models.py:165
 msgid "token secret"
 msgstr "token secret"
 
-#: socialaccount/models.py:164
+#: socialaccount/models.py:166
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) ou token de atualização (OAuth2)"
 
-#: socialaccount/models.py:167
+#: socialaccount/models.py:169
 msgid "expires at"
 msgstr "expira em"
 
-#: socialaccount/models.py:172
+#: socialaccount/models.py:174
 msgid "social application token"
 msgstr "token de aplicativo social"
 
-#: socialaccount/models.py:173
+#: socialaccount/models.py:175
 msgid "social application tokens"
 msgstr "tokens de aplicativo social"
 

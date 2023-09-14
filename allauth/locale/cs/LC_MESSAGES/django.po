@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Tomas Marcik <tomas.marcik@dolnex.cz>, 2013.
 # Beda Kosata <beda.kosata@gmail.com>, 2018.
+# Filip Dobrovolny <dobrovolny.filip@gmail.com>, 2023.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.35\n"
+"Project-Id-Version: 0.55\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-07 04:22-0500\n"
-"PO-Revision-Date: 2018-04-17 16:52+0200\n"
-"Last-Translator: Beda Kosata <beda.kosata@gmail.com>\n"
+"PO-Revision-Date: 2023-09-06 14:00+0200\n"
+"Last-Translator: Filip Dobrovolny <dobrovolny.filip@gmail.com>\n"
 "Language-Team: Czech <>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -33,10 +34,8 @@ msgid "A user is already registered with this email address."
 msgstr "Uživatel s tímto e-mailem je již registrován."
 
 #: account/adapter.py:57
-#, fuzzy
-#| msgid "Current Password"
 msgid "Incorrect password."
-msgstr "Současné heslo"
+msgstr "Nesprávné heslo."
 
 #: account/adapter.py:308
 #, python-brace-format
@@ -94,7 +93,7 @@ msgstr "Uživatelské jméno nebo e-mail"
 #: account/forms.py:134
 msgctxt "field label"
 msgid "Login"
-msgstr "Login"
+msgstr "Přihlášení"
 
 #: account/forms.py:307
 msgid "Email (again)"
@@ -110,7 +109,7 @@ msgstr "E-mail (nepovinné)"
 
 #: account/forms.py:368
 msgid "You must type the same email each time."
-msgstr "Vložené emaily se musí shodovat."
+msgstr "Vložené e-maily se musí shodovat."
 
 #: account/forms.py:401 account/forms.py:523
 msgid "Password (again)"
@@ -121,10 +120,8 @@ msgid "This email address is already associated with this account."
 msgstr "Tento e-mail je již k tomuto účtu přiřazen."
 
 #: account/forms.py:472
-#, fuzzy, python-format
-#| msgid "Your account has no verified email address."
 msgid "You cannot add more than %d email addresses."
-msgstr "Váš účet nemá žádný ověřený e-mail."
+msgstr "Nelze přidat více než %d e-mailových adres."
 
 #: account/forms.py:503
 msgid "Current Password"
@@ -172,7 +169,7 @@ msgstr "e-mailové adresy"
 
 #: account/models.py:141
 msgid "created"
-msgstr "vytvořil"
+msgstr "vytvořeno"
 
 #: account/models.py:142
 msgid "sent"
@@ -194,43 +191,42 @@ msgstr "Ověřovací e-maily"
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
-msgstr ""
+msgstr "Nemůžete aktivovat dvoufaktorovou autentizaci, dokud nepotvrdíte svou"
+"e-mailovou adresu."
 
 #: mfa/adapter.py:22
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
-msgstr ""
+msgstr "Nelze přidat e-mailovou adresu k účtu chráněnému dvoufaktorovou"
+"autentizací."
 
 #: mfa/adapter.py:24
 msgid "Incorrect code."
-msgstr ""
+msgstr "Nesprávný kód."
 
 #: mfa/apps.py:7
 msgid "MFA"
-msgstr ""
+msgstr "2FA"
 
 #: mfa/forms.py:12
 msgid "Code"
-msgstr ""
+msgstr "Kód"
 
 #: mfa/forms.py:29
 msgid "Authenticator code"
-msgstr ""
+msgstr "Kód autentifikátoru"
 
 #: mfa/models.py:15
 msgid "Recovery codes"
-msgstr ""
+msgstr "Záchranné kódy"
 
 #: mfa/models.py:16
 msgid "TOTP Authenticator"
-msgstr ""
+msgstr "TOTP Autentifikátor"
 
 #: socialaccount/adapter.py:30
-#, fuzzy, python-format
-#| msgid ""
-#| "An account already exists with this e-mail address. Please sign in to "
-#| "that account first, then connect your %s account."
+#, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
 "account first, then connect your %s account."
@@ -255,10 +251,8 @@ msgid "provider"
 msgstr "poskytovatel"
 
 #: socialaccount/models.py:45
-#, fuzzy
-#| msgid "provider"
 msgid "provider ID"
-msgstr "poskytovatel"
+msgstr "ID poskytovatele"
 
 #: socialaccount/models.py:49
 msgid "name"
@@ -349,27 +343,26 @@ msgid "Invalid profile data"
 msgstr "Neplatná data profilu"
 
 #: socialaccount/providers/oauth/client.py:85
-#, fuzzy, python-format
-#| msgid "Invalid response while obtaining request token from \"%s\"."
+#, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
-msgstr "Chyba při odesílání požadavku: \"%s\"."
+msgstr "Chyba při odesílání požadavku: \"%s\". Odpoveď byla: %s."
 
 #: socialaccount/providers/oauth/client.py:119
 #: socialaccount/providers/pocket/client.py:78
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
-msgstr "Chyba připojení: \"%s\"."
+msgstr "Chyba při získávání přístupového klíče od \"%s\"."
 
 #: socialaccount/providers/oauth/client.py:140
 #, python-format
 msgid "No request token saved for \"%s\"."
-msgstr "Není uložen žádný požadavek pro: \"%s\"."
+msgstr "Není uložen žádný požadavkový klíč pro: \"%s\"."
 
 #: socialaccount/providers/oauth/client.py:191
 #, python-format
 msgid "No access token saved for \"%s\"."
-msgstr "Není uloženo žádné připojení pro: \"%s\"."
+msgstr "Není uložen žádný přístupový klíč pro: \"%s\"."
 
 #: socialaccount/providers/oauth/client.py:212
 #, python-format
@@ -379,7 +372,7 @@ msgstr "Není přístup k privátním zdrojům: \"%s\"."
 #: socialaccount/providers/pocket/client.py:37
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
-msgstr "Chyba při odesílání požadavku: \"%s\"."
+msgstr "Chyba při získávání požadavkového klíče \"%s\"."
 
 #: templates/account/account_inactive.html:5
 #: templates/account/account_inactive.html:8
@@ -392,17 +385,15 @@ msgstr "Tento účet není aktivní."
 
 #: templates/account/base.html:16
 msgid "Messages:"
-msgstr ""
+msgstr "Zprávy:"
 
 #: templates/account/base.html:26
 msgid "Menu:"
-msgstr ""
+msgstr "Menu:"
 
 #: templates/account/base.html:29 templates/account/email_change.html:31
-#, fuzzy
-#| msgid "Email"
 msgid "Change Email"
-msgstr "E-mail"
+msgstr "Změnit E-mail"
 
 #: templates/account/base.html:30 templates/account/logout.html:5
 #: templates/account/logout.html:8 templates/account/logout.html:17
@@ -483,20 +474,24 @@ msgid ""
 "\n"
 "%(password_reset_url)s"
 msgstr ""
+"Dostáváte tento e-mail, protože vy nebo někdo jiný se pokusil registrovat účet s \n"
+"použitím e-mailové adresy:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"Ale účet s touto e-mailovou adresou již existuje. Pokud jste na to zapomněli, \n"
+"použijte prosím postup obnovení hesla k obnovení vašeho účtu:\n"
+"\n"
+"%(password_reset_url)s"
 
 #: templates/account/email/account_already_exists_subject.txt:3
 msgid "Account Already Exists"
-msgstr ""
+msgstr "Účet již existuje."
 
 #: templates/account/email/base_message.txt:1
-#, fuzzy, python-format
-#| msgid ""
-#| "Thank you from %(site_name)s!\n"
-#| "%(site_domain)s"
+#, python-format
 msgid "Hello from %(site_name)s!"
-msgstr ""
-"Díky z %(site_name)s!\n"
-"%(site_domain)s"
+msgstr "Pozdrav z %(site_name)s!"
 
 #: templates/account/email/base_message.txt:5
 #, python-format
@@ -508,48 +503,30 @@ msgstr ""
 "%(site_domain)s"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because user %(user_display)s has given "
-#| "yours as an e-mail address to connect their account.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s\n"
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s.\n"
 "\n"
 "To confirm this is correct, go to %(activate_url)s"
 msgstr ""
-"Zdravíme z %(site_name)s!\n"
-"\n"
 "Tento e-mail jste obdrželi protože uživatel %(user_display)s zadal vaši "
-"adresu jako e-mailovou adresu pro připojení svého účtu.\n"
+"adresu jako e-mailovou adresu pro připojení svého účtu na."
+"na stránkách %(site_domain)s.\n"
 "\n"
-"Pro potvrzení, že je to v pořádku, pokračujte na %(activate_url)s\n"
+"Pro potvrzení, že je to v pořádku, pokračujte na %(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your Email Address"
 msgstr "Potvrďte prosím svou e-mailovou adresu"
 
 #: templates/account/email/password_reset_key_message.txt:4
-#, fuzzy
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
 msgid ""
 "You're receiving this email because you or someone else has requested a "
 "password reset for your user account.\n"
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"Zdravíme z %(site_name)s!\n"
-"\n"
 "Tento e-mail jste obdrželi protože jste vy nebo někdo jiný zažádal o změnu "
 "hesla uživatelského účtu.\n"
 "Pokud jste to nebyli vy, můžete tento e-mail ignorovat. Pokud ano, klikněte "
@@ -567,14 +544,7 @@ msgid "Password Reset Email"
 msgstr "E-mail pro reset hesla"
 
 #: templates/account/email/unknown_account_message.txt:4
-#, fuzzy, python-format
-#| msgid ""
-#| "Hello from %(site_name)s!\n"
-#| "\n"
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
+#, python-format
 msgid ""
 "You are receiving this email because you or someone else has requested a\n"
 "password for your user account. However, we do not have any record of a "
@@ -585,36 +555,30 @@ msgid ""
 "\n"
 "If it was you, you can sign up for an account using the link below."
 msgstr ""
-"Zdravíme z %(site_name)s!\n"
+"Tento e-mail jste obdrželi protože jste vy nebo někdo jiný zažádal o změnu \n"
+"hesla uživatelského účtu. Nicméně, nemáme žádný záznam o uživateli s \n"
+"e-mailem %(email)s v naší databázi.\n"
 "\n"
-"Tento e-mail jste obdrželi protože jste vy nebo někdo jiný zažádal o změnu "
-"hesla uživatelského účtu.\n"
-"Pokud jste to nebyli vy, můžete tento e-mail ignorovat. Pokud ano, klikněte "
-"na odkaz níže pro změnu vašeho hesla."
+"Tento e-mail můžete bezpečně ignorovat, pokud jste nezažádali o změnu hesla.\n"
+"\n"
+"Jestliže jste to byli vy, můžete se zaregistrovat na stránkách pomocí odkazu \n"
+"níže."
 
 #: templates/account/email_change.html:4 templates/account/email_change.html:7
-#, fuzzy
-#| msgid "Email Addresses"
 msgid "Email Address"
-msgstr "E-mailové adresy"
+msgstr "E-mailové adresa"
 
 #: templates/account/email_change.html:11
-#, fuzzy
-#| msgid "The following email addresses are associated with your account:"
 msgid "The following email address is associated with your account:"
-msgstr "K vašemu účtu jsou přiřazeny tyto e-mailové adresy:"
+msgstr "K vašemu účtu je přiřazena tato e-mailová adresa:"
 
 #: templates/account/email_change.html:16
-#, fuzzy
-#| msgid "Your primary email address must be verified."
 msgid "Your email address is still pending verification:"
-msgstr "Vaše primární e-mailová adresa musí být ověřena."
+msgstr "Vaše primární e-mailová adresa stále čeká na ověření:"
 
 #: templates/account/email_change.html:27
-#, fuzzy
-#| msgid "Confirm Email Address"
 msgid "Change Email Address"
-msgstr "Potvrzení e-mailové adresy"
+msgstr "Změna e-mailové adresy"
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
@@ -622,16 +586,13 @@ msgid "Confirm Email Address"
 msgstr "Potvrzení e-mailové adresy"
 
 #: templates/account/email_confirm.html:17
-#, fuzzy, python-format
-#| msgid ""
-#| "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
-#| "mail address for user %(user_display)s."
+#, python-format
 msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an email "
 "address for user %(user_display)s."
 msgstr ""
 "Prosím, potvrďte, že <a href=\"mailto:%(email)s\">%(email)s</a> je e-mailová "
-"adresa uživatele %(user_display)s."
+"adresa pro uživatele %(user_display)s."
 
 #: templates/account/email_confirm.html:21
 #: templates/account/reauthenticate.html:19
@@ -640,18 +601,14 @@ msgstr "Potvrdit"
 
 #: templates/account/email_confirm.html:24
 #: templates/account/messages/email_confirmation_failed.txt:2
-#, fuzzy, python-format
-#| msgid "The social account is already connected to a different account."
+#, python-format
 msgid ""
 "Unable to confirm %(email)s because it is already confirmed by a different "
 "account."
-msgstr "Účet sociální sítě je již spojen s jiným účtem."
+msgstr "Nelze potvrdit %(email)s, protože již byl spojen s jiným účtem."
 
 #: templates/account/email_confirm.html:31
-#, fuzzy, python-format
-#| msgid ""
-#| "This e-mail confirmation link expired or is invalid. Please <a href="
-#| "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+#, python-format
 msgid ""
 "This email confirmation link expired or is invalid. Please <a href="
 "\"%(email_url)s\">issue a new email confirmation request</a>."
@@ -752,13 +709,9 @@ msgstr "Změnit heslo"
 #: templates/account/password_reset_done.html:6
 #: templates/account/password_reset_done.html:9
 msgid "Password Reset"
-msgstr "Vyžádání nového hesla"
+msgstr "Reset hesla"
 
 #: templates/account/password_reset.html:15
-#, fuzzy
-#| msgid ""
-#| "Forgotten your password? Enter your e-mail address below, and we'll send "
-#| "you an e-mail allowing you to reset it."
 msgid ""
 "Forgotten your password? Enter your email address below, and we'll send you "
 "an email allowing you to reset it."
@@ -768,7 +721,7 @@ msgstr ""
 
 #: templates/account/password_reset.html:20
 msgid "Reset My Password"
-msgstr "Vyžádat nové heslo"
+msgstr "Resetovat moje heslo"
 
 #: templates/account/password_reset.html:23
 msgid "Please contact us if you have any trouble resetting your password."
@@ -776,23 +729,17 @@ msgstr ""
 "Prosím, kontaktujte nás, pokud máte jakékoliv potíže s resetováním hesla."
 
 #: templates/account/password_reset_done.html:15
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent you an email. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
 msgstr ""
-"Zaslali jsme na vaši e-mailovou adresu\n"
-"ověřovací e-mail. Prosím, klikněte na odkaz uvnitř e-mailu.\n"
-"Neváhejte nás kontaktovat v případě, pokud e-mail nedostanete do několika "
-"minut."
+"Poslali jsme vám e-mail. Pokud jste ho neobdrželi, zkontrolujte prosím složku s "
+"nevyžádanou poštou (spam). V opačném případě nás kontaktujte, pokud ho "
+"neobdržíte do několika minut."
 
 #: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
-msgstr "Chyba serveru"
+msgstr "Chybný klíč"
 
 #: templates/account/password_reset_from_key.html:11
 #, python-format
@@ -815,18 +762,16 @@ msgstr "Vaše heslo bylo změněno."
 #: templates/account/password_set.html:5 templates/account/password_set.html:8
 #: templates/account/password_set.html:13
 msgid "Set Password"
-msgstr "Nastavit helso"
+msgstr "Nastavit heslo"
 
 #: templates/account/reauthenticate.html:5
 #: templates/account/reauthenticate.html:9
-#, fuzzy
-#| msgid "Confirm Email Address"
 msgid "Confirm Access"
-msgstr "Potvrzení e-mailové adresy"
+msgstr "Potvrdit přístup"
 
 #: templates/account/reauthenticate.html:11
 msgid "To safeguard the security of your account, please enter your password:"
-msgstr ""
+msgstr "Pro zabezpečení vašeho účtu, prosím, zadejte vaše heslo:"
 
 #: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
@@ -861,11 +806,6 @@ msgid "Warning:"
 msgstr "Varování:"
 
 #: templates/account/snippets/warn_no_email.html:3
-#, fuzzy
-#| msgid ""
-#| "You currently do not have any e-mail address set up. You should really "
-#| "add an e-mail address so you can receive notifications, reset your "
-#| "password, etc."
 msgid ""
 "You currently do not have any email address set up. You should really add an "
 "email address so you can receive notifications, reset your password, etc."
@@ -882,11 +822,6 @@ msgid "Verify Your Email Address"
 msgstr "Ověřte svoji e-mailovou adresu."
 
 #: templates/account/verification_sent.html:10
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for verification. Follow the link provided "
-#| "to finalize the signup process. Please contact us if you do not receive "
-#| "it within a few minutes."
 msgid ""
 "We have sent an email to you for verification. Follow the link provided to "
 "finalize the signup process. If you do not see the verification email in "
@@ -894,15 +829,11 @@ msgid ""
 "receive the verification email within a few minutes."
 msgstr ""
 "Byl vám zaslán ověřovací e-mail. Následujte odkaz v e-mailu pro dokončení "
-"registračního procesu. Neváhejte nás kontaktovat v případě, pokud e-mail do "
+"registračního procesu. Pokud jste ho neobdrželi, zkontrolujte prosím složku s "
+"nevyžádanou poštou (spam). Neváhejte nás kontaktovat v případě, pokud e-mail do "
 "několika minut neobdržíte."
 
 #: templates/account/verified_email_required.html:12
-#, fuzzy
-#| msgid ""
-#| "This part of the site requires us to verify that\n"
-#| "you are who you claim to be. For this purpose, we require that you\n"
-#| "verify ownership of your e-mail address. "
 msgid ""
 "This part of the site requires us to verify that\n"
 "you are who you claim to be. For this purpose, we require that you\n"
@@ -913,11 +844,6 @@ msgstr ""
 "ověření vlastnictví vaší e-mailové adresy."
 
 #: templates/account/verified_email_required.html:16
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent an email to you for\n"
 "verification. Please click on the link inside that email. If you do not see "
@@ -927,14 +853,13 @@ msgid ""
 msgstr ""
 "Zaslali jsme na vaši e-mailovou adresu\n"
 "ověřovací e-mail. Prosím, klikněte na odkaz uvnitř e-mailu.\n"
+"Pokud jste ho neobdrželi, zkontrolujte prosím složku s "
+"nevyžádanou poštou (spam). \n"
 "Neváhejte nás kontaktovat v případě, pokud e-mail nedostanete do několika "
 "minut."
 
 #: templates/account/verified_email_required.html:20
-#, fuzzy, python-format
-#| msgid ""
-#| "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change "
-#| "your e-mail address</a>."
+#, python-format
 msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
 "email address</a>."
@@ -945,39 +870,41 @@ msgstr ""
 #: templates/mfa/authenticate.html:7 templates/mfa/index.html:4
 #: templates/mfa/index.html:7
 msgid "Two-Factor Authentication"
-msgstr ""
+msgstr "Dvoufaktorová autentizace"
 
 #: templates/mfa/authenticate.html:9
 msgid ""
 "Your account is protected by two-factor authentication. Please enter an "
 "authenticator code:"
 msgstr ""
+"Váš účet je chráněn dvoufaktorovou autentizací. Prosím, zadejte "
+"autentizační kód:"
 
 #: templates/mfa/index.html:9 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
-msgstr ""
+msgstr "Autentifikátor"
 
 #: templates/mfa/index.html:11
 msgid "Authentication using an authenticator app is active."
-msgstr ""
+msgstr "Autentizace pomocí autentifikátoru je aktivní."
 
 #: templates/mfa/index.html:14 templates/mfa/totp/deactivate_form.html:11
 msgid "Deactivate"
-msgstr ""
+msgstr "Deaktivovat"
 
 #: templates/mfa/index.html:18
 msgid "An authenticator app is not active."
-msgstr ""
+msgstr "Autentifikátor není aktivní."
 
 #: templates/mfa/index.html:21 templates/mfa/totp/activate_form.html:16
 msgid "Activate"
-msgstr ""
+msgstr "Aktivovat"
 
 #: templates/mfa/index.html:27 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:4
 #: templates/mfa/recovery_codes/index.html:4
 msgid "Recovery Codes"
-msgstr ""
+msgstr "Záchranné kódy"
 
 #: templates/mfa/index.html:30 templates/mfa/recovery_codes/index.html:6
 #, python-format
@@ -985,72 +912,72 @@ msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
 msgid_plural ""
 "There are %(unused_count)s out of %(total_count)s recovery codes available."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Z dostupných záchranných kódů je použito %(unused_count)s z celkového počtu %(total_count)s kódů."
+msgstr[1] "Z dostupných záchranných kódů je použito %(unused_count)s z celkového počtu %(total_count)s kódů."
+msgstr[2] "Z dostupných záchranných kódů je použito %(unused_count)s z celkového počtu %(total_count)s kódů."
+msgstr[3] "Z dostupných záchranných kódů je použito %(unused_count)s z celkového počtu %(total_count)s kódů."
 
 #: templates/mfa/index.html:34
 msgid "View codes"
-msgstr ""
+msgstr "Zobrazit kódy"
 
 #: templates/mfa/index.html:37 templates/mfa/recovery_codes/index.html:16
 msgid "Download codes"
-msgstr ""
+msgstr "Stáhnout kódy"
 
 #: templates/mfa/index.html:40 templates/mfa/recovery_codes/index.html:20
 msgid "Generate new codes"
-msgstr ""
+msgstr "Generovat nové kódy"
 
 #: templates/mfa/index.html:44
 msgid "No recovery codes set up."
-msgstr ""
+msgstr "Nejsou nastaveny žádné záchranné kódy."
 
 #: templates/mfa/messages/recovery_codes_generated.txt:2
 msgid "A new set of recovery codes has been generated."
-msgstr ""
+msgstr "Byla vygenerována nová sada záchranných kódů."
 
 #: templates/mfa/messages/totp_activated.txt:2
 msgid "Authenticator app activated."
-msgstr ""
+msgstr "Autentifikátor byl aktivován."
 
 #: templates/mfa/messages/totp_deactivated.txt:2
 msgid "Authenticator app deactivated."
-msgstr ""
+msgstr "Autentifikátor byl deaktivován."
 
 #: templates/mfa/recovery_codes/generate.html:6
 msgid ""
 "You are about to generate a new set of recovery codes for your account. This "
 "action will invalidate your existing codes. Are you sure?"
 msgstr ""
+"Chystáte se vygenerovat novou sadu záchranných kódů pro váš "
+"účet. Tato akce zneplatní vaše stávající kódy. Jste si jisti?"
 
 #: templates/mfa/recovery_codes/generate.html:11
 msgid "Generate"
-msgstr ""
+msgstr "Generovat"
 
 #: templates/mfa/totp/activate_form.html:4
 msgid "Activate Authenticator App"
-msgstr ""
+msgstr "Aktivovat Autentifikátor"
 
 #: templates/mfa/totp/activate_form.html:9
-#, fuzzy
-#| msgid "token secret"
 msgid "Authenticator secret"
-msgstr "tajný token"
+msgstr "Klíč autentifikátoru"
 
 #: templates/mfa/totp/deactivate_form.html:4
 msgid "Deactivate Authenticator App"
-msgstr ""
+msgstr "Deaktivovat Autentifikátor"
 
 #: templates/mfa/totp/deactivate_form.html:6
 msgid ""
 "You are about to deactivate authenticator app based authentication. Are you "
 "sure?"
-msgstr ""
+msgstr "Chystáte se deaktivovat autentizaci pomocí autentifikátoru. Jste si jisti?"
 
 #: templates/openid/login.html:9
 msgid "OpenID Sign In"
-msgstr "Přihlášeníí OpenID"
+msgstr "Přihlášení OpenID"
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:8
@@ -1085,26 +1012,26 @@ msgstr "Přidejte další účet"
 #: templates/socialaccount/login.html:8
 #, python-format
 msgid "Connect %(provider)s"
-msgstr ""
+msgstr "Připojit %(provider)s"
 
 #: templates/socialaccount/login.html:10
 #, python-format
 msgid "You are about to connect a new third party account from %(provider)s."
-msgstr ""
+msgstr "Chystáte se připojit nový účet třetí strany od %(provider)s."
 
 #: templates/socialaccount/login.html:12
 #, python-format
 msgid "Sign In Via %(provider)s"
-msgstr ""
+msgstr "Přihlásit se pomocí %(provider)s"
 
 #: templates/socialaccount/login.html:14
 #, python-format
 msgid "You are about to sign in using a third party account from %(provider)s."
-msgstr ""
+msgstr "Chystáte se přihlásit pomocí účtu třetí strany od %(provider)s."
 
 #: templates/socialaccount/login.html:19
 msgid "Continue"
-msgstr ""
+msgstr "Pokračovat"
 
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9
@@ -1139,7 +1066,7 @@ msgid ""
 "You are about to use your %(provider_name)s account to login to\n"
 "%(site_name)s. As a final step, please complete the following form:"
 msgstr ""
-"Chystáte se použít vaš %(provider_name)s účtu k přihlášení na naše stránky \n"
+"Chystáte se použít vášeho %(provider_name)s účtu k přihlášení na naše stránky \n"
 "%(site_name)s. Jako poslední krok, prosím, vyplňte následující formulář:"
 
 #~ msgid "This email address is already associated with another account."

@@ -99,7 +99,7 @@ Change Password
 *Used on*:
   `account_change_password <views.html#password-management>`__ view.
 
-Example overrride::
+Example override::
 
     from allauth.account.forms import ChangePasswordForm
     class MyCustomChangePasswordForm(ChangePasswordForm):

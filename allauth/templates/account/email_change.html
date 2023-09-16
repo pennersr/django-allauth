@@ -2,7 +2,7 @@
 {% load i18n %}
 {% block head_title %}
     {% trans "Email Address" %}
-{% endblock %}
+{% endblock head_title %}
 {% block content %}
     <h1>{% trans "Email Address" %}</h1>
     {% if emailaddresses %}
@@ -30,4 +30,4 @@
         {{ form.as_p }}
         <button name="action_add" type="submit">{% trans "Change Email" %}</button>
     </form>
-{% endblock %}
+{% endblock content %}

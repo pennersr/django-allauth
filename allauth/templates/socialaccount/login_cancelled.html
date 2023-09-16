@@ -2,7 +2,7 @@
 
 {% load i18n %}
 
-{% block head_title %}{% trans "Login Cancelled" %}{% endblock %}
+{% block head_title %}{% trans "Login Cancelled" %}{% endblock head_title %}
 
 {% block content %}
 
@@ -12,4 +12,4 @@
 
 <p>{% blocktrans %}You decided to cancel logging in to our site using one of your existing accounts. If this was a mistake, please proceed to <a href="{{login_url}}">sign in</a>.{% endblocktrans %}</p>
 
-{% endblock %}
+{% endblock content %}

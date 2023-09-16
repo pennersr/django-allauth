@@ -2,7 +2,7 @@
 
 {% load i18n %}
 
-{% block head_title %}{% trans "Account Connections" %}{% endblock %}
+{% block head_title %}{% trans "Account Connections" %}{% endblock head_title %}
 
 {% block content %}
 <h1>{% trans "Account Connections" %}</h1>
@@ -51,4 +51,4 @@
 
 {% include "socialaccount/snippets/login_extra.html" %}
 
-{% endblock %}
+{% endblock content %}

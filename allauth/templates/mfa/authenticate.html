@@ -2,7 +2,7 @@
 {% load i18n %}
 {% block head_title %}
     {% trans "Sign In" %}
-{% endblock %}
+{% endblock head_title %}
 {% block content %}
     <h1>{% trans "Two-Factor Authentication" %}</h1>
     <p>
@@ -15,4 +15,4 @@
         {{ form.as_p }}
         <button type="submit">{% trans "Sign In" %}</button>
     </form>
-{% endblock %}
+{% endblock content %}

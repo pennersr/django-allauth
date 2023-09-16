@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{% block head_title %}{% endblock %}</title>
+    <title>{% block head_title %}{% endblock head_title %}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1/new.min.css">
 
     {% block extra_head %}
-    {% endblock %}
+    {% endblock extra_head %}
   </head>
   <body>
     {% block body %}
@@ -39,9 +39,9 @@
       </ul>
     </div>
     {% block content %}
-    {% endblock %}
-    {% endblock %}
+    {% endblock content %}
+    {% endblock body %}
     {% block extra_body %}
-    {% endblock %}
+    {% endblock extra_body %}
   </body>
 </html>

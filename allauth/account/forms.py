@@ -378,7 +378,7 @@ class BaseSignupForm(_base_signup_form_class()):
         email and return a standard "email verification sent" response.
         """
         if self.account_already_exists:
-            # Don't create a new acount, only send an email informing the user
+            # Don't create a new account, only send an email informing the user
             # that (s)he already has one...
             email = self.cleaned_data["email"]
             adapter = get_adapter()

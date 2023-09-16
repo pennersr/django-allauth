@@ -10,6 +10,6 @@ Authentication. It supports:
 
 - Viewing, downloading and regenerating recovery codes.
 
-Note that in order to use this functionality you need to instal the ``mfa`` extras of the ``django-allauth`` package::
+Note that in order to use this functionality you need to install the ``mfa`` extras of the ``django-allauth`` package::
 
   pip install django-allauth[mfa]

@@ -98,6 +98,6 @@ email is sent pointing to the
 ``allauth.account.views.ConfirmEmailView`` view.
 
 The setting ``ACCOUNT_CONFIRM_EMAIL_ON_GET`` determines whether users
-have to manually confirm the address by submiting a confirmation form,
+have to manually confirm the address by submitting a confirmation form,
 or whether the address is automatically confirmed by a mere GET
 request.

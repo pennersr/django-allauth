@@ -32,7 +32,7 @@ class NotionProvider(OAuth2Provider):
 
     def extract_uid(self, data):
         """
-        The unique identifer for Notion is a combination of the User ID
+        The unique identifier for Notion is a combination of the User ID
         and the Workspace ID they have authorized the application with.
         """
         user_id = data["owner"]["user"]["id"]

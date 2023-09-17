@@ -2,7 +2,7 @@
 
 {% load i18n %}
 
-{% block head_title %}{% trans "Confirm Access" %}{% endblock %}
+{% block head_title %}{% trans "Confirm Access" %}{% endblock head_title %}
 
 {% block content %}
 
@@ -19,4 +19,4 @@
   <button type="submit">{% trans "Confirm" %}</button>
 </form>
 
-{% endblock %}
+{% endblock content %}

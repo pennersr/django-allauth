@@ -2,7 +2,7 @@
 {% load i18n %}
 {% block head_title %}
     {% trans "Two-Factor Authentication" %}
-{% endblock %}
+{% endblock head_title %}
 {% block content %}
     <h1>{% trans "Two-Factor Authentication" %}</h1>
     <section class="totp">
@@ -23,7 +23,7 @@
             </ul>
         {% endif %}
     </section>
-    <section class="recovery_codes" %}>
+    <section class="recovery_codes">
         <h2>{% translate "Recovery Codes" %}</h2>
         {% if authenticators.recovery_codes %}
             <p>
@@ -44,4 +44,4 @@
             <p>{% translate "No recovery codes set up." %}</p>
         {% endif %}
     </section>
-{% endblock %}
+{% endblock content %}

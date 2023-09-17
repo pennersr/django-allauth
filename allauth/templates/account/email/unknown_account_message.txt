@@ -9,4 +9,4 @@ This mail can be safely ignored if you did not request a password reset.
 
 If it was you, you can sign up for an account using the link below.{% endblocktrans %}
 
-{{ signup_url }}{% endautoescape %}{% endblock %}
+{{ signup_url }}{% endautoescape %}{% endblock content %}

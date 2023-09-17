@@ -10,4 +10,4 @@ However, an account using that email address already exists.  In case you have
 forgotten about this, please use the password forgotten procedure to recover
 your account:
 
-{{ password_reset_url }}{% endblocktrans %}{% endautoescape %}{% endblock %}
+{{ password_reset_url }}{% endblocktrans %}{% endautoescape %}{% endblock content %}

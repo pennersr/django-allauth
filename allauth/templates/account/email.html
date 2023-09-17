@@ -2,7 +2,7 @@
 
 {% load i18n %}
 
-{% block head_title %}{% trans "Email Addresses" %}{% endblock %}
+{% block head_title %}{% trans "Email Addresses" %}{% endblock head_title %}
 
 {% block content %}
     <h1>{% trans "Email Addresses" %}</h1>
@@ -53,7 +53,7 @@
     </form>
   {% endif %}
 
-{% endblock %}
+{% endblock content %}
 
 
 {% block extra_body %}
@@ -70,4 +70,4 @@
   }
 })();
 </script>
-{% endblock %}
+{% endblock extra_body %}

@@ -1,7 +1,7 @@
 {% extends "socialaccount/base.html" %}
 {% load i18n %}
 
-{% block head_title %}{% trans "Sign In" %}{% endblock %}
+{% block head_title %}{% trans "Sign In" %}{% endblock head_title %}
 
 {% block content %}
 {% if process == "connect" %}
@@ -18,4 +18,4 @@
   {% csrf_token %}
   <button type="submit">{% trans "Continue" %}</button>
 </form>
-{% endblock %}
+{% endblock content %}

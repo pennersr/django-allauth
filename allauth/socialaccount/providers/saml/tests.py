@@ -1,4 +1,5 @@
 from unittest.mock import patch
+from urllib.parse import parse_qs, urlparse
 
 from django.urls import reverse
 from django.utils.http import urlencode
@@ -10,8 +11,25 @@ from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers.saml.utils import build_saml_config
 
 
-def test_acs(client, db, saml_settings, acs_saml_response, mocked_signature_validation):
+@pytest.mark.parametrize(
+    "relay_state, expected_url",
+    [
+        (None, "/accounts/profile/"),
+        ("/foo", "/foo"),
+    ],
+)
+def test_acs(
+    client,
+    db,
+    saml_settings,
+    acs_saml_response,
+    mocked_signature_validation,
+    expected_url,
+    relay_state,
+):
     data = {"SAMLResponse": acs_saml_response}
+    if relay_state is not None:
+        data["RelayState"] = relay_state
     resp = client.post(
         reverse("saml_acs", kwargs={"organization_slug": "org"}), data=data
     )
@@ -19,7 +37,7 @@ def test_acs(client, db, saml_settings, acs_saml_response, mocked_signature_vali
     assert resp.status_code == 302
     assert resp["location"] == finish_url
     resp = client.get(finish_url)
-    assert resp["location"] == "/accounts/profile/"
+    assert resp["location"] == expected_url
     account = SocialAccount.objects.get(
         provider="urn:dev-123.us.auth0.com", uid="dummysamluid"
     )
@@ -37,16 +55,27 @@ def test_acs_error(client, db, saml_settings):
     assert "socialaccount/authentication_error.html" in (t.name for t in resp.templates)
 
 
-def test_login(
-    client,
-    db,
-    saml_settings,
-):
-    resp = client.get(reverse("saml_login", kwargs={"organization_slug": "org"}))
-    assert resp.status_code == 302
-    assert resp["location"].startswith(
-        "https://dev-123.us.auth0.com/samlp/456?SAMLRequest="
+@pytest.mark.parametrize(
+    "query,expected_relay_state",
+    [
+        ("", None),
+        ("?process=connect", "/social/connections/"),
+        ("?process=connect&next=/foo", "/foo"),
+        ("?next=/bar", "/bar"),
+    ],
+)
+def test_login(client, db, saml_settings, query, expected_relay_state):
+    resp = client.get(
+        reverse("saml_login", kwargs={"organization_slug": "org"}) + query
     )
+    assert resp.status_code == 302
+    location = resp["location"]
+    assert location.startswith("https://dev-123.us.auth0.com/samlp/456?SAMLRequest=")
+    resp_query = parse_qs(urlparse(location).query)
+    if expected_relay_state is None:
+        assert "RelayState" not in resp_query
+    else:
+        assert resp_query.get("RelayState")[0] == expected_relay_state
 
 
 def test_metadata(

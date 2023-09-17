@@ -10,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from onelogin.saml2.auth import OneLogin_Saml2_Auth, OneLogin_Saml2_Settings
 
 from allauth.account.adapter import get_adapter as get_account_adapter
+from allauth.account.utils import get_next_redirect_url
 from allauth.socialaccount.helpers import (
     complete_social_login,
     render_authentication_error,
@@ -77,10 +78,10 @@ class ACSView(SAMLViewMixin, View):
 
         relay_state = request.POST.get("RelayState")
         login = provider.sociallogin_from_response(request, auth)
-        if relay_state == request.build_absolute_uri(
-            reverse("socialaccount_connections")
-        ):
+        if relay_state == reverse("socialaccount_connections"):
             login.state["process"] = AuthProcess.CONNECT
+        elif relay_state:
+            login.state["next"] = relay_state
 
         acs_session = LoginSession(request, "saml_acs_session", "saml-acs-session")
         acs_session.store["login"] = login.serialize()
@@ -162,9 +163,15 @@ class LoginView(SAMLViewMixin, View):
         provider = self.get_provider(organization_slug)
         auth = self.build_auth(provider, organization_slug)
         process = self.request.GET.get("process")
-        return_to = None
-        if process == AuthProcess.CONNECT:
-            return_to = request.build_absolute_uri(reverse("socialaccount_connections"))
+        return_to = get_next_redirect_url(request)
+        if return_to:
+            pass
+        elif process == AuthProcess.CONNECT:
+            return_to = reverse("socialaccount_connections")
+        else:
+            # If we pass `return_to=None` `auth.login` will use the URL of the
+            # current view, which will then end up being used as a redirect URL.
+            return_to = ""
         redirect = auth.login(return_to=return_to)
         return HttpResponseRedirect(redirect)
 

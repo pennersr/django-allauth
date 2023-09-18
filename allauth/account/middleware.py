@@ -20,7 +20,13 @@ class AccountMiddleware:
             return exception.response
 
     def _remove_dangling_login(self, request, response):
-        if request.path.startswith(settings.STATIC_URL):
+        if request.path.startswith(settings.STATIC_URL) or request.path in [
+            "/favicon.ico",
+            "/robots.txt",
+            "/humans.txt",
+        ]:
+            return
+        if response.status_code // 100 != 2:
             return
         if not getattr(request, "_account_login_accessed", False):
             if "account_login" in request.session:

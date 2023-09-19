@@ -4,8 +4,22 @@
 Note worthy changes
 -------------------
 
-- Added django password validation help text to password1 on set/change/signup forms.
-- ...
+- Added Django password validation help text to ``password1`` on
+  set/change/signup forms.
+
+- Microsoft: the tenant parameter can now be configured per app.
+
+- SAML: Added support for additional configuration parameters, such as contacts,
+  and support for certificate rotation.
+
+
+Fixes
+=====
+
+- Fixed ``?next=`` URL handling in the SAML provider.
+
+- During 2FA, pending logins were incorrectly removed when e.g. Django was asked
+  to serve a ``/favicon.ico`` URL.
 
 
 0.56.1 (2023-09-08)

@@ -30,20 +30,11 @@ def test_activate_totp_with_incorrect_code(auth_client, reauthentication_bypass)
             reverse("mfa_activate_totp"),
             {
                 "code": "123",
-                "signed_secret": resp.context["form"].initial["signed_secret"],
             },
         )
     assert resp.context["form"].errors == {
         "code": [get_adapter().error_messages["incorrect_code"]]
     }
-
-
-def test_activate_totp_with_tampered_secret(auth_client, reauthentication_bypass):
-    with reauthentication_bypass():
-        resp = auth_client.post(
-            reverse("mfa_activate_totp"), {"code": "123", "signed_secret": "tampered"}
-        )
-    assert resp.context["form"].errors == {"signed_secret": ["Tampered form."]}
 
 
 def test_activate_totp_with_unverified_email(
@@ -57,11 +48,10 @@ def test_activate_totp_with_unverified_email(
                 reverse("mfa_activate_totp"),
                 {
                     "code": "123",
-                    "signed_secret": resp.context["form"].initial["signed_secret"],
                 },
             )
     assert resp.context["form"].errors == {
-        "__all__": [get_adapter().error_messages["unverified_email"]],
+        "code": [get_adapter().error_messages["unverified_email"]],
     }
 
 
@@ -75,7 +65,6 @@ def test_activate_totp_success(
                 reverse("mfa_activate_totp"),
                 {
                     "code": "123",
-                    "signed_secret": resp.context["form"].initial["signed_secret"],
                 },
             )
     assert resp["location"] == reverse("mfa_view_recovery_codes")

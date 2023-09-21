@@ -1,5 +1,4 @@
 from django import forms
-from django.core.signing import BadSignature, Signer
 from django.utils.translation import gettext_lazy as _
 
 from allauth.account.models import EmailAddress
@@ -25,50 +24,28 @@ class AuthenticateForm(forms.Form):
 
 
 class ActivateTOTPForm(forms.Form):
-    signed_secret = forms.CharField(widget=forms.HiddenInput)
     code = forms.CharField(label=_("Authenticator code"))
 
     def __init__(self, *args, **kwargs):
-        initial = kwargs.setdefault("initial", {})
         self.user = kwargs.pop("user")
-        initial["signed_secret"] = Signer().sign(totp.totp_secret())
         self.email_verified = not EmailAddress.objects.filter(
             user=self.user, verified=False
         ).exists()
         super().__init__(*args, **kwargs)
+        self.secret = totp.get_totp_secret(regenerate=not self.is_bound)
 
-    @property
-    def secret(self):
-        signed_secret = (
-            self.data.get("signed_secret")
-            if self.is_bound
-            else self.initial["signed_secret"]
-        )
+    def clean_code(self):
         try:
-            return Signer().unsign(signed_secret)
-        except BadSignature:
-            # Don't care -- somebody tampered with the form
-            return "tampered"
-
-    def clean_signed_secret(self):
-        signed_secret = self.cleaned_data["signed_secret"]
-        try:
-            return Signer().unsign(signed_secret)
-        except BadSignature:
-            raise forms.ValidationError("Tampered form.")
-
-    def clean(self):
-        cleaned_data = super().clean()
-        secret = cleaned_data.get("signed_secret")
-        code = cleaned_data.get("code")
-
-        if not self.email_verified:
-            raise forms.ValidationError(
-                get_adapter().error_messages["unverified_email"]
-            )
-
-        if secret and code:
-            if not totp.validate_totp_code(secret, code):
-                self.add_error("code", get_adapter().error_messages["incorrect_code"])
-
-        return cleaned_data
+            code = self.cleaned_data["code"]
+            if not self.email_verified:
+                raise forms.ValidationError(
+                    get_adapter().error_messages["unverified_email"]
+                )
+            if not totp.validate_totp_code(self.secret, code):
+                raise forms.ValidationError(
+                    get_adapter().error_messages["incorrect_code"]
+                )
+            return code
+        except forms.ValidationError as e:
+            self.secret = totp.get_totp_secret(regenerate=True)
+            raise e

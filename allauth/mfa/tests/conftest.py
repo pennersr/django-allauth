@@ -8,7 +8,7 @@ from allauth.mfa import recovery_codes, totp
 
 @pytest.fixture
 def user_with_totp(user):
-    totp.TOTP.activate(user, totp.totp_secret())
+    totp.TOTP.activate(user, totp.generate_totp_secret())
     return user
 
 

@@ -12,14 +12,27 @@ from django.utils.http import urlencode
 import qrcode
 from qrcode.image.svg import SvgPathImage
 
+from allauth.core import context
 from allauth.mfa import app_settings
 from allauth.mfa.models import Authenticator
 from allauth.mfa.utils import decrypt, encrypt
 
 
-def totp_secret(length=20):
+SECRET_SESSION_KEY = "mfa.totp.secret"
+
+
+def generate_totp_secret(length=20):
     random_bytes = secrets.token_bytes(length)
     return base64.b32encode(random_bytes).decode("utf-8")
+
+
+def get_totp_secret(regenerate=False):
+    secret = None
+    if not regenerate:
+        secret = context.request.session.get(SECRET_SESSION_KEY)
+    if not secret:
+        secret = context.request.session[SECRET_SESSION_KEY] = generate_totp_secret()
+    return secret
 
 
 def hotp_counter_from_time():

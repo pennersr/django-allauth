@@ -280,6 +280,17 @@ class ResetPasswordTests(TestCase):
         # EmailVerificationMethod.MANDATORY sends us to the confirm-email page
         self.assertRedirects(resp, "/confirm-email/")
 
+    @override_settings(ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE=True)
+    def test_password_change_ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE(self):
+        user = self._create_user_and_login()
+        data = {
+            "oldpassword": "doe", 
+            "password1": "newpass123", 
+            "password2": "newpass123"
+        }
+        resp = self.client.post(reverse("account_change_password"), data)
+        self.assertRedirects(resp, reverse("account_login"))
+
     def _create_user(self, username="john", password="doe", **kwargs):
         user = get_user_model().objects.create(
             username=username, is_active=True, **kwargs

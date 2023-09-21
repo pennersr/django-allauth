@@ -628,13 +628,7 @@ class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
         return super(PasswordChangeView, self).dispatch(request, *args, **kwargs)
 
     def render_to_response(self, context, **response_kwargs):
-        if self.request.user.is_anonymous:
-            # We end up here when `ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True`.
-            redirect_url = get_adapter(self.request).get_logout_redirect_url(
-                self.request
-            )
-            return HttpResponseRedirect(redirect_url)
-        elif not self.request.user.has_usable_password():
+        if not self.request.user.has_usable_password():
             return HttpResponseRedirect(reverse("account_set_password"))
         return super(PasswordChangeView, self).render_to_response(
             context, **response_kwargs
@@ -658,6 +652,11 @@ class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
             request=self.request,
             user=self.request.user,
         )
+        if app_settings.LOGOUT_ON_PASSWORD_CHANGE:
+            redirect_url = get_adapter(self.request).get_logout_redirect_url(
+                self.request
+            )
+            return HttpResponseRedirect(redirect_url)
         return super(PasswordChangeView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):

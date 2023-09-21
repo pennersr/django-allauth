@@ -87,6 +87,7 @@ class AuthenticateView(TemplateView):
                 "form": self.auth_form,
                 "webauthn_form": self.webauthn_form,
                 "js_data": {"credentials": self.webauthn_form.authentication_data},
+                "MFA_SUPPORTED_TYPES": app_settings.SUPPORTED_TYPES,
             }
         )
         return ret

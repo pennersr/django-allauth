@@ -29,16 +29,17 @@
             {% endelement %}
         {% endslot %}
     {% endelement %}
-    <form class="authenticate"
-          method="POST"
-          action="{% url 'mfa_authenticate' %}">
-        {% csrf_token %}
-        {{ webauthn_form.as_p }}
-        <button id="mfa_webauthn_authenticate" type="button">{% trans "Use security key or device" %}</button>
-    </form>
-    {{ js_data|json_script:"js_data" }}
-    <script type="text/javascript" src="{% static 'mfa/js/webauthn.js' %}"></script>
-    <script>
+    {% if "webauthn" in MFA_SUPPORTED_TYPES %}
+        <form class="authenticate"
+              method="POST"
+              action="{% url 'mfa_authenticate' %}">
+            {% csrf_token %}
+            {{ webauthn_form.as_p }}
+            <button id="mfa_webauthn_authenticate" type="button">{% trans "Use security key or device" %}</button>
+        </form>
+        {{ js_data|json_script:"js_data" }}
+        <script type="text/javascript" src="{% static 'mfa/js/webauthn.js' %}"></script>
+        <script type="text/javascript>
         allauth.webauthn.forms.authenticateForm({
             ids: {
                 authenticate: "mfa_webauthn_authenticate",
@@ -46,5 +47,6 @@
             },
             data: JSON.parse(document.getElementById('js_data').textContent)
         })
-    </script>
+        </script>
+    {% endif %}
 {% endblock content %}

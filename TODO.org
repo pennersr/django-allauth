@@ -3,7 +3,7 @@
 *** DONE Proof of concept
 *** TODO Properly populate =PublicKeyCredentialRpEntity=
 *** TODO Properly populate =user= at =begin_registration()=
-*** TODO Setting to turn webauthn on/off
+*** DONE Setting to turn webauthn on/off
 *** TODO Proper WebAuthn list view
 *** TODO Key names
 *** DONE Prevent replay attacks

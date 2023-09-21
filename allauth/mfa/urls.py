@@ -10,7 +10,6 @@ urlpatterns: List[Union[URLPattern, URLResolver]] = [
     path("reauthenticate/", views.reauthenticate, name="mfa_reauthenticate"),
 ]
 
-
 if app_settings.SUPPORTED_TYPES:
     urlpatterns.append(path("", views.index, name="mfa_index"))
 

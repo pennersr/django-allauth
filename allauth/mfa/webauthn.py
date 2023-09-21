@@ -1,9 +1,10 @@
 import base64
 import json
+import os
 from typing import Mapping
 
 from fido2.server import Fido2Server
-from fido2.utils import websafe_decode
+from fido2.utils import websafe_decode, websafe_encode
 from fido2.webauthn import (
     AttestationObject,
     AuthenticatorData,
@@ -11,8 +12,13 @@ from fido2.webauthn import (
     PublicKeyCredentialRpEntity,
 )
 
+from allauth.core import context
 from allauth.mfa import app_settings
 from allauth.mfa.models import Authenticator
+
+
+CHALLENGE_SESSION_KEY = "mfa.webauthn.challenge"
+STATE_SESSION_KEY = "mfa.webauthn.state"
 
 
 class B64JSONEncoder(json.JSONEncoder):
@@ -61,6 +67,31 @@ def parse_attestation_object(text):
     return AttestationObject(base64.b64decode(text))
 
 
+def generate_challenge() -> bytes:
+    challenge = context.request.session.get(CHALLENGE_SESSION_KEY)
+    if challenge is not None:
+        return websafe_decode(challenge)
+    challenge = os.urandom(32)
+    context.request.session[CHALLENGE_SESSION_KEY] = websafe_encode(challenge)
+    return challenge
+
+
+def consume_challenge():
+    context.request.session.pop(CHALLENGE_SESSION_KEY, None)
+
+
+def get_state():
+    return context.request.session.get(STATE_SESSION_KEY)
+
+
+def set_state(state):
+    context.request.session[STATE_SESSION_KEY] = state
+
+
+def clear_state():
+    context.request.session.pop(STATE_SESSION_KEY, None)
+
+
 def get_server():
     rp_id = "localhost"
     rp = PublicKeyCredentialRpEntity("allauth", rp_id)
@@ -79,9 +110,11 @@ def begin_registration():
         },
         credentials=credentials,
         user_verification="discouraged",
+        challenge=generate_challenge(),
     )
+    set_state(state)
     registration_data = json.loads(b64_json_dumps(registration_data))
-    return registration_data, state
+    return registration_data
 
 
 def parse_registration_credential(credential):
@@ -91,11 +124,14 @@ def parse_registration_credential(credential):
     return {"client_data": client_data, "attestation_object": attestation_object}
 
 
-def complete_registration(state, credential):
+def complete_registration(credential):
     server = get_server()
+    state = get_state()
     binding = server.register_complete(
         state, credential["client_data"], credential["attestation_object"]
     )
+    consume_challenge()
+    clear_state()
     return base64.b64encode(bytes(binding)).decode("ascii")
 
 
@@ -112,14 +148,18 @@ def begin_authentication(user):
     request_options, state = server.authenticate_begin(
         credentials=get_credentials(user), user_verification="discouraged"
     )
+    set_state(state)
     request_options = json.loads(b64_json_dumps(request_options))
-    return request_options, state
+    return request_options
 
 
 def complete_authentication(state, credentials, public_key_credential):
     server = get_server()
+    state = get_state()
     binding = server.authenticate_complete(state, credentials, **public_key_credential)
     # ValueError: Unknown credential ID.
+    consume_challenge()
+    clear_state()
     return base64.b64encode(bytes(binding)).decode("ascii")
 
 

@@ -1,0 +1,11 @@
+{% extends "mfa/webauthn/base.html" %}
+{% load i18n %}
+{% block content %}
+    <h1>{% trans "Remove Security Key or Device" %}</h1>
+    <p>{% blocktranslate %}Are you sure you want to remove this security key?{% endblocktranslate %}</p>
+    <form method="post"
+          action="{% url 'mfa_remove_webauthn' pk=authenticator.pk %}">
+        {% csrf_token %}
+        <button type="submit">{% translate "Remove" %}</button>
+    </form>
+{% endblock %}

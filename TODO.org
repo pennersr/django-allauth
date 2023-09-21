@@ -4,8 +4,11 @@
 *** TODO Properly populate =PublicKeyCredentialRpEntity=
 *** TODO Properly populate =user= at =begin_registration()=
 *** TODO Setting to turn webauthn on/off
-*** TODO Prevent replay attacks: =TimestampSigner=
+*** TODO Proper WebAuthn list view
+*** TODO Key names
+*** DONE Prevent replay attacks
 Read: https://github.com/w3c/webauthn/issues/1856
+https://github.com/w3c/webauthn/issues/1848#issuecomment-1436235885
 
 *** TODO Drop unique constraint on Authenticator.type?
 Or, put all WebAuthn authenticators in one Authenticator?
@@ -15,6 +18,11 @@ Or, put all WebAuthn authenticators in one Authenticator?
 *** TODO When registring a new key, exclude existing IDs
 *** TODO Delete WebAuthn keys
 *** TODO Rename WebAuthn keys
+*** TODO Add =Authenticator.last_used_at=
+*** TODO Rate limitting
+*** TODO Add =django.contrib.messages= where applicable
+*** TODO Check that =reauthentication_required= is applied where needed
+*** TODO Test suite
 *** TODO Documentation
 ** Passkeys
 *** TODO Add WebAuthn to login

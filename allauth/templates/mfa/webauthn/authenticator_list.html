@@ -1,0 +1,22 @@
+{% extends "mfa/webauthn/base.html" %}
+{% load i18n static %}
+{% block content %}
+    <h1>{% trans "Security Keys and Devices" %}</h1>
+    {% if authenticators|length == 0 %}
+        <p>{% blocktranslate %}You have not added any security keys/devices.{% endblocktranslate %}</p>
+        <ul class="actions">
+            <li>
+                <a href="{% url 'mfa_add_webauthn' %}">{% translate "Add" %}</a>
+            </li>
+        </ul>
+    {% else %}
+        <ul>
+            {% for authenticator in authenticators %}
+                <li>
+                    {{ authenticator }}
+                    <a href="{% url 'mfa_remove_webauthn' pk=authenticator.pk %}">{% translate "Remove" %}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

@@ -1,7 +1,6 @@
 import json
 
 from django import forms
-from django.core.signing import BadSignature, Signer
 from django.utils.translation import gettext_lazy as _
 
 from allauth.account.adapter import get_adapter as get_account_adapter
@@ -69,22 +68,12 @@ class ReauthenticateForm(BaseAuthenticateForm):
 
 
 class AuthenticateWebAuthnForm(forms.Form):
-    signed_state = forms.CharField(required=False, widget=forms.HiddenInput)
     credential = forms.CharField(required=True, widget=forms.HiddenInput)
 
     def __init__(self, *args, **kwargs):
-        initial = kwargs.setdefault("initial", {})
         self.user = kwargs.pop("user")
-        self.authentication_data, state = begin_authentication(self.user)
-        initial["signed_state"] = Signer().sign(json.dumps(state))
+        self.authentication_data = begin_authentication(self.user)
         super().__init__(*args, **kwargs)
-
-    def clean_signed_state(self):
-        signed_state = self.cleaned_data["signed_state"]
-        try:
-            return json.loads(Signer().unsign(signed_state))
-        except BadSignature:
-            raise forms.ValidationError("Tampered form.")
 
     def clean_credential(self):
         credential = self.cleaned_data["credential"]
@@ -163,21 +152,11 @@ class AddWebAuthnForm(forms.Form):
         ),
     )
     credential = forms.CharField(required=True, widget=forms.HiddenInput)
-    signed_state = forms.CharField(required=True, widget=forms.HiddenInput)
 
     def __init__(self, *args, **kwargs):
-        initial = kwargs.setdefault("initial", {})
         self.user = kwargs.pop("user")
-        self.registration_data, state = begin_registration()
-        initial["signed_state"] = Signer().sign(json.dumps(state))
+        self.registration_data = begin_registration()
         super().__init__(*args, **kwargs)
-
-    def clean_signed_state(self):
-        signed_state = self.cleaned_data["signed_state"]
-        try:
-            return json.loads(Signer().unsign(signed_state))
-        except BadSignature:
-            raise forms.ValidationError("Tampered form.")
 
     def clean_credential(self):
         credential = self.cleaned_data["credential"]
@@ -185,7 +164,6 @@ class AddWebAuthnForm(forms.Form):
 
     def clean(self):
         cleaned_data = super().clean()
-        state = cleaned_data.get("signed_state")
         credential = cleaned_data.get("credential")
         passwordless = cleaned_data.get("passwordless")
         if credential:
@@ -196,8 +174,6 @@ class AddWebAuthnForm(forms.Form):
                 self.add_error(
                     None, _("This key does not support passwordless operation.")
                 )
-        if all([credential, state]):
-            cleaned_data["authenticator_data"] = complete_registration(
-                state, credential
-            )
+            else:
+                cleaned_data["authenticator_data"] = complete_registration(credential)
         return cleaned_data

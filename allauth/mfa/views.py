@@ -6,7 +6,8 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import DeleteView, FormView
+from django.views.generic.list import ListView
 
 from allauth.account import app_settings as account_settings
 from allauth.account.decorators import reauthentication_required
@@ -342,3 +343,31 @@ class AddWebAuthnView(FormView):
 add_webauthn = AddWebAuthnView.as_view()
 
 remove_webauthn = None
+
+
+@method_decorator(reauthentication_required, name="dispatch")
+class ListWebAuthnView(ListView):
+    template_name = "mfa/webauthn/authenticator_list.html"
+    context_object_name = "authenticators"
+
+    def get_queryset(self):
+        return Authenticator.objects.filter(
+            user=self.request.user, type=Authenticator.Type.WEBAUTHN
+        )
+
+
+list_webauthn = ListWebAuthnView.as_view()
+
+
+@method_decorator(reauthentication_required, name="dispatch")
+class RemoveWebAuthnView(DeleteView):
+    template_name = "mfa/webauthn/authenticator_confirm_delete.html"
+    success_url = reverse_lazy("mfa_list_webauthn")
+
+    def get_queryset(self):
+        return Authenticator.objects.filter(
+            user=self.request.user, type=Authenticator.Type.WEBAUTHN
+        )
+
+
+remove_webauthn = RemoveWebAuthnView.as_view()

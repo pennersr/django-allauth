@@ -10,6 +10,7 @@ urlpatterns: List[Union[URLPattern, URLResolver]] = [
     path("reauthenticate/", views.reauthenticate, name="mfa_reauthenticate"),
 ]
 
+
 if app_settings.SUPPORTED_TYPES:
     urlpatterns.append(path("", views.index, name="mfa_index"))
 
@@ -56,8 +57,13 @@ if "webauthn" in app_settings.SUPPORTED_TYPES:
             "webauthn/",
             include(
                 [
+                    path("", views.list_webauthn, name="mfa_list_webauthn"),
                     path("add/", views.add_webauthn, name="mfa_add_webauthn"),
-                    path("remove/", views.deactivate_totp, name="mfa_remove_webauthn"),
+                    path(
+                        "<int:pk>/remove/",
+                        views.remove_webauthn,
+                        name="mfa_remove_webauthn",
+                    ),
                 ]
             ),
         ),

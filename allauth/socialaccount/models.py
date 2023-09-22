@@ -276,7 +276,9 @@ class SocialLogin(object):
         """When `False`, this social login represents a temporary account, not
         yet backed by a database record.
         """
-        return self.user.pk is not None
+        if self.user.pk is None:
+            return False
+        return get_user_model().objects.filter(pk=self.user.pk).exists()
 
     def lookup(self):
         """Look up the existing local user account to which this social login

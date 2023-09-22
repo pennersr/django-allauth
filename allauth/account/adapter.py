@@ -311,10 +311,6 @@ class DefaultAccountAdapter(object):
         return password
 
     def validate_unique_email(self, email):
-        from .models import EmailAddress
-
-        if EmailAddress.objects.is_verified(email):
-            raise forms.ValidationError(self.error_messages["email_taken"])
         return email
 
     def add_message(

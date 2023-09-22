@@ -280,13 +280,6 @@ class BaseSignupForm(_base_signup_form_class()):
         self.username_required = kwargs.pop(
             "username_required", app_settings.USERNAME_REQUIRED
         )
-        # We can only truly prevent enumeration if email verification is
-        # mandatory, because in that case, regardless of whether or not the
-        # email is in use, the user will always receive an email.
-        self.prevent_enumeration = app_settings.PREVENT_ENUMERATION and (
-            app_settings.EMAIL_VERIFICATION
-            == app_settings.EmailVerificationMethod.MANDATORY
-        )
         self.account_already_exists = False
         super(BaseSignupForm, self).__init__(*args, **kwargs)
         username_field = self.fields["username"]
@@ -349,16 +342,40 @@ class BaseSignupForm(_base_signup_form_class()):
         value = self.cleaned_data["email"]
         value = get_adapter().clean_email(value)
         if value and app_settings.UNIQUE_EMAIL:
-            try:
-                value = self.validate_unique_email(value)
-            except forms.ValidationError:
-                if not self.prevent_enumeration:
-                    raise
-                self.account_already_exists = True
+            value = self.validate_unique_email(value)
         return value
 
     def validate_unique_email(self, value):
-        return get_adapter().validate_unique_email(value)
+        adapter = get_adapter()
+        if not EmailAddress.objects.lookup([value]).exists():
+            # All good.
+            pass
+        elif not app_settings.PREVENT_ENUMERATION:
+            # Fail right away.
+            raise forms.ValidationError(adapter.error_messages["email_taken"])
+        elif (
+            app_settings.EMAIL_VERIFICATION
+            == app_settings.EmailVerificationMethod.MANDATORY
+        ):
+            # In case of mandatory verification and enumeration prevention,
+            # we can avoid creating a new account with the same (unverified)
+            # email address, because we are going to send an email anyway.
+            assert app_settings.PREVENT_ENUMERATION
+            self.account_already_exists = True
+        elif app_settings.PREVENT_ENUMERATION == "strict":
+            # We're going to be strict on enumeration prevention, and allow for
+            # this email address to pass even though it already exists. In this
+            # scenario, you can signup multiple times using the same email
+            # address resulting in multiple accounts with an unverified email.
+            pass
+        else:
+            assert app_settings.PREVENT_ENUMERATION is True
+            # Conflict. We're supposed to prevent enumeration, but we can't
+            # because that means letting the user in, while emails are required
+            # to be unique. In this case, uniqueness takes precedence over
+            # enumeration prevention.
+            raise forms.ValidationError(adapter.error_messages["email_taken"])
+        return adapter.validate_unique_email(value)
 
     def clean(self):
         cleaned_data = super(BaseSignupForm, self).clean()

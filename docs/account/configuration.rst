@@ -183,6 +183,18 @@ Available settings:
   is always sent, regardless of whether or not the account exists. Note that
   there is a slight usability tax to pay because there is no immediate feedback.
 
+  Whether or not enumeration can be prevented during signup depends on the email
+  verification method. In case of mandatory verification, enumeration can be
+  properly prevented because the case where an email address is already taken is
+  indistinguishable from the case where it is not.  However, in case of optional
+  or disabled email verification, enumeration can only be prevented by allowing
+  the signup to go through, resulting in multiple accounts sharing same email
+  address (although only one of the accounts can ever have it verified). When
+  enumeration is set to ``True``, email address uniqueness takes precedence over
+  enumeration prevention, and the issue of multiple accounts having the same
+  email address will be avoided, thus leaking information. Set it to
+  ``"strict"`` to allow for signups to go through.
+
 ``ACCOUNT_RATE_LIMITS``
   In order to be secure out of the box various rate limits are in place. The
   rate limit mechanism is backed by a Django cache. Hence, rate limiting will
@@ -241,10 +253,10 @@ Available settings:
   A list of usernames that can't be used by user.
 
 ``ACCOUNT_UNIQUE_EMAIL`` (default: ``True``)
-  Enforce uniqueness of email addresses. The ``emailaddress.email``
-  model field is set to ``UNIQUE``. Forms prevent a user from registering
-  with or adding an additional email address if that email address is
-  in use by another account.
+  Enforce uniqueness of email addresses. On the database level, this implies
+  that only one user account can have an email address marked as verified.
+  Forms prevent a user from registering with or adding an additional email
+  address if that email address is in use by another account.
 
 ``ACCOUNT_USER_DISPLAY`` (default: a callable returning ``user.username``)
   A callable (or string of the form ``'some.module.callable_name'``)

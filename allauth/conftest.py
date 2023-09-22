@@ -29,7 +29,12 @@ def user_password():
 @pytest.fixture
 def user_factory(email_factory, db, user_password):
     def factory(
-        email=None, username=None, commit=True, with_email=True, email_verified=True
+        email=None,
+        username=None,
+        commit=True,
+        with_email=True,
+        email_verified=True,
+        password=None,
     ):
         if not username:
             username = uuid.uuid4().hex
@@ -39,7 +44,7 @@ def user_factory(email_factory, db, user_password):
 
         User = get_user_model()
         user = User()
-        user.set_password(user_password)
+        user.set_password(user_password if password is None else password)
         user_username(user, username)
         user_email(user, email or "")
         if commit:

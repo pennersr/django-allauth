@@ -10,6 +10,8 @@ from django.test.client import Client, RequestFactory
 from django.test.utils import override_settings
 from django.urls import reverse
 
+from pytest_django.asserts import assertTemplateUsed
+
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.forms import BaseSignupForm, SignupForm
@@ -146,35 +148,6 @@ class BaseSignupFormTests(TestCase):
     ACCOUNT_USERNAME_REQUIRED=True,
 )
 class SignupTests(TestCase):
-    @override_settings(
-        ACCOUNT_PREVENT_ENUMERATION=True,
-        ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL,
-        ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.MANDATORY,
-    )
-    def test_prevent_account_enumeration_at_signup(self):
-        user = get_user_model().objects.create_user(
-            username="john", email="john@example.org", password="doe"
-        )
-        EmailAddress.objects.create(
-            user=user, email=user.email, primary=True, verified=True
-        )
-        c = Client()
-        # Signup
-        resp = c.post(
-            reverse("account_signup"),
-            {
-                "username": "johndoe",
-                "email": user.email,
-                "password1": "johndoe",
-                "password2": "johndoe",
-            },
-        )
-        self.assertEqual(resp.status_code, 302)
-        assert resp["location"] == reverse("account_email_verification_sent")
-        self.assertTemplateUsed(
-            resp, "account/email/account_already_exists_message.txt"
-        )
-
     def test_signup_same_email_verified_externally(self):
         user = self._test_signup_email_verified_externally(
             "john@example.com", "john@example.com"
@@ -315,3 +288,86 @@ class SignupTests(TestCase):
                 "password1",
                 ["This password is too short. It must contain at least 9 characters."],
             )
+
+
+def test_prevent_enumeration_with_mandatory_verification(settings, user_factory):
+    settings.ACCOUNT_PREVENT_ENUMERATION = True
+    settings.ACCOUNT_AUTHENTICATION_METHOD = app_settings.AuthenticationMethod.EMAIL
+    settings.ACCOUNT_EMAIL_VERIFICATION = app_settings.EmailVerificationMethod.MANDATORY
+    user = user_factory(username="john", email="john@example.org", password="doe")
+    c = Client()
+    resp = c.post(
+        reverse("account_signup"),
+        {
+            "username": "johndoe",
+            "email": user.email,
+            "password1": "johndoe",
+            "password2": "johndoe",
+        },
+    )
+    assert resp.status_code == 302
+    assert resp["location"] == reverse("account_email_verification_sent")
+    assertTemplateUsed(resp, "account/email/account_already_exists_message.txt")
+    assert EmailAddress.objects.filter(email="john@example.org").count() == 1
+
+
+def test_prevent_enumeration_off(settings, user_factory):
+    settings.ACCOUNT_PREVENT_ENUMERATION = False
+    settings.ACCOUNT_AUTHENTICATION_METHOD = app_settings.AuthenticationMethod.EMAIL
+    settings.ACCOUNT_EMAIL_VERIFICATION = app_settings.EmailVerificationMethod.MANDATORY
+    user = user_factory(username="john", email="john@example.org", password="doe")
+    c = Client()
+    resp = c.post(
+        reverse("account_signup"),
+        {
+            "username": "johndoe",
+            "email": user.email,
+            "password1": "johndoe",
+            "password2": "johndoe",
+        },
+    )
+    assert resp.status_code == 200
+    assert resp.context["form"].errors == {
+        "email": ["A user is already registered with this email address."]
+    }
+
+
+def test_prevent_enumeration_strictly(settings, user_factory):
+    settings.ACCOUNT_PREVENT_ENUMERATION = "strict"
+    settings.ACCOUNT_AUTHENTICATION_METHOD = app_settings.AuthenticationMethod.EMAIL
+    settings.ACCOUNT_EMAIL_VERIFICATION = app_settings.EmailVerificationMethod.NONE
+    user = user_factory(username="john", email="john@example.org", password="doe")
+    c = Client()
+    resp = c.post(
+        reverse("account_signup"),
+        {
+            "username": "johndoe",
+            "email": user.email,
+            "password1": "johndoe",
+            "password2": "johndoe",
+        },
+    )
+    assert resp.status_code == 302
+    assert resp["location"] == settings.LOGIN_REDIRECT_URL
+    assert EmailAddress.objects.filter(email="john@example.org").count() == 2
+
+
+def test_prevent_enumeration_on(settings, user_factory):
+    settings.ACCOUNT_PREVENT_ENUMERATION = True
+    settings.ACCOUNT_AUTHENTICATION_METHOD = app_settings.AuthenticationMethod.EMAIL
+    settings.ACCOUNT_EMAIL_VERIFICATION = app_settings.EmailVerificationMethod.NONE
+    user = user_factory(username="john", email="john@example.org", password="doe")
+    c = Client()
+    resp = c.post(
+        reverse("account_signup"),
+        {
+            "username": "johndoe",
+            "email": user.email,
+            "password1": "johndoe",
+            "password2": "johndoe",
+        },
+    )
+    assert resp.status_code == 200
+    assert resp.context["form"].errors == {
+        "email": ["A user is already registered with this email address."]
+    }

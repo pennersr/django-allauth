@@ -12,6 +12,19 @@ Note worthy changes
 - SAML: Added support for additional configuration parameters, such as contacts,
   and support for certificate rotation.
 
+- The enumeration prevention behavior at signup is now configurable. Whether or
+  not enumeration can be prevented during signup depends on the email
+  verification method. In case of mandatory verification, enumeration can be
+  properly prevented because the case where an email address is already taken is
+  indistinguishable from the case where it is not.  However, in case of optional
+  or disabled email verification, enumeration can only be prevented by allowing
+  the signup to go through, resulting in multiple accounts sharing same email
+  address (although only one of the accounts can ever have it verified). When
+  enumeration is set to ``True``, email address uniqueness takes precedence over
+  enumeration prevention, and the issue of multiple accounts having the same
+  email address will be avoided, thus leaking information. Set it to
+  ``"strict"`` to allow for signups to go through.
+
 
 Fixes
 =====

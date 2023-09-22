@@ -309,4 +309,4 @@ def test_password_change_ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE(settings, auth_client
         "password2": "newpass123"
     }
     resp = auth_client.post(reverse("account_change_password"), data)
-    assert resp['location'] == settings.ACCOUNT_LOGOUT_REDIRECT_URL
+    assert resp['location'] == settings.LOGOUT_REDIRECT_URL

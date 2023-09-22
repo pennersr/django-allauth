@@ -12,15 +12,21 @@ builtin templates can be configured as follows:
     SOCIALACCOUNT_PROVIDERS = {
         'openid': {
             'SERVERS': [
-                dict(id='yahoo',
-                     name='Yahoo',
-                     openid_url='http://me.yahoo.com'),
-                dict(id='hyves',
-                     name='Hyves',
-                     openid_url='http://hyves.nl'),
-                dict(id='google',
-                     name='Google',
-                     openid_url='https://www.google.com/accounts/o8/id'),
+                {
+                    'id': 'yahoo',
+                    'name': 'Yahoo',
+                    'openid_url': 'http://me.yahoo.com',
+                },
+                {
+                    'id': 'hyves',
+                    'name': 'Hyves',
+                    'openid_url': 'http://hyves.nl',
+                },
+                {
+                    'id': 'google',
+                    'name': 'Google',
+                    'openid_url': 'https://www.google.com/accounts/o8/id',
+                },
             ]
         }
     }
@@ -30,13 +36,19 @@ You can manually specify extra_data you want to request from server as follows::
     SOCIALACCOUNT_PROVIDERS = \
         { 'openid':
             { 'SERVERS':
-                 [ dict(id='mojeid',
-                      name='MojeId',
-                      openid_url='https://mojeid.cz/endpoint/',
-                      extra_attributes = [
-                          ('phone', 'http://axschema.org/contact/phone/default', False),
-                          ('birth_date', 'http://axschema.org/birthDate', False,),
-                      ])]}}
+                [
+                    {
+                        'id': 'mojeid',
+                        'name': 'MojeId',
+                        'openid_url': 'https://mojeid.cz/endpoint/',
+                        'extra_attributes': [
+                            ('phone', ''http://axschema.org/contact/phone/default', False),
+                            ('birth_date', 'http://axschema.org/birthDate', False),
+                        ]
+                    },
+                ]
+            }
+        }
 
 Attributes are in form (id, name, required) where id is key in extra_data field of socialaccount,
 name is identifier of requested attribute and required specifies whether attribute is required.
@@ -54,8 +66,13 @@ The OpenID provider can be forced to operate in stateless mode as follows::
     SOCIALACCOUNT_PROVIDERS = \
         { 'openid':
             { 'SERVERS':
-                [ dict(id='steam',
-                    name='Steam',
-                    openid_url='https://steamcommunity.com/openid',
-                    stateless=True,
-                )]}}
+                [
+                    {
+                        'id': 'steam',
+                        'name': 'Steam',
+                        'openid_url': 'https://steamcommunity.com/openid',
+                        'stateless': True,
+                    },
+                ]
+            }
+        }

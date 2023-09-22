@@ -301,12 +301,15 @@ class ResetPasswordTests(TestCase):
         self._create_user_and_login(usable_password)
         return self.client.get(reverse(urlname))
 
-def test_password_change_ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE(settings, auth_client, user_password):
+
+def test_password_change_ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE(
+    settings, auth_client, user_password
+):
     settings.ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
     data = {
-        "oldpassword": user_password, 
-        "password1": "newpass123", 
-        "password2": "newpass123"
+        "oldpassword": user_password,
+        "password1": "newpass123",
+        "password2": "newpass123",
     }
     resp = auth_client.post(reverse("account_change_password"), data)
-    assert resp['location'] == settings.LOGOUT_REDIRECT_URL
+    assert resp["location"] == app_settings.LOGOUT_REDIRECT_URL

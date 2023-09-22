@@ -1,3 +1,4 @@
+import copy
 from unittest.mock import patch
 
 from django.contrib.auth.models import AnonymousUser
@@ -37,14 +38,19 @@ def test_email_authentication(
     if setting == "on-global":
         settings.SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
     elif setting == "on-provider":
-        settings.SOCIALACCOUNT_PROVIDERS["google"] = {"EMAIL_AUTHENTICATION": True}
+        settings.SOCIALACCOUNT_PROVIDERS = copy.deepcopy(
+            settings.SOCIALACCOUNT_PROVIDERS
+        )
+        settings.SOCIALACCOUNT_PROVIDERS["openid_connect"][
+            "EMAIL_AUTHENTICATION"
+        ] = True
     else:
         settings.SOCIALACCOUNT_EMAIL_AUTHENTICATION = False
     settings.SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = auto_connect
 
     user = user_factory()
 
-    sociallogin = sociallogin_factory(email=user.email, provider="google")
+    sociallogin = sociallogin_factory(email=user.email, provider="unittest-server")
 
     request = rf.get("/")
     SessionMiddleware(lambda request: None).process_request(request)

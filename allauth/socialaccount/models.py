@@ -283,8 +283,9 @@ class SocialLogin(object):
         points, if any.
         """
         if not self._lookup_by_socialaccount():
+            provider_id = self.account.get_provider().id
             if app_settings.EMAIL_AUTHENTICATION or app_settings.PROVIDERS.get(
-                self.account.provider, {}
+                provider_id, {}
             ).get("EMAIL_AUTHENTICATION", False):
                 self._lookup_by_email()
 

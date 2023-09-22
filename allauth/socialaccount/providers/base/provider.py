@@ -74,7 +74,9 @@ class Provider(object):
         socialaccount = SocialAccount(
             extra_data=extra_data,
             uid=uid,
-            provider=self.app.provider_id or self.app.provider,
+            provider=(self.app.provider_id or self.app.provider)
+            if self.app
+            else self.id,
         )
         email_addresses = self.extract_email_addresses(response)
         self.cleanup_email_addresses(

@@ -157,6 +157,12 @@ def acs_saml_response():
         <saml:AttributeValue xsi:type="xs:anyType">Sat Jul 08 2023 06:13:07 GMT+0000 (Coordinated Universal Time)
         </saml:AttributeValue>
       </saml:Attribute>
+      <saml:Attribute Name="Role" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic">
+         <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">view-profile</saml:AttributeValue>
+      </saml:Attribute>
+      <saml:Attribute Name="Role" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic">
+         <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">manage-account-links</saml:AttributeValue>
+      </saml:Attribute>
     </saml:AttributeStatement>
   </saml:Assertion>
 </samlp:Response>

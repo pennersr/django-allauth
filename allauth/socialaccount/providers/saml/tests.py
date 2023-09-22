@@ -41,7 +41,7 @@ def test_acs(
     account = SocialAccount.objects.get(
         provider="urn:dev-123.us.auth0.com", uid="dummysamluid"
     )
-
+    assert account.extra_data["Role"] == ["view-profile", "manage-account-links"]
     email = EmailAddress.objects.get(user=account.user)
     assert email.email == "john.doe@email.org"
 

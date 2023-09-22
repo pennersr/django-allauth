@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import (
     Http404,
@@ -615,7 +616,7 @@ email = login_required(EmailView.as_view())
 
 
 @method_decorator(rate_limit(action="change_password"), name="dispatch")
-class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
+class PasswordChangeView(LoginRequiredMixin, AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_change." + app_settings.TEMPLATE_EXTENSION
     form_class = ChangePasswordForm
     success_url = reverse_lazy("account_change_password")
@@ -625,14 +626,9 @@ class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
 
     @sensitive_post_parameters_m
     def dispatch(self, request, *args, **kwargs):
-        return super(PasswordChangeView, self).dispatch(request, *args, **kwargs)
-
-    def render_to_response(self, context, **response_kwargs):
         if not self.request.user.has_usable_password():
-            return HttpResponseRedirect(reverse("account_set_password"))
-        return super(PasswordChangeView, self).render_to_response(
-            context, **response_kwargs
-        )
+            return redirect("account_set_password")
+        return super(PasswordChangeView, self).dispatch(request, *args, **kwargs)
 
     def get_form_kwargs(self):
         kwargs = super(PasswordChangeView, self).get_form_kwargs()

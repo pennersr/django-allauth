@@ -2,6 +2,8 @@ from django.contrib import messages
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
+from django.core.validators import validate_email
+from django.forms import ValidationError
 from django.http import (
     Http404,
     HttpResponsePermanentRedirect,
@@ -289,6 +291,19 @@ class SignupView(
             }
         )
         return ret
+
+    def get_initial(self):
+        initial = super().get_initial()
+        email = self.request.GET.get("email")
+        if email:
+            try:
+                validate_email(email)
+            except ValidationError:
+                return initial
+            initial["email"] = email
+            if app_settings.SIGNUP_EMAIL_ENTER_TWICE:
+                initial["email2"] = email
+        return initial
 
 
 signup = SignupView.as_view()

@@ -21,7 +21,7 @@ from ..utils import (
     serialize_instance,
     valid_email_or_none,
 )
-from . import app_settings
+from . import app_settings, signals
 
 
 class DefaultSocialAccountAdapter(object):
@@ -88,6 +88,7 @@ class DefaultSocialAccountAdapter(object):
         else:
             get_account_adapter().populate_username(request, u)
         sociallogin.save(request)
+        signals.post_user_and_socialaccount_save.send(self.__class__, sociallogin=sociallogin)
         return u
 
     def populate_user(self, request, sociallogin, data):

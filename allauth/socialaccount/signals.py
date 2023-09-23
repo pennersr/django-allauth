@@ -22,3 +22,7 @@ social_account_updated = Signal()
 # account.
 # Provides the arguments "request", "socialaccount"
 social_account_removed = Signal()
+
+# Sent after a user instance and user's social account are saved to the db.
+# Provides the argument "sociallogin"
+post_user_and_socialaccount_save = Signal()

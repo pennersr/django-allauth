@@ -24,3 +24,6 @@ hook to them for your own needs.
 - ``allauth.socialaccount.signals.social_account_removed(request, socialaccount)``
     Sent after a user disconnects a social account from their local
     account.
+
+- ``allauth.socialaccount.signals.post_user_and_socialaccount_save(sociallogin)``
+    Sent after a user instance and user's social account are saved to the db.

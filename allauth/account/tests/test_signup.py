@@ -10,6 +10,7 @@ from django.test.client import Client, RequestFactory
 from django.test.utils import override_settings
 from django.urls import reverse
 
+import pytest
 from pytest_django.asserts import assertTemplateUsed
 
 from allauth.account import app_settings
@@ -371,3 +372,16 @@ def test_prevent_enumeration_on(settings, user_factory):
     assert resp.context["form"].errors == {
         "email": ["A user is already registered with this email address."]
     }
+
+
+@pytest.mark.django_db
+def test_get_initial_with_valid_email():
+    """Test that the email field is populated with a valid email."""
+    request = RequestFactory().get("/signup/?email=test@example.com")
+    from allauth.account.views import signup
+
+    SessionMiddleware(lambda request: None).process_request(request)
+    request.user = AnonymousUser()
+    with context.request_context(request):
+        view = signup(request)
+    assert view.context_data["view"].get_initial()["email"] == "test@example.com"

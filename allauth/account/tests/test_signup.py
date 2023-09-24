@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 import django
 from django import forms
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -19,7 +20,7 @@ from allauth.account.forms import BaseSignupForm, SignupForm
 from allauth.account.models import EmailAddress
 from allauth.core import context
 from allauth.tests import TestCase
-from allauth.utils import get_user_model, get_username_max_length
+from allauth.utils import get_username_max_length
 
 
 class CustomSignupFormTests(TestCase):

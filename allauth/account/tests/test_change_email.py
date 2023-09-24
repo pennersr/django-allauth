@@ -3,6 +3,7 @@ from __future__ import absolute_import
 import json
 from unittest.mock import patch
 
+from django.contrib.auth import get_user_model
 from django.test.utils import override_settings
 from django.urls import reverse
 
@@ -12,7 +13,6 @@ from pytest_django.asserts import assertTemplateUsed
 from allauth.account.models import EmailAddress, EmailConfirmationHMAC
 from allauth.account.utils import user_email
 from allauth.tests import TestCase
-from allauth.utils import get_user_model
 
 
 class ChangeEmailTests(TestCase):

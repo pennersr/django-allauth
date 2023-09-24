@@ -1,12 +1,12 @@
 from __future__ import absolute_import
 
+from django.contrib.auth import get_user_model
 from django.core import mail
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
 
 from allauth.account.forms import ResetPasswordForm
 from allauth.tests import TestCase
-from allauth.utils import get_user_model
 
 
 @override_settings(ACCOUNT_PREVENT_ENUMERATION=False)

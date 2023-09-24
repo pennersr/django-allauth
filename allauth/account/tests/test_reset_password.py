@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 import json
 
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.core import mail
 from django.test.utils import override_settings
@@ -11,7 +12,6 @@ from allauth.account import app_settings
 from allauth.account.forms import ResetPasswordForm
 from allauth.account.models import EmailAddress
 from allauth.tests import TestCase
-from allauth.utils import get_user_model
 
 
 @override_settings(

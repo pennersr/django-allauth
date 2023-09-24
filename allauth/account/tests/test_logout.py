@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 
+from django.contrib.auth import get_user_model
 from django.core import validators
 from django.test.client import Client
 from django.test.utils import override_settings
@@ -8,7 +9,6 @@ from django.urls import reverse
 from allauth.account import app_settings
 from allauth.account.signals import user_logged_out
 from allauth.tests import Mock, TestCase
-from allauth.utils import get_user_model
 
 
 test_username_validators = [

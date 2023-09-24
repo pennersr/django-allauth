@@ -3,6 +3,7 @@ from __future__ import absolute_import
 import uuid
 
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.contrib.messages.api import get_messages
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -23,7 +24,6 @@ from allauth.account.utils import (
 )
 from allauth.core import context
 from allauth.tests import TestCase, patch
-from allauth.utils import get_user_model
 
 from .test_models import UUIDUser
 

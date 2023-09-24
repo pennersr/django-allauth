@@ -3,6 +3,7 @@ from __future__ import absolute_import
 from datetime import timedelta
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core import mail
 from django.http import HttpResponseRedirect
 from django.test.client import Client, RequestFactory
@@ -19,7 +20,6 @@ from allauth.account.models import (
 from allauth.account.signals import user_logged_in
 from allauth.account.utils import user_pk_to_url_str
 from allauth.tests import Mock, TestCase, patch
-from allauth.utils import get_user_model
 
 from .test_models import UUIDUser
 

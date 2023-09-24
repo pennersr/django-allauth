@@ -1,8 +1,8 @@
 from threading import local
 
+from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
 
-from ..utils import get_user_model
 from . import app_settings
 from .app_settings import AuthenticationMethod
 from .utils import filter_users_by_email, filter_users_by_username

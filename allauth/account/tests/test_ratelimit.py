@@ -1,10 +1,10 @@
 from __future__ import absolute_import
 
+from django.contrib.auth import get_user_model
 from django.test.utils import override_settings
 from django.urls import reverse
 
 from allauth.tests import TestCase
-from allauth.utils import get_user_model
 
 
 @override_settings(

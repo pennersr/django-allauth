@@ -4,6 +4,7 @@ import json
 
 import django
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core import mail
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -11,7 +12,6 @@ from django.urls import reverse
 from allauth.account import app_settings
 from allauth.account.models import EmailAddress
 from allauth.tests import TestCase
-from allauth.utils import get_user_model
 
 
 @override_settings(

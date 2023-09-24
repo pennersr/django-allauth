@@ -225,14 +225,6 @@ def complete_social_signup(request, sociallogin):
     )
 
 
-# TODO: Factor out callable importing functionality
-# See: account.utils.user_display
-def import_path(path):
-    modname, _, attr = path.rpartition(".")
-    m = __import__(modname, fromlist=[attr])
-    return getattr(m, attr)
-
-
 def socialaccount_user_display(socialaccount):
     func = app_settings.SOCIALACCOUNT_STR
     if not func:

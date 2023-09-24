@@ -5,13 +5,15 @@ from allauth.account.adapter import DefaultAccountAdapter
 from allauth.core.exceptions import ImmediateHttpResponse
 
 
-class TestAccountAdapter(DefaultAccountAdapter):
+class PreLoginRedirectAccountAdapter(DefaultAccountAdapter):
     def pre_login(self, *args, **kwargs):
         raise ImmediateHttpResponse(HttpResponseRedirect("/foo"))
 
 
 def test_adapter_pre_login(settings, user, user_password, client):
-    settings.ACCOUNT_ADAPTER = "allauth.account.tests.test_adapter.TestAccountAdapter"
+    settings.ACCOUNT_ADAPTER = (
+        "allauth.account.tests.test_adapter.PreLoginRedirectAccountAdapter"
+    )
     resp = client.post(
         reverse("account_login"),
         {"login": user.username, "password": user_password},

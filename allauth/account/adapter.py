@@ -10,6 +10,7 @@ from django.contrib import messages
 from django.contrib.auth import (
     authenticate,
     get_backends,
+    get_user_model,
     login as django_login,
     logout as django_logout,
 )
@@ -35,7 +36,6 @@ from allauth.core import context, ratelimit
 from allauth.utils import (
     build_absolute_uri,
     generate_unique_username,
-    get_user_model,
     import_attribute,
 )
 

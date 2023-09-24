@@ -489,3 +489,38 @@ def test_email_address_conflict_during_auto_signup(
     resp = complete_social_login(request, sociallogin)
     assert resp["location"] == reverse("account_email_verification_sent")
     assert mailoutbox[0].subject == "[example.com] Account Already Exists"
+
+
+def test_email_address_conflict_removes_conflicting_email(
+    db, settings, user_factory, sociallogin_factory, client, rf, mailoutbox
+):
+    """Tests that when an already existing email is given at the social signup
+    form, enumeration preventation kicks in.
+    """
+    settings.ACCOUNT_EMAIL_REQUIRED = True
+    settings.ACCOUNT_UNIQUE_EMAIL = True
+    settings.ACCOUNT_USERNAME_REQUIRED = False
+    settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
+    settings.ACCOUNT_EMAIL_VERIFICATION = "optional"
+    settings.SOCIALACCOUNT_AUTO_SIGNUP = True
+    settings.SOCIALACCOUNT_EMAIL_AUTHENTICATION = False
+
+    user = user_factory(email_verified=False)
+    sociallogin = sociallogin_factory(email=user.email, email_verified=False)
+
+    request = rf.get("/")
+    request.session = {}
+    request.user = AnonymousUser()
+
+    resp = complete_social_login(request, sociallogin)
+    # Auto signup does not kick in as the `sociallogin` has a conflicting email.
+    assert resp["location"] == reverse("socialaccount_signup")
+
+    session = client.session
+    session["socialaccount_sociallogin"] = sociallogin.serialize()
+    session.save()
+    # Here, we input the already existing email.
+    resp = client.post(reverse("socialaccount_signup"), {"email": "other@email.org"})
+    assert mailoutbox[0].subject == "[example.com] Please Confirm Your Email Address"
+    assert resp["location"] == settings.LOGIN_REDIRECT_URL
+    assert EmailAddress.objects.filter(email=user.email).count() == 1

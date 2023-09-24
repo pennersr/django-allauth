@@ -20,6 +20,7 @@ from .adapter import get_adapter
 from .app_settings import AuthenticationMethod
 from .models import EmailAddress
 from .utils import (
+    assess_unique_email,
     filter_users_by_email,
     get_user_model,
     perform_login,
@@ -347,34 +348,16 @@ class BaseSignupForm(_base_signup_form_class()):
 
     def validate_unique_email(self, value):
         adapter = get_adapter()
-        if not EmailAddress.objects.lookup([value]).exists():
+        assessment = assess_unique_email(value)
+        if assessment is True:
             # All good.
             pass
-        elif not app_settings.PREVENT_ENUMERATION:
+        elif assessment is False:
             # Fail right away.
             raise forms.ValidationError(adapter.error_messages["email_taken"])
-        elif (
-            app_settings.EMAIL_VERIFICATION
-            == app_settings.EmailVerificationMethod.MANDATORY
-        ):
-            # In case of mandatory verification and enumeration prevention,
-            # we can avoid creating a new account with the same (unverified)
-            # email address, because we are going to send an email anyway.
-            assert app_settings.PREVENT_ENUMERATION
-            self.account_already_exists = True
-        elif app_settings.PREVENT_ENUMERATION == "strict":
-            # We're going to be strict on enumeration prevention, and allow for
-            # this email address to pass even though it already exists. In this
-            # scenario, you can signup multiple times using the same email
-            # address resulting in multiple accounts with an unverified email.
-            pass
         else:
-            assert app_settings.PREVENT_ENUMERATION is True
-            # Conflict. We're supposed to prevent enumeration, but we can't
-            # because that means letting the user in, while emails are required
-            # to be unique. In this case, uniqueness takes precedence over
-            # enumeration prevention.
-            raise forms.ValidationError(adapter.error_messages["email_taken"])
+            assert assessment is None
+            self.account_already_exists = True
         return adapter.validate_unique_email(value)
 
     def clean(self):

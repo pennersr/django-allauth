@@ -6,8 +6,8 @@ from django.urls import reverse
 
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
-from allauth.account.models import EmailAddress
 from allauth.account.utils import (
+    assess_unique_email,
     complete_signup,
     perform_login,
     user_display,
@@ -29,33 +29,33 @@ def _process_auto_signup(request, sociallogin):
     email = user_email(sociallogin.user)
     # Let's check if auto_signup is really possible...
     if email:
-        if account_settings.UNIQUE_EMAIL and EmailAddress.objects.is_verified(email):
-            if (
-                account_settings.PREVENT_ENUMERATION
-                and account_settings.EMAIL_VERIFICATION
-                == account_settings.EmailVerificationMethod.MANDATORY
-            ):
-                # Prevent enumeration is properly turned on, meaning, we cannot
-                # show the signup form to allow the user to input another email
-                # address. Instead, we're going to send the user an email that
-                # the account already exists, and on the outside make it appear
-                # as if an email verification mail was sent.
-                account_adapter = get_account_adapter(request)
-                account_adapter.send_account_already_exists_mail(email)
-                resp = account_adapter.respond_email_verification_sent(request, None)
-                return False, resp
-            else:
-                # Oops, another user already has this address.  We cannot simply
-                # connect this social account to the existing user. Reason is
-                # that the email address may not be verified, meaning, the user
-                # may be a hacker that has added your email address to their
-                # account in the hope that you fall in their trap.  We cannot
-                # check on 'email_address.verified' either, because
-                # 'email_address' is not guaranteed to be verified.
-                auto_signup = False
-                # TODO: We redirect to signup form -- user will see email
-                # address conflict only after posting whereas we detected it
-                # here already.
+        assessment = assess_unique_email(email)
+        if assessment is True:
+            # Auto signup is fine.
+            pass
+        elif assessment is False:
+            # Oops, another user already has this address.  We cannot simply
+            # connect this social account to the existing user. Reason is
+            # that the email address may not be verified, meaning, the user
+            # may be a hacker that has added your email address to their
+            # account in the hope that you fall in their trap.  We cannot
+            # check on 'email_address.verified' either, because
+            # 'email_address' is not guaranteed to be verified.
+            auto_signup = False
+            # TODO: We redirect to signup form -- user will see email
+            # address conflict only after posting whereas we detected it
+            # here already.
+        else:
+            assert assessment is None
+            # Prevent enumeration is properly turned on, meaning, we cannot
+            # show the signup form to allow the user to input another email
+            # address. Instead, we're going to send the user an email that
+            # the account already exists, and on the outside make it appear
+            # as if an email verification mail was sent.
+            account_adapter = get_account_adapter(request)
+            account_adapter.send_account_already_exists_mail(email)
+            resp = account_adapter.respond_email_verification_sent(request, None)
+            return False, resp
     elif app_settings.EMAIL_REQUIRED:
         # Nope, email is required and we don't have it yet...
         auto_signup = False

@@ -6,6 +6,9 @@ from unittest.mock import patch
 from django.test.utils import override_settings
 from django.urls import reverse
 
+import pytest
+from pytest_django.asserts import assertTemplateUsed
+
 from allauth.account.models import EmailAddress, EmailConfirmationHMAC
 from allauth.account.utils import user_email
 from allauth.tests import TestCase
@@ -28,19 +31,6 @@ class ChangeEmailTests(TestCase):
             primary=False,
         )
         self.client.login(username="john", password="doe")
-
-    def test_add(self):
-        resp = self.client.post(
-            reverse("account_email"),
-            {"action_add": "", "email": "john3@example.org"},
-        )
-        EmailAddress.objects.get(
-            email="john3@example.org",
-            user=self.user,
-            verified=False,
-            primary=False,
-        )
-        self.assertTemplateUsed(resp, "account/messages/email_confirmation_sent.txt")
 
     def test_ajax_get(self):
         resp = self.client.get(
@@ -264,3 +254,51 @@ def test_change_email(user_factory, client, settings):
     assert new_email.verified
     assert new_email.primary
     assert email_changed_mock.called
+
+
+def test_add(auth_client, user, settings):
+    resp = auth_client.post(
+        reverse("account_email"),
+        {"action_add": "", "email": "john3@example.org"},
+    )
+    EmailAddress.objects.get(
+        email="john3@example.org",
+        user=user,
+        verified=False,
+        primary=False,
+    )
+    assertTemplateUsed(resp, "account/messages/email_confirmation_sent.txt")
+
+
+@pytest.mark.parametrize(
+    "prevent_enumeration",
+    [
+        False,
+        True,
+        "strict",
+    ],
+)
+def test_add_not_allowed(
+    auth_client, user, settings, user_factory, prevent_enumeration
+):
+    settings.ACCOUNT_PREVENT_ENUMERATION = prevent_enumeration
+    email = "inuse@byotheruser.com"
+    user_factory(email=email)
+    resp = auth_client.post(
+        reverse("account_email"),
+        {"action_add": "", "email": email},
+    )
+    if prevent_enumeration == "strict":
+        assert resp.status_code == 302
+        EmailAddress.objects.get(
+            email=email,
+            user=user,
+            verified=False,
+            primary=False,
+        )
+        assertTemplateUsed(resp, "account/messages/email_confirmation_sent.txt")
+    else:
+        assert resp.status_code == 200
+        assert resp.context["form"].errors == {
+            "email": ["A user is already registered with this email address."]
+        }

@@ -467,7 +467,8 @@ class AddEmailForm(UserForm):
         from allauth.account import signals
 
         value = self.cleaned_data["email"]
-        value = get_adapter().clean_email(value)
+        adapter = get_adapter()
+        value = adapter.clean_email(value)
         errors = {
             "this_account": _(
                 "This email address is already associated with this account."
@@ -476,9 +477,16 @@ class AddEmailForm(UserForm):
         }
         users = filter_users_by_email(value)
         on_this_account = [u for u in users if u.pk == self.user.pk]
+        on_diff_account = [u for u in users if u.pk != self.user.pk]
 
         if on_this_account:
             raise forms.ValidationError(errors["this_account"])
+        if (
+            on_diff_account
+            and app_settings.PREVENT_ENUMERATION != "strict"
+            and app_settings.UNIQUE_EMAIL
+        ):
+            raise forms.ValidationError(adapter.error_messages["email_taken"])
         if not EmailAddress.objects.can_add_email(self.user):
             raise forms.ValidationError(
                 errors["max_email_addresses"] % app_settings.MAX_EMAIL_ADDRESSES

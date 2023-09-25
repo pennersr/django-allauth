@@ -262,6 +262,9 @@ class SocialLogin(object):
         user.save()
         self.account.user = user
         self.account.save()
+        signals.post_user_and_socialaccount_save.send(
+            self.__class__, user=user, account=self.account
+        )
         if app_settings.STORE_TOKENS and self.token:
             self.token.account = self.account
             self.token.save()

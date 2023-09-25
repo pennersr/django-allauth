@@ -16,7 +16,6 @@ from allauth.mfa.webauthn import (
     begin_registration,
     complete_authentication,
     complete_registration,
-    get_credentials,
     parse_authentication_credential,
     parse_registration_credential,
 )
@@ -77,16 +76,12 @@ class AuthenticateWebAuthnForm(forms.Form):
 
     def clean_credential(self):
         credential = self.cleaned_data["credential"]
-        return parse_authentication_credential(json.loads(credential))
+        credential = parse_authentication_credential(json.loads(credential))
+        return complete_authentication(self.user, credential)
 
-    def clean(self):
-        cleaned_data = super().clean()
-        state = cleaned_data.get("signed_state")
-        if all([cleaned_data["credential"], state]):
-            cleaned_data["authenticator_data"] = complete_authentication(
-                state, get_credentials(self.user), cleaned_data["credential"]
-            )
-        return cleaned_data
+    def save(self):
+        authenticator = self.cleaned_data["credential"]
+        authenticator.record_usage()
 
 
 class ActivateTOTPForm(forms.Form):

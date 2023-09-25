@@ -38,9 +38,11 @@ function base64ToUint8Array(base64) {
   async function getCredentials (credentials) {
     credentials = JSON.parse(JSON.stringify(credentials))
     credentials.publicKey.challenge = base64ToUint8Array(credentials.publicKey.challenge)
-    credentials.publicKey.allowCredentials.forEach(c => {
-      c.id= base64ToUint8Array(c.id)
-    })
+    if (credentials.publicKey.allowCredentials) {
+      credentials.publicKey.allowCredentials.forEach(c => {
+        c.id= base64ToUint8Array(c.id)
+      })
+    }
     const data = await navigator.credentials.get(credentials)
     const authenticatorData = {
       id: data.id,

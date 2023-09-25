@@ -143,24 +143,38 @@ def get_credentials(user):
     return credentials
 
 
+def get_authenticator_by_credential_id(user, credential_id):
+    authenticators = Authenticator.objects.filter(type=Authenticator.Type.WEBAUTHN)
+    for authenticator in authenticators:
+        if (
+            credential_id
+            == authenticator.wrap().authenticator_data.credential_data.credential_id
+        ):
+            return authenticator
+    return None
+
+
 def begin_authentication(user):
     server = get_server()
     request_options, state = server.authenticate_begin(
-        credentials=get_credentials(user), user_verification="discouraged"
+        credentials=get_credentials(user),
+        user_verification="required",
+        challenge=generate_challenge(),
     )
     set_state(state)
     request_options = json.loads(b64_json_dumps(request_options))
     return request_options
 
 
-def complete_authentication(state, credentials, public_key_credential):
+def complete_authentication(user, public_key_credential):
+    credentials = get_credentials(user)
     server = get_server()
     state = get_state()
     binding = server.authenticate_complete(state, credentials, **public_key_credential)
     # ValueError: Unknown credential ID.
     consume_challenge()
     clear_state()
-    return base64.b64encode(bytes(binding)).decode("ascii")
+    return get_authenticator_by_credential_id(user, binding.credential_id)
 
 
 class WebAuthn:

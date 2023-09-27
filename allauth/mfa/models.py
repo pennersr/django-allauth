@@ -16,6 +16,10 @@ if not allauth_settings.MFA_ENABLED:
 class AuthenticatorManager(models.Manager):
     pass
 
+    def delete_and_cleanup(self, authenticator):
+        authenticator.delete()
+        self.delete_dangling_recovery_codes(authenticator.user)
+
 
 class Authenticator(models.Model):
     class Type(models.TextChoices):

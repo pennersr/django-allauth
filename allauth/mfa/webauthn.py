@@ -3,6 +3,8 @@ import json
 import os
 from typing import Mapping
 
+from django.contrib.auth import get_user_model
+
 from fido2.server import Fido2Server
 from fido2.utils import websafe_decode, websafe_encode
 from fido2.webauthn import (
@@ -12,6 +14,7 @@ from fido2.webauthn import (
     PublicKeyCredentialRpEntity,
 )
 
+from allauth.account.utils import url_str_to_user_pk, user_pk_to_url_str
 from allauth.core import context
 from allauth.mfa import app_settings
 from allauth.mfa.models import Authenticator
@@ -34,15 +37,35 @@ def b64_json_dumps(data):
     return json.dumps(data, cls=B64JSONEncoder)
 
 
+def build_user_payload(user):
+    return {
+        "id": user_pk_to_url_str(user).encode("utf8"),
+        "name": "name",  # FIXME
+        "displayName": "Displayname",  # FIXME
+    }
+
+
+def parse_user_handle(user_handle: str):
+    return url_str_to_user_pk(base64.b64decode(user_handle).decode("utf8"))
+
+
 def parse_authentication_credential(credential):
     response = credential["response"]
     client_data = parse_client_data_json(response["clientDataJSON"])
-    return {
+    public_key_credential = {
         "credential_id": websafe_decode(credential["id"]),
         "signature": base64.b64decode(response["signature"]),
         "auth_data": AuthenticatorData(base64.b64decode(response["authenticatorData"])),
         "client_data": client_data,
     }
+    user = None
+    user_handle = response.get("userHandle")
+    if user_handle is not None:
+        user_id = parse_user_handle(response["userHandle"])
+        user = get_user_model().objects.filter(pk=user_id).first()
+        # FIXME: Properly handle this
+        assert user is not None
+    return user, public_key_credential
 
 
 def parse_client_data_json(text):
@@ -99,15 +122,11 @@ def get_server():
     return server
 
 
-def begin_registration():
+def begin_registration(user):
     server = get_server()
     credentials = []
     registration_data, state = server.register_begin(
-        user={
-            "id": b"123",
-            "name": "name",
-            "displayName": "Displayname",
-        },
+        user=build_user_payload(user),
         credentials=credentials,
         user_verification="discouraged",
         challenge=generate_challenge(),
@@ -157,8 +176,9 @@ def get_authenticator_by_credential_id(user, credential_id):
 def begin_authentication(user):
     server = get_server()
     request_options, state = server.authenticate_begin(
+        # FIXME: For passkeys, use: credentials=[],
         credentials=get_credentials(user),
-        user_verification="required",
+        user_verification="preferred",
         challenge=generate_challenge(),
     )
     set_state(state)

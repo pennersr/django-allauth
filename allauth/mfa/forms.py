@@ -76,8 +76,10 @@ class AuthenticateWebAuthnForm(forms.Form):
 
     def clean_credential(self):
         credential = self.cleaned_data["credential"]
-        credential = parse_authentication_credential(json.loads(credential))
-        return complete_authentication(self.user, credential)
+        user, credential = parse_authentication_credential(json.loads(credential))
+        # FIXME: Raise form error
+        assert self.user.pk == user.pk
+        return complete_authentication(user, credential)
 
     def save(self):
         authenticator = self.cleaned_data["credential"]
@@ -150,7 +152,7 @@ class AddWebAuthnForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
-        self.registration_data = begin_registration()
+        self.registration_data = begin_registration(self.user)
         super().__init__(*args, **kwargs)
 
     def clean_credential(self):

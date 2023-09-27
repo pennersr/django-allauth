@@ -22,7 +22,8 @@ function base64ToUint8Array(base64) {
     credentials = JSON.parse(JSON.stringify(credentials))
     credentials.publicKey.challenge = base64ToUint8Array(credentials.publicKey.challenge)
     credentials.publicKey.user.id = base64ToUint8Array(credentials.publicKey.user.id)
-    credentials.publicKey.userVerification = passwordless ? 'required' : 'discouraged'
+    credentials.publicKey.authenticatorSelection.residentKey = passwordless ? "required" : "discouraged"
+    credentials.publicKey.authenticatorSelection.userVerification = passwordless ? "required" : "discouraged"
     const data = await navigator.credentials.create(credentials)
     const authenticatorData = {
       id: data.id,
@@ -50,7 +51,8 @@ function base64ToUint8Array(base64) {
         attestationObject: uint8ArrayToBase64(data.response.attestationObject),
         clientDataJSON: uint8ArrayToBase64(data.response.clientDataJSON),
         authenticatorData: uint8ArrayToBase64(data.response.authenticatorData),
-        signature: uint8ArrayToBase64(data.response.signature)
+        signature: uint8ArrayToBase64(data.response.signature),
+        userHandle: data.response.userHandle ? uint8ArrayToBase64(data.response.userHandle) : null
       },
       type: data.type
     }

@@ -343,8 +343,6 @@ class AddWebAuthnView(FormView):
 
 add_webauthn = AddWebAuthnView.as_view()
 
-remove_webauthn = None
-
 
 @method_decorator(reauthentication_required, name="dispatch")
 class ListWebAuthnView(ListView):
@@ -369,6 +367,12 @@ class RemoveWebAuthnView(DeleteView):
         return Authenticator.objects.filter(
             user=self.request.user, type=Authenticator.Type.WEBAUTHN
         )
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        Authenticator.objects.delete_and_cleanup(self.object)
+        return HttpResponseRedirect(success_url)
 
 
 remove_webauthn = RemoveWebAuthnView.as_view()

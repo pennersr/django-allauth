@@ -10,7 +10,7 @@
 Read: https://github.com/w3c/webauthn/issues/1856
 https://github.com/w3c/webauthn/issues/1848#issuecomment-1436235885
 
-*** TODO Drop unique constraint on Authenticator.type?
+*** DONE Drop unique constraint on Authenticator.type?
 Or, put all WebAuthn authenticators in one Authenticator?
 *** TODO Handle error flows in =webauthn.js=
 *** TODO Handle error flows in =webauthn.py=

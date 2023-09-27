@@ -202,14 +202,18 @@ class WebAuthn:
         self.instance = instance
 
     @classmethod
-    def add(cls, user, authenticator_data):
+    def add(cls, user, name, authenticator_data):
         instance = Authenticator(
             user=user,
             type=Authenticator.Type.WEBAUTHN,
-            data={"authenticator_data": authenticator_data},
+            data={"name": name, "authenticator_data": authenticator_data},
         )
         instance.save()
         return cls(instance)
+
+    @property
+    def name(self):
+        return self.instance.data["name"]
 
     @property
     def authenticator_data(self):

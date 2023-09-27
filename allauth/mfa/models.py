@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
+from django.db.models import Q
+from django.db.models.constraints import UniqueConstraint
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -36,7 +38,23 @@ class Authenticator(models.Model):
     last_used_at = models.DateTimeField(null=True)
 
     class Meta:
-        unique_together = (("user", "type"),)
+        constraints = [
+            UniqueConstraint(
+                fields=["user", "type"],
+                name="unique_authenticator_type",
+                condition=Q(
+                    type__in=(
+                        "totp",
+                        "recovery_codes",
+                    )
+                ),
+            )
+        ]
+
+    def __str__(self):
+        if self.type == self.Type.WEBAUTHN:
+            return self.wrap().name
+        return self.get_type_display()
 
     def __str__(self):
         return self.get_type_display()

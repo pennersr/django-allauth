@@ -5,18 +5,36 @@
     {% if authenticators|length == 0 %}
         <p>{% blocktranslate %}You have not added any security keys/devices.{% endblocktranslate %}</p>
     {% else %}
-        <ul>
-            {% for authenticator in authenticators %}
-                <li>
-                    {{ authenticator }}
-                    <a href="{% url 'mfa_remove_webauthn' pk=authenticator.pk %}">{% translate "Remove" %}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    <ul class="actions">
-        <li>
-            <a href="{% url 'mfa_add_webauthn' %}">{% translate "Add" %}</a>
-        </li>
-    </ul>
-{% endblock %}
+        <table>
+            <thead>
+                <th>
+                    Device
+                    </
+                    <th>
+                        <th>
+                            Last used
+                            </
+                            <th>
+                                <th>
+                                    </
+                                    <th>
+                                    </thead>
+                                    <tbody>
+                                        {% for authenticator in authenticators %}
+                                            <tr>
+                                                <td>{{ authenticator }}</td>
+                                                <td>{{ authenticator.last_used_at|default_if_none:_("Unused") }}</td>
+                                                <td>
+                                                    <a href="{% url 'mfa_remove_webauthn' pk=authenticator.pk %}">{% translate "Remove" %}</a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% endif %}
+                            <ul class="actions">
+                                <li>
+                                    <a href="{% url 'mfa_add_webauthn' %}">{% translate "Add" %}</a>
+                                </li>
+                            </ul>
+                        {% endblock %}

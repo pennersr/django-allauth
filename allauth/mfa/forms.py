@@ -78,8 +78,8 @@ class AuthenticateWebAuthnForm(forms.Form):
         credential = self.cleaned_data["credential"]
         user, credential = parse_authentication_credential(json.loads(credential))
         # FIXME: Raise form error
-        assert self.user.pk == user.pk
-        return complete_authentication(user, credential)
+        assert user is None or self.user.pk == user.pk
+        return complete_authentication(self.user, credential)
 
     def save(self):
         authenticator = self.cleaned_data["credential"]

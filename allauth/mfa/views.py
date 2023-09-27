@@ -331,7 +331,9 @@ class AddWebAuthnView(FormView):
 
     def form_valid(self, form):
         webauthn.WebAuthn.add(
-            self.request.user, form.cleaned_data["authenticator_data"]
+            self.request.user,
+            form.cleaned_data["name"],
+            form.cleaned_data["authenticator_data"],
         )
         RecoveryCodes.activate(self.request.user)
         adapter = get_account_adapter(self.request)

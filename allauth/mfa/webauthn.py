@@ -220,3 +220,8 @@ class WebAuthn:
         return AuthenticatorData(
             base64.b64decode(self.instance.data["authenticator_data"])
         )
+
+    @property
+    def is_passwordless(self):
+        # FIXME: Also reports true when passwordless was not ticked.
+        return self.authenticator_data.is_user_verified()

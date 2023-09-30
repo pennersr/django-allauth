@@ -1,7 +1,8 @@
-{% extends "base.html" %}
-
+{% extends "allauth/layouts/manage.html" %}
+{% load allauth %}
 {% block content %}
-<h1>Profile</h1>
-
-<p>Your profile</p>
+    {% element h1 %}
+        Profile
+    {% endelement %}
+    <p>Your profile</p>
 {% endblock content %}

@@ -1,18 +1,24 @@
 {% extends "openid/base.html" %}
-
 {% load i18n %}
-
-{% block head_title %}OpenID Sign In{% endblock head_title %}
-
+{% load allauth %}
+{% block head_title %}
+    OpenID {% translate "Sign In" %}
+{% endblock head_title %}
 {% block content %}
-
-<h1>{% trans 'OpenID Sign In' %}</h1>
-
-
-<form id="openid_login_form" class="openid_login" method="post" action="{% url 'openid_login' %}">
-{% csrf_token %}
-{{form.as_p}}
-<button type="submit">Sign In</button>
-</form>
-
+    {% element h1 %}
+        OpenID {% trans 'Sign In' %}
+    {% endelement %}
+    {% url 'openid_login' as action_url %}
+    {% element form method="post" action=action_url %}
+        {% slot body %}
+            {% csrf_token %}
+            {% element fields form=form unlabeled=True %}
+            {% endelement %}
+        {% endslot %}
+        {% slot actions %}
+            {% element button type="submit" %}
+                {% translate "Sign In" %}
+            {% endelement %}
+        {% endslot %}
+    {% endelement %}
 {% endblock content %}

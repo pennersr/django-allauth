@@ -1,8 +1,9 @@
 # Django settings for example project.
 import os
+from pathlib import Path
 
 
-PROJECT_ROOT = os.path.normpath(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = True
 
@@ -19,7 +20,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.sqlite3",  # Add 'postgresql_psycopg2', 'postgresql',
         # 'mysql', 'sqlite3' or 'oracle'.
         "NAME": os.path.join(
-            PROJECT_ROOT, "example.db"
+            BASE_DIR / "example" / "example.db"
         ),  # Or path to database file if using sqlite3.
         "USER": "",  # Not used with sqlite3.
         "PASSWORD": "",  # Not used with sqlite3.
@@ -50,9 +51,6 @@ USE_I18N = True
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale
 USE_L10N = True
-
-LOCALE_PATHS = (os.path.join(PROJECT_ROOT, "locale"),)
-
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
@@ -96,7 +94,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            os.path.join(PROJECT_ROOT, "templates"),
+            BASE_DIR / "example" / "templates",
         ],
         "APP_DIRS": True,
         "OPTIONS": {

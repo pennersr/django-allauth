@@ -1,0 +1,14 @@
+{% load allauth %}
+<p>
+    <label for="{{ attrs.id }}">
+        {% slot label %}
+        {% endslot %}
+    </label>
+    <input {% if attrs.required %}required{% endif %}
+           {% if attrs.disabled %}disabled="{{ attrs.disabled }}"{% endif %}
+           name="{{ attrs.name }}"
+           id="{{ attrs.id }}"
+           value="{{ attrs.value|default_if_none:"" }}"
+           type="{{ attrs.type }}">
+    {% if attrs.help_text %}<span class="helptext">{{ attrs.help_text }}</span>{% endif %}
+</p>

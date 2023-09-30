@@ -1,10 +1,15 @@
 0.58.0 (unreleased)
 *******************
 
-Note worthy changes
--------------------
+Backwards incompatible changes
+------------------------------
 
-- ...
+- Refactored the built-in templates, with the goal of being able to adjust the
+  look and feel of the whole project by only overriding a few core templates.
+  This approach allows you to achieve visual results fast, but is of course more
+  limited compared to styling all templates yourself. If your project provided
+  its own templates then this change will not affect anything, but if you rely
+  on (some of) the built-in templates your project may be affected.
 
 
 0.57.0 (2023-09-24)

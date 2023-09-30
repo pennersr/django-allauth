@@ -693,6 +693,9 @@ class DefaultAccountAdapter(object):
             ip = request.META.get("REMOTE_ADDR")
         return ip
 
+    def get_browser_user_agent(self, request):
+        return request.META["HTTP_USER_AGENT"]
+
     def generate_emailconfirmation_key(self, email):
         key = get_random_string(64).lower()
         return key
@@ -728,6 +731,9 @@ class DefaultAccountAdapter(object):
                     }
                 )
         return ret
+
+    def send_notification_mail(self, template_prefix, user, context):
+        self.send_mail(template_prefix, user.email, context)
 
 
 def get_adapter(request=None):

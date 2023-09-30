@@ -1,0 +1,19 @@
+{% load i18n %}
+
+Hello {{ username }},
+
+We wanted to let you know that there has been a recent change to your account information.
+
+Here are the details of the change:
+
+{% block content %}
+{% endblock %}
+
+Change details
+IP address : {{ip}}
+Browser agent : {{browser_agent}}
+
+
+If this change was not made by you, please contact us immediately at support of {{site_name}}.
+
+

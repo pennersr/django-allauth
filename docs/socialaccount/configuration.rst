@@ -74,7 +74,7 @@ Available settings:
   can also be specified in the database using a ``SocialApp`` model
   instance instead of here. All other sections are provider-specific and
   are documented in the `for each provider separately
-  <providers.html>`__.
+  <providers/index.html>`__.
 
   Example::
 

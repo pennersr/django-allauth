@@ -1,0 +1,35 @@
+{% extends "allauth/layouts/base.html" %}
+{% block body %}
+    <div class="flex-grow-1 d-flex flex-row">
+        <aside class="col-md-2 text-bg-dark ">
+            <ul class="p-3 nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a class="{% block nav_class_email %}nav-link text-white{% endblock %}"
+                       href="{% url 'account_email' %}">Change Email</a>
+                </li>
+                <li class="nav-item">
+                    <a class="{% block nav_class_password %}nav-link text-white{% endblock %}"
+                       href="{% url 'account_change_password' %}">Change Password</a>
+                </li>
+                <li class="nav-item">
+                    <a class="{% block nav_class_socialaccount %}nav-link text-white{% endblock %}"
+                       href="{% url 'socialaccount_connections' %}">Third-Party Accounts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="{% block nav_class_mfa %}nav-link text-white{% endblock %}"
+                       href="{% url 'mfa_index' %}">Two-Factor Authentication</a>
+                </li>
+            </ul>
+        </aside>
+        <main class="col-md-10">
+            <div class="container">
+                {% if messages %}
+                    <div class="pt-4">
+                        {% for message in messages %}<div class="alert alert-info">{{ message }}</div>{% endfor %}
+                    </div>
+                {% endif %}
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+{% endblock %}

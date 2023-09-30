@@ -1,5 +1,9 @@
 {% load i18n %}
 {% load account %}
-
+{% load allauth %}
 {% user_display user as user_display %}
-<p><strong>{% trans "Note" %}:</strong> {% blocktrans %}you are already logged in as {{ user_display }}.{% endblocktrans %}</p>
+{% element alert %}
+    {% slot message %}
+        <strong>{% blocktranslate %}Note{% endblocktranslate %}:</strong> {% blocktranslate %}You are already logged in as {{ user_display }}.{% endblocktranslate %}
+    {% endslot %}
+{% endelement %}

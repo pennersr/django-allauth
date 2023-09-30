@@ -1,18 +1,32 @@
 {% extends "mfa/totp/base.html" %}
-{% load i18n %}
+{% load allauth i18n %}
+{% block head_title %}
+    {% translate "Activate Authenticator App" %}
+{% endblock head_title %}
 {% block content %}
-    <h1>{% trans "Activate Authenticator App" %}</h1>
+    {% element h1 %}
+        {% translate "Activate Authenticator App" %}
+    {% endelement %}
     {{ totp_svg|safe }}
-    <form method="POST" action="{% url 'mfa_activate_totp' %}">
-        {% csrf_token %}
-        <p>
-            <label>{% translate "Authenticator secret" %}:</label>
-            <input type="text"
-                   disabled="disabled"
-                   value="{{ form.secret }}"
-                   size="{{ form.secret|length }}">
-        </p>
-        {{ form.as_p }}
-        <button type="submit">{% trans "Activate" %}</button>
-    </form>
+    {% url 'mfa_activate_totp' as action_url %}
+    {% element form form=form method="post" action=action_url %}
+        {% slot body %}
+            {% csrf_token %}
+            {% element field type="text" value=form.secret disabled="disabled" %}
+                {% slot label %}
+                    {% translate "Authenticator secret" %}
+                {% endslot %}
+                {% slot help_text %}
+                    {% translate "You can store this secret and use it to reinstall your authenticator app at a later time." %}
+                {% endslot %}
+            {% endelement %}
+            {% element fields form=form %}
+            {% endelement %}
+        {% endslot %}
+        {% slot actions %}
+            {% element button  type="submit" %}
+                {% trans "Activate" %}
+            {% endelement %}
+        {% endslot %}
+    {% endelement %}
 {% endblock content %}

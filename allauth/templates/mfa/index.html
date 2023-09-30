@@ -1,47 +1,70 @@
-{% extends "account/base.html" %}
+{% extends "mfa/base_manage.html" %}
+{% load allauth %}
 {% load i18n %}
 {% block head_title %}
     {% trans "Two-Factor Authentication" %}
 {% endblock head_title %}
 {% block content %}
-    <h1>{% trans "Two-Factor Authentication" %}</h1>
-    <section class="totp">
-        <h2>{% translate "Authenticator App" %}</h2>
-        {% if authenticators.totp %}
-            <p>{% translate "Authentication using an authenticator app is active." %}</p>
-            <ul class="actions">
-                <li>
-                    <a href="{% url 'mfa_deactivate_totp' %}">{% translate "Deactivate" %}</a>
-                </li>
-            </ul>
-        {% else %}
-            <p>{% translate "An authenticator app is not active." %}</p>
-            <ul class="actions">
-                <li>
-                    <a href="{% url 'mfa_activate_totp' %}">{% translate "Activate" %}</a>
-                </li>
-            </ul>
-        {% endif %}
-    </section>
-    <section class="recovery_codes">
-        <h2>{% translate "Recovery Codes" %}</h2>
+    {% element h1 %}
+        {% trans "Two-Factor Authentication" %}
+    {% endelement %}
+    {% element card %}
+        {% slot title %}
+            {% translate "Authenticator App" %}
+        {% endslot %}
+        {% slot body %}
+            {% if authenticators.totp %}
+                <p>{% translate "Authentication using an authenticator app is active." %}</p>
+            {% else %}
+                <p>{% translate "An authenticator app is not active." %}</p>
+            {% endif %}
+        {% endslot %}
+        {% slot actions %}
+            {% url 'mfa_deactivate_totp' as deactivate_url %}
+            {% url 'mfa_activate_totp' as activate_url %}
+            {% if authenticators.totp %}
+                {% element button variant="danger" href=deactivate_url %}
+                    {% translate "Deactivate" %}
+                {% endelement %}
+            {% else %}
+                {% element button href=activate_url %}
+                    {% translate "Activate" %}
+                {% endelement %}
+            {% endif %}
+        {% endslot %}
+    {% endelement %}
+    {% element card %}
+        {% slot title %}
+            {% translate "Recovery Codes" %}
+        {% endslot %}
+        {% slot body %}
+            {% if authenticators.recovery_codes %}
+                <p>
+                    {% blocktranslate with total_count=authenticators.recovery_codes.generate_codes|length count unused_count=authenticators.recovery_codes.get_unused_codes|length %}There is {{ unused_count }} out of {{ total_count }} recovery codes available.{% plural %}There are {{ unused_count }} out of {{ total_count }} recovery codes available.{% endblocktranslate %}
+                </p>
+            {% else %}
+                <p>{% translate "No recovery codes set up." %}</p>
+            {% endif %}
+        {% endslot %}
         {% if authenticators.recovery_codes %}
-            <p>
-                {% blocktranslate with total_count=authenticators.recovery_codes.generate_codes|length count unused_count=authenticators.recovery_codes.get_unused_codes|length %}There is {{ unused_count }} out of {{ total_count }} recovery codes available.{% plural %}There are {{ unused_count }} out of {{ total_count }} recovery codes available.{% endblocktranslate %}
-            </p>
-            <ul class="actions">
-                <li>
-                    <a href="{% url 'mfa_view_recovery_codes' %}">{% translate "View codes" %}</a>
-                </li>
-                <li>
-                    <a href="{% url 'mfa_download_recovery_codes' %}">{% translate "Download codes" %}</a>
-                </li>
-                <li>
-                    <a href="{% url 'mfa_generate_recovery_codes' %}">{% translate "Generate new codes" %}</a>
-                </li>
-            </ul>
-        {% else %}
-            <p>{% translate "No recovery codes set up." %}</p>
+            {% slot actions %}
+                {% url 'mfa_view_recovery_codes' as view_url %}
+                {% element button href=view_url %}
+                    {% translate "View" %}
+                {% endelement %}
+            {% endslot %}
+            {% slot actions %}
+                {% url 'mfa_download_recovery_codes' as download_url %}
+                {% element button variant="secondary" href=download_url %}
+                    {% translate "Download" %}
+                {% endelement %}
+            {% endslot %}
+            {% slot actions %}
+                {% url 'mfa_generate_recovery_codes' as generate_url %}
+                {% element button variant="secondary"  href=generate_url %}
+                    {% translate "Regenerate" %}
+                {% endelement %}
+            {% endslot %}
         {% endif %}
-    </section>
+    {% endelement %}
 {% endblock content %}

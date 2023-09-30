@@ -1,22 +1,32 @@
-{% extends "account/base.html" %}
-
+{% extends "account/base_manage.html" %}
+{% load allauth %}
 {% load i18n %}
-
-{% block head_title %}{% trans "Confirm Access" %}{% endblock head_title %}
-
+{% block head_title %}
+    {% trans "Confirm Access" %}
+{% endblock head_title %}
 {% block content %}
-
-<h1>{% trans "Confirm Access" %}</h1>
-
-<p>{% blocktranslate %}To safeguard the security of your account, please enter your password:{% endblocktranslate %}</p>
-
-<form class="reauthenticate" method="POST" action="{% url 'account_reauthenticate' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button type="submit">{% trans "Confirm" %}</button>
-</form>
-
+    {% element h1 %}
+        {% trans "Confirm Access" %}
+    {% endelement %}
+    <p>
+        {% blocktranslate %}To safeguard the security of your account, please enter your password:{% endblocktranslate %}
+    </p>
+    {% url 'account_reauthenticate' as action_url %}
+    {% element form form=form method="post" action=action_url %}
+        {% slot body %}
+            {% csrf_token %}
+            {% element fields form=form %}
+            {% endelement %}
+            {% if redirect_field_value %}
+                <input type="hidden"
+                       name="{{ redirect_field_name }}"
+                       value="{{ redirect_field_value }}" />
+            {% endif %}
+        {% endslot %}
+        {% slot actions %}
+            {% element button type="submit" %}
+                {% trans "Confirm" %}
+            {% endelement %}
+        {% endslot %}
+    {% endelement %}
 {% endblock content %}

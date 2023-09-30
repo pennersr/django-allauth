@@ -1,7 +1,8 @@
-{% extends "base.html" %}
-
+{% extends "allauth/layouts/entrance.html" %}
+{% load allauth %}
 {% block content %}
-<h1>Example Project</h1>
-
-<p>Welcome</p>
+    {% element h1 %}
+        Example Project
+    {% endelement %}
+    <p>Welcome to the django-allauth example project.</p>
 {% endblock content %}

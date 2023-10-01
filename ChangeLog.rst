@@ -4,6 +4,12 @@
 
 - New providers: TikTok, Lichess.
 
+- Starting since version 0.62.0, new email addresses are always stored as lower
+  case. In this version, we take the final step and also convert existing data
+  to lower case, alter the database indices and perform lookups
+  accordingly. Migrations are in place.  For rationale, see the note about email
+  case sensitivity in the documentation.
+
 
 0.62.1 (2024-04-24)
 *******************

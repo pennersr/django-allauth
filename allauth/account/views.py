@@ -691,10 +691,14 @@ class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
     def form_valid(self, form):
         form.save()
         logout_on_password_change(self.request, form.user)
-        get_adapter(self.request).add_message(
+        adapter = get_adapter(self.request)
+        adapter.add_message(
             self.request,
             messages.SUCCESS,
             "account/messages/password_changed.txt",
+        )
+        adapter.send_notification_mail(
+            "account/email/password_changed", self.request.user, {}
         )
         signals.password_changed.send(
             sender=self.request.user.__class__,

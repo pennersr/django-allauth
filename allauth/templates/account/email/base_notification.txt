@@ -1,6 +1,8 @@
 {% load i18n %}
+{% load account %}
+{% user_display user as user_display %}
 
-Hello {{ username }},
+Hello {{ user_display }},
 
 We wanted to let you know that there has been a recent change to your account information.
 
@@ -10,6 +12,7 @@ Here are the details of the change:
 {% endblock %}
 
 Change details
+Time: {{timestamp}}
 IP address : {{ip}}
 Browser agent : {{browser_agent}}
 

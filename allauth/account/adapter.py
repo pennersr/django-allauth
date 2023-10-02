@@ -1,7 +1,7 @@
 import html
 import json
 import warnings
-from datetime import timedelta
+from datetime import datetime, timedelta
 from urllib.parse import urlparse
 
 from django import forms
@@ -733,7 +733,14 @@ class DefaultAccountAdapter(object):
         return ret
 
     def send_notification_mail(self, template_prefix, user, context):
-        self.send_mail(template_prefix, user.email, context)
+        if app_settings.ACCOUNT_EMAIL_NOTIFICATIONS:
+            context |= {
+                "timestamp": datetime.now(),
+                "ip": self.get_client_ip(self.request),
+                "browser_agent": self.get_browser_user_agent(self.request),
+            }
+            print(context)
+            self.send_mail(template_prefix, user.email, context)
 
 
 def get_adapter(request=None):

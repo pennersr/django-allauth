@@ -15,7 +15,3 @@ class AccountConfig(AppConfig):
             raise ImproperlyConfigured(
                 f"{required_mw} must be added to settings.MIDDLEWARE"
             )
-        from .receivers import send_password_change_notification
-        from .signals import password_changed
-
-        password_changed.connect(send_password_change_notification)

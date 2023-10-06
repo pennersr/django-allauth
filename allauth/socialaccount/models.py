@@ -338,6 +338,14 @@ class SocialLogin(object):
                 self.connect(context.request, address.user)
             else:
                 self.user = address.user
+            return
+
+        user = get_user_model().objects.filter(email__in=emails).first()
+        if user:
+            if app_settings.EMAIL_AUTHENTICATION_AUTO_CONNECT:
+                self.connect(context.request, user)
+            else:
+                self.user = user
 
     def get_redirect_url(self, request):
         url = self.state.get("next")

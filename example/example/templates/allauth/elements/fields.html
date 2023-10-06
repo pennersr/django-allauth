@@ -1,6 +1,6 @@
 {% load allauth %}
 {% for bound_field in attrs.form %}
-    {% element field unlabeled=attrs.unlabeled name=bound_field.name type=bound_field.field.widget.input_type required=bound_field.field.required value=bound_field.value id=bound_field.auto_id errors=bound_field.errors %}
+    {% element field unlabeled=attrs.unlabeled name=bound_field.name type=bound_field.field.widget.input_type required=bound_field.field.required value=bound_field.value id=bound_field.auto_id errors=bound_field.errors placeholder=bound_field.field.widget.attrs.placeholder %}
         {% slot label %}
             {{ bound_field.label }}
         {% endslot %}

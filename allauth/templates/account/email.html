@@ -53,7 +53,9 @@
         {% include "account/snippets/warn_no_email.html" %}
     {% endif %}
     {% if can_add_email %}
-        <h2>{% trans "Add Email Address" %}</h2>
+        {% element h2 %}
+            {% trans "Add Email Address" %}
+        {% endelement %}
         {% url 'account_email' as action_url %}
         {% element form form=form method="post" action=action_url %}
             Hoi bef bod

@@ -13,26 +13,28 @@
         {% element form form=form action=email_url method="post" %}
             {% slot body %}
                 {% csrf_token %}
-                {% for emailaddress in emailaddresses %}
-                    <div class="ctrlHolder">
-                        <label for="email_radio_{{ forloop.counter }}"
-                               class="{% if emailaddress.primary %}primary_email{% endif %}">
-                            <input id="email_radio_{{ forloop.counter }}"
-                                   type="radio"
-                                   name="email"
-                                   {% if emailaddress.primary or emailaddresses|length == 1 %}checked="checked"{% endif %}
-                                   value="{{ emailaddress.email }}" />
-                            {{ emailaddress.email }}
-                            {% if emailaddress.verified %}
-                                <span class="verified">{% trans "Verified" %}</span>
-                            {% else %}
-                                <span class="unverified">{% trans "Unverified" %}</span>
-                            {% endif %}
-                            {% if emailaddress.primary %}
-                                <span class="primary">{% trans "Primary" %}</span>
-                            {% endif %}
-                        </label>
-                    </div>
+                {% for radio in emailaddress_radios %}
+                    {% with emailaddress=radio.emailaddress %}
+                        {% element field type="radio" checked=radio.checked name="email" value=emailaddress.email id=radio.id %}
+                            {% slot label %}
+                                {{ emailaddress.email }}
+                                {% if emailaddress.verified %}
+                                    {% element badge variant="success" tags="email,verified" %}
+                                        {% translate "Verified" %}
+                                    {% endelement %}
+                                {% else %}
+                                    {% element badge variant="warning" tags="email,unverified" %}
+                                        {% translate "Unverified" %}
+                                    {% endelement %}
+                                {% endif %}
+                                {% if emailaddress.primary %}
+                                    {% element badge variant="primary" tags="email,primary" %}
+                                        {% translate "Primary" %}
+                                    {% endelement %}
+                                {% endif %}
+                            {% endslot %}
+                        {% endelement %}
+                    {% endwith %}
                 {% endfor %}
             {% endslot %}
             {% slot actions %}

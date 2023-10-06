@@ -590,13 +590,20 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
 
     def get_context_data(self, **kwargs):
         ret = super(EmailView, self).get_context_data(**kwargs)
+        emails = list(
+            EmailAddress.objects.filter(user=self.request.user).order_by("email")
+        )
         ret.update(
             {
-                "emailaddresses": list(
-                    EmailAddress.objects.filter(user=self.request.user).order_by(
-                        "email"
-                    )
-                ),
+                "emailaddresses": emails,
+                "emailaddress_radios": [
+                    {
+                        "id": f"email_radio_{i}",
+                        "checked": email.primary or len(emails) == 1,
+                        "emailaddress": email,
+                    }
+                    for i, email in enumerate(emails)
+                ],
                 "add_email_form": ret.get("form"),
                 "can_add_email": EmailAddress.objects.can_add_email(self.request.user),
             }

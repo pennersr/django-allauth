@@ -9,26 +9,42 @@
     {% if authenticators|length == 0 %}
         <p>{% blocktranslate %}You have not added any security keys/devices.{% endblocktranslate %}</p>
     {% else %}
-        <table>
-            <thead>
-                <th>Device</th>
-                <th>Last used</th>
-                <th>Passkey</th>
-                <th></th>
-            </thead>
-            <tbody>
+        {% element table %}
+            {% element thead %}
+                {% element th %}
+                    Device
+                {% endelement %}
+                {% element th %}
+                    Last used
+                {% endelement %}
+                {% element th %}
+                    Passkey
+                {% endelement %}
+                {% element th %}
+                {% endelement %}
+            {% endelement %}
+            {% element tbody %}
                 {% for authenticator in authenticators %}
-                    <tr>
-                        <td>{{ authenticator }}</td>
-                        <td>{{ authenticator.last_used_at|default_if_none:"" }}</td>
-                        <td>{{ authenticator.wrap.is_passwordless }}</td>
-                        <td>
-                            <a href="{% url 'mfa_remove_webauthn' pk=authenticator.pk %}">{% translate "Remove" %}</a>
-                        </td>
-                    </tr>
+                    {% element tr %}
+                        {% element td %}
+                            {{ authenticator }}
+                        {% endelement %}
+                        {% element td %}
+                            {{ authenticator.last_used_at|default_if_none:_("Unused") }}
+                        {% endelement %}
+                        {% element td %}
+                            {{ authenticator.wrap.is_passwordless }}
+                        {% endelement %}
+                        {% element td %}
+                            {% url 'mfa_remove_webauthn' pk=authenticator.pk as remove_url %}
+                            {% element button tags="danger,delete,tool" href=remove_url %}
+                                {% translate "Remove" %}
+                            {% endelement %}
+                        {% endelement %}
+                    {% endelement %}
                 {% endfor %}
-            </tbody>
-        </table>
+            {% endelement %}
+        {% endelement %}
     {% endif %}
     {% url 'mfa_add_webauthn' as add_url %}
     {% element button href=add_url %}

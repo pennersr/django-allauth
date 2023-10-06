@@ -54,14 +54,17 @@
                 {% endif %}
             {% endslot %}
             {% slot actions %}
-                {% url 'mfa_add_webauthn' as add_webauthn_url %}
-                {% url 'mfa_list_webauthn' as manage_webauthn_url %}
-                {% element button href=manage_webauthn_url tags="panel" %}
-                    {% translate "Manage" %}
-                {% endelement %}
-                {% element button href=add_webauthn_url tags="panel" %}
-                    {% translate "Add" %}
-                {% endelement %}
+                {% if authenticators.webauthn|length %}
+                    {% url 'mfa_list_webauthn' as webauthn_list_url %}
+                    {% element button href=webauthn_list_url %}
+                        {% translate "Manage" %}
+                    {% endelement %}
+                {% else %}
+                    {% url 'mfa_add_webauthn' as webauthn_add_url %}
+                    {% element button href=webauthn_add_url %}
+                        {% translate "Add" %}
+                    {% endelement %}
+                {% endif %}
             {% endslot %}
         {% endelement %}
     {% endif %}

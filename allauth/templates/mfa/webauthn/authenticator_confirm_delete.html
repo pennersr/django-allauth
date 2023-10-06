@@ -10,7 +10,7 @@
     {% element form method="post" action=action_url no_visible_fields=True %}
         {% slot actions %}
             {% csrf_token %}
-            {% element button variant="danger" type="submit" %}
+            {% element button tags="danger" type="submit" %}
                 {% translate "Remove" %}
             {% endelement %}
         {% endslot %}

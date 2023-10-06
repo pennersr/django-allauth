@@ -47,7 +47,7 @@ if "recovery_codes" in app_settings.SUPPORTED_TYPES:
                     ),
                 ]
             ),
-        ),
+        )
     )
 
 if "webauthn" in app_settings.SUPPORTED_TYPES:
@@ -65,5 +65,5 @@ if "webauthn" in app_settings.SUPPORTED_TYPES:
                     ),
                 ]
             ),
-        ),
+        )
     )

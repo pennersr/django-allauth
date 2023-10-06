@@ -44,7 +44,7 @@
         {% endif %}
         <input {% if attrs.required %}required{% endif %}
                name="{{ attrs.name }}"
-               placeholder="{% spaceless %}{% slot label %}{% endslot %}{% endspaceless %}"
+               {% if attrs.placeholder %}placeholder="{{ attrs.placeholder }}"{% endif %}
                class="{% if attrs.errors %}is-invalid{% endif %}  form-control rounded-3"
                id="{{ attrs.id }}"
                {% if attrs.disabled %}disabled="{{ attrs.disabled }}"{% endif %}

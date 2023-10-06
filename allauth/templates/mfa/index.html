@@ -23,7 +23,7 @@
             {% url 'mfa_deactivate_totp' as deactivate_url %}
             {% url 'mfa_activate_totp' as activate_url %}
             {% if authenticators.totp %}
-                {% element button variant="danger" href=deactivate_url tags="panel" %}
+                {% element button href=deactivate_url tags="danger,delete,panel" %}
                     {% translate "Deactivate" %}
                 {% endelement %}
             {% else %}
@@ -55,13 +55,13 @@
             {% endslot %}
             {% slot actions %}
                 {% url 'mfa_download_recovery_codes' as download_url %}
-                {% element button variant="secondary" href=download_url tags="panel" %}
+                {% element button href=download_url tags="secondary,panel" %}
                     {% translate "Download" %}
                 {% endelement %}
             {% endslot %}
             {% slot actions %}
                 {% url 'mfa_generate_recovery_codes' as generate_url %}
-                {% element button variant="secondary"  href=generate_url tags="panel" %}
+                {% element button href=generate_url tags="secondary,panel" %}
                     {% translate "Regenerate" %}
                 {% endelement %}
             {% endslot %}

@@ -6,9 +6,13 @@
 class="
 {% block class %}
     btn
-    {% if attrs.size == "large" %}btn-lg{% endif %}
-    {% if attrs.size == "small" %}btn-sm{% endif %}
-    btn-{{ attrs.variant|default:"primary" }}
+    {% if "large" in attrs.tags %}btn-lg{% endif %}
+    {% if "small" in attrs.tags %}btn-sm{% endif %}
+{% if "danger" in attrs.tags %}btn-danger
+{% elif "secondary" in attrs.tags %}btn-secondary %}
+{% elif "warning" in attrs.tags %}btn-warning %}
+{% else %}btn-primary
+{% endif %}
 {% endblock %}
 ">
 {% slot %}

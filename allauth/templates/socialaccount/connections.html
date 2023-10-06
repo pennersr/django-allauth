@@ -36,7 +36,7 @@
                 {% endfor %}
             {% endslot %}
             {% slot actions %}
-                {% element button type="submit" %}
+                {% element button tags="delete,danger" type="submit" %}
                     {% trans 'Remove' %}
                 {% endelement %}
             {% endslot %}

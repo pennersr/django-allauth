@@ -19,16 +19,16 @@
                             {% slot label %}
                                 {{ emailaddress.email }}
                                 {% if emailaddress.verified %}
-                                    {% element badge variant="success" tags="email,verified" %}
+                                    {% element badge tags="success,email,verified" %}
                                         {% translate "Verified" %}
                                     {% endelement %}
                                 {% else %}
-                                    {% element badge variant="warning" tags="email,unverified" %}
+                                    {% element badge tags="warning,email,unverified" %}
                                         {% translate "Unverified" %}
                                     {% endelement %}
                                 {% endif %}
                                 {% if emailaddress.primary %}
-                                    {% element badge variant="primary" tags="email,primary" %}
+                                    {% element badge tags="email,primary" %}
                                         {% translate "Primary" %}
                                     {% endelement %}
                                 {% endif %}
@@ -38,13 +38,13 @@
                 {% endfor %}
             {% endslot %}
             {% slot actions %}
-                {% element button variant="primary" type="submit" name="action_primary" %}
+                {% element button type="submit" name="action_primary" %}
                     {% trans 'Make Primary' %}
                 {% endelement %}
-                {% element button variant="secondary" type="submit" name="action_send" %}
+                {% element button tags="secondary" type="submit" name="action_send" %}
                     {% trans 'Re-send Verification' %}
                 {% endelement %}
-                {% element button variant="danger" type="submit" name="action_remove" %}
+                {% element button tags="danger,delete" type="submit" name="action_remove" %}
                     {% trans 'Remove' %}
                 {% endelement %}
             {% endslot %}

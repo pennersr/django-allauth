@@ -1,5 +1,5 @@
 {% load allauth %}
-<span class="badge text-bg-{{ attrs.variant }}">
+<span class="badge text-bg-{{ attrs.variant|default:"primary" }}">
     {% slot %}
     {% endslot %}
 </span>

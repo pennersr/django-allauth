@@ -533,12 +533,7 @@ msgid "Password Reset Email"
 msgstr "E-mail для відновлення паролю"
 
 #: templates/account/email/unknown_account_message.txt:4
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
+#, python-format
 msgid ""
 "You are receiving this email because you or someone else has requested a\n"
 "password for your user account. However, we do not have any record of a "
@@ -549,10 +544,14 @@ msgid ""
 "\n"
 "If it was you, you can sign up for an account using the link below."
 msgstr ""
-"Ви отримали дане повідомлення, тому що Ви або хтось інший зробили запит на "
-"пароль для Вашого акаунту користувача на сайті %(site_domain)s.\n"
-"Дане повідомлення можна проігнорувати, якщо Ви не робили такого запиту. "
-"Перейдіть за посиланням для відновлення паролю."
+"Ви отримали цей лист, тому що ви або хтось інший надіслав запит на отримання\n"
+"паролю до вашого облікового запису. Однак у нас немає жодних записів про "
+"користувача\n"
+"з адресою %(email)s у нашій базі даних.\n"
+"\n"
+"Цей лист можна безпечно ігнорувати, якщо ви не надсилали запит на зміну пароля.\n"
+"\n"
+"Якщо це були ви, ви можете зареєструватися за посиланням нижче."
 
 #: templates/account/email_change.html:4 templates/account/email_change.html:7
 msgid "Email Address"
@@ -598,17 +597,13 @@ msgid ""
 msgstr "Не вдалося підтвердити %(email)s, оскільки він вже підтверджений іншим акаунтом."
 
 #: templates/account/email_confirm.html:31
-#, fuzzy, python-format
-#| msgid ""
-#| "This e-mail confirmation link expired or is invalid. Please <a href="
-#| "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+#, python-format
 msgid ""
 "This email confirmation link expired or is invalid. Please <a href="
 "\"%(email_url)s\">issue a new email confirmation request</a>."
 msgstr ""
-"Дане посилання для підтвердження e-mail неактивне або неправильне. Будь "
-"ласка, <a href=\"%(email_url)s\"> зробіть новий запит для підтвердження e-"
-"mail адреси</a>."
+"Термін дії посилання для підтвердження електронної пошти закінчився або воно недійсне. Будь ласка, <a href="
+"\"%(email_url)s\">надішліть новий запит на підтвердження електронної пошти</a>."
 
 #: templates/account/login.html:15
 #, python-format
@@ -725,11 +720,6 @@ msgstr ""
 "паролю."
 
 #: templates/account/password_reset_done.html:15
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent you an email. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."

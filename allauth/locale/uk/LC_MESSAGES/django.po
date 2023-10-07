@@ -35,10 +35,8 @@ msgid "A user is already registered with this email address."
 msgstr "Користувач з такою e-mail адресою уже зареєстрований."
 
 #: account/adapter.py:57
-#, fuzzy
-#| msgid "Current Password"
 msgid "Incorrect password."
-msgstr "Поточний пароль"
+msgstr "Неправильний пароль."
 
 #: account/adapter.py:308
 #, python-brace-format
@@ -123,10 +121,9 @@ msgid "This email address is already associated with this account."
 msgstr "Вказаний e-mail уже прикріплений до цього акаунту."
 
 #: account/forms.py:472
-#, fuzzy, python-format
-#| msgid "Your account has no verified email address."
+#, python-format
 msgid "You cannot add more than %d email addresses."
-msgstr "Немає підтвердження по e-mail для Вашого акаунту."
+msgstr "Ви не можете додати більше %d адрес електронної пошти."
 
 #: account/forms.py:503
 msgid "Current Password"
@@ -229,16 +226,11 @@ msgid "TOTP Authenticator"
 msgstr ""
 
 #: socialaccount/adapter.py:30
-#, fuzzy, python-format
-#| msgid ""
-#| "An account already exists with this e-mail address. Please sign in to "
-#| "that account first, then connect your %s account."
 msgid ""
 "An account already exists with this email address. Please sign in to that "
 "account first, then connect your %s account."
 msgstr ""
-"Акаунт з такою e-mail адресою уже існує. Будь ласка, спершу увійдіть у цей "
-"акаунт, потім приєднайте Ваш %s акаунт."
+"Обліковий запис з такою адресою вже існує. Будь ласка, спочатку увійдіть до цього акаунта, а потім підключіть ваш акаунт %s."
 
 #: socialaccount/adapter.py:136
 msgid "Your account has no password set up."
@@ -257,10 +249,8 @@ msgid "provider"
 msgstr "постачальник"
 
 #: socialaccount/models.py:45
-#, fuzzy
-#| msgid "provider"
 msgid "provider ID"
-msgstr "постачальник"
+msgstr "постачальник ID"
 
 #: socialaccount/models.py:49
 msgid "name"
@@ -352,11 +342,10 @@ msgid "Invalid profile data"
 msgstr "Невірні дані профілю"
 
 #: socialaccount/providers/oauth/client.py:85
-#, fuzzy, python-format
-#| msgid "Invalid response while obtaining request token from \"%s\"."
+#, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
-msgstr "Невірна відповідь під час отримання запиту від \"%s\""
+msgstr "Невірна відповідь під час отримання запиту від \"%s\". Відповідь була: %s."
 
 #: socialaccount/providers/oauth/client.py:119
 #: socialaccount/providers/pocket/client.py:78
@@ -401,11 +390,9 @@ msgstr ""
 msgid "Menu:"
 msgstr ""
 
-#: templates/account/base.html:29 templates/account/email_change.html:31
-#, fuzzy
-#| msgid "Email"
+#: templates/account/base.html:29 templates/account/email_change.html:31y
 msgid "Change Email"
-msgstr "E-mail"
+msgstr "Змінити e-mail"
 
 #: templates/account/base.html:30 templates/account/logout.html:5
 #: templates/account/logout.html:8 templates/account/logout.html:17
@@ -506,22 +493,17 @@ msgstr ""
 "%(site_domain)s"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because user %(user_display)s has given your "
-#| "e-mail address to register an account on %(site_domain)s.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s"
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s.\n"
 "\n"
 "To confirm this is correct, go to %(activate_url)s"
 msgstr ""
-"Ви отримали дане повідомлення тому, що користувач %(user_display)s на "
-"%(site_domain)s зареєстрував дану e-mail адресу.\n"
+"Ви отримали дане повідомлення тому, що користувач %(user_display)s вказав вашу адресу електронну пошту для реєстрації акаунта "
+"на %(site_domain)s.\n"
 "\n"
-"Для підтвердження, що все правильно, будь ласка, перейдіть за "
+"Для підтвердження, що все правильно, будь ласка, перейдіть за посиланням "
 "%(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
@@ -529,12 +511,6 @@ msgid "Please Confirm Your Email Address"
 msgstr "Будь ласка, підтвердіть Вашу e-mail адресу"
 
 #: templates/account/email/password_reset_key_message.txt:4
-#, fuzzy
-#| msgid ""
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
 msgid ""
 "You're receiving this email because you or someone else has requested a "
 "password reset for your user account.\n"
@@ -542,7 +518,7 @@ msgid ""
 "link below to reset your password."
 msgstr ""
 "Ви отримали дане повідомлення, тому що Ви або хтось інший зробили запит на "
-"пароль для Вашого акаунту користувача на сайті %(site_domain)s.\n"
+"відновлення паролю для Вашого акаунту користувача на сайті %(site_domain)s.\n"
 "Дане повідомлення можна проігнорувати, якщо Ви не робили такого запиту. "
 "Перейдіть за посиланням для відновлення паролю."
 
@@ -579,28 +555,20 @@ msgstr ""
 "Перейдіть за посиланням для відновлення паролю."
 
 #: templates/account/email_change.html:4 templates/account/email_change.html:7
-#, fuzzy
-#| msgid "Email Addresses"
 msgid "Email Address"
 msgstr "E-mail адреса"
 
 #: templates/account/email_change.html:11
-#, fuzzy
-#| msgid "The following email addresses are associated with your account:"
 msgid "The following email address is associated with your account:"
-msgstr "Вказаний e-mail уже прикріплений до цього акаунту"
+msgstr "Вказаний e-mail уже прикріплений до цього акаунту:"
 
 #: templates/account/email_change.html:16
-#, fuzzy
-#| msgid "Your primary email address must be verified."
 msgid "Your email address is still pending verification:"
-msgstr "Ваша основна e-mail адреса повинна бути підтверджена."
+msgstr "Ваша e-mail адреса все ще очікує на перевірку:"
 
 #: templates/account/email_change.html:27
-#, fuzzy
-#| msgid "Confirm Email Address"
 msgid "Change Email Address"
-msgstr "Підтвердити e-mail адресу"
+msgstr "Змінити e-mail адресу"
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
@@ -608,10 +576,7 @@ msgid "Confirm Email Address"
 msgstr "Підтвердити e-mail адресу"
 
 #: templates/account/email_confirm.html:17
-#, fuzzy, python-format
-#| msgid ""
-#| "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
-#| "mail address for user %(user_display)s."
+#, python-format
 msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an email "
 "address for user %(user_display)s."
@@ -626,12 +591,11 @@ msgstr "Підтвердити"
 
 #: templates/account/email_confirm.html:24
 #: templates/account/messages/email_confirmation_failed.txt:2
-#, fuzzy, python-format
-#| msgid "The social account is already connected to a different account."
+#, python-format
 msgid ""
 "Unable to confirm %(email)s because it is already confirmed by a different "
 "account."
-msgstr "Акаунт із соц. мереж уже приєднано до іншого акаунту."
+msgstr "Не вдалося підтвердити %(email)s, оскільки він вже підтверджений іншим акаунтом."
 
 #: templates/account/email_confirm.html:31
 #, fuzzy, python-format
@@ -743,10 +707,6 @@ msgid "Password Reset"
 msgstr "Відновити пароль"
 
 #: templates/account/password_reset.html:15
-#, fuzzy
-#| msgid ""
-#| "Forgotten your password? Enter your e-mail address below, and we'll send "
-#| "you an e-mail allowing you to reset it."
 msgid ""
 "Forgotten your password? Enter your email address below, and we'll send you "
 "an email allowing you to reset it."
@@ -774,11 +734,7 @@ msgid ""
 "We have sent you an email. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
 msgstr ""
-"Ми надіслали Вам e-mail для підтвердження.\n"
-"Будь ласка, перейдіть за посилання вказаним у e-mail повідомленні. Будь "
-"ласка,\n"
-"зв'яжіться з нами, якщо Ви не отримаєте повідомлення впродовж декількох "
-"хвилин."
+"Ми надіслали вам електронного листа. Якщо ви його не отримали, перевірте, будь ласка, папку "Спам". В іншому випадку зв'яжіться з нами, якщо ви не отримаєте його протягом декількох хвилин.
 
 #: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -810,14 +766,12 @@ msgstr "Введіть пароль"
 
 #: templates/account/reauthenticate.html:5
 #: templates/account/reauthenticate.html:9
-#, fuzzy
-#| msgid "Confirm Email Address"
 msgid "Confirm Access"
-msgstr "Підтвердити e-mail адресу"
+msgstr "Підтвердіть доступ"
 
 #: templates/account/reauthenticate.html:11
 msgid "To safeguard the security of your account, please enter your password:"
-msgstr ""
+msgstr "Для забезпечення безпеки вашого облікового запису, будь ласка, введіть пароль:"
 
 #: templates/account/signup.html:5 templates/socialaccount/signup.html:5
 msgid "Signup"
@@ -853,11 +807,6 @@ msgid "Warning:"
 msgstr "Попередження:"
 
 #: templates/account/snippets/warn_no_email.html:3
-#, fuzzy
-#| msgid ""
-#| "You currently do not have any e-mail address set up. You should really "
-#| "add an e-mail address so you can receive notifications, reset your "
-#| "password, etc."
 msgid ""
 "You currently do not have any email address set up. You should really add an "
 "email address so you can receive notifications, reset your password, etc."
@@ -873,11 +822,6 @@ msgid "Verify Your Email Address"
 msgstr "Підтвердіть Вашу e-mail адресу"
 
 #: templates/account/verification_sent.html:10
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for verification. Follow the link provided "
-#| "to finalize the signup process. Please contact us if you do not receive "
-#| "it within a few minutes."
 msgid ""
 "We have sent an email to you for verification. Follow the link provided to "
 "finalize the signup process. If you do not see the verification email in "
@@ -889,23 +833,13 @@ msgstr ""
 "отримаєте повідомлення впродовж декількох хвилин."
 
 #: templates/account/verified_email_required.html:12
-#, fuzzy
-#| msgid ""
-#| "This part of the site requires us to verify that\n"
-#| "you are who you claim to be. For this purpose, we require that you\n"
-#| "verify ownership of your e-mail address. "
 msgid ""
 "This part of the site requires us to verify that\n"
 "you are who you claim to be. For this purpose, we require that you\n"
 "verify ownership of your email address. "
-msgstr "Дана частина сайту вимає підтвердження e-mail адреси."
+msgstr "Дана частина сайту вимагає підтвердження e-mail адреси. Для цього нам потрібно, щоб ви підтвердили право власності на вашу адресу електронної пошти. "
 
 #: templates/account/verified_email_required.html:16
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent an email to you for\n"
 "verification. Please click on the link inside that email. If you do not see "
@@ -914,16 +848,13 @@ msgid ""
 "contact us if you do not receive it within a few minutes."
 msgstr ""
 "Ми надіслали Вам e-mail для підтвердження.\n"
-"Будь ласка, перейдіть за посилання вказаним у e-mail повідомленні. Будь "
+"Будь ласка, перейдіть за посилання вказаним у e-mail повідомленні. Якщо ви не бачите листа з підтвердженням в основній поштовій скриньці, перевірте папку "Спам". Будь "
 "ласка,\n"
 "зв'яжіться з нами, якщо Ви не отримаєте повідомлення впродовж декількох "
 "хвилин."
 
 #: templates/account/verified_email_required.html:20
-#, fuzzy, python-format
-#| msgid ""
-#| "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change "
-#| "your e-mail address</a>."
+#, python-format
 msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
 "email address</a>."
@@ -1022,10 +953,8 @@ msgid "Activate Authenticator App"
 msgstr ""
 
 #: templates/mfa/totp/activate_form.html:9
-#, fuzzy
-#| msgid "token secret"
 msgid "Authenticator secret"
-msgstr "секретний токен"
+msgstr "Секрет аутентифікатора"
 
 #: templates/mfa/totp/deactivate_form.html:4
 msgid "Deactivate Authenticator App"
@@ -1134,43 +1063,3 @@ msgid ""
 msgstr ""
 "Ви використовуєте Ваш %(provider_name)s акаунт для авторизації на\n"
 "%(site_name)s. Для завершення, будь ласка, заповніть наступну форму:"
-
-#~ msgid "This email address is already associated with another account."
-#~ msgstr "Вказаний e-mail уже прикріплений до іншого користувача."
-
-#~ msgid ""
-#~ "We have sent you an e-mail. Please contact us if you do not receive it "
-#~ "within a few minutes."
-#~ msgstr ""
-#~ "Ми надіслали Вам e-mail повідомлення. Будь ласка, зв'яжіться з нами, якщо "
-#~ "Ви не отримаєте повідомлення протягом декількох хвилин."
-
-#~ msgid "Account"
-#~ msgstr "Акаунт"
-
-#~ msgid "The login and/or password you specified are not correct."
-#~ msgstr "Введений login і/або пароль є некоректними."
-
-#~ msgid "Usernames can only contain letters, digits and @/./+/-/_."
-#~ msgstr ""
-#~ "Ім'я користувача може містити тільки букви, цифри та символи @/./+/-/_."
-
-#~ msgid "This username is already taken. Please choose another."
-#~ msgstr ""
-#~ "Ім'я користувача уже використовується. Будь ласка, оберіть інше ім'я "
-#~ "користувача."
-
-#, fuzzy
-#~| msgid "Sign In"
-#~ msgid "Shopify Sign In"
-#~ msgstr "Увійти"
-
-#~ msgid ""
-#~ "You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an "
-#~ "e-mail address for user %(user_display)s."
-#~ msgstr ""
-#~ "Ви підтвердили, що <a href=\"mailto:%(email)s\">%(email)s</a> це e-mail "
-#~ "адреса для користувача %(user_display)s."
-
-#~ msgid "Thanks for using our site!"
-#~ msgstr "Дякуємо за користування нашим сайтом!"

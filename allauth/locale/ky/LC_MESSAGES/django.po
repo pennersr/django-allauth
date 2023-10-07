@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-07 04:22-0500\n"
+"POT-Creation-Date: 2023-10-07 12:49-0500\n"
 "PO-Revision-Date: 2016-07-20 22:24+0600\n"
 "Last-Translator: Murat Jumashev <jumasheff at gmail dot com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,112 +45,116 @@ msgstr "Купуя жок дегенде {0} белгиден турушу ке�
 msgid "Accounts"
 msgstr "Эсептер"
 
-#: account/forms.py:58 account/forms.py:432
+#: account/forms.py:61 account/forms.py:441
 msgid "You must type the same password each time."
 msgstr "Сиз ошол эле купуяны кайрадан териңиз."
 
-#: account/forms.py:90 account/forms.py:397 account/forms.py:522
-#: account/forms.py:658
+#: account/forms.py:93 account/forms.py:404 account/forms.py:543
+#: account/forms.py:681
 msgid "Password"
 msgstr "Купуя"
 
-#: account/forms.py:91
+#: account/forms.py:94
 msgid "Remember Me"
 msgstr "Мени эстеп кал"
 
-#: account/forms.py:95
+#: account/forms.py:98
 msgid "This account is currently inactive."
 msgstr "Бул эсеп учурда активдүү эмес."
 
-#: account/forms.py:97
+#: account/forms.py:100
 msgid "The email address and/or password you specified are not correct."
 msgstr "Сиз берген эмейл дарек жана/же купуя туура эмес."
 
-#: account/forms.py:100
+#: account/forms.py:103
 msgid "The username and/or password you specified are not correct."
 msgstr "Сиз берген колдонуучу аты жана/же купуя туура эмес."
 
-#: account/forms.py:111 account/forms.py:271 account/forms.py:459
-#: account/forms.py:540
+#: account/forms.py:114 account/forms.py:279 account/forms.py:468
+#: account/forms.py:563
 msgid "Email address"
 msgstr "Эмейл дарек"
 
-#: account/forms.py:115 account/forms.py:316 account/forms.py:456
-#: account/forms.py:535
+#: account/forms.py:118 account/forms.py:317 account/forms.py:465
+#: account/forms.py:558
 msgid "Email"
 msgstr "Эмейл"
 
-#: account/forms.py:118 account/forms.py:121 account/forms.py:261
-#: account/forms.py:264
+#: account/forms.py:121 account/forms.py:124 account/forms.py:269
+#: account/forms.py:272
 msgid "Username"
 msgstr "Колдонуучу аты"
 
-#: account/forms.py:131
+#: account/forms.py:134
 msgid "Username or email"
 msgstr "Колдонуучу аты же эмейл"
 
-#: account/forms.py:134
+#: account/forms.py:137
 msgctxt "field label"
 msgid "Login"
 msgstr "Логин"
 
-#: account/forms.py:307
+#: account/forms.py:144
+msgid "<a href=\"{}\">Forgot your password?</a>"
+msgstr ""
+
+#: account/forms.py:308
 #, fuzzy
 #| msgid "Email (optional)"
 msgid "Email (again)"
 msgstr "Эмейл (милдеттүү эмес)"
 
-#: account/forms.py:311
+#: account/forms.py:312
 #, fuzzy
 #| msgid "email confirmation"
 msgid "Email address confirmation"
 msgstr "эмейл ырастоо"
 
-#: account/forms.py:319
+#: account/forms.py:320
 msgid "Email (optional)"
 msgstr "Эмейл (милдеттүү эмес)"
 
-#: account/forms.py:368
+#: account/forms.py:375
 #, fuzzy
 #| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
 msgstr "Сиз ошол эле купуяны кайрадан териңиз."
 
-#: account/forms.py:401 account/forms.py:523
+#: account/forms.py:410 account/forms.py:546
 msgid "Password (again)"
 msgstr "Купуя (дагы бир жолу)"
 
-#: account/forms.py:470
+#: account/forms.py:480
 msgid "This email address is already associated with this account."
 msgstr "Бул эмейл дарек ушул эсеп менен буга чейин туташтырылган."
 
-#: account/forms.py:472
+#: account/forms.py:482
 #, fuzzy, python-format
 #| msgid "Your account has no verified email address."
 msgid "You cannot add more than %d email addresses."
 msgstr "Сиздин эсебиңизде дурусталган эмейл даректер жок."
 
-#: account/forms.py:503
+#: account/forms.py:520
 msgid "Current Password"
 msgstr "Азыркы купуя"
 
-#: account/forms.py:505 account/forms.py:607
+#: account/forms.py:523 account/forms.py:630
 msgid "New Password"
 msgstr "Жаңы купуя"
 
-#: account/forms.py:506 account/forms.py:608
+#: account/forms.py:526 account/forms.py:631
 msgid "New Password (again)"
 msgstr "Жаңы купуя (кайрадан)"
 
-#: account/forms.py:514
+#: account/forms.py:534
 msgid "Please type your current password."
 msgstr "Учурдагы купуяңызды жазыңыз."
 
-#: account/forms.py:552
+#: account/forms.py:575
 msgid "The email address is not assigned to any user account"
 msgstr "Эмейл дарек эч бир колдонуучу эсебине байланган эмес"
 
-#: account/forms.py:628
+#: account/forms.py:651
 msgid "The password reset token was invalid."
 msgstr "Купуяны жаңыртуу токени туура эмес."
 
@@ -182,7 +186,7 @@ msgstr "түзүлгөн"
 msgid "sent"
 msgstr "жөнөтүлгөн"
 
-#: account/models.py:143 socialaccount/models.py:62
+#: account/models.py:143 socialaccount/models.py:61
 msgid "key"
 msgstr "ачкыч"
 
@@ -214,11 +218,11 @@ msgstr ""
 msgid "MFA"
 msgstr ""
 
-#: mfa/forms.py:12
+#: mfa/forms.py:11
 msgid "Code"
 msgstr ""
 
-#: mfa/forms.py:29
+#: mfa/forms.py:27
 msgid "Authenticator code"
 msgstr ""
 
@@ -254,97 +258,97 @@ msgstr "Сиздин эсебиңизде дурусталган эмейл да
 msgid "Social Accounts"
 msgstr "Социалдык эсептер"
 
-#: socialaccount/models.py:36 socialaccount/models.py:97
+#: socialaccount/models.py:35 socialaccount/models.py:96
 msgid "provider"
 msgstr "провайдер"
 
-#: socialaccount/models.py:45
+#: socialaccount/models.py:44
 #, fuzzy
 #| msgid "provider"
 msgid "provider ID"
 msgstr "провайдер"
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:48
 msgid "name"
 msgstr "аты"
 
-#: socialaccount/models.py:51
+#: socialaccount/models.py:50
 msgid "client id"
 msgstr "кардар id'си"
 
-#: socialaccount/models.py:53
+#: socialaccount/models.py:52
 msgid "App ID, or consumer key"
 msgstr "Колдонмо ID'си, же керектөөчү ачкычы"
 
-#: socialaccount/models.py:56
+#: socialaccount/models.py:55
 msgid "secret key"
 msgstr "жашыруун ачкыч"
 
-#: socialaccount/models.py:59
+#: socialaccount/models.py:58
 msgid "API secret, client secret, or consumer secret"
 msgstr "API, кардар же керектөөчүнүн жашыруун ачкычы"
 
-#: socialaccount/models.py:62
+#: socialaccount/models.py:61
 msgid "Key"
 msgstr "Ачкыч"
 
-#: socialaccount/models.py:81
+#: socialaccount/models.py:80
 msgid "social application"
 msgstr "социалдык колдонмо"
 
-#: socialaccount/models.py:82
+#: socialaccount/models.py:81
 msgid "social applications"
 msgstr "социалдык колдонмолор"
 
-#: socialaccount/models.py:117
+#: socialaccount/models.py:116
 msgid "uid"
 msgstr "uid"
 
-#: socialaccount/models.py:119
+#: socialaccount/models.py:118
 msgid "last login"
 msgstr "акыркы кириши"
 
-#: socialaccount/models.py:120
+#: socialaccount/models.py:119
 msgid "date joined"
 msgstr "кошулган күнү"
 
-#: socialaccount/models.py:121
+#: socialaccount/models.py:120
 msgid "extra data"
 msgstr "кошумча маалымат"
 
-#: socialaccount/models.py:125
+#: socialaccount/models.py:124
 msgid "social account"
 msgstr "социалдык эсеп"
 
-#: socialaccount/models.py:126
+#: socialaccount/models.py:125
 msgid "social accounts"
 msgstr "социалдык эсептер"
 
-#: socialaccount/models.py:160
+#: socialaccount/models.py:159
 msgid "token"
 msgstr "токен"
 
-#: socialaccount/models.py:161
+#: socialaccount/models.py:160
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) же жетки токени (OAuth2)"
 
-#: socialaccount/models.py:165
+#: socialaccount/models.py:164
 msgid "token secret"
 msgstr "токендин жашыруун ачкычы"
 
-#: socialaccount/models.py:166
+#: socialaccount/models.py:165
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) же жаңыртуу токени (OAuth2)"
 
-#: socialaccount/models.py:169
+#: socialaccount/models.py:168
 msgid "expires at"
 msgstr "мөөнөтү аяктайт"
 
-#: socialaccount/models.py:174
+#: socialaccount/models.py:173
 msgid "social application token"
 msgstr "социалдык колдонмо токени"
 
-#: socialaccount/models.py:175
+#: socialaccount/models.py:174
 msgid "social application tokens"
 msgstr "социалдык колдонмо токендери"
 
@@ -386,87 +390,55 @@ msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "\"%s\" тарабынан сурам токенин алууда туура эмес жооп келди."
 
 #: templates/account/account_inactive.html:5
-#: templates/account/account_inactive.html:8
+#: templates/account/account_inactive.html:9
 msgid "Account Inactive"
 msgstr "Эсеп активдүү эмес"
 
-#: templates/account/account_inactive.html:10
+#: templates/account/account_inactive.html:11
 msgid "This account is inactive."
 msgstr "Бул эсеп активдүү эмес."
 
-#: templates/account/base.html:16
-msgid "Messages:"
-msgstr ""
-
-#: templates/account/base.html:26
-msgid "Menu:"
-msgstr ""
-
-#: templates/account/base.html:29 templates/account/email_change.html:31
-#, fuzzy
-#| msgid "Email"
-msgid "Change Email"
-msgstr "Эмейл"
-
-#: templates/account/base.html:30 templates/account/logout.html:5
-#: templates/account/logout.html:8 templates/account/logout.html:17
-msgid "Sign Out"
-msgstr "Чыгуу"
-
-#: templates/account/base.html:32 templates/account/login.html:6
-#: templates/account/login.html:10 templates/account/login.html:43
-#: templates/mfa/authenticate.html:4 templates/mfa/authenticate.html:16
-#: templates/socialaccount/login.html:4
-msgid "Sign In"
-msgstr "Кирүү"
-
-#: templates/account/base.html:33 templates/account/signup.html:8
-#: templates/account/signup.html:18 templates/socialaccount/signup.html:8
-#: templates/socialaccount/signup.html:19
-msgid "Sign Up"
-msgstr "Катталуу"
-
-#: templates/account/email.html:5 templates/account/email.html:8
+#: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
 msgstr "Эмейл даректер"
 
-#: templates/account/email.html:10
+#: templates/account/email.html:11
 msgid "The following email addresses are associated with your account:"
 msgstr "Төмөнкү эмейл даректер сиздин эсебиңизге байланган:"
 
-#: templates/account/email.html:24
+#: templates/account/email.html:23
 msgid "Verified"
 msgstr "Дурусталган"
 
-#: templates/account/email.html:26
+#: templates/account/email.html:27
 msgid "Unverified"
 msgstr "Дурустала элек"
 
-#: templates/account/email.html:28
+#: templates/account/email.html:32
 msgid "Primary"
 msgstr "Негизги"
 
-#: templates/account/email.html:34
+#: templates/account/email.html:42
 msgid "Make Primary"
 msgstr "Негизги кылуу"
 
-#: templates/account/email.html:35 templates/account/email_change.html:21
+#: templates/account/email.html:45 templates/account/email_change.html:29
 msgid "Re-send Verification"
 msgstr "Дурустоо катын кайрадан жиберүү"
 
-#: templates/account/email.html:36 templates/socialaccount/connections.html:35
+#: templates/account/email.html:48 templates/socialaccount/connections.html:40
 msgid "Remove"
 msgstr "Алып салуу"
 
-#: templates/account/email.html:47
+#: templates/account/email.html:57
 msgid "Add Email Address"
 msgstr "Эмейл дарек кошуу"
 
-#: templates/account/email.html:52
+#: templates/account/email.html:70
 msgid "Add Email"
 msgstr "Эмейл кошуу"
 
-#: templates/account/email.html:62
+#: templates/account/email.html:79
 msgid "Do you really want to remove the selected email address?"
 msgstr "Тандалган эмейл даректи алып салууну дурустайсызбы?"
 
@@ -597,36 +569,43 @@ msgstr ""
 "Эгерде сурамды сиз жөнөтпөгөн болсоңуз, бул катка көңүл бурбай эле коюңуз. "
 "Купуяны жаңыртуу үчүн төмөндөгү шилтемени басыңыз."
 
-#: templates/account/email_change.html:4 templates/account/email_change.html:7
+#: templates/account/email_change.html:5 templates/account/email_change.html:9
 #, fuzzy
 #| msgid "Email Addresses"
 msgid "Email Address"
 msgstr "Эмейл даректер"
 
-#: templates/account/email_change.html:11
+#: templates/account/email_change.html:14
 #, fuzzy
 #| msgid "The following email addresses are associated with your account:"
 msgid "The following email address is associated with your account:"
 msgstr "Төмөнкү эмейл даректер сиздин эсебиңизге байланган:"
 
-#: templates/account/email_change.html:16
+#: templates/account/email_change.html:19
 #, fuzzy
 #| msgid "Your primary email address must be verified."
 msgid "Your email address is still pending verification:"
 msgstr "Негизги эмейл дарегиңиз дурусталышы керек."
 
-#: templates/account/email_change.html:27
+#: templates/account/email_change.html:38
 #, fuzzy
 #| msgid "Confirm Email Address"
 msgid "Change Email Address"
 msgstr "Эмейл даректи ырастаңыз"
+
+#: templates/account/email_change.html:49
+#: templates/allauth/layouts/base.html:29
+#, fuzzy
+#| msgid "Email"
+msgid "Change Email"
+msgstr "Эмейл"
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
 msgid "Confirm Email Address"
 msgstr "Эмейл даректи ырастаңыз"
 
-#: templates/account/email_confirm.html:17
+#: templates/account/email_confirm.html:16
 #, fuzzy, python-format
 #| msgid ""
 #| "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
@@ -638,12 +617,12 @@ msgstr ""
 "<a href=\"mailto:%(email)s\">%(email)s</a> деген эмейл дарек "
 "%(user_display)s колдонуучусуна таандык экенин ырастаңыз."
 
-#: templates/account/email_confirm.html:21
-#: templates/account/reauthenticate.html:19
+#: templates/account/email_confirm.html:23
+#: templates/account/reauthenticate.html:28
 msgid "Confirm"
 msgstr "Ырастоо"
 
-#: templates/account/email_confirm.html:24
+#: templates/account/email_confirm.html:29
 #: templates/account/messages/email_confirmation_failed.txt:2
 #, fuzzy, python-format
 #| msgid "The social account is already connected to a different account."
@@ -652,7 +631,7 @@ msgid ""
 "account."
 msgstr "Бул социалдык эсеп башка эсепке туташтырылган."
 
-#: templates/account/email_confirm.html:31
+#: templates/account/email_confirm.html:35
 #, fuzzy, python-format
 #| msgid ""
 #| "This e-mail confirmation link expired or is invalid. Please <a href="
@@ -664,35 +643,30 @@ msgstr ""
 "Бул эмейлди ырастоо шилтемесинин мөөнөтү өтүп кеткен же ал туура эмес. <a "
 "href=\"%(email_url)s\">эмейлди ырастоо сурамын кайрадан жөнөтүңүз</a>."
 
-#: templates/account/login.html:15
-#, python-format
-msgid ""
-"Please sign in with one\n"
-"of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign "
-"up</a>\n"
-"for a %(site_name)s account and sign in below:"
-msgstr ""
-"Тышкаркы кызматтарда катталган\n"
-"эсебиңиз аркылуу кириңиз. Же, %(site_name)s \n"
-"сайтына <a href=\"%(signup_url)s\">катталып</a>\n"
-"\"төмөн жактан кириңиз:"
+#: templates/account/login.html:5 templates/account/login.html:9
+#: templates/account/login.html:29 templates/allauth/layouts/base.html:36
+#: templates/mfa/authenticate.html:5 templates/mfa/authenticate.html:23
+#: templates/openid/login.html:5 templates/openid/login.html:9
+#: templates/openid/login.html:20 templates/socialaccount/login.html:5
+msgid "Sign In"
+msgstr "Кирүү"
 
-#: templates/account/login.html:25
-msgid "or"
-msgstr "же"
-
-#: templates/account/login.html:32
-#, python-format
+#: templates/account/login.html:12
+#, fuzzy, python-format
+#| msgid ""
+#| "If you have not created an account yet, then please\n"
+#| "<a href=\"%(signup_url)s\">sign up</a> first."
 msgid ""
 "If you have not created an account yet, then please\n"
-"<a href=\"%(signup_url)s\">sign up</a> first."
+"    <a href=\"%(signup_url)s\">sign up</a> first."
 msgstr ""
 "Эгерде сиз эсеп түзө элек болсоңуз, анда\n"
 "биринчи <a href=\"%(signup_url)s\">катталыңыз</a>"
 
-#: templates/account/login.html:42 templates/account/password_change.html:14
-msgid "Forgot Password?"
-msgstr "Купуяңызды унуттуңузбу?"
+#: templates/account/logout.html:4 templates/account/logout.html:8
+#: templates/account/logout.html:23 templates/allauth/layouts/base.html:32
+msgid "Sign Out"
+msgstr "Чыгуу"
 
 #: templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
@@ -743,24 +717,29 @@ msgstr "Негизги эмейл орнотулду."
 msgid "Your primary email address must be verified."
 msgstr "Негизги эмейл дарегиңиз дурусталышы керек."
 
-#: templates/account/password_change.html:5
+#: templates/account/password_change.html:4
 #: templates/account/password_change.html:8
-#: templates/account/password_change.html:13
-#: templates/account/password_reset_from_key.html:4
-#: templates/account/password_reset_from_key.html:7
-#: templates/account/password_reset_from_key_done.html:4
-#: templates/account/password_reset_from_key_done.html:7
+#: templates/account/password_change.html:19
+#: templates/account/password_reset_from_key.html:5
+#: templates/account/password_reset_from_key.html:12
+#: templates/account/password_reset_from_key.html:29
+#: templates/account/password_reset_from_key_done.html:5
+#: templates/account/password_reset_from_key_done.html:9
 msgid "Change Password"
 msgstr "Купуяны өзгөртүү"
 
-#: templates/account/password_reset.html:6
-#: templates/account/password_reset.html:10
+#: templates/account/password_change.html:21
+msgid "Forgot Password?"
+msgstr "Купуяңызды унуттуңузбу?"
+
+#: templates/account/password_reset.html:4
+#: templates/account/password_reset.html:8
 #: templates/account/password_reset_done.html:6
-#: templates/account/password_reset_done.html:9
+#: templates/account/password_reset_done.html:10
 msgid "Password Reset"
 msgstr "Купуяны жаңыртуу"
 
-#: templates/account/password_reset.html:15
+#: templates/account/password_reset.html:14
 #, fuzzy
 #| msgid ""
 #| "Forgotten your password? Enter your e-mail address below, and we'll send "
@@ -772,15 +751,15 @@ msgstr ""
 "Купуяңызды унуттуңузбу? Эмейл дарегиңизди төмөндө жазсаңыз, биз сизге кат "
 "жөнөтүп, аны жаңыртканга жардам беребиз."
 
-#: templates/account/password_reset.html:20
+#: templates/account/password_reset.html:25
 msgid "Reset My Password"
 msgstr "Купуямды жаңырт"
 
-#: templates/account/password_reset.html:23
+#: templates/account/password_reset.html:29
 msgid "Please contact us if you have any trouble resetting your password."
 msgstr "Купуяны жаңыртууда суроолор пайда болсо, бизге кайрылыңыз."
 
-#: templates/account/password_reset_done.html:15
+#: templates/account/password_reset_done.html:16
 #, fuzzy
 #| msgid ""
 #| "We have sent an e-mail to you for\n"
@@ -794,11 +773,11 @@ msgstr ""
 "Ичинде берилген шилтемени басыңыз. Эгерде\n"
 "кат бир нече мүнөттө келбей калса, бизге кайрылыңыз."
 
-#: templates/account/password_reset_from_key.html:7
+#: templates/account/password_reset_from_key.html:10
 msgid "Bad Token"
 msgstr "Токен туура эмес"
 
-#: templates/account/password_reset_from_key.html:11
+#: templates/account/password_reset_from_key.html:18
 #, python-format
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
@@ -808,16 +787,12 @@ msgstr ""
 "Купуя жаңыртуу шилтемеси туура эмес экен, ал мурун колдонулса керек. <a href="
 "\"%(passwd_reset_url)s\">Купуяны жаңыртуу</a> сурамын кайрадан жөнөтүңүз."
 
-#: templates/account/password_reset_from_key.html:16
-msgid "change password"
-msgstr "купуяны өзгөртүү"
-
-#: templates/account/password_reset_from_key_done.html:8
+#: templates/account/password_reset_from_key_done.html:11
 msgid "Your password is now changed."
 msgstr "Купуяңыз эми өзгөртүлдү."
 
-#: templates/account/password_set.html:5 templates/account/password_set.html:8
-#: templates/account/password_set.html:13
+#: templates/account/password_set.html:5 templates/account/password_set.html:9
+#: templates/account/password_set.html:20
 msgid "Set Password"
 msgstr "Купуя орнотуу"
 
@@ -828,36 +803,43 @@ msgstr "Купуя орнотуу"
 msgid "Confirm Access"
 msgstr "Эмейл даректи ырастаңыз"
 
-#: templates/account/reauthenticate.html:11
+#: templates/account/reauthenticate.html:12
 msgid "To safeguard the security of your account, please enter your password:"
 msgstr ""
 
-#: templates/account/signup.html:5 templates/socialaccount/signup.html:5
+#: templates/account/signup.html:4 templates/socialaccount/signup.html:5
 msgid "Signup"
 msgstr "Катталуу"
 
-#: templates/account/signup.html:10
+#: templates/account/signup.html:8 templates/account/signup.html:27
+#: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
+#: templates/socialaccount/signup.html:29
+msgid "Sign Up"
+msgstr "Катталуу"
+
+#: templates/account/signup.html:11
 #, python-format
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
 msgstr "Эсебиңиз барбы? Анда <a href=\"%(login_url)s\">кириңиз</a>."
 
 #: templates/account/signup_closed.html:5
-#: templates/account/signup_closed.html:8
+#: templates/account/signup_closed.html:9
 msgid "Sign Up Closed"
 msgstr "Катталуу жабык"
 
-#: templates/account/signup_closed.html:10
+#: templates/account/signup_closed.html:11
 msgid "We are sorry, but the sign up is currently closed."
 msgstr "Кечирим сурайбых, бирок учурда катталуу жабык."
 
-#: templates/account/snippets/already_logged_in.html:5
+#: templates/account/snippets/already_logged_in.html:7
 msgid "Note"
 msgstr "Эскертүү"
 
-#: templates/account/snippets/already_logged_in.html:5
-#, python-format
-msgid "you are already logged in as %(user_display)s."
+#: templates/account/snippets/already_logged_in.html:7
+#, fuzzy, python-format
+#| msgid "you are already logged in as %(user_display)s."
+msgid "You are already logged in as %(user_display)s."
 msgstr "сиз %(user_display)s катары кирип турасыз."
 
 #: templates/account/snippets/warn_no_email.html:3
@@ -878,13 +860,13 @@ msgstr ""
 "жаңыртуу ж.б. үчүн каттап коюңуз."
 
 #: templates/account/verification_sent.html:5
-#: templates/account/verification_sent.html:8
-#: templates/account/verified_email_required.html:5
+#: templates/account/verification_sent.html:9
+#: templates/account/verified_email_required.html:4
 #: templates/account/verified_email_required.html:8
 msgid "Verify Your Email Address"
 msgstr "Эмейл дарегиңизди дурустап бериңиз"
 
-#: templates/account/verification_sent.html:10
+#: templates/account/verification_sent.html:12
 #, fuzzy
 #| msgid ""
 #| "We have sent an e-mail to you for verification. Follow the link provided "
@@ -914,7 +896,7 @@ msgstr ""
 "адам экендиңизди такташыбыз керек. Ал үчүн эмейл\n"
 "дарек сизге таандык экенин дурусташыңыз керек."
 
-#: templates/account/verified_email_required.html:16
+#: templates/account/verified_email_required.html:17
 #, fuzzy
 #| msgid ""
 #| "We have sent an e-mail to you for\n"
@@ -931,7 +913,7 @@ msgstr ""
 "Ичинде берилген шилтемени басыңыз. Эгерде\n"
 "кат бир нече мүнөттө келбей калса, бизге кайрылыңыз."
 
-#: templates/account/verified_email_required.html:20
+#: templates/account/verified_email_required.html:22
 #, fuzzy, python-format
 #| msgid ""
 #| "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change "
@@ -943,44 +925,52 @@ msgstr ""
 "<strong>Эскертүү:</strong> эмейл дарегиңизди дагы деле <a href="
 "\"%(email_url)s\">өзгөртсөңүз болот</a>."
 
-#: templates/mfa/authenticate.html:7 templates/mfa/index.html:4
-#: templates/mfa/index.html:7
+#: templates/allauth/layouts/base.html:18
+msgid "Messages:"
+msgstr ""
+
+#: templates/allauth/layouts/base.html:25
+msgid "Menu:"
+msgstr ""
+
+#: templates/mfa/authenticate.html:9 templates/mfa/index.html:5
+#: templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
 msgstr ""
 
-#: templates/mfa/authenticate.html:9
+#: templates/mfa/authenticate.html:12
 msgid ""
 "Your account is protected by two-factor authentication. Please enter an "
 "authenticator code:"
 msgstr ""
 
-#: templates/mfa/index.html:9 templates/mfa/totp/base.html:4
+#: templates/mfa/index.html:13 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
 msgstr ""
 
-#: templates/mfa/index.html:11
+#: templates/mfa/index.html:17
 msgid "Authentication using an authenticator app is active."
 msgstr ""
 
-#: templates/mfa/index.html:14 templates/mfa/totp/deactivate_form.html:11
-msgid "Deactivate"
-msgstr ""
-
-#: templates/mfa/index.html:18
+#: templates/mfa/index.html:19
 msgid "An authenticator app is not active."
 msgstr ""
 
-#: templates/mfa/index.html:21 templates/mfa/totp/activate_form.html:16
+#: templates/mfa/index.html:27 templates/mfa/totp/deactivate_form.html:24
+msgid "Deactivate"
+msgstr ""
+
+#: templates/mfa/index.html:31 templates/mfa/totp/activate_form.html:29
 msgid "Activate"
 msgstr ""
 
-#: templates/mfa/index.html:27 templates/mfa/recovery_codes/base.html:4
-#: templates/mfa/recovery_codes/generate.html:4
-#: templates/mfa/recovery_codes/index.html:4
+#: templates/mfa/index.html:38 templates/mfa/recovery_codes/base.html:4
+#: templates/mfa/recovery_codes/generate.html:6
+#: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
 msgstr ""
 
-#: templates/mfa/index.html:30 templates/mfa/recovery_codes/index.html:6
+#: templates/mfa/index.html:43 templates/mfa/recovery_codes/index.html:9
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -988,20 +978,20 @@ msgid_plural ""
 "There are %(unused_count)s out of %(total_count)s recovery codes available."
 msgstr[0] ""
 
-#: templates/mfa/index.html:34
-msgid "View codes"
-msgstr ""
-
-#: templates/mfa/index.html:37 templates/mfa/recovery_codes/index.html:16
-msgid "Download codes"
-msgstr ""
-
-#: templates/mfa/index.html:40 templates/mfa/recovery_codes/index.html:20
-msgid "Generate new codes"
-msgstr ""
-
-#: templates/mfa/index.html:44
+#: templates/mfa/index.html:46
 msgid "No recovery codes set up."
+msgstr ""
+
+#: templates/mfa/index.html:53
+msgid "View"
+msgstr ""
+
+#: templates/mfa/index.html:59
+msgid "Download"
+msgstr ""
+
+#: templates/mfa/index.html:65
+msgid "Regenerate"
 msgstr ""
 
 #: templates/mfa/messages/recovery_codes_generated.txt:2
@@ -1016,101 +1006,123 @@ msgstr ""
 msgid "Authenticator app deactivated."
 msgstr ""
 
-#: templates/mfa/recovery_codes/generate.html:6
+#: templates/mfa/recovery_codes/generate.html:9
 msgid ""
 "You are about to generate a new set of recovery codes for your account. This "
 "action will invalidate your existing codes. Are you sure?"
 msgstr ""
 
-#: templates/mfa/recovery_codes/generate.html:11
+#: templates/mfa/recovery_codes/generate.html:19
 msgid "Generate"
 msgstr ""
 
+#: templates/mfa/recovery_codes/index.html:13
+msgid "Unused codes"
+msgstr ""
+
+#: templates/mfa/recovery_codes/index.html:25
+msgid "Download codes"
+msgstr ""
+
+#: templates/mfa/recovery_codes/index.html:30
+msgid "Generate new codes"
+msgstr ""
+
 #: templates/mfa/totp/activate_form.html:4
+#: templates/mfa/totp/activate_form.html:8
 msgid "Activate Authenticator App"
 msgstr ""
 
-#: templates/mfa/totp/activate_form.html:9
+#: templates/mfa/totp/activate_form.html:18
 #, fuzzy
 #| msgid "token secret"
 msgid "Authenticator secret"
 msgstr "токендин жашыруун ачкычы"
 
-#: templates/mfa/totp/deactivate_form.html:4
+#: templates/mfa/totp/activate_form.html:21
+msgid ""
+"You can store this secret and use it to reinstall your authenticator app at "
+"a later time."
+msgstr ""
+
+#: templates/mfa/totp/deactivate_form.html:5
+#: templates/mfa/totp/deactivate_form.html:9
 msgid "Deactivate Authenticator App"
 msgstr ""
 
-#: templates/mfa/totp/deactivate_form.html:6
+#: templates/mfa/totp/deactivate_form.html:12
 msgid ""
 "You are about to deactivate authenticator app based authentication. Are you "
 "sure?"
 msgstr ""
 
-#: templates/openid/login.html:9
-msgid "OpenID Sign In"
-msgstr "OpenID менен кирүү"
-
 #: templates/socialaccount/authentication_error.html:5
-#: templates/socialaccount/authentication_error.html:8
+#: templates/socialaccount/authentication_error.html:9
 msgid "Social Network Login Failure"
 msgstr "Социалдык тармак аркылуу кирүү ийгиликсиз"
 
-#: templates/socialaccount/authentication_error.html:10
+#: templates/socialaccount/authentication_error.html:11
 msgid ""
 "An error occurred while attempting to login via your social network account."
 msgstr "Социалдык тармак эсебиңиз аркылуу кирүүдө ката кетти."
 
 #: templates/socialaccount/connections.html:5
-#: templates/socialaccount/connections.html:8
+#: templates/socialaccount/connections.html:9
 msgid "Account Connections"
 msgstr "Эсеп байланыштары"
 
-#: templates/socialaccount/connections.html:11
+#: templates/socialaccount/connections.html:13
+#, fuzzy
+#| msgid ""
+#| "You can sign in to your account using any of the following third party "
+#| "accounts:"
 msgid ""
-"You can sign in to your account using any of the following third party "
+"You can sign in to your account using any of the following third-party "
 "accounts:"
 msgstr ""
 "Эсебиңизге кийинки үчүнчү тарап эсептердин бирин колдонуп кирсеңиз болот:"
 
-#: templates/socialaccount/connections.html:43
+#: templates/socialaccount/connections.html:45
 msgid ""
 "You currently have no social network accounts connected to this account."
 msgstr "Азырынча эсебиңизге социалдык тармак эсептер байланган эмес."
 
-#: templates/socialaccount/connections.html:46
-msgid "Add a 3rd Party Account"
+#: templates/socialaccount/connections.html:48
+#, fuzzy
+#| msgid "Add a 3rd Party Account"
+msgid "Add a Third-Party Account"
 msgstr "3-тарап эсеп кошуу"
 
-#: templates/socialaccount/login.html:8
+#: templates/socialaccount/login.html:10
 #, python-format
 msgid "Connect %(provider)s"
 msgstr ""
 
-#: templates/socialaccount/login.html:10
+#: templates/socialaccount/login.html:13
 #, python-format
-msgid "You are about to connect a new third party account from %(provider)s."
+msgid "You are about to connect a new third-party account from %(provider)s."
 msgstr ""
 
-#: templates/socialaccount/login.html:12
+#: templates/socialaccount/login.html:17
 #, python-format
 msgid "Sign In Via %(provider)s"
 msgstr ""
 
-#: templates/socialaccount/login.html:14
+#: templates/socialaccount/login.html:20
 #, python-format
-msgid "You are about to sign in using a third party account from %(provider)s."
+msgid "You are about to sign in using a third-party account from %(provider)s."
 msgstr ""
 
-#: templates/socialaccount/login.html:19
+#: templates/socialaccount/login.html:27
 msgid "Continue"
 msgstr ""
 
-#: templates/socialaccount/login_cancelled.html:5
-#: templates/socialaccount/login_cancelled.html:9
+#: templates/socialaccount/login_cancelled.html:4
+#: templates/socialaccount/login_cancelled.html:8
 msgid "Login Cancelled"
 msgstr "Кирүү токтотулду"
 
-#: templates/socialaccount/login_cancelled.html:13
+#: templates/socialaccount/login_cancelled.html:12
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
@@ -1133,7 +1145,7 @@ msgstr "Бул социалдык эсеп башка эсепке туташт�
 msgid "The social account has been disconnected."
 msgstr "Социалдык эсеп ажыратылды."
 
-#: templates/socialaccount/signup.html:10
+#: templates/socialaccount/signup.html:12
 #, python-format
 msgid ""
 "You are about to use your %(provider_name)s account to login to\n"
@@ -1142,6 +1154,31 @@ msgstr ""
 "Сиз азыр %(provider_name)s эсебиңизди колдонуп, %(site_name)s\n"
 "сайтына кирейин деп турасыз. Акыркы кадам катары кийинки калыпты\n"
 "толтуруп коюңузду суранабыз :"
+
+#: templates/socialaccount/snippets/login.html:8
+msgid "Or use a third-party"
+msgstr ""
+
+#, python-format
+#~ msgid ""
+#~ "Please sign in with one\n"
+#~ "of your existing third party accounts. Or, <a href=\"%(signup_url)s"
+#~ "\">sign up</a>\n"
+#~ "for a %(site_name)s account and sign in below:"
+#~ msgstr ""
+#~ "Тышкаркы кызматтарда катталган\n"
+#~ "эсебиңиз аркылуу кириңиз. Же, %(site_name)s \n"
+#~ "сайтына <a href=\"%(signup_url)s\">катталып</a>\n"
+#~ "\"төмөн жактан кириңиз:"
+
+#~ msgid "or"
+#~ msgstr "же"
+
+#~ msgid "change password"
+#~ msgstr "купуяны өзгөртүү"
+
+#~ msgid "OpenID Sign In"
+#~ msgstr "OpenID менен кирүү"
 
 #~ msgid "This email address is already associated with another account."
 #~ msgstr "Бул эмейл дарек башка бир эсеп менен буга чейин туташтырылган."

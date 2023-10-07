@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-07 04:22-0500\n"
+"POT-Creation-Date: 2023-10-07 12:49-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,106 +45,110 @@ msgstr "비밀번호는 최소 {0}자 이상이어야 합니다."
 msgid "Accounts"
 msgstr "계정"
 
-#: account/forms.py:58 account/forms.py:432
+#: account/forms.py:61 account/forms.py:441
 msgid "You must type the same password each time."
 msgstr "동일한 비밀번호를 입력해야 합니다."
 
-#: account/forms.py:90 account/forms.py:397 account/forms.py:522
-#: account/forms.py:658
+#: account/forms.py:93 account/forms.py:404 account/forms.py:543
+#: account/forms.py:681
 msgid "Password"
 msgstr "비밀번호"
 
-#: account/forms.py:91
+#: account/forms.py:94
 msgid "Remember Me"
 msgstr "아이디 저장"
 
-#: account/forms.py:95
+#: account/forms.py:98
 msgid "This account is currently inactive."
 msgstr "해당 계정은 현재 비활성화 상태입니다."
 
-#: account/forms.py:97
+#: account/forms.py:100
 msgid "The email address and/or password you specified are not correct."
 msgstr "이메일 또는 비밀번호가 올바르지 않습니다."
 
-#: account/forms.py:100
+#: account/forms.py:103
 msgid "The username and/or password you specified are not correct."
 msgstr "아이디 또는 비밀번호가 올바르지 않습니다."
 
-#: account/forms.py:111 account/forms.py:271 account/forms.py:459
-#: account/forms.py:540
+#: account/forms.py:114 account/forms.py:279 account/forms.py:468
+#: account/forms.py:563
 msgid "Email address"
 msgstr "이메일 주소"
 
-#: account/forms.py:115 account/forms.py:316 account/forms.py:456
-#: account/forms.py:535
+#: account/forms.py:118 account/forms.py:317 account/forms.py:465
+#: account/forms.py:558
 msgid "Email"
 msgstr "이메일"
 
-#: account/forms.py:118 account/forms.py:121 account/forms.py:261
-#: account/forms.py:264
+#: account/forms.py:121 account/forms.py:124 account/forms.py:269
+#: account/forms.py:272
 msgid "Username"
 msgstr "아이디"
 
-#: account/forms.py:131
+#: account/forms.py:134
 msgid "Username or email"
 msgstr "아이디 또는 이메일"
 
-#: account/forms.py:134
+#: account/forms.py:137
 msgctxt "field label"
 msgid "Login"
 msgstr "로그인"
 
-#: account/forms.py:307
+#: account/forms.py:144
+msgid "<a href=\"{}\">Forgot your password?</a>"
+msgstr ""
+
+#: account/forms.py:308
 msgid "Email (again)"
 msgstr "이메일 (확인)"
 
-#: account/forms.py:311
+#: account/forms.py:312
 msgid "Email address confirmation"
 msgstr "이메일 주소 확인"
 
-#: account/forms.py:319
+#: account/forms.py:320
 msgid "Email (optional)"
 msgstr "이메일 (선택사항)"
 
-#: account/forms.py:368
+#: account/forms.py:375
 msgid "You must type the same email each time."
 msgstr "동일한 이메일을 입력해야 합니다."
 
-#: account/forms.py:401 account/forms.py:523
+#: account/forms.py:410 account/forms.py:546
 msgid "Password (again)"
 msgstr "비밀번호 (확인)"
 
-#: account/forms.py:470
+#: account/forms.py:480
 msgid "This email address is already associated with this account."
 msgstr "해당 이메일은 이미 이 계정에 등록되어 있습니다."
 
-#: account/forms.py:472
+#: account/forms.py:482
 #, fuzzy, python-format
 #| msgid "Your account has no verified email address."
 msgid "You cannot add more than %d email addresses."
 msgstr "당신의 계정에는 인증된 이메일이 없습니다."
 
-#: account/forms.py:503
+#: account/forms.py:520
 msgid "Current Password"
 msgstr "현재 비밀번호"
 
-#: account/forms.py:505 account/forms.py:607
+#: account/forms.py:523 account/forms.py:630
 msgid "New Password"
 msgstr "새 비밀번호"
 
-#: account/forms.py:506 account/forms.py:608
+#: account/forms.py:526 account/forms.py:631
 msgid "New Password (again)"
 msgstr "새 비밀번호 (확인)"
 
-#: account/forms.py:514
+#: account/forms.py:534
 msgid "Please type your current password."
 msgstr "현재 비밀번호를 입력하세요."
 
-#: account/forms.py:552
+#: account/forms.py:575
 msgid "The email address is not assigned to any user account"
 msgstr "해당 이메일을 가지고 있는 사용자가 없습니다."
 
-#: account/forms.py:628
+#: account/forms.py:651
 msgid "The password reset token was invalid."
 msgstr "비밀번호 초기화 토큰이 올바르지 않습니다."
 
@@ -176,7 +180,7 @@ msgstr "생성됨"
 msgid "sent"
 msgstr "전송됨"
 
-#: account/models.py:143 socialaccount/models.py:62
+#: account/models.py:143 socialaccount/models.py:61
 msgid "key"
 msgstr "키"
 
@@ -208,11 +212,11 @@ msgstr ""
 msgid "MFA"
 msgstr ""
 
-#: mfa/forms.py:12
+#: mfa/forms.py:11
 msgid "Code"
 msgstr ""
 
-#: mfa/forms.py:29
+#: mfa/forms.py:27
 msgid "Authenticator code"
 msgstr ""
 
@@ -248,97 +252,97 @@ msgstr "당신의 계정에는 인증된 이메일이 없습니다."
 msgid "Social Accounts"
 msgstr "소셜 계정"
 
-#: socialaccount/models.py:36 socialaccount/models.py:97
+#: socialaccount/models.py:35 socialaccount/models.py:96
 msgid "provider"
 msgstr "제공자"
 
-#: socialaccount/models.py:45
+#: socialaccount/models.py:44
 #, fuzzy
 #| msgid "provider"
 msgid "provider ID"
 msgstr "제공자"
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:48
 msgid "name"
 msgstr "이름"
 
-#: socialaccount/models.py:51
+#: socialaccount/models.py:50
 msgid "client id"
 msgstr "클라이언트 아이디"
 
-#: socialaccount/models.py:53
+#: socialaccount/models.py:52
 msgid "App ID, or consumer key"
 msgstr "앱 아이디 또는 컨슈머 아이디"
 
-#: socialaccount/models.py:56
+#: socialaccount/models.py:55
 msgid "secret key"
 msgstr "비밀 키"
 
-#: socialaccount/models.py:59
+#: socialaccount/models.py:58
 msgid "API secret, client secret, or consumer secret"
 msgstr "API 비밀 키, 클라이언트 비밀 키, 또는 컨슈머 비밀 키"
 
-#: socialaccount/models.py:62
+#: socialaccount/models.py:61
 msgid "Key"
 msgstr "키"
 
-#: socialaccount/models.py:81
+#: socialaccount/models.py:80
 msgid "social application"
 msgstr "소셜 어플리케이션"
 
-#: socialaccount/models.py:82
+#: socialaccount/models.py:81
 msgid "social applications"
 msgstr "소셜 어플리케이션"
 
-#: socialaccount/models.py:117
+#: socialaccount/models.py:116
 msgid "uid"
 msgstr ""
 
-#: socialaccount/models.py:119
+#: socialaccount/models.py:118
 msgid "last login"
 msgstr "최종 로그인"
 
-#: socialaccount/models.py:120
+#: socialaccount/models.py:119
 msgid "date joined"
 msgstr "가입 날짜"
 
-#: socialaccount/models.py:121
+#: socialaccount/models.py:120
 msgid "extra data"
 msgstr "추가 정보"
 
-#: socialaccount/models.py:125
+#: socialaccount/models.py:124
 msgid "social account"
 msgstr "소셜 계정"
 
-#: socialaccount/models.py:126
+#: socialaccount/models.py:125
 msgid "social accounts"
 msgstr "소셜 계정"
 
-#: socialaccount/models.py:160
+#: socialaccount/models.py:159
 msgid "token"
 msgstr "토큰"
 
-#: socialaccount/models.py:161
+#: socialaccount/models.py:160
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) 또는 access token (OAuth2)"
 
-#: socialaccount/models.py:165
+#: socialaccount/models.py:164
 msgid "token secret"
 msgstr "시크릿 토큰"
 
-#: socialaccount/models.py:166
+#: socialaccount/models.py:165
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) 또는 refresh token (OAuth2)"
 
-#: socialaccount/models.py:169
+#: socialaccount/models.py:168
 msgid "expires at"
 msgstr "만료일"
 
-#: socialaccount/models.py:174
+#: socialaccount/models.py:173
 msgid "social application token"
 msgstr "소셜 어플리케이션 토큰"
 
-#: socialaccount/models.py:175
+#: socialaccount/models.py:174
 msgid "social application tokens"
 msgstr "소셜 어플리케이션 토큰"
 
@@ -380,87 +384,55 @@ msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "\"%s\".로 부터 request 토큰을 받는 도중 잘못된 응답을 받았습니다."
 
 #: templates/account/account_inactive.html:5
-#: templates/account/account_inactive.html:8
+#: templates/account/account_inactive.html:9
 msgid "Account Inactive"
 msgstr "계정 비활성"
 
-#: templates/account/account_inactive.html:10
+#: templates/account/account_inactive.html:11
 msgid "This account is inactive."
 msgstr "해당 계정은 비활성화된 상태입니다."
 
-#: templates/account/base.html:16
-msgid "Messages:"
-msgstr ""
-
-#: templates/account/base.html:26
-msgid "Menu:"
-msgstr ""
-
-#: templates/account/base.html:29 templates/account/email_change.html:31
-#, fuzzy
-#| msgid "Email"
-msgid "Change Email"
-msgstr "이메일"
-
-#: templates/account/base.html:30 templates/account/logout.html:5
-#: templates/account/logout.html:8 templates/account/logout.html:17
-msgid "Sign Out"
-msgstr "로그아웃"
-
-#: templates/account/base.html:32 templates/account/login.html:6
-#: templates/account/login.html:10 templates/account/login.html:43
-#: templates/mfa/authenticate.html:4 templates/mfa/authenticate.html:16
-#: templates/socialaccount/login.html:4
-msgid "Sign In"
-msgstr "로그인"
-
-#: templates/account/base.html:33 templates/account/signup.html:8
-#: templates/account/signup.html:18 templates/socialaccount/signup.html:8
-#: templates/socialaccount/signup.html:19
-msgid "Sign Up"
-msgstr "회원가입"
-
-#: templates/account/email.html:5 templates/account/email.html:8
+#: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
 msgstr "이메일 계정"
 
-#: templates/account/email.html:10
+#: templates/account/email.html:11
 msgid "The following email addresses are associated with your account:"
 msgstr "다음 이메일 주소들이 당신의 계정에 등록되어 있습니다."
 
-#: templates/account/email.html:24
+#: templates/account/email.html:23
 msgid "Verified"
 msgstr "인증완료"
 
-#: templates/account/email.html:26
+#: templates/account/email.html:27
 msgid "Unverified"
 msgstr "인증대기"
 
-#: templates/account/email.html:28
+#: templates/account/email.html:32
 msgid "Primary"
 msgstr "주"
 
-#: templates/account/email.html:34
+#: templates/account/email.html:42
 msgid "Make Primary"
 msgstr "주 이메일로 지정"
 
-#: templates/account/email.html:35 templates/account/email_change.html:21
+#: templates/account/email.html:45 templates/account/email_change.html:29
 msgid "Re-send Verification"
 msgstr "인증 재전송"
 
-#: templates/account/email.html:36 templates/socialaccount/connections.html:35
+#: templates/account/email.html:48 templates/socialaccount/connections.html:40
 msgid "Remove"
 msgstr "제거"
 
-#: templates/account/email.html:47
+#: templates/account/email.html:57
 msgid "Add Email Address"
 msgstr "이메일 주소 추가"
 
-#: templates/account/email.html:52
+#: templates/account/email.html:70
 msgid "Add Email"
 msgstr "이메일 추가"
 
-#: templates/account/email.html:62
+#: templates/account/email.html:79
 msgid "Do you really want to remove the selected email address?"
 msgstr "정말로 선택하신 이메일을 제거하시겠습니까?"
 
@@ -570,36 +542,43 @@ msgstr ""
 "패스워드 초기화를 원치 않는 경우 본 메일을 무시해 주십시요. 변경을 요청할 경"
 "우 아래 링크를 클릭하세요."
 
-#: templates/account/email_change.html:4 templates/account/email_change.html:7
+#: templates/account/email_change.html:5 templates/account/email_change.html:9
 #, fuzzy
 #| msgid "Email Addresses"
 msgid "Email Address"
 msgstr "이메일 계정"
 
-#: templates/account/email_change.html:11
+#: templates/account/email_change.html:14
 #, fuzzy
 #| msgid "The following email addresses are associated with your account:"
 msgid "The following email address is associated with your account:"
 msgstr "다음 이메일 주소들이 당신의 계정에 등록되어 있습니다."
 
-#: templates/account/email_change.html:16
+#: templates/account/email_change.html:19
 #, fuzzy
 #| msgid "Your primary email address must be verified."
 msgid "Your email address is still pending verification:"
 msgstr "주 이메일은 인증이 필요합니다."
 
-#: templates/account/email_change.html:27
+#: templates/account/email_change.html:38
 #, fuzzy
 #| msgid "Confirm Email Address"
 msgid "Change Email Address"
 msgstr "이메일 확인"
+
+#: templates/account/email_change.html:49
+#: templates/allauth/layouts/base.html:29
+#, fuzzy
+#| msgid "Email"
+msgid "Change Email"
+msgstr "이메일"
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
 msgid "Confirm Email Address"
 msgstr "이메일 확인"
 
-#: templates/account/email_confirm.html:17
+#: templates/account/email_confirm.html:16
 #, fuzzy, python-format
 #| msgid ""
 #| "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
@@ -611,12 +590,12 @@ msgstr ""
 "<a href=\"mailto:%(email)s\">%(email)s</a>이 사용자 %(user_display)s의 이메일"
 "이 맞는지 확인해 주세요."
 
-#: templates/account/email_confirm.html:21
-#: templates/account/reauthenticate.html:19
+#: templates/account/email_confirm.html:23
+#: templates/account/reauthenticate.html:28
 msgid "Confirm"
 msgstr "확인"
 
-#: templates/account/email_confirm.html:24
+#: templates/account/email_confirm.html:29
 #: templates/account/messages/email_confirmation_failed.txt:2
 #, fuzzy, python-format
 #| msgid "The social account is already connected to a different account."
@@ -625,7 +604,7 @@ msgid ""
 "account."
 msgstr "해당 소셜 계정이 이미 다른 계정에 연결되어 있습니다."
 
-#: templates/account/email_confirm.html:31
+#: templates/account/email_confirm.html:35
 #, fuzzy, python-format
 #| msgid ""
 #| "This e-mail confirmation link expired or is invalid. Please <a href="
@@ -637,34 +616,30 @@ msgstr ""
 "이 이메일 확인 링크는 만료되었거나 유효하지 않습니다. <a href=\"%(email_url)s"
 "\">새로운 이메일 확인 요청</a>을 해주세요."
 
-#: templates/account/login.html:15
-#, python-format
-msgid ""
-"Please sign in with one\n"
-"of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign "
-"up</a>\n"
-"for a %(site_name)s account and sign in below:"
-msgstr ""
-"사용중인 서드파티 계정을 이용해 로그인을 해주세요. 또는, %(site_name)s의 <a "
-"href=\"%(signup_url)s\">회원 가입</a> 진행 후 아래 링크에서 로그인을 해주세"
-"요."
+#: templates/account/login.html:5 templates/account/login.html:9
+#: templates/account/login.html:29 templates/allauth/layouts/base.html:36
+#: templates/mfa/authenticate.html:5 templates/mfa/authenticate.html:23
+#: templates/openid/login.html:5 templates/openid/login.html:9
+#: templates/openid/login.html:20 templates/socialaccount/login.html:5
+msgid "Sign In"
+msgstr "로그인"
 
-#: templates/account/login.html:25
-msgid "or"
-msgstr "또는"
-
-#: templates/account/login.html:32
-#, python-format
+#: templates/account/login.html:12
+#, fuzzy, python-format
+#| msgid ""
+#| "If you have not created an account yet, then please\n"
+#| "<a href=\"%(signup_url)s\">sign up</a> first."
 msgid ""
 "If you have not created an account yet, then please\n"
-"<a href=\"%(signup_url)s\">sign up</a> first."
+"    <a href=\"%(signup_url)s\">sign up</a> first."
 msgstr ""
 "계정이 없다면\n"
 "<a href=\"%(signup_url)s\">회원가입</a>을 진행하세요."
 
-#: templates/account/login.html:42 templates/account/password_change.html:14
-msgid "Forgot Password?"
-msgstr "비밀번호를 잊으셨나요?"
+#: templates/account/logout.html:4 templates/account/logout.html:8
+#: templates/account/logout.html:23 templates/allauth/layouts/base.html:32
+msgid "Sign Out"
+msgstr "로그아웃"
 
 #: templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
@@ -715,24 +690,29 @@ msgstr "주 이메일이 지정되었습니다."
 msgid "Your primary email address must be verified."
 msgstr "주 이메일은 인증이 필요합니다."
 
-#: templates/account/password_change.html:5
+#: templates/account/password_change.html:4
 #: templates/account/password_change.html:8
-#: templates/account/password_change.html:13
-#: templates/account/password_reset_from_key.html:4
-#: templates/account/password_reset_from_key.html:7
-#: templates/account/password_reset_from_key_done.html:4
-#: templates/account/password_reset_from_key_done.html:7
+#: templates/account/password_change.html:19
+#: templates/account/password_reset_from_key.html:5
+#: templates/account/password_reset_from_key.html:12
+#: templates/account/password_reset_from_key.html:29
+#: templates/account/password_reset_from_key_done.html:5
+#: templates/account/password_reset_from_key_done.html:9
 msgid "Change Password"
 msgstr "비밀번호 변경"
 
-#: templates/account/password_reset.html:6
-#: templates/account/password_reset.html:10
+#: templates/account/password_change.html:21
+msgid "Forgot Password?"
+msgstr "비밀번호를 잊으셨나요?"
+
+#: templates/account/password_reset.html:4
+#: templates/account/password_reset.html:8
 #: templates/account/password_reset_done.html:6
-#: templates/account/password_reset_done.html:9
+#: templates/account/password_reset_done.html:10
 msgid "Password Reset"
 msgstr "비밀번호 초기화"
 
-#: templates/account/password_reset.html:15
+#: templates/account/password_reset.html:14
 #, fuzzy
 #| msgid ""
 #| "Forgotten your password? Enter your e-mail address below, and we'll send "
@@ -744,15 +724,15 @@ msgstr ""
 "비밀번호를 잊으셨나요? 아래에 당신의 이메일을 입력하시면, 비밀번호 초기화 이"
 "메일을 전송해 드리겠습니다."
 
-#: templates/account/password_reset.html:20
+#: templates/account/password_reset.html:25
 msgid "Reset My Password"
 msgstr "비밀번호 초기화"
 
-#: templates/account/password_reset.html:23
+#: templates/account/password_reset.html:29
 msgid "Please contact us if you have any trouble resetting your password."
 msgstr "비밀번호 초기화에 문제가 있으시면 저희에게 연락주세요."
 
-#: templates/account/password_reset_done.html:15
+#: templates/account/password_reset_done.html:16
 #, fuzzy
 #| msgid ""
 #| "We have sent an e-mail to you for\n"
@@ -766,11 +746,11 @@ msgstr ""
 "이메일의 링크를 클릭하시고,\n"
 "몇 분 후에도 메일이 전송되지 않으면 저희에게 연락주세요."
 
-#: templates/account/password_reset_from_key.html:7
+#: templates/account/password_reset_from_key.html:10
 msgid "Bad Token"
 msgstr "올비르지 않은 토큰"
 
-#: templates/account/password_reset_from_key.html:11
+#: templates/account/password_reset_from_key.html:18
 #, python-format
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
@@ -780,16 +760,12 @@ msgstr ""
 "비밀번호 초기화 링크가 올바르지 않습니다. 다시 <a href=\"%(passwd_reset_url)s"
 "\">비밀번호 초기화</a> 하세요."
 
-#: templates/account/password_reset_from_key.html:16
-msgid "change password"
-msgstr "비밀번호 변경"
-
-#: templates/account/password_reset_from_key_done.html:8
+#: templates/account/password_reset_from_key_done.html:11
 msgid "Your password is now changed."
 msgstr "비밀번호가 변경되었습니다."
 
-#: templates/account/password_set.html:5 templates/account/password_set.html:8
-#: templates/account/password_set.html:13
+#: templates/account/password_set.html:5 templates/account/password_set.html:9
+#: templates/account/password_set.html:20
 msgid "Set Password"
 msgstr "비밀번호 설정"
 
@@ -800,15 +776,21 @@ msgstr "비밀번호 설정"
 msgid "Confirm Access"
 msgstr "이메일 확인"
 
-#: templates/account/reauthenticate.html:11
+#: templates/account/reauthenticate.html:12
 msgid "To safeguard the security of your account, please enter your password:"
 msgstr ""
 
-#: templates/account/signup.html:5 templates/socialaccount/signup.html:5
+#: templates/account/signup.html:4 templates/socialaccount/signup.html:5
 msgid "Signup"
 msgstr "회원가입"
 
-#: templates/account/signup.html:10
+#: templates/account/signup.html:8 templates/account/signup.html:27
+#: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
+#: templates/socialaccount/signup.html:29
+msgid "Sign Up"
+msgstr "회원가입"
+
+#: templates/account/signup.html:11
 #, python-format
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
@@ -816,21 +798,22 @@ msgstr ""
 "이미 계정이 있으신가요? 바로 <a href=\"%(login_url)s\">로그인</a> 하세요."
 
 #: templates/account/signup_closed.html:5
-#: templates/account/signup_closed.html:8
+#: templates/account/signup_closed.html:9
 msgid "Sign Up Closed"
 msgstr "회원가입 종료"
 
-#: templates/account/signup_closed.html:10
+#: templates/account/signup_closed.html:11
 msgid "We are sorry, but the sign up is currently closed."
 msgstr "죄송합니다. 회원가입은 현재 종료되었습니다."
 
-#: templates/account/snippets/already_logged_in.html:5
+#: templates/account/snippets/already_logged_in.html:7
 msgid "Note"
 msgstr "메모"
 
-#: templates/account/snippets/already_logged_in.html:5
-#, python-format
-msgid "you are already logged in as %(user_display)s."
+#: templates/account/snippets/already_logged_in.html:7
+#, fuzzy, python-format
+#| msgid "you are already logged in as %(user_display)s."
+msgid "You are already logged in as %(user_display)s."
 msgstr "%(user_display)s 로 이미 로그인 되어있습니다."
 
 #: templates/account/snippets/warn_no_email.html:3
@@ -851,13 +834,13 @@ msgstr ""
 "합니다."
 
 #: templates/account/verification_sent.html:5
-#: templates/account/verification_sent.html:8
-#: templates/account/verified_email_required.html:5
+#: templates/account/verification_sent.html:9
+#: templates/account/verified_email_required.html:4
 #: templates/account/verified_email_required.html:8
 msgid "Verify Your Email Address"
 msgstr "이메일을 인증하세요"
 
-#: templates/account/verification_sent.html:10
+#: templates/account/verification_sent.html:12
 #, fuzzy
 #| msgid ""
 #| "We have sent an e-mail to you for verification. Follow the link provided "
@@ -886,7 +869,7 @@ msgstr ""
 "해당 페이지는 이메일 인증이 필요합니다.\n"
 "이메일을 인증하세요."
 
-#: templates/account/verified_email_required.html:16
+#: templates/account/verified_email_required.html:17
 #, fuzzy
 #| msgid ""
 #| "We have sent an e-mail to you for\n"
@@ -903,7 +886,7 @@ msgstr ""
 "이메일의 링크를 클릭하시고,\n"
 "몇 분 후에도 메일이 전송되지 않으면 저희에게 연락주세요."
 
-#: templates/account/verified_email_required.html:20
+#: templates/account/verified_email_required.html:22
 #, fuzzy, python-format
 #| msgid ""
 #| "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change "
@@ -915,44 +898,52 @@ msgstr ""
 "<strong>메모:</strong> <a href=\"%(email_url)s\">이메일 변경</a>이 가능합니"
 "다."
 
-#: templates/mfa/authenticate.html:7 templates/mfa/index.html:4
-#: templates/mfa/index.html:7
+#: templates/allauth/layouts/base.html:18
+msgid "Messages:"
+msgstr ""
+
+#: templates/allauth/layouts/base.html:25
+msgid "Menu:"
+msgstr ""
+
+#: templates/mfa/authenticate.html:9 templates/mfa/index.html:5
+#: templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
 msgstr ""
 
-#: templates/mfa/authenticate.html:9
+#: templates/mfa/authenticate.html:12
 msgid ""
 "Your account is protected by two-factor authentication. Please enter an "
 "authenticator code:"
 msgstr ""
 
-#: templates/mfa/index.html:9 templates/mfa/totp/base.html:4
+#: templates/mfa/index.html:13 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
 msgstr ""
 
-#: templates/mfa/index.html:11
+#: templates/mfa/index.html:17
 msgid "Authentication using an authenticator app is active."
 msgstr ""
 
-#: templates/mfa/index.html:14 templates/mfa/totp/deactivate_form.html:11
-msgid "Deactivate"
-msgstr ""
-
-#: templates/mfa/index.html:18
+#: templates/mfa/index.html:19
 msgid "An authenticator app is not active."
 msgstr ""
 
-#: templates/mfa/index.html:21 templates/mfa/totp/activate_form.html:16
+#: templates/mfa/index.html:27 templates/mfa/totp/deactivate_form.html:24
+msgid "Deactivate"
+msgstr ""
+
+#: templates/mfa/index.html:31 templates/mfa/totp/activate_form.html:29
 msgid "Activate"
 msgstr ""
 
-#: templates/mfa/index.html:27 templates/mfa/recovery_codes/base.html:4
-#: templates/mfa/recovery_codes/generate.html:4
-#: templates/mfa/recovery_codes/index.html:4
+#: templates/mfa/index.html:38 templates/mfa/recovery_codes/base.html:4
+#: templates/mfa/recovery_codes/generate.html:6
+#: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
 msgstr ""
 
-#: templates/mfa/index.html:30 templates/mfa/recovery_codes/index.html:6
+#: templates/mfa/index.html:43 templates/mfa/recovery_codes/index.html:9
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -960,20 +951,20 @@ msgid_plural ""
 "There are %(unused_count)s out of %(total_count)s recovery codes available."
 msgstr[0] ""
 
-#: templates/mfa/index.html:34
-msgid "View codes"
-msgstr ""
-
-#: templates/mfa/index.html:37 templates/mfa/recovery_codes/index.html:16
-msgid "Download codes"
-msgstr ""
-
-#: templates/mfa/index.html:40 templates/mfa/recovery_codes/index.html:20
-msgid "Generate new codes"
-msgstr ""
-
-#: templates/mfa/index.html:44
+#: templates/mfa/index.html:46
 msgid "No recovery codes set up."
+msgstr ""
+
+#: templates/mfa/index.html:53
+msgid "View"
+msgstr ""
+
+#: templates/mfa/index.html:59
+msgid "Download"
+msgstr ""
+
+#: templates/mfa/index.html:65
+msgid "Regenerate"
 msgstr ""
 
 #: templates/mfa/messages/recovery_codes_generated.txt:2
@@ -988,100 +979,126 @@ msgstr ""
 msgid "Authenticator app deactivated."
 msgstr ""
 
-#: templates/mfa/recovery_codes/generate.html:6
+#: templates/mfa/recovery_codes/generate.html:9
 msgid ""
 "You are about to generate a new set of recovery codes for your account. This "
 "action will invalidate your existing codes. Are you sure?"
 msgstr ""
 
-#: templates/mfa/recovery_codes/generate.html:11
+#: templates/mfa/recovery_codes/generate.html:19
 msgid "Generate"
 msgstr ""
 
+#: templates/mfa/recovery_codes/index.html:13
+msgid "Unused codes"
+msgstr ""
+
+#: templates/mfa/recovery_codes/index.html:25
+msgid "Download codes"
+msgstr ""
+
+#: templates/mfa/recovery_codes/index.html:30
+msgid "Generate new codes"
+msgstr ""
+
 #: templates/mfa/totp/activate_form.html:4
+#: templates/mfa/totp/activate_form.html:8
 msgid "Activate Authenticator App"
 msgstr ""
 
-#: templates/mfa/totp/activate_form.html:9
+#: templates/mfa/totp/activate_form.html:18
 #, fuzzy
 #| msgid "token secret"
 msgid "Authenticator secret"
 msgstr "시크릿 토큰"
 
-#: templates/mfa/totp/deactivate_form.html:4
+#: templates/mfa/totp/activate_form.html:21
+msgid ""
+"You can store this secret and use it to reinstall your authenticator app at "
+"a later time."
+msgstr ""
+
+#: templates/mfa/totp/deactivate_form.html:5
+#: templates/mfa/totp/deactivate_form.html:9
 msgid "Deactivate Authenticator App"
 msgstr ""
 
-#: templates/mfa/totp/deactivate_form.html:6
+#: templates/mfa/totp/deactivate_form.html:12
 msgid ""
 "You are about to deactivate authenticator app based authentication. Are you "
 "sure?"
 msgstr ""
 
-#: templates/openid/login.html:9
-msgid "OpenID Sign In"
-msgstr "OpenID 로그인"
-
 #: templates/socialaccount/authentication_error.html:5
-#: templates/socialaccount/authentication_error.html:8
+#: templates/socialaccount/authentication_error.html:9
 msgid "Social Network Login Failure"
 msgstr "소셜 계정 로그인 실패"
 
-#: templates/socialaccount/authentication_error.html:10
+#: templates/socialaccount/authentication_error.html:11
 msgid ""
 "An error occurred while attempting to login via your social network account."
 msgstr "소셜 계정을 통해 로그인 하는 도중 오류가 발생했습니다."
 
 #: templates/socialaccount/connections.html:5
-#: templates/socialaccount/connections.html:8
+#: templates/socialaccount/connections.html:9
 msgid "Account Connections"
 msgstr "계정 연결"
 
-#: templates/socialaccount/connections.html:11
+#: templates/socialaccount/connections.html:13
+#, fuzzy
+#| msgid ""
+#| "You can sign in to your account using any of the following third party "
+#| "accounts:"
 msgid ""
-"You can sign in to your account using any of the following third party "
+"You can sign in to your account using any of the following third-party "
 "accounts:"
 msgstr "다음 서드파티 계정들을 통해 로그인 할 수 있습니다:"
 
-#: templates/socialaccount/connections.html:43
+#: templates/socialaccount/connections.html:45
 msgid ""
 "You currently have no social network accounts connected to this account."
 msgstr "해당 계정에 연결되어있는 소셜 계정이 없습니다."
 
-#: templates/socialaccount/connections.html:46
-msgid "Add a 3rd Party Account"
+#: templates/socialaccount/connections.html:48
+#, fuzzy
+#| msgid "Add a 3rd Party Account"
+msgid "Add a Third-Party Account"
 msgstr "서드파티 계정을 추가하세요."
 
-#: templates/socialaccount/login.html:8
+#: templates/socialaccount/login.html:10
 #, python-format
 msgid "Connect %(provider)s"
 msgstr "%(provider)s 계정 연결"
 
-#: templates/socialaccount/login.html:10
-#, python-format
-msgid "You are about to connect a new third party account from %(provider)s."
+#: templates/socialaccount/login.html:13
+#, fuzzy, python-format
+#| msgid ""
+#| "You are about to connect a new third party account from %(provider)s."
+msgid "You are about to connect a new third-party account from %(provider)s."
 msgstr "%(provider)s에서 제공하는 서드파티 계정을 연결하려 합니다."
 
-#: templates/socialaccount/login.html:12
+#: templates/socialaccount/login.html:17
 #, python-format
 msgid "Sign In Via %(provider)s"
 msgstr "%(provider)s을 통한 로그인"
 
-#: templates/socialaccount/login.html:14
-#, python-format
-msgid "You are about to sign in using a third party account from %(provider)s."
+#: templates/socialaccount/login.html:20
+#, fuzzy, python-format
+#| msgid ""
+#| "You are about to sign in using a third party account from %(provider)s."
+msgid "You are about to sign in using a third-party account from %(provider)s."
 msgstr "서드파티 %(provider)s의 계정을 사용해 로그인을 진행하려 합니다."
 
-#: templates/socialaccount/login.html:19
+#: templates/socialaccount/login.html:27
 msgid "Continue"
 msgstr "계속"
 
-#: templates/socialaccount/login_cancelled.html:5
-#: templates/socialaccount/login_cancelled.html:9
+#: templates/socialaccount/login_cancelled.html:4
+#: templates/socialaccount/login_cancelled.html:8
 msgid "Login Cancelled"
 msgstr "로그인 취소됨"
 
-#: templates/socialaccount/login_cancelled.html:13
+#: templates/socialaccount/login_cancelled.html:12
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
@@ -1103,7 +1120,7 @@ msgstr "해당 소셜 계정이 이미 다른 계정에 연결되어 있습니�
 msgid "The social account has been disconnected."
 msgstr "소셜 계정 연결이 해제되었습니다."
 
-#: templates/socialaccount/signup.html:10
+#: templates/socialaccount/signup.html:12
 #, python-format
 msgid ""
 "You are about to use your %(provider_name)s account to login to\n"
@@ -1111,6 +1128,30 @@ msgid ""
 msgstr ""
 "%(provider_name)s 의 계정을 이용하여 %(site_name)s 으로 로그인하려 합니다.\n"
 "마지막으로 다음 폼을 작성해주세요:"
+
+#: templates/socialaccount/snippets/login.html:8
+msgid "Or use a third-party"
+msgstr ""
+
+#, python-format
+#~ msgid ""
+#~ "Please sign in with one\n"
+#~ "of your existing third party accounts. Or, <a href=\"%(signup_url)s"
+#~ "\">sign up</a>\n"
+#~ "for a %(site_name)s account and sign in below:"
+#~ msgstr ""
+#~ "사용중인 서드파티 계정을 이용해 로그인을 해주세요. 또는, %(site_name)s의 "
+#~ "<a href=\"%(signup_url)s\">회원 가입</a> 진행 후 아래 링크에서 로그인을 해"
+#~ "주세요."
+
+#~ msgid "or"
+#~ msgstr "또는"
+
+#~ msgid "change password"
+#~ msgstr "비밀번호 변경"
+
+#~ msgid "OpenID Sign In"
+#~ msgstr "OpenID 로그인"
 
 #~ msgid "This email address is already associated with another account."
 #~ msgstr "해당 이메일은 다른 계정에 등록되어 있습니다."

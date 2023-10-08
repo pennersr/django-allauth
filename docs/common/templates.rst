@@ -21,7 +21,7 @@ all templates yourself.
 
 
 Overriding the Built-In Templates
---------------------------------
+---------------------------------
 
 The ``allauth`` app includes all templates, and can be found in the
 `allauth/templates

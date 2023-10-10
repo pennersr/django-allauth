@@ -733,14 +733,16 @@ class DefaultAccountAdapter(object):
         return ret
 
     def send_notification_mail(self, template_prefix, user, context):
+        from allauth.account.models import EmailAddress
         if app_settings.ACCOUNT_EMAIL_NOTIFICATIONS:
             context |= {
-                "timestamp": datetime.now(),
+                "timestamp": timezone.now(), 
                 "ip": self.get_client_ip(self.request),
                 "browser_agent": self.get_browser_user_agent(self.request),
             }
-            print(context)
-            self.send_mail(template_prefix, user.email, context)
+            email = EmailAddress.objects.get_primary(user)
+            if email:
+                self.send_mail(template_prefix, email.email, context)
 
 
 def get_adapter(request=None):

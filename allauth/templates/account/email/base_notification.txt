@@ -1,3 +1,4 @@
+{% extends "account/email/base_message.txt" %}
 {% load i18n %}
 {% load account %}
 {% user_display user as user_display %}

@@ -1,6 +1,15 @@
 0.58.0 (unreleased)
 *******************
 
+Note worthy changes
+-------------------
+
+- The ``SocialAccount.exra_data`` field was a custom JSON field that used
+  ``TextField`` as the underlying implementation. It was once needed because
+  Django had no ``JSONField`` support. Now, this field is changed to use the
+  official ``JSONField()``. Migrations are in place.
+
+
 Backwards incompatible changes
 ------------------------------
 

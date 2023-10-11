@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django.db import migrations, models
 
-import allauth.socialaccount.fields
 from allauth import app_settings
 from allauth.socialaccount.providers import registry
 
@@ -61,9 +60,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "extra_data",
-                    allauth.socialaccount.fields.JSONField(
-                        default="{}", verbose_name="extra data"
-                    ),
+                    models.TextField(default="{}", verbose_name="extra data"),
                 ),
                 (
                     "user",

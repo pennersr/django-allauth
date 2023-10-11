@@ -16,7 +16,6 @@ from allauth.socialaccount import signals
 from ..utils import get_request_param
 from . import app_settings, providers
 from .adapter import get_adapter
-from .fields import JSONField
 
 
 class SocialAppManager(models.Manager):
@@ -117,7 +116,7 @@ class SocialAccount(models.Model):
     )
     last_login = models.DateTimeField(verbose_name=_("last login"), auto_now=True)
     date_joined = models.DateTimeField(verbose_name=_("date joined"), auto_now_add=True)
-    extra_data = JSONField(verbose_name=_("extra data"), default=dict)
+    extra_data = models.JSONField(verbose_name=_("extra data"), default=dict)
 
     class Meta:
         unique_together = ("provider", "uid")

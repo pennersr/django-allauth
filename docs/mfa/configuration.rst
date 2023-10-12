@@ -16,5 +16,5 @@ Available settings:
 ``MFA_TOTP_DIGITS`` (default: ``6``)
   The number of digits for TOTP codes.
 
-``MFA_TOTP_ISSUES`` (default: ``""``)
+``MFA_TOTP_ISSUER`` (default: ``""``)
   The issuer (appearing in the TOTP QR code).

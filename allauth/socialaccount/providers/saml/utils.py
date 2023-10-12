@@ -1,7 +1,10 @@
+from urllib.parse import parse_qsl, urlparse
+
 from django.core.cache import cache
 from django.core.exceptions import ImproperlyConfigured
 from django.http import Http404
 from django.urls import reverse
+from django.utils.http import urlencode
 
 from onelogin.saml2.constants import OneLogin_Saml2_Constants
 from onelogin.saml2.idp_metadata_parser import OneLogin_Saml2_IdPMetadataParser
@@ -139,3 +142,28 @@ def build_saml_config(request, provider_config, org):
 
     saml_config["sp"] = build_sp_config(request, provider_config, org)
     return saml_config
+
+
+def encode_relay_state(process=None, next_url=None):
+    params = {}
+    if process:
+        params["process"] = process
+    if next_url:
+        params["next"] = next_url
+    return urlencode(params)
+
+
+def decode_relay_state(relay_state):
+    """According to the spec, RelayState need not be a URL, yet,
+    ``onelogin.saml2` exposes it as ``return_to -- The target URL the user
+    should be redirected to after login``. Also, for an IdP initiated login
+    sometimes a URL is used.
+    """
+    ret = {}
+    if relay_state:
+        parts = urlparse(relay_state)
+        if parts.scheme or parts.netloc or (parts.path and parts.path.startswith("/")):
+            ret["next"] = relay_state
+        else:
+            ret = dict(parse_qsl(relay_state))
+    return ret

@@ -16,13 +16,16 @@ from allauth.socialaccount.helpers import (
     render_authentication_error,
 )
 from allauth.socialaccount.models import SocialLogin
-from allauth.socialaccount.providers.base.constants import (
-    AuthError,
-    AuthProcess,
-)
+from allauth.socialaccount.providers.base.constants import AuthError
 from allauth.socialaccount.sessions import LoginSession
 
-from .utils import build_saml_config, get_app_or_404, prepare_django_request
+from .utils import (
+    build_saml_config,
+    decode_relay_state,
+    encode_relay_state,
+    get_app_or_404,
+    prepare_django_request,
+)
 
 
 logger = logging.getLogger(__name__)
@@ -76,13 +79,12 @@ class ACSView(SAMLViewMixin, View):
                 request, provider.id, error=AuthError.CANCELLED
             )
 
-        relay_state = request.POST.get("RelayState")
+        relay_state = decode_relay_state(request.POST.get("RelayState"))
         login = provider.sociallogin_from_response(request, auth)
-        if relay_state == reverse("socialaccount_connections"):
-            login.state["process"] = AuthProcess.CONNECT
-        elif relay_state:
-            login.state["next"] = relay_state
-
+        for key in ["process", "next"]:
+            value = relay_state.get(key)
+            if value:
+                login.state[key] = value
         acs_session = LoginSession(request, "saml_acs_session", "saml-acs-session")
         acs_session.store["login"] = login.serialize()
         url = reverse(
@@ -163,16 +165,11 @@ class LoginView(SAMLViewMixin, View):
         provider = self.get_provider(organization_slug)
         auth = self.build_auth(provider, organization_slug)
         process = self.request.GET.get("process")
-        return_to = get_next_redirect_url(request)
-        if return_to:
-            pass
-        elif process == AuthProcess.CONNECT:
-            return_to = reverse("socialaccount_connections")
-        else:
-            # If we pass `return_to=None` `auth.login` will use the URL of the
-            # current view, which will then end up being used as a redirect URL.
-            return_to = ""
-        redirect = auth.login(return_to=return_to)
+        next_url = get_next_redirect_url(request)
+        relay_state = encode_relay_state(process=process, next_url=next_url)
+        # If we pass `return_to=None` `auth.login` will use the URL of the
+        # current view, which will then end up being used as a redirect URL.
+        redirect = auth.login(return_to=relay_state)
         return HttpResponseRedirect(redirect)
 
 

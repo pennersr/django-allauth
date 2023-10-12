@@ -1,10 +1,31 @@
-from django.conf import settings
+from django.apps import apps
 
 
-SITES_ENABLED = "django.contrib.sites" in settings.INSTALLED_APPS
-SOCIALACCOUNT_ENABLED = "allauth.socialaccount" in settings.INSTALLED_APPS
-MFA_ENABLED = "allauth.mfa" in settings.INSTALLED_APPS
+class AppSettings(object):
+    def __init__(self, prefix):
+        self.prefix = prefix
 
-LOGIN_REDIRECT_URL = getattr(settings, "LOGIN_REDIRECT_URL", "/")
+    def _setting(self, name, dflt):
+        from allauth.utils import get_setting
 
-USER_MODEL = getattr(settings, "AUTH_USER_MODEL", "auth.User")
+        return get_setting(self.prefix + name, dflt)
+
+    @property
+    def SITES_ENABLED(self):
+        return apps.is_installed("django.contrib.sites")
+
+    @property
+    def SOCIALACCOUNT_ENABLED(self):
+        return apps.is_installed("allauth.socialaccount")
+
+    @property
+    def MFA_ENABLED(self):
+        return apps.is_installed("allauth.mfa")
+
+
+_app_settings = AppSettings("ALLAUTH_")
+
+
+def __getattr__(name):
+    # See https://peps.python.org/pep-0562/
+    return getattr(_app_settings, name)

@@ -1,5 +1,6 @@
 import datetime
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core import signing
 from django.db import models
@@ -9,7 +10,6 @@ from django.db.models.functions import Upper
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from .. import app_settings as allauth_app_settings
 from . import app_settings, signals
 from .adapter import get_adapter
 from .managers import EmailAddressManager, EmailConfirmationManager
@@ -17,7 +17,7 @@ from .managers import EmailAddressManager, EmailConfirmationManager
 
 class EmailAddress(models.Model):
     user = models.ForeignKey(
-        allauth_app_settings.USER_MODEL,
+        settings.AUTH_USER_MODEL,
         verbose_name=_("user"),
         on_delete=models.CASCADE,
     )

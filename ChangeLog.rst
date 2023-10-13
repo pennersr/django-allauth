@@ -20,6 +20,9 @@ Backwards incompatible changes
   its own templates then this change will not affect anything, but if you rely
   on (some of) the built-in templates your project may be affected.
 
+- The Azure provider has been removed in favor of keeping the Microsoft
+  provider. Both providers were targeting the same goal.
+
 
 0.57.0 (2023-09-24)
 *******************

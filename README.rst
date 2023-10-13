@@ -41,7 +41,7 @@ Mailing list
   http://groups.google.com/group/django-allauth
 
 Documentation
-  https://django-allauth.readthedocs.io/en/latest/
+  https://docs.allauth.org/en/latest/
 
 Stack Overflow
   http://stackoverflow.com/questions/tagged/django-allauth

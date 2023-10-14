@@ -9,7 +9,7 @@ class EBayAccount(ProviderAccount):
 
 class EBayProvider(OAuth2Provider):
     id = "ebay"
-    name = "eBay"
+    name = "EBay"
     account_class = EBayAccount
 
     def extract_uid(self, data):

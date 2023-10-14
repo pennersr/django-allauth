@@ -60,6 +60,7 @@ Provider Specifics
    drip
    dropbox
    dwolla
+   ebay
    edmodo
    edx
    eventbrite

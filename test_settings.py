@@ -48,7 +48,6 @@ MIDDLEWARE = (
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-
     "allauth.account.middleware.AccountMiddleware",
 )
 
@@ -93,6 +92,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.drip",
     "allauth.socialaccount.providers.dropbox",
     "allauth.socialaccount.providers.dwolla",
+    "allauth.socialaccount.providers.ebay",
     "allauth.socialaccount.providers.edmodo",
     "allauth.socialaccount.providers.edx",
     "allauth.socialaccount.providers.eventbrite",

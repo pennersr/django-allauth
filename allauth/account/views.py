@@ -621,7 +621,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
 
     def get_ajax_data(self):
         data = []
-        for emailaddress in self.request.user.emailaddress_set.all():
+        for emailaddress in self.request.user.emailaddress_set.all().order_by("pk"):
             data.append(
                 {
                     "id": emailaddress.pk,

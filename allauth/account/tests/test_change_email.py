@@ -4,192 +4,210 @@ import json
 from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
-from django.test.utils import override_settings
 from django.urls import reverse
 
 import pytest
-from pytest_django.asserts import assertTemplateUsed
+from pytest_django.asserts import assertTemplateNotUsed, assertTemplateUsed
 
 from allauth.account.models import EmailAddress, EmailConfirmationHMAC
 from allauth.account.utils import user_email
-from allauth.tests import TestCase
 
 
-class ChangeEmailTests(TestCase):
-    def setUp(self):
-        User = get_user_model()
-        self.user = User.objects.create(username="john", email="john1@example.org")
-        self.user.set_password("doe")
-        self.user.save()
-        self.email_address = EmailAddress.objects.create(
-            user=self.user, email=self.user.email, verified=True, primary=True
-        )
-        self.email_address2 = EmailAddress.objects.create(
-            user=self.user,
-            email="john2@example.org",
-            verified=False,
-            primary=False,
-        )
-        self.client.login(username="john", password="doe")
+# class ChangeEmailTests(TestCase):
+#     def setUp(self):
+#         User = get_user_model()
+#         self.user = User.objects.create(username="john", email="john1@example.org")
+#         self.user.set_password("doe")
+#         self.user.save()
+#         self.email_address = EmailAddress.objects.create(
+#             user=self.user, email=self.user.email, verified=True, primary=True
+#         )
+#         self.email_address2 = EmailAddress.objects.create(
+#             user=self.user,
+#             email="john2@example.org",
+#             verified=False,
+#             primary=False,
+#         )
+#         self.client.login(username="john", password="doe")
 
-    def test_ajax_get(self):
-        resp = self.client.get(
-            reverse("account_email"), HTTP_X_REQUESTED_WITH="XMLHttpRequest"
-        )
-        data = json.loads(resp.content.decode("utf8"))
-        assert data["data"] == [
-            {
-                "id": self.email_address.pk,
-                "email": "john1@example.org",
-                "primary": True,
-                "verified": True,
-            },
-            {
-                "id": self.email_address2.pk,
-                "email": "john2@example.org",
-                "primary": False,
-                "verified": False,
-            },
-        ]
 
-    def test_ajax_add(self):
-        resp = self.client.post(
-            reverse("account_email"),
-            {"action_add": "", "email": "john3@example.org"},
-            HTTP_X_REQUESTED_WITH="XMLHttpRequest",
-        )
-        data = json.loads(resp.content.decode("utf8"))
-        self.assertEqual(data["location"], reverse("account_email"))
+def test_ajax_get(auth_client, user):
+    primary = EmailAddress.objects.filter(user=user).first()
+    secondary = EmailAddress.objects.create(
+        email="secondary@email.org", user=user, verified=False, primary=False
+    )
+    resp = auth_client.get(
+        reverse("account_email"), HTTP_X_REQUESTED_WITH="XMLHttpRequest"
+    )
+    data = json.loads(resp.content.decode("utf8"))
+    assert data["data"] == [
+        {
+            "id": primary.pk,
+            "email": primary.email,
+            "primary": True,
+            "verified": True,
+        },
+        {
+            "id": secondary.pk,
+            "email": secondary.email,
+            "primary": False,
+            "verified": False,
+        },
+    ]
 
-    def test_ajax_add_invalid(self):
-        resp = self.client.post(
-            reverse("account_email"),
-            {"action_add": "", "email": "john3#example.org"},
-            HTTP_X_REQUESTED_WITH="XMLHttpRequest",
-        )
-        data = json.loads(resp.content.decode("utf8"))
-        assert "valid" in data["form"]["fields"]["email"]["errors"][0]
 
-    def test_remove_primary(self):
-        resp = self.client.post(
-            reverse("account_email"),
-            {"action_remove": "", "email": self.email_address.email},
-        )
-        EmailAddress.objects.get(pk=self.email_address.pk)
-        self.assertTemplateUsed(
-            resp, "account/messages/cannot_delete_primary_email.txt"
-        )
+def test_ajax_add(auth_client):
+    resp = auth_client.post(
+        reverse("account_email"),
+        {"action_add": "", "email": "john3@example.org"},
+        HTTP_X_REQUESTED_WITH="XMLHttpRequest",
+    )
+    data = json.loads(resp.content.decode("utf8"))
+    assert data["location"] == reverse("account_email")
 
-    def test_ajax_remove_primary(self):
-        resp = self.client.post(
-            reverse("account_email"),
-            {"action_remove": "", "email": self.email_address.email},
-            HTTP_X_REQUESTED_WITH="XMLHttpRequest",
-        )
-        self.assertTemplateUsed(
-            resp, "account/messages/cannot_delete_primary_email.txt"
-        )
-        data = json.loads(resp.content.decode("utf8"))
-        self.assertEqual(data["location"], reverse("account_email"))
 
-    def test_remove_secondary(self):
-        resp = self.client.post(
-            reverse("account_email"),
-            {"action_remove": "", "email": self.email_address2.email},
-        )
-        self.assertRaises(
-            EmailAddress.DoesNotExist,
-            lambda: EmailAddress.objects.get(pk=self.email_address2.pk),
-        )
-        self.assertTemplateUsed(resp, "account/messages/email_deleted.txt")
+def test_ajax_add_invalid(auth_client):
+    resp = auth_client.post(
+        reverse("account_email"),
+        {"action_add": "", "email": "john3#example.org"},
+        HTTP_X_REQUESTED_WITH="XMLHttpRequest",
+    )
+    data = json.loads(resp.content.decode("utf8"))
+    assert "valid" in data["form"]["fields"]["email"]["errors"][0]
 
-    def test_set_primary_unverified(self):
-        resp = self.client.post(
-            reverse("account_email"),
-            {"action_primary": "", "email": self.email_address2.email},
-        )
-        email_address = EmailAddress.objects.get(pk=self.email_address.pk)
-        email_address2 = EmailAddress.objects.get(pk=self.email_address2.pk)
-        self.assertFalse(email_address2.primary)
-        self.assertTrue(email_address.primary)
-        self.assertTemplateUsed(resp, "account/messages/unverified_primary_email.txt")
 
-    def test_set_primary(self):
-        email_address2 = EmailAddress.objects.get(pk=self.email_address2.pk)
-        email_address2.verified = True
-        email_address2.save()
-        resp = self.client.post(
-            reverse("account_email"),
-            {"action_primary": "", "email": self.email_address2.email},
-        )
-        email_address = EmailAddress.objects.get(pk=self.email_address.pk)
-        email_address2 = EmailAddress.objects.get(pk=self.email_address2.pk)
-        self.assertFalse(email_address.primary)
-        self.assertTrue(email_address2.primary)
-        self.assertTemplateUsed(resp, "account/messages/primary_email_set.txt")
+def test_remove_primary(auth_client, user):
+    resp = auth_client.post(
+        reverse("account_email"),
+        {"action_remove": "", "email": user.email},
+    )
+    assert EmailAddress.objects.filter(email=user.email).exists()
+    assertTemplateUsed(resp, "account/messages/cannot_delete_primary_email.txt")
 
-    def test_verify(self):
-        resp = self.client.post(
-            reverse("account_email"),
-            {"action_send": "", "email": self.email_address2.email},
-        )
-        self.assertTemplateUsed(resp, "account/messages/email_confirmation_sent.txt")
 
-    def test_verify_unknown_email(self):
-        assert EmailAddress.objects.filter(user=self.user).count() == 2
-        self.client.post(
-            reverse("account_email"),
-            {"action_send": "", "email": "email@unknown.org"},
-        )
-        # This unknown email address must not be implicitly added.
-        assert EmailAddress.objects.filter(user=self.user).count() == 2
+def test_ajax_remove_primary(auth_client, user):
+    resp = auth_client.post(
+        reverse("account_email"),
+        {"action_remove": "", "email": user.email},
+        HTTP_X_REQUESTED_WITH="XMLHttpRequest",
+    )
+    assertTemplateUsed(resp, "account/messages/cannot_delete_primary_email.txt")
+    data = json.loads(resp.content.decode("utf8"))
+    assert data["location"] == reverse("account_email")
 
-    @override_settings(ACCOUNT_MAX_EMAIL_ADDRESSES=2)
-    def test_add_with_two_limiter(self):
-        resp = self.client.post(
-            reverse("account_email"), {"action_add": "", "email": "john3@example.org"}
-        )
-        self.assertTemplateNotUsed(resp, "account/messages/email_confirmation_sent.txt")
 
-    @override_settings(ACCOUNT_MAX_EMAIL_ADDRESSES=None)
-    def test_add_with_none_limiter(self):
-        resp = self.client.post(
-            reverse("account_email"), {"action_add": "", "email": "john3@example.org"}
-        )
-        self.assertTemplateUsed(resp, "account/messages/email_confirmation_sent.txt")
+def test_remove_secondary(auth_client, user):
+    secondary = EmailAddress.objects.create(
+        email="secondary@email.org", user=user, verified=False, primary=False
+    )
+    resp = auth_client.post(
+        reverse("account_email"),
+        {"action_remove": "", "email": secondary.email},
+    )
+    assert not EmailAddress.objects.filter(email=secondary.pk).exists()
+    assertTemplateUsed(resp, "account/messages/email_deleted.txt")
 
-    @override_settings(ACCOUNT_MAX_EMAIL_ADDRESSES=0)
-    def test_add_with_zero_limiter(self):
-        resp = self.client.post(
-            reverse("account_email"), {"action_add": "", "email": "john3@example.org"}
-        )
-        self.assertTemplateUsed(resp, "account/messages/email_confirmation_sent.txt")
 
-    def test_set_email_as_primary_doesnt_override_existed_changes_on_the_user(self):
-        user = get_user_model().objects.create(
-            username="@raymond.penners", first_name="Before Update"
-        )
-        email = EmailAddress.objects.create(
-            user=user,
-            email="raymond.penners@example.com",
-            primary=True,
-            verified=True,
-        )
-        updated_first_name = "Updated"
-        get_user_model().objects.filter(id=user.id).update(
-            first_name=updated_first_name
-        )
+def test_set_primary_unverified(auth_client, user):
+    secondary = EmailAddress.objects.create(
+        email="secondary@email.org", user=user, verified=False, primary=False
+    )
+    resp = auth_client.post(
+        reverse("account_email"),
+        {"action_primary": "", "email": secondary.email},
+    )
+    primary = EmailAddress.objects.get(email=user.email)
+    secondary.refresh_from_db()
+    assert not secondary.primary
+    assert primary.primary
+    assertTemplateUsed(resp, "account/messages/unverified_primary_email.txt")
 
-        email.set_as_primary()
 
-        user.refresh_from_db()
-        self.assertEqual(user.first_name, updated_first_name)
+def test_set_primary(auth_client, user):
+    primary = EmailAddress.objects.get(email=user.email)
+    secondary = EmailAddress.objects.create(
+        email="secondary@email.org", user=user, verified=True, primary=False
+    )
+    resp = auth_client.post(
+        reverse("account_email"),
+        {"action_primary": "", "email": secondary.email},
+    )
+    primary.refresh_from_db()
+    secondary.refresh_from_db()
+    assert not primary.primary
+    assert secondary.primary
+    assertTemplateUsed(resp, "account/messages/primary_email_set.txt")
 
-    @override_settings(ACCOUNT_USER_MODEL_EMAIL_FIELD=None)
-    def test_set_email_as_primary_doesnt_override_existed_changes_on_the_user_for_user_model_without_email_field(
-        self,
-    ):
-        self.test_set_email_as_primary_doesnt_override_existed_changes_on_the_user()
+
+def test_verify(auth_client, user):
+    secondary = EmailAddress.objects.create(
+        email="secondary@email.org", user=user, verified=False, primary=False
+    )
+    resp = auth_client.post(
+        reverse("account_email"),
+        {"action_send": "", "email": secondary.email},
+    )
+    assertTemplateUsed(resp, "account/messages/email_confirmation_sent.txt")
+
+
+def test_verify_unknown_email(auth_client, user):
+    auth_client.post(
+        reverse("account_email"),
+        {"action_send": "", "email": "email@unknown.org"},
+    )
+    # This unknown email address must not be implicitly added.
+    assert EmailAddress.objects.filter(user=user).count() == 1
+
+
+def test_add_with_two_limiter(auth_client, user, settings):
+    EmailAddress.objects.create(
+        email="secondary@email.org", user=user, verified=False, primary=False
+    )
+    settings.ACCOUNT_MAX_EMAIL_ADDRESSES = 2
+    resp = auth_client.post(
+        reverse("account_email"), {"action_add": "", "email": "john3@example.org"}
+    )
+    assertTemplateNotUsed(resp, "account/messages/email_confirmation_sent.txt")
+
+
+def test_add_with_none_limiter(auth_client, settings):
+    settings.ACCOUNT_MAX_EMAIL_ADDRESSES = None
+    resp = auth_client.post(
+        reverse("account_email"), {"action_add": "", "email": "john3@example.org"}
+    )
+    assertTemplateUsed(resp, "account/messages/email_confirmation_sent.txt")
+
+
+def test_add_with_zero_limiter(auth_client, settings):
+    settings.ACCOUNT_MAX_EMAIL_ADDRESSES = 0
+    resp = auth_client.post(
+        reverse("account_email"), {"action_add": "", "email": "john3@example.org"}
+    )
+    assertTemplateUsed(resp, "account/messages/email_confirmation_sent.txt")
+
+
+@pytest.mark.parametrize("has_email_field", [True, False])
+def test_set_email_as_primary_doesnt_override_existing_changes_on_the_user(
+    db, has_email_field, settings
+):
+    if not has_email_field:
+        settings.ACCOUNT_USER_MODEL_EMAIL_FIELD = None
+    user = get_user_model().objects.create(
+        username="@raymond.penners", first_name="Before Update"
+    )
+    email = EmailAddress.objects.create(
+        user=user,
+        email="raymond.penners@example.com",
+        primary=True,
+        verified=True,
+    )
+    updated_first_name = "Updated"
+    get_user_model().objects.filter(id=user.id).update(first_name=updated_first_name)
+
+    email.set_as_primary()
+
+    user.refresh_from_db()
+    assert user.first_name == updated_first_name
 
 
 def test_delete_email_changes_user_email(user_factory, client, email_factory):

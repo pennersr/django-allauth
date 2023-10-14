@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from allauth.socialaccount.providers.auth0.provider import Auth0Provider
+from allauth.socialaccount.providers.ebay.provider import EBayProvider
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase
 
 
-class Auth0Tests(OAuth2TestsMixin, TestCase):
+class EbayTests(OAuth2TestsMixin, TestCase):
     provider_id = Auth0Provider.id
 
     def get_mocked_response(self):

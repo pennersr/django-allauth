@@ -12,24 +12,41 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class EBayOAuth2Adapter(OAuth2Adapter):
     provider_id = EBayProvider.id
-    access_token_url = "EBAY_ACCESS_TOKEN_URL"
-    authorize_url = "EBAY_AUTHORIZE_URL"
-    profile_url = "EBAY_PROFILE_URL"
+    production_access_token_url = "https://api.ebay.com/identity/v1/oauth2/token"
+    sandbox_access_token_url = "https://api.sandbox.ebay.com/identity/v1/oauth2/token"
+    production_authorize_url = "https://auth.ebay.com/oauth2/authorize"
+    sandbox_authorize_url = "https://auth.sandbox.ebay.com/oauth2/authorize"
 
-    # supports_state = True
+    grant_type = "authorization_code"
+    scope = ["https://api.ebay.com/oauth/api_scope"]
 
-    # settings = app_settings.PROVIDERS.get(provider_id, {})
-    # provider_base_url = settings.get("AUTH0_URL")
+    supports_state = False
 
-    # access_token_url = "{0}/oauth/token".format(provider_base_url)
-    # authorize_url = "{0}/authorize".format(provider_base_url)
-    # profile_url = "{0}/userinfo".format(provider_base_url)
+    def complete_login(self, request, app, token, **kwargs):
+        headers = {
+            "Authorization": f"Bearer {token.token}",
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        }
+        resp = requests.get("https://api.ebay.com/oauth/api_scope", headers=headers)
 
-    # def complete_login(self, request, app, token, response):
-    #     extra_data = requests.get(
-    #         self.profile_url, params={"access_token": token.token}
-    #     ).json()
-    #     return self.get_provider().sociallogin_from_response(request, extra_data)
+        resp.raise_for_status()
+        data = resp.json()
+        return self.get_provider().sociallogin_from_response(request, data)
+
+    def get_access_token_url(self, request, app):
+        return (
+            self.production_access_token_url
+            if app.sandbox
+            else self.sandbox_access_token_url
+        )
+
+    def get_authorize_url(self, request, app):
+        return (
+            self.production_authorize_url
+            if not app.sandbox
+            else self.sandbox_authorize_url
+        )
 
 
 oauth2_login = OAuth2LoginView.adapter_view(EBayOAuth2Adapter)

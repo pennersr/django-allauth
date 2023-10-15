@@ -3,14 +3,15 @@
 {% load account %}
 {% user_display user as user_display %}
 
+{% block content %}
 Hello {{ user_display }},
 
 We wanted to let you know that there has been a recent change to your account information.
 
 Here are the details of the change:
 
-{% block content %}
-{% endblock %}
+{% block notification_message %}
+{% endblock notification_message%}
 
 Change details
 Time: {{timestamp}}
@@ -20,4 +21,4 @@ Browser agent : {{browser_agent}}
 
 If this change was not made by you, please contact us immediately at support of {{site_name}}.
 
-
+{% endblock %}

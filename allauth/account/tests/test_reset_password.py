@@ -294,3 +294,28 @@ class ResetPasswordTests(TestCase):
         user = self._create_user(password=password)
         self.client.force_login(user)
         return user
+
+
+def test_notification_on_password_reset(user_factory, client):
+    user = user_factory(
+        email="john.doe@test.com",
+        username="john.doe",
+        password="password",
+        commit=True,
+        email_verified=True,
+    )
+    client.force_login(user)
+
+    client.post(
+        reverse("account_change_password"),
+        data={
+            "oldpassword": "password",
+            "password1": "change_password",
+            "password2": "change_password",
+        },
+        **{
+            "HTTP_USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
+        }
+    )
+    assert len(mail.outbox) == 1
+    assert "Your password has been changed" in mail.outbox[0].body

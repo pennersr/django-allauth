@@ -1,7 +1,7 @@
 import html
 import json
 import warnings
-from datetime import datetime, timedelta
+from datetime import timedelta
 from urllib.parse import urlparse
 
 from django import forms
@@ -763,12 +763,15 @@ class DefaultAccountAdapter(object):
 
     def send_notification_mail(self, template_prefix, user, context):
         from allauth.account.models import EmailAddress
+
         if app_settings.ACCOUNT_EMAIL_NOTIFICATIONS:
-            context |= {
-                "timestamp": timezone.now(), 
-                "ip": self.get_client_ip(self.request),
-                "browser_agent": self.get_browser_user_agent(self.request),
-            }
+            context.update(
+                {
+                    "timestamp": timezone.now(),
+                    "ip": self.get_client_ip(self.request),
+                    "browser_agent": self.get_browser_user_agent(self.request),
+                }
+            )
             email = EmailAddress.objects.get_primary(user)
             if email:
                 self.send_mail(template_prefix, email.email, context)

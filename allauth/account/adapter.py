@@ -693,7 +693,7 @@ class DefaultAccountAdapter(object):
             ip = request.META.get("REMOTE_ADDR")
         return ip
 
-    def get_browser_user_agent(self, request):
+    def get_http_user_agent(self, request):
         return request.META["HTTP_USER_AGENT"]
 
     def generate_emailconfirmation_key(self, email):
@@ -738,9 +738,10 @@ class DefaultAccountAdapter(object):
         if app_settings.ACCOUNT_EMAIL_NOTIFICATIONS:
             context.update(
                 {
+                    "current_site": get_current_site(self.request),
                     "timestamp": timezone.now(),
                     "ip": self.get_client_ip(self.request),
-                    "browser_agent": self.get_browser_user_agent(self.request),
+                    "user_agent": self.get_http_user_agent(self.request),
                 }
             )
             email = EmailAddress.objects.get_primary(user)

@@ -1,24 +1,18 @@
 {% extends "account/email/base_message.txt" %}
-{% load i18n %}
 {% load account %}
-{% user_display user as user_display %}
+{% load i18n %}
 
-{% block content %}
-Hello {{ user_display }},
+{% block content %}{% autoescape off %}{% user_display user as user_display %}{% blocktrans with site_name=current_site.name %}Greetings {{ user_display }},
 
-We wanted to let you know that there has been a recent change to your account information.
-
-Here are the details of the change:
+You are receiving this mail because the following change was made to your account:{% endblocktrans %}
 
 {% block notification_message %}
 {% endblock notification_message%}
 
-Change details
-Time: {{timestamp}}
-IP address : {{ip}}
-Browser agent : {{browser_agent}}
+{% blocktrans with site_name=current_site.name %}
+Change details:
+- When: {{timestamp}}
+- From what IP address : {{ip}}
+- The browser that was used : {{user_agent}}
 
-
-If this change was not made by you, please contact us immediately at support of {{site_name}}.
-
-{% endblock %}
+If this change was not made by you, please contact us immediately at support of {{site_name}}.{% endblocktrans %}{% endautoescape %}{% endblock %}

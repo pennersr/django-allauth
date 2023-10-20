@@ -299,9 +299,7 @@ class ResetPasswordTests(TestCase):
 def test_notification_on_password_reset(user_factory, client):
     user = user_factory(
         email="john.doe@test.com",
-        username="john.doe",
         password="password",
-        commit=True,
         email_verified=True,
     )
     client.force_login(user)
@@ -318,4 +316,5 @@ def test_notification_on_password_reset(user_factory, client):
         }
     )
     assert len(mail.outbox) == 1
+    print(mail.outbox[0].body)
     assert "Your password has been changed" in mail.outbox[0].body

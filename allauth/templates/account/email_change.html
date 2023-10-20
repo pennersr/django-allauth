@@ -19,7 +19,7 @@
                 {% trans 'Your email address is still pending verification:' %} <a href="mailto:{{ new_emailaddress.email }}">{{ new_emailaddress.email }}</a>
             </p>
             {% url 'account_email' as action_url %}
-            {% element form method="post" action="" tags="button-only" no_visible_fields=True %}
+            {% element form method="post" action=action_url tags="button-only" no_visible_fields=True %}
                 {% slot body %}
                     {% csrf_token %}
                     <input type="hidden" name="email" value="{{ new_emailaddress.email }}">

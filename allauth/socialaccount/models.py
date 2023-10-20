@@ -10,7 +10,11 @@ from django.utils.translation import gettext_lazy as _
 
 import allauth.app_settings
 from allauth.account.models import EmailAddress
-from allauth.account.utils import get_next_redirect_url, setup_user_email
+from allauth.account.utils import (
+    filter_users_by_email,
+    get_next_redirect_url,
+    setup_user_email,
+)
 from allauth.core import context
 from allauth.socialaccount import signals
 
@@ -328,16 +332,13 @@ class SocialLogin(object):
 
     def _lookup_by_email(self):
         emails = [e.email for e in self.email_addresses if e.verified]
-        if not emails:
-            return
-        address = (
-            EmailAddress.objects.lookup(emails).order_by("-verified", "user_id").first()
-        )
-        if address:
-            if app_settings.EMAIL_AUTHENTICATION_AUTO_CONNECT:
-                self.connect(context.request, address.user)
-            else:
-                self.user = address.user
+        for email in emails:
+            users = filter_users_by_email(email, is_active=True, prefer_verified=True)
+            if users:
+                self.user = users[0]
+                if app_settings.EMAIL_AUTHENTICATION_AUTO_CONNECT:
+                    self.connect(context.request, self.user)
+                return
 
     def get_redirect_url(self, request):
         url = self.state.get("next")

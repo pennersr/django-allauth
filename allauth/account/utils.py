@@ -555,9 +555,7 @@ def assess_unique_email(email) -> Optional[bool]:
     False -- email is already in use
     None -- email is in use, but we should hide that using email verification.
     """
-    from .models import EmailAddress
-
-    if not EmailAddress.objects.lookup([email]).exists():
+    if not filter_users_by_email(email):
         # All good.
         return True
     elif not app_settings.PREVENT_ENUMERATION:

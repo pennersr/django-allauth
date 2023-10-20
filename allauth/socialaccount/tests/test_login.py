@@ -1,6 +1,7 @@
 import copy
 from unittest.mock import patch
 
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -13,6 +14,7 @@ from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.models import SocialAccount
 
 
+@pytest.mark.parametrize("with_emailaddress", [False, True])
 @pytest.mark.parametrize("auto_connect", [False, True])
 @pytest.mark.parametrize("setting", ["off", "on-global", "on-provider"])
 def test_email_authentication(
@@ -25,6 +27,7 @@ def test_email_authentication(
     rf,
     mailoutbox,
     auto_connect,
+    with_emailaddress,
 ):
     """Tests that when an already existing email is given at the social signup
     form, enumeration preventation kicks in.
@@ -48,7 +51,7 @@ def test_email_authentication(
         settings.SOCIALACCOUNT_EMAIL_AUTHENTICATION = False
     settings.SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = auto_connect
 
-    user = user_factory()
+    user = user_factory(with_emailaddress=with_emailaddress)
 
     sociallogin = sociallogin_factory(email=user.email, provider="unittest-server")
 
@@ -69,7 +72,12 @@ def test_email_authentication(
         assert not added_signal.called
         assert not updated_signal.called
     else:
-        assert resp["location"] == "/accounts/profile/"
+        if with_emailaddress:
+            assert resp["location"] == "/accounts/profile/"
+        else:
+            # user.email is set, but not verified.
+            assert resp["location"] == reverse("account_email_verification_sent")
+        assert get_user_model().objects.count() == 1
         assert SocialAccount.objects.filter(user=user.pk).exists() == auto_connect
         assert added_signal.called == auto_connect
         assert not updated_signal.called

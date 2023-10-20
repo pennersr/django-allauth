@@ -35,6 +35,7 @@ def user_factory(email_factory, db, user_password):
         with_email=True,
         email_verified=True,
         password=None,
+        with_emailaddress=True,
     ):
         if not username:
             username = uuid.uuid4().hex
@@ -49,7 +50,7 @@ def user_factory(email_factory, db, user_password):
         user_email(user, email or "")
         if commit:
             user.save()
-            if email:
+            if email and with_emailaddress:
                 EmailAddress.objects.create(
                     user=user, email=email, verified=email_verified, primary=True
                 )

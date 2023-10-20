@@ -9,6 +9,8 @@ Note worthy changes
   Django had no ``JSONField`` support. Now, this field is changed to use the
   official ``JSONField()``. Migrations are in place.
 
+- Officially support Django 5.0.
+
 
 Backwards incompatible changes
 ------------------------------

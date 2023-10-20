@@ -1,8 +1,8 @@
+from django.contrib.auth import get_user_model
 from django.test.utils import override_settings
 
 from allauth.socialaccount.models import SocialAccount
 from allauth.tests import TestCase
-from allauth.utils import get_user_model
 
 
 class UtilTests(TestCase):

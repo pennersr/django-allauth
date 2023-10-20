@@ -1,5 +1,6 @@
 import json
 
+from django.contrib.auth import get_user_model
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -9,7 +10,6 @@ from allauth.account.models import EmailAddress
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase, patch
-from allauth.utils import get_user_model
 
 from .provider import FacebookProvider
 

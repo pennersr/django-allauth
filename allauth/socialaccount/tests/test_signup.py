@@ -1,4 +1,5 @@
 import django
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -16,7 +17,6 @@ from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.models import SocialAccount, SocialApp, SocialLogin
 from allauth.socialaccount.views import signup
 from allauth.tests import TestCase
-from allauth.utils import get_user_model
 
 
 class SignupTests(TestCase):

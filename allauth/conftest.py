@@ -2,12 +2,13 @@ import uuid
 from contextlib import contextmanager
 from unittest.mock import patch
 
+from django.contrib.auth import get_user_model
+
 import pytest
 
 from allauth.account.models import EmailAddress
 from allauth.account.utils import user_email, user_username
 from allauth.core import context
-from allauth.utils import get_user_model
 
 
 @pytest.fixture

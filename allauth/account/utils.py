@@ -5,7 +5,7 @@ from typing import Optional
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.core.exceptions import FieldDoesNotExist
 from django.db import models
 from django.db.models import Q
@@ -18,7 +18,6 @@ from allauth.account.models import Login
 from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.utils import (
     get_request_param,
-    get_user_model,
     import_callable,
     valid_email_or_none,
 )

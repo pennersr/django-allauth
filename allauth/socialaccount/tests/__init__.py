@@ -7,6 +7,7 @@ import warnings
 from urllib.parse import parse_qs, urlparse
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.test import RequestFactory
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -25,7 +26,6 @@ from allauth.tests import (
     mocked_response,
     patch,
 )
-from allauth.utils import get_user_model
 
 
 def setup_app(provider_id):

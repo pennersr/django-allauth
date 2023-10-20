@@ -15,10 +15,10 @@ class Migration(migrations.Migration):
         ]
         if app_settings.SITES_ENABLED
         else []
-        + [
-            migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ]
-    )
+    ) + [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+    ]
+    
 
     operations = [
         migrations.CreateModel(

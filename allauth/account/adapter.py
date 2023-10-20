@@ -31,7 +31,10 @@ from django.utils.translation import gettext_lazy as _
 
 from allauth import app_settings as allauth_app_settings
 from allauth.account import signals
-from allauth.account.app_settings import EmailVerificationMethod
+from allauth.account.app_settings import (
+    AuthenticationMethod,
+    EmailVerificationMethod,
+)
 from allauth.core import context, ratelimit
 from allauth.utils import (
     build_absolute_uri,
@@ -87,6 +90,35 @@ class DefaultAccountAdapter(object):
         if verified_email:
             ret = verified_email.lower() == email.lower()
         return ret
+
+    def can_delete_email(self, email_address):
+        from allauth.account.models import EmailAddress
+
+        has_other = (
+            EmailAddress.objects.filter(user_id=email_address.user_id)
+            .exclude(pk=email_address.pk)
+            .exists()
+        )
+        login_by_email = (
+            app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL
+        )
+        if email_address.primary:
+            if has_other:
+                # Don't allow, let the user mark one of the others as primary
+                # first.
+                return False
+            elif login_by_email:
+                # Last email & login is by email, prevent dangling account.
+                return False
+            return True
+        elif has_other:
+            # Account won't be dangling.
+            return True
+        elif login_by_email:
+            # This is the last email.
+            return False
+        else:
+            return True
 
     def format_email_subject(self, subject):
         prefix = app_settings.EMAIL_SUBJECT_PREFIX

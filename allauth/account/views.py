@@ -523,8 +523,9 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
     def _action_remove(self, request, *args, **kwargs):
         email_address = self._get_email_address(request)
         if email_address:
-            if email_address.primary:
-                get_adapter().add_message(
+            adapter = get_adapter()
+            if not adapter.can_delete_email(email_address):
+                adapter.add_message(
                     request,
                     messages.ERROR,
                     "account/messages/cannot_delete_primary_email.txt",
@@ -538,7 +539,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                     user=request.user,
                     email_address=email_address,
                 )
-                get_adapter().add_message(
+                adapter.add_message(
                     request,
                     messages.SUCCESS,
                     "account/messages/email_deleted.txt",

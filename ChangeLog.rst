@@ -11,6 +11,11 @@ Note worthy changes
 
 - Officially support Django 5.0.
 
+- In previous versions, users could never remove their primary email address.
+  This is constraint is now relaxed. In case the email address is not required,
+  for example, because the user logs in by username, removal of the email
+  address is allowed.
+
 
 Backwards incompatible changes
 ------------------------------

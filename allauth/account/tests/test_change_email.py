@@ -9,26 +9,9 @@ from django.urls import reverse
 import pytest
 from pytest_django.asserts import assertTemplateNotUsed, assertTemplateUsed
 
+from allauth.account.app_settings import AuthenticationMethod
 from allauth.account.models import EmailAddress, EmailConfirmationHMAC
 from allauth.account.utils import user_email
-
-
-# class ChangeEmailTests(TestCase):
-#     def setUp(self):
-#         User = get_user_model()
-#         self.user = User.objects.create(username="john", email="john1@example.org")
-#         self.user.set_password("doe")
-#         self.user.save()
-#         self.email_address = EmailAddress.objects.create(
-#             user=self.user, email=self.user.email, verified=True, primary=True
-#         )
-#         self.email_address2 = EmailAddress.objects.create(
-#             user=self.user,
-#             email="john2@example.org",
-#             verified=False,
-#             primary=False,
-#         )
-#         self.client.login(username="john", password="doe")
 
 
 def test_ajax_get(auth_client, user):
@@ -76,16 +59,8 @@ def test_ajax_add_invalid(auth_client):
     assert "valid" in data["form"]["fields"]["email"]["errors"][0]
 
 
-def test_remove_primary(auth_client, user):
-    resp = auth_client.post(
-        reverse("account_email"),
-        {"action_remove": "", "email": user.email},
-    )
-    assert EmailAddress.objects.filter(email=user.email).exists()
-    assertTemplateUsed(resp, "account/messages/cannot_delete_primary_email.txt")
-
-
-def test_ajax_remove_primary(auth_client, user):
+def test_ajax_remove_primary(auth_client, user, settings):
+    settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
     resp = auth_client.post(
         reverse("account_email"),
         {"action_remove": "", "email": user.email},
@@ -320,3 +295,57 @@ def test_add_not_allowed(
         assert resp.context["form"].errors == {
             "email": ["A user is already registered with this email address."]
         }
+
+
+@pytest.mark.parametrize(
+    "authentication_method,primary_email,secondary_emails,delete_email,success",
+    [
+        (AuthenticationMethod.EMAIL, "pri@mail", ["sec@mail"], "pri@mail", False),
+        (AuthenticationMethod.EMAIL, "pri@mail", ["sec@mail"], "sec@mail", True),
+        (AuthenticationMethod.EMAIL, "pri@mail", [], "pri@mail", False),
+        (AuthenticationMethod.USERNAME, "pri@mail", ["sec@mail"], "pri@mail", False),
+        (AuthenticationMethod.USERNAME, "pri@mail", ["sec@mail"], "sec@mail", True),
+        (AuthenticationMethod.USERNAME, "pri@mail", [], "pri@mail", True),
+        (
+            AuthenticationMethod.USERNAME_EMAIL,
+            "pri@mail",
+            ["sec@mail"],
+            "pri@mail",
+            False,
+        ),
+        (
+            AuthenticationMethod.USERNAME_EMAIL,
+            "pri@mail",
+            ["sec@mail"],
+            "sec@mail",
+            True,
+        ),
+        (AuthenticationMethod.USERNAME_EMAIL, "pri@mail", [], "pri@mail", True),
+    ],
+)
+def test_remove_email(
+    client,
+    settings,
+    user_factory,
+    primary_email,
+    secondary_emails,
+    delete_email,
+    authentication_method,
+    success,
+):
+    settings.ACCOUNT_AUTHENTICATION_METHOD = authentication_method
+    user = user_factory(email=primary_email)
+    EmailAddress.objects.bulk_create(
+        [
+            EmailAddress(user=user, email=email, primary=False, verified=False)
+            for email in secondary_emails
+        ]
+    )
+    client.force_login(user)
+    resp = client.post(
+        reverse("account_email"),
+        {"action_remove": "", "email": delete_email},
+    )
+    assert EmailAddress.objects.filter(email=delete_email).exists() == (not success)
+    if not success:
+        assertTemplateUsed(resp, "account/messages/cannot_delete_primary_email.txt")

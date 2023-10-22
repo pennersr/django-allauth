@@ -218,6 +218,14 @@ Available settings:
         # NOTE: Login is already protected via `ACCOUNT_LOGIN_ATTEMPTS_LIMIT`
     }
 
+``ACCOUNT_REAUTHENTICATION_TIMEOUT`` (default: ``300``)
+  Before asking the user to reauthenticate, we check if a successful
+  (re)authentication happened within the amount of seconds specified here, and
+  if that is the case, the new reauthentication flow is silently skipped.
+
+``ACCOUNT_REAUTHENTICATION_REQUIRED`` (default: ``False``)
+  Specifies whether or not reauthentication is required before the user can
+  alter his account.
 
 ``ACCOUNT_SESSION_REMEMBER`` (default: ``None``)
   Controls the life time of the session. Set to ``None`` to ask the user

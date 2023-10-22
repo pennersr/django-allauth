@@ -6,6 +6,7 @@ from django.urls import reverse
 
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
+from allauth.account.reauthentication import reauthenticate_then_callback
 from allauth.account.utils import (
     assess_unique_email,
     complete_signup,
@@ -15,11 +16,10 @@ from allauth.account.utils import (
     user_username,
 )
 from allauth.core.exceptions import ImmediateHttpResponse
-
-from . import app_settings, signals
-from .adapter import get_adapter
-from .models import SocialLogin
-from .providers.base import AuthError, AuthProcess
+from allauth.socialaccount import app_settings, signals
+from allauth.socialaccount.adapter import get_adapter
+from allauth.socialaccount.models import SocialLogin
+from allauth.socialaccount.providers.base import AuthError, AuthProcess
 
 
 def _process_auto_signup(request, sociallogin):
@@ -139,6 +139,11 @@ def render_authentication_error(
     )
 
 
+def resume_add_social_account(request, serialized_state):
+    sociallogin = SocialLogin.deserialize(serialized_state)
+    return _add_social_account(request, sociallogin)
+
+
 def _add_social_account(request, sociallogin):
     if request.user.is_anonymous:
         # This should not happen. Simply redirect to the connections
@@ -147,6 +152,14 @@ def _add_social_account(request, sociallogin):
             request, sociallogin.account
         )
         return HttpResponseRedirect(connect_redirect_url)
+    if account_settings.REAUTHENTICATION_REQUIRED:
+        response = reauthenticate_then_callback(
+            request,
+            lambda request: sociallogin.serialize(),
+            "allauth.socialaccount.helpers.resume_add_social_account",
+        )
+        if response:
+            return response
     level = messages.INFO
     message = "socialaccount/messages/account_connected.txt"
     action = None

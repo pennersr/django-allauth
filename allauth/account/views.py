@@ -17,14 +17,10 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic.base import TemplateResponseMixin, TemplateView, View
 from django.views.generic.edit import FormView
 
-from allauth.core import ratelimit
-from allauth.core.exceptions import ImmediateHttpResponse
-from allauth.decorators import rate_limit
-from allauth.utils import get_form_class, get_request_param
-
-from . import app_settings, signals
-from .adapter import get_adapter
-from .forms import (
+from allauth.account import app_settings, signals
+from allauth.account.adapter import get_adapter
+from allauth.account.decorators import reauthentication_required
+from allauth.account.forms import (
     AddEmailForm,
     ChangePasswordForm,
     LoginForm,
@@ -35,19 +31,30 @@ from .forms import (
     SignupForm,
     UserTokenForm,
 )
-from .models import EmailAddress, EmailConfirmation, EmailConfirmationHMAC
-from .utils import (
+from allauth.account.models import (
+    EmailAddress,
+    EmailConfirmation,
+    EmailConfirmationHMAC,
+)
+from allauth.account.reauthentication import (
+    record_authentication,
+    resume_request,
+)
+from allauth.account.utils import (
     complete_signup,
     get_login_redirect_url,
     get_next_redirect_url,
     logout_on_password_change,
     passthrough_next_redirect_url,
     perform_login,
-    record_authentication,
     send_email_confirmation,
     sync_user_email_addresses,
     url_str_to_user_pk,
 )
+from allauth.core import ratelimit
+from allauth.core.exceptions import ImmediateHttpResponse
+from allauth.decorators import rate_limit
+from allauth.utils import get_form_class, get_request_param
 
 
 INTERNAL_RESET_SESSION_KEY = "_password_reset_key"
@@ -450,6 +457,12 @@ confirm_email = ConfirmEmailView.as_view()
 
 
 @method_decorator(rate_limit(action="manage_email"), name="dispatch")
+@method_decorator(
+    reauthentication_required(
+        allow_get=True, enabled=lambda request: app_settings.REAUTHENTICATION_REQUIRED
+    ),
+    name="dispatch",
+)
 class EmailView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = (
         "account/email_change." if app_settings.CHANGE_EMAIL else "account/email."
@@ -995,6 +1008,9 @@ class ReauthenticateView(FormView):
 
     def form_valid(self, form):
         record_authentication(self.request, self.request.user)
+        response = resume_request(self.request)
+        if response:
+            return response
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):

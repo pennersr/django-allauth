@@ -82,7 +82,7 @@ def test_index(auth_client, user_with_totp):
 
 
 def test_deactivate_totp_success(auth_client, user_with_totp, user_password):
-    resp = auth_client.post(reverse("mfa_deactivate_totp"))
+    resp = auth_client.get(reverse("mfa_deactivate_totp"))
     assert resp.status_code == 302
     assert resp["location"].startswith(reverse("account_reauthenticate"))
     resp = auth_client.post(resp["location"], {"password": user_password})

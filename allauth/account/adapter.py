@@ -481,7 +481,7 @@ class DefaultAccountAdapter(object):
         return response
 
     def login(self, request, user):
-        from allauth.account.utils import record_authentication
+        from allauth.account.reauthentication import record_authentication
 
         # HACK: This is not nice. The proper Django way is to use an
         # authentication backend

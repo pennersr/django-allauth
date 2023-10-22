@@ -390,6 +390,10 @@ class AppSettings(object):
     def REAUTHENTICATION_TIMEOUT(self):
         return self._setting("REAUTHENTICATION_TIMEOUT", 300)
 
+    @property
+    def REAUTHENTICATION_REQUIRED(self):
+        return self._setting("REAUTHENTICATION_REQUIRED", False)
+
 
 _app_settings = AppSettings("ACCOUNT_")
 

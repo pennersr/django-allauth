@@ -190,25 +190,6 @@ class SignupTests(TestCase):
             resp = complete_social_login(request, sociallogin)
         return request, resp
 
-    def test_disconnect(self):
-        User = get_user_model()
-        # Some existig user
-        user = User()
-        user_username(user, "test")
-        user_email(user, "test@example.com")
-        user.set_password("test")
-        user.save()
-
-        account = SocialAccount.objects.create(uid="123", provider="twitter", user=user)
-
-        self.client.login(username=user.username, password=user.username)
-        resp = self.client.get(reverse("socialaccount_connections"))
-        self.assertTemplateUsed(resp, "socialaccount/connections.html")
-        resp = self.client.post(
-            reverse("socialaccount_connections"), {"account": account.pk}
-        )
-        self.assertFalse(SocialAccount.objects.filter(pk=account.pk).exists())
-
     @override_settings(
         ACCOUNT_EMAIL_REQUIRED=True,
         ACCOUNT_EMAIL_VERIFICATION="mandatory",

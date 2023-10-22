@@ -263,6 +263,22 @@ def test_add(auth_client, user, settings):
     assertTemplateUsed(resp, "account/messages/email_confirmation_sent.txt")
 
 
+def test_add_with_reauthentication(auth_client, user, user_password, settings):
+    settings.ACCOUNT_REAUTHENTICATION_REQUIRED = True
+    resp = auth_client.post(
+        reverse("account_email"),
+        {"action_add": "", "email": "john3@example.org"},
+    )
+    assert not EmailAddress.objects.filter(email="john3@example.org").exists()
+    assert resp.status_code == 302
+    assert resp["location"] == reverse("account_reauthenticate") + "?next=%2Femail%2F"
+    resp = auth_client.post(resp["location"], {"password": user_password})
+    assert EmailAddress.objects.filter(email="john3@example.org").exists()
+    assertTemplateUsed(resp, "account/messages/email_confirmation_sent.txt")
+    assert resp.status_code == 302
+    assert resp["location"] == reverse("account_email")
+
+
 @pytest.mark.parametrize(
     "prevent_enumeration",
     [

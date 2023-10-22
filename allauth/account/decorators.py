@@ -2,13 +2,15 @@ from functools import wraps
 
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from django.utils.http import urlencode
 
-from .models import EmailAddress
-from .utils import did_recently_authenticate, send_email_confirmation
+from allauth.account.models import EmailAddress
+from allauth.account.reauthentication import (
+    did_recently_authenticate,
+    suspend_request,
+)
+from allauth.account.utils import send_email_confirmation
 
 
 def verified_email_required(
@@ -43,27 +45,27 @@ def verified_email_required(
     return decorator
 
 
-def reauthentication_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME):
+def reauthentication_required(
+    function=None,
+    redirect_field_name=REDIRECT_FIELD_NAME,
+    allow_get=False,
+    enabled=None,
+):
     def decorator(view_func):
         @wraps(view_func)
         def _wrapper_view(request, *args, **kwargs):
-            path = request.get_full_path()
-            if request.user.is_anonymous:
-                redirect_url = (
-                    reverse("account_login")
-                    + "?"
-                    + urlencode({redirect_field_name: path})
-                )
-                return HttpResponseRedirect(redirect_url)
-
-            if not did_recently_authenticate(request):
-                redirect_url = (
-                    reverse("account_reauthenticate")
-                    + "?"
-                    + urlencode({redirect_field_name: path})
-                )
-                return HttpResponseRedirect(redirect_url)
-
+            pass_method = allow_get and request.method == "GET"
+            ena = (enabled is None) or (
+                enabled(request) if callable(enabled) else enabled
+            )
+            if ena and not pass_method:
+                if request.user.is_anonymous or not did_recently_authenticate(request):
+                    redirect_url = reverse(
+                        "account_login"
+                        if request.user.is_anonymous
+                        else "account_reauthenticate"
+                    )
+                    return suspend_request(request, redirect_url)
             return view_func(request, *args, **kwargs)
 
         return _wrapper_view

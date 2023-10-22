@@ -16,6 +16,10 @@ Note worthy changes
   for example, because the user logs in by username, removal of the email
   address is allowed.
 
+- Added a new setting ``ACCOUNT_REAUTHENTICATION_REQUIRED`` that, when enabled,
+  requires the user to reauthenticate before changes (such as changing the
+  primary email address, adding a new email address, etc.) can be performed.
+
 
 Backwards incompatible changes
 ------------------------------

@@ -522,6 +522,10 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
     def _get_email_address(self, request):
         email = request.POST["email"]
         try:
+            validate_email(email)
+        except ValidationError:
+            return None
+        try:
             return EmailAddress.objects.get_for_user(user=request.user, email=email)
         except EmailAddress.DoesNotExist:
             pass

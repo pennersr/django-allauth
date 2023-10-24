@@ -316,27 +316,27 @@ def test_add_not_allowed(
 @pytest.mark.parametrize(
     "authentication_method,primary_email,secondary_emails,delete_email,success",
     [
-        (AuthenticationMethod.EMAIL, "pri@mail", ["sec@mail"], "pri@mail", False),
-        (AuthenticationMethod.EMAIL, "pri@mail", ["sec@mail"], "sec@mail", True),
-        (AuthenticationMethod.EMAIL, "pri@mail", [], "pri@mail", False),
-        (AuthenticationMethod.USERNAME, "pri@mail", ["sec@mail"], "pri@mail", False),
-        (AuthenticationMethod.USERNAME, "pri@mail", ["sec@mail"], "sec@mail", True),
-        (AuthenticationMethod.USERNAME, "pri@mail", [], "pri@mail", True),
+        (AuthenticationMethod.EMAIL, "pri@ma.il", ["sec@ma.il"], "pri@ma.il", False),
+        (AuthenticationMethod.EMAIL, "pri@ma.il", ["sec@ma.il"], "sec@ma.il", True),
+        (AuthenticationMethod.EMAIL, "pri@ma.il", [], "pri@ma.il", False),
+        (AuthenticationMethod.USERNAME, "pri@ma.il", ["sec@ma.il"], "pri@ma.il", False),
+        (AuthenticationMethod.USERNAME, "pri@ma.il", ["sec@ma.il"], "sec@ma.il", True),
+        (AuthenticationMethod.USERNAME, "pri@ma.il", [], "pri@ma.il", True),
         (
             AuthenticationMethod.USERNAME_EMAIL,
-            "pri@mail",
-            ["sec@mail"],
-            "pri@mail",
+            "pri@ma.il",
+            ["sec@ma.il"],
+            "pri@ma.il",
             False,
         ),
         (
             AuthenticationMethod.USERNAME_EMAIL,
-            "pri@mail",
-            ["sec@mail"],
-            "sec@mail",
+            "pri@ma.il",
+            ["sec@ma.il"],
+            "sec@ma.il",
             True,
         ),
-        (AuthenticationMethod.USERNAME_EMAIL, "pri@mail", [], "pri@mail", True),
+        (AuthenticationMethod.USERNAME_EMAIL, "pri@ma.il", [], "pri@ma.il", True),
     ],
 )
 def test_remove_email(
@@ -365,3 +365,20 @@ def test_remove_email(
     assert EmailAddress.objects.filter(email=delete_email).exists() == (not success)
     if not success:
         assertTemplateUsed(resp, "account/messages/cannot_delete_primary_email.txt")
+
+
+@pytest.mark.parametrize(
+    "email,did_look_up",
+    [
+        ("valid@email.org", True),
+        ("not-an-email", False),
+    ],
+)
+def test_dont_lookup_invalid_email(auth_client, email, did_look_up):
+    with patch("allauth.account.views.EmailAddress.objects.get_for_user") as gfu_mock:
+        gfu_mock.side_effect = EmailAddress.DoesNotExist
+        auth_client.post(
+            reverse("account_email"),
+            {"action_remove": "", "email": email},
+        )
+        assert gfu_mock.called == did_look_up

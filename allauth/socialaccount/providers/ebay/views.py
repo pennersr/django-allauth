@@ -7,40 +7,31 @@ from django.conf import settings
 from allauth.socialaccount.providers.ebay.provider import EBayProvider
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
-    OAuth2CallbackView,
     OAuth2LoginView,
+    OAuth2CallbackView,
 )
-
-ENVIRONMENTS = {
-    "production": {
-        "auth_url": "https://auth.ebay.com/oauth2/authorize",
-        "token_url": "https://api.ebay.com/identity/v1/oauth2/token",
-    },
-    "sandbox": {
-        "auth_url": "https://auth.sandbox.ebay.com/oauth2/authorize",
-        "token_url": "https://api.sandbox.ebay.com/identity/v1/oauth2/token",
-    },
-}
-
-ENV = (
-    getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
-    .get("ebay", {})
-    .get("ENVIRONMENT", "production")
-)
-
-AUTH_URL = ENVIRONMENTS[ENV]["auth_url"]
-TOKEN_URL = ENVIRONMENTS[ENV]["token_url"]
+from .provider import eBayProvider
 
 
-class EBayOAuth2Adapter(OAuth2Adapter):
-    provider_id = EBayProvider.id
-    access_token_url = TOKEN_URL
-    authorize_url = AUTH_URL
+class eBayOAuth2Adapter(OAuth2Adapter):
+    provider_id = eBayProvider.id
 
-    grant_type = "authorization_code"
-    scope = ["https://api.ebay.com/oauth/api_scope"]
+    def __init__(self, request):
+        self.access_token_url = self.get_base_url() + "identity/v1/oauth2/token"
+        self.authorize_url = self.get_base_url() + "identity/v1/oauth2/authorize"
+        self.profile_url = self.get_base_url() + "commerce/identity/v1/user/"
+        # super().__init__(request)
 
-    supports_state = True
+    def get_environment(self):
+        app = self.get_provider().get_app(self.request)
+        return app.settings.get("environment", "production")
+
+    def get_base_url(self):
+        environment = self.get_environment()
+        if environment == "production":
+            return "https://api.ebay.com/"
+        else:
+            return "https://api.sandbox.ebay.com/"
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {
@@ -48,18 +39,19 @@ class EBayOAuth2Adapter(OAuth2Adapter):
             "Content-Type": "application/json",
             "Accept": "application/json",
         }
-        resp = requests.get(
-            "https://api.ebay.com/oauth/api_scope/identity", headers=headers
-        )
 
-        try:
-            resp.raise_for_status()
-        except requests.exceptions.HTTPError:
-            raise Exception(f"Error retrieving user data from eBay API: {resp.content}")
-
+        resp = requests.get(self.profile_url, headers=headers)
+        resp.raise_for_status()
         data = resp.json()
+        # resp = requests.get(
+        #     "https://api.ebay.com/oauth/api_scope/identity", headers=headers
+        # )
+
+        # resp.raise_for_status()
+
+        # data = resp.json()
         return self.get_provider().sociallogin_from_response(request, data)
 
 
-oauth2_login = OAuth2LoginView.adapter_view(EBayOAuth2Adapter)
-oauth2_callback = OAuth2CallbackView.adapter_view(EBayOAuth2Adapter)
+oauth2_login = OAuth2LoginView.adapter_view(eBayOAuth2Adapter)
+oauth2_callback = OAuth2CallbackView.adapter_view(eBayOAuth2Adapter)

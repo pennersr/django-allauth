@@ -19,6 +19,7 @@ stdenv.mkDerivation {
         python310Packages.python3-openid
         python310Packages.python3-saml
         python310Packages.qrcode
+        python310Packages.sphinx-rtd-theme
         python310Packages.requests-oauthlib
         python310Packages.tox
         sphinx

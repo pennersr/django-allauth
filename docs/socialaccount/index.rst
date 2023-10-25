@@ -6,6 +6,7 @@ Social Accounts
 
    introduction
    configuration
+   provider_configuration
    views
    templates
    forms

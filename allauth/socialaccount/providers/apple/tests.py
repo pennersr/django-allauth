@@ -107,12 +107,14 @@ def sign_id_token(payload):
                 "client_id": "app123id",
                 "key": "apple",
                 "secret": "dummy",
-                "certificate_key": """-----BEGIN PRIVATE KEY-----
+                "settings": {
+                    "certificate_key": """-----BEGIN PRIVATE KEY-----
 MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQg2+Eybl8ojH4wB30C
 3/iDkpsrxuPfs3DZ+3nHNghBOpmhRANCAAQSpo1eQ+EpNgQQyQVs/F27dkq3gvAI
 28m95JEk26v64YAea5NTH56mru30RDqTKPgRVi5qRu3XGyqy3mdb8gMy
 -----END PRIVATE KEY-----
 """,
+                },
             }
         }
     },

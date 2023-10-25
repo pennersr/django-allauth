@@ -28,13 +28,15 @@ Add the following configuration to your settings:
                  # Prefix in your App ID.
                 "key": "MEMAPPIDPREFIX",
 
-                # The certificate you downloaded when generating the key.
-                "certificate_key": """-----BEGIN PRIVATE KEY-----
+                "settings": {
+                    # The certificate you downloaded when generating the key.
+                    "certificate_key": """-----BEGIN PRIVATE KEY-----
     s3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr
     3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3
     c3ts3cr3t
     -----END PRIVATE KEY-----
     """
+                }
             }
         }
     }

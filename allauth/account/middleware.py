@@ -20,6 +20,11 @@ class AccountMiddleware:
             return exception.response
 
     def _remove_dangling_login(self, request, response):
+        content_type = response.headers.get("content-type")
+        if content_type:
+            content_type = content_type.partition(";")[0]
+        if content_type and content_type != "text/html":
+            return
         if request.path.startswith(settings.STATIC_URL) or request.path in [
             "/favicon.ico",
             "/robots.txt",

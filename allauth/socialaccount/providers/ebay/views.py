@@ -23,7 +23,7 @@ class eBayOAuth2Adapter(OAuth2Adapter):
         # super().__init__(request)
 
     def get_environment(self):
-        app = self.get_provider().get_app(self.request)
+        app = self.get_provider().app
         return app.settings.get("environment", "production")
 
     def get_base_url(self):

@@ -1,86 +1,68 @@
+from django.test import override_settings
 from allauth.socialaccount.providers.oauth2.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase
-
 from .provider import EbayProvider
 
 
 class EBayTests(OAuth2TestsMixin, TestCase):
-    provider_id = EBayProvider.id
+    provider_id = EbayProvider.id
 
-    def get_mocked_response(self):
-        return MockedResponse(
-            200,
-            """
-            {
-                "access_token": "test_token",
-                "expires_in": 3600,
-                "token_type": "Bearer",
-                "refresh_token": "test_refresh_token",
-                "userid": "test_user"
-            }
-        """,
+    def setUp(self):
+        self.app = SocialApp.objects.create(
+            provider=EbayProvider.id,
+            name="eBay",
+            client_id="test-client-id",
+            secret="test-secret",
         )
 
+    def get_mocked_response(self, account_type="business"):
+        if account_type == "business":
+            response_content = """
+            {
+                "userId": "businessUser",
+                "username": "Business User",
+                "accountType": "BUSINESS",
+                "businessAccount": {
+                    "email": "businessuser@example.com"
+                }
+            }
+            """
+        else:
+            response_content = """
+            {
+                "userId": "individualUser",
+                "username": "Indivudal User",
+                "accountType": "INDIVIDUAL",
+                "individualAccount": {
+                    "email": "studentuser@example.com"
+                }
+            }
+            """
+        return MockedResponse(200, response_content)
 
-# Storing expected response
+    @override_settings(EBAY_ENVIRONMENT="sandbox")
+    def test_login_sandbox(self):
+        response = self.client.get(reverse("ebay_login"))
+        self.assertEqual(
+            response.status_code, 302
+        )  # Assuming a redirect to the eBay auth page
 
-# { /* UserResponse */
-# "accountType" : "AccountTypeEnum : [INDIVIDUAL,BUSINESS]",
-# "businessAccount" :
-# { /* BusinessAccount */
-# "address" :
-# { /* Address */
-# "addressLine1" : "string",
-# "addressLine2" : "string",
-# "city" : "string",
-# "country" : "CountryCodeEnum : [AD,AE,AF...]",
-# "county" : "string",
-# "postalCode" : "string",
-# "stateOrProvince" : "string"},
-# "doingBusinessAs" : "string",
-# "email" : "string",
-# "name" : "string",
-# "primaryContact" :
-# { /* Contact */
-# "firstName" : "string",
-# "lastName" : "string"},
-# "primaryPhone" :
-# { /* Phone */
-# "countryCode" : "string",
-# "number" : "string",
-# "phoneType" : "string"},
-# "secondaryPhone" :
-# { /* Phone */
-# "countryCode" : "string",
-# "number" : "string",
-# "phoneType" : "string"},
-# "website" : "string"},
-# "individualAccount" :
-# { /* IndividualAccount */
-# "email" : "string",
-# "firstName" : "string",
-# "lastName" : "string",
-# "primaryPhone" :
-# { /* Phone */
-# "countryCode" : "string",
-# "number" : "string",
-# "phoneType" : "string"},
-# "registrationAddress" :
-# { /* Address */
-# "addressLine1" : "string",
-# "addressLine2" : "string",
-# "city" : "string",
-# "country" : "CountryCodeEnum : [AD,AE,AF...]",
-# "county" : "string",
-# "postalCode" : "string",
-# "stateOrProvince" : "string"},
-# "secondaryPhone" :
-# { /* Phone */
-# "countryCode" : "string",
-# "number" : "string",
-# "phoneType" : "string"}
-# },
-# "registrationMarketplaceId" : "MarketplaceIdEnum : [EBAY_AT,EBAY_AU,EBAY_BE...]",
-# "status" : "UserStatusEnum : [CONFIRMED,UNCONFIRMED,ACCOUNTONHOLD...]",
-# "userId" : "string",
-# "username" : "string"}
+    @override_settings(EBAY_ENVIRONMENT="production")
+    def test_login_production(self):
+        response = self.client.get(reverse("ebay_login"))
+        self.assertEqual(
+            response.status_code, 302
+        )  # Assuming a redirect to the eBay auth page
+
+    def test_account_data_extraction(self):
+        for account_type in ["business", "student"]:
+            mocked_response = self.get_mocked_response(account_type)
+            self.assertEqual(
+                self.provider.extract_common_fields(mocked_response.json()),
+                {
+                    "userId": f"{account_type}User",
+                    "username": f"{account_type.capitalize()} User",
+                    "accountType": account_type.upper(),
+                    "email": f"{account_type}user@example.com",
+                },
+            )

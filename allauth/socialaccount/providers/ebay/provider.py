@@ -21,7 +21,19 @@ class EbayProvider(OAuth2Provider):
         return str(data.get("userid"))
 
     def extract_common_fields(self, data):
-        return dict(email=data.get("email"), username=data.get("username"))
+        common_fields = {
+            "userId": data.get("userId"),
+            "username": data.get("username"),
+            "accountType": data.get("accountType"),
+        }
+
+        account_type = data.get("accountType")
+        if account_type == "BUSINESS":
+            common_fields["email"] = data.get("businessAccount", {}).get("email")
+        elif account_type == "INDIVIDUAL":
+            common_fields["email"] = data.get("individualAccount", {}).get("email")
+
+        return common_fields
 
 
 provider_classes = [EbayProvider]

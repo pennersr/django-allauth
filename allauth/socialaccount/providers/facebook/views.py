@@ -4,7 +4,11 @@ import logging
 import requests
 from datetime import timedelta
 
+from django import forms
+from django.core.cache import cache
+from django.core.exceptions import PermissionDenied
 from django.utils import timezone
+from django.views.generic import View
 
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
@@ -72,58 +76,104 @@ oauth2_login = OAuth2LoginView.adapter_view(FacebookOAuth2Adapter)
 oauth2_callback = OAuth2CallbackView.adapter_view(FacebookOAuth2Adapter)
 
 
-def login_by_token(request):
-    ret = None
-    auth_exception = None
-    if request.method == "POST":
+class LoginByTokenView(View):
+    def dispatch(self, request):
+        try:
+            return super().dispatch(request)
+        except (
+            requests.RequestException,
+            forms.ValidationError,
+            PermissionDenied,
+        ) as exc:
+            return render_authentication_error(
+                request, FacebookProvider.id, exception=exc
+            )
+
+    def get(self, request):
+        # If we leave out get().get() it will return a response with a 405, but
+        # we really want to show an authentication error.
+        raise PermissionDenied("405")
+
+    def post(self, request):
         form = FacebookConnectForm(request.POST)
-        if form.is_valid():
-            try:
-                adapter = get_adapter()
-                provider = adapter.get_provider(request, FacebookProvider.id)
-                login_options = provider.get_fb_login_options(request)
-                app = provider.app
-                access_token = form.cleaned_data["access_token"]
-                expires_at = None
-                if login_options.get("auth_type") == "reauthenticate":
-                    info = requests.get(
-                        GRAPH_API_URL + "/oauth/access_token_info",
-                        params={
-                            "client_id": app.client_id,
-                            "access_token": access_token,
-                        },
-                    ).json()
-                    nonce = provider.get_nonce(request, pop=True)
-                    ok = nonce and nonce == info.get("auth_nonce")
-                else:
-                    ok = True
-                if ok and provider.get_settings().get("EXCHANGE_TOKEN"):
-                    resp = requests.get(
-                        GRAPH_API_URL + "/oauth/access_token",
-                        params={
-                            "grant_type": "fb_exchange_token",
-                            "client_id": app.client_id,
-                            "client_secret": app.secret,
-                            "fb_exchange_token": access_token,
-                        },
-                    ).json()
-                    access_token = resp["access_token"]
-                    expires_in = resp.get("expires_in")
-                    if expires_in:
-                        expires_at = timezone.now() + timedelta(seconds=int(expires_in))
-                if ok:
-                    token = SocialToken(
-                        app=app, token=access_token, expires_at=expires_at
-                    )
-                    login = fb_complete_login(request, app, token)
-                    login.token = token
-                    login.state = SocialLogin.state_from_request(request)
-                    ret = complete_social_login(request, login)
-            except requests.RequestException as e:
-                logger.exception("Error accessing FB user profile")
-                auth_exception = e
-    if not ret:
-        ret = render_authentication_error(
-            request, FacebookProvider.id, exception=auth_exception
+        if not form.is_valid():
+            raise forms.ValidationError()
+
+        adapter = get_adapter()
+        provider = adapter.get_provider(request, FacebookProvider.id)
+        login_options = provider.get_fb_login_options(request)
+        app = provider.app
+        access_token = form.cleaned_data["access_token"]
+
+        self.inspect_token(provider, access_token)
+
+        expires_at = None
+        if login_options.get("auth_type") == "reauthenticate":
+            info = requests.get(
+                GRAPH_API_URL + "/oauth/access_token_info",
+                params={
+                    "client_id": app.client_id,
+                    "access_token": access_token,
+                },
+            ).json()
+            nonce = provider.get_nonce(request, pop=True)
+            ok = nonce and nonce == info.get("auth_nonce")
+        else:
+            ok = True
+        if ok and provider.get_settings().get("EXCHANGE_TOKEN"):
+            resp = requests.get(
+                GRAPH_API_URL + "/oauth/access_token",
+                params={
+                    "grant_type": "fb_exchange_token",
+                    "client_id": app.client_id,
+                    "client_secret": app.secret,
+                    "fb_exchange_token": access_token,
+                },
+            ).json()
+            access_token = resp["access_token"]
+            expires_in = resp.get("expires_in")
+            if expires_in:
+                expires_at = timezone.now() + timedelta(seconds=int(expires_in))
+        if ok:
+            token = SocialToken(app=app, token=access_token, expires_at=expires_at)
+            login = fb_complete_login(request, app, token)
+            login.token = token
+            login.state = SocialLogin.state_from_request(request)
+            ret = complete_social_login(request, login)
+        return ret
+
+    def get_app_token(self, provider):
+        app = provider.app
+        cache_key = f"allauth.facebook.app_token[{app.client_id}]"
+        app_token = cache.get(cache_key)
+        if not app_token:
+            resp = requests.get(
+                GRAPH_API_URL + "/oauth/access_token",
+                params={
+                    "client_id": app.client_id,
+                    "client_secret": app.secret,
+                    "grant_type": "client_credentials",
+                },
+            )
+            resp.raise_for_status()
+            data = resp.json()
+            app_token = data["access_token"]
+            timeout = provider.get_settings().get("APP_TOKEN_CACHE_TIMEOUT", 300)
+            cache.set(cache_key, app_token, timeout=timeout)
+        return app_token
+
+    def inspect_token(self, provider, input_token):
+        app_token = self.get_app_token(provider)
+        resp = requests.get(
+            GRAPH_API_URL + "/debug_token",
+            params={"input_token": input_token, "access_token": app_token},
         )
-    return ret
+        resp.raise_for_status()
+        data = resp.json()["data"]
+        if not data["is_valid"]:
+            raise PermissionDenied("token is not valid")
+        if data["app_id"] != provider.app.client_id or not data["is_valid"]:
+            raise PermissionDenied("token app_id mismatch")
+
+
+login_by_token = LoginByTokenView.as_view()

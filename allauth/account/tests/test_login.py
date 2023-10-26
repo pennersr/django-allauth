@@ -106,6 +106,11 @@ class LoginTests(TestCase):
     @override_settings(
         ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.OPTIONAL,
         ACCOUNT_LOGIN_ATTEMPTS_LIMIT=3,
+        CACHES={
+            "default": {
+                "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+            }
+        },
     )
     def test_login_failed_attempts_exceeded(self):
         user = get_user_model().objects.create(username="john")
@@ -146,6 +151,11 @@ class LoginTests(TestCase):
         ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL,
         ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.MANDATORY,
         ACCOUNT_LOGIN_ATTEMPTS_LIMIT=1,
+        CACHES={
+            "default": {
+                "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+            }
+        },
     )
     def test_login_failed_attempts_exceeded_cleared_on_password_reset(self):
         # Ensure that login attempts, once they hit the limit,

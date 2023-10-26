@@ -89,8 +89,17 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
         with patch(
             "allauth.socialaccount.providers.facebook.views.requests"
         ) as requests_mock:
-            mocks = [self.get_mocked_response().json()]
-            requests_mock.get.return_value.json = lambda: mocks.pop()
+            mocks = [
+                {"access_token": "app_token"},
+                {
+                    "data": {
+                        "app_id": "app123id",
+                        "is_valid": True,
+                    }
+                },
+                self.get_mocked_response().json(),
+            ]
+            requests_mock.get.return_value.json = lambda: mocks.pop(0)
             resp = self.client.post(
                 reverse("facebook_login_by_token"),
                 data={"access_token": "dummy"},
@@ -114,8 +123,18 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
         with patch(
             "allauth.socialaccount.providers.facebook.views.requests"
         ) as requests_mock:
-            mocks = [self.get_mocked_response().json(), {"auth_nonce": nonce}]
-            requests_mock.get.return_value.json = lambda: mocks.pop()
+            mocks = [
+                {"access_token": "app_token"},
+                {
+                    "data": {
+                        "app_id": "app123id",
+                        "is_valid": True,
+                    }
+                },
+                {"auth_nonce": nonce},
+                self.get_mocked_response().json(),
+            ]
+            requests_mock.get.return_value.json = lambda: mocks.pop(0)
             resp = self.client.post(
                 reverse("facebook_login_by_token"),
                 data={"access_token": "dummy"},

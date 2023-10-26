@@ -85,3 +85,13 @@ def reauthentication_bypass():
 @pytest.fixture(autouse=True)
 def clear_context_request():
     context._request_var.set(None)
+
+
+@pytest.fixture
+def enable_cache(settings):
+    settings.CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        }
+    }
+    yield

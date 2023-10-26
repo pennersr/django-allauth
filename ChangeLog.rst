@@ -35,6 +35,18 @@ Backwards incompatible changes
   provider. Both providers were targeting the same goal.
 
 
+Security notice
+---------------
+
+- Facebook: Using the JS SDK flow, it was possible to post valid access tokens
+  originating from other apps. Facebook user IDs are scoped per app. By default
+  that user ID (not the email address) is used as key while
+  authenticating. Therefore, such access tokens can not be abused by
+  default. However, in case ``SOCIALACCOUNT_EMAIL_AUTHENTICATION`` was
+  explicitly enabled for the Facebook provider, these tokens could be used to
+  login.
+
+
 0.57.0 (2023-09-24)
 *******************
 

@@ -8,6 +8,7 @@ from django.contrib.sessions.middleware import SessionMiddleware
 from django.urls import reverse
 
 import pytest
+from pytest_django.asserts import assertTemplateUsed
 
 from allauth.core import context
 from allauth.socialaccount.helpers import complete_social_login
@@ -81,3 +82,9 @@ def test_email_authentication(
         assert SocialAccount.objects.filter(user=user.pk).exists() == auto_connect
         assert added_signal.called == auto_connect
         assert not updated_signal.called
+
+
+def test_login_cancelled(client):
+    resp = client.get(reverse("socialaccount_login_cancelled"))
+    assert resp.status_code == 200
+    assertTemplateUsed(resp, "socialaccount/login_cancelled.html")

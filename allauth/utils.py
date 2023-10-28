@@ -8,7 +8,6 @@ import unicodedata
 from collections import OrderedDict
 from urllib.parse import urlsplit
 
-import django
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
@@ -214,10 +213,7 @@ def deserialize_instance(model, data):
                         # use cases...
                         # The signature of `from_db_value` changed in Django 3
                         # https://docs.djangoproject.com/en/3.0/releases/3.0/#features-removed-in-3-0
-                        if django.VERSION < (3, 0):
-                            v = f.from_db_value(v, None, None, None)
-                        else:
-                            v = f.from_db_value(v, None, None)
+                        v = f.from_db_value(v, None, None)
                     except Exception:
                         raise ImproperlyConfigured(
                             "Unable to auto serialize field '{}', custom"

@@ -1,18 +1,6 @@
 import base64
 import hashlib
-
-
-try:
-    from secrets import token_urlsafe
-except ImportError:
-    # token_urlsafe polyfill for Python < 3.6
-    import os
-
-    def token_urlsafe(nbytes=None):
-        if nbytes is None:
-            nbytes = 32
-        tok = os.urandom(nbytes)
-        return base64.urlsafe_b64encode(tok).rstrip(b"=").decode("ascii")
+from secrets import token_urlsafe
 
 
 def generate_code_challenge():

@@ -611,7 +611,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                 except EmailAddress.DoesNotExist:
                     from_email_address = None
                 email_address.set_as_primary()
-                adapter = get_adapter(self.request)
+                adapter = get_adapter()
                 adapter.add_message(
                     request,
                     messages.SUCCESS,

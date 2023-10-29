@@ -1,4 +1,5 @@
 import json
+from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
@@ -296,6 +297,7 @@ class ResetPasswordTests(TestCase):
         return user
 
 
+@patch("allauth.account.app_settings.ACCOUNT_EMAIL_NOTIFICATIONS", True)
 def test_notification_on_password_change(user_factory, client):
     user = user_factory(
         email="john.doe@test.com",
@@ -320,6 +322,7 @@ def test_notification_on_password_change(user_factory, client):
     assert "Your password has been changed" in mail.outbox[0].body
 
 
+@patch("allauth.account.app_settings.ACCOUNT_EMAIL_NOTIFICATIONS", True)
 def test_notification_on_password_reset(user_factory, client, settings):
     user = user_factory(
         email="john.doe@test.com",

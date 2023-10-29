@@ -382,6 +382,7 @@ def test_confirm_logs_out_user(auth_client, settings, user, user_factory):
     assert not auth_client.session.get(SESSION_KEY)
 
 
+@patch("allauth.account.app_settings.ACCOUNT_EMAIL_NOTIFICATIONS", True)
 def test_notification_on_email_add(auth_client, user, client):
     settings.ACCOUNT_MAX_EMAIL_ADDRESSES = 2
     client.force_login(user)
@@ -397,6 +398,7 @@ def test_notification_on_email_add(auth_client, user, client):
     assert "Email address has been added." in mail.outbox[1].body
 
 
+@patch("allauth.account.app_settings.ACCOUNT_EMAIL_NOTIFICATIONS", True)
 def test_notification_on_email_remove(auth_client, user):
     secondary = EmailAddress.objects.create(
         email="secondary@email.org", user=user, verified=False, primary=False

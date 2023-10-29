@@ -552,9 +552,6 @@ class DefaultAccountAdapter(object):
                 from_email_address=from_email_address,
                 to_email_address=email_address,
             )
-            self.send_notification_mail(
-                "/account/email/email_changed", self.request, {}
-            )
         return True
 
     def set_password(self, user, password):

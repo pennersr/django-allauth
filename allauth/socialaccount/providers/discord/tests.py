@@ -27,8 +27,6 @@ class DiscordTests(OAuth2TestsMixin, TestCase):
         )
 
     def test_display_name(self, multiple_login=False):
-        if not app_settings.STORE_TOKENS:
-            return
         email = "user@example.com"
         user = get_user_model()(is_active=True)
         user_email(user, email)
@@ -70,8 +68,6 @@ class OldDiscordTests(DiscordTests, TestCase):
         )
 
     def test_display_name(self, multiple_login=False):
-        if not app_settings.STORE_TOKENS:
-            return
         email = "user@example.com"
         user = get_user_model()(is_active=True)
         user_email(user, email)

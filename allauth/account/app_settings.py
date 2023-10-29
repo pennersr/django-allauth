@@ -396,7 +396,7 @@ class AppSettings(object):
 
     @property
     def ACCOUNT_EMAIL_NOTIFICATIONS(self):
-        return self._setting("ACCOUNT_EMAIL_NOTIFICATIONS", True)
+        return self._setting("ACCOUNT_EMAIL_NOTIFICATIONS", False)
 
     @property
     def REAUTHENTICATION_REQUIRED(self):

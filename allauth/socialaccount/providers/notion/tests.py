@@ -38,7 +38,7 @@ class NotionTests(OAuth2TestsMixin, TestCase):
         """
         return """
         {
-            "access_token": "test123",
+            "access_token": "testac",
             "bot_id": "bot-abc",
             "duplicated_template_id": "template-abc",
             "owner": {

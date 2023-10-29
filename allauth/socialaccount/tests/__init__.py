@@ -261,9 +261,8 @@ class OAuth2TestsMixin(object):
             )
             self.assertRedirects(resp, reverse("socialaccount_signup"))
 
+    @override_settings(SOCIALACCOUNT_STORE_TOKENS=True)
     def test_account_tokens(self, multiple_login=False):
-        if not app_settings.STORE_TOKENS:
-            return
         email = "user@example.com"
         user = get_user_model()(is_active=True)
         user_email(user, email)
@@ -280,7 +279,9 @@ class OAuth2TestsMixin(object):
                 process="connect",
             )
         # get account
-        sa = SocialAccount.objects.filter(user=user, provider=self.provider.id).get()
+        sa = SocialAccount.objects.filter(
+            user=user, provider=self.provider.app.provider_id or self.provider.id
+        ).get()
         # The following lines don't actually test that much, but at least
         # we make sure that the code is hit.
         provider_account = sa.get_provider_account()
@@ -293,13 +294,16 @@ class OAuth2TestsMixin(object):
             t = sa.socialtoken_set.get()
             # verify access_token and refresh_token
             self.assertEqual("testac", t.token)
-            self.assertEqual(
-                t.token_secret,
-                json.loads(self.get_login_response_json(with_refresh_token=True)).get(
-                    "refresh_token", ""
-                ),
-            )
+            resp = json.loads(self.get_login_response_json(with_refresh_token=True))
+            if "refresh_token" in resp:
+                refresh_token = resp.get("refresh_token")
+            elif "refreshToken" in resp:
+                refresh_token = resp.get("refreshToken")
+            else:
+                refresh_token = ""
+            self.assertEqual(t.token_secret, refresh_token)
 
+    @override_settings(SOCIALACCOUNT_STORE_TOKENS=True)
     def test_account_refresh_token_saved_next_login(self):
         """
         fails if a login missing a refresh token, deletes the previously

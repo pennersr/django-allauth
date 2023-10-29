@@ -1,3 +1,13 @@
+0.58.1 (2023-10-29)
+*******************
+
+Fixes
+-----
+
+- Fixed missing ``{% load allauth %}`` in the login cancelled and verified email
+  required template.
+
+
 0.58.0 (2023-10-26)
 *******************
 
@@ -310,7 +320,7 @@ Security notice
 Note worthy changes
 -------------------
 
-- Example base template was missing ``{% load i18n}``, fixed.
+- Example base template was missing ``{% load i18n %}``, fixed.
 
 
 0.53.0 (2023-03-16)

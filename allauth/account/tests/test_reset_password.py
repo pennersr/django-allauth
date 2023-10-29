@@ -300,7 +300,7 @@ class ResetPasswordTests(TestCase):
         return self.client.get(reverse(urlname))
 
 
-def test_notification_on_password_reset(user_factory, client):
+def test_notification_on_password_change(user_factory, client):
     user = user_factory(
         email="john.doe@test.com",
         password="password",
@@ -322,3 +322,26 @@ def test_notification_on_password_reset(user_factory, client):
     assert len(mail.outbox) == 1
     print(mail.outbox[0].body)
     assert "Your password has been changed" in mail.outbox[0].body
+
+
+def test_notification_on_password_reset(user_factory, client, settings):
+    user = user_factory(
+        email="john.doe@test.com",
+        password="password",
+        email_verified=True,
+    )
+
+    client.post(reverse("account_reset_password"), data={"email": user.email})
+    body = mail.outbox[0].body
+    url = body[body.find("/password/reset/") :].split()[0]
+    resp = client.get(url)
+    resp = client.post(
+        resp.url,
+        {"password1": "newpass123", "password2": "newpass123"},
+        **{
+            "HTTP_USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
+        }
+    )
+
+    assert len(mail.outbox) == 2
+    assert "Your password has been reset" in mail.outbox[1].body

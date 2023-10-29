@@ -120,6 +120,9 @@ class EmailConfirmationMixin:
                     request=request,
                     email_address=email_address,
                 )
+                get_adapter(request.user).send_confirmation_mail(
+                    "/account/email/email_confirm", self.request.user, {}
+                )
                 return email_address
 
     def send(self, request=None, signup=False):

@@ -2,6 +2,7 @@ import json
 from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
+from django.core import mail
 from django.urls import reverse
 
 import pytest
@@ -380,3 +381,20 @@ def test_dont_lookup_invalid_email(auth_client, email, did_look_up):
             {"action_remove": "", "email": email},
         )
         assert gfu_mock.called == did_look_up
+
+
+def test_send_notification_on_email_change(user_factory, client, settings):
+    secondary = EmailAddress.objects.create(
+        email="secondary@email.org", user=user, verified=False, primary=False
+    )
+    resp = auth_client.post(
+        reverse("account_email"),
+        {"action_remove": "", "email": secondary.email},
+    )
+    assert not EmailAddress.objects.filter(email=secondary.pk).exists()
+    assertTemplateUsed(resp, "account/messages/email_deleted.txt")
+    assert resp.status_code == 302
+    assert resp["location"] == reverse("account_email")
+    assert len(mail.outbox) == 1
+    print(mail.outbox[0].subject, mail.outbox[0].body)
+    assert "Email Changed" in mail.outbox[0].subject

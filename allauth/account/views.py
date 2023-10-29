@@ -494,7 +494,8 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
 
     def form_valid(self, form):
         email_address = form.save(self.request)
-        get_adapter(self.request).add_message(
+        adapter = get_adapter(self.request)
+        adapter.add_message(
             self.request,
             messages.INFO,
             "account/messages/email_confirmation_sent.txt",
@@ -505,6 +506,9 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
             request=self.request,
             user=self.request.user,
             email_address=email_address,
+        )
+        adapter.send_notification_mail(
+            "account/email/email_added", self.request.user, {"email": email_address}
         )
         return super(EmailView, self).form_valid(form)
 
@@ -572,6 +576,11 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                     "account/messages/email_deleted.txt",
                     {"email": email_address.email},
                 )
+                adapter.send_notification_mail(
+                    "account/email/email_removed",
+                    request.user,
+                    {"email": email_address},
+                )
                 return HttpResponseRedirect(self.get_success_url())
 
     def _action_primary(self, request, *args, **kwargs):
@@ -602,7 +611,8 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                 except EmailAddress.DoesNotExist:
                     from_email_address = None
                 email_address.set_as_primary()
-                get_adapter().add_message(
+                adapter = get_adapter(self.request)
+                adapter.add_message(
                     request,
                     messages.SUCCESS,
                     "account/messages/primary_email_set.txt",
@@ -613,6 +623,14 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                     user=request.user,
                     from_email_address=from_email_address,
                     to_email_address=email_address,
+                )
+                adapter.send_notification_mail(
+                    "account/email/email_changed",
+                    request.user,
+                    {
+                        "from_email_address": from_email_address,
+                        "to_email_address": email_address,
+                    },
                 )
                 return HttpResponseRedirect(self.get_success_url())
 
@@ -750,13 +768,17 @@ class PasswordSetView(AjaxCapableProcessFormViewMixin, FormView):
     def form_valid(self, form):
         form.save()
         logout_on_password_change(self.request, form.user)
-        get_adapter(self.request).add_message(
+        adapter = get_adapter(self.request)
+        adapter.add_message(
             self.request, messages.SUCCESS, "account/messages/password_set.txt"
         )
         signals.password_set.send(
             sender=self.request.user.__class__,
             request=self.request,
             user=self.request.user,
+        )
+        adapter.send_notification_mail(
+            "account/email/password_set", self.request.user, {}
         )
         return super().form_valid(form)
 
@@ -908,6 +930,9 @@ class PasswordResetFromKeyView(
             sender=self.reset_user.__class__,
             request=self.request,
             user=self.reset_user,
+        )
+        adapter.send_notification_mail(
+            "account/email/password_reset", self.reset_user, {}
         )
 
         if app_settings.LOGIN_ON_PASSWORD_RESET:

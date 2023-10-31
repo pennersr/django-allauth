@@ -7,7 +7,7 @@ from django.contrib.auth import password_validation
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core import exceptions, validators
-from django.urls import reverse
+from django.urls import NoReverseMatch, reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext, gettext_lazy as _, pgettext
 
@@ -140,11 +140,14 @@ class LoginForm(forms.Form):
         set_form_field_order(self, ["login", "password", "remember"])
         if app_settings.SESSION_REMEMBER is not None:
             del self.fields["remember"]
-        self.fields["password"].help_text = mark_safe(
-            _('<a href="{}">Forgot your password?</a>').format(
-                reverse("account_reset_password")
+        try:
+            reset_url = reverse("account_reset_password")
+        except NoReverseMatch:
+            pass
+        else:
+            self.fields["password"].help_text = mark_safe(
+                _('<a href="{}">Forgot your password?</a>').format(reset_url)
             )
-        )
 
     def user_credentials(self):
         """

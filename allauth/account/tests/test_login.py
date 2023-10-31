@@ -1,15 +1,15 @@
-from __future__ import absolute_import
-
 import json
+from unittest.mock import patch
 
 import django
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core import mail
 from django.test.utils import override_settings
-from django.urls import reverse
+from django.urls import NoReverseMatch, reverse
 
 from allauth.account import app_settings
+from allauth.account.forms import LoginForm
 from allauth.account.models import EmailAddress
 from allauth.tests import TestCase
 
@@ -322,3 +322,18 @@ class LoginTests(TestCase):
         self._create_user_and_login()
         resp = self.client.get(reverse("account_login"))
         self.assertEqual(resp.status_code, 200)
+
+
+def test_login_password_forgotten_link_not_present(client, db):
+    with patch("allauth.account.forms.reverse") as reverse_mock:
+        reverse_mock.side_effect = NoReverseMatch
+        form = LoginForm()
+        assert form.fields["password"].help_text == ""
+
+
+def test_login_password_forgotten_link_present(client, db):
+    form = LoginForm()
+    assert (
+        form.fields["password"].help_text
+        == '<a href="/password/reset/">Forgot your password?</a>'
+    )

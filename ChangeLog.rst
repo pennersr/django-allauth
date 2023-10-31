@@ -1,3 +1,12 @@
+0.58.1 (unreleased)
+*******************
+
+Fixes
+-----
+
+- Added rate limiting to the MFA login form.
+
+
 0.58.1 (2023-10-29)
 *******************
 

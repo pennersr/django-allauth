@@ -1,7 +1,9 @@
+import django
 from django.conf import settings
 from django.urls import reverse
 
 import pytest
+from pytest_django.asserts import assertFormError
 
 from allauth.account.models import EmailAddress
 from allauth.mfa import app_settings
@@ -176,3 +178,40 @@ def test_add_email_not_allowed(auth_client, user_with_totp):
             "You cannot add an email address to an account protected by two-factor authentication."
         ]
     }
+
+
+def test_totp_login_rate_limit(
+    settings, enable_cache, user_with_totp, user_password, client
+):
+    settings.ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 3
+    resp = client.post(
+        reverse("account_login"),
+        {"login": user_with_totp.username, "password": user_password},
+    )
+    assert resp.status_code == 302
+    assert resp["location"] == reverse("mfa_authenticate")
+    for i in range(5):
+        is_locked = i >= 3
+        resp = client.post(
+            reverse("mfa_authenticate"),
+            {
+                "code": "wrong",
+            },
+        )
+        if django.VERSION >= (4, 1):
+            assertFormError(
+                resp.context["form"],
+                "code",
+                "Too many failed login attempts. Try again later."
+                if is_locked
+                else "Incorrect code.",
+            )
+        else:
+            assertFormError(
+                resp,
+                "form",
+                "code",
+                "Too many failed login attempts. Try again later."
+                if is_locked
+                else "Incorrect code.",
+            )

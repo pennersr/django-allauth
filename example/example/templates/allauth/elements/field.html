@@ -44,10 +44,11 @@
         {% endif %}
         <input {% if attrs.required %}required{% endif %}
                name="{{ attrs.name }}"
-               {% if attrs.placeholder %}placeholder="{{ attrs.placeholder }}"{% endif %}
+               {% if attrs.placeholder %}placeholder="{{ attrs.placeholder }}" {% elif attrs.unlabeled %}placeholder="{{ slots.label }}" {% endif %}
                class="{% if attrs.errors %}is-invalid{% endif %}  form-control rounded-3"
                id="{{ attrs.id }}"
                {% if attrs.disabled %}disabled="{{ attrs.disabled }}"{% endif %}
+               {% if attrs.autocomplete %}autocomplete="{{ attrs.autocomplete }}"{% endif %}
                value="{{ attrs.value|default_if_none:"" }}"
                type="{{ attrs.type }}">
         {% if attrs.unlabeled %}

@@ -11,7 +11,12 @@ from allauth.mfa.models import Authenticator
 
 
 class AuthenticateForm(forms.Form):
-    code = forms.CharField(label=_("Code"))
+    code = forms.CharField(
+        label=_("Code"),
+        widget=forms.TextInput(
+            attrs={"placeholder": _("Code"), "autocomplete": "off"},
+        ),
+    )
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")

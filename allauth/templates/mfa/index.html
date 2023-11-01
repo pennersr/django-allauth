@@ -5,7 +5,7 @@
     {% trans "Two-Factor Authentication" %}
 {% endblock head_title %}
 {% block content %}
-    {% element h1 %}
+    {% element h1 tags="mfa,index" %}
         {% trans "Two-Factor Authentication" %}
     {% endelement %}
     {% element panel %}
@@ -33,38 +33,44 @@
             {% endif %}
         {% endslot %}
     {% endelement %}
-    {% element panel %}
-        {% slot title %}
-            {% translate "Recovery Codes" %}
-        {% endslot %}
-        {% slot body %}
-            {% if authenticators.recovery_codes %}
-                <p>
-                    {% blocktranslate with total_count=authenticators.recovery_codes.generate_codes|length count unused_count=authenticators.recovery_codes.get_unused_codes|length %}There is {{ unused_count }} out of {{ total_count }} recovery codes available.{% plural %}There are {{ unused_count }} out of {{ total_count }} recovery codes available.{% endblocktranslate %}
-                </p>
-            {% else %}
-                <p>{% translate "No recovery codes set up." %}</p>
+    {% with total_count=authenticators.recovery_codes.generate_codes|length unused_count=authenticators.recovery_codes.get_unused_codes|length %}
+        {% element panel %}
+            {% slot title %}
+                {% translate "Recovery Codes" %}
+            {% endslot %}
+            {% slot body %}
+                {% if authenticators.recovery_codes %}
+                    <p>
+                        {% blocktranslate count unused_count=unused_count %}There is {{ unused_count }} out of {{ total_count }} recovery codes available.{% plural %}There are {{ unused_count }} out of {{ total_count }} recovery codes available.{% endblocktranslate %}
+                    </p>
+                {% else %}
+                    <p>{% translate "No recovery codes set up." %}</p>
+                {% endif %}
+            {% endslot %}
+            {% if is_mfa_enabled %}
+                {% if authenticators.recovery_codes %}
+                    {% if unused_count > 0 %}
+                        {% slot actions %}
+                            {% url 'mfa_view_recovery_codes' as view_url %}
+                            {% element button href=view_url tags="panel" %}
+                                {% translate "View" %}
+                            {% endelement %}
+                        {% endslot %}
+                        {% slot actions %}
+                            {% url 'mfa_download_recovery_codes' as download_url %}
+                            {% element button href=download_url tags="secondary,panel" %}
+                                {% translate "Download" %}
+                            {% endelement %}
+                        {% endslot %}
+                    {% endif %}
+                {% endif %}
+                {% slot actions %}
+                    {% url 'mfa_generate_recovery_codes' as generate_url %}
+                    {% element button href=generate_url tags="secondary,panel" %}
+                        {% translate "Generate" %}
+                    {% endelement %}
+                {% endslot %}
             {% endif %}
-        {% endslot %}
-        {% if authenticators.recovery_codes %}
-            {% slot actions %}
-                {% url 'mfa_view_recovery_codes' as view_url %}
-                {% element button href=view_url tags="panel" %}
-                    {% translate "View" %}
-                {% endelement %}
-            {% endslot %}
-            {% slot actions %}
-                {% url 'mfa_download_recovery_codes' as download_url %}
-                {% element button href=download_url tags="secondary,panel" %}
-                    {% translate "Download" %}
-                {% endelement %}
-            {% endslot %}
-            {% slot actions %}
-                {% url 'mfa_generate_recovery_codes' as generate_url %}
-                {% element button href=generate_url tags="secondary,panel" %}
-                    {% translate "Regenerate" %}
-                {% endelement %}
-            {% endslot %}
-        {% endif %}
-    {% endelement %}
+        {% endelement %}
+    {% endwith %}
 {% endblock content %}

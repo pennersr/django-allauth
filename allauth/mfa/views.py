@@ -58,6 +58,7 @@ class IndexView(TemplateView):
             for auth in Authenticator.objects.filter(user=self.request.user)
         }
         ret["authenticators"] = authenticators
+        ret["is_mfa_enabled"] = is_mfa_enabled(self.request.user)
         return ret
 
 
@@ -165,6 +166,17 @@ class GenerateRecoveryCodesView(FormView):
             self.request, messages.SUCCESS, "mfa/messages/recovery_codes_generated.txt"
         )
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        ret = super().get_context_data(**kwargs)
+        unused_codes = []
+        authenticator = Authenticator.objects.filter(
+            user=self.request.user, type=Authenticator.Type.RECOVERY_CODES
+        ).first()
+        if authenticator:
+            unused_codes = authenticator.wrap().get_unused_codes()
+        ret["unused_code_count"] = len(unused_codes)
+        return ret
 
 
 generate_recovery_codes = GenerateRecoveryCodesView.as_view()

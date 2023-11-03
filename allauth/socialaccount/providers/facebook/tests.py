@@ -1,4 +1,5 @@
 import json
+from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
 from django.test.client import RequestFactory
@@ -9,7 +10,7 @@ from allauth.account import app_settings as account_settings
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, TestCase, patch
+from allauth.tests import MockedResponse, TestCase
 
 from .provider import FacebookProvider
 

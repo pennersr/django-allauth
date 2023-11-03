@@ -1,4 +1,5 @@
 import uuid
+from unittest.mock import patch
 
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -22,7 +23,7 @@ from allauth.account.utils import (
     user_username,
 )
 from allauth.core import context
-from allauth.tests import TestCase, patch
+from allauth.tests import TestCase
 
 from .test_models import UUIDUser
 

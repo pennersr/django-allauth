@@ -4,6 +4,7 @@ import json
 import random
 import requests
 import warnings
+from unittest.mock import Mock, patch
 from urllib.parse import parse_qs, urlparse
 
 from django.conf import settings
@@ -19,13 +20,7 @@ from allauth.account.utils import user_email, user_username
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.models import SocialAccount, SocialApp
-from allauth.tests import (
-    Mock,
-    MockedResponse,
-    TestCase,
-    mocked_response,
-    patch,
-)
+from allauth.tests import MockedResponse, TestCase, mocked_response
 
 
 def setup_app(provider_id):

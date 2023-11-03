@@ -2,12 +2,13 @@
 from __future__ import unicode_literals
 
 from unittest import mock
+from unittest.mock import patch
 
 from django.test.utils import override_settings
 
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, TestCase, patch
+from allauth.tests import MockedResponse, TestCase
 
 from .provider import BitbucketOAuth2Provider
 

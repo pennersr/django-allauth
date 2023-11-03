@@ -33,6 +33,10 @@ class MockedResponse(object):
         pass
 
     @property
+    def ok(self):
+        return self.status_code // 100 == 2
+
+    @property
     def text(self):
         return self.content.decode("utf8")
 

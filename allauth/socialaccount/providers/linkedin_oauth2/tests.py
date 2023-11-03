@@ -15,9 +15,16 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
     provider_id = LinkedInOAuth2Provider.id
 
     def get_mocked_response(self):
-        return MockedResponse(
-            200,
-            """
+        return [
+            MockedResponse(
+                200,
+                """
+            {}
+            """,
+            ),
+            MockedResponse(
+                200,
+                """
 {
   "profilePicture": {
     "displayImage": "urn:li:digitalmediaAsset:12345abcdefgh-12abcd"
@@ -43,7 +50,8 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
   }
 }
 """,
-        )
+            ),
+        ]
 
     def test_data_to_str(self):
         data = {

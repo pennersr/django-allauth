@@ -27,6 +27,9 @@ class AuthentiqTests(OAuth2TestsMixin, TestCase):
             ),
         )
 
+    @override_settings(
+        SOCIALACCOUNT_QUERY_EMAIL=False,
+    )
     def test_default_scopes_no_email(self):
         scopes = self.provider.get_default_scope()
         self.assertIn("aq:name", scopes)

@@ -2,10 +2,15 @@ import json
 
 from django.test import override_settings
 
+import pytest
+
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers.amazon_cognito.provider import (
     AmazonCognitoProvider,
+)
+from allauth.socialaccount.providers.amazon_cognito.utils import (
+    convert_to_python_bool_if_value_is_json_string_bool,
 )
 from allauth.socialaccount.providers.amazon_cognito.views import (
     AmazonCognitoOAuth2Adapter,
@@ -67,3 +72,16 @@ class AmazonCognitoTestCase(OAuth2TestsMixin, TestCase):
 
     def test_provider_slug_replaces_underscores_with_hyphens(self):
         self.assertTrue("_" not in self.provider.get_slug())
+
+
+@pytest.mark.parametrize(
+    "input,output",
+    [
+        (True, True),
+        ("true", True),
+        ("false", False),
+        (False, False),
+    ],
+)
+def test_convert_bool(input, output):
+    assert convert_to_python_bool_if_value_is_json_string_bool(input) == output

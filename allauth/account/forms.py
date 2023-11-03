@@ -145,8 +145,9 @@ class LoginForm(forms.Form):
         except NoReverseMatch:
             pass
         else:
+            forgot_txt = _("Forgot your password?")
             self.fields["password"].help_text = mark_safe(
-                _('<a href="{}">Forgot your password?</a>').format(reset_url)
+                f'<a href="{reset_url}">{forgot_txt}</a>'
             )
 
     def user_credentials(self):

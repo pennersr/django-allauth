@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-
 import uuid
 
 from django.contrib import messages
@@ -12,6 +10,7 @@ from django.core.exceptions import ValidationError
 from django.template import Context, Template
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
+from django.urls import reverse
 
 import allauth.app_settings
 from allauth.account.adapter import get_adapter
@@ -126,3 +125,10 @@ class UtilsTests(TestCase):
     def test_is_safe_url_relative_path(self):
         with context.request_context(RequestFactory().get("/")):
             self.assertTrue(get_adapter().is_safe_url("/foo/bar"))
+
+
+def test_redirect_noreversematch(auth_client):
+    # We used to call `django.shortcuts.redirect()` as is, but that one throws a
+    # `NoReverseMatch`, resulting in 500s.
+    resp = auth_client.post(reverse("account_logout") + "?next=badurlname")
+    assert resp["location"] == "/badurlname"

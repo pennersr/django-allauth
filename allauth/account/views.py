@@ -9,7 +9,6 @@ from django.http import (
     HttpResponsePermanentRedirect,
     HttpResponseRedirect,
 )
-from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
@@ -53,6 +52,7 @@ from allauth.account.utils import (
 )
 from allauth.core import ratelimit
 from allauth.core.exceptions import ImmediateHttpResponse
+from allauth.core.internal.http import redirect
 from allauth.decorators import rate_limit
 from allauth.utils import get_form_class, get_request_param
 

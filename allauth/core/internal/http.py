@@ -1,6 +1,8 @@
 import json
 
+from django import shortcuts
 from django.http import QueryDict
+from django.urls import NoReverseMatch
 
 
 def serialize_request(request):
@@ -25,3 +27,10 @@ def deserialize_request(s, request):
     request.path_info = data["path_info"]
     request.method = data["method"]
     return request
+
+
+def redirect(to):
+    try:
+        return shortcuts.redirect(to)
+    except NoReverseMatch:
+        return shortcuts.redirect(f"/{to}")

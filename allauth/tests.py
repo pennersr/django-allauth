@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import json
 import requests
 from datetime import date, datetime
+from unittest.mock import Mock
 
 from django.core.files.base import ContentFile
 from django.db import models
@@ -14,12 +15,6 @@ from django.views import csrf
 from allauth import app_settings
 
 from . import utils
-
-
-try:
-    from unittest.mock import Mock, patch
-except ImportError:
-    from mock import Mock, patch  # noqa
 
 
 class MockedResponse(object):

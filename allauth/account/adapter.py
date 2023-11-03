@@ -557,12 +557,7 @@ class DefaultAccountAdapter(object):
         return ret
 
     def is_safe_url(self, url):
-        try:
-            from django.utils.http import url_has_allowed_host_and_scheme
-        except ImportError:
-            from django.utils.http import (
-                is_safe_url as url_has_allowed_host_and_scheme,
-            )
+        from django.utils.http import url_has_allowed_host_and_scheme
 
         # get_host already validates the given host, so no need to check it again
         allowed_hosts = {context.request.get_host()} | set(settings.ALLOWED_HOSTS)

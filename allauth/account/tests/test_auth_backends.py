@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-
 from django.contrib.auth import get_user_model
 from django.test.utils import override_settings
 

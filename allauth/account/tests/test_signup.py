@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-
 import django
 from django import forms
 from django.contrib.auth import get_user_model

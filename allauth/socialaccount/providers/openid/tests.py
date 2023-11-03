@@ -1,4 +1,3 @@
-from unittest import expectedFailure
 from unittest.mock import Mock, patch
 
 from django.contrib.auth import get_user_model
@@ -26,13 +25,12 @@ class OpenIDTests(TestCase):
         )
         self.assertTrue("openid" in resp.context["form"].errors)
 
-    @expectedFailure
     def test_login(self):
         # Location: https://s.yimg.com/wm/mbr/html/openid-eol-0.0.1.html
         resp = self.client.post(
-            reverse(views.login), dict(openid="http://me.yahoo.com")
+            reverse(views.login), dict(openid="https://steamcommunity.com/openid")
         )
-        assert "login.yahooapis" in resp["location"]
+        assert "steamcommunity.com/openid/login" in resp["location"]
         with patch(
             "allauth.socialaccount.providers.openid.views._openid_consumer"
         ) as consumer_mock:
@@ -64,7 +62,6 @@ class OpenIDTests(TestCase):
                     )
                     get_user_model().objects.get(first_name="raymond")
 
-    @expectedFailure
     @override_settings(
         SOCIALACCOUNT_PROVIDERS={
             "openid": {
@@ -88,9 +85,9 @@ class OpenIDTests(TestCase):
     def test_login_with_extra_attributes(self):
         with patch("allauth.socialaccount.providers.openid.views.QUERY_EMAIL", True):
             resp = self.client.post(
-                reverse(views.login), dict(openid="http://me.yahoo.com")
+                reverse(views.login), dict(openid="https://steamcommunity.com/openid")
             )
-        assert "login.yahooapis" in resp["location"]
+        assert "steamcommunity.com/openid/login" in resp["location"]
         with patch(
             "allauth.socialaccount.providers.openid.views._openid_consumer"
         ) as consumer_mock:

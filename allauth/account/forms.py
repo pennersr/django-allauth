@@ -445,14 +445,15 @@ class SignupForm(BaseSignupForm):
         return self.cleaned_data
 
     def save(self, request):
+        email = self.cleaned_data.get("email")
         if self.account_already_exists:
-            raise ValueError(self.cleaned_data.get("email"))
+            raise ValueError(email)
         adapter = get_adapter()
         user = adapter.new_user(request)
         adapter.save_user(request, user, self)
         self.custom_signup(request, user)
         # TODO: Move into adapter `save_user` ?
-        setup_user_email(request, user, [])
+        setup_user_email(request, user, [EmailAddress(email=email)] if email else [])
         return user
 
 

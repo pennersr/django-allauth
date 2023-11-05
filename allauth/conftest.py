@@ -23,8 +23,16 @@ def auth_client(client, user):
 
 
 @pytest.fixture
-def user_password():
-    return str(uuid.uuid4())
+def password_factory():
+    def f():
+        return str(uuid.uuid4())
+
+    return f
+
+
+@pytest.fixture
+def user_password(password_factory):
+    return password_factory()
 
 
 @pytest.fixture

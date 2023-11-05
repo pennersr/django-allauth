@@ -384,3 +384,24 @@ def test_get_initial_with_valid_email():
     with context.request_context(request):
         view = signup(request)
     assert view.context_data["view"].get_initial()["email"] == "test@example.com"
+
+
+def test_signup_user_model_no_email(settings, client, password_factory, db):
+    settings.ACCOUNT_USERNAME_REQUIRED = False
+    settings.ACCOUNT_EMAIL_REQUIRED = True
+    settings.ACCOUNT_EMAIL_VERIFICATION = app_settings.EmailVerificationMethod.MANDATORY
+    settings.ACCOUNT_USER_MODEL_EMAIL_FIELD = None
+    password = password_factory()
+    email = "user@example.com"
+    resp = client.post(
+        reverse("account_signup"),
+        {
+            "email": email,
+            "password1": password,
+            "password2": password,
+        },
+    )
+    assert resp.status_code == 302
+    email = EmailAddress.objects.get(email=email)
+    assert email.primary
+    assert not email.verified

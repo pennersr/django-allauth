@@ -310,7 +310,7 @@ def cleanup_email_addresses(request, addresses):
         primary_address = primary_addresses[0]
     elif e2a:
         # Pick the first
-        primary_address = e2a.keys()[0]
+        primary_address = list(e2a.values())[0]
     else:
         # Empty
         primary_address = None

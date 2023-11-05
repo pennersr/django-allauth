@@ -366,16 +366,31 @@ def send_email_confirmation(request, user, signup=False, email=None):
     sent (consider a user retrying a few times), which is why there is
     a cooldown period before sending a new mail. This cooldown period
     can be configured in ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN setting.
+
+    TODO: This code is doing way too much. Looking up EmailAddress, creating
+    if not present, etc. To be refactored.
     """
     from .models import EmailAddress
 
     adapter = get_adapter()
 
+    email_address = None
     if not email:
         email = user_email(user)
+    if not email:
+        email_address = (
+            EmailAddress.objects.filter(user=user).order_by("verified", "pk").first()
+        )
+        if email_address:
+            email = email_address.email
+
     if email:
-        try:
-            email_address = EmailAddress.objects.get_for_user(user, email)
+        if email_address is None:
+            try:
+                email_address = EmailAddress.objects.get_for_user(user, email)
+            except EmailAddress.DoesNotExist:
+                pass
+        if email_address is not None:
             if not email_address.verified:
                 send_email = adapter.should_send_confirmation_mail(
                     request, email_address
@@ -384,7 +399,7 @@ def send_email_confirmation(request, user, signup=False, email=None):
                     email_address.send_confirmation(request, signup=signup)
             else:
                 send_email = False
-        except EmailAddress.DoesNotExist:
+        else:
             send_email = True
             email_address = EmailAddress.objects.add_email(
                 request, user, email, signup=signup, confirm=True

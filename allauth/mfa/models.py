@@ -27,6 +27,9 @@ class Authenticator(models.Model):
     class Meta:
         unique_together = (("user", "type"),)
 
+    def __str__(self):
+        return self.get_type_display()
+
     def wrap(self):
         from allauth.mfa.recovery_codes import RecoveryCodes
         from allauth.mfa.totp import TOTP

@@ -19,8 +19,12 @@
             {% endelement %}
         {% endslot %}
         {% slot actions %}
-            {% element button type="submit" %}
+            {% element button type="submit" tags="primary,mfa,login" %}
                 {% trans "Sign In" %}
+            {% endelement %}
+            {% url "account_login" as login_url %}
+            {% element button href=login_url tags="secondary,mfa,cancel" %}
+                {% trans "Cancel" %}
             {% endelement %}
         {% endslot %}
     {% endelement %}

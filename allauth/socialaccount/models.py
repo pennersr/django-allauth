@@ -324,7 +324,7 @@ class SocialLogin(object):
     def _lookup_by_email(self):
         emails = [e.email for e in self.email_addresses if e.verified]
         for email in emails:
-            users = filter_users_by_email(email, is_active=True, prefer_verified=True)
+            users = filter_users_by_email(email, prefer_verified=True)
             if users:
                 self.user = users[0]
                 if app_settings.EMAIL_AUTHENTICATION_AUTO_CONNECT:

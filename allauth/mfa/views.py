@@ -41,6 +41,7 @@ class AuthenticateView(FormView):
         return ret
 
     def form_valid(self, form):
+        form.save()
         return self.stage.exit()
 
 

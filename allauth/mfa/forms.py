@@ -43,6 +43,9 @@ class AuthenticateForm(forms.Form):
                 return code
         raise forms.ValidationError(get_adapter().error_messages["incorrect_code"])
 
+    def save(self):
+        self.authenticator.record_usage()
+
 
 class ActivateTOTPForm(forms.Form):
     code = forms.CharField(label=_("Authenticator code"))

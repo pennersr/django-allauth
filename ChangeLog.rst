@@ -1,7 +1,11 @@
 0.59.0 (unreleased)
 *******************
 
-...
+Note worthy changes
+-------------------
+
+- The MFA authenticator model now features "created at" an "last used "at"
+  timestamps.
 
 
 0.58.2 (2023-11-06)

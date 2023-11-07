@@ -9,6 +9,9 @@ Note worthy changes
 
 - The MFA authenticator model is now registed with the Django admin.
 
+- Added MFA signals emitted when authenticators are added, removed or (in case
+  of recovery codes) reset.
+
 
 0.58.2 (2023-11-06)
 *******************

@@ -14,7 +14,7 @@ from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.decorators import reauthentication_required
 from allauth.account.stages import LoginStageController
-from allauth.mfa import app_settings, totp
+from allauth.mfa import app_settings, signals, totp
 from allauth.mfa.adapter import get_adapter
 from allauth.mfa.forms import ActivateTOTPForm, AuthenticateForm
 from allauth.mfa.models import Authenticator
@@ -103,8 +103,14 @@ class ActivateTOTPView(FormView):
         return ret
 
     def form_valid(self, form):
-        totp.TOTP.activate(self.request.user, form.secret)
-        RecoveryCodes.activate(self.request.user)
+        totp_auth = totp.TOTP.activate(self.request.user, form.secret)
+        rc_auth = RecoveryCodes.activate(self.request.user)
+        for auth in [totp_auth, rc_auth]:
+            signals.authenticator_added.send(
+                sender=Authenticator,
+                user=self.request.user,
+                authenticator=auth.instance,
+            )
         adapter = get_account_adapter(self.request)
         adapter.add_message(
             self.request, messages.SUCCESS, "mfa/messages/totp_activated.txt"
@@ -141,6 +147,16 @@ class DeactivateTOTPView(FormView):
 
     def form_valid(self, form):
         self.authenticator.wrap().deactivate()
+        rc_auth = Authenticator.objects.delete_dangling_recovery_codes(
+            self.authenticator.user
+        )
+        for auth in [self.authenticator, rc_auth]:
+            if auth:
+                signals.authenticator_removed.send(
+                    sender=Authenticator,
+                    user=self.request.user,
+                    authenticator=auth,
+                )
         adapter = get_account_adapter(self.request)
         adapter.add_message(
             self.request, messages.SUCCESS, "mfa/messages/totp_deactivated.txt"
@@ -161,10 +177,13 @@ class GenerateRecoveryCodesView(FormView):
         Authenticator.objects.filter(
             user=self.request.user, type=Authenticator.Type.RECOVERY_CODES
         ).delete()
-        RecoveryCodes.activate(self.request.user)
+        rc_auth = RecoveryCodes.activate(self.request.user)
         adapter = get_account_adapter(self.request)
         adapter.add_message(
             self.request, messages.SUCCESS, "mfa/messages/recovery_codes_generated.txt"
+        )
+        signals.authenticator_reset.send(
+            sender=Authenticator, user=self.request.user, authenticator=rc_auth.instance
         )
         return super().form_valid(form)
 

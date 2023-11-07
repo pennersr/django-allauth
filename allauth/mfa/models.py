@@ -6,9 +6,12 @@ from django.utils.translation import gettext_lazy as _
 
 class AuthenticatorManager(models.Manager):
     def delete_dangling_recovery_codes(self, user):
+        deleted_authenticator = None
         qs = Authenticator.objects.filter(user=user)
         if not qs.exclude(type=Authenticator.Type.RECOVERY_CODES).exists():
+            deleted_authenticator = qs.first()
             qs.delete()
+        return deleted_authenticator
 
 
 class Authenticator(models.Model):

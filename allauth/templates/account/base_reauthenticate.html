@@ -1,0 +1,27 @@
+{% extends "account/base_entrance.html" %}
+{% load allauth %}
+{% load i18n %}
+{% block head_title %}
+    {% trans "Confirm Access" %}
+{% endblock head_title %}
+{% block content %}
+    {% element h1 %}
+        {% trans "Confirm Access" %}
+    {% endelement %}
+    <p>{% blocktranslate %}Please reauthenticate to safeguard your account.{% endblocktranslate %}</p>
+    {% block reauthenticate_content %}{% endblock %}
+    {% if reauthentication_alternatives %}
+        {% element hr %}
+        {% endelement %}
+        {% element h2 %}
+            {% translate "Alternative options" %}
+        {% endelement %}
+        <ul>
+            {% for alt in reauthentication_alternatives %}
+                <li>
+                    <a href="{{ alt.url }}">{{ alt.description }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock content %}

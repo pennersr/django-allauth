@@ -6,6 +6,7 @@ from allauth.mfa import views
 urlpatterns = [
     path("", views.index, name="mfa_index"),
     path("authenticate/", views.authenticate, name="mfa_authenticate"),
+    path("reauthenticate/", views.reauthenticate, name="mfa_reauthenticate"),
     path(
         "totp/",
         include(

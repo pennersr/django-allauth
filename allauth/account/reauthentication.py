@@ -6,6 +6,7 @@ from django.urls import resolve, reverse
 from django.utils.http import urlencode
 
 from allauth.account import app_settings
+from allauth.account.adapter import get_adapter
 from allauth.account.utils import get_next_redirect_url
 from allauth.core.internal.http import deserialize_request, serialize_request
 from allauth.utils import import_callable
@@ -60,7 +61,7 @@ def reauthenticate_then_callback(request, serialize_state, callback):
 def did_recently_authenticate(request):
     if request.user.is_anonymous:
         return False
-    if not request.user.has_usable_password():
+    if not get_adapter().get_reauthentication_methods(request.user):
         # TODO: This user only has social accounts attached. Now, ideally, you
         # would want to reauthenticate over at the social account provider. For
         # now, this is not implemented. Although definitely suboptimal, this

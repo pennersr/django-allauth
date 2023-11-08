@@ -14,6 +14,7 @@ from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.decorators import reauthentication_required
 from allauth.account.stages import LoginStageController
+from allauth.account.views import BaseReauthenticateView
 from allauth.mfa import app_settings, signals, totp
 from allauth.mfa.adapter import get_adapter
 from allauth.mfa.forms import ActivateTOTPForm, AuthenticateForm
@@ -46,6 +47,20 @@ class AuthenticateView(FormView):
 
 
 authenticate = AuthenticateView.as_view()
+
+
+@method_decorator(login_required, name="dispatch")
+class ReauthenticateView(BaseReauthenticateView):
+    form_class = AuthenticateForm
+    template_name = "mfa/reauthenticate." + account_settings.TEMPLATE_EXTENSION
+
+    def get_form_kwargs(self):
+        ret = super().get_form_kwargs()
+        ret["user"] = self.request.user
+        return ret
+
+
+reauthenticate = ReauthenticateView.as_view()
 
 
 @method_decorator(login_required, name="dispatch")

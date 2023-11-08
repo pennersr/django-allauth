@@ -703,6 +703,32 @@ class DefaultAccountAdapter(object):
             ret.append("allauth.mfa.stages.AuthenticateStage")
         return ret
 
+    def get_reauthentication_methods(self, user):
+        """The order of the methods returned matters. The first method is the
+        default when using the `@reauthentication_required` decorator.
+        """
+        ret = []
+        if not user.is_authenticated:
+            return ret
+        if user.has_usable_password():
+            ret.append(
+                {
+                    "description": _("Use your password"),
+                    "url": reverse("account_reauthenticate"),
+                }
+            )
+        if allauth_app_settings.MFA_ENABLED:
+            from allauth.mfa.utils import is_mfa_enabled
+
+            if is_mfa_enabled(user):
+                ret.append(
+                    {
+                        "description": _("Use your authenticator app"),
+                        "url": reverse("mfa_reauthenticate"),
+                    }
+                )
+        return ret
+
 
 def get_adapter(request=None):
     return import_attribute(app_settings.ADAPTER)(request)

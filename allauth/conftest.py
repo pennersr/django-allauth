@@ -37,6 +37,8 @@ def user_password(password_factory):
 
 @pytest.fixture
 def user_factory(email_factory, db, user_password):
+    from allauth.mfa import totp
+
     def factory(
         email=None,
         username=None,
@@ -45,6 +47,7 @@ def user_factory(email_factory, db, user_password):
         email_verified=True,
         password=None,
         with_emailaddress=True,
+        with_totp=False,
     ):
         if not username:
             username = uuid.uuid4().hex
@@ -54,7 +57,10 @@ def user_factory(email_factory, db, user_password):
 
         User = get_user_model()
         user = User()
-        user.set_password(user_password if password is None else password)
+        if password == "!":
+            user.password = password
+        else:
+            user.set_password(user_password if password is None else password)
         user_username(user, username)
         user_email(user, email or "")
         if commit:
@@ -63,7 +69,8 @@ def user_factory(email_factory, db, user_password):
                 EmailAddress.objects.create(
                     user=user, email=email, verified=email_verified, primary=True
                 )
-
+        if with_totp:
+            totp.TOTP.activate(user, totp.generate_totp_secret())
         return user
 
     return factory

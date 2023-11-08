@@ -1,9 +1,9 @@
 {% extends "account/base_reauthenticate.html" %}
-{% load allauth %}
 {% load i18n %}
+{% load allauth %}
 {% block reauthenticate_content %}
-    <p>{% blocktranslate %}Enter your password:{% endblocktranslate %}</p>
-    {% url 'account_reauthenticate' as action_url %}
+    <p>{% blocktranslate %}Enter an authenticator code:{% endblocktranslate %}</p>
+    {% url 'mfa_reauthenticate' as action_url %}
     {% element form form=form method="post" action=action_url %}
         {% slot body %}
             {% csrf_token %}
@@ -16,7 +16,7 @@
             {% endif %}
         {% endslot %}
         {% slot actions %}
-            {% element button type="submit" %}
+            {% element button type="submit" tags="primary,mfa,login" %}
                 {% trans "Confirm" %}
             {% endelement %}
         {% endslot %}

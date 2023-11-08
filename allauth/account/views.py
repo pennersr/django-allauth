@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
+from django.core.exceptions import PermissionDenied
 from django.core.validators import validate_email
 from django.forms import ValidationError
 from django.http import (
@@ -981,34 +982,43 @@ class EmailVerificationSentView(TemplateView):
 email_verification_sent = EmailVerificationSentView.as_view()
 
 
-class ReauthenticateView(FormView):
-    form_class = ReauthenticateForm
-    template_name = "account/reauthenticate." + app_settings.TEMPLATE_EXTENSION
+class BaseReauthenticateView(FormView):
     redirect_field_name = REDIRECT_FIELD_NAME
 
     def dispatch(self, request, *args, **kwargs):
-        r429 = ratelimit.consume_or_429(
+        resp = self._check_reauthentication_method_available(request)
+        if resp:
+            return resp
+        resp = self._check_ratelimit(request)
+        if resp:
+            return resp
+        return super().dispatch(request, *args, **kwargs)
+
+    def _check_ratelimit(self, request):
+        return ratelimit.consume_or_429(
             self.request,
             action="reauthenticate",
             user=self.request.user,
         )
-        if r429:
-            return r429
-        return super().dispatch(request, *args, **kwargs)
 
-    def get_form_class(self):
-        return get_form_class(app_settings.FORMS, "reauthenticate", self.form_class)
+    def _check_reauthentication_method_available(self, request):
+        methods = get_adapter().get_reauthentication_methods(self.request.user)
+        if any([m["url"] == request.path for m in methods]):
+            # Method is available
+            return None
+        if not methods:
+            # Reauthentication not available
+            raise PermissionDenied("Reauthentication not available")
+        url = passthrough_next_redirect_url(
+            request, methods[0]["url"], self.redirect_field_name
+        )
+        return HttpResponseRedirect(url)
 
     def get_success_url(self):
         url = get_next_redirect_url(self.request, self.redirect_field_name)
         if not url:
             url = get_adapter(self.request).get_login_redirect_url(self.request)
         return url
-
-    def get_form_kwargs(self):
-        ret = super().get_form_kwargs()
-        ret["user"] = self.request.user
-        return ret
 
     def form_valid(self, form):
         record_authentication(self.request, self.request.user)
@@ -1018,14 +1028,42 @@ class ReauthenticateView(FormView):
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
-        ret = super(ReauthenticateView, self).get_context_data(**kwargs)
+        ret = super().get_context_data(**kwargs)
         redirect_field_value = get_request_param(self.request, self.redirect_field_name)
         ret.update(
             {
                 "redirect_field_name": self.redirect_field_name,
                 "redirect_field_value": redirect_field_value,
+                "reauthentication_alternatives": self.get_reauthentication_alternatives(),
             }
         )
+        return ret
+
+    def get_reauthentication_alternatives(self):
+        methods = get_adapter().get_reauthentication_methods(self.request.user)
+        alts = []
+        for method in methods:
+            alt = dict(method)
+            if self.request.path == alt["url"]:
+                continue
+            alt["url"] = passthrough_next_redirect_url(
+                self.request, alt["url"], self.redirect_field_name
+            )
+            alts.append(alt)
+        alts = sorted(alts, key=lambda alt: alt["description"])
+        return alts
+
+
+class ReauthenticateView(BaseReauthenticateView):
+    form_class = ReauthenticateForm
+    template_name = "account/reauthenticate." + app_settings.TEMPLATE_EXTENSION
+
+    def get_form_class(self):
+        return get_form_class(app_settings.FORMS, "reauthenticate", self.form_class)
+
+    def get_form_kwargs(self):
+        ret = super().get_form_kwargs()
+        ret["user"] = self.request.user
         return ret
 
 

@@ -25,7 +25,7 @@ ENVIRONMENTS = {
 ENV = (
     getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
     .get("dwolla", {})
-    .get("ENVIROMENT", "production")
+    .get("ENVIRONMENT", "production")
 )
 
 AUTH_URL = ENVIRONMENTS[ENV]["auth_url"]
@@ -42,7 +42,6 @@ class DwollaOAuth2Adapter(OAuth2Adapter):
     authorize_url = AUTH_URL
 
     def complete_login(self, request, app, token, response, **kwargs):
-
         resp = requests.get(
             response["_links"]["account"]["href"],
             headers={

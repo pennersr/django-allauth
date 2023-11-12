@@ -3,19 +3,14 @@ class AppSettings(object):
         self.prefix = prefix
 
     def _setting(self, name, dflt):
-        from django.conf import settings
+        from allauth.utils import get_setting
 
-        getter = getattr(
-            settings,
-            "ALLAUTH_SETTING_GETTER",
-            lambda name, dflt: getattr(settings, name, dflt),
-        )
-        return getter(self.prefix + name, dflt)
+        return get_setting(self.prefix + name, dflt)
 
     @property
     def QUERY_EMAIL(self):
         """
-        Request e-mail address from 3rd party account provider?
+        Request email address from 3rd party account provider?
         E.g. using OpenID AX
         """
         from allauth.account import app_settings as account_settings
@@ -27,7 +22,7 @@ class AppSettings(object):
         """
         Attempt to bypass the signup form by using fields (e.g. username,
         email) retrieved from the social account provider. If a conflict
-        arises due to a duplicate e-mail signup form will still kick in.
+        arises due to a duplicate email signup form will still kick in.
         """
         return self._setting("AUTO_SIGNUP", True)
 
@@ -36,12 +31,40 @@ class AppSettings(object):
         """
         Provider specific settings
         """
-        return self._setting("PROVIDERS", {})
+        ret = self._setting("PROVIDERS", {})
+        oidc = ret.get("openid_connect")
+        if oidc:
+            ret["openid_connect"] = self._migrate_oidc(oidc)
+        return ret
+
+    def _migrate_oidc(self, oidc):
+        servers = oidc.get("SERVERS")
+        if servers is None:
+            return oidc
+        ret = {}
+        apps = []
+        for server in servers:
+            app = dict(**server["APP"])
+            app_settings = {}
+            if "token_auth_method" in server:
+                app_settings["token_auth_method"] = server["token_auth_method"]
+            app_settings["server_url"] = server["server_url"]
+            app.update(
+                {
+                    "name": server.get("name", ""),
+                    "provider_id": server["id"],
+                    "settings": app_settings,
+                }
+            )
+            assert app["provider_id"]
+            apps.append(app)
+        ret["APPS"] = apps
+        return ret
 
     @property
     def EMAIL_REQUIRED(self):
         """
-        The user is required to hand over an e-mail address when signing up
+        The user is required to hand over an email address when signing up
         """
         from allauth.account import app_settings as account_settings
 
@@ -50,11 +73,44 @@ class AppSettings(object):
     @property
     def EMAIL_VERIFICATION(self):
         """
-        See e-mail verification method
+        See email verification method
         """
         from allauth.account import app_settings as account_settings
 
         return self._setting("EMAIL_VERIFICATION", account_settings.EMAIL_VERIFICATION)
+
+    @property
+    def EMAIL_AUTHENTICATION(self):
+        """Consider a scenario where a social login occurs, and the social
+        account comes with a verified email address (verified by the account
+        provider), but that email address is already taken by a local user
+        account. Additionally, assume that the local user account does not have
+        any social account connected. Now, if the provider can be fully trusted,
+        you can argue that we should treat this scenario as a login to the
+        existing local user account even if the local account does not already
+        have the social account connected, because -- according to the provider
+        -- the user logging in has ownership of the email address.  This is how
+        this scenario is handled when `EMAIL_AUTHENTICATION` is set to
+        `True`. As this implies that an untrustworthy provider can login to any
+        local account by fabricating social account data, this setting defaults
+        to `False`. Only set it to `True` if you are using providers that can be
+        fully trusted.
+        """
+        return self._setting("EMAIL_AUTHENTICATION", False)
+
+    @property
+    def EMAIL_AUTHENTICATION_AUTO_CONNECT(self):
+        """In case email authentication is applied, this setting controls
+        whether or not the social account is automatically connected to the
+        local account. In case of ``False`` (the default) the local account
+        remains unchanged during the login. In case of ``True``, the social
+        account for which the email matched, is automatically added to the list
+        of social accounts connected to the local account. As a result, even if
+        the user were to change the email address afterwards, social login
+        would still be possible when using ``True``, but not in case of
+        ``False``.
+        """
+        return self._setting("EMAIL_AUTHENTICATION_AUTO_CONNECT", False)
 
     @property
     def ADAPTER(self):
@@ -68,19 +124,25 @@ class AppSettings(object):
         return self._setting("FORMS", {})
 
     @property
+    def LOGIN_ON_GET(self):
+        return self._setting("LOGIN_ON_GET", False)
+
+    @property
     def STORE_TOKENS(self):
-        return self._setting("STORE_TOKENS", True)
+        return self._setting("STORE_TOKENS", False)
 
     @property
     def UID_MAX_LENGTH(self):
         return 191
 
+    @property
+    def SOCIALACCOUNT_STR(self):
+        return self._setting("SOCIALACCOUNT_STR", None)
 
-# Ugly? Guido recommends this himself ...
-# http://mail.python.org/pipermail/python-ideas/2012-May/014969.html
-import sys  # noqa
+
+_app_settings = AppSettings("SOCIALACCOUNT_")
 
 
-app_settings = AppSettings("SOCIALACCOUNT_")
-app_settings.__name__ = __name__
-sys.modules[__name__] = app_settings
+def __getattr__(name):
+    # See https://peps.python.org/pep-0562/
+    return getattr(_app_settings, name)

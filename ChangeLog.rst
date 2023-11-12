@@ -1,1726 +1,493 @@
-0.46.0 (2021-11-15)
+0.59.0 (unreleased)
 *******************
 
 Note worthy changes
 -------------------
 
-- New providers: Gitea, MediaWiki.
+- The MFA authenticator model now features "created at" an "last used "at"
+  timestamps.
 
-- New translations: Georgian, Mongolian.
+- The MFA authenticator model is now registed with the Django admin.
 
-- Django 3.2 compatibility.
+- Added MFA signals emitted when authenticators are added, removed or (in case
+  of recovery codes) reset.
 
 
-0.45.0 (2021-07-11)
+0.58.2 (2023-11-06)
 *******************
 
+Fixes
+-----
+
+- Added rate limiting to the MFA login form.
+
+
+0.58.1 (2023-10-29)
+*******************
+
+Fixes
+-----
+
+- Fixed missing ``{% load allauth %}`` in the login cancelled and verified email
+  required template.
+
+
+0.58.0 (2023-10-26)
+*******************
 
 Note worthy changes
 -------------------
 
-- New providers: Feishu, NetIQ, Frontier, CILogin.
+- The ``SocialAccount.exra_data`` field was a custom JSON field that used
+  ``TextField`` as the underlying implementation. It was once needed because
+  Django had no ``JSONField`` support. Now, this field is changed to use the
+  official ``JSONField()``. Migrations are in place.
 
+- Officially support Django 5.0.
 
-0.44.0 (2020-11-25)
-*******************
+- In previous versions, users could never remove their primary email address.
+  This is constraint is now relaxed. In case the email address is not required,
+  for example, because the user logs in by username, removal of the email
+  address is allowed.
 
-Security notice
----------------
-
-In previous versions, the mechanism to prevent too many failed login attempts
-(``ACCOUNT_LOGIN_ATTEMPTS_LIMIT``) could be bypassed by changing the casing of
-the login.
+- Added a new setting ``ACCOUNT_REAUTHENTICATION_REQUIRED`` that, when enabled,
+  requires the user to reauthenticate before changes (such as changing the
+  primary email address, adding a new email address, etc.) can be performed.
 
 
 Backwards incompatible changes
 ------------------------------
 
-- The ``certificate`` key part of the ``SOCIALACCOUNT_PROVIDERS`` configuration has
-  been renamed to ``certificate_key``. This is done to prevent the key from being displayed
-  without being masked in Django debug pages.
-
-0.44.0
-******
-
-- Better compatibility with Django 3.2
-
-
-0.43.0 (2020-10-15)
-*******************
-
-Note worthy changes
--------------------
-
-- New translation: Slovenian.
-
-- If ``ACCOUNT_LOGIN_ATTEMPTS_LIMIT`` is set and the user successfully
-  resets their password, the timeout is cleared to allow immediate login.
-
-- You can now limit the amount of email addresses a user can associate to his
-  account by setting ``ACCOUNT_MAX_EMAIL_ADDRESSES``.
-
-- New providers: Apple, Okta, Stocktwits, Zoho, Zoom.
-
-- If email verification is set to mandatory, the email address you use to login
-  with must now be verified as well. In previous versions, it was sufficient if
-  the account had at least one verified email address, not necessarily the one
-  used to login with.
-
-- Added a new setting: ``ACCOUNT_SIGNUP_REDIRECT_URL`` -- the URL (or URL
-  name) to redirect to directly after signing up.
-
-
-Backwards incompatible changes
-------------------------------
-
-- In previous versions, the ``allauth`` app included a ``base.html``
-  template. This template could conflict with an equally named template at
-  project level. Therefore, ``base.html`` has now been moved to
-  ``account/base.html`` -- you will need to check your templates and likely
-  override ``account/base.html`` within your project.
-
-
-0.42.0 (2020-05-24)
-*******************
-
-Note worthy changes
--------------------
-
-- New providers: EDX, Yandex, Mixer.
-
-- Fixed Twitch ``get_avatar_url()`` method to use the profile picture retrieved
-  by new user details endpoint introduced in version 0.40.0.
-
-- The Facebook API version now defaults to v7.0.
-
-
-0.41.0 (2019-12-18)
-*******************
-
-Security notice
----------------
-
-- See `CVE-2019-19844
-  <https://www.djangoproject.com/weblog/2019/dec/18/security-releases/>`_.
-
-
-Note worthy changes
--------------------
-
-- New providers: Exist.io., YNAB, Amazon Cognito.
-
-- You can now store OAuth credentials directly in your
-  ``settings.SOCIALACCOUNT_PROVIDERS`` settings instead of storing them in the
-  database using a ``SocialApp`` record.
-
-- Adding Keycloak Provider
-
-
-Backwards incompatible changes
-------------------------------
-
-- Dropped Python 2 and Django 1 compatibility.
-
-
-0.40.0 (2019-08-29)
-*******************
-
-Note worthy changes
--------------------
-
-- The ``instagram`` provider now extracts the user's full name.
-
-- New provider: NextCloud (OAuth2)
-
-- Added an ``SDK_URL`` setting for customizing the loading of the Facebook
-  JavaScript SDK.
-
-- Updated Twitch provider to use new authentication endpoints
-  (``https://id.twitch.tv``) over deprecated v5 endpoints
-  (``https://api.twitch.tv/kraken``)
-
-- Added support for Patreon API v2, with API v1 set as default for
-  backwards compatibility.
-
-
-Backwards incompatible changes
-------------------------------
-
-- ``Twitch``: The new API's profile data is different in both
-  structure and content than the old V5 endpoint. Any project
-  that relies on data from ``SocialAccount.extra_data`` should
-  refer to the new API user endpoint documentation:
-  https://dev.twitch.tv/docs/api/reference/#get-users
-
-
-0.39.1 (2019-02-28)
-*******************
-
-Note worthy changes
--------------------
-
-- The ``linkedin_oauth2`` provider now gracefully deals with old V1
-  data that might still be present in ``SocialAccount.extra_data``.
-
-Backwards incompatible changes
-------------------------------
-
-- The ``globus`` provider's ``extract_uid`` now uses the openid
-  required field ``sub`` instead of the ``create_time`` field.
-
-
-0.39.0 (2019-02-26)
-*******************
-
-Note worthy changes
--------------------
-
-- New providers: JupyterHub (OAuth2), Steam (OpenID)
-
-- Refactor translations: Portuguese (Portugal).
-
-- Add testing for Django 2.2 (no code changes required)
-
-Backwards incompatible changes
-------------------------------
-
-- ``linkedin_oauth2``: As the LinkedIn V1 API is deprecated, the user info
-  endpoint has been moved over to use the API V2. The format of the user
-  ``extra_data`` is different and the profile picture is absent by default.
-
-
-0.38.0 (2018-10-03)
-*******************
-
-Security notice
----------------
-
-The ``{% user_display user %}`` tag did not escape properly. Depending on the
-username validation rules, this could lead to XSS issues.
-
-
-Note worthy changes
--------------------
-
-- New provider: Vimeo (OAuth2).
-
-- New translations: Basque.
-
-
-0.37.1 (2018-08-27)
-*******************
-
-Backwards incompatible changes
-------------------------------
-
-- Dropped the ``x-li-src: msdk`` headers from the ``linkedin_oauth2`` handshake.
-  This header is only required for mobile tokens, and breaks the regular flow.
-  Use the ``HEADERS`` setting to add this header if you need it.
-
-
-0.37.0 (2018-08-27)
-*******************
-
-Note worthy changes
--------------------
-
-- The Battle.net login backend now recognizes ``apac`` as a valid region.
-
-- User model using a ``UUIDField`` as it's primary key can now be logged
-  in upon email confirmation (if using ``ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION``).
-
-- New providers: Agave, Cern, Disqus, Globus.
-
-- New translation: Danish.
-
-0.36.0 (2018-05-08)
-*******************
-
-Note worthy changes
--------------------
-
-- New providers: Telegram, QuickBooks.
-
-- The Facebook API version now defaults to v2.12.
-
-- ORCID upgraded to use API v2.1.
+- Refactored the built-in templates, with the goal of being able to adjust the
+  look and feel of the whole project by only overriding a few core templates.
+  This approach allows you to achieve visual results fast, but is of course more
+  limited compared to styling all templates yourself. If your project provided
+  its own templates then this change will not affect anything, but if you rely
+  on (some of) the built-in templates your project may be affected.
+
+- The Azure provider has been removed in favor of keeping the Microsoft
+  provider. Both providers were targeting the same goal.
 
 
 Security notice
 ---------------
 
-- In previous versions, the authentication backend did not invoke the
-  ``user_can_authenticate()`` method, potentially allowing users with
-  ``is_active=False`` to authenticate when the allauth authentication backend
-  was used in a non allauth context.
+- Facebook: Using the JS SDK flow, it was possible to post valid access tokens
+  originating from other apps. Facebook user IDs are scoped per app. By default
+  that user ID (not the email address) is used as key while
+  authenticating. Therefore, such access tokens can not be abused by
+  default. However, in case ``SOCIALACCOUNT_EMAIL_AUTHENTICATION`` was
+  explicitly enabled for the Facebook provider, these tokens could be used to
+  login.
 
 
-0.35.0 (2018-02-02)
+0.57.0 (2023-09-24)
 *******************
 
 Note worthy changes
 -------------------
 
-- Add support for Django 2.0
+- Added Django password validation help text to ``password1`` on
+  set/change/signup forms.
 
-Security notice
----------------
+- Microsoft: the tenant parameter can now be configured per app.
 
-- As an extra security measure on top of what the standard Django password reset
-  token generator is already facilitating, allauth now adds the user email
-  address to the hash such that whenever the user's email address changes the
-  token is invalidated.
+- SAML: Added support for additional configuration parameters, such as contacts,
+  and support for certificate rotation.
 
-Backwards incompatible changes
-------------------------------
+- The enumeration prevention behavior at signup is now configurable. Whether or
+  not enumeration can be prevented during signup depends on the email
+  verification method. In case of mandatory verification, enumeration can be
+  properly prevented because the case where an email address is already taken is
+  indistinguishable from the case where it is not.  However, in case of optional
+  or disabled email verification, enumeration can only be prevented by allowing
+  the signup to go through, resulting in multiple accounts sharing same email
+  address (although only one of the accounts can ever have it verified). When
+  enumeration is set to ``True``, email address uniqueness takes precedence over
+  enumeration prevention, and the issue of multiple accounts having the same
+  email address will be avoided, thus leaking information. Set it to
+  ``"strict"`` to allow for signups to go through.
 
-- Drop support for Django 1.8 and Django 1.10.
 
+Fixes
+=====
 
-Note worthy changes
--------------------
+- Fixed ``?next=`` URL handling in the SAML provider.
 
-- New provider: Azure, Microsoft Graph, Salesforce, Yahoo.
+- During 2FA, pending logins were incorrectly removed when e.g. Django was asked
+  to serve a ``/favicon.ico`` URL.
 
 
-0.34.0 (2017-10-29)
-*******************
-
-Security notice
----------------
-
-- The "Set Password" view did not properly check whether or not the user already
-  had a usable password set. This allowed an attacker to set the password
-  without providing the current password, but only in case the attacker already
-  gained control over the victim's session.
-
-
-Note worthy changes
--------------------
-
-- New provider: Meetup.
-
-
-0.33.0 (2017-08-20)
-*******************
-
-Note worthy changes
--------------------
-
-- Security: password reset tokens are now prevented from being leaked through
-  the password reset URL.
-
-- New providers: Patreon, Authentiq, Dataporten.
-
-- Dropbox has been upgraded to API V2.
-
-- New translation: Norwegian.
-
-
-Backwards incompatible changes
-------------------------------
-
-- Dropped support for Django 1.9.
-
-
-0.32.0 (2017-04-27)
-*******************
-
-Note worthy changes
--------------------
-
-- Improved AJAX support: the account management views (change/set password,
-  manage e-mail addresses and social connections) now support AJAX GET requests.
-  These views hand over all the required data for you to build your frontend
-  application upon.
-
-- New providers: Dwolla, Trello.
-
-- Shopify: support for per-user access mode.
-
-
-Backwards incompatible changes
-------------------------------
-
-- In previous versions, the views only responded with JSON responses when
-  issuing AJAX requests of type POST. Now, the views also respond in JSON when
-  making AJAX GET requests.
-
-- The structure of the response for AJAX requests has changed. Previously, it
-  contained a ``form_errors`` key containing all form validation errors, if any.
-  Now, it contains a ``form`` key that describes the complete form, including
-  the fields. Field specific errors are placed in
-  ``form.fields['some_field'].errors``, non-field errors in ``form.errors``.
-
-- The parameters passed to the Facebook JS SDK ``FB.init()`` method used to contain
-  ``cookie``, ``status``, and ``xfbml``, all set to ``true``. These parameters
-  are no longer explicitly passed. You can use the newly introduced ``INIT_PARAMS``
-  provider setting to provide your own values.
-
-
-
-0.31.0 (2017-02-28)
-*******************
-
-Note worthy changes
--------------------
-
-- Added a new ``user_logged_out`` signal.
-
-- OpenId: Added support for requesting additional data.
-
-- New providers: Auth0, Box, Line, Naver, Kakao, Daum, MailChimp, Eventbrite.
-
-
-Backwards incompatible changes
-------------------------------
-
-- Django 1.7 / Python 3.2 compatibility has been dropped.
-
-- Due to providers being registered in the same file as their definition
-  it was impossible to subclass a provider without having the parent be
-  registered. This has been addressed. If you have implemented a custom
-  provider, you will need to change
-  ``providers.registry.register(CustomProvider)``
-  into
-  ``provider_classes = [CustomProvider]``.
-
-
-0.30.0 (2017-01-01)
-*******************
-
-Note worthy changes
--------------------
-
-- Changed the algorithm that generates unique usernames. Previously, in case the
-  provider did not hand over any information to base the username on, the
-  username "user" extended with an ever increasing numeric suffix would be
-  attempted until a free username was found. In case of a large number of
-  existing users, this could result in many queries being executed before a free
-  username would be found, potentially resulting in a denial of service. The new
-  algorithm uses a random suffix and only one query to determine the final
-  username.
-
-- Added a new setting: ``ACCOUNT_PRESERVE_USERNAME_CASING``. This setting
-  determines whether the username is stored in lowercase (``False``) or whether
-  its casing is to be preserved (``True``). Note that when casing is preserved,
-  potentially expensive ``__iexact`` lookups are performed when filter on
-  username. For now, the default is set to ``True`` to maintain backwards
-  compatibility.
-
-- The OAuth2Adapter class has gained a ``get_callback_url`` method for when
-  customizing the callback URL is desired.
-
-- The Battle.net login backend now accepts the ``region`` GET parameter.
-
-- New providers: 500px, Discord.
-
-
-Backwards incompatible changes
-------------------------------
-
-- In previous versions, the ``DefaultAccountAdapter`` contained a
-  ``username_regex`` property and accompanying
-  ``error_messages['invalid_username']`` validation error message. These have
-  been removed in favor of using the regex validation already defined at the
-  user model level. Alternatively, you can use the newly introduced
-  ``ACCOUNT_USERNAME_VALIDATORS`` setting.
-
-- The Battle.net backend no longer overrides username regex validation. In
-  order to use battletags as usernames, you are expected to override either
-  the ``username`` field on your User model, or to pass a custom validator
-  which will accept the ``#`` character using the new
-  ``ACCOUNT_USERNAME_VALIDATORS`` setting. Such a validator is available in
-  ``socialaccount.providers.battlenet.validators.BattletagUsernameValidator``.
-
-
-0.29.0 (2016-11-21)
-*******************
-
-Note worthy changes
--------------------
-
-- Addressed Django 1.10 deprecation warnings.
-
-
-0.28.0 (2016-10-13)
+0.56.1 (2023-09-08)
 *******************
 
 Security notice
 ---------------
 
-- Previous versions contained a vulnerability allowing an attacker to alter the
-  provider specific settings for ``SCOPE`` and/or ``AUTH_PARAMS`` (part of the
-  larger ``SOCIALACCOUNT_PROVIDERS`` setting). The changes would persist across
-  subsequent requests for all users, provided these settings were explicitly set
-  within your project. These settings translate directly into request
-  parameters, giving the attacker undesirable control over the OAuth(2)
-  handshake. You are not affected if you did not explicitly configure these
-  settings. Thanks to Ryan Kelly for reporting!
+- ``ImmediateHttpResponse`` exceptions were not handled properly when raised
+  inside ``adapter.pre_login()``.  If you relied on aborting the login using
+  this mechanism, that would not work. Most notably, django-allauth-2fa uses
+  this approach, resulting in 2FA not being triggered.
 
 
-Note worthy changes
--------------------
-
-- New providers: Doximity.
-
-- New translations: Korean.
-
-
-0.27.0 (2016-08-18)
+0.56.0 (2023-09-07)
 *******************
 
 Note worthy changes
 -------------------
 
-- Django 1.10 compatibility.
+- Added builtin support for Two-Factor Authentication via the ``allauth.mfa`` app.
 
-- The Twitter and GitHub providers now support querying of the email address.
+- The fact that ``request`` is not available globally has left its mark on the
+  code over the years. Some functions get explicitly passed a request, some do
+  not, and some constructs have it available both as a parameter and as
+  ``self.request``.  As having request available is essential, especially when
+  trying to implement adapter hooks, the request has now been made globally
+  available via::
+
+    from allauth.core import context
+    context.request
+
+- Previously, ``SOCIALACCOUNT_STORE_TOKENS = True`` did not work when the social
+  app was configured in the settings instead of in the database. Now, this
+  functionality works regardless of how you configure the app.
 
 
 Backwards incompatible changes
 ------------------------------
 
-- When ``ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE`` was turned on, the e-mail field key
-  changed from ``email`` to ``email1``, which could introduce subtle bugs. This
-  has now been changed: there always is an ``email`` field, and optionally an
-  ``email2`` field.
+- Dropped support for Django 3.1.
 
-- The "You must type the same password each time" form validation error that can
-  be triggered during signup is now added to the ``password2`` field instead of
-  being added to the non field errors.
+- The ``"allauth.account.middleware.AccountMiddleware"`` middleware is required
+  to be present in your ``settings.MIDDLEWARE``.
 
-- The ``email_confirmation_sent`` signal is now passed ``request``,
-  ``confirmation`` and ``signup`` instead of only the ``confirmation``.
+- Starting from September 1st 2023, CERN upgraded their SSO to a standard OpenID
+  Connect based solution. As a result, the previously builtin CERN provider is
+  no longer needed and has been removed. Instead, use the regular OpenID Connect
+  configuration::
 
-- ``ACCOUNT_PASSWORD_MIN_LENGTH`` was already deprecated, but is now completely
-  ignored if ``AUTH_PASSWORD_VALIDATORS`` is not empty.
+    SOCIALACCOUNT_PROVIDERS = {
+        "openid_connect": {
+            "APPS": [
+                {
+                    "provider_id": "cern",
+                    "name": "CERN",
+                    "client_id": "<insert-id>",
+                    "secret": "<insert-secret>",
+                    "settings": {
+                        "server_url": "https://auth.cern.ch/auth/realms/cern/.well-known/openid-configuration",
+                    },
+                }
+            ]
+        }
+    }
+
+- The Keycloak provider was added before the OpenID Connect functionality
+  landed. Afterwards, the Keycloak implementation was refactored to reuse the
+  regular OIDC provider. As this approach led to bugs (see 0.55.1), it was
+  decided to remove the Keycloak implementation altogether.  Instead, use the
+  regular OpenID Connect configuration::
+
+    SOCIALACCOUNT_PROVIDERS = {
+        "openid_connect": {
+            "APPS": [
+                {
+                    "provider_id": "keycloak",
+                    "name": "Keycloak",
+                    "client_id": "<insert-id>",
+                    "secret": "<insert-secret>",
+                    "settings": {
+                        "server_url": "http://keycloak:8080/realms/master/.well-known/openid-configuration",
+                    },
+                }
+            ]
+        }
+    }
 
 
-0.26.1 (2016-07-25)
+0.55.2 (2023-08-30)
+*******************
+
+Fixes
+-----
+
+- Email confirmation: An attribute error could occur when following invalid
+  email confirmation links.
+
+
+0.55.1 (2023-08-30)
+*******************
+
+Fixes
+-----
+
+- SAML: the lookup of the app (``SocialApp``) was working correctly for apps
+  configured via the settings, but failed when the app was configured via the
+  Django admin.
+
+- Keycloak: fixed reversal of the callback URL, which was reversed using
+  ``"openid_connect_callback"`` instead of ``"keycloak_callback"``. Although the
+  resulting URL is the same, it results in a ``NoReverseMatch`` error when
+  ``allauth.socialaccount.providers.openid_connect`` is not present in
+  ``INSTALLED_APPS``.
+
+
+0.55.0 (2023-08-22)
 *******************
 
 Note worthy changes
 -------------------
 
-- Locale files wrongly packaged, fixed.
+- Introduced a new setting ``ACCOUNT_PASSWORD_RESET_TOKEN_GENERATOR`` that
+  allows you to specify the token generator for password resets.
 
-- Fixed bug (``KeyError``) when ``ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE`` was set to
-  ``True``.
+- Dropped support for Django 2.x and 3.0.
+
+- Officially support Django 4.2.
+
+- New providers: Miro, Questrade
+
+- It is now possible to manage OpenID Connect providers via the Django
+  admin. Simply add a `SocialApp` for each OpenID Connect provider.
+
+- There is now a new flow for changing the email address. When enabled
+  (``ACCOUNT_CHANGE_EMAIL``), users are limited to having exactly one email
+  address that they can change by adding a temporary second email address that,
+  when verified, replaces the current email address.
+
+- Changed spelling from "e-mail" to "email". Both are correct, however, the
+  trend over the years has been towards the simpler and more streamlined form
+  "email".
+
+- Added support for SAML 2.0. Thanks to `Dskrpt <https://dskrpt.de>`_
+  for sponsoring the development of this feature!
+
+- Fixed Twitter OAuth2 authentication by using basic auth and adding scope `tweet.read`.
+
+- Added (optional) support for authentication by email for social logins (see
+  ``SOCIALACCOUNT_EMAIL_AUTHENTICATION``).
 
 
-0.26.0 (2016-07-24)
+Security notice
+---------------
+
+- Even with account enumeration prevention in place, it was possible for a user
+  to infer whether or not a given account exists based by trying to add
+  secondary email addresses .  This has been fixed -- see the note on backwards
+  incompatible changes.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Data model changes: when ``ACCOUNT_UNIQUE_EMAIL=True`` (the default), there
+  was a unique constraint on set on the ``email`` field of the ``EmailAddress``
+  model. This constraint has been relaxed, now there is a unique constraint on
+  the combination of ``email`` and ``verified=True``. Migrations are in place to
+  automatically transition, but if you have a lot of accounts, you may need to
+  take special care using ``CREATE INDEX CONCURRENTLY``.
+
+- The method ``allauth.utils.email_address_exists()`` has been removed.
+
+- The Mozilla Persona provider has been removed. The project was shut down on
+  November 30th 2016.
+
+- A large internal refactor has been performed to be able to add support for
+  providers oferring one or more subproviders. This refactor has the following
+  impact:
+
+  - The provider registry methods ``get_list()``, ``by_id()`` have been
+    removed. The registry now only providers access to the provider classes, not
+    the instances.
+
+  - ``provider.get_app()`` has been removed -- use ``provider.app`` instead.
+
+  - ``SocialApp.objects.get_current()`` has been removed.
+
+  - The ``SocialApp`` model now has additional fields ``provider_id``, and
+    ``settings``.
+
+  - The OpenID Connect provider ``SOCIALACCOUNT_PROVIDERS`` settings structure
+    changed.  Instead of the OpenID Connect specific ``SERVERS`` construct, it
+    now uses the regular ``APPS`` approach. Please refer to the OpenID Connect
+    provider documentation for details.
+
+  - The Telegram provider settings structure, it now requires to app. Please
+    refer to the Telegram provider documentation for details.
+
+- The Facebook provider loaded the Facebook connect ``sdk.js`` regardless of the
+  value of the ``METHOD`` setting. To prevent tracking, now it only loads the
+  Javascript if ``METHOD`` is explicitly set to ``"js_sdk"``.
+
+
+
+0.54.0 (2023-03-31)
 *******************
 
 Note worthy changes
 -------------------
 
-- New providers: Weixin, Battle.net, Asana, Eve Online, 23andMe, Slack
-
-- Django's password validation mechanism (see ``AUTH_PASSWORD_VALIDATORS``) is now
-  used to validate passwords.
-
-- By default, email confirmations are no longer stored in the
-  database. Instead, the email confirmation mail contains an HMAC
-  based key identifying the email address to confirm. The verification
-  lookup includes a fallback to the previous strategy so that there is
-  no negative impact on pending verification emails.
-
-- A new setting ``ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE`` was added, requiring users to
-  input their email address twice. The setting
-  ``ACCOUNT_SIGNUP_PASSWORD_VERIFICATION`` has been renamed to
-  ``ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE``.
-
-- New translations: Latvian, Kyrgyz.
+- Dropped support for EOL Python versions (3.5, 3.6).
 
 
-Backwards incompatible changes
-------------------------------
+Security notice
+---------------
 
-- Dropped support for Django 1.6
-
-- In order to accomodate for Django's password validation, the
-  ``clean_password`` method of the adapter now takes an (optional)
-  ``user`` parameter as its second argument.
-
-- The new HMAC based keys may contain colons. If you have forked
-  ``account/urls.py``, be sure to sync the ``account_confirm_email``
-  pattern.
+- Even when account enumeration prevention was turned on, it was possible for an
+  attacker to infer whether or not a given account exists based upon the
+  response time of an authentication attempt. Fixed.
 
 
-0.25.2 (2016-03-13)
+0.53.1 (2023-03-20)
 *******************
 
 Note worthy changes
 -------------------
 
-- Bug fix release (MemcachedKeyCharacterError: "Control characters not allowed")
+- Example base template was missing ``{% load i18n %}``, fixed.
 
 
-0.25.1 (2016-03-13)
+0.53.0 (2023-03-16)
 *******************
 
 Note worthy changes
 -------------------
 
-- Bug fix release (AttributeError in password reset view).
+- You can now override the use of the ``UserTokenForm`` over at the
+  ``PasswordResetFromKeyView`` by configuring ``ACCOUNT_FORMS["user_token"]`` to
+  allow the change of the password reset token generator.
+
+- The Google API URLs are now configurable via the provider setting which
+  enables use-cases such as overriding the endpoint during integration tests to
+  talk to a mocked version of the API.
 
 
-0.25.0 (2016-03-12)
+0.52.0 (2022-12-29)
 *******************
 
 Note worthy changes
 -------------------
 
-- Many providers were added: Reddit, Untappd, GitLab, Stripe,
-  Pinterest, Shopify, Draugiem, DigitalOcean, Robinhood,
-  Bitbucket(OAuth2).
+- Officially support Django 4.1.
 
-- The account connections view is now AJAX aware.
+- New providers: OpenID Connect, Twitter (OAuth2), Wahoo, DingTalk.
 
-- You can now customize the template extension that is being used to
-  render all HTML templates (``ACCOUNT_TEMPLATE_EXTENSION``)
+- Introduced a new provider setting ``OAUTH_PKCE_ENABLED`` that enables the
+  PKCE-enhanced Authorization Code Flow for OAuth 2.0 providers.
 
-- In order to be secure by default, users are now blocked from logging
-  in after exceeding a maximum number of failed login attempts (see
-  ``ACCOUNT_LOGIN_ATTEMPTS_LIMIT``,
-  ``ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT``). Set
-  ``ACCOUNT_LOGIN_ATTEMPTS_LIMIT`` to ``None`` to disable this
-  functionality. Important: while this protects the allauth login view, it
-  does not protect Django's admin login from being brute forced.
+- When ``ACCOUNT_PREVENT_ENUMERATION`` is turned on, enumeration is now also
+  prevented during signup, provided you are using mandatory email
+  verification. There is a new email template
+  (`templates/account/email/acccount_already_exists_message.txt`) that will be
+  used in this scenario.
 
-- New translations: Arabic, Lithuanian
+- Updated URLs of Google's endpoints to the latest version; removed a redundant
+  ``userinfo`` call.
 
-
-Backwards incompatible changes
-------------------------------
-
-None
+- Fixed Pinterest provider on new api version.
 
 
-0.24.1 (2015-11-09)
+0.51.0 (2022-06-07)
 *******************
 
 Note worthy changes
 -------------------
 
-- Non-test code accidentally had test packages as a dependency.
+- New providers: Snapchat, Hubspot, Pocket, Clever.
 
 
-Backwards incompatible changes
-------------------------------
+Security notice
+---------------
 
-- Setting a password after logging in with a social account no longer logs out
-  the user by default on Django 1.7+. Setting an initial password and changing
-  the password both respect ``settings.ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE``.
+The reset password form is protected by rate limits. There is a limit per IP,
+and per email. In previous versions, the latter rate limit could be bypassed by
+changing the casing of the email address. Note that in that case, the former
+rate limit would still kick in.
 
 
-0.24.0 (2015-11-08)
+0.50.0 (2022-03-25)
 *******************
 
 Note worthy changes
 -------------------
 
-- Django 1.9b1 compatibility.
+- Fixed compatibility issue with setuptools 61.
 
-- Seppo Erviälä contributed a Finnish translation, thanks!
+- New providers: Drip.
 
-- Iurii Kriachko contributed a Basecamp provider, thanks!
-
-Backwards incompatible changes
-------------------------------
-
-- Increased ``SocialApp`` key/secret/token sizes to 191, decreased
-  ``SocialAccount.uid`` size to 191. The latter was done in order to
-  accomodate for MySQL in combination with utf8mb4 and contraints on
-  ``uid``. Note that ``uid`` is used to store OpenID URLs, which can
-  theoretically be longer than 191 characters, although in practice
-  this does not seem to be the case. In case you really need to
-  control the ``uid`` length, set ``settings.SOCIALACCOUNT_UID_MAX_LENGTH``
-  accordingly. Migrations are in place.
+- The Facebook API version now defaults to v13.0.
 
 
-0.23.0 (2015-08-02)
+0.49.0 (2022-02-22)
 *******************
 
 Note worthy changes
 -------------------
 
-- David Friedman contributed Edmodo support, thanks!
+- New providers: LemonLDAP::NG.
 
-- Added support for ``ACCOUNT_LOGIN_ON_PASSWORD_RESET`` (thanks Julen!)
+- Fixed ``SignupForm`` setting username and email attributes on the ``User`` class
+  instead of a dummy user instance.
+
+- Email addresses POST'ed to the email management view (done in order to resend
+  the confirmation email) were not properly validated. Yet, these email
+  addresses were still added as secondary email addresses. Given the lack of
+  proper validation, invalid email addresses could have entered the database.
+
+- New translations: Romanian.
 
 
 Backwards incompatible changes
 ------------------------------
 
-None
+- The Microsoft ``tenant`` setting must now be specified using uppercase ``TENANT``.
+
+- Changed naming of ``internal_reset_url_key`` attribute in
+  ``allauth.account.views.PasswordResetFromKeyView`` to ``reset_url_key``.
 
 
-0.22.0 (2015-07-23)
+0.48.0 (2022-02-03)
 *******************
 
 Note worthy changes
 -------------------
+- New translations: Catalan, Bulgarian.
 
-- Reversal of the email confirmation url can now be overridden in
-  the adapter (``get_email_confirmation_url``). Additionally, the
-  complete confirmation email handling can be overridden via
-  ``send_confirmation_mail``.
+- Introduced a new setting ``ACCOUNT_PREVENT_ENUMERATION`` that controls whether
+  or not information is revealed about whether or not a user account exists.
+  **Warning**: this is a work in progress, password reset is covered, yet,
+  signing up is not.
 
-- Template context processors are no longer used.
+- The ``ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN`` is now also respected when using
+  HMAC based email confirmations. In earlier versions, users could trigger email
+  verification mails without any limits.
 
-- The Facebook Graph API fields (/me/?fields=...) can now be
-  configured using the provider ``FIELDS`` setting.
+- Added builtin rate limiting (see ``ACCOUNT_RATE_LIMITS``).
 
+- Added ``internal_reset_url_key`` attribute in
+  ``allauth.account.views.PasswordResetFromKeyView`` which allows specifying
+  a token parameter displayed as a component of password reset URLs.
 
-Backwards incompatible changes
-------------------------------
+- It is now possible to use allauth without having ``sites`` installed. Whether or
+  not sites is used affects the data models. For example, the social app model
+  uses a many-to-many pointing to the sites model if the ``sites`` app is
+  installed. Therefore, enabling or disabling ``sites`` is not something you can
+  do on the fly.
 
-- Dropped support for Python 2.6 and Django <1.6.
-
-- The default Facebook Graph API version is now v2.4.
-
-- Template context processors are no longer used. The context
-  processor for ``allauth.account`` was already empty, and the context
-  processor for ``allauth.socialaccount`` has been converted into the
-  :doc:``{% get_providers %} <templates>`` template tag.
-
-
-0.21.0 (2015-07-02)
-*******************
-
-Note worthy changes
--------------------
-
-- You can now tweak the authentication params per OAuth provider,
-  as you already could for OAuth2. Contributed by Peter Rowlands,
-  thanks.
-
-- Nattaphoom Ch. contributed a Thai translation, thanks!
-
-- Guoyu Hao contributed a Baidu provider, thanks!
-
-- Rod Xavier Bondoc contributed support logging out on password
-  change (see setting: ``ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE``)
+- The ``facebook`` provider no longer raises ``ImproperlyConfigured``
+  within ``{% providers_media_js %}`` when it is not configured.
 
 
 Backwards incompatible changes
 ------------------------------
 
-- In version 0.20.0 an ``account`` migration (``0002_email_max_length``)
-  was added to alter the maximum length of the email
-  field. Unfortunately, a side effect of this migration was that the
-  ``unique=True`` setting slipped through as well. Hardcoding this to
-  ``True`` is wrong, as uniqueness actually depends on the
-  ``ACCOUNT_UNIQUE_EMAIL`` setting. We cannot create a followup ``0003``
-  migration to set things straight, as the ``0002`` migration may fail
-  on installations where email addresses are not unique. Therefore, we
-  had to resort to changing an existing migration which is normally
-  not the right thing to do. In case your installation has
-  ``ACCOUNT_UNIQUE_EMAIL`` set to ``True``, you need not take any further
-  action. In case it is set to ``False`` and migration ``0002`` already
-  ran, please issue a ``--fake`` migration down to ``0001``, followed by a
-  re-run of the updated ``0002``.
-
-
-0.20.0 (2015-05-25)
-*******************
-
-Note worthy changes
--------------------
-
-- Patrick Paul contributed a provider for Evernote, thanks!
-
-- Josh Wright contributed a provider for Spotify, thanks!
-
-- Björn Andersson added support for Dropbox OAuth2, thanks!
-
-- guoqiao contributed a provider for Douban, thanks!
-
-
-Backwards incompatible changes
-------------------------------
-
-- Given that the ``max_length`` for the Django 1.8 ``EmailField`` has been
-  bumped to 254, allauth is following up. Migrations (``account``) are
-  in place.
-
-
-0.19.1 (2015-02-05)
-*******************
-
-Note worthy changes
--------------------
-
-- Fixed migrations when using South & Django 1.6.
-
-
-0.19.0 (2015-01-04)
-*******************
-
-Note worthy changes
--------------------
-
-- Basil Shubin contributed an Odnoklassniki provider, thanks!
-
-- Facebook: If the JS SDK is not available, for example due to a
-  browser plugin like Disconnect.me that blocks it, login falls back
-  to the regular non JS handshake.
-
-- ``is_safe_url`` can now be overriden
-
-- Facebook: The Graph API version is now configurable via
-  ``SOCIALACCOUNT_PROVIDERS``.
-
-- A Firefox Accounts provider was added by Jannis Leidel, thanks!
-
-- Josh Owen contributed Coinbase support, thanks!
-
-- Tomas Babej contributed a Slovak translation, thanks!
-
-- Moved existing migrations into ``south_migrations``
-
-- "zbryikt" contributed a Taiwanese Chinese translation, thanks!
-
-- Added support for custom password rules via ``clean_password``.
-
-
-Backwards incompatible changes
-------------------------------
-
-- In the upcoming Django 1.8 it is no longer possible to hookup an
-  unsaved ``User`` instance to a ``SocialAccount``. Therefore, if you are
-  inspecting the ``sociallogin`` object, you should now use
-  ``sociallogin.user`` instead of ``sociallogin.account.user``.
-
-- When users logged in while ``User.is_active`` was ``False``, they were
-  sent to ``/accounts/inactive/`` in case of a social login, and
-  received a form validation error in case of a local login. This
-  needless inconsistency has been removed. The validation error no
-  longer appears and local logins are also redirected to
-  ``/accounts/inactive/``.
-
-- In case you were overriding the ``ResetPasswordForm``: the save method
-  now takes ``request`` as its first argument.
-
-- All existing migrations have been moved into ``south_migrations``
-  packages, this in order not to conflict with Django's built-in
-  support for migrations. South 1.0 automatically picks up this new
-  location. Upgrade South if you are still dependent on these
-  migrations.
-
-
-0.18.0 (2014-08-12)
-*******************
-
-Note worthy changes
--------------------
-
-- Storing social access tokens is now optional
-  (``SOCIALACCOUNT_STORE_TOKENS``).
-
-- ``nimiq`` contributed ORCID support, thanks.
-
-- All forms are now pluggable via a new setting:
-  ``(SOCIAL)ACCOUNT_FORMS``.
-
-- James Thompson contributed Windows Live support, thanks!
-
-
-Backwards incompatible changes
-------------------------------
-
-- SECURITY: The Persona provider now requires the ``AUDIENCE`` parameter
-  to be explicitly configured, as required by the Persona
-  specification for security reasons.
-
-- The inline Javascript is removed from the ``fbconnect.html`` template,
-  which allows for a more strict ``Content-Security-Policy``. If you
-  were using the builtin ``fbconnect.html`` this change should go by
-  unnoticed.
-
-
-0.17.0 (2014-06-16)
-*******************
-
-Note worthy changes
--------------------
-
-- ``sourenaraya`` contributed Mail.Ru support, thanks.
-
-- account: Justin Michalicek contributed support to control
-  session life time and age: ``ACCOUNT_SESSION_COOKIE_AGE`` and
-  ``ACCOUNT_SESSION_REMEMBER``.
-
-- Serafeim Papastefanos contributed an Ukrainian translation,
-  thanks!
-
-- ``kkarwows`` contributed AppConfig support, thanks.
-
-- socialaccount: Added Xing provider.
-
-- socialaccount: Marcin Skarbek contributed Hubic support, thanks!
-
-- Volodymyr Yatsyk contributed an Ukrainian translation, thanks!
-
-- ``joke2k`` contributed an Italian translation, thanks!
-
-- socialaccount: All providers now support the ``VERIFIED_EMAIL``
-  property have e-mail addresses forced to be interpreted as
-  verified.
-
-
-Backwards incompatible changes
-------------------------------
-
-None
-
-
-0.16.1 (2014-03-12)
-*******************
-
-Note worthy changes
--------------------
-
-- Facebook login via Javascript was broken if ``auth_type`` was not
-  set to ``reauthenticate``, fixed.
-- Support for hooking up a callback when ``FB.init()`` is ready
-  (``allauth.facebook.onInit``)
-
-Backwards incompatible changes
-------------------------------
-
-None
-
-
-0.16.0 (2014-03-10)
-*******************
-
-Note worthy changes
--------------------
-
-- Nariman Gharib contributed a Persian translation, thanks!
-
-- The custom signup form ``save`` has been deprecated in favour of a
-  ``def signup(request, user)`` method.
-
-- Facebook reauthentication now uses an ``auth_nonce``.
-
-- Added a new option ``ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION``, to
-  indicate whether or not e-mail confirmation is to automatically
-  log in.
-
-- socialaccount: Added Bitbucket provider.
-
-- Jack Shedd contributed Tumblr support, thanks!
-
-- Romanos Tsouroplis contributed Foursquare support, thanks!
-
-- "excessivedemon" contributed Flickr support, thanks!
-
-- Luis Diego García contributed Amazon and Paypal support, thanks!
-
-- Stuart Ross contributed LinkedIn OAuth 2.0 support, thanks!
-
-
-Backwards incompatible changes
-------------------------------
-
-- Previously, the ``save(user)`` was called on the custom signup form.
-  However, this shadowed the existing ``save`` method in case a model
-  form was used. To avoid confusion, the ``save`` method has been
-  deprecated in favour of a ``def signup(request, user)`` method.
-
-- The Amazon provider requires more space for ``token_secret``, so the
-  maximum length restriction has been dropped. Migrations are in
-  place.
-
-
-0.15.0 (2013-12-01)
-*******************
-
-Note worthy changes
--------------------
-
-- socialaccount: Added ``is_auto_signup_allowed`` to social account
-  adapter.
-
-- facebook: Added a new setting: VERIFIED_EMAIL.
-
-- socialaccount: a collision on e-mail address when you sign up
-  using a third party social account is now more clearly explained:
-  "An account already exists with this e-mail address.  Please sign
-  in to that account first, then connect your Google account".
-
-- account: You are now automatically logged in after confirming
-  your e-mail address during sign up.
-
-- account: The ``/accounts/login/`` view now supports AJAX requests.
-
-- facebook: The fbconnect.js script is now more pluggable.
-
-- socialaccount: Markus Kaiserswerth contributed a Feedly
-  provider, thanks!
-
-- socialaccount: Dropped django-avatar support.
-
-- openid: First, last and full name are now also queried together
-  with the e-mail address. Thanks, @andrvb.
-
-- openid: Compatibility fix for Django 1.6 (JSON serializer).
-
-- account: Added support for ``ACCOUNT_CONFIRM_EMAIL_ON_GET``.
-
-
-Backwards incompatible changes
-------------------------------
-
-- Instead of directly rendering and returning a template, logging in
-  while the account is inactive or not yet confirmed now redirects to
-  two new views: ``/accounts/inactive/`` respectively
-  ``/accounts/confirm-email/``.
-
-- The ``account/verification_sent.html`` template no longer receives the
-  e-mail address in the context (``email``). Note that a message
-  containing that e-mail address is still emitted using the messages
-  framework.
-
-- The ``/accounts/confirm_email/key/`` view has been
-  renamed to ``/accounts/confirm-email/`` (human friendlier). Redirects
-  are in place to handle old still pending confirmations.
-
-- Built-in support for django-avatar has been removed. Offering such
-  functionality means making choices which may not be valid for
-  everyone. For example, allauth was downloading the image (which can
-  take some time, or even block) in the context of the login, whereas
-  a better place might be some celery background job. Additionally, in
-  case of an error it simply ignored this. How about retries et al?
-  Also, do you want to copy the avatar once at sign up, or do you want
-  to update on each login? All in all, this functionality goes way
-  beyond authentication and should be addressed elsewhere, beyond
-  allauth scope. The original code has been preserved here so that you
-  can easily reinstate it in your own project:
-  https://gist.github.com/pennersr/7571752
-
-
-0.14.2 (2013-11-16)
-*******************
-
-Note worthy changes
--------------------
-
-- Compatibility fix for logging in with Django 1.6.
-
-- Maksim Rukomoynikov contributed a Russian translation, thanks!
-
-
-Backwards incompatible changes
-------------------------------
-
-- In case you were using the internal method
-  ``generate_unique_username``, note that its signature has changed. It
-  now takes a list of candidates to base the username on.
-
-
-0.14.1 (2013-10-28)
-*******************
-
-Note worthy changes
--------------------
-
-- PyPi did not render the README.rst properly.
-
-
-Backwards incompatible changes
-------------------------------
-
-None
-
-
-0.14.0 (2013-10-28)
-*******************
-
-Note worthy changes
--------------------
-
-- Stuart Ross contributed AngelList support, thanks!
-
-- LinkedIn: profile fields that are to be fetched are now
-  configurable (``PROFILE_FIELDS`` provider-level setting).
-
-- Udi Oron contributed a Hebrew translation, thanks!
-
-- Add setting ``ACCOUNT_DEFAULT_HTTP_PROTOCOL`` (HTTPS support).
-
-- George Whewell contributed Instagram support, thanks!
-
-- Refactored adapter methods relating to creating and populating
-  ``User`` instances.
-
-- User creation methods in the ``Default(Social)AccountAdapter`` now
-  have access to the ``request``.
-
-
-Backwards incompatible changes
-------------------------------
-
-- The ``socialaccount/account_inactive.html`` template has been
-  moved to ``account/account_inactive.html``.
-
-- The adapter API for creating and populating users has been
-  overhauled. As a result, the ``populate_new_user`` adapter methods
-  have disappeared. Please refer to the section on "Creating and
-  Populating User Instances" for more information.
-
-
-0.13.0 (2013-08-31)
-*******************
-
-Note worthy changes
--------------------
-
-- Koichi Harakawa contributed a Japanese translation, thanks!
-
-- Added ``is_open_for_signup`` to DefaultSocialAccountAdapter.
-
-- Added VK provider support.
-
-- Marcin Spoczynski contributed a Polish translation, thanks!
-
-- All views are now class-based.
-
-- ``django.contrib.messages`` is now optional.
-
-- "jresins" contributed a simplified Chinese, thanks!
-
-
-Backwards incompatible changes
-------------------------------
-
-- The password reset from key success response now redirects to a
-  "done" view (``/accounts/password/reset/key/done/``). This view has
-  its own ``account/password_reset_from_key_done.html`` template. In
-  previous versions, the success template was intertwined with the
-  ``account/password_reset_from_key.html`` template.
-
-
-0.12.0 (2013-07-01)
-*******************
-
-Note worthy changes
--------------------
-
-- Added support for re-authenticated (forced prompt) by means of a
-  new ``action="reauthenticate"`` parameter to the ``{%
-  provider_login_url %}``
-
-- Roberto Novaes contributed a Brazilian Portuguese translation,
-  thanks!
-
-- Daniel Eriksson contributed a Swedish translation, thanks!
-
-- You can now logout from both allauth and Facebook via a
-  Javascript helper: ``window.allauth.facebook.logout()``.
-
-- Connecting a social account is now a flow that needs to be
-  explicitly triggered, by means of a ``process="connect"`` parameter
-  that can be passed along to the ``{% provider_login_url %}``, or a
-  ``process=connect`` GET parameter.
-
-- Tomas Marcik contributed a Czech translation, thanks!
-
-
-Backwards incompatible changes
-------------------------------
-
-- The ``{% provider_login_url %}`` tag now takes an optional process
-  parameter that indicates how to process the social login. As a
-  result, if you include the template
-  ``socialaccount/snippets/provider_list.html`` from your own overriden
-  ``socialaccount/connections.html`` template, you now need to pass
-  along the process parameter as follows:
-  ``{% include "socialaccount/snippets/provider_list.html" with process="connect" %}``.
-
-- Instead of inlining the required Facebook SDK Javascript wrapper
-  code into the HTML, it now resides into its own .js file (served
-  with ``{% static %}``). If you were using the builtin ``fbconnect.html``
-  this change should go by unnoticed.
-
-
-0.11.1 (2013-06-04)
-*******************
-
-Note worthy changes
--------------------
-
-- Released (due to issue in disconnecting social accounts).
-
-Backwards incompatible changes
-------------------------------
-
-None
-
-
-0.11.0 (2013-06-02)
-*******************
-
-Note worthy changes
--------------------
-
-- Moved logic whether or not a social account can be disconnected
-  to the ``SocialAccountAdapter`` (``validate_disconnect``).
-
-- Added ``social_account_removed`` signal.
-
-- Implemented CSRF protection
-  (http://tools.ietf.org/html/draft-ietf-oauth-v2-30#section-10.12).
-
-- The ``user_logged_in`` signal now optionally receives a
-  ``sociallogin`` parameter, in case of a social login.
-
-- Added ``social_account_added`` (contributed by orblivion, thanks).
-
-- Hatem Nassrat contributed Bitly support, thanks!
-
-- Bojan Mihelac contributed a Croatian translation, thanks!
-
-- Messages (as in ``django.contrib.messages``) are now configurable
-  through templates.
-- Added support for differentiating e-mail handling (verification,
-  required) between local and social accounts:
-  ``SOCIALACCOUNT_EMAIL_REQUIRED`` and
-  ``SOCIALACCOUNT_EMAIL_VERIFICATION``.
-
-
-Backwards incompatible changes
-------------------------------
-
-None
-
-
-0.10.1 (2013-04-16)
-*******************
-
-Note worthy changes
--------------------
-
-- Cleaning of ``username`` can now be overriden via
-  ``DefaultAccountAdapter.clean_username``
-
-- Fixed potential error (``assert``) when connecting social
-  accounts.
-
-- Added support for custom username handling in case of custom
-  user models (``ACCOUNT_USER_MODEL_USERNAME_FIELD``).
-
-
-Backwards incompatible changes
-------------------------------
-
-None
-
-
-0.10.0 (2013-04-12)
-*******************
-
-Note worthy changes
--------------------
-
-- Chris Davis contributed Vimeo support, thanks!
-
-- Added support for overriding the URL to return to after
-  connecting a social account
-  (``allauth.socialaccount.adapter.DefaultSocialAccountAdapter.get_connect_redirect_url``).
-
-- Python 3 is now supported!
-
-- Dropped dependency on (unmaintained?) oauth2 package, in favor
-  of requests-oauthlib.
-
-- account: E-mail confirmation mails generated at signup can now
-  be differentiated from regular e-mail confirmation mails by
-  placing e.g. a welcome message into the
-  ``account/email/email_confirmation_signup*`` templates. Thanks to
-  Sam Solomon for the patch.
-
-- account: Moved User instance creation to adapter so that e.g.
-  username generation can be influenced. Thanks to John Bazik for
-  the patch.
-
-- Robert Balfre contributed Dropbox support, thanks!
-
-- socialaccount: Added support for Weibo.
-
-- account: Added support for sending HTML e-mail. Add
-  ``*_message.html`` templates and they will be automatically picked
-  up.
-
-- Added support for passing along extra parameters to the OAuth2
-  authentication calls, such as ``access_type`` (Google) or
-  ``auth_type`` (Facebook).
-- Both the login and signup view now immediately redirect to the
-  login redirect url in case the user was already authenticated.
-
-- Added support for closing down signups in a pluggable fashion,
-  making it easy to hookup your own invitation handling mechanism.
-
-- Added support for passing along extra parameters to the
-  ``FB.login`` API call.
-
-
-Backwards incompatible changes
-------------------------------
-
-- Logout no longer happens on GET request. Refer to the ``LogoutView``
-  documentation for more background information. Logging out on GET
-  can be restored by the setting ``ACCOUNT_LOGOUT_ON_GET``. Furthermore,
-  after logging out you are now redirected to
-  ``ACCOUNT_LOGOUT_REDIRECT_URL`` instead of rendering the
-  ``account/logout.html`` template.
-
-- ``LOGIN_REDIRECT_URLNAME`` is now deprecated. Django 1.5 accepts both
-  URL names and URLs for ``LOGIN_REDIRECT_URL``, so we do so as well.
-
-- ``DefaultAccountAdapter.stash_email_verified`` is now named
-  ``stash_verified_email``.
-
-- Django 1.4.3 is now the minimal requirement.
-
-- Dropped dependency on (unmaintained?) oauth2 package, in favor of
-  requests-oauthlib. So you will need to update your (virtual)
-  environment accordingly.
-
-- We noticed a very rare bug that affects end users who add Google
-  social login to existing accounts. The symptom is you end up with
-  users who have multiple primary email addresses which conflicts
-  with assumptions made by the code. In addition to fixing the code
-  that allowed duplicates to occur, there is a management command
-  you can run if you think this effects you (and if it doesn't effect
-  you there is no harm in running it anyways if you are unsure):
-
-  - ``python manage.py account_unsetmultipleprimaryemails``
-
-    - Will silently remove primary flags for email addresses that
-      aren't the same as ``user.email``.
-
-    - If no primary ``EmailAddress`` is ``user.email`` it will pick one
-      at random and print a warning.
-
-- The expiry time, if any, is now stored in a new column
-  ``SocialToken.expires_at``. Migrations are in place.
-
-- Furthermore, Facebook started returning longer tokens, so the
-  maximum token length was increased. Again, migrations are in place.
-
-- Login and signup views have been turned into class-based views.
-
-- The template variable ``facebook_perms`` is no longer passed to the
-  "facebook/fbconnect.html" template. Instead, ``fb_login_options``
-  containing all options is passed.
-
-
-0.9.0 (2013-01-30)
-******************
-
-Note worthy changes
--------------------
-
-- account: ``user_signed_up`` signal now emits an optional
-  ``sociallogin`` parameter so that receivers can easily differentiate
-  between local and social signups.
-
-- account: Added ``email_removed`` signal.
-
-- socialaccount: Populating of User model fields is now
-  centralized in the adapter, splitting up ``name`` into ``first_name``
-  and ``last_name`` if these were not individually available.
-
-- Ahmet Emre Aladağ contributed a Turkish translation, thanks!
-
-- socialaccount: Added SocialAccountAdapter hook to allow for
-  intervention in social logins.
-
-- google: support for Google's ``verified_email`` flag to determine
-  whether or not to send confirmation e-mails.
-
-- Fábio Santos contributed a Portugese translation, thanks!
-
-- socialaccount: Added support for Stack Exchange.
-
-- socialaccount: Added ``get_social_accounts`` template tag.
-
-- account: Default URL to redirect to after login can now be
-  overriden via the adapter, both for login and e-mail confirmation
-  redirects.
-
-
-Backwards incompatible changes
-------------------------------
-
-- ``requests`` is now a dependency (dropped ``httplib2``).
-
-- Added a new column ``SocialApp.client_id``. The value of ``key`` needs
-  to be moved to the new ``client_id`` column. The ``key`` column is
-  required for Stack Exchange. Migrations are in place to handle all
-  of this automatically.
-
-
-0.8.3 (2012-12-06)
-******************
-
-Note worthy changes
--------------------
-
-- Markus Thielen contributed a German translation, thanks!
-
-- The ``site`` foreign key from ``SocialApp`` to ``Site`` has been replaced
-  by a ``ManyToManyField``. Many apps can be used across multiple domains
-  (Facebook cannot).
-
-- account: Added adapter class for increased pluggability. Added
-  hook for 3rd party invitation system to by pass e-mail
-  verification (``stash_email_verified``). Moved sending of mail to
-  adapter.
-
-- account: Added option to completely disable e-mail verification
-  during signup.
-
-
-Backwards incompatible changes
-------------------------------
-
-- The ``ACCOUNT_EMAIL_VERIFICATION`` setting is no longer a boolean
-  based setting. Use a string value of "none", "optional" or
-  "mandatory" instead.
-
-- The template "account/password_reset_key_message.txt" has been moved
-  to "account/email/password_reset_key_message.txt". The subject of
-  the message has been moved into a template
-  ("account/email/password_reset_key_subject.txt").
-
-- The ``site`` foreign key from ``SocialApp`` to ``Site`` has been replaced
-  by a ``ManyToManyField``. Many apps can be used across multiple
-  domains (Facebook cannot).
-
-
-0.8.2 (2012-10-10)
-******************
-
-Note worthy changes
--------------------
-
-- Twitter: Login was broken due to change at in URLs at Twitter,
-  fixed.
-
-- LinkedIn: Added support for passing along the OAuth scope.
-
-- account: Improved e-mail confirmation error handling, no more
-  confusing 404s.
-
-- account: Aldiantoro Nugroho contributed support for a new
-  setting: ACCOUNT_USERNAME_MIN_LENGTH
-
-- socialaccount: Added preliminary support for Mozilla Persona.
-
-- account: Sam Solomon added various signals for email and
-  password related changes.
-
-- account: Usernames may now contain @, +, . and - characters.
-
-
-Backwards incompatible changes
-------------------------------
-
-- Dropped support for ``CONTACT_EMAIL`` from the ``account`` template
-  context processor. It was never documented and only used in the
-  templates as an example -- there is no need to pollute the ``allauth``
-  settings with that. If your templates rely on it then you will have
-  to put it in a context processor yourself.
-
-
-0.8.1 (2012-09-03)
-******************
-
-Note worthy changes
--------------------
-
-- Python 2.6.2 compatibility issue, fixed.
-
-- The example project was unintentionally packaged, fixed.
-
-
-Backwards incompatible changes
-------------------------------
-
-None
-
-
-0.8.0 (2012-09-01)
-******************
-
-Note worthy changes
--------------------
-
-- account: Dropped dependency on the emailconfirmation app,
-  integrating its functionality into the account app. This change is
-  of major impact, please refer to the documentation on how to
-  upgrade.
-
-- account: Documented ACCOUNT_USERNAME_REQUIRED. This is actually
-  not a new setting, but it somehow got overlooked in the
-  documentation.
-
-- account/socialaccount: Dropped the _tags postfix from the
-  template tag libraries. Simply use {% load account %} and {% load
-  socialaccount %}.
-
-- Added signup and social login signals.
-
-- SoundCloud: Rabi Alam contributed a SoundCloud provider, thanks!
-
-- account: Sam Solomon cleaned up the e-mail management view:
-  added proper redirect after POSTs, prevent deletion of primary
-  e-mail. Thanks.
-
-- account: When signing up, instead of generating a completely
-  random username a more sensible username is automatically derived
-  from first/last name or e-mail.
-
-
-Backwards incompatible changes
-------------------------------
-
-- ``allauth`` now depends on Django 1.4 or higher.
-
-- Major impact: dropped dependency on the ``emailconfirmation`` app, as
-  this project is clearly left unmaintained. Important tickets such
-  as https://github.com/pinax/django-email-confirmation/pull/5 are not
-  being addressed. All models and related functionality have been
-  directly integrated into the ``allauth.account`` app. When upgrading
-  take care of the following:
-
-  - The ``emailconfirmation`` setting ``EMAIL_CONFIRMATION_DAYS`` has been
-    replaced by ``ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS``.
-
-  - Instead of directly confirming the e-mail address upon the GET
-    request the confirmation is now processed as part of an explicit
-    POST. Therefore, a new template ``account/email_confirm.html`` must
-    be setup.
-
-  - Existing ``emailconfirmation`` data should be migrated to the new
-    tables. For this purpose a special management command is
-    available: ``python manage.py
-    account_emailconfirmationmigration``. This command does not drop
-    the old ``emailconfirmation`` tables -- you will have to do this
-    manually yourself. Why not use South? EmailAddress uniqueness
-    depends on the configuration (``ACCOUNT_UNIQUE_EMAIL``), South does
-    not handle settings dependent database models.
-
-- ``{% load account_tags %}`` is deprecated, simply use: ``{% load account %}``
-
-- ``{% load socialaccount_tags %}`` is deprecated, simply use:
-  ``{% load socialaccount %}``
-
-
-0.7.0 (2012-07-18)
-******************
-
-Note worthy changes
--------------------
-
-- Facebook: Facundo Gaich contributed support for dynamically
-  deriving the Facebook locale from the Django locale, thanks!.
-
-- OAuth: All OAuth/OAuth2 tokens are now consistently stored
-  across the board. Cleaned up OAuth flow removing superfluous
-  redirect.
-
-- Facebook: Dropped Facebook SDK dependency.
-
-- socialaccount: DRY focused refactoring of social login.
-
-- socialaccount: Added support for Google OAuth2 and Facebook
-  OAuth2. Fixed GitHub.
-
-- account: Added verified_email_required decorator.
-
-- socialaccount: When signing up, user.first/last_name where
-  always taken from the provider signup data, even when a custom
-  signup form was in place that offered user inputs for editting
-  these fields. Fixed.
-
-
-Backwards incompatible changes
-------------------------------
-
-None
-
-
-0.6.0 (2012-06-20)
-******************
-
-Note worthy changes
--------------------
-
-- account: Added ACCOUNT_USER_DISPLAY to render a user name
-  without making assumptions on how the user is represented.
-
-- allauth, socialaccount: Removed the last remaining bits of
-  hardcodedness with respect to the enabled social authentication
-  providers.
-
-- account: Added ACCOUNT_AUTHENTICATION_METHOD setting, supporting
-  login by username, e-mail or both.
-
-
-Backwards incompatible changes
-------------------------------
-
-- The ``ACCOUNT_EMAIL_AUTHENTICATION`` setting has been dropped in favor
-  of ``ACCOUNT_AUTHENTICATION_METHOD``.
-
-- The login form field is now always named ``login``. This used to by
-  either ``username`` or ``email``, depending on the authentication
-  method. If needed, update your templates accordingly.
-
-- The ``allauth`` template tags (containing template tags for
-  OpenID, Twitter and Facebook) have been removed. Use the
-  ``socialaccount`` template tags instead (specifically: ``{% provider_login_url
-  ... %}``).
-
-- The ``allauth.context_processors.allauth`` context processor has been
-  removed, in favor of
-  ``allauth.socialaccount.context_processors.socialaccount``. In doing
-  so, all hardcodedness with respect to providers (e.g
-  ``allauth.facebook_enabled``) has been removed.
-
-
-0.5.0 (2012-06-08)
-******************
-
-Note worthy changes
--------------------
-
-- account: Added setting ACCOUNT_PASSWORD_MIN_LENGTH for
-  specifying the minimum password length.
-
-- socialaccount: Added generic OAuth2 support. Added GitHub
-  support as proof of concept.
-
-- socialaccount: More refactoring: generic provider & OAuth
-  consumer approach. Added LinkedIn support to test this approach.
-
-- socialaccount: Introduced generic models for storing social
-  apps, accounts and tokens in a central and consistent manner,
-  making way for adding support for more account providers. Note:
-  there is more refactoring to be done -- this first step only
-  focuses on the database models.
-
-- account: E-mail confirmation mails are now automatically resent
-  whenever a user attempts to login with an unverified e-mail
-  address (if ACCOUNT_EMAIL_VERIFICATION=True).
-
-
-Backwards incompatible changes
-------------------------------
-
-- Upgrade your ``settings.INSTALLED_APPS``: Replace ``allauth.<provider>``
-  (where provider is one of ``twitter``, ``facebook`` or ``openid``) with
-  ``allauth.socialaccount.providers.<provider>``
-
-- All provider related models (``FacebookAccount``, ``FacebookApp``,
-  ``TwitterAccount``, ``TwitterApp``, ``OpenIDAccount``) have been unified
-  into generic ``SocialApp`` and ``SocialAccount`` models. South migrations
-  are in place to move the data over to the new models, after which
-  the original tables are dropped. Therefore, be sure to run migrate
-  using South.
-
-
-0.4.0 (2012-03-25)
-******************
-
-Note worthy changes
--------------------
-
-- account: The render_value parameter of all PasswordInput fields
-  used can now be configured via a setting.
-
-- account: Added support for prefixing the subject of sent emails.
-
-- account: Added support for a plugging in a custom signup form
-  used for additional questions to ask during signup.
-
-- account: ``is_active`` is no longer used to keep users with an
-  unverified e-mail address from loging in.
-
-- Dropping uniform dependency. Moved uniform templates into
-  example project.
-
-
-Backwards incompatible changes
-------------------------------
-
-None
-
-
-0.3.0 (2012-01-19)
-******************
-
-Note worthy changes
--------------------
-
-- The e-mail authentication backend now attempts to use the
-  'username' parameter as an e-mail address. This is needed to
-  properly integrate with other apps invoking authenticate.
-
-- SmileyChris contributed support for automatically generating a
-  user name at signup when ``ACCOUNT_USERNAME_REQUIRED`` is set to
-  False.
-
-- Vuong Nguyen contributed support for (optionally) asking for the
-  password just once during signup
-  (``ACCOUNT_SIGNUP_PASSWORD_VERIFICATION``).
-
-- The Twitter oauth sequence now respects the "oauth_callback"
-  parameter instead of defaulting to the callback URL
-  configured at Twitter.
-
-- Pass along ``?next=`` parameter between login and signup views.
-
-- Added Dutch translation.
-
-- Added template tags for pointing to social login URLs. These
-  tags automatically pass along any ``?next=``
-  parameter. Additionally, added an overall allauth_tags that
-  gracefully degrades when e.g. allauth.facebook is not installed.
-
-- Pass along next URL, if any, at ``/accounts/social/signup/``.
-
-- Duplicate email address handling could throw a
-  MultipleObjectsReturned exception, fixed.
-
-- Removed separate social account login view, in favour of having
-  a single unified login view including both forms of login.
-
-- Added support for passing along a next URL parameter to
-  Facebook, OpenID logins.
-
-- Added support for django-avatar, copying the Twitter profile
-  image locally on signup.
-
-- ``allauth/account/forms.py`` (``BaseSignupForm.clean_email``): With
-  ``ACCOUNT_EMAIL_REQUIRED=False``, empty email addresses were
-  considered duplicates. Fixed.
-
-- The existing migrations for allauth.openid were not compatible
-  with MySQL due to the use of an URLField with max_length above
-  255. The issue has now been addressed but unfortunately at the
-  cost of the existing migrations for this app. Existing
-  installations will have to be dealt with manually (altering the
-  "identity" column of OpenIDAccount, deleting ghost migrations).
-
-Backwards incompatible changes
-------------------------------
-
-- None
+- The newly introduced ``ACCOUNT_PREVENT_ENUMERATION`` defaults to ``True`` impacting
+  the current behavior of the password reset flow.
+
+- The newly introduced rate limiting is by default turned on. You will need to provide
+  a ``429.html`` template.
+
+- The default of ``SOCIALACCOUNT_STORE_TOKENS`` has been changed to
+  ``False``. Rationale is that storing sensitive information should be opt in, not
+  opt out. If you were relying on this functionality without having it
+  explicitly turned on, please add it to your ``settings.py``.

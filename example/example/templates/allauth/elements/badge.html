@@ -1,0 +1,16 @@
+{% load allauth %}
+{% setvar variant %}
+    {% if "warning" in attrs.tags %}
+        warning
+    {% elif "danger" in attrs.tags %}
+        danger
+    {% elif "success" in attrs.tags %}
+        success
+    {% else %}
+        primary
+    {% endif %}
+{% endsetvar %}
+<span class="badge text-bg-{{ variant }}">
+    {% slot %}
+    {% endslot %}
+</span>

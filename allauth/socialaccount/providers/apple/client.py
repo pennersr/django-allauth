@@ -36,10 +36,11 @@ class AppleOAuth2Client(OAuth2Client):
     def generate_client_secret(self):
         """Create a JWT signed with an apple provided private key"""
         now = datetime.utcnow()
-        app = get_adapter().get_app(self.request, "apple")
+        app = get_adapter(self.request).get_app(self.request, "apple")
         if not app.key:
             raise ImproperlyConfigured("Apple 'key' missing")
-        if not app.certificate_key:
+        certificate_key = app.settings.get("certificate_key")
+        if not certificate_key:
             raise ImproperlyConfigured("Apple 'certificate_key' missing")
         claims = {
             "iss": app.key,
@@ -50,7 +51,7 @@ class AppleOAuth2Client(OAuth2Client):
         }
         headers = {"kid": self.consumer_secret, "alg": "ES256"}
         client_secret = jwt_encode(
-            payload=claims, key=app.certificate_key, algorithm="ES256", headers=headers
+            payload=claims, key=certificate_key, algorithm="ES256", headers=headers
         )
         return client_secret
 
@@ -58,7 +59,7 @@ class AppleOAuth2Client(OAuth2Client):
         """We support multiple client_ids, but use the first one for api calls"""
         return self.consumer_key.split(",")[0]
 
-    def get_access_token(self, code):
+    def get_access_token(self, code, pkce_code_verifier=None):
         url = self.access_token_url
         client_secret = self.generate_client_secret()
         data = {
@@ -68,6 +69,8 @@ class AppleOAuth2Client(OAuth2Client):
             "redirect_uri": self.callback_url,
             "client_secret": client_secret,
         }
+        if pkce_code_verifier:
+            data["code_verifier"] = pkce_code_verifier
         self._strip_empty_keys(data)
         resp = requests.request(
             self.access_token_method, url, data=data, headers=self.headers

@@ -1,0 +1,124 @@
+0.18.0 (2014-08-12)
+*******************
+
+Note worthy changes
+-------------------
+
+- Storing social access tokens is now optional
+  (``SOCIALACCOUNT_STORE_TOKENS``).
+
+- ``nimiq`` contributed ORCID support, thanks.
+
+- All forms are now pluggable via a new setting:
+  ``(SOCIAL)ACCOUNT_FORMS``.
+
+- James Thompson contributed Windows Live support, thanks!
+
+
+Backwards incompatible changes
+------------------------------
+
+- SECURITY: The Persona provider now requires the ``AUDIENCE`` parameter
+  to be explicitly configured, as required by the Persona
+  specification for security reasons.
+
+- The inline Javascript is removed from the ``fbconnect.html`` template,
+  which allows for a more strict ``Content-Security-Policy``. If you
+  were using the builtin ``fbconnect.html`` this change should go by
+  unnoticed.
+
+
+0.17.0 (2014-06-16)
+*******************
+
+Note worthy changes
+-------------------
+
+- ``sourenaraya`` contributed Mail.Ru support, thanks.
+
+- account: Justin Michalicek contributed support to control
+  session life time and age: ``ACCOUNT_SESSION_COOKIE_AGE`` and
+  ``ACCOUNT_SESSION_REMEMBER``.
+
+- Serafeim Papastefanos contributed an Ukrainian translation,
+  thanks!
+
+- ``kkarwows`` contributed AppConfig support, thanks.
+
+- socialaccount: Added Xing provider.
+
+- socialaccount: Marcin Skarbek contributed Hubic support, thanks!
+
+- Volodymyr Yatsyk contributed an Ukrainian translation, thanks!
+
+- ``joke2k`` contributed an Italian translation, thanks!
+
+- socialaccount: All providers now support the ``VERIFIED_EMAIL``
+  property have email addresses forced to be interpreted as
+  verified.
+
+
+Backwards incompatible changes
+------------------------------
+
+None
+
+
+0.16.1 (2014-03-12)
+*******************
+
+Note worthy changes
+-------------------
+
+- Facebook login via Javascript was broken if ``auth_type`` was not
+  set to ``reauthenticate``, fixed.
+- Support for hooking up a callback when ``FB.init()`` is ready
+  (``allauth.facebook.onInit``)
+
+Backwards incompatible changes
+------------------------------
+
+None
+
+
+0.16.0 (2014-03-10)
+*******************
+
+Note worthy changes
+-------------------
+
+- Nariman Gharib contributed a Persian translation, thanks!
+
+- The custom signup form ``save`` has been deprecated in favour of a
+  ``def signup(request, user)`` method.
+
+- Facebook reauthentication now uses an ``auth_nonce``.
+
+- Added a new option ``ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION``, to
+  indicate whether or not email confirmation is to automatically
+  log in.
+
+- socialaccount: Added Bitbucket provider.
+
+- Jack Shedd contributed Tumblr support, thanks!
+
+- Romanos Tsouroplis contributed Foursquare support, thanks!
+
+- "excessivedemon" contributed Flickr support, thanks!
+
+- Luis Diego García contributed Amazon and Paypal support, thanks!
+
+- Stuart Ross contributed LinkedIn OAuth 2.0 support, thanks!
+
+
+Backwards incompatible changes
+------------------------------
+
+- Previously, the ``save(user)`` was called on the custom signup form.
+  However, this shadowed the existing ``save`` method in case a model
+  form was used. To avoid confusion, the ``save`` method has been
+  deprecated in favour of a ``def signup(request, user)`` method.
+
+- The Amazon provider requires more space for ``token_secret``, so the
+  maximum length restriction has been dropped. Migrations are in
+  place.

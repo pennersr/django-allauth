@@ -1,3 +1,4 @@
+import functools
 from datetime import timedelta
 
 from django.db import models
@@ -10,10 +11,43 @@ from . import app_settings
 class EmailAddressManager(models.Manager):
     def can_add_email(self, user):
         ret = True
-        if app_settings.MAX_EMAIL_ADDRESSES:
+        if app_settings.CHANGE_EMAIL:
+            #  We always allow adding an email in this case, regardless of
+            # `MAX_EMAIL_ADDRESSES`, as adding actually adds a temporary email
+            # that the user wants to change to.
+            return True
+        elif app_settings.MAX_EMAIL_ADDRESSES:
             count = self.filter(user=user).count()
             ret = count < app_settings.MAX_EMAIL_ADDRESSES
         return ret
+
+    def get_new(self, user):
+        """
+        Returns the email address the user is in the process of changing to, if any.
+        """
+        assert app_settings.CHANGE_EMAIL
+        return (
+            self.model.objects.filter(user=user, verified=False).order_by("pk").last()
+        )
+
+    def add_new_email(self, request, user, email):
+        """
+        Adds an email address the user wishes to change to, replacing his
+        current email address once confirmed.
+        """
+        assert app_settings.CHANGE_EMAIL
+        instance = self.get_new(user)
+        if not instance:
+            instance = self.model.objects.create(user=user, email=email)
+        else:
+            # Apparently, the user was already in the process of changing his
+            # email.  Reuse that temporary email address.
+            instance.email = email
+            instance.verified = False
+            instance.primary = False
+            instance.save()
+        instance.send_confirmation(request)
+        return instance
 
     def add_email(self, request, user, email, confirm=False, signup=False):
         email_address, created = self.get_or_create(
@@ -24,6 +58,9 @@ class EmailAddressManager(models.Manager):
             email_address.send_confirmation(request, signup=signup)
 
         return email_address
+
+    def get_verified(self, user):
+        return self.filter(user=user, verified=True).order_by("-primary", "pk").first()
 
     def get_primary(self, user):
         try:
@@ -61,6 +98,16 @@ class EmailAddressManager(models.Manager):
                 if address.email.lower() == email.lower():
                     return address
             raise self.model.DoesNotExist()
+
+    def is_verified(self, email):
+        return self.filter(email__iexact=email, verified=True).exists()
+
+    def lookup(self, emails):
+        q_list = [Q(email__iexact=e) for e in emails]
+        if not q_list:
+            return self.none()
+        q = functools.reduce(lambda a, b: a | b, q_list)
+        return self.filter(q)
 
 
 class EmailConfirmationManager(models.Manager):

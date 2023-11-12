@@ -25,13 +25,6 @@ class Auth0OAuth2Adapter(OAuth2Adapter):
         extra_data = requests.get(
             self.profile_url, params={"access_token": token.token}
         ).json()
-        extra_data = {
-            "user_id": extra_data["sub"],
-            "id": extra_data["sub"],
-            "name": extra_data["name"],
-            "email": extra_data["email"],
-        }
-
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 

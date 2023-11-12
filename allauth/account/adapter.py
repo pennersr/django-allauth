@@ -1,9 +1,8 @@
-from __future__ import unicode_literals
-
-import hashlib
+import html
 import json
-import time
 import warnings
+from datetime import timedelta
+from urllib.parse import urlparse
 
 from django import forms
 from django.conf import settings
@@ -11,13 +10,14 @@ from django.contrib import messages
 from django.contrib.auth import (
     authenticate,
     get_backends,
+    get_user_model,
     login as django_login,
     logout as django_logout,
 )
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.cache import cache
+from django.core.exceptions import FieldDoesNotExist
 from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import resolve_url
@@ -25,21 +25,27 @@ from django.template import TemplateDoesNotExist
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.crypto import get_random_string
 from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 
-from ..utils import (
+from allauth import app_settings as allauth_app_settings
+from allauth.account import signals
+from allauth.account.app_settings import (
+    AuthenticationMethod,
+    EmailVerificationMethod,
+)
+from allauth.core import context, ratelimit
+from allauth.utils import (
     build_absolute_uri,
-    email_address_exists,
     generate_unique_username,
-    get_user_model,
     import_attribute,
 )
+
 from . import app_settings
 
 
 class DefaultAccountAdapter(object):
-
     error_messages = {
         "username_blacklisted": _(
             "Username can not be used. Please use other username."
@@ -50,11 +56,14 @@ class DefaultAccountAdapter(object):
         "too_many_login_attempts": _(
             "Too many failed login attempts. Try again later."
         ),
-        "email_taken": _("A user is already registered with this e-mail address."),
+        "email_taken": _("A user is already registered with this email address."),
+        "incorrect_password": _("Incorrect password."),
     }
 
     def __init__(self, request=None):
-        self.request = request
+        # Explicitly passing `request` is deprecated, just use:
+        # `allauth.core.context.request`.
+        self.request = context.request
 
     def stash_verified_email(self, request, email):
         request.session["account_verified_email"] = email
@@ -82,24 +91,53 @@ class DefaultAccountAdapter(object):
             ret = verified_email.lower() == email.lower()
         return ret
 
+    def can_delete_email(self, email_address):
+        from allauth.account.models import EmailAddress
+
+        has_other = (
+            EmailAddress.objects.filter(user_id=email_address.user_id)
+            .exclude(pk=email_address.pk)
+            .exists()
+        )
+        login_by_email = (
+            app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL
+        )
+        if email_address.primary:
+            if has_other:
+                # Don't allow, let the user mark one of the others as primary
+                # first.
+                return False
+            elif login_by_email:
+                # Last email & login is by email, prevent dangling account.
+                return False
+            return True
+        elif has_other:
+            # Account won't be dangling.
+            return True
+        elif login_by_email:
+            # This is the last email.
+            return False
+        else:
+            return True
+
     def format_email_subject(self, subject):
         prefix = app_settings.EMAIL_SUBJECT_PREFIX
         if prefix is None:
-            site = get_current_site(self.request)
+            site = get_current_site(context.request)
             prefix = "[{name}] ".format(name=site.name)
         return prefix + force_str(subject)
 
     def get_from_email(self):
         """
-        This is a hook that can be overridden to programatically
+        This is a hook that can be overridden to programmatically
         set the 'from' email address for sending emails
         """
         return settings.DEFAULT_FROM_EMAIL
 
-    def render_mail(self, template_prefix, email, context):
+    def render_mail(self, template_prefix, email, context, headers=None):
         """
-        Renders an e-mail to `email`.  `template_prefix` identifies the
-        e-mail that is to be sent, e.g. "account/email/email_confirmation"
+        Renders an email to `email`.  `template_prefix` identifies the
+        email that is to be sent, e.g. "account/email/email_confirmation"
         """
         to = [email] if isinstance(email, str) else email
         subject = render_to_string("{0}_subject.txt".format(template_prefix), context)
@@ -116,18 +154,20 @@ class DefaultAccountAdapter(object):
                 bodies[ext] = render_to_string(
                     template_name,
                     context,
-                    self.request,
+                    globals()["context"].request,
                 ).strip()
             except TemplateDoesNotExist:
                 if ext == "txt" and not bodies:
                     # We need at least one body
                     raise
         if "txt" in bodies:
-            msg = EmailMultiAlternatives(subject, bodies["txt"], from_email, to)
+            msg = EmailMultiAlternatives(
+                subject, bodies["txt"], from_email, to, headers=headers
+            )
             if "html" in bodies:
                 msg.attach_alternative(bodies["html"], "text/html")
         else:
-            msg = EmailMessage(subject, bodies["html"], from_email, to)
+            msg = EmailMessage(subject, bodies["html"], from_email, to, headers=headers)
             msg.content_subtype = "html"  # Main content is now text/html
         return msg
 
@@ -167,7 +207,7 @@ class DefaultAccountAdapter(object):
 
     def get_email_confirmation_redirect_url(self, request):
         """
-        The URL to return to after successful e-mail confirmation.
+        The URL to return to after successful email confirmation.
         """
         if request.user.is_authenticated:
             if app_settings.EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL:
@@ -297,14 +337,12 @@ class DefaultAccountAdapter(object):
         min_length = app_settings.PASSWORD_MIN_LENGTH
         if min_length and len(password) < min_length:
             raise forms.ValidationError(
-                _("Password must be a minimum of {0} " "characters.").format(min_length)
+                _("Password must be a minimum of {0} characters.").format(min_length)
             )
         validate_password(password, user)
         return password
 
     def validate_unique_email(self, email):
-        if email_address_exists(email):
-            raise forms.ValidationError(self.error_messages["email_taken"])
         return email
 
     def add_message(
@@ -323,12 +361,13 @@ class DefaultAccountAdapter(object):
             try:
                 if message_context is None:
                     message_context = {}
-                message = render_to_string(
+                escaped_message = render_to_string(
                     message_template,
                     message_context,
-                    self.request,
+                    context.request,
                 ).strip()
-                if message:
+                if escaped_message:
+                    message = html.unescape(escaped_message)
                     messages.add_message(request, level, message, extra_tags=extra_tags)
             except TemplateDoesNotExist:
                 pass
@@ -380,7 +419,70 @@ class DefaultAccountAdapter(object):
             form_spec["field_order"].append(field.html_name)
         return form_spec
 
+    def pre_login(
+        self,
+        request,
+        user,
+        *,
+        email_verification,
+        signal_kwargs,
+        email,
+        signup,
+        redirect_url
+    ):
+        from .utils import has_verified_email, send_email_confirmation
+
+        if not user.is_active:
+            return self.respond_user_inactive(request, user)
+
+        if email_verification == EmailVerificationMethod.NONE:
+            pass
+        elif email_verification == EmailVerificationMethod.OPTIONAL:
+            # In case of OPTIONAL verification: send on signup.
+            if not has_verified_email(user, email) and signup:
+                send_email_confirmation(request, user, signup=signup, email=email)
+        elif email_verification == EmailVerificationMethod.MANDATORY:
+            if not has_verified_email(user, email):
+                send_email_confirmation(request, user, signup=signup, email=email)
+                return self.respond_email_verification_sent(request, user)
+
+    def post_login(
+        self,
+        request,
+        user,
+        *,
+        email_verification,
+        signal_kwargs,
+        email,
+        signup,
+        redirect_url
+    ):
+        from .utils import get_login_redirect_url
+
+        response = HttpResponseRedirect(
+            get_login_redirect_url(request, redirect_url, signup=signup)
+        )
+
+        if signal_kwargs is None:
+            signal_kwargs = {}
+        signals.user_logged_in.send(
+            sender=user.__class__,
+            request=request,
+            response=response,
+            user=user,
+            **signal_kwargs,
+        )
+        self.add_message(
+            request,
+            messages.SUCCESS,
+            "account/messages/logged_in.txt",
+            {"user": user},
+        )
+        return response
+
     def login(self, request, user):
+        from allauth.account.reauthentication import record_authentication
+
         # HACK: This is not nice. The proper Django way is to use an
         # authentication backend
         if not hasattr(user, "backend"):
@@ -399,6 +501,7 @@ class DefaultAccountAdapter(object):
             backend_path = ".".join([backend.__module__, backend.__class__.__name__])
             user.backend = backend_path
         django_login(request, user)
+        record_authentication(request, user)
 
     def logout(self, request):
         django_logout(request)
@@ -407,35 +510,64 @@ class DefaultAccountAdapter(object):
         """
         Marks the email address as confirmed on the db
         """
-        email_address.verified = True
-        email_address.set_as_primary(conditional=True)
-        email_address.save()
+        from allauth.account.models import EmailAddress
+
+        from_email_address = (
+            EmailAddress.objects.filter(user_id=email_address.user_id)
+            .exclude(pk=email_address.pk)
+            .first()
+        )
+        if not email_address.set_verified(commit=False):
+            return False
+        email_address.set_as_primary(conditional=(not app_settings.CHANGE_EMAIL))
+        email_address.save(update_fields=["verified", "primary"])
+        if app_settings.CHANGE_EMAIL:
+            for instance in EmailAddress.objects.filter(
+                user_id=email_address.user_id
+            ).exclude(pk=email_address.pk):
+                instance.remove()
+            signals.email_changed.send(
+                sender=get_user_model(),
+                request=request,
+                user=email_address.user,
+                from_email_address=from_email_address,
+                to_email_address=email_address,
+            )
+        return True
 
     def set_password(self, user, password):
         user.set_password(password)
         user.save()
 
     def get_user_search_fields(self):
-        user = get_user_model()()
-        return filter(
-            lambda a: a and hasattr(user, a),
-            [
-                app_settings.USER_MODEL_USERNAME_FIELD,
-                "first_name",
-                "last_name",
-                "email",
-            ],
-        )
+        ret = []
+        User = get_user_model()
+        candidates = [
+            app_settings.USER_MODEL_USERNAME_FIELD,
+            "first_name",
+            "last_name",
+            "email",
+        ]
+        for candidate in candidates:
+            try:
+                User._meta.get_field(candidate)
+                ret.append(candidate)
+            except FieldDoesNotExist:
+                pass
+        return ret
 
     def is_safe_url(self, url):
-        try:
-            from django.utils.http import url_has_allowed_host_and_scheme
-        except ImportError:
-            from django.utils.http import (
-                is_safe_url as url_has_allowed_host_and_scheme,
-            )
+        from django.utils.http import url_has_allowed_host_and_scheme
 
-        return url_has_allowed_host_and_scheme(url, allowed_hosts=None)
+        # get_host already validates the given host, so no need to check it again
+        allowed_hosts = {context.request.get_host()} | set(settings.ALLOWED_HOSTS)
+
+        if "*" in allowed_hosts:
+            parsed_host = urlparse(url).netloc
+            allowed_host = {parsed_host} if parsed_host else None
+            return url_has_allowed_host_and_scheme(url, allowed_hosts=allowed_host)
+
+        return url_has_allowed_host_and_scheme(url, allowed_hosts=allowed_hosts)
 
     def get_email_confirmation_url(self, request, emailconfirmation):
         """Constructs the email confirmation (activation) url.
@@ -447,6 +579,39 @@ class DefaultAccountAdapter(object):
         url = reverse("account_confirm_email", args=[emailconfirmation.key])
         ret = build_absolute_uri(request, url)
         return ret
+
+    def should_send_confirmation_mail(self, request, email_address):
+        from allauth.account.models import EmailConfirmation
+
+        cooldown_period = timedelta(seconds=app_settings.EMAIL_CONFIRMATION_COOLDOWN)
+        if app_settings.EMAIL_CONFIRMATION_HMAC:
+            send_email = ratelimit.consume(
+                request,
+                action="confirm_email",
+                key=email_address.email.lower(),
+                amount=1,
+                duration=cooldown_period.total_seconds(),
+            )
+        else:
+            send_email = not EmailConfirmation.objects.filter(
+                sent__gt=timezone.now() - cooldown_period,
+                email_address=email_address,
+            ).exists()
+        return send_email
+
+    def send_account_already_exists_mail(self, email):
+        signup_url = build_absolute_uri(context.request, reverse("account_signup"))
+        password_reset_url = build_absolute_uri(
+            context.request, reverse("account_reset_password")
+        )
+        ctx = {
+            "request": context.request,
+            "current_site": get_current_site(context.request),
+            "email": email,
+            "signup_url": signup_url,
+            "password_reset_url": password_reset_url,
+        }
+        self.send_mail("account/email/account_already_exists", email, ctx)
 
     def send_confirmation_mail(self, request, emailconfirmation, signup):
         current_site = get_current_site(request)
@@ -472,31 +637,26 @@ class DefaultAccountAdapter(object):
     def _get_login_attempts_cache_key(self, request, **credentials):
         site = get_current_site(request)
         login = credentials.get("email", credentials.get("username", "")).lower()
-        login_key = hashlib.sha256(login.encode("utf8")).hexdigest()
-        return "allauth/login_attempts@{site_id}:{login}".format(
-            site_id=site.pk, login=login_key
-        )
+        return "{site}:{login}".format(site=site.domain, login=login)
 
     def _delete_login_attempts_cached_email(self, request, **credentials):
         if app_settings.LOGIN_ATTEMPTS_LIMIT:
             cache_key = self._get_login_attempts_cache_key(request, **credentials)
-            cache.delete(cache_key)
+            ratelimit.clear(request, action="login_failed", key=cache_key)
 
     def pre_authenticate(self, request, **credentials):
         if app_settings.LOGIN_ATTEMPTS_LIMIT:
             cache_key = self._get_login_attempts_cache_key(request, **credentials)
-            login_data = cache.get(cache_key, None)
-            if login_data:
-                dt = timezone.now()
-                current_attempt_time = time.mktime(dt.timetuple())
-                if len(
-                    login_data
-                ) >= app_settings.LOGIN_ATTEMPTS_LIMIT and current_attempt_time < (
-                    login_data[-1] + app_settings.LOGIN_ATTEMPTS_TIMEOUT
-                ):
-                    raise forms.ValidationError(
-                        self.error_messages["too_many_login_attempts"]
-                    )
+            if not ratelimit.consume(
+                request,
+                action="login_failed",
+                key=cache_key,
+                amount=app_settings.LOGIN_ATTEMPTS_LIMIT,
+                duration=app_settings.LOGIN_ATTEMPTS_TIMEOUT,
+            ):
+                raise forms.ValidationError(
+                    self.error_messages["too_many_login_attempts"]
+                )
 
     def authenticate(self, request, **credentials):
         """Only authenticates, does not actually login. See `login`"""
@@ -514,12 +674,7 @@ class DefaultAccountAdapter(object):
         return user
 
     def authentication_failed(self, request, **credentials):
-        if app_settings.LOGIN_ATTEMPTS_LIMIT:
-            cache_key = self._get_login_attempts_cache_key(request, **credentials)
-            data = cache.get(cache_key, [])
-            dt = timezone.now()
-            data.append(time.mktime(dt.timetuple()))
-            cache.set(cache_key, data, app_settings.LOGIN_ATTEMPTS_TIMEOUT)
+        pass
 
     def is_ajax(self, request):
         return any(
@@ -529,6 +684,50 @@ class DefaultAccountAdapter(object):
                 request.META.get("HTTP_ACCEPT") == "application/json",
             ]
         )
+
+    def get_client_ip(self, request):
+        x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(",")[0]
+        else:
+            ip = request.META.get("REMOTE_ADDR")
+        return ip
+
+    def generate_emailconfirmation_key(self, email):
+        key = get_random_string(64).lower()
+        return key
+
+    def get_login_stages(self):
+        ret = []
+        if allauth_app_settings.MFA_ENABLED:
+            ret.append("allauth.mfa.stages.AuthenticateStage")
+        return ret
+
+    def get_reauthentication_methods(self, user):
+        """The order of the methods returned matters. The first method is the
+        default when using the `@reauthentication_required` decorator.
+        """
+        ret = []
+        if not user.is_authenticated:
+            return ret
+        if user.has_usable_password():
+            ret.append(
+                {
+                    "description": _("Use your password"),
+                    "url": reverse("account_reauthenticate"),
+                }
+            )
+        if allauth_app_settings.MFA_ENABLED:
+            from allauth.mfa.utils import is_mfa_enabled
+
+            if is_mfa_enabled(user):
+                ret.append(
+                    {
+                        "description": _("Use your authenticator app"),
+                        "url": reverse("mfa_reauthenticate"),
+                    }
+                )
+        return ret
 
 
 def get_adapter(request=None):

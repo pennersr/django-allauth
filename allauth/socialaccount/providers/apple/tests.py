@@ -6,6 +6,7 @@ from urllib.parse import parse_qs, urlparse
 from django.conf import settings
 from django.test.utils import override_settings
 from django.urls import reverse
+from django.utils.http import urlencode
 
 import jwt
 
@@ -106,12 +107,14 @@ def sign_id_token(payload):
                 "client_id": "app123id",
                 "key": "apple",
                 "secret": "dummy",
-                "certificate_key": """-----BEGIN PRIVATE KEY-----
+                "settings": {
+                    "certificate_key": """-----BEGIN PRIVATE KEY-----
 MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQg2+Eybl8ojH4wB30C
 3/iDkpsrxuPfs3DZ+3nHNghBOpmhRANCAAQSpo1eQ+EpNgQQyQVs/F27dkq3gvAI
 28m95JEk26v64YAea5NTH56mru30RDqTKPgRVi5qRu3XGyqy3mdb8gMy
 -----END PRIVATE KEY-----
 """,
+                },
             }
         }
     },
@@ -186,8 +189,10 @@ class AppleTests(OAuth2TestsMixin, TestCase):
         return params
 
     def login(self, resp_mock, process="login", with_refresh_token=True):
-        resp = self.client.get(
-            reverse(self.provider.id + "_login"), dict(process=process)
+        resp = self.client.post(
+            reverse(self.provider.id + "_login")
+            + "?"
+            + urlencode(dict(process=process))
         )
         p = urlparse(resp["location"])
         q = parse_qs(p.query)

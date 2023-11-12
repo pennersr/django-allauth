@@ -1,0 +1,427 @@
+0.15.0 (2013-12-01)
+*******************
+
+Note worthy changes
+-------------------
+
+- socialaccount: Added ``is_auto_signup_allowed`` to social account
+  adapter.
+
+- facebook: Added a new setting: VERIFIED_EMAIL.
+
+- socialaccount: a collision on email address when you sign up
+  using a third party social account is now more clearly explained:
+  "An account already exists with this email address.  Please sign
+  in to that account first, then connect your Google account".
+
+- account: You are now automatically logged in after confirming
+  your email address during sign up.
+
+- account: The ``/accounts/login/`` view now supports AJAX requests.
+
+- facebook: The fbconnect.js script is now more pluggable.
+
+- socialaccount: Markus Kaiserswerth contributed a Feedly
+  provider, thanks!
+
+- socialaccount: Dropped django-avatar support.
+
+- openid: First, last and full name are now also queried together
+  with the email address. Thanks, @andrvb.
+
+- openid: Compatibility fix for Django 1.6 (JSON serializer).
+
+- account: Added support for ``ACCOUNT_CONFIRM_EMAIL_ON_GET``.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Instead of directly rendering and returning a template, logging in
+  while the account is inactive or not yet confirmed now redirects to
+  two new views: ``/accounts/inactive/`` respectively
+  ``/accounts/confirm-email/``.
+
+- The ``account/verification_sent.html`` template no longer receives the
+  email address in the context (``email``). Note that a message
+  containing that email address is still emitted using the messages
+  framework.
+
+- The ``/accounts/confirm_email/key/`` view has been
+  renamed to ``/accounts/confirm-email/`` (human friendlier). Redirects
+  are in place to handle old still pending confirmations.
+
+- Built-in support for django-avatar has been removed. Offering such
+  functionality means making choices which may not be valid for
+  everyone. For example, allauth was downloading the image (which can
+  take some time, or even block) in the context of the login, whereas
+  a better place might be some celery background job. Additionally, in
+  case of an error it simply ignored this. How about retries et al?
+  Also, do you want to copy the avatar once at sign up, or do you want
+  to update on each login? All in all, this functionality goes way
+  beyond authentication and should be addressed elsewhere, beyond
+  allauth scope. The original code has been preserved here so that you
+  can easily reinstate it in your own project:
+  https://gist.github.com/pennersr/7571752
+
+
+0.14.2 (2013-11-16)
+*******************
+
+Note worthy changes
+-------------------
+
+- Compatibility fix for logging in with Django 1.6.
+
+- Maksim Rukomoynikov contributed a Russian translation, thanks!
+
+
+Backwards incompatible changes
+------------------------------
+
+- In case you were using the internal method
+  ``generate_unique_username``, note that its signature has changed. It
+  now takes a list of candidates to base the username on.
+
+
+0.14.1 (2013-10-28)
+*******************
+
+Note worthy changes
+-------------------
+
+- PyPi did not render the README.rst properly.
+
+
+Backwards incompatible changes
+------------------------------
+
+None
+
+
+0.14.0 (2013-10-28)
+*******************
+
+Note worthy changes
+-------------------
+
+- Stuart Ross contributed AngelList support, thanks!
+
+- LinkedIn: profile fields that are to be fetched are now
+  configurable (``PROFILE_FIELDS`` provider-level setting).
+
+- Udi Oron contributed a Hebrew translation, thanks!
+
+- Add setting ``ACCOUNT_DEFAULT_HTTP_PROTOCOL`` (HTTPS support).
+
+- George Whewell contributed Instagram support, thanks!
+
+- Refactored adapter methods relating to creating and populating
+  ``User`` instances.
+
+- User creation methods in the ``Default(Social)AccountAdapter`` now
+  have access to the ``request``.
+
+
+Backwards incompatible changes
+------------------------------
+
+- The ``socialaccount/account_inactive.html`` template has been
+  moved to ``account/account_inactive.html``.
+
+- The adapter API for creating and populating users has been
+  overhauled. As a result, the ``populate_new_user`` adapter methods
+  have disappeared. Please refer to the section on "Creating and
+  Populating User Instances" for more information.
+
+
+0.13.0 (2013-08-31)
+*******************
+
+Note worthy changes
+-------------------
+
+- Koichi Harakawa contributed a Japanese translation, thanks!
+
+- Added ``is_open_for_signup`` to DefaultSocialAccountAdapter.
+
+- Added VK provider support.
+
+- Marcin Spoczynski contributed a Polish translation, thanks!
+
+- All views are now class-based.
+
+- ``django.contrib.messages`` is now optional.
+
+- "jresins" contributed a simplified Chinese, thanks!
+
+
+Backwards incompatible changes
+------------------------------
+
+- The password reset from key success response now redirects to a
+  "done" view (``/accounts/password/reset/key/done/``). This view has
+  its own ``account/password_reset_from_key_done.html`` template. In
+  previous versions, the success template was intertwined with the
+  ``account/password_reset_from_key.html`` template.
+
+
+0.12.0 (2013-07-01)
+*******************
+
+Note worthy changes
+-------------------
+
+- Added support for re-authenticated (forced prompt) by means of a
+  new ``action="reauthenticate"`` parameter to the ``{%
+  provider_login_url %}``
+
+- Roberto Novaes contributed a Brazilian Portuguese translation,
+  thanks!
+
+- Daniel Eriksson contributed a Swedish translation, thanks!
+
+- You can now logout from both allauth and Facebook via a
+  Javascript helper: ``window.allauth.facebook.logout()``.
+
+- Connecting a social account is now a flow that needs to be
+  explicitly triggered, by means of a ``process="connect"`` parameter
+  that can be passed along to the ``{% provider_login_url %}``, or a
+  ``process=connect`` GET parameter.
+
+- Tomas Marcik contributed a Czech translation, thanks!
+
+
+Backwards incompatible changes
+------------------------------
+
+- The ``{% provider_login_url %}`` tag now takes an optional process
+  parameter that indicates how to process the social login. As a
+  result, if you include the template
+  ``socialaccount/snippets/provider_list.html`` from your own overridden
+  ``socialaccount/connections.html`` template, you now need to pass
+  along the process parameter as follows:
+  ``{% include "socialaccount/snippets/provider_list.html" with process="connect" %}``.
+
+- Instead of inlining the required Facebook SDK Javascript wrapper
+  code into the HTML, it now resides into its own .js file (served
+  with ``{% static %}``). If you were using the builtin ``fbconnect.html``
+  this change should go by unnoticed.
+
+
+0.11.1 (2013-06-04)
+*******************
+
+Note worthy changes
+-------------------
+
+- Released (due to issue in disconnecting social accounts).
+
+Backwards incompatible changes
+------------------------------
+
+None
+
+
+0.11.0 (2013-06-02)
+*******************
+
+Note worthy changes
+-------------------
+
+- Moved logic whether or not a social account can be disconnected
+  to the ``SocialAccountAdapter`` (``validate_disconnect``).
+
+- Added ``social_account_removed`` signal.
+
+- Implemented CSRF protection
+  (http://tools.ietf.org/html/draft-ietf-oauth-v2-30#section-10.12).
+
+- The ``user_logged_in`` signal now optionally receives a
+  ``sociallogin`` parameter, in case of a social login.
+
+- Added ``social_account_added`` (contributed by orblivion, thanks).
+
+- Hatem Nassrat contributed Bitly support, thanks!
+
+- Bojan Mihelac contributed a Croatian translation, thanks!
+
+- Messages (as in ``django.contrib.messages``) are now configurable
+  through templates.
+- Added support for differentiating email handling (verification,
+  required) between local and social accounts:
+  ``SOCIALACCOUNT_EMAIL_REQUIRED`` and
+  ``SOCIALACCOUNT_EMAIL_VERIFICATION``.
+
+
+Backwards incompatible changes
+------------------------------
+
+None
+
+
+0.10.1 (2013-04-16)
+*******************
+
+Note worthy changes
+-------------------
+
+- Cleaning of ``username`` can now be overridden via
+  ``DefaultAccountAdapter.clean_username``
+
+- Fixed potential error (``assert``) when connecting social
+  accounts.
+
+- Added support for custom username handling in case of custom
+  user models (``ACCOUNT_USER_MODEL_USERNAME_FIELD``).
+
+
+Backwards incompatible changes
+------------------------------
+
+None
+
+
+0.10.0 (2013-04-12)
+*******************
+
+Note worthy changes
+-------------------
+
+- Chris Davis contributed Vimeo support, thanks!
+
+- Added support for overriding the URL to return to after
+  connecting a social account
+  (``allauth.socialaccount.adapter.DefaultSocialAccountAdapter.get_connect_redirect_url``).
+
+- Python 3 is now supported!
+
+- Dropped dependency on (unmaintained?) oauth2 package, in favor
+  of requests-oauthlib.
+
+- account: Email confirmation mails generated at signup can now
+  be differentiated from regular email confirmation mails by
+  placing e.g. a welcome message into the
+  ``account/email/email_confirmation_signup*`` templates. Thanks to
+  Sam Solomon for the patch.
+
+- account: Moved User instance creation to adapter so that e.g.
+  username generation can be influenced. Thanks to John Bazik for
+  the patch.
+
+- Robert Balfre contributed Dropbox support, thanks!
+
+- socialaccount: Added support for Weibo.
+
+- account: Added support for sending HTML email. Add
+  ``*_message.html`` templates and they will be automatically picked
+  up.
+
+- Added support for passing along extra parameters to the OAuth2
+  authentication calls, such as ``access_type`` (Google) or
+  ``auth_type`` (Facebook).
+- Both the login and signup view now immediately redirect to the
+  login redirect url in case the user was already authenticated.
+
+- Added support for closing down signups in a pluggable fashion,
+  making it easy to hookup your own invitation handling mechanism.
+
+- Added support for passing along extra parameters to the
+  ``FB.login`` API call.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Logout no longer happens on GET request. Refer to the ``LogoutView``
+  documentation for more background information. Logging out on GET
+  can be restored by the setting ``ACCOUNT_LOGOUT_ON_GET``. Furthermore,
+  after logging out you are now redirected to
+  ``ACCOUNT_LOGOUT_REDIRECT_URL`` instead of rendering the
+  ``account/logout.html`` template.
+
+- ``LOGIN_REDIRECT_URLNAME`` is now deprecated. Django 1.5 accepts both
+  URL names and URLs for ``LOGIN_REDIRECT_URL``, so we do so as well.
+
+- ``DefaultAccountAdapter.stash_email_verified`` is now named
+  ``stash_verified_email``.
+
+- Django 1.4.3 is now the minimal requirement.
+
+- Dropped dependency on (unmaintained?) oauth2 package, in favor of
+  requests-oauthlib. So you will need to update your (virtual)
+  environment accordingly.
+
+- We noticed a very rare bug that affects end users who add Google
+  social login to existing accounts. The symptom is you end up with
+  users who have multiple primary email addresses which conflicts
+  with assumptions made by the code. In addition to fixing the code
+  that allowed duplicates to occur, there is a management command
+  you can run if you think this effects you (and if it doesn't effect
+  you there is no harm in running it anyways if you are unsure):
+
+  - ``python manage.py account_unsetmultipleprimaryemails``
+
+    - Will silently remove primary flags for email addresses that
+      aren't the same as ``user.email``.
+
+    - If no primary ``EmailAddress`` is ``user.email`` it will pick one
+      at random and print a warning.
+
+- The expiry time, if any, is now stored in a new column
+  ``SocialToken.expires_at``. Migrations are in place.
+
+- Furthermore, Facebook started returning longer tokens, so the
+  maximum token length was increased. Again, migrations are in place.
+
+- Login and signup views have been turned into class-based views.
+
+- The template variable ``facebook_perms`` is no longer passed to the
+  "facebook/fbconnect.html" template. Instead, ``fb_login_options``
+  containing all options is passed.
+
+
+0.9.0 (2013-01-30)
+******************
+
+Note worthy changes
+-------------------
+
+- account: ``user_signed_up`` signal now emits an optional
+  ``sociallogin`` parameter so that receivers can easily differentiate
+  between local and social signups.
+
+- account: Added ``email_removed`` signal.
+
+- socialaccount: Populating of User model fields is now
+  centralized in the adapter, splitting up ``name`` into ``first_name``
+  and ``last_name`` if these were not individually available.
+
+- Ahmet Emre Aladağ contributed a Turkish translation, thanks!
+
+- socialaccount: Added SocialAccountAdapter hook to allow for
+  intervention in social logins.
+
+- google: support for Google's ``verified_email`` flag to determine
+  whether or not to send confirmation emails.
+
+- Fábio Santos contributed a Portuguese translation, thanks!
+
+- socialaccount: Added support for Stack Exchange.
+
+- socialaccount: Added ``get_social_accounts`` template tag.
+
+- account: Default URL to redirect to after login can now be
+  overridden via the adapter, both for login and email confirmation
+  redirects.
+
+
+Backwards incompatible changes
+------------------------------
+
+- ``requests`` is now a dependency (dropped ``httplib2``).
+
+- Added a new column ``SocialApp.client_id``. The value of ``key`` needs
+  to be moved to the new ``client_id`` column. The ``key`` column is
+  required for Stack Exchange. Migrations are in place to handle all
+  of this automatically.

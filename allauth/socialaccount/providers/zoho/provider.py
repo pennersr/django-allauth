@@ -18,7 +18,7 @@ class ZohoProvider(OAuth2Provider):
         return ["aaaserver.profile.READ"]
 
     def extract_uid(self, data):
-        return data["ZUID"]
+        return str(data["ZUID"])
 
     def extract_common_fields(self, data):
         return dict(

@@ -1,0 +1,93 @@
+0.41.0 (2019-12-18)
+*******************
+
+Security notice
+---------------
+
+- See `CVE-2019-19844
+  <https://www.djangoproject.com/weblog/2019/dec/18/security-releases/>`_.
+
+
+Note worthy changes
+-------------------
+
+- New providers: Exist.io., YNAB, Amazon Cognito.
+
+- You can now store OAuth credentials directly in your
+  ``settings.SOCIALACCOUNT_PROVIDERS`` settings instead of storing them in the
+  database using a ``SocialApp`` record.
+
+- Adding Keycloak Provider
+
+
+Backwards incompatible changes
+------------------------------
+
+- Dropped Python 2 and Django 1 compatibility.
+
+
+0.40.0 (2019-08-29)
+*******************
+
+Note worthy changes
+-------------------
+
+- The ``instagram`` provider now extracts the user's full name.
+
+- New provider: NextCloud (OAuth2)
+
+- Added an ``SDK_URL`` setting for customizing the loading of the Facebook
+  JavaScript SDK.
+
+- Updated Twitch provider to use new authentication endpoints
+  (``https://id.twitch.tv``) over deprecated v5 endpoints
+  (``https://api.twitch.tv/kraken``)
+
+- Added support for Patreon API v2, with API v1 set as default for
+  backwards compatibility.
+
+
+Backwards incompatible changes
+------------------------------
+
+- ``Twitch``: The new API's profile data is different in both
+  structure and content than the old V5 endpoint. Any project
+  that relies on data from ``SocialAccount.extra_data`` should
+  refer to the new API user endpoint documentation:
+  https://dev.twitch.tv/docs/api/reference/#get-users
+
+
+0.39.1 (2019-02-28)
+*******************
+
+Note worthy changes
+-------------------
+
+- The ``linkedin_oauth2`` provider now gracefully deals with old V1
+  data that might still be present in ``SocialAccount.extra_data``.
+
+Backwards incompatible changes
+------------------------------
+
+- The ``globus`` provider's ``extract_uid`` now uses the openid
+  required field ``sub`` instead of the ``create_time`` field.
+
+
+0.39.0 (2019-02-26)
+*******************
+
+Note worthy changes
+-------------------
+
+- New providers: JupyterHub (OAuth2), Steam (OpenID)
+
+- Refactor translations: Portuguese (Portugal).
+
+- Add testing for Django 2.2 (no code changes required)
+
+Backwards incompatible changes
+------------------------------
+
+- ``linkedin_oauth2``: As the LinkedIn V1 API is deprecated, the user info
+  endpoint has been moved over to use the API V2. The format of the user
+  ``extra_data`` is different and the profile picture is absent by default.

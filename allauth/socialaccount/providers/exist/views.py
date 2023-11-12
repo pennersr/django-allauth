@@ -13,7 +13,7 @@ class ExistOAuth2Adapter(OAuth2Adapter):
     provider_id = ExistProvider.id
     access_token_url = "https://exist.io/oauth2/access_token"
     authorize_url = "https://exist.io/oauth2/authorize"
-    profile_url = "https://exist.io/api/1/users/$self/profile/"
+    profile_url = "https://exist.io/api/2/accounts/profile/"
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {"Authorization": "Bearer {0}".format(token.token)}

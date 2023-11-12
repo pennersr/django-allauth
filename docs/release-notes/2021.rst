@@ -1,0 +1,54 @@
+0.47.0 (2021-12-09)
+*******************
+
+Note worthy changes
+-------------------
+
+- New providers: Gumroad.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Added a new setting ``SOCIALACCOUNT_LOGIN_ON_GET`` that controls whether or not
+  the endpoints for initiating a social login (for example,
+  "/accounts/google/login/") require a POST request to initiate the
+  handshake. As requiring a POST is more secure, the default of this new setting
+  is ``False``.
+
+
+Security notice
+---------------
+
+Automatically signing in users into their account and connecting additional
+third party accounts via a simple redirect ("/accounts/facebook/login/") can
+lead to unexpected results and become a security issue especially when the
+redirect is triggered from a malicious web site. For example, if an attacker
+prepares a malicious website that (ab)uses the Facebook password recovery
+mechanism to first sign into his/her own Facebook account, followed by a
+redirect to connect a new social account, you may end up with the attacker's
+Facebook account added to the account of the victim. To mitigate this,
+``SOCIALACCOUNT_LOGIN_ON_GET`` is introduced.
+
+
+0.46.0 (2021-11-15)
+*******************
+
+Note worthy changes
+-------------------
+
+- New providers: Gitea, MediaWiki.
+
+- New translations: Georgian, Mongolian.
+
+- Django 3.2 compatibility.
+
+
+0.45.0 (2021-07-11)
+*******************
+
+
+Note worthy changes
+-------------------
+
+- New providers: Feishu, NetIQ, Frontier, CILogin.

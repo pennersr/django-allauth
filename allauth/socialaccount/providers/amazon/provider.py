@@ -20,7 +20,7 @@ class AmazonProvider(OAuth2Provider):
 
     def extract_common_fields(self, data):
         # Hackish way of splitting the fullname.
-        # Asumes no middlenames.
+        # Assumes no middlenames.
         name = data.get("name", "")
         first_name, last_name = name, ""
         if name and " " in name:

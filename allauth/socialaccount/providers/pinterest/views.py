@@ -19,18 +19,33 @@ class PinterestOAuth2Adapter(OAuth2Adapter):
     settings = app_settings.PROVIDERS.get(provider_id, {})
 
     provider_base_url = settings.get("PINTEREST_URL", provider_default_url)
-    provider_api_version = settings.get(
-        "PINTEREST_VERSION", provider_default_api_version
-    )
+    provider_api_version = settings.get("API_VERSION", provider_default_api_version)
 
+    authorize_url = "https://www.pinterest.com/oauth/"
     access_token_url = "https://{0}/{1}/oauth/token".format(
         provider_base_url, provider_api_version
     )
-    authorize_url = "https://{0}/oauth/".format(provider_base_url)
-    profile_url = "https://{0}/{1}/me".format(provider_base_url, provider_api_version)
+    basic_auth = True
+    if provider_api_version == "v5":
+        profile_url = "https://{0}/{1}/user_account".format(
+            provider_base_url, provider_api_version
+        )
+    elif provider_api_version == "v3":
+        profile_url = "https://{0}/{1}/users/me".format(
+            provider_base_url, provider_api_version
+        )
+    else:
+        profile_url = "https://{0}/{1}/me".format(
+            provider_base_url, provider_api_version
+        )
+
+    if provider_api_version == "v3":
+        access_token_method = "PUT"
 
     def complete_login(self, request, app, token, **kwargs):
-        response = requests.get(self.profile_url, params={"access_token": token.token})
+        response = requests.get(
+            self.profile_url, headers={"Authorization": "Bearer " + token.token}
+        )
         extra_data = response.json()
         return self.get_provider().sociallogin_from_response(request, extra_data)
 

@@ -11,7 +11,6 @@ from .provider import BitbucketProvider
 
 
 class BitbucketAPI(OAuth):
-
     emails_url = "https://bitbucket.org/api/1.0/emails/"
     users_url = "https://bitbucket.org/api/1.0/users/"
 

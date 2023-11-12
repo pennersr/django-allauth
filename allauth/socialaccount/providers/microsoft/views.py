@@ -3,6 +3,9 @@ from __future__ import unicode_literals
 import json
 import requests
 
+from allauth.core import context
+from allauth.socialaccount import app_settings
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -34,34 +37,48 @@ def _check_errors(response):
 class MicrosoftGraphOAuth2Adapter(OAuth2Adapter):
     provider_id = MicrosoftGraphProvider.id
 
-    def __init__(self, request):
-        super(MicrosoftGraphOAuth2Adapter, self).__init__(request)
-        provider = self.get_provider()
-        tenant = provider.get_settings().get("tenant") or "common"
-        user_properties = (
-            "businessPhones",
-            "displayName",
-            "givenName",
-            "id",
-            "jobTitle",
-            "mail",
-            "mobilePhone",
-            "officeLocation",
-            "preferredLanguage",
-            "surname",
-            "userPrincipalName",
-            "mailNickname",
-        )
-        base_url = "https://login.microsoftonline.com/{0}".format(tenant)
-        self.access_token_url = "{0}/oauth2/v2.0/token".format(base_url)
-        self.authorize_url = "{0}/oauth2/v2.0/authorize".format(base_url)
-        self.profile_url = "https://graph.microsoft.com/v1.0/me/"
-        self.profile_url_params = {"$select": ",".join(user_properties)}
+    def _build_tenant_url(self, path):
+        settings = app_settings.PROVIDERS.get(self.provider_id, {})
+        # Lower case "tenant" for backwards compatibility
+        tenant = settings.get("TENANT", settings.get("tenant", "common"))
+        # Prefer app based tenant setting.
+        app = get_adapter().get_app(context.request, provider=self.provider_id)
+        tenant = app.settings.get("tenant", tenant)
+        return f"https://login.microsoftonline.com/{tenant}{path}"
+
+    @property
+    def access_token_url(self):
+        return self._build_tenant_url("/oauth2/v2.0/token")
+
+    @property
+    def authorize_url(self):
+        return self._build_tenant_url("/oauth2/v2.0/authorize")
+
+    profile_url = "https://graph.microsoft.com/v1.0/me"
+
+    user_properties = (
+        "businessPhones",
+        "displayName",
+        "givenName",
+        "id",
+        "jobTitle",
+        "mail",
+        "mobilePhone",
+        "officeLocation",
+        "preferredLanguage",
+        "surname",
+        "userPrincipalName",
+        "mailNickname",
+        "companyName",
+    )
+    profile_url_params = {"$select": ",".join(user_properties)}
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {"Authorization": "Bearer {0}".format(token.token)}
         response = requests.get(
-            self.profile_url, self.profile_url_params, headers=headers
+            self.profile_url,
+            params=self.profile_url_params,
+            headers=headers,
         )
         extra_data = _check_errors(response)
         return self.get_provider().sociallogin_from_response(request, extra_data)

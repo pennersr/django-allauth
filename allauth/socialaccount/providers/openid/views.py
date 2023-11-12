@@ -9,7 +9,6 @@ from openid.consumer.discover import DiscoveryFailure
 from openid.extensions.ax import AttrInfo, FetchRequest
 from openid.extensions.sreg import SRegRequest
 
-from allauth.socialaccount import providers
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.helpers import (
     complete_social_login,
@@ -131,9 +130,7 @@ class OpenIDCallbackView(View):
         response = self.get_openid_response(client)
 
         if response.status == consumer.SUCCESS:
-            login = providers.registry.by_id(
-                self.provider.id, request
-            ).sociallogin_from_response(request, response)
+            login = provider.sociallogin_from_response(request, response)
             login.state = SocialLogin.unstash_state(request)
             return self.complete_login(login)
         else:

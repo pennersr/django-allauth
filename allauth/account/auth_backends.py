@@ -1,8 +1,8 @@
 from threading import local
 
+from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
 
-from ..utils import get_user_model
 from . import app_settings
 from .app_settings import AuthenticationMethod
 from .utils import filter_users_by_email, filter_users_by_username
@@ -36,10 +36,14 @@ class AuthenticationBackend(ModelBackend):
         try:
             # Username query is case insensitive
             user = filter_users_by_username(username).get()
+        except User.DoesNotExist:
+            # Run the default password hasher once to reduce the timing
+            # difference between an existing and a nonexistent user.
+            get_user_model()().set_password(password)
+            return None
+        else:
             if self._check_password(user, password):
                 return user
-        except User.DoesNotExist:
-            return None
 
     def _authenticate_by_email(self, **credentials):
         # Even though allauth will pass along `email`, other apps may
@@ -49,7 +53,7 @@ class AuthenticationBackend(ModelBackend):
         # and use username as fallback
         email = credentials.get("email", credentials.get("username"))
         if email:
-            for user in filter_users_by_email(email):
+            for user in filter_users_by_email(email, prefer_verified=True):
                 if self._check_password(user, credentials["password"]):
                     return user
         return None

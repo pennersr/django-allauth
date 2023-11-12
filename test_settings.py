@@ -1,5 +1,13 @@
+import os
+
+from django.contrib.auth.hashers import PBKDF2PasswordHasher
+
+
 SECRET_KEY = "psst"
 SITE_ID = 1
+ALLOWED_HOSTS = ("*",)
+USE_I18N = False
+USE_TZ = True
 
 DATABASES = {
     "default": {
@@ -13,11 +21,14 @@ DATABASES = {
 }
 
 ROOT_URLCONF = "allauth.urls"
+LOGIN_URL = "/login/"
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [
+            os.path.join(os.path.dirname(__file__), "example", "example", "templates")
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -30,6 +41,12 @@ TEMPLATES = [
     },
 ]
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+    }
+}
+
 MIDDLEWARE = (
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -37,6 +54,7 @@ MIDDLEWARE = (
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 )
 
 INSTALLED_APPS = (
@@ -49,6 +67,7 @@ INSTALLED_APPS = (
     "django.contrib.admin",
     "allauth",
     "allauth.account",
+    "allauth.mfa",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.agave",
     "allauth.socialaccount.providers.amazon",
@@ -58,7 +77,6 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.asana",
     "allauth.socialaccount.providers.auth0",
     "allauth.socialaccount.providers.authentiq",
-    "allauth.socialaccount.providers.azure",
     "allauth.socialaccount.providers.baidu",
     "allauth.socialaccount.providers.basecamp",
     "allauth.socialaccount.providers.battlenet",
@@ -66,17 +84,18 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.bitbucket_oauth2",
     "allauth.socialaccount.providers.bitly",
     "allauth.socialaccount.providers.box",
-    "allauth.socialaccount.providers.cern",
     "allauth.socialaccount.providers.cilogon",
     "allauth.socialaccount.providers.coinbase",
     "allauth.socialaccount.providers.dataporten",
     "allauth.socialaccount.providers.daum",
     "allauth.socialaccount.providers.digitalocean",
+    "allauth.socialaccount.providers.dingtalk",
     "allauth.socialaccount.providers.discord",
     "allauth.socialaccount.providers.disqus",
     "allauth.socialaccount.providers.douban",
     "allauth.socialaccount.providers.doximity",
     "allauth.socialaccount.providers.draugiem",
+    "allauth.socialaccount.providers.drip",
     "allauth.socialaccount.providers.dropbox",
     "allauth.socialaccount.providers.dwolla",
     "allauth.socialaccount.providers.edmodo",
@@ -100,10 +119,11 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.google",
     "allauth.socialaccount.providers.gumroad",
     "allauth.socialaccount.providers.hubic",
+    "allauth.socialaccount.providers.hubspot",
     "allauth.socialaccount.providers.instagram",
     "allauth.socialaccount.providers.jupyterhub",
     "allauth.socialaccount.providers.kakao",
-    "allauth.socialaccount.providers.keycloak",
+    "allauth.socialaccount.providers.lemonldap",
     "allauth.socialaccount.providers.line",
     "allauth.socialaccount.providers.linkedin",
     "allauth.socialaccount.providers.linkedin_oauth2",
@@ -112,24 +132,30 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.mediawiki",
     "allauth.socialaccount.providers.meetup",
     "allauth.socialaccount.providers.microsoft",
+    "allauth.socialaccount.providers.miro",
     "allauth.socialaccount.providers.naver",
     "allauth.socialaccount.providers.netiq",
     "allauth.socialaccount.providers.nextcloud",
+    "allauth.socialaccount.providers.notion",
     "allauth.socialaccount.providers.odnoklassniki",
     "allauth.socialaccount.providers.openid",
+    "allauth.socialaccount.providers.openid_connect",
     "allauth.socialaccount.providers.openstreetmap",
     "allauth.socialaccount.providers.orcid",
     "allauth.socialaccount.providers.patreon",
     "allauth.socialaccount.providers.paypal",
-    "allauth.socialaccount.providers.persona",
     "allauth.socialaccount.providers.pinterest",
+    "allauth.socialaccount.providers.pocket",
+    "allauth.socialaccount.providers.questrade",
     "allauth.socialaccount.providers.quickbooks",
     "allauth.socialaccount.providers.reddit",
     "allauth.socialaccount.providers.robinhood",
     "allauth.socialaccount.providers.salesforce",
+    "allauth.socialaccount.providers.saml",
     "allauth.socialaccount.providers.sharefile",
     "allauth.socialaccount.providers.shopify",
     "allauth.socialaccount.providers.slack",
+    "allauth.socialaccount.providers.snapchat",
     "allauth.socialaccount.providers.soundcloud",
     "allauth.socialaccount.providers.spotify",
     "allauth.socialaccount.providers.stackexchange",
@@ -144,10 +170,12 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.twentythreeandme",
     "allauth.socialaccount.providers.twitch",
     "allauth.socialaccount.providers.twitter",
+    "allauth.socialaccount.providers.twitter_oauth2",
     "allauth.socialaccount.providers.untappd",
     "allauth.socialaccount.providers.vimeo",
     "allauth.socialaccount.providers.vimeo_oauth2",
     "allauth.socialaccount.providers.vk",
+    "allauth.socialaccount.providers.wahoo",
     "allauth.socialaccount.providers.weibo",
     "allauth.socialaccount.providers.weixin",
     "allauth.socialaccount.providers.windowslive",
@@ -169,8 +197,6 @@ AUTHENTICATION_BACKENDS = (
 STATIC_ROOT = "/tmp/"  # Dummy
 STATIC_URL = "/static/"
 
-from django.contrib.auth.hashers import PBKDF2PasswordHasher
-
 
 class MyPBKDF2PasswordHasher(PBKDF2PasswordHasher):
     """
@@ -189,3 +215,33 @@ PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.Argon2PasswordHasher",
     "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
 ]
+
+
+ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN = 0
+ACCOUNT_RATE_LIMITS = {}
+
+SOCIALACCOUNT_QUERY_EMAIL = True
+SOCIALACCOUNT_PROVIDERS = {
+    "openid_connect": {
+        "APPS": [
+            {
+                "provider_id": "unittest-server",
+                "name": "Unittest Server",
+                "client_id": "Unittest client_id",
+                "client_secret": "Unittest client_secret",
+                "settings": {
+                    "server_url": "https://unittest.example.com",
+                },
+            },
+            {
+                "provider_id": "other-server",
+                "name": "Other Example Server",
+                "client_id": "other client_id",
+                "client_secret": "other client_secret",
+                "settings": {
+                    "server_url": "https://other.example.com",
+                },
+            },
+        ],
+    }
+}

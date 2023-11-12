@@ -1,0 +1,31 @@
+{% extends "mfa/base_entrance.html" %}
+{% load i18n %}
+{% load allauth %}
+{% block head_title %}
+    {% trans "Sign In" %}
+{% endblock head_title %}
+{% block content %}
+    {% element h1 %}
+        {% trans "Two-Factor Authentication" %}
+    {% endelement %}
+    <p>
+        {% blocktranslate %}Your account is protected by two-factor authentication. Please enter an authenticator code:{% endblocktranslate %}
+    </p>
+    {% url 'mfa_authenticate' as action_url %}
+    {% element form form=form method="post" action=action_url %}
+        {% slot body %}
+            {% csrf_token %}
+            {% element fields form=form unlabeled=True %}
+            {% endelement %}
+        {% endslot %}
+        {% slot actions %}
+            {% element button type="submit" tags="primary,mfa,login" %}
+                {% trans "Sign In" %}
+            {% endelement %}
+            {% url "account_login" as login_url %}
+            {% element button href=login_url tags="secondary,mfa,cancel" %}
+                {% trans "Cancel" %}
+            {% endelement %}
+        {% endslot %}
+    {% endelement %}
+{% endblock content %}

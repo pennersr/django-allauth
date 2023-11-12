@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import, unicode_literals
-
 from requests.exceptions import HTTPError
+from unittest.mock import patch
 
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
@@ -9,7 +7,7 @@ from django.urls import reverse
 
 from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, TestCase, patch
+from allauth.tests import MockedResponse, TestCase
 
 from .provider import YNABProvider
 
@@ -51,7 +49,7 @@ class YNABTests(OAuth2TestsMixin, TestCase):
         )
 
         adapter = YNABOAuth2Adapter(request)
-        app = adapter.get_provider().get_app(request)
+        app = adapter.get_provider().app
         token = SocialToken(token="some_token")
         response_with_401 = LessMockedResponse(
             401,
@@ -68,7 +66,7 @@ class YNABTests(OAuth2TestsMixin, TestCase):
             }""",
         )
         with patch(
-            "allauth.socialaccount.providers.ynab.views" ".requests"
+            "allauth.socialaccount.providers.ynab.views.requests"
         ) as patched_requests:
             patched_requests.get.return_value = response_with_401
             with self.assertRaises(HTTPError):

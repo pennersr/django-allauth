@@ -1,0 +1,24 @@
+{% extends "account/base_reauthenticate.html" %}
+{% load allauth %}
+{% load i18n %}
+{% block reauthenticate_content %}
+    <p>{% blocktranslate %}Enter your password:{% endblocktranslate %}</p>
+    {% url 'account_reauthenticate' as action_url %}
+    {% element form form=form method="post" action=action_url %}
+        {% slot body %}
+            {% csrf_token %}
+            {% element fields form=form unlabeled=True %}
+            {% endelement %}
+            {% if redirect_field_value %}
+                <input type="hidden"
+                       name="{{ redirect_field_name }}"
+                       value="{{ redirect_field_value }}" />
+            {% endif %}
+        {% endslot %}
+        {% slot actions %}
+            {% element button type="submit" %}
+                {% trans "Confirm" %}
+            {% endelement %}
+        {% endslot %}
+    {% endelement %}
+{% endblock %}

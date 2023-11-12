@@ -8,12 +8,15 @@ Welcome to django-allauth!
 .. image:: https://img.shields.io/pypi/v/django-allauth.svg
    :target: https://pypi.python.org/pypi/django-allauth
 
-.. image:: https://coveralls.io/repos/pennersr/django-allauth/badge.svg?branch=master
+.. image:: https://coveralls.io/repos/pennersr/django-allauth/badge.svg?branch=main
    :alt: Coverage Status
    :target: https://coveralls.io/r/pennersr/django-allauth
 
 .. image:: https://pennersr.github.io/img/bitcoin-badge.svg
    :target: https://blockchain.info/address/1AJXuBMPHkaDCNX2rwAy34bGgs7hmrePEr
+
+.. image:: https://badgen.net/liberapay/receives/pennersr
+   :target: https://en.liberapay.com/pennersr
 
 .. image:: https://img.shields.io/badge/code%20style-pep8-green.svg
    :target: https://www.python.org/dev/peps/pep-0008/
@@ -29,7 +32,7 @@ registration, account management as well as 3rd party (social) account
 authentication.
 
 Home page
-  http://www.intenct.nl/projects/django-allauth/
+  https://allauth.org/
 
 Source code
   http://github.com/pennersr/django-allauth
@@ -38,42 +41,107 @@ Mailing list
   http://groups.google.com/group/django-allauth
 
 Documentation
-  https://django-allauth.readthedocs.io/en/latest/
+  https://docs.allauth.org/en/latest/
 
 Stack Overflow
   http://stackoverflow.com/questions/tagged/django-allauth
 
+.. end-welcome
+
 Rationale
 =========
 
+.. begin-rationale
+
 Most existing Django apps that address the problem of social
-authentication focus on just that. You typically need to integrate
-another app in order to support authentication via a local
-account.
+authentication unfortunately focus only on one dimension - the social.
+Most developers end up integrating another app in order to support authentication
+flows that are locally generated.
 
-This approach separates the worlds of local and social
-authentication. However, there are common scenarios to be dealt with
-in both worlds. For example, an e-mail address passed along by an
-OpenID provider is not guaranteed to be verified. So, before hooking
-an OpenID account up to a local account the e-mail address must be
-verified. So, e-mail verification needs to be present in both worlds.
+This approach creates a development gap between local and social
+authentication flows. It has remained an issue in spite of numerous common
+scenarios that both require. For example, an email address passed along by an
+OpenID provider may not be verified. Therefore, prior to hooking up
+an OpenID account to a local account the email address must be
+verified. This essentially is one of many use cases that mandate email
+verification to be present in both worlds.
 
-Integrating both worlds is quite a tedious process. It is definitely
-not a matter of simply adding one social authentication app, and one
+Integrating both is a humongous and tedious process. It is not as
+simple as adding one social authentication app, and one
 local account registration app to your ``INSTALLED_APPS`` list.
 
-This is the reason this project got started -- to offer a fully
+This inadequacy is the reason for this project's existence  -- to offer a fully
 integrated authentication app that allows for both local and social
-authentication, with flows that just work.
+authentication, with flows that just work, beautifully !
+
+.. end-rationale
+
+
+Features
+========
+
+.. begin-features
+
+**🔑 Comprehensive account functionality**
+    Supports multiple authentication
+    schemes (e.g. login by user name, or by email), as well as multiple
+    strategies for account verification (ranging from none to mandatory email
+    verification).
+
+**👥 Social Login**
+    Login using external identity providers, supporting any *Open ID Connect
+    compatible* provider, many *OAuth 1.0/2.0* providers, as well as
+    custom protocols such as, for example, *Telegram* authentication.
+
+**💼 Enterprise ready**
+    Supports SAML 2.0, which is often used in a B2B context.
+
+**🕵️ Battle-tested**
+    The package has been out in the open since 2010. It is in use by many
+    commercial companies whose business depends on it and has hence been
+    subjected to various penetration testing attempts.
+
+**⏳Rate limiting**
+    When you expose an authentication-enabled web service to
+    the internet, it is important to be prepared for potential brute force
+    attempts. Therefore, rate limiting is enabled out of the box.
+
+**🔒 Private**
+    Many sites leak information. For example, on many sites you can
+    check whether someone you know has an account by input their email address
+    into the password forgotten form, or trying to signup with it. We offer
+    account enumeration prevention, making it impossible to tell whether or not
+    somebody already has an account.
+
+**🧩 Customizable**
+    As a developer, you have the flexibility to customize the core functionality
+    according to your specific requirements. By employing the adapter pattern, you
+    can effortlessly introduce interventions at the desired points to deviate from
+    the standard behavior. This level of customization empowers you to tailor the
+    software to meet your unique needs and preferences.
+
+**⚙️ Configuration**
+    The required consumer keys and secrets for interacting with Facebook,
+    Twitter and the likes can be configured using regular settings, or, can be
+    configured in the database via the Django admin. Here, optional support for
+    the Django sites framework is available, which is helpful for larger
+    multi-domain projects, but also allows for easy switching between a
+    development (localhost) and production setup without messing with your
+    settings and database.
+
+
+.. end-features
 
 
 Commercial Support
 ==================
 
-This project is sponsored by IntenCT_. If you require assistance on
-your project(s), please contact us: info@intenct.nl.
+.. begin-support
 
-.. _IntenCT: http://www.intenct.info
+Commercial support is available. If you find certain functionality missing, or
+require assistance on your project(s), please contact us: info@intenct.nl.
+
+.. end-support
 
 
 Cross-Selling
@@ -83,3 +151,4 @@ If you like this, you may also like:
 
 - django-trackstats: https://github.com/pennersr/django-trackstats
 - netwell: https://github.com/pennersr/netwell
+- Shove: https://github.com/pennersr/shove

@@ -15,5 +15,5 @@
 
 - [ ] Make sure unit tests are available.
 - [ ] Add an entry of your provider in `test_settings.py::INSTALLED_APPS` and `docs/installation.rst::INSTALLED_APPS`.
-- [ ] Add documentation to `docs/providers.rst`.
+- [ ] Add documentation to `docs/providers/<provider name>.rst` and `docs/providers/index.rst` Provider Specifics toctree.
 - [ ] Add an entry to the list of supported providers over at `docs/overview.rst`.

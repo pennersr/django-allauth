@@ -1,0 +1,10 @@
+{% extends "allauth/elements/button.html" %}
+{% load allauth %}
+{% block class %}
+    {% if attrs.href %}
+        btn btn-link
+    {% else %}
+        {{ block.super }}
+    {% endif %}
+    w-100
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "mfa/base_manage.html" %}
+{% load allauth %}
+{% load i18n %}
+{% block head_title %}
+    {% trans "Two-Factor Authentication" %}
+{% endblock head_title %}
+{% block content %}
+    {% element h1 tags="mfa,index" %}
+        {% trans "Two-Factor Authentication" %}
+    {% endelement %}
+    {% element panel %}
+        {% slot title %}
+            {% translate "Authenticator App" %}
+        {% endslot %}
+        {% slot body %}
+            {% if authenticators.totp %}
+                <p>{% translate "Authentication using an authenticator app is active." %}</p>
+            {% else %}
+                <p>{% translate "An authenticator app is not active." %}</p>
+            {% endif %}
+        {% endslot %}
+        {% slot actions %}
+            {% url 'mfa_deactivate_totp' as deactivate_url %}
+            {% url 'mfa_activate_totp' as activate_url %}
+            {% if authenticators.totp %}
+                {% element button href=deactivate_url tags="danger,delete,panel" %}
+                    {% translate "Deactivate" %}
+                {% endelement %}
+            {% else %}
+                {% element button href=activate_url tags="panel" %}
+                    {% translate "Activate" %}
+                {% endelement %}
+            {% endif %}
+        {% endslot %}
+    {% endelement %}
+    {% with total_count=authenticators.recovery_codes.generate_codes|length unused_count=authenticators.recovery_codes.get_unused_codes|length %}
+        {% element panel %}
+            {% slot title %}
+                {% translate "Recovery Codes" %}
+            {% endslot %}
+            {% slot body %}
+                {% if authenticators.recovery_codes %}
+                    <p>
+                        {% blocktranslate count unused_count=unused_count %}There is {{ unused_count }} out of {{ total_count }} recovery codes available.{% plural %}There are {{ unused_count }} out of {{ total_count }} recovery codes available.{% endblocktranslate %}
+                    </p>
+                {% else %}
+                    <p>{% translate "No recovery codes set up." %}</p>
+                {% endif %}
+            {% endslot %}
+            {% if is_mfa_enabled %}
+                {% if authenticators.recovery_codes %}
+                    {% if unused_count > 0 %}
+                        {% slot actions %}
+                            {% url 'mfa_view_recovery_codes' as view_url %}
+                            {% element button href=view_url tags="panel" %}
+                                {% translate "View" %}
+                            {% endelement %}
+                        {% endslot %}
+                        {% slot actions %}
+                            {% url 'mfa_download_recovery_codes' as download_url %}
+                            {% element button href=download_url tags="secondary,panel" %}
+                                {% translate "Download" %}
+                            {% endelement %}
+                        {% endslot %}
+                    {% endif %}
+                {% endif %}
+                {% slot actions %}
+                    {% url 'mfa_generate_recovery_codes' as generate_url %}
+                    {% element button href=generate_url tags="secondary,panel" %}
+                        {% translate "Generate" %}
+                    {% endelement %}
+                {% endslot %}
+            {% endif %}
+        {% endelement %}
+    {% endwith %}
+{% endblock content %}

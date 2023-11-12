@@ -1,19 +1,25 @@
-from __future__ import absolute_import
+import logging
 
 from django.urls import reverse
 
-from allauth.socialaccount import providers
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.helpers import (
     complete_social_login,
     render_authentication_error,
 )
 from allauth.socialaccount.models import SocialLogin, SocialToken
+from allauth.socialaccount.providers.base.constants import (
+    AuthAction,
+    AuthError,
+)
+from allauth.socialaccount.providers.base.mixins import OAuthLoginMixin
 from allauth.socialaccount.providers.oauth.client import (
     OAuthClient,
     OAuthError,
 )
 
-from ..base import AuthAction, AuthError
+
+logger = logging.getLogger(__name__)
 
 
 class OAuthAdapter(object):
@@ -27,7 +33,9 @@ class OAuthAdapter(object):
         raise NotImplementedError
 
     def get_provider(self):
-        return providers.registry.by_id(self.provider_id, self.request)
+        adapter = get_adapter(self.request)
+        app = adapter.get_app(self.request, provider=self.provider_id)
+        return app.get_provider(self.request)
 
 
 class OAuthView(object):
@@ -43,7 +51,7 @@ class OAuthView(object):
 
     def _get_client(self, request, callback_url):
         provider = self.adapter.get_provider()
-        app = provider.get_app(request)
+        app = provider.app
         scope = " ".join(provider.get_scope(request))
         parameters = {}
         if scope:
@@ -61,8 +69,8 @@ class OAuthView(object):
         return client
 
 
-class OAuthLoginView(OAuthView):
-    def dispatch(self, request):
+class OAuthLoginView(OAuthLoginMixin, OAuthView):
+    def login(self, request, *args, **kwargs):
         callback_url = reverse(self.adapter.provider_id + "_callback")
         SocialLogin.stash_state(request)
         action = request.GET.get("action", AuthAction.AUTHENTICATE)
@@ -73,6 +81,7 @@ class OAuthLoginView(OAuthView):
         try:
             return client.get_redirect(auth_url, auth_params)
         except OAuthError as e:
+            logger.error("OAuth authentication error", exc_info=True)
             return render_authentication_error(
                 request, self.adapter.provider_id, exception=e
             )
@@ -98,7 +107,7 @@ class OAuthCallbackView(OAuthView):
                 error=error,
                 extra_context=extra_context,
             )
-        app = self.adapter.get_provider().get_app(request)
+        app = self.adapter.get_provider().app
         try:
             access_token = client.get_access_token()
             token = SocialToken(

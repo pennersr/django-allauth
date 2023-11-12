@@ -1,13 +1,14 @@
 from hashlib import md5
+from unittest.mock import Mock, patch
 
 from django.contrib.auth.models import User
-from django.contrib.sites.models import Site
+from django.test import RequestFactory
 from django.urls import reverse
 from django.utils.http import urlencode
 
-from allauth.socialaccount import providers
-from allauth.socialaccount.models import SocialApp, SocialToken
-from allauth.tests import Mock, TestCase, patch
+from allauth import app_settings
+from allauth.socialaccount.models import SocialAccount, SocialApp, SocialToken
+from allauth.tests import TestCase
 
 from . import views
 from .provider import DraugiemProvider
@@ -22,15 +23,19 @@ class DraugiemTests(TestCase):
         )
         self.client.login(username="anakin", password="s1thrul3s")
 
-        self.provider = providers.registry.by_id(DraugiemProvider.id)
         app = SocialApp.objects.create(
-            provider=self.provider.id,
-            name=self.provider.id,
+            provider=DraugiemProvider.id,
+            name=DraugiemProvider.id,
             client_id="app123id",
-            key=self.provider.id,
+            key=DraugiemProvider.id,
             secret="dummy",
         )
-        app.sites.add(Site.objects.get_current())
+        request = RequestFactory().get("/")
+        self.provider = app.get_provider(request)
+        if app_settings.SITES_ENABLED:
+            from django.contrib.sites.models import Site
+
+            app.sites.add(Site.objects.get_current())
         self.app = app
 
     def get_draugiem_login_response(self):
@@ -112,7 +117,7 @@ class DraugiemTests(TestCase):
 
     def test_callback(self):
         with patch(
-            "allauth.socialaccount.providers.draugiem.views" ".draugiem_complete_login"
+            "allauth.socialaccount.providers.draugiem.views.draugiem_complete_login"
         ) as draugiem_complete_login:
             self.mock_socialaccount_state()
 
@@ -130,3 +135,12 @@ class DraugiemTests(TestCase):
             self.assertRedirects(
                 response, "/accounts/profile/", fetch_redirect_response=False
             )
+            socialaccount = SocialAccount.objects.filter(
+                provider=DraugiemProvider.id
+            ).last()
+            pacc = socialaccount.get_provider_account()
+            assert (
+                pacc.get_avatar_url()
+                == "http://cdn.memegenerator.net/instances/500x/23395689.jpg"
+            )
+            assert pacc.to_str() == "Draugiem"

@@ -5,7 +5,7 @@ from django.dispatch import Signal
 # Provides the arguments "request", "user"
 user_logged_in = Signal()
 
-# Typically followed by `user_logged_in` (unless, e-mail verification kicks in)
+# Typically followed by `user_logged_in` (unless, email verification kicks in)
 # Provides the arguments "request", "user"
 user_signed_up = Signal()
 
@@ -28,3 +28,6 @@ email_changed = Signal()
 email_added = Signal()
 # Provides the arguments "request", "user", "email_address"
 email_removed = Signal()
+
+# Internal/private signal.
+_add_email = Signal()

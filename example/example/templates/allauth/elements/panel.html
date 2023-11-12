@@ -1,0 +1,17 @@
+{% load allauth %}
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title">
+            {% slot title %}
+            {% endslot %}
+        </h5>
+        {% slot body %}
+        {% endslot %}
+    </div>
+    {% if slots.actions %}
+        <div class="card-footer">
+            {% slot actions %}
+            {% endslot %}
+        </div>
+    {% endif %}
+</div>

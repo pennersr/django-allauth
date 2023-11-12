@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import, unicode_literals
-
 from django.contrib.auth.models import User
 from django.test.utils import override_settings
 
@@ -50,6 +48,6 @@ class DisqusTests(OAuth2TestsMixin, TestCase):
         self.assertTrue(
             SocialAccount.objects.filter(user=user, provider=DisqusProvider.id).exists()
         )
-        # For now, we do not pick up any new e-mail addresses on connect
+        # For now, we do not pick up any new email addresses on connect
         self.assertEqual(EmailAddress.objects.filter(user=user).count(), 1)
         self.assertEqual(EmailAddress.objects.filter(user=user, email=email).count(), 1)

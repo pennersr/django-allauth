@@ -1,0 +1,53 @@
+{% extends "account/base_manage_email.html" %}
+{% load i18n %}
+{% load allauth %}
+{% block head_title %}
+    {% trans "Email Address" %}
+{% endblock head_title %}
+{% block content %}
+    {% element h1 %}
+        {% trans "Email Address" %}
+    {% endelement %}
+    {% if emailaddresses %}
+        {% if current_emailaddress %}
+            <p>
+                {% trans 'The following email address is associated with your account:' %} <a href="mailto:{{ current_emailaddress.email }}">{{ current_emailaddress.email }}</a>
+            </p>
+        {% endif %}
+        {% if new_emailaddress %}
+            <p>
+                {% trans 'Your email address is still pending verification:' %} <a href="mailto:{{ new_emailaddress.email }}">{{ new_emailaddress.email }}</a>
+            </p>
+            {% url 'account_email' as action_url %}
+            {% element form method="post" action=action_url tags="button-only" no_visible_fields=True %}
+                {% slot body %}
+                    {% csrf_token %}
+                    <input type="hidden" name="email" value="{{ new_emailaddress.email }}">
+                {% endslot %}
+                {% slot actions %}
+                    {% element button type="submit" name="action_send" %}
+                        {% trans 'Re-send Verification' %}
+                    {% endelement %}
+                {% endslot %}
+            {% endelement %}
+        {% endif %}
+    {% else %}
+        {% include "account/snippets/warn_no_email.html" %}
+    {% endif %}
+    {% element h2 %}
+        {% trans "Change Email Address" %}
+    {% endelement %}
+    {% url 'account_email' as action_url %}
+    {% element form method="post" action=action_url %}
+        {% slot body %}
+            {% csrf_token %}
+            {% element fields form=form %}
+            {% endelement %}
+        {% endslot %}
+        {% slot actions %}
+            {% element button name="action_add" type="submit" %}
+                {% trans "Change Email" %}
+            {% endelement %}
+        {% endslot %}
+    {% endelement %}
+{% endblock content %}

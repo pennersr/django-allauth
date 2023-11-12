@@ -47,13 +47,13 @@ class TwitchTests(OAuth2TestsMixin, TestCase):
         self.check_for_error(resp_mock, expected_error)
 
         resp_mock = MockedResponse(200, '{"missing_data": "key"}')
-        expected_error = "Invalid data from Twitch API: " "{'missing_data': 'key'}"
+        expected_error = "Invalid data from Twitch API: {'missing_data': 'key'}"
 
         self.check_for_error(resp_mock, expected_error)
 
     def test_missing_twitch_id_raises_OAuth2Error(self):
         resp_mock = MockedResponse(200, '{"data": [{"login": "fake_twitch"}]}')
-        expected_error = "Invalid data from Twitch API: " "{'login': 'fake_twitch'}"
+        expected_error = "Invalid data from Twitch API: {'login': 'fake_twitch'}"
 
         self.check_for_error(resp_mock, expected_error)
 
@@ -67,7 +67,7 @@ class TwitchTests(OAuth2TestsMixin, TestCase):
         """
         Helper function for checking that Error cases are
         handled correctly. Running only `complete_login` means
-        we can check that the specific erros are raised before
+        we can check that the specific errors are raised before
         they are caught and rendered to generic error HTML
         """
         request = RequestFactory().get(
@@ -75,7 +75,7 @@ class TwitchTests(OAuth2TestsMixin, TestCase):
             {"process": "login"},
         )
         adapter = TwitchOAuth2Adapter(request)
-        app = adapter.get_provider().get_app(request)
+        app = adapter.get_provider().app
         token = SocialToken(token="this-is-my-fake-token")
 
         with mocked_response(resp_mock):

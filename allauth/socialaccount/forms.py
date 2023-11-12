@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-
 from django import forms
 
 from allauth.account.forms import BaseSignupForm
@@ -24,7 +22,7 @@ class SignupForm(BaseSignupForm):
         super(SignupForm, self).__init__(*args, **kwargs)
 
     def save(self, request):
-        adapter = get_adapter(request)
+        adapter = get_adapter()
         user = adapter.save_user(request, self.sociallogin, form=self)
         self.custom_signup(request, user)
         return user

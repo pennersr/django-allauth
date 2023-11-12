@@ -2,14 +2,15 @@
 
 from __future__ import unicode_literals
 
-from allauth.socialaccount.providers import registry
-from allauth.socialaccount.tests import create_oauth2_tests
-from allauth.tests import MockedResponse
+from allauth.socialaccount.tests import OAuth2TestsMixin
+from allauth.tests import MockedResponse, TestCase
 
 from .provider import FeishuProvider
 
 
-class FeishuTests(create_oauth2_tests(registry.by_id(FeishuProvider.id))):
+class FeishuTests(OAuth2TestsMixin, TestCase):
+    provider_id = FeishuProvider.id
+
     def get_mocked_response(self):
         return [
             MockedResponse(

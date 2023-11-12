@@ -9,9 +9,10 @@ class GitHubTests(OAuth2TestsMixin, TestCase):
     provider_id = GitHubProvider.id
 
     def get_mocked_response(self):
-        return MockedResponse(
-            200,
-            """
+        return [
+            MockedResponse(
+                200,
+                """
         {
             "type":"User",
             "organizations_url":"https://api.github.com/users/pennersr/orgs",
@@ -42,19 +43,52 @@ class GitHubTests(OAuth2TestsMixin, TestCase):
             "events_url":"https://api.github.com/users/pennersr/events{/privacy}",
             "following_url":"https://api.github.com/users/pennersr/following"
         }""",
-        )
+            ),
+            MockedResponse(
+                200,
+                """
+            {
+              "email": "octocat@github.com",
+              "verified": true,
+              "primary": true,
+              "visibility": "public"
+            }
+            """,
+            ),
+        ]
 
     def test_account_name_null(self):
         """String conversion when GitHub responds with empty name"""
-        data = """{
+        mocks = [
+            MockedResponse(
+                200,
+                """
+        {
             "type": "User",
             "id": 201022,
             "login": "pennersr",
             "name": null
-        }"""
-        self.login(MockedResponse(200, data))
+        }
+        """,
+            ),
+            MockedResponse(
+                200,
+                """
+        [
+          {
+            "email": "octocat@github.com",
+            "verified": true,
+            "primary": true,
+            "visibility": "public"
+          }
+        ]
+        """,
+            ),
+        ]
+        self.login(mocks)
         socialaccount = SocialAccount.objects.get(uid="201022")
         self.assertIsNone(socialaccount.extra_data.get("name"))
         account = socialaccount.get_provider_account()
         self.assertIsNotNone(account.to_str())
         self.assertEqual(account.to_str(), "pennersr")
+        self.assertEqual(socialaccount.user.email, "octocat@github.com")

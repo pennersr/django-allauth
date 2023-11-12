@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-
 from datetime import timedelta
 from requests import RequestException
 
@@ -8,21 +6,24 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone
 
-from allauth.exceptions import ImmediateHttpResponse
-from allauth.socialaccount import providers
+from allauth.core.exceptions import ImmediateHttpResponse
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.helpers import (
     complete_social_login,
     render_authentication_error,
 )
 from allauth.socialaccount.models import SocialLogin, SocialToken
 from allauth.socialaccount.providers.base import ProviderException
+from allauth.socialaccount.providers.base.constants import (
+    AuthAction,
+    AuthError,
+)
+from allauth.socialaccount.providers.base.mixins import OAuthLoginMixin
 from allauth.socialaccount.providers.oauth2.client import (
     OAuth2Client,
     OAuth2Error,
 )
 from allauth.utils import build_absolute_uri, get_request_param
-
-from ..base import AuthAction, AuthError
 
 
 class OAuth2Adapter(object):
@@ -40,7 +41,9 @@ class OAuth2Adapter(object):
         self.request = request
 
     def get_provider(self):
-        return providers.registry.by_id(self.provider_id, self.request)
+        return get_adapter(self.request).get_provider(
+            self.request, provider=self.provider_id
+        )
 
     def complete_login(self, request, app, access_token, **kwargs):
         """
@@ -63,7 +66,8 @@ class OAuth2Adapter(object):
 
     def get_access_token_data(self, request, app, client):
         code = get_request_param(self.request, "code")
-        return client.get_access_token(code)
+        pkce_code_verifier = request.session.pop("pkce_code_verifier", None)
+        return client.get_access_token(code, pkce_code_verifier=pkce_code_verifier)
 
 
 class OAuth2View(object):
@@ -72,7 +76,10 @@ class OAuth2View(object):
         def view(request, *args, **kwargs):
             self = cls()
             self.request = request
-            self.adapter = adapter(request)
+            if not isinstance(adapter, OAuth2Adapter):
+                self.adapter = adapter(request)
+            else:
+                self.adapter = adapter
             try:
                 return self.dispatch(request, *args, **kwargs)
             except ImmediateHttpResponse as e:
@@ -99,14 +106,21 @@ class OAuth2View(object):
         return client
 
 
-class OAuth2LoginView(OAuth2View):
-    def dispatch(self, request, *args, **kwargs):
+class OAuth2LoginView(OAuthLoginMixin, OAuth2View):
+    def login(self, request, *args, **kwargs):
         provider = self.adapter.get_provider()
-        app = provider.get_app(self.request)
+        app = provider.app
         client = self.get_client(request, app)
         action = request.GET.get("action", AuthAction.AUTHENTICATE)
         auth_url = self.adapter.authorize_url
         auth_params = provider.get_auth_params(request, action)
+
+        pkce_params = provider.get_pkce_params()
+        code_verifier = pkce_params.pop("code_verifier", None)
+        auth_params.update(pkce_params)
+        if code_verifier:
+            request.session["pkce_code_verifier"] = code_verifier
+
         client.state = SocialLogin.stash_state(request)
         try:
             return HttpResponseRedirect(client.get_redirect_url(auth_url, auth_params))
@@ -126,13 +140,14 @@ class OAuth2CallbackView(OAuth2View):
             return render_authentication_error(
                 request, self.adapter.provider_id, error=error
             )
-        app = self.adapter.get_provider().get_app(self.request)
+        app = self.adapter.get_provider().app
         client = self.get_client(self.request, app)
 
         try:
             access_token = self.adapter.get_access_token_data(request, app, client)
             token = self.adapter.parse_token(access_token)
-            token.app = app
+            if app.pk:
+                token.app = app
             login = self.adapter.complete_login(
                 request, app, token, response=access_token
             )

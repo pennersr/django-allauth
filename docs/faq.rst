@@ -22,15 +22,13 @@ Here are a few third party resources to help you get started:
 - https://www.youtube.com/watch?v=2QLAc7RJ99s
 - https://speakerdeck.com/tedtieken/signing-up-and-signing-in-users-in-django-with-django-allauth
 - https://stackoverflow.com/questions/tagged/django-allauth
-- http://www.sarahhagstrom.com/2013/09/the-missing-django-allauth-tutorial/
 - https://github.com/aellerton/demo-allauth-bootstrap
+- https://github.com/danihodovic/django-allauth-ui
 
 I think I found a security issue... now what?
 *********************************************
 
-Please report security issues only to django-allauth-security@googlegroups.com.
-This is a private list only open to long-time, highly trusted django-allauth
-developers, and its archives are not public.
+Please report security issues only to security@allauth.org.
 
 You may also want to subscribe to django-allauth-announce@googlegroups.com to
 get notified about security releases.
@@ -57,7 +55,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
 When I sign up I run into connectivity errors (connection refused et al)
 ************************************************************************
 
-You probably have not got an e-mail (SMTP) server running on the
+You probably have not got an email (SMTP) server running on the
 machine you are developing on. Therefore, ``allauth`` is unable to send
 verification mails.
 
@@ -66,11 +64,14 @@ You can work around this by adding the following line to
 
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-This will avoid the need for an SMTP server as e-mails will be printed
+This will avoid the need for an SMTP server as emails will be printed
 to the console. For more information, please refer to:
 
 https://docs.djangoproject.com/en/dev/ref/settings/#email-host
 
+
+Development
+-----------
 
 Why did you just close my issue?
 ********************************

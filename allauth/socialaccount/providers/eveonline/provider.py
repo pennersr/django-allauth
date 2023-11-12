@@ -10,7 +10,7 @@ class EveOnlineAccount(ProviderAccount):
         )
 
     def get_avatar_url(self):
-        return ("https://image.eveonline.com/Character/" "{char_id}_128.jpg").format(
+        return ("https://image.eveonline.com/Character/{char_id}_128.jpg").format(
             char_id=self.account.extra_data.get("CharacterID", 1)
         )
 

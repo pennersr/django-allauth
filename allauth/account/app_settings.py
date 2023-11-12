@@ -1,3 +1,6 @@
+from django.core.exceptions import ImproperlyConfigured
+
+
 class AppSettings(object):
     class AuthenticationMethod:
         USERNAME = "username"
@@ -8,10 +11,10 @@ class AppSettings(object):
         # After signing up, keep the user account inactive until the email
         # address is verified
         MANDATORY = "mandatory"
-        # Allow login with unverified e-mail (e-mail verification is
+        # Allow login with unverified email (email verification is
         # still sent)
         OPTIONAL = "optional"
-        # Don't send e-mail verification mails during signup
+        # Don't send email verification mails during signup
         NONE = "none"
 
     def __init__(self, prefix):
@@ -35,16 +38,20 @@ class AppSettings(object):
             )
         if self.MAX_EMAIL_ADDRESSES is not None:
             assert self.MAX_EMAIL_ADDRESSES > 0
+        if self.CHANGE_EMAIL:
+            if self.MAX_EMAIL_ADDRESSES is not None and self.MAX_EMAIL_ADDRESSES != 2:
+                raise ImproperlyConfigured(
+                    "Invalid combination of ACCOUNT_CHANGE_EMAIL and ACCOUNT_MAX_EMAIL_ADDRESSES"
+                )
 
     def _setting(self, name, dflt):
-        from django.conf import settings
+        from allauth.utils import get_setting
 
-        getter = getattr(
-            settings,
-            "ALLAUTH_SETTING_GETTER",
-            lambda name, dflt: getattr(settings, name, dflt),
-        )
-        return getter(self.prefix + name, dflt)
+        return get_setting(self.prefix + name, dflt)
+
+    @property
+    def PREVENT_ENUMERATION(self):
+        return self._setting("PREVENT_ENUMERATION", True)
 
     @property
     def DEFAULT_HTTP_PROTOCOL(self):
@@ -53,7 +60,7 @@ class AppSettings(object):
     @property
     def EMAIL_CONFIRMATION_EXPIRE_DAYS(self):
         """
-        Determines the expiration date of e-mail confirmation mails (#
+        Determines the expiration date of email confirmation mails (#
         of days)
         """
         from django.conf import settings
@@ -66,7 +73,7 @@ class AppSettings(object):
     @property
     def EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL(self):
         """
-        The URL to redirect to after a successful e-mail confirmation, in
+        The URL to redirect to after a successful email confirmation, in
         case of an authenticated user
         """
         return self._setting("EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL", None)
@@ -74,7 +81,7 @@ class AppSettings(object):
     @property
     def EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL(self):
         """
-        The URL to redirect to after a successful e-mail confirmation, in
+        The URL to redirect to after a successful email confirmation, in
         case no user is logged in
         """
         from django.conf import settings
@@ -94,14 +101,14 @@ class AppSettings(object):
     @property
     def EMAIL_REQUIRED(self):
         """
-        The user is required to hand over an e-mail address when signing up
+        The user is required to hand over an email address when signing up
         """
         return self._setting("EMAIL_REQUIRED", False)
 
     @property
     def EMAIL_VERIFICATION(self):
         """
-        See e-mail verification method
+        See email verification method
         """
         ret = self._setting("EMAIL_VERIFICATION", self.EmailVerificationMethod.OPTIONAL)
         # Deal with legacy (boolean based) setting
@@ -116,6 +123,10 @@ class AppSettings(object):
         return self._setting("MAX_EMAIL_ADDRESSES", None)
 
     @property
+    def CHANGE_EMAIL(self):
+        return self._setting("CHANGE_EMAIL", False)
+
+    @property
     def AUTHENTICATION_METHOD(self):
         ret = self._setting("AUTHENTICATION_METHOD", self.AuthenticationMethod.USERNAME)
         return ret
@@ -123,14 +134,14 @@ class AppSettings(object):
     @property
     def EMAIL_MAX_LENGTH(self):
         """
-        Adjust max_length of e-mail addresses
+        Adjust max_length of email addresses
         """
         return self._setting("EMAIL_MAX_LENGTH", 254)
 
     @property
     def UNIQUE_EMAIL(self):
         """
-        Enforce uniqueness of e-mail addresses
+        Enforce uniqueness of email addresses
         """
         return self._setting("UNIQUE_EMAIL", True)
 
@@ -166,6 +177,27 @@ class AppSettings(object):
         if not settings.AUTH_PASSWORD_VALIDATORS:
             ret = self._setting("PASSWORD_MIN_LENGTH", 6)
         return ret
+
+    @property
+    def RATE_LIMITS(self):
+        dflt = {
+            # Change password view (for users already logged in)
+            "change_password": "5/m",
+            # Email management (e.g. add, remove, change primary)
+            "manage_email": "10/m",
+            # Request a password reset, global rate limit per IP
+            "reset_password": "20/m",
+            # Rate limit measured per individual email address
+            "reset_password_email": "5/m",
+            # Reauthentication for users already logged in)
+            "reauthenticate": "10/m",
+            # Password reset (the view the password reset email links to).
+            "reset_password_from_key": "20/m",
+            # Signups.
+            "signup": "20/m",
+            # NOTE: Login is already protected via `ACCOUNT_LOGIN_ATTEMPTS_LIMIT`
+        }
+        return self._setting("RATE_LIMITS", dflt)
 
     @property
     def EMAIL_SUBJECT_PREFIX(self):
@@ -319,9 +351,10 @@ class AppSettings(object):
 
     @property
     def USERNAME_VALIDATORS(self):
+        from django.contrib.auth import get_user_model
         from django.core.exceptions import ImproperlyConfigured
 
-        from allauth.utils import get_user_model, import_attribute
+        from allauth.utils import import_attribute
 
         path = self._setting("USERNAME_VALIDATORS", None)
         if path:
@@ -341,12 +374,30 @@ class AppSettings(object):
                 ret = []
         return ret
 
+    @property
+    def PASSWORD_RESET_TOKEN_GENERATOR(self):
+        from allauth.account.forms import EmailAwarePasswordResetTokenGenerator
+        from allauth.utils import import_attribute
 
-# Ugly? Guido recommends this himself ...
-# http://mail.python.org/pipermail/python-ideas/2012-May/014969.html
-import sys  # noqa
+        token_generator_path = self._setting("PASSWORD_RESET_TOKEN_GENERATOR", None)
+        if token_generator_path is not None:
+            token_generator = import_attribute(token_generator_path)
+        else:
+            token_generator = EmailAwarePasswordResetTokenGenerator
+        return token_generator
+
+    @property
+    def REAUTHENTICATION_TIMEOUT(self):
+        return self._setting("REAUTHENTICATION_TIMEOUT", 300)
+
+    @property
+    def REAUTHENTICATION_REQUIRED(self):
+        return self._setting("REAUTHENTICATION_REQUIRED", False)
 
 
-app_settings = AppSettings("ACCOUNT_")
-app_settings.__name__ = __name__
-sys.modules[__name__] = app_settings
+_app_settings = AppSettings("ACCOUNT_")
+
+
+def __getattr__(name):
+    # See https://peps.python.org/pep-0562/
+    return getattr(_app_settings, name)

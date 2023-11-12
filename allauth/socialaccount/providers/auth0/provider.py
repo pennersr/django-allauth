@@ -21,15 +21,13 @@ class Auth0Provider(OAuth2Provider):
         return ["openid", "profile", "email"]
 
     def extract_uid(self, data):
-        return str(data["id"])
+        return str(data["sub"])
 
     def extract_common_fields(self, data):
         return dict(
             email=data.get("email"),
             username=data.get("username"),
             name=data.get("name"),
-            user_id=data.get("user_id"),
-            picture=data.get("picture"),
         )
 
 

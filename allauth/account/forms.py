@@ -588,7 +588,8 @@ class ResetPasswordForm(forms.Form):
     def save(self, request, **kwargs):
         email = self.cleaned_data["email"]
         if not self.users:
-            self._send_unknown_account_mail(request, email)
+            if app_settings.EMAIL_UNKNOWN_ACCOUNTS:
+                self._send_unknown_account_mail(request, email)
         else:
             self._send_password_reset_mail(request, email, self.users, **kwargs)
         return email

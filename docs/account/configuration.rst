@@ -72,6 +72,10 @@ Available settings:
   Subject-line prefix to use for email messages sent. By default, the
   name of the current ``Site`` (``django.contrib.sites``) is used.
 
+``ACCOUNT_EMAIL_UNKNOWN_ACCOUNTS`` (default: ``True``)
+  Configures whether password reset attempts for email addresses which do not
+  have an account result in sending an email.
+
 ``ACCOUNT_DEFAULT_HTTP_PROTOCOL`` (default: ``"http"``)
   The default protocol used for when generating URLs, e.g. for the
   password forgotten procedure. Note that this is a default only --

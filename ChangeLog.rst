@@ -22,6 +22,9 @@ Note worthy changes
 - A configurable timeout (``SOCIALACCOUNT_REQUESTS_TIMEOUT``) is now applied to
   all upstream requests.
 
+- Added a setting ``ACCOUNT_EMAIL_UNKNOWN_ACCOUNTS`` to disable sending of
+  emails to unknown accounts.
+
 
 Backwards incompatible changes
 ------------------------------

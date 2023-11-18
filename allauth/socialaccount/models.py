@@ -214,6 +214,10 @@ class SocialLogin(object):
             sender=SocialLogin, request=request, sociallogin=self
         )
 
+        get_adapter().send_notification_mail(
+            "socialaccount/email/social_account_added", self.user, {}
+        )
+
     def serialize(self):
         serialize_instance = get_adapter().serialize_instance
         ret = dict(
@@ -298,6 +302,9 @@ class SocialLogin(object):
             a.save()
             signals.social_account_updated.send(
                 sender=SocialLogin, request=context.request, sociallogin=self
+            )
+            get_adapter().send_notification_mail(
+                "socialaccount/email/social_account_updated", self.user, {}
             )
             # Update token
             if app_settings.STORE_TOKENS and self.token:

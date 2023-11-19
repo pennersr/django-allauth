@@ -130,6 +130,9 @@ class ActivateTOTPView(FormView):
         adapter.add_message(
             self.request, messages.SUCCESS, "mfa/messages/totp_activated.txt"
         )
+        adapter.send_notification_mail(
+            "mfa/email/totp_activated", self.request.user, {}
+        )
         return super().form_valid(form)
 
 
@@ -176,6 +179,9 @@ class DeactivateTOTPView(FormView):
         adapter.add_message(
             self.request, messages.SUCCESS, "mfa/messages/totp_deactivated.txt"
         )
+        adapter.send_notification_mail(
+            "mfa/email/totp_deactivated", self.request.user, {}
+        )
         return super().form_valid(form)
 
 
@@ -200,6 +206,7 @@ class GenerateRecoveryCodesView(FormView):
         signals.authenticator_reset.send(
             sender=Authenticator, user=self.request.user, authenticator=rc_auth.instance
         )
+        adapter.send_notification_mail("mfa/email/totp_reset", self.request.user, {})
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):

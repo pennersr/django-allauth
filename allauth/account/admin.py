@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
 
 from . import app_settings
 from .adapter import get_adapter
@@ -19,7 +20,7 @@ class EmailAddressAdmin(admin.ModelAdmin):
     def make_verified(self, request, queryset):
         queryset.update(verified=True)
 
-    make_verified.short_description = "Mark selected email addresses as verified"
+    make_verified.short_description = _("Mark selected email addresses as verified")
 
 
 class EmailConfirmationAdmin(admin.ModelAdmin):

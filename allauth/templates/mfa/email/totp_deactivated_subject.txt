@@ -1,4 +1,4 @@
 {% load i18n %}
 {% autoescape off %}
-{% blocktrans %}Totp decativated{% endblocktrans %}
+{% blocktrans %}Totp deactivated{% endblocktrans %}
 {% endautoescape %}

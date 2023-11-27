@@ -231,18 +231,12 @@ def test_cannot_deactivate_totp(auth_client, user_with_totp, user_password):
         assert resp.status_code == 302
         resp = auth_client.get(reverse("mfa_deactivate_totp"))
         # When we GET, the form validation error is already on screen
-        assertFormError(
-            resp,
-            "form",
-            "__all__",
-            get_adapter().error_messages["cannot_delete_authenticator"],
-        )
+        assert resp.context["form"].errors == {
+            "__all__": [get_adapter().error_messages["cannot_delete_authenticator"]],
+        }
         # And, when we POST anyway, it does not work
         resp = auth_client.post(reverse("mfa_deactivate_totp"))
         assert resp.status_code == 200
-        assertFormError(
-            resp,
-            "form",
-            "__all__",
-            get_adapter().error_messages["cannot_delete_authenticator"],
-        )
+        assert resp.context["form"].errors == {
+            "__all__": [get_adapter().error_messages["cannot_delete_authenticator"]],
+        }

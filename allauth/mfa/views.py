@@ -17,7 +17,11 @@ from allauth.account.stages import LoginStageController
 from allauth.account.views import BaseReauthenticateView
 from allauth.mfa import app_settings, signals, totp
 from allauth.mfa.adapter import get_adapter
-from allauth.mfa.forms import ActivateTOTPForm, AuthenticateForm
+from allauth.mfa.forms import (
+    ActivateTOTPForm,
+    AuthenticateForm,
+    DeactivateTOTPForm,
+)
 from allauth.mfa.models import Authenticator
 from allauth.mfa.recovery_codes import RecoveryCodes
 from allauth.mfa.stages import AuthenticateStage
@@ -138,7 +142,7 @@ activate_totp = ActivateTOTPView.as_view()
 
 @method_decorator(login_required, name="dispatch")
 class DeactivateTOTPView(FormView):
-    form_class = forms.Form
+    form_class = DeactivateTOTPForm
     template_name = "mfa/totp/deactivate_form." + account_settings.TEMPLATE_EXTENSION
     success_url = reverse_lazy("mfa_index")
 
@@ -159,6 +163,16 @@ class DeactivateTOTPView(FormView):
         `reauthentication_required` decorator on the `dispatch` directly.
         """
         return super().dispatch(request, *args, **kwargs)
+
+    def get_form_kwargs(self):
+        ret = super().get_form_kwargs()
+        ret["authenticator"] = self.authenticator
+        # The deactivation form does not require input, yet, can generate
+        # validation errors in case deactivation is not allowed. We want to
+        # immediately present such errors even before the user actually posts
+        # the form, which is why we put an empty data payload in here.
+        ret.setdefault("data", {})
+        return ret
 
     def form_valid(self, form):
         self.authenticator.wrap().deactivate()

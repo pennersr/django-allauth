@@ -12,6 +12,10 @@ Note worthy changes
 - Added MFA signals emitted when authenticators are added, removed or (in case
   of recovery codes) reset.
 
+- There is now an MFA adapter method ``can_delete_authenticator(authenticator)``
+  available that can be used to prevent users from deactivating e.g. their TOTP
+  authenticator.
+
 
 0.58.2 (2023-11-06)
 *******************

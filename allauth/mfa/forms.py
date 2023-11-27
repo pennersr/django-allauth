@@ -73,3 +73,18 @@ class ActivateTOTPForm(forms.Form):
         except forms.ValidationError as e:
             self.secret = totp.get_totp_secret(regenerate=True)
             raise e
+
+
+class DeactivateTOTPForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        self.authenticator = kwargs.pop("authenticator")
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        adapter = get_adapter()
+        if not adapter.can_delete_authenticator(self.authenticator):
+            raise forms.ValidationError(
+                adapter.error_messages["cannot_delete_authenticator"]
+            )
+        return cleaned_data

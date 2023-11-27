@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 import django
 from django.conf import settings
 from django.urls import reverse
@@ -215,3 +217,32 @@ def test_totp_login_rate_limit(
                 if is_locked
                 else "Incorrect code.",
             )
+
+
+def test_cannot_deactivate_totp(auth_client, user_with_totp, user_password):
+    with patch(
+        "allauth.mfa.adapter.DefaultMFAAdapter.can_delete_authenticator"
+    ) as cda_mock:
+        cda_mock.return_value = False
+        resp = auth_client.get(reverse("mfa_deactivate_totp"))
+        assert resp.status_code == 302
+        assert resp["location"].startswith(reverse("account_reauthenticate"))
+        resp = auth_client.post(resp["location"], {"password": user_password})
+        assert resp.status_code == 302
+        resp = auth_client.get(reverse("mfa_deactivate_totp"))
+        # When we GET, the form validation error is already on screen
+        assertFormError(
+            resp,
+            "form",
+            "__all__",
+            get_adapter().error_messages["cannot_delete_authenticator"],
+        )
+        # And, when we POST anyway, it does not work
+        resp = auth_client.post(reverse("mfa_deactivate_totp"))
+        assert resp.status_code == 200
+        assertFormError(
+            resp,
+            "form",
+            "__all__",
+            get_adapter().error_messages["cannot_delete_authenticator"],
+        )

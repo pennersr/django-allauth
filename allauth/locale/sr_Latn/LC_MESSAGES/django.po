@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-03 04:26-0500\n"
+"POT-Creation-Date: 2023-11-27 12:16-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Nikola Vulovic <nivukiki@gmail.com>\n"
 "Language-Team: NONE\n"
@@ -43,116 +43,132 @@ msgstr "Trenutna lozinka"
 msgid "Password must be a minimum of {0} characters."
 msgstr "Lozinka mora biti najmanje {0} znakova."
 
+#: account/adapter.py:716
+#, fuzzy
+#| msgid "Forgot Password?"
+msgid "Use your password"
+msgstr "Zaboravili ste lozinku?"
+
+#: account/adapter.py:726
+msgid "Use your authenticator app"
+msgstr ""
+
+#: account/admin.py:23
+#, fuzzy
+#| msgid "Your primary email address must be verified."
+msgid "Mark selected email addresses as verified"
+msgstr "Vaša primarna adresa e-pošte mora biti potvrđena."
+
 #: account/apps.py:9
 msgid "Accounts"
 msgstr "Računi"
 
-#: account/forms.py:61 account/forms.py:445
+#: account/forms.py:59 account/forms.py:443
 msgid "You must type the same password each time."
 msgstr "Morate unijeti istu lozinku svaki put"
 
-#: account/forms.py:93 account/forms.py:408 account/forms.py:547
-#: account/forms.py:685
+#: account/forms.py:91 account/forms.py:406 account/forms.py:546
+#: account/forms.py:684
 msgid "Password"
 msgstr "Lozinka"
 
-#: account/forms.py:94
+#: account/forms.py:92
 msgid "Remember Me"
 msgstr "Seti me se"
 
-#: account/forms.py:98
+#: account/forms.py:96
 msgid "This account is currently inactive."
 msgstr "Ovaj nalog je trenutno neaktivan."
 
-#: account/forms.py:100
+#: account/forms.py:98
 msgid "The email address and/or password you specified are not correct."
 msgstr "Adresa e-pošte i/ili lozinka koju ste naveli nisu tačni."
 
-#: account/forms.py:103
+#: account/forms.py:101
 msgid "The username and/or password you specified are not correct."
 msgstr "Korisničko ime i/ili lozinka koju ste naveli nisu tačni."
 
-#: account/forms.py:114 account/forms.py:283 account/forms.py:472
-#: account/forms.py:567
+#: account/forms.py:112 account/forms.py:281 account/forms.py:471
+#: account/forms.py:566
 msgid "Email address"
 msgstr "Adresa e-pošte"
 
-#: account/forms.py:118 account/forms.py:321 account/forms.py:469
-#: account/forms.py:562
+#: account/forms.py:116 account/forms.py:319 account/forms.py:468
+#: account/forms.py:561
 msgid "Email"
 msgstr "E-pošta"
 
-#: account/forms.py:121 account/forms.py:124 account/forms.py:273
-#: account/forms.py:276
+#: account/forms.py:119 account/forms.py:122 account/forms.py:271
+#: account/forms.py:274
 msgid "Username"
 msgstr "Korisničko ime"
 
-#: account/forms.py:134
+#: account/forms.py:132
 msgid "Username or email"
 msgstr "Korisničko ime ili e-pošta"
 
-#: account/forms.py:137
+#: account/forms.py:135
 msgctxt "field label"
 msgid "Login"
 msgstr "Prijavite se"
 
-#: account/forms.py:148
+#: account/forms.py:146
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Forgot your password?"
 msgstr "Zaboravili ste lozinku?"
 
-#: account/forms.py:312
+#: account/forms.py:310
 msgid "Email (again)"
 msgstr "E-pošta (opet)"
 
-#: account/forms.py:316
+#: account/forms.py:314
 msgid "Email address confirmation"
 msgstr "Potvrda adrese e-pošte"
 
-#: account/forms.py:324
+#: account/forms.py:322
 msgid "Email (optional)"
 msgstr "E-pošta (opciono)"
 
-#: account/forms.py:379
+#: account/forms.py:377
 msgid "You must type the same email each time."
 msgstr "Morate unijeti istu adresu e-pošte svaki put."
 
-#: account/forms.py:414 account/forms.py:550
+#: account/forms.py:412 account/forms.py:549
 msgid "Password (again)"
 msgstr "Lozinka (ponovo)"
 
-#: account/forms.py:484
+#: account/forms.py:483
 msgid "This email address is already associated with this account."
 msgstr "Ova adresa e-pošte je već povezana sa ovim nalogom."
 
-#: account/forms.py:486
+#: account/forms.py:485
 #, fuzzy, python-format
 #| msgid "Your account has no verified email address."
 msgid "You cannot add more than %d email addresses."
 msgstr "Vaš nalog nema potvrđenu e-mail adresu."
 
-#: account/forms.py:524
+#: account/forms.py:523
 msgid "Current Password"
 msgstr "Trenutna lozinka"
 
-#: account/forms.py:527 account/forms.py:634
+#: account/forms.py:526 account/forms.py:633
 msgid "New Password"
 msgstr "Nova lozinka"
 
-#: account/forms.py:530 account/forms.py:635
+#: account/forms.py:529 account/forms.py:634
 msgid "New Password (again)"
 msgstr "Nova lozinka (ponovo)"
 
-#: account/forms.py:538
+#: account/forms.py:537
 msgid "Please type your current password."
 msgstr "Molimo unesite trenutnu lozinku."
 
-#: account/forms.py:579
+#: account/forms.py:578
 msgid "The email address is not assigned to any user account"
 msgstr "Adresa e-pošte nije dodeljena bilo kom korisničkom nalogu"
 
-#: account/forms.py:655
+#: account/forms.py:654
 msgid "The password reset token was invalid."
 msgstr "Token resetovanja lozinke je nevažeći."
 
@@ -184,7 +200,7 @@ msgstr "stvoreno"
 msgid "sent"
 msgstr "poslat"
 
-#: account/models.py:143 socialaccount/models.py:65
+#: account/models.py:143 socialaccount/models.py:63
 msgid "key"
 msgstr "ključ"
 
@@ -212,6 +228,10 @@ msgstr ""
 msgid "Incorrect code."
 msgstr ""
 
+#: mfa/adapter.py:26
+msgid "You cannot deactivate two-factor authentication."
+msgstr ""
+
 #: mfa/apps.py:7
 msgid "MFA"
 msgstr ""
@@ -220,19 +240,19 @@ msgstr ""
 msgid "Code"
 msgstr ""
 
-#: mfa/forms.py:48
+#: mfa/forms.py:51
 msgid "Authenticator code"
 msgstr ""
 
-#: mfa/models.py:15
+#: mfa/models.py:19
 msgid "Recovery codes"
 msgstr ""
 
-#: mfa/models.py:16
+#: mfa/models.py:20
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:32
+#: socialaccount/adapter.py:30
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -244,11 +264,11 @@ msgstr ""
 "Račun postoji već sa ovom adresom e-pošte. Prijavite se na toprvi nalog, "
 "zatim povežite svoj %s nalog."
 
-#: socialaccount/adapter.py:138
+#: socialaccount/adapter.py:136
 msgid "Your account has no password set up."
 msgstr "Vaš nalog nema podešenu lozinku."
 
-#: socialaccount/adapter.py:145
+#: socialaccount/adapter.py:143
 msgid "Your account has no verified email address."
 msgstr "Vaš nalog nema potvrđenu e-mail adresu."
 
@@ -256,97 +276,97 @@ msgstr "Vaš nalog nema potvrđenu e-mail adresu."
 msgid "Social Accounts"
 msgstr "Društveni računi"
 
-#: socialaccount/models.py:39 socialaccount/models.py:93
+#: socialaccount/models.py:37 socialaccount/models.py:91
 msgid "provider"
 msgstr "provider"
 
-#: socialaccount/models.py:48
+#: socialaccount/models.py:46
 #, fuzzy
 #| msgid "provider"
 msgid "provider ID"
 msgstr "provider"
 
-#: socialaccount/models.py:52
+#: socialaccount/models.py:50
 msgid "name"
 msgstr "ime"
 
-#: socialaccount/models.py:54
+#: socialaccount/models.py:52
 msgid "client id"
 msgstr "ID klijenta"
 
-#: socialaccount/models.py:56
+#: socialaccount/models.py:54
 msgid "App ID, or consumer key"
 msgstr "ID aplikacije ili potrošački ključ"
 
-#: socialaccount/models.py:59
+#: socialaccount/models.py:57
 msgid "secret key"
 msgstr "tajni ključ"
 
-#: socialaccount/models.py:62
+#: socialaccount/models.py:60
 msgid "API secret, client secret, or consumer secret"
 msgstr "Tajna API-ja, tajna klijenta ili tajna potrošača"
 
-#: socialaccount/models.py:65
+#: socialaccount/models.py:63
 msgid "Key"
 msgstr "Ključ"
 
-#: socialaccount/models.py:77
+#: socialaccount/models.py:75
 msgid "social application"
 msgstr "društvena aplikacija"
 
-#: socialaccount/models.py:78
+#: socialaccount/models.py:76
 msgid "social applications"
 msgstr "društvena aplikacije"
 
-#: socialaccount/models.py:113
+#: socialaccount/models.py:111
 msgid "uid"
 msgstr "uid"
 
-#: socialaccount/models.py:115
+#: socialaccount/models.py:113
 msgid "last login"
 msgstr "Poslednje prijavljivanje"
 
-#: socialaccount/models.py:116
+#: socialaccount/models.py:114
 msgid "date joined"
 msgstr "Datum pridružio"
 
-#: socialaccount/models.py:117
+#: socialaccount/models.py:115
 msgid "extra data"
 msgstr "dodatni podaci"
 
-#: socialaccount/models.py:121
+#: socialaccount/models.py:119
 msgid "social account"
 msgstr "društveni račun"
 
-#: socialaccount/models.py:122
+#: socialaccount/models.py:120
 msgid "social accounts"
 msgstr "društveni računi"
 
-#: socialaccount/models.py:156
+#: socialaccount/models.py:154
 msgid "token"
 msgstr "token"
 
-#: socialaccount/models.py:157
+#: socialaccount/models.py:155
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) ili token pristupa (OAuth2)"
 
-#: socialaccount/models.py:161
+#: socialaccount/models.py:159
 msgid "token secret"
 msgstr "token tajna"
 
-#: socialaccount/models.py:162
+#: socialaccount/models.py:160
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) ili osveženi token (OAuth2)"
 
-#: socialaccount/models.py:165
+#: socialaccount/models.py:163
 msgid "expires at"
 msgstr "ističe u"
 
-#: socialaccount/models.py:170
+#: socialaccount/models.py:168
 msgid "social application token"
 msgstr "Token društvenih aplikacija"
 
-#: socialaccount/models.py:171
+#: socialaccount/models.py:169
 msgid "social application tokens"
 msgstr "tokeni društvenih aplikacija"
 
@@ -395,6 +415,21 @@ msgstr "Račun neaktivan"
 #: templates/account/account_inactive.html:11
 msgid "This account is inactive."
 msgstr "Ovaj nalog je neaktivan."
+
+#: templates/account/base_reauthenticate.html:5
+#: templates/account/base_reauthenticate.html:9
+#, fuzzy
+#| msgid "Confirm Email Address"
+msgid "Confirm Access"
+msgstr "Potvrda adrese e-pošte"
+
+#: templates/account/base_reauthenticate.html:11
+msgid "Please reauthenticate to safeguard your account."
+msgstr ""
+
+#: templates/account/base_reauthenticate.html:17
+msgid "Alternative options"
+msgstr ""
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -614,7 +649,8 @@ msgstr ""
 "e-pošte za korisnika %(user_display)s."
 
 #: templates/account/email_confirm.html:23
-#: templates/account/reauthenticate.html:28
+#: templates/account/reauthenticate.html:20
+#: templates/mfa/reauthenticate.html:20
 msgid "Confirm"
 msgstr "Potvrdi"
 
@@ -796,15 +832,10 @@ msgid "Set Password"
 msgstr "Postavi lozinku"
 
 #: templates/account/reauthenticate.html:5
-#: templates/account/reauthenticate.html:9
 #, fuzzy
-#| msgid "Confirm Email Address"
-msgid "Confirm Access"
-msgstr "Potvrda adrese e-pošte"
-
-#: templates/account/reauthenticate.html:12
-msgid "To safeguard the security of your account, please enter your password:"
-msgstr ""
+#| msgid "Forgot Password?"
+msgid "Enter your password:"
+msgstr "Zaboravili ste lozinku?"
 
 #: templates/account/signup.html:4 templates/socialaccount/signup.html:5
 msgid "Signup"
@@ -946,6 +977,10 @@ msgid ""
 "authenticator code:"
 msgstr ""
 
+#: templates/mfa/authenticate.html:27
+msgid "Cancel"
+msgstr ""
+
 #: templates/mfa/index.html:13 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
 msgstr ""
@@ -1009,6 +1044,12 @@ msgstr ""
 #: templates/mfa/messages/totp_deactivated.txt:2
 msgid "Authenticator app deactivated."
 msgstr ""
+
+#: templates/mfa/reauthenticate.html:5
+#, fuzzy
+#| msgid "token secret"
+msgid "Enter an authenticator code:"
+msgstr "token tajna"
 
 #: templates/mfa/recovery_codes/generate.html:9
 msgid "You are about to generate a new set of recovery codes for your account."
@@ -1171,7 +1212,7 @@ msgstr ""
 "Upravo koristite svoj račun kod %(provider_name)s da biste se prijavili na\n"
 "%(site_name)s. Kao poslednji korak, molimo popunite sledeći obrazac:"
 
-#: templates/socialaccount/snippets/login.html:8
+#: templates/socialaccount/snippets/login.html:9
 msgid "Or use a third-party"
 msgstr ""
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-03 04:26-0500\n"
+"POT-Creation-Date: 2023-11-27 12:16-0600\n"
 "PO-Revision-Date: 2023-08-15 04:00+0300\n"
 "Last-Translator: Abdo <abdo@abdnh.net>\n"
 "Language-Team: Arabic\n"
@@ -42,115 +42,131 @@ msgstr "كلمة المرور الحالية"
 msgid "Password must be a minimum of {0} characters."
 msgstr "كلمة المرور يجب أن لا تقل عن {0} حروف."
 
+#: account/adapter.py:716
+#, fuzzy
+#| msgid "Forgot Password?"
+msgid "Use your password"
+msgstr "هل نسيت كلمة المرور؟"
+
+#: account/adapter.py:726
+msgid "Use your authenticator app"
+msgstr ""
+
+#: account/admin.py:23
+#, fuzzy
+#| msgid "Your primary email address must be verified."
+msgid "Mark selected email addresses as verified"
+msgstr "يجب توثيق عنوان بريدك الإلكتروني الرئيسي."
+
 #: account/apps.py:9
 msgid "Accounts"
 msgstr "الحسابات"
 
-#: account/forms.py:61 account/forms.py:445
+#: account/forms.py:59 account/forms.py:443
 msgid "You must type the same password each time."
 msgstr "يجب عليك كتابة كلمة المرور نفسها في كل مرة‪."
 
-#: account/forms.py:93 account/forms.py:408 account/forms.py:547
-#: account/forms.py:685
+#: account/forms.py:91 account/forms.py:406 account/forms.py:546
+#: account/forms.py:684
 msgid "Password"
 msgstr "كلمة المرور"
 
-#: account/forms.py:94
+#: account/forms.py:92
 msgid "Remember Me"
 msgstr "تذكرني"
 
-#: account/forms.py:98
+#: account/forms.py:96
 msgid "This account is currently inactive."
 msgstr "هذا الحساب غير نشط حاليا."
 
-#: account/forms.py:100
+#: account/forms.py:98
 msgid "The email address and/or password you specified are not correct."
 msgstr "عنوان البريد الإلكتروني و / أو كلمة المرور غير صحيحة."
 
-#: account/forms.py:103
+#: account/forms.py:101
 msgid "The username and/or password you specified are not correct."
 msgstr "اسم المستخدم و / أو كلمة المرور غير صحيحة."
 
-#: account/forms.py:114 account/forms.py:283 account/forms.py:472
-#: account/forms.py:567
+#: account/forms.py:112 account/forms.py:281 account/forms.py:471
+#: account/forms.py:566
 msgid "Email address"
 msgstr "عنوان البريد الالكتروني"
 
-#: account/forms.py:118 account/forms.py:321 account/forms.py:469
-#: account/forms.py:562
+#: account/forms.py:116 account/forms.py:319 account/forms.py:468
+#: account/forms.py:561
 msgid "Email"
 msgstr "البريد الالكتروني"
 
-#: account/forms.py:121 account/forms.py:124 account/forms.py:273
-#: account/forms.py:276
+#: account/forms.py:119 account/forms.py:122 account/forms.py:271
+#: account/forms.py:274
 msgid "Username"
 msgstr "اسم المستخدم"
 
-#: account/forms.py:134
+#: account/forms.py:132
 msgid "Username or email"
 msgstr "اسم المستخدم أو البريد الإلكتروني"
 
-#: account/forms.py:137
+#: account/forms.py:135
 msgctxt "field label"
 msgid "Login"
 msgstr "تسجيل الدخول"
 
-#: account/forms.py:148
+#: account/forms.py:146
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Forgot your password?"
 msgstr "هل نسيت كلمة المرور؟"
 
-#: account/forms.py:312
+#: account/forms.py:310
 msgid "Email (again)"
 msgstr "البريد الإلكتروني ‪(مجددا)"
 
-#: account/forms.py:316
+#: account/forms.py:314
 msgid "Email address confirmation"
 msgstr "تأكيد البريد الإلكتروني"
 
-#: account/forms.py:324
+#: account/forms.py:322
 msgid "Email (optional)"
 msgstr "البريد الالكتروني (اختياري)"
 
-#: account/forms.py:379
+#: account/forms.py:377
 msgid "You must type the same email each time."
 msgstr "يجب عليك كتابة البريد الإلكتروني نفسه في كل مرة‪."
 
-#: account/forms.py:414 account/forms.py:550
+#: account/forms.py:412 account/forms.py:549
 msgid "Password (again)"
 msgstr "كلمة المرور (مجددا)"
 
-#: account/forms.py:484
+#: account/forms.py:483
 msgid "This email address is already associated with this account."
 msgstr "عنوان البريد الإلكتروني هذا مربوط بالفعل مع هذا الحساب."
 
-#: account/forms.py:486
+#: account/forms.py:485
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "لا يمكنك إضافة أكثر من %d بريد إلكتروني."
 
-#: account/forms.py:524
+#: account/forms.py:523
 msgid "Current Password"
 msgstr "كلمة المرور الحالية"
 
-#: account/forms.py:527 account/forms.py:634
+#: account/forms.py:526 account/forms.py:633
 msgid "New Password"
 msgstr "كلمة المرور الجديدة"
 
-#: account/forms.py:530 account/forms.py:635
+#: account/forms.py:529 account/forms.py:634
 msgid "New Password (again)"
 msgstr "كلمة المرور الجديدة (مجددا)"
 
-#: account/forms.py:538
+#: account/forms.py:537
 msgid "Please type your current password."
 msgstr "الرجاء كتابة كلمة المرور الحالية."
 
-#: account/forms.py:579
+#: account/forms.py:578
 msgid "The email address is not assigned to any user account"
 msgstr "لم يتم ربط عنوان البريد الإلكتروني مع أي حساب مستخدم"
 
-#: account/forms.py:655
+#: account/forms.py:654
 msgid "The password reset token was invalid."
 msgstr "كود إعادة تعيين كلمة المرور غير صالح."
 
@@ -182,7 +198,7 @@ msgstr "تمّ إنشاؤه"
 msgid "sent"
 msgstr "تم ارساله"
 
-#: account/models.py:143 socialaccount/models.py:65
+#: account/models.py:143 socialaccount/models.py:63
 msgid "key"
 msgstr "مفتاح"
 
@@ -210,6 +226,10 @@ msgstr ""
 msgid "Incorrect code."
 msgstr ""
 
+#: mfa/adapter.py:26
+msgid "You cannot deactivate two-factor authentication."
+msgstr ""
+
 #: mfa/apps.py:7
 msgid "MFA"
 msgstr ""
@@ -218,19 +238,19 @@ msgstr ""
 msgid "Code"
 msgstr ""
 
-#: mfa/forms.py:48
+#: mfa/forms.py:51
 msgid "Authenticator code"
 msgstr ""
 
-#: mfa/models.py:15
+#: mfa/models.py:19
 msgid "Recovery codes"
 msgstr ""
 
-#: mfa/models.py:16
+#: mfa/models.py:20
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:32
+#: socialaccount/adapter.py:30
 #, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
@@ -239,11 +259,11 @@ msgstr ""
 "يوجد حساب بالفعل مربوط مع هذا البريد الإلكتروني. يرجى الدخول إلى ذاك الحساب "
 "أولا، ثم ربط حسابك في %s."
 
-#: socialaccount/adapter.py:138
+#: socialaccount/adapter.py:136
 msgid "Your account has no password set up."
 msgstr "حسابك ليست له كلمة مرور مضبوطة."
 
-#: socialaccount/adapter.py:145
+#: socialaccount/adapter.py:143
 msgid "Your account has no verified email address."
 msgstr "حسابك ليس لديه عنوان بريد إلكتروني موثقف."
 
@@ -251,95 +271,95 @@ msgstr "حسابك ليس لديه عنوان بريد إلكتروني موثق
 msgid "Social Accounts"
 msgstr "حسابات التواصل الاجتماعي"
 
-#: socialaccount/models.py:39 socialaccount/models.py:93
+#: socialaccount/models.py:37 socialaccount/models.py:91
 msgid "provider"
 msgstr "مزود"
 
-#: socialaccount/models.py:48
+#: socialaccount/models.py:46
 msgid "provider ID"
 msgstr "معرف المزود"
 
-#: socialaccount/models.py:52
+#: socialaccount/models.py:50
 msgid "name"
 msgstr "اسم"
 
-#: socialaccount/models.py:54
+#: socialaccount/models.py:52
 msgid "client id"
 msgstr "معرف العميل"
 
-#: socialaccount/models.py:56
+#: socialaccount/models.py:54
 msgid "App ID, or consumer key"
 msgstr "معرف آبل، أو مفتاح المستهلك"
 
-#: socialaccount/models.py:59
+#: socialaccount/models.py:57
 msgid "secret key"
 msgstr "مفتاح سري"
 
-#: socialaccount/models.py:62
+#: socialaccount/models.py:60
 msgid "API secret, client secret, or consumer secret"
 msgstr "مفتاح واجهة برمجية سري أو مفتاح مستهلك"
 
-#: socialaccount/models.py:65
+#: socialaccount/models.py:63
 msgid "Key"
 msgstr "مفتاح"
 
-#: socialaccount/models.py:77
+#: socialaccount/models.py:75
 msgid "social application"
 msgstr "تطبيق اجتماعي"
 
-#: socialaccount/models.py:78
+#: socialaccount/models.py:76
 msgid "social applications"
 msgstr "تطبيقات اجتماعية"
 
-#: socialaccount/models.py:113
+#: socialaccount/models.py:111
 msgid "uid"
 msgstr "معرف المستخدم"
 
-#: socialaccount/models.py:115
+#: socialaccount/models.py:113
 msgid "last login"
 msgstr "أخر دخول"
 
-#: socialaccount/models.py:116
+#: socialaccount/models.py:114
 msgid "date joined"
 msgstr "تاريخ الانضمام"
 
-#: socialaccount/models.py:117
+#: socialaccount/models.py:115
 msgid "extra data"
 msgstr "بيانات إضافية"
 
-#: socialaccount/models.py:121
+#: socialaccount/models.py:119
 msgid "social account"
 msgstr "حساب تواصل اجتماعي"
 
-#: socialaccount/models.py:122
+#: socialaccount/models.py:120
 msgid "social accounts"
 msgstr "حسابات تواصل اجتماعي"
 
-#: socialaccount/models.py:156
+#: socialaccount/models.py:154
 msgid "token"
 msgstr "كود"
 
-#: socialaccount/models.py:157
+#: socialaccount/models.py:155
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) أو مفتاح وصول (OAuth2)"
 
-#: socialaccount/models.py:161
+#: socialaccount/models.py:159
 msgid "token secret"
 msgstr "كود سري"
 
-#: socialaccount/models.py:162
+#: socialaccount/models.py:160
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) أو رمز تحديث (OAuth2)"
 
-#: socialaccount/models.py:165
+#: socialaccount/models.py:163
 msgid "expires at"
 msgstr "ينتهي في"
 
-#: socialaccount/models.py:170
+#: socialaccount/models.py:168
 msgid "social application token"
 msgstr "كود تطبيق اجتماعي"
 
-#: socialaccount/models.py:171
+#: socialaccount/models.py:169
 msgid "social application tokens"
 msgstr "أكواد التطبيقات الاجتماعية"
 
@@ -388,6 +408,21 @@ msgstr "الحساب غير نشط"
 #: templates/account/account_inactive.html:11
 msgid "This account is inactive."
 msgstr "هذا الحساب غير نشط."
+
+#: templates/account/base_reauthenticate.html:5
+#: templates/account/base_reauthenticate.html:9
+#, fuzzy
+#| msgid "Confirm Email Address"
+msgid "Confirm Access"
+msgstr "تأكيد البريد الإلكتروني"
+
+#: templates/account/base_reauthenticate.html:11
+msgid "Please reauthenticate to safeguard your account."
+msgstr ""
+
+#: templates/account/base_reauthenticate.html:17
+msgid "Alternative options"
+msgstr ""
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -573,7 +608,8 @@ msgstr ""
 "إلكتروني للمستخدم %(user_display)s."
 
 #: templates/account/email_confirm.html:23
-#: templates/account/reauthenticate.html:28
+#: templates/account/reauthenticate.html:20
+#: templates/mfa/reauthenticate.html:20
 msgid "Confirm"
 msgstr "تأكيد"
 
@@ -738,15 +774,10 @@ msgid "Set Password"
 msgstr "تعيين كلمة مرور"
 
 #: templates/account/reauthenticate.html:5
-#: templates/account/reauthenticate.html:9
 #, fuzzy
-#| msgid "Confirm Email Address"
-msgid "Confirm Access"
-msgstr "تأكيد البريد الإلكتروني"
-
-#: templates/account/reauthenticate.html:12
-msgid "To safeguard the security of your account, please enter your password:"
-msgstr ""
+#| msgid "Forgot Password?"
+msgid "Enter your password:"
+msgstr "هل نسيت كلمة المرور؟"
 
 #: templates/account/signup.html:4 templates/socialaccount/signup.html:5
 msgid "Signup"
@@ -863,6 +894,10 @@ msgid ""
 "authenticator code:"
 msgstr ""
 
+#: templates/mfa/authenticate.html:27
+msgid "Cancel"
+msgstr ""
+
 #: templates/mfa/index.html:13 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
 msgstr ""
@@ -929,6 +964,12 @@ msgstr ""
 #: templates/mfa/messages/totp_deactivated.txt:2
 msgid "Authenticator app deactivated."
 msgstr ""
+
+#: templates/mfa/reauthenticate.html:5
+#, fuzzy
+#| msgid "token secret"
+msgid "Enter an authenticator code:"
+msgstr "كود سري"
 
 #: templates/mfa/recovery_codes/generate.html:9
 msgid "You are about to generate a new set of recovery codes for your account."
@@ -1092,7 +1133,7 @@ msgstr ""
 "%(site_name)s.\n"
 "كخطوة أخيرة، يرجى ملء النموذج التالي:"
 
-#: templates/socialaccount/snippets/login.html:8
+#: templates/socialaccount/snippets/login.html:9
 msgid "Or use a third-party"
 msgstr ""
 

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-07 10:24-0600\n"
+"POT-Creation-Date: 2023-11-27 12:16-0600\n"
 "PO-Revision-Date: 2020-10-12 12:34+0200\n"
 "Last-Translator: Krzysztof Hoffmann <krzysiekpl@gmail.com>\n"
 "Language-Team: \n"
@@ -15,9 +15,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.3\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
-"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
+"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #: account/adapter.py:51
 msgid "Username can not be used. Please use other username."
@@ -41,6 +41,24 @@ msgstr "Obecne hasło"
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Hasło musi składać się z co najmniej {0} znaków."
+
+#: account/adapter.py:716
+#, fuzzy
+#| msgid "Forgot Password?"
+msgid "Use your password"
+msgstr "Nie pamiętasz hasła?"
+
+#: account/adapter.py:726
+#, fuzzy
+#| msgid "Authenticator App"
+msgid "Use your authenticator app"
+msgstr "Aplikacja autoryzacyjna"
+
+#: account/admin.py:23
+#, fuzzy
+#| msgid "Your primary email address must be verified."
+msgid "Mark selected email addresses as verified"
+msgstr "Twój podstawowy adres e-mail musi być zweryfikowany."
 
 #: account/apps.py:9
 msgid "Accounts"
@@ -214,6 +232,16 @@ msgstr ""
 msgid "Incorrect code."
 msgstr "Błędny kod."
 
+#: mfa/adapter.py:26
+#, fuzzy
+#| msgid ""
+#| "You cannot add an email address to an account protected by two-factor "
+#| "authentication."
+msgid "You cannot deactivate two-factor authentication."
+msgstr ""
+"Nie można dodać adresu e-mail do konta chronionego dwuskładnikową "
+"autoryzacją."
+
 #: mfa/apps.py:7
 msgid "MFA"
 msgstr "MFA"
@@ -226,11 +254,11 @@ msgstr "Kod"
 msgid "Authenticator code"
 msgstr "Kod autentykacyjny"
 
-#: mfa/models.py:16
+#: mfa/models.py:19
 msgid "Recovery codes"
 msgstr "Kody odzyskiwania"
 
-#: mfa/models.py:17
+#: mfa/models.py:20
 msgid "TOTP Authenticator"
 msgstr "Autentykator TOTP"
 
@@ -397,6 +425,21 @@ msgstr "Konto nieaktywne"
 #: templates/account/account_inactive.html:11
 msgid "This account is inactive."
 msgstr "To konto jest nieaktywne."
+
+#: templates/account/base_reauthenticate.html:5
+#: templates/account/base_reauthenticate.html:9
+#, fuzzy
+#| msgid "Confirm Email Address"
+msgid "Confirm Access"
+msgstr "Potwierdź adres e-mail"
+
+#: templates/account/base_reauthenticate.html:11
+msgid "Please reauthenticate to safeguard your account."
+msgstr ""
+
+#: templates/account/base_reauthenticate.html:17
+msgid "Alternative options"
+msgstr ""
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -610,7 +653,8 @@ msgstr ""
 "adresem e-mail dla użytkownika %(user_display)s."
 
 #: templates/account/email_confirm.html:23
-#: templates/account/reauthenticate.html:28
+#: templates/account/reauthenticate.html:20
+#: templates/mfa/reauthenticate.html:20
 msgid "Confirm"
 msgstr "Potwierdź"
 
@@ -626,14 +670,14 @@ msgstr "To konto społecznościowe jest już połączone z innym kontem."
 #: templates/account/email_confirm.html:35
 #, fuzzy, python-format
 #| msgid ""
-#| "This e-mail confirmation link expired or is invalid. Please <a "
-#| "href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+#| "This e-mail confirmation link expired or is invalid. Please <a href="
+#| "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgid ""
-"This email confirmation link expired or is invalid. Please <a "
-"href=\"%(email_url)s\">issue a new email confirmation request</a>."
+"This email confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new email confirmation request</a>."
 msgstr ""
-"Łącze z adresem do zresetowania hasła wygasło lub jest niepoprawne.  <a "
-"href=\"%(email_url)s\">wygenerować nowe łącze dla Twojego adresu. </a>."
+"Łącze z adresem do zresetowania hasła wygasło lub jest niepoprawne.  <a href="
+"\"%(email_url)s\">wygenerować nowe łącze dla Twojego adresu. </a>."
 
 #: templates/account/login.html:5 templates/account/login.html:9
 #: templates/account/login.html:29 templates/allauth/layouts/base.html:36
@@ -652,8 +696,8 @@ msgid ""
 "If you have not created an account yet, then please\n"
 "    <a href=\"%(signup_url)s\">sign up</a> first."
 msgstr ""
-"Jeżeli nie masz jeszcze konta, to proszę <a "
-"href=\"%(signup_url)s\">zarejestruj się</a>."
+"Jeżeli nie masz jeszcze konta, to proszę <a href=\"%(signup_url)s"
+"\">zarejestruj się</a>."
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
 #: templates/account/logout.html:23 templates/allauth/layouts/base.html:32
@@ -790,15 +834,10 @@ msgid "Set Password"
 msgstr "Ustaw hasło"
 
 #: templates/account/reauthenticate.html:5
-#: templates/account/reauthenticate.html:9
 #, fuzzy
-#| msgid "Confirm Email Address"
-msgid "Confirm Access"
-msgstr "Potwierdź adres e-mail"
-
-#: templates/account/reauthenticate.html:12
-msgid "To safeguard the security of your account, please enter your password:"
-msgstr "Dla bezpieczeństwa konta, prosimy o podanie hasła:"
+#| msgid "Forgot Password?"
+msgid "Enter your password:"
+msgstr "Nie pamiętasz hasła?"
 
 #: templates/account/signup.html:4 templates/socialaccount/signup.html:5
 msgid "Signup"
@@ -937,7 +976,9 @@ msgstr "Autoryzacja dwuskładnikowa"
 msgid ""
 "Your account is protected by two-factor authentication. Please enter an "
 "authenticator code:"
-msgstr "Twoje konto jest chronione przez uwierzytelnianie dwuskładnikowe. Proszę wprowadzić kod uwierzytelniający:"
+msgstr ""
+"Twoje konto jest chronione przez uwierzytelnianie dwuskładnikowe. Proszę "
+"wprowadzić kod uwierzytelniający:"
 
 #: templates/mfa/authenticate.html:27
 msgid "Cancel"
@@ -1008,6 +1049,12 @@ msgstr "Aplikacja autoryzacyjna została aktywowana."
 #: templates/mfa/messages/totp_deactivated.txt:2
 msgid "Authenticator app deactivated."
 msgstr "Aplikacja autoryzacyjna została dezaktywowana."
+
+#: templates/mfa/reauthenticate.html:5
+#, fuzzy
+#| msgid "Authenticator code"
+msgid "Enter an authenticator code:"
+msgstr "Kod autentykacyjny"
 
 #: templates/mfa/recovery_codes/generate.html:9
 msgid "You are about to generate a new set of recovery codes for your account."
@@ -1150,8 +1197,8 @@ msgstr "Logowanie anulowane"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a "
-"href=\"%(login_url)s\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
 msgstr ""
 "Wybrano anulowanie logowania przez jedno z istniejących kont. Jeżeli to była "
 "pomyłka, proszę przejdź do <a href=\"%(login_url)s\">zaloguj</a>."
@@ -1177,15 +1224,19 @@ msgstr ""
 "Masz zamiar użyć konta %(provider_name)s do zalogowania się w \n"
 "%(site_name)s. Jako ostatni krok, proszę wypełnij formularz:"
 
-#: templates/socialaccount/snippets/login.html:8
+#: templates/socialaccount/snippets/login.html:9
 msgid "Or use a third-party"
 msgstr "Lub skorzystaj z serwisów społecznościowych"
+
+#~ msgid ""
+#~ "To safeguard the security of your account, please enter your password:"
+#~ msgstr "Dla bezpieczeństwa konta, prosimy o podanie hasła:"
 
 #, python-format
 #~ msgid ""
 #~ "Please sign in with one\n"
-#~ "of your existing third party accounts. Or, <a "
-#~ "href=\"%(signup_url)s\">sign up</a>\n"
+#~ "of your existing third party accounts. Or, <a href=\"%(signup_url)s"
+#~ "\">sign up</a>\n"
 #~ "for a %(site_name)s account and sign in below:"
 #~ msgstr ""
 #~ "Proszę zaloguj się jednym\n"

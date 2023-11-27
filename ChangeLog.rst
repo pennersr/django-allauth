@@ -7,7 +7,7 @@ Note worthy changes
 - The MFA authenticator model now features "created at" an "last used "at"
   timestamps.
 
-- The MFA authenticator model is now registed with the Django admin.
+- The MFA authenticator model is now registered with the Django admin.
 
 - Added MFA signals emitted when authenticators are added, removed or (in case
   of recovery codes) reset.

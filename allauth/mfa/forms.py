@@ -14,7 +14,7 @@ class AuthenticateForm(forms.Form):
     code = forms.CharField(
         label=_("Code"),
         widget=forms.TextInput(
-            attrs={"placeholder": _("Code"), "autocomplete": "off"},
+            attrs={"placeholder": _("Code"), "autocomplete": "one-time-code"},
         ),
     )
 

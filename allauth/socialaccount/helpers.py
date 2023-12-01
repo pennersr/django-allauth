@@ -6,6 +6,7 @@ from django.urls import reverse
 
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
+from allauth.account.authentication import record_authentication
 from allauth.account.reauthentication import reauthenticate_then_callback
 from allauth.account.utils import (
     assess_unique_email,
@@ -195,6 +196,14 @@ def _add_social_account(request, sociallogin):
 def complete_social_login(request, sociallogin):
     assert not sociallogin.is_existing
     sociallogin.lookup()
+    record_authentication(
+        request,
+        "socialaccount",
+        **{
+            "provider": sociallogin.account.provider,
+            "uid": sociallogin.account.uid,
+        }
+    )
     try:
         get_adapter().pre_social_login(request, sociallogin)
         signals.pre_social_login.send(

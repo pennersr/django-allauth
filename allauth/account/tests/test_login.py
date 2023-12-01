@@ -1,5 +1,5 @@
 import json
-from unittest.mock import patch
+from unittest.mock import ANY, patch
 
 import django
 from django.conf import settings
@@ -9,6 +9,7 @@ from django.test.utils import override_settings
 from django.urls import NoReverseMatch, reverse
 
 from allauth.account import app_settings
+from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
 from allauth.account.forms import LoginForm
 from allauth.account.models import EmailAddress
 from allauth.tests import TestCase
@@ -45,6 +46,16 @@ class LoginTests(TestCase):
         )
         self.assertRedirects(
             resp, settings.LOGIN_REDIRECT_URL, fetch_redirect_response=False
+        )
+        self.assertEqual(
+            self.client.session[AUTHENTICATION_METHODS_SESSION_KEY],
+            [
+                {
+                    "at": ANY,
+                    "username": "@raymond.penners",
+                    "method": "password",
+                }
+            ],
         )
 
     def _create_user(self, username="john", password="doe", **kwargs):

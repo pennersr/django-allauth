@@ -43,6 +43,8 @@ def resume_request(request):
 
 
 def record_authentication(request, user):
+    # TODO: This is a different/independent mechanism from
+    # ``authentication.record_authentication()``.  We need to unify this.
     request.session[AUTHENTICATED_AT_SESSION_KEY] = time.time()
 
 

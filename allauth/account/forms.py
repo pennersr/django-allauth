@@ -9,6 +9,8 @@ from django.urls import NoReverseMatch, reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext, gettext_lazy as _, pgettext
 
+from allauth.account.authentication import record_authentication
+
 from ..utils import (
     build_absolute_uri,
     get_username_max_length,
@@ -200,13 +202,19 @@ class LoginForm(forms.Form):
         return self.cleaned_data
 
     def login(self, request, redirect_url=None):
-        email = self.user_credentials().get("email")
+        credentials = self.user_credentials()
+        extra_data = {
+            field: credentials.get(field)
+            for field in ["email", "username"]
+            if field in credentials
+        }
+        record_authentication(request, method="password", **extra_data)
         ret = perform_login(
             request,
             self.user,
             email_verification=app_settings.EMAIL_VERIFICATION,
             redirect_url=redirect_url,
-            email=email,
+            email=credentials.get("email"),
         )
         remember = app_settings.SESSION_REMEMBER
         if remember is None:

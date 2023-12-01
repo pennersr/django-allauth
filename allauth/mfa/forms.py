@@ -8,6 +8,7 @@ from allauth.core import context, ratelimit
 from allauth.mfa import totp
 from allauth.mfa.adapter import get_adapter
 from allauth.mfa.models import Authenticator
+from allauth.mfa.utils import post_authentication
 
 
 class AuthenticateForm(forms.Form):
@@ -44,7 +45,7 @@ class AuthenticateForm(forms.Form):
         raise forms.ValidationError(get_adapter().error_messages["incorrect_code"])
 
     def save(self):
-        self.authenticator.record_usage()
+        post_authentication(context.request, self.authenticator)
 
 
 class ActivateTOTPForm(forms.Form):

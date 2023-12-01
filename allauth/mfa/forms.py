@@ -15,7 +15,7 @@ class AuthenticateForm(forms.Form):
     code = forms.CharField(
         label=_("Code"),
         widget=forms.TextInput(
-            attrs={"placeholder": _("Code"), "autocomplete": "off"},
+            attrs={"placeholder": _("Code"), "autocomplete": "one-time-code"},
         ),
     )
 
@@ -49,7 +49,12 @@ class AuthenticateForm(forms.Form):
 
 
 class ActivateTOTPForm(forms.Form):
-    code = forms.CharField(label=_("Authenticator code"))
+    code = forms.CharField(
+        label=_("Authenticator code"),
+        widget=forms.TextInput(
+            attrs={"placeholder": _("Code"), "autocomplete": "one-time-code"},
+        ),
+    )
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")

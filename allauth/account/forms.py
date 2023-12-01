@@ -697,7 +697,7 @@ class ReauthenticateForm(forms.Form):
 
     def clean_password(self):
         password = self.cleaned_data.get("password")
-        if not self.user.check_password(password):
+        if not get_adapter().reauthenticate(self.user, password):
             raise forms.ValidationError(
                 get_adapter().error_messages["incorrect_password"]
             )

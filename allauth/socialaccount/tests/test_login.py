@@ -1,5 +1,5 @@
 import copy
-from unittest.mock import patch
+from unittest.mock import ANY, patch
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
@@ -10,9 +10,11 @@ from django.urls import reverse
 import pytest
 from pytest_django.asserts import assertTemplateUsed
 
+from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
 from allauth.core import context
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.models import SocialAccount
+from allauth.socialaccount.providers.base import AuthProcess
 
 
 @pytest.mark.parametrize("with_emailaddress", [False, True])
@@ -88,3 +90,35 @@ def test_login_cancelled(client):
     resp = client.get(reverse("socialaccount_login_cancelled"))
     assert resp.status_code == 200
     assertTemplateUsed(resp, "socialaccount/login_cancelled.html")
+
+
+@pytest.mark.parametrize(
+    "process,did_record",
+    [
+        (AuthProcess.LOGIN, True),
+        (AuthProcess.CONNECT, False),
+    ],
+)
+def test_record_authentication(
+    db, sociallogin_factory, client, rf, user, process, did_record
+):
+    sociallogin = sociallogin_factory(provider="unittest-server", uid="123")
+    sociallogin.state["process"] = process
+    SocialAccount.objects.create(user=user, uid="123", provider="unittest-server")
+    request = rf.get("/")
+    SessionMiddleware(lambda request: None).process_request(request)
+    MessageMiddleware(lambda request: None).process_request(request)
+    request.user = AnonymousUser()
+    with context.request_context(request):
+        complete_social_login(request, sociallogin)
+    if did_record:
+        assert request.session[AUTHENTICATION_METHODS_SESSION_KEY] == [
+            {
+                "at": ANY,
+                "provider": sociallogin.account.provider,
+                "method": "socialaccount",
+                "uid": "123",
+            }
+        ]
+    else:
+        assert AUTHENTICATION_METHODS_SESSION_KEY not in request.session

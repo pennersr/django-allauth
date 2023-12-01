@@ -4,7 +4,7 @@ import json
 import random
 import requests
 import warnings
-from unittest.mock import ANY, Mock, patch
+from unittest.mock import Mock, patch
 from urllib.parse import parse_qs, urlparse
 
 from django.conf import settings
@@ -15,7 +15,6 @@ from django.urls import reverse
 from django.utils.http import urlencode
 
 import allauth.app_settings
-from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
 from allauth.account.models import EmailAddress
 from allauth.account.utils import user_email, user_username
 from allauth.socialaccount import app_settings
@@ -82,17 +81,6 @@ class OAuthTestsMixin(object):
         provider_account.get_profile_url()
         provider_account.get_brand()
         provider_account.to_str()
-        self.assertEqual(
-            self.client.session[AUTHENTICATION_METHODS_SESSION_KEY],
-            [
-                {
-                    "at": ANY,
-                    "provider": self.provider_id,
-                    "method": "socialaccount",
-                    "uid": account.uid,
-                }
-            ],
-        )
         return account
 
     @override_settings(
@@ -223,17 +211,6 @@ class OAuth2TestsMixin(object):
             resp_mock,
         )
         self.assertRedirects(resp, reverse("socialaccount_signup"))
-        self.assertEqual(
-            self.client.session[AUTHENTICATION_METHODS_SESSION_KEY],
-            [
-                {
-                    "at": ANY,
-                    "provider": self.provider_id,
-                    "method": "socialaccount",
-                    "uid": ANY,
-                }
-            ],
-        )
 
     @override_settings(SOCIALACCOUNT_AUTO_SIGNUP=False)
     def test_login_with_pkce_disabled(self):

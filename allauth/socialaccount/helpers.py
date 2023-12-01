@@ -4,9 +4,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from allauth.account import app_settings as account_settings
+from allauth.account import app_settings as account_settings, authentication
 from allauth.account.adapter import get_adapter as get_account_adapter
-from allauth.account.authentication import record_authentication
 from allauth.account.reauthentication import reauthenticate_then_callback
 from allauth.account.utils import (
     assess_unique_email,
@@ -92,6 +91,17 @@ def _process_signup(request, sociallogin):
         get_adapter().save_user(request, sociallogin, form=None)
         resp = complete_social_signup(request, sociallogin)
     return resp
+
+
+def record_authentication(request, sociallogin):
+    authentication.record_authentication(
+        request,
+        "socialaccount",
+        **{
+            "provider": sociallogin.account.provider,
+            "uid": sociallogin.account.uid,
+        }
+    )
 
 
 def _login_social_account(request, sociallogin):
@@ -196,14 +206,6 @@ def _add_social_account(request, sociallogin):
 def complete_social_login(request, sociallogin):
     assert not sociallogin.is_existing
     sociallogin.lookup()
-    record_authentication(
-        request,
-        "socialaccount",
-        **{
-            "provider": sociallogin.account.provider,
-            "uid": sociallogin.account.uid,
-        }
-    )
     try:
         get_adapter().pre_social_login(request, sociallogin)
         signals.pre_social_login.send(
@@ -229,6 +231,7 @@ def _complete_social_login(request, sociallogin):
     if request.user.is_authenticated:
         get_account_adapter(request).logout(request)
     if sociallogin.is_existing:
+        record_authentication(request, sociallogin)
         # Login existing user
         ret = _login_social_account(request, sociallogin)
     else:

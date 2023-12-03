@@ -322,7 +322,6 @@ def test_notification_on_password_change(user_factory, client):
         }
     )
     assert len(mail.outbox) == 1
-    print(mail.outbox[0].body)
     assert "Your password has been changed" in mail.outbox[0].body
 
 

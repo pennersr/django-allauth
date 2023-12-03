@@ -287,7 +287,7 @@ class DefaultSocialAccountAdapter(object):
         elif len(apps) == 0:
             raise SocialApp.DoesNotExist()
         return apps[0]
-        
+
     def send_notification_mail(self, *args, **kwargs):
         return get_account_adapter().send_notification_mail(*args, **kwargs)
 

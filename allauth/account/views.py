@@ -499,7 +499,9 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
             email_address=email_address,
         )
         adapter.send_notification_mail(
-            "account/email/email_added", self.request.user, {"email": email_address}
+            "account/email/email_added",
+            self.request.user,
+            {"email": email_address.email},
         )
         return super(EmailView, self).form_valid(form)
 
@@ -570,7 +572,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                 adapter.send_notification_mail(
                     "account/email/email_removed",
                     request.user,
-                    {"email": email_address},
+                    {"email": email_address.email},
                 )
                 return HttpResponseRedirect(self.get_success_url())
 
@@ -619,8 +621,8 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                     "account/email/email_changed",
                     request.user,
                     {
-                        "from_email_address": from_email_address,
-                        "to_email_address": email_address,
+                        "from_emailaddress": from_email_address.email,
+                        "to_emailaddress": email_address.email,
                     },
                 )
                 return HttpResponseRedirect(self.get_success_url())

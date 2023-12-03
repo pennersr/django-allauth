@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import requests
 
+from allauth.core import context
 from allauth.socialaccount import app_settings
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.gitlab.provider import GitLabProvider
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.providers.oauth2.views import (
@@ -46,12 +48,25 @@ class GitLabOAuth2Adapter(OAuth2Adapter):
     provider_default_url = "https://gitlab.com"
     provider_api_version = "v4"
 
-    settings = app_settings.PROVIDERS.get(provider_id, {})
-    provider_base_url = settings.get("GITLAB_URL", provider_default_url)
+    def _build_url(self, path):
+        settings = app_settings.PROVIDERS.get(self.provider_id, {})
+        gitlab_url = settings.get("GITLAB_URL", self.provider_default_url)
+        # Prefer app based setting.
+        app = get_adapter().get_app(context.request, provider=self.provider_id)
+        gitlab_url = app.settings.get("gitlab_url", gitlab_url)
+        return f"{gitlab_url}{path}"
 
-    access_token_url = "{0}/oauth/token".format(provider_base_url)
-    authorize_url = "{0}/oauth/authorize".format(provider_base_url)
-    profile_url = "{0}/api/{1}/user".format(provider_base_url, provider_api_version)
+    @property
+    def access_token_url(self):
+        return self._build_url("/oauth/token")
+
+    @property
+    def authorize_url(self):
+        return self._build_url("/oauth/authorize")
+
+    @property
+    def profile_url(self):
+        return self._build_url(f"/api/{self.provider_api_version}/user")
 
     def complete_login(self, request, app, token, response):
         response = requests.get(self.profile_url, params={"access_token": token.token})

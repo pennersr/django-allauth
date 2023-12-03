@@ -8,13 +8,14 @@ from allauth.core import context, ratelimit
 from allauth.mfa import totp
 from allauth.mfa.adapter import get_adapter
 from allauth.mfa.models import Authenticator
+from allauth.mfa.utils import post_authentication
 
 
 class AuthenticateForm(forms.Form):
     code = forms.CharField(
         label=_("Code"),
         widget=forms.TextInput(
-            attrs={"placeholder": _("Code"), "autocomplete": "off"},
+            attrs={"placeholder": _("Code"), "autocomplete": "one-time-code"},
         ),
     )
 
@@ -44,11 +45,16 @@ class AuthenticateForm(forms.Form):
         raise forms.ValidationError(get_adapter().error_messages["incorrect_code"])
 
     def save(self):
-        self.authenticator.record_usage()
+        post_authentication(context.request, self.authenticator)
 
 
 class ActivateTOTPForm(forms.Form):
-    code = forms.CharField(label=_("Authenticator code"))
+    code = forms.CharField(
+        label=_("Authenticator code"),
+        widget=forms.TextInput(
+            attrs={"placeholder": _("Code"), "autocomplete": "one-time-code"},
+        ),
+    )
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
@@ -73,3 +79,18 @@ class ActivateTOTPForm(forms.Form):
         except forms.ValidationError as e:
             self.secret = totp.get_totp_secret(regenerate=True)
             raise e
+
+
+class DeactivateTOTPForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        self.authenticator = kwargs.pop("authenticator")
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        adapter = get_adapter()
+        if not adapter.can_delete_authenticator(self.authenticator):
+            raise forms.ValidationError(
+                adapter.error_messages["cannot_delete_authenticator"]
+            )
+        return cleaned_data

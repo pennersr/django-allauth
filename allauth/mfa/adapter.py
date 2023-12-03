@@ -23,6 +23,9 @@ class DefaultMFAAdapter:
             "You cannot add an email address to an account protected by two-factor authentication."
         ),
         "incorrect_code": _("Incorrect code."),
+        "cannot_delete_authenticator": _(
+            "You cannot deactivate two-factor authentication."
+        ),
     }
     "The error messages that can occur as part of MFA form handling."
 
@@ -62,6 +65,9 @@ class DefaultMFAAdapter:
         """Counter part of ``encrypt()``."""
         text = encrypted_text
         return text
+
+    def can_delete_authenticator(self, authenticator):
+        return True
 
     def send_notification_mail(self, *args, **kwargs):
         return get_account_adapter().send_notification_mail(*args, **kwargs)

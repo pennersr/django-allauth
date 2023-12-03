@@ -1,4 +1,4 @@
-from unittest.mock import patch
+from unittest.mock import ANY, patch
 
 import django
 from django.conf import settings
@@ -8,6 +8,7 @@ from django.urls import reverse
 import pytest
 from pytest_django.asserts import assertFormError
 
+from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
 from allauth.account.models import EmailAddress
 from allauth.mfa import app_settings, signals
 from allauth.mfa.adapter import get_adapter
@@ -135,6 +136,10 @@ def test_totp_login(client, user_with_totp, user_password, totp_validation_bypas
         )
     assert resp.status_code == 302
     assert resp["location"] == settings.LOGIN_REDIRECT_URL
+    assert client.session[AUTHENTICATION_METHODS_SESSION_KEY] == [
+        {"method": "password", "at": ANY, "username": user_with_totp.username},
+        {"method": "mfa", "at": ANY, "id": ANY, "type": Authenticator.Type.TOTP},
+    ]
 
 
 def test_download_recovery_codes(auth_client, user_with_recovery_codes, user_password):
@@ -172,6 +177,41 @@ def test_generate_recovery_codes(auth_client, user_with_recovery_codes, user_pas
         user=user_with_recovery_codes, type=Authenticator.Type.RECOVERY_CODES
     ).wrap()
     assert not rc.validate_code(prev_code)
+
+
+def test_recovery_codes_login(
+    client, user_with_totp, user_with_recovery_codes, user_password
+):
+    resp = client.post(
+        reverse("account_login"),
+        {"login": user_with_totp.username, "password": user_password},
+    )
+    assert resp.status_code == 302
+    assert resp["location"] == reverse("mfa_authenticate")
+    resp = client.get(reverse("mfa_authenticate"))
+    assert resp.context["request"].user.is_anonymous
+    resp = client.post(reverse("mfa_authenticate"), {"code": "123"})
+    assert resp.context["form"].errors == {
+        "code": [get_adapter().error_messages["incorrect_code"]]
+    }
+    rc = Authenticator.objects.get(
+        user=user_with_recovery_codes, type=Authenticator.Type.RECOVERY_CODES
+    )
+    resp = client.post(
+        reverse("mfa_authenticate"),
+        {"code": rc.wrap().get_unused_codes()[0]},
+    )
+    assert resp.status_code == 302
+    assert resp["location"] == settings.LOGIN_REDIRECT_URL
+    assert client.session[AUTHENTICATION_METHODS_SESSION_KEY] == [
+        {"method": "password", "at": ANY, "username": user_with_totp.username},
+        {
+            "method": "mfa",
+            "at": ANY,
+            "id": ANY,
+            "type": Authenticator.Type.RECOVERY_CODES,
+        },
+    ]
 
 
 def test_add_email_not_allowed(auth_client, user_with_totp):
@@ -222,6 +262,29 @@ def test_totp_login_rate_limit(
                 if is_locked
                 else "Incorrect code.",
             )
+
+
+def test_cannot_deactivate_totp(auth_client, user_with_totp, user_password):
+    with patch(
+        "allauth.mfa.adapter.DefaultMFAAdapter.can_delete_authenticator"
+    ) as cda_mock:
+        cda_mock.return_value = False
+        resp = auth_client.get(reverse("mfa_deactivate_totp"))
+        assert resp.status_code == 302
+        assert resp["location"].startswith(reverse("account_reauthenticate"))
+        resp = auth_client.post(resp["location"], {"password": user_password})
+        assert resp.status_code == 302
+        resp = auth_client.get(reverse("mfa_deactivate_totp"))
+        # When we GET, the form validation error is already on screen
+        assert resp.context["form"].errors == {
+            "__all__": [get_adapter().error_messages["cannot_delete_authenticator"]],
+        }
+        # And, when we POST anyway, it does not work
+        resp = auth_client.post(reverse("mfa_deactivate_totp"))
+        assert resp.status_code == 200
+        assert resp.context["form"].errors == {
+            "__all__": [get_adapter().error_messages["cannot_delete_authenticator"]],
+        }
 
 
 @patch("allauth.account.app_settings.ACCOUNT_EMAIL_NOTIFICATIONS", True)

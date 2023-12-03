@@ -24,10 +24,7 @@ provider_classes = [cls for cls in provider_classes if cls.id != "openid_connect
     cls for cls in provider_classes if cls.id == "openid_connect"
 ]
 for provider_class in provider_classes:
-    try:
-        prov_mod = import_module(provider_class.get_package() + ".urls")
-    except ImportError:
-        continue
+    prov_mod = import_module(provider_class.get_package() + ".urls")
     prov_urlpatterns = getattr(prov_mod, "urlpatterns", None)
     if prov_urlpatterns:
         provider_urlpatterns += prov_urlpatterns

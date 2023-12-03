@@ -22,8 +22,16 @@ Example:
 .. code-block:: python
 
     SOCIALACCOUNT_PROVIDERS = {
-        'gitlab': {
-            'GITLAB_URL': 'https://your.gitlab.server.tld',
-            'SCOPE': ['api'],
+        "gitlab": {
+            "SCOPE": ["api"],
+            "APPS": [
+                {
+                    "client_id": "<insert-id>",
+                    "secret": "<insert-secret>",
+                    "settings": {
+                        "gitlab_url": "https://your.gitlab.server.tld",
+                    }
+                }
+            ]
         },
     }

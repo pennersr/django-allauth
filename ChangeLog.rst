@@ -7,10 +7,14 @@ Note worthy changes
 - The MFA authenticator model now features "created at" an "last used "at"
   timestamps.
 
-- The MFA authenticator model is now registed with the Django admin.
+- The MFA authenticator model is now registered with the Django admin.
 
 - Added MFA signals emitted when authenticators are added, removed or (in case
   of recovery codes) reset.
+
+- There is now an MFA adapter method ``can_delete_authenticator(authenticator)``
+  available that can be used to prevent users from deactivating e.g. their TOTP
+  authenticator.
 
 
 0.58.2 (2023-11-06)
@@ -38,7 +42,7 @@ Fixes
 Note worthy changes
 -------------------
 
-- The ``SocialAccount.exra_data`` field was a custom JSON field that used
+- The ``SocialAccount.extra_data`` field was a custom JSON field that used
   ``TextField`` as the underlying implementation. It was once needed because
   Django had no ``JSONField`` support. Now, this field is changed to use the
   official ``JSONField()``. Migrations are in place.

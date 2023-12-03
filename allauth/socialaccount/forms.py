@@ -64,5 +64,5 @@ class DisconnectForm(forms.Form):
             sender=SocialAccount, request=self.request, socialaccount=account
         )
         get_adapter().send_notification_mail(
-            "socialaccount/email/social_account_disconnected", self.request.user, {}
+            "socialaccount/email/account_disconnected", self.request.user, {}
         )

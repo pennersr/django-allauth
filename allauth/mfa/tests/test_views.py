@@ -76,7 +76,6 @@ def test_activate_totp_success(
                 **{"HTTP_USER_AGENT": "test"},
             )
     assert len(mail.outbox) == 1
-    print(mail.outbox[0].subject, mail.outbox[0].body)
     assert resp["location"] == reverse("mfa_view_recovery_codes")
     assert Authenticator.objects.filter(
         user=user, type=Authenticator.Type.TOTP

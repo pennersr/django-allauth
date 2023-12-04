@@ -391,8 +391,8 @@ class AppSettings(object):
         return self._setting("REAUTHENTICATION_TIMEOUT", 300)
 
     @property
-    def ACCOUNT_EMAIL_NOTIFICATIONS(self):
-        return self._setting("ACCOUNT_EMAIL_NOTIFICATIONS", False)
+    def EMAIL_NOTIFICATIONS(self):
+        return self._setting("EMAIL_NOTIFICATIONS", False)
 
     @property
     def REAUTHENTICATION_REQUIRED(self):

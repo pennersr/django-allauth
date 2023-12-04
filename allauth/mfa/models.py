@@ -37,7 +37,10 @@ class Authenticator(models.Model):
         from allauth.mfa.recovery_codes import RecoveryCodes
         from allauth.mfa.totp import TOTP
 
-        return {self.Type.TOTP: TOTP, self.Type.RECOVERY_CODES: RecoveryCodes,}[
+        return {
+            self.Type.TOTP: TOTP,
+            self.Type.RECOVERY_CODES: RecoveryCodes,
+        }[
             self.type
         ](self)
 

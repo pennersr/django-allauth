@@ -498,11 +498,6 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
             user=self.request.user,
             email_address=email_address,
         )
-        adapter.send_notification_mail(
-            "account/email/email_added",
-            self.request.user,
-            {"email": email_address.email},
-        )
         return super(EmailView, self).form_valid(form)
 
     def post(self, request, *args, **kwargs):

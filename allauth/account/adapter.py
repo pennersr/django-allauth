@@ -754,7 +754,7 @@ class DefaultAccountAdapter(object):
     def send_notification_mail(self, template_prefix, user, context):
         from allauth.account.models import EmailAddress
 
-        if app_settings.ACCOUNT_EMAIL_NOTIFICATIONS:
+        if app_settings.EMAIL_NOTIFICATIONS:
             context.update(
                 {
                     "current_site": get_current_site(self.request),

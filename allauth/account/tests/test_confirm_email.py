@@ -364,23 +364,7 @@ class ConfirmationViewTests(TestCase):
         self.assertEqual(user, resp.wsgi_request.user)
 
 
-@patch("allauth.account.app_settings.ACCOUNT_EMAIL_NOTIFICATIONS", True)
-def test_notification_on_email_add(auth_client, user, client):
-    settings.ACCOUNT_MAX_EMAIL_ADDRESSES = 2
-    client.force_login(user)
-    response = client.post(
-        reverse("account_email"),
-        {"email": "test_email@test.com", "action_add": ""},
-        **{
-            "HTTP_USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
-        }
-    )
-    assert response.status_code == 302
-    assert len(mail.outbox) == 2
-    assert "Email address has been added." in mail.outbox[1].body
-
-
-@patch("allauth.account.app_settings.ACCOUNT_EMAIL_NOTIFICATIONS", True)
+@patch("allauth.account.app_settings.EMAIL_NOTIFICATIONS", True)
 def test_notification_on_email_remove(auth_client, user):
     secondary = EmailAddress.objects.create(
         email="secondary@email.org", user=user, verified=False, primary=False

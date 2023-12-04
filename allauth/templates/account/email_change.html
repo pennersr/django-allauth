@@ -28,6 +28,9 @@
                     {% element button type="submit" name="action_send" %}
                         {% trans 'Re-send Verification' %}
                     {% endelement %}
+                    {% element button type="submit" name="action_remove" %}
+                        {% trans 'Remove pending email address' %}
+                    {% endelement %}
                 {% endslot %}
             {% endelement %}
         {% endif %}

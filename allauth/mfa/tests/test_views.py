@@ -61,7 +61,7 @@ def test_activate_totp_with_unverified_email(
     }
 
 
-@patch("allauth.account.app_settings.ACCOUNT_EMAIL_NOTIFICATIONS", True)
+@patch("allauth.account.app_settings.EMAIL_NOTIFICATIONS", True)
 def test_activate_totp_success(
     auth_client, totp_validation_bypass, user, reauthentication_bypass
 ):
@@ -286,7 +286,7 @@ def test_cannot_deactivate_totp(auth_client, user_with_totp, user_password):
         }
 
 
-@patch("allauth.account.app_settings.ACCOUNT_EMAIL_NOTIFICATIONS", True)
+@patch("allauth.account.app_settings.EMAIL_NOTIFICATIONS", True)
 def test_notification_on_mfa_activate_totp(
     auth_client, reauthentication_bypass, totp_validation_bypass
 ):
@@ -305,7 +305,7 @@ def test_notification_on_mfa_activate_totp(
     assert "Totp has been activated." in mail.outbox[0].body
 
 
-@patch("allauth.account.app_settings.ACCOUNT_EMAIL_NOTIFICATIONS", True)
+@patch("allauth.account.app_settings.EMAIL_NOTIFICATIONS", True)
 def test_notification_on_mfa_deactivate_totp(
     auth_client, user_with_totp, user_password
 ):
@@ -322,7 +322,7 @@ def test_notification_on_mfa_deactivate_totp(
     assert "Totp has been deactivated." in mail.outbox[0].body
 
 
-@patch("allauth.account.app_settings.ACCOUNT_EMAIL_NOTIFICATIONS", True)
+@patch("allauth.account.app_settings.EMAIL_NOTIFICATIONS", True)
 def test_notification_on_authenticator_reset(
     auth_client, user_with_recovery_codes, user_password
 ):

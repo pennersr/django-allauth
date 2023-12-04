@@ -6,6 +6,7 @@ stdenv.mkDerivation {
         black
         gettext
         isort
+        djlint
         python310
         python310Packages.django
         python310Packages.flake8

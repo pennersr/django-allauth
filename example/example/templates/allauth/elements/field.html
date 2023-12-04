@@ -6,7 +6,7 @@
                class="form-check-input"
                id="{{ attrs.id }}"
                value="{{ attrs.value|default_if_none:"" }}"
-               {% if attrs.disabled %}disabled="{{ attrs.disabled }}"{% endif %}
+               {% if attrs.disabled %}disabled{% endif %}
                {% if attrs.checked %}checked{% endif %}
                type="{{ attrs.type }}">
         <label class="form-check-label" for="{{ attrs.id }}">
@@ -24,9 +24,9 @@
                   {% if attrs.rows %}rows="{{ attrs.rows }}"{% endif %}
                   class="form-control"
                   name="{{ attrs.name }}"
-                  {% if attrs.readonly %}readonly="readonly"{% endif %}
+                  {% if attrs.readonly %}readonly{% endif %}
                   id="{{ attrs.id }}"
-                  {% if attrs.disabled %}disabled="{{ attrs.disabled }}"{% endif %}>{% slot value %}{% endslot %}</textarea>
+                  {% if attrs.disabled %}disabled{% endif %}>{% slot value %}{% endslot %}</textarea>
     </div>
 {% elif attrs.type == "hidden" %}
     <input {% if attrs.required %}required{% endif %}
@@ -47,7 +47,8 @@
                {% if attrs.placeholder %}placeholder="{{ attrs.placeholder }}" {% elif attrs.unlabeled %}placeholder="{{ slots.label }}" {% endif %}
                class="{% if attrs.errors %}is-invalid{% endif %}  form-control rounded-3"
                id="{{ attrs.id }}"
-               {% if attrs.disabled %}disabled="{{ attrs.disabled }}"{% endif %}
+               {% if attrs.readonly %}readonly{% endif %}
+               {% if attrs.disabled %}disabled{% endif %}
                {% if attrs.autocomplete %}autocomplete="{{ attrs.autocomplete }}"{% endif %}
                value="{{ attrs.value|default_if_none:"" }}"
                type="{{ attrs.type }}">

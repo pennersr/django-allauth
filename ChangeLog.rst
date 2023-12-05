@@ -16,6 +16,9 @@ Note worthy changes
   available that can be used to prevent users from deactivating e.g. their TOTP
   authenticator.
 
+- Added a new app, user sessions, allowing users to view a list of all their
+  active sessions, as well as offering a means to end these sessions.
+
 
 Backwards incompatible changes
 ------------------------------

@@ -65,6 +65,7 @@ INSTALLED_APPS = (
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.admin",
+    "django.contrib.humanize",
     "allauth",
     "allauth.account",
     "allauth.mfa",
@@ -187,6 +188,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.zoom",
     "allauth.socialaccount.providers.okta",
     "allauth.socialaccount.providers.feishu",
+    "allauth.usersessions",
 )
 
 AUTHENTICATION_BACKENDS = (

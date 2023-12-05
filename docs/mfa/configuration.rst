@@ -3,7 +3,7 @@ Configuration
 
 Available settings:
 
-``MFA_ADAPTER`` (default: ``"allauth.mfa.adapter.DefaultAccountAdapter"``)
+``MFA_ADAPTER`` (default: ``"allauth.mfa.adapter.DefaultMFAAdapter"``)
   Specifies the adapter class to use, allowing you to alter certain
   default behaviour.
 

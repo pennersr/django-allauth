@@ -22,6 +22,10 @@ class AppSettings(object):
     def MFA_ENABLED(self):
         return apps.is_installed("allauth.mfa")
 
+    @property
+    def USERSESSIONS_ENABLED(self):
+        return apps.is_installed("allauth.usersessions")
+
 
 _app_settings = AppSettings("ALLAUTH_")
 

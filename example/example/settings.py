@@ -125,6 +125,7 @@ INSTALLED_APPS = (
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
+    "django.contrib.humanize",
     "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
@@ -161,6 +162,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.vimeo_oauth2",
     "allauth.socialaccount.providers.weibo",
     "allauth.socialaccount.providers.xing",
+    "allauth.usersessions",
     "example.demo",
 )
 

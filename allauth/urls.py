@@ -14,6 +14,9 @@ if app_settings.MFA_ENABLED:
 if app_settings.SOCIALACCOUNT_ENABLED:
     urlpatterns += [path("social/", include("allauth.socialaccount.urls"))]
 
+if app_settings.USERSESSIONS_ENABLED:
+    urlpatterns += [path("sessions/", include("allauth.usersessions.urls"))]
+
 # Provider urlpatterns, as separate attribute (for reusability).
 provider_urlpatterns = []
 provider_classes = providers.registry.get_class_list()

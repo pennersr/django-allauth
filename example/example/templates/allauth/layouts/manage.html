@@ -19,6 +19,10 @@
                     <a class="{% block nav_class_mfa %}nav-link text-white{% endblock %}"
                        href="{% url 'mfa_index' %}">Two-Factor Authentication</a>
                 </li>
+                <li class="nav-item">
+                    <a class="{% block nav_class_usersessions %}nav-link text-white{% endblock %}"
+                       href="{% url 'usersessions_list' %}">Sessions</a>
+                </li>
             </ul>
         </aside>
         <main class="col-md-10">

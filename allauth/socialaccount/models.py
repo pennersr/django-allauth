@@ -274,12 +274,12 @@ class SocialLogin(object):
             return False
         return get_user_model().objects.filter(pk=self.user.pk).exists()
 
-    def lookup(self):
+    def lookup(self, request=None):
         """Look up the existing local user account to which this social login
         points, if any.
         """
         if not self._lookup_by_socialaccount():
-            provider_id = self.account.get_provider().id
+            provider_id = self.account.get_provider(request).id
             if app_settings.EMAIL_AUTHENTICATION or app_settings.PROVIDERS.get(
                 provider_id, {}
             ).get("EMAIL_AUTHENTICATION", False):

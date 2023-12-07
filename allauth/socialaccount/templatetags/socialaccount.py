@@ -67,7 +67,7 @@ def get_social_accounts(user):
 @register.simple_tag(takes_context=True)
 def get_provider_account(context, base_account):
     """
-    Returns the provider account in the contest of the current site ID
+    Returns the provider account in the context of the current site ID
 
     Usage: `{% get_provider_account base_account as account %}`.
     """

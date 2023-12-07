@@ -128,7 +128,7 @@ class ConnectionsView(AjaxCapableProcessFormViewMixin, FormView):
     def get_ajax_data(self):
         account_data = []
         for account in SocialAccount.objects.filter(user=self.request.user):
-            provider_account = account.get_provider_account()
+            provider_account = account.get_provider_account(self.request)
             account_data.append(
                 {
                     "id": account.pk,

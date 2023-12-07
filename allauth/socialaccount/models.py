@@ -143,8 +143,8 @@ class SocialAccount(models.Model):
         )
         return provider
 
-    def get_provider_account(self):
-        return self.get_provider().wrap_account(self)
+    def get_provider_account(self, request=None):
+        return self.get_provider(request).wrap_account(self)
 
 
 class SocialToken(models.Model):

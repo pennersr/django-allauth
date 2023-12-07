@@ -65,6 +65,17 @@ def get_social_accounts(user):
 
 
 @register.simple_tag(takes_context=True)
+def get_provider_account(context, base_account):
+    """
+    Returns the provider account in the contest of the current site ID
+
+    Usage: `{% get_provider_account base_account as account %}`.
+    """
+    request = context["request"]
+    return base_account.get_provider_account(request)
+
+
+@register.simple_tag(takes_context=True)
 def get_providers(context):
     """
     Returns a list of social authentication providers.

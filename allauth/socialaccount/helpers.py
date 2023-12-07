@@ -205,7 +205,7 @@ def _add_social_account(request, sociallogin):
 
 def complete_social_login(request, sociallogin):
     assert not sociallogin.is_existing
-    sociallogin.lookup(request)
+    sociallogin.lookup()
     try:
         get_adapter().pre_social_login(request, sociallogin)
         signals.pre_social_login.send(

@@ -1,5 +1,4 @@
 import functools
-import requests
 import warnings
 
 from django.core.exceptions import (
@@ -294,6 +293,8 @@ class DefaultSocialAccountAdapter(object):
         return apps[0]
 
     def get_requests_session(self):
+        import requests
+
         session = requests.Session()
         session.request = functools.partial(
             session.request, timeout=app_settings.REQUESTS_TIMEOUT

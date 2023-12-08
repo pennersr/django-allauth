@@ -68,6 +68,16 @@ class EmailAddressManager(models.Manager):
         except self.model.DoesNotExist:
             return None
 
+    def get_primary_email(self, user):
+        from allauth.account.utils import user_email
+
+        primary = self.get_primary(user)
+        if primary:
+            email = primary.email
+        else:
+            email = user_email(user)
+        return email
+
     def get_users_for(self, email):
         # this is a list rather than a generator because we probably want to
         # do a len() on it right away

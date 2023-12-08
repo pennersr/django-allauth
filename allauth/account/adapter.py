@@ -679,18 +679,13 @@ class DefaultAccountAdapter(object):
 
     def reauthenticate(self, user, password):
         from allauth.account.models import EmailAddress
-        from allauth.account.utils import user_email, user_username
+        from allauth.account.utils import user_username
 
         credentials = {"password": password}
         username = user_username(user)
         if username:
             credentials["username"] = username
-        email = None
-        primary = EmailAddress.objects.get_primary(user)
-        if primary:
-            email = primary.email
-        else:
-            email = user_email(user)
+        email = EmailAddress.objects.get_primary_email(user)
         if email:
             credentials["email"] = email
         reauth_user = self.authenticate(context.request, **credentials)

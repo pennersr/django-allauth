@@ -26,6 +26,8 @@ Backwards incompatible changes
 - The account adapter method ``should_send_confirmation_mail()`` signature
   changed. It now takes an extra ``signup`` (boolean) parameter.
 
+- Removed OAuth 1.0 based Bitbucket provider.
+
 
 0.58.2 (2023-11-06)
 *******************

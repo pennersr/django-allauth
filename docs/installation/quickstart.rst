@@ -56,7 +56,6 @@ the ``settings.py`` of your project::
         'allauth.socialaccount.providers.baidu',
         'allauth.socialaccount.providers.basecamp',
         'allauth.socialaccount.providers.battlenet',
-        'allauth.socialaccount.providers.bitbucket',
         'allauth.socialaccount.providers.bitbucket_oauth2',
         'allauth.socialaccount.providers.bitly',
         'allauth.socialaccount.providers.box',

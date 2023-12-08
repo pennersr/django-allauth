@@ -107,9 +107,8 @@ class LoginForm(forms.Form):
         self.request = kwargs.pop("request", None)
         super(LoginForm, self).__init__(*args, **kwargs)
         if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
-            login_widget = forms.TextInput(
+            login_widget = forms.EmailInput(
                 attrs={
-                    "type": "email",
                     "placeholder": _("Email address"),
                     "autocomplete": "email",
                 }

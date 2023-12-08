@@ -41,7 +41,6 @@ class AppSettings(object):
 
     @property
     def SUPPORTED_TYPES(self):
-        return []
         dflt = ["recovery_codes", "totp"]
         return self._setting("SUPPORTED_TYPES", dflt)
 

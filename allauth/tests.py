@@ -23,6 +23,9 @@ class MockedResponse(object):
             headers = {}
 
         self.status_code = status_code
+        if isinstance(content, dict):
+            content = json.dumps(content)
+            headers["content-type"] = "application/json"
         self.content = content.encode("utf8")
         self.headers = headers
 
@@ -42,7 +45,8 @@ class MockedResponse(object):
 
 
 class mocked_response:
-    def __init__(self, *responses):
+    def __init__(self, *responses, callback=None):
+        self.callback = callback
         self.responses = list(responses)
 
     def __enter__(self):
@@ -52,8 +56,15 @@ class mocked_response:
 
         def mockable_request(f):
             def new_f(*args, **kwargs):
+                if self.callback:
+                    response = self.callback(*args, **kwargs)
+                    if response is not None:
+                        return response
                 if self.responses:
-                    return self.responses.pop(0)
+                    resp = self.responses.pop(0)
+                    if isinstance(resp, dict):
+                        resp = MockedResponse(200, resp)
+                    return resp
                 return f(*args, **kwargs)
 
             return Mock(side_effect=new_f)

@@ -1,5 +1,4 @@
 import json
-from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
 from django.test.client import RequestFactory
@@ -10,7 +9,7 @@ from allauth.account import app_settings as account_settings
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, TestCase
+from allauth.tests import MockedResponse, TestCase, mocked_response
 
 from .provider import FacebookProvider
 
@@ -87,20 +86,16 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
 
     def test_login_by_token(self):
         resp = self.client.get(reverse("account_login"))
-        with patch(
-            "allauth.socialaccount.providers.facebook.views.requests"
-        ) as requests_mock:
-            mocks = [
-                {"access_token": "app_token"},
-                {
-                    "data": {
-                        "app_id": "app123id",
-                        "is_valid": True,
-                    }
-                },
-                self.get_mocked_response().json(),
-            ]
-            requests_mock.get.return_value.json = lambda: mocks.pop(0)
+        with mocked_response(
+            {"access_token": "app_token"},
+            {
+                "data": {
+                    "app_id": "app123id",
+                    "is_valid": True,
+                }
+            },
+            self.get_mocked_response(),
+        ):
             resp = self.client.post(
                 reverse("facebook_login_by_token"),
                 data={"access_token": "dummy"},
@@ -121,21 +116,17 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
     def test_login_by_token_reauthenticate(self):
         resp = self.client.get(reverse("account_login"))
         nonce = json.loads(resp.context["fb_data"])["loginOptions"]["auth_nonce"]
-        with patch(
-            "allauth.socialaccount.providers.facebook.views.requests"
-        ) as requests_mock:
-            mocks = [
-                {"access_token": "app_token"},
-                {
-                    "data": {
-                        "app_id": "app123id",
-                        "is_valid": True,
-                    }
-                },
-                {"auth_nonce": nonce},
-                self.get_mocked_response().json(),
-            ]
-            requests_mock.get.return_value.json = lambda: mocks.pop(0)
+        with mocked_response(
+            {"access_token": "app_token"},
+            {
+                "data": {
+                    "app_id": "app123id",
+                    "is_valid": True,
+                }
+            },
+            {"auth_nonce": nonce},
+            self.get_mocked_response().json(),
+        ):
             resp = self.client.post(
                 reverse("facebook_login_by_token"),
                 data={"access_token": "dummy"},

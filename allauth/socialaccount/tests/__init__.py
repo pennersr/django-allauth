@@ -4,7 +4,6 @@ import json
 import random
 import requests
 import warnings
-from unittest.mock import Mock, patch
 from urllib.parse import parse_qs, urlparse
 
 from django.conf import settings
@@ -162,6 +161,9 @@ class OAuth2TestsMixin(object):
             % rt
         )
 
+    def mocked_response(self, *responses):
+        return mocked_response(*responses)
+
     def setUp(self):
         super(OAuth2TestsMixin, self).setUp()
         self.setup_provider()
@@ -308,9 +310,10 @@ class OAuth2TestsMixin(object):
         self.test_account_tokens(multiple_login=True)
 
     def login(self, resp_mock=None, process="login", with_refresh_token=True):
-        resp = self.client.post(
-            self.provider.get_login_url(self.request, process=process)
-        )
+        with self.mocked_response():
+            resp = self.client.post(
+                self.provider.get_login_url(self.request, process=process)
+            )
         p = urlparse(resp["location"])
         q = parse_qs(p.query)
 
@@ -337,7 +340,7 @@ class OAuth2TestsMixin(object):
         else:
             resp_mocks = [resp_mock]
 
-        with mocked_response(
+        with self.mocked_response(
             MockedResponse(200, response_json, {"content-type": "application/json"}),
             *resp_mocks,
         ):
@@ -401,14 +404,8 @@ class OpenIDConnectTests(OAuth2TestsMixin):
         "name": "Ness",
     }
 
-    def setUp(self):
-        super(OpenIDConnectTests, self).setUp()
-        patcher = patch(
-            "allauth.socialaccount.providers.openid_connect.views.requests",
-            get=Mock(side_effect=self._mocked_responses),
-        )
-        self.mock_requests = patcher.start()
-        self.addCleanup(patcher.stop)
+    def mocked_response(self, *responses):
+        return mocked_response(*responses, callback=self._mocked_responses)
 
     def setup_provider(self):
         self.app = setup_app(self.provider_id)

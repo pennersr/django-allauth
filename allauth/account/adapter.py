@@ -172,7 +172,11 @@ class DefaultAccountAdapter(object):
         return msg
 
     def send_mail(self, template_prefix, email, context):
-        msg = self.render_mail(template_prefix, email, context)
+        ctx = {
+            "current_site": get_current_site(globals()["context"].request),
+        }
+        ctx.update(context)
+        msg = self.render_mail(template_prefix, email, ctx)
         msg.send()
 
     def get_signup_redirect_url(self, request):
@@ -606,7 +610,6 @@ class DefaultAccountAdapter(object):
         )
         ctx = {
             "request": context.request,
-            "current_site": get_current_site(context.request),
             "email": email,
             "signup_url": signup_url,
             "password_reset_url": password_reset_url,
@@ -614,12 +617,10 @@ class DefaultAccountAdapter(object):
         self.send_mail("account/email/account_already_exists", email, ctx)
 
     def send_confirmation_mail(self, request, emailconfirmation, signup):
-        current_site = get_current_site(request)
         activate_url = self.get_email_confirmation_url(request, emailconfirmation)
         ctx = {
             "user": emailconfirmation.email_address.user,
             "activate_url": activate_url,
-            "current_site": current_site,
             "key": emailconfirmation.key,
         }
         if signup:

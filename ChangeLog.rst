@@ -17,6 +17,13 @@ Note worthy changes
   authenticator.
 
 
+Backwards incompatible changes
+------------------------------
+
+- The account adapter method ``should_send_confirmation_mail()`` signature
+  changed. It now takes an extra ``signup`` (boolean) parameter.
+
+
 0.58.2 (2023-11-06)
 *******************
 

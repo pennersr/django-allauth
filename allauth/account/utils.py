@@ -393,7 +393,7 @@ def send_email_confirmation(request, user, signup=False, email=None):
         if email_address is not None:
             if not email_address.verified:
                 send_email = adapter.should_send_confirmation_mail(
-                    request, email_address
+                    request, email_address, signup
                 )
                 if send_email:
                     email_address.send_confirmation(request, signup=signup)

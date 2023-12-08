@@ -584,7 +584,7 @@ class DefaultAccountAdapter(object):
         ret = build_absolute_uri(request, url)
         return ret
 
-    def should_send_confirmation_mail(self, request, email_address):
+    def should_send_confirmation_mail(self, request, email_address, signup):
         from allauth.account.models import EmailConfirmation
 
         cooldown_period = timedelta(seconds=app_settings.EMAIL_CONFIRMATION_COOLDOWN)

@@ -37,6 +37,9 @@ class GitHubOAuth2Adapter(OAuth2Adapter):
     def get_email(self, headers):
         email = None
         resp = requests.get(self.emails_url, headers=headers)
+        # https://api.github.com/user/emails -- 404 is documented to occur.
+        if resp.status_code == 404:
+            return None
         resp.raise_for_status()
         emails = resp.json()
         if resp.status_code == 200 and emails:

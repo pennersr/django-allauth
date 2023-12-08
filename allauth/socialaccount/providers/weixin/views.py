@@ -1,5 +1,4 @@
-import requests
-
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -26,9 +25,13 @@ class WeixinOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         openid = kwargs.get("response", {}).get("openid")
-        resp = requests.get(
-            self.profile_url,
-            params={"access_token": token.token, "openid": openid},
+        resp = (
+            get_adapter()
+            .get_requests_session()
+            .get(
+                self.profile_url,
+                params={"access_token": token.token, "openid": openid},
+            )
         )
         resp.raise_for_status()
         extra_data = resp.json()

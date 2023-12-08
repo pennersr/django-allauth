@@ -1,3 +1,4 @@
+import requests
 import warnings
 
 from django.core.exceptions import (
@@ -290,6 +291,9 @@ class DefaultSocialAccountAdapter(object):
         elif len(apps) == 0:
             raise SocialApp.DoesNotExist()
         return apps[0]
+
+    def get_requests_session(self):
+        return requests.Session()
 
 
 def get_adapter(request=None):

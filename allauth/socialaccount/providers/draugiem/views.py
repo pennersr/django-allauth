@@ -76,9 +76,13 @@ def callback(request):
 
 def draugiem_complete_login(request, app, code):
     provider = get_adapter().get_provider(request, DraugiemProvider.id)
-    response = requests.get(
-        ACCESS_TOKEN_URL,
-        {"action": "authorize", "app": app.secret, "code": code},
+    response = (
+        get_adapter()
+        .get_requests_session()
+        .get(
+            ACCESS_TOKEN_URL,
+            {"action": "authorize", "app": app.secret, "code": code},
+        )
     )
     response.raise_for_status()
     response_json = response.json()

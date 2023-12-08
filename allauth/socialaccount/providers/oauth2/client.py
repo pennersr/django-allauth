@@ -3,6 +3,8 @@ from urllib.parse import parse_qsl
 
 from django.utils.http import urlencode
 
+from allauth.socialaccount.adapter import get_adapter
+
 
 class OAuth2Error(Exception):
     pass
@@ -70,13 +72,17 @@ class OAuth2Client(object):
         if data and pkce_code_verifier:
             data["code_verifier"] = pkce_code_verifier
         # TODO: Proper exception handling
-        resp = requests.request(
-            self.access_token_method,
-            url,
-            params=params,
-            data=data,
-            headers=self.headers,
-            auth=auth,
+        resp = (
+            get_adapter()
+            .get_requests_session()
+            .request(
+                self.access_token_method,
+                url,
+                params=params,
+                data=data,
+                headers=self.headers,
+                auth=auth,
+            )
         )
 
         access_token = None

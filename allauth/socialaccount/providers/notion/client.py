@@ -1,9 +1,9 @@
-import requests
 from requests.auth import HTTPBasicAuth
 from urllib.parse import parse_qsl
 
 from django.utils.http import urlencode
 
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.client import (
     OAuth2Client,
     OAuth2Error,
@@ -23,12 +23,16 @@ class NotionOAuth2Client(OAuth2Client):
         return "%s?%s" % (authorization_url, urlencode(params))
 
     def get_access_token(self, code, pkce_code_verifier=None):
-        resp = requests.request(
-            self.access_token_method,
-            self.access_token_url,
-            auth=HTTPBasicAuth(self.consumer_key, self.consumer_secret),
-            json={"code": code, "grant_type": "authorization_code"},
-            headers=self.headers,
+        resp = (
+            get_adapter()
+            .get_requests_session()
+            .request(
+                self.access_token_method,
+                self.access_token_url,
+                auth=HTTPBasicAuth(self.consumer_key, self.consumer_secret),
+                json={"code": code, "grant_type": "authorization_code"},
+                headers=self.headers,
+            )
         )
         access_token = None
         if resp.status_code in [200, 201]:

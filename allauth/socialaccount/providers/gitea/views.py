@@ -1,6 +1,5 @@
-import requests
-
 from allauth.socialaccount import app_settings
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.gitea.provider import GiteaProvider
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -25,7 +24,9 @@ class GiteaOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {"Authorization": "token {}".format(token.token)}
-        resp = requests.get(self.profile_url, headers=headers)
+        resp = (
+            get_adapter().get_requests_session().get(self.profile_url, headers=headers)
+        )
         resp.raise_for_status()
         extra_data = resp.json()
         return self.get_provider().sociallogin_from_response(request, extra_data)

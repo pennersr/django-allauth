@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-import requests
-
 from allauth.socialaccount import app_settings
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.auth0.provider import Auth0Provider
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -22,9 +21,12 @@ class Auth0OAuth2Adapter(OAuth2Adapter):
     profile_url = "{0}/userinfo".format(provider_base_url)
 
     def complete_login(self, request, app, token, response):
-        extra_data = requests.get(
-            self.profile_url, params={"access_token": token.token}
-        ).json()
+        extra_data = (
+            get_adapter()
+            .get_requests_session()
+            .get(self.profile_url, params={"access_token": token.token})
+            .json()
+        )
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 

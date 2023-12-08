@@ -50,9 +50,9 @@ class mocked_response:
         self.responses = list(responses)
 
     def __enter__(self):
-        self.orig_get = requests.get
-        self.orig_post = requests.post
-        self.orig_request = requests.request
+        self.orig_get = requests.Session.get
+        self.orig_post = requests.Session.post
+        self.orig_request = requests.Session.request
 
         def mockable_request(f):
             def new_f(*args, **kwargs):
@@ -69,14 +69,14 @@ class mocked_response:
 
             return Mock(side_effect=new_f)
 
-        requests.get = mockable_request(requests.get)
-        requests.post = mockable_request(requests.post)
-        requests.request = mockable_request(requests.request)
+        requests.Session.get = mockable_request(requests.Session.get)
+        requests.Session.post = mockable_request(requests.Session.post)
+        requests.Session.request = mockable_request(requests.Session.request)
 
     def __exit__(self, type, value, traceback):
-        requests.get = self.orig_get
-        requests.post = self.orig_post
-        requests.request = self.orig_request
+        requests.Session.get = self.orig_get
+        requests.Session.post = self.orig_post
+        requests.Session.request = self.orig_request
 
 
 class BasicTests(TestCase):

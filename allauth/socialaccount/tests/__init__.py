@@ -348,7 +348,7 @@ class OAuth2TestsMixin(object):
 
             # Find the access token POST request, and assert that it contains
             # the correct code_verifier if and only if PKCE is enabled
-            request_calls = requests.request.call_args_list
+            request_calls = requests.Session.request.call_args_list
             for args, kwargs in request_calls:
                 data = kwargs.get("data", {})
                 if (

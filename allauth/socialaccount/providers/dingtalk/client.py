@@ -1,5 +1,4 @@
-import requests
-
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.client import (
     OAuth2Client,
     OAuth2Error,
@@ -22,7 +21,11 @@ class DingTalkOAuth2Client(OAuth2Client):
         if self.access_token_method == "GET":
             params = data
             data = None
-        resp = requests.request(self.access_token_method, url, params=params, json=data)
+        resp = (
+            get_adapter()
+            .get_requests_session()
+            .request(self.access_token_method, url, params=params, json=data)
+        )
         resp.raise_for_status()
         access_token = resp.json()
         if not access_token or "accessToken" not in access_token:

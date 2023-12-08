@@ -125,7 +125,7 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
                 }
             },
             {"auth_nonce": nonce},
-            self.get_mocked_response().json(),
+            self.get_mocked_response(),
         ):
             resp = self.client.post(
                 reverse("facebook_login_by_token"),

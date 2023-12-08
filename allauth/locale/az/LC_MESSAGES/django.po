@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-27 12:16-0600\n"
+"POT-Creation-Date: 2023-12-08 13:56-0600\n"
 "PO-Revision-Date: 2023-11-20 22:38-0600\n"
 "Last-Translator: Jeyhun Piriyev <jeihunpiriyev@gmail.com>\n"
 "Language-Team: Azerbaijani (Azerbaijan)\n"
@@ -37,16 +37,16 @@ msgstr "İstifadəçi artıq bu e-poçt ünvanı ilə qeydiyyatdan keçib."
 msgid "Incorrect password."
 msgstr "Yanlış şifrə."
 
-#: account/adapter.py:340
+#: account/adapter.py:344
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Şifrə ən az {0} simvoldan ibarət olmalıdır."
 
-#: account/adapter.py:716
+#: account/adapter.py:731
 msgid "Use your password"
 msgstr "Şifrənizi istifadə edin"
 
-#: account/adapter.py:726
+#: account/adapter.py:741
 msgid "Use your authenticator app"
 msgstr "Autentifikator tətbiqindən istifadə edin"
 
@@ -60,43 +60,43 @@ msgstr "Əsas e-poçt ünvanınız təsdiqlənməlidir."
 msgid "Accounts"
 msgstr "Hesablar"
 
-#: account/forms.py:59 account/forms.py:443
+#: account/forms.py:60 account/forms.py:449
 msgid "You must type the same password each time."
 msgstr "Hər dəfə eyni şifrəni daxil etməlisiniz."
 
-#: account/forms.py:91 account/forms.py:406 account/forms.py:546
-#: account/forms.py:684
+#: account/forms.py:92 account/forms.py:412 account/forms.py:552
+#: account/forms.py:688
 msgid "Password"
 msgstr "Şifrə"
 
-#: account/forms.py:92
+#: account/forms.py:93
 msgid "Remember Me"
 msgstr "Məni xatırla"
 
-#: account/forms.py:96
+#: account/forms.py:97
 msgid "This account is currently inactive."
 msgstr "Bu hesab hazırda aktiv deyil."
 
-#: account/forms.py:98
+#: account/forms.py:99
 msgid "The email address and/or password you specified are not correct."
 msgstr "Göstərdiyiniz e-poçt ünvanı və/və ya şifrə düzgün deyil."
 
-#: account/forms.py:101
+#: account/forms.py:102
 msgid "The username and/or password you specified are not correct."
 msgstr "Göstərdiyiniz istifadəçi adı və/yaxud şifrə düzgün deyil."
 
-#: account/forms.py:112 account/forms.py:281 account/forms.py:471
-#: account/forms.py:566
+#: account/forms.py:112 account/forms.py:287 account/forms.py:477
+#: account/forms.py:572
 msgid "Email address"
 msgstr "E-poçt ünvanı"
 
-#: account/forms.py:116 account/forms.py:319 account/forms.py:468
-#: account/forms.py:561
+#: account/forms.py:116 account/forms.py:325 account/forms.py:474
+#: account/forms.py:567
 msgid "Email"
 msgstr "E-poçt"
 
-#: account/forms.py:119 account/forms.py:122 account/forms.py:271
-#: account/forms.py:274
+#: account/forms.py:119 account/forms.py:122 account/forms.py:277
+#: account/forms.py:280
 msgid "Username"
 msgstr "İstifadəçi adı"
 
@@ -113,56 +113,56 @@ msgstr "Daxil ol"
 msgid "Forgot your password?"
 msgstr "Şifrəni unutmusan?"
 
-#: account/forms.py:310
+#: account/forms.py:316
 msgid "Email (again)"
 msgstr "E-poçt (təkrar)"
 
-#: account/forms.py:314
+#: account/forms.py:320
 msgid "Email address confirmation"
 msgstr "E-poçt ünvanı təsdiqi"
 
-#: account/forms.py:322
+#: account/forms.py:328
 msgid "Email (optional)"
 msgstr "E-poçt (istəyə bağlı)"
 
-#: account/forms.py:377
+#: account/forms.py:383
 msgid "You must type the same email each time."
 msgstr "Hər dəfə eyni e-poçtu daxil etməlisiniz."
 
-#: account/forms.py:412 account/forms.py:549
+#: account/forms.py:418 account/forms.py:555
 msgid "Password (again)"
 msgstr "Şifrə (təkrar)"
 
-#: account/forms.py:483
+#: account/forms.py:489
 msgid "This email address is already associated with this account."
 msgstr "Bu e-poçt ünvanı artıq bu hesabla əlaqələndirilib."
 
-#: account/forms.py:485
+#: account/forms.py:491
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Siz %d-dən çox e-poçt ünvanı əlavə edə bilməzsiniz."
 
-#: account/forms.py:523
+#: account/forms.py:529
 msgid "Current Password"
 msgstr "Mövcud şifrə"
 
-#: account/forms.py:526 account/forms.py:633
+#: account/forms.py:532 account/forms.py:637
 msgid "New Password"
 msgstr "Yeni şifrə"
 
-#: account/forms.py:529 account/forms.py:634
+#: account/forms.py:535 account/forms.py:638
 msgid "New Password (again)"
 msgstr "Yeni şifrə (təkrar)"
 
-#: account/forms.py:537
+#: account/forms.py:543
 msgid "Please type your current password."
 msgstr "Zəhmət olmasa cari şifrənizi yazın."
 
-#: account/forms.py:578
+#: account/forms.py:584
 msgid "The email address is not assigned to any user account"
 msgstr "E-poçt ünvanı heç bir istifadəçi hesabına təyin edilməyib"
 
-#: account/forms.py:654
+#: account/forms.py:658
 msgid "The password reset token was invalid."
 msgstr "Şifrə sıfırlama tokeni yanlışdır."
 
@@ -240,11 +240,11 @@ msgstr ""
 msgid "MFA"
 msgstr "MFA"
 
-#: mfa/forms.py:15 mfa/forms.py:17
+#: mfa/forms.py:16 mfa/forms.py:18 mfa/forms.py:55
 msgid "Code"
 msgstr "Kod"
 
-#: mfa/forms.py:51
+#: mfa/forms.py:53
 msgid "Authenticator code"
 msgstr "Doğrulama kodu"
 
@@ -452,7 +452,7 @@ msgstr "Əsas"
 msgid "Make Primary"
 msgstr "Əsas Et"
 
-#: templates/account/email.html:45 templates/account/email_change.html:29
+#: templates/account/email.html:45 templates/account/email_change.html:44
 msgid "Re-send Verification"
 msgstr "Doğrulamanı Yenidən Göndər"
 
@@ -584,19 +584,35 @@ msgstr ""
 msgid "Email Address"
 msgstr "E-poçt Ünvanı"
 
-#: templates/account/email_change.html:14
-msgid "The following email address is associated with your account:"
-msgstr "Aşağıdakı e-poçt ünvanı hesabınızla əlaqələndirilib:"
+#: templates/account/email_change.html:20
+#, fuzzy
+#| msgid "Current Password"
+msgid "Current email"
+msgstr "Mövcud şifrə"
 
-#: templates/account/email_change.html:19
-msgid "Your email address is still pending verification:"
+#: templates/account/email_change.html:27
+msgid "Changing to"
+msgstr ""
+
+#: templates/account/email_change.html:30
+#, fuzzy
+#| msgid "Your email address is still pending verification:"
+msgid "Your email address is still pending verification."
 msgstr "E-poçt ünvanınız hələ də doğrulamanı gözləyir:"
 
-#: templates/account/email_change.html:38
-msgid "Change Email Address"
-msgstr "E-poçt Ünvanını Dəyiş"
+#: templates/account/email_change.html:36
+#, fuzzy
+#| msgid "Change Email"
+msgid "Change to"
+msgstr "E-poçt Dəyiş"
 
-#: templates/account/email_change.html:49
+#: templates/account/email_change.html:47
+#, fuzzy
+#| msgid "Cancel"
+msgid "Cancel Change"
+msgstr "Ləğv et"
+
+#: templates/account/email_change.html:51
 #: templates/allauth/layouts/base.html:29
 msgid "Change Email"
 msgstr "E-poçt Dəyiş"
@@ -634,11 +650,11 @@ msgstr ""
 #: templates/account/email_confirm.html:35
 #, python-format
 msgid ""
-"This email confirmation link expired or is invalid. Please <a href="
-"\"%(email_url)s\">issue a new email confirmation request</a>."
+"This email confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">issue a new email confirmation request</a>."
 msgstr ""
-"Bu e-poçt təsdiqi linkinin vaxtı keçib və ya etibarsızdır. Lütfən, <a href="
-"\"%(email_url)s\">yeni e-poçt təsdiq sorğusu göndərin</a>."
+"Bu e-poçt təsdiqi linkinin vaxtı keçib və ya etibarsızdır. Lütfən, <a "
+"href=\"%(email_url)s\">yeni e-poçt təsdiq sorğusu göndərin</a>."
 
 #: templates/account/login.html:5 templates/account/login.html:9
 #: templates/account/login.html:29 templates/allauth/layouts/base.html:36
@@ -659,6 +675,7 @@ msgstr ""
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
 #: templates/account/logout.html:23 templates/allauth/layouts/base.html:32
+#: templates/usersessions/usersession_list.html:64
 msgid "Sign Out"
 msgstr "Çıxış"
 
@@ -911,33 +928,33 @@ msgstr ""
 msgid "Cancel"
 msgstr "Ləğv et"
 
-#: templates/mfa/index.html:13 templates/mfa/totp/base.html:4
+#: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
 msgstr "Autentifikator Tətbiqi"
 
-#: templates/mfa/index.html:17
+#: templates/mfa/index.html:18
 msgid "Authentication using an authenticator app is active."
 msgstr "Autentifikator tətbiqindən istifadə edərək doğrulama aktivdir."
 
-#: templates/mfa/index.html:19
+#: templates/mfa/index.html:20
 msgid "An authenticator app is not active."
 msgstr "Autentifikator tətbiqi aktiv deyil."
 
-#: templates/mfa/index.html:27 templates/mfa/totp/deactivate_form.html:24
+#: templates/mfa/index.html:28 templates/mfa/totp/deactivate_form.html:24
 msgid "Deactivate"
 msgstr "Deaktiv et"
 
-#: templates/mfa/index.html:31 templates/mfa/totp/activate_form.html:32
+#: templates/mfa/index.html:32 templates/mfa/totp/activate_form.html:32
 msgid "Activate"
 msgstr "Aktivləşdir"
 
-#: templates/mfa/index.html:39 templates/mfa/recovery_codes/base.html:4
+#: templates/mfa/index.html:42 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
 #: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
 msgstr "Bərpa kodları"
 
-#: templates/mfa/index.html:44 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:47 templates/mfa/recovery_codes/index.html:9
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -946,19 +963,19 @@ msgid_plural ""
 msgstr[0] "Əlçatan %(total_count)s bərpa kodundan %(unused_count)s var."
 msgstr[1] "Əlçatan %(total_count)s bərpa kodundan %(unused_count)s var."
 
-#: templates/mfa/index.html:47
+#: templates/mfa/index.html:50
 msgid "No recovery codes set up."
 msgstr "Bərpa kodları qurulmayıb."
 
-#: templates/mfa/index.html:56
+#: templates/mfa/index.html:59
 msgid "View"
 msgstr "Bax"
 
-#: templates/mfa/index.html:62
+#: templates/mfa/index.html:65
 msgid "Download"
 msgstr "Yüklə"
 
-#: templates/mfa/index.html:70 templates/mfa/recovery_codes/generate.html:29
+#: templates/mfa/index.html:73 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
 msgstr "Yarat"
 
@@ -1110,8 +1127,8 @@ msgstr "Giriş Ləğv Edildi"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
-"\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a "
+"href=\"%(login_url)s\">sign in</a>."
 msgstr ""
 "Mövcud hesablarınızdan birini istifadə edərək saytımıza daxil olmağı ləğv "
 "etmək qərarına gəldiniz. Bu səhvdirsə, <a href=\"%(login_url)s\">daxil olun</"
@@ -1142,3 +1159,54 @@ msgstr ""
 #: templates/socialaccount/snippets/login.html:9
 msgid "Or use a third-party"
 msgstr "Və ya üçüncü tərəf istifadə edin"
+
+#: templates/usersessions/messages/sessions_logged_out.txt:2
+msgid "Signed out of all other sessions."
+msgstr ""
+
+#: templates/usersessions/usersession_list.html:6
+#: templates/usersessions/usersession_list.html:10
+msgid "Sessions"
+msgstr ""
+
+#: templates/usersessions/usersession_list.html:23
+msgid "Started At"
+msgstr ""
+
+#: templates/usersessions/usersession_list.html:24
+#, fuzzy
+#| msgid "Email Address"
+msgid "IP Address"
+msgstr "E-poçt Ünvanı"
+
+#: templates/usersessions/usersession_list.html:25
+msgid "Browser"
+msgstr ""
+
+#: templates/usersessions/usersession_list.html:27
+msgid "Last seen at"
+msgstr ""
+
+#: templates/usersessions/usersession_list.html:47
+#, fuzzy
+#| msgid "Current Password"
+msgid "Current"
+msgstr "Mövcud şifrə"
+
+#: templates/usersessions/usersession_list.html:60
+msgid "Sign Out Other Sessions"
+msgstr ""
+
+#: usersessions/apps.py:7
+msgid "User Sessions"
+msgstr ""
+
+#: usersessions/models.py:46
+msgid "session key"
+msgstr ""
+
+#~ msgid "The following email address is associated with your account:"
+#~ msgstr "Aşağıdakı e-poçt ünvanı hesabınızla əlaqələndirilib:"
+
+#~ msgid "Change Email Address"
+#~ msgstr "E-poçt Ünvanını Dəyiş"

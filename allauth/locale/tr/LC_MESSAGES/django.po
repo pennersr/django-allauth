@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-07 13:05+0100\n"
+"POT-Creation-Date: 2023-12-08 13:56-0600\n"
 "PO-Revision-Date: 2023-07-24 22:28+0200\n"
 "Last-Translator: Jannis \n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/django-allauth/"
@@ -19,235 +19,235 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: .\account\adapter.py:51
+#: account/adapter.py:51
 msgid "Username can not be used. Please use other username."
 msgstr "Bu kullanıcı adı kullanılamaz. Lütfen başka bir kullanıcı adı deneyin."
 
-#: .\account\adapter.py:57
+#: account/adapter.py:57
 msgid "Too many failed login attempts. Try again later."
 msgstr "Çok fazla hatalı giriş yapıldı. Lütfen daha sonra tekrar deneyin."
 
-#: .\account\adapter.py:59
+#: account/adapter.py:59
 msgid "A user is already registered with this email address."
 msgstr "Bu e-posta adresiyle bir kullanıcı zaten kayıtlı."
 
-#: .\account\adapter.py:60
+#: account/adapter.py:60
 msgid "Incorrect password."
 msgstr "Yanlış şifre."
 
-#: .\account\adapter.py:340
+#: account/adapter.py:344
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Parola en az {0} karakter olmalıdır."
 
-#: .\account\adapter.py:735
+#: account/adapter.py:731
 msgid "Use your password"
 msgstr "Şifrenizi kullanın"
 
-#: .\account\adapter.py:745
+#: account/adapter.py:741
 msgid "Use your authenticator app"
 msgstr ""
 
-#: .\account\admin.py:23
+#: account/admin.py:23
 msgid "Mark selected email addresses as verified"
 msgstr "Seçili e-posta adreslerini doğrulanmış olarak işaretle"
 
-#: .\account\apps.py:9
+#: account/apps.py:9
 msgid "Accounts"
 msgstr "Hesaplar"
 
-#: .\account\forms.py:61 .\account\forms.py:451
+#: account/forms.py:60 account/forms.py:449
 msgid "You must type the same password each time."
 msgstr "Her seferinde aynı parolayı girmelisiniz."
 
-#: .\account\forms.py:93 .\account\forms.py:414 .\account\forms.py:554
-#: .\account\forms.py:692
+#: account/forms.py:92 account/forms.py:412 account/forms.py:552
+#: account/forms.py:688
 msgid "Password"
 msgstr "Parola"
 
-#: .\account\forms.py:94
+#: account/forms.py:93
 msgid "Remember Me"
 msgstr "Beni Hatırla"
 
-#: .\account\forms.py:98
+#: account/forms.py:97
 msgid "This account is currently inactive."
 msgstr "Bu hesap şu anda etkin değil."
 
-#: .\account\forms.py:100
+#: account/forms.py:99
 msgid "The email address and/or password you specified are not correct."
 msgstr "Girdiğiniz e-posta adresi ve/veya parola doğru değil."
 
-#: .\account\forms.py:103
+#: account/forms.py:102
 msgid "The username and/or password you specified are not correct."
 msgstr "Girdiğiniz kullanıcı adı ve/veya parola doğru değil."
 
-#: .\account\forms.py:114 .\account\forms.py:289 .\account\forms.py:479
-#: .\account\forms.py:574
+#: account/forms.py:112 account/forms.py:287 account/forms.py:477
+#: account/forms.py:572
 msgid "Email address"
 msgstr "E-posta adresi"
 
-#: .\account\forms.py:118 .\account\forms.py:327 .\account\forms.py:476
-#: .\account\forms.py:569
+#: account/forms.py:116 account/forms.py:325 account/forms.py:474
+#: account/forms.py:567
 msgid "Email"
 msgstr "E-posta"
 
-#: .\account\forms.py:121 .\account\forms.py:124 .\account\forms.py:279
-#: .\account\forms.py:282
+#: account/forms.py:119 account/forms.py:122 account/forms.py:277
+#: account/forms.py:280
 msgid "Username"
 msgstr "Kullanıcı adı"
 
-#: .\account\forms.py:134
+#: account/forms.py:132
 msgid "Username or email"
 msgstr "Kullanıcı adı ya da e-posta"
 
-#: .\account\forms.py:137
+#: account/forms.py:135
 msgctxt "field label"
 msgid "Login"
 msgstr "Giriş Yap"
 
-#: .\account\forms.py:148
+#: account/forms.py:146
 msgid "Forgot your password?"
 msgstr "Parolanızı mı unuttunuz?"
 
-#: .\account\forms.py:318
+#: account/forms.py:316
 msgid "Email (again)"
 msgstr "E-posta (tekrar)"
 
-#: .\account\forms.py:322
+#: account/forms.py:320
 msgid "Email address confirmation"
 msgstr "E-posta adresi doğrulama"
 
-#: .\account\forms.py:330
+#: account/forms.py:328
 msgid "Email (optional)"
 msgstr "E-posta (zorunlu değil)"
 
-#: .\account\forms.py:385
+#: account/forms.py:383
 #, fuzzy
 #| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
 msgstr "Her seferinde aynı parolayı girmelisiniz."
 
-#: .\account\forms.py:420 .\account\forms.py:557
+#: account/forms.py:418 account/forms.py:555
 msgid "Password (again)"
 msgstr "Parola (tekrar)"
 
-#: .\account\forms.py:491
+#: account/forms.py:489
 msgid "This email address is already associated with this account."
 msgstr "Bu e-post adresi zaten bu hesap ile ilişkilendirilmiş."
 
-#: .\account\forms.py:493
+#: account/forms.py:491
 #, fuzzy, python-format
 #| msgid "Your account has no verified email address."
 msgid "You cannot add more than %d email addresses."
 msgstr "Hesabınızın doğrulanmış e-posta adresi yok."
 
-#: .\account\forms.py:531
+#: account/forms.py:529
 msgid "Current Password"
 msgstr "Mevcut Parola"
 
-#: .\account\forms.py:534 .\account\forms.py:641
+#: account/forms.py:532 account/forms.py:637
 msgid "New Password"
 msgstr "Yeni Parola"
 
-#: .\account\forms.py:537 .\account\forms.py:642
+#: account/forms.py:535 account/forms.py:638
 msgid "New Password (again)"
 msgstr "Yeni Parola (tekrar)"
 
-#: .\account\forms.py:545
+#: account/forms.py:543
 msgid "Please type your current password."
 msgstr "Mevcut parolanızı tekrar yazın."
 
-#: .\account\forms.py:586
+#: account/forms.py:584
 msgid "The email address is not assigned to any user account"
 msgstr "Bu e-posta adresi hiçbir kullanıcı hesabıyla ilişkili değil"
 
-#: .\account\forms.py:662
+#: account/forms.py:658
 msgid "The password reset token was invalid."
 msgstr "Şifre sıfırlama kodu hatalı."
 
-#: .\account\models.py:21
+#: account/models.py:21
 msgid "user"
 msgstr "kullanıcı"
 
-#: .\account\models.py:26 .\account\models.py:34 .\account\models.py:138
+#: account/models.py:26 account/models.py:34 account/models.py:138
 msgid "email address"
 msgstr "e-posta adresi"
 
-#: .\account\models.py:28
+#: account/models.py:28
 #, fuzzy
 msgid "verified"
 msgstr "Doğrulanmamış"
 
-#: .\account\models.py:29
+#: account/models.py:29
 #, fuzzy
 msgid "primary"
 msgstr "Birincil"
 
-#: .\account\models.py:35
+#: account/models.py:35
 msgid "email addresses"
 msgstr "e-posta adresleri"
 
-#: .\account\models.py:141
+#: account/models.py:141
 msgid "created"
 msgstr "oluşturuldu"
 
-#: .\account\models.py:142
+#: account/models.py:142
 msgid "sent"
 msgstr "gönderildi"
 
-#: .\account\models.py:143 .\socialaccount\models.py:63
+#: account/models.py:143 socialaccount/models.py:63
 msgid "key"
 msgstr ""
 
-#: .\account\models.py:148
+#: account/models.py:148
 msgid "email confirmation"
 msgstr "e-posta onayı"
 
-#: .\account\models.py:149
+#: account/models.py:149
 msgid "email confirmations"
 msgstr "e-posta onayları"
 
-#: .\mfa\adapter.py:19
+#: mfa/adapter.py:19
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
 msgstr ""
 
-#: .\mfa\adapter.py:22
+#: mfa/adapter.py:22
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
 msgstr ""
 
-#: .\mfa\adapter.py:24
+#: mfa/adapter.py:24
 msgid "Incorrect code."
 msgstr ""
 
-#: .\mfa\adapter.py:26
+#: mfa/adapter.py:26
 msgid "You cannot deactivate two-factor authentication."
 msgstr ""
 
-#: .\mfa\apps.py:7
+#: mfa/apps.py:7
 msgid "MFA"
 msgstr ""
 
-#: .\mfa\forms.py:16 .\mfa\forms.py:18 .\mfa\forms.py:55
+#: mfa/forms.py:16 mfa/forms.py:18 mfa/forms.py:55
 msgid "Code"
 msgstr ""
 
-#: .\mfa\forms.py:53
+#: mfa/forms.py:53
 msgid "Authenticator code"
 msgstr ""
 
-#: .\mfa\models.py:19
+#: mfa/models.py:19
 msgid "Recovery codes"
 msgstr ""
 
-#: .\mfa\models.py:20
+#: mfa/models.py:20
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: .\socialaccount\adapter.py:30
+#: socialaccount/adapter.py:30
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -259,221 +259,220 @@ msgstr ""
 "Bu e-posta ile kayıtlı bir hesap bulunmaktadır. Lütfen önce bu hesaba giriş "
 "yapıp daha sonra %s hesabınızı bağlayın."
 
-#: .\socialaccount\adapter.py:136
+#: socialaccount/adapter.py:136
 msgid "Your account has no password set up."
 msgstr "Hesabınız için parola belirlemediniz."
 
-#: .\socialaccount\adapter.py:143
+#: socialaccount/adapter.py:143
 msgid "Your account has no verified email address."
 msgstr "Hesabınızın doğrulanmış e-posta adresi yok."
 
-#: .\socialaccount\apps.py:7
+#: socialaccount/apps.py:7
 #, fuzzy
 msgid "Social Accounts"
 msgstr "Hesap"
 
-#: .\socialaccount\models.py:37 .\socialaccount\models.py:91
+#: socialaccount/models.py:37 socialaccount/models.py:91
 msgid "provider"
 msgstr "sağlayıcı"
 
-#: .\socialaccount\models.py:46
+#: socialaccount/models.py:46
 #, fuzzy
 #| msgid "provider"
 msgid "provider ID"
 msgstr "sağlayıcı"
 
-#: .\socialaccount\models.py:50
+#: socialaccount/models.py:50
 #, fuzzy
 msgid "name"
 msgstr "Kullanıcı adı"
 
-#: .\socialaccount\models.py:52
+#: socialaccount/models.py:52
 msgid "client id"
 msgstr ""
 
-#: .\socialaccount\models.py:54
+#: socialaccount/models.py:54
 msgid "App ID, or consumer key"
 msgstr ""
 
-#: .\socialaccount\models.py:57
+#: socialaccount/models.py:57
 msgid "secret key"
 msgstr ""
 
-#: .\socialaccount\models.py:60
+#: socialaccount/models.py:60
 msgid "API secret, client secret, or consumer secret"
 msgstr ""
 
-#: .\socialaccount\models.py:63
+#: socialaccount/models.py:63
 msgid "Key"
 msgstr ""
 
-#: .\socialaccount\models.py:75
+#: socialaccount/models.py:75
 msgid "social application"
 msgstr ""
 
-#: .\socialaccount\models.py:76
+#: socialaccount/models.py:76
 msgid "social applications"
 msgstr ""
 
-#: .\socialaccount\models.py:111
+#: socialaccount/models.py:111
 msgid "uid"
 msgstr ""
 
-#: .\socialaccount\models.py:113
+#: socialaccount/models.py:113
 msgid "last login"
 msgstr "son giriş"
 
-#: .\socialaccount\models.py:114
+#: socialaccount/models.py:114
 msgid "date joined"
 msgstr "katıldığı tarih"
 
-#: .\socialaccount\models.py:115
+#: socialaccount/models.py:115
 msgid "extra data"
 msgstr ""
 
-#: .\socialaccount\models.py:119
+#: socialaccount/models.py:119
 msgid "social account"
 msgstr ""
 
-#: .\socialaccount\models.py:120
+#: socialaccount/models.py:120
 msgid "social accounts"
 msgstr ""
 
-#: .\socialaccount\models.py:154
+#: socialaccount/models.py:154
 msgid "token"
 msgstr ""
 
-#: .\socialaccount\models.py:155
+#: socialaccount/models.py:155
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr ""
 
-#: .\socialaccount\models.py:159
+#: socialaccount/models.py:159
 msgid "token secret"
 msgstr ""
 
-#: .\socialaccount\models.py:160
+#: socialaccount/models.py:160
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr ""
 
-#: .\socialaccount\models.py:163
+#: socialaccount/models.py:163
 msgid "expires at"
 msgstr ""
 
-#: .\socialaccount\models.py:168
+#: socialaccount/models.py:168
 msgid "social application token"
 msgstr ""
 
-#: .\socialaccount\models.py:169
+#: socialaccount/models.py:169
 msgid "social application tokens"
 msgstr ""
 
-#: .\socialaccount\providers\douban\views.py:36
+#: socialaccount/providers/douban/views.py:36
 msgid "Invalid profile data"
 msgstr "Geçersiz profil bilgisi"
 
-#: .\socialaccount\providers\oauth\client.py:85
+#: socialaccount/providers/oauth/client.py:85
 #, fuzzy, python-format
 #| msgid "Invalid response while obtaining request token from \"%s\"."
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
 msgstr "\"%s\"'dan talep kodu alınırken geçersiz cevap alındı."
 
-#: .\socialaccount\providers\oauth\client.py:119
-#: .\socialaccount\providers\pocket\client.py:78
+#: socialaccount/providers/oauth/client.py:119
+#: socialaccount/providers/pocket/client.py:78
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "\"%s\"'dan erişim kodu alınırken geçersiz cevap alındı."
 
-#: .\socialaccount\providers\oauth\client.py:140
+#: socialaccount/providers/oauth/client.py:140
 #, python-format
 msgid "No request token saved for \"%s\"."
 msgstr "\"%s\" için hiçbir talep kodu kaydedilmedi."
 
-#: .\socialaccount\providers\oauth\client.py:191
+#: socialaccount/providers/oauth/client.py:191
 #, python-format
 msgid "No access token saved for \"%s\"."
 msgstr "\"%s\" için hiçbir erişim kodu kaydedilmedi."
 
-#: .\socialaccount\providers\oauth\client.py:212
+#: socialaccount/providers/oauth/client.py:212
 #, python-format
 msgid "No access to private resources at \"%s\"."
 msgstr "\"%s\"'daki özel kaynaklara erişim yok."
 
-#: .\socialaccount\providers\pocket\client.py:37
+#: socialaccount/providers/pocket/client.py:37
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "\"%s\"'dan talep kodu alınırken geçersiz cevap alındı."
 
-#: .\templates\account\account_inactive.html:5
-#: .\templates\account\account_inactive.html:9
+#: templates/account/account_inactive.html:5
+#: templates/account/account_inactive.html:9
 msgid "Account Inactive"
 msgstr "Hesap Etkin Değil"
 
-#: .\templates\account\account_inactive.html:11
+#: templates/account/account_inactive.html:11
 msgid "This account is inactive."
 msgstr "Bu hesap etkin değil."
 
-#: .\templates\account\base_reauthenticate.html:5
-#: .\templates\account\base_reauthenticate.html:9
+#: templates/account/base_reauthenticate.html:5
+#: templates/account/base_reauthenticate.html:9
 #, fuzzy
 #| msgid "Confirm Email Address"
 msgid "Confirm Access"
 msgstr "E-posta Adresi Doğrula"
 
-#: .\templates\account\base_reauthenticate.html:11
+#: templates/account/base_reauthenticate.html:11
 msgid "Please reauthenticate to safeguard your account."
 msgstr ""
 
-#: .\templates\account\base_reauthenticate.html:17
+#: templates/account/base_reauthenticate.html:17
 msgid "Alternative options"
 msgstr ""
 
-#: .\templates\account\email.html:4 .\templates\account\email.html:8
+#: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
 msgstr "E-posta Adresleri"
 
-#: .\templates\account\email.html:11
+#: templates/account/email.html:11
 msgid "The following email addresses are associated with your account:"
 msgstr "Şu e-posta adresleri hesabınızla ilişkilendirildi:"
 
-#: .\templates\account\email.html:23
+#: templates/account/email.html:23
 msgid "Verified"
 msgstr "Doğrulanmış"
 
-#: .\templates\account\email.html:27
+#: templates/account/email.html:27
 msgid "Unverified"
 msgstr "Doğrulanmamış"
 
-#: .\templates\account\email.html:32
+#: templates/account/email.html:32
 msgid "Primary"
 msgstr "Birincil"
 
-#: .\templates\account\email.html:42
+#: templates/account/email.html:42
 msgid "Make Primary"
 msgstr "Birincil Yap"
 
-#: .\templates\account\email.html:45 .\templates\account\email_change.html:44
+#: templates/account/email.html:45 templates/account/email_change.html:44
 msgid "Re-send Verification"
 msgstr "Tekrar Doğrula"
 
-#: .\templates\account\email.html:48
-#: .\templates\socialaccount\connections.html:40
+#: templates/account/email.html:48 templates/socialaccount/connections.html:40
 msgid "Remove"
 msgstr "Kaldır"
 
-#: .\templates\account\email.html:57
+#: templates/account/email.html:57
 msgid "Add Email Address"
 msgstr "E-posta Adresi Ekle"
 
-#: .\templates\account\email.html:70
+#: templates/account/email.html:70
 msgid "Add Email"
 msgstr "E-posta Ekle"
 
-#: .\templates\account\email.html:79
+#: templates/account/email.html:79
 msgid "Do you really want to remove the selected email address?"
 msgstr "Seçilen e-posta adresini kaldırmak istediğinizden emin misiniz?"
 
-#: .\templates\account\email\account_already_exists_message.txt:4
+#: templates/account/email/account_already_exists_message.txt:4
 #, python-format
 msgid ""
 "You are receiving this email because you or someone else tried to signup for "
@@ -491,15 +490,16 @@ msgid ""
 "%(password_reset_url)s"
 msgstr ""
 
-#: .\templates\account\email\account_already_exists_subject.txt:3
+#: templates/account/email/account_already_exists_subject.txt:3
 msgid "Account Already Exists"
 msgstr ""
 
-#: .\templates\account\email\base_message.txt:1
+#: templates/account/email/base_message.txt:1
+#, python-format
 msgid "Hello from %(site_name)s!"
 msgstr "Merhaba %(site_name)s'ten!"
 
-#: .\templates\account\email\base_message.txt:5
+#: templates/account/email/base_message.txt:5
 #, python-format
 msgid ""
 "Thank you for using %(site_name)s!\n"
@@ -508,7 +508,7 @@ msgstr ""
 "%(site_name)s'ı kullanımınız için teşekkür ederiz!\n"
 "%(site_domain)s"
 
-#: .\templates\account\email\email_confirmation_message.txt:5
+#: templates/account/email/email_confirmation_message.txt:5
 #, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
@@ -521,33 +521,33 @@ msgstr ""
 "\n"
 "Bu doğru ise, %(activate_url)s adresine giderek doğrulama yapabilirsiniz."
 
-#: .\templates\account\email\email_confirmation_subject.txt:3
+#: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your Email Address"
 msgstr "Lütfen E-posta Adresinizi Onaylayın."
 
-#: .\templates\account\email\password_reset_key_message.txt:4
+#: templates/account/email/password_reset_key_message.txt:4
 msgid ""
 "You're receiving this email because you or someone else has requested a "
 "password reset for your user account.\n"
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"Bu e-postayı alıyorsunuz çünkü siz veya başka biri kullanıcı "
-"hesabınız için şifre sıfırlama talebinde bulundu.\n"
-"Eğer şifre sıfırlama talebinde bulunmadıysanız güvenle göz ardı edebilirsiniz. "
-"Şifrenizi sıfırlamak için aşağıdaki bağlantıya tıklayın."
+"Bu e-postayı alıyorsunuz çünkü siz veya başka biri kullanıcı hesabınız için "
+"şifre sıfırlama talebinde bulundu.\n"
+"Eğer şifre sıfırlama talebinde bulunmadıysanız güvenle göz ardı "
+"edebilirsiniz. Şifrenizi sıfırlamak için aşağıdaki bağlantıya tıklayın."
 
-#: .\templates\account\email\password_reset_key_message.txt:9
+#: templates/account/email/password_reset_key_message.txt:9
 #, python-format
 msgid "In case you forgot, your username is %(username)s."
 msgstr "Kullanıcı adınızı unuttuysanız, kullanıcı adınız: %(username)s."
 
-#: .\templates\account\email\password_reset_key_subject.txt:3
-#: .\templates\account\email\unknown_account_subject.txt:3
+#: templates/account/email/password_reset_key_subject.txt:3
+#: templates/account/email/unknown_account_subject.txt:3
 msgid "Password Reset Email"
 msgstr "Parola Sıfırlama E-postası"
 
-#: .\templates\account\email\unknown_account_message.txt:4
+#: templates/account/email/unknown_account_message.txt:4
 #, python-format
 msgid ""
 "You are receiving this email because you or someone else has requested a\n"
@@ -560,53 +560,54 @@ msgid ""
 "If it was you, you can sign up for an account using the link below."
 msgstr ""
 "Bu e-postayı alıyorsunuz çünkü siz veya başka biri kullanıcı hesabınız için\n"
-"bir şifre talebinde bulundu. Ancak,"
-"veritabanımızda %(email)s e-posta adresi ile ilgili bir kayıt bulunmamaktadır.\n"
+"bir şifre talebinde bulundu. Ancak,veritabanımızda %(email)s e-posta adresi "
+"ile ilgili bir kayıt bulunmamaktadır.\n"
 "\n"
-"Eğer şifre sıfırlama talebinde bulunmadıysanız bu e-posta güvenle göz ardı edilebilir.\n"
+"Eğer şifre sıfırlama talebinde bulunmadıysanız bu e-posta güvenle göz ardı "
+"edilebilir.\n"
 "\n"
-"Eğer talep sizden geldiyse, aşağıdaki bağlantıyı kullanarak bir hesap oluşturabilirsiniz."
+"Eğer talep sizden geldiyse, aşağıdaki bağlantıyı kullanarak bir hesap "
+"oluşturabilirsiniz."
 
-#: .\templates\account\email_change.html:5
-#: .\templates\account\email_change.html:9
+#: templates/account/email_change.html:5 templates/account/email_change.html:9
 msgid "Email Address"
 msgstr "E-posta Adresi"
 
-#: .\templates\account\email_change.html:20
+#: templates/account/email_change.html:20
 msgid "Current email"
 msgstr "Mevcut e-posta"
 
-#: .\templates\account\email_change.html:27
+#: templates/account/email_change.html:27
 msgid "Changing to"
 msgstr ""
 
-#: .\templates\account\email_change.html:30
+#: templates/account/email_change.html:30
 msgid "Your email address is still pending verification."
 msgstr ""
 
-#: .\templates\account\email_change.html:36
+#: templates/account/email_change.html:36
 #, fuzzy
 #| msgid "Email"
 msgid "Change to"
 msgstr "E-posta"
 
-#: .\templates\account\email_change.html:47
+#: templates/account/email_change.html:47
 msgid "Cancel Change"
 msgstr ""
 
-#: .\templates\account\email_change.html:51
-#: .\templates\allauth\layouts\base.html:29
+#: templates/account/email_change.html:51
+#: templates/allauth/layouts/base.html:29
 #, fuzzy
 #| msgid "Email"
 msgid "Change Email"
 msgstr "E-posta"
 
-#: .\templates\account\email_confirm.html:6
-#: .\templates\account\email_confirm.html:10
+#: templates/account/email_confirm.html:6
+#: templates/account/email_confirm.html:10
 msgid "Confirm Email Address"
 msgstr "E-posta Adresi Doğrula"
 
-#: .\templates\account\email_confirm.html:16
+#: templates/account/email_confirm.html:16
 #, fuzzy, python-format
 #| msgid ""
 #| "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
@@ -618,41 +619,41 @@ msgstr ""
 "Lütfen <a href=\"mailto:%(email)s\">%(email)s</a> adresinin %(user_display)s "
 "kullanıcısına ait olduğunu onaylayın."
 
-#: .\templates\account\email_confirm.html:23
-#: .\templates\account\reauthenticate.html:20
-#: .\templates\mfa\reauthenticate.html:20
+#: templates/account/email_confirm.html:23
+#: templates/account/reauthenticate.html:20
+#: templates/mfa/reauthenticate.html:20
 msgid "Confirm"
 msgstr "Onayla"
 
-#: .\templates\account\email_confirm.html:29
-#: .\templates\account\messages\email_confirmation_failed.txt:2
+#: templates/account/email_confirm.html:29
+#: templates/account/messages/email_confirmation_failed.txt:2
 #, python-format
 msgid ""
 "Unable to confirm %(email)s because it is already confirmed by a different "
 "account."
 msgstr ""
 
-#: .\templates\account\email_confirm.html:35
+#: templates/account/email_confirm.html:35
 #, fuzzy, python-format
 #| msgid ""
-#| "This e-mail confirmation link expired or is invalid. Please <a href="
-#| "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+#| "This e-mail confirmation link expired or is invalid. Please <a "
+#| "href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgid ""
-"This email confirmation link expired or is invalid. Please <a href="
-"\"%(email_url)s\">issue a new email confirmation request</a>."
+"This email confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">issue a new email confirmation request</a>."
 msgstr ""
 "Bu onaylama bağlantısının süresi geçmiş ya da bağlantı geçersiz. Lütfen <a "
 "href=\"%(email_url)s\">yeni bir e-posta doğrulama talebinde bulunun.</a>."
 
-#: .\templates\account\login.html:5 .\templates\account\login.html:9
-#: .\templates\account\login.html:29 .\templates\allauth\layouts\base.html:36
-#: .\templates\mfa\authenticate.html:5 .\templates\mfa\authenticate.html:23
-#: .\templates\openid\login.html:5 .\templates\openid\login.html:9
-#: .\templates\openid\login.html:20 .\templates\socialaccount\login.html:5
+#: templates/account/login.html:5 templates/account/login.html:9
+#: templates/account/login.html:29 templates/allauth/layouts/base.html:36
+#: templates/mfa/authenticate.html:5 templates/mfa/authenticate.html:23
+#: templates/openid/login.html:5 templates/openid/login.html:9
+#: templates/openid/login.html:20 templates/socialaccount/login.html:5
 msgid "Sign In"
 msgstr "Giriş Yap"
 
-#: .\templates\account\login.html:12
+#: templates/account/login.html:12
 #, fuzzy, python-format
 msgid ""
 "If you have not created an account yet, then please\n"
@@ -661,83 +662,84 @@ msgstr ""
 "Zaten hesabınız var mı? O zaman lütfen <a href=\"%(login_url)s\">giriş "
 "yapın</a>."
 
-#: .\templates\account\logout.html:4 .\templates\account\logout.html:8
-#: .\templates\account\logout.html:23 .\templates\allauth\layouts\base.html:32
+#: templates/account/logout.html:4 templates/account/logout.html:8
+#: templates/account/logout.html:23 templates/allauth/layouts/base.html:32
+#: templates/usersessions/usersession_list.html:64
 msgid "Sign Out"
 msgstr "Çıkış Yap"
 
-#: .\templates\account\logout.html:10
+#: templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
 msgstr "Çıkış yapmak istediğinize emin misiniz?"
 
-#: .\templates\account\messages\cannot_delete_primary_email.txt:2
+#: templates/account/messages/cannot_delete_primary_email.txt:2
 #, python-format
 msgid "You cannot remove your primary email address (%(email)s)."
 msgstr ""
 
-#: .\templates\account\messages\email_confirmation_sent.txt:2
+#: templates/account/messages/email_confirmation_sent.txt:2
 #, python-format
 msgid "Confirmation email sent to %(email)s."
 msgstr "Doğrulama e-posta'sı %(email)s adresine gönderildi."
 
-#: .\templates\account\messages\email_confirmed.txt:2
+#: templates/account/messages/email_confirmed.txt:2
 #, python-format
 msgid "You have confirmed %(email)s."
 msgstr "%(email)s adresini onayladınız."
 
-#: .\templates\account\messages\email_deleted.txt:2
+#: templates/account/messages/email_deleted.txt:2
 #, python-format
 msgid "Removed email address %(email)s."
 msgstr "%(email)s adresini sildiniz."
 
-#: .\templates\account\messages\logged_in.txt:4
+#: templates/account/messages/logged_in.txt:4
 #, python-format
 msgid "Successfully signed in as %(name)s."
 msgstr "%(name)s olarak başarıyla giriş yapıldı."
 
-#: .\templates\account\messages\logged_out.txt:2
+#: templates/account/messages/logged_out.txt:2
 msgid "You have signed out."
 msgstr "Çıkış yaptınız."
 
-#: .\templates\account\messages\password_changed.txt:2
+#: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
 msgstr "Parola başarıyla değiştirildi."
 
-#: .\templates\account\messages\password_set.txt:2
+#: templates/account/messages/password_set.txt:2
 msgid "Password successfully set."
 msgstr "Parola başarıyla ayarlandı."
 
-#: .\templates\account\messages\primary_email_set.txt:2
+#: templates/account/messages/primary_email_set.txt:2
 msgid "Primary email address set."
 msgstr "Ana e-posta adresi ayarlandı."
 
-#: .\templates\account\messages\unverified_primary_email.txt:2
+#: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary email address must be verified."
 msgstr "Ana e-posta adresinizin doğrulanması gerekmektedir."
 
-#: .\templates\account\password_change.html:4
-#: .\templates\account\password_change.html:8
-#: .\templates\account\password_change.html:19
-#: .\templates\account\password_reset_from_key.html:5
-#: .\templates\account\password_reset_from_key.html:12
-#: .\templates\account\password_reset_from_key.html:29
-#: .\templates\account\password_reset_from_key_done.html:5
-#: .\templates\account\password_reset_from_key_done.html:9
+#: templates/account/password_change.html:4
+#: templates/account/password_change.html:8
+#: templates/account/password_change.html:19
+#: templates/account/password_reset_from_key.html:5
+#: templates/account/password_reset_from_key.html:12
+#: templates/account/password_reset_from_key.html:29
+#: templates/account/password_reset_from_key_done.html:5
+#: templates/account/password_reset_from_key_done.html:9
 msgid "Change Password"
 msgstr "Parola Değiştir"
 
-#: .\templates\account\password_change.html:21
+#: templates/account/password_change.html:21
 msgid "Forgot Password?"
 msgstr "Parolanızı mı unuttunuz?"
 
-#: .\templates\account\password_reset.html:4
-#: .\templates\account\password_reset.html:8
-#: .\templates\account\password_reset_done.html:6
-#: .\templates\account\password_reset_done.html:10
+#: templates/account/password_reset.html:4
+#: templates/account/password_reset.html:8
+#: templates/account/password_reset_done.html:6
+#: templates/account/password_reset_done.html:10
 msgid "Password Reset"
 msgstr "Parola Sıfırlama"
 
-#: .\templates\account\password_reset.html:14
+#: templates/account/password_reset.html:14
 #, fuzzy
 #| msgid ""
 #| "Forgotten your password? Enter your e-mail address below, and we'll send "
@@ -749,17 +751,17 @@ msgstr ""
 "Parolanızı mı unuttunuz? E-posta adresinizi aşağıya yazın, size parolanızı "
 "sıfırlamanıza imkan veren e-postayı göndereceğiz."
 
-#: .\templates\account\password_reset.html:25
+#: templates/account/password_reset.html:25
 msgid "Reset My Password"
 msgstr "Parolamı Sıfırla"
 
-#: .\templates\account\password_reset.html:29
+#: templates/account/password_reset.html:29
 msgid "Please contact us if you have any trouble resetting your password."
 msgstr ""
 "Parolanızı sıfırlarken herhangi bir sorunla karşılaşırsanız lütfen bize "
 "ulaşın."
 
-#: .\templates\account\password_reset_done.html:16
+#: templates/account/password_reset_done.html:16
 #, fuzzy
 #| msgid ""
 #| "We have sent an e-mail to you for\n"
@@ -773,11 +775,11 @@ msgstr ""
 "Lütfen e-postadaki bağlantıya tıklayın. Eğer birkaç dakika içinde\n"
 "bu e-postayı almazsanız bize ulaşın."
 
-#: .\templates\account\password_reset_from_key.html:10
+#: templates/account/password_reset_from_key.html:10
 msgid "Bad Token"
 msgstr "Hatalı Anahtar"
 
-#: .\templates\account\password_reset_from_key.html:18
+#: templates/account/password_reset_from_key.html:18
 #, python-format
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
@@ -788,34 +790,32 @@ msgstr ""
 "için. Lütfen <a href=\"%(passwd_reset_url)s\">yeni parola sıfırlama</a> "
 "talebinde bulunun."
 
-#: .\templates\account\password_reset_from_key_done.html:11
+#: templates/account/password_reset_from_key_done.html:11
 msgid "Your password is now changed."
 msgstr "Parolanız değişti."
 
-#: .\templates\account\password_set.html:5
-#: .\templates\account\password_set.html:9
-#: .\templates\account\password_set.html:20
+#: templates/account/password_set.html:5 templates/account/password_set.html:9
+#: templates/account/password_set.html:20
 msgid "Set Password"
 msgstr "Parola Belirle"
 
-#: .\templates\account\reauthenticate.html:5
+#: templates/account/reauthenticate.html:5
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Enter your password:"
 msgstr "Parolanızı mı unuttunuz?"
 
-#: .\templates\account\signup.html:4 .\templates\socialaccount\signup.html:5
+#: templates/account/signup.html:4 templates/socialaccount/signup.html:5
 msgid "Signup"
 msgstr "Üye Ol"
 
-#: .\templates\account\signup.html:8 .\templates\account\signup.html:27
-#: .\templates\allauth\layouts\base.html:39
-#: .\templates\socialaccount\signup.html:9
-#: .\templates\socialaccount\signup.html:29
+#: templates/account/signup.html:8 templates/account/signup.html:27
+#: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
+#: templates/socialaccount/signup.html:29
 msgid "Sign Up"
 msgstr "Üye Ol"
 
-#: .\templates\account\signup.html:11
+#: templates/account/signup.html:11
 #, python-format
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
@@ -823,30 +823,30 @@ msgstr ""
 "Zaten hesabınız var mı? O zaman lütfen <a href=\"%(login_url)s\">giriş "
 "yapın</a>."
 
-#: .\templates\account\signup_closed.html:5
-#: .\templates\account\signup_closed.html:9
+#: templates/account/signup_closed.html:5
+#: templates/account/signup_closed.html:9
 msgid "Sign Up Closed"
 msgstr "Kayıt Kapalı"
 
-#: .\templates\account\signup_closed.html:11
+#: templates/account/signup_closed.html:11
 msgid "We are sorry, but the sign up is currently closed."
 msgstr "Üzgünüz, ancak kayıt şu anda kapalıdır."
 
-#: .\templates\account\snippets\already_logged_in.html:7
+#: templates/account/snippets/already_logged_in.html:7
 msgid "Note"
 msgstr "Not"
 
-#: .\templates\account\snippets\already_logged_in.html:7
+#: templates/account/snippets/already_logged_in.html:7
 #, fuzzy, python-format
 #| msgid "you are already logged in as %(user_display)s."
 msgid "You are already logged in as %(user_display)s."
 msgstr "zaten %(user_display)s olarak giriş yaptınız."
 
-#: .\templates\account\snippets\warn_no_email.html:3
+#: templates/account/snippets/warn_no_email.html:3
 msgid "Warning:"
 msgstr "Uyarı:"
 
-#: .\templates\account\snippets\warn_no_email.html:3
+#: templates/account/snippets/warn_no_email.html:3
 #, fuzzy
 #| msgid ""
 #| "You currently do not have any e-mail address set up. You should really "
@@ -859,14 +859,14 @@ msgstr ""
 "Şu anda kayıtlı hiçbir e-posta adresiniz yok. Bildirim alabilmek, parolanızı "
 "sıfırlayabilmek, vs. işler için e-posta adresinizi mutlaka eklemelisiniz."
 
-#: .\templates\account\verification_sent.html:5
-#: .\templates\account\verification_sent.html:9
-#: .\templates\account\verified_email_required.html:5
-#: .\templates\account\verified_email_required.html:9
+#: templates/account/verification_sent.html:5
+#: templates/account/verification_sent.html:9
+#: templates/account/verified_email_required.html:5
+#: templates/account/verified_email_required.html:9
 msgid "Verify Your Email Address"
 msgstr "E-posta Adresinizi Doğrulayın"
 
-#: .\templates\account\verification_sent.html:12
+#: templates/account/verification_sent.html:12
 #, fuzzy
 msgid ""
 "We have sent an email to you for verification. Follow the link provided to "
@@ -878,7 +878,7 @@ msgstr ""
 "posta gönderdik. Üyelik sürecini tamamlamak için sunulan bağlantıyı takip "
 "edin. Eğer e-posta birkaç dakika içinde size ulaşmazsa lütfen bize ulaşın."
 
-#: .\templates\account\verified_email_required.html:13
+#: templates/account/verified_email_required.html:13
 #, fuzzy
 #| msgid ""
 #| "This part of the site requires us to verify that\n"
@@ -893,7 +893,7 @@ msgstr ""
 "gerektirmektedir. Bu sebeple, girdiğiniz e-posta adresinize sahip\n"
 "olduğunuzu doğrulamanızı rica ediyoruz. "
 
-#: .\templates\account\verified_email_required.html:18
+#: templates/account/verified_email_required.html:18
 #, fuzzy
 #| msgid ""
 #| "We have sent an e-mail to you for\n"
@@ -910,7 +910,7 @@ msgstr ""
 "Lütfen e-postadaki bağlantıya tıklayın. Eğer birkaç dakika içinde\n"
 "bu e-postayı almazsanız bize ulaşın."
 
-#: .\templates\account\verified_email_required.html:23
+#: templates/account/verified_email_required.html:23
 #, fuzzy, python-format
 #| msgid ""
 #| "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change "
@@ -922,56 +922,56 @@ msgstr ""
 "<strong>Not:</strong> hala <a href=\"%(email_url)s\">e-posta adresinizi "
 "değiştirebilirsiniz</a>."
 
-#: .\templates\allauth\layouts\base.html:18
+#: templates/allauth/layouts/base.html:18
 msgid "Messages:"
 msgstr "Mesajlar:"
 
-#: .\templates\allauth\layouts\base.html:25
+#: templates/allauth/layouts/base.html:25
 msgid "Menu:"
 msgstr ""
 
-#: .\templates\mfa\authenticate.html:9 .\templates\mfa\index.html:5
-#: .\templates\mfa\index.html:9
+#: templates/mfa/authenticate.html:9 templates/mfa/index.html:5
+#: templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
 msgstr ""
 
-#: .\templates\mfa\authenticate.html:12
+#: templates/mfa/authenticate.html:12
 msgid ""
 "Your account is protected by two-factor authentication. Please enter an "
 "authenticator code:"
 msgstr ""
 
-#: .\templates\mfa\authenticate.html:27
+#: templates/mfa/authenticate.html:27
 msgid "Cancel"
 msgstr "Iptal"
 
-#: .\templates\mfa\index.html:13 .\templates\mfa\totp\base.html:4
+#: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
 msgstr ""
 
-#: .\templates\mfa\index.html:17
+#: templates/mfa/index.html:18
 msgid "Authentication using an authenticator app is active."
 msgstr ""
 
-#: .\templates\mfa\index.html:19
+#: templates/mfa/index.html:20
 msgid "An authenticator app is not active."
 msgstr ""
 
-#: .\templates\mfa\index.html:27 .\templates\mfa\totp\deactivate_form.html:24
+#: templates/mfa/index.html:28 templates/mfa/totp/deactivate_form.html:24
 msgid "Deactivate"
 msgstr ""
 
-#: .\templates\mfa\index.html:31 .\templates\mfa\totp\activate_form.html:32
+#: templates/mfa/index.html:32 templates/mfa/totp/activate_form.html:32
 msgid "Activate"
 msgstr "Etkinleştir"
 
-#: .\templates\mfa\index.html:39 .\templates\mfa\recovery_codes\base.html:4
-#: .\templates\mfa\recovery_codes\generate.html:6
-#: .\templates\mfa\recovery_codes\index.html:6
+#: templates/mfa/index.html:42 templates/mfa/recovery_codes/base.html:4
+#: templates/mfa/recovery_codes/generate.html:6
+#: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
 msgstr ""
 
-#: .\templates\mfa\index.html:44 .\templates\mfa\recovery_codes\index.html:9
+#: templates/mfa/index.html:47 templates/mfa/recovery_codes/index.html:9
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -980,112 +980,111 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\templates\mfa\index.html:47
+#: templates/mfa/index.html:50
 msgid "No recovery codes set up."
 msgstr ""
 
-#: .\templates\mfa\index.html:56
+#: templates/mfa/index.html:59
 msgid "View"
 msgstr ""
 
-#: .\templates\mfa\index.html:62
+#: templates/mfa/index.html:65
 msgid "Download"
 msgstr ""
 
-#: .\templates\mfa\index.html:70
-#: .\templates\mfa\recovery_codes\generate.html:29
+#: templates/mfa/index.html:73 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
 msgstr ""
 
-#: .\templates\mfa\messages\recovery_codes_generated.txt:2
+#: templates/mfa/messages/recovery_codes_generated.txt:2
 msgid "A new set of recovery codes has been generated."
 msgstr ""
 
-#: .\templates\mfa\messages\totp_activated.txt:2
+#: templates/mfa/messages/totp_activated.txt:2
 msgid "Authenticator app activated."
 msgstr ""
 
-#: .\templates\mfa\messages\totp_deactivated.txt:2
+#: templates/mfa/messages/totp_deactivated.txt:2
 msgid "Authenticator app deactivated."
 msgstr ""
 
-#: .\templates\mfa\reauthenticate.html:5
+#: templates/mfa/reauthenticate.html:5
 msgid "Enter an authenticator code:"
 msgstr ""
 
-#: .\templates\mfa\recovery_codes\generate.html:9
+#: templates/mfa/recovery_codes/generate.html:9
 msgid "You are about to generate a new set of recovery codes for your account."
 msgstr ""
 
-#: .\templates\mfa\recovery_codes\generate.html:11
+#: templates/mfa/recovery_codes/generate.html:11
 msgid "This action will invalidate your existing codes."
 msgstr ""
 
-#: .\templates\mfa\recovery_codes\generate.html:13
+#: templates/mfa/recovery_codes/generate.html:13
 msgid "Are you sure?"
 msgstr "Emin misin?"
 
-#: .\templates\mfa\recovery_codes\index.html:13
+#: templates/mfa/recovery_codes/index.html:13
 msgid "Unused codes"
 msgstr ""
 
-#: .\templates\mfa\recovery_codes\index.html:25
+#: templates/mfa/recovery_codes/index.html:25
 msgid "Download codes"
 msgstr ""
 
-#: .\templates\mfa\recovery_codes\index.html:30
+#: templates/mfa/recovery_codes/index.html:30
 msgid "Generate new codes"
 msgstr ""
 
-#: .\templates\mfa\totp\activate_form.html:4
-#: .\templates\mfa\totp\activate_form.html:8
+#: templates/mfa/totp/activate_form.html:4
+#: templates/mfa/totp/activate_form.html:8
 msgid "Activate Authenticator App"
 msgstr ""
 
-#: .\templates\mfa\totp\activate_form.html:11
+#: templates/mfa/totp/activate_form.html:11
 msgid ""
 "To protect your account with two-factor authentication, scan the QR code "
 "below with your authenticator app. Then, input the verification code "
 "generated by the app below."
 msgstr ""
 
-#: .\templates\mfa\totp\activate_form.html:21
+#: templates/mfa/totp/activate_form.html:21
 msgid "Authenticator secret"
 msgstr ""
 
-#: .\templates\mfa\totp\activate_form.html:24
+#: templates/mfa/totp/activate_form.html:24
 msgid ""
 "You can store this secret and use it to reinstall your authenticator app at "
 "a later time."
 msgstr ""
 
-#: .\templates\mfa\totp\deactivate_form.html:5
-#: .\templates\mfa\totp\deactivate_form.html:9
+#: templates/mfa/totp/deactivate_form.html:5
+#: templates/mfa/totp/deactivate_form.html:9
 msgid "Deactivate Authenticator App"
 msgstr ""
 
-#: .\templates\mfa\totp\deactivate_form.html:12
+#: templates/mfa/totp/deactivate_form.html:12
 msgid ""
 "You are about to deactivate authenticator app based authentication. Are you "
 "sure?"
 msgstr ""
 
-#: .\templates\socialaccount\authentication_error.html:5
-#: .\templates\socialaccount\authentication_error.html:9
+#: templates/socialaccount/authentication_error.html:5
+#: templates/socialaccount/authentication_error.html:9
 msgid "Social Network Login Failure"
 msgstr "Sosyal Ağ Girişi Başarısız"
 
-#: .\templates\socialaccount\authentication_error.html:11
+#: templates/socialaccount/authentication_error.html:11
 msgid ""
 "An error occurred while attempting to login via your social network account."
 msgstr "Sosyal ağ hesabınız ile giriş yapılırken bir hata oluştu."
 
-#: .\templates\socialaccount\connections.html:5
-#: .\templates\socialaccount\connections.html:9
+#: templates/socialaccount/connections.html:5
+#: templates/socialaccount/connections.html:9
 msgid "Account Connections"
 msgstr "Hesap Bağlantıları"
 
-#: .\templates\socialaccount\connections.html:13
+#: templates/socialaccount/connections.html:13
 #, fuzzy
 #| msgid ""
 #| "You can sign in to your account using any of the following third party "
@@ -1096,70 +1095,70 @@ msgid ""
 msgstr ""
 "Hesabınıza aşağıdaki üçüncü parti hesaplar aracılığıyla giriş yapabilirsiniz."
 
-#: .\templates\socialaccount\connections.html:45
+#: templates/socialaccount/connections.html:45
 msgid ""
 "You currently have no social network accounts connected to this account."
 msgstr "Hesabınızla bağlantılı hiçbir sosyal ağ hesabınız yok."
 
-#: .\templates\socialaccount\connections.html:48
+#: templates/socialaccount/connections.html:48
 #, fuzzy
 #| msgid "Add a 3rd Party Account"
 msgid "Add a Third-Party Account"
 msgstr "3. Parti Hesap ekle"
 
-#: .\templates\socialaccount\login.html:10
+#: templates/socialaccount/login.html:10
 #, python-format
 msgid "Connect %(provider)s"
 msgstr ""
 
-#: .\templates\socialaccount\login.html:13
+#: templates/socialaccount/login.html:13
 #, python-format
 msgid "You are about to connect a new third-party account from %(provider)s."
 msgstr ""
 
-#: .\templates\socialaccount\login.html:17
+#: templates/socialaccount/login.html:17
 #, python-format
 msgid "Sign In Via %(provider)s"
 msgstr ""
 
-#: .\templates\socialaccount\login.html:20
+#: templates/socialaccount/login.html:20
 #, python-format
 msgid "You are about to sign in using a third-party account from %(provider)s."
 msgstr ""
 
-#: .\templates\socialaccount\login.html:27
+#: templates/socialaccount/login.html:27
 msgid "Continue"
 msgstr ""
 
-#: .\templates\socialaccount\login_cancelled.html:5
-#: .\templates\socialaccount\login_cancelled.html:9
+#: templates/socialaccount/login_cancelled.html:5
+#: templates/socialaccount/login_cancelled.html:9
 msgid "Login Cancelled"
 msgstr "Giriş İptal Edildi"
 
-#: .\templates\socialaccount\login_cancelled.html:13
+#: templates/socialaccount/login_cancelled.html:13
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
-"\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a "
+"href=\"%(login_url)s\">sign in</a>."
 msgstr ""
 "Mevcut hesaplarınızdan birisiyle sitemize girişinizi iptal etmeye karar "
-"verdiniz. Eğer bu yanlışlıkla olduysa, lütfen devam edin: <a href="
-"\"%(login_url)s\">giriş yapın</a>."
+"verdiniz. Eğer bu yanlışlıkla olduysa, lütfen devam edin: <a "
+"href=\"%(login_url)s\">giriş yapın</a>."
 
-#: .\templates\socialaccount\messages\account_connected.txt:2
+#: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."
 msgstr ""
 
-#: .\templates\socialaccount\messages\account_connected_other.txt:2
+#: templates/socialaccount/messages/account_connected_other.txt:2
 msgid "The social account is already connected to a different account."
 msgstr ""
 
-#: .\templates\socialaccount\messages\account_disconnected.txt:2
+#: templates/socialaccount/messages/account_disconnected.txt:2
 msgid "The social account has been disconnected."
 msgstr ""
 
-#: .\templates\socialaccount\signup.html:12
+#: templates/socialaccount/signup.html:12
 #, fuzzy, python-format
 msgid ""
 "You are about to use your %(provider_name)s account to login to\n"
@@ -1168,8 +1167,53 @@ msgstr ""
 "%(site_name)s sitesine giriş yapmak için %(provider_name)s hesabınızı "
 "kullanmak üzeresiniz. Son bir adım olarak, lütfen şu formu doldurun:"
 
-#: .\templates\socialaccount\snippets\login.html:9
+#: templates/socialaccount/snippets/login.html:9
 msgid "Or use a third-party"
+msgstr ""
+
+#: templates/usersessions/messages/sessions_logged_out.txt:2
+msgid "Signed out of all other sessions."
+msgstr ""
+
+#: templates/usersessions/usersession_list.html:6
+#: templates/usersessions/usersession_list.html:10
+msgid "Sessions"
+msgstr ""
+
+#: templates/usersessions/usersession_list.html:23
+msgid "Started At"
+msgstr ""
+
+#: templates/usersessions/usersession_list.html:24
+#, fuzzy
+#| msgid "Email Address"
+msgid "IP Address"
+msgstr "E-posta Adresi"
+
+#: templates/usersessions/usersession_list.html:25
+msgid "Browser"
+msgstr ""
+
+#: templates/usersessions/usersession_list.html:27
+msgid "Last seen at"
+msgstr ""
+
+#: templates/usersessions/usersession_list.html:47
+#, fuzzy
+#| msgid "Current email"
+msgid "Current"
+msgstr "Mevcut e-posta"
+
+#: templates/usersessions/usersession_list.html:60
+msgid "Sign Out Other Sessions"
+msgstr ""
+
+#: usersessions/apps.py:7
+msgid "User Sessions"
+msgstr ""
+
+#: usersessions/models.py:46
+msgid "session key"
 msgstr ""
 
 #, fuzzy

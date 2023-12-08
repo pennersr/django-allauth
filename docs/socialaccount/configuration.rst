@@ -70,6 +70,9 @@ Available settings:
 ``SOCIALACCOUNT_PROVIDERS`` (default: ``{}``)
   Dictionary containing `provider specific settings <provider_configuration.html>`__.
 
+``SOCIALACCOUNT_REQUESTS_TIMEOUT`` (default: ``5``)
+  The timeout applied when performing upstream requests.
+
 ``SOCIALACCOUNT_QUERY_EMAIL`` (default: ``ACCOUNT_EMAIL_REQUIRED``)
   Request email address from 3rd party account provider? E.g. using
   OpenID AX, or the Facebook "email" permission.

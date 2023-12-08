@@ -139,6 +139,10 @@ class AppSettings(object):
     def SOCIALACCOUNT_STR(self):
         return self._setting("SOCIALACCOUNT_STR", None)
 
+    @property
+    def REQUESTS_TIMEOUT(self):
+        return self._setting("REQUESTS_TIMEOUT", 5)
+
 
 _app_settings = AppSettings("SOCIALACCOUNT_")
 

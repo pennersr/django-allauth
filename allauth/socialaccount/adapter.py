@@ -1,3 +1,4 @@
+import functools
 import requests
 import warnings
 
@@ -293,7 +294,11 @@ class DefaultSocialAccountAdapter(object):
         return apps[0]
 
     def get_requests_session(self):
-        return requests.Session()
+        session = requests.Session()
+        session.request = functools.partial(
+            session.request, timeout=app_settings.REQUESTS_TIMEOUT
+        )
+        return session
 
 
 def get_adapter(request=None):

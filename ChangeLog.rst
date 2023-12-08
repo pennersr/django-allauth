@@ -19,6 +19,9 @@ Note worthy changes
 - Added a new app, user sessions, allowing users to view a list of all their
   active sessions, as well as offering a means to end these sessions.
 
+- A configurable timeout (``SOCIALACCOUNT_REQUESTS_TIMEOUT``) is now applied to
+  all upstream requests.
+
 
 Backwards incompatible changes
 ------------------------------

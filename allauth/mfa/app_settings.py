@@ -39,6 +39,12 @@ class AppSettings(object):
         """
         return self._setting("TOTP_ISSUER", "")
 
+    @property
+    def SUPPORTED_TYPES(self):
+        return []
+        dflt = ["recovery_codes", "totp"]
+        return self._setting("SUPPORTED_TYPES", dflt)
+
 
 _app_settings = AppSettings("MFA_")
 

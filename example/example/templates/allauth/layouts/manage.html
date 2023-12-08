@@ -15,14 +15,20 @@
                     <a class="{% block nav_class_socialaccount %}nav-link text-white{% endblock %}"
                        href="{% url 'socialaccount_connections' %}">Third-Party Accounts</a>
                 </li>
-                <li class="nav-item">
-                    <a class="{% block nav_class_mfa %}nav-link text-white{% endblock %}"
-                       href="{% url 'mfa_index' %}">Two-Factor Authentication</a>
-                </li>
-                <li class="nav-item">
-                    <a class="{% block nav_class_usersessions %}nav-link text-white{% endblock %}"
-                       href="{% url 'usersessions_list' %}">Sessions</a>
-                </li>
+                {% url 'mfa_index' as mfa_index_url %}
+                {% if mfa_index_url %}
+                    <li class="nav-item">
+                        <a class="{% block nav_class_mfa %}nav-link text-white{% endblock %}"
+                           href="{% url 'mfa_index' %}">Two-Factor Authentication</a>
+                    </li>
+                {% endif %}
+                {% url 'usersessions_list' as usersessions_list_url %}
+                {% if usersessions_list_url %}
+                    <li class="nav-item">
+                        <a class="{% block nav_class_usersessions %}nav-link text-white{% endblock %}"
+                           href="">Sessions</a>
+                    </li>
+                {% endif %}
             </ul>
         </aside>
         <main class="col-md-10">

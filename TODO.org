@@ -9,6 +9,8 @@
 *** DONE Prevent replay attacks
 Read: https://github.com/w3c/webauthn/issues/1856
 https://github.com/w3c/webauthn/issues/1848#issuecomment-1436235885
+*** TODO Investigate different way of POST'ing data
+https://github.com/w3c/webauthn/issues/1255#issuecomment-1848386610
 
 *** DONE Drop unique constraint on Authenticator.type?
 Or, put all WebAuthn authenticators in one Authenticator?

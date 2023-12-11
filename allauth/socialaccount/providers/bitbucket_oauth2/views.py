@@ -1,6 +1,5 @@
-import requests
-
 from allauth.socialaccount import app_settings
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -18,7 +17,11 @@ class BitbucketOAuth2Adapter(OAuth2Adapter):
     emails_url = "https://api.bitbucket.org/2.0/user/emails"
 
     def complete_login(self, request, app, token, **kwargs):
-        resp = requests.get(self.profile_url, params={"access_token": token.token})
+        resp = (
+            get_adapter()
+            .get_requests_session()
+            .get(self.profile_url, params={"access_token": token.token})
+        )
         extra_data = resp.json()
         if app_settings.QUERY_EMAIL and not extra_data.get("email"):
             extra_data["email"] = self.get_email(token)
@@ -26,7 +29,11 @@ class BitbucketOAuth2Adapter(OAuth2Adapter):
 
     def get_email(self, token):
         """Fetches email address from email API endpoint"""
-        resp = requests.get(self.emails_url, params={"access_token": token.token})
+        resp = (
+            get_adapter()
+            .get_requests_session()
+            .get(self.emails_url, params={"access_token": token.token})
+        )
         emails = resp.json().get("values", [])
         email = ""
         try:

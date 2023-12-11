@@ -1,6 +1,5 @@
-import requests
-
 from allauth.socialaccount import app_settings
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.client import (
     OAuth2Client,
     OAuth2Error,
@@ -37,12 +36,16 @@ class UntappdOAuth2Client(OAuth2Client):
         settings = app_settings.PROVIDERS.get(UntappdProvider.id, {})
         headers = {"User-Agent": settings.get("USER_AGENT", "django-allauth")}
         # TODO: Proper exception handling
-        resp = requests.request(
-            self.access_token_method,
-            url,
-            params=params,
-            data=data,
-            headers=headers,
+        resp = (
+            get_adapter()
+            .get_requests_session()
+            .request(
+                self.access_token_method,
+                url,
+                params=params,
+                data=data,
+                headers=headers,
+            )
         )
         access_token = None
         if resp.status_code == 200:

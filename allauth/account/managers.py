@@ -125,7 +125,7 @@ class EmailConfirmationManager(models.Manager):
         return self.filter(self.expired_q())
 
     def all_valid(self):
-        return self.exclude(self.expired_q())
+        return self.exclude(self.expired_q()).filter(email_address__verified=False)
 
     def expired_q(self):
         sent_threshold = timezone.now() - timedelta(

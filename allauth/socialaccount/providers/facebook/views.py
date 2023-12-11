@@ -41,13 +41,17 @@ def compute_appsecret_proof(app, token):
 
 def fb_complete_login(request, app, token):
     provider = app.get_provider(request)
-    resp = requests.get(
-        GRAPH_API_URL + "/me",
-        params={
-            "fields": ",".join(provider.get_fields()),
-            "access_token": token.token,
-            "appsecret_proof": compute_appsecret_proof(app, token),
-        },
+    resp = (
+        get_adapter()
+        .get_requests_session()
+        .get(
+            GRAPH_API_URL + "/me",
+            params={
+                "fields": ",".join(provider.get_fields()),
+                "access_token": token.token,
+                "appsecret_proof": compute_appsecret_proof(app, token),
+            },
+        )
     )
     resp.raise_for_status()
     extra_data = resp.json()
@@ -109,27 +113,37 @@ class LoginByTokenView(View):
 
         expires_at = None
         if login_options.get("auth_type") == "reauthenticate":
-            info = requests.get(
-                GRAPH_API_URL + "/oauth/access_token_info",
-                params={
-                    "client_id": app.client_id,
-                    "access_token": access_token,
-                },
-            ).json()
+            info = (
+                get_adapter()
+                .get_requests_session()
+                .get(
+                    GRAPH_API_URL + "/oauth/access_token_info",
+                    params={
+                        "client_id": app.client_id,
+                        "access_token": access_token,
+                    },
+                )
+                .json()
+            )
             nonce = provider.get_nonce(request, pop=True)
             ok = nonce and nonce == info.get("auth_nonce")
         else:
             ok = True
         if ok and provider.get_settings().get("EXCHANGE_TOKEN"):
-            resp = requests.get(
-                GRAPH_API_URL + "/oauth/access_token",
-                params={
-                    "grant_type": "fb_exchange_token",
-                    "client_id": app.client_id,
-                    "client_secret": app.secret,
-                    "fb_exchange_token": access_token,
-                },
-            ).json()
+            resp = (
+                get_adapter()
+                .get_requests_session()
+                .get(
+                    GRAPH_API_URL + "/oauth/access_token",
+                    params={
+                        "grant_type": "fb_exchange_token",
+                        "client_id": app.client_id,
+                        "client_secret": app.secret,
+                        "fb_exchange_token": access_token,
+                    },
+                )
+                .json()
+            )
             access_token = resp["access_token"]
             expires_in = resp.get("expires_in")
             if expires_in:
@@ -147,13 +161,17 @@ class LoginByTokenView(View):
         cache_key = f"allauth.facebook.app_token[{app.client_id}]"
         app_token = cache.get(cache_key)
         if not app_token:
-            resp = requests.get(
-                GRAPH_API_URL + "/oauth/access_token",
-                params={
-                    "client_id": app.client_id,
-                    "client_secret": app.secret,
-                    "grant_type": "client_credentials",
-                },
+            resp = (
+                get_adapter()
+                .get_requests_session()
+                .get(
+                    GRAPH_API_URL + "/oauth/access_token",
+                    params={
+                        "client_id": app.client_id,
+                        "client_secret": app.secret,
+                        "grant_type": "client_credentials",
+                    },
+                )
             )
             resp.raise_for_status()
             data = resp.json()
@@ -164,9 +182,13 @@ class LoginByTokenView(View):
 
     def inspect_token(self, provider, input_token):
         app_token = self.get_app_token(provider)
-        resp = requests.get(
-            GRAPH_API_URL + "/debug_token",
-            params={"input_token": input_token, "access_token": app_token},
+        resp = (
+            get_adapter()
+            .get_requests_session()
+            .get(
+                GRAPH_API_URL + "/debug_token",
+                params={"input_token": input_token, "access_token": app_token},
+            )
         )
         resp.raise_for_status()
         data = resp.json()["data"]

@@ -1,6 +1,5 @@
-import requests
-
 from allauth.socialaccount import app_settings
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -34,10 +33,14 @@ class OrcidOAuth2Adapter(OAuth2Adapter):
         if self.member_api:
             params["access_token"] = token.token
 
-        resp = requests.get(
-            self.profile_url % kwargs["response"]["orcid"],
-            params=params,
-            headers={"accept": "application/orcid+json"},
+        resp = (
+            get_adapter()
+            .get_requests_session()
+            .get(
+                self.profile_url % kwargs["response"]["orcid"],
+                params=params,
+                headers={"accept": "application/orcid+json"},
+            )
         )
         extra_data = resp.json()
         return self.get_provider().sociallogin_from_response(request, extra_data)

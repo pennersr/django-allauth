@@ -6,10 +6,34 @@ from django.core import mail
 from django.test.utils import override_settings
 from django.urls import reverse
 
+import pytest
+
 from allauth.account import app_settings
 from allauth.account.forms import ResetPasswordForm
 from allauth.account.models import EmailAddress
 from allauth.tests import TestCase
+
+
+@pytest.mark.django_db
+def test_reset_password_unknown_account(client, settings):
+    settings.ACCOUNT_PREVENT_ENUMERATION = True
+    client.post(
+        reverse("account_reset_password"),
+        data={"email": "unknown@example.org"},
+    )
+    assert len(mail.outbox) == 1
+    assert mail.outbox[0].to == ["unknown@example.org"]
+
+
+@pytest.mark.django_db
+def test_reset_password_unknown_account_disabled(client, settings):
+    settings.ACCOUNT_PREVENT_ENUMERATION = True
+    settings.ACCOUNT_EMAIL_UNKNOWN_ACCOUNTS = False
+    client.post(
+        reverse("account_reset_password"),
+        data={"email": "unknown@example.org"},
+    )
+    assert len(mail.outbox) == 0
 
 
 @override_settings(

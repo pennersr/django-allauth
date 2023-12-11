@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-27 12:16-0600\n"
+"POT-Creation-Date: 2023-12-08 13:56-0600\n"
 "PO-Revision-Date: 2020-10-15 19:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,18 +38,18 @@ msgstr "Користувач з такою e-mail адресою уже заре
 msgid "Incorrect password."
 msgstr "Неправильний пароль."
 
-#: account/adapter.py:340
+#: account/adapter.py:344
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Пароль повинен містити мінімум {0} символів."
 
-#: account/adapter.py:716
+#: account/adapter.py:731
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "Забули пароль?"
 
-#: account/adapter.py:726
+#: account/adapter.py:741
 msgid "Use your authenticator app"
 msgstr ""
 
@@ -63,43 +63,43 @@ msgstr "Ваша основна e-mail адреса повинна бути пі
 msgid "Accounts"
 msgstr "Акаунти"
 
-#: account/forms.py:59 account/forms.py:443
+#: account/forms.py:60 account/forms.py:449
 msgid "You must type the same password each time."
 msgstr "Ви повинні вводити однаковий пароль кожного разу."
 
-#: account/forms.py:91 account/forms.py:406 account/forms.py:546
-#: account/forms.py:684
+#: account/forms.py:92 account/forms.py:412 account/forms.py:552
+#: account/forms.py:688
 msgid "Password"
 msgstr "Пароль"
 
-#: account/forms.py:92
+#: account/forms.py:93
 msgid "Remember Me"
 msgstr "Запам'ятати мене"
 
-#: account/forms.py:96
+#: account/forms.py:97
 msgid "This account is currently inactive."
 msgstr "Даний акаунт є неактивним."
 
-#: account/forms.py:98
+#: account/forms.py:99
 msgid "The email address and/or password you specified are not correct."
 msgstr "Введена e-mail адреса і/або пароль є некоректними."
 
-#: account/forms.py:101
+#: account/forms.py:102
 msgid "The username and/or password you specified are not correct."
 msgstr "Введене ім'я користувача і/або пароль є некоректними."
 
-#: account/forms.py:112 account/forms.py:281 account/forms.py:471
-#: account/forms.py:566
+#: account/forms.py:112 account/forms.py:287 account/forms.py:477
+#: account/forms.py:572
 msgid "Email address"
 msgstr "E-mail адреса"
 
-#: account/forms.py:116 account/forms.py:319 account/forms.py:468
-#: account/forms.py:561
+#: account/forms.py:116 account/forms.py:325 account/forms.py:474
+#: account/forms.py:567
 msgid "Email"
 msgstr "E-mail"
 
-#: account/forms.py:119 account/forms.py:122 account/forms.py:271
-#: account/forms.py:274
+#: account/forms.py:119 account/forms.py:122 account/forms.py:277
+#: account/forms.py:280
 msgid "Username"
 msgstr "Ім'я користувача"
 
@@ -118,56 +118,56 @@ msgstr "Увійти"
 msgid "Forgot your password?"
 msgstr "Забули пароль?"
 
-#: account/forms.py:310
+#: account/forms.py:316
 msgid "Email (again)"
 msgstr "E-mail (ще раз)"
 
-#: account/forms.py:314
+#: account/forms.py:320
 msgid "Email address confirmation"
 msgstr "e-mail адреса підтвердження"
 
-#: account/forms.py:322
+#: account/forms.py:328
 msgid "Email (optional)"
 msgstr "E-mail (необов'язковий)"
 
-#: account/forms.py:377
+#: account/forms.py:383
 msgid "You must type the same email each time."
 msgstr "Ви повинні вводити однакову e-mail адресу кожного разу."
 
-#: account/forms.py:412 account/forms.py:549
+#: account/forms.py:418 account/forms.py:555
 msgid "Password (again)"
 msgstr "Пароль (ще раз)"
 
-#: account/forms.py:483
+#: account/forms.py:489
 msgid "This email address is already associated with this account."
 msgstr "Вказаний e-mail уже прикріплений до цього акаунту."
 
-#: account/forms.py:485
+#: account/forms.py:491
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Ви не можете додати більше %d адрес електронної пошти."
 
-#: account/forms.py:523
+#: account/forms.py:529
 msgid "Current Password"
 msgstr "Поточний пароль"
 
-#: account/forms.py:526 account/forms.py:633
+#: account/forms.py:532 account/forms.py:637
 msgid "New Password"
 msgstr "Новий пароль"
 
-#: account/forms.py:529 account/forms.py:634
+#: account/forms.py:535 account/forms.py:638
 msgid "New Password (again)"
 msgstr "Новий пароль (ще раз)"
 
-#: account/forms.py:537
+#: account/forms.py:543
 msgid "Please type your current password."
 msgstr "Будь ласка, вкажіть Ваш поточний пароль."
 
-#: account/forms.py:578
+#: account/forms.py:584
 msgid "The email address is not assigned to any user account"
 msgstr "Немає користувача з такою e-mail адресою."
 
-#: account/forms.py:654
+#: account/forms.py:658
 msgid "The password reset token was invalid."
 msgstr "Токен відновлення паролю був невірним."
 
@@ -235,11 +235,11 @@ msgstr ""
 msgid "MFA"
 msgstr ""
 
-#: mfa/forms.py:15 mfa/forms.py:17
+#: mfa/forms.py:16 mfa/forms.py:18 mfa/forms.py:55
 msgid "Code"
 msgstr ""
 
-#: mfa/forms.py:51
+#: mfa/forms.py:53
 msgid "Authenticator code"
 msgstr ""
 
@@ -448,7 +448,7 @@ msgstr "Основний"
 msgid "Make Primary"
 msgstr "Зробити основним"
 
-#: templates/account/email.html:45 templates/account/email_change.html:29
+#: templates/account/email.html:45 templates/account/email_change.html:44
 msgid "Re-send Verification"
 msgstr "Надіслати підтвердження ще раз"
 
@@ -571,19 +571,33 @@ msgstr ""
 msgid "Email Address"
 msgstr "E-mail адреса"
 
-#: templates/account/email_change.html:14
-msgid "The following email address is associated with your account:"
-msgstr "Вказаний e-mail уже прикріплений до цього акаунту:"
+#: templates/account/email_change.html:20
+#, fuzzy
+#| msgid "Current Password"
+msgid "Current email"
+msgstr "Поточний пароль"
 
-#: templates/account/email_change.html:19
-msgid "Your email address is still pending verification:"
+#: templates/account/email_change.html:27
+msgid "Changing to"
+msgstr ""
+
+#: templates/account/email_change.html:30
+#, fuzzy
+#| msgid "Your email address is still pending verification:"
+msgid "Your email address is still pending verification."
 msgstr "Ваша e-mail адреса все ще очікує на перевірку:"
 
-#: templates/account/email_change.html:38
-msgid "Change Email Address"
-msgstr "Змінити e-mail адресу"
+#: templates/account/email_change.html:36
+#, fuzzy
+#| msgid "Change Email"
+msgid "Change to"
+msgstr "Змінити e-mail"
 
-#: templates/account/email_change.html:49
+#: templates/account/email_change.html:47
+msgid "Cancel Change"
+msgstr ""
+
+#: templates/account/email_change.html:51
 #: templates/allauth/layouts/base.html:29
 msgid "Change Email"
 msgstr "Змінити e-mail"
@@ -621,8 +635,8 @@ msgstr ""
 #: templates/account/email_confirm.html:35
 #, python-format
 msgid ""
-"This email confirmation link expired or is invalid. Please <a href="
-"\"%(email_url)s\">issue a new email confirmation request</a>."
+"This email confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">issue a new email confirmation request</a>."
 msgstr ""
 "Термін дії посилання для підтвердження електронної пошти закінчився або воно "
 "недійсне. Будь ласка, <a href=\"%(email_url)s\">надішліть новий запит на "
@@ -650,6 +664,7 @@ msgstr ""
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
 #: templates/account/logout.html:23 templates/allauth/layouts/base.html:32
+#: templates/usersessions/usersession_list.html:64
 msgid "Sign Out"
 msgstr "Вийти"
 
@@ -763,8 +778,8 @@ msgid ""
 "a>."
 msgstr ""
 "Посилання для відновлення паролю некоректне, можливо через те, що посилання "
-"уже використане.  Будь ласка, зробіть запит на <a href=\"%(passwd_reset_url)s"
-"\">нове відновлення паролю</a>."
+"уже використане.  Будь ласка, зробіть запит на <a "
+"href=\"%(passwd_reset_url)s\">нове відновлення паролю</a>."
 
 #: templates/account/password_reset_from_key_done.html:11
 msgid "Your password is now changed."
@@ -878,8 +893,8 @@ msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
 "email address</a>."
 msgstr ""
-"<strong>Зауважте:</strong> Ви все ще можете <a href=\"%(email_url)s"
-"\">змінити Вашу e-mail адресу</a>."
+"<strong>Зауважте:</strong> Ви все ще можете <a "
+"href=\"%(email_url)s\">змінити Вашу e-mail адресу</a>."
 
 #: templates/allauth/layouts/base.html:18
 msgid "Messages:"
@@ -904,33 +919,33 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: templates/mfa/index.html:13 templates/mfa/totp/base.html:4
+#: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
 msgstr ""
 
-#: templates/mfa/index.html:17
+#: templates/mfa/index.html:18
 msgid "Authentication using an authenticator app is active."
 msgstr ""
 
-#: templates/mfa/index.html:19
+#: templates/mfa/index.html:20
 msgid "An authenticator app is not active."
 msgstr ""
 
-#: templates/mfa/index.html:27 templates/mfa/totp/deactivate_form.html:24
+#: templates/mfa/index.html:28 templates/mfa/totp/deactivate_form.html:24
 msgid "Deactivate"
 msgstr ""
 
-#: templates/mfa/index.html:31 templates/mfa/totp/activate_form.html:32
+#: templates/mfa/index.html:32 templates/mfa/totp/activate_form.html:32
 msgid "Activate"
 msgstr ""
 
-#: templates/mfa/index.html:39 templates/mfa/recovery_codes/base.html:4
+#: templates/mfa/index.html:42 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
 #: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
 msgstr ""
 
-#: templates/mfa/index.html:44 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:47 templates/mfa/recovery_codes/index.html:9
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -941,19 +956,19 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: templates/mfa/index.html:47
+#: templates/mfa/index.html:50
 msgid "No recovery codes set up."
 msgstr ""
 
-#: templates/mfa/index.html:56
+#: templates/mfa/index.html:59
 msgid "View"
 msgstr ""
 
-#: templates/mfa/index.html:62
+#: templates/mfa/index.html:65
 msgid "Download"
 msgstr ""
 
-#: templates/mfa/index.html:70 templates/mfa/recovery_codes/generate.html:29
+#: templates/mfa/index.html:73 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
 msgstr ""
 
@@ -1104,12 +1119,12 @@ msgstr "Вхід відмінено"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
-"\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a "
+"href=\"%(login_url)s\">sign in</a>."
 msgstr ""
 "Ви відмінили вхід на наш сайт, використовуючи один з Ваших існуючих "
-"акаунтів.  Якщо це сталось помилково, будь ласка, <a href=\"%(login_url)s"
-"\">увійдіть</a>."
+"акаунтів.  Якщо це сталось помилково, будь ласка, <a "
+"href=\"%(login_url)s\">увійдіть</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."
@@ -1136,6 +1151,57 @@ msgstr ""
 msgid "Or use a third-party"
 msgstr ""
 
+#: templates/usersessions/messages/sessions_logged_out.txt:2
+msgid "Signed out of all other sessions."
+msgstr ""
+
+#: templates/usersessions/usersession_list.html:6
+#: templates/usersessions/usersession_list.html:10
+msgid "Sessions"
+msgstr ""
+
+#: templates/usersessions/usersession_list.html:23
+msgid "Started At"
+msgstr ""
+
+#: templates/usersessions/usersession_list.html:24
+#, fuzzy
+#| msgid "Email Address"
+msgid "IP Address"
+msgstr "E-mail адреса"
+
+#: templates/usersessions/usersession_list.html:25
+msgid "Browser"
+msgstr ""
+
+#: templates/usersessions/usersession_list.html:27
+msgid "Last seen at"
+msgstr ""
+
+#: templates/usersessions/usersession_list.html:47
+#, fuzzy
+#| msgid "Current Password"
+msgid "Current"
+msgstr "Поточний пароль"
+
+#: templates/usersessions/usersession_list.html:60
+msgid "Sign Out Other Sessions"
+msgstr ""
+
+#: usersessions/apps.py:7
+msgid "User Sessions"
+msgstr ""
+
+#: usersessions/models.py:46
+msgid "session key"
+msgstr ""
+
+#~ msgid "The following email address is associated with your account:"
+#~ msgstr "Вказаний e-mail уже прикріплений до цього акаунту:"
+
+#~ msgid "Change Email Address"
+#~ msgstr "Змінити e-mail адресу"
+
 #~ msgid ""
 #~ "To safeguard the security of your account, please enter your password:"
 #~ msgstr ""
@@ -1145,13 +1211,13 @@ msgstr ""
 #, python-format
 #~ msgid ""
 #~ "Please sign in with one\n"
-#~ "of your existing third party accounts. Or, <a href=\"%(signup_url)s"
-#~ "\">sign up</a>\n"
+#~ "of your existing third party accounts. Or, <a "
+#~ "href=\"%(signup_url)s\">sign up</a>\n"
 #~ "for a %(site_name)s account and sign in below:"
 #~ msgstr ""
 #~ "Будь ласка, увійдіть із одним \n"
-#~ "із Ваших існуючих зовнішніх акаунтів accounts. Або, <a href="
-#~ "\"%(signup_url)s\">Зареєструйте</a>\n"
+#~ "із Ваших існуючих зовнішніх акаунтів accounts. Або, <a "
+#~ "href=\"%(signup_url)s\">Зареєструйте</a>\n"
 #~ " %(site_name)s акаунт і Увійдіть:"
 
 #~ msgid "or"

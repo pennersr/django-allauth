@@ -1,5 +1,4 @@
-import requests
-
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -21,9 +20,13 @@ class FoursquareOAuth2Adapter(OAuth2Adapter):
         # Foursquare needs a version number for their API requests as
         # documented here
         # https://developer.foursquare.com/overview/versioning
-        resp = requests.get(
-            self.profile_url,
-            params={"oauth_token": token.token, "v": "20140116"},
+        resp = (
+            get_adapter()
+            .get_requests_session()
+            .get(
+                self.profile_url,
+                params={"oauth_token": token.token, "v": "20140116"},
+            )
         )
         extra_data = resp.json()["response"]["user"]
         return self.get_provider().sociallogin_from_response(request, extra_data)

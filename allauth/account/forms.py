@@ -107,9 +107,8 @@ class LoginForm(forms.Form):
         self.request = kwargs.pop("request", None)
         super(LoginForm, self).__init__(*args, **kwargs)
         if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
-            login_widget = forms.TextInput(
+            login_widget = forms.EmailInput(
                 attrs={
-                    "type": "email",
                     "placeholder": _("Email address"),
                     "autocomplete": "email",
                 }
@@ -589,7 +588,8 @@ class ResetPasswordForm(forms.Form):
     def save(self, request, **kwargs):
         email = self.cleaned_data["email"]
         if not self.users:
-            self._send_unknown_account_mail(request, email)
+            if app_settings.EMAIL_UNKNOWN_ACCOUNTS:
+                self._send_unknown_account_mail(request, email)
         else:
             self._send_password_reset_mail(request, email, self.users, **kwargs)
         return email

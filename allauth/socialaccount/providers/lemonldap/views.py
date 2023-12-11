@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-import requests
-
 from allauth.socialaccount import app_settings
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.lemonldap.provider import (
     LemonLDAPProvider,
 )
@@ -24,8 +23,10 @@ class LemonLDAPOAuth2Adapter(OAuth2Adapter):
     profile_url = "{0}/oauth2/userinfo".format(provider_base_url)
 
     def complete_login(self, request, app, token, response):
-        response = requests.post(
-            self.profile_url, headers={"Authorization": "Bearer " + str(token)}
+        response = (
+            get_adapter()
+            .get_requests_session()
+            .post(self.profile_url, headers={"Authorization": "Bearer " + str(token)})
         )
         response.raise_for_status()
         extra_data = response.json()

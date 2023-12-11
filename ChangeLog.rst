@@ -19,12 +19,20 @@ Note worthy changes
 - Added a new app, user sessions, allowing users to view a list of all their
   active sessions, as well as offering a means to end these sessions.
 
+- A configurable timeout (``SOCIALACCOUNT_REQUESTS_TIMEOUT``) is now applied to
+  all upstream requests.
+
+- Added a setting ``ACCOUNT_EMAIL_UNKNOWN_ACCOUNTS`` to disable sending of
+  emails to unknown accounts.
+
 
 Backwards incompatible changes
 ------------------------------
 
 - The account adapter method ``should_send_confirmation_mail()`` signature
   changed. It now takes an extra ``signup`` (boolean) parameter.
+
+- Removed OAuth 1.0 based Bitbucket provider.
 
 
 0.58.2 (2023-11-06)

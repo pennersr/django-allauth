@@ -1,5 +1,4 @@
-import requests
-
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -19,9 +18,13 @@ class QuestradeOAuth2Adapter(OAuth2Adapter):
         api_server = kwargs.get("response", {}).get(
             "api_server", "https://api01.iq.questrade.com/"
         )
-        resp = requests.get(
-            "{}v1/accounts".format(api_server),
-            headers={"Authorization": "Bearer {}".format(token.token)},
+        resp = (
+            get_adapter()
+            .get_requests_session()
+            .get(
+                "{}v1/accounts".format(api_server),
+                headers={"Authorization": "Bearer {}".format(token.token)},
+            )
         )
         resp.raise_for_status()
         data = resp.json()

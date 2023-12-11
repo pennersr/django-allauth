@@ -12,6 +12,10 @@ class AppSettings(object):
         return self._setting("ADAPTER", "allauth.mfa.adapter.DefaultMFAAdapter")
 
     @property
+    def FORMS(self):
+        return self._setting("FORMS", {})
+
+    @property
     def RECOVERY_CODE_COUNT(self):
         """
         The number of recovery codes.

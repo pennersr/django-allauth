@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-08 13:56-0600\n"
+"POT-Creation-Date: 2023-12-12 13:20-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,7 +69,7 @@ msgid "You must type the same password each time."
 msgstr "Turite įvesti tą patį slaptažodį kiekvieną kartą."
 
 #: account/forms.py:92 account/forms.py:412 account/forms.py:552
-#: account/forms.py:688
+#: account/forms.py:689
 msgid "Password"
 msgstr "Slaptažodis"
 
@@ -159,11 +159,11 @@ msgstr "Jūsų paskyra neturi patvirtinto el. pašto adreso."
 msgid "Current Password"
 msgstr "Esamas slaptažodis"
 
-#: account/forms.py:532 account/forms.py:637
+#: account/forms.py:532 account/forms.py:638
 msgid "New Password"
 msgstr "Naujas slaptažodis"
 
-#: account/forms.py:535 account/forms.py:638
+#: account/forms.py:535 account/forms.py:639
 msgid "New Password (again)"
 msgstr "Naujas slaptažodis (pakartoti)"
 
@@ -175,7 +175,7 @@ msgstr "Prašome įvesti esamą jūsų slaptažodį."
 msgid "The email address is not assigned to any user account"
 msgstr "El. pašto adresas nėra susietas su jokia naudotojo paskyra"
 
-#: account/forms.py:658
+#: account/forms.py:659
 msgid "The password reset token was invalid."
 msgstr "Neteisingas slaptažodžio atstatymo atpažinimo ženklas."
 
@@ -259,7 +259,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:31
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -271,11 +271,11 @@ msgstr ""
 "Paskyra su šiuo el. pašto adresu jau egzistuoja. Prašome pirmiausia "
 "prisijungti prie tos paskyros ir tada prijunkite %s paskyrą."
 
-#: socialaccount/adapter.py:136
+#: socialaccount/adapter.py:137
 msgid "Your account has no password set up."
 msgstr "Jūsų paskyra neturi nustatyto slaptažodžio."
 
-#: socialaccount/adapter.py:143
+#: socialaccount/adapter.py:144
 msgid "Your account has no verified email address."
 msgstr "Jūsų paskyra neturi patvirtinto el. pašto adreso."
 
@@ -378,7 +378,7 @@ msgstr "socialinės programėlės atpažinimo ženklas"
 msgid "social application tokens"
 msgstr "socialinės programėlės atpažinimo ženklai"
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:37
 msgid "Invalid profile data"
 msgstr ""
 
@@ -390,7 +390,7 @@ msgid ""
 msgstr "Klaidingas atsakymas gaunant užklausos atpažinimo ženklą iš \"%s\"."
 
 #: socialaccount/providers/oauth/client.py:119
-#: socialaccount/providers/pocket/client.py:78
+#: socialaccount/providers/pocket/client.py:86
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Klaidingas atsakymas gaunant prieigos atpažinimo ženklą iš \"%s\"."
@@ -410,7 +410,7 @@ msgstr "Nėra prieigos atpažinimo žymės šiam \"%s\"."
 msgid "No access to private resources at \"%s\"."
 msgstr "Nėra prieigos prie privataus resurso iš \"%s\"."
 
-#: socialaccount/providers/pocket/client.py:37
+#: socialaccount/providers/pocket/client.py:41
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "Klaidingas atsakymas gaunant užklausos atpažinimo ženklą iš \"%s\"."

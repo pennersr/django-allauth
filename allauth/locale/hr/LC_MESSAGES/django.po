@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-08 13:56-0600\n"
+"POT-Creation-Date: 2023-12-12 13:20-0600\n"
 "PO-Revision-Date: 2014-08-12 00:31+0200\n"
 "Last-Translator:   <goran.cetusic@gmail.com>\n"
 "Language-Team: Bojan Mihelac <bmihelac@mihelac.org>\n"
@@ -71,7 +71,7 @@ msgid "You must type the same password each time."
 msgstr "Potrebno je upisati istu lozinku svaki put."
 
 #: account/forms.py:92 account/forms.py:412 account/forms.py:552
-#: account/forms.py:688
+#: account/forms.py:689
 msgid "Password"
 msgstr "Lozinka"
 
@@ -161,11 +161,11 @@ msgstr "Vaš korisnički račun nema potvrđenu e-mail adresu."
 msgid "Current Password"
 msgstr "Trenutna lozinka"
 
-#: account/forms.py:532 account/forms.py:637
+#: account/forms.py:532 account/forms.py:638
 msgid "New Password"
 msgstr "Nova lozinka"
 
-#: account/forms.py:535 account/forms.py:638
+#: account/forms.py:535 account/forms.py:639
 msgid "New Password (again)"
 msgstr "Nova lozinka (ponovno)"
 
@@ -177,7 +177,7 @@ msgstr "Molimo unesite trenutnu lozinku."
 msgid "The email address is not assigned to any user account"
 msgstr "Upisana e-mail adresa nije dodijeljena niti jednom korisničkom računu"
 
-#: account/forms.py:658
+#: account/forms.py:659
 msgid "The password reset token was invalid."
 msgstr ""
 
@@ -261,7 +261,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:31
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -273,11 +273,11 @@ msgstr ""
 "Korisnički račun s ovom e-mail adresom već postoji. Molimo da se prvo "
 "ulogirate pod tim korisničkim računom i spojite svoj %s račun"
 
-#: socialaccount/adapter.py:136
+#: socialaccount/adapter.py:137
 msgid "Your account has no password set up."
 msgstr "Vaš korisnički račun nema postavljenu lozinku."
 
-#: socialaccount/adapter.py:143
+#: socialaccount/adapter.py:144
 msgid "Your account has no verified email address."
 msgstr "Vaš korisnički račun nema potvrđenu e-mail adresu."
 
@@ -377,7 +377,7 @@ msgstr ""
 msgid "social application tokens"
 msgstr ""
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:37
 msgid "Invalid profile data"
 msgstr ""
 
@@ -389,7 +389,7 @@ msgid ""
 msgstr "Neispravan odaziv pri dohvatu tokena zahtjeva od \\\"%s\\\"."
 
 #: socialaccount/providers/oauth/client.py:119
-#: socialaccount/providers/pocket/client.py:78
+#: socialaccount/providers/pocket/client.py:86
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Neispravan odaziv pri dohvatu pristupnog tokena od \\\"%s\\\"."
@@ -409,7 +409,7 @@ msgstr "Token za pristup za  \\\"%s\\\" nije pohranjen."
 msgid "No access to private resources at \"%s\"."
 msgstr "Nemate pristup zaštičenim sadržajima na \\\"%s\\\"."
 
-#: socialaccount/providers/pocket/client.py:37
+#: socialaccount/providers/pocket/client.py:41
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "Neispravan odaziv pri dohvatu tokena zahtjeva od \\\"%s\\\"."

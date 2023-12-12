@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-08 13:56-0600\n"
-"PO-Revision-Date: 2023-11-03 11:15+0100\n"
+"POT-Creation-Date: 2023-12-12 13:20-0600\n"
+"PO-Revision-Date: 2023-12-12 16:54+0100\n"
 "Last-Translator: Gilou <contact+dev@gilouweb.com>\n"
 "Language-Team: français <>\n"
 "Language: fr\n"
@@ -44,22 +44,16 @@ msgid "Password must be a minimum of {0} characters."
 msgstr "Le mot de passe doit contenir au minimum {0} caractères."
 
 #: account/adapter.py:731
-#, fuzzy
-#| msgid "Forgot your password?"
 msgid "Use your password"
-msgstr "Mot de passe oublié ?"
+msgstr "Utilisez votre mot de passe"
 
 #: account/adapter.py:741
-#, fuzzy
-#| msgid "Authenticator App"
 msgid "Use your authenticator app"
-msgstr "Application d'authentification"
+msgstr "Utilisez votre application d'authentification"
 
 #: account/admin.py:23
-#, fuzzy
-#| msgid "Your primary email address must be verified."
 msgid "Mark selected email addresses as verified"
-msgstr "Votre adresse email principale doit être vérifiée."
+msgstr "Marquer les adresses e-mail sélectionnées comme vérifiées"
 
 #: account/apps.py:9
 msgid "Accounts"
@@ -70,7 +64,7 @@ msgid "You must type the same password each time."
 msgstr "Vous devez saisir deux fois le même mot de passe."
 
 #: account/forms.py:92 account/forms.py:412 account/forms.py:552
-#: account/forms.py:688
+#: account/forms.py:689
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -151,11 +145,11 @@ msgstr "Vous ne pouvez pas ajouter plus de %d adresses e-mail."
 msgid "Current Password"
 msgstr "Mot de passe actuel"
 
-#: account/forms.py:532 account/forms.py:637
+#: account/forms.py:532 account/forms.py:638
 msgid "New Password"
 msgstr "Nouveau mot de passe"
 
-#: account/forms.py:535 account/forms.py:638
+#: account/forms.py:535 account/forms.py:639
 msgid "New Password (again)"
 msgstr "Nouveau mot de passe (confirmation)"
 
@@ -167,7 +161,7 @@ msgstr "Merci d'indiquer votre mot de passe actuel."
 msgid "The email address is not assigned to any user account"
 msgstr "Cette adresse email n'est pas associée à un compte utilisateur"
 
-#: account/forms.py:658
+#: account/forms.py:659
 msgid "The password reset token was invalid."
 msgstr "Le jeton de réinitialisation de mot de passe est invalide."
 
@@ -232,14 +226,8 @@ msgid "Incorrect code."
 msgstr "Code incorrect."
 
 #: mfa/adapter.py:26
-#, fuzzy
-#| msgid ""
-#| "You cannot add an email address to an account protected by two-factor "
-#| "authentication."
 msgid "You cannot deactivate two-factor authentication."
-msgstr ""
-"Vous ne pouvez pas ajouter une adresse e-mail à un compte protégé par "
-"l'authentification à deux facteurs."
+msgstr "Vous ne pouvez pas désactiver l'authentification à deux facteurs."
 
 #: mfa/apps.py:7
 msgid "MFA"
@@ -261,7 +249,7 @@ msgstr "Codes de récupération"
 msgid "TOTP Authenticator"
 msgstr "Authentificateur TOTP"
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:31
 #, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
@@ -270,11 +258,11 @@ msgstr ""
 "Un compte existe déjà avec cette adresse email. Merci de vous connecter au "
 "préalable avec ce compte, et ensuite connecter votre compte %s."
 
-#: socialaccount/adapter.py:136
+#: socialaccount/adapter.py:137
 msgid "Your account has no password set up."
 msgstr "Vous devez d'abord définir le mot de passe de votre compte."
 
-#: socialaccount/adapter.py:143
+#: socialaccount/adapter.py:144
 msgid "Your account has no verified email address."
 msgstr "Vous devez d'abord associer une adresse email à votre compte."
 
@@ -374,7 +362,7 @@ msgstr "jeton de l'application sociale"
 msgid "social application tokens"
 msgstr "jetons de l'application sociale"
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:37
 msgid "Invalid profile data"
 msgstr "Données de profil incorrectes"
 
@@ -387,7 +375,7 @@ msgstr ""
 "réponse était : %s."
 
 #: socialaccount/providers/oauth/client.py:119
-#: socialaccount/providers/pocket/client.py:78
+#: socialaccount/providers/pocket/client.py:86
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Réponse invalide lors de l'obtention du jeton d'accès depuis \"%s\"."
@@ -407,7 +395,7 @@ msgstr "Aucun jeton d'accès sauvegardé pour \"%s\"."
 msgid "No access to private resources at \"%s\"."
 msgstr "Impossible d'accéder aux ressources privées de \"%s\"."
 
-#: socialaccount/providers/pocket/client.py:37
+#: socialaccount/providers/pocket/client.py:41
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "Réponse invalide lors de l'obtention du jeton de requête de \"%s\"."
@@ -428,11 +416,11 @@ msgstr "Confirmer l'accès"
 
 #: templates/account/base_reauthenticate.html:11
 msgid "Please reauthenticate to safeguard your account."
-msgstr ""
+msgstr "Veuillez vous réauthentifier pour protéger votre compte."
 
 #: templates/account/base_reauthenticate.html:17
 msgid "Alternative options"
-msgstr ""
+msgstr "Options alternatives"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -598,30 +586,24 @@ msgid "Email Address"
 msgstr "Adresse email"
 
 #: templates/account/email_change.html:20
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current email"
-msgstr "Mot de passe actuel"
+msgstr "Email actuel"
 
 #: templates/account/email_change.html:27
 msgid "Changing to"
-msgstr ""
+msgstr "Changer pour"
 
 #: templates/account/email_change.html:30
-#, fuzzy
-#| msgid "Your email address is still pending verification:"
 msgid "Your email address is still pending verification."
-msgstr "Votre adresse e-mail est toujours en attente de vérification:"
+msgstr "Votre adresse e-mail est toujours en attente de vérification."
 
 #: templates/account/email_change.html:36
-#, fuzzy
-#| msgid "Change Email"
 msgid "Change to"
-msgstr "Changer d'email"
+msgstr "Changer pour"
 
 #: templates/account/email_change.html:47
 msgid "Cancel Change"
-msgstr ""
+msgstr "Annuler la modification"
 
 #: templates/account/email_change.html:51
 #: templates/allauth/layouts/base.html:29
@@ -817,10 +799,8 @@ msgid "Set Password"
 msgstr "Définir un mot de passe"
 
 #: templates/account/reauthenticate.html:5
-#, fuzzy
-#| msgid "Forgot your password?"
 msgid "Enter your password:"
-msgstr "Mot de passe oublié ?"
+msgstr "Entrez votre mot de passe:"
 
 #: templates/account/signup.html:4 templates/socialaccount/signup.html:5
 msgid "Signup"
@@ -943,7 +923,7 @@ msgstr ""
 
 #: templates/mfa/authenticate.html:27
 msgid "Cancel"
-msgstr ""
+msgstr "Annuler"
 
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
@@ -1014,10 +994,8 @@ msgid "Authenticator app deactivated."
 msgstr "Application d'authentification désactivée."
 
 #: templates/mfa/reauthenticate.html:5
-#, fuzzy
-#| msgid "Authenticator code"
 msgid "Enter an authenticator code:"
-msgstr "Code de l'authentificateur"
+msgstr "Entrez un code d'authentification:"
 
 #: templates/mfa/recovery_codes/generate.html:9
 msgid "You are about to generate a new set of recovery codes for your account."
@@ -1190,48 +1168,44 @@ msgstr "Ou utilisez un service tiers"
 
 #: templates/usersessions/messages/sessions_logged_out.txt:2
 msgid "Signed out of all other sessions."
-msgstr ""
+msgstr "Déconnecté de toutes les autres sessions."
 
 #: templates/usersessions/usersession_list.html:6
 #: templates/usersessions/usersession_list.html:10
 msgid "Sessions"
-msgstr ""
+msgstr "Sessions"
 
 #: templates/usersessions/usersession_list.html:23
 msgid "Started At"
-msgstr ""
+msgstr "Commencé à"
 
 #: templates/usersessions/usersession_list.html:24
-#, fuzzy
-#| msgid "Email Address"
 msgid "IP Address"
-msgstr "Adresse email"
+msgstr "Adresse IP"
 
 #: templates/usersessions/usersession_list.html:25
 msgid "Browser"
-msgstr ""
+msgstr "Navigateur"
 
 #: templates/usersessions/usersession_list.html:27
 msgid "Last seen at"
-msgstr ""
+msgstr "Vu pour la dernière fois à"
 
 #: templates/usersessions/usersession_list.html:47
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current"
-msgstr "Mot de passe actuel"
+msgstr "Actuel"
 
 #: templates/usersessions/usersession_list.html:60
 msgid "Sign Out Other Sessions"
-msgstr ""
+msgstr "Déconnecter les autres sessions"
 
 #: usersessions/apps.py:7
 msgid "User Sessions"
-msgstr ""
+msgstr "Sessions utilisateur"
 
 #: usersessions/models.py:46
 msgid "session key"
-msgstr ""
+msgstr "Clé de session"
 
 #~ msgid "The following email address is associated with your account:"
 #~ msgstr "Les adresses email suivantes sont associées à votre compte :"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-08 13:56-0600\n"
+"POT-Creation-Date: 2023-12-12 13:20-0600\n"
 "PO-Revision-Date: 2023-07-24 22:25+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -67,7 +67,7 @@ msgid "You must type the same password each time."
 msgstr "Трябва да въведете една и съща парола."
 
 #: account/forms.py:92 account/forms.py:412 account/forms.py:552
-#: account/forms.py:688
+#: account/forms.py:689
 msgid "Password"
 msgstr "Парола"
 
@@ -150,11 +150,11 @@ msgstr "Не можете да добавяте повече от %d e-mail ад
 msgid "Current Password"
 msgstr "Текуща парола"
 
-#: account/forms.py:532 account/forms.py:637
+#: account/forms.py:532 account/forms.py:638
 msgid "New Password"
 msgstr "Нова парола"
 
-#: account/forms.py:535 account/forms.py:638
+#: account/forms.py:535 account/forms.py:639
 msgid "New Password (again)"
 msgstr "Нова парола (отново)"
 
@@ -166,7 +166,7 @@ msgstr "Моля, въведете вашата текуща парола."
 msgid "The email address is not assigned to any user account"
 msgstr "Няма потребител с този e-mail адрес."
 
-#: account/forms.py:658
+#: account/forms.py:659
 msgid "The password reset token was invalid."
 msgstr "Невалиден код за възстановяване на парола."
 
@@ -250,7 +250,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:31
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -262,11 +262,11 @@ msgstr ""
 "Вече съществува акаунт с този e-mail адрес. Моля, първо влезте в този акаунт "
 "и тогава свържете вашия %s акаунт."
 
-#: socialaccount/adapter.py:136
+#: socialaccount/adapter.py:137
 msgid "Your account has no password set up."
 msgstr "Вашият акаунт няма парола."
 
-#: socialaccount/adapter.py:143
+#: socialaccount/adapter.py:144
 msgid "Your account has no verified email address."
 msgstr "Вашият акаунт няма потвърден e-mail адрес."
 
@@ -368,7 +368,7 @@ msgstr "код на социално приложение"
 msgid "social application tokens"
 msgstr "кодове на социални приложения"
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:37
 msgid "Invalid profile data"
 msgstr "Невалидни профилни данни"
 
@@ -380,7 +380,7 @@ msgid ""
 msgstr "Грешен отговор при получаване на код за заявка от \"%s\"."
 
 #: socialaccount/providers/oauth/client.py:119
-#: socialaccount/providers/pocket/client.py:78
+#: socialaccount/providers/pocket/client.py:86
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Грешен отговор при получаване на код за достъп от \"%s\"."
@@ -400,7 +400,7 @@ msgstr "Няма запазен код за достъп за \"%s\"."
 msgid "No access to private resources at \"%s\"."
 msgstr "Няма достъп до лични данни при \"%s\"."
 
-#: socialaccount/providers/pocket/client.py:37
+#: socialaccount/providers/pocket/client.py:41
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "Грешен отговор при получаване на код за заявка от \"%s\"."

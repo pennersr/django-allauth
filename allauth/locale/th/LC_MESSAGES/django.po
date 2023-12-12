@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-08 13:56-0600\n"
+"POT-Creation-Date: 2023-12-12 13:20-0600\n"
 "PO-Revision-Date: 2015-06-26 13:09+0700\n"
 "Last-Translator: Nattaphoom Chaipreecha <attomos@gmail.com>\n"
 "Language-Team: Thai <LL@li.org>\n"
@@ -68,7 +68,7 @@ msgid "You must type the same password each time."
 msgstr "ต้องพิมพ์รหัสผ่านเดิมซ้ำอีกครั้ง"
 
 #: account/forms.py:92 account/forms.py:412 account/forms.py:552
-#: account/forms.py:688
+#: account/forms.py:689
 msgid "Password"
 msgstr "รหัสผ่าน"
 
@@ -158,11 +158,11 @@ msgstr "บัญชีของคุณไม่มีอีเมลที่
 msgid "Current Password"
 msgstr "รหัสผ่านปัจจุบัน"
 
-#: account/forms.py:532 account/forms.py:637
+#: account/forms.py:532 account/forms.py:638
 msgid "New Password"
 msgstr "รหัสผ่านใหม่"
 
-#: account/forms.py:535 account/forms.py:638
+#: account/forms.py:535 account/forms.py:639
 msgid "New Password (again)"
 msgstr "รหัสผ่านใหม่ (อีกครั้ง)"
 
@@ -174,7 +174,7 @@ msgstr "โปรดใส่รหัสผ่านปัจจุบัน"
 msgid "The email address is not assigned to any user account"
 msgstr "อีเมลนี้ไม่ได้เชื่อมกับบัญชีใดเลย"
 
-#: account/forms.py:658
+#: account/forms.py:659
 msgid "The password reset token was invalid."
 msgstr "token ที่ใช้รีเซ็ทรหัสผ่านไม่ถูกต้อง"
 
@@ -258,7 +258,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:31
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -268,11 +268,11 @@ msgid ""
 "account first, then connect your %s account."
 msgstr "มีบัญชีที่ใช้อีเมลนี้แล้ว โปรดลงชื่อเข้าใช้ก่อนแล้วค่อยเชื่อมต่อกับบัญชี %s ของคุณ"
 
-#: socialaccount/adapter.py:136
+#: socialaccount/adapter.py:137
 msgid "Your account has no password set up."
 msgstr "บัญชีของคุณไม่ได้ตั้งรหัสผ่านไว้"
 
-#: socialaccount/adapter.py:143
+#: socialaccount/adapter.py:144
 msgid "Your account has no verified email address."
 msgstr "บัญชีของคุณไม่มีอีเมลที่ยืนยันแล้ว"
 
@@ -374,7 +374,7 @@ msgstr ""
 msgid "social application tokens"
 msgstr ""
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:37
 msgid "Invalid profile data"
 msgstr ""
 
@@ -386,7 +386,7 @@ msgid ""
 msgstr "การตอบสนองผิดพลาดขณะที่กำลังได้รับ request token จาก \"%s\""
 
 #: socialaccount/providers/oauth/client.py:119
-#: socialaccount/providers/pocket/client.py:78
+#: socialaccount/providers/pocket/client.py:86
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "การตอบสนองผิดพลาดขณะที่กำลังได้รับ access token จาก \"%s\""
@@ -406,7 +406,7 @@ msgstr "ไม่มีการบันทึก access token ของ \"%s\"
 msgid "No access to private resources at \"%s\"."
 msgstr "ไม่มีสิทธิ์การเข้าใช้ทรัพยากรส่วนตัว ที่ \"%s\""
 
-#: socialaccount/providers/pocket/client.py:37
+#: socialaccount/providers/pocket/client.py:41
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "การตอบสนองผิดพลาดขณะที่กำลังได้รับ request token จาก \"%s\""

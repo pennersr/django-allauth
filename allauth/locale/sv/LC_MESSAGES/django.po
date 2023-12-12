@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-08 13:56-0600\n"
+"POT-Creation-Date: 2023-12-12 13:20-0600\n"
 "PO-Revision-Date: 2014-08-12 00:35+0200\n"
 "Last-Translator: Jannis \n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/django-allauth/"
@@ -67,7 +67,7 @@ msgid "You must type the same password each time."
 msgstr "Du måste ange samma lösenord"
 
 #: account/forms.py:92 account/forms.py:412 account/forms.py:552
-#: account/forms.py:688
+#: account/forms.py:689
 msgid "Password"
 msgstr "Lösenord"
 
@@ -157,11 +157,11 @@ msgstr "Ditt konto har ingen verifierad epost-adress."
 msgid "Current Password"
 msgstr "Nuvarande lösenord"
 
-#: account/forms.py:532 account/forms.py:637
+#: account/forms.py:532 account/forms.py:638
 msgid "New Password"
 msgstr "Nytt lösenord"
 
-#: account/forms.py:535 account/forms.py:638
+#: account/forms.py:535 account/forms.py:639
 msgid "New Password (again)"
 msgstr "Nytt lösenord (igen)"
 
@@ -173,7 +173,7 @@ msgstr "Skriv in ditt nuvarande lösenord."
 msgid "The email address is not assigned to any user account"
 msgstr "Epost-adressen är inte knuten till något konto"
 
-#: account/forms.py:658
+#: account/forms.py:659
 msgid "The password reset token was invalid."
 msgstr ""
 
@@ -259,18 +259,18 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:31
 #, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
 "account first, then connect your %s account."
 msgstr ""
 
-#: socialaccount/adapter.py:136
+#: socialaccount/adapter.py:137
 msgid "Your account has no password set up."
 msgstr "Ditt konto har inget lösenord."
 
-#: socialaccount/adapter.py:143
+#: socialaccount/adapter.py:144
 msgid "Your account has no verified email address."
 msgstr "Ditt konto har ingen verifierad epost-adress."
 
@@ -372,7 +372,7 @@ msgstr ""
 msgid "social application tokens"
 msgstr ""
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:37
 msgid "Invalid profile data"
 msgstr ""
 
@@ -384,7 +384,7 @@ msgid ""
 msgstr "Felaktigt svar vid hämtning av fråge-nyckel från \"%s\"."
 
 #: socialaccount/providers/oauth/client.py:119
-#: socialaccount/providers/pocket/client.py:78
+#: socialaccount/providers/pocket/client.py:86
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Felaktigt svar vid hämtning av access-nyckel från \"%s\"."
@@ -404,7 +404,7 @@ msgstr "Ingen access-nyckel sparad för \"%s\"."
 msgid "No access to private resources at \"%s\"."
 msgstr "Ingen access till privata resurser hos \"%s\"."
 
-#: socialaccount/providers/pocket/client.py:37
+#: socialaccount/providers/pocket/client.py:41
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "Felaktigt svar vid hämtning av fråge-nyckel från \"%s\"."

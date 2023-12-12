@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-08 13:56-0600\n"
-"PO-Revision-Date: 2023-11-27 19:25+0100\n"
+"POT-Creation-Date: 2023-12-12 13:20-0600\n"
+"PO-Revision-Date: 2023-12-12 16:41+0100\n"
 "Last-Translator: pennersr <raymond.penners@intenct.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/django-allauth/"
 "language/nl/)\n"
@@ -61,7 +61,7 @@ msgid "You must type the same password each time."
 msgstr "Je moet hetzelfde wachtwoord twee keer intoetsen."
 
 #: account/forms.py:92 account/forms.py:412 account/forms.py:552
-#: account/forms.py:688
+#: account/forms.py:689
 msgid "Password"
 msgstr "Wachtwoord"
 
@@ -142,11 +142,11 @@ msgstr "Je kunt niet meer dan %d e-mailadressen toevoegen."
 msgid "Current Password"
 msgstr "Huidig wachtwoord"
 
-#: account/forms.py:532 account/forms.py:637
+#: account/forms.py:532 account/forms.py:638
 msgid "New Password"
 msgstr "Nieuw wachtwoord"
 
-#: account/forms.py:535 account/forms.py:638
+#: account/forms.py:535 account/forms.py:639
 msgid "New Password (again)"
 msgstr "Nieuw wachtwoord (bevestigen)"
 
@@ -158,7 +158,7 @@ msgstr "Geef je huidige wachtwoord op."
 msgid "The email address is not assigned to any user account"
 msgstr "Dit e-mailadres is niet bij ons bekend"
 
-#: account/forms.py:658
+#: account/forms.py:659
 msgid "The password reset token was invalid."
 msgstr "De wachtwoordherstel-sleutel is niet geldig."
 
@@ -246,7 +246,7 @@ msgstr "Herstelcodes"
 msgid "TOTP Authenticator"
 msgstr "TOTP Authenticator"
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:31
 #, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
@@ -255,11 +255,11 @@ msgstr ""
 "Er bestaat al een account met dit e-mailadres. Meld je eerst aan met dit "
 "account, verbind daarna je %s account."
 
-#: socialaccount/adapter.py:136
+#: socialaccount/adapter.py:137
 msgid "Your account has no password set up."
 msgstr "Je account heeft geen wachtwoord ingesteld."
 
-#: socialaccount/adapter.py:143
+#: socialaccount/adapter.py:144
 msgid "Your account has no verified email address."
 msgstr "Je account heeft geen geverifieerd e-mailadres."
 
@@ -359,7 +359,7 @@ msgstr "social applicatie token"
 msgid "social application tokens"
 msgstr "social applicatie tokens"
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:37
 msgid "Invalid profile data"
 msgstr "Ongeldige profiel data"
 
@@ -372,7 +372,7 @@ msgstr ""
 "\"%s\", antwoord: \"%s\"."
 
 #: socialaccount/providers/oauth/client.py:119
-#: socialaccount/providers/pocket/client.py:78
+#: socialaccount/providers/pocket/client.py:86
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr ""
@@ -394,7 +394,7 @@ msgstr "Geen toegangssleutel opgeslagen voor \"%s\"."
 msgid "No access to private resources at \"%s\"."
 msgstr "Geen toegang tot privé data bij \"%s\"."
 
-#: socialaccount/providers/pocket/client.py:37
+#: socialaccount/providers/pocket/client.py:41
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr ""
@@ -584,32 +584,24 @@ msgid "Email Address"
 msgstr "E-mailadres"
 
 #: templates/account/email_change.html:20
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current email"
-msgstr "Huidig wachtwoord"
+msgstr "Huidig email"
 
 #: templates/account/email_change.html:27
 msgid "Changing to"
-msgstr ""
+msgstr "Wordt veranderd in"
 
 #: templates/account/email_change.html:30
-#, fuzzy
-#| msgid "Your email address is still pending verification:"
 msgid "Your email address is still pending verification."
-msgstr "Je primaire e-mailadres wacht op verificatie."
+msgstr "Je e-mailadres wacht op verificatie."
 
 #: templates/account/email_change.html:36
-#, fuzzy
-#| msgid "Change Email"
 msgid "Change to"
-msgstr "E-mail wijzigen"
+msgstr "Wijzig naar"
 
 #: templates/account/email_change.html:47
-#, fuzzy
-#| msgid "Cancel"
 msgid "Cancel Change"
-msgstr "Annuleren"
+msgstr "Annuleer wijziging"
 
 #: templates/account/email_change.html:51
 #: templates/allauth/layouts/base.html:29
@@ -1154,48 +1146,44 @@ msgstr "Of gebruik een derde partij"
 
 #: templates/usersessions/messages/sessions_logged_out.txt:2
 msgid "Signed out of all other sessions."
-msgstr ""
+msgstr "Afgemeld van alle andere sessies."
 
 #: templates/usersessions/usersession_list.html:6
 #: templates/usersessions/usersession_list.html:10
 msgid "Sessions"
-msgstr ""
+msgstr "Sessies"
 
 #: templates/usersessions/usersession_list.html:23
 msgid "Started At"
-msgstr ""
+msgstr "Gestart op"
 
 #: templates/usersessions/usersession_list.html:24
-#, fuzzy
-#| msgid "Email Address"
 msgid "IP Address"
-msgstr "E-mailadres"
+msgstr "IP adres"
 
 #: templates/usersessions/usersession_list.html:25
 msgid "Browser"
-msgstr ""
+msgstr "Browser"
 
 #: templates/usersessions/usersession_list.html:27
 msgid "Last seen at"
-msgstr ""
+msgstr "Laatst gezien op"
 
 #: templates/usersessions/usersession_list.html:47
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current"
-msgstr "Huidig wachtwoord"
+msgstr "Huidig"
 
 #: templates/usersessions/usersession_list.html:60
 msgid "Sign Out Other Sessions"
-msgstr ""
+msgstr "Elders uitloggen"
 
 #: usersessions/apps.py:7
 msgid "User Sessions"
-msgstr ""
+msgstr "Gebruikerssessies"
 
 #: usersessions/models.py:46
 msgid "session key"
-msgstr ""
+msgstr "sessie sleutel"
 
 #~ msgid "The following email address is associated with your account:"
 #~ msgstr "De volgende e-mailadressen zijn gekoppeld aan jouw account:"

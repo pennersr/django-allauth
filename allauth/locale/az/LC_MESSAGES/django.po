@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-08 13:56-0600\n"
+"POT-Creation-Date: 2023-12-12 13:20-0600\n"
 "PO-Revision-Date: 2023-11-20 22:38-0600\n"
 "Last-Translator: Jeyhun Piriyev <jeihunpiriyev@gmail.com>\n"
 "Language-Team: Azerbaijani (Azerbaijan)\n"
@@ -65,7 +65,7 @@ msgid "You must type the same password each time."
 msgstr "Hər dəfə eyni şifrəni daxil etməlisiniz."
 
 #: account/forms.py:92 account/forms.py:412 account/forms.py:552
-#: account/forms.py:688
+#: account/forms.py:689
 msgid "Password"
 msgstr "Şifrə"
 
@@ -146,11 +146,11 @@ msgstr "Siz %d-dən çox e-poçt ünvanı əlavə edə bilməzsiniz."
 msgid "Current Password"
 msgstr "Mövcud şifrə"
 
-#: account/forms.py:532 account/forms.py:637
+#: account/forms.py:532 account/forms.py:638
 msgid "New Password"
 msgstr "Yeni şifrə"
 
-#: account/forms.py:535 account/forms.py:638
+#: account/forms.py:535 account/forms.py:639
 msgid "New Password (again)"
 msgstr "Yeni şifrə (təkrar)"
 
@@ -162,7 +162,7 @@ msgstr "Zəhmət olmasa cari şifrənizi yazın."
 msgid "The email address is not assigned to any user account"
 msgstr "E-poçt ünvanı heç bir istifadəçi hesabına təyin edilməyib"
 
-#: account/forms.py:658
+#: account/forms.py:659
 msgid "The password reset token was invalid."
 msgstr "Şifrə sıfırlama tokeni yanlışdır."
 
@@ -256,7 +256,7 @@ msgstr "Bərpa kodları"
 msgid "TOTP Authenticator"
 msgstr "TOTP Autentifikator"
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:31
 #, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
@@ -265,11 +265,11 @@ msgstr ""
 "Bu e-poçt ünvanı ilə artıq hesab mövcuddur. Lütfən, əvvəlcə həmin hesaba "
 "daxil olun, sonra %s hesabınızı birləşdirin."
 
-#: socialaccount/adapter.py:136
+#: socialaccount/adapter.py:137
 msgid "Your account has no password set up."
 msgstr "Hesabınızda şifrə quraşdırılmayıb."
 
-#: socialaccount/adapter.py:143
+#: socialaccount/adapter.py:144
 msgid "Your account has no verified email address."
 msgstr "Hesabınızın təsdiqlənmiş e-poçt ünvanı yoxdur."
 
@@ -369,7 +369,7 @@ msgstr "sosial tətbiq tokeni"
 msgid "social application tokens"
 msgstr "sosial tətbiq tokenləri"
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:37
 msgid "Invalid profile data"
 msgstr "Yanlış profil məlumatı"
 
@@ -381,7 +381,7 @@ msgstr ""
 "\"%s\"-dən sorğu tokeni alınarkən yanlış cavab alındı. Cavab belə oldu: %s."
 
 #: socialaccount/providers/oauth/client.py:119
-#: socialaccount/providers/pocket/client.py:78
+#: socialaccount/providers/pocket/client.py:86
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "\"%s\"-dən giriş tokeni əldə edərkən yanlış cavab alındı."
@@ -401,7 +401,7 @@ msgstr "\"%s\" üçün heç bir giriş tokeni saxlanılmadı."
 msgid "No access to private resources at \"%s\"."
 msgstr "\"%s\" ünvanında şəxsi resurslara giriş yoxdur."
 
-#: socialaccount/providers/pocket/client.py:37
+#: socialaccount/providers/pocket/client.py:41
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "\"%s\"-dən sorğu tokeni alınarkən uğursuz cavab alındı."

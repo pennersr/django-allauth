@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-08 13:56-0600\n"
+"POT-Creation-Date: 2023-12-12 13:20-0600\n"
 "PO-Revision-Date: 2020-10-12 12:34+0200\n"
 "Last-Translator: Krzysztof Hoffmann <krzysiekpl@gmail.com>\n"
 "Language-Team: \n"
@@ -69,7 +69,7 @@ msgid "You must type the same password each time."
 msgstr "Musisz wpisać za każdym razem to samo hasło."
 
 #: account/forms.py:92 account/forms.py:412 account/forms.py:552
-#: account/forms.py:688
+#: account/forms.py:689
 msgid "Password"
 msgstr "Hasło"
 
@@ -152,11 +152,11 @@ msgstr "Nie możesz dodać więcej niż %d adresów e-mail."
 msgid "Current Password"
 msgstr "Obecne hasło"
 
-#: account/forms.py:532 account/forms.py:637
+#: account/forms.py:532 account/forms.py:638
 msgid "New Password"
 msgstr "Nowe hasło"
 
-#: account/forms.py:535 account/forms.py:638
+#: account/forms.py:535 account/forms.py:639
 msgid "New Password (again)"
 msgstr "Nowe hasło (ponownie)"
 
@@ -168,7 +168,7 @@ msgstr "Proszę wpisz swoje obecne hasło."
 msgid "The email address is not assigned to any user account"
 msgstr "Adres e-mail nie jest powiązany z żadnym kontem użytkownika"
 
-#: account/forms.py:658
+#: account/forms.py:659
 msgid "The password reset token was invalid."
 msgstr "Token resetowania hasła był nieprawidłowy."
 
@@ -262,7 +262,7 @@ msgstr "Kody odzyskiwania"
 msgid "TOTP Authenticator"
 msgstr "Autentykator TOTP"
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:31
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -274,11 +274,11 @@ msgstr ""
 "Istnieje już konto dla tego adresu e-mail. Zaloguj się najpierw na to konto, "
 "a następnie połącz swoje konto %s."
 
-#: socialaccount/adapter.py:136
+#: socialaccount/adapter.py:137
 msgid "Your account has no password set up."
 msgstr "Twoje konto nie posiada hasła."
 
-#: socialaccount/adapter.py:143
+#: socialaccount/adapter.py:144
 msgid "Your account has no verified email address."
 msgstr "Twoje konto nie ma zweryfikowanego adresu e-mail."
 
@@ -380,7 +380,7 @@ msgstr "token aplikacji społecznościowej"
 msgid "social application tokens"
 msgstr "tokeny aplikacji społecznościowych"
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:37
 msgid "Invalid profile data"
 msgstr "Nieprawidłowe dane profilu"
 
@@ -392,7 +392,7 @@ msgid ""
 msgstr "Błędna odpowiedź podczas pobierania tokena z \"%s\"."
 
 #: socialaccount/providers/oauth/client.py:119
-#: socialaccount/providers/pocket/client.py:78
+#: socialaccount/providers/pocket/client.py:86
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Błędna odpowiedź podczas pobierania tokena autoryzacji z \"%s\"."
@@ -412,7 +412,7 @@ msgstr "Brak zapisanego tokena autoryzacji \"%s\"."
 msgid "No access to private resources at \"%s\"."
 msgstr "Brak dostępu do prywatnych zasobów na \"%s\"."
 
-#: socialaccount/providers/pocket/client.py:37
+#: socialaccount/providers/pocket/client.py:41
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "Błędna odpowiedź podczas pobierania tokena z \"%s\"."

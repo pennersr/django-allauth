@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-08 13:56-0600\n"
+"POT-Creation-Date: 2023-12-12 13:20-0600\n"
 "PO-Revision-Date: 2014-12-01 01:20+0000\n"
 "Last-Translator: cacarrara <caiocarrara@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
@@ -72,7 +72,7 @@ msgid "You must type the same password each time."
 msgstr "A mesma senha deve ser escrita em ambos os campos."
 
 #: account/forms.py:92 account/forms.py:412 account/forms.py:552
-#: account/forms.py:688
+#: account/forms.py:689
 msgid "Password"
 msgstr "Senha"
 
@@ -155,11 +155,11 @@ msgstr "Não se pode adicionar mais de %d endereços de e-mail."
 msgid "Current Password"
 msgstr "Senha Atual"
 
-#: account/forms.py:532 account/forms.py:637
+#: account/forms.py:532 account/forms.py:638
 msgid "New Password"
 msgstr "Nova Senha"
 
-#: account/forms.py:535 account/forms.py:638
+#: account/forms.py:535 account/forms.py:639
 msgid "New Password (again)"
 msgstr "Nova Senha (novamente)"
 
@@ -171,7 +171,7 @@ msgstr "Por favor insira a sua senha atual."
 msgid "The email address is not assigned to any user account"
 msgstr "Este endereço de e-mail não está associado a nenhuma conta de usuário"
 
-#: account/forms.py:658
+#: account/forms.py:659
 msgid "The password reset token was invalid."
 msgstr "Token de redefinição de senha inválido"
 
@@ -255,7 +255,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:31
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -267,11 +267,11 @@ msgstr ""
 "Já existe uma conta com esse endereço de e-mail. Por favor, faça login na "
 "conta existente e, em seguida, conecte com %s."
 
-#: socialaccount/adapter.py:136
+#: socialaccount/adapter.py:137
 msgid "Your account has no password set up."
 msgstr "Sua conta não tem uma senha definida."
 
-#: socialaccount/adapter.py:143
+#: socialaccount/adapter.py:144
 msgid "Your account has no verified email address."
 msgstr "Sua conta não tem um endereço de e-mail verificado."
 
@@ -373,7 +373,7 @@ msgstr "token de aplicativo social"
 msgid "social application tokens"
 msgstr "tokens de aplicativo social"
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:37
 msgid "Invalid profile data"
 msgstr "Dados pessoais inválidos"
 
@@ -385,7 +385,7 @@ msgid ""
 msgstr "Resposta inválida ao obter token de permissão de \"%s\"."
 
 #: socialaccount/providers/oauth/client.py:119
-#: socialaccount/providers/pocket/client.py:78
+#: socialaccount/providers/pocket/client.py:86
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Resposta inválida ao obter token de acesso de \"%s\"."
@@ -405,7 +405,7 @@ msgstr "Nenhum token de acesso gravado para \"%s\"."
 msgid "No access to private resources at \"%s\"."
 msgstr "Sem acesso a recursos privados de \"%s\"."
 
-#: socialaccount/providers/pocket/client.py:37
+#: socialaccount/providers/pocket/client.py:41
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "Resposta inválida ao obter token de permissão de \"%s\"."

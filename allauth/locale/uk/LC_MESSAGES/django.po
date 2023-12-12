@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-08 13:56-0600\n"
+"POT-Creation-Date: 2023-12-12 13:20-0600\n"
 "PO-Revision-Date: 2020-10-15 19:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,7 +68,7 @@ msgid "You must type the same password each time."
 msgstr "Ви повинні вводити однаковий пароль кожного разу."
 
 #: account/forms.py:92 account/forms.py:412 account/forms.py:552
-#: account/forms.py:688
+#: account/forms.py:689
 msgid "Password"
 msgstr "Пароль"
 
@@ -151,11 +151,11 @@ msgstr "Ви не можете додати більше %d адрес елек�
 msgid "Current Password"
 msgstr "Поточний пароль"
 
-#: account/forms.py:532 account/forms.py:637
+#: account/forms.py:532 account/forms.py:638
 msgid "New Password"
 msgstr "Новий пароль"
 
-#: account/forms.py:535 account/forms.py:638
+#: account/forms.py:535 account/forms.py:639
 msgid "New Password (again)"
 msgstr "Новий пароль (ще раз)"
 
@@ -167,7 +167,7 @@ msgstr "Будь ласка, вкажіть Ваш поточний пароль
 msgid "The email address is not assigned to any user account"
 msgstr "Немає користувача з такою e-mail адресою."
 
-#: account/forms.py:658
+#: account/forms.py:659
 msgid "The password reset token was invalid."
 msgstr "Токен відновлення паролю був невірним."
 
@@ -251,7 +251,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:31
 #, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
@@ -260,11 +260,11 @@ msgstr ""
 "Обліковий запис з такою адресою вже існує. Будь ласка, спочатку увійдіть до "
 "цього акаунта, а потім підключіть ваш акаунт %s."
 
-#: socialaccount/adapter.py:136
+#: socialaccount/adapter.py:137
 msgid "Your account has no password set up."
 msgstr "Ваш акаунт не має встановленого паролю."
 
-#: socialaccount/adapter.py:143
+#: socialaccount/adapter.py:144
 msgid "Your account has no verified email address."
 msgstr "Немає підтвердження по e-mail для Вашого акаунту."
 
@@ -365,7 +365,7 @@ msgstr "токен соціального додатку"
 msgid "social application tokens"
 msgstr "токени соціальних додатків"
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:37
 msgid "Invalid profile data"
 msgstr "Невірні дані профілю"
 
@@ -377,7 +377,7 @@ msgstr ""
 "Невірна відповідь під час отримання запиту від \"%s\". Відповідь була: %s."
 
 #: socialaccount/providers/oauth/client.py:119
-#: socialaccount/providers/pocket/client.py:78
+#: socialaccount/providers/pocket/client.py:86
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Невірна відповідь під час отримання токену доступу від \"%s\"."
@@ -397,7 +397,7 @@ msgstr "Токен доступу не збережений для \"%s\"."
 msgid "No access to private resources at \"%s\"."
 msgstr "Немає токену доступу для приватних ресурсів від \"%s\"."
 
-#: socialaccount/providers/pocket/client.py:37
+#: socialaccount/providers/pocket/client.py:41
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "Невірна відповідь під час отримання запиту від \"%s\""

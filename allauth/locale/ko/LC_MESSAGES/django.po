@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-08 13:56-0600\n"
+"POT-Creation-Date: 2023-12-12 13:20-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,7 +66,7 @@ msgid "You must type the same password each time."
 msgstr "동일한 비밀번호를 입력해야 합니다."
 
 #: account/forms.py:92 account/forms.py:412 account/forms.py:552
-#: account/forms.py:688
+#: account/forms.py:689
 msgid "Password"
 msgstr "비밀번호"
 
@@ -150,11 +150,11 @@ msgstr "당신의 계정에는 인증된 이메일이 없습니다."
 msgid "Current Password"
 msgstr "현재 비밀번호"
 
-#: account/forms.py:532 account/forms.py:637
+#: account/forms.py:532 account/forms.py:638
 msgid "New Password"
 msgstr "새 비밀번호"
 
-#: account/forms.py:535 account/forms.py:638
+#: account/forms.py:535 account/forms.py:639
 msgid "New Password (again)"
 msgstr "새 비밀번호 (확인)"
 
@@ -166,7 +166,7 @@ msgstr "현재 비밀번호를 입력하세요."
 msgid "The email address is not assigned to any user account"
 msgstr "해당 이메일을 가지고 있는 사용자가 없습니다."
 
-#: account/forms.py:658
+#: account/forms.py:659
 msgid "The password reset token was invalid."
 msgstr "비밀번호 초기화 토큰이 올바르지 않습니다."
 
@@ -250,7 +250,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:31
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -262,11 +262,11 @@ msgstr ""
 "해당 이메일을 사용중인 계정이 이미 존재합니다. 해당 계정으로 로그인 후에 %s "
 "계정으로 연결하세요."
 
-#: socialaccount/adapter.py:136
+#: socialaccount/adapter.py:137
 msgid "Your account has no password set up."
 msgstr "당신의 계정에 비밀번호가 설정되어있지 않습니다."
 
-#: socialaccount/adapter.py:143
+#: socialaccount/adapter.py:144
 msgid "Your account has no verified email address."
 msgstr "당신의 계정에는 인증된 이메일이 없습니다."
 
@@ -368,7 +368,7 @@ msgstr "소셜 어플리케이션 토큰"
 msgid "social application tokens"
 msgstr "소셜 어플리케이션 토큰"
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:37
 msgid "Invalid profile data"
 msgstr "올바르지 않은 프로필 데이터"
 
@@ -380,7 +380,7 @@ msgid ""
 msgstr "\"%s\".로 부터 request 토큰을 받는 도중 잘못된 응답을 받았습니다."
 
 #: socialaccount/providers/oauth/client.py:119
-#: socialaccount/providers/pocket/client.py:78
+#: socialaccount/providers/pocket/client.py:86
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "\"%s\".로 부터 access 토큰을 받는 도중 잘못된 응답을 받았습니다."
@@ -400,7 +400,7 @@ msgstr "\"%s\".을(를) 위한 access 토큰이 없습니다."
 msgid "No access to private resources at \"%s\"."
 msgstr "\"%s\".에 접근하기 위한 권한이 없습니다."
 
-#: socialaccount/providers/pocket/client.py:37
+#: socialaccount/providers/pocket/client.py:41
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "\"%s\".로 부터 request 토큰을 받는 도중 잘못된 응답을 받았습니다."

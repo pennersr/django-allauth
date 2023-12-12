@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauthrr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-08 13:56-0600\n"
+"POT-Creation-Date: 2023-12-12 13:20-0600\n"
 "PO-Revision-Date: 2021-11-08 19:23+0200\n"
 "Last-Translator: Gilou <contact+dev@gilouweb.com>\n"
 "Language-Team: \n"
@@ -74,7 +74,7 @@ msgid "You must type the same password each time."
 msgstr "Trebuie sa tastezi aceeași parolă de fiecare data."
 
 #: account/forms.py:92 account/forms.py:412 account/forms.py:552
-#: account/forms.py:688
+#: account/forms.py:689
 msgid "Password"
 msgstr "Parola"
 
@@ -157,11 +157,11 @@ msgstr "Nu poti adauga mai mult de %d adrese de e-mail."
 msgid "Current Password"
 msgstr "Parola actuala"
 
-#: account/forms.py:532 account/forms.py:637
+#: account/forms.py:532 account/forms.py:638
 msgid "New Password"
 msgstr "Parola noua"
 
-#: account/forms.py:535 account/forms.py:638
+#: account/forms.py:535 account/forms.py:639
 msgid "New Password (again)"
 msgstr "Parola noua (confirma)"
 
@@ -173,7 +173,7 @@ msgstr "Te rugam tasteaza parola actuala."
 msgid "The email address is not assigned to any user account"
 msgstr "Adresa de e-mail nu este atribuita niciunui cont de utilizator"
 
-#: account/forms.py:658
+#: account/forms.py:659
 msgid "The password reset token was invalid."
 msgstr "Link-ul de resetare a parolei nu era valid."
 
@@ -257,7 +257,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:31
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -269,11 +269,11 @@ msgstr ""
 "Exista deja un cont cu această adresa de e-mail. Te rugam sa vt conectați "
 "mai intai la acel cont, apoi sa conecteazi contul %s."
 
-#: socialaccount/adapter.py:136
+#: socialaccount/adapter.py:137
 msgid "Your account has no password set up."
 msgstr "Contul tau nu are o parola setata."
 
-#: socialaccount/adapter.py:143
+#: socialaccount/adapter.py:144
 msgid "Your account has no verified email address."
 msgstr "Contul tau nu are o adresa de e-mail confirmata."
 
@@ -375,7 +375,7 @@ msgstr "token pentru aplicatia de socializare"
 msgid "social application tokens"
 msgstr "token-uri pentru aplicatiile de socializare"
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:37
 msgid "Invalid profile data"
 msgstr "Date de profil invalide"
 
@@ -387,7 +387,7 @@ msgid ""
 msgstr "Raspuns invalid la obtinerea token-ului de solicitare de la \"% s\"."
 
 #: socialaccount/providers/oauth/client.py:119
-#: socialaccount/providers/pocket/client.py:78
+#: socialaccount/providers/pocket/client.py:86
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Raspuns invalid la obtinerea token-ului de acces de la \"% s\"."
@@ -407,7 +407,7 @@ msgstr "Nu s-a salvat niciun token de acces pentru \"% s\"."
 msgid "No access to private resources at \"%s\"."
 msgstr "Nu exista acces la resurse private la \"% s\"."
 
-#: socialaccount/providers/pocket/client.py:37
+#: socialaccount/providers/pocket/client.py:41
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "Raspuns invalid la obtinerea token-ului de solicitare de la \"% s\"."

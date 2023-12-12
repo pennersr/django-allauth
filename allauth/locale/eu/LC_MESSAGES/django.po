@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-08 13:56-0600\n"
+"POT-Creation-Date: 2023-12-12 13:20-0600\n"
 "PO-Revision-Date: 2018-08-29 08:16+0200\n"
 "Last-Translator: Eneko Illarramendi <eneko@illarra.com>\n"
 "Language-Team: Basque <translate@tropela.eus>\n"
@@ -68,7 +68,7 @@ msgid "You must type the same password each time."
 msgstr "Pasahitz berdina idatzi behar duzu aldi bakoitzean."
 
 #: account/forms.py:92 account/forms.py:412 account/forms.py:552
-#: account/forms.py:688
+#: account/forms.py:689
 msgid "Password"
 msgstr "Pasahitza"
 
@@ -151,11 +151,11 @@ msgstr "Ezin dituzu %d email helbide baino gehiago erabili."
 msgid "Current Password"
 msgstr "Oraingo pasahitza"
 
-#: account/forms.py:532 account/forms.py:637
+#: account/forms.py:532 account/forms.py:638
 msgid "New Password"
 msgstr "Pasahitz berria"
 
-#: account/forms.py:535 account/forms.py:638
+#: account/forms.py:535 account/forms.py:639
 msgid "New Password (again)"
 msgstr "Pasahitz berria (berriro)"
 
@@ -167,7 +167,7 @@ msgstr "Mesedez idatzi zure oraingo pasahitza."
 msgid "The email address is not assigned to any user account"
 msgstr "Helbide elektroniko hau ez dago kontu bati lotuta"
 
-#: account/forms.py:658
+#: account/forms.py:659
 msgid "The password reset token was invalid."
 msgstr "Pasahitza berrezartzeko \"token\"-a baliogabea da."
 
@@ -251,7 +251,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:31
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -263,11 +263,11 @@ msgstr ""
 "Kontu bat sortu da iada helbide elektroniko honekin. Mesedez hasi saio berri "
 "bat kontu honekin eta gero zure %s kontua honi lotu."
 
-#: socialaccount/adapter.py:136
+#: socialaccount/adapter.py:137
 msgid "Your account has no password set up."
 msgstr "Zure kontuak ez du pasahitzik zehaztuta."
 
-#: socialaccount/adapter.py:143
+#: socialaccount/adapter.py:144
 msgid "Your account has no verified email address."
 msgstr "Zure kontuak ez du egiaztatutako emailik."
 
@@ -369,7 +369,7 @@ msgstr "aplikazio sozial \"token\"-a"
 msgid "social application tokens"
 msgstr "aplikazio sozial \"token\"-ak"
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:37
 msgid "Invalid profile data"
 msgstr "Profil datu baliogabeak"
 
@@ -381,7 +381,7 @@ msgid ""
 msgstr "Erantzun baliogabea \"%s\"-tik \"request token\"-a eskuratzean."
 
 #: socialaccount/providers/oauth/client.py:119
-#: socialaccount/providers/pocket/client.py:78
+#: socialaccount/providers/pocket/client.py:86
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Erantzun baliogabea \"%s\"-tik \"access token\"-a eskuratzean."
@@ -401,7 +401,7 @@ msgstr "Ez dago \"access token\"-ik gordeta \"%s\"-entzat."
 msgid "No access to private resources at \"%s\"."
 msgstr "Ez duzu baliabide pribatuetara sarbiderik: \"%s\"."
 
-#: socialaccount/providers/pocket/client.py:37
+#: socialaccount/providers/pocket/client.py:41
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "Erantzun baliogabea \"%s\"-tik \"request token\"-a eskuratzean."

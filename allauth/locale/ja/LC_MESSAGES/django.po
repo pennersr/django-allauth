@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-08 13:56-0600\n"
+"POT-Creation-Date: 2023-12-12 13:20-0600\n"
 "PO-Revision-Date: 2022-11-28 12:06+0900\n"
 "Last-Translator: Sora Yanai <sora@mail.skyarrow.xyz>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,7 +66,7 @@ msgid "You must type the same password each time."
 msgstr "同じパスワードを入力してください。"
 
 #: account/forms.py:92 account/forms.py:412 account/forms.py:552
-#: account/forms.py:688
+#: account/forms.py:689
 msgid "Password"
 msgstr "パスワード"
 
@@ -154,11 +154,11 @@ msgstr "確認済みのメールアドレスの登録が必要です。"
 msgid "Current Password"
 msgstr "現在のパスワード"
 
-#: account/forms.py:532 account/forms.py:637
+#: account/forms.py:532 account/forms.py:638
 msgid "New Password"
 msgstr "新しいパスワード"
 
-#: account/forms.py:535 account/forms.py:638
+#: account/forms.py:535 account/forms.py:639
 msgid "New Password (again)"
 msgstr "新しいパスワード（再入力）"
 
@@ -170,7 +170,7 @@ msgstr "現在のパスワードを入力してください。"
 msgid "The email address is not assigned to any user account"
 msgstr "このメールアドレスで登録されたユーザーアカウントがありません。"
 
-#: account/forms.py:658
+#: account/forms.py:659
 msgid "The password reset token was invalid."
 msgstr "パスワードリセットトークンが無効です。"
 
@@ -254,7 +254,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:31
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -266,11 +266,11 @@ msgstr ""
 "このメールアドレスを使用するアカウントが既にあります。そのアカウントにログイ"
 "ンしてから%sアカウントを接続してください"
 
-#: socialaccount/adapter.py:136
+#: socialaccount/adapter.py:137
 msgid "Your account has no password set up."
 msgstr "アカウントにパスワードを設定する必要があります。"
 
-#: socialaccount/adapter.py:143
+#: socialaccount/adapter.py:144
 msgid "Your account has no verified email address."
 msgstr "確認済みのメールアドレスの登録が必要です。"
 
@@ -373,7 +373,7 @@ msgstr "ソーシャルアプリケーショントークン"
 msgid "social application tokens"
 msgstr "ソーシャルアプリケーショントークン"
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:37
 msgid "Invalid profile data"
 msgstr "無効なプロファイルデータ"
 
@@ -387,7 +387,7 @@ msgstr ""
 "んでした。"
 
 #: socialaccount/providers/oauth/client.py:119
-#: socialaccount/providers/pocket/client.py:78
+#: socialaccount/providers/pocket/client.py:86
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr ""
@@ -409,7 +409,7 @@ msgstr "\"%s\" のアクセストークンを保存できませんでした。"
 msgid "No access to private resources at \"%s\"."
 msgstr "\"%s\" の情報にアクセスできませんでした。"
 
-#: socialaccount/providers/pocket/client.py:37
+#: socialaccount/providers/pocket/client.py:41
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr ""

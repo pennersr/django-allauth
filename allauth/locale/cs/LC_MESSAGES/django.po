@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.55\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-08 13:56-0600\n"
+"POT-Creation-Date: 2023-12-12 13:20-0600\n"
 "PO-Revision-Date: 2023-09-06 14:00+0200\n"
 "Last-Translator: Filip Dobrovolny <dobrovolny.filip@gmail.com>\n"
 "Language-Team: Czech <>\n"
@@ -69,7 +69,7 @@ msgid "You must type the same password each time."
 msgstr "Hesla se musí shodovat."
 
 #: account/forms.py:92 account/forms.py:412 account/forms.py:552
-#: account/forms.py:688
+#: account/forms.py:689
 msgid "Password"
 msgstr "Heslo"
 
@@ -152,11 +152,11 @@ msgstr "Nelze přidat více než %d e-mailových adres."
 msgid "Current Password"
 msgstr "Současné heslo"
 
-#: account/forms.py:532 account/forms.py:637
+#: account/forms.py:532 account/forms.py:638
 msgid "New Password"
 msgstr "Nové heslo"
 
-#: account/forms.py:535 account/forms.py:638
+#: account/forms.py:535 account/forms.py:639
 msgid "New Password (again)"
 msgstr "Nové heslo (znovu)"
 
@@ -168,7 +168,7 @@ msgstr "Prosím, zadejte svoje současné heslo."
 msgid "The email address is not assigned to any user account"
 msgstr "E-mail není přiřazen k žádnému účtu"
 
-#: account/forms.py:658
+#: account/forms.py:659
 msgid "The password reset token was invalid."
 msgstr "Token pro reset hesla není platný."
 
@@ -260,7 +260,7 @@ msgstr "Záchranné kódy"
 msgid "TOTP Authenticator"
 msgstr "TOTP Autentifikátor"
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:31
 #, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
@@ -269,11 +269,11 @@ msgstr ""
 "Účet s touto e-mailovou adresou již existuje. Prosím přihlaste se nejdříve "
 "pod tímto účtem a potom připojte svůj %s účet."
 
-#: socialaccount/adapter.py:136
+#: socialaccount/adapter.py:137
 msgid "Your account has no password set up."
 msgstr "Váš účet nemá nastavené heslo."
 
-#: socialaccount/adapter.py:143
+#: socialaccount/adapter.py:144
 msgid "Your account has no verified email address."
 msgstr "Váš účet nemá žádný ověřený e-mail."
 
@@ -373,7 +373,7 @@ msgstr "token sociální aplikace"
 msgid "social application tokens"
 msgstr "tokeny sociálních aplikací"
 
-#: socialaccount/providers/douban/views.py:36
+#: socialaccount/providers/douban/views.py:37
 msgid "Invalid profile data"
 msgstr "Neplatná data profilu"
 
@@ -384,7 +384,7 @@ msgid ""
 msgstr "Chyba při odesílání požadavku: \"%s\". Odpoveď byla: %s."
 
 #: socialaccount/providers/oauth/client.py:119
-#: socialaccount/providers/pocket/client.py:78
+#: socialaccount/providers/pocket/client.py:86
 #, python-format
 msgid "Invalid response while obtaining access token from \"%s\"."
 msgstr "Chyba při získávání přístupového klíče od \"%s\"."
@@ -404,7 +404,7 @@ msgstr "Není uložen žádný přístupový klíč pro: \"%s\"."
 msgid "No access to private resources at \"%s\"."
 msgstr "Není přístup k privátním zdrojům: \"%s\"."
 
-#: socialaccount/providers/pocket/client.py:37
+#: socialaccount/providers/pocket/client.py:41
 #, python-format
 msgid "Invalid response while obtaining request token from \"%s\"."
 msgstr "Chyba při získávání požadavkového klíče \"%s\"."

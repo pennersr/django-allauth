@@ -25,9 +25,9 @@ class UserSessionManager(models.Manager):
             0 : UserSession._meta.get_field("user_agent").max_length
         ]
         UserSession.objects.update_or_create(
-            user=request.user,
             session_key=request.session.session_key,
             defaults=dict(
+                user=request.user,
                 ip=get_adapter().get_client_ip(request),
                 user_agent=ua,
                 last_seen_at=timezone.now(),

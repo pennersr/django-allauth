@@ -17,6 +17,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic.base import TemplateResponseMixin, TemplateView, View
 from django.views.generic.edit import FormView
 
+from allauth import app_settings as allauth_app_settings
 from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
 from allauth.account.decorators import reauthentication_required
@@ -200,6 +201,7 @@ class LoginView(
                 "site": site,
                 "redirect_field_name": self.redirect_field_name,
                 "redirect_field_value": redirect_field_value,
+                "SOCIALACCOUNT_ENABLED": allauth_app_settings.SOCIALACCOUNT_ENABLED,
             }
         )
         return ret
@@ -296,6 +298,7 @@ class SignupView(
                 "redirect_field_name": redirect_field_name,
                 "redirect_field_value": redirect_field_value,
                 "site": site,
+                "SOCIALACCOUNT_ENABLED": allauth_app_settings.SOCIALACCOUNT_ENABLED,
             }
         )
         return ret

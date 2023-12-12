@@ -1,4 +1,4 @@
-0.59.0 (unreleased)
+0.59.0 (2023-12-13)
 *******************
 
 Note worthy changes
@@ -24,6 +24,8 @@ Note worthy changes
 
 - Added a setting ``ACCOUNT_EMAIL_UNKNOWN_ACCOUNTS`` to disable sending of
   emails to unknown accounts.
+
+- You can now override the MFA forms via the ``MFA_FORMS`` setting.
 
 
 Backwards incompatible changes

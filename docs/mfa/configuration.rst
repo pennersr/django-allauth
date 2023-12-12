@@ -7,6 +7,16 @@ Available settings:
   Specifies the adapter class to use, allowing you to alter certain
   default behaviour.
 
+``MFA_FORMS``
+  Used to override forms. Defaults to::
+
+    MFA_FORMS = {
+        'authenticate': 'allauth.mfa.forms.AuthenticateForm',
+        'reauthenticate': 'allauth.mfa.forms.AuthenticateForm',
+        'activate_totp': 'allauth.mfa.forms.ActivateTOTPForm',
+        'deactivate_totp': 'allauth.mfa.forms.DeactivateTOTPForm',
+    }
+
 ``MFA_RECOVERY_CODE_COUNT`` (default: ``10``)
   The number of recovery codes.
 

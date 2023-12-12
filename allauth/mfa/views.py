@@ -68,7 +68,7 @@ class ReauthenticateView(BaseReauthenticateView):
         return ret
 
     def get_form_class(self):
-        return get_form_class(app_settings.FORMS, "authenticate", self.form_class)
+        return get_form_class(app_settings.FORMS, "reauthenticate", self.form_class)
 
 
 reauthenticate = ReauthenticateView.as_view()
@@ -129,7 +129,7 @@ class ActivateTOTPView(FormView):
         return ret
 
     def get_form_class(self):
-        return get_form_class(app_settings.FORMS, "activatetotp", self.form_class)
+        return get_form_class(app_settings.FORMS, "activate_totp", self.form_class)
 
     def get_success_url(self):
         if Authenticator.Type.RECOVERY_CODES in app_settings.SUPPORTED_TYPES:
@@ -194,7 +194,7 @@ class DeactivateTOTPView(FormView):
         return ret
 
     def get_form_class(self):
-        return get_form_class(app_settings.FORMS, "deactivatetotp", self.form_class)
+        return get_form_class(app_settings.FORMS, "deactivate_totp", self.form_class)
 
     def form_valid(self, form):
         self.authenticator.wrap().deactivate()

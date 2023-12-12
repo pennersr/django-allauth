@@ -1,8 +1,8 @@
 Forms
 =====
 
-Authenticate
-************
+Authenticate/Reauthenticate
+***************************
 
 *Path*
   ``allauth.mfa.forms.AuthenticateForm``
@@ -20,6 +20,7 @@ Example override::
 
     MFA_FORMS = {
         'authenticate': 'mysite.forms.MyCustomAuthenticateForm',
+        'reauthenticate': 'mysite.forms.MyCustomAuthenticateForm',
     }
 
 ActivateTOTP

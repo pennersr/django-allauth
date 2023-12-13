@@ -2,7 +2,7 @@ from datetime import timedelta
 from unittest.mock import Mock, patch
 
 from django.conf import settings
-from django.contrib.auth import get_user_model
+from django.contrib.auth import SESSION_KEY, get_user_model
 from django.core import mail
 from django.http import HttpResponseRedirect
 from django.test.client import Client, RequestFactory
@@ -362,3 +362,21 @@ class ConfirmationViewTests(TestCase):
         )
 
         self.assertEqual(user, resp.wsgi_request.user)
+
+
+def test_confirm_logs_out_user(auth_client, settings, user, user_factory):
+    """
+    When a user is signed in, and you follow an email confirmation link of
+    another user within the same browser/session, be sure to sign out the signed
+    in user.
+    """
+    settings.ACCOUNT_CONFIRM_EMAIL_ON_GET = False
+    confirming_user = user_factory(email_verified=False)
+    assert auth_client.session[SESSION_KEY] == str(user.pk)
+    email = EmailAddress.objects.get(user=confirming_user, verified=False)
+    auth_client.get(
+        reverse(
+            "account_confirm_email", kwargs={"key": EmailConfirmationHMAC(email).key}
+        )
+    )
+    assert not auth_client.session.get(SESSION_KEY)

@@ -1,3 +1,16 @@
+0.60.0 (unreleased)
+*******************
+
+Backwards incompatible changes
+------------------------------
+
+- You can now specify the URL path prefix that is used for all OpenID Connect
+  providers using ``SOCIALACCOUNT_OPENID_CONNECT_URL_PREFIX``. By default, it is
+  set to ``"oidc"``, meaning, an OpenID Connect provider with provider ID
+  ``foo`` uses ``/accounts/oidc/foo/login/`` as its login URL. Set it to empty
+  (``""``) to keep the previous URL structure (``/accounts/foo/login/``).
+
+
 0.59.0 (2023-12-13)
 *******************
 

@@ -84,3 +84,8 @@ Available settings:
 
 ``SOCIALACCOUNT_STORE_TOKENS`` (default: ``False``)
   Indicates whether or not the access tokens are stored in the database.
+
+``SOCIALACCOUNT_OPENID_CONNECT_URL_PREFIX`` (default: ``"oidc"``)
+  The URL path prefix that is used for all OpenID Connect providers. By default,
+  it is set to ``"oidc"``, meaning, an OpenID Connect provider with provider ID
+  ``foo`` uses ``/accounts/oidc/foo/login/`` as its login URL.

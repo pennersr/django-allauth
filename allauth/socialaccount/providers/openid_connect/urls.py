@@ -1,5 +1,7 @@
 from django.urls import include, path, re_path
 
+from allauth.socialaccount import app_settings
+
 from . import views
 
 
@@ -22,3 +24,8 @@ urlpatterns = [
         ),
     )
 ]
+
+if app_settings.OPENID_CONNECT_URL_PREFIX:
+    urlpatterns = [
+        path(f"{app_settings.OPENID_CONNECT_URL_PREFIX}/", include(urlpatterns))
+    ]

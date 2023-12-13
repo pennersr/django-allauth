@@ -104,8 +104,9 @@ Available settings:
   The maximum amount of email addresses a user can associate to his account. It
   is safe to change this setting for an already running project -- it will not
   negatively affect users that already exceed the allowed amount. Note that if
-  you set the maximum to 1, users will not be able to change their email address
-  unless you enable ``ACCOUNT_CHANGE_EMAIL``.
+  you set the maximum to 1, users will not be able to change their email
+  address.
+
 
 ``ACCOUNT_FORMS``
   Used to override the builtin forms. Defaults to::

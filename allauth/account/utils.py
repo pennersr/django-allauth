@@ -475,8 +475,6 @@ def filter_users_by_email(email, is_active=None, prefer_verified=False):
 
     User = get_user_model()
     mails = EmailAddress.objects.filter(email__iexact=email).prefetch_related("user")
-    if is_active is not None:
-        mails = mails.filter(user__is_active=is_active)
     mails = list(mails)
     is_verified = False
     if prefer_verified:
@@ -491,12 +489,12 @@ def filter_users_by_email(email, is_active=None, prefer_verified=False):
     if app_settings.USER_MODEL_EMAIL_FIELD and not is_verified:
         q_dict = {app_settings.USER_MODEL_EMAIL_FIELD + "__iexact": email}
         user_qs = User.objects.filter(**q_dict)
-        if is_active is not None:
-            user_qs = user_qs.filter(is_active=is_active)
         for user in user_qs.iterator():
             user_email = getattr(user, app_settings.USER_MODEL_EMAIL_FIELD)
             if _unicode_ci_compare(user_email, email):
                 users.append(user)
+    if is_active is not None:
+        users = [u for u in set(users) if u.is_active == is_active]
     return list(set(users))
 
 

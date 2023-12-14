@@ -1,10 +1,6 @@
 LinkedIn
 --------
 
-The LinkedIn provider comes in two flavors: OAuth 1.0
-(``allauth.socialaccount.providers.linkedin``) and OAuth 2.0
-(``allauth.socialaccount.providers.linkedin_oauth2``).
-
 You can specify the scope and fields to fetch as follows:
 
 .. code-block:: python

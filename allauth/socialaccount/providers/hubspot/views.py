@@ -1,6 +1,5 @@
 """Views for Hubspot API."""
-import requests
-
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -21,8 +20,10 @@ class HubspotOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {"Content-Type": "application/json"}
-        response = requests.get(
-            "{0}/{1}".format(self.profile_url, token.token), headers=headers
+        response = (
+            get_adapter()
+            .get_requests_session()
+            .get("{0}/{1}".format(self.profile_url, token.token), headers=headers)
         )
         response.raise_for_status()
         extra_data = response.json()

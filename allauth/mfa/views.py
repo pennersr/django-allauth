@@ -26,6 +26,7 @@ from allauth.mfa.models import Authenticator
 from allauth.mfa.recovery_codes import RecoveryCodes
 from allauth.mfa.stages import AuthenticateStage
 from allauth.mfa.utils import is_mfa_enabled
+from allauth.utils import get_form_class
 
 
 class AuthenticateView(FormView):
@@ -45,6 +46,9 @@ class AuthenticateView(FormView):
         ret["user"] = self.stage.login.user
         return ret
 
+    def get_form_class(self):
+        return get_form_class(app_settings.FORMS, "authenticate", self.form_class)
+
     def form_valid(self, form):
         form.save()
         return self.stage.exit()
@@ -63,6 +67,9 @@ class ReauthenticateView(BaseReauthenticateView):
         ret["user"] = self.request.user
         return ret
 
+    def get_form_class(self):
+        return get_form_class(app_settings.FORMS, "reauthenticate", self.form_class)
+
 
 reauthenticate = ReauthenticateView.as_view()
 
@@ -78,6 +85,7 @@ class IndexView(TemplateView):
             for auth in Authenticator.objects.filter(user=self.request.user)
         }
         ret["authenticators"] = authenticators
+        ret["MFA_SUPPORTED_TYPES"] = app_settings.SUPPORTED_TYPES
         ret["is_mfa_enabled"] = is_mfa_enabled(self.request.user)
         return ret
 
@@ -89,7 +97,6 @@ index = IndexView.as_view()
 class ActivateTOTPView(FormView):
     form_class = ActivateTOTPForm
     template_name = "mfa/totp/activate_form." + account_settings.TEMPLATE_EXTENSION
-    success_url = reverse_lazy("mfa_view_recovery_codes")
 
     def dispatch(self, request, *args, **kwargs):
         if is_mfa_enabled(request.user, [Authenticator.Type.TOTP]):
@@ -121,15 +128,27 @@ class ActivateTOTPView(FormView):
         ret["user"] = self.request.user
         return ret
 
+    def get_form_class(self):
+        return get_form_class(app_settings.FORMS, "activate_totp", self.form_class)
+
+    def get_success_url(self):
+        if Authenticator.Type.RECOVERY_CODES in app_settings.SUPPORTED_TYPES:
+            return reverse("mfa_view_recovery_codes")
+        return reverse("mfa_index")
+
     def form_valid(self, form):
         totp_auth = totp.TOTP.activate(self.request.user, form.secret)
-        rc_auth = RecoveryCodes.activate(self.request.user)
+        if Authenticator.Type.RECOVERY_CODES in app_settings.SUPPORTED_TYPES:
+            rc_auth = RecoveryCodes.activate(self.request.user)
+        else:
+            rc_auth = None
         for auth in [totp_auth, rc_auth]:
-            signals.authenticator_added.send(
-                sender=Authenticator,
-                user=self.request.user,
-                authenticator=auth.instance,
-            )
+            if auth:
+                signals.authenticator_added.send(
+                    sender=Authenticator,
+                    user=self.request.user,
+                    authenticator=auth.instance,
+                )
         adapter = get_account_adapter(self.request)
         adapter.add_message(
             self.request, messages.SUCCESS, "mfa/messages/totp_activated.txt"
@@ -176,6 +195,9 @@ class DeactivateTOTPView(FormView):
         # the form, which is why we put an empty data payload in here.
         ret.setdefault("data", {})
         return ret
+
+    def get_form_class(self):
+        return get_form_class(app_settings.FORMS, "deactivate_totp", self.form_class)
 
     def form_valid(self, form):
         self.authenticator.wrap().deactivate()

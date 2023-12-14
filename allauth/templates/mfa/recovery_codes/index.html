@@ -8,7 +8,7 @@
     <p>
         {% blocktranslate count unused_count=unused_codes|length %}There is {{ unused_count }} out of {{ total_count }} recovery codes available.{% plural %}There are {{ unused_count }} out of {{ total_count }} recovery codes available.{% endblocktranslate %}
     </p>
-    {% element field id="recovery_codes" type="textarea" disabled="disabled" rows=unused_codes|length readonly=True %}
+    {% element field id="recovery_codes" type="textarea" disabled=True rows=unused_codes|length readonly=True %}
         {% slot label %}
             {% translate "Unused codes" %}
         {% endslot %}

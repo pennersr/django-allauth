@@ -139,7 +139,7 @@ class SocialAccount(models.Model):
             return provider
         adapter = get_adapter()
         provider = self._provider = adapter.get_provider(
-            request, provider=self.provider
+            request or context.request, provider=self.provider
         )
         return provider
 

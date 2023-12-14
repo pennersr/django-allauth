@@ -1,4 +1,3 @@
-import requests
 from datetime import datetime, timedelta
 from urllib.parse import parse_qsl, quote, urlencode
 
@@ -72,8 +71,10 @@ class AppleOAuth2Client(OAuth2Client):
         if pkce_code_verifier:
             data["code_verifier"] = pkce_code_verifier
         self._strip_empty_keys(data)
-        resp = requests.request(
-            self.access_token_method, url, data=data, headers=self.headers
+        resp = (
+            get_adapter()
+            .get_requests_session()
+            .request(self.access_token_method, url, data=data, headers=self.headers)
         )
         access_token = None
         if resp.status_code in [200, 201]:

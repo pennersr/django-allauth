@@ -1,4 +1,17 @@
-0.59.0 (unreleased)
+0.60.0 (unreleased)
+*******************
+
+Backwards incompatible changes
+------------------------------
+
+- You can now specify the URL path prefix that is used for all OpenID Connect
+  providers using ``SOCIALACCOUNT_OPENID_CONNECT_URL_PREFIX``. By default, it is
+  set to ``"oidc"``, meaning, an OpenID Connect provider with provider ID
+  ``foo`` uses ``/accounts/oidc/foo/login/`` as its login URL. Set it to empty
+  (``""``) to keep the previous URL structure (``/accounts/foo/login/``).
+
+
+0.59.0 (2023-12-13)
 *******************
 
 Note worthy changes
@@ -15,6 +28,26 @@ Note worthy changes
 - There is now an MFA adapter method ``can_delete_authenticator(authenticator)``
   available that can be used to prevent users from deactivating e.g. their TOTP
   authenticator.
+
+- Added a new app, user sessions, allowing users to view a list of all their
+  active sessions, as well as offering a means to end these sessions.
+
+- A configurable timeout (``SOCIALACCOUNT_REQUESTS_TIMEOUT``) is now applied to
+  all upstream requests.
+
+- Added a setting ``ACCOUNT_EMAIL_UNKNOWN_ACCOUNTS`` to disable sending of
+  emails to unknown accounts.
+
+- You can now override the MFA forms via the ``MFA_FORMS`` setting.
+
+
+Backwards incompatible changes
+------------------------------
+
+- The account adapter method ``should_send_confirmation_mail()`` signature
+  changed. It now takes an extra ``signup`` (boolean) parameter.
+
+- Removed OAuth 1.0 based Bitbucket provider and LinkedIn provider.
 
 
 0.58.2 (2023-11-06)

@@ -17,6 +17,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic.base import TemplateResponseMixin, TemplateView, View
 from django.views.generic.edit import FormView
 
+from allauth import app_settings as allauth_app_settings
 from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
 from allauth.account.decorators import reauthentication_required
@@ -200,6 +201,7 @@ class LoginView(
                 "site": site,
                 "redirect_field_name": self.redirect_field_name,
                 "redirect_field_value": redirect_field_value,
+                "SOCIALACCOUNT_ENABLED": allauth_app_settings.SOCIALACCOUNT_ENABLED,
             }
         )
         return ret
@@ -296,6 +298,7 @@ class SignupView(
                 "redirect_field_name": redirect_field_name,
                 "redirect_field_value": redirect_field_value,
                 "site": site,
+                "SOCIALACCOUNT_ENABLED": allauth_app_settings.SOCIALACCOUNT_ENABLED,
             }
         )
         return ret
@@ -323,12 +326,25 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
     def get(self, *args, **kwargs):
         try:
             self.object = self.get_object()
+            self.logout_other_user(self.object)
             if app_settings.CONFIRM_EMAIL_ON_GET:
                 return self.post(*args, **kwargs)
         except Http404:
             self.object = None
         ctx = self.get_context_data()
         return self.render_to_response(ctx)
+
+    def logout_other_user(self, confirmation):
+        """
+        In the event someone clicks on an email confirmation link
+        for one account while logged into another account,
+        logout of the currently logged in account.
+        """
+        if (
+            self.request.user.is_authenticated
+            and self.request.user.pk != confirmation.email_address.user_id
+        ):
+            self.logout()
 
     def post(self, *args, **kwargs):
         self.object = confirmation = self.get_object()
@@ -342,14 +358,7 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
             )
             return self.respond(False)
 
-        # In the event someone clicks on an email confirmation link
-        # for one account while logged into another account,
-        # logout of the currently logged in account.
-        if (
-            self.request.user.is_authenticated
-            and self.request.user.pk != confirmation.email_address.user_id
-        ):
-            self.logout()
+        self.logout_other_user(self.object)
 
         get_adapter(self.request).add_message(
             self.request,

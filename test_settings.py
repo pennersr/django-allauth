@@ -65,6 +65,7 @@ INSTALLED_APPS = (
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.admin",
+    "django.contrib.humanize",
     "allauth",
     "allauth.account",
     "allauth.mfa",
@@ -80,7 +81,6 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.baidu",
     "allauth.socialaccount.providers.basecamp",
     "allauth.socialaccount.providers.battlenet",
-    "allauth.socialaccount.providers.bitbucket",
     "allauth.socialaccount.providers.bitbucket_oauth2",
     "allauth.socialaccount.providers.bitly",
     "allauth.socialaccount.providers.box",
@@ -125,7 +125,6 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.kakao",
     "allauth.socialaccount.providers.lemonldap",
     "allauth.socialaccount.providers.line",
-    "allauth.socialaccount.providers.linkedin",
     "allauth.socialaccount.providers.linkedin_oauth2",
     "allauth.socialaccount.providers.mailchimp",
     "allauth.socialaccount.providers.mailru",
@@ -187,6 +186,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.zoom",
     "allauth.socialaccount.providers.okta",
     "allauth.socialaccount.providers.feishu",
+    "allauth.usersessions",
 )
 
 AUTHENTICATION_BACKENDS = (

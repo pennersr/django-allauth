@@ -139,6 +139,14 @@ class AppSettings(object):
     def SOCIALACCOUNT_STR(self):
         return self._setting("SOCIALACCOUNT_STR", None)
 
+    @property
+    def REQUESTS_TIMEOUT(self):
+        return self._setting("REQUESTS_TIMEOUT", 5)
+
+    @property
+    def OPENID_CONNECT_URL_PREFIX(self):
+        return self._setting("OPENID_CONNECT_URL_PREFIX", "oidc")
+
 
 _app_settings = AppSettings("SOCIALACCOUNT_")
 

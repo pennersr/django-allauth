@@ -387,6 +387,10 @@ class AppSettings(object):
         return token_generator
 
     @property
+    def EMAIL_UNKNOWN_ACCOUNTS(self):
+        return self._setting("EMAIL_UNKNOWN_ACCOUNTS", True)
+
+    @property
     def REAUTHENTICATION_TIMEOUT(self):
         return self._setting("REAUTHENTICATION_TIMEOUT", 300)
 

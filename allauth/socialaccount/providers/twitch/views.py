@@ -1,5 +1,4 @@
-import requests
-
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -21,7 +20,9 @@ class TwitchOAuth2Adapter(OAuth2Adapter):
             "Authorization": "Bearer {}".format(token.token),
             "Client-ID": app.client_id,
         }
-        response = requests.get(self.profile_url, headers=headers)
+        response = (
+            get_adapter().get_requests_session().get(self.profile_url, headers=headers)
+        )
 
         data = response.json()
         if response.status_code >= 400:

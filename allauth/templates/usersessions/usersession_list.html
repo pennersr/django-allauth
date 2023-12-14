@@ -1,0 +1,69 @@
+{% extends "usersessions/base_manage.html" %}
+{% load allauth %}
+{% load i18n %}
+{% load humanize %}
+{% block head_title %}
+    {% trans "Sessions" %}
+{% endblock head_title %}
+{% block content %}
+    {% element h1 tags="usersessions,list" %}
+        {% trans "Sessions" %}
+    {% endelement %}
+    {% if session_count > 1 %}
+        {% url 'usersessions_list' as action_url %}
+    {% else %}
+        {% url 'account_logout' as action_url %}
+    {% endif %}
+    {% element form action=action_url method="post" tags="sessions" no_visible_fields=True %}
+        {% slot body %}
+            {% csrf_token %}
+            {% element table tags="sessions" %}
+                <thead>
+                    <tr>
+                        <th>{% translate "Started At" %}</th>
+                        <th>{% translate "IP Address" %}</th>
+                        <th>{% translate "Browser" %}</th>
+                        {% if show_last_seen_at %}
+                            <th>{% translate "Last seen at" %}</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for session in sessions %}
+                        <tr>
+                            <td>
+                                <span title="{{ session.created_at }}">{{ session.created_at|naturaltime }}</span>
+                            </td>
+                            <td>{{ session.ip }}</td>
+                            <td>{{ session.user_agent }}</td>
+                            {% if show_last_seen_at %}
+                                <td>
+                                    <span title="{{ session.last_seen_at }}">{{ session.last_seen_at|naturaltime }}</span>
+                                </td>
+                            {% endif %}
+                            <td>
+                                {% if session.is_current %}
+                                    {% element badge tags="session,current" %}
+                                        {% translate "Current" %}
+                                    {% endelement %}
+                                {% else %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            {% endelement %}
+        {% endslot %}
+        {% slot actions %}
+            {% if session_count > 1 %}
+                {% element button type="submit" %}
+                    {% translate "Sign Out Other Sessions" %}
+                {% endelement %}
+            {% else %}
+                {% element button type="submit" %}
+                    {% translate "Sign Out" %}
+                {% endelement %}
+            {% endif %}
+        {% endslot %}
+    {% endelement %}
+{% endblock content %}

@@ -1,5 +1,4 @@
-import requests
-
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -16,9 +15,13 @@ class DropboxOAuth2Adapter(OAuth2Adapter):
     profile_url = "https://api.dropbox.com/2/users/get_current_account"
 
     def complete_login(self, request, app, token, **kwargs):
-        response = requests.post(
-            self.profile_url,
-            headers={"Authorization": "Bearer %s" % (token.token,)},
+        response = (
+            get_adapter()
+            .get_requests_session()
+            .post(
+                self.profile_url,
+                headers={"Authorization": "Bearer %s" % (token.token,)},
+            )
         )
         response.raise_for_status()
         return self.get_provider().sociallogin_from_response(request, response.json())

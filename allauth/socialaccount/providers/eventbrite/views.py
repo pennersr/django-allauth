@@ -1,6 +1,5 @@
 """Views for Eventbrite API v3."""
-import requests
-
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -22,7 +21,11 @@ class EventbriteOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         """Complete login."""
-        resp = requests.get(self.profile_url, params={"token": token.token})
+        resp = (
+            get_adapter()
+            .get_requests_session()
+            .get(self.profile_url, params={"token": token.token})
+        )
         extra_data = resp.json()
         return self.get_provider().sociallogin_from_response(request, extra_data)
 

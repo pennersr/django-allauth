@@ -1,6 +1,5 @@
-import requests
-
 from allauth.socialaccount import app_settings
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.github.provider import GitHubProvider
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -27,7 +26,9 @@ class GitHubOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {"Authorization": "token {}".format(token.token)}
-        resp = requests.get(self.profile_url, headers=headers)
+        resp = (
+            get_adapter().get_requests_session().get(self.profile_url, headers=headers)
+        )
         resp.raise_for_status()
         extra_data = resp.json()
         if app_settings.QUERY_EMAIL and not extra_data.get("email"):
@@ -36,7 +37,12 @@ class GitHubOAuth2Adapter(OAuth2Adapter):
 
     def get_email(self, headers):
         email = None
-        resp = requests.get(self.emails_url, headers=headers)
+        resp = (
+            get_adapter().get_requests_session().get(self.emails_url, headers=headers)
+        )
+        # https://api.github.com/user/emails -- 404 is documented to occur.
+        if resp.status_code == 404:
+            return None
         resp.raise_for_status()
         emails = resp.json()
         if resp.status_code == 200 and emails:

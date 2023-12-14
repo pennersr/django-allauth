@@ -172,7 +172,11 @@ class DefaultAccountAdapter(object):
         return msg
 
     def send_mail(self, template_prefix, email, context):
-        msg = self.render_mail(template_prefix, email, context)
+        ctx = {
+            "current_site": get_current_site(globals()["context"].request),
+        }
+        ctx.update(context)
+        msg = self.render_mail(template_prefix, email, ctx)
         msg.send()
 
     def get_signup_redirect_url(self, request):
@@ -580,7 +584,7 @@ class DefaultAccountAdapter(object):
         ret = build_absolute_uri(request, url)
         return ret
 
-    def should_send_confirmation_mail(self, request, email_address):
+    def should_send_confirmation_mail(self, request, email_address, signup):
         from allauth.account.models import EmailConfirmation
 
         cooldown_period = timedelta(seconds=app_settings.EMAIL_CONFIRMATION_COOLDOWN)
@@ -606,7 +610,6 @@ class DefaultAccountAdapter(object):
         )
         ctx = {
             "request": context.request,
-            "current_site": get_current_site(context.request),
             "email": email,
             "signup_url": signup_url,
             "password_reset_url": password_reset_url,
@@ -614,12 +617,10 @@ class DefaultAccountAdapter(object):
         self.send_mail("account/email/account_already_exists", email, ctx)
 
     def send_confirmation_mail(self, request, emailconfirmation, signup):
-        current_site = get_current_site(request)
         activate_url = self.get_email_confirmation_url(request, emailconfirmation)
         ctx = {
             "user": emailconfirmation.email_address.user,
             "activate_url": activate_url,
-            "current_site": current_site,
             "key": emailconfirmation.key,
         }
         if signup:
@@ -678,18 +679,13 @@ class DefaultAccountAdapter(object):
 
     def reauthenticate(self, user, password):
         from allauth.account.models import EmailAddress
-        from allauth.account.utils import user_email, user_username
+        from allauth.account.utils import user_username
 
         credentials = {"password": password}
         username = user_username(user)
         if username:
             credentials["username"] = username
-        email = None
-        primary = EmailAddress.objects.get_primary(user)
-        if primary:
-            email = primary.email
-        else:
-            email = user_email(user)
+        email = EmailAddress.objects.get_primary_email(user)
         if email:
             credentials["email"] = email
         reauth_user = self.authenticate(context.request, **credentials)

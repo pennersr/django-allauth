@@ -2,6 +2,7 @@ from django import template
 from django.template.base import FilterExpression, kwarg_re
 from django.template.loader import render_to_string
 from django.template.loader_tags import ExtendsNode
+from django.utils.safestring import mark_safe
 
 
 SLOTS_CONTEXT_KEY = "slots_context"
@@ -136,5 +137,5 @@ class SetVarNode(template.Node):
         self.var = var
 
     def render(self, context):
-        context[self.var] = self.nodelist.render(context).strip()
+        context[self.var] = mark_safe(self.nodelist.render(context).strip())
         return ""

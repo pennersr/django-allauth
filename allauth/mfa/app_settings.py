@@ -12,6 +12,10 @@ class AppSettings(object):
         return self._setting("ADAPTER", "allauth.mfa.adapter.DefaultMFAAdapter")
 
     @property
+    def FORMS(self):
+        return self._setting("FORMS", {})
+
+    @property
     def RECOVERY_CODE_COUNT(self):
         """
         The number of recovery codes.
@@ -38,6 +42,11 @@ class AppSettings(object):
         The issuer.
         """
         return self._setting("TOTP_ISSUER", "")
+
+    @property
+    def SUPPORTED_TYPES(self):
+        dflt = ["recovery_codes", "totp"]
+        return self._setting("SUPPORTED_TYPES", dflt)
 
 
 _app_settings = AppSettings("MFA_")

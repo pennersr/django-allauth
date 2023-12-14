@@ -1,3 +1,4 @@
+import functools
 import warnings
 
 from django.core.exceptions import (
@@ -228,7 +229,10 @@ class DefaultSocialAccountAdapter(object):
         provider_to_apps = {}
 
         # First, populate it with the DB backed apps.
-        db_apps = SocialApp.objects.on_site(request)
+        if request:
+            db_apps = SocialApp.objects.on_site(request)
+        else:
+            db_apps = SocialApp.objects.all()
         if provider:
             db_apps = db_apps.filter(Q(provider=provider) | Q(provider_id=provider))
         if client_id:
@@ -287,6 +291,15 @@ class DefaultSocialAccountAdapter(object):
         elif len(apps) == 0:
             raise SocialApp.DoesNotExist()
         return apps[0]
+
+    def get_requests_session(self):
+        import requests
+
+        session = requests.Session()
+        session.request = functools.partial(
+            session.request, timeout=app_settings.REQUESTS_TIMEOUT
+        )
+        return session
 
     def send_notification_mail(self, *args, **kwargs):
         return get_account_adapter().send_notification_mail(*args, **kwargs)

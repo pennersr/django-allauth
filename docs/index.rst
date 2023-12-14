@@ -15,6 +15,7 @@ Contents
    account/index
    socialaccount/index
    mfa/index
+   usersessions/index
    common/index
    project/index
    faq

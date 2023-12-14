@@ -70,6 +70,9 @@ Available settings:
 ``SOCIALACCOUNT_PROVIDERS`` (default: ``{}``)
   Dictionary containing `provider specific settings <provider_configuration.html>`__.
 
+``SOCIALACCOUNT_REQUESTS_TIMEOUT`` (default: ``5``)
+  The timeout applied when performing upstream requests.
+
 ``SOCIALACCOUNT_QUERY_EMAIL`` (default: ``ACCOUNT_EMAIL_REQUIRED``)
   Request email address from 3rd party account provider? E.g. using
   OpenID AX, or the Facebook "email" permission.
@@ -81,3 +84,8 @@ Available settings:
 
 ``SOCIALACCOUNT_STORE_TOKENS`` (default: ``False``)
   Indicates whether or not the access tokens are stored in the database.
+
+``SOCIALACCOUNT_OPENID_CONNECT_URL_PREFIX`` (default: ``"oidc"``)
+  The URL path prefix that is used for all OpenID Connect providers. By default,
+  it is set to ``"oidc"``, meaning, an OpenID Connect provider with provider ID
+  ``foo`` uses ``/accounts/oidc/foo/login/`` as its login URL.

@@ -221,6 +221,14 @@ class DefaultAccountAdapter(object):
         else:
             return app_settings.EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL
 
+    def get_password_change_redirect_url(self, request):
+        """
+        The URL to redirect to after a successful password change/set.
+
+        NOTE: Not called during the password reset flow.
+        """
+        return reverse("account_change_password")
+
     def is_open_for_signup(self, request):
         """
         Checks whether or not the site is open for signups.

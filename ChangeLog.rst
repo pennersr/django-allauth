@@ -1,6 +1,14 @@
 0.60.0 (unreleased)
 *******************
 
+Note worthy changes
+-------------------
+
+- You can now more easily change the URL to redirect to after a successful password
+  change/set via the newly introduced ``get_password_change_redirect_url()``
+  adapter method.
+
+
 Backwards incompatible changes
 ------------------------------
 

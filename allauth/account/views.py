@@ -668,32 +668,25 @@ email = login_required(EmailView.as_view())
 class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_change." + app_settings.TEMPLATE_EXTENSION
     form_class = ChangePasswordForm
-    success_url = reverse_lazy("account_change_password")
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, "change_password", self.form_class)
 
     @sensitive_post_parameters_m
     def dispatch(self, request, *args, **kwargs):
-        return super(PasswordChangeView, self).dispatch(request, *args, **kwargs)
-
-    def render_to_response(self, context, **response_kwargs):
-        if self.request.user.is_anonymous:
-            # We end up here when `ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True`.
-            redirect_url = get_adapter(self.request).get_logout_redirect_url(
-                self.request
-            )
-            return HttpResponseRedirect(redirect_url)
-        elif not self.request.user.has_usable_password():
+        if not self.request.user.has_usable_password():
             return HttpResponseRedirect(reverse("account_set_password"))
-        return super(PasswordChangeView, self).render_to_response(
-            context, **response_kwargs
-        )
+        return super().dispatch(request, *args, **kwargs)
 
     def get_form_kwargs(self):
-        kwargs = super(PasswordChangeView, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         kwargs["user"] = self.request.user
         return kwargs
+
+    def get_success_url(self):
+        if self.success_url:
+            return self.success_url
+        return get_adapter().get_password_change_redirect_url(self.request)
 
     def form_valid(self, form):
         form.save()
@@ -708,10 +701,10 @@ class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
             request=self.request,
             user=self.request.user,
         )
-        return super(PasswordChangeView, self).form_valid(form)
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
-        ret = super(PasswordChangeView, self).get_context_data(**kwargs)
+        ret = super().get_context_data(**kwargs)
         # NOTE: For backwards compatibility
         ret["password_change_form"] = ret.get("form")
         # (end NOTE)
@@ -730,7 +723,6 @@ password_change = login_required(PasswordChangeView.as_view())
 class PasswordSetView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_set." + app_settings.TEMPLATE_EXTENSION
     form_class = SetPasswordForm
-    success_url = reverse_lazy("account_set_password")
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, "set_password", self.form_class)
@@ -739,17 +731,17 @@ class PasswordSetView(AjaxCapableProcessFormViewMixin, FormView):
     def dispatch(self, request, *args, **kwargs):
         if self.request.user.has_usable_password():
             return HttpResponseRedirect(reverse("account_change_password"))
-        return super(PasswordSetView, self).dispatch(request, *args, **kwargs)
-
-    def render_to_response(self, context, **response_kwargs):
-        return super(PasswordSetView, self).render_to_response(
-            context, **response_kwargs
-        )
+        return super().dispatch(request, *args, **kwargs)
 
     def get_form_kwargs(self):
-        kwargs = super(PasswordSetView, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         kwargs["user"] = self.request.user
         return kwargs
+
+    def get_success_url(self):
+        if self.success_url:
+            return self.success_url
+        return get_adapter().get_password_change_redirect_url(self.request)
 
     def form_valid(self, form):
         form.save()
@@ -762,10 +754,10 @@ class PasswordSetView(AjaxCapableProcessFormViewMixin, FormView):
             request=self.request,
             user=self.request.user,
         )
-        return super(PasswordSetView, self).form_valid(form)
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
-        ret = super(PasswordSetView, self).get_context_data(**kwargs)
+        ret = super().get_context_data(**kwargs)
         # NOTE: For backwards compatibility
         ret["password_set_form"] = ret.get("form")
         # (end NOTE)

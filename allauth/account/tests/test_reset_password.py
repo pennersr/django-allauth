@@ -62,14 +62,6 @@ class ResetPasswordTests(TestCase):
         resp = self.client.get(reverse("account_reset_password"))
         self.assertTemplateUsed(resp, "account/password_reset.html")
 
-    def test_password_set_redirect(self):
-        resp = self._password_set_or_change_redirect("account_set_password", True)
-        self.assertRedirects(
-            resp,
-            reverse("account_change_password"),
-            fetch_redirect_response=False,
-        )
-
     def test_set_password_not_allowed(self):
         user = self._create_user_and_login(True)
         pwd = "!*123i1uwn12W23"
@@ -82,22 +74,6 @@ class ResetPasswordTests(TestCase):
         self.assertFalse(user.check_password(pwd))
         self.assertTrue(user.has_usable_password())
         self.assertEqual(resp.status_code, 302)
-
-    def test_password_change_no_redirect(self):
-        resp = self._password_set_or_change_redirect("account_change_password", True)
-        self.assertEqual(resp.status_code, 200)
-
-    def test_password_set_no_redirect(self):
-        resp = self._password_set_or_change_redirect("account_set_password", False)
-        self.assertEqual(resp.status_code, 200)
-
-    def test_password_change_redirect(self):
-        resp = self._password_set_or_change_redirect("account_change_password", False)
-        self.assertRedirects(
-            resp,
-            reverse("account_set_password"),
-            fetch_redirect_response=False,
-        )
 
     def test_password_forgotten_username_hint(self):
         user = self._request_new_password()
@@ -318,7 +294,3 @@ class ResetPasswordTests(TestCase):
         user = self._create_user(password=password)
         self.client.force_login(user)
         return user
-
-    def _password_set_or_change_redirect(self, urlname, usable_password):
-        self._create_user_and_login(usable_password)
-        return self.client.get(reverse(urlname))

@@ -69,3 +69,20 @@ receive a refresh token on first login and on reauthentication requests
 (which is needed to refresh authentication tokens in the background,
 without involving the user's browser). When unspecified, Google defaults
 to ``online``.
+
+
+One Tap Sign-In
+***************
+
+One Tap Sign-In can be enabled by adding a snippet like this snippet to your
+template::
+
+    <script src="//accounts.google.com/gsi/client" async></script>
+    <div id="g_id_onload"
+         data-client_id="123-secret.apps.googleusercontent.com"
+         data-login_uri="{% url 'google_login_by_token' %}"
+    </div>
+
+Follow the `Sign In with Google for Web`_ guide for more information.
+
+.. _Sign In with Google for Web: https://developers.google.com/identity/gsi/web/guides/overview

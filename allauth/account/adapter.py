@@ -173,6 +173,7 @@ class DefaultAccountAdapter(object):
 
     def send_mail(self, template_prefix, email, context):
         ctx = {
+            "email": email,
             "current_site": get_current_site(globals()["context"].request),
         }
         ctx.update(context)
@@ -618,7 +619,6 @@ class DefaultAccountAdapter(object):
         )
         ctx = {
             "request": context.request,
-            "email": email,
             "signup_url": signup_url,
             "password_reset_url": password_reset_url,
         }

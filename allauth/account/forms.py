@@ -597,7 +597,6 @@ class ResetPasswordForm(forms.Form):
     def _send_unknown_account_mail(self, request, email):
         signup_url = build_absolute_uri(request, reverse("account_signup"))
         context = {
-            "email": email,
             "request": request,
             "signup_url": signup_url,
         }

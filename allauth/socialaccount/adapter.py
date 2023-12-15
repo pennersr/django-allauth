@@ -54,10 +54,10 @@ class DefaultSocialAccountAdapter(object):
         """
         pass
 
-    def authentication_error(
+    def on_authentication_error(
         self,
         request,
-        provider_id,
+        provider,
         error=None,
         exception=None,
         extra_context=None,
@@ -69,7 +69,18 @@ class DefaultSocialAccountAdapter(object):
         You can use this hook to intervene, e.g. redirect to an
         educational flow by raising an ImmediateHttpResponse.
         """
-        pass
+        if hasattr(self, "authentication_error"):
+            warnings.warn(
+                "adapter.authentication_error() is deprecated, use adapter.on_authentication_error()"
+            )
+
+            self.authentication_error(
+                request,
+                provider.id,
+                error=error,
+                exception=exception,
+                extra_context=extra_context,
+            )
 
     def new_user(self, request, sociallogin):
         """

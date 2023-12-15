@@ -82,9 +82,7 @@ class OAuthLoginView(OAuthLoginMixin, OAuthView):
             return client.get_redirect(auth_url, auth_params)
         except OAuthError as e:
             logger.error("OAuth authentication error", exc_info=True)
-            return render_authentication_error(
-                request, self.adapter.provider_id, exception=e
-            )
+            return render_authentication_error(request, provider, exception=e)
 
 
 class OAuthCallbackView(OAuthView):
@@ -93,6 +91,7 @@ class OAuthCallbackView(OAuthView):
         View to handle final steps of OAuth based authentication where the user
         gets redirected back to from the service provider
         """
+        provider = self.adapter.get_provider()
         login_done_url = reverse(self.adapter.provider_id + "_callback")
         client = self._get_client(request, login_done_url)
         if not client.is_valid():
@@ -100,14 +99,16 @@ class OAuthCallbackView(OAuthView):
                 error = AuthError.CANCELLED
             else:
                 error = AuthError.UNKNOWN
-            extra_context = dict(oauth_client=client)
             return render_authentication_error(
                 request,
-                self.adapter.provider_id,
+                provider,
                 error=error,
-                extra_context=extra_context,
+                extra_context={
+                    "oauth_client": client,
+                    "callback_view": self,
+                },
             )
-        app = self.adapter.get_provider().app
+        app = provider.app
         try:
             access_token = client.get_access_token()
             token = SocialToken(
@@ -123,6 +124,4 @@ class OAuthCallbackView(OAuthView):
             login.state = SocialLogin.unstash_state(request)
             return complete_social_login(request, login)
         except OAuthError as e:
-            return render_authentication_error(
-                request, self.adapter.provider_id, exception=e
-            )
+            return render_authentication_error(request, provider, exception=e)

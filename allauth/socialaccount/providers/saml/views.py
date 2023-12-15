@@ -68,7 +68,7 @@ class ACSView(SAMLViewMixin, View):
             )
             return render_authentication_error(
                 request,
-                provider.id,
+                provider,
                 extra_context={
                     "saml_errors": errors,
                     "saml_last_error_reason": auth.get_last_error_reason(),
@@ -76,7 +76,7 @@ class ACSView(SAMLViewMixin, View):
             )
         if not auth.is_authenticated():
             return render_authentication_error(
-                request, provider.id, error=AuthError.CANCELLED
+                request, provider, error=AuthError.CANCELLED
             )
 
         relay_state = decode_relay_state(request.POST.get("RelayState"))
@@ -106,7 +106,7 @@ class FinishACSView(SAMLViewMixin, View):
         serialized_login = acs_session.store.get("login")
         if not serialized_login:
             logger.error("Unable to finish login, SAML ACS session missing")
-            return render_authentication_error(request, provider.id)
+            return render_authentication_error(request, provider)
         acs_session.delete()
         login = SocialLogin.deserialize(serialized_login)
         return complete_social_login(request, login)

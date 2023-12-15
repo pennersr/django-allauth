@@ -148,7 +148,8 @@ class DefaultAccountAdapter(object):
         from_email = self.get_from_email()
 
         bodies = {}
-        for ext in ["html", "txt"]:
+        html_ext = app_settings.TEMPLATE_EXTENSION
+        for ext in [html_ext, "txt"]:
             try:
                 template_name = "{0}_message.{1}".format(template_prefix, ext)
                 bodies[ext] = render_to_string(
@@ -164,10 +165,12 @@ class DefaultAccountAdapter(object):
             msg = EmailMultiAlternatives(
                 subject, bodies["txt"], from_email, to, headers=headers
             )
-            if "html" in bodies:
-                msg.attach_alternative(bodies["html"], "text/html")
+            if html_ext in bodies:
+                msg.attach_alternative(bodies[html_ext], "text/html")
         else:
-            msg = EmailMessage(subject, bodies["html"], from_email, to, headers=headers)
+            msg = EmailMessage(
+                subject, bodies[html_ext], from_email, to, headers=headers
+            )
             msg.content_subtype = "html"  # Main content is now text/html
         return msg
 

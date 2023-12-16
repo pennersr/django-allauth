@@ -10,6 +10,10 @@ Note worthy changes
   change/set via the newly introduced ``get_password_change_redirect_url()``
   adapter method.
 
+- You can now configure the primary key of all models by configuring
+  ``ALLAUTH_DEFAULT_AUTO_FIELD``, for example to:
+  ``"hashid_field.HashidAutoField"``.
+
 
 Backwards incompatible changes
 ------------------------------

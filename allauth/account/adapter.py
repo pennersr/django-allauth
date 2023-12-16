@@ -723,7 +723,7 @@ class DefaultAccountAdapter(object):
         return ip
 
     def get_http_user_agent(self, request):
-        return request.META["HTTP_USER_AGENT"]
+        return request.META.get("HTTP_USER_AGENT", "Unspecified")
 
     def generate_emailconfirmation_key(self, email):
         key = get_random_string(64).lower()
@@ -767,7 +767,7 @@ class DefaultAccountAdapter(object):
         if app_settings.EMAIL_NOTIFICATIONS:
             context.update(
                 {
-                    "current_site": get_current_site(self.request),
+                    "site": get_current_site(self.request),
                     "timestamp": timezone.now(),
                     "ip": self.get_client_ip(self.request),
                     "user_agent": self.get_http_user_agent(self.request),

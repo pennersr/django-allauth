@@ -2,9 +2,7 @@
 {% load account %}
 {% load i18n %}
 
-{% block content %}{% autoescape off %}{% user_display user as user_display %}{% blocktrans with site_name=current_site.name %}Greetings {{ user_display }},
-
-You are receiving this mail because the following change was made to your account:{% endblocktrans %}
+{% block content %}{% autoescape off %}{% user_display user as user_display %}{% blocktrans with site_name=current_site.name %}You are receiving this mail because the following change was made to your account:{% endblocktrans %}
 
 {% block notification_message %}
 {% endblock notification_message%}

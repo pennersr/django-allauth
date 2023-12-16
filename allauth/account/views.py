@@ -574,7 +574,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                     {"email": email_address.email},
                 )
                 adapter.send_notification_mail(
-                    "account/email/email_removed",
+                    "account/email/email_deleted",
                     request.user,
                     {"email": email_address.email},
                 )

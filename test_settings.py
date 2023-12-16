@@ -85,6 +85,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.bitly",
     "allauth.socialaccount.providers.box",
     "allauth.socialaccount.providers.cilogon",
+    "allauth.socialaccount.providers.clever",
     "allauth.socialaccount.providers.coinbase",
     "allauth.socialaccount.providers.dataporten",
     "allauth.socialaccount.providers.daum",

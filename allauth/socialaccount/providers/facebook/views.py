@@ -82,6 +82,8 @@ oauth2_callback = OAuth2CallbackView.adapter_view(FacebookOAuth2Adapter)
 
 class LoginByTokenView(View):
     def dispatch(self, request):
+        self.adapter = get_adapter()
+        self.provider = self.adapter.get_provider(request, FacebookProvider.id)
         try:
             return super().dispatch(request)
         except (
@@ -89,9 +91,7 @@ class LoginByTokenView(View):
             forms.ValidationError,
             PermissionDenied,
         ) as exc:
-            return render_authentication_error(
-                request, FacebookProvider.id, exception=exc
-            )
+            return render_authentication_error(request, self.provider, exception=exc)
 
     def get(self, request):
         # If we leave out get().get() it will return a response with a 405, but
@@ -103,8 +103,7 @@ class LoginByTokenView(View):
         if not form.is_valid():
             raise forms.ValidationError()
 
-        adapter = get_adapter()
-        provider = adapter.get_provider(request, FacebookProvider.id)
+        provider = self.provider
         login_options = provider.get_fb_login_options(request)
         app = provider.app
         access_token = form.cleaned_data["access_token"]

@@ -57,7 +57,10 @@ class DefaultAccountAdapter(object):
             "Too many failed login attempts. Try again later."
         ),
         "email_taken": _("A user is already registered with this email address."),
+        "enter_current_password": _("Please type your current password."),
         "incorrect_password": _("Incorrect password."),
+        "password_min_length": _("Password must be a minimum of {0} characters."),
+        "unknown_email": _("The email address is not assigned to any user account"),
     }
 
     def __init__(self, request=None):
@@ -148,7 +151,8 @@ class DefaultAccountAdapter(object):
         from_email = self.get_from_email()
 
         bodies = {}
-        for ext in ["html", "txt"]:
+        html_ext = app_settings.TEMPLATE_EXTENSION
+        for ext in [html_ext, "txt"]:
             try:
                 template_name = "{0}_message.{1}".format(template_prefix, ext)
                 bodies[ext] = render_to_string(
@@ -164,15 +168,18 @@ class DefaultAccountAdapter(object):
             msg = EmailMultiAlternatives(
                 subject, bodies["txt"], from_email, to, headers=headers
             )
-            if "html" in bodies:
-                msg.attach_alternative(bodies["html"], "text/html")
+            if html_ext in bodies:
+                msg.attach_alternative(bodies[html_ext], "text/html")
         else:
-            msg = EmailMessage(subject, bodies["html"], from_email, to, headers=headers)
+            msg = EmailMessage(
+                subject, bodies[html_ext], from_email, to, headers=headers
+            )
             msg.content_subtype = "html"  # Main content is now text/html
         return msg
 
     def send_mail(self, template_prefix, email, context):
         ctx = {
+            "email": email,
             "current_site": get_current_site(globals()["context"].request),
         }
         ctx.update(context)
@@ -220,6 +227,14 @@ class DefaultAccountAdapter(object):
                 return self.get_login_redirect_url(request)
         else:
             return app_settings.EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL
+
+    def get_password_change_redirect_url(self, request):
+        """
+        The URL to redirect to after a successful password change/set.
+
+        NOTE: Not called during the password reset flow.
+        """
+        return reverse("account_change_password")
 
     def is_open_for_signup(self, request):
         """
@@ -341,7 +356,7 @@ class DefaultAccountAdapter(object):
         min_length = app_settings.PASSWORD_MIN_LENGTH
         if min_length and len(password) < min_length:
             raise forms.ValidationError(
-                _("Password must be a minimum of {0} characters.").format(min_length)
+                self.error_message["password_min_length"].format(min_length)
             )
         validate_password(password, user)
         return password
@@ -610,7 +625,6 @@ class DefaultAccountAdapter(object):
         )
         ctx = {
             "request": context.request,
-            "email": email,
             "signup_url": signup_url,
             "password_reset_url": password_reset_url,
         }

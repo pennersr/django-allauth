@@ -116,7 +116,7 @@ def _login_social_account(request, sociallogin):
 
 def render_authentication_error(
     request,
-    provider_id,
+    provider,
     error=AuthError.UNKNOWN,
     exception=None,
     extra_context=None,
@@ -124,9 +124,9 @@ def render_authentication_error(
     try:
         if extra_context is None:
             extra_context = {}
-        get_adapter().authentication_error(
+        get_adapter().on_authentication_error(
             request,
-            provider_id,
+            provider,
             error=error,
             exception=exception,
             extra_context=extra_context,
@@ -137,7 +137,7 @@ def render_authentication_error(
         return HttpResponseRedirect(reverse("socialaccount_login_cancelled"))
     context = {
         "auth_error": {
-            "provider": provider_id,
+            "provider": provider,
             "code": error,
             "exception": exception,
         }

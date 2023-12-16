@@ -1,7 +1,19 @@
+import requests
+
 from django.conf import settings
+from django.core.exceptions import PermissionDenied
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import View
 
 import jwt
+from cryptography.hazmat.backends import default_backend
+from cryptography.x509 import load_pem_x509_certificate
 
+from allauth.socialaccount.adapter import get_adapter
+from allauth.socialaccount.helpers import (
+    complete_social_login,
+    render_authentication_error,
+)
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -10,6 +22,9 @@ from allauth.socialaccount.providers.oauth2.views import (
 )
 
 from .provider import GoogleProvider
+
+
+CERTS_URL = "https://www.googleapis.com/oauth2/v1/certs"
 
 
 ACCESS_TOKEN_URL = (
@@ -64,3 +79,72 @@ class GoogleOAuth2Adapter(OAuth2Adapter):
 
 oauth2_login = OAuth2LoginView.adapter_view(GoogleOAuth2Adapter)
 oauth2_callback = OAuth2CallbackView.adapter_view(GoogleOAuth2Adapter)
+
+
+class LoginByTokenView(View):
+    def dispatch(self, request):
+        self.adapter = get_adapter()
+        self.provider = self.adapter.get_provider(request, GoogleProvider.id)
+        try:
+            return super().dispatch(request)
+        except (
+            requests.RequestException,
+            PermissionDenied,
+            jwt.PyJWTError,
+        ) as exc:
+            return render_authentication_error(request, self.provider, exception=exc)
+
+    def get(self, request):
+        # If we leave out get() it will return a response with a 405, but
+        # we really want to show an authentication error.
+        raise PermissionDenied("405")
+
+    def post(self, request, *args, **kwargs):
+        self.check_csrf(request)
+
+        credential = request.POST.get("credential")
+        alg, key = self.get_key(credential)
+        identity_data = jwt.decode(
+            credential,
+            key,
+            options={
+                "verify_signature": True,
+                "verify_iss": True,
+                "verify_aud": True,
+                "verify_exp": True,
+            },
+            issuer=ID_TOKEN_ISSUER,
+            audience=self.provider.app.client_id,
+            algorithms=[alg],
+        )
+        login = self.provider.sociallogin_from_response(request, identity_data)
+        return complete_social_login(request, login)
+
+    def check_csrf(self, request):
+        csrf_token_cookie = request.COOKIES.get("g_csrf_token")
+        if not csrf_token_cookie:
+            raise PermissionDenied("No CSRF token in Cookie.")
+        csrf_token_body = request.POST.get("g_csrf_token")
+        if not csrf_token_body:
+            raise PermissionDenied("No CSRF token in post body.")
+        if csrf_token_cookie != csrf_token_body:
+            raise PermissionDenied("Failed to verify double submit cookie.")
+
+    def get_key(self, credential):
+        header = jwt.get_unverified_header(credential)
+        # {'alg': 'RS256', 'kid': '0ad1fec78504f447bae65bcf5afaedb65eec9e81', 'typ': 'JWT'}
+        kid = header["kid"]
+        alg = header["alg"]
+        response = get_adapter().get_requests_session().get(CERTS_URL)
+        response.raise_for_status()
+        jwks = response.json()
+        key = jwks.get(kid)
+        if not key:
+            raise PermissionDenied("invalid 'kid'")
+        key = load_pem_x509_certificate(
+            key.encode("utf8"), default_backend()
+        ).public_key()
+        return alg, key
+
+
+login_by_token = csrf_exempt(LoginByTokenView.as_view())

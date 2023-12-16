@@ -57,7 +57,10 @@ class DefaultAccountAdapter(object):
             "Too many failed login attempts. Try again later."
         ),
         "email_taken": _("A user is already registered with this email address."),
+        "enter_current_password": _("Please type your current password."),
         "incorrect_password": _("Incorrect password."),
+        "password_min_length": _("Password must be a minimum of {0} characters."),
+        "unknown_email": _("The email address is not assigned to any user account"),
     }
 
     def __init__(self, request=None):
@@ -353,7 +356,7 @@ class DefaultAccountAdapter(object):
         min_length = app_settings.PASSWORD_MIN_LENGTH
         if min_length and len(password) < min_length:
             raise forms.ValidationError(
-                _("Password must be a minimum of {0} characters.").format(min_length)
+                self.error_message["password_min_length"].format(min_length)
             )
         validate_password(password, user)
         return password

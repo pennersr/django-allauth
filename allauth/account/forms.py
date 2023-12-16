@@ -540,7 +540,9 @@ class ChangePasswordForm(PasswordVerificationMixin, UserForm):
 
     def clean_oldpassword(self):
         if not self.user.check_password(self.cleaned_data.get("oldpassword")):
-            raise forms.ValidationError(_("Please type your current password."))
+            raise forms.ValidationError(
+                get_adapter().error_messages["enter_current_password"]
+            )
         return self.cleaned_data["oldpassword"]
 
     def save(self):
@@ -580,9 +582,7 @@ class ResetPasswordForm(forms.Form):
         email = get_adapter().clean_email(email)
         self.users = filter_users_by_email(email, is_active=True, prefer_verified=True)
         if not self.users and not app_settings.PREVENT_ENUMERATION:
-            raise forms.ValidationError(
-                _("The email address is not assigned to any user account")
-            )
+            raise forms.ValidationError(get_adapter().error_messages["unknown_email"])
         return self.cleaned_data["email"]
 
     def save(self, request, **kwargs):

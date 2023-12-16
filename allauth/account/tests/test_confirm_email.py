@@ -382,8 +382,8 @@ def test_confirm_logs_out_user(auth_client, settings, user, user_factory):
     assert not auth_client.session.get(SESSION_KEY)
 
 
-@patch("allauth.account.app_settings.ACCOUNT_EMAIL_NOTIFICATIONS", True)
-def test_notification_on_email_add(auth_client, user, client):
+def test_no_notification_on_email_add(auth_client, user, client, settings, mailoutbox):
+    settings.ACCOUNT_EMAIL_NOTIFICATIONS = True
     settings.ACCOUNT_MAX_EMAIL_ADDRESSES = 2
     client.force_login(user)
     response = client.post(
@@ -394,22 +394,18 @@ def test_notification_on_email_add(auth_client, user, client):
         }
     )
     assert response.status_code == 302
-    assert len(mail.outbox) == 2
-    assert "Email address has been added." in mail.outbox[1].body
+    assert len(mailoutbox) == 1
+    assert mailoutbox[0].subject == "[example.com] Please Confirm Your Email Address"
 
 
-@patch("allauth.account.app_settings.EMAIL_NOTIFICATIONS", True)
-def test_notification_on_email_remove(auth_client, user):
+def test_notification_on_email_remove(auth_client, user, settings, mailoutbox):
+    settings.ACCOUNT_EMAIL_NOTIFICATIONS = True
     secondary = EmailAddress.objects.create(
         email="secondary@email.org", user=user, verified=False, primary=False
     )
     resp = auth_client.post(
-        reverse("account_email"),
-        {"action_remove": "", "email": secondary.email},
-        **{
-            "HTTP_USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
-        }
+        reverse("account_email"), {"action_remove": "", "email": secondary.email}
     )
     assert resp.status_code == 302
-    assert len(mail.outbox) == 1
-    assert "Following email has been removed" in mail.outbox[0].body
+    assert len(mailoutbox) == 1
+    assert "Following email has been removed" in mailoutbox[0].body

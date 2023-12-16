@@ -2,7 +2,6 @@ import json
 from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
-from django.core import mail
 from django.urls import reverse
 
 import pytest

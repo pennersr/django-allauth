@@ -242,7 +242,9 @@ class GenerateRecoveryCodesView(FormView):
         signals.authenticator_reset.send(
             sender=Authenticator, user=self.request.user, authenticator=rc_auth.instance
         )
-        adapter.send_notification_mail("mfa/email/totp_reset", self.request.user, {})
+        adapter.send_notification_mail(
+            "mfa/email/recovery_codes_generated", self.request.user, {}
+        )
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):

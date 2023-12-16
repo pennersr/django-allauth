@@ -2,7 +2,6 @@ from unittest.mock import ANY, patch
 
 import django
 from django.conf import settings
-from django.core import mail
 from django.urls import reverse
 
 import pytest
@@ -10,7 +9,7 @@ from pytest_django.asserts import assertFormError
 
 from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
 from allauth.account.models import EmailAddress
-from allauth.mfa import app_settings, signals
+from allauth.mfa import app_settings
 from allauth.mfa.adapter import get_adapter
 from allauth.mfa.models import Authenticator
 
@@ -61,7 +60,6 @@ def test_activate_totp_with_unverified_email(
     }
 
 
-@patch("allauth.account.app_settings.EMAIL_NOTIFICATIONS", True)
 def test_activate_totp_success(
     auth_client, totp_validation_bypass, user, reauthentication_bypass
 ):
@@ -73,9 +71,7 @@ def test_activate_totp_success(
                 {
                     "code": "123",
                 },
-                **{"HTTP_USER_AGENT": "test"},
             )
-    assert len(mail.outbox) == 1
     assert resp["location"] == reverse("mfa_view_recovery_codes")
     assert Authenticator.objects.filter(
         user=user, type=Authenticator.Type.TOTP
@@ -286,10 +282,10 @@ def test_cannot_deactivate_totp(auth_client, user_with_totp, user_password):
         }
 
 
-@patch("allauth.account.app_settings.EMAIL_NOTIFICATIONS", True)
 def test_notification_on_mfa_activate_totp(
-    auth_client, reauthentication_bypass, totp_validation_bypass
+    auth_client, reauthentication_bypass, totp_validation_bypass, settings, mailoutbox
 ):
+    settings.ACCOUNT_EMAIL_NOTIFICATIONS = True
     with reauthentication_bypass():
         resp = auth_client.get(reverse("mfa_activate_totp"))
         with totp_validation_bypass():
@@ -298,39 +294,37 @@ def test_notification_on_mfa_activate_totp(
                 {
                     "code": "123",
                 },
-                **{"HTTP_USER_AGENT": "test"},
             )
-    assert len(mail.outbox) == 1
-    assert "Totp activated" in mail.outbox[0].subject
-    assert "Totp has been activated." in mail.outbox[0].body
+            assert resp.status_code == 302
+    assert len(mailoutbox) == 1
+    assert "Authenticator App Activated" in mailoutbox[0].subject
+    assert "Authenticator App has been activated." in mailoutbox[0].body
 
 
-@patch("allauth.account.app_settings.EMAIL_NOTIFICATIONS", True)
 def test_notification_on_mfa_deactivate_totp(
-    auth_client, user_with_totp, user_password
+    auth_client, user_with_totp, user_password, settings, mailoutbox
 ):
+    settings.ACCOUNT_EMAIL_NOTIFICATIONS = True
     resp = auth_client.get(reverse("mfa_deactivate_totp"))
     assert resp.status_code == 302
     assert resp["location"].startswith(reverse("account_reauthenticate"))
     resp = auth_client.post(resp["location"], {"password": user_password})
     assert resp.status_code == 302
-    resp = auth_client.post(
-        reverse("mfa_deactivate_totp"), **{"HTTP_USER_AGENT": "test"}
-    )
-    assert len(mail.outbox) == 1
-    assert "Totp deactivated" in mail.outbox[0].subject
-    assert "Totp has been deactivated." in mail.outbox[0].body
+    resp = auth_client.post(reverse("mfa_deactivate_totp"))
+    assert len(mailoutbox) == 1
+    assert "Authenticator App deactivated" in mailoutbox[0].subject
+    assert "Authenticator App has been deactivated." in mailoutbox[0].body
 
 
-@patch("allauth.account.app_settings.EMAIL_NOTIFICATIONS", True)
 def test_notification_on_authenticator_reset(
-    auth_client, user_with_recovery_codes, user_password
+    auth_client, user_with_recovery_codes, user_password, settings, mailoutbox
 ):
+    settings.ACCOUNT_EMAIL_NOTIFICATIONS = True
     resp = auth_client.get(reverse("mfa_generate_recovery_codes"))
     assert resp["location"].startswith(reverse("account_reauthenticate"))
     resp = auth_client.post(resp["location"], {"password": user_password})
     assert resp.status_code == 302
-    resp = auth_client.post(resp["location"], **{"HTTP_USER_AGENT": "test"})
-    assert len(mail.outbox) == 1
-    assert "Totp reset" in mail.outbox[0].subject
-    assert "Totp has been reset." in mail.outbox[0].body
+    resp = auth_client.post(resp["location"])
+    assert len(mailoutbox) == 1
+    assert "Recovery codes generated" in mailoutbox[0].subject
+    assert "Recovery codes has been generated" in mailoutbox[0].body

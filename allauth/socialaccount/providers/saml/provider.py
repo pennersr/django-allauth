@@ -59,6 +59,7 @@ class SAMLProvider(Provider):
         The `uid` is not unique across different SAML IdP's. Therefore,
         we're using a fully qualified ID: <uid>@<entity_id>.
         """
+        print(f"extract_uid.data = {data}")
         uid = self._extract(data)["uid"]
         print(f"extract_uid = {uid}")
         return uid

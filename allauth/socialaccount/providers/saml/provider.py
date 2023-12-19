@@ -40,25 +40,32 @@ class SAMLProvider(Provider):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.name = self.app.name or self.app.client_id or self.name
+        print(f"__init__.name = {self.name}")
 
     def get_login_url(self, request, **kwargs):
         url = reverse("saml_login", kwargs={"organization_slug": self.app.client_id})
         if kwargs:
             url = url + "?" + urlencode(kwargs)
+        print(f"get_login_url = {url}")
         return url
 
     def extract_extra_data(self, data):
-        return data.get_attributes()
+        attr =  data.get_attributes()
+        print(f"extract_extra_data = {attr}")
+        return attr
 
     def extract_uid(self, data):
         """
         The `uid` is not unique across different SAML IdP's. Therefore,
         we're using a fully qualified ID: <uid>@<entity_id>.
         """
-        return self._extract(data)["uid"]
+        uid = self._extract(data)["uid"]
+        print(f"extract_uid = {uid}")
+        return uid
 
     def extract_common_fields(self, data):
         ret = self._extract(data)
+        print(f"extract_common_fields = {ret} # BEFORE pop")
         ret.pop("uid", None)
         return ret
 
@@ -82,6 +89,7 @@ class SAMLProvider(Provider):
         if email_verified:
             email_verified = email_verified.lower() in ["true", "1", "t", "y", "yes"]
             attributes["email_verified"] = email_verified
+        print(f"_extract locals = {locals()}")
         return attributes
 
 

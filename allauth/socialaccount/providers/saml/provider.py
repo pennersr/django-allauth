@@ -55,7 +55,7 @@ class SAMLProvider(Provider):
         The `uid` is not unique across different SAML IdP's. Therefore,
         we're using a fully qualified ID: <uid>@<entity_id>.
         """
-        return self._extract(data)["uid"]
+        return self._extract(data).get("uid")
 
     def extract_common_fields(self, data):
         ret = self._extract(data)
@@ -74,8 +74,8 @@ class SAMLProvider(Provider):
             if isinstance(provider_keys, str):
                 provider_keys = [provider_keys]
             for provider_key in provider_keys:
-                attribute_list = raw_attributes.get(provider_key, [""])
-                if len(attribute_list) > 0:
+                attribute_list = raw_attributes.get(provider_key, None)
+                if attribute_list is not None and len(attribute_list) > 0:
                     attributes[key] = attribute_list[0]
                     break
         email_verified = attributes.get("email_verified")

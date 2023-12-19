@@ -68,6 +68,8 @@ class Provider(object):
             raise ImproperlyConfigured(
                 f"SOCIALACCOUNT_UID_MAX_LENGTH too small (<{len(uid)})"
             )
+        if not uid:
+            raise ValueError("uid must be a non-empty string")
 
         extra_data = self.extract_extra_data(response)
         common_fields = self.extract_common_fields(response)

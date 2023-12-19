@@ -74,7 +74,10 @@ class SAMLProvider(Provider):
             if isinstance(provider_keys, str):
                 provider_keys = [provider_keys]
             for provider_key in provider_keys:
-                attribute_list = raw_attributes.get(provider_key, [""])
+                attribute_list = raw_attributes.get(provider_key, None)
+                if attribute_list == None:
+                    attribute_list = raw_attributes.get(key, [""])
+                # issue https://github.com/pennersr/django-allauth/issues/3570
                 if len(attribute_list) > 0:
                     attributes[key] = attribute_list[0]
                     break

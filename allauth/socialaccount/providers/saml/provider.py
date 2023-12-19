@@ -84,10 +84,12 @@ class SAMLProvider(Provider):
             if isinstance(provider_keys, str):
                 provider_keys = [provider_keys]
             for provider_key in provider_keys:
-                attribute_list = raw_attributes.get(provider_key, [""])
+                attribute_list = raw_attributes.get(provider_key, None)
+                if attribute_list == None:
+                    attribute_list = raw_attributes.get(key, [""])
                 if len(attribute_list) > 0:
                     attributes[key] = attribute_list[0]
-                    break
+                    break 
         email_verified = attributes.get("email_verified")
         if email_verified:
             email_verified = email_verified.lower() in ["true", "1", "t", "y", "yes"]

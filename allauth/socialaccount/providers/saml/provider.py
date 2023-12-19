@@ -80,7 +80,7 @@ class SAMLProvider(Provider):
                 # issue https://github.com/pennersr/django-allauth/issues/3570
                 if len(attribute_list) > 0:
                     attributes[key] = attribute_list[0]
-                    break 
+                    break
         email_verified = attributes.get("email_verified")
         if email_verified:
             email_verified = email_verified.lower() in ["true", "1", "t", "y", "yes"]

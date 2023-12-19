@@ -60,7 +60,7 @@ class SAMLProvider(Provider):
         we're using a fully qualified ID: <uid>@<entity_id>.
         """
         print(f"extract_uid.data = {data}")
-        print(f"extract_uid.data.__dict__() = {data.__dict__()}")
+        print(f"extract_uid.data.__dict__() = {data.__dict__}")
     
         uid = self._extract(data)["uid"]
         print(f"extract_uid = {uid}")

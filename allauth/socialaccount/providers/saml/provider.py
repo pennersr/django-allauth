@@ -15,7 +15,6 @@ class SAMLProvider(Provider):
     account_class = SAMLAccount
     default_attribute_mapping = {
         "uid": [
-            "http://schemas.auth0.com/clientID",
             "urn:oasis:names:tc:SAML:attribute:subject-id",
         ],
         "email": [
@@ -51,11 +50,33 @@ class SAMLProvider(Provider):
         return data.get_attributes()
 
     def extract_uid(self, data):
+        """http://docs.oasis-open.org/security/saml-subject-id-attr/v1.0/csprd01/saml-subject-id-attr-v1.0-csprd01.html
+
+        Quotes:
+
+        "While the Attributes defined in this profile have as a goal the
+        explicit replacement of the <saml:NameID> element as a means of subject
+        identification, it is certainly possible to compose them with existing
+        NameID usage provided the same subject is being identified. This can
+        also serve as a migration strategy for existing applications."
+
+
+        "SAML does not define an identifier that meets all of these
+        requirements well. It does standardize a kind of NameID termed
+        “persistent” that meets some of them in the particular case of so-called
+        “pairwise” identification, where an identifier varies by relying
+        party. It has seen minimal adoption outside of a few contexts, and fails
+        at the “compact” and “simple to handle” criteria above, on top of the
+        disadvantages inherent with all NameID usage."
+
+        Overall, our strategy is to prefer a uid resulting from explicit
+        attribute mappings, and only if there is no such uid fallback to the
+        NameID.
         """
-        The `uid` is not unique across different SAML IdP's. Therefore,
-        we're using a fully qualified ID: <uid>@<entity_id>.
-        """
-        return self._extract(data).get("uid")
+        uid = self._extract(data).get("uid")
+        if uid is None:
+            uid = data.get_nameid()
+        return uid
 
     def extract_common_fields(self, data):
         ret = self._extract(data)
@@ -82,6 +103,15 @@ class SAMLProvider(Provider):
         if email_verified:
             email_verified = email_verified.lower() in ["true", "1", "t", "y", "yes"]
             attributes["email_verified"] = email_verified
+
+        # If we did not find an email, check if the NameID contains the email.
+        if (
+            not attributes.get("email")
+            and data.get_nameid_format()
+            == "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+        ):
+            attributes["email"] = data.get_nameid()
+
         return attributes
 
 

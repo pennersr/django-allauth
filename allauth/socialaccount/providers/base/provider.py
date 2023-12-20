@@ -1,6 +1,7 @@
 from django.core.exceptions import ImproperlyConfigured
 
 from allauth.socialaccount import app_settings
+from allauth.socialaccount.adapter import get_adapter
 
 
 class ProviderException(Exception):
@@ -135,10 +136,9 @@ class Provider(object):
                 EmailAddress(email=email, verified=bool(email_verified), primary=True)
             )
         # Force verified emails
-        settings = self.get_settings()
-        verified_email = settings.get("VERIFIED_EMAIL", False)
-        if verified_email:
-            for address in addresses:
+        adapter = get_adapter()
+        for address in addresses:
+            if adapter.is_email_verified(self, address.email):
                 address.verified = True
 
     def extract_email_addresses(self, data):

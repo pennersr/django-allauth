@@ -312,6 +312,50 @@ class DefaultSocialAccountAdapter(object):
         )
         return session
 
+    def is_email_verified(self, provider, email):
+        """
+        Returns ``True`` iff the given email encountered during a social
+        login for the given provider is to be assumed verified.
+
+        This can be configured with a ``"verified_email"`` key in the provider
+        app settings, or a ``"VERIFIED_EMAIL"`` in the global provider settings
+        (``SOCIALACCOUNT_PROVIDERS``).  Both can be set to ``False`` or
+        ``True``, or, a list of domains to match email addresses against.
+        """
+        verified_email = None
+        if provider.app:
+            verified_email = provider.app.settings.get("verified_email")
+        if verified_email is None:
+            settings = provider.get_settings()
+            verified_email = settings.get("VERIFIED_EMAIL", False)
+        if isinstance(verified_email, bool):
+            pass
+        elif isinstance(verified_email, list):
+            email_domain = email.partition("@")[2].lower()
+            verified_domains = [d.lower() for d in verified_email]
+            verified_email = email_domain in verified_domains
+        else:
+            raise ImproperlyConfigured("verified_email wrongly configured")
+        return verified_email
+
+    def can_authenticate_by_email(self, login, email):
+        """
+        Returns ``True`` iff  authentication by email is active for this login/email.
+
+        This can be configured with a ``"email_authentication"`` key in the provider
+        app settings, or a ``"VERIFIED_EMAIL"`` in the global provider settings
+        (``SOCIALACCOUNT_PROVIDERS``).
+        """
+        ret = None
+        provider = login.account.get_provider()
+        if provider.app:
+            ret = provider.app.settings.get("email_authentication")
+        if ret is None:
+            ret = app_settings.EMAIL_AUTHENTICATION or provider.get_settings().get(
+                "EMAIL_AUTHENTICATION", False
+            )
+        return ret
+
 
 def get_adapter(request=None):
     return import_attribute(app_settings.ADAPTER)(request)

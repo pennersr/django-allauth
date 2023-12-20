@@ -170,13 +170,17 @@ def test_build_saml_config(rf, provider_config):
 
 
 @pytest.mark.parametrize(
-    "data, result",
+    "data, result, uid",
     [
-        ({"urn:oasis:names:tc:SAML:attribute:subject-id": ["123"]}, {"uid": "123"}),
-        ({"http://schemas.auth0.com/clientID": ["123"]}, {"uid": "123"}),
+        (
+            {"urn:oasis:names:tc:SAML:attribute:subject-id": ["123"]},
+            {"uid": "123", "email": "nameid@saml.org"},
+            "123",
+        ),
+        ({}, {"email": "nameid@saml.org"}, "nameid@saml.org"),
     ],
 )
-def test_extract_attributes(db, data, result, settings):
+def test_extract_attributes(db, data, result, uid, settings):
     settings.SOCIALACCOUNT_PROVIDERS = {
         "saml": {
             "APPS": [
@@ -190,4 +194,9 @@ def test_extract_attributes(db, data, result, settings):
     provider = get_adapter().get_provider(request=None, provider="saml")
     onelogin_data = Mock()
     onelogin_data.get_attributes.return_value = data
+    onelogin_data.get_nameid.return_value = "nameid@saml.org"
+    onelogin_data.get_nameid_format.return_value = (
+        "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+    )
     assert provider._extract(onelogin_data) == result
+    assert provider.extract_uid(onelogin_data) == uid

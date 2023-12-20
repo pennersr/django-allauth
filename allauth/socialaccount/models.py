@@ -279,11 +279,7 @@ class SocialLogin(object):
         points, if any.
         """
         if not self._lookup_by_socialaccount():
-            provider_id = self.account.get_provider().id
-            if app_settings.EMAIL_AUTHENTICATION or app_settings.PROVIDERS.get(
-                provider_id, {}
-            ).get("EMAIL_AUTHENTICATION", False):
-                self._lookup_by_email()
+            self._lookup_by_email()
 
     def _lookup_by_socialaccount(self):
         assert not self.is_existing
@@ -324,6 +320,8 @@ class SocialLogin(object):
     def _lookup_by_email(self):
         emails = [e.email for e in self.email_addresses if e.verified]
         for email in emails:
+            if not get_adapter().can_authenticate_by_email(self, email):
+                continue
             users = filter_users_by_email(email, prefer_verified=True)
             if users:
                 self.user = users[0]

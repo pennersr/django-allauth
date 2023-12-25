@@ -144,6 +144,13 @@ class AppSettings(object):
         Enforce uniqueness of email addresses
         """
         return self._setting("UNIQUE_EMAIL", True)
+    
+    @property
+    def ALLOW_SIGNUP(self):
+        """
+        Allow new registrations.
+        """
+        return self._setting("ALLOW_SIGNUP", True)
 
     @property
     def SIGNUP_EMAIL_ENTER_TWICE(self):

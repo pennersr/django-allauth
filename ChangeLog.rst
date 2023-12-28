@@ -10,6 +10,10 @@ Note worthy changes
   change/set via the newly introduced ``get_password_change_redirect_url()``
   adapter method.
 
+- You can now configure the primary key of all models by configuring
+  ``ALLAUTH_DEFAULT_AUTO_FIELD``, for example to:
+  ``"hashid_field.HashidAutoField"``.
+
 
 Backwards incompatible changes
 ------------------------------
@@ -19,6 +23,10 @@ Backwards incompatible changes
   set to ``"oidc"``, meaning, an OpenID Connect provider with provider ID
   ``foo`` uses ``/accounts/oidc/foo/login/`` as its login URL. Set it to empty
   (``""``) to keep the previous URL structure (``/accounts/foo/login/``).
+
+- The SAML default attribute mapping for ``uid`` has been changed to only
+  include ``urn:oasis:names:tc:SAML:attribute:subject-id``. If the SAML response
+  does not contain that, it will fallback to use ``NameID``.
 
 
 0.59.0 (2023-12-13)

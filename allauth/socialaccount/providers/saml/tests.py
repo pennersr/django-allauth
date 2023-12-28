@@ -1,4 +1,4 @@
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 from urllib.parse import parse_qs, urlparse
 
 from django.urls import reverse
@@ -7,6 +7,7 @@ from django.utils.http import urlencode
 import pytest
 
 from allauth.account.models import EmailAddress
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers.saml.utils import build_saml_config
 
@@ -166,3 +167,36 @@ def test_build_saml_config(rf, provider_config):
     assert config["idp"]["x509cert"] == "cert"
     assert config["idp"]["singleSignOnService"] == {"url": "https://idp.org/sso/"}
     assert config["idp"]["singleLogoutService"] == {"url": "https://idp.saml.org/slo/"}
+
+
+@pytest.mark.parametrize(
+    "data, result, uid",
+    [
+        (
+            {"urn:oasis:names:tc:SAML:attribute:subject-id": ["123"]},
+            {"uid": "123", "email": "nameid@saml.org"},
+            "123",
+        ),
+        ({}, {"email": "nameid@saml.org"}, "nameid@saml.org"),
+    ],
+)
+def test_extract_attributes(db, data, result, uid, settings):
+    settings.SOCIALACCOUNT_PROVIDERS = {
+        "saml": {
+            "APPS": [
+                {
+                    "client_id": "org",
+                    "provider_id": "urn:dev-123.us.auth0.com",
+                }
+            ]
+        }
+    }
+    provider = get_adapter().get_provider(request=None, provider="saml")
+    onelogin_data = Mock()
+    onelogin_data.get_attributes.return_value = data
+    onelogin_data.get_nameid.return_value = "nameid@saml.org"
+    onelogin_data.get_nameid_format.return_value = (
+        "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+    )
+    assert provider._extract(onelogin_data) == result
+    assert provider.extract_uid(onelogin_data) == uid

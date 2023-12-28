@@ -11,7 +11,7 @@ django-allauth example application in this directory:
     $ cd django-allauth/example
     $ virtualenv venv
     $ . venv/bin/activate
-    $ pip install ..
+    $ pip install ..[mfa,saml]
 
 Now we need to create the database tables and an admin user.
 Run the following and when prompted to create a superuser choose yes and

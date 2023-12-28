@@ -11,18 +11,15 @@ class ShareFileTests(OAuth2TestsMixin, TestCase):
         return MockedResponse(
             200,
             """
-        {"access_token": "12345678abcdef",
-         "refresh_token": "12345678abcdef",
-         "token_type": "bearer",
-         "expires_in": 28800,
-         "appcp": "sharefile.com",
-         "apicp": "sharefile.com",
-         "subdomain": "example",
-         "access_files_folders": true,
-         "modify_files_folders": true,
-         "admin_users": true,
-         "admin_accounts": true,
-         "change_my_settings": true,
-          "web_app_login": true}
-        """,
+{
+  "Id": "123",
+  "Email":"user.one@domain.com",
+  "FirstName":"Name",
+  "LastName":"Last Name",
+  "Company":"Company",
+  "DefaultZone":
+  {
+    "Id":"zoneid"
+  }
+}         """,
         )

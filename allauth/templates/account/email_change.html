@@ -19,38 +19,37 @@
                 {% slot label %}
                     {% translate "Current email" %}:
                 {% endslot %}
-            {% enddelement}
-        {% endelement %}
-        {% if new_emailaddress %}
-            {% element field name="email" value=new_emailaddress.email readonly=True type="email" %}
-                {% slot label %}
-                    {% translate "Changing to" %}:
-                {% endslot %}
-                {% slot help_text %}
-                    {% blocktranslate %}Your email address is still pending verification.{% endblocktranslate %}
-                {% endslot %}
             {% endelement %}
-        {% else %}
-            {% element field name="email" value=form.email.value errors=form.email.errors type="email" %}
-                {% slot label %}
-                    {% translate "Change to" %}:
-                {% endslot %}
-            {% endelement %}
-        {% endif %}
-    {% endslot %}
-    {% slot actions %}
-        {% if new_emailaddress %}
-            {% element button type="submit" name="action_send" %}
-                {% trans 'Re-send Verification' %}
-            {% endelement %}
-            {% element button type="submit" name="action_remove" %}
-                {% trans 'Cancel Change' %}
-            {% endelement %}
-        {% else %}
-            {% element button name="action_add" type="submit" %}
-                {% trans "Change Email" %}
-            {% endelement %}
-        {% endif %}
-    {% endslot %}
-{% endelement %}
+            {% if new_emailaddress %}
+                {% element field name="email" value=new_emailaddress.email readonly=True type="email" %}
+                    {% slot label %}
+                        {% translate "Changing to" %}:
+                    {% endslot %}
+                    {% slot help_text %}
+                        {% blocktranslate %}Your email address is still pending verification.{% endblocktranslate %}
+                    {% endslot %}
+                {% endelement %}
+            {% else %}
+                {% element field name="email" value=form.email.value errors=form.email.errors type="email" %}
+                    {% slot label %}
+                        {% translate "Change to" %}:
+                    {% endslot %}
+                {% endelement %}
+            {% endif %}
+        {% endslot %}
+        {% slot actions %}
+            {% if new_emailaddress %}
+                {% element button type="submit" name="action_send" %}
+                    {% trans 'Re-send Verification' %}
+                {% endelement %}
+                {% element button type="submit" name="action_remove" %}
+                    {% trans 'Cancel Change' %}
+                {% endelement %}
+            {% else %}
+                {% element button name="action_add" type="submit" %}
+                    {% trans "Change Email" %}
+                {% endelement %}
+            {% endif %}
+        {% endslot %}
+    {% endelement %}
 {% endblock content %}

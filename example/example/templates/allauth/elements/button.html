@@ -1,19 +1,22 @@
 {% load allauth %}
 {% comment %} djlint:off {% endcomment %}
 <{% if attrs.href %}a href="{{ attrs.href }}"{% else %}button{% endif %}
+{% if attrs.form %}form="{{ attrs.form }}"{% endif %}
+{% if attrs.id %}id="{{ attrs.id }}"{% endif %}
 {% if attrs.name %}name="{{ attrs.name }}"{% endif %}
 {% if attrs.type %}type="{{ attrs.type }}"{% endif %}
-{% if attrs.id %}id="{{ attrs.id }}"{% endif %}
 class="{% block class %}
     btn
-    {% if "prominent" in attrs.tags %}btn-lg
-    {% elif "minor" in attrs.tags %}btn-sm{% endif %}
-{% if "danger" in attrs.tags %}btn-danger
-{% elif "secondary" in attrs.tags %}btn-secondary
-{% elif "warning" in attrs.tags %}btn-warning
-{% else %}btn-primary
-{% endif %}
-{% endblock %}">
+    {% if "link" in attrs.tags %}btn-link
+    {% else %}
+      {% if "prominent" in attrs.tags %}btn-lg
+      {% elif "minor" in attrs.tags %}btn-sm{% endif %}
+      {% if "danger" in attrs.tags %}btn-danger
+      {% elif "secondary" in attrs.tags %}btn-secondary
+      {% elif "warning" in attrs.tags %}btn-warning
+      {% else %}btn-primary
+      {% endif %}
+    {% endif %}{% endblock %}">
     {% if "tool" in attrs.tags %}
     {% if "delete" in attrs.tags %}
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">

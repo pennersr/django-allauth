@@ -15,41 +15,54 @@
     {% element form method="post" action=action_url %}
         {% slot body %}
             {% csrf_token %}
-            {% element field readonly=True type="email" value=current_emailaddress.email %}
-                {% slot label %}
-                    {% translate "Current email" %}:
-                {% endslot %}
-            {% endelement %}
-            {% if new_emailaddress %}
-                {% element field name="email" value=new_emailaddress.email readonly=True type="email" %}
+            {% if current_emailaddress %}
+                {% element field disabled=True type="email" value=current_emailaddress.email %}
                     {% slot label %}
-                        {% translate "Changing to" %}:
+                        {% translate "Current email" %}:
+                    {% endslot %}
+                {% endelement %}
+            {% endif %}
+            {% if new_emailaddress %}
+                {% element field name="email" value=new_emailaddress.email disabled=True type="email" %}
+                    {% slot label %}
+                        {% if not current_emailaddress %}
+                            {% translate "Current email" %}:
+                        {% else %}
+                            {% translate "Changing to" %}:
+                        {% endif %}
                     {% endslot %}
                     {% slot help_text %}
                         {% blocktranslate %}Your email address is still pending verification.{% endblocktranslate %}
-                    {% endslot %}
-                {% endelement %}
-            {% else %}
-                {% element field name="email" value=form.email.value errors=form.email.errors type="email" %}
-                    {% slot label %}
-                        {% translate "Change to" %}:
+                        {% element button form="pending-email" type="submit" name="action_send" tags="minor,secondary" %}
+                            {% trans 'Re-send Verification' %}
+                        {% endelement %}
+                        {% if current_emailaddress %}
+                            {% element button form="pending-email" type="submit" name="action_remove" tags="danger,minor" %}
+                                {% trans 'Cancel Change' %}
+                            {% endelement %}
+                        {% endif %}
                     {% endslot %}
                 {% endelement %}
             {% endif %}
+            {% element field name="email" value=form.email.value errors=form.email.errors type="email" %}
+                {% slot label %}
+                    {% translate "Change to" %}:
+                {% endslot %}
+            {% endelement %}
         {% endslot %}
         {% slot actions %}
-            {% if new_emailaddress %}
-                {% element button type="submit" name="action_send" %}
-                    {% trans 'Re-send Verification' %}
-                {% endelement %}
-                {% element button type="submit" name="action_remove" %}
-                    {% trans 'Cancel Change' %}
-                {% endelement %}
-            {% else %}
-                {% element button name="action_add" type="submit" %}
-                    {% trans "Change Email" %}
-                {% endelement %}
-            {% endif %}
+            {% element button name="action_add" type="submit" %}
+                {% trans "Change Email" %}
+            {% endelement %}
         {% endslot %}
     {% endelement %}
+    {% if new_emailaddress %}
+        <form style="display: none"
+              id="pending-email"
+              method="post"
+              action="{% url 'account_email' %}">
+            {% csrf_token %}
+            <input type="hidden" name="email" value="{{ new_emailaddress.email }}">
+        </form>
+    {% endif %}
 {% endblock content %}

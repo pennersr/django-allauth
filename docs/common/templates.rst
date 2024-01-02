@@ -7,7 +7,7 @@ Introduction
 The templates that are offered out of the box are intentionally plain and
 without any styling. We do not want to pick a side in the multitudes of frontend
 styling options out there, and the look and feel typically should be adjusted to
-match the branding of your poject. Therefore it is recommended that you copy all
+match the branding of your project. Therefore it is recommended that you copy all
 templates over to your own project and adjust them as you see fit.
 
 Having said that, over time the years the complexity of authentication grew

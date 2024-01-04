@@ -144,6 +144,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.orcid",
     "allauth.socialaccount.providers.patreon",
     "allauth.socialaccount.providers.paypal",
+    "allauth.socialaccount.providers.pingidentity",
     "allauth.socialaccount.providers.pinterest",
     "allauth.socialaccount.providers.pocket",
     "allauth.socialaccount.providers.questrade",

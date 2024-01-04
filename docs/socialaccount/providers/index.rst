@@ -102,6 +102,7 @@ Provider Specifics
    orcid
    patreon
    paypal
+   pingidentity
    pinterest
    pocket
    questrade

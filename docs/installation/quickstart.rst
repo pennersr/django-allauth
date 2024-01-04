@@ -119,6 +119,7 @@ the ``settings.py`` of your project::
         'allauth.socialaccount.providers.patreon',
         'allauth.socialaccount.providers.paypal',
         'allauth.socialaccount.providers.persona',
+        'allauth.socialaccount.providers.pingidentity',
         'allauth.socialaccount.providers.pinterest',
         'allauth.socialaccount.providers.pocket',
         "allauth.socialaccount.providers.questrade",

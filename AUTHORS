@@ -3,8 +3,7 @@ django-allauth was started by Raymond Penners
 by and partly based on existing projects such as Pinax (account app),
 Django-Socialauth, django-socialregistration.
 
-Contributors
-============
+# Contributors
 
 Aaron van Derlip
 Abhinav Johri
@@ -17,6 +16,7 @@ Aiden Lu
 Aldiantoro Nugroho
 Alexander Gaevsky
 Andrean Franc
+Andrei Satsevich
 Andrew Chen Wang
 Andrey Akolpakov
 Andrey Balandin

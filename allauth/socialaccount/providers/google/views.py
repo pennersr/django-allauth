@@ -26,6 +26,7 @@ from .provider import GoogleProvider
 
 CERTS_URL = "https://www.googleapis.com/oauth2/v1/certs"
 
+IDENTITY_URL = "https://www.googleapis.com/oauth2/v2/userinfo"
 
 ACCESS_TOKEN_URL = (
     getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
@@ -45,12 +46,20 @@ ID_TOKEN_ISSUER = (
     .get("ID_TOKEN_ISSUER", "https://accounts.google.com")
 )
 
+FETCH_USERINFO = (
+    getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
+    .get("google", {})
+    .get("FETCH_USERINFO", False)
+)
+
 
 class GoogleOAuth2Adapter(OAuth2Adapter):
     provider_id = GoogleProvider.id
     access_token_url = ACCESS_TOKEN_URL
     authorize_url = AUTHORIZE_URL
     id_token_issuer = ID_TOKEN_ISSUER
+    identity_url = IDENTITY_URL
+    fetch_userinfo = FETCH_USERINFO
 
     def complete_login(self, request, app, token, response, **kwargs):
         try:
@@ -73,6 +82,20 @@ class GoogleOAuth2Adapter(OAuth2Adapter):
             )
         except jwt.PyJWTError as e:
             raise OAuth2Error("Invalid id_token") from e
+
+        if self.fetch_userinfo and "picture" not in identity_data:
+            resp = (
+                get_adapter()
+                .get_requests_session()
+                .get(
+                    self.identity_url,
+                    headers={"Authorization": "Bearer {}".format(token)},
+                )
+            )
+            if not resp.ok:
+                raise OAuth2Error("Request to user info failed")
+            identity_data["picture"] = resp.json()["picture"]
+
         login = self.get_provider().sociallogin_from_response(request, identity_data)
         return login
 

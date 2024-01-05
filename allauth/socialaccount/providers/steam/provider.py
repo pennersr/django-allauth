@@ -41,7 +41,7 @@ def request_steam_account_summary(api_key, steam_id):
     method = "ISteamUser/GetPlayerSummaries/v0002/"
     params = {"key": api_key, "steamids": steam_id}
 
-    resp = get_adapter().get_requests_session().get(api_base + method, params)
+    resp = get_adapter().get_requests_session().get(api_base + method, params=params)
     resp.raise_for_status()
     data = resp.json()
 

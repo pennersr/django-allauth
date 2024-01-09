@@ -66,6 +66,19 @@ def test_acs_error(client, db, saml_settings):
     assert "socialaccount/authentication_error.html" in (t.name for t in resp.templates)
 
 
+def test_acs_get(client, db, saml_settings):
+    """ACS expects POST"""
+    resp = client.get(reverse("saml_acs", kwargs={"organization_slug": "org"}))
+    assert resp.status_code == 200
+    assert "socialaccount/authentication_error.html" in (t.name for t in resp.templates)
+
+
+def test_sls_get(client, db, saml_settings):
+    """SLS expects POST"""
+    resp = client.get(reverse("saml_sls", kwargs={"organization_slug": "org"}))
+    assert resp.status_code == 400
+
+
 @pytest.mark.parametrize(
     "query,expected_relay_state",
     [

@@ -1,3 +1,13 @@
+0.61.0 (unreleased)
+*******************
+
+Fixes
+-----
+
+- User sessions: after changing your password in case of ``ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = False``, the list of
+  sessions woud be empty instead of showing your current session.
+
+
 0.60.0 (2024-01-05)
 *******************
 

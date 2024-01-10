@@ -18,6 +18,7 @@ from allauth.socialaccount.helpers import (
 )
 from allauth.socialaccount.models import SocialLogin
 from allauth.socialaccount.providers.base.constants import AuthError
+from allauth.socialaccount.providers.base.utils import respond_to_login_on_get
 from allauth.socialaccount.sessions import LoginSession
 
 from .utils import (
@@ -185,6 +186,9 @@ metadata = MetadataView.as_view()
 class LoginView(SAMLViewMixin, View):
     def dispatch(self, request, organization_slug):
         provider = self.get_provider(organization_slug)
+        resp = respond_to_login_on_get(request, provider)
+        if resp:
+            return resp
         auth = self.build_auth(provider, organization_slug)
         process = self.request.GET.get("process")
         next_url = get_next_redirect_url(request)

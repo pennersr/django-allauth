@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-12 13:20-0600\n"
+"POT-Creation-Date: 2024-01-12 09:45-0600\n"
 "PO-Revision-Date: 2023-07-24 22:25+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,23 +32,31 @@ msgid "A user is already registered with this email address."
 msgstr "Вече има регистриран потребител с този e-mail адрес."
 
 #: account/adapter.py:60
+msgid "Please type your current password."
+msgstr "Моля, въведете вашата текуща парола."
+
+#: account/adapter.py:61
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "Текуща парола"
 
-#: account/adapter.py:344
+#: account/adapter.py:62
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Паролата трябва да бъде поне {0} символа."
 
-#: account/adapter.py:731
+#: account/adapter.py:63
+msgid "The email address is not assigned to any user account"
+msgstr "Няма потребител с този e-mail адрес."
+
+#: account/adapter.py:743
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "Забравена парола?"
 
-#: account/adapter.py:741
+#: account/adapter.py:753
 msgid "Use your authenticator app"
 msgstr ""
 
@@ -58,7 +66,7 @@ msgstr ""
 msgid "Mark selected email addresses as verified"
 msgstr "Основният ви e-mail адрес трябва да бъде потвърден."
 
-#: account/apps.py:9
+#: account/apps.py:11
 msgid "Accounts"
 msgstr "Акаунти"
 
@@ -66,8 +74,8 @@ msgstr "Акаунти"
 msgid "You must type the same password each time."
 msgstr "Трябва да въведете една и съща парола."
 
-#: account/forms.py:92 account/forms.py:412 account/forms.py:552
-#: account/forms.py:689
+#: account/forms.py:92 account/forms.py:412 account/forms.py:554
+#: account/forms.py:688
 msgid "Password"
 msgstr "Парола"
 
@@ -88,12 +96,12 @@ msgid "The username and/or password you specified are not correct."
 msgstr "Потребителското име и/или паролата, които въведохте, са грешни."
 
 #: account/forms.py:112 account/forms.py:287 account/forms.py:477
-#: account/forms.py:572
+#: account/forms.py:574
 msgid "Email address"
 msgstr "E-mail адрес"
 
 #: account/forms.py:116 account/forms.py:325 account/forms.py:474
-#: account/forms.py:567
+#: account/forms.py:569
 msgid "Email"
 msgstr "E-mail"
 
@@ -133,7 +141,7 @@ msgstr "E-mail (опционален)"
 msgid "You must type the same email each time."
 msgstr "Трябва да въведете един и същ email."
 
-#: account/forms.py:418 account/forms.py:555
+#: account/forms.py:418 account/forms.py:557
 msgid "Password (again)"
 msgstr "Парола (отново)"
 
@@ -150,23 +158,15 @@ msgstr "Не можете да добавяте повече от %d e-mail ад
 msgid "Current Password"
 msgstr "Текуща парола"
 
-#: account/forms.py:532 account/forms.py:638
+#: account/forms.py:532 account/forms.py:637
 msgid "New Password"
 msgstr "Нова парола"
 
-#: account/forms.py:535 account/forms.py:639
+#: account/forms.py:535 account/forms.py:638
 msgid "New Password (again)"
 msgstr "Нова парола (отново)"
 
-#: account/forms.py:543
-msgid "Please type your current password."
-msgstr "Моля, въведете вашата текуща парола."
-
-#: account/forms.py:584
-msgid "The email address is not assigned to any user account"
-msgstr "Няма потребител с този e-mail адрес."
-
-#: account/forms.py:659
+#: account/forms.py:658
 msgid "The password reset token was invalid."
 msgstr "Невалиден код за възстановяване на парола."
 
@@ -210,27 +210,27 @@ msgstr "email потвърждение"
 msgid "email confirmations"
 msgstr "email потвърждения"
 
-#: mfa/adapter.py:19
+#: mfa/adapter.py:20
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
 msgstr ""
 
-#: mfa/adapter.py:22
+#: mfa/adapter.py:23
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
 msgstr ""
 
-#: mfa/adapter.py:24
+#: mfa/adapter.py:25
 msgid "Incorrect code."
 msgstr ""
 
-#: mfa/adapter.py:26
+#: mfa/adapter.py:27
 msgid "You cannot deactivate two-factor authentication."
 msgstr ""
 
-#: mfa/apps.py:7
+#: mfa/apps.py:9
 msgid "MFA"
 msgstr ""
 
@@ -262,15 +262,15 @@ msgstr ""
 "Вече съществува акаунт с този e-mail адрес. Моля, първо влезте в този акаунт "
 "и тогава свържете вашия %s акаунт."
 
-#: socialaccount/adapter.py:137
+#: socialaccount/adapter.py:148
 msgid "Your account has no password set up."
 msgstr "Вашият акаунт няма парола."
 
-#: socialaccount/adapter.py:144
+#: socialaccount/adapter.py:155
 msgid "Your account has no verified email address."
 msgstr "Вашият акаунт няма потвърден e-mail адрес."
 
-#: socialaccount/apps.py:7
+#: socialaccount/apps.py:9
 msgid "Social Accounts"
 msgstr "Социални акаунти"
 
@@ -453,7 +453,7 @@ msgstr "Основен"
 msgid "Make Primary"
 msgstr "Направи основен"
 
-#: templates/account/email.html:45 templates/account/email_change.html:44
+#: templates/account/email.html:45 templates/account/email_change.html:37
 msgid "Re-send Verification"
 msgstr "Изпрати потвърждение отново"
 
@@ -509,6 +509,47 @@ msgstr ""
 "Благодарим, че ползвате %(site_name)s!\n"
 "%(site_domain)s"
 
+#: templates/account/email/base_notification.txt:5
+msgid ""
+"You are receiving this mail because the following change was made to your "
+"account:"
+msgstr ""
+
+#: templates/account/email/base_notification.txt:9
+#, python-format
+msgid ""
+"\n"
+"If you do not recognize this change then please take proper security "
+"precautions immediately. The change to your account originates from:\n"
+"\n"
+"- IP address: %(ip)s\n"
+"- Browser: %(user_agent)s\n"
+"- Date: %(timestamp)s"
+msgstr ""
+
+#: templates/account/email/email_changed_message.txt:4
+#, python-format
+msgid "Your email has been changed from %(from_email)s to %(to_email)s."
+msgstr ""
+
+#: templates/account/email/email_changed_subject.txt:3
+#, fuzzy
+#| msgid "Email address"
+msgid "Email Changed"
+msgstr "E-mail адрес"
+
+#: templates/account/email/email_confirm_message.txt:4
+#, fuzzy
+#| msgid "You have confirmed %(email)s."
+msgid "Your email has been confirmed."
+msgstr "Потвърдихте e-mail адрес %(email)s."
+
+#: templates/account/email/email_confirm_subject.txt:3
+#, fuzzy
+#| msgid "email confirmation"
+msgid "Email Confirmation"
+msgstr "email потвърждение"
+
 #: templates/account/email/email_confirmation_message.txt:5
 #, fuzzy, python-format
 #| msgid ""
@@ -530,6 +571,29 @@ msgstr ""
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your Email Address"
 msgstr "Моля, потвърдете вашия e-mail адрес"
+
+#: templates/account/email/email_deleted_message.txt:4
+#, python-format
+msgid "Email address %(deleted_email)s has been removed from your account."
+msgstr ""
+
+#: templates/account/email/email_deleted_subject.txt:3
+#, fuzzy
+#| msgid "Remove"
+msgid "Email Removed"
+msgstr "Премахни"
+
+#: templates/account/email/password_changed_message.txt:4
+#, fuzzy
+#| msgid "Your password is now changed."
+msgid "Your password has been changed."
+msgstr "Паролата ви е сменена."
+
+#: templates/account/email/password_changed_subject.txt:3
+#, fuzzy
+#| msgid "Password (again)"
+msgid "Password Changed"
+msgstr "Парола (отново)"
 
 #: templates/account/email/password_reset_key_message.txt:4
 #, fuzzy
@@ -557,6 +621,32 @@ msgstr "В случай, че сте забравили, вашето потре
 #: templates/account/email/password_reset_key_subject.txt:3
 #: templates/account/email/unknown_account_subject.txt:3
 msgid "Password Reset Email"
+msgstr "Възстановяване на парола"
+
+#: templates/account/email/password_reset_message.txt:4
+#, fuzzy
+#| msgid "Your password is now changed."
+msgid "Your password has been reset."
+msgstr "Паролата ви е сменена."
+
+#: templates/account/email/password_reset_subject.txt:3
+#: templates/account/password_reset.html:4
+#: templates/account/password_reset.html:8
+#: templates/account/password_reset_done.html:6
+#: templates/account/password_reset_done.html:10
+msgid "Password Reset"
+msgstr "Възстановяване на парола"
+
+#: templates/account/email/password_set_message.txt:4
+#, fuzzy
+#| msgid "Your password is now changed."
+msgid "Your password has been set."
+msgstr "Паролата ви е сменена."
+
+#: templates/account/email/password_set_subject.txt:3
+#, fuzzy
+#| msgid "Password Reset"
+msgid "Password Set"
 msgstr "Възстановяване на парола"
 
 #: templates/account/email/unknown_account_message.txt:4
@@ -595,33 +685,34 @@ msgstr ""
 msgid "Email Address"
 msgstr "E-mail адреси"
 
-#: templates/account/email_change.html:20
+#: templates/account/email_change.html:21
+#: templates/account/email_change.html:29
 #, fuzzy
 #| msgid "Current Password"
 msgid "Current email"
 msgstr "Текуща парола"
 
-#: templates/account/email_change.html:27
+#: templates/account/email_change.html:31
 msgid "Changing to"
 msgstr ""
 
-#: templates/account/email_change.html:30
+#: templates/account/email_change.html:35
 #, fuzzy
 #| msgid "Your primary email address must be verified."
 msgid "Your email address is still pending verification."
 msgstr "Основният ви e-mail адрес трябва да бъде потвърден."
 
-#: templates/account/email_change.html:36
+#: templates/account/email_change.html:41
+msgid "Cancel Change"
+msgstr ""
+
+#: templates/account/email_change.html:49
 #, fuzzy
 #| msgid "Email"
 msgid "Change to"
 msgstr "E-mail"
 
-#: templates/account/email_change.html:47
-msgid "Cancel Change"
-msgstr ""
-
-#: templates/account/email_change.html:51
+#: templates/account/email_change.html:55
 #: templates/allauth/layouts/base.html:29
 #, fuzzy
 #| msgid "Email"
@@ -761,13 +852,6 @@ msgstr "Смяна на парола"
 #: templates/account/password_change.html:21
 msgid "Forgot Password?"
 msgstr "Забравена парола?"
-
-#: templates/account/password_reset.html:4
-#: templates/account/password_reset.html:8
-#: templates/account/password_reset_done.html:6
-#: templates/account/password_reset_done.html:10
-msgid "Password Reset"
-msgstr "Възстановяване на парола"
 
 #: templates/account/password_reset.html:14
 #, fuzzy
@@ -980,6 +1064,37 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
+#: templates/mfa/email/recovery_codes_generated_message.txt:4
+msgid ""
+"A new set of Two-Factor Authentication recovery codes has been generated."
+msgstr ""
+
+#: templates/mfa/email/recovery_codes_generated_subject.txt:3
+msgid "New Recovery Codes Generated"
+msgstr ""
+
+#: templates/mfa/email/totp_activated_message.txt:4
+#: templates/mfa/messages/totp_activated.txt:2
+msgid "Authenticator app activated."
+msgstr ""
+
+#: templates/mfa/email/totp_activated_subject.txt:3
+#, fuzzy
+#| msgid "token secret"
+msgid "Authenticator App Activated"
+msgstr "таен код"
+
+#: templates/mfa/email/totp_deactivated_message.txt:4
+#: templates/mfa/messages/totp_deactivated.txt:2
+msgid "Authenticator app deactivated."
+msgstr ""
+
+#: templates/mfa/email/totp_deactivated_subject.txt:3
+#, fuzzy
+#| msgid "token secret"
+msgid "Authenticator App Deactivated"
+msgstr "таен код"
+
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
 msgstr ""
@@ -1033,14 +1148,6 @@ msgstr ""
 
 #: templates/mfa/messages/recovery_codes_generated.txt:2
 msgid "A new set of recovery codes has been generated."
-msgstr ""
-
-#: templates/mfa/messages/totp_activated.txt:2
-msgid "Authenticator app activated."
-msgstr ""
-
-#: templates/mfa/messages/totp_deactivated.txt:2
-msgid "Authenticator app deactivated."
 msgstr ""
 
 #: templates/mfa/reauthenticate.html:5
@@ -1110,12 +1217,18 @@ msgstr ""
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9
-msgid "Social Network Login Failure"
+#, fuzzy
+#| msgid "Social Network Login Failure"
+msgid "Third-Party Login Failure"
 msgstr "Грешка при вход чрез социална мрежа"
 
 #: templates/socialaccount/authentication_error.html:11
+#, fuzzy
+#| msgid ""
+#| "An error occurred while attempting to login via your social network "
+#| "account."
 msgid ""
-"An error occurred while attempting to login via your social network account."
+"An error occurred while attempting to login via your third-party account."
 msgstr ""
 "Възникна грешка при опита за влизане чрез вашия акаунт от социална мрежа."
 
@@ -1135,14 +1248,41 @@ msgid ""
 msgstr "Можете да влизате в акаунта си чрез следните външни акаунти:"
 
 #: templates/socialaccount/connections.html:45
-msgid ""
-"You currently have no social network accounts connected to this account."
+#, fuzzy
+#| msgid ""
+#| "You currently have no social network accounts connected to this account."
+msgid "You currently have no third-party accounts connected to this account."
 msgstr "В момента нямате акаунти от социални мрежи, свързани с този акаунт."
 
 #: templates/socialaccount/connections.html:48
 #, fuzzy
 #| msgid "Add a 3rd Party Account"
 msgid "Add a Third-Party Account"
+msgstr "Добавяне на външен акаунт"
+
+#: templates/socialaccount/email/account_connected_message.txt:4
+#, python-format
+msgid ""
+"A third-party account from %(provider)s has been connected to your account."
+msgstr ""
+
+#: templates/socialaccount/email/account_connected_subject.txt:3
+#, fuzzy
+#| msgid "Add a 3rd Party Account"
+msgid "Third-Party Account Connected"
+msgstr "Добавяне на външен акаунт"
+
+#: templates/socialaccount/email/account_disconnected_message.txt:4
+#, python-format
+msgid ""
+"A third-party account from %(provider)s has been disconnected from your "
+"account."
+msgstr ""
+
+#: templates/socialaccount/email/account_disconnected_subject.txt:3
+#, fuzzy
+#| msgid "Add a 3rd Party Account"
+msgid "Third-Party Account Disconnected"
 msgstr "Добавяне на външен акаунт"
 
 #: templates/socialaccount/login.html:10
@@ -1185,15 +1325,21 @@ msgstr ""
 "било грешка, моля, <a href=\"%(login_url)s\">влезте</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
-msgid "The social account has been connected."
+#, fuzzy
+#| msgid "The social account has been connected."
+msgid "The third-party account has been connected."
 msgstr "Социалният акаунт беше свързан."
 
 #: templates/socialaccount/messages/account_connected_other.txt:2
-msgid "The social account is already connected to a different account."
+#, fuzzy
+#| msgid "The social account is already connected to a different account."
+msgid "The third-party account is already connected to a different account."
 msgstr "Социалният акаунт вече е свързан с друг акаунт."
 
 #: templates/socialaccount/messages/account_disconnected.txt:2
-msgid "The social account has been disconnected."
+#, fuzzy
+#| msgid "The social account has been disconnected."
+msgid "The third-party account has been disconnected."
 msgstr "Социалният акаунт беше изключен."
 
 #: templates/socialaccount/signup.html:12
@@ -1246,11 +1392,11 @@ msgstr "Текуща парола"
 msgid "Sign Out Other Sessions"
 msgstr ""
 
-#: usersessions/apps.py:7
+#: usersessions/apps.py:9
 msgid "User Sessions"
 msgstr ""
 
-#: usersessions/models.py:46
+#: usersessions/models.py:48
 msgid "session key"
 msgstr ""
 

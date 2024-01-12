@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-12 13:20-0600\n"
+"POT-Creation-Date: 2024-01-12 09:45-0600\n"
 "PO-Revision-Date: 2018-08-29 08:16+0200\n"
 "Last-Translator: Eneko Illarramendi <eneko@illarra.com>\n"
 "Language-Team: Basque <translate@tropela.eus>\n"
@@ -33,23 +33,31 @@ msgstr ""
 "Erabiltzaile batek kontu bat sortu du iada helbide elektroniko honekin."
 
 #: account/adapter.py:60
+msgid "Please type your current password."
+msgstr "Mesedez idatzi zure oraingo pasahitza."
+
+#: account/adapter.py:61
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "Oraingo pasahitza"
 
-#: account/adapter.py:344
+#: account/adapter.py:62
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Pasahitzak gutxienez {0} karaktere izan behar ditu."
 
-#: account/adapter.py:731
+#: account/adapter.py:63
+msgid "The email address is not assigned to any user account"
+msgstr "Helbide elektroniko hau ez dago kontu bati lotuta"
+
+#: account/adapter.py:743
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "Pasahitza ahaztu duzu?"
 
-#: account/adapter.py:741
+#: account/adapter.py:753
 msgid "Use your authenticator app"
 msgstr ""
 
@@ -59,7 +67,7 @@ msgstr ""
 msgid "Mark selected email addresses as verified"
 msgstr "Zure email nagusiak egiaztatuta egon behar du."
 
-#: account/apps.py:9
+#: account/apps.py:11
 msgid "Accounts"
 msgstr "Kontuak"
 
@@ -67,8 +75,8 @@ msgstr "Kontuak"
 msgid "You must type the same password each time."
 msgstr "Pasahitz berdina idatzi behar duzu aldi bakoitzean."
 
-#: account/forms.py:92 account/forms.py:412 account/forms.py:552
-#: account/forms.py:689
+#: account/forms.py:92 account/forms.py:412 account/forms.py:554
+#: account/forms.py:688
 msgid "Password"
 msgstr "Pasahitza"
 
@@ -89,12 +97,12 @@ msgid "The username and/or password you specified are not correct."
 msgstr "Sartutako erabiltzailea eta/edo pasahitza ez dira zuzenak."
 
 #: account/forms.py:112 account/forms.py:287 account/forms.py:477
-#: account/forms.py:572
+#: account/forms.py:574
 msgid "Email address"
 msgstr "Helbide elektronikoa"
 
 #: account/forms.py:116 account/forms.py:325 account/forms.py:474
-#: account/forms.py:567
+#: account/forms.py:569
 msgid "Email"
 msgstr "Emaila"
 
@@ -134,7 +142,7 @@ msgstr "Emaila (hautazkoa)"
 msgid "You must type the same email each time."
 msgstr "Email berdina idatzi behar duzu aldi bakoitzean."
 
-#: account/forms.py:418 account/forms.py:555
+#: account/forms.py:418 account/forms.py:557
 msgid "Password (again)"
 msgstr "Pasahitza (berriro)"
 
@@ -151,23 +159,15 @@ msgstr "Ezin dituzu %d email helbide baino gehiago erabili."
 msgid "Current Password"
 msgstr "Oraingo pasahitza"
 
-#: account/forms.py:532 account/forms.py:638
+#: account/forms.py:532 account/forms.py:637
 msgid "New Password"
 msgstr "Pasahitz berria"
 
-#: account/forms.py:535 account/forms.py:639
+#: account/forms.py:535 account/forms.py:638
 msgid "New Password (again)"
 msgstr "Pasahitz berria (berriro)"
 
-#: account/forms.py:543
-msgid "Please type your current password."
-msgstr "Mesedez idatzi zure oraingo pasahitza."
-
-#: account/forms.py:584
-msgid "The email address is not assigned to any user account"
-msgstr "Helbide elektroniko hau ez dago kontu bati lotuta"
-
-#: account/forms.py:659
+#: account/forms.py:658
 msgid "The password reset token was invalid."
 msgstr "Pasahitza berrezartzeko \"token\"-a baliogabea da."
 
@@ -211,27 +211,27 @@ msgstr "email egiaztapena"
 msgid "email confirmations"
 msgstr "email egiaztapenak"
 
-#: mfa/adapter.py:19
+#: mfa/adapter.py:20
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
 msgstr ""
 
-#: mfa/adapter.py:22
+#: mfa/adapter.py:23
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
 msgstr ""
 
-#: mfa/adapter.py:24
+#: mfa/adapter.py:25
 msgid "Incorrect code."
 msgstr ""
 
-#: mfa/adapter.py:26
+#: mfa/adapter.py:27
 msgid "You cannot deactivate two-factor authentication."
 msgstr ""
 
-#: mfa/apps.py:7
+#: mfa/apps.py:9
 msgid "MFA"
 msgstr ""
 
@@ -263,15 +263,15 @@ msgstr ""
 "Kontu bat sortu da iada helbide elektroniko honekin. Mesedez hasi saio berri "
 "bat kontu honekin eta gero zure %s kontua honi lotu."
 
-#: socialaccount/adapter.py:137
+#: socialaccount/adapter.py:148
 msgid "Your account has no password set up."
 msgstr "Zure kontuak ez du pasahitzik zehaztuta."
 
-#: socialaccount/adapter.py:144
+#: socialaccount/adapter.py:155
 msgid "Your account has no verified email address."
 msgstr "Zure kontuak ez du egiaztatutako emailik."
 
-#: socialaccount/apps.py:7
+#: socialaccount/apps.py:9
 msgid "Social Accounts"
 msgstr "Sare sozial kontuak"
 
@@ -454,7 +454,7 @@ msgstr "Nagusia"
 msgid "Make Primary"
 msgstr "Nagusia egin"
 
-#: templates/account/email.html:45 templates/account/email_change.html:44
+#: templates/account/email.html:45 templates/account/email_change.html:37
 msgid "Re-send Verification"
 msgstr "Egiaztapen emaila berbidali"
 
@@ -510,6 +510,47 @@ msgstr ""
 "Mila esker %(site_name)s webgunea erabiltzeagatik!\n"
 "%(site_domain)s"
 
+#: templates/account/email/base_notification.txt:5
+msgid ""
+"You are receiving this mail because the following change was made to your "
+"account:"
+msgstr ""
+
+#: templates/account/email/base_notification.txt:9
+#, python-format
+msgid ""
+"\n"
+"If you do not recognize this change then please take proper security "
+"precautions immediately. The change to your account originates from:\n"
+"\n"
+"- IP address: %(ip)s\n"
+"- Browser: %(user_agent)s\n"
+"- Date: %(timestamp)s"
+msgstr ""
+
+#: templates/account/email/email_changed_message.txt:4
+#, python-format
+msgid "Your email has been changed from %(from_email)s to %(to_email)s."
+msgstr ""
+
+#: templates/account/email/email_changed_subject.txt:3
+#, fuzzy
+#| msgid "Email address"
+msgid "Email Changed"
+msgstr "Helbide elektronikoa"
+
+#: templates/account/email/email_confirm_message.txt:4
+#, fuzzy
+#| msgid "You have confirmed %(email)s."
+msgid "Your email has been confirmed."
+msgstr "%(email)s emaila egiaztatu duzu."
+
+#: templates/account/email/email_confirm_subject.txt:3
+#, fuzzy
+#| msgid "email confirmation"
+msgid "Email Confirmation"
+msgstr "email egiaztapena"
+
 #: templates/account/email/email_confirmation_message.txt:5
 #, fuzzy, python-format
 #| msgid ""
@@ -531,6 +572,29 @@ msgstr ""
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your Email Address"
 msgstr "Mesedez egiaztatu zure helbide elektronikoa"
+
+#: templates/account/email/email_deleted_message.txt:4
+#, python-format
+msgid "Email address %(deleted_email)s has been removed from your account."
+msgstr ""
+
+#: templates/account/email/email_deleted_subject.txt:3
+#, fuzzy
+#| msgid "Remove"
+msgid "Email Removed"
+msgstr "Ezabatu"
+
+#: templates/account/email/password_changed_message.txt:4
+#, fuzzy
+#| msgid "Your password is now changed."
+msgid "Your password has been changed."
+msgstr "Zure pasahitza aldatuta dago orain."
+
+#: templates/account/email/password_changed_subject.txt:3
+#, fuzzy
+#| msgid "Password (again)"
+msgid "Password Changed"
+msgstr "Pasahitza (berriro)"
 
 #: templates/account/email/password_reset_key_message.txt:4
 #, fuzzy
@@ -560,6 +624,32 @@ msgstr "Ahaztu baduzu, zure erabiltzaile izena %(username)s da."
 msgid "Password Reset Email"
 msgstr "Pasahitza berrezartzeko emaila"
 
+#: templates/account/email/password_reset_message.txt:4
+#, fuzzy
+#| msgid "Your password is now changed."
+msgid "Your password has been reset."
+msgstr "Zure pasahitza aldatuta dago orain."
+
+#: templates/account/email/password_reset_subject.txt:3
+#: templates/account/password_reset.html:4
+#: templates/account/password_reset.html:8
+#: templates/account/password_reset_done.html:6
+#: templates/account/password_reset_done.html:10
+msgid "Password Reset"
+msgstr "Pasahitza berrezarri"
+
+#: templates/account/email/password_set_message.txt:4
+#, fuzzy
+#| msgid "Your password is now changed."
+msgid "Your password has been set."
+msgstr "Zure pasahitza aldatuta dago orain."
+
+#: templates/account/email/password_set_subject.txt:3
+#, fuzzy
+#| msgid "Password Reset"
+msgid "Password Set"
+msgstr "Pasahitza berrezarri"
+
 #: templates/account/email/unknown_account_message.txt:4
 #, fuzzy, python-format
 #| msgid ""
@@ -588,33 +678,34 @@ msgstr ""
 msgid "Email Address"
 msgstr "Helbide elektronikoak"
 
-#: templates/account/email_change.html:20
+#: templates/account/email_change.html:21
+#: templates/account/email_change.html:29
 #, fuzzy
 #| msgid "Current Password"
 msgid "Current email"
 msgstr "Oraingo pasahitza"
 
-#: templates/account/email_change.html:27
+#: templates/account/email_change.html:31
 msgid "Changing to"
 msgstr ""
 
-#: templates/account/email_change.html:30
+#: templates/account/email_change.html:35
 #, fuzzy
 #| msgid "Your primary email address must be verified."
 msgid "Your email address is still pending verification."
 msgstr "Zure email nagusiak egiaztatuta egon behar du."
 
-#: templates/account/email_change.html:36
+#: templates/account/email_change.html:41
+msgid "Cancel Change"
+msgstr ""
+
+#: templates/account/email_change.html:49
 #, fuzzy
 #| msgid "Email"
 msgid "Change to"
 msgstr "Emaila"
 
-#: templates/account/email_change.html:47
-msgid "Cancel Change"
-msgstr ""
-
-#: templates/account/email_change.html:51
+#: templates/account/email_change.html:55
 #: templates/allauth/layouts/base.html:29
 #, fuzzy
 #| msgid "Email"
@@ -754,13 +845,6 @@ msgstr "Pasahitza aldatu"
 #: templates/account/password_change.html:21
 msgid "Forgot Password?"
 msgstr "Pasahitza ahaztu duzu?"
-
-#: templates/account/password_reset.html:4
-#: templates/account/password_reset.html:8
-#: templates/account/password_reset_done.html:6
-#: templates/account/password_reset_done.html:10
-msgid "Password Reset"
-msgstr "Pasahitza berrezarri"
 
 #: templates/account/password_reset.html:14
 #, fuzzy
@@ -975,6 +1059,37 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
+#: templates/mfa/email/recovery_codes_generated_message.txt:4
+msgid ""
+"A new set of Two-Factor Authentication recovery codes has been generated."
+msgstr ""
+
+#: templates/mfa/email/recovery_codes_generated_subject.txt:3
+msgid "New Recovery Codes Generated"
+msgstr ""
+
+#: templates/mfa/email/totp_activated_message.txt:4
+#: templates/mfa/messages/totp_activated.txt:2
+msgid "Authenticator app activated."
+msgstr ""
+
+#: templates/mfa/email/totp_activated_subject.txt:3
+#, fuzzy
+#| msgid "token secret"
+msgid "Authenticator App Activated"
+msgstr "\"token secret\"-a"
+
+#: templates/mfa/email/totp_deactivated_message.txt:4
+#: templates/mfa/messages/totp_deactivated.txt:2
+msgid "Authenticator app deactivated."
+msgstr ""
+
+#: templates/mfa/email/totp_deactivated_subject.txt:3
+#, fuzzy
+#| msgid "token secret"
+msgid "Authenticator App Deactivated"
+msgstr "\"token secret\"-a"
+
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
 msgstr ""
@@ -1028,14 +1143,6 @@ msgstr ""
 
 #: templates/mfa/messages/recovery_codes_generated.txt:2
 msgid "A new set of recovery codes has been generated."
-msgstr ""
-
-#: templates/mfa/messages/totp_activated.txt:2
-msgid "Authenticator app activated."
-msgstr ""
-
-#: templates/mfa/messages/totp_deactivated.txt:2
-msgid "Authenticator app deactivated."
 msgstr ""
 
 #: templates/mfa/reauthenticate.html:5
@@ -1105,12 +1212,18 @@ msgstr ""
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9
-msgid "Social Network Login Failure"
+#, fuzzy
+#| msgid "Social Network Login Failure"
+msgid "Third-Party Login Failure"
 msgstr "Arazoak sare sozialarekin logina egitean"
 
 #: templates/socialaccount/authentication_error.html:11
+#, fuzzy
+#| msgid ""
+#| "An error occurred while attempting to login via your social network "
+#| "account."
 msgid ""
-"An error occurred while attempting to login via your social network account."
+"An error occurred while attempting to login via your third-party account."
 msgstr ""
 "Arazoren bat izan da zure sare sozial kontua erabiltzen saioa hasteko "
 "ahaleginean."
@@ -1132,14 +1245,41 @@ msgstr ""
 "Ondorengo zerbitzu hauetako edozein erabili dezakezu zure kontuan sartzeko:"
 
 #: templates/socialaccount/connections.html:45
-msgid ""
-"You currently have no social network accounts connected to this account."
+#, fuzzy
+#| msgid ""
+#| "You currently have no social network accounts connected to this account."
+msgid "You currently have no third-party accounts connected to this account."
 msgstr "Oraingoz ez duzu sare sozial konturik lotu kontu honekin."
 
 #: templates/socialaccount/connections.html:48
 #, fuzzy
 #| msgid "Add a 3rd Party Account"
 msgid "Add a Third-Party Account"
+msgstr "Sare sozial kontu bat gehitu"
+
+#: templates/socialaccount/email/account_connected_message.txt:4
+#, python-format
+msgid ""
+"A third-party account from %(provider)s has been connected to your account."
+msgstr ""
+
+#: templates/socialaccount/email/account_connected_subject.txt:3
+#, fuzzy
+#| msgid "Add a 3rd Party Account"
+msgid "Third-Party Account Connected"
+msgstr "Sare sozial kontu bat gehitu"
+
+#: templates/socialaccount/email/account_disconnected_message.txt:4
+#, python-format
+msgid ""
+"A third-party account from %(provider)s has been disconnected from your "
+"account."
+msgstr ""
+
+#: templates/socialaccount/email/account_disconnected_subject.txt:3
+#, fuzzy
+#| msgid "Add a 3rd Party Account"
+msgid "Third-Party Account Disconnected"
 msgstr "Sare sozial kontu bat gehitu"
 
 #: templates/socialaccount/login.html:10
@@ -1183,15 +1323,21 @@ msgstr ""
 "berriro."
 
 #: templates/socialaccount/messages/account_connected.txt:2
-msgid "The social account has been connected."
+#, fuzzy
+#| msgid "The social account has been connected."
+msgid "The third-party account has been connected."
 msgstr "Sare sozial kontua behar bezala lotu da."
 
 #: templates/socialaccount/messages/account_connected_other.txt:2
-msgid "The social account is already connected to a different account."
+#, fuzzy
+#| msgid "The social account is already connected to a different account."
+msgid "The third-party account is already connected to a different account."
 msgstr "Sare sozial kontua dagoeneko beste kontu bati lotuta dago."
 
 #: templates/socialaccount/messages/account_disconnected.txt:2
-msgid "The social account has been disconnected."
+#, fuzzy
+#| msgid "The social account has been disconnected."
+msgid "The third-party account has been disconnected."
 msgstr "Sare sozial kontu honekin lotura ezabatu da."
 
 #: templates/socialaccount/signup.html:12
@@ -1245,11 +1391,11 @@ msgstr "Oraingo pasahitza"
 msgid "Sign Out Other Sessions"
 msgstr ""
 
-#: usersessions/apps.py:7
+#: usersessions/apps.py:9
 msgid "User Sessions"
 msgstr ""
 
-#: usersessions/models.py:46
+#: usersessions/models.py:48
 msgid "session key"
 msgstr ""
 

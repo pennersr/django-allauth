@@ -1,6 +1,7 @@
 from django.utils.translation import gettext_lazy as _
 
 from allauth import app_settings as allauth_settings
+from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.utils import user_email, user_username
 from allauth.core import context
 from allauth.mfa import app_settings
@@ -67,6 +68,9 @@ class DefaultMFAAdapter:
 
     def can_delete_authenticator(self, authenticator):
         return True
+
+    def send_notification_mail(self, *args, **kwargs):
+        return get_account_adapter().send_notification_mail(*args, **kwargs)
 
 
 def get_adapter():

@@ -573,3 +573,24 @@ def assess_unique_email(email) -> Optional[bool]:
         # to be unique. In this case, uniqueness takes precedence over
         # enumeration prevention.
         return False
+
+
+def emit_email_changed(request, from_email_address, to_email_address):
+    user = to_email_address.user
+    signals.email_changed.send(
+        sender=user.__class__,
+        request=request,
+        user=user,
+        from_email_address=from_email_address,
+        to_email_address=to_email_address,
+    )
+    if from_email_address:
+        get_adapter().send_notification_mail(
+            "account/email/email_changed",
+            user,
+            context={
+                "from_email": from_email_address.email,
+                "to_email": to_email_address.email,
+            },
+            email=from_email_address.email,
+        )

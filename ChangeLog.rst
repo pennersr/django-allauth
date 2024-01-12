@@ -1,6 +1,15 @@
 0.61.0 (unreleased)
 *******************
 
+Note worthy changes
+-------------------
+
+- Added support for account related security notifications. When
+  ``ACCOUNT_EMAIL_NOTIFICATIONS = True``, email notifications such as "Your
+  password was changed", including information on user agent / IP address from where the change
+  originated, will be emailed.
+
+
 Fixes
 -----
 

@@ -53,6 +53,11 @@ Available settings:
   track of these keys. Current versions use HMAC based keys that do not
   require server side state.
 
+``ACCOUNT_EMAIL_NOTIFICATIONS`` (default: ``False``)
+  When enabled, account related security notifications, such as "Your password
+  was changed", including information on user agent / IP address from where the
+  change originated, will be emailed.
+
 ``ACCOUNT_EMAIL_REQUIRED`` (default: ``False``)
   The user is required to hand over an email address when signing up.
 

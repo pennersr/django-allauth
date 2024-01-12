@@ -1,0 +1,4 @@
+{% extends "account/email/base_notification.txt" %}
+{% load i18n %}
+
+{% block notification_message %}{% blocktrans %}A third-party account from {{ provider }} has been disconnected from your account.{% endblocktrans %}{% endblock notification_message %}

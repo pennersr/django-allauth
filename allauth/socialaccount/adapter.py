@@ -303,6 +303,9 @@ class DefaultSocialAccountAdapter(object):
             raise SocialApp.DoesNotExist()
         return apps[0]
 
+    def send_notification_mail(self, *args, **kwargs):
+        return get_account_adapter().send_notification_mail(*args, **kwargs)
+
     def get_requests_session(self):
         import requests
 

@@ -214,6 +214,15 @@ class SocialLogin(object):
             sender=SocialLogin, request=request, sociallogin=self
         )
 
+        get_adapter().send_notification_mail(
+            "socialaccount/email/account_connected",
+            self.user,
+            context={
+                "account": self.account,
+                "provider": self.account.get_provider(),
+            },
+        )
+
     def serialize(self):
         serialize_instance = get_adapter().serialize_instance
         ret = dict(

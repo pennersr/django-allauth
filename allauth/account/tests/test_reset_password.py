@@ -47,6 +47,7 @@ def test_reset_password_unknown_account_disabled(client, settings):
     ACCOUNT_SIGNUP_REDIRECT_URL="/accounts/welcome/",
     ACCOUNT_ADAPTER="allauth.account.adapter.DefaultAccountAdapter",
     ACCOUNT_USERNAME_REQUIRED=True,
+    ACCOUNT_EMAIL_NOTIFICATIONS=True,
 )
 class ResetPasswordTests(TestCase):
     def test_user_email_not_sent_inactive_user(self):
@@ -161,6 +162,7 @@ class ResetPasswordTests(TestCase):
             url, {"password1": "newpass123", "password2": "newpass123"}
         )
         self.assertRedirects(resp, reverse("account_reset_password_from_key_done"))
+        assert "Your password has been reset" in mail.outbox[-1].body
 
         # Check the new password is in effect
         user = get_user_model().objects.get(pk=user.pk)

@@ -1,4 +1,0 @@
-{% extends "account/email/base_notification.txt" %}
-{% load i18n %}
-
-{% block notification_message %}{% blocktrans %}Your social account has been updated.{% endblocktrans %}{% endblock notification_message %}

@@ -47,6 +47,7 @@ def test_reset_password_unknown_account_disabled(client, settings):
     ACCOUNT_SIGNUP_REDIRECT_URL="/accounts/welcome/",
     ACCOUNT_ADAPTER="allauth.account.adapter.DefaultAccountAdapter",
     ACCOUNT_USERNAME_REQUIRED=True,
+    ACCOUNT_EMAIL_NOTIFICATIONS=True,
 )
 class ResetPasswordTests(TestCase):
     def test_user_email_not_sent_inactive_user(self):
@@ -161,6 +162,7 @@ class ResetPasswordTests(TestCase):
             url, {"password1": "newpass123", "password2": "newpass123"}
         )
         self.assertRedirects(resp, reverse("account_reset_password_from_key_done"))
+        assert "Your password has been reset" in mail.outbox[-1].body
 
         # Check the new password is in effect
         user = get_user_model().objects.get(pk=user.pk)
@@ -294,42 +296,3 @@ class ResetPasswordTests(TestCase):
         user = self._create_user(password=password)
         self.client.force_login(user)
         return user
-
-
-def test_notification_on_password_change(user_factory, client, settings, mailoutbox):
-    settings.ACCOUNT_EMAIL_NOTIFICATIONS = True
-    user = user_factory(
-        email="john.doe@test.com",
-        password="password",
-        email_verified=True,
-    )
-    client.force_login(user)
-
-    client.post(
-        reverse("account_change_password"),
-        data={
-            "oldpassword": "password",
-            "password1": "change_password",
-            "password2": "change_password",
-        },
-    )
-    assert len(mailoutbox) == 1
-    assert "Your password has been changed" in mailoutbox[0].body
-
-
-def test_notification_on_password_reset(user_factory, client, settings, mailoutbox):
-    settings.ACCOUNT_EMAIL_NOTIFICATIONS = True
-    user = user_factory(
-        email="john.doe@test.com",
-        password="password",
-        email_verified=True,
-    )
-
-    client.post(reverse("account_reset_password"), data={"email": user.email})
-    body = mailoutbox[0].body
-    url = body[body.find("/password/reset/") :].split()[0]
-    resp = client.get(url)
-    resp = client.post(resp.url, {"password1": "newpass123", "password2": "newpass123"})
-
-    assert len(mailoutbox) == 2
-    assert "Your password has been reset" in mailoutbox[1].body

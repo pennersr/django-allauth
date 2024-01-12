@@ -215,7 +215,12 @@ class SocialLogin(object):
         )
 
         get_adapter().send_notification_mail(
-            "socialaccount/email/account_added", self.user, {}
+            "socialaccount/email/account_connected",
+            self.user,
+            context={
+                "account": self.account,
+                "provider": self.account.get_provider(),
+            },
         )
 
     def serialize(self):

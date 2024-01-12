@@ -1,4 +1,4 @@
 {% load i18n %}
 {% autoescape off %}
-{% blocktrans %}Social account disconnected{% endblocktrans %}
+{% blocktrans %}Third-Party Account Disconnected{% endblocktrans %}
 {% endautoescape %}

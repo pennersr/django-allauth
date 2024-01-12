@@ -530,6 +530,7 @@ class DefaultAccountAdapter(object):
         Marks the email address as confirmed on the db
         """
         from allauth.account.models import EmailAddress
+        from allauth.account.utils import emit_email_changed
 
         from_email_address = (
             EmailAddress.objects.filter(user_id=email_address.user_id)
@@ -545,13 +546,7 @@ class DefaultAccountAdapter(object):
                 user_id=email_address.user_id
             ).exclude(pk=email_address.pk):
                 instance.remove()
-            signals.email_changed.send(
-                sender=get_user_model(),
-                request=request,
-                user=email_address.user,
-                from_email_address=from_email_address,
-                to_email_address=email_address,
-            )
+            emit_email_changed(request, from_email_address, email_address)
         return True
 
     def set_password(self, user, password):
@@ -761,21 +756,23 @@ class DefaultAccountAdapter(object):
                 )
         return ret
 
-    def send_notification_mail(self, template_prefix, user, context):
+    def send_notification_mail(self, template_prefix, user, context=None, email=None):
         from allauth.account.models import EmailAddress
 
-        if app_settings.EMAIL_NOTIFICATIONS:
-            context.update(
-                {
-                    "site": get_current_site(self.request),
-                    "timestamp": timezone.now(),
-                    "ip": self.get_client_ip(self.request),
-                    "user_agent": self.get_http_user_agent(self.request),
-                }
-            )
-            email = EmailAddress.objects.get_primary(user)
-            if email:
-                self.send_mail(template_prefix, email.email, context)
+        if not app_settings.EMAIL_NOTIFICATIONS:
+            return
+        if not email:
+            email = EmailAddress.objects.get_primary_email(user)
+        if not email:
+            return
+        ctx = {
+            "timestamp": timezone.now(),
+            "ip": self.get_client_ip(self.request),
+            "user_agent": self.get_http_user_agent(self.request),
+        }
+        if context:
+            ctx.update(context)
+        self.send_mail(template_prefix, email, ctx)
 
 
 def get_adapter(request=None):

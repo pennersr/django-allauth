@@ -1,4 +1,0 @@
-{% load i18n %}
-{% autoescape off %}
-{% blocktrans %}Social account updated{% endblocktrans %}
-{% endautoescape %}

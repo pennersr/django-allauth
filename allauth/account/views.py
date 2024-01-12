@@ -43,6 +43,7 @@ from allauth.account.reauthentication import (
 )
 from allauth.account.utils import (
     complete_signup,
+    emit_email_changed,
     get_login_redirect_url,
     get_next_redirect_url,
     logout_on_password_change,
@@ -576,7 +577,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                 adapter.send_notification_mail(
                     "account/email/email_deleted",
                     request.user,
-                    {"email": email_address.email},
+                    {"deleted_email": email_address.email},
                 )
                 return HttpResponseRedirect(self.get_success_url())
 
@@ -614,21 +615,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                     messages.SUCCESS,
                     "account/messages/primary_email_set.txt",
                 )
-                signals.email_changed.send(
-                    sender=request.user.__class__,
-                    request=request,
-                    user=request.user,
-                    from_email_address=from_email_address,
-                    to_email_address=email_address,
-                )
-                adapter.send_notification_mail(
-                    "account/email/email_changed",
-                    request.user,
-                    {
-                        "from_emailaddress": from_email_address.email,
-                        "to_emailaddress": email_address.email,
-                    },
-                )
+                emit_email_changed(request, from_email_address, email_address)
                 return HttpResponseRedirect(self.get_success_url())
 
     def get_context_data(self, **kwargs):
@@ -713,7 +700,7 @@ class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
             "account/messages/password_changed.txt",
         )
         adapter.send_notification_mail(
-            "account/email/password_changed", self.request.user, {}
+            "account/email/password_changed", self.request.user
         )
         signals.password_changed.send(
             sender=self.request.user.__class__,
@@ -764,19 +751,18 @@ class PasswordSetView(AjaxCapableProcessFormViewMixin, FormView):
 
     def form_valid(self, form):
         form.save()
-        logout_on_password_change(self.request, form.user)
+        user = form.user
+        logout_on_password_change(self.request, user)
         adapter = get_adapter(self.request)
         adapter.add_message(
             self.request, messages.SUCCESS, "account/messages/password_set.txt"
         )
         signals.password_set.send(
-            sender=self.request.user.__class__,
+            sender=user.__class__,
             request=self.request,
-            user=self.request.user,
+            user=user,
         )
-        adapter.send_notification_mail(
-            "account/email/password_set", self.request.user, {}
-        )
+        adapter.send_notification_mail("account/email/password_set", user)
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -928,9 +914,7 @@ class PasswordResetFromKeyView(
             request=self.request,
             user=self.reset_user,
         )
-        adapter.send_notification_mail(
-            "account/email/password_reset", self.reset_user, {}
-        )
+        adapter.send_notification_mail("account/email/password_reset", self.reset_user)
 
         if app_settings.LOGIN_ON_PASSWORD_RESET:
             return perform_login(

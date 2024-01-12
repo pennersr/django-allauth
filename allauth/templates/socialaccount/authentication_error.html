@@ -2,11 +2,11 @@
 {% load i18n %}
 {% load allauth %}
 {% block head_title %}
-    {% trans "Social Network Login Failure" %}
+    {% trans "Third-Party Login Failure" %}
 {% endblock head_title %}
 {% block content %}
     {% element h1 %}
-        {% trans "Social Network Login Failure" %}
+        {% trans "Third-Party Login Failure" %}
     {% endelement %}
-    <p>{% trans "An error occurred while attempting to login via your social network account." %}</p>
+    <p>{% trans "An error occurred while attempting to login via your third-party account." %}</p>
 {% endblock content %}

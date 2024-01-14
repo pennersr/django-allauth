@@ -467,6 +467,7 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
 confirm_email = ConfirmEmailView.as_view()
 
 
+@method_decorator(login_required, name="dispatch")
 @method_decorator(rate_limit(action="manage_email"), name="dispatch")
 @method_decorator(
     reauthentication_required(
@@ -663,9 +664,10 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
         return data
 
 
-email = login_required(EmailView.as_view())
+email = EmailView.as_view()
 
 
+@method_decorator(login_required, name="dispatch")
 @method_decorator(rate_limit(action="change_password"), name="dispatch")
 class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_change." + app_settings.TEMPLATE_EXTENSION
@@ -717,9 +719,10 @@ class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
         return ret
 
 
-password_change = login_required(PasswordChangeView.as_view())
+password_change = PasswordChangeView.as_view()
 
 
+@method_decorator(login_required, name="dispatch")
 @method_decorator(
     # NOTE: 'change_password' (iso 'set_') is intentional, there is no need to
     # differentiate between set and change.
@@ -773,10 +776,9 @@ class PasswordSetView(AjaxCapableProcessFormViewMixin, FormView):
         return ret
 
 
-password_set = login_required(PasswordSetView.as_view())
+password_set = PasswordSetView.as_view()
 
 
-@method_decorator(rate_limit(action="reset_password"), name="dispatch")
 class PasswordResetView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_reset." + app_settings.TEMPLATE_EXTENSION
     form_class = ResetPasswordForm
@@ -789,7 +791,7 @@ class PasswordResetView(AjaxCapableProcessFormViewMixin, FormView):
     def form_valid(self, form):
         r429 = ratelimit.consume_or_429(
             self.request,
-            action="reset_password_email",
+            action="reset_password",
             key=form.cleaned_data["email"].lower(),
         )
         if r429:
@@ -896,7 +898,7 @@ class PasswordResetFromKeyView(
         form.save()
         adapter = get_adapter(self.request)
 
-        if self.reset_user and app_settings.LOGIN_ATTEMPTS_LIMIT:
+        if self.reset_user:
             # User successfully reset the password, clear any
             # possible cache entries for all email addresses.
             for email in self.reset_user.emailaddress_set.all():
@@ -1065,6 +1067,7 @@ class BaseReauthenticateView(FormView):
         return alts
 
 
+@method_decorator(login_required, name="dispatch")
 class ReauthenticateView(BaseReauthenticateView):
     form_class = ReauthenticateForm
     template_name = "account/reauthenticate." + app_settings.TEMPLATE_EXTENSION
@@ -1078,4 +1081,4 @@ class ReauthenticateView(BaseReauthenticateView):
         return ret
 
 
-reauthenticate = login_required(ReauthenticateView.as_view())
+reauthenticate = ReauthenticateView.as_view()

@@ -3,6 +3,7 @@ from unittest.mock import Mock, patch
 
 from django.conf import settings
 from django.contrib.auth import SESSION_KEY, get_user_model
+from django.core.cache import cache
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.timezone import now
@@ -101,7 +102,7 @@ def test_email_verification_failed(settings, user_factory, client):
     assertTemplateUsed(resp, "account/messages/email_confirmation_failed.txt")
 
 
-def test_email_verification_mandatory(settings, db, client, mailoutbox):
+def test_email_verification_mandatory(settings, db, client, mailoutbox, enable_cache):
     settings.ACCOUNT_EMAIL_CONFIRMATION_HMAC = False
     settings.ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN = 10
     settings.ACCOUNT_EMAIL_VERIFICATION = app_settings.EmailVerificationMethod.MANDATORY
@@ -151,8 +152,8 @@ def test_email_verification_mandatory(settings, db, client, mailoutbox):
             ).count()
             == attempt
         )
-        # Wait for cooldown
-        EmailConfirmation.objects.update(sent=now() - timedelta(days=1))
+        # Wait for cooldown -- wipe cache (incl. rate limits)
+        cache.clear()
     # Verify, and re-attempt to login.
     confirmation = EmailConfirmation.objects.filter(
         email_address__user__username="johndoe"

@@ -86,13 +86,6 @@ Available settings:
   password forgotten procedure. Note that this is a default only --
   see the section on HTTPS for more information.
 
-``ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN`` (default: ``180``)
-  Users can request email confirmation mails via the email management view, and,
-  implicitly, when logging in with an unverified account. In order to prevent
-  users from sending too many of these mails, a rate limit is in place that
-  allows for one confirmation mail to be sent per the specified cooldown period
-  (in seconds).
-
 ``ACCOUNT_EMAIL_MAX_LENGTH`` (default: ``254``)
   Maximum length of the email field. You won't need to alter this unless using
   MySQL with the InnoDB storage engine and the ``utf8mb4`` charset, and only in
@@ -126,18 +119,6 @@ Available settings:
         'signup': 'allauth.account.forms.SignupForm',
         'user_token': 'allauth.account.forms.UserTokenForm',
     }
-
-``ACCOUNT_LOGIN_ATTEMPTS_LIMIT`` (default: ``5``)
-  Number of failed login attempts. When this number is
-  exceeded, the user is prohibited from logging in for the
-  specified ``ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT`` seconds. Set to ``None``
-  to disable this functionality. Important: while this protects the
-  allauth login view, it does not protect Django's admin login from
-  being brute forced.
-
-``ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT`` (default: ``300``)
-  Time period, in seconds, from last unsuccessful login attempt, during
-  which the user is prohibited from trying to log in.
 
 ``ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION`` (default: ``False``)
   The default behaviour is not log users in and to redirect them to
@@ -205,28 +186,9 @@ Available settings:
   email address will be avoided, thus leaking information. Set it to
   ``"strict"`` to allow for signups to go through.
 
-``ACCOUNT_RATE_LIMITS``
-  In order to be secure out of the box various rate limits are in place. The
-  rate limit mechanism is backed by a Django cache. Hence, rate limiting will
-  not work properly if you are using the `DummyCache`. To disable, set to
-  ``{}``. When rate limits are hit the ``429.html`` template is rendered.
-  Defaults to::
-
-    ACCOUNT_RATE_LIMITS = {
-        # Change password view (for users already logged in)
-        "change_password": "5/m",
-        # Email management (e.g. add, remove, change primary)
-        "manage_email": "10/m",
-        # Request a password reset, global rate limit per IP
-        "reset_password": "20/m",
-        # Rate limit measured per individual email address
-        "reset_password_email": "5/m",
-        # Password reset (the view the password reset email links to).
-        "reset_password_from_key": "20/m",
-        # Signups.
-        "signup": "20/m",
-        # NOTE: Login is already protected via `ACCOUNT_LOGIN_ATTEMPTS_LIMIT`
-    }
+``ACCOUNT_RATE_LIMITS`` (default: ``{...}``)
+  In order to be secure out of the box various rate limits are in place.
+  See :doc:`Rate Limits <./rate_limits>` for details.
 
 ``ACCOUNT_REAUTHENTICATION_TIMEOUT`` (default: ``300``)
   Before asking the user to reauthenticate, we check if a successful

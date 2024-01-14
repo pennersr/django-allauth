@@ -1,3 +1,5 @@
+import warnings
+
 from django.core.exceptions import ImproperlyConfigured
 
 
@@ -18,6 +20,8 @@ class AppSettings(object):
         NONE = "none"
 
     def __init__(self, prefix):
+        from django.conf import settings
+
         self.prefix = prefix
         # If login is by email, email must be required
         assert (
@@ -43,6 +47,17 @@ class AppSettings(object):
                 raise ImproperlyConfigured(
                     "Invalid combination of ACCOUNT_CHANGE_EMAIL and ACCOUNT_MAX_EMAIL_ADDRESSES"
                 )
+        if hasattr(settings, "ACCOUNT_LOGIN_ATTEMPTS_LIMIT") or hasattr(
+            settings, "ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT"
+        ):
+            warnings.warn(
+                "settings.ACCOUNT_LOGIN_ATTEMPTS_LIMIT/TIMEOUT is deprecated, use: settings.ACCOUNT_RATE_LIMITS['login_failed']"
+            )
+
+        if hasattr(settings, "ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN"):
+            warnings.warn(
+                "settings.ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN is deprecated, use: settings.ACCOUNT_RATE_LIMITS['confirm_email']"
+            )
 
     def _setting(self, name, dflt):
         from allauth.utils import get_setting
@@ -89,14 +104,6 @@ class AppSettings(object):
         return self._setting(
             "EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL", settings.LOGIN_URL
         )
-
-    @property
-    def EMAIL_CONFIRMATION_COOLDOWN(self):
-        """
-        The cooldown in seconds during which, after an email confirmation has
-        been sent, a second confirmation email will not be sent.
-        """
-        return self._setting("EMAIL_CONFIRMATION_COOLDOWN", 3 * 60)
 
     @property
     def EMAIL_REQUIRED(self):
@@ -180,24 +187,40 @@ class AppSettings(object):
 
     @property
     def RATE_LIMITS(self):
-        dflt = {
+        rls = self._setting("RATE_LIMITS", {})
+        if rls is False:
+            return {}
+        attempts_amount = self._setting("LOGIN_ATTEMPTS_LIMIT", 5)
+        attempts_timeout = self._setting("LOGIN_ATTEMPTS_TIMEOUT", 60 * 5)
+        login_failed_rl = None
+        if attempts_amount and attempts_timeout:
+            login_failed_rl = f"10/m/ip,{attempts_amount}/{attempts_timeout}s/key"
+        cooldown = self._setting("EMAIL_CONFIRMATION_COOLDOWN", 3 * 60)
+        confirm_email_rl = None
+        if cooldown:
+            confirm_email_rl = f"1/{cooldown}s/key"
+        ret = {
             # Change password view (for users already logged in)
-            "change_password": "5/m",
+            "change_password": "5/m/user",
             # Email management (e.g. add, remove, change primary)
-            "manage_email": "10/m",
+            "manage_email": "10/m/user",
             # Request a password reset, global rate limit per IP
-            "reset_password": "20/m",
-            # Rate limit measured per individual email address
-            "reset_password_email": "5/m",
-            # Reauthentication for users already logged in)
-            "reauthenticate": "10/m",
+            "reset_password": "20/m/ip,5/m/key",
+            # Reauthentication for users already logged in
+            "reauthenticate": "10/m/user",
             # Password reset (the view the password reset email links to).
-            "reset_password_from_key": "20/m",
+            "reset_password_from_key": "20/m/ip",
             # Signups.
-            "signup": "20/m",
-            # NOTE: Login is already protected via `ACCOUNT_LOGIN_ATTEMPTS_LIMIT`
+            "signup": "20/m/ip",
+            # Logins.
+            "login": "30/m/ip",
+            # Logins.
+            "login_failed": login_failed_rl,
+            # Confirm email
+            "confirm_email": confirm_email_rl,
         }
-        return self._setting("RATE_LIMITS", dflt)
+        ret.update(rls)
+        return ret
 
     @property
     def EMAIL_SUBJECT_PREFIX(self):
@@ -318,24 +341,6 @@ class AppSettings(object):
     @property
     def FORMS(self):
         return self._setting("FORMS", {})
-
-    @property
-    def LOGIN_ATTEMPTS_LIMIT(self):
-        """
-        Number of failed login attempts. When this number is
-        exceeded, the user is prohibited from logging in for the
-        specified `LOGIN_ATTEMPTS_TIMEOUT`
-        """
-        return self._setting("LOGIN_ATTEMPTS_LIMIT", 5)
-
-    @property
-    def LOGIN_ATTEMPTS_TIMEOUT(self):
-        """
-        Time period from last unsuccessful login attempt, during
-        which the user is prohibited from trying to log in.  Defaults to
-        5 minutes.
-        """
-        return self._setting("LOGIN_ATTEMPTS_TIMEOUT", 60 * 5)
 
     @property
     def EMAIL_CONFIRMATION_HMAC(self):

@@ -1,7 +1,6 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.models import EmailAddress
 from allauth.core import context, ratelimit
@@ -24,23 +23,21 @@ class AuthenticateForm(forms.Form):
         super().__init__(*args, **kwargs)
 
     def clean_code(self):
-        if account_settings.LOGIN_ATTEMPTS_LIMIT:
-            if not ratelimit.consume(
-                context.request,
-                action="login_failed",
-                user=self.user,
-                amount=account_settings.LOGIN_ATTEMPTS_LIMIT,
-                duration=account_settings.LOGIN_ATTEMPTS_TIMEOUT,
-            ):
-                raise forms.ValidationError(
-                    get_account_adapter().error_messages["too_many_login_attempts"]
-                )
+        key = f"mfa-auth-user-{str(self.user.pk)}"
+        if not ratelimit.consume(
+            context.request,
+            action="login_failed",
+            key=key,
+        ):
+            raise forms.ValidationError(
+                get_account_adapter().error_messages["too_many_login_attempts"]
+            )
 
         code = self.cleaned_data["code"]
         for auth in Authenticator.objects.filter(user=self.user):
             if auth.wrap().validate_code(code):
                 self.authenticator = auth
-                ratelimit.clear(context.request, action="login_failed", user=self.user)
+                ratelimit.clear(context.request, action="login_failed", key=key)
                 return code
         raise forms.ValidationError(get_adapter().error_messages["incorrect_code"])
 

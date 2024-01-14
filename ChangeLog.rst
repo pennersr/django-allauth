@@ -24,6 +24,20 @@ Fixes
 - SAML: the login view did not obey the ``SOCIALACCOUNT_LOGIN_ON_GET = False`` setting.
 
 
+Backwards incompatible changes
+------------------------------
+
+- The rate limit mechanism has received an update. Previously, when specifying
+  e.g. ``"5/m"`` it was handled implicitly whether or not that limit was per IP,
+  per user, or per action specific key. This has now been made explicit:
+  ``"5/m/user"`` vs ``"5/m/ip"`` vs ``"5/m/key"``. Combinations are also supported
+  now: ``"20/m/ip,5/m/key"`` . Additionally, the rate limit mechanism is now used
+  throughout, including email confirmation cooldown as well as limitting failed login
+  attempts.  Therefore, the ``ACCOUNT_LOGIN_ATTEMPTS_LIMIT`` and
+  ``ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN`` settings are deprecated.
+  See :doc:`Rate Limits <../account/rate_limits>` for details.
+
+
 0.60.0 (2024-01-05)
 *******************
 

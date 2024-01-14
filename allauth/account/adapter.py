@@ -1,7 +1,6 @@
 import html
 import json
 import warnings
-from datetime import timedelta
 from urllib.parse import urlparse
 
 from django import forms
@@ -595,22 +594,11 @@ class DefaultAccountAdapter(object):
         return ret
 
     def should_send_confirmation_mail(self, request, email_address, signup):
-        from allauth.account.models import EmailConfirmation
-
-        cooldown_period = timedelta(seconds=app_settings.EMAIL_CONFIRMATION_COOLDOWN)
-        if app_settings.EMAIL_CONFIRMATION_HMAC:
-            send_email = ratelimit.consume(
-                request,
-                action="confirm_email",
-                key=email_address.email.lower(),
-                amount=1,
-                duration=cooldown_period.total_seconds(),
-            )
-        else:
-            send_email = not EmailConfirmation.objects.filter(
-                sent__gt=timezone.now() - cooldown_period,
-                email_address=email_address,
-            ).exists()
+        send_email = ratelimit.consume(
+            request,
+            action="confirm_email",
+            key=email_address.email.lower(),
+        )
         return send_email
 
     def send_account_already_exists_mail(self, email):
@@ -650,23 +638,17 @@ class DefaultAccountAdapter(object):
         return "{site}:{login}".format(site=site.domain, login=login)
 
     def _delete_login_attempts_cached_email(self, request, **credentials):
-        if app_settings.LOGIN_ATTEMPTS_LIMIT:
-            cache_key = self._get_login_attempts_cache_key(request, **credentials)
-            ratelimit.clear(request, action="login_failed", key=cache_key)
+        cache_key = self._get_login_attempts_cache_key(request, **credentials)
+        ratelimit.clear(request, action="login_failed", key=cache_key)
 
     def pre_authenticate(self, request, **credentials):
-        if app_settings.LOGIN_ATTEMPTS_LIMIT:
-            cache_key = self._get_login_attempts_cache_key(request, **credentials)
-            if not ratelimit.consume(
-                request,
-                action="login_failed",
-                key=cache_key,
-                amount=app_settings.LOGIN_ATTEMPTS_LIMIT,
-                duration=app_settings.LOGIN_ATTEMPTS_TIMEOUT,
-            ):
-                raise forms.ValidationError(
-                    self.error_messages["too_many_login_attempts"]
-                )
+        cache_key = self._get_login_attempts_cache_key(request, **credentials)
+        if not ratelimit.consume(
+            request,
+            action="login_failed",
+            key=cache_key,
+        ):
+            raise forms.ValidationError(self.error_messages["too_many_login_attempts"])
 
     def authenticate(self, request, **credentials):
         """Only authenticates, does not actually login. See `login`"""
@@ -677,7 +659,7 @@ class DefaultAccountAdapter(object):
         user = authenticate(request, **credentials)
         alt_user = AuthenticationBackend.unstash_authenticated_user()
         user = user or alt_user
-        if user and app_settings.LOGIN_ATTEMPTS_LIMIT:
+        if user:
             self._delete_login_attempts_cached_email(request, **credentials)
         else:
             self.authentication_failed(request, **credentials)

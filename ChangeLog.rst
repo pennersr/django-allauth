@@ -7,6 +7,10 @@ Fixes
 - User sessions: after changing your password in case of ``ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = False``, the list of
   sessions woud be empty instead of showing your current session.
 
+- SAML: accessing the SLS/ACS views using a GET request would result in a crash (500).
+
+- SAML: the login view did not obey the ``SOCIALACCOUNT_LOGIN_ON_GET = False`` setting.
+
 
 0.60.0 (2024-01-05)
 *******************

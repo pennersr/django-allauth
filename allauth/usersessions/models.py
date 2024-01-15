@@ -1,7 +1,9 @@
 from importlib import import_module
 
 from django.conf import settings
+from django.contrib.auth import get_user
 from django.db import models
+from django.http import HttpRequest
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -51,13 +53,24 @@ class UserSession(models.Model):
     def __str__(self):
         return f"{self.ip} ({self.user_agent})"
 
-    def exists(self):
+    def _session_store(self, *args):
         engine = import_module(settings.SESSION_ENGINE)
-        store = engine.SessionStore()
-        return store.exists(self.session_key)
+        return engine.SessionStore(*args)
+
+    def exists(self):
+        return self._session_store().exists(self.session_key)
 
     def purge(self):
-        if not self.exists():
+        purge = not self.exists()
+        if not purge:
+            # Even if the session still exists, it might be the case that the
+            # user session hash is out of sync. So, let's see if
+            # `django.contrib.auth` can find a user...
+            request = HttpRequest()
+            request.session = self._session_store(self.session_key)
+            user = get_user(request)
+            purge = not user or user.is_anonymous
+        if purge:
             self.delete()
             return True
         return False

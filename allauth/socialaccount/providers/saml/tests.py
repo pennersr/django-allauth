@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.utils.http import urlencode
 
 import pytest
+from pytest_django.asserts import assertTemplateUsed
 
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.adapter import get_adapter
@@ -79,6 +80,12 @@ def test_sls_get(client, db, saml_settings):
     assert resp.status_code == 400
 
 
+def test_login_on_get(client, db, saml_settings):
+    resp = client.get(reverse("saml_login", kwargs={"organization_slug": "org"}))
+    assert resp.status_code == 200
+    assertTemplateUsed(resp, "socialaccount/login.html")
+
+
 @pytest.mark.parametrize(
     "query,expected_relay_state",
     [
@@ -89,7 +96,7 @@ def test_sls_get(client, db, saml_settings):
     ],
 )
 def test_login(client, db, saml_settings, query, expected_relay_state):
-    resp = client.get(
+    resp = client.post(
         reverse("saml_login", kwargs={"organization_slug": "org"}) + query
     )
     assert resp.status_code == 302

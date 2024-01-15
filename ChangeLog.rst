@@ -10,6 +10,9 @@ Note worthy changes
   originated, will be emailed.
 
 
+0.60.1 (2024-01-15)
+*******************
+
 Fixes
 -----
 

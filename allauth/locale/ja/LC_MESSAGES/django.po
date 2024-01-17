@@ -50,14 +50,13 @@ msgid "The email address is not assigned to any user account"
 msgstr "このメールアドレスで登録されたユーザーアカウントがありません。"
 
 #: account/adapter.py:743
-#, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
-msgstr "パスワードをお忘れですか？"
+msgstr "パスワードを使用する"
 
 #: account/adapter.py:753
 msgid "Use your authenticator app"
-msgstr ""
+msgstr "認証アプリを利用する"
 
 #: account/admin.py:23
 #, fuzzy
@@ -219,16 +218,18 @@ msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
 msgstr ""
+"メールアドレスの確認が完了するまで、二要素認証を有効にすることはできません。"
 
 #: mfa/adapter.py:23
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
 msgstr ""
+"二要素認証で保護されているアカウントには、メールアドレスを追加できません。"
 
 #: mfa/adapter.py:25
 msgid "Incorrect code."
-msgstr ""
+msgstr "コードが正しくありません。"
 
 #: mfa/adapter.py:27
 msgid "You cannot deactivate two-factor authentication."
@@ -244,7 +245,7 @@ msgstr ""
 
 #: mfa/forms.py:53
 msgid "Authenticator code"
-msgstr ""
+msgstr "認証アプリコード"
 
 #: mfa/models.py:19
 msgid "Recovery codes"
@@ -427,18 +428,17 @@ msgstr "このアカウントは無効です。"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
-#, fuzzy
 #| msgid "Confirm Email Address"
 msgid "Confirm Access"
-msgstr "メールアドレスの確認"
+msgstr "アクセス確認"
 
 #: templates/account/base_reauthenticate.html:11
 msgid "Please reauthenticate to safeguard your account."
-msgstr ""
+msgstr "アカウントを保護するために再認証してください。"
 
 #: templates/account/base_reauthenticate.html:17
 msgid "Alternative options"
-msgstr ""
+msgstr "そのほかの方法"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -727,7 +727,6 @@ msgid "Confirm Email Address"
 msgstr "メールアドレスの確認"
 
 #: templates/account/email_confirm.html:16
-#, fuzzy, python-format
 #| msgid ""
 #| "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
 #| "mail address for user %(user_display)s."
@@ -914,10 +913,9 @@ msgid "Set Password"
 msgstr "パスワード設定"
 
 #: templates/account/reauthenticate.html:5
-#, fuzzy
 #| msgid "Forgot Password?"
 msgid "Enter your password:"
-msgstr "パスワードをお忘れですか？"
+msgstr "パスワードを入力してください。"
 
 #: templates/account/signup.html:4 templates/socialaccount/signup.html:5
 msgid "Signup"
@@ -961,7 +959,6 @@ msgid "Warning:"
 msgstr "注意："
 
 #: templates/account/snippets/warn_no_email.html:3
-#, fuzzy
 #| msgid ""
 #| "You currently do not have any e-mail address set up. You should really "
 #| "add an e-mail address so you can receive notifications, reset your "
@@ -970,8 +967,8 @@ msgid ""
 "You currently do not have any email address set up. You should really add an "
 "email address so you can receive notifications, reset your password, etc."
 msgstr ""
-"メールアドレスが設定されていません。通知を受け取ったり、パスワードをリセット"
-"したりするためにはメールアドレスを登録する必要があります。"
+"メールアドレスが設定されていません。通知を受け取ったり、パスワードをリセットしたりするためには"
+"メールアドレスを登録する必要があります。"
 
 #: templates/account/verification_sent.html:5
 #: templates/account/verification_sent.html:9
@@ -1051,7 +1048,7 @@ msgstr ""
 #: templates/mfa/authenticate.html:9 templates/mfa/index.html:5
 #: templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
-msgstr ""
+msgstr "二段階認証"
 
 #: templates/mfa/authenticate.html:12
 msgid ""
@@ -1075,18 +1072,17 @@ msgstr ""
 #: templates/mfa/email/totp_activated_message.txt:4
 #: templates/mfa/messages/totp_activated.txt:2
 msgid "Authenticator app activated."
-msgstr ""
+msgstr "認証アプリが有効化されました。"
 
 #: templates/mfa/email/totp_activated_subject.txt:3
-#, fuzzy
 #| msgid "token secret"
 msgid "Authenticator App Activated"
-msgstr "トークンシークレット"
+msgstr "認証アプリが有効化されました。"
 
 #: templates/mfa/email/totp_deactivated_message.txt:4
 #: templates/mfa/messages/totp_deactivated.txt:2
 msgid "Authenticator app deactivated."
-msgstr ""
+msgstr "認証アプリが無効化されました。"
 
 #: templates/mfa/email/totp_deactivated_subject.txt:3
 #, fuzzy
@@ -1096,29 +1092,29 @@ msgstr "トークンシークレット"
 
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
-msgstr ""
+msgstr "認証アプリ"
 
 #: templates/mfa/index.html:18
 msgid "Authentication using an authenticator app is active."
-msgstr ""
+msgstr "認証アプリを使用した認証が有効です。"
 
 #: templates/mfa/index.html:20
 msgid "An authenticator app is not active."
-msgstr ""
+msgstr "認証アプリは有効ではありません。"
 
 #: templates/mfa/index.html:28 templates/mfa/totp/deactivate_form.html:24
 msgid "Deactivate"
-msgstr ""
+msgstr "無効化する"
 
 #: templates/mfa/index.html:32 templates/mfa/totp/activate_form.html:32
 msgid "Activate"
-msgstr ""
+msgstr "有効化する"
 
 #: templates/mfa/index.html:42 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
 #: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
-msgstr ""
+msgstr "リカバリーコード"
 
 #: templates/mfa/index.html:47 templates/mfa/recovery_codes/index.html:9
 #, python-format
@@ -1126,11 +1122,12 @@ msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
 msgid_plural ""
 "There are %(unused_count)s out of %(total_count)s recovery codes available."
-msgstr[0] ""
+msgstr[0] "利用可能なリカバリーコードは%(unused_count)s個中%(total_count)s個です。"
+msgstr[1] "利用可能なリカバリーコードは%(unused_count)s個中%(total_count)s個です。"
 
 #: templates/mfa/index.html:50
 msgid "No recovery codes set up."
-msgstr ""
+msgstr "リカバリーコードがセットアップされていません。"
 
 #: templates/mfa/index.html:59
 msgid "View"
@@ -1138,50 +1135,49 @@ msgstr ""
 
 #: templates/mfa/index.html:65
 msgid "Download"
-msgstr ""
+msgstr "ダウンロード"
 
 #: templates/mfa/index.html:73 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
-msgstr ""
+msgstr "生成する"
 
 #: templates/mfa/messages/recovery_codes_generated.txt:2
 msgid "A new set of recovery codes has been generated."
-msgstr ""
+msgstr "新しいリカバリーコードセットが生成されました。"
 
 #: templates/mfa/reauthenticate.html:5
-#, fuzzy
 #| msgid "token secret"
 msgid "Enter an authenticator code:"
-msgstr "トークンシークレット"
+msgstr "認証アプリのコードを入力する"
 
 #: templates/mfa/recovery_codes/generate.html:9
 msgid "You are about to generate a new set of recovery codes for your account."
-msgstr ""
+msgstr "新しいリカバリーコードセットを生成しようとしています。"
 
 #: templates/mfa/recovery_codes/generate.html:11
 msgid "This action will invalidate your existing codes."
-msgstr ""
+msgstr "この操作により、現在のコードが無効になります。"
 
 #: templates/mfa/recovery_codes/generate.html:13
 msgid "Are you sure?"
-msgstr ""
+msgstr "本当によろしいですか？"
 
 #: templates/mfa/recovery_codes/index.html:13
 msgid "Unused codes"
-msgstr ""
+msgstr "未使用のコード"
 
 #: templates/mfa/recovery_codes/index.html:25
 msgid "Download codes"
-msgstr ""
+msgstr "コードをダウンロードする"
 
 #: templates/mfa/recovery_codes/index.html:30
 msgid "Generate new codes"
-msgstr ""
+msgstr "新しいコードを生成する"
 
 #: templates/mfa/totp/activate_form.html:4
 #: templates/mfa/totp/activate_form.html:8
 msgid "Activate Authenticator App"
-msgstr ""
+msgstr "認証アプリを有効化する"
 
 #: templates/mfa/totp/activate_form.html:11
 msgid ""
@@ -1189,9 +1185,11 @@ msgid ""
 "below with your authenticator app. Then, input the verification code "
 "generated by the app below."
 msgstr ""
+"アカウントを二要素認証で保護するために、認証アプリで以下のQRコードを"
+"スキャンしてください。次に、アプリで生成された確認コードを"
+"以下に入力してください。"
 
 #: templates/mfa/totp/activate_form.html:21
-#, fuzzy
 #| msgid "token secret"
 msgid "Authenticator secret"
 msgstr "トークンシークレット"
@@ -1201,17 +1199,21 @@ msgid ""
 "You can store this secret and use it to reinstall your authenticator app at "
 "a later time."
 msgstr ""
+"このシークレットを保存し、後でオーセンティケーターアプリを再インストールする際に使用できます。"
 
 #: templates/mfa/totp/deactivate_form.html:5
 #: templates/mfa/totp/deactivate_form.html:9
 msgid "Deactivate Authenticator App"
-msgstr ""
+msgstr "認証アプリを無効化する"
+
 
 #: templates/mfa/totp/deactivate_form.html:12
 msgid ""
 "You are about to deactivate authenticator app based authentication. Are you "
 "sure?"
 msgstr ""
+"認証アプリによる認証を無効化しようとしています。"
+"本当によろしいですか。"
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9
@@ -1246,14 +1248,12 @@ msgid ""
 msgstr "以下の外部アカウントを使ってログインすることができます："
 
 #: templates/socialaccount/connections.html:45
-#, fuzzy
 #| msgid ""
 #| "You currently have no social network accounts connected to this account."
 msgid "You currently have no third-party accounts connected to this account."
 msgstr "あなたのカウントに結びつけられた外部アカウントはありません。"
 
 #: templates/socialaccount/connections.html:48
-#, fuzzy
 #| msgid "Add a 3rd Party Account"
 msgid "Add a Third-Party Account"
 msgstr "外部アカウントを追加する"
@@ -1360,7 +1360,7 @@ msgstr ""
 
 #: templates/socialaccount/snippets/login.html:9
 msgid "Or use a third-party"
-msgstr ""
+msgstr "外部アカウントを使用する"
 
 #: templates/usersessions/messages/sessions_logged_out.txt:2
 msgid "Signed out of all other sessions."

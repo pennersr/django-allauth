@@ -7,7 +7,12 @@ class UserSessionsMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        if app_settings.TRACK_ACTIVITY:
+        if (
+            app_settings.TRACK_ACTIVITY
+            and hasattr(request, "session")
+            and hasattr(request, "user")
+            and request.user.is_authenticated
+        ):
             UserSession.objects.create_from_request(request)
         response = self.get_response(request)
         return response

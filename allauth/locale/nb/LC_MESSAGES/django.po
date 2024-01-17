@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-12 09:45-0600\n"
+"POT-Creation-Date: 2024-01-17 12:01-0600\n"
 "PO-Revision-Date: 2024-01-15 21:06+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
-"Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
-"django-allauth/django-allauth/nb_NO/>\n"
+"Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/django-"
+"allauth/django-allauth/nb_NO/>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,44 +19,44 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.4-dev\n"
 
-#: account/adapter.py:51
+#: account/adapter.py:50
 msgid "Username can not be used. Please use other username."
 msgstr "Brukernavnet kan ikke benyttes. Vennligst velg et annet brukernavn."
 
-#: account/adapter.py:57
+#: account/adapter.py:56
 msgid "Too many failed login attempts. Try again later."
 msgstr "For mange innloggingsforsøk. Vennligst prøv igjen senere."
 
-#: account/adapter.py:59
+#: account/adapter.py:58
 msgid "A user is already registered with this email address."
 msgstr "En bruker med denne e-postadressen er allerede registrert."
 
-#: account/adapter.py:60
+#: account/adapter.py:59
 msgid "Please type your current password."
 msgstr "Vennligst skriv inn ditt passord."
 
-#: account/adapter.py:61
+#: account/adapter.py:60
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "Nåværende passord"
 
-#: account/adapter.py:62
+#: account/adapter.py:61
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Passordet må være minst {0} tegn."
 
-#: account/adapter.py:63
+#: account/adapter.py:62
 msgid "The email address is not assigned to any user account"
 msgstr "E-postadressen er ikke tilknyttet noen brukerkonto"
 
-#: account/adapter.py:743
+#: account/adapter.py:725
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "Glemt passord?"
 
-#: account/adapter.py:753
+#: account/adapter.py:735
 msgid "Use your authenticator app"
 msgstr ""
 
@@ -235,11 +235,11 @@ msgstr ""
 msgid "MFA"
 msgstr ""
 
-#: mfa/forms.py:16 mfa/forms.py:18 mfa/forms.py:55
+#: mfa/forms.py:15 mfa/forms.py:17 mfa/forms.py:52
 msgid "Code"
 msgstr "Kode"
 
-#: mfa/forms.py:53
+#: mfa/forms.py:50
 msgid "Authenticator code"
 msgstr ""
 
@@ -521,10 +521,9 @@ msgid ""
 "account:"
 msgstr ""
 
-#: templates/account/email/base_notification.txt:9
+#: templates/account/email/base_notification.txt:10
 #, python-format
 msgid ""
-"\n"
 "If you do not recognize this change then please take proper security "
 "precautions immediately. The change to your account originates from:\n"
 "\n"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-12 09:45-0600\n"
+"POT-Creation-Date: 2024-01-17 12:01-0600\n"
 "PO-Revision-Date: 2022-11-28 12:06+0900\n"
 "Last-Translator: Sora Yanai <sora@mail.skyarrow.xyz>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,43 +18,42 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: account/adapter.py:51
+#: account/adapter.py:50
 msgid "Username can not be used. Please use other username."
 msgstr "このユーザー名は使用できません。他のユーザー名を選んでください。"
 
-#: account/adapter.py:57
+#: account/adapter.py:56
 msgid "Too many failed login attempts. Try again later."
 msgstr "ログイン失敗が連続しています。時間が経ってからやり直してください。"
 
-#: account/adapter.py:59
+#: account/adapter.py:58
 msgid "A user is already registered with this email address."
 msgstr "他のユーザーがこのメールアドレスを使用しています。"
 
-#: account/adapter.py:60
+#: account/adapter.py:59
 msgid "Please type your current password."
 msgstr "現在のパスワードを入力してください。"
 
-#: account/adapter.py:61
+#: account/adapter.py:60
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "現在のパスワード"
 
-#: account/adapter.py:62
+#: account/adapter.py:61
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "パスワードは {0} 文字以上の長さが必要です。"
 
-#: account/adapter.py:63
+#: account/adapter.py:62
 msgid "The email address is not assigned to any user account"
 msgstr "このメールアドレスで登録されたユーザーアカウントがありません。"
 
-#: account/adapter.py:743
-#| msgid "Forgot Password?"
+#: account/adapter.py:725
 msgid "Use your password"
 msgstr "パスワードを使用する"
 
-#: account/adapter.py:753
+#: account/adapter.py:735
 msgid "Use your authenticator app"
 msgstr "認証アプリを利用する"
 
@@ -239,11 +238,11 @@ msgstr ""
 msgid "MFA"
 msgstr ""
 
-#: mfa/forms.py:16 mfa/forms.py:18 mfa/forms.py:55
+#: mfa/forms.py:15 mfa/forms.py:17 mfa/forms.py:52
 msgid "Code"
 msgstr ""
 
-#: mfa/forms.py:53
+#: mfa/forms.py:50
 msgid "Authenticator code"
 msgstr "認証アプリコード"
 
@@ -428,7 +427,6 @@ msgstr "このアカウントは無効です。"
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
-#| msgid "Confirm Email Address"
 msgid "Confirm Access"
 msgstr "アクセス確認"
 
@@ -526,10 +524,9 @@ msgid ""
 "account:"
 msgstr ""
 
-#: templates/account/email/base_notification.txt:9
+#: templates/account/email/base_notification.txt:10
 #, python-format
 msgid ""
-"\n"
 "If you do not recognize this change then please take proper security "
 "precautions immediately. The change to your account originates from:\n"
 "\n"
@@ -727,9 +724,7 @@ msgid "Confirm Email Address"
 msgstr "メールアドレスの確認"
 
 #: templates/account/email_confirm.html:16
-#| msgid ""
-#| "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
-#| "mail address for user %(user_display)s."
+#, python-format
 msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an email "
 "address for user %(user_display)s."
@@ -913,7 +908,6 @@ msgid "Set Password"
 msgstr "パスワード設定"
 
 #: templates/account/reauthenticate.html:5
-#| msgid "Forgot Password?"
 msgid "Enter your password:"
 msgstr "パスワードを入力してください。"
 
@@ -959,16 +953,12 @@ msgid "Warning:"
 msgstr "注意："
 
 #: templates/account/snippets/warn_no_email.html:3
-#| msgid ""
-#| "You currently do not have any e-mail address set up. You should really "
-#| "add an e-mail address so you can receive notifications, reset your "
-#| "password, etc."
 msgid ""
 "You currently do not have any email address set up. You should really add an "
 "email address so you can receive notifications, reset your password, etc."
 msgstr ""
-"メールアドレスが設定されていません。通知を受け取ったり、パスワードをリセットしたりするためには"
-"メールアドレスを登録する必要があります。"
+"メールアドレスが設定されていません。通知を受け取ったり、パスワードをリセット"
+"したりするためにはメールアドレスを登録する必要があります。"
 
 #: templates/account/verification_sent.html:5
 #: templates/account/verification_sent.html:9
@@ -1075,7 +1065,6 @@ msgid "Authenticator app activated."
 msgstr "認証アプリが有効化されました。"
 
 #: templates/mfa/email/totp_activated_subject.txt:3
-#| msgid "token secret"
 msgid "Authenticator App Activated"
 msgstr "認証アプリが有効化されました。"
 
@@ -1122,8 +1111,10 @@ msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
 msgid_plural ""
 "There are %(unused_count)s out of %(total_count)s recovery codes available."
-msgstr[0] "利用可能なリカバリーコードは%(unused_count)s個中%(total_count)s個です。"
-msgstr[1] "利用可能なリカバリーコードは%(unused_count)s個中%(total_count)s個です。"
+msgstr[0] ""
+"利用可能なリカバリーコードは%(unused_count)s個中%(total_count)s個です。"
+msgstr[1] ""
+"利用可能なリカバリーコードは%(unused_count)s個中%(total_count)s個です。"
 
 #: templates/mfa/index.html:50
 msgid "No recovery codes set up."
@@ -1146,7 +1137,6 @@ msgid "A new set of recovery codes has been generated."
 msgstr "新しいリカバリーコードセットが生成されました。"
 
 #: templates/mfa/reauthenticate.html:5
-#| msgid "token secret"
 msgid "Enter an authenticator code:"
 msgstr "認証アプリのコードを入力する"
 
@@ -1185,12 +1175,10 @@ msgid ""
 "below with your authenticator app. Then, input the verification code "
 "generated by the app below."
 msgstr ""
-"アカウントを二要素認証で保護するために、認証アプリで以下のQRコードを"
-"スキャンしてください。次に、アプリで生成された確認コードを"
-"以下に入力してください。"
+"アカウントを二要素認証で保護するために、認証アプリで以下のQRコードをスキャン"
+"してください。次に、アプリで生成された確認コードを以下に入力してください。"
 
 #: templates/mfa/totp/activate_form.html:21
-#| msgid "token secret"
 msgid "Authenticator secret"
 msgstr "トークンシークレット"
 
@@ -1199,21 +1187,19 @@ msgid ""
 "You can store this secret and use it to reinstall your authenticator app at "
 "a later time."
 msgstr ""
-"このシークレットを保存し、後でオーセンティケーターアプリを再インストールする際に使用できます。"
+"このシークレットを保存し、後でオーセンティケーターアプリを再インストールする"
+"際に使用できます。"
 
 #: templates/mfa/totp/deactivate_form.html:5
 #: templates/mfa/totp/deactivate_form.html:9
 msgid "Deactivate Authenticator App"
 msgstr "認証アプリを無効化する"
 
-
 #: templates/mfa/totp/deactivate_form.html:12
 msgid ""
 "You are about to deactivate authenticator app based authentication. Are you "
 "sure?"
-msgstr ""
-"認証アプリによる認証を無効化しようとしています。"
-"本当によろしいですか。"
+msgstr "認証アプリによる認証を無効化しようとしています。本当によろしいですか。"
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9
@@ -1248,13 +1234,10 @@ msgid ""
 msgstr "以下の外部アカウントを使ってログインすることができます："
 
 #: templates/socialaccount/connections.html:45
-#| msgid ""
-#| "You currently have no social network accounts connected to this account."
 msgid "You currently have no third-party accounts connected to this account."
 msgstr "あなたのカウントに結びつけられた外部アカウントはありません。"
 
 #: templates/socialaccount/connections.html:48
-#| msgid "Add a 3rd Party Account"
 msgid "Add a Third-Party Account"
 msgstr "外部アカウントを追加する"
 

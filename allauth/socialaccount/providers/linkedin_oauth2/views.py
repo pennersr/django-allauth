@@ -1,6 +1,5 @@
-import requests
-
 from allauth.socialaccount import app_settings
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -33,14 +32,18 @@ class LinkedInOAuth2Adapter(OAuth2Adapter):
 
         info = {}
         if app_settings.QUERY_EMAIL:
-            resp = requests.get(self.email_url, headers=headers)
+            resp = (
+                get_adapter()
+                .get_requests_session()
+                .get(self.email_url, headers=headers)
+            )
             # If this response goes wrong, that is not a blocker in order to
             # continue.
             if resp.ok:
                 info = resp.json()
 
         url = self.profile_url + "?projection=(%s)" % ",".join(fields)
-        resp = requests.get(url, headers=headers)
+        resp = get_adapter().get_requests_session().get(url, headers=headers)
         resp.raise_for_status()
         info.update(resp.json())
         return info

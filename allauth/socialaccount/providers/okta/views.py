@@ -1,6 +1,5 @@
-import requests
-
 from allauth.socialaccount import app_settings
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -44,9 +43,13 @@ class OktaOAuth2Adapter(OAuth2Adapter):
         :return:
         """
 
-        resp = requests.get(
-            self.userinfo_url,
-            headers={"Authorization": "Bearer {}".format(token.token)},
+        resp = (
+            get_adapter()
+            .get_requests_session()
+            .get(
+                self.userinfo_url,
+                headers={"Authorization": "Bearer {}".format(token.token)},
+            )
         )
 
         resp.raise_for_status()

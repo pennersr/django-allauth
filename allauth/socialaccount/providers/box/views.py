@@ -1,5 +1,4 @@
-import requests
-
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -17,8 +16,10 @@ class BoxOAuth2Adapter(OAuth2Adapter):
     redirect_uri_protocol = None
 
     def complete_login(self, request, app, token, **kwargs):
-        extra_data = requests.get(
-            self.profile_url, params={"access_token": token.token}
+        extra_data = (
+            get_adapter()
+            .get_requests_session()
+            .get(self.profile_url, params={"access_token": token.token})
         )
 
         # This only here because of weird response from the test suite

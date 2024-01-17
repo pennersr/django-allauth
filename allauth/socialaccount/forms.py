@@ -59,7 +59,16 @@ class DisconnectForm(forms.Form):
 
     def save(self):
         account = self.cleaned_data["account"]
+        provider = account.get_provider()
         account.delete()
         signals.social_account_removed.send(
             sender=SocialAccount, request=self.request, socialaccount=account
+        )
+        get_adapter().send_notification_mail(
+            "socialaccount/email/account_disconnected",
+            self.request.user,
+            context={
+                "account": account,
+                "provider": provider,
+            },
         )

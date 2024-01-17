@@ -3,8 +3,8 @@ from allauth.tests import TestCase
 
 
 class OpenIDConnectTests(OpenIDConnectTests, TestCase):
-    provider_id = "unittest-server"
+    provider_id = "oidc-server"
 
 
 class OtherOpenIDConnectTests(OpenIDConnectTests, TestCase):
-    provider_id = "ther-server"
+    provider_id = "other-oidc-server"

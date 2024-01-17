@@ -25,5 +25,8 @@
                value="{{ attrs.value|default_if_none:"" }}"
                type="{{ attrs.type }}">
     {% endif %}
-    {% if attrs.help_text %}<span class="helptext">{{ attrs.help_text }}</span>{% endif %}
+    {% if slots.help_text %}
+        <span>{% slot help_text %}</span>
+        {% endslot %}
+    {% endif %}
 </p>

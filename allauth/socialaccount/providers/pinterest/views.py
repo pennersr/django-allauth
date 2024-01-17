@@ -1,6 +1,5 @@
-import requests
-
 from allauth.socialaccount import app_settings
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -43,8 +42,10 @@ class PinterestOAuth2Adapter(OAuth2Adapter):
         access_token_method = "PUT"
 
     def complete_login(self, request, app, token, **kwargs):
-        response = requests.get(
-            self.profile_url, headers={"Authorization": "Bearer " + token.token}
+        response = (
+            get_adapter()
+            .get_requests_session()
+            .get(self.profile_url, headers={"Authorization": "Bearer " + token.token})
         )
         extra_data = response.json()
         return self.get_provider().sociallogin_from_response(request, extra_data)

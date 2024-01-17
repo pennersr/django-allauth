@@ -104,9 +104,12 @@ def clear_context_request():
 
 @pytest.fixture
 def enable_cache(settings):
+    from django.core.cache import cache
+
     settings.CACHES = {
         "default": {
             "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
         }
     }
+    cache.clear()
     yield

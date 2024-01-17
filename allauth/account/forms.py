@@ -3,7 +3,6 @@ from importlib import import_module
 from django import forms
 from django.contrib.auth import password_validation
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.contrib.sites.shortcuts import get_current_site
 from django.core import exceptions, validators
 from django.urls import NoReverseMatch, reverse
 from django.utils.safestring import mark_safe
@@ -108,9 +107,8 @@ class LoginForm(forms.Form):
         self.request = kwargs.pop("request", None)
         super(LoginForm, self).__init__(*args, **kwargs)
         if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
-            login_widget = forms.TextInput(
+            login_widget = forms.EmailInput(
                 attrs={
-                    "type": "email",
                     "placeholder": _("Email address"),
                     "autocomplete": "email",
                 }
@@ -542,7 +540,9 @@ class ChangePasswordForm(PasswordVerificationMixin, UserForm):
 
     def clean_oldpassword(self):
         if not self.user.check_password(self.cleaned_data.get("oldpassword")):
-            raise forms.ValidationError(_("Please type your current password."))
+            raise forms.ValidationError(
+                get_adapter().error_messages["enter_current_password"]
+            )
         return self.cleaned_data["oldpassword"]
 
     def save(self):
@@ -582,15 +582,14 @@ class ResetPasswordForm(forms.Form):
         email = get_adapter().clean_email(email)
         self.users = filter_users_by_email(email, is_active=True, prefer_verified=True)
         if not self.users and not app_settings.PREVENT_ENUMERATION:
-            raise forms.ValidationError(
-                _("The email address is not assigned to any user account")
-            )
+            raise forms.ValidationError(get_adapter().error_messages["unknown_email"])
         return self.cleaned_data["email"]
 
     def save(self, request, **kwargs):
         email = self.cleaned_data["email"]
         if not self.users:
-            self._send_unknown_account_mail(request, email)
+            if app_settings.EMAIL_UNKNOWN_ACCOUNTS:
+                self._send_unknown_account_mail(request, email)
         else:
             self._send_password_reset_mail(request, email, self.users, **kwargs)
         return email
@@ -598,8 +597,6 @@ class ResetPasswordForm(forms.Form):
     def _send_unknown_account_mail(self, request, email):
         signup_url = build_absolute_uri(request, reverse("account_signup"))
         context = {
-            "current_site": get_current_site(request),
-            "email": email,
             "request": request,
             "signup_url": signup_url,
         }
@@ -624,7 +621,6 @@ class ResetPasswordForm(forms.Form):
             url = build_absolute_uri(request, path)
 
             context = {
-                "current_site": get_current_site(request),
                 "user": user,
                 "password_reset_url": url,
                 "uid": uid,

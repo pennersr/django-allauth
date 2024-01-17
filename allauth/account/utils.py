@@ -393,7 +393,7 @@ def send_email_confirmation(request, user, signup=False, email=None):
         if email_address is not None:
             if not email_address.verified:
                 send_email = adapter.should_send_confirmation_mail(
-                    request, email_address
+                    request, email_address, signup
                 )
                 if send_email:
                     email_address.send_confirmation(request, signup=signup)
@@ -475,8 +475,6 @@ def filter_users_by_email(email, is_active=None, prefer_verified=False):
 
     User = get_user_model()
     mails = EmailAddress.objects.filter(email__iexact=email).prefetch_related("user")
-    if is_active is not None:
-        mails = mails.filter(user__is_active=is_active)
     mails = list(mails)
     is_verified = False
     if prefer_verified:
@@ -491,12 +489,12 @@ def filter_users_by_email(email, is_active=None, prefer_verified=False):
     if app_settings.USER_MODEL_EMAIL_FIELD and not is_verified:
         q_dict = {app_settings.USER_MODEL_EMAIL_FIELD + "__iexact": email}
         user_qs = User.objects.filter(**q_dict)
-        if is_active is not None:
-            user_qs = user_qs.filter(is_active=is_active)
         for user in user_qs.iterator():
             user_email = getattr(user, app_settings.USER_MODEL_EMAIL_FIELD)
             if _unicode_ci_compare(user_email, email):
                 users.append(user)
+    if is_active is not None:
+        users = [u for u in set(users) if u.is_active == is_active]
     return list(set(users))
 
 
@@ -575,3 +573,24 @@ def assess_unique_email(email) -> Optional[bool]:
         # to be unique. In this case, uniqueness takes precedence over
         # enumeration prevention.
         return False
+
+
+def emit_email_changed(request, from_email_address, to_email_address):
+    user = to_email_address.user
+    signals.email_changed.send(
+        sender=user.__class__,
+        request=request,
+        user=user,
+        from_email_address=from_email_address,
+        to_email_address=to_email_address,
+    )
+    if from_email_address:
+        get_adapter().send_notification_mail(
+            "account/email/email_changed",
+            user,
+            context={
+                "from_email": from_email_address.email,
+                "to_email": to_email_address.email,
+            },
+            email=from_email_address.email,
+        )

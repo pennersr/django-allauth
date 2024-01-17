@@ -69,3 +69,37 @@ receive a refresh token on first login and on reauthentication requests
 (which is needed to refresh authentication tokens in the background,
 without involving the user's browser). When unspecified, Google defaults
 to ``online``.
+
+By default, the userinfo endpoint will not be fetched. In most cases, 
+this will be fine, as most in scope user data is gained via decoding
+the JWT. However if users have a private style of avatar_url
+then this will not ordinarily be returned in the JWT and 
+as such, subsequent calls to get_avatar_url will return None.
+
+You can optionally specify the following setting so that the userinfo
+endpoint will be used to populate the avatar_url for those users
+who have a private style of avatar_url.
+
+.. code-block:: python
+
+    SOCIALACCOUNT_PROVIDERS = {
+        'google': {
+            'FETCH_USERINFO' : True
+        }
+    }
+
+One Tap Sign-In
+***************
+
+One Tap Sign-In can be enabled by adding a snippet like this snippet to your
+template::
+
+    <script src="//accounts.google.com/gsi/client" async></script>
+    <div id="g_id_onload"
+         data-client_id="123-secret.apps.googleusercontent.com"
+         data-login_uri="{% url 'google_login_by_token' %}"
+    </div>
+
+Follow the `Sign In with Google for Web`_ guide for more information.
+
+.. _Sign In with Google for Web: https://developers.google.com/identity/gsi/web/guides/overview

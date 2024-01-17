@@ -6,10 +6,34 @@ from django.core import mail
 from django.test.utils import override_settings
 from django.urls import reverse
 
+import pytest
+
 from allauth.account import app_settings
 from allauth.account.forms import ResetPasswordForm
 from allauth.account.models import EmailAddress
 from allauth.tests import TestCase
+
+
+@pytest.mark.django_db
+def test_reset_password_unknown_account(client, settings):
+    settings.ACCOUNT_PREVENT_ENUMERATION = True
+    client.post(
+        reverse("account_reset_password"),
+        data={"email": "unknown@example.org"},
+    )
+    assert len(mail.outbox) == 1
+    assert mail.outbox[0].to == ["unknown@example.org"]
+
+
+@pytest.mark.django_db
+def test_reset_password_unknown_account_disabled(client, settings):
+    settings.ACCOUNT_PREVENT_ENUMERATION = True
+    settings.ACCOUNT_EMAIL_UNKNOWN_ACCOUNTS = False
+    client.post(
+        reverse("account_reset_password"),
+        data={"email": "unknown@example.org"},
+    )
+    assert len(mail.outbox) == 0
 
 
 @override_settings(
@@ -23,6 +47,7 @@ from allauth.tests import TestCase
     ACCOUNT_SIGNUP_REDIRECT_URL="/accounts/welcome/",
     ACCOUNT_ADAPTER="allauth.account.adapter.DefaultAccountAdapter",
     ACCOUNT_USERNAME_REQUIRED=True,
+    ACCOUNT_EMAIL_NOTIFICATIONS=True,
 )
 class ResetPasswordTests(TestCase):
     def test_user_email_not_sent_inactive_user(self):
@@ -38,14 +63,6 @@ class ResetPasswordTests(TestCase):
         resp = self.client.get(reverse("account_reset_password"))
         self.assertTemplateUsed(resp, "account/password_reset.html")
 
-    def test_password_set_redirect(self):
-        resp = self._password_set_or_change_redirect("account_set_password", True)
-        self.assertRedirects(
-            resp,
-            reverse("account_change_password"),
-            fetch_redirect_response=False,
-        )
-
     def test_set_password_not_allowed(self):
         user = self._create_user_and_login(True)
         pwd = "!*123i1uwn12W23"
@@ -58,22 +75,6 @@ class ResetPasswordTests(TestCase):
         self.assertFalse(user.check_password(pwd))
         self.assertTrue(user.has_usable_password())
         self.assertEqual(resp.status_code, 302)
-
-    def test_password_change_no_redirect(self):
-        resp = self._password_set_or_change_redirect("account_change_password", True)
-        self.assertEqual(resp.status_code, 200)
-
-    def test_password_set_no_redirect(self):
-        resp = self._password_set_or_change_redirect("account_set_password", False)
-        self.assertEqual(resp.status_code, 200)
-
-    def test_password_change_redirect(self):
-        resp = self._password_set_or_change_redirect("account_change_password", False)
-        self.assertRedirects(
-            resp,
-            reverse("account_set_password"),
-            fetch_redirect_response=False,
-        )
 
     def test_password_forgotten_username_hint(self):
         user = self._request_new_password()
@@ -161,6 +162,7 @@ class ResetPasswordTests(TestCase):
             url, {"password1": "newpass123", "password2": "newpass123"}
         )
         self.assertRedirects(resp, reverse("account_reset_password_from_key_done"))
+        assert "Your password has been reset" in mail.outbox[-1].body
 
         # Check the new password is in effect
         user = get_user_model().objects.get(pk=user.pk)
@@ -294,7 +296,3 @@ class ResetPasswordTests(TestCase):
         user = self._create_user(password=password)
         self.client.force_login(user)
         return user
-
-    def _password_set_or_change_redirect(self, urlname, usable_password):
-        self._create_user_and_login(usable_password)
-        return self.client.get(reverse(urlname))

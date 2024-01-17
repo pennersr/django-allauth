@@ -1,12 +1,14 @@
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 from urllib.parse import parse_qs, urlparse
 
 from django.urls import reverse
 from django.utils.http import urlencode
 
 import pytest
+from pytest_django.asserts import assertTemplateUsed
 
 from allauth.account.models import EmailAddress
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers.saml.utils import build_saml_config
 
@@ -65,6 +67,25 @@ def test_acs_error(client, db, saml_settings):
     assert "socialaccount/authentication_error.html" in (t.name for t in resp.templates)
 
 
+def test_acs_get(client, db, saml_settings):
+    """ACS expects POST"""
+    resp = client.get(reverse("saml_acs", kwargs={"organization_slug": "org"}))
+    assert resp.status_code == 200
+    assert "socialaccount/authentication_error.html" in (t.name for t in resp.templates)
+
+
+def test_sls_get(client, db, saml_settings):
+    """SLS expects POST"""
+    resp = client.get(reverse("saml_sls", kwargs={"organization_slug": "org"}))
+    assert resp.status_code == 400
+
+
+def test_login_on_get(client, db, saml_settings):
+    resp = client.get(reverse("saml_login", kwargs={"organization_slug": "org"}))
+    assert resp.status_code == 200
+    assertTemplateUsed(resp, "socialaccount/login.html")
+
+
 @pytest.mark.parametrize(
     "query,expected_relay_state",
     [
@@ -75,7 +96,7 @@ def test_acs_error(client, db, saml_settings):
     ],
 )
 def test_login(client, db, saml_settings, query, expected_relay_state):
-    resp = client.get(
+    resp = client.post(
         reverse("saml_login", kwargs={"organization_slug": "org"}) + query
     )
     assert resp.status_code == 302
@@ -166,3 +187,36 @@ def test_build_saml_config(rf, provider_config):
     assert config["idp"]["x509cert"] == "cert"
     assert config["idp"]["singleSignOnService"] == {"url": "https://idp.org/sso/"}
     assert config["idp"]["singleLogoutService"] == {"url": "https://idp.saml.org/slo/"}
+
+
+@pytest.mark.parametrize(
+    "data, result, uid",
+    [
+        (
+            {"urn:oasis:names:tc:SAML:attribute:subject-id": ["123"]},
+            {"uid": "123", "email": "nameid@saml.org"},
+            "123",
+        ),
+        ({}, {"email": "nameid@saml.org"}, "nameid@saml.org"),
+    ],
+)
+def test_extract_attributes(db, data, result, uid, settings):
+    settings.SOCIALACCOUNT_PROVIDERS = {
+        "saml": {
+            "APPS": [
+                {
+                    "client_id": "org",
+                    "provider_id": "urn:dev-123.us.auth0.com",
+                }
+            ]
+        }
+    }
+    provider = get_adapter().get_provider(request=None, provider="saml")
+    onelogin_data = Mock()
+    onelogin_data.get_attributes.return_value = data
+    onelogin_data.get_nameid.return_value = "nameid@saml.org"
+    onelogin_data.get_nameid_format.return_value = (
+        "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+    )
+    assert provider._extract(onelogin_data) == result
+    assert provider.extract_uid(onelogin_data) == uid

@@ -40,25 +40,22 @@ def login(request):
 
 @csrf_exempt
 def callback(request):
+    adapter = get_adapter()
+    provider = adapter.get_provider(request, DraugiemProvider.id)
+
     if "dr_auth_status" not in request.GET:
-        return render_authentication_error(
-            request, DraugiemProvider.id, error=AuthError.UNKNOWN
-        )
+        return render_authentication_error(request, provider, error=AuthError.UNKNOWN)
 
     if request.GET["dr_auth_status"] != "ok":
-        return render_authentication_error(
-            request, DraugiemProvider.id, error=AuthError.DENIED
-        )
+        return render_authentication_error(request, provider, error=AuthError.DENIED)
 
     if "dr_auth_code" not in request.GET:
-        return render_authentication_error(
-            request, DraugiemProvider.id, error=AuthError.UNKNOWN
-        )
+        return render_authentication_error(request, provider, error=AuthError.UNKNOWN)
 
     ret = None
     auth_exception = None
     try:
-        app = get_adapter().get_app(request, DraugiemProvider.id)
+        app = provider.app
         login = draugiem_complete_login(request, app, request.GET["dr_auth_code"])
         login.state = SocialLogin.unstash_state(request)
 
@@ -67,18 +64,20 @@ def callback(request):
         auth_exception = e
 
     if not ret:
-        ret = render_authentication_error(
-            request, DraugiemProvider.id, exception=auth_exception
-        )
+        ret = render_authentication_error(request, provider, exception=auth_exception)
 
     return ret
 
 
 def draugiem_complete_login(request, app, code):
     provider = get_adapter().get_provider(request, DraugiemProvider.id)
-    response = requests.get(
-        ACCESS_TOKEN_URL,
-        {"action": "authorize", "app": app.secret, "code": code},
+    response = (
+        get_adapter()
+        .get_requests_session()
+        .get(
+            ACCESS_TOKEN_URL,
+            {"action": "authorize", "app": app.secret, "code": code},
+        )
     )
     response.raise_for_status()
     response_json = response.json()

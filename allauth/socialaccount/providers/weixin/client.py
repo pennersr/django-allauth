@@ -1,8 +1,8 @@
-import requests
 from collections import OrderedDict
 
 from django.utils.http import urlencode
 
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.client import (
     OAuth2Client,
     OAuth2Error,
@@ -43,7 +43,11 @@ class WeixinOAuth2Client(OAuth2Client):
         if data and pkce_code_verifier:
             data["code_verifier"] = pkce_code_verifier
         # TODO: Proper exception handling
-        resp = requests.request(self.access_token_method, url, params=params, data=data)
+        resp = (
+            get_adapter()
+            .get_requests_session()
+            .request(self.access_token_method, url, params=params, data=data)
+        )
         access_token = None
         if resp.status_code == 200:
             access_token = resp.json()

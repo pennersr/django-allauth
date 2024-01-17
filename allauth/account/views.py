@@ -17,6 +17,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic.base import TemplateResponseMixin, TemplateView, View
 from django.views.generic.edit import FormView
 
+from allauth import app_settings as allauth_app_settings
 from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
 from allauth.account.decorators import reauthentication_required
@@ -42,6 +43,7 @@ from allauth.account.reauthentication import (
 )
 from allauth.account.utils import (
     complete_signup,
+    emit_email_changed,
     get_login_redirect_url,
     get_next_redirect_url,
     logout_on_password_change,
@@ -200,6 +202,7 @@ class LoginView(
                 "site": site,
                 "redirect_field_name": self.redirect_field_name,
                 "redirect_field_value": redirect_field_value,
+                "SOCIALACCOUNT_ENABLED": allauth_app_settings.SOCIALACCOUNT_ENABLED,
             }
         )
         return ret
@@ -296,6 +299,7 @@ class SignupView(
                 "redirect_field_name": redirect_field_name,
                 "redirect_field_value": redirect_field_value,
                 "site": site,
+                "SOCIALACCOUNT_ENABLED": allauth_app_settings.SOCIALACCOUNT_ENABLED,
             }
         )
         return ret
@@ -323,12 +327,25 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
     def get(self, *args, **kwargs):
         try:
             self.object = self.get_object()
+            self.logout_other_user(self.object)
             if app_settings.CONFIRM_EMAIL_ON_GET:
                 return self.post(*args, **kwargs)
         except Http404:
             self.object = None
         ctx = self.get_context_data()
         return self.render_to_response(ctx)
+
+    def logout_other_user(self, confirmation):
+        """
+        In the event someone clicks on an email confirmation link
+        for one account while logged into another account,
+        logout of the currently logged in account.
+        """
+        if (
+            self.request.user.is_authenticated
+            and self.request.user.pk != confirmation.email_address.user_id
+        ):
+            self.logout()
 
     def post(self, *args, **kwargs):
         self.object = confirmation = self.get_object()
@@ -342,14 +359,7 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
             )
             return self.respond(False)
 
-        # In the event someone clicks on an email confirmation link
-        # for one account while logged into another account,
-        # logout of the currently logged in account.
-        if (
-            self.request.user.is_authenticated
-            and self.request.user.pk != confirmation.email_address.user_id
-        ):
-            self.logout()
+        self.logout_other_user(self.object)
 
         get_adapter(self.request).add_message(
             self.request,
@@ -457,6 +467,7 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
 confirm_email = ConfirmEmailView.as_view()
 
 
+@method_decorator(login_required, name="dispatch")
 @method_decorator(rate_limit(action="manage_email"), name="dispatch")
 @method_decorator(
     reauthentication_required(
@@ -485,7 +496,8 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
 
     def form_valid(self, form):
         email_address = form.save(self.request)
-        get_adapter(self.request).add_message(
+        adapter = get_adapter(self.request)
+        adapter.add_message(
             self.request,
             messages.INFO,
             "account/messages/email_confirmation_sent.txt",
@@ -563,6 +575,11 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                     "account/messages/email_deleted.txt",
                     {"email": email_address.email},
                 )
+                adapter.send_notification_mail(
+                    "account/email/email_deleted",
+                    request.user,
+                    {"deleted_email": email_address.email},
+                )
                 return HttpResponseRedirect(self.get_success_url())
 
     def _action_primary(self, request, *args, **kwargs):
@@ -593,18 +610,13 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
                 except EmailAddress.DoesNotExist:
                     from_email_address = None
                 email_address.set_as_primary()
-                get_adapter().add_message(
+                adapter = get_adapter()
+                adapter.add_message(
                     request,
                     messages.SUCCESS,
                     "account/messages/primary_email_set.txt",
                 )
-                signals.email_changed.send(
-                    sender=request.user.__class__,
-                    request=request,
-                    user=request.user,
-                    from_email_address=from_email_address,
-                    to_email_address=email_address,
-                )
+                emit_email_changed(request, from_email_address, email_address)
                 return HttpResponseRedirect(self.get_success_url())
 
     def get_context_data(self, **kwargs):
@@ -652,66 +664,65 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
         return data
 
 
-email = login_required(EmailView.as_view())
+email = EmailView.as_view()
 
 
+@method_decorator(login_required, name="dispatch")
 @method_decorator(rate_limit(action="change_password"), name="dispatch")
 class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_change." + app_settings.TEMPLATE_EXTENSION
     form_class = ChangePasswordForm
-    success_url = reverse_lazy("account_change_password")
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, "change_password", self.form_class)
 
     @sensitive_post_parameters_m
     def dispatch(self, request, *args, **kwargs):
-        return super(PasswordChangeView, self).dispatch(request, *args, **kwargs)
-
-    def render_to_response(self, context, **response_kwargs):
-        if self.request.user.is_anonymous:
-            # We end up here when `ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True`.
-            redirect_url = get_adapter(self.request).get_logout_redirect_url(
-                self.request
-            )
-            return HttpResponseRedirect(redirect_url)
-        elif not self.request.user.has_usable_password():
+        if not self.request.user.has_usable_password():
             return HttpResponseRedirect(reverse("account_set_password"))
-        return super(PasswordChangeView, self).render_to_response(
-            context, **response_kwargs
-        )
+        return super().dispatch(request, *args, **kwargs)
 
     def get_form_kwargs(self):
-        kwargs = super(PasswordChangeView, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         kwargs["user"] = self.request.user
         return kwargs
+
+    def get_success_url(self):
+        if self.success_url:
+            return self.success_url
+        return get_adapter().get_password_change_redirect_url(self.request)
 
     def form_valid(self, form):
         form.save()
         logout_on_password_change(self.request, form.user)
-        get_adapter(self.request).add_message(
+        adapter = get_adapter(self.request)
+        adapter.add_message(
             self.request,
             messages.SUCCESS,
             "account/messages/password_changed.txt",
+        )
+        adapter.send_notification_mail(
+            "account/email/password_changed", self.request.user
         )
         signals.password_changed.send(
             sender=self.request.user.__class__,
             request=self.request,
             user=self.request.user,
         )
-        return super(PasswordChangeView, self).form_valid(form)
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
-        ret = super(PasswordChangeView, self).get_context_data(**kwargs)
+        ret = super().get_context_data(**kwargs)
         # NOTE: For backwards compatibility
         ret["password_change_form"] = ret.get("form")
         # (end NOTE)
         return ret
 
 
-password_change = login_required(PasswordChangeView.as_view())
+password_change = PasswordChangeView.as_view()
 
 
+@method_decorator(login_required, name="dispatch")
 @method_decorator(
     # NOTE: 'change_password' (iso 'set_') is intentional, there is no need to
     # differentiate between set and change.
@@ -721,7 +732,6 @@ password_change = login_required(PasswordChangeView.as_view())
 class PasswordSetView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_set." + app_settings.TEMPLATE_EXTENSION
     form_class = SetPasswordForm
-    success_url = reverse_lazy("account_set_password")
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, "set_password", self.form_class)
@@ -730,43 +740,45 @@ class PasswordSetView(AjaxCapableProcessFormViewMixin, FormView):
     def dispatch(self, request, *args, **kwargs):
         if self.request.user.has_usable_password():
             return HttpResponseRedirect(reverse("account_change_password"))
-        return super(PasswordSetView, self).dispatch(request, *args, **kwargs)
-
-    def render_to_response(self, context, **response_kwargs):
-        return super(PasswordSetView, self).render_to_response(
-            context, **response_kwargs
-        )
+        return super().dispatch(request, *args, **kwargs)
 
     def get_form_kwargs(self):
-        kwargs = super(PasswordSetView, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         kwargs["user"] = self.request.user
         return kwargs
 
+    def get_success_url(self):
+        if self.success_url:
+            return self.success_url
+        return get_adapter().get_password_change_redirect_url(self.request)
+
     def form_valid(self, form):
         form.save()
-        logout_on_password_change(self.request, form.user)
-        get_adapter(self.request).add_message(
+        user = form.user
+        logout_on_password_change(self.request, user)
+        adapter = get_adapter(self.request)
+        adapter.add_message(
             self.request, messages.SUCCESS, "account/messages/password_set.txt"
         )
         signals.password_set.send(
-            sender=self.request.user.__class__,
+            sender=user.__class__,
             request=self.request,
-            user=self.request.user,
+            user=user,
         )
-        return super(PasswordSetView, self).form_valid(form)
+        adapter.send_notification_mail("account/email/password_set", user)
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
-        ret = super(PasswordSetView, self).get_context_data(**kwargs)
+        ret = super().get_context_data(**kwargs)
         # NOTE: For backwards compatibility
         ret["password_set_form"] = ret.get("form")
         # (end NOTE)
         return ret
 
 
-password_set = login_required(PasswordSetView.as_view())
+password_set = PasswordSetView.as_view()
 
 
-@method_decorator(rate_limit(action="reset_password"), name="dispatch")
 class PasswordResetView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_reset." + app_settings.TEMPLATE_EXTENSION
     form_class = ResetPasswordForm
@@ -779,7 +791,7 @@ class PasswordResetView(AjaxCapableProcessFormViewMixin, FormView):
     def form_valid(self, form):
         r429 = ratelimit.consume_or_429(
             self.request,
-            action="reset_password_email",
+            action="reset_password",
             key=form.cleaned_data["email"].lower(),
         )
         if r429:
@@ -886,7 +898,7 @@ class PasswordResetFromKeyView(
         form.save()
         adapter = get_adapter(self.request)
 
-        if self.reset_user and app_settings.LOGIN_ATTEMPTS_LIMIT:
+        if self.reset_user:
             # User successfully reset the password, clear any
             # possible cache entries for all email addresses.
             for email in self.reset_user.emailaddress_set.all():
@@ -904,6 +916,7 @@ class PasswordResetFromKeyView(
             request=self.request,
             user=self.reset_user,
         )
+        adapter.send_notification_mail("account/email/password_reset", self.reset_user)
 
         if app_settings.LOGIN_ON_PASSWORD_RESET:
             return perform_login(
@@ -1054,6 +1067,7 @@ class BaseReauthenticateView(FormView):
         return alts
 
 
+@method_decorator(login_required, name="dispatch")
 class ReauthenticateView(BaseReauthenticateView):
     form_class = ReauthenticateForm
     template_name = "account/reauthenticate." + app_settings.TEMPLATE_EXTENSION
@@ -1067,4 +1081,4 @@ class ReauthenticateView(BaseReauthenticateView):
         return ret
 
 
-reauthenticate = login_required(ReauthenticateView.as_view())
+reauthenticate = ReauthenticateView.as_view()

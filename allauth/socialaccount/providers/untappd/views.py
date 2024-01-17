@@ -1,5 +1,4 @@
-import requests
-
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -20,7 +19,11 @@ class UntappdOAuth2Adapter(OAuth2Adapter):
     supports_state = False
 
     def complete_login(self, request, app, token, **kwargs):
-        resp = requests.get(self.user_info_url, params={"access_token": token.token})
+        resp = (
+            get_adapter()
+            .get_requests_session()
+            .get(self.user_info_url, params={"access_token": token.token})
+        )
         extra_data = resp.json()
         # TODO: get and store the email from the user info json
         return self.get_provider().sociallogin_from_response(request, extra_data)

@@ -139,7 +139,7 @@ class SocialAccount(models.Model):
             return provider
         adapter = get_adapter()
         provider = self._provider = adapter.get_provider(
-            request, provider=self.provider
+            request or context.request, provider=self.provider
         )
         return provider
 
@@ -214,6 +214,15 @@ class SocialLogin(object):
             sender=SocialLogin, request=request, sociallogin=self
         )
 
+        get_adapter().send_notification_mail(
+            "socialaccount/email/account_connected",
+            self.user,
+            context={
+                "account": self.account,
+                "provider": self.account.get_provider(),
+            },
+        )
+
     def serialize(self):
         serialize_instance = get_adapter().serialize_instance
         ret = dict(
@@ -274,16 +283,12 @@ class SocialLogin(object):
             return False
         return get_user_model().objects.filter(pk=self.user.pk).exists()
 
-    def lookup(self, request=None):
+    def lookup(self):
         """Look up the existing local user account to which this social login
         points, if any.
         """
         if not self._lookup_by_socialaccount():
-            provider_id = self.account.get_provider(request).id
-            if app_settings.EMAIL_AUTHENTICATION or app_settings.PROVIDERS.get(
-                provider_id, {}
-            ).get("EMAIL_AUTHENTICATION", False):
-                self._lookup_by_email()
+            self._lookup_by_email()
 
     def _lookup_by_socialaccount(self):
         assert not self.is_existing
@@ -324,6 +329,8 @@ class SocialLogin(object):
     def _lookup_by_email(self):
         emails = [e.email for e in self.email_addresses if e.verified]
         for email in emails:
+            if not get_adapter().can_authenticate_by_email(self, email):
+                continue
             users = filter_users_by_email(email, prefer_verified=True)
             if users:
                 self.user = users[0]

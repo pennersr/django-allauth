@@ -1,3 +1,4 @@
+import functools
 import warnings
 
 from django.core.exceptions import (
@@ -53,10 +54,10 @@ class DefaultSocialAccountAdapter(object):
         """
         pass
 
-    def authentication_error(
+    def on_authentication_error(
         self,
         request,
-        provider_id,
+        provider,
         error=None,
         exception=None,
         extra_context=None,
@@ -68,7 +69,18 @@ class DefaultSocialAccountAdapter(object):
         You can use this hook to intervene, e.g. redirect to an
         educational flow by raising an ImmediateHttpResponse.
         """
-        pass
+        if hasattr(self, "authentication_error"):
+            warnings.warn(
+                "adapter.authentication_error() is deprecated, use adapter.on_authentication_error()"
+            )
+
+            self.authentication_error(
+                request,
+                provider.id,
+                error=error,
+                exception=exception,
+                extra_context=extra_context,
+            )
 
     def new_user(self, request, sociallogin):
         """
@@ -228,7 +240,10 @@ class DefaultSocialAccountAdapter(object):
         provider_to_apps = {}
 
         # First, populate it with the DB backed apps.
-        db_apps = SocialApp.objects.on_site(request)
+        if request:
+            db_apps = SocialApp.objects.on_site(request)
+        else:
+            db_apps = SocialApp.objects.all()
         if provider:
             db_apps = db_apps.filter(Q(provider=provider) | Q(provider_id=provider))
         if client_id:
@@ -287,6 +302,62 @@ class DefaultSocialAccountAdapter(object):
         elif len(apps) == 0:
             raise SocialApp.DoesNotExist()
         return apps[0]
+
+    def send_notification_mail(self, *args, **kwargs):
+        return get_account_adapter().send_notification_mail(*args, **kwargs)
+
+    def get_requests_session(self):
+        import requests
+
+        session = requests.Session()
+        session.request = functools.partial(
+            session.request, timeout=app_settings.REQUESTS_TIMEOUT
+        )
+        return session
+
+    def is_email_verified(self, provider, email):
+        """
+        Returns ``True`` iff the given email encountered during a social
+        login for the given provider is to be assumed verified.
+
+        This can be configured with a ``"verified_email"`` key in the provider
+        app settings, or a ``"VERIFIED_EMAIL"`` in the global provider settings
+        (``SOCIALACCOUNT_PROVIDERS``).  Both can be set to ``False`` or
+        ``True``, or, a list of domains to match email addresses against.
+        """
+        verified_email = None
+        if provider.app:
+            verified_email = provider.app.settings.get("verified_email")
+        if verified_email is None:
+            settings = provider.get_settings()
+            verified_email = settings.get("VERIFIED_EMAIL", False)
+        if isinstance(verified_email, bool):
+            pass
+        elif isinstance(verified_email, list):
+            email_domain = email.partition("@")[2].lower()
+            verified_domains = [d.lower() for d in verified_email]
+            verified_email = email_domain in verified_domains
+        else:
+            raise ImproperlyConfigured("verified_email wrongly configured")
+        return verified_email
+
+    def can_authenticate_by_email(self, login, email):
+        """
+        Returns ``True`` iff  authentication by email is active for this login/email.
+
+        This can be configured with a ``"email_authentication"`` key in the provider
+        app settings, or a ``"VERIFIED_EMAIL"`` in the global provider settings
+        (``SOCIALACCOUNT_PROVIDERS``).
+        """
+        ret = None
+        provider = login.account.get_provider()
+        if provider.app:
+            ret = provider.app.settings.get("email_authentication")
+        if ret is None:
+            ret = app_settings.EMAIL_AUTHENTICATION or provider.get_settings().get(
+                "EMAIL_AUTHENTICATION", False
+            )
+        return ret
 
 
 def get_adapter(request=None):

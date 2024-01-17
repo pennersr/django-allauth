@@ -1,0 +1,4 @@
+{% load i18n %}
+{% autoescape off %}
+{% blocktrans %}New Recovery Codes Generated{% endblocktrans %}
+{% endautoescape %}

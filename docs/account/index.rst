@@ -5,6 +5,7 @@ Regular Accounts
 
    introduction
    configuration
+   rate_limits
    views
    templates
    forms

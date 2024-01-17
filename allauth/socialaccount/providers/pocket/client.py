@@ -1,9 +1,9 @@
-import requests
 from urllib.parse import urlencode
 
 from django.http import HttpResponseRedirect
 from django.utils.translation import gettext as _
 
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth.client import (
     OAuthClient,
     OAuthError,
@@ -27,10 +27,14 @@ class PocketOAuthClient(OAuthClient):
                 "consumer_key": self.consumer_key,
                 "redirect_uri": redirect_url,
             }
-            response = requests.post(
-                url=self.request_token_url,
-                json=data,
-                headers=headers,
+            response = (
+                get_adapter()
+                .get_requests_session()
+                .post(
+                    url=self.request_token_url,
+                    json=data,
+                    headers=headers,
+                )
             )
             if response.status_code != 200:
                 raise OAuthError(
@@ -72,7 +76,11 @@ class PocketOAuthClient(OAuthClient):
                 "consumer_key": self.consumer_key,
                 "code": request_token,
             }
-            response = requests.post(url=url, headers=headers, json=data)
+            response = (
+                get_adapter()
+                .get_requests_session()
+                .post(url=url, headers=headers, json=data)
+            )
             if response.status_code != 200:
                 raise OAuthError(
                     _("Invalid response while obtaining access token" ' from "%s".')

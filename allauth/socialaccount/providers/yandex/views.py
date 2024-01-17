@@ -1,5 +1,4 @@
-import requests
-
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -16,10 +15,14 @@ class YandexAuth2Adapter(OAuth2Adapter):
     profile_url = "https://login.yandex.ru/info"
 
     def complete_login(self, request, app, token, **kwargs):
-        resp = requests.get(
-            self.profile_url,
-            params={"format": "json"},
-            headers={"Authorization": f"OAuth {token.token}"},
+        resp = (
+            get_adapter()
+            .get_requests_session()
+            .get(
+                self.profile_url,
+                params={"format": "json"},
+                headers={"Authorization": f"OAuth {token.token}"},
+            )
         )
         resp.raise_for_status()
         extra_data = resp.json()

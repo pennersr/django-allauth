@@ -12,6 +12,11 @@ class LoginStage:
         self.controller = controller
         self.request = request
         self.login = login
+        self.state = (
+            self.login.state.setdefault("stages", {})
+            .setdefault(self.key, {})
+            .setdefault("data", {})
+        )
 
     def handle(self):
         return None, True
@@ -47,10 +52,9 @@ class LoginStageController:
     def is_handled(self, stage_key):
         return self.state.get(stage_key, {}).get("handled", False)
 
-    def set_handled(self, stage_key, data=None):
+    def set_handled(self, stage_key):
         stage_state = self.state.setdefault(stage_key, {})
         stage_state["handled"] = True
-        stage_state["data"] = data
 
     def get_stages(self):
         stages = []

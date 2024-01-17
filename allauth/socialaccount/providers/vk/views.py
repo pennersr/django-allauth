@@ -1,5 +1,4 @@
-import requests
-
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -50,7 +49,7 @@ class VKOAuth2Adapter(OAuth2Adapter):
         }
         if uid:
             params["user_ids"] = uid
-        resp = requests.get(self.profile_url, params=params)
+        resp = get_adapter().get_requests_session().get(self.profile_url, params=params)
         resp.raise_for_status()
         extra_data = resp.json()["response"][0]
         email = kwargs["response"].get("email")

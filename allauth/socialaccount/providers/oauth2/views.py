@@ -125,11 +125,12 @@ class OAuth2LoginView(OAuthLoginMixin, OAuth2View):
         try:
             return HttpResponseRedirect(client.get_redirect_url(auth_url, auth_params))
         except OAuth2Error as e:
-            return render_authentication_error(request, provider.id, exception=e)
+            return render_authentication_error(request, provider, exception=e)
 
 
 class OAuth2CallbackView(OAuth2View):
     def dispatch(self, request, *args, **kwargs):
+        provider = self.adapter.get_provider()
         if "error" in request.GET or "code" not in request.GET:
             # Distinguish cancel from error
             auth_error = request.GET.get("error", None)
@@ -138,9 +139,14 @@ class OAuth2CallbackView(OAuth2View):
             else:
                 error = AuthError.UNKNOWN
             return render_authentication_error(
-                request, self.adapter.provider_id, error=error
+                request,
+                provider,
+                error=error,
+                extra_context={
+                    "callback_view": self,
+                },
             )
-        app = self.adapter.get_provider().app
+        app = provider.app
         client = self.get_client(self.request, app)
 
         try:
@@ -166,6 +172,4 @@ class OAuth2CallbackView(OAuth2View):
             RequestException,
             ProviderException,
         ) as e:
-            return render_authentication_error(
-                request, self.adapter.provider_id, exception=e
-            )
+            return render_authentication_error(request, provider, exception=e)

@@ -1,6 +1,7 @@
 from django.core.exceptions import ImproperlyConfigured
 
 from allauth.socialaccount import app_settings
+from allauth.socialaccount.adapter import get_adapter
 
 
 class ProviderException(Exception):
@@ -16,6 +17,9 @@ class Provider(object):
         if self.uses_apps and app is None:
             raise ValueError("missing: app")
         self.app = app
+
+    def __str__(self):
+        return self.name
 
     @classmethod
     def get_slug(cls):
@@ -68,6 +72,8 @@ class Provider(object):
             raise ImproperlyConfigured(
                 f"SOCIALACCOUNT_UID_MAX_LENGTH too small (<{len(uid)})"
             )
+        if not uid:
+            raise ValueError("uid must be a non-empty string")
 
         extra_data = self.extract_extra_data(response)
         common_fields = self.extract_common_fields(response)
@@ -133,10 +139,9 @@ class Provider(object):
                 EmailAddress(email=email, verified=bool(email_verified), primary=True)
             )
         # Force verified emails
-        settings = self.get_settings()
-        verified_email = settings.get("VERIFIED_EMAIL", False)
-        if verified_email:
-            for address in addresses:
+        adapter = get_adapter()
+        for address in addresses:
+            if adapter.is_email_verified(self, address.email):
                 address.verified = True
 
     def extract_email_addresses(self, data):

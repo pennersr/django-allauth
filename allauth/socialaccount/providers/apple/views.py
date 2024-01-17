@@ -1,5 +1,4 @@
 import json
-import requests
 from datetime import timedelta
 
 from django.http import HttpResponseNotAllowed, HttpResponseRedirect
@@ -33,7 +32,7 @@ class AppleOAuth2Adapter(OAuth2Adapter):
     public_key_url = "https://appleid.apple.com/auth/keys"
 
     def _get_apple_public_key(self, kid):
-        response = requests.get(self.public_key_url)
+        response = get_adapter().get_requests_session().get(self.public_key_url)
         response.raise_for_status()
         try:
             data = response.json()

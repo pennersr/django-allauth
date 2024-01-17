@@ -6,4 +6,5 @@ Multi-Factor Authentication
    introduction
    configuration
    adapter
+   forms
    django-allauth-2fa

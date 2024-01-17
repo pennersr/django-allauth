@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-12 09:45-0600\n"
-"PO-Revision-Date: 2018-02-14 17:46-0600\n"
-"Last-Translator: Jannis \n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/django-allauth/"
-"language/es/)\n"
+"PO-Revision-Date: 2024-01-14 12:31+0000\n"
+"Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/django-allauth/"
+"django-allauth/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: account/adapter.py:51
 msgid "Username can not be used. Please use other username."
@@ -37,10 +37,8 @@ msgid "Please type your current password."
 msgstr "Por favor, escriba su contraseña actual."
 
 #: account/adapter.py:61
-#, fuzzy
-#| msgid "Current Password"
 msgid "Incorrect password."
-msgstr "Contraseña actual"
+msgstr "Contraseña incorrecta."
 
 #: account/adapter.py:62
 #, python-brace-format
@@ -52,20 +50,17 @@ msgid "The email address is not assigned to any user account"
 msgstr "El correo electrónico no está asignado a ninguna cuenta de usuario"
 
 #: account/adapter.py:743
-#, fuzzy
-#| msgid "Forgot Password?"
 msgid "Use your password"
-msgstr "¿Olvidó su contraseña?"
+msgstr "Utilice su contraseña"
 
 #: account/adapter.py:753
 msgid "Use your authenticator app"
-msgstr ""
+msgstr "Utiliza tu aplicación de autenticación"
 
 #: account/admin.py:23
-#, fuzzy
-#| msgid "Your primary email address must be verified."
 msgid "Mark selected email addresses as verified"
-msgstr "Su dirección principal de correo electrónico debe ser verificada."
+msgstr ""
+"Marcar las direcciones de correo electrónico seleccionadas como verificadas"
 
 #: account/apps.py:11
 msgid "Accounts"
@@ -123,10 +118,8 @@ msgid "Login"
 msgstr "Iniciar sesión"
 
 #: account/forms.py:146
-#, fuzzy
-#| msgid "Forgot Password?"
 msgid "Forgot your password?"
-msgstr "¿Olvidó su contraseña?"
+msgstr "¿Has olvidado tu contraseña?"
 
 #: account/forms.py:316
 msgid "Email (again)"
@@ -153,10 +146,9 @@ msgid "This email address is already associated with this account."
 msgstr "Este correo electrónico ya está asociado con esta cuenta."
 
 #: account/forms.py:491
-#, fuzzy, python-format
-#| msgid "Your account has no verified email address."
+#, python-format
 msgid "You cannot add more than %d email addresses."
-msgstr "No se pueden añadir más de %d direcciones de correo electrónico."
+msgstr "No puede añadir más de %d direcciones de correo electrónico."
 
 #: account/forms.py:529
 msgid "Current Password"
@@ -219,28 +211,32 @@ msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
 msgstr ""
+"No puede activar la autenticación de dos factores hasta que haya verificado "
+"su dirección de correo electrónico."
 
 #: mfa/adapter.py:23
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
 msgstr ""
+"No puedes añadir una dirección de correo electrónico a una cuenta protegida "
+"por la autenticación de dos factores."
 
 #: mfa/adapter.py:25
 msgid "Incorrect code."
-msgstr ""
+msgstr "Código incorrecto."
 
 #: mfa/adapter.py:27
 msgid "You cannot deactivate two-factor authentication."
-msgstr ""
+msgstr "No se puede desactivar la autenticación de dos factores."
 
 #: mfa/apps.py:9
 msgid "MFA"
-msgstr ""
+msgstr "MFA"
 
 #: mfa/forms.py:16 mfa/forms.py:18 mfa/forms.py:55
 msgid "Code"
-msgstr ""
+msgstr "Código"
 
 #: mfa/forms.py:53
 msgid "Authenticator code"
@@ -1283,10 +1279,8 @@ msgid ""
 msgstr ""
 
 #: templates/socialaccount/email/account_disconnected_subject.txt:3
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Third-Party Account Disconnected"
-msgstr "Agregar una cuenta de una red social externa"
+msgstr "Cuenta de terceros desconectada"
 
 #: templates/socialaccount/login.html:10
 #, python-format

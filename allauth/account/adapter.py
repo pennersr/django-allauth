@@ -355,7 +355,7 @@ class DefaultAccountAdapter(object):
         min_length = app_settings.PASSWORD_MIN_LENGTH
         if min_length and len(password) < min_length:
             raise forms.ValidationError(
-                self.error_message["password_min_length"].format(min_length)
+                self.error_messages["password_min_length"].format(min_length)
             )
         validate_password(password, user)
         return password

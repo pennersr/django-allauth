@@ -27,6 +27,9 @@ Welcome to django-allauth!
 .. image:: https://pennersr.github.io/img/emacs-badge.svg
    :target: https://www.gnu.org/software/emacs/
 
+.. image:: https://hosted.weblate.org/widget/django-allauth/django-allauth/svg-badge.svg
+   :target: https://hosted.weblate.org/engage/django-allauth/
+
 Integrated set of Django applications addressing authentication,
 registration, account management as well as 3rd party (social) account
 authentication.

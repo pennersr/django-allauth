@@ -307,6 +307,11 @@ class SocialLogin(object):
             # Update token
             if app_settings.STORE_TOKENS and self.token:
                 assert not self.token.pk
+                # check if app does exist in database if not set self.token.app to None
+                try:
+                    SocialApp.objects.get(id=self.token.app.id)
+                except SocialApp.DoesNotExist:
+                    self.token.app = None
                 try:
                     t = SocialToken.objects.get(
                         account=self.account, app=self.token.app

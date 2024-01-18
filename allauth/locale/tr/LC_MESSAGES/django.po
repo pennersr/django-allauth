@@ -497,7 +497,7 @@ msgstr ""
 #: templates/account/email/base_message.txt:1
 #, python-format
 msgid "Hello from %(site_name)s!"
-msgstr "Merhaba %(site_name)s'ten!"
+msgstr "%(site_name)s'ten Merhaba!"
 
 #: templates/account/email/base_message.txt:5
 #, python-format
@@ -505,7 +505,7 @@ msgid ""
 "Thank you for using %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
-"%(site_name)s'ı kullanımınız için teşekkür ederiz!\n"
+"%(site_name)s'i kullandığınız için teşekkür ederiz!\n"
 "%(site_domain)s"
 
 #: templates/account/email/base_notification.txt:5
@@ -556,10 +556,10 @@ msgid ""
 "\n"
 "To confirm this is correct, go to %(activate_url)s"
 msgstr ""
-"Bu e-postayı alıyorsunuz çünkü kullanıcı %(user_display)s e-posta adresinizi,"
-"%(site_domain)s'da bir hesap kaydı oluşturmak için vermiştir.\n"
+"Bu e-postayı alıyorsunuz çünkü, %(user_display)s adlı kullanıcı, e-posta adresinizi "
+"%(site_domain)s'te bir hesap kaydı oluşturmak için kullanmıştır.\n"
 "\n"
-"Bu doğru ise, %(activate_url)s adresine giderek doğrulama yapabilirsiniz."
+"Eğer bu işlemi siz yaptıysanız veya bilginiz dahilindeyse, %(activate_url)s adresine giderek doğrulama yapabilirsiniz."
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your Email Address"
@@ -595,10 +595,10 @@ msgid ""
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
-"Bu e-postayı alıyorsunuz çünkü siz veya başka biri kullanıcı hesabınız için "
-"şifre sıfırlama talebinde bulundu.\n"
-"Eğer şifre sıfırlama talebinde bulunmadıysanız güvenle göz ardı "
-"edebilirsiniz. Şifrenizi sıfırlamak için aşağıdaki bağlantıya tıklayın."
+"Bu e-postayı siz veya başka biri, kullanıcı hesabınız için "
+"şifre sıfırlama talebinde bulunduğu için alıyorsunuz.\n"
+"Eğer şifre sıfırlama talebinde bulunan kişi siz değilsiniz, bu uyarıyı göz ardı edebilirsiniz."
+"Şifrenizi sıfırlamak için aşağıdaki bağlantıya tıklayın."
 
 #: templates/account/email/password_reset_key_message.txt:9
 #, python-format

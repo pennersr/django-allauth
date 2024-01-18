@@ -8,7 +8,7 @@ docs/_build
 build
 dist
 *.egg*
-example/local_settings.py
+examples/**/local_settings.py
 node_modules/
 
 # Unit test / coverage reports

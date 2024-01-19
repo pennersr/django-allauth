@@ -133,7 +133,7 @@ Available settings:
   Determines whether or not the user is automatically logged out by a
   GET request. `GET is not designed to modify the server state <http://programmers.stackexchange.com/questions/188860/>`_,
   and in this case it can be dangerous. See `LogoutView in the
-  documentation <http://docs.allauth.org/en/latest/views.html#logout>`_
+  documentation <https://docs.allauth.org/en/latest/account/views.html#logout>`_
   for details.
 
 ``ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE`` (default: ``False``)

@@ -7,6 +7,7 @@ from django.core.validators import validate_email
 from django.forms import ValidationError
 from django.http import (
     Http404,
+    HttpResponse,
     HttpResponsePermanentRedirect,
     HttpResponseRedirect,
 )
@@ -52,6 +53,7 @@ from allauth.account.utils import (
     send_email_confirmation,
     sync_user_email_addresses,
     url_str_to_user_pk,
+    user_display,
 )
 from allauth.core import ratelimit
 from allauth.core.exceptions import ImmediateHttpResponse
@@ -333,7 +335,12 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
         except Http404:
             self.object = None
         ctx = self.get_context_data()
-        return self.render_to_response(ctx)
+        if not self.object and get_adapter().is_ajax(self.request):
+            resp = HttpResponse()
+            resp.status_code = 404
+        else:
+            resp = self.render_to_response(ctx)
+        return _ajax_response(self.request, resp, data=self.get_ajax_data())
 
     def logout_other_user(self, confirmation):
         """
@@ -442,6 +449,15 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
         qs = EmailConfirmation.objects.all_valid()
         qs = qs.select_related("email_address__user")
         return qs
+
+    def get_ajax_data(self):
+        ret = {
+            "can_confirm": bool(self.object),
+        }
+        if self.object:
+            ret["email"] = self.object.email_address.email
+            ret["user"] = {"display": user_display(self.object.email_address.user)}
+        return ret
 
     def get_context_data(self, **kwargs):
         ctx = kwargs
@@ -842,8 +858,10 @@ class PasswordResetFromKeyView(
         user_token_form_class = get_form_class(
             app_settings.FORMS, "user_token", UserTokenForm
         )
-        if self.key == self.reset_url_key:
-            self.key = self.request.session.get(INTERNAL_RESET_SESSION_KEY, "")
+        is_ajax = get_adapter().is_ajax(request)
+        if self.key == self.reset_url_key or is_ajax:
+            if not is_ajax:
+                self.key = self.request.session.get(INTERNAL_RESET_SESSION_KEY, "")
             # (Ab)using forms here to be able to handle errors in XHR #890
             token_form = user_token_form_class(data={"uidb36": uidb36, "key": self.key})
             if token_form.is_valid():

@@ -1,7 +1,7 @@
 import html
 import json
 import warnings
-from urllib.parse import urlparse
+from urllib.parse import quote, urlparse
 
 from django import forms
 from django.conf import settings
@@ -581,6 +581,20 @@ class DefaultAccountAdapter(object):
             return url_has_allowed_host_and_scheme(url, allowed_hosts=allowed_host)
 
         return url_has_allowed_host_and_scheme(url, allowed_hosts=allowed_hosts)
+
+    def get_reset_password_from_key_url(self, key):
+        """
+        Method intented to be overriden in case the password reset email
+        needs to point to your frontend/SPA.
+        """
+        # We intentionally accept an opaque `key` on the interface here, and not
+        # implementation details such as a separate `uidb36` and `key. Ideally,
+        # this should have done on `urls` level as well.
+        path = reverse(
+            "account_reset_password_from_key", kwargs={"uidb36": "UID", "key": "KEY"}
+        )
+        path = path.replace("UID-KEY", quote(key))
+        return build_absolute_uri(self.request, path)
 
     def get_email_confirmation_url(self, request, emailconfirmation):
         """Constructs the email confirmation (activation) url.

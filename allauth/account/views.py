@@ -337,7 +337,7 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
         ctx = self.get_context_data()
         if not self.object and get_adapter().is_ajax(self.request):
             resp = HttpResponse()
-            resp.status_code = 404
+            resp.status_code = 400
         else:
             resp = self.render_to_response(ctx)
         return _ajax_response(self.request, resp, data=self.get_ajax_data())

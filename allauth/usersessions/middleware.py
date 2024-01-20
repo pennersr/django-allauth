@@ -10,6 +10,7 @@ class UserSessionsMiddleware:
         if (
             app_settings.TRACK_ACTIVITY
             and hasattr(request, "session")
+            and request.session.session_key
             and hasattr(request, "user")
             and request.user.is_authenticated
         ):

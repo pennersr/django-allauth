@@ -68,7 +68,7 @@ jobs:
         PYTHON_VER: ${{ matrix.python-version }}
         DJANGO: ${{ matrix.django-version }}
     - name: Coverage (Coveralls)
-      if: ${{ success() }}
+      if: ${{ success() && matrix.django-version == '5.0' && matrix.python-version == '3.12' }}
       run: coveralls --service=github
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

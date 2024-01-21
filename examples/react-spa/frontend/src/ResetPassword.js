@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import FormErrors from './FormErrors'
-import { fetchResetPassword, URLs } from './lib/allauth'
+import { postResetPassword, URLs } from './lib/allauth'
 import { Link } from 'react-router-dom'
 
 export default function ResetPassword () {
@@ -9,7 +9,7 @@ export default function ResetPassword () {
 
   function submit () {
     setResponse({ ...response, fetching: true })
-    fetchResetPassword(email).then((data) => {
+    postResetPassword(email).then((data) => {
       setResponse((r) => { return { ...r, data } })
     }).catch((e) => {
       console.error(e)

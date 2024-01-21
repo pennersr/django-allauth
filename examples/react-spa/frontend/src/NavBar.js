@@ -29,6 +29,8 @@ export default function NavBar () {
       {' '}
       <Link to='/dashboard'>📈 Dashboard</Link>
       {' '}
+      <Link to='/email'>📬 Change Email</Link>
+      {' '}
       <a href='http://localhost:1080'>✉️ MailCatcher</a>
     </nav>
   )

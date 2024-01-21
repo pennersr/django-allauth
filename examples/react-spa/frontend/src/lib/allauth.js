@@ -1,6 +1,9 @@
 import { getCSRFToken } from './django'
 
 const BASE_URL = '/accounts'
+const ACCEPT_JSON = {
+  accept: 'application/json'
+}
 
 export const URLs = Object.freeze({
   CONFIRM_EMAIL: BASE_URL + '/confirm-email/',
@@ -10,7 +13,8 @@ export const URLs = Object.freeze({
   RESET_PASSWORD: BASE_URL + '/password/reset/',
   RESET_PASSWORD_DONE: BASE_URL + '/password/reset/done/',
   RESET_PASSWORD_FROM_KEY: BASE_URL + '/password/reset/key/',
-  PROFILE: BASE_URL + '/profile/'
+  PROFILE: BASE_URL + '/profile/',
+  EMAIL: BASE_URL + '/email/'
 })
 
 async function fetchFormPost (path, data) {
@@ -23,8 +27,8 @@ async function fetchFormPost (path, data) {
   const resp = await fetch(path, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      accept: 'application/json'
+      ...ACCEPT_JSON,
+      'Content-Type': 'application/x-www-form-urlencoded'
     },
     body: new URLSearchParams(formData).toString()
   })
@@ -46,17 +50,26 @@ export async function postSignUp (data) {
   return await fetchFormPost(URLs.SIGNUP, data)
 }
 
-export async function fetchResetPassword (email) {
+export async function postResetPassword (email) {
   return await fetchFormPost(URLs.RESET_PASSWORD, { email })
 }
 
 export async function getEmailConfirmation (key) {
   return await fetch(`${URLs.CONFIRM_EMAIL}${encodeURIComponent(key)}/`,
     {
-      headers: {
-        accept: 'application/json'
-      }
+      headers: ACCEPT_JSON
     }).then(resp => resp.json())
+}
+
+export async function getEmailAddresses () {
+  return await fetch(URLs.EMAIL,
+    {
+      headers: ACCEPT_JSON
+    }).then(resp => resp.json())
+}
+
+export async function postAddEmail (email) {
+  return await fetchFormPost(URLs.EMAIL, { action_add: '', email })
 }
 
 export async function postEmailConfirmation (key) {
@@ -66,9 +79,7 @@ export async function postEmailConfirmation (key) {
 export async function getPasswordReset (key) {
   return await fetch(`${URLs.RESET_PASSWORD_FROM_KEY}${encodeURIComponent(key)}/`,
     {
-      headers: {
-        accept: 'application/json'
-      }
+      headers: ACCEPT_JSON
     }).then(resp => resp.json())
 }
 

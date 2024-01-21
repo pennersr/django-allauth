@@ -9,6 +9,7 @@ import Login from './Login'
 import Logout from './Logout'
 import SignUp from './SignUp'
 import Home from './Home'
+import ChangeEmail from './ChangeEmail'
 import ConfirmEmail, { loader as confirmEmailLoader } from './ConfirmEmail'
 import ConfirmationEmailSent from './ConfirmationEmailSent'
 import ResetPassword from './ResetPassword'
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <AnonymousRoute><Login /></AnonymousRoute>
+      },
+      {
+        path: '/email',
+        element: <AuthenticatedRoute><ChangeEmail /></AuthenticatedRoute>
       },
       {
         path: '/logout',

@@ -88,6 +88,7 @@ the ``settings.py`` of your project::
         'allauth.socialaccount.providers.foursquare',
         'allauth.socialaccount.providers.frontier',
         'allauth.socialaccount.providers.fxa',
+        'allauth.socialaccount.providers.garminconnect',
         'allauth.socialaccount.providers.gitea',
         'allauth.socialaccount.providers.github',
         'allauth.socialaccount.providers.gitlab',

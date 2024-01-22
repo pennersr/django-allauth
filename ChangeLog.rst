@@ -9,6 +9,7 @@ Note worthy changes
   password was changed", including information on user agent / IP address from where the change
   originated, will be emailed.
 
+- New provider: Garmin Connect
 
 0.60.1 (2024-01-15)
 *******************

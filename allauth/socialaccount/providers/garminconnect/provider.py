@@ -1,22 +1,25 @@
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth.provider import OAuthProvider
 
+
 class GarminConnectAccount(ProviderAccount):
     def get_profile_url(self):
-        id = self.account.extra_data.get("id")
-        if id:
-            return f"https://connect.garmin.com/modern/profile/{id}"
+        """
+        Garmin Connect API doesn't provide a profile URL
+        """
         return None
 
     def get_avatar_url(self):
-        avatar = self.account.extra_data.get("avatar")
-        if avatar:
-            return avatar
+        """
+        Garmin Connect API doesn't provide an avatar URL
+        """
         return None
 
     def to_str(self):
-        name = super(GarminConnectAccount, self).to_str()
-        return self.account.extra_data.get("name", name)
+        """
+        Garmin Connect API only provides a userId
+        """
+        return self.account.extra_data.get("userId")
 
 
 class GarminConnectProvider(OAuthProvider):

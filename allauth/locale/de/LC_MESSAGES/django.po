@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-12 09:45-0600\n"
+"POT-Creation-Date: 2024-01-17 12:01-0600\n"
 "PO-Revision-Date: 2023-12-12 16:46+0100\n"
 "Last-Translator: Jannis Vajen <jvajen@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/django-allauth/"
@@ -20,42 +20,42 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.2.1\n"
 
-#: account/adapter.py:51
+#: account/adapter.py:50
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Anmeldename kann nicht verwendet werden. Bitte wähle einen anderen Namen."
 
-#: account/adapter.py:57
+#: account/adapter.py:56
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 "Zu viele gescheiterte Anmeldeversuche. Bitte versuche es später erneut."
 
-#: account/adapter.py:59
+#: account/adapter.py:58
 msgid "A user is already registered with this email address."
 msgstr "Es ist bereits jemand mit dieser E-Mail-Adresse registriert."
 
-#: account/adapter.py:60
+#: account/adapter.py:59
 msgid "Please type your current password."
 msgstr "Bitte gib dein aktuelles Passwort ein."
 
-#: account/adapter.py:61
+#: account/adapter.py:60
 msgid "Incorrect password."
 msgstr "Aktuelles Passwort."
 
-#: account/adapter.py:62
+#: account/adapter.py:61
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Das Passwort muss aus mindestens {0} Zeichen bestehen."
 
-#: account/adapter.py:63
+#: account/adapter.py:62
 msgid "The email address is not assigned to any user account"
 msgstr "Diese E-Mail-Adresse ist keinem Konto zugeordnet"
 
-#: account/adapter.py:743
+#: account/adapter.py:725
 msgid "Use your password"
 msgstr "Verwenden Sie Ihr Passwort"
 
-#: account/adapter.py:753
+#: account/adapter.py:735
 msgid "Use your authenticator app"
 msgstr "Verwenden Sie Ihre Authenticator-App"
 
@@ -233,11 +233,11 @@ msgstr "Sie können die Zwei-Faktor-Authentifizierung nicht deaktivieren."
 msgid "MFA"
 msgstr "MFA"
 
-#: mfa/forms.py:16 mfa/forms.py:18 mfa/forms.py:55
+#: mfa/forms.py:15 mfa/forms.py:17 mfa/forms.py:52
 msgid "Code"
 msgstr "Code"
 
-#: mfa/forms.py:53
+#: mfa/forms.py:50
 msgid "Authenticator code"
 msgstr "Authentifizierungscode"
 
@@ -518,10 +518,9 @@ msgid ""
 "account:"
 msgstr ""
 
-#: templates/account/email/base_notification.txt:9
+#: templates/account/email/base_notification.txt:10
 #, python-format
 msgid ""
-"\n"
 "If you do not recognize this change then please take proper security "
 "precautions immediately. The change to your account originates from:\n"
 "\n"

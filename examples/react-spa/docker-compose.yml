@@ -1,0 +1,34 @@
+version: "3"
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend/src:/code/src/
+      - ./frontend/public:/code/public/
+
+  backend:
+    container_name: backend
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend/backend:/code/backend/
+      - ../../allauth:/code/allauth
+
+  proxy:
+    image: traefik:v3.0
+    container_name: proxy
+    ports:
+      - 10000:10000
+    volumes:
+      - ./traefik.toml:/etc/traefik/traefik.toml
+
+  mail:
+    container_name: mail
+    image: schickling/mailcatcher
+    ports:
+      - 1080:1080
+      - 1025:1025

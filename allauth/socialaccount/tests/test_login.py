@@ -13,7 +13,7 @@ from pytest_django.asserts import assertTemplateUsed
 from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
 from allauth.core import context
 from allauth.socialaccount.helpers import complete_social_login
-from allauth.socialaccount.models import SocialAccount
+from allauth.socialaccount.models import SocialAccount, SocialToken
 from allauth.socialaccount.providers.base import AuthProcess
 
 
@@ -92,6 +92,7 @@ def test_login_cancelled(client):
     assertTemplateUsed(resp, "socialaccount/login_cancelled.html")
 
 
+@pytest.mark.parametrize("store_tokens", [False, True])
 @pytest.mark.parametrize(
     "process,did_record",
     [
@@ -100,10 +101,22 @@ def test_login_cancelled(client):
     ],
 )
 def test_record_authentication(
-    db, sociallogin_factory, client, rf, user, process, did_record
+    db,
+    sociallogin_factory,
+    client,
+    rf,
+    user,
+    process,
+    did_record,
+    store_tokens,
+    settings,
 ):
+    settings.SOCIALACCOUNT_STORE_TOKENS = store_tokens
     sociallogin = sociallogin_factory(provider="unittest-server", uid="123")
     sociallogin.state["process"] = process
+    sociallogin.token = SocialToken(
+        app=sociallogin.account.get_provider().app, token="123", token_secret="456"
+    )
     SocialAccount.objects.create(user=user, uid="123", provider="unittest-server")
     request = rf.get("/")
     SessionMiddleware(lambda request: None).process_request(request)
@@ -122,3 +135,9 @@ def test_record_authentication(
         ]
     else:
         assert AUTHENTICATION_METHODS_SESSION_KEY not in request.session
+    assert (
+        SocialToken.objects.filter(
+            account__uid="123", token="123", token_secret="456"
+        ).exists()
+        == store_tokens
+    )

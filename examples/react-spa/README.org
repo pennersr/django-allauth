@@ -1,0 +1,43 @@
+* React Single-Page Application
+
+This is a proof of concept, demonstrating a React frontend interacting with a
+vanilla django-allauth as the backend.
+
+** Status
+
+Note that this is an incomplete work in progress. Its goal is to research what
+approach to take to reach a solution where the complete allauth functionality is
+accessible in a SPA based architecture.
+
+** Running
+
+First, start by running the containers:
+
+#+begin_src bash
+  docker-compose up
+#+end_src
+
+Then, visit the app over at http://localhost:10000.
+
+
+** Status
+
+*** DONE Login
+
+*** DONE Signup
+
+*** DONE Password reset
+
+*** DONE Confirm email
+
+*** TODO Manage email addresses
+
+*** TODO Change password
+
+*** TODO Re-authentication
+
+*** TODO Third-party login
+
+*** TODO MFA
+
+*** TODO User sessions

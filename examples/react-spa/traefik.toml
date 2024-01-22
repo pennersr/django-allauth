@@ -1,0 +1,43 @@
+defaultEntryPoints = ["http"]
+
+[log]
+level = "DEBUG"
+
+[api]
+dashboard = true
+
+[accessLog]
+
+
+[providers]
+providersThrottleDuration = 10
+[providers.file]
+filename = "traefik.toml"
+directory = "/etc/traefik/"
+watch = true
+
+
+[entryPoints]
+[entryPoints.web]
+address = ":10000"
+
+[http.routers]
+
+[http.routers.django]
+service = "django"
+rule = "PathPrefix(`/accounts`)"
+entrypoints = ["web"]
+
+
+[http.routers.react]
+service = "react"
+rule = "PathPrefix(`/`)"
+entrypoints = ["web"]
+
+[http.services]
+[http.services.react.loadBalancer]
+[[http.services.react.loadBalancer.servers]]
+url = "http://frontend:3000"
+[http.services.django.loadBalancer]
+[[http.services.django.loadBalancer.servers]]
+url = "http://backend:8000"

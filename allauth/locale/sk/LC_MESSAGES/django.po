@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-12 09:45-0600\n"
+"POT-Creation-Date: 2024-01-17 12:01-0600\n"
 "PO-Revision-Date: 2023-11-12 20:04+0100\n"
 "Last-Translator: Erik Telepovský <erik@pragmaticmates.com>\n"
 "Language-Team: \n"
@@ -19,41 +19,41 @@ msgstr ""
 ">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 "X-Translated-Using: django-rosetta 0.9.9\n"
 
-#: account/adapter.py:51
+#: account/adapter.py:50
 msgid "Username can not be used. Please use other username."
 msgstr "Užívateľské meno nemôže byť použité. Prosím, použite iné meno."
 
-#: account/adapter.py:57
+#: account/adapter.py:56
 msgid "Too many failed login attempts. Try again later."
 msgstr "Príliš veľa neúspešných pokusov o prihlásenie. Skúste neskôr."
 
-#: account/adapter.py:59
+#: account/adapter.py:58
 msgid "A user is already registered with this email address."
 msgstr "Používateľ s touto e-mailovou adresou už existuje."
 
-#: account/adapter.py:60
+#: account/adapter.py:59
 msgid "Please type your current password."
 msgstr "Prosím, napíšte svoje súčasné heslo."
 
-#: account/adapter.py:61
+#: account/adapter.py:60
 msgid "Incorrect password."
 msgstr "Nesprávne heslo"
 
-#: account/adapter.py:62
+#: account/adapter.py:61
 #, python-brace-format
 msgid "Password must be a minimum of {0} characters."
 msgstr "Heslo musí mať aspoň {0} znakov."
 
-#: account/adapter.py:63
+#: account/adapter.py:62
 msgid "The email address is not assigned to any user account"
 msgstr ""
 "Táto e-mailová adresa nie je pridelená k žiadnemu používateľskému kontu"
 
-#: account/adapter.py:743
+#: account/adapter.py:725
 msgid "Use your password"
 msgstr "Použite svoje heslo"
 
-#: account/adapter.py:753
+#: account/adapter.py:735
 msgid "Use your authenticator app"
 msgstr "použite autentifikačnú aplikáciu"
 
@@ -239,11 +239,11 @@ msgstr ""
 msgid "MFA"
 msgstr "MFA"
 
-#: mfa/forms.py:16 mfa/forms.py:18 mfa/forms.py:55
+#: mfa/forms.py:15 mfa/forms.py:17 mfa/forms.py:52
 msgid "Code"
 msgstr "Kód"
 
-#: mfa/forms.py:53
+#: mfa/forms.py:50
 msgid "Authenticator code"
 msgstr "Kód z autentifikátora"
 
@@ -526,10 +526,9 @@ msgid ""
 "account:"
 msgstr ""
 
-#: templates/account/email/base_notification.txt:9
+#: templates/account/email/base_notification.txt:10
 #, python-format
 msgid ""
-"\n"
 "If you do not recognize this change then please take proper security "
 "precautions immediately. The change to your account originates from:\n"
 "\n"

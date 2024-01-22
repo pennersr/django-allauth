@@ -608,18 +608,13 @@ class ResetPasswordForm(forms.Form):
         for user in users:
             temp_key = token_generator.make_token(user)
 
-            # save it to the password reset model
-            # password_reset = PasswordReset(user=user, temp_key=temp_key)
-            # password_reset.save()
-
             # send the password reset email
             uid = user_pk_to_url_str(user)
-            path = reverse(
-                "account_reset_password_from_key",
-                kwargs=dict(uidb36=uid, key=temp_key),
-            )
-            url = build_absolute_uri(request, path)
-
+            # We intentionally pass an opaque `key` on the interface here, and
+            # not implementation details such as a separate `uidb36` and
+            # `key. Ideally, this should have done on `urls` level as well.
+            key = f"{uid}-{temp_key}"
+            url = get_adapter().get_reset_password_from_key_url(key)
             context = {
                 "user": user,
                 "password_reset_url": url,

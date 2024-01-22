@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-12 09:45-0600\n"
-"PO-Revision-Date: 2022-11-28 12:06+0900\n"
-"Last-Translator: Sora Yanai <sora@mail.skyarrow.xyz>\n"
+"PO-Revision-Date: 20224-01-22 08:53+0900\n"
+"Last-Translator: Sora Yanai <k.brahma.nirvana@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ja-JP\n"
 "MIME-Version: 1.0\n"
@@ -118,7 +118,6 @@ msgid "Login"
 msgstr "ログイン"
 
 #: account/forms.py:146
-#, fuzzy
 #| msgid "Forgot Password?"
 msgid "Forgot your password?"
 msgstr "パスワードをお忘れですか？"
@@ -128,7 +127,6 @@ msgid "Email (again)"
 msgstr "メールアドレス（確認用）"
 
 #: account/forms.py:320
-#, fuzzy
 #| msgid "email confirmation"
 msgid "Email address confirmation"
 msgstr "メールアドレスの確認"
@@ -138,7 +136,6 @@ msgid "Email (optional)"
 msgstr "メールアドレス（オプション）"
 
 #: account/forms.py:383
-#, fuzzy
 #| msgid "You must type the same password each time."
 msgid "You must type the same email each time."
 msgstr "同じパスワードを入力してください。"
@@ -284,10 +281,9 @@ msgid "provider"
 msgstr "プロバイダー"
 
 #: socialaccount/models.py:46
-#, fuzzy
 #| msgid "provider"
 msgid "provider ID"
-msgstr "プロバイダー"
+msgstr "プロバイダー ID"
 
 #: socialaccount/models.py:50
 msgid "name"
@@ -544,19 +540,16 @@ msgid "Your email has been changed from %(from_email)s to %(to_email)s."
 msgstr ""
 
 #: templates/account/email/email_changed_subject.txt:3
-#, fuzzy
 #| msgid "Email address"
 msgid "Email Changed"
-msgstr "メールアドレス"
+msgstr "メールアドレスが変更されました"
 
 #: templates/account/email/email_confirm_message.txt:4
-#, fuzzy
 #| msgid "You have confirmed %(email)s."
 msgid "Your email has been confirmed."
-msgstr "%(email)s は確認されました。"
+msgstr "あなたのメールアドレスは確認されました。"
 
 #: templates/account/email/email_confirm_subject.txt:3
-#, fuzzy
 #| msgid "email confirmation"
 msgid "Email Confirmation"
 msgstr "メールアドレスの確認"
@@ -588,25 +581,21 @@ msgid "Email address %(deleted_email)s has been removed from your account."
 msgstr ""
 
 #: templates/account/email/email_deleted_subject.txt:3
-#, fuzzy
 #| msgid "Remove"
 msgid "Email Removed"
-msgstr "削除"
+msgstr "メールアドレスの削除"
 
 #: templates/account/email/password_changed_message.txt:4
-#, fuzzy
 #| msgid "Your password is now changed."
 msgid "Your password has been changed."
 msgstr "パスワードが変更されました。"
 
 #: templates/account/email/password_changed_subject.txt:3
-#, fuzzy
 #| msgid "Password (again)"
 msgid "Password Changed"
-msgstr "パスワード（再入力）"
+msgstr "パスワードが変更されました"
 
 #: templates/account/email/password_reset_key_message.txt:4
-#, fuzzy
 #| msgid ""
 #| "You're receiving this e-mail because you or someone else has requested a "
 #| "password for your user account.\n"
@@ -634,10 +623,9 @@ msgid "Password Reset Email"
 msgstr "パスワード再設定メール"
 
 #: templates/account/email/password_reset_message.txt:4
-#, fuzzy
 #| msgid "Your password is now changed."
 msgid "Your password has been reset."
-msgstr "パスワードが変更されました。"
+msgstr "パスワードがリセットされました。"
 
 #: templates/account/email/password_reset_subject.txt:3
 #: templates/account/password_reset.html:4
@@ -648,19 +636,16 @@ msgid "Password Reset"
 msgstr "パスワード再設定"
 
 #: templates/account/email/password_set_message.txt:4
-#, fuzzy
 #| msgid "Your password is now changed."
 msgid "Your password has been set."
-msgstr "パスワードが変更されました。"
+msgstr "パスワードが設定されました。"
 
 #: templates/account/email/password_set_subject.txt:3
-#, fuzzy
 #| msgid "Password Reset"
 msgid "Password Set"
 msgstr "パスワード再設定"
 
 #: templates/account/email/unknown_account_message.txt:4
-#, fuzzy, python-format
 #| msgid ""
 #| "You're receiving this e-mail because you or someone else has requested a "
 #| "password for your user account.\n"
@@ -682,27 +667,24 @@ msgstr ""
 "さい。パスワードを再設定するためには、以下のリンクをクリックしてください。"
 
 #: templates/account/email_change.html:5 templates/account/email_change.html:9
-#, fuzzy
 #| msgid "Email Addresses"
 msgid "Email Address"
 msgstr "メールアドレス"
 
 #: templates/account/email_change.html:21
 #: templates/account/email_change.html:29
-#, fuzzy
 #| msgid "Current Password"
 msgid "Current email"
-msgstr "現在のパスワード"
+msgstr "現在のメールアドレス"
 
 #: templates/account/email_change.html:31
 msgid "Changing to"
 msgstr ""
 
 #: templates/account/email_change.html:35
-#, fuzzy
 #| msgid "Your primary email address must be verified."
 msgid "Your email address is still pending verification."
-msgstr "メインのメールアドレスは確認済みでなければいけません。"
+msgstr "あなたのメールアドレスはまだ確認されていません。"
 
 #: templates/account/email_change.html:41
 msgid "Cancel Change"
@@ -716,10 +698,9 @@ msgstr "メールアドレス"
 
 #: templates/account/email_change.html:55
 #: templates/allauth/layouts/base.html:29
-#, fuzzy
 #| msgid "Email"
 msgid "Change Email"
-msgstr "メールアドレス"
+msgstr "メールアドレス変更"
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
@@ -773,16 +754,11 @@ msgid "Sign In"
 msgstr "ログイン"
 
 #: templates/account/login.html:12
-#, fuzzy, python-format
-#| msgid ""
-#| "If you have not created an account yet, then please\n"
-#| "<a href=\"%(signup_url)s\">sign up</a> first."
 msgid ""
 "If you have not created an account yet, then please\n"
 "    <a href=\"%(signup_url)s\">sign up</a> first."
 msgstr ""
-"アカウントをまだお持ちでなければ、こちらから <a href=\"%(signup_url)s\">ユー"
-"ザー登録</a> してください。"
+"アカウントをまだお持ちでなければ、こちらから <a href=\"%(signup_url)s\">ユーザー登録</a> してください。"
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
 #: templates/account/logout.html:23 templates/allauth/layouts/base.html:32
@@ -1438,3 +1414,4 @@ msgstr ""
 
 #~ msgid "This email address is already associated with another account."
 #~ msgstr "このメールアドレスは別のアカウントで使用されています。"
+

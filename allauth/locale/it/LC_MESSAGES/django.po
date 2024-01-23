@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-17 12:01-0600\n"
+"POT-Creation-Date: 2024-01-23 12:50-0600\n"
 "PO-Revision-Date: 2023-12-12 20:19+0100\n"
 "Last-Translator: Sandro <sandro@e-den.it>\n"
 "Language: it\n"
@@ -49,11 +49,11 @@ msgstr "La password deve essere lunga almeno {0} caratteri."
 msgid "The email address is not assigned to any user account"
 msgstr "L'indirizzo email non è assegnato a nessun account utente"
 
-#: account/adapter.py:725
+#: account/adapter.py:739
 msgid "Use your password"
 msgstr "Usa la tua password"
 
-#: account/adapter.py:735
+#: account/adapter.py:749
 msgid "Use your authenticator app"
 msgstr "Usa la tua app di autenticazione"
 
@@ -70,7 +70,7 @@ msgid "You must type the same password each time."
 msgstr "Devi digitare la stessa password."
 
 #: account/forms.py:92 account/forms.py:412 account/forms.py:554
-#: account/forms.py:688
+#: account/forms.py:683
 msgid "Password"
 msgstr "Password"
 
@@ -151,15 +151,15 @@ msgstr "Non puoi aggiungere più di %d indirizzi email."
 msgid "Current Password"
 msgstr "Password attuale"
 
-#: account/forms.py:532 account/forms.py:637
+#: account/forms.py:532 account/forms.py:632
 msgid "New Password"
 msgstr "Nuova password"
 
-#: account/forms.py:535 account/forms.py:638
+#: account/forms.py:535 account/forms.py:633
 msgid "New Password (again)"
 msgstr "Nuova password (nuovamente)"
 
-#: account/forms.py:658
+#: account/forms.py:653
 msgid "The password reset token was invalid."
 msgstr "Il codice per il reset della password non è valido."
 

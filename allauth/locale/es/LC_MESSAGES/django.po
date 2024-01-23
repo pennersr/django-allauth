@@ -1,13 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-# Translators:
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: django-allauth\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-17 12:01-0600\n"
+"POT-Creation-Date: 2024-01-23 12:50-0600\n"
 "PO-Revision-Date: 2024-01-14 12:31+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/django-allauth/"
@@ -49,11 +49,11 @@ msgstr "La contraseña necesita al menos {0} caracteres."
 msgid "The email address is not assigned to any user account"
 msgstr "El correo electrónico no está asignado a ninguna cuenta de usuario"
 
-#: account/adapter.py:725
+#: account/adapter.py:739
 msgid "Use your password"
 msgstr "Utilice su contraseña"
 
-#: account/adapter.py:735
+#: account/adapter.py:749
 msgid "Use your authenticator app"
 msgstr "Utiliza tu aplicación de autenticación"
 
@@ -71,7 +71,7 @@ msgid "You must type the same password each time."
 msgstr "Debe escribir la misma contraseña cada vez."
 
 #: account/forms.py:92 account/forms.py:412 account/forms.py:554
-#: account/forms.py:688
+#: account/forms.py:683
 msgid "Password"
 msgstr "Contraseña"
 
@@ -154,15 +154,15 @@ msgstr "No puede añadir más de %d direcciones de correo electrónico."
 msgid "Current Password"
 msgstr "Contraseña actual"
 
-#: account/forms.py:532 account/forms.py:637
+#: account/forms.py:532 account/forms.py:632
 msgid "New Password"
 msgstr "Nueva contraseña"
 
-#: account/forms.py:535 account/forms.py:638
+#: account/forms.py:535 account/forms.py:633
 msgid "New Password (again)"
 msgstr "Nueva contraseña (de nuevo)"
 
-#: account/forms.py:658
+#: account/forms.py:653
 msgid "The password reset token was invalid."
 msgstr "El token para restablecer la contraseña no es válido"
 

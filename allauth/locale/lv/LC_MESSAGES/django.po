@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-17 12:01-0600\n"
+"POT-Creation-Date: 2024-01-23 12:50-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,13 +52,13 @@ msgstr "Parolei jābūt vismaz {0} simbolus garai."
 msgid "The email address is not assigned to any user account"
 msgstr "E-pasta adrese nav piesaistīta nevienam lietotāja kontam"
 
-#: account/adapter.py:725
+#: account/adapter.py:739
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "Aizmirsāt paroli?"
 
-#: account/adapter.py:735
+#: account/adapter.py:749
 msgid "Use your authenticator app"
 msgstr ""
 
@@ -77,7 +77,7 @@ msgid "You must type the same password each time."
 msgstr "Katru reizi jums ir jāievada tā pati parole."
 
 #: account/forms.py:92 account/forms.py:412 account/forms.py:554
-#: account/forms.py:688
+#: account/forms.py:683
 msgid "Password"
 msgstr "Parole"
 
@@ -167,15 +167,15 @@ msgstr "Jūsu kontam nav apstiprinātas e-pasta adreses."
 msgid "Current Password"
 msgstr "Šobrīdējā parole"
 
-#: account/forms.py:532 account/forms.py:637
+#: account/forms.py:532 account/forms.py:632
 msgid "New Password"
 msgstr "Jaunā parole"
 
-#: account/forms.py:535 account/forms.py:638
+#: account/forms.py:535 account/forms.py:633
 msgid "New Password (again)"
 msgstr "Jaunā parole (vēlreiz)"
 
-#: account/forms.py:658
+#: account/forms.py:653
 msgid "The password reset token was invalid."
 msgstr "Paroles atjaunošanas marķieris bija nederīgs."
 

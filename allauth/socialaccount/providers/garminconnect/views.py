@@ -1,14 +1,14 @@
 import json
 
+from allauth.socialaccount.providers.oauth.client import OAuth
 from allauth.socialaccount.providers.oauth.views import (
     OAuthAdapter,
     OAuthCallbackView,
     OAuthLoginView,
 )
-from allauth.socialaccount.providers.oauth.client import OAuth
 
-from .provider import GarminConnectProvider
 from .client import GarminConnectOAuthClient
+from .provider import GarminConnectProvider
 
 
 class GarminConnectAPI(OAuth):

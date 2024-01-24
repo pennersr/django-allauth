@@ -1,6 +1,5 @@
 import json
 
-
 from allauth.socialaccount.tests import OAuthTestsMixin
 from allauth.tests import MockedResponse, TestCase
 

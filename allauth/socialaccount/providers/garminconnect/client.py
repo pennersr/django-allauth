@@ -2,6 +2,7 @@ import requests
 from urllib.parse import parse_qsl
 
 from django.utils.translation import gettext as _
+
 from requests_oauthlib import OAuth1
 
 from allauth.socialaccount.providers.oauth.client import (
@@ -10,6 +11,7 @@ from allauth.socialaccount.providers.oauth.client import (
     get_token_prefix,
 )
 from allauth.utils import get_request_param
+
 
 class GarminConnectOAuthClient(OAuthClient):
 

@@ -51,7 +51,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
     - name: Updating package list
@@ -80,12 +80,12 @@ jobs:
         extra-env: ['docs', 'black', 'isort', 'flake8', 'standardjs', 'djlint', 'compilemessages']
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-node@v3
+    - uses: actions/setup-node@v4
       if: ${{ matrix.extra-env == 'standardjs' }}
       with:
         node-version: '8'
     - name: Set up Python 3.11
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.11'
     - name: Updating package list

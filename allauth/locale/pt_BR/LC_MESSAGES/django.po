@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-17 12:01-0600\n"
+"POT-Creation-Date: 2024-01-23 12:50-0600\n"
 "PO-Revision-Date: 2014-12-01 01:20+0000\n"
 "Last-Translator: cacarrara <caiocarrara@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
@@ -55,13 +55,13 @@ msgstr "A senha deve ter no mínimo {0} caracteres."
 msgid "The email address is not assigned to any user account"
 msgstr "Este endereço de e-mail não está associado a nenhuma conta de usuário"
 
-#: account/adapter.py:725
+#: account/adapter.py:739
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "Esqueceu a sua senha?"
 
-#: account/adapter.py:735
+#: account/adapter.py:749
 msgid "Use your authenticator app"
 msgstr ""
 
@@ -80,7 +80,7 @@ msgid "You must type the same password each time."
 msgstr "A mesma senha deve ser escrita em ambos os campos."
 
 #: account/forms.py:92 account/forms.py:412 account/forms.py:554
-#: account/forms.py:688
+#: account/forms.py:683
 msgid "Password"
 msgstr "Senha"
 
@@ -163,15 +163,15 @@ msgstr "Não se pode adicionar mais de %d endereços de e-mail."
 msgid "Current Password"
 msgstr "Senha Atual"
 
-#: account/forms.py:532 account/forms.py:637
+#: account/forms.py:532 account/forms.py:632
 msgid "New Password"
 msgstr "Nova Senha"
 
-#: account/forms.py:535 account/forms.py:638
+#: account/forms.py:535 account/forms.py:633
 msgid "New Password (again)"
 msgstr "Nova Senha (novamente)"
 
-#: account/forms.py:658
+#: account/forms.py:653
 msgid "The password reset token was invalid."
 msgstr "Token de redefinição de senha inválido"
 

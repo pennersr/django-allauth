@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-17 12:01-0600\n"
+"POT-Creation-Date: 2024-01-23 12:50-0600\n"
 "PO-Revision-Date: 2017-04-05 22:48+0300\n"
 "Last-Translator: ANDREI SATSEVICH <satsevich.andrei@gmail.com>\n"
 "Language-Team: \n"
@@ -50,11 +50,11 @@ msgstr "Минимальное количество символов в паро
 msgid "The email address is not assigned to any user account"
 msgstr "Адрес электронной почты не закреплен ни за одной учетной записью"
 
-#: account/adapter.py:725
+#: account/adapter.py:739
 msgid "Use your password"
 msgstr "Используйте ваш пароль"
 
-#: account/adapter.py:735
+#: account/adapter.py:749
 msgid "Use your authenticator app"
 msgstr "Используйте приложение-аутентификатор"
 
@@ -71,7 +71,7 @@ msgid "You must type the same password each time."
 msgstr "Вы должны ввести одинаковый пароль дважды."
 
 #: account/forms.py:92 account/forms.py:412 account/forms.py:554
-#: account/forms.py:688
+#: account/forms.py:683
 msgid "Password"
 msgstr "Пароль"
 
@@ -152,15 +152,15 @@ msgstr "Вы не можете добавить более %d адресов э�
 msgid "Current Password"
 msgstr "Текущий пароль"
 
-#: account/forms.py:532 account/forms.py:637
+#: account/forms.py:532 account/forms.py:632
 msgid "New Password"
 msgstr "Новый пароль"
 
-#: account/forms.py:535 account/forms.py:638
+#: account/forms.py:535 account/forms.py:633
 msgid "New Password (again)"
 msgstr "Новый пароль (ещё раз)"
 
-#: account/forms.py:658
+#: account/forms.py:653
 msgid "The password reset token was invalid."
 msgstr "Код сброса пароля оказался недействительным."
 

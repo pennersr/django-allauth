@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-17 12:01-0600\n"
-"PO-Revision-Date: 2022-11-28 12:06+0900\n"
-"Last-Translator: Sora Yanai <sora@mail.skyarrow.xyz>\n"
+"PO-Revision-Date: 2024-01-28 12:36+0900\n"
+"Last-Translator: k-brahma <k.brahma.nirvana@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ja-JP\n"
 "MIME-Version: 1.0\n"
@@ -552,20 +552,14 @@ msgid "Email Confirmation"
 msgstr "メールアドレスの確認"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because user %(user_display)s has given your "
-#| "e-mail address to register an account on %(site_domain)s.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s"
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s.\n"
 "\n"
 "To confirm this is correct, go to %(activate_url)s"
 msgstr ""
-"%(user_display)s さんが %(site_domain)s にこのメールアドレスを登録しようとし"
-"ています。問題がなければ、確認のために以下のURLをクリックしてください。\n"
+"%(user_display)s さんが %(site_domain)s にこのメールアドレスを登録しようとしています。\n"
+"問題がなければ、確認のために以下のURLをクリックしてください。\n"
 "%(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
@@ -575,7 +569,7 @@ msgstr "メールアドレスを確認してください"
 #: templates/account/email/email_deleted_message.txt:4
 #, python-format
 msgid "Email address %(deleted_email)s has been removed from your account."
-msgstr ""
+msgstr "メールアドレス %(deleted_email)s はあなたのアカウントから削除されました。"
 
 #: templates/account/email/email_deleted_subject.txt:3
 #| msgid "Remove"
@@ -825,16 +819,11 @@ msgid "Forgot Password?"
 msgstr "パスワードをお忘れですか？"
 
 #: templates/account/password_reset.html:14
-#, fuzzy
-#| msgid ""
-#| "Forgotten your password? Enter your e-mail address below, and we'll send "
-#| "you an e-mail allowing you to reset it."
 msgid ""
 "Forgotten your password? Enter your email address below, and we'll send you "
 "an email allowing you to reset it."
 msgstr ""
-"パスワードをお忘れですか？パスワードをリセットするために、メールアドレスを入"
-"力してください。"
+"パスワードをお忘れですか？パスワードをリセットするために、メールアドレスを入力してください。"
 
 #: templates/account/password_reset.html:25
 msgid "Reset My Password"
@@ -845,17 +834,11 @@ msgid "Please contact us if you have any trouble resetting your password."
 msgstr "パスワードの再設定に問題がある場合はご連絡ください。"
 
 #: templates/account/password_reset_done.html:16
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside this e-mail. Please\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent you an email. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
 msgstr ""
-"確認のためのメールを送信しましたので、記載されたリンクをクリックしてくださ"
-"い。\n"
+"確認のためのメールを送信しました。受信できない場合は、スパムフォルダをご確認ください。"
 "数分以内にメールが届かない場合はご連絡ください。"
 
 #: templates/account/password_reset_from_key.html:10
@@ -918,10 +901,9 @@ msgid "Note"
 msgstr "注意"
 
 #: templates/account/snippets/already_logged_in.html:7
-#, fuzzy, python-format
 #| msgid "you are already logged in as %(user_display)s."
 msgid "You are already logged in as %(user_display)s."
-msgstr "%(user_display)s さんとしてログイン中です。"
+msgstr "%(user_display)s さんとしてすでにログイン中です。"
 
 #: templates/account/snippets/warn_no_email.html:3
 msgid "Warning:"
@@ -943,11 +925,6 @@ msgid "Verify Your Email Address"
 msgstr "メールアドレスを確認してください"
 
 #: templates/account/verification_sent.html:12
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for verification. Follow the link provided "
-#| "to finalize the signup process. Please contact us if you do not receive "
-#| "it within a few minutes."
 msgid ""
 "We have sent an email to you for verification. Follow the link provided to "
 "finalize the signup process. If you do not see the verification email in "
@@ -981,7 +958,7 @@ msgid ""
 "Otherwise\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
-"確認のためのメールを送信しましたの。メールに記載されたリンクをクリックしてください。\n"
+"確認のためのメールを送信しました。メールに記載されたリンクをクリックしてください。\n"
 "確認メールが受信ボックスに見つからない場合は、スパムフォルダをチェックしてください。"
 "数分以内にメールが届かない場合はご連絡ください。"
 
@@ -1281,7 +1258,7 @@ msgid ""
 "You are about to use your %(provider_name)s account to login to\n"
 "%(site_name)s. As a final step, please complete the following form:"
 msgstr ""
-"%(provider_name)s アカウントを使って %(site_name)s にログインしようとしています。\n"
+"%(provider_name)s アカウントを使って %(site_name)s にログインしようとしています。"
 "ユーザー登録のために、以下のフォームに記入してください。"
 
 #: templates/socialaccount/snippets/login.html:9

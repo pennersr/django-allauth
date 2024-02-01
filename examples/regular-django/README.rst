@@ -7,7 +7,7 @@ django-allauth example application in this directory:
 
 ::
 
-    $ git clone git://github.com/pennersr/django-allauth.git
+    $ git clone git@github.com:pennersr/django-allauth.git
     $ cd django-allauth/examples/regular-django
     $ virtualenv venv
     $ . venv/bin/activate

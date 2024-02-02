@@ -34,6 +34,10 @@ Welcome to django-allauth!
    :target: https://pypistats.org/packages/django-allauth
    :alt: PyPI - Downloads
 
+.. image:: https://img.shields.io/badge/%E2%96%B6-demo-red
+   :target: https://django.demo.allauth.org/
+   :alt: View Demo
+
 Integrated set of Django applications addressing authentication,
 registration, account management as well as 3rd party (social) account
 authentication.
@@ -52,6 +56,9 @@ Documentation
 
 Stack Overflow
   http://stackoverflow.com/questions/tagged/django-allauth
+
+Demo
+  https://django.demo.allauth.org
 
 .. end-welcome
 

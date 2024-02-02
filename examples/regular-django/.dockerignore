@@ -1,0 +1,10 @@
+.git
+.cache
+tmp/
+bak/
+**/__pycache__
+*~
+.pytest_cache
+.vagrant
+build/
+.pytest_cache/

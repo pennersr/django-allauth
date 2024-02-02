@@ -1,0 +1,18 @@
+version: "3"
+services:
+  web:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - ./example:/code/example/
+      - ../../allauth:/code/allauth
+      - ./db:/srv/db
+    environment:
+      DATABASE_NAME: /srv/db/example.db
+    ports:
+      - 8000:8000
+    command:
+      - make
+      - migrate
+      - runserver

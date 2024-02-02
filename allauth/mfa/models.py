@@ -56,9 +56,6 @@ class Authenticator(models.Model):
             return self.wrap().name
         return self.get_type_display()
 
-    def __str__(self):
-        return self.get_type_display()
-
     def wrap(self):
         from allauth.mfa.recovery_codes import RecoveryCodes
         from allauth.mfa.totp import TOTP

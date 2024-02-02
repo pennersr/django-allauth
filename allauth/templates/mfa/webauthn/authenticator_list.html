@@ -1,7 +1,11 @@
 {% extends "mfa/webauthn/base.html" %}
-{% load i18n static %}
+{% load i18n %}
+{% load static %}
+{% load allauth %}
 {% block content %}
-    <h1>{% trans "Security Keys and Devices" %}</h1>
+    {% element h1 %}
+        {% trans "Security Keys and Devices" %}
+    {% endelement %}
     {% if authenticators|length == 0 %}
         <p>{% blocktranslate %}You have not added any security keys/devices.{% endblocktranslate %}</p>
     {% else %}
@@ -16,10 +20,8 @@
                 {% for authenticator in authenticators %}
                     <tr>
                         <td>{{ authenticator }}</td>
-                        <td>{{ authenticator.last_used_at|default_if_none:_("Unused") }}</td>
-                        <td>
-                            {{ authenticator.wrap.is_passwordless }}
-                        </td>
+                        <td>{{ authenticator.last_used_at|default_if_none:"" }}</td>
+                        <td>{{ authenticator.wrap.is_passwordless }}</td>
                         <td>
                             <a href="{% url 'mfa_remove_webauthn' pk=authenticator.pk %}">{% translate "Remove" %}</a>
                         </td>
@@ -28,9 +30,10 @@
             </tbody>
         </table>
     {% endif %}
-    <ul class="actions">
-        <li>
-            <a href="{% url 'mfa_add_webauthn' %}">{% translate "Add" %}</a>
-        </li>
-    </ul>
+    {% url 'mfa_add_webauthn' as add_url %}
+    {% element button href=add_url %}
+        {% translate "Add" %}
+    {% endelement %}
+</li>
+</ul>
 {% endblock %}

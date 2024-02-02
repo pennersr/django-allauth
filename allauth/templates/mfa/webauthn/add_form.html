@@ -1,13 +1,24 @@
 {% extends "mfa/webauthn/base.html" %}
-{% load i18n static %}
+{% load i18n %}
+{% load static %}
+{% load allauth %}
 {% block content %}
-    <h1>{% trans "Add Security Key or Device" %}</h1>
-    {{ totp_svg|safe }}
-    <form method="POST" action="{% url 'mfa_add_webauthn' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button id="mfa_webauthn_add" type="button">{% trans "Add key or device" %}</button>
-    </form>
+    {% element h1 %}
+        {% trans "Add Security Key or Device" %}
+    {% endelement %}
+    {% url 'mfa_add_webauthn' as action_url %}
+    {% element form form=form method="post" action=action_url %}
+        {% slot body %}
+            {% csrf_token %}
+            {% element fields form=form %}
+            {% endelement %}
+        {% endslot %}
+        {% slot actions %}
+            {% element button id="mfa_webauthn_add" type="button" %}
+                {% trans "Add key or device" %}
+            {% endelement %}
+        {% endslot %}
+    {% endelement %}
     <noscript>{% translate "This functionality requires JavaScript." %}"</noscript>
     <script type="text/javascript" src="{% static 'mfa/js/webauthn.js' %}"></script>
     {{ js_data|json_script:"js_data" }}

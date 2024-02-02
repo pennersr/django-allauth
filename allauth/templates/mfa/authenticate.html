@@ -30,22 +30,27 @@
         {% endslot %}
     {% endelement %}
     {% if "webauthn" in MFA_SUPPORTED_TYPES %}
-        <form class="authenticate"
-              method="POST"
-              action="{% url 'mfa_authenticate' %}">
-            {% csrf_token %}
-            {{ webauthn_form.as_p }}
-            <button id="mfa_webauthn_authenticate" type="button">{% trans "Use security key or device" %}</button>
-        </form>
+        {% element form form=webauthn_form method="post" action=action_url no_visible_fields=True %}
+            {% slot body %}
+                {% csrf_token %}
+                {% element fields form=webauthn_form %}
+                {% endelement %}
+            {% endslot %}
+            {% slot actions %}
+                {% element button id="mfa_webauthn_authenticate" type="button" %}
+                    {% trans "Use security key or device" %}
+                {% endelement %}
+            {% endslot %}
+        {% endelement %}
         {{ js_data|json_script:"js_data" }}
         <script type="text/javascript" src="{% static 'mfa/js/webauthn.js' %}"></script>
-        <script type="text/javascript>
+        <script type="text/javascript">
         allauth.webauthn.forms.authenticateForm({
-            ids: {
-                authenticate: "mfa_webauthn_authenticate",
-                credential: "{{ webauthn_form.credential.auto_id }}"
-            },
-            data: JSON.parse(document.getElementById('js_data').textContent)
+        ids: {
+        authenticate: "mfa_webauthn_authenticate",
+        credential: "{{ webauthn_form.credential.auto_id }}"
+        },
+        data: JSON.parse(document.getElementById('js_data').textContent)
         })
         </script>
     {% endif %}

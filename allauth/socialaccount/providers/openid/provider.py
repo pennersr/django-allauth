@@ -18,13 +18,7 @@ class OpenIDAccount(ProviderAccount):
     def get_brand(self):
         ret = super(OpenIDAccount, self).get_brand()
         domain = urlparse(self.account.uid).netloc
-        # FIXME: Instead of hardcoding, derive this from the domains
-        # listed in the openid endpoints setting.
-        provider_map = {
-            "yahoo": dict(id="yahoo", name="Yahoo"),
-            "hyves": dict(id="hyves", name="Hyves"),
-            "google": dict(id="google", name="Google"),
-        }
+        provider_map = {}
         for d, p in provider_map.items():
             if domain.lower().find(d) >= 0:
                 ret = p
@@ -48,11 +42,7 @@ class OpenIDProvider(Provider):
         return url
 
     def get_brands(self):
-        # These defaults are a bit too arbitrary...
-        default_servers = [
-            dict(id="yahoo", name="Yahoo", openid_url="http://me.yahoo.com"),
-            dict(id="hyves", name="Hyves", openid_url="http://hyves.nl"),
-        ]
+        default_servers = []
         return self.get_settings().get("SERVERS", default_servers)
 
     def get_server_settings(self, endpoint):

@@ -10,20 +10,6 @@ Note worthy changes
   originated, will be emailed.
 
 
-0.60.1 (2024-01-15)
-*******************
-
-Fixes
------
-
-- User sessions: after changing your password in case of ``ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = False``, the list of
-  sessions woud be empty instead of showing your current session.
-
-- SAML: accessing the SLS/ACS views using a GET request would result in a crash (500).
-
-- SAML: the login view did not obey the ``SOCIALACCOUNT_LOGIN_ON_GET = False`` setting.
-
-
 Backwards incompatible changes
 ------------------------------
 
@@ -36,6 +22,20 @@ Backwards incompatible changes
   attempts.  Therefore, the ``ACCOUNT_LOGIN_ATTEMPTS_LIMIT`` and
   ``ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN`` settings are deprecated.
   See :doc:`Rate Limits <../account/rate_limits>` for details.
+
+
+0.60.1 (2024-01-15)
+*******************
+
+Fixes
+-----
+
+- User sessions: after changing your password in case of ``ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = False``, the list of
+  sessions woud be empty instead of showing your current session.
+
+- SAML: accessing the SLS/ACS views using a GET request would result in a crash (500).
+
+- SAML: the login view did not obey the ``SOCIALACCOUNT_LOGIN_ON_GET = False`` setting.
 
 
 0.60.0 (2024-01-05)

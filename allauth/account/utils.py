@@ -39,7 +39,7 @@ def get_next_redirect_url(request, redirect_field_name="next"):
     via the request.
     """
     redirect_to = get_request_param(request, redirect_field_name)
-    if not get_adapter().is_safe_url(redirect_to):
+    if redirect_to and not get_adapter().is_safe_url(redirect_to):
         redirect_to = None
     return redirect_to
 

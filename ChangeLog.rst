@@ -1,4 +1,4 @@
-0.61.0 (unreleased)
+0.61.0 (2024-02-07)
 *******************
 
 Note worthy changes

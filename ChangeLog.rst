@@ -1,4 +1,4 @@
-0.61.0 (unreleased)
+0.61.0 (2024-02-07)
 *******************
 
 Note worthy changes
@@ -8,6 +8,20 @@ Note worthy changes
   ``ACCOUNT_EMAIL_NOTIFICATIONS = True``, email notifications such as "Your
   password was changed", including information on user agent / IP address from where the change
   originated, will be emailed.
+
+- Google: Starting from 0.52.0, the ``id_token`` is being used for extracting
+  user information.  To accommodate for scenario's where django-allauth is used
+  in contexts where the ``id_token`` is not posted, the provider now looks up
+  the required information from the ``/userinfo`` endpoint based on the access
+  token if the ``id_token`` is absent.
+
+
+Security notice
+---------------
+
+- MFA: It was possible to reuse a valid TOTP code within its time window. This
+  has now been addressed. As a result, a user can now only login once per 30
+  seconds (``MFA_TOTP_PERIOD``).
 
 
 Backwards incompatible changes

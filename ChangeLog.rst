@@ -1,6 +1,16 @@
 0.57.1 (unreleased)
 *******************
 
+Note worthy changes
+-------------------
+
+- Google: Starting from 0.52.0, the ``id_token`` is being used for extracting
+  user information.  To accommodate for scenario's where django-allauth is used
+  in contexts where the ``id_token`` is not posted, the provider now looks up
+  the required information from the ``/userinfo`` endpoint based on the access
+  token if the ``id_token`` is absent.
+
+
 0.57.0 (2023-09-24)
 *******************
 

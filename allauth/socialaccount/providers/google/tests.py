@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import, unicode_literals
-
 import json
 from datetime import datetime, timedelta
 from importlib import import_module
+from unittest.mock import patch
 
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -12,16 +10,34 @@ from django.test.client import RequestFactory
 from django.test.utils import override_settings
 from django.urls import reverse
 
+import pytest
+
 from allauth.account import app_settings as account_settings
-from allauth.account.adapter import get_adapter
+from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.models import EmailAddress, EmailConfirmation
 from allauth.account.signals import user_signed_up
-from allauth.socialaccount.models import SocialAccount
+from allauth.socialaccount.adapter import get_adapter
+from allauth.socialaccount.models import SocialAccount, SocialToken
 from allauth.socialaccount.providers.apple.client import jwt_encode
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import TestCase
 
 from .provider import GoogleProvider
+
+
+@pytest.fixture
+def settings_with_google_provider(settings):
+    settings.SOCIALACCOUNT_PROVIDERS = {
+        "google": {
+            "APP": {
+                "client_id": "app123id",
+                "key": "google",
+                "secret": "dummy",
+            }
+        }
+    }
+    return settings
 
 
 @override_settings(
@@ -141,7 +157,7 @@ class GoogleTests(OAuth2TestsMixin, TestCase):
         self.client.cookies[settings.SESSION_COOKIE_NAME] = store.session_key
         request = RequestFactory().get("/")
         request.session = self.client.session
-        adapter = get_adapter()
+        adapter = get_account_adapter()
         adapter.stash_verified_email(request, self.email)
         request.session.save()
 
@@ -212,3 +228,70 @@ class AppInSettingsTests(GoogleTests):
     """
 
     pass
+
+
+@pytest.mark.parametrize(
+    "id_key,verified_key",
+    [
+        ("id", "email_verified"),
+        ("sub", "verified_email"),
+    ],
+)
+@pytest.mark.parametrize("verified", [False, True])
+def test_extract_data(
+    id_key, verified_key, verified, settings_with_google_provider, db
+):
+    data = {
+        "email": "a@b.com",
+    }
+    data[id_key] = "123"
+    data[verified_key] = verified
+    provider = get_adapter().get_provider(None, GoogleProvider.id)
+    assert provider.extract_uid(data) == "123"
+    emails = provider.extract_email_addresses(data)
+    assert len(emails) == 1
+    assert emails[0].verified == verified
+    assert emails[0].email == "a@b.com"
+
+
+@pytest.mark.parametrize(
+    "fetch_userinfo,id_token_has_picture,response,expected_uid, expected_picture",
+    [
+        (True, True, {"id_token": "123"}, "uid-from-id-token", "pic-from-id-token"),
+        (True, False, {"id_token": "123"}, "uid-from-id-token", "pic-from-userinfo"),
+        (True, True, {"access_token": "123"}, "uid-from-userinfo", "pic-from-userinfo"),
+    ],
+)
+def test_complete_login_variants(
+    response,
+    settings_with_google_provider,
+    db,
+    fetch_userinfo,
+    expected_uid,
+    expected_picture,
+    id_token_has_picture,
+):
+    with patch.object(
+        GoogleOAuth2Adapter,
+        "_fetch_user_info",
+        return_value={
+            "id": "uid-from-userinfo",
+            "picture": "pic-from-userinfo",
+        },
+    ):
+        id_token = {"sub": "uid-from-id-token"}
+        if id_token_has_picture:
+            id_token["picture"] = "pic-from-id-token"
+        with patch.object(
+            GoogleOAuth2Adapter,
+            "_decode_id_token",
+            return_value=id_token,
+        ):
+            request = None
+            app = None
+            adapter = GoogleOAuth2Adapter(request)
+            adapter.fetch_userinfo = fetch_userinfo
+            token = SocialToken()
+            login = adapter.complete_login(request, app, token, response)
+            assert login.account.uid == expected_uid
+            assert login.account.extra_data["picture"] == expected_picture

@@ -10,6 +10,14 @@ Note worthy changes
   originated, will be emailed.
 
 
+Security notice
+---------------
+
+- MFA: It was possible to reuse a valid TOTP code within its time window. This
+  has now been addressed. As a result, a user can now only login once per 30
+  seconds (``MFA_TOTP_PERIOD``).
+
+
 Backwards incompatible changes
 ------------------------------
 

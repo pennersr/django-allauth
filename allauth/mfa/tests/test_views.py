@@ -2,6 +2,8 @@ from unittest.mock import ANY, patch
 
 import django
 from django.conf import settings
+from django.core.cache import cache
+from django.test import Client
 from django.urls import reverse
 
 import pytest
@@ -301,3 +303,44 @@ def test_cannot_deactivate_totp(auth_client, user_with_totp, user_password):
         assert resp.context["form"].errors == {
             "__all__": [get_adapter().error_messages["cannot_delete_authenticator"]],
         }
+
+
+def test_totp_code_reuse(
+    user_with_totp, user_password, totp_validation_bypass, enable_cache
+):
+    for code, time_lapse, expect_success in [
+        # First use of code, SUCCESS
+        ("123", False, True),
+        # Second use, no time elapsed: FAIL
+        ("123", False, False),
+        # Different code, no time elapsed: SUCCESS
+        ("456", False, True),
+        # Again, previous code, no time elapsed: FAIL
+        ("123", False, False),
+        # Previous code, but time elapsed: SUCCESS
+        ("123", True, True),
+    ]:
+        if time_lapse:
+            cache.clear()
+        client = Client()
+        resp = client.post(
+            reverse("account_login"),
+            {"login": user_with_totp.username, "password": user_password},
+        )
+        assert resp.status_code == 302
+        assert resp["location"] == reverse("mfa_authenticate")
+        # Note that this bypass only bypasses the actual code check, not the
+        # re-use check we're testing here.
+        with totp_validation_bypass():
+            resp = client.post(
+                reverse("mfa_authenticate"),
+                {"code": code},
+            )
+        if expect_success:
+            assert resp.status_code == 302
+            assert resp["location"] == settings.LOGIN_REDIRECT_URL
+        else:
+            assert resp.status_code == 200
+            assert resp.context["form"].errors == {
+                "code": [get_adapter().error_messages["incorrect_code"]]
+            }

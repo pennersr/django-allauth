@@ -10,6 +10,35 @@ class Scope(object):
 
 
 class GoogleAccount(ProviderAccount):
+    """
+    The account data can be in two formats. One, originating from
+    the /v2/userinfo endpoint:
+
+        {'email': 'john.doe@gmail.com',
+         'given_name': 'John',
+         'id': '12345678901234567890',
+         'locale': 'en',
+         'name': 'John',
+         'picture': 'https://lh3.googleusercontent.com/a/code',
+         'verified_email': True}
+
+    The second, which is the payload of the id_token:
+
+        {'at_hash': '-someHASH',
+         'aud': '123-pqr.apps.googleusercontent.com',
+         'azp': '123-pqr.apps.googleusercontent.com',
+         'email': 'john.doe@gmail.com',
+         'email_verified': True,
+         'exp': 1707297277,
+         'given_name': 'John',
+         'iat': 1707293677,
+         'iss': 'https://accounts.google.com',
+         'locale': 'en',
+         'name': 'John',
+         'picture': 'https://lh3.googleusercontent.com/a/code',
+         'sub': '12345678901234567890'}
+    """
+
     def get_profile_url(self):
         return self.account.extra_data.get("link")
 
@@ -39,7 +68,9 @@ class GoogleProvider(OAuth2Provider):
         return ret
 
     def extract_uid(self, data):
-        return data["sub"]
+        if "sub" in data:
+            return data["sub"]
+        return data["id"]
 
     def extract_common_fields(self, data):
         return dict(
@@ -51,8 +82,9 @@ class GoogleProvider(OAuth2Provider):
     def extract_email_addresses(self, data):
         ret = []
         email = data.get("email")
-        if email and data.get("email_verified"):
-            ret.append(EmailAddress(email=email, verified=True, primary=True))
+        if email:
+            verified = bool(data.get("email_verified") or data.get("verified_email"))
+            ret.append(EmailAddress(email=email, verified=verified, primary=True))
         return ret
 
 

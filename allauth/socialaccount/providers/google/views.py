@@ -2,8 +2,7 @@ import requests
 
 from django.conf import settings
 
-import jwt
-
+from allauth.socialaccount.internal import jwtkit
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -13,6 +12,12 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 from .provider import GoogleProvider
 
+
+CERTS_URL = (
+    getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
+    .get("google", {})
+    .get("CERTS_URL", "https://www.googleapis.com/oauth2/v1/certs")
+)
 
 IDENTITY_URL = (
     getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
@@ -45,6 +50,17 @@ FETCH_USERINFO = (
 )
 
 
+def _verify_and_decode(app, credential, verify_signature=True):
+    return jwtkit.verify_and_decode(
+        credential=credential,
+        keys_url=CERTS_URL,
+        issuer=ID_TOKEN_ISSUER,
+        audience=app.client_id,
+        lookup_kid=jwtkit.lookup_kid_pem_x509_certificate,
+        verify_signature=verify_signature,
+    )
+
+
 class GoogleOAuth2Adapter(OAuth2Adapter):
     provider_id = GoogleProvider.id
     access_token_url = ACCESS_TOKEN_URL
@@ -69,27 +85,14 @@ class GoogleOAuth2Adapter(OAuth2Adapter):
         return login
 
     def _decode_id_token(self, app, id_token):
-        try:
-            data = jwt.decode(
-                id_token,
-                # Since the token was received by direct communication
-                # protected by TLS between this library and Google, we
-                # are allowed to skip checking the token signature
-                # according to the OpenID Connect Core 1.0
-                # specification.
-                # https://openid.net/specs/openid-connect-core-1_0.html#IDTokenValidation
-                options={
-                    "verify_signature": False,
-                    "verify_iss": True,
-                    "verify_aud": True,
-                    "verify_exp": True,
-                },
-                issuer=self.id_token_issuer,
-                audience=app.client_id,
-            )
-        except jwt.PyJWTError as e:
-            raise OAuth2Error("Invalid id_token") from e
-        return data
+        """
+        Since the token was received by direct communication protected by
+        TLS between this library and Google, we are allowed to skip checking the
+        token signature according to the OpenID Connect Core 1.0 specification.
+
+        https://openid.net/specs/openid-connect-core-1_0.html#IDTokenValidation
+        """
+        return _verify_and_decode(app, id_token, verify_signature=False)
 
     def _fetch_user_info(self, access_token):
         resp = requests.get(

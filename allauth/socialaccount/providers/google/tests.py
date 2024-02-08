@@ -307,6 +307,7 @@ def test_extract_data(
         (True, True, {"access_token": "123"}, "uid-from-userinfo", "pic-from-userinfo"),
     ],
 )
+@pytest.mark.parametrize("did_fetch_access_token", [False, True])
 def test_complete_login_variants(
     response,
     settings_with_google_provider,
@@ -315,6 +316,7 @@ def test_complete_login_variants(
     expected_uid,
     expected_picture,
     id_token_has_picture,
+    did_fetch_access_token,
 ):
     with patch.object(
         GoogleOAuth2Adapter,
@@ -327,16 +329,22 @@ def test_complete_login_variants(
         id_token = {"sub": "uid-from-id-token"}
         if id_token_has_picture:
             id_token["picture"] = "pic-from-id-token"
-        with patch.object(
-            GoogleOAuth2Adapter,
-            "_decode_id_token",
+        with patch(
+            "allauth.socialaccount.providers.google.views._verify_and_decode",
             return_value=id_token,
-        ):
+        ) as decode_mock:
             request = None
             app = None
             adapter = GoogleOAuth2Adapter(request)
+            adapter.did_fetch_access_token = did_fetch_access_token
             adapter.fetch_userinfo = fetch_userinfo
             token = SocialToken()
             login = adapter.complete_login(request, app, token, response)
             assert login.account.uid == expected_uid
             assert login.account.extra_data["picture"] == expected_picture
+            if not response.get("id_token"):
+                assert not decode_mock.called
+            else:
+                assert decode_mock.call_args.kwargs["verify_signature"] == (
+                    not did_fetch_access_token
+                )

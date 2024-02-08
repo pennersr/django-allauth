@@ -233,14 +233,14 @@ class AppInSettingsTests(GoogleTests):
 def test_login_by_token(db, client, settings_with_google_provider):
     client.cookies.load({"g_csrf_token": "csrf"})
     with patch(
-        "allauth.socialaccount.providers.google.views.jwt.get_unverified_header"
+        "allauth.socialaccount.internal.jwtkit.jwt.get_unverified_header"
     ) as g_u_h:
         with mocked_response({"dummykid": "-----BEGIN CERTIFICATE-----"}):
             with patch(
-                "allauth.socialaccount.providers.google.views.load_pem_x509_certificate"
+                "allauth.socialaccount.internal.jwtkit.load_pem_x509_certificate"
             ) as load_pem:
                 with patch(
-                    "allauth.socialaccount.providers.google.views.jwt.decode"
+                    "allauth.socialaccount.internal.jwtkit.jwt.decode"
                 ) as decode:
                     decode.return_value = {
                         "iss": "https://accounts.google.com",

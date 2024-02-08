@@ -7,11 +7,9 @@ from django.utils import timezone
 from django.utils.http import urlencode
 from django.views.decorators.csrf import csrf_exempt
 
-import jwt
-
 from allauth.socialaccount.adapter import get_adapter
+from allauth.socialaccount.internal import jwtkit
 from allauth.socialaccount.models import SocialToken
-from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -31,28 +29,6 @@ class AppleOAuth2Adapter(OAuth2Adapter):
     authorize_url = "https://appleid.apple.com/auth/authorize"
     public_key_url = "https://appleid.apple.com/auth/keys"
 
-    def _get_apple_public_key(self, kid):
-        response = get_adapter().get_requests_session().get(self.public_key_url)
-        response.raise_for_status()
-        try:
-            data = response.json()
-        except json.JSONDecodeError as e:
-            raise OAuth2Error("Error retrieving apple public key.") from e
-
-        for d in data["keys"]:
-            if d["kid"] == kid:
-                return d
-
-    def get_public_key(self, id_token):
-        """
-        Get the public key which matches the `kid` in the id_token header.
-        """
-        kid = jwt.get_unverified_header(id_token)["kid"]
-        apple_public_key = self._get_apple_public_key(kid=kid)
-
-        public_key = jwt.algorithms.RSAAlgorithm.from_jwk(json.dumps(apple_public_key))
-        return public_key
-
     def get_client_id(self, provider):
         app = get_adapter().get_app(request=None, provider=self.provider_id)
         return [aud.strip() for aud in app.client_id.split(",")]
@@ -60,20 +36,14 @@ class AppleOAuth2Adapter(OAuth2Adapter):
     def get_verified_identity_data(self, id_token):
         provider = self.get_provider()
         allowed_auds = self.get_client_id(provider)
-
-        try:
-            public_key = self.get_public_key(id_token)
-            identity_data = jwt.decode(
-                id_token,
-                public_key,
-                algorithms=["RS256"],
-                audience=allowed_auds,
-                issuer="https://appleid.apple.com",
-            )
-            return identity_data
-
-        except jwt.PyJWTError as e:
-            raise OAuth2Error("Invalid id_token") from e
+        data = jwtkit.verify_and_decode(
+            credential=id_token,
+            keys_url=self.public_key_url,
+            issuer="https://appleid.apple.com",
+            audience=allowed_auds,
+            lookup_kid=jwtkit.lookup_kid_jwk,
+        )
+        return data
 
     def parse_token(self, data):
         token = SocialToken(

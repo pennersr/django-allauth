@@ -1,6 +1,9 @@
 from __future__ import unicode_literals
 
 import json
+import base64
+
+from django.conf import settings
 
 from allauth.core import context
 from allauth.socialaccount import app_settings
@@ -13,6 +16,12 @@ from allauth.socialaccount.providers.oauth2.views import (
 )
 
 from .provider import MicrosoftGraphProvider
+
+FETCH_PHOTO = (
+    getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
+    .get("microsoft", {})
+    .get("FETCH_PHOTO", False)
+)
 
 
 def _check_errors(response):
@@ -35,6 +44,10 @@ def _check_errors(response):
 
 class MicrosoftGraphOAuth2Adapter(OAuth2Adapter):
     provider_id = MicrosoftGraphProvider.id
+    fetch_photo = FETCH_PHOTO
+    profile_url = "https://graph.microsoft.com/v1.0/me"
+    photo_metadata_url = "https://graph.microsoft.com/v1.0/me/photo"
+    photo_data_url = "https://graph.microsoft.com/v1.0/me/photo/$value"
 
     def _build_tenant_url(self, path):
         settings = app_settings.PROVIDERS.get(self.provider_id, {})
@@ -52,8 +65,6 @@ class MicrosoftGraphOAuth2Adapter(OAuth2Adapter):
     @property
     def authorize_url(self):
         return self._build_tenant_url("/oauth2/v2.0/authorize")
-
-    profile_url = "https://graph.microsoft.com/v1.0/me"
 
     user_properties = (
         "businessPhones",
@@ -84,6 +95,34 @@ class MicrosoftGraphOAuth2Adapter(OAuth2Adapter):
             )
         )
         extra_data = _check_errors(response)
+
+        if self.fetch_photo:
+
+            photo_metadata_response = (
+                get_adapter()
+                .get_requests_session()
+                .get(
+                    self.photo_metadata_url,
+                    headers=headers,
+                )
+            )
+            if not photo_metadata_response.ok:
+                raise OAuth2Error("Request to user photo metadata failed")
+
+            photo_data_response = (
+                get_adapter()
+                .get_requests_session()
+                .get(
+                    self.photo_data_url,
+                    headers=headers,
+                )
+            )
+            if not photo_data_response.ok:
+                raise OAuth2Error("Request to user photo data failed")
+
+            extra_data['photo_metadata'] = photo_metadata_response.json()
+            extra_data['photo'] = base64.b64encode(photo_data_response.content).decode('utf-8')
+
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 

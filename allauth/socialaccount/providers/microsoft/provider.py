@@ -6,7 +6,10 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 class MicrosoftGraphAccount(ProviderAccount):
     def get_avatar_url(self):
-        return self.account.extra_data.get("photo")
+        return "data:{format};base64, {data}".format(
+            format=self.account.extra_data.get('photo_metadata', {}).get('@odata.mediaContentType', 'image/jpeg'),
+            data=self.account.extra_data.get('photo')
+        )
 
     def to_str(self):
         dflt = super(MicrosoftGraphAccount, self).to_str()

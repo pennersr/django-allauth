@@ -1,7 +1,18 @@
 0.57.2 (unreleased)
 *******************
 
-- ...
+Security notice
+---------------
+
+- As part of the Google OAuth handshake, an ID token is obtained by direct
+  machine to machine communication between the server running django-allauth and
+  Google. Because of this direct communication, we are allowed to skip checking
+  the token signature according to the `OpenID Connect Core 1.0 specification
+  <https://openid.net/specs/openid-connect-core-1_0.html#IDTokenValidation>`_.
+  However, as django-allauth is used and built upon by third parties, this is an
+  implementation detail with security implications that is easily overlooked. To
+  mitigate potential issues, verifying the signature is now only skipped if it
+  was django-allauth that actually fetched the access token.
 
 
 0.57.1 (2024-02-07)

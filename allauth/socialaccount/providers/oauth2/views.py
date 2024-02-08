@@ -41,6 +41,7 @@ class OAuth2Adapter(object):
 
     def __init__(self, request):
         self.request = request
+        self.did_fetch_access_token = False
 
     def get_provider(self):
         return get_adapter(self.request).get_provider(
@@ -69,7 +70,9 @@ class OAuth2Adapter(object):
     def get_access_token_data(self, request, app, client):
         code = get_request_param(self.request, "code")
         pkce_code_verifier = request.session.pop("pkce_code_verifier", None)
-        return client.get_access_token(code, pkce_code_verifier=pkce_code_verifier)
+        data = client.get_access_token(code, pkce_code_verifier=pkce_code_verifier)
+        self.did_fetch_access_token = True
+        return data
 
 
 class OAuth2View(object):

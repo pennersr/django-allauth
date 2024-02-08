@@ -86,13 +86,14 @@ class GoogleOAuth2Adapter(OAuth2Adapter):
 
     def _decode_id_token(self, app, id_token):
         """
-        Since the token was received by direct communication protected by
+        If the token was received by direct communication protected by
         TLS between this library and Google, we are allowed to skip checking the
         token signature according to the OpenID Connect Core 1.0 specification.
 
         https://openid.net/specs/openid-connect-core-1_0.html#IDTokenValidation
         """
-        return _verify_and_decode(app, id_token, verify_signature=False)
+        verify_signature = not self.did_fetch_access_token
+        return _verify_and_decode(app, id_token, verify_signature=verify_signature)
 
     def _fetch_user_info(self, access_token):
         resp = requests.get(

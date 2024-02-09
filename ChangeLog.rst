@@ -1,6 +1,13 @@
 0.61.1 (unreleased)
 *******************
 
+Fixes
+-----
+
+- Fixed a ``RuntimeWarning`` that could occur when running inside an async
+  environment (``'SyncToAsync' was never awaited``).
+
+
 Security notice
 ---------------
 

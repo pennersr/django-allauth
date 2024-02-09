@@ -24,6 +24,7 @@ stdenv.mkDerivation {
         python310Packages.sphinx-rtd-theme
         python310Packages.requests-oauthlib
         python310Packages.tox
+        python310Packages.daphne
         sphinx
         twine
     ];

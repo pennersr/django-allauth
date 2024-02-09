@@ -300,6 +300,6 @@ def test_complete_login_variants(
             if not response.get("id_token"):
                 assert not decode_mock.called
             else:
-                assert decode_mock.call_args.kwargs["verify_signature"] == (
+                assert decode_mock.call_args[1]["verify_signature"] == (
                     not did_fetch_access_token
                 )

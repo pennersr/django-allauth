@@ -387,7 +387,7 @@ class BaseSignupForm(_base_signup_form_class()):
         self.signup(request, user)
 
     def try_save(self, request):
-        """Try and save te user. This can fail in case of a conflict on the
+        """Try and save the user. This can fail in case of a conflict on the
         email address, in that case we will send an "account already exists"
         email and return a standard "email verification sent" response.
         """

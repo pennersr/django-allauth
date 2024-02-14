@@ -37,6 +37,9 @@ def AccountMiddleware(get_response):
 
 
 def _should_check_dangling_login(request, response):
+    sec_fetch_dest = request.headers.get("sec-fetch-dest")
+    if sec_fetch_dest and sec_fetch_dest != "document":
+        return False
     content_type = response.headers.get("content-type")
     if content_type:
         content_type = content_type.partition(";")[0]

@@ -10,14 +10,15 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-23 12:50-0600\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Marc Seguí Coll <metarizard@gmail.com>\n"
-"Language-Team: Català \n"
+"PO-Revision-Date: 2024-02-17 17:52+0100\n"
+"Last-Translator: ctrl_alt_d\n"
+"Language-Team: Català\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: account/adapter.py:50
 msgid "Username can not be used. Please use other username."
@@ -38,10 +39,8 @@ msgid "Please type your current password."
 msgstr "Si us plau, escriviu la vostra contrasenya actual."
 
 #: account/adapter.py:60
-#, fuzzy
-#| msgid "Current Password"
 msgid "Incorrect password."
-msgstr "Contrasenya actual"
+msgstr "Contrasenya actual."
 
 #: account/adapter.py:61
 #, python-brace-format
@@ -53,20 +52,16 @@ msgid "The email address is not assigned to any user account"
 msgstr "El correu electrònic no està assignat a cap compte d'usuari"
 
 #: account/adapter.py:739
-#, fuzzy
-#| msgid "Forgot Password?"
 msgid "Use your password"
-msgstr "Heu oblidat la vostra contrasenya?"
+msgstr "Utilitzeu la vostra paraula de pas"
 
 #: account/adapter.py:749
 msgid "Use your authenticator app"
-msgstr ""
+msgstr "Utilitzeu la vostra aplicació d’autenticar"
 
 #: account/admin.py:23
-#, fuzzy
-#| msgid "Your primary email address must be verified."
 msgid "Mark selected email addresses as verified"
-msgstr "La vostra adreça de correu electrònic principal ha de ser verificada."
+msgstr "Marqueu l’adreça de correu seleccionada com a verificada"
 
 #: account/apps.py:11
 msgid "Accounts"
@@ -123,10 +118,8 @@ msgid "Login"
 msgstr "Iniciar sessió"
 
 #: account/forms.py:146
-#, fuzzy
-#| msgid "Forgot Password?"
 msgid "Forgot your password?"
-msgstr "Heu oblidat la vostra contrasenya?"
+msgstr "Heu oblidat la contrasenya?"
 
 #: account/forms.py:316
 msgid "Email (again)"
@@ -218,46 +211,47 @@ msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
 msgstr ""
+"No podeu activar l'autenticació de dos factors fins que no hàgiu verificat "
+"la vostra adreça de correu electrònic."
 
 #: mfa/adapter.py:23
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
 msgstr ""
+"No podeu afegir una adreça de correu electrònic a un compte protegit per "
+"l'autenticació de dos factors."
 
 #: mfa/adapter.py:25
 msgid "Incorrect code."
-msgstr ""
+msgstr "Codi incorrecte."
 
 #: mfa/adapter.py:27
 msgid "You cannot deactivate two-factor authentication."
-msgstr ""
+msgstr "No podeu desactivar el doble factor d’autenticació."
 
 #: mfa/apps.py:9
 msgid "MFA"
-msgstr ""
+msgstr "MFA"
 
 #: mfa/forms.py:15 mfa/forms.py:17 mfa/forms.py:52
 msgid "Code"
-msgstr ""
+msgstr "Codi"
 
 #: mfa/forms.py:50
 msgid "Authenticator code"
-msgstr ""
+msgstr "Codi de l’autenticador"
 
 #: mfa/models.py:19
 msgid "Recovery codes"
-msgstr ""
+msgstr "Codis de recuperació"
 
 #: mfa/models.py:20
 msgid "TOTP Authenticator"
-msgstr ""
+msgstr "Autenticador TOTP"
 
 #: socialaccount/adapter.py:31
-#, fuzzy, python-format
-#| msgid ""
-#| "An account already exists with this e-mail address. Please sign in to "
-#| "that account first, then connect your %s account."
+#, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
 "account first, then connect your %s account."
@@ -283,10 +277,8 @@ msgid "provider"
 msgstr "proveïdor"
 
 #: socialaccount/models.py:46
-#, fuzzy
-#| msgid "provider"
 msgid "provider ID"
-msgstr "proveïdor"
+msgstr "ID de proveïdor"
 
 #: socialaccount/models.py:50
 msgid "name"
@@ -323,7 +315,7 @@ msgstr "aplicacions de xarxes socials"
 
 #: socialaccount/models.py:111
 msgid "uid"
-msgstr ""
+msgstr "uid"
 
 #: socialaccount/models.py:113
 msgid "last login"
@@ -347,7 +339,7 @@ msgstr "comptes de xarxes socials"
 
 #: socialaccount/models.py:154
 msgid "token"
-msgstr ""
+msgstr "token"
 
 #: socialaccount/models.py:155
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
@@ -378,11 +370,12 @@ msgid "Invalid profile data"
 msgstr "Dades de perfil invàlides"
 
 #: socialaccount/providers/oauth/client.py:85
-#, fuzzy, python-format
-#| msgid "Invalid response while obtaining request token from \"%s\"."
+#, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
-msgstr "Resposta invàlida a l'hora d'obtenir token de sol·licitud de \"%s\"."
+msgstr ""
+"Resposta invàlida a l'hora d'obtenir token des de “%s”. La resposta fou: "
+"\"%s\"."
 
 #: socialaccount/providers/oauth/client.py:119
 #: socialaccount/providers/pocket/client.py:86
@@ -421,18 +414,17 @@ msgstr "Aquest compte està inactiu."
 
 #: templates/account/base_reauthenticate.html:5
 #: templates/account/base_reauthenticate.html:9
-#, fuzzy
-#| msgid "Confirm Email Address"
 msgid "Confirm Access"
-msgstr "Confirmar adreça de correu electrònic"
+msgstr "Confirmeu l’accés"
 
 #: templates/account/base_reauthenticate.html:11
 msgid "Please reauthenticate to safeguard your account."
 msgstr ""
+"Sisplau, torneu-vos a autenticar per tal de mantenir el vostre compte segur."
 
 #: templates/account/base_reauthenticate.html:17
 msgid "Alternative options"
-msgstr ""
+msgstr "Opcions alternatives"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -521,6 +513,8 @@ msgid ""
 "You are receiving this mail because the following change was made to your "
 "account:"
 msgstr ""
+"Heu rebut aquest correu perquè el següent canvi ha estat fet al vostre "
+"compte:"
 
 #: templates/account/email/base_notification.txt:10
 #, python-format
@@ -532,37 +526,34 @@ msgid ""
 "- Browser: %(user_agent)s\n"
 "- Date: %(timestamp)s"
 msgstr ""
+"Si no reconeixeu aquest canvi, premeu precaucions de manera immediata. El "
+"canvi ha estat originat des de:\n"
+"\n"
+"- Adreça IP: %(ip)s\n"
+"- Navegador: %(user_agent)s\n"
+"- Data: %(timestamp)s"
 
 #: templates/account/email/email_changed_message.txt:4
 #, python-format
 msgid "Your email has been changed from %(from_email)s to %(to_email)s."
 msgstr ""
+"El vostre correu ha canviat. Correu anterior: %(from_email)s nou correu: "
+"%(to_email)s."
 
 #: templates/account/email/email_changed_subject.txt:3
-#, fuzzy
-#| msgid "Email address"
 msgid "Email Changed"
-msgstr "Correu electrònic"
+msgstr "Correu electròni canviat"
 
 #: templates/account/email/email_confirm_message.txt:4
-#, fuzzy
-#| msgid "You have confirmed %(email)s."
 msgid "Your email has been confirmed."
-msgstr "Heu confirmat %(email)s."
+msgstr "El vostre correu ha estat confirmat."
 
 #: templates/account/email/email_confirm_subject.txt:3
-#, fuzzy
-#| msgid "email confirmation"
 msgid "Email Confirmation"
-msgstr "confirmació de correu electrònic"
+msgstr "Confirmació de correu electrònic"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because user %(user_display)s has given your "
-#| "e-mail address to register an account on %(site_domain)s.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s"
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s.\n"
@@ -584,30 +575,18 @@ msgid "Email address %(deleted_email)s has been removed from your account."
 msgstr ""
 
 #: templates/account/email/email_deleted_subject.txt:3
-#, fuzzy
-#| msgid "Remove"
 msgid "Email Removed"
-msgstr "Eliminar"
+msgstr "Correu esborrat"
 
 #: templates/account/email/password_changed_message.txt:4
-#, fuzzy
-#| msgid "Your password is now changed."
 msgid "Your password has been changed."
 msgstr "La vostra contrasenya ha canviat."
 
 #: templates/account/email/password_changed_subject.txt:3
-#, fuzzy
-#| msgid "Password (again)"
 msgid "Password Changed"
-msgstr "Contrasenya (de nou)"
+msgstr "La vostra contrasenya ha canviat"
 
 #: templates/account/email/password_reset_key_message.txt:4
-#, fuzzy
-#| msgid ""
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
 msgid ""
 "You're receiving this email because you or someone else has requested a "
 "password reset for your user account.\n"
@@ -630,10 +609,8 @@ msgid "Password Reset Email"
 msgstr "Correu electrònic per restablir contrasenya"
 
 #: templates/account/email/password_reset_message.txt:4
-#, fuzzy
-#| msgid "Your password is now changed."
 msgid "Your password has been reset."
-msgstr "La vostra contrasenya ha canviat."
+msgstr "S’ha restablert la vostra contrasenya."
 
 #: templates/account/email/password_reset_subject.txt:3
 #: templates/account/password_reset.html:4
@@ -644,29 +621,15 @@ msgid "Password Reset"
 msgstr "Restablir Contrasenya"
 
 #: templates/account/email/password_set_message.txt:4
-#, fuzzy
-#| msgid "Your password is now changed."
 msgid "Your password has been set."
 msgstr "La vostra contrasenya ha canviat."
 
 #: templates/account/email/password_set_subject.txt:3
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Password Set"
-msgstr "Restablir Contrasenya"
+msgstr "Contrasenya establerta"
 
 #: templates/account/email/unknown_account_message.txt:4
-#, fuzzy, python-format
-#| msgid ""
-#| "You are receiving this e-mail because you or someone else has requested "
-#| "a\n"
-#| "password for your user account. However, we do not have any record of a "
-#| "user\n"
-#| "with email %(email)s in our database.\n"
-#| "\n"
-#| "This mail can be safely ignored if you did not request a password reset.\n"
-#| "\n"
-#| "If it was you, you can sign up for an account using the link below."
+#, python-format
 msgid ""
 "You are receiving this email because you or someone else has requested a\n"
 "password for your user account. However, we do not have any record of a "
@@ -690,44 +653,35 @@ msgstr ""
 "link de sota."
 
 #: templates/account/email_change.html:5 templates/account/email_change.html:9
-#, fuzzy
-#| msgid "Email Addresses"
 msgid "Email Address"
 msgstr "Adreces de correu electrònic"
 
 #: templates/account/email_change.html:21
 #: templates/account/email_change.html:29
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current email"
-msgstr "Contrasenya actual"
+msgstr "Correu actual"
 
 #: templates/account/email_change.html:31
 msgid "Changing to"
-msgstr ""
+msgstr "Canviant a"
 
 #: templates/account/email_change.html:35
-#, fuzzy
-#| msgid "Your primary email address must be verified."
 msgid "Your email address is still pending verification."
-msgstr "La vostra adreça de correu electrònic principal ha de ser verificada."
+msgstr ""
+"La vostra adreça de correu electrònic encara està pendent de ser verificada."
 
 #: templates/account/email_change.html:41
 msgid "Cancel Change"
-msgstr ""
+msgstr "Cancel·lar el canvi"
 
 #: templates/account/email_change.html:49
-#, fuzzy
-#| msgid "Email"
 msgid "Change to"
-msgstr "Correu electrònic"
+msgstr "Canviar a"
 
 #: templates/account/email_change.html:55
 #: templates/allauth/layouts/base.html:29
-#, fuzzy
-#| msgid "Email"
 msgid "Change Email"
-msgstr "Correu electrònic"
+msgstr "Canviar correu electrònic"
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
@@ -735,10 +689,7 @@ msgid "Confirm Email Address"
 msgstr "Confirmar adreça de correu electrònic"
 
 #: templates/account/email_confirm.html:16
-#, fuzzy, python-format
-#| msgid ""
-#| "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
-#| "mail address for user %(user_display)s."
+#, python-format
 msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an email "
 "address for user %(user_display)s."
@@ -754,18 +705,15 @@ msgstr "Confirmar"
 
 #: templates/account/email_confirm.html:29
 #: templates/account/messages/email_confirmation_failed.txt:2
-#, fuzzy, python-format
-#| msgid "The social account is already connected to a different account."
+#, python-format
 msgid ""
 "Unable to confirm %(email)s because it is already confirmed by a different "
 "account."
-msgstr "El compte de xarxa social ja està connectada a un compte diferent."
+msgstr ""
+"No es pot confirmar %(email)s perquè ja està confirmat en un compte diferent."
 
 #: templates/account/email_confirm.html:35
-#, fuzzy, python-format
-#| msgid ""
-#| "This e-mail confirmation link expired or is invalid. Please <a "
-#| "href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+#, python-format
 msgid ""
 "This email confirmation link expired or is invalid. Please <a "
 "href=\"%(email_url)s\">issue a new email confirmation request</a>."
@@ -783,10 +731,7 @@ msgid "Sign In"
 msgstr "Iniciar sessió"
 
 #: templates/account/login.html:12
-#, fuzzy, python-format
-#| msgid ""
-#| "If you have not created an account yet, then please\n"
-#| "<a href=\"%(signup_url)s\">sign up</a> first."
+#, python-format
 msgid ""
 "If you have not created an account yet, then please\n"
 "    <a href=\"%(signup_url)s\">sign up</a> first."
@@ -865,10 +810,6 @@ msgid "Forgot Password?"
 msgstr "Heu oblidat la vostra contrasenya?"
 
 #: templates/account/password_reset.html:14
-#, fuzzy
-#| msgid ""
-#| "Forgotten your password? Enter your e-mail address below, and we'll send "
-#| "you an e-mail allowing you to reset it."
 msgid ""
 "Forgotten your password? Enter your email address below, and we'll send you "
 "an email allowing you to reset it."
@@ -887,11 +828,6 @@ msgstr ""
 "contrasenya."
 
 #: templates/account/password_reset_done.html:16
-#, fuzzy
-#| msgid ""
-#| "We have sent you an e-mail. If you have not received it please check your "
-#| "spam folder. Otherwise contact us if you do not receive it in a few "
-#| "minutes."
 msgid ""
 "We have sent you an email. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
@@ -924,10 +860,8 @@ msgid "Set Password"
 msgstr "Establir contrasenya"
 
 #: templates/account/reauthenticate.html:5
-#, fuzzy
-#| msgid "Forgot Password?"
 msgid "Enter your password:"
-msgstr "Heu oblidat la vostra contrasenya?"
+msgstr "Introduïu la vostra paraula de pas:"
 
 #: templates/account/signup.html:4 templates/socialaccount/signup.html:5
 msgid "Signup"
@@ -960,8 +894,7 @@ msgid "Note"
 msgstr "Nota"
 
 #: templates/account/snippets/already_logged_in.html:7
-#, fuzzy, python-format
-#| msgid "you are already logged in as %(user_display)s."
+#, python-format
 msgid "You are already logged in as %(user_display)s."
 msgstr "ja heu iniciat sessió com a %(user_display)s."
 
@@ -970,11 +903,6 @@ msgid "Warning:"
 msgstr "Advertència:"
 
 #: templates/account/snippets/warn_no_email.html:3
-#, fuzzy
-#| msgid ""
-#| "You currently do not have any e-mail address set up. You should really "
-#| "add an e-mail address so you can receive notifications, reset your "
-#| "password, etc."
 msgid ""
 "You currently do not have any email address set up. You should really add an "
 "email address so you can receive notifications, reset your password, etc."
@@ -991,12 +919,6 @@ msgid "Verify Your Email Address"
 msgstr "Verifiqueu la vostra direcció de correu electrònic"
 
 #: templates/account/verification_sent.html:12
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for verification. Follow the link provided "
-#| "to finalize the signup process. If you do not see the verification e-mail "
-#| "in your main inbox, check your spam folder. Please contact us if you do "
-#| "not receive the verification e-mail within a few minutes."
 msgid ""
 "We have sent an email to you for verification. Follow the link provided to "
 "finalize the signup process. If you do not see the verification email in "
@@ -1008,11 +930,6 @@ msgstr ""
 "en uns minuts."
 
 #: templates/account/verified_email_required.html:13
-#, fuzzy
-#| msgid ""
-#| "This part of the site requires us to verify that\n"
-#| "you are who you claim to be. For this purpose, we require that you\n"
-#| "verify ownership of your e-mail address. "
 msgid ""
 "This part of the site requires us to verify that\n"
 "you are who you claim to be. For this purpose, we require that you\n"
@@ -1022,13 +939,6 @@ msgstr ""
 "això us requerim que verifiqueu la propietat del vostre correu electrònic. "
 
 #: templates/account/verified_email_required.html:18
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside that e-mail. If you do not "
-#| "see the verification e-mail in your main inbox, check your spam folder. "
-#| "Otherwise\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent an email to you for\n"
 "verification. Please click on the link inside that email. If you do not see "
@@ -1043,10 +953,7 @@ msgstr ""
 "contacteu-nos si no el rebeu en uns minuts."
 
 #: templates/account/verified_email_required.html:23
-#, fuzzy, python-format
-#| msgid ""
-#| "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change "
-#| "your e-mail address</a>."
+#, python-format
 msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
 "email address</a>."
@@ -1056,83 +963,83 @@ msgstr ""
 
 #: templates/allauth/layouts/base.html:18
 msgid "Messages:"
-msgstr ""
+msgstr "Missatges:"
 
 #: templates/allauth/layouts/base.html:25
 msgid "Menu:"
-msgstr ""
+msgstr "Menú:"
 
 #: templates/mfa/authenticate.html:9 templates/mfa/index.html:5
 #: templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
-msgstr ""
+msgstr "Autenticació de doble factor (TFA)"
 
 #: templates/mfa/authenticate.html:12
 msgid ""
 "Your account is protected by two-factor authentication. Please enter an "
 "authenticator code:"
 msgstr ""
+"El teu compte està protegit per doble factor d’autenticació. Sisplau, entreu "
+"el codi de l’autenticador:"
 
 #: templates/mfa/authenticate.html:27
 msgid "Cancel"
-msgstr ""
+msgstr "Cancel·lar"
 
 #: templates/mfa/email/recovery_codes_generated_message.txt:4
 msgid ""
 "A new set of Two-Factor Authentication recovery codes has been generated."
 msgstr ""
+"S’ha generat un nou conjunt de codis de recuperació de doble factor "
+"d’autenticació."
 
 #: templates/mfa/email/recovery_codes_generated_subject.txt:3
 msgid "New Recovery Codes Generated"
-msgstr ""
+msgstr "S’ha generat un nou codi de recuperació."
 
 #: templates/mfa/email/totp_activated_message.txt:4
 #: templates/mfa/messages/totp_activated.txt:2
 msgid "Authenticator app activated."
-msgstr ""
+msgstr "App d’autenticació activada."
 
 #: templates/mfa/email/totp_activated_subject.txt:3
-#, fuzzy
-#| msgid "token secret"
 msgid "Authenticator App Activated"
-msgstr "frase secreta de token"
+msgstr "App d’autenticació activada."
 
 #: templates/mfa/email/totp_deactivated_message.txt:4
 #: templates/mfa/messages/totp_deactivated.txt:2
 msgid "Authenticator app deactivated."
-msgstr ""
+msgstr "App d’autenticació desactivada."
 
 #: templates/mfa/email/totp_deactivated_subject.txt:3
-#, fuzzy
-#| msgid "token secret"
 msgid "Authenticator App Deactivated"
-msgstr "frase secreta de token"
+msgstr "App d’autenticació desactivada."
 
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
-msgstr ""
+msgstr "App d’autenticació"
 
 #: templates/mfa/index.html:18
 msgid "Authentication using an authenticator app is active."
-msgstr ""
+msgstr "L’autenticació està fent servir una app d’autenticació activa."
 
 #: templates/mfa/index.html:20
 msgid "An authenticator app is not active."
-msgstr ""
+msgstr "L’app d’autenticació no està activa."
 
 #: templates/mfa/index.html:28 templates/mfa/totp/deactivate_form.html:24
 msgid "Deactivate"
-msgstr ""
+msgstr "Desactivat"
 
 #: templates/mfa/index.html:32 templates/mfa/totp/activate_form.html:32
 msgid "Activate"
-msgstr ""
+msgstr "Activat"
 
 #: templates/mfa/index.html:42 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
 #: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
-msgstr ""
+msgstr "Codis de recuperació"
 
 #: templates/mfa/index.html:47 templates/mfa/recovery_codes/index.html:9
 #, python-format
@@ -1141,62 +1048,66 @@ msgid ""
 msgid_plural ""
 "There are %(unused_count)s out of %(total_count)s recovery codes available."
 msgstr[0] ""
+"Hi ha un %(unused_count)s d’un total de  %(total_count)s codis de "
+"recuperació disponibles."
 msgstr[1] ""
+"Hi ha un %(unused_count)s d’un total de  %(total_count)s codis de "
+"recuperació disponibles."
 
 #: templates/mfa/index.html:50
 msgid "No recovery codes set up."
-msgstr ""
+msgstr "No heu definit codis de recuperació."
 
 #: templates/mfa/index.html:59
 msgid "View"
-msgstr ""
+msgstr "Vista"
 
 #: templates/mfa/index.html:65
 msgid "Download"
-msgstr ""
+msgstr "Descarrega"
 
 #: templates/mfa/index.html:73 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
-msgstr ""
+msgstr "Generar"
 
 #: templates/mfa/messages/recovery_codes_generated.txt:2
 msgid "A new set of recovery codes has been generated."
-msgstr ""
+msgstr "Un nou conjunt de codis de recuperació ha estat generat."
 
 #: templates/mfa/reauthenticate.html:5
-#, fuzzy
-#| msgid "token secret"
 msgid "Enter an authenticator code:"
-msgstr "frase secreta de token"
+msgstr "Entreu un codi d’autenticació:"
 
 #: templates/mfa/recovery_codes/generate.html:9
 msgid "You are about to generate a new set of recovery codes for your account."
 msgstr ""
+"Esteu a punt de generar un nou conjunt de codis de recuperació pel vostre "
+"compte."
 
 #: templates/mfa/recovery_codes/generate.html:11
 msgid "This action will invalidate your existing codes."
-msgstr ""
+msgstr "Aquesta acció invalidarà els vostres codis existents."
 
 #: templates/mfa/recovery_codes/generate.html:13
 msgid "Are you sure?"
-msgstr ""
+msgstr "Esteu segur?"
 
 #: templates/mfa/recovery_codes/index.html:13
 msgid "Unused codes"
-msgstr ""
+msgstr "Codis no utilitzats"
 
 #: templates/mfa/recovery_codes/index.html:25
 msgid "Download codes"
-msgstr ""
+msgstr "Descarrega els codis"
 
 #: templates/mfa/recovery_codes/index.html:30
 msgid "Generate new codes"
-msgstr ""
+msgstr "Genera nous codis"
 
 #: templates/mfa/totp/activate_form.html:4
 #: templates/mfa/totp/activate_form.html:8
 msgid "Activate Authenticator App"
-msgstr ""
+msgstr "Activa la App d’autenticació"
 
 #: templates/mfa/totp/activate_form.html:11
 msgid ""
@@ -1204,42 +1115,41 @@ msgid ""
 "below with your authenticator app. Then, input the verification code "
 "generated by the app below."
 msgstr ""
+"Per protegir el vostre compte amb doble factor d’autenticació, escanejeu el "
+"codi QR de sota amb la vostra App d’autenticació. Llavors, introduïu el codi "
+"de verificació generat per l’App a sota."
 
 #: templates/mfa/totp/activate_form.html:21
-#, fuzzy
-#| msgid "token secret"
 msgid "Authenticator secret"
-msgstr "frase secreta de token"
+msgstr "Secret d’autenticador"
 
 #: templates/mfa/totp/activate_form.html:24
 msgid ""
 "You can store this secret and use it to reinstall your authenticator app at "
 "a later time."
 msgstr ""
+"Podeu emmagatzemar aquest secret i usar-lo per reinstal·lar la vostra app "
+"d’autenticació més endavant."
 
 #: templates/mfa/totp/deactivate_form.html:5
 #: templates/mfa/totp/deactivate_form.html:9
 msgid "Deactivate Authenticator App"
-msgstr ""
+msgstr "Desactiva l’App d’autenticació"
 
 #: templates/mfa/totp/deactivate_form.html:12
 msgid ""
 "You are about to deactivate authenticator app based authentication. Are you "
 "sure?"
 msgstr ""
+"Esteu a punt de desactivar la seguretat basada en app d’autenticació. "
+"N’esteu segurs?"
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9
-#, fuzzy
-#| msgid "Social Network Login Failure"
 msgid "Third-Party Login Failure"
-msgstr "Error d'inici de sessió amb xarxa social"
+msgstr "Ha fallat l’autenticació de tercers"
 
 #: templates/socialaccount/authentication_error.html:11
-#, fuzzy
-#| msgid ""
-#| "An error occurred while attempting to login via your social network "
-#| "account."
 msgid ""
 "An error occurred while attempting to login via your third-party account."
 msgstr ""
@@ -1252,40 +1162,29 @@ msgid "Account Connections"
 msgstr "Connexions de Compte"
 
 #: templates/socialaccount/connections.html:13
-#, fuzzy
-#| msgid ""
-#| "You can sign in to your account using any of the following third party "
-#| "accounts:"
 msgid ""
 "You can sign in to your account using any of the following third-party "
 "accounts:"
-msgstr "Podeu iniciar sessió amb algun dels següents comptes externs:"
+msgstr "Podeu iniciar sessió amb algun dels següents comptes de tercers:"
 
 #: templates/socialaccount/connections.html:45
-#, fuzzy
-#| msgid ""
-#| "You currently have no social network accounts connected to this account."
 msgid "You currently have no third-party accounts connected to this account."
-msgstr ""
-"Actualment no tens cap compte de xarxa social associat a aquest compte."
+msgstr "Actualment no tens cap compte de tercers associat a aquest compte."
 
 #: templates/socialaccount/connections.html:48
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Add a Third-Party Account"
-msgstr "Afegir un compte d'una xarxa social externa"
+msgstr "Afegir un compte de tercers"
 
 #: templates/socialaccount/email/account_connected_message.txt:4
 #, python-format
 msgid ""
 "A third-party account from %(provider)s has been connected to your account."
 msgstr ""
+"El compte de tercers des de %(provider)s ha estat vinculat al teu compte."
 
 #: templates/socialaccount/email/account_connected_subject.txt:3
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Third-Party Account Connected"
-msgstr "Afegir un compte d'una xarxa social externa"
+msgstr "Compte de tercers vinculat"
 
 #: templates/socialaccount/email/account_disconnected_message.txt:4
 #, python-format
@@ -1293,12 +1192,11 @@ msgid ""
 "A third-party account from %(provider)s has been disconnected from your "
 "account."
 msgstr ""
+"El compte de tercers des de %(provider)s ha estat desvinculat al teu compte."
 
 #: templates/socialaccount/email/account_disconnected_subject.txt:3
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Third-Party Account Disconnected"
-msgstr "Afegir un compte d'una xarxa social externa"
+msgstr "Compte de tercers desvinculat"
 
 #: templates/socialaccount/login.html:10
 #, python-format
@@ -1306,9 +1204,7 @@ msgid "Connect %(provider)s"
 msgstr "Connectar %(provider)s"
 
 #: templates/socialaccount/login.html:13
-#, fuzzy, python-format
-#| msgid ""
-#| "You are about to connect a new third party account from %(provider)s."
+#, python-format
 msgid "You are about to connect a new third-party account from %(provider)s."
 msgstr "Esteu a punt de connectar un nou compte extern des de %(provider)s."
 
@@ -1318,9 +1214,7 @@ msgid "Sign In Via %(provider)s"
 msgstr "Iniciar sessió via %(provider)s"
 
 #: templates/socialaccount/login.html:20
-#, fuzzy, python-format
-#| msgid ""
-#| "You are about to sign in using a third party account from %(provider)s."
+#, python-format
 msgid "You are about to sign in using a third-party account from %(provider)s."
 msgstr ""
 "Esteu a punt d'iniciar sessió utilitzant un compte extern des de "
@@ -1347,20 +1241,14 @@ msgstr ""
 "href=\"%(login_url)s\">inicieu sessió</a>."
 
 #: templates/socialaccount/messages/account_connected.txt:2
-#, fuzzy
-#| msgid "The social account has been connected."
 msgid "The third-party account has been connected."
 msgstr "El compte de xarxa social ha estat connectat."
 
 #: templates/socialaccount/messages/account_connected_other.txt:2
-#, fuzzy
-#| msgid "The social account is already connected to a different account."
 msgid "The third-party account is already connected to a different account."
 msgstr "El compte de xarxa social ja està connectada a un compte diferent."
 
 #: templates/socialaccount/messages/account_disconnected.txt:2
-#, fuzzy
-#| msgid "The social account has been disconnected."
 msgid "The third-party account has been disconnected."
 msgstr "El compte de xarxa social s'ha desconnectat."
 
@@ -1376,52 +1264,48 @@ msgstr ""
 
 #: templates/socialaccount/snippets/login.html:9
 msgid "Or use a third-party"
-msgstr ""
+msgstr "O utilitzeu un compte de tercers"
 
 #: templates/usersessions/messages/sessions_logged_out.txt:2
 msgid "Signed out of all other sessions."
-msgstr ""
+msgstr "Sortiu de totes les altres sessions."
 
 #: templates/usersessions/usersession_list.html:6
 #: templates/usersessions/usersession_list.html:10
 msgid "Sessions"
-msgstr ""
+msgstr "Sessions"
 
 #: templates/usersessions/usersession_list.html:23
 msgid "Started At"
-msgstr ""
+msgstr "Ha començat a les"
 
 #: templates/usersessions/usersession_list.html:24
-#, fuzzy
-#| msgid "Email Addresses"
 msgid "IP Address"
-msgstr "Adreces de correu electrònic"
+msgstr "Adreça IP"
 
 #: templates/usersessions/usersession_list.html:25
 msgid "Browser"
-msgstr ""
+msgstr "Navegador"
 
 #: templates/usersessions/usersession_list.html:27
 msgid "Last seen at"
-msgstr ""
+msgstr "Vist darreranent"
 
 #: templates/usersessions/usersession_list.html:47
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current"
-msgstr "Contrasenya actual"
+msgstr "Actual"
 
 #: templates/usersessions/usersession_list.html:60
 msgid "Sign Out Other Sessions"
-msgstr ""
+msgstr "Tanca les altres sessions"
 
 #: usersessions/apps.py:9
 msgid "User Sessions"
-msgstr ""
+msgstr "Sessions de l’usuari"
 
 #: usersessions/models.py:48
 msgid "session key"
-msgstr ""
+msgstr "clau de sessió"
 
 #, fuzzy
 #~| msgid "The following email addresses are associated with your account:"

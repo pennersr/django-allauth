@@ -1,3 +1,4 @@
+from allauth.socialaccount.adapter import get_adapter
 from allauth.account.models import EmailAddress
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
@@ -58,6 +59,7 @@ class AuthentiqProvider(OAuth2Provider):
     account_class = AuthentiqAccount
 
     def get_scope(self, request):
+        adapter = get_adapter()
         scope = set(super(AuthentiqProvider, self).get_scope(request))
         scope.add("openid")
 
@@ -65,7 +67,8 @@ class AuthentiqProvider(OAuth2Provider):
             modifiers = ""
             if app_settings.EMAIL_REQUIRED:
                 modifiers += "r"
-            if app_settings.EMAIL_VERIFICATION:
+            #TODO: How to get user email here for get_email_verification_method ?
+            if adapter.get_email_verification_method():
                 modifiers += "s"
             if modifiers:
                 scope.add(Scope.EMAIL + "~" + modifiers)

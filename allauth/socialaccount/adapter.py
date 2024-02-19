@@ -147,7 +147,10 @@ class DefaultSocialAccountAdapter(object):
             if not account.user.has_usable_password():
                 raise ValidationError(_("Your account has no password set up."))
             # No email address, no password reset
-            if app_settings.EMAIL_VERIFICATION == EmailVerificationMethod.MANDATORY:
+            if (
+                get_account_adapter().get_email_verification_method(account.user.email)
+                == EmailVerificationMethod.MANDATORY
+            ):
                 if not EmailAddress.objects.filter(
                     user=account.user, verified=True
                 ).exists():
@@ -314,6 +317,9 @@ class DefaultSocialAccountAdapter(object):
             session.request, timeout=app_settings.REQUESTS_TIMEOUT
         )
         return session
+
+    def get_email_verification_method(self, email=None):
+        return app_settings.EMAIL_VERIFICATION
 
     def is_email_verified(self, provider, email):
         """

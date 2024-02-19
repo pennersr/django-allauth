@@ -545,6 +545,7 @@ def assess_unique_email(email) -> Optional[bool]:
     False -- email is already in use
     None -- email is in use, but we should hide that using email verification.
     """
+    adapter = get_adapter()
     if not filter_users_by_email(email):
         # All good.
         return True
@@ -552,7 +553,7 @@ def assess_unique_email(email) -> Optional[bool]:
         # Fail right away.
         return False
     elif (
-        app_settings.EMAIL_VERIFICATION
+        adapter.get_email_verification_method(email)
         == app_settings.EmailVerificationMethod.MANDATORY
     ):
         # In case of mandatory verification and enumeration prevention,

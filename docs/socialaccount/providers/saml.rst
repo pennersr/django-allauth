@@ -81,7 +81,7 @@ via the Django admin as well:
                         "contact_person": {
                             "technical": {
                                 "givenName": "Alice",
-                                "emailAddress': "alice@example.com",
+                                "emailAddress": "alice@example.com",
                             },
                             "administrative": {
                                 "givenName": "Bob",

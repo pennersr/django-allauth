@@ -56,7 +56,7 @@ via the Django admin as well:
                     # `SocialAccount.provider` value set to this ID. The combination
                     # of this value and the `uid` must be unique. The IdP entity ID is a
                     # good choice for this.
-                    "provider_id": "urn:dev-123.us.auth0.com",
+                    "provider_id": "urn:example.com",
 
                     # The organization slug is configured by setting the
                     # `client_id` value. In this example, the SAML login URL is:
@@ -72,21 +72,37 @@ via the Django admin as well:
                         # If left empty, an attempt will be done to map the attributes using
                         # built-in defaults.
                         "attribute_mapping": {
-                            "uid": "http://schemas.auth0.com/clientID",
-                            "email_verified": "http://schemas.auth0.com/email_verified",
-                            "email": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress",
+                            "email": "mail",
+                            "first_name": "givenName",
+                            "last_name": "sn",
+                            "uid": "uid",
+                            "username": "uid",
+                        },
+                        "contact_person": {
+                            "technical": {
+                                "givenName": "Alice",
+                                "emailAddress': "alice@example.com",
+                            },
+                            "administrative": {
+                                "givenName": "Bob",
+                                "emailAddress": "bob@example.com",
+                            },
+                        },
+                        "advanced": {
+                            "x509cert": """MIID/zCCAuegAwIBAg...VGgdy+xoA==""",
+                            "private_key": """MIIEvQIBADANB...oddbXECo=""",
                         },
                         # The configuration of the IdP.
                         "idp": {
                             # The entity ID of the IdP is required.
-                            "entity_id": "urn:dev-123.us.auth0.com",
+                            "entity_id": "urn:example.com",
 
-                            # Then, you can either specify the IdP's metadata URL:
-                            "metadata_url": "https://dev-123.us.auth0.com/samlp/metadata/456",
+                            # Then, you can EITHER specify the IdP's metadata URL:
+                            "metadata_url": "https://example.com/saml2/idp/metadata.php",
 
-                            # Or, you can inline the IdP parameters here as follows:
-                            "sso_url": "https://dev-123.us.auth0.com/samlp/456",
-                            "slo_url": "https://dev-123.us.auth0.com/samlp/456",
+                            # OR, you can inline the IdP parameters here as follows:
+                            "sso_url": "https://example.com/saml2/idp/SSOService.php",
+                            "slo_url": "https://example.com/saml2/idp/SingleLogoutService.php",
                             "x509cert": """
     -----BEGIN CERTIFICATE-----
     MIIDHTCCAgWgAwIBAgIJLogff5x+S0BlMA0GCSqGSIb3DQEBCwUAMCwxKjAoBgNV

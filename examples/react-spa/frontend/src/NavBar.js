@@ -1,4 +1,4 @@
-import { useUser } from './UserSession'
+import { useUser } from './auth'
 import { Link } from 'react-router-dom'
 
 export default function NavBar () {
@@ -6,17 +6,17 @@ export default function NavBar () {
   const anonNav = (
     <>
       {' '}
-      <Link to='/login'>🔑 Login</Link>
+      <Link to='/account/login'>🔑 Login</Link>
       {' '}
-      <Link to='/signup'>🧑 Signup</Link>
+      <Link to='/account/signup'>🧑 Signup</Link>
       {' '}
-      <Link to='/password/reset'>🔓 Reset password</Link>
+      <Link to='/account/password/reset'>🔓 Reset password</Link>
     </>
   )
   const authNav = (
     <>
       {' '}
-      <Link to='/logout'>👋 Logout</Link>
+      <Link to='/account/logout'>👋 Logout</Link>
     </>
   )
   return (
@@ -29,7 +29,7 @@ export default function NavBar () {
       {' '}
       <Link to='/dashboard'>📈 Dashboard</Link>
       {' '}
-      <Link to='/email'>📬 Change Email</Link>
+      <Link to='/account/email'>📬 Change Email</Link>
       {' '}
       <a href='http://localhost:1080'>✉️ MailCatcher</a>
     </nav>

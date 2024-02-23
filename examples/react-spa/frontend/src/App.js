@@ -1,4 +1,4 @@
-import UserSession from './UserSession'
+import { AuthContext, AnonymousRoute, AuthenticatedRoute } from './auth'
 import {
   Outlet,
   createBrowserRouter,
@@ -10,12 +10,11 @@ import Logout from './Logout'
 import SignUp from './SignUp'
 import Home from './Home'
 import ChangeEmail from './ChangeEmail'
-import ConfirmEmail, { loader as confirmEmailLoader } from './ConfirmEmail'
-import ConfirmationEmailSent from './ConfirmationEmailSent'
-import ResetPassword from './ResetPassword'
+import VerifyEmail, { loader as verifyEmailLoader } from './VerifyEmail'
+import VerificationEmailSent from './VerificationEmailSent'
+import RequestPasswordReset from './RequestPasswordReset'
 import NavBar from './NavBar'
-import ResetPasswordFromKey, { loader as resetPasswordFromKeyLoader } from './ResetPasswordFromKey'
-import { AnonymousRoute, AuthenticatedRoute } from './auth'
+import ResetPassword, { loader as resetPasswordLoader } from './ResetPassword'
 
 const router = createBrowserRouter([
   {
@@ -31,38 +30,38 @@ const router = createBrowserRouter([
         element: <AuthenticatedRoute><Dashboard /></AuthenticatedRoute>
       },
       {
-        path: '/login',
+        path: '/account/login',
         element: <AnonymousRoute><Login /></AnonymousRoute>
       },
       {
-        path: '/email',
+        path: '/account/email',
         element: <AuthenticatedRoute><ChangeEmail /></AuthenticatedRoute>
       },
       {
-        path: '/logout',
+        path: '/account/logout',
         element: <Logout />
       },
       {
-        path: '/signup',
+        path: '/account/signup',
         element: <AnonymousRoute><SignUp /></AnonymousRoute>
       },
       {
-        path: '/confirm-email',
-        element: <ConfirmationEmailSent />
+        path: '/account/verify-email',
+        element: <VerificationEmailSent />
       },
       {
-        path: '/confirm-email/:key',
-        element: <ConfirmEmail />,
-        loader: confirmEmailLoader
+        path: '/account/verify-email/:key',
+        element: <AnonymousRoute><VerifyEmail /></AnonymousRoute>,
+        loader: verifyEmailLoader
       },
       {
-        path: '/password/reset',
-        element: <ResetPassword />
+        path: '/account/password/reset',
+        element: <RequestPasswordReset />
       },
       {
-        path: '/password/reset/key/:key',
-        element: <ResetPasswordFromKey />,
-        loader: resetPasswordFromKeyLoader
+        path: '/account/password/reset/key/:key',
+        element: <ResetPassword />,
+        loader: resetPasswordLoader
       }
     ]
   }
@@ -79,9 +78,9 @@ function Root () {
 
 function App () {
   return (
-    <UserSession>
+    <AuthContext>
       <RouterProvider router={router} />
-    </UserSession>
+    </AuthContext>
   )
 }
 

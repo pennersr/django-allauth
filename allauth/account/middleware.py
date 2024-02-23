@@ -1,4 +1,5 @@
 import os
+from types import SimpleNamespace
 
 from django.conf import settings
 from django.http import HttpResponseRedirect
@@ -21,6 +22,7 @@ def AccountMiddleware(get_response):
     if iscoroutinefunction(get_response):
 
         async def middleware(request):
+            request.allauth = SimpleNamespace()
             with context.request_context(request):
                 response = await get_response(request)
                 if _should_check_dangling_login(request, response):
@@ -30,6 +32,7 @@ def AccountMiddleware(get_response):
     else:
 
         def middleware(request):
+            request.allauth = SimpleNamespace()
             with context.request_context(request):
                 response = get_response(request)
                 if _should_check_dangling_login(request, response):

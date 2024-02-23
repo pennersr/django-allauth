@@ -1,0 +1,44 @@
+import json
+
+from django.http import HttpResponseBadRequest
+from django.views.generic import View
+
+from allauth.core.exceptions import ImmediateHttpResponse
+
+
+class RESTView(View):
+    authtentication_required = False
+    input_class = None
+
+    def dispatch(self, request, *args, **kwargs):
+        return self.handle(request, *args, **kwargs)
+
+    def handle(self, request, *args, **kwargs):
+        if request.method != "GET":
+            self.data = self._parse_json(request)
+            response = self.handle_input(self.data)
+            if response:
+                return response
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_input_kwargs(self):
+        return {}
+
+    def handle_input(self, data):
+        input_class = self.input_class
+        if isinstance(input_class, dict):
+            input_class = input_class.get(self.request.method)
+        if not input_class:
+            return
+        input_kwargs = self.get_input_kwargs()
+        self.input = input_class(data=self.data, **input_kwargs)
+        if not self.input.is_valid():
+            return self.input.respond_error()
+
+    def _parse_json(self, request):
+        if request.method == "GET" or not request.body:
+            return
+        try:
+            return json.loads(request.body.decode("utf8"))
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            raise ImmediateHttpResponse(response=HttpResponseBadRequest())

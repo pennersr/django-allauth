@@ -1,14 +1,13 @@
 import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
-import { usePostLogout } from './UserSession'
+import { logout } from './lib/allauth'
 
 export default function Logout () {
   const [response, setResponse] = useState({ fetching: false, data: null })
-  const postLogout = usePostLogout()
 
   function submit () {
     setResponse({ ...response, fetching: true })
-    postLogout().then((data) => {
+    logout().then((data) => {
       setResponse((r) => { return { ...r, data } })
     }).catch((e) => {
       console.error(e)

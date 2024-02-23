@@ -1,4 +1,4 @@
-export default function ConfirmationEmailSent () {
+export default function VerificationEmailSent () {
   return (
     <div>
       <h1>Confirm Email Address</h1>

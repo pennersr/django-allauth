@@ -33,6 +33,10 @@ class AppSettings(object):
         return apps.is_installed("allauth.usersessions")
 
     @property
+    def HEADLESS_ENABLED(self):
+        return apps.is_installed("allauth.headless")
+
+    @property
     def DEFAULT_AUTO_FIELD(self):
         return self._setting("DEFAULT_AUTO_FIELD", None)
 

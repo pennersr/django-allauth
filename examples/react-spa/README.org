@@ -1,13 +1,7 @@
 * React Single-Page Application
 
-This is a proof of concept, demonstrating a React frontend interacting with a
-vanilla django-allauth as the backend.
-
-** Status
-
-Note that this is an incomplete work in progress. Its goal is to research what
-approach to take to reach a solution where the complete allauth functionality is
-accessible in a SPA based architecture.
+An example React application demonstrating the use of the headless functionality
+of django-allauth.
 
 ** Running
 
@@ -22,22 +16,30 @@ Then, visit the app over at http://localhost:10000.
 
 ** Status
 
-*** DONE Login
+*** Frontend
 
-*** DONE Signup
+**** DONE Login
 
-*** DONE Password reset
+**** DONE Signup
 
-*** DONE Confirm email
+**** DONE Password reset
 
-*** TODO Manage email addresses
+**** DONE Confirm email
 
-*** TODO Change password
+**** TODO Manage email addresses
 
-*** TODO Re-authentication
+**** TODO Change password
 
-*** TODO Third-party login
+**** TODO Re-authentication
 
-*** TODO MFA
+**** TODO Third-party login
 
-*** TODO User sessions
+**** TODO MFA
+
+**** TODO User sessions
+
+*** Headless
+
+**** TODO Check rate limit handling
+
+**** TODO Make "Unknown account" email signup URL configurable

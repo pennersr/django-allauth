@@ -1,20 +1,20 @@
 import { useState } from 'react'
 import { useLoaderData } from 'react-router-dom'
-import { getEmailConfirmation, postEmailConfirmation } from './lib/allauth'
+import { getEmailVerification, verifyEmail } from './lib/allauth'
 
 export async function loader ({ params }) {
   const key = params.key
-  const resp = await getEmailConfirmation(key)
-  return { key, confirmation: resp.data }
+  const resp = await getEmailVerification(key)
+  return { key, verification: resp }
 }
 
-export default function ConfirmEmail () {
-  const { key, confirmation } = useLoaderData()
+export default function VerifyEmail () {
+  const { key, verification } = useLoaderData()
   const [response, setResponse] = useState({ fetching: false, data: null })
 
   function submit () {
     setResponse({ ...response, fetching: true })
-    postEmailConfirmation(key).then((data) => {
+    verifyEmail(key).then((data) => {
       setResponse((r) => { return { ...r, data } })
     }).catch((e) => {
       console.error(e)
@@ -25,17 +25,17 @@ export default function ConfirmEmail () {
   }
 
   let body = null
-  if (confirmation.can_confirm) {
+  if (verification.status === 200) {
     body = (
       <>
-        <p>Please confirm that <a href={'mailto:' + confirmation.email}>{confirmation.email}</a> is an email address for user {confirmation.user.display}.</p>
+        <p>Please confirm that <a href={'mailto:' + verification.data.email}>{verification.data.email}</a> is an email address for user {verification.data.user.str}.</p>
         <button disabled={response.fetching} onClick={() => submit()}>Confirm</button>
       </>
     )
-  } else if (!confirmation.email) {
-    body = <p>Invalid confirmation link.</p>
+  } else if (!verification.data.email) {
+    body = <p>Invalid verification link.</p>
   } else {
-    body = <p>Unable to confirm email <a href={'mailto:' + confirmation.email}>{confirmation.email}</a> because it is already confirmed.</p>
+    body = <p>Unable to confirm email <a href={'mailto:' + verification.data.email}>{verification.data.email}</a> because it is already confirmed.</p>
   }
   return (
     <div>

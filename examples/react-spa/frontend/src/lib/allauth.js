@@ -1,88 +1,100 @@
 import { getCSRFToken } from './django'
 
-const BASE_URL = '/accounts'
+const BASE_URL = '/_allauth/browser/v1'
 const ACCEPT_JSON = {
   accept: 'application/json'
 }
 
-export const URLs = Object.freeze({
-  CONFIRM_EMAIL: BASE_URL + '/confirm-email/',
-  LOGIN: BASE_URL + '/login/',
-  LOGOUT: BASE_URL + '/logout/',
-  SIGNUP: BASE_URL + '/signup/',
-  RESET_PASSWORD: BASE_URL + '/password/reset/',
-  RESET_PASSWORD_DONE: BASE_URL + '/password/reset/done/',
-  RESET_PASSWORD_FROM_KEY: BASE_URL + '/password/reset/key/',
-  PROFILE: BASE_URL + '/profile/',
-  EMAIL: BASE_URL + '/email/'
+export const Flows = Object.freeze({
+  VERIFY_EMAIL: 'verify_email',
+  LOGIN: 'login',
+  SIGNUP: 'signup'
 })
 
-async function fetchFormPost (path, data) {
-  const formData = new FormData()
-  Object.keys(data).forEach(k => {
-    formData.append(k, data[k])
-  })
-  formData.append('csrfmiddlewaretoken', getCSRFToken())
+export const URLs = Object.freeze({
+  LOGIN: BASE_URL + '/auth/login',
+  LOGOUT: BASE_URL + '/auth/logout',
+  AUTH: BASE_URL + '/auth',
+  SIGNUP: BASE_URL + '/auth/signup',
+  VERIFY_EMAIL: BASE_URL + '/auth/verify_email',
+  REQUEST_PASSWORD_RESET: BASE_URL + '/auth/password/request',
+  RESET_PASSWORD: BASE_URL + '/auth/password/reset',
+  EMAIL: BASE_URL + '/account/email'
+})
 
-  const resp = await fetch(path, {
-    method: 'POST',
+async function request (method, path, data) {
+  const options = {
+    method,
     headers: {
       ...ACCEPT_JSON,
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: new URLSearchParams(formData).toString()
-  })
-  if (!resp.ok && ![400, 404].includes(resp.status)) {
-    throw new Error('error submitting data')
+      'X-CSRFToken': getCSRFToken()
+    }
   }
-  return await resp.json()
+  if (typeof data !== 'undefined') {
+    options.body = JSON.stringify(data)
+    options.headers['Content-Type'] = 'application/json'
+  }
+  const resp = await fetch(path, options)
+  const msg = await resp.json()
+  if (msg.status === 401 || (msg.status === 200 && msg.meta?.is_authenticated)) {
+    const event = new CustomEvent('allauth.auth.change', { detail: msg })
+    document.dispatchEvent(event)
+  }
+  return msg
 }
 
-export async function postLogin (data) {
-  return await fetchFormPost(URLs.LOGIN, data)
+export async function login (data) {
+  return await request('POST', URLs.LOGIN, data)
 }
 
-export async function postLogout () {
-  return await fetchFormPost(URLs.LOGOUT, {})
+export async function logout () {
+  return await request('POST', URLs.LOGOUT)
 }
 
-export async function postSignUp (data) {
-  return await fetchFormPost(URLs.SIGNUP, data)
+export async function signUp (data) {
+  return await request('POST', URLs.SIGNUP, data)
 }
 
-export async function postResetPassword (email) {
-  return await fetchFormPost(URLs.RESET_PASSWORD, { email })
+export async function requestPasswordReset (email) {
+  return await request('POST', URLs.REQUEST_PASSWORD_RESET, { email })
 }
 
-export async function getEmailConfirmation (key) {
-  return await fetch(`${URLs.CONFIRM_EMAIL}${encodeURIComponent(key)}/`,
-    {
-      headers: ACCEPT_JSON
-    }).then(resp => resp.json())
+export async function getEmailVerification (key) {
+  return await request('GET', `${URLs.VERIFY_EMAIL}?key=${encodeURIComponent(key)}`)
 }
 
 export async function getEmailAddresses () {
-  return await fetch(URLs.EMAIL,
-    {
-      headers: ACCEPT_JSON
-    }).then(resp => resp.json())
+  return await request('GET', URLs.EMAIL)
 }
 
-export async function postAddEmail (email) {
-  return await fetchFormPost(URLs.EMAIL, { action_add: '', email })
+export async function addEmail (email) {
+  return await request('POST', URLs.EMAIL, { email })
 }
 
-export async function postEmailConfirmation (key) {
-  return await fetchFormPost(`${URLs.CONFIRM_EMAIL}${encodeURIComponent(key)}/`, {})
+export async function deleteEmail (email) {
+  return await request('DELETE', URLs.EMAIL, { email })
+}
+
+export async function markEmailAsPrimary (email) {
+  return await request('PATCH', URLs.EMAIL, { email, primary: true })
+}
+
+export async function requestEmailVerification (email) {
+  return await request('PUT', URLs.EMAIL, { email })
+}
+
+export async function verifyEmail (key) {
+  return await request('POST', URLs.VERIFY_EMAIL, { key })
 }
 
 export async function getPasswordReset (key) {
-  return await fetch(`${URLs.RESET_PASSWORD_FROM_KEY}${encodeURIComponent(key)}/`,
-    {
-      headers: ACCEPT_JSON
-    }).then(resp => resp.json())
+  return await request('GET', `${URLs.RESET_PASSWORD}?key=${encodeURIComponent(key)}`)
 }
 
-export async function postPasswordReset (key, data) {
-  return await fetchFormPost(`${URLs.RESET_PASSWORD_FROM_KEY}${encodeURIComponent(key)}/`, data)
+export async function resetPassword (data) {
+  return await request('POST', URLs.RESET_PASSWORD, data)
+}
+
+export async function getAuth () {
+  return await request('GET', URLs.AUTH)
 }

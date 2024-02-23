@@ -25,7 +25,7 @@ address = ":10000"
 
 [http.routers.django]
 service = "django"
-rule = "PathPrefix(`/accounts`)"
+rule = "PathPrefix(`/accounts`) || PathPrefix(`/_allauth`)"
 entrypoints = ["web"]
 
 

@@ -26,6 +26,9 @@ class LoginStage:
         self.controller.set_handled(self.key)
         return resume_login(self.request, self.login)
 
+    def get_headless_url(self):
+        return None
+
 
 class LoginStageController:
     def __init__(self, request, login):
@@ -115,3 +118,6 @@ class EmailVerificationStage(LoginStage):
                     self.request, login.user
                 )
         return response, cont
+
+    def get_headless_url(self):
+        return self.request.allauth.headless.reverse("headless_verify_email")

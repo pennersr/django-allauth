@@ -7,7 +7,6 @@ stdenv.mkDerivation {
         gettext
         isort
         djlint
-        nodejs
         python310
         python310Packages.django
         python310Packages.flake8
@@ -28,6 +27,9 @@ stdenv.mkDerivation {
         python310Packages.daphne
         sphinx
         twine
+
+        nodejs
+        playwright-test
     ];
     shellHook = ''
         export PATH="$PWD/node_modules/.bin/:$PATH"

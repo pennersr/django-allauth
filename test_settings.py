@@ -195,6 +195,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.okta",
     "allauth.socialaccount.providers.feishu",
     "allauth.usersessions",
+    "allauth.headless",
 )
 
 AUTHENTICATION_BACKENDS = (

@@ -30,10 +30,7 @@ from django.utils.translation import gettext_lazy as _
 
 from allauth import app_settings as allauth_app_settings
 from allauth.account import signals
-from allauth.account.app_settings import (
-    AuthenticationMethod,
-    EmailVerificationMethod,
-)
+from allauth.account.app_settings import AuthenticationMethod
 from allauth.core import context, ratelimit
 from allauth.utils import (
     build_absolute_uri,
@@ -448,21 +445,8 @@ class DefaultAccountAdapter(object):
         signup,
         redirect_url
     ):
-        from .utils import has_verified_email, send_email_confirmation
-
         if not user.is_active:
             return self.respond_user_inactive(request, user)
-
-        if email_verification == EmailVerificationMethod.NONE:
-            pass
-        elif email_verification == EmailVerificationMethod.OPTIONAL:
-            # In case of OPTIONAL verification: send on signup.
-            if not has_verified_email(user, email) and signup:
-                send_email_confirmation(request, user, signup=signup, email=email)
-        elif email_verification == EmailVerificationMethod.MANDATORY:
-            if not has_verified_email(user, email):
-                send_email_confirmation(request, user, signup=signup, email=email)
-                return self.respond_email_verification_sent(request, user)
 
     def post_login(
         self,
@@ -722,6 +706,7 @@ class DefaultAccountAdapter(object):
 
     def get_login_stages(self):
         ret = []
+        ret.append("allauth.account.stages.EmailVerificationStage")
         if allauth_app_settings.MFA_ENABLED:
             ret.append("allauth.mfa.stages.AuthenticateStage")
         return ret

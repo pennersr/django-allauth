@@ -1,9 +1,11 @@
 from django.conf import settings
 from django.http import HttpResponse
+from django.urls import path
 
 import pytest
 
 from allauth.account.middleware import AccountMiddleware
+from allauth.core.exceptions import ImmediateHttpResponse
 
 
 @pytest.mark.parametrize(
@@ -35,3 +37,17 @@ def test_remove_dangling_login(
     mw = AccountMiddleware(lambda request: response)
     mw(request)
     assert ("account_login" in request.session) is (not login_removed)
+
+
+def raise_immediate_http_response(request):
+    response = HttpResponse(content="raised-response")
+    raise ImmediateHttpResponse(response=response)
+
+
+urlpatterns = [path("raise", raise_immediate_http_response)]
+
+
+def test_immediate_http_response(settings, client):
+    settings.ROOT_URLCONF = "allauth.account.tests.test_middleware"
+    resp = client.get("/raise")
+    assert resp.content == b"raised-response"

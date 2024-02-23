@@ -13,26 +13,25 @@ def AccountMiddleware(get_response):
 
         async def middleware(request):
             with context.request_context(request):
-                try:
-                    response = await get_response(request)
-                    if _should_check_dangling_login(request, response):
-                        await _acheck_dangling_login(request)
-                    return response
-                except ImmediateHttpResponse as e:
-                    return e.response
+                response = await get_response(request)
+                if _should_check_dangling_login(request, response):
+                    await _acheck_dangling_login(request)
+                return response
 
     else:
 
         def middleware(request):
             with context.request_context(request):
-                try:
-                    response = get_response(request)
-                    if _should_check_dangling_login(request, response):
-                        _check_dangling_login(request)
-                    return response
-                except ImmediateHttpResponse as e:
-                    return e.response
+                response = get_response(request)
+                if _should_check_dangling_login(request, response):
+                    _check_dangling_login(request)
+                return response
 
+    def process_exception(request, exception):
+        if isinstance(exception, ImmediateHttpResponse):
+            return exception.response
+
+    middleware.process_exception = process_exception
     return middleware
 
 

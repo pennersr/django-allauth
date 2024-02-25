@@ -7,7 +7,6 @@ As documented at https://www.authelia.com/integration/openid-connect/introductio
 
 An example configuration for authelia would look like this::
 
-::
 
     SOCIALACCOUNT_PROVIDERS = {
         "openid_connect": {

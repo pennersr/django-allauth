@@ -97,7 +97,7 @@ via the Django admin as well:
                             # The entity ID of the IdP is required.
                             "entity_id": "urn:example.com",
 
-                            # Then, you can EITHER specify the IdP's metadata URL:
+                            # Then, you can either specify the IdP's metadata URL:
                             "metadata_url": "https://example.com/saml2/idp/metadata.php",
 
                             # OR, you can inline the IdP parameters here as follows:

@@ -100,7 +100,7 @@ via the Django admin as well:
                             # Then, you can either specify the IdP's metadata URL:
                             "metadata_url": "https://example.com/saml2/idp/metadata.php",
 
-                            # OR, you can inline the IdP parameters here as follows:
+                            # Or, you can inline the IdP parameters here as follows:
                             "sso_url": "https://example.com/saml2/idp/SSOService.php",
                             "slo_url": "https://example.com/saml2/idp/SingleLogoutService.php",
                             "x509cert": """

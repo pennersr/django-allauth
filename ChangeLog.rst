@@ -1,3 +1,8 @@
+Unreleased
+----------
+
+- Added support for custom account email verification based on the user's email.
+
 0.61.1 (2024-02-09)
 *******************
 

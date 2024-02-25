@@ -266,6 +266,7 @@ class SignupView(
         return ret
 
     def form_valid(self, form):
+        adapter = get_adapter()
         self.user, resp = form.try_save(self.request)
         if resp:
             return resp
@@ -273,7 +274,7 @@ class SignupView(
             return complete_signup(
                 self.request,
                 self.user,
-                app_settings.EMAIL_VERIFICATION,
+                adapter.get_email_verification_method(self.user.email),
                 self.get_success_url(),
             )
         except ImmediateHttpResponse as e:
@@ -940,7 +941,7 @@ class PasswordResetFromKeyView(
             return perform_login(
                 self.request,
                 self.reset_user,
-                email_verification=app_settings.EMAIL_VERIFICATION,
+                email_verification=adapter.get_email_verification_method(self.reset_user.email),
             )
 
         return super(PasswordResetFromKeyView, self).form_valid(form)

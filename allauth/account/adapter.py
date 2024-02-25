@@ -752,6 +752,9 @@ class DefaultAccountAdapter(object):
                 )
         return ret
 
+    def get_email_verification_method(self, email=None):
+        return app_settings.EMAIL_VERIFICATION
+
     def send_notification_mail(self, template_prefix, user, context=None, email=None):
         from allauth.account.models import EmailAddress
 

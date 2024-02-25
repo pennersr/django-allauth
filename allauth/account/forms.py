@@ -207,12 +207,14 @@ class LoginForm(forms.Form):
             if field in credentials
         }
         record_authentication(request, method="password", **extra_data)
+        adapter = get_adapter()
+        email = credentials.get("email")
         ret = perform_login(
             request,
             self.user,
-            email_verification=app_settings.EMAIL_VERIFICATION,
+            email_verification=adapter.get_email_verification_method(email),
             redirect_url=redirect_url,
-            email=credentials.get("email"),
+            email=email,
         )
         remember = app_settings.SESSION_REMEMBER
         if remember is None:

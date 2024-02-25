@@ -108,7 +108,9 @@ def _login_social_account(request, sociallogin):
     return perform_login(
         request,
         sociallogin.user,
-        email_verification=app_settings.EMAIL_VERIFICATION,
+        email_verification=get_account_adapter().get_email_verification_method(
+            sociallogin.user.email
+        ),
         redirect_url=sociallogin.get_redirect_url(request),
         signal_kwargs={"sociallogin": sociallogin},
     )
@@ -244,7 +246,9 @@ def complete_social_signup(request, sociallogin):
     return complete_signup(
         request,
         sociallogin.user,
-        app_settings.EMAIL_VERIFICATION,
+        get_account_adapter(request).get_email_verification_method(
+            sociallogin.user.email
+        ),
         sociallogin.get_redirect_url(request),
         signal_kwargs={"sociallogin": sociallogin},
     )

@@ -142,7 +142,7 @@ def has_verified_email(user, email=None):
 def perform_login(
     request,
     user,
-    email_verification,
+    email_verification=None,
     redirect_url=None,
     signal_kwargs=None,
     signup=False,
@@ -155,6 +155,8 @@ def perform_login(
     email is essential (during signup), or if it can be skipped (e.g. in
     case email verification is optional and we are only logging in).
     """
+    if not email_verification:
+        email_verification = app_settings.EMAIL_VERIFICATION
     login = Login(
         user=user,
         email_verification=email_verification,

@@ -210,7 +210,6 @@ class LoginForm(forms.Form):
         ret = perform_login(
             request,
             self.user,
-            email_verification=app_settings.EMAIL_VERIFICATION,
             redirect_url=redirect_url,
             email=credentials.get("email"),
         )

@@ -273,8 +273,8 @@ class SignupView(
             return complete_signup(
                 self.request,
                 self.user,
-                app_settings.EMAIL_VERIFICATION,
-                self.get_success_url(),
+                email_verification=None,
+                success_url=self.get_success_url(),
             )
         except ImmediateHttpResponse as e:
             return e.response
@@ -425,7 +425,7 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
             return perform_login(
                 self.request,
                 user,
-                app_settings.EmailVerificationMethod.NONE,
+                email_verification=app_settings.EmailVerificationMethod.NONE,
                 # passed as callable, as this method
                 # depends on the authenticated state
                 redirect_url=self.get_redirect_url,
@@ -940,7 +940,6 @@ class PasswordResetFromKeyView(
             return perform_login(
                 self.request,
                 self.reset_user,
-                email_verification=app_settings.EMAIL_VERIFICATION,
             )
 
         return super(PasswordResetFromKeyView, self).form_valid(form)

@@ -47,6 +47,8 @@ def _generate_unique_username_base(txts, regex=None):
             continue
         username = unicodedata.normalize("NFKD", force_str(txt))
         username = username.encode("ascii", "ignore").decode("ascii")
+        if len(username) == 0:
+            continue
         username = force_str(re.sub(regex, "", username).lower())
         # Django allows for '@' in usernames in order to accommodate for
         # project wanting to use email for username. In allauth we don't

@@ -13,15 +13,16 @@ msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-23 12:50-0600\n"
-"PO-Revision-Date: 2014-12-01 01:20+0000\n"
-"Last-Translator: cacarrara <caiocarrara@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
-"django-allauth/language/pt_BR/)\n"
+"PO-Revision-Date: 2024-02-01 07:01+0000\n"
+"Last-Translator: joaovitorpmoreira <programacaojoaopm@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
+"django-allauth/django-allauth/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: account/adapter.py:50
 msgid "Username can not be used. Please use other username."
@@ -41,10 +42,8 @@ msgid "Please type your current password."
 msgstr "Por favor insira a sua senha atual."
 
 #: account/adapter.py:60
-#, fuzzy
-#| msgid "Current Password"
 msgid "Incorrect password."
-msgstr "Senha Atual"
+msgstr "Senha incorreta."
 
 #: account/adapter.py:61
 #, python-brace-format
@@ -56,10 +55,8 @@ msgid "The email address is not assigned to any user account"
 msgstr "Este endereço de e-mail não está associado a nenhuma conta de usuário"
 
 #: account/adapter.py:739
-#, fuzzy
-#| msgid "Forgot Password?"
 msgid "Use your password"
-msgstr "Esqueceu a sua senha?"
+msgstr "Insira sua senha"
 
 #: account/adapter.py:749
 msgid "Use your authenticator app"

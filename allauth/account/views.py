@@ -33,6 +33,7 @@ from allauth.account.forms import (
     SignupForm,
     UserTokenForm,
 )
+from allauth.account.internal import flows
 from allauth.account.models import (
     EmailAddress,
     EmailConfirmation,
@@ -47,7 +48,6 @@ from allauth.account.utils import (
     emit_email_changed,
     get_login_redirect_url,
     get_next_redirect_url,
-    logout_on_password_change,
     passthrough_next_redirect_url,
     perform_login,
     send_email_confirmation,
@@ -706,21 +706,7 @@ class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
 
     def form_valid(self, form):
         form.save()
-        logout_on_password_change(self.request, form.user)
-        adapter = get_adapter(self.request)
-        adapter.add_message(
-            self.request,
-            messages.SUCCESS,
-            "account/messages/password_changed.txt",
-        )
-        adapter.send_notification_mail(
-            "account/email/password_changed", self.request.user
-        )
-        signals.password_changed.send(
-            sender=self.request.user.__class__,
-            request=self.request,
-            user=self.request.user,
-        )
+        flows.password_change.finalize_password_change(self.request, form.user)
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -766,18 +752,7 @@ class PasswordSetView(AjaxCapableProcessFormViewMixin, FormView):
 
     def form_valid(self, form):
         form.save()
-        user = form.user
-        logout_on_password_change(self.request, user)
-        adapter = get_adapter(self.request)
-        adapter.add_message(
-            self.request, messages.SUCCESS, "account/messages/password_set.txt"
-        )
-        signals.password_set.send(
-            sender=user.__class__,
-            request=self.request,
-            user=user,
-        )
-        adapter.send_notification_mail("account/email/password_set", user)
+        flows.password_change.finalize_password_set(self.request, form.user)
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -910,34 +885,12 @@ class PasswordResetFromKeyView(
 
     def form_valid(self, form):
         form.save()
-        adapter = get_adapter(self.request)
-
-        if self.reset_user:
-            # User successfully reset the password, clear any
-            # possible cache entries for all email addresses.
-            for email in self.reset_user.emailaddress_set.all():
-                adapter._delete_login_attempts_cached_email(
-                    self.request, email=email.email
-                )
-
-        adapter.add_message(
-            self.request,
-            messages.SUCCESS,
-            "account/messages/password_changed.txt",
-        )
-        signals.password_reset.send(
-            sender=self.reset_user.__class__,
-            request=self.request,
-            user=self.reset_user,
-        )
-        adapter.send_notification_mail("account/email/password_reset", self.reset_user)
-
+        flows.password_reset.finalize_password_reset(self.request, self.reset_user)
         if app_settings.LOGIN_ON_PASSWORD_RESET:
             return perform_login(
                 self.request,
                 self.reset_user,
             )
-
         return super(PasswordResetFromKeyView, self).form_valid(form)
 
 

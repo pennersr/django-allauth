@@ -9,6 +9,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext, gettext_lazy as _, pgettext
 
 from allauth.account.authentication import record_authentication
+from allauth.account.internal import flows
 
 from ..utils import (
     build_absolute_uri,
@@ -545,7 +546,7 @@ class ChangePasswordForm(PasswordVerificationMixin, UserForm):
         return self.cleaned_data["oldpassword"]
 
     def save(self):
-        get_adapter().set_password(self.user, self.cleaned_data["password1"])
+        flows.password_change.change_password(self.user, self.cleaned_data["password1"])
 
 
 class SetPasswordForm(PasswordVerificationMixin, UserForm):
@@ -560,7 +561,7 @@ class SetPasswordForm(PasswordVerificationMixin, UserForm):
         self.fields["password1"].user = self.user
 
     def save(self):
-        get_adapter().set_password(self.user, self.cleaned_data["password1"])
+        flows.password_change.change_password(self.user, self.cleaned_data["password1"])
 
 
 class ResetPasswordForm(forms.Form):

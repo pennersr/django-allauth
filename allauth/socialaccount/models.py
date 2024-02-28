@@ -287,6 +287,7 @@ class SocialLogin(object):
         """Look up the existing local user account to which this social login
         points, if any.
         """
+        self._did_authenticate_by_email = False
         if not self._lookup_by_socialaccount():
             self._lookup_by_email()
 
@@ -341,9 +342,13 @@ class SocialLogin(object):
             users = filter_users_by_email(email, prefer_verified=True)
             if users:
                 self.user = users[0]
-                if app_settings.EMAIL_AUTHENTICATION_AUTO_CONNECT:
-                    self.connect(context.request, self.user)
+                self._did_authenticate_by_email = True
                 return
+
+    def _accept_login(self):
+        if self._did_authenticate_by_email:
+            if app_settings.EMAIL_AUTHENTICATION_AUTO_CONNECT:
+                self.connect(context.request, self.user)
 
     def get_redirect_url(self, request):
         url = self.state.get("next")

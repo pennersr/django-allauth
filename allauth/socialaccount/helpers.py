@@ -105,6 +105,7 @@ def record_authentication(request, sociallogin):
 
 
 def _login_social_account(request, sociallogin):
+    sociallogin._accept_login()
     return perform_login(
         request,
         sociallogin.user,

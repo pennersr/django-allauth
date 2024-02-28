@@ -86,10 +86,8 @@ class EmailAddress(models.Model):
         return True
 
     def send_confirmation(self, request=None, signup=False):
-        if app_settings.EMAIL_CONFIRMATION_HMAC:
-            confirmation = EmailConfirmationHMAC(self)
-        else:
-            confirmation = EmailConfirmation.create(self)
+        model = get_emailconfirmation_model()
+        confirmation = model.create(self)
         confirmation.send(request, signup=signup)
         return confirmation
 
@@ -156,6 +154,13 @@ class EmailConfirmation(EmailConfirmationMixin, models.Model):
         key = get_adapter().generate_emailconfirmation_key(email_address.email)
         return cls._default_manager.create(email_address=email_address, key=key)
 
+    @classmethod
+    def from_key(cls, key):
+        qs = EmailConfirmation.objects.all_valid()
+        qs = qs.select_related("email_address__user")
+        emailconfirmation = qs.filter(key=key.lower()).first()
+        return emailconfirmation
+
     def key_expired(self):
         expiration_date = self.sent + datetime.timedelta(
             days=app_settings.EMAIL_CONFIRMATION_EXPIRE_DAYS
@@ -177,6 +182,10 @@ class EmailConfirmation(EmailConfirmationMixin, models.Model):
 class EmailConfirmationHMAC(EmailConfirmationMixin, object):
     def __init__(self, email_address):
         self.email_address = email_address
+
+    @classmethod
+    def create(cls, email_address):
+        return EmailConfirmationHMAC(email_address)
 
     @property
     def key(self):
@@ -273,3 +282,11 @@ class Login:
             )
         except KeyError:
             raise ValueError()
+
+
+def get_emailconfirmation_model():
+    if app_settings.EMAIL_CONFIRMATION_HMAC:
+        model = EmailConfirmationHMAC
+    else:
+        model = EmailConfirmation
+    return model

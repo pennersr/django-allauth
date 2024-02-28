@@ -36,7 +36,7 @@ from allauth.account.forms import (
 from allauth.account.models import (
     EmailAddress,
     EmailConfirmation,
-    EmailConfirmationHMAC,
+    get_emailconfirmation_model,
 )
 from allauth.account.reauthentication import (
     record_authentication,
@@ -435,14 +435,10 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
 
     def get_object(self, queryset=None):
         key = self.kwargs["key"]
-        emailconfirmation = EmailConfirmationHMAC.from_key(key)
+        model = get_emailconfirmation_model()
+        emailconfirmation = model.from_key(key)
         if not emailconfirmation:
-            if queryset is None:
-                queryset = self.get_queryset()
-            try:
-                emailconfirmation = queryset.get(key=key.lower())
-            except EmailConfirmation.DoesNotExist:
-                raise Http404()
+            raise Http404()
         return emailconfirmation
 
     def get_queryset(self):

@@ -72,7 +72,7 @@ class SignupView(
         return ret
 
     def get_authenticated_redirect_url(self):
-        return reverse(connections)
+        return reverse("socialaccount_connections")
 
 
 signup = SignupView.as_view()

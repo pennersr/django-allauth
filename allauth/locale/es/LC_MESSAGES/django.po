@@ -7,15 +7,16 @@ msgstr ""
 "Project-Id-Version: 0.61.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-23 12:50-0600\n"
-"PO-Revision-Date: 2024-02-26 19:28+0100\n"
-"Last-Translator: Quique <cronopios@gmail.com>\n"
-"Language-Team: Spanish <>\n"
+"PO-Revision-Date: 2024-03-01 11:00+0000\n"
+"Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/django-allauth/"
+"django-allauth/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
-"X-Generator: Gtranslator 42.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: account/adapter.py:50
 msgid "Username can not be used. Please use other username."
@@ -247,7 +248,7 @@ msgstr "Códigos de recuperación"
 
 #: mfa/models.py:20
 msgid "TOTP Authenticator"
-msgstr ""
+msgstr "Verificador TOTP"
 
 #: socialaccount/adapter.py:31
 #, python-format
@@ -417,11 +418,11 @@ msgstr "Confirmar acceso"
 
 #: templates/account/base_reauthenticate.html:11
 msgid "Please reauthenticate to safeguard your account."
-msgstr ""
+msgstr "Por favor, vuelva a autenticarse para proteger su cuenta."
 
 #: templates/account/base_reauthenticate.html:17
 msgid "Alternative options"
-msgstr ""
+msgstr "Opciones alternativas"
 
 #: templates/account/email.html:4 templates/account/email.html:8
 msgid "Email Addresses"
@@ -486,6 +487,18 @@ msgid ""
 "\n"
 "%(password_reset_url)s"
 msgstr ""
+"Usted está recibiendo este correo electrónico porque usted u otra persona "
+"intentó registrarse para una cuenta de\n"
+"cuenta utilizando la dirección de correo electrónico\n"
+"\n"
+"%(email)s\n"
+"\n"
+"Sin embargo, ya existe una cuenta con esa dirección de correo electrónico.  "
+"En caso de que\n"
+"olvidado, utilice el procedimiento de olvido de contraseña para recuperar\n"
+"su cuenta:\n"
+"\n"
+"%(password_reset_url)s"
 
 #: templates/account/email/account_already_exists_subject.txt:3
 msgid "Account Already Exists"
@@ -510,6 +523,8 @@ msgid ""
 "You are receiving this mail because the following change was made to your "
 "account:"
 msgstr ""
+"Está recibiendo este correo porque se ha realizado el siguiente cambio en su "
+"cuenta:"
 
 #: templates/account/email/base_notification.txt:10
 #, python-format
@@ -521,47 +536,43 @@ msgid ""
 "- Browser: %(user_agent)s\n"
 "- Date: %(timestamp)s"
 msgstr ""
+"Si no reconoce este cambio, tome inmediatamente las precauciones de "
+"seguridad adecuadas. El cambio en su cuenta se origina en:\n"
+"\n"
+"- Dirección IP: %(ip)s\n"
+"- Navegador: %(user_agent)s\n"
+"- Fecha: %(timestamp)s"
 
 #: templates/account/email/email_changed_message.txt:4
 #, python-format
 msgid "Your email has been changed from %(from_email)s to %(to_email)s."
-msgstr ""
+msgstr "Tu email ha sido cambiado de %(from_email)s a %(to_email)s."
 
 #: templates/account/email/email_changed_subject.txt:3
-#, fuzzy
-#| msgid "Email address"
 msgid "Email Changed"
-msgstr "Correo electrónico"
+msgstr "Correo electrónico modificado"
 
 #: templates/account/email/email_confirm_message.txt:4
-#, fuzzy
-#| msgid "Your password has been deleted."
 msgid "Your email has been confirmed."
-msgstr "Tu contraseña fue eliminada."
+msgstr "Su correo electrónico ha sido verificado."
 
 #: templates/account/email/email_confirm_subject.txt:3
-#, fuzzy
-#| msgid "email confirmation"
 msgid "Email Confirmation"
-msgstr "confirmación de correo electrónico"
+msgstr "Correo electrónico confirmado"
 
 #: templates/account/email/email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because user %(user_display)s has given your "
-#| "e-mail address to register an account on %(site_domain)s.\n"
-#| "\n"
-#| "To confirm this is correct, go to %(activate_url)s"
+#, python-format
 msgid ""
 "You're receiving this email because user %(user_display)s has given your "
 "email address to register an account on %(site_domain)s.\n"
 "\n"
 "To confirm this is correct, go to %(activate_url)s"
 msgstr ""
-"Ha recibido este correo electrónico porque el usuario %(user_display)s ha "
-"proporcionado su dirección para registrar una cuenta en %(site_domain)s.\n"
+"Está recibiendo este correo electrónico porque el usuario %(user_display)s "
+"ha facilitado su dirección de correo electrónico para registrar una cuenta "
+"en %(site_domain)s.\n"
 "\n"
-"Para confirmar que esto es correcto, siga este enlace %(activate_url)s"
+"Para confirmar que esto es correcto, vaya a %(activate_url)s"
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your Email Address"
@@ -571,32 +582,22 @@ msgstr "Por favor, confirme su dirección de correo electrónico"
 #, python-format
 msgid "Email address %(deleted_email)s has been removed from your account."
 msgstr ""
+"La dirección de correo electrónico %(deleted_email)s ha sido eliminada de tu "
+"cuenta."
 
 #: templates/account/email/email_deleted_subject.txt:3
-#, fuzzy
-#| msgid "Remove"
 msgid "Email Removed"
-msgstr "Eliminar"
+msgstr "Correo electrónico eliminado"
 
 #: templates/account/email/password_changed_message.txt:4
-#, fuzzy
-#| msgid "Your password is now changed."
 msgid "Your password has been changed."
-msgstr "Su contraseña ha cambiado."
+msgstr "Su contraseña ha sido modificada."
 
 #: templates/account/email/password_changed_subject.txt:3
-#, fuzzy
-#| msgid "Password (again)"
 msgid "Password Changed"
-msgstr "Contraseña (de nuevo)"
+msgstr "Contraseña modificada"
 
 #: templates/account/email/password_reset_key_message.txt:4
-#, fuzzy
-#| msgid ""
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
 msgid ""
 "You're receiving this email because you or someone else has requested a "
 "password reset for your user account.\n"
@@ -604,9 +605,9 @@ msgid ""
 "link below to reset your password."
 msgstr ""
 "Está recibiendo este correo electrónico porque usted u otra persona ha "
-"solicitado una contraseña para su cuenta de usuario.\n"
-"Se puede ignorar de forma segura si no solicitó un restablecimiento de "
-"contraseña. Siga el siguiente enlace para restablecer su contraseña."
+"solicitado un restablecimiento de contraseña para su cuenta de usuario.\n"
+"Puedes ignorarlo si no lo has solicitado. Haga clic en el siguiente enlace "
+"para restablecer su contraseña."
 
 #: templates/account/email/password_reset_key_message.txt:9
 #, python-format
@@ -619,10 +620,8 @@ msgid "Password Reset Email"
 msgstr "Correo electrónico para restablecer contraseña"
 
 #: templates/account/email/password_reset_message.txt:4
-#, fuzzy
-#| msgid "Your password has been deleted."
 msgid "Your password has been reset."
-msgstr "Tu contraseña fue eliminada."
+msgstr "Su contraseña ha sido restablecida."
 
 #: templates/account/email/password_reset_subject.txt:3
 #: templates/account/password_reset.html:4
@@ -633,24 +632,15 @@ msgid "Password Reset"
 msgstr "Restablecer Contraseña"
 
 #: templates/account/email/password_set_message.txt:4
-#, fuzzy
-#| msgid "Your password has been deleted."
 msgid "Your password has been set."
-msgstr "Tu contraseña fue eliminada."
+msgstr "Su contraseña ha sido establecida."
 
 #: templates/account/email/password_set_subject.txt:3
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Password Set"
-msgstr "Restablecer Contraseña"
+msgstr "Establecer contraseña"
 
 #: templates/account/email/unknown_account_message.txt:4
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you or someone else has requested a "
-#| "password for your user account.\n"
-#| "It can be safely ignored if you did not request a password reset. Click "
-#| "the link below to reset your password."
+#, python-format
 msgid ""
 "You are receiving this email because you or someone else has requested a\n"
 "password for your user account. However, we do not have any record of a "
@@ -662,42 +652,41 @@ msgid ""
 "If it was you, you can sign up for an account using the link below."
 msgstr ""
 "Está recibiendo este correo electrónico porque usted u otra persona ha "
-"solicitado una contraseña para su cuenta de usuario.\n"
-"Se puede ignorar de forma segura si no solicitó un restablecimiento de "
-"contraseña. Siga el siguiente enlace para restablecer su contraseña."
+"solicitado una\n"
+"contraseña para su cuenta de usuario. Sin embargo, no tenemos ningún "
+"registro de un usuario\n"
+"con email %(email)s en nuestra base de datos.\n"
+"\n"
+"Este correo puede ser ignorado con seguridad si usted no solicitó un "
+"restablecimiento de contraseña.\n"
+"\n"
+"Si has sido tú, puedes registrarte para obtener una cuenta utilizando el "
+"siguiente enlace."
 
 #: templates/account/email_change.html:5 templates/account/email_change.html:9
-#, fuzzy
-#| msgid "Email Addresses"
 msgid "Email Address"
-msgstr "Direcciones de correo electrónico"
+msgstr "Correo electrónico"
 
 #: templates/account/email_change.html:21
 #: templates/account/email_change.html:29
-#, fuzzy
-#| msgid "Current Password"
 msgid "Current email"
-msgstr "Contraseña actual"
+msgstr "Correo electrónico actual"
 
 #: templates/account/email_change.html:31
 msgid "Changing to"
-msgstr ""
+msgstr "Cambiando a"
 
 #: templates/account/email_change.html:35
-#, fuzzy
-#| msgid "Your primary email address must be verified."
 msgid "Your email address is still pending verification."
-msgstr "Su dirección principal de correo electrónico debe ser verificada."
+msgstr "Su dirección de correo electrónico está pendiente de verificación."
 
 #: templates/account/email_change.html:41
 msgid "Cancel Change"
-msgstr ""
+msgstr "Cancelar el cambio"
 
 #: templates/account/email_change.html:49
-#, fuzzy
-#| msgid "Change Email"
 msgid "Change to"
-msgstr "Cambiar correo electrónico"
+msgstr "Cambiar a"
 
 #: templates/account/email_change.html:55
 #: templates/allauth/layouts/base.html:29
@@ -710,16 +699,13 @@ msgid "Confirm Email Address"
 msgstr "Confirmar dirección de correo electrónico"
 
 #: templates/account/email_confirm.html:16
-#, fuzzy, python-format
-#| msgid ""
-#| "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
-#| "mail address for user %(user_display)s."
+#, python-format
 msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an email "
 "address for user %(user_display)s."
 msgstr ""
-"Por favor confirme que <a href=\"mailto:%(email)s\">%(email)s</a> es una "
-"dirección de correo electrónico del usuario %(user_display)s."
+"Por favor, confirme que <a href=\"mailto:%(email)s\">%(email)s</a> es una "
+"dirección de correo electrónico para el usuario %(user_display)s."
 
 #: templates/account/email_confirm.html:23
 #: templates/account/reauthenticate.html:20
@@ -729,25 +715,22 @@ msgstr "Confirmar"
 
 #: templates/account/email_confirm.html:29
 #: templates/account/messages/email_confirmation_failed.txt:2
-#, fuzzy, python-format
-#| msgid "The social account is already connected to a different account."
+#, python-format
 msgid ""
 "Unable to confirm %(email)s because it is already confirmed by a different "
 "account."
-msgstr "Esta cuenta de red social ya ha sido asociada a otra cuenta."
+msgstr ""
+"No se puede confirmar %(email)s porque ya está confirmado por otra cuenta."
 
 #: templates/account/email_confirm.html:35
-#, fuzzy, python-format
-#| msgid ""
-#| "This e-mail confirmation link expired or is invalid. Please <a "
-#| "href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+#, python-format
 msgid ""
 "This email confirmation link expired or is invalid. Please <a "
 "href=\"%(email_url)s\">issue a new email confirmation request</a>."
 msgstr ""
-"Este enlace de verificación de correo ha expirado o es inválido. Por favor "
-"<a href=\"%(email_url)s\">solicite una nueva verificación por correo "
-"electrónico.</a>."
+"Este enlace de confirmación por correo electrónico ha caducado o no es "
+"válido. Por favor, <a href=\"%(email_url)s\"> emita una nueva solicitud de "
+"confirmación por correo electrónico</a>."
 
 #: templates/account/login.html:5 templates/account/login.html:9
 #: templates/account/login.html:29 templates/allauth/layouts/base.html:36
@@ -758,16 +741,13 @@ msgid "Sign In"
 msgstr "Iniciar sesión"
 
 #: templates/account/login.html:12
-#, fuzzy, python-format
-#| msgid ""
-#| "If you have not created an account yet, then please\n"
-#| "<a href=\"%(signup_url)s\">sign up</a> first."
+#, python-format
 msgid ""
 "If you have not created an account yet, then please\n"
 "    <a href=\"%(signup_url)s\">sign up</a> first."
 msgstr ""
-"Si todavía no ha creado una cuenta, entonces por favor\n"
-"<a href=\"%(signup_url)s\">regístrese</a> primero."
+"Si aún no ha creado una cuenta, por favor\n"
+"    <a href=\"%(signup_url)s\">regístrese</a> primero."
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
 #: templates/account/logout.html:23 templates/allauth/layouts/base.html:32
@@ -858,18 +838,13 @@ msgstr ""
 "contáctenos."
 
 #: templates/account/password_reset_done.html:16
-#, fuzzy
-#| msgid ""
-#| "We have sent you an e-mail. If you have not received it please check your "
-#| "spam folder. Otherwise contact us if you do not receive it in a few "
-#| "minutes."
 msgid ""
 "We have sent you an email. If you have not received it please check your "
 "spam folder. Otherwise contact us if you do not receive it in a few minutes."
 msgstr ""
-"Le hemos enviado un correo electrónico. Si no lo ha recibido, por favor "
-"revise su carpeta de correo no deseado. En caso contrario, póngase en "
-"contacto con nosotros si no lo recibe en unos minutos."
+"Le hemos enviado un correo electrónico. Si no lo ha recibido, compruebe su "
+"carpeta de correo no deseado. De lo contrario, póngase en contacto con "
+"nosotros si no lo recibe en unos minutos."
 
 #: templates/account/password_reset_from_key.html:10
 msgid "Bad Token"
@@ -939,18 +914,13 @@ msgid "Warning:"
 msgstr "Advertencia:"
 
 #: templates/account/snippets/warn_no_email.html:3
-#, fuzzy
-#| msgid ""
-#| "You currently do not have any e-mail address set up. You should really "
-#| "add an e-mail address so you can receive notifications, reset your "
-#| "password, etc."
 msgid ""
 "You currently do not have any email address set up. You should really add an "
 "email address so you can receive notifications, reset your password, etc."
 msgstr ""
-"Actualmente no tiene ninguna dirección de correo electrónico definida. "
-"Debería añadir una dirección de correo electrónico para poder recibir "
-"notificaciones, restablecer la contraseña, etc."
+"Actualmente no tienes ninguna dirección de correo electrónico configurada. "
+"Debería añadir una dirección de correo electrónico para recibir "
+"notificaciones, restablecer su contraseña, etc."
 
 #: templates/account/verification_sent.html:5
 #: templates/account/verification_sent.html:9
@@ -960,12 +930,6 @@ msgid "Verify Your Email Address"
 msgstr "Verifique su dirección de correo electrónico"
 
 #: templates/account/verification_sent.html:12
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for verification. Follow the link provided "
-#| "to finalize the signup process. If you do not see the verification e-mail "
-#| "in your main inbox, check your spam folder. Please contact us if you do "
-#| "not receive the verification e-mail within a few minutes."
 msgid ""
 "We have sent an email to you for verification. Follow the link provided to "
 "finalize the signup process. If you do not see the verification email in "
@@ -973,32 +937,22 @@ msgid ""
 "receive the verification email within a few minutes."
 msgstr ""
 "Le hemos enviado un correo electrónico para su verificación. Siga el enlace "
-"para completar el proceso de registro. Por favor contacte con nosotros si no "
-"lo recibe en unos minutos."
+"proporcionado para finalizar el proceso de registro. Si no ves el correo "
+"electrónico de verificación en tu bandeja de entrada principal, comprueba tu "
+"carpeta de correo no deseado. Por favor, póngase en contacto con nosotros si "
+"no recibe el correo electrónico de verificación en unos minutos."
 
 #: templates/account/verified_email_required.html:13
-#, fuzzy
-#| msgid ""
-#| "This part of the site requires us to verify that\n"
-#| "you are who you claim to be. For this purpose, we require that you\n"
-#| "verify ownership of your e-mail address. "
 msgid ""
 "This part of the site requires us to verify that\n"
 "you are who you claim to be. For this purpose, we require that you\n"
 "verify ownership of your email address. "
 msgstr ""
-"Esta parte del sitio web requiere que verifiquemos que es quien dice ser. "
-"Para este fin, le requerimos que verifique la propiedad de su correo "
-"electrónico. "
+"Esta parte de la página requiere que verifiquemos que\n"
+"usted es quien dice ser. Para ello, le pedimos que\n"
+"verifique la titularidad de su dirección de correo electrónico. "
 
 #: templates/account/verified_email_required.html:18
-#, fuzzy
-#| msgid ""
-#| "We have sent an e-mail to you for\n"
-#| "verification. Please click on the link inside that e-mail. If you do not "
-#| "see the verification e-mail in your main inbox, check your spam folder. "
-#| "Otherwise\n"
-#| "contact us if you do not receive it within a few minutes."
 msgid ""
 "We have sent an email to you for\n"
 "verification. Please click on the link inside that email. If you do not see "
@@ -1006,20 +960,20 @@ msgid ""
 "Otherwise\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
-"Le hemos enviado un correo electrónico para su verificación. Por favor, siga "
-"el enlace de ese correo. Contacte con nosotros si no lo recibe en unos "
-"minutos."
+"Le hemos enviado un correo electrónico para\n"
+"verificación. Por favor, haga clic en el enlace que aparece en ese correo "
+"electrónico. Si no ve el correo electrónico de verificación en su bandeja de "
+"entrada principal, compruebe su carpeta de correo no deseado. De lo "
+"contrario,\n"
+"póngase en contacto con nosotros si no lo recibe en unos minutos."
 
 #: templates/account/verified_email_required.html:23
-#, fuzzy, python-format
-#| msgid ""
-#| "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change "
-#| "your e-mail address</a>."
+#, python-format
 msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
 "email address</a>."
 msgstr ""
-"<strong>Nota:</strong> todavía puede <a href=\"%(email_url)s\">cambiar su "
+"<strong>Nota:</strong> aún puedes <a href=\"%(email_url)s\">cambiar tu "
 "dirección de correo electrónico</a>."
 
 #: templates/allauth/layouts/base.html:18
@@ -1033,7 +987,7 @@ msgstr "Menú:"
 #: templates/mfa/authenticate.html:9 templates/mfa/index.html:5
 #: templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
-msgstr ""
+msgstr "Autenticació de doble factor"
 
 #: templates/mfa/authenticate.html:12
 msgid ""

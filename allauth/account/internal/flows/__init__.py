@@ -1,4 +1,8 @@
-from allauth.account.internal.flows import password_change, password_reset
+from allauth.account.internal.flows import (
+    login,
+    password_change,
+    password_reset,
+)
 
 
-__all__ = ["password_reset", "password_change"]
+__all__ = ["password_reset", "password_change", "login"]

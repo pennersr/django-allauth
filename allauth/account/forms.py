@@ -8,7 +8,6 @@ from django.urls import NoReverseMatch, reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext, gettext_lazy as _, pgettext
 
-from allauth.account.authentication import record_authentication
 from allauth.account.internal import flows
 
 from ..utils import (
@@ -19,12 +18,11 @@ from ..utils import (
 from . import app_settings
 from .adapter import get_adapter
 from .app_settings import AuthenticationMethod
-from .models import EmailAddress
+from .models import EmailAddress, Login
 from .utils import (
     assess_unique_email,
     filter_users_by_email,
     get_user_model,
-    perform_login,
     setup_user_email,
     sync_user_email_addresses,
     url_str_to_user_pk,
@@ -202,18 +200,12 @@ class LoginForm(forms.Form):
 
     def login(self, request, redirect_url=None):
         credentials = self.user_credentials()
-        extra_data = {
-            field: credentials.get(field)
-            for field in ["email", "username"]
-            if field in credentials
-        }
-        record_authentication(request, method="password", **extra_data)
-        ret = perform_login(
-            request,
-            self.user,
+        login = Login(
+            user=self.user,
             redirect_url=redirect_url,
             email=credentials.get("email"),
         )
+        ret = flows.login.perform_password_login(request, credentials, login)
         remember = app_settings.SESSION_REMEMBER
         if remember is None:
             remember = self.cleaned_data["remember"]

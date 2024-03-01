@@ -1,8 +1,8 @@
 from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
 
-from allauth.account import signals
+from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
-from allauth.account.utils import logout_on_password_change
 
 
 def change_password(user, password):
@@ -35,3 +35,11 @@ def finalize_password_set(request, user):
         request=request,
         user=user,
     )
+
+
+def logout_on_password_change(request, user):
+    # Since it is the default behavior of Django to invalidate all sessions on
+    # password change, this function actually has to preserve the session when
+    # logout isn't desired.
+    if not app_settings.LOGOUT_ON_PASSWORD_CHANGE:
+        update_session_auth_hash(request, user)

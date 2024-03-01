@@ -4,7 +4,7 @@ from typing import Optional
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import get_user_model, update_session_auth_hash
+from django.contrib.auth import get_user_model
 from django.core.exceptions import FieldDoesNotExist
 from django.db import models
 from django.db.models import Q
@@ -13,8 +13,8 @@ from django.utils.http import base36_to_int, int_to_base36, urlencode
 
 from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
+from allauth.account.internal import flows
 from allauth.account.models import Login
-from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.utils import (
     get_request_param,
     import_callable,
@@ -61,14 +61,6 @@ def get_login_redirect_url(request, url=None, redirect_field_name="next", signup
 
 
 _user_display_callable = None
-
-
-def logout_on_password_change(request, user):
-    # Since it is the default behavior of Django to invalidate all sessions on
-    # password change, this function actually has to preserve the session when
-    # logout isn't desired.
-    if not app_settings.LOGOUT_ON_PASSWORD_CHANGE:
-        update_session_auth_hash(request, user)
 
 
 def default_user_display(user):
@@ -148,15 +140,6 @@ def perform_login(
     signup=False,
     email=None,
 ):
-    """
-    Keyword arguments:
-
-    signup -- Indicates whether or not sending the
-    email is essential (during signup), or if it can be skipped (e.g. in
-    case email verification is optional and we are only logging in).
-    """
-    if not email_verification:
-        email_verification = app_settings.EMAIL_VERIFICATION
     login = Login(
         user=user,
         email_verification=email_verification,
@@ -165,53 +148,11 @@ def perform_login(
         signup=signup,
         email=email,
     )
-    return _perform_login(request, login)
-
-
-def _perform_login(request, login):
-    # Local users are stopped due to form validation checking
-    # is_active, yet, adapter methods could toy with is_active in a
-    # `user_signed_up` signal. Furthermore, social users should be
-    # stopped anyway.
-    adapter = get_adapter()
-    hook_kwargs = _get_login_hook_kwargs(login)
-    response = adapter.pre_login(request, login.user, **hook_kwargs)
-    if response:
-        return response
-    return resume_login(request, login)
-
-
-def _get_login_hook_kwargs(login):
-    """
-    TODO: Just break backwards compatibility and pass only `login` to
-    `pre/post_login()`.
-    """
-    return dict(
-        email_verification=login.email_verification,
-        redirect_url=login.redirect_url,
-        signal_kwargs=login.signal_kwargs,
-        signup=login.signup,
-        email=login.email,
-    )
+    return flows.login.perform_login(request, login)
 
 
 def resume_login(request, login):
-    from allauth.account.stages import LoginStageController
-
-    adapter = get_adapter()
-    ctrl = LoginStageController(request, login)
-    try:
-        response = ctrl.handle()
-        if response:
-            return response
-        adapter.login(request, login.user)
-        hook_kwargs = _get_login_hook_kwargs(login)
-        response = adapter.post_login(request, login.user, **hook_kwargs)
-        if response:
-            return response
-    except ImmediateHttpResponse as e:
-        response = e.response
-    return response
+    return flows.login.resume_login(request, login)
 
 
 def unstash_login(request, peek=False):

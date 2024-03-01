@@ -106,6 +106,7 @@ def record_authentication(request, sociallogin):
 
 def _login_social_account(request, sociallogin):
     sociallogin._accept_login()
+    record_authentication(request, sociallogin)
     return perform_login(
         request,
         sociallogin.user,
@@ -232,7 +233,6 @@ def _complete_social_login(request, sociallogin):
     if request.user.is_authenticated:
         get_account_adapter(request).logout(request)
     if sociallogin.is_existing:
-        record_authentication(request, sociallogin)
         # Login existing user
         ret = _login_social_account(request, sociallogin)
     else:

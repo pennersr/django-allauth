@@ -26,6 +26,9 @@
                type="{{ attrs.type }}">
     {% endif %}
     {% if slots.help_text %}
-        <span>{% slot help_text %}{% endslot %}</span>
+        <span>
+            {% slot help_text %}
+            {% endslot %}
+        </span>
     {% endif %}
 </p>

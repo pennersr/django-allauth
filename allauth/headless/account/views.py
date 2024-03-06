@@ -137,8 +137,7 @@ class ResetPasswordView(APIView):
             self.input.user, self.input.cleaned_data["password"]
         )
         password_reset.finalize_password_reset(request, self.input.user)
-        data = {}
-        return response.APIResponse(data)
+        return response.APIResponse()
 
 
 reset_password = ResetPasswordView.as_view()

@@ -56,11 +56,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/account/password/reset',
-        element: <RequestPasswordReset />
+        element: <AnonymousRoute><RequestPasswordReset /></AnonymousRoute>
       },
       {
         path: '/account/password/reset/key/:key',
-        element: <ResetPassword />,
+        element: <AnonymousRoute><ResetPassword /></AnonymousRoute>,
         loader: resetPasswordLoader
       }
     ]

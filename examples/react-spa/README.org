@@ -16,7 +16,7 @@ Then, visit the app over at http://localhost:10000.
 
 ** Status
 
-*** Frontend
+*** Frontend [50%]
 
 **** DONE Login
 
@@ -26,7 +26,7 @@ Then, visit the app over at http://localhost:10000.
 
 **** DONE Confirm email
 
-**** TODO Manage email addresses
+**** DONE Manage email addresses
 
 **** TODO Change password
 
@@ -38,8 +38,23 @@ Then, visit the app over at http://localhost:10000.
 
 **** TODO User sessions
 
-*** Headless
+*** Headless [0%]
 
 **** TODO Check rate limit handling
 
 **** TODO Make "Unknown account" email signup URL configurable
+
+**** TODO Mobile client (access tokens, no CSRF/cookies)
+
+**** TODO Disable messages framework
+Or, add to meta in response?
+
+**** TODO Social signin
+
+**** TODO MFA
+
+**** TODO OpenAPI Spec
+
+**** TODO Documentation
+
+**** TODO Test coverage

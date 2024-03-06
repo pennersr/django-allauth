@@ -8,7 +8,8 @@ const ACCEPT_JSON = {
 export const Flows = Object.freeze({
   VERIFY_EMAIL: 'verify_email',
   LOGIN: 'login',
-  SIGNUP: 'signup'
+  SIGNUP: 'signup',
+  PROVIDER_LOGIN: 'provider_login'
 })
 
 export const URLs = Object.freeze({

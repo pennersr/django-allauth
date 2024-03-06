@@ -565,33 +565,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
     def _action_remove(self, request, *args, **kwargs):
         email_address = self._get_email_address(request)
         if email_address:
-            adapter = get_adapter()
-            if not adapter.can_delete_email(email_address):
-                adapter.add_message(
-                    request,
-                    messages.ERROR,
-                    "account/messages/cannot_delete_primary_email.txt",
-                    {"email": email_address.email},
-                )
-            else:
-                email_address.remove()
-                signals.email_removed.send(
-                    sender=request.user.__class__,
-                    request=request,
-                    user=request.user,
-                    email_address=email_address,
-                )
-                adapter.add_message(
-                    request,
-                    messages.SUCCESS,
-                    "account/messages/email_deleted.txt",
-                    {"email": email_address.email},
-                )
-                adapter.send_notification_mail(
-                    "account/email/email_deleted",
-                    request.user,
-                    {"deleted_email": email_address.email},
-                )
+            if flows.manage_email.delete_email(request, email_address):
                 return HttpResponseRedirect(self.get_success_url())
 
     def _action_primary(self, request, *args, **kwargs):

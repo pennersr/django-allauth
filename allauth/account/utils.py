@@ -316,7 +316,7 @@ def send_email_confirmation(request, user, signup=False, email=None):
     from .models import EmailAddress
 
     adapter = get_adapter()
-
+    sent = False
     email_address = None
     if not email:
         email = user_email(user)
@@ -340,6 +340,7 @@ def send_email_confirmation(request, user, signup=False, email=None):
                 )
                 if send_email:
                     email_address.send_confirmation(request, signup=signup)
+                    sent = True
             else:
                 send_email = False
         else:
@@ -347,6 +348,7 @@ def send_email_confirmation(request, user, signup=False, email=None):
             email_address = EmailAddress.objects.add_email(
                 request, user, email, signup=signup, confirm=True
             )
+            sent = True
             assert email_address
         # At this point, if we were supposed to send an email we have sent it.
         if send_email:
@@ -358,6 +360,7 @@ def send_email_confirmation(request, user, signup=False, email=None):
             )
     if signup:
         adapter.stash_user(request, user_pk_to_url_str(user))
+    return sent
 
 
 def sync_user_email_addresses(user):

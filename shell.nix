@@ -7,6 +7,7 @@ stdenv.mkDerivation {
         gettext
         isort
         djlint
+        nodejs
         python310
         python310Packages.django
         python310Packages.flake8
@@ -28,4 +29,7 @@ stdenv.mkDerivation {
         sphinx
         twine
     ];
+    shellHook = ''
+        export PATH="$PWD/node_modules/.bin/:$PATH"
+    '';
 }

@@ -10,6 +10,7 @@ const flow2path = {}
 flow2path[Flows.LOGIN] = '/account/login'
 flow2path[Flows.SIGNUP] = '/account/signup'
 flow2path[Flows.VERIFY_EMAIL] = '/account/verify-email'
+flow2path[Flows.PROVIDER_LOGIN] = '/account/FIXME'
 
 function route401 (auth, location, children, pickPending) {
   const pendingFlows = auth.data.flows.filter(flow => flow.is_pending)
@@ -20,6 +21,7 @@ function route401 (auth, location, children, pickPending) {
   const path = flow2path[flow]
   if (!pickPending) {
     const okPaths = auth.data.flows.map(flow => flow2path[flow.id])
+    okPaths.push('/account/password/reset')
     if (okPaths.some(p => location.pathname.startsWith(p))) {
       return children
     }

@@ -1,7 +1,7 @@
 from importlib import import_module
 
 from django import forms
-from django.contrib.auth import password_validation
+from django.contrib.auth import get_user_model, password_validation
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core import exceptions, validators
 from django.urls import NoReverseMatch, reverse
@@ -22,7 +22,6 @@ from .models import EmailAddress, Login
 from .utils import (
     assess_unique_email,
     filter_users_by_email,
-    get_user_model,
     setup_user_email,
     sync_user_email_addresses,
     url_str_to_user_pk,
@@ -631,7 +630,7 @@ class ResetPasswordKeyForm(PasswordVerificationMixin, forms.Form):
         self.fields["password1"].user = self.user
 
     def save(self):
-        get_adapter().set_password(self.user, self.cleaned_data["password1"])
+        flows.password_reset.reset_password(self.user, self.cleaned_data["password1"])
 
 
 class UserTokenForm(forms.Form):

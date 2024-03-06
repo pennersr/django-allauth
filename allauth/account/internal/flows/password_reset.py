@@ -4,6 +4,10 @@ from allauth.account import signals
 from allauth.account.adapter import get_adapter
 
 
+def reset_password(user, password):
+    get_adapter().set_password(user, password)
+
+
 def finalize_password_reset(request, user):
     adapter = get_adapter()
     if user:

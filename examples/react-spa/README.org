@@ -16,7 +16,7 @@ Then, visit the app over at http://localhost:10000.
 
 ** Status
 
-*** Frontend [50%]
+*** Frontend [60%]
 
 **** DONE Login
 
@@ -28,7 +28,9 @@ Then, visit the app over at http://localhost:10000.
 
 **** DONE Manage email addresses
 
-**** TODO Change password
+**** DONE Change password
+
+**** TODO Set password
 
 **** TODO Re-authentication
 
@@ -58,3 +60,9 @@ Or, add to meta in response?
 **** TODO Documentation
 
 **** TODO Test coverage
+
+**** TODO Change password vs ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE
+
+**** TODO Investigate a headless-only mode
+
+=HEADLESS_ONLY = True=  ?

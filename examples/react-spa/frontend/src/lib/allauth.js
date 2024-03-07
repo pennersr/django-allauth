@@ -20,6 +20,7 @@ export const URLs = Object.freeze({
   VERIFY_EMAIL: BASE_URL + '/auth/verify_email',
   REQUEST_PASSWORD_RESET: BASE_URL + '/auth/password/request',
   RESET_PASSWORD: BASE_URL + '/auth/password/reset',
+  CHANGE_PASSWORD: BASE_URL + '/account/password/change',
   EMAIL: BASE_URL + '/account/email'
 })
 
@@ -94,6 +95,14 @@ export async function getPasswordReset (key) {
 
 export async function resetPassword (data) {
   return await request('POST', URLs.RESET_PASSWORD, data)
+}
+
+export async function getPasswordChange (key) {
+  return await request('GET', URLs.CHANGE_PASSWORD)
+}
+
+export async function changePassword (data) {
+  return await request('POST', URLs.CHANGE_PASSWORD, data)
 }
 
 export async function getAuth () {

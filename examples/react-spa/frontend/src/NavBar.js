@@ -31,6 +31,8 @@ export default function NavBar () {
       {' '}
       <Link to='/account/email'>📬 Change Email</Link>
       {' '}
+      <Link to='/account/password/change'>🔒 Change Password</Link>
+      {' '}
       <a href='http://localhost:1080'>✉️ MailCatcher</a>
     </nav>
   )

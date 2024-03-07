@@ -13,6 +13,7 @@ import ChangeEmail from './ChangeEmail'
 import VerifyEmail, { loader as verifyEmailLoader } from './VerifyEmail'
 import VerificationEmailSent from './VerificationEmailSent'
 import RequestPasswordReset from './RequestPasswordReset'
+import ChangePassword, { loader as changePasswordLoader } from './ChangePassword'
 import NavBar from './NavBar'
 import ResetPassword, { loader as resetPasswordLoader } from './ResetPassword'
 
@@ -62,6 +63,11 @@ const router = createBrowserRouter([
         path: '/account/password/reset/key/:key',
         element: <AnonymousRoute><ResetPassword /></AnonymousRoute>,
         loader: resetPasswordLoader
+      },
+      {
+        path: '/account/password/change',
+        element: <AuthenticatedRoute><ChangePassword /></AuthenticatedRoute>,
+        loader: changePasswordLoader
       }
     ]
   }

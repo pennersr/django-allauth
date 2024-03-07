@@ -146,6 +146,13 @@ reset_password = ResetPasswordView.as_view()
 class ChangePasswordView(AuthenticatedAPIView):
     input_class = ChangePasswordInput
 
+    def get(self, request, *args, **kwargs):
+        return response.APIResponse(
+            data={
+                "has_password": request.user.has_usable_password(),
+            }
+        )
+
     def post(self, request, *args, **kwargs):
         password_change.change_password(
             self.request.user, self.input.cleaned_data["new_password"]

@@ -97,10 +97,6 @@ export async function resetPassword (data) {
   return await request('POST', URLs.RESET_PASSWORD, data)
 }
 
-export async function getPasswordChange (key) {
-  return await request('GET', URLs.CHANGE_PASSWORD)
-}
-
 export async function changePassword (data) {
   return await request('POST', URLs.CHANGE_PASSWORD, data)
 }

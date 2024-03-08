@@ -1,17 +1,11 @@
 import { useState } from 'react'
 import FormErrors from './FormErrors'
-import { getPasswordChange, changePassword } from './lib/allauth'
-import { Navigate, Link, useLoaderData } from 'react-router-dom'
-
-export async function loader ({ params }) {
-  const key = params.key
-  const resp = await getPasswordChange()
-  return { key, changeResponse: resp }
-}
+import { changePassword } from './lib/allauth'
+import { Navigate, Link } from 'react-router-dom'
+import { useUser } from './auth'
 
 export default function ChangePassword () {
-  const { key, changeResponse } = useLoaderData()
-
+  const hasCurrentPassword = useUser().has_usable_password
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [newPassword2, setNewPassword2] = useState('')
@@ -40,10 +34,13 @@ export default function ChangePassword () {
   }
   return (
     <div>
-      <h1>Change Password</h1>
-      <div><label>Current password: <input autoComplete='password' value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} type='password' required /></label>
-        <FormErrors errors={response.content?.error?.detail?.current_password} />
-      </div>
+      <h1>{hasCurrentPassword ? 'Change Password' : 'Set Password'}</h1>
+
+      {hasCurrentPassword
+        ? <div><label>Current password: <input autoComplete='password' value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} type='password' required /></label>
+          <FormErrors errors={response.content?.error?.detail?.current_password} />
+          </div>
+        : null}
       <div><label>Password: <input autoComplete='new-password' value={newPassword} onChange={(e) => setNewPassword(e.target.value)} type='password' required /></label>
         <FormErrors errors={response.content?.error?.detail?.new_password} />
       </div>

@@ -5,7 +5,7 @@ export default function Dashboard () {
   return (
     <div>
       <h1>Dashboard</h1>
-      <p>Welcome user {user.str}!</p>
+      <p>Welcome user {user.display}!</p>
     </div>
   )
 }

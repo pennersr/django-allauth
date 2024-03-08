@@ -3,7 +3,7 @@ import {
   Navigate,
   useLocation
 } from 'react-router-dom'
-import { useAuth } from './AuthContext'
+import { useAuth } from './hooks'
 import { Flows } from '../lib/allauth'
 
 const flow2path = {}

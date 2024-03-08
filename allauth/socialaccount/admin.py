@@ -3,8 +3,8 @@ from django.contrib import admin
 
 from allauth import app_settings
 from allauth.account.adapter import get_adapter
-
-from .models import SocialAccount, SocialApp, SocialToken
+from allauth.socialaccount import providers
+from allauth.socialaccount.models import SocialAccount, SocialApp, SocialToken
 
 
 class SocialAppForm(forms.ModelForm):
@@ -16,6 +16,12 @@ class SocialAppForm(forms.ModelForm):
             "key": forms.TextInput(attrs={"size": "100"}),
             "secret": forms.TextInput(attrs={"size": "100"}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["provider"] = forms.ChoiceField(
+            choices=providers.registry.as_choices()
+        )
 
 
 class SocialAppAdmin(admin.ModelAdmin):

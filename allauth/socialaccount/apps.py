@@ -8,3 +8,8 @@ class SocialAccountConfig(AppConfig):
     name = "allauth.socialaccount"
     verbose_name = _("Social Accounts")
     default_auto_field = app_settings.DEFAULT_AUTO_FIELD or "django.db.models.AutoField"
+
+    def ready(self):
+        from allauth.socialaccount.providers import registry
+
+        registry.load()

@@ -17,6 +17,8 @@ services:
     volumes:
       - ./backend/backend:/code/backend/
       - ../../allauth:/code/allauth
+    ports:
+      - 8000:8000
 
   proxy:
     image: traefik:v3.0

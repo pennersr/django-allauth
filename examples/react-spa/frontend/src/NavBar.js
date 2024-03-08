@@ -17,6 +17,10 @@ export default function NavBar () {
     <>
       {' '}
       <Link to='/account/logout'>👋 Logout</Link>
+      {' '}
+      <Link to='/account/email'>📬 Change Email</Link>
+      {' '}
+      <Link to='/account/password/change'>🔒 Change Password</Link>
     </>
   )
   return (
@@ -28,10 +32,6 @@ export default function NavBar () {
       {user ? authNav : anonNav}
       {' '}
       <Link to='/dashboard'>📈 Dashboard</Link>
-      {' '}
-      <Link to='/account/email'>📬 Change Email</Link>
-      {' '}
-      <Link to='/account/password/change'>🔒 Change Password</Link>
       {' '}
       <a href='http://localhost:1080'>✉️ MailCatcher</a>
     </nav>

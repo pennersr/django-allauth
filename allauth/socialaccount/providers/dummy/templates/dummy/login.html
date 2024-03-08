@@ -1,0 +1,9 @@
+{% extends "socialaccount/base_entrance.html" %}
+{% block content %}
+    <h1>Dummy Provider Login</h1>
+    <form method="post" action="{% url 'dummy_login' %}">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Login</button>
+    </form>
+{% endblock %}

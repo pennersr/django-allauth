@@ -1,4 +1,5 @@
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.edx.views import EdxOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -12,6 +13,7 @@ class EdxProvider(OAuth2Provider):
     id = "edx"
     name = "Edx"
     account_class = EdxAccount
+    oauth2_adapter_class = EdxOAuth2Adapter
 
     def get_default_scope(self):
         return ["profile"]

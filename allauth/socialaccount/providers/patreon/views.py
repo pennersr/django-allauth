@@ -10,11 +10,11 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import API_URL, USE_API_V2, PatreonProvider
+from .constants import API_URL, PROVIDER_ID, USE_API_V2
 
 
 class PatreonOAuth2Adapter(OAuth2Adapter):
-    provider_id = PatreonProvider.id
+    provider_id = PROVIDER_ID
     access_token_url = "https://www.patreon.com/api/oauth2/token"
     authorize_url = "https://www.patreon.com/oauth2/authorize"
     profile_url = "{0}/{1}".format(

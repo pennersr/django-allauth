@@ -1,5 +1,4 @@
 from allauth.socialaccount.adapter import get_adapter
-from allauth.socialaccount.providers.globus.provider import GlobusProvider
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -7,8 +6,8 @@ from allauth.socialaccount.providers.oauth2.views import (
 )
 
 
-class GlobusAdapter(OAuth2Adapter):
-    provider_id = GlobusProvider.id
+class GlobusOAuth2Adapter(OAuth2Adapter):
+    provider_id = "globus"
     provider_default_url = "https://auth.globus.org/v2/oauth2"
 
     provider_base_url = "https://auth.globus.org/v2/oauth2"
@@ -33,5 +32,5 @@ class GlobusAdapter(OAuth2Adapter):
         return self.get_provider().sociallogin_from_response(request, extra_data.json())
 
 
-oauth2_login = OAuth2LoginView.adapter_view(GlobusAdapter)
-oauth2_callback = OAuth2CallbackView.adapter_view(GlobusAdapter)
+oauth2_login = OAuth2LoginView.adapter_view(GlobusOAuth2Adapter)
+oauth2_callback = OAuth2CallbackView.adapter_view(GlobusOAuth2Adapter)

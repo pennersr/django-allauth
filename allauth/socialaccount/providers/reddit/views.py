@@ -6,11 +6,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import RedditProvider
-
 
 class RedditAdapter(OAuth2Adapter):
-    provider_id = RedditProvider.id
+    provider_id = "reddit"
     access_token_url = "https://www.reddit.com/api/v1/access_token"
     authorize_url = "https://www.reddit.com/api/v1/authorize"
     profile_url = "https://oauth.reddit.com/api/v1/me"

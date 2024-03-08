@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import KakaoProvider
-
 
 class KakaoOAuth2Adapter(OAuth2Adapter):
-    provider_id = KakaoProvider.id
+    provider_id = "kakao"
     access_token_url = "https://kauth.kakao.com/oauth/token"
     authorize_url = "https://kauth.kakao.com/oauth/authorize"
     profile_url = "https://kapi.kakao.com/v2/user/me"

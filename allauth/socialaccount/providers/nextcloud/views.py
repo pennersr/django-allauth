@@ -8,11 +8,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import NextCloudProvider
 
-
-class NextCloudAdapter(OAuth2Adapter):
-    provider_id = NextCloudProvider.id
+class NextCloudOAuth2Adapter(OAuth2Adapter):
+    provider_id = "nextcloud"
     settings = app_settings.PROVIDERS.get(provider_id, {})
     server = settings.get("SERVER", "https://nextcloud.example.org")
     access_token_url = "{0}/apps/oauth2/api/v1/token".format(server)
@@ -35,5 +33,5 @@ class NextCloudAdapter(OAuth2Adapter):
         return {d.tag: d.text.strip() for d in data if d.text is not None}
 
 
-oauth2_login = OAuth2LoginView.adapter_view(NextCloudAdapter)
-oauth2_callback = OAuth2CallbackView.adapter_view(NextCloudAdapter)
+oauth2_login = OAuth2LoginView.adapter_view(NextCloudOAuth2Adapter)
+oauth2_callback = OAuth2CallbackView.adapter_view(NextCloudOAuth2Adapter)

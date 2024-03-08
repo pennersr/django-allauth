@@ -1,4 +1,5 @@
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.daum.views import DaumOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -14,6 +15,7 @@ class DaumProvider(OAuth2Provider):
     id = "Daum"
     name = "Daum"
     account_class = DaumAccount
+    oauth2_adapter_class = DaumOAuth2Adapter
 
     def extract_uid(self, data):
         return str(data.get("id"))

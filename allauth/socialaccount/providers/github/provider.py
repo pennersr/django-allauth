@@ -1,5 +1,6 @@
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.github.views import GitHubOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -27,6 +28,7 @@ class GitHubProvider(OAuth2Provider):
     id = "github"
     name = "GitHub"
     account_class = GitHubAccount
+    oauth2_adapter_class = GitHubOAuth2Adapter
 
     def get_default_scope(self):
         scope = []

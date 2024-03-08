@@ -4,6 +4,9 @@ from django.utils.http import urlencode
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.openid_connect.views import (
+    OpenIDConnectOAuth2Adapter,
+)
 
 
 class OpenIDConnectProviderAccount(ProviderAccount):
@@ -16,6 +19,7 @@ class OpenIDConnectProvider(OAuth2Provider):
     id = "openid_connect"
     name = "OpenID Connect"
     account_class = OpenIDConnectProviderAccount
+    oauth2_adapter_class = OpenIDConnectOAuth2Adapter
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

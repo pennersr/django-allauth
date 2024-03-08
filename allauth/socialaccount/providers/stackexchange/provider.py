@@ -1,5 +1,8 @@
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.stackexchange.views import (
+    StackExchangeOAuth2Adapter,
+)
 
 
 class StackExchangeAccount(ProviderAccount):
@@ -18,6 +21,7 @@ class StackExchangeProvider(OAuth2Provider):
     id = "stackexchange"
     name = "Stack Exchange"
     account_class = StackExchangeAccount
+    oauth2_adapter_class = StackExchangeOAuth2Adapter
 
     def get_site(self):
         settings = self.get_settings()

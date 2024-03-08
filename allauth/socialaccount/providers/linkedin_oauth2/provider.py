@@ -3,6 +3,9 @@ from allauth.socialaccount.providers.base import (
     ProviderAccount,
     ProviderException,
 )
+from allauth.socialaccount.providers.linkedin_oauth2.views import (
+    LinkedInOAuth2Adapter,
+)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -109,6 +112,7 @@ class LinkedInOAuth2Provider(OAuth2Provider):
     # Name is displayed to ordinary users -- don't include protocol
     name = "LinkedIn"
     account_class = LinkedInOAuth2Account
+    oauth2_adapter_class = LinkedInOAuth2Adapter
 
     def extract_uid(self, data):
         if "id" not in data:

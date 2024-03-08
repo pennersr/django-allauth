@@ -1,5 +1,6 @@
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.clever.views import CleverOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -20,6 +21,7 @@ class CleverProvider(OAuth2Provider):
     id = "clever"
     name = "Clever"
     account_class = CleverAccount
+    oauth2_adapter_class = CleverOAuth2Adapter
 
     def extract_uid(self, data):
         return data["data"]["id"]

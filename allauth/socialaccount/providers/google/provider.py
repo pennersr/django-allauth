@@ -1,6 +1,7 @@
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -54,6 +55,7 @@ class GoogleProvider(OAuth2Provider):
     id = "google"
     name = "Google"
     account_class = GoogleAccount
+    oauth2_adapter_class = GoogleOAuth2Adapter
 
     def get_default_scope(self):
         scope = [Scope.PROFILE]

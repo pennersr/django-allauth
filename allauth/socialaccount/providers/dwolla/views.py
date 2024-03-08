@@ -7,8 +7,6 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import DwollaProvider
-
 
 ENVIRONMENTS = {
     "production": {
@@ -36,7 +34,7 @@ class DwollaOAuth2Adapter(OAuth2Adapter):
 
     scope_delimiter = "|"
 
-    provider_id = DwollaProvider.id
+    provider_id = "dwolla"
     access_token_url = TOKEN_URL
     authorize_url = AUTH_URL
 

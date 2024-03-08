@@ -9,7 +9,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 from allauth.utils import build_absolute_uri
 
 
-class OpenIDConnectAdapter(OAuth2Adapter):
+class OpenIDConnectOAuth2Adapter(OAuth2Adapter):
     supports_state = True
 
     def __init__(self, request, provider_id):
@@ -65,10 +65,14 @@ class OpenIDConnectAdapter(OAuth2Adapter):
 
 
 def login(request, provider_id):
-    view = OAuth2LoginView.adapter_view(OpenIDConnectAdapter(request, provider_id))
+    view = OAuth2LoginView.adapter_view(
+        OpenIDConnectOAuth2Adapter(request, provider_id)
+    )
     return view(request)
 
 
 def callback(request, provider_id):
-    view = OAuth2CallbackView.adapter_view(OpenIDConnectAdapter(request, provider_id))
+    view = OAuth2CallbackView.adapter_view(
+        OpenIDConnectOAuth2Adapter(request, provider_id)
+    )
     return view(request)

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django.urls import reverse
 
 from allauth.account import app_settings
@@ -13,11 +11,10 @@ from allauth.socialaccount.providers.oauth2.views import (
 from allauth.utils import build_absolute_uri
 
 from .client import FeishuOAuth2Client
-from .provider import FeishuProvider
 
 
 class FeishuOAuth2Adapter(OAuth2Adapter):
-    provider_id = FeishuProvider.id
+    provider_id = "feishu"
 
     authorization_url = "https://open.feishu.cn/open-apis/authen/v1/index"
     access_token_url = "https://open.feishu.cn/open-apis/authen/v1/access_token"

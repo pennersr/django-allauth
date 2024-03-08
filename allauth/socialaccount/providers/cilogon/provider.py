@@ -1,6 +1,7 @@
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
+from allauth.socialaccount.providers.cilogon.views import CILogonOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -21,6 +22,7 @@ class CILogonProvider(OAuth2Provider):
     id = "cilogon"
     name = "CILogon"
     account_class = CILogonAccount
+    oauth2_adapter_class = CILogonOAuth2Adapter
 
     def get_default_scope(self):
         scope = [Scope.PROFILE, Scope.USERINFO, Scope.OPENID]

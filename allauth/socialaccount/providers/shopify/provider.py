@@ -2,6 +2,7 @@ from django.conf import settings
 
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.shopify.views import ShopifyOAuth2Adapter
 
 
 class ShopifyAccount(ProviderAccount):
@@ -12,6 +13,7 @@ class ShopifyProvider(OAuth2Provider):
     id = "shopify"
     name = "Shopify"
     account_class = ShopifyAccount
+    oauth2_adapter_class = ShopifyOAuth2Adapter
 
     @property
     def is_per_user(self):

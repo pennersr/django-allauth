@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import QuickBooksOAuth2Provider
-
 
 class QuickBooksOAuth2Adapter(OAuth2Adapter):
-    provider_id = QuickBooksOAuth2Provider.id
+    provider_id = "quickbooks"
     access_token_url = "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer"
     authorize_url = "https://appcenter.intuit.com/connect/oauth2"
     profile_test = "https://sandbox-accounts.platform.intuit.com/v1/openid_connect/userinfo"  # NOQA

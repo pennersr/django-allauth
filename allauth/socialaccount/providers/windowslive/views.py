@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -7,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import WindowsLiveProvider
-
 
 class WindowsLiveOAuth2Adapter(OAuth2Adapter):
-    provider_id = WindowsLiveProvider.id
+    provider_id = "windowslive"
     access_token_url = "https://login.live.com/oauth20_token.srf"
     authorize_url = "https://login.live.com/oauth20_authorize.srf"
     profile_url = "https://apis.live.net/v5.0/me"

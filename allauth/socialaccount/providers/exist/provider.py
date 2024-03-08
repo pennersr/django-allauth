@@ -1,4 +1,5 @@
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.exist.views import ExistOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -18,6 +19,7 @@ class ExistProvider(OAuth2Provider):
     id = "exist"
     name = "Exist.io"
     account_class = ExistAccount
+    oauth2_adapter_class = ExistOAuth2Adapter
 
     def extract_uid(self, data):
         return data.get("username")

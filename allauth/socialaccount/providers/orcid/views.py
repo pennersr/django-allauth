@@ -6,11 +6,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import OrcidProvider
-
 
 class OrcidOAuth2Adapter(OAuth2Adapter):
-    provider_id = OrcidProvider.id
+    provider_id = "orcid"
     # http://support.orcid.org/knowledgebase/articles/335483-the-public-
     # client-orcid-api
 

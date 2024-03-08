@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import AmazonProvider
-
 
 class AmazonOAuth2Adapter(OAuth2Adapter):
-    provider_id = AmazonProvider.id
+    provider_id = "amazon"
     access_token_url = "https://api.amazon.com/auth/o2/token"
     authorize_url = "http://www.amazon.com/ap/oa"
     profile_url = "https://api.amazon.com/user/profile"

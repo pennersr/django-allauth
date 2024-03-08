@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import CILogonProvider
-
 
 class CILogonOAuth2Adapter(OAuth2Adapter):
-    provider_id = CILogonProvider.id
+    provider_id = "cilogon"
     access_token_url = "https://cilogon.org/oauth2/token"
     authorize_url = "https://cilogon.org/authorize"
     profile_url = "https://cilogon.org/oauth2/userinfo"

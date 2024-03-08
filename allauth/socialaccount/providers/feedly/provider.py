@@ -1,6 +1,5 @@
-from __future__ import unicode_literals
-
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.feedly.views import FeedlyOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -22,6 +21,7 @@ class FeedlyProvider(OAuth2Provider):
     id = str("feedly")
     name = "Feedly"
     account_class = FeedlyAccount
+    oauth2_adapter_class = FeedlyOAuth2Adapter
 
     def get_default_scope(self):
         return ["https://cloud.feedly.com/subscriptions"]

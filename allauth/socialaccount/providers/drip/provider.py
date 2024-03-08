@@ -1,5 +1,6 @@
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.drip.views import DripOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -11,6 +12,7 @@ class DripProvider(OAuth2Provider):
     id = "drip"
     name = "Drip"
     account_class = DripAccount
+    oauth2_adapter_class = DripOAuth2Adapter
 
     def extract_uid(self, data):
         # no uid available, we generate one by hashing the email

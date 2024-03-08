@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import AngelListProvider
-
 
 class AngelListOAuth2Adapter(OAuth2Adapter):
-    provider_id = AngelListProvider.id
+    provider_id = "angellist"
     access_token_url = "https://angel.co/api/oauth/token/"
     authorize_url = "https://angel.co/api/oauth/authorize/"
     profile_url = "https://api.angel.co/1/me/"

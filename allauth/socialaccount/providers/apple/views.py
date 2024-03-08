@@ -19,12 +19,11 @@ from allauth.utils import build_absolute_uri, get_request_param
 
 from .apple_session import get_apple_session
 from .client import AppleOAuth2Client
-from .provider import AppleProvider
 
 
 class AppleOAuth2Adapter(OAuth2Adapter):
     client_class = AppleOAuth2Client
-    provider_id = AppleProvider.id
+    provider_id = "apple"
     access_token_url = "https://appleid.apple.com/auth/token"
     authorize_url = "https://appleid.apple.com/auth/authorize"
     public_key_url = "https://appleid.apple.com/auth/keys"

@@ -1,9 +1,5 @@
-# -*- coding: utf-8 -*-
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
-from allauth.socialaccount.providers.lemonldap.provider import (
-    LemonLDAPProvider,
-)
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -12,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 
 class LemonLDAPOAuth2Adapter(OAuth2Adapter):
-    provider_id = LemonLDAPProvider.id
+    provider_id = "lemonldap"
     supports_state = True
 
     settings = app_settings.PROVIDERS.get(provider_id, {})

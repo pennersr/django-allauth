@@ -1,5 +1,8 @@
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.twentythreeandme.views import (
+    TwentyThreeAndMeOAuth2Adapter,
+)
 
 
 class TwentyThreeAndMeAccount(ProviderAccount):
@@ -11,6 +14,7 @@ class TwentyThreeAndMeProvider(OAuth2Provider):
     slug = "23andme"
     name = "23andMe"
     account_class = TwentyThreeAndMeAccount
+    oauth2_adapter_class = TwentyThreeAndMeOAuth2Adapter
 
     def extract_uid(self, data):
         return data["id"]

@@ -11,11 +11,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import ShopifyProvider
-
 
 class ShopifyOAuth2Adapter(OAuth2Adapter):
-    provider_id = ShopifyProvider.id
+    provider_id = "shopify"
     supports_state = False
     scope_delimiter = ","
 

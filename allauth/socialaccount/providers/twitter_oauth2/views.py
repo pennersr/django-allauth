@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import TwitterOAuth2Provider
-
 
 class TwitterOAuth2Adapter(OAuth2Adapter):
-    provider_id = TwitterOAuth2Provider.id
+    provider_id = "twitter_oauth2"
     access_token_url = "https://api.twitter.com/2/oauth2/token"
     authorize_url = "https://twitter.com/i/oauth2/authorize"
     profile_url = "https://api.twitter.com/2/users/me"

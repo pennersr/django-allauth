@@ -1,3 +1,4 @@
+import warnings
 from urllib.parse import parse_qsl
 
 from django.urls import reverse
@@ -10,6 +11,12 @@ from .utils import generate_code_challenge
 
 class OAuth2Provider(Provider):
     pkce_enabled_default = False
+    oauth2_adapter_class = None
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.oauth2_adapter_class is None:
+            warnings.warn("provider.oauth2_adapter_class property missing")
 
     def get_login_url(self, request, **kwargs):
         url = reverse(self.id + "_login")

@@ -1,4 +1,7 @@
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.bitbucket_oauth2.views import (
+    BitbucketOAuth2Adapter,
+)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -18,6 +21,7 @@ class BitbucketOAuth2Provider(OAuth2Provider):
     id = "bitbucket_oauth2"
     name = "Bitbucket"
     account_class = BitbucketOAuth2Account
+    oauth2_adapter_class = BitbucketOAuth2Adapter
 
     def extract_uid(self, data):
         return data["username"]

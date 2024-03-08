@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
-from allauth.socialaccount.providers.netiq.provider import NetIQProvider
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -10,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 
 class NetIQOAuth2Adapter(OAuth2Adapter):
-    provider_id = NetIQProvider.id
+    provider_id = "netiq"
     supports_state = True
 
     settings = app_settings.PROVIDERS.get(provider_id, {})

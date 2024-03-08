@@ -1,5 +1,6 @@
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.miro.views import MiroOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -11,6 +12,7 @@ class MiroProvider(OAuth2Provider):
     id = "miro"
     name = "Miro"
     account_class = MiroAccount
+    oauth2_adapter_class = MiroOAuth2Adapter
 
     def extract_uid(self, data):
         return str(data["id"])

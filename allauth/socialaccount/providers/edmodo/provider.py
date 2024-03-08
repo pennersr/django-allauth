@@ -1,4 +1,5 @@
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.edmodo.views import EdmodoOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -14,6 +15,7 @@ class EdmodoProvider(OAuth2Provider):
     id = "edmodo"
     name = "Edmodo"
     account_class = EdmodoAccount
+    oauth2_adapter_class = EdmodoOAuth2Adapter
 
     def get_default_scope(self):
         return ["basic"]

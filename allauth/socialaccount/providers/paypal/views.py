@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import PaypalProvider
-
 
 class PaypalOAuth2Adapter(OAuth2Adapter):
-    provider_id = PaypalProvider.id
+    provider_id = "paypal"
     supports_state = False
 
     @property

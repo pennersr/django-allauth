@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import CoinbaseProvider
-
 
 class CoinbaseOAuth2Adapter(OAuth2Adapter):
-    provider_id = CoinbaseProvider.id
+    provider_id = "coinbase"
 
     @property
     def authorize_url(self):

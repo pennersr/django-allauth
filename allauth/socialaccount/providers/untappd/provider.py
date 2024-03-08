@@ -3,6 +3,7 @@ from django.urls import reverse
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.untappd.views import UntappdOAuth2Adapter
 
 
 class UntappdAccount(ProviderAccount):
@@ -21,6 +22,7 @@ class UntappdProvider(OAuth2Provider):
     id = "untappd"
     name = "Untappd"
     account_class = UntappdAccount
+    oauth2_adapter_class = UntappdOAuth2Adapter
 
     def get_auth_params(self, request, action):
         params = super(UntappdProvider, self).get_auth_params(request, action)

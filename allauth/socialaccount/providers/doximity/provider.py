@@ -1,4 +1,7 @@
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.doximity.views import (
+    DoximityOAuth2Adapter,
+)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -18,6 +21,7 @@ class DoximityProvider(OAuth2Provider):
     id = "doximity"
     name = "Doximity"
     account_class = DoximityAccount
+    oauth2_adapter_class = DoximityOAuth2Adapter
 
     def extract_uid(self, data):
         return str(data["id"])  # the Doximity id is long

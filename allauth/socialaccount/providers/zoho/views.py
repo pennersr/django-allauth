@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import ZohoProvider
-
 
 class ZohoOAuth2Adapter(OAuth2Adapter):
-    provider_id = ZohoProvider.id
+    provider_id = "zoho"
     access_token_url = "https://accounts.zoho.com/oauth/v2/token"
     authorize_url = "https://accounts.zoho.com/oauth/v2/auth"
     profile_url = "https://accounts.zoho.com/oauth/user/info"

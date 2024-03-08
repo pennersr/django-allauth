@@ -1,6 +1,7 @@
-from __future__ import unicode_literals
-
 from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
+from allauth.socialaccount.providers.microsoft.views import (
+    MicrosoftGraphOAuth2Adapter,
+)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -14,9 +15,10 @@ class MicrosoftGraphAccount(ProviderAccount):
 
 
 class MicrosoftGraphProvider(OAuth2Provider):
-    id = str("microsoft")
+    id = "microsoft"
     name = "Microsoft Graph"
     account_class = MicrosoftGraphAccount
+    oauth2_adapter_class = MicrosoftGraphOAuth2Adapter
 
     def get_default_scope(self):
         """

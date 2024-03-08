@@ -2,7 +2,6 @@ import json
 import string
 from urllib.parse import quote
 
-from django.conf import settings
 from django.middleware.csrf import get_token
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -16,25 +15,20 @@ from allauth.socialaccount.providers.base import (
     AuthProcess,
     ProviderAccount,
 )
+from allauth.socialaccount.providers.facebook.constants import (
+    GRAPH_API_URL,
+    GRAPH_API_VERSION,
+    NONCE_LENGTH,
+    NONCE_SESSION_KEY,
+    PROVIDER_ID,
+)
+from allauth.socialaccount.providers.facebook.views import (
+    FacebookOAuth2Adapter,
+)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 from allauth.utils import import_callable
 
 from .locale import get_default_locale_callable
-
-
-GRAPH_API_VERSION = (
-    getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
-    .get("facebook", {})
-    .get("VERSION", "v13.0")
-)
-GRAPH_API_URL = (
-    getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
-    .get("facebook", {})
-    .get("GRAPH_API_URL", "https://graph.facebook.com/{}".format(GRAPH_API_VERSION))
-)
-
-NONCE_SESSION_KEY = "allauth_facebook_nonce"
-NONCE_LENGTH = 32
 
 
 class FacebookAccount(ProviderAccount):
@@ -57,9 +51,10 @@ class FacebookAccount(ProviderAccount):
 
 
 class FacebookProvider(OAuth2Provider):
-    id = "facebook"
+    id = PROVIDER_ID
     name = "Facebook"
     account_class = FacebookAccount
+    oauth2_adapter_class = FacebookOAuth2Adapter
 
     def __init__(self, *args, **kwargs):
         self._locale_callable_cache = None

@@ -2,6 +2,9 @@ from allauth.account.models import EmailAddress
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.salesforce.views import (
+    SalesforceOAuth2Adapter,
+)
 
 
 class SalesforceAccount(ProviderAccount):
@@ -21,6 +24,7 @@ class SalesforceProvider(OAuth2Provider):
     name = "Salesforce"
     package = "allauth.socialaccount.providers.salesforce"
     account_class = SalesforceAccount
+    oauth2_adapter_class = SalesforceOAuth2Adapter
 
     def get_default_scope(self):
         return ["id", "openid"]

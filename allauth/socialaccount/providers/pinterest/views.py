@@ -6,11 +6,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import PinterestProvider
-
 
 class PinterestOAuth2Adapter(OAuth2Adapter):
-    provider_id = PinterestProvider.id
+    provider_id = "pinterest"
 
     provider_default_url = "api.pinterest.com"
     provider_default_api_version = "v1"

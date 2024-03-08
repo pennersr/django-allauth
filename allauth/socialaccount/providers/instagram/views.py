@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import InstagramProvider
-
 
 class InstagramOAuth2Adapter(OAuth2Adapter):
-    provider_id = InstagramProvider.id
+    provider_id = "instagram"
     access_token_url = "https://api.instagram.com/oauth/access_token"
     authorize_url = "https://api.instagram.com/oauth/authorize"
     profile_url = "https://graph.instagram.com/me"

@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import FrontierProvider
-
 
 class FrontierOAuth2Adapter(OAuth2Adapter):
-    provider_id = FrontierProvider.id
+    provider_id = "frontier"
     AUTH_API = "https://auth.frontierstore.net"
     access_token_url = AUTH_API + "/token"
     authorize_url = AUTH_API + "/auth"

@@ -6,11 +6,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import CleverProvider
-
 
 class CleverOAuth2Adapter(OAuth2Adapter):
-    provider_id = CleverProvider.id
+    provider_id = "clever"
 
     access_token_url = "https://clever.com/oauth/tokens"
     authorize_url = "https://clever.com/oauth/authorize"

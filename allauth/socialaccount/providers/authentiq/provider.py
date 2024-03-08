@@ -1,5 +1,8 @@
 from allauth.account.models import EmailAddress
 from allauth.socialaccount import app_settings
+from allauth.socialaccount.providers.authentiq.views import (
+    AuthentiqOAuth2Adapter,
+)
 from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -56,6 +59,7 @@ class AuthentiqProvider(OAuth2Provider):
     id = "authentiq"
     name = "Authentiq"
     account_class = AuthentiqAccount
+    oauth2_adapter_class = AuthentiqOAuth2Adapter
 
     def get_scope(self, request):
         scope = set(super(AuthentiqProvider, self).get_scope(request))

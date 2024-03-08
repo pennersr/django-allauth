@@ -1,5 +1,6 @@
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.slack.views import SlackOAuth2Adapter
 
 
 class SlackAccount(ProviderAccount):
@@ -18,6 +19,7 @@ class SlackProvider(OAuth2Provider):
     id = "slack"
     name = "Slack"
     account_class = SlackAccount
+    oauth2_adapter_class = SlackOAuth2Adapter
 
     def extract_uid(self, data):
         return "%s_%s" % (

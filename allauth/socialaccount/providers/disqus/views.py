@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import DisqusProvider
-
 
 class DisqusOAuth2Adapter(OAuth2Adapter):
-    provider_id = DisqusProvider.id
+    provider_id = "disqus"
     access_token_url = "https://disqus.com/api/oauth/2.0/access_token/"
     authorize_url = "https://disqus.com/api/oauth/2.0/authorize/"
     profile_url = "https://disqus.com/api/3.0/users/details.json"

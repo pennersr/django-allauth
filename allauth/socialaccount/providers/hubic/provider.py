@@ -1,4 +1,5 @@
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.hubic.views import HubicOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -10,6 +11,7 @@ class HubicProvider(OAuth2Provider):
     id = "hubic"
     name = "Hubic"
     account_class = HubicAccount
+    oauth2_adapter_class = HubicOAuth2Adapter
 
     def extract_uid(self, data):
         return str(data["email"])

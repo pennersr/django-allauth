@@ -1,5 +1,6 @@
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.app_settings import QUERY_EMAIL
+from allauth.socialaccount.providers.apple.views import AppleOAuth2Adapter
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -8,6 +9,7 @@ class AppleProvider(OAuth2Provider):
     id = "apple"
     name = "Apple"
     account_class = ProviderAccount
+    oauth2_adapter_class = AppleOAuth2Adapter
 
     def extract_uid(self, data):
         return str(data["sub"])

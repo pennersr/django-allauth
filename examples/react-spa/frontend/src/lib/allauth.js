@@ -5,6 +5,11 @@ const ACCEPT_JSON = {
   accept: 'application/json'
 }
 
+export const AuthProcess = Object.freeze({
+  LOGIN: 'login',
+  CONNECT: 'connect'
+})
+
 export const Flows = Object.freeze({
   VERIFY_EMAIL: 'verify_email',
   LOGIN: 'login',
@@ -21,8 +26,25 @@ export const URLs = Object.freeze({
   REQUEST_PASSWORD_RESET: BASE_URL + '/auth/password/request',
   RESET_PASSWORD: BASE_URL + '/auth/password/reset',
   CHANGE_PASSWORD: BASE_URL + '/account/password/change',
-  EMAIL: BASE_URL + '/account/email'
+  EMAIL: BASE_URL + '/account/email',
+  REDIRECT_TO_PROVIDER: BASE_URL + '/auth/provider/redirect'
 })
+
+function postForm (action, data) {
+  const f = document.createElement('form')
+  f.method = 'POST'
+  f.action = action
+
+  for (const key in data) {
+    const d = document.createElement('input')
+    d.type = 'hidden'
+    d.name = key
+    d.value = data[key]
+    f.appendChild(d)
+  }
+  document.body.appendChild(f)
+  f.submit()
+}
 
 async function request (method, path, data) {
   const options = {
@@ -103,4 +125,13 @@ export async function changePassword (data) {
 
 export async function getAuth () {
   return await request('GET', URLs.AUTH)
+}
+
+export function redirectToProvider (providerId, callbackURL) {
+  postForm(URLs.REDIRECT_TO_PROVIDER, {
+    provider_id: providerId,
+    process: AuthProcess.LOGIN,
+    callback_url: callbackURL,
+    csrfmiddlewaretoken: getCSRFToken()
+  })
 }

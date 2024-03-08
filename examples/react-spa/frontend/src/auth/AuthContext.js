@@ -16,14 +16,13 @@ export function AuthContextProvider (props) {
 
   useEffect(() => {
     function onAuthChanged (e) {
-      console.log('onauthchanged')
+      console.log('Authentication status updated')
       setAuth(e.detail)
     }
 
     document.addEventListener('allauth.auth.change', onAuthChanged)
     getAuth().then(data => setAuth(data)).catch((e) => {
       console.error(e)
-      console.log('onautherrrr')
       setAuth(false)
     })
     return () => {

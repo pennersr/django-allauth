@@ -1,4 +1,4 @@
-import { AuthContextProvider, AnonymousRoute, AuthenticatedRoute } from './auth'
+import { AuthContextProvider, CallbackRoute, AnonymousRoute, AuthenticatedRoute } from './auth'
 import {
   Outlet,
   createBrowserRouter,
@@ -43,6 +43,10 @@ const router = createBrowserRouter([
         element: <Logout />
       },
       {
+        path: '/account/callback',
+        element: <CallbackRoute />
+      },
+      {
         path: '/account/signup',
         element: <AnonymousRoute><SignUp /></AnonymousRoute>
       },
@@ -66,7 +70,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/account/password/change',
-        element: <AuthenticatedRoute><ChangePassword /></AuthenticatedRoute>,
+        element: <AuthenticatedRoute><ChangePassword /></AuthenticatedRoute>
       }
     ]
   }

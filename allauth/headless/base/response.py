@@ -5,9 +5,6 @@ from allauth.account.authentication import get_authentication_records
 from allauth.account.models import EmailAddress
 from allauth.account.utils import user_display, user_username
 from allauth.headless.auth import AuthenticationState
-from allauth.socialaccount.adapter import (
-    get_adapter as get_socialaccount_adapter,
-)
 
 
 class APIResponse(JsonResponse):
@@ -35,7 +32,7 @@ class UnauthorizedResponse(APIResponse):
             },
         ]
         if allauth_app_settings.SOCIALACCOUNT_ENABLED:
-            flows.append(self._provider_flow(request))
+            flows.extend(self._provider_flows(request))
         if stages:
             stage = stages[0]
             flows.append(
@@ -49,18 +46,10 @@ class UnauthorizedResponse(APIResponse):
             status=401,
         )
 
-    def _provider_flow(self, request):
-        flow = {
-            "id": "provider_login",
-            "url": request.allauth.headless.reverse("headless_provider_login"),
-            "providers": [],
-        }
-        adapter = get_socialaccount_adapter()
-        providers = adapter.list_providers(request)
-        providers = sorted(providers, key=lambda p: p.name)
-        for provider in providers:
-            flow["providers"].append({"id": provider.id, "name": provider.name})
-        return flow
+    def _provider_flows(self, request):
+        from allauth.headless.socialaccount.response import provider_flows
+
+        return provider_flows(request)
 
 
 class AuthenticatedResponse(APIResponse):

@@ -36,7 +36,7 @@ def test_auth_unverified_email_and_mfa(
                 {"id": "signup", "url": reverse("headless_signup", args=["browser"])},
                 {
                     "id": "provider_login",
-                    "url": reverse("headless_provider_login", args=["browser"]),
+                    "url": reverse("headless_redirect_to_provider", args=["browser"]),
                 },
                 {
                     "id": "mfa_authenticate",

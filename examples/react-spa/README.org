@@ -16,7 +16,7 @@ Then, visit the app over at http://localhost:10000.
 
 ** Status
 
-*** Frontend [60%]
+*** Frontend [63%]
 
 **** DONE Login
 
@@ -30,7 +30,7 @@ Then, visit the app over at http://localhost:10000.
 
 **** DONE Change password
 
-**** TODO Set password
+**** DONE Set password
 
 **** TODO Re-authentication
 
@@ -40,7 +40,7 @@ Then, visit the app over at http://localhost:10000.
 
 **** TODO User sessions
 
-*** Headless [0%]
+*** Headless [9%]
 
 **** TODO Check rate limit handling
 
@@ -61,8 +61,15 @@ Or, add to meta in response?
 
 **** TODO Test coverage
 
-**** TODO Change password vs ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE
+**** DONE Change password vs ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE
 
 **** TODO Investigate a headless-only mode
-
 =HEADLESS_ONLY = True=  ?
+
+**** TODO Check interaction with user sessions
+Mobile sesions to also show up.
+
+**** TODO Prevent enumeration
+During signup, there is indeed a pending flow. But, given that this is not
+stored int the session a subsequent call to the endpoint reveals a different
+response from which an enumeration related conclusion can be drawn.

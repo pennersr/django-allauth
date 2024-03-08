@@ -73,6 +73,7 @@ def test_auth_password_success(client, user, user_password, settings):
                 "display": str(user),
                 "email": user.email,
                 "username": user.username,
+                "has_usable_password": True,
             },
             "methods": [
                 {
@@ -260,6 +261,11 @@ def test_password_reset_flow_wrong_key(client, password_factory):
             },
             {
                 "status": 200,
+                "meta": {"is_authenticated": True},
+                "data": {
+                    "user": ANY,
+                    "methods": [],
+                },
             },
             200,
         ),
@@ -329,6 +335,11 @@ def test_password_reset_flow_wrong_key(client, password_factory):
             },
             {
                 "status": 200,
+                "meta": {"is_authenticated": True},
+                "data": {
+                    "user": ANY,
+                    "methods": [],
+                },
             },
             200,
         ),
@@ -340,6 +351,11 @@ def test_password_reset_flow_wrong_key(client, password_factory):
             },
             {
                 "status": 200,
+                "meta": {"is_authenticated": True},
+                "data": {
+                    "user": ANY,
+                    "methods": [],
+                },
             },
             200,
         ),
@@ -372,7 +388,8 @@ def test_change_password(
         content_type="application/json",
     )
     assert resp.status_code == status_code
-    assert resp.json() == response_data
+    resp_json = resp.json()
+    assert resp_json == response_data
     user.refresh_from_db()
     if resp.status_code == 200:
         assert user.check_password(request_data["new_password"])

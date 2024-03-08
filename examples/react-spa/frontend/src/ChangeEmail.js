@@ -8,7 +8,7 @@ export default function ChangeEmail () {
   const [response, setResponse] = useState({ fetching: false, content: { status: 200, data: [] } })
 
   useEffect(() => {
-    setResponse({ ...response, fetching: true })
+    setResponse((r) => { return { ...r, fetching: true } })
     allauth.getEmailAddresses().then((resp) => {
       if (resp.status === 200) {
         setEmailAddresses(resp.data)

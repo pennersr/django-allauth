@@ -146,23 +146,18 @@ reset_password = ResetPasswordView.as_view()
 class ChangePasswordView(AuthenticatedAPIView):
     input_class = ChangePasswordInput
 
-    def get(self, request, *args, **kwargs):
-        return response.APIResponse(
-            data={
-                "has_password": request.user.has_usable_password(),
-            }
-        )
-
     def post(self, request, *args, **kwargs):
         password_change.change_password(
             self.request.user, self.input.cleaned_data["new_password"]
         )
         is_set = not self.input.cleaned_data.get("current_password")
         if is_set:
-            password_change.finalize_password_set(request, request.user)
+            logged_out = password_change.finalize_password_set(request, request.user)
         else:
-            password_change.finalize_password_change(request, request.user)
-        return response.APIResponse()
+            logged_out = password_change.finalize_password_change(request, request.user)
+        return response.respond_is_authenticated(
+            request, is_authenticated=(not logged_out)
+        )
 
     def get_input_kwargs(self):
         return {"user": self.request.user}

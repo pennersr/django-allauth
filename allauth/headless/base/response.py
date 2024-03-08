@@ -57,8 +57,10 @@ class AuthenticatedResponse(APIResponse):
         super().__init__(data, meta={"is_authenticated": True})
 
 
-def respond_is_authenticated(request):
-    if request.user.is_authenticated:
+def respond_is_authenticated(request, is_authenticated=None):
+    if is_authenticated is None:
+        is_authenticated = request.user.is_authenticated
+    if is_authenticated:
         return AuthenticatedResponse(request, request.user)
     return UnauthorizedResponse(request)
 
@@ -70,6 +72,7 @@ def user_data(user):
     ret = {
         "id": user.pk,
         "display": user_display(user),
+        "has_usable_password": user.has_usable_password(),
     }
     email = EmailAddress.objects.get_primary_email(user)
     if email:

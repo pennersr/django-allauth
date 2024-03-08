@@ -9,12 +9,13 @@ from allauth.core.exceptions import ImmediateHttpResponse
 class RESTView(View):
     authtentication_required = False
     input_class = None
+    handle_json_input = True
 
     def dispatch(self, request, *args, **kwargs):
         return self.handle(request, *args, **kwargs)
 
     def handle(self, request, *args, **kwargs):
-        if request.method != "GET":
+        if self.handle_json_input and request.method != "GET":
             self.data = self._parse_json(request)
             response = self.handle_input(self.data)
             if response:

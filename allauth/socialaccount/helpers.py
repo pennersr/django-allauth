@@ -48,6 +48,10 @@ def render_authentication_error(
 
 
 def complete_social_login(request, sociallogin):
+    if sociallogin.is_headless:
+        from allauth.headless.socialaccount import internal
+
+        return internal.complete_login(request, sociallogin)
     return flows.login.complete_login(request, sociallogin)
 
 

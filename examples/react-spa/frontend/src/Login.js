@@ -1,7 +1,34 @@
 import { useState } from 'react'
 import FormErrors from './FormErrors'
-import { login } from './lib/allauth'
+import { login, redirectToProvider } from './lib/allauth'
 import { Link } from 'react-router-dom'
+import { useAuth } from './auth'
+
+function ProviderList (props) {
+  const auth = useAuth()
+  if (auth.status !== 401) {
+    return null
+  }
+  const flows = auth.data.flows.filter(flow => flow.id == 'provider_login')
+  if (!flows.length) {
+    return null
+  }
+  const flow = flows[0]
+  if (!flow.providers.length) {
+    return null
+  }
+  return (
+    <ul>
+      {flow.providers.map(provider => {
+        return (
+          <li key={provider.id}>
+            <button onClick={() => redirectToProvider(provider.id, '/account/callback')}>{provider.name}</button>
+          </li>
+        )
+      })}
+    </ul>
+  )
+}
 
 export default function Login () {
   const [email, setEmail] = useState('')
@@ -36,6 +63,8 @@ export default function Login () {
         <FormErrors errors={response.data?.error?.detail?.password} />
       </div>
       <button disabled={response.fetching} onClick={() => submit()}>Login</button>
+
+      <ProviderList />
     </div>
   )
 }

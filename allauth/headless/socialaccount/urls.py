@@ -5,8 +5,13 @@ from allauth.headless.socialaccount import views
 
 urlpatterns = [
     path(
-        "v1/auth/provider_login",
-        views.provider_login,
-        name="headless_provider_login",
+        "v1/auth/provider/signup",
+        views.provider_signup,
+        name="headless_provider_signup",
+    ),
+    path(
+        "v1/auth/provider/redirect",
+        views.redirect_to_provider,
+        name="headless_redirect_to_provider",
     ),
 ]

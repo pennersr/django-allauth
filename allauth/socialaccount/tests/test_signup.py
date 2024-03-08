@@ -19,6 +19,26 @@ from allauth.socialaccount.views import signup
 
 
 @pytest.fixture
+def setup_sociallogin_flow(rf):
+    def f(client, sociallogin):
+        request = rf.get("/")
+        request.session = {}
+        request.user = AnonymousUser()
+
+        SessionMiddleware(lambda request: None).process_request(request)
+        MessageMiddleware(lambda request: None).process_request(request)
+
+        resp = complete_social_login(request, sociallogin)
+        session = client.session
+        for k, v in request.session.items():
+            session[k] = v
+        session.save()
+        return resp
+
+    return f
+
+
+@pytest.fixture
 def email_address_clash():
     def _email_address_clash(username, email):
         User = get_user_model()
@@ -37,7 +57,9 @@ def email_address_clash():
         user = User()
         user_username(user, username)
         user_email(user, email)
-        sociallogin = SocialLogin(user=user, account=account)
+        sociallogin = SocialLogin(
+            user=user, account=account, email_addresses=[EmailAddress(email=email)]
+        )
 
         # Signing up, should pop up the social signup form
         factory = RequestFactory()
@@ -52,20 +74,17 @@ def email_address_clash():
     return _email_address_clash
 
 
-def test_email_address_created(settings, db, rf, sociallogin_factory):
+def test_email_address_created(
+    settings, db, client, setup_sociallogin_flow, sociallogin_factory
+):
     settings.SOCIALACCOUNT_AUTO_SIGNUP = True
     settings.ACCOUNT_SIGNUP_FORM_CLASS = None
     settings.ACCOUNT_EMAIL_VERIFICATION = account_settings.EmailVerificationMethod.NONE
-    request = rf.get("/accounts/login/callback/")
-    request.user = AnonymousUser()
-    SessionMiddleware(lambda request: None).process_request(request)
-    MessageMiddleware(lambda request: None).process_request(request)
 
     sociallogin = sociallogin_factory(
         email="test@example.com", email_verified=False, username="test"
     )
-    with context.request_context(request):
-        complete_social_login(request, sociallogin)
+    setup_sociallogin_flow(client, sociallogin)
 
     user = get_user_model().objects.get(
         **{account_settings.USER_MODEL_USERNAME_FIELD: "test"}
@@ -164,7 +183,9 @@ def test_populate_username_in_blacklist(db, settings, rf):
     assert request.user.username not in account_settings.USERNAME_BLACKLIST
 
 
-def test_verified_email_change_at_signup(db, client, settings, sociallogin_factory):
+def test_verified_email_change_at_signup(
+    db, client, settings, sociallogin_factory, setup_sociallogin_flow
+):
     """
     Test scenario for when the user changes email at social signup. Current
     behavior is that both the unverified and verified email are added, and
@@ -176,11 +197,9 @@ def test_verified_email_change_at_signup(db, client, settings, sociallogin_facto
     settings.ACCOUNT_USERNAME_REQUIRED = False
     settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
     settings.SOCIALACCOUNT_AUTO_SIGNUP = False
-    session = client.session
-    User = get_user_model()
+
     sociallogin = sociallogin_factory(email="verified@example.com")
-    session["socialaccount_sociallogin"] = sociallogin.serialize()
-    session.save()
+    setup_sociallogin_flow(client, sociallogin)
     resp = client.get(reverse("socialaccount_signup"))
     form = resp.context["form"]
     assert form["email"].value() == "verified@example.com"
@@ -189,7 +208,7 @@ def test_verified_email_change_at_signup(db, client, settings, sociallogin_facto
         data={"email": "unverified@example.org"},
     )
     assertRedirects(resp, "/accounts/profile/", fetch_redirect_response=False)
-    user = User.objects.all()[0]
+    user = get_user_model().objects.all()[0]
     assert user_email(user) == "verified@example.com"
     assert EmailAddress.objects.filter(
         user=user,
@@ -205,7 +224,9 @@ def test_verified_email_change_at_signup(db, client, settings, sociallogin_facto
     ).exists()
 
 
-def test_unverified_email_change_at_signup(db, client, settings, sociallogin_factory):
+def test_unverified_email_change_at_signup(
+    db, client, settings, sociallogin_factory, setup_sociallogin_flow
+):
     """
     Test scenario for when the user changes email at social signup, while
     his provider did not provide a verified email. In that case, email
@@ -219,13 +240,11 @@ def test_unverified_email_change_at_signup(db, client, settings, sociallogin_fac
     settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
     settings.SOCIALACCOUNT_AUTO_SIGNUP = False
 
-    session = client.session
     User = get_user_model()
     sociallogin = sociallogin_factory(
         email="unverified@example.com", email_verified=False
     )
-    session["socialaccount_sociallogin"] = sociallogin.serialize()
-    session.save()
+    setup_sociallogin_flow(client, sociallogin)
     resp = client.get(reverse("socialaccount_signup"))
     form = resp.context["form"]
     assert form["email"].value() == "unverified@example.com"
@@ -251,7 +270,9 @@ def test_unverified_email_change_at_signup(db, client, settings, sociallogin_fac
     ).exists()
 
 
-def test_unique_email_validation_signup(db, client, sociallogin_factory, settings):
+def test_unique_email_validation_signup(
+    db, client, sociallogin_factory, settings, setup_sociallogin_flow
+):
     settings.ACCOUNT_PREVENT_ENUMERATION = False
     settings.ACCOUNT_EMAIL_REQUIRED = True
     settings.ACCOUNT_EMAIL_VERIFICATION = "mandatory"
@@ -259,14 +280,12 @@ def test_unique_email_validation_signup(db, client, sociallogin_factory, setting
     settings.ACCOUNT_USERNAME_REQUIRED = False
     settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
     settings.SOCIALACCOUNT_AUTO_SIGNUP = False
-    session = client.session
     User = get_user_model()
     email = "me@example.com"
     user = User.objects.create(email=email)
     EmailAddress.objects.create(email=email, user=user, verified=True)
     sociallogin = sociallogin_factory(email="me@example.com")
-    session["socialaccount_sociallogin"] = sociallogin.serialize()
-    session.save()
+    setup_sociallogin_flow(client, sociallogin)
     resp = client.get(reverse("socialaccount_signup"))
     form = resp.context["form"]
     assert form["email"].value() == email
@@ -291,7 +310,9 @@ def test_unique_email_validation_signup(db, client, sociallogin_factory, setting
         )
 
 
-def test_social_account_taken_at_signup(db, client, sociallogin_factory, settings):
+def test_social_account_taken_at_signup(
+    db, client, sociallogin_factory, settings, setup_sociallogin_flow
+):
     """
     Test scenario for when the user signs up with a social account
     and uses email address in that social account. But upon seeing the
@@ -307,11 +328,9 @@ def test_social_account_taken_at_signup(db, client, sociallogin_factory, setting
     settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
     settings.SOCIALACCOUNT_AUTO_SIGNUP = False
 
-    session = client.session
     User = get_user_model()
     sociallogin = sociallogin_factory(email="me1@example.com", email_verified=False)
-    session["socialaccount_sociallogin"] = sociallogin.serialize()
-    session.save()
+    setup_sociallogin_flow(client, sociallogin)
     resp = client.get(reverse("socialaccount_signup"))
     form = resp.context["form"]
     assert form["email"].value() == "me1@example.com"
@@ -328,7 +347,7 @@ def test_social_account_taken_at_signup(db, client, sociallogin_factory, setting
 
 
 def test_email_address_required_missing_from_sociallogin(
-    db, settings, sociallogin_factory, client, rf
+    db, settings, sociallogin_factory, client, setup_sociallogin_flow
 ):
     """Tests that when the email address is missing from the sociallogin email
     verification kicks in.
@@ -341,22 +360,21 @@ def test_email_address_required_missing_from_sociallogin(
     settings.SOCIALACCOUNT_AUTO_SIGNUP = True
 
     sociallogin = sociallogin_factory(with_email=False)
-
-    request = rf.get("/")
-    request.session = {}
-    request.user = AnonymousUser()
-    resp = complete_social_login(request, sociallogin)
+    resp = setup_sociallogin_flow(client, sociallogin)
     assert resp["location"] == reverse("socialaccount_signup")
 
-    session = client.session
-    session["socialaccount_sociallogin"] = sociallogin.serialize()
-    session.save()
     resp = client.post(reverse("socialaccount_signup"), {"email": "other@example.org"})
     assert resp["location"] == reverse("account_email_verification_sent")
 
 
 def test_email_address_conflict_at_social_signup_form(
-    db, settings, user_factory, sociallogin_factory, client, rf, mailoutbox
+    db,
+    settings,
+    user_factory,
+    sociallogin_factory,
+    client,
+    setup_sociallogin_flow,
+    mailoutbox,
 ):
     """Tests that when an already existing email is given at the social signup
     form, enumeration preventation kicks in.
@@ -371,17 +389,10 @@ def test_email_address_conflict_at_social_signup_form(
     user = user_factory()
     sociallogin = sociallogin_factory(with_email=False)
 
-    request = rf.get("/")
-    request.session = {}
-    request.user = AnonymousUser()
-
-    resp = complete_social_login(request, sociallogin)
+    resp = setup_sociallogin_flow(client, sociallogin)
     # Auto signup does not kick in as the `sociallogin` does not have an email.
     assert resp["location"] == reverse("socialaccount_signup")
 
-    session = client.session
-    session["socialaccount_sociallogin"] = sociallogin.serialize()
-    session.save()
     # Here, we input the already existing email.
     resp = client.post(reverse("socialaccount_signup"), {"email": user.email})
     assert mailoutbox[0].subject == "[example.com] Account Already Exists"
@@ -389,7 +400,13 @@ def test_email_address_conflict_at_social_signup_form(
 
 
 def test_email_address_conflict_during_auto_signup(
-    db, settings, user_factory, sociallogin_factory, client, rf, mailoutbox
+    db,
+    settings,
+    user_factory,
+    sociallogin_factory,
+    client,
+    mailoutbox,
+    setup_sociallogin_flow,
 ):
     """Tests that when an already existing email is received from the provider,
     enumeration preventation kicks in.
@@ -403,18 +420,19 @@ def test_email_address_conflict_during_auto_signup(
 
     user = user_factory()
     sociallogin = sociallogin_factory(email=user.email, with_email=True)
-
-    request = rf.get("/")
-    request.session = {}
-    request.user = AnonymousUser()
-
-    resp = complete_social_login(request, sociallogin)
+    resp = setup_sociallogin_flow(client, sociallogin)
     assert resp["location"] == reverse("account_email_verification_sent")
     assert mailoutbox[0].subject == "[example.com] Account Already Exists"
 
 
 def test_email_address_conflict_removes_conflicting_email(
-    db, settings, user_factory, sociallogin_factory, client, rf, mailoutbox
+    db,
+    settings,
+    user_factory,
+    sociallogin_factory,
+    client,
+    mailoutbox,
+    setup_sociallogin_flow,
 ):
     """Tests that when an already existing email is given at the social signup
     form, enumeration preventation kicks in.
@@ -430,17 +448,11 @@ def test_email_address_conflict_removes_conflicting_email(
     user = user_factory(email_verified=False)
     sociallogin = sociallogin_factory(email=user.email, email_verified=False)
 
-    request = rf.get("/")
-    request.session = {}
-    request.user = AnonymousUser()
+    resp = setup_sociallogin_flow(client, sociallogin)
 
-    resp = complete_social_login(request, sociallogin)
     # Auto signup does not kick in as the `sociallogin` has a conflicting email.
     assert resp["location"] == reverse("socialaccount_signup")
 
-    session = client.session
-    session["socialaccount_sociallogin"] = sociallogin.serialize()
-    session.save()
     # Here, we input the already existing email.
     resp = client.post(reverse("socialaccount_signup"), {"email": "other@email.org"})
     assert mailoutbox[0].subject == "[example.com] Please Confirm Your Email Address"

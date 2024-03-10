@@ -49,35 +49,23 @@ class FeishuOAuth2Adapter(OAuth2Adapter):
 
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
-
-class FeishuOAuth2ClientMixin(object):
     def get_client(self, request, app):
-        callback_url = reverse(self.adapter.provider_id + "_callback")
-        protocol = (
-            self.adapter.redirect_uri_protocol or app_settings.DEFAULT_HTTP_PROTOCOL
-        )
+        callback_url = reverse(self.provider_id + "_callback")
+        protocol = self.redirect_uri_protocol or app_settings.DEFAULT_HTTP_PROTOCOL
         callback_url = build_absolute_uri(request, callback_url, protocol=protocol)
-        provider = self.adapter.get_provider()
+        provider = self.get_provider()
         scope = provider.get_scope(request)
         client = FeishuOAuth2Client(
             request,
             app.client_id,
             app.secret,
-            self.adapter.access_token_method,
-            self.adapter.access_token_url,
+            self.access_token_method,
+            self.access_token_url,
             callback_url,
             scope,
         )
         return client
 
 
-class FeishuOAuth2LoginView(FeishuOAuth2ClientMixin, OAuth2LoginView):
-    pass
-
-
-class FeishuOAuth2CallbackView(FeishuOAuth2ClientMixin, OAuth2CallbackView):
-    pass
-
-
-oauth2_login = FeishuOAuth2LoginView.adapter_view(FeishuOAuth2Adapter)
-oauth2_callback = FeishuOAuth2CallbackView.adapter_view(FeishuOAuth2Adapter)
+oauth2_login = OAuth2LoginView.adapter_view(FeishuOAuth2Adapter)
+oauth2_callback = OAuth2CallbackView.adapter_view(FeishuOAuth2Adapter)

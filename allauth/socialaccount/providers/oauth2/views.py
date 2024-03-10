@@ -72,6 +72,24 @@ class OAuth2Adapter(object):
         self.did_fetch_access_token = True
         return data
 
+    def get_client(self, request, app):
+        callback_url = self.get_callback_url(request, app)
+        provider = self.get_provider()
+        scope = provider.get_scope(request)
+        client = self.client_class(
+            self.request,
+            app.client_id,
+            app.secret,
+            self.access_token_method,
+            self.access_token_url,
+            callback_url,
+            scope,
+            scope_delimiter=self.scope_delimiter,
+            headers=self.headers,
+            basic_auth=self.basic_auth,
+        )
+        return client
+
 
 class OAuth2View(object):
     @classmethod
@@ -90,30 +108,12 @@ class OAuth2View(object):
 
         return view
 
-    def get_client(self, request, app):
-        callback_url = self.adapter.get_callback_url(request, app)
-        provider = self.adapter.get_provider()
-        scope = provider.get_scope(request)
-        client = self.adapter.client_class(
-            self.request,
-            app.client_id,
-            app.secret,
-            self.adapter.access_token_method,
-            self.adapter.access_token_url,
-            callback_url,
-            scope,
-            scope_delimiter=self.adapter.scope_delimiter,
-            headers=self.adapter.headers,
-            basic_auth=self.adapter.basic_auth,
-        )
-        return client
-
 
 class OAuth2LoginView(OAuthLoginMixin, OAuth2View):
     def login(self, request, *args, **kwargs):
         provider = self.adapter.get_provider()
         app = provider.app
-        client = self.get_client(request, app)
+        client = self.adapter.get_client(request, app)
         action = request.GET.get("action", AuthAction.AUTHENTICATE)
         auth_url = self.adapter.authorize_url
         auth_params = provider.get_auth_params(request, action)
@@ -150,7 +150,7 @@ class OAuth2CallbackView(OAuth2View):
                 },
             )
         app = provider.app
-        client = self.get_client(self.request, app)
+        client = self.adapter.get_client(self.request, app)
 
         try:
             access_token = self.adapter.get_access_token_data(request, app, client)

@@ -1,13 +1,24 @@
+from allauth.headless.base.response import respond_is_authenticated
 from allauth.headless.base.views import APIView
 from allauth.headless.socialaccount.forms import RedirectToProviderForm
+from allauth.headless.socialaccount.inputs import SignupInput
 from allauth.socialaccount.helpers import render_authentication_error
+from allauth.socialaccount.internal import flows
 
 
-class ProviderSignUpView(APIView):
-    pass
+class ProviderSignupView(APIView):
+    input_class = SignupInput
+
+    def post(self, request, *args, **kwargs):
+        flows.signup.signup_by_form(self.request, self.sociallogin, self.input)
+        return respond_is_authenticated(request)
+
+    def get_input_kwargs(self):
+        self.sociallogin = flows.signup.get_pending_signup(self.request)
+        return {"sociallogin": self.sociallogin}
 
 
-provider_signup = ProviderSignUpView.as_view()
+provider_signup = ProviderSignupView.as_view()
 
 
 class RedirectToProviderView(APIView):

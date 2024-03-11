@@ -14,7 +14,8 @@ export const Flows = Object.freeze({
   VERIFY_EMAIL: 'verify_email',
   LOGIN: 'login',
   SIGNUP: 'signup',
-  PROVIDER_LOGIN: 'provider_login'
+  PROVIDER_LOGIN: 'provider_login',
+  PROVIDER_SIGNUP: 'provider_signup'
 })
 
 export const URLs = Object.freeze({
@@ -27,7 +28,8 @@ export const URLs = Object.freeze({
   RESET_PASSWORD: BASE_URL + '/auth/password/reset',
   CHANGE_PASSWORD: BASE_URL + '/account/password/change',
   EMAIL: BASE_URL + '/account/email',
-  REDIRECT_TO_PROVIDER: BASE_URL + '/auth/provider/redirect'
+  REDIRECT_TO_PROVIDER: BASE_URL + '/auth/provider/redirect',
+  PROVIDER_SIGNUP: BASE_URL + '/auth/provider/signup'
 })
 
 function postForm (action, data) {
@@ -77,6 +79,10 @@ export async function logout () {
 
 export async function signUp (data) {
   return await request('POST', URLs.SIGNUP, data)
+}
+
+export async function providerSignup (data) {
+  return await request('POST', URLs.PROVIDER_SIGNUP, data)
 }
 
 export async function requestPasswordReset (email) {

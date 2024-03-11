@@ -7,7 +7,8 @@ import {
 import Dashboard from './Dashboard'
 import Login from './Login'
 import Logout from './Logout'
-import SignUp from './SignUp'
+import Signup from './Signup'
+import ProviderSignup from './ProviderSignup'
 import Home from './Home'
 import ChangeEmail from './ChangeEmail'
 import VerifyEmail, { loader as verifyEmailLoader } from './VerifyEmail'
@@ -47,8 +48,12 @@ const router = createBrowserRouter([
         element: <CallbackRoute />
       },
       {
+        path: '/account/provider/signup',
+        element: <AnonymousRoute><ProviderSignup /></AnonymousRoute>
+      },
+      {
         path: '/account/signup',
-        element: <AnonymousRoute><SignUp /></AnonymousRoute>
+        element: <AnonymousRoute><Signup /></AnonymousRoute>
       },
       {
         path: '/account/verify-email',

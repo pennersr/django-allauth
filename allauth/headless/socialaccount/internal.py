@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 
 
 def complete_social_login(request, sociallogin, func):
-    resp = func(request, sociallogin)
+    func(request, sociallogin)
     # At this stage, we're either:
     # 1) logged in (or an of the login pipeline stages, such as email
     #    verification)

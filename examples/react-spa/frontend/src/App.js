@@ -17,11 +17,13 @@ import VerificationEmailSent from './VerificationEmailSent'
 import RequestPasswordReset from './RequestPasswordReset'
 import ChangePassword from './ChangePassword'
 import NavBar from './NavBar'
-import MFAOverview, { loader as mfaOverviewLoader } from './MFAOverview'
-import ActivateTOTP, { loader as activateTOTPLoader } from './ActivateTOTP'
-import DeactivateTOTP from './DeactivateTOTP'
+import MFAOverview, { loader as mfaOverviewLoader } from './mfa/MFAOverview'
+import ActivateTOTP, { loader as activateTOTPLoader } from './mfa/ActivateTOTP'
+import DeactivateTOTP from './mfa/DeactivateTOTP'
+import RecoveryCodes, { loader as recoveryCodesLoader } from './mfa/RecoveryCodes'
+import GenerateRecoveryCodes, { loader as generateRecoveryCodesLoader } from './mfa/GenerateRecoveryCodes'
 import ResetPassword, { loader as resetPasswordLoader } from './ResetPassword'
-import MFAAuthenticate from './MFAAuthenticate'
+import MFAAuthenticate from './mfa/MFAAuthenticate'
 
 const router = createBrowserRouter([
   {
@@ -103,6 +105,16 @@ const router = createBrowserRouter([
       {
         path: '/account/2fa/totp/deactivate',
         element: <AuthenticatedRoute><DeactivateTOTP /></AuthenticatedRoute>
+      },
+      {
+        path: '/account/2fa/recovery-codes',
+        element: <AuthenticatedRoute><RecoveryCodes /></AuthenticatedRoute>,
+        loader: recoveryCodesLoader
+      },
+      {
+        path: '/account/2fa/recovery-codes/generate',
+        element: <AuthenticatedRoute><GenerateRecoveryCodes /></AuthenticatedRoute>,
+        loader: generateRecoveryCodesLoader
       }
     ]
   }

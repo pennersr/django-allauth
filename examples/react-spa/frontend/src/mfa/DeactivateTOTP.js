@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import * as allauth from './lib/allauth'
-import { Navigate, useLoaderData } from 'react-router-dom'
-import FormErrors from './FormErrors'
+import * as allauth from '../lib/allauth'
+import { Navigate } from 'react-router-dom'
 
 export default function DeactivateTOTP (props) {
   const [response, setResponse] = useState({ fetching: false, data: null })

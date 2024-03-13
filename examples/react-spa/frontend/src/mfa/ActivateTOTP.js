@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import * as allauth from './lib/allauth'
+import * as allauth from '../lib/allauth'
 import { Navigate, useLoaderData } from 'react-router-dom'
-import FormErrors from './FormErrors'
+import FormErrors from '../FormErrors'
 
 export async function loader ({ params }) {
   const resp = await allauth.getTOTPAuthenticator()

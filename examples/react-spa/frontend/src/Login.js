@@ -2,7 +2,7 @@ import { useState } from 'react'
 import FormErrors from './FormErrors'
 import { login } from './lib/allauth'
 import { Link } from 'react-router-dom'
-import { useAuth, useConfig } from './auth'
+import { useConfig } from './auth'
 import ProviderList from './ProviderList'
 
 export default function Login () {

@@ -1,9 +1,6 @@
 import { useState } from 'react'
-import FormErrors from './FormErrors'
-import * as allauth from './lib/allauth'
-import { Link } from 'react-router-dom'
-import { useAuth, useConfig } from './auth'
-import ProviderList from './ProviderList'
+import FormErrors from '../FormErrors'
+import * as allauth from '../lib/allauth'
 
 export default function MFAAuthenticate () {
   const [code, setCode] = useState('')

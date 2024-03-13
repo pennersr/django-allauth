@@ -15,7 +15,8 @@ export const Flows = Object.freeze({
   LOGIN: 'login',
   SIGNUP: 'signup',
   PROVIDER_LOGIN: 'provider_login',
-  PROVIDER_SIGNUP: 'provider_signup'
+  PROVIDER_SIGNUP: 'provider_signup',
+  MFA_AUTHENTICATE: 'mfa_authenticate'
 })
 
 export const URLs = Object.freeze({
@@ -31,7 +32,15 @@ export const URLs = Object.freeze({
   EMAIL: BASE_URL + '/account/email',
   REDIRECT_TO_PROVIDER: BASE_URL + '/auth/provider/redirect',
   PROVIDER_SIGNUP: BASE_URL + '/auth/provider/signup',
-  PROVIDERS: BASE_URL + '/account/providers'
+  PROVIDERS: BASE_URL + '/account/providers',
+  AUTHENTICATORS: BASE_URL + '/2fa/authenticators',
+  TOTP_AUTHENTICATOR: BASE_URL + '/2fa/authenticators/totp',
+  MFA_AUTHENTICATE: BASE_URL + '/auth/mfa_authenticate'
+})
+
+export const AuthenticatorType = Object.freeze({
+  TOTP: 'totp',
+  RECOVERY_CODES: 'recovery_codes'
 })
 
 function postForm (action, data) {
@@ -105,6 +114,26 @@ export async function getEmailVerification (key) {
 
 export async function getEmailAddresses () {
   return await request('GET', URLs.EMAIL)
+}
+
+export async function getAuthenticators () {
+  return await request('GET', URLs.AUTHENTICATORS)
+}
+
+export async function getTOTPAuthenticator () {
+  return await request('GET', URLs.TOTP_AUTHENTICATOR)
+}
+
+export async function mfaAuthenticate (code) {
+  return await request('POST', URLs.MFA_AUTHENTICATE, { code })
+}
+
+export async function activateTOTPAuthenticator (code) {
+  return await request('POST', URLs.TOTP_AUTHENTICATOR, { code })
+}
+
+export async function deactivateTOTPAuthenticator () {
+  return await request('DELETE', URLs.TOTP_AUTHENTICATOR)
 }
 
 export async function getConfig () {

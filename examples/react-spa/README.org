@@ -86,3 +86,9 @@ Need a way of indicating what mechanisms are supported.
 **** TODO Pass along success/error to redirect callback
 E.g. the frontend connect process needs to be able to show a "Provider
 Connected!" message (or failure).
+
+**** TODO Revisit URL structure
+Having underscores as =mfa_authenticate= and =verify_email= in URLs? Matches stages, but...
+
+**** TODO Decide if API needs to be made more REST-ish
+e.g. =POST= to /2fa/authenticators/totp/{id} to delete? But TOTP is a singleton, so why.

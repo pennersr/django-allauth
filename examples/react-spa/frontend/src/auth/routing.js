@@ -11,6 +11,7 @@ flow2path[Flows.LOGIN] = '/account/login'
 flow2path[Flows.SIGNUP] = '/account/signup'
 flow2path[Flows.VERIFY_EMAIL] = '/account/verify-email'
 flow2path[Flows.PROVIDER_SIGNUP] = '/account/provider/signup'
+flow2path[Flows.MFA_AUTHENTICATE] = '/account/2fa/authenticate'
 
 function route401 (auth, location, children, pickPending) {
   const pendingFlows = auth.data.flows.filter(flow => flow.is_pending)

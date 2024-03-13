@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.dummy",
+    "allauth.mfa",
     "allauth.headless",
 ]
 
@@ -140,3 +141,5 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_ADAPTER = "backend.accounts.allauth.AccountAdapter"
 ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = False
+
+MFA_TOTP_INSECURE_BYPASS_CODE = "42"

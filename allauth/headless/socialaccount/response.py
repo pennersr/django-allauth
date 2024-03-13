@@ -50,12 +50,13 @@ def _login_flow(request):
 
 
 def get_config_data(request):
-    data = {"providers": []}
+    entries = []
+    data = {"socialaccount": {"providers": entries}}
     adapter = get_socialaccount_adapter()
     providers = adapter.list_providers(request)
     providers = sorted(providers, key=lambda p: p.name)
     for provider in providers:
         if not provider.supports_redirect:
             continue
-        data["providers"].append(_serialize_provider(request, provider))
+        entries.append(_serialize_provider(request, provider))
     return data

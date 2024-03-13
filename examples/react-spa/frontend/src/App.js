@@ -17,7 +17,11 @@ import VerificationEmailSent from './VerificationEmailSent'
 import RequestPasswordReset from './RequestPasswordReset'
 import ChangePassword from './ChangePassword'
 import NavBar from './NavBar'
+import MFAOverview, { loader as mfaOverviewLoader } from './MFAOverview'
+import ActivateTOTP, { loader as activateTOTPLoader } from './ActivateTOTP'
+import DeactivateTOTP from './DeactivateTOTP'
 import ResetPassword, { loader as resetPasswordLoader } from './ResetPassword'
+import MFAAuthenticate from './MFAAuthenticate'
 
 const router = createBrowserRouter([
   {
@@ -81,6 +85,24 @@ const router = createBrowserRouter([
       {
         path: '/account/password/change',
         element: <AuthenticatedRoute><ChangePassword /></AuthenticatedRoute>
+      },
+      {
+        path: '/account/2fa',
+        element: <AuthenticatedRoute><MFAOverview /></AuthenticatedRoute>,
+        loader: mfaOverviewLoader
+      },
+      {
+        path: '/account/2fa/authenticate',
+        element: <AnonymousRoute><MFAAuthenticate /></AnonymousRoute>
+      },
+      {
+        path: '/account/2fa/totp/activate',
+        element: <AuthenticatedRoute><ActivateTOTP /></AuthenticatedRoute>,
+        loader: activateTOTPLoader
+      },
+      {
+        path: '/account/2fa/totp/deactivate',
+        element: <AuthenticatedRoute><DeactivateTOTP /></AuthenticatedRoute>
       }
     ]
   }

@@ -10,7 +10,7 @@ export default function Login () {
   const [password, setPassword] = useState('')
   const [response, setResponse] = useState({ fetching: false, data: null })
   const config = useConfig()
-  const hasProviders = config.data.providers.length > 0
+  const hasProviders = config.data.socialaccount?.providers?.length > 0
 
   function submit () {
     setResponse({ ...response, fetching: true })

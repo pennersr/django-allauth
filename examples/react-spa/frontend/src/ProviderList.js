@@ -3,7 +3,7 @@ import { redirectToProvider } from './lib/allauth'
 
 export default function ProviderList (props) {
   const config = useConfig()
-  const providers = config.data.providers
+  const providers = config.data.socialaccount.providers
   if (!providers.length) {
     return null
   }

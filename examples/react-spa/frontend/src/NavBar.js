@@ -23,6 +23,8 @@ export default function NavBar () {
       <Link to='/account/password/change'>🔒 Change Password</Link>
       {' '}
       <Link to='/account/providers'>👤 Providers</Link>
+      {' '}
+      <Link to='/account/2fa'>📱 Two-Factor Authentication</Link>
     </>
   )
   return (

@@ -65,6 +65,10 @@ class ConfigView(APIView):
             from allauth.headless.socialaccount.response import get_config_data
 
             data.update(get_config_data(request))
+        if app_settings.MFA_ENABLED:
+            from allauth.headless.mfa.response import get_config_data
+
+            data.update(get_config_data(request))
         return response.APIResponse(data=data)
 
 

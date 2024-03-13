@@ -28,9 +28,7 @@ authenticate = AuthenticateView.as_view()
 class AuthenticatorsView(AuthenticatedAPIView):
     def get(self, request, *args, **kwargs):
         authenticators = Authenticator.objects.filter(user=request.user)
-        return APIResponse(
-            data=[{"type": authenticator.type} for authenticator in authenticators]
-        )
+        return response.respond_authenticator_list(request, authenticators)
 
 
 authenticators = AuthenticatorsView.as_view()
@@ -65,3 +63,23 @@ class ManageTOTPView(AuthenticatedAPIView):
 
 
 manage_totp = ManageTOTPView.as_view()
+
+
+class ManageRecoveryCodesView(AuthenticatedAPIView):
+    def get(self, request, *args, **kwargs):
+        authenticator = self._get_authenticator()
+        if not authenticator:
+            return response.respond_recovery_codes_inactive(request)
+        return response.respond_recovery_codes_active(request, authenticator)
+
+    def _get_authenticator(self):
+        return Authenticator.objects.filter(
+            type=Authenticator.Type.RECOVERY_CODES, user=self.request.user
+        ).first()
+
+    def post(self, request, *args, **kwargs):
+        authenticator = flows.recovery_codes.generate_recovery_codes(request)
+        return response.respond_recovery_codes_active(request, authenticator)
+
+
+manage_recovery_codes = ManageRecoveryCodesView.as_view()

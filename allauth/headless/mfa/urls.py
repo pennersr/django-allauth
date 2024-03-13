@@ -19,4 +19,9 @@ urlpatterns = [
         views.manage_totp,
         name="headless_mfa_manage_totp",
     ),
+    path(
+        "v1/2fa/authenticators/recovery_codes",
+        views.manage_recovery_codes,
+        name="headless_mfa_manage_recovery_codes",
+    ),
 ]

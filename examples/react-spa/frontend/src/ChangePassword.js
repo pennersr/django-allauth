@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import FormErrors from './FormErrors'
 import { changePassword } from './lib/allauth'
-import { Navigate, Link } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { useUser } from './auth'
 
 export default function ChangePassword () {
@@ -36,6 +36,7 @@ export default function ChangePassword () {
     <div>
       <h1>{hasCurrentPassword ? 'Change Password' : 'Set Password'}</h1>
 
+      <p>{hasCurrentPassword ? 'Enter your current password, followed by your new password.' : 'You currently have no password set. Enter your (new) password.'}</p>
       {hasCurrentPassword
         ? <div><label>Current password: <input autoComplete='password' value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} type='password' required /></label>
           <FormErrors errors={response.content?.error?.detail?.current_password} />

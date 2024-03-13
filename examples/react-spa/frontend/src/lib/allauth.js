@@ -35,7 +35,8 @@ export const URLs = Object.freeze({
   PROVIDERS: BASE_URL + '/account/providers',
   AUTHENTICATORS: BASE_URL + '/2fa/authenticators',
   TOTP_AUTHENTICATOR: BASE_URL + '/2fa/authenticators/totp',
-  MFA_AUTHENTICATE: BASE_URL + '/auth/mfa_authenticate'
+  MFA_AUTHENTICATE: BASE_URL + '/auth/mfa_authenticate',
+  RECOVERY_CODES: BASE_URL + '/2fa/authenticators/recovery_codes'
 })
 
 export const AuthenticatorType = Object.freeze({
@@ -134,6 +135,14 @@ export async function activateTOTPAuthenticator (code) {
 
 export async function deactivateTOTPAuthenticator () {
   return await request('DELETE', URLs.TOTP_AUTHENTICATOR)
+}
+
+export async function getRecoveryCodes () {
+  return await request('GET', URLs.RECOVERY_CODES)
+}
+
+export async function generateRecoveryCodes () {
+  return await request('POST', URLs.RECOVERY_CODES)
 }
 
 export async function getConfig () {

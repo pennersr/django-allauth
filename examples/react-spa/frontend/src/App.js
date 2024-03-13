@@ -11,6 +11,7 @@ import Signup from './Signup'
 import ProviderSignup from './ProviderSignup'
 import Home from './Home'
 import ChangeEmail from './ChangeEmail'
+import ManageProviders from './ManageProviders'
 import VerifyEmail, { loader as verifyEmailLoader } from './VerifyEmail'
 import VerificationEmailSent from './VerificationEmailSent'
 import RequestPasswordReset from './RequestPasswordReset'
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: '/account/provider/signup',
         element: <AnonymousRoute><ProviderSignup /></AnonymousRoute>
+      },
+      {
+        path: '/account/providers',
+        element: <AuthenticatedRoute><ManageProviders /></AuthenticatedRoute>
       },
       {
         path: '/account/signup',

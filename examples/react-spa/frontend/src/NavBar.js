@@ -21,6 +21,8 @@ export default function NavBar () {
       <Link to='/account/email'>📬 Change Email</Link>
       {' '}
       <Link to='/account/password/change'>🔒 Change Password</Link>
+      {' '}
+      <Link to='/account/providers'>👤 Providers</Link>
     </>
   )
   return (

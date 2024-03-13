@@ -1,39 +1,16 @@
 import { useState } from 'react'
 import FormErrors from './FormErrors'
-import { login, redirectToProvider } from './lib/allauth'
+import { login } from './lib/allauth'
 import { Link } from 'react-router-dom'
-import { useAuth } from './auth'
-
-function ProviderList (props) {
-  const auth = useAuth()
-  if (auth.status !== 401) {
-    return null
-  }
-  const flows = auth.data.flows.filter(flow => flow.id == 'provider_login')
-  if (!flows.length) {
-    return null
-  }
-  const flow = flows[0]
-  if (!flow.providers.length) {
-    return null
-  }
-  return (
-    <ul>
-      {flow.providers.map(provider => {
-        return (
-          <li key={provider.id}>
-            <button onClick={() => redirectToProvider(provider.id, '/account/callback')}>{provider.name}</button>
-          </li>
-        )
-      })}
-    </ul>
-  )
-}
+import { useAuth, useConfig } from './auth'
+import ProviderList from './ProviderList'
 
 export default function Login () {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [response, setResponse] = useState({ fetching: false, data: null })
+  const config = useConfig()
+  const hasProviders = config.data.providers.length > 0
 
   function submit () {
     setResponse({ ...response, fetching: true })
@@ -64,7 +41,12 @@ export default function Login () {
       </div>
       <button disabled={response.fetching} onClick={() => submit()}>Login</button>
 
-      <ProviderList />
+      {hasProviders
+        ? <>
+          <h2>Or use a third-party</h2>
+          <ProviderList callbackURL='/account/callback' />
+        </>
+        : null}
     </div>
   )
 }

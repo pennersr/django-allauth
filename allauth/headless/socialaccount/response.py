@@ -4,6 +4,14 @@ from allauth.socialaccount.adapter import (
 from allauth.socialaccount.internal.flows import signup
 
 
+def serialize_socialaccount(request, account):
+    return {
+        "uid": account.uid,
+        "provider": _serialize_provider(request, account.get_provider()),
+        "display": account.get_provider_account().to_str(),
+    }
+
+
 def _serialize_provider(request, provider):
     return {
         "id": provider.id,
@@ -37,14 +45,17 @@ def _login_flow(request):
     flow = {
         "id": "provider_login",
         "url": request.allauth.headless.reverse("headless_redirect_to_provider"),
-        "providers": [],
     }
+    return flow
+
+
+def get_config_data(request):
+    data = {"providers": []}
     adapter = get_socialaccount_adapter()
     providers = adapter.list_providers(request)
     providers = sorted(providers, key=lambda p: p.name)
     for provider in providers:
         if not provider.supports_redirect:
             continue
-        flow["providers"].append(_serialize_provider(request, provider))
-
-    return flow
+        data["providers"].append(_serialize_provider(request, provider))
+    return data

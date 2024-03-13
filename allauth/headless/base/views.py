@@ -1,9 +1,9 @@
 from types import SimpleNamespace
 
-from django.http import JsonResponse
 from django.middleware.csrf import get_token
 from django.urls import reverse
 
+from allauth import app_settings
 from allauth.account.stages import LoginStageController
 from allauth.headless.base import response
 from allauth.headless.restkit.views import RESTView
@@ -60,25 +60,12 @@ class ConfigView(APIView):
         The frontend queries (GET) this endpoint, expecting to receive
         either a 401 if no user is authenticated, or user information.
         """
-        data = {
-            "flows": [
-                {"type": "allauth.login.password"},
-                {
-                    "providers": [
-                        {
-                            "id": "com.example.idp.github",
-                            "name": "GitHub",
-                        },
-                        {
-                            "id": "com.example.idp.gitlab",
-                            "name": "GitLab",
-                        },
-                    ],
-                    "type": "allauth.login.provider",
-                },
-            ]
-        }
-        return JsonResponse(data)
+        data = {}
+        if app_settings.SOCIALACCOUNT_ENABLED:
+            from allauth.headless.socialaccount.response import get_config_data
+
+            data.update(get_config_data(request))
+        return response.APIResponse(data=data)
 
 
 config = ConfigView.as_view()

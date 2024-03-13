@@ -48,7 +48,7 @@ export default function ChangePassword () {
         <FormErrors errors={newPassword2Errors} />
       </div>
 
-      <button disabled={response.fetching} onClick={() => submit()}>Reset</button>
+      <button disabled={response.fetching} onClick={() => submit()}>{hasCurrentPassword ? 'Change' : 'Set'}</button>
     </div>
   )
 }

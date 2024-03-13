@@ -19,6 +19,7 @@ export const Flows = Object.freeze({
 })
 
 export const URLs = Object.freeze({
+  CONFIG: BASE_URL + '/config',
   LOGIN: BASE_URL + '/auth/login',
   LOGOUT: BASE_URL + '/auth/logout',
   AUTH: BASE_URL + '/auth',
@@ -29,7 +30,8 @@ export const URLs = Object.freeze({
   CHANGE_PASSWORD: BASE_URL + '/account/password/change',
   EMAIL: BASE_URL + '/account/email',
   REDIRECT_TO_PROVIDER: BASE_URL + '/auth/provider/redirect',
-  PROVIDER_SIGNUP: BASE_URL + '/auth/provider/signup'
+  PROVIDER_SIGNUP: BASE_URL + '/auth/provider/signup',
+  PROVIDERS: BASE_URL + '/account/providers'
 })
 
 function postForm (action, data) {
@@ -85,6 +87,14 @@ export async function providerSignup (data) {
   return await request('POST', URLs.PROVIDER_SIGNUP, data)
 }
 
+export async function getProviderAccounts () {
+  return await request('GET', URLs.PROVIDERS)
+}
+
+export async function disconnectProviderAccount (providerId, accountUid) {
+  return await request('DELETE', URLs.PROVIDERS, { provider: providerId, account: accountUid })
+}
+
 export async function requestPasswordReset (email) {
   return await request('POST', URLs.REQUEST_PASSWORD_RESET, { email })
 }
@@ -95,6 +105,10 @@ export async function getEmailVerification (key) {
 
 export async function getEmailAddresses () {
   return await request('GET', URLs.EMAIL)
+}
+
+export async function getConfig () {
+  return await request('GET', URLs.CONFIG)
 }
 
 export async function addEmail (email) {
@@ -133,10 +147,10 @@ export async function getAuth () {
   return await request('GET', URLs.AUTH)
 }
 
-export function redirectToProvider (providerId, callbackURL) {
+export function redirectToProvider (providerId, callbackURL, process = AuthProcess.LOGIN) {
   postForm(URLs.REDIRECT_TO_PROVIDER, {
     provider_id: providerId,
-    process: AuthProcess.LOGIN,
+    process,
     callback_url: callbackURL,
     csrfmiddlewaretoken: getCSRFToken()
   })

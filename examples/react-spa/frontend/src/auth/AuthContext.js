@@ -1,5 +1,5 @@
 import { useEffect, createContext, useState } from 'react'
-import { getAuth } from '../lib/allauth'
+import { getAuth, getConfig } from '../lib/allauth'
 
 export const AuthContext = createContext(null)
 
@@ -13,6 +13,7 @@ function LoadingError () {
 
 export function AuthContextProvider (props) {
   const [auth, setAuth] = useState(undefined)
+  const [config, setConfig] = useState(undefined)
 
   useEffect(() => {
     function onAuthChanged (e) {
@@ -25,14 +26,17 @@ export function AuthContextProvider (props) {
       console.error(e)
       setAuth(false)
     })
+    getConfig().then(data => setConfig(data)).catch((e) => {
+      console.error(e)
+    })
     return () => {
       document.removeEventListener('allauth.auth.change', onAuthChanged)
     }
   }, [])
-
+  const loading = (typeof auth === 'undefined') || config?.status !== 200
   return (
-    <AuthContext.Provider value={{ auth }}>
-      {(typeof auth === 'undefined')
+    <AuthContext.Provider value={{ auth, config }}>
+      {loading
         ? <Loading />
         : (auth === false
             ? <LoadingError />

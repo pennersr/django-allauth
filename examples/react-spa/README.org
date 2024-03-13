@@ -35,6 +35,10 @@ Then, visit the app over at http://localhost:10000.
 **** TODO Re-authentication
 
 **** TODO Third-party login
+- [X] Login
+- [X] Signup
+- [X] Provider disconnect
+- [ ] Disconnect error handling
 
 **** TODO MFA
 
@@ -78,3 +82,7 @@ response from which an enumeration related conclusion can be drawn.
 Need a way of indicating what mechanisms are supported.
 
 **** TODO Check caching headers
+
+**** TODO Pass along success/error to redirect callback
+E.g. the frontend connect process needs to be able to show a "Provider
+Connected!" message (or failure).

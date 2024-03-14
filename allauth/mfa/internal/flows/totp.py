@@ -16,6 +16,7 @@ def activate_totp(request, form):
         if auth:
             signals.authenticator_added.send(
                 sender=Authenticator,
+                request=request,
                 user=request.user,
                 authenticator=auth.instance,
             )
@@ -32,6 +33,7 @@ def deactivate_totp(request, authenticator):
         if auth:
             signals.authenticator_removed.send(
                 sender=Authenticator,
+                request=request,
                 user=request.user,
                 authenticator=auth,
             )

@@ -113,3 +113,14 @@ def enable_cache(settings):
     }
     cache.clear()
     yield
+
+
+@pytest.fixture
+def totp_validation_bypass():
+    @contextmanager
+    def f():
+        with patch("allauth.mfa.totp.validate_totp_code") as m:
+            m.return_value = True
+            yield
+
+    return f

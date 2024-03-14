@@ -1,7 +1,6 @@
 import base64
 
 from django import forms
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -11,19 +10,18 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
 from allauth.account import app_settings as account_settings
-from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.decorators import reauthentication_required
 from allauth.account.stages import LoginStageController
 from allauth.account.views import BaseReauthenticateView
-from allauth.mfa import app_settings, signals, totp
+from allauth.mfa import app_settings, totp
 from allauth.mfa.adapter import get_adapter
 from allauth.mfa.forms import (
     ActivateTOTPForm,
     AuthenticateForm,
     DeactivateTOTPForm,
 )
+from allauth.mfa.internal import flows
 from allauth.mfa.models import Authenticator
-from allauth.mfa.recovery_codes import RecoveryCodes
 from allauth.mfa.stages import AuthenticateStage
 from allauth.mfa.utils import is_mfa_enabled
 from allauth.utils import get_form_class
@@ -137,23 +135,7 @@ class ActivateTOTPView(FormView):
         return reverse("mfa_index")
 
     def form_valid(self, form):
-        totp_auth = totp.TOTP.activate(self.request.user, form.secret)
-        if Authenticator.Type.RECOVERY_CODES in app_settings.SUPPORTED_TYPES:
-            rc_auth = RecoveryCodes.activate(self.request.user)
-        else:
-            rc_auth = None
-        for auth in [totp_auth, rc_auth]:
-            if auth:
-                signals.authenticator_added.send(
-                    sender=Authenticator,
-                    user=self.request.user,
-                    authenticator=auth.instance,
-                )
-        adapter = get_account_adapter(self.request)
-        adapter.add_message(
-            self.request, messages.SUCCESS, "mfa/messages/totp_activated.txt"
-        )
-        adapter.send_notification_mail("mfa/email/totp_activated", self.request.user)
+        flows.totp.activate_totp(self.request, form)
         return super().form_valid(form)
 
 
@@ -198,22 +180,7 @@ class DeactivateTOTPView(FormView):
         return get_form_class(app_settings.FORMS, "deactivate_totp", self.form_class)
 
     def form_valid(self, form):
-        self.authenticator.wrap().deactivate()
-        rc_auth = Authenticator.objects.delete_dangling_recovery_codes(
-            self.authenticator.user
-        )
-        for auth in [self.authenticator, rc_auth]:
-            if auth:
-                signals.authenticator_removed.send(
-                    sender=Authenticator,
-                    user=self.request.user,
-                    authenticator=auth,
-                )
-        adapter = get_account_adapter(self.request)
-        adapter.add_message(
-            self.request, messages.SUCCESS, "mfa/messages/totp_deactivated.txt"
-        )
-        adapter.send_notification_mail("mfa/email/totp_deactivated", self.request.user)
+        flows.totp.deactivate_totp(self.request, self.authenticator)
         return super().form_valid(form)
 
 
@@ -227,20 +194,7 @@ class GenerateRecoveryCodesView(FormView):
     success_url = reverse_lazy("mfa_view_recovery_codes")
 
     def form_valid(self, form):
-        Authenticator.objects.filter(
-            user=self.request.user, type=Authenticator.Type.RECOVERY_CODES
-        ).delete()
-        rc_auth = RecoveryCodes.activate(self.request.user)
-        adapter = get_account_adapter(self.request)
-        adapter.add_message(
-            self.request, messages.SUCCESS, "mfa/messages/recovery_codes_generated.txt"
-        )
-        signals.authenticator_reset.send(
-            sender=Authenticator, user=self.request.user, authenticator=rc_auth.instance
-        )
-        adapter.send_notification_mail(
-            "mfa/email/recovery_codes_generated", self.request.user
-        )
+        flows.recovery_codes.generate_recovery_codes(self.request)
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):

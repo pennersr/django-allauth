@@ -41,7 +41,7 @@ class UnauthorizedResponse(APIResponse):
         super().__init__(
             {"flows": flows},
             meta={
-                "is_authenticated": False,
+                "is_authenticated": request.user.is_authenticated,
             },
             status=401,
         )

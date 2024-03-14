@@ -5,6 +5,7 @@ from django.urls import reverse
 
 from allauth import app_settings
 from allauth.account.stages import LoginStageController
+from allauth.core.exceptions import ReauthenticationRequired
 from allauth.headless.base import response
 from allauth.headless.restkit.views import RESTView
 
@@ -27,7 +28,11 @@ class APIView(RESTView):
             # Needed -- so that the CSRF token is set in the response for the
             # frontend to pick up.
             get_token(request)
-        return super().dispatch(request, *args, **kwargs)
+
+        try:
+            return super().dispatch(request, *args, **kwargs)
+        except ReauthenticationRequired:
+            return response.UnauthorizedResponse(self.request)
 
 
 class AuthenticationStageAPIView(APIView):

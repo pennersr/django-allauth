@@ -80,7 +80,7 @@ def test_remove_secondary(auth_client, user, settings, mailoutbox):
         {"action_remove": "", "email": secondary.email},
     )
 
-    assert not EmailAddress.objects.filter(email=secondary.pk).exists()
+    assert not EmailAddress.objects.filter(pk=secondary.pk).exists()
     assertTemplateUsed(resp, "account/messages/email_deleted.txt")
     assert len(mailoutbox) == 1
     assert f"{secondary.email} has been removed" in mailoutbox[0].body
@@ -391,3 +391,43 @@ def test_dont_lookup_invalid_email(auth_client, email, did_look_up):
             {"action_remove": "", "email": email},
         )
         assert gfu_mock.called == did_look_up
+
+
+def test_add_requires_reauthentication(settings, auth_client):
+    settings.ACCOUNT_REAUTHENTICATION_REQUIRED = True
+    resp = auth_client.post(
+        reverse("account_email"),
+        {"action_add": "", "email": "john3@example.org"},
+    )
+    assert not EmailAddress.objects.filter(email="john3@example.org").exists()
+    assert resp["location"].startswith(reverse("account_reauthenticate"))
+
+
+def test_remove_requires_reauthentication(auth_client, user, settings):
+    settings.ACCOUNT_REAUTHENTICATION_REQUIRED = True
+    secondary = EmailAddress.objects.create(
+        email="secondary@email.org", user=user, verified=False, primary=False
+    )
+    resp = auth_client.post(
+        reverse("account_email"),
+        {"action_remove": "", "email": secondary.email},
+    )
+    assert resp["location"].startswith(reverse("account_reauthenticate"))
+    assert EmailAddress.objects.filter(pk=secondary.pk).exists()
+
+
+def test_set_primary_requires_reauthentication(auth_client, user, settings):
+    settings.ACCOUNT_REAUTHENTICATION_REQUIRED = True
+    primary = EmailAddress.objects.get(email=user.email)
+    secondary = EmailAddress.objects.create(
+        email="secondary@email.org", user=user, verified=True, primary=False
+    )
+    resp = auth_client.post(
+        reverse("account_email"),
+        {"action_primary": "", "email": secondary.email},
+    )
+    assert resp["location"].startswith(reverse("account_reauthenticate"))
+    primary.refresh_from_db()
+    secondary.refresh_from_db()
+    assert primary.primary
+    assert not secondary.primary

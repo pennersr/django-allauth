@@ -7,7 +7,7 @@ from django.utils.http import urlencode
 
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
-from allauth.account.utils import get_next_redirect_url
+from allauth.core.exceptions import ReauthenticationRequired
 from allauth.core.internal.http import deserialize_request, serialize_request
 from allauth.utils import import_callable
 
@@ -26,6 +26,8 @@ def suspend_request(request, redirect_to):
 
 
 def resume_request(request):
+    from allauth.account.utils import get_next_redirect_url
+
     state = request.session.pop(STATE_SESSION_KEY, None)
     if state and "callback" in state:
         callback = import_callable(state["callback"])
@@ -58,6 +60,11 @@ def reauthenticate_then_callback(request, serialize_state, callback):
         "callback": callback,
     }
     return HttpResponseRedirect(reverse("account_reauthenticate"))
+
+
+def raise_if_reauthentication_required(request):
+    if not did_recently_authenticate(request):
+        raise ReauthenticationRequired()
 
 
 def did_recently_authenticate(request):

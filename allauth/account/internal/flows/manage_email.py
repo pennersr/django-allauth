@@ -1,7 +1,9 @@
 from django.contrib import messages
 
-from allauth.account import signals
+from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
+from allauth.account.models import EmailAddress
+from allauth.account.reauthentication import raise_if_reauthentication_required
 
 
 def can_delete_email(email_address):
@@ -10,6 +12,9 @@ def can_delete_email(email_address):
 
 
 def delete_email(request, email_address):
+    if app_settings.REAUTHENTICATION_REQUIRED:
+        raise_if_reauthentication_required(request)
+
     success = False
     adapter = get_adapter()
     if not can_delete_email(email_address):
@@ -38,5 +43,61 @@ def delete_email(request, email_address):
             request.user,
             {"deleted_email": email_address.email},
         )
+        success = True
+    return success
+
+
+def add_email(request, form):
+    if app_settings.REAUTHENTICATION_REQUIRED:
+        raise_if_reauthentication_required(request)
+
+    email_address = form.save(request)
+    adapter = get_adapter(request)
+    adapter.add_message(
+        request,
+        messages.INFO,
+        "account/messages/email_confirmation_sent.txt",
+        {"email": form.cleaned_data["email"]},
+    )
+    signals.email_added.send(
+        sender=request.user.__class__,
+        request=request,
+        user=request.user,
+        email_address=email_address,
+    )
+
+
+def mark_as_primary(request, email_address):
+    from allauth.account.utils import emit_email_changed
+
+    if app_settings.REAUTHENTICATION_REQUIRED:
+        raise_if_reauthentication_required(request)
+
+    # Not primary=True -- Slightly different variation, don't
+    # require verified unless moving from a verified
+    # address. Ignore constraint if previous primary email
+    # address is not verified.
+    success = False
+    if (
+        not email_address.verified
+        and EmailAddress.objects.filter(user=request.user, verified=True).exists()
+    ):
+        get_adapter().add_message(
+            request,
+            messages.ERROR,
+            "account/messages/unverified_primary_email.txt",
+        )
+    else:
+        from_email_address = EmailAddress.objects.filter(
+            user=request.user, primary=True
+        ).first()
+        email_address.set_as_primary()
+        adapter = get_adapter()
+        adapter.add_message(
+            request,
+            messages.SUCCESS,
+            "account/messages/primary_email_set.txt",
+        )
+        emit_email_changed(request, from_email_address, email_address)
         success = True
     return success

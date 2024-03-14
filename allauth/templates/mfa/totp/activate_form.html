@@ -16,7 +16,7 @@
             {% element img src=totp_svg_data_uri alt=form.secret tags="mfa,totp,qr" %}
             {% endelement %}
             {% csrf_token %}
-            {% element field type="text" value=form.secret disabled=True %}
+            {% element field id="authenticator_secret" type="text" value=form.secret disabled=True %}
                 {% slot label %}
                     {% translate "Authenticator secret" %}
                 {% endslot %}
@@ -28,7 +28,7 @@
             {% endelement %}
         {% endslot %}
         {% slot actions %}
-            {% element button  type="submit" %}
+            {% element button type="submit" %}
                 {% trans "Activate" %}
             {% endelement %}
         {% endslot %}

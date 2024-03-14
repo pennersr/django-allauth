@@ -82,6 +82,7 @@ class LoginStageController:
                 return response
             else:
                 assert cont
+                self.set_handled(stage.key)
         unstash_login(self.request)
 
 

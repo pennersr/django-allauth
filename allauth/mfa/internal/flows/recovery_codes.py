@@ -16,7 +16,10 @@ def generate_recovery_codes(request):
         request, messages.SUCCESS, "mfa/messages/recovery_codes_generated.txt"
     )
     signals.authenticator_reset.send(
-        sender=Authenticator, user=request.user, authenticator=rc_auth.instance
+        sender=Authenticator,
+        request=request,
+        user=request.user,
+        authenticator=rc_auth.instance,
     )
     adapter.send_notification_mail("mfa/email/recovery_codes_generated", request.user)
     return rc_auth.instance

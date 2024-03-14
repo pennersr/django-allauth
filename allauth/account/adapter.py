@@ -294,6 +294,8 @@ class DefaultAccountAdapter(object):
             user_field(user, "last_name", last_name)
         if "password1" in data:
             user.set_password(data["password1"])
+        elif "password" in data:
+            user.set_password(data["password"])
         else:
             user.set_unusable_password()
         self.populate_username(request, user)

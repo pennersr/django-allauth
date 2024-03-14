@@ -395,6 +395,18 @@ class BaseSignupForm(_base_signup_form_class()):
             resp = None
         return user, resp
 
+    def save(self, request):
+        email = self.cleaned_data.get("email")
+        if self.account_already_exists:
+            raise ValueError(email)
+        adapter = get_adapter()
+        user = adapter.new_user(request)
+        adapter.save_user(request, user, self)
+        self.custom_signup(request, user)
+        # TODO: Move into adapter `save_user` ?
+        setup_user_email(request, user, [EmailAddress(email=email)] if email else [])
+        return user
+
 
 class SignupForm(BaseSignupForm):
     def __init__(self, *args, **kwargs):
@@ -440,18 +452,6 @@ class SignupForm(BaseSignupForm):
                     _("You must type the same password each time."),
                 )
         return self.cleaned_data
-
-    def save(self, request):
-        email = self.cleaned_data.get("email")
-        if self.account_already_exists:
-            raise ValueError(email)
-        adapter = get_adapter()
-        user = adapter.new_user(request)
-        adapter.save_user(request, user, self)
-        self.custom_signup(request, user)
-        # TODO: Move into adapter `save_user` ?
-        setup_user_email(request, user, [EmailAddress(email=email)] if email else [])
-        return user
 
 
 class UserForm(forms.Form):

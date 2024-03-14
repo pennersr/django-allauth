@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useLoaderData } from 'react-router-dom'
-import { getEmailVerification, verifyEmail } from './lib/allauth'
+import { getEmailVerification, verifyEmail } from '../lib/allauth'
 
 export async function loader ({ params }) {
   const key = params.key

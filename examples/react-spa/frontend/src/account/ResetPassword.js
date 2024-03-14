@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import FormErrors from './FormErrors'
-import { getPasswordReset, resetPassword } from './lib/allauth'
+import FormErrors from '../FormErrors'
+import { getPasswordReset, resetPassword } from '../lib/allauth'
 import { Navigate, Link, useLoaderData } from 'react-router-dom'
 
 export async function loader ({ params }) {

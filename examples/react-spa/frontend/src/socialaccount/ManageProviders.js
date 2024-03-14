@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import * as allauth from './lib/allauth'
-import FormErrors from './FormErrors'
+import * as allauth from '../lib/allauth'
+import FormErrors from '../FormErrors'
 import ProviderList from './ProviderList'
 
 export default function ManageProviders () {

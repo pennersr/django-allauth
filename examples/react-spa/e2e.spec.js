@@ -67,13 +67,13 @@ test('complete flow', async ({ page }) => {
   const newPassword = passwordFactory()
   await page.getByLabel('Password:').fill(newPassword)
   await page.getByLabel('Password (again)').fill(newPassword)
-  await page.getByRole('button').click()
+  await page.getByRole('button', { name: 'Reset' }).click()
   await page.waitForURL(BASE_URL + '/account/login')
 
   // Login using new password
   await page.goto(BASE_URL + '/account/login')
   await page.getByLabel('Email').fill(email)
   await page.getByLabel('Password:').fill(newPassword)
-  await page.getByRole('button').click()
+  await page.getByRole('button', { name: 'Login' }).click()
   await page.waitForURL(BASE_URL + '/dashboard')
 })

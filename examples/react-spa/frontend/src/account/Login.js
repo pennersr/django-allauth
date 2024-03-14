@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import FormErrors from './FormErrors'
-import { login } from './lib/allauth'
+import FormErrors from '../FormErrors'
+import { login } from '../lib/allauth'
 import { Link } from 'react-router-dom'
-import { useConfig } from './auth'
-import ProviderList from './ProviderList'
+import { useConfig } from '../auth'
+import ProviderList from '../socialaccount/ProviderList'
 
 export default function Login () {
   const [email, setEmail] = useState('')

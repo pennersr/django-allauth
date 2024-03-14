@@ -190,7 +190,7 @@ class ManageEmailView(AuthenticatedAPIView):
         return response.APIResponse(data=data)
 
     def post(self, request, *args, **kwargs):
-        self.input.save(self.request)
+        flows.manage_email.add_email(request, self.input)
         return self._respond_email_list()
 
     def delete(self, request, *args, **kwargs):

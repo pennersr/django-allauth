@@ -10,7 +10,7 @@ def change_password(user, password):
 
 
 def finalize_password_change(request, user):
-    logout_on_password_change(request, user)
+    logged_out = logout_on_password_change(request, user)
     adapter = get_adapter(request)
     adapter.add_message(
         request,
@@ -23,10 +23,11 @@ def finalize_password_change(request, user):
         request=request,
         user=request.user,
     )
+    return logged_out
 
 
 def finalize_password_set(request, user):
-    logout_on_password_change(request, user)
+    logged_out = logout_on_password_change(request, user)
     adapter = get_adapter(request)
     adapter.add_message(request, messages.SUCCESS, "account/messages/password_set.txt")
     adapter.send_notification_mail("account/email/password_set", user)
@@ -35,11 +36,15 @@ def finalize_password_set(request, user):
         request=request,
         user=user,
     )
+    return logged_out
 
 
 def logout_on_password_change(request, user):
     # Since it is the default behavior of Django to invalidate all sessions on
     # password change, this function actually has to preserve the session when
     # logout isn't desired.
+    logged_out = True
     if not app_settings.LOGOUT_ON_PASSWORD_CHANGE:
         update_session_auth_hash(request, user)
+        logged_out = False
+    return logged_out

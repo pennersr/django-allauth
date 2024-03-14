@@ -1,8 +1,9 @@
 from django import forms
 
 from allauth.account.forms import BaseSignupForm
+from allauth.socialaccount.internal import flows
 
-from . import app_settings, signals
+from . import app_settings
 from .adapter import get_adapter
 from .models import SocialAccount
 
@@ -59,16 +60,4 @@ class DisconnectForm(forms.Form):
 
     def save(self):
         account = self.cleaned_data["account"]
-        provider = account.get_provider()
-        account.delete()
-        signals.social_account_removed.send(
-            sender=SocialAccount, request=self.request, socialaccount=account
-        )
-        get_adapter().send_notification_mail(
-            "socialaccount/email/account_disconnected",
-            self.request.user,
-            context={
-                "account": account,
-                "provider": provider,
-            },
-        )
+        flows.providers.disconnect(self.request, account)

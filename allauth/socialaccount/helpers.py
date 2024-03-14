@@ -12,12 +12,12 @@ from allauth.account.utils import (
     complete_signup,
     perform_login,
     user_display,
-    user_email,
     user_username,
 )
 from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.socialaccount import app_settings, signals
 from allauth.socialaccount.adapter import get_adapter
+from allauth.socialaccount.internal import flows
 from allauth.socialaccount.models import SocialLogin
 from allauth.socialaccount.providers.base import AuthError, AuthProcess
 
@@ -26,7 +26,9 @@ def _process_auto_signup(request, sociallogin):
     auto_signup = get_adapter().is_auto_signup_allowed(request, sociallogin)
     if not auto_signup:
         return False, None
-    email = user_email(sociallogin.user)
+    email = None
+    if sociallogin.email_addresses:
+        email = sociallogin.email_addresses[0].email
     # Let's check if auto_signup is really possible...
     if email:
         assessment = assess_unique_email(email)
@@ -67,9 +69,7 @@ def _process_signup(request, sociallogin):
     if resp:
         return resp
     if not auto_signup:
-        request.session["socialaccount_sociallogin"] = sociallogin.serialize()
-        url = reverse("socialaccount_signup")
-        resp = HttpResponseRedirect(url)
+        resp = flows.signup.redirect_to_signup(request, sociallogin)
     else:
         # Ok, auto signup it is, at least the email address is ok.
         # We still need to check the username though...
@@ -206,6 +206,11 @@ def _add_social_account(request, sociallogin):
 
 
 def complete_social_login(request, sociallogin):
+    flows.signup.clear_pending_signup(request)
+    return _complete_social_login(request, sociallogin)
+
+
+def _complete_social_login(request, sociallogin):
     assert not sociallogin.is_existing
     sociallogin.lookup()
     try:
@@ -219,7 +224,7 @@ def complete_social_login(request, sociallogin):
         elif process == AuthProcess.CONNECT:
             return _add_social_account(request, sociallogin)
         else:
-            return _complete_social_login(request, sociallogin)
+            return _social_login(request, sociallogin)
     except ImmediateHttpResponse as e:
         return e.response
 
@@ -229,7 +234,7 @@ def _social_login_redirect(request, sociallogin):
     return HttpResponseRedirect(next_url)
 
 
-def _complete_social_login(request, sociallogin):
+def _social_login(request, sociallogin):
     if request.user.is_authenticated:
         get_account_adapter(request).logout(request)
     if sociallogin.is_existing:

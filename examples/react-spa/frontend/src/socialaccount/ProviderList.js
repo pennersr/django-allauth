@@ -1,5 +1,5 @@
-import { useConfig } from './auth'
-import { redirectToProvider } from './lib/allauth'
+import { useConfig } from '../auth'
+import { redirectToProvider } from '../lib/allauth'
 
 export default function ProviderList (props) {
   const config = useConfig()

@@ -1,15 +1,15 @@
 import { useState } from 'react'
-import FormErrors from './FormErrors'
-import { requestPasswordReset } from './lib/allauth'
+import FormErrors from '../FormErrors'
+import { providerSignup } from '../lib/allauth'
 import { Link } from 'react-router-dom'
 
-export default function RequestPasswordReset () {
+export default function ProviderSignup () {
   const [email, setEmail] = useState('')
   const [response, setResponse] = useState({ fetching: false, data: null })
 
   function submit () {
     setResponse({ ...response, fetching: true })
-    requestPasswordReset(email).then((data) => {
+    providerSignup({ email }).then((data) => {
       setResponse((r) => { return { ...r, data } })
     }).catch((e) => {
       console.error(e)
@@ -19,27 +19,19 @@ export default function RequestPasswordReset () {
     })
   }
 
-  if (response?.data?.status === 200) {
-    return (
-      <div>
-        <h1>Reset Password</h1>
-        <p>Password reset sent.</p>
-      </div>
-    )
-  }
   return (
     <div>
-      <h1>Reset Password</h1>
+      <h1>Sign Up</h1>
       <p>
-        Remember your password? <Link to='/account/login'>Back to login.</Link>
+        Already have an account? <Link to='/account/login'>Login here.</Link>
       </p>
 
-      <FormErrors errors={response?.data?.form?.errors} />
+      <FormErrors errors={response?.data?.error?.__all__?.errors} />
 
       <div><label>Email <input value={email} onChange={(e) => setEmail(e.target.value)} type='email' required /></label>
         <FormErrors errors={response?.data?.error?.detail?.email} />
       </div>
-      <button disabled={response.fetching} onClick={() => submit()}>Reset</button>
+      <button disabled={response.fetching} onClick={() => submit()}>Sign Up</button>
     </div>
   )
 }

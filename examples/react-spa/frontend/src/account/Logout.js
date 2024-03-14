@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
-import { logout } from './lib/allauth'
+import { logout } from '../lib/allauth'
 
 export default function Logout () {
   const [response, setResponse] = useState({ fetching: false, data: null })

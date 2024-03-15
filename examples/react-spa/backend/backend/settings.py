@@ -142,4 +142,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_ADAPTER = "backend.accounts.allauth.AccountAdapter"
 ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = False
 
+# FIXME -- These settings are handy for dev, to be removed before merging.
 MFA_TOTP_INSECURE_BYPASS_CODE = "42"
+ACCOUNT_REAUTHENTICATION_REQUIRED = True
+ACCOUNT_REAUTHENTICATION_TIMEOUT = 5

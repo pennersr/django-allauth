@@ -22,6 +22,7 @@ export const Flows = Object.freeze({
 export const URLs = Object.freeze({
   CONFIG: BASE_URL + '/config',
   LOGIN: BASE_URL + '/auth/login',
+  REAUTHENTICATE: BASE_URL + '/auth/reauthenticate',
   LOGOUT: BASE_URL + '/auth/logout',
   AUTH: BASE_URL + '/auth',
   SIGNUP: BASE_URL + '/auth/signup',
@@ -83,6 +84,10 @@ async function request (method, path, data) {
 
 export async function login (data) {
   return await request('POST', URLs.LOGIN, data)
+}
+
+export async function reauthenticate (data) {
+  return await request('POST', URLs.REAUTHENTICATE, data)
 }
 
 export async function logout () {

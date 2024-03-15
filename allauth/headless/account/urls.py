@@ -25,6 +25,9 @@ urlpatterns = [
         name="headless_manage_email",
     ),
     path("v1/auth/login", views.login, name="headless_login"),
+    path(
+        "v1/auth/reauthenticate", views.reauthenticate, name="headless_reauthenticate"
+    ),
     path("v1/auth/logout", views.logout, name="headless_logout"),
     path("v1/auth/signup", views.signup, name="headless_signup"),
     path("v1/auth/verify_email", views.verify_email, name="headless_verify_email"),

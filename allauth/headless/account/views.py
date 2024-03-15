@@ -10,6 +10,7 @@ from allauth.headless.account.inputs import (
     ChangePasswordInput,
     DeleteEmailInput,
     LoginInput,
+    ReauthenticateInput,
     RequestPasswordResetInput,
     ResetPasswordInput,
     ResetPasswordKeyInput,
@@ -212,3 +213,17 @@ class ManageEmailView(AuthenticatedAPIView):
 
 
 manage_email = ManageEmailView.as_view()
+
+
+class ReauthenticateView(AuthenticatedAPIView):
+    input_class = ReauthenticateInput
+
+    def post(self, request, *args, **kwargs):
+        flows.reauthentication.reauthenticate(self.request)
+        return response.respond_is_authenticated(self.request)
+
+    def get_input_kwargs(self):
+        return {"user": self.request.user}
+
+
+reauthenticate = ReauthenticateView.as_view()

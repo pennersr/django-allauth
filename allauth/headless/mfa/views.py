@@ -67,7 +67,7 @@ manage_totp = ManageTOTPView.as_view()
 
 class ManageRecoveryCodesView(AuthenticatedAPIView):
     def get(self, request, *args, **kwargs):
-        authenticator = self._get_authenticator()
+        authenticator = flows.recovery_codes.view_recovery_codes(request)
         if not authenticator:
             return response.respond_recovery_codes_inactive(request)
         return response.respond_recovery_codes_active(request, authenticator)

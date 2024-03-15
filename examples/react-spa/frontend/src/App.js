@@ -24,6 +24,7 @@ import RecoveryCodes, { loader as recoveryCodesLoader } from './mfa/RecoveryCode
 import GenerateRecoveryCodes, { loader as generateRecoveryCodesLoader } from './mfa/GenerateRecoveryCodes'
 import ResetPassword, { loader as resetPasswordLoader } from './account/ResetPassword'
 import MFAAuthenticate from './mfa/MFAAuthenticate'
+import Reauthenticate from './account/Reauthenticate'
 
 const router = createBrowserRouter([
   {
@@ -92,6 +93,10 @@ const router = createBrowserRouter([
         path: '/account/2fa',
         element: <AuthenticatedRoute><MFAOverview /></AuthenticatedRoute>,
         loader: mfaOverviewLoader
+      },
+      {
+        path: '/account/reauthenticate',
+        element: <AuthenticatedRoute><Reauthenticate /></AuthenticatedRoute>
       },
       {
         path: '/account/2fa/authenticate',

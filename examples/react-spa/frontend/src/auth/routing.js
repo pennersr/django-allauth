@@ -3,7 +3,7 @@ import {
   Navigate,
   useLocation
 } from 'react-router-dom'
-import { useAuth } from './hooks'
+import { useUser, useAuth, useAuthChanged } from './hooks'
 import { Flows } from '../lib/allauth'
 
 const flow2path = {}
@@ -35,11 +35,14 @@ function route401 (auth, location, children, pickPending) {
 }
 
 export function AuthenticatedRoute ({ children }) {
-  const auth = useAuth()
+  const user = useUser()
+  const [auth, authChanged] = useAuthChanged()
   const location = useLocation()
-  if (auth.status === 401) {
+  if (auth.status === 401 && user && authChanged) {
+    return <Navigate to='/account/reauthenticate' />
+  } else if (auth.status === 401 && !user) {
     return route401(auth, location, children)
-  } else if (auth.status !== 200) {
+  } else if (!user) {
     console.error('unexpected status')
     return null
   }
@@ -47,19 +50,10 @@ export function AuthenticatedRoute ({ children }) {
 }
 
 export function AnonymousRoute ({ children }) {
-  const auth = useAuth()
+  const user = useUser()
+  const [auth, authChanged] = useAuthChanged()
   const location = useLocation()
-  const authChangedRef = useRef(undefined)
-  const [gen, setGen] = useState(0)
-  useEffect(() => {
-    setGen(g => g + 1)
-    authChangedRef.current = typeof authChangedRef.current !== 'undefined'
-  }, [auth])
-  const authChanged = authChangedRef.current
-  if (authChanged) {
-    authChangedRef.current = false
-  }
-  if (auth.status === 200) {
+  if (user) {
     return <Navigate to='/dashboard' replace />
   } else if (auth.status !== 401) {
     console.error('unexpected status')

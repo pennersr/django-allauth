@@ -8,6 +8,7 @@ from allauth.account.forms import (
     AddEmailForm,
     BaseSignupForm,
     LoginForm,
+    ReauthenticateForm,
     ResetPasswordForm,
     UserTokenForm,
 )
@@ -183,3 +184,7 @@ class DeleteEmailInput(SelectEmailInput):
                 _("You cannot remove your primary email address.")
             )
         return email
+
+
+class ReauthenticateInput(ReauthenticateForm, inputs.Input):
+    pass

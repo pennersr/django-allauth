@@ -1,4 +1,3 @@
-import { useState, useRef, useEffect } from 'react'
 import {
   Navigate,
   useLocation

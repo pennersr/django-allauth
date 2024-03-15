@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import FormErrors from '../FormErrors'
 import { reauthenticate } from '../lib/allauth'
-import { Navigate, Link } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
 export default function Reauthenticate () {
   const [password, setPassword] = useState('')

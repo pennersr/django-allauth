@@ -17,8 +17,15 @@ export function AuthContextProvider (props) {
 
   useEffect(() => {
     function onAuthChanged (e) {
-      console.log('Authentication status updated')
-      setAuth(e.detail)
+      setAuth(auth => {
+        if (typeof auth === 'undefined') {
+          console.log('Authentication status loaded')
+        } else {
+          console.log('Authentication status updated')
+        }
+        return e.detail
+      }
+      )
     }
 
     document.addEventListener('allauth.auth.change', onAuthChanged)

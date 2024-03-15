@@ -26,5 +26,6 @@ export function useAuthChanged () {
   if (authChanged) {
     authChangedRef.current = false
   }
+
   return [auth, authChanged]
 }

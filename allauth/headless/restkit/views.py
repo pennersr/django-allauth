@@ -32,7 +32,10 @@ class RESTView(View):
         if not input_class:
             return
         input_kwargs = self.get_input_kwargs()
-        self.input = input_class(data=self.data, **input_kwargs)
+        if data is None:
+            # Make form bound on empty POST
+            data = {}
+        self.input = input_class(data=data, **input_kwargs)
         if not self.input.is_valid():
             return self.input.respond_error()
 

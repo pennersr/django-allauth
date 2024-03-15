@@ -30,7 +30,7 @@ export default function Login () {
         No account? <Link to='/account/signup'>Sign up here.</Link>
       </p>
 
-      <FormErrors errors={response.data?.form?.errors} />
+      <FormErrors errors={response.data?.error?.detail?.__all__} />
 
       <div><label>Email <input value={email} onChange={(e) => setEmail(e.target.value)} type='email' required /></label>
         <FormErrors errors={response.data?.error?.detail?.email} />

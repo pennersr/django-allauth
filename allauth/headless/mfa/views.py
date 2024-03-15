@@ -4,7 +4,11 @@ from allauth.headless.base.views import (
     AuthenticationStageAPIView,
 )
 from allauth.headless.mfa import response
-from allauth.headless.mfa.inputs import ActivateTOTPInput, AuthenticateInput
+from allauth.headless.mfa.inputs import (
+    ActivateTOTPInput,
+    AuthenticateInput,
+    GenerateRecoveryCodesInput,
+)
 from allauth.mfa.internal import flows
 from allauth.mfa.models import Authenticator
 from allauth.mfa.stages import AuthenticateStage
@@ -66,6 +70,8 @@ manage_totp = ManageTOTPView.as_view()
 
 
 class ManageRecoveryCodesView(AuthenticatedAPIView):
+    input_class = GenerateRecoveryCodesInput
+
     def get(self, request, *args, **kwargs):
         authenticator = flows.recovery_codes.view_recovery_codes(request)
         if not authenticator:
@@ -80,6 +86,9 @@ class ManageRecoveryCodesView(AuthenticatedAPIView):
     def post(self, request, *args, **kwargs):
         authenticator = flows.recovery_codes.generate_recovery_codes(request)
         return response.respond_recovery_codes_active(request, authenticator)
+
+    def get_input_kwargs(self):
+        return {"user": self.request.user}
 
 
 manage_recovery_codes = ManageRecoveryCodesView.as_view()

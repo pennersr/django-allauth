@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Navigate, useLoaderData } from 'react-router-dom'
+import FormErrors from '../FormErrors'
 
 import * as allauth from '../lib/allauth'
 
@@ -35,6 +36,8 @@ export default function GenerateRecoveryCodes () {
       <p>You are about to generate a new set of recovery codes for your account.
         {hasCodes ? 'This action will invalidate your existing codes.' : ''} Are you sure?
       </p>
+
+      <FormErrors errors={response.data?.error?.detail?.__all__} />
 
       <button onClick={() => submit()}>Generate</button>
 

@@ -54,8 +54,9 @@ Then, visit the app over at http://localhost:10000.
 
 **** TODO Mobile client (access tokens, no CSRF/cookies)
 
-**** TODO Disable messages framework
+**** DONE Disable messages framework
 Or, add to meta in response?
+Disabled, let's not complicate things.
 
 **** TODO Social signin
 

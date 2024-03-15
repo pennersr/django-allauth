@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import FormErrors from '../FormErrors'
 import { reauthenticate } from '../lib/allauth'
-import { Navigate } from 'react-router-dom'
+import { useLocation, Navigate } from 'react-router-dom'
 
 export default function Reauthenticate () {
+  const location = useLocation()
   const [password, setPassword] = useState('')
   const [response, setResponse] = useState({ fetching: false, data: null })
 
@@ -19,7 +20,8 @@ export default function Reauthenticate () {
     })
   }
   if (response.data?.status === 200) {
-    return <Navigate to='/' />
+    const next = new URLSearchParams(location.search).get('next') || '/'
+    return <Navigate to={next} />
   }
   return (
     <div>

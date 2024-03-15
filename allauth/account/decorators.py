@@ -4,8 +4,8 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
+from allauth.account import reauthentication
 from allauth.account.models import EmailAddress
-from allauth.account.reauthentication import did_recently_authenticate
 from allauth.account.utils import send_email_confirmation
 from allauth.core.exceptions import ReauthenticationRequired
 
@@ -56,7 +56,10 @@ def reauthentication_required(
                 enabled(request) if callable(enabled) else enabled
             )
             if ena and not pass_method:
-                if request.user.is_anonymous or not did_recently_authenticate(request):
+                if (
+                    request.user.is_anonymous
+                    or not reauthentication.did_recently_authenticate(request)
+                ):
                     raise ReauthenticationRequired()
             return view_func(request, *args, **kwargs)
 

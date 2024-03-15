@@ -1,12 +1,14 @@
 from django.contrib import messages
 
 from allauth.account.adapter import get_adapter as get_account_adapter
+from allauth.account.reauthentication import raise_if_reauthentication_required
 from allauth.mfa import app_settings, signals, totp
 from allauth.mfa.models import Authenticator
 from allauth.mfa.recovery_codes import RecoveryCodes
 
 
 def activate_totp(request, form):
+    raise_if_reauthentication_required(request)
     totp_auth = totp.TOTP.activate(request.user, form.secret)
     if Authenticator.Type.RECOVERY_CODES in app_settings.SUPPORTED_TYPES:
         rc_auth = RecoveryCodes.activate(request.user)
@@ -27,6 +29,7 @@ def activate_totp(request, form):
 
 
 def deactivate_totp(request, authenticator):
+    raise_if_reauthentication_required(request)
     authenticator.wrap().deactivate()
     rc_auth = Authenticator.objects.delete_dangling_recovery_codes(authenticator.user)
     for auth in [authenticator, rc_auth]:

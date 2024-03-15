@@ -212,17 +212,14 @@ class GenerateRecoveryCodesView(FormView):
 generate_recovery_codes = GenerateRecoveryCodesView.as_view()
 
 
-@method_decorator(reauthentication_required, name="dispatch")
 class DownloadRecoveryCodesView(TemplateView):
     template_name = "mfa/recovery_codes/download.txt"
     content_type = "text/plain"
 
     def dispatch(self, request, *args, **kwargs):
-        self.authenticator = get_object_or_404(
-            Authenticator,
-            user=self.request.user,
-            type=Authenticator.Type.RECOVERY_CODES,
-        )
+        self.authenticator = flows.recovery_codes.view_recovery_codes(self.request)
+        if not self.authenticator:
+            raise Http404()
         self.unused_codes = self.authenticator.wrap().get_unused_codes()
         if not self.unused_codes:
             return Http404()
@@ -242,17 +239,14 @@ class DownloadRecoveryCodesView(TemplateView):
 download_recovery_codes = DownloadRecoveryCodesView.as_view()
 
 
-@method_decorator(reauthentication_required, name="dispatch")
 class ViewRecoveryCodesView(TemplateView):
     template_name = "mfa/recovery_codes/index." + account_settings.TEMPLATE_EXTENSION
 
     def get_context_data(self, **kwargs):
         ret = super().get_context_data(**kwargs)
-        authenticator = get_object_or_404(
-            Authenticator,
-            user=self.request.user,
-            type=Authenticator.Type.RECOVERY_CODES,
-        )
+        authenticator = flows.recovery_codes.view_recovery_codes(self.request)
+        if not authenticator:
+            raise Http404()
         ret.update(
             {
                 "unused_codes": authenticator.wrap().get_unused_codes(),

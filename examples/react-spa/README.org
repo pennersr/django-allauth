@@ -46,7 +46,7 @@ Then, visit the app over at http://localhost:10000.
 
 **** TODO User sessions
 
-*** Headless [9%]
+*** Headless [11%]
 
 **** TODO Check rate limit handling
 

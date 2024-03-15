@@ -38,8 +38,11 @@ class UnauthorizedResponse(APIResponse):
             flows.append(
                 {"id": stage.key, "url": stage.get_headless_url(), "is_pending": True}
             )
+        data = {"flows": flows}
+        if request.user.is_authenticated:
+            data["user"] = user_data(request.user)
         super().__init__(
-            {"flows": flows},
+            data=data,
             meta={
                 "is_authenticated": request.user.is_authenticated,
             },

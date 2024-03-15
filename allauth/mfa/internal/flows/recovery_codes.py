@@ -7,6 +7,14 @@ from allauth.mfa.models import Authenticator
 from allauth.mfa.recovery_codes import RecoveryCodes
 
 
+def can_generate_recovery_codes(user):
+    return (
+        Authenticator.objects.filter(user=user)
+        .exclude(type=Authenticator.Type.RECOVERY_CODES)
+        .exists()
+    )
+
+
 def generate_recovery_codes(request):
     raise_if_reauthentication_required(request)
     Authenticator.objects.filter(

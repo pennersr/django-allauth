@@ -6,6 +6,7 @@ from allauth.account.models import EmailAddress
 from allauth.core import context, ratelimit
 from allauth.mfa import totp
 from allauth.mfa.adapter import get_adapter
+from allauth.mfa.internal import flows
 from allauth.mfa.models import Authenticator
 from allauth.mfa.utils import post_authentication
 
@@ -89,5 +90,19 @@ class DeactivateTOTPForm(forms.Form):
         if not adapter.can_delete_authenticator(self.authenticator):
             raise forms.ValidationError(
                 adapter.error_messages["cannot_delete_authenticator"]
+            )
+        return cleaned_data
+
+
+class GenerateRecoveryCodesForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user")
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if not flows.recovery_codes.can_generate_recovery_codes(self.user):
+            raise forms.ValidationError(
+                get_adapter().error_messages["cannot_generate_recovery_codes"]
             )
         return cleaned_data

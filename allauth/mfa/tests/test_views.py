@@ -344,3 +344,16 @@ def test_totp_code_reuse(
             assert resp.context["form"].errors == {
                 "code": [get_adapter().error_messages["incorrect_code"]]
             }
+
+
+def test_generate_recovery_codes_require_other_authenticator(
+    auth_client, user, settings, reauthentication_bypass
+):
+    with reauthentication_bypass():
+        resp = auth_client.post(reverse("mfa_generate_recovery_codes"))
+    assert resp.context["form"].errors == {
+        "__all__": [
+            "You cannot generate recovery codes without having two-factor authentication enabled."
+        ]
+    }
+    assert not Authenticator.objects.filter(user=user).exists()

@@ -10,6 +10,6 @@ def user_with_totp(user):
 
 
 @pytest.fixture
-def user_with_recovery_codes(user):
-    recovery_codes.RecoveryCodes.activate(user)
-    return user
+def user_with_recovery_codes(user_with_totp):
+    recovery_codes.RecoveryCodes.activate(user_with_totp)
+    return user_with_totp

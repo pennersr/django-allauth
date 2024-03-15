@@ -1,6 +1,5 @@
 import base64
 
-from django import forms
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -19,6 +18,7 @@ from allauth.mfa.forms import (
     ActivateTOTPForm,
     AuthenticateForm,
     DeactivateTOTPForm,
+    GenerateRecoveryCodesForm,
 )
 from allauth.mfa.internal import flows
 from allauth.mfa.models import Authenticator
@@ -189,7 +189,7 @@ deactivate_totp = DeactivateTOTPView.as_view()
 
 @method_decorator(reauthentication_required, name="dispatch")
 class GenerateRecoveryCodesView(FormView):
-    form_class = forms.Form
+    form_class = GenerateRecoveryCodesForm
     template_name = "mfa/recovery_codes/generate." + account_settings.TEMPLATE_EXTENSION
     success_url = reverse_lazy("mfa_view_recovery_codes")
 
@@ -206,6 +206,11 @@ class GenerateRecoveryCodesView(FormView):
         if authenticator:
             unused_codes = authenticator.wrap().get_unused_codes()
         ret["unused_code_count"] = len(unused_codes)
+        return ret
+
+    def get_form_kwargs(self):
+        ret = super().get_form_kwargs()
+        ret["user"] = self.request.user
         return ret
 
 

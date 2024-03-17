@@ -11,21 +11,81 @@ export function useConfig () {
 
 export function useUser () {
   const auth = useContext(AuthContext)?.auth
-  return (auth.status === 200 || (auth.status === 401 && auth.meta.is_authenticated)) ? auth.data.user : null
+  return authInfo(auth).user
 }
 
-export function useAuthChanged () {
-  const auth = useAuth()
-  const authChangedRef = useRef(undefined)
-  const [gen, setGen] = useState(0)
-  useEffect(() => {
-    setGen(g => g + 1)
-    authChangedRef.current = typeof authChangedRef.current !== 'undefined'
-  }, [auth])
-  const authChanged = authChangedRef.current
-  if (authChanged) {
-    authChangedRef.current = false
-  }
+function authInfo (auth) {
+  const isAuthenticated = auth.status === 200 || (auth.status === 401 && auth.meta.is_authenticated)
+  const requiresReauthentication = isAuthenticated && auth.status === 401
+  return { isAuthenticated, requiresReauthentication, user: isAuthenticated ? auth.data.user : null }
+}
 
-  return [auth, authChanged]
+export const AuthChangeEvent = Object.freeze({
+  LOGGED_OUT: 'LOGGED_OUT',
+  LOGGED_IN: 'LOGGED_IN',
+  REAUTHENTICATED: 'REAUTHENTICATED',
+  REAUTHENTICATION_REQUIRED: 'REAUTHENTICATION_REQUIRED',
+  FLOW_UPDATED: 'FLOW_UPDATED'
+})
+
+function determineAuthChangeEvent (fromAuth, toAuth) {
+  let fromInfo = authInfo(fromAuth)
+  const toInfo = authInfo(toAuth)
+  // Corner case: user ID change. Treat as if we're transitioning from anonymous state.
+  if (fromInfo.user && toInfo.user && fromInfo.user?.id !== toInfo.user?.id) {
+    fromInfo = { isAuthenticated: false, requiresReauthentication: false, user: null }
+  }
+  if (!fromInfo.isAuthenticated && toInfo.isAuthenticated) {
+    // You typically don't transition from logged out to reauthentication required.
+    return AuthChangeEvent.LOGGED_IN
+  } else if (fromInfo.isAuthenticated && !toInfo.isAuthenticated) {
+    return AuthChangeEvent.LOGGED_OUT
+  } else if (fromInfo.isAuthenticated && toInfo.isAuthenticated) {
+    if (toInfo.requiresReauthentication) {
+      return AuthChangeEvent.REAUTHENTICATION_REQUIRED
+    } else if (fromInfo.requiresReauthentication) {
+      return AuthChangeEvent.REAUTHENTICATED
+    }
+  } else if (!fromInfo.isAuthenticated && !toInfo.isAuthenticated) {
+    const fromFlow = fromAuth.data?.flows?.find(flow => flow.is_pending)
+    const toFlow = toAuth.data?.flows?.find(flow => flow.is_pending)
+    if (toFlow?.id && fromFlow?.id !== toFlow.id) {
+      return AuthChangeEvent.FLOW_UPDATED
+    }
+  }
+  // No change.
+  return null
+}
+
+export function useAuthStatus () {
+  const auth = useAuth()
+  const ref = useRef({ prevAuth: null, event: null, didChange: false })
+  const [, setForcedUpdate] = useState(0)
+  useEffect(() => {
+    if (ref.current.prevAuth) {
+      ref.current.didChange = true
+      const event = determineAuthChangeEvent(ref.current.prevAuth, auth)
+      if (event) {
+        ref.current.event = event
+        setForcedUpdate(gen => gen + 1)
+      }
+    }
+    ref.current.prevAuth = auth
+  }, [auth, ref])
+  const didChange = ref.current.didChange
+  if (didChange) {
+    ref.current.didChange = false
+  }
+  const event = ref.current.event
+  if (event) {
+    ref.current.event = null
+  }
+  const isAuthenticated = auth.status === 200 || (auth.status === 401 && auth.meta.is_authenticated)
+  const requiresReauthentication = isAuthenticated && auth.status === 401
+  return [auth, {
+    isAuthenticated,
+    requiresReauthentication,
+    didChange,
+    event
+  }]
 }

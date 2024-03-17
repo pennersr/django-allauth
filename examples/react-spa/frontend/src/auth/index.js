@@ -1,3 +1,3 @@
 export { AuthContextProvider } from './AuthContext'
-export { CallbackRoute, AuthenticatedRoute, AnonymousRoute } from './routing'
+export { CallbackRoute, AuthChangeRedirector, AuthenticatedRoute, AnonymousRoute } from './routing'
 export { useConfig, useAuth, useUser } from './hooks'

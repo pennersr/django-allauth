@@ -1,5 +1,8 @@
 import { useState } from 'react'
-import { useLoaderData } from 'react-router-dom'
+import {
+  useLoaderData,
+  Navigate
+} from 'react-router-dom'
 import { getEmailVerification, verifyEmail } from '../lib/allauth'
 
 export async function loader ({ params }) {
@@ -24,6 +27,10 @@ export default function VerifyEmail () {
     })
   }
 
+  if (!verification.data.is_authenticating && response.data?.status === 200) {
+    return <Navigate to='/account/email' />
+  }
+
   let body = null
   if (verification.status === 200) {
     body = (
@@ -32,7 +39,7 @@ export default function VerifyEmail () {
         <button disabled={response.fetching} onClick={() => submit()}>Confirm</button>
       </>
     )
-  } else if (!verification.data.email) {
+  } else if (!verification.data?.email) {
     body = <p>Invalid verification link.</p>
   } else {
     body = <p>Unable to confirm email <a href={'mailto:' + verification.data.email}>{verification.data.email}</a> because it is already confirmed.</p>

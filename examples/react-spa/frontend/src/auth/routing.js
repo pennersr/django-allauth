@@ -2,8 +2,13 @@ import {
   Navigate,
   useLocation
 } from 'react-router-dom'
-import { useUser, useAuth, useAuthChanged } from './hooks'
+import { AuthChangeEvent, useAuthStatus } from './hooks'
 import { Flows } from '../lib/allauth'
+
+const LOGIN_URL = '/account/login'
+const LOGIN_REDIRECT_URL = '/dashboard'
+const LOGOUT_REDIRECT_URL = '/'
+const REAUTHENTICATE_URL = '/account/reauthenticate'
 
 const flow2path = {}
 flow2path[Flows.LOGIN] = '/account/login'
@@ -12,61 +17,77 @@ flow2path[Flows.VERIFY_EMAIL] = '/account/verify-email'
 flow2path[Flows.PROVIDER_SIGNUP] = '/account/provider/signup'
 flow2path[Flows.MFA_AUTHENTICATE] = '/account/2fa/authenticate'
 
-function route401 (auth, location, children, pickPending) {
-  const pendingFlows = auth.data.flows.filter(flow => flow.is_pending)
-  let flow = Flows.LOGIN
-  if (pendingFlows.length > 0) {
-    flow = pendingFlows[0].id
-    console.log(`Pending flow: ${flow}`)
-  }
-  const path = flow2path[flow]
-  if (!path) {
-    console.error(`Unknown path for flow: ${flow}`)
-  }
-  if (!pickPending) {
-    const okPaths = auth.data.flows.map(flow => flow2path[flow.id])
-    okPaths.push('/account/password/reset')
-    if (okPaths.some(p => location.pathname.startsWith(p))) {
-      return children
+function navigateToPendingFlow (auth) {
+  const flow = auth.data.flows.find(flow => flow.is_pending)
+  if (flow) {
+    const path = flow2path[flow.id]
+    if (!path) {
+      throw new Error(`Unknown path for flow: ${flow.id}`)
     }
+    return <Navigate to={path} />
   }
-  return <Navigate to={path} replace />
+  return null
 }
 
 export function AuthenticatedRoute ({ children }) {
-  const user = useUser()
-  const [auth, authChanged] = useAuthChanged()
   const location = useLocation()
-  if (auth.status === 401 && user && authChanged) {
-    return <Navigate to={`/account/reauthenticate?next=${encodeURIComponent(location.pathname + location.search)}`} />
-  } else if (auth.status === 401 && !user) {
-    return route401(auth, location, children)
-  } else if (!user) {
-    console.error('unexpected status')
-    return null
+  const [, status] = useAuthStatus()
+  const next = `next=${encodeURIComponent(location.pathname + location.search)}`
+  if (status.isAuthenticated) {
+    return children
+  } else {
+    return <Navigate to={`${LOGIN_URL}?${next}`} />
   }
-  return children
 }
 
 export function AnonymousRoute ({ children }) {
-  const user = useUser()
-  const [auth, authChanged] = useAuthChanged()
-  const location = useLocation()
-  if (user) {
-    return <Navigate to='/dashboard' replace />
-  } else if (auth.status !== 401) {
-    console.error('unexpected status')
-    return null
+  const [, status] = useAuthStatus()
+  if (!status.isAuthenticated) {
+    return children
+  } else {
+    return <Navigate to={LOGIN_REDIRECT_URL} />
   }
-  return route401(auth, location, children, authChanged)
 }
 
 export function CallbackRoute () {
-  const auth = useAuth()
-  const location = useLocation()
+  const [auth, status] = useAuthStatus()
   // FIXME: Redirect to connect depending on process
-  if (auth.status === 200) {
-    return <Navigate to='/dashboard' replace />
+  if (status.isAuthenticated) {
+    return <Navigate to={LOGIN_REDIRECT_URL} />
   }
-  return route401(auth, location, null, true)
+  const pendingFlow = navigateToPendingFlow(auth)
+  if (pendingFlow) {
+    return pendingFlow
+  }
+  return <Navigate to={LOGIN_URL} />
+}
+
+export function AuthChangeRedirector ({ children }) {
+  const [auth, status] = useAuthStatus()
+  const location = useLocation()
+  switch (status.event) {
+    case AuthChangeEvent.LOGGED_OUT:
+      return <Navigate to={LOGOUT_REDIRECT_URL} />
+    case AuthChangeEvent.LOGGED_IN:
+      return <Navigate to={LOGIN_REDIRECT_URL} />
+    case AuthChangeEvent.REAUTHENTICATED:
+    {
+      const next = new URLSearchParams(location.search).get('next') || '/'
+      return <Navigate to={next} />
+    }
+    case AuthChangeEvent.REAUTHENTICATION_REQUIRED: {
+      const next = `next=${encodeURIComponent(location.pathname + location.search)}`
+      return <Navigate to={`${REAUTHENTICATE_URL}?${next}`} />
+    }
+    case AuthChangeEvent.FLOW_UPDATED:
+      const pendingFlow = navigateToPendingFlow(auth)
+      if (!pendingFlow) {
+        throw new Error()
+      }
+      return pendingFlow
+    default:
+      break
+  }
+  // ...stay where we are
+  return children
 }

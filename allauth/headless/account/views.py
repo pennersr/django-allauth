@@ -2,7 +2,7 @@ from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.internal import flows
 from allauth.account.internal.flows import password_change, password_reset
 from allauth.account.models import EmailAddress, Login
-from allauth.account.stages import EmailVerificationStage
+from allauth.account.stages import EmailVerificationStage, LoginStageController
 from allauth.account.utils import complete_signup, send_email_confirmation
 from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.headless.account.inputs import (
@@ -85,9 +85,12 @@ class AuthView(AuthenticatedAPIView):
 auth = AuthView.as_view()
 
 
-class VerifyEmailView(AuthenticationStageAPIView):
+class VerifyEmailView(APIView):
     input_class = VerifyEmailInput
-    stage_class = EmailVerificationStage
+
+    def handle(self, request, *args, **kwargs):
+        self.stage = LoginStageController.enter(request, EmailVerificationStage.key)
+        return super().handle(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
         input = self.input_class(request.GET)
@@ -97,15 +100,22 @@ class VerifyEmailView(AuthenticationStageAPIView):
         data = {
             "email": verification.email_address.email,
             "user": response.user_data(verification.email_address.user),
+            "is_authenticating": self.stage is not None,
         }
         return response.APIResponse(data)
 
     def post(self, request, *args, **kwargs):
         confirmation = self.input.cleaned_data["key"]
         email_address = confirmation.confirm(request)
-        if not email_address:
-            return self.respond_stage_error()
-        return self.respond_next_stage()
+        if self.stage:
+            # Verifying email as part of login/signup flow, so emit a
+            # authentication status response.
+            if not email_address:
+                return response.UnauthorizedResponse(self.request)
+            self.stage.exit()
+            return response.respond_is_authenticated(self.request)
+        else:
+            return response.APIResponse(status=200 if email_address else 400)
 
 
 verify_email = VerifyEmailView.as_view()

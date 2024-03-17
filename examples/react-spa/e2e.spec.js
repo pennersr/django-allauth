@@ -34,7 +34,7 @@ test('complete flow', async ({ page }) => {
 
   // Dashboard redirects to login
   await page.goto(BASE_URL + '/dashboard')
-  await page.waitForURL(BASE_URL + '/account/login')
+  await page.waitForURL(BASE_URL + '/account/login?next=%2Fdashboard')
 
   // No account yet, so signup.
   await page.goto(BASE_URL + '/account/signup')

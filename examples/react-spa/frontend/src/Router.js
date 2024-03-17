@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { CallbackRoute, AnonymousRoute, AuthenticatedRoute } from './auth'
+import { AuthChangeRedirector, CallbackRoute, AnonymousRoute, AuthenticatedRoute } from './auth'
 import {
   createBrowserRouter,
   RouterProvider
@@ -30,7 +30,7 @@ function createRouter () {
   return createBrowserRouter([
     {
       path: '/',
-      element: <Root />,
+      element: <AuthChangeRedirector><Root /></AuthChangeRedirector>,
       children: [
         {
           path: '/',
@@ -74,7 +74,7 @@ function createRouter () {
         },
         {
           path: '/account/verify-email/:key',
-          element: <AnonymousRoute><VerifyEmail /></AnonymousRoute>,
+          element: <VerifyEmail />,
           loader: verifyEmailLoader
         },
         {

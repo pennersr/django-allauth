@@ -10,6 +10,7 @@ from allauth.headless.account.inputs import (
     ChangePasswordInput,
     DeleteEmailInput,
     LoginInput,
+    MarkAsPrimaryEmailInput,
     ReauthenticateInput,
     RequestPasswordResetInput,
     ResetPasswordInput,
@@ -19,11 +20,7 @@ from allauth.headless.account.inputs import (
     VerifyEmailInput,
 )
 from allauth.headless.base import response
-from allauth.headless.base.views import (
-    APIView,
-    AuthenticatedAPIView,
-    AuthenticationStageAPIView,
-)
+from allauth.headless.base.views import APIView, AuthenticatedAPIView
 
 
 class LoginView(APIView):
@@ -182,7 +179,7 @@ class ManageEmailView(AuthenticatedAPIView):
         "POST": AddEmailInput,
         "PUT": SelectEmailInput,
         "DELETE": DeleteEmailInput,
-        "PATCH": SelectEmailInput,
+        "PATCH": MarkAsPrimaryEmailInput,
     }
 
     def get(self, request, *args, **kwargs):
@@ -207,6 +204,11 @@ class ManageEmailView(AuthenticatedAPIView):
     def delete(self, request, *args, **kwargs):
         addr = self.input.cleaned_data["email"]
         flows.manage_email.delete_email(request, addr)
+        return self._respond_email_list()
+
+    def patch(self, request, *args, **kwargs):
+        addr = self.input.cleaned_data["email"]
+        flows.manage_email.mark_as_primary(request, addr)
         return self._respond_email_list()
 
     def put(self, request, *args, **kwargs):

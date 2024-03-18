@@ -186,5 +186,17 @@ class DeleteEmailInput(SelectEmailInput):
         return email
 
 
+class MarkAsPrimaryEmailInput(SelectEmailInput):
+    primary = inputs.BooleanField(required=True)
+
+    def clean_email(self):
+        email = super().clean_email()
+        if not flows.manage_email.can_mark_as_primary(email):
+            raise inputs.ValidationError(
+                _("Your primary email address must be verified.")
+            )
+        return email
+
+
 class ReauthenticateInput(ReauthenticateForm, inputs.Input):
     pass

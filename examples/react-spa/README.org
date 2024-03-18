@@ -16,7 +16,7 @@ Then, visit the app over at http://localhost:10000.
 
 ** Status
 
-*** Frontend [63%]
+*** Frontend [72%]
 
 **** DONE Login
 
@@ -26,9 +26,9 @@ Then, visit the app over at http://localhost:10000.
 
 **** DONE Confirm email
 
-**** TODO Manage email addresses
+**** DONE Manage email addresses
 
-- [ ] Mark email as primary
+- [X] Mark email as primary
 
 **** DONE Change password
 

@@ -111,7 +111,7 @@ export default function ChangeEmail () {
 
       <h2>Add Email</h2>
 
-      <FormErrors errors={response?.content.error?.detail?._all__} />
+      <FormErrors errors={response?.content.error?.detail?.__all__} />
 
       <div><label>Email <input value={email} onChange={(e) => setEmail(e.target.value)} type='email' required /></label>
         <FormErrors errors={response?.content?.error?.detail?.email} />

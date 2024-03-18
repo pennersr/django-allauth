@@ -16,7 +16,7 @@ Then, visit the app over at http://localhost:10000.
 
 ** Status
 
-*** Frontend [72%]
+*** Frontend [81%]
 
 **** DONE Login
 
@@ -40,11 +40,11 @@ Then, visit the app over at http://localhost:10000.
 - [ ] Accessing /account/2fa/recovery-codes without reauth should redirect
 = [ ] Expose reauthentication flows in 401 response
 
-**** TODO Third-party login
+**** DONE Third-party login
 - [X] Login
 - [X] Signup
 - [X] Provider disconnect
-- [ ] Disconnect error handling
+- [X] Disconnect error handling
 
 **** DONE MFA
 
@@ -99,3 +99,6 @@ Having underscores as =mfa_authenticate= and =verify_email= in URLs? Matches sta
 
 **** TODO Decide if API needs to be made more REST-ish
 e.g. =POST= to /2fa/authenticators/totp/{id} to delete? But TOTP is a singleton, so why.
+
+**** TODO Decide upon __all__
+Perhaps use '*' ? or '_'...

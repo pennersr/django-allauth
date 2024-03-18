@@ -11,6 +11,10 @@ function passwordFactory () {
   return `pw!${new Date().valueOf()}`
 }
 
+function socialAccountUIDFactory () {
+  return '' + Math.round(Math.random() * 100000000)
+}
+
 async function clearMailcatcher (page) {
   await page.goto(MAILCATCHER_URL)
   async function acceptDialog (dialog) {
@@ -27,6 +31,21 @@ async function getLinkFromMail (page) {
   const txt = await page.content()
   const link = txt.match(/https?:\/\/[^\s]+/)[0]
   return link
+}
+
+async function login (page, email, password) {
+  await page.goto(BASE_URL + '/account/login')
+  await page.getByLabel('Email').fill(email)
+  await page.getByLabel('Password:').fill(password)
+  await page.getByRole('button', { name: 'Login' }).click()
+  await page.waitForURL(BASE_URL + '/dashboard')
+}
+
+async function logout (page) {
+  // Logout
+  await page.goto(BASE_URL + '/account/logout')
+  await page.getByRole('button').click()
+  await page.waitForURL(BASE_URL)
 }
 
 test('complete flow', async ({ page }) => {
@@ -53,9 +72,7 @@ test('complete flow', async ({ page }) => {
   await page.waitForURL(BASE_URL + '/dashboard')
 
   // Logout
-  await page.goto(BASE_URL + '/account/logout')
-  await page.getByRole('button').click()
-  await page.waitForURL(BASE_URL)
+  await logout(page)
 
   // Password reset
   await clearMailcatcher(page)
@@ -71,9 +88,58 @@ test('complete flow', async ({ page }) => {
   await page.waitForURL(BASE_URL + '/account/login')
 
   // Login using new password
-  await page.goto(BASE_URL + '/account/login')
-  await page.getByLabel('Email').fill(email)
-  await page.getByLabel('Password:').fill(newPassword)
+  await login(page, email, newPassword)
+})
+
+test('complete socialaccount flow', async ({ page }) => {
+  await clearMailcatcher(page)
+
+  // Dashboard redirects to login
+  await page.goto(BASE_URL + '/dashboard')
+  await page.waitForURL(BASE_URL + '/account/login?next=%2Fdashboard')
+  await page.getByRole('button', { name: 'Dummy' }).click()
+
+  // Dummy authenticate
+  await page.waitForURL(BASE_URL + '/accounts/dummy/authenticate/')
+  const socialId = socialAccountUIDFactory()
+  await page.getByLabel('Account ID').fill(socialId)
   await page.getByRole('button', { name: 'Login' }).click()
+
+  // Provider signup
+  await page.waitForURL(BASE_URL + '/account/provider/signup')
+  const email = emailFactory()
+  await page.getByLabel('Email').fill(email)
+  await page.getByRole('button', { name: 'Sign Up' }).click()
+
+  // Verify email
+  await page.waitForURL(BASE_URL + '/account/verify-email')
+  const verifyLink = await getLinkFromMail(page)
+  await page.goto(verifyLink)
+  await page.getByRole('button').click()
   await page.waitForURL(BASE_URL + '/dashboard')
+
+  // Logout
+  await logout(page)
+
+  // Login, no more signup needed.
+  await page.goto(BASE_URL + '/dashboard')
+  await page.waitForURL(BASE_URL + '/account/login?next=%2Fdashboard')
+  await page.getByRole('button', { name: 'Dummy' }).click()
+
+  // Dummy authenticate
+  await page.waitForURL(BASE_URL + '/accounts/dummy/authenticate/')
+  await page.getByLabel('Account ID').fill(socialId)
+  await page.getByRole('button', { name: 'Login' }).click()
+
+  // Set password
+  await page.waitForURL(BASE_URL + '/dashboard')
+  await page.goto(BASE_URL + '/account/password/change')
+  const newPassword = passwordFactory()
+  await page.getByLabel('Password:').fill(newPassword)
+  await page.getByLabel('Password (again)').fill(newPassword)
+  await page.getByRole('button', { name: 'Set' }).click()
+
+  // Login using password now
+  await logout(page)
+  await login(page, email, newPassword)
 })

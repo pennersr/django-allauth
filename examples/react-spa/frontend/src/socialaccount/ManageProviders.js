@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import * as allauth from '../lib/allauth'
 import ProviderList from './ProviderList'
+import FormErrors from '../FormErrors'
 
 export default function ManageProviders () {
   const [accounts, setAccounts] = useState([])
@@ -60,6 +61,8 @@ export default function ManageProviders () {
           })}
         </tbody>
       </table>
+
+      <FormErrors errors={response?.content.error?.detail?.__all__} />
 
       <h2>Connect</h2>
       <ProviderList callbackURL='/account/providers' process={allauth.AuthProcess.CONNECT} />

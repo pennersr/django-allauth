@@ -59,6 +59,21 @@ export default function ChangeEmail () {
     })
   }
 
+  function markAsPrimary (email) {
+    setResponse({ ...response, fetching: true })
+    allauth.markEmailAsPrimary(email).then((resp) => {
+      setResponse((r) => { return { ...r, content: resp } })
+      if (resp.status === 200) {
+        setEmailAddresses(resp.data)
+      }
+    }).catch((e) => {
+      console.error(e)
+      window.alert(e)
+    }).then(() => {
+      setResponse((r) => { return { ...r, fetching: false } })
+    })
+  }
+
   return (
     <div>
       <h1>Change Email</h1>
@@ -81,7 +96,9 @@ export default function ChangeEmail () {
                   ? '✅'
                   : '❌'}
                 </td>
-                <td>{ea.primary ? '✅' : '❌'}</td>
+                <td>
+                  <input onClick={() => markAsPrimary(ea.email)} type='radio' checked={ea.primary} />
+                </td>
                 <td>
                   {ea.verified ? '' : <button onClick={() => requestEmailVerification(ea.email)} disabled={response.fetching}>Resend</button>}
                   {ea.primary ? '' : <button onClick={() => deleteEmail(ea.email)} disabled={response.fetching}>Remove</button>}

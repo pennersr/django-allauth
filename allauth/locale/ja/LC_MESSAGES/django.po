@@ -3,20 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-17 12:01-0600\n"
-"PO-Revision-Date: 2024-01-28 12:36+0900\n"
-"Last-Translator: k-brahma <k.brahma.nirvana@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: ja-JP\n"
+"PO-Revision-Date: 2024-03-19 03:01+0000\n"
+"Last-Translator: SATOH Fumiyasu <fumiyas@osstech.co.jp>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/django-allauth/"
+"django-allauth/ja/>\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: account/adapter.py:50
 msgid "Username can not be used. Please use other username."
@@ -35,10 +36,8 @@ msgid "Please type your current password."
 msgstr "現在のパスワードを入力してください。"
 
 #: account/adapter.py:60
-#, fuzzy
-#| msgid "Current Password"
 msgid "Incorrect password."
-msgstr "現在のパスワード"
+msgstr "不正なパスワードです。"
 
 #: account/adapter.py:61
 #, python-brace-format
@@ -58,10 +57,8 @@ msgid "Use your authenticator app"
 msgstr "認証アプリを利用する"
 
 #: account/admin.py:23
-#, fuzzy
-#| msgid "Your primary email address must be verified."
 msgid "Mark selected email addresses as verified"
-msgstr "メインのメールアドレスは確認済みでなければいけません。"
+msgstr "確認済みにするメールアドレスを選択"
 
 #: account/apps.py:11
 msgid "Accounts"
@@ -148,10 +145,9 @@ msgid "This email address is already associated with this account."
 msgstr "このメールアドレスはすでに登録されています。"
 
 #: account/forms.py:491
-#, fuzzy, python-format
-#| msgid "Your account has no verified email address."
+#, python-format
 msgid "You cannot add more than %d email addresses."
-msgstr "確認済みのメールアドレスの登録が必要です。"
+msgstr "メールアドレスは %d 個までしか登録できません。"
 
 #: account/forms.py:529
 msgid "Current Password"
@@ -229,15 +225,15 @@ msgstr "コードが正しくありません。"
 
 #: mfa/adapter.py:27
 msgid "You cannot deactivate two-factor authentication."
-msgstr ""
+msgstr "二要素認証は無効化できません。"
 
 #: mfa/apps.py:9
 msgid "MFA"
-msgstr ""
+msgstr "MFA"
 
 #: mfa/forms.py:15 mfa/forms.py:17 mfa/forms.py:52
 msgid "Code"
-msgstr ""
+msgstr "コード"
 
 #: mfa/forms.py:50
 msgid "Authenticator code"
@@ -245,23 +241,19 @@ msgstr "認証アプリコード"
 
 #: mfa/models.py:19
 msgid "Recovery codes"
-msgstr ""
+msgstr "リカバリーコード"
 
 #: mfa/models.py:20
 msgid "TOTP Authenticator"
-msgstr ""
+msgstr "TOTP 認証アプリ"
 
 #: socialaccount/adapter.py:31
-#, fuzzy, python-format
-#| msgid ""
-#| "An account already exists with this e-mail address. Please sign in to "
-#| "that account first, then connect your %s account."
+#, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
 "account first, then connect your %s account."
-msgstr ""
-"このメールアドレスを使用するアカウントが既にあります。そのアカウントにログイ"
-"ンしてから%sアカウントを接続してください"
+msgstr "このメールアドレスを使用するアカウントが既にあります。"
+"そのアカウントにログインしてから %s アカウントを接続してください。"
 
 #: socialaccount/adapter.py:148
 msgid "Your account has no password set up."
@@ -319,7 +311,7 @@ msgstr "ソーシャルアプリケーション"
 
 #: socialaccount/models.py:111
 msgid "uid"
-msgstr ""
+msgstr "ユーザー名"
 
 #: socialaccount/models.py:113
 msgid "last login"
@@ -374,13 +366,10 @@ msgid "Invalid profile data"
 msgstr "無効なプロファイルデータ"
 
 #: socialaccount/providers/oauth/client.py:85
-#, fuzzy, python-format
-#| msgid "Invalid response while obtaining request token from \"%s\"."
+#, python-format
 msgid ""
 "Invalid response while obtaining request token from \"%s\". Response was: %s."
-msgstr ""
-"不正なレスポンスが返されたため、 \"%s\" からリクエストトークンを取得できませ"
-"んでした。"
+msgstr "\"%s\" からのリクエストトークン取得中に不正な応答がありました。レスポンス%s"
 
 #: socialaccount/providers/oauth/client.py:119
 #: socialaccount/providers/pocket/client.py:86
@@ -498,12 +487,12 @@ msgstr ""
 
 #: templates/account/email/account_already_exists_subject.txt:3
 msgid "Account Already Exists"
-msgstr ""
+msgstr "アカウントが既に存在"
 
 #: templates/account/email/base_message.txt:1
 #, python-format
 msgid "Hello from %(site_name)s!"
-msgstr "こんにちは、%(site_name)sです。"
+msgstr "こんにちは、%(site_name)s!"
 
 #: templates/account/email/base_message.txt:5
 #, python-format
@@ -682,10 +671,8 @@ msgid "Cancel Change"
 msgstr ""
 
 #: templates/account/email_change.html:49
-#, fuzzy
-#| msgid "Email"
 msgid "Change to"
-msgstr "メールアドレス"
+msgstr ""
 
 #: templates/account/email_change.html:55
 #: templates/allauth/layouts/base.html:29
@@ -714,24 +701,20 @@ msgstr "確認する"
 
 #: templates/account/email_confirm.html:29
 #: templates/account/messages/email_confirmation_failed.txt:2
-#, fuzzy, python-format
-#| msgid "The social account is already connected to a different account."
+#, python-format
 msgid ""
 "Unable to confirm %(email)s because it is already confirmed by a different "
 "account."
-msgstr "この外部アカウントは他のアカウントにリンクされています。"
+msgstr "%(email)s はすでにほかのアカウントで確認済みです。"
 
 #: templates/account/email_confirm.html:35
-#, fuzzy, python-format
-#| msgid ""
-#| "This e-mail confirmation link expired or is invalid. Please <a "
-#| "href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+#, python-format
 msgid ""
 "This email confirmation link expired or is invalid. Please <a "
 "href=\"%(email_url)s\">issue a new email confirmation request</a>."
 msgstr ""
-"メールアドレス確認用のリンクが不正か、期限が切れています。<a "
-"href=\"%(email_url)s\">確認用のメールを再送</a>してください。"
+"メールアドレス確認用のリンクが不正か、期限が切れています。<a href=\""
+"%(email_url)s\">確認用のメールを再送</a>してください。"
 
 #: templates/account/login.html:5 templates/account/login.html:9
 #: templates/account/login.html:29 templates/allauth/layouts/base.html:36
@@ -745,8 +728,8 @@ msgstr "ログイン"
 msgid ""
 "If you have not created an account yet, then please\n"
 "    <a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
-"アカウントをまだお持ちでなければ、こちらから <a href=\"%(signup_url)s\">ユーザー登録</a> してください。"
+msgstr "アカウントをまだお持ちでなければ、 <a href=\"%(signup_url)s\""
+">こちらからユーザー登録</a> してください。"
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
 #: templates/account/logout.html:23 templates/allauth/layouts/base.html:32
@@ -936,11 +919,6 @@ msgstr ""
 "さい。"
 
 #: templates/account/verified_email_required.html:13
-#, fuzzy
-#| msgid ""
-#| "This part of the site requires us to verify that\n"
-#| "you are who you claim to be. For this purpose, we require that you\n"
-#| "verify ownership of your e-mail address. "
 msgid ""
 "This part of the site requires us to verify that\n"
 "you are who you claim to be. For this purpose, we require that you\n"
@@ -948,7 +926,7 @@ msgid ""
 msgstr ""
 "このページにアクセスするためには、本人確認が必要です。\n"
 "そのために、登録されているメールアドレスがご自身のものであることを確認してい"
-"ただきます。"
+"ただきます。 "
 
 #: templates/account/verified_email_required.html:18
 msgid ""
@@ -958,8 +936,10 @@ msgid ""
 "Otherwise\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
-"確認のためのメールを送信しました。メールに記載されたリンクをクリックしてください。\n"
-"確認メールが受信ボックスに見つからない場合は、スパムフォルダをチェックしてください。"
+"確認のためのメールを送信しました。メールに記載されたリンクをクリックしてくだ"
+"さい。\n"
+"確認メールが受信ボックスに見つからない場合は、スパムフォルダをチェックしてく"
+"ださい。\n"
 "数分以内にメールが届かない場合はご連絡ください。"
 
 #: templates/account/verified_email_required.html:23
@@ -972,11 +952,11 @@ msgstr ""
 
 #: templates/allauth/layouts/base.html:18
 msgid "Messages:"
-msgstr "メッセージ"
+msgstr "メッセージ:"
 
 #: templates/allauth/layouts/base.html:25
 msgid "Menu:"
-msgstr "メニュー"
+msgstr "メニュー:"
 
 #: templates/mfa/authenticate.html:9 templates/mfa/index.html:5
 #: templates/mfa/index.html:9
@@ -1002,7 +982,7 @@ msgstr "二段階認証用のリカバリーコードを新たに生成しまし
 
 #: templates/mfa/email/recovery_codes_generated_subject.txt:3
 msgid "New Recovery Codes Generated"
-msgstr "二段階認証用のリカバリーコードを生成しました。"
+msgstr "二段階認証用のリカバリーコードを生成しました"
 
 #: templates/mfa/email/totp_activated_message.txt:4
 #: templates/mfa/messages/totp_activated.txt:2
@@ -1011,7 +991,7 @@ msgstr "認証アプリが有効化されました。"
 
 #: templates/mfa/email/totp_activated_subject.txt:3
 msgid "Authenticator App Activated"
-msgstr "認証アプリが有効化されました。"
+msgstr "認証アプリが有効化されました"
 
 #: templates/mfa/email/totp_deactivated_message.txt:4
 #: templates/mfa/messages/totp_deactivated.txt:2
@@ -1019,10 +999,8 @@ msgid "Authenticator app deactivated."
 msgstr "認証アプリが無効化されました。"
 
 #: templates/mfa/email/totp_deactivated_subject.txt:3
-#, fuzzy
-#| msgid "token secret"
 msgid "Authenticator App Deactivated"
-msgstr "トークンシークレット"
+msgstr "認証アプリが無効化されました"
 
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
@@ -1067,7 +1045,7 @@ msgstr "リカバリーコードがセットアップされていません。"
 
 #: templates/mfa/index.html:59
 msgid "View"
-msgstr ""
+msgstr "表示"
 
 #: templates/mfa/index.html:65
 msgid "Download"
@@ -1083,7 +1061,7 @@ msgstr "新しいリカバリーコードセットが生成されました。"
 
 #: templates/mfa/reauthenticate.html:5
 msgid "Enter an authenticator code:"
-msgstr "認証アプリのコードを入力する"
+msgstr "認証アプリのコードを入力する:"
 
 #: templates/mfa/recovery_codes/generate.html:9
 msgid "You are about to generate a new set of recovery codes for your account."
@@ -1144,7 +1122,7 @@ msgstr "認証アプリを無効化する"
 msgid ""
 "You are about to deactivate authenticator app based authentication. Are you "
 "sure?"
-msgstr "認証アプリによる認証を無効化しようとしています。本当によろしいですか。"
+msgstr "認証アプリによる認証を無効化しようとしています。本当によろしいですか?"
 
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:9
@@ -1184,10 +1162,8 @@ msgid ""
 msgstr ""
 
 #: templates/socialaccount/email/account_connected_subject.txt:3
-#, fuzzy
-#| msgid "Add a 3rd Party Account"
 msgid "Third-Party Account Connected"
-msgstr "外部アカウントを追加する"
+msgstr "外部アカウントと接続されました"
 
 #: templates/socialaccount/email/account_disconnected_message.txt:4
 #, python-format
@@ -1236,13 +1212,12 @@ msgid ""
 "href=\"%(login_url)s\">sign in</a>."
 msgstr ""
 "既存の外部アカウントを使ったログインはキャンセルされました。\n"
-"やり直される場合は<a href=\"%(login_url)s\">ログイン</a>ページにお進みくださ"
-"い。"
+"やり直される場合は<a href=\"%(login_url)s\""
+">ログインページ</a>にお進みください。"
 
 #: templates/socialaccount/messages/account_connected.txt:2
-#| msgid "The social account has been connected."
 msgid "The third-party account has been connected."
-msgstr "外部アカウントがリンクされました"
+msgstr "外部アカウントがリンクされました。"
 
 #: templates/socialaccount/messages/account_connected_other.txt:2
 #| msgid "The social account is already connected to a different account."
@@ -1258,7 +1233,8 @@ msgid ""
 "You are about to use your %(provider_name)s account to login to\n"
 "%(site_name)s. As a final step, please complete the following form:"
 msgstr ""
-"%(provider_name)s アカウントを使って %(site_name)s にログインしようとしています。"
+"%(provider_name)s アカウントを使って %(site_name)s "
+"にログインしようとしています。\n"
 "ユーザー登録のために、以下のフォームに記入してください。"
 
 #: templates/socialaccount/snippets/login.html:9
@@ -1272,25 +1248,23 @@ msgstr ""
 #: templates/usersessions/usersession_list.html:6
 #: templates/usersessions/usersession_list.html:10
 msgid "Sessions"
-msgstr ""
+msgstr "セッション"
 
 #: templates/usersessions/usersession_list.html:23
 msgid "Started At"
-msgstr ""
+msgstr "開始日時"
 
 #: templates/usersessions/usersession_list.html:24
-#, fuzzy
-#| msgid "Email Addresses"
 msgid "IP Address"
-msgstr "メールアドレス"
+msgstr "IP アドレス"
 
 #: templates/usersessions/usersession_list.html:25
 msgid "Browser"
-msgstr ""
+msgstr "ブラウザー"
 
 #: templates/usersessions/usersession_list.html:27
 msgid "Last seen at"
-msgstr ""
+msgstr "閲覧日時"
 
 #: templates/usersessions/usersession_list.html:47
 msgid "Current"
@@ -1302,11 +1276,11 @@ msgstr ""
 
 #: usersessions/apps.py:9
 msgid "User Sessions"
-msgstr ""
+msgstr "ユーザーセッション"
 
 #: usersessions/models.py:48
 msgid "session key"
-msgstr ""
+msgstr "セッションキー"
 
 #, fuzzy
 #~| msgid "The following email addresses are associated with your account:"

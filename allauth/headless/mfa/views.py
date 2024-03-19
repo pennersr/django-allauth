@@ -1,4 +1,7 @@
-from allauth.headless.base.response import APIResponse
+from allauth.headless.base.response import (
+    APIResponse,
+    respond_is_authenticated,
+)
 from allauth.headless.base.views import (
     AuthenticatedAPIView,
     AuthenticationStageAPIView,
@@ -27,6 +30,20 @@ class AuthenticateView(AuthenticationStageAPIView):
 
 
 authenticate = AuthenticateView.as_view()
+
+
+class ReauthenticateView(AuthenticatedAPIView):
+    input_class = AuthenticateInput
+
+    def post(self, request, *args, **kwargs):
+        self.input.save()
+        return respond_is_authenticated(self.request)
+
+    def get_input_kwargs(self):
+        return {"user": self.request.user}
+
+
+reauthenticate = ReauthenticateView.as_view()
 
 
 class AuthenticatorsView(AuthenticatedAPIView):

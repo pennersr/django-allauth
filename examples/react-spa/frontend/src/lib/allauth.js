@@ -16,7 +16,9 @@ export const Flows = Object.freeze({
   SIGNUP: 'signup',
   PROVIDER_LOGIN: 'provider_login',
   PROVIDER_SIGNUP: 'provider_signup',
-  MFA_AUTHENTICATE: 'mfa_authenticate'
+  MFA_AUTHENTICATE: 'mfa_authenticate',
+  REAUTHENTICATE: 'reauthenticate',
+  MFA_REAUTHENTICATE: 'mfa_reauthenticate'
 })
 
 export const URLs = Object.freeze({
@@ -37,6 +39,7 @@ export const URLs = Object.freeze({
   AUTHENTICATORS: BASE_URL + '/2fa/authenticators',
   TOTP_AUTHENTICATOR: BASE_URL + '/2fa/authenticators/totp',
   MFA_AUTHENTICATE: BASE_URL + '/auth/mfa_authenticate',
+  MFA_REAUTHENTICATE: BASE_URL + '/auth/mfa_reauthenticate',
   RECOVERY_CODES: BASE_URL + '/2fa/authenticators/recovery_codes'
 })
 
@@ -132,6 +135,10 @@ export async function getTOTPAuthenticator () {
 
 export async function mfaAuthenticate (code) {
   return await request('POST', URLs.MFA_AUTHENTICATE, { code })
+}
+
+export async function mfaReauthenticate (code) {
+  return await request('POST', URLs.MFA_REAUTHENTICATE, { code })
 }
 
 export async function activateTOTPAuthenticator (code) {

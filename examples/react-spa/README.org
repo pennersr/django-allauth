@@ -36,9 +36,9 @@ Then, visit the app over at http://localhost:10000.
 
 **** TODO Re-authentication
 - [X] Reauthenticate by password
-- [ ] Reauthenticate using 2FA
+- [X] Reauthenticate using 2FA
 - [ ] Accessing /account/2fa/recovery-codes without reauth should redirect
-= [ ] Expose reauthentication flows in 401 response
+- [X] Expose reauthentication flows in 401 response
 
 **** DONE Third-party login
 - [X] Login

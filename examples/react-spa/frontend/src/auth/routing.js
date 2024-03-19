@@ -8,7 +8,6 @@ import { Flows } from '../lib/allauth'
 const LOGIN_URL = '/account/login'
 const LOGIN_REDIRECT_URL = '/dashboard'
 const LOGOUT_REDIRECT_URL = '/'
-const REAUTHENTICATE_URL = '/account/reauthenticate'
 
 const flow2path = {}
 flow2path[Flows.LOGIN] = '/account/login'
@@ -16,14 +15,21 @@ flow2path[Flows.SIGNUP] = '/account/signup'
 flow2path[Flows.VERIFY_EMAIL] = '/account/verify-email'
 flow2path[Flows.PROVIDER_SIGNUP] = '/account/provider/signup'
 flow2path[Flows.MFA_AUTHENTICATE] = '/account/2fa/authenticate'
+flow2path[Flows.REAUTHENTICATE] = '/account/reauthenticate'
+flow2path[Flows.MFA_REAUTHENTICATE] = '/account/2fa/reauthenticate'
+
+export function pathForFlow (flowId) {
+  const path = flow2path[flowId]
+  if (!path) {
+    throw new Error(`Unknown path for flow: ${flowId}`)
+  }
+  return path
+}
 
 function navigateToPendingFlow (auth) {
   const flow = auth.data.flows.find(flow => flow.is_pending)
   if (flow) {
-    const path = flow2path[flow.id]
-    if (!path) {
-      throw new Error(`Unknown path for flow: ${flow.id}`)
-    }
+    const path = pathForFlow(flow.id)
     return <Navigate to={path} />
   }
   return null
@@ -77,7 +83,8 @@ export function AuthChangeRedirector ({ children }) {
     }
     case AuthChangeEvent.REAUTHENTICATION_REQUIRED: {
       const next = `next=${encodeURIComponent(location.pathname + location.search)}`
-      return <Navigate to={`${REAUTHENTICATE_URL}?${next}`} />
+      const path = pathForFlow(auth.data.flows[0].id)
+      return <Navigate to={`${path}?${next}`} state={{ reauth: auth }} />
     }
     case AuthChangeEvent.FLOW_UPDATED:
       const pendingFlow = navigateToPendingFlow(auth)

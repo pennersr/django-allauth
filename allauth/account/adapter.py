@@ -713,6 +713,7 @@ class DefaultAccountAdapter(BaseAdapter):
         if user.has_usable_password():
             ret.append(
                 {
+                    "id": "reauthenticate",
                     "description": _("Use your password"),
                     "url": reverse("account_reauthenticate"),
                 }
@@ -723,6 +724,7 @@ class DefaultAccountAdapter(BaseAdapter):
             if is_mfa_enabled(user):
                 ret.append(
                     {
+                        "id": "mfa_reauthenticate",
                         "description": _("Use your authenticator app"),
                         "url": reverse("mfa_reauthenticate"),
                     }

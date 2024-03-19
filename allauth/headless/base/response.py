@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 
 from allauth import app_settings as allauth_app_settings
+from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.authentication import get_authentication_records
 from allauth.account.models import EmailAddress
 from allauth.account.utils import user_display, user_username
@@ -21,23 +22,32 @@ class UnauthorizedResponse(APIResponse):
     def __init__(self, request):
         state = AuthenticationState(request)
         stages = state.get_stages()
-        flows = [
-            {
-                "id": "login",
-                "url": request.allauth.headless.reverse("headless_login"),
-            },
-            {
-                "id": "signup",
-                "url": request.allauth.headless.reverse("headless_signup"),
-            },
-        ]
-        if allauth_app_settings.SOCIALACCOUNT_ENABLED:
-            flows.extend(self._provider_flows(request))
+        flows = []
+        if request.user.is_authenticated:
+            flows.extend(
+                [
+                    {"id": m["id"]}
+                    for m in get_account_adapter().get_reauthentication_methods(
+                        request.user
+                    )
+                ]
+            )
+        else:
+            flows.extend(
+                [
+                    {
+                        "id": "login",
+                    },
+                    {
+                        "id": "signup",
+                    },
+                ]
+            )
+            if allauth_app_settings.SOCIALACCOUNT_ENABLED:
+                flows.extend(self._provider_flows(request))
         if stages:
             stage = stages[0]
-            flows.append(
-                {"id": stage.key, "url": stage.get_headless_url(), "is_pending": True}
-            )
+            flows.append({"id": stage.key, "is_pending": True})
         data = {"flows": flows}
         if request.user.is_authenticated:
             data["user"] = user_data(request.user)

@@ -97,7 +97,7 @@ export default function ChangeEmail () {
                   : '❌'}
                 </td>
                 <td>
-                  <input onClick={() => markAsPrimary(ea.email)} type='radio' checked={ea.primary} />
+                  <input onClick={() => markAsPrimary(ea.email)} type='radio' defaultChecked={ea.primary} />
                 </td>
                 <td>
                   {ea.verified ? '' : <button onClick={() => requestEmailVerification(ea.email)} disabled={response.fetching}>Resend</button>}

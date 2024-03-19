@@ -10,6 +10,11 @@ urlpatterns = [
         name="headless_mfa_authenticate",
     ),
     path(
+        "v1/auth/mfa_reauthenticate",
+        views.reauthenticate,
+        name="headless_mfa_reauthenticate",
+    ),
+    path(
         "v1/2fa/authenticators",
         views.authenticators,
         name="headless_mfa_authenticators",

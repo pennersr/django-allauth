@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import FormErrors from '../FormErrors'
-import { reauthenticate, Flows } from '../lib/allauth'
-import ReauthenticateFlow from './ReauthenticateFlow'
+import { mfaReauthenticate, Flows } from '../lib/allauth'
+import ReauthenticateFlow from '../account/ReauthenticateFlow'
 
-export default function Reauthenticate () {
-  const [password, setPassword] = useState('')
+export default function MFAReauthenticate () {
+  const [code, setCode] = useState('')
   const [response, setResponse] = useState({ fetching: false, data: null })
 
   function submit () {
     setResponse({ ...response, fetching: true })
-    reauthenticate({ password }).then((data) => {
+    mfaReauthenticate(code).then((data) => {
       setResponse((r) => { return { ...r, data } })
     }).catch((e) => {
       console.error(e)
@@ -19,13 +19,13 @@ export default function Reauthenticate () {
     })
   }
   return (
-    <ReauthenticateFlow flow={Flows.REAUTHENTICATE}>
-      <p>Enter your password:</p>
+    <ReauthenticateFlow flow={Flows.MFA_REAUTHENTICATE}>
+      <p>Enter an authenticator code:</p>
 
       <FormErrors errors={response.data?.form?.errors} />
 
-      <div><label>Password: <input value={password} onChange={(e) => setPassword(e.target.value)} type='password' required /></label>
-        <FormErrors errors={response.data?.error?.detail?.password} />
+      <div><label>Code: <input value={code} onChange={(e) => setCode(e.target.value)} type='text' required /></label>
+        <FormErrors errors={response.data?.error?.detail?.code} />
       </div>
       <button disabled={response.fetching} onClick={() => submit()}>Confirm</button>
     </ReauthenticateFlow>

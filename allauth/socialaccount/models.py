@@ -355,6 +355,9 @@ class SocialLogin(object):
 
     @classmethod
     def state_from_request(cls, request):
+        """
+        TODO: Deprecated! To be integrated with provider.redirect()
+        """
         state = {}
         next_url = get_next_redirect_url(request)
         if next_url:
@@ -365,8 +368,10 @@ class SocialLogin(object):
         return state
 
     @classmethod
-    def stash_state(cls, request):
-        state = cls.state_from_request(request)
+    def stash_state(cls, request, state=None):
+        if state is None:
+            # Only for providers that don't support redirect() yet.
+            state = cls.state_from_request(request)
         verifier = get_random_string(16)
         request.session["socialaccount_state"] = (state, verifier)
         return verifier

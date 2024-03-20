@@ -82,5 +82,8 @@ class OpenIDConnectProvider(OAuth2Provider):
             )
         return addresses
 
+    def get_oauth2_adapter(self, request):
+        return self.oauth2_adapter_class(request, self.app.provider_id)
+
 
 provider_classes = [OpenIDConnectProvider]

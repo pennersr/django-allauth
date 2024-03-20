@@ -53,8 +53,6 @@ class FeishuOAuth2Adapter(OAuth2Adapter):
         callback_url = reverse(self.provider_id + "_callback")
         protocol = self.redirect_uri_protocol or app_settings.DEFAULT_HTTP_PROTOCOL
         callback_url = build_absolute_uri(request, callback_url, protocol=protocol)
-        provider = self.get_provider()
-        scope = provider.get_scope(request)
         client = FeishuOAuth2Client(
             request,
             app.client_id,
@@ -62,7 +60,6 @@ class FeishuOAuth2Adapter(OAuth2Adapter):
             self.access_token_method,
             self.access_token_url,
             callback_url,
-            scope,
         )
         return client
 

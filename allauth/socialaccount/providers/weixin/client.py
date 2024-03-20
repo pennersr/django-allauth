@@ -10,11 +10,12 @@ from allauth.socialaccount.providers.oauth2.client import (
 
 
 class WeixinOAuth2Client(OAuth2Client):
-    def get_redirect_url(self, authorization_url, extra_params):
+    def get_redirect_url(self, authorization_url, scope, extra_params):
+        scope = self.scope_delimiter.join(set(scope))
         params = {
             "appid": self.consumer_key,
             "redirect_uri": self.callback_url,
-            "scope": self.scope,
+            "scope": scope,
             "response_type": "code",
         }
         if self.state:
@@ -28,10 +29,8 @@ class WeixinOAuth2Client(OAuth2Client):
     def get_access_token(self, code, pkce_code_verifier=None):
         data = {
             "appid": self.consumer_key,
-            "redirect_uri": self.callback_url,
             "grant_type": "authorization_code",
             "secret": self.consumer_secret,
-            "scope": self.scope,
             "code": code,
         }
         params = None

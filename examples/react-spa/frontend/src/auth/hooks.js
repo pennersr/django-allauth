@@ -45,6 +45,11 @@ function determineAuthChangeEvent (fromAuth, toAuth) {
       return AuthChangeEvent.REAUTHENTICATION_REQUIRED
     } else if (fromInfo.requiresReauthentication) {
       return AuthChangeEvent.REAUTHENTICATED
+    } else if (fromAuth.data.methods.length < toAuth.data.methods.length) {
+      // If you do a pae reload when on the reauthentication page, both fromAuth
+      // and toAuth are authenticated, and it won't see the change when
+      // reauthentication without this.
+      return AuthChangeEvent.REAUTHENTICATED
     }
   } else if (!fromInfo.isAuthenticated && !toInfo.isAuthenticated) {
     const fromFlow = fromAuth.data?.flows?.find(flow => flow.is_pending)
@@ -57,9 +62,9 @@ function determineAuthChangeEvent (fromAuth, toAuth) {
   return null
 }
 
-export function useAuthStatus () {
+export function useAuthChange () {
   const auth = useAuth()
-  const ref = useRef({ prevAuth: null, event: null, didChange: false })
+  const ref = useRef({ prevAuth: auth, event: null, didChange: false })
   const [, setForcedUpdate] = useState(0)
   useEffect(() => {
     if (ref.current.prevAuth) {
@@ -80,12 +85,11 @@ export function useAuthStatus () {
   if (event) {
     ref.current.event = null
   }
-  const isAuthenticated = auth.status === 200 || (auth.status === 401 && auth.meta.is_authenticated)
-  const requiresReauthentication = isAuthenticated && auth.status === 401
-  return [auth, {
-    isAuthenticated,
-    requiresReauthentication,
-    didChange,
-    event
-  }]
+
+  return [auth, event]
+}
+
+export function useAuthStatus () {
+  const auth = useAuth()
+  return [auth, authInfo(auth)]
 }

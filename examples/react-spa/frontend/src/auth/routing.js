@@ -2,7 +2,7 @@ import {
   Navigate,
   useLocation
 } from 'react-router-dom'
-import { AuthChangeEvent, useAuthStatus } from './hooks'
+import { useAuthChange, AuthChangeEvent, useAuthStatus } from './hooks'
 import { Flows } from '../lib/allauth'
 
 const LOGIN_URL = '/account/login'
@@ -69,9 +69,9 @@ export function CallbackRoute () {
 }
 
 export function AuthChangeRedirector ({ children }) {
-  const [auth, status] = useAuthStatus()
+  const [auth, event] = useAuthChange()
   const location = useLocation()
-  switch (status.event) {
+  switch (event) {
     case AuthChangeEvent.LOGGED_OUT:
       return <Navigate to={LOGOUT_REDIRECT_URL} />
     case AuthChangeEvent.LOGGED_IN:

@@ -16,7 +16,7 @@ Then, visit the app over at http://localhost:10000.
 
 ** Status
 
-*** Frontend [81%]
+*** Frontend [90%]
 
 **** DONE Login
 
@@ -34,10 +34,10 @@ Then, visit the app over at http://localhost:10000.
 
 **** DONE Set password
 
-**** TODO Re-authentication
+**** DONE Re-authentication
 - [X] Reauthenticate by password
 - [X] Reauthenticate using 2FA
-- [ ] Accessing /account/2fa/recovery-codes without reauth should redirect
+- [X] Accessing /account/2fa/recovery-codes without reauth should redirect
 - [X] Expose reauthentication flows in 401 response
 
 **** DONE Third-party login

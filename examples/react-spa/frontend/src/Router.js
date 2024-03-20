@@ -25,6 +25,7 @@ import ResetPassword, { loader as resetPasswordLoader } from './account/ResetPas
 import MFAAuthenticate from './mfa/MFAAuthenticate'
 import MFAReauthenticate from './mfa/MFAReauthenticate'
 import Reauthenticate from './account/Reauthenticate'
+import Sessions from './usersessions/Sessions'
 import Root from './Root'
 
 function createRouter () {
@@ -126,6 +127,10 @@ function createRouter () {
           path: '/account/2fa/recovery-codes/generate',
           element: <AuthenticatedRoute><GenerateRecoveryCodes /></AuthenticatedRoute>,
           loader: generateRecoveryCodesLoader
+        },
+        {
+          path: '/account/sessions',
+          element: <AuthenticatedRoute><Sessions /></AuthenticatedRoute>
         }
       ]
     }

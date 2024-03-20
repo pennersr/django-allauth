@@ -22,25 +22,26 @@ export const Flows = Object.freeze({
 })
 
 export const URLs = Object.freeze({
-  CONFIG: BASE_URL + '/config',
-  LOGIN: BASE_URL + '/auth/login',
-  REAUTHENTICATE: BASE_URL + '/auth/reauthenticate',
-  LOGOUT: BASE_URL + '/auth/logout',
   AUTH: BASE_URL + '/auth',
-  SIGNUP: BASE_URL + '/auth/signup',
-  VERIFY_EMAIL: BASE_URL + '/auth/verify_email',
-  REQUEST_PASSWORD_RESET: BASE_URL + '/auth/password/request',
-  RESET_PASSWORD: BASE_URL + '/auth/password/reset',
-  CHANGE_PASSWORD: BASE_URL + '/account/password/change',
-  EMAIL: BASE_URL + '/account/email',
-  REDIRECT_TO_PROVIDER: BASE_URL + '/auth/provider/redirect',
-  PROVIDER_SIGNUP: BASE_URL + '/auth/provider/signup',
-  PROVIDERS: BASE_URL + '/account/providers',
   AUTHENTICATORS: BASE_URL + '/2fa/authenticators',
-  TOTP_AUTHENTICATOR: BASE_URL + '/2fa/authenticators/totp',
+  CHANGE_PASSWORD: BASE_URL + '/account/password/change',
+  CONFIG: BASE_URL + '/config',
+  EMAIL: BASE_URL + '/account/email',
+  LOGIN: BASE_URL + '/auth/login',
+  LOGOUT: BASE_URL + '/auth/logout',
   MFA_AUTHENTICATE: BASE_URL + '/auth/mfa_authenticate',
   MFA_REAUTHENTICATE: BASE_URL + '/auth/mfa_reauthenticate',
-  RECOVERY_CODES: BASE_URL + '/2fa/authenticators/recovery_codes'
+  PROVIDERS: BASE_URL + '/account/providers',
+  PROVIDER_SIGNUP: BASE_URL + '/auth/provider/signup',
+  REAUTHENTICATE: BASE_URL + '/auth/reauthenticate',
+  RECOVERY_CODES: BASE_URL + '/2fa/authenticators/recovery_codes',
+  REDIRECT_TO_PROVIDER: BASE_URL + '/auth/provider/redirect',
+  REQUEST_PASSWORD_RESET: BASE_URL + '/auth/password/request',
+  RESET_PASSWORD: BASE_URL + '/auth/password/reset',
+  SESSIONS: BASE_URL + '/sessions',
+  SIGNUP: BASE_URL + '/auth/signup',
+  TOTP_AUTHENTICATOR: BASE_URL + '/2fa/authenticators/totp',
+  VERIFY_EMAIL: BASE_URL + '/auth/verify_email'
 })
 
 export const AuthenticatorType = Object.freeze({
@@ -123,6 +124,13 @@ export async function getEmailVerification (key) {
 
 export async function getEmailAddresses () {
   return await request('GET', URLs.EMAIL)
+}
+export async function getSessions () {
+  return await request('GET', URLs.SESSIONS)
+}
+
+export async function endSessions (ids) {
+  return await request('DELETE', URLs.SESSIONS, { sessions: ids })
 }
 
 export async function getAuthenticators () {

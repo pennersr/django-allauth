@@ -14,6 +14,9 @@ if allauth_settings.SOCIALACCOUNT_ENABLED:
 if allauth_settings.MFA_ENABLED:
     _patterns.append(path("", include("allauth.headless.mfa.urls")))
 
+if allauth_settings.USERSESSIONS_ENABLED:
+    _patterns.append(path("", include("allauth.headless.usersessions.urls")))
+
 urlpatterns = [
     re_path(
         r"(?P<client>browser|device)/",

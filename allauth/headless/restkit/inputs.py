@@ -3,13 +3,20 @@ from django.forms import (
     CharField,
     EmailField,
     Form,
+    ModelMultipleChoiceField,
     ValidationError,
 )
 
 from allauth.headless.restkit.response import ErrorResponse
 
 
-__all__ = ["CharField", "ValidationError", "EmailField", "BooleanField"]
+__all__ = [
+    "CharField",
+    "ValidationError",
+    "EmailField",
+    "BooleanField",
+    "ModelMultipleChoiceField",
+]
 
 
 class Input(Form):

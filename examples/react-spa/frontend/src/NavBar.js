@@ -25,6 +25,8 @@ export default function NavBar () {
       <Link to='/account/providers'>👤 Providers</Link>
       {' '}
       <Link to='/account/2fa'>📱 Two-Factor Authentication</Link>
+      {' '}
+      <Link to='/account/sessions'>🚀 Sessions</Link>
     </>
   )
   return (

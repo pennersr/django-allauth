@@ -16,7 +16,7 @@ Then, visit the app over at http://localhost:10000.
 
 ** Status
 
-*** Frontend [90%]
+*** Frontend [100%]
 
 **** DONE Login
 
@@ -48,7 +48,7 @@ Then, visit the app over at http://localhost:10000.
 
 **** DONE MFA
 
-**** TODO User sessions
+**** DONE User sessions
 
 *** Headless [11%]
 

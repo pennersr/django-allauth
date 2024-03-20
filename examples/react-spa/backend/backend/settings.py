@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.dummy",
     "allauth.mfa",
     "allauth.headless",
+    "allauth.usersessions",
 ]
 
 MIDDLEWARE = [

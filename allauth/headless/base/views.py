@@ -74,6 +74,10 @@ class ConfigView(APIView):
             from allauth.headless.mfa.response import get_config_data
 
             data.update(get_config_data(request))
+        if app_settings.USERSESSIONS_ENABLED:
+            from allauth.headless.usersessions.response import get_config_data
+
+            data.update(get_config_data(request))
         return response.APIResponse(data=data)
 
 

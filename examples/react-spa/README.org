@@ -50,7 +50,7 @@ Then, visit the app over at http://localhost:10000.
 
 **** DONE User sessions
 
-*** Headless [20%]
+*** Headless [30%]
 
 **** TODO Check rate limit handling
 
@@ -62,9 +62,9 @@ Then, visit the app over at http://localhost:10000.
 Or, add to meta in response?
 Disabled, let's not complicate things.
 
-**** TODO Social signin
+**** DONE Social signin
 
-**** TODO MFA
+**** DONE MFA
 
 **** TODO OpenAPI Spec
 

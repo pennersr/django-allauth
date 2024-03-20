@@ -37,16 +37,16 @@ class RedirectToProviderView(APIView):
         if not form.is_valid():
             # TODO: Hand over form errors to render_authentication_error?
             return render_authentication_error(
-                request, provider=request.POST.get("provider_id")
+                request, provider=request.POST.get("provider")
             )
-        provider = form.cleaned_data["provider_id"]
+        provider = form.cleaned_data["provider"]
         next_url = form.cleaned_data["callback_url"]
         process = form.cleaned_data["process"]
         return provider.redirect(
             request,
             process,
             next_url=next_url,
-            state={
+            data={
                 "headless": True,
             },
         )

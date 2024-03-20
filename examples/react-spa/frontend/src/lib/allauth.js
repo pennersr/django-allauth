@@ -220,7 +220,7 @@ export async function getAuth () {
 
 export function redirectToProvider (providerId, callbackURL, process = AuthProcess.LOGIN) {
   postForm(URLs.REDIRECT_TO_PROVIDER, {
-    provider_id: providerId,
+    provider: providerId,
     process,
     callback_url: callbackURL,
     csrfmiddlewaretoken: getCSRFToken()

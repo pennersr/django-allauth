@@ -19,10 +19,7 @@ export default function Sessions () {
     })
   }, [])
 
-  function logoutElsewhere () {
-    logout(sessions.filter(session => !session.is_current))
-  }
-
+  const otherSessions = sessions.filter(session => !session.is_current)
   function logout (sessions) {
     setResponse({ ...response, fetching: true })
     allauth.endSessions(sessions.map(s => s.id)).then((resp) => {
@@ -69,7 +66,7 @@ export default function Sessions () {
         </tbody>
       </table>
 
-      <button onClick={() => logoutElsewhere()}>Logout elsewhere</button>
+      <button disabled={otherSessions.length <= 1} onClick={() => logout(otherSessions)}>Logout elsewhere</button>
 
     </div>
   )

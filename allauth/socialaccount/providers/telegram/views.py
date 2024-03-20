@@ -4,11 +4,8 @@ import hmac
 import json
 import time
 
-from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.urls import reverse
 from django.utils.decorators import method_decorator
-from django.utils.http import urlencode
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
@@ -17,27 +14,18 @@ from allauth.socialaccount.helpers import (
     complete_social_login,
     render_authentication_error,
 )
-
-from .provider import TelegramProvider
+from allauth.socialaccount.models import SocialLogin
+from allauth.socialaccount.providers.base.utils import respond_to_login_on_get
+from allauth.socialaccount.providers.telegram.provider import TelegramProvider
 
 
 class LoginView(View):
     def dispatch(self, request):
         provider = get_adapter().get_provider(request, TelegramProvider.id)
-        return_to = request.build_absolute_uri(
-            reverse("telegram_callback") + "?" + request.GET.urlencode()
-        )
-
-        url = "https://oauth.telegram.org/auth?" + urlencode(
-            {
-                "origin": request.build_absolute_uri("/"),
-                "bot_id": provider.app.client_id,
-                "request_access": "write",
-                "embed": "0",
-                "return_to": return_to,
-            }
-        )
-        return HttpResponseRedirect(url)
+        resp = respond_to_login_on_get(request, provider)
+        if resp:
+            return resp
+        return provider.redirect_from_request(request)
 
 
 login = LoginView.as_view()
@@ -67,11 +55,14 @@ class CallbackView(View):
             return render_authentication_error(
                 request, provider=provider, extra_context={"response": data}
             )
-
+        state = request.GET.get("state")
+        if not state:
+            return render_authentication_error(
+                request,
+                provider=provider,
+            )
         login = provider.sociallogin_from_response(request, data)
-        process = request.GET.get("process")
-        if process:
-            login.state["process"] = process
+        login.state = SocialLogin.verify_and_unstash_state(request, state)
         return complete_social_login(request, login)
 
 

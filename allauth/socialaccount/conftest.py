@@ -2,6 +2,7 @@ import pytest
 
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.models import SocialAccount, SocialLogin
+from allauth.socialaccount.providers.base.constants import AuthProcess
 
 
 @pytest.fixture
@@ -26,3 +27,15 @@ def sociallogin_factory(user_factory):
         return sociallogin
 
     return factory
+
+
+@pytest.fixture
+def sociallogin_setup_state():
+    def setup(client):
+        state = "123"
+        session = client.session
+        session["socialaccount_state"] = [{"process": AuthProcess.LOGIN}, state]
+        session.save()
+        return state
+
+    return setup

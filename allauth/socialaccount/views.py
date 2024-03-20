@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
@@ -86,6 +87,7 @@ class LoginErrorView(TemplateView):
 login_error = LoginErrorView.as_view()
 
 
+@method_decorator(login_required, name="dispatch")
 class ConnectionsView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = "socialaccount/connections." + account_settings.TEMPLATE_EXTENSION
     form_class = DisconnectForm
@@ -117,4 +119,4 @@ class ConnectionsView(AjaxCapableProcessFormViewMixin, FormView):
         return {"socialaccounts": account_data}
 
 
-connections = login_required(ConnectionsView.as_view())
+connections = ConnectionsView.as_view()

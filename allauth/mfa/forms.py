@@ -83,7 +83,6 @@ class ActivateTOTPForm(forms.Form):
                 )
             return code
         except forms.ValidationError as e:
-            self.secret = totp.get_totp_secret(regenerate=True)
             raise e
 
 

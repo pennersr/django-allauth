@@ -1,8 +1,12 @@
+from unittest.mock import ANY
+
 from django.urls import reverse
 
 import pytest
+from pytest_django.asserts import assertTemplateUsed
 
 from allauth.account.adapter import get_adapter
+from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
 
 
 @pytest.mark.parametrize(
@@ -31,3 +35,25 @@ def test_user_with_mfa_only(
         else:
             assert resp.status_code == 302
             assert "next=%2Ffoo" in resp["location"]
+
+
+def test_reauthentication(settings, auth_client, user_password):
+    settings.ACCOUNT_REAUTHENTICATION_REQUIRED = True
+    resp = auth_client.post(
+        reverse("account_email"),
+        {"action_add": "", "email": "john3@example.org"},
+    )
+    assert resp["location"].startswith(reverse("account_reauthenticate"))
+    resp = auth_client.get(reverse("account_reauthenticate"))
+    assertTemplateUsed(resp, "account/reauthenticate.html")
+    resp = auth_client.post(
+        reverse("account_reauthenticate"), data={"password": user_password}
+    )
+    assert resp.status_code == 302
+    resp = auth_client.post(
+        reverse("account_email"),
+        {"action_add": "", "email": "john3@example.org"},
+    )
+    assert resp["location"].startswith(reverse("account_email"))
+    methods = auth_client.session[AUTHENTICATION_METHODS_SESSION_KEY]
+    assert methods[-1] == {"method": "password", "at": ANY, "reauthenticated": True}

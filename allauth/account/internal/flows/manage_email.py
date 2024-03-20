@@ -67,6 +67,15 @@ def add_email(request, form):
     )
 
 
+def can_mark_as_primary(email_address):
+    return (
+        email_address.verified
+        or not EmailAddress.objects.filter(
+            user=email_address.user, verified=True
+        ).exists()
+    )
+
+
 def mark_as_primary(request, email_address):
     from allauth.account.utils import emit_email_changed
 
@@ -78,10 +87,7 @@ def mark_as_primary(request, email_address):
     # address. Ignore constraint if previous primary email
     # address is not verified.
     success = False
-    if (
-        not email_address.verified
-        and EmailAddress.objects.filter(user=request.user, verified=True).exists()
-    ):
+    if not can_mark_as_primary(email_address):
         get_adapter().add_message(
             request,
             messages.ERROR,

@@ -1,5 +1,5 @@
-from allauth.account.reauthentication import record_authentication
+from allauth.account.authentication import record_authentication
 
 
-def reauthenticate(request):
-    record_authentication(request, request.user)
+def reauthenticate_by_password(request):
+    record_authentication(request, method="password", reauthenticated=True)

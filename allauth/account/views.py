@@ -142,11 +142,7 @@ class AjaxCapableProcessFormViewMixin(object):
 
 class LogoutFunctionalityMixin(object):
     def logout(self):
-        adapter = get_adapter(self.request)
-        adapter.add_message(
-            self.request, messages.SUCCESS, "account/messages/logged_out.txt"
-        )
-        adapter.logout(self.request)
+        flows.logout.logout(self.request)
 
 
 class LoginView(
@@ -919,7 +915,6 @@ class BaseReauthenticateView(FormView):
         return url
 
     def form_valid(self, form):
-        flows.reauthentication.reauthenticate(self.request)
         response = resume_request(self.request)
         if response:
             return response
@@ -964,6 +959,10 @@ class ReauthenticateView(BaseReauthenticateView):
         ret = super().get_form_kwargs()
         ret["user"] = self.request.user
         return ret
+
+    def form_valid(self, form):
+        flows.reauthentication.reauthenticate_by_password(self.request)
+        return super().form_valid(form)
 
 
 reauthenticate = ReauthenticateView.as_view()

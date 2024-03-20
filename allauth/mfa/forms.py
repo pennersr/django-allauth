@@ -8,10 +8,9 @@ from allauth.mfa import totp
 from allauth.mfa.adapter import get_adapter
 from allauth.mfa.internal import flows
 from allauth.mfa.models import Authenticator
-from allauth.mfa.utils import post_authentication
 
 
-class AuthenticateForm(forms.Form):
+class BaseAuthenticateForm(forms.Form):
     code = forms.CharField(
         label=_("Code"),
         widget=forms.TextInput(
@@ -42,8 +41,17 @@ class AuthenticateForm(forms.Form):
                 return code
         raise forms.ValidationError(get_adapter().error_messages["incorrect_code"])
 
+
+class AuthenticateForm(BaseAuthenticateForm):
     def save(self):
-        post_authentication(context.request, self.authenticator)
+        flows.authentication.post_authentication(context.request, self.authenticator)
+
+
+class ReauthenticateForm(BaseAuthenticateForm):
+    def save(self):
+        flows.authentication.post_authentication(
+            context.request, self.authenticator, reauthenticated=True
+        )
 
 
 class ActivateTOTPForm(forms.Form):

@@ -19,6 +19,7 @@ from allauth.mfa.forms import (
     AuthenticateForm,
     DeactivateTOTPForm,
     GenerateRecoveryCodesForm,
+    ReauthenticateForm,
 )
 from allauth.mfa.internal import flows
 from allauth.mfa.models import Authenticator
@@ -57,7 +58,7 @@ authenticate = AuthenticateView.as_view()
 
 @method_decorator(login_required, name="dispatch")
 class ReauthenticateView(BaseReauthenticateView):
-    form_class = AuthenticateForm
+    form_class = ReauthenticateForm
     template_name = "mfa/reauthenticate." + account_settings.TEMPLATE_EXTENSION
 
     def get_form_kwargs(self):
@@ -67,6 +68,10 @@ class ReauthenticateView(BaseReauthenticateView):
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, "reauthenticate", self.form_class)
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
 
 
 reauthenticate = ReauthenticateView.as_view()

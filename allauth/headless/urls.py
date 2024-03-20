@@ -17,9 +17,11 @@ if allauth_settings.MFA_ENABLED:
 if allauth_settings.USERSESSIONS_ENABLED:
     _patterns.append(path("", include("allauth.headless.usersessions.urls")))
 
+_version_patterns = [path("v1/", include(_patterns))]
+
 urlpatterns = [
     re_path(
         r"(?P<client>browser|device)/",
-        include(_patterns),
+        include(_version_patterns),
     )
 ]

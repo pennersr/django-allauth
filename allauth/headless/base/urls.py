@@ -4,5 +4,5 @@ from allauth.headless.base import views
 
 
 urlpatterns = [
-    path("v1/config", views.config, name="headless_config"),
+    path("config", views.config, name="headless_config"),
 ]

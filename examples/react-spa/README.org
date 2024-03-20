@@ -50,7 +50,7 @@ Then, visit the app over at http://localhost:10000.
 
 **** DONE User sessions
 
-*** Headless [11%]
+*** Headless [20%]
 
 **** TODO Check rate limit handling
 
@@ -94,11 +94,14 @@ Need a way of indicating what mechanisms are supported.
 E.g. the frontend connect process needs to be able to show a "Provider
 Connected!" message (or failure).
 
-**** TODO Revisit URL structure
+**** DONE Revisit URL structure
 Having underscores as =mfa_authenticate= and =verify_email= in URLs? Matches stages, but...
 
-**** TODO Decide if API needs to be made more REST-ish
+**** DONE Decide if API needs to be made more REST-ish
 e.g. =POST= to /2fa/authenticators/totp/{id} to delete? But TOTP is a singleton, so why.
 
 **** TODO Decide upon __all__
 Perhaps use '*' ? or '_'...
+
+**** TODO Add error codes
+Needed in order for the frontend to become independent of UI (i18n) of the backend

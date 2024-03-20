@@ -22,26 +22,39 @@ export const Flows = Object.freeze({
 })
 
 export const URLs = Object.freeze({
-  AUTH: BASE_URL + '/auth',
-  AUTHENTICATORS: BASE_URL + '/2fa/authenticators',
-  CHANGE_PASSWORD: BASE_URL + '/account/password/change',
+  // Meta
   CONFIG: BASE_URL + '/config',
+
+  // Account management
+  CHANGE_PASSWORD: BASE_URL + '/account/password/change',
   EMAIL: BASE_URL + '/account/email',
+  PROVIDERS: BASE_URL + '/account/providers',
+
+  // Account management: 2FA
+  AUTHENTICATORS: BASE_URL + '/account/2fa/authenticators',
+  RECOVERY_CODES: BASE_URL + '/account/2fa/authenticators/recovery_codes',
+  TOTP_AUTHENTICATOR: BASE_URL + '/account/2fa/authenticators/totp',
+
+  // Auth: Basics
+  AUTH: BASE_URL + '/auth',
   LOGIN: BASE_URL + '/auth/login',
   LOGOUT: BASE_URL + '/auth/logout',
-  MFA_AUTHENTICATE: BASE_URL + '/auth/mfa_authenticate',
-  MFA_REAUTHENTICATE: BASE_URL + '/auth/mfa_reauthenticate',
-  PROVIDERS: BASE_URL + '/account/providers',
-  PROVIDER_SIGNUP: BASE_URL + '/auth/provider/signup',
   REAUTHENTICATE: BASE_URL + '/auth/reauthenticate',
-  RECOVERY_CODES: BASE_URL + '/2fa/authenticators/recovery_codes',
-  REDIRECT_TO_PROVIDER: BASE_URL + '/auth/provider/redirect',
   REQUEST_PASSWORD_RESET: BASE_URL + '/auth/password/request',
   RESET_PASSWORD: BASE_URL + '/auth/password/reset',
-  SESSIONS: BASE_URL + '/sessions',
   SIGNUP: BASE_URL + '/auth/signup',
-  TOTP_AUTHENTICATOR: BASE_URL + '/2fa/authenticators/totp',
-  VERIFY_EMAIL: BASE_URL + '/auth/verify_email'
+  VERIFY_EMAIL: BASE_URL + '/auth/verify_email',
+
+  // Auth: 2FA
+  MFA_AUTHENTICATE: BASE_URL + '/auth/2fa/authenticate',
+  MFA_REAUTHENTICATE: BASE_URL + '/auth/2fa/reauthenticate',
+
+  // Auth: Social
+  PROVIDER_SIGNUP: BASE_URL + '/auth/provider/signup',
+  REDIRECT_TO_PROVIDER: BASE_URL + '/auth/provider/redirect',
+
+  // Auth: Sessions
+  SESSIONS: BASE_URL + '/auth/sessions'
 })
 
 export const AuthenticatorType = Object.freeze({

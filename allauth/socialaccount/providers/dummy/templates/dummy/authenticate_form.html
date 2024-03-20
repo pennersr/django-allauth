@@ -1,0 +1,22 @@
+{% extends "socialaccount/base_entrance.html" %}
+{% load i18n %}
+{% load allauth %}
+{% block content %}
+    {% element h1 %}
+        Dummy Provider Login
+    {% endelement %}
+    {% url 'dummy_authenticate' as action_url %}
+    {% element form form=form method="post" action=action_url %}
+        {% csrf_token %}
+        {% slot body %}
+            {% csrf_token %}
+            {% element fields form=form %}
+            {% endelement %}
+        {% endslot %}
+        {% slot actions %}
+            {% element button type="submit" %}
+                {% trans "Login" %}
+            {% endelement %}
+        {% endslot %}
+    {% endelement %}
+{% endblock %}

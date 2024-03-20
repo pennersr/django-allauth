@@ -41,6 +41,7 @@ Provider Specifics
    angellist
    apple
    auth0
+   authelia
    authentiq
    baidu
    basecamp

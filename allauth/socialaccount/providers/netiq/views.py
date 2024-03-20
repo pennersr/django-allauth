@@ -9,8 +9,6 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class NetIQOAuth2Adapter(OAuth2Adapter):
     provider_id = "netiq"
-    supports_state = True
-
     settings = app_settings.PROVIDERS.get(provider_id, {})
     provider_base_url = settings.get("NETIQ_URL")
 

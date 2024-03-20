@@ -10,8 +10,6 @@ from allauth.utils import build_absolute_uri
 
 
 class OpenIDConnectOAuth2Adapter(OAuth2Adapter):
-    supports_state = True
-
     def __init__(self, request, provider_id):
         self.provider_id = provider_id
         super().__init__(request)

@@ -15,8 +15,6 @@ class CleverOAuth2Adapter(OAuth2Adapter):
     identity_url = "https://api.clever.com/v3.0/me"
     user_details_url = "https://api.clever.com/v3.0/users"
 
-    supports_state = True
-
     def complete_login(self, request, app, token, **kwargs):
         extra_data = self.get_data(token.token)
         return self.get_provider().sociallogin_from_response(request, extra_data)

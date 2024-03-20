@@ -9,7 +9,6 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class GumroadOAuth2Adapter(OAuth2Adapter):
     provider_id = "gumroad"
-    supports_state = True
 
     settings = app_settings.PROVIDERS.get(provider_id, {})
     provider_base_url = settings.get("GUMROAD_URL")

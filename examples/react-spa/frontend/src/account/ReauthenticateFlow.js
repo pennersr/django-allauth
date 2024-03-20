@@ -23,7 +23,7 @@ export default function ReauthenticateFlow (props) {
           <ul>
             {flows.filter(flow => flow.id !== props.flow).map(flow => {
               return (
-                <li>
+                <li key={flow.id}>
                   <Link replace state={location.state} to={pathForFlow(flow.id) + location.search}>{flowLabels[flow.id] || flow.id}</Link>
                 </li>
               )

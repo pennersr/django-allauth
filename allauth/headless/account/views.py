@@ -231,7 +231,7 @@ class ReauthenticateView(AuthenticatedAPIView):
     input_class = ReauthenticateInput
 
     def post(self, request, *args, **kwargs):
-        flows.reauthentication.reauthenticate(self.request)
+        flows.reauthentication.reauthenticate_by_password(self.request)
         return response.respond_is_authenticated(self.request)
 
     def get_input_kwargs(self):

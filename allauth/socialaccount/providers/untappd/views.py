@@ -15,7 +15,6 @@ class UntappdOAuth2Adapter(OAuth2Adapter):
     access_token_method = "GET"
     authorize_url = "https://untappd.com/oauth/authenticate/"
     user_info_url = "https://api.untappd.com/v4/user/info/"
-    supports_state = False
 
     def complete_login(self, request, app, token, **kwargs):
         resp = (

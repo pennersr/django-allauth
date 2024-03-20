@@ -14,7 +14,6 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class ShopifyOAuth2Adapter(OAuth2Adapter):
     provider_id = "shopify"
-    supports_state = False
     scope_delimiter = ","
 
     def _shop_domain(self):

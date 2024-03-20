@@ -11,7 +11,6 @@ class AmazonOAuth2Adapter(OAuth2Adapter):
     access_token_url = "https://api.amazon.com/auth/o2/token"
     authorize_url = "http://www.amazon.com/ap/oa"
     profile_url = "https://api.amazon.com/user/profile"
-    supports_state = False
 
     def complete_login(self, request, app, token, **kwargs):
         response = (

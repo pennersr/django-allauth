@@ -8,7 +8,6 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class PaypalOAuth2Adapter(OAuth2Adapter):
     provider_id = "paypal"
-    supports_state = False
 
     @property
     def authorize_url(self):

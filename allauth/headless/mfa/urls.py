@@ -1,32 +1,53 @@
-from django.urls import path
+from django.urls import include, path
 
 from allauth.headless.mfa import views
 
 
 urlpatterns = [
     path(
-        "v1/auth/mfa_authenticate",
-        views.authenticate,
-        name="headless_mfa_authenticate",
+        "auth/",
+        include(
+            [
+                path(
+                    "2fa/authenticate",
+                    views.authenticate,
+                    name="headless_mfa_authenticate",
+                ),
+                path(
+                    "2fa/reauthenticate",
+                    views.reauthenticate,
+                    name="headless_mfa_reauthenticate",
+                ),
+            ]
+        ),
     ),
     path(
-        "v1/auth/mfa_reauthenticate",
-        views.reauthenticate,
-        name="headless_mfa_reauthenticate",
-    ),
-    path(
-        "v1/2fa/authenticators",
-        views.authenticators,
-        name="headless_mfa_authenticators",
-    ),
-    path(
-        "v1/2fa/authenticators/totp",
-        views.manage_totp,
-        name="headless_mfa_manage_totp",
-    ),
-    path(
-        "v1/2fa/authenticators/recovery_codes",
-        views.manage_recovery_codes,
-        name="headless_mfa_manage_recovery_codes",
+        "account/",
+        include(
+            [
+                path(
+                    "2fa/",
+                    include(
+                        [
+                            path(
+                                "authenticators",
+                                views.authenticators,
+                                name="headless_mfa_authenticators",
+                            ),
+                            path(
+                                "authenticators/totp",
+                                views.manage_totp,
+                                name="headless_mfa_manage_totp",
+                            ),
+                            path(
+                                "authenticators/recovery_codes",
+                                views.manage_recovery_codes,
+                                name="headless_mfa_manage_recovery_codes",
+                            ),
+                        ]
+                    ),
+                ),
+            ]
+        ),
     ),
 ]

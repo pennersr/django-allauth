@@ -1,6 +1,9 @@
+import time
+
 import pytest
 
 from allauth.account.models import EmailAddress
+from allauth.socialaccount.internal import statekit
 from allauth.socialaccount.models import SocialAccount, SocialLogin
 from allauth.socialaccount.providers.base.constants import AuthProcess
 
@@ -37,7 +40,9 @@ def sociallogin_setup_state():
         state = {"process": process or AuthProcess.LOGIN}
         if next_url:
             state["next"] = next_url
-        session["socialaccount_state"] = [state, state_id]
+        states = {}
+        states[state_id] = [state, time.time()]
+        session[statekit.STATES_SESSION_KEY] = states
         session.save()
         return state_id
 

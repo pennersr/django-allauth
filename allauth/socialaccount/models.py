@@ -3,7 +3,6 @@ from django.contrib.auth import authenticate, get_user_model
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import PermissionDenied
 from django.db import models
-from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 
 import allauth.app_settings
@@ -15,6 +14,7 @@ from allauth.account.utils import (
 )
 from allauth.core import context
 from allauth.socialaccount import signals
+from allauth.socialaccount.internal import statekit
 
 from ..utils import get_request_param
 from . import app_settings, providers
@@ -372,22 +372,18 @@ class SocialLogin(object):
         if state is None:
             # Only for providers that don't support redirect() yet.
             state = cls.state_from_request(request)
-        verifier = get_random_string(16)
-        request.session["socialaccount_state"] = (state, verifier)
-        return verifier
+        return statekit.stash_state(request, state)
 
     @classmethod
     def unstash_state(cls, request):
-        if "socialaccount_state" not in request.session:
+        state = statekit.unstash_last_state(request)
+        if state is None:
             raise PermissionDenied()
-        state, verifier = request.session.pop("socialaccount_state")
         return state
 
     @classmethod
     def verify_and_unstash_state(cls, request, verifier):
-        if "socialaccount_state" not in request.session:
-            raise PermissionDenied()
-        state, verifier2 = request.session.pop("socialaccount_state")
-        if verifier != verifier2:
+        state = statekit.unstash_state(request, verifier)
+        if state is None:
             raise PermissionDenied()
         return state

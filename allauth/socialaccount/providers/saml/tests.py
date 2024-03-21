@@ -9,6 +9,7 @@ from pytest_django.asserts import assertTemplateUsed
 
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.adapter import get_adapter
+from allauth.socialaccount.internal import statekit
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers.saml.utils import build_saml_config
 
@@ -103,9 +104,8 @@ def test_login(client, db, saml_settings):
     assert location.startswith("https://dev-123.us.auth0.com/samlp/456?SAMLRequest=")
     resp_query = parse_qs(urlparse(location).query)
     relay_state = resp_query.get("RelayState")[0]
-    state_ref = parse_qs(relay_state)["state"][0]
-    state, ref = client.session["socialaccount_state"]
-    assert state_ref == ref
+    state_id = parse_qs(relay_state)["state"][0]
+    state = client.session[statekit.STATES_SESSION_KEY][state_id][0]
     assert state == {"process": "connect", "data": None, "next": "/foo"}
 
 

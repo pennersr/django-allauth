@@ -52,7 +52,7 @@ from allauth.account.utils import (
 )
 from allauth.core import ratelimit
 from allauth.core.exceptions import ImmediateHttpResponse
-from allauth.core.internal.http import redirect
+from allauth.core.internal.httpkit import redirect
 from allauth.decorators import rate_limit
 from allauth.utils import get_form_class, get_request_param
 

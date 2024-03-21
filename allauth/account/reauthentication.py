@@ -9,7 +9,10 @@ from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.authentication import get_authentication_records
 from allauth.core.exceptions import ReauthenticationRequired
-from allauth.core.internal.http import deserialize_request, serialize_request
+from allauth.core.internal.httpkit import (
+    deserialize_request,
+    serialize_request,
+)
 from allauth.utils import import_callable
 
 

@@ -9,12 +9,13 @@ from django.core.exceptions import FieldDoesNotExist
 from django.db import models
 from django.db.models import Q
 from django.utils.encoding import force_str
-from django.utils.http import base36_to_int, int_to_base36, urlencode
+from django.utils.http import base36_to_int, int_to_base36
 
 from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
 from allauth.account.internal import flows
 from allauth.account.models import Login
+from allauth.core.internal import httpkit
 from allauth.utils import (
     get_request_param,
     import_callable,
@@ -445,10 +446,9 @@ def filter_users_by_email(email, is_active=None, prefer_verified=False):
 
 
 def passthrough_next_redirect_url(request, url, redirect_field_name):
-    assert url.find("?") < 0  # TODO: Handle this case properly
     next_url = get_next_redirect_url(request, redirect_field_name)
     if next_url:
-        url = url + "?" + urlencode({redirect_field_name: next_url})
+        url = httpkit.add_query_params(url, {redirect_field_name: next_url})
     return url
 
 

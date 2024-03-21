@@ -8,7 +8,7 @@ class KlaviyoAccount(ProviderAccount):
 
 
 class KlaviyoProvider(OAuth2Provider):
-    id = "klaviyo"
+    id = "klaviyo_oauth2"
     name = "Klaviyo"
     account_class = KlaviyoAccount
 

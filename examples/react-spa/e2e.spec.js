@@ -62,7 +62,7 @@ test('complete flow', async ({ page }) => {
   const password = passwordFactory()
   await page.getByLabel('Password:').fill(password)
   await page.getByLabel('Password (again)').fill(password)
-  await page.getByRole('button').click()
+  await page.getByRole('button', { name: 'Sign Up' }).click()
 
   // Signup requires email verification
   await page.waitForURL(BASE_URL + '/account/verify-email')
@@ -100,7 +100,7 @@ test('complete socialaccount flow', async ({ page }) => {
   await page.getByRole('button', { name: 'Dummy' }).click()
 
   // Dummy authenticate
-  await page.waitForURL(BASE_URL + '/accounts/dummy/authenticate/')
+  await page.waitForURL(BASE_URL + '/accounts/dummy/authenticate/*')
   const socialId = socialAccountUIDFactory()
   await page.getByLabel('Account ID').fill(socialId)
   await page.getByRole('button', { name: 'Login' }).click()
@@ -127,7 +127,7 @@ test('complete socialaccount flow', async ({ page }) => {
   await page.getByRole('button', { name: 'Dummy' }).click()
 
   // Dummy authenticate
-  await page.waitForURL(BASE_URL + '/accounts/dummy/authenticate/')
+  await page.waitForURL(BASE_URL + '/accounts/dummy/authenticate/*')
   await page.getByLabel('Account ID').fill(socialId)
   await page.getByRole('button', { name: 'Login' }).click()
 

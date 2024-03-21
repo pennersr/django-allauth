@@ -1,5 +1,6 @@
 from allauth.account.stages import LoginStageController
 from allauth.account.utils import unstash_login
+from allauth.socialaccount.internal import flows
 
 
 class AuthenticationState:
@@ -25,3 +26,7 @@ class AuthenticationState:
                     todo.append(stage)
                     break
         return todo
+
+    @property
+    def has_pending_signup(self):
+        return bool(flows.signup.get_pending_signup(self.request))

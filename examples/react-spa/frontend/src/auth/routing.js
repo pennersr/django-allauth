@@ -38,7 +38,7 @@ export function pathForPendingFlow (auth) {
 }
 
 function navigateToPendingFlow (auth) {
-  const path = pathForFlow(auth)
+  const path = pathForPendingFlow(auth)
   if (path) {
     return <Navigate to={path} />
   }

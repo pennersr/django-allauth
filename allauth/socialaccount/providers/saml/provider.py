@@ -122,7 +122,7 @@ class SAMLProvider(Provider):
             encode_relay_state,
         )
 
-        state = self.stash_redirect_state(request, process, next_url, data)
+        state = self.stash_redirect_state(request, process, next_url, data, **kwargs)
         auth = build_auth(request, self)
         relay_state = encode_relay_state(state)
         # If we pass `return_to=None` `auth.login` will use the URL of the

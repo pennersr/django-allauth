@@ -100,23 +100,27 @@ class OAuth2Provider(Provider):
         app = self.app
         oauth2_adapter = self.get_oauth2_adapter(request)
         client = oauth2_adapter.get_client(request, app)
-        auth_url = oauth2_adapter.authorize_url
-        auth_params = kwargs.get("auth_params")
+
+        auth_params = kwargs.pop("auth_params", None)
         if auth_params is None:
             auth_params = self.get_auth_params()
         pkce_params = self.get_pkce_params()
         code_verifier = pkce_params.pop("code_verifier", None)
         auth_params.update(pkce_params)
-        state_id = self.stash_redirect_state(
-            request, process, next_url, data, pkce_code_verifier=code_verifier
-        )
-        client.state = state_id
-        scope = kwargs.get("scope")
+
+        scope = kwargs.pop("scope", None)
         if scope is None:
             scope = self.get_scope()
+
+        state_id = self.stash_redirect_state(
+            request, process, next_url, data, pkce_code_verifier=code_verifier, **kwargs
+        )
+        client.state = state_id
         try:
             return HttpResponseRedirect(
-                client.get_redirect_url(auth_url, scope, auth_params)
+                client.get_redirect_url(
+                    oauth2_adapter.authorize_url, scope, auth_params
+                )
             )
         except OAuth2Error as e:
             return render_authentication_error(

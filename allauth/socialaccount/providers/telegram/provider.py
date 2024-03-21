@@ -47,7 +47,7 @@ class TelegramProvider(Provider):
         return auth_date_validity
 
     def redirect(self, request, process, next_url=None, data=None, **kwargs):
-        state = self.stash_redirect_state(request, process, next_url, data)
+        state = self.stash_redirect_state(request, process, next_url, data, **kwargs)
         return_to = request.build_absolute_uri(
             reverse("telegram_callback") + "?" + urlencode({"state": state})
         )

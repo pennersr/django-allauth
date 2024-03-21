@@ -44,7 +44,11 @@ class DummyProvider(Provider):
 
     def redirect(self, request, process, next_url=None, data=None, **kwargs):
         state_id = self.stash_redirect_state(
-            request, process, next_url=next_url, data=data
+            request,
+            process,
+            next_url=next_url,
+            data=data,
+            **kwargs,
         )
         return HttpResponseRedirect(
             reverse("dummy_authenticate") + "?" + urlencode({"state": state_id})

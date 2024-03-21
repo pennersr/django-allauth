@@ -189,7 +189,8 @@ class Provider:
     ):
         """
         Stashes state, returning a (random) state ID using which the state
-        can be looked up later.
+        can be looked up later. Application specific state is stored separately
+        from (core) allauth state such as `process` and `**kwargs`.
         """
         state = {"process": process, "data": data, **kwargs}
         if next_url:

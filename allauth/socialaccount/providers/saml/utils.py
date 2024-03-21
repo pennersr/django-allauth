@@ -41,8 +41,13 @@ def build_sp_config(request, provider_config, org):
     acs_url = request.build_absolute_uri(reverse("saml_acs", args=[org]))
     sls_url = request.build_absolute_uri(reverse("saml_sls", args=[org]))
     metadata_url = request.build_absolute_uri(reverse("saml_metadata", args=[org]))
+    # SP entity ID generated with the following precedence:
+    # 1. Explicitly configured SP via the SocialApp.settings
+    # 2. Fallback to the SAML metadata urlpattern
+    _sp_config = provider_config.get("sp", {})
+    sp_entity_id = _sp_config.get("entity_id")
     sp_config = {
-        "entityId": metadata_url,
+        "entityId": sp_entity_id or metadata_url,
         "assertionConsumerService": {
             "url": acs_url,
             "binding": OneLogin_Saml2_Constants.BINDING_HTTP_POST,

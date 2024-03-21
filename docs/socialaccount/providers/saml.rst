@@ -96,6 +96,11 @@ via the Django admin as well:
     -----END CERTIFICATE-----
     """,
                         },
+                        # The configuration of the SP.
+                        "sp": {
+                            # Optional entity ID of the SP. If not set, defaults to the `saml_metadata` urlpattern
+                            "entity_id": "https://serviceprovider.com/sso/sp/metadata.xml",
+                        },
                     },
                 },
 

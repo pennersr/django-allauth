@@ -2,7 +2,9 @@ from django.http import HttpResponseRedirect
 
 from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.core.internal import httpkit
-from allauth.socialaccount.internal import statekit
+from allauth.headless.auth import AuthenticationState
+from allauth.socialaccount.internal import flows, statekit
+from allauth.socialaccount.providers.base.constants import AuthError
 
 
 def on_authentication_error(
@@ -49,5 +51,16 @@ def complete_social_login(request, sociallogin, func):
     # pipeline with clear stages, but for now the /auth endpoint properly responds
     # for cases 1-3.
     next_url = sociallogin.state["next"]
-    # FIXME: Handle 4
+    status = AuthenticationState(request)
+    if all(
+        [
+            not status.is_authenticated,
+            not status.has_pending_signup,
+            len(status.get_stages()) == 0,
+        ]
+    ):
+        next_url = httpkit.add_query_params(
+            next_url,
+            {"error": AuthError.UNKNOWN, "error_process": sociallogin.state["process"]},
+        )
     return HttpResponseRedirect(next_url)

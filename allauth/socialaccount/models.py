@@ -224,7 +224,7 @@ class SocialLogin(object):
 
     @property
     def is_headless(self):
-        return bool((self.state.get("data") or {}).get("headless"))
+        return bool(self.state.get("headless"))
 
     def serialize(self):
         serialize_instance = get_adapter().serialize_instance

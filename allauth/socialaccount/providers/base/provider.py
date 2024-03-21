@@ -186,12 +186,16 @@ class Provider:
 
     def stash_redirect_state(self, request, process, next_url=None, data=None):
         """
-        Stashes state, returning a state verifier nonce.
+        Stashes state, returning a (random) state ID using which the state
+        can be looked up later.
         """
         state = {"process": process, "data": data}
         if next_url:
             state["next"] = next_url
         return SocialLogin.stash_state(request, state)
+
+    def unstash_redirect_state(self, request, state_id):
+        return SocialLogin.verify_and_unstash_state(request, state_id)
 
 
 class ProviderAccount(object):

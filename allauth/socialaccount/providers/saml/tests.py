@@ -14,12 +14,12 @@ from allauth.socialaccount.providers.saml.utils import build_saml_config
 
 
 @pytest.mark.parametrize(
-    "is_connect,relay_state, expected_url",
+    "is_connect,state_kwargs,relay_state, expected_url",
     [
-        (False, None, "/accounts/profile/"),
-        (False, "/foo", "/foo"),
-        (True, "process=connect", "/social/connections/"),
-        (True, "process=connect&next=/conn", "/conn"),
+        (False, None, None, "/accounts/profile/"),
+        (False, None, "/foo", "/foo"),
+        (True, {"process": "connect"}, None, "/social/connections/"),
+        (True, {"process": "connect", "next_url": "/conn"}, None, "/conn"),
     ],
 )
 def test_acs(
@@ -31,6 +31,8 @@ def test_acs(
     mocked_signature_validation,
     expected_url,
     relay_state,
+    state_kwargs,
+    sociallogin_setup_state,
 ):
     if is_connect:
         client = request.getfixturevalue("auth_client")
@@ -38,6 +40,11 @@ def test_acs(
     else:
         client = request.getfixturevalue("client")
         user = None
+
+    if state_kwargs:
+        assert not relay_state
+        state_id = sociallogin_setup_state(client, **state_kwargs)
+        relay_state = urlencode({"state": state_id})
 
     data = {"SAMLResponse": acs_saml_response}
     if relay_state is not None:
@@ -86,27 +93,20 @@ def test_login_on_get(client, db, saml_settings):
     assertTemplateUsed(resp, "socialaccount/login.html")
 
 
-@pytest.mark.parametrize(
-    "query,expected_relay_state",
-    [
-        ("", None),
-        ("?process=connect", "process=connect"),
-        ("?process=connect&next=/foo", "process=connect&next=%2Ffoo"),
-        ("?next=/bar", "next=%2Fbar"),
-    ],
-)
-def test_login(client, db, saml_settings, query, expected_relay_state):
+def test_login(client, db, saml_settings):
     resp = client.post(
-        reverse("saml_login", kwargs={"organization_slug": "org"}) + query
+        reverse("saml_login", kwargs={"organization_slug": "org"})
+        + "?process=connect&next=/foo"
     )
     assert resp.status_code == 302
     location = resp["location"]
     assert location.startswith("https://dev-123.us.auth0.com/samlp/456?SAMLRequest=")
     resp_query = parse_qs(urlparse(location).query)
-    if expected_relay_state is None:
-        assert "RelayState" not in resp_query
-    else:
-        assert resp_query.get("RelayState")[0] == expected_relay_state
+    relay_state = resp_query.get("RelayState")[0]
+    state_ref = parse_qs(relay_state)["state"][0]
+    state, ref = client.session["socialaccount_state"]
+    assert state_ref == ref
+    assert state == {"process": "connect", "data": None, "next": "/foo"}
 
 
 def test_metadata(

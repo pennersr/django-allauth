@@ -14,7 +14,6 @@ from allauth.socialaccount.helpers import (
     complete_social_login,
     render_authentication_error,
 )
-from allauth.socialaccount.models import SocialLogin
 from allauth.socialaccount.providers.base.utils import respond_to_login_on_get
 from allauth.socialaccount.providers.telegram.provider import TelegramProvider
 
@@ -55,14 +54,14 @@ class CallbackView(View):
             return render_authentication_error(
                 request, provider=provider, extra_context={"response": data}
             )
-        state = request.GET.get("state")
-        if not state:
+        state_id = request.GET.get("state")
+        if not state_id:
             return render_authentication_error(
                 request,
                 provider=provider,
             )
         login = provider.sociallogin_from_response(request, data)
-        login.state = SocialLogin.verify_and_unstash_state(request, state)
+        login.state = provider.unstash_redirect_state(request, state_id)
         return complete_social_login(request, login)
 
 

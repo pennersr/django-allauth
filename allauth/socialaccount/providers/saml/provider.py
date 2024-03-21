@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.http import urlencode
 
@@ -12,6 +13,7 @@ class SAMLAccount(ProviderAccount):
 class SAMLProvider(Provider):
     id = "saml"
     name = "SAML"
+    supports_redirect = True
     account_class = SAMLAccount
     default_attribute_mapping = {
         "uid": [
@@ -113,6 +115,20 @@ class SAMLProvider(Provider):
             attributes["email"] = data.get_nameid()
 
         return attributes
+
+    def redirect(self, request, process, next_url=None, data=None, **kwargs):
+        from allauth.socialaccount.providers.saml.utils import (
+            build_auth,
+            encode_relay_state,
+        )
+
+        state = self.stash_redirect_state(request, process, next_url, data)
+        auth = build_auth(request, self)
+        relay_state = encode_relay_state(state)
+        # If we pass `return_to=None` `auth.login` will use the URL of the
+        # current view, which will then end up being used as a redirect URL.
+        redirect = auth.login(return_to=relay_state)
+        return HttpResponseRedirect(redirect)
 
 
 provider_classes = [SAMLProvider]

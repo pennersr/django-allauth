@@ -31,11 +31,14 @@ def sociallogin_factory(user_factory):
 
 @pytest.fixture
 def sociallogin_setup_state():
-    def setup(client):
-        state = "123"
+    def setup(client, process=None, next_url=None):
+        state_id = "123"
         session = client.session
-        session["socialaccount_state"] = [{"process": AuthProcess.LOGIN}, state]
+        state = {"process": process or AuthProcess.LOGIN}
+        if next_url:
+            state["next"] = next_url
+        session["socialaccount_state"] = [state, state_id]
         session.save()
-        return state
+        return state_id
 
     return setup

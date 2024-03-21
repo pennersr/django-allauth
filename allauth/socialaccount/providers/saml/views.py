@@ -7,26 +7,27 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
-from onelogin.saml2.auth import OneLogin_Saml2_Auth, OneLogin_Saml2_Settings
+from onelogin.saml2.auth import OneLogin_Saml2_Settings
 from onelogin.saml2.errors import OneLogin_Saml2_Error
 
 from allauth.account.adapter import get_adapter as get_account_adapter
-from allauth.account.utils import get_next_redirect_url
 from allauth.socialaccount.helpers import (
     complete_social_login,
     render_authentication_error,
 )
 from allauth.socialaccount.models import SocialLogin
-from allauth.socialaccount.providers.base.constants import AuthError
+from allauth.socialaccount.providers.base.constants import (
+    AuthError,
+    AuthProcess,
+)
 from allauth.socialaccount.providers.base.utils import respond_to_login_on_get
 from allauth.socialaccount.sessions import LoginSession
 
 from .utils import (
+    build_auth,
     build_saml_config,
     decode_relay_state,
-    encode_relay_state,
     get_app_or_404,
-    prepare_django_request,
 )
 
 
@@ -35,12 +36,7 @@ logger = logging.getLogger(__name__)
 
 class SAMLViewMixin:
     def build_auth(self, provider, organization_slug):
-        req = prepare_django_request(self.request)
-        config = build_saml_config(
-            self.request, provider.app.settings, organization_slug
-        )
-        auth = OneLogin_Saml2_Auth(req, config)
-        return auth
+        return build_auth(self.request, provider)
 
     def get_app(self, organization_slug):
         app = get_app_or_404(self.request, organization_slug)
@@ -87,14 +83,16 @@ class ACSView(SAMLViewMixin, View):
                 request, provider, error=AuthError.CANCELLED
             )
 
-        relay_state = decode_relay_state(request.POST.get("RelayState"))
         login = provider.sociallogin_from_response(request, auth)
-        for key in ["process", "next"]:
-            value = relay_state.get(key)
-            if value:
-                login.state[key] = value
+        state_id, next_url = decode_relay_state(request.POST.get("RelayState"))
         acs_session = LoginSession(request, "saml_acs_session", "saml-acs-session")
-        acs_session.store["login"] = login.serialize()
+        acs_session.store.update(
+            {
+                "login": login.serialize(),
+                "state_id": state_id,
+                "next_url": next_url,
+            }
+        )
         url = reverse(
             "saml_finish_acs",
             kwargs={"organization_slug": organization_slug},
@@ -115,8 +113,17 @@ class FinishACSView(SAMLViewMixin, View):
         if not serialized_login:
             logger.error("Unable to finish login, SAML ACS session missing")
             return render_authentication_error(request, provider)
+        state_id = acs_session.store.get("state_id")
+        next_url = acs_session.store.get("next_url")
         acs_session.delete()
         login = SocialLogin.deserialize(serialized_login)
+        if state_id:
+            login.state = provider.unstash_redirect_state(request, state_id)
+        else:
+            # IdP initiated SSO
+            login.state["process"] = AuthProcess.LOGIN
+            if next_url:
+                login.state["next"] = next_url
         return complete_social_login(request, login)
 
 
@@ -189,14 +196,7 @@ class LoginView(SAMLViewMixin, View):
         resp = respond_to_login_on_get(request, provider)
         if resp:
             return resp
-        auth = self.build_auth(provider, organization_slug)
-        process = self.request.GET.get("process")
-        next_url = get_next_redirect_url(request)
-        relay_state = encode_relay_state(process=process, next_url=next_url)
-        # If we pass `return_to=None` `auth.login` will use the URL of the
-        # current view, which will then end up being used as a redirect URL.
-        redirect = auth.login(return_to=relay_state)
-        return HttpResponseRedirect(redirect)
+        return provider.redirect_from_request(request)
 
 
 login = LoginView.as_view()

@@ -14,17 +14,12 @@ from allauth.socialaccount.helpers import (
     complete_social_login,
     render_authentication_error,
 )
-from allauth.socialaccount.providers.base.utils import respond_to_login_on_get
+from allauth.socialaccount.providers.base.views import BaseLoginView
 from allauth.socialaccount.providers.telegram.provider import TelegramProvider
 
 
-class LoginView(View):
-    def dispatch(self, request):
-        provider = get_adapter().get_provider(request, TelegramProvider.id)
-        resp = respond_to_login_on_get(request, provider)
-        if resp:
-            return resp
-        return provider.redirect_from_request(request)
+class LoginView(BaseLoginView):
+    provider_id = TelegramProvider.id
 
 
 login = LoginView.as_view()

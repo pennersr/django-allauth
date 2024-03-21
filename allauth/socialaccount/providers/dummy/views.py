@@ -1,4 +1,3 @@
-from django.views.generic.base import View
 from django.views.generic.edit import FormView
 
 from allauth.socialaccount.adapter import get_adapter
@@ -8,18 +7,13 @@ from allauth.socialaccount.helpers import (
 )
 from allauth.socialaccount.models import SocialLogin
 from allauth.socialaccount.providers.base.constants import AuthError
-from allauth.socialaccount.providers.base.utils import respond_to_login_on_get
+from allauth.socialaccount.providers.base.views import BaseLoginView
 from allauth.socialaccount.providers.dummy.forms import AuthenticateForm
 from allauth.socialaccount.providers.dummy.provider import DummyProvider
 
 
-class LoginView(View):
-    def dispatch(self, request, *args, **kwargs):
-        provider = get_adapter().get_provider(request, DummyProvider.id)
-        resp = respond_to_login_on_get(request, provider)
-        if resp:
-            return resp
-        return provider.redirect_from_request(request)
+class LoginView(BaseLoginView):
+    provider_id = DummyProvider.id
 
 
 login = LoginView.as_view()

@@ -106,6 +106,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.dropbox",
     "allauth.socialaccount.providers.dummy",
     "allauth.socialaccount.providers.dwolla",
+    "allauth.socialaccount.providers.ebay",
     "allauth.socialaccount.providers.edmodo",
     "allauth.socialaccount.providers.edx",
     "allauth.socialaccount.providers.eventbrite",

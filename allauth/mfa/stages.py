@@ -13,6 +13,3 @@ class AuthenticateStage(LoginStage):
         if is_mfa_enabled(self.login.user):
             response = HttpResponseRedirect(reverse("mfa_authenticate"))
         return response, cont
-
-    def get_headless_url(self):
-        return self.request.allauth.headless.reverse("headless_mfa_authenticate")

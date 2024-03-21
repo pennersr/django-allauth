@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { AuthChangeRedirector, CallbackRoute, AnonymousRoute, AuthenticatedRoute } from './auth'
+import { AuthChangeRedirector, AnonymousRoute, AuthenticatedRoute } from './auth'
 import {
   createBrowserRouter,
   RouterProvider
@@ -9,6 +9,7 @@ import Login from './account/Login'
 import Logout from './account/Logout'
 import Signup from './account/Signup'
 import ProviderSignup from './socialaccount/ProviderSignup'
+import ProviderCallback from './socialaccount/ProviderCallback'
 import Home from './Home'
 import ChangeEmail from './account/ChangeEmail'
 import ManageProviders from './socialaccount/ManageProviders'
@@ -55,8 +56,8 @@ function createRouter () {
           element: <Logout />
         },
         {
-          path: '/account/callback',
-          element: <CallbackRoute />
+          path: '/account/provider/callback',
+          element: <ProviderCallback />
         },
         {
           path: '/account/provider/signup',

@@ -2,6 +2,8 @@ import { useState } from 'react'
 import FormErrors from '../FormErrors'
 import { signUp } from '../lib/allauth'
 import { Link } from 'react-router-dom'
+import { useConfig } from '../auth'
+import ProviderList from '../socialaccount/ProviderList'
 
 export default function Signup () {
   const [email, setEmail] = useState('')
@@ -9,6 +11,8 @@ export default function Signup () {
   const [password2, setPassword2] = useState('')
   const [password2Errors, setPassword2Errors] = useState([])
   const [response, setResponse] = useState({ fetching: false, data: null })
+  const config = useConfig()
+  const hasProviders = config.data.socialaccount?.providers?.length > 0
 
   function submit () {
     if (password2 !== password1) {
@@ -46,6 +50,13 @@ export default function Signup () {
         <FormErrors errors={password2Errors} />
       </div>
       <button disabled={response.fetching} onClick={() => submit()}>Sign Up</button>
+
+      {hasProviders
+        ? <>
+          <h2>Or use a third-party</h2>
+          <ProviderList callbackURL='/account/provider/callback' />
+        </>
+        : null}
     </div>
   )
 }

@@ -116,8 +116,8 @@ class FacebookProvider(OAuth2Provider):
         ]
         return settings.get("FIELDS", default_fields)
 
-    def get_auth_params(self, request, action):
-        ret = super(FacebookProvider, self).get_auth_params(request, action)
+    def get_auth_params_from_request(self, request, action):
+        ret = super().get_auth_params_from_request(request, action)
         if action == AuthAction.REAUTHENTICATE:
             ret["auth_type"] = "reauthenticate"
         elif action == AuthAction.REREQUEST:
@@ -131,8 +131,8 @@ class FacebookProvider(OAuth2Provider):
         return init_params
 
     def get_fb_login_options(self, request):
-        ret = self.get_auth_params(request, "authenticate")
-        ret["scope"] = ",".join(self.get_scope(request))
+        ret = self.get_auth_params_from_request(request, "authenticate")
+        ret["scope"] = ",".join(self.get_scope_from_request(request))
         if ret.get("auth_type") == "reauthenticate":
             ret["auth_nonce"] = self.get_nonce(request, or_create=True)
         return ret

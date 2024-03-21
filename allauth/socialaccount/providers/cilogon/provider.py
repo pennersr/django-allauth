@@ -30,8 +30,8 @@ class CILogonProvider(OAuth2Provider):
             scope.append(Scope.EMAIL)
         return scope
 
-    def get_auth_params(self, request, action):
-        ret = super(CILogonProvider, self).get_auth_params(request, action)
+    def get_auth_params_from_request(self, request, action):
+        ret = super().get_auth_params_from_request(request, action)
         if action == AuthAction.REAUTHENTICATE:
             ret["prompt"] = "select_account consent"
         return ret

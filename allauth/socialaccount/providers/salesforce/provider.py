@@ -29,8 +29,8 @@ class SalesforceProvider(OAuth2Provider):
     def get_default_scope(self):
         return ["id", "openid"]
 
-    def get_auth_params(self, request, action):
-        ret = super(SalesforceProvider, self).get_auth_params(request, action)
+    def get_auth_params_from_request(self, request, action):
+        ret = super().get_auth_params_from_request(request, action)
         if action == AuthAction.REAUTHENTICATE:
             ret["approval_prompt"] = "force"
         return ret

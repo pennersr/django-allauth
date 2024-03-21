@@ -24,8 +24,8 @@ class UntappdProvider(OAuth2Provider):
     account_class = UntappdAccount
     oauth2_adapter_class = UntappdOAuth2Adapter
 
-    def get_auth_params(self, request, action):
-        params = super(UntappdProvider, self).get_auth_params(request, action)
+    def get_auth_params_from_request(self, request, action):
+        params = super().get_auth_params_from_request(request, action)
         # Untappd uses redirect_url instead of redirect_uri
         params["redirect_url"] = request.build_absolute_uri(
             reverse(self.id + "_callback")

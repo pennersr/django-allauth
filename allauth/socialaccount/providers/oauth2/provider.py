@@ -40,7 +40,7 @@ class OAuth2Provider(Provider):
             return pkce_code_params
         return {}
 
-    def get_auth_params(self, request, action):
+    def get_auth_params(self):
         """
         Returns a dictionary of additional parameters passed to the OAuth2
         redirect URL. Additional -- so no need to pass the standard `client_id`,
@@ -48,30 +48,52 @@ class OAuth2Provider(Provider):
         """
         settings = self.get_settings()
         ret = dict(settings.get("AUTH_PARAMS", {}))
+        return ret
+
+    def get_auth_params_from_request(self, request, action):
+        """
+        Returns a dictionary of additional parameters passed to the OAuth2
+        redirect URL. Additional -- so no need to pass the standard `client_id`,
+        `redirect_uri`, `response_type`.
+        """
+        ret = self.get_auth_params()
         dynamic_auth_params = request.GET.get("auth_params", None)
         if dynamic_auth_params:
             ret.update(dict(parse_qsl(dynamic_auth_params)))
         return ret
 
-    def get_scope(self, request):
+    def get_default_scope(self):
+        """
+        Returns the default scope to use.
+        """
+        return []
+
+    def get_scope(self):
+        """
+        Returns the scope to use, taking settings `SCOPE` into consideration.
+        """
         settings = self.get_settings()
         scope = list(settings.get("SCOPE", self.get_default_scope()))
+        return scope
+
+    def get_scope_from_request(self, request):
+        """
+        Returns the scope to use for the given request.
+        """
+        scope = self.get_scope()
         dynamic_scope = request.GET.get("scope", None)
         if dynamic_scope:
             scope.extend(dynamic_scope.split(","))
         return scope
-
-    def get_default_scope(self):
-        return []
 
     def get_oauth2_adapter(self, request):
         return self.oauth2_adapter_class(request)
 
     def get_redirect_from_request_kwargs(self, request):
         kwargs = super().get_redirect_from_request_kwargs(request)
-        kwargs["scope"] = self.get_scope(request)
+        kwargs["scope"] = self.get_scope_from_request(request)
         action = request.GET.get("action", AuthAction.AUTHENTICATE)
-        kwargs["auth_params"] = self.get_auth_params(request, action)
+        kwargs["auth_params"] = self.get_auth_params_from_request(request, action)
         return kwargs
 
     def redirect(self, request, process, next_url=None, data=None, **kwargs):
@@ -79,7 +101,9 @@ class OAuth2Provider(Provider):
         oauth2_adapter = self.get_oauth2_adapter(request)
         client = oauth2_adapter.get_client(request, app)
         auth_url = oauth2_adapter.authorize_url
-        auth_params = kwargs["auth_params"]
+        auth_params = kwargs.get("auth_params")
+        if auth_params is None:
+            auth_params = self.get_auth_params()
         pkce_params = self.get_pkce_params()
         code_verifier = pkce_params.pop("code_verifier", None)
         auth_params.update(pkce_params)
@@ -87,7 +111,9 @@ class OAuth2Provider(Provider):
             request.session["pkce_code_verifier"] = code_verifier
 
         client.state = self.stash_redirect_state(request, process, next_url, data)
-        scope = kwargs["scope"]
+        scope = kwargs.get("scope")
+        if scope is None:
+            scope = self.get_scope()
         try:
             return HttpResponseRedirect(
                 client.get_redirect_url(auth_url, scope, auth_params)

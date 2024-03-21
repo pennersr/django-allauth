@@ -21,8 +21,8 @@ class YNABProvider(OAuth2Provider):
         scope = [Scope.ACCESS]
         return scope
 
-    def get_auth_params(self, request, action):
-        ret = super(YNABProvider, self).get_auth_params(request, action)
+    def get_auth_params_from_request(self, request, action):
+        ret = super().get_auth_params_from_request(request, action)
         if action == AuthAction.REAUTHENTICATE:
             ret["prompt"] = "select_account consent"
         return ret

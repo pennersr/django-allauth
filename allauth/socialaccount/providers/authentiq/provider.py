@@ -61,8 +61,8 @@ class AuthentiqProvider(OAuth2Provider):
     account_class = AuthentiqAccount
     oauth2_adapter_class = AuthentiqOAuth2Adapter
 
-    def get_scope(self, request):
-        scope = set(super(AuthentiqProvider, self).get_scope(request))
+    def get_scope_from_request(self, request):
+        scope = set(super().get_scope_from_request(request))
         scope.add("openid")
 
         if Scope.EMAIL in scope:
@@ -82,8 +82,8 @@ class AuthentiqProvider(OAuth2Provider):
             scope.append(Scope.EMAIL)
         return scope
 
-    def get_auth_params(self, request, action):
-        ret = super(AuthentiqProvider, self).get_auth_params(request, action)
+    def get_auth_params_from_request(self, request, action):
+        ret = super().get_auth_params_from_request(request, action)
         if action == AuthAction.REAUTHENTICATE:
             ret["prompt"] = "select_account"
         return ret

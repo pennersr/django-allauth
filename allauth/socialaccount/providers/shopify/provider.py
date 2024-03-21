@@ -25,8 +25,8 @@ class ShopifyProvider(OAuth2Provider):
         )
         return grant_options.lower().strip() == "per-user"
 
-    def get_auth_params(self, request, action):
-        ret = super(ShopifyProvider, self).get_auth_params(request, action)
+    def get_auth_params_from_request(self, request, action):
+        ret = super().get_auth_params_from_request(request, action)
         shop = request.GET.get("shop", None)
         if shop:
             ret.update({"shop": shop})

@@ -50,7 +50,7 @@ Then, visit the app over at http://localhost:10000.
 
 **** DONE User sessions
 
-*** Headless [30%]
+*** Headless [35%]
 
 **** TODO Check rate limit handling
 
@@ -90,7 +90,7 @@ Need a way of indicating what mechanisms are supported.
 
 **** TODO Check caching headers
 
-**** TODO Pass along success/error to redirect callback
+**** DONE Pass along success/error to redirect callback
 E.g. the frontend connect process needs to be able to show a "Provider
 Connected!" message (or failure).
 

@@ -46,9 +46,7 @@ class RedirectToProviderView(APIView):
             request,
             process,
             next_url=next_url,
-            data={
-                "headless": True,
-            },
+            headless=True,
         )
 
 

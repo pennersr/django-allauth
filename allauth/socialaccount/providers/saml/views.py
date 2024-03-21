@@ -110,10 +110,10 @@ class FinishACSView(SAMLViewMixin, View):
         provider = self.get_provider(organization_slug)
         acs_session = LoginSession(request, "saml_acs_session", "saml-acs-session")
         serialized_login = acs_session.store.get("login")
+        state_id = acs_session.store.get("state_id")
         if not serialized_login:
             logger.error("Unable to finish login, SAML ACS session missing")
-            return render_authentication_error(request, provider)
-        state_id = acs_session.store.get("state_id")
+            return render_authentication_error(request, provider, state_id=state_id)
         next_url = acs_session.store.get("next_url")
         acs_session.delete()
         login = SocialLogin.deserialize(serialized_login)

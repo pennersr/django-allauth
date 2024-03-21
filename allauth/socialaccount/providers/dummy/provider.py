@@ -43,8 +43,12 @@ class DummyProvider(Provider):
         return ret
 
     def redirect(self, request, process, next_url=None, data=None, **kwargs):
-        self.stash_redirect_state(request, process, next_url=next_url, data=data)
-        return HttpResponseRedirect(reverse("dummy_authenticate"))
+        state_id = self.stash_redirect_state(
+            request, process, next_url=next_url, data=data
+        )
+        return HttpResponseRedirect(
+            reverse("dummy_authenticate") + "?" + urlencode({"state": state_id})
+        )
 
     def extract_email_addresses(self, data):
         addresses = []

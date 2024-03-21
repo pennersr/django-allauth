@@ -5,7 +5,6 @@
     {% element h1 %}
         Dummy Provider Login
     {% endelement %}
-    {% url 'dummy_authenticate' as action_url %}
     {% element form form=form method="post" action=action_url %}
         {% csrf_token %}
         {% slot body %}

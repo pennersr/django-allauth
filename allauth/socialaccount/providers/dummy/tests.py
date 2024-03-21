@@ -6,9 +6,9 @@ from django.urls import reverse
 def test_login(client, db):
     resp = client.post(reverse("dummy_login"))
     assert resp.status_code == 302
-    assert resp["location"] == reverse("dummy_authenticate")
+    assert resp["location"].startswith(reverse("dummy_authenticate") + "?state=")
     resp = client.post(
-        reverse("dummy_authenticate"),
+        resp["location"],
         {"id": "123", "email": "a@b.com", "email_verified": True},
     )
     assert resp.status_code == 302

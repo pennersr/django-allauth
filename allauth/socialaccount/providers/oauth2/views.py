@@ -111,6 +111,7 @@ class OAuth2LoginView(OAuthLoginMixin, OAuth2View):
 class OAuth2CallbackView(OAuth2View):
     def dispatch(self, request, *args, **kwargs):
         provider = self.adapter.get_provider()
+        state_id = get_request_param(request, "state")
         if "error" in request.GET or "code" not in request.GET:
             # Distinguish cancel from error
             auth_error = request.GET.get("error", None)
@@ -121,6 +122,7 @@ class OAuth2CallbackView(OAuth2View):
             return render_authentication_error(
                 request,
                 provider,
+                state_id=state_id,
                 error=error,
                 extra_context={
                     "callback_view": self,
@@ -139,9 +141,7 @@ class OAuth2CallbackView(OAuth2View):
             )
             login.token = token
             if self.adapter.supports_state:
-                login.state = SocialLogin.verify_and_unstash_state(
-                    request, get_request_param(request, "state")
-                )
+                login.state = SocialLogin.verify_and_unstash_state(request, state_id)
             else:
                 login.state = SocialLogin.unstash_state(request)
 
@@ -152,4 +152,6 @@ class OAuth2CallbackView(OAuth2View):
             RequestException,
             ProviderException,
         ) as e:
-            return render_authentication_error(request, provider, exception=e)
+            return render_authentication_error(
+                request, provider, exception=e, state_id=state_id
+            )

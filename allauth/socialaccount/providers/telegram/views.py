@@ -31,11 +31,19 @@ class CallbackView(View):
         return render(request, "telegram/callback.html")
 
     def post(self, request):
+        adapter = get_adapter()
+        provider = adapter.get_provider(request, TelegramProvider.id)
+
+        state_id = request.GET.get("state")
+        if not state_id:
+            return render_authentication_error(
+                request,
+                provider=provider,
+            )
+
         result = request.POST.get("tgAuthResult")
         padding = "=" * (4 - (len(result) % 4))
         data = json.loads(base64.b64decode(result + padding))
-        adapter = get_adapter()
-        provider = adapter.get_provider(request, TelegramProvider.id)
         hash = data.pop("hash")
         payload = "\n".join(sorted(["{}={}".format(k, v) for k, v in data.items()]))
         token = provider.app.secret
@@ -47,13 +55,10 @@ class CallbackView(View):
         auth_date_validity = provider.get_auth_date_validity()
         if hash != expected_hash or time.time() - auth_date > auth_date_validity:
             return render_authentication_error(
-                request, provider=provider, extra_context={"response": data}
-            )
-        state_id = request.GET.get("state")
-        if not state_id:
-            return render_authentication_error(
                 request,
                 provider=provider,
+                extra_context={"response": data},
+                state_id=state_id,
             )
         login = provider.sociallogin_from_response(request, data)
         login.state = provider.unstash_redirect_state(request, state_id)

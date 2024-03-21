@@ -110,7 +110,8 @@ class OAuth2Provider(Provider):
         if code_verifier:
             request.session["pkce_code_verifier"] = code_verifier
 
-        client.state = self.stash_redirect_state(request, process, next_url, data)
+        state_id = self.stash_redirect_state(request, process, next_url, data)
+        client.state = state_id
         scope = kwargs.get("scope")
         if scope is None:
             scope = self.get_scope()
@@ -119,4 +120,6 @@ class OAuth2Provider(Provider):
                 client.get_redirect_url(auth_url, scope, auth_params)
             )
         except OAuth2Error as e:
-            return render_authentication_error(request, self, exception=e)
+            return render_authentication_error(
+                request, self, state_id=state_id, exception=e
+            )

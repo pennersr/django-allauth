@@ -10,6 +10,6 @@ def complete_social_login(request, sociallogin, func):
     # 3) performing a social signup
     # 4) Stopped, due to not being open-for-signup
     # It would be good to refactor the above into a more generic social login
-    # pipeline with clear stages, but for now this is effective.ArithmeticError
+    # pipeline with clear stages, but for now this is effective.
     next_url = sociallogin.state["next"]
     return HttpResponseRedirect(next_url)

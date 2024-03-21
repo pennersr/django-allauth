@@ -65,6 +65,11 @@ def _process_auto_signup(request, sociallogin):
 
 
 def _process_signup(request, sociallogin):
+    if not get_adapter().is_open_for_signup(request, sociallogin):
+        return render(
+            request,
+            "account/signup_closed." + account_settings.TEMPLATE_EXTENSION,
+        )
     auto_signup, resp = _process_auto_signup(request, sociallogin)
     if resp:
         return resp
@@ -83,11 +88,6 @@ def _process_signup(request, sociallogin):
         # TODO: This part contains a lot of duplication of logic
         # ("closed" rendering, create user, send email, in active
         # etc..)
-        if not get_adapter().is_open_for_signup(request, sociallogin):
-            return render(
-                request,
-                "account/signup_closed." + account_settings.TEMPLATE_EXTENSION,
-            )
         get_adapter().save_user(request, sociallogin, form=None)
         resp = complete_social_signup(request, sociallogin)
     return resp

@@ -57,8 +57,7 @@ class CallbackView(View):
             return render_authentication_error(
                 request,
                 provider=provider,
-                extra_context={"response": data},
-                state_id=state_id,
+                extra_context={"response": data, "state_id": state_id},
             )
         login = provider.sociallogin_from_response(request, data)
         login.state = provider.unstash_redirect_state(request, state_id)

@@ -11,7 +11,8 @@ from allauth.socialaccount.helpers import (
     complete_social_login,
     render_authentication_error,
 )
-from allauth.socialaccount.models import SocialLogin, SocialToken
+from allauth.socialaccount.internal import statekit
+from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.providers.base import ProviderException
 from allauth.socialaccount.providers.base.constants import AuthError
 from allauth.socialaccount.providers.base.mixins import OAuthLoginMixin
@@ -61,9 +62,8 @@ class OAuth2Adapter(object):
             token.expires_at = timezone.now() + timedelta(seconds=int(expires_in))
         return token
 
-    def get_access_token_data(self, request, app, client):
+    def get_access_token_data(self, request, app, client, pkce_code_verifier=None):
         code = get_request_param(self.request, "code")
-        pkce_code_verifier = request.session.pop("pkce_code_verifier", None)
         data = client.get_access_token(code, pkce_code_verifier=pkce_code_verifier)
         self.did_fetch_access_token = True
         return data
@@ -111,7 +111,9 @@ class OAuth2LoginView(OAuthLoginMixin, OAuth2View):
 class OAuth2CallbackView(OAuth2View):
     def dispatch(self, request, *args, **kwargs):
         provider = self.adapter.get_provider()
-        state_id = get_request_param(request, "state")
+        state, resp = self._get_state(request, provider)
+        if resp:
+            return resp
         if "error" in request.GET or "code" not in request.GET:
             # Distinguish cancel from error
             auth_error = request.GET.get("error", None)
@@ -122,9 +124,9 @@ class OAuth2CallbackView(OAuth2View):
             return render_authentication_error(
                 request,
                 provider,
-                state_id=state_id,
                 error=error,
                 extra_context={
+                    "state": state,
                     "callback_view": self,
                 },
             )
@@ -132,7 +134,9 @@ class OAuth2CallbackView(OAuth2View):
         client = self.adapter.get_client(self.request, app)
 
         try:
-            access_token = self.adapter.get_access_token_data(request, app, client)
+            access_token = self.adapter.get_access_token_data(
+                request, app, client, pkce_code_verifier=state.get("pkce_code_verifier")
+            )
             token = self.adapter.parse_token(access_token)
             if app.pk:
                 token.app = app
@@ -140,11 +144,7 @@ class OAuth2CallbackView(OAuth2View):
                 request, app, token, response=access_token
             )
             login.token = token
-            if self.adapter.supports_state:
-                login.state = SocialLogin.verify_and_unstash_state(request, state_id)
-            else:
-                login.state = SocialLogin.unstash_state(request)
-
+            login.state = state
             return complete_social_login(request, login)
         except (
             PermissionDenied,
@@ -153,5 +153,24 @@ class OAuth2CallbackView(OAuth2View):
             ProviderException,
         ) as e:
             return render_authentication_error(
-                request, provider, exception=e, state_id=state_id
+                request, provider, exception=e, extra_context={"state": state}
             )
+
+    def _get_state(self, request, provider):
+        state = None
+        state_id = get_request_param(request, "state")
+        if self.adapter.supports_state:
+            if state_id:
+                state = statekit.unstash_state(request, state_id)
+        else:
+            state = statekit.unstash_last_state(request)
+        if state is None:
+            return None, render_authentication_error(
+                request,
+                provider,
+                extra_context={
+                    "state_id": state_id,
+                    "callback_view": self,
+                },
+            )
+        return state, None

@@ -36,7 +36,7 @@ class AuthenticateView(FormView):
                 request,
                 self.provider,
                 error=AuthError.CANCELLED,
-                state_id=self.state_id,
+                extra_context={"state_id": self.state_id},
             )
 
         return super().dispatch(request, *args, **kwargs)

@@ -122,7 +122,6 @@ def render_authentication_error(
     error=AuthError.UNKNOWN,
     exception=None,
     extra_context=None,
-    state_id=None,
 ):
     try:
         if extra_context is None:

@@ -1,9 +1,9 @@
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 
 from allauth.account.utils import get_next_redirect_url, get_request_param
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
-from allauth.socialaccount.models import SocialLogin
+from allauth.socialaccount.internal import statekit
 from allauth.socialaccount.providers.base.constants import AuthProcess
 
 
@@ -184,18 +184,23 @@ class Provider:
             pkg = cls.__module__.rpartition(".")[0]
         return pkg
 
-    def stash_redirect_state(self, request, process, next_url=None, data=None):
+    def stash_redirect_state(
+        self, request, process, next_url=None, data=None, **kwargs
+    ):
         """
         Stashes state, returning a (random) state ID using which the state
         can be looked up later.
         """
-        state = {"process": process, "data": data}
+        state = {"process": process, "data": data, **kwargs}
         if next_url:
             state["next"] = next_url
-        return SocialLogin.stash_state(request, state)
+        return statekit.stash_state(request, state)
 
     def unstash_redirect_state(self, request, state_id):
-        return SocialLogin.verify_and_unstash_state(request, state_id)
+        state = statekit.unstash_state(request, state_id)
+        if state is None:
+            raise PermissionDenied()
+        return state
 
 
 class ProviderAccount(object):

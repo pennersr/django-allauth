@@ -15,6 +15,9 @@ class Provider:
     slug = None
     uses_apps = True
     supports_redirect = False
+    # Indicates whether or not this provider supports logging in by posting an
+    # access/id-token.
+    supports_token_authentication = False
 
     def __init__(self, request, app=None):
         self.request = request

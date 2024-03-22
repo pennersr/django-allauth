@@ -1,7 +1,8 @@
 from types import SimpleNamespace
 
 from django.middleware.csrf import get_token
-from django.urls import reverse
+from django.utils.decorators import classonlymethod
+from django.views.decorators.csrf import csrf_exempt
 
 from allauth import app_settings
 from allauth.account.stages import LoginStageController
@@ -11,20 +12,20 @@ from allauth.headless.restkit.views import RESTView
 
 
 class APIView(RESTView):
+    client = None
+
+    @classonlymethod
+    def as_api_view(cls, **initkwargs):
+        view_func = cls.as_view(**initkwargs)
+        if initkwargs["client"] == "api":
+            view_func = csrf_exempt(view_func)
+        return view_func
+
     def dispatch(self, request, *args, **kwargs):
         request.allauth.headless = SimpleNamespace()
+        request.allauth.headless.client = self.client
 
-        def headless_reverse(*args, **kwargs):
-            kw = kwargs.setdefault("kwargs", {})
-            kw["client"] = self.kwargs["client"]
-            return reverse(*args, **kwargs)
-
-        request.allauth.headless.client = self.kwargs["client"]
-        request.allauth.headless.reverse = lambda *args, **kwargs: headless_reverse(
-            *args, **kwargs
-        )
-
-        if request.allauth.headless.client == "browser":
+        if self.client == "browser":
             # Needed -- so that the CSRF token is set in the response for the
             # frontend to pick up.
             get_token(request)
@@ -79,6 +80,3 @@ class ConfigView(APIView):
 
             data.update(get_config_data(request))
         return response.APIResponse(data=data)
-
-
-config = ConfigView.as_view()

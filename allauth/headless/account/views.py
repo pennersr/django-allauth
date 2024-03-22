@@ -40,17 +40,11 @@ class LoginView(APIView):
         return response.respond_is_authenticated(self.request)
 
 
-login = LoginView.as_view()
-
-
 class LogoutView(APIView):
     def post(self, request, *args, **kwargs):
         adapter = get_account_adapter()
         adapter.logout(request)
         return response.respond_is_authenticated(request)
-
-
-logout = LogoutView.as_view()
 
 
 class SignupView(APIView):
@@ -71,15 +65,9 @@ class SignupView(APIView):
         return response.respond_is_authenticated(request)
 
 
-signup = SignupView.as_view()
-
-
 class AuthView(AuthenticatedAPIView):
     def get(self, request, *args, **kwargs):
         return response.AuthenticatedResponse(request, self.request.user)
-
-
-auth = AuthView.as_view()
 
 
 class VerifyEmailView(APIView):
@@ -115,9 +103,6 @@ class VerifyEmailView(APIView):
             return response.APIResponse(status=200 if email_address else 400)
 
 
-verify_email = VerifyEmailView.as_view()
-
-
 class RequestPasswordResetView(APIView):
     input_class = RequestPasswordResetInput
 
@@ -125,9 +110,6 @@ class RequestPasswordResetView(APIView):
         self.input.save(request)
         data = {}
         return response.APIResponse(data)
-
-
-request_password_reset = RequestPasswordResetView.as_view()
 
 
 class ResetPasswordView(APIView):
@@ -148,9 +130,6 @@ class ResetPasswordView(APIView):
         return response.APIResponse()
 
 
-reset_password = ResetPasswordView.as_view()
-
-
 class ChangePasswordView(AuthenticatedAPIView):
     input_class = ChangePasswordInput
 
@@ -169,9 +148,6 @@ class ChangePasswordView(AuthenticatedAPIView):
 
     def get_input_kwargs(self):
         return {"user": self.request.user}
-
-
-change_password = ChangePasswordView.as_view()
 
 
 class ManageEmailView(AuthenticatedAPIView):
@@ -224,9 +200,6 @@ class ManageEmailView(AuthenticatedAPIView):
         return {"user": self.request.user}
 
 
-manage_email = ManageEmailView.as_view()
-
-
 class ReauthenticateView(AuthenticatedAPIView):
     input_class = ReauthenticateInput
 
@@ -236,6 +209,3 @@ class ReauthenticateView(AuthenticatedAPIView):
 
     def get_input_kwargs(self):
         return {"user": self.request.user}
-
-
-reauthenticate = ReauthenticateView.as_view()

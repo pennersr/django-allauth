@@ -16,17 +16,17 @@ def _serialize_provider(request, provider):
     return {
         "id": provider.id,
         "name": provider.name,
-        "redirect_url": request.allauth.headless.reverse(
-            "headless_redirect_to_provider",
-        ),
     }
 
 
 def provider_flows(request):
-    flows = [_login_flow(request)]
-    sociallogin = signup.get_pending_signup(request)
-    if sociallogin:
-        flows.append(_signup_flow(request, sociallogin))
+    flows = []
+    providers = _list_supported_providers(request)
+    if providers:
+        flows.append(_login_flow(request))
+        sociallogin = signup.get_pending_signup(request)
+        if sociallogin:
+            flows.append(_signup_flow(request, sociallogin))
     return flows
 
 
@@ -34,7 +34,6 @@ def _signup_flow(request, sociallogin):
     provider = sociallogin.account.get_provider()
     flow = {
         "id": "provider_signup",
-        "url": request.allauth.headless.reverse("headless_provider_signup"),
         "provider": _serialize_provider(request, provider),
         "is_pending": True,
     }
@@ -44,19 +43,34 @@ def _signup_flow(request, sociallogin):
 def _login_flow(request):
     flow = {
         "id": "provider_login",
-        "url": request.allauth.headless.reverse("headless_redirect_to_provider"),
     }
     return flow
+
+
+def _is_provider_supported(provider, client):
+    if client == "api":
+        return provider.supports_token_authentication
+    elif client == "browser":
+        return provider.supports_redirect
+    return False
+
+
+def _list_supported_providers(request):
+    adapter = get_socialaccount_adapter()
+    providers = adapter.list_providers(request)
+    providers = [
+        p
+        for p in providers
+        if _is_provider_supported(p, request.allauth.headless.client)
+    ]
+    return providers
 
 
 def get_config_data(request):
     entries = []
     data = {"socialaccount": {"providers": entries}}
-    adapter = get_socialaccount_adapter()
-    providers = adapter.list_providers(request)
+    providers = _list_supported_providers(request)
     providers = sorted(providers, key=lambda p: p.name)
     for provider in providers:
-        if not provider.supports_redirect:
-            continue
         entries.append(_serialize_provider(request, provider))
     return data

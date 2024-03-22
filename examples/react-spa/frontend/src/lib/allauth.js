@@ -1,6 +1,13 @@
 import { getCSRFToken } from './django'
 
-const BASE_URL = '/_allauth/browser/v1'
+const Client = Object.freeze({
+  API: 'api',
+  BROWSER: 'browser'
+})
+
+const CLIENT = Client.BROWSER
+
+const BASE_URL = `/_allauth/${CLIENT}/v1`
 const ACCEPT_JSON = {
   accept: 'application/json'
 }
@@ -82,10 +89,13 @@ async function request (method, path, data) {
   const options = {
     method,
     headers: {
-      ...ACCEPT_JSON,
-      'X-CSRFToken': getCSRFToken()
+      ...ACCEPT_JSON
     }
   }
+  if (CLIENT === Client.BROWSER) {
+    options.headers['X-CSRFToken'] = getCSRFToken()
+  }
+
   if (typeof data !== 'undefined') {
     options.body = JSON.stringify(data)
     options.headers['Content-Type'] = 'application/json'

@@ -26,9 +26,6 @@ class ProviderSignupView(APIView):
         return {"sociallogin": self.sociallogin}
 
 
-provider_signup = ProviderSignupView.as_view()
-
-
 class RedirectToProviderView(APIView):
     handle_json_input = False
 
@@ -50,9 +47,6 @@ class RedirectToProviderView(APIView):
         )
 
 
-redirect_to_provider = RedirectToProviderView.as_view()
-
-
 class ManageProvidersView(AuthenticatedAPIView):
     input_class = {
         "DELETE": DeleteProviderAccountInput,
@@ -72,6 +66,3 @@ class ManageProvidersView(AuthenticatedAPIView):
 
     def get_input_kwargs(self):
         return {"user": self.request.user}
-
-
-manage_providers = ManageProvidersView.as_view()

@@ -29,9 +29,6 @@ class AuthenticateView(AuthenticationStageAPIView):
         return {"user": self.stage.login.user}
 
 
-authenticate = AuthenticateView.as_view()
-
-
 class ReauthenticateView(AuthenticatedAPIView):
     input_class = AuthenticateInput
 
@@ -43,16 +40,10 @@ class ReauthenticateView(AuthenticatedAPIView):
         return {"user": self.request.user}
 
 
-reauthenticate = ReauthenticateView.as_view()
-
-
 class AuthenticatorsView(AuthenticatedAPIView):
     def get(self, request, *args, **kwargs):
         authenticators = Authenticator.objects.filter(user=request.user)
         return response.respond_authenticator_list(request, authenticators)
-
-
-authenticators = AuthenticatorsView.as_view()
 
 
 class ManageTOTPView(AuthenticatedAPIView):
@@ -83,9 +74,6 @@ class ManageTOTPView(AuthenticatedAPIView):
         return APIResponse(status=200)
 
 
-manage_totp = ManageTOTPView.as_view()
-
-
 class ManageRecoveryCodesView(AuthenticatedAPIView):
     input_class = GenerateRecoveryCodesInput
 
@@ -106,6 +94,3 @@ class ManageRecoveryCodesView(AuthenticatedAPIView):
 
     def get_input_kwargs(self):
         return {"user": self.request.user}
-
-
-manage_recovery_codes = ManageRecoveryCodesView.as_view()

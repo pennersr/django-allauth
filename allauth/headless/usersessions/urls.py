@@ -3,17 +3,18 @@ from django.urls import include, path
 from allauth.headless.usersessions import views
 
 
-urlpatterns = [
-    path(
-        "auth/",
-        include(
-            [
-                path(
-                    "sessions",
-                    views.sessions,
-                    name="headless_usersessions",
-                ),
-            ]
-        ),
-    )
-]
+def build_urlpatterns(client):
+    return [
+        path(
+            "auth/",
+            include(
+                [
+                    path(
+                        "sessions",
+                        views.SessionsView.as_api_view(client=client),
+                        name="headless_usersessions",
+                    ),
+                ]
+            ),
+        )
+    ]

@@ -25,6 +25,3 @@ class SessionsView(AuthenticatedAPIView):
 
     def get_input_kwargs(self):
         return {"user": self.request.user}
-
-
-sessions = SessionsView.as_view()

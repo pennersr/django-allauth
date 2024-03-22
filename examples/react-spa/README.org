@@ -57,6 +57,10 @@ Then, visit the app over at http://localhost:10000.
 **** TODO Make "Unknown account" email signup URL configurable
 
 **** TODO Mobile client (access tokens, no CSRF/cookies)
+- [X] Don't require CSRF
+- [ ] Session tokens, access tokens
+- [ ] Provider login via token
+- [ ] Duplicate urlnames, use namespaces
 
 **** DONE Disable messages framework
 Or, add to meta in response?

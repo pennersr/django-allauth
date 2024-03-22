@@ -57,6 +57,16 @@ class LoginStageController:
         stage_state = self.state.setdefault(stage_key, {})
         stage_state["handled"] = True
 
+    def get_pending_stage(self):
+        ret = None
+        stages = self.get_stages()
+        for stage in stages:
+            if self.is_handled(stage.key):
+                continue
+            ret = stage
+            break
+        return ret
+
     def get_stages(self):
         stages = []
         adapter = get_adapter(self.request)

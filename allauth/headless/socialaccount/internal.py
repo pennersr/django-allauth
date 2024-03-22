@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.core.internal import httpkit
 from allauth.headless.internal.authkit import AuthenticationStatus
-from allauth.socialaccount.internal import flows, statekit
+from allauth.socialaccount.internal import statekit
 from allauth.socialaccount.providers.base.constants import AuthError
 
 

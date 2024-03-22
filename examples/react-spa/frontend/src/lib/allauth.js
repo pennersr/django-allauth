@@ -85,9 +85,7 @@ function postForm (action, data) {
   f.submit()
 }
 
-const inMemStorage = {
-  sessionToken: ''
-}
+const tokenStorage = sessionStorage
 
 async function request (method, path, data) {
   const options = {
@@ -101,8 +99,13 @@ async function request (method, path, data) {
     if (CLIENT === Client.BROWSER) {
       options.headers['X-CSRFToken'] = getCSRFToken()
     } else if (CLIENT === Client.APP) {
-      if (inMemStorage.sessionToken) {
-        options.headers['X-Session-Token'] = inMemStorage.sessionToken
+      // IMPORTANT!: Do NOT use `Client.APP` in a browser context, as you will
+      // be vulnerable to CSRF attacks. This logic is only here for
+      // development/demonstration/testing purposes...
+      options.headers['User-Agent'] = 'django-allauth example app'
+      const sessionToken = tokenStorage.getItem('sessionToken')
+      if (sessionToken) {
+        options.headers['X-Session-Token'] = sessionToken
       }
     }
   }
@@ -114,11 +117,11 @@ async function request (method, path, data) {
   const resp = await fetch(path, options)
   const msg = await resp.json()
   if (msg.status === 410) {
-    inMemStorage.sessionToken = ''
+    tokenStorage.removeItem('sessionToken')
   }
-  if (msg.status === 401 || (msg.status === 200 && msg.meta?.is_authenticated)) {
-    if (msg.data?.session?.token) {
-      inMemStorage.sessionToken = msg.data.session.token
+  if ([401, 410].includes(msg.status) || (msg.status === 200 && msg.meta?.is_authenticated)) {
+    if (msg.meta?.session_token) {
+      tokenStorage.setItem('sessionToken', msg.meta.session_token)
     }
     const event = new CustomEvent('allauth.auth.change', { detail: msg })
     document.dispatchEvent(event)

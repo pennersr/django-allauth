@@ -50,7 +50,7 @@ Then, visit the app over at http://localhost:10000.
 
 **** DONE User sessions
 
-*** Headless [35%]
+*** Headless [45%]
 
 **** TODO Check rate limit handling
 
@@ -58,7 +58,7 @@ Then, visit the app over at http://localhost:10000.
 
 **** TODO Mobile client (access tokens, no CSRF/cookies)
 - [X] Don't require CSRF
-- [ ] Session tokens, access tokens
+- [X] Session tokens, access tokens
 - [ ] Provider login via token
 - [ ] Duplicate urlnames, use namespaces
 
@@ -81,7 +81,7 @@ Disabled, let's not complicate things.
 **** TODO Investigate a headless-only mode
 =HEADLESS_ONLY = True=  ?
 
-**** TODO Check interaction with user sessions
+**** DONE Check interaction with user sessions
 Mobile sesions to also show up.
 
 **** TODO Prevent enumeration
@@ -92,7 +92,7 @@ response from which an enumeration related conclusion can be drawn.
 **** TODO Provider redirect vs token vs ...
 Need a way of indicating what mechanisms are supported.
 
-**** TODO Check caching headers
+**** DONE Check caching headers
 
 **** DONE Pass along success/error to redirect callback
 E.g. the frontend connect process needs to be able to show a "Provider

@@ -29,5 +29,5 @@ def build_urlpatterns(client):
 
 urlpatterns = [
     path("browser/", include(build_urlpatterns("browser"))),
-    path("api/", include(build_urlpatterns("api"))),
+    path("app/", include(build_urlpatterns("app"))),
 ]

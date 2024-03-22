@@ -1,11 +1,13 @@
 from django.http import JsonResponse
+from django.utils.cache import add_never_cache_headers
 
 from allauth import app_settings as allauth_app_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.authentication import get_authentication_records
 from allauth.account.models import EmailAddress
 from allauth.account.utils import user_display, user_username
-from allauth.headless.auth import AuthenticationState
+from allauth.headless.internal import sessionkit
+from allauth.headless.internal.authkit import AuthenticationStatus
 
 
 class APIResponse(JsonResponse):
@@ -16,11 +18,12 @@ class APIResponse(JsonResponse):
         if meta is not None:
             d["meta"] = meta
         super().__init__(d, status=status)
+        add_never_cache_headers(self)
 
 
 class UnauthorizedResponse(APIResponse):
-    def __init__(self, request):
-        state = AuthenticationState(request)
+    def __init__(self, request, status=401):
+        state = AuthenticationStatus(request)
         stages = state.get_stages()
         flows = []
         if request.user.is_authenticated:
@@ -51,12 +54,13 @@ class UnauthorizedResponse(APIResponse):
         data = {"flows": flows}
         if request.user.is_authenticated:
             data["user"] = user_data(request.user)
+        add_session_data(request, data)
         super().__init__(
             data=data,
             meta={
                 "is_authenticated": request.user.is_authenticated,
             },
-            status=401,
+            status=status,
         )
 
     def _provider_flows(self, request):
@@ -71,6 +75,7 @@ class AuthenticatedResponse(APIResponse):
             "user": user_data(user),
             "methods": get_authentication_records(request),
         }
+        add_session_data(request, data)
         super().__init__(data, meta={"is_authenticated": True})
 
 
@@ -98,3 +103,9 @@ def user_data(user):
     if username:
         ret["username"] = username
     return ret
+
+
+def add_session_data(request, data):
+    session_token = sessionkit.expose_session_token(request)
+    if session_token:
+        data["session"] = {"token": session_token}

@@ -56,7 +56,7 @@ def complete_social_login(request, sociallogin, func):
         [
             not status.is_authenticated,
             not status.has_pending_signup,
-            len(status.get_stages()) == 0,
+            not status.get_pending_stage(),
         ]
     ):
         next_url = httpkit.add_query_params(

@@ -4,6 +4,7 @@ from allauth import app_settings
 from allauth.account.stages import LoginStageController
 from allauth.core.exceptions import ReauthenticationRequired
 from allauth.headless.base import response
+from allauth.headless.constants import Client
 from allauth.headless.internal import decorators
 from allauth.headless.restkit.views import RESTView
 
@@ -14,7 +15,7 @@ class APIView(RESTView):
     @classonlymethod
     def as_api_view(cls, **initkwargs):
         view_func = cls.as_view(**initkwargs)
-        if initkwargs["client"] == "app":
+        if initkwargs["client"] == Client.APP:
             view_func = decorators.app_view(view_func)
         else:
             view_func = decorators.browser_view(view_func)

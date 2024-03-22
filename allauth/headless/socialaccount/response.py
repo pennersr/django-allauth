@@ -1,3 +1,4 @@
+from allauth.headless.constants import Client
 from allauth.socialaccount.adapter import (
     get_adapter as get_socialaccount_adapter,
 )
@@ -48,9 +49,9 @@ def _login_flow(request):
 
 
 def _is_provider_supported(provider, client):
-    if client == "api":
+    if client == Client.APP:
         return provider.supports_token_authentication
-    elif client == "browser":
+    elif client == Client.BROWSER:
         return provider.supports_redirect
     return False
 

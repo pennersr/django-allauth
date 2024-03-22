@@ -3,6 +3,7 @@ from django.urls import include, path
 from allauth import app_settings as allauth_settings
 from allauth.headless.account import urls as account_urls
 from allauth.headless.base import urls as base_urls
+from allauth.headless.constants import Client
 
 
 def build_urlpatterns(client):
@@ -28,6 +29,6 @@ def build_urlpatterns(client):
 
 
 urlpatterns = [
-    path("browser/", include(build_urlpatterns("browser"))),
-    path("app/", include(build_urlpatterns("app"))),
+    path("browser/", include(build_urlpatterns(Client.BROWSER))),
+    path("app/", include(build_urlpatterns(Client.APP))),
 ]

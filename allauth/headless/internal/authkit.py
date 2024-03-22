@@ -1,10 +1,9 @@
 from contextlib import contextmanager
 
-from django.conf import settings
-
 from allauth.account.stages import LoginStageController
 from allauth.account.utils import unstash_login
 from allauth.core.exceptions import ImmediateHttpResponse
+from allauth.headless import app_settings
 from allauth.headless.internal import sessionkit
 from allauth.socialaccount.internal import flows
 
@@ -17,21 +16,14 @@ class AuthenticationStatus:
     def is_authenticated(self):
         return self.request.user.is_authenticated
 
-    def get_stages(self):
-        todo = []
-        if self.is_authenticated:
-            pass
-        else:
+    def get_pending_stage(self):
+        stage = None
+        if not self.is_authenticated:
             login = unstash_login(self.request, peek=True)
             if login:
                 ctrl = LoginStageController(self.request, login)
-                stages = ctrl.get_stages()
-                for stage in stages:
-                    if ctrl.is_handled(stage.key):
-                        continue
-                    todo.append(stage)
-                    break
-        return todo
+                stage = ctrl.get_pending_stage()
+        return stage
 
     @property
     def has_pending_signup(self):
@@ -45,14 +37,17 @@ def authentication_context(request):
     old_user = request.user
     old_session = request.session
     try:
-        request.session = sessionkit.new_session()
-        if hasattr(request, "_cached_user"):
-            delattr(request, "_cached_user")
-        if sessionkit.has_session_token(request):
-            session = sessionkit.get_session(request)
+        strategy = app_settings.TOKEN_STRATEGY
+        session_token = strategy.get_session_token(request)
+        if session_token:
+            session = strategy.lookup_session(session_token)
             if not session:
                 raise ImmediateHttpResponse(UnauthorizedResponse(request, status=410))
             request.session = session
+        else:
+            request.session = sessionkit.new_session()
+        if hasattr(request, "_cached_user"):
+            delattr(request, "_cached_user")
         yield
     finally:
         if request.session.modified:
@@ -61,3 +56,12 @@ def authentication_context(request):
         request.session = old_session
         # e.g. logging in calls csrf `rotate_token()` -- this prevents setting a new CSRF cookie.
         request.META["CSRF_COOKIE_NEEDS_UPDATE"] = False
+
+
+def expose_access_token(request):
+    if not request.user.is_authenticated:
+        return
+    strategy = app_settings.TOKEN_STRATEGY
+    access_token = strategy.get_access_token(request)
+    if not access_token:
+        return strategy.create_access_token(request)

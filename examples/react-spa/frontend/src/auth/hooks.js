@@ -31,6 +31,9 @@ export const AuthChangeEvent = Object.freeze({
 function determineAuthChangeEvent (fromAuth, toAuth) {
   let fromInfo = authInfo(fromAuth)
   const toInfo = authInfo(toAuth)
+  if (toAuth.status === 410) {
+    return AuthChangeEvent.LOGGED_OUT
+  }
   // Corner case: user ID change. Treat as if we're transitioning from anonymous state.
   if (fromInfo.user && toInfo.user && fromInfo.user?.id !== toInfo.user?.id) {
     fromInfo = { isAuthenticated: false, requiresReauthentication: false, user: null }

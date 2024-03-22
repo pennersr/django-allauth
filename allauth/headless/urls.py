@@ -1,4 +1,4 @@
-from django.urls import include, path, re_path
+from django.urls import include, path
 
 from allauth import app_settings as allauth_settings
 from allauth.headless.account import urls as account_urls

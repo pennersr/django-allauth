@@ -6,8 +6,7 @@ from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.authentication import get_authentication_records
 from allauth.account.models import EmailAddress
 from allauth.account.utils import user_display, user_username
-from allauth.headless.internal import sessionkit
-from allauth.headless.internal.authkit import AuthenticationStatus
+from allauth.headless.internal import authkit, sessionkit
 
 
 class APIResponse(JsonResponse):
@@ -23,8 +22,8 @@ class APIResponse(JsonResponse):
 
 class UnauthorizedResponse(APIResponse):
     def __init__(self, request, status=401):
-        state = AuthenticationStatus(request)
-        stages = state.get_stages()
+        auth_status = authkit.AuthenticationStatus(request)
+        stage = auth_status.get_pending_stage()
         flows = []
         if request.user.is_authenticated:
             flows.extend(
@@ -48,18 +47,18 @@ class UnauthorizedResponse(APIResponse):
             )
             if allauth_app_settings.SOCIALACCOUNT_ENABLED:
                 flows.extend(self._provider_flows(request))
-        if stages:
-            stage = stages[0]
+        if stage:
             flows.append({"id": stage.key, "is_pending": True})
         data = {"flows": flows}
         if request.user.is_authenticated:
             data["user"] = user_data(request.user)
-        add_session_data(request, data)
+        meta = {
+            "is_authenticated": request.user.is_authenticated,
+        }
+        add_session_meta(request, meta)
         super().__init__(
             data=data,
-            meta={
-                "is_authenticated": request.user.is_authenticated,
-            },
+            meta=meta,
             status=status,
         )
 
@@ -75,8 +74,9 @@ class AuthenticatedResponse(APIResponse):
             "user": user_data(user),
             "methods": get_authentication_records(request),
         }
-        add_session_data(request, data)
-        super().__init__(data, meta={"is_authenticated": True})
+        meta = {"is_authenticated": True}
+        add_session_meta(request, meta)
+        super().__init__(data, meta=meta)
 
 
 def respond_is_authenticated(request, is_authenticated=None):
@@ -105,7 +105,10 @@ def user_data(user):
     return ret
 
 
-def add_session_data(request, data):
+def add_session_meta(request, meta):
     session_token = sessionkit.expose_session_token(request)
     if session_token:
-        data["session"] = {"token": session_token}
+        meta["session_token"] = session_token
+    access_token = authkit.expose_access_token(request)
+    if access_token:
+        meta["access_token"] = access_token

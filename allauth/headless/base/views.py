@@ -1,13 +1,10 @@
-from types import SimpleNamespace
-
-from django.middleware.csrf import get_token
 from django.utils.decorators import classonlymethod
-from django.views.decorators.csrf import csrf_exempt
 
 from allauth import app_settings
 from allauth.account.stages import LoginStageController
 from allauth.core.exceptions import ReauthenticationRequired
 from allauth.headless.base import response
+from allauth.headless.internal import decorators
 from allauth.headless.restkit.views import RESTView
 
 
@@ -17,19 +14,13 @@ class APIView(RESTView):
     @classonlymethod
     def as_api_view(cls, **initkwargs):
         view_func = cls.as_view(**initkwargs)
-        if initkwargs["client"] == "api":
-            view_func = csrf_exempt(view_func)
+        if initkwargs["client"] == "app":
+            view_func = decorators.app_view(view_func)
+        else:
+            view_func = decorators.browser_view(view_func)
         return view_func
 
     def dispatch(self, request, *args, **kwargs):
-        request.allauth.headless = SimpleNamespace()
-        request.allauth.headless.client = self.client
-
-        if self.client == "browser":
-            # Needed -- so that the CSRF token is set in the response for the
-            # frontend to pick up.
-            get_token(request)
-
         try:
             return super().dispatch(request, *args, **kwargs)
         except ReauthenticationRequired:

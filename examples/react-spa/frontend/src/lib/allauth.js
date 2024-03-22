@@ -1,7 +1,7 @@
 import { getCSRFToken } from './django'
 
 const Client = Object.freeze({
-  API: 'api',
+  APP: 'app',
   BROWSER: 'browser'
 })
 
@@ -85,6 +85,10 @@ function postForm (action, data) {
   f.submit()
 }
 
+const inMemStorage = {
+  sessionToken: ''
+}
+
 async function request (method, path, data) {
   const options = {
     method,
@@ -92,8 +96,15 @@ async function request (method, path, data) {
       ...ACCEPT_JSON
     }
   }
-  if (CLIENT === Client.BROWSER) {
-    options.headers['X-CSRFToken'] = getCSRFToken()
+  // Don't pass along authentication related headers to the config endpoint.
+  if (path !== URLs.CONFIG) {
+    if (CLIENT === Client.BROWSER) {
+      options.headers['X-CSRFToken'] = getCSRFToken()
+    } else if (CLIENT === Client.APP) {
+      if (inMemStorage.sessionToken) {
+        options.headers['X-Session-Token'] = inMemStorage.sessionToken
+      }
+    }
   }
 
   if (typeof data !== 'undefined') {
@@ -102,7 +113,13 @@ async function request (method, path, data) {
   }
   const resp = await fetch(path, options)
   const msg = await resp.json()
+  if (msg.status === 410) {
+    inMemStorage.sessionToken = ''
+  }
   if (msg.status === 401 || (msg.status === 200 && msg.meta?.is_authenticated)) {
+    if (msg.data?.session?.token) {
+      inMemStorage.sessionToken = msg.data.session.token
+    }
     const event = new CustomEvent('allauth.auth.change', { detail: msg })
     document.dispatchEvent(event)
   }

@@ -1,7 +1,9 @@
 from django.forms import (
     BooleanField,
     CharField,
+    ChoiceField,
     EmailField,
+    Field,
     Form,
     ModelMultipleChoiceField,
     ValidationError,
@@ -11,7 +13,9 @@ from allauth.headless.restkit.response import ErrorResponse
 
 
 __all__ = [
+    "Field",
     "CharField",
+    "ChoiceField",
     "ValidationError",
     "EmailField",
     "BooleanField",

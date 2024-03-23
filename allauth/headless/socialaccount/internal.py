@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.core.internal import httpkit
 from allauth.headless.internal.authkit import AuthenticationStatus
-from allauth.socialaccount.internal import statekit
+from allauth.socialaccount.internal import flows, statekit
 from allauth.socialaccount.providers.base.constants import AuthError
 
 
@@ -37,11 +37,11 @@ def on_authentication_error(
     raise ImmediateHttpResponse(HttpResponseRedirect(next_url))
 
 
-def complete_social_login(request, sociallogin, func):
+def complete_login(request, sociallogin):
     """
     Called when `sociallogin.is_headless`.
     """
-    func(request, sociallogin)
+    flows.login.complete_login(request, sociallogin)
     # At this stage, we're either:
     # 1) logged in (or in of the login pipeline stages, such as email verification)
     # 2) auto signed up -- a pipeline stage, so see 1)

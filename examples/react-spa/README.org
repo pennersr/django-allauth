@@ -59,7 +59,9 @@ Then, visit the app over at http://localhost:10000.
 **** TODO Mobile client (access tokens, no CSRF/cookies)
 - [X] Don't require CSRF
 - [X] Session tokens, access tokens
-- [ ] Provider login via token
+- [X] Provider login via token
+- [ ] Token login for Apple
+- [ ] Token login for Facebook
 - [ ] Duplicate urlnames, use namespaces
 
 **** DONE Disable messages framework

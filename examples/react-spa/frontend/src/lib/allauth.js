@@ -59,6 +59,7 @@ export const URLs = Object.freeze({
   // Auth: Social
   PROVIDER_SIGNUP: BASE_URL + '/auth/provider/signup',
   REDIRECT_TO_PROVIDER: BASE_URL + '/auth/provider/redirect',
+  PROVIDER_TOKEN: BASE_URL + '/auth/provider/token',
 
   // Auth: Sessions
   SESSIONS: BASE_URL + '/auth/sessions'
@@ -246,6 +247,15 @@ export async function changePassword (data) {
 
 export async function getAuth () {
   return await request('GET', URLs.AUTH)
+}
+
+export async function authenticateByToken (providerId, token, process = AuthProcess.LOGIN) {
+  return await request('POST', URLs.PROVIDER_TOKEN, {
+    provider: providerId,
+    token,
+    process
+  }
+  )
 }
 
 export function redirectToProvider (providerId, callbackURL, process = AuthProcess.LOGIN) {

@@ -37,6 +37,11 @@ def build_urlpatterns(client):
                                     ),
                                     name="headless_redirect_to_provider",
                                 ),
+                                path(
+                                    "token",
+                                    views.ProviderTokenView.as_api_view(client=client),
+                                    name="headless_provider_token",
+                                ),
                             ]
                         ),
                     )

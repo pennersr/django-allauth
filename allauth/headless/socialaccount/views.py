@@ -1,3 +1,4 @@
+from allauth.headless.base import response
 from allauth.headless.base.response import (
     APIResponse,
     respond_is_authenticated,
@@ -6,10 +7,14 @@ from allauth.headless.base.views import APIView, AuthenticatedAPIView
 from allauth.headless.socialaccount.forms import RedirectToProviderForm
 from allauth.headless.socialaccount.inputs import (
     DeleteProviderAccountInput,
+    ProviderTokenInput,
     SignupInput,
 )
 from allauth.headless.socialaccount.response import serialize_socialaccount
-from allauth.socialaccount.helpers import render_authentication_error
+from allauth.socialaccount.helpers import (
+    complete_social_login,
+    render_authentication_error,
+)
 from allauth.socialaccount.internal import flows
 from allauth.socialaccount.models import SocialAccount
 
@@ -61,8 +66,17 @@ class ManageProvidersView(AuthenticatedAPIView):
         return APIResponse(data=data)
 
     def delete(self, request, *args, **kwargs):
-        flows.providers.disconnect(request, self.input.cleaned_data["account"])
+        flows.connect.disconnect(request, self.input.cleaned_data["account"])
         return self._respond_provider_accounts()
 
     def get_input_kwargs(self):
         return {"user": self.request.user}
+
+
+class ProviderTokenView(APIView):
+    input_class = ProviderTokenInput
+
+    def post(self, request, *args, **kwargs):
+        sociallogin = self.input.cleaned_data["sociallogin"]
+        complete_social_login(request, sociallogin)
+        return response.respond_is_authenticated(self.request)

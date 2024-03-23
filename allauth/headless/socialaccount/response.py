@@ -3,6 +3,7 @@ from allauth.socialaccount.adapter import (
     get_adapter as get_socialaccount_adapter,
 )
 from allauth.socialaccount.internal.flows import signup
+from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 def serialize_socialaccount(request, account):
@@ -14,10 +15,13 @@ def serialize_socialaccount(request, account):
 
 
 def _serialize_provider(request, provider):
-    return {
+    ret = {
         "id": provider.id,
         "name": provider.name,
     }
+    if isinstance(provider, OAuth2Provider):
+        ret["client_id"] = provider.app.client_id
+    return ret
 
 
 def provider_flows(request):

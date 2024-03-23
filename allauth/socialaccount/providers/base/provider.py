@@ -57,6 +57,13 @@ class Provider:
         """
         raise NotImplementedError()
 
+    def verify_token(self, request, token):
+        """
+        Verifies the token, returning a `SocialLogin` instance when valid.
+        Raises a `ValidationError` otherwise.
+        """
+        raise NotImplementedError()
+
     def media_js(self, request):
         """
         Some providers may require extra scripts (e.g. a Facebook connect)

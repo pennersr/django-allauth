@@ -1,7 +1,12 @@
+import requests
+
+from django.core.exceptions import ValidationError
+
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -56,6 +61,7 @@ class GoogleProvider(OAuth2Provider):
     name = "Google"
     account_class = GoogleAccount
     oauth2_adapter_class = GoogleOAuth2Adapter
+    supports_token_authentication = True
 
     def get_default_scope(self):
         scope = [Scope.PROFILE]
@@ -88,6 +94,21 @@ class GoogleProvider(OAuth2Provider):
             verified = bool(data.get("email_verified") or data.get("verified_email"))
             ret.append(EmailAddress(email=email, verified=verified, primary=True))
         return ret
+
+    def verify_token(self, request, token):
+        from allauth.socialaccount.providers.google import views
+
+        credential = token.get("id_token")
+        if not credential:
+            raise ValidationError("`id_token` missing.", code=["invalid"])
+        try:
+            identity_data = views._verify_and_decode(
+                app=self.app, credential=credential
+            )
+        except (OAuth2Error, requests.RequestException) as e:
+            raise ValidationError("Invalid token.", code=["invalid"]) from e
+        login = self.sociallogin_from_response(request, identity_data)
+        return login
 
 
 provider_classes = [GoogleProvider]

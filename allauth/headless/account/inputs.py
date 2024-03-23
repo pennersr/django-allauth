@@ -1,5 +1,6 @@
 from django.core.exceptions import ImproperlyConfigured
 from django.core.validators import validate_email
+from django.forms.fields import Field
 from django.utils.translation import gettext as _
 
 from allauth.account import app_settings as account_app_settings
@@ -41,29 +42,35 @@ class LoginInput(inputs.Input):
             == account_app_settings.AuthenticationMethod.USERNAME
         ):
             username = cleaned_data.get("username")
-            missing_error = "Missing username."
+            missing_field = "username"
         elif (
             account_app_settings.AUTHENTICATION_METHOD
             == account_app_settings.AuthenticationMethod.EMAIL
         ):
             email = cleaned_data.get("email")
-            missing_error = "Missing email."
+            missing_field = "email"
         elif (
             account_app_settings.AUTHENTICATION_METHOD
             == account_app_settings.AuthenticationMethod.USERNAME_EMAIL
         ):
             username = cleaned_data.get("username")
             email = cleaned_data.get("email")
-            missing_error = "Missing email or username."
+            missing_field = "email"
             if email and username:
                 raise inputs.ValidationError(
-                    "Pass only one of email or username, not both."
+                    message="Pass only one of email or username, not both.",
+                    code="invalid",
                 )
         else:
             raise ImproperlyConfigured(account_app_settings.AUTHENTICATION_METHOD)
 
         if not email and not username:
-            raise inputs.ValidationError(missing_error)
+            self.add_error(
+                missing_field,
+                inputs.ValidationError(
+                    code="required", message=Field.default_error_messages["required"]
+                ),
+            )
 
         password = cleaned_data.get("password")
         if password and (username or email):
@@ -173,7 +180,7 @@ class SelectEmailInput(inputs.Input):
         except EmailAddress.DoesNotExist:
             # NOTE: i18n is intentionally left out -- the frontend should
             # normally not run into this.
-            raise inputs.ValidationError("Unknown email address.")
+            raise inputs.ValidationError("Unknown email address.", code="invalid")
 
 
 class DeleteEmailInput(SelectEmailInput):
@@ -181,7 +188,10 @@ class DeleteEmailInput(SelectEmailInput):
         email = super().clean_email()
         if not flows.manage_email.can_delete_email(email):
             raise inputs.ValidationError(
-                _("You cannot remove your primary email address.")
+                _(
+                    "You cannot remove your primary email address.",
+                    code="denied",
+                )
             )
         return email
 
@@ -193,7 +203,8 @@ class MarkAsPrimaryEmailInput(SelectEmailInput):
         email = super().clean_email()
         if not flows.manage_email.can_mark_as_primary(email):
             raise inputs.ValidationError(
-                _("Your primary email address must be verified.")
+                _("Your primary email address must be verified."),
+                code="unverified",
             )
         return email
 

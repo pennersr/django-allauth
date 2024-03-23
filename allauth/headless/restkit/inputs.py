@@ -23,7 +23,8 @@ class Input(Form):
     @property
     def error_dict(self):
         ret = {}
-        ret.update(self.errors)
+        for field, error_list in self.errors.items():
+            ret[field] = error_list.get_json_data()
         return ret
 
     def respond_error(self):

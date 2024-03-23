@@ -109,3 +109,5 @@ Perhaps use '*' ? or '_'...
 
 **** TODO Add error codes
 Needed in order for the frontend to become independent of UI (i18n) of the backend
+- [X] Add codes to JSON
+- [ ] Go over all ValidationError's, assign codes.

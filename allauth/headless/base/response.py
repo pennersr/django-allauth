@@ -9,6 +9,7 @@ from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.authentication import get_authentication_records
 from allauth.account.models import EmailAddress
 from allauth.account.utils import user_display, user_username
+from allauth.headless.constants import Flow
 from allauth.headless.internal import authkit, sessionkit
 
 
@@ -64,16 +65,17 @@ class BaseAuthenticationResponse(APIResponse):
                 ]
             )
         else:
-            flows.extend(
-                [
-                    {
-                        "id": "login",
-                    },
-                    {
-                        "id": "signup",
-                    },
-                ]
+            flows.append(
+                {
+                    "id": Flow.LOGIN,
+                },
             )
+            if get_account_adapter().is_open_for_signup(request):
+                flows.append(
+                    {
+                        "id": Flow.SIGNUP,
+                    }
+                )
             if allauth_app_settings.SOCIALACCOUNT_ENABLED:
                 from allauth.headless.socialaccount.response import (
                     provider_flows,

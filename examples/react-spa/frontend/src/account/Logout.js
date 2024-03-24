@@ -3,12 +3,12 @@ import { Navigate } from 'react-router-dom'
 import { logout } from '../lib/allauth'
 
 export default function Logout () {
-  const [response, setResponse] = useState({ fetching: false, data: null })
+  const [response, setResponse] = useState({ fetching: false, content: null })
 
   function submit () {
     setResponse({ ...response, fetching: true })
-    logout().then((data) => {
-      setResponse((r) => { return { ...r, data } })
+    logout().then((content) => {
+      setResponse((r) => { return { ...r, content } })
     }).catch((e) => {
       console.error(e)
       window.alert(e)
@@ -16,7 +16,7 @@ export default function Logout () {
       setResponse((r) => { return { ...r, fetching: false } })
     })
   }
-  if (response?.data) {
+  if (response.content) {
     return <Navigate to='/' />
   }
   return (

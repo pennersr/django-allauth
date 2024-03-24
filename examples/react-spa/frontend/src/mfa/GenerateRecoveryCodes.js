@@ -11,12 +11,12 @@ export async function loader ({ params }) {
 
 export default function GenerateRecoveryCodes () {
   const { recoveryCodes } = useLoaderData()
-  const [response, setResponse] = useState({ fetching: false, data: null })
+  const [response, setResponse] = useState({ fetching: false, content: null })
 
   function submit () {
     setResponse({ ...response, fetching: true })
-    allauth.generateRecoveryCodes().then((data) => {
-      setResponse((r) => { return { ...r, data } })
+    allauth.generateRecoveryCodes().then((content) => {
+      setResponse((r) => { return { ...r, content } })
     }).catch((e) => {
       console.error(e)
       window.alert(e)
@@ -24,7 +24,7 @@ export default function GenerateRecoveryCodes () {
       setResponse((r) => { return { ...r, fetching: false } })
     })
   }
-  if (response?.data?.status === 200) {
+  if (response.content?.status === 200) {
     return <Navigate to='/account/2fa/recovery-codes' />
   }
 
@@ -37,7 +37,7 @@ export default function GenerateRecoveryCodes () {
         {hasCodes ? 'This action will invalidate your existing codes.' : ''} Are you sure?
       </p>
 
-      <FormErrors errors={response.data?.error?.detail?.__all__} />
+      <FormErrors errors={response.content?.errors} />
 
       <button onClick={() => submit()}>Generate</button>
 

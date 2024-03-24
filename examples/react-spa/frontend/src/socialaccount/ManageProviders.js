@@ -62,7 +62,7 @@ export default function ManageProviders () {
         </tbody>
       </table>
 
-      <FormErrors errors={response?.content.error?.detail?.__all__} />
+      <FormErrors errors={response.content?.errors} />
 
       <h2>Connect</h2>
       <ProviderList callbackURL='/account/providers' process={allauth.AuthProcess.CONNECT} />

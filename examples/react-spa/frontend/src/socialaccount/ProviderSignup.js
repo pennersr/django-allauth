@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom'
 
 export default function ProviderSignup () {
   const [email, setEmail] = useState('')
-  const [response, setResponse] = useState({ fetching: false, data: null })
+  const [response, setResponse] = useState({ fetching: false, content: null })
 
   function submit () {
     setResponse({ ...response, fetching: true })
-    providerSignup({ email }).then((data) => {
-      setResponse((r) => { return { ...r, data } })
+    providerSignup({ email }).then((content) => {
+      setResponse((r) => { return { ...r, content } })
     }).catch((e) => {
       console.error(e)
       window.alert(e)
@@ -26,10 +26,10 @@ export default function ProviderSignup () {
         Already have an account? <Link to='/account/login'>Login here.</Link>
       </p>
 
-      <FormErrors errors={response?.data?.error?.__all__?.errors} />
+      <FormErrors errors={response.content?.errors} />
 
       <div><label>Email <input value={email} onChange={(e) => setEmail(e.target.value)} type='email' required /></label>
-        <FormErrors errors={response?.data?.error?.detail?.email} />
+        <FormErrors param='email' errors={response.content?.errors} />
       </div>
       <button disabled={response.fetching} onClick={() => submit()}>Sign Up</button>
     </div>

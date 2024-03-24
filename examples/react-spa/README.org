@@ -50,7 +50,7 @@ Then, visit the app over at http://localhost:10000.
 
 **** DONE User sessions
 
-*** Headless [50%]
+*** Headless [55%]
 
 **** TODO Check rate limit handling
 
@@ -106,7 +106,7 @@ Having underscores as =mfa_authenticate= and =verify_email= in URLs? Matches sta
 **** DONE Decide if API needs to be made more REST-ish
 e.g. =POST= to /2fa/authenticators/totp/{id} to delete? But TOTP is a singleton, so why.
 
-**** TODO Decide upon __all__
+**** DONE Decide upon __all__
 Perhaps use '*' ? or '_'...
 
 **** TODO Add error codes

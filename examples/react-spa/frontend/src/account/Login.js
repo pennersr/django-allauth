@@ -8,14 +8,14 @@ import ProviderList from '../socialaccount/ProviderList'
 export default function Login () {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [response, setResponse] = useState({ fetching: false, data: null })
+  const [response, setResponse] = useState({ fetching: false, content: null })
   const config = useConfig()
   const hasProviders = config.data.socialaccount?.providers?.length > 0
 
   function submit () {
     setResponse({ ...response, fetching: true })
-    login({ email, password }).then((data) => {
-      setResponse((r) => { return { ...r, data } })
+    login({ email, password }).then((content) => {
+      setResponse((r) => { return { ...r, content } })
     }).catch((e) => {
       console.error(e)
       window.alert(e)
@@ -30,14 +30,14 @@ export default function Login () {
         No account? <Link to='/account/signup'>Sign up here.</Link>
       </p>
 
-      <FormErrors errors={response.data?.error?.detail?.__all__} />
+      <FormErrors errors={response.content?.errors} />
 
       <div><label>Email <input value={email} onChange={(e) => setEmail(e.target.value)} type='email' required /></label>
-        <FormErrors errors={response.data?.error?.detail?.email} />
+        <FormErrors param='email' errors={response.content?.errors} />
       </div>
       <div><label>Password: <input value={password} onChange={(e) => setPassword(e.target.value)} type='password' required /></label>
         <Link to='/account/password/reset'>Forgot your password?</Link>
-        <FormErrors errors={response.data?.error?.detail?.password} />
+        <FormErrors param='password' errors={response.content?.errors} />
       </div>
       <button disabled={response.fetching} onClick={() => submit()}>Login</button>
 

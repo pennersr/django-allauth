@@ -13,12 +13,12 @@ export async function loader ({ params }) {
 
 export default function VerifyEmail () {
   const { key, verification } = useLoaderData()
-  const [response, setResponse] = useState({ fetching: false, data: null })
+  const [response, setResponse] = useState({ fetching: false, content: null })
 
   function submit () {
     setResponse({ ...response, fetching: true })
-    verifyEmail(key).then((data) => {
-      setResponse((r) => { return { ...r, data } })
+    verifyEmail(key).then((content) => {
+      setResponse((r) => { return { ...r, content } })
     }).catch((e) => {
       console.error(e)
       window.alert(e)
@@ -27,7 +27,7 @@ export default function VerifyEmail () {
     })
   }
 
-  if (!verification.data.is_authenticating && response.data?.status === 200) {
+  if (!verification.data.is_authenticating && response.content?.status === 200) {
     return <Navigate to='/account/email' />
   }
 

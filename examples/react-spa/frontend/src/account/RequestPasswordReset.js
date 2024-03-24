@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom'
 
 export default function RequestPasswordReset () {
   const [email, setEmail] = useState('')
-  const [response, setResponse] = useState({ fetching: false, data: null })
+  const [response, setResponse] = useState({ fetching: false, content: null })
 
   function submit () {
     setResponse({ ...response, fetching: true })
-    requestPasswordReset(email).then((data) => {
-      setResponse((r) => { return { ...r, data } })
+    requestPasswordReset(email).then((content) => {
+      setResponse((r) => { return { ...r, content } })
     }).catch((e) => {
       console.error(e)
       window.alert(e)
@@ -19,7 +19,7 @@ export default function RequestPasswordReset () {
     })
   }
 
-  if (response?.data?.status === 200) {
+  if (response.content?.status === 200) {
     return (
       <div>
         <h1>Reset Password</h1>
@@ -34,10 +34,10 @@ export default function RequestPasswordReset () {
         Remember your password? <Link to='/account/login'>Back to login.</Link>
       </p>
 
-      <FormErrors errors={response?.data?.form?.errors} />
+      <FormErrors errors={response.content?.errors} />
 
       <div><label>Email <input value={email} onChange={(e) => setEmail(e.target.value)} type='email' required /></label>
-        <FormErrors errors={response?.data?.error?.detail?.email} />
+        <FormErrors param='email' errors={response.content?.errors} />
       </div>
       <button disabled={response.fetching} onClick={() => submit()}>Reset</button>
     </div>

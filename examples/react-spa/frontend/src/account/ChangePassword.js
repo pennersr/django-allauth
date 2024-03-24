@@ -15,7 +15,7 @@ export default function ChangePassword () {
 
   function submit () {
     if (newPassword !== newPassword2) {
-      setNewPassword2Errors(['Password does not match.'])
+      setNewPassword2Errors([{ param: 'new_password2', message: 'Password does not match.' }])
       return
     }
     setNewPassword2Errors([])
@@ -39,14 +39,14 @@ export default function ChangePassword () {
       <p>{hasCurrentPassword ? 'Enter your current password, followed by your new password.' : 'You currently have no password set. Enter your (new) password.'}</p>
       {hasCurrentPassword
         ? <div><label>Current password: <input autoComplete='password' value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} type='password' required /></label>
-          <FormErrors errors={response.content?.error?.detail?.current_password} />
+          <FormErrors param='current_password' errors={response.content?.errors} />
           </div>
         : null}
       <div><label>Password: <input autoComplete='new-password' value={newPassword} onChange={(e) => setNewPassword(e.target.value)} type='password' required /></label>
-        <FormErrors errors={response.content?.error?.detail?.new_password} />
+        <FormErrors param='new_password' errors={response.content?.errors} />
       </div>
       <div><label>Password (again): <input value={newPassword2} onChange={(e) => setNewPassword2(e.target.value)} type='password' required /></label>
-        <FormErrors errors={newPassword2Errors} />
+        <FormErrors param='new_password2' errors={newPassword2Errors} />
       </div>
 
       <button disabled={response.fetching} onClick={() => submit()}>{hasCurrentPassword ? 'Change' : 'Set'}</button>

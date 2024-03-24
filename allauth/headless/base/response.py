@@ -1,6 +1,3 @@
-from django.http import JsonResponse
-from django.utils.cache import add_never_cache_headers
-
 from allauth import (
     app_settings as allauth_app_settings,
     app_settings as allauth_settings,
@@ -11,17 +8,7 @@ from allauth.account.models import EmailAddress
 from allauth.account.utils import user_display, user_username
 from allauth.headless.constants import Flow
 from allauth.headless.internal import authkit, sessionkit
-
-
-class APIResponse(JsonResponse):
-    def __init__(self, request, data=None, meta=None, status=200):
-        d = {"status": status}
-        if data is not None:
-            d["data"] = data
-        if meta is not None:
-            d["meta"] = meta
-        super().__init__(d, status=status)
-        add_never_cache_headers(self)
+from allauth.headless.restkit.response import APIResponse
 
 
 class BaseAuthenticationResponse(APIResponse):

@@ -3,12 +3,12 @@ import * as allauth from '../lib/allauth'
 import { Navigate } from 'react-router-dom'
 
 export default function DeactivateTOTP (props) {
-  const [response, setResponse] = useState({ fetching: false, data: null })
+  const [response, setResponse] = useState({ fetching: false, content: null })
 
   function submit () {
     setResponse({ ...response, fetching: true })
-    allauth.deactivateTOTPAuthenticator().then((data) => {
-      setResponse((r) => { return { ...r, data } })
+    allauth.deactivateTOTPAuthenticator().then((content) => {
+      setResponse((r) => { return { ...r, content } })
     }).catch((e) => {
       console.error(e)
       window.alert(e)
@@ -16,7 +16,7 @@ export default function DeactivateTOTP (props) {
       setResponse((r) => { return { ...r, fetching: false } })
     })
   }
-  if (response.data?.status === 200) {
+  if (response.content?.status === 200) {
     return <Navigate to='/account/2fa' />
   }
   return (

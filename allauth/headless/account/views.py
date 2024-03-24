@@ -22,6 +22,7 @@ from allauth.headless.account.inputs import (
 )
 from allauth.headless.base.response import AuthenticationResponse
 from allauth.headless.base.views import APIView, AuthenticatedAPIView
+from allauth.headless.restkit.response import ErrorResponse
 
 
 class LoginView(APIView):
@@ -79,7 +80,7 @@ class VerifyEmailView(APIView):
     def get(self, request, *args, **kwargs):
         input = self.input_class(request.GET)
         if not input.is_valid():
-            return input.respond_error()
+            return ErrorResponse(request, input=input)
         verification = input.cleaned_data["key"]
         return response.VerifyEmailResponse(request, verification, stage=self.stage)
 
@@ -110,7 +111,7 @@ class ResetPasswordView(APIView):
     def get(self, request, *args, **kwargs):
         input = ResetPasswordKeyInput(request.GET)
         if not input.is_valid():
-            return input.respond_error()
+            return ErrorResponse(request, input=input)
         return response.PasswordResetKeyResponse(request, input.user)
 
     def post(self, request, *args, **kwargs):

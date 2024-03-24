@@ -11,12 +11,12 @@ export async function loader ({ params }) {
 export default function ActivateTOTP (props) {
   const { totp } = useLoaderData()
   const [code, setCode] = useState('')
-  const [response, setResponse] = useState({ fetching: false, data: null })
+  const [response, setResponse] = useState({ fetching: false, content: null })
 
   function submit () {
     setResponse({ ...response, fetching: true })
-    allauth.activateTOTPAuthenticator(code).then((data) => {
-      setResponse((r) => { return { ...r, data } })
+    allauth.activateTOTPAuthenticator(code).then((content) => {
+      setResponse((r) => { return { ...r, content } })
     }).catch((e) => {
       console.error(e)
       window.alert(e)
@@ -24,7 +24,7 @@ export default function ActivateTOTP (props) {
       setResponse((r) => { return { ...r, fetching: false } })
     })
   }
-  if (totp.status === 200 || response?.data?.status === 200) {
+  if (totp.status === 200 || response.content?.status === 200) {
     return <Navigate to='/account/2fa' />
   }
   return (
@@ -43,7 +43,7 @@ export default function ActivateTOTP (props) {
           Authenticator code:
           <input type='text' value={code} onChange={(e) => setCode(e.target.value)} />
         </label>
-        <FormErrors errors={response.data?.error?.detail?.code} />
+        <FormErrors param='code' errors={response.content?.errors} />
       </div>
       <button onClick={() => submit()}>Activate</button>
     </section>

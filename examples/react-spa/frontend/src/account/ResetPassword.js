@@ -20,7 +20,7 @@ export default function ResetPassword () {
 
   function submit () {
     if (password2 !== password1) {
-      setPassword2Errors(['Password does not match.'])
+      setPassword2Errors([{ param: 'password2', message: 'Password does not match.' }])
       return
     }
     setPassword2Errors([])
@@ -38,16 +38,16 @@ export default function ResetPassword () {
     return <Navigate to='/account/login' />
   }
   let body
-  if (response?.content?.error?.detail?.key) {
-    body = <FormErrors errors={response?.content?.error?.detail?.key} />
+  if (response.content?.error?.detail?.key) {
+    body = <FormErrors param='key' errors={response.content?.errors} />
   } else {
     body = (
       <>
         <div><label>Password: <input autoComplete='new-password' value={password1} onChange={(e) => setPassword1(e.target.value)} type='password' required /></label>
-          <FormErrors errors={response.content?.error?.detail?.password} />
+          <FormErrors param='password' errors={response.content?.errors} />
         </div>
         <div><label>Password (again): <input value={password2} onChange={(e) => setPassword2(e.target.value)} type='password' required /></label>
-          <FormErrors errors={password2Errors} />
+          <FormErrors param='password2' errors={password2Errors} />
         </div>
 
         <button disabled={response.fetching} onClick={() => submit()}>Reset</button>

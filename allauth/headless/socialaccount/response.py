@@ -1,5 +1,5 @@
 from allauth.headless.base.response import APIResponse
-from allauth.headless.constants import Client
+from allauth.headless.constants import Client, Flow
 from allauth.socialaccount.adapter import (
     get_adapter as get_socialaccount_adapter,
 )
@@ -7,13 +7,15 @@ from allauth.socialaccount.internal.flows import signup
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
-def _serialize_provider(request, provider):
-    ret = {
-        "id": provider.id,
-        "name": provider.name,
-    }
+def _provider_data(request, provider):
+    ret = {"id": provider.id, "name": provider.name, "flows": []}
+    if provider.supports_redirect:
+        ret["flows"].append(Flow.PROVIDER_REDIRECT)
+    if provider.supports_token_authentication:
+        ret["flows"].append(Flow.PROVIDER_TOKEN)
     if isinstance(provider, OAuth2Provider):
         ret["client_id"] = provider.app.client_id
+
     return ret
 
 
@@ -21,7 +23,22 @@ def provider_flows(request):
     flows = []
     providers = _list_supported_providers(request)
     if providers:
-        flows.append(_login_flow(request))
+        redirect_providers = [p.id for p in providers if p.supports_redirect]
+        token_providers = [p.id for p in providers if p.supports_token_authentication]
+        if redirect_providers:
+            flows.append(
+                {
+                    "id": Flow.PROVIDER_REDIRECT,
+                    "providers": redirect_providers,
+                }
+            )
+        if token_providers:
+            flows.append(
+                {
+                    "id": Flow.PROVIDER_TOKEN,
+                    "providers": token_providers,
+                }
+            )
         sociallogin = signup.get_pending_signup(request)
         if sociallogin:
             flows.append(_signup_flow(request, sociallogin))
@@ -31,16 +48,9 @@ def provider_flows(request):
 def _signup_flow(request, sociallogin):
     provider = sociallogin.account.get_provider()
     flow = {
-        "id": "provider_signup",
-        "provider": _serialize_provider(request, provider),
+        "id": Flow.PROVIDER_SIGNUP,
+        "provider": _provider_data(request, provider),
         "is_pending": True,
-    }
-    return flow
-
-
-def _login_flow(request):
-    flow = {
-        "id": "provider_login",
     }
     return flow
 
@@ -70,7 +80,7 @@ def get_config_data(request):
     providers = _list_supported_providers(request)
     providers = sorted(providers, key=lambda p: p.name)
     for provider in providers:
-        entries.append(_serialize_provider(request, provider))
+        entries.append(_provider_data(request, provider))
     return data
 
 
@@ -79,7 +89,7 @@ class SocialAccountsResponse(APIResponse):
         data = [
             {
                 "uid": account.uid,
-                "provider": _serialize_provider(request, account.get_provider()),
+                "provider": _provider_data(request, account.get_provider()),
                 "display": account.get_provider_account().to_str(),
             }
             for account in accounts

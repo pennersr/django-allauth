@@ -1,6 +1,5 @@
 from django.utils.decorators import classonlymethod
 
-from allauth import app_settings
 from allauth.account.stages import LoginStageController
 from allauth.core.exceptions import ReauthenticationRequired
 from allauth.headless.base import response
@@ -25,7 +24,7 @@ class APIView(RESTView):
         try:
             return super().dispatch(request, *args, **kwargs)
         except ReauthenticationRequired:
-            return response.UnauthorizedResponse(self.request)
+            return response.ReauthenticationResponse(self.request)
 
 
 class AuthenticationStageAPIView(APIView):
@@ -42,13 +41,13 @@ class AuthenticationStageAPIView(APIView):
 
     def respond_next_stage(self):
         self.stage.exit()
-        return response.respond_is_authenticated(self.request)
+        return response.AuthenticationResponse(self.request)
 
 
 class AuthenticatedAPIView(APIView):
     def handle(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return response.UnauthorizedResponse(request)
+            return response.AuthenticationResponse(request)
         return super().handle(request, *args, **kwargs)
 
 
@@ -58,17 +57,4 @@ class ConfigView(APIView):
         The frontend queries (GET) this endpoint, expecting to receive
         either a 401 if no user is authenticated, or user information.
         """
-        data = {}
-        if app_settings.SOCIALACCOUNT_ENABLED:
-            from allauth.headless.socialaccount.response import get_config_data
-
-            data.update(get_config_data(request))
-        if app_settings.MFA_ENABLED:
-            from allauth.headless.mfa.response import get_config_data
-
-            data.update(get_config_data(request))
-        if app_settings.USERSESSIONS_ENABLED:
-            from allauth.headless.usersessions.response import get_config_data
-
-            data.update(get_config_data(request))
-        return response.APIResponse(data=data)
+        return response.ConfigResponse(request)

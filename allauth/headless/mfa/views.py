@@ -1,7 +1,4 @@
-from allauth.headless.base.response import (
-    APIResponse,
-    respond_is_authenticated,
-)
+from allauth.headless.base.response import AuthenticationResponse
 from allauth.headless.base.views import (
     AuthenticatedAPIView,
     AuthenticationStageAPIView,
@@ -12,6 +9,7 @@ from allauth.headless.mfa.inputs import (
     AuthenticateInput,
     GenerateRecoveryCodesInput,
 )
+from allauth.mfa import totp
 from allauth.mfa.internal import flows
 from allauth.mfa.models import Authenticator
 from allauth.mfa.stages import AuthenticateStage
@@ -34,7 +32,7 @@ class ReauthenticateView(AuthenticatedAPIView):
 
     def post(self, request, *args, **kwargs):
         self.input.save()
-        return respond_is_authenticated(self.request)
+        return AuthenticationResponse(self.request)
 
     def get_input_kwargs(self):
         return {"user": self.request.user}
@@ -43,7 +41,7 @@ class ReauthenticateView(AuthenticatedAPIView):
 class AuthenticatorsView(AuthenticatedAPIView):
     def get(self, request, *args, **kwargs):
         authenticators = Authenticator.objects.filter(user=request.user)
-        return response.respond_authenticator_list(request, authenticators)
+        return response.AuthenticatorsResponse(request, authenticators)
 
 
 class ManageTOTPView(AuthenticatedAPIView):
@@ -52,8 +50,9 @@ class ManageTOTPView(AuthenticatedAPIView):
     def get(self, request, *args, **kwargs):
         authenticator = self._get_authenticator()
         if not authenticator:
-            return response.respond_totp_inactive(request)
-        return response.respond_totp_active(request, authenticator)
+            secret = totp.get_totp_secret(regenerate=True)
+            return response.TOTPNotFoundResponse(request, secret)
+        return response.TOTPResponse(request, authenticator)
 
     def _get_authenticator(self):
         return Authenticator.objects.filter(
@@ -65,13 +64,13 @@ class ManageTOTPView(AuthenticatedAPIView):
 
     def post(self, request, *args, **kwargs):
         authenticator = flows.totp.activate_totp(request, self.input)
-        return response.respond_totp_active(request, authenticator)
+        return response.TOTPResponse(request, authenticator)
 
     def delete(self, request, *args, **kwargs):
         authenticator = self._get_authenticator()
         if authenticator:
             authenticator = flows.totp.deactivate_totp(request, authenticator)
-        return APIResponse(status=200)
+        return response.AuthenticatorDeletedResponse(request)
 
 
 class ManageRecoveryCodesView(AuthenticatedAPIView):
@@ -80,8 +79,8 @@ class ManageRecoveryCodesView(AuthenticatedAPIView):
     def get(self, request, *args, **kwargs):
         authenticator = flows.recovery_codes.view_recovery_codes(request)
         if not authenticator:
-            return response.respond_recovery_codes_inactive(request)
-        return response.respond_recovery_codes_active(request, authenticator)
+            return response.RecoveryCodesNotFoundResponse(request)
+        return response.RecoveryCodesResponse(request, authenticator)
 
     def _get_authenticator(self):
         return Authenticator.objects.filter(
@@ -90,7 +89,7 @@ class ManageRecoveryCodesView(AuthenticatedAPIView):
 
     def post(self, request, *args, **kwargs):
         authenticator = flows.recovery_codes.generate_recovery_codes(request)
-        return response.respond_recovery_codes_active(request, authenticator)
+        return response.RecoveryCodesResponse(request, authenticator)
 
     def get_input_kwargs(self):
         return {"user": self.request.user}

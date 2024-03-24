@@ -50,7 +50,7 @@ def complete_login(request, sociallogin):
     # It would be good to refactor the above into a more generic social login
     # pipeline with clear stages, but for now the /auth endpoint properly responds
     # for cases 1-3.
-    next_url = sociallogin.state["next"]
+    next_url = sociallogin.state.get("next")
     status = AuthenticationStatus(request)
     if all(
         [

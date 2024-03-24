@@ -11,7 +11,6 @@ def change_password(user, password):
 
 
 def finalize_password_change(request, user):
-    logged_out = logout_on_password_change(request, user)
     adapter = get_adapter(request)
     adapter.add_message(
         request,
@@ -24,11 +23,11 @@ def finalize_password_change(request, user):
         request=request,
         user=user,
     )
+    logged_out = logout_on_password_change(request, user)
     return logged_out
 
 
 def finalize_password_set(request, user):
-    logged_out = logout_on_password_change(request, user)
     adapter = get_adapter(request)
     adapter.add_message(request, messages.SUCCESS, "account/messages/password_set.txt")
     adapter.send_notification_mail("account/email/password_set", user)
@@ -37,6 +36,7 @@ def finalize_password_set(request, user):
         request=request,
         user=user,
     )
+    logged_out = logout_on_password_change(request, user)
     return logged_out
 
 

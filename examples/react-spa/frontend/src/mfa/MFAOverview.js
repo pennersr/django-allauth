@@ -35,6 +35,7 @@ export default function MFAOverview (props) {
           </>
         : <><p>There are {recoveryCodes.unused_code_count} out of {recoveryCodes.total_code_count} recovery codes available.</p>
           <Link to='/account/2fa/recovery-codes'>View</Link>
+          <Link to='/account/2fa/recovery-codes/generate'>Regenerate</Link>
           </>}
     </section>
   )

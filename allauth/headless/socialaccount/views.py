@@ -1,8 +1,4 @@
-from allauth.headless.base import response
-from allauth.headless.base.response import (
-    APIResponse,
-    respond_is_authenticated,
-)
+from allauth.headless.base.response import AuthenticationResponse
 from allauth.headless.base.views import APIView, AuthenticatedAPIView
 from allauth.headless.socialaccount.forms import RedirectToProviderForm
 from allauth.headless.socialaccount.inputs import (
@@ -10,11 +6,9 @@ from allauth.headless.socialaccount.inputs import (
     ProviderTokenInput,
     SignupInput,
 )
-from allauth.headless.socialaccount.response import serialize_socialaccount
-from allauth.socialaccount.helpers import (
-    complete_social_login,
-    render_authentication_error,
-)
+from allauth.headless.socialaccount.internal import complete_login
+from allauth.headless.socialaccount.response import SocialAccountsResponse
+from allauth.socialaccount.helpers import render_authentication_error
 from allauth.socialaccount.internal import flows
 from allauth.socialaccount.models import SocialAccount
 
@@ -24,7 +18,7 @@ class ProviderSignupView(APIView):
 
     def post(self, request, *args, **kwargs):
         flows.signup.signup_by_form(self.request, self.sociallogin, self.input)
-        return respond_is_authenticated(request)
+        return AuthenticationResponse(request)
 
     def get_input_kwargs(self):
         self.sociallogin = flows.signup.get_pending_signup(self.request)
@@ -58,16 +52,16 @@ class ManageProvidersView(AuthenticatedAPIView):
     }
 
     def get(self, request, *args, **kwargs):
-        return self._respond_provider_accounts()
+        return self.respond_provider_accounts(request)
 
-    def _respond_provider_accounts(self):
-        accounts = SocialAccount.objects.filter(user=self.request.user)
-        data = [serialize_socialaccount(self.request, account) for account in accounts]
-        return APIResponse(data=data)
+    @classmethod
+    def respond_provider_accounts(self, request):
+        accounts = SocialAccount.objects.filter(user=request.user)
+        return SocialAccountsResponse(request, accounts)
 
     def delete(self, request, *args, **kwargs):
         flows.connect.disconnect(request, self.input.cleaned_data["account"])
-        return self._respond_provider_accounts()
+        return self.respond_provider_accounts(request)
 
     def get_input_kwargs(self):
         return {"user": self.request.user}
@@ -78,5 +72,5 @@ class ProviderTokenView(APIView):
 
     def post(self, request, *args, **kwargs):
         sociallogin = self.input.cleaned_data["sociallogin"]
-        complete_social_login(request, sociallogin)
-        return response.respond_is_authenticated(self.request)
+        complete_login(request, sociallogin)
+        return AuthenticationResponse(self.request)

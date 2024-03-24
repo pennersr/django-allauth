@@ -60,4 +60,4 @@ class DisconnectForm(forms.Form):
 
     def save(self):
         account = self.cleaned_data["account"]
-        flows.providers.disconnect(self.request, account)
+        flows.connect.disconnect(self.request, account)

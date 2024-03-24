@@ -1,4 +1,4 @@
-from allauth.socialaccount.internal.flows import providers, signup
+from allauth.socialaccount.internal.flows import connect, login, signup
 
 
-__all__ = ["signup", "providers"]
+__all__ = ["connect", "login", "signup"]

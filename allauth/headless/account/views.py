@@ -102,7 +102,7 @@ class RequestPasswordResetView(APIView):
 
     def post(self, request, *args, **kwargs):
         self.input.save(request)
-        return response.RequestPasswordResponse()
+        return response.RequestPasswordResponse(request)
 
 
 class ResetPasswordView(APIView):

@@ -14,11 +14,11 @@ export default function ProviderList (props) {
         }, props.process)
       }
 
-      google.accounts.id.initialize({
+      window.google.accounts.id.initialize({
         client_id: provider.client_id,
         callback: handleCredentialResponse
       })
-      google.accounts.id.prompt()
+      window.google.accounts.id.prompt()
     }
   }, [config])
 

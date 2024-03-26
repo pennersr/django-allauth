@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import FormErrors from '../FormErrors'
+import FormErrors from '../components/FormErrors'
 import { login } from '../lib/allauth'
 import { Link } from 'react-router-dom'
 import { useConfig } from '../auth'
 import ProviderList from '../socialaccount/ProviderList'
+import Button from '../components/Button'
 
 export default function Login () {
   const [email, setEmail] = useState('')
@@ -39,7 +40,7 @@ export default function Login () {
         <Link to='/account/password/reset'>Forgot your password?</Link>
         <FormErrors param='password' errors={response.content?.errors} />
       </div>
-      <button disabled={response.fetching} onClick={() => submit()}>Login</button>
+      <Button disabled={response.fetching} onClick={() => submit()}>Login</Button>
 
       {hasProviders
         ? <>

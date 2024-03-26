@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import FormErrors from '../FormErrors'
+import FormErrors from '../components/FormErrors'
 import { requestPasswordReset } from '../lib/allauth'
 import { Link } from 'react-router-dom'
+import Button from '../components/Button'
 
 export default function RequestPasswordReset () {
   const [email, setEmail] = useState('')
@@ -39,7 +40,7 @@ export default function RequestPasswordReset () {
       <div><label>Email <input value={email} onChange={(e) => setEmail(e.target.value)} type='email' required /></label>
         <FormErrors param='email' errors={response.content?.errors} />
       </div>
-      <button disabled={response.fetching} onClick={() => submit()}>Reset</button>
+      <Button disabled={response.fetching} onClick={() => submit()}>Reset</Button>
     </div>
   )
 }

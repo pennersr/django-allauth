@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import FormErrors from '../FormErrors'
+import FormErrors from '../components/FormErrors'
 import * as allauth from '../lib/allauth'
+import Button from '../components/Button'
 
 export default function MFAAuthenticate () {
   const [code, setCode] = useState('')
@@ -30,7 +31,7 @@ export default function MFAAuthenticate () {
         </label>
         <FormErrors param='code' errors={response.content?.errors} />
       </div>
-      <button onClick={() => submit()}>Sign In</button>
+      <Button onClick={() => submit()}>Sign In</Button>
 
     </section>
   )

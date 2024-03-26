@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import FormErrors from '../FormErrors'
+import FormErrors from '../components/FormErrors'
 import { reauthenticate, Flows } from '../lib/allauth'
 import ReauthenticateFlow from './ReauthenticateFlow'
+import Button from '../components/Button'
 
 export default function Reauthenticate () {
   const [password, setPassword] = useState('')
@@ -27,7 +28,7 @@ export default function Reauthenticate () {
       <div><label>Password: <input value={password} onChange={(e) => setPassword(e.target.value)} type='password' required /></label>
         <FormErrors param='password' errors={response.content?.errors} />
       </div>
-      <button disabled={response.fetching} onClick={() => submit()}>Confirm</button>
+      <Button disabled={response.fetching} onClick={() => submit()}>Confirm</Button>
     </ReauthenticateFlow>
   )
 }

@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import FormErrors from '../FormErrors'
+import FormErrors from '../components/FormErrors'
 import { signUp } from '../lib/allauth'
 import { Link } from 'react-router-dom'
 import { useConfig } from '../auth'
 import ProviderList from '../socialaccount/ProviderList'
+import Button from '../components/Button'
 
 export default function Signup () {
   const [email, setEmail] = useState('')
@@ -49,7 +50,7 @@ export default function Signup () {
       <div><label>Password (again): <input value={password2} onChange={(e) => setPassword2(e.target.value)} type='password' required /></label>
         <FormErrors param='password2' errors={password2Errors} />
       </div>
-      <button disabled={response.fetching} onClick={() => submit()}>Sign Up</button>
+      <Button disabled={response.fetching} onClick={() => submit()}>Sign Up</Button>
 
       {hasProviders
         ? <>

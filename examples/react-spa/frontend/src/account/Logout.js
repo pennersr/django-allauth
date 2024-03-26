@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { logout } from '../lib/allauth'
+import Button from '../components/Button'
 
 export default function Logout () {
   const [response, setResponse] = useState({ fetching: false, content: null })
@@ -26,7 +27,7 @@ export default function Logout () {
         Are you sure you want to logout?
       </p>
 
-      <button disabled={response.fetching} onClick={() => submit()}>Logout</button>
+      <Button disabled={response.fetching} onClick={() => submit()}>Logout</Button>
     </div>
   )
 }

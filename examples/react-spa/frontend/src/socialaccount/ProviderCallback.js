@@ -4,7 +4,6 @@ import {
   Link
 } from 'react-router-dom'
 import { URLs, pathForPendingFlow, useAuthStatus } from '../auth'
-import { Flows } from '../lib/allauth'
 
 export default function ProviderCallback () {
   const location = useLocation()

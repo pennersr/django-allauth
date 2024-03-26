@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import * as allauth from '../lib/allauth'
 import { Navigate, useLoaderData } from 'react-router-dom'
-import FormErrors from '../FormErrors'
+import FormErrors from '../components/FormErrors'
+import Button from '../components/Button'
 
 export async function loader ({ params }) {
   const resp = await allauth.getTOTPAuthenticator()
@@ -45,7 +46,7 @@ export default function ActivateTOTP (props) {
         </label>
         <FormErrors param='code' errors={response.content?.errors} />
       </div>
-      <button onClick={() => submit()}>Activate</button>
+      <Button onClick={() => submit()}>Activate</Button>
     </section>
   )
 }

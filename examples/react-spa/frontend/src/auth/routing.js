@@ -1,7 +1,6 @@
 import {
   Navigate,
-  useLocation,
-  Link
+  useLocation
 } from 'react-router-dom'
 import { useAuthChange, AuthChangeEvent, useAuthStatus } from './hooks'
 import { Flows } from '../lib/allauth'

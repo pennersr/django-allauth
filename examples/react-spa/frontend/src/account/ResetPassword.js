@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import FormErrors from '../FormErrors'
+import FormErrors from '../components/FormErrors'
 import { getPasswordReset, resetPassword } from '../lib/allauth'
 import { Navigate, Link, useLoaderData } from 'react-router-dom'
+import Button from '../components/Button'
 
 export async function loader ({ params }) {
   const key = params.key
@@ -50,7 +51,7 @@ export default function ResetPassword () {
           <FormErrors param='password2' errors={password2Errors} />
         </div>
 
-        <button disabled={response.fetching} onClick={() => submit()}>Reset</button>
+        <Button disabled={response.fetching} onClick={() => submit()}>Reset</Button>
       </>
     )
   }

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import * as allauth from '../lib/allauth'
-import FormErrors from '../FormErrors'
+import FormErrors from '../components/FormErrors'
+import Button from '../components/Button'
 
 export default function ChangeEmail () {
   const [email, setEmail] = useState('')
@@ -100,8 +101,8 @@ export default function ChangeEmail () {
                   <input onChange={() => markAsPrimary(ea.email)} type='radio' checked={ea.primary} />
                 </td>
                 <td>
-                  {ea.verified ? '' : <button onClick={() => requestEmailVerification(ea.email)} disabled={response.fetching}>Resend</button>}
-                  {ea.primary ? '' : <button onClick={() => deleteEmail(ea.email)} disabled={response.fetching}>Remove</button>}
+                  {ea.verified ? '' : <Button onClick={() => requestEmailVerification(ea.email)} disabled={response.fetching}>Resend</Button>}
+                  {ea.primary ? '' : <Button onClick={() => deleteEmail(ea.email)} disabled={response.fetching}>Remove</Button>}
                 </td>
               </tr>
             )
@@ -116,7 +117,7 @@ export default function ChangeEmail () {
       <div><label>Email <input value={email} onChange={(e) => setEmail(e.target.value)} type='email' required /></label>
         <FormErrors param='email' errors={response.content?.errors} />
       </div>
-      <button disabled={response.fetching} onClick={() => addEmail()}>Add</button>
+      <Button disabled={response.fetching} onClick={() => addEmail()}>Add</Button>
 
     </div>
   )

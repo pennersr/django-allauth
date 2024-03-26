@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useConfig } from '../auth'
 import { redirectToProvider, authenticateByToken } from '../lib/allauth'
+import Button from '../components/Button'
 
 export default function ProviderList (props) {
   const config = useConfig()
@@ -20,7 +21,7 @@ export default function ProviderList (props) {
       })
       window.google.accounts.id.prompt()
     }
-  }, [config])
+  }, [config, props.process])
 
   const providers = config.data.socialaccount.providers
   if (!providers.length) {
@@ -31,7 +32,7 @@ export default function ProviderList (props) {
       {providers.map(provider => {
         return (
           <li key={provider.id}>
-            <button onClick={() => redirectToProvider(provider.id, props.callbackURL, props.process)}>{provider.name}</button>
+            <Button onClick={() => redirectToProvider(provider.id, props.callbackURL, props.process)}>{provider.name}</Button>
           </li>
         )
       })}

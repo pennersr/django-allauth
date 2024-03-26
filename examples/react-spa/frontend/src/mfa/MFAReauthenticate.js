@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import FormErrors from '../FormErrors'
+import FormErrors from '../components/FormErrors'
 import { mfaReauthenticate, Flows } from '../lib/allauth'
 import ReauthenticateFlow from '../account/ReauthenticateFlow'
+import Button from '../components/Button'
 
 export default function MFAReauthenticate () {
   const [code, setCode] = useState('')
@@ -27,7 +28,7 @@ export default function MFAReauthenticate () {
       <div><label>Code: <input value={code} onChange={(e) => setCode(e.target.value)} type='text' required /></label>
         <FormErrors param='code' errors={response.content?.errors} />
       </div>
-      <button disabled={response.fetching} onClick={() => submit()}>Confirm</button>
+      <Button disabled={response.fetching} onClick={() => submit()}>Confirm</Button>
     </ReauthenticateFlow>
   )
 }

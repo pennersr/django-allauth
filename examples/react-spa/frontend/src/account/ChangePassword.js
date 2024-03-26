@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import FormErrors from '../FormErrors'
+import FormErrors from '../components/FormErrors'
 import { changePassword } from '../lib/allauth'
 import { Navigate } from 'react-router-dom'
 import { useUser } from '../auth'
+import Button from '../components/Button'
 
 export default function ChangePassword () {
   const hasCurrentPassword = useUser().has_usable_password
@@ -49,7 +50,7 @@ export default function ChangePassword () {
         <FormErrors param='new_password2' errors={newPassword2Errors} />
       </div>
 
-      <button disabled={response.fetching} onClick={() => submit()}>{hasCurrentPassword ? 'Change' : 'Set'}</button>
+      <Button disabled={response.fetching} onClick={() => submit()}>{hasCurrentPassword ? 'Change' : 'Set'}</Button>
     </div>
   )
 }

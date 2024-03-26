@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import * as allauth from '../lib/allauth'
 import ProviderList from './ProviderList'
-import FormErrors from '../FormErrors'
+import FormErrors from '../components/FormErrors'
+import Button from '../components/Button'
 
 export default function ManageProviders () {
   const [accounts, setAccounts] = useState([])
@@ -54,7 +55,7 @@ export default function ManageProviders () {
                 <td>{account.display}</td>
                 <td>{account.provider.name}</td>
                 <td>
-                  <button onClick={() => disconnect(account)} disabled={response.fetching}>Disconnect</button>
+                  <Button onClick={() => disconnect(account)} disabled={response.fetching}>Disconnect</Button>
                 </td>
               </tr>
             )

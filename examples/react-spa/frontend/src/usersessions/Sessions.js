@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useConfig } from '../auth'
 import * as allauth from '../lib/allauth'
-import FormErrors from '../FormErrors'
+import Button from '../components/Button'
 
 export default function Sessions () {
   const config = useConfig()
@@ -59,14 +59,14 @@ export default function Sessions () {
                 <td>{session.user_agent}</td>
                 {config.data.usersessions.track_activity ? <td>{session.last_seen_at}</td> : null}
                 <td>{session.is_current ? '⭐' : ''}</td>
-                <td><button onClick={() => logout([session])}>Logout</button></td>
+                <td><Button onClick={() => logout([session])}>Logout</Button></td>
               </tr>
             )
           })}
         </tbody>
       </table>
 
-      <button disabled={otherSessions.length <= 1} onClick={() => logout(otherSessions)}>Logout elsewhere</button>
+      <Button disabled={otherSessions.length <= 1} onClick={() => logout(otherSessions)}>Logout elsewhere</Button>
 
     </div>
   )

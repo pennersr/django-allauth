@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import * as allauth from '../lib/allauth'
 import { Navigate } from 'react-router-dom'
+import Button from '../components/Button'
 
 export default function DeactivateTOTP (props) {
   const [response, setResponse] = useState({ fetching: false, content: null })
@@ -25,7 +26,7 @@ export default function DeactivateTOTP (props) {
 
       <p>You are about to deactivate authenticator app based authentication. Are you sure?</p>
 
-      <button onClick={() => submit()}>Deactivate</button>
+      <Button onClick={() => submit()}>Deactivate</Button>
     </section>
   )
 }

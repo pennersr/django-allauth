@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Navigate, useLoaderData } from 'react-router-dom'
-import FormErrors from '../FormErrors'
+import FormErrors from '../components/FormErrors'
+import Button from '../components/Button'
 
 import * as allauth from '../lib/allauth'
 
@@ -39,7 +40,7 @@ export default function GenerateRecoveryCodes () {
 
       <FormErrors errors={response.content?.errors} />
 
-      <button onClick={() => submit()}>Generate</button>
+      <Button onClick={() => submit()}>Generate</Button>
 
     </section>
   )

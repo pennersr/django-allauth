@@ -4,6 +4,7 @@ import {
   Navigate
 } from 'react-router-dom'
 import { getEmailVerification, verifyEmail } from '../lib/allauth'
+import Button from '../components/Button'
 
 export async function loader ({ params }) {
   const key = params.key
@@ -36,7 +37,7 @@ export default function VerifyEmail () {
     body = (
       <>
         <p>Please confirm that <a href={'mailto:' + verification.data.email}>{verification.data.email}</a> is an email address for user {verification.data.user.str}.</p>
-        <button disabled={response.fetching} onClick={() => submit()}>Confirm</button>
+        <Button disabled={response.fetching} onClick={() => submit()}>Confirm</Button>
       </>
     )
   } else if (!verification.data?.email) {

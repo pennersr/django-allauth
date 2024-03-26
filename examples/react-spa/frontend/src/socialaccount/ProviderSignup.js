@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import FormErrors from '../FormErrors'
+import FormErrors from '../components/FormErrors'
 import { providerSignup } from '../lib/allauth'
 import { Link } from 'react-router-dom'
+import Button from '../components/Button'
 
 export default function ProviderSignup () {
   const [email, setEmail] = useState('')
@@ -31,7 +32,7 @@ export default function ProviderSignup () {
       <div><label>Email <input value={email} onChange={(e) => setEmail(e.target.value)} type='email' required /></label>
         <FormErrors param='email' errors={response.content?.errors} />
       </div>
-      <button disabled={response.fetching} onClick={() => submit()}>Sign Up</button>
+      <Button disabled={response.fetching} onClick={() => submit()}>Sign Up</Button>
     </div>
   )
 }

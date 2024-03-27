@@ -23,8 +23,8 @@ class SlackProvider(OAuth2Provider):
 
     def extract_uid(self, data):
         return "%s_%s" % (
-            str(data.get("team").get("id")),
-            str(data.get("user").get("id")),
+            str(data.get("https://slack.com/team_id")),
+            str(data.get("https://slack.com/user_id")),
         )
 
     def extract_common_fields(self, data):

@@ -16,7 +16,7 @@ class MicrosoftGraphAccount(ProviderAccount):
 
 class MicrosoftGraphProvider(OAuth2Provider):
     id = "microsoft"
-    name = "Microsoft Graph"
+    name = "Microsoft"
     account_class = MicrosoftGraphAccount
     oauth2_adapter_class = MicrosoftGraphOAuth2Adapter
 

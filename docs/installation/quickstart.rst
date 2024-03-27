@@ -43,6 +43,8 @@ the ``settings.py`` of your project::
 
         'allauth',
         'allauth.account',
+
+        # Required for social accounts
         'allauth.socialaccount',
         # ... include the providers you want to enable:
         'allauth.socialaccount.providers.agave',

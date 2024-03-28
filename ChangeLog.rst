@@ -85,6 +85,22 @@ Fixes
 - SAML: the login view did not obey the ``SOCIALACCOUNT_LOGIN_ON_GET = False`` setting.
 
 
+Backwards incompatible changes
+------------------------------
+
+- Formally, email addresses are case sensitive because the local part (the part
+  before the "@") can be a case sensitive user name.  To deal with this,
+  workarounds have been in place for a long time that store email addresses in
+  their original case, while performing lookups in a case insensitive
+  style. This approach led to subtle bugs in upstream code, and also comes at a
+  performance cost (``__iexact`` lookups). The latter requires case insensitive
+  index support, which not all databases support. Re-evaluating the approach in
+  current times has led to the conclusion that the benefits do not outweigh the
+  costs.  Therefore, email addresses are now always stored as lower case, and
+  migrations are in place to address existing records.
+
+
+
 0.60.0 (2024-01-05)
 *******************
 

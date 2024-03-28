@@ -1,4 +1,3 @@
-import functools
 from datetime import timedelta
 
 from django.db import models
@@ -37,6 +36,7 @@ class EmailAddressManager(models.Manager):
         """
         assert app_settings.CHANGE_EMAIL
         instance = self.get_new(user)
+        email = email.lower()
         if not instance:
             instance = self.model.objects.create(user=user, email=email)
         else:
@@ -50,8 +50,9 @@ class EmailAddressManager(models.Manager):
         return instance
 
     def add_email(self, request, user, email, confirm=False, signup=False):
+        email = email.lower()
         email_address, created = self.get_or_create(
-            user=user, email__iexact=email, defaults={"email": email}
+            user=user, email=email, defaults={"email": email}
         )
 
         if created and confirm:
@@ -82,7 +83,7 @@ class EmailAddressManager(models.Manager):
         # this is a list rather than a generator because we probably want to
         # do a len() on it right away
         return [
-            address.user for address in self.filter(verified=True, email__iexact=email)
+            address.user for address in self.filter(verified=True, email=email.lower())
         ]
 
     def fill_cache_for_user(self, user, addresses):
@@ -97,27 +98,24 @@ class EmailAddressManager(models.Manager):
     def get_for_user(self, user, email):
         cache_key = "_emailaddress_cache"
         addresses = getattr(user, cache_key, None)
+        email = email.lower()
         if addresses is None:
-            ret = self.get(user=user, email__iexact=email)
+            ret = self.get(user=user, email=email)
             # To avoid additional lookups when e.g.
             # EmailAddress.set_as_primary() starts touching self.user
             ret.user = user
             return ret
         else:
             for address in addresses:
-                if address.email.lower() == email.lower():
+                if address.email == email:
                     return address
             raise self.model.DoesNotExist()
 
     def is_verified(self, email):
-        return self.filter(email__iexact=email, verified=True).exists()
+        return self.filter(email=email.lower(), verified=True).exists()
 
     def lookup(self, emails):
-        q_list = [Q(email__iexact=e) for e in emails]
-        if not q_list:
-            return self.none()
-        q = functools.reduce(lambda a, b: a | b, q_list)
-        return self.filter(q)
+        return self.filter(email__in=[e.lower() for e in emails])
 
 
 class EmailConfirmationManager(models.Manager):

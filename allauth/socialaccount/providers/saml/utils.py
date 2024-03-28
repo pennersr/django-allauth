@@ -1,5 +1,6 @@
 from urllib.parse import parse_qsl, urlparse
 
+from django.conf import settings
 from django.core.cache import cache
 from django.core.exceptions import ImproperlyConfigured
 from django.http import Http404
@@ -41,6 +42,8 @@ def build_sp_config(request, provider_config, org):
     acs_url = request.build_absolute_uri(reverse("saml_acs", args=[org]))
     sls_url = request.build_absolute_uri(reverse("saml_sls", args=[org]))
     metadata_url = request.build_absolute_uri(reverse("saml_metadata", args=[org]))
+    if not getattr(settings, "SAML_METADATA_URL_TRAILING_SLASH", False):
+        metadata_url = metadata_url.rstrip("/")
     sp_config = {
         "entityId": metadata_url,
         "assertionConsumerService": {

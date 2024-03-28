@@ -22,7 +22,7 @@
                {% if attrs.id %}id="{{ attrs.id }}"{% endif %}
                {% if attrs.placeholder %}placeholder="{{ attrs.placeholder }}"{% endif %}
                {% if attrs.autocomplete %}autocomplete="{{ attrs.autocomplete }}"{% endif %}
-               value="{{ attrs.value|default_if_none:"" }}"
+               value="{{ attrs.value|default_if_none:'' }}"
                type="{{ attrs.type }}">
     {% endif %}
     {% if slots.help_text %}

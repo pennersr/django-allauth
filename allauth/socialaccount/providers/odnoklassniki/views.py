@@ -7,8 +7,6 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import OdnoklassnikiProvider
-
 
 USER_FIELDS = [
     "age",
@@ -36,7 +34,7 @@ USER_FIELDS = [
 
 
 class OdnoklassnikiOAuth2Adapter(OAuth2Adapter):
-    provider_id = OdnoklassnikiProvider.id
+    provider_id = "odnoklassniki"
     access_token_url = "https://api.odnoklassniki.ru/oauth/token.do"
     authorize_url = "https://www.odnoklassniki.ru/oauth/authorize"
     profile_url = "https://api.odnoklassniki.ru/fb.do"

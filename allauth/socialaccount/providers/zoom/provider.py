@@ -1,6 +1,7 @@
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.zoom.views import ZoomOAuth2Adapter
 
 
 class ZoomAccount(ProviderAccount):
@@ -19,6 +20,7 @@ class ZoomProvider(OAuth2Provider):
     id = "zoom"
     name = "Zoom"
     account_class = ZoomAccount
+    oauth2_adapter_class = ZoomOAuth2Adapter
 
     def extract_uid(self, data):
         return data["id"]

@@ -1,6 +1,10 @@
-Unreleased
-----------
+0.62.0 (unreleased)
+*******************
 
+Note worthy changes
+-------------------
+
+- Added a dummy provider, useful for testing purposes: ``allauth.socialaccount.providers.dummy``.
 - Added RequireMFAMiddleware which allows forcing MFA set-up, for example for specific users.
 
 

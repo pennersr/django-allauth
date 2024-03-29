@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import RobinhoodProvider
-
 
 class RobinhoodOAuth2Adapter(OAuth2Adapter):
-    provider_id = RobinhoodProvider.id
+    provider_id = "robinhood"
 
     @property
     def authorize_url(self):

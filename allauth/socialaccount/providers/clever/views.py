@@ -6,18 +6,14 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import CleverProvider
-
 
 class CleverOAuth2Adapter(OAuth2Adapter):
-    provider_id = CleverProvider.id
+    provider_id = "clever"
 
     access_token_url = "https://clever.com/oauth/tokens"
     authorize_url = "https://clever.com/oauth/authorize"
     identity_url = "https://api.clever.com/v3.0/me"
     user_details_url = "https://api.clever.com/v3.0/users"
-
-    supports_state = True
 
     def complete_login(self, request, app, token, **kwargs):
         extra_data = self.get_data(token.token)

@@ -1,4 +1,7 @@
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.coinbase.views import (
+    CoinbaseOAuth2Adapter,
+)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -16,6 +19,7 @@ class CoinbaseProvider(OAuth2Provider):
     id = "coinbase"
     name = "Coinbase"
     account_class = CoinbaseAccount
+    oauth2_adapter_class = CoinbaseOAuth2Adapter
 
     def get_default_scope(self):
         # See: https://coinbase.com/docs/api/permissions

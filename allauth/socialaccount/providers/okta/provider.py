@@ -1,6 +1,7 @@
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.okta.views import OktaOAuth2Adapter
 
 
 class OktaAccount(ProviderAccount):
@@ -13,6 +14,7 @@ class OktaProvider(OAuth2Provider):
     id = "okta"
     name = "Okta"
     account_class = OktaAccount
+    oauth2_adapter_class = OktaOAuth2Adapter
 
     def get_default_scope(self):
         return ["openid", "profile", "email", "offline_access"]

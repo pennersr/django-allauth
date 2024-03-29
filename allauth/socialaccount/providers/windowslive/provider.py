@@ -1,7 +1,8 @@
-from __future__ import unicode_literals
-
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.windowslive.views import (
+    WindowsLiveOAuth2Adapter,
+)
 
 
 class WindowsLiveAccount(ProviderAccount):
@@ -16,9 +17,10 @@ class WindowsLiveAccount(ProviderAccount):
 
 
 class WindowsLiveProvider(OAuth2Provider):
-    id = str("windowslive")
+    id = "windowslive"
     name = "Live"
     account_class = WindowsLiveAccount
+    oauth2_adapter_class = WindowsLiveOAuth2Adapter
 
     def get_default_scope(self):
         """

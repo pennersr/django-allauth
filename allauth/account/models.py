@@ -209,12 +209,18 @@ class EmailConfirmationHMAC(EmailConfirmationMixin, object):
 class Login:
     """
     Represents a user that is in the process of logging in.
+
+    Keyword arguments:
+
+    signup -- Indicates whether or not sending the
+    email is essential (during signup), or if it can be skipped (e.g. in
+    case email verification is optional and we are only logging in).
     """
 
     def __init__(
         self,
         user,
-        email_verification,
+        email_verification=None,
         redirect_url=None,
         signal_kwargs=None,
         signup=False,
@@ -222,6 +228,8 @@ class Login:
         state=None,
     ):
         self.user = user
+        if not email_verification:
+            email_verification = app_settings.EMAIL_VERIFICATION
         self.email_verification = email_verification
         self.redirect_url = redirect_url
         self.signal_kwargs = signal_kwargs

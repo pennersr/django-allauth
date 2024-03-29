@@ -17,11 +17,12 @@ class FeishuOAuth2Client(OAuth2Client):
         "https://open.feishu.cn/open-apis/auth/v3/app_access_token/internal/"
     )
 
-    def get_redirect_url(self, authorization_url, extra_params):
+    def get_redirect_url(self, authorization_url, scope, extra_params):
+        scope = self.scope_delimiter.join(set(scope))
         params = {
             "app_id": self.consumer_key,
             "redirect_uri": self.callback_url,
-            "scope": self.scope,
+            "scope": scope,
             "response_type": "code",
         }
         if self.state:

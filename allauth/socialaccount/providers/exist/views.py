@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import ExistProvider
-
 
 class ExistOAuth2Adapter(OAuth2Adapter):
-    provider_id = ExistProvider.id
+    provider_id = "exist"
     access_token_url = "https://exist.io/oauth2/access_token"
     authorize_url = "https://exist.io/oauth2/authorize"
     profile_url = "https://exist.io/api/2/accounts/profile/"

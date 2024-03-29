@@ -84,7 +84,13 @@ def format_hotp_value(value):
     return f"{value:0{app_settings.TOTP_DIGITS}}"
 
 
+def _is_insecure_bypass(code):
+    return code and app_settings.TOTP_INSECURE_BYPASS_CODE == code
+
+
 def validate_totp_code(secret, code):
+    if _is_insecure_bypass(code):
+        return True
     value = hotp_value(secret, hotp_counter_from_time())
     return code == format_hotp_value(value)
 
@@ -105,6 +111,8 @@ class TOTP:
         self.instance.delete()
 
     def validate_code(self, code):
+        if _is_insecure_bypass(code):
+            return True
         if self._is_code_used(code):
             return False
 

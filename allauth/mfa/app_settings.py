@@ -44,6 +44,21 @@ class AppSettings(object):
         return self._setting("TOTP_ISSUER", "")
 
     @property
+    def TOTP_INSECURE_BYPASS_CODE(self):
+        """
+        Don't use this on production. Useful for development & E2E tests only.
+        """
+        from django.conf import settings
+        from django.core.exceptions import ImproperlyConfigured
+
+        code = self._setting("TOTP_INSECURE_BYPASS_CODE", None)
+        if (not settings.DEBUG) and code:
+            raise ImproperlyConfigured(
+                "MFA_TOTP_INSECURE_BYPASS_CODE is for testing purposes only"
+            )
+        return code
+
+    @property
     def SUPPORTED_TYPES(self):
         dflt = ["recovery_codes", "totp"]
         return self._setting("SUPPORTED_TYPES", dflt)

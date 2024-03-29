@@ -6,11 +6,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import LinkedInOAuth2Provider
-
 
 class LinkedInOAuth2Adapter(OAuth2Adapter):
-    provider_id = LinkedInOAuth2Provider.id
+    provider_id = "linkedin_oauth2"
     access_token_url = "https://www.linkedin.com/oauth/v2/accessToken"
     authorize_url = "https://www.linkedin.com/oauth/v2/authorization"
     profile_url = "https://api.linkedin.com/v2/me"

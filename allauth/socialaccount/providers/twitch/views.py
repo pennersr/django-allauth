@@ -6,11 +6,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import TwitchProvider
-
 
 class TwitchOAuth2Adapter(OAuth2Adapter):
-    provider_id = TwitchProvider.id
+    provider_id = "twitch"
     access_token_url = "https://id.twitch.tv/oauth2/token"
     authorize_url = "https://id.twitch.tv/oauth2/authorize"
     profile_url = "https://api.twitch.tv/helix/users"

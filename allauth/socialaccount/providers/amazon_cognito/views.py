@@ -1,8 +1,5 @@
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
-from allauth.socialaccount.providers.amazon_cognito.provider import (
-    AmazonCognitoProvider,
-)
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -11,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 
 class AmazonCognitoOAuth2Adapter(OAuth2Adapter):
-    provider_id = AmazonCognitoProvider.id
+    provider_id = "amazon_cognito"
 
     DOMAIN_KEY_MISSING_ERROR = (
         '"DOMAIN" key is missing in Amazon Cognito configuration.'

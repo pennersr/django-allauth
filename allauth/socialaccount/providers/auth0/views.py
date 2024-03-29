@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
-from allauth.socialaccount.providers.auth0.provider import Auth0Provider
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -10,8 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 
 class Auth0OAuth2Adapter(OAuth2Adapter):
-    provider_id = Auth0Provider.id
-    supports_state = True
+    provider_id = "auth0"
 
     settings = app_settings.PROVIDERS.get(provider_id, {})
     provider_base_url = settings.get("AUTH0_URL")

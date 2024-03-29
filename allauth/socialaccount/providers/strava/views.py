@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import StravaProvider
 
-
-class StravaOauth2Adapter(OAuth2Adapter):
-    provider_id = StravaProvider.id
+class StravaOAuth2Adapter(OAuth2Adapter):
+    provider_id = "strava"
     access_token_url = "https://www.strava.com/oauth/token"
     authorize_url = "https://www.strava.com/oauth/authorize"
     profile_url = "https://www.strava.com/api/v3/athlete"
@@ -23,5 +21,5 @@ class StravaOauth2Adapter(OAuth2Adapter):
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 
-oauth2_login = OAuth2LoginView.adapter_view(StravaOauth2Adapter)
-oauth2_callback = OAuth2CallbackView.adapter_view(StravaOauth2Adapter)
+oauth2_login = OAuth2LoginView.adapter_view(StravaOAuth2Adapter)
+oauth2_callback = OAuth2CallbackView.adapter_view(StravaOAuth2Adapter)

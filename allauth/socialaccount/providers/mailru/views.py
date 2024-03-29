@@ -7,11 +7,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import MailRuProvider
-
 
 class MailRuOAuth2Adapter(OAuth2Adapter):
-    provider_id = MailRuProvider.id
+    provider_id = "mailru"
     access_token_url = "https://connect.mail.ru/oauth/token"
     authorize_url = "https://connect.mail.ru/oauth/authorize"
     profile_url = "http://www.appsmail.ru/platform/api"

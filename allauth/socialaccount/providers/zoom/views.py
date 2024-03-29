@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import ZoomProvider
-
 
 class ZoomOAuth2Adapter(OAuth2Adapter):
-    provider_id = ZoomProvider.id
+    provider_id = "zoom"
     access_token_url = "https://zoom.us/oauth/token"
     authorize_url = "https://zoom.us/oauth/authorize"
     profile_url = "https://api.zoom.us/v2/users/me"

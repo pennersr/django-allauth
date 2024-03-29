@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.gitlab.views import GitLabOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -19,6 +19,7 @@ class GitLabProvider(OAuth2Provider):
     id = "gitlab"
     name = "GitLab"
     account_class = GitLabAccount
+    oauth2_adapter_class = GitLabOAuth2Adapter
 
     def get_default_scope(self):
         return ["read_user"]

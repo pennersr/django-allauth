@@ -20,14 +20,20 @@ DATABASES = {
     }
 }
 
-ROOT_URLCONF = "allauth.urls"
+ROOT_URLCONF = "tests.urls"
 LOGIN_URL = "/login/"
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            os.path.join(os.path.dirname(__file__), "examples", "regular-django", "example", "templates")
+            os.path.join(
+                os.path.dirname(__file__),
+                "examples",
+                "regular-django",
+                "example",
+                "templates",
+            )
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -98,6 +104,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.draugiem",
     "allauth.socialaccount.providers.drip",
     "allauth.socialaccount.providers.dropbox",
+    "allauth.socialaccount.providers.dummy",
     "allauth.socialaccount.providers.dwolla",
     "allauth.socialaccount.providers.edmodo",
     "allauth.socialaccount.providers.edx",

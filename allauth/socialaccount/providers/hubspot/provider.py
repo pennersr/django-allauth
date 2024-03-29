@@ -1,5 +1,6 @@
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.hubspot.views import HubspotOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -11,6 +12,7 @@ class HubspotProvider(OAuth2Provider):
     id = "hubspot"
     name = "Hubspot"
     account_class = HubspotAccount
+    oauth2_adapter_class = HubspotOAuth2Adapter
 
     def get_default_scope(self):
         return ["oauth"]

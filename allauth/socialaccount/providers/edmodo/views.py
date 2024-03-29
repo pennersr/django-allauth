@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import EdmodoProvider
-
 
 class EdmodoOAuth2Adapter(OAuth2Adapter):
-    provider_id = EdmodoProvider.id
+    provider_id = "edmodo"
     access_token_url = "https://api.edmodo.com/oauth/token"
     authorize_url = "https://api.edmodo.com/oauth/authorize"
     profile_url = "https://api.edmodo.com/users/me"

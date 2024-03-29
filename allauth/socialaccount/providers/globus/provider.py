@@ -3,6 +3,7 @@ from allauth.socialaccount.providers.base import (
     ProviderAccount,
     ProviderException,
 )
+from allauth.socialaccount.providers.globus.views import GlobusOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -22,6 +23,7 @@ class GlobusProvider(OAuth2Provider):
     id = "globus"
     name = "Globus"
     account_class = GlobusAccount
+    oauth2_adapter_class = GlobusOAuth2Adapter
 
     def extract_uid(self, data):
         if "sub" not in data:

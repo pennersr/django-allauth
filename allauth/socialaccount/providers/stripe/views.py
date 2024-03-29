@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import StripeProvider
-
 
 class StripeOAuth2Adapter(OAuth2Adapter):
-    provider_id = StripeProvider.id
+    provider_id = "stripe"
     access_token_url = "https://connect.stripe.com/oauth/token"
     authorize_url = "https://connect.stripe.com/oauth/authorize"
     profile_url = "https://api.stripe.com/v1/accounts/%s"

@@ -17,6 +17,11 @@ from allauth.socialaccount.helpers import (
     render_authentication_error,
 )
 from allauth.socialaccount.models import SocialLogin, SocialToken
+from allauth.socialaccount.providers.facebook.constants import (
+    GRAPH_API_URL,
+    GRAPH_API_VERSION,
+    PROVIDER_ID,
+)
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -24,7 +29,6 @@ from allauth.socialaccount.providers.oauth2.views import (
 )
 
 from .forms import FacebookConnectForm
-from .provider import GRAPH_API_URL, GRAPH_API_VERSION, FacebookProvider
 
 
 logger = logging.getLogger(__name__)
@@ -60,7 +64,7 @@ def fb_complete_login(request, app, token):
 
 
 class FacebookOAuth2Adapter(OAuth2Adapter):
-    provider_id = FacebookProvider.id
+    provider_id = PROVIDER_ID
     provider_default_auth_url = "https://www.facebook.com/{}/dialog/oauth".format(
         GRAPH_API_VERSION
     )
@@ -83,7 +87,7 @@ oauth2_callback = OAuth2CallbackView.adapter_view(FacebookOAuth2Adapter)
 class LoginByTokenView(View):
     def dispatch(self, request):
         self.adapter = get_adapter()
-        self.provider = self.adapter.get_provider(request, FacebookProvider.id)
+        self.provider = self.adapter.get_provider(request, PROVIDER_ID)
         try:
             return super().dispatch(request)
         except (

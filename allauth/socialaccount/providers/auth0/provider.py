@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+from allauth.socialaccount.providers.auth0.views import Auth0OAuth2Adapter
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -16,6 +16,7 @@ class Auth0Provider(OAuth2Provider):
     id = "auth0"
     name = "Auth0"
     account_class = Auth0Account
+    oauth2_adapter_class = Auth0OAuth2Adapter
 
     def get_default_scope(self):
         return ["openid", "profile", "email"]

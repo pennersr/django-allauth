@@ -10,11 +10,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import VimeoOAuth2Provider
-
 
 class VimeoOAuth2Adapter(OAuth2Adapter):
-    provider_id = VimeoOAuth2Provider.id
+    provider_id = "vimeo_oauth2"
     access_token_url = "https://api.vimeo.com/oauth/access_token"
     authorize_url = "https://api.vimeo.com/oauth/authorize"
     profile_url = "https://api.vimeo.com/me/"

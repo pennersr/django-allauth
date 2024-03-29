@@ -1,10 +1,16 @@
 from django.conf import settings
+from django.urls import reverse
 from django.utils.decorators import sync_and_async_middleware
 
 from asgiref.sync import iscoroutinefunction, sync_to_async
 
+from allauth.account.adapter import get_adapter
+from allauth.account.reauthentication import suspend_request
 from allauth.core import context
-from allauth.core.exceptions import ImmediateHttpResponse
+from allauth.core.exceptions import (
+    ImmediateHttpResponse,
+    ReauthenticationRequired,
+)
 
 
 @sync_and_async_middleware
@@ -30,6 +36,12 @@ def AccountMiddleware(get_response):
     def process_exception(request, exception):
         if isinstance(exception, ImmediateHttpResponse):
             return exception.response
+        elif isinstance(exception, ReauthenticationRequired):
+            redirect_url = reverse("account_login")
+            methods = get_adapter().get_reauthentication_methods(request.user)
+            if methods:
+                redirect_url = methods[0]["url"]
+            return suspend_request(request, redirect_url)
 
     middleware.process_exception = process_exception
     return middleware

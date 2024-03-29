@@ -1,4 +1,5 @@
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.box.views import BoxOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -10,6 +11,7 @@ class BoxOAuth2Provider(OAuth2Provider):
     id = "box"
     name = "Box"
     account_class = BoxOAuth2Account
+    oauth2_adapter_class = BoxOAuth2Adapter
 
     def extract_uid(self, data):
         return data["id"]

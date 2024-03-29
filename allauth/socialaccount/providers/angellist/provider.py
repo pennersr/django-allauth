@@ -1,3 +1,6 @@
+from allauth.socialaccount.providers.angellist.views import (
+    AngelListOAuth2Adapter,
+)
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -18,6 +21,7 @@ class AngelListProvider(OAuth2Provider):
     id = "angellist"
     name = "AngelList"
     account_class = AngelListAccount
+    oauth2_adapter_class = AngelListOAuth2Adapter
 
     def extract_uid(self, data):
         return str(data["id"])

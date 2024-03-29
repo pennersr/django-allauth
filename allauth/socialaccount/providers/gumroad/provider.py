@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.gumroad.views import GumroadOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -16,6 +16,7 @@ class GumroadProvider(OAuth2Provider):
     id = "gumroad"
     name = "Gumroad"
     account_class = GumroadAccount
+    oauth2_adapter_class = GumroadOAuth2Adapter
 
     def get_default_scope(self):
         return ["edit_products"]

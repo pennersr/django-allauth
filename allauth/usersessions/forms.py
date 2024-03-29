@@ -1,6 +1,6 @@
 from django import forms
 
-from allauth.usersessions.adapter import get_adapter
+from allauth.usersessions.internal import flows
 from allauth.usersessions.models import UserSession
 
 
@@ -15,4 +15,4 @@ class ManageUserSessionsForm(forms.Form):
             if session.is_current():
                 continue
             sessions_to_end.append(session)
-        get_adapter().end_sessions(sessions_to_end)
+        flows.sessions.end_sessions(request, sessions_to_end)

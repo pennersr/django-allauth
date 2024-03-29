@@ -1,14 +1,13 @@
 from importlib import import_module
 
 from django import forms
-from django.contrib.auth import password_validation
+from django.contrib.auth import get_user_model, password_validation
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core import exceptions, validators
 from django.urls import NoReverseMatch, reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext, gettext_lazy as _, pgettext
 
-from allauth.account.authentication import record_authentication
 from allauth.account.internal import flows
 
 from ..utils import (
@@ -19,12 +18,10 @@ from ..utils import (
 from . import app_settings
 from .adapter import get_adapter
 from .app_settings import AuthenticationMethod
-from .models import EmailAddress
+from .models import EmailAddress, Login
 from .utils import (
     assess_unique_email,
     filter_users_by_email,
-    get_user_model,
-    perform_login,
     setup_user_email,
     sync_user_email_addresses,
     url_str_to_user_pk,
@@ -202,18 +199,12 @@ class LoginForm(forms.Form):
 
     def login(self, request, redirect_url=None):
         credentials = self.user_credentials()
-        extra_data = {
-            field: credentials.get(field)
-            for field in ["email", "username"]
-            if field in credentials
-        }
-        record_authentication(request, method="password", **extra_data)
-        ret = perform_login(
-            request,
-            self.user,
+        login = Login(
+            user=self.user,
             redirect_url=redirect_url,
             email=credentials.get("email"),
         )
+        ret = flows.login.perform_password_login(request, credentials, login)
         remember = app_settings.SESSION_REMEMBER
         if remember is None:
             remember = self.cleaned_data["remember"]
@@ -404,6 +395,18 @@ class BaseSignupForm(_base_signup_form_class()):
             resp = None
         return user, resp
 
+    def save(self, request):
+        email = self.cleaned_data.get("email")
+        if self.account_already_exists:
+            raise ValueError(email)
+        adapter = get_adapter()
+        user = adapter.new_user(request)
+        adapter.save_user(request, user, self)
+        self.custom_signup(request, user)
+        # TODO: Move into adapter `save_user` ?
+        setup_user_email(request, user, [EmailAddress(email=email)] if email else [])
+        return user
+
 
 class SignupForm(BaseSignupForm):
     def __init__(self, *args, **kwargs):
@@ -449,18 +452,6 @@ class SignupForm(BaseSignupForm):
                     _("You must type the same password each time."),
                 )
         return self.cleaned_data
-
-    def save(self, request):
-        email = self.cleaned_data.get("email")
-        if self.account_already_exists:
-            raise ValueError(email)
-        adapter = get_adapter()
-        user = adapter.new_user(request)
-        adapter.save_user(request, user, self)
-        self.custom_signup(request, user)
-        # TODO: Move into adapter `save_user` ?
-        setup_user_email(request, user, [EmailAddress(email=email)] if email else [])
-        return user
 
 
 class UserForm(forms.Form):
@@ -639,7 +630,7 @@ class ResetPasswordKeyForm(PasswordVerificationMixin, forms.Form):
         self.fields["password1"].user = self.user
 
     def save(self):
-        get_adapter().set_password(self.user, self.cleaned_data["password1"])
+        flows.password_reset.reset_password(self.user, self.cleaned_data["password1"])
 
 
 class UserTokenForm(forms.Form):

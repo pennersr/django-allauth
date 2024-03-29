@@ -5,15 +5,11 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import (
-    FXA_OAUTH_ENDPOINT,
-    FXA_PROFILE_ENDPOINT,
-    FirefoxAccountsProvider,
-)
+from .constants import FXA_OAUTH_ENDPOINT, FXA_PROFILE_ENDPOINT, PROVIDER_ID
 
 
 class FirefoxAccountsOAuth2Adapter(OAuth2Adapter):
-    provider_id = FirefoxAccountsProvider.id
+    provider_id = PROVIDER_ID
     access_token_url = FXA_OAUTH_ENDPOINT + "/token"
     authorize_url = FXA_OAUTH_ENDPOINT + "/authorization"
     profile_url = FXA_PROFILE_ENDPOINT + "/profile"

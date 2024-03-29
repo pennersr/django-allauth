@@ -7,7 +7,7 @@ from django.test import Client
 from django.urls import reverse
 
 import pytest
-from pytest_django.asserts import assertFormError
+from pytest_django.asserts import assertFormError, assertTemplateUsed
 
 from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
 from allauth.account.models import EmailAddress
@@ -344,3 +344,41 @@ def test_totp_code_reuse(
             assert resp.context["form"].errors == {
                 "code": [get_adapter().error_messages["incorrect_code"]]
             }
+
+
+def test_generate_recovery_codes_require_other_authenticator(
+    auth_client, user, settings, reauthentication_bypass
+):
+    with reauthentication_bypass():
+        resp = auth_client.post(reverse("mfa_generate_recovery_codes"))
+    assert resp.context["form"].errors == {
+        "__all__": [
+            "You cannot generate recovery codes without having two-factor authentication enabled."
+        ]
+    }
+    assert not Authenticator.objects.filter(user=user).exists()
+
+
+def test_reauthentication(auth_client, user_with_recovery_codes):
+    resp = auth_client.get(reverse("mfa_view_recovery_codes"))
+    assert resp.status_code == 302
+    assert resp["location"].startswith(reverse("account_reauthenticate"))
+    resp = auth_client.get(reverse("mfa_reauthenticate"))
+    assertTemplateUsed(resp, "mfa/reauthenticate.html")
+    authenticator = Authenticator.objects.get(
+        user=user_with_recovery_codes, type=Authenticator.Type.RECOVERY_CODES
+    )
+    unused_code = authenticator.wrap().get_unused_codes()[0]
+    resp = auth_client.post(reverse("mfa_reauthenticate"), data={"code": unused_code})
+    assert resp.status_code == 302
+    resp = auth_client.get(reverse("mfa_view_recovery_codes"))
+    assert resp.status_code == 200
+    assertTemplateUsed(resp, "mfa/recovery_codes/index.html")
+    methods = auth_client.session[AUTHENTICATION_METHODS_SESSION_KEY]
+    assert methods[-1] == {
+        "method": "mfa",
+        "type": "recovery_codes",
+        "id": authenticator.pk,
+        "at": ANY,
+        "reauthenticated": True,
+    }

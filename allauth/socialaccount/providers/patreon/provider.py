@@ -1,20 +1,11 @@
 """
 Provider for Patreon
 """
-
-from django.conf import settings
-
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.patreon.views import PatreonOAuth2Adapter
 
-
-API_VERSION = (
-    getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
-    .get("patreon", {})
-    .get("VERSION", "v1")
-)
-USE_API_V2 = True if API_VERSION == "v2" else False
-API_URL = "https://www.patreon.com/api/oauth2/" + (API_VERSION if USE_API_V2 else "api")
+from .constants import PROVIDER_ID, USE_API_V2
 
 
 class PatreonAccount(ProviderAccount):
@@ -23,9 +14,10 @@ class PatreonAccount(ProviderAccount):
 
 
 class PatreonProvider(OAuth2Provider):
-    id = "patreon"
+    id = PROVIDER_ID
     name = "Patreon"
     account_class = PatreonAccount
+    oauth2_adapter_class = PatreonOAuth2Adapter
 
     def get_default_scope(self):
         if USE_API_V2:

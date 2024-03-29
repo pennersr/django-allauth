@@ -1,8 +1,6 @@
-# -*- coding: utf-8 -*-
 from allauth.core import context
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
-from allauth.socialaccount.providers.gitlab.provider import GitLabProvider
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -42,7 +40,7 @@ def _check_errors(response):
 
 
 class GitLabOAuth2Adapter(OAuth2Adapter):
-    provider_id = GitLabProvider.id
+    provider_id = "gitlab"
     provider_default_url = "https://gitlab.com"
     provider_api_version = "v4"
 

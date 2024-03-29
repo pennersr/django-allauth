@@ -1,5 +1,6 @@
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.discord.views import DiscordOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -73,6 +74,7 @@ class DiscordProvider(OAuth2Provider):
     id = "discord"
     name = "Discord"
     account_class = DiscordAccount
+    oauth2_adapter_class = DiscordOAuth2Adapter
 
     def extract_uid(self, data):
         return str(data["id"])

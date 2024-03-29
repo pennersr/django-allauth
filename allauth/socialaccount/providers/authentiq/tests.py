@@ -45,7 +45,7 @@ class AuthentiqTests(OAuth2TestsMixin, TestCase):
 
     def test_scopes(self):
         request = RequestFactory().get(AuthentiqOAuth2Adapter.authorize_url)
-        scopes = self.provider.get_scope(request)
+        scopes = self.provider.get_scope_from_request(request)
         self.assertIn("openid", scopes)
         self.assertIn("aq:name", scopes)
 
@@ -53,7 +53,7 @@ class AuthentiqTests(OAuth2TestsMixin, TestCase):
         request = RequestFactory().get(
             AuthentiqOAuth2Adapter.authorize_url, dict(scope="foo")
         )
-        scopes = self.provider.get_scope(request)
+        scopes = self.provider.get_scope_from_request(request)
         self.assertIn("openid", scopes)
         self.assertIn("aq:name", scopes)
         self.assertIn("foo", scopes)
@@ -65,7 +65,7 @@ class AuthentiqTests(OAuth2TestsMixin, TestCase):
     )
     def test_scopes_required_verified_email(self):
         request = RequestFactory().get(AuthentiqOAuth2Adapter.authorize_url)
-        scopes = self.provider.get_scope(request)
+        scopes = self.provider.get_scope_from_request(request)
         self.assertIn("email~rs", scopes)
         self.assertNotIn("email", scopes)
 
@@ -76,7 +76,7 @@ class AuthentiqTests(OAuth2TestsMixin, TestCase):
     )
     def test_scopes_optional_verified_email(self):
         request = RequestFactory().get(AuthentiqOAuth2Adapter.authorize_url)
-        scopes = self.provider.get_scope(request)
+        scopes = self.provider.get_scope_from_request(request)
         self.assertIn("email~s", scopes)
         self.assertNotIn("email", scopes)
 
@@ -87,7 +87,7 @@ class AuthentiqTests(OAuth2TestsMixin, TestCase):
     )
     def test_scopes_required_email(self):
         request = RequestFactory().get(AuthentiqOAuth2Adapter.authorize_url)
-        scopes = self.provider.get_scope(request)
+        scopes = self.provider.get_scope_from_request(request)
         self.assertIn("email~r", scopes)
         self.assertNotIn("email", scopes)
 
@@ -98,5 +98,5 @@ class AuthentiqTests(OAuth2TestsMixin, TestCase):
     )
     def test_scopes_optional_email(self):
         request = RequestFactory().get(AuthentiqOAuth2Adapter.authorize_url)
-        scopes = self.provider.get_scope(request)
+        scopes = self.provider.get_scope_from_request(request)
         self.assertIn("email", scopes)

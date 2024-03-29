@@ -28,7 +28,7 @@ export default function VerifyEmail () {
     })
   }
 
-  if (!verification.data.is_authenticating && response.content?.status === 200) {
+  if (!verification.meta?.is_authenticating && response.content?.status === 200) {
     return <Navigate to='/account/email' />
   }
 

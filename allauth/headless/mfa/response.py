@@ -7,6 +7,30 @@ def get_config_data(request):
     return data
 
 
+def _authenticator_data(authenticator, sensitive=False):
+    data = {
+        "type": authenticator.type,
+        "created_at": authenticator.created_at.timestamp(),
+        "last_used_at": authenticator.last_used_at.timestamp()
+        if authenticator.last_used_at
+        else None,
+    }
+    if authenticator.type == authenticator.Type.TOTP:
+        pass
+    elif authenticator.type == authenticator.Type.RECOVERY_CODES:
+        wrapped = authenticator.wrap()
+        unused_codes = wrapped.get_unused_codes()
+        data.update(
+            {
+                "total_code_count": len(wrapped.generate_codes()),
+                "unused_code_count": len(unused_codes),
+            }
+        )
+        if sensitive:
+            data["unused_codes"] = unused_codes
+    return data
+
+
 class AuthenticatorDeletedResponse(APIResponse):
     pass
 
@@ -15,7 +39,7 @@ class TOTPNotFoundResponse(APIResponse):
     def __init__(self, request, secret):
         super().__init__(
             request,
-            data={
+            meta={
                 "secret": secret,
             },
             status=404,
@@ -29,21 +53,8 @@ class TOTPResponse(APIResponse):
 
 class AuthenticatorsResponse(APIResponse):
     def __init__(self, request, authenticators):
-        entries = []
-        for authenticator in authenticators:
-            entry = {"type": authenticator.type}
-            wrapped = authenticator.wrap()
-            if authenticator.type == authenticator.Type.TOTP:
-                pass
-            elif authenticator.type == authenticator.Type.RECOVERY_CODES:
-                entry.update(
-                    {
-                        "total_code_count": len(wrapped.generate_codes()),
-                        "unused_code_count": len(wrapped.get_unused_codes()),
-                    }
-                )
-            entries.append(entry)
-        super().__init__(request, data=entries)
+        data = [_authenticator_data(authenticator) for authenticator in authenticators]
+        super().__init__(request, data=data)
 
 
 class RecoveryCodesNotFoundResponse(APIResponse):
@@ -53,11 +64,5 @@ class RecoveryCodesNotFoundResponse(APIResponse):
 
 class RecoveryCodesResponse(APIResponse):
     def __init__(self, request, authenticator):
-        wrapped = authenticator.wrap()
-        unused_codes = wrapped.get_unused_codes()
-        data = {
-            "total_code_count": len(wrapped.generate_codes()),
-            "unused_code_count": len(unused_codes),
-            "unused_codes": unused_codes,
-        }
+        data = _authenticator_data(authenticator, sensitive=True)
         super().__init__(request, data=data)

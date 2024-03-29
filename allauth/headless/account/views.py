@@ -20,16 +20,13 @@ from allauth.headless.account.inputs import (
     SignupInput,
     VerifyEmailInput,
 )
-from allauth.headless.base.response import AuthenticationResponse
+from allauth.headless.base.response import APIResponse, AuthenticationResponse
 from allauth.headless.base.views import APIView, AuthenticatedAPIView
 from allauth.headless.restkit.response import ErrorResponse
 
 
 class LoginView(APIView):
     input_class = LoginInput
-
-    def get(self, request, *args, **kwargs):
-        return AuthenticationResponse(self.request)
 
     def post(self, request, *args, **kwargs):
         credentials = self.input.cleaned_data
@@ -38,13 +35,6 @@ class LoginView(APIView):
             login = Login(user=user, email=credentials.get("email"))
             flows.login.perform_password_login(request, credentials, login)
         return AuthenticationResponse(self.request)
-
-
-class LogoutView(APIView):
-    def post(self, request, *args, **kwargs):
-        adapter = get_account_adapter()
-        adapter.logout(request)
-        return AuthenticationResponse(request)
 
 
 class SignupView(APIView):
@@ -65,8 +55,13 @@ class SignupView(APIView):
         return AuthenticationResponse(request)
 
 
-class AuthView(AuthenticatedAPIView):
+class SessionView(AuthenticatedAPIView):
     def get(self, request, *args, **kwargs):
+        return AuthenticationResponse(request)
+
+    def delete(self, request, *args, **kwargs):
+        adapter = get_account_adapter()
+        adapter.logout(request)
         return AuthenticationResponse(request)
 
 
@@ -87,11 +82,14 @@ class VerifyEmailView(APIView):
     def post(self, request, *args, **kwargs):
         confirmation = self.input.cleaned_data["key"]
         email_address = confirmation.confirm(request)
+        if not email_address:
+            # Should not happen, VerifyInputInput should have verified all
+            # preconditions.
+            return APIResponse(status=500)
         if self.stage:
             # Verifying email as part of login/signup flow, so emit a
             # authentication status response.
-            if email_address:
-                self.stage.exit()
+            self.stage.exit()
             return AuthenticationResponse(self.request)
         else:
             return response.EmailVerifiedResponse(request, email_address)
@@ -119,6 +117,7 @@ class ResetPasswordView(APIView):
             self.input.user, self.input.cleaned_data["password"]
         )
         password_reset.finalize_password_reset(request, self.input.user)
+        # FIXME: Login on password reset? So auth response
         return response.PasswordResetResponse(request)
 
 

@@ -43,9 +43,8 @@ export const URLs = Object.freeze({
   TOTP_AUTHENTICATOR: BASE_URL + '/account/2fa/authenticators/totp',
 
   // Auth: Basics
-  AUTH: BASE_URL + '/auth',
   LOGIN: BASE_URL + '/auth/login',
-  LOGOUT: BASE_URL + '/auth/logout',
+  SESSION: BASE_URL + '/auth/session',
   REAUTHENTICATE: BASE_URL + '/auth/reauthenticate',
   REQUEST_PASSWORD_RESET: BASE_URL + '/auth/password/request',
   RESET_PASSWORD: BASE_URL + '/auth/password/reset',
@@ -139,7 +138,7 @@ export async function reauthenticate (data) {
 }
 
 export async function logout () {
-  return await request('POST', URLs.LOGOUT)
+  return await request('DELETE', URLs.SESSION)
 }
 
 export async function signUp (data) {
@@ -246,7 +245,7 @@ export async function changePassword (data) {
 }
 
 export async function getAuth () {
-  return await request('GET', URLs.AUTH)
+  return await request('GET', URLs.SESSION)
 }
 
 export async function authenticateByToken (providerId, token, process = AuthProcess.LOGIN) {

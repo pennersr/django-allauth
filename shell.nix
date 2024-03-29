@@ -30,6 +30,8 @@ stdenv.mkDerivation {
 
         nodejs
         playwright-test
+
+        swagger-cli
     ];
     shellHook = ''
         export PATH="$PWD/node_modules/.bin/:$PATH"

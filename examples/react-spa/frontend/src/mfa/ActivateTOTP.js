@@ -35,7 +35,7 @@ export default function ActivateTOTP (props) {
       <div>
         <label>
           Authenticator secret:
-          <input disabled type='text' value={totp.data.secret} />
+          <input disabled type='text' value={totp.meta.secret} />
           <span>You can store this secret and use it to reinstall your authenticator app at a later time.</span>
         </label>
       </div>

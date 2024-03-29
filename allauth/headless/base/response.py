@@ -19,8 +19,9 @@ class BaseAuthenticationResponse(APIResponse):
             data["methods"] = (get_authentication_records(request),)
             status = status or 200
         else:
-            data["flows"] = self._get_flows(request, user)
             status = 401
+        if status != 200:
+            data["flows"] = self._get_flows(request, user)
         meta = {
             "is_authenticated": user and user.is_authenticated,
         }

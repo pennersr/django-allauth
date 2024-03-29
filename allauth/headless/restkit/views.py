@@ -8,7 +8,6 @@ from allauth.headless.restkit.response import ErrorResponse
 
 
 class RESTView(View):
-    authtentication_required = False
     input_class = None
     handle_json_input = True
 

@@ -65,12 +65,14 @@ class LoginInput(inputs.Input):
             raise ImproperlyConfigured(account_app_settings.AUTHENTICATION_METHOD)
 
         if not email and not username:
-            self.add_error(
-                missing_field,
-                inputs.ValidationError(
-                    code="required", message=Field.default_error_messages["required"]
-                ),
-            )
+            if not self.errors.get(missing_field):
+                self.add_error(
+                    missing_field,
+                    inputs.ValidationError(
+                        code="required",
+                        message=Field.default_error_messages["required"],
+                    ),
+                )
 
         password = cleaned_data.get("password")
         if password and (username or email):
@@ -85,9 +87,12 @@ class LoginInput(inputs.Input):
                 context.request, **credentials
             )
             if not self.user:
+                error_code = "%s_password_mismatch" % auth_method
                 self.add_error(
                     "password",
-                    LoginForm.error_messages["%s_password_mismatch" % auth_method],
+                    inputs.ValidationError(
+                        LoginForm.error_messages[error_code], code=error_code
+                    ),
                 )
 
         return cleaned_data
@@ -100,8 +105,13 @@ class VerifyEmailInput(inputs.Input):
         key = self.cleaned_data["key"]
         model = get_emailconfirmation_model()
         confirmation = model.from_key(key)
-        if not confirmation:
-            raise inputs.ValidationError("Invalid or expired key.")
+        if (
+            not confirmation
+            or confirmation.key_expired()
+            or not confirmation.email_address.can_set_verified()
+        ):
+            raise inputs.ValidationError("Invalid or expired key.", code="invalid")
+
         return confirmation
 
 

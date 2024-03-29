@@ -113,3 +113,7 @@ Perhaps use '*' ? or '_'...
 Needed in order for the frontend to become independent of UI (i18n) of the backend
 - [X] Add codes to JSON
 - [ ] Go over all ValidationError's, assign codes.
+
+**** TODO Spec
+- [ ] User ID integer, or str? Depends on config.
+- [ ] Passsword reset token via GET?

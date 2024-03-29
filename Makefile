@@ -33,8 +33,12 @@ test:
 	pytest allauth/
 
 .PHONY: qa
-qa:
+qa: validate-api-spec
 	flake8 allauth
 	isort --check-only --diff .
 	black --check .
 	djlint --check allauth examples
+
+.PHONY:
+validate-api-spec:
+	swagger-cli validate docs/headless/spec/openapi.yaml

@@ -3,12 +3,7 @@ from allauth.headless.base.response import APIResponse, user_data
 
 class RequestEmailVerificationResponse(APIResponse):
     def __init__(self, request, verification_sent):
-        super().__init__(
-            request,
-            data={
-                "verification_sent": verification_sent,
-            },
-        )
+        super().__init__(request, stastus=200 if verification_sent else 403)
 
 
 class VerifyEmailResponse(APIResponse):
@@ -16,14 +11,16 @@ class VerifyEmailResponse(APIResponse):
         data = {
             "email": verification.email_address.email,
             "user": user_data(verification.email_address.user),
+        }
+        meta = {
             "is_authenticating": stage is not None,
         }
-        super().__init__(request, data=data)
+        super().__init__(request, data=data, meta=meta)
 
 
 class EmailVerifiedResponse(APIResponse):
-    def __init__(self, request, email_address=None):
-        super().__init__(request, status=200 if email_address else 400)
+    def __init__(self, request, email_address):
+        super().__init__(request, status=200)
 
 
 class EmailAddressesResponse(APIResponse):

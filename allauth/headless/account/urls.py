@@ -5,11 +5,15 @@ from allauth.headless.account import views
 
 def build_urlpatterns(client):
     return [
-        path("auth", views.AuthView.as_api_view(client=client), name="headless_auth"),
         path(
             "auth/",
             include(
                 [
+                    path(
+                        "session",
+                        views.SessionView.as_api_view(client=client),
+                        name="headless_auth",
+                    ),
                     path(
                         "password/",
                         include(
@@ -38,11 +42,6 @@ def build_urlpatterns(client):
                         "reauthenticate",
                         views.ReauthenticateView.as_api_view(client=client),
                         name="headless_reauthenticate",
-                    ),
-                    path(
-                        "logout",
-                        views.LogoutView.as_api_view(client=client),
-                        name="headless_logout",
                     ),
                     path(
                         "signup",

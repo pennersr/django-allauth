@@ -266,12 +266,13 @@ paths:
     get:
       tags:
         - "Authentication: Account"
-      summary: Get email verification
+      summary: Get email verification information
       description: |
-        Obtain email verification information.
+        Obtain email verification information, given the token that was sent to
+        the user by email.
       parameters:
-       - in: query
-         name: key
+       - in: header
+         name: X-Email-Verification-Key
          schema:
            type: string
          required: true
@@ -300,7 +301,7 @@ paths:
                       is_authenticating: true
 
         "400":
-          $ref: "#/components/responses/VerifyEmail400"
+          $ref: "#/components/responses/InvalidEmailVerificationKey"
 
     post:
       tags:
@@ -311,26 +312,7 @@ paths:
       parameters:
         - $ref: "#/components/parameters/Client"
       requestBody:
-        description: |
-          Complete the email verification process.
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                key:
-                  type: string
-                  description: |
-                    The email verification key.
-              required:
-                - key
-
-            examples:
-              verify_email:
-                summary: Verify email
-                value:
-                  key: "123secret"
+        $ref: "#/components/requestBodies/VerifyEmail"
 
       responses:
         "200":
@@ -346,7 +328,7 @@ paths:
                 authenticated:
                   $ref: "#/components/responses/UserAuthenticated/content/application~1json/examples/authenticated_password"
         "400":
-          $ref: "#/components/responses/VerifyEmail400"
+          $ref: "#/components/responses/InvalidEmailVerificationKey"
 
         "401":
           description: Not authenticated. Proceed to login.
@@ -467,8 +449,8 @@ paths:
         - "Authentication: Password"
       parameters:
         - $ref: "#/components/parameters/Client"
-        - in: query
-          name: key
+        - in: header
+          name: X-Password-Reset-Key
           schema:
             type: string
           required: true
@@ -501,28 +483,7 @@ paths:
       parameters:
         - $ref: "#/components/parameters/Client"
       requestBody:
-        description: Reset the password.
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                key:
-                  type: string
-                  description: The password reset key
-                password:
-                  type: string
-                  description: The password.
-              required:
-                - key
-                - password
-
-            examples:
-              request-password:
-                summary: Request password.
-                value:
-                  email: "email@domain.org"
+        $ref: "#/components/requestBodies/ResetPassword"
       responses:
         "401":
           $ref: "#/components/responses/Auth401"
@@ -1180,11 +1141,46 @@ components:
               - email
               - primary
 
+    ResetPassword:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ResetPassword"
+
+    VerifyEmail:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/VerifyEmail"
+
 
   ######################################################################
   # Components: Schemas
   ######################################################################
   schemas:
+    ResetPassword:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The password reset key
+          example: 2f-c4nqd4-e07d9bc694f9f28cd4fe92569d495333
+        password:
+          $ref: "#/components/schemas/Password"
+      required:
+        - key
+        - password
+
+    VerifyEmail:
+      type: object
+      properties:
+        key:
+          type: string
+          description: The email verification key
+          example: 2f-c4nqd4-e07d9bc694f9f28cd4fe92569d495333
+      required:
+        - key
+
     OptionalTimestamp:
       nullable: true
       $ref: "#/components/schemas/Timestamp"
@@ -1203,7 +1199,7 @@ components:
     Password:
       type: string
       description: |
-        The current password.
+        The password.
       example:
         Alohomora!
     ErrorResponse:
@@ -1676,7 +1672,7 @@ components:
           schema:
             $ref: "#/components/schemas/ProviderAccountList"
 
-    VerifyEmail400:
+    InvalidEmailVerificationKey:
         description: |
           Email verification invalid.
         content:

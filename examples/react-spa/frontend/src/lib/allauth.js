@@ -87,11 +87,12 @@ function postForm (action, data) {
 
 const tokenStorage = sessionStorage
 
-async function request (method, path, data) {
+async function request (method, path, data, headers) {
   const options = {
     method,
     headers: {
-      ...ACCEPT_JSON
+      ...ACCEPT_JSON,
+      ...headers
     }
   }
   // Don't pass along authentication related headers to the config endpoint.
@@ -162,7 +163,7 @@ export async function requestPasswordReset (email) {
 }
 
 export async function getEmailVerification (key) {
-  return await request('GET', `${URLs.VERIFY_EMAIL}?key=${encodeURIComponent(key)}`)
+  return await request('GET', URLs.VERIFY_EMAIL, undefined, { 'X-Email-Verification-Key': key })
 }
 
 export async function getEmailAddresses () {
@@ -233,7 +234,7 @@ export async function verifyEmail (key) {
 }
 
 export async function getPasswordReset (key) {
-  return await request('GET', `${URLs.RESET_PASSWORD}?key=${encodeURIComponent(key)}`)
+  return await request('GET', URLs.RESET_PASSWORD, undefined, { 'X-Password-Reset-Key': key })
 }
 
 export async function resetPassword (data) {

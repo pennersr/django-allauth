@@ -73,7 +73,8 @@ class VerifyEmailView(APIView):
         return super().handle(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
-        input = self.input_class(request.GET)
+        key = request.headers.get("x-email-verification-key", "")
+        input = self.input_class({"key": key})
         if not input.is_valid():
             return ErrorResponse(request, input=input)
         verification = input.cleaned_data["key"]

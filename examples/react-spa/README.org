@@ -50,7 +50,7 @@ Then, visit the app over at http://localhost:10000.
 
 **** DONE User sessions
 
-*** Headless [55%]
+*** Headless [57%]
 
 **** TODO Check rate limit handling
 
@@ -114,6 +114,6 @@ Needed in order for the frontend to become independent of UI (i18n) of the backe
 - [X] Add codes to JSON
 - [ ] Go over all ValidationError's, assign codes.
 
-**** TODO Spec
+**** DONE Spec
 - [ ] User ID integer, or str? Depends on config.
-- [ ] Passsword reset token via GET?
+- [X] Passsword reset token via GET?

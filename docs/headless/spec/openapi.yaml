@@ -82,27 +82,7 @@ paths:
         - $ref: "#/components/parameters/Client"
       responses:
         "200":
-          description: The django-allauth configuration.
-          content:
-            application/json:
-              example:
-                status: 200,
-                data:
-                  socialaccount:
-                    providers:
-                      - id: "google"
-                        name: "Google"
-                        flows:
-                          - "provider_redirect"
-                          - "provider_token"
-                        client_id: "123.apps.googleusercontent.com"
-                  mfa:
-                    supported_types:
-                      - "recovery_codes"
-                      - "totp"
-                  usersessions:
-                    track_activity: false
-
+          $ref: "#/components/responses/Configuration"
 
 
   ######################################################################
@@ -117,47 +97,7 @@ paths:
       parameters:
         - $ref: "#/components/parameters/Client"
       requestBody:
-        description: Login.
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                password:
-                  type: string
-                  description: The password.
-              required:
-                - password
-              anyOf:
-                - title: Login by username
-                  properties:
-                    username:
-                      type: string
-                      description: |
-                        The username.
-                  required:
-                    - username
-                - title: Login by email
-                  properties:
-                    email:
-                      type: string
-                      description: |
-                        The email.
-                  required:
-                    - email
-
-            examples:
-              username:
-                summary: Login by username
-                value:
-                  username: "wizard"
-                  password: "secret"
-              email:
-                summary: Login by email
-                value:
-                  email: "email@domain.org"
-                  password: "secret"
+        $ref: "#/components/requestBodies/Login"
       responses:
         "401":
           description: Not authenticated, more steps are required to be completed.
@@ -201,41 +141,14 @@ paths:
       tags:
         - "Authentication: Account"
       summary: Signup
+      description: |
+        Whether or not `username`, `email`, or both are required depends on
+        the configuration of django-allauth. Additionally, if a custom signup
+        form is used there may be other custom properties required.
       parameters:
         - $ref: "#/components/parameters/Client"
       requestBody:
-        description: |
-          Whether or not `username`, `email`, or both are required depends on
-          the configuration of django-allauth. Additionally, if a custom signup
-          form is used there may be other custom properties required.
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  description: |
-                    The email.
-                username:
-                  type: string
-                  description: |
-                    The username.
-                password:
-                  type: string
-                  description: The password.
-              required:
-                - password
-
-            examples:
-              username_email:
-                summary: Signup with username and email
-                value:
-                  username: "wizard"
-                  email: "email@domain.org"
-                  password: "secret"
-
+        $ref: "#/components/requestBodies/Signup"
       responses:
         "401":
           description: Not authenticated, more steps are required to be completed.
@@ -271,13 +184,8 @@ paths:
         Obtain email verification information, given the token that was sent to
         the user by email.
       parameters:
-       - in: header
-         name: X-Email-Verification-Key
-         schema:
-           type: string
-         required: true
-         description: The email verification key
-       - $ref: "#/components/parameters/Client"
+        - $ref: "#/components/parameters/EmailVerificationKey"
+        - $ref: "#/components/parameters/Client"
       responses:
         "200":
           description: Email verification information.
@@ -311,9 +219,9 @@ paths:
         Complete the email verification process.
       parameters:
         - $ref: "#/components/parameters/Client"
+        - $ref: "#/components/parameters/SessionToken"
       requestBody:
         $ref: "#/components/requestBodies/VerifyEmail"
-
       responses:
         "200":
           description: Verification successful.
@@ -353,29 +261,12 @@ paths:
         password. This is the endpoint related towards that flow.
       parameters:
         - $ref: "#/components/parameters/Client"
+        - $ref: "#/components/parameters/SessionToken"
       requestBody:
-        description: Reauthenticate.
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                password:
-                  type: string
-                  description: The password.
-              required:
-                - password
-
-            examples:
-              username:
-                summary: Password
-                value:
-                  password: "secret"
+        $ref: "#/components/requestBodies/Reauthenticate"
       responses:
         "200":
           $ref: "#/components/responses/UserAuthenticated"
-
         "400":
           description: An input error occurred.
           content:
@@ -402,24 +293,7 @@ paths:
       parameters:
         - $ref: "#/components/parameters/Client"
       requestBody:
-        description: Request password.
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  description: The email.
-              required:
-                - email
-
-            examples:
-              request-password:
-                summary: Request password.
-                value:
-                  email: "email@domain.org"
+        $ref: "#/components/requestBodies/RequestPassword"
       responses:
         "400":
           description: An input error occurred.
@@ -449,12 +323,7 @@ paths:
         - "Authentication: Password"
       parameters:
         - $ref: "#/components/parameters/Client"
-        - in: header
-          name: X-Password-Reset-Key
-          schema:
-            type: string
-          required: true
-          description: The password reset key
+        - $ref: "#/components/parameters/PasswordResetKey"
       responses:
         "200":
           description: Valid password reset key.
@@ -464,14 +333,15 @@ paths:
                 type: object
                 properties:
                   status:
-                    type: integer
-                    enum:
-                    - 200
+                    $ref: "#/components/schemas/StatusOK"
                   data:
                     type: object
                     properties:
                       user:
                         $ref: "#/components/schemas/User"
+                required:
+                  - status
+                  - data
 
         "401":
           $ref: "#/components/responses/Auth401"
@@ -517,26 +387,7 @@ paths:
         available in a browser, and must be called in a synchronous (non-XHR)
         manner.
       requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                provider:
-                  $ref: "#/components/schemas/ProviderID"
-                callback_url:
-                  type: string
-                  description: |
-                    The URL to return to after the redirect flow is complete.
-                  example: https://app.project.org/account/provider/callback
-                process:
-                  $ref: "#/components/schemas/Process"
-              required:
-                - provider
-                - process
-                - callback_url
-
+        $ref: "#/components/requestBodies/ProviderRedirect"
       responses:
         "302":
           description: The provider authorization URL to which the client should be redirected.
@@ -561,43 +412,9 @@ paths:
         via this endpoint to authenticate on the server.
       parameters:
         - $ref: "#/components/parameters/Client"
+        - $ref: "#/components/parameters/SessionToken"
       requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                provider:
-                  $ref: "#/components/schemas/ProviderID"
-                process:
-                  $ref: "#/components/schemas/Process"
-                token:
-                  description: |
-                    The token.
-                  type: object
-                  properties:
-                    client_id:
-                      type: string
-                      description: |
-                        The client ID from which the token originates.
-                      example: 123.apps.googleusercontent.com
-                    id_token:
-                      type: string
-                      description: |
-                        The ID token.
-                      example: eyJhbGciOiJI
-                    access_token:
-                      type: string
-                      description: |
-                        The access token.
-                      example: 36POk6yJV_adQs
-                  required:
-                    - client_id
-              required:
-               - provider
-               - process
-               - token
+        $ref: "#/components/requestBodies/ProviderToken"
       responses:
         "200":
           $ref: "#/components/responses/UserAuthenticated"
@@ -626,25 +443,7 @@ paths:
       parameters:
         - $ref: "#/components/parameters/Client"
       requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  description: |
-                    The email.
-              required:
-                - email
-
-            examples:
-              username_email:
-                summary: Signup with username and email
-                value:
-                  username: "wizard"
-                  email: "email@domain.org"
-                  password: "secret"
+        $ref: "#/components/requestBodies/ProviderSignup"
       responses:
         "200":
           $ref: "#/components/responses/UserAuthenticated"
@@ -675,20 +474,7 @@ paths:
         - $ref: "#/components/parameters/Client"
         - $ref: "#/components/parameters/SessionToken"
       requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                code:
-                  type: string
-                  description: |
-                    An authenticator code.
-                  example:
-                    31415
-              required:
-                - code
-
+        $ref: "#/components/requestBodies/MFAAuthenticate"
       responses:
         "200":
           $ref: "#/components/responses/UserAuthenticated"
@@ -822,9 +608,7 @@ paths:
                 type: object
                 properties:
                   status:
-                    type: integer
-                    enum:
-                      - 200
+                    $ref: "#/components/schemas/StatusOK"
         "403":
           description: |
             Too many email verification mails were already sent.
@@ -1010,6 +794,7 @@ paths:
         "401":
           $ref: "#/components/responses/Auth401"
 
+
   ######################################################################
   # Account: Password
   ######################################################################
@@ -1064,6 +849,67 @@ components:
   # Components: Request bodies
   ######################################################################
   requestBodies:
+    MFAAuthenticate:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/MFAAuthenticate"
+
+    ProviderToken:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ProviderToken"
+    ProviderRedirect:
+      required: true
+      description: |
+        Initiate the provider redirect flow.
+      content:
+        application/x-www-form-urlencoded:
+          schema:
+            $ref: "#/components/schemas/ProviderRedirect"
+
+    RequestPassword:
+      description: Request password.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/RequestPassword"
+
+    Reauthenticate:
+      description: Reauthenticate.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Reauthenticate"
+
+    Login:
+      description: Login.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Login"
+
+    Signup:
+      description: Signup
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Signup"
+
+    ProviderSignup:
+      description: Provider signup.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ProviderSignup"
+
     ProviderAccount:
       content:
         application/json:
@@ -1158,6 +1004,337 @@ components:
   # Components: Schemas
   ######################################################################
   schemas:
+    AuthenticationMeta:
+      type: object
+      description: |
+        Metadata available in an authentication related response.
+      properties:
+        is_authenticated:
+          type: boolean
+        session_token:
+          type: string
+          description: |
+            The session token (`app` clients only).
+          example: ufwcig0zen9skyd545jc0fkq813ghar2
+        access_token:
+          type: string
+          description: |
+            The access token (`app` clients only).
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdW
+      required:
+        - is_authenticated
+
+    UserAuthenticated:
+      type: object
+      properties:
+        user:
+          $ref: "#/components/schemas/User"
+        methods:
+          type: array
+          description: |
+            A list of methods used to authenticate.
+          items:
+            $ref: "#/components/schemas/AuthenticationMethod"
+      required:
+        - user
+        - methods
+
+    AuthenticationMethod:
+      oneOf:
+        - type: object
+          title: |
+            Authenticated by username/email login
+          properties:
+            method:
+              type: string
+              enum:
+                - password
+            at:
+              $ref: "#/components/schemas/Timestamp"
+            email:
+              $ref: "#/components/schemas/Email"
+            username:
+              $ref: "#/components/schemas/Username"
+          required:
+            - method
+            - at
+        - type: object
+          title: |
+            Reauthenticated by password
+          properties:
+            method:
+              type: string
+              enum:
+                - password
+            at:
+              $ref: "#/components/schemas/Timestamp"
+            reauthenticated:
+              type: boolean
+              enum:
+               - true
+          required:
+            - method
+            - reauthenticated
+            - at
+        - type: object
+          title: |
+            Authenticated by third-party provider
+          properties:
+            method:
+              type: string
+              enum:
+                - socialaccount
+            at:
+              $ref: "#/components/schemas/Timestamp"
+            provider:
+              $ref: "#/components/schemas/ProviderID"
+            uid:
+              $ref: "#/components/schemas/ProviderAccountID"
+          required:
+            - method
+            - reauthenticated
+            - at
+            - provider
+            - uid
+        - type: object
+          title: |
+            (Re)authenticated by 2FA
+          properties:
+            method:
+              type: string
+              enum:
+                - mfa
+            at:
+              $ref: "#/components/schemas/Timestamp"
+            type:
+              $ref: "#/components/schemas/AuthenticatorType"
+            reauthenticated:
+              type:
+                boolean
+          required:
+            - method
+            - at
+            - type
+
+    UserAuthenticatedResponse:
+      type: object
+      properties:
+        status:
+          $ref: "#/components/schemas/StatusOK"
+        data:
+          $ref: "#/components/schemas/UserAuthenticated"
+        meta:
+          $ref: "#/components/schemas/AuthenticationMeta"
+      required:
+        - status
+        - data
+        - meta
+
+    MFAAuthenticate:
+      type: object
+      properties:
+        code:
+          $ref: "#/components/schemas/AuthenticatorCode"
+      required:
+        - code
+
+    ClientID:
+      type: string
+      description: |
+        The client ID (in case of OAuth2 or OpenID Connect based providers)
+      example: 123.apps.googleusercontent.com
+
+    ProviderToken:
+      type: object
+      properties:
+        provider:
+          $ref: "#/components/schemas/ProviderID"
+        process:
+          $ref: "#/components/schemas/Process"
+        token:
+          description: |
+            The token.
+          type: object
+          properties:
+            client_id:
+              $ref: "#/components/schemas/ClientID"
+            id_token:
+              type: string
+              description: |
+                The ID token.
+              example: eyJhbGciOiJI
+            access_token:
+              type: string
+              description: |
+                The access token.
+              example: 36POk6yJV_adQs
+          required:
+            - client_id
+      required:
+       - provider
+       - process
+       - token
+
+    ProviderRedirect:
+      type: object
+      properties:
+        provider:
+          $ref: "#/components/schemas/ProviderID"
+        callback_url:
+          type: string
+          description: |
+            The URL to return to after the redirect flow is complete.
+          example: https://app.project.org/account/provider/callback
+        process:
+          $ref: "#/components/schemas/Process"
+      required:
+        - provider
+        - process
+        - callback_url
+
+    RequestPassword:
+      type: object
+      properties:
+        email:
+          $ref: "#/components/schemas/Email"
+      required:
+        - email
+
+    Reauthenticate:
+      type: object
+      properties:
+        password:
+          $ref: "#/components/schemas/Password"
+      required:
+        - password
+
+    ProviderSignup:
+      type: object
+      properties:
+        email:
+          $ref: "#/components/schemas/Email"
+      required:
+        - email
+
+    Signup:
+      type: object
+      properties:
+        email:
+          $ref: "#/components/schemas/Email"
+        username:
+          $ref: "#/components/schemas/Username"
+        password:
+          $ref: "#/components/schemas/Password"
+      required:
+        - password
+
+    Username:
+      type: string
+      description: |
+        The username.
+      example: wizard
+    Email:
+      type: string
+      description: |
+        The email address.
+      example: email@domain.org
+
+    Login:
+      type: object
+      properties:
+        password:
+          $ref: "#/components/schemas/Password"
+      required:
+        - password
+      anyOf:
+        - title: Login by username
+          properties:
+            username:
+              $ref: "#/components/schemas/Username"
+          required:
+            - username
+        - title: Login by email
+          properties:
+            email:
+              $ref: "#/components/schemas/Email"
+          required:
+            - email
+
+    StatusOK:
+      type: integer
+      enum:
+        - 200
+    SocialAccountConfiguration:
+      type: object
+      description: |
+        Configuration of the Django `allauth.socialaccount` app.
+      properties:
+        providers:
+          $ref: "#/components/schemas/ProviderList"
+      required:
+        - providers
+
+    MFAConfiguration:
+      type: object
+      description: |
+        Configuration of the Django `allauth.mfa` app.
+      properties:
+        supported_types:
+          type: array
+          description: |
+            Matches `settings.MFA_SUPPORTED_TYPES`.
+          items:
+            $ref: "#/components/schemas/AuthenticatorType"
+      required:
+        - supported_types
+
+    UserSessionsConfiguration:
+      type: object
+      description: |
+        Configuration of the Django `allauth.usersessions` app.
+      properties:
+        track_activity:
+          type: boolean
+          description: |
+            Matches `settings.USERSESSIONS_TRACK_ACTIVITY`.
+      required:
+        - track_activity
+
+
+    ConfigurationResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            socialaccount:
+              $ref: "#/components/schemas/SocialAccountConfiguration"
+            mfa:
+              $ref: "#/components/schemas/MFAConfiguration"
+            usersessions:
+              $ref: "#/components/schemas/UserSessionsConfiguration"
+        status:
+          $ref: "#/components/schemas/StatusOK"
+      required:
+        - status
+        - data
+      example:
+            status: 200
+            data:
+              socialaccount:
+                providers:
+                  - id: "google"
+                    name: "Google"
+                    flows:
+                      - "provider_redirect"
+                      - "provider_token"
+                    client_id: "123.apps.googleusercontent.com"
+              mfa:
+                supported_types:
+                  - "recovery_codes"
+                  - "totp"
+              usersessions:
+                track_activity: false
     ResetPassword:
       type: object
       properties:
@@ -1190,11 +1367,20 @@ components:
       description: |
         An epoch based timestamp (trivial to parse using: `new Date(value)*1000`)
       example: 1711555057.065702
+
     AuthenticatorCode:
       type: string
       description: |
         An authenticator code.
       example: "314159"
+
+    AuthenticatorType:
+      type: string
+      enum:
+        - recovery_codes
+        - totp
+      description: |
+        The type of authenticator.
 
     Password:
       type: string
@@ -1263,27 +1449,33 @@ components:
       type: object
       properties:
         id:
-          type: integer
-          example: 123
+          description: |
+            The user ID.
+          oneOf:
+           - type: integer
+             example: 123
+           - type: string
+             example: 89d3f9a0-51a5-49dd-8b97-7536641958e9
         display:
           type: string
+          description: |
+            The display name for the user.
           example: Magic Wizard
         has_usable_password:
           type: boolean
+          description: |
+            Whether or not the account has a password set.
           example: true
         email:
-          type: string
-          example: email@domain.org
+          $ref: "#/components/schemas/Email"
         username:
-          type: string
-          example: wizard
+          $ref: "#/components/schemas/Username"
 
     EmailAddress:
       type: object
       properties:
         email:
-          type: string
-          example: email@domain.org
+          $ref: "#/components/schemas/Email"
         primary:
           type: boolean
           example: true
@@ -1371,6 +1563,11 @@ components:
           - $ref: "#/components/schemas/TOTPAuthenticator"
           - $ref: "#/components/schemas/RecoveryCodesAuthenticator"
 
+    ProviderList:
+      type: array
+      items:
+        $ref: "#/components/schemas/Provider"
+
     Provider:
       type: object
       properties:
@@ -1429,6 +1626,21 @@ components:
   # Components: Parameters
   ######################################################################
   parameters:
+    PasswordResetKey:
+      in: header
+      name: X-Password-Reset-Key
+      schema:
+        type: string
+      required: true
+      description: The password reset key
+
+    EmailVerificationKey:
+      in: header
+      name: X-Email-Verification-Key
+      schema:
+        type: string
+      required: true
+      description: The email verification key
     SessionToken:
       in: header
       name: X-Session-Token
@@ -1451,6 +1663,14 @@ components:
   # Components: Responses
   ######################################################################
   responses:
+    Configuration:
+      description: |
+        The django-allauth configuration.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ConfigurationResponse"
+
     TOTPAuthenticatorNotFound:
       description: |
         No TOTP authenticator has been set up.
@@ -1501,9 +1721,7 @@ components:
             type: object
             properties:
               status:
-                type: integer
-                enum:
-                  - 200
+                $ref: "#/components/schemas/StatusOK"
               data:
                 $ref: "#/components/schemas/TOTPAuthenticator"
             required:
@@ -1519,9 +1737,7 @@ components:
             type: object
             properties:
               status:
-                type: integer
-                enum:
-                  - 200
+                $ref: "#/components/schemas/StatusOK"
               data:
                 $ref: "#/components/schemas/SensitiveRecoveryCodesAuthenticator"
             required:
@@ -1537,9 +1753,7 @@ components:
             type: object
             properties:
               status:
-                type: integer
-                enum:
-                  - 200
+                $ref: "#/components/schemas/StatusOK"
             required:
               - status
 
@@ -1638,13 +1852,14 @@ components:
             type: object
             properties:
               status:
-                type: integer
-                enum:
-                  - 200
+                $ref: "#/components/schemas/StatusOK"
               data:
                 type: array
                 items:
                   $ref: "#/components/schemas/EmailAddressList"
+            required:
+              - status
+              - data
 
     Authenticators:
       description: |
@@ -1655,9 +1870,7 @@ components:
             type: object
             properties:
               status:
-                type: integer
-                enum:
-                  - 200
+                $ref: "#/components/schemas/StatusOK"
               data:
                 $ref: "#/components/schemas/AuthenticatorList"
             required:
@@ -1831,6 +2044,8 @@ components:
         description: The user is authenticated.
         content:
           application/json:
+            schema:
+              $ref: "#/components/schemas/UserAuthenticatedResponse"
             examples:
               authenticated_password:
                 summary: |

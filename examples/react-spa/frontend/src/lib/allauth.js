@@ -38,9 +38,9 @@ export const URLs = Object.freeze({
   PROVIDERS: BASE_URL + '/account/providers',
 
   // Account management: 2FA
-  AUTHENTICATORS: BASE_URL + '/account/2fa/authenticators',
-  RECOVERY_CODES: BASE_URL + '/account/2fa/authenticators/recovery_codes',
-  TOTP_AUTHENTICATOR: BASE_URL + '/account/2fa/authenticators/totp',
+  AUTHENTICATORS: BASE_URL + '/account/authenticators',
+  RECOVERY_CODES: BASE_URL + '/account/authenticators/recovery_codes',
+  TOTP_AUTHENTICATOR: BASE_URL + '/account/authenticators/totp',
 
   // Auth: Basics
   LOGIN: BASE_URL + '/auth/login',

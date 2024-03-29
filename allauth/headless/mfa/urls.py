@@ -27,28 +27,19 @@ def build_urlpatterns(client):
             include(
                 [
                     path(
-                        "2fa/",
-                        include(
-                            [
-                                path(
-                                    "authenticators",
-                                    views.AuthenticatorsView.as_api_view(client=client),
-                                    name="headless_mfa_authenticators",
-                                ),
-                                path(
-                                    "authenticators/totp",
-                                    views.ManageTOTPView.as_api_view(client=client),
-                                    name="headless_mfa_manage_totp",
-                                ),
-                                path(
-                                    "authenticators/recovery_codes",
-                                    views.ManageRecoveryCodesView.as_api_view(
-                                        client=client
-                                    ),
-                                    name="headless_mfa_manage_recovery_codes",
-                                ),
-                            ]
-                        ),
+                        "authenticators",
+                        views.AuthenticatorsView.as_api_view(client=client),
+                        name="headless_mfa_authenticators",
+                    ),
+                    path(
+                        "authenticators/totp",
+                        views.ManageTOTPView.as_api_view(client=client),
+                        name="headless_mfa_manage_totp",
+                    ),
+                    path(
+                        "authenticators/recovery_codes",
+                        views.ManageRecoveryCodesView.as_api_view(client=client),
+                        name="headless_mfa_manage_recovery_codes",
                     ),
                 ]
             ),

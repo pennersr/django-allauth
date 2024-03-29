@@ -918,7 +918,7 @@ paths:
   ######################################################################
   # Account: 2FA
   ######################################################################
-  /_allauth/{client}/v1/account/2fa/authenticators:
+  /_allauth/{client}/v1/account/authenticators:
     get:
       tags:
         - "Account: 2FA"
@@ -930,7 +930,7 @@ paths:
         "200":
           $ref: "#/components/responses/Authenticators"
 
-  /_allauth/{client}/v1/account/2fa/authenticators/totp:
+  /_allauth/{client}/v1/account/authenticators/totp:
     get:
       tags:
         - "Account: 2FA"
@@ -983,7 +983,7 @@ paths:
         "401":
           $ref: "#/components/responses/ReauthenticationRequired"
 
-  /_allauth/{client}/v1/account/2fa/authenticators/recovery_codes:
+  /_allauth/{client}/v1/account/authenticators/recovery_codes:
     get:
       tags:
         - "Account: 2FA"

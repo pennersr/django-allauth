@@ -1,0 +1,2 @@
+{% load i18n %}
+{% blocktrans %}You must enable multi-factor authentication for your account before you can proceed.{% endblocktrans %}

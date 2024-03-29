@@ -1,3 +1,9 @@
+Unreleased
+----------
+
+- Added RequireMFAMiddleware which allows forcing MFA set-up, for example for specific users.
+
+
 0.61.1 (2024-02-09)
 *******************
 

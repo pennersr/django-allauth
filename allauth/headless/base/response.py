@@ -1,7 +1,5 @@
-from allauth import (
-    app_settings as allauth_app_settings,
-    app_settings as allauth_settings,
-)
+from allauth import app_settings as allauth_settings
+from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.authentication import get_authentication_records
 from allauth.account.models import EmailAddress
@@ -64,7 +62,7 @@ class BaseAuthenticationResponse(APIResponse):
                         "id": Flow.SIGNUP,
                     }
                 )
-            if allauth_app_settings.SOCIALACCOUNT_ENABLED:
+            if allauth_settings.SOCIALACCOUNT_ENABLED:
                 from allauth.headless.socialaccount.response import (
                     provider_flows,
                 )
@@ -110,7 +108,9 @@ def user_data(user):
 
 class ConfigResponse(APIResponse):
     def __init__(self, request):
-        data = {}
+        data = {
+            "account": {"authentication_method": account_settings.AUTHENTICATION_METHOD}
+        }
         if allauth_settings.SOCIALACCOUNT_ENABLED:
             from allauth.headless.socialaccount.response import get_config_data
 

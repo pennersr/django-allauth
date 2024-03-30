@@ -18,11 +18,6 @@ class VerifyEmailResponse(APIResponse):
         super().__init__(request, data=data, meta=meta)
 
 
-class EmailVerifiedResponse(APIResponse):
-    def __init__(self, request, email_address):
-        super().__init__(request, status=200)
-
-
 class EmailAddressesResponse(APIResponse):
     def __init__(self, request, email_addresses):
         data = [

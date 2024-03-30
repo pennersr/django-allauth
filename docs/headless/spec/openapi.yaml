@@ -49,7 +49,7 @@ x-tagGroups:
     tags:
       - "Authentication: Current Session"
       - "Authentication: Account"
-      - "Authentication: Password"
+      - "Authentication: Password Reset"
       - "Authentication: Providers"
       - "Authentication: 2FA"
   - name: Account
@@ -98,7 +98,7 @@ paths:
         $ref: "#/components/requestBodies/Login"
       responses:
         "200":
-          $ref: "#/components/responses/Authenticated"
+          $ref: "#/components/responses/AuthenticatedByPassword"
         "400":
           description: An input error occurred.
           content:
@@ -120,6 +120,8 @@ paths:
               examples:
                 pending_email:
                   $ref: "#/components/examples/UnauthenticatedPendingEmailVerification"
+                pending_2fa:
+                  $ref: "#/components/examples/UnauthenticatedPending2FA"
   /_allauth/{client}/v1/auth/signup:
     post:
       tags:
@@ -135,7 +137,7 @@ paths:
         $ref: "#/components/requestBodies/Signup"
       responses:
         "200":
-          $ref: "#/components/responses/Authenticated"
+          $ref: "#/components/responses/AuthenticatedByPassword"
         "400":
           description: |
             An input error occurred.
@@ -156,7 +158,7 @@ paths:
               examples:
                 pending_email:
                   $ref: "#/components/examples/UnauthenticatedPendingEmailVerification"
-  /_allauth/{client}/v1/auth/verify_email:
+  /_allauth/{client}/v1/auth/email/verify:
     get:
       tags:
         - "Authentication: Account"
@@ -193,7 +195,7 @@ paths:
         $ref: "#/components/requestBodies/VerifyEmail"
       responses:
         "200":
-          $ref: "#/components/responses/EmailVerified"
+          $ref: "#/components/responses/Authenticated"
         "400":
           description: |
             An input error occurred.
@@ -225,7 +227,7 @@ paths:
         $ref: "#/components/requestBodies/Reauthenticate"
       responses:
         "200":
-          $ref: "#/components/responses/Authenticated"
+          $ref: "#/components/responses/AuthenticatedByPassword"
         "400":
           description: An input error occurred.
           content:
@@ -242,7 +244,7 @@ paths:
     post:
       summary: Request password
       tags:
-        - "Authentication: Password"
+        - "Authentication: Password Reset"
       parameters:
         - $ref: "#/components/parameters/Client"
       requestBody:
@@ -264,7 +266,7 @@ paths:
     get:
       summary: Get password reset information
       tags:
-        - "Authentication: Password"
+        - "Authentication: Password Reset"
       parameters:
         - $ref: "#/components/parameters/Client"
         - $ref: "#/components/parameters/PasswordResetKey"
@@ -284,14 +286,14 @@ paths:
     post:
       summary: Reset password
       tags:
-        - "Authentication: Password"
+        - "Authentication: Password Reset"
       parameters:
         - $ref: "#/components/parameters/Client"
       requestBody:
         $ref: "#/components/requestBodies/ResetPassword"
       responses:
         "200":
-          $ref: "#/components/responses/Authenticated"
+          $ref: "#/components/responses/AuthenticatedByPassword"
         "400":
           description: An input error occurred.
           content:
@@ -420,7 +422,7 @@ paths:
         $ref: "#/components/requestBodies/MFAAuthenticate"
       responses:
         "200":
-          $ref: "#/components/responses/Authenticated"
+          $ref: "#/components/responses/AuthenticatedByPasswordAnd2FA"
         "400":
           description: An input error occurred.
           content:
@@ -450,7 +452,7 @@ paths:
         - $ref: "#/components/parameters/SessionToken"
       responses:
         "200":
-          $ref: "#/components/responses/Authenticated"
+          $ref: "#/components/responses/AuthenticatedByPasswordAnd2FA"
         "400":
           description: An input error occurred.
           content:
@@ -821,6 +823,51 @@ components:
   # Components: Examples
   ######################################################################
   examples:
+    AuthenticatedByPassword:
+      summary: |
+        Authenticated by password.
+      value:
+        status: 200
+        data:
+          user:
+            id: 123
+            display: wizard
+            has_usable_password: true
+            email: email@domain.org
+            username: wizard
+          methods:
+            - method: password
+              at: 1711555057.065702
+              email: email@domain.org
+        meta:
+          is_authenticated: true
+          session_token: ufwcig0zen9skyd545jc0fkq813ghar2
+          access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdW
+    AuthenticatedByPasswordAnd2FA:
+      summary: |
+        Fully authenticated using by password and 2FA.
+      value:
+        status: 200
+        data:
+          user:
+            id: 123
+            display: Magic Wizard
+            has_usable_password: true
+            email: email@domain.org
+            username: wizard
+          methods:
+            - method: password
+              at: 1711555057.065702
+              email: email@domain.org
+            - method: mfa
+              at: 1711555060.9375854
+              id: 66
+              type: totp
+        meta:
+          is_authenticated: true
+          session_token: ufwcig0zen9skyd545jc0fkq813ghar2
+          access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdW
+
     CannotGenerateRecoveryCodes:
       summary: |
         Unable to generate recovery codes.
@@ -1185,6 +1232,19 @@ components:
         - created_at
         - is_current
         - id
+    AccountConfiguration:
+      type: object
+      description: |
+        Configuration of the Django `allauth.account` app.
+      properties:
+        authentication_method:
+          type: string
+          enum:
+            - email
+            - username
+            - username_email
+      required:
+        - authentication_method
     AuthenticationResponse:
       type: object
       description: |
@@ -1577,12 +1637,16 @@ components:
         data:
           type: object
           properties:
+            account:
+              $ref: "#/components/schemas/AccountConfiguration"
             socialaccount:
               $ref: "#/components/schemas/SocialAccountConfiguration"
             mfa:
               $ref: "#/components/schemas/MFAConfiguration"
             usersessions:
               $ref: "#/components/schemas/UserSessionsConfiguration"
+          required:
+            - account
         status:
           $ref: "#/components/schemas/StatusOK"
       required:
@@ -1591,6 +1655,8 @@ components:
       example:
         status: 200
         data:
+          account:
+            authentication_method: email
           socialaccount:
             providers:
               - id: "google"
@@ -1932,6 +1998,18 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/AuthenticationResponse"
+          examples:
+            unauthenticated_initial:
+              $ref: "#/components/examples/UnauthenticatedInitial"
+            unauthenticated_pending_2fa:
+              $ref: "#/components/examples/UnauthenticatedPending2FA"
+            unauthenticated_pending_provider_signup:
+              $ref: "#/components/examples/UnauthenticatedPendingProviderSignup"
+            unauthenticated_pending_email_verification:
+              $ref: "#/components/examples/UnauthenticatedPendingEmailVerification"
+            reauthentication_required:
+              $ref: "#/components/examples/ReauthenticationRequired"
+
     Authenticators:
       description: |
         List of authenticators.
@@ -1947,6 +2025,26 @@ components:
             required:
               - status
               - data
+    AuthenticatedByPassword:
+      description: |
+        Authenticated by password.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/AuthenticatedResponse"
+          examples:
+            authenticated:
+              $ref: "#/components/examples/AuthenticatedByPassword"
+    AuthenticatedByPasswordAnd2FA:
+      description: |
+        Authenticated by password and 2FA.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/AuthenticatedResponse"
+          examples:
+            authenticated:
+              $ref: "#/components/examples/AuthenticatedByPasswordAnd2FA"
     AuthenticationOrReauthentication:
       description: |
         The response indicates authentication or re-authentication is required.
@@ -1986,20 +2084,6 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/EmailVerificationInfo"
-    EmailVerified:
-      description: Verification successful.
-      content:
-        application/json:
-          schema:
-            oneOf:
-              - type: object
-                title: OK
-                properties:
-                  status:
-                    $ref: "#/components/schemas/StatusOK"
-                required:
-                  - status
-              - $ref: "#/components/schemas/AuthenticatedResponse"
     Error:
       description: An input error occurred.
       content:
@@ -2202,44 +2286,3 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/AuthenticatedResponse"
-          examples:
-            authenticated_password:
-              summary: |
-                Authenticated
-              value:
-                status: 200
-                data:
-                  user:
-                    id: 123
-                    display: Magic Wizard
-                    has_usable_password: true
-                    email: email@domain.org
-                    username: wizard
-                  methods:
-                    - method: password
-                      at: 1711555057.065702
-                      email: email@domain.org
-                meta:
-                  is_authenticated: true
-            authenticated_password_2fa:
-              summary: |
-                Fully authenticated using by password and 2FA.
-              value:
-                status: 200
-                data:
-                  user:
-                    id: 123
-                    display: Magic Wizard
-                    has_usable_password: true
-                    email: email@domain.org
-                    username: wizard
-                  methods:
-                    - method: password
-                      at: 1711555057.065702
-                      email: email@domain.org
-                    - method: mfa
-                      at: 1711555060.9375854
-                      id: 66
-                      type: totp
-                meta:
-                  is_authenticated: true

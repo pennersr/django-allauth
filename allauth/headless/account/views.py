@@ -91,9 +91,7 @@ class VerifyEmailView(APIView):
             # Verifying email as part of login/signup flow, so emit a
             # authentication status response.
             self.stage.exit()
-            return AuthenticationResponse(self.request)
-        else:
-            return response.EmailVerifiedResponse(request, email_address)
+        return AuthenticationResponse(self.request)
 
 
 class RequestPasswordResetView(APIView):

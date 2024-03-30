@@ -49,7 +49,7 @@ def build_urlpatterns(client):
                         name="headless_signup",
                     ),
                     path(
-                        "verify_email",
+                        "email/verify",
                         views.VerifyEmailView.as_api_view(client=client),
                         name="headless_verify_email",
                     ),

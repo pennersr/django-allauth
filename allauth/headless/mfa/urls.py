@@ -37,7 +37,7 @@ def build_urlpatterns(client):
                         name="headless_mfa_manage_totp",
                     ),
                     path(
-                        "authenticators/recovery_codes",
+                        "authenticators/recovery-codes",
                         views.ManageRecoveryCodesView.as_api_view(client=client),
                         name="headless_mfa_manage_recovery_codes",
                     ),

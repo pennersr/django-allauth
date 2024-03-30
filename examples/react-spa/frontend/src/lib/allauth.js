@@ -39,7 +39,7 @@ export const URLs = Object.freeze({
 
   // Account management: 2FA
   AUTHENTICATORS: BASE_URL + '/account/authenticators',
-  RECOVERY_CODES: BASE_URL + '/account/authenticators/recovery_codes',
+  RECOVERY_CODES: BASE_URL + '/account/authenticators/recovery-codes',
   TOTP_AUTHENTICATOR: BASE_URL + '/account/authenticators/totp',
 
   // Auth: Basics
@@ -49,7 +49,7 @@ export const URLs = Object.freeze({
   REQUEST_PASSWORD_RESET: BASE_URL + '/auth/password/request',
   RESET_PASSWORD: BASE_URL + '/auth/password/reset',
   SIGNUP: BASE_URL + '/auth/signup',
-  VERIFY_EMAIL: BASE_URL + '/auth/verify_email',
+  VERIFY_EMAIL: BASE_URL + '/auth/email/verify',
 
   // Auth: 2FA
   MFA_AUTHENTICATE: BASE_URL + '/auth/2fa/authenticate',

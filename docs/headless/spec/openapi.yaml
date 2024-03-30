@@ -62,7 +62,6 @@ x-tagGroups:
     tags:
       - "Sessions"
 paths:
-
   ######################################################################
   # Base
   ######################################################################
@@ -83,59 +82,44 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/Configuration"
-
-
   ######################################################################
   # Authentication: Account
   ######################################################################
-
   /_allauth/{client}/v1/auth/login:
     post:
       tags:
         - "Authentication: Account"
       summary: Login
+      description: |
+        Login using a username-password or email-password combination.
       parameters:
         - $ref: "#/components/parameters/Client"
       requestBody:
         $ref: "#/components/requestBodies/Login"
       responses:
-        "401":
-          description: Not authenticated, more steps are required to be completed.
-          content:
-            application/json:
-              examples:
-                unauthenticated_pending_2fa:
-                  $ref: "#/components/responses/Auth401/content/application~1json/examples/unauthenticated_pending_2fa"
-                unauthenticated_pending_email_verification:
-                  $ref: "#/components/responses/Auth401/content/application~1json/examples/unauthenticated_pending_email_verification"
         "200":
-          $ref: "#/components/responses/UserAuthenticated"
-
+          $ref: "#/components/responses/Authenticated"
         "400":
           description: An input error occurred.
           content:
             application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
               examples:
                 invalid_email:
-                  summary: |
-                    Invalid email
-                  value:
-                    status: 400
-                    errors:
-                      - message: Enter a valid email address.
-                        code: invalid
-                        param: email
-                invalid_password:
-                  summary: |
-                    Invalid password
-                  value:
-                    status: 400
-                    errors:
-                      - message: The email address and/or password you specified are not correct.
-                        code: email_password_mismatch
-                        param: password
-
-
+                  $ref: "#/components/examples/InvalidEmail"
+                password_mismatch:
+                  $ref: "#/components/examples/PasswordMismatch"
+        "401":
+          description: |
+            Not authenticated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthenticationResponse"
+              examples:
+                pending_email:
+                  $ref: "#/components/examples/UnauthenticatedPendingEmailVerification"
   /_allauth/{client}/v1/auth/signup:
     post:
       tags:
@@ -150,31 +134,28 @@ paths:
       requestBody:
         $ref: "#/components/requestBodies/Signup"
       responses:
-        "401":
-          description: Not authenticated, more steps are required to be completed.
-          content:
-            application/json:
-              examples:
-                unauthenticated_pending_email_verification:
-                  $ref: "#/components/responses/Auth401/content/application~1json/examples/unauthenticated_pending_email_verification"
         "200":
-          $ref: "#/components/responses/UserAuthenticated"
-
+          $ref: "#/components/responses/Authenticated"
         "400":
-          description: An input error occurred.
+          description: |
+            An input error occurred.
           content:
             application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
               examples:
                 invalid_email:
-                  summary: |
-                    Invalid email
-                  value:
-                    status: 400
-                    errors:
-                      - message: Enter a valid email address.
-                        code: invalid
-                        param: email
-
+                  $ref: "#/components/examples/InvalidEmail"
+        "401":
+          description: |
+            Not authenticated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthenticationResponse"
+              examples:
+                pending_email:
+                  $ref: "#/components/examples/UnauthenticatedPendingEmailVerification"
   /_allauth/{client}/v1/auth/verify_email:
     get:
       tags:
@@ -188,29 +169,17 @@ paths:
         - $ref: "#/components/parameters/Client"
       responses:
         "200":
-          description: Email verification information.
+          $ref: "#/components/responses/EmailVerificationInfo"
+        "400":
+          description: |
+            An input error occurred.
           content:
             application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
               examples:
-                verification:
-                  summary: |
-                    Email verification information
-                  value:
-                    status: 200
-                    data:
-                      email: email@domain.org
-                      user:
-                        id: 123
-                        display: wizard
-                        has_usable_password: true
-                        email: email@domain.org
-                        username: wizard
-                    meta:
-                      is_authenticating: true
-
-        "400":
-          $ref: "#/components/responses/InvalidEmailVerificationKey"
-
+                invalid_email:
+                  $ref: "#/components/examples/InvalidEmailVerificationKey"
     post:
       tags:
         - "Authentication: Account"
@@ -224,29 +193,19 @@ paths:
         $ref: "#/components/requestBodies/VerifyEmail"
       responses:
         "200":
-          description: Verification successful.
-          content:
-            application/json:
-              examples:
-                success:
-                  summary: |
-                    Email verification success
-                  value:
-                    status: 200
-                authenticated:
-                  $ref: "#/components/responses/UserAuthenticated/content/application~1json/examples/authenticated_password"
+          $ref: "#/components/responses/EmailVerified"
         "400":
-          $ref: "#/components/responses/InvalidEmailVerificationKey"
-
-        "401":
-          description: Not authenticated. Proceed to login.
+          description: |
+            An input error occurred.
           content:
             application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
               examples:
-                unauthenticated:
-                  $ref: "#/components/responses/Auth401/content/application~1json/examples/unauthenticated"
-
-
+                invalid_email:
+                  $ref: "#/components/examples/InvalidEmailVerificationKey"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
   /_allauth/{client}/v1/auth/reauthenticate:
     post:
       tags:
@@ -266,22 +225,16 @@ paths:
         $ref: "#/components/requestBodies/Reauthenticate"
       responses:
         "200":
-          $ref: "#/components/responses/UserAuthenticated"
+          $ref: "#/components/responses/Authenticated"
         "400":
           description: An input error occurred.
           content:
             application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
               examples:
-                invalid_password:
-                  summary: |
-                    Invalid password
-                  value:
-                    status: 400
-                    errors:
-                      - message: Incorrect password.
-                        param: password
-                        code: incorrect_password
-
+                invalid_email:
+                  $ref: "#/components/examples/IncorrectPassword"
   ######################################################################
   # Authentication: Password
   ######################################################################
@@ -295,30 +248,21 @@ paths:
       requestBody:
         $ref: "#/components/requestBodies/RequestPassword"
       responses:
+        "200":
+          $ref: "#/components/responses/StatusOK"
         "400":
-          description: An input error occurred.
+          description: |
+            An input error occurred.
           content:
             application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
               examples:
                 invalid_email:
-                  value:
-                    status: 400
-                    errors:
-                      - message: Enter a valid email address.
-                        param: email
-                        code: invalid
-        "200":
-          description: Request successfully handled.
-          content:
-            application/json:
-              examples:
-                success:
-                  value:
-                    status: 200
-
+                  $ref: "#/components/examples/InvalidEmail"
   /_allauth/{client}/v1/auth/password/reset:
     get:
-      summary: Get password reset token information
+      summary: Get password reset information
       tags:
         - "Authentication: Password"
       parameters:
@@ -326,26 +270,17 @@ paths:
         - $ref: "#/components/parameters/PasswordResetKey"
       responses:
         "200":
-          description: Valid password reset key.
+          $ref: "#/components/responses/PasswordResetInfo"
+        "400":
+          description: |
+            An input error occurred.
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  status:
-                    $ref: "#/components/schemas/StatusOK"
-                  data:
-                    type: object
-                    properties:
-                      user:
-                        $ref: "#/components/schemas/User"
-                required:
-                  - status
-                  - data
-
-        "401":
-          $ref: "#/components/responses/Auth401"
-
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                password_reset_key_invalid:
+                  $ref: "#/components/examples/InvalidPasswordResetKey"
     post:
       summary: Reset password
       tags:
@@ -355,24 +290,19 @@ paths:
       requestBody:
         $ref: "#/components/requestBodies/ResetPassword"
       responses:
-        "401":
-          $ref: "#/components/responses/Auth401"
         "200":
-          $ref: "#/components/responses/UserAuthenticated"
+          $ref: "#/components/responses/Authenticated"
         "400":
           description: An input error occurred.
           content:
             application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
               examples:
                 invalid_email:
-                  value:
-                    status: 400
-                    errors:
-                      - message: Enter a valid email address.
-                        param: email
-                        code: invalid
-
-
+                  $ref: "#/components/examples/InvalidEmail"
+        "401":
+          $ref: "#/components/responses/Authentication"
   ######################################################################
   # Authentication: Providers
   ######################################################################
@@ -396,8 +326,6 @@ paths:
               schema:
                 type: string
               description: The redirect URL.
-
-
   /_allauth/{client}/v1/auth/provider/token:
     post:
       tags:
@@ -417,19 +345,27 @@ paths:
         $ref: "#/components/requestBodies/ProviderToken"
       responses:
         "200":
-          $ref: "#/components/responses/UserAuthenticated"
+          $ref: "#/components/responses/Authenticated"
         "400":
-          description: Invalid input.
+          description: An input error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                invalid_token:
+                  $ref: "#/components/examples/InvalidProviderToken"
         "401":
           description: Not authenticated, more steps are required to be completed.
           content:
             application/json:
+              schema:
+                $ref: "#/components/schemas/AuthenticationResponse"
               examples:
                 unauthenticated_pending_2fa:
-                  $ref: "#/components/responses/Auth401/content/application~1json/examples/unauthenticated_pending_2fa"
+                  $ref: "#/components/examples/UnauthenticatedPending2FA"
                 unauthenticated_pending_email_verification:
-                  $ref: "#/components/responses/Auth401/content/application~1json/examples/unauthenticated_pending_email_verification"
-
+                  $ref: "#/components/examples/UnauthenticatedPendingEmailVerification"
   /_allauth/{client}/v1/auth/provider/signup:
     post:
       tags:
@@ -446,18 +382,25 @@ paths:
         $ref: "#/components/requestBodies/ProviderSignup"
       responses:
         "200":
-          $ref: "#/components/responses/UserAuthenticated"
+          $ref: "#/components/responses/Authenticated"
         "400":
-          $ref: "#/components/responses/InvalidEmail400"
+          description: An input error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                invalid_email:
+                  $ref: "#/components/examples/InvalidEmail"
         "401":
           description: Not authenticated, more steps are required to be completed.
           content:
             application/json:
+              schema:
+                $ref: "#/components/schemas/AuthenticationResponse"
               examples:
                 unauthenticated_pending_email_verification:
-                  $ref: "#/components/responses/Auth401/content/application~1json/examples/unauthenticated_pending_email_verification"
-
-
+                  $ref: "#/components/examples/UnauthenticatedPendingEmailVerification"
   ######################################################################
   # Authentication: 2FA
   ######################################################################
@@ -477,17 +420,18 @@ paths:
         $ref: "#/components/requestBodies/MFAAuthenticate"
       responses:
         "200":
-          $ref: "#/components/responses/UserAuthenticated"
+          $ref: "#/components/responses/Authenticated"
         "400":
-          $ref: "#/components/responses/InvalidAuthenticatorCode"
-        "401":
-          description: Not authenticated, more steps are required to be completed.
+          description: An input error occurred.
           content:
             application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
               examples:
-                unauthenticated_pending_email_verification:
-                  $ref: "#/components/responses/Auth401/content/application~1json/examples/unauthenticated_pending_email_verification"
-
+                invalid_code:
+                  $ref: "#/components/examples/InvalidAuthenticatorCode"
+        "401":
+          $ref: "#/components/responses/Authentication"
   /_allauth/{client}/v1/auth/2fa/reauthenticate:
     post:
       tags:
@@ -506,10 +450,16 @@ paths:
         - $ref: "#/components/parameters/SessionToken"
       responses:
         "200":
-          $ref: "#/components/responses/UserAuthenticated"
+          $ref: "#/components/responses/Authenticated"
         "400":
-          $ref: "#/components/responses/InvalidAuthenticatorCode"
-
+          description: An input error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                invalid_code:
+                  $ref: "#/components/examples/InvalidAuthenticatorCode"
   ######################################################################
   # Account: Providers
   ######################################################################
@@ -543,9 +493,16 @@ paths:
         "200":
           $ref: "#/components/responses/ProviderAccounts"
         "400":
-          $ref: "#/components/responses/ProviderDisconnectNotAllowed"
-
-
+          description: An input error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                no_password:
+                  $ref: "#/components/examples/DisconnectNotAllowedNoPassword"
+                no_email:
+                  $ref: "#/components/examples/DisconnectNotAllowedNoVerifiedEmail"
   ######################################################################
   # Account: Email
   ######################################################################
@@ -563,7 +520,7 @@ paths:
         "200":
           $ref: "#/components/responses/EmailAddresses"
         "401":
-          $ref: "#/components/responses/Auth401"
+          $ref: "#/components/responses/Authentication"
     post:
       tags:
         - "Account: Email"
@@ -581,10 +538,16 @@ paths:
         "200":
           $ref: "#/components/responses/EmailAddresses"
         "400":
-          $ref: "#/components/responses/InvalidEmail400"
+          description: An input error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                invalid_code:
+                  $ref: "#/components/examples/InvalidEmail"
         "401":
-          $ref: "#/components/responses/Auth401"
-
+          $ref: "#/components/responses/AuthenticationOrReauthentication"
     put:
       tags:
         - "Account: Email"
@@ -600,31 +563,23 @@ paths:
         $ref: "#/components/requestBodies/Email"
       responses:
         "200":
-          description: |
-            The email verification email was sent/
+          $ref: "#/components/responses/StatusOK"
+        "400":
+          description: An input error occurred.
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  status:
-                    $ref: "#/components/schemas/StatusOK"
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                invalid_code:
+                  $ref: "#/components/examples/InvalidEmail"
         "403":
           description: |
             Too many email verification mails were already sent.
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  status:
-                    type: integer
-                    enum:
-                      - 403
-
-        "400":
-          $ref: "#/components/responses/InvalidEmail400"
-
+                $ref: "#/components/schemas/ForbiddenResponse"
     patch:
       tags:
         - "Account: Email"
@@ -641,8 +596,14 @@ paths:
         "200":
           $ref: "#/components/responses/EmailAddresses"
         "400":
-          $ref: "#/components/responses/InvalidEmail400"
-
+          description: An input error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                invalid_code:
+                  $ref: "#/components/examples/InvalidEmail"
     delete:
       tags:
         - "Account: Email"
@@ -658,8 +619,14 @@ paths:
         "200":
           $ref: "#/components/responses/EmailAddresses"
         "400":
-          $ref: "#/components/responses/InvalidEmail400"
-
+          description: An input error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                invalid_code:
+                  $ref: "#/components/examples/InvalidEmail"
   ######################################################################
   # Account: 2FA
   ######################################################################
@@ -674,7 +641,10 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/Authenticators"
-
+        "401":
+          $ref: "#/components/responses/Authentication"
+        "410":
+          $ref: "#/components/responses/SessionGone"
   /_allauth/{client}/v1/account/authenticators/totp:
     get:
       tags:
@@ -690,7 +660,6 @@ paths:
           $ref: "#/components/responses/TOTPAuthenticatorNotFound"
         "200":
           $ref: "#/components/responses/TOTPAuthenticator"
-
     post:
       tags:
         - "Account: 2FA"
@@ -709,9 +678,14 @@ paths:
         "200":
           $ref: "#/components/responses/TOTPAuthenticator"
         "400":
-          $ref: "#/components/responses/InvalidAuthenticatorCode"
-
-
+          description: An input error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                invalid_code:
+                  $ref: "#/components/examples/InvalidAuthenticatorCode"
     delete:
       tags:
         - "Account: 2FA"
@@ -724,10 +698,9 @@ paths:
         - $ref: "#/components/parameters/SessionToken"
       responses:
         "200":
-          $ref: "#/components/responses/TOTPAuthenticatorDeactivated"
+          $ref: "#/components/responses/StatusOK"
         "401":
           $ref: "#/components/responses/ReauthenticationRequired"
-
   /_allauth/{client}/v1/account/authenticators/recovery_codes:
     get:
       tags:
@@ -744,7 +717,7 @@ paths:
         "401":
           $ref: "#/components/responses/ReauthenticationRequired"
         "404":
-          $ref: "#/components/responses/RecoveryCodesNotFound"
+          $ref: "#/components/responses/NotFound"
     post:
       tags:
         - "Account: 2FA"
@@ -754,15 +727,19 @@ paths:
         - $ref: "#/components/parameters/SessionToken"
       responses:
         "400":
-          $ref: "#/components/responses/CannotGenerateRecoveryCodes"
+          description: An input error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                invalid_code:
+                  $ref: "#/components/examples/CannotGenerateRecoveryCodes"
         "401":
           $ref: "#/components/responses/ReauthenticationRequired"
-
-
   ######################################################################
   # Sessions
   ######################################################################
-
   /_allauth/{client}/v1/auth/session:
     get:
       tags:
@@ -777,10 +754,11 @@ paths:
         - $ref: "#/components/parameters/SessionToken"
       responses:
         "200":
-          $ref: "#/components/responses/UserAuthenticated"
+          $ref: "#/components/responses/Authenticated"
         "401":
-          $ref: "#/components/responses/Auth401"
-
+          $ref: "#/components/responses/Authentication"
+        "410":
+          $ref: "#/components/responses/SessionGone"
     delete:
       tags:
         - "Authentication: Current Session"
@@ -792,9 +770,7 @@ paths:
         - $ref: "#/components/parameters/SessionToken"
       responses:
         "401":
-          $ref: "#/components/responses/Auth401"
-
-
+          $ref: "#/components/responses/Unauthenticated"
   ######################################################################
   # Account: Password
   ######################################################################
@@ -814,11 +790,10 @@ paths:
       requestBody:
         $ref: "#/components/requestBodies/ChangePassword"
       responses:
+        "400":
+          $ref: "#/components/responses/Error"
         "401":
-          $ref: "#/components/responses/Auth401"
-
-
-
+          $ref: "#/components/responses/Authentication"
   ######################################################################
   # Authentication: Current Sessions
   ######################################################################
@@ -832,7 +807,6 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/Sessions"
-
     delete:
       tags:
         - "Sessions"
@@ -842,50 +816,211 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/Sessions"
-
-
 components:
+  ######################################################################
+  # Components: Examples
+  ######################################################################
+  examples:
+    CannotGenerateRecoveryCodes:
+      summary: |
+        Unable to generate recovery codes.
+      value:
+        status: 400
+        errors:
+          - message: |
+              You cannot deactivate two-factor authentication.
+              code: cannot_generate_recovery_codes
+    DisconnectNotAllowedNoPassword:
+      summary: Account without a password.
+      value:
+        status: 400
+        errors:
+          - message: Your account has no password set up.
+            code: no_password
+            param: account
+    DisconnectNotAllowedNoVerifiedEmail:
+      summary: Account without a verified email.
+      value:
+        status: 400
+        errors:
+          - message: Your account has no verified email address.
+            code: no_verified_email
+            param: account
+    InvalidAuthenticatorCode:
+      summary: |
+        An error response indicating that the provided code is incorrect.
+      value:
+        status: 400
+        errors:
+          - message: Incorrect code.
+            code: incorrect_code
+            param: code
+    InvalidEmailVerificationKey:
+      summary: |
+        Email verification key invalid.
+      value:
+        status: 400
+        errors:
+          - message: Invalid or expired key.
+            code: invalid
+            param: key
+    InvalidEmail:
+      value:
+        status: 400
+        errors:
+          - message: Enter a valid email address.
+            code: invalid
+            param: email
+    IncorrectPassword:
+      value:
+        status: 400
+        errors:
+          - message: Incorrect password.
+            param: password
+            code: incorrect_password
+    InvalidPasswordResetKey:
+      summary: |
+        Password reset key invalid.
+      value:
+        status: 400
+        errors:
+          - message: The password reset token was invalid.
+            code: token_invalid
+            param: key
+    InvalidProviderToken:
+      summary: |
+        Provider token invalid.
+      value:
+        status: 400
+        errors:
+          - message: The token was invalid.
+            code: invalid
+            param: token
+    PasswordMismatch:
+      value:
+        status: 400
+        errors:
+          - message: The email address and/or password you specified are not correct.
+            code: email_password_mismatch
+            param: password
+    UnauthenticatedInitial:
+      summary: |
+        Unauthenticated: Initial
+      value:
+        status: 401
+        data:
+          flows:
+            - id: login
+            - id: signup
+            - id: provider_redirect
+              providers:
+                - facebook
+                - google
+                - telegram
+            - id: provider_token
+              providers:
+                - google
+        meta:
+          is_authenticated: false
+    UnauthenticatedPending2FA:
+      summary: |
+        Unauthenticated: pending 2FA
+      value:
+        status: 401
+        data:
+          flows:
+            - id: login
+            - id: signup
+            - id: provider_redirect
+              providers:
+                - facebook
+                - google
+                - telegram
+            - id: provider_token
+              providers:
+                - google
+            - id: mfa_authenticate
+              is_pending: true
+        meta:
+          is_authenticated: false
+    UnauthenticatedPendingProviderSignup:
+      summary: |
+        Unauthenticated: pending provider signup
+      value:
+        status: 401
+        data:
+          flows:
+            - id: login
+            - id: signup
+            - id: provider_redirect
+              providers:
+                - facebook
+                - google
+                - telegram
+            - id: provider_token
+              providers:
+                - google
+            - id: provider_signup
+              provider:
+                id: google
+                name: Google
+                client_id: 123.apps.googleusercontent.com
+                flows:
+                  - provider_redirect
+                  - provider_token
+              is_pending: true
+        meta:
+          is_authenticated: false
+    UnauthenticatedPendingEmailVerification:
+      summary: |
+        Unauthenticated: pending email verification
+      value:
+        status: 401
+        data:
+          flows:
+            - id: login
+            - id: signup
+            - id: provider_redirect
+              providers:
+                - facebook
+                - google
+                - telegram
+            - id: provider_token
+              providers:
+                - google
+            - id: verify_email
+              is_pending: true
+        meta:
+          is_authenticated: false
+    ReauthenticationRequired:
+      summary: |
+        Reauthentication required
+      value:
+        status: 401
+        data:
+          user:
+            id: 123
+            display: wizard
+            has_usable_password: true
+            email: email@domain.org
+            username: wizard
+          methods:
+            - method: password
+              at: 1711555057.065702
+              email: email@domain.org
+            - method: mfa
+              at: 1711555060.9375854
+              id: 66
+              type: totp
+          flows:
+            - id: reauthenticate
+            - id: mfa_reauthenticate
+        meta:
+          is_authenticated: true
   ######################################################################
   # Components: Request bodies
   ######################################################################
   requestBodies:
-    MFAAuthenticate:
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/MFAAuthenticate"
-
-    ProviderToken:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ProviderToken"
-    ProviderRedirect:
-      required: true
-      description: |
-        Initiate the provider redirect flow.
-      content:
-        application/x-www-form-urlencoded:
-          schema:
-            $ref: "#/components/schemas/ProviderRedirect"
-
-    RequestPassword:
-      description: Request password.
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/RequestPassword"
-
-    Reauthenticate:
-      description: Reauthenticate.
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/Reauthenticate"
-
     Login:
       description: Login.
       required: true
@@ -893,23 +1028,12 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/Login"
-
-    Signup:
-      description: Signup
+    MFAAuthenticate:
       required: true
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/Signup"
-
-    ProviderSignup:
-      description: Provider signup.
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ProviderSignup"
-
+            $ref: "#/components/schemas/MFAAuthenticate"
     ProviderAccount:
       content:
         application/json:
@@ -923,7 +1047,41 @@ components:
             required:
               - account
               - provider
-
+    ProviderRedirect:
+      required: true
+      description: |
+        Initiate the provider redirect flow.
+      content:
+        application/x-www-form-urlencoded:
+          schema:
+            $ref: "#/components/schemas/ProviderRedirect"
+    ProviderSignup:
+      description: Provider signup.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ProviderSignup"
+    ProviderToken:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ProviderToken"
+    Reauthenticate:
+      description: Reauthenticate.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Reauthenticate"
+    RequestPassword:
+      description: Request password.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/RequestPassword"
     SetupTOTP:
       content:
         application/json:
@@ -934,7 +1092,13 @@ components:
                 $ref: "#/components/schemas/AuthenticatorCode"
             required:
               - code
-
+    Signup:
+      description: Signup
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Signup"
     ChangePassword:
       content:
         application/json:
@@ -947,8 +1111,7 @@ components:
                 type: string
                 description: |
                   The current password.
-                example:
-                  Aberto!
+                example: Aberto!
             required:
               - new_password
     Email:
@@ -961,8 +1124,7 @@ components:
                 type: string
                 description: |
                   An email address.
-                example:
-                  email@domain.org
+                example: email@domain.org
             required:
               - email
     MarkPrimaryEmail:
@@ -975,8 +1137,7 @@ components:
                 type: string
                 description: |
                   An email address.
-                example:
-                  email@domain.org
+                example: email@domain.org
               primary:
                 type: boolean
                 enum:
@@ -986,31 +1147,114 @@ components:
             required:
               - email
               - primary
-
     ResetPassword:
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/ResetPassword"
-
     VerifyEmail:
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/VerifyEmail"
-
-
   ######################################################################
   # Components: Schemas
   ######################################################################
   schemas:
-    AuthenticationMeta:
+    Session:
+      type: object
+      properties:
+        user_agent:
+          type: string
+          example: Mozilla Firefox
+        ip:
+          type: string
+          example: 127.2.3.192
+        created_at:
+          $ref: "#/components/schemas/Timestamp"
+        is_current:
+          type: boolean
+        id:
+          type: integer
+          example: 123
+        last_seen_at:
+          $ref: "#/components/schemas/Timestamp"
+      required:
+        - user_agent
+        - ip
+        - created_at
+        - is_current
+        - id
+    AuthenticationResponse:
       type: object
       description: |
-        Metadata available in an authentication related response.
+        An authentication related response.
       properties:
-        is_authenticated:
-          type: boolean
+        status:
+          type: integer
+          enum:
+            - 401
+        data:
+          type: object
+          properties:
+            flows:
+              type: array
+              items:
+                $ref: "#/components/schemas/Flow"
+          required:
+            - flows
+        meta:
+          $ref: "#/components/schemas/AuthenticationMeta"
+      required:
+        - status
+        - data
+        - meta
+    ForbiddenResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          enum:
+            - 403
+      required:
+        - status
+    ReauthenticationResponse:
+      type: object
+      description: |
+        A response indicating reauthentication is required.
+      properties:
+        status:
+          type: integer
+          enum:
+            - 401
+        data:
+          $ref: "#/components/schemas/Authenticated"
+        meta:
+          $ref: "#/components/schemas/AuthenticatedMeta"
+      required:
+        - status
+        - data
+        - meta
+    SessionGoneResponse:
+      type: object
+      description: |
+        The session is expired or invalid.
+      properties:
+        status:
+          type: integer
+          enum:
+            - 410
+        data:
+          type: object
+        meta:
+          $ref: "#/components/schemas/AuthenticationMeta"
+      required:
+        - status
+        - data
+        - meta
+    BaseAuthenticationMeta:
+      type: object
+      properties:
         session_token:
           type: string
           description: |
@@ -1021,10 +1265,54 @@ components:
           description: |
             The access token (`app` clients only).
           example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdW
+    AuthenticationMeta:
+      allOf:
+        - $ref: "#/components/schemas/BaseAuthenticationMeta"
+        - type: object
+          description: |
+            Metadata available in an authentication related response.
+          properties:
+            is_authenticated:
+              type: boolean
+          required:
+            - is_authenticated
+    AuthenticatedMeta:
+      allOf:
+        - $ref: "#/components/schemas/BaseAuthenticationMeta"
+        - type: object
+          description: |
+            Metadata available in an re-authentication related response.
+          properties:
+            is_authenticated:
+              type: boolean
+              enum:
+                - true
+          required:
+            - is_authenticated
+    Flow:
+      type: object
+      properties:
+        id:
+          type: string
+          enum:
+            - verify_email
+            - login
+            - signup
+            - provider_redirect
+            - provider_signup
+            - provider_token
+            - mfa_authenticate
+            - reauthenticate
+            - mfa_reauthenticate
+        provider:
+          $ref: "#/components/schemas/Provider"
+        is_pending:
+          type: boolean
+          enum:
+            - true
       required:
-        - is_authenticated
-
-    UserAuthenticated:
+        - id
+    Authenticated:
       type: object
       properties:
         user:
@@ -1038,7 +1326,6 @@ components:
       required:
         - user
         - methods
-
     AuthenticationMethod:
       oneOf:
         - type: object
@@ -1071,7 +1358,7 @@ components:
             reauthenticated:
               type: boolean
               enum:
-               - true
+                - true
           required:
             - method
             - reauthenticated
@@ -1109,27 +1396,24 @@ components:
             type:
               $ref: "#/components/schemas/AuthenticatorType"
             reauthenticated:
-              type:
-                boolean
+              type: boolean
           required:
             - method
             - at
             - type
-
-    UserAuthenticatedResponse:
+    AuthenticatedResponse:
       type: object
       properties:
         status:
           $ref: "#/components/schemas/StatusOK"
         data:
-          $ref: "#/components/schemas/UserAuthenticated"
+          $ref: "#/components/schemas/Authenticated"
         meta:
           $ref: "#/components/schemas/AuthenticationMeta"
       required:
         - status
         - data
         - meta
-
     MFAAuthenticate:
       type: object
       properties:
@@ -1137,13 +1421,11 @@ components:
           $ref: "#/components/schemas/AuthenticatorCode"
       required:
         - code
-
     ClientID:
       type: string
       description: |
         The client ID (in case of OAuth2 or OpenID Connect based providers)
       example: 123.apps.googleusercontent.com
-
     ProviderToken:
       type: object
       properties:
@@ -1171,10 +1453,9 @@ components:
           required:
             - client_id
       required:
-       - provider
-       - process
-       - token
-
+        - provider
+        - process
+        - token
     ProviderRedirect:
       type: object
       properties:
@@ -1191,7 +1472,6 @@ components:
         - provider
         - process
         - callback_url
-
     RequestPassword:
       type: object
       properties:
@@ -1199,7 +1479,6 @@ components:
           $ref: "#/components/schemas/Email"
       required:
         - email
-
     Reauthenticate:
       type: object
       properties:
@@ -1207,7 +1486,6 @@ components:
           $ref: "#/components/schemas/Password"
       required:
         - password
-
     ProviderSignup:
       type: object
       properties:
@@ -1215,7 +1493,6 @@ components:
           $ref: "#/components/schemas/Email"
       required:
         - email
-
     Signup:
       type: object
       properties:
@@ -1227,7 +1504,6 @@ components:
           $ref: "#/components/schemas/Password"
       required:
         - password
-
     Username:
       type: string
       description: |
@@ -1238,7 +1514,6 @@ components:
       description: |
         The email address.
       example: email@domain.org
-
     Login:
       type: object
       properties:
@@ -1259,7 +1534,6 @@ components:
               $ref: "#/components/schemas/Email"
           required:
             - email
-
     StatusOK:
       type: integer
       enum:
@@ -1273,7 +1547,6 @@ components:
           $ref: "#/components/schemas/ProviderList"
       required:
         - providers
-
     MFAConfiguration:
       type: object
       description: |
@@ -1287,7 +1560,6 @@ components:
             $ref: "#/components/schemas/AuthenticatorType"
       required:
         - supported_types
-
     UserSessionsConfiguration:
       type: object
       description: |
@@ -1299,8 +1571,6 @@ components:
             Matches `settings.USERSESSIONS_TRACK_ACTIVITY`.
       required:
         - track_activity
-
-
     ConfigurationResponse:
       type: object
       properties:
@@ -1319,22 +1589,22 @@ components:
         - status
         - data
       example:
-            status: 200
-            data:
-              socialaccount:
-                providers:
-                  - id: "google"
-                    name: "Google"
-                    flows:
-                      - "provider_redirect"
-                      - "provider_token"
-                    client_id: "123.apps.googleusercontent.com"
-              mfa:
-                supported_types:
-                  - "recovery_codes"
-                  - "totp"
-              usersessions:
-                track_activity: false
+        status: 200
+        data:
+          socialaccount:
+            providers:
+              - id: "google"
+                name: "Google"
+                flows:
+                  - "provider_redirect"
+                  - "provider_token"
+                client_id: "123.apps.googleusercontent.com"
+          mfa:
+            supported_types:
+              - "recovery_codes"
+              - "totp"
+          usersessions:
+            track_activity: false
     ResetPassword:
       type: object
       properties:
@@ -1347,7 +1617,6 @@ components:
       required:
         - key
         - password
-
     VerifyEmail:
       type: object
       properties:
@@ -1357,23 +1626,19 @@ components:
           example: 2f-c4nqd4-e07d9bc694f9f28cd4fe92569d495333
       required:
         - key
-
     OptionalTimestamp:
       nullable: true
       $ref: "#/components/schemas/Timestamp"
-
     Timestamp:
       type: number
       description: |
         An epoch based timestamp (trivial to parse using: `new Date(value)*1000`)
       example: 1711555057.065702
-
     AuthenticatorCode:
       type: string
       description: |
         An authenticator code.
       example: "314159"
-
     AuthenticatorType:
       type: string
       enum:
@@ -1381,13 +1646,11 @@ components:
         - totp
       description: |
         The type of authenticator.
-
     Password:
       type: string
       description: |
         The password.
-      example:
-        Alohomora!
+      example: Alohomora!
     ErrorResponse:
       type: object
       properties:
@@ -1419,8 +1682,6 @@ components:
             required:
               - code
               - message
-
-
     Process:
       type: string
       description: |
@@ -1439,7 +1700,6 @@ components:
       description: |
         The provider ID.
       example: google
-
     ProviderAccountID:
       type: string
       description: |
@@ -1452,10 +1712,10 @@ components:
           description: |
             The user ID.
           oneOf:
-           - type: integer
-             example: 123
-           - type: string
-             example: 89d3f9a0-51a5-49dd-8b97-7536641958e9
+            - type: integer
+              example: 123
+            - type: string
+              example: 89d3f9a0-51a5-49dd-8b97-7536641958e9
         display:
           type: string
           description: |
@@ -1470,7 +1730,6 @@ components:
           $ref: "#/components/schemas/Email"
         username:
           $ref: "#/components/schemas/Username"
-
     EmailAddress:
       type: object
       properties:
@@ -1486,12 +1745,6 @@ components:
         - email
         - primary
         - verified
-
-    EmailAddressList:
-      type: array
-      items:
-        $ref: "#/components/schemas/EmailAddress"
-
     BaseAuthenticator:
       type: object
       properties:
@@ -1502,7 +1755,6 @@ components:
       required:
         - created_at
         - last_used_at
-
     TOTPAuthenticator:
       allOf:
         - $ref: "#/components/schemas/BaseAuthenticator"
@@ -1514,7 +1766,6 @@ components:
                 - totp
           required:
             - type
-
     RecoveryCodesAuthenticator:
       allOf:
         - $ref: "#/components/schemas/BaseAuthenticator"
@@ -1540,7 +1791,6 @@ components:
             - type
             - total_code_count
             - unused_code_count
-
     SensitiveRecoveryCodesAuthenticator:
       allOf:
         - $ref: "#/components/schemas/RecoveryCodesAuthenticator"
@@ -1554,20 +1804,16 @@ components:
                 $ref: "#/components/schemas/AuthenticatorCode"
           required:
             - unused_codes
-
-
     AuthenticatorList:
       type: array
       items:
         oneOf:
           - $ref: "#/components/schemas/TOTPAuthenticator"
           - $ref: "#/components/schemas/RecoveryCodesAuthenticator"
-
     ProviderList:
       type: array
       items:
         $ref: "#/components/schemas/Provider"
-
     Provider:
       type: object
       properties:
@@ -1599,7 +1845,6 @@ components:
         - id
         - name
         - flows
-
     ProviderAccount:
       type: object
       properties:
@@ -1616,24 +1861,46 @@ components:
         - uid
         - provider
         - display
-    ProviderAccountList:
-      type: array
-      items:
-        $ref: "#/components/schemas/ProviderAccount"
-
-
+    EmailVerificationInfo:
+      type: object
+      properties:
+        status:
+          $ref: "#/components/schemas/StatusOK"
+        data:
+          type: object
+          properties:
+            email:
+              $ref: "#/components/schemas/Email"
+            user:
+              $ref: "#/components/schemas/User"
+          required:
+            - email
+            - user
+        meta:
+          type: object
+          properties:
+            is_authenticating:
+              type: boolean
+          required:
+            - is_authenticating
+      required:
+        - status
+        - data
+        - meta
   ######################################################################
   # Components: Parameters
   ######################################################################
   parameters:
-    PasswordResetKey:
-      in: header
-      name: X-Password-Reset-Key
+    Client:
+      name: client
+      in: path
+      description: The type of client accessing the API.
+      required: true
       schema:
         type: string
-      required: true
-      description: The password reset key
-
+        enum:
+          - app
+          - browser
     EmailVerificationKey:
       in: header
       name: X-Email-Verification-Key
@@ -1641,6 +1908,13 @@ components:
         type: string
       required: true
       description: The email verification key
+    PasswordResetKey:
+      in: header
+      name: X-Password-Reset-Key
+      schema:
+        type: string
+      required: true
+      description: The password reset key
     SessionToken:
       in: header
       name: X-Session-Token
@@ -1648,21 +1922,40 @@ components:
         Session token. Only needed when `client` is equal to `app`.
       schema:
         type: string
-    Client:
-        name: client
-        in: path
-        description: The type of client accessing the API.
-        required: true
-        schema:
-          type: string
-          enum:
-            - app
-            - browser
-
   ######################################################################
   # Components: Responses
   ######################################################################
   responses:
+    Authentication:
+      description: Not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/AuthenticationResponse"
+    Authenticators:
+      description: |
+        List of authenticators.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: "#/components/schemas/StatusOK"
+              data:
+                $ref: "#/components/schemas/AuthenticatorList"
+            required:
+              - status
+              - data
+    AuthenticationOrReauthentication:
+      description: |
+        The response indicates authentication or re-authentication is required.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: "#/components/schemas/AuthenticationResponse"
+              - $ref: "#/components/schemas/ReauthenticationResponse"
     Configuration:
       description: |
         The django-allauth configuration.
@@ -1670,7 +1963,204 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/ConfigurationResponse"
-
+    EmailAddresses:
+      description: |
+        List of email addresses.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: "#/components/schemas/StatusOK"
+              data:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EmailAddress"
+            required:
+              - status
+              - data
+    EmailVerificationInfo:
+      description: Email verification information.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/EmailVerificationInfo"
+    EmailVerified:
+      description: Verification successful.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - type: object
+                title: OK
+                properties:
+                  status:
+                    $ref: "#/components/schemas/StatusOK"
+                required:
+                  - status
+              - $ref: "#/components/schemas/AuthenticatedResponse"
+    Error:
+      description: An input error occurred.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    Forbidden:
+      description: |
+        A forbidden response.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ForbiddenResponse"
+    NotFound:
+      description: |
+        Not found.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                enum:
+                  - 404
+            required:
+              - status
+    PasswordResetInfo:
+      description: Information about the password reset key.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: "#/components/schemas/StatusOK"
+              data:
+                type: object
+                properties:
+                  user:
+                    $ref: "#/components/schemas/User"
+            required:
+              - status
+              - data
+    ProviderAccounts:
+      description: |
+        List of third-party provider accounts.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: "#/components/schemas/StatusOK"
+              data:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProviderAccount"
+            required:
+              - status
+              - data
+    ReauthenticationRequired:
+      description: |
+        The response indicates reauthentication is required.
+      content:
+        application/json:
+          examples:
+            reauthentication_required:
+              summary: |
+                Reauthentication required
+              value:
+                status: 401
+                data:
+                  user:
+                    id: 123
+                    display: wizard
+                    has_usable_password: true
+                    email: email@domain.org
+                    username: wizard
+                  methods:
+                    - method: password
+                      at: 1711555057.065702
+                      email: email@domain.org
+                    - method: mfa
+                      at: 1711555060.9375854
+                      id: 66
+                      type: totp
+                  flows:
+                    - id: reauthenticate
+                    - id: mfa_reauthenticate
+                meta:
+                  is_authenticated: true
+    RecoveryCodes:
+      description: |
+        Information on the recovery codes.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: "#/components/schemas/StatusOK"
+              data:
+                $ref: "#/components/schemas/SensitiveRecoveryCodesAuthenticator"
+            required:
+              - status
+              - data
+    Sessions:
+      description: |
+        List of sessions.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: "#/components/schemas/StatusOK"
+              data:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Session"
+            required:
+              - status
+              - data
+    SessionGone:
+      description: |
+        The response indicates session is invalid or no longer exists.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/SessionGoneResponse"
+          examples:
+            unauth:
+              $ref: "#/components/examples/UnauthenticatedInitial"
+    StatusOK:
+      description: |
+        A success response.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: "#/components/schemas/StatusOK"
+            required:
+              - status
+    TOTPAuthenticator:
+      description: |
+        Information on the TOTP authenticator.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: "#/components/schemas/StatusOK"
+              data:
+                $ref: "#/components/schemas/TOTPAuthenticator"
+            required:
+              - status
+              - data
     TOTPAuthenticatorNotFound:
       description: |
         No TOTP authenticator has been set up.
@@ -1696,426 +2186,60 @@ components:
             required:
               - status
               - meta
-
-    RecoveryCodesNotFound:
+    Unauthenticated:
       description: |
-        No recovery codes were found.
+        There is no authenticated session.
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              status:
-                type: integer
-                enum:
-                  - 404
-            required:
-              - status
-
-    TOTPAuthenticator:
-      description: |
-        Information on the TOTP authenticator.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                $ref: "#/components/schemas/StatusOK"
-              data:
-                $ref: "#/components/schemas/TOTPAuthenticator"
-            required:
-              - status
-              - data
-
-    RecoveryCodes:
-      description: |
-        Information on the recovery codes.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                $ref: "#/components/schemas/StatusOK"
-              data:
-                $ref: "#/components/schemas/SensitiveRecoveryCodesAuthenticator"
-            required:
-              - status
-              - data
-
-    TOTPAuthenticatorDeactivated:
-      description: |
-        TOTP authentication successfully deactivated.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                $ref: "#/components/schemas/StatusOK"
-            required:
-              - status
-
-    ProviderDisconnectNotAllowed:
-      description: |
-        Disconnect the third-party provider account is not allowed.
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ErrorResponse"
+            $ref: "#/components/schemas/AuthenticationResponse"
           examples:
-            no_password:
-              summary: Account without a password.
+            unauth:
+              $ref: "#/components/examples/UnauthenticatedInitial"
+    Authenticated:
+      description: The user is authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/AuthenticatedResponse"
+          examples:
+            authenticated_password:
+              summary: |
+                Authenticated
               value:
-                status: 400
-                errors:
-                  - message: Your account has no password set up.
-                    code: no_password
-                    param: account
-            no_verified_email:
-              summary: Account without a verified email.
+                status: 200
+                data:
+                  user:
+                    id: 123
+                    display: Magic Wizard
+                    has_usable_password: true
+                    email: email@domain.org
+                    username: wizard
+                  methods:
+                    - method: password
+                      at: 1711555057.065702
+                      email: email@domain.org
+                meta:
+                  is_authenticated: true
+            authenticated_password_2fa:
+              summary: |
+                Fully authenticated using by password and 2FA.
               value:
-                status: 400
-                errors:
-                  - message: Your account has no verified email address.
-                    code: no_verified_email
-                    param: account
-    InvalidEmail400:
-      description: |
-        An error response indicating the email provided was incorrect.
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ErrorResponse"
-          example:
-            status: 400
-            errors:
-              - message: Enter a valid email address.
-                code: invalid
-                param: email
-    InvalidAuthenticatorCode:
-      description: |
-        An error response indicating that the provided code is incorrect.
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ErrorResponse"
-          example:
-            status: 400
-            errors:
-              - message: Incorrect code.
-                code: incorrect_code
-                param: code
-    Sessions:
-      description: |
-        List of sessions.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: integer
-              data:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    user_agent:
-                      type: string
-                    ip:
-                      type: string
-                    created_at:
-                      type: number
-                    is_current:
-                      type: boolean
-                    id:
-                      type: integer
-                    last_seen_at:
-                      type: number
-          example:
-            - status: 200
-              data:
-                - id: 123
-                  is_current: true
-                  user_agent: Mozilla Firefox
-                  ip: 127.2.3.192
-                  created_at: 1711455235
-                  last_seen_at: 1711555060
-    EmailAddresses:
-      description: |
-        List of email addresses.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                $ref: "#/components/schemas/StatusOK"
-              data:
-                type: array
-                items:
-                  $ref: "#/components/schemas/EmailAddressList"
-            required:
-              - status
-              - data
-
-    Authenticators:
-      description: |
-        List of authenticators.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                $ref: "#/components/schemas/StatusOK"
-              data:
-                $ref: "#/components/schemas/AuthenticatorList"
-            required:
-              - status
-              - data
-
-    ProviderAccounts:
-      description: |
-        List of third-party provider accounts.
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ProviderAccountList"
-
-    InvalidEmailVerificationKey:
-        description: |
-          Email verification invalid.
-        content:
-          application/json:
-            examples:
-              key_invalid:
-                summary: |
-                  Invalid key
-                value:
-                    status: 400
-                    errors:
-                      - message: |
-                          Invalid or expired key.
-                        code: invalid
-                        param: key
-
-    CannotGenerateRecoveryCodes:
-        description: |
-          Unable to generate recovery codes.
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ErrorResponse"
-            example:
-              value:
-                status: 400
-                errors:
-                  - message: |
-                      You cannot deactivate two-factor authentication.
-                    code: cannot_generate_recovery_codes
-    Auth401:
-        description: |
-          The response indicates (re)authentication is required.
-        content:
-          application/json:
-            examples:
-              unauthenticated:
-                summary: |
-                  Unauthenticated: Initial
-                value:
-                  status: 401
-                  data:
-                    flows:
-                      - id: login
-                      - id: signup
-                      - id: provider_redirect
-                        providers:
-                          - facebook
-                          - google
-                          - telegram
-                      - id: provider_token
-                        providers:
-                          - google
-                  meta:
-                    is_authenticated: false
-              unauthenticated_pending_2fa:
-                summary: |
-                  Unauthenticated: pending 2FA
-                value:
-                  status: 401
-                  data:
-                    flows:
-                      - id: login
-                      - id: signup
-                      - id: provider_redirect
-                        providers:
-                          - facebook
-                          - google
-                          - telegram
-                      - id: provider_token
-                        providers:
-                          - google
-                      - id: mfa_authenticate
-                        is_pending: true
-                  meta:
-                    is_authenticated: false
-
-              unauthenticated_provider_signup:
-                summary: |
-                  Unauthenticated: pending provider signup
-                value:
-                  status: 401
-                  data:
-                    flows:
-                      - id: login
-                      - id: signup
-                      - id: provider_redirect
-                        providers:
-                          - facebook
-                          - google
-                          - telegram
-                      - id: provider_token
-                        providers:
-                          - google
-                      - id: provider_signup
-                        provider:
-                          id: google
-                          name: Google
-                          client_id: 123.apps.googleusercontent.com
-                          flows:
-                            - provider_redirect
-                            - provider_token
-                        is_pending: true
-                  meta:
-                    is_authenticated: false
-
-              unauthenticated_pending_email_verification:
-                summary: |
-                  Unauthenticated: pending email verification
-                value:
-                  status: 401
-                  data:
-                    flows:
-                      - id: login
-                      - id: signup
-                      - id: provider_redirect
-                        providers:
-                          - facebook
-                          - google
-                          - telegram
-                      - id: provider_token
-                        providers:
-                          - google
-                      - id: verify_email
-                        is_pending: true
-                  meta:
-                    is_authenticated: false
-
-              reauthentication_required:
-                summary: |
-                  Reauthentication required
-                value:
-                  status: 401
-                  data:
-                    user:
-                      id: 123
-                      display: wizard
-                      has_usable_password: true
+                status: 200
+                data:
+                  user:
+                    id: 123
+                    display: Magic Wizard
+                    has_usable_password: true
+                    email: email@domain.org
+                    username: wizard
+                  methods:
+                    - method: password
+                      at: 1711555057.065702
                       email: email@domain.org
-                      username: wizard
-                    methods:
-                      - method: password
-                        at: 1711555057.065702
-                        email: email@domain.org
-                      - method: mfa
-                        at: 1711555060.9375854
-                        id: 66
-                        type: totp
-                    flows:
-                      - id: reauthenticate
-                      - id: mfa_reauthenticate
-                  meta:
-                    is_authenticated: true
-
-    UserAuthenticated:
-        description: The user is authenticated.
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UserAuthenticatedResponse"
-            examples:
-              authenticated_password:
-                summary: |
-                  Authenticated
-                value:
-                  status: 200
-                  data:
-                    user:
-                      id: 123
-                      display: Magic Wizard
-                      has_usable_password: true
-                      email: email@domain.org
-                      username: wizard
-                    methods:
-                      - method: password
-                        at: 1711555057.065702
-                        email: email@domain.org
-                  meta:
-                    is_authenticated: true
-
-              authenticated_password_2fa:
-                summary: |
-                  Fully authenticated using by password and 2FA.
-                value:
-                  status: 200
-                  data:
-                    user:
-                      id: 123
-                      display: Magic Wizard
-                      has_usable_password: true
-                      email: email@domain.org
-                      username: wizard
-                    methods:
-                      - method: password
-                        at: 1711555057.065702
-                        email: email@domain.org
-                      - method: mfa
-                        at: 1711555060.9375854
-                        id: 66
-                        type: totp
-                  meta:
-                    is_authenticated: true
-    ReauthenticationRequired:
-        description: |
-          The response indicates reauthentication is required.
-        content:
-          application/json:
-            examples:
-              reauthentication_required:
-                summary: |
-                  Reauthentication required
-                value:
-                  status: 401
-                  data:
-                    user:
-                      id: 123
-                      display: wizard
-                      has_usable_password: true
-                      email: email@domain.org
-                      username: wizard
-                    methods:
-                      - method: password
-                        at: 1711555057.065702
-                        email: email@domain.org
-                      - method: mfa
-                        at: 1711555060.9375854
-                        id: 66
-                        type: totp
-                    flows:
-                      - id: reauthenticate
-                      - id: mfa_reauthenticate
-                  meta:
-                    is_authenticated: true
+                    - method: mfa
+                      at: 1711555060.9375854
+                      id: 66
+                      type: totp
+                meta:
+                  is_authenticated: true

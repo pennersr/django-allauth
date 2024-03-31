@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-23 12:50-0600\n"
-"PO-Revision-Date: 2018-09-03 16:04+0200\n"
+"PO-Revision-Date: 2024-03-31 20:48+0200\n"
 "Last-Translator: b'Tuk Bredsdorff <tukodeb@gmail.com>'\n"
 "Language-Team: \n"
 "Language: da\n"
@@ -635,7 +635,7 @@ msgstr "I tilfælde af at du har glemt det er dit brugernavn %(username)s."
 #: templates/account/email/password_reset_key_subject.txt:3
 #: templates/account/email/unknown_account_subject.txt:3
 msgid "Password Reset Email"
-msgstr "Token for nulstilling af adgangskode var ugyldig"
+msgstr "Nulstilling af Password Email"
 
 #: templates/account/email/password_reset_message.txt:4
 #, fuzzy

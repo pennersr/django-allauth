@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 0.61.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-23 12:50-0600\n"
-"PO-Revision-Date: 2024-03-02 20:01+0000\n"
+"PO-Revision-Date: 2024-04-02 18:01+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/django-allauth/"
 "django-allauth/es/>\n"
@@ -1005,36 +1005,34 @@ msgstr "Cancelar"
 msgid ""
 "A new set of Two-Factor Authentication recovery codes has been generated."
 msgstr ""
+"Se ha generado un nuevo conjunto de códigos de recuperación de Autenticación "
+"de Dos Factores."
 
 #: templates/mfa/email/recovery_codes_generated_subject.txt:3
 msgid "New Recovery Codes Generated"
-msgstr ""
+msgstr "Generados nevos códigos de recuperación"
 
 #: templates/mfa/email/totp_activated_message.txt:4
 #: templates/mfa/messages/totp_activated.txt:2
 msgid "Authenticator app activated."
-msgstr ""
+msgstr "La aplicación de autenticación ha sido activada."
 
 #: templates/mfa/email/totp_activated_subject.txt:3
-#, fuzzy
-#| msgid "token secret"
 msgid "Authenticator App Activated"
-msgstr "frase secreta de token"
+msgstr "Aplicación de autenticación activada."
 
 #: templates/mfa/email/totp_deactivated_message.txt:4
 #: templates/mfa/messages/totp_deactivated.txt:2
 msgid "Authenticator app deactivated."
-msgstr ""
+msgstr "Aplicación de autenticación desactivada."
 
 #: templates/mfa/email/totp_deactivated_subject.txt:3
-#, fuzzy
-#| msgid "token secret"
 msgid "Authenticator App Deactivated"
-msgstr "frase secreta de token"
+msgstr "Aplicación de autenticación desactivada."
 
 #: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
 msgid "Authenticator App"
-msgstr ""
+msgstr "Aplicación de autenticación"
 
 #: templates/mfa/index.html:18
 msgid "Authentication using an authenticator app is active."

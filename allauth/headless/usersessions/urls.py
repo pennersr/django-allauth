@@ -12,7 +12,7 @@ def build_urlpatterns(client):
                     path(
                         "sessions",
                         views.SessionsView.as_api_view(client=client),
-                        name="headless_usersessions",
+                        name="sessions",
                     ),
                 ]
             ),

@@ -13,22 +13,56 @@ def build_urlpatterns(client):
     if allauth_settings.SOCIALACCOUNT_ENABLED:
         from allauth.headless.socialaccount import urls as socialaccount_urls
 
-        patterns.extend(socialaccount_urls.build_urlpatterns(client))
+        patterns.append(
+            path(
+                "",
+                include(
+                    (socialaccount_urls.build_urlpatterns(client), "headless"),
+                    namespace="socialaccount",
+                ),
+            )
+        )
 
     if allauth_settings.MFA_ENABLED:
         from allauth.headless.mfa import urls as mfa_urls
 
-        patterns.extend(mfa_urls.build_urlpatterns(client))
+        patterns.append(
+            path(
+                "",
+                include(
+                    (mfa_urls.build_urlpatterns(client), "headless"),
+                    namespace="mfa",
+                ),
+            )
+        )
 
     if allauth_settings.USERSESSIONS_ENABLED:
         from allauth.headless.usersessions import urls as usersessions_urls
 
-        patterns.extend(usersessions_urls.build_urlpatterns(client))
+        patterns.append(
+            path(
+                "",
+                include(
+                    (usersessions_urls.build_urlpatterns(client), "headless"),
+                    namespace="usersessions",
+                ),
+            )
+        )
 
     return [path("v1/", include(patterns))]
 
 
+app_name = "headless"
 urlpatterns = [
-    path("browser/", include(build_urlpatterns(Client.BROWSER))),
-    path("app/", include(build_urlpatterns(Client.APP))),
+    path(
+        "browser/",
+        include(
+            (build_urlpatterns(Client.BROWSER), "headless"),
+            namespace="browser",
+        ),
+    ),
+    path(
+        "app/",
+        include((build_urlpatterns(Client.APP), "headless"), namespace="app"),
+    ),
 ]

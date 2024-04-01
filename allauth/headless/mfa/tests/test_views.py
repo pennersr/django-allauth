@@ -11,7 +11,7 @@ def test_auth_unverified_email_and_mfa(
     password = password_factory()
     user = user_factory(email_verified=False, password=password, with_totp=True)
     resp = client.post(
-        reverse("headless_login", args=["browser"]),
+        reverse("headless:browser:login"),
         data={
             "email": user.email,
             "password": password,
@@ -24,7 +24,7 @@ def test_auth_unverified_email_and_mfa(
     emailaddress = EmailAddress.objects.filter(user=user, verified=False).get()
     key = get_emailconfirmation_model().create(emailaddress).key
     resp = client.post(
-        reverse("headless_verify_email", args=["browser"]),
+        reverse("headless:browser:verify_email"),
         data={"key": key},
         content_type="application/json",
     )
@@ -32,15 +32,18 @@ def test_auth_unverified_email_and_mfa(
     assert resp.json() == {
         "data": {
             "flows": [
-                {"id": "login", "url": reverse("headless_login", args=["browser"])},
-                {"id": "signup", "url": reverse("headless_signup", args=["browser"])},
                 {
-                    "id": "provider_login",
-                    "url": reverse("headless_redirect_to_provider", args=["browser"]),
+                    "id": "login",
+                },
+                {
+                    "id": "signup",
+                },
+                {
+                    "id": "provider_redirect",
+                    "providers": ["dummy", "openid_connect", "openid_connect"],
                 },
                 {
                     "id": "mfa_authenticate",
-                    "url": reverse("headless_mfa_authenticate", args=["browser"]),
                     "is_pending": True,
                 },
             ]
@@ -49,19 +52,21 @@ def test_auth_unverified_email_and_mfa(
         "status": 401,
     }
     resp = client.post(
-        reverse("headless_mfa_authenticate", args=["browser"]),
+        reverse("headless:browser:mfa:authenticate"),
         data={"code": "bad"},
         content_type="application/json",
     )
     assert resp.status_code == 400
     assert resp.json() == {
         "status": 400,
-        "error": {"detail": {"code": ["Incorrect code."]}},
+        "errors": [
+            {"message": "Incorrect code.", "code": "incorrect_code", "param": "code"}
+        ],
     }
 
     with totp_validation_bypass():
         resp = client.post(
-            reverse("headless_mfa_authenticate", args=["browser"]),
+            reverse("headless:browser:mfa:authenticate"),
             data={"code": "bad"},
             content_type="application/json",
         )

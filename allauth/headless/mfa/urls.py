@@ -12,12 +12,12 @@ def build_urlpatterns(client):
                     path(
                         "2fa/authenticate",
                         views.AuthenticateView.as_api_view(client=client),
-                        name="headless_mfa_authenticate",
+                        name="authenticate",
                     ),
                     path(
                         "2fa/reauthenticate",
                         views.ReauthenticateView.as_api_view(client=client),
-                        name="headless_mfa_reauthenticate",
+                        name="reauthenticate",
                     ),
                 ]
             ),
@@ -29,17 +29,17 @@ def build_urlpatterns(client):
                     path(
                         "authenticators",
                         views.AuthenticatorsView.as_api_view(client=client),
-                        name="headless_mfa_authenticators",
+                        name="authenticators",
                     ),
                     path(
                         "authenticators/totp",
                         views.ManageTOTPView.as_api_view(client=client),
-                        name="headless_mfa_manage_totp",
+                        name="manage_totp",
                     ),
                     path(
                         "authenticators/recovery-codes",
                         views.ManageRecoveryCodesView.as_api_view(client=client),
-                        name="headless_mfa_manage_recovery_codes",
+                        name="manage_recovery_codes",
                     ),
                 ]
             ),

@@ -3,6 +3,7 @@ from importlib import import_module
 from django.conf import settings
 
 from allauth.headless import app_settings
+from allauth.headless.constants import Client
 
 
 def session_store(session_key=None):
@@ -15,6 +16,8 @@ def new_session():
 
 
 def expose_session_token(request):
+    if request.allauth.headless.client != Client.APP:
+        return
     strategy = app_settings.TOKEN_STRATEGY
     hdr_token = strategy.get_session_token(request)
     modified = request.session.modified

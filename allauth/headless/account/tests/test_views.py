@@ -9,26 +9,32 @@ from allauth.account.models import EmailAddress, get_emailconfirmation_model
 
 def test_auth_password_input_error(client):
     resp = client.post(
-        reverse("headless_login", args=["browser"]),
+        reverse("headless:browser:login"),
         data={},
         content_type="application/json",
     )
     assert resp.status_code == 400
     assert resp.json() == {
         "status": 400,
-        "error": {
-            "detail": {
-                "__all__": ["Missing username."],
-                "password": ["This field is required."],
-            }
-        },
+        "errors": [
+            {
+                "message": "This field is required.",
+                "code": "required",
+                "param": "password",
+            },
+            {
+                "message": "This field is required.",
+                "code": "required",
+                "param": "username",
+            },
+        ],
     }
 
 
 def test_auth_password_bad_password(client, user, settings):
     settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
     resp = client.post(
-        reverse("headless_login", args=["browser"]),
+        reverse("headless:browser:login"),
         data={
             "email": user.email,
             "password": "wrong",
@@ -38,21 +44,20 @@ def test_auth_password_bad_password(client, user, settings):
     assert resp.status_code == 400
     assert resp.json() == {
         "status": 400,
-        "error": {
-            "detail": {
-                "password": [
-                    "The email address and/or password you "
-                    "specified are not correct."
-                ]
+        "errors": [
+            {
+                "param": "password",
+                "message": "The email address and/or password you specified are not correct.",
+                "code": "email_password_mismatch",
             }
-        },
+        ],
     }
 
 
 def test_auth_password_success(client, user, user_password, settings):
     settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
     resp = client.post(
-        reverse("headless_login", args=["browser"]),
+        reverse("headless:browser:login"),
         data={
             "email": user.email,
             "password": user_password,
@@ -61,7 +66,7 @@ def test_auth_password_success(client, user, user_password, settings):
     )
     assert resp.status_code == 200
     resp = client.get(
-        reverse("headless_auth", args=["browser"]),
+        reverse("headless:browser:current_session"),
         content_type="application/json",
     )
     assert resp.status_code == 200
@@ -98,7 +103,7 @@ def test_auth_unverified_email(
     password = password_factory()
     user = user_factory(email_verified=False, password=password)
     resp = client.post(
-        reverse("headless_login", args=["browser"]),
+        reverse("headless:browser:login"),
         data={
             "email": user.email,
             "password": password,
@@ -111,7 +116,7 @@ def test_auth_unverified_email(
     emailaddress = EmailAddress.objects.filter(user=user, verified=False).get()
     key = get_emailconfirmation_model().create(emailaddress).key
     resp = client.post(
-        reverse("headless_verify_email", args=["browser"]),
+        reverse("headless:browser:verify_email"),
         data={"key": key},
         content_type="application/json",
     )
@@ -124,7 +129,7 @@ def test_verify_email_bad_key(client, settings, password_factory, user_factory):
     password = password_factory()
     user = user_factory(email_verified=False, password=password)
     resp = client.post(
-        reverse("headless_login", args=["browser"]),
+        reverse("headless:browser:login"),
         data={
             "email": user.email,
             "password": password,
@@ -133,14 +138,16 @@ def test_verify_email_bad_key(client, settings, password_factory, user_factory):
     )
     assert resp.status_code == 401
     resp = client.post(
-        reverse("headless_verify_email", args=["browser"]),
+        reverse("headless:browser:verify_email"),
         data={"key": "bad"},
         content_type="application/json",
     )
     assert resp.status_code == 400
     assert resp.json() == {
         "status": 400,
-        "error": {"detail": {"key": ["Invalid or expired key."]}},
+        "errors": [
+            {"code": "invalid", "param": "key", "message": "Invalid or expired key."}
+        ],
     }
 
 
@@ -151,7 +158,7 @@ def test_auth_password_user_inactive(
     user.is_active = is_active
     user.save(update_fields=["is_active"])
     resp = client.post(
-        reverse("headless_login", args=["browser"]),
+        reverse("headless:browser:login"),
         data={
             "username": user.username,
             "password": user_password,
@@ -165,7 +172,7 @@ def test_password_reset_flow(client, user, mailoutbox, password_factory, setting
     settings.ACCOUNT_EMAIL_NOTIFICATIONS = True
 
     resp = client.post(
-        reverse("headless_request_password_reset", args=["browser"]),
+        reverse("headless:browser:request_password_reset"),
         data={
             "email": user.email,
         },
@@ -181,7 +188,7 @@ def test_password_reset_flow(client, user, mailoutbox, password_factory, setting
 
     # Too simple password
     resp = client.post(
-        reverse("headless_reset_password", args=["browser"]),
+        reverse("headless:browser:reset_password"),
         data={
             "key": key,
             "password": "a",
@@ -191,20 +198,19 @@ def test_password_reset_flow(client, user, mailoutbox, password_factory, setting
     assert resp.status_code == 400
     assert resp.json() == {
         "status": 400,
-        "error": {
-            "detail": {
-                "__all__": [
-                    "This password is too short. It must contain at least 6 characters."
-                ]
+        "errors": [
+            {
+                "code": "password_too_short",
+                "message": "This password is too short. It must contain at least 6 characters.",
             }
-        },
+        ],
     }
 
     assert len(mailoutbox) == 1
 
     # Success
     resp = client.post(
-        reverse("headless_reset_password", args=["browser"]),
+        reverse("headless:browser:reset_password"),
         data={
             "key": key,
             "password": password,
@@ -221,7 +227,7 @@ def test_password_reset_flow(client, user, mailoutbox, password_factory, setting
 def test_password_reset_flow_wrong_key(client, password_factory):
     password = password_factory()
     resp = client.post(
-        reverse("headless_reset_password", args=["browser"]),
+        reverse("headless:browser:reset_password"),
         data={
             "key": "wrong",
             "password": password,
@@ -231,7 +237,13 @@ def test_password_reset_flow_wrong_key(client, password_factory):
     assert resp.status_code == 400
     assert resp.json() == {
         "status": 400,
-        "error": {"detail": {"key": ["The password reset token was invalid."]}},
+        "errors": [
+            {
+                "param": "key",
+                "code": "",
+                "message": "The password reset token was invalid.",
+            }
+        ],
     }
 
 
@@ -244,11 +256,13 @@ def test_password_reset_flow_wrong_key(client, password_factory):
             {"current_password": "wrong", "new_password": "{password_factory}"},
             {
                 "status": 400,
-                "error": {
-                    "detail": {
-                        "current_password": ["Please type your current password."]
+                "errors": [
+                    {
+                        "param": "current_password",
+                        "message": "Please type your current password.",
+                        "code": "",
                     }
-                },
+                ],
             },
             400,
         ),
@@ -278,13 +292,13 @@ def test_password_reset_flow_wrong_key(client, password_factory):
             },
             {
                 "status": 400,
-                "error": {
-                    "detail": {
-                        "new_password": [
-                            "This password is too short. It must contain at least 6 characters."
-                        ]
+                "errors": [
+                    {
+                        "param": "new_password",
+                        "code": "password_too_short",
+                        "message": "This password is too short. It must contain at least 6 characters.",
                     }
-                },
+                ],
             },
             400,
         ),
@@ -297,7 +311,13 @@ def test_password_reset_flow_wrong_key(client, password_factory):
             },
             {
                 "status": 400,
-                "error": {"detail": {"new_password": ["This field is required."]}},
+                "errors": [
+                    {
+                        "param": "new_password",
+                        "code": "required",
+                        "message": "This field is required.",
+                    }
+                ],
             },
             400,
         ),
@@ -310,7 +330,13 @@ def test_password_reset_flow_wrong_key(client, password_factory):
             },
             {
                 "status": 400,
-                "error": {"detail": {"current_password": ["This field is required."]}},
+                "errors": [
+                    {
+                        "param": "current_password",
+                        "message": "This field is required.",
+                        "code": "required",
+                    }
+                ],
             },
             400,
         ),
@@ -322,7 +348,13 @@ def test_password_reset_flow_wrong_key(client, password_factory):
             },
             {
                 "status": 400,
-                "error": {"detail": {"current_password": ["This field is required."]}},
+                "errors": [
+                    {
+                        "param": "current_password",
+                        "message": "This field is required.",
+                        "code": "required",
+                    }
+                ],
             },
             400,
         ),
@@ -383,7 +415,7 @@ def test_change_password(
     if request_data.get("new_password") == "{password_factory}":
         request_data["new_password"] = password_factory()
     resp = auth_client.post(
-        reverse("headless_change_password", args=["browser"]),
+        reverse("headless:browser:change_password"),
         data=request_data,
         content_type="application/json",
     )

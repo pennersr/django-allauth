@@ -14,7 +14,7 @@ class BaseAuthenticationResponse(APIResponse):
         data = {}
         if user and user.is_authenticated:
             data["user"] = user_data(user)
-            data["methods"] = (get_authentication_records(request),)
+            data["methods"] = get_authentication_records(request)
             status = status or 200
         else:
             status = 401

@@ -8,6 +8,6 @@ def build_urlpatterns(client):
         path(
             "config",
             views.ConfigView.as_api_view(client=client),
-            name="headless_config",
+            name="config",
         ),
     ]

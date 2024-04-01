@@ -4,6 +4,7 @@ from allauth.account.stages import LoginStageController
 from allauth.account.utils import unstash_login
 from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.headless import app_settings
+from allauth.headless.constants import Client
 from allauth.headless.internal import sessionkit
 from allauth.socialaccount.internal import flows
 
@@ -61,6 +62,9 @@ def authentication_context(request):
 def expose_access_token(request):
     if not request.user.is_authenticated:
         return
+    if request.allauth.headless.client != Client.APP:
+        return
+
     strategy = app_settings.TOKEN_STRATEGY
     access_token = strategy.get_access_token(request)
     if not access_token:

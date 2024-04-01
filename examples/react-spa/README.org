@@ -62,7 +62,7 @@ Then, visit the app over at http://localhost:10000.
 - [X] Provider login via token
 - [ ] Token login for Apple
 - [ ] Token login for Facebook
-- [ ] Duplicate urlnames, use namespaces
+- [X] Duplicate urlnames, use namespaces
 
 **** DONE Disable messages framework
 Or, add to meta in response?

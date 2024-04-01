@@ -12,7 +12,7 @@ def build_urlpatterns(client):
                     path(
                         "providers",
                         views.ManageProvidersView.as_api_view(client=client),
-                        name="headless_manage_providers",
+                        name="manage_providers",
                     ),
                 ]
             ),
@@ -28,19 +28,19 @@ def build_urlpatterns(client):
                                 path(
                                     "signup",
                                     views.ProviderSignupView.as_api_view(client=client),
-                                    name="headless_provider_signup",
+                                    name="provider_signup",
                                 ),
                                 path(
                                     "redirect",
                                     views.RedirectToProviderView.as_api_view(
                                         client=client
                                     ),
-                                    name="headless_redirect_to_provider",
+                                    name="redirect_to_provider",
                                 ),
                                 path(
                                     "token",
                                     views.ProviderTokenView.as_api_view(client=client),
-                                    name="headless_provider_token",
+                                    name="provider_token",
                                 ),
                             ]
                         ),

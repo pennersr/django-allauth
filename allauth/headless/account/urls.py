@@ -12,7 +12,7 @@ def build_urlpatterns(client):
                     path(
                         "session",
                         views.SessionView.as_api_view(client=client),
-                        name="headless_auth",
+                        name="current_session",
                     ),
                     path(
                         "password/",
@@ -23,12 +23,12 @@ def build_urlpatterns(client):
                                     views.RequestPasswordResetView.as_api_view(
                                         client=client
                                     ),
-                                    name="headless_request_password_reset",
+                                    name="request_password_reset",
                                 ),
                                 path(
                                     "reset",
                                     views.ResetPasswordView.as_api_view(client=client),
-                                    name="headless_reset_password",
+                                    name="reset_password",
                                 ),
                             ]
                         ),
@@ -36,22 +36,22 @@ def build_urlpatterns(client):
                     path(
                         "login",
                         views.LoginView.as_api_view(client=client),
-                        name="headless_login",
+                        name="login",
                     ),
                     path(
                         "reauthenticate",
                         views.ReauthenticateView.as_api_view(client=client),
-                        name="headless_reauthenticate",
+                        name="reauthenticate",
                     ),
                     path(
                         "signup",
                         views.SignupView.as_api_view(client=client),
-                        name="headless_signup",
+                        name="signup",
                     ),
                     path(
                         "email/verify",
                         views.VerifyEmailView.as_api_view(client=client),
-                        name="headless_verify_email",
+                        name="verify_email",
                     ),
                 ]
             ),
@@ -63,12 +63,12 @@ def build_urlpatterns(client):
                     path(
                         "password/change",
                         views.ChangePasswordView.as_api_view(client=client),
-                        name="headless_change_password",
+                        name="change_password",
                     ),
                     path(
                         "email",
                         views.ManageEmailView.as_api_view(client=client),
-                        name="headless_manage_email",
+                        name="manage_email",
                     ),
                 ]
             ),

@@ -1,17 +1,21 @@
-from django.urls import reverse
-
 from allauth.account.models import EmailAddress, get_emailconfirmation_model
 
 
 def test_auth_unverified_email_and_mfa(
-    client, user_factory, password_factory, settings, totp_validation_bypass
+    client,
+    user_factory,
+    password_factory,
+    settings,
+    totp_validation_bypass,
+    headless_reverse,
+    headless_client,
 ):
     settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
     settings.ACCOUNT_EMAIL_VERIFICATION = "mandatory"
     password = password_factory()
     user = user_factory(email_verified=False, password=password, with_totp=True)
     resp = client.post(
-        reverse("headless:browser:login"),
+        headless_reverse("headless:login"),
         data={
             "email": user.email,
             "password": password,
@@ -24,35 +28,40 @@ def test_auth_unverified_email_and_mfa(
     emailaddress = EmailAddress.objects.filter(user=user, verified=False).get()
     key = get_emailconfirmation_model().create(emailaddress).key
     resp = client.post(
-        reverse("headless:browser:verify_email"),
+        headless_reverse("headless:verify_email"),
         data={"key": key},
         content_type="application/json",
     )
     assert resp.status_code == 401
-    assert resp.json() == {
-        "data": {
-            "flows": [
-                {
-                    "id": "login",
-                },
-                {
-                    "id": "signup",
-                },
-                {
-                    "id": "provider_redirect",
-                    "providers": ["dummy", "openid_connect", "openid_connect"],
-                },
-                {
-                    "id": "mfa_authenticate",
-                    "is_pending": True,
-                },
-            ]
+    flows = [
+        {
+            "id": "login",
         },
+        {
+            "id": "signup",
+        },
+    ]
+    if headless_client == "browser":
+        flows.append(
+            {
+                "id": "provider_redirect",
+                "providers": ["dummy", "openid_connect", "openid_connect"],
+            }
+        )
+    flows.append(
+        {
+            "id": "mfa_authenticate",
+            "is_pending": True,
+        }
+    )
+
+    assert resp.json() == {
+        "data": {"flows": flows},
         "meta": {"is_authenticated": False},
         "status": 401,
     }
     resp = client.post(
-        reverse("headless:browser:mfa:authenticate"),
+        headless_reverse("headless:mfa:authenticate"),
         data={"code": "bad"},
         content_type="application/json",
     )
@@ -66,7 +75,7 @@ def test_auth_unverified_email_and_mfa(
 
     with totp_validation_bypass():
         resp = client.post(
-            reverse("headless:browser:mfa:authenticate"),
+            headless_reverse("headless:mfa:authenticate"),
             data={"code": "bad"},
             content_type="application/json",
         )

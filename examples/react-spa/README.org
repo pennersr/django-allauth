@@ -50,7 +50,7 @@ Then, visit the app over at http://localhost:10000.
 
 **** DONE User sessions
 
-*** Headless [57%]
+*** Headless [61%]
 
 **** TODO Check rate limit handling
 
@@ -72,7 +72,7 @@ Disabled, let's not complicate things.
 
 **** DONE MFA
 
-**** TODO OpenAPI Spec
+**** DONE OpenAPI Spec
 
 **** TODO Documentation
 
@@ -88,7 +88,7 @@ Mobile sesions to also show up.
 
 **** TODO Prevent enumeration
 During signup, there is indeed a pending flow. But, given that this is not
-stored int the session a subsequent call to the endpoint reveals a different
+stored in the session a subsequent call to the endpoint reveals a different
 response from which an enumeration related conclusion can be drawn.
 
 **** DONE Provider redirect vs token vs ...

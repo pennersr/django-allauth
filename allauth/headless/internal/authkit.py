@@ -49,6 +49,7 @@ def authentication_context(request):
             request.session = sessionkit.new_session()
         if hasattr(request, "_cached_user"):
             delattr(request, "_cached_user")
+        request.allauth.headless._pre_user = request.user
         yield
     finally:
         if request.session.modified:
@@ -60,9 +61,12 @@ def authentication_context(request):
 
 
 def expose_access_token(request):
+    if request.allauth.headless.client != Client.APP:
+        return
     if not request.user.is_authenticated:
         return
-    if request.allauth.headless.client != Client.APP:
+    pre_user = request.allauth.headless._pre_user
+    if pre_user.is_authenticated and pre_user.pk == request.user.pk:
         return
 
     strategy = app_settings.TOKEN_STRATEGY

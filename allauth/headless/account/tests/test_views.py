@@ -1,15 +1,14 @@
+import copy
 from unittest.mock import ANY
-
-from django.urls import reverse
 
 import pytest
 
 from allauth.account.models import EmailAddress, get_emailconfirmation_model
 
 
-def test_auth_password_input_error(client):
+def test_auth_password_input_error(headless_reverse, client):
     resp = client.post(
-        reverse("headless:browser:login"),
+        headless_reverse("headless:login"),
         data={},
         content_type="application/json",
     )
@@ -31,10 +30,10 @@ def test_auth_password_input_error(client):
     }
 
 
-def test_auth_password_bad_password(client, user, settings):
+def test_auth_password_bad_password(headless_reverse, client, user, settings):
     settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
     resp = client.post(
-        reverse("headless:browser:login"),
+        headless_reverse("headless:login"),
         data={
             "email": user.email,
             "password": "wrong",
@@ -54,10 +53,12 @@ def test_auth_password_bad_password(client, user, settings):
     }
 
 
-def test_auth_password_success(client, user, user_password, settings):
+def test_auth_password_success(
+    client, user, user_password, settings, headless_reverse, headless_client
+):
     settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
     resp = client.post(
-        reverse("headless:browser:login"),
+        headless_reverse("headless:login"),
         data={
             "email": user.email,
             "password": user_password,
@@ -66,7 +67,7 @@ def test_auth_password_success(client, user, user_password, settings):
     )
     assert resp.status_code == 200
     resp = client.get(
-        reverse("headless:browser:current_session"),
+        headless_reverse("headless:current_session"),
         content_type="application/json",
     )
     assert resp.status_code == 200
@@ -93,17 +94,14 @@ def test_auth_password_success(client, user, user_password, settings):
 
 
 def test_auth_unverified_email(
-    client,
-    user_factory,
-    password_factory,
-    settings,
+    client, user_factory, password_factory, settings, headless_reverse
 ):
     settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
     settings.ACCOUNT_EMAIL_VERIFICATION = "mandatory"
     password = password_factory()
     user = user_factory(email_verified=False, password=password)
     resp = client.post(
-        reverse("headless:browser:login"),
+        headless_reverse("headless:login"),
         data={
             "email": user.email,
             "password": password,
@@ -116,20 +114,22 @@ def test_auth_unverified_email(
     emailaddress = EmailAddress.objects.filter(user=user, verified=False).get()
     key = get_emailconfirmation_model().create(emailaddress).key
     resp = client.post(
-        reverse("headless:browser:verify_email"),
+        headless_reverse("headless:verify_email"),
         data={"key": key},
         content_type="application/json",
     )
     assert resp.status_code == 200
 
 
-def test_verify_email_bad_key(client, settings, password_factory, user_factory):
+def test_verify_email_bad_key(
+    client, settings, password_factory, user_factory, headless_reverse
+):
     settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
     settings.ACCOUNT_EMAIL_VERIFICATION = "mandatory"
     password = password_factory()
     user = user_factory(email_verified=False, password=password)
     resp = client.post(
-        reverse("headless:browser:login"),
+        headless_reverse("headless:login"),
         data={
             "email": user.email,
             "password": password,
@@ -138,7 +138,7 @@ def test_verify_email_bad_key(client, settings, password_factory, user_factory):
     )
     assert resp.status_code == 401
     resp = client.post(
-        reverse("headless:browser:verify_email"),
+        headless_reverse("headless:verify_email"),
         data={"key": "bad"},
         content_type="application/json",
     )
@@ -153,12 +153,12 @@ def test_verify_email_bad_key(client, settings, password_factory, user_factory):
 
 @pytest.mark.parametrize("is_active,status_code", [(False, 401), (True, 200)])
 def test_auth_password_user_inactive(
-    client, user, user_password, settings, status_code, is_active
+    client, user, user_password, settings, status_code, is_active, headless_reverse
 ):
     user.is_active = is_active
     user.save(update_fields=["is_active"])
     resp = client.post(
-        reverse("headless:browser:login"),
+        headless_reverse("headless:login"),
         data={
             "username": user.username,
             "password": user_password,
@@ -168,11 +168,13 @@ def test_auth_password_user_inactive(
     assert resp.status_code == status_code
 
 
-def test_password_reset_flow(client, user, mailoutbox, password_factory, settings):
+def test_password_reset_flow(
+    client, user, mailoutbox, password_factory, settings, headless_reverse
+):
     settings.ACCOUNT_EMAIL_NOTIFICATIONS = True
 
     resp = client.post(
-        reverse("headless:browser:request_password_reset"),
+        headless_reverse("headless:request_password_reset"),
         data={
             "email": user.email,
         },
@@ -188,7 +190,7 @@ def test_password_reset_flow(client, user, mailoutbox, password_factory, setting
 
     # Too simple password
     resp = client.post(
-        reverse("headless:browser:reset_password"),
+        headless_reverse("headless:reset_password"),
         data={
             "key": key,
             "password": "a",
@@ -210,7 +212,7 @@ def test_password_reset_flow(client, user, mailoutbox, password_factory, setting
 
     # Success
     resp = client.post(
-        reverse("headless:browser:reset_password"),
+        headless_reverse("headless:reset_password"),
         data={
             "key": key,
             "password": password,
@@ -224,10 +226,10 @@ def test_password_reset_flow(client, user, mailoutbox, password_factory, setting
     assert len(mailoutbox) == 2  # The security notification
 
 
-def test_password_reset_flow_wrong_key(client, password_factory):
+def test_password_reset_flow_wrong_key(client, password_factory, headless_reverse):
     password = password_factory()
     resp = client.post(
-        reverse("headless:browser:reset_password"),
+        headless_reverse("headless:reset_password"),
         data={
             "key": "wrong",
             "password": password,
@@ -404,7 +406,11 @@ def test_change_password(
     password_factory,
     settings,
     mailoutbox,
+    headless_reverse,
+    headless_client,
 ):
+    request_data = copy.deepcopy(request_data)
+    response_data = copy.deepcopy(response_data)
     settings.ACCOUNT_EMAIL_NOTIFICATIONS = True
     if not has_password:
         user.set_unusable_password()
@@ -415,12 +421,14 @@ def test_change_password(
     if request_data.get("new_password") == "{password_factory}":
         request_data["new_password"] = password_factory()
     resp = auth_client.post(
-        reverse("headless:browser:change_password"),
+        headless_reverse("headless:change_password"),
         data=request_data,
         content_type="application/json",
     )
     assert resp.status_code == status_code
     resp_json = resp.json()
+    if headless_client == "app" and resp.status_code == 200:
+        response_data["meta"]["session_token"] = ANY
     assert resp_json == response_data
     user.refresh_from_db()
     if resp.status_code == 200:

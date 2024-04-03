@@ -166,6 +166,13 @@ def test_build_saml_config_without_metadata_url(rf, provider_config):
                 "metadata_url": "https://idp.org/sso/",
             }
         },
+        {
+            "idp": {
+                "entity_id": "dummy",
+                "metadata_url": "https://idp.org/sso/",
+            },
+            "sp": {"entity_id": "dummy-sp-entity-id"},
+        },
     ],
 )
 def test_build_saml_config(rf, provider_config):
@@ -187,6 +194,12 @@ def test_build_saml_config(rf, provider_config):
     assert config["idp"]["x509cert"] == "cert"
     assert config["idp"]["singleSignOnService"] == {"url": "https://idp.org/sso/"}
     assert config["idp"]["singleLogoutService"] == {"url": "https://idp.saml.org/slo/"}
+    metadata_url = request.build_absolute_uri(reverse("saml_metadata", args=["org"]))
+    sp_entity_id = provider_config.get("sp", {}).get("entity_id")
+    if sp_entity_id:
+        assert config["sp"]["entityId"] == sp_entity_id
+    else:
+        assert config["sp"]["entityId"] == metadata_url
 
 
 @pytest.mark.parametrize(

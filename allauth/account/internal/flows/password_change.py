@@ -3,6 +3,7 @@ from django.contrib.auth import update_session_auth_hash
 
 from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
+from allauth.account.internal.flows.logout import logout
 
 
 def change_password(user, password):
@@ -17,11 +18,11 @@ def finalize_password_change(request, user):
         messages.SUCCESS,
         "account/messages/password_changed.txt",
     )
-    adapter.send_notification_mail("account/email/password_changed", request.user)
+    adapter.send_notification_mail("account/email/password_changed", user)
     signals.password_changed.send(
-        sender=request.user.__class__,
+        sender=user.__class__,
         request=request,
-        user=request.user,
+        user=user,
     )
     return logged_out
 
@@ -47,4 +48,6 @@ def logout_on_password_change(request, user):
     if not app_settings.LOGOUT_ON_PASSWORD_CHANGE:
         update_session_auth_hash(request, user)
         logged_out = False
+    else:
+        logout(request)
     return logged_out

@@ -511,25 +511,9 @@ class DefaultAccountAdapter(object):
         """
         Marks the email address as confirmed on the db
         """
-        from allauth.account.models import EmailAddress
-        from allauth.account.utils import emit_email_changed
+        from allauth.account.internal.flows import manage_email
 
-        from_email_address = (
-            EmailAddress.objects.filter(user_id=email_address.user_id)
-            .exclude(pk=email_address.pk)
-            .first()
-        )
-        if not email_address.set_verified(commit=False):
-            return False
-        email_address.set_as_primary(conditional=(not app_settings.CHANGE_EMAIL))
-        email_address.save(update_fields=["verified", "primary"])
-        if app_settings.CHANGE_EMAIL:
-            for instance in EmailAddress.objects.filter(
-                user_id=email_address.user_id
-            ).exclude(pk=email_address.pk):
-                instance.remove()
-            emit_email_changed(request, from_email_address, email_address)
-        return True
+        return manage_email.confirm_email(request, email_address)
 
     def set_password(self, user, password):
         user.set_password(password)

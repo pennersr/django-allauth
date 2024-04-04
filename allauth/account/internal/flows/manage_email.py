@@ -107,3 +107,28 @@ def mark_as_primary(request, email_address):
         emit_email_changed(request, from_email_address, email_address)
         success = True
     return success
+
+
+def confirm_email(request, email_address):
+    """
+    Marks the email address as confirmed on the db
+    """
+    from allauth.account.models import EmailAddress
+    from allauth.account.utils import emit_email_changed
+
+    from_email_address = (
+        EmailAddress.objects.filter(user_id=email_address.user_id)
+        .exclude(pk=email_address.pk)
+        .first()
+    )
+    if not email_address.set_verified(commit=False):
+        return False
+    email_address.set_as_primary(conditional=(not app_settings.CHANGE_EMAIL))
+    email_address.save(update_fields=["verified", "primary"])
+    if app_settings.CHANGE_EMAIL:
+        for instance in EmailAddress.objects.filter(
+            user_id=email_address.user_id
+        ).exclude(pk=email_address.pk):
+            instance.remove()
+        emit_email_changed(request, from_email_address, email_address)
+    return True

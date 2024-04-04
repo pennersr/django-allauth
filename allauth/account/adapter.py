@@ -3,7 +3,6 @@ import json
 import warnings
 from urllib.parse import quote, urlparse
 
-from django import forms
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import (
@@ -35,6 +34,7 @@ from allauth import app_settings as allauth_app_settings
 from allauth.account import signals
 from allauth.account.app_settings import AuthenticationMethod
 from allauth.core import context, ratelimit
+from allauth.core.internal.adapter import BaseAdapter
 from allauth.utils import (
     build_absolute_uri,
     generate_unique_username,
@@ -44,27 +44,34 @@ from allauth.utils import (
 from . import app_settings
 
 
-class DefaultAccountAdapter(object):
+class DefaultAccountAdapter(BaseAdapter):
     error_messages = {
-        "username_blacklisted": _(
-            "Username can not be used. Please use other username."
+        "account_inactive": _("This account is currently inactive."),
+        "duplicate_email": _(
+            "This email address is already associated with this account."
         ),
-        "username_taken": AbstractUser._meta.get_field("username").error_messages[
-            "unique"
-        ],
-        "too_many_login_attempts": _(
-            "Too many failed login attempts. Try again later."
+        "email_password_mismatch": _(
+            "The email address and/or password you specified are not correct."
         ),
         "email_taken": _("A user is already registered with this email address."),
         "enter_current_password": _("Please type your current password."),
         "incorrect_password": _("Incorrect password."),
+        "invalid_password_reset": _("The password reset token was invalid."),
+        "max_email_addresses": _("You cannot add more than %d email addresses."),
+        "too_many_login_attempts": _(
+            "Too many failed login attempts. Try again later."
+        ),
         "unknown_email": _("The email address is not assigned to any user account"),
+        "username_blacklisted": _(
+            "Username can not be used. Please use other username."
+        ),
+        "username_password_mismatch": _(
+            "The username and/or password you specified are not correct."
+        ),
+        "username_taken": AbstractUser._meta.get_field("username").error_messages[
+            "unique"
+        ],
     }
-
-    def __init__(self, request=None):
-        # Explicitly passing `request` is deprecated, just use:
-        # `allauth.core.context.request`.
-        self.request = context.request
 
     def stash_verified_email(self, request, email):
         request.session["account_verified_email"] = email
@@ -318,27 +325,14 @@ class DefaultAccountAdapter(object):
             ub.lower() for ub in app_settings.USERNAME_BLACKLIST
         ]
         if username.lower() in username_blacklist_lower:
-            raise forms.ValidationError(self.error_messages["username_blacklisted"])
+            raise self.validation_error("username_blacklisted")
         # Skipping database lookups when shallow is True, needed for unique
         # username generation.
         if not shallow:
             from .utils import filter_users_by_username
 
             if filter_users_by_username(username).exists():
-                user_model = get_user_model()
-                username_field = app_settings.USER_MODEL_USERNAME_FIELD
-                error_message = user_model._meta.get_field(
-                    username_field
-                ).error_messages.get("unique")
-                if not error_message:
-                    error_message = self.error_messages["username_taken"]
-                raise forms.ValidationError(
-                    error_message,
-                    params={
-                        "model_name": user_model.__name__,
-                        "field_label": username_field,
-                    },
-                )
+                raise self.validation_error("username_taken")
         return username
 
     def clean_email(self, email):
@@ -629,7 +623,7 @@ class DefaultAccountAdapter(object):
             action="login_failed",
             key=cache_key,
         ):
-            raise forms.ValidationError(self.error_messages["too_many_login_attempts"])
+            raise self.validation_error("too_many_login_attempts")
 
     def authenticate(self, request, **credentials):
         """Only authenticates, does not actually login. See `login`"""

@@ -105,7 +105,7 @@ class LoginByTokenView(View):
     def post(self, request):
         form = FacebookConnectForm(request.POST)
         if not form.is_valid():
-            raise forms.ValidationError()
+            raise self.adapter.validation_error("invalid_token")
 
         provider = self.provider
         login_options = provider.get_fb_login_options(request)

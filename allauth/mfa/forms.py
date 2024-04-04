@@ -29,9 +29,7 @@ class BaseAuthenticateForm(forms.Form):
             action="login_failed",
             key=key,
         ):
-            raise forms.ValidationError(
-                get_account_adapter().error_messages["too_many_login_attempts"]
-            )
+            raise get_account_adapter().validation_error("too_many_login_attempts")
 
         code = self.cleaned_data["code"]
         for auth in Authenticator.objects.filter(user=self.user):
@@ -39,7 +37,8 @@ class BaseAuthenticateForm(forms.Form):
                 self.authenticator = auth
                 ratelimit.clear(context.request, action="login_failed", key=key)
                 return code
-        raise forms.ValidationError(get_adapter().error_messages["incorrect_code"])
+
+        raise get_adapter().validation_error("incorrect_code")
 
 
 class AuthenticateForm(BaseAuthenticateForm):
@@ -74,13 +73,9 @@ class ActivateTOTPForm(forms.Form):
         try:
             code = self.cleaned_data["code"]
             if not self.email_verified:
-                raise forms.ValidationError(
-                    get_adapter().error_messages["unverified_email"]
-                )
+                raise get_adapter().validation_error("unverified_email")
             if not totp.validate_totp_code(self.secret, code):
-                raise forms.ValidationError(
-                    get_adapter().error_messages["incorrect_code"]
-                )
+                raise get_adapter().validation_error("incorrect_code")
             return code
         except forms.ValidationError as e:
             raise e
@@ -95,9 +90,7 @@ class DeactivateTOTPForm(forms.Form):
         cleaned_data = super().clean()
         adapter = get_adapter()
         if not adapter.can_delete_authenticator(self.authenticator):
-            raise forms.ValidationError(
-                adapter.error_messages["cannot_delete_authenticator"]
-            )
+            raise adapter.validation_error("cannot_delete_authenticator")
         return cleaned_data
 
 
@@ -109,7 +102,5 @@ class GenerateRecoveryCodesForm(forms.Form):
     def clean(self):
         cleaned_data = super().clean()
         if not flows.recovery_codes.can_generate_recovery_codes(self.user):
-            raise forms.ValidationError(
-                get_adapter().error_messages["cannot_generate_recovery_codes"]
-            )
+            raise get_adapter().validation_error("cannot_generate_recovery_codes")
         return cleaned_data

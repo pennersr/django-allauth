@@ -1,8 +1,7 @@
 import requests
 
-from django.core.exceptions import ValidationError
-
 from allauth.account.models import EmailAddress
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
@@ -100,13 +99,13 @@ class GoogleProvider(OAuth2Provider):
 
         credential = token.get("id_token")
         if not credential:
-            raise ValidationError("`id_token` missing.", code=["invalid"])
+            raise get_adapter().validation_error("invalid_token")
         try:
             identity_data = views._verify_and_decode(
                 app=self.app, credential=credential
             )
         except (OAuth2Error, requests.RequestException) as e:
-            raise ValidationError("Invalid token.", code=["invalid"]) from e
+            raise get_adapter().validation_error("invalid_token") from e
         login = self.sociallogin_from_response(request, identity_data)
         return login
 

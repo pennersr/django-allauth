@@ -50,7 +50,7 @@ Then, visit the app over at http://localhost:10000.
 
 **** DONE User sessions
 
-*** Headless [61%]
+*** Headless [66%]
 
 **** TODO Check rate limit handling
 
@@ -109,10 +109,10 @@ e.g. =POST= to /2fa/authenticators/totp/{id} to delete? But TOTP is a singleton,
 **** DONE Decide upon __all__
 Perhaps use '*' ? or '_'...
 
-**** TODO Add error codes
+**** DONE Add error codes
 Needed in order for the frontend to become independent of UI (i18n) of the backend
 - [X] Add codes to JSON
-- [ ] Go over all ValidationError's, assign codes.
+- [X] Go over all ValidationError's, assign codes.
 
 **** DONE Spec
 - [ ] User ID integer, or str? Depends on config.

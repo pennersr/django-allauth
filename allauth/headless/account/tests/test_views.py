@@ -146,7 +146,11 @@ def test_verify_email_bad_key(
     assert resp.json() == {
         "status": 400,
         "errors": [
-            {"code": "invalid", "param": "key", "message": "Invalid or expired key."}
+            {
+                "code": "invalid_or_expired_key",
+                "param": "key",
+                "message": "Invalid or expired key.",
+            }
         ],
     }
 
@@ -242,7 +246,7 @@ def test_password_reset_flow_wrong_key(client, password_factory, headless_revers
         "errors": [
             {
                 "param": "key",
-                "code": "",
+                "code": "invalid_password_reset",
                 "message": "The password reset token was invalid.",
             }
         ],
@@ -262,7 +266,7 @@ def test_password_reset_flow_wrong_key(client, password_factory, headless_revers
                     {
                         "param": "current_password",
                         "message": "Please type your current password.",
-                        "code": "",
+                        "code": "enter_current_password",
                     }
                 ],
             },

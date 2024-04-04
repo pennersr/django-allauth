@@ -1,14 +1,11 @@
 from django.core.exceptions import ImproperlyConfigured
 from django.core.validators import validate_email
-from django.forms.fields import Field
-from django.utils.translation import gettext as _
 
 from allauth.account import app_settings as account_app_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.forms import (
     AddEmailForm,
     BaseSignupForm,
-    LoginForm,
     ReauthenticateForm,
     ResetPasswordForm,
     UserTokenForm,
@@ -16,6 +13,7 @@ from allauth.account.forms import (
 from allauth.account.internal import flows
 from allauth.account.models import EmailAddress, get_emailconfirmation_model
 from allauth.core import context
+from allauth.headless.adapter import get_adapter
 from allauth.headless.restkit import inputs
 
 
@@ -57,21 +55,14 @@ class LoginInput(inputs.Input):
             email = cleaned_data.get("email")
             missing_field = "email"
             if email and username:
-                raise inputs.ValidationError(
-                    message="Pass only one of email or username, not both.",
-                    code="invalid",
-                )
+                raise get_adapter().validation_error("email_or_username")
         else:
             raise ImproperlyConfigured(account_app_settings.AUTHENTICATION_METHOD)
 
         if not email and not username:
             if not self.errors.get(missing_field):
                 self.add_error(
-                    missing_field,
-                    inputs.ValidationError(
-                        code="required",
-                        message=Field.default_error_messages["required"],
-                    ),
+                    missing_field, get_adapter().validation_error("required")
                 )
 
         password = cleaned_data.get("password")
@@ -89,12 +80,8 @@ class LoginInput(inputs.Input):
             if not self.user:
                 error_code = "%s_password_mismatch" % auth_method
                 self.add_error(
-                    "password",
-                    inputs.ValidationError(
-                        LoginForm.error_messages[error_code], code=error_code
-                    ),
+                    "password", get_account_adapter().validation_error(error_code)
                 )
-
         return cleaned_data
 
 
@@ -110,7 +97,7 @@ class VerifyEmailInput(inputs.Input):
             or confirmation.key_expired()
             or not confirmation.email_address.can_set_verified()
         ):
-            raise inputs.ValidationError("Invalid or expired key.", code="invalid")
+            raise get_account_adapter().validation_error("invalid_or_expired_key")
 
         return confirmation
 
@@ -131,7 +118,7 @@ class ResetPasswordKeyInput(inputs.Input):
         uidb36, _, subkey = key.partition("-")
         token_form = UserTokenForm(data={"uidb36": uidb36, "key": subkey})
         if not token_form.is_valid():
-            raise inputs.ValidationError(token_form.error_messages["token_invalid"])
+            raise get_account_adapter().validation_error("invalid_password_reset")
         self.user = token_form.reset_user
         return key
 
@@ -160,9 +147,7 @@ class ChangePasswordInput(inputs.Input):
         current_password = self.cleaned_data["current_password"]
         if current_password:
             if not self.user.check_password(current_password):
-                raise inputs.ValidationError(
-                    get_account_adapter().error_messages["enter_current_password"]
-                )
+                raise get_account_adapter().validation_error("enter_current_password")
         return current_password
 
     def clean_new_password(self):
@@ -188,21 +173,14 @@ class SelectEmailInput(inputs.Input):
         try:
             return EmailAddress.objects.get_for_user(user=self.user, email=email)
         except EmailAddress.DoesNotExist:
-            # NOTE: i18n is intentionally left out -- the frontend should
-            # normally not run into this.
-            raise inputs.ValidationError("Unknown email address.", code="invalid")
+            raise get_adapter().validation_error("unknown_email")
 
 
 class DeleteEmailInput(SelectEmailInput):
     def clean_email(self):
         email = super().clean_email()
         if not flows.manage_email.can_delete_email(email):
-            raise inputs.ValidationError(
-                _(
-                    "You cannot remove your primary email address.",
-                    code="denied",
-                )
-            )
+            raise get_account_adapter().validation_error("cannot_remove_primary_email")
         return email
 
 
@@ -212,10 +190,7 @@ class MarkAsPrimaryEmailInput(SelectEmailInput):
     def clean_email(self):
         email = super().clean_email()
         if not flows.manage_email.can_mark_as_primary(email):
-            raise inputs.ValidationError(
-                _("Your primary email address must be verified."),
-                code="unverified",
-            )
+            raise get_account_adapter().validation_error("unverified_primary_email")
         return email
 
 

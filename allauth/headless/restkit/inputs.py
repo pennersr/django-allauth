@@ -6,7 +6,6 @@ from django.forms import (
     Field,
     Form,
     ModelMultipleChoiceField,
-    ValidationError,
 )
 
 
@@ -14,7 +13,6 @@ __all__ = [
     "Field",
     "CharField",
     "ChoiceField",
-    "ValidationError",
     "EmailField",
     "BooleanField",
     "ModelMultipleChoiceField",

@@ -1,9 +1,9 @@
 from django.core.exceptions import ValidationError
 
 from allauth.core import context
+from allauth.headless.adapter import get_adapter
 from allauth.headless.restkit import inputs
 from allauth.socialaccount.adapter import (
-    get_adapter,
     get_adapter as get_socialaccount_adapter,
 )
 from allauth.socialaccount.forms import SignupForm
@@ -34,7 +34,7 @@ class DeleteProviderAccountInput(inputs.Input):
                 provider=provider_id,
             ).first()
             if not account:
-                raise inputs.ValidationError("Unknown account.")
+                raise get_adapter().validation_error("account_not_found")
             get_socialaccount_adapter().validate_disconnect(account, accounts)
             self.cleaned_data["account"] = account
         return cleaned_data
@@ -52,31 +52,25 @@ class ProviderTokenInput(inputs.Input):
 
     def clean_provider(self):
         provider_id = self.cleaned_data["provider"]
-        provider = get_adapter().get_provider(context.request, provider_id)
+        provider = get_socialaccount_adapter().get_provider(
+            context.request, provider_id
+        )
         if not provider.supports_token_authentication:
-            raise inputs.ValidationError(
-                "Provider does not support token authentication.", code="invalid"
-            )
+            raise get_adapter().validation_error("token_authentication_not_supported")
         return provider
 
     def clean(self):
         cleaned_data = super().clean()
         token = self.data.get("token")
+        adapter = get_adapter()
         if not isinstance(token, dict):
-            self.add_error(
-                "token", inputs.ValidationError("Invalid `token`.", code="invalid")
-            )
+            self.add_error("token", adapter.validation_error("invalid_token"))
             token = None
         provider = cleaned_data.get("provider")
         if provider and token:
             client_id = token.get("client_id")
             if provider.app.client_id != client_id:
-                self.add_error(
-                    "token",
-                    inputs.ValidationError(
-                        "Provider does not match `client_id`.", code="invalid"
-                    ),
-                )
+                self.add_error("token", adapter.validation_error("client_id_mismatch"))
             else:
                 id_token = token.get("id_token")
                 access_token = token.get("access_token")
@@ -85,13 +79,7 @@ class ProviderTokenInput(inputs.Input):
                     or (access_token is not None and not isinstance(access_token, str))
                     or (not id_token and not access_token)
                 ):
-                    self.add_error(
-                        "token",
-                        inputs.ValidationError(
-                            "`id_token` and/or `access_token` required.",
-                            code="required",
-                        ),
-                    )
+                    self.add_error("token", adapter.validation_error("token_required"))
         if not self.errors:
             try:
                 login = provider.verify_token(context.request, token)

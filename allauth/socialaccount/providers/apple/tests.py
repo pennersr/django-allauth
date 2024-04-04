@@ -137,6 +137,12 @@ class AppleTests(OAuth2TestsMixin, TestCase):
             "auth_time": 1234345345,  # not converted automatically by pyjwt
         }
 
+    def test_verify_token(self):
+        id_token = sign_id_token(self.get_apple_id_token_payload())
+        with mocked_response(self.get_mocked_response()):
+            sociallogin = self.provider.verify_token(None, {"id_token": id_token})
+            assert sociallogin.user.email == "test@privaterelay.appleid.com"
+
     def get_login_response_json(self, with_refresh_token=True):
         """
         `with_refresh_token` is not optional for apple, so it's ignored.

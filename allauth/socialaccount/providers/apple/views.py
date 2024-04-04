@@ -7,7 +7,6 @@ from django.utils import timezone
 from django.utils.http import urlencode
 from django.views.decorators.csrf import csrf_exempt
 
-from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.internal import jwtkit
 from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.providers.oauth2.views import (
@@ -28,18 +27,13 @@ class AppleOAuth2Adapter(OAuth2Adapter):
     authorize_url = "https://appleid.apple.com/auth/authorize"
     public_key_url = "https://appleid.apple.com/auth/keys"
 
-    def get_client_id(self, provider):
-        app = get_adapter().get_app(request=None, provider=self.provider_id)
-        return [aud.strip() for aud in app.client_id.split(",")]
-
-    def get_verified_identity_data(self, id_token):
-        provider = self.get_provider()
-        allowed_auds = self.get_client_id(provider)
+    @classmethod
+    def get_verified_identity_data(cls, provider, id_token):
         data = jwtkit.verify_and_decode(
             credential=id_token,
-            keys_url=self.public_key_url,
+            keys_url=cls.public_key_url,
             issuer="https://appleid.apple.com",
-            audience=allowed_auds,
+            audience=provider.get_auds(),
             lookup_kid=jwtkit.lookup_kid_jwk,
         )
         return data
@@ -56,7 +50,9 @@ class AppleOAuth2Adapter(OAuth2Adapter):
 
         # `user_data` is a big flat dictionary with the parsed JWT claims
         # access_tokens, and user info from the apple post.
-        identity_data = self.get_verified_identity_data(data["id_token"])
+        identity_data = AppleOAuth2Adapter.get_verified_identity_data(
+            self.get_provider(), data["id_token"]
+        )
         token.user_data = {**data, **identity_data}
 
         return token

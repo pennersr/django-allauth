@@ -1,4 +1,5 @@
 import json
+import requests
 import string
 from urllib.parse import quote
 
@@ -9,6 +10,7 @@ from django.utils.crypto import get_random_string
 from django.utils.html import escapejs, mark_safe
 
 from allauth.account.models import EmailAddress
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.providers.base import (
     AuthAction,
@@ -25,6 +27,7 @@ from allauth.socialaccount.providers.facebook.constants import (
 from allauth.socialaccount.providers.facebook.views import (
     FacebookOAuth2Adapter,
 )
+from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 from allauth.utils import import_callable
 
@@ -55,6 +58,7 @@ class FacebookProvider(OAuth2Provider):
     name = "Facebook"
     account_class = FacebookAccount
     oauth2_adapter_class = FacebookOAuth2Adapter
+    supports_token_authentication = True
 
     def __init__(self, *args, **kwargs):
         self._locale_callable_cache = None
@@ -203,6 +207,18 @@ class FacebookProvider(OAuth2Provider):
             # verified.
             ret.append(EmailAddress(email=email, verified=False, primary=True))
         return ret
+
+    def verify_token(self, request, token):
+        from allauth.socialaccount.providers.facebook import flows
+
+        access_token = token.get("access_token")
+        if not access_token:
+            raise get_adapter().validation_error("invalid_token")
+        try:
+            login = flows.verify_token(request, self, access_token)
+        except (OAuth2Error, requests.RequestException) as e:
+            raise get_adapter().validation_error("invalid_token") from e
+        return login
 
 
 provider_classes = [FacebookProvider]

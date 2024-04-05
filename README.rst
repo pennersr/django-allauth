@@ -11,7 +11,7 @@ Welcome to django-allauth!
    :target: https://coveralls.io/r/pennersr/django-allauth
 .. image:: https://img.shields.io/badge/bitcoin-donate-yellow.png
    :target: https://blockchain.info/address/1AJXuBMPHkaDCNX2rwAy34bGgs7hmrePEr
-.. image:: https://badgen.net/liberapay/receives/pennersr
+.. image:: https://img.shields.io/liberapay/receives/pennersr.png
    :target: https://en.liberapay.com/pennersr
 .. image:: https://img.shields.io/badge/code%20style-pep8-green.png
    :target: https://www.python.org/dev/peps/pep-0008/
@@ -27,7 +27,7 @@ Welcome to django-allauth!
 .. image:: https://img.shields.io/badge/%E2%96%B6%20demo-Django%20project-red.png
    :target: https://django.demo.allauth.org/
    :alt: View Django Demo
-.. image:: https://img.shields.io/badge/%E2%96%B6%20demo-React%20SPA-red
+.. image:: https://img.shields.io/badge/%E2%96%B6%20demo-React%20SPA-red.png
    :target: https://react.demo.allauth.org/
    :alt: View React SPA Demo
 

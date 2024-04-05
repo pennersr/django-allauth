@@ -4,39 +4,32 @@ Welcome to django-allauth!
 
 .. image:: https://github.com/pennersr/django-allauth/actions/workflows/ci.yml/badge.svg
    :target: https://github.com/pennersr/django-allauth/actions
-
 .. image:: https://img.shields.io/pypi/v/django-allauth.svg
    :target: https://pypi.python.org/pypi/django-allauth
-
 .. image:: https://coveralls.io/repos/pennersr/django-allauth/badge.svg?branch=main
    :alt: Coverage Status
    :target: https://coveralls.io/r/pennersr/django-allauth
-
 .. image:: https://pennersr.github.io/img/bitcoin-badge.svg
    :target: https://blockchain.info/address/1AJXuBMPHkaDCNX2rwAy34bGgs7hmrePEr
-
 .. image:: https://badgen.net/liberapay/receives/pennersr
    :target: https://en.liberapay.com/pennersr
-
 .. image:: https://img.shields.io/badge/code%20style-pep8-green.svg
    :target: https://www.python.org/dev/peps/pep-0008/
-
 .. image:: https://img.shields.io/badge/code_style-standard-brightgreen.svg
    :target: http://standardjs.com
-
 .. image:: https://pennersr.github.io/img/emacs-badge.svg
    :target: https://www.gnu.org/software/emacs/
-
 .. image:: https://hosted.weblate.org/widget/django-allauth/django-allauth/svg-badge.svg
    :target: https://hosted.weblate.org/engage/django-allauth/
-
 .. image:: https://img.shields.io/pypi/dm/django-allauth.svg
    :target: https://pypistats.org/packages/django-allauth
    :alt: PyPI - Downloads
-
-.. image:: https://img.shields.io/badge/%E2%96%B6-demo-red
+.. image:: https://img.shields.io/badge/%E2%96%B6-Django%20demo-red
    :target: https://django.demo.allauth.org/
-   :alt: View Demo
+   :alt: View Django Demo
+.. image:: https://img.shields.io/badge/%E2%96%B6-React%20SPA%20demo-red
+   :target: https://react.demo.allauth.org/
+   :alt: View React SPA Demo
 
 Integrated set of Django applications addressing authentication,
 registration, account management as well as 3rd party (social) account

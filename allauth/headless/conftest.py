@@ -35,8 +35,13 @@ class AppClient(Client):
 
     def force_login(self, user):
         ret = super().force_login(user)
-        self.session_token = f"st-{self.session.session_key}"
+        self.session_token = self.session.session_key
         return ret
+
+
+@pytest.fixture
+def app_client():
+    return AppClient()
 
 
 @pytest.fixture

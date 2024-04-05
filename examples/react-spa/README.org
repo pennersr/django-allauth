@@ -50,18 +50,18 @@ Then, visit the app over at http://localhost:10000.
 
 **** DONE User sessions
 
-*** Headless [66%]
+*** Headless [71%]
 
 **** TODO Check rate limit handling
 
 **** TODO Make "Unknown account" email signup URL configurable
 
-**** TODO Mobile client (access tokens, no CSRF/cookies)
+**** DONE Mobile client (access tokens, no CSRF/cookies)
 - [X] Don't require CSRF
 - [X] Session tokens, access tokens
 - [X] Provider login via token
-- [ ] Token login for Apple
-- [ ] Token login for Facebook
+- [X] Token login for Apple
+- [X] Token login for Facebook
 - [X] Duplicate urlnames, use namespaces
 
 **** DONE Disable messages framework

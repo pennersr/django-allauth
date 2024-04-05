@@ -17,7 +17,7 @@ class BaseAuthenticationResponse(APIResponse):
             data["methods"] = get_authentication_records(request)
             status = status or 200
         else:
-            status = 401
+            status = status or 401
         if status != 200:
             data["flows"] = self._get_flows(request, user)
         meta = {
@@ -84,8 +84,8 @@ class ReauthenticationResponse(BaseAuthenticationResponse):
 
 
 class UnauthorizedResponse(BaseAuthenticationResponse):
-    def __init__(self, request):
-        super().__init__(request, user=None, status=401)
+    def __init__(self, request, status=401):
+        super().__init__(request, user=None, status=status)
 
 
 def user_data(user):

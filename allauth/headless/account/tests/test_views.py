@@ -1,9 +1,24 @@
 import copy
 from unittest.mock import ANY
 
+from django.test.client import Client
+from django.urls import reverse
+
 import pytest
 
 from allauth.account.models import EmailAddress, get_emailconfirmation_model
+
+
+def test_app_session_gone(db, user):
+    # intentionally use a vanilla Django test client
+    client = Client()
+    # Force login, creates a Django session
+    client.force_login(user)
+    # That Django session should not play any role.
+    resp = client.get(
+        reverse("headless:app:current_session"), headers={"x-session-token": "gone"}
+    )
+    assert resp.status_code == 410
 
 
 def test_auth_password_input_error(headless_reverse, client):
@@ -57,7 +72,7 @@ def test_auth_password_success(
     client, user, user_password, settings, headless_reverse, headless_client
 ):
     settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
-    resp = client.post(
+    login_resp = client.post(
         headless_reverse("headless:login"),
         data={
             "email": user.email,
@@ -65,32 +80,38 @@ def test_auth_password_success(
         },
         content_type="application/json",
     )
-    assert resp.status_code == 200
-    resp = client.get(
+    assert login_resp.status_code == 200
+    session_resp = client.get(
         headless_reverse("headless:current_session"),
         content_type="application/json",
     )
-    assert resp.status_code == 200
-    assert resp.json() == {
-        "status": 200,
-        "data": {
-            "user": {
-                "id": user.pk,
-                "display": str(user),
-                "email": user.email,
-                "username": user.username,
-                "has_usable_password": True,
-            },
-            "methods": [
-                {
-                    "at": ANY,
+    assert session_resp.status_code == 200
+    for resp in [login_resp, session_resp]:
+        extra_meta = {}
+        if headless_client == "app" and resp == login_resp:
+            # The session is created on first login, and hence the token is
+            # exposed only at that moment.
+            extra_meta["session_token"] = ANY
+        assert resp.json() == {
+            "status": 200,
+            "data": {
+                "user": {
+                    "id": user.pk,
+                    "display": str(user),
                     "email": user.email,
-                    "method": "password",
-                }
-            ],
-        },
-        "meta": {"is_authenticated": True},
-    }
+                    "username": user.username,
+                    "has_usable_password": True,
+                },
+                "methods": [
+                    {
+                        "at": ANY,
+                        "email": user.email,
+                        "method": "password",
+                    }
+                ],
+            },
+            "meta": {"is_authenticated": True, **extra_meta},
+        }
 
 
 def test_auth_unverified_email(

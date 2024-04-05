@@ -1,3 +1,4 @@
+import typing
 from contextlib import contextmanager
 
 from allauth.account.stages import LoginStageController
@@ -31,6 +32,11 @@ class AuthenticationStatus:
         return bool(flows.signup.get_pending_signup(self.request))
 
 
+def purge_request_user_cache(request):
+    if hasattr(request, "_cached_user"):
+        delattr(request, "_cached_user")
+
+
 @contextmanager
 def authentication_context(request):
     from allauth.headless.base.response import UnauthorizedResponse
@@ -38,6 +44,9 @@ def authentication_context(request):
     old_user = request.user
     old_session = request.session
     try:
+        request.session = sessionkit.new_session()
+        purge_request_user_cache(request)
+
         strategy = app_settings.TOKEN_STRATEGY
         session_token = strategy.get_session_token(request)
         if session_token:
@@ -45,10 +54,7 @@ def authentication_context(request):
             if not session:
                 raise ImmediateHttpResponse(UnauthorizedResponse(request, status=410))
             request.session = session
-        else:
-            request.session = sessionkit.new_session()
-        if hasattr(request, "_cached_user"):
-            delattr(request, "_cached_user")
+            purge_request_user_cache(request)
         request.allauth.headless._pre_user = request.user
         yield
     finally:
@@ -60,7 +66,10 @@ def authentication_context(request):
         request.META["CSRF_COOKIE_NEEDS_UPDATE"] = False
 
 
-def expose_access_token(request):
+def expose_access_token(request) -> typing.Optional[str]:
+    """
+    Determines if a new access token needs to be exposed.
+    """
     if request.allauth.headless.client != Client.APP:
         return
     if not request.user.is_authenticated:
@@ -68,8 +77,5 @@ def expose_access_token(request):
     pre_user = request.allauth.headless._pre_user
     if pre_user.is_authenticated and pre_user.pk == request.user.pk:
         return
-
     strategy = app_settings.TOKEN_STRATEGY
-    access_token = strategy.get_access_token(request)
-    if not access_token:
-        return strategy.create_access_token(request)
+    return strategy.create_access_token(request)

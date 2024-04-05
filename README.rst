@@ -2,34 +2,36 @@
 Welcome to django-allauth!
 ==========================
 
-.. image:: https://img.shields.io/github/actions/workflow/status/pennersr/django-allauth/ci.yml.png
+.. |ci| image:: https://img.shields.io/github/actions/workflow/status/pennersr/django-allauth/ci.yml.png
    :target: https://github.com/pennersr/django-allauth/actions
-.. image:: https://img.shields.io/pypi/v/django-allauth.png
+.. |pypi| image:: https://img.shields.io/pypi/v/django-allauth.png
    :target: https://pypi.python.org/pypi/django-allauth
-.. image:: https://coveralls.io/repos/pennersr/django-allauth/badge.png?branch=main
+.. |cov| image:: https://coveralls.io/repos/pennersr/django-allauth/badge.png?branch=main
    :alt: Coverage Status
    :target: https://coveralls.io/r/pennersr/django-allauth
-.. image:: https://img.shields.io/badge/bitcoin-donate-yellow.png
+.. |btc| image:: https://img.shields.io/badge/bitcoin-donate-yellow.png
    :target: https://blockchain.info/address/1AJXuBMPHkaDCNX2rwAy34bGgs7hmrePEr
-.. image:: https://img.shields.io/liberapay/receives/pennersr.png
+.. |liberapay| image:: https://img.shields.io/liberapay/receives/pennersr.png
    :target: https://en.liberapay.com/pennersr
-.. image:: https://img.shields.io/badge/code%20style-pep8-green.png
+.. |pystyle| image:: https://img.shields.io/badge/code%20style-pep8-green.png
    :target: https://www.python.org/dev/peps/pep-0008/
-.. image:: https://img.shields.io/badge/code_style-standard-brightgreen.png
+.. |jsstyle| image:: https://img.shields.io/badge/code_style-standard-brightgreen.png
    :target: http://standardjs.com
-.. image:: https://img.shields.io/badge/editor-emacs-purple.png
+.. |editor| image:: https://img.shields.io/badge/editor-emacs-purple.png
    :target: https://www.gnu.org/software/emacs/
-.. image:: https://img.shields.io/weblate/progress/django-allauth.png
+.. |i18n| image:: https://img.shields.io/weblate/progress/django-allauth.png
    :target: https://hosted.weblate.org/engage/django-allauth/
-.. image:: https://img.shields.io/pypi/dm/django-allauth.png
+.. |pypidl| image:: https://img.shields.io/pypi/dm/django-allauth.png
    :target: https://pypistats.org/packages/django-allauth
    :alt: PyPI - Downloads
-.. image:: https://img.shields.io/badge/%E2%96%B6%20demo-Django%20project-red.png
+.. |djangodemo| image:: https://img.shields.io/badge/%E2%96%B6%20demo-Django%20project-red.png
    :target: https://django.demo.allauth.org/
    :alt: View Django Demo
-.. image:: https://img.shields.io/badge/%E2%96%B6%20demo-React%20SPA-red.png
+.. |reactdemo| image:: https://img.shields.io/badge/%E2%96%B6%20demo-React%20SPA-red.png
    :target: https://react.demo.allauth.org/
    :alt: View React SPA Demo
+
+|ci| |pypi| |cov| |btc| |liberapay| |pystyle| |jsstyle| |editor| |i18n| |pypidl| |djangodemo| |reactdemo|
 
 Integrated set of Django applications addressing authentication,
 registration, account management as well as 3rd party (social) account

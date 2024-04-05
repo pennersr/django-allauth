@@ -2,29 +2,29 @@
 Welcome to django-allauth!
 ==========================
 
-.. image:: https://github.com/pennersr/django-allauth/actions/workflows/ci.yml/badge.svg
+.. image:: https://img.shields.io/github/actions/workflow/status/pennersr/django-allauth/ci.yml.png
    :target: https://github.com/pennersr/django-allauth/actions
-.. image:: https://img.shields.io/pypi/v/django-allauth.svg
+.. image:: https://img.shields.io/pypi/v/django-allauth.png
    :target: https://pypi.python.org/pypi/django-allauth
-.. image:: https://coveralls.io/repos/pennersr/django-allauth/badge.svg?branch=main
+.. image:: https://coveralls.io/repos/pennersr/django-allauth/badge.png?branch=main
    :alt: Coverage Status
    :target: https://coveralls.io/r/pennersr/django-allauth
-.. image:: https://pennersr.github.io/img/bitcoin-badge.svg
+.. image:: https://img.shields.io/badge/bitcoin-donate-yellow.png
    :target: https://blockchain.info/address/1AJXuBMPHkaDCNX2rwAy34bGgs7hmrePEr
 .. image:: https://badgen.net/liberapay/receives/pennersr
    :target: https://en.liberapay.com/pennersr
-.. image:: https://img.shields.io/badge/code%20style-pep8-green.svg
+.. image:: https://img.shields.io/badge/code%20style-pep8-green.png
    :target: https://www.python.org/dev/peps/pep-0008/
-.. image:: https://img.shields.io/badge/code_style-standard-brightgreen.svg
+.. image:: https://img.shields.io/badge/code_style-standard-brightgreen.png
    :target: http://standardjs.com
-.. image:: https://img.shields.io/badge/editor-emacs-purple
+.. image:: https://img.shields.io/badge/editor-emacs-purple.png
    :target: https://www.gnu.org/software/emacs/
-.. image:: https://hosted.weblate.org/widget/django-allauth/django-allauth/svg-badge.svg
+.. image:: https://img.shields.io/weblate/progress/django-allauth.png
    :target: https://hosted.weblate.org/engage/django-allauth/
-.. image:: https://img.shields.io/pypi/dm/django-allauth.svg
+.. image:: https://img.shields.io/pypi/dm/django-allauth.png
    :target: https://pypistats.org/packages/django-allauth
    :alt: PyPI - Downloads
-.. image:: https://img.shields.io/badge/%E2%96%B6%20demo-Django%20project-red
+.. image:: https://img.shields.io/badge/%E2%96%B6%20demo-Django%20project-red.png
    :target: https://django.demo.allauth.org/
    :alt: View Django Demo
 .. image:: https://img.shields.io/badge/%E2%96%B6%20demo-React%20SPA-red

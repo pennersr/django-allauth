@@ -6,7 +6,7 @@ Welcome to django-allauth!
    :target: https://github.com/pennersr/django-allauth/actions
 .. |pypi| image:: https://img.shields.io/pypi/v/django-allauth.png
    :target: https://pypi.python.org/pypi/django-allauth
-.. |cov| image:: https://coveralls.io/repos/pennersr/django-allauth/badge.png?branch=main
+.. |cov| image:: https://img.shields.io/coverallsCoverage/github/pennersr/django-allauth.png
    :alt: Coverage Status
    :target: https://coveralls.io/r/pennersr/django-allauth
 .. |btc| image:: https://img.shields.io/badge/bitcoin-donate-yellow.png

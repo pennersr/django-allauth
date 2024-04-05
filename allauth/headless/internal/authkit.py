@@ -56,6 +56,8 @@ def authentication_context(request):
             request.session = session
             purge_request_user_cache(request)
         request.allauth.headless._pre_user = request.user
+        # request.user is lazy -- force evaluation
+        request.allauth.headless._pre_user.pk
         yield
     finally:
         if request.session.modified:

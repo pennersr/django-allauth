@@ -3,7 +3,7 @@ from allauth.headless.base.response import APIResponse, user_data
 
 class RequestEmailVerificationResponse(APIResponse):
     def __init__(self, request, verification_sent):
-        super().__init__(request, stastus=200 if verification_sent else 403)
+        super().__init__(request, status=200 if verification_sent else 403)
 
 
 class VerifyEmailResponse(APIResponse):

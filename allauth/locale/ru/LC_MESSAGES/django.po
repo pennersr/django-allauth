@@ -585,7 +585,7 @@ msgstr "Ваш пароль изменён."
 
 #: templates/account/email/password_changed_subject.txt:3
 msgid "Password Changed"
-msgstr "Пароль изменён"
+msgstr "Пароль Изменён"
 
 #: templates/account/email/password_reset_key_message.txt:4
 msgid ""
@@ -993,7 +993,7 @@ msgstr "Был создан новый набор кодов восстанов�
 
 #: templates/mfa/email/recovery_codes_generated_subject.txt:3
 msgid "New Recovery Codes Generated"
-msgstr "Сгенерированы Новые Код Восстановления"
+msgstr "Сгенерированы Новые Коды Восстановления"
 
 #: templates/mfa/email/totp_activated_message.txt:4
 #: templates/mfa/messages/totp_activated.txt:2

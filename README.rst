@@ -17,17 +17,17 @@ Welcome to django-allauth!
    :target: https://www.python.org/dev/peps/pep-0008/
 .. image:: https://img.shields.io/badge/code_style-standard-brightgreen.svg
    :target: http://standardjs.com
-.. image:: https://pennersr.github.io/img/emacs-badge.svg
+.. image:: https://img.shields.io/badge/editor-emacs-purple
    :target: https://www.gnu.org/software/emacs/
 .. image:: https://hosted.weblate.org/widget/django-allauth/django-allauth/svg-badge.svg
    :target: https://hosted.weblate.org/engage/django-allauth/
 .. image:: https://img.shields.io/pypi/dm/django-allauth.svg
    :target: https://pypistats.org/packages/django-allauth
    :alt: PyPI - Downloads
-.. image:: https://img.shields.io/badge/%E2%96%B6-Django%20demo-red
+.. image:: https://img.shields.io/badge/%E2%96%B6%20demo-Django%20project-red
    :target: https://django.demo.allauth.org/
    :alt: View Django Demo
-.. image:: https://img.shields.io/badge/%E2%96%B6-React%20SPA%20demo-red
+.. image:: https://img.shields.io/badge/%E2%96%B6%20demo-React%20SPA-red
    :target: https://react.demo.allauth.org/
    :alt: View React SPA Demo
 

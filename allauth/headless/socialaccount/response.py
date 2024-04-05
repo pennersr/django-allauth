@@ -8,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 def _provider_data(request, provider):
-    ret = {"id": provider.id, "name": provider.name, "flows": []}
+    ret = {"id": provider.sub_id, "name": provider.name, "flows": []}
     if provider.supports_redirect:
         ret["flows"].append(Flow.PROVIDER_REDIRECT)
     if provider.supports_token_authentication:

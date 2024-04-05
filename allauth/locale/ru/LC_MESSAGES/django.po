@@ -627,7 +627,7 @@ msgstr "Ваш пароль был установлен."
 
 #: templates/account/email/password_set_subject.txt:3
 msgid "Password Set"
-msgstr "Установить пароль"
+msgstr "Пароль Установлен"
 
 #: templates/account/email/unknown_account_message.txt:4
 #, python-format

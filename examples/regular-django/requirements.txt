@@ -1,1 +1,1 @@
-django-allauth[mfa,saml]==0.60.1
+django-allauth[mfa,saml,socialaccount]==0.60.1

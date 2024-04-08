@@ -421,7 +421,7 @@ def filter_users_by_email(email, is_active=None, prefer_verified=False):
     from .models import EmailAddress
 
     User = get_user_model()
-    mails = EmailAddress.objects.filter(email__iexact=email).prefetch_related("user")
+    mails = EmailAddress.objects.filter(email__iexact=email).select_related("user")
     mails = list(mails)
     is_verified = False
     if prefer_verified:

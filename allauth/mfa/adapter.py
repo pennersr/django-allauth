@@ -26,6 +26,9 @@ class DefaultMFAAdapter:
         "cannot_delete_authenticator": _(
             "You cannot deactivate two-factor authentication."
         ),
+        "cannot_generate_recovery_codes": _(
+            "You cannot generate recovery codes without having two-factor authentication enabled."
+        ),
     }
     "The error messages that can occur as part of MFA form handling."
 

@@ -13,7 +13,7 @@ class OAuthProvider(Provider):
             url = url + "?" + urlencode(kwargs)
         return url
 
-    def get_auth_params(self, request, action):
+    def get_auth_params_from_request(self, request, action):
         settings = self.get_settings()
         ret = dict(settings.get("AUTH_PARAMS", {}))
         dynamic_auth_params = request.GET.get("auth_params", None)
@@ -27,7 +27,10 @@ class OAuthProvider(Provider):
         # adapter/provider is a bit too thin here.
         return None
 
-    def get_scope(self, request):
+    def get_scope_from_request(self, request):
+        return self.get_scope()
+
+    def get_scope(self):
         settings = self.get_settings()
         scope = settings.get("SCOPE")
         if scope is None:

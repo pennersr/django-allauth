@@ -2,6 +2,7 @@ from allauth.account.models import EmailAddress
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.yandex.views import YandexOAuth2Adapter
 
 
 class YandexAccout(ProviderAccount):
@@ -16,6 +17,7 @@ class YandexProvider(OAuth2Provider):
     id = "yandex"
     name = "Yandex"
     account_class = YandexAccout
+    oauth2_adapter_class = YandexOAuth2Adapter
 
     def get_default_scope(self):
         scope = ["login:info"]

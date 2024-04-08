@@ -1,5 +1,8 @@
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.robinhood.views import (
+    RobinhoodOAuth2Adapter,
+)
 
 
 class RobinhoodAccount(ProviderAccount):
@@ -16,6 +19,7 @@ class RobinhoodProvider(OAuth2Provider):
     id = "robinhood"
     name = "Robinhood"
     account_class = RobinhoodAccount
+    oauth2_adapter_class = RobinhoodOAuth2Adapter
 
     def get_default_scope(self):
         return ["read"]

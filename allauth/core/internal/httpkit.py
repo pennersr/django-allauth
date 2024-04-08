@@ -1,4 +1,5 @@
 import json
+from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 
 from django import shortcuts
 from django.http import QueryDict
@@ -34,3 +35,21 @@ def redirect(to):
         return shortcuts.redirect(to)
     except NoReverseMatch:
         return shortcuts.redirect(f"/{to}")
+
+
+def add_query_params(url, params):
+    parsed_url = urlparse(url)
+    query_params = parse_qs(parsed_url.query)
+    query_params.update(params)
+    encoded_query = urlencode(query_params, doseq=True)
+    new_url = urlunparse(
+        (
+            parsed_url.scheme,
+            parsed_url.netloc,
+            parsed_url.path,
+            parsed_url.params,
+            encoded_query,
+            parsed_url.fragment,
+        )
+    )
+    return new_url

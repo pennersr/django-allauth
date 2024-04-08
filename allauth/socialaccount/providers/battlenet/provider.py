@@ -1,4 +1,7 @@
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.battlenet.views import (
+    BattleNetOAuth2Adapter,
+)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -12,6 +15,7 @@ class BattleNetProvider(OAuth2Provider):
     id = "battlenet"
     name = "Battle.net"
     account_class = BattleNetAccount
+    oauth2_adapter_class = BattleNetOAuth2Adapter
 
     def extract_uid(self, data):
         uid = str(data["id"])

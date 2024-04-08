@@ -6,11 +6,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import OktaProvider
-
 
 class OktaOAuth2Adapter(OAuth2Adapter):
-    provider_id = OktaProvider.id
+    provider_id = "okta"
 
     settings = app_settings.PROVIDERS.get(provider_id, {})
     okta_base_url = settings.get("OKTA_BASE_URL")

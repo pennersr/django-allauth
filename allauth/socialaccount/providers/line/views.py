@@ -11,11 +11,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import LineProvider
-
 
 class LineOAuth2Adapter(OAuth2Adapter):
-    provider_id = LineProvider.id
+    provider_id = "line"
     access_token_url = "https://api.line.me/oauth2/v2.1/token"
     authorize_url = "https://access.line.me/oauth2/v2.1/authorize"
     profile_url = "https://api.line.me/v2/profile"  # https://developers.line.biz/en/reference/line-login/#get-user-profile

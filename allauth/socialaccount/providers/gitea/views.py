@@ -1,6 +1,5 @@
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
-from allauth.socialaccount.providers.gitea.provider import GiteaProvider
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -9,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 
 class GiteaOAuth2Adapter(OAuth2Adapter):
-    provider_id = GiteaProvider.id
+    provider_id = "gitea"
     settings = app_settings.PROVIDERS.get(provider_id, {})
 
     if "GITEA_URL" in settings:

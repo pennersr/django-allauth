@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import StocktwitsProvider
-
 
 class StocktwitsOAuth2Adapter(OAuth2Adapter):
-    provider_id = StocktwitsProvider.id
+    provider_id = "stocktwits"
     access_token_url = "https://api.stocktwits.com/api/2/oauth/token"
     authorize_url = "https://api.stocktwits.com/api/2/oauth/authorize"
     profile_url = "https://api.stocktwits.com/api/2/streams/user/{user}.json"

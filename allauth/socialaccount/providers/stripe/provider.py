@@ -1,5 +1,6 @@
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.stripe.views import StripeOAuth2Adapter
 
 
 class StripeAccount(ProviderAccount):
@@ -12,6 +13,7 @@ class StripeProvider(OAuth2Provider):
     id = "stripe"
     name = "Stripe"
     account_class = StripeAccount
+    oauth2_adapter_class = StripeOAuth2Adapter
 
     def extract_uid(self, data):
         return data["id"]

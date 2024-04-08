@@ -1,6 +1,5 @@
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
-from allauth.socialaccount.providers.agave.provider import AgaveProvider
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -9,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 
 class AgaveAdapter(OAuth2Adapter):
-    provider_id = AgaveProvider.id
+    provider_id = "agave"
 
     settings = app_settings.PROVIDERS.get(provider_id, {})
     provider_base_url = settings.get("API_URL", "https://public.agaveapi.co")

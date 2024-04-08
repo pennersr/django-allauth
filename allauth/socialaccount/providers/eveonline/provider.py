@@ -1,5 +1,8 @@
 from allauth.socialaccount.app_settings import STORE_TOKENS
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.eveonline.views import (
+    EveOnlineOAuth2Adapter,
+)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -31,6 +34,7 @@ class EveOnlineProvider(OAuth2Provider):
     id = "eveonline"
     name = "EVE Online"
     account_class = EveOnlineAccount
+    oauth2_adapter_class = EveOnlineOAuth2Adapter
 
     def get_default_scope(self):
         scopes = []

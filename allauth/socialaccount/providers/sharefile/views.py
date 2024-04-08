@@ -6,11 +6,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import ShareFileProvider
-
 
 class ShareFileOAuth2Adapter(OAuth2Adapter):
-    provider_id = ShareFileProvider.id
+    provider_id = "sharefile"
     settings = app_settings.PROVIDERS.get(provider_id, {})
     subdomain = settings.get("SUBDOMAIN", "secure")
     apicp = settings.get("APICP", "sharefile.com")

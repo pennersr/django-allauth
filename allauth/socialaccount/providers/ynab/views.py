@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import YNABProvider
-
 
 class YNABOAuth2Adapter(OAuth2Adapter):
-    provider_id = YNABProvider.id
+    provider_id = "ynab"
     access_token_url = "https://app.youneedabudget.com/oauth/token"
     authorize_url = "https://app.youneedabudget.com/oauth/authorize"
     profile_url = "https://api.youneedabudget.com/v1/user"

@@ -6,11 +6,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import EdxProvider
-
 
 class EdxOAuth2Adapter(OAuth2Adapter):
-    provider_id = EdxProvider.id
+    provider_id = "edx"
     provider_default_url = "https://edx.org"
 
     settings = app_settings.PROVIDERS.get(provider_id, {})

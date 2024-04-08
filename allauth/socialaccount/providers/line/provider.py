@@ -1,4 +1,5 @@
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.line.views import LineOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -16,6 +17,7 @@ class LineProvider(OAuth2Provider):
     id = "line"
     name = "Line"
     account_class = LineAccount
+    oauth2_adapter_class = LineOAuth2Adapter
 
     def get_default_scope(self):
         return []

@@ -19,9 +19,8 @@ from django.views.generic.base import TemplateResponseMixin, TemplateView, View
 from django.views.generic.edit import FormView
 
 from allauth import app_settings as allauth_app_settings
-from allauth.account import app_settings, signals
+from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
-from allauth.account.decorators import reauthentication_required
 from allauth.account.forms import (
     AddEmailForm,
     ChangePasswordForm,
@@ -39,13 +38,9 @@ from allauth.account.models import (
     EmailConfirmation,
     get_emailconfirmation_model,
 )
-from allauth.account.reauthentication import (
-    record_authentication,
-    resume_request,
-)
+from allauth.account.reauthentication import resume_request
 from allauth.account.utils import (
     complete_signup,
-    emit_email_changed,
     get_login_redirect_url,
     get_next_redirect_url,
     passthrough_next_redirect_url,
@@ -57,7 +52,7 @@ from allauth.account.utils import (
 )
 from allauth.core import ratelimit
 from allauth.core.exceptions import ImmediateHttpResponse
-from allauth.core.internal.http import redirect
+from allauth.core.internal.httpkit import redirect
 from allauth.decorators import rate_limit
 from allauth.utils import get_form_class, get_request_param
 
@@ -147,11 +142,7 @@ class AjaxCapableProcessFormViewMixin(object):
 
 class LogoutFunctionalityMixin(object):
     def logout(self):
-        adapter = get_adapter(self.request)
-        adapter.add_message(
-            self.request, messages.SUCCESS, "account/messages/logged_out.txt"
-        )
-        adapter.logout(self.request)
+        flows.logout.logout(self.request)
 
 
 class LoginView(
@@ -481,12 +472,6 @@ confirm_email = ConfirmEmailView.as_view()
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(rate_limit(action="manage_email"), name="dispatch")
-@method_decorator(
-    reauthentication_required(
-        allow_get=True, enabled=lambda request: app_settings.REAUTHENTICATION_REQUIRED
-    ),
-    name="dispatch",
-)
 class EmailView(AjaxCapableProcessFormViewMixin, FormView):
     template_name = (
         "account/email_change." if app_settings.CHANGE_EMAIL else "account/email."
@@ -499,7 +484,7 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
 
     def dispatch(self, request, *args, **kwargs):
         sync_user_email_addresses(request.user)
-        return super(EmailView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_form_kwargs(self):
         kwargs = super(EmailView, self).get_form_kwargs()
@@ -507,21 +492,8 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
         return kwargs
 
     def form_valid(self, form):
-        email_address = form.save(self.request)
-        adapter = get_adapter(self.request)
-        adapter.add_message(
-            self.request,
-            messages.INFO,
-            "account/messages/email_confirmation_sent.txt",
-            {"email": form.cleaned_data["email"]},
-        )
-        signals.email_added.send(
-            sender=self.request.user.__class__,
-            request=self.request,
-            user=self.request.user,
-            email_address=email_address,
-        )
-        return super(EmailView, self).form_valid(form)
+        flows.manage_email.add_email(self.request, form)
+        return super().form_valid(form)
 
     def post(self, request, *args, **kwargs):
         res = None
@@ -565,70 +537,13 @@ class EmailView(AjaxCapableProcessFormViewMixin, FormView):
     def _action_remove(self, request, *args, **kwargs):
         email_address = self._get_email_address(request)
         if email_address:
-            adapter = get_adapter()
-            if not adapter.can_delete_email(email_address):
-                adapter.add_message(
-                    request,
-                    messages.ERROR,
-                    "account/messages/cannot_delete_primary_email.txt",
-                    {"email": email_address.email},
-                )
-            else:
-                email_address.remove()
-                signals.email_removed.send(
-                    sender=request.user.__class__,
-                    request=request,
-                    user=request.user,
-                    email_address=email_address,
-                )
-                adapter.add_message(
-                    request,
-                    messages.SUCCESS,
-                    "account/messages/email_deleted.txt",
-                    {"email": email_address.email},
-                )
-                adapter.send_notification_mail(
-                    "account/email/email_deleted",
-                    request.user,
-                    {"deleted_email": email_address.email},
-                )
+            if flows.manage_email.delete_email(request, email_address):
                 return HttpResponseRedirect(self.get_success_url())
 
     def _action_primary(self, request, *args, **kwargs):
         email_address = self._get_email_address(request)
         if email_address:
-            # Not primary=True -- Slightly different variation, don't
-            # require verified unless moving from a verified
-            # address. Ignore constraint if previous primary email
-            # address is not verified.
-            if (
-                not email_address.verified
-                and EmailAddress.objects.filter(
-                    user=request.user, verified=True
-                ).exists()
-            ):
-                get_adapter().add_message(
-                    request,
-                    messages.ERROR,
-                    "account/messages/unverified_primary_email.txt",
-                )
-            else:
-                # Sending the old primary address to the signal
-                # adds a db query.
-                try:
-                    from_email_address = EmailAddress.objects.get(
-                        user=request.user, primary=True
-                    )
-                except EmailAddress.DoesNotExist:
-                    from_email_address = None
-                email_address.set_as_primary()
-                adapter = get_adapter()
-                adapter.add_message(
-                    request,
-                    messages.SUCCESS,
-                    "account/messages/primary_email_set.txt",
-                )
-                emit_email_changed(request, from_email_address, email_address)
+            if flows.manage_email.mark_as_primary(request, email_address):
                 return HttpResponseRedirect(self.get_success_url())
 
     def get_context_data(self, **kwargs):
@@ -1000,7 +915,6 @@ class BaseReauthenticateView(FormView):
         return url
 
     def form_valid(self, form):
-        record_authentication(self.request, self.request.user)
         response = resume_request(self.request)
         if response:
             return response
@@ -1045,6 +959,10 @@ class ReauthenticateView(BaseReauthenticateView):
         ret = super().get_form_kwargs()
         ret["user"] = self.request.user
         return ret
+
+    def form_valid(self, form):
+        flows.reauthentication.reauthenticate_by_password(self.request)
+        return super().form_valid(form)
 
 
 reauthenticate = ReauthenticateView.as_view()

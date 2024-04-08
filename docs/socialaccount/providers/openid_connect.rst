@@ -10,6 +10,9 @@ standalone OpenID Connect provider:
 
     SOCIALACCOUNT_PROVIDERS = {
         "openid_connect": {
+            # Optional PKCE defaults to False, but may be required by your provider
+            # Applies to all APPS.
+            "OAUTH_PKCE_ENABLED": True,
             "APPS": [
                 {
                     "provider_id": "my-server",

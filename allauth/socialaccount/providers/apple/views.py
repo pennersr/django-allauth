@@ -19,12 +19,11 @@ from allauth.utils import build_absolute_uri, get_request_param
 
 from .apple_session import get_apple_session
 from .client import AppleOAuth2Client
-from .provider import AppleProvider
 
 
 class AppleOAuth2Adapter(OAuth2Adapter):
     client_class = AppleOAuth2Client
-    provider_id = AppleProvider.id
+    provider_id = "apple"
     access_token_url = "https://appleid.apple.com/auth/token"
     authorize_url = "https://appleid.apple.com/auth/authorize"
     public_key_url = "https://appleid.apple.com/auth/keys"
@@ -83,13 +82,12 @@ class AppleOAuth2Adapter(OAuth2Adapter):
             # so return blank dictionary instead
             return {}
 
-    def get_access_token_data(self, request, app, client):
+    def get_access_token_data(self, request, app, client, pkce_code_verifier=None):
         """We need to gather the info from the apple specific login"""
         apple_session = get_apple_session(request)
 
         # Exchange `code`
         code = get_request_param(request, "code")
-        pkce_code_verifier = request.session.pop("pkce_code_verifier", None)
         access_token_data = client.get_access_token(
             code, pkce_code_verifier=pkce_code_verifier
         )

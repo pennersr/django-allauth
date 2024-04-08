@@ -5,8 +5,6 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import VKProvider
-
 
 USER_FIELDS = [
     "first_name",
@@ -35,7 +33,7 @@ USER_FIELDS = [
 
 
 class VKOAuth2Adapter(OAuth2Adapter):
-    provider_id = VKProvider.id
+    provider_id = "vk"
     access_token_url = "https://oauth.vk.com/access_token"
     authorize_url = "https://oauth.vk.com/authorize"
     profile_url = "https://api.vk.com/method/users.get"

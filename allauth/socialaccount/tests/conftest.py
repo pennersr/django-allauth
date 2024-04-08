@@ -1,7 +1,10 @@
+import time
+
 from django.urls import reverse
 
 import pytest
 
+from allauth.socialaccount.internal import statekit
 from allauth.socialaccount.providers.base.constants import AuthProcess
 from allauth.tests import MockedResponse, mocked_response
 
@@ -20,7 +23,9 @@ def provider_callback_response():
             },
         ):
             session = client.session
-            session["socialaccount_state"] = [{"process": process}, None]
+            session[statekit.STATES_SESSION_KEY] = {
+                "state456": [{"process": process}, time.time()]
+            }
             session.save()
 
             resp = client.post(
@@ -28,7 +33,7 @@ def provider_callback_response():
                     "openid_connect_callback",
                     kwargs={"provider_id": "unittest-server"},
                 )
-                + "?code=123"
+                + "?code=123&state=state456"
             )
             return resp
 

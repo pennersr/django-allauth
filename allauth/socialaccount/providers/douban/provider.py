@@ -1,4 +1,5 @@
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.douban.views import DoubanOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -18,6 +19,7 @@ class DoubanProvider(OAuth2Provider):
     id = "douban"
     name = "Douban"
     account_class = DoubanAccount
+    oauth2_adapter_class = DoubanOAuth2Adapter
 
     def extract_uid(self, data):
         return data["id"]

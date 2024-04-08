@@ -6,14 +6,12 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import EventbriteProvider
-
 
 class EventbriteOAuth2Adapter(OAuth2Adapter):
 
     """OAuth2Adapter for Eventbrite API v3."""
 
-    provider_id = EventbriteProvider.id
+    provider_id = "eventbrite"
 
     authorize_url = "https://www.eventbrite.com/oauth/authorize"
     access_token_url = "https://www.eventbrite.com/oauth/token"

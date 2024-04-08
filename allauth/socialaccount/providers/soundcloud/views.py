@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import SoundCloudProvider
-
 
 class SoundCloudOAuth2Adapter(OAuth2Adapter):
-    provider_id = SoundCloudProvider.id
+    provider_id = "soundcloud"
     access_token_url = "https://api.soundcloud.com/oauth2/token"
     authorize_url = "https://soundcloud.com/connect"
     profile_url = "https://api.soundcloud.com/me.json"

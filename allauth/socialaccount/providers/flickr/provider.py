@@ -35,8 +35,8 @@ class FlickrProvider(OAuthProvider):
         scope = []
         return scope
 
-    def get_auth_params(self, request, action):
-        ret = super(FlickrProvider, self).get_auth_params(request, action)
+    def get_auth_params_from_request(self, request, action):
+        ret = super().get_auth_params_from_request(request, action)
         if "perms" not in ret:
             ret["perms"] = "read"
         return ret

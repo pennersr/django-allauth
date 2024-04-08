@@ -1,8 +1,7 @@
-from __future__ import unicode_literals
-
 from allauth.socialaccount.models import EmailAddress
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.yahoo.views import YahooOAuth2Adapter
 
 
 class YahooAccount(ProviderAccount):
@@ -20,6 +19,7 @@ class YahooProvider(OAuth2Provider):
     id = str("yahoo")
     name = "Yahoo"
     account_class = YahooAccount
+    oauth2_adapter_class = YahooOAuth2Adapter
 
     def get_default_scope(self):
         """

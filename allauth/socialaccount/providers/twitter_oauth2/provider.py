@@ -1,5 +1,8 @@
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.twitter_oauth2.views import (
+    TwitterOAuth2Adapter,
+)
 
 
 class TwitterOAuth2Account(ProviderAccount):
@@ -24,7 +27,7 @@ class TwitterOAuth2Provider(OAuth2Provider):
     id = "twitter_oauth2"
     name = "Twitter"
     account_class = TwitterOAuth2Account
-
+    oauth2_adapter_class = TwitterOAuth2Adapter
     pkce_enabled_default = True
 
     def extract_uid(self, data):

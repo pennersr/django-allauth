@@ -6,11 +6,10 @@ from allauth.socialaccount.providers.oauth2.views import (
 )
 
 from .client import DingTalkOAuth2Client
-from .provider import DingTalkProvider
 
 
 class DingTalkOAuth2Adapter(OAuth2Adapter):
-    provider_id = DingTalkProvider.id
+    provider_id = "dingtalk"
     access_token_url = "https://api.dingtalk.com/v1.0/oauth2/userAccessToken"
     authorize_url = "https://login.dingtalk.com/oauth2/auth"
     profile_url = "https://api.dingtalk.com/v1.0/contact/users/me"

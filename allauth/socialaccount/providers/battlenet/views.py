@@ -22,8 +22,6 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import BattleNetProvider
-
 
 class Region:
     APAC = "apac"
@@ -76,7 +74,8 @@ class BattleNetOAuth2Adapter(OAuth2Adapter):
     Can be any of eu, us, kr, sea, tw or cn
     """
 
-    provider_id = BattleNetProvider.id
+    provider_id = "battlenet"
+
     valid_regions = (
         Region.APAC,
         Region.CN,

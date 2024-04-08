@@ -1,5 +1,8 @@
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.trainingpeaks.views import (
+    TrainingPeaksOAuth2Adapter,
+)
 
 
 class TrainingPeaksAccount(ProviderAccount):
@@ -24,6 +27,7 @@ class TrainingPeaksProvider(OAuth2Provider):
     id = "trainingpeaks"
     name = "TrainingPeaks"
     account_class = TrainingPeaksAccount
+    oauth2_adapter_class = TrainingPeaksOAuth2Adapter
 
     def extract_uid(self, data):
         return str(data["Id"])

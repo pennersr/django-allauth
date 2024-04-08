@@ -6,11 +6,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import BitbucketOAuth2Provider
-
 
 class BitbucketOAuth2Adapter(OAuth2Adapter):
-    provider_id = BitbucketOAuth2Provider.id
+    provider_id = "bitbucket_oauth2"
     access_token_url = "https://bitbucket.org/site/oauth2/access_token"
     authorize_url = "https://bitbucket.org/site/oauth2/authorize"
     profile_url = "https://api.bitbucket.org/2.0/user"

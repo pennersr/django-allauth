@@ -6,13 +6,11 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import HubspotProvider
-
 
 class HubspotOAuth2Adapter(OAuth2Adapter):
     """OAuth2Adapter for Hubspot API v3."""
 
-    provider_id = HubspotProvider.id
+    provider_id = "hubspot"
 
     authorize_url = "https://app.hubspot.com/oauth/authorize"
     access_token_url = "https://api.hubapi.com/oauth/v1/token"

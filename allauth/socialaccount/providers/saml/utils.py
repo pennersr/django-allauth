@@ -6,13 +6,13 @@ from django.http import Http404
 from django.urls import reverse
 from django.utils.http import urlencode
 
+from onelogin.saml2.auth import OneLogin_Saml2_Auth
 from onelogin.saml2.constants import OneLogin_Saml2_Constants
 from onelogin.saml2.idp_metadata_parser import OneLogin_Saml2_IdPMetadataParser
 
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.models import SocialApp
-
-from .provider import SAMLProvider
+from allauth.socialaccount.providers.saml.provider import SAMLProvider
 
 
 def get_app_or_404(request, organization_slug):
@@ -144,12 +144,8 @@ def build_saml_config(request, provider_config, org):
     return saml_config
 
 
-def encode_relay_state(process=None, next_url=None):
-    params = {}
-    if process:
-        params["process"] = process
-    if next_url:
-        params["next"] = next_url
+def encode_relay_state(state):
+    params = {"state": state}
     return urlencode(params)
 
 
@@ -159,11 +155,19 @@ def decode_relay_state(relay_state):
     should be redirected to after login``. Also, for an IdP initiated login
     sometimes a URL is used.
     """
-    ret = {}
+    state_id, next_url = None, None
     if relay_state:
         parts = urlparse(relay_state)
         if parts.scheme or parts.netloc or (parts.path and parts.path.startswith("/")):
-            ret["next"] = relay_state
+            next_url = relay_state
         else:
-            ret = dict(parse_qsl(relay_state))
-    return ret
+            params = dict(parse_qsl(relay_state))
+            state_id = params.get("state")
+    return state_id, next_url
+
+
+def build_auth(request, provider):
+    req = prepare_django_request(request)
+    config = build_saml_config(request, provider.app.settings, provider.app.client_id)
+    auth = OneLogin_Saml2_Auth(req, config)
+    return auth

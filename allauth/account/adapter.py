@@ -14,7 +14,10 @@ from django.contrib.auth import (
     logout as django_logout,
 )
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.password_validation import validate_password
+from django.contrib.auth.password_validation import (
+    MinimumLengthValidator,
+    validate_password,
+)
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import FieldDoesNotExist
 from django.core.mail import EmailMessage, EmailMultiAlternatives
@@ -55,7 +58,6 @@ class DefaultAccountAdapter(object):
         "email_taken": _("A user is already registered with this email address."),
         "enter_current_password": _("Please type your current password."),
         "incorrect_password": _("Incorrect password."),
-        "password_min_length": _("Password must be a minimum of {0} characters."),
         "unknown_email": _("The email address is not assigned to any user account"),
     }
 
@@ -292,6 +294,8 @@ class DefaultAccountAdapter(object):
             user_field(user, "last_name", last_name)
         if "password1" in data:
             user.set_password(data["password1"])
+        elif "password" in data:
+            user.set_password(data["password"])
         else:
             user.set_unusable_password()
         self.populate_username(request, user)
@@ -350,10 +354,8 @@ class DefaultAccountAdapter(object):
         restric the allowed password choices.
         """
         min_length = app_settings.PASSWORD_MIN_LENGTH
-        if min_length and len(password) < min_length:
-            raise forms.ValidationError(
-                self.error_messages["password_min_length"].format(min_length)
-            )
+        if min_length:
+            MinimumLengthValidator(min_length).validate(password)
         validate_password(password, user)
         return password
 
@@ -483,8 +485,6 @@ class DefaultAccountAdapter(object):
         return response
 
     def login(self, request, user):
-        from allauth.account.reauthentication import record_authentication
-
         # HACK: This is not nice. The proper Django way is to use an
         # authentication backend
         if not hasattr(user, "backend"):
@@ -503,7 +503,6 @@ class DefaultAccountAdapter(object):
             backend_path = ".".join([backend.__module__, backend.__class__.__name__])
             user.backend = backend_path
         django_login(request, user)
-        record_authentication(request, user)
 
     def logout(self, request):
         django_logout(request)

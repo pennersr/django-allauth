@@ -1,0 +1,28 @@
+{% extends "socialaccount/base_entrance.html" %}
+{% load i18n %}
+{% load allauth %}
+{% block content %}
+    {% element h1 %}
+        Dummy Provider Login
+    {% endelement %}
+    {% element form form=form method="post" action=action_url %}
+        {% csrf_token %}
+        {% slot body %}
+            {% csrf_token %}
+            {% element fields form=form %}
+            {% endelement %}
+        {% endslot %}
+        {% slot actions %}
+            {% element button type="submit" %}
+                {% trans "Login" %}
+            {% endelement %}
+            {% element button form="cancel-form" type="submit" %}
+                {% trans "Cancel" %}
+            {% endelement %}
+        {% endslot %}
+    {% endelement %}
+    <form id="cancel-form" method="post" action="{{ action_url }}">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="cancel" />
+    </form>
+{% endblock %}

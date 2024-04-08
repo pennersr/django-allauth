@@ -5,8 +5,6 @@ from allauth.socialaccount.providers.oauth2.client import (
     OAuth2Error,
 )
 
-from .provider import UntappdProvider
-
 
 class UntappdOAuth2Client(OAuth2Client):
     """
@@ -16,6 +14,10 @@ class UntappdOAuth2Client(OAuth2Client):
     """
 
     def get_access_token(self, code, pkce_code_verifier=None):
+        from allauth.socialaccount.providers.untappd.provider import (
+            UntappdProvider,
+        )
+
         data = {
             "client_id": self.consumer_key,
             "redirect_url": self.callback_url,

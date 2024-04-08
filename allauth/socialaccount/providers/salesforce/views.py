@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import SalesforceProvider
-
 
 class SalesforceOAuth2Adapter(OAuth2Adapter):
-    provider_id = SalesforceProvider.id
+    provider_id = "salesforce"
 
     @property
     def base_url(self):

@@ -1,5 +1,6 @@
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.naver.views import NaverOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -15,6 +16,7 @@ class NaverProvider(OAuth2Provider):
     id = "naver"
     name = "Naver"
     account_class = NaverAccount
+    oauth2_adapter_class = NaverOAuth2Adapter
 
     def extract_uid(self, data):
         return str(data["id"])

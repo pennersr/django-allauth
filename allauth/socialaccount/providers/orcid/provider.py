@@ -1,5 +1,6 @@
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.orcid.views import OrcidOAuth2Adapter
 
 
 class Scope(object):
@@ -18,6 +19,7 @@ class OrcidProvider(OAuth2Provider):
     id = "orcid"
     name = "Orcid.org"
     account_class = OrcidAccount
+    oauth2_adapter_class = OrcidOAuth2Adapter
 
     def get_default_scope(self):
         return [Scope.USERINFO_PROFILE]

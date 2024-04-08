@@ -1,6 +1,7 @@
-from __future__ import unicode_literals
-
 from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
+from allauth.socialaccount.providers.microsoft.views import (
+    MicrosoftGraphOAuth2Adapter,
+)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -14,9 +15,10 @@ class MicrosoftGraphAccount(ProviderAccount):
 
 
 class MicrosoftGraphProvider(OAuth2Provider):
-    id = str("microsoft")
-    name = "Microsoft Graph"
+    id = "microsoft"
+    name = "Microsoft"
     account_class = MicrosoftGraphAccount
+    oauth2_adapter_class = MicrosoftGraphOAuth2Adapter
 
     def get_default_scope(self):
         """
@@ -25,8 +27,8 @@ class MicrosoftGraphProvider(OAuth2Provider):
         """
         return ["User.Read"]
 
-    def get_auth_params(self, request, action):
-        ret = super(MicrosoftGraphProvider, self).get_auth_params(request, action)
+    def get_auth_params_from_request(self, request, action):
+        ret = super().get_auth_params_from_request(request, action)
         if action == AuthAction.REAUTHENTICATE:
             ret["prompt"] = "select_account"
         return ret

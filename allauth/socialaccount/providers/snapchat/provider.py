@@ -1,11 +1,12 @@
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
-
-
-class Scope(object):
-    EXTERNAL_ID = "https://auth.snapchat.com/oauth2/api/user.external_id"
-    DISPLAY_NAME = "https://auth.snapchat.com/oauth2/api/user.display_name"
-    BITMOJI = "https://auth.snapchat.com/oauth2/api/user.bitmoji.avatar"
+from allauth.socialaccount.providers.snapchat.constants import (
+    PROVIDER_ID,
+    Scope,
+)
+from allauth.socialaccount.providers.snapchat.views import (
+    SnapchatOAuth2Adapter,
+)
 
 
 class SnapchatAccount(ProviderAccount):
@@ -18,9 +19,10 @@ class SnapchatAccount(ProviderAccount):
 
 
 class SnapchatProvider(OAuth2Provider):
-    id = "snapchat"
+    id = PROVIDER_ID
     name = "Snapchat"
     account_class = SnapchatAccount
+    oauth2_adapter_class = SnapchatOAuth2Adapter
 
     def get_default_scope(self):
         scope = [Scope.EXTERNAL_ID, Scope.DISPLAY_NAME]

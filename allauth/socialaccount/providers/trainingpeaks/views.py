@@ -6,12 +6,10 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import TrainingPeaksProvider
-
 
 class TrainingPeaksOAuth2Adapter(OAuth2Adapter):
     # https://github.com/TrainingPeaks/PartnersAPI/wiki/OAuth
-    provider_id = TrainingPeaksProvider.id
+    provider_id = "trainingpeaks"
 
     def get_settings(self):
         """Provider settings"""

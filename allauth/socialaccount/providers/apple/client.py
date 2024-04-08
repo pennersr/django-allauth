@@ -86,12 +86,13 @@ class AppleOAuth2Client(OAuth2Client):
             raise OAuth2Error("Error retrieving access token: %s" % resp.content)
         return access_token
 
-    def get_redirect_url(self, authorization_url, extra_params):
+    def get_redirect_url(self, authorization_url, scope, extra_params):
+        scope = self.scope_delimiter.join(set(scope))
         params = {
             "client_id": self.get_client_id(),
             "redirect_uri": self.callback_url,
             "response_mode": "form_post",
-            "scope": self.scope,
+            "scope": scope,
             "response_type": "code id_token",
         }
         if self.state:

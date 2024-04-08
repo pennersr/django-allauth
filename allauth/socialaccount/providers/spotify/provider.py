@@ -1,6 +1,7 @@
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.spotify.views import SpotifyOAuth2Adapter
 
 
 class SpotifyAccount(ProviderAccount):
@@ -22,6 +23,7 @@ class SpotifyOAuth2Provider(OAuth2Provider):
     id = "spotify"
     name = "Spotify"
     account_class = SpotifyAccount
+    oauth2_adapter_class = SpotifyOAuth2Adapter
 
     def extract_uid(self, data):
         return data["id"]

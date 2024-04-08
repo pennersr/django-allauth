@@ -18,8 +18,6 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import GoogleProvider
-
 
 CERTS_URL = (
     getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
@@ -70,7 +68,7 @@ def _verify_and_decode(app, credential, verify_signature=True):
 
 
 class GoogleOAuth2Adapter(OAuth2Adapter):
-    provider_id = GoogleProvider.id
+    provider_id = "google"
     access_token_url = ACCESS_TOKEN_URL
     authorize_url = AUTHORIZE_URL
     id_token_issuer = ID_TOKEN_ISSUER
@@ -124,7 +122,9 @@ oauth2_callback = OAuth2CallbackView.adapter_view(GoogleOAuth2Adapter)
 class LoginByTokenView(View):
     def dispatch(self, request):
         self.adapter = get_adapter()
-        self.provider = self.adapter.get_provider(request, GoogleProvider.id)
+        self.provider = self.adapter.get_provider(
+            request, GoogleOAuth2Adapter.provider_id
+        )
         try:
             return super().dispatch(request)
         except (

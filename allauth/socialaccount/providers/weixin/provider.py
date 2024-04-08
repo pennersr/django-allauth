@@ -1,5 +1,6 @@
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.weixin.views import WeixinOAuth2Adapter
 
 
 class WeixinAccount(ProviderAccount):
@@ -16,6 +17,7 @@ class WeixinProvider(OAuth2Provider):
     id = "weixin"
     name = "Weixin"
     account_class = WeixinAccount
+    oauth2_adapter_class = WeixinOAuth2Adapter
 
     def extract_uid(self, data):
         return data["openid"]

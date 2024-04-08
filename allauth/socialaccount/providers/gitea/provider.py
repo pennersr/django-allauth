@@ -1,4 +1,5 @@
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.gitea.views import GiteaOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -26,6 +27,7 @@ class GiteaProvider(OAuth2Provider):
     id = "gitea"
     name = "Gitea"
     account_class = GiteaAccount
+    oauth2_adapter_class = GiteaOAuth2Adapter
 
     def get_default_scope(self):
         scope = []

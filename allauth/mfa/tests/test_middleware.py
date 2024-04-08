@@ -1,5 +1,6 @@
 from django.test import override_settings
 from django.urls import reverse
+from django.utils.http import int_to_base36
 
 import pytest
 
@@ -27,26 +28,48 @@ def test_require_mfa_middleware(settings, auth_client):
         assert resp["location"] == reverse("mfa_activate_totp")
 
 
-@pytest.mark.parametrize("url", RequireMFAMiddleware.allowed_urls)
+@pytest.mark.parametrize(
+    "url, url_kwargs, expected_status_code",
+    [
+        ("account_login", None, 302),
+        ("account_logout", None, 200),
+        ("account_reauthenticate", None, 200),
+        ("account_change_password", None, 200),
+        ("account_set_password", None, 302),
+        ("account_inactive", None, 200),
+        ("account_reset_password", None, 200),
+        ("account_reset_password_done", None, 200),
+        (
+            "account_reset_password_from_key",
+            {"uidb36": int_to_base36(1234), "key": "abcd1234"},
+            200,
+        ),
+        ("account_reset_password_from_key_done", None, 200),
+        ("socialaccount_login_cancelled", None, 200),
+        ("socialaccount_login_error", None, 200),
+        ("socialaccount_connections", None, 200),
+        ("mfa_activate_totp", None, 200),
+        ("mfa_index", None, 200),
+    ],
+)
 def test_require_mfa_middleware_not_on_allowed_urls(
-    settings, auth_client, reauthentication_bypass, url
+    settings,
+    auth_client,
+    reauthentication_bypass,
+    url,
+    url_kwargs,
+    expected_status_code,
 ):
     with override_settings(
         MIDDLEWARE=settings.MIDDLEWARE + tuple(new_middleware),
     ):
         with reauthentication_bypass():
             resp = auth_client.get(
-                reverse(url),
+                reverse(url, kwargs=url_kwargs),
             )
-            if url == "account_login":
-                # for logged-in users a GET to the login page results
-                # in a redirect to the profile page
-                assert resp.status_code == 302
-                # not redirected to MFA setup
+            assert resp.status_code == expected_status_code
+            if expected_status_code == 302:
                 assert resp["location"] != reverse("mfa_activate_totp")
-            else:
-                # no redirect for allowed urls
-                assert resp.status_code == 200
 
 
 def test_require_mfa_middleware_not_for_user_with_totp(

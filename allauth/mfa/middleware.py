@@ -12,11 +12,24 @@ class RequireMFAMiddleware(MiddlewareMixin):
     """Force multi-factor authentication for certain users."""
 
     allowed_urls = [
+        # account urls
         "account_login",
-        "account_change_password",
         "account_logout",
+        "account_reauthenticate",
+        "account_change_password",
+        "account_set_password",
+        "account_inactive",
         "account_reset_password",
+        "account_reset_password_done",
+        "account_reset_password_from_key",
+        "account_reset_password_from_key_done",
+        # socialaccount urls
+        "socialaccount_login_cancelled",
+        "socialaccount_login_error",
+        "socialaccount_connections",
+        # mfa urls
         "mfa_activate_totp",
+        "mfa_index",
     ]
 
     def mfa_required(self, request):

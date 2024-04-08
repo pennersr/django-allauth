@@ -13,7 +13,6 @@ class RequireMFAMiddleware(MiddlewareMixin):
 
     allowed_urls = [
         # account urls
-        "account_login",
         "account_logout",
         "account_reauthenticate",
         "account_change_password",

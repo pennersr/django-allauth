@@ -31,7 +31,6 @@ def test_require_mfa_middleware(settings, auth_client):
 @pytest.mark.parametrize(
     "url, url_kwargs, expected_status_code",
     [
-        ("account_login", None, 302),
         ("account_logout", None, 200),
         ("account_reauthenticate", None, 200),
         ("account_change_password", None, 200),
@@ -73,19 +72,26 @@ def test_require_mfa_middleware_not_on_allowed_urls(
 
 
 def test_require_mfa_middleware_not_for_user_with_totp(
-    auth_client, user_with_totp, user_password
+    settings, auth_client, user_with_totp
 ):
-    resp = auth_client.get(
-        reverse("account_email"),
-    )
-    # no redirect for a user who has MFA enabled already
-    assert resp.status_code == 200
+    with override_settings(
+        MIDDLEWARE=settings.MIDDLEWARE + tuple(new_middleware),
+    ):
+        resp = auth_client.get(
+            reverse("account_email"),
+        )
+        # no redirect for a user who has MFA enabled already
+        assert resp.status_code == 200
 
 
-def test_require_mfa_middleware_not_for_unauthenticated_user(client):
-    resp = client.get(
-        reverse("account_email"),
-    )
-    # redirect to login-page not MFA setup
-    assert resp.status_code == 302
-    assert reverse("mfa_activate_totp") not in resp["location"]
+@pytest.mark.django_db
+def test_require_mfa_middleware_not_for_unauthenticated_user(settings, client):
+    with override_settings(
+        MIDDLEWARE=settings.MIDDLEWARE + tuple(new_middleware),
+    ):
+        resp = client.get(
+            reverse("account_login"),
+        )
+        # redirect to login-page not MFA setup
+        assert resp.status_code == 302
+        assert reverse("mfa_activate_totp") not in resp["location"]

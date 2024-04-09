@@ -11,9 +11,8 @@ from django.http import HttpResponseRedirect
 from django.utils.http import urlencode
 from django.utils.translation import gettext as _
 
-from requests_oauthlib import OAuth1
-
 from allauth.socialaccount.adapter import get_adapter
+from allauth.socialaccount.providers.oauth.oauth1_auth import OAuth1
 from allauth.utils import build_absolute_uri, get_request_param
 
 

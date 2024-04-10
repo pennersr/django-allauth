@@ -879,7 +879,9 @@ class ConfirmLoginByEmailView(RedirectAuthenticatedUserMixin, FormView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_form_class(self):
-        return get_form_class(app_settings.FORMS, "login_by_email", self.form_class)
+        return get_form_class(
+            app_settings.FORMS, "confirm_login_by_email", self.form_class
+        )
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()

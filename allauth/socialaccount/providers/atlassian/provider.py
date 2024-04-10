@@ -5,7 +5,6 @@ from .views import AtlassianOAuth2Adapter
 
 
 class AtlassianAccount(ProviderAccount):
-
     def get_profile_url(self):
         return self.account.extra_data.get("picture")
 

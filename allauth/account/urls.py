@@ -1,5 +1,7 @@
 from django.urls import path, re_path
 
+from allauth.account import app_settings
+
 from . import views
 
 
@@ -45,3 +47,17 @@ urlpatterns = [
         name="account_reset_password_from_key_done",
     ),
 ]
+
+if app_settings.LOGIN_BY_EMAIL_ENABLED:
+    urlpatterns.extend(
+        [
+            path(
+                "login/by-email/", views.login_by_email, name="account_login_by_email"
+            ),
+            path(
+                "login/by-email/confirm/",
+                views.confirm_login_by_email,
+                name="account_confirm_login_by_email",
+            ),
+        ]
+    )

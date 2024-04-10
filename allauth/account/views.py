@@ -18,6 +18,8 @@ from allauth.account.adapter import get_adapter
 from allauth.account.forms import (
     AddEmailForm,
     ChangePasswordForm,
+    ConfirmLoginByEmailForm,
+    LoginByEmailForm,
     LoginForm,
     ReauthenticateForm,
     ResetPasswordForm,
@@ -95,7 +97,7 @@ class LoginView(
             return e.response
 
     def get_context_data(self, **kwargs):
-        ret = super(LoginView, self).get_context_data(**kwargs)
+        ret = super().get_context_data(**kwargs)
         signup_url = self.passthrough_next_url(reverse("account_signup"))
         site = get_current_site(self.request)
 
@@ -104,8 +106,14 @@ class LoginView(
                 "signup_url": signup_url,
                 "site": site,
                 "SOCIALACCOUNT_ENABLED": allauth_app_settings.SOCIALACCOUNT_ENABLED,
+                "LOGIN_BY_EMAIL_ENABLED": app_settings.LOGIN_BY_EMAIL_ENABLED,
             }
         )
+        if app_settings.LOGIN_BY_EMAIL_ENABLED:
+            login_by_email_url = self.passthrough_next_url(
+                reverse("account_login_by_email")
+            )
+            ret["login_by_email_url"] = login_by_email_url
         return ret
 
 
@@ -812,3 +820,106 @@ class ReauthenticateView(BaseReauthenticateView):
 
 
 reauthenticate = ReauthenticateView.as_view()
+
+
+class LoginByEmailView(RedirectAuthenticatedUserMixin, FormView):
+    form_class = LoginByEmailForm
+    template_name = "account/login_by_email." + app_settings.TEMPLATE_EXTENSION
+
+    @method_decorator(never_cache)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_form_class(self):
+        return get_form_class(app_settings.FORMS, "login_by_email", self.form_class)
+
+    def form_valid(self, form):
+        flows.login_by_email.request_login_code(
+            self.request, form.cleaned_data["email"]
+        )
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        if self.request.user.is_authenticated:
+            return None
+        url = reverse_lazy("account_confirm_login_by_email")
+        url = passthrough_next_redirect_url(
+            self.request, reverse("account_confirm_login_by_email"), REDIRECT_FIELD_NAME
+        )
+        return url
+
+    def get_context_data(self, **kwargs):
+        ret = super().get_context_data(**kwargs)
+        redirect_field_value = get_request_param(self.request, REDIRECT_FIELD_NAME)
+        site = get_current_site(self.request)
+        ret.update(
+            {
+                "site": site,
+                "redirect_field_name": REDIRECT_FIELD_NAME,
+                "redirect_field_value": redirect_field_value,
+            }
+        )
+        return ret
+
+
+login_by_email = LoginByEmailView.as_view()
+
+
+class ConfirmLoginByEmailView(RedirectAuthenticatedUserMixin, FormView):
+    form_class = ConfirmLoginByEmailForm
+    template_name = "account/confirm_login_by_email." + app_settings.TEMPLATE_EXTENSION
+
+    @method_decorator(never_cache)
+    def dispatch(self, request, *args, **kwargs):
+        self.user, self.pending_login = flows.login_by_email.get_pending_login(
+            request, peek=True
+        )
+        if not self.pending_login:
+            return HttpResponseRedirect(reverse("account_login_by_email"))
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_form_class(self):
+        return get_form_class(app_settings.FORMS, "login_by_email", self.form_class)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["code"] = self.pending_login.get("code")
+        return kwargs
+
+    def form_valid(self, form):
+        redirect_url = get_next_redirect_url(self.request)
+        return flows.login_by_email.perform_login_by_email(
+            self.request, self.user, redirect_url, self.pending_login
+        )
+
+    def form_invalid(self, form):
+        attempts_left = flows.login_by_email.record_invalid_attempt(
+            self.request, self.pending_login
+        )
+        if attempts_left:
+            return super().form_invalid(form)
+        adapter = get_adapter(self.request)
+        adapter.add_message(
+            self.request,
+            messages.ERROR,
+            message=adapter.error_messages["too_many_login_attempts"],
+        )
+        return HttpResponseRedirect(reverse("account_login_by_email"))
+
+    def get_context_data(self, **kwargs):
+        ret = super().get_context_data(**kwargs)
+        redirect_field_value = get_request_param(self.request, REDIRECT_FIELD_NAME)
+        site = get_current_site(self.request)
+
+        ret.update(
+            {
+                "site": site,
+                "email": self.pending_login["email"],
+                "redirect_field_name": REDIRECT_FIELD_NAME,
+                "redirect_field_value": redirect_field_value,
+            }
+        )
+        return ret
+
+
+confirm_login_by_email = ConfirmLoginByEmailView.as_view()

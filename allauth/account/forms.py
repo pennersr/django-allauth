@@ -9,6 +9,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext, gettext_lazy as _, pgettext
 
 from allauth.account.internal import flows
+from allauth.core import context, ratelimit
 
 from ..utils import (
     build_absolute_uri,
@@ -203,6 +204,31 @@ class LoginForm(forms.Form):
         else:
             request.session.set_expiry(0)
         return ret
+
+
+class LoginByEmailForm(forms.Form):
+    email = forms.EmailField(
+        widget=forms.EmailInput(
+            attrs={
+                "placeholder": _("Email address"),
+                "autocomplete": "email",
+            }
+        )
+    )
+
+    def clean_email(self):
+        adapter = get_adapter()
+        email = self.cleaned_data["email"]
+        if not app_settings.PREVENT_ENUMERATION:
+            users = filter_users_by_email(email, is_active=True, prefer_verified=True)
+            if not users:
+                raise adapter.validation_error("unknown_email")
+
+        if not ratelimit.consume(
+            context.request, action="login_by_email", key=email.lower()
+        ):
+            raise adapter.validation_error("too_many_login_attempts")
+        return email
 
 
 class _DummyCustomSignupForm(forms.Form):
@@ -660,3 +686,22 @@ class ReauthenticateForm(forms.Form):
         if not get_adapter().reauthenticate(self.user, password):
             raise get_adapter().validation_error("incorrect_password")
         return password
+
+
+class ConfirmLoginByEmailForm(forms.Form):
+    code = forms.CharField(
+        label=_("Code"),
+        widget=forms.TextInput(
+            attrs={"placeholder": _("Code"), "autocomplete": "one-time-code"},
+        ),
+    )
+
+    def __init__(self, *args, **kwargs):
+        self.code = kwargs.pop("code")
+        super().__init__(*args, **kwargs)
+
+    def clean_code(self):
+        code = self.cleaned_data.get("code")
+        if not self.code or code.strip().lower() != self.code.lower():
+            raise get_adapter().validation_error("incorrect_code")
+        return code

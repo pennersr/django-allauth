@@ -1,0 +1,7 @@
+{% extends "account/email/base_message.txt" %}
+{% load account %}
+{% load i18n %}
+
+{% block content %}{% autoescape off %}{% blocktrans %}Your sign-in code is listed below. To sign in, enter it in your open browser window.{% endblocktrans %}{% endautoescape %}
+
+{{ code }}{% endblock content %}

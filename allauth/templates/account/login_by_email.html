@@ -1,0 +1,38 @@
+{% extends "account/base_entrance.html" %}
+{% load i18n %}
+{% load allauth account %}
+{% block head_title %}
+    {% trans "Sign In" %}
+{% endblock head_title %}
+{% block content %}
+    {% element h1 %}
+        {% trans "Mail me a sign-in code" %}
+    {% endelement %}
+    <p>
+        {% blocktrans %}You will receive an email containing a special code for a password-free sign in.{% endblocktrans %}
+    </p>
+    {% url 'account_login_by_email' as login_url %}
+    {% element form form=form method="post" action=login_url tags="entrance,login" %}
+        {% slot body %}
+            {% csrf_token %}
+            {% element fields form=form unlabeled=True %}
+            {% endelement %}
+            {% if redirect_field_value %}
+                <input type="hidden"
+                       name="{{ redirect_field_name }}"
+                       value="{{ redirect_field_value }}" />
+            {% endif %}
+        {% endslot %}
+        {% slot actions %}
+            {% element button type="submit" tags="prominent,login" %}
+                {% trans "Request Code" %}
+            {% endelement %}
+        {% endslot %}
+    {% endelement %}
+    {% element h2 %}
+        {% url 'account_login' as login_url %}
+        {% element button href=login_url tags="link" %}
+            {% trans "Other options for signing in" %}
+        {% endelement %}
+    {% endelement %}
+{% endblock content %}

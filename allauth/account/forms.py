@@ -602,7 +602,10 @@ class ResetPasswordForm(forms.Form):
 
 
 class ResetPasswordKeyForm(PasswordVerificationMixin, forms.Form):
-    password1 = SetPasswordField(label=_("New Password"))
+    password1 = SetPasswordField(
+        label=_("New Password"),
+        help_text=password_validation.password_validators_help_text_html(),
+    )
     password2 = PasswordField(label=_("New Password (again)"))
 
     def __init__(self, *args, **kwargs):

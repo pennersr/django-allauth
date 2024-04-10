@@ -168,6 +168,7 @@ the ``settings.py`` of your project::
         'allauth.socialaccount.providers.zoom',
         'allauth.socialaccount.providers.okta',
         'allauth.socialaccount.providers.feishu',
+        "allauth.socialaccount.providers.atlassian",
         ...
     ]
 

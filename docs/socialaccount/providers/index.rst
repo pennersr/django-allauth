@@ -40,6 +40,7 @@ Provider Specifics
    amazon
    angellist
    apple
+   atlassian
    auth0
    authentiq
    baidu

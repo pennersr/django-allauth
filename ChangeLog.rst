@@ -6,6 +6,8 @@ Note worthy changes
 
 - Added a dummy provider, useful for testing purposes: ``allauth.socialaccount.providers.dummy``.
 
+- Added a new provider, Atlassian
+
 
 Backwards incompatible changes
 ------------------------------

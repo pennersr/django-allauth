@@ -32,7 +32,9 @@ def request_login_code(request, email):
             "code": code,
         }
         adapter.send_mail("account/email/login_by_email", email, context)
-        pending_login.update({"code": code, "user_id": user.pk})
+        pending_login.update(
+            {"code": code, "user_id": user._meta.pk.value_to_string(user)}
+        )
 
     request.session["account_login_by_email"] = pending_login
     adapter.add_message(
@@ -53,9 +55,10 @@ def get_pending_login(request, peek=False):
     if time.time() - data["at"] >= app_settings.LOGIN_BY_EMAIL_TIMEOUT:
         request.session.pop("account_login_by_email", None)
         return None, None
-    user_id = data.get("user_id")
+    user_id_str = data.get("user_id")
     user = None
-    if user_id:
+    if user_id_str:
+        user_id = get_user_model()._meta.pk.to_python(user_id_str)
         user = get_user_model().objects.get(pk=user_id)
     return user, data
 

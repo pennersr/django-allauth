@@ -20,7 +20,7 @@ class AtlassianOAuth2Adapter(OAuth2Adapter):
         response = (
             get_adapter().get_requests_session().get(self.profile_url, headers=headers)
         )
-        data = response.json()
+        data = response.raise_for_status().json()
         return self.get_provider().sociallogin_from_response(request, data)
 
 

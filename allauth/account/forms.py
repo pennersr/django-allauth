@@ -701,7 +701,7 @@ class ConfirmLoginByEmailForm(forms.Form):
         super().__init__(*args, **kwargs)
 
     def clean_code(self):
-        code = self.cleaned_data.get("code")
+        code = self.cleaned_data.get("code").replace(" ", "")
         if not self.code or code.strip().lower() != self.code.lower():
             raise get_adapter().validation_error("incorrect_code")
         return code

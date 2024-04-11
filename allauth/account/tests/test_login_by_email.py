@@ -29,8 +29,10 @@ def request_login_by_email(mailoutbox):
 
 def test_login_by_email(client, user, request_login_by_email):
     code = request_login_by_email(client, user.email)
+    code_with_ws = " " + code[0:3] + " " + code[3:]
     resp = client.post(
-        reverse("account_confirm_login_by_email"), data={"code": code, "next": "/foo"}
+        reverse("account_confirm_login_by_email"),
+        data={"code": code_with_ws, "next": "/foo"},
     )
     assert resp.status_code == 302
     assert client.session[SESSION_KEY] == str(user.pk)

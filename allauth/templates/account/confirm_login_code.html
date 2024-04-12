@@ -6,12 +6,16 @@
 {% endblock head_title %}
 {% block content %}
     {% element h1 %}
-        {% trans "Mail me a sign-in code" %}
+        {% trans "Enter Sign-In Code" %}
     {% endelement %}
+    {% setvar email_link %}
+        <a href="mailto:{{ email }}">{{ email }}</a>
+    {% endsetvar %}
     <p>
-        {% blocktrans %}You will receive an email containing a special code for a password-free sign in.{% endblocktrans %}
+        {% blocktrans %}We’ve sent a code to {{ email_link }}. The code expires shortly, so please enter it soon.
+        {% endblocktrans %}
     </p>
-    {% url 'account_login_by_email' as login_url %}
+    {% url 'account_confirm_login_code' as login_url %}
     {% element form form=form method="post" action=login_url tags="entrance,login" %}
         {% slot body %}
             {% csrf_token %}
@@ -25,14 +29,14 @@
         {% endslot %}
         {% slot actions %}
             {% element button type="submit" tags="prominent,login" %}
-                {% trans "Request Code" %}
+                {% trans "Sign In" %}
             {% endelement %}
         {% endslot %}
     {% endelement %}
     {% element h2 %}
         {% url 'account_login' as login_url %}
         {% element button href=login_url tags="link" %}
-            {% trans "Other options for signing in" %}
+            {% trans "Other login options" %}
         {% endelement %}
     {% endelement %}
 {% endblock content %}

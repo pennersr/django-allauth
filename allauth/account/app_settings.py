@@ -215,7 +215,7 @@ class AppSettings(object):
             # Logins.
             "login": "30/m/ip",
             # Login by email code
-            "login_by_email": "20/m/ip,3/m/key",
+            "request_login_code": "20/m/ip,3/m/key",
             # Logins.
             "login_failed": login_failed_rl,
             # Confirm email
@@ -410,16 +410,16 @@ class AppSettings(object):
         return self._setting("REAUTHENTICATION_REQUIRED", False)
 
     @property
-    def LOGIN_BY_EMAIL_ENABLED(self):
-        return self._setting("LOGIN_BY_EMAIL_ENABLED", False)
+    def LOGIN_BY_CODE_ENABLED(self):
+        return self._setting("LOGIN_BY_CODE_ENABLED", False)
 
     @property
-    def LOGIN_BY_EMAIL_MAX_ATTEMPTS(self):
-        return self._setting("LOGIN_BY_EMAIL_MAX_ATTEMPTS", 3)
+    def LOGIN_BY_CODE_MAX_ATTEMPTS(self):
+        return self._setting("LOGIN_BY_CODE_MAX_ATTEMPTS", 3)
 
     @property
-    def LOGIN_BY_EMAIL_TIMEOUT(self):
-        return self._setting("LOGIN_BY_EMAIL_TIMEOUT", 3 * 60)
+    def LOGIN_BY_CODE_TIMEOUT(self):
+        return self._setting("LOGIN_BY_CODE_TIMEOUT", 3 * 60)
 
 
 _app_settings = AppSettings("ACCOUNT_")

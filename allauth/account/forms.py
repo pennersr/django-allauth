@@ -206,31 +206,6 @@ class LoginForm(forms.Form):
         return ret
 
 
-class LoginByEmailForm(forms.Form):
-    email = forms.EmailField(
-        widget=forms.EmailInput(
-            attrs={
-                "placeholder": _("Email address"),
-                "autocomplete": "email",
-            }
-        )
-    )
-
-    def clean_email(self):
-        adapter = get_adapter()
-        email = self.cleaned_data["email"]
-        if not app_settings.PREVENT_ENUMERATION:
-            users = filter_users_by_email(email, is_active=True, prefer_verified=True)
-            if not users:
-                raise adapter.validation_error("unknown_email")
-
-        if not ratelimit.consume(
-            context.request, action="login_by_email", key=email.lower()
-        ):
-            raise adapter.validation_error("too_many_login_attempts")
-        return email
-
-
 class _DummyCustomSignupForm(forms.Form):
     def signup(self, request, user):
         """
@@ -688,7 +663,32 @@ class ReauthenticateForm(forms.Form):
         return password
 
 
-class ConfirmLoginByEmailForm(forms.Form):
+class RequestLoginCodeForm(forms.Form):
+    email = forms.EmailField(
+        widget=forms.EmailInput(
+            attrs={
+                "placeholder": _("Email address"),
+                "autocomplete": "email",
+            }
+        )
+    )
+
+    def clean_email(self):
+        adapter = get_adapter()
+        email = self.cleaned_data["email"]
+        if not app_settings.PREVENT_ENUMERATION:
+            users = filter_users_by_email(email, is_active=True, prefer_verified=True)
+            if not users:
+                raise adapter.validation_error("unknown_email")
+
+        if not ratelimit.consume(
+            context.request, action="request_login_code", key=email.lower()
+        ):
+            raise adapter.validation_error("too_many_login_attempts")
+        return email
+
+
+class ConfirmLoginCodeForm(forms.Form):
     code = forms.CharField(
         label=_("Code"),
         widget=forms.TextInput(

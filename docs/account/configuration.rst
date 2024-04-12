@@ -112,9 +112,9 @@ Available settings:
     ACCOUNT_FORMS = {
         'add_email': 'allauth.account.forms.AddEmailForm',
         'change_password': 'allauth.account.forms.ChangePasswordForm',
-        'confirm_login_by_email': 'allauth.account.forms.ConfirmLoginByEmailForm',
+        'confirm_login_code': 'allauth.account.forms.ConfirmLoginCodeForm',
         'login': 'allauth.account.forms.LoginForm',
-        'login_by_email': 'allauth.account.forms.LoginByEmailForm',
+        'request_login_code': 'allauth.account.forms.RequestLoginCodeForm',
         'reset_password': 'allauth.account.forms.ResetPasswordForm',
         'reset_password_from_key': 'allauth.account.forms.ResetPasswordKeyForm',
         'set_password': 'allauth.account.forms.SetPasswordForm',
@@ -122,7 +122,7 @@ Available settings:
         'user_token': 'allauth.account.forms.UserTokenForm',
     }
 
-``ACCOUNT_LOGIN_BY_EMAIL_ENABLED`` (default: ``False``)
+``ACCOUNT_LOGIN_BY_CODE_ENABLED`` (default: ``False``)
   "Login by email" offers an alternative method of logging in. Instead of
   entering an email address and accompanying password, the user only enters the
   email address.  Then, a one-time code is sent to that email address which
@@ -130,11 +130,11 @@ Available settings:
   Login".  This setting controls whether or not this method of logging in is
   enabled.
 
-``ACCOUNT_LOGIN_BY_EMAIL_MAX_ATTEMPTS`` (default: ``3``)
+``ACCOUNT_LOGIN_BY_CODE_MAX_ATTEMPTS`` (default: ``3``)
   This setting controls the maximum number of attempts the user has at inputting
   a valid code.
 
-``ACCOUNT_LOGIN_BY_EMAIL_TIMEOUT`` (default: ``180``)
+``ACCOUNT_LOGIN_BY_CODE_TIMEOUT`` (default: ``180``)
   The code that is emailed has a limited life span. It expires this many seconds after
   which it was sent.
 

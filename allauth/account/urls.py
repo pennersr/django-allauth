@@ -48,16 +48,18 @@ urlpatterns = [
     ),
 ]
 
-if app_settings.LOGIN_BY_EMAIL_ENABLED:
+if app_settings.LOGIN_BY_CODE_ENABLED:
     urlpatterns.extend(
         [
             path(
-                "login/by-email/", views.login_by_email, name="account_login_by_email"
+                "login/code/",
+                views.request_login_code,
+                name="account_request_login_code",
             ),
             path(
-                "login/by-email/confirm/",
-                views.confirm_login_by_email,
-                name="account_confirm_login_by_email",
+                "login/code/confirm/",
+                views.confirm_login_code,
+                name="account_confirm_login_code",
             ),
         ]
     )

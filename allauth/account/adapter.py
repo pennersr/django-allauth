@@ -738,7 +738,7 @@ class DefaultAccountAdapter(BaseAdapter):
             ctx.update(context)
         self.send_mail(template_prefix, email, ctx)
 
-    def generate_login_by_email_code(self):
+    def generate_login_code(self):
         allowed_chars = string.ascii_uppercase.replace("I", "").replace("O", "")
         return get_random_string(length=6, allowed_chars=allowed_chars)
 

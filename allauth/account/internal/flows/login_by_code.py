@@ -12,6 +12,9 @@ from allauth.account.internal.flows.login import (
 from allauth.account.models import Login
 
 
+LOGIN_CODE_SESSION_KEY = "account_login_code"
+
+
 def request_login_code(request, email):
     from allauth.account.utils import filter_users_by_email
 
@@ -26,34 +29,34 @@ def request_login_code(request, email):
         send_unknown_account_email(request, email)
     else:
         user = users[0]
-        code = adapter.generate_login_by_email_code()
+        code = adapter.generate_login_code()
         context = {
             "request": request,
             "code": code,
         }
-        adapter.send_mail("account/email/login_by_email", email, context)
+        adapter.send_mail("account/email/login_code", email, context)
         pending_login.update(
             {"code": code, "user_id": user._meta.pk.value_to_string(user)}
         )
 
-    request.session["account_login_by_email"] = pending_login
+    request.session[LOGIN_CODE_SESSION_KEY] = pending_login
     adapter.add_message(
         request,
         messages.SUCCESS,
-        "account/messages/login_by_email_code_sent.txt",
+        "account/messages/login_code_sent.txt",
         {"email": email},
     )
 
 
 def get_pending_login(request, peek=False):
     if peek:
-        data = request.session.get("account_login_by_email")
+        data = request.session.get(LOGIN_CODE_SESSION_KEY)
     else:
-        data = request.session.pop("account_login_by_email", None)
+        data = request.session.pop(LOGIN_CODE_SESSION_KEY, None)
     if not data:
         return None, None
-    if time.time() - data["at"] >= app_settings.LOGIN_BY_EMAIL_TIMEOUT:
-        request.session.pop("account_login_by_email", None)
+    if time.time() - data["at"] >= app_settings.LOGIN_BY_CODE_TIMEOUT:
+        request.session.pop(LOGIN_CODE_SESSION_KEY, None)
         return None, None
     user_id_str = data.get("user_id")
     user = None
@@ -67,16 +70,16 @@ def record_invalid_attempt(request, pending_login):
     n = pending_login["failed_attempts"]
     n += 1
     pending_login["failed_attempts"] = n
-    if n >= app_settings.LOGIN_BY_EMAIL_MAX_ATTEMPTS:
-        request.session.pop("account_login_by_email", None)
+    if n >= app_settings.LOGIN_BY_CODE_MAX_ATTEMPTS:
+        request.session.pop(LOGIN_CODE_SESSION_KEY, None)
         return False
     else:
-        request.session["account_login_by_email"] = pending_login
+        request.session[LOGIN_CODE_SESSION_KEY] = pending_login
         return True
 
 
-def perform_login_by_email(request, user, redirect_url, pending_login):
-    request.session.pop("account_login_by_email", None)
+def perform_login_by_code(request, user, redirect_url, pending_login):
+    request.session.pop(LOGIN_CODE_SESSION_KEY, None)
     login = Login(
         user=user,
         redirect_url=redirect_url,

@@ -178,7 +178,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-ACCOUNT_LOGIN_BY_EMAIL_ENABLED = True
+ACCOUNT_LOGIN_BY_CODE_ENABLED = True
 
 try:
     from .local_settings import *  # noqa

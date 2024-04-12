@@ -739,7 +739,10 @@ class DefaultAccountAdapter(BaseAdapter):
         self.send_mail(template_prefix, email, ctx)
 
     def generate_login_code(self):
-        allowed_chars = string.ascii_uppercase.replace("I", "").replace("O", "")
+        forbidden_chars = "0OI18B2Z"
+        allowed_chars = string.ascii_uppercase + string.digits
+        for ch in forbidden_chars:
+            allowed_chars = allowed_chars.replace(ch, "")
         return get_random_string(length=6, allowed_chars=allowed_chars)
 
 

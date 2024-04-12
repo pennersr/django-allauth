@@ -3,6 +3,7 @@ import requests
 import string
 from urllib.parse import quote
 
+from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.middleware.csrf import get_token
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -70,7 +71,7 @@ class FacebookProvider(OAuth2Provider):
     def get_login_url(self, request, **kwargs):
         method = kwargs.pop("method", self.get_method())
         if method == "js_sdk":
-            next = "'%s'" % escapejs(kwargs.get("next") or "")
+            next = "'%s'" % escapejs(kwargs.get(REDIRECT_FIELD_NAME) or "")
             process = "'%s'" % escapejs(kwargs.get("process") or AuthProcess.LOGIN)
             action = "'%s'" % escapejs(kwargs.get("action") or AuthAction.AUTHENTICATE)
             scope = "'%s'" % escapejs(kwargs.get("scope", ""))

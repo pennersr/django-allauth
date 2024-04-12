@@ -1,3 +1,4 @@
+from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -64,7 +65,7 @@ class OpenIDLoginView(View):
         if self.request.method == "GET" and "openid" not in self.request.GET:
             return self.form_class(
                 initial={
-                    "next": self.request.GET.get("next"),
+                    "next": self.request.GET.get(REDIRECT_FIELD_NAME),
                     "process": self.request.GET.get("process"),
                 }
             )

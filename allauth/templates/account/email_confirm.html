@@ -19,6 +19,7 @@
             {% element form method="post" action=action_url %}
                 {% slot actions %}
                     {% csrf_token %}
+                    {{ redirect_field }}
                     {% element button type="submit" %}
                         {% trans 'Confirm' %}
                     {% endelement %}

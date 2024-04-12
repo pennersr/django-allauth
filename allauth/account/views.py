@@ -18,8 +18,10 @@ from allauth.account.adapter import get_adapter
 from allauth.account.forms import (
     AddEmailForm,
     ChangePasswordForm,
+    ConfirmLoginCodeForm,
     LoginForm,
     ReauthenticateForm,
+    RequestLoginCodeForm,
     ResetPasswordForm,
     ResetPasswordKeyForm,
     SetPasswordForm,
@@ -95,7 +97,7 @@ class LoginView(
             return e.response
 
     def get_context_data(self, **kwargs):
-        ret = super(LoginView, self).get_context_data(**kwargs)
+        ret = super().get_context_data(**kwargs)
         signup_url = self.passthrough_next_url(reverse("account_signup"))
         site = get_current_site(self.request)
 
@@ -104,8 +106,14 @@ class LoginView(
                 "signup_url": signup_url,
                 "site": site,
                 "SOCIALACCOUNT_ENABLED": allauth_app_settings.SOCIALACCOUNT_ENABLED,
+                "LOGIN_BY_CODE_ENABLED": app_settings.LOGIN_BY_CODE_ENABLED,
             }
         )
+        if app_settings.LOGIN_BY_CODE_ENABLED:
+            request_login_code_url = self.passthrough_next_url(
+                reverse("account_request_login_code")
+            )
+            ret["request_login_code_url"] = request_login_code_url
         return ret
 
 
@@ -812,3 +820,91 @@ class ReauthenticateView(BaseReauthenticateView):
 
 
 reauthenticate = ReauthenticateView.as_view()
+
+
+class RequestLoginCodeView(RedirectAuthenticatedUserMixin, NextRedirectMixin, FormView):
+    form_class = RequestLoginCodeForm
+    template_name = "account/request_login_code." + app_settings.TEMPLATE_EXTENSION
+
+    @method_decorator(never_cache)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_form_class(self):
+        return get_form_class(app_settings.FORMS, "request_login_code", self.form_class)
+
+    def form_valid(self, form):
+        flows.login_by_code.request_login_code(self.request, form.cleaned_data["email"])
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        if self.request.user.is_authenticated:
+            return None
+        url = reverse_lazy("account_confirm_login_code")
+        url = self.passthrough_next_url(reverse("account_confirm_login_code"))
+        return url
+
+    def get_context_data(self, **kwargs):
+        ret = super().get_context_data(**kwargs)
+        site = get_current_site(self.request)
+        ret.update({"site": site})
+        return ret
+
+
+request_login_code = RequestLoginCodeView.as_view()
+
+
+class ConfirmLoginCodeView(RedirectAuthenticatedUserMixin, NextRedirectMixin, FormView):
+    form_class = ConfirmLoginCodeForm
+    template_name = "account/confirm_login_code." + app_settings.TEMPLATE_EXTENSION
+
+    @method_decorator(never_cache)
+    def dispatch(self, request, *args, **kwargs):
+        self.user, self.pending_login = flows.login_by_code.get_pending_login(
+            request, peek=True
+        )
+        if not self.pending_login:
+            return HttpResponseRedirect(reverse("account_request_login_code"))
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_form_class(self):
+        return get_form_class(app_settings.FORMS, "confirm_login_code", self.form_class)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["code"] = self.pending_login.get("code")
+        return kwargs
+
+    def form_valid(self, form):
+        redirect_url = self.get_next_url()
+        return flows.login_by_code.perform_login_by_code(
+            self.request, self.user, redirect_url, self.pending_login
+        )
+
+    def form_invalid(self, form):
+        attempts_left = flows.login_by_code.record_invalid_attempt(
+            self.request, self.pending_login
+        )
+        if attempts_left:
+            return super().form_invalid(form)
+        adapter = get_adapter(self.request)
+        adapter.add_message(
+            self.request,
+            messages.ERROR,
+            message=adapter.error_messages["too_many_login_attempts"],
+        )
+        return HttpResponseRedirect(reverse("account_request_login_code"))
+
+    def get_context_data(self, **kwargs):
+        ret = super().get_context_data(**kwargs)
+        site = get_current_site(self.request)
+        ret.update(
+            {
+                "site": site,
+                "email": self.pending_login["email"],
+            }
+        )
+        return ret
+
+
+confirm_login_code = ConfirmLoginCodeView.as_view()

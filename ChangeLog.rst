@@ -12,6 +12,9 @@ Note worthy changes
   password reset, change and email confirmation views only supported the
   ``success_url`` class-level property.
 
+- Added support for logging in by email using a special code, also known as
+  "Magic Code Login"
+
 
 Backwards incompatible changes
 ------------------------------

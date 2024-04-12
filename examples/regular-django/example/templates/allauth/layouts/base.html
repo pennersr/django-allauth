@@ -41,10 +41,10 @@
                         <span class="navbar-text">
                             {% if user.is_authenticated %}
                                 <a href="{% url 'account_email' %}" class="btn btn-secondary">Manage Account</a>
-                                <a href="{% url 'account_logout' %}" class="btn btn-danger">Logout</a>
+                                <a href="{% url 'account_logout' %}" class="btn btn-danger">Sign Out</a>
                             {% else %}
-                                <a href="{% url 'account_login' %}" class="btn btn-outline-light">Login</a>
-                                <a href="{% url 'account_signup' %}" class="btn btn-success">Signup</a>
+                                <a href="{% url 'account_login' %}" class="btn btn-outline-light">Sign In</a>
+                                <a href="{% url 'account_signup' %}" class="btn btn-success">Sign Up</a>
                             {% endif %}
                         </span>
                     </div>

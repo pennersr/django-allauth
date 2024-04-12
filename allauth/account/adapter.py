@@ -1,5 +1,6 @@
 import html
 import json
+import string
 import warnings
 from urllib.parse import quote, urlparse
 
@@ -55,6 +56,7 @@ class DefaultAccountAdapter(BaseAdapter):
         ),
         "email_taken": _("A user is already registered with this email address."),
         "enter_current_password": _("Please type your current password."),
+        "incorrect_code": _("Incorrect code."),
         "incorrect_password": _("Incorrect password."),
         "invalid_password_reset": _("The password reset token was invalid."),
         "max_email_addresses": _("You cannot add more than %d email addresses."),
@@ -360,15 +362,19 @@ class DefaultAccountAdapter(BaseAdapter):
         self,
         request,
         level,
-        message_template,
+        message_template=None,
         message_context=None,
         extra_tags="",
+        message=None,
     ):
         """
         Wrapper of `django.contrib.messages.add_message`, that reads
         the message text from a template.
         """
         if "django.contrib.messages" in settings.INSTALLED_APPS:
+            if message:
+                messages.add_message(request, level, message, extra_tags=extra_tags)
+                return
             try:
                 if message_context is None:
                     message_context = {}
@@ -731,6 +737,13 @@ class DefaultAccountAdapter(BaseAdapter):
         if context:
             ctx.update(context)
         self.send_mail(template_prefix, email, ctx)
+
+    def generate_login_code(self):
+        forbidden_chars = "0OI18B2Z"
+        allowed_chars = string.ascii_uppercase + string.digits
+        for ch in forbidden_chars:
+            allowed_chars = allowed_chars.replace(ch, "")
+        return get_random_string(length=6, allowed_chars=allowed_chars)
 
 
 def get_adapter(request=None):

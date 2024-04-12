@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
+from allauth.account.authentication import record_authentication
 from allauth.account.internal.flows.login import (
     perform_login,
     send_unknown_account_email,
@@ -80,6 +81,7 @@ def record_invalid_attempt(request, pending_login):
 
 def perform_login_by_code(request, user, redirect_url, pending_login):
     request.session.pop(LOGIN_CODE_SESSION_KEY, None)
+    record_authentication(request, method="code", email=pending_login["email"])
     login = Login(
         user=user,
         redirect_url=redirect_url,

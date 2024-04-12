@@ -1,8 +1,11 @@
+from unittest.mock import ANY
+
 from django.contrib.auth import SESSION_KEY
 from django.urls import reverse
 
 import pytest
 
+from allauth.account.authentication import AUTHENTICATION_METHODS_SESSION_KEY
 from allauth.account.internal.flows.login_by_code import LOGIN_CODE_SESSION_KEY
 
 
@@ -38,6 +41,11 @@ def test_login_by_code(client, user, request_login_by_code):
     assert resp.status_code == 302
     assert client.session[SESSION_KEY] == str(user.pk)
     assert resp["location"] == "/foo"
+    assert client.session[AUTHENTICATION_METHODS_SESSION_KEY][-1] == {
+        "method": "code",
+        "email": user.email,
+        "at": ANY,
+    }
 
 
 def test_login_by_code_max_attempts(client, user, request_login_by_code, settings):

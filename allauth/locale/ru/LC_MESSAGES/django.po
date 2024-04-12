@@ -90,7 +90,7 @@ msgstr "Указанные вами адрес электронной почты
 
 #: account/forms.py:102
 msgid "The username and/or password you specified are not correct."
-msgstr "Имя пользователя и/или пароль не верны."
+msgstr "Имя пользователя и/или пароль неверны."
 
 #: account/forms.py:112 account/forms.py:287 account/forms.py:477
 #: account/forms.py:574
@@ -573,25 +573,19 @@ msgstr "Пожалуйста, подтвердите Ваш адрес элек�
 #: templates/account/email/email_deleted_message.txt:4
 #, python-format
 msgid "Email address %(deleted_email)s has been removed from your account."
-msgstr ""
+msgstr "Адрес электронной почты %(deleted_email)s был удалён из вашей учётной записи"
 
 #: templates/account/email/email_deleted_subject.txt:3
-#, fuzzy
-#| msgid "Remove"
 msgid "Email Removed"
-msgstr "Удалить"
+msgstr "Email удалён"
 
 #: templates/account/email/password_changed_message.txt:4
-#, fuzzy
-#| msgid "Your password is now changed."
 msgid "Your password has been changed."
 msgstr "Ваш пароль изменён."
 
 #: templates/account/email/password_changed_subject.txt:3
-#, fuzzy
-#| msgid "Password (again)"
 msgid "Password Changed"
-msgstr "Пароль (ещё раз)"
+msgstr "Пароль Изменён"
 
 #: templates/account/email/password_reset_key_message.txt:4
 msgid ""
@@ -616,10 +610,8 @@ msgid "Password Reset Email"
 msgstr "Письмо для сброса пароля"
 
 #: templates/account/email/password_reset_message.txt:4
-#, fuzzy
-#| msgid "Your password has been deleted."
 msgid "Your password has been reset."
-msgstr "Ваш пароль был удален."
+msgstr "Ваш пароль был сброшен."
 
 #: templates/account/email/password_reset_subject.txt:3
 #: templates/account/password_reset.html:4
@@ -630,16 +622,12 @@ msgid "Password Reset"
 msgstr "Сброс пароля"
 
 #: templates/account/email/password_set_message.txt:4
-#, fuzzy
-#| msgid "Your password has been deleted."
 msgid "Your password has been set."
-msgstr "Ваш пароль был удален."
+msgstr "Ваш пароль был установлен."
 
 #: templates/account/email/password_set_subject.txt:3
-#, fuzzy
-#| msgid "Password Reset"
 msgid "Password Set"
-msgstr "Сброс пароля"
+msgstr "Пароль Установлен"
 
 #: templates/account/email/unknown_account_message.txt:4
 #, python-format
@@ -1004,10 +992,8 @@ msgid ""
 msgstr "Был создан новый набор кодов восстановления."
 
 #: templates/mfa/email/recovery_codes_generated_subject.txt:3
-#, fuzzy
-#| msgid "Recovery Codes"
 msgid "New Recovery Codes Generated"
-msgstr "Коды восстановления"
+msgstr "Сгенерированы Новые Коды Восстановления"
 
 #: templates/mfa/email/totp_activated_message.txt:4
 #: templates/mfa/messages/totp_activated.txt:2

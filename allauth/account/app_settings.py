@@ -214,7 +214,7 @@ class AppSettings(object):
             "signup": "20/m/ip",
             # Logins.
             "login": "30/m/ip",
-            # Login by email code
+            # Request a login code: key is the email.
             "request_login_code": "20/m/ip,3/m/key",
             # Logins.
             "login_failed": login_failed_rl,

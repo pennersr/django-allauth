@@ -2,6 +2,8 @@
 {% load account %}
 {% load i18n %}
 
-{% block content %}{% autoescape off %}{% blocktrans %}Your sign-in code is listed below. To sign in, enter it in your open browser window.{% endblocktrans %}{% endautoescape %}
+{% block content %}{% autoescape off %}{% blocktranslate %}Your sign-in code is listed below. Please enter it in your open browser window.{% endblocktranslate %}{% endautoescape %}
 
-{{ code }}{% endblock content %}
+{{ code }}
+
+{% blocktranslate %}This mail can be safely ignored if you did not initiate this action.{% endblocktranslate %}{% endblock content %}

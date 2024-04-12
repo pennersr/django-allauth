@@ -701,7 +701,8 @@ class ConfirmLoginCodeForm(forms.Form):
         super().__init__(*args, **kwargs)
 
     def clean_code(self):
-        code = self.cleaned_data.get("code").replace(" ", "")
-        if not self.code or code.strip().lower() != self.code.lower():
+        code = self.cleaned_data.get("code").replace(" ", "").lower()
+        expected_code = self.code.replace(" ", "").lower()
+        if not self.code or code != expected_code:
             raise get_adapter().validation_error("incorrect_code")
         return code

@@ -822,7 +822,7 @@ class ReauthenticateView(BaseReauthenticateView):
 reauthenticate = ReauthenticateView.as_view()
 
 
-class RequestLoginCodeView(RedirectAuthenticatedUserMixin, FormView):
+class RequestLoginCodeView(RedirectAuthenticatedUserMixin, NextRedirectMixin, FormView):
     form_class = RequestLoginCodeForm
     template_name = "account/request_login_code." + app_settings.TEMPLATE_EXTENSION
 
@@ -841,29 +841,20 @@ class RequestLoginCodeView(RedirectAuthenticatedUserMixin, FormView):
         if self.request.user.is_authenticated:
             return None
         url = reverse_lazy("account_confirm_login_code")
-        url = passthrough_next_redirect_url(
-            self.request, reverse("account_confirm_login_code"), REDIRECT_FIELD_NAME
-        )
+        url = self.passthrough_next_url(reverse("account_confirm_login_code"))
         return url
 
     def get_context_data(self, **kwargs):
         ret = super().get_context_data(**kwargs)
-        redirect_field_value = get_request_param(self.request, REDIRECT_FIELD_NAME)
         site = get_current_site(self.request)
-        ret.update(
-            {
-                "site": site,
-                "redirect_field_name": REDIRECT_FIELD_NAME,
-                "redirect_field_value": redirect_field_value,
-            }
-        )
+        ret.update({"site": site})
         return ret
 
 
 request_login_code = RequestLoginCodeView.as_view()
 
 
-class ConfirmLoginCodeView(RedirectAuthenticatedUserMixin, FormView):
+class ConfirmLoginCodeView(RedirectAuthenticatedUserMixin, NextRedirectMixin, FormView):
     form_class = ConfirmLoginCodeForm
     template_name = "account/confirm_login_code." + app_settings.TEMPLATE_EXTENSION
 
@@ -885,7 +876,7 @@ class ConfirmLoginCodeView(RedirectAuthenticatedUserMixin, FormView):
         return kwargs
 
     def form_valid(self, form):
-        redirect_url = get_next_redirect_url(self.request)
+        redirect_url = self.get_next_url()
         return flows.login_by_code.perform_login_by_code(
             self.request, self.user, redirect_url, self.pending_login
         )
@@ -906,15 +897,11 @@ class ConfirmLoginCodeView(RedirectAuthenticatedUserMixin, FormView):
 
     def get_context_data(self, **kwargs):
         ret = super().get_context_data(**kwargs)
-        redirect_field_value = get_request_param(self.request, REDIRECT_FIELD_NAME)
         site = get_current_site(self.request)
-
         ret.update(
             {
                 "site": site,
                 "email": self.pending_login["email"],
-                "redirect_field_name": REDIRECT_FIELD_NAME,
-                "redirect_field_value": redirect_field_value,
             }
         )
         return ret

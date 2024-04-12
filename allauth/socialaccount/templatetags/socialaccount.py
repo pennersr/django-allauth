@@ -1,4 +1,5 @@
 from django import template
+from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.utils.safestring import mark_safe
 
 from allauth.socialaccount.adapter import get_adapter
@@ -26,15 +27,15 @@ def provider_login_url(context, provider, **params):
         del query["scope"]
     if auth_params == "":
         del query["auth_params"]
-    if "next" not in query:
-        next = get_request_param(request, "next")
+    if REDIRECT_FIELD_NAME not in query:
+        next = get_request_param(request, REDIRECT_FIELD_NAME)
         if next:
-            query["next"] = next
+            query[REDIRECT_FIELD_NAME] = next
         elif process == "redirect":
-            query["next"] = request.get_full_path()
+            query[REDIRECT_FIELD_NAME] = request.get_full_path()
     else:
-        if not query["next"]:
-            del query["next"]
+        if not query[REDIRECT_FIELD_NAME]:
+            del query[REDIRECT_FIELD_NAME]
     # get the login url and append query as url parameters
     return provider.get_login_url(request, **query)
 

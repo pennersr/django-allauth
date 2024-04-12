@@ -5,13 +5,28 @@ from django.contrib.auth.models import AnonymousUser
 from django.core import mail
 from django.test.utils import override_settings
 from django.urls import reverse
+from django.utils.http import urlencode
 
 import pytest
+from pytest_django.asserts import assertRedirects, assertTemplateUsed
 
 from allauth.account import app_settings
-from allauth.account.forms import ResetPasswordForm
+from allauth.account.forms import ResetPasswordForm, default_token_generator
 from allauth.account.models import EmailAddress
+from allauth.account.utils import user_pk_to_url_str
 from allauth.tests import TestCase
+
+
+@pytest.fixture
+def password_reset_url():
+    def f(user):
+        temp_key = default_token_generator.make_token(user)
+        uid = user_pk_to_url_str(user)
+        return reverse(
+            "account_reset_password_from_key", kwargs={"uidb36": uid, "key": temp_key}
+        )
+
+    return f
 
 
 @pytest.mark.django_db
@@ -34,6 +49,18 @@ def test_reset_password_unknown_account_disabled(client, settings):
         data={"email": "unknown@example.org"},
     )
     assert len(mail.outbox) == 0
+
+
+@pytest.mark.parametrize(
+    "query,expected_location",
+    [("", reverse("account_reset_password_done")), ("?next=/foo", "/foo")],
+)
+def test_reset_password_next_url(client, user, query, expected_location):
+    resp = client.post(
+        reverse("account_reset_password") + query,
+        data={"email": user.email},
+    )
+    assert resp["location"] == expected_location
 
 
 @override_settings(
@@ -133,72 +160,6 @@ class ResetPasswordTests(TestCase):
 
         self.assertTrue(resp.context_data["token_fail"])
 
-    def test_password_reset_flow(self):
-        """
-        Tests the password reset flow: requesting a new password,
-        receiving the reset link via email and finally resetting the
-        password to a new value.
-        """
-        # Request new password
-        user = self._request_new_password()
-        body = mail.outbox[0].body
-        self.assertGreater(body.find("https://"), 0)
-
-        # Extract URL for `password_reset_from_key` view and access it
-        url = body[body.find("/password/reset/") :].split()[0]
-        resp = self.client.get(url)
-        # Follow the redirect the actual password reset page with the key
-        # hidden.
-        url = resp.url
-        resp = self.client.get(url)
-        self.assertTemplateUsed(
-            resp,
-            "account/password_reset_from_key.%s" % app_settings.TEMPLATE_EXTENSION,
-        )
-        self.assertFalse("token_fail" in resp.context_data)
-
-        # Reset the password
-        resp = self.client.post(
-            url, {"password1": "newpass123", "password2": "newpass123"}
-        )
-        self.assertRedirects(resp, reverse("account_reset_password_from_key_done"))
-        assert "Your password has been reset" in mail.outbox[-1].body
-
-        # Check the new password is in effect
-        user = get_user_model().objects.get(pk=user.pk)
-        self.assertTrue(user.check_password("newpass123"))
-
-        # Trying to reset the password against the same URL (or any other
-        # invalid/obsolete URL) returns a bad token response
-        resp = self.client.post(
-            url, {"password1": "newpass123", "password2": "newpass123"}
-        )
-        self.assertTemplateUsed(
-            resp,
-            "account/password_reset_from_key.%s" % app_settings.TEMPLATE_EXTENSION,
-        )
-        self.assertTrue(resp.context_data["token_fail"])
-
-        # Same should happen when accessing the page directly
-        response = self.client.get(url)
-        self.assertTemplateUsed(
-            response,
-            "account/password_reset_from_key.%s" % app_settings.TEMPLATE_EXTENSION,
-        )
-        self.assertTrue(response.context_data["token_fail"])
-
-        # When in XHR views, it should respond with a 400 bad request
-        # code, and the response body should contain the JSON-encoded
-        # error from the adapter
-        response = self.client.post(
-            url,
-            {"password1": "newpass123", "password2": "newpass123"},
-            HTTP_X_REQUESTED_WITH="XMLHttpRequest",
-        )
-        self.assertEqual(response.status_code, 400)
-        data = json.loads(response.content.decode("utf8"))
-        assert "invalid" in data["form"]["errors"][0]
-
     @override_settings(
         ACCOUNT_AUTHENTICATION_METHOD=app_settings.AuthenticationMethod.EMAIL
     )
@@ -296,3 +257,103 @@ class ResetPasswordTests(TestCase):
         user = self._create_user(password=password)
         self.client.force_login(user)
         return user
+
+
+def test_password_reset_flow(client, user, mailoutbox, settings):
+    """
+    Tests the password reset flow: requesting a new password,
+    receiving the reset link via email and finally resetting the
+    password to a new value.
+    """
+    settings.ACCOUNT_EMAIL_NOTIFICATIONS = True
+
+    # Request new password
+    client.post(
+        reverse("account_reset_password"),
+        data={"email": user.email},
+    )
+    assert len(mail.outbox) == 1
+    assert mailoutbox[0].to == [user.email]
+    body = mailoutbox[0].body
+    assert body.find("http://") > 0
+
+    # Extract URL for `password_reset_from_key` view and access it
+    url = body[body.find("/password/reset/") :].split()[0]
+    resp = client.get(url)
+    # Follow the redirect the actual password reset page with the key
+    # hidden.
+    url = resp.url
+    resp = client.get(url)
+    assertTemplateUsed(
+        resp,
+        "account/password_reset_from_key.%s" % app_settings.TEMPLATE_EXTENSION,
+    )
+    assert "token_fail" not in resp.context_data
+
+    # Reset the password
+    resp = client.post(url, {"password1": "newpass123", "password2": "newpass123"})
+    assertRedirects(resp, reverse("account_reset_password_from_key_done"))
+    assert "Your password has been reset" in mailoutbox[-1].body
+
+    # Check the new password is in effect
+    user = get_user_model().objects.get(pk=user.pk)
+    assert user.check_password("newpass123")
+
+    # Trying to reset the password against the same URL (or any other
+    # invalid/obsolete URL) returns a bad token response
+    resp = client.post(url, {"password1": "newpass123", "password2": "newpass123"})
+    assertTemplateUsed(
+        resp,
+        "account/password_reset_from_key.%s" % app_settings.TEMPLATE_EXTENSION,
+    )
+    assert resp.context_data["token_fail"]
+
+    # Same should happen when accessing the page directly
+    response = client.get(url)
+    assertTemplateUsed(
+        response,
+        "account/password_reset_from_key.%s" % app_settings.TEMPLATE_EXTENSION,
+    )
+    assert response.context_data["token_fail"]
+
+    # When in XHR views, it should respond with a 400 bad request
+    # code, and the response body should contain the JSON-encoded
+    # error from the adapter
+    response = client.post(
+        url,
+        {"password1": "newpass123", "password2": "newpass123"},
+        HTTP_X_REQUESTED_WITH="XMLHttpRequest",
+    )
+    assert response.status_code == 400
+    data = json.loads(response.content.decode("utf8"))
+    assert "invalid" in data["form"]["errors"][0]
+
+
+@pytest.mark.parametrize(
+    "next_url,expected_location",
+    [(None, reverse("account_reset_password_from_key_done")), ("/foo", "/foo")],
+)
+def test_reset_password_from_key_next_url(
+    user, client, password_factory, next_url, expected_location, password_reset_url
+):
+    url = password_reset_url(user)
+    query = ""
+    if next_url:
+        query = "?" + urlencode({"next": next_url})
+    resp = client.get(url + query)
+    assert resp.status_code == 302
+    assert (
+        resp["location"]
+        == reverse(
+            "account_reset_password_from_key",
+            kwargs={"uidb36": user_pk_to_url_str(user), "key": "set-password"},
+        )
+        + query
+    )
+    password = password_factory()
+    data = {"password1": password, "password2": password}
+    if next_url:
+        data["next"] = next_url
+    resp = client.post(resp["location"], data)
+    assert resp.status_code == 302
+    assert resp["location"] == expected_location

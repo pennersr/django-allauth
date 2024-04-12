@@ -1,21 +1,15 @@
 from django.contrib import messages
-from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import PermissionDenied
 from django.core.validators import validate_email
 from django.forms import ValidationError
-from django.http import (
-    Http404,
-    HttpResponse,
-    HttpResponsePermanentRedirect,
-    HttpResponseRedirect,
-)
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.decorators.debug import sensitive_post_parameters
-from django.views.generic.base import TemplateResponseMixin, TemplateView, View
+from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
 from allauth import app_settings as allauth_app_settings
@@ -33,6 +27,14 @@ from allauth.account.forms import (
     UserTokenForm,
 )
 from allauth.account.internal import flows
+from allauth.account.mixins import (
+    AjaxCapableProcessFormViewMixin,
+    CloseableSignupMixin,
+    LogoutFunctionalityMixin,
+    NextRedirectMixin,
+    RedirectAuthenticatedUserMixin,
+    _ajax_response,
+)
 from allauth.account.models import (
     EmailAddress,
     EmailConfirmation,
@@ -41,9 +43,6 @@ from allauth.account.models import (
 from allauth.account.reauthentication import resume_request
 from allauth.account.utils import (
     complete_signup,
-    get_login_redirect_url,
-    get_next_redirect_url,
-    passthrough_next_redirect_url,
     perform_login,
     send_email_confirmation,
     sync_user_email_addresses,
@@ -54,7 +53,7 @@ from allauth.core import ratelimit
 from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.core.internal.httpkit import redirect
 from allauth.decorators import rate_limit
-from allauth.utils import get_form_class, get_request_param
+from allauth.utils import get_form_class
 
 
 INTERNAL_RESET_SESSION_KEY = "_password_reset_key"
@@ -65,101 +64,23 @@ sensitive_post_parameters_m = method_decorator(
 )
 
 
-def _ajax_response(request, response, form=None, data=None):
-    adapter = get_adapter()
-    if adapter.is_ajax(request):
-        if isinstance(response, HttpResponseRedirect) or isinstance(
-            response, HttpResponsePermanentRedirect
-        ):
-            redirect_to = response["Location"]
-        else:
-            redirect_to = None
-        response = adapter.ajax_response(
-            request, response, form=form, data=data, redirect_to=redirect_to
-        )
-    return response
-
-
-class RedirectAuthenticatedUserMixin(object):
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated and app_settings.AUTHENTICATED_LOGIN_REDIRECTS:
-            redirect_to = self.get_authenticated_redirect_url()
-            response = HttpResponseRedirect(redirect_to)
-            return _ajax_response(request, response)
-        else:
-            response = super(RedirectAuthenticatedUserMixin, self).dispatch(
-                request, *args, **kwargs
-            )
-        return response
-
-    def get_authenticated_redirect_url(self):
-        redirect_field_name = self.redirect_field_name
-        return get_login_redirect_url(
-            self.request,
-            url=self.get_success_url(),
-            redirect_field_name=redirect_field_name,
-        )
-
-
-class AjaxCapableProcessFormViewMixin(object):
-    def get(self, request, *args, **kwargs):
-        response = super(AjaxCapableProcessFormViewMixin, self).get(
-            request, *args, **kwargs
-        )
-        form = self.get_form()
-        return _ajax_response(
-            self.request, response, form=form, data=self._get_ajax_data_if()
-        )
-
-    def post(self, request, *args, **kwargs):
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        if form.is_valid():
-            response = self.form_valid(form)
-        else:
-            response = self.form_invalid(form)
-        return _ajax_response(
-            self.request, response, form=form, data=self._get_ajax_data_if()
-        )
-
-    def get_form(self, form_class=None):
-        form = getattr(self, "_cached_form", None)
-        if form is None:
-            form = super(AjaxCapableProcessFormViewMixin, self).get_form(form_class)
-            self._cached_form = form
-        return form
-
-    def _get_ajax_data_if(self):
-        return (
-            self.get_ajax_data()
-            if get_adapter(self.request).is_ajax(self.request)
-            else None
-        )
-
-    def get_ajax_data(self):
-        return None
-
-
-class LogoutFunctionalityMixin(object):
-    def logout(self):
-        flows.logout.logout(self.request)
-
-
 class LoginView(
-    RedirectAuthenticatedUserMixin, AjaxCapableProcessFormViewMixin, FormView
+    NextRedirectMixin,
+    RedirectAuthenticatedUserMixin,
+    AjaxCapableProcessFormViewMixin,
+    FormView,
 ):
     form_class = LoginForm
     template_name = "account/login." + app_settings.TEMPLATE_EXTENSION
     success_url = None
-    redirect_field_name = REDIRECT_FIELD_NAME
 
     @sensitive_post_parameters_m
     @method_decorator(never_cache)
     def dispatch(self, request, *args, **kwargs):
-        return super(LoginView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_form_kwargs(self):
-        kwargs = super(LoginView, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         kwargs["request"] = self.request
         return kwargs
 
@@ -167,34 +88,21 @@ class LoginView(
         return get_form_class(app_settings.FORMS, "login", self.form_class)
 
     def form_valid(self, form):
-        success_url = self.get_success_url()
+        redirect_url = self.get_success_url()
         try:
-            return form.login(self.request, redirect_url=success_url)
+            return form.login(self.request, redirect_url=redirect_url)
         except ImmediateHttpResponse as e:
             return e.response
 
-    def get_success_url(self):
-        # Explicitly passed ?next= URL takes precedence
-        ret = (
-            get_next_redirect_url(self.request, self.redirect_field_name)
-            or self.success_url
-        )
-        return ret
-
     def get_context_data(self, **kwargs):
         ret = super(LoginView, self).get_context_data(**kwargs)
-        signup_url = passthrough_next_redirect_url(
-            self.request, reverse("account_signup"), self.redirect_field_name
-        )
-        redirect_field_value = get_request_param(self.request, self.redirect_field_name)
+        signup_url = self.passthrough_next_url(reverse("account_signup"))
         site = get_current_site(self.request)
 
         ret.update(
             {
                 "signup_url": signup_url,
                 "site": site,
-                "redirect_field_name": self.redirect_field_name,
-                "redirect_field_value": redirect_field_value,
                 "SOCIALACCOUNT_ENABLED": allauth_app_settings.SOCIALACCOUNT_ENABLED,
             }
         )
@@ -204,74 +112,42 @@ class LoginView(
 login = LoginView.as_view()
 
 
-class CloseableSignupMixin(object):
-    template_name_signup_closed = (
-        "account/signup_closed." + app_settings.TEMPLATE_EXTENSION
-    )
-
-    def dispatch(self, request, *args, **kwargs):
-        try:
-            if not self.is_open():
-                return self.closed()
-        except ImmediateHttpResponse as e:
-            return e.response
-        return super(CloseableSignupMixin, self).dispatch(request, *args, **kwargs)
-
-    def is_open(self):
-        return get_adapter(self.request).is_open_for_signup(self.request)
-
-    def closed(self):
-        response_kwargs = {
-            "request": self.request,
-            "template": self.template_name_signup_closed,
-        }
-        return self.response_class(**response_kwargs)
-
-
 @method_decorator(rate_limit(action="signup"), name="dispatch")
 class SignupView(
     RedirectAuthenticatedUserMixin,
     CloseableSignupMixin,
+    NextRedirectMixin,
     AjaxCapableProcessFormViewMixin,
     FormView,
 ):
     template_name = "account/signup." + app_settings.TEMPLATE_EXTENSION
     form_class = SignupForm
-    redirect_field_name = REDIRECT_FIELD_NAME
-    success_url = None
 
     @sensitive_post_parameters_m
     @method_decorator(never_cache)
     def dispatch(self, request, *args, **kwargs):
-        return super(SignupView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, "signup", self.form_class)
-
-    def get_success_url(self):
-        # Explicitly passed ?next= URL takes precedence
-        ret = (
-            get_next_redirect_url(self.request, self.redirect_field_name)
-            or self.success_url
-        )
-        return ret
 
     def form_valid(self, form):
         self.user, resp = form.try_save(self.request)
         if resp:
             return resp
         try:
+            redirect_url = self.get_success_url()
             return complete_signup(
                 self.request,
                 self.user,
                 email_verification=None,
-                success_url=self.get_success_url(),
+                success_url=redirect_url,
             )
         except ImmediateHttpResponse as e:
             return e.response
 
     def get_context_data(self, **kwargs):
-        ret = super(SignupView, self).get_context_data(**kwargs)
+        ret = super().get_context_data(**kwargs)
         form = ret["form"]
         email = self.request.session.get("account_verified_email")
         if email:
@@ -280,17 +156,11 @@ class SignupView(
                 email_keys.append("email2")
             for email_key in email_keys:
                 form.fields[email_key].initial = email
-        login_url = passthrough_next_redirect_url(
-            self.request, reverse("account_login"), self.redirect_field_name
-        )
-        redirect_field_name = self.redirect_field_name
+        login_url = self.passthrough_next_url(reverse("account_login"))
         site = get_current_site(self.request)
-        redirect_field_value = get_request_param(self.request, redirect_field_name)
         ret.update(
             {
                 "login_url": login_url,
-                "redirect_field_name": redirect_field_name,
-                "redirect_field_value": redirect_field_value,
                 "site": site,
                 "SOCIALACCOUNT_ENABLED": allauth_app_settings.SOCIALACCOUNT_ENABLED,
             }
@@ -314,7 +184,7 @@ class SignupView(
 signup = SignupView.as_view()
 
 
-class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
+class ConfirmEmailView(NextRedirectMixin, LogoutFunctionalityMixin, TemplateView):
     template_name = "account/email_confirm." + app_settings.TEMPLATE_EXTENSION
 
     def get(self, *args, **kwargs):
@@ -447,7 +317,7 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
         return ret
 
     def get_context_data(self, **kwargs):
-        ctx = kwargs
+        ctx = super().get_context_data(**kwargs)
         site = get_current_site(self.request)
         ctx.update(
             {
@@ -462,9 +332,12 @@ class ConfirmEmailView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
         return ctx
 
     def get_redirect_url(self):
-        return get_adapter(self.request).get_email_confirmation_redirect_url(
-            self.request
-        )
+        url = self.get_next_url()
+        if not url:
+            url = get_adapter(self.request).get_email_confirmation_redirect_url(
+                self.request
+            )
+        return url
 
 
 confirm_email = ConfirmEmailView.as_view()
@@ -596,7 +469,7 @@ email = EmailView.as_view()
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(rate_limit(action="change_password"), name="dispatch")
-class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
+class PasswordChangeView(AjaxCapableProcessFormViewMixin, NextRedirectMixin, FormView):
     template_name = "account/password_change." + app_settings.TEMPLATE_EXTENSION
     form_class = ChangePasswordForm
 
@@ -614,9 +487,7 @@ class PasswordChangeView(AjaxCapableProcessFormViewMixin, FormView):
         kwargs["user"] = self.request.user
         return kwargs
 
-    def get_success_url(self):
-        if self.success_url:
-            return self.success_url
+    def get_default_success_url(self):
         return get_adapter().get_password_change_redirect_url(self.request)
 
     def form_valid(self, form):
@@ -642,7 +513,7 @@ password_change = PasswordChangeView.as_view()
     rate_limit(action="change_password"),
     name="dispatch",
 )
-class PasswordSetView(AjaxCapableProcessFormViewMixin, FormView):
+class PasswordSetView(AjaxCapableProcessFormViewMixin, NextRedirectMixin, FormView):
     template_name = "account/password_set." + app_settings.TEMPLATE_EXTENSION
     form_class = SetPasswordForm
 
@@ -660,9 +531,7 @@ class PasswordSetView(AjaxCapableProcessFormViewMixin, FormView):
         kwargs["user"] = self.request.user
         return kwargs
 
-    def get_success_url(self):
-        if self.success_url:
-            return self.success_url
+    def get_default_success_url(self):
         return get_adapter().get_password_change_redirect_url(self.request)
 
     def form_valid(self, form):
@@ -681,11 +550,10 @@ class PasswordSetView(AjaxCapableProcessFormViewMixin, FormView):
 password_set = PasswordSetView.as_view()
 
 
-class PasswordResetView(AjaxCapableProcessFormViewMixin, FormView):
+class PasswordResetView(NextRedirectMixin, AjaxCapableProcessFormViewMixin, FormView):
     template_name = "account/password_reset." + app_settings.TEMPLATE_EXTENSION
     form_class = ResetPasswordForm
     success_url = reverse_lazy("account_reset_password_done")
-    redirect_field_name = REDIRECT_FIELD_NAME
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS, "reset_password", self.form_class)
@@ -699,13 +567,11 @@ class PasswordResetView(AjaxCapableProcessFormViewMixin, FormView):
         if r429:
             return r429
         form.save(self.request)
-        return super(PasswordResetView, self).form_valid(form)
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
-        ret = super(PasswordResetView, self).get_context_data(**kwargs)
-        login_url = passthrough_next_redirect_url(
-            self.request, reverse("account_login"), self.redirect_field_name
-        )
+        ret = super().get_context_data(**kwargs)
+        login_url = self.passthrough_next_url(reverse("account_login"))
         # NOTE: For backwards compatibility
         ret["password_reset_form"] = ret.get("form")
         # (end NOTE)
@@ -725,7 +591,10 @@ password_reset_done = PasswordResetDoneView.as_view()
 
 @method_decorator(rate_limit(action="reset_password_from_key"), name="dispatch")
 class PasswordResetFromKeyView(
-    AjaxCapableProcessFormViewMixin, LogoutFunctionalityMixin, FormView
+    AjaxCapableProcessFormViewMixin,
+    NextRedirectMixin,
+    LogoutFunctionalityMixin,
+    FormView,
 ):
     template_name = "account/password_reset_from_key." + app_settings.TEMPLATE_EXTENSION
     form_class = ResetPasswordKeyForm
@@ -763,9 +632,7 @@ class PasswordResetFromKeyView(
                     self.logout()
                     self.request.session[INTERNAL_RESET_SESSION_KEY] = self.key
 
-                return super(PasswordResetFromKeyView, self).dispatch(
-                    request, uidb36, self.key, **kwargs
-                )
+                return super().dispatch(request, uidb36, self.key, **kwargs)
         else:
             token_form = user_token_form_class(data={"uidb36": uidb36, "key": self.key})
             if token_form.is_valid():
@@ -774,7 +641,9 @@ class PasswordResetFromKeyView(
                 # avoids the possibility of leaking the key in the
                 # HTTP Referer header.
                 self.request.session[INTERNAL_RESET_SESSION_KEY] = self.key
-                redirect_url = self.request.path.replace(self.key, self.reset_url_key)
+                redirect_url = self.passthrough_next_url(
+                    self.request.path.replace(self.key, self.reset_url_key)
+                )
                 return redirect(redirect_url)
 
         self.reset_user = None
@@ -821,9 +690,8 @@ class PasswordResetFromKeyDoneView(TemplateView):
 password_reset_from_key_done = PasswordResetFromKeyDoneView.as_view()
 
 
-class LogoutView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
+class LogoutView(NextRedirectMixin, LogoutFunctionalityMixin, TemplateView):
     template_name = "account/logout." + app_settings.TEMPLATE_EXTENSION
-    redirect_field_name = REDIRECT_FIELD_NAME
 
     def get(self, *args, **kwargs):
         if app_settings.LOGOUT_ON_GET:
@@ -842,21 +710,10 @@ class LogoutView(TemplateResponseMixin, LogoutFunctionalityMixin, View):
         response = redirect(url)
         return _ajax_response(self.request, response)
 
-    def get_context_data(self, **kwargs):
-        ctx = kwargs
-        redirect_field_value = get_request_param(self.request, self.redirect_field_name)
-        ctx.update(
-            {
-                "redirect_field_name": self.redirect_field_name,
-                "redirect_field_value": redirect_field_value,
-            }
-        )
-        return ctx
-
     def get_redirect_url(self):
-        return get_next_redirect_url(
-            self.request, self.redirect_field_name
-        ) or get_adapter(self.request).get_logout_redirect_url(self.request)
+        return self.get_next_url() or get_adapter(self.request).get_logout_redirect_url(
+            self.request
+        )
 
 
 logout = LogoutView.as_view()
@@ -876,9 +733,7 @@ class EmailVerificationSentView(TemplateView):
 email_verification_sent = EmailVerificationSentView.as_view()
 
 
-class BaseReauthenticateView(FormView):
-    redirect_field_name = REDIRECT_FIELD_NAME
-
+class BaseReauthenticateView(NextRedirectMixin, FormView):
     def dispatch(self, request, *args, **kwargs):
         resp = self._check_reauthentication_method_available(request)
         if resp:
@@ -903,15 +758,11 @@ class BaseReauthenticateView(FormView):
         if not methods:
             # Reauthentication not available
             raise PermissionDenied("Reauthentication not available")
-        url = passthrough_next_redirect_url(
-            request, methods[0]["url"], self.redirect_field_name
-        )
+        url = self.passthrough_next_url(methods[0]["url"])
         return HttpResponseRedirect(url)
 
-    def get_success_url(self):
-        url = get_next_redirect_url(self.request, self.redirect_field_name)
-        if not url:
-            url = get_adapter(self.request).get_login_redirect_url(self.request)
+    def get_default_success_url(self):
+        url = get_adapter(self.request).get_login_redirect_url(self.request)
         return url
 
     def form_valid(self, form):
@@ -922,11 +773,8 @@ class BaseReauthenticateView(FormView):
 
     def get_context_data(self, **kwargs):
         ret = super().get_context_data(**kwargs)
-        redirect_field_value = get_request_param(self.request, self.redirect_field_name)
         ret.update(
             {
-                "redirect_field_name": self.redirect_field_name,
-                "redirect_field_value": redirect_field_value,
                 "reauthentication_alternatives": self.get_reauthentication_alternatives(),
             }
         )
@@ -939,9 +787,7 @@ class BaseReauthenticateView(FormView):
             alt = dict(method)
             if self.request.path == alt["url"]:
                 continue
-            alt["url"] = passthrough_next_redirect_url(
-                self.request, alt["url"], self.redirect_field_name
-            )
+            alt["url"] = self.passthrough_next_url(alt["url"])
             alts.append(alt)
         alts = sorted(alts, key=lambda alt: alt["description"])
         return alts

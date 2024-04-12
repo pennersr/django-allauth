@@ -12,11 +12,7 @@
     {% element form method="post" action=action_url no_visible_fields=True %}
         {% slot body %}
             {% csrf_token %}
-            {% if redirect_field_value %}
-                <input type="hidden"
-                       name="{{ redirect_field_name }}"
-                       value="{{ redirect_field_value }}" />
-            {% endif %}
+            {{ redirect_field }}
         {% endslot %}
         {% slot actions %}
             {% element button type="submit" %}

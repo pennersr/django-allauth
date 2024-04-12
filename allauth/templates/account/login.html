@@ -18,11 +18,7 @@
             {% csrf_token %}
             {% element fields form=form unlabeled=True %}
             {% endelement %}
-            {% if redirect_field_value %}
-                <input type="hidden"
-                       name="{{ redirect_field_name }}"
-                       value="{{ redirect_field_value }}" />
-            {% endif %}
+            {{ redirect_field }}
         {% endslot %}
         {% slot actions %}
             {% element button type="submit" tags="prominent,login" %}

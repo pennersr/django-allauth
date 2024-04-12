@@ -8,6 +8,10 @@ Note worthy changes
 
 - Added a new provider, Atlassian
 
+- Next URL handling been streamlined to be consistently applied. Previously, the
+  password reset, change and email confirmation views only supported the
+  ``success_url`` class-level property.
+
 
 Backwards incompatible changes
 ------------------------------

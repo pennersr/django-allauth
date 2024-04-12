@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.timezone import now
 
+import pytest
 from pytest_django.asserts import (
     assertRedirects,
     assertTemplateNotUsed,
@@ -26,7 +27,14 @@ from allauth.account.utils import user_pk_to_url_str
 from .test_models import UUIDUser
 
 
-def test_login_on_confirm(user_factory, client):
+@pytest.mark.parametrize(
+    "query,expected_location",
+    [
+        ("", settings.LOGIN_REDIRECT_URL),
+        ("?next=/foo", "/foo"),
+    ],
+)
+def test_login_on_confirm(user_factory, client, query, expected_location):
     settings.ACCOUNT_EMAIL_CONFIRMATION_HMAC = True
     settings.ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
     user = user_factory(email_verified=False)
@@ -41,7 +49,8 @@ def test_login_on_confirm(user_factory, client):
     session["account_user"] = user_pk_to_url_str(user)
     session.save()
 
-    resp = client.post(reverse("account_confirm_email", args=[key]))
+    resp = client.post(reverse("account_confirm_email", args=[key]) + query)
+    assert resp["location"] == expected_location
     email = EmailAddress.objects.get(pk=email.pk)
     assert email.verified
 

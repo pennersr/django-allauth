@@ -4,7 +4,7 @@ from typing import Optional
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import get_user_model
+from django.contrib.auth import REDIRECT_FIELD_NAME, get_user_model
 from django.core.exceptions import FieldDoesNotExist
 from django.db import models
 from django.db.models import Q
@@ -34,7 +34,7 @@ def _unicode_ci_compare(s1, s2):
     return norm_s1 == norm_s2
 
 
-def get_next_redirect_url(request, redirect_field_name="next"):
+def get_next_redirect_url(request, redirect_field_name=REDIRECT_FIELD_NAME):
     """
     Returns the next URL to redirect to, if it was explicitly passed
     via the request.
@@ -45,7 +45,9 @@ def get_next_redirect_url(request, redirect_field_name="next"):
     return redirect_to
 
 
-def get_login_redirect_url(request, url=None, redirect_field_name="next", signup=False):
+def get_login_redirect_url(
+    request, url=None, redirect_field_name=REDIRECT_FIELD_NAME, signup=False
+):
     ret = url
     if url and callable(url):
         # In order to be able to pass url getters around that depend

@@ -5,6 +5,7 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2CallbackView,
     OAuth2LoginView,
 )
+from allauth.socialaccount.providers.tiktok.client import TiktokOAuth2Client
 
 
 class TiktokOAuth2Adapter(OAuth2Adapter):
@@ -13,6 +14,7 @@ class TiktokOAuth2Adapter(OAuth2Adapter):
     authorize_url = "https://www.tiktok.com/v2/auth/authorize/"
     # https://developers.tiktok.com/doc/tiktok-api-v2-get-user-info/
     profile_url = "https://open.tiktokapis.com/v2/user/info/"
+    client_class = TiktokOAuth2Client
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {

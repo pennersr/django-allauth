@@ -187,6 +187,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.weixin",
     "allauth.socialaccount.providers.windowslive",
     "allauth.socialaccount.providers.xing",
+    "allauth.socialaccount.providers.xero",
     "allauth.socialaccount.providers.yahoo",
     "allauth.socialaccount.providers.yandex",
     "allauth.socialaccount.providers.ynab",

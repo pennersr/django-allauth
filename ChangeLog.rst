@@ -6,6 +6,8 @@ Note worthy changes
 
 - Added a dummy provider, useful for testing purposes: ``allauth.socialaccount.providers.dummy``.
 
+- New provider: Xero
+
 
 0.61.1 (2024-02-09)
 *******************

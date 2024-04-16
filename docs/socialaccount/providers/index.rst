@@ -133,6 +133,7 @@ Provider Specifics
    weixin
    windowslive
    xing
+   xero
    yahoo
    yandex
    ynab

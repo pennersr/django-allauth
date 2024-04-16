@@ -1,7 +1,7 @@
 import requests
 
 from django.conf import settings
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 
@@ -131,6 +131,7 @@ class LoginByTokenView(View):
             OAuth2Error,
             requests.RequestException,
             PermissionDenied,
+            ValidationError,
         ) as exc:
             return render_authentication_error(request, self.provider, exception=exc)
 
@@ -143,8 +144,7 @@ class LoginByTokenView(View):
         self.check_csrf(request)
 
         credential = request.POST.get("credential")
-        identity_data = _verify_and_decode(app=self.provider.app, credential=credential)
-        login = self.provider.sociallogin_from_response(request, identity_data)
+        login = self.provider.verify_token(request, {"id_token": credential})
         return complete_social_login(request, login)
 
     def check_csrf(self, request):

@@ -15,6 +15,9 @@ class Provider:
     slug = None
     uses_apps = True
     supports_redirect = False
+    # Indicates whether or not this provider supports logging in by posting an
+    # access/id-token.
+    supports_token_authentication = False
 
     def __init__(self, request, app=None):
         self.request = request
@@ -51,6 +54,13 @@ class Provider:
     def redirect(self, request, process, next_url=None, data=None, **kwargs):
         """
         Initiate a redirect to the provider.
+        """
+        raise NotImplementedError()
+
+    def verify_token(self, request, token):
+        """
+        Verifies the token, returning a `SocialLogin` instance when valid.
+        Raises a `ValidationError` otherwise.
         """
         raise NotImplementedError()
 

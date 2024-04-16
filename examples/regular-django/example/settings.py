@@ -19,9 +19,9 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",  # Add 'postgresql_psycopg2', 'postgresql',
         # 'mysql', 'sqlite3' or 'oracle'.
-        "NAME": os.environ.get("DATABASE_NAME", os.path.join(
-            BASE_DIR / "db" / "example.db"
-        )),
+        "NAME": os.environ.get(
+            "DATABASE_NAME", os.path.join(BASE_DIR / "db" / "example.db")
+        ),
         "USER": "",  # Not used with sqlite3.
         "PASSWORD": "",  # Not used with sqlite3.
         "HOST": "",  # Set to empty string for localhost. Not used with sqlite3.
@@ -178,6 +178,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+ACCOUNT_LOGIN_BY_CODE_ENABLED = True
+
 try:
     from .local_settings import *  # noqa
 except ImportError:

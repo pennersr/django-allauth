@@ -32,9 +32,8 @@ class SignupForm(BaseSignupForm):
         try:
             return super(SignupForm, self).validate_unique_email(value)
         except forms.ValidationError:
-            raise forms.ValidationError(
-                get_adapter().error_messages["email_taken"]
-                % self.sociallogin.account.get_provider().name
+            raise get_adapter().validation_error(
+                "email_taken", self.sociallogin.account.get_provider().name
             )
 
 

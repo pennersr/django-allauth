@@ -18,11 +18,7 @@
             {% csrf_token %}
             {% element fields form=form unlabeled=True %}
             {% endelement %}
-            {% if redirect_field_value %}
-                <input type="hidden"
-                       name="{{ redirect_field_name }}"
-                       value="{{ redirect_field_value }}" />
-            {% endif %}
+            {{ redirect_field }}
         {% endslot %}
         {% slot actions %}
             {% element button type="submit" tags="prominent,login" %}
@@ -30,6 +26,15 @@
             {% endelement %}
         {% endslot %}
     {% endelement %}
+    {% if LOGIN_BY_CODE_ENABLED %}
+        {% element hr %}
+        {% endelement %}
+        {% element h2 %}
+            {% element button href=request_login_code_url tags="prominent,login,secondary" %}
+                {% trans "Mail me a sign-in code" %}
+            {% endelement %}
+        {% endelement %}
+    {% endif %}
     {% if SOCIALACCOUNT_ENABLED %}
         {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
     {% endif %}

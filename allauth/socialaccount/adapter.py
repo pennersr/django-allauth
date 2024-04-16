@@ -4,13 +4,12 @@ import warnings
 from django.core.exceptions import (
     ImproperlyConfigured,
     MultipleObjectsReturned,
-    ValidationError,
 )
 from django.db.models import Q
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
-from allauth.core import context
+from allauth.core.internal.adapter import BaseAdapter
 
 from ..account.adapter import get_adapter as get_account_adapter
 from ..account.app_settings import EmailVerificationMethod
@@ -25,19 +24,17 @@ from ..utils import (
 from . import app_settings
 
 
-class DefaultSocialAccountAdapter(object):
+class DefaultSocialAccountAdapter(BaseAdapter):
     error_messages = {
         "email_taken": _(
             "An account already exists with this email address."
             " Please sign in to that account first, then connect"
             " your %s account."
-        )
+        ),
+        "invalid_token": _("Invalid token."),
+        "no_password": _("Your account has no password set up."),
+        "no_verified_email": _("Your account has no verified email address."),
     }
-
-    def __init__(self, request=None):
-        # Explicitly passing `request` is deprecated, just use:
-        # `allauth.core.context.request`.
-        self.request = context.request
 
     def pre_social_login(self, request, sociallogin):
         """
@@ -145,15 +142,13 @@ class DefaultSocialAccountAdapter(object):
         if len(accounts) == 1:
             # No usable password would render the local account unusable
             if not account.user.has_usable_password():
-                raise ValidationError(_("Your account has no password set up."))
+                raise self.validation_error("no_password")
             # No email address, no password reset
             if app_settings.EMAIL_VERIFICATION == EmailVerificationMethod.MANDATORY:
                 if not EmailAddress.objects.filter(
                     user=account.user, verified=True
                 ).exists():
-                    raise ValidationError(
-                        _("Your account has no verified email address.")
-                    )
+                    raise self.validation_error("no_verified_email")
 
     def is_auto_signup_allowed(self, request, sociallogin):
         # If email is specified, check for duplicate and if so, no auto signup.

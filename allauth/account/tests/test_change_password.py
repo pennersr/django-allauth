@@ -19,16 +19,13 @@ def test_set_usable_password_redirects_to_change(auth_client, user):
 
 
 @pytest.mark.parametrize(
-    "logout,redirect_chain",
+    "logout,next_url,redirect_chain",
     [
-        (
-            False,
-            [
-                (reverse("account_change_password"), 302),
-            ],
-        ),
+        (False, "", [(reverse("account_change_password"), 302)]),
+        (False, "/foo", [("/foo", 302)]),
         (
             True,
+            "",
             [
                 (reverse("account_change_password"), 302),
                 (
@@ -37,33 +34,36 @@ def test_set_usable_password_redirects_to_change(auth_client, user):
                 ),
             ],
         ),
+        (True, "/foo", [("/foo", 302)]),
     ],
 )
-def test_set_password(client, user, password_factory, logout, settings, redirect_chain):
+def test_set_password(
+    client, user, next_url, password_factory, logout, settings, redirect_chain
+):
     settings.ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = logout
     user.set_unusable_password()
     user.save()
     client.force_login(user)
     password = password_factory()
+    data = {"password1": password, "password2": password}
+    if next_url:
+        data["next"] = next_url
     resp = client.post(
         reverse("account_set_password"),
-        {"password1": password, "password2": password},
+        data,
         follow=True,
     )
     assert resp.redirect_chain == redirect_chain
 
 
 @pytest.mark.parametrize(
-    "logout,redirect_chain",
+    "logout,next_url,redirect_chain",
     [
-        (
-            False,
-            [
-                (reverse("account_change_password"), 302),
-            ],
-        ),
+        (False, "", [(reverse("account_change_password"), 302)]),
+        (False, "/foo", [("/foo", 302)]),
         (
             True,
+            "",
             [
                 (reverse("account_change_password"), 302),
                 (
@@ -72,12 +72,14 @@ def test_set_password(client, user, password_factory, logout, settings, redirect
                 ),
             ],
         ),
+        (True, "/foo", [("/foo", 302)]),
     ],
 )
 def test_change_password(
     auth_client,
     user,
     user_password,
+    next_url,
     password_factory,
     logout,
     settings,
@@ -87,9 +89,12 @@ def test_change_password(
     settings.ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = logout
     settings.ACCOUNT_EMAIL_NOTIFICATIONS = True
     password = password_factory()
+    data = {"oldpassword": user_password, "password1": password, "password2": password}
+    if next_url:
+        data["next"] = next_url
     resp = auth_client.post(
         reverse("account_change_password"),
-        {"oldpassword": user_password, "password1": password, "password2": password},
+        data,
         follow=True,
     )
     assert resp.redirect_chain == redirect_chain

@@ -205,6 +205,9 @@ class EmailConfirmationHMAC(EmailConfirmationMixin, object):
             ret = None
         return ret
 
+    def key_expired(self):
+        return False
+
 
 class Login:
     """

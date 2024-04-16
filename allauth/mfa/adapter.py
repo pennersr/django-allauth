@@ -4,11 +4,12 @@ from allauth import app_settings as allauth_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.utils import user_email, user_username
 from allauth.core import context
+from allauth.core.internal.adapter import BaseAdapter
 from allauth.mfa import app_settings
 from allauth.utils import import_attribute
 
 
-class DefaultMFAAdapter:
+class DefaultMFAAdapter(BaseAdapter):
     """The adapter class allows you to override various functionality of the
     ``allauth.mfa`` app.  To do so, point ``settings.MFA_ADAPTER`` to your own
     class that derives from ``DefaultMFAAdapter`` and override the behavior by
@@ -16,18 +17,18 @@ class DefaultMFAAdapter:
     """
 
     error_messages = {
-        "unverified_email": _(
-            "You cannot activate two-factor authentication until you have verified your email address."
-        ),
         "add_email_blocked": _(
             "You cannot add an email address to an account protected by two-factor authentication."
         ),
-        "incorrect_code": _("Incorrect code."),
         "cannot_delete_authenticator": _(
             "You cannot deactivate two-factor authentication."
         ),
         "cannot_generate_recovery_codes": _(
             "You cannot generate recovery codes without having two-factor authentication enabled."
+        ),
+        "incorrect_code": _("Incorrect code."),
+        "unverified_email": _(
+            "You cannot activate two-factor authentication until you have verified your email address."
         ),
     }
     "The error messages that can occur as part of MFA form handling."

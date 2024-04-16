@@ -1,11 +1,16 @@
 OpenID
 ------
 
-The OpenID provider does not require any settings per se. However, a typical
-OpenID login page presents the user with a predefined list of OpenID providers
-and allows the user to input their own OpenID identity URL in case their
-provider is not listed by default. The list of providers displayed by the
-builtin templates can be configured as follows:
+The OpenID provider requires dependencies that are not installed by
+default. Install using::
+
+    $ pip install django-allauth[socialaccount,openid]
+
+The provider does not require any settings per se. However, a typical OpenID
+login page presents the user with a predefined list of OpenID providers and
+allows the user to input their own OpenID identity URL in case their provider is
+not listed by default. The list of providers displayed by the builtin templates
+can be configured as follows:
 
 .. code-block:: python
 

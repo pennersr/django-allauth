@@ -1,5 +1,7 @@
 from django.urls import path, re_path
 
+from allauth.account import app_settings
+
 from . import views
 
 
@@ -45,3 +47,19 @@ urlpatterns = [
         name="account_reset_password_from_key_done",
     ),
 ]
+
+if app_settings.LOGIN_BY_CODE_ENABLED:
+    urlpatterns.extend(
+        [
+            path(
+                "login/code/",
+                views.request_login_code,
+                name="account_request_login_code",
+            ),
+            path(
+                "login/code/confirm/",
+                views.confirm_login_code,
+                name="account_confirm_login_code",
+            ),
+        ]
+    )

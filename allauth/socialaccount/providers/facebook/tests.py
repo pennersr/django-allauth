@@ -84,6 +84,21 @@ class FacebookTests(OAuth2TestsMixin, TestCase):
         script = self.provider.media_js(request)
         self.assertTrue('"appId": "app123id"' in script)
 
+    def test_token_auth(self):
+        with mocked_response(
+            {"access_token": "app_token"},
+            {
+                "data": {
+                    "app_id": "app123id",
+                    "is_valid": True,
+                }
+            },
+            self.get_mocked_response(),
+        ):
+            login = self.provider.verify_token(None, {"access_token": "dummy"})
+            assert login.user.email == "raymond.penners@example.com"
+            assert login.token.token == "dummy"
+
     def test_login_by_token(self):
         resp = self.client.get(reverse("account_login"))
         with mocked_response(

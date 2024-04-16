@@ -9,6 +9,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext, gettext_lazy as _, pgettext
 
 from allauth.account.internal import flows
+from allauth.core import context, ratelimit
 
 from ..utils import (
     build_absolute_uri,
@@ -91,15 +92,6 @@ class LoginForm(forms.Form):
     remember = forms.BooleanField(label=_("Remember Me"), required=False)
 
     user = None
-    error_messages = {
-        "account_inactive": _("This account is currently inactive."),
-        "email_password_mismatch": _(
-            "The email address and/or password you specified are not correct."
-        ),
-        "username_password_mismatch": _(
-            "The username and/or password you specified are not correct."
-        ),
-    }
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request", None)
@@ -181,7 +173,8 @@ class LoginForm(forms.Form):
         if self._errors:
             return
         credentials = self.user_credentials()
-        user = get_adapter(self.request).authenticate(self.request, **credentials)
+        adapter = get_adapter(self.request)
+        user = adapter.authenticate(self.request, **credentials)
         if user:
             self.user = user
         else:
@@ -192,9 +185,7 @@ class LoginForm(forms.Form):
                     auth_method = app_settings.AuthenticationMethod.EMAIL
                 else:
                     auth_method = app_settings.AuthenticationMethod.USERNAME
-            raise forms.ValidationError(
-                self.error_messages["%s_password_mismatch" % auth_method]
-            )
+            raise adapter.validation_error("%s_password_mismatch" % auth_method)
         return self.cleaned_data
 
     def login(self, request, redirect_url=None):
@@ -359,7 +350,7 @@ class BaseSignupForm(_base_signup_form_class()):
             pass
         elif assessment is False:
             # Fail right away.
-            raise forms.ValidationError(adapter.error_messages["email_taken"])
+            raise adapter.validation_error("email_taken")
         else:
             assert assessment is None
             self.account_already_exists = True
@@ -475,27 +466,21 @@ class AddEmailForm(UserForm):
         value = self.cleaned_data["email"]
         adapter = get_adapter()
         value = adapter.clean_email(value)
-        errors = {
-            "this_account": _(
-                "This email address is already associated with this account."
-            ),
-            "max_email_addresses": _("You cannot add more than %d email addresses."),
-        }
         users = filter_users_by_email(value)
         on_this_account = [u for u in users if u.pk == self.user.pk]
         on_diff_account = [u for u in users if u.pk != self.user.pk]
 
         if on_this_account:
-            raise forms.ValidationError(errors["this_account"])
+            raise adapter.validation_error("duplicate_email")
         if (
             on_diff_account
             and app_settings.PREVENT_ENUMERATION != "strict"
             and app_settings.UNIQUE_EMAIL
         ):
-            raise forms.ValidationError(adapter.error_messages["email_taken"])
+            raise adapter.validation_error("email_taken")
         if not EmailAddress.objects.can_add_email(self.user):
-            raise forms.ValidationError(
-                errors["max_email_addresses"] % app_settings.MAX_EMAIL_ADDRESSES
+            raise adapter.validation_error(
+                "max_email_addresses", app_settings.MAX_EMAIL_ADDRESSES
             )
 
         signals._add_email.send(
@@ -531,9 +516,7 @@ class ChangePasswordForm(PasswordVerificationMixin, UserForm):
 
     def clean_oldpassword(self):
         if not self.user.check_password(self.cleaned_data.get("oldpassword")):
-            raise forms.ValidationError(
-                get_adapter().error_messages["enter_current_password"]
-            )
+            raise get_adapter().validation_error("enter_current_password")
         return self.cleaned_data["oldpassword"]
 
     def save(self):
@@ -573,7 +556,7 @@ class ResetPasswordForm(forms.Form):
         email = get_adapter().clean_email(email)
         self.users = filter_users_by_email(email, is_active=True, prefer_verified=True)
         if not self.users and not app_settings.PREVENT_ENUMERATION:
-            raise forms.ValidationError(get_adapter().error_messages["unknown_email"])
+            raise get_adapter().validation_error("unknown_email")
         return self.cleaned_data["email"]
 
     def save(self, request, **kwargs):
@@ -640,10 +623,6 @@ class UserTokenForm(forms.Form):
     reset_user = None
     token_generator = default_token_generator
 
-    error_messages = {
-        "token_invalid": _("The password reset token was invalid."),
-    }
-
     def _get_user(self, uidb36):
         User = get_user_model()
         try:
@@ -657,15 +636,15 @@ class UserTokenForm(forms.Form):
 
         uidb36 = cleaned_data.get("uidb36", None)
         key = cleaned_data.get("key", None)
-
+        adapter = get_adapter()
         if not key:
-            raise forms.ValidationError(self.error_messages["token_invalid"])
+            raise adapter.validation_error("invalid_password_reset")
 
         self.reset_user = self._get_user(uidb36)
         if self.reset_user is None or not self.token_generator.check_token(
             self.reset_user, key
         ):
-            raise forms.ValidationError(self.error_messages["token_invalid"])
+            raise adapter.validation_error("invalid_password_reset")
 
         return cleaned_data
 
@@ -680,7 +659,50 @@ class ReauthenticateForm(forms.Form):
     def clean_password(self):
         password = self.cleaned_data.get("password")
         if not get_adapter().reauthenticate(self.user, password):
-            raise forms.ValidationError(
-                get_adapter().error_messages["incorrect_password"]
-            )
+            raise get_adapter().validation_error("incorrect_password")
         return password
+
+
+class RequestLoginCodeForm(forms.Form):
+    email = forms.EmailField(
+        widget=forms.EmailInput(
+            attrs={
+                "placeholder": _("Email address"),
+                "autocomplete": "email",
+            }
+        )
+    )
+
+    def clean_email(self):
+        adapter = get_adapter()
+        email = self.cleaned_data["email"]
+        if not app_settings.PREVENT_ENUMERATION:
+            users = filter_users_by_email(email, is_active=True, prefer_verified=True)
+            if not users:
+                raise adapter.validation_error("unknown_email")
+
+        if not ratelimit.consume(
+            context.request, action="request_login_code", key=email.lower()
+        ):
+            raise adapter.validation_error("too_many_login_attempts")
+        return email
+
+
+class ConfirmLoginCodeForm(forms.Form):
+    code = forms.CharField(
+        label=_("Code"),
+        widget=forms.TextInput(
+            attrs={"placeholder": _("Code"), "autocomplete": "one-time-code"},
+        ),
+    )
+
+    def __init__(self, *args, **kwargs):
+        self.code = kwargs.pop("code")
+        super().__init__(*args, **kwargs)
+
+    def clean_code(self):
+        code = self.cleaned_data.get("code").replace(" ", "").lower()
+        expected_code = self.code.replace(" ", "").lower()
+        if not self.code or code != expected_code:
+            raise get_adapter().validation_error("incorrect_code")
+        return code

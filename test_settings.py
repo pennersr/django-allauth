@@ -82,6 +82,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.angellist",
     "allauth.socialaccount.providers.apple",
     "allauth.socialaccount.providers.asana",
+    "allauth.socialaccount.providers.atlassian",
     "allauth.socialaccount.providers.auth0",
     "allauth.socialaccount.providers.authentiq",
     "allauth.socialaccount.providers.baidu",
@@ -253,3 +254,5 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
     }
 }
+
+ACCOUNT_LOGIN_BY_CODE_ENABLED = True

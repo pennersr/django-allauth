@@ -39,7 +39,8 @@ class TiktokProvider(OAuth2Provider):
         }
 
     def get_default_scope(self):
-        return ["user.info.basic", "user.info.profile"]
+        return ["user.info.basic"]
+        # return ["user.info.basic", "user.info.profile"]
 
 
 provider_classes = [TiktokProvider]

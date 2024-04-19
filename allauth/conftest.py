@@ -1,3 +1,4 @@
+import random
 import uuid
 from contextlib import contextmanager
 from unittest.mock import patch
@@ -67,7 +68,10 @@ def user_factory(email_factory, db, user_password):
             user.save()
             if email and with_emailaddress:
                 EmailAddress.objects.create(
-                    user=user, email=email, verified=email_verified, primary=True
+                    user=user,
+                    email=email.lower(),
+                    verified=email_verified,
+                    primary=True,
                 )
         if with_totp:
             totp.TOTP.activate(user, totp.generate_totp_secret())
@@ -78,10 +82,16 @@ def user_factory(email_factory, db, user_password):
 
 @pytest.fixture
 def email_factory():
-    def factory(username=None):
-        if not username:
-            username = uuid.uuid4().hex
-        return f"{username}@{uuid.uuid4().hex}.org"
+    def factory(username=None, email=None, mixed_case=False):
+        if email is None:
+            if not username:
+                username = uuid.uuid4().hex
+            email = f"{username}@{uuid.uuid4().hex}.org"
+        if mixed_case:
+            email = "".join([random.choice([c.upper(), c.lower()]) for c in email])
+        else:
+            email = email.lower()
+        return email
 
     return factory
 

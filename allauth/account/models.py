@@ -47,6 +47,10 @@ class EmailAddress(models.Model):
     def __str__(self):
         return self.email
 
+    def clean(self):
+        super().clean()
+        self.email = self.email.lower()
+
     def can_set_verified(self):
         if self.verified:
             return True

@@ -37,6 +37,7 @@ class EmailAddressManager(models.Manager):
         """
         assert app_settings.CHANGE_EMAIL
         instance = self.get_new(user)
+        email = email.lower()
         if not instance:
             instance = self.model.objects.create(user=user, email=email)
         else:
@@ -50,6 +51,7 @@ class EmailAddressManager(models.Manager):
         return instance
 
     def add_email(self, request, user, email, confirm=False, signup=False):
+        email = email.lower()
         email_address, created = self.get_or_create(
             user=user, email__iexact=email, defaults={"email": email}
         )
@@ -97,6 +99,7 @@ class EmailAddressManager(models.Manager):
     def get_for_user(self, user, email):
         cache_key = "_emailaddress_cache"
         addresses = getattr(user, cache_key, None)
+        email = email.lower()
         if addresses is None:
             ret = self.get(user=user, email__iexact=email)
             # To avoid additional lookups when e.g.

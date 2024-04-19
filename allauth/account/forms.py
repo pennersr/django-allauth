@@ -336,7 +336,7 @@ class BaseSignupForm(_base_signup_form_class()):
         return value
 
     def clean_email(self):
-        value = self.cleaned_data["email"]
+        value = self.cleaned_data["email"].lower()
         value = get_adapter().clean_email(value)
         if value and app_settings.UNIQUE_EMAIL:
             value = self.validate_unique_email(value)
@@ -463,7 +463,7 @@ class AddEmailForm(UserForm):
     def clean_email(self):
         from allauth.account import signals
 
-        value = self.cleaned_data["email"]
+        value = self.cleaned_data["email"].lower()
         adapter = get_adapter()
         value = adapter.clean_email(value)
         users = filter_users_by_email(value)
@@ -552,7 +552,7 @@ class ResetPasswordForm(forms.Form):
     )
 
     def clean_email(self):
-        email = self.cleaned_data["email"]
+        email = self.cleaned_data["email"].lower()
         email = get_adapter().clean_email(email)
         self.users = filter_users_by_email(email, is_active=True, prefer_verified=True)
         if not self.users and not app_settings.PREVENT_ENUMERATION:

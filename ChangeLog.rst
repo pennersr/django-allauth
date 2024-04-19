@@ -15,17 +15,8 @@ Note worthy changes
 - Added support for logging in by email using a special code, also known as
   "Magic Code Login"
 
-
-Backwards incompatible changes
-------------------------------
-
-- The django-allauth required dependencies are now more fine grained.  If you do
-  not use any of the social account functionality, a `pip install
-  django-allauth` will, e.g., no longer pull in dependencies for handling
-  JWT. If you are using social account functionality, install using `pip install
-  django-allauth[socialaccount]`.  That will install the dependencies covering
-  most common providers. If you are using the Steam provider, install using `pip
-  install django-allauth[socialaccount,steam]`.
+- Email addresses are now always stored as lower case. For rationale, see the
+  note about email case sensitivity in the documentation.
 
 
 0.61.1 (2024-02-09)
@@ -104,6 +95,22 @@ Fixes
 - SAML: accessing the SLS/ACS views using a GET request would result in a crash (500).
 
 - SAML: the login view did not obey the ``SOCIALACCOUNT_LOGIN_ON_GET = False`` setting.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Formally, email addresses are case sensitive because the local part (the part
+  before the "@") can be a case sensitive user name.  To deal with this,
+  workarounds have been in place for a long time that store email addresses in
+  their original case, while performing lookups in a case insensitive
+  style. This approach led to subtle bugs in upstream code, and also comes at a
+  performance cost (``__iexact`` lookups). The latter requires case insensitive
+  index support, which not all databases support. Re-evaluating the approach in
+  current times has led to the conclusion that the benefits do not outweigh the
+  costs.  Therefore, email addresses are now always stored as lower case, and
+  migrations are in place to address existing records.
+
 
 
 0.60.0 (2024-01-05)

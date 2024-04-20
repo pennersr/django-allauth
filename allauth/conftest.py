@@ -134,3 +134,8 @@ def totp_validation_bypass():
             yield
 
     return f
+
+
+@pytest.fixture
+def provider_id():
+    return "unittest-server"

@@ -7,6 +7,7 @@ from django.core.exceptions import (
 )
 from django.db.models import Q
 from django.urls import reverse
+from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 
 from allauth.core.internal.adapter import BaseAdapter
@@ -353,6 +354,19 @@ class DefaultSocialAccountAdapter(BaseAdapter):
                 "EMAIL_AUTHENTICATION", False
             )
         return ret
+
+    def generate_state_param(self, state: dict) -> str:
+        """
+        To preserve certain state before the handshake with the provider
+        takes place, and be able to verify/use that state later on, a `state`
+        parameter is typically passed to the provider. By default, a random
+        string sufficies as the state parameter value is actually just a
+        reference/pointer to the actual state. You can use this adapter method
+        to alter the generation of the `state` parameter.
+        """
+        from allauth.socialaccount.internal.statekit import STATE_ID_LENGTH
+
+        return get_random_string(STATE_ID_LENGTH)
 
 
 def get_adapter(request=None):

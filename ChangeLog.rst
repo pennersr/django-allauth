@@ -18,6 +18,9 @@ Note worthy changes
 - Email addresses are now always stored as lower case. For rationale, see the
   note about email case sensitivity in the documentation.
 
+- You can now alter the ``state`` parameter that is typically passed to the
+  provider by overriding the new ``generate_state_param()`` adapter method.
+
 
 0.61.1 (2024-02-09)
 *******************

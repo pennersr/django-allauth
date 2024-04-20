@@ -1,8 +1,10 @@
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 
+from allauth import app_settings as allauth_settings
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
+from allauth.account.models import EmailAddress
 from allauth.account.reauthentication import (
     raise_if_reauthentication_required,
     reauthenticate_then_callback,
@@ -10,6 +12,32 @@ from allauth.account.reauthentication import (
 from allauth.socialaccount import signals
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.models import SocialAccount, SocialLogin
+
+
+def validate_disconnect(request, account):
+    """
+    Validate whether or not the socialaccount account can be
+    safely disconnected.
+    """
+    accounts = SocialAccount.objects.filter(user_id=account.user_id)
+    is_last = not accounts.exclude(pk=account.pk).exists()
+    if is_last:
+        adapter = get_adapter()
+        if allauth_settings.SOCIALACCOUNT_ONLY:
+            raise adapter.validation_error("disconnect_last")
+        # No usable password would render the local account unusable
+        if not account.user.has_usable_password():
+            raise adapter.validation_error("no_password")
+        # No email address, no password reset
+        if (
+            account_settings.EMAIL_VERIFICATION
+            == account_settings.EmailVerificationMethod.MANDATORY
+        ):
+            if not EmailAddress.objects.filter(
+                user=account.user, verified=True
+            ).exists():
+                raise adapter.validation_error("no_verified_email")
+    adapter.validate_disconnect(account, accounts)
 
 
 def disconnect(request, account):

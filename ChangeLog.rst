@@ -31,6 +31,9 @@ Note worthy changes
   ``/accounts/3rdparty/``.  The old endpoints still work as redirects are in
   place.
 
+- Added a new setting, ``SOCIALACCOUNT_ONLY``, which when set to ``True``,
+  disables all functionality with respect to local accounts.
+
 
 0.61.1 (2024-02-09)
 *******************

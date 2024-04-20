@@ -12,4 +12,5 @@ Social Accounts
    forms
    signals
    providers/index
+   adapter
    advanced

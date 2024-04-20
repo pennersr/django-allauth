@@ -12,4 +12,5 @@ Regular Accounts
    decorators
    signals
    email
+   adapter
    advanced

@@ -5,9 +5,10 @@ from allauth.utils import import_attribute
 
 class DefaultUserSessionsAdapter(BaseAdapter):
     """The adapter class allows you to override various functionality of the
-    ``allauth.usersessions`` app.  To do so, point ``settings.USERSESSIONS_ADAPTER`` to your own
-    class that derives from ``DefaultUserSessionsAdapter`` and override the behavior by
-    altering the implementation of the methods according to your own need.
+    ``allauth.usersessions`` app.  To do so, point
+    ``settings.USERSESSIONS_ADAPTER`` to your own class that derives from
+    ``DefaultUserSessionsAdapter`` and override the behavior by altering the
+    implementation of the methods according to your own needs.
     """
 
     def end_sessions(self, sessions):

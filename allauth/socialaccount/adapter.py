@@ -26,6 +26,13 @@ from . import app_settings
 
 
 class DefaultSocialAccountAdapter(BaseAdapter):
+    """The adapter class allows you to override various functionality of the
+    ``allauth.socialaccount`` app.  To do so, point ``settings.SOCIALACCOUNT_ADAPTER`` to
+    your own class that derives from ``DefaultSocialAccountAdapter`` and override the
+    behavior by altering the implementation of the methods according to your own
+    needs.
+    """
+
     error_messages = {
         "email_taken": _(
             "An account already exists with this email address."

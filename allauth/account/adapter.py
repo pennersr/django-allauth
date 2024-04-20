@@ -46,6 +46,13 @@ from . import app_settings
 
 
 class DefaultAccountAdapter(BaseAdapter):
+    """The adapter class allows you to override various functionality of the
+    ``allauth.account`` app.  To do so, point ``settings.ACCOUNT_ADAPTER`` to
+    your own class that derives from ``DefaultAccountAdapter`` and override the
+    behavior by altering the implementation of the methods according to your own
+    needs.
+    """
+
     error_messages = {
         "account_inactive": _("This account is currently inactive."),
         "duplicate_email": _(

@@ -19,7 +19,7 @@ from allauth.socialaccount.providers.saml.utils import build_saml_config
     [
         (False, None, None, "/accounts/profile/"),
         (False, None, "/foo", "/foo"),
-        (True, {"process": "connect"}, None, "/social/connections/"),
+        (True, {"process": "connect"}, None, reverse("socialaccount_connections")),
         (True, {"process": "connect", "next_url": "/conn"}, None, "/conn"),
     ],
 )

@@ -21,6 +21,16 @@ Note worthy changes
 - You can now alter the ``state`` parameter that is typically passed to the
   provider by overriding the new ``generate_state_param()`` adapter method.
 
+- The URLs were not "hackable". For example, while ``/accounts/login/`` is valid
+  ``/accounts/`` was not. Similarly, ``/accounts/social/connections/`` was
+  valid, but ``/accounts/social/`` resulted in a 404. This has been
+  addressed. Now, ``/accounts/`` redirects to the login or email management
+  page, depending on whether or not the user is authenticated.  All
+  ``/accounts/social/*`` URLs are now below ``/accounts/3rdparty/*``, where
+  ``/accounts/social/connections`` is moved to the top-level
+  ``/accounts/3rdparty/``.  The old endpoints still work as redirects are in
+  place.
+
 
 0.61.1 (2024-02-09)
 *******************

@@ -11,5 +11,5 @@ urlpatterns = [
     ),
     path("login/error/", views.login_error, name="socialaccount_login_error"),
     path("signup/", views.signup, name="socialaccount_signup"),
-    path("connections/", views.connections, name="socialaccount_connections"),
+    path("", views.connections, name="socialaccount_connections"),
 ]

@@ -3,14 +3,20 @@
     <div class="flex-grow-1 d-flex flex-row">
         <aside class="col-md-2 text-bg-dark ">
             <ul class="p-3 nav nav-pills flex-column">
-                <li class="nav-item">
-                    <a class="{% block nav_class_email %}nav-link text-white{% endblock %}"
-                       href="{% url 'account_email' %}">Change Email</a>
-                </li>
-                <li class="nav-item">
-                    <a class="{% block nav_class_password %}nav-link text-white{% endblock %}"
-                       href="{% url 'account_change_password' %}">Change Password</a>
-                </li>
+                {% url 'account_email' as email_url %}
+                {% if email_url %}
+                    <li class="nav-item">
+                        <a class="{% block nav_class_email %}nav-link text-white{% endblock %}"
+                           href="{% url 'account_email' %}">Change Email</a>
+                    </li>
+                {% endif %}
+                {% url 'account_change_password' as change_password_url %}
+                {% if change_password_url %}
+                    <li class="nav-item">
+                        <a class="{% block nav_class_password %}nav-link text-white{% endblock %}"
+                           href="{% url 'account_change_password' %}">Change Password</a>
+                    </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="{% block nav_class_socialaccount %}nav-link text-white{% endblock %}"
                        href="{% url 'socialaccount_connections' %}">Third-Party Accounts</a>

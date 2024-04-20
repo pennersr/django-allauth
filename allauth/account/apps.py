@@ -12,6 +12,8 @@ class AccountConfig(AppConfig):
     default_auto_field = app_settings.DEFAULT_AUTO_FIELD or "django.db.models.AutoField"
 
     def ready(self):
+        from allauth.account import checks  # noqa
+
         required_mw = "allauth.account.middleware.AccountMiddleware"
         if required_mw not in settings.MIDDLEWARE:
             raise ImproperlyConfigured(

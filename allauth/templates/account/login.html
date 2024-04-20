@@ -8,24 +8,31 @@
     {% element h1 %}
         {% trans "Sign In" %}
     {% endelement %}
-    <p>
-        {% blocktrans %}If you have not created an account yet, then please
-    <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}
-    </p>
-    {% url 'account_login' as login_url %}
-    {% element form form=form method="post" action=login_url tags="entrance,login" %}
-        {% slot body %}
-            {% csrf_token %}
-            {% element fields form=form unlabeled=True %}
-            {% endelement %}
-            {{ redirect_field }}
-        {% endslot %}
-        {% slot actions %}
-            {% element button type="submit" tags="prominent,login" %}
-                {% trans "Sign In" %}
-            {% endelement %}
-        {% endslot %}
-    {% endelement %}
+    {% if not SOCIALACCOUNT_ONLY %}
+        {% setvar link %}
+            <a href="{{ signup_url }}">
+            {% endsetvar %}
+            {% setvar end_link %}
+            </a>
+        {% endsetvar %}
+        <p>
+            {% blocktranslate %}If you have not created an account yet, then please {{ link }}sign up{{ end_link }} first.{% endblocktranslate %}
+        </p>
+        {% url 'account_login' as login_url %}
+        {% element form form=form method="post" action=login_url tags="entrance,login" %}
+            {% slot body %}
+                {% csrf_token %}
+                {% element fields form=form unlabeled=True %}
+                {% endelement %}
+                {{ redirect_field }}
+            {% endslot %}
+            {% slot actions %}
+                {% element button type="submit" tags="prominent,login" %}
+                    {% trans "Sign In" %}
+                {% endelement %}
+            {% endslot %}
+        {% endelement %}
+    {% endif %}
     {% if LOGIN_BY_CODE_ENABLED %}
         {% element hr %}
         {% endelement %}

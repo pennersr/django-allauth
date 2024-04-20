@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-12 13:15-0500\n"
-"PO-Revision-Date: 2024-01-15 21:06+0000\n"
+"POT-Creation-Date: 2024-04-20 14:01-0500\n"
+"PO-Revision-Date: 2024-04-20 21:52+0200\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/django-"
 "allauth/django-allauth/nb_NO/>\n"
@@ -19,69 +19,69 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.4-dev\n"
 
-#: account/adapter.py:50
+#: account/adapter.py:57
 msgid "This account is currently inactive."
 msgstr "Denne kontoen er inaktiv."
 
-#: account/adapter.py:52
+#: account/adapter.py:59
 msgid "This email address is already associated with this account."
 msgstr "Denne e-postadressen er allerede tilknyttet denne kontoen."
 
-#: account/adapter.py:55
+#: account/adapter.py:62
 msgid "The email address and/or password you specified are not correct."
 msgstr "E-postadressen og/eller passordet du oppgav er feil."
 
-#: account/adapter.py:57
+#: account/adapter.py:64
 msgid "A user is already registered with this email address."
 msgstr "En bruker med denne e-postadressen er allerede registrert."
 
-#: account/adapter.py:58
+#: account/adapter.py:65
 msgid "Please type your current password."
 msgstr "Vennligst skriv inn ditt passord."
 
-#: account/adapter.py:59 mfa/adapter.py:29
+#: account/adapter.py:66 mfa/adapter.py:29
 msgid "Incorrect code."
 msgstr ""
 
-#: account/adapter.py:60
+#: account/adapter.py:67
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "Nåværende passord"
 
-#: account/adapter.py:61
+#: account/adapter.py:68
 msgid "The password reset token was invalid."
 msgstr "Nøkkelen for passordgjenopprettelse var ugyldig."
 
-#: account/adapter.py:62
+#: account/adapter.py:69
 #, fuzzy, python-format
 #| msgid "Your account has no verified email address."
 msgid "You cannot add more than %d email addresses."
 msgstr "Din konto har ingen verifisert e-postadresse."
 
-#: account/adapter.py:64
+#: account/adapter.py:71
 msgid "Too many failed login attempts. Try again later."
 msgstr "For mange innloggingsforsøk. Vennligst prøv igjen senere."
 
-#: account/adapter.py:66
+#: account/adapter.py:73
 msgid "The email address is not assigned to any user account"
 msgstr "E-postadressen er ikke tilknyttet noen brukerkonto"
 
-#: account/adapter.py:68
+#: account/adapter.py:75
 msgid "Username can not be used. Please use other username."
 msgstr "Brukernavnet kan ikke benyttes. Vennligst velg et annet brukernavn."
 
-#: account/adapter.py:71
+#: account/adapter.py:78
 msgid "The username and/or password you specified are not correct."
 msgstr "Brukernavnet og/eller passordet du oppgav er feil."
 
-#: account/adapter.py:707
+#: account/adapter.py:714
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "Glemt passord?"
 
-#: account/adapter.py:717
+#: account/adapter.py:724
 msgid "Use your authenticator app"
 msgstr ""
 
@@ -179,7 +179,7 @@ msgstr "Kode"
 msgid "user"
 msgstr "bruker"
 
-#: account/models.py:26 account/models.py:34 account/models.py:136
+#: account/models.py:26 account/models.py:34 account/models.py:140
 msgid "email address"
 msgstr "e-postadresse"
 
@@ -195,23 +195,23 @@ msgstr "primær"
 msgid "email addresses"
 msgstr "e-postadresser"
 
-#: account/models.py:139
+#: account/models.py:143
 msgid "created"
 msgstr "opprettet"
 
-#: account/models.py:140
+#: account/models.py:144
 msgid "sent"
 msgstr "sendt"
 
-#: account/models.py:141 socialaccount/models.py:62
+#: account/models.py:145 socialaccount/models.py:62
 msgid "key"
 msgstr "nøkkel"
 
-#: account/models.py:146
+#: account/models.py:150
 msgid "email confirmation"
 msgstr "e-postbekreftelse"
 
-#: account/models.py:147
+#: account/models.py:151
 msgid "email confirmations"
 msgstr "e-postbekreftelser"
 
@@ -253,7 +253,7 @@ msgstr "Gjenopprettingskoder"
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:36
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -265,19 +265,28 @@ msgstr ""
 "En konto med denne e-postadressen eksisterer fra før. Vennligst logg inn på "
 "den kontoen først for så å koble til din %s konto."
 
-#: socialaccount/adapter.py:34
+#: socialaccount/adapter.py:40
 #, fuzzy
 #| msgid "Bad Token"
 msgid "Invalid token."
 msgstr "Ugyldig token"
 
-#: socialaccount/adapter.py:35
+#: socialaccount/adapter.py:41
 msgid "Your account has no password set up."
 msgstr "Kontoen din har ikke noe passord."
 
-#: socialaccount/adapter.py:36
+#: socialaccount/adapter.py:42
 msgid "Your account has no verified email address."
 msgstr "Din konto har ingen verifisert e-postadresse."
+
+#: socialaccount/adapter.py:44
+#, fuzzy
+#| msgid ""
+#| "You can sign in to your account using any of the following third party "
+#| "accounts:"
+msgid "You cannot disconnect your last remaining third-party account."
+msgstr ""
+"Du kan logge inn på din konto ved å bruke en av følgende tredjeparts kontoer:"
 
 #: socialaccount/apps.py:9
 msgid "Social Accounts"
@@ -452,7 +461,7 @@ msgstr ""
 
 #: templates/account/confirm_login_code.html:5
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
-#: templates/account/login.html:9 templates/account/login.html:25
+#: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
 #: templates/allauth/layouts/base.html:36 templates/mfa/authenticate.html:5
 #: templates/mfa/authenticate.html:23 templates/openid/login.html:5
@@ -827,19 +836,14 @@ msgstr ""
 "Denne e-postbekreftelseslinken er utgått eller ugyldig. Vennligst <a "
 "href=\"%(email_url)s\">etterspør en ny e-postbekreftelseslink</a>."
 
-#: templates/account/login.html:12
-#, fuzzy, python-format
-#| msgid ""
-#| "If you have not created an account yet, then please\n"
-#| "<a href=\"%(signup_url)s\">sign up</a> first."
+#: templates/account/login.html:19
+#, python-format
 msgid ""
-"If you have not created an account yet, then please\n"
-"    <a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
-"Om du enda ikke har laget en konto, vennligst\n"
-"<a href=\"%(signup_url)s\">registrer deg</a> først."
+"If you have not created an account yet, then please %(link)ssign "
+"up%(end_link)s first."
+msgstr "Om du enda ikke har laget en konto, vennligst %(link)sregistrer deg%(end_link)s først."
 
-#: templates/account/login.html:34 templates/account/request_login_code.html:9
+#: templates/account/login.html:41 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
 msgstr ""
 
@@ -996,18 +1000,16 @@ msgstr ""
 msgid "Signup"
 msgstr "Registrer deg"
 
-#: templates/account/signup.html:8 templates/account/signup.html:23
+#: templates/account/signup.html:8 templates/account/signup.html:28
 #: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "Registrer deg"
 
-#: templates/account/signup.html:11
+#: templates/account/signup.html:16
 #, python-format
-msgid ""
-"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr ""
-"Har du allerede en konto? Vennligst <a href=\"%(login_url)s\">logg inn</a>."
+msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
+msgstr "Har du allerede en konto? Vennligst %(link)slogg inn%(end_link)s."
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1419,7 +1421,7 @@ msgstr ""
 "Du er på vei til å bruke din %(provider_name)s konto for å logge inn på\n"
 "%(site_name)s. Som et siste steg, vennligst fullfør følgende skjema:"
 
-#: templates/socialaccount/snippets/login.html:9
+#: templates/socialaccount/snippets/login.html:10
 msgid "Or use a third-party"
 msgstr ""
 

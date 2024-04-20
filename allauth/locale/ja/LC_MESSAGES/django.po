@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-12 13:15-0500\n"
-"PO-Revision-Date: 2024-03-29 08:01+0000\n"
+"POT-Creation-Date: 2024-04-20 14:01-0500\n"
+"PO-Revision-Date: 2024-04-20 21:57+0200\n"
 "Last-Translator: SATOH Fumiyasu <fumiyas@osstech.co.jp>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/django-allauth/"
 "django-allauth/ja/>\n"
@@ -19,64 +19,64 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 5.5-dev\n"
 
-#: account/adapter.py:50
+#: account/adapter.py:57
 msgid "This account is currently inactive."
 msgstr "このアカウントは現在無効です。"
 
-#: account/adapter.py:52
+#: account/adapter.py:59
 msgid "This email address is already associated with this account."
 msgstr "このメールアドレスはすでに登録されています。"
 
-#: account/adapter.py:55
+#: account/adapter.py:62
 msgid "The email address and/or password you specified are not correct."
 msgstr "入力されたメールアドレスもしくはパスワードが正しくありません。"
 
-#: account/adapter.py:57
+#: account/adapter.py:64
 msgid "A user is already registered with this email address."
 msgstr "他のユーザーがこのメールアドレスを使用しています。"
 
-#: account/adapter.py:58
+#: account/adapter.py:65
 msgid "Please type your current password."
 msgstr "現在のパスワードを入力してください。"
 
-#: account/adapter.py:59 mfa/adapter.py:29
+#: account/adapter.py:66 mfa/adapter.py:29
 msgid "Incorrect code."
 msgstr "コードが正しくありません。"
 
-#: account/adapter.py:60
+#: account/adapter.py:67
 msgid "Incorrect password."
 msgstr "不正なパスワードです。"
 
-#: account/adapter.py:61
+#: account/adapter.py:68
 msgid "The password reset token was invalid."
 msgstr "パスワードリセットトークンが無効です。"
 
-#: account/adapter.py:62
+#: account/adapter.py:69
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "メールアドレスは %d 個までしか登録できません。"
 
-#: account/adapter.py:64
+#: account/adapter.py:71
 msgid "Too many failed login attempts. Try again later."
 msgstr "ログイン失敗が連続しています。時間が経ってからやり直してください。"
 
-#: account/adapter.py:66
+#: account/adapter.py:73
 msgid "The email address is not assigned to any user account"
 msgstr "このメールアドレスで登録されたユーザーアカウントがありません。"
 
-#: account/adapter.py:68
+#: account/adapter.py:75
 msgid "Username can not be used. Please use other username."
 msgstr "このユーザー名は使用できません。他のユーザー名を選んでください。"
 
-#: account/adapter.py:71
+#: account/adapter.py:78
 msgid "The username and/or password you specified are not correct."
 msgstr "入力されたユーザー名もしくはパスワードが正しくありません。"
 
-#: account/adapter.py:707
+#: account/adapter.py:714
 msgid "Use your password"
 msgstr "パスワードを使用する"
 
-#: account/adapter.py:717
+#: account/adapter.py:724
 msgid "Use your authenticator app"
 msgstr "認証アプリを利用する"
 
@@ -170,7 +170,7 @@ msgstr "コード"
 msgid "user"
 msgstr "ユーザー"
 
-#: account/models.py:26 account/models.py:34 account/models.py:136
+#: account/models.py:26 account/models.py:34 account/models.py:140
 msgid "email address"
 msgstr "メールアドレス"
 
@@ -186,23 +186,23 @@ msgstr "メイン"
 msgid "email addresses"
 msgstr "メールアドレス"
 
-#: account/models.py:139
+#: account/models.py:143
 msgid "created"
 msgstr "作成日時"
 
-#: account/models.py:140
+#: account/models.py:144
 msgid "sent"
 msgstr "送信日時"
 
-#: account/models.py:141 socialaccount/models.py:62
+#: account/models.py:145 socialaccount/models.py:62
 msgid "key"
 msgstr "キー"
 
-#: account/models.py:146
+#: account/models.py:150
 msgid "email confirmation"
 msgstr "メールアドレスの確認"
 
-#: account/models.py:147
+#: account/models.py:151
 msgid "email confirmations"
 msgstr "メールアドレスの確認"
 
@@ -248,7 +248,7 @@ msgstr "リカバリーコード"
 msgid "TOTP Authenticator"
 msgstr "TOTP 認証アプリ"
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:36
 #, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
@@ -257,19 +257,27 @@ msgstr ""
 "このメールアドレスを使用するアカウントが既にあります。そのアカウントにログイ"
 "ンしてから %s アカウントを接続してください。"
 
-#: socialaccount/adapter.py:34
+#: socialaccount/adapter.py:40
 #, fuzzy
 #| msgid "Bad Token"
 msgid "Invalid token."
 msgstr "不正なトークン"
 
-#: socialaccount/adapter.py:35
+#: socialaccount/adapter.py:41
 msgid "Your account has no password set up."
 msgstr "アカウントにパスワードを設定する必要があります。"
 
-#: socialaccount/adapter.py:36
+#: socialaccount/adapter.py:42
 msgid "Your account has no verified email address."
 msgstr "確認済みのメールアドレスの登録が必要です。"
+
+#: socialaccount/adapter.py:44
+#, fuzzy
+#| msgid ""
+#| "You can sign in to your account using any of the following third-party "
+#| "accounts:"
+msgid "You cannot disconnect your last remaining third-party account."
+msgstr "以下の外部アカウントを使ってログインすることができます:"
 
 #: socialaccount/apps.py:9
 msgid "Social Accounts"
@@ -445,7 +453,7 @@ msgstr "そのほかの方法"
 
 #: templates/account/confirm_login_code.html:5
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
-#: templates/account/login.html:9 templates/account/login.html:25
+#: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
 #: templates/allauth/layouts/base.html:36 templates/mfa/authenticate.html:5
 #: templates/mfa/authenticate.html:23 templates/openid/login.html:5
@@ -766,16 +774,14 @@ msgstr ""
 "メールアドレス確認用のリンクが不正か、期限が切れています。<a "
 "href=\"%(email_url)s\">確認用のメールを再送</a>してください。"
 
-#: templates/account/login.html:12
+#: templates/account/login.html:19
 #, python-format
 msgid ""
-"If you have not created an account yet, then please\n"
-"    <a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
-"アカウントをまだお持ちでなければ、 <a href=\"%(signup_url)s\">こちらからユー"
-"ザー登録</a> してください。"
+"If you have not created an account yet, then please %(link)ssign "
+"up%(end_link)s first."
+msgstr "アカウントをまだお持ちでなければ、 %(link)sこちらからユーザー登録%(end_link)s してください。"
 
-#: templates/account/login.html:34 templates/account/request_login_code.html:9
+#: templates/account/login.html:41 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
 msgstr ""
 
@@ -922,19 +928,16 @@ msgstr "リカバリーコード"
 msgid "Signup"
 msgstr "ユーザー登録"
 
-#: templates/account/signup.html:8 templates/account/signup.html:23
+#: templates/account/signup.html:8 templates/account/signup.html:28
 #: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "ユーザー登録"
 
-#: templates/account/signup.html:11
+#: templates/account/signup.html:16
 #, python-format
-msgid ""
-"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr ""
-"すでにアカウントをお持ちであれば、こちらから <a href=\"%(login_url)s\">ログイ"
-"ン</a> してください。"
+msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
+msgstr "すでにアカウントをお持ちであれば、こちらから %(link)sログイン%(end_link)s してください。"
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1296,7 +1299,7 @@ msgstr ""
 "す。\n"
 "ユーザー登録のために、以下のフォームに記入してください。"
 
-#: templates/socialaccount/snippets/login.html:9
+#: templates/socialaccount/snippets/login.html:10
 msgid "Or use a third-party"
 msgstr "外部アカウントを使用する"
 

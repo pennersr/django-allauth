@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-12 13:15-0500\n"
-"PO-Revision-Date: 2018-08-29 08:16+0200\n"
+"POT-Creation-Date: 2024-04-20 14:01-0500\n"
+"PO-Revision-Date: 2024-04-20 22:11+0200\n"
 "Last-Translator: Eneko Illarramendi <eneko@illarra.com>\n"
 "Language-Team: Basque <translate@tropela.eus>\n"
 "Language: eu\n"
@@ -18,70 +18,70 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.1.1\n"
 
-#: account/adapter.py:50
+#: account/adapter.py:57
 msgid "This account is currently inactive."
 msgstr "Kontu hau ez dago aktiboa orain."
 
-#: account/adapter.py:52
+#: account/adapter.py:59
 msgid "This email address is already associated with this account."
 msgstr "Helbide elektroniko hau dagoeneko kontu honi lotuta dago."
 
-#: account/adapter.py:55
+#: account/adapter.py:62
 msgid "The email address and/or password you specified are not correct."
 msgstr "Sartutako helbide elektronikoa eta/edo pasahitza ez dira zuzenak."
 
-#: account/adapter.py:57
+#: account/adapter.py:64
 msgid "A user is already registered with this email address."
 msgstr ""
 "Erabiltzaile batek kontu bat sortu du iada helbide elektroniko honekin."
 
-#: account/adapter.py:58
+#: account/adapter.py:65
 msgid "Please type your current password."
 msgstr "Mesedez idatzi zure oraingo pasahitza."
 
-#: account/adapter.py:59 mfa/adapter.py:29
+#: account/adapter.py:66 mfa/adapter.py:29
 msgid "Incorrect code."
 msgstr ""
 
-#: account/adapter.py:60
+#: account/adapter.py:67
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "Oraingo pasahitza"
 
-#: account/adapter.py:61
+#: account/adapter.py:68
 msgid "The password reset token was invalid."
 msgstr "Pasahitza berrezartzeko \"token\"-a baliogabea da."
 
-#: account/adapter.py:62
+#: account/adapter.py:69
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Ezin dituzu %d email helbide baino gehiago erabili."
 
-#: account/adapter.py:64
+#: account/adapter.py:71
 msgid "Too many failed login attempts. Try again later."
 msgstr "Huts egite gehiegi saioa hasterakoan. Saiatu berriro beranduago."
 
-#: account/adapter.py:66
+#: account/adapter.py:73
 msgid "The email address is not assigned to any user account"
 msgstr "Helbide elektroniko hau ez dago kontu bati lotuta"
 
-#: account/adapter.py:68
+#: account/adapter.py:75
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Erabiltzaile izen hau ezin da erabili. Aukeratu beste erabiltzaile izen bat."
 
-#: account/adapter.py:71
+#: account/adapter.py:78
 msgid "The username and/or password you specified are not correct."
 msgstr "Sartutako erabiltzailea eta/edo pasahitza ez dira zuzenak."
 
-#: account/adapter.py:707
+#: account/adapter.py:714
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "Pasahitza ahaztu duzu?"
 
-#: account/adapter.py:717
+#: account/adapter.py:724
 msgid "Use your authenticator app"
 msgstr ""
 
@@ -179,7 +179,7 @@ msgstr ""
 msgid "user"
 msgstr "erabiltzailea"
 
-#: account/models.py:26 account/models.py:34 account/models.py:136
+#: account/models.py:26 account/models.py:34 account/models.py:140
 msgid "email address"
 msgstr "helbide elektronikoa"
 
@@ -195,23 +195,23 @@ msgstr "nagusia"
 msgid "email addresses"
 msgstr "helbide elektronikoak"
 
-#: account/models.py:139
+#: account/models.py:143
 msgid "created"
 msgstr "sortuta"
 
-#: account/models.py:140
+#: account/models.py:144
 msgid "sent"
 msgstr "bidalita"
 
-#: account/models.py:141 socialaccount/models.py:62
+#: account/models.py:145 socialaccount/models.py:62
 msgid "key"
 msgstr "giltza"
 
-#: account/models.py:146
+#: account/models.py:150
 msgid "email confirmation"
 msgstr "email egiaztapena"
 
-#: account/models.py:147
+#: account/models.py:151
 msgid "email confirmations"
 msgstr "email egiaztapenak"
 
@@ -253,7 +253,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:36
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -265,19 +265,28 @@ msgstr ""
 "Kontu bat sortu da iada helbide elektroniko honekin. Mesedez hasi saio berri "
 "bat kontu honekin eta gero zure %s kontua honi lotu."
 
-#: socialaccount/adapter.py:34
+#: socialaccount/adapter.py:40
 #, fuzzy
 #| msgid "Bad Token"
 msgid "Invalid token."
 msgstr "Token baliogabea"
 
-#: socialaccount/adapter.py:35
+#: socialaccount/adapter.py:41
 msgid "Your account has no password set up."
 msgstr "Zure kontuak ez du pasahitzik zehaztuta."
 
-#: socialaccount/adapter.py:36
+#: socialaccount/adapter.py:42
 msgid "Your account has no verified email address."
 msgstr "Zure kontuak ez du egiaztatutako emailik."
+
+#: socialaccount/adapter.py:44
+#, fuzzy
+#| msgid ""
+#| "You can sign in to your account using any of the following third party "
+#| "accounts:"
+msgid "You cannot disconnect your last remaining third-party account."
+msgstr ""
+"Ondorengo zerbitzu hauetako edozein erabili dezakezu zure kontuan sartzeko:"
 
 #: socialaccount/apps.py:9
 msgid "Social Accounts"
@@ -452,7 +461,7 @@ msgstr ""
 
 #: templates/account/confirm_login_code.html:5
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
-#: templates/account/login.html:9 templates/account/login.html:25
+#: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
 #: templates/allauth/layouts/base.html:36 templates/mfa/authenticate.html:5
 #: templates/mfa/authenticate.html:23 templates/openid/login.html:5
@@ -814,19 +823,14 @@ msgstr ""
 "Egiaztapen esteka hau iraungirik dago edo baliogabea da. Mesedez eskatu <a "
 "href=\"%(email_url)s\">egiaztapen email berri bat</a>."
 
-#: templates/account/login.html:12
-#, fuzzy, python-format
-#| msgid ""
-#| "If you have not created an account yet, then please\n"
-#| "<a href=\"%(signup_url)s\">sign up</a> first."
+#: templates/account/login.html:19
+#, python-format
 msgid ""
-"If you have not created an account yet, then please\n"
-"    <a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
-"Oraindik kontu bat sortu ez baduzu, mesedez\n"
-"<a href=\"%(signup_url)s\">sortu kontu bat</a> lehenik."
+"If you have not created an account yet, then please %(link)ssign "
+"up%(end_link)s first."
+msgstr "Oraindik kontu bat sortu ez baduzu, mesedez %(link)ssortu kontu bat%(end_link)s lehenik."
 
-#: templates/account/login.html:34 templates/account/request_login_code.html:9
+#: templates/account/login.html:41 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
 msgstr ""
 
@@ -986,19 +990,16 @@ msgstr ""
 msgid "Signup"
 msgstr "Kontua sortu"
 
-#: templates/account/signup.html:8 templates/account/signup.html:23
+#: templates/account/signup.html:8 templates/account/signup.html:28
 #: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "Kontua sortu"
 
-#: templates/account/signup.html:11
+#: templates/account/signup.html:16
 #, python-format
-msgid ""
-"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr ""
-"Lehendik kontu bat sortua duzu? <a href=\"%(login_url)s\">Saioa hasi</a> "
-"orduan."
+msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
+msgstr "Lehendik kontu bat sortua duzu? %(link)sSaioa hasi%(end_link)s orduan."
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1415,7 +1416,7 @@ msgstr ""
 "webgunean saioa hasteko. Azken pausu bezala, mesedez osa ezazu\n"
 "formulario hau:"
 
-#: templates/socialaccount/snippets/login.html:9
+#: templates/socialaccount/snippets/login.html:10
 msgid "Or use a third-party"
 msgstr ""
 
@@ -1507,7 +1508,7 @@ msgstr ""
 #~ "for a %(site_name)s account and sign in below:"
 #~ msgstr ""
 #~ "Mesedez hasi saioa lotutako sare sozial kontu bat\n"
-#~ "erabiliz, edo <a href=\"%(signup_url)s\">sortu kontu bat</a>\n"
+#~ "erabiliz, edo %(link)ssortu kontu bat%(end_link)s\n"
 #~ "%(site_name)s webgunean eta saioa hasi hemen:"
 
 #~ msgid "or"

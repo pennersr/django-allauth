@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-12 13:15-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2024-04-20 14:01-0500\n"
+"PO-Revision-Date: 2024-04-20 21:50+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -18,69 +18,69 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: account/adapter.py:50
+#: account/adapter.py:57
 msgid "This account is currently inactive."
 msgstr "해당 계정은 현재 비활성화 상태입니다."
 
-#: account/adapter.py:52
+#: account/adapter.py:59
 msgid "This email address is already associated with this account."
 msgstr "해당 이메일은 이미 이 계정에 등록되어 있습니다."
 
-#: account/adapter.py:55
+#: account/adapter.py:62
 msgid "The email address and/or password you specified are not correct."
 msgstr "이메일 또는 비밀번호가 올바르지 않습니다."
 
-#: account/adapter.py:57
+#: account/adapter.py:64
 msgid "A user is already registered with this email address."
 msgstr "해당 이메일은 이미 사용되고 있습니다."
 
-#: account/adapter.py:58
+#: account/adapter.py:65
 msgid "Please type your current password."
 msgstr "현재 비밀번호를 입력하세요."
 
-#: account/adapter.py:59 mfa/adapter.py:29
+#: account/adapter.py:66 mfa/adapter.py:29
 msgid "Incorrect code."
 msgstr ""
 
-#: account/adapter.py:60
+#: account/adapter.py:67
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "현재 비밀번호"
 
-#: account/adapter.py:61
+#: account/adapter.py:68
 msgid "The password reset token was invalid."
 msgstr "비밀번호 초기화 토큰이 올바르지 않습니다."
 
-#: account/adapter.py:62
+#: account/adapter.py:69
 #, fuzzy, python-format
 #| msgid "Your account has no verified email address."
 msgid "You cannot add more than %d email addresses."
 msgstr "당신의 계정에는 인증된 이메일이 없습니다."
 
-#: account/adapter.py:64
+#: account/adapter.py:71
 msgid "Too many failed login attempts. Try again later."
 msgstr "너무 많은 로그인 실패가 감지되었습니다. 잠시 후에 다시 시도하세요."
 
-#: account/adapter.py:66
+#: account/adapter.py:73
 msgid "The email address is not assigned to any user account"
 msgstr "해당 이메일을 가지고 있는 사용자가 없습니다."
 
-#: account/adapter.py:68
+#: account/adapter.py:75
 msgid "Username can not be used. Please use other username."
 msgstr "해당 아이디는 이미 사용중입니다. 다른 사용자명을 이용해 주세요."
 
-#: account/adapter.py:71
+#: account/adapter.py:78
 msgid "The username and/or password you specified are not correct."
 msgstr "아이디 또는 비밀번호가 올바르지 않습니다."
 
-#: account/adapter.py:707
+#: account/adapter.py:714
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "비밀번호를 잊으셨나요?"
 
-#: account/adapter.py:717
+#: account/adapter.py:724
 msgid "Use your authenticator app"
 msgstr ""
 
@@ -178,7 +178,7 @@ msgstr ""
 msgid "user"
 msgstr "사용자"
 
-#: account/models.py:26 account/models.py:34 account/models.py:136
+#: account/models.py:26 account/models.py:34 account/models.py:140
 msgid "email address"
 msgstr "이메일 주소"
 
@@ -194,23 +194,23 @@ msgstr "주"
 msgid "email addresses"
 msgstr "이메일 주소"
 
-#: account/models.py:139
+#: account/models.py:143
 msgid "created"
 msgstr "생성됨"
 
-#: account/models.py:140
+#: account/models.py:144
 msgid "sent"
 msgstr "전송됨"
 
-#: account/models.py:141 socialaccount/models.py:62
+#: account/models.py:145 socialaccount/models.py:62
 msgid "key"
 msgstr "키"
 
-#: account/models.py:146
+#: account/models.py:150
 msgid "email confirmation"
 msgstr "이메일 확인"
 
-#: account/models.py:147
+#: account/models.py:151
 msgid "email confirmations"
 msgstr "이메일 확인"
 
@@ -252,7 +252,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:36
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -264,19 +264,27 @@ msgstr ""
 "해당 이메일을 사용중인 계정이 이미 존재합니다. 해당 계정으로 로그인 후에 %s "
 "계정으로 연결하세요."
 
-#: socialaccount/adapter.py:34
+#: socialaccount/adapter.py:40
 #, fuzzy
 #| msgid "Bad Token"
 msgid "Invalid token."
 msgstr "올비르지 않은 토큰"
 
-#: socialaccount/adapter.py:35
+#: socialaccount/adapter.py:41
 msgid "Your account has no password set up."
 msgstr "당신의 계정에 비밀번호가 설정되어있지 않습니다."
 
-#: socialaccount/adapter.py:36
+#: socialaccount/adapter.py:42
 msgid "Your account has no verified email address."
 msgstr "당신의 계정에는 인증된 이메일이 없습니다."
+
+#: socialaccount/adapter.py:44
+#, fuzzy
+#| msgid ""
+#| "You can sign in to your account using any of the following third party "
+#| "accounts:"
+msgid "You cannot disconnect your last remaining third-party account."
+msgstr "다음 서드파티 계정들을 통해 로그인 할 수 있습니다:"
 
 #: socialaccount/apps.py:9
 msgid "Social Accounts"
@@ -451,7 +459,7 @@ msgstr ""
 
 #: templates/account/confirm_login_code.html:5
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
-#: templates/account/login.html:9 templates/account/login.html:25
+#: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
 #: templates/allauth/layouts/base.html:36 templates/mfa/authenticate.html:5
 #: templates/mfa/authenticate.html:23 templates/openid/login.html:5
@@ -812,19 +820,14 @@ msgstr ""
 "이 이메일 확인 링크는 만료되었거나 유효하지 않습니다. <a "
 "href=\"%(email_url)s\">새로운 이메일 확인 요청</a>을 해주세요."
 
-#: templates/account/login.html:12
-#, fuzzy, python-format
-#| msgid ""
-#| "If you have not created an account yet, then please\n"
-#| "<a href=\"%(signup_url)s\">sign up</a> first."
+#: templates/account/login.html:19
+#, python-format
 msgid ""
-"If you have not created an account yet, then please\n"
-"    <a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
-"계정이 없다면\n"
-"<a href=\"%(signup_url)s\">회원가입</a>을 진행하세요."
+"If you have not created an account yet, then please %(link)ssign "
+"up%(end_link)s first."
+msgstr "계정이 없다면 %(link)s회원가입%(end_link)s을 진행하세요."
 
-#: templates/account/login.html:34 templates/account/request_login_code.html:9
+#: templates/account/login.html:41 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
 msgstr ""
 
@@ -980,18 +983,16 @@ msgstr ""
 msgid "Signup"
 msgstr "회원가입"
 
-#: templates/account/signup.html:8 templates/account/signup.html:23
+#: templates/account/signup.html:8 templates/account/signup.html:28
 #: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "회원가입"
 
-#: templates/account/signup.html:11
+#: templates/account/signup.html:16
 #, python-format
-msgid ""
-"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr ""
-"이미 계정이 있으신가요? 바로 <a href=\"%(login_url)s\">로그인</a> 하세요."
+msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
+msgstr "이미 계정이 있으신가요? 바로 %(link)s로그인%(end_link)s 하세요."
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1402,7 +1403,7 @@ msgstr ""
 "%(provider_name)s 의 계정을 이용하여 %(site_name)s 으로 로그인하려 합니다.\n"
 "마지막으로 다음 폼을 작성해주세요:"
 
-#: templates/socialaccount/snippets/login.html:9
+#: templates/socialaccount/snippets/login.html:10
 msgid "Or use a third-party"
 msgstr ""
 
@@ -1493,7 +1494,7 @@ msgstr ""
 #~ "for a %(site_name)s account and sign in below:"
 #~ msgstr ""
 #~ "사용중인 서드파티 계정을 이용해 로그인을 해주세요. 또는, %(site_name)s의 "
-#~ "<a href=\"%(signup_url)s\">회원 가입</a> 진행 후 아래 링크에서 로그인을 해"
+#~ "%(link)s회원 가입%(end_link)s 진행 후 아래 링크에서 로그인을 해"
 #~ "주세요."
 
 #~ msgid "or"

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-allauth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-12 13:15-0500\n"
-"PO-Revision-Date: 2023-12-12 20:19+0100\n"
+"POT-Creation-Date: 2024-04-20 14:01-0500\n"
+"PO-Revision-Date: 2024-04-20 21:29+0200\n"
 "Last-Translator: Sandro <sandro@e-den.it>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -20,64 +20,64 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: account/adapter.py:50
+#: account/adapter.py:57
 msgid "This account is currently inactive."
 msgstr "Questo account non è attualmente attivo."
 
-#: account/adapter.py:52
+#: account/adapter.py:59
 msgid "This email address is already associated with this account."
 msgstr "Questo indirizzo email è già associato a questo account."
 
-#: account/adapter.py:55
+#: account/adapter.py:62
 msgid "The email address and/or password you specified are not correct."
 msgstr "L'indirizzo email e/o la password che hai usato non sono corretti."
 
-#: account/adapter.py:57
+#: account/adapter.py:64
 msgid "A user is already registered with this email address."
 msgstr "Un altro utente si è già registrato con questo indirizzo email."
 
-#: account/adapter.py:58
+#: account/adapter.py:65
 msgid "Please type your current password."
 msgstr "Per favore digita la tua password attuale."
 
-#: account/adapter.py:59 mfa/adapter.py:29
+#: account/adapter.py:66 mfa/adapter.py:29
 msgid "Incorrect code."
 msgstr "Codice errato."
 
-#: account/adapter.py:60
+#: account/adapter.py:67
 msgid "Incorrect password."
 msgstr "Password errata."
 
-#: account/adapter.py:61
+#: account/adapter.py:68
 msgid "The password reset token was invalid."
 msgstr "Il codice per il reset della password non è valido."
 
-#: account/adapter.py:62
+#: account/adapter.py:69
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Non puoi aggiungere più di %d indirizzi email."
 
-#: account/adapter.py:64
+#: account/adapter.py:71
 msgid "Too many failed login attempts. Try again later."
 msgstr "Troppo tentativi di accesso. Riprova più tardi."
 
-#: account/adapter.py:66
+#: account/adapter.py:73
 msgid "The email address is not assigned to any user account"
 msgstr "L'indirizzo email non è assegnato a nessun account utente"
 
-#: account/adapter.py:68
+#: account/adapter.py:75
 msgid "Username can not be used. Please use other username."
 msgstr "Questo username non può essere usato. Per favore scegline un altro."
 
-#: account/adapter.py:71
+#: account/adapter.py:78
 msgid "The username and/or password you specified are not correct."
 msgstr "Lo username e/o la password che hai usato non sono corretti."
 
-#: account/adapter.py:707
+#: account/adapter.py:714
 msgid "Use your password"
 msgstr "Usa la tua password"
 
-#: account/adapter.py:717
+#: account/adapter.py:724
 msgid "Use your authenticator app"
 msgstr "Usa la tua app di autenticazione"
 
@@ -171,7 +171,7 @@ msgstr "Codice"
 msgid "user"
 msgstr "utente"
 
-#: account/models.py:26 account/models.py:34 account/models.py:136
+#: account/models.py:26 account/models.py:34 account/models.py:140
 msgid "email address"
 msgstr "indirizzo email"
 
@@ -187,23 +187,23 @@ msgstr "primario"
 msgid "email addresses"
 msgstr "indirizzo email"
 
-#: account/models.py:139
+#: account/models.py:143
 msgid "created"
 msgstr "creato"
 
-#: account/models.py:140
+#: account/models.py:144
 msgid "sent"
 msgstr "inviato"
 
-#: account/models.py:141 socialaccount/models.py:62
+#: account/models.py:145 socialaccount/models.py:62
 msgid "key"
 msgstr "chiave"
 
-#: account/models.py:146
+#: account/models.py:150
 msgid "email confirmation"
 msgstr "email di conferma"
 
-#: account/models.py:147
+#: account/models.py:151
 msgid "email confirmations"
 msgstr "email di conferma"
 
@@ -251,7 +251,7 @@ msgstr "Codici di recupero"
 msgid "TOTP Authenticator"
 msgstr "Autenticatore TOTP"
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:36
 #, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
@@ -260,19 +260,29 @@ msgstr ""
 "Esiste già un account con questo indirizzo email. Per favore entra con "
 "quell'account, e successivamente connetti il tuo account %s."
 
-#: socialaccount/adapter.py:34
+#: socialaccount/adapter.py:40
 #, fuzzy
 #| msgid "Bad Token"
 msgid "Invalid token."
 msgstr "Token non valido"
 
-#: socialaccount/adapter.py:35
+#: socialaccount/adapter.py:41
 msgid "Your account has no password set up."
 msgstr "Il tuo account non ha ancora nessuna password."
 
-#: socialaccount/adapter.py:36
+#: socialaccount/adapter.py:42
 msgid "Your account has no verified email address."
 msgstr "Non hai ancora verificato il tuo indirizzo email."
+
+#: socialaccount/adapter.py:44
+#, fuzzy
+#| msgid ""
+#| "You can sign in to your account using any of the following third-party "
+#| "accounts:"
+msgid "You cannot disconnect your last remaining third-party account."
+msgstr ""
+"Puoi collegarti al tuo account utilizzando uno dei seguenti servizi di "
+"autenticazione Social Network:"
 
 #: socialaccount/apps.py:9
 msgid "Social Accounts"
@@ -444,7 +454,7 @@ msgstr "Opzioni alternative"
 
 #: templates/account/confirm_login_code.html:5
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
-#: templates/account/login.html:9 templates/account/login.html:25
+#: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
 #: templates/allauth/layouts/base.html:36 templates/mfa/authenticate.html:5
 #: templates/mfa/authenticate.html:23 templates/openid/login.html:5
@@ -781,16 +791,14 @@ msgstr ""
 "Questo link di conferma email è scaduto o non è valido. Ti chiediamo di <a "
 "href=\"%(email_url)s\">ripetere la richiesta di conferma via email</a>."
 
-#: templates/account/login.html:12
+#: templates/account/login.html:19
 #, python-format
 msgid ""
-"If you have not created an account yet, then please\n"
-"    <a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
-"Se non hai ancora creato un account, \n"
-"<a href=\"%(signup_url)s\">Registrati</a>."
+"If you have not created an account yet, then please %(link)ssign "
+"up%(end_link)s first."
+msgstr "Se non hai ancora creato un account, %(link)sRegistrati%(end_link)s."
 
-#: templates/account/login.html:34 templates/account/request_login_code.html:9
+#: templates/account/login.html:41 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
 msgstr ""
 
@@ -937,17 +945,16 @@ msgstr "Codici di recupero"
 msgid "Signup"
 msgstr "Registrati"
 
-#: templates/account/signup.html:8 templates/account/signup.html:23
+#: templates/account/signup.html:8 templates/account/signup.html:28
 #: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "Registrazione"
 
-#: templates/account/signup.html:11
+#: templates/account/signup.html:16
 #, python-format
-msgid ""
-"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr "Hai già un account valido? <a href=\"%(login_url)s\">Accedi</a>."
+msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
+msgstr "Hai già un account valido? %(link)sAccedi%(end_link)s."
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1350,7 +1357,7 @@ msgstr ""
 "%(site_name)s. Come ultima operazione ti chiediamo di riempire il form qui "
 "sotto:"
 
-#: templates/socialaccount/snippets/login.html:9
+#: templates/socialaccount/snippets/login.html:10
 msgid "Or use a third-party"
 msgstr "O usa un servizio di terze parti"
 
@@ -1439,7 +1446,7 @@ msgstr "chiave di sessione"
 #~ "for a %(site_name)s account and sign in below:"
 #~ msgstr ""
 #~ "Per favore, accedi con uno\n"
-#~ "dei tuoi account social, o <a href=\"%(signup_url)s\">registra</a>\n"
+#~ "dei tuoi account social, o %(link)sregistra%(end_link)s\n"
 #~ "il tuo account per %(site_name)s e accedi:"
 
 #~ msgid "or"

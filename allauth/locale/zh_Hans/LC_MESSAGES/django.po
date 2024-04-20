@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-12 13:15-0500\n"
-"PO-Revision-Date: 2023-07-24 22:31+0200\n"
+"POT-Creation-Date: 2024-04-20 14:01-0500\n"
+"PO-Revision-Date: 2024-04-20 22:10+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -18,69 +18,69 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: account/adapter.py:50
+#: account/adapter.py:57
 msgid "This account is currently inactive."
 msgstr "此账号当前未激活。"
 
-#: account/adapter.py:52
+#: account/adapter.py:59
 msgid "This email address is already associated with this account."
 msgstr "此e-mail地址已关联到这个账号。"
 
-#: account/adapter.py:55
+#: account/adapter.py:62
 msgid "The email address and/or password you specified are not correct."
 msgstr "您提供的e-mail地址或密码不正确。"
 
-#: account/adapter.py:57
+#: account/adapter.py:64
 msgid "A user is already registered with this email address."
 msgstr "此e-mail地址已被其他用户注册。"
 
-#: account/adapter.py:58
+#: account/adapter.py:65
 msgid "Please type your current password."
 msgstr "请输入您的当前密码"
 
-#: account/adapter.py:59 mfa/adapter.py:29
+#: account/adapter.py:66 mfa/adapter.py:29
 msgid "Incorrect code."
 msgstr ""
 
-#: account/adapter.py:60
+#: account/adapter.py:67
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "当前密码"
 
-#: account/adapter.py:61
+#: account/adapter.py:68
 msgid "The password reset token was invalid."
 msgstr ""
 
-#: account/adapter.py:62
+#: account/adapter.py:69
 #, fuzzy, python-format
 #| msgid "Your account has no verified email address."
 msgid "You cannot add more than %d email addresses."
 msgstr "您的账号下无任何验证过的e-mail地址。"
 
-#: account/adapter.py:64
+#: account/adapter.py:71
 msgid "Too many failed login attempts. Try again later."
 msgstr "登录失败次数过多，请稍后重试。"
 
-#: account/adapter.py:66
+#: account/adapter.py:73
 msgid "The email address is not assigned to any user account"
 msgstr "此e-mail地址未分配给任何用户账号"
 
-#: account/adapter.py:68
+#: account/adapter.py:75
 msgid "Username can not be used. Please use other username."
 msgstr "此用户名不能使用，请改用其他用户名。"
 
-#: account/adapter.py:71
+#: account/adapter.py:78
 msgid "The username and/or password you specified are not correct."
 msgstr "您提供的用户名或密码不正确。"
 
-#: account/adapter.py:707
+#: account/adapter.py:714
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "忘记密码了？"
 
-#: account/adapter.py:717
+#: account/adapter.py:724
 msgid "Use your authenticator app"
 msgstr ""
 
@@ -185,7 +185,7 @@ msgstr ""
 msgid "user"
 msgstr "用户"
 
-#: account/models.py:26 account/models.py:34 account/models.py:136
+#: account/models.py:26 account/models.py:34 account/models.py:140
 msgid "email address"
 msgstr "e-mail地址"
 
@@ -202,23 +202,23 @@ msgstr "首选e-mail"
 msgid "email addresses"
 msgstr "e-mail地址"
 
-#: account/models.py:139
+#: account/models.py:143
 msgid "created"
 msgstr "已建立"
 
-#: account/models.py:140
+#: account/models.py:144
 msgid "sent"
 msgstr "已发送"
 
-#: account/models.py:141 socialaccount/models.py:62
+#: account/models.py:145 socialaccount/models.py:62
 msgid "key"
 msgstr "key"
 
-#: account/models.py:146
+#: account/models.py:150
 msgid "email confirmation"
 msgstr "e-mail确认"
 
-#: account/models.py:147
+#: account/models.py:151
 msgid "email confirmations"
 msgstr "e-mail确认"
 
@@ -260,7 +260,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:36
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -270,19 +270,27 @@ msgid ""
 "account first, then connect your %s account."
 msgstr "已有一个账号与此e-mail地址关联，请先登录该账号，然后连接你的 %s 账号。"
 
-#: socialaccount/adapter.py:34
+#: socialaccount/adapter.py:40
 #, fuzzy
 #| msgid "Invalid confirmation key."
 msgid "Invalid token."
 msgstr "Ongeldige bevestigingssleutel."
 
-#: socialaccount/adapter.py:35
+#: socialaccount/adapter.py:41
 msgid "Your account has no password set up."
 msgstr "您的账号未设置密码。"
 
-#: socialaccount/adapter.py:36
+#: socialaccount/adapter.py:42
 msgid "Your account has no verified email address."
 msgstr "您的账号下无任何验证过的e-mail地址。"
+
+#: socialaccount/adapter.py:44
+#, fuzzy
+#| msgid ""
+#| "You can sign in to your account using any of the following third party "
+#| "accounts:"
+msgid "You cannot disconnect your last remaining third-party account."
+msgstr "您可以用您的以下任何第三方账号登录"
 
 #: socialaccount/apps.py:9
 #, fuzzy
@@ -458,7 +466,7 @@ msgstr ""
 
 #: templates/account/confirm_login_code.html:5
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
-#: templates/account/login.html:9 templates/account/login.html:25
+#: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
 #: templates/allauth/layouts/base.html:36 templates/mfa/authenticate.html:5
 #: templates/mfa/authenticate.html:23 templates/openid/login.html:5
@@ -817,19 +825,14 @@ msgstr ""
 "e-mail验证链接失效或无效。请点击 <a href=\"%(email_url)s\">发起新的e-mail验证"
 "请求。"
 
-#: templates/account/login.html:12
-#, fuzzy, python-format
-#| msgid ""
-#| "If you have not created an account yet, then please\n"
-#| "<a href=\"%(signup_url)s\">sign up</a> first."
+#: templates/account/login.html:19
+#, python-format
 msgid ""
-"If you have not created an account yet, then please\n"
-"    <a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
-"如果没有账号，请先\n"
-"<a href=\"%(signup_url)s\">注册</a> 。"
+"If you have not created an account yet, then please %(link)ssign "
+"up%(end_link)s first."
+msgstr "如果没有账号，请先 %(link)s注册%(end_link)s 。"
 
-#: templates/account/login.html:34 templates/account/request_login_code.html:9
+#: templates/account/login.html:41 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
 msgstr ""
 
@@ -983,17 +986,16 @@ msgstr ""
 msgid "Signup"
 msgstr "注册"
 
-#: templates/account/signup.html:8 templates/account/signup.html:23
+#: templates/account/signup.html:8 templates/account/signup.html:28
 #: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "注册"
 
-#: templates/account/signup.html:11
+#: templates/account/signup.html:16
 #, python-format
-msgid ""
-"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr "已经有一个账号？ 请<a href=\"%(login_url)s\">登录</a>."
+msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
+msgstr "已经有一个账号？ 请%(link)s登录%(end_link)s."
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1388,7 +1390,7 @@ msgstr ""
 "您将使用您的%(provider_name)s账号登录\n"
 "%(site_name)s。作为最后一步，请完成以下表单："
 
-#: templates/socialaccount/snippets/login.html:9
+#: templates/socialaccount/snippets/login.html:10
 msgid "Or use a third-party"
 msgstr ""
 
@@ -1479,7 +1481,7 @@ msgstr ""
 #~ "for a %(site_name)s account and sign in below:"
 #~ msgstr ""
 #~ "请用您的第三方账号登录。\n"
-#~ "或者<a href=\"%(signup_url)s\">注册</a> \n"
+#~ "或者%(link)s注册%(end_link)s \n"
 #~ "一个 %(site_name)s账号并登录："
 
 #~ msgid "or"

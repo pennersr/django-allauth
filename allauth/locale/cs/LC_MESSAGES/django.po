@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.55\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-12 13:15-0500\n"
-"PO-Revision-Date: 2023-09-06 14:00+0200\n"
+"POT-Creation-Date: 2024-04-20 14:01-0500\n"
+"PO-Revision-Date: 2024-04-20 22:03+0200\n"
 "Last-Translator: Filip Dobrovolny <dobrovolny.filip@gmail.com>\n"
 "Language-Team: Czech <>\n"
 "Language: cs\n"
@@ -21,66 +21,66 @@ msgstr ""
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 "X-Generator: Gtranslator 2.91.7\n"
 
-#: account/adapter.py:50
+#: account/adapter.py:57
 msgid "This account is currently inactive."
 msgstr "Účet je v tuto chvíli neaktivní."
 
-#: account/adapter.py:52
+#: account/adapter.py:59
 msgid "This email address is already associated with this account."
 msgstr "Tento e-mail je již k tomuto účtu přiřazen."
 
-#: account/adapter.py:55
+#: account/adapter.py:62
 msgid "The email address and/or password you specified are not correct."
 msgstr "Zadaný e-mail nebo heslo není správné."
 
-#: account/adapter.py:57
+#: account/adapter.py:64
 msgid "A user is already registered with this email address."
 msgstr "Uživatel s tímto e-mailem je již registrován."
 
-#: account/adapter.py:58
+#: account/adapter.py:65
 msgid "Please type your current password."
 msgstr "Prosím, zadejte svoje současné heslo."
 
-#: account/adapter.py:59 mfa/adapter.py:29
+#: account/adapter.py:66 mfa/adapter.py:29
 msgid "Incorrect code."
 msgstr "Nesprávný kód."
 
-#: account/adapter.py:60
+#: account/adapter.py:67
 msgid "Incorrect password."
 msgstr "Nesprávné heslo."
 
-#: account/adapter.py:61
+#: account/adapter.py:68
 msgid "The password reset token was invalid."
 msgstr "Token pro reset hesla není platný."
 
-#: account/adapter.py:62
+#: account/adapter.py:69
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Nelze přidat více než %d e-mailových adres."
 
-#: account/adapter.py:64
+#: account/adapter.py:71
 msgid "Too many failed login attempts. Try again later."
 msgstr "Příliš mnoho pokusů o přihlášení. Zkuste to prosím později."
 
-#: account/adapter.py:66
+#: account/adapter.py:73
 msgid "The email address is not assigned to any user account"
 msgstr "E-mail není přiřazen k žádnému účtu"
 
-#: account/adapter.py:68
+#: account/adapter.py:75
 msgid "Username can not be used. Please use other username."
 msgstr "Toto uživatelské jméno nemůže být zvoleno. Prosím, zvolte si jiné."
 
-#: account/adapter.py:71
+#: account/adapter.py:78
 msgid "The username and/or password you specified are not correct."
 msgstr "Zadané uživatelské jméno nebo heslo není správné."
 
-#: account/adapter.py:707
+#: account/adapter.py:714
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "Zapomenuté heslo?"
 
-#: account/adapter.py:717
+#: account/adapter.py:724
 #, fuzzy
 #| msgid "Authenticator App"
 msgid "Use your authenticator app"
@@ -180,7 +180,7 @@ msgstr "Kód"
 msgid "user"
 msgstr "uživatel"
 
-#: account/models.py:26 account/models.py:34 account/models.py:136
+#: account/models.py:26 account/models.py:34 account/models.py:140
 msgid "email address"
 msgstr "e-mailová adresa"
 
@@ -196,23 +196,23 @@ msgstr "primární"
 msgid "email addresses"
 msgstr "e-mailové adresy"
 
-#: account/models.py:139
+#: account/models.py:143
 msgid "created"
 msgstr "vytvořeno"
 
-#: account/models.py:140
+#: account/models.py:144
 msgid "sent"
 msgstr "odeslaný"
 
-#: account/models.py:141 socialaccount/models.py:62
+#: account/models.py:145 socialaccount/models.py:62
 msgid "key"
 msgstr "klíč"
 
-#: account/models.py:146
+#: account/models.py:150
 msgid "email confirmation"
 msgstr "Potvrzovací e-mail"
 
-#: account/models.py:147
+#: account/models.py:151
 msgid "email confirmations"
 msgstr "Ověřovací e-maily"
 
@@ -267,7 +267,7 @@ msgstr "Záchranné kódy"
 msgid "TOTP Authenticator"
 msgstr "TOTP Autentifikátor"
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:36
 #, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
@@ -276,19 +276,27 @@ msgstr ""
 "Účet s touto e-mailovou adresou již existuje. Prosím přihlaste se nejdříve "
 "pod tímto účtem a potom připojte svůj %s účet."
 
-#: socialaccount/adapter.py:34
+#: socialaccount/adapter.py:40
 #, fuzzy
 #| msgid "Bad Token"
 msgid "Invalid token."
 msgstr "Chybný klíč"
 
-#: socialaccount/adapter.py:35
+#: socialaccount/adapter.py:41
 msgid "Your account has no password set up."
 msgstr "Váš účet nemá nastavené heslo."
 
-#: socialaccount/adapter.py:36
+#: socialaccount/adapter.py:42
 msgid "Your account has no verified email address."
 msgstr "Váš účet nemá žádný ověřený e-mail."
+
+#: socialaccount/adapter.py:44
+#, fuzzy
+#| msgid ""
+#| "You can sign in to your account using any of the following third party "
+#| "accounts:"
+msgid "You cannot disconnect your last remaining third-party account."
+msgstr "Můžete se přihlásit pomocí jakéhokoliv následujícího účtu:"
 
 #: socialaccount/apps.py:9
 msgid "Social Accounts"
@@ -458,7 +466,7 @@ msgstr ""
 
 #: templates/account/confirm_login_code.html:5
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
-#: templates/account/login.html:9 templates/account/login.html:25
+#: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
 #: templates/allauth/layouts/base.html:36 templates/mfa/authenticate.html:5
 #: templates/mfa/authenticate.html:23 templates/openid/login.html:5
@@ -811,19 +819,14 @@ msgstr ""
 "Tento ověřovací odkaz již vypršel nebo není správný. Prosím, <a "
 "href=\"%(email_url)s\">zažádejte si o nový</a>."
 
-#: templates/account/login.html:12
-#, fuzzy, python-format
-#| msgid ""
-#| "If you have not created an account yet, then please\n"
-#| "<a href=\"%(signup_url)s\">sign up</a> first."
+#: templates/account/login.html:19
+#, python-format
 msgid ""
-"If you have not created an account yet, then please\n"
-"    <a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
-"Pokud jste si ještě nevytvořili účet, nejprve se <a "
-"href=\"%(signup_url)s\">zaregistrujte</a>."
+"If you have not created an account yet, then please %(link)ssign "
+"up%(end_link)s first."
+msgstr "Pokud jste si ještě nevytvořili účet, nejprve se %(link)szaregistrujte%(end_link)s."
 
-#: templates/account/login.html:34 templates/account/request_login_code.html:9
+#: templates/account/login.html:41 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
 msgstr ""
 
@@ -973,17 +976,16 @@ msgstr "Záchranné kódy"
 msgid "Signup"
 msgstr "Zaregistrovat se"
 
-#: templates/account/signup.html:8 templates/account/signup.html:23
+#: templates/account/signup.html:8 templates/account/signup.html:28
 #: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "Zaregistrovat se"
 
-#: templates/account/signup.html:11
+#: templates/account/signup.html:16
 #, python-format
-msgid ""
-"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr "Máte již účet? <a href=\"%(login_url)s\">Přihlašte se</a>, prosím."
+msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
+msgstr "Máte již účet? %(link)sPřihlašte se%(end_link)s, prosím."
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1405,7 +1407,7 @@ msgstr ""
 "stránky \n"
 "%(site_name)s. Jako poslední krok, prosím, vyplňte následující formulář:"
 
-#: templates/socialaccount/snippets/login.html:9
+#: templates/socialaccount/snippets/login.html:10
 msgid "Or use a third-party"
 msgstr ""
 

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-12 13:15-0500\n"
-"PO-Revision-Date: 2017-08-26 16:11+0300\n"
+"POT-Creation-Date: 2024-04-20 14:01-0500\n"
+"PO-Revision-Date: 2024-04-20 21:37+0200\n"
 "Last-Translator: Udi Oron <udioron@gmail.com>\n"
 "Language-Team: Hebrew\n"
 "Language: he\n"
@@ -18,69 +18,69 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.0.3\n"
 
-#: account/adapter.py:50
+#: account/adapter.py:57
 msgid "This account is currently inactive."
 msgstr "חשבון זה אינו פעיל כעת."
 
-#: account/adapter.py:52
+#: account/adapter.py:59
 msgid "This email address is already associated with this account."
 msgstr "כתובת אימייל זו כבר משויכת לחשבון זה."
 
-#: account/adapter.py:55
+#: account/adapter.py:62
 msgid "The email address and/or password you specified are not correct."
 msgstr "כתובת האימייל ו/או הסיסמה אינם נכונים."
 
-#: account/adapter.py:57
+#: account/adapter.py:64
 msgid "A user is already registered with this email address."
 msgstr "משתמש אחר כבר רשום עם כתובת אימייל זו."
 
-#: account/adapter.py:58
+#: account/adapter.py:65
 msgid "Please type your current password."
 msgstr "אנא הזן את הסיסמה הנוכחית."
 
-#: account/adapter.py:59 mfa/adapter.py:29
+#: account/adapter.py:66 mfa/adapter.py:29
 msgid "Incorrect code."
 msgstr ""
 
-#: account/adapter.py:60
+#: account/adapter.py:67
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "סיסמה נוכחית"
 
-#: account/adapter.py:61
+#: account/adapter.py:68
 msgid "The password reset token was invalid."
 msgstr "אסימון איפוס הסיסמה אינו תקין."
 
-#: account/adapter.py:62
+#: account/adapter.py:69
 #, fuzzy, python-format
 #| msgid "Your account has no verified email address."
 msgid "You cannot add more than %d email addresses."
 msgstr "לא נמצאו כתובות אימייל מאומתות לחשבונך."
 
-#: account/adapter.py:64
+#: account/adapter.py:71
 msgid "Too many failed login attempts. Try again later."
 msgstr "יותר מדי ניסיונות התחברות כושלים. אנא נסה שוב מאוחר יותר."
 
-#: account/adapter.py:66
+#: account/adapter.py:73
 msgid "The email address is not assigned to any user account"
 msgstr "כתובת אימייל זו אינה משויכת לאף חשבון"
 
-#: account/adapter.py:68
+#: account/adapter.py:75
 msgid "Username can not be used. Please use other username."
 msgstr "לא ניתן להשתמש בשם משתמש זה. אנא בחר שם משתמש אחר."
 
-#: account/adapter.py:71
+#: account/adapter.py:78
 msgid "The username and/or password you specified are not correct."
 msgstr "שם המשתמש ו/או הסיסמה אינם נכונים."
 
-#: account/adapter.py:707
+#: account/adapter.py:714
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "שכחת סיסמה?"
 
-#: account/adapter.py:717
+#: account/adapter.py:724
 msgid "Use your authenticator app"
 msgstr ""
 
@@ -178,7 +178,7 @@ msgstr ""
 msgid "user"
 msgstr "משתמש"
 
-#: account/models.py:26 account/models.py:34 account/models.py:136
+#: account/models.py:26 account/models.py:34 account/models.py:140
 msgid "email address"
 msgstr "כתובת אימייל"
 
@@ -194,23 +194,23 @@ msgstr "ראשי"
 msgid "email addresses"
 msgstr "כתובות אימייל"
 
-#: account/models.py:139
+#: account/models.py:143
 msgid "created"
 msgstr "נוצר"
 
-#: account/models.py:140
+#: account/models.py:144
 msgid "sent"
 msgstr "נשלח"
 
-#: account/models.py:141 socialaccount/models.py:62
+#: account/models.py:145 socialaccount/models.py:62
 msgid "key"
 msgstr "מפתח"
 
-#: account/models.py:146
+#: account/models.py:150
 msgid "email confirmation"
 msgstr "אישור באימייל"
 
-#: account/models.py:147
+#: account/models.py:151
 msgid "email confirmations"
 msgstr "אישורים בדואל"
 
@@ -252,7 +252,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:36
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -264,19 +264,27 @@ msgstr ""
 "קיים כבר חשבון עם כתובת אימייל זו. אנא התחבר לחשבון זה, ואז קשר את חשבון %s "
 "שלך."
 
-#: socialaccount/adapter.py:34
+#: socialaccount/adapter.py:40
 #, fuzzy
 #| msgid "Bad Token"
 msgid "Invalid token."
 msgstr "אסימון פגום"
 
-#: socialaccount/adapter.py:35
+#: socialaccount/adapter.py:41
 msgid "Your account has no password set up."
 msgstr "לא נבחרה סיסמה לחשבונך."
 
-#: socialaccount/adapter.py:36
+#: socialaccount/adapter.py:42
 msgid "Your account has no verified email address."
 msgstr "לא נמצאו כתובות אימייל מאומתות לחשבונך."
+
+#: socialaccount/adapter.py:44
+#, fuzzy
+#| msgid ""
+#| "You can sign in to your account using any of the following third party "
+#| "accounts:"
+msgid "You cannot disconnect your last remaining third-party account."
+msgstr "ניתן להתחבר לחשבונך באמצעות כל אחד מחשבונות צד שלישי הבאים:"
 
 #: socialaccount/apps.py:9
 msgid "Social Accounts"
@@ -448,7 +456,7 @@ msgstr ""
 
 #: templates/account/confirm_login_code.html:5
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
-#: templates/account/login.html:9 templates/account/login.html:25
+#: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
 #: templates/allauth/layouts/base.html:36 templates/mfa/authenticate.html:5
 #: templates/mfa/authenticate.html:23 templates/openid/login.html:5
@@ -823,18 +831,14 @@ msgstr ""
 "קישור זה לאימות כתובת אימייל פג תוקף או שאינו תקין. יש <a "
 "href=\"%(email_url)s\">להנפיק בקשה חדשה לאימות כתובת אימייל</a>."
 
-#: templates/account/login.html:12
-#, fuzzy, python-format
-#| msgid ""
-#| "If you have not created an account yet, then please\n"
-#| "<a href=\"%(signup_url)s\">sign up</a> first."
+#: templates/account/login.html:19
+#, python-format
 msgid ""
-"If you have not created an account yet, then please\n"
-"    <a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
-"אם לא נרשמת לחשבון בעבר, אנא <a href=\"%(signup_url)s\">הרשם</a> תחילה."
+"If you have not created an account yet, then please %(link)ssign "
+"up%(end_link)s first."
+msgstr "אם לא נרשמת לחשבון בעבר, אנא %(link)sהרשם%(end_link)s תחילה."
 
-#: templates/account/login.html:34 templates/account/request_login_code.html:9
+#: templates/account/login.html:41 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
 msgstr ""
 
@@ -989,17 +993,16 @@ msgstr ""
 msgid "Signup"
 msgstr "הרשמה"
 
-#: templates/account/signup.html:8 templates/account/signup.html:23
+#: templates/account/signup.html:8 templates/account/signup.html:28
 #: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "הרשמה"
 
-#: templates/account/signup.html:11
+#: templates/account/signup.html:16
 #, python-format
-msgid ""
-"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr "נרשמת בעבר? <a href=\"%(login_url)s\">כניסה למערכת</a>."
+msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
+msgstr "נרשמת בעבר? %(link)sכניסה למערכת%(end_link)s."
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1399,7 +1402,7 @@ msgstr ""
 "אתה עומד להשתמש בחשבון %(provider_name)s שלך כדי\n"
 "להתחבר ל%(site_name)s. לסיום, אנא מלא את הטופס הבא:"
 
-#: templates/socialaccount/snippets/login.html:9
+#: templates/socialaccount/snippets/login.html:10
 msgid "Or use a third-party"
 msgstr ""
 
@@ -1495,7 +1498,7 @@ msgstr ""
 #~ "for a %(site_name)s account and sign in below:"
 #~ msgstr ""
 #~ "אנא הכנס עם אחד מהחשבונות הקיימים שלך.\n"
-#~ "או, <a href=\"%(signup_url)s\">הרשם</a> לחשבון %(site_name)s והתחבר:"
+#~ "או, %(link)sהרשם%(end_link)s לחשבון %(site_name)s והתחבר:"
 
 #~ msgid "or"
 #~ msgstr "או"

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.61.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-12 13:15-0500\n"
-"PO-Revision-Date: 2024-04-18 23:03+0000\n"
+"POT-Creation-Date: 2024-04-20 14:01-0500\n"
+"PO-Revision-Date: 2024-04-20 21:41+0200\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/django-allauth/"
 "django-allauth/es/>\n"
@@ -18,68 +18,68 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Weblate 5.5-dev\n"
 
-#: account/adapter.py:50
+#: account/adapter.py:57
 msgid "This account is currently inactive."
 msgstr "Esta cuenta se encuentra ahora mismo desactivada."
 
-#: account/adapter.py:52
+#: account/adapter.py:59
 msgid "This email address is already associated with this account."
 msgstr "Esta dirección de correo electrónico ya está asociada a esta cuenta."
 
-#: account/adapter.py:55
+#: account/adapter.py:62
 msgid "The email address and/or password you specified are not correct."
 msgstr ""
 "La dirección de correo electrónico y/o la contraseña que ha indicado no son "
 "correctas."
 
-#: account/adapter.py:57
+#: account/adapter.py:64
 msgid "A user is already registered with this email address."
 msgstr "Ya hay registrado un usuario con esta dirección de correo electrónico."
 
-#: account/adapter.py:58
+#: account/adapter.py:65
 msgid "Please type your current password."
 msgstr "Por favor, escriba su contraseña actual."
 
-#: account/adapter.py:59 mfa/adapter.py:29
+#: account/adapter.py:66 mfa/adapter.py:29
 msgid "Incorrect code."
 msgstr "Código incorrecto."
 
-#: account/adapter.py:60
+#: account/adapter.py:67
 msgid "Incorrect password."
 msgstr "Contraseña incorrecta."
 
-#: account/adapter.py:61
+#: account/adapter.py:68
 msgid "The password reset token was invalid."
 msgstr "El token para restablecer la contraseña no es válido."
 
-#: account/adapter.py:62
+#: account/adapter.py:69
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "No puede añadir más de %d direcciones de correo electrónico."
 
-#: account/adapter.py:64
+#: account/adapter.py:71
 msgid "Too many failed login attempts. Try again later."
 msgstr "Demasiados intentos fallidos: Inténtelo más tarde."
 
-#: account/adapter.py:66
+#: account/adapter.py:73
 msgid "The email address is not assigned to any user account"
 msgstr ""
 "La dirección de correo electrónico no está asignada a ninguna cuenta de "
 "usuario"
 
-#: account/adapter.py:68
+#: account/adapter.py:75
 msgid "Username can not be used. Please use other username."
 msgstr "No se puede usar este nombre de usuario. Por favor, utilice otro."
 
-#: account/adapter.py:71
+#: account/adapter.py:78
 msgid "The username and/or password you specified are not correct."
 msgstr "El usuario y/o la contraseña que ha indicado no son correctos."
 
-#: account/adapter.py:707
+#: account/adapter.py:714
 msgid "Use your password"
 msgstr "Utilice su contraseña"
 
-#: account/adapter.py:717
+#: account/adapter.py:724
 msgid "Use your authenticator app"
 msgstr "Utilice su aplicación de autenticación"
 
@@ -174,7 +174,7 @@ msgstr "Código"
 msgid "user"
 msgstr "usuario"
 
-#: account/models.py:26 account/models.py:34 account/models.py:136
+#: account/models.py:26 account/models.py:34 account/models.py:140
 msgid "email address"
 msgstr "dirección de correo electrónico"
 
@@ -190,23 +190,23 @@ msgstr "principal"
 msgid "email addresses"
 msgstr "direcciones de correo electrónico"
 
-#: account/models.py:139
+#: account/models.py:143
 msgid "created"
 msgstr "creado"
 
-#: account/models.py:140
+#: account/models.py:144
 msgid "sent"
 msgstr "enviado"
 
-#: account/models.py:141 socialaccount/models.py:62
+#: account/models.py:145 socialaccount/models.py:62
 msgid "key"
 msgstr "clave"
 
-#: account/models.py:146
+#: account/models.py:150
 msgid "email confirmation"
 msgstr "confirmación de correo electrónico"
 
-#: account/models.py:147
+#: account/models.py:151
 msgid "email confirmations"
 msgstr "confirmaciones de correo electrónico"
 
@@ -254,7 +254,7 @@ msgstr "Códigos de recuperación"
 msgid "TOTP Authenticator"
 msgstr "Verificador TOTP"
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:36
 #, python-format
 msgid ""
 "An account already exists with this email address. Please sign in to that "
@@ -263,17 +263,27 @@ msgstr ""
 "Ya existe una cuenta con esta dirección de correo electrónico. Por favor, "
 "primero inicie sesión con esa cuenta, y después vincule su cuenta %s."
 
-#: socialaccount/adapter.py:34
+#: socialaccount/adapter.py:40
 msgid "Invalid token."
 msgstr "Token no válido."
 
-#: socialaccount/adapter.py:35
+#: socialaccount/adapter.py:41
 msgid "Your account has no password set up."
 msgstr "Su cuenta no tiene puesta ninguna contraseña."
 
-#: socialaccount/adapter.py:36
+#: socialaccount/adapter.py:42
 msgid "Your account has no verified email address."
 msgstr "Su cuenta no tiene ninguna dirección de correo electrónico verificada."
+
+#: socialaccount/adapter.py:44
+#, fuzzy
+#| msgid ""
+#| "You can sign in to your account using any of the following third-party "
+#| "accounts:"
+msgid "You cannot disconnect your last remaining third-party account."
+msgstr ""
+"Puede iniciar sesión en su cuenta utilizando una de las siguientes cuentas "
+"de terceros:"
 
 #: socialaccount/apps.py:9
 msgid "Social Accounts"
@@ -443,7 +453,7 @@ msgstr "Opciones alternativas"
 
 #: templates/account/confirm_login_code.html:5
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
-#: templates/account/login.html:9 templates/account/login.html:25
+#: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
 #: templates/allauth/layouts/base.html:36 templates/mfa/authenticate.html:5
 #: templates/mfa/authenticate.html:23 templates/openid/login.html:5
@@ -792,16 +802,14 @@ msgstr ""
 "válido. Por favor, <a href=\"%(email_url)s\"> emita una nueva solicitud de "
 "confirmación por correo electrónico</a>."
 
-#: templates/account/login.html:12
+#: templates/account/login.html:19
 #, python-format
 msgid ""
-"If you have not created an account yet, then please\n"
-"    <a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
-"Si aún no ha creado una cuenta, por favor\n"
-"    <a href=\"%(signup_url)s\">regístrese</a> primero."
+"If you have not created an account yet, then please %(link)ssign "
+"up%(end_link)s first."
+msgstr "Si aún no ha creado una cuenta, por favor %(link)sregístrese%(end_link)s primero."
 
-#: templates/account/login.html:34 templates/account/request_login_code.html:9
+#: templates/account/login.html:41 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
 msgstr "Envíame un código de inicio de sesión"
 
@@ -951,18 +959,16 @@ msgstr "Solicite el código"
 msgid "Signup"
 msgstr "Registro"
 
-#: templates/account/signup.html:8 templates/account/signup.html:23
+#: templates/account/signup.html:8 templates/account/signup.html:28
 #: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "Registrarse"
 
-#: templates/account/signup.html:11
+#: templates/account/signup.html:16
 #, python-format
-msgid ""
-"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr ""
-"¿Ya tiene una cuenta? Por favor <a href=\"%(login_url)s\">inicie sesión</a>."
+msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
+msgstr "¿Ya tiene una cuenta? Por favor %(link)sinicie sesión%(end_link)s."
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1343,7 +1349,7 @@ msgstr ""
 "Se dispone a usar su cuenta de %(provider_name)s para acceder a "
 "%(site_name)s. Como paso final, por favor complete el siguiente formulario:"
 
-#: templates/socialaccount/snippets/login.html:9
+#: templates/socialaccount/snippets/login.html:10
 msgid "Or use a third-party"
 msgstr "O use una tercera parte"
 
@@ -1435,7 +1441,7 @@ msgstr "clave de sesión"
 #~ "for a %(site_name)s account and sign in below:"
 #~ msgstr ""
 #~ "Por favor, inicie sesión con una\n"
-#~ "cuenta de otra red social. O <a href=\"%(signup_url)s\">regístrese</a> \n"
+#~ "cuenta de otra red social. O %(link)sregístrese%(end_link)s \n"
 #~ "como usuario de %(site_name)s e inicie sesión a continuación:"
 
 #~ msgid "or"

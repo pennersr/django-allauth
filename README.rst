@@ -2,32 +2,32 @@
 Welcome to django-allauth!
 ==========================
 
-.. |ci| image:: https://img.shields.io/github/actions/workflow/status/pennersr/django-allauth/ci.yml.png
+.. |ci| image:: https://img.shields.io/github/actions/workflow/status/pennersr/django-allauth/ci.yml.svg
    :target: https://github.com/pennersr/django-allauth/actions
-.. |pypi| image:: https://img.shields.io/pypi/v/django-allauth.png
+.. |pypi| image:: https://img.shields.io/pypi/v/django-allauth
    :target: https://pypi.python.org/pypi/django-allauth
-.. |cov| image:: https://img.shields.io/coverallsCoverage/github/pennersr/django-allauth.png
+.. |cov| image:: https://img.shields.io/coverallsCoverage/github/pennersr/django-allauth
    :alt: Coverage Status
    :target: https://coveralls.io/r/pennersr/django-allauth
-.. |btc| image:: https://img.shields.io/badge/bitcoin-donate-yellow.png
+.. |btc| image:: https://img.shields.io/badge/bitcoin-donate-yellow
    :target: https://blockchain.info/address/1AJXuBMPHkaDCNX2rwAy34bGgs7hmrePEr
-.. |liberapay| image:: https://img.shields.io/liberapay/receives/pennersr.png
+.. |liberapay| image:: https://img.shields.io/liberapay/receives/pennersr
    :target: https://en.liberapay.com/pennersr
-.. |pystyle| image:: https://img.shields.io/badge/code%20style-pep8-green.png
+.. |pystyle| image:: https://img.shields.io/badge/code_style-pep8-green
    :target: https://www.python.org/dev/peps/pep-0008/
-.. |jsstyle| image:: https://img.shields.io/badge/code_style-standard-brightgreen.png
+.. |jsstyle| image:: https://img.shields.io/badge/code_style-standard-brightgreen
    :target: http://standardjs.com
-.. |editor| image:: https://img.shields.io/badge/editor-emacs-purple.png
+.. |editor| image:: https://img.shields.io/badge/editor-emacs-purple
    :target: https://www.gnu.org/software/emacs/
-.. |i18n| image:: https://img.shields.io/weblate/progress/django-allauth.png
+.. |i18n| image:: https://img.shields.io/weblate/progress/django-allauth
    :target: https://hosted.weblate.org/engage/django-allauth/
-.. |pypidl| image:: https://img.shields.io/pypi/dm/django-allauth.png
+.. |pypidl| image:: https://img.shields.io/pypi/dm/django-allauth
    :target: https://pypistats.org/packages/django-allauth
    :alt: PyPI - Downloads
-.. |djangodemo| image:: https://img.shields.io/badge/%E2%96%B6%20demo-Django%20project-red.png
+.. |djangodemo| image:: https://img.shields.io/badge/%E2%96%B6_demo-Django_project-red
    :target: https://django.demo.allauth.org/
    :alt: View Django Demo
-.. |reactdemo| image:: https://img.shields.io/badge/%E2%96%B6%20demo-React%20SPA-red.png
+.. |reactdemo| image:: https://img.shields.io/badge/%E2%96%B6_demo-React_SPA-red
    :target: https://react.demo.allauth.org/
    :alt: View React SPA Demo
 

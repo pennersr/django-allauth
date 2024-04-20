@@ -1,5 +1,8 @@
+import os
+
 from django.conf import settings
-from django.urls import reverse
+from django.http import HttpResponseRedirect
+from django.urls import NoReverseMatch, reverse
 from django.utils.decorators import sync_and_async_middleware
 
 from asgiref.sync import iscoroutinefunction, sync_to_async
@@ -22,7 +25,7 @@ def AccountMiddleware(get_response):
                 response = await get_response(request)
                 if _should_check_dangling_login(request, response):
                     await _acheck_dangling_login(request)
-                return response
+                return _accounts_redirect(request, response)
 
     else:
 
@@ -31,7 +34,7 @@ def AccountMiddleware(get_response):
                 response = get_response(request)
                 if _should_check_dangling_login(request, response):
                     _check_dangling_login(request)
-                return response
+                return _accounts_redirect(request, response)
 
     def process_exception(request, exception):
         if isinstance(exception, ImmediateHttpResponse):
@@ -75,3 +78,32 @@ def _check_dangling_login(request):
 
 async def _acheck_dangling_login(request):
     await sync_to_async(_check_dangling_login)(request)
+
+
+def _accounts_redirect(request, response):
+    """
+    URLs should be hackable. Yet, assuming allauth is included like this...
+
+        path("accounts/", include("allauth.urls")),
+
+    ... and a user would attempt to navigate to /accounts/, a 404 would be
+    presented. This code catches that 404, and redirects to either the email
+    management overview or the login page, depending on whether or not the user
+    is authenticated.
+    """
+    if response.status_code != 404:
+        return response
+    try:
+        login_path = reverse("account_login")
+        email_path = reverse("account_email")
+    except NoReverseMatch:
+        # Project might have deviated URLs, let's keep out of the way.
+        return response
+    prefix = os.path.commonprefix([login_path, email_path])
+    if len(prefix) <= 1 or prefix != request.path:
+        return response
+    # If we have a prefix that is not just '/', and that is what our request is
+    # pointing to, redirect.
+    return HttpResponseRedirect(
+        email_path if request.user.is_authenticated else login_path
+    )

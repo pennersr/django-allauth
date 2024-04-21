@@ -34,6 +34,9 @@ Note worthy changes
 - Added a new setting, ``SOCIALACCOUNT_ONLY``, which when set to ``True``,
   disables all functionality with respect to local accounts.
 
+- The OAuth2 handshake was not working properly in case of
+  ``SESSION_COOKIE_SAMESITE = "Strict"``, fixed.
+
 
 0.61.1 (2024-02-09)
 *******************

@@ -42,6 +42,7 @@ Provider Specifics
    apple
    atlassian
    auth0
+   authelia
    authentiq
    baidu
    basecamp

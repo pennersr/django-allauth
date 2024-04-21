@@ -37,6 +37,8 @@ Note worthy changes
 - The OAuth2 handshake was not working properly in case of
   ``SESSION_COOKIE_SAMESITE = "Strict"``, fixed.
 
+- Facebook: the default Graph API version is now v19.0.
+
 
 0.61.1 (2024-02-09)
 *******************

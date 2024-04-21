@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 0.61.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-20 14:01-0500\n"
-"PO-Revision-Date: 2024-04-20 21:41+0200\n"
+"PO-Revision-Date: 2024-04-22 10:07+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/django-allauth/"
 "django-allauth/es/>\n"
@@ -276,14 +276,8 @@ msgid "Your account has no verified email address."
 msgstr "Su cuenta no tiene ninguna dirección de correo electrónico verificada."
 
 #: socialaccount/adapter.py:44
-#, fuzzy
-#| msgid ""
-#| "You can sign in to your account using any of the following third-party "
-#| "accounts:"
 msgid "You cannot disconnect your last remaining third-party account."
-msgstr ""
-"Puede iniciar sesión en su cuenta utilizando una de las siguientes cuentas "
-"de terceros:"
+msgstr "No puede desconectar la última cuenta de terceros restante."
 
 #: socialaccount/apps.py:9
 msgid "Social Accounts"

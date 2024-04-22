@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 from django.contrib.auth.hashers import PBKDF2PasswordHasher
 
@@ -27,13 +28,11 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            os.path.join(
-                os.path.dirname(__file__),
-                "examples",
-                "regular-django",
-                "example",
-                "templates",
-            )
+            Path(__file__).parent.parent
+            / "examples"
+            / "regular-django"
+            / "example"
+            / "templates"
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -218,7 +217,7 @@ class MyPBKDF2PasswordHasher(PBKDF2PasswordHasher):
 
 
 PASSWORD_HASHERS = [
-    "test_settings.MyPBKDF2PasswordHasher",
+    "tests.settings.MyPBKDF2PasswordHasher",
     "django.contrib.auth.hashers.PBKDF2PasswordHasher",
     "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
     "django.contrib.auth.hashers.Argon2PasswordHasher",

@@ -78,11 +78,14 @@ class PasswordField(forms.CharField):
 class SetPasswordField(PasswordField):
     def __init__(self, *args, **kwargs):
         kwargs["autocomplete"] = "new-password"
-        super(SetPasswordField, self).__init__(*args, **kwargs)
+        kwargs.setdefault(
+            "help_text", password_validation.password_validators_help_text_html()
+        )
+        super().__init__(*args, **kwargs)
         self.user = None
 
     def clean(self, value):
-        value = super(SetPasswordField, self).clean(value)
+        value = super().clean(value)
         value = get_adapter().clean_password(value, user=self.user)
         return value
 
@@ -504,10 +507,7 @@ class ChangePasswordForm(PasswordVerificationMixin, UserForm):
     oldpassword = PasswordField(
         label=_("Current Password"), autocomplete="current-password"
     )
-    password1 = SetPasswordField(
-        label=_("New Password"),
-        help_text=password_validation.password_validators_help_text_html(),
-    )
+    password1 = SetPasswordField(label=_("New Password"))
     password2 = PasswordField(label=_("New Password (again)"))
 
     def __init__(self, *args, **kwargs):
@@ -524,10 +524,7 @@ class ChangePasswordForm(PasswordVerificationMixin, UserForm):
 
 
 class SetPasswordForm(PasswordVerificationMixin, UserForm):
-    password1 = SetPasswordField(
-        label=_("Password"),
-        help_text=password_validation.password_validators_help_text_html(),
-    )
+    password1 = SetPasswordField(label=_("Password"))
     password2 = PasswordField(label=_("Password (again)"))
 
     def __init__(self, *args, **kwargs):

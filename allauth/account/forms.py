@@ -10,12 +10,8 @@ from django.utils.translation import gettext, gettext_lazy as _, pgettext
 
 from allauth.account.internal import flows
 from allauth.core import context, ratelimit
+from allauth.utils import get_username_max_length, set_form_field_order
 
-from ..utils import (
-    build_absolute_uri,
-    get_username_max_length,
-    set_form_field_order,
-)
 from . import app_settings
 from .adapter import get_adapter
 from .app_settings import AuthenticationMethod
@@ -560,18 +556,10 @@ class ResetPasswordForm(forms.Form):
         email = self.cleaned_data["email"]
         if not self.users:
             if app_settings.EMAIL_UNKNOWN_ACCOUNTS:
-                self._send_unknown_account_mail(request, email)
+                flows.signup.send_unknown_account_mail(request, email)
         else:
             self._send_password_reset_mail(request, email, self.users, **kwargs)
         return email
-
-    def _send_unknown_account_mail(self, request, email):
-        signup_url = build_absolute_uri(request, reverse("account_signup"))
-        context = {
-            "request": request,
-            "signup_url": signup_url,
-        }
-        get_adapter().send_mail("account/email/unknown_account", email, context)
 
     def _send_password_reset_mail(self, request, email, users, **kwargs):
         token_generator = kwargs.get("token_generator", default_token_generator)

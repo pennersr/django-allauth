@@ -112,9 +112,7 @@ class Provider:
         socialaccount = SocialAccount(
             extra_data=extra_data,
             uid=uid,
-            provider=(self.app.provider_id or self.app.provider)
-            if self.app
-            else self.id,
+            provider=self.sub_id,
         )
         email_addresses = self.extract_email_addresses(response)
         self.cleanup_email_addresses(
@@ -212,6 +210,12 @@ class Provider:
         if state is None:
             raise PermissionDenied()
         return state
+
+    @property
+    def sub_id(self) -> str:
+        return (
+            (self.app.provider_id or self.app.provider) if self.uses_apps else self.id
+        )
 
 
 class ProviderAccount(object):

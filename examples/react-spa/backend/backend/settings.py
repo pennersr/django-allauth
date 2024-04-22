@@ -140,8 +140,13 @@ ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_ADAPTER = "backend.accounts.allauth.AccountAdapter"
 ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = False
+
+HEADLESS_ONLY = True
+HEADLESS_FRONTEND_URLS = {
+    "account_confirm_email": "/account/verify-email/{key}",
+    "account_reset_password_from_key": "/account/password/reset/key/{key}",
+}
 
 try:
     from .local_settings import *  # noqa

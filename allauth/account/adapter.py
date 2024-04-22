@@ -21,11 +21,16 @@ from django.contrib.auth.password_validation import (
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import FieldDoesNotExist
 from django.core.mail import EmailMessage, EmailMultiAlternatives
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import (
+    HttpResponse,
+    HttpResponseRedirect,
+    HttpResponseServerError,
+)
 from django.shortcuts import resolve_url
 from django.template import TemplateDoesNotExist
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.urls.exceptions import NoReverseMatch
 from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.utils.encoding import force_str
@@ -36,6 +41,7 @@ from allauth.account import signals
 from allauth.account.app_settings import AuthenticationMethod
 from allauth.core import context, ratelimit
 from allauth.core.internal.adapter import BaseAdapter
+from allauth.core.internal.httpkit import render_url
 from allauth.utils import (
     build_absolute_uri,
     generate_unique_username,
@@ -568,6 +574,15 @@ class DefaultAccountAdapter(BaseAdapter):
         Method intented to be overriden in case the password reset email
         needs to point to your frontend/SPA.
         """
+        if allauth_app_settings.HEADLESS_ONLY:
+            from allauth.headless import app_settings as headless_settings
+
+            return render_url(
+                self.request,
+                headless_settings.FRONTEND_URLS["account_reset_password_from_key"],
+                key=key,
+            )
+
         # We intentionally accept an opaque `key` on the interface here, and not
         # implementation details such as a separate `uidb36` and `key. Ideally,
         # this should have done on `urls` level as well.
@@ -584,6 +599,15 @@ class DefaultAccountAdapter(BaseAdapter):
         confirmations are sent outside of the request context `request`
         can be `None` here.
         """
+        if allauth_app_settings.HEADLESS_ONLY:
+            from allauth.headless import app_settings as headless_settings
+
+            return render_url(
+                request,
+                headless_settings.FRONTEND_URLS["account_confirm_email"],
+                key=emailconfirmation.key,
+            )
+
         url = reverse("account_confirm_email", args=[emailconfirmation.key])
         ret = build_absolute_uri(request, url)
         return ret
@@ -622,10 +646,22 @@ class DefaultAccountAdapter(BaseAdapter):
         self.send_mail(email_template, emailconfirmation.email_address.email, ctx)
 
     def respond_user_inactive(self, request, user):
-        return HttpResponseRedirect(reverse("account_inactive"))
+        try:
+            return HttpResponseRedirect(reverse("account_inactive"))
+        except NoReverseMatch:
+            if allauth_app_settings.HEADLESS_ONLY:
+                # The response we would be rendering here is not actually used.
+                return HttpResponseServerError()
+            raise
 
     def respond_email_verification_sent(self, request, user):
-        return HttpResponseRedirect(reverse("account_email_verification_sent"))
+        try:
+            return HttpResponseRedirect(reverse("account_email_verification_sent"))
+        except NoReverseMatch:
+            if allauth_app_settings.HEADLESS_ONLY:
+                # The response we would be rendering here is not actually used.
+                return HttpResponseServerError()
+            raise
 
     def _get_login_attempts_cache_key(self, request, **credentials):
         site = get_current_site(request)

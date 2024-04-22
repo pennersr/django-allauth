@@ -8,11 +8,13 @@ from allauth.socialaccount import providers
 from . import app_settings
 
 
-urlpatterns = [path("", include("allauth.account.urls"))]
-if app_settings.MFA_ENABLED:
-    urlpatterns += [path("2fa/", include("allauth.mfa.urls"))]
+urlpatterns = []
+if not app_settings.HEADLESS_ONLY:
+    urlpatterns += [path("", include("allauth.account.urls"))]
+    if app_settings.MFA_ENABLED:
+        urlpatterns += [path("2fa/", include("allauth.mfa.urls"))]
 
-if app_settings.SOCIALACCOUNT_ENABLED:
+if app_settings.SOCIALACCOUNT_ENABLED and not app_settings.HEADLESS_ONLY:
     urlpatterns += [path("3rdparty/", include("allauth.socialaccount.urls"))]
 
     # DEPRECATED! -- deal with legacy URLs
@@ -42,7 +44,7 @@ if app_settings.SOCIALACCOUNT_ENABLED:
     ]
     # (end DEPRECATED)
 
-if app_settings.USERSESSIONS_ENABLED:
+if app_settings.USERSESSIONS_ENABLED and not app_settings.HEADLESS_ONLY:
     urlpatterns += [path("sessions/", include("allauth.usersessions.urls"))]
 
 # Provider urlpatterns, as separate attribute (for reusability).

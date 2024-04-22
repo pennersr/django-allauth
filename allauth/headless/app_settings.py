@@ -23,6 +23,10 @@ class AppSettings(object):
         cls = import_attribute(path)
         return cls()
 
+    @property
+    def FRONTEND_URLS(self):
+        return self._setting("FRONTEND_URLS", {})
+
 
 _app_settings = AppSettings("HEADLESS_")
 

@@ -50,7 +50,7 @@ Then, visit the app over at http://localhost:10000.
 
 **** DONE User sessions
 
-*** Headless [71%]
+*** Headless [76%]
 
 **** TODO Check rate limit handling
 
@@ -80,7 +80,7 @@ Disabled, let's not complicate things.
 
 **** DONE Change password vs ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE
 
-**** TODO Investigate a headless-only mode
+**** DONE Investigate a headless-only mode
 =HEADLESS_ONLY = True=  ?
 
 **** DONE Check interaction with user sessions

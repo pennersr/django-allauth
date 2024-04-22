@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as ET
 
+from allauth.core import context
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
@@ -11,11 +12,27 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 class NextCloudOAuth2Adapter(OAuth2Adapter):
     provider_id = "nextcloud"
-    settings = app_settings.PROVIDERS.get(provider_id, {})
-    server = settings.get("SERVER", "https://nextcloud.example.org")
-    access_token_url = "{0}/apps/oauth2/api/v1/token".format(server)
-    authorize_url = "{0}/apps/oauth2/authorize".format(server)
-    profile_url = "{0}/ocs/v1.php/cloud/users/".format(server)
+
+    def _build_server_url(self, path):
+        settings = app_settings.PROVIDERS.get(self.provider_id, {})
+        server = settings.get("SERVER", "https://nextcloud.example.org")
+        # Prefer app based setting.
+        app = get_adapter().get_app(context.request, provider=self.provider_id)
+        server = app.settings.get("server", server)
+        ret = f"{server}{path}"
+        return ret
+
+    @property
+    def access_token_url(self):
+        return self._build_server_url("/apps/oauth2/api/v1/token")
+
+    @property
+    def authorize_url(self):
+        return self._build_server_url("/apps/oauth2/authorize")
+
+    @property
+    def profile_url(self):
+        return self._build_server_url("/ocs/v1.php/cloud/users/")
 
     def complete_login(self, request, app, token, **kwargs):
         extra_data = self.get_user_info(token, kwargs["response"]["user_id"])

@@ -259,4 +259,5 @@ HEADLESS_ONLY = True
 HEADLESS_FRONTEND_URLS = {
     "account_confirm_email": "/spa/confirm-email?key={key}",
     "account_reset_password_from_key": "/spa/password/reset/{key}/",
+    "account_signup": "/spa/signup",
 }

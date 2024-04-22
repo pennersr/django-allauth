@@ -1,3 +1,5 @@
+from django.urls import reverse
+
 import pytest
 
 
@@ -84,3 +86,22 @@ def test_password_reset_flow_wrong_key(
             }
         ],
     }
+
+
+def test_password_reset_flow_unknown_user(
+    client, db, mailoutbox, password_factory, settings, headless_reverse
+):
+    resp = client.post(
+        headless_reverse("headless:request_password_reset"),
+        data={
+            "email": "not@registered.org",
+        },
+        content_type="application/json",
+    )
+    assert resp.status_code == 200
+    assert len(mailoutbox) == 1
+    body = mailoutbox[0].body
+    if getattr(settings, "HEADLESS_ONLY", False):
+        assert settings.HEADLESS_FRONTEND_URLS["account_signup"] in body
+    else:
+        assert reverse("account_signup") in body

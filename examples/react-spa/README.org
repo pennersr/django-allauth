@@ -50,11 +50,11 @@ Then, visit the app over at http://localhost:10000.
 
 **** DONE User sessions
 
-*** Headless [76%]
+*** Headless [80%]
 
 **** TODO Check rate limit handling
 
-**** TODO Make "Unknown account" email signup URL configurable
+**** DONE Make "Unknown account" email signup URL configurable
 
 **** DONE Mobile client (access tokens, no CSRF/cookies)
 - [X] Don't require CSRF

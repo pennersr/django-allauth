@@ -5,7 +5,7 @@ PROVIDER_ID = "facebook"
 GRAPH_API_VERSION = (
     getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})
     .get("facebook", {})
-    .get("VERSION", "v13.0")
+    .get("VERSION", "v19.0")
 )
 GRAPH_API_URL = (
     getattr(settings, "SOCIALACCOUNT_PROVIDERS", {})

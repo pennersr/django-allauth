@@ -6,9 +6,17 @@ The following NextCloud settings are available:
 .. code-block:: python
 
     SOCIALACCOUNT_PROVIDERS = {
-        'nextcloud': {
-            'SERVER': 'https://nextcloud.example.org',
-        }
+        "nextcloud": {
+            "APPS": [
+                {
+                    "client_id": "<insert-id>",
+                    "secret": "<insert-secret>",
+                    "settings": {
+                        "server": "https://nextcloud.example.org",
+                    }
+                }
+            ]
+          }
     }
 
 

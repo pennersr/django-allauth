@@ -6,6 +6,7 @@ from allauth.account.internal.flows import (
     password_change,
     password_reset,
     reauthentication,
+    signup,
 )
 
 
@@ -15,6 +16,7 @@ __all__ = [
     "login",
     "login_by_code",
     "logout",
+    "signup",
     "manage_email",
     "reauthentication",
 ]

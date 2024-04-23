@@ -19,6 +19,12 @@ class AppSettings(object):
         return apps.is_installed("allauth.socialaccount")
 
     @property
+    def SOCIALACCOUNT_ONLY(self) -> bool:
+        from allauth.utils import get_setting
+
+        return get_setting("SOCIALACCOUNT_ONLY", False)
+
+    @property
     def MFA_ENABLED(self):
         return apps.is_installed("allauth.mfa")
 

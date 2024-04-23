@@ -13,7 +13,7 @@ class DefaultMFAAdapter(BaseAdapter):
     """The adapter class allows you to override various functionality of the
     ``allauth.mfa`` app.  To do so, point ``settings.MFA_ADAPTER`` to your own
     class that derives from ``DefaultMFAAdapter`` and override the behavior by
-    altering the implementation of the methods according to your own need.
+    altering the implementation of the methods according to your own needs.
     """
 
     error_messages = {

@@ -115,7 +115,12 @@ def user_username(user, *args, commit=False):
 
 
 def user_email(user, *args, commit=False):
-    return user_field(user, app_settings.USER_MODEL_EMAIL_FIELD, *args, commit=commit)
+    if args and args[0]:
+        args = [args[0].lower()]
+    ret = user_field(user, app_settings.USER_MODEL_EMAIL_FIELD, *args, commit=commit)
+    if ret:
+        ret = ret.lower()
+    return ret
 
 
 def has_verified_email(user, email=None):
@@ -215,6 +220,7 @@ def cleanup_email_addresses(request, addresses):
         email = valid_email_or_none(address.email)
         if not email:
             continue
+        address.email = email  # `valid_email_or_none` lower cases
         # ... and non-conflicting ones...
         if (
             app_settings.UNIQUE_EMAIL
@@ -231,14 +237,14 @@ def cleanup_email_addresses(request, addresses):
         ):
             # Email address already exists, and is verified as well.
             continue
-        a = e2a.get(email.lower())
+        a = e2a.get(email)
         if a:
             a.primary = a.primary or address.primary
             a.verified = a.verified or address.verified
         else:
             a = address
             a.verified = a.verified or adapter.is_email_verified(request, a.email)
-            e2a[email.lower()] = a
+            e2a[email] = a
         if a.primary:
             primary_addresses.append(a)
             if a.verified:
@@ -281,12 +287,14 @@ def setup_user_email(request, user, addresses):
     stashed_email = adapter.unstash_verified_email(request)
     if stashed_email:
         priority_addresses.append(
-            EmailAddress(user=user, email=stashed_email, primary=True, verified=True)
+            EmailAddress(
+                user=user, email=stashed_email.lower(), primary=True, verified=True
+            )
         )
     email = user_email(user)
     if email:
         priority_addresses.append(
-            EmailAddress(user=user, email=email, primary=True, verified=False)
+            EmailAddress(user=user, email=email.lower(), primary=True, verified=False)
         )
     addresses, primary = cleanup_email_addresses(
         request, priority_addresses + addresses

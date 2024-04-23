@@ -129,7 +129,7 @@ def valid_email_or_none(email):
         if email:
             validate_email(email)
             if len(email) <= EmailField().max_length:
-                ret = email
+                ret = email.lower()
     except ValidationError:
         pass
     return ret

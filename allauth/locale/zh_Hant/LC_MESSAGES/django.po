@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-12 13:15-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2024-04-20 14:01-0500\n"
+"PO-Revision-Date: 2024-04-20 21:34+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -18,69 +18,69 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: account/adapter.py:50
+#: account/adapter.py:57
 msgid "This account is currently inactive."
 msgstr "此帳號目前沒有啟用。"
 
-#: account/adapter.py:52
+#: account/adapter.py:59
 msgid "This email address is already associated with this account."
 msgstr "此電子郵件已與這個帳號連結了。"
 
-#: account/adapter.py:55
+#: account/adapter.py:62
 msgid "The email address and/or password you specified are not correct."
 msgstr "您提供的電子郵件地址或密碼不正確。"
 
-#: account/adapter.py:57
+#: account/adapter.py:64
 msgid "A user is already registered with this email address."
 msgstr "已經有人使用這一個電子郵件註冊了。"
 
-#: account/adapter.py:58
+#: account/adapter.py:65
 msgid "Please type your current password."
 msgstr "請輸入您目前的密碼"
 
-#: account/adapter.py:59 mfa/adapter.py:29
+#: account/adapter.py:66 mfa/adapter.py:29
 msgid "Incorrect code."
 msgstr ""
 
-#: account/adapter.py:60
+#: account/adapter.py:67
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "目前密碼"
 
-#: account/adapter.py:61
+#: account/adapter.py:68
 msgid "The password reset token was invalid."
 msgstr ""
 
-#: account/adapter.py:62
+#: account/adapter.py:69
 #, fuzzy, python-format
 #| msgid "Your account has no verified email address."
 msgid "You cannot add more than %d email addresses."
 msgstr "您的帳號下沒有驗證過的電子郵件地址。"
 
-#: account/adapter.py:64
+#: account/adapter.py:71
 msgid "Too many failed login attempts. Try again later."
 msgstr "登錄失敗次數過多，請稍後再試。"
 
-#: account/adapter.py:66
+#: account/adapter.py:73
 msgid "The email address is not assigned to any user account"
 msgstr "還沒有其他帳號使用這個電子郵件地址"
 
-#: account/adapter.py:68
+#: account/adapter.py:75
 msgid "Username can not be used. Please use other username."
 msgstr "無法使用此使用者名稱，請使用其他名稱。"
 
-#: account/adapter.py:71
+#: account/adapter.py:78
 msgid "The username and/or password you specified are not correct."
 msgstr "您提供的使用者名稱或密碼不正確。"
 
-#: account/adapter.py:707
+#: account/adapter.py:714
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "忘記密碼了？"
 
-#: account/adapter.py:717
+#: account/adapter.py:724
 msgid "Use your authenticator app"
 msgstr ""
 
@@ -184,7 +184,7 @@ msgstr ""
 msgid "user"
 msgstr "使用者"
 
-#: account/models.py:26 account/models.py:34 account/models.py:136
+#: account/models.py:26 account/models.py:34 account/models.py:140
 msgid "email address"
 msgstr "電子郵件地址"
 
@@ -200,23 +200,23 @@ msgstr "主要的"
 msgid "email addresses"
 msgstr "電子郵件地址"
 
-#: account/models.py:139
+#: account/models.py:143
 msgid "created"
 msgstr "以建立"
 
-#: account/models.py:140
+#: account/models.py:144
 msgid "sent"
 msgstr "已送出"
 
-#: account/models.py:141 socialaccount/models.py:62
+#: account/models.py:145 socialaccount/models.py:62
 msgid "key"
 msgstr "key"
 
-#: account/models.py:146
+#: account/models.py:150
 msgid "email confirmation"
 msgstr "電子郵件確認"
 
-#: account/models.py:147
+#: account/models.py:151
 msgid "email confirmations"
 msgstr "電子郵件確認"
 
@@ -258,7 +258,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:36
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -269,19 +269,27 @@ msgid ""
 msgstr ""
 "已經有一個帳號與此電子郵件連結了，請先登入該帳號，然後連接你的 %s 帳號。"
 
-#: socialaccount/adapter.py:34
+#: socialaccount/adapter.py:40
 #, fuzzy
 #| msgid "Invalid confirmation key."
 msgid "Invalid token."
 msgstr "Ongeldige bevestigingssleutel."
 
-#: socialaccount/adapter.py:35
+#: socialaccount/adapter.py:41
 msgid "Your account has no password set up."
 msgstr "您的帳號沒有設置密碼。"
 
-#: socialaccount/adapter.py:36
+#: socialaccount/adapter.py:42
 msgid "Your account has no verified email address."
 msgstr "您的帳號下沒有驗證過的電子郵件地址。"
+
+#: socialaccount/adapter.py:44
+#, fuzzy
+#| msgid ""
+#| "You can sign in to your account using any of the following third party "
+#| "accounts:"
+msgid "You cannot disconnect your last remaining third-party account."
+msgstr "您可以使用下列任何第三方帳號登入您的帳號："
 
 #: socialaccount/apps.py:9
 msgid "Social Accounts"
@@ -456,7 +464,7 @@ msgstr ""
 
 #: templates/account/confirm_login_code.html:5
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
-#: templates/account/login.html:9 templates/account/login.html:25
+#: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
 #: templates/allauth/layouts/base.html:36 templates/mfa/authenticate.html:5
 #: templates/mfa/authenticate.html:23 templates/openid/login.html:5
@@ -817,19 +825,14 @@ msgstr ""
 "電子郵件確認連結已經過期或失效了，請點擊 <a href=\"%(email_url)s\"> 以要求發"
 "送新的電子郵件確認信。"
 
-#: templates/account/login.html:12
-#, fuzzy, python-format
-#| msgid ""
-#| "If you have not created an account yet, then please\n"
-#| "<a href=\"%(signup_url)s\">sign up</a> first."
+#: templates/account/login.html:19
+#, python-format
 msgid ""
-"If you have not created an account yet, then please\n"
-"    <a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
-"若你沒有帳號，請先\n"
-"<a href=\"%(signup_url)s\">註冊</a> 。"
+"If you have not created an account yet, then please %(link)ssign "
+"up%(end_link)s first."
+msgstr "若你沒有帳號，請先 %(link)s註冊%(end_link)s 。"
 
-#: templates/account/login.html:34 templates/account/request_login_code.html:9
+#: templates/account/login.html:41 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
 msgstr ""
 
@@ -984,17 +987,16 @@ msgstr ""
 msgid "Signup"
 msgstr "註冊"
 
-#: templates/account/signup.html:8 templates/account/signup.html:23
+#: templates/account/signup.html:8 templates/account/signup.html:28
 #: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "註冊"
 
-#: templates/account/signup.html:11
+#: templates/account/signup.html:16
 #, python-format
-msgid ""
-"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr "已有帳號了嗎？請<a href=\"%(login_url)s\">登入</a>."
+msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
+msgstr "已有帳號了嗎？請%(link)s登入%(end_link)s."
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1390,7 +1392,7 @@ msgstr ""
 "您將使用 %(provider_name)s 這個帳號登入\n"
 " %(site_name)s 這個網站。最後一步，請填完下列表單："
 
-#: templates/socialaccount/snippets/login.html:9
+#: templates/socialaccount/snippets/login.html:10
 msgid "Or use a third-party"
 msgstr ""
 
@@ -1482,7 +1484,7 @@ msgstr ""
 #~ "for a %(site_name)s account and sign in below:"
 #~ msgstr ""
 #~ "請用您的第三方帳號登入。\n"
-#~ "或者<a href=\"%(signup_url)s\">註冊</a> \n"
+#~ "或者%(link)s註冊%(end_link)s \n"
 #~ "一個 %(site_name)s帳號後登入："
 
 #~ msgid "or"

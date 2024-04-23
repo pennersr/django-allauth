@@ -1,11 +1,15 @@
 from datetime import timedelta
 from requests import RequestException
 
+from django.conf import settings
 from django.core.exceptions import PermissionDenied
+from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
 
+from allauth.account import app_settings as account_settings
 from allauth.core.exceptions import ImmediateHttpResponse
+from allauth.core.internal.httpkit import add_query_params
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.helpers import (
     complete_social_login,
@@ -156,6 +160,24 @@ class OAuth2CallbackView(OAuth2View):
                 request, provider, exception=e, extra_context={"state": state}
             )
 
+    def _redirect_strict_samesite(self, request, provider):
+        if (
+            "_redir" in request.GET
+            or settings.SESSION_COOKIE_SAMESITE.lower() != "strict"
+            or request.method != "GET"
+        ):
+            return
+        redirect_to = request.get_full_path()
+        redirect_to = add_query_params(redirect_to, {"_redir": ""})
+        return render(
+            request,
+            "socialaccount/login_redirect." + account_settings.TEMPLATE_EXTENSION,
+            {
+                "provider": provider,
+                "redirect_to": redirect_to,
+            },
+        )
+
     def _get_state(self, request, provider):
         state = None
         state_id = get_request_param(request, "state")
@@ -165,6 +187,11 @@ class OAuth2CallbackView(OAuth2View):
         else:
             state = statekit.unstash_last_state(request)
         if state is None:
+            resp = self._redirect_strict_samesite(request, provider)
+            if resp:
+                # 'Strict' is in effect, let's try a redirect and then another
+                # shot at finding our state...
+                return None, resp
             return None, render_authentication_error(
                 request,
                 provider,

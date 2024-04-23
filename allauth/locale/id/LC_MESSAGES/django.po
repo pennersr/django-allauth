@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-12 13:15-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2024-04-20 14:01-0500\n"
+"PO-Revision-Date: 2024-04-20 21:35+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -18,69 +18,69 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: account/adapter.py:50
+#: account/adapter.py:57
 msgid "This account is currently inactive."
 msgstr "Akun ini sedang tidak aktif."
 
-#: account/adapter.py:52
+#: account/adapter.py:59
 msgid "This email address is already associated with this account."
 msgstr "Alamat e-mail ini sudah terhubung dengan akun ini."
 
-#: account/adapter.py:55
+#: account/adapter.py:62
 msgid "The email address and/or password you specified are not correct."
 msgstr "Alamat e-mail dan/atau kata sandi yang anda masukkan tidak benar."
 
-#: account/adapter.py:57
+#: account/adapter.py:64
 msgid "A user is already registered with this email address."
 msgstr "Seorang pengguna sudah terdaftar dengan alamat e-mail ini."
 
-#: account/adapter.py:58
+#: account/adapter.py:65
 msgid "Please type your current password."
 msgstr "Silahkan ketik kata sandi Anda saat ini."
 
-#: account/adapter.py:59 mfa/adapter.py:29
+#: account/adapter.py:66 mfa/adapter.py:29
 msgid "Incorrect code."
 msgstr ""
 
-#: account/adapter.py:60
+#: account/adapter.py:67
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "Kata sandi saat ini"
 
-#: account/adapter.py:61
+#: account/adapter.py:68
 msgid "The password reset token was invalid."
 msgstr "Token untuk mengatur ulang kata sandi tidak valid."
 
-#: account/adapter.py:62
+#: account/adapter.py:69
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Anda tidak dapat menambahkan lebih dari %d alamat e-mail."
 
-#: account/adapter.py:64
+#: account/adapter.py:71
 msgid "Too many failed login attempts. Try again later."
 msgstr "Terlalu banyak percobaan masuk yang gagal. Coba lagi nanti."
 
-#: account/adapter.py:66
+#: account/adapter.py:73
 msgid "The email address is not assigned to any user account"
 msgstr "Alamat e-mail ini tidak terhubung dengan akun pengguna mana pun"
 
-#: account/adapter.py:68
+#: account/adapter.py:75
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Name pengguna tidak dapat digunakan. Silahkan gunakan nama pengguna lain."
 
-#: account/adapter.py:71
+#: account/adapter.py:78
 msgid "The username and/or password you specified are not correct."
 msgstr "Nama pengguna dan/atau kata sandi yang anda masukkan tidak benar."
 
-#: account/adapter.py:707
+#: account/adapter.py:714
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "Lupa Kata Sandi?"
 
-#: account/adapter.py:717
+#: account/adapter.py:724
 msgid "Use your authenticator app"
 msgstr ""
 
@@ -178,7 +178,7 @@ msgstr ""
 msgid "user"
 msgstr "pengguna"
 
-#: account/models.py:26 account/models.py:34 account/models.py:136
+#: account/models.py:26 account/models.py:34 account/models.py:140
 msgid "email address"
 msgstr "alamat e-mail"
 
@@ -194,23 +194,23 @@ msgstr "utama"
 msgid "email addresses"
 msgstr "alamat e-mail"
 
-#: account/models.py:139
+#: account/models.py:143
 msgid "created"
 msgstr "dibuat"
 
-#: account/models.py:140
+#: account/models.py:144
 msgid "sent"
 msgstr "dikirim"
 
-#: account/models.py:141 socialaccount/models.py:62
+#: account/models.py:145 socialaccount/models.py:62
 msgid "key"
 msgstr "kunci"
 
-#: account/models.py:146
+#: account/models.py:150
 msgid "email confirmation"
 msgstr "konfirmasi e-mail"
 
-#: account/models.py:147
+#: account/models.py:151
 msgid "email confirmations"
 msgstr "konfirmasi e-mail"
 
@@ -252,7 +252,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:36
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -264,19 +264,29 @@ msgstr ""
 "Sudah ada akun yang menggunakan alamat e-mail ini. Silahkan masuk ke akun "
 "itu terlebih dahulu, lalu sambungkan akun %s Anda."
 
-#: socialaccount/adapter.py:34
+#: socialaccount/adapter.py:40
 #, fuzzy
 #| msgid "Bad Token"
 msgid "Invalid token."
 msgstr "Token Salah"
 
-#: socialaccount/adapter.py:35
+#: socialaccount/adapter.py:41
 msgid "Your account has no password set up."
 msgstr "Akun Anda tidak memiliki kata sandi."
 
-#: socialaccount/adapter.py:36
+#: socialaccount/adapter.py:42
 msgid "Your account has no verified email address."
 msgstr "Akun Anda tidak memiliki alamat e-mail yang terverifikasi."
+
+#: socialaccount/adapter.py:44
+#, fuzzy
+#| msgid ""
+#| "You can sign in to your account using any of the following third party "
+#| "accounts:"
+msgid "You cannot disconnect your last remaining third-party account."
+msgstr ""
+"Anda dapat masuk ke akun Anda menggunakan salah satu dari akun jejaring "
+"sosial berikut:"
 
 #: socialaccount/apps.py:9
 msgid "Social Accounts"
@@ -451,7 +461,7 @@ msgstr ""
 
 #: templates/account/confirm_login_code.html:5
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
-#: templates/account/login.html:9 templates/account/login.html:25
+#: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
 #: templates/allauth/layouts/base.html:36 templates/mfa/authenticate.html:5
 #: templates/mfa/authenticate.html:23 templates/openid/login.html:5
@@ -813,19 +823,14 @@ msgstr ""
 "Link konfirmasi e-mail ini sudah kadaluwarsa atau tidak valid. Mohon <a "
 "href=\"%(email_url)s\">mengirimkan permintaan konfirmasi e-mail baru</a>."
 
-#: templates/account/login.html:12
-#, fuzzy, python-format
-#| msgid ""
-#| "If you have not created an account yet, then please\n"
-#| "<a href=\"%(signup_url)s\">sign up</a> first."
+#: templates/account/login.html:19
+#, python-format
 msgid ""
-"If you have not created an account yet, then please\n"
-"    <a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
-"Jika Anda belum membuat akun, mohon\n"
-"<a href=\"%(signup_url)s\">daftar</a> terlebih dahulu."
+"If you have not created an account yet, then please %(link)ssign "
+"up%(end_link)s first."
+msgstr "Jika Anda belum membuat akun, mohon %(link)sdaftar%(end_link)s terlebih dahulu."
 
-#: templates/account/login.html:34 templates/account/request_login_code.html:9
+#: templates/account/login.html:41 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
 msgstr ""
 
@@ -982,17 +987,16 @@ msgstr ""
 msgid "Signup"
 msgstr "Daftar"
 
-#: templates/account/signup.html:8 templates/account/signup.html:23
+#: templates/account/signup.html:8 templates/account/signup.html:28
 #: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "Daftar"
 
-#: templates/account/signup.html:11
+#: templates/account/signup.html:16
 #, python-format
-msgid ""
-"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr "Sudah memiliki akun? Silakan <a href=\"%(login_url)s\">masuk</a>."
+msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
+msgstr "Sudah memiliki akun? Silakan %(link)smasuk%(end_link)s."
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1408,7 +1412,7 @@ msgstr ""
 "Anda akan menggunakan akun %(provider_name)s untuk masuk ke\n"
 "%(site_name)s. Sebagai langkah akhir, silakan lengkapi formulir berikut:"
 
-#: templates/socialaccount/snippets/login.html:9
+#: templates/socialaccount/snippets/login.html:10
 msgid "Or use a third-party"
 msgstr ""
 
@@ -1500,7 +1504,7 @@ msgstr ""
 #~ "for a %(site_name)s account and sign in below:"
 #~ msgstr ""
 #~ "Mohon masuk dengan salah satu\n"
-#~ "dari akun pihak ketiga Anda. Atau, <a href=\"%(signup_url)s\">daftar</a>\n"
+#~ "dari akun pihak ketiga Anda. Atau, %(link)sdaftar%(end_link)s\n"
 #~ "untuk akun %(site_name)s dan masuk di bawah:"
 
 #~ msgid "or"

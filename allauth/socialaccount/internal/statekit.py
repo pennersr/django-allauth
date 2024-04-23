@@ -1,6 +1,6 @@
 import time
 
-from django.utils.crypto import get_random_string
+from allauth.socialaccount.adapter import get_adapter
 
 
 STATE_ID_LENGTH = 16
@@ -40,7 +40,7 @@ def get_states(request):
 def stash_state(request, state):
     states = get_states(request)
     gc_states(states)
-    state_id = get_random_string(STATE_ID_LENGTH)
+    state_id = get_adapter().generate_state_param(state)
     states[state_id] = (state, time.time())
     request.session[STATES_SESSION_KEY] = states
     return state_id

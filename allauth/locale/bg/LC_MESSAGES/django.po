@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-12 13:15-0500\n"
-"PO-Revision-Date: 2023-07-24 22:25+0200\n"
+"POT-Creation-Date: 2024-04-20 14:01-0500\n"
+"PO-Revision-Date: 2024-04-20 22:14+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -18,69 +18,69 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: account/adapter.py:50
+#: account/adapter.py:57
 msgid "This account is currently inactive."
 msgstr "Този акаунт в момента е неактивен."
 
-#: account/adapter.py:52
+#: account/adapter.py:59
 msgid "This email address is already associated with this account."
 msgstr "Този e-mail адрес вече е свързан с този акаунт."
 
-#: account/adapter.py:55
+#: account/adapter.py:62
 msgid "The email address and/or password you specified are not correct."
 msgstr "E-mail адресът и/или паролата, които въведохте, са грешни."
 
-#: account/adapter.py:57
+#: account/adapter.py:64
 msgid "A user is already registered with this email address."
 msgstr "Вече има регистриран потребител с този e-mail адрес."
 
-#: account/adapter.py:58
+#: account/adapter.py:65
 msgid "Please type your current password."
 msgstr "Моля, въведете вашата текуща парола."
 
-#: account/adapter.py:59 mfa/adapter.py:29
+#: account/adapter.py:66 mfa/adapter.py:29
 msgid "Incorrect code."
 msgstr ""
 
-#: account/adapter.py:60
+#: account/adapter.py:67
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "Текуща парола"
 
-#: account/adapter.py:61
+#: account/adapter.py:68
 msgid "The password reset token was invalid."
 msgstr "Невалиден код за възстановяване на парола."
 
-#: account/adapter.py:62
+#: account/adapter.py:69
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Не можете да добавяте повече от %d e-mail адреса."
 
-#: account/adapter.py:64
+#: account/adapter.py:71
 msgid "Too many failed login attempts. Try again later."
 msgstr "Твърде много неуспешни опити за влизане. Опитайте отново по-късно."
 
-#: account/adapter.py:66
+#: account/adapter.py:73
 msgid "The email address is not assigned to any user account"
 msgstr "Няма потребител с този e-mail адрес."
 
-#: account/adapter.py:68
+#: account/adapter.py:75
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Това потребителско име не може да бъде използвано. Моля, изберете друго."
 
-#: account/adapter.py:71
+#: account/adapter.py:78
 msgid "The username and/or password you specified are not correct."
 msgstr "Потребителското име и/или паролата, които въведохте, са грешни."
 
-#: account/adapter.py:707
+#: account/adapter.py:714
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "Забравена парола?"
 
-#: account/adapter.py:717
+#: account/adapter.py:724
 msgid "Use your authenticator app"
 msgstr ""
 
@@ -178,7 +178,7 @@ msgstr ""
 msgid "user"
 msgstr "потребител"
 
-#: account/models.py:26 account/models.py:34 account/models.py:136
+#: account/models.py:26 account/models.py:34 account/models.py:140
 msgid "email address"
 msgstr "e-mail адрес"
 
@@ -194,23 +194,23 @@ msgstr "основен"
 msgid "email addresses"
 msgstr "email адреси"
 
-#: account/models.py:139
+#: account/models.py:143
 msgid "created"
 msgstr "създадено"
 
-#: account/models.py:140
+#: account/models.py:144
 msgid "sent"
 msgstr "изпратено"
 
-#: account/models.py:141 socialaccount/models.py:62
+#: account/models.py:145 socialaccount/models.py:62
 msgid "key"
 msgstr "ключ"
 
-#: account/models.py:146
+#: account/models.py:150
 msgid "email confirmation"
 msgstr "email потвърждение"
 
-#: account/models.py:147
+#: account/models.py:151
 msgid "email confirmations"
 msgstr "email потвърждения"
 
@@ -252,7 +252,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:36
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -264,19 +264,27 @@ msgstr ""
 "Вече съществува акаунт с този e-mail адрес. Моля, първо влезте в този акаунт "
 "и тогава свържете вашия %s акаунт."
 
-#: socialaccount/adapter.py:34
+#: socialaccount/adapter.py:40
 #, fuzzy
 #| msgid "Bad Token"
 msgid "Invalid token."
 msgstr "Грешен код"
 
-#: socialaccount/adapter.py:35
+#: socialaccount/adapter.py:41
 msgid "Your account has no password set up."
 msgstr "Вашият акаунт няма парола."
 
-#: socialaccount/adapter.py:36
+#: socialaccount/adapter.py:42
 msgid "Your account has no verified email address."
 msgstr "Вашият акаунт няма потвърден e-mail адрес."
+
+#: socialaccount/adapter.py:44
+#, fuzzy
+#| msgid ""
+#| "You can sign in to your account using any of the following third party "
+#| "accounts:"
+msgid "You cannot disconnect your last remaining third-party account."
+msgstr "Можете да влизате в акаунта си чрез следните външни акаунти:"
 
 #: socialaccount/apps.py:9
 msgid "Social Accounts"
@@ -451,7 +459,7 @@ msgstr ""
 
 #: templates/account/confirm_login_code.html:5
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
-#: templates/account/login.html:9 templates/account/login.html:25
+#: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
 #: templates/allauth/layouts/base.html:36 templates/mfa/authenticate.html:5
 #: templates/mfa/authenticate.html:23 templates/openid/login.html:5
@@ -813,19 +821,14 @@ msgstr ""
 "Този линк за потвърждение на e-mail е изтекъл или невалиден. Моля, <a "
 "href=\"%(email_url)s\">подайте нова заявка за потвърждение на e-mail</a>."
 
-#: templates/account/login.html:12
-#, fuzzy, python-format
-#| msgid ""
-#| "If you have not created an account yet, then please\n"
-#| "<a href=\"%(signup_url)s\">sign up</a> first."
+#: templates/account/login.html:19
+#, python-format
 msgid ""
-"If you have not created an account yet, then please\n"
-"    <a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
-"Ако все още не сте създали акаунт, моля,\n"
-"<a href=\"%(signup_url)s\">регистрирайте се</a>."
+"If you have not created an account yet, then please %(link)ssign "
+"up%(end_link)s first."
+msgstr "Ако все още не сте създали акаунт, моля, %(link)sрегистрирайте се%(end_link)s."
 
-#: templates/account/login.html:34 templates/account/request_login_code.html:9
+#: templates/account/login.html:41 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
 msgstr ""
 
@@ -983,17 +986,16 @@ msgstr ""
 msgid "Signup"
 msgstr "Регистрация"
 
-#: templates/account/signup.html:8 templates/account/signup.html:23
+#: templates/account/signup.html:8 templates/account/signup.html:28
 #: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "Регистрация"
 
-#: templates/account/signup.html:11
+#: templates/account/signup.html:16
 #, python-format
-msgid ""
-"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr "Вече имате акаунт? Тогава, моля, <a href=\"%(login_url)s\">влезте</a>."
+msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
+msgstr "Вече имате акаунт? Тогава, моля, %(link)sвлезте%(end_link)s."
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1408,7 +1410,7 @@ msgstr ""
 "На път сте да използвате вашия %(provider_name)s акаунт за вход в\n"
 "%(site_name)s. Като последна стъпка, моля, попълнете следната форма:"
 
-#: templates/socialaccount/snippets/login.html:9
+#: templates/socialaccount/snippets/login.html:10
 msgid "Or use a third-party"
 msgstr ""
 
@@ -1509,7 +1511,7 @@ msgstr ""
 #~ "for a %(site_name)s account and sign in below:"
 #~ msgstr ""
 #~ "Моля, влезте с някой\n"
-#~ "от съществуващите ви външни акаунти. Или <a href=\"%(signup_url)s\">се "
+#~ "от съществуващите ви външни акаунти. Или %(link)sсе "
 #~ "регистрирайте</a>\n"
 #~ "за %(site_name)s акаунт и влезте по-долу:"
 

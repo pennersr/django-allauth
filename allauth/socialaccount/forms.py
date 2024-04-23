@@ -54,7 +54,7 @@ class DisconnectForm(forms.Form):
         cleaned_data = super(DisconnectForm, self).clean()
         account = cleaned_data.get("account")
         if account:
-            get_adapter(self.request).validate_disconnect(account, self.accounts)
+            flows.connect.validate_disconnect(self.request, account)
         return cleaned_data
 
     def save(self):

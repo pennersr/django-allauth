@@ -1,0 +1,1367 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-04-20 14:01-0500\n"
+"PO-Revision-Date: 2024-04-20 21:55+0200\n"
+"Last-Translator: Gregor Grigorjan <gregor@grigorjan.net>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: Estonian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: account/adapter.py:57
+msgid "This account is currently inactive."
+msgstr "See konto on parajasti mitteaktiivne."
+
+#: account/adapter.py:59
+msgid "This email address is already associated with this account."
+msgstr "See e-posti aadress on juba selle kontoga seostatud."
+
+#: account/adapter.py:62
+msgid "The email address and/or password you specified are not correct."
+msgstr "Sisestatud e-posti aadress või salasõna ei ole õige."
+
+#: account/adapter.py:64
+msgid "A user is already registered with this email address."
+msgstr "Selle e-posti aadressiga on juba kasutaja registreeritud."
+
+#: account/adapter.py:65
+msgid "Please type your current password."
+msgstr "Palun sisesta oma praegune salasõna."
+
+#: account/adapter.py:66 mfa/adapter.py:29
+msgid "Incorrect code."
+msgstr "Vale kood."
+
+#: account/adapter.py:67
+msgid "Incorrect password."
+msgstr "Vale salasõna."
+
+#: account/adapter.py:68
+msgid "The password reset token was invalid."
+msgstr "Salasõna taasseadmise tooken oli vale."
+
+#: account/adapter.py:69
+#, python-format
+msgid "You cannot add more than %d email addresses."
+msgstr "Sa ei tohi lisada enam kui %d e-posti aadressi."
+
+#: account/adapter.py:71
+msgid "Too many failed login attempts. Try again later."
+msgstr "Liiga palju nurjunud sisse logimise katseid. Proovi hiljem uuesti."
+
+#: account/adapter.py:73
+msgid "The email address is not assigned to any user account"
+msgstr "See e-posti aadress pole määratud ühelegi kontole."
+
+#: account/adapter.py:75
+msgid "Username can not be used. Please use other username."
+msgstr "Kasutajanime pole lubatud kasutada. Palun kasuta muud kasutajanime."
+
+#: account/adapter.py:78
+msgid "The username and/or password you specified are not correct."
+msgstr "Sisestatud kasutajanimi või salasõna ei ole õige."
+
+#: account/adapter.py:714
+msgid "Use your password"
+msgstr "Kasuta oma salasõna"
+
+#: account/adapter.py:724
+msgid "Use your authenticator app"
+msgstr "Kasuta oma autentimisrakendust"
+
+#: account/admin.py:23
+msgid "Mark selected email addresses as verified"
+msgstr "Märgi valitud e-posti aadressid kinnitatuks"
+
+#: account/apps.py:11
+msgid "Accounts"
+msgstr "Kontod"
+
+#: account/forms.py:59 account/forms.py:443
+msgid "You must type the same password each time."
+msgstr "Pead sisestama sama salasõna iga kord."
+
+#: account/forms.py:91 account/forms.py:406 account/forms.py:528
+#: account/forms.py:653
+msgid "Password"
+msgstr "Salasõna"
+
+#: account/forms.py:92
+msgid "Remember Me"
+msgstr "Jäta mind meelde"
+
+#: account/forms.py:102 account/forms.py:269 account/forms.py:459
+#: account/forms.py:548 account/forms.py:670
+msgid "Email address"
+msgstr "E-posti aadress"
+
+#: account/forms.py:106 account/forms.py:307 account/forms.py:456
+#: account/forms.py:543
+msgid "Email"
+msgstr "E-post"
+
+#: account/forms.py:109 account/forms.py:112 account/forms.py:259
+#: account/forms.py:262
+msgid "Username"
+msgstr "Kasutajanimi"
+
+#: account/forms.py:122
+msgid "Username or email"
+msgstr "Kasutajanimi või e-post"
+
+#: account/forms.py:125
+msgctxt "field label"
+msgid "Login"
+msgstr "Logi sisse"
+
+#: account/forms.py:136
+msgid "Forgot your password?"
+msgstr "Unustasid salasõna?"
+
+#: account/forms.py:298
+msgid "Email (again)"
+msgstr "E-post (uuesti)"
+
+#: account/forms.py:302
+msgid "Email address confirmation"
+msgstr "E-posti aadress"
+
+#: account/forms.py:310
+msgid "Email (optional)"
+msgstr "E-post (valikuline)"
+
+#: account/forms.py:365
+msgid "You must type the same email each time."
+msgstr "Pead sisetama sama e-posti aadressi iga kord."
+
+#: account/forms.py:412 account/forms.py:531
+msgid "Password (again)"
+msgstr "Salasõna (uuesti)"
+
+#: account/forms.py:505
+msgid "Current Password"
+msgstr "Praegune salasõna"
+
+#: account/forms.py:508 account/forms.py:606
+msgid "New Password"
+msgstr "Uus salasõna"
+
+#: account/forms.py:511 account/forms.py:607
+msgid "New Password (again)"
+msgstr "Uus salasõna (uuesti)"
+
+#: account/forms.py:693 account/forms.py:695 mfa/forms.py:15 mfa/forms.py:17
+#: mfa/forms.py:60
+msgid "Code"
+msgstr "Kood"
+
+#: account/models.py:21
+msgid "user"
+msgstr "kasutaja"
+
+#: account/models.py:26 account/models.py:34 account/models.py:140
+msgid "email address"
+msgstr "e-posti aadress"
+
+#: account/models.py:28
+msgid "verified"
+msgstr "kinnitatud"
+
+#: account/models.py:29
+msgid "primary"
+msgstr "primaarne"
+
+#: account/models.py:35
+msgid "email addresses"
+msgstr "e-posti aadressid"
+
+#: account/models.py:143
+msgid "created"
+msgstr "loodud"
+
+#: account/models.py:144
+msgid "sent"
+msgstr "saadetud"
+
+#: account/models.py:145 socialaccount/models.py:62
+msgid "key"
+msgstr "võti"
+
+#: account/models.py:150
+msgid "email confirmation"
+msgstr "kinnitus e-posti kaudu"
+
+#: account/models.py:151
+msgid "email confirmations"
+msgstr "kinnitused e-posti kaudu"
+
+#: mfa/adapter.py:21
+msgid ""
+"You cannot add an email address to an account protected by two-factor "
+"authentication."
+msgstr ""
+"Sa ei saa kaheastmelise autentimisega turvatud kontole lisada e-posti "
+"aadressi."
+
+#: mfa/adapter.py:24
+msgid "You cannot deactivate two-factor authentication."
+msgstr "Sa ei saa kaheastmelist autentimist välja lülitada."
+
+#: mfa/adapter.py:27
+msgid ""
+"You cannot generate recovery codes without having two-factor authentication "
+"enabled."
+msgstr "Sa ei saa luua varukoode ilma kaheastmilise autentimiseta."
+
+#: mfa/adapter.py:31
+msgid ""
+"You cannot activate two-factor authentication until you have verified your "
+"email address."
+msgstr ""
+"Sa ei saa välja lülitada kaheastmelist autentimist kuni sa oled oma e-posti "
+"aadressi kinnitanud."
+
+#: mfa/apps.py:9
+msgid "MFA"
+msgstr "Mitmeastmeline autentimine"
+
+#: mfa/forms.py:58
+msgid "Authenticator code"
+msgstr "Autentimiskood"
+
+#: mfa/models.py:19
+msgid "Recovery codes"
+msgstr "Varukoodid"
+
+#: mfa/models.py:20
+msgid "TOTP Authenticator"
+msgstr "Paroolikell"
+
+#: socialaccount/adapter.py:36
+#, python-format
+msgid ""
+"An account already exists with this email address. Please sign in to that "
+"account first, then connect your %s account."
+msgstr ""
+"Selle e-posti aadressiga konto on juba olemas. Palun logi esmalt sellesse "
+"kontosse sisse, siis ühenda oma %s konto."
+
+#: socialaccount/adapter.py:40
+msgid "Invalid token."
+msgstr "Vale tooken."
+
+#: socialaccount/adapter.py:41
+msgid "Your account has no password set up."
+msgstr "Su kontol pole salasõna määratud."
+
+#: socialaccount/adapter.py:42
+msgid "Your account has no verified email address."
+msgstr "Su kontol pole kinnitatud e-posti aadresse."
+
+#: socialaccount/adapter.py:44
+#, fuzzy
+#| msgid ""
+#| "You can sign in to your account using any of the following third-party "
+#| "accounts:"
+msgid "You cannot disconnect your last remaining third-party account."
+msgstr ""
+"Saad sisse logida oma kontosse kasutades mistahes järgnevatest kolmanda "
+"osapoole kontodest:"
+
+#: socialaccount/apps.py:9
+msgid "Social Accounts"
+msgstr "Sotsiaalkontod"
+
+#: socialaccount/models.py:37 socialaccount/models.py:90
+msgid "provider"
+msgstr "tarnija"
+
+#: socialaccount/models.py:45
+msgid "provider ID"
+msgstr "tarnija ID"
+
+#: socialaccount/models.py:49
+msgid "name"
+msgstr "nimi"
+
+#: socialaccount/models.py:51
+msgid "client id"
+msgstr "kliendi id"
+
+#: socialaccount/models.py:53
+msgid "App ID, or consumer key"
+msgstr "Rakenduse ID, või tarnija id"
+
+#: socialaccount/models.py:56
+msgid "secret key"
+msgstr "salavõti"
+
+#: socialaccount/models.py:59
+msgid "API secret, client secret, or consumer secret"
+msgstr "API salajane võti, kliendi salajane võti, või tarnija salajane võti"
+
+#: socialaccount/models.py:62
+msgid "Key"
+msgstr "Võti"
+
+#: socialaccount/models.py:74
+msgid "social application"
+msgstr "sotsiaalrakendus"
+
+#: socialaccount/models.py:75
+msgid "social applications"
+msgstr "sotsiaalrakendused"
+
+#: socialaccount/models.py:110
+msgid "uid"
+msgstr "uid"
+
+#: socialaccount/models.py:112
+msgid "last login"
+msgstr "viimane sisse logimine"
+
+#: socialaccount/models.py:113
+msgid "date joined"
+msgstr "liitumise kuupäev"
+
+#: socialaccount/models.py:114
+msgid "extra data"
+msgstr "lisaandmed"
+
+#: socialaccount/models.py:118
+msgid "social account"
+msgstr "sotsiaalkonto"
+
+#: socialaccount/models.py:119
+msgid "social accounts"
+msgstr "sotsiaalkontod"
+
+#: socialaccount/models.py:153
+msgid "token"
+msgstr "tooken"
+
+#: socialaccount/models.py:154
+msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
+msgstr ""
+
+#: socialaccount/models.py:158
+msgid "token secret"
+msgstr ""
+
+#: socialaccount/models.py:159
+msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
+msgstr ""
+
+#: socialaccount/models.py:162
+msgid "expires at"
+msgstr "aegub"
+
+#: socialaccount/models.py:167
+msgid "social application token"
+msgstr "sotsiaalrakenduse tooken"
+
+#: socialaccount/models.py:168
+msgid "social application tokens"
+msgstr "sotsiaalrakenduse tookenid"
+
+#: socialaccount/providers/douban/views.py:36
+msgid "Invalid profile data"
+msgstr "Valed profiiliandmed"
+
+#: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:17
+msgid "Login"
+msgstr "Logi sisse"
+
+#: socialaccount/providers/dummy/templates/dummy/authenticate_form.html:20
+#: templates/mfa/authenticate.html:27
+msgid "Cancel"
+msgstr "Tühista"
+
+#: socialaccount/providers/oauth/client.py:85
+#, python-format
+msgid ""
+"Invalid response while obtaining request token from \"%s\". Response was: %s."
+msgstr "Väär vastus päringutookenit tarnijalt \"%s\" hankides. Vastus oli: %s."
+
+#: socialaccount/providers/oauth/client.py:119
+#: socialaccount/providers/pocket/client.py:86
+#, python-format
+msgid "Invalid response while obtaining access token from \"%s\"."
+msgstr "Väär vastus pääsutookenit tarnijalt \"%s\" hankides."
+
+#: socialaccount/providers/oauth/client.py:140
+#, python-format
+msgid "No request token saved for \"%s\"."
+msgstr "Päringutookenit pole salvestatud \"%s\" jaoks."
+
+#: socialaccount/providers/oauth/client.py:191
+#, python-format
+msgid "No access token saved for \"%s\"."
+msgstr "Pääsutookenit pole salvestatud \"%s\" jaoks."
+
+#: socialaccount/providers/oauth/client.py:212
+#, python-format
+msgid "No access to private resources at \"%s\"."
+msgstr "Puudub ligipääs \"%s\" privaatressurssidele."
+
+#: socialaccount/providers/pocket/client.py:41
+#, python-format
+msgid "Invalid response while obtaining request token from \"%s\"."
+msgstr "Väär vastus tarnijalt \"%s\" pääsutookenit hankides."
+
+#: templates/account/account_inactive.html:5
+#: templates/account/account_inactive.html:9
+msgid "Account Inactive"
+msgstr "Konto mitteaktiivne"
+
+#: templates/account/account_inactive.html:11
+msgid "This account is inactive."
+msgstr "See konto on mitteaktiivne."
+
+#: templates/account/base_reauthenticate.html:5
+#: templates/account/base_reauthenticate.html:9
+msgid "Confirm Access"
+msgstr "Kinnita ligipääs"
+
+#: templates/account/base_reauthenticate.html:11
+msgid "Please reauthenticate to safeguard your account."
+msgstr "Palun tuvasta end uuesti, et turvata oma kontot."
+
+#: templates/account/base_reauthenticate.html:17
+msgid "Alternative options"
+msgstr "Muud valikud"
+
+#: templates/account/confirm_login_code.html:5
+#: templates/account/confirm_login_code.html:27 templates/account/login.html:5
+#: templates/account/login.html:9 templates/account/login.html:31
+#: templates/account/request_login_code.html:5
+#: templates/allauth/layouts/base.html:36 templates/mfa/authenticate.html:5
+#: templates/mfa/authenticate.html:23 templates/openid/login.html:5
+#: templates/openid/login.html:9 templates/openid/login.html:20
+#: templates/socialaccount/login.html:5
+msgid "Sign In"
+msgstr "Logi sisse"
+
+#: templates/account/confirm_login_code.html:9
+msgid "Enter Sign-In Code"
+msgstr "Sisesta sisselogimiskood"
+
+#: templates/account/confirm_login_code.html:15
+#, python-format
+msgid ""
+"We’ve sent a code to %(email_link)s. The code expires shortly, so please "
+"enter it soon."
+msgstr "Saatsime koodi %(email_link)s. Kood aegub varsti, seega sisestaga see kiiresti."
+
+#: templates/account/confirm_login_code.html:34
+#: templates/account/request_login_code.html:31
+msgid "Other sign-in options"
+msgstr "Muud sisse logimise võimalused"
+
+#: templates/account/email.html:4 templates/account/email.html:8
+msgid "Email Addresses"
+msgstr "E-posti aadressid"
+
+#: templates/account/email.html:11
+msgid "The following email addresses are associated with your account:"
+msgstr "Sinu kontoga on seostatud järgnevad e-posti aadressid:"
+
+#: templates/account/email.html:23
+msgid "Verified"
+msgstr "Kinnitatud"
+
+#: templates/account/email.html:27
+msgid "Unverified"
+msgstr "Kinnitamata"
+
+#: templates/account/email.html:32
+msgid "Primary"
+msgstr "Primaarne"
+
+#: templates/account/email.html:42
+msgid "Make Primary"
+msgstr "Muuda primaarseks"
+
+#: templates/account/email.html:45 templates/account/email_change.html:37
+msgid "Re-send Verification"
+msgstr "Saada kinnitus uuesti"
+
+#: templates/account/email.html:48 templates/socialaccount/connections.html:40
+msgid "Remove"
+msgstr "Eemalda"
+
+#: templates/account/email.html:57
+msgid "Add Email Address"
+msgstr "Lisa e-posti aadress"
+
+#: templates/account/email.html:69
+msgid "Add Email"
+msgstr "Lisa e-post"
+
+#: templates/account/email.html:78
+msgid "Do you really want to remove the selected email address?"
+msgstr "Oled kindel, et soovid valitud e-posti aadressi eemaldada?"
+
+#: templates/account/email/account_already_exists_message.txt:4
+#, python-format
+msgid ""
+"You are receiving this email because you or someone else tried to signup for "
+"an\n"
+"account using email address:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"However, an account using that email address already exists.  In case you "
+"have\n"
+"forgotten about this, please use the password forgotten procedure to "
+"recover\n"
+"your account:\n"
+"\n"
+"%(password_reset_url)s"
+msgstr ""
+"Te saite selle kirja kuna kas Teie või keegi teine proovis luua konto\n"
+"kasutades teie e-posti aadressi:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"Selle e-posti aadressiga konto on juba olemas. Juhul, kui Te olite selle\n"
+"unustanud, siis palun kasutage ununenud salasõna protseduuri, et saada ligi\n"
+"oma kontole:\n"
+"\n"
+"%(password_reset_url)s"
+
+#: templates/account/email/account_already_exists_subject.txt:3
+msgid "Account Already Exists"
+msgstr "Konto on juba olemas"
+
+#: templates/account/email/base_message.txt:1
+#, python-format
+msgid "Hello from %(site_name)s!"
+msgstr "%(site_name)s tervitab!"
+
+#: templates/account/email/base_message.txt:5
+#, python-format
+msgid ""
+"Thank you for using %(site_name)s!\n"
+"%(site_domain)s"
+msgstr ""
+"Täname, et kasutate teenust %(site_name)s!\n"
+"%(site_domain)s"
+
+#: templates/account/email/base_notification.txt:5
+msgid ""
+"You are receiving this mail because the following change was made to your "
+"account:"
+msgstr "Te saite selle kirja, kuna Teie kontoga tehti järgnev muudatus:"
+
+#: templates/account/email/base_notification.txt:10
+#, python-format
+msgid ""
+"If you do not recognize this change then please take proper security "
+"precautions immediately. The change to your account originates from:\n"
+"\n"
+"- IP address: %(ip)s\n"
+"- Browser: %(user_agent)s\n"
+"- Date: %(timestamp)s"
+msgstr ""
+"Kui Te ei tunnista seda muudatust, siis turvake oma kontot kohe. Muudatus "
+"kontole tuli järgnevast allikast:\n"
+"\n"
+"- IP aadress: %(ip)s\n"
+"- Veebilehitseja: %(user_agent)s\n"
+"- Kuupäev: %(timestamp)s"
+
+#: templates/account/email/email_changed_message.txt:4
+#, python-format
+msgid "Your email has been changed from %(from_email)s to %(to_email)s."
+msgstr ""
+"Teie e-posti aadress muudeti. Vana e-posti aadress: %(from_email)s. Uus e-"
+"posti aadress: %(to_email)s."
+
+#: templates/account/email/email_changed_subject.txt:3
+msgid "Email Changed"
+msgstr "E-post muudetud"
+
+#: templates/account/email/email_confirm_message.txt:4
+msgid "Your email has been confirmed."
+msgstr "Teie e-posti aadress on kinnitatud."
+
+#: templates/account/email/email_confirm_subject.txt:3
+msgid "Email Confirmation"
+msgstr "E-posti kinnitus"
+
+#: templates/account/email/email_confirmation_message.txt:5
+#, python-format
+msgid ""
+"You're receiving this email because user %(user_display)s has given your "
+"email address to register an account on %(site_domain)s.\n"
+"\n"
+"To confirm this is correct, go to %(activate_url)s"
+msgstr ""
+"Te saite selle kirja kuna kasutaja %(user_display)s sisestas teie e-posti "
+"aadressi, et registreerida konto lehel %(site_domain)s.\n"
+"\n"
+"Kinnitamaks taotluse õigsust, minge %(activate_url)s"
+
+#: templates/account/email/email_confirmation_subject.txt:3
+msgid "Please Confirm Your Email Address"
+msgstr "Palun kinnitage oma e-posti aadress"
+
+#: templates/account/email/email_deleted_message.txt:4
+#, python-format
+msgid "Email address %(deleted_email)s has been removed from your account."
+msgstr "E-posti aadress %(deleted_email)s on Teie kontolt eemaldatud."
+
+#: templates/account/email/email_deleted_subject.txt:3
+msgid "Email Removed"
+msgstr "E-post eemaldatud"
+
+#: templates/account/email/login_code_message.txt:5
+msgid ""
+"Your sign-in code is listed below. Please enter it in your open browser "
+"window."
+msgstr ""
+"Teie sisselogimiskood on alljärgnevalt esitatud. Palun sisestage see oma "
+"veebilehitseja avatud aknas."
+
+#: templates/account/email/login_code_message.txt:9
+#: templates/account/email/unknown_account_message.txt:6
+msgid "This mail can be safely ignored if you did not initiate this action."
+msgstr "Seda kirja võib eirata, kui Te ise seda toimingut ei algatanud."
+
+#: templates/account/email/login_code_subject.txt:3
+msgid "Sign-In Code"
+msgstr "Sisselogimiskood"
+
+#: templates/account/email/password_changed_message.txt:4
+msgid "Your password has been changed."
+msgstr "Teie salasõna muudeti."
+
+#: templates/account/email/password_changed_subject.txt:3
+msgid "Password Changed"
+msgstr "Salasõna muudetud"
+
+#: templates/account/email/password_reset_key_message.txt:4
+msgid ""
+"You're receiving this email because you or someone else has requested a "
+"password reset for your user account.\n"
+"It can be safely ignored if you did not request a password reset. Click the "
+"link below to reset your password."
+msgstr ""
+"Te saite selle kirja kuna Teie või keegi teine algatas Teie kontol parooli "
+"taasseadmise.\n"
+"Te võite seda kirja ignoreerida, kui Teie seda ei algatanud. Klõpsake "
+"alljärgneval lingil, et taasseada oma salasõna."
+
+#: templates/account/email/password_reset_key_message.txt:9
+#, python-format
+msgid "In case you forgot, your username is %(username)s."
+msgstr "Juhuks, kui unstasite, Teie kasutajanimi on %(username)s."
+
+#: templates/account/email/password_reset_key_subject.txt:3
+msgid "Password Reset Email"
+msgstr "Salasõna taasseadmine"
+
+#: templates/account/email/password_reset_message.txt:4
+msgid "Your password has been reset."
+msgstr "Teie salasõna on taasseatud."
+
+#: templates/account/email/password_reset_subject.txt:3
+#: templates/account/password_reset.html:4
+#: templates/account/password_reset.html:8
+#: templates/account/password_reset_done.html:6
+#: templates/account/password_reset_done.html:10
+msgid "Password Reset"
+msgstr "Salasõna taasseadmine"
+
+#: templates/account/email/password_set_message.txt:4
+msgid "Your password has been set."
+msgstr "Teie salasõna on seatud."
+
+#: templates/account/email/password_set_subject.txt:3
+msgid "Password Set"
+msgstr "Salasõna seatud"
+
+#: templates/account/email/unknown_account_message.txt:4
+#, python-format
+msgid ""
+"You are receiving this email because you, or someone else, tried to access "
+"an account with email %(email)s. However, we do not have any record of such "
+"an account in our database."
+msgstr ""
+"Te saite selle kirja kuna Teie, või keegi teine, proovis pääseda ligi Teie "
+"kontole e-posti aadressiga %(email)s. Ent meil pole ühtegi kirjet sellise e-"
+"posti aadressiga kontost andmebaasis."
+
+#: templates/account/email/unknown_account_message.txt:8
+msgid "If it was you, you can sign up for an account using the link below."
+msgstr ""
+"Kui see olite Teie, siis saate registreerida konto kasutades alljärgnevat "
+"linki."
+
+#: templates/account/email/unknown_account_subject.txt:3
+msgid "Unknown Account"
+msgstr "Tundmatu konto"
+
+#: templates/account/email_change.html:5 templates/account/email_change.html:9
+msgid "Email Address"
+msgstr "E-posti aadress"
+
+#: templates/account/email_change.html:21
+#: templates/account/email_change.html:29
+msgid "Current email"
+msgstr "Praegune e-post"
+
+#: templates/account/email_change.html:31
+msgid "Changing to"
+msgstr "Muudatus"
+
+#: templates/account/email_change.html:35
+msgid "Your email address is still pending verification."
+msgstr "Su e-posti aadress on endiselt kinnitamata."
+
+#: templates/account/email_change.html:41
+msgid "Cancel Change"
+msgstr "Tühista muudatus"
+
+#: templates/account/email_change.html:49
+msgid "Change to"
+msgstr "Uus e-post"
+
+#: templates/account/email_change.html:55
+#: templates/allauth/layouts/base.html:29
+msgid "Change Email"
+msgstr "Muuda e-posti"
+
+#: templates/account/email_confirm.html:6
+#: templates/account/email_confirm.html:10
+msgid "Confirm Email Address"
+msgstr "Kinnita e-posti aadress"
+
+#: templates/account/email_confirm.html:16
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an email "
+"address for user %(user_display)s."
+msgstr ""
+"Palun kinnita, et <a href=\"mailto:%(email)s\">%(email)s</a> on konto "
+"%(user_display)s e-posti aadress."
+
+#: templates/account/email_confirm.html:24
+#: templates/account/reauthenticate.html:16
+#: templates/mfa/reauthenticate.html:16
+msgid "Confirm"
+msgstr "Kinnita"
+
+#: templates/account/email_confirm.html:30
+#: templates/account/messages/email_confirmation_failed.txt:2
+#, python-format
+msgid ""
+"Unable to confirm %(email)s because it is already confirmed by a different "
+"account."
+msgstr ""
+"Ei saa kinnitada aadressi %(email)s kuna see on juba teise kontoga "
+"kinnitatud."
+
+#: templates/account/email_confirm.html:36
+#, python-format
+msgid ""
+"This email confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">issue a new email confirmation request</a>."
+msgstr ""
+"See e-posti aadressi kinnituslink aegus või on vale. Palun <a "
+"href=\"%(email_url)s\">taotlege uus e-posti aadressi kinnitamine</a>."
+
+#: templates/account/login.html:19
+#, python-format
+msgid ""
+"If you have not created an account yet, then please %(link)ssign "
+"up%(end_link)s first."
+msgstr "Kui sa pole veel kontot loonud, siis palun esmalt %(link)sregistreeruge%(end_link)s."
+
+#: templates/account/login.html:41 templates/account/request_login_code.html:9
+msgid "Mail me a sign-in code"
+msgstr "Saada mulle sisselogimiskood"
+
+#: templates/account/logout.html:4 templates/account/logout.html:8
+#: templates/account/logout.html:19 templates/allauth/layouts/base.html:32
+#: templates/usersessions/usersession_list.html:64
+msgid "Sign Out"
+msgstr "Logi välja"
+
+#: templates/account/logout.html:10
+msgid "Are you sure you want to sign out?"
+msgstr "Oled kindel, et soovid välja logida?"
+
+#: templates/account/messages/cannot_delete_primary_email.txt:2
+#, python-format
+msgid "You cannot remove your primary email address (%(email)s)."
+msgstr "Primaarset e-posti aadressi (%(email)s) ei saa eemaldada."
+
+#: templates/account/messages/email_confirmation_sent.txt:2
+#, python-format
+msgid "Confirmation email sent to %(email)s."
+msgstr "Kinnituskiri saadeti aadressile %(email)s."
+
+#: templates/account/messages/email_confirmed.txt:2
+#, python-format
+msgid "You have confirmed %(email)s."
+msgstr "Sa kinnitasid e-posti aadressi %(email)s."
+
+#: templates/account/messages/email_deleted.txt:2
+#, python-format
+msgid "Removed email address %(email)s."
+msgstr "E-posti aadress %(email)s eemaldatud."
+
+#: templates/account/messages/logged_in.txt:4
+#, python-format
+msgid "Successfully signed in as %(name)s."
+msgstr "Logisid edukalt sisse kasutajana %(name)s"
+
+#: templates/account/messages/logged_out.txt:2
+msgid "You have signed out."
+msgstr "Sa logisid välja."
+
+#: templates/account/messages/login_code_sent.txt:2
+#, python-format
+msgid "A sign-in code has been mailed to %(email)s."
+msgstr "Sisselogimisekood saadeti aadressile %(email)s."
+
+#: templates/account/messages/password_changed.txt:2
+msgid "Password successfully changed."
+msgstr "Salasõna muudeti edukalt."
+
+#: templates/account/messages/password_set.txt:2
+msgid "Password successfully set."
+msgstr "Salasõna seati edukalt."
+
+#: templates/account/messages/primary_email_set.txt:2
+msgid "Primary email address set."
+msgstr "Primaarne e-posti aadress on nüüd seatud."
+
+#: templates/account/messages/unverified_primary_email.txt:2
+msgid "Your primary email address must be verified."
+msgstr "Su primaarne e-posti aadress peab olema kinnitatud."
+
+#: templates/account/password_change.html:4
+#: templates/account/password_change.html:8
+#: templates/account/password_change.html:20
+#: templates/account/password_reset_from_key.html:5
+#: templates/account/password_reset_from_key.html:12
+#: templates/account/password_reset_from_key.html:30
+#: templates/account/password_reset_from_key_done.html:5
+#: templates/account/password_reset_from_key_done.html:9
+msgid "Change Password"
+msgstr "Muuda salasõna"
+
+#: templates/account/password_change.html:22
+msgid "Forgot Password?"
+msgstr "Unustasid salasõna?"
+
+#: templates/account/password_reset.html:14
+msgid ""
+"Forgotten your password? Enter your email address below, and we'll send you "
+"an email allowing you to reset it."
+msgstr ""
+"Unustasid oma salasõna? Sisesta allpool oma e-posti aadress, ning me saadame "
+"sulle kirja, mille abil saad selle taasseada."
+
+#: templates/account/password_reset.html:25
+msgid "Reset My Password"
+msgstr "Taassea minu salasõna"
+
+#: templates/account/password_reset.html:29
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr ""
+"Palun võta meiega ühendust, kui näed vaeva oma salasõna taasseadmisega."
+
+#: templates/account/password_reset_done.html:16
+msgid ""
+"We have sent you an email. If you have not received it please check your "
+"spam folder. Otherwise contact us if you do not receive it in a few minutes."
+msgstr ""
+"Saatsime teile e-kirja. Kui sa pole seda kätte saanud, siis vaata rämpsposti "
+"kausta. Muul juhul, võta meiega ühendust kui sa ei saa seda mõne minuti "
+"jooksul kätte."
+
+#: templates/account/password_reset_from_key.html:10
+msgid "Bad Token"
+msgstr "Vale tooken"
+
+#: templates/account/password_reset_from_key.html:18
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+"Salasõna taasseadmise link oli vale. On võimalik, et seda oli juba "
+"kasutatud. Palun taotle <a href=\"%(passwd_reset_url)s\">uus salasõna "
+"taasseadmine</a>."
+
+#: templates/account/password_reset_from_key_done.html:11
+msgid "Your password is now changed."
+msgstr "Su salasõna on nüüd muudetud."
+
+#: templates/account/password_set.html:5 templates/account/password_set.html:9
+#: templates/account/password_set.html:21
+msgid "Set Password"
+msgstr "Sea salasõna"
+
+#: templates/account/reauthenticate.html:5
+msgid "Enter your password:"
+msgstr "Sisesta oma salasõna:"
+
+#: templates/account/request_login_code.html:12
+msgid ""
+"You will receive an email containing a special code for a password-free sign-"
+"in."
+msgstr "Sa saad e-kirja, mis sisaldab koodi paroolivabaks sisselogimiseks."
+
+#: templates/account/request_login_code.html:24
+msgid "Request Code"
+msgstr "Taotle koodi"
+
+#: templates/account/signup.html:4 templates/socialaccount/signup.html:5
+msgid "Signup"
+msgstr "Registreerimine"
+
+#: templates/account/signup.html:8 templates/account/signup.html:28
+#: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
+#: templates/socialaccount/signup.html:25
+msgid "Sign Up"
+msgstr "Registreeri"
+
+#: templates/account/signup.html:16
+#, python-format
+msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
+msgstr "Konto juba olemas? Palun %(link)slogi sisse%(end_link)s."
+
+#: templates/account/signup_closed.html:5
+#: templates/account/signup_closed.html:9
+msgid "Sign Up Closed"
+msgstr "Sisselogimine peatatud"
+
+#: templates/account/signup_closed.html:11
+msgid "We are sorry, but the sign up is currently closed."
+msgstr "Sisselogimine on parajasti peatatud. Palume vabandust!"
+
+#: templates/account/snippets/already_logged_in.html:7
+msgid "Note"
+msgstr "Teavitus"
+
+#: templates/account/snippets/already_logged_in.html:7
+#, python-format
+msgid "You are already logged in as %(user_display)s."
+msgstr "Sa oled juba sisse logitud kasutajana %(user_display)s."
+
+#: templates/account/snippets/warn_no_email.html:3
+msgid "Warning:"
+msgstr "Hoiatus:"
+
+#: templates/account/snippets/warn_no_email.html:3
+msgid ""
+"You currently do not have any email address set up. You should really add an "
+"email address so you can receive notifications, reset your password, etc."
+msgstr ""
+"Su kontol pole parajasti ühtegi e-posti aadressi. Soovitame kindlasti seada "
+"e-posti aadressi, et sa saaksid saada teavitusi, taasseada salasõna jne."
+
+#: templates/account/verification_sent.html:5
+#: templates/account/verification_sent.html:9
+#: templates/account/verified_email_required.html:5
+#: templates/account/verified_email_required.html:9
+msgid "Verify Your Email Address"
+msgstr "Kinnita oma e-posti aadress"
+
+#: templates/account/verification_sent.html:12
+msgid ""
+"We have sent an email to you for verification. Follow the link provided to "
+"finalize the signup process. If you do not see the verification email in "
+"your main inbox, check your spam folder. Please contact us if you do not "
+"receive the verification email within a few minutes."
+msgstr ""
+"Saatsime sulle kinnituseks e-kirja. Järgi kirjas olevat linki, et lõpetada "
+"registreerimine. Kui sa ei näe kinnituskirja postkastis, kontrolli "
+"rämpsposti kausta. Palun võta meiega ühendust, kui sa ei saa kinnituskirja "
+"mõne minuti jooksul."
+
+#: templates/account/verified_email_required.html:13
+msgid ""
+"This part of the site requires us to verify that\n"
+"you are who you claim to be. For this purpose, we require that you\n"
+"verify ownership of your email address. "
+msgstr ""
+"See osa lehest nõuab, et me kinnitaksime sinu sisestatud andmeid. Selle "
+"tarbeks nõuame kinnitust, et\n"
+"oled oma e-posti aadressi omanik. "
+
+#: templates/account/verified_email_required.html:18
+msgid ""
+"We have sent an email to you for\n"
+"verification. Please click on the link inside that email. If you do not see "
+"the verification email in your main inbox, check your spam folder. "
+"Otherwise\n"
+"contact us if you do not receive it within a few minutes."
+msgstr ""
+"Saatsime teile kinnituseks e-kirja. Palun klõpsa kirja sees olevale lingile. "
+"Kui sa ei näe kinnituskirja oma postkastis, siis vaata rämpsposti kausta. "
+"Vastasel juhul,\n"
+"võta meiega ühendust kui sa ei saa kirja mõne minuti jooksul."
+
+#: templates/account/verified_email_required.html:23
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
+"email address</a>."
+msgstr ""
+"<strong>Märkus:</strong> saad ikka oma <a href=\"%(email_url)s\">e-posti "
+"aadressi muuta</a>."
+
+#: templates/allauth/layouts/base.html:18
+msgid "Messages:"
+msgstr "Sõnumid"
+
+#: templates/allauth/layouts/base.html:25
+msgid "Menu:"
+msgstr "Menüü:"
+
+#: templates/mfa/authenticate.html:9 templates/mfa/index.html:5
+#: templates/mfa/index.html:9
+msgid "Two-Factor Authentication"
+msgstr "Kaheastmeline autentimine"
+
+#: templates/mfa/authenticate.html:12
+msgid ""
+"Your account is protected by two-factor authentication. Please enter an "
+"authenticator code:"
+msgstr ""
+"Su konto on turvatud kaheastmelise autentimisega. Palun sisesta "
+"autentimiskood:"
+
+#: templates/mfa/email/recovery_codes_generated_message.txt:4
+msgid ""
+"A new set of Two-Factor Authentication recovery codes has been generated."
+msgstr "Uus hulk kaheastmelise autentimise varukoode on loodud."
+
+#: templates/mfa/email/recovery_codes_generated_subject.txt:3
+msgid "New Recovery Codes Generated"
+msgstr "Uued varukoodid loodud"
+
+#: templates/mfa/email/totp_activated_message.txt:4
+#: templates/mfa/messages/totp_activated.txt:2
+msgid "Authenticator app activated."
+msgstr "Autentimisrakendus seadistatud"
+
+#: templates/mfa/email/totp_activated_subject.txt:3
+msgid "Authenticator App Activated"
+msgstr "Autentimisrakendus seadistatud"
+
+#: templates/mfa/email/totp_deactivated_message.txt:4
+#: templates/mfa/messages/totp_deactivated.txt:2
+msgid "Authenticator app deactivated."
+msgstr "Autentimisrakendus eemaldatud"
+
+#: templates/mfa/email/totp_deactivated_subject.txt:3
+msgid "Authenticator App Deactivated"
+msgstr "Autentimisrakendus eemaldatud"
+
+#: templates/mfa/index.html:14 templates/mfa/totp/base.html:4
+msgid "Authenticator App"
+msgstr "Autentimisrakendus"
+
+#: templates/mfa/index.html:18
+msgid "Authentication using an authenticator app is active."
+msgstr "Autentimine kasutades autentimisrakendust on seadistatud."
+
+#: templates/mfa/index.html:20
+msgid "An authenticator app is not active."
+msgstr "Ühtegi autentimisrakendust pole seadistatud."
+
+#: templates/mfa/index.html:28 templates/mfa/totp/deactivate_form.html:24
+msgid "Deactivate"
+msgstr "Eemalda"
+
+#: templates/mfa/index.html:32 templates/mfa/totp/activate_form.html:32
+msgid "Activate"
+msgstr "Seadista"
+
+#: templates/mfa/index.html:42 templates/mfa/recovery_codes/base.html:4
+#: templates/mfa/recovery_codes/generate.html:6
+#: templates/mfa/recovery_codes/index.html:6
+msgid "Recovery Codes"
+msgstr "Varukoodid"
+
+#: templates/mfa/index.html:47 templates/mfa/recovery_codes/index.html:9
+#, python-format
+msgid ""
+"There is %(unused_count)s out of %(total_count)s recovery codes available."
+msgid_plural ""
+"There are %(unused_count)s out of %(total_count)s recovery codes available."
+msgstr[0] ""
+"Võimalikke varukoode on %(total_count)s, ning nendest %(unused_count)s on "
+"saadaval."
+msgstr[1] ""
+"Võimalikke varukoode on %(total_count)s, ning nendest %(unused_count)s on "
+"saadaval."
+
+#: templates/mfa/index.html:50
+msgid "No recovery codes set up."
+msgstr "Varukoode pole seadistatud"
+
+#: templates/mfa/index.html:59
+msgid "View"
+msgstr "Vaata"
+
+#: templates/mfa/index.html:65
+msgid "Download"
+msgstr "Lae alla"
+
+#: templates/mfa/index.html:73 templates/mfa/recovery_codes/generate.html:29
+msgid "Generate"
+msgstr "Loo"
+
+#: templates/mfa/messages/recovery_codes_generated.txt:2
+msgid "A new set of recovery codes has been generated."
+msgstr "Uus hulk varukoode on loodud."
+
+#: templates/mfa/reauthenticate.html:5
+msgid "Enter an authenticator code:"
+msgstr "Sisesta autentimisrakenduse kood:"
+
+#: templates/mfa/recovery_codes/generate.html:9
+msgid "You are about to generate a new set of recovery codes for your account."
+msgstr "Järgnevalt loote uue hulga varukoode oma kontole."
+
+#: templates/mfa/recovery_codes/generate.html:11
+msgid "This action will invalidate your existing codes."
+msgstr "See tegevus muudab olemasolevad varukoodid kehtetuks."
+
+#: templates/mfa/recovery_codes/generate.html:13
+msgid "Are you sure?"
+msgstr "Oled kindel?"
+
+#: templates/mfa/recovery_codes/index.html:13
+msgid "Unused codes"
+msgstr "Kasutamata varukoodid"
+
+#: templates/mfa/recovery_codes/index.html:25
+msgid "Download codes"
+msgstr "Lae varukoodid alla"
+
+#: templates/mfa/recovery_codes/index.html:30
+msgid "Generate new codes"
+msgstr "Loo uued varukoodid"
+
+#: templates/mfa/totp/activate_form.html:4
+#: templates/mfa/totp/activate_form.html:8
+msgid "Activate Authenticator App"
+msgstr "Seadista autentimisrakendus"
+
+#: templates/mfa/totp/activate_form.html:11
+msgid ""
+"To protect your account with two-factor authentication, scan the QR code "
+"below with your authenticator app. Then, input the verification code "
+"generated by the app below."
+msgstr ""
+"Et turvata oma kontot kaheastmelise autentimisega, skänni alljärgnev QR-kood "
+"oma autentimisrakendusega. Seejärel, sisesta rakenduse loodud kinnituskood "
+"all olevasse lahtrisse."
+
+#: templates/mfa/totp/activate_form.html:21
+msgid "Authenticator secret"
+msgstr "Autentimisrakenduse saladus"
+
+#: templates/mfa/totp/activate_form.html:24
+msgid ""
+"You can store this secret and use it to reinstall your authenticator app at "
+"a later time."
+msgstr ""
+"Hoiustades selle saladuse saad seda kasutada, et taaspaigaldada oma "
+"autentimisrakendust tulevikus."
+
+#: templates/mfa/totp/deactivate_form.html:5
+#: templates/mfa/totp/deactivate_form.html:9
+msgid "Deactivate Authenticator App"
+msgstr "Eemalda autentimisrakendus"
+
+#: templates/mfa/totp/deactivate_form.html:12
+msgid ""
+"You are about to deactivate authenticator app based authentication. Are you "
+"sure?"
+msgstr ""
+"Järgneva tegevusega eemaldad autentimisrakendusega seotud autentimise. Kas "
+"oled kindel?"
+
+#: templates/socialaccount/authentication_error.html:5
+#: templates/socialaccount/authentication_error.html:9
+msgid "Third-Party Login Failure"
+msgstr "Kolmanda osapoolega sisse logimine nurjus"
+
+#: templates/socialaccount/authentication_error.html:11
+msgid ""
+"An error occurred while attempting to login via your third-party account."
+msgstr "Kolmanda osapoole konto kaudu sisse logimise ajal tekkis viga."
+
+#: templates/socialaccount/connections.html:5
+#: templates/socialaccount/connections.html:9
+msgid "Account Connections"
+msgstr "Konto sidemed"
+
+#: templates/socialaccount/connections.html:13
+msgid ""
+"You can sign in to your account using any of the following third-party "
+"accounts:"
+msgstr ""
+"Saad sisse logida oma kontosse kasutades mistahes järgnevatest kolmanda "
+"osapoole kontodest:"
+
+#: templates/socialaccount/connections.html:45
+msgid "You currently have no third-party accounts connected to this account."
+msgstr "Su kontoga pole parajasti seotud ühtegi kolmanda osapoole kontot."
+
+#: templates/socialaccount/connections.html:48
+msgid "Add a Third-Party Account"
+msgstr "Lisa kolmanda osapoole konto"
+
+#: templates/socialaccount/email/account_connected_message.txt:4
+#, python-format
+msgid ""
+"A third-party account from %(provider)s has been connected to your account."
+msgstr "Kolmanda osapoole %(provider)s konto on Teie kontoga ühendatud."
+
+#: templates/socialaccount/email/account_connected_subject.txt:3
+msgid "Third-Party Account Connected"
+msgstr "Kolmanda osapoole konto ühendatud"
+
+#: templates/socialaccount/email/account_disconnected_message.txt:4
+#, python-format
+msgid ""
+"A third-party account from %(provider)s has been disconnected from your "
+"account."
+msgstr ""
+"Seos kolmanda osapoole %(provider)s konto ja Teie konto vahel on eemaldatud."
+
+#: templates/socialaccount/email/account_disconnected_subject.txt:3
+msgid "Third-Party Account Disconnected"
+msgstr "Kolmanda osapoole konto eemaldatud"
+
+#: templates/socialaccount/login.html:10
+#, python-format
+msgid "Connect %(provider)s"
+msgstr "Ühenda %(provider)s"
+
+#: templates/socialaccount/login.html:13
+#, python-format
+msgid "You are about to connect a new third-party account from %(provider)s."
+msgstr ""
+"Järgneva tegevusega ühendate uue kolmanda osapoole konto pakkujalt "
+"%(provider)s."
+
+#: templates/socialaccount/login.html:17
+#, python-format
+msgid "Sign In Via %(provider)s"
+msgstr "Logi sisse %(provider)s kaudu"
+
+#: templates/socialaccount/login.html:20
+#, python-format
+msgid "You are about to sign in using a third-party account from %(provider)s."
+msgstr ""
+"Järgneva tegevusega logite sisse kasutades kolmanda osapoole %(provider)s "
+"kontot."
+
+#: templates/socialaccount/login.html:27
+msgid "Continue"
+msgstr "Jätka"
+
+#: templates/socialaccount/login_cancelled.html:5
+#: templates/socialaccount/login_cancelled.html:9
+msgid "Login Cancelled"
+msgstr "Sisse logimine tühistatud"
+
+#: templates/socialaccount/login_cancelled.html:13
+#, python-format
+msgid ""
+"You decided to cancel logging in to our site using one of your existing "
+"accounts. If this was a mistake, please proceed to <a "
+"href=\"%(login_url)s\">sign in</a>."
+msgstr ""
+"Otsustasid meie lehte sisse logimise tühistada.Kui see oli eksimus, palun "
+"mine <a href=\"%(login_url)s\">sisse logima</a>."
+
+#: templates/socialaccount/messages/account_connected.txt:2
+msgid "The third-party account has been connected."
+msgstr "Kolmanda osapoole konto on ühendatud."
+
+#: templates/socialaccount/messages/account_connected_other.txt:2
+msgid "The third-party account is already connected to a different account."
+msgstr "See kolmanda osapoole konto on juba mõne teise kontoga ühendatud."
+
+#: templates/socialaccount/messages/account_disconnected.txt:2
+msgid "The third-party account has been disconnected."
+msgstr "Seos kolmanda osapoole kontoga eemaldati."
+
+#: templates/socialaccount/signup.html:12
+#, python-format
+msgid ""
+"You are about to use your %(provider_name)s account to login to\n"
+"%(site_name)s. As a final step, please complete the following form:"
+msgstr ""
+"Järgneva tegevusega kasutate pakkuja %(provider_name)s kontot sisse "
+"logimiseks lehele\n"
+"%(site_name)s. Viimase sammuna, palun täitke ankeet:"
+
+#: templates/socialaccount/snippets/login.html:10
+msgid "Or use a third-party"
+msgstr "Või kasuta kolmandat osapoolt"
+
+#: templates/usersessions/messages/sessions_logged_out.txt:2
+msgid "Signed out of all other sessions."
+msgstr "Kõigist teistest sessioonidest välja logitud."
+
+#: templates/usersessions/usersession_list.html:6
+#: templates/usersessions/usersession_list.html:10
+msgid "Sessions"
+msgstr "Sessioonid"
+
+#: templates/usersessions/usersession_list.html:23
+msgid "Started At"
+msgstr "Alustati"
+
+#: templates/usersessions/usersession_list.html:24
+msgid "IP Address"
+msgstr "IP aadress"
+
+#: templates/usersessions/usersession_list.html:25
+msgid "Browser"
+msgstr "Veebilehitseja"
+
+#: templates/usersessions/usersession_list.html:27
+msgid "Last seen at"
+msgstr "Viimati nähtud"
+
+#: templates/usersessions/usersession_list.html:47
+msgid "Current"
+msgstr "Praegune"
+
+#: templates/usersessions/usersession_list.html:60
+msgid "Sign Out Other Sessions"
+msgstr "Logi teistest sessioonidest välja"
+
+#: usersessions/apps.py:9
+msgid "User Sessions"
+msgstr "Kasutajasessioonid"
+
+#: usersessions/models.py:48
+msgid "session key"
+msgstr "sessioonivõti"

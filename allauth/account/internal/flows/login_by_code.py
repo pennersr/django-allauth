@@ -6,10 +6,8 @@ from django.contrib.auth import get_user_model
 from allauth.account import app_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.authentication import record_authentication
-from allauth.account.internal.flows.login import (
-    perform_login,
-    send_unknown_account_email,
-)
+from allauth.account.internal.flows.login import perform_login
+from allauth.account.internal.flows.signup import send_unknown_account_mail
 from allauth.account.models import Login
 
 
@@ -27,7 +25,7 @@ def request_login_code(request, email):
         "failed_attempts": 0,
     }
     if not users:
-        send_unknown_account_email(request, email)
+        send_unknown_account_mail(request, email)
     else:
         user = users[0]
         code = adapter.generate_login_code()

@@ -1,7 +1,8 @@
 import json
-from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
+from urllib.parse import parse_qs, quote, urlencode, urlparse, urlunparse
 
 from django import shortcuts
+from django.core.exceptions import ImproperlyConfigured
 from django.http import QueryDict
 from django.urls import NoReverseMatch
 
@@ -53,3 +54,22 @@ def add_query_params(url, params):
         )
     )
     return new_url
+
+
+def render_url(request, url_template, **kwargs):
+    url = url_template
+    for k, v in kwargs.items():
+        qi = url.find("?")
+        ki = url.find("{" + k + "}")
+        if ki < 0:
+            raise ImproperlyConfigured(url_template)
+        is_query_param = qi >= 0 and ki > qi
+        if is_query_param:
+            qv = urlencode({"k": v}).partition("k=")[2]
+        else:
+            qv = quote(v)
+        url = url.replace("{" + k + "}", qv)
+    p = urlparse(url)
+    if not p.netloc:
+        url = request.build_absolute_uri(url)
+    return url

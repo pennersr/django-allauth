@@ -1,4 +1,10 @@
-0.62.0 (unreleased)
+0.63.0 (unreleased)
+*******************
+
+- ...
+
+
+0.62.0 (2024-04-22)
 *******************
 
 Note worthy changes
@@ -15,17 +21,29 @@ Note worthy changes
 - Added support for logging in by email using a special code, also known as
   "Magic Code Login"
 
+- Email addresses are now always stored as lower case. For rationale, see the
+  note about email case sensitivity in the documentation.
 
-Backwards incompatible changes
-------------------------------
+- You can now alter the ``state`` parameter that is typically passed to the
+  provider by overriding the new ``generate_state_param()`` adapter method.
 
-- The django-allauth required dependencies are now more fine grained.  If you do
-  not use any of the social account functionality, a `pip install
-  django-allauth` will, e.g., no longer pull in dependencies for handling
-  JWT. If you are using social account functionality, install using `pip install
-  django-allauth[socialaccount]`.  That will install the dependencies covering
-  most common providers. If you are using the Steam provider, install using `pip
-  install django-allauth[socialaccount,steam]`.
+- The URLs were not "hackable". For example, while ``/accounts/login/`` is valid
+  ``/accounts/`` was not. Similarly, ``/accounts/social/connections/`` was
+  valid, but ``/accounts/social/`` resulted in a 404. This has been
+  addressed. Now, ``/accounts/`` redirects to the login or email management
+  page, depending on whether or not the user is authenticated.  All
+  ``/accounts/social/*`` URLs are now below ``/accounts/3rdparty/*``, where
+  ``/accounts/social/connections`` is moved to the top-level
+  ``/accounts/3rdparty/``.  The old endpoints still work as redirects are in
+  place.
+
+- Added a new setting, ``SOCIALACCOUNT_ONLY``, which when set to ``True``,
+  disables all functionality with respect to local accounts.
+
+- The OAuth2 handshake was not working properly in case of
+  ``SESSION_COOKIE_SAMESITE = "Strict"``, fixed.
+
+- Facebook: the default Graph API version is now v19.0.
 
 
 0.61.1 (2024-02-09)
@@ -104,6 +122,22 @@ Fixes
 - SAML: accessing the SLS/ACS views using a GET request would result in a crash (500).
 
 - SAML: the login view did not obey the ``SOCIALACCOUNT_LOGIN_ON_GET = False`` setting.
+
+
+Backwards incompatible changes
+------------------------------
+
+- Formally, email addresses are case sensitive because the local part (the part
+  before the "@") can be a case sensitive user name.  To deal with this,
+  workarounds have been in place for a long time that store email addresses in
+  their original case, while performing lookups in a case insensitive
+  style. This approach led to subtle bugs in upstream code, and also comes at a
+  performance cost (``__iexact`` lookups). The latter requires case insensitive
+  index support, which not all databases support. Re-evaluating the approach in
+  current times has led to the conclusion that the benefits do not outweigh the
+  costs.  Therefore, email addresses are now always stored as lower case, and
+  migrations are in place to address existing records.
+
 
 
 0.60.0 (2024-01-05)

@@ -290,7 +290,9 @@ class SignupTests(TestCase):
             )
 
 
-def test_prevent_enumeration_with_mandatory_verification(settings, user_factory):
+def test_prevent_enumeration_with_mandatory_verification(
+    settings, user_factory, email_factory
+):
     settings.ACCOUNT_PREVENT_ENUMERATION = True
     settings.ACCOUNT_AUTHENTICATION_METHOD = app_settings.AuthenticationMethod.EMAIL
     settings.ACCOUNT_EMAIL_VERIFICATION = app_settings.EmailVerificationMethod.MANDATORY
@@ -300,7 +302,7 @@ def test_prevent_enumeration_with_mandatory_verification(settings, user_factory)
         reverse("account_signup"),
         {
             "username": "johndoe",
-            "email": user.email,
+            "email": email_factory(email=user.email, mixed_case=True),
             "password1": "johndoe",
             "password2": "johndoe",
         },
@@ -311,7 +313,7 @@ def test_prevent_enumeration_with_mandatory_verification(settings, user_factory)
     assert EmailAddress.objects.filter(email="john@example.org").count() == 1
 
 
-def test_prevent_enumeration_off(settings, user_factory):
+def test_prevent_enumeration_off(settings, user_factory, email_factory):
     settings.ACCOUNT_PREVENT_ENUMERATION = False
     settings.ACCOUNT_AUTHENTICATION_METHOD = app_settings.AuthenticationMethod.EMAIL
     settings.ACCOUNT_EMAIL_VERIFICATION = app_settings.EmailVerificationMethod.MANDATORY
@@ -321,7 +323,7 @@ def test_prevent_enumeration_off(settings, user_factory):
         reverse("account_signup"),
         {
             "username": "johndoe",
-            "email": user.email,
+            "email": email_factory(email=user.email, mixed_case=True),
             "password1": "johndoe",
             "password2": "johndoe",
         },
@@ -332,7 +334,7 @@ def test_prevent_enumeration_off(settings, user_factory):
     }
 
 
-def test_prevent_enumeration_strictly(settings, user_factory):
+def test_prevent_enumeration_strictly(settings, user_factory, email_factory):
     settings.ACCOUNT_PREVENT_ENUMERATION = "strict"
     settings.ACCOUNT_AUTHENTICATION_METHOD = app_settings.AuthenticationMethod.EMAIL
     settings.ACCOUNT_EMAIL_VERIFICATION = app_settings.EmailVerificationMethod.NONE
@@ -342,7 +344,7 @@ def test_prevent_enumeration_strictly(settings, user_factory):
         reverse("account_signup"),
         {
             "username": "johndoe",
-            "email": user.email,
+            "email": email_factory(email=user.email, mixed_case=True),
             "password1": "johndoe",
             "password2": "johndoe",
         },
@@ -352,7 +354,7 @@ def test_prevent_enumeration_strictly(settings, user_factory):
     assert EmailAddress.objects.filter(email="john@example.org").count() == 2
 
 
-def test_prevent_enumeration_on(settings, user_factory):
+def test_prevent_enumeration_on(settings, user_factory, email_factory):
     settings.ACCOUNT_PREVENT_ENUMERATION = True
     settings.ACCOUNT_AUTHENTICATION_METHOD = app_settings.AuthenticationMethod.EMAIL
     settings.ACCOUNT_EMAIL_VERIFICATION = app_settings.EmailVerificationMethod.NONE
@@ -362,7 +364,7 @@ def test_prevent_enumeration_on(settings, user_factory):
         reverse("account_signup"),
         {
             "username": "johndoe",
-            "email": user.email,
+            "email": email_factory(email=user.email, mixed_case=True),
             "password1": "johndoe",
             "password2": "johndoe",
         },
@@ -406,3 +408,20 @@ def test_signup_user_model_no_email(settings, client, password_factory, db, mail
     assert email.primary
     assert not email.verified
     assert len(mailoutbox) == 1
+
+
+def test_email_lower_case(db, settings):
+    settings.ACCOUNT_AUTHENTICATION_METHOD = app_settings.AuthenticationMethod.EMAIL
+    settings.ACCOUNT_EMAIL_VERIFICATION = app_settings.EmailVerificationMethod.NONE
+    c = Client()
+    resp = c.post(
+        reverse("account_signup"),
+        {
+            "username": "johndoe",
+            "email": "JoHn@DoE.oRg",
+            "password1": "johndoe",
+            "password2": "johndoe",
+        },
+    )
+    assert resp.status_code == 302
+    assert EmailAddress.objects.filter(email="john@doe.org").count() == 1

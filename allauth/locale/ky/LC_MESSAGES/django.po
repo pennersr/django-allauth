@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-12 13:15-0500\n"
-"PO-Revision-Date: 2016-07-20 22:24+0600\n"
+"POT-Creation-Date: 2024-04-20 14:01-0500\n"
+"PO-Revision-Date: 2024-04-20 21:44+0200\n"
 "Last-Translator: Murat Jumashev <jumasheff at gmail dot com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -18,69 +18,69 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: account/adapter.py:50
+#: account/adapter.py:57
 msgid "This account is currently inactive."
 msgstr "Бул эсеп учурда активдүү эмес."
 
-#: account/adapter.py:52
+#: account/adapter.py:59
 msgid "This email address is already associated with this account."
 msgstr "Бул эмейл дарек ушул эсеп менен буга чейин туташтырылган."
 
-#: account/adapter.py:55
+#: account/adapter.py:62
 msgid "The email address and/or password you specified are not correct."
 msgstr "Сиз берген эмейл дарек жана/же купуя туура эмес."
 
-#: account/adapter.py:57
+#: account/adapter.py:64
 msgid "A user is already registered with this email address."
 msgstr "Мындай эмейл менен катталган колдонуучу бар."
 
-#: account/adapter.py:58
+#: account/adapter.py:65
 msgid "Please type your current password."
 msgstr "Учурдагы купуяңызды жазыңыз."
 
-#: account/adapter.py:59 mfa/adapter.py:29
+#: account/adapter.py:66 mfa/adapter.py:29
 msgid "Incorrect code."
 msgstr ""
 
-#: account/adapter.py:60
+#: account/adapter.py:67
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "Азыркы купуя"
 
-#: account/adapter.py:61
+#: account/adapter.py:68
 msgid "The password reset token was invalid."
 msgstr "Купуяны жаңыртуу токени туура эмес."
 
-#: account/adapter.py:62
+#: account/adapter.py:69
 #, fuzzy, python-format
 #| msgid "Your account has no verified email address."
 msgid "You cannot add more than %d email addresses."
 msgstr "Сиздин эсебиңизде дурусталган эмейл даректер жок."
 
-#: account/adapter.py:64
+#: account/adapter.py:71
 msgid "Too many failed login attempts. Try again later."
 msgstr "Өтө көп жолу кирүү аракеттери жасалды. Кайрадан аракеттениңиз."
 
-#: account/adapter.py:66
+#: account/adapter.py:73
 msgid "The email address is not assigned to any user account"
 msgstr "Эмейл дарек эч бир колдонуучу эсебине байланган эмес"
 
-#: account/adapter.py:68
+#: account/adapter.py:75
 msgid "Username can not be used. Please use other username."
 msgstr "Бул атты колдонуу мүмкүн эмес. Башкасын тандаңыз."
 
-#: account/adapter.py:71
+#: account/adapter.py:78
 msgid "The username and/or password you specified are not correct."
 msgstr "Сиз берген колдонуучу аты жана/же купуя туура эмес."
 
-#: account/adapter.py:707
+#: account/adapter.py:714
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "Купуяңызды унуттуңузбу?"
 
-#: account/adapter.py:717
+#: account/adapter.py:724
 msgid "Use your authenticator app"
 msgstr ""
 
@@ -184,7 +184,7 @@ msgstr ""
 msgid "user"
 msgstr "колдонуучу"
 
-#: account/models.py:26 account/models.py:34 account/models.py:136
+#: account/models.py:26 account/models.py:34 account/models.py:140
 msgid "email address"
 msgstr "эмейл дарек"
 
@@ -200,23 +200,23 @@ msgstr "негизги"
 msgid "email addresses"
 msgstr "эмейл даректер"
 
-#: account/models.py:139
+#: account/models.py:143
 msgid "created"
 msgstr "түзүлгөн"
 
-#: account/models.py:140
+#: account/models.py:144
 msgid "sent"
 msgstr "жөнөтүлгөн"
 
-#: account/models.py:141 socialaccount/models.py:62
+#: account/models.py:145 socialaccount/models.py:62
 msgid "key"
 msgstr "ачкыч"
 
-#: account/models.py:146
+#: account/models.py:150
 msgid "email confirmation"
 msgstr "эмейл ырастоо"
 
-#: account/models.py:147
+#: account/models.py:151
 msgid "email confirmations"
 msgstr "эмейл ырастоолор"
 
@@ -258,7 +258,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:36
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -270,19 +270,28 @@ msgstr ""
 "Бул эмейл менен башка эсеп катталган. Ошол эсеп аркылуу кирип, %s эсебиңизди "
 "туташтырып алыңыз."
 
-#: socialaccount/adapter.py:34
+#: socialaccount/adapter.py:40
 #, fuzzy
 #| msgid "Bad Token"
 msgid "Invalid token."
 msgstr "Токен туура эмес"
 
-#: socialaccount/adapter.py:35
+#: socialaccount/adapter.py:41
 msgid "Your account has no password set up."
 msgstr "Сиздин эсебиңизде купуя орнотулган эмес."
 
-#: socialaccount/adapter.py:36
+#: socialaccount/adapter.py:42
 msgid "Your account has no verified email address."
 msgstr "Сиздин эсебиңизде дурусталган эмейл даректер жок."
+
+#: socialaccount/adapter.py:44
+#, fuzzy
+#| msgid ""
+#| "You can sign in to your account using any of the following third party "
+#| "accounts:"
+msgid "You cannot disconnect your last remaining third-party account."
+msgstr ""
+"Эсебиңизге кийинки үчүнчү тарап эсептердин бирин колдонуп кирсеңиз болот:"
 
 #: socialaccount/apps.py:9
 msgid "Social Accounts"
@@ -457,7 +466,7 @@ msgstr ""
 
 #: templates/account/confirm_login_code.html:5
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
-#: templates/account/login.html:9 templates/account/login.html:25
+#: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
 #: templates/allauth/layouts/base.html:36 templates/mfa/authenticate.html:5
 #: templates/mfa/authenticate.html:23 templates/openid/login.html:5
@@ -834,19 +843,14 @@ msgstr ""
 "Бул эмейлди ырастоо шилтемесинин мөөнөтү өтүп кеткен же ал туура эмес. <a "
 "href=\"%(email_url)s\">эмейлди ырастоо сурамын кайрадан жөнөтүңүз</a>."
 
-#: templates/account/login.html:12
-#, fuzzy, python-format
-#| msgid ""
-#| "If you have not created an account yet, then please\n"
-#| "<a href=\"%(signup_url)s\">sign up</a> first."
+#: templates/account/login.html:19
+#, python-format
 msgid ""
-"If you have not created an account yet, then please\n"
-"    <a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
-"Эгерде сиз эсеп түзө элек болсоңуз, анда\n"
-"биринчи <a href=\"%(signup_url)s\">катталыңыз</a>"
+"If you have not created an account yet, then please %(link)ssign "
+"up%(end_link)s first."
+msgstr "Эгерде сиз эсеп түзө элек болсоңуз, анда биринчи %(link)sкатталыңыз%(end_link)s"
 
-#: templates/account/login.html:34 templates/account/request_login_code.html:9
+#: templates/account/login.html:41 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
 msgstr ""
 
@@ -1003,17 +1007,16 @@ msgstr ""
 msgid "Signup"
 msgstr "Катталуу"
 
-#: templates/account/signup.html:8 templates/account/signup.html:23
+#: templates/account/signup.html:8 templates/account/signup.html:28
 #: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "Катталуу"
 
-#: templates/account/signup.html:11
+#: templates/account/signup.html:16
 #, python-format
-msgid ""
-"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr "Эсебиңиз барбы? Анда <a href=\"%(login_url)s\">кириңиз</a>."
+msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
+msgstr "Эсебиңиз барбы? Анда %(link)sкириңиз%(end_link)s."
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1424,7 +1427,7 @@ msgstr ""
 "сайтына кирейин деп турасыз. Акыркы кадам катары кийинки калыпты\n"
 "толтуруп коюңузду суранабыз :"
 
-#: templates/socialaccount/snippets/login.html:9
+#: templates/socialaccount/snippets/login.html:10
 msgid "Or use a third-party"
 msgstr ""
 
@@ -1521,7 +1524,7 @@ msgstr ""
 #~ msgstr ""
 #~ "Тышкаркы кызматтарда катталган\n"
 #~ "эсебиңиз аркылуу кириңиз. Же, %(site_name)s \n"
-#~ "сайтына <a href=\"%(signup_url)s\">катталып</a>\n"
+#~ "сайтына %(link)sкатталып%(end_link)s\n"
 #~ "\"төмөн жактан кириңиз:"
 
 #~ msgid "or"

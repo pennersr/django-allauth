@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-12 13:15-0500\n"
-"PO-Revision-Date: 2020-06-27 12:21+0122\n"
+"POT-Creation-Date: 2024-04-20 14:01-0500\n"
+"PO-Revision-Date: 2024-04-20 21:25+0200\n"
 "Last-Translator: Klemen Štrajhar <klemen.strajhar@gmail.com>\n"
 "Language-Team: Bojan Mihelac <bmihelac@mihelac.org>, Lev Predan Kowarski, "
 "Klemen Štrajhar <lev@filmoteka.si>\n"
@@ -21,70 +21,70 @@ msgstr ""
 "n%100==4 ? 2 : 3);\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: account/adapter.py:50
+#: account/adapter.py:57
 msgid "This account is currently inactive."
 msgstr "Račun trenutno ni aktiven."
 
-#: account/adapter.py:52
+#: account/adapter.py:59
 msgid "This email address is already associated with this account."
 msgstr "E-poštni naslov že pripada vašemu uporabniškemu računu."
 
-#: account/adapter.py:55
+#: account/adapter.py:62
 msgid "The email address and/or password you specified are not correct."
 msgstr "E-poštni naslov in/ali geslo nista pravilna."
 
-#: account/adapter.py:57
+#: account/adapter.py:64
 msgid "A user is already registered with this email address."
 msgstr "Za ta e-naslov že obstaja registriran uporabnik."
 
-#: account/adapter.py:58
+#: account/adapter.py:65
 msgid "Please type your current password."
 msgstr "Prosimo vpišite trenutno geslo."
 
-#: account/adapter.py:59 mfa/adapter.py:29
+#: account/adapter.py:66 mfa/adapter.py:29
 msgid "Incorrect code."
 msgstr ""
 
-#: account/adapter.py:60
+#: account/adapter.py:67
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "Trenutno geslo"
 
-#: account/adapter.py:61
+#: account/adapter.py:68
 msgid "The password reset token was invalid."
 msgstr "Žeton za ponastavitev gesla je bil neveljaven."
 
-#: account/adapter.py:62
+#: account/adapter.py:69
 #, fuzzy, python-format
 #| msgid "Your account has no verified email address."
 msgid "You cannot add more than %d email addresses."
 msgstr "Vaš uporabniški račun nima preverjenega e-poštnega naslova."
 
-#: account/adapter.py:64
+#: account/adapter.py:71
 msgid "Too many failed login attempts. Try again later."
 msgstr "Preveliko število neuspelih prijav. Poskusite znova kasneje."
 
-#: account/adapter.py:66
+#: account/adapter.py:73
 msgid "The email address is not assigned to any user account"
 msgstr "E-poštni naslov ne pripada nobenemu uporabniškemu računu."
 
-#: account/adapter.py:68
+#: account/adapter.py:75
 msgid "Username can not be used. Please use other username."
 msgstr ""
 "Uporabniško ime je neveljavno. Prosimo uporabite drugo uporabniško ime."
 
-#: account/adapter.py:71
+#: account/adapter.py:78
 msgid "The username and/or password you specified are not correct."
 msgstr "Uporabniško ime in/ali geslo nista pravilna."
 
-#: account/adapter.py:707
+#: account/adapter.py:714
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "Ste pozabili geslo?"
 
-#: account/adapter.py:717
+#: account/adapter.py:724
 msgid "Use your authenticator app"
 msgstr ""
 
@@ -180,7 +180,7 @@ msgstr ""
 msgid "user"
 msgstr "uporabnik"
 
-#: account/models.py:26 account/models.py:34 account/models.py:136
+#: account/models.py:26 account/models.py:34 account/models.py:140
 msgid "email address"
 msgstr "E-poštni naslov"
 
@@ -196,23 +196,23 @@ msgstr "Primarni"
 msgid "email addresses"
 msgstr "E-poštni naslovi"
 
-#: account/models.py:139
+#: account/models.py:143
 msgid "created"
 msgstr "ustvarjeno"
 
-#: account/models.py:140
+#: account/models.py:144
 msgid "sent"
 msgstr "poslano"
 
-#: account/models.py:141 socialaccount/models.py:62
+#: account/models.py:145 socialaccount/models.py:62
 msgid "key"
 msgstr "ključ"
 
-#: account/models.py:146
+#: account/models.py:150
 msgid "email confirmation"
 msgstr "E-poštna potrditev"
 
-#: account/models.py:147
+#: account/models.py:151
 msgid "email confirmations"
 msgstr "E-poštne potrditve"
 
@@ -254,7 +254,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:36
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -266,19 +266,27 @@ msgstr ""
 "Uporabniški račun s tem e-poštnim naslovom že obstaja. Prosimo vpišite se v "
 "tobstoječi račun, nato %s račune povežite."
 
-#: socialaccount/adapter.py:34
+#: socialaccount/adapter.py:40
 #, fuzzy
 #| msgid "Bad Token"
 msgid "Invalid token."
 msgstr "Napačni žeton"
 
-#: socialaccount/adapter.py:35
+#: socialaccount/adapter.py:41
 msgid "Your account has no password set up."
 msgstr "Vaš uporabniški račun nima nastavljenega gesla."
 
-#: socialaccount/adapter.py:36
+#: socialaccount/adapter.py:42
 msgid "Your account has no verified email address."
 msgstr "Vaš uporabniški račun nima preverjenega e-poštnega naslova."
+
+#: socialaccount/adapter.py:44
+#, fuzzy
+#| msgid ""
+#| "You can sign in to your account using any of the following third party "
+#| "accounts:"
+msgid "You cannot disconnect your last remaining third-party account."
+msgstr "Vpišete se lahko s pomčjo vaših obstoječih uoporabniških računov:"
 
 #: socialaccount/apps.py:9
 msgid "Social Accounts"
@@ -453,7 +461,7 @@ msgstr ""
 
 #: templates/account/confirm_login_code.html:5
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
-#: templates/account/login.html:9 templates/account/login.html:25
+#: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
 #: templates/allauth/layouts/base.html:36 templates/mfa/authenticate.html:5
 #: templates/mfa/authenticate.html:23 templates/openid/login.html:5
@@ -812,19 +820,14 @@ msgstr ""
 "Povezava za potrditev je neveljavna, ali pa se je iztekla. Prosimo, <a "
 "href=\"%(email_url)s\">pošljite nov zahtevek za potrditev.</a>."
 
-#: templates/account/login.html:12
-#, fuzzy, python-format
-#| msgid ""
-#| "If you have not created an account yet, then please\n"
-#| "<a href=\"%(signup_url)s\">sign up</a> first."
+#: templates/account/login.html:19
+#, python-format
 msgid ""
-"If you have not created an account yet, then please\n"
-"    <a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
-"Če še nimate uporabniškega računa, ga ustvarite\n"
-"<a href=\"%(signup_url)s\">tukaj</a>."
+"If you have not created an account yet, then please %(link)ssign "
+"up%(end_link)s first."
+msgstr "Če še nimate uporabniškega računa, ga ustvarite %(link)stukaj%(end_link)s."
 
-#: templates/account/login.html:34 templates/account/request_login_code.html:9
+#: templates/account/login.html:41 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
 msgstr ""
 
@@ -981,18 +984,16 @@ msgstr ""
 msgid "Signup"
 msgstr "Ustvari račun"
 
-#: templates/account/signup.html:8 templates/account/signup.html:23
+#: templates/account/signup.html:8 templates/account/signup.html:28
 #: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "Ustvari račun"
 
-#: templates/account/signup.html:11
+#: templates/account/signup.html:16
 #, python-format
-msgid ""
-"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr ""
-"Že imate uporabniški račun? <a href=\"%(login_url)s\">Prijavite se</a>. "
+msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
+msgstr "Že imate uporabniški račun? %(link)sPrijavite se%(end_link)s."
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1410,7 +1411,7 @@ msgstr ""
 "Uporabili boste svoj obstoječi %(provider_name)s račun, za vpis v\n"
 "%(site_name)s. Prosimo izpolnite spodnji obrazec:"
 
-#: templates/socialaccount/snippets/login.html:9
+#: templates/socialaccount/snippets/login.html:10
 msgid "Or use a third-party"
 msgstr ""
 
@@ -1505,7 +1506,7 @@ msgstr ""
 #~ "for a %(site_name)s account and sign in below:"
 #~ msgstr ""
 #~ "Prosimo, vpišite se z enim od vaših\n"
-#~ "obstoječih računov, ali pa <a href=\"%(signup_url)s\">ustvarite nov "
+#~ "obstoječih računov, ali pa %(link)sustvarite nov "
 #~ "račun</a>\n"
 #~ "na %(site_name)s in se vpišite spodaj:"
 

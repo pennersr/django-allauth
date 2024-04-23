@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-12 13:15-0500\n"
-"PO-Revision-Date: 2015-05-08 22:42+0100\n"
+"POT-Creation-Date: 2024-04-20 14:01-0500\n"
+"PO-Revision-Date: 2024-04-20 21:45+0200\n"
 "Last-Translator: Tamás Makó <tom@greenplug.hu>\n"
 "Language-Team: \n"
 "Language: hu\n"
@@ -18,69 +18,69 @@ msgstr ""
 "X-Generator: Poedit 1.7.6\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: account/adapter.py:50
+#: account/adapter.py:57
 msgid "This account is currently inactive."
 msgstr "A felhasználó jelenleg nem aktív."
 
-#: account/adapter.py:52
+#: account/adapter.py:59
 msgid "This email address is already associated with this account."
 msgstr "Ez az email cím már hozzá van rendelve ehhez a felhasználóhoz."
 
-#: account/adapter.py:55
+#: account/adapter.py:62
 msgid "The email address and/or password you specified are not correct."
 msgstr "A megadott email vagy a jelszó hibás."
 
-#: account/adapter.py:57
+#: account/adapter.py:64
 msgid "A user is already registered with this email address."
 msgstr "Egy felhasználó már regisztrált ezzel az email címmel."
 
-#: account/adapter.py:58
+#: account/adapter.py:65
 msgid "Please type your current password."
 msgstr "Kérlek add meg az aktuális jelszavadat!"
 
-#: account/adapter.py:59 mfa/adapter.py:29
+#: account/adapter.py:66 mfa/adapter.py:29
 msgid "Incorrect code."
 msgstr ""
 
-#: account/adapter.py:60
+#: account/adapter.py:67
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "Jelenlegi jelszó"
 
-#: account/adapter.py:61
+#: account/adapter.py:68
 msgid "The password reset token was invalid."
 msgstr ""
 
-#: account/adapter.py:62
+#: account/adapter.py:69
 #, fuzzy, python-format
 #| msgid "Your account has no verified email address."
 msgid "You cannot add more than %d email addresses."
 msgstr "A felhasználódnak nincs ellenőrzött email címe."
 
-#: account/adapter.py:64
+#: account/adapter.py:71
 msgid "Too many failed login attempts. Try again later."
 msgstr ""
 
-#: account/adapter.py:66
+#: account/adapter.py:73
 msgid "The email address is not assigned to any user account"
 msgstr "Az email cím nincs hozzárendelve egyetlen felhasználóhoz sem"
 
-#: account/adapter.py:68
+#: account/adapter.py:75
 msgid "Username can not be used. Please use other username."
 msgstr "Ez a felhasználói azonosító nem használható. Kérlek válassz másikat!"
 
-#: account/adapter.py:71
+#: account/adapter.py:78
 msgid "The username and/or password you specified are not correct."
 msgstr "A megadott felhasználó vagy a jelszó hibás."
 
-#: account/adapter.py:707
+#: account/adapter.py:714
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "Elfelejtett jelszó?"
 
-#: account/adapter.py:717
+#: account/adapter.py:724
 msgid "Use your authenticator app"
 msgstr ""
 
@@ -184,7 +184,7 @@ msgstr ""
 msgid "user"
 msgstr ""
 
-#: account/models.py:26 account/models.py:34 account/models.py:136
+#: account/models.py:26 account/models.py:34 account/models.py:140
 msgid "email address"
 msgstr ""
 
@@ -200,23 +200,23 @@ msgstr ""
 msgid "email addresses"
 msgstr ""
 
-#: account/models.py:139
+#: account/models.py:143
 msgid "created"
 msgstr ""
 
-#: account/models.py:140
+#: account/models.py:144
 msgid "sent"
 msgstr ""
 
-#: account/models.py:141 socialaccount/models.py:62
+#: account/models.py:145 socialaccount/models.py:62
 msgid "key"
 msgstr ""
 
-#: account/models.py:146
+#: account/models.py:150
 msgid "email confirmation"
 msgstr ""
 
-#: account/models.py:147
+#: account/models.py:151
 msgid "email confirmations"
 msgstr ""
 
@@ -258,7 +258,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:36
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -270,19 +270,27 @@ msgstr ""
 "Ezzel az email címmel már létezik egy felhasználó . Először jelentkezz be, "
 "majd kapcsold össze a(z) %s felhasználóval."
 
-#: socialaccount/adapter.py:34
+#: socialaccount/adapter.py:40
 #, fuzzy
 #| msgid "Bad Token"
 msgid "Invalid token."
 msgstr "Hibás token"
 
-#: socialaccount/adapter.py:35
+#: socialaccount/adapter.py:41
 msgid "Your account has no password set up."
 msgstr "A felhasználódnak nincs beállított jelszava."
 
-#: socialaccount/adapter.py:36
+#: socialaccount/adapter.py:42
 msgid "Your account has no verified email address."
 msgstr "A felhasználódnak nincs ellenőrzött email címe."
+
+#: socialaccount/adapter.py:44
+#, fuzzy
+#| msgid ""
+#| "You can sign in to your account using any of the following third party "
+#| "accounts:"
+msgid "You cannot disconnect your last remaining third-party account."
+msgstr "Az alábbi felhasználói fiókok bármelyikét használhatod belépéshez:"
 
 #: socialaccount/apps.py:9
 msgid "Social Accounts"
@@ -454,7 +462,7 @@ msgstr ""
 
 #: templates/account/confirm_login_code.html:5
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
-#: templates/account/login.html:9 templates/account/login.html:25
+#: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
 #: templates/allauth/layouts/base.html:36 templates/mfa/authenticate.html:5
 #: templates/mfa/authenticate.html:23 templates/openid/login.html:5
@@ -816,19 +824,14 @@ msgstr ""
 "Az email visszaigazolás címe már lejárt vagy érvénytelen. <a "
 "href=\"\"%(email_url)s\">Itt kérhetsz újat</a>.\""
 
-#: templates/account/login.html:12
-#, fuzzy, python-format
-#| msgid ""
-#| "If you have not created an account yet, then please\n"
-#| "<a href=\"%(signup_url)s\">sign up</a> first."
+#: templates/account/login.html:19
+#, python-format
 msgid ""
-"If you have not created an account yet, then please\n"
-"    <a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
-"Ha még nem rendelkezel felhasználóval, akkor\n"
-"először <a href=\"%(signup_url)s\">regisztrálnod</a> kell."
+"If you have not created an account yet, then please %(link)ssign "
+"up%(end_link)s first."
+msgstr "Ha még nem rendelkezel felhasználóval, akkor először %(link)sregisztrálnod%(end_link)s kell."
 
-#: templates/account/login.html:34 templates/account/request_login_code.html:9
+#: templates/account/login.html:41 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
 msgstr ""
 
@@ -986,18 +989,16 @@ msgstr ""
 msgid "Signup"
 msgstr "Regisztráció"
 
-#: templates/account/signup.html:8 templates/account/signup.html:23
+#: templates/account/signup.html:8 templates/account/signup.html:28
 #: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "Regisztráció"
 
-#: templates/account/signup.html:11
+#: templates/account/signup.html:16
 #, python-format
-msgid ""
-"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr ""
-"Van már felhasználód? Akkor <a href=\"%(login_url)s\">itt jelentkezz be</a>!"
+msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
+msgstr "Van már felhasználód? Akkor %(link)sitt jelentkezz be%(end_link)s!"
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1403,7 +1404,7 @@ msgstr ""
 "bejelentkezés\n"
 "Utolsó lépésként kérlek töltsd ki az alábbi adatlapot:"
 
-#: templates/socialaccount/snippets/login.html:9
+#: templates/socialaccount/snippets/login.html:10
 msgid "Or use a third-party"
 msgstr ""
 
@@ -1495,7 +1496,7 @@ msgstr ""
 #~ "for a %(site_name)s account and sign in below:"
 #~ msgstr ""
 #~ "Kérlek jelentkezz be\n"
-#~ "az egyik felhasználóddal vagy <a href=\"%(signup_url)s\">regisztrálj</a>\n"
+#~ "az egyik felhasználóddal vagy %(link)sregisztrálj%(end_link)s\n"
 #~ "új %(site_name)s felhasználót és használd azt:"
 
 #~ msgid "or"

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-12 13:15-0500\n"
-"PO-Revision-Date: 2020-06-14 17:00-0000\n"
+"POT-Creation-Date: 2024-04-20 14:01-0500\n"
+"PO-Revision-Date: 2024-04-20 21:58+0200\n"
 "Last-Translator: Mohammad Ali Amini <hakhsin@gmail.com>\n"
 "Language-Team: \n"
 "Language: fa\n"
@@ -17,71 +17,71 @@ msgstr ""
 "X-Generator: Poedit 1.7.4\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: account/adapter.py:50
+#: account/adapter.py:57
 msgid "This account is currently inactive."
 msgstr "اکنون این حساب غیرفعال است."
 
-#: account/adapter.py:52
+#: account/adapter.py:59
 #, fuzzy
 #| msgid "This email address is already associated with another account."
 msgid "This email address is already associated with this account."
 msgstr "این نشانی رایانامه ازقبل به این حساب وصل شده."
 
-#: account/adapter.py:55
+#: account/adapter.py:62
 msgid "The email address and/or password you specified are not correct."
 msgstr "نشانی رایانامه یا گذرواژه نادرست است."
 
-#: account/adapter.py:57
+#: account/adapter.py:64
 msgid "A user is already registered with this email address."
 msgstr "یک کاربر ازقبل با این نشانی رایانامه ثبت شده."
 
-#: account/adapter.py:58
+#: account/adapter.py:65
 msgid "Please type your current password."
 msgstr "لطفا گذرواژه کنونی‌‌ات را وارد کن."
 
-#: account/adapter.py:59 mfa/adapter.py:29
+#: account/adapter.py:66 mfa/adapter.py:29
 msgid "Incorrect code."
 msgstr ""
 
-#: account/adapter.py:60
+#: account/adapter.py:67
 #, fuzzy
 #| msgid "Current Password"
 msgid "Incorrect password."
 msgstr "گذرواژه کنونی"
 
-#: account/adapter.py:61
+#: account/adapter.py:68
 msgid "The password reset token was invalid."
 msgstr "توکن بازنشانی گذرواژه نامعتبر است."
 
-#: account/adapter.py:62
+#: account/adapter.py:69
 #, fuzzy, python-format
 #| msgid "Your account has no verified email address."
 msgid "You cannot add more than %d email addresses."
 msgstr "حساب‌ات هیچ رایانامه‌ي تایید‌شده‌ای ندارد."
 
-#: account/adapter.py:64
+#: account/adapter.py:71
 msgid "Too many failed login attempts. Try again later."
 msgstr "خیلی زیاد تلاش ناموفق کردی، لطفا بعدا ازنو سعی کن."
 
-#: account/adapter.py:66
+#: account/adapter.py:73
 msgid "The email address is not assigned to any user account"
 msgstr "این نشانی رایانامه به هیچ حساب کاربری‌ای منتسب نشده."
 
-#: account/adapter.py:68
+#: account/adapter.py:75
 msgid "Username can not be used. Please use other username."
 msgstr "نام‌کاربری قابل استفاده نیست. لطفا نام‌کاربری دیگری استفاده کن."
 
-#: account/adapter.py:71
+#: account/adapter.py:78
 msgid "The username and/or password you specified are not correct."
 msgstr "نام‌کاربری یا گذرواژه نادرست است."
 
-#: account/adapter.py:707
+#: account/adapter.py:714
 #, fuzzy
 #| msgid "Forgot Password?"
 msgid "Use your password"
 msgstr "گذرواژه‌ات را فراموش کرده‌ای؟"
 
-#: account/adapter.py:717
+#: account/adapter.py:724
 msgid "Use your authenticator app"
 msgstr ""
 
@@ -186,7 +186,7 @@ msgstr ""
 msgid "user"
 msgstr "کاربر"
 
-#: account/models.py:26 account/models.py:34 account/models.py:136
+#: account/models.py:26 account/models.py:34 account/models.py:140
 msgid "email address"
 msgstr "نشانی رایانامه"
 
@@ -202,23 +202,23 @@ msgstr "اصلی"
 msgid "email addresses"
 msgstr "نشانی‌های رایانامه"
 
-#: account/models.py:139
+#: account/models.py:143
 msgid "created"
 msgstr "ایجاد‌شده"
 
-#: account/models.py:140
+#: account/models.py:144
 msgid "sent"
 msgstr "ارسال شد"
 
-#: account/models.py:141 socialaccount/models.py:62
+#: account/models.py:145 socialaccount/models.py:62
 msgid "key"
 msgstr "کلید"
 
-#: account/models.py:146
+#: account/models.py:150
 msgid "email confirmation"
 msgstr "تاییدیه‌ی رایانامه"
 
-#: account/models.py:147
+#: account/models.py:151
 msgid "email confirmations"
 msgstr "تاییدیه‌های رایانامه"
 
@@ -260,7 +260,7 @@ msgstr ""
 msgid "TOTP Authenticator"
 msgstr ""
 
-#: socialaccount/adapter.py:30
+#: socialaccount/adapter.py:36
 #, fuzzy, python-format
 #| msgid ""
 #| "An account already exists with this e-mail address. Please sign in to "
@@ -272,19 +272,27 @@ msgstr ""
 "یه حساب‌کاربری با این نشانی رایانامه وجود دارد. لطفا نخست وارد آن شو، سپس "
 "حساب %s ات را بهش وصل کن."
 
-#: socialaccount/adapter.py:34
+#: socialaccount/adapter.py:40
 #, fuzzy
 #| msgid "Bad Token"
 msgid "Invalid token."
 msgstr "توکن نادرست"
 
-#: socialaccount/adapter.py:35
+#: socialaccount/adapter.py:41
 msgid "Your account has no password set up."
 msgstr "هیچ گذرواژه‌ای برای حساب‌ات نهاده نشده."
 
-#: socialaccount/adapter.py:36
+#: socialaccount/adapter.py:42
 msgid "Your account has no verified email address."
 msgstr "حساب‌ات هیچ رایانامه‌ي تایید‌شده‌ای ندارد."
+
+#: socialaccount/adapter.py:44
+#, fuzzy
+#| msgid ""
+#| "You can sign in to your account using any of the following third party "
+#| "accounts:"
+msgid "You cannot disconnect your last remaining third-party account."
+msgstr "با هریک از حساب‌های شخص سوم زیر می‌توانی به حساب‌ات وارد شوی:"
 
 #: socialaccount/apps.py:9
 #, fuzzy
@@ -462,7 +470,7 @@ msgstr ""
 
 #: templates/account/confirm_login_code.html:5
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
-#: templates/account/login.html:9 templates/account/login.html:25
+#: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
 #: templates/allauth/layouts/base.html:36 templates/mfa/authenticate.html:5
 #: templates/mfa/authenticate.html:23 templates/openid/login.html:5
@@ -833,19 +841,14 @@ msgstr ""
 "این پیوند تاییدیه رایانامه باطل‌شده ویا نامعتبر است. لطفا یه <a "
 "href=\"%(email_url)s\">تاییدیه جدید رایانامه</a> درخواست کن."
 
-#: templates/account/login.html:12
-#, fuzzy, python-format
-#| msgid ""
-#| "If you have not created an account yet, then please\n"
-#| "<a href=\"%(signup_url)s\">sign up</a> first."
+#: templates/account/login.html:19
+#, python-format
 msgid ""
-"If you have not created an account yet, then please\n"
-"    <a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
-"اگر هنوز یه حساب نساختی، پس لطفا نخست <a href=\"%(signup_url)s\">ثبت‌نام</a> "
-"کن."
+"If you have not created an account yet, then please %(link)ssign "
+"up%(end_link)s first."
+msgstr "اگر هنوز یه حساب نساختی، پس لطفا نخست %(link)sثبت‌نام%(end_link)s کن."
 
-#: templates/account/login.html:34 templates/account/request_login_code.html:9
+#: templates/account/login.html:41 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
 msgstr ""
 
@@ -1005,17 +1008,16 @@ msgstr ""
 msgid "Signup"
 msgstr "ثبت‌نام"
 
-#: templates/account/signup.html:8 templates/account/signup.html:23
+#: templates/account/signup.html:8 templates/account/signup.html:28
 #: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "ثبت نام"
 
-#: templates/account/signup.html:11
+#: templates/account/signup.html:16
 #, python-format
-msgid ""
-"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr "ازقبل یه حساب داری؟ پس لطفا <a href=\"%(login_url)s\">ورود</a> کن."
+msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
+msgstr "ازقبل یه حساب داری؟ پس لطفا %(link)sورود%(end_link)s کن."
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
@@ -1422,7 +1424,7 @@ msgstr ""
 "چند قدمی ورود به %(site_name)s با حساب‌ات %(provider_name)s هستی. در گام آخر، "
 "لطفا فرم زیر را کامل کن:"
 
-#: templates/socialaccount/snippets/login.html:9
+#: templates/socialaccount/snippets/login.html:10
 msgid "Or use a third-party"
 msgstr ""
 

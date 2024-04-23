@@ -6,7 +6,9 @@ from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.forms import (
     AddEmailForm,
     BaseSignupForm,
+    ConfirmLoginCodeForm,
     ReauthenticateForm,
+    RequestLoginCodeForm,
     ResetPasswordForm,
     UserTokenForm,
 )
@@ -195,4 +197,12 @@ class MarkAsPrimaryEmailInput(SelectEmailInput):
 
 
 class ReauthenticateInput(ReauthenticateForm, inputs.Input):
+    pass
+
+
+class RequestLoginCodeInput(RequestLoginCodeForm, inputs.Input):
+    pass
+
+
+class ConfirmLoginCodeInput(ConfirmLoginCodeForm, inputs.Input):
     pass

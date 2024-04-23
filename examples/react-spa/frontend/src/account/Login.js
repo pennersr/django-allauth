@@ -42,6 +42,7 @@ export default function Login () {
       </div>
       <Button disabled={response.fetching} onClick={() => submit()}>Login</Button>
 
+      <Link className='btn btn-secondary' to='/account/login/code'>Mail me a sign-in code.</Link>
       {hasProviders
         ? <>
           <h2>Or use a third-party</h2>

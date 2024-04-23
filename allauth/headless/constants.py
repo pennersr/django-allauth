@@ -12,6 +12,7 @@ class Client(str, Enum):
 class Flow(str, Enum):
     VERIFY_EMAIL = EmailVerificationStage.key
     LOGIN = "login"
+    LOGIN_BY_CODE = "login_by_code"
     SIGNUP = "signup"
     PROVIDER_REDIRECT = "provider_redirect"
     PROVIDER_SIGNUP = "provider_signup"

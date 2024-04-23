@@ -34,12 +34,9 @@ def test_auth_unverified_email_and_mfa(
     )
     assert resp.status_code == 401
     flows = [
-        {
-            "id": "login",
-        },
-        {
-            "id": "signup",
-        },
+        {"id": "login"},
+        {"id": "login_by_code"},
+        {"id": "signup"},
     ]
     if headless_client == "browser":
         flows.append(

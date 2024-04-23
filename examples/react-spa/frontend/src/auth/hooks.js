@@ -17,7 +17,8 @@ export function useUser () {
 function authInfo (auth) {
   const isAuthenticated = auth.status === 200 || (auth.status === 401 && auth.meta.is_authenticated)
   const requiresReauthentication = isAuthenticated && auth.status === 401
-  return { isAuthenticated, requiresReauthentication, user: isAuthenticated ? auth.data.user : null }
+  const pendingFlow = auth.data?.flows?.find(flow => flow.is_pending)
+  return { isAuthenticated, requiresReauthentication, user: isAuthenticated ? auth.data.user : null, pendingFlow }
 }
 
 export const AuthChangeEvent = Object.freeze({
@@ -55,8 +56,8 @@ function determineAuthChangeEvent (fromAuth, toAuth) {
       return AuthChangeEvent.REAUTHENTICATED
     }
   } else if (!fromInfo.isAuthenticated && !toInfo.isAuthenticated) {
-    const fromFlow = fromAuth.data?.flows?.find(flow => flow.is_pending)
-    const toFlow = toAuth.data?.flows?.find(flow => flow.is_pending)
+    const fromFlow = fromInfo.pendingFlow
+    const toFlow = toInfo.pendingFlow
     if (toFlow?.id && fromFlow?.id !== toFlow.id) {
       return AuthChangeEvent.FLOW_UPDATED
     }

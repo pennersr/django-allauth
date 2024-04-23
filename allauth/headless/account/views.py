@@ -9,10 +9,12 @@ from allauth.headless.account import response
 from allauth.headless.account.inputs import (
     AddEmailInput,
     ChangePasswordInput,
+    ConfirmLoginCodeInput,
     DeleteEmailInput,
     LoginInput,
     MarkAsPrimaryEmailInput,
     ReauthenticateInput,
+    RequestLoginCodeInput,
     RequestPasswordResetInput,
     ResetPasswordInput,
     ResetPasswordKeyInput,
@@ -23,6 +25,37 @@ from allauth.headless.account.inputs import (
 from allauth.headless.base.response import APIResponse, AuthenticationResponse
 from allauth.headless.base.views import APIView, AuthenticatedAPIView
 from allauth.headless.restkit.response import ErrorResponse
+
+
+class RequestLoginCodeView(APIView):
+    input_class = RequestLoginCodeInput
+
+    def post(self, request, *args, **kwargs):
+        flows.login_by_code.request_login_code(
+            self.request, self.input.cleaned_data["email"]
+        )
+        return AuthenticationResponse(self.request)
+
+
+class ConfirmLoginCodeView(APIView):
+    input_class = ConfirmLoginCodeInput
+
+    def dispatch(self, request, *args, **kwargs):
+        self.user, self.pending_login = flows.login_by_code.get_pending_login(
+            request, peek=True
+        )
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        flows.login_by_code.perform_login_by_code(
+            self.request, self.user, None, self.pending_login
+        )
+        return AuthenticationResponse(request)
+
+    def get_input_kwargs(self):
+        kwargs = super().get_input_kwargs()
+        kwargs["code"] = self.pending_login.get("code") if self.pending_login else ""
+        return kwargs
 
 
 class LoginView(APIView):

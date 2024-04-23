@@ -6,6 +6,8 @@ import {
 } from 'react-router-dom'
 import Dashboard from './Dashboard'
 import Login from './account/Login'
+import RequestLoginCode from './account/RequestLoginCode'
+import ConfirmLoginCode from './account/ConfirmLoginCode'
 import Logout from './account/Logout'
 import Signup from './account/Signup'
 import ProviderSignup from './socialaccount/ProviderSignup'
@@ -46,6 +48,14 @@ function createRouter () {
         {
           path: '/account/login',
           element: <AnonymousRoute><Login /></AnonymousRoute>
+        },
+        {
+          path: '/account/login/code',
+          element: <AnonymousRoute><RequestLoginCode /></AnonymousRoute>
+        },
+        {
+          path: '/account/login/code/confirm',
+          element: <AnonymousRoute><ConfirmLoginCode /></AnonymousRoute>
         },
         {
           path: '/account/email',

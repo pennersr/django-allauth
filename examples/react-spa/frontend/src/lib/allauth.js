@@ -20,6 +20,7 @@ export const AuthProcess = Object.freeze({
 export const Flows = Object.freeze({
   VERIFY_EMAIL: 'verify_email',
   LOGIN: 'login',
+  LOGIN_BY_CODE: 'login_by_code',
   SIGNUP: 'signup',
   PROVIDER_REDIRECT: 'provider_redirect',
   PROVIDER_SIGNUP: 'provider_signup',
@@ -44,6 +45,8 @@ export const URLs = Object.freeze({
 
   // Auth: Basics
   LOGIN: BASE_URL + '/auth/login',
+  REQUEST_LOGIN_CODE: BASE_URL + '/auth/code/request',
+  CONFIRM_LOGIN_CODE: BASE_URL + '/auth/code/confirm',
   SESSION: BASE_URL + '/auth/session',
   REAUTHENTICATE: BASE_URL + '/auth/reauthenticate',
   REQUEST_PASSWORD_RESET: BASE_URL + '/auth/password/request',
@@ -160,6 +163,14 @@ export async function disconnectProviderAccount (providerId, accountUid) {
 
 export async function requestPasswordReset (email) {
   return await request('POST', URLs.REQUEST_PASSWORD_RESET, { email })
+}
+
+export async function requestLoginCode (email) {
+  return await request('POST', URLs.REQUEST_LOGIN_CODE, { email })
+}
+
+export async function confirmLoginCode (code) {
+  return await request('POST', URLs.CONFIRM_LOGIN_CODE, { code })
 }
 
 export async function getEmailVerification (key) {

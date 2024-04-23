@@ -2,6 +2,7 @@ from allauth import app_settings as allauth_settings
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.authentication import get_authentication_records
+from allauth.account.internal import flows
 from allauth.account.models import EmailAddress
 from allauth.account.utils import user_display, user_username
 from allauth.headless.constants import Flow
@@ -42,35 +43,33 @@ class BaseAuthenticationResponse(APIResponse):
     def _get_flows(self, request, user):
         auth_status = authkit.AuthenticationStatus(request)
         stage = auth_status.get_pending_stage()
-        flows = []
+        ret = []
         if user and user.is_authenticated:
-            flows.extend(
+            ret.extend(
                 [
                     {"id": m["id"]}
                     for m in get_account_adapter().get_reauthentication_methods(user)
                 ]
             )
         else:
-            flows.append(
-                {
-                    "id": Flow.LOGIN,
-                },
-            )
+            ret.append({"id": Flow.LOGIN})
+            if account_settings.LOGIN_BY_CODE_ENABLED:
+                code_flow = {"id": Flow.LOGIN_BY_CODE}
+                _, data = flows.login_by_code.get_pending_login(request, peek=True)
+                if data:
+                    code_flow["is_pending"] = True
+                ret.append(code_flow)
             if get_account_adapter().is_open_for_signup(request):
-                flows.append(
-                    {
-                        "id": Flow.SIGNUP,
-                    }
-                )
+                ret.append({"id": Flow.SIGNUP})
             if allauth_settings.SOCIALACCOUNT_ENABLED:
                 from allauth.headless.socialaccount.response import (
                     provider_flows,
                 )
 
-                flows.extend(provider_flows(request))
+                ret.extend(provider_flows(request))
         if stage:
-            flows.append({"id": stage.key, "is_pending": True})
-        return flows
+            ret.append({"id": stage.key, "is_pending": True})
+        return ret
 
 
 class AuthenticationResponse(BaseAuthenticationResponse):

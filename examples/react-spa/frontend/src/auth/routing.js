@@ -13,6 +13,7 @@ export const URLs = Object.freeze({
 
 const flow2path = {}
 flow2path[Flows.LOGIN] = '/account/login'
+flow2path[Flows.LOGIN_BY_CODE] = '/account/login/code/confirm'
 flow2path[Flows.SIGNUP] = '/account/signup'
 flow2path[Flows.VERIFY_EMAIL] = '/account/verify-email'
 flow2path[Flows.PROVIDER_SIGNUP] = '/account/provider/signup'

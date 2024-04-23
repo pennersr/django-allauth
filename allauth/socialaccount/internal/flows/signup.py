@@ -1,8 +1,9 @@
 from django.forms import ValidationError
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseServerError
 from django.shortcuts import render
 from django.urls import reverse
 
+from allauth import app_settings as allauth_settings
 from allauth.account import app_settings as account_settings
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.utils import (
@@ -23,6 +24,9 @@ def get_pending_signup(request):
 
 def redirect_to_signup(request, sociallogin):
     request.session["socialaccount_sociallogin"] = sociallogin.serialize()
+    if allauth_settings.HEADLESS_ENABLED and allauth_settings.HEADLESS_ONLY:
+        # Not used/visible
+        return HttpResponseServerError()
     url = reverse("socialaccount_signup")
     return HttpResponseRedirect(url)
 

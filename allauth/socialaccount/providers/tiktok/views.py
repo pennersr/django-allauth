@@ -22,6 +22,7 @@ class TiktokOAuth2Adapter(OAuth2Adapter):
             fields = "open_id,display_name,avatar_url"
         if "user.info.profile" in self.get_provider().get_scope():
             fields += ",username,profile_deep_link"
+        return fields
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {

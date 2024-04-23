@@ -1,6 +1,13 @@
+
 ==========================
 Welcome to django-allauth!
 ==========================
+
+.. raw:: html
+
+   <a href="https://allauth.org" target="_blank"><img src="https://codeberg.org/allauth/allauth.org/raw/commit/da3b56390e1b18eaec09b05cd89dfa7812212dfc/content/news/2024/04/website-redesign/logo-light.png" align="right" width="250px" alt="django-allauth logo"></a>
+
+
 
 .. |ci| image:: https://img.shields.io/github/actions/workflow/status/pennersr/django-allauth/ci.yml.svg
    :target: https://github.com/pennersr/django-allauth/actions
@@ -32,6 +39,7 @@ Welcome to django-allauth!
    :alt: View React SPA Demo
 
 |ci| |pypi| |cov| |btc| |liberapay| |pystyle| |jsstyle| |editor| |i18n| |pypidl| |djangodemo| |reactdemo|
+
 
 Integrated set of Django applications addressing authentication,
 registration, account management as well as 3rd party (social) account

@@ -27,6 +27,7 @@ class TiktokProvider(OAuth2Provider):
     name = "Tiktok"
     account_class = TiktokAccount
     oauth2_adapter_class = TiktokOAuth2Adapter
+    pkce_enabled_default = False
 
     def extract_uid(self, data):
         return str(data["open_id"])
@@ -39,8 +40,8 @@ class TiktokProvider(OAuth2Provider):
         }
 
     def get_default_scope(self):
-        return ["user.info.basic"]
-        # return ["user.info.basic", "user.info.profile"]
+        # Requires LogitKit and Scopes with user.info.basic and user.info.profile enabled
+        return ["user.info.basic", "user.info.profile"]
 
 
 provider_classes = [TiktokProvider]

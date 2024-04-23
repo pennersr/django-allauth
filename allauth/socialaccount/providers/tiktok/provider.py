@@ -41,7 +41,8 @@ class TiktokProvider(OAuth2Provider):
 
     def get_default_scope(self):
         # Requires LogitKit and Scopes with user.info.basic and user.info.profile enabled
-        return ["user.info.basic", "user.info.profile"]
+        return ["user.info.basic"]
+        # return ["user.info.basic", "user.info.profile"]
 
 
 provider_classes = [TiktokProvider]

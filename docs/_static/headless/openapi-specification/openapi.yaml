@@ -52,6 +52,7 @@ x-tagGroups:
       - "Authentication: Password Reset"
       - "Authentication: Providers"
       - "Authentication: 2FA"
+      - "Authentication: Login By Code"
   - name: Account
     tags:
       - "Account: Email"
@@ -463,6 +464,75 @@ paths:
                 invalid_code:
                   $ref: "#/components/examples/InvalidAuthenticatorCode"
   ######################################################################
+  # Authentication: Login by Code
+  ######################################################################
+  /_allauth/{client}/v1/auth/code/request:
+    post:
+      tags:
+        - "Authentication: Login By Code"
+      summary: Request login code
+      description: |
+        Request a "special" login code that is sent to the user by email.
+      parameters:
+        - $ref: "#/components/parameters/Client"
+      requestBody:
+        $ref: "#/components/requestBodies/RequestLoginCode"
+      responses:
+        "400":
+          description: An input error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                invalid_email:
+                  $ref: "#/components/examples/InvalidEmail"
+        "401":
+          description: |
+            Not authenticated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthenticationResponse"
+              examples:
+                pending_login_by_code:
+                  $ref: "#/components/examples/UnauthenticatedPendingLoginByCode"
+
+  /_allauth/{client}/v1/auth/code/confirm:
+    post:
+      tags:
+        - "Authentication: Login By Code"
+      summary: Confirm login code
+      description: |
+        Use this endpoint to input along the received "special" login code.
+      parameters:
+        - $ref: "#/components/parameters/Client"
+      requestBody:
+        $ref: "#/components/requestBodies/ConfirmLoginCode"
+      responses:
+        "200":
+          $ref: "#/components/responses/AuthenticatedByCode"
+        "400":
+          description: An input error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                invalid_code:
+                  $ref: "#/components/examples/InvalidAuthenticatorCode"
+        "401":
+          description: |
+            Not authenticated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthenticationResponse"
+              examples:
+                unauthenticated_pending_2fa:
+                  $ref: "#/components/examples/UnauthenticatedPending2FA"
+
+  ######################################################################
   # Account: Providers
   ######################################################################
   /_allauth/{client}/v1/account/providers:
@@ -843,6 +913,26 @@ components:
           is_authenticated: true
           session_token: ufwcig0zen9skyd545jc0fkq813ghar2
           access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdW
+    AuthenticatedByCode:
+      summary: |
+        Authenticated by code.
+      value:
+        status: 200
+        data:
+          user:
+            id: 123
+            display: wizard
+            has_usable_password: true
+            email: email@domain.org
+            username: wizard
+          methods:
+            - method: code
+              at: 1711555057.065702
+              email: email@domain.org
+        meta:
+          is_authenticated: true
+          session_token: ufwcig0zen9skyd545jc0fkq813ghar2
+          access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdW
     AuthenticatedByPasswordAnd2FA:
       summary: |
         Fully authenticated using by password and 2FA.
@@ -990,6 +1080,28 @@ components:
               is_pending: true
         meta:
           is_authenticated: false
+    UnauthenticatedPendingLoginByCode:
+      summary: |
+        Unauthenticated: pending login by code
+      value:
+        status: 401
+        data:
+          flows:
+            - id: login
+            - id: signup
+            - id: provider_redirect
+              providers:
+                - facebook
+                - google
+                - telegram
+            - id: provider_token
+              providers:
+                - google
+            - id: mfa_authenticate
+            - id: login_by_code
+              is_pending: true
+        meta:
+          is_authenticated: false
     UnauthenticatedPendingProviderSignup:
       summary: |
         Unauthenticated: pending provider signup
@@ -1081,6 +1193,12 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/MFAAuthenticate"
+    ConfirmLoginCode:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ConfirmLoginCode"
     ProviderAccount:
       content:
         application/json:
@@ -1129,6 +1247,13 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/RequestPassword"
+    RequestLoginCode:
+      description: Request a login code.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/RequestLoginCode"
     SetupTOTP:
       content:
         application/json:
@@ -1481,6 +1606,13 @@ components:
           $ref: "#/components/schemas/AuthenticatorCode"
       required:
         - code
+    ConfirmLoginCode:
+      type: object
+      properties:
+        code:
+          $ref: "#/components/schemas/Code"
+      required:
+        - code
     ClientID:
       type: string
       description: |
@@ -1533,6 +1665,13 @@ components:
         - process
         - callback_url
     RequestPassword:
+      type: object
+      properties:
+        email:
+          $ref: "#/components/schemas/Email"
+      required:
+        - email
+    RequestLoginCode:
       type: object
       properties:
         email:
@@ -1705,6 +1844,11 @@ components:
       description: |
         An authenticator code.
       example: "314159"
+    Code:
+      type: string
+      description: |
+        An one-time code.
+      example: "NQ3TM5"
     AuthenticatorType:
       type: string
       enum:
@@ -2035,6 +2179,16 @@ components:
           examples:
             authenticated:
               $ref: "#/components/examples/AuthenticatedByPassword"
+    AuthenticatedByCode:
+      description: |
+        Authenticated by code.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/AuthenticatedResponse"
+          examples:
+            authenticated:
+              $ref: "#/components/examples/AuthenticatedByCode"
     AuthenticatedByPasswordAnd2FA:
       description: |
         Authenticated by password and 2FA.

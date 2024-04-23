@@ -1,5 +1,6 @@
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.tiktok.scopes import TiktokScope
 from allauth.socialaccount.providers.tiktok.views import TiktokOAuth2Adapter
 
 
@@ -34,15 +35,14 @@ class TiktokProvider(OAuth2Provider):
 
     def extract_common_fields(self, data):
         return {
-            "username": data.get("username"),
+            "username": data.get("username") or data.get("display_name"),
             "name": data.get("display_name"),
-            "email": data.get("email"),
+            "email": None,  # Tiktok does not provide an email
         }
 
     def get_default_scope(self):
         # Requires LogitKit and Scopes with user.info.basic and user.info.profile enabled
-        return ["user.info.basic"]
-        # return ["user.info.basic", "user.info.profile"]
+        return [TiktokScope.USER_BASIC_INFO, TiktokScope.USER_PROFILE_INFO]
 
 
 provider_classes = [TiktokProvider]

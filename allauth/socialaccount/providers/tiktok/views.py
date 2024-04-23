@@ -6,6 +6,7 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 from allauth.socialaccount.providers.tiktok.client import TiktokOAuth2Client
+from allauth.socialaccount.providers.tiktok.scopes import TiktokScope
 
 
 class TiktokOAuth2Adapter(OAuth2Adapter):
@@ -18,9 +19,9 @@ class TiktokOAuth2Adapter(OAuth2Adapter):
 
     def get_query_fields(self):
         fields = ""
-        if "user.info.basic" in self.get_provider().get_scope():
+        if TiktokScope.USER_BASIC_INFO in self.get_provider().get_scope():
             fields = "open_id,display_name,avatar_url"
-        if "user.info.profile" in self.get_provider().get_scope():
+        if TiktokScope.USER_PROFILE_INFO in self.get_provider().get_scope():
             fields += ",username,profile_deep_link"
         return fields
 

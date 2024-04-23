@@ -6,7 +6,7 @@ Note worthy changes
 
 - Added a dummy provider, useful for testing purposes: ``allauth.socialaccount.providers.dummy``.
 
-- Added a new provider, Atlassian
+- Added a new provider, Atlassian, Lichess
 
 - Next URL handling been streamlined to be consistently applied. Previously, the
   password reset, change and email confirmation views only supported the

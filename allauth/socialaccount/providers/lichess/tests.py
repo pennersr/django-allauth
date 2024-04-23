@@ -3,6 +3,7 @@ from allauth.tests import MockedResponse, TestCase
 
 from .provider import LichessProvider
 
+
 class LichessTests(OAuth2TestsMixin, TestCase):
     provider_id = LichessProvider.id
 

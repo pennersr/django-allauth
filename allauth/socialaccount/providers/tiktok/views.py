@@ -16,12 +16,19 @@ class TiktokOAuth2Adapter(OAuth2Adapter):
     profile_url = "https://open.tiktokapis.com/v2/user/info/"
     client_class = TiktokOAuth2Client
 
+    def get_query_fields(self):
+        fields = ""
+        if "user.info.basic" in self.get_provider().get_scope():
+            fields = "open_id,display_name,avatar_url"
+        if "user.info.profile" in self.get_provider().get_scope():
+            fields += ",username,profile_deep_link"
+
     def complete_login(self, request, app, token, **kwargs):
         headers = {
             "Authorization": "Bearer {}".format(token.token),
             "Client-ID": app.client_id,
         }
-        params = {"fields": "open_id,username,display_name,avatar_url,profile_deep_link"}
+        params = {"fields": self.get_query_fields()}
         response = (
             get_adapter().get_requests_session().get(self.profile_url, headers=headers, params=params)
         )

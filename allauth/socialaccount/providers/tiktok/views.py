@@ -40,13 +40,8 @@ class TiktokOAuth2Adapter(OAuth2Adapter):
             message = data.get("message", "")
             raise OAuth2Error("Tiktok API Error: %s (%s)" % (error, message))
 
-        print(data)
-        try:
-            user_info = data.get("data", [])[0]
-        except IndexError:
-            raise OAuth2Error("Invalid data from Tiktok API: %s" % (data))
-
-        if "id" not in user_info:
+        user_info = data.get("data", {}).get("user")
+        if "open_id" not in user_info:
             raise OAuth2Error("Invalid data from Tiktok API: %s" % (user_info))
 
         return self.get_provider().sociallogin_from_response(request, user_info)

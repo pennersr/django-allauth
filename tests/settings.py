@@ -132,6 +132,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.jupyterhub",
     "allauth.socialaccount.providers.kakao",
     "allauth.socialaccount.providers.lemonldap",
+    "allauth.socialaccount.providers.lichess",
     "allauth.socialaccount.providers.line",
     "allauth.socialaccount.providers.linkedin_oauth2",
     "allauth.socialaccount.providers.mailchimp",

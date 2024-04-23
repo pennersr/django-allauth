@@ -40,6 +40,7 @@ class TiktokOAuth2Adapter(OAuth2Adapter):
             message = data.get("message", "")
             raise OAuth2Error("Tiktok API Error: %s (%s)" % (error, message))
 
+        print(data)
         try:
             user_info = data.get("data", [])[0]
         except IndexError:

@@ -1,5 +1,6 @@
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
+from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -20,42 +21,39 @@ class LichessOAuth2Adapter(OAuth2Adapter):
     email_address_url = "{0}/api/account/email".format(provider_base_url)
 
     def complete_login(self, request, app, token, response):
-        extra_data = (
-            get_adapter()
-            .get_requests_session()
-            .get(
-                self.profile_url,
-                params={"access_token": token.token},
-                headers={
-                    "Authorization": f"Bearer {token.token}",
-                },
-            )
+
+        profile_res = get_adapter().get_requests_session().get(
+            self.profile_url,
+            params={"access_token": token.token},
+            headers={"Authorization": f"Bearer {token.token}"},
         )
 
-        # retrieve email address
-        email_data = (
-            get_adapter()
-            .get_requests_session()
-            .get(
-                self.email_address_url,
-                params={"access_token": token.token},
-                headers={
-                    "Authorization": f"Bearer {token.token}",
-                },
-            )
-        )
-
-        # extract email address from response
-
-        email = email_data.json()["email"] if "email" in email_data.json() else None
-
+        profile_res.raise_for_status()
+        extra_data = profile_res.json()
+        
         user_profile = (
-            extra_data.json()["result"]
-            if "result" in extra_data.json()
-            else extra_data.json()
+            extra_data["result"]
+            if "result" in extra_data
+            else extra_data
         )
 
-        user_profile["email"] = email
+        # retrieve email address if requested
+        if QUERY_EMAIL:
+            
+            email_data = get_adapter().get_requests_session().get(
+                self.email_address_url,
+                headers={"Authorization": f"Bearer {token.token}"},
+            )
+
+            email_data.raise_for_status()
+            email_data = email_data.json()
+
+            # extract email address from response
+
+            email = email_data.get("email", None)
+
+            if email:
+                user_profile["email"] = email
 
         return self.get_provider().sociallogin_from_response(request, user_profile)
 

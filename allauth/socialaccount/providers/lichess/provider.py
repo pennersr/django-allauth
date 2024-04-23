@@ -39,13 +39,11 @@ class LichessProvider(OAuth2Provider):
     def extract_email_addresses(self, data):
         ret = []
         email = data.get("email")
-        verified = data.get("verified") or False
 
         if email:
             ret.append(
                 EmailAddress(
                     email=email,
-                    verified=verified,
                     primary=True,
                 )
             )

@@ -1,5 +1,5 @@
 from django import forms
-from django.utils.html import mark_safe
+from django.utils.safestring import mark_safe
 
 
 class LoginForm(forms.Form):

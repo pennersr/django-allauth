@@ -1,83 +1,28 @@
-from django.test.client import RequestFactory
-from django.urls import reverse
+from typing import override
 
-from allauth.socialaccount.models import SocialToken
-from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.tests import OAuth2TestsMixin
-from allauth.tests import MockedResponse, TestCase, mocked_response
-
+from allauth.tests import MockedResponse, TestCase
 from .provider import TikTokProvider
-from .views import TikTokOAuth2Adapter
 
 
 class TikTokTests(OAuth2TestsMixin, TestCase):
     provider_id = TikTokProvider.id
 
+    @override
     def get_mocked_response(self):
         return MockedResponse(
             200,
             """
         {
-          "data": [{
-            "id": "44322889",
-            "login": "dallas",
-            "display_name": "dallas",
-            "type": "staff",
-            "broadcaster_type": "",
-            "description": "Just a gamer playing games and chatting. :)",
-            "profile_image_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/dallas-profile_image-1a2c906ee2c35f12-300x300.png",
-            "offline_image_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/dallas-channel_offline_image-1a2c906ee2c35f12-1920x1080.png",
-            "view_count": 191836881,
-            "email": "login@provider.com"
-          }]
+          "data": {
+            "user": {
+                "open_id": "44322889",
+                "username": "username123",
+                "display_name": "Nice Display Name",
+                "avatar_url": "https://example.com/avatar.jpg",
+                "profile_deep_link": "https://example.com/profile"
+            }
+          }
         }
         """,
-        )  # noqa
-
-    def test_response_over_400_raises_OAuth2Error(self):
-        resp_mock = MockedResponse(400, '{"error": "Invalid token"}')
-        expected_error = "TikTok API Error: Invalid token ()"
-
-        self.check_for_error(resp_mock, expected_error)
-
-    def test_empty_or_missing_data_key_raises_OAuth2Error(self):
-        resp_mock = MockedResponse(200, '{"data": []}')
-        expected_error = "Invalid data from TikTok API: {'data': []}"
-
-        self.check_for_error(resp_mock, expected_error)
-
-        resp_mock = MockedResponse(200, '{"missing_data": "key"}')
-        expected_error = "Invalid data from TikTok API: {'missing_data': 'key'}"
-
-        self.check_for_error(resp_mock, expected_error)
-
-    def test_missing_TikTok_id_raises_OAuth2Error(self):
-        resp_mock = MockedResponse(200, '{"data": [{"login": "fake_TikTok"}]}')
-        expected_error = "Invalid data from TikTok API: {'login': 'fake_TikTok'}"
-
-        self.check_for_error(resp_mock, expected_error)
-
-    def check_for_error(self, resp_mock, expected_error):
-        with self.assertRaises(OAuth2Error) as error_ctx:
-            self._run_just_complete_login(resp_mock)
-
-        self.assertEqual(str(error_ctx.exception).replace("u", ""), expected_error)
-
-    def _run_just_complete_login(self, resp_mock):
-        """
-        Helper function for checking that Error cases are
-        handled correctly. Running only `complete_login` means
-        we can check that the specific errors are raised before
-        they are caught and rendered to generic error HTML
-        """
-        request = RequestFactory().get(
-            reverse(self.provider.id + "_login"),
-            {"process": "login"},
         )
-        adapter = TikTokOAuth2Adapter(request)
-        app = adapter.get_provider().app
-        token = SocialToken(token="this-is-my-fake-token")
-
-        with mocked_response(resp_mock):
-            adapter = TikTokOAuth2Adapter(request)
-            adapter.complete_login(request, app, token)

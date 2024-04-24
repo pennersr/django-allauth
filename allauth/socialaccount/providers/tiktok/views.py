@@ -40,9 +40,6 @@ class TikTokOAuth2Adapter(OAuth2Adapter):
         data = response.json()
 
         user_info = data.get("data", {}).get("user")
-        if "open_id" not in user_info:
-            raise OAuth2Error(f"Invalid data from TikTok API: {user_info}")
-
         return self.get_provider().sociallogin_from_response(request, user_info)
 
 

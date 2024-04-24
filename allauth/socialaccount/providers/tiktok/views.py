@@ -18,12 +18,12 @@ class TikTokOAuth2Adapter(OAuth2Adapter):
     scope_delimiter = ","
 
     def get_query_fields(self):
-        fields = ""
+        fields = []
         if TikTokScope.user_info_basic in self.get_provider().get_scope():
-            fields = "open_id,display_name,avatar_url"
+            fields += ["open_id", "display_name", "avatar_url"]
         if TikTokScope.user_info_profile in self.get_provider().get_scope():
-            fields += ",username,profile_deep_link"
-        return fields
+            fields += ["username", "profile_deep_link"]
+        return ",".join(fields)
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {

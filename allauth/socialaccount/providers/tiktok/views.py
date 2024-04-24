@@ -16,6 +16,7 @@ class TiktokOAuth2Adapter(OAuth2Adapter):
     # https://developers.tiktok.com/doc/tiktok-api-v2-get-user-info/
     profile_url = "https://open.tiktokapis.com/v2/user/info/"
     client_class = TiktokOAuth2Client
+    scope_delimiter = ","
 
     def get_query_fields(self):
         fields = ""

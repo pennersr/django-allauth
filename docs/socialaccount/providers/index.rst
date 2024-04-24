@@ -86,6 +86,7 @@ Provider Specifics
    kakao
    keycloak
    lemonldap
+   lichess
    line
    linkedin
    mailchimp

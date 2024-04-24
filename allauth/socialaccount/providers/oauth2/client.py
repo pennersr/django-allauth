@@ -11,6 +11,8 @@ class OAuth2Error(Exception):
 
 
 class OAuth2Client(object):
+    client_id_parameter = "client_id"
+
     def __init__(
         self,
         request,
@@ -37,7 +39,7 @@ class OAuth2Client(object):
     def get_redirect_url(self, authorization_url, scope, extra_params):
         scope = self.scope_delimiter.join(set(scope))
         params = {
-            "client_id": self.consumer_key,
+            self.client_id_parameter: self.consumer_key,
             "redirect_uri": self.callback_url,
             "scope": scope,
             "response_type": "code",
@@ -59,7 +61,7 @@ class OAuth2Client(object):
             auth = None
             data.update(
                 {
-                    "client_id": self.consumer_key,
+                    self.client_id_parameter: self.consumer_key,
                     "client_secret": self.consumer_secret,
                 }
             )

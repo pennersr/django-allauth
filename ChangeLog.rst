@@ -2,7 +2,7 @@
 0.63.0 (unreleased)
 *******************
 
-- ...
+- Added a new provider, TikTok.
 
 
 0.62.1 (2024-04-24)

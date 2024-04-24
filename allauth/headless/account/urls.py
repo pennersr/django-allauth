@@ -55,20 +55,22 @@ def build_urlpatterns(client):
                         name="verify_email",
                     ),
                 ]
-                + [
-                    path(
-                        "code/request",
-                        views.RequestLoginCodeView.as_api_view(client=client),
-                        name="request_login_code",
-                    ),
-                    path(
-                        "code/confirm",
-                        views.ConfirmLoginCodeView.as_api_view(client=client),
-                        name="confirm_login_code",
-                    ),
-                ]
-                if account_settings.LOGIN_BY_CODE_ENABLED
-                else []
+                + (
+                    [
+                        path(
+                            "code/request",
+                            views.RequestLoginCodeView.as_api_view(client=client),
+                            name="request_login_code",
+                        ),
+                        path(
+                            "code/confirm",
+                            views.ConfirmLoginCodeView.as_api_view(client=client),
+                            name="confirm_login_code",
+                        ),
+                    ]
+                    if account_settings.LOGIN_BY_CODE_ENABLED
+                    else []
+                )
             ),
         ),
         path(

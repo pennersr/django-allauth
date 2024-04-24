@@ -5,7 +5,7 @@ from allauth.utils import import_callable
 
 
 class LoginStage:
-    key = None
+    key: str  # Set in subclasses
 
     def __init__(self, controller, request, login):
         if not self.key:

@@ -1,4 +1,5 @@
 import warnings
+from typing import Optional, Type
 from urllib.parse import parse_qsl
 
 from django.http import HttpResponseRedirect
@@ -12,11 +13,12 @@ from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.providers.oauth2.utils import (
     generate_code_challenge,
 )
+from allauth.socialaccount.providers.oauth2.views import OAuth2Adapter
 
 
 class OAuth2Provider(Provider):
     pkce_enabled_default = False
-    oauth2_adapter_class = None
+    oauth2_adapter_class: Optional[Type[OAuth2Adapter]] = None
     supports_redirect = True
 
     def __init__(self, *args, **kwargs):

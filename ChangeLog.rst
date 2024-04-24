@@ -53,6 +53,18 @@ Note worthy changes
 - Facebook: the default Graph API version is now v19.0.
 
 
+Backwards incompatible changes
+------------------------------
+
+- The django-allauth required dependencies are now more fine grained.  If you do
+  not use any of the social account functionality, a `pip install
+  django-allauth` will, e.g., no longer pull in dependencies for handling
+  JWT. If you are using social account functionality, install using `pip install
+  django-allauth[socialaccount]`.  That will install the dependencies covering
+  most common providers. If you are using the Steam provider, install using `pip
+  install django-allauth[socialaccount,steam]`.
+
+
 0.61.1 (2024-02-09)
 *******************
 

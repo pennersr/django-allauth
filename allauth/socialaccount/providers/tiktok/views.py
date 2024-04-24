@@ -19,9 +19,9 @@ class TikTokOAuth2Adapter(OAuth2Adapter):
 
     def get_query_fields(self):
         fields = []
-        if TikTokScope.user_info_basic in self.get_provider().get_scope():
+        if TikTokScope.user_info_basic.value in self.get_provider().get_scope():
             fields += ["open_id", "display_name", "avatar_url"]
-        if TikTokScope.user_info_profile in self.get_provider().get_scope():
+        if TikTokScope.user_info_profile.value in self.get_provider().get_scope():
             fields += ["username", "profile_deep_link"]
         return ",".join(fields)
 

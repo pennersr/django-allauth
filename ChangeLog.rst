@@ -1,3 +1,9 @@
+0.62.1 (2024-04-24)
+*******************
+
+- The ``tests`` package was accidentally packaged, fixed.
+
+
 0.62.0 (2024-04-22)
 *******************
 

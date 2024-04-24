@@ -6,12 +6,12 @@ from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase, mocked_response
 
-from .provider import TiktokProvider
-from .views import TiktokOAuth2Adapter
+from .provider import TikTokProvider
+from .views import TikTokOAuth2Adapter
 
 
-class TiktokTests(OAuth2TestsMixin, TestCase):
-    provider_id = TiktokProvider.id
+class TikTokTests(OAuth2TestsMixin, TestCase):
+    provider_id = TikTokProvider.id
 
     def get_mocked_response(self):
         return MockedResponse(
@@ -36,24 +36,24 @@ class TiktokTests(OAuth2TestsMixin, TestCase):
 
     def test_response_over_400_raises_OAuth2Error(self):
         resp_mock = MockedResponse(400, '{"error": "Invalid token"}')
-        expected_error = "Twitch API Error: Invalid token ()"
+        expected_error = "TikTok API Error: Invalid token ()"
 
         self.check_for_error(resp_mock, expected_error)
 
     def test_empty_or_missing_data_key_raises_OAuth2Error(self):
         resp_mock = MockedResponse(200, '{"data": []}')
-        expected_error = "Invalid data from Twitch API: {'data': []}"
+        expected_error = "Invalid data from TikTok API: {'data': []}"
 
         self.check_for_error(resp_mock, expected_error)
 
         resp_mock = MockedResponse(200, '{"missing_data": "key"}')
-        expected_error = "Invalid data from Twitch API: {'missing_data': 'key'}"
+        expected_error = "Invalid data from TikTok API: {'missing_data': 'key'}"
 
         self.check_for_error(resp_mock, expected_error)
 
-    def test_missing_twitch_id_raises_OAuth2Error(self):
-        resp_mock = MockedResponse(200, '{"data": [{"login": "fake_twitch"}]}')
-        expected_error = "Invalid data from Twitch API: {'login': 'fake_twitch'}"
+    def test_missing_TikTok_id_raises_OAuth2Error(self):
+        resp_mock = MockedResponse(200, '{"data": [{"login": "fake_TikTok"}]}')
+        expected_error = "Invalid data from TikTok API: {'login': 'fake_TikTok'}"
 
         self.check_for_error(resp_mock, expected_error)
 
@@ -74,10 +74,10 @@ class TiktokTests(OAuth2TestsMixin, TestCase):
             reverse(self.provider.id + "_login"),
             {"process": "login"},
         )
-        adapter = TiktokOAuth2Adapter(request)
+        adapter = TikTokOAuth2Adapter(request)
         app = adapter.get_provider().app
         token = SocialToken(token="this-is-my-fake-token")
 
         with mocked_response(resp_mock):
-            adapter = TiktokOAuth2Adapter(request)
+            adapter = TikTokOAuth2Adapter(request)
             adapter.complete_login(request, app, token)

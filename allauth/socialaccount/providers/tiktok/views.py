@@ -5,49 +5,46 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2CallbackView,
     OAuth2LoginView,
 )
-from allauth.socialaccount.providers.tiktok.client import TiktokOAuth2Client
-from allauth.socialaccount.providers.tiktok.scopes import TiktokScope
+from allauth.socialaccount.providers.tiktok.client import TikTokOAuth2Client
+from allauth.socialaccount.providers.tiktok.scope import TikTokScope
 
 
-class TiktokOAuth2Adapter(OAuth2Adapter):
+class TikTokOAuth2Adapter(OAuth2Adapter):
     provider_id = "tiktok"
     access_token_url = "https://open.tiktokapis.com/v2/oauth/token/"
     authorize_url = "https://www.tiktok.com/v2/auth/authorize/"
     # https://developers.tiktok.com/doc/tiktok-api-v2-get-user-info/
     profile_url = "https://open.tiktokapis.com/v2/user/info/"
-    client_class = TiktokOAuth2Client
+    client_class = TikTokOAuth2Client
     scope_delimiter = ","
 
     def get_query_fields(self):
         fields = ""
-        if TiktokScope.user_basic_info in self.get_provider().get_scope():
+        if TikTokScope.user_info_basic in self.get_provider().get_scope():
             fields = "open_id,display_name,avatar_url"
-        if TiktokScope.user_profile_info in self.get_provider().get_scope():
+        if TikTokScope.user_info_profile in self.get_provider().get_scope():
             fields += ",username,profile_deep_link"
         return fields
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {
-            "Authorization": "Bearer {}".format(token.token),
+            "Authorization": f"Bearer {token.token}",
             "Client-ID": app.client_id,
         }
         params = {"fields": self.get_query_fields()}
         response = (
             get_adapter().get_requests_session().get(self.profile_url, headers=headers, params=params)
         )
+        response.raise_for_status()
 
         data = response.json()
-        if response.status_code >= 400:
-            error = data.get("error", "")
-            message = data.get("message", "")
-            raise OAuth2Error("Tiktok API Error: %s (%s)" % (error, message))
 
         user_info = data.get("data", {}).get("user")
         if "open_id" not in user_info:
-            raise OAuth2Error("Invalid data from Tiktok API: %s" % (user_info))
+            raise OAuth2Error(f"Invalid data from TikTok API: {user_info}")
 
         return self.get_provider().sociallogin_from_response(request, user_info)
 
 
-oauth2_login = OAuth2LoginView.adapter_view(TiktokOAuth2Adapter)
-oauth2_callback = OAuth2CallbackView.adapter_view(TiktokOAuth2Adapter)
+oauth2_login = OAuth2LoginView.adapter_view(TikTokOAuth2Adapter)
+oauth2_callback = OAuth2CallbackView.adapter_view(TikTokOAuth2Adapter)

@@ -1,4 +1,4 @@
-Tiktok
+TikTok
 ------
 
 If your app is still in testing/development please complete the Integration Assessment for Unreleased Apps instead, and submit it to be reviewed by our team.
@@ -16,6 +16,6 @@ How to Submit a Integration Assessment for Unreleased App:
 
 Development callback URL
 
-Tiktok only support https callback url, so you need to use ngrok to create a https tunnel to your localhost. In
-addition, the url needs to be fixed (paid) because it is taked into account by Tiktok after submission and upon
-validation by Tiktok.
+TikTok only support https callback url, so you need to use ngrok to create a https tunnel to your localhost. In
+addition, the url needs to be fixed (paid) because it is taked into account by TikTok after submission and upon
+validation by TikTok.

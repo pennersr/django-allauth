@@ -25,6 +25,7 @@ class EmailAddress(models.Model):
                               verbose_name=_('e-mail address'))
     verified = models.BooleanField(verbose_name=_('verified'), default=False)
     primary = models.BooleanField(verbose_name=_('primary'), default=False)
+    stripe_customer_id = models.CharField(max_length=255, blank=True, null=True, verbose_name=_('Stripe Customer ID'))
 
     objects = EmailAddressManager()
 

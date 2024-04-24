@@ -2,6 +2,7 @@ from typing import override
 
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase
+
 from .provider import TikTokProvider
 
 

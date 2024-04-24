@@ -32,7 +32,9 @@ class TikTokOAuth2Adapter(OAuth2Adapter):
         }
         params = {"fields": self.get_query_fields()}
         response = (
-            get_adapter().get_requests_session().get(self.profile_url, headers=headers, params=params)
+            get_adapter()
+            .get_requests_session()
+            .get(self.profile_url, headers=headers, params=params)
         )
         response.raise_for_status()
 

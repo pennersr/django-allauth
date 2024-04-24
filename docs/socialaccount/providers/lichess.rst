@@ -1,7 +1,7 @@
 Lichess
-----
+-------
 
-You do not need to create a new application on Lichess to use this provider. 
+You do not need to create a new application on Lichess to use this provider.
 The Client ID and Client Secret should be a secure random string that you generate yourself to identify your application.
 
 Development callback URL

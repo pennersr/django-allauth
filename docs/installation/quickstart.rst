@@ -49,7 +49,7 @@ the ``settings.py`` of your project::
         'allauth',
         'allauth.account',
 
-        # Optional -- requires install using `django-allauth[socialacocunt]`.
+        # Optional -- requires install using `django-allauth[socialaccount]`.
         'allauth.socialaccount',
         # ... include the providers you want to enable:
         'allauth.socialaccount.providers.agave',

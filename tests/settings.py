@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 from django.contrib.auth.hashers import PBKDF2PasswordHasher

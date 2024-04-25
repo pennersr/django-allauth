@@ -1,3 +1,21 @@
 [build-system]
 requires = ['setuptools>=40.8.0']
 build-backend = 'setuptools.build_meta'
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint.isort]
+from-first = false
+combine-as-imports = true
+lines-after-imports = 2
+extra-standard-library = ["types", "requests"]
+known-first-party = ["allauth"]
+section-order = ["future", "standard-library", "django", "third-party", "first-party", "local-folder"]
+
+[tool.ruff.lint.isort.sections]
+"django" = ["django"]
+
+[tool.ruff.lint]
+extend-select = ["I"]
+extend-ignore = ["E203", "E501", "E231"]

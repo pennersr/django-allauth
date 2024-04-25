@@ -47,9 +47,9 @@ def test_email_authentication(
         settings.SOCIALACCOUNT_PROVIDERS = copy.deepcopy(
             settings.SOCIALACCOUNT_PROVIDERS
         )
-        settings.SOCIALACCOUNT_PROVIDERS["openid_connect"][
-            "EMAIL_AUTHENTICATION"
-        ] = True
+        settings.SOCIALACCOUNT_PROVIDERS["openid_connect"]["EMAIL_AUTHENTICATION"] = (
+            True
+        )
     else:
         settings.SOCIALACCOUNT_EMAIL_AUTHENTICATION = False
     settings.SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = auto_connect

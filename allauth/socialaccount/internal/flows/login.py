@@ -71,5 +71,5 @@ def record_authentication(request, sociallogin):
         **{
             "provider": sociallogin.account.provider,
             "uid": sociallogin.account.uid,
-        }
+        },
     )

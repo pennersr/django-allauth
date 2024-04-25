@@ -99,9 +99,7 @@ class LinkedInOAuth2Account(ProviderAccount):
                 [
                     {},
                 ],
-            )[
-                0
-            ].get("identifier")
+            )[0].get("identifier")
             if to_return:
                 return to_return
         return super(LinkedInOAuth2Account, self).get_avatar_url()

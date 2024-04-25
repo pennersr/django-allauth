@@ -22,11 +22,11 @@ mo:
 
 .PHONY: isort
 isort:
-	isort .
+	ruff --select=I --fix
 
 .PHONY: black
 black:
-	black allauth/ setup.py
+	ruff format
 
 .PHONY: test
 test:
@@ -34,7 +34,6 @@ test:
 
 .PHONY: qa
 qa:
-	flake8 allauth
-	isort --check-only --diff .
-	black --check .
+	ruff check
+	ruff format --check
 	djlint --check allauth examples

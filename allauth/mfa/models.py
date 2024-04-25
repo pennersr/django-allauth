@@ -40,9 +40,7 @@ class Authenticator(models.Model):
         return {
             self.Type.TOTP: TOTP,
             self.Type.RECOVERY_CODES: RecoveryCodes,
-        }[
-            self.type
-        ](self)
+        }[self.type](self)
 
     def record_usage(self):
         self.last_used_at = timezone.now()

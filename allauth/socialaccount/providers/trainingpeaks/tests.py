@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-    Run just this suite:
-    python manage.py test allauth.socialaccount.providers.trainingpeaks.tests.TrainingPeaksTests
+Run just this suite:
+python manage.py test allauth.socialaccount.providers.trainingpeaks.tests.TrainingPeaksTests
 """
+
 from __future__ import unicode_literals
 
 from collections import namedtuple

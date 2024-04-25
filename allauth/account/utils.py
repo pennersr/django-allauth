@@ -405,8 +405,9 @@ def filter_users_by_username(*username):
     else:
         ret = get_user_model()._default_manager.filter(
             **{
-                app_settings.USER_MODEL_USERNAME_FIELD
-                + "__in": [u.lower() for u in username]
+                app_settings.USER_MODEL_USERNAME_FIELD + "__in": [
+                    u.lower() for u in username
+                ]
             }
         )
     return ret

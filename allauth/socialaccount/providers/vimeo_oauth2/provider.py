@@ -1,6 +1,7 @@
 """
 Provider for Patreon
 """
+
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 from allauth.socialaccount.providers.vimeo_oauth2.views import (

@@ -452,7 +452,7 @@ class DefaultAccountAdapter(BaseAdapter):
         signal_kwargs,
         email,
         signup,
-        redirect_url
+        redirect_url,
     ):
         if not user.is_active:
             return self.respond_user_inactive(request, user)
@@ -466,7 +466,7 @@ class DefaultAccountAdapter(BaseAdapter):
         signal_kwargs,
         email,
         signup,
-        redirect_url
+        redirect_url,
     ):
         from .utils import get_login_redirect_url
 

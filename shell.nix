@@ -9,11 +9,10 @@ stdenv.mkDerivation {
         djlint
         nodejs
         python310
-        python310Packages.django
-        python310Packages.flake8
+        python310Packages.daphne
         python310Packages.debugpy
-        python310Packages.pycodestyle
-        python310Packages.pyls-flake8
+        python310Packages.django
+        python310Packages.pyls-ruff
         python310Packages.pylsp-rope
         python310Packages.pytest
         python310Packages.pytest-cov
@@ -22,10 +21,10 @@ stdenv.mkDerivation {
         python310Packages.python3-openid
         python310Packages.python3-saml
         python310Packages.qrcode
-        python310Packages.sphinx-rtd-theme
         python310Packages.requests-oauthlib
+        python310Packages.ruff
+        python310Packages.sphinx-rtd-theme
         python310Packages.tox
-        python310Packages.daphne
         sphinx
         twine
     ];

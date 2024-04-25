@@ -54,7 +54,7 @@ def test_password_reset_flow(
         },
         content_type="application/json",
     )
-    assert resp.status_code == 200
+    assert resp.status_code == 401
 
     user.refresh_from_db()
     assert user.check_password(password)
@@ -67,14 +67,20 @@ def test_password_reset_flow_wrong_key(
 ):
     password = password_factory()
 
-    resp = getattr(client, method)(
-        headless_reverse("headless:reset_password"),
-        data={
-            "key": "wrong",
-            "password": password,
-        },
-        content_type="application/json",
-    )
+    if method == "get":
+        resp = client.get(
+            headless_reverse("headless:reset_password"),
+            headers={"X-Password-Reset-Key": "wrong"},
+        )
+    else:
+        resp = client.post(
+            headless_reverse("headless:reset_password"),
+            data={
+                "key": "wrong",
+                "password": password,
+            },
+            content_type="application/json",
+        )
     assert resp.status_code == 400
     assert resp.json() == {
         "status": 400,

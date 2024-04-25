@@ -39,7 +39,3 @@ class PasswordResetKeyResponse(APIResponse):
     def __init__(self, request, user):
         data = {"user": user_data(user)}
         super().__init__(request, data=data)
-
-
-class PasswordResetResponse(APIResponse):
-    pass

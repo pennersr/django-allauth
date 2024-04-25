@@ -35,11 +35,13 @@ export default function ResetPassword () {
       setResponse((r) => { return { ...r, fetching: false } })
     })
   }
-  if (response.content?.status === 200) {
+  if ([200, 401].includes(response.content?.status)) {
     return <Navigate to='/account/login' />
   }
   let body
-  if (response.content?.error?.detail?.key) {
+  if (keyResponse.status !== 200) {
+    body = <FormErrors param='key' errors={keyResponse.errors} />
+  } else if (response.content?.error?.detail?.key) {
     body = <FormErrors param='key' errors={response.content?.errors} />
   } else {
     body = (
@@ -60,7 +62,7 @@ export default function ResetPassword () {
     <div>
       <h1>Reset Password</h1>
       <p>
-        Remember your password? <Link to='/login'>Back to login.</Link>
+        Remember your password? <Link to='/account/login'>Back to login.</Link>
       </p>
       {body}
     </div>

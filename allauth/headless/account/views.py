@@ -139,7 +139,8 @@ class ResetPasswordView(APIView):
     input_class = ResetPasswordInput
 
     def get(self, request, *args, **kwargs):
-        input = ResetPasswordKeyInput(request.GET)
+        key = request.headers.get("X-Password-Reset-Key", "")
+        input = ResetPasswordKeyInput({"key": key})
         if not input.is_valid():
             return ErrorResponse(request, input=input)
         return response.PasswordResetKeyResponse(request, input.user)
@@ -149,8 +150,7 @@ class ResetPasswordView(APIView):
             self.input.user, self.input.cleaned_data["password"]
         )
         password_reset.finalize_password_reset(request, self.input.user)
-        # FIXME: Login on password reset? So auth response
-        return response.PasswordResetResponse(request)
+        return AuthenticationResponse(self.request)
 
 
 class ChangePasswordView(AuthenticatedAPIView):

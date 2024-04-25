@@ -1,4 +1,5 @@
 from allauth.account.models import EmailAddress, get_emailconfirmation_model
+from allauth.headless.constants import Flow
 
 
 def test_auth_unverified_email(
@@ -17,8 +18,9 @@ def test_auth_unverified_email(
         content_type="application/json",
     )
     assert resp.status_code == 401
-    # FIXME
-    # assert resp.json() == {}
+    data = resp.json()
+    flows = data["data"]["flows"]
+    assert [f for f in flows if f["id"] == Flow.VERIFY_EMAIL][0]["is_pending"]
     emailaddress = EmailAddress.objects.filter(user=user, verified=False).get()
     key = get_emailconfirmation_model().create(emailaddress).key
     resp = client.post(

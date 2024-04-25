@@ -168,7 +168,8 @@ def serialize_instance(instance):
         try:
             field = instance._meta.get_field(k)
             if isinstance(field, BinaryField):
-                v = force_str(base64.b64encode(v))
+                if v:
+                    v = force_str(base64.b64encode(v))
             elif isinstance(field, FileField):
                 if v and not isinstance(v, str):
                     v = {

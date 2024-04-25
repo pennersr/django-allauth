@@ -3,7 +3,7 @@ import os
 
 
 os.environ["DJANGO_SETTINGS_MODULE"] = "tests.settings"
-from django.core import management
+from django.core import management  # noqa: E402
 
 
 if __name__ == "__main__":

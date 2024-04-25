@@ -1,6 +1,9 @@
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.xero.views import (
+    XeroOAuth2Adapter,
+)
 
 
 class XeroAccount(ProviderAccount):
@@ -25,6 +28,7 @@ class XeroProvider(OAuth2Provider):
     id = "xero"
     name = "Xero"
     account_class = XeroAccount
+    oauth2_adapter_class = XeroOAuth2Adapter
 
     def extract_uid(self, data):
         return str(data["xero_userid"])

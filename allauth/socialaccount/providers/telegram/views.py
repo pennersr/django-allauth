@@ -1,4 +1,5 @@
 import base64
+import binascii
 import hashlib
 import hmac
 import json
@@ -41,9 +42,19 @@ class CallbackView(View):
                 provider=provider,
             )
 
-        result = request.POST.get("tgAuthResult")
-        padding = "=" * (4 - (len(result) % 4))
-        data = json.loads(base64.b64decode(result + padding))
+        try:
+            result = request.POST.get("tgAuthResult")
+            padding = "=" * (4 - (len(result) % 4))
+            data = json.loads(base64.b64decode(result + padding))
+            if not isinstance(data, dict) or "hash" not in data:
+                raise ValueError("Invalid tgAuthResult")
+        except (binascii.Error, json.JSONDecodeError, ValueError) as e:
+            return render_authentication_error(
+                request,
+                provider=provider,
+                exception=e,
+                extra_context={"state_id": state_id},
+            )
         hash = data.pop("hash")
         payload = "\n".join(sorted(["{}={}".format(k, v) for k, v in data.items()]))
         token = provider.app.secret

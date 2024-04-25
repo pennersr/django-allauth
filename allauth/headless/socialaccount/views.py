@@ -1,3 +1,5 @@
+from django.core.exceptions import ValidationError
+
 from allauth.headless.base.response import AuthenticationResponse
 from allauth.headless.base.views import APIView, AuthenticatedAPIView
 from allauth.headless.socialaccount.forms import RedirectToProviderForm
@@ -31,9 +33,10 @@ class RedirectToProviderView(APIView):
     def post(self, request, *args, **kwargs):
         form = RedirectToProviderForm(request.POST)
         if not form.is_valid():
-            # TODO: Hand over form errors to render_authentication_error?
             return render_authentication_error(
-                request, provider=request.POST.get("provider")
+                request,
+                provider=request.POST.get("provider"),
+                exception=ValidationError(form.errors),
             )
         provider = form.cleaned_data["provider"]
         next_url = form.cleaned_data["callback_url"]

@@ -1,4 +1,31 @@
+from pytest_django.asserts import assertTemplateUsed
+
 from allauth.socialaccount.models import SocialAccount
+from allauth.socialaccount.providers.base.constants import AuthProcess
+
+
+def test_bad_redirect(client, headless_reverse, db):
+    resp = client.post(
+        headless_reverse("headless:socialaccount:redirect_to_provider"),
+        data={
+            "provider": "dummy",
+            "callback_url": "https://unsafe.org/hack",
+            "process": AuthProcess.LOGIN,
+        },
+    )
+    assertTemplateUsed(resp, "socialaccount/authentication_error.html")
+
+
+def test_valid_redirect(client, headless_reverse, db):
+    resp = client.post(
+        headless_reverse("headless:socialaccount:redirect_to_provider"),
+        data={
+            "provider": "dummy",
+            "callback_url": "/",
+            "process": AuthProcess.LOGIN,
+        },
+    )
+    assert resp.status_code == 302
 
 
 def test_manage_providers(auth_client, user, headless_reverse, provider_id):

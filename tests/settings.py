@@ -5,7 +5,10 @@ from django.contrib.auth.hashers import PBKDF2PasswordHasher
 
 SECRET_KEY = "psst"
 SITE_ID = 1
-ALLOWED_HOSTS = ("*",)
+ALLOWED_HOSTS = (
+    "testserver",
+    "example.com",
+)
 USE_I18N = False
 USE_TZ = True
 

@@ -27,10 +27,11 @@ class AppClient(Client):
                 headers = {}
             headers["x-session-token"] = self.session_token
         resp = super().generic(*args, headers=headers, **kwargs)
-        data = resp.json()
-        session_token = data.get("meta", {}).get("session_token")
-        if session_token:
-            self.session_token = session_token
+        if resp["content-type"] == "application/json":
+            data = resp.json()
+            session_token = data.get("meta", {}).get("session_token")
+            if session_token:
+                self.session_token = session_token
         return resp
 
     def force_login(self, user):

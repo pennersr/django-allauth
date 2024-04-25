@@ -3,6 +3,7 @@ from unittest.mock import ANY
 from django.contrib.auth.models import User
 
 from allauth.account.models import EmailAddress, EmailConfirmationHMAC
+from allauth.headless.constants import Flow
 
 
 def test_signup(
@@ -79,3 +80,39 @@ def test_signup_with_email_verification(
     assert data["meta"]["is_authenticated"]
     addr.refresh_from_db()
     assert addr.verified
+
+
+def test_signup_prevent_enumeration(
+    db,
+    client,
+    email_factory,
+    password_factory,
+    settings,
+    headless_reverse,
+    headless_client,
+    user,
+    mailoutbox,
+):
+    settings.ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+    settings.ACCOUNT_USERNAME_REQUIRED = False
+    settings.ACCOUNT_PREVENT_ENUMERATION = True
+    resp = client.post(
+        headless_reverse("headless:signup"),
+        data={
+            "email": user.email,
+            "password": password_factory(),
+        },
+        content_type="application/json",
+    )
+    assert len(mailoutbox) == 1
+    assert "an account using that email address already exists" in mailoutbox[0].body
+    assert resp.status_code == 401
+    data = resp.json()
+    assert [f for f in data["data"]["flows"] if f["id"] == Flow.VERIFY_EMAIL][0][
+        "is_pending"
+    ]
+    resp = client.get(headless_reverse("headless:current_session"))
+    data = resp.json()
+    assert [f for f in data["data"]["flows"] if f["id"] == Flow.VERIFY_EMAIL][0][
+        "is_pending"
+    ]

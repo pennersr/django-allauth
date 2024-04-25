@@ -42,7 +42,6 @@ class BaseAuthenticationResponse(APIResponse):
 
     def _get_flows(self, request, user):
         auth_status = authkit.AuthenticationStatus(request)
-        stage = auth_status.get_pending_stage()
         ret = []
         if user and user.is_authenticated:
             ret.extend(
@@ -67,8 +66,16 @@ class BaseAuthenticationResponse(APIResponse):
                 )
 
                 ret.extend(provider_flows(request))
+        stage_key = None
+        stage = auth_status.get_pending_stage()
         if stage:
-            ret.append({"id": stage.key, "is_pending": True})
+            stage_key = stage.key
+        else:
+            lsk = request.session.get(flows.login.LOGIN_SESSION_KEY)
+            if isinstance(lsk, str):
+                stage_key = lsk
+        if stage_key:
+            ret.append({"id": stage_key, "is_pending": True})
         return ret
 
 

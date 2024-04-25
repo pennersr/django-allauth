@@ -166,10 +166,10 @@ def resume_login(request, login):
 def unstash_login(request, peek=False):
     login = None
     if peek:
-        data = request.session.get("account_login")
+        data = request.session.get(flows.login.LOGIN_SESSION_KEY)
     else:
-        data = request.session.pop("account_login", None)
-    if data is not None:
+        data = request.session.pop(flows.login.LOGIN_SESSION_KEY, None)
+    if isinstance(data, dict):
         try:
             login = Login.deserialize(data)
             request._account_login_accessed = True
@@ -179,7 +179,7 @@ def unstash_login(request, peek=False):
 
 
 def stash_login(request, login):
-    request.session["account_login"] = login.serialize()
+    request.session[flows.login.LOGIN_SESSION_KEY] = login.serialize()
     request._account_login_accessed = True
 
 

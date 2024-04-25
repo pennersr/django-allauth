@@ -50,7 +50,7 @@ Then, visit the app over at http://localhost:10000.
 
 **** DONE User sessions
 
-*** Headless [80%]
+*** Headless [90%]
 
 **** TODO Check rate limit handling
 
@@ -74,7 +74,7 @@ Disabled, let's not complicate things.
 
 **** DONE OpenAPI Spec
 
-**** TODO Documentation
+**** DONE Documentation
 
 **** TODO Test coverage
 
@@ -86,7 +86,7 @@ Disabled, let's not complicate things.
 **** DONE Check interaction with user sessions
 Mobile sesions to also show up.
 
-**** TODO Prevent enumeration
+**** DONE Prevent enumeration
 During signup, there is indeed a pending flow. But, given that this is not
 stored in the session a subsequent call to the endpoint reveals a different
 response from which an enumeration related conclusion can be drawn.

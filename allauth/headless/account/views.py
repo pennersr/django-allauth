@@ -1,10 +1,14 @@
+from django.utils.decorators import method_decorator
+
 from allauth.account.adapter import get_adapter as get_account_adapter
 from allauth.account.internal import flows
 from allauth.account.internal.flows import password_change, password_reset
 from allauth.account.models import EmailAddress, Login
 from allauth.account.stages import EmailVerificationStage, LoginStageController
 from allauth.account.utils import complete_signup, send_email_confirmation
+from allauth.core import ratelimit
 from allauth.core.exceptions import ImmediateHttpResponse
+from allauth.decorators import rate_limit
 from allauth.headless.account import response
 from allauth.headless.account.inputs import (
     AddEmailInput,
@@ -58,6 +62,7 @@ class ConfirmLoginCodeView(APIView):
         return kwargs
 
 
+@method_decorator(rate_limit(action="login"), name="dispatch")
 class LoginView(APIView):
     input_class = LoginInput
 
@@ -70,6 +75,7 @@ class LoginView(APIView):
         return AuthenticationResponse(self.request)
 
 
+@method_decorator(rate_limit(action="signup"), name="dispatch")
 class SignupView(APIView):
     input_class = SignupInput
 
@@ -131,10 +137,18 @@ class RequestPasswordResetView(APIView):
     input_class = RequestPasswordResetInput
 
     def post(self, request, *args, **kwargs):
+        r429 = ratelimit.consume_or_429(
+            self.request,
+            action="reset_password",
+            key=self.input.cleaned_data["email"].lower(),
+        )
+        if r429:
+            return r429
         self.input.save(request)
         return response.RequestPasswordResponse(request)
 
 
+@method_decorator(rate_limit(action="reset_password_from_key"), name="dispatch")
 class ResetPasswordView(APIView):
     input_class = ResetPasswordInput
 
@@ -153,6 +167,7 @@ class ResetPasswordView(APIView):
         return AuthenticationResponse(self.request)
 
 
+@method_decorator(rate_limit(action="change_password"), name="dispatch")
 class ChangePasswordView(AuthenticatedAPIView):
     input_class = ChangePasswordInput
 
@@ -171,6 +186,7 @@ class ChangePasswordView(AuthenticatedAPIView):
         return {"user": self.request.user}
 
 
+@method_decorator(rate_limit(action="manage_email"), name="dispatch")
 class ManageEmailView(AuthenticatedAPIView):
     input_class = {
         "POST": AddEmailInput,
@@ -211,6 +227,7 @@ class ManageEmailView(AuthenticatedAPIView):
         return {"user": self.request.user}
 
 
+@method_decorator(rate_limit(action="reauthenticate"), name="dispatch")
 class ReauthenticateView(AuthenticatedAPIView):
     input_class = ReauthenticateInput
 

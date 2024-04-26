@@ -111,3 +111,61 @@ def test_auth_password_user_inactive(
         content_type="application/json",
     )
     assert resp.status_code == status_code
+
+
+def test_login_failed_rate_limit(
+    client,
+    user,
+    settings,
+    headless_reverse,
+    headless_client,
+    enable_cache,
+):
+    settings.ACCOUNT_RATE_LIMITS = {"login_failed": "1/m/ip"}
+    settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
+    for attempt in range(2):
+        resp = client.post(
+            headless_reverse("headless:login"),
+            data={
+                "email": user.email,
+                "password": "wrong",
+            },
+            content_type="application/json",
+        )
+        assert resp.status_code == 400
+        assert resp.json()["errors"] == [
+            {
+                "code": "email_password_mismatch",
+                "message": "The email address and/or password you specified are not correct.",
+                "param": "password",
+            }
+            if attempt == 0
+            else {
+                "message": "Too many failed login attempts. Try again later.",
+                "code": "too_many_login_attempts",
+            }
+        ]
+
+
+def test_login_rate_limit(
+    client,
+    user,
+    user_password,
+    settings,
+    headless_reverse,
+    headless_client,
+    enable_cache,
+):
+    settings.ACCOUNT_RATE_LIMITS = {"login": "1/m/ip"}
+    settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
+    for attempt in range(2):
+        resp = client.post(
+            headless_reverse("headless:login"),
+            data={
+                "email": user.email,
+                "password": user_password,
+            },
+            content_type="application/json",
+        )
+        expected_status = 429 if attempt else 200
+        assert resp.status_code == expected_status

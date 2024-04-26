@@ -111,3 +111,41 @@ def test_password_reset_flow_unknown_user(
         assert settings.HEADLESS_FRONTEND_URLS["account_signup"] in body
     else:
         assert reverse("account_signup") in body
+
+
+def test_reset_password_rate_limit(
+    auth_client, user, headless_reverse, settings, enable_cache
+):
+    settings.ACCOUNT_RATE_LIMITS = {"reset_password": "1/m/ip"}
+    for attempt in range(2):
+        resp = auth_client.post(
+            headless_reverse("headless:request_password_reset"),
+            data={"email": user.email},
+            content_type="application/json",
+        )
+        expected_status = 200 if attempt == 0 else 429
+        assert resp.status_code == expected_status
+        assert resp.json()["status"] == expected_status
+
+
+def test_password_reset_key_rate_limit(
+    client,
+    user,
+    settings,
+    headless_reverse,
+    password_reset_key_generator,
+    enable_cache,
+):
+    settings.ACCOUNT_RATE_LIMITS = {"reset_password_from_key": "1/m/ip"}
+    for attempt in range(2):
+        resp = client.post(
+            headless_reverse("headless:reset_password"),
+            data={
+                "key": password_reset_key_generator(user),
+                "password": "a",  # too short
+            },
+            content_type="application/json",
+        )
+        expected_status = 429 if attempt else 400
+        assert resp.status_code == expected_status
+        assert resp.json()["status"] == expected_status

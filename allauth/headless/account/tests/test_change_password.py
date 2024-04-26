@@ -192,3 +192,29 @@ def test_change_password(
     else:
         assert user.check_password(user_password)
         assert len(mailoutbox) == 0
+
+
+def test_change_password_rate_limit(
+    enable_cache,
+    auth_client,
+    user,
+    user_password,
+    password_factory,
+    settings,
+    headless_reverse,
+):
+    settings.ACCOUNT_RATE_LIMITS = {"change_password": "1/m/ip"}
+    for attempt in range(2):
+        new_password = password_factory()
+        resp = auth_client.post(
+            headless_reverse("headless:change_password"),
+            data={
+                "current_password": user_password,
+                "new_password": new_password,
+            },
+            content_type="application/json",
+        )
+        user_password = new_password
+        expected_status = 200 if attempt == 0 else 429
+        assert resp.status_code == expected_status
+        assert resp.json()["status"] == expected_status

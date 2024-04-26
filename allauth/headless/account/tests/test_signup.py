@@ -116,3 +116,29 @@ def test_signup_prevent_enumeration(
     assert [f for f in data["data"]["flows"] if f["id"] == Flow.VERIFY_EMAIL][0][
         "is_pending"
     ]
+
+
+def test_signup_rate_limit(
+    db,
+    client,
+    email_factory,
+    password_factory,
+    settings,
+    headless_reverse,
+    enable_cache,
+    headless_client,
+):
+    settings.ACCOUNT_RATE_LIMITS = {"signup": "1/m/ip"}
+    for attempt in range(2):
+        resp = client.post(
+            headless_reverse("headless:signup"),
+            data={
+                "username": f"wizard{attempt}",
+                "email": email_factory(),
+                "password": password_factory(),
+            },
+            content_type="application/json",
+        )
+        expected_status = 429 if attempt else 200
+        assert resp.status_code == expected_status
+        assert resp.json()["status"] == expected_status

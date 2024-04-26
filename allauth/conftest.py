@@ -8,7 +8,7 @@ from django.contrib.auth import get_user_model
 import pytest
 
 from allauth.account.models import EmailAddress
-from allauth.account.utils import user_email, user_username
+from allauth.account.utils import user_email, user_pk_to_url_str, user_username
 from allauth.core import context
 
 
@@ -139,3 +139,17 @@ def totp_validation_bypass():
 @pytest.fixture
 def provider_id():
     return "unittest-server"
+
+
+@pytest.fixture
+def password_reset_key_generator():
+    def f(user):
+        from allauth.account import app_settings
+
+        token_generator = app_settings.PASSWORD_RESET_TOKEN_GENERATOR()
+        uid = user_pk_to_url_str(user)
+        temp_key = token_generator.make_token(user)
+        key = f"{uid}-{temp_key}"
+        return key
+
+    return f

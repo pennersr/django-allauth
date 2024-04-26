@@ -50,9 +50,9 @@ Then, visit the app over at http://localhost:10000.
 
 **** DONE User sessions
 
-*** Headless [90%]
+*** Headless [95%]
 
-**** TODO Check rate limit handling
+**** DONE Check rate limit handling
 
 **** DONE Make "Unknown account" email signup URL configurable
 

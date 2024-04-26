@@ -130,3 +130,8 @@ class ConfigResponse(APIResponse):
 
             data.update(get_config_data(request))
         return super().__init__(request, data=data)
+
+
+class RateLimitResponse(APIResponse):
+    def __init__(self, request):
+        super().__init__(request, status=429)

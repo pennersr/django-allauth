@@ -58,3 +58,42 @@ def test_resend_verification(
     )
     assert resp.status_code == 200
     assert len(mailoutbox) == 1
+
+
+def test_email_rate_limit(
+    auth_client, user, email_factory, headless_reverse, settings, enable_cache
+):
+    settings.ACCOUNT_RATE_LIMITS = {"manage_email": "1/m/ip"}
+    for attempt in range(2):
+        new_email = email_factory()
+        resp = auth_client.post(
+            headless_reverse("headless:manage_email"),
+            data={"email": new_email},
+            content_type="application/json",
+        )
+        expected_status = 200 if attempt == 0 else 429
+        assert resp.status_code == expected_status
+        assert resp.json()["status"] == expected_status
+
+
+def test_resend_verification_rate_limit(
+    auth_client,
+    user,
+    email_factory,
+    headless_reverse,
+    settings,
+    enable_cache,
+    mailoutbox,
+):
+    settings.ACCOUNT_RATE_LIMITS = {"confirm_email": "1/m/ip"}
+    for attempt in range(2):
+        addr = EmailAddress.objects.create(
+            email=email_factory(), user=user, verified=False
+        )
+        resp = auth_client.put(
+            headless_reverse("headless:manage_email"),
+            data={"email": addr.email},
+            content_type="application/json",
+        )
+        assert resp.status_code == 403 if attempt else 200
+        assert len(mailoutbox) == 1

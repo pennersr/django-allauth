@@ -21,8 +21,10 @@ class UserSessionManager(models.Manager):
         return ret
 
     def create_from_request(self, request):
-        if not request.user.is_authenticated or not request.session.session_key:
+        if not request.user.is_authenticated:
             raise ValueError()
+        if not request.session.session_key:
+            request.session.save()
         ua = request.META.get("HTTP_USER_AGENT", "")[
             0 : UserSession._meta.get_field("user_agent").max_length
         ]

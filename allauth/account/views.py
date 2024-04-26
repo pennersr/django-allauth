@@ -66,6 +66,7 @@ sensitive_post_parameters_m = method_decorator(
 )
 
 
+@method_decorator(rate_limit(action="login"), name="dispatch")
 class LoginView(
     NextRedirectMixin,
     RedirectAuthenticatedUserMixin,

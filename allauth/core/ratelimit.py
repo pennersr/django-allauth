@@ -127,7 +127,7 @@ def _handler429(request):
 
 def consume_or_429(request, *args, **kwargs):
     if not consume(request, *args, **kwargs):
-        if app_settings.HEADLESS_ENABLED and getattr(request.allauth, "headless"):
+        if app_settings.HEADLESS_ENABLED and hasattr(request.allauth, "headless"):
             from allauth.headless.base.response import RateLimitResponse
 
             return RateLimitResponse(request)

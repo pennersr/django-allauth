@@ -146,6 +146,7 @@ ACCOUNT_LOGIN_BY_CODE_ENABLED = True
 HEADLESS_ONLY = True
 HEADLESS_FRONTEND_URLS = {
     "account_confirm_email": "/account/verify-email/{key}",
+    "account_reset_password": "/account/password/reset",
     "account_reset_password_from_key": "/account/password/reset/key/{key}",
     "account_signup": "/account/signup",
 }

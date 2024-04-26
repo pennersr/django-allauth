@@ -5,7 +5,10 @@ from django.contrib.auth.hashers import PBKDF2PasswordHasher
 
 SECRET_KEY = "psst"
 SITE_ID = 1
-ALLOWED_HOSTS = ("*",)
+ALLOWED_HOSTS = (
+    "testserver",
+    "example.com",
+)
 USE_I18N = False
 USE_TZ = True
 
@@ -258,6 +261,7 @@ ACCOUNT_LOGIN_BY_CODE_ENABLED = True
 HEADLESS_ONLY = True
 HEADLESS_FRONTEND_URLS = {
     "account_confirm_email": "/spa/confirm-email?key={key}",
+    "account_reset_password": "/spa/password/reset/",
     "account_reset_password_from_key": "/spa/password/reset/{key}/",
     "account_signup": "/spa/signup",
 }

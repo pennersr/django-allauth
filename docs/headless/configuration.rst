@@ -18,6 +18,7 @@ Available settings:
         # to your own needs, e.g.
         #
         # "https://app.project.org/account/email/verify-email?token={key}",
+        "account_reset_password": "https://app.project.org/account/password/reset",
         "account_reset_password_from_key": "https://app.project.org/account/password/reset/key/{key}",
         "account_signup_url": "https://app.project.org/account/signup",
     }

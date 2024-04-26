@@ -621,9 +621,11 @@ class DefaultAccountAdapter(BaseAdapter):
         return send_email
 
     def send_account_already_exists_mail(self, email):
-        signup_url = build_absolute_uri(context.request, reverse("account_signup"))
-        password_reset_url = build_absolute_uri(
-            context.request, reverse("account_reset_password")
+        from allauth.account.internal import flows
+
+        signup_url = flows.signup.get_signup_url(context.request)
+        password_reset_url = flows.password_reset.get_reset_password_url(
+            context.request
         )
         ctx = {
             "request": context.request,

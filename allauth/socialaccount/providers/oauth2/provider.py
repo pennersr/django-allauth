@@ -1,6 +1,7 @@
-import warnings
+from typing import Type
 from urllib.parse import parse_qsl
 
+from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.http import urlencode
@@ -12,17 +13,13 @@ from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.providers.oauth2.utils import (
     generate_code_challenge,
 )
+from allauth.socialaccount.providers.oauth2.views import OAuth2Adapter
 
 
 class OAuth2Provider(Provider):
     pkce_enabled_default = False
-    oauth2_adapter_class = None
+    oauth2_adapter_class: Type[OAuth2Adapter]
     supports_redirect = True
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if self.oauth2_adapter_class is None:
-            warnings.warn("provider.oauth2_adapter_class property missing")
 
     def get_login_url(self, request, **kwargs):
         url = reverse(self.id + "_login")
@@ -87,6 +84,8 @@ class OAuth2Provider(Provider):
         return scope
 
     def get_oauth2_adapter(self, request):
+        if not hasattr(self, "oauth2_adapter_class"):
+            raise ImproperlyConfigured(f"No oauth2_adapter_class set for {self!r}")
         return self.oauth2_adapter_class(request)
 
     def get_redirect_from_request_kwargs(self, request):

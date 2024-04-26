@@ -10,10 +10,14 @@ from urllib.parse import urlsplit
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
+from django.core.exceptions import (
+    FieldDoesNotExist,
+    ImproperlyConfigured,
+    ValidationError,
+)
 from django.core.files.base import ContentFile
 from django.core.serializers.json import DjangoJSONEncoder
-from django.core.validators import ValidationError, validate_email
+from django.core.validators import validate_email
 from django.db.models import FileField
 from django.db.models.fields import (
     BinaryField,

@@ -1,3 +1,5 @@
+from typing import Optional
+
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 
 from allauth.account.utils import get_next_redirect_url, get_request_param
@@ -12,7 +14,10 @@ class ProviderException(Exception):
 
 
 class Provider:
-    slug = None
+    name: str  # Provided by subclasses
+    id: str  # Provided by subclasses
+    slug: Optional[str] = None  # Provided by subclasses
+
     uses_apps = True
     supports_redirect = False
     # Indicates whether or not this provider supports logging in by posting an

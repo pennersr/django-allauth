@@ -163,3 +163,26 @@ def password_reset_key_generator():
         return key
 
     return f
+
+
+@pytest.fixture
+def google_provier_settings(settings):
+    gsettings = {"APPS": [{"client_id": "client_id", "secret": "secret"}]}
+    settings.SOCIALACCOUNT_PROVIDERS = {"google": gsettings}
+    return gsettings
+
+
+@pytest.fixture
+def user_with_totp(user):
+    from allauth.mfa import totp
+
+    totp.TOTP.activate(user, totp.generate_totp_secret())
+    return user
+
+
+@pytest.fixture
+def user_with_recovery_codes(user_with_totp):
+    from allauth.mfa import recovery_codes
+
+    recovery_codes.RecoveryCodes.activate(user_with_totp)
+    return user_with_totp

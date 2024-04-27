@@ -754,24 +754,24 @@ class DefaultAccountAdapter(BaseAdapter):
         if not user.is_authenticated:
             return ret
         if user.has_usable_password():
-            ret.append(
-                {
-                    "id": "reauthenticate",
-                    "description": _("Use your password"),
-                    "url": reverse("account_reauthenticate"),
-                }
-            )
+            entry = {
+                "id": "reauthenticate",
+                "description": _("Use your password"),
+            }
+            if not allauth_app_settings.HEADLESS_ONLY:
+                entry["url"] = reverse("account_reauthenticate")
+            ret.append(entry)
         if allauth_app_settings.MFA_ENABLED:
             from allauth.mfa.utils import is_mfa_enabled
 
             if is_mfa_enabled(user):
-                ret.append(
-                    {
-                        "id": "mfa_reauthenticate",
-                        "description": _("Use your authenticator app"),
-                        "url": reverse("mfa_reauthenticate"),
-                    }
-                )
+                entry = {
+                    "id": "mfa_reauthenticate",
+                    "description": _("Use your authenticator app"),
+                }
+                if not allauth_app_settings.HEADLESS_ONLY:
+                    entry["url"] = reverse("mfa_reauthenticate")
+                ret.append(entry)
         return ret
 
     def send_notification_mail(self, template_prefix, user, context=None, email=None):

@@ -77,3 +77,26 @@ def test_disconnect_bad_request(auth_client, user, headless_reverse, provider_id
         "status": 400,
         "errors": [{"code": "account_not_found", "message": "Unknown account."}],
     }
+
+
+def test_invalid_token(client, headless_reverse, db, google_provier_settings):
+    resp = client.post(
+        headless_reverse("headless:socialaccount:provider_token"),
+        data={
+            "provider": "google",
+            "token": {
+                "id_token": "dummy",
+                "client_id": google_provier_settings["APPS"][0]["client_id"],
+            },
+            "process": AuthProcess.LOGIN,
+        },
+        content_type="application/json",
+    )
+    assert resp.status_code == 400
+    data = resp.json()
+    assert data == {
+        "status": 400,
+        "errors": [
+            {"message": "Invalid token.", "code": "invalid_token", "param": "token"}
+        ],
+    }

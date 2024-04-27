@@ -63,7 +63,7 @@ class ManageTOTPView(AuthenticatedAPIView):
         return {"user": self.request.user}
 
     def post(self, request, *args, **kwargs):
-        authenticator = flows.totp.activate_totp(request, self.input)
+        authenticator = flows.totp.activate_totp(request, self.input).instance
         return response.TOTPResponse(request, authenticator)
 
     def delete(self, request, *args, **kwargs):
@@ -81,11 +81,6 @@ class ManageRecoveryCodesView(AuthenticatedAPIView):
         if not authenticator:
             return response.RecoveryCodesNotFoundResponse(request)
         return response.RecoveryCodesResponse(request, authenticator)
-
-    def _get_authenticator(self):
-        return Authenticator.objects.filter(
-            type=Authenticator.Type.RECOVERY_CODES, user=self.request.user
-        ).first()
 
     def post(self, request, *args, **kwargs):
         authenticator = flows.recovery_codes.generate_recovery_codes(request)

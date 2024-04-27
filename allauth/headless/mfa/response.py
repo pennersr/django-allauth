@@ -48,7 +48,8 @@ class TOTPNotFoundResponse(APIResponse):
 
 class TOTPResponse(APIResponse):
     def __init__(self, request, authenticator):
-        super().__init__(request)
+        data = _authenticator_data(authenticator)
+        super().__init__(request, data=data)
 
 
 class AuthenticatorsResponse(APIResponse):

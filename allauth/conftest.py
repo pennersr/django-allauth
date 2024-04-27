@@ -12,6 +12,16 @@ from allauth.account.utils import user_email, user_pk_to_url_str, user_username
 from allauth.core import context
 
 
+def pytest_collection_modifyitems(config, items):
+    if config.getoption("--ds") == "tests.headless_only.settings":
+        removed_items = []
+        for item in items:
+            if not item.location[0].startswith("allauth/headless"):
+                removed_items.append(item)
+        for item in removed_items:
+            items.remove(item)
+
+
 @pytest.fixture
 def user(user_factory):
     return user_factory()

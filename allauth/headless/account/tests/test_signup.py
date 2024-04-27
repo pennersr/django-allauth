@@ -56,10 +56,7 @@ def test_signup_with_email_verification(
     addr = EmailAddress.objects.get(email=email)
     key = EmailConfirmationHMAC(addr).key
     resp = client.get(
-        headless_reverse("headless:verify_email"),
-        headers={
-            "x-email-verification-key": key,
-        },
+        headless_reverse("headless:verify_email"), HTTP_X_EMAIL_VERIFICATION_KEY=key
     )
     assert resp.status_code == 200
     assert resp.json() == {

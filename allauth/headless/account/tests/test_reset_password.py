@@ -70,7 +70,7 @@ def test_password_reset_flow_wrong_key(
     if method == "get":
         resp = client.get(
             headless_reverse("headless:reset_password"),
-            headers={"X-Password-Reset-Key": "wrong"},
+            HTTP_X_PASSWORD_RESET_KEY="wrong",
         )
     else:
         resp = client.post(

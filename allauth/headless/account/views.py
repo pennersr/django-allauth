@@ -62,7 +62,7 @@ class ConfirmLoginCodeView(APIView):
         return kwargs
 
 
-@method_decorator(rate_limit(action="login"), name="dispatch")
+@method_decorator(rate_limit(action="login"), name="handle")
 class LoginView(APIView):
     input_class = LoginInput
 
@@ -75,7 +75,7 @@ class LoginView(APIView):
         return AuthenticationResponse(self.request)
 
 
-@method_decorator(rate_limit(action="signup"), name="dispatch")
+@method_decorator(rate_limit(action="signup"), name="handle")
 class SignupView(APIView):
     input_class = SignupInput
 
@@ -148,7 +148,7 @@ class RequestPasswordResetView(APIView):
         return response.RequestPasswordResponse(request)
 
 
-@method_decorator(rate_limit(action="reset_password_from_key"), name="dispatch")
+@method_decorator(rate_limit(action="reset_password_from_key"), name="handle")
 class ResetPasswordView(APIView):
     input_class = ResetPasswordInput
 
@@ -167,7 +167,7 @@ class ResetPasswordView(APIView):
         return AuthenticationResponse(self.request)
 
 
-@method_decorator(rate_limit(action="change_password"), name="dispatch")
+@method_decorator(rate_limit(action="change_password"), name="handle")
 class ChangePasswordView(AuthenticatedAPIView):
     input_class = ChangePasswordInput
 
@@ -186,7 +186,7 @@ class ChangePasswordView(AuthenticatedAPIView):
         return {"user": self.request.user}
 
 
-@method_decorator(rate_limit(action="manage_email"), name="dispatch")
+@method_decorator(rate_limit(action="manage_email"), name="handle")
 class ManageEmailView(AuthenticatedAPIView):
     input_class = {
         "POST": AddEmailInput,
@@ -227,7 +227,7 @@ class ManageEmailView(AuthenticatedAPIView):
         return {"user": self.request.user}
 
 
-@method_decorator(rate_limit(action="reauthenticate"), name="dispatch")
+@method_decorator(rate_limit(action="reauthenticate"), name="handle")
 class ReauthenticateView(AuthenticatedAPIView):
     input_class = ReauthenticateInput
 

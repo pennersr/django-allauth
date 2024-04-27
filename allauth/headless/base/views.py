@@ -45,10 +45,10 @@ class AuthenticationStageAPIView(APIView):
 
 
 class AuthenticatedAPIView(APIView):
-    def handle(self, request, *args, **kwargs):
+    def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return response.AuthenticationResponse(request)
-        return super().handle(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
 
 class ConfigView(APIView):

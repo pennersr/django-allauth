@@ -9,7 +9,7 @@ def test_app_session_gone(db, user):
     client.force_login(user)
     # That Django session should not play any role.
     resp = client.get(
-        reverse("headless:app:current_session"), headers={"x-session-token": "gone"}
+        reverse("headless:app:current_session"), HTTP_X_SESSION_TOKEN="gone"
     )
     assert resp.status_code == 410
 

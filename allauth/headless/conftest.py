@@ -21,12 +21,10 @@ def headless_reverse(headless_client):
 class AppClient(Client):
     session_token = None
 
-    def generic(self, *args, headers=None, **kwargs):
+    def generic(self, *args, **kwargs):
         if self.session_token:
-            if headers is None:
-                headers = {}
-            headers["x-session-token"] = self.session_token
-        resp = super().generic(*args, headers=headers, **kwargs)
+            kwargs["HTTP_X_SESSION_TOKEN"] = self.session_token
+        resp = super().generic(*args, **kwargs)
         if resp["content-type"] == "application/json":
             data = resp.json()
             session_token = data.get("meta", {}).get("session_token")

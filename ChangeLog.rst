@@ -9,6 +9,9 @@
   accordingly. Migrations are in place.  For rationale, see the note about email
   case sensitivity in the documentation.
 
+- An official API for single-page and mobile application support is now
+  available, via the new ``allauth.headless`` app.
+
 
 0.62.1 (2024-04-24)
 *******************

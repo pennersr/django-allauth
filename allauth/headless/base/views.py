@@ -5,7 +5,7 @@ from allauth.core.exceptions import ReauthenticationRequired
 from allauth.headless.base import response
 from allauth.headless.constants import Client
 from allauth.headless.internal import decorators
-from allauth.headless.restkit.views import RESTView
+from allauth.headless.internal.restkit.views import RESTView
 
 
 class APIView(RESTView):

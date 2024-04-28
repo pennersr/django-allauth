@@ -28,7 +28,7 @@ from allauth.headless.account.inputs import (
 )
 from allauth.headless.base.response import APIResponse, AuthenticationResponse
 from allauth.headless.base.views import APIView, AuthenticatedAPIView
-from allauth.headless.restkit.response import ErrorResponse
+from allauth.headless.internal.restkit.response import ErrorResponse
 
 
 class RequestLoginCodeView(APIView):

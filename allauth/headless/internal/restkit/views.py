@@ -4,7 +4,7 @@ from django.http import HttpResponseBadRequest
 from django.views.generic import View
 
 from allauth.core.exceptions import ImmediateHttpResponse
-from allauth.headless.restkit.response import ErrorResponse
+from allauth.headless.internal.restkit.response import ErrorResponse
 
 
 class RESTView(View):

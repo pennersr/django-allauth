@@ -7,7 +7,7 @@ from allauth.account.models import EmailAddress
 from allauth.account.utils import user_display, user_username
 from allauth.headless.constants import Flow
 from allauth.headless.internal import authkit, sessionkit
-from allauth.headless.restkit.response import APIResponse
+from allauth.headless.internal.restkit.response import APIResponse
 
 
 class BaseAuthenticationResponse(APIResponse):

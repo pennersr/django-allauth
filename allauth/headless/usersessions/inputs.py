@@ -1,4 +1,4 @@
-from allauth.headless.restkit import inputs
+from allauth.headless.internal.restkit import inputs
 from allauth.usersessions.models import UserSession
 
 

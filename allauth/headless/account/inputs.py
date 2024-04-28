@@ -16,7 +16,7 @@ from allauth.account.internal import flows
 from allauth.account.models import EmailAddress, get_emailconfirmation_model
 from allauth.core import context
 from allauth.headless.adapter import get_adapter
-from allauth.headless.restkit import inputs
+from allauth.headless.internal.restkit import inputs
 
 
 class SignupInput(BaseSignupForm, inputs.Input):

@@ -4,7 +4,7 @@ from allauth.usersessions.models import UserSession
 def test_flow(client, user, user_password, headless_reverse, settings):
     settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
     resp = client.post(
-        headless_reverse("headless:login"),
+        headless_reverse("headless:account:login"),
         data={
             "email": user.email,
             "password": user_password,

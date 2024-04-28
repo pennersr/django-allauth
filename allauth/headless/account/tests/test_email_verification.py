@@ -10,7 +10,7 @@ def test_auth_unverified_email(
     password = password_factory()
     user = user_factory(email_verified=False, password=password)
     resp = client.post(
-        headless_reverse("headless:login"),
+        headless_reverse("headless:account:login"),
         data={
             "email": user.email,
             "password": password,
@@ -24,7 +24,7 @@ def test_auth_unverified_email(
     emailaddress = EmailAddress.objects.filter(user=user, verified=False).get()
     key = get_emailconfirmation_model().create(emailaddress).key
     resp = client.post(
-        headless_reverse("headless:verify_email"),
+        headless_reverse("headless:account:verify_email"),
         data={"key": key},
         content_type="application/json",
     )
@@ -39,7 +39,7 @@ def test_verify_email_bad_key(
     password = password_factory()
     user = user_factory(email_verified=False, password=password)
     resp = client.post(
-        headless_reverse("headless:login"),
+        headless_reverse("headless:account:login"),
         data={
             "email": user.email,
             "password": password,
@@ -48,7 +48,7 @@ def test_verify_email_bad_key(
     )
     assert resp.status_code == 401
     resp = client.post(
-        headless_reverse("headless:verify_email"),
+        headless_reverse("headless:account:verify_email"),
         data={"key": "bad"},
         content_type="application/json",
     )

@@ -16,7 +16,7 @@ def test_signup(
     headless_client,
 ):
     resp = client.post(
-        headless_reverse("headless:signup"),
+        headless_reverse("headless:account:signup"),
         data={
             "username": "wizard",
             "email": email_factory(),
@@ -41,7 +41,7 @@ def test_signup_with_email_verification(
     settings.ACCOUNT_USERNAME_REQUIRED = False
     email = email_factory()
     resp = client.post(
-        headless_reverse("headless:signup"),
+        headless_reverse("headless:account:signup"),
         data={
             "email": email,
             "password": password_factory(),
@@ -56,7 +56,8 @@ def test_signup_with_email_verification(
     addr = EmailAddress.objects.get(email=email)
     key = EmailConfirmationHMAC(addr).key
     resp = client.get(
-        headless_reverse("headless:verify_email"), HTTP_X_EMAIL_VERIFICATION_KEY=key
+        headless_reverse("headless:account:verify_email"),
+        HTTP_X_EMAIL_VERIFICATION_KEY=key,
     )
     assert resp.status_code == 200
     assert resp.json() == {
@@ -68,7 +69,7 @@ def test_signup_with_email_verification(
         "status": 200,
     }
     resp = client.post(
-        headless_reverse("headless:verify_email"),
+        headless_reverse("headless:account:verify_email"),
         data={"key": key},
         content_type="application/json",
     )
@@ -94,7 +95,7 @@ def test_signup_prevent_enumeration(
     settings.ACCOUNT_USERNAME_REQUIRED = False
     settings.ACCOUNT_PREVENT_ENUMERATION = True
     resp = client.post(
-        headless_reverse("headless:signup"),
+        headless_reverse("headless:account:signup"),
         data={
             "email": user.email,
             "password": password_factory(),
@@ -108,7 +109,7 @@ def test_signup_prevent_enumeration(
     assert [f for f in data["data"]["flows"] if f["id"] == Flow.VERIFY_EMAIL][0][
         "is_pending"
     ]
-    resp = client.get(headless_reverse("headless:current_session"))
+    resp = client.get(headless_reverse("headless:account:current_session"))
     data = resp.json()
     assert [f for f in data["data"]["flows"] if f["id"] == Flow.VERIFY_EMAIL][0][
         "is_pending"
@@ -128,7 +129,7 @@ def test_signup_rate_limit(
     settings.ACCOUNT_RATE_LIMITS = {"signup": "1/m/ip"}
     for attempt in range(2):
         resp = client.post(
-            headless_reverse("headless:signup"),
+            headless_reverse("headless:account:signup"),
             data={
                 "username": f"wizard{attempt}",
                 "email": email_factory(),

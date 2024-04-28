@@ -5,7 +5,7 @@ import pytest
 
 def test_auth_password_input_error(headless_reverse, client):
     resp = client.post(
-        headless_reverse("headless:login"),
+        headless_reverse("headless:account:login"),
         data={},
         content_type="application/json",
     )
@@ -30,7 +30,7 @@ def test_auth_password_input_error(headless_reverse, client):
 def test_auth_password_bad_password(headless_reverse, client, user, settings):
     settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
     resp = client.post(
-        headless_reverse("headless:login"),
+        headless_reverse("headless:account:login"),
         data={
             "email": user.email,
             "password": "wrong",
@@ -55,7 +55,7 @@ def test_auth_password_success(
 ):
     settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
     login_resp = client.post(
-        headless_reverse("headless:login"),
+        headless_reverse("headless:account:login"),
         data={
             "email": user.email,
             "password": user_password,
@@ -64,7 +64,7 @@ def test_auth_password_success(
     )
     assert login_resp.status_code == 200
     session_resp = client.get(
-        headless_reverse("headless:current_session"),
+        headless_reverse("headless:account:current_session"),
         content_type="application/json",
     )
     assert session_resp.status_code == 200
@@ -103,7 +103,7 @@ def test_auth_password_user_inactive(
     user.is_active = is_active
     user.save(update_fields=["is_active"])
     resp = client.post(
-        headless_reverse("headless:login"),
+        headless_reverse("headless:account:login"),
         data={
             "username": user.username,
             "password": user_password,
@@ -125,7 +125,7 @@ def test_login_failed_rate_limit(
     settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
     for attempt in range(2):
         resp = client.post(
-            headless_reverse("headless:login"),
+            headless_reverse("headless:account:login"),
             data={
                 "email": user.email,
                 "password": "wrong",
@@ -160,7 +160,7 @@ def test_login_rate_limit(
     settings.ACCOUNT_AUTHENTICATION_METHOD = "email"
     for attempt in range(2):
         resp = client.post(
-            headless_reverse("headless:login"),
+            headless_reverse("headless:account:login"),
             data={
                 "email": user.email,
                 "password": user_password,

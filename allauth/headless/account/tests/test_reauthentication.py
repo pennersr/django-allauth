@@ -2,7 +2,7 @@ def test_reauthenticate(
     auth_client, user, user_password, headless_reverse, headless_client
 ):
     resp = auth_client.get(
-        headless_reverse("headless:current_session"),
+        headless_reverse("headless:account:current_session"),
         content_type="application/json",
     )
     assert resp.status_code == 200
@@ -10,7 +10,7 @@ def test_reauthenticate(
     method_count = len(data["data"]["methods"])
 
     resp = auth_client.post(
-        headless_reverse("headless:reauthenticate"),
+        headless_reverse("headless:account:reauthenticate"),
         data={
             "password": user_password,
         },
@@ -19,7 +19,7 @@ def test_reauthenticate(
     assert resp.status_code == 200
 
     resp = auth_client.get(
-        headless_reverse("headless:current_session"),
+        headless_reverse("headless:account:current_session"),
         content_type="application/json",
     )
     assert resp.status_code == 200
@@ -41,7 +41,7 @@ def test_reauthenticate_rate_limit(
     settings.ACCOUNT_RATE_LIMITS = {"reauthenticate": "1/m/ip"}
     for attempt in range(4):
         resp = auth_client.post(
-            headless_reverse("headless:reauthenticate"),
+            headless_reverse("headless:account:reauthenticate"),
             data={
                 "password": user_password,
             },

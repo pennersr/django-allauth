@@ -3,7 +3,7 @@ from allauth.headless.constants import Flow
 
 def test_login_by_code(headless_reverse, user, client, mailoutbox):
     resp = client.post(
-        headless_reverse("headless:request_login_code"),
+        headless_reverse("headless:account:request_login_code"),
         data={"email": user.email},
         content_type="application/json",
     )
@@ -15,7 +15,7 @@ def test_login_by_code(headless_reverse, user, client, mailoutbox):
     assert len(mailoutbox) == 1
     code = [line for line in mailoutbox[0].body.splitlines() if len(line) == 6][0]
     resp = client.post(
-        headless_reverse("headless:confirm_login_code"),
+        headless_reverse("headless:account:confirm_login_code"),
         data={"code": code},
         content_type="application/json",
     )
@@ -30,7 +30,7 @@ def test_login_by_code_rate_limit(
     settings.ACCOUNT_RATE_LIMITS = {"request_login_code": "1/m/ip"}
     for attempt in range(2):
         resp = client.post(
-            headless_reverse("headless:request_login_code"),
+            headless_reverse("headless:account:request_login_code"),
             data={"email": user.email},
             content_type="application/json",
         )

@@ -9,7 +9,15 @@ from allauth.headless.constants import Client
 def build_urlpatterns(client):
     patterns = []
     patterns.extend(base_urls.build_urlpatterns(client))
-    patterns.extend(account_urls.build_urlpatterns(client))
+    patterns.append(
+        path(
+            "",
+            include(
+                (account_urls.build_urlpatterns(client), "headless"),
+                namespace="account",
+            ),
+        )
+    )
     if allauth_settings.SOCIALACCOUNT_ENABLED:
         from allauth.headless.socialaccount import urls as socialaccount_urls
 

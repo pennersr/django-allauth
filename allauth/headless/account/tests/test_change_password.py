@@ -176,7 +176,7 @@ def test_change_password(
     if request_data.get("new_password") == "{password_factory}":
         request_data["new_password"] = password_factory()
     resp = auth_client.post(
-        headless_reverse("headless:change_password"),
+        headless_reverse("headless:account:change_password"),
         data=request_data,
         content_type="application/json",
     )
@@ -207,7 +207,7 @@ def test_change_password_rate_limit(
     for attempt in range(2):
         new_password = password_factory()
         resp = auth_client.post(
-            headless_reverse("headless:change_password"),
+            headless_reverse("headless:account:change_password"),
             data={
                 "current_password": user_password,
                 "new_password": new_password,

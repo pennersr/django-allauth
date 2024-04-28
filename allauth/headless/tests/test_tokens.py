@@ -18,7 +18,7 @@ def test_access_token(
         "allauth.headless.tests.test_tokens.DummyAccessTokenStrategy"
     )
     resp = client.post(
-        headless_reverse("headless:login"),
+        headless_reverse("headless:account:login"),
         data={
             "username": user.username,
             "password": user_password,

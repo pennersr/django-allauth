@@ -9,7 +9,7 @@ def test_password_reset_flow(
     settings.ACCOUNT_EMAIL_NOTIFICATIONS = True
 
     resp = client.post(
-        headless_reverse("headless:request_password_reset"),
+        headless_reverse("headless:account:request_password_reset"),
         data={
             "email": user.email,
         },
@@ -25,7 +25,7 @@ def test_password_reset_flow(
 
     # Too simple password
     resp = client.post(
-        headless_reverse("headless:reset_password"),
+        headless_reverse("headless:account:reset_password"),
         data={
             "key": key,
             "password": "a",
@@ -47,7 +47,7 @@ def test_password_reset_flow(
 
     # Success
     resp = client.post(
-        headless_reverse("headless:reset_password"),
+        headless_reverse("headless:account:reset_password"),
         data={
             "key": key,
             "password": password,
@@ -69,12 +69,12 @@ def test_password_reset_flow_wrong_key(
 
     if method == "get":
         resp = client.get(
-            headless_reverse("headless:reset_password"),
+            headless_reverse("headless:account:reset_password"),
             HTTP_X_PASSWORD_RESET_KEY="wrong",
         )
     else:
         resp = client.post(
-            headless_reverse("headless:reset_password"),
+            headless_reverse("headless:account:reset_password"),
             data={
                 "key": "wrong",
                 "password": password,
@@ -98,7 +98,7 @@ def test_password_reset_flow_unknown_user(
     client, db, mailoutbox, password_factory, settings, headless_reverse
 ):
     resp = client.post(
-        headless_reverse("headless:request_password_reset"),
+        headless_reverse("headless:account:request_password_reset"),
         data={
             "email": "not@registered.org",
         },
@@ -119,7 +119,7 @@ def test_reset_password_rate_limit(
     settings.ACCOUNT_RATE_LIMITS = {"reset_password": "1/m/ip"}
     for attempt in range(2):
         resp = auth_client.post(
-            headless_reverse("headless:request_password_reset"),
+            headless_reverse("headless:account:request_password_reset"),
             data={"email": user.email},
             content_type="application/json",
         )
@@ -139,7 +139,7 @@ def test_password_reset_key_rate_limit(
     settings.ACCOUNT_RATE_LIMITS = {"reset_password_from_key": "1/m/ip"}
     for attempt in range(2):
         resp = client.post(
-            headless_reverse("headless:reset_password"),
+            headless_reverse("headless:account:reset_password"),
             data={
                 "key": password_reset_key_generator(user),
                 "password": "a",  # too short

@@ -17,7 +17,7 @@ def test_auth_unverified_email_and_mfa(
     password = password_factory()
     user = user_factory(email_verified=False, password=password, with_totp=True)
     resp = client.post(
-        headless_reverse("headless:login"),
+        headless_reverse("headless:account:login"),
         data={
             "email": user.email,
             "password": password,
@@ -32,7 +32,7 @@ def test_auth_unverified_email_and_mfa(
     emailaddress = EmailAddress.objects.filter(user=user, verified=False).get()
     key = get_emailconfirmation_model().create(emailaddress).key
     resp = client.post(
-        headless_reverse("headless:verify_email"),
+        headless_reverse("headless:account:verify_email"),
         data={"key": key},
         content_type="application/json",
     )

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import FormErrors from '../components/FormErrors'
 import { requestLoginCode } from '../lib/allauth'
-import { Navigate, Link } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import Button from '../components/Button'
 
 export default function RequestLoginCode () {

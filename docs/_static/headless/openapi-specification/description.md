@@ -174,6 +174,7 @@ be initiated by means of these flows:
 - Signup for a local account (`signup`).
 - Login or signup using the third-party provider redirect flow (`provider_redirect`).
 - Login or signup by handing over a third-party provider retrieved elsewhere (`provider_token`).
+- Login using a special code (`login_by_code`).
 
 Depending on the state of the account, and the configuration of django-allauth, the flows above
 can either lead to becoming directly authenticated, or, to followup flows:

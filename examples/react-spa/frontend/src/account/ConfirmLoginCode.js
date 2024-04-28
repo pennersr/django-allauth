@@ -6,7 +6,7 @@ import Button from '../components/Button'
 import { useAuthStatus } from '../auth'
 
 export default function ConfirmLoginCode () {
-  const [auth, authInfo] = useAuthStatus()
+  const [, authInfo] = useAuthStatus()
   const [code, setCode] = useState('')
   const [response, setResponse] = useState({ fetching: false, content: null })
 

@@ -626,7 +626,7 @@ paths:
       summary: Request email verification
       description: |
         Requests for (another) email verification email to be sent. Note that
-        sending emails is rate limitted, so when you send too many requests the
+        sending emails is rate limited, so when you send too many requests the
         email will not be sent.
       parameters:
         - $ref: "#/components/parameters/Client"
@@ -737,10 +737,9 @@ paths:
         - "Account: 2FA"
       summary: Activate TOTP
       description: |
-        Activate TOTP authentication by means of inputting a code. The code
-        should match the TOTP secret retrieved from the TOTP authenticator
-        status endpoint. The secret can be found in `meta.secret` of a `404`
-        response.
+        The code should be provided from the consuming TOTP authenticator
+        application which was generated using the TOTP authenticator secret
+        retrieved from the TOTP authenticator status endpoint.
       parameters:
         - $ref: "#/components/parameters/Client"
         - $ref: "#/components/parameters/SessionToken"
@@ -1986,7 +1985,7 @@ components:
               description: |
                 The authenticator type.
               enum:
-                - recovery_cdes
+                - recovery_codes
             total_code_count:
               type: integer
               description: |

@@ -9,6 +9,8 @@
   accordingly. Migrations are in place.  For rationale, see the note about email
   case sensitivity in the documentation.
 
+- Added an optional honeypot field that will not create an account if filled out
+
 
 0.62.1 (2024-04-24)
 *******************

@@ -328,7 +328,7 @@ class BaseSignupForm(_base_signup_form_class()):
         if honeypot_field_name := app_settings.SIGNUP_FORM_HONEYPOT_FIELD:
             # TODO: hide input field
             self.fields[honeypot_field_name] = forms.CharField(
-                label=None,
+                label=False,
                 widget=forms.TextInput(
                     attrs={
                         "style": "position: absolute; right: -99999px;"

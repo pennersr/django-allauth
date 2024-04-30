@@ -331,7 +331,8 @@ class BaseSignupForm(_base_signup_form_class()):
                 label=False,
                 widget=forms.TextInput(
                     attrs={
-                        "style": "position: absolute; right: -99999px;"
+                        "style": "position: absolute; right: -99999px;",
+                        "tabindex": "-1"
                     }
                 ),
             )

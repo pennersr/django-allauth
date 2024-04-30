@@ -329,6 +329,7 @@ class BaseSignupForm(_base_signup_form_class()):
             # TODO: hide input field
             self.fields[honeypot_field_name] = forms.CharField(
                 label=False,
+                required=False,
                 widget=forms.TextInput(
                     attrs={
                         "style": "position: absolute; right: -99999px;",

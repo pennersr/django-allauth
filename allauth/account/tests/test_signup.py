@@ -289,6 +289,38 @@ class SignupTests(TestCase):
                 ["This password is too short. It must contain at least 9 characters."],
             )
 
+    @override_settings(
+        ACCOUNT_SIGNUP_FORM_HONEYPOT_FIELD="phone_number"
+    )
+    def test_does_not_create_user_when_honeypot_filled_out(self):
+        resp = self.client.post(
+            reverse("account_signup"),
+            {
+                "username": "johndoe",
+                "email": "john@example.com",
+                "password1": "Password1@",
+                "password2": "Password1@",
+                "phone_number": "5551231234"
+            }
+        )
+        self.assertEqual(get_user_model().objects.all().count(), 0)
+
+    @override_settings(
+        ACCOUNT_SIGNUP_FORM_HONEYPOT_FIELD="phone_number"
+    )
+    def test_create_user_when_honeypot_not_filled_out(self):
+        resp = self.client.post(
+            reverse("account_signup"),
+            {
+                "username": "johndoe",
+                "email": "john@example.com",
+                "password1": "Password1@",
+                "password2": "Password1@",
+                "phone_number": ""
+            }
+        )
+        self.assertEqual(get_user_model().objects.all().count(), 1)
+
 
 def test_prevent_enumeration_with_mandatory_verification(
     settings, user_factory, email_factory

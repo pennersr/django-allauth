@@ -325,6 +325,13 @@ class BaseSignupForm(_base_signup_form_class()):
             self, getattr(self, "field_order", None) or default_field_order
         )
 
+        if honeypot_field_name := app_settings.SIGNUP_FORM_HONEYPOT_FIELD:
+            # TODO: hide input field
+            self.fields[honeypot_field_name] = forms.CharField(
+                label=honeypot_field_name,
+                widget=forms.TextInput(),
+            )
+
     def clean_username(self):
         value = self.cleaned_data["username"]
         value = get_adapter().clean_username(value)
@@ -372,6 +379,13 @@ class BaseSignupForm(_base_signup_form_class()):
         email address, in that case we will send an "account already exists"
         email and return a standard "email verification sent" response.
         """
+        if honeypot_field_name := app_settings.SIGNUP_FORM_HONEYPOT_FIELD:
+            if self.cleaned_data[honeypot_field_name]:
+                user = None
+                adapter = get_adapter()
+                resp = adapter.respond_email_verification_sent(request, None)
+                return user, resp
+
         if self.account_already_exists:
             # Don't create a new account, only send an email informing the user
             # that (s)he already has one...

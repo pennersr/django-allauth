@@ -328,8 +328,12 @@ class BaseSignupForm(_base_signup_form_class()):
         if honeypot_field_name := app_settings.SIGNUP_FORM_HONEYPOT_FIELD:
             # TODO: hide input field
             self.fields[honeypot_field_name] = forms.CharField(
-                label=honeypot_field_name,
-                widget=forms.TextInput(),
+                label=None,
+                widget=forms.TextInput(
+                    attrs={
+                        "style": "position: absolute; right: -99999px;"
+                    }
+                ),
             )
 
     def clean_username(self):

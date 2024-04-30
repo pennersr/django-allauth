@@ -385,6 +385,9 @@ class BaseSignupForm(_base_signup_form_class()):
         """Try and save the user. This can fail in case of a conflict on the
         email address, in that case we will send an "account already exists"
         email and return a standard "email verification sent" response.
+
+        If the honeypot was filled out then also send 'email verification sent'
+        response so that the bot thinks things worked.
         """
         if honeypot_field_name := app_settings.SIGNUP_FORM_HONEYPOT_FIELD:
             if self.cleaned_data[honeypot_field_name]:

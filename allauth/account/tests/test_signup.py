@@ -303,7 +303,9 @@ class SignupTests(TestCase):
                 "phone_number": "5551231234"
             }
         )
+
         self.assertEqual(get_user_model().objects.all().count(), 0)
+        self.assertEqual(resp.status_code, 302)
 
     @override_settings(
         ACCOUNT_SIGNUP_FORM_HONEYPOT_FIELD="phone_number"
@@ -319,7 +321,8 @@ class SignupTests(TestCase):
                 "phone_number": ""
             }
         )
-        self.assertEqual(get_user_model().objects.all().count(), 1)
+
+        self.assertEqual(get_user_model().objects.filter(username="johndoe").count(), 1)
 
 
 def test_prevent_enumeration_with_mandatory_verification(

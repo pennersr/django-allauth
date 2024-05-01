@@ -10,6 +10,7 @@ from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.internal import flows
 from allauth.socialaccount.providers.base import AuthError
 
+
 def render_authentication_error(
     request,
     provider,

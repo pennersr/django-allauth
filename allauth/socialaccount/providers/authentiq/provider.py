@@ -62,7 +62,6 @@ class AuthentiqProvider(OAuth2Provider):
     account_class = AuthentiqAccount
     oauth2_adapter_class = AuthentiqOAuth2Adapter
 
-
     def get_scope_from_request(self, request):
         scope = set(super().get_scope_from_request(request))
         scope.add("openid")
@@ -71,8 +70,7 @@ class AuthentiqProvider(OAuth2Provider):
             modifiers = ""
             if app_settings.EMAIL_REQUIRED:
                 modifiers += "r"
-            #TODO: How to get user email here for get_email_verification_method ?
-            if adapter.get_email_verification_method():
+            if app_settings.EMAIL_VERIFICATION:
                 modifiers += "s"
             if modifiers:
                 scope.add(Scope.EMAIL + "~" + modifiers)

@@ -145,7 +145,6 @@ class SignupView(
         return get_form_class(app_settings.FORMS, "signup", self.form_class)
 
     def form_valid(self, form):
-        adapter = get_adapter()
         self.user, resp = form.try_save(self.request)
         if resp:
             return resp

@@ -192,7 +192,7 @@ class LoginForm(forms.Form):
         login = Login(
             user=self.user,
             redirect_url=redirect_url,
-            email=email,
+            email=credentials.get("email"),
         )
         ret = flows.login.perform_password_login(request, credentials, login)
         remember = app_settings.SESSION_REMEMBER

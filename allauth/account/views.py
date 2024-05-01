@@ -689,8 +689,7 @@ class PasswordResetFromKeyView(
             return perform_login(
                 self.request,
                 self.reset_user,
-                email_verification=adapter.get_email_verification_method(self.reset_user.email),
-ß            )
+            )
         return super(PasswordResetFromKeyView, self).form_valid(form)
 
 

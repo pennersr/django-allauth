@@ -1,6 +1,7 @@
 from importlib import import_module
 
 from django.urls import include, path
+from django.views.generic.base import RedirectView
 
 from allauth.socialaccount import providers
 
@@ -12,7 +13,34 @@ if app_settings.MFA_ENABLED:
     urlpatterns += [path("2fa/", include("allauth.mfa.urls"))]
 
 if app_settings.SOCIALACCOUNT_ENABLED:
-    urlpatterns += [path("social/", include("allauth.socialaccount.urls"))]
+    urlpatterns += [path("3rdparty/", include("allauth.socialaccount.urls"))]
+
+    # DEPRECATED! -- deal with legacy URLs
+    urlpatterns += [
+        path(
+            "social/login/cancelled/",
+            RedirectView.as_view(
+                pattern_name="socialaccount_login_cancelled", permanent=True
+            ),
+        ),
+        path(
+            "social/login/error/",
+            RedirectView.as_view(
+                pattern_name="socialaccount_login_error", permanent=True
+            ),
+        ),
+        path(
+            "social/signup/",
+            RedirectView.as_view(pattern_name="socialaccount_signup", permanent=True),
+        ),
+        path(
+            "social/connections/",
+            RedirectView.as_view(
+                pattern_name="socialaccount_connections", permanent=True
+            ),
+        ),
+    ]
+    # (end DEPRECATED)
 
 if app_settings.USERSESSIONS_ENABLED:
     urlpatterns += [path("sessions/", include("allauth.usersessions.urls"))]

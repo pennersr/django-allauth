@@ -8,11 +8,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import AuthentiqProvider
-
 
 class AuthentiqOAuth2Adapter(OAuth2Adapter):
-    provider_id = AuthentiqProvider.id
+    provider_id = "authentiq"
 
     settings = app_settings.PROVIDERS.get(provider_id, {})
 

@@ -25,19 +25,31 @@
                 <strong>{% trans "Menu:" %}</strong>
                 <ul>
                     {% if user.is_authenticated %}
-                        <li>
-                            <a href="{% url 'account_email' %}">{% trans "Change Email" %}</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
-                        </li>
+                        {% url 'account_email' as email_url %}
+                        {% if email_url %}
+                            <li>
+                                <a href="{{ email_url }}">{% trans "Change Email" %}</a>
+                            </li>
+                        {% endif %}
+                        {% url 'account_logout' as logout_url %}
+                        {% if logout_url %}
+                            <li>
+                                <a href="{{ logout_url }}">{% trans "Sign Out" %}</a>
+                            </li>
+                        {% endif %}
                     {% else %}
-                        <li>
-                            <a href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
-                        </li>
+                        {% url 'account_login' as login_url %}
+                        {% if login_url %}
+                            <li>
+                                <a href="{{ login_url }}">{% trans "Sign In" %}</a>
+                            </li>
+                        {% endif %}
+                        {% url 'account_signup' as signup_url %}
+                        {% if signup_url %}
+                            <li>
+                                <a href="{{ signup_url }}">{% trans "Sign Up" %}</a>
+                            </li>
+                        {% endif %}
                     {% endif %}
                 </ul>
             </div>

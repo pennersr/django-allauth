@@ -1,5 +1,4 @@
 from allauth.socialaccount.adapter import get_adapter
-from allauth.socialaccount.providers.discord.provider import DiscordProvider
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -8,7 +7,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 
 class DiscordOAuth2Adapter(OAuth2Adapter):
-    provider_id = DiscordProvider.id
+    provider_id = "discord"
     access_token_url = "https://discord.com/api/oauth2/token"
     authorize_url = "https://discord.com/api/oauth2/authorize"
     profile_url = "https://discord.com/api/users/@me"

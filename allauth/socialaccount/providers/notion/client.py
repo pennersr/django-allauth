@@ -11,10 +11,11 @@ from allauth.socialaccount.providers.oauth2.client import (
 
 
 class NotionOAuth2Client(OAuth2Client):
-    def get_redirect_url(self, authorization_url, extra_params):
+    def get_redirect_url(self, authorization_url, scope, extra_params):
+        scope = self.scope_delimiter.join(set(scope))
         params = {
             "client_id": self.consumer_key,
-            "scope": self.scope,
+            "scope": scope,
             "response_type": "code",
             "owner": "user",
         }

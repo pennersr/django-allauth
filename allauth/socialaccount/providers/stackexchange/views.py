@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import StackExchangeProvider
-
 
 class StackExchangeOAuth2Adapter(OAuth2Adapter):
-    provider_id = StackExchangeProvider.id
+    provider_id = "stackexchange"
     access_token_url = "https://stackexchange.com/oauth/access_token"
     authorize_url = "https://stackexchange.com/oauth"
     profile_url = "https://api.stackexchange.com/2.1/me"

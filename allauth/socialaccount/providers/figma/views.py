@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import FigmaProvider
-
 
 class FigmaOAuth2Adapter(OAuth2Adapter):
-    provider_id = FigmaProvider.id
+    provider_id = "figma"
 
     authorize_url = "https://www.figma.com/oauth"
     access_token_url = "https://www.figma.com/api/oauth/token"

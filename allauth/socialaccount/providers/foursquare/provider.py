@@ -1,4 +1,7 @@
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.foursquare.views import (
+    FoursquareOAuth2Adapter,
+)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -18,6 +21,7 @@ class FoursquareProvider(OAuth2Provider):
     id = "foursquare"
     name = "Foursquare"
     account_class = FoursquareAccount
+    oauth2_adapter_class = FoursquareOAuth2Adapter
 
     def extract_uid(self, data):
         return str(data["id"])

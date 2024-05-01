@@ -1,5 +1,4 @@
 from allauth.socialaccount.adapter import get_adapter
-from allauth.socialaccount.providers.miro.provider import MiroProvider
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -8,7 +7,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 
 class MiroOAuth2Adapter(OAuth2Adapter):
-    provider_id = MiroProvider.id
+    provider_id = "miro"
     access_token_url = "https://api.miro.com/v1/oauth/token"
     authorize_url = "https://miro.com/oauth/authorize"
     profile_url = "https://api.miro.com/v1/users/me"

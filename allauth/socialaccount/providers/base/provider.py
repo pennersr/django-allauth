@@ -1,16 +1,28 @@
-from django.core.exceptions import ImproperlyConfigured
+from typing import Optional
 
+from django.core.exceptions import ImproperlyConfigured, PermissionDenied
+
+from allauth.account.utils import get_next_redirect_url, get_request_param
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
+from allauth.socialaccount.internal import statekit
+from allauth.socialaccount.providers.base.constants import AuthProcess
 
 
 class ProviderException(Exception):
     pass
 
 
-class Provider(object):
-    slug = None
+class Provider:
+    name: str  # Provided by subclasses
+    id: str  # Provided by subclasses
+    slug: Optional[str] = None  # Provided by subclasses
+
     uses_apps = True
+    supports_redirect = False
+    # Indicates whether or not this provider supports logging in by posting an
+    # access/id-token.
+    supports_token_authentication = False
 
     def __init__(self, request, app=None):
         self.request = request
@@ -31,6 +43,31 @@ class Provider(object):
         provider.
         """
         raise NotImplementedError("get_login_url() for " + self.name)
+
+    def redirect_from_request(self, request):
+        kwargs = self.get_redirect_from_request_kwargs(request)
+        return self.redirect(request, **kwargs)
+
+    def get_redirect_from_request_kwargs(self, request):
+        kwargs = {}
+        next_url = get_next_redirect_url(request)
+        if next_url:
+            kwargs["next_url"] = next_url
+        kwargs["process"] = get_request_param(request, "process", AuthProcess.LOGIN)
+        return kwargs
+
+    def redirect(self, request, process, next_url=None, data=None, **kwargs):
+        """
+        Initiate a redirect to the provider.
+        """
+        raise NotImplementedError()
+
+    def verify_token(self, request, token):
+        """
+        Verifies the token, returning a `SocialLogin` instance when valid.
+        Raises a `ValidationError` otherwise.
+        """
+        raise NotImplementedError()
 
     def media_js(self, request):
         """
@@ -80,9 +117,7 @@ class Provider(object):
         socialaccount = SocialAccount(
             extra_data=extra_data,
             uid=uid,
-            provider=(self.app.provider_id or self.app.provider)
-            if self.app
-            else self.id,
+            provider=self.sub_id,
         )
         email_addresses = self.extract_email_addresses(response)
         self.cleanup_email_addresses(
@@ -135,8 +170,9 @@ class Provider(object):
 
         # Move user.email over to EmailAddress
         if email and email.lower() not in [a.email.lower() for a in addresses]:
-            addresses.append(
-                EmailAddress(email=email, verified=bool(email_verified), primary=True)
+            addresses.insert(
+                0,
+                EmailAddress(email=email, verified=bool(email_verified), primary=True),
             )
         # Force verified emails
         adapter = get_adapter()
@@ -160,6 +196,31 @@ class Provider(object):
         if not pkg:
             pkg = cls.__module__.rpartition(".")[0]
         return pkg
+
+    def stash_redirect_state(
+        self, request, process, next_url=None, data=None, **kwargs
+    ):
+        """
+        Stashes state, returning a (random) state ID using which the state
+        can be looked up later. Application specific state is stored separately
+        from (core) allauth state such as `process` and `**kwargs`.
+        """
+        state = {"process": process, "data": data, **kwargs}
+        if next_url:
+            state["next"] = next_url
+        return statekit.stash_state(request, state)
+
+    def unstash_redirect_state(self, request, state_id):
+        state = statekit.unstash_state(request, state_id)
+        if state is None:
+            raise PermissionDenied()
+        return state
+
+    @property
+    def sub_id(self) -> str:
+        return (
+            (self.app.provider_id or self.app.provider) if self.uses_apps else self.id
+        )
 
 
 class ProviderAccount(object):

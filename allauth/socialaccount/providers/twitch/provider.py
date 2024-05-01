@@ -1,5 +1,6 @@
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.twitch.views import TwitchOAuth2Adapter
 
 
 class TwitchAccount(ProviderAccount):
@@ -21,6 +22,7 @@ class TwitchProvider(OAuth2Provider):
     id = "twitch"
     name = "Twitch"
     account_class = TwitchAccount
+    oauth2_adapter_class = TwitchOAuth2Adapter
 
     def extract_uid(self, data):
         return str(data["id"])

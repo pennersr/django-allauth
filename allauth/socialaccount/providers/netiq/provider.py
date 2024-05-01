@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.netiq.views import NetIQOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -13,6 +13,7 @@ class NetIQProvider(OAuth2Provider):
     id = "netiq"
     name = "NetIQ"
     account_class = NetIQAccount
+    oauth2_adapter_class = NetIQOAuth2Adapter
 
     def get_default_scope(self):
         return ["openid", "profile", "email"]

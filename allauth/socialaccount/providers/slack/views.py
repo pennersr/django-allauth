@@ -6,15 +6,13 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import SlackProvider
-
 
 class SlackOAuth2Adapter(OAuth2Adapter):
-    provider_id = SlackProvider.id
+    provider_id = "slack"
 
-    access_token_url = "https://slack.com/api/oauth.access"
-    authorize_url = "https://slack.com/oauth/authorize"
-    identity_url = "https://slack.com/api/users.identity"
+    access_token_url = "https://slack.com/api/openid.connect.token"
+    authorize_url = "https://slack.com//openid/connect/authorize"
+    identity_url = "https://slack.com/api/openid.connect.userInfo"
 
     def complete_login(self, request, app, token, **kwargs):
         extra_data = self.get_data(token.token)

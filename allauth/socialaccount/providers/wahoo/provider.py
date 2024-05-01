@@ -2,6 +2,7 @@ from allauth.account.models import EmailAddress
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.wahoo.views import WahooOAuth2Adapter
 
 
 class WahooAccount(ProviderAccount):
@@ -13,6 +14,7 @@ class WahooProvider(OAuth2Provider):
     id = "wahoo"
     name = "Wahoo"
     account_class = WahooAccount
+    oauth2_adapter_class = WahooOAuth2Adapter
 
     def extract_uid(self, data):
         return str(data["id"])

@@ -1,6 +1,7 @@
 from allauth.account.models import EmailAddress
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.figma.views import FigmaOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -16,6 +17,7 @@ class FigmaProvider(OAuth2Provider):
     id = "figma"
     name = "Figma"
     account_class = FigmaAccount
+    oauth2_adapter_class = FigmaOAuth2Adapter
 
     def extract_uid(self, data):
         return str(data["id"])

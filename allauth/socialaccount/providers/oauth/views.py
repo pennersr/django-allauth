@@ -52,7 +52,7 @@ class OAuthView(object):
     def _get_client(self, request, callback_url):
         provider = self.adapter.get_provider()
         app = provider.app
-        scope = " ".join(provider.get_scope(request))
+        scope = " ".join(provider.get_scope_from_request(request))
         parameters = {}
         if scope:
             parameters["scope"] = scope
@@ -76,7 +76,7 @@ class OAuthLoginView(OAuthLoginMixin, OAuthView):
         action = request.GET.get("action", AuthAction.AUTHENTICATE)
         provider = self.adapter.get_provider()
         auth_url = provider.get_auth_url(request, action) or self.adapter.authorize_url
-        auth_params = provider.get_auth_params(request, action)
+        auth_params = provider.get_auth_params_from_request(request, action)
         client = self._get_client(request, callback_url)
         try:
             return client.get_redirect(auth_url, auth_params)

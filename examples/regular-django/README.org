@@ -20,7 +20,7 @@ django-allauth example application in this directory:
   cd django-allauth/examples/regular-django
   virtualenv venv
   . venv/bin/activate
-  pip install "../..[mfa,saml]"
+  pip install "../..[mfa,saml,socialaccount]"
 #+end_src
 
 Now we need to create the database tables and an admin user.

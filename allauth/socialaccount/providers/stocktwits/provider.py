@@ -1,5 +1,8 @@
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.stocktwits.views import (
+    StocktwitsOAuth2Adapter,
+)
 
 
 class StocktwitsAccount(ProviderAccount):
@@ -15,6 +18,7 @@ class StocktwitsProvider(OAuth2Provider):
     id = "stocktwits"
     name = "Stocktwits"
     account_class = StocktwitsAccount
+    oauth2_adapter_class = StocktwitsOAuth2Adapter
 
     def extract_uid(self, data):
         return str(data["user"]["id"])

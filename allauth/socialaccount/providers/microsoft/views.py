@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 import json
 
 from allauth.core import context
@@ -11,8 +9,6 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2CallbackView,
     OAuth2LoginView,
 )
-
-from .provider import MicrosoftGraphProvider
 
 
 def _check_errors(response):
@@ -34,7 +30,7 @@ def _check_errors(response):
 
 
 class MicrosoftGraphOAuth2Adapter(OAuth2Adapter):
-    provider_id = MicrosoftGraphProvider.id
+    provider_id = "microsoft"
 
     def _build_tenant_url(self, path):
         settings = app_settings.PROVIDERS.get(self.provider_id, {})

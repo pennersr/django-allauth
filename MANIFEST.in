@@ -2,6 +2,5 @@ include AUTHORS
 include LICENSE
 include README.rst
 include ChangeLog.rst
-include test_settings.py
 recursive-include allauth *.html *.txt *.xml *.po *.mo *.js
 recursive-include docs Makefile conf.py *.rst

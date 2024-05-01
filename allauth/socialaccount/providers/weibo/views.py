@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import WeiboProvider
-
 
 class WeiboOAuth2Adapter(OAuth2Adapter):
-    provider_id = WeiboProvider.id
+    provider_id = "weibo"
     access_token_url = "https://api.weibo.com/oauth2/access_token"
     authorize_url = "https://api.weibo.com/oauth2/authorize"
     profile_url = "https://api.weibo.com/2/users/show.json"

@@ -4,40 +4,46 @@ import warnings
 from django.core.exceptions import (
     ImproperlyConfigured,
     MultipleObjectsReturned,
-    ValidationError,
 )
 from django.db.models import Q
 from django.urls import reverse
+from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 
-from allauth.core import context
-
-from ..account.adapter import get_adapter as get_account_adapter
-from ..account.app_settings import EmailVerificationMethod
-from ..account.models import EmailAddress
-from ..account.utils import user_email, user_field, user_username
-from ..utils import (
+from allauth.account.adapter import get_adapter as get_account_adapter
+from allauth.account.utils import user_email, user_field, user_username
+from allauth.core.internal.adapter import BaseAdapter
+from allauth.utils import (
     deserialize_instance,
     import_attribute,
     serialize_instance,
     valid_email_or_none,
 )
+
 from . import app_settings
 
 
-class DefaultSocialAccountAdapter(object):
+class DefaultSocialAccountAdapter(BaseAdapter):
+    """The adapter class allows you to override various functionality of the
+    ``allauth.socialaccount`` app.  To do so, point ``settings.SOCIALACCOUNT_ADAPTER`` to
+    your own class that derives from ``DefaultSocialAccountAdapter`` and override the
+    behavior by altering the implementation of the methods according to your own
+    needs.
+    """
+
     error_messages = {
         "email_taken": _(
             "An account already exists with this email address."
             " Please sign in to that account first, then connect"
             " your %s account."
-        )
+        ),
+        "invalid_token": _("Invalid token."),
+        "no_password": _("Your account has no password set up."),
+        "no_verified_email": _("Your account has no verified email address."),
+        "disconnect_last": _(
+            "You cannot disconnect your last remaining third-party account."
+        ),
     }
-
-    def __init__(self, request=None):
-        # Explicitly passing `request` is deprecated, just use:
-        # `allauth.core.context.request`.
-        self.request = context.request
 
     def pre_social_login(self, request, sociallogin):
         """
@@ -137,26 +143,12 @@ class DefaultSocialAccountAdapter(object):
         url = reverse("socialaccount_connections")
         return url
 
-    def validate_disconnect(self, account, accounts):
+    def validate_disconnect(self, account, accounts) -> None:
         """
         Validate whether or not the socialaccount account can be
         safely disconnected.
         """
-        if len(accounts) == 1:
-            # No usable password would render the local account unusable
-            if not account.user.has_usable_password():
-                raise ValidationError(_("Your account has no password set up."))
-            # No email address, no password reset
-            if (
-                get_account_adapter().get_email_verification_method(account.user.email)
-                == EmailVerificationMethod.MANDATORY
-            ):
-                if not EmailAddress.objects.filter(
-                    user=account.user, verified=True
-                ).exists():
-                    raise ValidationError(
-                        _("Your account has no verified email address.")
-                    )
+        pass
 
     def is_auto_signup_allowed(self, request, sociallogin):
         # If email is specified, check for duplicate and if so, no auto signup.
@@ -364,6 +356,19 @@ class DefaultSocialAccountAdapter(object):
                 "EMAIL_AUTHENTICATION", False
             )
         return ret
+
+    def generate_state_param(self, state: dict) -> str:
+        """
+        To preserve certain state before the handshake with the provider
+        takes place, and be able to verify/use that state later on, a `state`
+        parameter is typically passed to the provider. By default, a random
+        string sufficies as the state parameter value is actually just a
+        reference/pointer to the actual state. You can use this adapter method
+        to alter the generation of the `state` parameter.
+        """
+        from allauth.socialaccount.internal.statekit import STATE_ID_LENGTH
+
+        return get_random_string(STATE_ID_LENGTH)
 
 
 def get_adapter(request=None):

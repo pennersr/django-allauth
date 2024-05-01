@@ -1,5 +1,6 @@
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.dropbox.views import DropboxOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -11,6 +12,7 @@ class DropboxOAuth2Provider(OAuth2Provider):
     id = "dropbox"
     name = "Dropbox"
     account_class = DropboxOAuth2Account
+    oauth2_adapter_class = DropboxOAuth2Adapter
 
     def extract_uid(self, data):
         return data["account_id"]

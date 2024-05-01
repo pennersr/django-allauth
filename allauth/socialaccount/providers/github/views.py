@@ -1,6 +1,5 @@
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
-from allauth.socialaccount.providers.github.provider import GitHubProvider
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -9,7 +8,7 @@ from allauth.socialaccount.providers.oauth2.views import (
 
 
 class GitHubOAuth2Adapter(OAuth2Adapter):
-    provider_id = GitHubProvider.id
+    provider_id = "github"
     settings = app_settings.PROVIDERS.get(provider_id, {})
 
     if "GITHUB_URL" in settings:

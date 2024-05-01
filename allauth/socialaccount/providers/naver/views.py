@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import NaverProvider
-
 
 class NaverOAuth2Adapter(OAuth2Adapter):
-    provider_id = NaverProvider.id
+    provider_id = "naver"
     access_token_url = "https://nid.naver.com/oauth2.0/token"
     authorize_url = "https://nid.naver.com/oauth2.0/authorize"
     profile_url = "https://openapi.naver.com/v1/nid/me"

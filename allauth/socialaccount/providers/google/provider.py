@@ -1,6 +1,11 @@
+import requests
+
 from allauth.account.models import EmailAddress
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -54,6 +59,8 @@ class GoogleProvider(OAuth2Provider):
     id = "google"
     name = "Google"
     account_class = GoogleAccount
+    oauth2_adapter_class = GoogleOAuth2Adapter
+    supports_token_authentication = True
 
     def get_default_scope(self):
         scope = [Scope.PROFILE]
@@ -61,8 +68,8 @@ class GoogleProvider(OAuth2Provider):
             scope.append(Scope.EMAIL)
         return scope
 
-    def get_auth_params(self, request, action):
-        ret = super(GoogleProvider, self).get_auth_params(request, action)
+    def get_auth_params_from_request(self, request, action):
+        ret = super().get_auth_params_from_request(request, action)
         if action == AuthAction.REAUTHENTICATE:
             ret["prompt"] = "select_account consent"
         return ret
@@ -86,6 +93,21 @@ class GoogleProvider(OAuth2Provider):
             verified = bool(data.get("email_verified") or data.get("verified_email"))
             ret.append(EmailAddress(email=email, verified=verified, primary=True))
         return ret
+
+    def verify_token(self, request, token):
+        from allauth.socialaccount.providers.google import views
+
+        credential = token.get("id_token")
+        if not credential:
+            raise get_adapter().validation_error("invalid_token")
+        try:
+            identity_data = views._verify_and_decode(
+                app=self.app, credential=credential
+            )
+        except (OAuth2Error, requests.RequestException) as e:
+            raise get_adapter().validation_error("invalid_token") from e
+        login = self.sociallogin_from_response(request, identity_data)
+        return login
 
 
 provider_classes = [GoogleProvider]

@@ -8,5 +8,7 @@
     {% element h1 %}
         {% trans "Third-Party Login Failure" %}
     {% endelement %}
-    <p>{% trans "An error occurred while attempting to login via your third-party account." %}</p>
+    {% element p %}
+        {% trans "An error occurred while attempting to login via your third-party account." %}
+    {% endelement %}
 {% endblock content %}

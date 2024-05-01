@@ -1,4 +1,7 @@
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.instagram.views import (
+    InstagramOAuth2Adapter,
+)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -17,6 +20,7 @@ class InstagramProvider(OAuth2Provider):
     id = "instagram"
     name = "Instagram"
     account_class = InstagramAccount
+    oauth2_adapter_class = InstagramOAuth2Adapter
 
     def extract_extra_data(self, data):
         return data

@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
@@ -7,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import YahooProvider
-
 
 class YahooOAuth2Adapter(OAuth2Adapter):
-    provider_id = YahooProvider.id
+    provider_id = "yahoo"
     access_token_url = "https://api.login.yahoo.com/oauth2/get_token"
     authorize_url = "https://api.login.yahoo.com/oauth2/request_auth"
     profile_url = "https://api.login.yahoo.com/openid/v1/userinfo"

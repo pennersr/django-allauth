@@ -9,7 +9,7 @@
         {% trans "Login Cancelled" %}
     {% endelement %}
     {% url 'account_login' as login_url %}
-    <p>
+    {% element p %}
         {% blocktrans %}You decided to cancel logging in to our site using one of your existing accounts. If this was a mistake, please proceed to <a href="{{login_url}}">sign in</a>.{% endblocktrans %}
-    </p>
+    {% endelement %}
 {% endblock content %}

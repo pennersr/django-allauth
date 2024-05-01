@@ -1,7 +1,31 @@
-from django.contrib.sites.models import Site
+from urllib.parse import parse_qs, urlparse
 
-from allauth.socialaccount.adapter import get_adapter
+from django.contrib.sites.models import Site
+from django.urls import reverse
+
+from allauth.socialaccount.adapter import (
+    DefaultSocialAccountAdapter,
+    get_adapter,
+)
+from allauth.socialaccount.internal import statekit
 from allauth.socialaccount.models import SocialApp
+
+
+class TestSocialAccountAdapter(DefaultSocialAccountAdapter):
+    def generate_state_param(self, state: dict) -> str:
+        return f"prefix-{super().generate_state_param(state)}"
+
+
+def test_generate_state_param(settings, client, db, google_provier_settings):
+    settings.SOCIALACCOUNT_ADAPTER = (
+        "allauth.socialaccount.tests.test_adapter.TestSocialAccountAdapter"
+    )
+    resp = client.post(reverse("google_login"))
+    parsed = urlparse(resp["location"])
+    query = parse_qs(parsed.query)
+    state = query["state"][0]
+    assert len(state) == len("prefix-") + statekit.STATE_ID_LENGTH
+    assert state.startswith("prefix-")
 
 
 def test_list_db_based_apps(db, settings):

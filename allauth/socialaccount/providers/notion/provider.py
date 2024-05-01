@@ -1,5 +1,6 @@
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.notion.views import NotionOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -29,6 +30,7 @@ class NotionProvider(OAuth2Provider):
     id = "notion"
     name = "Notion"
     account_class = NotionAccount
+    oauth2_adapter_class = NotionOAuth2Adapter
 
     def extract_uid(self, data):
         """

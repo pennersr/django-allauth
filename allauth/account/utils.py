@@ -4,17 +4,18 @@ from typing import Optional
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import get_user_model, update_session_auth_hash
+from django.contrib.auth import REDIRECT_FIELD_NAME, get_user_model
 from django.core.exceptions import FieldDoesNotExist
 from django.db import models
 from django.db.models import Q
 from django.utils.encoding import force_str
-from django.utils.http import base36_to_int, int_to_base36, urlencode
+from django.utils.http import base36_to_int, int_to_base36
 
 from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
+from allauth.account.internal import flows
 from allauth.account.models import Login
-from allauth.core.exceptions import ImmediateHttpResponse
+from allauth.core.internal import httpkit
 from allauth.utils import (
     get_request_param,
     import_callable,
@@ -33,7 +34,7 @@ def _unicode_ci_compare(s1, s2):
     return norm_s1 == norm_s2
 
 
-def get_next_redirect_url(request, redirect_field_name="next"):
+def get_next_redirect_url(request, redirect_field_name=REDIRECT_FIELD_NAME):
     """
     Returns the next URL to redirect to, if it was explicitly passed
     via the request.
@@ -44,7 +45,9 @@ def get_next_redirect_url(request, redirect_field_name="next"):
     return redirect_to
 
 
-def get_login_redirect_url(request, url=None, redirect_field_name="next", signup=False):
+def get_login_redirect_url(
+    request, url=None, redirect_field_name=REDIRECT_FIELD_NAME, signup=False
+):
     ret = url
     if url and callable(url):
         # In order to be able to pass url getters around that depend
@@ -61,14 +64,6 @@ def get_login_redirect_url(request, url=None, redirect_field_name="next", signup
 
 
 _user_display_callable = None
-
-
-def logout_on_password_change(request, user):
-    # Since it is the default behavior of Django to invalidate all sessions on
-    # password change, this function actually has to preserve the session when
-    # logout isn't desired.
-    if not app_settings.LOGOUT_ON_PASSWORD_CHANGE:
-        update_session_auth_hash(request, user)
 
 
 def default_user_display(user):
@@ -120,7 +115,12 @@ def user_username(user, *args, commit=False):
 
 
 def user_email(user, *args, commit=False):
-    return user_field(user, app_settings.USER_MODEL_EMAIL_FIELD, *args, commit=commit)
+    if args and args[0]:
+        args = [args[0].lower()]
+    ret = user_field(user, app_settings.USER_MODEL_EMAIL_FIELD, *args, commit=commit)
+    if ret:
+        ret = ret.lower()
+    return ret
 
 
 def has_verified_email(user, email=None):
@@ -142,19 +142,12 @@ def has_verified_email(user, email=None):
 def perform_login(
     request,
     user,
-    email_verification,
+    email_verification=None,
     redirect_url=None,
     signal_kwargs=None,
     signup=False,
     email=None,
 ):
-    """
-    Keyword arguments:
-
-    signup -- Indicates whether or not sending the
-    email is essential (during signup), or if it can be skipped (e.g. in
-    case email verification is optional and we are only logging in).
-    """
     login = Login(
         user=user,
         email_verification=email_verification,
@@ -163,53 +156,11 @@ def perform_login(
         signup=signup,
         email=email,
     )
-    return _perform_login(request, login)
-
-
-def _perform_login(request, login):
-    # Local users are stopped due to form validation checking
-    # is_active, yet, adapter methods could toy with is_active in a
-    # `user_signed_up` signal. Furthermore, social users should be
-    # stopped anyway.
-    adapter = get_adapter()
-    hook_kwargs = _get_login_hook_kwargs(login)
-    response = adapter.pre_login(request, login.user, **hook_kwargs)
-    if response:
-        return response
-    return resume_login(request, login)
-
-
-def _get_login_hook_kwargs(login):
-    """
-    TODO: Just break backwards compatibility and pass only `login` to
-    `pre/post_login()`.
-    """
-    return dict(
-        email_verification=login.email_verification,
-        redirect_url=login.redirect_url,
-        signal_kwargs=login.signal_kwargs,
-        signup=login.signup,
-        email=login.email,
-    )
+    return flows.login.perform_login(request, login)
 
 
 def resume_login(request, login):
-    from allauth.account.stages import LoginStageController
-
-    adapter = get_adapter()
-    ctrl = LoginStageController(request, login)
-    try:
-        response = ctrl.handle()
-        if response:
-            return response
-        adapter.login(request, login.user)
-        hook_kwargs = _get_login_hook_kwargs(login)
-        response = adapter.post_login(request, login.user, **hook_kwargs)
-        if response:
-            return response
-    except ImmediateHttpResponse as e:
-        response = e.response
-    return response
+    return flows.login.resume_login(request, login)
 
 
 def unstash_login(request, peek=False):
@@ -269,6 +220,7 @@ def cleanup_email_addresses(request, addresses):
         email = valid_email_or_none(address.email)
         if not email:
             continue
+        address.email = email  # `valid_email_or_none` lower cases
         # ... and non-conflicting ones...
         if (
             app_settings.UNIQUE_EMAIL
@@ -285,14 +237,14 @@ def cleanup_email_addresses(request, addresses):
         ):
             # Email address already exists, and is verified as well.
             continue
-        a = e2a.get(email.lower())
+        a = e2a.get(email)
         if a:
             a.primary = a.primary or address.primary
             a.verified = a.verified or address.verified
         else:
             a = address
             a.verified = a.verified or adapter.is_email_verified(request, a.email)
-            e2a[email.lower()] = a
+            e2a[email] = a
         if a.primary:
             primary_addresses.append(a)
             if a.verified:
@@ -335,12 +287,14 @@ def setup_user_email(request, user, addresses):
     stashed_email = adapter.unstash_verified_email(request)
     if stashed_email:
         priority_addresses.append(
-            EmailAddress(user=user, email=stashed_email, primary=True, verified=True)
+            EmailAddress(
+                user=user, email=stashed_email.lower(), primary=True, verified=True
+            )
         )
     email = user_email(user)
     if email:
         priority_addresses.append(
-            EmailAddress(user=user, email=email, primary=True, verified=False)
+            EmailAddress(user=user, email=email.lower(), primary=True, verified=False)
         )
     addresses, primary = cleanup_email_addresses(
         request, priority_addresses + addresses
@@ -373,7 +327,7 @@ def send_email_confirmation(request, user, signup=False, email=None):
     from .models import EmailAddress
 
     adapter = get_adapter()
-
+    sent = False
     email_address = None
     if not email:
         email = user_email(user)
@@ -397,6 +351,7 @@ def send_email_confirmation(request, user, signup=False, email=None):
                 )
                 if send_email:
                     email_address.send_confirmation(request, signup=signup)
+                    sent = True
             else:
                 send_email = False
         else:
@@ -404,6 +359,7 @@ def send_email_confirmation(request, user, signup=False, email=None):
             email_address = EmailAddress.objects.add_email(
                 request, user, email, signup=signup, confirm=True
             )
+            sent = True
             assert email_address
         # At this point, if we were supposed to send an email we have sent it.
         if send_email:
@@ -415,6 +371,7 @@ def send_email_confirmation(request, user, signup=False, email=None):
             )
     if signup:
         adapter.stash_user(request, user_pk_to_url_str(user))
+    return sent
 
 
 def sync_user_email_addresses(user):
@@ -428,10 +385,7 @@ def sync_user_email_addresses(user):
     from .models import EmailAddress
 
     email = user_email(user)
-    if (
-        email
-        and not EmailAddress.objects.filter(user=user, email__iexact=email).exists()
-    ):
+    if email and not EmailAddress.objects.filter(user=user, email=email).exists():
         # get_or_create() to gracefully handle races
         EmailAddress.objects.get_or_create(
             user=user, email=email, defaults={"primary": False, "verified": False}
@@ -474,7 +428,8 @@ def filter_users_by_email(email, is_active=None, prefer_verified=False):
     from .models import EmailAddress
 
     User = get_user_model()
-    mails = EmailAddress.objects.filter(email__iexact=email).prefetch_related("user")
+    email = email.lower()
+    mails = EmailAddress.objects.filter(email=email).select_related("user")
     mails = list(mails)
     is_verified = False
     if prefer_verified:
@@ -487,7 +442,7 @@ def filter_users_by_email(email, is_active=None, prefer_verified=False):
         if _unicode_ci_compare(e.email, email):
             users.append(e.user)
     if app_settings.USER_MODEL_EMAIL_FIELD and not is_verified:
-        q_dict = {app_settings.USER_MODEL_EMAIL_FIELD + "__iexact": email}
+        q_dict = {app_settings.USER_MODEL_EMAIL_FIELD: email}
         user_qs = User.objects.filter(**q_dict)
         for user in user_qs.iterator():
             user_email = getattr(user, app_settings.USER_MODEL_EMAIL_FIELD)
@@ -499,10 +454,9 @@ def filter_users_by_email(email, is_active=None, prefer_verified=False):
 
 
 def passthrough_next_redirect_url(request, url, redirect_field_name):
-    assert url.find("?") < 0  # TODO: Handle this case properly
     next_url = get_next_redirect_url(request, redirect_field_name)
     if next_url:
-        url = url + "?" + urlencode({redirect_field_name: next_url})
+        url = httpkit.add_query_params(url, {redirect_field_name: next_url})
     return url
 
 

@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
@@ -8,11 +6,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import FeedlyProvider
-
 
 class FeedlyOAuth2Adapter(OAuth2Adapter):
-    provider_id = FeedlyProvider.id
+    provider_id = "feedly"
     host = app_settings.PROVIDERS.get(provider_id, {}).get("HOST", "cloud.feedly.com")
     access_token_url = "https://%s/v3/auth/token" % host
     authorize_url = "https://%s/v3/auth/auth" % host

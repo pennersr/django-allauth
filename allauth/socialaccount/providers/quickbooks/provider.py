@@ -4,6 +4,9 @@ from allauth.socialaccount.providers.base import (
     ProviderException,
 )
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.quickbooks.views import (
+    QuickBooksOAuth2Adapter,
+)
 
 
 class QuickBooksAccount(ProviderAccount):
@@ -22,6 +25,7 @@ class QuickBooksOAuth2Provider(OAuth2Provider):
     # Name is displayed to ordinary users -- don't include protocol
     name = "QuickBooks"
     account_class = QuickBooksAccount
+    oauth2_adapter_class = QuickBooksOAuth2Adapter
 
     def extract_uid(self, data):
         if "sub" not in data:

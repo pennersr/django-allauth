@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.timezone import now
 
+import pytest
 from pytest_django.asserts import (
     assertRedirects,
     assertTemplateNotUsed,
@@ -26,7 +27,14 @@ from allauth.account.utils import user_pk_to_url_str
 from .test_models import UUIDUser
 
 
-def test_login_on_confirm(user_factory, client):
+@pytest.mark.parametrize(
+    "query,expected_location",
+    [
+        ("", settings.LOGIN_REDIRECT_URL),
+        ("?next=/foo", "/foo"),
+    ],
+)
+def test_login_on_confirm(user_factory, client, query, expected_location):
     settings.ACCOUNT_EMAIL_CONFIRMATION_HMAC = True
     settings.ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
     user = user_factory(email_verified=False)
@@ -41,7 +49,8 @@ def test_login_on_confirm(user_factory, client):
     session["account_user"] = user_pk_to_url_str(user)
     session.save()
 
-    resp = client.post(reverse("account_confirm_email", args=[key]))
+    resp = client.post(reverse("account_confirm_email", args=[key]) + query)
+    assert resp["location"] == expected_location
     email = EmailAddress.objects.get(pk=email.pk)
     assert email.verified
 
@@ -79,14 +88,14 @@ def test_login_on_confirm_uuid_user(
     confirmation.from_key.return_value = confirmation
     mock_perform_login.return_value = HttpResponseRedirect(redirect_to="/")
 
-    with patch("allauth.account.views.EmailConfirmationHMAC", confirmation):
+    with patch("allauth.account.models.EmailConfirmationHMAC", confirmation):
         client.post(reverse("account_confirm_email", args=[key]))
 
     assert mock_perform_login.called
 
 
 def test_email_verification_failed(settings, user_factory, client):
-    settings.ACCOUNT_EMAIL_CONFIRMATION_HMAC = (False,)
+    settings.ACCOUNT_EMAIL_CONFIRMATION_HMAC = False
     user_factory(email_verified=True, email="foo@bar.org")
     unverified_user = user_factory(email_verified=False, email="foo@bar.org")
     email_address = EmailAddress.objects.get_for_user(
@@ -205,18 +214,6 @@ def test_optional_email_verification(settings, client, db, mailoutbox):
     # on each login in case of optional verification. Make sure
     # this is not the case:
     assert len(mailoutbox) == 1
-
-
-def test_email_confirmation_hmac_falls_back(user_factory, client):
-    settings.ACCOUNT_EMAIL_CONFIRMATION_HMAC = True
-    user = user_factory(email_verified=False)
-    email = EmailAddress.objects.get_for_user(user, user.email)
-    confirmation = EmailConfirmation.create(email)
-    confirmation.sent = now()
-    confirmation.save()
-    client.post(reverse("account_confirm_email", args=[confirmation.key]))
-    email = EmailAddress.objects.get(pk=email.pk)
-    assert email.verified
 
 
 def test_email_confirmation_hmac(settings, client, user_factory, mailoutbox, rf):

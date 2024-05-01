@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import FoursquareProvider
-
 
 class FoursquareOAuth2Adapter(OAuth2Adapter):
-    provider_id = FoursquareProvider.id
+    provider_id = "foursquare"
     access_token_url = "https://foursquare.com/oauth2/access_token"
     # Issue ?? -- this one authenticates over and over again...
     # authorize_url = 'https://foursquare.com/oauth2/authorize'

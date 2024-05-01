@@ -1,7 +1,7 @@
 import requests
 
 from django.conf import settings
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 
@@ -17,8 +17,6 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2CallbackView,
     OAuth2LoginView,
 )
-
-from .provider import GoogleProvider
 
 
 CERTS_URL = (
@@ -70,7 +68,7 @@ def _verify_and_decode(app, credential, verify_signature=True):
 
 
 class GoogleOAuth2Adapter(OAuth2Adapter):
-    provider_id = GoogleProvider.id
+    provider_id = "google"
     access_token_url = ACCESS_TOKEN_URL
     authorize_url = AUTHORIZE_URL
     id_token_issuer = ID_TOKEN_ISSUER
@@ -124,13 +122,16 @@ oauth2_callback = OAuth2CallbackView.adapter_view(GoogleOAuth2Adapter)
 class LoginByTokenView(View):
     def dispatch(self, request):
         self.adapter = get_adapter()
-        self.provider = self.adapter.get_provider(request, GoogleProvider.id)
+        self.provider = self.adapter.get_provider(
+            request, GoogleOAuth2Adapter.provider_id
+        )
         try:
             return super().dispatch(request)
         except (
             OAuth2Error,
             requests.RequestException,
             PermissionDenied,
+            ValidationError,
         ) as exc:
             return render_authentication_error(request, self.provider, exception=exc)
 
@@ -143,8 +144,7 @@ class LoginByTokenView(View):
         self.check_csrf(request)
 
         credential = request.POST.get("credential")
-        identity_data = _verify_and_decode(app=self.provider.app, credential=credential)
-        login = self.provider.sociallogin_from_response(request, identity_data)
+        login = self.provider.verify_token(request, {"id_token": credential})
         return complete_social_login(request, login)
 
     def check_csrf(self, request):

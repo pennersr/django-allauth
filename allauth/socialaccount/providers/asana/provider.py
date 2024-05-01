@@ -1,3 +1,4 @@
+from allauth.socialaccount.providers.asana.views import AsanaOAuth2Adapter
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -10,6 +11,7 @@ class AsanaProvider(OAuth2Provider):
     id = "asana"
     name = "Asana"
     account_class = AsanaAccount
+    oauth2_adapter_class = AsanaOAuth2Adapter
 
     def extract_uid(self, data):
         return str(data["id"])

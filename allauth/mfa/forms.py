@@ -6,11 +6,11 @@ from allauth.account.models import EmailAddress
 from allauth.core import context, ratelimit
 from allauth.mfa import totp
 from allauth.mfa.adapter import get_adapter
+from allauth.mfa.internal import flows
 from allauth.mfa.models import Authenticator
-from allauth.mfa.utils import post_authentication
 
 
-class AuthenticateForm(forms.Form):
+class BaseAuthenticateForm(forms.Form):
     code = forms.CharField(
         label=_("Code"),
         widget=forms.TextInput(
@@ -29,9 +29,7 @@ class AuthenticateForm(forms.Form):
             action="login_failed",
             key=key,
         ):
-            raise forms.ValidationError(
-                get_account_adapter().error_messages["too_many_login_attempts"]
-            )
+            raise get_account_adapter().validation_error("too_many_login_attempts")
 
         code = self.cleaned_data["code"]
         for auth in Authenticator.objects.filter(user=self.user):
@@ -39,10 +37,20 @@ class AuthenticateForm(forms.Form):
                 self.authenticator = auth
                 ratelimit.clear(context.request, action="login_failed", key=key)
                 return code
-        raise forms.ValidationError(get_adapter().error_messages["incorrect_code"])
 
+        raise get_adapter().validation_error("incorrect_code")
+
+
+class AuthenticateForm(BaseAuthenticateForm):
     def save(self):
-        post_authentication(context.request, self.authenticator)
+        flows.authentication.post_authentication(context.request, self.authenticator)
+
+
+class ReauthenticateForm(BaseAuthenticateForm):
+    def save(self):
+        flows.authentication.post_authentication(
+            context.request, self.authenticator, reauthenticated=True
+        )
 
 
 class ActivateTOTPForm(forms.Form):
@@ -65,16 +73,11 @@ class ActivateTOTPForm(forms.Form):
         try:
             code = self.cleaned_data["code"]
             if not self.email_verified:
-                raise forms.ValidationError(
-                    get_adapter().error_messages["unverified_email"]
-                )
+                raise get_adapter().validation_error("unverified_email")
             if not totp.validate_totp_code(self.secret, code):
-                raise forms.ValidationError(
-                    get_adapter().error_messages["incorrect_code"]
-                )
+                raise get_adapter().validation_error("incorrect_code")
             return code
         except forms.ValidationError as e:
-            self.secret = totp.get_totp_secret(regenerate=True)
             raise e
 
 
@@ -87,7 +90,17 @@ class DeactivateTOTPForm(forms.Form):
         cleaned_data = super().clean()
         adapter = get_adapter()
         if not adapter.can_delete_authenticator(self.authenticator):
-            raise forms.ValidationError(
-                adapter.error_messages["cannot_delete_authenticator"]
-            )
+            raise adapter.validation_error("cannot_delete_authenticator")
+        return cleaned_data
+
+
+class GenerateRecoveryCodesForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user")
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if not flows.recovery_codes.can_generate_recovery_codes(self.user):
+            raise get_adapter().validation_error("cannot_generate_recovery_codes")
         return cleaned_data

@@ -11,4 +11,6 @@ Regular Accounts
    forms
    decorators
    signals
+   email
+   adapter
    advanced

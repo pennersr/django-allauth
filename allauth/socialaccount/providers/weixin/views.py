@@ -6,11 +6,10 @@ from allauth.socialaccount.providers.oauth2.views import (
 )
 
 from .client import WeixinOAuth2Client
-from .provider import WeixinProvider
 
 
 class WeixinOAuth2Adapter(OAuth2Adapter):
-    provider_id = WeixinProvider.id
+    provider_id = "weixin"
     access_token_url = "https://api.weixin.qq.com/sns/oauth2/access_token"
     profile_url = "https://api.weixin.qq.com/sns/userinfo"
     client_class = WeixinOAuth2Client

@@ -1,5 +1,8 @@
 """Customise Provider classes for MailChimp API v3."""
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.mailchimp.views import (
+    MailChimpOAuth2Adapter,
+)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -23,6 +26,7 @@ class MailChimpProvider(OAuth2Provider):
     id = "mailchimp"
     name = "MailChimp"
     account_class = MailChimpAccount
+    oauth2_adapter_class = MailChimpOAuth2Adapter
 
     def extract_uid(self, data):
         """Extract uid ('user_id') and ensure it's a str."""

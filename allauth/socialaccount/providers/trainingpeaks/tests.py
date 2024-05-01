@@ -65,7 +65,7 @@ class TrainingPeaksTests(OAuth2TestsMixin, TestCase):
     def test_scope_from_default(self):
         Request = namedtuple("request", ["GET"])
         mock_request = Request(GET={})
-        scope = self.provider.get_scope(mock_request)
+        scope = self.provider.get_scope_from_request(mock_request)
         self.assertTrue("athlete:profile" in scope)
 
     @override_settings(
@@ -76,6 +76,6 @@ class TrainingPeaksTests(OAuth2TestsMixin, TestCase):
     def test_scope_from_settings(self):
         Request = namedtuple("request", ["GET"])
         mock_request = Request(GET={})
-        scope = self.provider.get_scope(mock_request)
+        scope = self.provider.get_scope_from_request(mock_request)
         for item in ("athlete:profile", "workouts", "workouts:wod"):
             self.assertTrue(item in scope)

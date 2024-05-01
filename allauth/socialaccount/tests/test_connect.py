@@ -1,12 +1,15 @@
 from django.urls import reverse
 
+import pytest
 from pytest_django.asserts import assertTemplateUsed
 
 from allauth.socialaccount.models import SocialAccount
 
 
-def test_disconnect(auth_client, user, settings, mailoutbox):
+@pytest.mark.parametrize("reauthentication_required", [False, True])
+def test_disconnect(auth_client, user, settings, mailoutbox, reauthentication_required):
     settings.ACCOUNT_EMAIL_NOTIFICATIONS = True
+    settings.ACCOUNT_REAUTHENTICATION_REQUIRED = reauthentication_required
     account = SocialAccount.objects.create(
         uid="123", provider="other-server", user=user
     )
@@ -15,9 +18,12 @@ def test_disconnect(auth_client, user, settings, mailoutbox):
     resp = auth_client.post(
         reverse("socialaccount_connections"), {"account": account.pk}
     )
-    assert not SocialAccount.objects.filter(pk=account.pk).exists()
-    assert len(mailoutbox) == 1
-    assert mailoutbox[0].subject == "[example.com] Third-Party Account Disconnected"
+    if reauthentication_required:
+        assert SocialAccount.objects.filter(pk=account.pk).exists()
+    else:
+        assert not SocialAccount.objects.filter(pk=account.pk).exists()
+        assert len(mailoutbox) == 1
+        assert mailoutbox[0].subject == "[example.com] Third-Party Account Disconnected"
 
 
 def test_connect_with_reauthentication(

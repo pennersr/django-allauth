@@ -5,11 +5,10 @@ from allauth.socialaccount.providers.oauth2.views import (
 )
 
 from .client import NotionOAuth2Client
-from .provider import NotionProvider
 
 
 class NotionOAuth2Adapter(OAuth2Adapter):
-    provider_id = NotionProvider.id
+    provider_id = "notion"
     basic_auth = True
     client_class = NotionOAuth2Client
 

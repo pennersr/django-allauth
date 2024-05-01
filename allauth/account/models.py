@@ -4,9 +4,8 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core import signing
 from django.db import models
-from django.db.models import Index, Q
+from django.db.models import Q
 from django.db.models.constraints import UniqueConstraint
-from django.db.models.functions import Upper
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -22,6 +21,7 @@ class EmailAddress(models.Model):
         on_delete=models.CASCADE,
     )
     email = models.EmailField(
+        db_index=True,
         max_length=app_settings.EMAIL_MAX_LENGTH,
         verbose_name=_("email address"),
     )
@@ -42,10 +42,13 @@ class EmailAddress(models.Model):
                     condition=Q(verified=True),
                 )
             ]
-        indexes = [Index(Upper("email"), name="account_emailaddress_upper")]
 
     def __str__(self):
         return self.email
+
+    def clean(self):
+        super().clean()
+        self.email = self.email.lower()
 
     def can_set_verified(self):
         if self.verified:
@@ -54,7 +57,7 @@ class EmailAddress(models.Model):
         if app_settings.UNIQUE_EMAIL:
             conflict = (
                 EmailAddress.objects.exclude(pk=self.pk)
-                .filter(verified=True, email__iexact=self.email)
+                .filter(verified=True, email=self.email)
                 .exists()
             )
         return not conflict
@@ -86,10 +89,8 @@ class EmailAddress(models.Model):
         return True
 
     def send_confirmation(self, request=None, signup=False):
-        if app_settings.EMAIL_CONFIRMATION_HMAC:
-            confirmation = EmailConfirmationHMAC(self)
-        else:
-            confirmation = EmailConfirmation.create(self)
+        model = get_emailconfirmation_model()
+        confirmation = model.create(self)
         confirmation.send(request, signup=signup)
         return confirmation
 
@@ -156,6 +157,13 @@ class EmailConfirmation(EmailConfirmationMixin, models.Model):
         key = get_adapter().generate_emailconfirmation_key(email_address.email)
         return cls._default_manager.create(email_address=email_address, key=key)
 
+    @classmethod
+    def from_key(cls, key):
+        qs = EmailConfirmation.objects.all_valid()
+        qs = qs.select_related("email_address__user")
+        emailconfirmation = qs.filter(key=key.lower()).first()
+        return emailconfirmation
+
     def key_expired(self):
         expiration_date = self.sent + datetime.timedelta(
             days=app_settings.EMAIL_CONFIRMATION_EXPIRE_DAYS
@@ -178,6 +186,10 @@ class EmailConfirmationHMAC(EmailConfirmationMixin, object):
     def __init__(self, email_address):
         self.email_address = email_address
 
+    @classmethod
+    def create(cls, email_address):
+        return EmailConfirmationHMAC(email_address)
+
     @property
     def key(self):
         return signing.dumps(obj=self.email_address.pk, salt=app_settings.SALT)
@@ -196,16 +208,25 @@ class EmailConfirmationHMAC(EmailConfirmationMixin, object):
             ret = None
         return ret
 
+    def key_expired(self):
+        return False
+
 
 class Login:
     """
     Represents a user that is in the process of logging in.
+
+    Keyword arguments:
+
+    signup -- Indicates whether or not sending the
+    email is essential (during signup), or if it can be skipped (e.g. in
+    case email verification is optional and we are only logging in).
     """
 
     def __init__(
         self,
         user,
-        email_verification,
+        email_verification=None,
         redirect_url=None,
         signal_kwargs=None,
         signup=False,
@@ -213,6 +234,8 @@ class Login:
         state=None,
     ):
         self.user = user
+        if not email_verification:
+            email_verification = app_settings.EMAIL_VERIFICATION
         self.email_verification = email_verification
         self.redirect_url = redirect_url
         self.signal_kwargs = signal_kwargs
@@ -273,3 +296,11 @@ class Login:
             )
         except KeyError:
             raise ValueError()
+
+
+def get_emailconfirmation_model():
+    if app_settings.EMAIL_CONFIRMATION_HMAC:
+        model = EmailConfirmationHMAC
+    else:
+        model = EmailConfirmation
+    return model

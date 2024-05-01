@@ -3,7 +3,6 @@ from django.contrib.auth import authenticate, get_user_model
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import PermissionDenied
 from django.db import models
-from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 
 import allauth.app_settings
@@ -15,6 +14,7 @@ from allauth.account.utils import (
 )
 from allauth.core import context
 from allauth.socialaccount import signals
+from allauth.socialaccount.internal import statekit
 
 from ..utils import get_request_param
 from . import app_settings, providers
@@ -36,7 +36,6 @@ class SocialApp(models.Model):
     provider = models.CharField(
         verbose_name=_("provider"),
         max_length=30,
-        choices=providers.registry.as_choices(),
     )
     # For providers that support subproviders, such as OpenID Connect and SAML,
     # this ID identifies that instance. SocialAccount's originating from app
@@ -287,6 +286,7 @@ class SocialLogin(object):
         """Look up the existing local user account to which this social login
         points, if any.
         """
+        self._did_authenticate_by_email = False
         if not self._lookup_by_socialaccount():
             self._lookup_by_email()
 
@@ -341,9 +341,13 @@ class SocialLogin(object):
             users = filter_users_by_email(email, prefer_verified=True)
             if users:
                 self.user = users[0]
-                if app_settings.EMAIL_AUTHENTICATION_AUTO_CONNECT:
-                    self.connect(context.request, self.user)
+                self._did_authenticate_by_email = True
                 return
+
+    def _accept_login(self):
+        if self._did_authenticate_by_email:
+            if app_settings.EMAIL_AUTHENTICATION_AUTO_CONNECT:
+                self.connect(context.request, self.user)
 
     def get_redirect_url(self, request):
         url = self.state.get("next")
@@ -351,6 +355,9 @@ class SocialLogin(object):
 
     @classmethod
     def state_from_request(cls, request):
+        """
+        TODO: Deprecated! To be integrated with provider.redirect()
+        """
         state = {}
         next_url = get_next_redirect_url(request)
         if next_url:
@@ -361,24 +368,22 @@ class SocialLogin(object):
         return state
 
     @classmethod
-    def stash_state(cls, request):
-        state = cls.state_from_request(request)
-        verifier = get_random_string(16)
-        request.session["socialaccount_state"] = (state, verifier)
-        return verifier
+    def stash_state(cls, request, state=None):
+        if state is None:
+            # Only for providers that don't support redirect() yet.
+            state = cls.state_from_request(request)
+        return statekit.stash_state(request, state)
 
     @classmethod
     def unstash_state(cls, request):
-        if "socialaccount_state" not in request.session:
+        state = statekit.unstash_last_state(request)
+        if state is None:
             raise PermissionDenied()
-        state, verifier = request.session.pop("socialaccount_state")
         return state
 
     @classmethod
     def verify_and_unstash_state(cls, request, verifier):
-        if "socialaccount_state" not in request.session:
-            raise PermissionDenied()
-        state, verifier2 = request.session.pop("socialaccount_state")
-        if verifier != verifier2:
+        state = statekit.unstash_state(request, verifier)
+        if state is None:
             raise PermissionDenied()
         return state

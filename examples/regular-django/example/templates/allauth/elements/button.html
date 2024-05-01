@@ -5,6 +5,7 @@
 {% if attrs.id %}id="{{ attrs.id }}"{% endif %}
 {% if attrs.name %}name="{{ attrs.name }}"{% endif %}
 {% if attrs.type %}type="{{ attrs.type }}"{% endif %}
+{% if attrs.value %}value="{{ attrs.value }}"{% endif %}
 class="{% block class %}
     btn
     {% if "link" in attrs.tags %}btn-link

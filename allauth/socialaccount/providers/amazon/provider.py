@@ -1,3 +1,4 @@
+from allauth.socialaccount.providers.amazon.views import AmazonOAuth2Adapter
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
@@ -11,6 +12,7 @@ class AmazonProvider(OAuth2Provider):
     id = "amazon"
     name = "Amazon"
     account_class = AmazonAccount
+    oauth2_adapter_class = AmazonOAuth2Adapter
 
     def get_default_scope(self):
         return ["profile"]

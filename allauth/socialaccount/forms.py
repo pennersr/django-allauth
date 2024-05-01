@@ -1,8 +1,9 @@
 from django import forms
 
 from allauth.account.forms import BaseSignupForm
+from allauth.socialaccount.internal import flows
 
-from . import app_settings, signals
+from . import app_settings
 from .adapter import get_adapter
 from .models import SocialAccount
 
@@ -31,9 +32,8 @@ class SignupForm(BaseSignupForm):
         try:
             return super(SignupForm, self).validate_unique_email(value)
         except forms.ValidationError:
-            raise forms.ValidationError(
-                get_adapter().error_messages["email_taken"]
-                % self.sociallogin.account.get_provider().name
+            raise get_adapter().validation_error(
+                "email_taken", self.sociallogin.account.get_provider().name
             )
 
 
@@ -54,21 +54,9 @@ class DisconnectForm(forms.Form):
         cleaned_data = super(DisconnectForm, self).clean()
         account = cleaned_data.get("account")
         if account:
-            get_adapter(self.request).validate_disconnect(account, self.accounts)
+            flows.connect.validate_disconnect(self.request, account)
         return cleaned_data
 
     def save(self):
         account = self.cleaned_data["account"]
-        provider = account.get_provider()
-        account.delete()
-        signals.social_account_removed.send(
-            sender=SocialAccount, request=self.request, socialaccount=account
-        )
-        get_adapter().send_notification_mail(
-            "socialaccount/email/account_disconnected",
-            self.request.user,
-            context={
-                "account": account,
-                "provider": provider,
-            },
-        )
+        flows.connect.disconnect(self.request, account)

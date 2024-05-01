@@ -1,4 +1,4 @@
-import os
+from pathlib import Path
 
 from django.contrib.auth.hashers import PBKDF2PasswordHasher
 
@@ -20,14 +20,18 @@ DATABASES = {
     }
 }
 
-ROOT_URLCONF = "allauth.urls"
+ROOT_URLCONF = "tests.urls"
 LOGIN_URL = "/login/"
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            os.path.join(os.path.dirname(__file__), "examples", "regular-django", "example", "templates")
+            Path(__file__).parent.parent
+            / "examples"
+            / "regular-django"
+            / "example"
+            / "templates"
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -76,6 +80,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.angellist",
     "allauth.socialaccount.providers.apple",
     "allauth.socialaccount.providers.asana",
+    "allauth.socialaccount.providers.atlassian",
     "allauth.socialaccount.providers.auth0",
     "allauth.socialaccount.providers.authentiq",
     "allauth.socialaccount.providers.baidu",
@@ -98,6 +103,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.draugiem",
     "allauth.socialaccount.providers.drip",
     "allauth.socialaccount.providers.dropbox",
+    "allauth.socialaccount.providers.dummy",
     "allauth.socialaccount.providers.dwolla",
     "allauth.socialaccount.providers.edmodo",
     "allauth.socialaccount.providers.edx",
@@ -125,6 +131,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.jupyterhub",
     "allauth.socialaccount.providers.kakao",
     "allauth.socialaccount.providers.lemonldap",
+    "allauth.socialaccount.providers.lichess",
     "allauth.socialaccount.providers.line",
     "allauth.socialaccount.providers.linkedin_oauth2",
     "allauth.socialaccount.providers.mailchimp",
@@ -164,6 +171,7 @@ INSTALLED_APPS = (
     "allauth.socialaccount.providers.strava",
     "allauth.socialaccount.providers.stripe",
     "allauth.socialaccount.providers.telegram",
+    "allauth.socialaccount.providers.tiktok",
     "allauth.socialaccount.providers.trainingpeaks",
     "allauth.socialaccount.providers.trello",
     "allauth.socialaccount.providers.tumblr",
@@ -210,7 +218,7 @@ class MyPBKDF2PasswordHasher(PBKDF2PasswordHasher):
 
 
 PASSWORD_HASHERS = [
-    "test_settings.MyPBKDF2PasswordHasher",
+    "tests.settings.MyPBKDF2PasswordHasher",
     "django.contrib.auth.hashers.PBKDF2PasswordHasher",
     "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
     "django.contrib.auth.hashers.Argon2PasswordHasher",
@@ -245,3 +253,5 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
     }
 }
+
+ACCOUNT_LOGIN_BY_CODE_ENABLED = True

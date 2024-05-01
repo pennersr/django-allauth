@@ -8,7 +8,9 @@
         {% trans "Email Addresses" %}
     {% endelement %}
     {% if emailaddresses %}
-        <p>{% trans 'The following email addresses are associated with your account:' %}</p>
+        {% element p %}
+            {% trans 'The following email addresses are associated with your account:' %}
+        {% endelement %}
         {% url 'account_email' as email_url %}
         {% element form form=form action=email_url method="post" %}
             {% slot body %}
@@ -58,7 +60,6 @@
         {% endelement %}
         {% url 'account_email' as action_url %}
         {% element form form=form method="post" action=action_url %}
-            Hoi bef bod
             {% slot body %}
                 {% csrf_token %}
                 {% element fields form=form %}

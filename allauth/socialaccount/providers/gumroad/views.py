@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.adapter import get_adapter
-from allauth.socialaccount.providers.gumroad.provider import GumroadProvider
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
@@ -9,9 +7,8 @@ from allauth.socialaccount.providers.oauth2.views import (
 )
 
 
-class GumroadOauth2Adapter(OAuth2Adapter):
-    provider_id = GumroadProvider.id
-    supports_state = True
+class GumroadOAuth2Adapter(OAuth2Adapter):
+    provider_id = "gumroad"
 
     settings = app_settings.PROVIDERS.get(provider_id, {})
     provider_base_url = settings.get("GUMROAD_URL")
@@ -33,5 +30,5 @@ class GumroadOauth2Adapter(OAuth2Adapter):
         )
 
 
-oauth2_login = OAuth2LoginView.adapter_view(GumroadOauth2Adapter)
-oauth2_callback = OAuth2CallbackView.adapter_view(GumroadOauth2Adapter)
+oauth2_login = OAuth2LoginView.adapter_view(GumroadOAuth2Adapter)
+oauth2_callback = OAuth2CallbackView.adapter_view(GumroadOAuth2Adapter)

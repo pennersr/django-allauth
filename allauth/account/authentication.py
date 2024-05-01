@@ -38,3 +38,7 @@ def record_authentication(request, method, **extra_data):
     }
     methods.append(data)
     request.session[AUTHENTICATION_METHODS_SESSION_KEY] = methods
+
+
+def get_authentication_records(request):
+    return request.session.get(AUTHENTICATION_METHODS_SESSION_KEY, [])

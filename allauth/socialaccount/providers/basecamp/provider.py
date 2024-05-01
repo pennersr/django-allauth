@@ -1,4 +1,7 @@
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.basecamp.views import (
+    BasecampOAuth2Adapter,
+)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -15,9 +18,10 @@ class BasecampProvider(OAuth2Provider):
     id = "basecamp"
     name = "Basecamp"
     account_class = BasecampAccount
+    oauth2_adapter_class = BasecampOAuth2Adapter
 
-    def get_auth_params(self, request, action):
-        data = super(BasecampProvider, self).get_auth_params(request, action)
+    def get_auth_params_from_request(self, request, action):
+        data = super().get_auth_params_from_request(request, action)
         data["type"] = "web_server"
         return data
 

@@ -5,11 +5,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import YandexProvider
 
-
-class YandexAuth2Adapter(OAuth2Adapter):
-    provider_id = YandexProvider.id
+class YandexOAuth2Adapter(OAuth2Adapter):
+    provider_id = "yandex"
     access_token_url = "https://oauth.yandex.ru/token"
     authorize_url = "https://oauth.yandex.com/authorize"
     profile_url = "https://login.yandex.ru/info"
@@ -29,5 +27,5 @@ class YandexAuth2Adapter(OAuth2Adapter):
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
 
-oauth2_login = OAuth2LoginView.adapter_view(YandexAuth2Adapter)
-oauth2_callback = OAuth2CallbackView.adapter_view(YandexAuth2Adapter)
+oauth2_login = OAuth2LoginView.adapter_view(YandexOAuth2Adapter)
+oauth2_callback = OAuth2CallbackView.adapter_view(YandexOAuth2Adapter)

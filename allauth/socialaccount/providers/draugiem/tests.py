@@ -1,3 +1,4 @@
+import time
 from hashlib import md5
 from unittest.mock import Mock, patch
 
@@ -7,6 +8,7 @@ from django.urls import reverse
 from django.utils.http import urlencode
 
 from allauth import app_settings
+from allauth.socialaccount.internal import statekit
 from allauth.socialaccount.models import SocialAccount, SocialApp, SocialToken
 from allauth.tests import TestCase
 
@@ -84,10 +86,9 @@ class DraugiemTests(TestCase):
         params and a random string
         """
         session = self.client.session
-        session["socialaccount_state"] = (
-            {"process": "login", "scope": "", "auth_params": ""},
-            "12345",
-        )
+        session[statekit.STATES_SESSION_KEY] = {
+            "12345": ({"process": "login", "scope": "", "auth_params": ""}, time.time())
+        }
         session.save()
 
     def test_login_redirect(self):

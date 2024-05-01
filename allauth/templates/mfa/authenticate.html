@@ -8,9 +8,9 @@
     {% element h1 %}
         {% trans "Two-Factor Authentication" %}
     {% endelement %}
-    <p>
+    {% element p %}
         {% blocktranslate %}Your account is protected by two-factor authentication. Please enter an authenticator code:{% endblocktranslate %}
-    </p>
+    {% endelement %}
     {% url 'mfa_authenticate' as action_url %}
     {% element form form=form method="post" action=action_url %}
         {% slot body %}
@@ -23,7 +23,7 @@
                 {% trans "Sign In" %}
             {% endelement %}
             {% url "account_login" as login_url %}
-            {% element button href=login_url tags="secondary,mfa,cancel" %}
+            {% element button href=login_url tags="link,secondary,mfa,cancel" %}
                 {% trans "Cancel" %}
             {% endelement %}
         {% endslot %}

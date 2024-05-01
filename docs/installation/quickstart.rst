@@ -1,9 +1,14 @@
 Quickstart
 ==========
 
-First, Install the python package::
+First, install the python package. If you do not need any of the social account
+related functionality, install using::
 
     pip install django-allauth
+
+Otherwise, install using::
+
+    pip install django-allauth[socialaccount]
 
 Then, assuming you have a Django project up and running, add the following to
 the ``settings.py`` of your project::
@@ -43,6 +48,8 @@ the ``settings.py`` of your project::
 
         'allauth',
         'allauth.account',
+
+        # Optional -- requires install using `django-allauth[socialaccount]`.
         'allauth.socialaccount',
         # ... include the providers you want to enable:
         'allauth.socialaccount.providers.agave',
@@ -99,6 +106,7 @@ the ``settings.py`` of your project::
         'allauth.socialaccount.providers.jupyterhub',
         'allauth.socialaccount.providers.kakao',
         'allauth.socialaccount.providers.lemonldap',
+        "allauth.socialaccount.providers.lichess",
         'allauth.socialaccount.providers.line',
         'allauth.socialaccount.providers.linkedin',
         'allauth.socialaccount.providers.linkedin_oauth2',
@@ -161,6 +169,7 @@ the ``settings.py`` of your project::
         'allauth.socialaccount.providers.zoom',
         'allauth.socialaccount.providers.okta',
         'allauth.socialaccount.providers.feishu',
+        "allauth.socialaccount.providers.atlassian",
         ...
     ]
 

@@ -1,5 +1,6 @@
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.strava.views import StravaOAuth2Adapter
 
 
 class StravaAccount(ProviderAccount):
@@ -24,6 +25,7 @@ class StravaProvider(OAuth2Provider):
     id = "strava"
     name = "Strava"
     account_class = StravaAccount
+    oauth2_adapter_class = StravaOAuth2Adapter
 
     def extract_uid(self, data):
         return str(data["id"])

@@ -1,5 +1,7 @@
-# -*- coding: utf-8 -*-
 from allauth.socialaccount.providers.base import ProviderAccount
+from allauth.socialaccount.providers.lemonldap.views import (
+    LemonLDAPOAuth2Adapter,
+)
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -16,6 +18,7 @@ class LemonLDAPProvider(OAuth2Provider):
     id = "lemonldap"
     name = "LemonLDAP::NG"
     account_class = LemonLDAPAccount
+    oauth2_adapter_class = LemonLDAPOAuth2Adapter
 
     def get_default_scope(self):
         return ["openid", "profile", "email"]

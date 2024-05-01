@@ -1,6 +1,7 @@
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.zoho.views import ZohoOAuth2Adapter
 
 
 class ZohoAccount(ProviderAccount):
@@ -13,6 +14,7 @@ class ZohoProvider(OAuth2Provider):
     id = "zoho"
     name = "Zoho"
     account_class = ZohoAccount
+    oauth2_adapter_class = ZohoOAuth2Adapter
 
     def get_default_scope(self):
         return ["aaaserver.profile.READ"]

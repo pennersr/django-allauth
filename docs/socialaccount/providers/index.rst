@@ -40,7 +40,9 @@ Provider Specifics
    amazon
    angellist
    apple
+   atlassian
    auth0
+   authelia
    authentiq
    baidu
    basecamp
@@ -84,6 +86,7 @@ Provider Specifics
    kakao
    keycloak
    lemonldap
+   lichess
    line
    linkedin
    mailchimp

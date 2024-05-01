@@ -708,7 +708,7 @@ Backwards incompatible changes
 
 - The newly introduced rate limiting is by default turned on. You will need to provide
   a ``429.html`` template.
-  
+
 - The default of ``SOCIALACCOUNT_STORE_TOKENS`` has been changed to
   ``False``. Rationale is that storing sensitive information should be opt in, not
   opt out. If you were relying on this functionality without having it

@@ -65,7 +65,7 @@ class AuthentiqProvider(OAuth2Provider):
     def get_scope_from_request(self, request):
         scope = set(super().get_scope_from_request(request))
         scope.add("openid")
-        
+
         if Scope.EMAIL in scope:
             modifiers = ""
             if app_settings.EMAIL_REQUIRED:

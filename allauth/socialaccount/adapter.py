@@ -310,9 +310,6 @@ class DefaultSocialAccountAdapter(BaseAdapter):
         )
         return session
 
-    def get_email_verification_method(self, email=None):
-        return app_settings.EMAIL_VERIFICATION
-
     def is_email_verified(self, provider, email):
         """
         Returns ``True`` iff the given email encountered during a social

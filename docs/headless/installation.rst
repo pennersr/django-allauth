@@ -30,8 +30,8 @@ Your project ``urls.py`` should include::
 
     urlpatterns = [
         # Even when using headless, the third-party provider endpoints are stil
-        # needed for handling e.g. the OAuth handshake. The account views # can
-        be disabled using `HEADLESS_ONLY = True`.
+        # needed for handling e.g. the OAuth handshake. The account views
+        # can be disabled using `HEADLESS_ONLY = True`.
         path("accounts/", include("allauth.urls")),
 
         # Include the API endpoints:

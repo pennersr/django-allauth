@@ -9,6 +9,7 @@
   accordingly. Migrations are in place.  For rationale, see the note about email
   case sensitivity in the documentation.
 
+- Added support for custom account email verification based on the user's email.
 
 0.62.1 (2024-04-24)
 *******************

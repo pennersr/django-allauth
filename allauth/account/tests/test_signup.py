@@ -288,6 +288,40 @@ class SignupTests(TestCase):
                 "password1",
                 ["This password is too short. It must contain at least 9 characters."],
             )
+    @override_settings(
+        ACCOUNT_ADAPTER="allauth.account.tests.test_adapter.CustomAccountEmailVerificationAdapter"
+    )
+    def test_signup_custom_account_email_verification(self):
+        # with mandatory email verification
+        resp = self.client.post(
+            reverse("account_signup"),
+            {
+                "username": "mandatory",
+                "email": "mandatory@example.com",
+                "password1": "mandatory123",
+                "password2": "mandatory123",
+            },
+        )
+        self.assertEqual(resp.status_code, 302)
+        self.assertEqual(
+            resp["location"], reverse("account_email_verification_sent")
+        )
+        self.assertEqual(len(mail.outbox), 1)
+
+        # with optional email verification
+        resp = self.client.post(
+            reverse("account_signup"),
+            {
+                "username": "optional",
+                "email": "optional@example.com",
+                "password1": "optional123",
+                "password2": "optional123",
+            },
+        )
+        self.assertEqual(resp.status_code, 302)
+        self.assertEqual(
+            resp["location"], app_settings.SIGNUP_REDIRECT_URL
+        )
 
 
 def test_prevent_enumeration_with_mandatory_verification(

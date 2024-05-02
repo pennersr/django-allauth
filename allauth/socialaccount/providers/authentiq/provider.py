@@ -1,4 +1,3 @@
-from allauth.socialaccount.adapter import get_adapter
 from allauth.account.models import EmailAddress
 from allauth.socialaccount import app_settings
 from allauth.socialaccount.providers.authentiq.views import (

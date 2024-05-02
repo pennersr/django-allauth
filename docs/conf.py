@@ -1,5 +1,8 @@
 import os
 import sys
+from pathlib import Path
+
+from sphinx.util.fileutil import copy_asset_file
 
 
 # -*- coding: utf-8 -*-
@@ -268,3 +271,15 @@ autodoc_mock_imports = [
     "allauth.mfa.app_settings",
     "allauth.app_settings",
 ]
+
+
+def copy_custom_files(app, exc):
+    if app.builder.format == "html" and not exc:
+        dst = Path(app.builder.outdir) / "headless" / "openapi-specification"
+        os.makedirs(dst, exist_ok=True)
+        for fn in ["openapi.yaml", "index.html", "description.md"]:
+            copy_asset_file(Path("headless/openapi-specification") / fn, dst)
+
+
+def setup(app):
+    app.connect("build-finished", copy_custom_files)

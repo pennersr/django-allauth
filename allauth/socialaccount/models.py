@@ -1,11 +1,12 @@
 from django.conf import settings
 from django.contrib.auth import authenticate, get_user_model
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 import allauth.app_settings
+from allauth import app_settings as allauth_settings
 from allauth.account.models import EmailAddress
 from allauth.account.utils import (
     filter_users_by_email,
@@ -19,6 +20,12 @@ from allauth.socialaccount.internal import statekit
 from ..utils import get_request_param
 from . import app_settings, providers
 from .adapter import get_adapter
+
+
+if not allauth_settings.SOCIALACCOUNT_ENABLED:
+    raise ImproperlyConfigured(
+        "allauth.socialaccount not installed, yet its models are imported."
+    )
 
 
 class SocialAppManager(models.Manager):

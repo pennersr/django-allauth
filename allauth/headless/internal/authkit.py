@@ -1,13 +1,13 @@
 import typing
 from contextlib import contextmanager
 
+from allauth import app_settings as allauth_settings
 from allauth.account.stages import LoginStageController
 from allauth.account.utils import unstash_login
 from allauth.core.exceptions import ImmediateHttpResponse
 from allauth.headless import app_settings
 from allauth.headless.constants import Client
 from allauth.headless.internal import sessionkit
-from allauth.socialaccount.internal import flows
 
 
 class AuthenticationStatus:
@@ -29,6 +29,10 @@ class AuthenticationStatus:
 
     @property
     def has_pending_signup(self):
+        if not allauth_settings.SOCIALACCOUNT_ENABLED:
+            return False
+        from allauth.socialaccount.internal import flows
+
         return bool(flows.signup.get_pending_signup(self.request))
 
 

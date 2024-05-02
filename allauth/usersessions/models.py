@@ -2,13 +2,21 @@ from importlib import import_module
 
 from django.conf import settings
 from django.contrib.auth import get_user
+from django.core.exceptions import ImproperlyConfigured
 from django.db import models
 from django.http import HttpRequest
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from allauth import app_settings as allauth_settings
 from allauth.account.adapter import get_adapter
 from allauth.core import context
+
+
+if not allauth_settings.USERSESSIONS_ENABLED:
+    raise ImproperlyConfigured(
+        "allauth.usersessions not installed, yet its models are imported."
+    )
 
 
 class UserSessionManager(models.Manager):

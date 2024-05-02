@@ -1,4 +1,4 @@
-import { useUser } from './auth'
+import { useUser, useConfig } from './auth'
 import { useLocation, Link } from 'react-router-dom'
 
 function NavBarItem (props) {
@@ -16,6 +16,7 @@ function NavBarItem (props) {
 
 export default function NavBar () {
   const user = useUser()
+  const config = useConfig()
   const anonNav = (
     <>
       <NavBarItem to='/account/login' icon='🔑' name='Login' />
@@ -27,9 +28,16 @@ export default function NavBar () {
     <>
       <NavBarItem to='/account/email' icon='📬' name='Change Email' />
       <NavBarItem to='/account/password/change' icon='🔒' name='Change Password' />
-      <NavBarItem to='/account/providers' icon='👤' name='Providers' />
-      <NavBarItem to='/account/2fa' icon='📱' name='Two-Factor Authentication' />
-      <NavBarItem to='/account/sessions' icon='🚀' name='Sessions' />
+      {config.data.socialaccount
+        ? <NavBarItem to='/account/providers' icon='👤' name='Providers' />
+        : null}
+      {config.data.mfa
+        ? <NavBarItem to='/account/2fa' icon='📱' name='Two-Factor Authentication' />
+        : null}
+
+      {config.data.usersessions
+        ? <NavBarItem to='/account/sessions' icon='🚀' name='Sessions' />
+        : null}
       <NavBarItem to='/account/logout' icon='👋' name='Logout' />
     </>
   )

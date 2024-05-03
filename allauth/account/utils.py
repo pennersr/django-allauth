@@ -303,7 +303,7 @@ def setup_user_email(request, user, addresses):
         a.user = user
         a.save()
     EmailAddress.objects.fill_cache_for_user(user, addresses)
-    if primary and email.lower() != primary.email.lower():
+    if primary and (email or "").lower() != primary.email.lower():
         user_email(user, primary.email)
         user.save()
     return primary

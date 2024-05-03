@@ -23,19 +23,13 @@ DATABASES = {
     }
 }
 
-ROOT_URLCONF = "tests.urls"
+ROOT_URLCONF = "tests.regular.urls"
 LOGIN_URL = "/login/"
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [
-            Path(__file__).parent.parent
-            / "examples"
-            / "regular-django"
-            / "example"
-            / "templates"
-        ],
+        "DIRS": [Path(__file__).parent / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -222,7 +216,7 @@ class MyPBKDF2PasswordHasher(PBKDF2PasswordHasher):
 
 
 PASSWORD_HASHERS = [
-    "tests.settings.MyPBKDF2PasswordHasher",
+    "tests.regular.settings.MyPBKDF2PasswordHasher",
     "django.contrib.auth.hashers.PBKDF2PasswordHasher",
     "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
     "django.contrib.auth.hashers.Argon2PasswordHasher",

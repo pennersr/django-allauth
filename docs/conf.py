@@ -282,4 +282,8 @@ def copy_custom_files(app, exc):
 
 
 def setup(app):
+    import django
+
     app.connect("build-finished", copy_custom_files)
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "tests.regular.settings")
+    django.setup()

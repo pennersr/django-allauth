@@ -1,3 +1,4 @@
+from allauth.account.models import EmailAddress
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.tests import OAuth2TestsMixin
 from allauth.tests import MockedResponse, TestCase
@@ -47,12 +48,12 @@ class GitHubTests(OAuth2TestsMixin, TestCase):
             MockedResponse(
                 200,
                 """
-            {
+            [{
               "email": "octocat@github.com",
               "verified": true,
               "primary": true,
               "visibility": "public"
-            }
+            }]
             """,
             ),
         ]
@@ -80,6 +81,12 @@ class GitHubTests(OAuth2TestsMixin, TestCase):
             "verified": true,
             "primary": true,
             "visibility": "public"
+          },
+          {
+            "email": "secONDary@GitHub.COM",
+            "verified": true,
+            "primary": false,
+            "visibility": "public"
           }
         ]
         """,
@@ -92,3 +99,12 @@ class GitHubTests(OAuth2TestsMixin, TestCase):
         self.assertIsNotNone(account.to_str())
         self.assertEqual(account.to_str(), "pennersr")
         self.assertEqual(socialaccount.user.email, "octocat@github.com")
+        self.assertTrue(
+            EmailAddress.objects.filter(
+                primary=False,
+                verified=True,
+                email="secondary@github.com",
+                user=socialaccount.user,
+            ).exists()
+        )
+        self.assertTrue("emails" not in socialaccount.extra_data)

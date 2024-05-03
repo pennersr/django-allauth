@@ -220,7 +220,7 @@ class MyPBKDF2PasswordHasher(PBKDF2PasswordHasher):
 
 
 PASSWORD_HASHERS = [
-    "tests.settings.MyPBKDF2PasswordHasher",
+    "tests.headless_only.settings.MyPBKDF2PasswordHasher",
     "django.contrib.auth.hashers.PBKDF2PasswordHasher",
     "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
     "django.contrib.auth.hashers.Argon2PasswordHasher",

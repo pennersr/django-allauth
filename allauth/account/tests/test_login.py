@@ -334,6 +334,26 @@ class LoginTests(TestCase):
         resp = self.client.get(reverse("account_login"))
         self.assertEqual(resp.status_code, 200)
 
+    @override_settings(
+        ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS=False,
+        ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.OPTIONAL,
+    )
+    def test_login_while_authenticated(self):
+        self._create_user(username="john", password="doe")
+        self._create_user(username="jane", password="doe")
+        resp = self.client.post(
+            reverse("account_login"), {"login": "john", "password": "doe"}
+        )
+        self.assertRedirects(
+            resp, settings.LOGIN_REDIRECT_URL, fetch_redirect_response=False
+        )
+        resp = self.client.post(
+            reverse("account_login"), {"login": "jane", "password": "doe"}
+        )
+        self.assertRedirects(
+            resp, settings.LOGIN_REDIRECT_URL, fetch_redirect_response=False
+        )
+
 
 def test_login_password_forgotten_link_not_present(client, db):
     with patch("allauth.account.forms.reverse") as reverse_mock:

@@ -26,8 +26,8 @@ Welcome to django-allauth!
    :target: http://standardjs.com
 .. |editor| image:: https://img.shields.io/badge/editor-emacs-purple
    :target: https://www.gnu.org/software/emacs/
-.. |i18n| image:: https://img.shields.io/weblate/progress/django-allauth
-   :target: https://hosted.weblate.org/engage/django-allauth/
+.. |i18n| image:: https://img.shields.io/weblate/progress/allauth
+   :target: https://hosted.weblate.org/projects/allauth/django-allauth/
 .. |pypidl| image:: https://img.shields.io/pypi/dm/django-allauth
    :target: https://pypistats.org/packages/django-allauth
    :alt: PyPI - Downloads
@@ -49,19 +49,19 @@ Home page
   https://allauth.org/
 
 Source code
-  http://github.com/pennersr/django-allauth
-
-Mailing list
-  http://groups.google.com/group/django-allauth
+  https://github.com/pennersr/django-allauth
 
 Documentation
   https://docs.allauth.org/en/latest/
 
 Stack Overflow
-  http://stackoverflow.com/questions/tagged/django-allauth
+  https://stackoverflow.com/questions/tagged/django-allauth
 
 Demo
-  https://django.demo.allauth.org
+  https://django.demo.allauth.org and https://react.demo.allauth.org
+
+Translations
+  https://hosted.weblate.org/projects/allauth/django-allauth/
 
 .. end-welcome
 
@@ -159,13 +159,3 @@ Commercial support is available. If you find certain functionality missing, or
 require assistance on your project(s), please contact us: info@intenct.nl.
 
 .. end-support
-
-
-Cross-Selling
-=============
-
-If you like this, you may also like:
-
-- django-trackstats: https://github.com/pennersr/django-trackstats
-- netwell: https://github.com/pennersr/netwell
-- Shove: https://github.com/pennersr/shove

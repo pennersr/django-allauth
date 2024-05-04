@@ -108,7 +108,7 @@ or ``<form>`` directly, the templates render those elements using a special
 element `templatetag`::
 
     {% load allauth %}
-    {% element h1 %}Welcome{% endelement %}
+    {% element h1 tags="foo,bar" %}Welcome{% endelement %}
 
 Under the hood, this `templatetag` renders the ``allauth/elements/h1.html``
 template, which out of the box contains this::
@@ -119,9 +119,15 @@ If you want to change the styling of all headings across all pages, you can do
 so by overriding that ``allauth/elements/h1.html`` template, as follows::
 
     {% load allauth %}
-    <div class="myproject-h1" style="font-size: 3rem">
+    <div class="myproject-h1 aa-{{ origin|slugify }}"
+         style="font-size: {% if "foo" in attrs.tags %}3{% else %}5{% endif %}rem">
         {% slot default %}{% endslot %}
     </div>
+
+Of course, the above is a bit of a contrived example. In each of the element
+templates the ``{{ origin }}`` context variable is available, which is equal to
+the base template name where the element is used (e.g. ``account/login`` for
+elements used from within the ``account/login.html`` template).
 
 The following elements are available -- override them as you see fit for your
 project:

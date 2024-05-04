@@ -71,18 +71,89 @@ adjust the look and feel of all templates by only overriding a few core
 templates.  This approach allows you to achieve visual results fast, but is of
 course more limited compared to styling all templates yourself.
 
-The built-in templates do not render headings, buttons or forms directly. So, you will not find this::
 
-  <h1>Welcome</h1>
+Layouts
+^^^^^^^
 
-Instead, the above is rendered using::
+The existing templates use two base page layouts:
 
-  {% load allauth %}
-  {% element h1 %}Welcome{% endelement %}
+- The entrance layout: These are all pages where the user is in the process of
+  authenticating, such as the login and signup pages.
 
-The ``{% element h1 %}`` template tag results in ``allauth/elements/h1.html`` being rendered. Here, you can decide to render the `h1` heading using as you see fit::
+- The account management layout: The pages where an authenticated user can
+  manage the account, such as changing the email address or password.
 
-  {% load allauth %}
-  <div class="myproject-h1" style="font-size: 3rem">
-      {% slot default %}{% endslot %}
-  </div>
+You can alter these layouts by providing these templates in your own project:
+
+==========================================  ===========
+Template file                               Description
+==========================================  ===========
+allauth/layouts/base.html                   The overall base template.
+allauth/layouts/manage.html                 The entrance template, extending the base template.
+allauth/layouts/entrance.html               The account management template, extending the base template.
+==========================================  ===========
+
+
+Elements
+^^^^^^^^
+
+When rendering e.g. a Bootstrap button you would typically use::
+
+    <button class="btn btn-primary">Okay</button>
+
+Yet, when a different CSS framework is used other class names apply, and
+possibly even other markup. Therefore, the built-in templates do not include the
+above content directly. Instead of referring to tags such ``<button>``, ``<h1>``
+or ``<form>`` directly, the templates render those elements using a special
+element `templatetag`::
+
+    {% load allauth %}
+    {% element h1 %}Welcome{% endelement %}
+
+Under the hood, this `templatetag` renders the ``allauth/elements/h1.html``
+template, which out of the box contains this::
+
+    {% load allauth %}<h1>{% slot default %}{% endslot %}</h1>
+
+If you want to change the styling of all headings across all pages, you can do
+so by overriding that ``allauth/elements/h1.html`` template, as follows::
+
+    {% load allauth %}
+    <div class="myproject-h1" style="font-size: 3rem">
+        {% slot default %}{% endslot %}
+    </div>
+
+The following elements are available -- override them as you see fit for your
+project:
+
+==========================================  ===========
+Template file                               Description
+==========================================  ===========
+allauth/elements/alert.html                 Display alert messages.
+allauth/elements/badge.html                 Badges for labeling purposes.
+allauth/elements/button.html                A button (``<button>``).
+allauth/elements/field.html                 A single form field.
+allauth/elements/fields.html                The form fields, uses ``{{form.as_p}}`` by default, hence, not rendering the ``field.html``.
+allauth/elements/form.html                  The ``<form>`` container tag.
+allauth/elements/h1.html                    Level 1 heading (``<h1>``).
+allauth/elements/h2.html                    Level 2 heading (``<h2>``).
+allauth/elements/hr.html                    Horizontal rule (``<hr>``).
+allauth/elements/img.html                   An image  tag (``<img>``).
+allauth/elements/panel.html                 A panel (aka card), consisting of a title, body and actions.
+allauth/elements/p.html                     Paragraphs (``<p>``).
+allauth/elements/provider.html              A link to a third-party provider.
+allauth/elements/provider_list.html         The container element for the list of third-party providers.
+allauth/elements/table.html                 Table ``<table>`` container.
+==========================================  ===========
+
+
+Example
+^^^^^^^
+
+The source repository contains a Bootstrap styled example project, which
+provides a good example of how all of the above can be put together to provide
+styling without altering any of the content templates.  Please take a look at
+the `templates of the example project
+<https://github.com/pennersr/django-allauth/tree/main/examples/regular-django/example/templates>`__.
+You can see those templates live in the `running demo project
+<https://django.demo.allauth.org>`__.

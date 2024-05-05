@@ -21,7 +21,7 @@ def settings_check(app_configs, **kwargs):
         if app_settings.EMAIL_VERIFICATION != app_settings.EmailVerificationMethod.NONE:
             ret.append(
                 Critical(
-                    msg="SOCIALACCOUNT_ONLY requires ACCOUNT_EMAIL_VERIFICATION_METHOD = 'none'"
+                    msg="SOCIALACCOUNT_ONLY requires ACCOUNT_EMAIL_VERIFICATION = 'none'"
                 )
             )
     return ret

@@ -144,18 +144,22 @@ class LoginTests(TestCase):
                 self.assertFormError(
                     resp.context["form"],
                     None,
-                    "Too many failed login attempts. Try again later."
-                    if is_locked
-                    else "The username and/or password you specified are not correct.",
+                    (
+                        "Too many failed login attempts. Try again later."
+                        if is_locked
+                        else "The username and/or password you specified are not correct."
+                    ),
                 )
             else:
                 self.assertFormError(
                     resp,
                     "form",
                     None,
-                    "Too many failed login attempts. Try again later."
-                    if is_locked
-                    else "The username and/or password you specified are not correct.",
+                    (
+                        "Too many failed login attempts. Try again later."
+                        if is_locked
+                        else "The username and/or password you specified are not correct."
+                    ),
                 )
 
     @override_settings(
@@ -356,13 +360,9 @@ def test_login_while_authenticated(settings, client, user_factory):
     user_factory(username="jane", email="jane@example.org", password="doe")
     redirect_url = settings.LOGIN_REDIRECT_URL
 
-    resp = client.post(
-        reverse("account_login"), {"login": "john", "password": "doe"}
-    )
+    resp = client.post(reverse("account_login"), {"login": "john", "password": "doe"})
     assert resp.status_code == 302
     assert resp["location"] == redirect_url
-    resp = client.post(
-        reverse("account_login"), {"login": "jane", "password": "doe"}
-    )
+    resp = client.post(reverse("account_login"), {"login": "jane", "password": "doe"})
     assert resp.status_code == 302
     assert resp["location"] == redirect_url

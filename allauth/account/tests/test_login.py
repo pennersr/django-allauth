@@ -334,26 +334,6 @@ class LoginTests(TestCase):
         resp = self.client.get(reverse("account_login"))
         self.assertEqual(resp.status_code, 200)
 
-    @override_settings(
-        ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS=False,
-        ACCOUNT_EMAIL_VERIFICATION=app_settings.EmailVerificationMethod.OPTIONAL,
-    )
-    def test_login_while_authenticated(self):
-        self._create_user(username="john", password="doe")
-        self._create_user(username="jane", password="doe")
-        resp = self.client.post(
-            reverse("account_login"), {"login": "john", "password": "doe"}
-        )
-        self.assertRedirects(
-            resp, settings.LOGIN_REDIRECT_URL, fetch_redirect_response=False
-        )
-        resp = self.client.post(
-            reverse("account_login"), {"login": "jane", "password": "doe"}
-        )
-        self.assertRedirects(
-            resp, settings.LOGIN_REDIRECT_URL, fetch_redirect_response=False
-        )
-
 
 def test_login_password_forgotten_link_not_present(client, db):
     with patch("allauth.account.forms.reverse") as reverse_mock:
@@ -368,3 +348,21 @@ def test_login_password_forgotten_link_present(client, db):
         form.fields["password"].help_text
         == '<a href="/password/reset/">Forgot your password?</a>'
     )
+
+
+def test_login_while_authenticated(settings, client, user_factory):
+    settings.ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
+    user_factory(username="john", email="john@example.org", password="doe")
+    user_factory(username="jane", email="jane@example.org", password="doe")
+    redirect_url = settings.LOGIN_REDIRECT_URL
+
+    resp = client.post(
+        reverse("account_login"), {"login": "john", "password": "doe"}
+    )
+    assert resp.status_code == 302
+    assert resp["location"] == redirect_url
+    resp = client.post(
+        reverse("account_login"), {"login": "jane", "password": "doe"}
+    )
+    assert resp.status_code == 302
+    assert resp["location"] == redirect_url

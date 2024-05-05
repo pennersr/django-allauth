@@ -1,7 +1,16 @@
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+
+from allauth import app_settings as allauth_settings
+
+
+if not allauth_settings.MFA_ENABLED:
+    raise ImproperlyConfigured(
+        "allauth.mfa not installed, yet its models are imported."
+    )
 
 
 class AuthenticatorManager(models.Manager):

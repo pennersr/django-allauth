@@ -41,6 +41,10 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    "allauth.socialaccount.providers.dummy",
+    "allauth.mfa",
+    "allauth.headless",
+    "allauth.usersessions",
 ]
 
 MIDDLEWARE = [
@@ -136,4 +140,18 @@ ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_ADAPTER = "backend.accounts.allauth.AccountAdapter"
+ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = False
+ACCOUNT_LOGIN_BY_CODE_ENABLED = True
+
+HEADLESS_ONLY = True
+HEADLESS_FRONTEND_URLS = {
+    "account_confirm_email": "/account/verify-email/{key}",
+    "account_reset_password": "/account/password/reset",
+    "account_reset_password_from_key": "/account/password/reset/key/{key}",
+    "account_signup": "/account/signup",
+}
+
+try:
+    from .local_settings import *  # noqa
+except ImportError:
+    pass

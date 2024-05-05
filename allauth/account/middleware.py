@@ -1,4 +1,5 @@
 import os
+from types import SimpleNamespace
 
 from django.conf import settings
 from django.http import HttpResponseRedirect
@@ -8,6 +9,7 @@ from django.utils.decorators import sync_and_async_middleware
 from asgiref.sync import iscoroutinefunction, sync_to_async
 
 from allauth.account.adapter import get_adapter
+from allauth.account.internal import flows
 from allauth.account.reauthentication import suspend_request
 from allauth.core import context
 from allauth.core.exceptions import (
@@ -21,6 +23,7 @@ def AccountMiddleware(get_response):
     if iscoroutinefunction(get_response):
 
         async def middleware(request):
+            request.allauth = SimpleNamespace()
             with context.request_context(request):
                 response = await get_response(request)
                 if _should_check_dangling_login(request, response):
@@ -30,6 +33,7 @@ def AccountMiddleware(get_response):
     else:
 
         def middleware(request):
+            request.allauth = SimpleNamespace()
             with context.request_context(request):
                 response = get_response(request)
                 if _should_check_dangling_login(request, response):
@@ -72,8 +76,8 @@ def _should_check_dangling_login(request, response):
 
 def _check_dangling_login(request):
     if not getattr(request, "_account_login_accessed", False):
-        if "account_login" in request.session:
-            request.session.pop("account_login")
+        if flows.login.LOGIN_SESSION_KEY in request.session:
+            request.session.pop(flows.login.LOGIN_SESSION_KEY)
 
 
 async def _acheck_dangling_login(request):

@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.core import mail
 from django.test.utils import override_settings
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.http import urlencode
 
 import pytest
@@ -53,7 +53,7 @@ def test_reset_password_unknown_account_disabled(client, settings):
 
 @pytest.mark.parametrize(
     "query,expected_location",
-    [("", reverse("account_reset_password_done")), ("?next=/foo", "/foo")],
+    [("", reverse_lazy("account_reset_password_done")), ("?next=/foo", "/foo")],
 )
 def test_reset_password_next_url(client, user, query, expected_location):
     resp = client.post(
@@ -331,7 +331,7 @@ def test_password_reset_flow(client, user, mailoutbox, settings):
 
 @pytest.mark.parametrize(
     "next_url,expected_location",
-    [(None, reverse("account_reset_password_from_key_done")), ("/foo", "/foo")],
+    [(None, reverse_lazy("account_reset_password_from_key_done")), ("/foo", "/foo")],
 )
 def test_reset_password_from_key_next_url(
     user, client, password_factory, next_url, expected_location, password_reset_url

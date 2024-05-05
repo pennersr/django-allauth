@@ -21,11 +21,16 @@ from django.contrib.auth.password_validation import (
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import FieldDoesNotExist
 from django.core.mail import EmailMessage, EmailMultiAlternatives
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import (
+    HttpResponse,
+    HttpResponseRedirect,
+    HttpResponseServerError,
+)
 from django.shortcuts import resolve_url
 from django.template import TemplateDoesNotExist
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.urls.exceptions import NoReverseMatch
 from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.utils.encoding import force_str
@@ -36,6 +41,7 @@ from allauth.account import signals
 from allauth.account.app_settings import AuthenticationMethod
 from allauth.core import context, ratelimit
 from allauth.core.internal.adapter import BaseAdapter
+from allauth.core.internal.httpkit import render_url
 from allauth.utils import (
     build_absolute_uri,
     generate_unique_username,
@@ -55,6 +61,9 @@ class DefaultAccountAdapter(BaseAdapter):
 
     error_messages = {
         "account_inactive": _("This account is currently inactive."),
+        "cannot_remove_primary_email": _(
+            "You cannot remove your primary email address."
+        ),
         "duplicate_email": _(
             "This email address is already associated with this account."
         ),
@@ -65,12 +74,14 @@ class DefaultAccountAdapter(BaseAdapter):
         "enter_current_password": _("Please type your current password."),
         "incorrect_code": _("Incorrect code."),
         "incorrect_password": _("Incorrect password."),
+        "invalid_or_expired_key": _("Invalid or expired key."),
         "invalid_password_reset": _("The password reset token was invalid."),
         "max_email_addresses": _("You cannot add more than %d email addresses."),
         "too_many_login_attempts": _(
             "Too many failed login attempts. Try again later."
         ),
         "unknown_email": _("The email address is not assigned to any user account"),
+        "unverified_primary_email": _("Your primary email address must be verified."),
         "username_blacklisted": _(
             "Username can not be used. Please use other username."
         ),
@@ -230,15 +241,20 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         return resolve_url(app_settings.LOGOUT_REDIRECT_URL)
 
-    def get_email_confirmation_redirect_url(self, request):
+    def get_email_verification_redirect_url(self, email_address):
         """
-        The URL to return to after successful email confirmation.
+        The URL to return to after email verification.
         """
-        if request.user.is_authenticated:
+        get_url = getattr(self, "get_email_confirmation_redirect_url", None)
+        if get_url:
+            # Deprecated.
+            return get_url(self.request)
+
+        if self.request.user.is_authenticated:
             if app_settings.EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL:
                 return app_settings.EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL
             else:
-                return self.get_login_redirect_url(request)
+                return self.get_login_redirect_url(self.request)
         else:
             return app_settings.EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL
 
@@ -378,6 +394,8 @@ class DefaultAccountAdapter(BaseAdapter):
         Wrapper of `django.contrib.messages.add_message`, that reads
         the message text from a template.
         """
+        if getattr(getattr(request, "allauth", None), "headless", None):
+            return
         if "django.contrib.messages" in settings.INSTALLED_APPS:
             if message:
                 messages.add_message(request, level, message, extra_tags=extra_tags)
@@ -561,6 +579,15 @@ class DefaultAccountAdapter(BaseAdapter):
         Method intented to be overriden in case the password reset email
         needs to point to your frontend/SPA.
         """
+        if allauth_app_settings.HEADLESS_ONLY:
+            from allauth.headless import app_settings as headless_settings
+
+            return render_url(
+                self.request,
+                headless_settings.FRONTEND_URLS["account_reset_password_from_key"],
+                key=key,
+            )
+
         # We intentionally accept an opaque `key` on the interface here, and not
         # implementation details such as a separate `uidb36` and `key. Ideally,
         # this should have done on `urls` level as well.
@@ -577,6 +604,15 @@ class DefaultAccountAdapter(BaseAdapter):
         confirmations are sent outside of the request context `request`
         can be `None` here.
         """
+        if allauth_app_settings.HEADLESS_ONLY:
+            from allauth.headless import app_settings as headless_settings
+
+            return render_url(
+                request,
+                headless_settings.FRONTEND_URLS["account_confirm_email"],
+                key=emailconfirmation.key,
+            )
+
         url = reverse("account_confirm_email", args=[emailconfirmation.key])
         ret = build_absolute_uri(request, url)
         return ret
@@ -590,9 +626,11 @@ class DefaultAccountAdapter(BaseAdapter):
         return send_email
 
     def send_account_already_exists_mail(self, email):
-        signup_url = build_absolute_uri(context.request, reverse("account_signup"))
-        password_reset_url = build_absolute_uri(
-            context.request, reverse("account_reset_password")
+        from allauth.account.internal import flows
+
+        signup_url = flows.signup.get_signup_url(context.request)
+        password_reset_url = flows.password_reset.get_reset_password_url(
+            context.request
         )
         ctx = {
             "request": context.request,
@@ -615,10 +653,22 @@ class DefaultAccountAdapter(BaseAdapter):
         self.send_mail(email_template, emailconfirmation.email_address.email, ctx)
 
     def respond_user_inactive(self, request, user):
-        return HttpResponseRedirect(reverse("account_inactive"))
+        try:
+            return HttpResponseRedirect(reverse("account_inactive"))
+        except NoReverseMatch:
+            if allauth_app_settings.HEADLESS_ONLY:
+                # The response we would be rendering here is not actually used.
+                return HttpResponseServerError()
+            raise
 
     def respond_email_verification_sent(self, request, user):
-        return HttpResponseRedirect(reverse("account_email_verification_sent"))
+        try:
+            return HttpResponseRedirect(reverse("account_email_verification_sent"))
+        except NoReverseMatch:
+            if allauth_app_settings.HEADLESS_ONLY:
+                # The response we would be rendering here is not actually used.
+                return HttpResponseServerError()
+            raise
 
     def _get_login_attempts_cache_key(self, request, **credentials):
         site = get_current_site(request)
@@ -709,22 +759,24 @@ class DefaultAccountAdapter(BaseAdapter):
         if not user.is_authenticated:
             return ret
         if user.has_usable_password():
-            ret.append(
-                {
-                    "description": _("Use your password"),
-                    "url": reverse("account_reauthenticate"),
-                }
-            )
+            entry = {
+                "id": "reauthenticate",
+                "description": _("Use your password"),
+            }
+            if not allauth_app_settings.HEADLESS_ONLY:
+                entry["url"] = reverse("account_reauthenticate")
+            ret.append(entry)
         if allauth_app_settings.MFA_ENABLED:
             from allauth.mfa.utils import is_mfa_enabled
 
             if is_mfa_enabled(user):
-                ret.append(
-                    {
-                        "description": _("Use your authenticator app"),
-                        "url": reverse("mfa_reauthenticate"),
-                    }
-                )
+                entry = {
+                    "id": "mfa_reauthenticate",
+                    "description": _("Use your authenticator app"),
+                }
+                if not allauth_app_settings.HEADLESS_ONLY:
+                    entry["url"] = reverse("mfa_reauthenticate")
+                ret.append(entry)
         return ret
 
     def send_notification_mail(self, template_prefix, user, context=None, email=None):

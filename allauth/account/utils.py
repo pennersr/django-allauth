@@ -166,10 +166,10 @@ def resume_login(request, login):
 def unstash_login(request, peek=False):
     login = None
     if peek:
-        data = request.session.get("account_login")
+        data = request.session.get(flows.login.LOGIN_SESSION_KEY)
     else:
-        data = request.session.pop("account_login", None)
-    if data is not None:
+        data = request.session.pop(flows.login.LOGIN_SESSION_KEY, None)
+    if isinstance(data, dict):
         try:
             login = Login.deserialize(data)
             request._account_login_accessed = True
@@ -179,7 +179,7 @@ def unstash_login(request, peek=False):
 
 
 def stash_login(request, login):
-    request.session["account_login"] = login.serialize()
+    request.session[flows.login.LOGIN_SESSION_KEY] = login.serialize()
     request._account_login_accessed = True
 
 
@@ -303,7 +303,7 @@ def setup_user_email(request, user, addresses):
         a.user = user
         a.save()
     EmailAddress.objects.fill_cache_for_user(user, addresses)
-    if primary and email and email.lower() != primary.email.lower():
+    if primary and (email or "").lower() != primary.email.lower():
         user_email(user, primary.email)
         user.save()
     return primary

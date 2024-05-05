@@ -1,1 +1,2 @@
 django-allauth[mfa,socialaccount]==0.60.1
+qrcode >= 7.0.0

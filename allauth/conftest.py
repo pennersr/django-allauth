@@ -8,8 +8,18 @@ from django.contrib.auth import get_user_model
 import pytest
 
 from allauth.account.models import EmailAddress
-from allauth.account.utils import user_email, user_username
+from allauth.account.utils import user_email, user_pk_to_url_str, user_username
 from allauth.core import context
+
+
+def pytest_collection_modifyitems(config, items):
+    if config.getoption("--ds") == "tests.headless_only.settings":
+        removed_items = []
+        for item in items:
+            if not item.location[0].startswith("allauth/headless"):
+                removed_items.append(item)
+        for item in removed_items:
+            items.remove(item)
 
 
 @pytest.fixture
@@ -139,3 +149,40 @@ def totp_validation_bypass():
 @pytest.fixture
 def provider_id():
     return "unittest-server"
+
+
+@pytest.fixture
+def password_reset_key_generator():
+    def f(user):
+        from allauth.account import app_settings
+
+        token_generator = app_settings.PASSWORD_RESET_TOKEN_GENERATOR()
+        uid = user_pk_to_url_str(user)
+        temp_key = token_generator.make_token(user)
+        key = f"{uid}-{temp_key}"
+        return key
+
+    return f
+
+
+@pytest.fixture
+def google_provier_settings(settings):
+    gsettings = {"APPS": [{"client_id": "client_id", "secret": "secret"}]}
+    settings.SOCIALACCOUNT_PROVIDERS = {"google": gsettings}
+    return gsettings
+
+
+@pytest.fixture
+def user_with_totp(user):
+    from allauth.mfa import totp
+
+    totp.TOTP.activate(user, totp.generate_totp_secret())
+    return user
+
+
+@pytest.fixture
+def user_with_recovery_codes(user_with_totp):
+    from allauth.mfa import recovery_codes
+
+    recovery_codes.RecoveryCodes.activate(user_with_totp)
+    return user_with_totp

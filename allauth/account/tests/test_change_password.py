@@ -1,4 +1,4 @@
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 import pytest
 
@@ -21,15 +21,15 @@ def test_set_usable_password_redirects_to_change(auth_client, user):
 @pytest.mark.parametrize(
     "logout,next_url,redirect_chain",
     [
-        (False, "", [(reverse("account_change_password"), 302)]),
+        (False, "", [(reverse_lazy("account_change_password"), 302)]),
         (False, "/foo", [("/foo", 302)]),
         (
             True,
             "",
             [
-                (reverse("account_change_password"), 302),
+                (reverse_lazy("account_change_password"), 302),
                 (
-                    f'{reverse("account_login")}?next={reverse("account_change_password")}',
+                    "/login/?next=/password/change/",
                     302,
                 ),
             ],
@@ -59,15 +59,15 @@ def test_set_password(
 @pytest.mark.parametrize(
     "logout,next_url,redirect_chain",
     [
-        (False, "", [(reverse("account_change_password"), 302)]),
+        (False, "", [(reverse_lazy("account_change_password"), 302)]),
         (False, "/foo", [("/foo", 302)]),
         (
             True,
             "",
             [
-                (reverse("account_change_password"), 302),
+                (reverse_lazy("account_change_password"), 302),
                 (
-                    f'{reverse("account_login")}?next={reverse("account_change_password")}',
+                    "/login/?next=/password/change/",
                     302,
                 ),
             ],

@@ -1,4 +1,4 @@
-import { useUser } from './UserSession'
+import { useUser } from './auth'
 
 export default function Dashboard () {
   const user = useUser()

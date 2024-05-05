@@ -66,6 +66,7 @@ sensitive_post_parameters_m = method_decorator(
 )
 
 
+@method_decorator(rate_limit(action="login"), name="dispatch")
 class LoginView(
     NextRedirectMixin,
     RedirectAuthenticatedUserMixin,
@@ -348,8 +349,8 @@ class ConfirmEmailView(NextRedirectMixin, LogoutFunctionalityMixin, TemplateView
     def get_redirect_url(self):
         url = self.get_next_url()
         if not url:
-            url = get_adapter(self.request).get_email_confirmation_redirect_url(
-                self.request
+            url = get_adapter(self.request).get_email_verification_redirect_url(
+                self.object.email_address,
             )
         return url
 

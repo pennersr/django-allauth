@@ -9,6 +9,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext, gettext_lazy as _, pgettext
 
 from allauth.account.internal import flows
+from allauth.account.stages import EmailVerificationStage
 from allauth.core import context, ratelimit
 from allauth.utils import get_username_max_length, set_form_field_order
 
@@ -380,6 +381,7 @@ class BaseSignupForm(_base_signup_form_class()):
             adapter.send_account_already_exists_mail(email)
             user = None
             resp = adapter.respond_email_verification_sent(request, None)
+            request.session[flows.login.LOGIN_SESSION_KEY] = EmailVerificationStage.key
         else:
             user = self.save(request)
             resp = None

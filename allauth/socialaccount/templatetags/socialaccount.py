@@ -78,4 +78,9 @@ def get_providers(context):
     request = context["request"]
     adapter = get_adapter()
     providers = adapter.list_providers(request)
+    providers = [
+        provider
+        for provider in providers
+        if (not provider.uses_apps or not provider.app.settings.get("hidden"))
+    ]
     return sorted(providers, key=lambda p: p.name)

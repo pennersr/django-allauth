@@ -16,7 +16,7 @@ Add the following configuration to your settings:
 
     SOCIALACCOUNT_PROVIDERS = {
         "apple": {
-            "APP": {
+            "APPS": [{
                 # Your service identifier.
                 "client_id": "your.service.id",
 
@@ -37,14 +37,24 @@ Add the following configuration to your settings:
     -----END PRIVATE KEY-----
     """
                 }
-            }
+            }]
         }
     }
+
+Apple offers two distinct client IDs: a "Bundle ID" and a "Services ID". When
+the flow is started from a mobile iOS device the bundle ID is used, whereas a
+web authorization flow uses the services ID as the client ID. If you need to
+support both client IDs within one project, add an app entry (over at ``APPS``)
+for each client ID. For the app specifying the bundle ID, add the following to
+the settings so that this app does not show up on the web::
+
+    "settings": { "hidden": True, ... }
+
 
 Note: Sign In With Apple uses a slight variation of OAuth2, which uses a POST
 instead of a GET. Unlike a GET with SameSite=Lax, the session cookie will not
 get sent along with a POST. If you encounter 'PermissionDenied' errors during
-Apple log in, check that you don't have any 3rd party middleweare that is
+Apple log in, check that you don't have any 3rd party middleware that is
 generating a new session on this cross-origin POST, as this will prevent the
 login process from being able to access the original session after the POST
 completes.

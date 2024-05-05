@@ -293,7 +293,10 @@ class DefaultSocialAccountAdapter(BaseAdapter):
 
         apps = self.list_apps(request, provider=provider, client_id=client_id)
         if len(apps) > 1:
-            raise MultipleObjectsReturned
+            visible_apps = [app for app in apps if not app.settings.get("hidden")]
+            if len(visible_apps) != 1:
+                raise MultipleObjectsReturned
+            apps = visible_apps
         elif len(apps) == 0:
             raise SocialApp.DoesNotExist()
         return apps[0]

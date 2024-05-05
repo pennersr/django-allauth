@@ -20,7 +20,7 @@ def test_overall_flow(user, user_password):
     assert sessions[0].user_agent == "Mozilla Firefox"
     assert sessions[1].user_agent == "Nyxt"
     for client in [firefox, nyxt]:
-        resp = firefox.get(reverse("usersessions_list"))
+        resp = client.get(reverse("usersessions_list"))
         assert resp.status_code == 200
     resp = firefox.post(reverse("usersessions_list"))
     assert resp.status_code == 302

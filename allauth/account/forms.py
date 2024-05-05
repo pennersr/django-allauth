@@ -325,19 +325,6 @@ class BaseSignupForm(_base_signup_form_class()):
             self, getattr(self, "field_order", None) or default_field_order
         )
 
-        if honeypot_field_name := app_settings.SIGNUP_FORM_HONEYPOT_FIELD:
-            # TODO: hide input field
-            self.fields[honeypot_field_name] = forms.CharField(
-                label=False,
-                required=False,
-                widget=forms.TextInput(
-                    attrs={
-                        "style": "position: absolute; right: -99999px;",
-                        "tabindex": "-1",
-                        "autocomplete": "nope",
-                    }
-                ),
-            )
 
     def clean_username(self):
         value = self.cleaned_data["username"]
@@ -385,17 +372,7 @@ class BaseSignupForm(_base_signup_form_class()):
         """Try and save the user. This can fail in case of a conflict on the
         email address, in that case we will send an "account already exists"
         email and return a standard "email verification sent" response.
-
-        If the honeypot was filled out then also send 'email verification sent'
-        response so that the bot thinks things worked.
         """
-        if honeypot_field_name := app_settings.SIGNUP_FORM_HONEYPOT_FIELD:
-            if self.cleaned_data[honeypot_field_name]:
-                user = None
-                adapter = get_adapter()
-                resp = adapter.respond_email_verification_sent(request, None)
-                return user, resp
-
         if self.account_already_exists:
             # Don't create a new account, only send an email informing the user
             # that (s)he already has one...
@@ -437,6 +414,39 @@ class SignupForm(BaseSignupForm):
 
         if hasattr(self, "field_order"):
             set_form_field_order(self, self.field_order)
+
+        if honeypot_field_name := app_settings.SIGNUP_FORM_HONEYPOT_FIELD:
+            self.fields[honeypot_field_name] = forms.CharField(
+                label=False,
+                required=False,
+                widget=forms.TextInput(
+                    attrs={
+                        "style": "position: absolute; right: -99999px;",
+                        "tabindex": "-1",
+                        "autocomplete": "nope",
+                    }
+                ),
+            )
+
+    def try_save(self, request):
+        """
+        override of parent class method that adds additional catching
+        of a potential bot filling out the honeypot field and returns a
+        'fake' email verification response if honeypot was filled out
+        """
+        honeypot_field_name = app_settings.SIGNUP_FORM_HONEYPOT_FIELD
+        if honeypot_field_name:
+            if self.cleaned_data[honeypot_field_name]:
+                user = None
+                adapter = get_adapter()
+                # honeypot fields work best when you do not report to the bot
+                # that anything went wrong. So we return a fake email verification
+                # sent response but without creating a user
+                resp = adapter.respond_email_verification_sent(request, None)
+                return user, resp
+
+        return super(SignupForm, self).try_save(request)
+
 
     def clean(self):
         super(SignupForm, self).clean()

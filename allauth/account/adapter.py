@@ -241,15 +241,20 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         return resolve_url(app_settings.LOGOUT_REDIRECT_URL)
 
-    def get_email_confirmation_redirect_url(self, request):
+    def get_email_verification_redirect_url(self, email_address):
         """
-        The URL to return to after successful email confirmation.
+        The URL to return to after email verification.
         """
-        if request.user.is_authenticated:
+        get_url = getattr(self, "get_email_confirmation_redirect_url", None)
+        if get_url:
+            # Deprecated.
+            return get_url(self.request)
+
+        if self.request.user.is_authenticated:
             if app_settings.EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL:
                 return app_settings.EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL
             else:
-                return self.get_login_redirect_url(request)
+                return self.get_login_redirect_url(self.request)
         else:
             return app_settings.EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL
 

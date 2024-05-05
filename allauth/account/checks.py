@@ -1,4 +1,19 @@
-from django.core.checks import Critical, register
+from django.core.checks import Critical, Warning, register
+
+
+@register()
+def adapter_check(app_configs, **kwargs):
+    from allauth.account.adapter import get_adapter
+
+    ret = []
+    adapter = get_adapter()
+    if hasattr(adapter, "get_email_confirmation_redirect_url"):
+        ret.append(
+            Warning(
+                msg="adapter.get_email_confirmation_redirect_url(request) is deprecated, use adapter.get_email_verification_redirect_url(email_address)"
+            )
+        )
+    return ret
 
 
 @register()

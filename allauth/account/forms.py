@@ -325,7 +325,6 @@ class BaseSignupForm(_base_signup_form_class()):
             self, getattr(self, "field_order", None) or default_field_order
         )
 
-
     def clean_username(self):
         value = self.cleaned_data["username"]
         value = get_adapter().clean_username(value)
@@ -446,7 +445,6 @@ class SignupForm(BaseSignupForm):
                 return user, resp
 
         return super(SignupForm, self).try_save(request)
-
 
     def clean(self):
         super(SignupForm, self).clean()

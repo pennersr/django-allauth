@@ -9,7 +9,7 @@
   accordingly. Migrations are in place.  For rationale, see the note about email
   case sensitivity in the documentation.
   
-- Added an optional honeypot field that will not create an account if filled out
+- Added an optional honeypot field to the signup form preventing an account to be created when it gets filled out.
 
 - An official API for single-page and mobile application support is now
   available, via the new ``allauth.headless`` app.

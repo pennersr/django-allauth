@@ -50,26 +50,33 @@ class ProviderTokenInput(inputs.Input):
     )
     token = inputs.Field()
 
-    def clean_provider(self):
-        provider_id = self.cleaned_data["provider"]
-        provider = get_socialaccount_adapter().get_provider(
-            context.request, provider_id
-        )
-        if not provider.supports_token_authentication:
-            raise get_adapter().validation_error("token_authentication_not_supported")
-        return provider
-
     def clean(self):
         cleaned_data = super().clean()
         token = self.data.get("token")
         adapter = get_adapter()
+        client_id = None
         if not isinstance(token, dict):
             self.add_error("token", adapter.validation_error("invalid_token"))
             token = None
-        provider = cleaned_data.get("provider")
-        if provider and token:
+        else:
             client_id = token.get("client_id")
-            if provider.app.client_id != client_id:
+            if not isinstance(client_id, str):
+                self.add_error("token", adapter.validation_error("client_id_required"))
+                client_id = None
+
+        provider_id = cleaned_data.get("provider")
+        provider = None
+        if provider_id and token and client_id:
+            provider = get_socialaccount_adapter().get_provider(
+                context.request, provider_id, client_id=client_id
+            )
+            if not provider.supports_token_authentication:
+                self.add_error(
+                    "provider",
+                    adapter.validation_error("token_authentication_not_supported"),
+                )
+
+            elif provider.app.client_id != client_id:
                 self.add_error("token", adapter.validation_error("client_id_mismatch"))
             else:
                 id_token = token.get("id_token")
@@ -81,6 +88,7 @@ class ProviderTokenInput(inputs.Input):
                 ):
                     self.add_error("token", adapter.validation_error("token_required"))
         if not self.errors:
+            cleaned_data["provider"] = provider
             try:
                 login = provider.verify_token(context.request, token)
                 login.state["process"] = cleaned_data["process"]

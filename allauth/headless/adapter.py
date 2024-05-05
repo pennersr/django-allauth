@@ -16,7 +16,7 @@ class DefaultHeadlessAdapter(BaseAdapter):
         # For the following error messages i18n is not an issue as these should not be
         # showing up in a UI.
         "account_not_found": "Unknown account.",
-        "client_id_mismatch": "Provider does not match `client_id`.",
+        "client_id_required": "`client_id` required.",
         "email_or_username": "Pass only one of email or username, not both.",
         "invalid_token": "Invalid token.",
         "token_authentication_not_supported": "Provider does not support token authentication.",

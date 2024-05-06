@@ -21,7 +21,8 @@ def expose_session_token(request):
     strategy = app_settings.TOKEN_STRATEGY
     hdr_token = strategy.get_session_token(request)
     modified = request.session.modified
-    if modified:
+    empty = request.session.is_empty()
+    if modified and not empty:
         new_token = strategy.create_session_token(request)
         if not hdr_token or hdr_token != new_token:
             return new_token

@@ -307,7 +307,7 @@ class SignupTests(TestCase):
 
     @override_settings(ACCOUNT_SIGNUP_FORM_HONEYPOT_FIELD="phone_number")
     def test_create_user_when_honeypot_not_filled_out(self):
-        resp = self.client.post(
+        self.client.post(
             reverse("account_signup"),
             {
                 "username": "johndoe",

@@ -416,7 +416,8 @@ class SignupForm(BaseSignupForm):
         if hasattr(self, "field_order"):
             set_form_field_order(self, self.field_order)
 
-        if honeypot_field_name := app_settings.SIGNUP_FORM_HONEYPOT_FIELD:
+        honeypot_field_name = app_settings.SIGNUP_FORM_HONEYPOT_FIELD
+        if honeypot_field_name:
             self.fields[honeypot_field_name] = forms.CharField(
                 label=False,
                 required=False,

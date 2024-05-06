@@ -21,4 +21,13 @@ def test_logout(auth_client, headless_reverse):
     resp = auth_client.delete(headless_reverse("headless:account:current_session"))
     assert resp.status_code == 401
     resp = auth_client.get(headless_reverse("headless:account:current_session"))
+    assert resp.status_code in [401, 410]
+
+
+def test_logout_no_token(app_client, user):
+    app_client.force_login(user)
+    resp = app_client.get(reverse("headless:app:account:current_session"))
+    assert resp.status_code == 200
+    resp = app_client.delete(reverse("headless:app:account:current_session"))
     assert resp.status_code == 401
+    assert "session_token" not in resp.json()["meta"]

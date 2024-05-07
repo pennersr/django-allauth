@@ -879,7 +879,7 @@ class ConfirmLoginCodeView(RedirectAuthenticatedUserMixin, NextRedirectMixin, Fo
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs["code"] = self.pending_login.get("code")
+        kwargs["code"] = self.pending_login.get("code", "")
         return kwargs
 
     def form_valid(self, form):

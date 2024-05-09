@@ -425,3 +425,36 @@ def test_email_lower_case(db, settings):
     )
     assert resp.status_code == 302
     assert EmailAddress.objects.filter(email="john@doe.org").count() == 1
+
+
+def test_does_not_create_user_when_honeypot_filled_out(client, db, settings):
+    settings.ACCOUNT_SIGNUP_FORM_HONEYPOT_FIELD = "phone_number"
+    resp = client.post(
+        reverse("account_signup"),
+        {
+            "username": "johndoe",
+            "email": "john@example.com",
+            "password1": "Password1@",
+            "password2": "Password1@",
+            "phone_number": "5551231234",
+        },
+    )
+
+    assert not get_user_model().objects.all().exists()
+    assert resp.status_code == 302
+
+
+def test_create_user_when_honeypot_not_filled_out(client, db, settings):
+    settings.ACCOUNT_SIGNUP_FORM_HONEYPOT_FIELD = "phone_number"
+    resp = client.post(
+        reverse("account_signup"),
+        {
+            "username": "johndoe",
+            "email": "john@example.com",
+            "password1": "Password1@",
+            "password2": "Password1@",
+            "phone_number": "",
+        },
+    )
+    assert get_user_model().objects.filter(username="johndoe").count() == 1
+    assert resp.status_code == 302

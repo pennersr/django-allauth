@@ -416,8 +416,41 @@ class SignupForm(BaseSignupForm):
         if hasattr(self, "field_order"):
             set_form_field_order(self, self.field_order)
 
+        honeypot_field_name = app_settings.SIGNUP_FORM_HONEYPOT_FIELD
+        if honeypot_field_name:
+            self.fields[honeypot_field_name] = forms.CharField(
+                required=False,
+                label="",
+                widget=forms.TextInput(
+                    attrs={
+                        "style": "position: absolute; right: -99999px;",
+                        "tabindex": "-1",
+                        "autocomplete": "nope",
+                    }
+                ),
+            )
+
+    def try_save(self, request):
+        """
+        override of parent class method that adds additional catching
+        of a potential bot filling out the honeypot field and returns a
+        'fake' email verification response if honeypot was filled out
+        """
+        honeypot_field_name = app_settings.SIGNUP_FORM_HONEYPOT_FIELD
+        if honeypot_field_name:
+            if self.cleaned_data[honeypot_field_name]:
+                user = None
+                adapter = get_adapter()
+                # honeypot fields work best when you do not report to the bot
+                # that anything went wrong. So we return a fake email verification
+                # sent response but without creating a user
+                resp = adapter.respond_email_verification_sent(request, None)
+                return user, resp
+
+        return super().try_save(request)
+
     def clean(self):
-        super(SignupForm, self).clean()
+        super().clean()
 
         # `password` cannot be of type `SetPasswordField`, as we don't
         # have a `User` yet. So, let's populate a dummy user to be used

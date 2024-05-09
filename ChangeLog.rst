@@ -12,6 +12,10 @@
 - An official API for single-page and mobile application support is now
   available, via the new ``allauth.headless`` app.
 
+- Added support for a honeypot field on the signup form. Real users do not see
+  the field and therefore leave it empty. When bots do fill out the field
+  account creation is silently skipped.
+
 
 0.62.1 (2024-04-24)
 *******************

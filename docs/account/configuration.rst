@@ -233,6 +233,18 @@ Available settings:
   date). This class should implement a ``def signup(self, request, user)``
   method, where user represents the newly signed up user.
 
+``ACCOUNT_SIGNUP_FORM_HONEYPOT_FIELD`` (default: ``None``)
+  A string value that will be used as the HTML 'name' property
+  on a honeypot input field on the sign up form. Honeypot fields are hidden
+  to normal users but might be filled out by niave spam bots. When the field
+  is filled out the app will not create a new user and attempt to fool
+  the bot with a fake successful response. We recommend setting this
+  to some believable value that your app does not actually collect
+  on signup e.g. 'phone_number' or 'address'. Honeypots are not
+  always successful for sophisticated bots so this should be
+  used as one layer in a suite of spam detection tools if your
+  site is having trouble with spam.
+
 ``ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE`` (default: ``True``)
   When signing up, let the user type in their password twice to avoid typos.
 

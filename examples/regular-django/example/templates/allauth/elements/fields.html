@@ -1,6 +1,6 @@
 {% load allauth %}
 {% for bound_field in attrs.form %}
-    {% element field unlabeled=attrs.unlabeled name=bound_field.name type=bound_field.field.widget.input_type required=bound_field.field.required value=bound_field.value id=bound_field.auto_id errors=bound_field.errors placeholder=bound_field.field.widget.attrs.placeholder autocomplete=bound_field.field.widget.attrs.autocomplete %}
+    {% element field unlabeled=attrs.unlabeled name=bound_field.name type=bound_field.field.widget.input_type required=bound_field.field.required value=bound_field.value id=bound_field.auto_id errors=bound_field.errors placeholder=bound_field.field.widget.attrs.placeholder tabindex=bound_field.field.widget.attrs.tabindex autocomplete=bound_field.field.widget.attrs.autocomplete style=bound_field.field.widget.attrs.style %}
         {% slot label %}
             {{ bound_field.label }}
         {% endslot %}

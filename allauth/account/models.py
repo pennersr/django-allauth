@@ -34,14 +34,21 @@ class EmailAddress(models.Model):
         verbose_name = _("email address")
         verbose_name_plural = _("email addresses")
         unique_together = [("user", "email")]
+        constraints = [
+            UniqueConstraint(
+                fields=["user", "primary"],
+                name="unique_primary_email",
+                condition=Q(primary=True),
+            )
+        ]
         if app_settings.UNIQUE_EMAIL:
-            constraints = [
+            constraints.append(
                 UniqueConstraint(
                     fields=["email"],
                     name="unique_verified_email",
                     condition=Q(verified=True),
                 )
-            ]
+            )
 
     def __str__(self):
         return self.email

@@ -274,7 +274,7 @@ class LoginTests(TestCase):
             user=user, email="john@example.org", primary=True, verified=True
         )
         EmailAddress.objects.create(
-            user=user, email="john@example.com", primary=True, verified=False
+            user=user, email="john@example.com", primary=False, verified=False
         )
 
         resp = self.client.post(

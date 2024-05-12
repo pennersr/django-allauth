@@ -6,7 +6,7 @@ Case Sensitivity
 
 Historically, email addresses started out as case sensitive because the local
 part (the part before the "@") could represent a case sensitive user
-name. However, over time, this proved to be a bad idea and the RFCSs that
+name. However, over time, this proved to be a bad idea and the RFCs that
 succeeded the original were adjusted to move away from treating email addresses
 as case sensitive.
 

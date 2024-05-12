@@ -2,7 +2,7 @@ import html
 import json
 import string
 import warnings
-from urllib.parse import quote, urlparse
+from urllib.parse import urlparse
 
 from django.conf import settings
 from django.contrib import messages
@@ -41,12 +41,7 @@ from allauth.account import signals
 from allauth.account.app_settings import AuthenticationMethod
 from allauth.core import context, ratelimit
 from allauth.core.internal.adapter import BaseAdapter
-from allauth.core.internal.httpkit import render_url
-from allauth.utils import (
-    build_absolute_uri,
-    generate_unique_username,
-    import_attribute,
-)
+from allauth.utils import generate_unique_username, import_attribute
 
 from . import app_settings
 
@@ -538,7 +533,7 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         from allauth.account.internal.flows import manage_email
 
-        return manage_email.confirm_email(request, email_address)
+        return manage_email.verify_email(request, email_address)
 
     def set_password(self, user, password):
         user.set_password(password)
@@ -577,25 +572,11 @@ class DefaultAccountAdapter(BaseAdapter):
     def get_reset_password_from_key_url(self, key):
         """
         Method intented to be overriden in case the password reset email
-        needs to point to your frontend/SPA.
+        needs to be adjusted.
         """
-        if allauth_app_settings.HEADLESS_ONLY:
-            from allauth.headless import app_settings as headless_settings
+        from allauth.account.internal import flows
 
-            return render_url(
-                self.request,
-                headless_settings.FRONTEND_URLS["account_reset_password_from_key"],
-                key=key,
-            )
-
-        # We intentionally accept an opaque `key` on the interface here, and not
-        # implementation details such as a separate `uidb36` and `key. Ideally,
-        # this should have done on `urls` level as well.
-        path = reverse(
-            "account_reset_password_from_key", kwargs={"uidb36": "UID", "key": "KEY"}
-        )
-        path = path.replace("UID-KEY", quote(key))
-        return build_absolute_uri(self.request, path)
+        return flows.password_reset.get_reset_password_from_key_url(self.request, key)
 
     def get_email_confirmation_url(self, request, emailconfirmation):
         """Constructs the email confirmation (activation) url.
@@ -604,18 +585,9 @@ class DefaultAccountAdapter(BaseAdapter):
         confirmations are sent outside of the request context `request`
         can be `None` here.
         """
-        if allauth_app_settings.HEADLESS_ONLY:
-            from allauth.headless import app_settings as headless_settings
+        from allauth.account.internal import flows
 
-            return render_url(
-                request,
-                headless_settings.FRONTEND_URLS["account_confirm_email"],
-                key=emailconfirmation.key,
-            )
-
-        url = reverse("account_confirm_email", args=[emailconfirmation.key])
-        ret = build_absolute_uri(request, url)
-        return ret
+        return flows.manage_email.get_email_verification_url(request, emailconfirmation)
 
     def should_send_confirmation_mail(self, request, email_address, signup):
         send_email = ratelimit.consume(

@@ -31,6 +31,24 @@
                                 <a href="{{ email_url }}">{% trans "Change Email" %}</a>
                             </li>
                         {% endif %}
+                        {% url 'account_change_password' as change_password_url %}
+                        {% if change_password_url %}
+                            <li>
+                                <a href="{{ change_password_url }}">{% trans "Change Password" %}</a>
+                            </li>
+                        {% endif %}
+                        {% url 'mfa_index' as mfa_url %}
+                        {% if mfa_url %}
+                            <li>
+                                <a href="{{ mfa_url }}">{% trans "Two-Factor Authentication" %}</a>
+                            </li>
+                        {% endif %}
+                        {% url 'usersessions_list' as usersessions_list_url %}
+                        {% if usersessions_list_url %}
+                            <li>
+                                <a href="{{ usersessions_list_url }}">{% trans "Sessions" %}</a>
+                            </li>
+                        {% endif %}
                         {% url 'account_logout' as logout_url %}
                         {% if logout_url %}
                             <li>

@@ -1,13 +1,11 @@
 from django.contrib import messages
-from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse
 
-from allauth import app_settings as allauth_settings
 from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
 from allauth.account.models import EmailAddress
 from allauth.account.reauthentication import raise_if_reauthentication_required
-from allauth.core.internal.httpkit import render_url
+from allauth.core.internal.httpkit import get_frontend_url
 from allauth.utils import build_absolute_uri
 
 
@@ -146,17 +144,8 @@ def get_email_verification_url(request, emailconfirmation):
     confirmations are sent outside of the request context `request`
     can be `None` here.
     """
-    if allauth_settings.HEADLESS_ENABLED:
-        from allauth.headless import app_settings as headless_settings
-
-        url = headless_settings.FRONTEND_URLS.get("account_confirm_email")
-        if allauth_settings.HEADLESS_ONLY and not url:
-            raise ImproperlyConfigured(
-                "settings.HEADLESS_FRONTEND_URLS['account_confirm_email']"
-            )
-        if url:
-            return render_url(request, url, key=emailconfirmation.key)
-
-    url = reverse("account_confirm_email", args=[emailconfirmation.key])
-    ret = build_absolute_uri(request, url)
-    return ret
+    url = get_frontend_url(request, "account_confirm_email", key=emailconfirmation.key)
+    if not url:
+        url = reverse("account_confirm_email", args=[emailconfirmation.key])
+        url = build_absolute_uri(request, url)
+    return url

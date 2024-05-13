@@ -64,7 +64,7 @@ def authentication_context(request):
         request.allauth.headless._pre_user.pk
         yield
     finally:
-        if request.session.modified:
+        if request.session.modified and not request.session.is_empty():
             request.session.save()
         request.user = old_user
         request.session = old_session

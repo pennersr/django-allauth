@@ -274,7 +274,7 @@ class DefaultAccountAdapter(BaseAdapter):
         """
         Instantiates a new User instance.
         """
-        user = get_user_model()()
+        user = get_user_model()(pk=None)
         return user
 
     def populate_username(self, request, user):

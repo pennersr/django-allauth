@@ -16,7 +16,7 @@ class TestSocialAccountAdapter(DefaultSocialAccountAdapter):
         return f"prefix-{super().generate_state_param(state)}"
 
 
-def test_generate_state_param(settings, client, db, google_provier_settings):
+def test_generate_state_param(settings, client, db, google_provider_settings):
     settings.SOCIALACCOUNT_ADAPTER = (
         "allauth.socialaccount.tests.test_adapter.TestSocialAccountAdapter"
     )

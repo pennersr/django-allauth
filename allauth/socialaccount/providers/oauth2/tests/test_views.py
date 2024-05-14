@@ -16,7 +16,7 @@ def test_samesite_strict(
     client,
     samesite_strict,
     settings,
-    google_provier_settings,
+    google_provider_settings,
     did_already_redirect,
     expect_redirect,
     db,

@@ -1,6 +1,7 @@
 from django.urls import reverse
 
 from allauth.account.adapter import get_adapter
+from allauth.core.internal.httpkit import get_frontend_url
 from allauth.utils import build_absolute_uri
 
 
@@ -14,4 +15,7 @@ def send_unknown_account_mail(request, email):
 
 
 def get_signup_url(request):
-    return build_absolute_uri(request, reverse("account_signup"))
+    url = get_frontend_url(request, "account_signup")
+    if not url:
+        url = build_absolute_uri(request, reverse("account_signup"))
+    return url

@@ -8,9 +8,9 @@
     {% element h1 %}
         {% translate "Mail me a sign-in code" %}
     {% endelement %}
-    <p>
+    {% element p %}
         {% blocktranslate %}You will receive an email containing a special code for a password-free sign-in.{% endblocktranslate %}
-    </p>
+    {% endelement %}
     {% url 'account_request_login_code' as login_url %}
     {% element form form=form method="post" action=login_url tags="entrance,login" %}
         {% slot body %}

@@ -13,7 +13,9 @@
         {% setvar end_link %}
         </a>
     {% endsetvar %}
-    <p>{% blocktranslate %}Already have an account? Then please {{ link }}sign in{{ end_link }}.{% endblocktranslate %}</p>
+    {% element p %}
+        {% blocktranslate %}Already have an account? Then please {{ link }}sign in{{ end_link }}.{% endblocktranslate %}
+    {% endelement %}
     {% if not SOCIALACCOUNT_ONLY %}
         {% url 'account_signup' as action_url %}
         {% element form form=form method="post" action=action_url tags="entrance,signup" %}

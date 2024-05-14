@@ -4,9 +4,8 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core import signing
 from django.db import models
-from django.db.models import Index, Q
+from django.db.models import Q
 from django.db.models.constraints import UniqueConstraint
-from django.db.models.functions import Upper
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -22,6 +21,7 @@ class EmailAddress(models.Model):
         on_delete=models.CASCADE,
     )
     email = models.EmailField(
+        db_index=True,
         max_length=app_settings.EMAIL_MAX_LENGTH,
         verbose_name=_("email address"),
     )
@@ -34,15 +34,21 @@ class EmailAddress(models.Model):
         verbose_name = _("email address")
         verbose_name_plural = _("email addresses")
         unique_together = [("user", "email")]
+        constraints = [
+            UniqueConstraint(
+                fields=["user", "primary"],
+                name="unique_primary_email",
+                condition=Q(primary=True),
+            )
+        ]
         if app_settings.UNIQUE_EMAIL:
-            constraints = [
+            constraints.append(
                 UniqueConstraint(
                     fields=["email"],
                     name="unique_verified_email",
                     condition=Q(verified=True),
                 )
-            ]
-        indexes = [Index(Upper("email"), name="account_emailaddress_upper")]
+            )
 
     def __str__(self):
         return self.email
@@ -58,7 +64,7 @@ class EmailAddress(models.Model):
         if app_settings.UNIQUE_EMAIL:
             conflict = (
                 EmailAddress.objects.exclude(pk=self.pk)
-                .filter(verified=True, email__iexact=self.email)
+                .filter(verified=True, email=self.email)
                 .exists()
             )
         return not conflict

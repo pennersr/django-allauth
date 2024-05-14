@@ -1,9 +1,12 @@
 from django.contrib import messages
+from django.urls import reverse
 
 from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
 from allauth.account.models import EmailAddress
 from allauth.account.reauthentication import raise_if_reauthentication_required
+from allauth.core.internal.httpkit import get_frontend_url
+from allauth.utils import build_absolute_uri
 
 
 def can_delete_email(email_address):
@@ -109,7 +112,7 @@ def mark_as_primary(request, email_address):
     return success
 
 
-def confirm_email(request, email_address):
+def verify_email(request, email_address):
     """
     Marks the email address as confirmed on the db
     """
@@ -132,3 +135,17 @@ def confirm_email(request, email_address):
             instance.remove()
         emit_email_changed(request, from_email_address, email_address)
     return True
+
+
+def get_email_verification_url(request, emailconfirmation):
+    """Constructs the email confirmation (activation) url.
+
+    Note that if you have architected your system such that email
+    confirmations are sent outside of the request context `request`
+    can be `None` here.
+    """
+    url = get_frontend_url(request, "account_confirm_email", key=emailconfirmation.key)
+    if not url:
+        url = reverse("account_confirm_email", args=[emailconfirmation.key])
+        url = build_absolute_uri(request, url)
+    return url

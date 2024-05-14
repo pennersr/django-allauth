@@ -5,7 +5,7 @@ from allauth.utils import import_callable
 
 
 class LoginStage:
-    key = None
+    key: str  # Set in subclasses
 
     def __init__(self, controller, request, login):
         if not self.key:
@@ -56,6 +56,16 @@ class LoginStageController:
     def set_handled(self, stage_key):
         stage_state = self.state.setdefault(stage_key, {})
         stage_state["handled"] = True
+
+    def get_pending_stage(self):
+        ret = None
+        stages = self.get_stages()
+        for stage in stages:
+            if self.is_handled(stage.key):
+                continue
+            ret = stage
+            break
+        return ret
 
     def get_stages(self):
         stages = []

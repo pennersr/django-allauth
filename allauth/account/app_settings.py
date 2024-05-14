@@ -239,6 +239,13 @@ class AppSettings(object):
         return self._setting("SIGNUP_FORM_CLASS", None)
 
     @property
+    def SIGNUP_FORM_HONEYPOT_FIELD(self):
+        """
+        Honeypot field name. Empty string or ``None`` will disable honeypot behavior.
+        """
+        return self._setting("SIGNUP_FORM_HONEYPOT_FIELD", None)
+
+    @property
     def USERNAME_REQUIRED(self):
         """
         The user is required to enter a username when signing up

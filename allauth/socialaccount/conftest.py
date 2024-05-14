@@ -47,10 +47,3 @@ def sociallogin_setup_state():
         return state_id
 
     return setup
-
-
-@pytest.fixture
-def google_provier_settings(settings):
-    settings.SOCIALACCOUNT_PROVIDERS = {
-        "google": {"APPS": [{"client_id": "client_id", "secret": "secret"}]}
-    }

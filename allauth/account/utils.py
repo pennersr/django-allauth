@@ -166,10 +166,10 @@ def resume_login(request, login):
 def unstash_login(request, peek=False):
     login = None
     if peek:
-        data = request.session.get("account_login")
+        data = request.session.get(flows.login.LOGIN_SESSION_KEY)
     else:
-        data = request.session.pop("account_login", None)
-    if data is not None:
+        data = request.session.pop(flows.login.LOGIN_SESSION_KEY, None)
+    if isinstance(data, dict):
         try:
             login = Login.deserialize(data)
             request._account_login_accessed = True
@@ -179,7 +179,7 @@ def unstash_login(request, peek=False):
 
 
 def stash_login(request, login):
-    request.session["account_login"] = login.serialize()
+    request.session[flows.login.LOGIN_SESSION_KEY] = login.serialize()
     request._account_login_accessed = True
 
 
@@ -303,7 +303,7 @@ def setup_user_email(request, user, addresses):
         a.user = user
         a.save()
     EmailAddress.objects.fill_cache_for_user(user, addresses)
-    if primary and email and email.lower() != primary.email.lower():
+    if primary and (email or "").lower() != primary.email.lower():
         user_email(user, primary.email)
         user.save()
     return primary
@@ -385,10 +385,7 @@ def sync_user_email_addresses(user):
     from .models import EmailAddress
 
     email = user_email(user)
-    if (
-        email
-        and not EmailAddress.objects.filter(user=user, email__iexact=email).exists()
-    ):
+    if email and not EmailAddress.objects.filter(user=user, email=email).exists():
         # get_or_create() to gracefully handle races
         EmailAddress.objects.get_or_create(
             user=user, email=email, defaults={"primary": False, "verified": False}
@@ -431,7 +428,8 @@ def filter_users_by_email(email, is_active=None, prefer_verified=False):
     from .models import EmailAddress
 
     User = get_user_model()
-    mails = EmailAddress.objects.filter(email__iexact=email).select_related("user")
+    email = email.lower()
+    mails = EmailAddress.objects.filter(email=email).select_related("user")
     mails = list(mails)
     is_verified = False
     if prefer_verified:
@@ -444,7 +442,7 @@ def filter_users_by_email(email, is_active=None, prefer_verified=False):
         if _unicode_ci_compare(e.email, email):
             users.append(e.user)
     if app_settings.USER_MODEL_EMAIL_FIELD and not is_verified:
-        q_dict = {app_settings.USER_MODEL_EMAIL_FIELD + "__iexact": email}
+        q_dict = {app_settings.USER_MODEL_EMAIL_FIELD: email}
         user_qs = User.objects.filter(**q_dict)
         for user in user_qs.iterator():
             user_email = getattr(user, app_settings.USER_MODEL_EMAIL_FIELD)

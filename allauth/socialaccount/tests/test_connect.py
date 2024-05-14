@@ -10,18 +10,23 @@ from allauth.socialaccount.models import SocialAccount
 def test_disconnect(auth_client, user, settings, mailoutbox, reauthentication_required):
     settings.ACCOUNT_EMAIL_NOTIFICATIONS = True
     settings.ACCOUNT_REAUTHENTICATION_REQUIRED = reauthentication_required
-    account = SocialAccount.objects.create(
+    account_to_del = SocialAccount.objects.create(
         uid="123", provider="other-server", user=user
+    )
+    account_to_keep = SocialAccount.objects.create(
+        uid="456", provider="other-server", user=user
     )
     resp = auth_client.get(reverse("socialaccount_connections"))
     assertTemplateUsed(resp, "socialaccount/connections.html")
     resp = auth_client.post(
-        reverse("socialaccount_connections"), {"account": account.pk}
+        reverse("socialaccount_connections"), {"account": account_to_del.pk}
     )
     if reauthentication_required:
-        assert SocialAccount.objects.filter(pk=account.pk).exists()
+        assert SocialAccount.objects.filter(pk=account_to_del.pk).exists()
+        assert SocialAccount.objects.filter(pk=account_to_keep.pk).exists()
     else:
-        assert not SocialAccount.objects.filter(pk=account.pk).exists()
+        assert not SocialAccount.objects.filter(pk=account_to_del.pk).exists()
+        assert SocialAccount.objects.filter(pk=account_to_keep.pk).exists()
         assert len(mailoutbox) == 1
         assert mailoutbox[0].subject == "[example.com] Third-Party Account Disconnected"
 

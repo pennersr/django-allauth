@@ -37,7 +37,7 @@ class SlackProvider(OAuth2Provider):
         return {"name": user.get("name"), "email": user.get("email", None)}
 
     def get_default_scope(self):
-        return ["identify"]
+        return ["openid", "profile", "email"]
 
 
 provider_classes = [SlackProvider]

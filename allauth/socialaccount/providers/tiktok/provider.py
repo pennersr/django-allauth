@@ -5,7 +5,6 @@ from allauth.socialaccount.providers.tiktok.views import TikTokOAuth2Adapter
 
 
 class TikTokAccount(ProviderAccount):
-
     def get_username(self):
         return self.account.extra_data.get("username")
 

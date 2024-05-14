@@ -21,8 +21,8 @@ def validate_disconnect(request, account):
     """
     accounts = SocialAccount.objects.filter(user_id=account.user_id)
     is_last = not accounts.exclude(pk=account.pk).exists()
+    adapter = get_adapter()
     if is_last:
-        adapter = get_adapter()
         if allauth_settings.SOCIALACCOUNT_ONLY:
             raise adapter.validation_error("disconnect_last")
         # No usable password would render the local account unusable

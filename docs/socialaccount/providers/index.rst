@@ -86,6 +86,7 @@ Provider Specifics
    kakao
    keycloak
    lemonldap
+   lichess
    line
    linkedin
    mailchimp
@@ -122,6 +123,7 @@ Provider Specifics
    strava
    stripe
    telegram
+   tiktok
    trainingpeaks
    trello
    twitch

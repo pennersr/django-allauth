@@ -12,6 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        project: ['regular', 'headless_only']
         python-version: ['3.7', '3.8', '3.9', '3.10', '3.11', '3.12']
         django-version: ['main', '3.2', '4.0', '4.1', '4.2', '5.0']
         exclude:
@@ -67,8 +68,9 @@ jobs:
       env:
         PYTHON_VER: ${{ matrix.python-version }}
         DJANGO: ${{ matrix.django-version }}
+        PRJ: ${{ matrix.project }}
     - name: Coverage (Coveralls)
-      if: ${{ success() && matrix.django-version == '5.0' && matrix.python-version == '3.12' }}
+      if: ${{ success() && matrix.django-version == '5.0' && matrix.python-version == '3.12' && matrix.project == 'regular' }}
       run: coveralls --service=github
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

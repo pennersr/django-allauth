@@ -15,9 +15,9 @@
             {% setvar end_link %}
             </a>
         {% endsetvar %}
-        <p>
+        {% element p %}
             {% blocktranslate %}If you have not created an account yet, then please {{ link }}sign up{{ end_link }} first.{% endblocktranslate %}
-        </p>
+        {% endelement %}
         {% url 'account_login' as login_url %}
         {% element form form=form method="post" action=login_url tags="entrance,login" %}
             {% slot body %}

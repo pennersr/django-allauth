@@ -60,6 +60,7 @@ class ACSView(SAMLViewMixin, View):
             errors = ["invalid_response"]
             error_reason = "Invalid response"
         except OneLogin_Saml2_Error as e:
+            errors = ["error"]
             error_reason = str(e)
         if not errors:
             errors = auth.get_errors()

@@ -1,7 +1,7 @@
 from unittest.mock import Mock, patch
 from urllib.parse import parse_qs, urlparse
 
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.http import urlencode
 
 import pytest
@@ -19,7 +19,7 @@ from allauth.socialaccount.providers.saml.utils import build_saml_config
     [
         (False, None, None, "/accounts/profile/"),
         (False, None, "/foo", "/foo"),
-        (True, {"process": "connect"}, None, reverse("socialaccount_connections")),
+        (True, {"process": "connect"}, None, reverse_lazy("socialaccount_connections")),
         (True, {"process": "connect", "next_url": "/conn"}, None, "/conn"),
     ],
 )

@@ -31,11 +31,12 @@ class GitHubOAuth2Adapter(OAuth2Adapter):
         resp.raise_for_status()
         extra_data = resp.json()
         if app_settings.QUERY_EMAIL and not extra_data.get("email"):
-            extra_data["email"] = self.get_email(headers)
+            emails = self.get_emails(headers)
+            if emails:
+                extra_data["emails"] = emails
         return self.get_provider().sociallogin_from_response(request, extra_data)
 
-    def get_email(self, headers):
-        email = None
+    def get_emails(self, headers):
         resp = (
             get_adapter().get_requests_session().get(self.emails_url, headers=headers)
         )
@@ -43,17 +44,7 @@ class GitHubOAuth2Adapter(OAuth2Adapter):
         if resp.status_code == 404:
             return None
         resp.raise_for_status()
-        emails = resp.json()
-        if resp.status_code == 200 and emails:
-            email = emails[0]
-            primary_emails = [
-                e for e in emails if not isinstance(e, dict) or e.get("primary")
-            ]
-            if primary_emails:
-                email = primary_emails[0]
-            if isinstance(email, dict):
-                email = email.get("email", "")
-        return email
+        return resp.json()
 
 
 oauth2_login = OAuth2LoginView.adapter_view(GitHubOAuth2Adapter)

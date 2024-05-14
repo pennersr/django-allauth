@@ -15,9 +15,13 @@
             {% endslot %}
             {% slot body %}
                 {% if authenticators.totp %}
-                    <p>{% translate "Authentication using an authenticator app is active." %}</p>
+                    {% element p %}
+                        {% translate "Authentication using an authenticator app is active." %}
+                    {% endelement %}
                 {% else %}
-                    <p>{% translate "An authenticator app is not active." %}</p>
+                    {% element p %}
+                        {% translate "An authenticator app is not active." %}
+                    {% endelement %}
                 {% endif %}
             {% endslot %}
             {% slot actions %}
@@ -43,11 +47,13 @@
                 {% endslot %}
                 {% slot body %}
                     {% if authenticators.recovery_codes %}
-                        <p>
+                        {% element p %}
                             {% blocktranslate count unused_count=unused_count %}There is {{ unused_count }} out of {{ total_count }} recovery codes available.{% plural %}There are {{ unused_count }} out of {{ total_count }} recovery codes available.{% endblocktranslate %}
-                        </p>
+                        {% endelement %}
                     {% else %}
-                        <p>{% translate "No recovery codes set up." %}</p>
+                        {% element p %}
+                            {% translate "No recovery codes set up." %}
+                        {% endelement %}
                     {% endif %}
                 {% endslot %}
                 {% if is_mfa_enabled %}

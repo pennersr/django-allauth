@@ -200,7 +200,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
                 ret.append(provider)
         return ret
 
-    def get_provider(self, request, provider):
+    def get_provider(self, request, provider, client_id=None):
         """Looks up a `provider`, supporting subproviders by looking up by
         `provider_id`.
         """
@@ -208,7 +208,7 @@ class DefaultSocialAccountAdapter(BaseAdapter):
 
         provider_class = registry.get_class(provider)
         if provider_class is None or provider_class.uses_apps:
-            app = self.get_app(request, provider=provider)
+            app = self.get_app(request, provider=provider, client_id=client_id)
             if not provider_class:
                 # In this case, the `provider` argument passed was a
                 # `provider_id`.
@@ -293,7 +293,10 @@ class DefaultSocialAccountAdapter(BaseAdapter):
 
         apps = self.list_apps(request, provider=provider, client_id=client_id)
         if len(apps) > 1:
-            raise MultipleObjectsReturned
+            visible_apps = [app for app in apps if not app.settings.get("hidden")]
+            if len(visible_apps) != 1:
+                raise MultipleObjectsReturned
+            apps = visible_apps
         elif len(apps) == 0:
             raise SocialApp.DoesNotExist()
         return apps[0]

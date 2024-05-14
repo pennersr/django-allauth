@@ -9,9 +9,9 @@
         {% trans "Account Connections" %}
     {% endelement %}
     {% if form.accounts %}
-        <p>
+        {% element p %}
             {% blocktrans %}You can sign in to your account using any of the following third-party accounts:{% endblocktrans %}
-        </p>
+        {% endelement %}
         {% url 'socialaccount_connections' as action_url %}
         {% element form form=form method="post" action=action_url %}
             {% slot body %}
@@ -42,7 +42,9 @@
             {% endslot %}
         {% endelement %}
     {% else %}
-        <p>{% trans 'You currently have no third-party accounts connected to this account.' %}</p>
+        {% element p %}
+            {% trans 'You currently have no third-party accounts connected to this account.' %}
+        {% endelement %}
     {% endif %}
     {% element h2 %}
         {% trans 'Add a Third-Party Account' %}

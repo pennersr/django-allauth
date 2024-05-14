@@ -5,7 +5,7 @@ from allauth.socialaccount.providers.base.utils import respond_to_login_on_get
 
 
 class BaseLoginView(View):
-    provider_id = None
+    provider_id: str  # Set in subclasses
 
     def dispatch(self, request, *args, **kwargs):
         provider = self.get_provider()

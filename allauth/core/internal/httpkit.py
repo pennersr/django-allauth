@@ -73,3 +73,17 @@ def render_url(request, url_template, **kwargs):
     if not p.netloc:
         url = request.build_absolute_uri(url)
     return url
+
+
+def get_frontend_url(request, urlname, **kwargs):
+    from allauth import app_settings as allauth_settings
+
+    if allauth_settings.HEADLESS_ENABLED:
+        from allauth.headless import app_settings as headless_settings
+
+        url = headless_settings.FRONTEND_URLS.get(urlname)
+        if allauth_settings.HEADLESS_ONLY and not url:
+            raise ImproperlyConfigured(f"settings.HEADLESS_FRONTEND_URLS['{urlname}']")
+        if url:
+            return render_url(request, url, **kwargs)
+    return None

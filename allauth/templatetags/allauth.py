@@ -78,6 +78,8 @@ class ElementNode(template.Node):
         self.nodelist = nodelist
 
     def render(self, context):
+        from allauth.account.app_settings import TEMPLATE_EXTENSION
+
         slots = {}
         extends_context = context.render_context.get(ExtendsNode.context_key)
         layout = None
@@ -114,7 +116,9 @@ class ElementNode(template.Node):
                 {
                     "attrs": attrs,
                     "slots": slots,
-                    "origin": self.origin.template_name.replace(".html", ""),
+                    "origin": self.origin.template_name.replace(
+                        f".{TEMPLATE_EXTENSION}", ""
+                    ),
                 },
             )
 

@@ -1,6 +1,4 @@
 PYTHON = python
-ISORT = isort $$(find $(PWD)/allauth -not -path '*/migrations/*' -type f -name '*.py' -not -name '__init__.py' -print)
-
 
 .PHONY: usage
 usage:
@@ -24,7 +22,7 @@ mo:
 
 .PHONY: isort
 isort:
-	$(ISORT)
+	isort .
 
 .PHONY: black
 black:
@@ -35,8 +33,12 @@ test:
 	pytest allauth/
 
 .PHONY: qa
-qa:
+qa: validate-api-spec
 	flake8 allauth
-	isort --check-only --skip-glob '*/migrations/*' --diff allauth
-	black --check allauth setup.py
+	isort --check-only --diff .
+	black --check .
 	djlint --check allauth examples
+
+.PHONY:
+validate-api-spec:
+	swagger-cli validate docs/headless/openapi-specification/openapi.yaml

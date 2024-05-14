@@ -144,18 +144,22 @@ class LoginTests(TestCase):
                 self.assertFormError(
                     resp.context["form"],
                     None,
-                    "Too many failed login attempts. Try again later."
-                    if is_locked
-                    else "The username and/or password you specified are not correct.",
+                    (
+                        "Too many failed login attempts. Try again later."
+                        if is_locked
+                        else "The username and/or password you specified are not correct."
+                    ),
                 )
             else:
                 self.assertFormError(
                     resp,
                     "form",
                     None,
-                    "Too many failed login attempts. Try again later."
-                    if is_locked
-                    else "The username and/or password you specified are not correct.",
+                    (
+                        "Too many failed login attempts. Try again later."
+                        if is_locked
+                        else "The username and/or password you specified are not correct."
+                    ),
                 )
 
     @override_settings(
@@ -270,7 +274,7 @@ class LoginTests(TestCase):
             user=user, email="john@example.org", primary=True, verified=True
         )
         EmailAddress.objects.create(
-            user=user, email="john@example.com", primary=True, verified=False
+            user=user, email="john@example.com", primary=False, verified=False
         )
 
         resp = self.client.post(
@@ -348,3 +352,17 @@ def test_login_password_forgotten_link_present(client, db):
         form.fields["password"].help_text
         == '<a href="/password/reset/">Forgot your password?</a>'
     )
+
+
+def test_login_while_authenticated(settings, client, user_factory):
+    settings.ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
+    user_factory(username="john", email="john@example.org", password="doe")
+    user_factory(username="jane", email="jane@example.org", password="doe")
+    redirect_url = settings.LOGIN_REDIRECT_URL
+
+    resp = client.post(reverse("account_login"), {"login": "john", "password": "doe"})
+    assert resp.status_code == 302
+    assert resp["location"] == redirect_url
+    resp = client.post(reverse("account_login"), {"login": "jane", "password": "doe"})
+    assert resp.status_code == 302
+    assert resp["location"] == redirect_url

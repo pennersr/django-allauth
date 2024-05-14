@@ -1,7 +1,26 @@
 0.63.0 (unreleased)
 *******************
 
-- Added a new provider, TikTok.
+- New providers: TikTok, Lichess.
+
+- Starting since version 0.62.0, new email addresses are always stored as lower
+  case. In this version, we take the final step and also convert existing data
+  to lower case, alter the database indices and perform lookups
+  accordingly. Migrations are in place.  For rationale, see the note about email
+  case sensitivity in the documentation.
+
+- An official API for single-page and mobile application support is now
+  available, via the new ``allauth.headless`` app.
+
+- Added support for a honeypot field on the signup form. Real users do not see
+  the field and therefore leave it empty. When bots do fill out the field
+  account creation is silently skipped.
+
+
+0.62.1 (2024-04-24)
+*******************
+
+- The ``tests`` package was accidentally packaged, fixed.
 
 
 0.62.0 (2024-04-22)
@@ -44,6 +63,18 @@ Note worthy changes
   ``SESSION_COOKIE_SAMESITE = "Strict"``, fixed.
 
 - Facebook: the default Graph API version is now v19.0.
+
+
+Backwards incompatible changes
+------------------------------
+
+- The django-allauth required dependencies are now more fine grained.  If you do
+  not use any of the social account functionality, a `pip install
+  django-allauth` will, e.g., no longer pull in dependencies for handling
+  JWT. If you are using social account functionality, install using `pip install
+  django-allauth[socialaccount]`.  That will install the dependencies covering
+  most common providers. If you are using the Steam provider, install using `pip
+  install django-allauth[socialaccount,steam]`.
 
 
 0.61.1 (2024-02-09)

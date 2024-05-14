@@ -6,6 +6,7 @@ from allauth.account.utils import user_email, user_username
 from allauth.core import context
 from allauth.core.internal.adapter import BaseAdapter
 from allauth.mfa import app_settings
+from allauth.mfa.models import Authenticator
 from allauth.utils import import_attribute
 
 
@@ -70,11 +71,22 @@ class DefaultMFAAdapter(BaseAdapter):
         text = encrypted_text
         return text
 
-    def can_delete_authenticator(self, authenticator):
+    def can_delete_authenticator(self, authenticator) -> bool:
         return True
 
     def send_notification_mail(self, *args, **kwargs):
         return get_account_adapter().send_notification_mail(*args, **kwargs)
+
+    def is_mfa_enabled(self, user, types=None) -> bool:
+        """
+        Returns ``True`` if (and only if) the user has 2FA enabled.
+        """
+        if user.is_anonymous:
+            return False
+        qs = Authenticator.objects.filter(user=user)
+        if types is not None:
+            qs = qs.filter(type__in=types)
+        return qs.exists()
 
 
 def get_adapter():

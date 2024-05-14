@@ -10,10 +10,14 @@ from urllib.parse import urlsplit
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
+from django.core.exceptions import (
+    FieldDoesNotExist,
+    ImproperlyConfigured,
+    ValidationError,
+)
 from django.core.files.base import ContentFile
 from django.core.serializers.json import DjangoJSONEncoder
-from django.core.validators import ValidationError, validate_email
+from django.core.validators import validate_email
 from django.db.models import FileField
 from django.db.models.fields import (
     BinaryField,
@@ -168,7 +172,8 @@ def serialize_instance(instance):
         try:
             field = instance._meta.get_field(k)
             if isinstance(field, BinaryField):
-                v = force_str(base64.b64encode(v))
+                if v is not None:
+                    v = force_str(base64.b64encode(v))
             elif isinstance(field, FileField):
                 if v and not isinstance(v, str):
                     v = {

@@ -1,5 +1,8 @@
 import os
 import sys
+from pathlib import Path
+
+from sphinx.util.fileutil import copy_asset_file
 
 
 # -*- coding: utf-8 -*-
@@ -122,7 +125,7 @@ html_theme = "sphinx_rtd_theme"
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-# html_static_path = ['_static']
+html_static_path = ["_static"]
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.
@@ -173,11 +176,11 @@ htmlhelp_basename = "django-allauthdoc"
 
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
-    #'papersize': 'letterpaper',
+    "papersize": "letterpaper",
     # The font size ('10pt', '11pt' or '12pt').
-    #'pointsize': '10pt',
+    "pointsize": "10pt",
     # Additional stuff for the LaTeX preamble.
-    #'preamble': '',
+    "preamble": "",
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
@@ -268,3 +271,19 @@ autodoc_mock_imports = [
     "allauth.mfa.app_settings",
     "allauth.app_settings",
 ]
+
+
+def copy_custom_files(app, exc):
+    if app.builder.format == "html" and not exc:
+        dst = Path(app.builder.outdir) / "headless" / "openapi-specification"
+        os.makedirs(dst, exist_ok=True)
+        for fn in ["openapi.yaml", "index.html", "description.md"]:
+            copy_asset_file(Path("headless/openapi-specification") / fn, dst)
+
+
+def setup(app):
+    import django
+
+    app.connect("build-finished", copy_custom_files)
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "tests.regular.settings")
+    django.setup()

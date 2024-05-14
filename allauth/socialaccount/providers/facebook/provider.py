@@ -8,7 +8,8 @@ from django.middleware.csrf import get_token
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.crypto import get_random_string
-from django.utils.html import escapejs, mark_safe
+from django.utils.html import escapejs
+from django.utils.safestring import mark_safe
 
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.adapter import get_adapter

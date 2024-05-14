@@ -374,7 +374,7 @@ class OrcidTests(OAuth2TestsMixin, TestCase):
         )
 
     def get_login_response_json(self, with_refresh_token=True):
-        # FIXME: This is not an actual response. I added this in order
+        # TODO: This is not an actual response. I added this in order
         # to get the test suite going but did not verify to check the
         # exact response being returned.
         return """

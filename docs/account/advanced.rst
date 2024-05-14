@@ -95,7 +95,7 @@ following adapter methods:
 
   - ``get_logout_redirect_url(self, request)``
 
-  - ``get_email_confirmation_redirect_url(self, request)``
+  - ``get_email_verification_redirect_url(self, email_address)``
 
   - ``get_signup_redirect_url(self, request)``
 

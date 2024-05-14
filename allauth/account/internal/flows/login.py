@@ -3,6 +3,9 @@ from allauth.account.authentication import record_authentication
 from allauth.core.exceptions import ImmediateHttpResponse
 
 
+LOGIN_SESSION_KEY = "account_login"
+
+
 def _get_login_hook_kwargs(login):
     """
     TODO: Just break backwards compatibility and pass only `login` to

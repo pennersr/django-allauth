@@ -1,0 +1,2 @@
+{% load i18n %}
+{% blocktrans %}Failed to send sign-in code to {{email}}.{% endblocktrans %}

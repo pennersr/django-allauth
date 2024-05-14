@@ -3,10 +3,11 @@
 Welcome to django-allauth!
 ==========================
 
-.. raw:: html
-
-   <a href="https://allauth.org" target="_blank"><img src="https://codeberg.org/allauth/allauth.org/raw/commit/da3b56390e1b18eaec09b05cd89dfa7812212dfc/content/news/2024/04/website-redesign/logo-light.png" align="right" width="250px" alt="django-allauth logo"></a>
-
+.. image:: https://codeberg.org/allauth/allauth.org/raw/commit/da3b56390e1b18eaec09b05cd89dfa7812212dfc/content/news/2024/04/website-redesign/logo-light.png
+   :target: https://allauth.org
+   :align: right
+   :alt: django-allauth logo
+   :width: 250px
 
 
 .. |ci| image:: https://img.shields.io/github/actions/workflow/status/pennersr/django-allauth/ci.yml.svg

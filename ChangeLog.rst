@@ -1,6 +1,9 @@
 0.63.0 (2024-05-14)
 *******************
 
+Note worthy changes
+-------------------
+
 - New providers: TikTok, Lichess.
 
 - Starting since version 0.62.0, new email addresses are always stored as lower

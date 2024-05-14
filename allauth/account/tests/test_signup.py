@@ -289,6 +289,14 @@ class SignupTests(TestCase):
                 ["This password is too short. It must contain at least 9 characters."],
             )
 
+    @override_settings(ACCOUNT_READONLY_EMAIL_FIELD=True)
+    def test_email_field_readonly(self):
+        """Test that the email field in the form is readonly when an 'invited' user has been directed to sign up."""
+        request = RequestFactory().get("/signup/?email=test@example.com")
+        form = request.context["form"]
+        self.assertIn("readonly", form.fields["email"].widget.attrs)
+        self.assertEqual(form.fields["email"].widget.attrs["readonly"], "readonly")
+
 
 def test_prevent_enumeration_with_mandatory_verification(
     settings, user_factory, email_factory

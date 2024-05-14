@@ -170,6 +170,8 @@ class SignupView(
                 email_keys.append("email2")
             for email_key in email_keys:
                 form.fields[email_key].initial = email
+                if app_settings.READONLY_EMAIL_FIELD:
+                    form.fields[email_key].widget.attrs["readonly"] = "readonly"
         login_url = self.passthrough_next_url(reverse("account_login"))
         site = get_current_site(self.request)
         ret.update(

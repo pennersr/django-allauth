@@ -160,6 +160,13 @@ class AppSettings(object):
         return self._setting("SIGNUP_EMAIL_ENTER_TWICE", False)
 
     @property
+    def READONLY_EMAIL_FIELD(self):
+        """
+        Make the email field in signup form read only, so users are forced to sign up with the email that was invited.
+        """
+        return self._setting("READONLY_EMAIL_FIELD", False)
+
+    @property
     def SIGNUP_PASSWORD_ENTER_TWICE(self):
         """
         Signup password verification

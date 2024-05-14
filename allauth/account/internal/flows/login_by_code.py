@@ -51,6 +51,7 @@ def request_login_code(request, email):
             "account/messages/login_code_sent.txt",
             {"email": email},
         )
+        return True
     else:
         adapter.add_message(
             request,
@@ -58,6 +59,7 @@ def request_login_code(request, email):
             "account/messages/login_code_failed.txt",
             {"email": email},
         )
+        return False
 
 
 def get_pending_login(request, peek=False):

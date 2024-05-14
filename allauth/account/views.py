@@ -840,8 +840,12 @@ class RequestLoginCodeView(RedirectAuthenticatedUserMixin, NextRedirectMixin, Fo
         return get_form_class(app_settings.FORMS, "request_login_code", self.form_class)
 
     def form_valid(self, form):
-        flows.login_by_code.request_login_code(self.request, form.cleaned_data["email"])
-        return super().form_valid(form)
+        if flows.login_by_code.request_login_code(
+            self.request, form.cleaned_data["email"]
+        ):
+            return super().form_valid(form)
+        else:
+            return HttpResponseRedirect(reverse("account_request_login_code"))
 
     def get_success_url(self):
         if self.request.user.is_authenticated:

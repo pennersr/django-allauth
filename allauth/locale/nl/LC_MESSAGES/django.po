@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-20 14:01-0500\n"
+"POT-Creation-Date: 2024-05-14 11:32-0500\n"
 "PO-Revision-Date: 2024-04-20 22:01+0200\n"
 "Last-Translator: Raymond Penners <raymond.penners@intenct.nl>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/django-allauth/"
@@ -18,64 +18,81 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.4-dev\n"
 
-#: account/adapter.py:57
+#: account/adapter.py:58
 msgid "This account is currently inactive."
 msgstr "Dit account is niet actief"
 
-#: account/adapter.py:59
+#: account/adapter.py:60
+#, fuzzy
+#| msgid "You cannot remove your primary email address (%(email)s)."
+msgid "You cannot remove your primary email address."
+msgstr "You kunt je primaire e-mailadres (%(email)s) niet verwijderen."
+
+#: account/adapter.py:63
 msgid "This email address is already associated with this account."
 msgstr "Dit e-mailadres is al geassocieerd met dit account."
 
-#: account/adapter.py:62
+#: account/adapter.py:66
 msgid "The email address and/or password you specified are not correct."
 msgstr "Je e-mailadres en/of wachtwoord zijn incorrect."
 
-#: account/adapter.py:64
+#: account/adapter.py:68
 msgid "A user is already registered with this email address."
 msgstr "Er is al een gebruiker geregistreerd met dit e-mailadres."
 
-#: account/adapter.py:65
+#: account/adapter.py:69
 msgid "Please type your current password."
 msgstr "Geef je huidige wachtwoord op."
 
-#: account/adapter.py:66 mfa/adapter.py:29
+#: account/adapter.py:70 mfa/adapter.py:30
 msgid "Incorrect code."
 msgstr "Ongeldige code."
 
-#: account/adapter.py:67
+#: account/adapter.py:71
 msgid "Incorrect password."
 msgstr "Ongeldig wachtwoord."
 
-#: account/adapter.py:68
+#: account/adapter.py:72
+#, fuzzy
+#| msgid "Invalid token."
+msgid "Invalid or expired key."
+msgstr "Ongeldige sleutel."
+
+#: account/adapter.py:73
 msgid "The password reset token was invalid."
 msgstr "De wachtwoordherstel-sleutel is niet geldig."
 
-#: account/adapter.py:69
+#: account/adapter.py:74
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Je kunt niet meer dan %d e-mailadressen toevoegen."
 
-#: account/adapter.py:71
+#: account/adapter.py:76
 msgid "Too many failed login attempts. Try again later."
 msgstr "Te veel inlogpogingen. Probeer het later nogmaals."
 
-#: account/adapter.py:73
+#: account/adapter.py:78
 msgid "The email address is not assigned to any user account"
 msgstr "Dit e-mailadres is niet bij ons bekend"
 
-#: account/adapter.py:75
+#: account/adapter.py:79
+#: templates/account/messages/unverified_primary_email.txt:2
+msgid "Your primary email address must be verified."
+msgstr "Je primaire e-mailadres moet geverifieerd zijn."
+
+#: account/adapter.py:81
 msgid "Username can not be used. Please use other username."
 msgstr "Deze gebruikersnaam mag je niet gebruiken, kies een andere."
 
-#: account/adapter.py:78
+#: account/adapter.py:84
 msgid "The username and/or password you specified are not correct."
 msgstr "Je gebruikersnaam en/of wachtwoord zijn incorrect."
 
-#: account/adapter.py:714
+#: account/adapter.py:736
 msgid "Use your password"
 msgstr "Gebruik je wachtwoord"
 
-#: account/adapter.py:724
+#: account/adapter.py:747
 msgid "Use your authenticator app"
 msgstr "Gebruik je authenticator-app"
 
@@ -87,12 +104,12 @@ msgstr "Markeer de geselecteerde email addressen als geverifieerd"
 msgid "Accounts"
 msgstr "Accounts"
 
-#: account/forms.py:59 account/forms.py:443
+#: account/forms.py:56 account/forms.py:477
 msgid "You must type the same password each time."
 msgstr "Je moet hetzelfde wachtwoord twee keer intoetsen."
 
-#: account/forms.py:91 account/forms.py:406 account/forms.py:528
-#: account/forms.py:653
+#: account/forms.py:91 account/forms.py:407 account/forms.py:558
+#: account/forms.py:673
 msgid "Password"
 msgstr "Wachtwoord"
 
@@ -100,13 +117,13 @@ msgstr "Wachtwoord"
 msgid "Remember Me"
 msgstr "Onthouden"
 
-#: account/forms.py:102 account/forms.py:269 account/forms.py:459
-#: account/forms.py:548 account/forms.py:670
+#: account/forms.py:102 account/forms.py:269 account/forms.py:493
+#: account/forms.py:576 account/forms.py:690
 msgid "Email address"
 msgstr "E-mailadres"
 
-#: account/forms.py:106 account/forms.py:307 account/forms.py:456
-#: account/forms.py:543
+#: account/forms.py:106 account/forms.py:307 account/forms.py:490
+#: account/forms.py:571
 msgid "Email"
 msgstr "E-mail"
 
@@ -144,32 +161,32 @@ msgstr "E-mail (optioneel)"
 msgid "You must type the same email each time."
 msgstr "Je moet hetzelfde e-mailadres twee keer intoetsen."
 
-#: account/forms.py:412 account/forms.py:531
+#: account/forms.py:413 account/forms.py:559
 msgid "Password (again)"
 msgstr "Wachtwoord (bevestigen)"
 
-#: account/forms.py:505
+#: account/forms.py:539
 msgid "Current Password"
 msgstr "Huidig wachtwoord"
 
-#: account/forms.py:508 account/forms.py:606
+#: account/forms.py:541 account/forms.py:626
 msgid "New Password"
 msgstr "Nieuw wachtwoord"
 
-#: account/forms.py:511 account/forms.py:607
+#: account/forms.py:542 account/forms.py:627
 msgid "New Password (again)"
 msgstr "Nieuw wachtwoord (bevestigen)"
 
-#: account/forms.py:693 account/forms.py:695 mfa/forms.py:15 mfa/forms.py:17
+#: account/forms.py:713 account/forms.py:715 mfa/forms.py:15 mfa/forms.py:17
 #: mfa/forms.py:60
 msgid "Code"
 msgstr "Code"
 
-#: account/models.py:21
+#: account/models.py:20
 msgid "user"
 msgstr "gebruiker"
 
-#: account/models.py:26 account/models.py:34 account/models.py:140
+#: account/models.py:26 account/models.py:34 account/models.py:146
 msgid "email address"
 msgstr "e-mailadres"
 
@@ -185,27 +202,31 @@ msgstr "Primair"
 msgid "email addresses"
 msgstr "e-mailadressen"
 
-#: account/models.py:143
+#: account/models.py:149
 msgid "created"
 msgstr "aangemaakt"
 
-#: account/models.py:144
+#: account/models.py:150
 msgid "sent"
 msgstr "verstuurd"
 
-#: account/models.py:145 socialaccount/models.py:62
+#: account/models.py:151 socialaccount/models.py:69
 msgid "key"
 msgstr "sleutel"
 
-#: account/models.py:150
+#: account/models.py:156
 msgid "email confirmation"
 msgstr "e-mailadres bevestiging"
 
-#: account/models.py:151
+#: account/models.py:157
 msgid "email confirmations"
 msgstr "e-mailadres bevestigingen"
 
-#: mfa/adapter.py:21
+#: headless/apps.py:7
+msgid "Headless"
+msgstr ""
+
+#: mfa/adapter.py:22
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
@@ -213,11 +234,11 @@ msgstr ""
 "Je kunt geen e-mailadres toevoegen aan een account dat beveiligd is met twee-"
 "factor-authenticatie is."
 
-#: mfa/adapter.py:24
+#: mfa/adapter.py:25
 msgid "You cannot deactivate two-factor authentication."
 msgstr "Je kunt twee-factor-authenticatie niet deactiveren."
 
-#: mfa/adapter.py:27
+#: mfa/adapter.py:28
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
@@ -225,7 +246,7 @@ msgstr ""
 "Je kunt geen herstelcodes genereren zonder dat twee-factor-authenticatie "
 "actief is."
 
-#: mfa/adapter.py:31
+#: mfa/adapter.py:32
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
@@ -241,11 +262,11 @@ msgstr "MFA"
 msgid "Authenticator code"
 msgstr "Authenticator code"
 
-#: mfa/models.py:19
+#: mfa/models.py:28
 msgid "Recovery codes"
 msgstr "Herstelcodes"
 
-#: mfa/models.py:20
+#: mfa/models.py:29
 msgid "TOTP Authenticator"
 msgstr "TOTP Authenticator"
 
@@ -278,95 +299,95 @@ msgstr "Je kunt het laatste externe account niet verwijderen."
 msgid "Social Accounts"
 msgstr "Sociale accounts"
 
-#: socialaccount/models.py:37 socialaccount/models.py:90
+#: socialaccount/models.py:44 socialaccount/models.py:97
 msgid "provider"
 msgstr "provider"
 
-#: socialaccount/models.py:45
+#: socialaccount/models.py:52
 msgid "provider ID"
 msgstr "provider ID"
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:56
 msgid "name"
 msgstr "naam"
 
-#: socialaccount/models.py:51
+#: socialaccount/models.py:58
 msgid "client id"
 msgstr "client id"
 
-#: socialaccount/models.py:53
+#: socialaccount/models.py:60
 msgid "App ID, or consumer key"
 msgstr "App ID, of consumer key"
 
-#: socialaccount/models.py:56
+#: socialaccount/models.py:63
 msgid "secret key"
 msgstr "geheime sleutel"
 
-#: socialaccount/models.py:59
+#: socialaccount/models.py:66
 msgid "API secret, client secret, or consumer secret"
 msgstr "API secret, client secret, of consumer secret"
 
-#: socialaccount/models.py:62
+#: socialaccount/models.py:69
 msgid "Key"
 msgstr "Sleutel"
 
-#: socialaccount/models.py:74
+#: socialaccount/models.py:81
 msgid "social application"
 msgstr "social application"
 
-#: socialaccount/models.py:75
+#: socialaccount/models.py:82
 msgid "social applications"
 msgstr "social applications"
 
-#: socialaccount/models.py:110
+#: socialaccount/models.py:117
 msgid "uid"
 msgstr "uid"
 
-#: socialaccount/models.py:112
+#: socialaccount/models.py:119
 msgid "last login"
 msgstr "laatst ingelogd"
 
-#: socialaccount/models.py:113
+#: socialaccount/models.py:120
 msgid "date joined"
 msgstr "datum toegetreden"
 
-#: socialaccount/models.py:114
+#: socialaccount/models.py:121
 msgid "extra data"
 msgstr "extra data"
 
-#: socialaccount/models.py:118
+#: socialaccount/models.py:125
 msgid "social account"
 msgstr "social account"
 
-#: socialaccount/models.py:119
+#: socialaccount/models.py:126
 msgid "social accounts"
 msgstr "social accounts"
 
-#: socialaccount/models.py:153
+#: socialaccount/models.py:160
 msgid "token"
 msgstr "token"
 
-#: socialaccount/models.py:154
+#: socialaccount/models.py:161
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr "\"oauth_token\" (OAuth1) of toegangs-token (OAuth2)"
 
-#: socialaccount/models.py:158
+#: socialaccount/models.py:165
 msgid "token secret"
 msgstr "token geheim"
 
-#: socialaccount/models.py:159
+#: socialaccount/models.py:166
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr "\"oauth_token_secret\" (OAuth1) of ververs token (OAuth2)"
 
-#: socialaccount/models.py:162
+#: socialaccount/models.py:169
 msgid "expires at"
 msgstr "verloopt op"
 
-#: socialaccount/models.py:167
+#: socialaccount/models.py:174
 msgid "social application token"
 msgstr "social applicatie token"
 
-#: socialaccount/models.py:168
+#: socialaccount/models.py:175
 msgid "social application tokens"
 msgstr "social applicatie tokens"
 
@@ -426,7 +447,7 @@ msgstr ""
 msgid "Account Inactive"
 msgstr "Account inactief"
 
-#: templates/account/account_inactive.html:11
+#: templates/account/account_inactive.html:12
 msgid "This account is inactive."
 msgstr "Dit account is niet actief"
 
@@ -435,11 +456,11 @@ msgstr "Dit account is niet actief"
 msgid "Confirm Access"
 msgstr "Toegang bevestigen"
 
-#: templates/account/base_reauthenticate.html:11
+#: templates/account/base_reauthenticate.html:12
 msgid "Please reauthenticate to safeguard your account."
 msgstr "Authenticeer opnieuw om de beveiliging van je account te waarborgen."
 
-#: templates/account/base_reauthenticate.html:17
+#: templates/account/base_reauthenticate.html:19
 msgid "Alternative options"
 msgstr "Andere opties"
 
@@ -447,10 +468,11 @@ msgstr "Andere opties"
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
-#: templates/allauth/layouts/base.html:36 templates/mfa/authenticate.html:5
+#: templates/allauth/layouts/base.html:62 templates/mfa/authenticate.html:5
 #: templates/mfa/authenticate.html:23 templates/openid/login.html:5
 #: templates/openid/login.html:9 templates/openid/login.html:20
 #: templates/socialaccount/login.html:5
+#: templates/socialaccount/login_redirect.html:5
 msgid "Sign In"
 msgstr "Aanmelden"
 
@@ -476,43 +498,43 @@ msgstr "Andere aanmeld-opties"
 msgid "Email Addresses"
 msgstr "E-mailadressen"
 
-#: templates/account/email.html:11
+#: templates/account/email.html:12
 msgid "The following email addresses are associated with your account:"
 msgstr "De volgende e-mailadressen zijn gekoppeld aan jouw account:"
 
-#: templates/account/email.html:23
+#: templates/account/email.html:25
 msgid "Verified"
 msgstr "Geverifieerd"
 
-#: templates/account/email.html:27
+#: templates/account/email.html:29
 msgid "Unverified"
 msgstr "Ongeverifieerd"
 
-#: templates/account/email.html:32
+#: templates/account/email.html:34
 msgid "Primary"
 msgstr "Primair"
 
-#: templates/account/email.html:42
+#: templates/account/email.html:44
 msgid "Make Primary"
 msgstr "Maak primair"
 
-#: templates/account/email.html:45 templates/account/email_change.html:37
+#: templates/account/email.html:47 templates/account/email_change.html:37
 msgid "Re-send Verification"
 msgstr "Stuur verificatie e-mail opnieuw"
 
-#: templates/account/email.html:48 templates/socialaccount/connections.html:40
+#: templates/account/email.html:50 templates/socialaccount/connections.html:40
 msgid "Remove"
 msgstr "Verwijder"
 
-#: templates/account/email.html:57
+#: templates/account/email.html:59
 msgid "Add Email Address"
 msgstr "Voeg e-mailadres toe"
 
-#: templates/account/email.html:69
+#: templates/account/email.html:70
 msgid "Add Email"
 msgstr "E-mail toevoegen"
 
-#: templates/account/email.html:78
+#: templates/account/email.html:79
 msgid "Do you really want to remove the selected email address?"
 msgstr "Wil je het geselecteerde e-mailadres echt verwijderen?"
 
@@ -745,7 +767,7 @@ msgid "Change to"
 msgstr "Wijzig naar"
 
 #: templates/account/email_change.html:55
-#: templates/allauth/layouts/base.html:29
+#: templates/allauth/layouts/base.html:31
 msgid "Change Email"
 msgstr "E-mail wijzigen"
 
@@ -764,8 +786,8 @@ msgstr ""
 "voor gebruiker %(user_display)s."
 
 #: templates/account/email_confirm.html:24
-#: templates/account/reauthenticate.html:16
-#: templates/mfa/reauthenticate.html:16
+#: templates/account/reauthenticate.html:18
+#: templates/mfa/reauthenticate.html:18
 msgid "Confirm"
 msgstr "Bevestigen"
 
@@ -793,19 +815,20 @@ msgstr ""
 msgid ""
 "If you have not created an account yet, then please %(link)ssign "
 "up%(end_link)s first."
-msgstr "Als je nog geen account hebt %(link)sregistreer%(end_link)s je dan eerst."
+msgstr ""
+"Als je nog geen account hebt %(link)sregistreer%(end_link)s je dan eerst."
 
 #: templates/account/login.html:41 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
 msgstr "Mail een aanmeldcode"
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
-#: templates/account/logout.html:19 templates/allauth/layouts/base.html:32
+#: templates/account/logout.html:21 templates/allauth/layouts/base.html:55
 #: templates/usersessions/usersession_list.html:64
 msgid "Sign Out"
 msgstr "Afmelden"
 
-#: templates/account/logout.html:10
+#: templates/account/logout.html:11
 msgid "Are you sure you want to sign out?"
 msgstr "Weet je zeker dat je wilt afmelden?"
 
@@ -855,10 +878,6 @@ msgstr "Je wachtwoord is gewijzigd."
 msgid "Primary email address set."
 msgstr "Primair e-mailadres ingesteld."
 
-#: templates/account/messages/unverified_primary_email.txt:2
-msgid "Your primary email address must be verified."
-msgstr "Je primaire e-mailadres moet geverifieerd zijn."
-
 #: templates/account/password_change.html:4
 #: templates/account/password_change.html:8
 #: templates/account/password_change.html:20
@@ -867,6 +886,7 @@ msgstr "Je primaire e-mailadres moet geverifieerd zijn."
 #: templates/account/password_reset_from_key.html:30
 #: templates/account/password_reset_from_key_done.html:5
 #: templates/account/password_reset_from_key_done.html:9
+#: templates/allauth/layouts/base.html:37
 msgid "Change Password"
 msgstr "Wachtwoord wijzigen"
 
@@ -886,7 +906,7 @@ msgstr ""
 msgid "Reset My Password"
 msgstr "Herstel mijn wachtwoord"
 
-#: templates/account/password_reset.html:29
+#: templates/account/password_reset.html:30
 msgid "Please contact us if you have any trouble resetting your password."
 msgstr ""
 "Neem a.u.b. contact met ons op als het niet lukt je wachtwoord opnieuw in te "
@@ -915,7 +935,7 @@ msgstr ""
 "deze al een keer gebruikt. <a href=\"%(passwd_reset_url)s\">Herstel je "
 "wachtwoord</a> opnieuw."
 
-#: templates/account/password_reset_from_key_done.html:11
+#: templates/account/password_reset_from_key_done.html:12
 msgid "Your password is now changed."
 msgstr "Je wachtwoord is gewijzigd."
 
@@ -924,7 +944,7 @@ msgstr "Je wachtwoord is gewijzigd."
 msgid "Set Password"
 msgstr "Zet wachtwoord"
 
-#: templates/account/reauthenticate.html:5
+#: templates/account/reauthenticate.html:6
 msgid "Enter your password:"
 msgstr "Voer je wachtwoord in:"
 
@@ -944,13 +964,13 @@ msgstr "Code aanvragen"
 msgid "Signup"
 msgstr "Registreren"
 
-#: templates/account/signup.html:8 templates/account/signup.html:28
-#: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
+#: templates/account/signup.html:8 templates/account/signup.html:30
+#: templates/allauth/layouts/base.html:68 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "Registreren"
 
-#: templates/account/signup.html:16
+#: templates/account/signup.html:17
 #, python-format
 msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
 msgstr "Heb je al een account? %(link)sMeld je dan aan%(end_link)s."
@@ -960,7 +980,7 @@ msgstr "Heb je al een account? %(link)sMeld je dan aan%(end_link)s."
 msgid "Sign Up Closed"
 msgstr "Registratie gesloten"
 
-#: templates/account/signup_closed.html:11
+#: templates/account/signup_closed.html:12
 msgid "We are sorry, but the sign up is currently closed."
 msgstr "Helaas, maar je kunt je momenteel niet registreren."
 
@@ -1041,10 +1061,16 @@ msgstr "Berichten:"
 msgid "Menu:"
 msgstr "Menu:"
 
-#: templates/mfa/authenticate.html:9 templates/mfa/index.html:5
-#: templates/mfa/index.html:9
+#: templates/allauth/layouts/base.html:43 templates/mfa/authenticate.html:9
+#: templates/mfa/index.html:5 templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
 msgstr "Twee-factor-authenticatie"
+
+#: templates/allauth/layouts/base.html:49
+#: templates/usersessions/usersession_list.html:6
+#: templates/usersessions/usersession_list.html:10
+msgid "Sessions"
+msgstr "Sessies"
 
 #: templates/mfa/authenticate.html:12
 msgid ""
@@ -1085,29 +1111,29 @@ msgstr "Authenticator-app gedeactiveerd"
 msgid "Authenticator App"
 msgstr "Authenticator-app"
 
-#: templates/mfa/index.html:18
+#: templates/mfa/index.html:19
 msgid "Authentication using an authenticator app is active."
 msgstr "Authenticatie middels een authenticator-app is actief."
 
-#: templates/mfa/index.html:20
+#: templates/mfa/index.html:23
 msgid "An authenticator app is not active."
 msgstr "Een authenticator-app is niet geactiveerd."
 
-#: templates/mfa/index.html:28 templates/mfa/totp/deactivate_form.html:24
+#: templates/mfa/index.html:32 templates/mfa/totp/deactivate_form.html:24
 msgid "Deactivate"
 msgstr "Deactiveer"
 
-#: templates/mfa/index.html:32 templates/mfa/totp/activate_form.html:32
+#: templates/mfa/index.html:36 templates/mfa/totp/activate_form.html:32
 msgid "Activate"
 msgstr "Activeer"
 
-#: templates/mfa/index.html:42 templates/mfa/recovery_codes/base.html:4
+#: templates/mfa/index.html:46 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
 #: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
 msgstr "Herstelcodes"
 
-#: templates/mfa/index.html:47 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:51 templates/mfa/recovery_codes/index.html:9
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -1118,19 +1144,19 @@ msgstr[0] ""
 msgstr[1] ""
 "Er zijn nog %(unused_count)s van de %(total_count)s herstelcodes beschikbaar."
 
-#: templates/mfa/index.html:50
+#: templates/mfa/index.html:55
 msgid "No recovery codes set up."
 msgstr "Er zijn geen herstelcodes ingesteld."
 
-#: templates/mfa/index.html:59
+#: templates/mfa/index.html:65
 msgid "View"
 msgstr "Bekijk"
 
-#: templates/mfa/index.html:65
+#: templates/mfa/index.html:71
 msgid "Download"
 msgstr "Downloaden"
 
-#: templates/mfa/index.html:73 templates/mfa/recovery_codes/generate.html:29
+#: templates/mfa/index.html:79 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
 msgstr "Genereer"
 
@@ -1138,7 +1164,7 @@ msgstr "Genereer"
 msgid "A new set of recovery codes has been generated."
 msgstr "Er zijn nieuwe herstelcodes gegenereerd."
 
-#: templates/mfa/reauthenticate.html:5
+#: templates/mfa/reauthenticate.html:6
 msgid "Enter an authenticator code:"
 msgstr "Voer een authenticator code in:"
 
@@ -1211,7 +1237,7 @@ msgstr ""
 msgid "Third-Party Login Failure"
 msgstr "Aanmelden Mislukt"
 
-#: templates/socialaccount/authentication_error.html:11
+#: templates/socialaccount/authentication_error.html:12
 msgid ""
 "An error occurred while attempting to login via your third-party account."
 msgstr ""
@@ -1228,11 +1254,11 @@ msgid ""
 "accounts:"
 msgstr "Je kunt jezelf aanmelden met een van de volgende externe accounts:"
 
-#: templates/socialaccount/connections.html:45
+#: templates/socialaccount/connections.html:46
 msgid "You currently have no third-party accounts connected to this account."
 msgstr "Je hebt momenteel geen externe accounts gekoppeld."
 
-#: templates/socialaccount/connections.html:48
+#: templates/socialaccount/connections.html:50
 msgid "Add a Third-Party Account"
 msgstr "Voeg een extern account toe"
 
@@ -1280,6 +1306,7 @@ msgid "You are about to sign in using a third-party account from %(provider)s."
 msgstr "Je staat op het punt om jezelf aan te melden via %(provider)s."
 
 #: templates/socialaccount/login.html:27
+#: templates/socialaccount/login_redirect.html:10
 msgid "Continue"
 msgstr "Ga verder"
 
@@ -1327,11 +1354,6 @@ msgstr "Of gebruik een derde partij"
 msgid "Signed out of all other sessions."
 msgstr "Afgemeld van alle andere sessies."
 
-#: templates/usersessions/usersession_list.html:6
-#: templates/usersessions/usersession_list.html:10
-msgid "Sessions"
-msgstr "Sessies"
-
 #: templates/usersessions/usersession_list.html:23
 msgid "Started At"
 msgstr "Gestart op"
@@ -1360,7 +1382,7 @@ msgstr "Elders uitloggen"
 msgid "User Sessions"
 msgstr "Gebruikerssessies"
 
-#: usersessions/models.py:48
+#: usersessions/models.py:58
 msgid "session key"
 msgstr "sessie sleutel"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-20 14:01-0500\n"
+"POT-Creation-Date: 2024-05-14 11:32-0500\n"
 "PO-Revision-Date: 2024-04-20 21:55+0200\n"
 "Last-Translator: Gregor Grigorjan <gregor@grigorjan.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,64 +18,81 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: account/adapter.py:57
+#: account/adapter.py:58
 msgid "This account is currently inactive."
 msgstr "See konto on parajasti mitteaktiivne."
 
-#: account/adapter.py:59
+#: account/adapter.py:60
+#, fuzzy
+#| msgid "You cannot remove your primary email address (%(email)s)."
+msgid "You cannot remove your primary email address."
+msgstr "Primaarset e-posti aadressi (%(email)s) ei saa eemaldada."
+
+#: account/adapter.py:63
 msgid "This email address is already associated with this account."
 msgstr "See e-posti aadress on juba selle kontoga seostatud."
 
-#: account/adapter.py:62
+#: account/adapter.py:66
 msgid "The email address and/or password you specified are not correct."
 msgstr "Sisestatud e-posti aadress või salasõna ei ole õige."
 
-#: account/adapter.py:64
+#: account/adapter.py:68
 msgid "A user is already registered with this email address."
 msgstr "Selle e-posti aadressiga on juba kasutaja registreeritud."
 
-#: account/adapter.py:65
+#: account/adapter.py:69
 msgid "Please type your current password."
 msgstr "Palun sisesta oma praegune salasõna."
 
-#: account/adapter.py:66 mfa/adapter.py:29
+#: account/adapter.py:70 mfa/adapter.py:30
 msgid "Incorrect code."
 msgstr "Vale kood."
 
-#: account/adapter.py:67
+#: account/adapter.py:71
 msgid "Incorrect password."
 msgstr "Vale salasõna."
 
-#: account/adapter.py:68
+#: account/adapter.py:72
+#, fuzzy
+#| msgid "Invalid token."
+msgid "Invalid or expired key."
+msgstr "Vale tooken."
+
+#: account/adapter.py:73
 msgid "The password reset token was invalid."
 msgstr "Salasõna taasseadmise tooken oli vale."
 
-#: account/adapter.py:69
+#: account/adapter.py:74
 #, python-format
 msgid "You cannot add more than %d email addresses."
 msgstr "Sa ei tohi lisada enam kui %d e-posti aadressi."
 
-#: account/adapter.py:71
+#: account/adapter.py:76
 msgid "Too many failed login attempts. Try again later."
 msgstr "Liiga palju nurjunud sisse logimise katseid. Proovi hiljem uuesti."
 
-#: account/adapter.py:73
+#: account/adapter.py:78
 msgid "The email address is not assigned to any user account"
 msgstr "See e-posti aadress pole määratud ühelegi kontole."
 
-#: account/adapter.py:75
+#: account/adapter.py:79
+#: templates/account/messages/unverified_primary_email.txt:2
+msgid "Your primary email address must be verified."
+msgstr "Su primaarne e-posti aadress peab olema kinnitatud."
+
+#: account/adapter.py:81
 msgid "Username can not be used. Please use other username."
 msgstr "Kasutajanime pole lubatud kasutada. Palun kasuta muud kasutajanime."
 
-#: account/adapter.py:78
+#: account/adapter.py:84
 msgid "The username and/or password you specified are not correct."
 msgstr "Sisestatud kasutajanimi või salasõna ei ole õige."
 
-#: account/adapter.py:714
+#: account/adapter.py:736
 msgid "Use your password"
 msgstr "Kasuta oma salasõna"
 
-#: account/adapter.py:724
+#: account/adapter.py:747
 msgid "Use your authenticator app"
 msgstr "Kasuta oma autentimisrakendust"
 
@@ -87,12 +104,12 @@ msgstr "Märgi valitud e-posti aadressid kinnitatuks"
 msgid "Accounts"
 msgstr "Kontod"
 
-#: account/forms.py:59 account/forms.py:443
+#: account/forms.py:56 account/forms.py:477
 msgid "You must type the same password each time."
 msgstr "Pead sisestama sama salasõna iga kord."
 
-#: account/forms.py:91 account/forms.py:406 account/forms.py:528
-#: account/forms.py:653
+#: account/forms.py:91 account/forms.py:407 account/forms.py:558
+#: account/forms.py:673
 msgid "Password"
 msgstr "Salasõna"
 
@@ -100,13 +117,13 @@ msgstr "Salasõna"
 msgid "Remember Me"
 msgstr "Jäta mind meelde"
 
-#: account/forms.py:102 account/forms.py:269 account/forms.py:459
-#: account/forms.py:548 account/forms.py:670
+#: account/forms.py:102 account/forms.py:269 account/forms.py:493
+#: account/forms.py:576 account/forms.py:690
 msgid "Email address"
 msgstr "E-posti aadress"
 
-#: account/forms.py:106 account/forms.py:307 account/forms.py:456
-#: account/forms.py:543
+#: account/forms.py:106 account/forms.py:307 account/forms.py:490
+#: account/forms.py:571
 msgid "Email"
 msgstr "E-post"
 
@@ -144,32 +161,32 @@ msgstr "E-post (valikuline)"
 msgid "You must type the same email each time."
 msgstr "Pead sisetama sama e-posti aadressi iga kord."
 
-#: account/forms.py:412 account/forms.py:531
+#: account/forms.py:413 account/forms.py:559
 msgid "Password (again)"
 msgstr "Salasõna (uuesti)"
 
-#: account/forms.py:505
+#: account/forms.py:539
 msgid "Current Password"
 msgstr "Praegune salasõna"
 
-#: account/forms.py:508 account/forms.py:606
+#: account/forms.py:541 account/forms.py:626
 msgid "New Password"
 msgstr "Uus salasõna"
 
-#: account/forms.py:511 account/forms.py:607
+#: account/forms.py:542 account/forms.py:627
 msgid "New Password (again)"
 msgstr "Uus salasõna (uuesti)"
 
-#: account/forms.py:693 account/forms.py:695 mfa/forms.py:15 mfa/forms.py:17
+#: account/forms.py:713 account/forms.py:715 mfa/forms.py:15 mfa/forms.py:17
 #: mfa/forms.py:60
 msgid "Code"
 msgstr "Kood"
 
-#: account/models.py:21
+#: account/models.py:20
 msgid "user"
 msgstr "kasutaja"
 
-#: account/models.py:26 account/models.py:34 account/models.py:140
+#: account/models.py:26 account/models.py:34 account/models.py:146
 msgid "email address"
 msgstr "e-posti aadress"
 
@@ -185,27 +202,31 @@ msgstr "primaarne"
 msgid "email addresses"
 msgstr "e-posti aadressid"
 
-#: account/models.py:143
+#: account/models.py:149
 msgid "created"
 msgstr "loodud"
 
-#: account/models.py:144
+#: account/models.py:150
 msgid "sent"
 msgstr "saadetud"
 
-#: account/models.py:145 socialaccount/models.py:62
+#: account/models.py:151 socialaccount/models.py:69
 msgid "key"
 msgstr "võti"
 
-#: account/models.py:150
+#: account/models.py:156
 msgid "email confirmation"
 msgstr "kinnitus e-posti kaudu"
 
-#: account/models.py:151
+#: account/models.py:157
 msgid "email confirmations"
 msgstr "kinnitused e-posti kaudu"
 
-#: mfa/adapter.py:21
+#: headless/apps.py:7
+msgid "Headless"
+msgstr ""
+
+#: mfa/adapter.py:22
 msgid ""
 "You cannot add an email address to an account protected by two-factor "
 "authentication."
@@ -213,17 +234,17 @@ msgstr ""
 "Sa ei saa kaheastmelise autentimisega turvatud kontole lisada e-posti "
 "aadressi."
 
-#: mfa/adapter.py:24
+#: mfa/adapter.py:25
 msgid "You cannot deactivate two-factor authentication."
 msgstr "Sa ei saa kaheastmelist autentimist välja lülitada."
 
-#: mfa/adapter.py:27
+#: mfa/adapter.py:28
 msgid ""
 "You cannot generate recovery codes without having two-factor authentication "
 "enabled."
 msgstr "Sa ei saa luua varukoode ilma kaheastmilise autentimiseta."
 
-#: mfa/adapter.py:31
+#: mfa/adapter.py:32
 msgid ""
 "You cannot activate two-factor authentication until you have verified your "
 "email address."
@@ -239,11 +260,11 @@ msgstr "Mitmeastmeline autentimine"
 msgid "Authenticator code"
 msgstr "Autentimiskood"
 
-#: mfa/models.py:19
+#: mfa/models.py:28
 msgid "Recovery codes"
 msgstr "Varukoodid"
 
-#: mfa/models.py:20
+#: mfa/models.py:29
 msgid "TOTP Authenticator"
 msgstr "Paroolikell"
 
@@ -282,95 +303,95 @@ msgstr ""
 msgid "Social Accounts"
 msgstr "Sotsiaalkontod"
 
-#: socialaccount/models.py:37 socialaccount/models.py:90
+#: socialaccount/models.py:44 socialaccount/models.py:97
 msgid "provider"
 msgstr "tarnija"
 
-#: socialaccount/models.py:45
+#: socialaccount/models.py:52
 msgid "provider ID"
 msgstr "tarnija ID"
 
-#: socialaccount/models.py:49
+#: socialaccount/models.py:56
 msgid "name"
 msgstr "nimi"
 
-#: socialaccount/models.py:51
+#: socialaccount/models.py:58
 msgid "client id"
 msgstr "kliendi id"
 
-#: socialaccount/models.py:53
+#: socialaccount/models.py:60
 msgid "App ID, or consumer key"
 msgstr "Rakenduse ID, või tarnija id"
 
-#: socialaccount/models.py:56
+#: socialaccount/models.py:63
 msgid "secret key"
 msgstr "salavõti"
 
-#: socialaccount/models.py:59
+#: socialaccount/models.py:66
 msgid "API secret, client secret, or consumer secret"
 msgstr "API salajane võti, kliendi salajane võti, või tarnija salajane võti"
 
-#: socialaccount/models.py:62
+#: socialaccount/models.py:69
 msgid "Key"
 msgstr "Võti"
 
-#: socialaccount/models.py:74
+#: socialaccount/models.py:81
 msgid "social application"
 msgstr "sotsiaalrakendus"
 
-#: socialaccount/models.py:75
+#: socialaccount/models.py:82
 msgid "social applications"
 msgstr "sotsiaalrakendused"
 
-#: socialaccount/models.py:110
+#: socialaccount/models.py:117
 msgid "uid"
 msgstr "uid"
 
-#: socialaccount/models.py:112
+#: socialaccount/models.py:119
 msgid "last login"
 msgstr "viimane sisse logimine"
 
-#: socialaccount/models.py:113
+#: socialaccount/models.py:120
 msgid "date joined"
 msgstr "liitumise kuupäev"
 
-#: socialaccount/models.py:114
+#: socialaccount/models.py:121
 msgid "extra data"
 msgstr "lisaandmed"
 
-#: socialaccount/models.py:118
+#: socialaccount/models.py:125
 msgid "social account"
 msgstr "sotsiaalkonto"
 
-#: socialaccount/models.py:119
+#: socialaccount/models.py:126
 msgid "social accounts"
 msgstr "sotsiaalkontod"
 
-#: socialaccount/models.py:153
+#: socialaccount/models.py:160
 msgid "token"
 msgstr "tooken"
 
-#: socialaccount/models.py:154
+#: socialaccount/models.py:161
 msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:158
+#: socialaccount/models.py:165
 msgid "token secret"
 msgstr ""
 
-#: socialaccount/models.py:159
+#: socialaccount/models.py:166
 msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
 msgstr ""
 
-#: socialaccount/models.py:162
+#: socialaccount/models.py:169
 msgid "expires at"
 msgstr "aegub"
 
-#: socialaccount/models.py:167
+#: socialaccount/models.py:174
 msgid "social application token"
 msgstr "sotsiaalrakenduse tooken"
 
-#: socialaccount/models.py:168
+#: socialaccount/models.py:175
 msgid "social application tokens"
 msgstr "sotsiaalrakenduse tookenid"
 
@@ -424,7 +445,7 @@ msgstr "Väär vastus tarnijalt \"%s\" pääsutookenit hankides."
 msgid "Account Inactive"
 msgstr "Konto mitteaktiivne"
 
-#: templates/account/account_inactive.html:11
+#: templates/account/account_inactive.html:12
 msgid "This account is inactive."
 msgstr "See konto on mitteaktiivne."
 
@@ -433,11 +454,11 @@ msgstr "See konto on mitteaktiivne."
 msgid "Confirm Access"
 msgstr "Kinnita ligipääs"
 
-#: templates/account/base_reauthenticate.html:11
+#: templates/account/base_reauthenticate.html:12
 msgid "Please reauthenticate to safeguard your account."
 msgstr "Palun tuvasta end uuesti, et turvata oma kontot."
 
-#: templates/account/base_reauthenticate.html:17
+#: templates/account/base_reauthenticate.html:19
 msgid "Alternative options"
 msgstr "Muud valikud"
 
@@ -445,10 +466,11 @@ msgstr "Muud valikud"
 #: templates/account/confirm_login_code.html:27 templates/account/login.html:5
 #: templates/account/login.html:9 templates/account/login.html:31
 #: templates/account/request_login_code.html:5
-#: templates/allauth/layouts/base.html:36 templates/mfa/authenticate.html:5
+#: templates/allauth/layouts/base.html:62 templates/mfa/authenticate.html:5
 #: templates/mfa/authenticate.html:23 templates/openid/login.html:5
 #: templates/openid/login.html:9 templates/openid/login.html:20
 #: templates/socialaccount/login.html:5
+#: templates/socialaccount/login_redirect.html:5
 msgid "Sign In"
 msgstr "Logi sisse"
 
@@ -461,7 +483,9 @@ msgstr "Sisesta sisselogimiskood"
 msgid ""
 "We’ve sent a code to %(email_link)s. The code expires shortly, so please "
 "enter it soon."
-msgstr "Saatsime koodi %(email_link)s. Kood aegub varsti, seega sisestaga see kiiresti."
+msgstr ""
+"Saatsime koodi %(email_link)s. Kood aegub varsti, seega sisestaga see "
+"kiiresti."
 
 #: templates/account/confirm_login_code.html:34
 #: templates/account/request_login_code.html:31
@@ -472,43 +496,43 @@ msgstr "Muud sisse logimise võimalused"
 msgid "Email Addresses"
 msgstr "E-posti aadressid"
 
-#: templates/account/email.html:11
+#: templates/account/email.html:12
 msgid "The following email addresses are associated with your account:"
 msgstr "Sinu kontoga on seostatud järgnevad e-posti aadressid:"
 
-#: templates/account/email.html:23
+#: templates/account/email.html:25
 msgid "Verified"
 msgstr "Kinnitatud"
 
-#: templates/account/email.html:27
+#: templates/account/email.html:29
 msgid "Unverified"
 msgstr "Kinnitamata"
 
-#: templates/account/email.html:32
+#: templates/account/email.html:34
 msgid "Primary"
 msgstr "Primaarne"
 
-#: templates/account/email.html:42
+#: templates/account/email.html:44
 msgid "Make Primary"
 msgstr "Muuda primaarseks"
 
-#: templates/account/email.html:45 templates/account/email_change.html:37
+#: templates/account/email.html:47 templates/account/email_change.html:37
 msgid "Re-send Verification"
 msgstr "Saada kinnitus uuesti"
 
-#: templates/account/email.html:48 templates/socialaccount/connections.html:40
+#: templates/account/email.html:50 templates/socialaccount/connections.html:40
 msgid "Remove"
 msgstr "Eemalda"
 
-#: templates/account/email.html:57
+#: templates/account/email.html:59
 msgid "Add Email Address"
 msgstr "Lisa e-posti aadress"
 
-#: templates/account/email.html:69
+#: templates/account/email.html:70
 msgid "Add Email"
 msgstr "Lisa e-post"
 
-#: templates/account/email.html:78
+#: templates/account/email.html:79
 msgid "Do you really want to remove the selected email address?"
 msgstr "Oled kindel, et soovid valitud e-posti aadressi eemaldada?"
 
@@ -739,7 +763,7 @@ msgid "Change to"
 msgstr "Uus e-post"
 
 #: templates/account/email_change.html:55
-#: templates/allauth/layouts/base.html:29
+#: templates/allauth/layouts/base.html:31
 msgid "Change Email"
 msgstr "Muuda e-posti"
 
@@ -758,8 +782,8 @@ msgstr ""
 "%(user_display)s e-posti aadress."
 
 #: templates/account/email_confirm.html:24
-#: templates/account/reauthenticate.html:16
-#: templates/mfa/reauthenticate.html:16
+#: templates/account/reauthenticate.html:18
+#: templates/mfa/reauthenticate.html:18
 msgid "Confirm"
 msgstr "Kinnita"
 
@@ -787,19 +811,21 @@ msgstr ""
 msgid ""
 "If you have not created an account yet, then please %(link)ssign "
 "up%(end_link)s first."
-msgstr "Kui sa pole veel kontot loonud, siis palun esmalt %(link)sregistreeruge%(end_link)s."
+msgstr ""
+"Kui sa pole veel kontot loonud, siis palun esmalt "
+"%(link)sregistreeruge%(end_link)s."
 
 #: templates/account/login.html:41 templates/account/request_login_code.html:9
 msgid "Mail me a sign-in code"
 msgstr "Saada mulle sisselogimiskood"
 
 #: templates/account/logout.html:4 templates/account/logout.html:8
-#: templates/account/logout.html:19 templates/allauth/layouts/base.html:32
+#: templates/account/logout.html:21 templates/allauth/layouts/base.html:55
 #: templates/usersessions/usersession_list.html:64
 msgid "Sign Out"
 msgstr "Logi välja"
 
-#: templates/account/logout.html:10
+#: templates/account/logout.html:11
 msgid "Are you sure you want to sign out?"
 msgstr "Oled kindel, et soovid välja logida?"
 
@@ -849,10 +875,6 @@ msgstr "Salasõna seati edukalt."
 msgid "Primary email address set."
 msgstr "Primaarne e-posti aadress on nüüd seatud."
 
-#: templates/account/messages/unverified_primary_email.txt:2
-msgid "Your primary email address must be verified."
-msgstr "Su primaarne e-posti aadress peab olema kinnitatud."
-
 #: templates/account/password_change.html:4
 #: templates/account/password_change.html:8
 #: templates/account/password_change.html:20
@@ -861,6 +883,7 @@ msgstr "Su primaarne e-posti aadress peab olema kinnitatud."
 #: templates/account/password_reset_from_key.html:30
 #: templates/account/password_reset_from_key_done.html:5
 #: templates/account/password_reset_from_key_done.html:9
+#: templates/allauth/layouts/base.html:37
 msgid "Change Password"
 msgstr "Muuda salasõna"
 
@@ -880,7 +903,7 @@ msgstr ""
 msgid "Reset My Password"
 msgstr "Taassea minu salasõna"
 
-#: templates/account/password_reset.html:29
+#: templates/account/password_reset.html:30
 msgid "Please contact us if you have any trouble resetting your password."
 msgstr ""
 "Palun võta meiega ühendust, kui näed vaeva oma salasõna taasseadmisega."
@@ -909,7 +932,7 @@ msgstr ""
 "kasutatud. Palun taotle <a href=\"%(passwd_reset_url)s\">uus salasõna "
 "taasseadmine</a>."
 
-#: templates/account/password_reset_from_key_done.html:11
+#: templates/account/password_reset_from_key_done.html:12
 msgid "Your password is now changed."
 msgstr "Su salasõna on nüüd muudetud."
 
@@ -918,7 +941,7 @@ msgstr "Su salasõna on nüüd muudetud."
 msgid "Set Password"
 msgstr "Sea salasõna"
 
-#: templates/account/reauthenticate.html:5
+#: templates/account/reauthenticate.html:6
 msgid "Enter your password:"
 msgstr "Sisesta oma salasõna:"
 
@@ -936,13 +959,13 @@ msgstr "Taotle koodi"
 msgid "Signup"
 msgstr "Registreerimine"
 
-#: templates/account/signup.html:8 templates/account/signup.html:28
-#: templates/allauth/layouts/base.html:39 templates/socialaccount/signup.html:9
+#: templates/account/signup.html:8 templates/account/signup.html:30
+#: templates/allauth/layouts/base.html:68 templates/socialaccount/signup.html:9
 #: templates/socialaccount/signup.html:25
 msgid "Sign Up"
 msgstr "Registreeri"
 
-#: templates/account/signup.html:16
+#: templates/account/signup.html:17
 #, python-format
 msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
 msgstr "Konto juba olemas? Palun %(link)slogi sisse%(end_link)s."
@@ -952,7 +975,7 @@ msgstr "Konto juba olemas? Palun %(link)slogi sisse%(end_link)s."
 msgid "Sign Up Closed"
 msgstr "Sisselogimine peatatud"
 
-#: templates/account/signup_closed.html:11
+#: templates/account/signup_closed.html:12
 msgid "We are sorry, but the sign up is currently closed."
 msgstr "Sisselogimine on parajasti peatatud. Palume vabandust!"
 
@@ -1036,10 +1059,16 @@ msgstr "Sõnumid"
 msgid "Menu:"
 msgstr "Menüü:"
 
-#: templates/mfa/authenticate.html:9 templates/mfa/index.html:5
-#: templates/mfa/index.html:9
+#: templates/allauth/layouts/base.html:43 templates/mfa/authenticate.html:9
+#: templates/mfa/index.html:5 templates/mfa/index.html:9
 msgid "Two-Factor Authentication"
 msgstr "Kaheastmeline autentimine"
+
+#: templates/allauth/layouts/base.html:49
+#: templates/usersessions/usersession_list.html:6
+#: templates/usersessions/usersession_list.html:10
+msgid "Sessions"
+msgstr "Sessioonid"
 
 #: templates/mfa/authenticate.html:12
 msgid ""
@@ -1080,29 +1109,29 @@ msgstr "Autentimisrakendus eemaldatud"
 msgid "Authenticator App"
 msgstr "Autentimisrakendus"
 
-#: templates/mfa/index.html:18
+#: templates/mfa/index.html:19
 msgid "Authentication using an authenticator app is active."
 msgstr "Autentimine kasutades autentimisrakendust on seadistatud."
 
-#: templates/mfa/index.html:20
+#: templates/mfa/index.html:23
 msgid "An authenticator app is not active."
 msgstr "Ühtegi autentimisrakendust pole seadistatud."
 
-#: templates/mfa/index.html:28 templates/mfa/totp/deactivate_form.html:24
+#: templates/mfa/index.html:32 templates/mfa/totp/deactivate_form.html:24
 msgid "Deactivate"
 msgstr "Eemalda"
 
-#: templates/mfa/index.html:32 templates/mfa/totp/activate_form.html:32
+#: templates/mfa/index.html:36 templates/mfa/totp/activate_form.html:32
 msgid "Activate"
 msgstr "Seadista"
 
-#: templates/mfa/index.html:42 templates/mfa/recovery_codes/base.html:4
+#: templates/mfa/index.html:46 templates/mfa/recovery_codes/base.html:4
 #: templates/mfa/recovery_codes/generate.html:6
 #: templates/mfa/recovery_codes/index.html:6
 msgid "Recovery Codes"
 msgstr "Varukoodid"
 
-#: templates/mfa/index.html:47 templates/mfa/recovery_codes/index.html:9
+#: templates/mfa/index.html:51 templates/mfa/recovery_codes/index.html:9
 #, python-format
 msgid ""
 "There is %(unused_count)s out of %(total_count)s recovery codes available."
@@ -1115,19 +1144,19 @@ msgstr[1] ""
 "Võimalikke varukoode on %(total_count)s, ning nendest %(unused_count)s on "
 "saadaval."
 
-#: templates/mfa/index.html:50
+#: templates/mfa/index.html:55
 msgid "No recovery codes set up."
 msgstr "Varukoode pole seadistatud"
 
-#: templates/mfa/index.html:59
+#: templates/mfa/index.html:65
 msgid "View"
 msgstr "Vaata"
 
-#: templates/mfa/index.html:65
+#: templates/mfa/index.html:71
 msgid "Download"
 msgstr "Lae alla"
 
-#: templates/mfa/index.html:73 templates/mfa/recovery_codes/generate.html:29
+#: templates/mfa/index.html:79 templates/mfa/recovery_codes/generate.html:29
 msgid "Generate"
 msgstr "Loo"
 
@@ -1135,7 +1164,7 @@ msgstr "Loo"
 msgid "A new set of recovery codes has been generated."
 msgstr "Uus hulk varukoode on loodud."
 
-#: templates/mfa/reauthenticate.html:5
+#: templates/mfa/reauthenticate.html:6
 msgid "Enter an authenticator code:"
 msgstr "Sisesta autentimisrakenduse kood:"
 
@@ -1208,7 +1237,7 @@ msgstr ""
 msgid "Third-Party Login Failure"
 msgstr "Kolmanda osapoolega sisse logimine nurjus"
 
-#: templates/socialaccount/authentication_error.html:11
+#: templates/socialaccount/authentication_error.html:12
 msgid ""
 "An error occurred while attempting to login via your third-party account."
 msgstr "Kolmanda osapoole konto kaudu sisse logimise ajal tekkis viga."
@@ -1226,11 +1255,11 @@ msgstr ""
 "Saad sisse logida oma kontosse kasutades mistahes järgnevatest kolmanda "
 "osapoole kontodest:"
 
-#: templates/socialaccount/connections.html:45
+#: templates/socialaccount/connections.html:46
 msgid "You currently have no third-party accounts connected to this account."
 msgstr "Su kontoga pole parajasti seotud ühtegi kolmanda osapoole kontot."
 
-#: templates/socialaccount/connections.html:48
+#: templates/socialaccount/connections.html:50
 msgid "Add a Third-Party Account"
 msgstr "Lisa kolmanda osapoole konto"
 
@@ -1281,6 +1310,7 @@ msgstr ""
 "kontot."
 
 #: templates/socialaccount/login.html:27
+#: templates/socialaccount/login_redirect.html:10
 msgid "Continue"
 msgstr "Jätka"
 
@@ -1329,11 +1359,6 @@ msgstr "Või kasuta kolmandat osapoolt"
 msgid "Signed out of all other sessions."
 msgstr "Kõigist teistest sessioonidest välja logitud."
 
-#: templates/usersessions/usersession_list.html:6
-#: templates/usersessions/usersession_list.html:10
-msgid "Sessions"
-msgstr "Sessioonid"
-
 #: templates/usersessions/usersession_list.html:23
 msgid "Started At"
 msgstr "Alustati"
@@ -1362,6 +1387,6 @@ msgstr "Logi teistest sessioonidest välja"
 msgid "User Sessions"
 msgstr "Kasutajasessioonid"
 
-#: usersessions/models.py:48
+#: usersessions/models.py:58
 msgid "session key"
 msgstr "sessioonivõti"

@@ -94,7 +94,5 @@ def test_connect_vs_email_authentication(
         "allauth.account.adapter.DefaultAccountAdapter.add_message"
     ) as add_message:
         flows.login.complete_login(request, sociallogin)
-        assert (
-            add_message.call_args.kwargs["message_context"]["action"] == expected_action
-        )
+        assert add_message.call_args[1]["message_context"]["action"] == expected_action
     assert SocialAccount.objects.filter(user=user, uid=sociallogin.account.uid).exists()

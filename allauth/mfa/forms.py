@@ -63,8 +63,8 @@ class ActivateTOTPForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
-        self.email_verified = not EmailAddress.objects.filter(
-            user=self.user, verified=False
+        self.email_verified = EmailAddress.objects.filter(
+            user=self.user, verified=True
         ).exists()
         super().__init__(*args, **kwargs)
         self.secret = totp.get_totp_secret(regenerate=not self.is_bound)

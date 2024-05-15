@@ -1,9 +1,13 @@
+from unittest.mock import patch
+
 from django.urls import reverse
 
 import pytest
 from pytest_django.asserts import assertTemplateUsed
 
+from allauth.socialaccount.internal import flows
 from allauth.socialaccount.models import SocialAccount
+from allauth.socialaccount.providers.base.constants import AuthProcess
 
 
 @pytest.mark.parametrize("reauthentication_required", [False, True])
@@ -56,3 +60,41 @@ def test_connect(
     assert resp["location"] == reverse("socialaccount_connections")
     assert len(mailoutbox) == 1
     assert mailoutbox[0].subject == "[example.com] Third-Party Account Connected"
+
+
+@pytest.mark.parametrize(
+    "email_authentication,account_exists, expected_action",
+    [
+        (False, False, "added"),
+        (False, True, "updated"),
+        (True, False, "added"),
+        (True, True, "updated"),
+    ],
+)
+def test_connect_vs_email_authentication(
+    request_factory,
+    sociallogin_factory,
+    user,
+    settings,
+    email_authentication,
+    account_exists,
+    expected_action,
+):
+    settings.SOCIALACCOUNT_EMAIL_AUTHENTICATION = email_authentication
+    sociallogin = sociallogin_factory(email=user.email, provider="unittest-server")
+    if account_exists:
+        account = sociallogin.account
+        account.user = user
+        account.save()
+
+    sociallogin.state["process"] = AuthProcess.CONNECT
+    request = request_factory.get("/")
+    request.user = user
+    with patch(
+        "allauth.account.adapter.DefaultAccountAdapter.add_message"
+    ) as add_message:
+        flows.login.complete_login(request, sociallogin)
+        assert (
+            add_message.call_args.kwargs["message_context"]["action"] == expected_action
+        )
+    assert SocialAccount.objects.filter(user=user, uid=sociallogin.account.uid).exists()

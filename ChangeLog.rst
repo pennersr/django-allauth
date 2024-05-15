@@ -3,6 +3,10 @@
 
 - Subpackages from the ``tests`` package were packaged, fixed.
 
+- When ``SOCIALACCOUNT_EMAIL_AUTHENTICATION`` was turned on, and a user would
+  connect a third-party account for which email authentication would kick in,
+  the connect was implicitly skipped. Fixed.
+
 
 0.63.0 (2024-05-14)
 *******************

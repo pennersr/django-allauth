@@ -5,6 +5,8 @@ from contextlib import contextmanager
 from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
+from django.contrib.messages.middleware import MessageMiddleware
+from django.contrib.sessions.middleware import SessionMiddleware
 
 import pytest
 
@@ -206,3 +208,15 @@ def sociallogin_setup_state():
         return state_id
 
     return setup
+
+
+@pytest.fixture
+def request_factory(rf):
+    class RequestFactory:
+        def get(self, path):
+            request = rf.get(path)
+            SessionMiddleware(lambda request: None).process_request(request)
+            MessageMiddleware(lambda request: None).process_request(request)
+            return request
+
+    return RequestFactory()

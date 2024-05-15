@@ -3,8 +3,6 @@ from unittest.mock import ANY, patch
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
-from django.contrib.messages.middleware import MessageMiddleware
-from django.contrib.sessions.middleware import SessionMiddleware
 from django.urls import reverse
 
 import pytest
@@ -27,7 +25,7 @@ def test_email_authentication(
     user_factory,
     sociallogin_factory,
     client,
-    rf,
+    request_factory,
     mailoutbox,
     auto_connect,
     with_emailaddress,
@@ -58,9 +56,7 @@ def test_email_authentication(
 
     sociallogin = sociallogin_factory(email=user.email, provider="unittest-server")
 
-    request = rf.get("/")
-    SessionMiddleware(lambda request: None).process_request(request)
-    MessageMiddleware(lambda request: None).process_request(request)
+    request = request_factory.get("/")
     request.user = AnonymousUser()
     with context.request_context(request):
         with patch(
@@ -104,7 +100,7 @@ def test_record_authentication(
     db,
     sociallogin_factory,
     client,
-    rf,
+    request_factory,
     user,
     process,
     did_record,
@@ -118,9 +114,7 @@ def test_record_authentication(
         app=sociallogin.account.get_provider().app, token="123", token_secret="456"
     )
     SocialAccount.objects.create(user=user, uid="123", provider="unittest-server")
-    request = rf.get("/")
-    SessionMiddleware(lambda request: None).process_request(request)
-    MessageMiddleware(lambda request: None).process_request(request)
+    request = request_factory.get("/")
     request.user = AnonymousUser()
     with context.request_context(request):
         complete_social_login(request, sociallogin)

@@ -1,7 +1,7 @@
 0.63.1 (unreleased)
 *******************
 
-- ...
+- Subpackages from the ``tests`` package were packaged, fixed.
 
 
 0.63.0 (2024-05-14)

@@ -92,6 +92,27 @@ def test_activate_totp_success(
     assert "Authenticator app activated." in mailoutbox[0].body
 
 
+def test_activate_totp_success_with_unverified_secondary_email(
+        auth_client, user, totp_validation_bypass, reauthentication_bypass
+):
+    EmailAddress.objects.create(
+        user=user, primary=False, verified=False, email='secondary@example.com'
+    )
+    with reauthentication_bypass():
+        resp = auth_client.get(reverse("mfa_activate_totp"))
+        with totp_validation_bypass():
+            resp = auth_client.post(
+                reverse("mfa_activate_totp"),
+                {
+                    "code": "123",
+                },
+            )
+    assert resp["location"] == reverse("mfa_view_recovery_codes")
+    assert Authenticator.objects.filter(
+        user=user, type=Authenticator.Type.TOTP
+    ).exists()
+
+
 def test_index(auth_client, user_with_totp):
     resp = auth_client.get(reverse("mfa_index"))
     assert "authenticators" in resp.context
